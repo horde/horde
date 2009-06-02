@@ -10,7 +10,7 @@
  *                      'none'  - Do not authenticate
  *                      Default - Authenticate to IMAP/POP server
  *   $compose_page    - If true, we are on IMP's compose page
- *   $dimp_logout      - Logout and redirect to the login page.
+ *   $dimp_logout     - Logout and redirect to the login page.
  *   $login_page      - If true, we are on IMP's login page
  *   $mimp_debug      - If true, output text/plain version of page.
  *   $no_compress     - Controls whether the page should be compressed
@@ -204,7 +204,7 @@ if ((IMP::loginTasksFlag() === 2) &&
 $GLOBALS['imp_mbox'] = IMP::getCurrentMailboxInfo();
 
 // Initialize IMP_Search object.
-$GLOBALS['imp_search'] = new IMP_Search(array('id' => (isset($_SESSION['imp']) && strpos($GLOBALS['imp_mbox']['mailbox'], IMP::SEARCH_MBOX) === 0) ? $GLOBALS['imp_mbox']['mailbox'] : null));
+$GLOBALS['imp_search'] = new IMP_Search(array('id' => (isset($_SESSION['imp']) && IMP_Search::isSearchMbox($GLOBALS['imp_mbox']['mailbox'])) ? $GLOBALS['imp_mbox']['mailbox'] : null));
 
 if ($viewmode == 'mimp') {
     // Mobile markup renderer.

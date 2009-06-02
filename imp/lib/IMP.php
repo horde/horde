@@ -31,9 +31,6 @@ class IMP
     const MAILBOX_START_FIRSTPAGE = 3;
     const MAILBOX_START_LASTPAGE = 4;
 
-    /* IMP mailbox labels. */
-    const SEARCH_MBOX = '**search_';
-
     /* IMP internal indexing strings. */
     // String used to separate messages.
     const MSG_SEP = "\0";

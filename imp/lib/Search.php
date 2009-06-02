@@ -614,16 +614,13 @@ class IMP_Search
     /**
      * Is the given mailbox a search mailbox?
      *
-     * @param string $id  The search query id to use (by default, will use
-     *                    the current ID set in the object).
+     * @param string $id  The mailbox name.
      *
      * @return boolean  Whether the given mailbox name is a search mailbox.
      */
-    public function isSearchMbox($id = null)
+    static public function isSearchMbox($id)
     {
-        return is_null($id)
-            ? !empty($this->_id)
-            : isset($_SESSION['imp']['search']['q'][$this->_strip($id)]);
+        return (strpos($id, null) !== false);
     }
 
     /**
@@ -663,9 +660,14 @@ class IMP_Search
      */
     protected function _strip($id)
     {
-        return is_null($id)
-            ? $this->_id
-            : ((strpos($id, IMP::SEARCH_MBOX) === 0) ? substr($id, strlen(IMP::SEARCH_MBOX)) : $id);
+        if (is_null($id)) {
+            return $this->_id;
+        }
+
+        $pos = strpos($id, null);
+        return ($pos === false)
+            ? $id
+            : substr($id, $pos);
     }
 
     /**
@@ -677,7 +679,7 @@ class IMP_Search
      */
     public function createSearchID($id)
     {
-        return IMP::SEARCH_MBOX . $this->_strip($id);
+        return 'impsearch' . "\0" . $this->_strip($id);
     }
 
     /**
