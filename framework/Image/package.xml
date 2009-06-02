@@ -82,15 +82,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Swf.php" role="php" />
       <file name="Exception.php" role="php" />
      </dir> <!-- /Horde/Image -->
-     <dir name="tests">
-      <file name="gd.php" role="test" />
-      <file name="im.php" role="test" />
-      <file name="svg.php" role="test" />
-      <file name="swf.php" role="test" />
-     </dir> <!-- /tests -->
      <file name="Image.php" role="php" />
     </dir> <!-- /Horde -->
    </dir> <!-- /lib -->
+   <dir name="tests">
+    <file name="gd.php" role="test" />
+    <file name="im.php" role="test" />
+    <file name="svg.php" role="test" />
+    <file name="swf.php" role="test" />
+   </dir> <!-- /tests -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
