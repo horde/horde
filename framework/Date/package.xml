@@ -58,6 +58,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Recurrence.php" role="php" />
       <file name="Repeater.php" role="php" />
       <file name="Span.php" role="php" />
+      <file name="Utils.php" role="php" />
      </dir> <!-- /lib/Horde/Date -->
      <file name="Date.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -96,6 +97,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Date/Repeater/Weekend.php" as="Horde/Date/Repeater/Weekend.php" />
    <install name="lib/Horde/Date/Repeater/Year.php" as="Horde/Date/Repeater/Year.php" />
    <install name="lib/Horde/Date/Span.php" as="Horde/Date/Span.php" />
+   <install name="lib/Horde/Date/Utils.php" as="Horde/Date/Utils.php" />
   </filelist>
  </phprelease>
 </package>
