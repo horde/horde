@@ -75,11 +75,11 @@ class Horde_Log_Logger
      */
     public function __call($method, $params)
     {
-        $level = strtoupper($method);
-        if (($level = array_search($level, $this->_levels)) !== false) {
+        $levelName = strtoupper($method);
+        if (($level = array_search($levelName, $this->_levels)) !== false) {
             $this->log(array_shift($params), $level);
         } else {
-            throw new Horde_Log_Exception('Bad log level');
+            throw new Horde_Log_Exception('Bad log level ' . $levelName);
         }
     }
 
