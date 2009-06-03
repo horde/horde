@@ -77,38 +77,11 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
         setlocale(LC_TIME, 'en_US.UTF-8');
 
         $date = new Horde_Date('2001-02-03 16:05:06');
-        $expected = array(
-            '20',
-            '03',
-            '02/03/01',
-            ' 3',
-            '16',
-            '04',
-            '02',
-            '05',
-            '16:05',
-            '06',
-            "\t",
-            '16:05:06',
-            '01',
-            '2001',
-            '%',
-        );
         $format = '%C%n%d%n%D%n%e%n%H%n%I%n%m%n%M%n%R%n%S%n%t%n%T%n%y%n%Y%n%%';
-        $this->assertEquals($expected, explode("\n", strftime($format, $date->timestamp())));
-        $this->assertEquals($expected, explode("\n", $date->strftime($format)));
+        $this->assertEquals(strftime($format, $date->timestamp()), $date->strftime($format));
 
-        $expected = array(
-            'Feb',
-            'February',
-            'PM',
-            '04:05:06 PM',
-            '02/03/2001',
-            '04:05:06 PM',
-        );
         $format = '%b%n%B%n%p%n%r%n%x%n%X';
-        $this->assertEquals($expected, explode("\n", strftime($format, $date->timestamp())));
-        $this->assertEquals($expected, explode("\n", $date->strftime($format)));
+        $this->assertEquals(strftime($format, $date->timestamp()), $date->strftime($format));
 
         $date->year = 1899;
         $expected = array(
@@ -138,17 +111,8 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
 
         $date = new Horde_Date('2001-02-03 16:05:06');
 
-        $expected = array(
-            'Feb',
-            'Februar',
-            '',
-            '04:05:06',
-            '03.02.2001',
-            '16:05:06',
-        );
         $format = '%b%n%B%n%p%n%r%n%x%n%X';
-        $this->assertEquals($expected, explode("\n", strftime($format, $date->timestamp())));
-        $this->assertEquals($expected, explode("\n", $date->strftime($format)));
+        $this->assertEquals(strftime($format, $date->timestamp()), $date->strftime($format));
     }
 
     public function testSetTimezone()
