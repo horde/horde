@@ -203,6 +203,7 @@ class Kronolith
             'week' => str_replace('%d', '#{week}', _("Week %d")),
             'agenda' => _("Agenda"),
             'searching' => str_replace('%s', '#{term}', _("Events matching \"%s\"")),
+            'allday' => _("All-day"),
         );
         for ($i = 1; $i <= 12; ++$i) {
             $code['text']['month'][$i - 1] = NLS::getLangInfo(constant('MON_' . $i));

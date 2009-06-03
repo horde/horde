@@ -361,7 +361,15 @@ KronolithCore = {
             break;
 
         case 'year':
-            $('kronolithViewYear').down('caption span').setText(this.setTitle(date.toString('yyyy')));
+            var viewBody = $('kronolithViewYear'), month;
+
+            viewBody.down('caption span').setText(this.setTitle(date.toString('yyyy')));
+
+            // Build new calendar view.
+            for (month = 0; month < 12; month++) {
+                $('kronolithYear' + month).update(this.createYearMonth(date.getFullYear(), month).show());
+            }
+
             break;
 
         case 'agenda':
@@ -500,6 +508,32 @@ KronolithCore = {
         return row;
     },
 
+    /**
+     * Creates a table for a single month in the year view.
+     *
+     * @param integer year   The year.
+     * @param integer month  The month.
+     *
+     * @return Element  The element rendering a month table.
+     */
+    createYearMonth: function(year, month)
+    {
+        // Create a copy of the month template.
+        var table = $('kronolithYearTemplate').cloneNode(true),
+            tbody = table.down('tbody');
+        table.removeAttribute('id');
+        tbody.writeAttribute('id', 'kronolithYearTable' + month)
+
+        // Set month name.
+        table.down('SPAN')
+            .setText(Date.CultureInfo.monthNames[month]);
+
+        // Build month table.
+        this.buildMinical(tbody, new Date(year, month, 1));
+
+        return table;
+    },
+
     _equalRowHeights: function(tbody)
     {
         var children = tbody.childElements();
@@ -543,13 +577,28 @@ KronolithCore = {
      */
     updateMinical: function(date, view)
     {
-        var tbody = $('kronolithMinical').down('tbody'),
-            dates = this.viewDates(date, 'month'), day = dates[0].clone(),
-            date7 = date.clone().add(1).week(),
-            weekStart, weekEnd, weekEndDay, td, tr;
-
         // Update header.
         $('kronolithMinicalDate').setText(date.toString('MMMM yyyy')).setAttribute('date', date.dateString());
+
+        this.buildMinical($('kronolithMinical').down('tbody'), date, view);
+
+        $('kronolithMenuCalendars').setStyle({ 'bottom': $('kronolithMenuBottom').getHeight() + 'px' });
+    },
+
+    /**
+     * Creates a mini calendar suitable for the navigation calendar and the
+     * year view.
+     *
+     * @param Element tbody  The table body to add the days to.
+     * @param Date date      The date to show in the calendar.
+     * @param string view    The view that's displayed, determines which days in
+     *                       the mini calendar are highlighted.
+     */
+    buildMinical: function(tbody, date, view)
+    {
+        var dates = this.viewDates(date, 'month'), day = dates[0].clone(),
+            date7 = date.clone().add(1).week(),
+            weekStart, weekEnd, weekEndDay, td, tr;
 
         // Remove old calendar rows. Maybe we should only rebuild the minical
         // if necessary.
@@ -560,7 +609,7 @@ KronolithCore = {
             if (day.getDay() == Kronolith.conf.week_start) {
                 tr = new Element('tr');
                 tbody.insert(tr);
-                td = new Element('td', { 'class': 'kronolithMinicalWeek', date: day.dateString() }).setText(day.getWeek());;
+                td = new Element('td', { 'class': 'kronolithMinicalWeek', 'weekdate': day.dateString() }).setText(day.getWeek());;
                 tr.insert(td);
                 weekStart = day.clone();
                 weekEnd = day.clone();
@@ -583,8 +632,6 @@ KronolithCore = {
             tr.insert(td);
             day.next().day();
         }
-
-        $('kronolithMenuCalendars').setStyle({ 'bottom': $('kronolithMenuBottom').getHeight() + 'px' });
     },
 
     /**
@@ -766,6 +813,36 @@ KronolithCore = {
                 return;
             }
             break;
+
+        case 'year':
+            var year = dates[0].getFullYear(),
+                month, day, dateString, monthLength, events, title;
+            this.ecache.each(function(types) {
+                types.value.each(function(calendars) {
+                    for (month = 0; month < 12; month++) {
+                        monthLength = Date.getDaysInMonth(year, month);
+                        for (day = 1; day <= monthLength; day++) {
+                            dateString = year + (month + 1).toPaddedString(2) + day.toPaddedString(2);
+                            events = calendars.value.get(dateString);
+                            if (events) {
+                                title = '';
+                                events.each(function(event) {
+                                    if (event.value.al) {
+                                        title += Kronolith.text.allday;
+                                    } else {
+                                        title += event.value.start.toString('t') + '-' + event.value.end.toString('t');
+                                    }
+                                    title += ': ' + event.value.t;
+                                });
+                                if (title) {
+                                   $('kronolithYearTable' + month).down('td[date=' + dateString + ']').writeAttribute('title', title).addClassName('kronolithHasEvents');
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+            return;
         }
 
         var day = dates[0].clone(), date;
@@ -1171,6 +1248,12 @@ KronolithCore = {
             end.moveToLastDayOfMonth();
             end.moveToEndOfWeek();
             break;
+        case 'year':
+            start.setDate(1);
+            start.setMonth(0);
+            end.setMonth(11);
+            end.moveToLastDayOfMonth();
+            break;
         case 'agenda':
             end.add(6).days();
             break;
@@ -1456,10 +1539,12 @@ KronolithCore = {
                 if (tmp.tagName != 'td') {
                     tmp.up('td');
                 }
-                if (tmp && tmp.readAttribute('date')) {
-                    if (tmp.hasClassName('kronolithMinicalWeek')) {
-                        this.go('week:' + tmp.readAttribute('date'));
-                    } else if (!tmp.hasClassName('empty')) {
+                if (tmp) {
+                    if (tmp.readAttribute('weekdate') &&
+                        tmp.hasClassName('kronolithMinicalWeek')) {
+                        this.go('week:' + tmp.readAttribute('weekdate'));
+                    } else if (tmp.readAttribute('date') &&
+                               !tmp.hasClassName('empty')) {
                         this.go('day:' + tmp.readAttribute('date'));
                     }
                 }

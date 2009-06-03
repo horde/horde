@@ -1017,6 +1017,9 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
     float: left;
     margin: 2px 15px 13px 20px;
 }
+.kronolithHasEvents {
+    font-weight: bold;
+}
 
 /* Main view month */
 #kronolithViewMonthContainer {
