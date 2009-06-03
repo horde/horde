@@ -66,21 +66,28 @@ $_services['disableVacation'] = array(
  */
 function _ingo_perms()
 {
-    $perms = array();
-    $perms['tree']['ingo']['allow_rules'] = false;
-    $perms['title']['ingo:allow_rules'] = _("Allow Rules");
-    $perms['type']['ingo:allow_rules'] = 'boolean';
-    $perms['tree']['ingo']['max_rules'] = false;
-    $perms['title']['ingo:max_rules'] = _("Maximum Number of Rules");
-    $perms['type']['ingo:max_rules'] = 'int';
-
-    return $perms;
+    return array(
+        'title' => array(
+            'ingo:allow_rules' => _("Allow Rules"),
+            'ingo:max_rules' => _("Maximum Number of Rules")
+        ),
+        'tree' => array(
+            'ingo' => array(
+                'allow_rules' => false,
+                'max_rules' => false
+            )
+        ),
+        'type' => array(
+            'ingo:allow_rules' => 'boolean',
+            'ingo:max_rules' => 'int'
+        )
+    );
 }
 
 /**
- * Add addresses to the blacklist
+ * Add addresses to the blacklist.
  *
- * @param string $addresses    The addresses to add
+ * @param string $addresses  The addresses to add to the blacklist.
  */
 function _ingo_blacklistFrom($addresses)
 {
@@ -88,8 +95,6 @@ function _ingo_blacklistFrom($addresses)
     if (!empty($GLOBALS['ingo_shares'])) {
         $_SESSION['ingo']['current_share'] = $signature;
     }
-
-    global $ingo_storage;
 
     /* Check for '@' entries in $addresses - this would call all mail to
      * be blacklisted which is most likely not what is desired. */
@@ -100,12 +105,12 @@ function _ingo_blacklistFrom($addresses)
     }
 
     if (!empty($addresses)) {
-        $blacklist = &$ingo_storage->retrieve(Ingo_Storage::ACTION_BLACKLIST);
+        $blacklist = &$GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_BLACKLIST);
         $ret = $blacklist->setBlacklist(array_merge($blacklist->getBlacklist(), $addresses));
         if (is_a($ret, 'PEAR_Error')) {
             $GLOBALS['notification']->push($ret, $ret->getCode());
         } else {
-            $ingo_storage->store($blacklist);
+            $GLOBALS['ingo_storage']->store($blacklist);
             Ingo::updateScript();
             foreach ($addresses as $from) {
                 $GLOBALS['notification']->push(sprintf(_("The address \"%s\" has been added to your blacklist."), $from));
@@ -115,9 +120,9 @@ function _ingo_blacklistFrom($addresses)
 }
 
 /**
- * Add addresses to the white list
+ * Add addresses to the whitelist.
  *
- * @param string $addresses    The addresses to add
+ * @param string $addresses  The addresses to add to the whitelist.
  */
 function _ingo_whitelistFrom($addresses)
 {
@@ -126,14 +131,12 @@ function _ingo_whitelistFrom($addresses)
         $_SESSION['ingo']['current_share'] = $signature;
     }
 
-    global $ingo_storage;
-
-    $whitelist = &$ingo_storage->retrieve(Ingo_Storage::ACTION_WHITELIST);
+    $whitelist = &$GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_WHITELIST);
     $ret = $whitelist->setWhitelist(array_merge($whitelist->getWhitelist(), $addresses));
     if (is_a($ret, 'PEAR_Error')) {
         $GLOBALS['notification']->push($ret, $ret->getCode());
     } else {
-        $ingo_storage->store($whitelist);
+        $GLOBALS['ingo_storage']->store($whitelist);
         Ingo::updateScript();
         foreach ($addresses as $from) {
             $GLOBALS['notification']->push(sprintf(_("The address \"%s\" has been added to your whitelist."), $from));
@@ -151,11 +154,9 @@ function _ingo_canApplyFilters()
     require_once dirname(__FILE__) . '/../lib/base.php';
 
     $ingo_script = Ingo::loadIngoScript();
-    if ($ingo_script) {
-        return $ingo_script->performAvailable();
-    } else {
-        return false;
-    }
+    return $ingo_script
+        ? $ingo_script->performAvailable()
+        : false;
 }
 
 /**
@@ -173,9 +174,9 @@ function _ingo_applyFilters($params = array())
     }
 
     $ingo_script = Ingo::loadIngoScript();
-    if ($ingo_script) {
-        return $ingo_script->perform($params);
-    }
+    return $ingo_script
+        ? $ingo_script->perform($params)
+        : false;
 }
 
 /**
@@ -192,18 +193,16 @@ function _ingo_setVacation($info)
         $_SESSION['ingo']['current_share'] = $signature;
     }
 
-    global $ingo_storage;
-
-    /* Get vacation filter. */
-    $filters = &$ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
-    $vacation_rule_id = $filters->findRuleId(Ingo_Storage::ACTION_VACATION);
-
     if (empty($info)) {
         return true;
     }
 
+    /* Get vacation filter. */
+    $filters = &$GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_FILTERS);
+    $vacation_rule_id = $filters->findRuleId(Ingo_Storage::ACTION_VACATION);
+
     /* Set vacation object and rules. */
-    $vacation = &$ingo_storage->retrieve(Ingo_Storage::ACTION_VACATION);
+    $vacation = &$GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_VACATION);
 
     /* Make sure we have at least one address. */
     if (empty($info['addresses'])) {
@@ -242,7 +241,7 @@ function _ingo_setVacation($info)
     }
 
     $filters->ruleEnable($vacation_rule_id);
-    $result = $ingo_storage->store($filters);
+    $result = $GLOBALS['ingo_storage']->store($filters);
     if (!is_a($result, 'PEAR_Error')) {
         if ($GLOBALS['prefs']->getValue('auto_update')) {
             Ingo::updateScript();
@@ -267,14 +266,12 @@ function _ingo_disableVacation()
         $_SESSION['ingo']['current_share'] = $signature;
     }
 
-    global $ingo_storage;
-
     /* Get vacation filter. */
-    $filters = &$ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
+    $filters = &$GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_FILTERS);
     $vacation_rule_id = $filters->findRuleId(Ingo_Storage::ACTION_VACATION);
 
     $filters->ruleDisable($vacation_rule_id);
-    $result = $ingo_storage->store($filters);
+    $result = $GLOBALS['ingo_storage']->store($filters);
     if (!is_a($result, 'PEAR_Error')) {
         if ($GLOBALS['prefs']->getValue('auto_update')) {
             Ingo::updateScript();
