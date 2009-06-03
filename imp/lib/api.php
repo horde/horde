@@ -234,22 +234,19 @@ function _imp_folderlist()
  *
  * @param string $folder  The name of the folder to create (UTF7-IMAP).
  *
- * @return string  The full folder name created on success, an empty string
- *                 on failure.
+ * @return string  The full folder name created or false on failure.
  */
 function _imp_createFolder($folder)
 {
     $GLOBALS['authentication'] = 'none';
     require_once dirname(__FILE__) . '/base.php';
 
-    $result = false;
-
     if (IMP::checkAuthentication(true)) {
         $imp_folder = &IMP_Folder::singleton();
-        $result = $imp_folder->create(IMP::appendNamespace($folder), $GLOBALS['prefs']->getValue('subscribe'));
+        return $imp_folder->create(IMP::appendNamespace($folder), $GLOBALS['prefs']->getValue('subscribe'));
     }
 
-    return (empty($result)) ? '' : $folder;
+    return false;
 }
 
 /**
