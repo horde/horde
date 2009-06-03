@@ -269,7 +269,7 @@ KronolithCore = {
                               $H(r.response.events).each(function(calendars) {
                                   $H(calendars.value).each(function(events) {
                                       if (!$('kronolithAgendaDay' + events.key)) {
-                                          $('kronolithViewAgendaBody').insert(this.createAgendaDay(Date.parseExact(events.key, 'yyyyMMdd'), 0).show());
+                                          $('kronolithViewAgendaBody').insert(this.createAgendaDay(this.parseDate(events.key), 0).show());
                                       }
                                       $H(events.value).each(function(event) {
                                           event.value.calendar = calendars.key;
@@ -727,8 +727,8 @@ KronolithCore = {
             $('kronolithLoading').hide();
         }
 
-        var start = Date.parseExact(r.response.sig.substr(0, 8), 'yyyyMMdd'),
-            end = Date.parseExact(r.response.sig.substr(8, 8), 'yyyyMMdd'),
+        var start = this.parseDate(r.response.sig.substr(0, 8)),
+            end = this.parseDate(r.response.sig.substr(8, 8)),
             dates = [start, end];
 
         this._storeCache(r.response.events || {}, r.response.cal, dates);
@@ -846,7 +846,7 @@ KronolithCore = {
                 break;
             }
 
-            var midnight = Date.parseExact(date, 'yyyyMMdd'),
+            var midnight = this.parseDate(date),
                 innerDiv = new Element('DIV', { 'class': 'kronolithEventInfo' }),
                 draggerTop = new Element('DIV', { 'id': event.value.nodeId + 'top', 'class': 'kronolithDragger kronolithDraggerTop' }).setStyle(style),
                 draggerBottom = new Element('DIV', { 'id': event.value.nodeId + 'bottom', 'class': 'kronolithDragger kronolithDraggerBottom' }).setStyle(style);
@@ -1608,7 +1608,7 @@ KronolithCore = {
             RedBox.loading();
             this.doAction('GetEvent', { 'cal': calendar, 'id': id }, this._editEvent.bind(this));
         } else {
-            var d = date ? Date.parseExact(date, 'yyyyMMdd') : new Date();
+            var d = date ? this.parseDate(date) : new Date();
             $('kronolithEventId').value = '';
             $('kronolithEventCalendar').value = Kronolith.conf.default_calendar;
             $('kronolithEventDelete').hide();
