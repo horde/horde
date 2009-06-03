@@ -19,7 +19,7 @@ $code = array(
     ),
 
     /* Gettext strings used in core javascript files. */
-    'text' => array_map('addslashes', array(
+    'text' => array(
         /* Strings used in compose.js */
         'compose_cancel' => _("Cancelling this message will permanently discard its contents.") . "\n" . _("Are you sure you want to do this?"),
         'compose_discard' => _("Doing so will discard this message permanently."),
@@ -70,7 +70,7 @@ $code = array(
         'notspam_report' => _("Are you sure you wish to report this message as innocent?"),
         'newfolder' => _("You are copying/moving to a new folder.") . "\n" . _("Please enter a name for the new folder:") . "\n",
         'target_mbox' => _("You must select a target mailbox first."),
-    ))
+    )
 );
 
 echo IMP::wrapInlineScript(array('var IMP = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, NLS::getCharset()) . ';'));
