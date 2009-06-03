@@ -39,7 +39,6 @@ class IMP_Filter
             : array($mbox);
 
         foreach ($mbox_list as $val) {
-            // @todo ingo needs to be rewritten to use non-stream access
             $GLOBALS['registry']->call('mail/applyFilters', array(array('mailbox' => $val)));
         }
     }

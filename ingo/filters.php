@@ -123,9 +123,7 @@ case 'apply_filters':
         header('Location: ' . Horde::applicationUrl('filters.php', true));
         exit;
     }
-    if ($ingo_script->canApply()) {
-        $ingo_script->apply();
-    }
+    $ingo_script->apply();
     break;
 }
 

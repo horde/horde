@@ -8,88 +8,75 @@
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
+ * @author  Michael Slusarz <slusarz@curecanti.org>
  * @package Ingo
  */
-class Ingo_Script_imap_live extends Ingo_Script_imap_api {
-
+class Ingo_Script_imap_live extends Ingo_Script_imap_api
+{
     /**
      */
-    function deleteMessages($sequence)
+    public function deleteMessages($indices)
     {
-        @imap_delete($this->_params['imap'], $sequence, FT_UID);
+        return $GLOBALS['registry']->hasMethod('mail/deleteMessages')
+            ? $GLOBALS['registry']->call('mail/deleteMessages', array($this->_params['mailbox'], $indices))
+            : false;
     }
 
     /**
      */
-    function expunge($indices)
+    public function moveMessages($indices, $folder)
     {
-        if (!count($indices)) {
-            return;
-        }
-
-        $ids = @imap_search($this->_params['imap'], 'DELETED', SE_UID);
-        $unflag = false;
-        if (!empty($ids)) {
-            $unflag = array_diff($ids, $indices);
-            if (!empty($unflag)) {
-                $unflag = implode(',', $unflag);
-                @imap_clearflag_full($this->_params['imap'], $unflag, '\\DELETED', ST_UID);
-            }
-        }
-
-        @imap_expunge($this->_params['imap']);
-        if ($unflag) {
-            @imap_setflag_full($this->_params['imap'], $unflag, '\\DELETED', ST_UID);
-        }
+        return $GLOBALS['registry']->hasMethod('mail/moveMessages')
+            ? $GLOBALS['registry']->call('mail/moveMessages', array($this->_params['mailbox'], $indices, $folder))
+            : false;
     }
 
     /**
      */
-    function moveMessages($sequence, $folder)
+    public function copyMessages($indices, $folder)
     {
-        @imap_mail_move($this->_params['imap'], $sequence, $folder, CP_UID);
+        return $GLOBALS['registry']->hasMethod('mail/copyMessages')
+            ? $GLOBALS['registry']->call('mail/copyMessages', array($this->_params['mailbox'], $indices, $folder))
+            : false;
     }
 
     /**
      */
-    function copyMessages($sequence, $folder)
+    public function setMessageFlags($indices, $flags)
     {
-        @imap_mail_copy($this->_params['imap'], $sequence, $folder, CP_UID);
+        return $GLOBALS['registry']->hasMethod('mail/flagMessages')
+            ? $GLOBALS['registry']->call('mail/flagMessages', array($this->_params['mailbox'], $indices, $flags, true))
+            : false;
     }
 
     /**
      */
-    function setMessageFlags($sequence, $flags)
+    public function fetchEnvelope($indices)
     {
-        @imap_setflag_full($this->_params['imap'], $sequence, $flags, ST_UID);
+        return $GLOBALS['registry']->hasMethod('mail/msgEnvelope')
+            ? $GLOBALS['registry']->call('mail/msgEnvelope', array($this->_params['mailbox'], $indices))
+            : false;
     }
 
     /**
      */
-    function fetchMessageOverviews($sequence)
+    public function search($query)
     {
-        return @imap_fetch_overview($this->_params['imap'], $sequence, FT_UID);
+        return $GLOBALS['registry']->hasMethod('mail/searchMailbox')
+            ? $GLOBALS['registry']->call('mail/searchMailbox', array($this->_params['mailbox'], $query))
+            : false;
     }
 
     /**
      */
-    function search($query)
-    {
-        $search = &Ingo_IMAP_Search::singleton($this->_params);
-        return $search->searchMailbox($query, $this->_params['imap'],
-                                      $this->_params['mailbox']);
-    }
-
-    /**
-     */
-    function getCache()
+    public function getCache()
     {
         if (empty($_SESSION['ingo']['imapcache'][$this->_params['mailbox']])) {
             return false;
         }
         $ptr = &$_SESSION['ingo']['imapcache'][$this->_params['mailbox']];
 
-        if ($this->_getCacheID() != $ptr['id']) {
+        if ($this->_cacheId() != $ptr['id']) {
             $ptr = array();
             return false;
         }
@@ -99,24 +86,25 @@ class Ingo_Script_imap_live extends Ingo_Script_imap_api {
 
     /**
      */
-    function storeCache($timestamp)
+    public function storeCache($timestamp)
     {
         if (!isset($_SESSION['ingo']['imapcache'])) {
             $_SESSION['ingo']['imapcache'] = array();
         }
 
         $_SESSION['ingo']['imapcache'][$this->_params['mailbox']] = array(
-            'id' => $this->_getCacheID(),
+            'id' => $this->_cacheId(),
             'ts' => $timestamp
         );
     }
 
     /**
      */
-    function _getCacheID()
+    protected function _cacheId()
     {
-        $ob = @imap_status($this->_params['imap'], $this->_params['mailbox'], SA_ALL);
-        return $ob ? implode('|', array($ob->messages, $ob->uidnext, $ob->uidvalidity)) : null;
+        return $GLOBALS['registry']->hasMethod('mail/mailboxCacheId')
+            ? $GLOBALS['registry']->call('mail/mailboxCacheId', array($this->_params['mailbox']))
+            : time();
     }
 
 }

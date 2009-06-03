@@ -262,7 +262,7 @@ foreach (($maint->exportIntervalPrefs()) as $val) {
 }
 
 /* Make sure we have an active IMAP stream. */
-if (!$GLOBALS['registry']->call('mail/getStream')) {
+if (!$GLOBALS['registry']->call('mail/server')) {
     header('Location: ' . Util::addParameter(Horde::applicationUrl('redirect.php'), 'url', Horde::selfUrl(true)));
     exit;
 }

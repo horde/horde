@@ -46,6 +46,41 @@ $_services['createFolder'] = array(
     'type' => 'string'
 );
 
+$_services['deleteMessages'] = array(
+    'args' => array('mailbox' => 'string', 'indices' => '{urn:horde}integerArray'),
+    'type' => 'integer'
+);
+
+$_services['copyMessages'] = array(
+    'args' => array('mailbox' => 'string', 'indices' => '{urn:horde}integerArray', 'target' => 'string'),
+    'type' => 'boolean'
+);
+
+$_services['moveMessages'] = array(
+    'args' => array('mailbox' => 'string', 'indices' => '{urn:horde}integerArray', 'target' => 'string'),
+    'type' => 'boolean'
+);
+
+$_services['flagMessages'] = array(
+    'args' => array('mailbox' => 'string', 'indices' => '{urn:horde}integerArray', 'flags' => '{urn:horde}stringArray', 'set' => 'boolean'),
+    'type' => 'boolean'
+);
+
+$_services['msgEnvelope'] = array(
+    'args' => array('mailbox' => 'string', 'indices' => '{urn:horde}integerArray'),
+    'type' => '{urn:horde}hashHash'
+);
+
+$_services['searchMailbox'] = array(
+    'args' => array('mailbox' => 'string', 'query' => 'object'),
+    'type' => '{urn:horde}integerArray'
+);
+
+$_services['mailboxCacheId'] = array(
+    'args' => array('mailbox' => 'string'),
+    'type' => 'string'
+);
+
 $_services['server'] = array(
     'args' => array(),
     'type' => 'string'
@@ -250,6 +285,149 @@ function _imp_createFolder($folder)
 }
 
 /**
+ * Deletes messages from a mailbox.
+ *
+ * @param string $mailbox  The name of the mailbox (UTF7-IMAP).
+ * @param array $indices   The list of UIDs to delete.
+ *
+ * @return integer|boolean  The number of messages deleted if successful,
+ *                          false if not.
+ */
+function _imp_deleteMessages($mailbox, $indices)
+{
+    $GLOBALS['authentication'] = 'none';
+    require_once dirname(__FILE__) . '/base.php';
+
+    if (IMP::checkAuthentication(true)) {
+        $imp_message = &IMP_Message::singleton();
+        return $imp_message->delete(array($mailbox => $indices), array('nuke' => true));
+    }
+
+    return false;
+}
+
+/**
+ * Copies messages to a mailbox.
+ *
+ * @param string $mailbox  The name of the source mailbox (UTF7-IMAP).
+ * @param array $indices   The list of UIDs to copy.
+ * @param string $target   The name of the target mailbox (UTF7-IMAP).
+ *
+ * @return boolean  True if successful, false if not.
+ */
+function _imp_copyMessages($mailbox, $indices, $target)
+{
+    $GLOBALS['authentication'] = 'none';
+    require_once dirname(__FILE__) . '/base.php';
+
+    if (IMP::checkAuthentication(true)) {
+        $imp_message = &IMP_Message::singleton();
+        return $imp_message->copy($target, 'copy', array($mailbox => $indices), true);
+    }
+
+    return false;
+}
+
+/**
+ * Moves messages to a mailbox.
+ *
+ * @param string $mailbox  The name of the source mailbox (UTF7-IMAP).
+ * @param array $indices   The list of UIDs to move.
+ * @param string $target   The name of the target mailbox (UTF7-IMAP).
+ *
+ * @return boolean  True if successful, false if not.
+ */
+function _imp_moveMessages($mailbox, $indices, $target)
+{
+    $GLOBALS['authentication'] = 'none';
+    require_once dirname(__FILE__) . '/base.php';
+
+    if (IMP::checkAuthentication(true)) {
+        $imp_message = &IMP_Message::singleton();
+        return $imp_message->copy($target, 'move', array($mailbox => $indices), true);
+    }
+
+    return false;
+}
+
+/**
+ * Flag messages.
+ *
+ * @param string $mailbox  The name of the source mailbox (UTF7-IMAP).
+ * @param array $indices   The list of UIDs to flag.
+ * @param array $flags     The flags to set.
+ * @param boolean $set     True to set flags, false to clear flags.
+ *
+ * @return boolean  True if successful, false if not.
+ */
+function _imp_flagMessages($mailbox, $indices, $flags, $set)
+{
+    $GLOBALS['authentication'] = 'none';
+    require_once dirname(__FILE__) . '/base.php';
+
+    if (IMP::checkAuthentication(true)) {
+        $imp_message = &IMP_Message::singleton();
+        return $imp_message->flag($flags, 'move', array($mailbox => $indices), $set);
+    }
+
+    return false;
+}
+
+/**
+ * Return envelope information for the given list of indices.
+ *
+ * @param string $mailbox  The name of the mailbox (UTF7-IMAP).
+ * @param array $indices   The list of UIDs.
+ *
+ * @return array|boolean  TODO if successful, false if not.
+ */
+function _imp_msgEnvelope($mailbox, $indices)
+{
+    $GLOBALS['authentication'] = 'none';
+    require_once dirname(__FILE__) . '/base.php';
+
+    return IMP::checkAuthentication(true)
+        ? $GLOBALS['imp_imap']->ob->fetch($mailbox, array(Horde_Imap_Client::FETCH_ENVELOPE => true), array('ids' => $indices))
+        : false;
+}
+
+/**
+ * Perform a search query on the remote IMAP server.
+ *
+ * @param string $mailbox                        The name of the source mailbox
+ *                                               (UTF7-IMAP).
+ * @param Horde_Imap_Client_Search_Query $query  The query object.
+ *
+ * @return array|boolean  The search results (UID list) or false.
+ */
+function _imp_searchMailbox($mailbox, $query)
+{
+    $GLOBALS['authentication'] = 'none';
+    require_once dirname(__FILE__) . '/base.php';
+
+    return IMP::checkAuthentication(true)
+        ? $GLOBALS['imp_search']->runSearchQuery($mailbox, $query)
+        : false;
+}
+
+/**
+ * Returns the cache ID value for a mailbox
+ *
+ * @param string $mailbox  The name of the source mailbox (UTF7-IMAP).
+ *
+ * @return string|boolean  The cache ID value, or false if not authenticated.
+ */
+function _imp_mailboxCacheId($mailbox)
+{
+    $GLOBALS['authentication'] = 'none';
+    require_once dirname(__FILE__) . '/base.php';
+
+    return IMP::checkAuthentication(true)
+        ? $GLOBALS['imp_imap']->ob->getCacheId($mailbox);
+        : null;
+}
+
+/**
  * Returns the currently logged on IMAP server.
  *
  * @return string  The server hostname.  Returns null if the user has not
@@ -260,7 +438,9 @@ function _imp_server()
     $GLOBALS['authentication'] = 'none';
     require_once dirname(__FILE__) . '/base.php';
 
-    return (IMP::checkAuthentication(true)) ? $_SESSION['imp']['server'] : null;
+    return IMP::checkAuthentication(true)
+        ? $_SESSION['imp']['server']
+        : null;
 }
 
 /**
@@ -299,8 +479,7 @@ function _imp_changeLanguage()
         $imp_folder->clearFlistCache();
         $imaptree = &IMP_Imap_Tree::singleton();
         $imaptree->init();
-        $imp_search = new IMP_Search();
-        $imp_search->sessionSetup(true);
+        $GLOBALS['imp_search']->sessionSetup(true);
     }
 }
 

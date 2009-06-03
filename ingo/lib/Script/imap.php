@@ -13,14 +13,14 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Ingo
  */
-class Ingo_Script_imap extends Ingo_Script {
-
+class Ingo_Script_imap extends Ingo_Script
+{
     /**
      * The list of actions allowed (implemented) for this driver.
      *
      * @var array
      */
-    var $_actions = array(
+    protected $_actions = array(
         Ingo_Storage::ACTION_KEEP,
         Ingo_Storage::ACTION_MOVE,
         Ingo_Storage::ACTION_DISCARD,
@@ -32,7 +32,7 @@ class Ingo_Script_imap extends Ingo_Script {
      *
      * @var array
      */
-    var $_categories = array(
+    protected $_categories = array(
         Ingo_Storage::ACTION_BLACKLIST,
         Ingo_Storage::ACTION_WHITELIST
     );
@@ -42,7 +42,7 @@ class Ingo_Script_imap extends Ingo_Script {
      *
      * @var array
      */
-    var $_tests = array(
+    protected $_tests = array(
         'contains', 'not contain'
     );
 
@@ -51,7 +51,7 @@ class Ingo_Script_imap extends Ingo_Script {
      *
      * @var array
      */
-    var $_types = array(
+    protected $_types = array(
         Ingo_Storage::TYPE_HEADER,
         Ingo_Storage::TYPE_SIZE,
         Ingo_Storage::TYPE_BODY
@@ -62,14 +62,14 @@ class Ingo_Script_imap extends Ingo_Script {
      *
      * @var boolean
      */
-    var $_supportIMAPFlags = true;
+    protected $_supportIMAPFlags = true;
 
     /**
      * Does the driver support the stop-script option?
      *
      * @var boolean
      */
-    var $_supportStopScript = true;
+    protected $_supportStopScript = true;
 
     /**
      * This driver can perform on demand filtering (in fact, that is all
@@ -77,30 +77,27 @@ class Ingo_Script_imap extends Ingo_Script {
      *
      * @var boolean
      */
-    var $_ondemand = true;
+    protected $_ondemand = true;
 
     /**
      * The API to use for IMAP functions.
      *
      * @var Ingo_Script_imap_api
      */
-    var $_api;
+    protected $_api;
 
     /**
      * Perform the filtering specified in the rules.
      *
      * @param array $params  The parameter array. It MUST contain:
      * <pre>
-     * 'imap'     --  An open IMAP stream.
-     * 'mailbox'  --  The name of the mailbox to filter.
+     * 'mailbox' - The name of the mailbox to filter.
      * </pre>
      *
      * @return boolean  True if filtering performed, false if not.
      */
-    function perform($params)
+    public function perform($params)
     {
-        global $ingo_storage, $notification, $prefs;
-
         if (empty($params['api'])) {
             $this->_api = Ingo_Script_imap_api::factory('live', $params);
         } else {
@@ -120,13 +117,13 @@ class Ingo_Script_imap extends Ingo_Script {
         }
 
         /* Grab the rules list. */
-        $filters = &$ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
+        $filters = &$GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_FILTERS);
 
         /* Should we filter only [un]seen messages? */
-        $seen_flag = $prefs->getValue('filter_seen');
+        $seen_flag = $GLOBALS['prefs']->getValue('filter_seen');
 
         /* Should we use detailed notification messages? */
-        $detailmsg = $prefs->getValue('show_filter_msg');
+        $detailmsg = $GLOBALS['prefs']->getValue('show_filter_msg');
 
         /* Parse through the rules, one-by-one. */
         foreach ($filters->getFilterlist() as $rule) {
@@ -145,11 +142,11 @@ class Ingo_Script_imap extends Ingo_Script {
                 $bl_folder = null;
 
                 if ($rule['action'] == Ingo_Storage::ACTION_BLACKLIST) {
-                    $blacklist = &$ingo_storage->retrieve(Ingo_Storage::ACTION_BLACKLIST);
+                    $blacklist = &$GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_BLACKLIST);
                     $addr = $blacklist->getBlacklist();
                     $bl_folder = $blacklist->getBlacklistFolder();
                 } else {
-                    $whitelist = &$ingo_storage->retrieve(Ingo_Storage::ACTION_WHITELIST);
+                    $whitelist = &$GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_WHITELIST);
                     $addr = $whitelist->getWhitelist();
                 }
 
@@ -158,27 +155,26 @@ class Ingo_Script_imap extends Ingo_Script {
                     continue;
                 }
 
-                $query = new Ingo_IMAP_Search_Query();
+                $query = new Horde_Imap_Client_Search_Query();
                 foreach ($addr as $val) {
-                    $ob = new Ingo_IMAP_Search_Query();
-                    $ob->deleted(false);
+                    $ob = new Horde_Imap_Client_Search_Query();
+                    $ob->flag('\\deleted', false);
                     if ($seen_flag == Ingo_Script::FILTER_UNSEEN) {
-                        $ob->seen(false);
+                        $ob->flag('\\seen', false);
                     } elseif ($seen_flag == Ingo_Script::FILTER_SEEN) {
-                        $ob->seen(true);
+                        $ob->flag('\\seen', true);
                     }
-                    $ob->header('from', $val);
+                    $ob->headerText('from', $val);
                     $search_array[] = $ob;
                 }
-                $query->imapOr($search_array);
+                $query->orSearch($search_array);
                 $indices = $this->_api->search($query);
 
                 /* Remove any indices that got in there by way of partial
                  * address match. */
-                $sequence = implode(',', $indices);
-                $msgs = $this->_api->fetchMessageOverviews($sequence);
-                foreach ($msgs as $msg) {
-                    $from_addr = MIME::bareAddress($msg->from);
+                $msgs = $this->_api->fetchEnvelope($indices);
+                foreach ($msgs as $k => $v) {
+                    $from_addr = Horde_Mime_Address::bareAddress($v['envelope']['from']);
                     $found = false;
                     foreach ($addr as $val) {
                         if (strtolower($from_addr) == strtolower($val)) {
@@ -186,21 +182,19 @@ class Ingo_Script_imap extends Ingo_Script {
                         }
                     }
                     if (!$found) {
-                        $indices = array_diff($indices, array($msg->uid));
+                        $indices = array_diff($indices, $k);
                     }
                 }
 
                 if ($rule['action'] == Ingo_Storage::ACTION_BLACKLIST) {
                     $indices = array_diff($indices, $ignore_ids);
                     if (!empty($indices)) {
-                        $sequence = implode(',', $indices);
                         if (!empty($bl_folder)) {
-                            $this->_api->moveMessages($sequence, $bl_folder);
+                            $this->_api->moveMessages($indices, $bl_folder);
                         } else {
-                            $this->_api->deleteMessages($sequence);
+                            $this->_api->deleteMessages($indices);
                         }
-                        $this->_api->expunge($indices);
-                        $notification->push(sprintf(_("Filter activity: %s message(s) that matched the blacklist were deleted."), count($indices)), 'horde.message');
+                        $GLOBALS['notification']->push(sprintf(_("Filter activity: %s message(s) that matched the blacklist were deleted."), count($indices)), 'horde.message');
                     }
                 } else {
                     $ignore_ids = $indices;
@@ -210,44 +204,31 @@ class Ingo_Script_imap extends Ingo_Script {
             case Ingo_Storage::ACTION_KEEP:
             case Ingo_Storage::ACTION_MOVE:
             case Ingo_Storage::ACTION_DISCARD:
-                $query = new Ingo_IMAP_Search_Query();
+                $query = new Horde_Imap_Client_Search_Query();
                 foreach ($rule['conditions'] as $val) {
-                    $ob = new Ingo_IMAP_Search_Query();
-                    $ob->deleted(false);
+                    $ob = new Horde_Imap_Client_Search_Query();
+                    $ob->flag('\\deleted', false);
                     if ($seen_flag == Ingo_Script::FILTER_UNSEEN) {
-                        $ob->seen(false);
+                        $ob->flag('\\seen', false);
                     } elseif ($seen_flag == Ingo_Script::FILTER_SEEN) {
-                        $ob->seen(true);
+                        $ob->flag('\\seen', true);
                     }
                     if (!empty($val['type']) &&
                         ($val['type'] == Ingo_Storage::TYPE_SIZE)) {
-                        if ($val['match'] == 'greater than') {
-                            $operator = '>';
-                        } elseif ($val['match'] == 'less than') {
-                            $operator = '<';
-                        }
-                        $ob->size($val['value'], $operator);
+                        $ob->size($val['value'], ($val['match'] == 'greater than'));
                     } elseif (!empty($val['type']) &&
                               ($val['type'] == Ingo_Storage::TYPE_BODY)) {
-                        if ($val['match'] == 'contains') {
-                            $ob->body($val['value'], false);
-                        } elseif ($val['match'] == 'not contain') {
-                            $ob->body($val['value'], true);
-                        }
+                        $ob->text($val['value'], true, ($val['match'] == 'not contain'));
                     } else {
-                        if ($val['match'] == 'contains') {
-                            $ob->header($val['field'], $val['value'], false);
-                        } elseif ($val['match'] == 'not contain') {
-                            $ob->header($val['field'], $val['value'], true);
-                        }
+                        $ob->headerText($val['field'], $val['value'], ($val['match'] == 'not contain'));
                     }
                     $search_array[] = $ob;
                 }
 
                 if ($rule['combine'] == Ingo_Storage::COMBINE_ALL) {
-                    $query->imapAnd($search_array);
+                    $query->andSearch($search_array);
                 } else {
-                    $query->imapOr($search_array);
+                    $query->orSearch($search_array);
                 }
 
                 $indices = $this->_api->search($query);
@@ -260,26 +241,23 @@ class Ingo_Script_imap extends Ingo_Script {
                         $ignore_ids = array_unique($indices + $ignore_ids);
                     }
 
-                    $sequence = implode(',', $indices);
-
                     /* Set the flags. */
                     if (!empty($rule['flags']) &&
                         ($rule['action'] != Ingo_Storage::ACTION_DISCARD)) {
                         $flags = array();
                         if ($rule['flags'] & Ingo_Storage::FLAG_ANSWERED) {
-                            $flags[] = '\\Answered';
+                            $flags[] = '\\answered';
                         }
                         if ($rule['flags'] & Ingo_Storage::FLAG_DELETED) {
-                            $flags[] = '\\Deleted';
+                            $flags[] = '\\deleted';
                         }
                         if ($rule['flags'] & Ingo_Storage::FLAG_FLAGGED) {
-                            $flags[] = '\\Flagged';
+                            $flags[] = '\\flagged';
                         }
                         if ($rule['flags'] & Ingo_Storage::FLAG_SEEN) {
-                            $flags[] = '\\Seen';
+                            $flags[] = '\\seen';
                         }
-                        $this->_api->setMessageFlags($sequence,
-                                                     implode(' ', $flags));
+                        $this->_api->setMessageFlags($indices, implode(' ', $flags));
                     }
 
                     if ($rule['action'] == Ingo_Storage::ACTION_KEEP) {
@@ -288,69 +266,66 @@ class Ingo_Script_imap extends Ingo_Script {
                     } elseif ($rule['action'] == Ingo_Storage::ACTION_MOVE) {
                         /* We need to grab the overview first. */
                         if ($detailmsg) {
-                            $overview = $this->_api->fetchMessageOverviews($sequence);
+                            $overview = $this->_api->fetchEnvelope($indices);
                         }
 
                         /* Move the messages to the requested mailbox. */
-                        $this->_api->moveMessages($sequence,
-                                                  $rule['action-value']);
-                        $this->_api->expunge($indices);
+                        $this->_api->moveMessages($indices, $rule['action-value']);
 
                         /* Display notification message(s). */
                         if ($detailmsg) {
                             foreach ($overview as $msg) {
-                                $notification->push(
+                                $GLOBALS['notification']->push(
                                     sprintf(_("Filter activity: The message \"%s\" from \"%s\" has been moved to the folder \"%s\"."),
-                                            isset($msg->subject) ? MIME::decode($msg->subject, NLS::getCharset()) : _("[No Subject]"),
-                                            isset($msg->from) ? MIME::decode($msg->from, NLS::getCharset()) : _("[No Sender]"),
+                                            !empty($msg['envelope']['subject']) ? Horde_Mime::decode($msg['envelope']['subject'], NLS::getCharset()) : _("[No Subject]"),
+                                            !empty($msg['envelope']['from']) ? Horde_Mime::decode($msg['envelope']['from'], NLS::getCharset()) : _("[No Sender]"),
                                             String::convertCharset($rule['action-value'], 'UTF7-IMAP', NLS::getCharset())),
                                     'horde.message');
                             }
                         } else {
-                            $notification->push(sprintf(_("Filter activity: %s message(s) have been moved to the folder \"%s\"."),
+                            $GLOBALS['notification']->push(sprintf(_("Filter activity: %s message(s) have been moved to the folder \"%s\"."),
                                                         count($indices),
                                                         String::convertCharset($rule['action-value'], 'UTF7-IMAP', NLS::getCharset())), 'horde.message');
                         }
                     } elseif ($rule['action'] == Ingo_Storage::ACTION_DISCARD) {
                         /* We need to grab the overview first. */
                         if ($detailmsg) {
-                            $overview = $this->_api->fetchMessageOverviews($sequence);
+                            $overview = $this->_api->fetchEnvelope($indices);
                         }
 
                         /* Delete the messages now. */
-                        $this->_api->deleteMessages($sequence);
-                        $this->_api->expunge($indices);
+                        $this->_api->deleteMessages($indices);
 
                         /* Display notification message(s). */
                         if ($detailmsg) {
                             foreach ($overview as $msg) {
-                                $notification->push(
+                                $GLOBALS['notification']->push(
                                     sprintf(_("Filter activity: The message \"%s\" from \"%s\" has been deleted."),
-                                            isset($msg->subject) ? MIME::decode($msg->subject, NLS::getCharset()) : _("[No Subject]"),
-                                            isset($msg->from) ? MIME::decode($msg->from, NLS::getCharset()) : _("[No Sender]")),
+                                            !empty($msg['envelope']['subject']) ? Horde_Mime::decode($msg['envelope']['subject'], NLS::getCharset()) : _("[No Subject]"),
+                                            !empty($msg['envelope']['from']) ? Horde_Mime::decode($msg['envelope']['from'], NLS::getCharset()) : _("[No Sender]")),
                                     'horde.message');
                             }
                         } else {
-                            $notification->push(sprintf(_("Filter activity: %s message(s) have been deleted."), count($indices)), 'horde.message');
+                            $GLOBALS['notification']->push(sprintf(_("Filter activity: %s message(s) have been deleted."), count($indices)), 'horde.message');
                         }
                     } elseif ($rule['action'] == Ingo_Storage::ACTION_MOVEKEEP) {
                         /* Copy the messages to the requested mailbox. */
-                        $this->_api->copyMessages($sequence,
+                        $this->_api->copyMessages($indices,
                                                  $rule['action-value']);
 
                         /* Display notification message(s). */
                         if ($detailmsg) {
-                            $overview = $this->_api->fetchMessageOverviews($sequence);
+                            $overview = $this->_api->fetchEnvelope($indices);
                             foreach ($overview as $msg) {
-                                $notification->push(
+                                $GLOBALS['notification']->push(
                                     sprintf(_("Filter activity: The message \"%s\" from \"%s\" has been copied to the folder \"%s\"."),
-                                            isset($msg->subject) ? MIME::decode($msg->subject, NLS::getCharset()) : _("[No Subject]"),
-                                            isset($msg->from) ? MIME::decode($msg->from, NLS::getCharset()) : _("[No Sender]"),
+                                            !empty($msg['envelope']['subject']) ? Horde_Mime::decode($msg['envelope']['subject'], NLS::getCharset()) : _("[No Subject]"),
+                                            !empty($msg['envelope']['from']) ? Horde_Mime::decode($msg['envelope']['from'], NLS::getCharset()) : _("[No Sender]"),
                                             String::convertCharset($rule['action-value'], 'UTF7-IMAP', NLS::getCharset())),
                                     'horde.message');
                             }
                         } else {
-                            $notification->push(sprintf(_("Filter activity: %s message(s) have been copied to the folder \"%s\"."), count($indices), String::convertCharset($rule['action-value'], 'UTF7-IMAP', NLS::getCharset())), 'horde.message');
+                            $GLOBALS['notification']->push(sprintf(_("Filter activity: %s message(s) have been copied to the folder \"%s\"."), count($indices), String::convertCharset($rule['action-value'], 'UTF7-IMAP', NLS::getCharset())), 'horde.message');
                         }
                     }
                 }
@@ -360,20 +335,19 @@ class Ingo_Script_imap extends Ingo_Script {
 
         /* Set cache flag. */
         $this->_api->storeCache($_SESSION['ingo']['change']);
+
         return true;
     }
 
     /**
      * Is the apply() function available?
-     * The 'mail/getStream' API function must be available.
      *
      * @return boolean  True if apply() is available, false if not.
      */
-    function canApply()
+    public function canApply()
     {
-        global $registry;
-
-        return ($this->performAvailable() && $registry->hasMethod('mail/getStream'));
+        return $this->performAvailable() &&
+               $GLOBALS['registry']->hasMethod('mail/server');
     }
 
     /**
@@ -381,16 +355,10 @@ class Ingo_Script_imap extends Ingo_Script {
      *
      * @return boolean  See perform().
      */
-    function apply()
+    public function apply()
     {
-        global $registry;
-
         if ($this->canApply()) {
-            $res = $registry->call('mail/getStream', array('INBOX'));
-            if ($res !== false) {
-                $ob = @imap_check($res);
-                return $this->perform(array('imap' => $res, 'mailbox' => $ob->Mailbox));
-            }
+            return $this->perform(array('mailbox' => 'INBOX'));
         }
 
         return false;
@@ -398,66 +366,91 @@ class Ingo_Script_imap extends Ingo_Script {
 
 }
 
-class Ingo_Script_imap_api {
+class Ingo_Script_imap_api
+{
+    /**
+     * TODO
+     */
+    protected $_params;
 
-    var $_params;
+    /**
+     * TODO
+     */
+    static public function factory($type, $params)
+    {
+        $class = 'Ingo_Script_imap_' . $type;
+        return new $class($params);
+    }
 
-    function Ingo_Script_imap_api($params = array())
+    /**
+     * TODO
+     */
+    public function __construct($params = array())
     {
         $this->_params = $params;
     }
 
-    function factory($type, $params)
-    {
-        $class = 'Ingo_Script_imap_' . $type;
-        if (!class_exists($class)) {
-            require dirname(__FILE__) . '/imap/' . $type . '.php';
-        }
-        return new $class($params);
-    }
-
-    function deleteMessages($sequence)
+    /**
+     * TODO
+     */
+    public function deleteMessages($indices)
     {
         return PEAR::raiseError('Not implemented.');
     }
 
-    function expunge($indices)
+    /**
+     * TODO
+     */
+    public function moveMessages($indices, $folder)
     {
         return PEAR::raiseError('Not implemented.');
     }
 
-    function moveMessages($sequence, $folder)
+    /**
+     * TODO
+     */
+    public function copyMessages($indices, $folder)
     {
         return PEAR::raiseError('Not implemented.');
     }
 
-    function copyMessages($sequence, $folder)
+    /**
+     * TODO
+     */
+    public function setMessageFlags($indices, $flags)
     {
         return PEAR::raiseError('Not implemented.');
     }
 
-    function setMessageFlags($sequence, $flags)
+    /**
+     * TODO
+     */
+    public function fetchEnvelope($indices)
     {
         return PEAR::raiseError('Not implemented.');
     }
 
-    function fetchMessageOverviews($sequence)
+    /**
+     * TODO
+     */
+    public function search($query)
     {
         return PEAR::raiseError('Not implemented.');
     }
 
-    function search($query)
-    {
-        return PEAR::raiseError('Not implemented.');
-    }
-
-    function getCache()
+    /**
+     * TODO
+     */
+    public function getCache()
     {
         return false;
     }
 
-    function storeCache($timestamp)
+    /**
+     * TODO
+     */
+    public function storeCache($timestamp)
     {
     }
 
-
+}

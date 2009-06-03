@@ -1,12 +1,23 @@
 <?php
+/**
+ * TODO
+ */
+class Ingo_Script_imap_mock extends Ingo_Script_imap_api
+{
+    /**
+     * TODO
+     */
+    protected $_fixtures = array();
 
-class Ingo_Script_imap_mock extends Ingo_Script_imap_api {
+    /**
+     * TODO
+     */
+    protected $_folders = array();
 
-    var $_fixtures = array();
-
-    var $_folders = array();
-
-    function loadFixtures($dir)
+    /**
+     * TODO
+     */
+    public function loadFixtures($dir)
     {
         $this->_fixtures = array();
 
@@ -36,7 +47,10 @@ class Ingo_Script_imap_mock extends Ingo_Script_imap_api {
         }
     }
 
-    function hasMessage($fixture, $folder = 'INBOX')
+    /**
+     * TODO
+     */
+    public function hasMessage($fixture, $folder = 'INBOX')
     {
         if (empty($this->_folders[$folder])) {
             return false;
@@ -49,7 +63,10 @@ class Ingo_Script_imap_mock extends Ingo_Script_imap_api {
         return false;
     }
 
-    function search(&$query)
+    /**
+     * TODO
+     */
+    public function search(&$query)
     {
         $result = array();
         foreach ($this->_folders['INBOX'] as $message) {
@@ -63,28 +80,10 @@ class Ingo_Script_imap_mock extends Ingo_Script_imap_api {
         return $result;
     }
 
-    function deleteMessages($sequence)
-    {
-        $uids = explode(',', $sequence);
-        foreach (array_keys($this->_folders['INBOX']) as $i) {
-            if (in_array($this->_folders['INBOX'][$i]['uid'], $uids)) {
-                $this->_folders['INBOX'][$i]['deleted'] = true;
-            }
-        }
-    }
-
-    function moveMessages($sequence, $folder)
-    {
-        $uids = explode(',', $sequence);
-        foreach (array_keys($this->_folders['INBOX']) as $i) {
-            if (in_array($this->_folders['INBOX'][$i]['uid'], $uids)) {
-                $this->_folders[$folder][] = $this->_folders['INBOX'][$i];
-            }
-        }
-        return $this->deleteMessages($sequence);
-    }
-
-    function expunge($indices)
+    /**
+     * TODO
+     */
+    public function deleteMessages($indices)
     {
         foreach (array_keys($this->_folders['INBOX']) as $i) {
             if (in_array($this->_folders['INBOX'][$i]['uid'], $indices)) {
@@ -93,24 +92,43 @@ class Ingo_Script_imap_mock extends Ingo_Script_imap_api {
         }
 
         // Force renumbering
-        $this->_folders['INBOX'] = array_merge($this->_folders['INBOX'],
-                                               array());
+        $this->_folders['INBOX'] = array_merge($this->_folders['INBOX'], array());
     }
 
-    function fetchMessageOverviews($sequence)
+    /**
+     * TODO
+     */
+    public function moveMessages($indices, $folder)
+    {
+        foreach (array_keys($this->_folders['INBOX']) as $i) {
+            if (in_array($this->_folders['INBOX'][$i]['uid'], $indices)) {
+                $this->_folders[$folder][] = $this->_folders['INBOX'][$i];
+            }
+        }
+        return $this->deleteMessages($indices);
+    }
+
+    /**
+     * TODO
+     */
+    public function fetchEnvelope($indices)
     {
         $result = array();
-        foreach (explode(',',$sequence) as $uid) {
+
+        foreach ($indices as $uid) {
             foreach (array_keys($this->_folders['INBOX']) as $i) {
                 if ($this->_folders['INBOX'][$i]['uid'] == $uid) {
                     $fixture = $this->_fixtures[$this->_folders['INBOX'][$i]['fixture']];
-                    $ob = new stdClass();
-                    $ob->from = $fixture->headers['from'];
-                    $ob->uid = $uid;
-                    $result[] = $ob;
+                    $result[] = array(
+                        'envelope' => array(
+                            'from' => $fixture->headers['from'],
+                            'uid' => $uid
+                        )
+                    );
                 }
             }
         }
+
         return $result;
     }
 
