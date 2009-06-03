@@ -64,7 +64,7 @@ To function properly, Ingo **requires** the following:
 2. The following PEAR modules:
    (See `horde/docs/INSTALL`_ for instructions on installing PEAR modules)
 
-   a. Net_Sieve 1.0.1 [OPTIONAL]
+   a. Net_Sieve [OPTIONAL]
 
       Ingo uses the Net_Sieve class for communicating with timsieved running
       on Cyrus mail servers.  You will only need to install this class if you
