@@ -11,6 +11,8 @@
  */
 
 require_once dirname(__FILE__) . '/lib/base.php';
+require_once 'Horde/Help.php';
+require_once 'Horde/Variables.php';
 
 /* Redirect if forward is not available. */
 if (!in_array(Ingo_Storage::ACTION_FORWARD, $_SESSION['ingo']['script_categories'])) {
@@ -26,7 +28,6 @@ $fwd_id = $filters->findRuleId(Ingo_Storage::ACTION_FORWARD);
 $fwd_rule = $filters->getRule($fwd_id);
 
 /* Load libraries. */
-require_once 'Horde/Variables.php';
 $vars = &Variables::getDefaultVariables();
 if ($vars->get('submitbutton') == _("Return to Rules List")) {
     header('Location: ' . Horde::applicationUrl('filters.php', true));

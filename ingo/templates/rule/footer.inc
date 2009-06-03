@@ -27,13 +27,13 @@
       <table cellspacing="0">
         <tr>
           <td>
-            <input type="checkbox" id="seen" name="flags[]" value="<?php echo INGO_STORAGE_FLAG_SEEN ?>"<?php echo (INGO_STORAGE_FLAG_SEEN & $rule['flags']) ? ' checked="checked" ' : '' ?>/><?php echo Horde::label('seen', _("Seen")) ?>&nbsp;
+            <input type="checkbox" id="seen" name="flags[]" value="<?php echo Ingo_Storage::FLAG_SEEN ?>"<?php echo (Ingo_Storage::FLAG_SEEN & $rule['flags']) ? ' checked="checked" ' : '' ?>/><?php echo Horde::label('seen', _("Seen")) ?>&nbsp;
           </td><td>
-            <input type="checkbox" id="flagged" name="flags[]" value="<?php echo INGO_STORAGE_FLAG_FLAGGED ?>"<?php echo (INGO_STORAGE_FLAG_FLAGGED & $rule['flags']) ? ' checked="checked" ' : '' ?>/><?php echo Horde::label('flagged', _("Flagged For Followup")) ?>&nbsp;
+            <input type="checkbox" id="flagged" name="flags[]" value="<?php echo Ingo_Storage::FLAG_FLAGGED ?>"<?php echo (Ingo_Storage::FLAG_FLAGGED & $rule['flags']) ? ' checked="checked" ' : '' ?>/><?php echo Horde::label('flagged', _("Flagged For Followup")) ?>&nbsp;
           </td><td>
-            <input type="checkbox" id="answered" name="flags[]" value="<?php echo INGO_STORAGE_FLAG_ANSWERED ?>"<?php echo (INGO_STORAGE_FLAG_ANSWERED & $rule['flags']) ? ' checked="checked" ' : '' ?>/><?php echo Horde::label('answered', _("Answered")) ?>&nbsp;
+            <input type="checkbox" id="answered" name="flags[]" value="<?php echo Ingo_Storage::FLAG_ANSWERED ?>"<?php echo (Ingo_Storage::FLAG_ANSWERED & $rule['flags']) ? ' checked="checked" ' : '' ?>/><?php echo Horde::label('answered', _("Answered")) ?>&nbsp;
           </td><td>
-            <input type="checkbox" id="deleted" name="flags[]" value="<?php echo INGO_STORAGE_FLAG_DELETED ?>"<?php echo (INGO_STORAGE_FLAG_DELETED & $rule['flags']) ? ' checked="checked" ' : '' ?>/><?php echo Horde::label('deleted', _("Deleted")) ?>&nbsp;
+            <input type="checkbox" id="deleted" name="flags[]" value="<?php echo Ingo_Storage::FLAG_DELETED ?>"<?php echo (Ingo_Storage::FLAG_DELETED & $rule['flags']) ? ' checked="checked" ' : '' ?>/><?php echo Horde::label('deleted', _("Deleted")) ?>&nbsp;
           </td>
         </tr>
       </table>

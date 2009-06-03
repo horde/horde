@@ -375,10 +375,10 @@ class Ingo
      *
      * @return boolean  True if the address is not empty.
      */
-    static protected function _filterEmptyAddress($address)
+    static public function filterEmptyAddress($address)
     {
         $address = trim($address);
-        return !empty($address) && $address != '@';
+        return !empty($address) && ($address != '@');
     }
 
     /**
@@ -396,13 +396,13 @@ class Ingo
         if (!is_a($blacklist_url = $GLOBALS['registry']->link('mail/showBlacklist'), 'PEAR_Error')) {
             $menu->add(Horde::url($blacklist_url), _("_Blacklist"), 'blacklist.png');
         }
-        if (in_array(INGO_STORAGE_ACTION_VACATION, $_SESSION['ingo']['script_categories'])) {
+        if (in_array(Ingo_Storage::ACTION_VACATION, $_SESSION['ingo']['script_categories'])) {
             $menu->add(Horde::applicationUrl('vacation.php'), _("_Vacation"), 'vacation.png');
         }
-        if (in_array(INGO_STORAGE_ACTION_FORWARD, $_SESSION['ingo']['script_categories'])) {
+        if (in_array(Ingo_Storage::ACTION_FORWARD, $_SESSION['ingo']['script_categories'])) {
             $menu->add(Horde::applicationUrl('forward.php'), _("_Forward"), 'forward.png');
         }
-        if (in_array(INGO_STORAGE_ACTION_SPAM, $_SESSION['ingo']['script_categories'])) {
+        if (in_array(Ingo_Storage::ACTION_SPAM, $_SESSION['ingo']['script_categories'])) {
             $menu->add(Horde::applicationUrl('spam.php'), _("S_pam"), 'spam.png');
         }
         if ($_SESSION['ingo']['script_generate'] &&

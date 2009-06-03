@@ -41,8 +41,8 @@ function delete_condition(num)
     <td>
       <em><?php echo _("For an incoming message that matches:") ?></em>
       <br />
-      <input id="all" onclick="document.rule.submit(); return true;" type="radio" name="combine" value="<?php echo INGO_STORAGE_COMBINE_ALL ?>"<?php echo ($rule['combine'] == INGO_STORAGE_COMBINE_ALL) ? ' checked="checked"' : '' ?> /><?php echo Horde::label('all', _("All of the following")) ?>&nbsp;
-      <input id="any" onclick="document.rule.submit(); return true;" type="radio" name="combine" value="<?php echo INGO_STORAGE_COMBINE_ANY ?>"<?php echo ($rule['combine'] == INGO_STORAGE_COMBINE_ANY) ? ' checked="checked"' : '' ?> /><?php echo Horde::label('any', _("Any of the following")) ?>
+      <input id="all" onclick="document.rule.submit(); return true;" type="radio" name="combine" value="<?php echo Ingo_Storage::COMBINE_ALL ?>"<?php echo ($rule['combine'] == Ingo_Storage::COMBINE_ALL) ? ' checked="checked"' : '' ?> /><?php echo Horde::label('all', _("All of the following")) ?>&nbsp;
+      <input id="any" onclick="document.rule.submit(); return true;" type="radio" name="combine" value="<?php echo Ingo_Storage::COMBINE_ANY ?>"<?php echo ($rule['combine'] == Ingo_Storage::COMBINE_ANY) ? ' checked="checked"' : '' ?> /><?php echo Horde::label('any', _("Any of the following")) ?>
     </td>
     <td width="40" class="rightAlign">
       <?php echo Help::link('ingo', 'rule-combine') ?>&nbsp;

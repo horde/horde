@@ -17,7 +17,18 @@ $ingo_configured = (is_readable(INGO_BASE . '/config/conf.php') &&
                     is_readable(INGO_BASE . '/config/fields.php'));
 
 if (!$ingo_configured) {
-    require INGO_BASE . '/../lib/Test.php';
+    if (!defined('HORDE_BASE')) {
+        /* Temporary fix - if horde does not live directly under the imp
+         * directory, the HORDE_BASE constant should be defined in
+         * imp/lib/base.local.php. */
+        if (file_exists(INGO_BASE . '/lib/base.local.php')) {
+            include INGO_BASE . '/lib/base.local.php';
+        } else {
+            define('HORDE_BASE', INGO_BASE . '/..');
+        }
+    }
+
+    require HORDE_BASE . '/lib/Test.php';
     Horde_Test::configFilesMissing('Ingo', INGO_BASE,
         array('conf.php', 'prefs.php', 'backends.php'),
         array('fields.php' => 'This file defines types of credentials that a backend might request.'));

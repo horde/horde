@@ -1,7 +1,7 @@
  <tr style="vertical-align:top">
 <?php if ($cond_num > 0): ?>
   <td>
-   <strong><?php echo ($rule['combine'] == INGO_STORAGE_COMBINE_ALL) ? _("and") : _("or") ?></strong>
+   <strong><?php echo ($rule['combine'] == Ingo_Storage::COMBINE_ALL) ? _("and") : _("or") ?></strong>
   </td>
 <?php elseif (($cond_num == 0) && !$lastfield): ?>
   <td>&nbsp;</td>

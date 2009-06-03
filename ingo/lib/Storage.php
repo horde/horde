@@ -98,7 +98,7 @@ class Ingo_Storage
     /**
      * Destructor.
      */
-    protected function __destruct()
+    public function __destruct()
     {
         $cache = &Horde_SessionObjects::singleton();
 
@@ -118,7 +118,7 @@ class Ingo_Storage
      * Retrieves the specified data.
      *
      * @param integer $field     The field name of the desired data
-     *                           (INGO_STORAGE_ACTION_* constants).
+     *                           (ACTION_* constants).
      * @param boolean $cache     Use the cached object?
      * @param boolean $readonly  Whether to disable any write operations.
      *
@@ -233,7 +233,7 @@ class Ingo_Storage
     /**
      * Returns information on a given action constant.
      *
-     * @param integer $action  The INGO_STORAGE_ACTION_* value.
+     * @param integer $action  The ACTION_* value.
      *
      * @return stdClass  Object with the following values:
      * <pre>
@@ -489,7 +489,9 @@ class Ingo_Storage_blacklist extends Ingo_Storage_rule
 
     public function getBlacklist()
     {
-        return array_filter($this->_addr, array('Ingo', '_filterEmptyAddress'));
+        return empty($this->_addr)
+            ? array()
+            : array_filter($this->_addr, array('Ingo', 'filterEmptyAddress'));
     }
 
     public function getBlacklistFolder()
@@ -522,7 +524,7 @@ class Ingo_Storage_whitelist extends Ingo_Storage_rule
     public function setWhitelist($data, $sort = true)
     {
         $addr = &$this->_addressList($data, $sort);
-        $addr = array_filter($addr, array('Ingo', '_filterEmptyAddress'));
+        $addr = array_filter($addr, array('Ingo', 'filterEmptyAddress'));
         if (!empty($GLOBALS['conf']['storage']['maxwhitelist'])) {
             $addr_count = count($addr);
             if ($addr_count > $GLOBALS['conf']['storage']['maxwhitelist']) {
@@ -536,7 +538,9 @@ class Ingo_Storage_whitelist extends Ingo_Storage_rule
 
     public function getWhitelist()
     {
-        return array_filter($this->_addr, array('Ingo', '_filterEmptyAddress'));
+        return empty($this->_addr)
+            ? array()
+            : array_filter($this->_addr, array('Ingo', 'filterEmptyAddress'));
     }
 
 }
@@ -838,9 +842,9 @@ class Ingo_Storage_filters
     {
         return array(
             'name' => _("New Rule"),
-            'combine' => INGO_STORAGE_COMBINE_ALL,
+            'combine' => self::COMBINE_ALL,
             'conditions' => array(),
-            'action' => INGO_STORAGE_ACTION_KEEP,
+            'action' => self::ACTION_KEEP,
             'action-value' => '',
             'stop' => true,
             'flags' => 0,
@@ -853,7 +857,7 @@ class Ingo_Storage_filters
      * number.
      *
      * @param integer $action  The field type of the searched rule
-     *                         (INGO_STORAGE_ACTION_* constants).
+     *                         (ACTION_* constants).
      *
      * @return integer  The number of the first matching rule or null.
      */
@@ -870,7 +874,7 @@ class Ingo_Storage_filters
      * Searches for and returns the first rule of a certain action type.
      *
      * @param integer $action  The field type of the searched rule
-     *                         (INGO_STORAGE_ACTION_* constants).
+     *                         (ACTION_* constants).
      *
      * @return array  The first matching rule hash or null.
      */

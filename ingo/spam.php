@@ -51,9 +51,9 @@ if (!in_array(Ingo_Storage::ACTION_SPAM, $_SESSION['ingo']['script_categories'])
 require_once 'Horde/Variables.php';
 
 /* Get the spam object and rule. */
-$spam = &$ingo_storage->retrieve(INGO_STORAGE_ACTION_SPAM);
-$filters = &$ingo_storage->retrieve(INGO_STORAGE_ACTION_FILTERS);
-$spam_id = $filters->findRuleId(INGO_STORAGE_ACTION_SPAM);
+$spam = &$ingo_storage->retrieve(Ingo_Storage::ACTION_SPAM);
+$filters = &$ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
+$spam_id = $filters->findRuleId(Ingo_Storage::ACTION_SPAM);
 $spam_rule = $filters->getRule($spam_id);
 
 $vars = &Variables::getDefaultVariables();

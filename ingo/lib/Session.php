@@ -46,19 +46,19 @@ class Ingo_Session
         /* Disable categories as specified in preferences */
         $disabled = array();
         if ($prefs->isLocked('blacklist')) {
-            $disabled[] = INGO_STORAGE_ACTION_BLACKLIST;
+            $disabled[] = Ingo_Storage::ACTION_BLACKLIST;
         }
         if ($prefs->isLocked('whitelist')) {
-            $disabled[] = INGO_STORAGE_ACTION_WHITELIST;
+            $disabled[] = Ingo_Storage::ACTION_WHITELIST;
         }
         if ($prefs->isLocked('vacation')) {
-            $disabled[] = INGO_STORAGE_ACTION_VACATION;
+            $disabled[] = Ingo_Storage::ACTION_VACATION;
         }
         if ($prefs->isLocked('forward')) {
-            $disabled[] = INGO_STORAGE_ACTION_FORWARD;
+            $disabled[] = Ingo_Storage::ACTION_FORWARD;
         }
         if ($prefs->isLocked('spam')) {
-            $disabled[] = INGO_STORAGE_ACTION_SPAM;
+            $disabled[] = Ingo_Storage::ACTION_SPAM;
         }
 
         /* Set the list of categories this driver supports. */

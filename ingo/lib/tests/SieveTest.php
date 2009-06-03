@@ -102,7 +102,7 @@ stop;
         $vacation->setVacationReason("Because I don't like working!");
 
         $this->store($vacation);
-        $this->_enableRule(INGO_STORAGE_ACTION_VACATION);
+        $this->_enableRule(Ingo_Storage::ACTION_VACATION);
 
         $this->assertScript('require "vacation";
 if allof ( not exists ["list-help", "list-unsubscribe", "list-subscribe", "list-owner", "list-post", "list-archive", "list-id"], not header :comparator "i;ascii-casemap" :is "Precedence" "list,bulk" ) {
@@ -127,7 +127,7 @@ vacation :days 7 :addresses "from@example.com" :subject "Subject" "Because I don
         $spam->setSpamFolder("Junk");
 
         $this->store($spam);
-        $this->_enableRule(INGO_STORAGE_ACTION_SPAM);
+        $this->_enableRule(Ingo_Storage::ACTION_SPAM);
         $this->assertScript('require "fileinto";
 if header :comparator "i;ascii-casemap" :contains "X-Spam-Level" "*******"  {
 fileinto "Junk";

@@ -161,7 +161,7 @@ $DEFAULT');
         $vacation->setVacationReason("Because I don't like working!");
 
         $this->store($vacation);
-        $this->_enableRule(INGO_STORAGE_ACTION_VACATION);
+        $this->_enableRule(Ingo_Storage::ACTION_VACATION);
 
         $this->assertScript(':0
 {
