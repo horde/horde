@@ -96,7 +96,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Mdn.php" role="php" />
       <file name="Part.php" role="php" />
       <file name="Viewer.php" role="php" />
-      <file name="mime.magic.php" role="php" />
       <file name="mime.mapping.php" role="php" />
      </dir> <!-- /lib/Horde/Mime -->
      <file name="Mime.php" role="php" />

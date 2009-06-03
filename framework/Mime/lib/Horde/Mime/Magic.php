@@ -47,21 +47,6 @@ class Horde_Mime_Magic
     }
 
     /**
-     * Returns a copy of the MIME magic file.
-     *
-     * @return array  The MIME magic file.
-     */
-    static protected function _getMimeMagicFile()
-    {
-        if (is_null(self::$_magic)) {
-            require dirname(__FILE__) . '/mime.magic.php';
-            self::$_magic = $mime_magic;
-        }
-
-        return self::$_magic;
-    }
-
-    /**
      * Attempt to convert a file extension to a MIME type, based
      * on the global Horde and application specific config files.
      *
@@ -196,26 +181,6 @@ class Horde_Mime_Magic
             return trim(mime_content_type($path));
         }
 
-        /* Use a built-in magic file. */
-        $mime_magic = self::_getMimeMagicFile();
-        if (!($fp = @fopen($path, 'rb'))) {
-            return false;
-        }
-
-        reset($mime_magic);
-        while (list($offset, $odata) = each($mime_magic)) {
-            reset($odata);
-            while (list($length, $ldata) = each($odata)) {
-                @fseek($fp, $offset, SEEK_SET);
-                $lookup = @fread($fp, $length);
-                if (!empty($ldata[$lookup])) {
-                    fclose($fp);
-                    return $ldata[$lookup];
-                }
-            }
-        }
-        fclose($fp);
-
         return false;
     }
 
@@ -254,19 +219,6 @@ class Horde_Mime_Magic
             }
 
             return $type;
-        }
-
-        /* Use a built-in magic file. */
-        $mime_magic = self::_getMimeMagicFile();
-        reset($mime_magic);
-        while (list($offset, $odata) = each($mime_magic)) {
-            reset($odata);
-            while (list($length, $ldata) = each($odata)) {
-                $lookup = substr($data, $offset, $length);
-                if (!empty($ldata[$lookup])) {
-                    return $ldata[$lookup];
-                }
-            }
         }
 
         return false;
