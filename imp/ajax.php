@@ -255,7 +255,7 @@ case 'EmptyFolder':
         break;
     }
 
-    $imp_message = IMP_Message::singleton();
+    $imp_message = &IMP_Message::singleton();
     $imp_message->emptyMailbox(array($mbox));
     $result = new stdClass;
     $result->mbox = $mbox;
@@ -269,7 +269,7 @@ case 'FlagAll':
 
     $set = Util::getPost('set');
 
-    $imp_message = IMP_Message::singleton();
+    $imp_message = &IMP_Message::singleton();
     $result = $imp_message->flagAllInMailbox($flags, array($mbox), $set);
 
     if ($result) {
@@ -352,7 +352,7 @@ case 'CopyMessage':
         $change = _changed($mbox, $cacheid, true);
     }
 
-    $imp_message = IMP_Message::singleton();
+    $imp_message = &IMP_Message::singleton();
 
     $result = $imp_message->copy($to, ($action == 'MoveMessage') ? 'move' : 'copy', $indices);
 
@@ -393,7 +393,7 @@ case 'FlagMessage':
         }
     }
 
-    $imp_message = IMP_Message::singleton();
+    $imp_message = &IMP_Message::singleton();
     if (!empty($set)) {
         $result = $imp_message->flag($set, $indices, true);
     }
@@ -411,7 +411,7 @@ case 'DeleteMessage':
         break;
     }
 
-    $imp_message = IMP_Message::singleton();
+    $imp_message = &IMP_Message::singleton();
     $change = _changed($mbox, $cacheid, true);
     $result = $imp_message->delete($indices);
     if ($result) {
@@ -535,7 +535,7 @@ case 'DeleteDraft':
     if (empty($indices)) {
         break;
     }
-    $imp_message = IMP_Message::singleton();
+    $imp_message = &IMP_Message::singleton();
     $idx_array = array($index . IMP::IDX_SEP . IMP::folderPref($prefs->getValue('drafts_folder'), true));
     $imp_message->delete($idx_array, array('nuke' => true));
     break;
@@ -624,7 +624,7 @@ case 'PurgeDeleted':
         $sort = IMP::getSort($mbox);
         $change = ($sort['by'] == Horde_Imap_Client::SORT_THREAD);
     }
-    $imp_message = IMP_Message::singleton();
+    $imp_message = &IMP_Message::singleton();
     $expunged = $imp_message->expungeMailbox(array($mbox => 1), array('list' => true));
     if (!empty($expunged[$mbox])) {
         $expunge_count = count($expunged[$mbox]);
