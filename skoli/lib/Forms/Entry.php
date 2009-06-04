@@ -32,9 +32,13 @@ class Skoli_EntryForm extends Horde_Form {
     {
         global $conf, $prefs, $registry;
 
-        $update = $vars->exists('entry') && $vars->exists('entry');
+        $update = $vars->exists('entry') && $vars->exists('view');
 
-        parent::Horde_Form($vars, $update ? _("Update Entry") : _("Add Entry"));
+        if ($vars->get('view') != 'Entry') {
+            parent::Horde_Form($vars, $update ? _("Update Entry") : _("Add Entry"));
+        } else {
+            parent::Horde_Form($vars);
+        }
 
         if ($update) {
             $this->addHidden('', 'entry', 'text', true);
@@ -65,6 +69,7 @@ class Skoli_EntryForm extends Horde_Form {
             $actionvariable->setAction(Horde_Form_Action::factory('reload'));
         } else {
             reset($classes);
+            $this->addHidden('', 'class_id', 'text', true);
             $this->_vars->set('class_id', key($classes));
         }
 
