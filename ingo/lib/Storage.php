@@ -854,9 +854,9 @@ class Ingo_Storage_filters
     {
         return array(
             'name' => _("New Rule"),
-            'combine' => self::COMBINE_ALL,
+            'combine' => Ingo_Storage::COMBINE_ALL,
             'conditions' => array(),
-            'action' => self::ACTION_KEEP,
+            'action' => Ingo_Storage::ACTION_KEEP,
             'action-value' => '',
             'stop' => true,
             'flags' => 0,
