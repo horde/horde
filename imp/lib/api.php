@@ -406,7 +406,7 @@ function _imp_searchMailbox($mailbox, $query)
     require_once dirname(__FILE__) . '/base.php';
 
     return IMP::checkAuthentication(true)
-        ? $GLOBALS['imp_search']->runSearchQuery($mailbox, $query)
+        ? $GLOBALS['imp_search']->runSearchQuery($query, $mailbox)
         : false;
 }
 
