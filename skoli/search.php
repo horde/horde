@@ -44,8 +44,11 @@ if (($type = Util::getFormData('type')) !== null) {
 } else if (isset($_SESSION['skoli']['search_type'])) {
     $type = $_SESSION['skoli']['search_type'];
 }
-
-$search = Util::getFormData('stext');
+if (($search = Util::getFormData('stext')) !== null) {
+    $_SESSION['skoli']['search_stext'] = $search;
+} else if (isset($_SESSION['skoli']['search_stext'])) {
+    $search = $_SESSION['skoli']['search_stext'];
+}
 
 /* Sort out the sorting values */
 $sortby = Util::getFormData('sortby');
