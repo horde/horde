@@ -83,7 +83,7 @@ class Skoli_EntryForm extends Horde_Form {
             $addresses = array();
         }
 
-        $this->addVariable(_("Date"), 'object_time', 'monthdayyear', true, false, null, array());
+        $this->addVariable(_("Date"), 'object_time', 'monthdayyear', true, false, null, array(date('Y') - 10));
         if (!$this->_vars->exists('object_time')) {
             $date = new Horde_Date(time());
             $this->_vars->set('object_time', array('month' => $date->month, 'day' => $date->mday, 'year' => $date->year));

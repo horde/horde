@@ -129,7 +129,7 @@ class Skoli_School {
                     $form->addVariable(_(ucfirst($property)), 'attribute_subject', 'enum', $obligatory, false, null, array($values, _("Choose:")));
                 }
             } else {
-                $form->addVariable(_(ucfirst($property)), $property, 'text', $obligatory, false);
+                $form->addVariable(_(ucfirst($property)), 'attribute_subject', 'text', $obligatory, false);
             }
             break;
 

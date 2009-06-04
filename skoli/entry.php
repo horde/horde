@@ -22,7 +22,7 @@ if (!Auth::getAuth()) {
 }
 
 $vars = Variables::getDefaultVariables();
-$driver = &Skoli_Driver::singleton('');
+$driver = &Skoli_Driver::singleton();
 $entry = $driver->getEntry($vars->get('entry'));
 if (is_a($entry, 'PEAR_Error') || !count($entry)) {
     $notification->push(_("Entry not found."), 'horde.error');

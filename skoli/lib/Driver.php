@@ -64,7 +64,7 @@ class Skoli_Driver {
         if (!is_array($classes)) {
             $classes = Skoli::listClasses();
         }
-        if (!isset($classes[$class])) {
+        if ($class != '' && !isset($classes[$class])) {
             $class = &new Skoli_Driver(sprintf(_("Access for class \"%s\" is denied"), $class));
             return $class;
         }
