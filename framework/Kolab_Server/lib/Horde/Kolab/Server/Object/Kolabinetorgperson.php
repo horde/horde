@@ -81,7 +81,7 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
     const ATTRIBUTE_ALLOWEDFROM = 'kolabAllowSMTPFrom';
 
     /** The date of birth */
-    const ATTRIBUTE_DATEOFBIRTH = 'dateOfBirth';
+    const ATTRIBUTE_DATEOFBIRTH = 'apple-birthday';
 
     /** The place of birth */
     const ATTRIBUTE_PLACEOFBIRTH = 'birthPlace';
