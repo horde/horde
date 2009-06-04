@@ -423,7 +423,7 @@ function _imp_mailboxCacheId($mailbox)
     require_once dirname(__FILE__) . '/base.php';
 
     return IMP::checkAuthentication(true)
-        ? $GLOBALS['imp_imap']->ob->getCacheId($mailbox);
+        ? $GLOBALS['imp_imap']->ob->getCacheId($mailbox)
         : null;
 }
 
