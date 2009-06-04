@@ -55,7 +55,7 @@ class Skoli_School {
         switch ($property) {
         case 'start':
         case 'end':
-            $form->addVariable(_(ucfirst($property)), $property, 'monthdayyear', true, false, null, array());
+            $form->addVariable(_(ucfirst($property)), $property, 'monthdayyear', true, false, null, array(date('Y') - 10));
             if ($form->_vars->exists('semester') && isset($this->school['semester']) && is_array($this->school['semester'])) {
                 foreach ($this->school['semester'] as $semester) {
                     if ($semester['name'] == $form->_vars->get('semester')) {
@@ -63,7 +63,7 @@ class Skoli_School {
                         break;
                     }
                 }
-                if (isset($activesemester[$property])) {
+                if (isset($activesemester[$property]) && !is_array($form->_vars->get($property))) {
                     require_once 'Horde/Date.php';
                     if ($property == 'start') {
                         $startdate = 0;

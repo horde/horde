@@ -196,8 +196,10 @@ class Skoli_CreateClassForm extends Horde_Form {
             $class->set($property, $this->_vars->get($property) == '' ? null : $this->_vars->get($property));
         }
 
+        $result = $GLOBALS['skoli_shares']->addShare($class);
+
         // Save students
-        if ($this->_vars->exists('students')) {
+        if ($this->_vars->exists('students') && $result) {
             $driver = &Skoli_Driver::singleton($this->shareid);
             $result = $driver->addStudents($this->_vars->get('students'));
             if (is_a($result, 'PEAR_Error')) {
@@ -230,7 +232,7 @@ class Skoli_CreateClassForm extends Horde_Form {
             }
         }
 
-        return $GLOBALS['skoli_shares']->addShare($class);
+        return $result;
     }
 
 }
