@@ -3233,7 +3233,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
-        if ($data === false) {
+        if (!strlen($data)) {
             if ($this->_debug) {
                 fwrite($this->_debug, '[ERROR: IMAP read error.]' . "\n");
             }
@@ -3244,7 +3244,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             fwrite($this->_debug, 'S (' . microtime(true) . '): ' . ($binary ? '[BINARY DATA - ' . $len . ' bytes]' : $data));
         }
 
-        return rtrim($data);
+        return is_null($len) ? rtrim($data) : $data;
     }
 
     /**
