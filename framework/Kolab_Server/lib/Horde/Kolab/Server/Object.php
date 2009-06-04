@@ -454,11 +454,12 @@ class Horde_Kolab_Server_Object
     /**
      * Convert the object attributes to a hash.
      *
-     * @param string $attrs The attributes to return.
+     * @param string $attrs   The attributes to return.
+     * @param boolean $single Should only a single attribute be returned?
      *
      * @return array|PEAR_Error The hash representing this object.
      */
-    public function toHash($attrs = null)
+    public function toHash($attrs = null, $single = true)
     {
         $result = array();
 
@@ -471,7 +472,7 @@ class Horde_Kolab_Server_Object
         }
 
         foreach ($attrs as $key) {
-            $value        = $this->get($key);
+            $value        = $this->get($key, $single);
             $result[$key] = $value;
         }
 
