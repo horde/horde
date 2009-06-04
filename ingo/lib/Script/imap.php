@@ -126,7 +126,7 @@ class Ingo_Script_imap extends Ingo_Script
         $detailmsg = $GLOBALS['prefs']->getValue('show_filter_msg');
 
         /* Parse through the rules, one-by-one. */
-        foreach ($filters->getFilterlist() as $rule) {
+        foreach ($filters->getFilterList() as $rule) {
             /* Check to make sure this is a valid rule and that the rule is
                not disabled. */
             if (!$this->_validRule($rule['action']) ||

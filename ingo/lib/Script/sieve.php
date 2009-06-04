@@ -475,7 +475,7 @@ class Ingo_Script_sieve extends Ingo_Script {
         global $ingo_storage;
 
         $filters = &$ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
-        foreach ($filters->getFilterlist() as $filter) {
+        foreach ($filters->getFilterList() as $filter) {
             /* Check to make sure this is a valid rule and that the rule
                is not disabled. */
             if (!$this->_validRule($filter['action']) ||

@@ -144,7 +144,7 @@ class Ingo_Storage_prefs extends Ingo_Storage
             return $prefs->setValue('blacklist', serialize($data));
 
         case self::ACTION_FILTERS:
-            return $prefs->setValue('rules', serialize(String::convertCharset($ob->getFilterlist(), NLS::getCharset(), $prefs->getCharset())), false);
+            return $prefs->setValue('rules', serialize(String::convertCharset($ob->getFilterList(), NLS::getCharset(), $prefs->getCharset())), false);
 
         case self::ACTION_FORWARD:
             $data = array(

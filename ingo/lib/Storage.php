@@ -816,7 +816,7 @@ class Ingo_Storage_filters
      *
      * @return array  The list of rule hashes.
      */
-    public function getFilterlist()
+    public function getFilterList()
     {
         return $this->_filters;
     }

@@ -145,7 +145,7 @@ class Ingo_Script_procmail extends Ingo_Script {
             }
         }
 
-        foreach ($filters->getFilterlist() as $filter) {
+        foreach ($filters->getFilterList() as $filter) {
             switch ($filter['action']) {
             case Ingo_Storage::ACTION_BLACKLIST:
                 $this->generateBlacklist(!empty($filter['disable']));
