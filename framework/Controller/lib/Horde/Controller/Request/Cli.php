@@ -13,7 +13,7 @@
  */
 
 /**
- * Represents a command line invocation.
+ * Represents a command line request invocation.
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -31,12 +31,24 @@ class Horde_Controller_Request_Cli extends Horde_Controller_Request_Base
     protected $_argv;
 
     /**
+     * Constructor
+     *
+     * In addition to the $options from Horde_Controller_Request_Base, you can
+     * pass a 'path' argument as a string, or a Horde_Argv_Parser object as
+     * 'argvParser' to override the path of the cli request.
      */
     public function __construct($options = array())
     {
         parent::__construct($options);
 
-        $this->setPath();
+        $pathArgs = null;
+        if (isset($options['path'])) {
+            $pathArgs = $options['path'];
+        } elseif (isset($options['argvParser'])) {
+            $pathArgs = $options['argvParser'];
+        }
+
+        $this->setPath($pathArgs);
     }
 
     public function getUri()
