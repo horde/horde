@@ -25,7 +25,8 @@
     $label = sprintf(_("View Entries in \"%s\""), $class['name']);
     $params = array(
         'actionID' => 'search',
-        'class'    => $class['_id']
+        'class'    => $class['_id'],
+        'student'  => 'all'
     );
     echo Horde::link(Util::addParameter(Horde::applicationUrl('search.php'), $params), $label) . htmlspecialchars($class['name']) . '</a>';
     ?>
