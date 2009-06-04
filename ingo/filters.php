@@ -242,7 +242,6 @@ if (count($filter_list) == 0) {
 
         /* Create edit link. */
         $entry['editlink'] = Horde::link($editurl, sprintf(_("Edit %s"), $name));
-        $entry['editimg'] = Horde::img('edit.png', sprintf(_("Edit %s"), $name), '', $registry->getImageDir('horde'));
 
         /* Create delete link. */
         if (!is_null($delurl)) {
