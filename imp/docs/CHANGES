@@ -80,6 +80,7 @@ v5.0-git
 v4.3.5-cvs
 ----------
 
+[mjr] Add example hook showing how to set the add_source preference (Bug #8285)
 [mms] Fix unqualified domain preference (Bug #8272).
 [jan] Highlight signed messages depending on the signature verification.
 [mms] Fix display_folder hook (m.gabriel@das-netzwerkteam.de, Bug #8254).
