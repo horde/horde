@@ -20,6 +20,8 @@ v3.0-git
 v2.3.2-cvs
 ----------
 
+[cjh] Fix the signature of the kronolith/import API method
+      (rpolli@babel.it, Bug #8309).
 [jan] Correctly create all-day events if using the all-day link in the day
       view (stpierre@nebrwesleyan.edu, Bug #8220).
 [jan] Fix rendering of all-day events (Bug #8176).

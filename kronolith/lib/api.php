@@ -81,7 +81,7 @@ $_services['getActionTimestamp'] = array(
 
 $_services['import'] = array(
     'args' => array('content' => 'string', 'contentType' => 'string', 'calendar' => 'string'),
-    'type' => 'int'
+    'type' => 'string'
 );
 
 $_services['export'] = array(
