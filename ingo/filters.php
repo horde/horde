@@ -52,8 +52,10 @@ case 'rule_enable':
             header('Location: ' . Horde::applicationUrl('filters.php', true));
             exit;
         }
+
+        $tmp = $filters->getFilter($id);
         if ($filters->deleteRule($id)) {
-            $notification->push(_("Rule Deleted"), 'horde.success');
+            $notification->push(sprintf(_("Rule \"%s\" deleted."), $tmp['name']), 'horde.success');
         }
         break;
 
@@ -73,8 +75,11 @@ case 'rule_enable':
             }
             $notification->push($message, 'horde.error', array('content.raw'));
             break 2;
-        } elseif ($filters->copyRule($id)) {
-            $notification->push(_("Rule Copied"), 'horde.success');
+        } else {
+            $tmp = $filters->getFilter($id);
+            if ($filters->copyRule($id)) {
+                $notification->push(sprintf(_("Rule \"%s\" copied."), $tmp['name']), 'horde.success');
+            }
         }
         break;
 
@@ -89,13 +94,15 @@ case 'rule_enable':
         break;
 
     case 'rule_disable':
+        $tmp = $filters->getFilter($id);
         $filters->ruleDisable($id);
-        $notification->push(_("Rule Disabled"), 'horde.success');
+        $notification->push(sprintf(_("Rule \"%s\" disabled."), $tmp['name']), 'horde.success');
         break;
 
     case 'rule_enable':
+        $tmp = $filters->getFilter($id);
         $filters->ruleEnable($id);
-        $notification->push(_("Rule Enabled"), 'horde.success');
+        $notification->push(sprintf(_("Rule \"%s\" enabled."), $tmp['name']), 'horde.success');
         break;
     }
 

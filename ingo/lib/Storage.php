@@ -822,6 +822,18 @@ class Ingo_Storage_filters
     }
 
     /**
+     * Return the filter entry for a given ID.
+     *
+     * @return mixed  The rule hash entry, or false if not defined.
+     */
+    public function getFilter($id)
+    {
+        return isset($this->_filters[$id])
+            ? $this->_filters[$id]
+            : false;
+    }
+
+    /**
      * Returns a single rule hash.
      *
      * @param integer $id  A rule number.
