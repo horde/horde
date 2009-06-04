@@ -31,6 +31,28 @@
 //     }
 // }
 
+// Example hook to set the value of the add_source pref. Useful when using
+// a turba source with shares enabled (i.e. the example localsql configuration)
+// This requires Horde >= 3.3.5 to work correctly.
+//if (!function_exists('_prefs_hook_add_source')) {
+//    function _prefs_hook_add_source($username = null) {
+//
+//        /** If you have Turba >= 2.3.2 you can simply do this: **/
+//        // return $GLOBALS['registry']->call('contacts/getDefaultShare');
+//
+//        /** Otherwise, need to be a bit more hackish **/
+//        $shares = &Horde_Share::singleton('turba');
+//        $sources = $shares->listShares(
+//            Auth::getAuth(), PERMS_EDIT, Auth::getAuth());
+//        foreach ($sources as $uid => $share) {
+//            $params = @unserialize($share->get('params'));
+//            if ($params['default']) {
+//                return $uid;
+//            }
+//        }
+//    }
+//}
+
 // Here is an example _imp_hook_postlogin function to redirect to a
 // custom server after login.
 
