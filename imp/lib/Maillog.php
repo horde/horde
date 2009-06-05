@@ -115,25 +115,38 @@ class IMP_Maillog
     }
 
     /**
-     * Retrieve any history for the given Message-ID and display via the
-     * Horde notification system.
+     * Retrieve any history for the given Message-ID and (optionally) display
+     * via the Horde notification system.
      *
      * @param string $msg_id  The Message-ID of the message.
      */
     static public function displayLog($msg_id)
     {
+        foreach (self::parseLog($msg_id) as $entry) {
+            $GLOBALS['notification']->push($entry['msg'], 'imp.' . $entry['action']);
+        }
+    }
+
+    /**
+     * TODO
+     */
+    static public function parseLog($msg_id)
+    {
         try {
-            $msg_history = self::getLog($msg_id);
+            if (!$msg_history = self::getLog($msg_id)) {
+                return array();
+            }
         } catch (Horde_Exception $e) {
-            return;
+            return array();
         }
 
-        if (!$msg_history) {
-            return;
-        }
+        $df = $GLOBALS['prefs']->getValue('date_format');
+        $tf = $GLOBALS['prefs']->getValue('time_format');
+        $ret = array();
 
         foreach ($msg_history->getData() as $entry) {
             $msg = null;
+
             if (isset($entry['desc'])) {
                 $msg = $entry['desc'];
             } else {
@@ -155,10 +168,16 @@ class IMP_Maillog
                     break;
                 }
             }
+
             if ($msg) {
-                $GLOBALS['notification']->push(htmlspecialchars(@sprintf($msg, strftime($GLOBALS['prefs']->getValue('date_format') . ' ' . $GLOBALS['prefs']->getValue('time_format'), $entry['ts']))), 'imp.' . $entry['action']);
+                $ret[] = array(
+                    'action' => $entry['action'],
+                    'msg' => @sprintf($msg, strftime($df . ' ' . $tf, $entry['ts']))
+                );
             }
         }
+
+        return $ret;
     }
 
     /**

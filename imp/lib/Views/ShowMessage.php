@@ -186,18 +186,23 @@ class IMP_Views_ShowMessage
             }
         }
 
-        /* Get minidate. */
         if ($preview) {
+            /* Get minidate. */
             $imp_mailbox_ui = new IMP_UI_Mailbox();
             $minidate = $imp_mailbox_ui->getDate($envelope['date']);
             if (empty($minidate)) {
                 $minidate = _("Unknown Date");
             }
             $result['minidate'] = htmlspecialchars($minidate);
-        }
 
-        /* Display the user-specified headers for the current identity. */
-        if (!$preview) {
+            /* Grab maillog information. */
+            if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
+                foreach (IMP_Maillog::parseLog($envelope['message-id']) as $val) {
+                    $result['log'][] = htmlspecialchars($val['msg']);
+                }
+            }
+        } else {
+            /* Display the user-specified headers for the current identity. */
             $user_hdrs = $imp_ui->getUserHeaders();
             foreach ($user_hdrs as $user_hdr) {
                 $user_val = $mime_headers->getValue($user_hdr);

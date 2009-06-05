@@ -527,7 +527,7 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 #msgAtc td {
     padding-bottom: 0;
 }
-.atcLabel {
+.atcLabel, .infoLabel {
     font-weight: bold;
     padding-right: 5px;
 }
@@ -997,10 +997,10 @@ span.threadImg {
     width: 0;
     margin-right: 0;
 }
-#th_expand span.iconImg, #partlist_col {
+#th_expand span.iconImg, #partlist_col, #infolist_col {
     background-image: url("graphics/arrow_collapsed.png");
 }
-#th_collapse span.iconImg, #partlist_exp {
+#th_collapse span.iconImg, #partlist_exp, #infolist_exp {
     background-image: url("graphics/arrow_expanded.png");
 }
 #msg_view_source span.iconImg {

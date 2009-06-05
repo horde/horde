@@ -1004,6 +1004,21 @@ var DimpBase = {
             $('msgAtc').hide();
         }
 
+        // Add message information
+        if (r.log) {
+            $('msgInfo').show();
+            $('infolist_col').show();
+            $('infolist_exp').hide();
+
+            tmp = '';
+            r.log.each(function(entry) {
+                tmp += '<tr><td>' + entry + '</td></tr>';
+            });
+            $('infolist').down('TABLE').update(tmp);
+        } else {
+            $('msgInfo').hide();
+        }
+
         $('msgBody').update(r.msgtext);
         this.loadingImg('msg', false);
         $('previewInfo').hide();
@@ -1600,6 +1615,18 @@ var DimpBase = {
                     this._setFilterText(false);
                 }
                 $('qsearch_input').focus();
+                break;
+
+            case 'infolist_toggle':
+                $('infolist_col', 'infolist_exp').invoke('toggle');
+                Effect.toggle('infolist', 'blind', {
+                    duration: 0.2,
+                    queue: {
+                        position: 'end',
+                        scope: 'infolist',
+                        limit: 2
+                    }
+                });
                 break;
 
             default:
