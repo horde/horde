@@ -310,7 +310,7 @@ KronolithCore = {
             this.dayEvents = [];
             this.dayGroups = [];
             this.allDayEvents = [];
-            $('kronolithViewDay').down('caption span').setText(this.setTitle(date.toString('D')));
+            $('kronolithViewDay').down('caption span').innerHTML = this.setTitle(date.toString('D'));
             break;
 
         case 'week':
@@ -323,11 +323,11 @@ KronolithCore = {
                 dates = this.viewDates(date, view),
                 day = dates[0].clone();
 
-            $('kronolithViewWeek').down('caption span').setText(this.setTitle(Kronolith.text.week.interpolate({ 'week': date.getWeek() })));
+            $('kronolithViewWeek').down('caption span').innerHTML = this.setTitle(Kronolith.text.week.interpolate({ 'week': date.getWeek() }));
 
             for (var i = 0; i < 7; i++) {
                 div.writeAttribute('id', 'kronolithEventsWeek' + day.dateString());
-                th.writeAttribute('date', day.dateString()).down('span').setText(day.toString('dddd, d'));
+                th.writeAttribute('date', day.dateString()).down('span').innerHTML = day.toString('dddd, d');
                 td.down('div').writeAttribute('id', 'kronolithAllDay' + day.dateString());
                 div = div.next('div');
                 th = th.next('td');
@@ -341,7 +341,7 @@ KronolithCore = {
                 dates = this.viewDates(date, view),
                 day = dates[0].clone(), row;
 
-            $('kronolithViewMonth').down('caption span').setText(this.setTitle(date.toString('MMMM yyyy')));
+            $('kronolithViewMonth').down('caption span').innerHTML = this.setTitle(date.toString('MMMM yyyy'));
 
             // Remove old rows. Maybe we should only rebuild the calendars if
             // necessary.
@@ -363,7 +363,7 @@ KronolithCore = {
         case 'year':
             var viewBody = $('kronolithViewYear'), month;
 
-            viewBody.down('caption span').setText(this.setTitle(date.toString('yyyy')));
+            viewBody.down('caption span').innerHTML = this.setTitle(date.toString('yyyy'));
 
             // Build new calendar view.
             for (month = 0; month < 12; month++) {
@@ -380,9 +380,9 @@ KronolithCore = {
                 var dates = this.viewDates(date, view),
                     day = dates[0].clone();
                 this.setTitle(Kronolith.text.agenda + ' ' + dates[0].toString('d') + ' - ' + dates[1].toString('d'));
-                $('kronolithViewAgenda').down('caption span').setText(Kronolith.text.agenda);
+                $('kronolithViewAgenda').down('caption span').innerHTML = Kronolith.text.agenda;
             } else {
-                $('kronolithViewAgenda').down('caption span').setText(this.setTitle(Kronolith.text.searching.interpolate({ 'term': data })));
+                $('kronolithViewAgenda').down('caption span').update(this.setTitle(Kronolith.text.searching.interpolate({ 'term': data })));
             }
 
             // Remove old rows. Maybe we should only rebuild the calendars if
@@ -473,8 +473,8 @@ KronolithCore = {
                               }.bind(this));
             }.bind(this) });
             cell.down('.kronolithDay')
-                .setText(day.getDate())
-                .writeAttribute('date', dateString);
+                .writeAttribute('date', dateString)
+                .innerHTML = day.getDate();
             cell.down('.kronolithAddEvent')
                 .writeAttribute('date', dateString);
             cell = cell.next();
@@ -526,8 +526,8 @@ KronolithCore = {
 
         // Set month name.
         table.down('SPAN')
-            .setText(Date.CultureInfo.monthNames[month])
-            .writeAttribute('date', year.toPaddedString(4) + (month + 1).toPaddedString(2) + '01');
+            .writeAttribute('date', year.toPaddedString(4) + (month + 1).toPaddedString(2) + '01')
+            .innerHTML = Date.CultureInfo.monthNames[month];
 
         // Build month table.
         this.buildMinical(tbody, new Date(year, month, 1));
@@ -579,7 +579,7 @@ KronolithCore = {
     updateMinical: function(date, view)
     {
         // Update header.
-        $('kronolithMinicalDate').setText(date.toString('MMMM yyyy')).setAttribute('date', date.dateString());
+        $('kronolithMinicalDate').writeAttribute('date', date.dateString()).innerHTML = date.toString('MMMM yyyy');
 
         this.buildMinical($('kronolithMinical').down('tbody'), date, view);
 
@@ -610,7 +610,7 @@ KronolithCore = {
             if (day.getDay() == Kronolith.conf.week_start) {
                 tr = new Element('tr');
                 tbody.insert(tr);
-                td = new Element('td', { 'class': 'kronolithMinicalWeek', 'weekdate': day.dateString() }).setText(day.getWeek());
+                td = new Element('td', { 'class': 'kronolithMinicalWeek', 'weekdate': day.dateString() }).innerHTML = day.getWeek();
                 tr.insert(td);
                 weekStart = day.clone();
                 weekEnd = day.clone();
@@ -629,7 +629,7 @@ KronolithCore = {
                  (view == 'agenda' && !day.isBefore(date) && day.isBefore(date7)))) {
                 td.addClassName('kronolithSelected');
             }
-            td.setText(day.getDate());
+            td.innerHTML = day.getDate();
             tr.insert(td);
             day.next().day();
         }
