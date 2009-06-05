@@ -827,7 +827,9 @@ div#kronolithEventTopTags span:hover {
     border-bottom: 1px #000 dotted;
     text-align: left;
 }
-#kronolithMinicalDate {
+.kronolithMinical caption span {
+    overflow: hidden;
+    white-space: nowrap;
     cursor: pointer;
 }
 #kronolithMinicalPrev, #kronolithMinicalNext {

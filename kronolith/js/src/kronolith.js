@@ -526,7 +526,8 @@ KronolithCore = {
 
         // Set month name.
         table.down('SPAN')
-            .setText(Date.CultureInfo.monthNames[month]);
+            .setText(Date.CultureInfo.monthNames[month])
+            .writeAttribute('date', year.toPaddedString(4) + (month + 1).toPaddedString(2) + '01');
 
         // Build month table.
         this.buildMinical(tbody, new Date(year, month, 1));
@@ -1579,6 +1580,25 @@ KronolithCore = {
                         this.go('day:' + date);
                         e.stop();
                         return;
+                    }
+                }
+                e.stop();
+                return;
+
+            case 'kronolithViewYear':
+                var tmp = orig;
+                if (tmp.tagName != 'td') {
+                    tmp.up('td');
+                }
+                if (tmp) {
+                    if (tmp.readAttribute('weekdate') &&
+                        tmp.hasClassName('kronolithMinicalWeek')) {
+                        this.go('week:' + tmp.readAttribute('weekdate'));
+                    } else if (tmp.hasClassName('kronolithMinicalDate')) {
+                        this.go('month:' + tmp.readAttribute('date'));
+                    } else if (tmp.readAttribute('date') &&
+                               !tmp.hasClassName('empty')) {
+                        this.go('day:' + tmp.readAttribute('date'));
                     }
                 }
                 e.stop();

@@ -26,7 +26,7 @@
 
 <table id="kronolithYearTemplate" style="display:none" cellspacing="1" cellpadding="0" border="0">
   <caption>
-    <span></span>
+    <span class="kronolithMinicalDate"></span>
   </caption>
   <thead><tr>
     <th class="kronolithMinicalEmpty">&nbsp;</th>
