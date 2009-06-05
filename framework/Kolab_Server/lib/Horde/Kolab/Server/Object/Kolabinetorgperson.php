@@ -65,6 +65,9 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
     /** The marital status */
     const ATTRIBUTE_MARITALSTATUS = 'kolabMaritalStatus';
 
+    /** The home fax number */
+    const ATTRIBUTE_HOMEFAX = 'homeFacsimileTelephoneNumber';
+
     /** The german tax ID */
     const ATTRIBUTE_GERMANTAXID = 'germanTaxId';
 
