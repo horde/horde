@@ -904,7 +904,7 @@ var DimpBase = {
                 return;
             }
             this.pp = data;
-            pp_uid = data.imapuid + data.view;
+            pp_uid = this._getPPId(data.imapuid, data.view);
 
             if (this.ppfifo.indexOf(pp_uid) != -1) {
                   // There is a chance that the message may have been marked
@@ -952,7 +952,7 @@ var DimpBase = {
         }
 
         // Store in cache.
-        ppuid = r.index + r.folder;
+        ppuid = this._getPPId(r.index, r.folder);
         this._expirePPCache([ ppuid ]);
         this.ppcache[ppuid] = resp;
         this.ppfifo.push(ppuid);
@@ -1006,15 +1006,7 @@ var DimpBase = {
 
         // Add message information
         if (r.log) {
-            $('msgInfo').show();
-            $('infolist_col').show();
-            $('infolist_exp').hide();
-
-            tmp = '';
-            r.log.each(function(entry) {
-                tmp += '<tr><td>' + entry + '</td></tr>';
-            });
-            $('infolist').down('TABLE').update(tmp);
+            this.updateMsgInfo(r.log);
         } else {
             $('msgInfo').hide();
         }
@@ -1030,6 +1022,36 @@ var DimpBase = {
         }
 
         this._addHistory('msg:' + row.view + ':' + row.imapuid);
+    },
+
+    // opts = index, mailbox
+    updateMsgInfo: function(log, opts)
+    {
+        var tmp = '';
+
+        if (!opts ||
+            (this.pp.imapuid == opts.index &&
+             this.pp.view == opts.mailbox)) {
+            $('msgInfo').show();
+
+            if (opts) {
+                $('infolist_col').show();
+                $('infolist_exp').hide();
+            }
+
+            log.each(function(entry) {
+                tmp += '<tr><td>' + entry + '</td></tr>';
+            });
+
+            $('infolist').down('TABLE').update(tmp);
+        }
+
+        if (opts) {
+            tmp = this._getPPId(opts.index, opts.mailbox);
+            if (this.ppcache[tmp]) {
+                this.ppcache[tmp].response.log = log;
+            }
+        }
     },
 
     initPreviewPane: function()
@@ -1070,6 +1092,11 @@ var DimpBase = {
         if (this.ppfifo.size() > this.ppcachesize) {
             delete this.ppcache[this.ppfifo.shift()];
         }
+    },
+
+    _getPPId: function(index, mailbox)
+    {
+        return index + '|' + mailbox;
     },
 
     // Labeling functions

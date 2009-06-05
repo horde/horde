@@ -248,6 +248,10 @@ var DimpCompose = {
                         DIMP.baseWindow.DimpBase.poll();
                     }
 
+                    if (d.log) {
+                        DIMP.baseWindow.DimpBase.updateMsgInfo(d.log, { index: d.index, mailbox: d.reply_folder });
+                    }
+
                     DIMP.baseWindow.DimpCore.showNotifications(r.msgs);
                 }
                 return this.closeCompose();

@@ -62,14 +62,14 @@ $imp_ui = new IMP_UI_Compose();
 if (count($_POST)) {
     $result = new stdClass;
     $result->action = $action;
-    $result->success = false;
+    $result->success = 0;
 
     /* Update the file attachment information. */
     if ($action == 'add_attachment') {
         if ($_SESSION['imp']['file_upload'] &&
             $imp_compose->addFilesFromUpload('file_')) {
             $info = DIMP::getAttachmentInfo($imp_compose);
-            $result->success = true;
+            $result->success = 1;
             $result->info = end($info);
             $result->imp_compose = $imp_compose->getCacheId();
         }
@@ -98,7 +98,7 @@ if (count($_POST)) {
         /* Save the draft. */
         try {
             $res = $imp_compose->saveDraft($header, Util::getFormData('message', ''), NLS::getCharset(), Util::getFormData('html'));
-            $result->success = true;
+            $result->success = 1;
 
             /* Delete existing draft. */
             _removeAutoSaveDraft(Util::getFormData('draft_index'));
@@ -140,9 +140,11 @@ if (count($_POST)) {
         $message = Util::getFormData('message');
         $html = Util::getFormData('html');
 
-        $result->reply_type = Util::getFormData('reply_type');
-        $result->index = Util::getFormData('index');
-        $result->reply_folder = Util::getFormData('folder');
+        $result->index = intval(Util::getFormData('index'));
+        if ($reply_type = Util::getFormData('reply_type')) {
+            $result->reply_folder = Util::getFormData('folder');
+            $result->reply_type = $reply_type;
+        }
 
         /* Use IMP_Tree to determine whether the sent mail folder was
          * created. */
@@ -150,14 +152,14 @@ if (count($_POST)) {
         $imptree->eltDiffStart();
 
         $options = array(
+            'readreceipt' => Util::getFormData('request_read_receipt'),
+            'reply_index' => $result->index . IMP::IDX_SEP . $result->reply_folder,
+            'reply_type' => $reply_type,
+            'save_attachments' => Util::getFormData('save_attachments_select'),
             'save_sent' => (($prefs->isLocked('save_sent_mail'))
                             ? $identity->getValue('save_sent_mail')
                             : (bool)Util::getFormData('save_sent_mail')),
             'sent_folder' => $identity->getValue('sent_mail_folder'),
-            'save_attachments' => Util::getFormData('save_attachments_select'),
-            'reply_type' => $result->reply_type,
-            'reply_index' => $result->index . IMP::IDX_SEP . $result->reply_folder,
-            'readreceipt' => Util::getFormData('request_read_receipt')
         );
 
         try {
@@ -166,17 +168,26 @@ if (count($_POST)) {
             $notification->push($e->getMessage(), 'horde.error');
             break;
         }
-        $result->success = true;
+        $result->success = 1;
 
         /* Remove any auto-saved drafts. */
         if ($prefs->getValue('auto_save_drafts') ||
             $prefs->getValue('auto_delete_drafts')) {
             _removeAutoSaveDraft(Util::getFormData('draft_index'));
-            $result->draft_delete = true;
+            $result->draft_delete = 1;
         }
 
         if ($sent && $prefs->getValue('compose_confirm')) {
             $notification->push(_("Message sent successfully."), 'horde.success');
+        }
+
+        /* Update maillog information. */
+        if (!empty($header['in_reply_to']) &&
+            !empty($GLOBALS['conf']['maillog']['use_maillog'])) {
+            $result->log = array();
+            foreach (IMP_Maillog::parseLog($header['in_reply_to']) as $val) {
+                $result->log[] = htmlspecialchars($val['msg']);
+            }
         }
 
         $res = DIMP::getFolderResponse($imptree);
