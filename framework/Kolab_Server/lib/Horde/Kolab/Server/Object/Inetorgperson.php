@@ -44,6 +44,12 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
     /** The mobile phone number */
     const ATTRIBUTE_MOBILE = 'mobile';
 
+    /** The photo attribute */
+    const ATTRIBUTE_PHOTO = 'photo';
+
+    /** The photo in JPEG format */
+    const ATTRIBUTE_JPEGPHOTO = 'jpegPhoto';
+
     /** The given name */
     const ATTRIBUTE_GIVENNAME = 'givenName';
 
