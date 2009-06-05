@@ -174,7 +174,7 @@ class Ingo_Script_imap extends Ingo_Script
                  * address match. */
                 $msgs = $this->_api->fetchEnvelope($indices);
                 foreach ($msgs as $k => $v) {
-                    $from_addr = Horde_Mime_Address::bareAddress(Horde_Mime_Addr::addrArray2String($v['envelope']['from']));
+                    $from_addr = Horde_Mime_Address::bareAddress(Horde_Mime_Address::addrArray2String($v['envelope']['from']));
                     $found = false;
                     foreach ($addr as $val) {
                         if (strtolower($from_addr) == strtolower($val)) {
