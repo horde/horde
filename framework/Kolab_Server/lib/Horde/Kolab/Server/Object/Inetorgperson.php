@@ -99,6 +99,8 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
             self::ATTRIBUTE_BUSINESSCATEGORY,
             self::ATTRIBUTE_HOMEPHONE,
             self::ATTRIBUTE_MOBILE,
+            self::ATTRIBUTE_PHOTO,
+            self::ATTRIBUTE_JPEGPHOTO,
             self::ATTRIBUTE_SMIMECERTIFICATE,
         ),
         'derived' => array(
