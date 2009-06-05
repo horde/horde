@@ -231,7 +231,7 @@ class IMP_Contents
                 Horde_Imap_Client::FETCH_HEADERTEXT => array(array('peek' => true)),
                 Horde_Imap_Client::FETCH_BODYTEXT => array(array('peek' => true))
             ), array('ids' => array($this->_index)));
-            return $res[$this->_index]['headertext'][0] . "\r\n\r\n" . $res[$this->_index]['bodytext'][0];
+            return $res[$this->_index]['headertext'][0] . $res[$this->_index]['bodytext'][0];
         } catch (Horde_Imap_Client_Exception $e) {
             return '';
         }
