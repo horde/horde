@@ -259,7 +259,6 @@ function _simpleButton($id, $text, $image, $imagedir = null)
         <div id="toggleHeaders" class="noprint">
          <a id="th_expand"><span class="iconImg" title="<?php echo htmlspecialchars(_("Expand Headers")) ?>"></span></a>
          <a id="th_collapse" style="display:none"><span class="iconImg" title="<?php echo htmlspecialchars(_("Collapse Headers")) ?>"></span></a>
-         <span class="iconImg attachmentImg" style="display:none"></span>
         </div>
         <div id="msgHeadersColl">
          <a id="msg_newwin"><span class="iconImg" title="<?php echo htmlspecialchars(_("Open in new window")) ?>"></span></a>

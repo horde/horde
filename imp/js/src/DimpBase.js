@@ -924,7 +924,7 @@ var DimpBase = {
 
     _loadPreviewCallback: function(resp)
     {
-        var ppuid, row, search, tmp, tmp2,
+        var ppuid, row, search, tmp,
             pm = $('previewMsg'),
             r = resp.response,
             t = $('msgHeadersContent').down('THEAD');
@@ -991,18 +991,14 @@ var DimpBase = {
         });
 
         // Add attachment information
-        $('toggleHeaders').select('.attachmentImage').invoke(r.atc_label ? 'show' : 'hide');
         if (r.atc_label) {
-            tmp = $('msgAtc').show().down('.label');
-            tmp2 = $('partlist');
-            tmp2.hide().previous().update(new Element('SPAN', { className: 'atcLabel' }).insert(r.atc_label)).insert(r.atc_download);
+            $('msgAtc').show();
+            tmp = $('partlist');
+            tmp.hide().previous().update(new Element('SPAN', { className: 'atcLabel' }).insert(r.atc_label)).insert(r.atc_download);
             if (r.atc_list) {
                 $('partlist_col').show();
                 $('partlist_exp').hide();
-                tmp.down().hide().next().show();
-                tmp2.down('TABLE').update(r.atc_list);
-            } else {
-                tmp.down().show().next().hide();
+                tmp.down('TABLE').update(r.atc_list);
             }
         } else {
             $('msgAtc').hide();
