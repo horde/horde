@@ -610,7 +610,7 @@ KronolithCore = {
             if (day.getDay() == Kronolith.conf.week_start) {
                 tr = new Element('tr');
                 tbody.insert(tr);
-                td = new Element('td', { 'class': 'kronolithMinicalWeek', 'weekdate': day.dateString() }).setText(day.getWeek());;
+                td = new Element('td', { 'class': 'kronolithMinicalWeek', 'weekdate': day.dateString() }).setText(day.getWeek());
                 tr.insert(td);
                 weekStart = day.clone();
                 weekEnd = day.clone();
@@ -814,50 +814,6 @@ KronolithCore = {
                 return;
             }
             break;
-
-        case 'year':
-            var year = dates[0].getFullYear(),
-                month, day, dateString, monthLength, events, title, busy, td;
-            for (month = 0; month < 12; month++) {
-                monthLength = Date.getDaysInMonth(year, month);
-                for (day = 1; day <= monthLength; day++) {
-                    dateString = year + (month + 1).toPaddedString(2) + day.toPaddedString(2);
-                    title = '';
-                    busy = false;
-                    this.ecache.each(function(types) {
-                        types.value.each(function(calendars) {
-                            events = calendars.value.get(dateString);
-                            if (events) {
-                                events.each(function(event) {
-                                    if (event.value.al) {
-                                        title += Kronolith.text.allday;
-                                    } else {
-                                        title += event.value.start.toString('t') + '-' + event.value.end.toString('t');
-                                    }
-                                    title += ': ' + event.value.t;
-                                    if (event.value.x == Kronolith.conf.status.tentative ||
-                                        event.value.x == Kronolith.conf.status.confirmed) {
-                                            busy = true;
-                                    }
-                                    title += '<br />';
-                                });
-                            }
-                        });
-                    });
-                    if (title) {
-                        td = $('kronolithYearTable' + month).down('td[date=' + dateString + ']');
-                        td.writeAttribute('title', title).addClassName('kronolithHasEvents');
-                        if (td.readAttribute('nicetitle')) {
-                            ToolTips.detach(td);
-                        }
-                        ToolTips.attach(td);
-                        if (busy) {
-                            td.addClassName('kronolithIsBusy');
-                        }
-                    }
-                }
-            }
-            return;
         }
 
         var day = dates[0].clone(), date;
@@ -886,15 +842,57 @@ KronolithCore = {
                     .select('div[calendar=' + calendar + ']')
                     .invoke('remove');
                 break;
+
+            case 'year':
+                title = '';
+                busy = false;
             }
 
             this._getCacheForDate(date).sortBy(this._sortEvents).each(function(event) {
-                if (view != 'day' && view != 'week' &&
-                    calendar != event.value.calendar) {
+                switch (view) {
+                case 'day':
+                case 'week':
+                    if (calendar != event.value.calendar) {
+                        return;
+                    }
+                    break;
+
+                case 'year':
+                    if (event.value.al) {
+                        title += Kronolith.text.allday;
+                    } else {
+                        title += event.value.start.toString('t') + '-' + event.value.end.toString('t');
+                    }
+                    title += ': ' + event.value.t;
+                    if (event.value.x == Kronolith.conf.status.tentative ||
+                        event.value.x == Kronolith.conf.status.confirmed) {
+                            busy = true;
+                        }
+                    title += '<br />';
                     return;
                 }
                 this._insertEvent(event, date, view);
             }, this);
+
+            if (view == 'year') {
+                td = $('kronolithYearTable' + day.getMonth()).down('td[date=' + date + ']');
+                if (title) {
+                    td.writeAttribute('title', title).addClassName('kronolithHasEvents');
+                    if (td.readAttribute('nicetitle')) {
+                        ToolTips.detach(td);
+                    }
+                    ToolTips.attach(td);
+                    if (busy) {
+                        td.addClassName('kronolithIsBusy');
+                    } else {
+                        td.removeClassName('kronolithIsBusy');
+                    }
+                } else {
+                    td.removeClassName('kronolithHasEvents');
+                    td.removeClassName('kronolithIsBusy');
+                }
+            }
+
             day.next().day();
         }
     },
