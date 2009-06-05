@@ -16,7 +16,15 @@ Horde_Autoloader::addClassPattern('/^Koward_/', 'Koward/');
 try {
     Koward::dispatch(__FILE__);
 } catch (Exception $e) {
-    // @TODO Make nicer
-    echo '<h1>' . $e->getMessage() . '</h1>';
-    echo '<pre>'; var_dump($e); echo '</pre>';
+    global $notification, $registry;
+
+    Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+
+    if (isset($notification)) {
+        $notification->push($e->getMessage(), 'horde.error');
+    }
+
+    if (isset($registry)) {
+        header('Location: ' . $registry->get('webroot', 'koward'));
+    }
 }
