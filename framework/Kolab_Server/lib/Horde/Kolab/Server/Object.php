@@ -889,9 +889,9 @@ class Horde_Kolab_Server_Object
                 if (is_array($old) && count($old) == 1) {
                     $old = $old[0];
                 }
-                if ($old === false && !($value === null || $value === '')) {
+                if ($old === false && !($value === null || $value === '' || $value === array())) {
                     $changes['add'][$key] = $value;
-                } else if ($old !== false && ($value === null || $value === '')) {
+                } else if ($old !== false && ($value === null || $value === '' || $value === array())) {
                     $changes['delete'][] = $key;
                 } else if (is_array($old) || is_array($value)) {
                     if (!is_array($old)) {
