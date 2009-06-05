@@ -92,6 +92,9 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
     /** Birth name */
     const ATTRIBUTE_BIRTHNAME = 'birthName';
 
+    /** Pseudonym */
+    const ATTRIBUTE_PSEUDONYM = 'pseudonym';
+
     /** Country of citizenship */
     const ATTRIBUTE_COUNTRYCITIZENSHIP = 'countryOfCitizenship';
 
@@ -175,6 +178,7 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
             self::ATTRIBUTE_DATEOFBIRTH,
             self::ATTRIBUTE_PLACEOFBIRTH,
             self::ATTRIBUTE_BIRTHNAME,
+            self::ATTRIBUTE_PSEUDONYM,
             self::ATTRIBUTE_COUNTRYCITIZENSHIP,
             self::ATTRIBUTE_LEGALFORM,
             self::ATTRIBUTE_REGISTEREDCAPITAL,
