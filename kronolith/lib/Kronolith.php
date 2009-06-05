@@ -69,7 +69,7 @@ class Kronolith
     public static function header($title, $scripts = array())
     {
         // Don't autoload any javascript files.
-        Horde::disableAutoloadHordeJS();
+        //Horde::disableAutoloadHordeJS();
 
         // Need to include script files before we start output
         Horde::addScriptFile('prototype.js', 'horde', true);

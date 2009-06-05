@@ -838,10 +838,15 @@ KronolithCore = {
                                         event.value.x == Kronolith.conf.status.confirmed) {
                                             busy = true;
                                     }
+                                    title += '<br />';
                                 });
                                 if (title) {
                                     td = $('kronolithYearTable' + month).down('td[date=' + dateString + ']');
                                     td.writeAttribute('title', title).addClassName('kronolithHasEvents');
+                                    if (td.readAttribute('nicetitle')) {
+                                        ToolTips.detach(td);
+                                    }
+                                    ToolTips.attach(td);
                                     if (busy) {
                                         td.addClassName('kronolithIsBusy');
                                     }
