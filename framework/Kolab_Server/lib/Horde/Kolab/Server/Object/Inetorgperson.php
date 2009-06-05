@@ -239,7 +239,11 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
         }
         foreach ($uris as $uri) {
             list($address, $label) = explode(' ', $uri, 2);
-            $result[$label]        = $address;
+            if (!isset($result[$label])) {
+                $result[$label] = array($address);
+            } else {
+                $result[$label][] = $address;
+            }
         }
         return $result;
     }
@@ -257,8 +261,13 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
     {
         $result = array();
         $uris   = $info[self::ATTRARRAY_LABELEDURI];
-        foreach ($uris as $label => $address) {
-            $result[] = $address . ' ' . $label;
+        foreach ($uris as $label => $addresses) {
+            if (!is_array($addresses)) {
+                $addresses = array($addresses);
+            }
+            foreach ($addresses as $address) {
+                $result[] = $address . ' ' . $label;
+            }
         }
         $info[self::ATTRIBUTE_LABELEDURI] = $result;
         unset($info[self::ATTRARRAY_LABELEDURI]);
@@ -273,9 +282,9 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
     {
         $result    = array();
         $addresses = $this->get(self::ATTRIBUTE_HOMEPOSTALADDRESS);
-	if (empty($addresses)) {
-	  return $addresses;
-	}
+        if (empty($addresses)) {
+            return $addresses;
+        }
         if (!is_array($addresses)) {
             $addresses = array($addresses);
         }
