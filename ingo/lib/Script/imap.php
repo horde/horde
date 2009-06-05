@@ -182,7 +182,7 @@ class Ingo_Script_imap extends Ingo_Script
                         }
                     }
                     if (!$found) {
-                        $indices = array_diff($indices, $k);
+                        $indices = array_diff($indices, array($k));
                     }
                 }
 
