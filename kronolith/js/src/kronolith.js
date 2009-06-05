@@ -876,6 +876,7 @@ KronolithCore = {
 
             if (view == 'year') {
                 td = $('kronolithYearTable' + day.getMonth()).down('td[date=' + date + ']');
+                td.className = '';
                 if (title) {
                     td.writeAttribute('title', title).addClassName('kronolithHasEvents');
                     if (td.readAttribute('nicetitle')) {
@@ -884,12 +885,7 @@ KronolithCore = {
                     ToolTips.attach(td);
                     if (busy) {
                         td.addClassName('kronolithIsBusy');
-                    } else {
-                        td.removeClassName('kronolithIsBusy');
                     }
-                } else {
-                    td.removeClassName('kronolithHasEvents');
-                    td.removeClassName('kronolithIsBusy');
                 }
             }
 
@@ -1323,6 +1319,8 @@ KronolithCore = {
                 event.value.calendar = cal;
                 event.value.start = Date.parse(event.value.s);
                 event.value.end = Date.parse(event.value.e);
+                event.value.sort = event.value.start.toString('HHmmss')
+                    + (240000 - parseInt(event.value.end.toString('HHmmss'))).toPaddedString(6);
             });
 
             // Store events in cache.
@@ -1383,8 +1381,7 @@ KronolithCore = {
      */
     _sortEvents: function(event)
     {
-        return event.value.start.toString('HHmmss')
-            + (240000 - parseInt(event.value.end.toString('HHmmss'))).toPaddedString('0');
+        return event.value.sort;
     },
 
     _addHistory: function(loc, data)
