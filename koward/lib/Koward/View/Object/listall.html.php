@@ -1,6 +1,8 @@
 <?= $this->renderPartial('header'); ?>
 <?= $this->renderPartial('menu'); ?>
 
+<?= $this->addBuiltinHelpers(); ?>
+
 <?= $this->tabs->render($this->object_type); ?>
 
 <?php if (isset($this->objectlist)): ?>

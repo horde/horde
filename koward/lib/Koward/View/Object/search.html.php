@@ -1,5 +1,8 @@
 <?= $this->renderPartial('header'); ?>
 <?= $this->renderPartial('menu'); ?>
+
+<?= $this->addBuiltinHelpers(); ?>
+
 <?php if (empty($this->objectlist)): ?>
   <?= $this->form->renderActive(new Horde_Form_Renderer(), $this->vars,
                                 $this->post, 'post'); ?>
