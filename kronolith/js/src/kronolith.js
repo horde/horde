@@ -1669,7 +1669,8 @@ KronolithCore = {
             if (calClass) {
                 var calendar = elt.readAttribute('calendar');
                 Kronolith.conf.calendars[calClass][calendar].show = !Kronolith.conf.calendars[calClass][calendar].show;
-                if (typeof this.ecache.get(calClass) == 'undefined' ||
+                if (this.view == 'year' ||
+                    typeof this.ecache.get(calClass) == 'undefined' ||
                     typeof this.ecache.get(calClass).get(calendar) == 'undefined') {
                     var dates = this.viewDates(this.date, this.view);
                     this._loadEvents(dates[0], dates[1], this.view, [[calClass, calendar]]);
