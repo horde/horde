@@ -89,7 +89,7 @@ class Kronolith_Event_Sql extends Kronolith_Event
             $this->private = (bool)($SQLEvent['event_private']);
         }
         if (isset($SQLEvent['event_status'])) {
-            $this->status = $SQLEvent['event_status'];
+            $this->status = (int)$SQLEvent['event_status'];
         }
         if (isset($SQLEvent['event_attendees'])) {
             $this->attendees = array_change_key_case($driver->convertFromDriver(unserialize($SQLEvent['event_attendees'])));

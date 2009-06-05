@@ -1015,6 +1015,7 @@ abstract class Kronolith_Event
         $json->c = $this->getCalendar();
         $json->s = $this->start->toJson();
         $json->e = $this->end->toJson();
+        $json->x = $this->status;
         $json->al = is_null($allDay) ? $this->isAllDay() : $allDay;
         $json->bg = $this->_backgroundColor;
         $json->fg = $this->_foregroundColor;

@@ -155,6 +155,10 @@ class Kronolith
                                          array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy'),
                                          NLS::getLangInfo(D_FMT)),
             'time_format' => $prefs->getValue('twentyFour') ? 'HH:mm' : 'hh:mm tt',
+            'status' => array('tentative' => self::STATUS_TENTATIVE,
+                             'confirmed' => self::STATUS_CONFIRMED,
+                             'cancelled' => self::STATUS_CANCELLED,
+                             'free' => self::STATUS_FREE),
             // Turn debugging on?
             'debug' => !empty($conf['js']['debug']),
         );
@@ -203,7 +207,7 @@ class Kronolith
             'week' => str_replace('%d', '#{week}', _("Week %d")),
             'agenda' => _("Agenda"),
             'searching' => str_replace('%s', '#{term}', _("Events matching \"%s\"")),
-            'allday' => _("All-day"),
+            'allday' => _("All day"),
         );
         for ($i = 1; $i <= 12; ++$i) {
             $code['text']['month'][$i - 1] = NLS::getLangInfo(constant('MON_' . $i));

@@ -816,7 +816,7 @@ KronolithCore = {
 
         case 'year':
             var year = dates[0].getFullYear(),
-                month, day, dateString, monthLength, events, title;
+                month, day, dateString, monthLength, events, title, busy, td;
             this.ecache.each(function(types) {
                 types.value.each(function(calendars) {
                     for (month = 0; month < 12; month++) {
@@ -826,6 +826,7 @@ KronolithCore = {
                             events = calendars.value.get(dateString);
                             if (events) {
                                 title = '';
+                                busy = false;
                                 events.each(function(event) {
                                     if (event.value.al) {
                                         title += Kronolith.text.allday;
@@ -833,9 +834,17 @@ KronolithCore = {
                                         title += event.value.start.toString('t') + '-' + event.value.end.toString('t');
                                     }
                                     title += ': ' + event.value.t;
+                                    if (event.value.x == Kronolith.conf.status.tentative ||
+                                        event.value.x == Kronolith.conf.status.confirmed) {
+                                            busy = true;
+                                    }
                                 });
                                 if (title) {
-                                   $('kronolithYearTable' + month).down('td[date=' + dateString + ']').writeAttribute('title', title).addClassName('kronolithHasEvents');
+                                    td = $('kronolithYearTable' + month).down('td[date=' + dateString + ']');
+                                    td.writeAttribute('title', title).addClassName('kronolithHasEvents');
+                                    if (busy) {
+                                        td.addClassName('kronolithIsBusy');
+                                    }
                                 }
                             }
                         }
