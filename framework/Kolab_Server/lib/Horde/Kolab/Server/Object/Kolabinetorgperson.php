@@ -170,6 +170,7 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
             self::ATTRIBUTE_SALUTATION,
             self::ATTRIBUTE_GENDER,
             self::ATTRIBUTE_MARITALSTATUS,
+            self::ATTRIBUTE_HOMEFAX,
             self::ATTRIBUTE_GERMANTAXID,
             self::ATTRIBUTE_COUNTRY,
             self::ATTRIBUTE_QUOTA,
