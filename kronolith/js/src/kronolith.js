@@ -817,16 +817,16 @@ KronolithCore = {
         case 'year':
             var year = dates[0].getFullYear(),
                 month, day, dateString, monthLength, events, title, busy, td;
-            this.ecache.each(function(types) {
-                types.value.each(function(calendars) {
-                    for (month = 0; month < 12; month++) {
-                        monthLength = Date.getDaysInMonth(year, month);
-                        for (day = 1; day <= monthLength; day++) {
-                            dateString = year + (month + 1).toPaddedString(2) + day.toPaddedString(2);
+            for (month = 0; month < 12; month++) {
+                monthLength = Date.getDaysInMonth(year, month);
+                for (day = 1; day <= monthLength; day++) {
+                    dateString = year + (month + 1).toPaddedString(2) + day.toPaddedString(2);
+                    title = '';
+                    busy = false;
+                    this.ecache.each(function(types) {
+                        types.value.each(function(calendars) {
                             events = calendars.value.get(dateString);
                             if (events) {
-                                title = '';
-                                busy = false;
                                 events.each(function(event) {
                                     if (event.value.al) {
                                         title += Kronolith.text.allday;
@@ -840,22 +840,22 @@ KronolithCore = {
                                     }
                                     title += '<br />';
                                 });
-                                if (title) {
-                                    td = $('kronolithYearTable' + month).down('td[date=' + dateString + ']');
-                                    td.writeAttribute('title', title).addClassName('kronolithHasEvents');
-                                    if (td.readAttribute('nicetitle')) {
-                                        ToolTips.detach(td);
-                                    }
-                                    ToolTips.attach(td);
-                                    if (busy) {
-                                        td.addClassName('kronolithIsBusy');
-                                    }
-                                }
                             }
+                        });
+                    });
+                    if (title) {
+                        td = $('kronolithYearTable' + month).down('td[date=' + dateString + ']');
+                        td.writeAttribute('title', title).addClassName('kronolithHasEvents');
+                        if (td.readAttribute('nicetitle')) {
+                            ToolTips.detach(td);
+                        }
+                        ToolTips.attach(td);
+                        if (busy) {
+                            td.addClassName('kronolithIsBusy');
                         }
                     }
-                });
-            });
+                }
+            }
             return;
         }
 
