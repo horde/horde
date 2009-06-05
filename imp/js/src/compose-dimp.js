@@ -236,7 +236,9 @@ var DimpCompose = {
             case 'send_message':
                 this.button_pressed = false;
                 if (DIMP.baseWindow) {
-                    DIMP.baseWindow.DimpBase.flag(d.reply_type == 'reply' ? '\\answered' : '$forwarded', true, { index: d.index, mailbox: d.reply_folder, noserver: true });
+                    if (d.reply_type) {
+                        DIMP.baseWindow.DimpBase.flag(d.reply_type == 'reply' ? '\\answered' : '$forwarded', true, { index: d.index, mailbox: d.reply_folder, noserver: true });
+                    }
 
                     if (d.folder) {
                         DIMP.baseWindow.DimpBase.createFolder(d.folder);
