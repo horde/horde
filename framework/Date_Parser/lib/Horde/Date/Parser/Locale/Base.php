@@ -107,10 +107,6 @@ class Horde_Date_Parser_Locale_Base
         }
     }
 
-    /**
-     * @TODO this should be an instance method of one of the base classes, and
-     * should already known the locale
-     */
     public function componentFactory($component, $args = null)
     {
         $locale = isset($this->args['locale']) ? $this->args['locale'] : null;
