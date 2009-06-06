@@ -1,7 +1,6 @@
 <?php
 
 define('AUTH_HANDLER', true);
-require dirname(__FILE__) . '/../lib/base.php';
 require $CONTENT_DIR . 'lib/Tags/Tagger.php';
 
 $options = array(
