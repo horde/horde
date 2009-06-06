@@ -852,6 +852,7 @@ KronolithCore = {
                 switch (view) {
                 case 'day':
                 case 'week':
+                case 'month':
                     if (calendar != event.value.calendar) {
                         return;
                     }
