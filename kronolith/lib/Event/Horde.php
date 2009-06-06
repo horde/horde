@@ -45,6 +45,7 @@ class Kronolith_Event_Horde extends Kronolith_Event
         $this->eventID = '_' . $this->_api . $event['id'];
         $this->external = $this->_api;
         $this->external_params = $event['params'];
+        $this->external_icon = !empty($event['icon']) ? $event['icon'] : null;
         $this->title = $event['title'];
         $this->description = isset($event['description']) ? $event['description'] : '';
         $this->start = $eventStart;
@@ -53,6 +54,7 @@ class Kronolith_Event_Horde extends Kronolith_Event
 
         if (isset($event['recurrence'])) {
             $recurrence = new Horde_Date_Recurrence($eventStart);
+
             $recurrence->setRecurType($event['recurrence']['type']);
             if (isset($event['recurrence']['end'])) {
                 $recurrence->setRecurEnd($event['recurrence']['end']);
@@ -76,6 +78,16 @@ class Kronolith_Event_Horde extends Kronolith_Event
 
         $this->initialized = true;
         $this->stored = true;
+    }
+
+    public function toJson($allDay = null, $full = false, $time_format = 'H:i')
+    {
+        $json = parent::toJson($allDay, $full, $time_format);
+        $json->icn = $this->external_icon;
+        // @TODO: What is expected for external calendar links? This is currently
+        // broken in the UI.
+        //$json->link = $this->getLink();
+        return $json;
     }
 
 }

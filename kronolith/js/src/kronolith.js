@@ -1151,6 +1151,10 @@ KronolithCore = {
 
     _setEventText: function(div, event)
     {
+        if (event.icn) {
+            div.insert(new Element('IMG', { 'src': event.icn }));
+        }
+
         div.insert(event.t);
         if (event.a) {
             div.insert(' ')

@@ -2175,7 +2175,9 @@ abstract class Kronolith_Event
                                       Horde::url($registry->getImageDir(), true, -1));
             }
 
-            if (!empty($status)) {
+            if (!empty($this->external) && !empty($this->external_icon)) {
+                $link = $status . Horde::img($this->external_icon, '', '', '') . ' ' . $link;
+            } else if (!empty($status)) {
                 $link .= ' ' . $status;
             }
 
