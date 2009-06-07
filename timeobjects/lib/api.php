@@ -27,6 +27,8 @@ $_services['show'] = array(
  */
 function _timeobjects_listTimeObjectCategories()
 {
+    require_once dirname(__FILE__) . '/base.php';
+
     // @TODO: Probably want to iterate the driver directory
     //        and dynamically build this list and/or maybe provide
     //        a $conf[] setting to explicitly disable certain drivers?
