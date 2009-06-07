@@ -27,6 +27,8 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
             $params['location'] = $contact['homeCity'] . (!empty($contact['homeProvince']) ? ', ' . $contact['homeProvince'] : '') . (!empty($contact['homeCountry']) ? ', ' . $contact['homeCountry'] : '');
         }
 
+        // TODO: Try some other way?
+
         parent::__construct($params);
     }
 

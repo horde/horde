@@ -46,7 +46,13 @@ function _timeobjects_listTimeObjects($time_categories, $start, $end)
     $return = array();
     foreach ($time_categories as $category) {
         $drv = TimeObjects_Driver::factory($category);
-        $new = $drv->listTimeObjects($start, $end);
+
+        try {
+            $new = $drv->listTimeObjects($start, $end);
+        } catch (TimeObjects_Exception $e) {
+            //@TODO: Log the error,  but return an empty array.
+            $new = array();
+        }
         $return = array_merge($return, $new);
     }
 
