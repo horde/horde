@@ -932,8 +932,8 @@ class Horde_Kolab_Server_Object
         }
         if (count($a1) != count($a2)) {
             $intersection = array_intersect($a1, $a2);
-            return array_merge(array_diff($a1, $intersection),
-                               array_diff($a2, $intersection));
+            return array_merge(array_diff_assoc($a1, $intersection),
+                               array_diff_assoc($a2, $intersection));
         }
         $ar = array();
         foreach ($a2 as $k => $v) {
