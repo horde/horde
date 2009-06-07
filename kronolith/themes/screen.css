@@ -1095,13 +1095,11 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
 }
 
 /* Main view agenda. */
-#kronolithViewAgenda thead.kronolithViewHead td.kronolithFirstCol {
-    width: 70px;
-}
-#kronolithViewAgenda tbody.kronolithViewBody td.kronolithFirstCol {
+#kronolithViewAgenda td.kronolithFirstCol {
     width: 70px;
     padding: 4px;
     text-align: left;
+    cursor: pointer;
 }
 #kronolithViewAgenda caption {
     margin-left: 2px;

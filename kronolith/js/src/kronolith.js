@@ -1619,6 +1619,17 @@ KronolithCore = {
                 e.stop();
                 return;
 
+            case 'kronolithViewAgenda':
+                var tmp = orig;
+                if (tmp.tagName != 'td') {
+                    tmp.up('td');
+                }
+                if (tmp && tmp.readAttribute('date')) {
+                    this.go('day:' + tmp.readAttribute('date'));
+                }
+                e.stop();
+                return;
+
             case 'kronolithSearchButton':
                 this.go('search:' + $F('kronolithSearchContext') + ':' + $F('kronolithSearchTerm'))
                 break;
