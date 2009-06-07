@@ -281,6 +281,7 @@ KronolithCore = {
             this.viewLoading = true;
             $('kronolithViewAgenda').appear({ 'queue': 'end', 'afterFinish': function() { this.viewLoading = false; }.bind(this) });
             $('kronolithLoadingagenda').insert($('kronolithLoading').remove());
+            this.updateMinical(this.date, 'search');
             this._addHistory(fullloc);
             this.view = 'agenda';
             break;
