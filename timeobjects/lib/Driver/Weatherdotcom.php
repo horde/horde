@@ -27,9 +27,29 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
             $params['location'] = $contact['homeCity'] . (!empty($contact['homeProvince']) ? ', ' . $contact['homeProvince'] : '') . (!empty($contact['homeCountry']) ? ', ' . $contact['homeCountry'] : '');
         }
 
-        // TODO: Try some other way?
+        // TODO: Try some other way, maybe a hook or a new preference in Horde
+        //       to set your current location, maybe with a google map?
 
         parent::__construct($params);
+    }
+
+    /**
+     * Ensures that we meet all requirements to use this time object
+     *
+     * @return boolean
+     */
+    public function ensure()
+    {
+        if (!class_exists('Services_Weather') ||
+            !class_exists('Cache') ||
+            empty($this->_params['location']) ||
+            empty($conf['weatherdotcom']['partner_id']) ||
+            empty($conf['weatherdotcom']['license_key'])) {
+
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -86,10 +106,6 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
 
         // If the user entered a zip code for the location, no need to
         // search (weather.com accepts zip codes as location IDs).
-        // The location ID should already have been validated in
-        // getParams.
-        //
-        // @TODO: These need to all be changed to use exceptions
         $search = (preg_match('/\b(?:\\d{5}(-\\d{5})?)|(?:[A-Z]{4}\\d{4})\b/',
             $this->_params['location'], $matches) ?
             $matches[0] :
@@ -142,9 +158,9 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
             // simplify and just check for it's presence or use night.
             $title = sprintf("%s %d%s/%d%s", (!empty($data['day']['condition']) ? $data['day']['condition'] : $data['night']['condition']),
                                              $data['temperatureHigh'],
-                                             $units['temp'],
+                                             String::upper($units['temp']),
                                              $data['temperatureLow'],
-                                             $units['temp']);
+                                             String::upper($units['temp']));
             $objects[] = array('id' => $day->timestamp(), //???
                                'title' => $title,
                                'start' => sprintf('%d-%02d-%02dT00:00:00',

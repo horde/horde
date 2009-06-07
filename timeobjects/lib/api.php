@@ -27,7 +27,15 @@ $_services['show'] = array(
  */
 function _timeobjects_listTimeObjectCategories()
 {
-    return array('Weatherdotcom' => _("Weather"));
+    // @TODO: Probably want to iterate the driver directory
+    //        and dynamically build this list and/or maybe provide
+    //        a $conf[] setting to explicitly disable certain drivers?
+    $drv = TimeObjects_Driver::factory('Weatherdotcom');
+    if ($drv->ensure()) {
+        return array('Weatherdotcom' => _("Weather"));
+    } else {
+        return array();
+    }
 }
 
 /**
