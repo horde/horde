@@ -27,7 +27,7 @@ $_services['show'] = array(
  */
 function _timeobjects_listTimeObjectCategories()
 {
-    return array('weather' => _("Weather"));
+    return array('Weatherdotcom' => _("Weather"));
 }
 
 /**
