@@ -438,9 +438,12 @@ function _imp_server()
     $GLOBALS['authentication'] = 'none';
     require_once dirname(__FILE__) . '/base.php';
 
-    return IMP::checkAuthentication(true)
-        ? $_SESSION['imp']['server']
-        : null;
+    if (IMP::checkAuthentication(true)) {
+        $imap_obj = unserialize($_SESSION['imp']['imap_ob']);
+        return $imap_obj->getParam('hostspec');
+    } else {
+        return null;
+    }
 }
 
 /**
