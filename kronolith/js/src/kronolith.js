@@ -793,10 +793,12 @@ KronolithCore = {
     /**
      * Reads events from the cache and inserts them into the view.
      *
-     * If inserting events into day views, the calendar parameter is ignored,
-     * and events from all visible calendars are inserted instead. This is
-     * necessary because the complete view has to be re-rendered if events are
-     * not in chronological order.
+     * If inserting events into day and week views, the calendar parameter is
+     * ignored, and events from all visible calendars are inserted instead.
+     * This is necessary because the complete view has to be re-rendered if
+     * events are not in chronological order.
+     * The year view is specially handled too because there are no individual
+     * events, only a summary of all events per day.
      *
      * @param Array dates      Start and end of dates to process.
      * @param string view      The view to update.
