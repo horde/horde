@@ -14,9 +14,21 @@
  */
 class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
 {
-    protected $_params = array('location' => '08080',
-                               'units' => 'standard',
+    protected $_params = array('units' => 'standard',
                                'days' => 5);
+
+    public function __construct($params)
+    {
+        if (empty($params['location'])) {
+            // Try to get a good location string from Turba's "own" contact
+            $own = $GLOBALS['registry']->horde->getPreference('turba', 'own_contact');
+            @list($source, $id) = explode(';', $own);
+            $contact = $GLOBALS['registry']->contacts->getContact($source, $id);
+            $params['location'] = $contact['homeCity'] . (!empty($contact['homeProvince']) ? ', ' . $contact['homeProvince'] : '') . (!empty($contact['homeCountry']) ? ', ' . $contact['homeCountry'] : '');
+        }
+
+        parent::__construct($params);
+    }
 
     /**
      *
