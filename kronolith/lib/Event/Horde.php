@@ -46,6 +46,7 @@ class Kronolith_Event_Horde extends Kronolith_Event
         $this->external = $this->_api;
         $this->external_params = $event['params'];
         $this->external_icon = !empty($event['icon']) ? $event['icon'] : null;
+        $this->external_link = !empty($event['link']) ? $event['link'] : null;
         $this->title = $event['title'];
         $this->description = isset($event['description']) ? $event['description'] : '';
         $this->start = $eventStart;

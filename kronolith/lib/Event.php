@@ -2106,8 +2106,8 @@ abstract class Kronolith_Event
 
         $link = '';
         $event_title = $this->getTitle();
-        if (isset($this->external)) {
-            $link = $registry->link($this->external . '/show', $this->external_params);
+        if (isset($this->external) && !empty($this->external_link)) {
+            $link = $this->external_link;
             $link = Horde::linkTooltip(Horde::url($link), '', 'event-tentative', '', '', String::wrap($this->description));
         } elseif (isset($this->eventID) && $this->hasPermission(PERMS_READ)) {
             $link = Horde::linkTooltip($this->getViewUrl(array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'), 'url' => $from_url), $full),

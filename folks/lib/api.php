@@ -388,7 +388,8 @@ function _folks_listTimeObjects($categories, $start, $end)
             'id' => $friend,
             'start' => date('Y-m-d\TH:i:s', $born),
             'end' => date('Y-m-d\TH:i:s', $born + 1),
-            'params' => array('user' => $friend));
+            'params' => array('user' => $friend),
+            'link' => Folks::getUrlFor('user', $friend, true));
     }
 
     return $objects;
