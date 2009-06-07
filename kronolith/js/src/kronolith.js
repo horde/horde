@@ -268,9 +268,7 @@ KronolithCore = {
                               }
                               $H(r.response.events).each(function(calendars) {
                                   $H(calendars.value).each(function(events) {
-                                      if (!$('kronolithAgendaDay' + events.key)) {
-                                          $('kronolithViewAgendaBody').insert(this.createAgendaDay(this.parseDate(events.key), 0).show());
-                                      }
+                                      this.createAgendaDay(events.key);
                                       $H(events.value).each(function(event) {
                                           event.value.calendar = calendars.key;
                                           event.value.start = Date.parse(event.value.s);
@@ -374,32 +372,24 @@ KronolithCore = {
 
         case 'agenda':
         case 'search':
-            var tbody = $('kronolithViewAgendaBody'), row;
-
+            // Agenda days are only created on demand, if there are any events
+            // to add.
             if (view == 'agenda') {
                 var dates = this.viewDates(date, view),
                     day = dates[0].clone();
-                this.setTitle(Kronolith.text.agenda + ' ' + dates[0].toString('d') + ' - ' + dates[1].toString('d'));
-                $('kronolithViewAgenda').down('caption span').innerHTML = Kronolith.text.agenda;
+                $('kronolithViewAgenda').down('caption span').innerHTML = this.setTitle(Kronolith.text.agenda + ' ' + dates[0].toString('d') + ' - ' + dates[1].toString('d'));
             } else {
                 $('kronolithViewAgenda').down('caption span').update(this.setTitle(Kronolith.text.searching.interpolate({ 'term': data })));
             }
 
             // Remove old rows. Maybe we should only rebuild the calendars if
             // necessary.
-            tbody.childElements().each(function(row) {
+            tbody = $('kronolithViewAgendaBody').childElements().each(function(row) {
                 if (row.identify() != 'kronolithAgendaTemplate') {
                     row.remove();
                 }
             });
 
-            if (view == 'agenda') {
-                // Build new calendar view.
-                while (!day.isAfter(dates[1])) {
-                    tbody.insert(this.createAgendaDay(day, 0).show());
-                    day.next().day();
-                }
-            }
             break;
         }
     },
@@ -485,25 +475,34 @@ KronolithCore = {
     },
 
     /**
-     * Creates a table row for a single day in the agenda view.
+     * Creates a table row for a single day in the agenda view, if it doesn't
+     * exist yet.
      *
-     * @param Date date    The first day to show in the row.
-     * @param integer num  The number of the row.
+     * @param string date    The day to show in the row.
      *
      * @return Element  The element rendering a week row.
      */
-    createAgendaDay: function(date, num)
+    createAgendaDay: function(date)
     {
+        // Exit if row exists already.
+        if ($('kronolithAgendaDay' + date)) {
+            return;
+        }
+
         // Create a copy of the row template.
-        var row = $('kronolithAgendaTemplate').cloneNode(true);
+        var body = $('kronolithViewAgendaBody'),
+            row = $('kronolithAgendaTemplate').cloneNode(true);
         row.removeAttribute('id');
 
         // Fill week number and day cells.
-        row.addClassName('kronolithRow' + (num % 2 ? 'Odd' : 'Even'))
+        row.addClassName('kronolithRow' + (body.select('tr').length % 2 == 1 ? 'Odd' : 'Even'))
             .down()
-            .setText(date.toString('D'))
+            .setText(this.parseDate(date).toString('D'))
             .next()
-            .writeAttribute('id', 'kronolithAgendaDay' + date.dateString());
+            .writeAttribute('id', 'kronolithAgendaDay' + date);
+
+        // Insert row.
+        body.insert(row.show());
 
         return row;
     },
@@ -1143,6 +1142,7 @@ KronolithCore = {
                     .insert(new Element('SPAN', { 'class': 'kronolithSep' }).update('&middot;'))
                     .insert(' ');
             }
+            this.createAgendaDay(date);
             $('kronolithAgendaDay' + date).insert(div);
             break;
         }
