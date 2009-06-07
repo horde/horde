@@ -850,9 +850,8 @@ KronolithCore = {
 
             this._getCacheForDate(date).sortBy(this._sortEvents).each(function(event) {
                 switch (view) {
-                case 'day':
-                case 'week':
                 case 'month':
+                case 'agenda':
                     if (calendar != event.value.calendar) {
                         return;
                     }
@@ -892,6 +891,8 @@ KronolithCore = {
 
             day.next().day();
         }
+        // Workaround Firebug bug.
+        Prototype.emptyFunction();
     },
 
     /**
