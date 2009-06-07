@@ -337,7 +337,6 @@ class Horde_Browser
             $this->setBrowser('opera');
             list($this->_majorVersion, $this->_minorVersion) = explode('.', $version[1]);
             $this->setFeature('javascript');
-            $this->setFeature('dataurl');
             $this->setQuirk('no_filename_spaces');
 
             /* Opera Mobile reports its screen resolution in the user
@@ -351,9 +350,11 @@ class Horde_Browser
                     $this->setFeature('xmlhttpreq');
                     $this->setFeature('javascript', 1.5);
                 }
-                if (($this->_majorVersion >= 9) &&
-                    ($this->_minorVersion >= 5)) {
-                    $this->setFeature('rte');
+                if ($this->_majorVersion >= 9) {
+                    $this->setFeature('dataurl');
+                    if ($this->_minorVersion >= 5) {
+                        $this->setFeature('rte');
+                    }
                 }
                 $this->setFeature('dom');
                 $this->setFeature('iframes');
@@ -437,7 +438,7 @@ class Horde_Browser
                 $this->setFeature('accesskey');
                 $this->setFeature('optgroup');
                 $this->setFeature('xmlhttpreq');
-                $this->setFeature('dataurl');
+                $this->setFeature('dataurl', 32768);
                 break;
 
             case 7:
@@ -597,7 +598,6 @@ class Horde_Browser
         } elseif (preg_match('|Mozilla/([0-9.]+)|', $agent, $version)) {
             $this->setBrowser('mozilla');
             $this->setQuirk('must_cache_forms');
-            $this->setFeature('dataurl');
 
             list($this->_majorVersion, $this->_minorVersion) = explode('.', $version[1]);
             switch ($this->_majorVersion) {
@@ -617,6 +617,9 @@ class Horde_Browser
                     }
                     if ($revision[1] >= 1.3) {
                         $this->setFeature('rte');
+                    }
+                    if (version_compare($revision[1], '1.8.1', '>=')) {
+                        $this->setFeature('dataurl');
                     }
                 }
                 break;
