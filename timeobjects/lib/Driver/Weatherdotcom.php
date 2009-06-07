@@ -24,7 +24,13 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
             $own = $GLOBALS['registry']->horde->getPreference('turba', 'own_contact');
             @list($source, $id) = explode(';', $own);
             $contact = $GLOBALS['registry']->contacts->getContact($source, $id);
-            $params['location'] = $contact['homeCity'] . (!empty($contact['homeProvince']) ? ', ' . $contact['homeProvince'] : '') . (!empty($contact['homeCountry']) ? ', ' . $contact['homeCountry'] : '');
+            $params['location'] = !empty($contact['homeCity'])
+                ? $contact['homeCity']
+                    . (!empty($contact['homeProvince']) ? ', ' . $contact['homeProvince'] : '')
+                    . (!empty($contact['homeCountry']) ? ', ' . $contact['homeCountry'] : '')
+                : $contact['workCity']
+                    . (!empty($contact['workProvince']) ? ', ' . $contact['workProvince'] : '')
+                    . (!empty($contact['workCountry']) ? ', ' . $contact['workCountry'] : '');
         }
 
         // TODO: Try some other way, maybe a hook or a new preference in Horde
@@ -43,8 +49,8 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
         if (!class_exists('Services_Weather') ||
             !class_exists('Cache') ||
             empty($this->_params['location']) ||
-            empty($conf['weatherdotcom']['partner_id']) ||
-            empty($conf['weatherdotcom']['license_key'])) {
+            empty($GLOBALS['conf']['weatherdotcom']['partner_id']) ||
+            empty($GLOBALS['conf']['weatherdotcom']['license_key'])) {
 
             return false;
         }
@@ -139,7 +145,7 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
             }
         }
         if (is_array($search)) {
-            throw new TimeObjects_Exception(_(sprintf("Several locations possible with the paramter: ", $this->_params['location'])));
+            $search = key($search);
         }
         $forecast = $weatherDotCom->getForecast($search, $this->_params['days']);
         if (is_a($forecast, 'PEAR_Error')) {
