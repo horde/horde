@@ -498,11 +498,23 @@ KronolithCore = {
         row.addClassName('kronolithRow' + (body.select('tr').length % 2 == 1 ? 'Odd' : 'Even'))
             .down()
             .setText(this.parseDate(date).toString('D'))
+            .writeAttribute('date', date)
             .next()
             .writeAttribute('id', 'kronolithAgendaDay' + date);
 
         // Insert row.
-        body.insert(row.show());
+        var nextRow;
+        body.childElements().each(function(elm) {
+            if (elm.down().readAttribute('date') > date) {
+                nextRow = elm;
+                return;
+            }
+        });
+        if (nextRow) {
+            nextRow.insert({ 'before': row.show() });
+        } else {
+            body.insert(row.show());
+        }
 
         return row;
     },
