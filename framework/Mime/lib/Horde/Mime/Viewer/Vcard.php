@@ -124,13 +124,20 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Driver
 
             $photos = $vc->getAllAttributes('PHOTO');
             foreach ($photos as $photo) {
-                if (!isset($photo['params']['VALUE']) ||
-                    String::upper($photo['params']['VALUE']) != 'URI') {
-                    continue;
+                if (isset($photo['params']['VALUE']) &&
+                    String::upper($photo['params']['VALUE']) == 'URI') {
+                    $html .= $this->_row(_("Photo"),
+                                         '<img src="' . htmlspecialchars($photo['value']) . '" />',
+                                         false);
+                } elseif (isset($photo['params']['ENCODING']) &&
+                          String::upper($photo['params']['ENCODING']) == 'B' &&
+                          isset($photo['params']['TYPE']) &&
+                          ($GLOBALS['browser']->hasFeature('datauri') === true ||
+                           $GLOBALS['browser']->hasFeature('datauri') >= strlen($photo['value']))) {
+                    $html .= $this->_row(_("Photo"),
+                                         '<img src="data:' . htmlspecialchars($photo['params']['TYPE'] . ';base64,' . $photo['value']) . '" />',
+                                         false);
                 }
-                $html .= $this->_row(_("Photo"),
-                                     '<img src="' . htmlspecialchars($photo['value']) . '" />',
-                                     false);
             }
 
             $labels = $vc->getAllAttributes('LABEL');
