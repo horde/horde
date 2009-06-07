@@ -1,0 +1,35 @@
+<?php
+/**
+ * @TODO
+ */
+class TimeObjects_Driver
+{
+    protected $_params = array();
+
+    public function __construct($params)
+    {
+        $this->_params = array_merge($params, $this->_params);
+    }
+
+    /**
+     * @abstract
+     * @param $start
+     * @param $end
+     * @return unknown_type
+     */
+    public function listTimeObjects($start, $end)
+    {
+    }
+
+    public function factory($name, $params = array())
+    {
+        $class = 'TimeObjects_Driver_' . basename($name);
+        if (class_exists($class)) {
+            $driver = &new $class($params);
+        } else {
+            $driver = PEAR::raiseError(sprintf(_("Unable to load the definition of %s."), $class));
+        }
+
+        return $driver;
+    }
+}
