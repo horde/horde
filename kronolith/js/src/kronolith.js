@@ -286,6 +286,27 @@ KronolithCore = {
             this.view = 'agenda';
             break;
 
+        case 'event':
+            if (!this.view) {
+                this.go(Kronolith.conf.login_view);
+                this.go.bind(this, fullloc, data).defer();
+                return;
+            }
+            switch (locParts.length) {
+            case 0:
+                this.editEvent();
+                break;
+            case 1:
+                this.editEvent(null, null, locParts[0]);
+                break;
+            case 2:
+                this.editEvent(locParts[0], locParts[1]);
+                break;
+            }
+            this.updateMinical(this.date, this.view);
+            this._addHistory(fullloc);
+            break;
+
         case 'options':
             //this.highlightSidebar('appoptions');
             this._addHistory(loc);
@@ -1504,7 +1525,7 @@ KronolithCore = {
                 return;
 
             case 'kronolithNewEvent':
-                this.editEvent();
+                this.go('event');
                 e.stop();
                 return;
 
@@ -1677,7 +1698,7 @@ KronolithCore = {
                 return;
 
             case 'kronolithAddEvent':
-                this.editEvent(null, null, elt.readAttribute('date'));
+                this.go('event:' + elt.readAttribute('date'));
                 e.stop();
                 return;
 
@@ -1688,7 +1709,7 @@ KronolithCore = {
             }
 
             if (elt.hasClassName('kronolithEvent')) {
-                this.editEvent(elt.readAttribute('calendar'), elt.readAttribute('eventid'));
+                this.go('event:' + elt.readAttribute('calendar') + ':' + elt.readAttribute('eventid'));
                 e.stop();
                 return;
             } else if (elt.hasClassName('kronolithWeekDay')) {
@@ -1740,6 +1761,11 @@ KronolithCore = {
 
     editEvent: function(calendar, id, date)
     {
+        if (Object.isUndefined($('kronolithEventTags').autocompleter)) {
+            this.editEvent.bind(this, calendar, id, date).defer();
+            return;
+        }
+
         RedBox.onDisplay = function() {
             try {
                 $('kronolithEventForm').focusFirstElement();
