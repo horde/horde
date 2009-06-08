@@ -121,6 +121,20 @@ class Horde_Date_Recurrence
     }
 
     /**
+     * Resets the class properties.
+     */
+    public function reset()
+    {
+        $this->recurEnd = null;
+        $this->recurCount = null;
+        $this->recurType = self::RECUR_NONE;
+        $this->recurInterval = 1;
+        $this->recurData = null;
+        $this->exceptions = array();
+        $this->completions = array();
+    }
+
+    /**
      * Checks if this event recurs on a given day of the week.
      *
      * @param integer $dayMask  A mask consisting of Horde_Date::MASK_*
@@ -801,6 +815,8 @@ class Horde_Date_Recurrence
      */
     public function fromRRule10($rrule)
     {
+        $this->reset();
+
         if (!$rrule) {
             return;
         }
@@ -971,6 +987,8 @@ class Horde_Date_Recurrence
      */
     public function fromRRule20($rrule)
     {
+        $this->reset();
+
         // Parse the recurrence rule into keys and values.
         $rdata = array();
         $parts = explode(';', $rrule);
@@ -1154,6 +1172,8 @@ class Horde_Date_Recurrence
      */
     public function fromHash($hash)
     {
+        $this->reset();
+
         if (!isset($hash['interval']) || !isset($hash['interval']) ||
             !isset($hash['range-type'])) {
             $this->setRecurType(self::RECUR_NONE);
