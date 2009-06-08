@@ -29,6 +29,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    * Initial Horde_Support_Array object
    * Initial Horde_Support_ConsistentHash object
    * Initial Horde_Support_Inflector object
+   * Initial Horde_Support_Stack object
    * Initial Horde_Support_Stub object
    * Initial Horde_Support_Timer object
    * Initial Horde_Support_Uuid object
@@ -49,6 +50,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="ConsistentHash.php" role="php" />
       <file name="Inflector.php" role="php" />
       <file name="Numerizer.php" role="php" />
+      <file name="Stack.php" role="php" />
       <file name="Stub.php" role="php" />
       <file name="Timer.php" role="php" />
       <file name="Uuid.php" role="php" />
@@ -75,6 +77,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Support/Numerizer/Locale/Base.php" as="Horde/Support/Numerizer/Locale/Base.php" />
    <install name="lib/Horde/Support/Numerizer/Locale/De.php" as="Horde/Support/Numerizer/Locale/De.php" />
    <install name="lib/Horde/Support/Numerizer.php" as="Horde/Support/Numerizer.php" />
+   <install name="lib/Horde/Support/Stack.php" as="Horde/Support/Stack.php" />
    <install name="lib/Horde/Support/Stub.php" as="Horde/Support/Stub.php" />
    <install name="lib/Horde/Support/Timer.php" as="Horde/Support/Timer.php" />
    <install name="lib/Horde/Support/Uuid.php" as="Horde/Support/Uuid.php" />
