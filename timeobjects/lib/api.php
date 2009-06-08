@@ -32,12 +32,19 @@ function _timeobjects_listTimeObjectCategories()
     // @TODO: Probably want to iterate the driver directory
     //        and dynamically build this list and/or maybe provide
     //        a $conf[] setting to explicitly disable certain drivers?
+    $drivers = array();
+
     $drv = TimeObjects_Driver::factory('Weatherdotcom');
     if ($drv->ensure()) {
-        return array('Weatherdotcom' => _("Weather"));
-    } else {
-        return array();
+        $drivers['Weatherdotcom'] = _("Weather");
     }
+
+    $drv = TimeObjects_Driver::factory('FacebookEvents');
+    if ($drv->ensure()) {
+        $drivers['FacebookEvents'] = _("Facebook Events");
+    }
+
+    return $drivers;
 }
 
 /**
