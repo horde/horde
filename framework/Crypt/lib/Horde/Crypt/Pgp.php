@@ -1314,7 +1314,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
 
         /* Verify the signature.  We need to catch standard error output,
          * since this is where the signature information is sent. */
-        $result = $this->_callGpg($cmdline, 'r', null, true, true, true);
+        $result = $this->_callGpg($cmdline, 'r', null, true, true);
         return $this->_checkSignatureResult($result->stderr, $result->stderr);
     }
 
