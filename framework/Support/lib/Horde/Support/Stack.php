@@ -23,7 +23,7 @@ class Horde_Support_Stack
 
     public function __construct($stack = array())
     {
-        $this->_a = $stack;
+        $this->_stack = $stack;
     }
 
     public function push($value)
