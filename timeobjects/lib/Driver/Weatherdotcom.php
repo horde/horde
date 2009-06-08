@@ -155,6 +155,11 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
             throw new TimeObjects_Exception($forecast->getMessage());
         }
 
+        $location = $weatherDotCom->getLocation($search);
+        if (is_a($location, 'PEAR_Error')) {
+            throw new TimeObjects_Exception($location->getMessage());
+        }
+
         $now = new Horde_Date(time());
         $objects = array();
         foreach ($forecast['days'] as $which => $data) {
@@ -170,8 +175,31 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
                                              String::upper($units['temp']),
                                              $data['temperatureLow'],
                                              String::upper($units['temp']));
+            $daytime = sprintf(_("Conditions: %s\nHigh: %d%s\nPrecipitation: %d%%\nHumidity: %d%%\nWinds: From the %s at %s"),
+                           $data['day']['condition'],
+                           $data['temperatureHigh'], String::upper($units['temp']),
+                           $data['day']['precipitation'],
+                           $data['day']['humidity'],
+                           $data['day']['windDirection'],
+                           $data['day']['wind'] . String::upper($units['wind']));
+             $nighttime = sprintf(_("Conditions: %s\nLow: %d%s\nPrecipitation: %d%%\nHumidity: %d%%\nWinds: From the %s at %s"),
+                           $data['night']['condition'],
+                           $data['temperatureLow'], String::upper($units['temp']),
+                           $data['night']['precipitation'],
+                           $data['night']['humidity'],
+                           $data['night']['windDirection'],
+                           $data['night']['wind'] . String::upper($units['wind']));
+
+            $description = sprintf(_("Location: %s\nSunrise: %sAM Sunset: %sPM\n\nDay:\n%s\n\nEvening:\n%s"),
+                                   $location['name'],
+                                   $data['sunrise'],
+                                   $data['sunset'],
+                                   $daytime,
+                                   $nighttime
+                                   );
             $objects[] = array('id' => $day->timestamp(), //???
                                'title' => $title,
+                               'description' => $description,
                                'start' => sprintf('%d-%02d-%02dT00:00:00',
                                                   $day->year,
                                                   $day->month,
@@ -182,6 +210,7 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
                                                 $day_end->mday),
                                 'recurrence' => Horde_Date_Recurrence::RECUR_NONE,
                                 'params' => array(),
+                                'link' => '#',
                                 'icon' =>  Horde::url($GLOBALS['registry']->getImageDir('horde') . '/block/weatherdotcom/23x23/' . ($data['day']['conditionIcon'] == '-' ? 'na' : $data['day']['conditionIcon']) . '.png', true, false)
                         );
        }
