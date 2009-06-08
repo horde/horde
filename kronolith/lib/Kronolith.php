@@ -716,7 +716,7 @@ class Kronolith
      */
     public static function addEvents(&$results, &$event, $startDate, $endDate,
                                      $showRecurrence, $json,
-                                     $coverDates = false)
+                                     $coverDates = true)
     {
         if ($event->recurs() && $showRecurrence) {
             /* Recurring Event. */
