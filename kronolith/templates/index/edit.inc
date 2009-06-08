@@ -61,8 +61,8 @@
 
 <div>
   <label for="id_tags"><?php echo _("Tags") ?></label><br />
-  <input id="tags" name="tags" />
-  <span id="tags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
+  <input id="kronolithEventTags" name="tags" />
+  <span id="kronolithEventTags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
 </div>
 
 <div id="kronolithEventTopTags"></div>
