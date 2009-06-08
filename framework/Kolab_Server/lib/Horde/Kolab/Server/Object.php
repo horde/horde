@@ -45,6 +45,9 @@ class Horde_Kolab_Server_Object
     /** The time the object was created */
     const ATTRIBUTE_CREATIONDATE = 'createTimestamp';
 
+    /** Access rules for this object */
+    const ATTRIBUTE_ACI = 'OpenLDAPaci';
+
     /** The attribute holding the object classes */
     const ATTRIBUTE_OC = 'objectClass';
 
@@ -124,6 +127,7 @@ class Horde_Kolab_Server_Object
         'defined' => array(
             self::ATTRIBUTE_OC,
             self::ATTRIBUTE_CREATIONDATE,
+            self::ATTRIBUTE_ACI,
         ),
         /**
          * Derived attributes are calculated based on other attribute values.
