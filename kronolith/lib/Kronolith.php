@@ -111,9 +111,9 @@ class Kronolith
              "<head>\n" .
              '<title>' . htmlspecialchars($page_title) . "</title>\n" .
              '<link href="' . $GLOBALS['registry']->getImageDir() . "/favicon.ico\" rel=\"SHORTCUT ICON\" />\n".
-             Kronolith::wrapInlineScript(Kronolith::includeJSVars());
+             self::wrapInlineScript(self::includeJSVars());
 
-        Kronolith::includeStylesheetFiles(true);
+        self::includeStylesheetFiles(true);
 
         echo "</head>\n";
 
@@ -149,7 +149,7 @@ class Kronolith
             'name' => $registry->get('name'),
             'is_ie6' => ($browser->isBrowser('msie') && ($browser->getMajor() < 7)),
             'login_view' => $prefs->getValue('defaultview'),
-            'default_calendar' => 'internal|' . Kronolith::getDefaultCalendar(PERMS_EDIT),
+            'default_calendar' => 'internal|' . self::getDefaultCalendar(PERMS_EDIT),
             'week_start' => (int)$prefs->getValue('week_start_monday'),
             'date_format' => str_replace(array('%e', '%d', '%a', '%A', '%m', '%h', '%b', '%B', '%y', '%Y'),
                                          array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy'),
@@ -168,8 +168,8 @@ class Kronolith
                 'name' => ($owner ? '' : '[' . Auth::removeHook($calendar->get('owner')) . '] ')
                     . $calendar->get('name'),
                 'owner' => $owner,
-                'fg' => Kronolith::foregroundColor($calendar),
-                'bg' => Kronolith::backgroundColor($calendar),
+                'fg' => self::foregroundColor($calendar),
+                'bg' => self::backgroundColor($calendar),
                 'show' => in_array($id, $GLOBALS['display_calendars']));
         }
         foreach ($GLOBALS['all_external_calendars'] as $api => $categories) {
@@ -186,8 +186,8 @@ class Kronolith
         foreach ($GLOBALS['all_remote_calendars'] as $calendar) {
             $code['conf']['calendars']['remote'][$calendar['url']] = array(
                 'name' => $calendar['name'],
-                'fg' => Kronolith::foregroundColor($calendar),
-                'bg' => Kronolith::backgroundColor($calendar),
+                'fg' => self::foregroundColor($calendar),
+                'bg' => self::backgroundColor($calendar),
                 'show' => in_array($calendar['url'], $GLOBALS['display_remote_calendars']));
         }
         if (!empty($GLOBALS['conf']['holidays']['enable'])) {
@@ -222,7 +222,7 @@ class Kronolith
                        Horde_Date_Recurrence::RECUR_YEARLY_DATE,
                        Horde_Date_Recurrence::RECUR_YEARLY_DAY,
                        Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY) as $recurType) {
-            $code['text']['recur'][$recurType] = Kronolith::recurToString($recurType);
+            $code['text']['recur'][$recurType] = self::recurToString($recurType);
         }
 
         return array('var Kronolith = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, NLS::getCharset()) . ';');
@@ -267,7 +267,7 @@ class Kronolith
         // If headers have already been sent, we need to output a <script> tag
         // directly.
         if (ob_get_length() || headers_sent()) {
-            Kronolith::outputInlineScript();
+            self::outputInlineScript();
         }
     }
 
@@ -350,7 +350,7 @@ class Kronolith
         case 'horde_cache':
             $cache = &Horde_Cache::singleton($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
             $exists = $cache->exists($sig, empty($conf['server']['cachejsparams']['lifetime']) ? 0 : $conf['server']['cachejsparams']['lifetime']);
-            $js_url = Kronolith::getCacheURL('js', $sig);
+            $js_url = self::getCacheURL('js', $sig);
             break;
         }
 
@@ -454,7 +454,7 @@ class Kronolith
             case 'horde_cache':
                 $cache = &Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
                 $exists = $cache->exists($sig, empty($GLOBALS['conf']['server']['cachecssparams']['lifetime']) ? 0 : $GLOBALS['conf']['server']['cachecssparams']['lifetime']);
-                $css_url = Kronolith::getCacheURL('css', $sig);
+                $css_url = self::getCacheURL('css', $sig);
                 break;
             }
 
@@ -555,7 +555,7 @@ class Kronolith
      */
     public static function listAlarms($date, $calendars, $fullevent = false)
     {
-        $kronolith_driver = Kronolith::getDriver();
+        $kronolith_driver = self::getDriver();
 
         $alarms = array();
         foreach ($calendars as $cal) {
@@ -595,11 +595,11 @@ class Kronolith
 
         $events = array();
         foreach ($calendars as $type => $list) {
-            $kronolith_driver = Kronolith::getDriver($type);
+            $kronolith_driver = self::getDriver($type);
             foreach ($list as $cal) {
                 $kronolith_driver->open($cal);
                 $retevents = $kronolith_driver->search($query);
-                Kronolith::mergeEvents($events, $retevents);
+                self::mergeEvents($events, $retevents);
             }
         }
 
@@ -634,48 +634,48 @@ class Kronolith
         if (!isset($calendars)) {
             $calendars = $GLOBALS['display_calendars'];
         }
-        $driver = Kronolith::getDriver();
+        $driver = self::getDriver();
         foreach ($calendars as $calendar) {
             $driver->open($calendar);
             $events = $driver->listEvents($startDate, $endDate, true);
             if (!is_a($events, 'PEAR_Error')) {
-                Kronolith::mergeEvents($results, $events);
+                self::mergeEvents($results, $events);
             }
         }
 
         if ($showRemote) {
             /* Horde applications providing listTimeObjects. */
-            $driver = Kronolith::getDriver('Horde');
+            $driver = self::getDriver('Horde');
             foreach ($GLOBALS['display_external_calendars'] as $external_cal) {
                 $driver->open($external_cal);
                 $events = $driver->listEvents($startDate, $endDate, true);
                 if (!is_a($events, 'PEAR_Error')) {
-                    Kronolith::mergeEvents($results, $events);
+                    self::mergeEvents($results, $events);
                 }
             }
 
             /* Remote Calendars. */
-            $driver = Kronolith::getDriver('Ical');
+            $driver = self::getDriver('Ical');
             foreach ($GLOBALS['display_remote_calendars'] as $url) {
                 $driver->open($url);
-                foreach (Kronolith::getRemoteParams($url) as $param => $value) {
+                foreach (self::getRemoteParams($url) as $param => $value) {
                     $driver->setParam($param, $value);
                 }
                 $events = $driver->listEvents($startDate, $endDate, true);
                 if (!is_a($events, 'PEAR_Error')) {
-                    Kronolith::mergeEvents($results, $events);
+                    self::mergeEvents($results, $events);
                 }
             }
         }
 
         /* Holidays. */
         if (!empty($GLOBALS['conf']['holidays']['enable'])) {
-            $driver = Kronolith::getDriver('Holidays');
+            $driver = self::getDriver('Holidays');
             foreach (unserialize($GLOBALS['prefs']->getValue('holiday_drivers')) as $holiday) {
                 $driver->open($holiday);
                 $events = $driver->listEvents($startDate, $endDate, true);
                 if (!is_a($events, 'PEAR_Error')) {
-                    Kronolith::mergeEvents($results, $events);
+                    self::mergeEvents($results, $events);
                 }
             }
         }
@@ -759,7 +759,7 @@ class Kronolith
                                                       $event->start->month,
                                                       $event->start->mday)) {
                     if ($coverDates) {
-                        Kronolith::addCoverDates($results, $event, $event->start, $event->end, $json);
+                        self::addCoverDates($results, $event, $event->start, $event->end, $json);
                     } else {
                         $results[$event->start->dateString()][$event->getId()] = $json ? $event->toJson() : $event;
                     }
@@ -783,7 +783,7 @@ class Kronolith
                     $nextEnd->hour  += $diff[3];
                     $nextEnd->min   += $diff[4];
                     if ($coverDates) {
-                        Kronolith::addCoverDates($results, $event, $next, $nextEnd, $json);
+                        self::addCoverDates($results, $event, $next, $nextEnd, $json);
                     } else {
                         $addEvent = clone $event;
                         $addEvent->start = $next;
@@ -929,8 +929,8 @@ class Kronolith
             return $count;
         }
 
-        $kronolith_driver = Kronolith::getDriver();
-        $calendars = Kronolith::listCalendars(true, PERMS_ALL);
+        $kronolith_driver = self::getDriver();
+        $calendars = self::listCalendars(true, PERMS_ALL);
         $current_calendar = $kronolith_driver->getCalendar();
 
         $count = 0;
@@ -958,7 +958,7 @@ class Kronolith
         /* Initialize Kronolith session if we don't have one */
         if (!isset($_SESSION['kronolith_session'])) {
             $_SESSION['kronolith_session'] = array();
-            Kronolith::loginTasksFlag(1);
+            self::loginTasksFlag(1);
         }
 
         /* Fetch display preferences. */
@@ -1046,7 +1046,7 @@ class Kronolith
         }
 
         /* Make sure all shares exists now to save on checking later. */
-        $GLOBALS['all_calendars'] = Kronolith::listCalendars();
+        $GLOBALS['all_calendars'] = self::listCalendars();
         $calendar_keys = array_values($GLOBALS['display_calendars']);
         $GLOBALS['display_calendars'] = array();
         foreach ($calendar_keys as $id) {
@@ -1281,16 +1281,16 @@ class Kronolith
     public static function statusToString($status)
     {
         switch ($status) {
-        case Kronolith::STATUS_CONFIRMED:
+        case self::STATUS_CONFIRMED:
             return _("Confirmed");
 
-        case Kronolith::STATUS_CANCELLED:
+        case self::STATUS_CANCELLED:
             return _("Cancelled");
 
-        case Kronolith::STATUS_FREE:
+        case self::STATUS_FREE:
             return _("Free");
 
-        case Kronolith::STATUS_TENTATIVE:
+        case self::STATUS_TENTATIVE:
         default:
             return _("Tentative");
         }
@@ -1308,16 +1308,16 @@ class Kronolith
     public static function responseToString($response)
     {
         switch ($response) {
-        case Kronolith::RESPONSE_ACCEPTED:
+        case self::RESPONSE_ACCEPTED:
             return _("Accepted");
 
-        case Kronolith::RESPONSE_DECLINED:
+        case self::RESPONSE_DECLINED:
             return _("Declined");
 
-        case Kronolith::RESPONSE_TENTATIVE:
+        case self::RESPONSE_TENTATIVE:
             return _("Tentative");
 
-        case Kronolith::RESPONSE_NONE:
+        case self::RESPONSE_NONE:
         default:
             return _("None");
         }
@@ -1336,13 +1336,13 @@ class Kronolith
     public static function partToString($part)
     {
         switch ($part) {
-        case Kronolith::PART_OPTIONAL:
+        case self::PART_OPTIONAL:
             return _("Optional");
 
-        case Kronolith::PART_NONE:
+        case self::PART_NONE:
             return _("None");
 
-        case Kronolith::PART_REQUIRED:
+        case self::PART_REQUIRED:
         default:
             return _("Required");
         }
@@ -1360,17 +1360,17 @@ class Kronolith
     {
         switch (String::upper($response)) {
         case 'ACCEPTED':
-            return Kronolith::RESPONSE_ACCEPTED;
+            return self::RESPONSE_ACCEPTED;
 
         case 'DECLINED':
-            return Kronolith::RESPONSE_DECLINED;
+            return self::RESPONSE_DECLINED;
 
         case 'TENTATIVE':
-            return Kronolith::RESPONSE_TENTATIVE;
+            return self::RESPONSE_TENTATIVE;
 
         case 'NEEDS-ACTION':
         default:
-            return Kronolith::RESPONSE_NONE;
+            return self::RESPONSE_NONE;
         }
     }
 
@@ -1383,32 +1383,32 @@ class Kronolith
      *
      * @return string  The HTML <select> widget.
      */
-    public static function buildStatusWidget($name, $current = Kronolith::STATUS_CONFIRMED,
+    public static function buildStatusWidget($name, $current = self::STATUS_CONFIRMED,
                                $any = false)
     {
         $html = "<select id=\"$name\" name=\"$name\">";
 
         $statii = array(
-            Kronolith::STATUS_FREE,
-            Kronolith::STATUS_TENTATIVE,
-            Kronolith::STATUS_CONFIRMED,
-            Kronolith::STATUS_CANCELLED
+            self::STATUS_FREE,
+            self::STATUS_TENTATIVE,
+            self::STATUS_CONFIRMED,
+            self::STATUS_CANCELLED
         );
 
         if (!isset($current)) {
-            $current = Kronolith::STATUS_NONE;
+            $current = self::STATUS_NONE;
         }
 
         if ($any) {
-            $html .= "<option value=\"" . Kronolith::STATUS_NONE . "\"";
-            $html .= ($current == Kronolith::STATUS_NONE) ? ' selected="selected">' : '>';
+            $html .= "<option value=\"" . self::STATUS_NONE . "\"";
+            $html .= ($current == self::STATUS_NONE) ? ' selected="selected">' : '>';
             $html .= _("Any") . "</option>";
         }
 
         foreach ($statii as $status) {
             $html .= "<option value=\"$status\"";
             $html .= ($status == $current) ? ' selected="selected">' : '>';
-            $html .= Kronolith::statusToString($status) . "</option>";
+            $html .= self::statusToString($status) . "</option>";
         }
         $html .= '</select>';
 
@@ -1445,7 +1445,7 @@ class Kronolith
         global $prefs;
 
         $default_share = $prefs->getValue('default_share');
-        $calendars = Kronolith::listCalendars(false, $permission);
+        $calendars = self::listCalendars(false, $permission);
 
         if (isset($calendars[$default_share]) ||
             $prefs->isLocked('default_share')) {
@@ -1569,23 +1569,23 @@ class Kronolith
              * not need to participate, or has declined participating, or
              * doesn't have an email address. */
             if (strpos($email, '@') === false ||
-                $status['attendance'] == Kronolith::PART_NONE ||
-                $status['response'] == Kronolith::RESPONSE_DECLINED) {
+                $status['attendance'] == self::PART_NONE ||
+                $status['response'] == self::RESPONSE_DECLINED) {
                 continue;
             }
 
             /* Determine all notification-specific strings. */
             switch ($action) {
-            case Kronolith::ITIP_CANCEL:
+            case self::ITIP_CANCEL:
                 /* Cancellation. */
                 $method = 'CANCEL';
                 $filename = 'event-cancellation.ics';
                 $subject = sprintf(_("Cancelled: %s"), $event->getTitle());
                 break;
 
-            case Kronolith::ITIP_REQUEST:
+            case self::ITIP_REQUEST:
             default:
-                if ($status['response'] == Kronolith::RESPONSE_NONE) {
+                if ($status['response'] == self::RESPONSE_NONE) {
                     /* Invitation. */
                     $method = 'REQUEST';
                     $filename = 'event-invitation.ics';
@@ -1620,7 +1620,7 @@ class Kronolith
             }
             $message .= _("Attached is an iCalendar file with more information about the event. If your mail client supports iTip requests you can use this file to easily update your local copy of the event.");
 
-            if ($action == Kronolith::ITIP_REQUEST) {
+            if ($action == self::ITIP_REQUEST) {
                 $attend_link = Util::addParameter(Horde::applicationUrl('attend.php', true, -1), array('c' => $event->getCalendar(), 'e' => $event->getId(), 'u' => $email), null, false);
                 $message .= "\n\n" . sprintf(_("If your email client doesn't support iTip requests you can use one of the following links to accept or decline the event.\n\nTo accept the event:\n%s\n\nTo accept the event tentatively:\n%s\n\nTo decline the event:\n%s\n"), Util::addParameter($attend_link, 'a', 'accept', false), Util::addParameter($attend_link, 'a', 'tentative', false), Util::addParameter($attend_link, 'a', 'decline', false));
             }
@@ -1630,7 +1630,7 @@ class Kronolith
             $iCal->setAttribute('METHOD', $method);
             $iCal->setAttribute('X-WR-CALNAME', String::convertCharset($share->get('name'), NLS::getCharset(), 'utf-8'));
             $vevent = $event->toiCalendar($iCal);
-            if ($action == Kronolith::ITIP_CANCEL && !empty($instance)) {
+            if ($action == self::ITIP_CANCEL && !empty($instance)) {
                 $vevent->setAttribute('RECURRENCE-ID', $instance, array('VALUE' => 'DATE'));
             }
             $iCal->addComponent($vevent);
@@ -1697,11 +1697,11 @@ class Kronolith
         $from = $identity->getDefaultFromAddress(true);
 
         $owner = $share->get('owner');
-        $recipients[$owner] = Kronolith::_notificationPref($owner, 'owner');
+        $recipients[$owner] = self::_notificationPref($owner, 'owner');
 
         foreach ($share->listUsers(PERMS_READ) as $user) {
             if (!isset($recipients[$user])) {
-                $recipients[$user] = Kronolith::_notificationPref($user, 'read', $calendar);
+                $recipients[$user] = self::_notificationPref($user, 'read', $calendar);
             }
         }
 
@@ -1717,7 +1717,7 @@ class Kronolith
             }
             foreach ($group_users as $user) {
                 if (!isset($recipients[$user])) {
-                    $recipients[$user] = Kronolith::_notificationPref($user, 'read', $calendar);
+                    $recipients[$user] = self::_notificationPref($user, 'read', $calendar);
                 }
             }
         }
@@ -1898,7 +1898,7 @@ class Kronolith
      */
     public static function tabs($tabname = null)
     {
-        $date = Kronolith::currentDate();
+        $date = self::currentDate();
         $date_stamp = $date->dateString();
 
         require_once 'Horde/Variables.php';
@@ -1935,7 +1935,7 @@ class Kronolith
         require_once 'Horde/Variables.php';
         $tabs = new Horde_UI_Tabs('event', Variables::getDefaultVariables());
 
-        $date = Kronolith::currentDate();
+        $date = self::currentDate();
         $tabs->preserve('datetime', $date->dateString());
 
         $tabs->addTab(
@@ -1992,7 +1992,7 @@ class Kronolith
             $driver = String::ucfirst($GLOBALS['conf']['calendar']['driver']);
         }
 
-        if (!isset(Kronolith::$_instances[$driver])) {
+        if (!isset(self::$_instances[$driver])) {
             $params = array();
             switch ($driver) {
             case 'Sql':
@@ -2008,7 +2008,7 @@ class Kronolith
                 if (!empty($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
                     $params['proxy'] = $GLOBALS['conf']['http']['proxy'];
                 }
-                $params = Kronolith::getRemoteParams($calendar);
+                $params = self::getRemoteParams($calendar);
                 break;
 
             case 'Horde':
@@ -2023,14 +2023,14 @@ class Kronolith
                 break;
             }
 
-            Kronolith::$_instances[$driver] = Kronolith_Driver::factory($driver, $params);
+            self::$_instances[$driver] = Kronolith_Driver::factory($driver, $params);
         }
 
         if (!is_null($calendar)) {
-            Kronolith::$_instances[$driver]->open($calendar);
+            self::$_instances[$driver]->open($calendar);
         }
 
-        return Kronolith::$_instances[$driver];
+        return self::$_instances[$driver];
     }
 
     /**
@@ -2077,18 +2077,18 @@ class Kronolith
         case 'Year':
             require_once KRONOLITH_BASE . '/lib/Views/' . basename($view) . '.php';
             $class = 'Kronolith_View_' . $view;
-            return new $class(Kronolith::currentDate());
+            return new $class(self::currentDate());
 
         case 'Event':
             require_once KRONOLITH_BASE . '/lib/Views/Event.php';
 
             if (Util::getFormData('calendar') == '**remote') {
-                $event = Kronolith::getDriver('Ical', Util::getFormData('remoteCal'))
+                $event = self::getDriver('Ical', Util::getFormData('remoteCal'))
                     ->getEvent(Util::getFormData('eventID'));
             } elseif ($uid = Util::getFormData('uid')) {
-                $event = Kronolith::getDriver()->getByUID($uid);
+                $event = self::getDriver()->getByUID($uid);
             } else {
-                $event = Kronolith::getDriver(null, Util::getFormData('calendar'))
+                $event = self::getDriver(null, Util::getFormData('calendar'))
                     ->getEvent(Util::getFormData('eventID'));
             }
             if (!is_a($event, 'PEAR_Error') &&
@@ -2102,10 +2102,10 @@ class Kronolith
             require_once KRONOLITH_BASE . '/lib/Views/EditEvent.php';
 
             if (Util::getFormData('calendar') == '**remote') {
-                $event = Kronolith::getDriver('Ical', Util::getFormData('remoteCal'))
+                $event = self::getDriver('Ical', Util::getFormData('remoteCal'))
                     ->getEvent(Util::getFormData('eventID'));
             } else {
-                $event = Kronolith::getDriver(null, Util::getFormData('calendar'))
+                $event = self::getDriver(null, Util::getFormData('calendar'))
                     ->getEvent(Util::getFormData('eventID'));
             }
             if (!is_a($event, 'PEAR_Error') &&
@@ -2118,7 +2118,7 @@ class Kronolith
         case 'DeleteEvent':
             require_once KRONOLITH_BASE . '/lib/Views/DeleteEvent.php';
 
-            $event = Kronolith::getDriver(null, Util::getFormData('calendar'))
+            $event = self::getDriver(null, Util::getFormData('calendar'))
                 ->getEvent(Util::getFormData('eventID'));
             if (!is_a($event, 'PEAR_Error') &&
                 !$event->hasPermission(PERMS_DELETE)) {
@@ -2131,12 +2131,12 @@ class Kronolith
             require_once KRONOLITH_BASE . '/lib/Views/ExportEvent.php';
 
             if (Util::getFormData('calendar') == '**remote') {
-                $event = Kronolith::getDriver('Ical', Util::getFormData('remoteCal'))
+                $event = self::getDriver('Ical', Util::getFormData('remoteCal'))
                     ->getEvent(Util::getFormData('eventID'));
             } elseif ($uid = Util::getFormData('uid')) {
-                $event = Kronolith::getDriver()->getByUID($uid);
+                $event = self::getDriver()->getByUID($uid);
             } else {
-                $event = Kronolith::getDriver(null, Util::getFormData('calendar'))
+                $event = self::getDriver(null, Util::getFormData('calendar'))
                     ->getEvent(Util::getFormData('eventID'));
             }
             if (!is_a($event, 'PEAR_Error') &&
@@ -2201,7 +2201,7 @@ class Kronolith
      */
     public static function foregroundColor($calendar)
     {
-        return Horde_Image::brightness(Kronolith::backgroundColor($calendar)) < 128 ? '#f6f6f6' : '#000';
+        return Horde_Image::brightness(self::backgroundColor($calendar)) < 128 ? '#f6f6f6' : '#000';
     }
 
     /**
@@ -2217,7 +2217,7 @@ class Kronolith
      */
     public static function getCSSColors($calendar, $with_attribute = true)
     {
-        $css = 'background-color:' . Kronolith::backgroundColor($calendar) . ';color:' . Kronolith::foregroundColor($calendar);
+        $css = 'background-color:' . self::backgroundColor($calendar) . ';color:' . self::foregroundColor($calendar);
         if ($with_attribute) {
             $css = ' style="' . $css . '"';
         }
@@ -2241,10 +2241,10 @@ class Kronolith
         $menu = new Menu();
 
         $menu->add(Horde::applicationUrl($prefs->getValue('defaultview') . '.php'), _("_Today"), 'today.png', null, null, null, '__noselection');
-        if (Kronolith::getDefaultCalendar(PERMS_EDIT) &&
+        if (self::getDefaultCalendar(PERMS_EDIT) &&
             (!empty($conf['hooks']['permsdenied']) ||
-             Kronolith::hasPermission('max_events') === true ||
-             Kronolith::hasPermission('max_events') > Kronolith::countEvents())) {
+             self::hasPermission('max_events') === true ||
+             self::hasPermission('max_events') > self::countEvents())) {
             $menu->add(Util::addParameter(Horde::applicationUrl('new.php'), 'url', Horde::selfUrl(true, false, true)), _("_New Event"), 'new.png');
         }
         if ($browser->hasFeature('dom')) {
@@ -2285,11 +2285,11 @@ class Kronolith
 
     public static function getTagger()
     {
-        if (empty(Kronolith::$_tagger)) {
-            Kronolith::$_tagger = new Kronolith_Tagger();
+        if (empty(self::$_tagger)) {
+            self::$_tagger = new Kronolith_Tagger();
         }
 
-        return Kronolith::$_tagger;
+        return self::$_tagger;
     }
 
 }
