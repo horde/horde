@@ -141,6 +141,8 @@ if (count($_POST)) {
         $html = Util::getFormData('html');
 
         $result->index = intval(Util::getFormData('index'));
+
+        $reply_folder = Util::getFormData('folder');
         if ($reply_type = Util::getFormData('reply_type')) {
             $result->reply_folder = Util::getFormData('folder');
             $result->reply_type = $reply_type;
@@ -153,7 +155,7 @@ if (count($_POST)) {
 
         $options = array(
             'readreceipt' => Util::getFormData('request_read_receipt'),
-            'reply_index' => $result->index . IMP::IDX_SEP . $result->reply_folder,
+            'reply_index' => $result->index . IMP::IDX_SEP . $reply_folder,
             'reply_type' => $reply_type,
             'save_attachments' => Util::getFormData('save_attachments_select'),
             'save_sent' => (($prefs->isLocked('save_sent_mail'))
