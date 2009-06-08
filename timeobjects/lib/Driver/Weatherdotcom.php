@@ -19,20 +19,25 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
 
     public function __construct($params)
     {
+        global $registry;
+
         if (empty($params['location'])) {
             // Try to get a good location string from Turba's "own" contact
-            $contact = $GLOBALS['registry']->contacts->ownContact();
-            $params['location'] = !empty($contact['homeCity'])
-                ? $contact['homeCity']
-                    . (!empty($contact['homeProvince']) ? ', ' . $contact['homeProvince'] : '')
-                    . (!empty($contact['homeCountry']) ? ', ' . $contact['homeCountry'] : '')
-                : $contact['workCity']
-                    . (!empty($contact['workProvince']) ? ', ' . $contact['workProvince'] : '')
-                    . (!empty($contact['workCountry']) ? ', ' . $contact['workCountry'] : '');
+            if ($registry->hasInterface('contacts')) {
+                $contact = $GLOBALS['registry']->contacts->ownContact();
+                if (!is_a($contact, 'PEAR_Error')) {
+                    $params['location'] = !empty($contact['homeCity'])
+                        ? $contact['homeCity']
+                            . (!empty($contact['homeProvince']) ? ', ' . $contact['homeProvince'] : '')
+                            . (!empty($contact['homeCountry']) ? ', ' . $contact['homeCountry'] : '')
+                        : $contact['workCity']
+                            . (!empty($contact['workProvince']) ? ', ' . $contact['workProvince'] : '')
+                            . (!empty($contact['workCountry']) ? ', ' . $contact['workCountry'] : '');
+                }
+            }
+            // TODO: Try some other way, maybe a hook or a new preference in Horde
+            //       to set your current location, maybe with a google map?
         }
-
-        // TODO: Try some other way, maybe a hook or a new preference in Horde
-        //       to set your current location, maybe with a google map?
 
         parent::__construct($params);
     }
