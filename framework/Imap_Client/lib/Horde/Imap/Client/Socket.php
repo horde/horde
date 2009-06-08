@@ -2122,13 +2122,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             case Horde_Imap_Client::FETCH_BODYPART:
             case Horde_Imap_Client::FETCH_HEADERS:
                 foreach ($c_val as $val) {
+                    $cmd = empty($val['id'])
+                        ? ''
+                        : $val['id'] . '.';
                     $main_cmd = 'BODY';
-
-                    if (empty($val['id'])) {
-                        $cmd = '';
-                    } else {
-                        $cmd = $val['id'] . '.';
-                    }
 
                     switch ($type) {
                     case Horde_Imap_Client::FETCH_HEADERTEXT:
@@ -2141,14 +2138,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                     case Horde_Imap_Client::FETCH_MIMEHEADER:
                         if (empty($val['id'])) {
-                            throw new Horde_Imap_Client_Exception('Need a MIME ID when retrieving a MIME header.');
+                            throw new Horde_Imap_Client_Exception('Need a non-zero MIME ID when retrieving a MIME header.');
                         }
                         $cmd .= 'MIME';
                         break;
 
                     case Horde_Imap_Client::FETCH_BODYPART:
                         if (empty($val['id'])) {
-                            throw new Horde_Imap_Client_Exception('Need a MIME ID when retrieving a MIME body part.');
+                            throw new Horde_Imap_Client_Exception('Need a non-zero MIME ID when retrieving a MIME body part.');
                         }
                         // Remove the last dot from the string.
                         $cmd = substr($cmd, 0, -1);
@@ -2196,7 +2193,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             case Horde_Imap_Client::FETCH_BODYPARTSIZE:
                 foreach ($c_val as $val) {
                     if (empty($val['id'])) {
-                        throw new Horde_Imap_Client_Exception('Need a MIME ID when retrieving unencoded MIME body part size.');
+                        throw new Horde_Imap_Client_Exception('Need a non-zero MIME ID when retrieving unencoded MIME body part size.');
                     }
                     $fetch[] = 'BINARY.SIZE[' . $val['id'] . ']';
                 }
