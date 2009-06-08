@@ -594,7 +594,6 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     border-left: 1px silver solid;
     border-right: 1px silver solid;
     border-bottom: 1px silver solid;
-    min-height: 420px;
 }
 
 /* Message Composition. */
