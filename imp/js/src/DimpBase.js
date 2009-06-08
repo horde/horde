@@ -1399,7 +1399,7 @@ var DimpBase = {
             if (e.shiftKey) {
                 this.moveSelected((r.last().rownum == this.viewport.getMetaData('total_rows')) ? (r.first().rownum - 1) : (r.last().rownum + 1), true);
             }
-            this.deleteMsg();
+            this.deleteMsg({ vs: sel });
             e.stop();
             break;
 
