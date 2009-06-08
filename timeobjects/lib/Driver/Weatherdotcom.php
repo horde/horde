@@ -21,9 +21,7 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
     {
         if (empty($params['location'])) {
             // Try to get a good location string from Turba's "own" contact
-            $contact = $GLOBALS['registry']->contacts->ownVCard();
-            var_dump($contact);
-            die;
+            $contact = $GLOBALS['registry']->contacts->ownContact();
             $params['location'] = !empty($contact['homeCity'])
                 ? $contact['homeCity']
                     . (!empty($contact['homeProvince']) ? ', ' . $contact['homeProvince'] : '')
