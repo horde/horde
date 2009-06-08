@@ -34,8 +34,12 @@ class TimeObjects_Driver_FacebookEvents
      */
     public function listTimeObjects($start = null, $time = null)
     {
-        $fb = $this->_getFacebook();
-        $events = $fb->events->get();
+        try {
+            $fb = $this->_getFacebook();
+            $events = $fb->events->get();
+        } catch (Horde_Service_Facebook_Exception $e) {
+            throw new TimeObjects($e->getMessage());
+        }
         $objects = array();
         foreach ($events as $event) {
             // FB s*cks. This may be right, or it may be wrong, or they may
