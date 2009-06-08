@@ -186,6 +186,10 @@ class IMP_Contents
      */
     public function getBodyPart($id, $options = array())
     {
+        if (empty($id)) {
+            return '';
+        }
+
         if (is_null($this->_mailbox)) {
             // TODO: Include MIME headers?
             $ob = $this->getMIMEPart($id, array('nocontents' => true));
@@ -292,7 +296,11 @@ class IMP_Contents
 
         $part = $this->_message->getPart($id);
 
-        if (!is_null($part) &&
+        /* Don't download contents of entire body if ID == 0 (indicating the
+         * body of the main multipart message).  I'm pretty sure we never
+         * want to download the body of that part here. */
+        if (!empty($id) &&
+            !is_null($part) &&
             empty($options['nocontents']) &&
             !is_null($this->_mailbox) &&
             !$part->getContents()) {
