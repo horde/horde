@@ -51,6 +51,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Exception.php" role="php" />
        <file name="ErrorCodes.php" role="php" />
        <file name="Streams.php" role="php" />
+       <file name="Events.php" role="php" />
       </dir> <!-- /lib/Horde/Service/Facebook -->
       <file name="Facebook.php" role="php" />
      </dir> <!-- /lib/Horde/Service -->
@@ -92,6 +93,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Service/Facebook/Exception.php" as="Horde/Service/Facebook/Exception.php" />
    <install name="lib/Horde/Service/Facebook/ErrorCodes.php" as="Horde/Service/Facebook/ErrorCodes.php" />
    <install name="lib/Horde/Service/Facebook/Streams.php" as="Horde/Service/Facebook/Streams.php" />
+   <install name="lib/Horde/Service/Facebook/Events.php" as="Horde/Service/Facebook/Events.php" />
    <install name="lib/Horde/Service/Facebook.php" as="Horde/Service/Facebook.php" />
   </filelist>
  </phprelease>
