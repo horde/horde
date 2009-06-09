@@ -8,8 +8,7 @@
  * @author Meilof Veeningen <meilof@gmail.com>
  */
 
-@define('KRONOLITH_BASE', dirname(__FILE__));
-require_once KRONOLITH_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Get search parameters. */
 $search_mode = Util::getFormData('search_mode', 'basic');

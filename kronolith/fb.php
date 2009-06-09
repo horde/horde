@@ -10,9 +10,8 @@
  */
 
 @define('AUTH_HANDLER', true);
-@define('KRONOLITH_BASE', dirname(__FILE__));
 $session_control = 'none';
-require_once KRONOLITH_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 
 // We want to always generate UTF-8 iCalendar data.
 NLS::setCharset('UTF-8');

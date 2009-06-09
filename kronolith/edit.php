@@ -35,8 +35,7 @@ function _check_max()
     return true;
 }
 
-@define('KRONOLITH_BASE', dirname(__FILE__));
-require_once KRONOLITH_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 
 $url = Util::getFormData('url');
 $kronolith_driver = Kronolith::getDriver();

@@ -1,11 +1,6 @@
 <?php
 /* Include Horde's core.php file. */
-$filedir = dirname(__FILE__);
-if (file_exists($filedir . '/lib/base.local.php')) {
-    include_once $filedir . '/lib/base.local.php';
-} elseif (!defined('HORDE_BASE')) {
-    define('HORDE_BASE', $filedir . '/..');
-}
+require_once dirname(__FILE__) . '/lib/base.load.php';
 include_once HORDE_BASE . '/lib/core.php';
 
 /* We should have loaded the String class, from the Horde_Util package, in
@@ -25,7 +20,7 @@ require_once HORDE_BASE . '/lib/Test.php';
 $horde_test = new Horde_Test;
 
 $module = 'Kronolith';
-require_once $filedir . '/lib/version.php';
+require_once KRONOLITH_DIR . '/lib/version.php';
 $module_version = KRONOLITH_VERSION;
 
 require TEST_TEMPLATES . 'header.inc';

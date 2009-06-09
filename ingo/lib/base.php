@@ -12,24 +12,9 @@
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  */
 
+// Determine BASE directories.
 $ingo_dir = dirname(__FILE__);
-
-// Check for a prior definition of HORDE_BASE.
-if (!defined('HORDE_BASE')) {
-    /* Temporary fix - if horde does not live directly under the imp
-     * directory, the HORDE_BASE constant should be defined in
-     * imp/lib/base.local.php. */
-    if (file_exists($ingo_dir . '/base.local.php')) {
-        include $ingo_dir . '/base.local.php';
-    } else {
-        define('HORDE_BASE', $ingo_dir . '/../..');
-    }
-}
-
-// Find the base file path of Ingo.
-if (!defined('INGO_BASE')) {
-    define('INGO_BASE', $ingo_dir . '/..');
-}
+require_once $ingo_dir . '/base.load.php';
 
 // Load the Horde Framework core, and set up inclusion paths.
 require_once HORDE_BASE . '/lib/core.php';

@@ -9,24 +9,13 @@
  * @package IMP
  */
 
-@define('IMP_BASE', dirname(__FILE__));
+require_once dirname(__FILE__) . '/lib/base.load.php';
 $imp_configured = (is_readable(IMP_BASE . '/config/conf.php') &&
                    is_readable(IMP_BASE . '/config/mime_drivers.php') &&
                    is_readable(IMP_BASE . '/config/prefs.php') &&
                    is_readable(IMP_BASE . '/config/servers.php'));
 
 if (!$imp_configured) {
-    if (!defined('HORDE_BASE')) {
-        /* Temporary fix - if horde does not live directly under the imp
-         * directory, the HORDE_BASE constant should be defined in
-         * imp/lib/base.local.php. */
-        if (file_exists(IMP_BASE . '/lib/base.local.php')) {
-            include IMP_BASE . '/lib/base.local.php';
-        } else {
-            define('HORDE_BASE', IMP_BASE . '/..');
-        }
-    }
-
     require HORDE_BASE . '/lib/Test.php';
     Horde_Test::configFilesMissing('IMP', IMP_BASE,
         array('conf.php', 'mime_drivers.php', 'prefs.php'),

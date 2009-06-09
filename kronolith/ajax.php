@@ -72,17 +72,7 @@ function saveEvent($event)
 }
 
 // Need to load Util:: to give us access to Util::getPathInfo().
-$kronolith_dir = dirname(__FILE__);
-if (!defined('HORDE_BASE')) {
-    /* Temporary fix - if horde does not live directly under the kronolith
-     * directory, the HORDE_BASE constant should be defined in
-     * kronolith/lib/base.local.php. */
-    if (file_exists($kronolith_dir . '/lib/base.local.php')) {
-        include $kronolith_dir . '/lib/base.local.php';
-    } else {
-        define('HORDE_BASE', $kronolith_dir . '/..');
-    }
-}
+require_once dirname(__FILE__) . '/base.load.php';
 require_once HORDE_BASE . '/lib/core.php';
 $action = basename(Util::getPathInfo());
 if (empty($action)) {
@@ -99,7 +89,7 @@ if (in_array($action, array())) {
 }
 
 $session_timeout = 'json';
-require_once $kronolith_dir . '/lib/base.php';
+require_once KRONOLITH_BASE . '/lib/base.php';
 
 // Process common request variables.
 $cacheid = Util::getPost('cacheid');

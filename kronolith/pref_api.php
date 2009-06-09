@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-@define('HORDE_BASE', dirname(dirname(__FILE__)));
+require_once dirname(__FILE__) . '/lib/base.load.php';
 require_once HORDE_BASE . '/lib/core.php';
 
 $registry = &Registry::singleton();

@@ -9,8 +9,7 @@
  * @package Kronolith
  */
 
-@define('KRONOLITH_BASE', dirname(__FILE__));
-require_once KRONOLITH_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 
 $kronolith_driver = Kronolith::getDriver(null, Util::getFormData('calendar'));
 if ($eventID = Util::getFormData('eventID')) {

@@ -16,8 +16,7 @@ function _cleanup()
     return Horde_Data::IMPORT_FILE;
 }
 
-@define('KRONOLITH_BASE', dirname(__FILE__));
-require_once KRONOLITH_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 
 if (!$conf['menu']['import_export']) {
     require KRONOLITH_BASE . '/index.php';

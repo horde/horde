@@ -92,12 +92,7 @@ function _errorMsg($e)
 
 
 /* Include Horde's core.php file. */
-$filedir = dirname(__FILE__);
-if (file_exists($filedir . '/lib/base.local.php')) {
-    include_once $filedir . '/lib/base.local.php';
-} elseif (!defined('HORDE_BASE')) {
-    define('HORDE_BASE', $filedir . '/..');
-}
+require_once dirname(__FILE__) . '/lib/base.load.php';
 include_once HORDE_BASE . '/lib/core.php';
 
 /* We should have loaded the String class, from the Horde_Util
@@ -119,7 +114,7 @@ $horde_test = new Horde_Test;
 
 /* IMP version. */
 $module = 'IMP';
-require_once $filedir .'/lib/version.php';
+require_once IMP_BASE .'/lib/version.php';
 $module_version = IMP_VERSION;
 
 require TEST_TEMPLATES . 'header.inc';

@@ -6,8 +6,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-@define('KRONOLITH_BASE', dirname(__FILE__));
-require_once KRONOLITH_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 
 if (!Auth::getAuth()) {
     Util::closeWindowJS();

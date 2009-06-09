@@ -8,8 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-@define('KRONOLITH_BASE', dirname(__FILE__));
-require KRONOLITH_BASE . '/lib/base.php';
+require dirname(__FILE__) . '/lib/base.php';
 
 /* Check permissions. */
 if (Kronolith::hasPermission('max_events') !== true &&

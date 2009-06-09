@@ -6,12 +6,12 @@
  * not receive such a file, see also http://www.fsf.org/copyleft/gpl.html.
  */
 
-@define('KRONOLITH_BASE', dirname(__FILE__));
+require_once dirname(__FILE__) . '/lib/base.load.php';
 $kronolith_configured = (is_readable(KRONOLITH_BASE . '/config/conf.php') &&
                          is_readable(KRONOLITH_BASE . '/config/prefs.php'));
 
 if (!$kronolith_configured) {
-    require KRONOLITH_BASE . '/../lib/Test.php';
+    require HORDE_BASE . '/lib/Test.php';
     Horde_Test::configFilesMissing('Kronolith', KRONOLITH_BASE,
         array('conf.php', 'prefs.php'));
 }

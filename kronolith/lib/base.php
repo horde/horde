@@ -14,19 +14,10 @@
  * @package Kronolith
  */
 
+// Determine BASE directories.
 $kronolith_dir = dirname(__FILE__);
+require_once $kronolith_dir . '/base.load.php';
 
-// Check for a prior definition of HORDE_BASE.
-if (!defined('HORDE_BASE')) {
-    /* Temporary fix - if horde does not live directly under the imp
-     * directory, the HORDE_BASE constant should be defined in
-     * imp/lib/base.local.php. */
-    if (file_exists($kronolith_dir . '/base.local.php')) {
-        include $kronolith_dir . '/base.local.php';
-    } else {
-        define('HORDE_BASE', $kronolith_dir . '/../..');
-    }
-}
 /* Load the Horde Framework core, and set up inclusion paths. */
 require_once HORDE_BASE . '/lib/core.php';
 Horde_Autoloader::addClassPath($kronolith_dir);
@@ -50,11 +41,6 @@ if (is_a(($pushed = $registry->pushApp('kronolith', !defined('AUTH_HANDLER'))), 
 }
 $conf = &$GLOBALS['conf'];
 define('KRONOLITH_TEMPLATES', $registry->get('templates'));
-
-/* Find the base file path of Kronolith. */
-if (!defined('KRONOLITH_BASE')) {
-    define('KRONOLITH_BASE', $kronolith_dir . '/..');
-}
 
 /* Horde framework libraries. */
 require_once 'Horde/Help.php';
