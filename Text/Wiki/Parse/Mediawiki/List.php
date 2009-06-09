@@ -138,22 +138,6 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
                         'level' => $tmp
                     )
                 );
-
-                // Insert fake items as long as we did not reach our
-                // destination level
-                if ($tmp != $level) {
-                    // itemcount cannot be set before so its save to set this
-                    $itemcount[$tmp] = 0;
-    
-                    $return .= $this->wiki->addToken(
-                        $this->rule,
-                        array(
-                            'type' => $type . '_item_start',
-                            'count' => 0,
-                            'level' => $tmp
-                        )
-                    );
-                }
             }
             
             // remove a level from the list?
