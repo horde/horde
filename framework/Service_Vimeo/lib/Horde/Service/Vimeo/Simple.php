@@ -112,7 +112,7 @@ class Horde_Service_Vimeo_Simple extends Horde_Service_Vimeo {
         }
 
         // We should have a url now, and possibly other options.
-        $url = Util::addParameter($this->_oembed_endpoint, $options, null, false);
+        $url = Horde_Util::addParameter($this->_oembed_endpoint, $options, null, false);
 
         try {
             $response = $this->_http_client->request('GET', $url);

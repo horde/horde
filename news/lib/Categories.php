@@ -487,14 +487,14 @@ class News_Categories {
         foreach ($cats as $cid => $category) {
 
             if ($click_url !== null) {
-                $name = Horde::link(Util::addParameter($click_url, 'cid', $cid), _("Select Category")) . $category['category_name'] . '</a>';
+                $name = Horde::link(Horde_Util::addParameter($click_url, 'cid', $cid), _("Select Category")) . $category['category_name'] . '</a>';
             } else {
                 $name = $category['category_name'];
             }
 
             $links = array();
             if ($have_add_item) {
-                $links[] = Horde::link(Util::addParameter($add_item, 'cid', $cid), _("Add New Item")) . $add_img . '</a>';
+                $links[] = Horde::link(Horde_Util::addParameter($add_item, 'cid', $cid), _("Add New Item")) . $add_img . '</a>';
             }
 
             $parent_id = $category['category_parentid'] ? $category['category_parentid'] : null;
@@ -535,7 +535,7 @@ class News_Categories {
                                 's' => 'vfs',
                                 'p' => self::VFS_PATH . '/images/categories/',
                                 'c' => 'news');
-            return Util::addParameter(Horde::url('/services/images/view.php'), $img_params);
+            return Horde_Util::addParameter(Horde::url('/services/images/view.php'), $img_params);
         }
     }
 

@@ -15,7 +15,7 @@
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-$id = Util::getFormData('id');
+$id = Horde_Util::getFormData('id');
 $row = $news->get($id);
 if ($row instanceof PEAR_Error) {
     $notification->push($row);

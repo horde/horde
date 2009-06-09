@@ -29,11 +29,11 @@ if ($groups instanceof PEAR_Error) {
 }
 
 // Handle action
-$action = Util::getFormData('action');
+$action = Horde_Util::getFormData('action');
 switch ($action) {
 case 'delete':
 
-    $g = Util::getFormdata('g');
+    $g = Horde_Util::getFormdata('g');
     $result = $friends->removeGroup($g);
     if ($result instanceof PEAR_Error) {
         $notification->push($result);
@@ -48,7 +48,7 @@ break;
 
 case 'edit':
 
-    $g = Util::getFormdata('g');
+    $g = Horde_Util::getFormdata('g');
     $form = new Horde_Form($vars, _("Rename group"), 'editgroup');
     $form->addHidden('action', 'action', 'text', 'edit');
     $form->addHidden('g', 'g', 'text', 'edit');
@@ -58,12 +58,12 @@ case 'edit':
     $v = $form->addVariable(_("New name"), 'new_name', 'text', true);
     $v->setDefault($groups[$g]);
 
-    if (Util::getFormData('submitbutton') == _("Cancel")) {
+    if (Horde_Util::getFormData('submitbutton') == _("Cancel")) {
         $notification->push(sprintf(_("Group \"%s\" has not been renamed."), $groups[$g]), 'horde.warning');
         header('Location: ' . Horde::applicationUrl('edit/groups.php'));
         exit;
-    } elseif (Util::getFormData('submitbutton') == _("Rename")) {
-        $new_name = Util::getFormData('new_name');
+    } elseif (Horde_Util::getFormData('submitbutton') == _("Rename")) {
+        $new_name = Horde_Util::getFormData('new_name');
         $result = $friends->renameGroup($g, $new_name);
         if ($result instanceof PEAR_Error) {
             $notification->push($result);
@@ -109,9 +109,9 @@ default:
 break;
 }
 
-$remove_url = Util::addParameter(Horde::applicationUrl('edit/friends/groups.php'), 'action', 'delete');
+$remove_url = Horde_Util::addParameter(Horde::applicationUrl('edit/friends/groups.php'), 'action', 'delete');
 $remove_img = Horde::img('delete.png', '', '', $registry->getImageDir('horde'));
-$edit_url = Util::addParameter(Horde::applicationUrl('edit/friends/groups.php'), 'action', 'edit');
+$edit_url = Horde_Util::addParameter(Horde::applicationUrl('edit/friends/groups.php'), 'action', 'edit');
 $edit_img = Horde::img('edit.png', '', '', $registry->getImageDir('horde'));
 $perms_url = Horde::applicationUrl('perms.php');
 $perms_img = Horde::img('perms.png', '', '', $registry->getImageDir('horde'));

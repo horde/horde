@@ -18,7 +18,7 @@ $login_page = true;
 require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Set the 'preferred' server. */
-$pref_server = Util::getFormData('server');
+$pref_server = Horde_Util::getFormData('server');
 if (!empty($pref_server)) {
     IMP_Session::$prefServer = $pref_server;
 }
@@ -28,8 +28,8 @@ $imp_auth = (Auth::getProvider() == 'imp');
 $auth = &Auth::singleton($conf['auth']['driver']);
 $logout_reason = $auth->getLogoutReason();
 
-$actionID = (Util::getFormData('action') == 'compose') ? 'login_compose' : Util::getFormData('actionID');
-$url_param = Util::getFormData('url');
+$actionID = (Horde_Util::getFormData('action') == 'compose') ? 'login_compose' : Horde_Util::getFormData('actionID');
+$url_param = Horde_Util::getFormData('url');
 
 /* Handle cases where we already have a session. */
 if (!empty($_SESSION['imp']) && is_array($_SESSION['imp'])) {
@@ -90,7 +90,7 @@ if ($logout_reason == AUTH_REASON_LOGOUT &&
         $url = Auth::addLogoutParameters($conf['user']['redirect_on_logout'], AUTH_REASON_LOGOUT);
     }
     if (!isset($_COOKIE[session_name()])) {
-        $url = Util::addParameter($url, session_name(), session_id());
+        $url = Horde_Util::addParameter($url, session_name(), session_id());
     }
     header('Location: ' . $url);
     exit;
@@ -100,17 +100,17 @@ if ($logout_reason == AUTH_REASON_LOGOUT &&
 if (!empty($conf['auth']['alternate_login'])) {
     $url = Auth::addLogoutParameters($conf['auth']['alternate_login']);
     if (!isset($_COOKIE[session_name()])) {
-        $url = Util::addParameter($url, session_name(), session_id(), false);
+        $url = Horde_Util::addParameter($url, session_name(), session_id(), false);
     }
     if ($url_param) {
-        $url = Util::addParameter($url, 'url', $url_param, false);
+        $url = Horde_Util::addParameter($url, 'url', $url_param, false);
     }
     header('Location: ' . $url);
     exit;
 } elseif ($conf['user']['alternate_login']) {
     $url = Auth::addLogoutParameters($conf['user']['alternate_login']);
     if (!isset($_COOKIE[session_name()])) {
-        $url = Util::addParameter($url, session_name(), session_id(), false);
+        $url = Horde_Util::addParameter($url, session_name(), session_id(), false);
     }
     header('Location: ' . $url);
     exit;
@@ -120,8 +120,8 @@ if (!empty($conf['auth']['alternate_login'])) {
  * make sure that the Horde auth key gets set instead. */
 Horde_Secret::setKey($imp_auth ? 'auth' : 'imp');
 
-$autologin = Util::getFormData('autologin', false);
-$server_key = Util::getFormData('server_key', IMP_Session::getAutoLoginServer());
+$autologin = Horde_Util::getFormData('autologin', false);
+$server_key = Horde_Util::getFormData('server_key', IMP_Session::getAutoLoginServer());
 if (($servers = $GLOBALS['imp_imap']->loadServerConfig()) === false) {
     $servers = array();
 }
@@ -136,7 +136,7 @@ if (!$logout_reason && IMP_Session::canAutoLogin($server_key, $autologin)) {
     if (count($used_servers) == 1) {
         $params['server_key'] = key($used_servers);
     }
-    $url = Util::addParameter($url, $params, null, false);
+    $url = Horde_Util::addParameter($url, $params, null, false);
     header('Location: ' . $url);
     exit;
 }
@@ -257,11 +257,11 @@ $tabindex = 0;
 
 $t->set('action', Horde::url('redirect.php', false, -1, true));
 $t->set('imp_auth', intval($imp_auth));
-$t->set('formInput', Util::formInput());
+$t->set('formInput', Horde_Util::formInput());
 $t->set('actionID', htmlspecialchars($actionID));
 $t->set('url', htmlspecialchars($url_param));
 $t->set('autologin', intval($autologin));
-$t->set('anchor_string', htmlspecialchars(Util::getFormData('anchor_string')));
+$t->set('anchor_string', htmlspecialchars(Horde_Util::getFormData('anchor_string')));
 $t->set('server_key', (!$display_list) ? htmlspecialchars($server_key) : null);
 
 /* Do we need to do IE version detection? */
@@ -297,7 +297,7 @@ if ($t->get('server_list')) {
 }
 
 $t->set('username_tabindex', ++$tabindex);
-$t->set('username', htmlspecialchars(Util::getFormData('imapuser')));
+$t->set('username', htmlspecialchars(Horde_Util::getFormData('imapuser')));
 $t->set('user_vinfo', null);
 if (!empty($conf['hooks']['vinfo'])) {
     $t->set('user_vinfo', Horde::callHook('_imp_hook_vinfo', array('vdomain'), 'imp'));
@@ -322,7 +322,7 @@ $t->set('login', _("Login"));
 $t->set('signup_link', false);
 if ($conf['signup']['allow'] && isset($auth) && $auth->hasCapability('add')) {
     $t->set('signup_text', _("Don't have an account? Sign up."));
-    $t->set('signup_link', Horde::link(Util::addParameter(Horde::url($registry->get('webroot', 'horde') . '/signup.php'), 'url', $url_param), $t->get('signup_text'), 'light'));
+    $t->set('signup_link', Horde::link(Horde_Util::addParameter(Horde::url($registry->get('webroot', 'horde') . '/signup.php'), 'url', $url_param), $t->get('signup_text'), 'light'));
 }
 
 $login_page = true;
@@ -336,7 +336,7 @@ $login_params = $autologin
     : array('server_key' => '');
 
 IMP::addInlineScript(array(
-    'ImpLogin.autologin_url = ' . Horde_Serialize::serialize(Util::addParameter(Horde::selfUrl(), $login_params, null, false), Horde_Serialize::JSON, $charset),
+    'ImpLogin.autologin_url = ' . Horde_Serialize::serialize(Horde_Util::addParameter(Horde::selfUrl(), $login_params, null, false), Horde_Serialize::JSON, $charset),
     'ImpLogin.ie_clientcaps = ' . intval($t->get('ie_clientcaps')),
     'ImpLogin.imp_auth = ' . intval($imp_auth),
     'ImpLogin.lang_url = ' . Horde_Serialize::serialize($lang_url, Horde_Serialize::JSON, $charset),

@@ -1,5 +1,5 @@
 <form name="edit" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>">
-<?php Util::pformInput() ?>
+<?php Horde_Util::pformInput() ?>
 <input type="hidden" name="actionID" value="editform" />
 <input type="hidden" name="cid" value="<?php echo htmlspecialchars($share->getId()) ?>" />
 <table width="100%" cellspacing="0">

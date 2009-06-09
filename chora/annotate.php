@@ -19,12 +19,12 @@ try {
 }
 
 /* Retrieve the desired revision from the GET variable. */
-$rev = Util::getFormData('rev');
+$rev = Horde_Util::getFormData('rev');
 if (!$rev || !$VC->isValidRevision($rev)) {
     Chora::fatal(sprintf(_("Revision %s not found"), $rev ? $rev : _("NONE")), '404 Not Found');
 }
 
-switch (Util::getFormData('actionID')) {
+switch (Horde_Util::getFormData('actionID')) {
 case 'log':
     $log = $fl->queryLogs($rev);
     if (!is_null($log)) {
@@ -50,7 +50,7 @@ Horde::addScriptFile('prototype.js', 'chora', true);
 Horde::addScriptFile('annotate.js', 'chora', true);
 
 $js_vars = array(
-    'ANNOTATE_URL' => Util::addParameter(Horde::applicationUrl('annotate.php'), array('actionID' => 'log', 'f' => $where, 'rev' => ''), null, false),
+    'ANNOTATE_URL' => Horde_Util::addParameter(Horde::applicationUrl('annotate.php'), array('actionID' => 'log', 'f' => $where, 'rev' => ''), null, false),
     'loading_text' => _("Loading...")
 );
 

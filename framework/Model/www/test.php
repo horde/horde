@@ -12,11 +12,10 @@
 @define('INCUBATOR_BASE', dirname(__FILE__));
 
 require_once HORDE_BASE . '/lib/core.php';
-require_once 'Horde/Variables.php';
 require_once 'Horde/Autoloader.php';
 Horde_Autoloader::addClassPath(dirname(__FILE__));
 $registry = Registry::singleton();
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 
 $vars->set('example_bar', 'text with a beginning and an end');
 $form = new Horde_Form($vars, 'Horde_Form Test');

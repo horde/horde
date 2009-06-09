@@ -25,8 +25,8 @@ $ingo_script = Ingo::loadIngoScript();
 $on_demand = $ingo_script->performAvailable();
 
 /* Get web parameter data. */
-$actionID = Util::getFormData('actionID');
-$id = Util::getFormData('rulenumber');
+$actionID = Horde_Util::getFormData('actionID');
+$id = Horde_Util::getFormData('rulenumber');
 
 /* Get permissions. */
 $edit_allowed = Ingo::hasPermission('shares', PERMS_EDIT);
@@ -84,12 +84,12 @@ case 'rule_enable':
         break;
 
     case 'rule_up':
-        $steps = Util::getFormData('steps', 1);
+        $steps = Horde_Util::getFormData('steps', 1);
         $filters->ruleUp($id, $steps);
         break;
 
     case 'rule_down':
-        $steps = Util::getFormData('steps', 1);
+        $steps = Horde_Util::getFormData('steps', 1);
         $filters->ruleDown($id, $steps);
         break;
 
@@ -119,8 +119,8 @@ case 'settings_save':
         header('Location: ' . Horde::applicationUrl('filters.php', true));
         exit;
     }
-    $prefs->setValue('show_filter_msg', Util::getFormData('show_filter_msg'));
-    $prefs->setValue('filter_seen', Util::getFormData('filter_seen'));
+    $prefs->setValue('show_filter_msg', Horde_Util::getFormData('show_filter_msg'));
+    $prefs->setValue('filter_seen', Horde_Util::getFormData('filter_seen'));
     $notification->push(_("Settings successfully updated."), 'horde.success');
     break;
 
@@ -168,7 +168,7 @@ if (count($filter_list) == 0) {
 
         $entry = array();
         $entry['number'] = ++$i;
-        $url = Util::addParameter($filters_url, 'rulenumber', $rule_number);
+        $url = Horde_Util::addParameter($filters_url, 'rulenumber', $rule_number);
         $copyurl = $delurl = $editurl = $name = null;
 
         switch ($filter['action']) {
@@ -203,9 +203,9 @@ if (count($filter_list) == 0) {
             break;
 
         default:
-            $editurl = Util::addParameter($rule_url, array('edit' => $rule_number, 'actionID' => 'rule_edit'));
-            $delurl  = Util::addParameter($url, 'actionID', 'rule_delete');
-            $copyurl = Util::addParameter($url, 'actionID', 'rule_copy');
+            $editurl = Horde_Util::addParameter($rule_url, array('edit' => $rule_number, 'actionID' => 'rule_edit'));
+            $delurl  = Horde_Util::addParameter($url, 'actionID', 'rule_delete');
+            $copyurl = Horde_Util::addParameter($url, 'actionID', 'rule_copy');
             $entry['filterimg'] = false;
             $name = $filter['name'];
             break;
@@ -270,14 +270,14 @@ if (count($filter_list) == 0) {
         }
 
         /* Create up/down arrow links. */
-        $entry['upurl'] = Util::addParameter($url, 'actionID', 'rule_up');
-        $entry['downurl'] = Util::addParameter($url, 'actionID', 'rule_down');
+        $entry['upurl'] = Horde_Util::addParameter($url, 'actionID', 'rule_up');
+        $entry['downurl'] = Horde_Util::addParameter($url, 'actionID', 'rule_down');
         $entry['uplink'] = ($i > 1) ? Horde::link($entry['upurl'], _("Move Rule Up")) : false;
         $entry['downlink'] = ($i < $rule_count) ? Horde::link($entry['downurl'], _("Move Rule Down")) : false;
 
         if (empty($filter['disable'])) {
             if ($edit_allowed) {
-                $entry['disablelink'] = Horde::link(Util::addParameter($url, 'actionID', 'rule_disable'), sprintf(_("Disable %s"), $name));
+                $entry['disablelink'] = Horde::link(Horde_Util::addParameter($url, 'actionID', 'rule_disable'), sprintf(_("Disable %s"), $name));
                 $entry['disableimg'] = Horde::img('enable.png', sprintf(_("Disable %s"), $name));
             } else {
                 $entry['disableimg'] = Horde::img('enable.png');
@@ -287,7 +287,7 @@ if (count($filter_list) == 0) {
             $entry['enableimg'] = false;
         } else {
             if ($edit_allowed) {
-                $entry['enablelink'] = Horde::link(Util::addParameter($url, 'actionID', 'rule_enable'), sprintf(_("Enable %s"), $name));
+                $entry['enablelink'] = Horde::link(Horde_Util::addParameter($url, 'actionID', 'rule_enable'), sprintf(_("Enable %s"), $name));
                 $entry['enableimg'] = Horde::img('disable.png', sprintf(_("Enable %s"), $name));
             } else {
                 $entry['enableimg'] = Horde::img('disable.png');

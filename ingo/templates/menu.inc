@@ -1,5 +1,5 @@
 <form action="filters.php" method="post" name="rulesetsmenu">
-<?php echo Util::formInput() ?>
+<?php echo Horde_Util::formInput() ?>
 <div id="menu">
 <?php if (!empty($ingo_shares) && count($all_rulesets) > 1): ?>
  <div style="float:right">

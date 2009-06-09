@@ -137,7 +137,7 @@ class IMP_UI_Compose
             $clean_to = '';
             foreach (Horde_Mime_Address::explode($to, ',;') as $val) {
                 $val = trim($val);
-                $clean_to .= $val . (($val[String::length($val) - 1] == ';') ? ' ' : ', ');
+                $clean_to .= $val . (($val[Horde_String::length($val) - 1] == ';') ? ' ' : ', ');
             }
             if ($expand) {
                return $clean_to;

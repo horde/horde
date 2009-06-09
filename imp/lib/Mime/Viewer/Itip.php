@@ -38,9 +38,9 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
         $ret = $this->_renderInline();
         if (!empty($ret)) {
             reset($ret);
-            $ret[key($ret)]['data'] = Util::bufferOutput('include', $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc') .
+            $ret[key($ret)]['data'] = Horde_Util::bufferOutput('include', $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc') .
                 $ret[key($ret)]['data'] .
-                Util::bufferOutput('include', $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc');
+                Horde_Util::bufferOutput('include', $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc');
         }
         return $ret;
     }
@@ -93,7 +93,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
         $msgs = array();
 
         // Handle the action requests.
-        $actions = Util::getFormData('itip_action', array());
+        $actions = Horde_Util::getFormData('itip_action', array());
         foreach ($actions as $key => $action) {
             switch ($action) {
             case 'delete':
@@ -308,7 +308,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                     $body = new Horde_Mime_Part();
                     $body->setType('text/plain');
                     $body->setCharset($charset);
-                    $body->setContents(String::wrap($message, 76, "\n"));
+                    $body->setContents(Horde_String::wrap($message, 76, "\n"));
 
                     $ics = new Horde_Mime_Part();
                     $ics->setType('text/calendar');
@@ -328,7 +328,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                     $msg_headers->addHeader('From', $email);
                     $msg_headers->addHeader('To', $organizerEmail);
 
-                    $identity->setDefault(Util::getFormData('identity'));
+                    $identity->setDefault(Horde_Util::getFormData('identity'));
                     $replyto = $identity->getValue('replyto_addr');
                     if (!empty($replyto) && ($replyto != $email)) {
                         $msg_headers->addHeader('Reply-to', $replyto);
@@ -410,7 +410,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
 
                     $message = _("Attached is a reply to a calendar request you sent.");
                     $body = new Horde_Mime_Part('text/plain',
-                                          String::wrap($message, 76, "\n"),
+                                          Horde_String::wrap($message, 76, "\n"),
                                           $charset);
 
                     $ics = new Horde_Mime_Part('text/calendar', $vCal->exportvCalendar());
@@ -430,7 +430,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                     $msg_headers->addHeader('From', $email);
                     $msg_headers->addHeader('To', $organizerEmail);
 
-                    $identity->setDefault(Util::getFormData('identity'));
+                    $identity->setDefault(Horde_Util::getFormData('identity'));
                     $replyto = $identity->getValue('replyto_addr');
                     if (!empty($replyto) && ($replyto != $email)) {
                         $msg_headers->addHeader('Reply-to', $replyto);

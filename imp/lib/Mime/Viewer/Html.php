@@ -112,21 +112,21 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         $msg_charset = $this->_mimepart->getCharset();
 
         if ($inline) {
-            $data = String::convertCharset($data, $msg_charset);
+            $data = Horde_String::convertCharset($data, $msg_charset);
             $msg_charset = $charset;
         }
 
         /* Run tidy on the HTML. */
         if ($this->getConfigParam('tidy') &&
-            ($tidy_config = IMP::getTidyConfig(String::length($data)))) {
+            ($tidy_config = IMP::getTidyConfig(Horde_String::length($data)))) {
             if ($msg_charset == 'us-ascii') {
                 $tidy = tidy_parse_string($data, $tidy_config, 'ascii');
                 $tidy->cleanRepair();
                 $data = tidy_get_output($tidy);
             } else {
-                $tidy = tidy_parse_string(String::convertCharset($data, $msg_charset, 'UTF-8'), $tidy_config, 'utf8');
+                $tidy = tidy_parse_string(Horde_String::convertCharset($data, $msg_charset, 'UTF-8'), $tidy_config, 'utf8');
                 $tidy->cleanRepair();
-                $data = String::convertCharset(tidy_get_output($tidy), 'UTF-8', $msg_charset);
+                $data = Horde_String::convertCharset(tidy_get_output($tidy), 'UTF-8', $msg_charset);
             }
         }
 
@@ -208,22 +208,22 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             preg_match($this->_img_regex, $data)) {
             /* Make sure the URL parameters are correct for the current
              * message. */
-            $url = Util::removeParameter(IMP::selfUrl(), array('actionID', 'index'));
-            $url = Util::addParameter($url, 'index', $this->_params['contents']->getIndex());
+            $url = Horde_Util::removeParameter(IMP::selfUrl(), array('actionID', 'index'));
+            $url = Horde_Util::addParameter($url, 'index', $this->_params['contents']->getIndex());
 
-            $view_img = Util::getFormData('view_html_images');
+            $view_img = Horde_Util::getFormData('view_html_images');
             $addr_check = ($GLOBALS['prefs']->getValue('html_image_addrbook') && $this->_inAddressBook());
 
             if (!$view_img && !$addr_check) {
-                $data .= Util::bufferOutput(array('Horde', 'addScriptFile'), 'prototype.js', 'horde', true) .
-                    Util::bufferOutput(array('Horde', 'addScriptFile'), 'imp.js', 'imp', true);
+                $data .= Horde_Util::bufferOutput(array('Horde', 'addScriptFile'), 'prototype.js', 'horde', true) .
+                    Horde_Util::bufferOutput(array('Horde', 'addScriptFile'), 'imp.js', 'imp', true);
 
                 // Unblock javascript code in js/src/imp.js
                 $cleanhtml['status'][] = array(
                     'icon' => Horde::img('mime/image.png'),
                     'text' => array(
-                        String::convertCharset(_("Images have been blocked to protect your privacy."), $charset, $msg_charset),
-                        Horde::link(Util::addParameter($url, 'view_html_images', 1), '', 'unblockImageLink') . String::convertCharset(_("Show Images?"), $charset, $msg_charset) . '</a>'
+                        Horde_String::convertCharset(_("Images have been blocked to protect your privacy."), $charset, $msg_charset),
+                        Horde::link(Horde_Util::addParameter($url, 'view_html_images', 1), '', 'unblockImageLink') . Horde_String::convertCharset(_("Show Images?"), $charset, $msg_charset) . '</a>'
                     )
                 );
 
@@ -247,7 +247,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
      */
     protected function _mailtoCallback($m)
     {
-        return 'href="' . $GLOBALS['registry']->call('mail/compose', array(String::convertCharset(html_entity_decode($m[2]), 'ISO-8859-1', NLS::getCharset()))) . '"';
+        return 'href="' . $GLOBALS['registry']->call('mail/compose', array(Horde_String::convertCharset(html_entity_decode($m[2]), 'ISO-8859-1', NLS::getCharset()))) . '"';
     }
 
     /**

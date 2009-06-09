@@ -22,7 +22,7 @@ if (Kronolith::getDefaultCalendar(PERMS_EDIT) &&
     (!empty($conf['hooks']['permsdenied']) ||
      Kronolith::hasPermission('max_events') === true ||
      Kronolith::hasPermission('max_events') > Kronolith::countEvents())) {
-    $addurl = Util::addParameter('new.php',
+    $addurl = Horde_Util::addParameter('new.php',
                                  array('date' => $day->dateString(),
                                        'url' => $this->link(0, true)));
     echo Horde::link(Horde::applicationUrl($addurl), _("Create a New Event"), 'iconAdd')

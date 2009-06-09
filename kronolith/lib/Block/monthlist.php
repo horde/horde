@@ -48,7 +48,7 @@ class Horde_Block_Kronolith_monthlist extends Horde_Block {
         } else {
             $url_params = array();
         }
-        return Horde::link(Horde::url(Util::addParameter($registry->getInitialPage(), $url_params), true)) . _("Upcoming Events") . '</a>';
+        return Horde::link(Horde::url(Horde_Util::addParameter($registry->getInitialPage(), $url_params), true)) . _("Upcoming Events") . '</a>';
     }
 
     /**

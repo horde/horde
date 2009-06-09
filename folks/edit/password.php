@@ -18,12 +18,12 @@ require_once 'tabs.php';
 $auth = Auth::singleton($conf['auth']['driver']);
 if (!$auth->hasCapability('resetpassword')) {
     $notification->push(_("Cannot update password, contact your administrator."), 'horde.error');
-    header('Location: ' . Auth::getLoginScreen('', Util::getFormData('url')));
+    header('Location: ' . Auth::getLoginScreen('', Horde_Util::getFormData('url')));
     exit;
 }
 
 $title = _("Change Your Password");
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $form = new Horde_Form($vars, $title, 'password');
 $form->setButtons(_("Continue"));
 $form->addVariable(_("Current password"), 'old', 'password', true);
@@ -173,13 +173,13 @@ do {
 } while (false);
 
 // update password reminder prefs
-if (Util::getPost('formname') == 'security') {
-    if ($prefs->getValue('security_question') != Util::getPost('security_question')) {
-        $prefs->setValue('security_question', Util::getPost('security_question'));
+if (Horde_Util::getPost('formname') == 'security') {
+    if ($prefs->getValue('security_question') != Horde_Util::getPost('security_question')) {
+        $prefs->setValue('security_question', Horde_Util::getPost('security_question'));
     }
 
-    if ($prefs->getValue('security_answer') != Util::getPost('security_answer')) {
-        $prefs->setValue('security_answer', Util::getPost('security_answer'));
+    if ($prefs->getValue('security_answer') != Horde_Util::getPost('security_answer')) {
+        $prefs->setValue('security_answer', Horde_Util::getPost('security_answer'));
     }
 
     $notification->push(_("Your securiy questions was updated."), 'horde.success');

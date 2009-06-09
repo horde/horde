@@ -11,9 +11,9 @@
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-$app   = Util::getFormData('module');
-$sfile = Util::getFormData('file');
-$sline = Util::getFormData('line');
+$app   = Horde_Util::getFormData('module');
+$sfile = Horde_Util::getFormData('file');
+$sline = Horde_Util::getFormData('line');
 
 if ($app == 'horde') {
     $srcfile = realpath(sprintf("%s/%s", HORDE_BASE, $sfile));

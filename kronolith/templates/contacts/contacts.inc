@@ -133,7 +133,7 @@ window.onload = function() {
 </script>
 <form method="post" name="contacts" onsubmit="passAddresses();" action="contacts.php?nocache=<?php echo hash('md5', mt_rand()) ?>">
 <input type="hidden" name="sa" />
-<?php Util::pformInput() ?>
+<?php Horde_Util::pformInput() ?>
 
 <div class="header"><?php echo _("Address Book") ?></div>
 

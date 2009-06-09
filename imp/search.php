@@ -26,10 +26,10 @@ if ($_SESSION['imp']['protocol'] == 'pop') {
     exit;
 }
 
-$actionID = Util::getFormData('actionID');
-$edit_query = Util::getFormData('edit_query');
-$edit_query_vfolder = Util::getFormData('edit_query_vfolder');
-$search_mailbox = Util::getFormData('search_mailbox');
+$actionID = Horde_Util::getFormData('actionID');
+$edit_query = Horde_Util::getFormData('edit_query');
+$edit_query_vfolder = Horde_Util::getFormData('edit_query_vfolder');
+$search_mailbox = Horde_Util::getFormData('search_mailbox');
 
 $imp_search_fields = $imp_search->searchFields();
 
@@ -37,7 +37,7 @@ $charset = NLS::getCharset();
 
 /* Get URL parameter data. */
 $search = array();
-if (Util::getFormData('no_match')) {
+if (Horde_Util::getFormData('no_match')) {
     $search = $imp_search->retrieveUIQuery();
     $retrieve_search = true;
 } elseif (($edit_query !== null) && $imp_search->isSearchMbox($edit_query)) {
@@ -55,19 +55,19 @@ if (Util::getFormData('no_match')) {
     $retrieve_search = false;
 }
 if (empty($search)) {
-    $search['field'] = Util::getFormData('field', array('from', 'to', 'subject', 'body'));
+    $search['field'] = Horde_Util::getFormData('field', array('from', 'to', 'subject', 'body'));
     if (!empty($search['field']) && !end($search['field'])) {
         array_pop($search['field']);
     }
     $search['field_end'] = count($search['field']);
-    $search['match'] = Util::getFormData('search_match');
-    $search['text'] = Util::getFormData('search_text');
-    $search['text_not'] = Util::getFormData('search_text_not');
-    $search['date'] = Util::getFormData('search_date');
-    $search['folders'] = Util::getFormData('search_folders', array());
-    $search['save_vfolder'] = Util::getFormData('save_vfolder');
-    $search['vfolder_label'] = Util::getFormData('vfolder_label');
-    $search['mbox'] = Util::getFormData('mbox', $search_mailbox);
+    $search['match'] = Horde_Util::getFormData('search_match');
+    $search['text'] = Horde_Util::getFormData('search_text');
+    $search['text_not'] = Horde_Util::getFormData('search_text_not');
+    $search['date'] = Horde_Util::getFormData('search_date');
+    $search['folders'] = Horde_Util::getFormData('search_folders', array());
+    $search['save_vfolder'] = Horde_Util::getFormData('save_vfolder');
+    $search['vfolder_label'] = Horde_Util::getFormData('vfolder_label');
+    $search['mbox'] = Horde_Util::getFormData('mbox', $search_mailbox);
 }
 
 /* Run through the action handlers. */
@@ -100,7 +100,7 @@ case 'do_search':
     }
 
     /* Redirect to the Mailbox Screen. */
-    header('Location: ' . Util::addParameter(Horde::applicationUrl('mailbox.php', true), 'mailbox', $GLOBALS['imp_search']->createSearchID($id), false));
+    header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('mailbox.php', true), 'mailbox', $GLOBALS['imp_search']->createSearchID($id), false));
     exit;
 
 case 'reset_search':
@@ -117,7 +117,7 @@ case 'reset_search':
     break;
 
 case 'delete_field':
-    $key = Util::getFormData('delete_field_id');
+    $key = Horde_Util::getFormData('delete_field_id');
 
     /* Unset all entries in array input and readjust ids. */
     $vars = array('field', 'text', 'text_not', 'date');
@@ -137,7 +137,7 @@ if (!$conf['user']['allow_folders']) {
     $search['folders'][] = 'INBOX';
     $subscribe = false;
 } elseif ($subscribe = $prefs->getValue('subscribe')) {
-    $shown = Util::getFormData('show_subscribed_only', $subscribe);
+    $shown = Horde_Util::getFormData('show_subscribed_only', $subscribe);
 }
 
 /* Prepare the search template. */
@@ -156,7 +156,7 @@ if (!$edit_query_vfolder) {
                 sprintf(
                     _("Search %s"),
                     Horde::link(
-                        Horde::url(Util::addParameter('mailbox.php',
+                        Horde::url(Horde_Util::addParameter('mailbox.php',
                                                       'mailbox',
                                                       $search['mbox'])))
                     . htmlspecialchars(IMP::displayFolder($search['mbox']))
@@ -173,8 +173,8 @@ $saved_searches = $imp_search->getSearchQueries();
 if (!empty($saved_searches)) {
     $ss = array();
     foreach ($saved_searches as $key => $val) {
-        if (String::length($val) > 100) {
-            $val = String::substr($val, 0, 100) . ' ...';
+        if (Horde_String::length($val) > 100) {
+            $val = Horde_String::substr($val, 0, 100) . ' ...';
         }
         $ss[] = array('val' => htmlspecialchars($key), 'text' => htmlspecialchars($val));
     }

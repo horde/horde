@@ -8,7 +8,7 @@ $data = $report->getData();
 $reporturl = $report->getParam('url');
 $sortby = $report->getParam('sortby');
 $sortdir = $report->getParam('sortdir');
-$sorturl = Util::addParameter($reporturl, 'sortdir', ($sortdir) ? 0 : 1);
+$sorturl = Horde_Util::addParameter($reporturl, 'sortdir', ($sortdir) ? 0 : 1);
 $sortImg = ($sortdir) ? 'za.png' : 'az.png';
 $sortImgText = ($sortdir) ? '\/' : '/\\';
 
@@ -21,11 +21,11 @@ foreach ($data as $rowId => $row) {
     foreach ($row as $colId => $value) {
         if ($rowId === '__headersort__') {
             $sortText = sprintf(_("Sort by %s"), $value);
-            echo '<th class="' . (($sortby == $colId) ? 'selected' : 'item') . ' sortable" onclick="document.location.href=' . addslashes(Util::addParameter(($sortby == $colId) ? $sorturl : $reporturl, 'sortby',  $colId)) . '">';
+            echo '<th class="' . (($sortby == $colId) ? 'selected' : 'item') . ' sortable" onclick="document.location.href=' . addslashes(Horde_Util::addParameter(($sortby == $colId) ? $sorturl : $reporturl, 'sortby',  $colId)) . '">';
             if ($sortby == $colId) {
-                echo Horde::link(Util::addParameter($sorturl, 'sortby', $colId), $sortText, null, null, null, $sortText) . Horde::img($sortImg, $sortImgText, '', $registry->getImageDir('horde')) . '</a>';
+                echo Horde::link(Horde_Util::addParameter($sorturl, 'sortby', $colId), $sortText, null, null, null, $sortText) . Horde::img($sortImg, $sortImgText, '', $registry->getImageDir('horde')) . '</a>';
             }
-            echo Horde::widget(Util::addParameter(($sortby == $colId) ? $sorturl : $reporturl, 'sortby', $colId), $sortText, 'widget', null, null, $value);
+            echo Horde::widget(Horde_Util::addParameter(($sortby == $colId) ? $sorturl : $reporturl, 'sortby', $colId), $sortText, 'widget', null, null, $value);
             echo '</th>';
         } elseif ($rowId === '__header__') {
             echo '<th class="item">' . htmlspecialchars($value) . '</th>';

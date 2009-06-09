@@ -30,11 +30,11 @@ try {
     exit;
 }
 
-$acls = Util::getFormData('acl');
-$folder = Util::getFormData('folder');
-$new_user = Util::getFormData('new_user');
+$acls = Horde_Util::getFormData('acl');
+$folder = Horde_Util::getFormData('folder');
+$new_user = Horde_Util::getFormData('new_user');
 if ($new_user) {
-    $new_acl = Util::getFormData('new_acl');
+    $new_acl = Horde_Util::getFormData('new_acl');
     /* check to see if $new_user already has an acl on the folder */
     if (isset($acls[$new_user])) {
         $acls[$new_user] = $new_acl;
@@ -46,7 +46,7 @@ $protected = $ACLDriver->getProtected();
 
 /* Run through the action handlers. */
 $ok_form = true;
-switch (Util::getFormData('actionID')) {
+switch (Horde_Util::getFormData('actionID')) {
 case 'imp_acl_set':
     if (!$folder) {
         $notification->push(_("No folder selected."), 'horde.error');
@@ -141,15 +141,15 @@ if (is_a($result, 'PEAR_Error')) {
 extract($result);
 
 $app = 'imp';
-$chunk = Util::nonInputVar('chunk');
+$chunk = Horde_Util::nonInputVar('chunk');
 Prefs_UI::generateHeader(null, $chunk);
 
 /* Set up template. */
 $t = new IMP_Template();
 $t->setOption('gettext', true);
 $t->set('aclurl', Horde::applicationUrl('acl.php'));
-$t->set('forminput', Util::formInput());
-$t->set('aclnavcell', Util::bufferOutput(array('Prefs_UI', 'generateNavigationCell'), 'acl'));
+$t->set('forminput', Horde_Util::formInput());
+$t->set('aclnavcell', Horde_Util::bufferOutput(array('Prefs_UI', 'generateNavigationCell'), 'acl'));
 $t->set('changefolder', Horde::link('#', _("Change Folder"), 'smallheader', '', '', '', '', array('id' => 'changefolder')));
 $t->set('sharedimg', Horde::img('shared.png', _("Change Folder")));
 $t->set('options', IMP::flistSelect(array('selected' => $folder)));

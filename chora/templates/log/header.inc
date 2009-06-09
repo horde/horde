@@ -9,7 +9,7 @@
   <td>
    <form method="get" action="diff.php">
     <?php echo Chora::formInputs() ?>
-    <input type="hidden" name="f" value="<?php echo htmlspecialchars(Util::getFormData('f')) ?>" />
+    <input type="hidden" name="f" value="<?php echo htmlspecialchars(Horde_Util::getFormData('f')) ?>" />
     <?php printf(_("Show diffs between %s and %s"),
                  '<input type="text" size="6" name="r1" value="' . $diffValueLeft . '" />',
                  '<input type="text" size="6" name="r2" value="' . $diffValueRight . '" />') ?>
@@ -25,7 +25,7 @@
   <td>
    <form method="get" action="browsefile.php">
     <?php echo Chora::formInputs() ?>
-    <input type="hidden" name="f" value="<?php echo htmlspecialchars(Util::getFormData('f')) ?>" />
+    <input type="hidden" name="f" value="<?php echo htmlspecialchars(Horde_Util::getFormData('f')) ?>" />
     <?php echo _("Show Branch:") ?>
     <select name="onb" onchange="this.form.submit()">
      <option value="0"<?php if (!isset($onb) || !$onb) echo ' selected="selected"' ?>><?php echo _("All Branches") ?></option>

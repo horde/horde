@@ -62,7 +62,7 @@ class Folks {
     static public function getImageUrl($user, $view = 'small', $full = false)
     {
         if (empty($GLOBALS['conf']['images']['direct'])) {
-            return Util::addParameter(Horde::applicationUrl('view.php', $full),
+            return Horde_Util::addParameter(Horde::applicationUrl('view.php', $full),
                                      array('view' => $view,
                                            'id' => $user),
                                      null, false);
@@ -105,7 +105,7 @@ class Folks {
 
         case 'user':
             if (empty($GLOBALS['conf']['urls']['pretty'])) {
-                return Util::addParameter(Horde::applicationUrl('user.php', $full, $append_session), 'user', $data);
+                return Horde_Util::addParameter(Horde::applicationUrl('user.php', $full, $append_session), 'user', $data);
             } else {
                 return Horde::applicationUrl('user/' . $data, $full, $append_session);
             }

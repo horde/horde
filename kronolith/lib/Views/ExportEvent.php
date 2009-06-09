@@ -20,7 +20,7 @@ class Kronolith_View_ExportEvent {
             $share = &$GLOBALS['kronolith_shares']->getShare($event->getCalendar());
             if (!is_a($share, 'PEAR_Error')) {
                 $iCal->setAttribute('X-WR-CALNAME',
-                                    String::convertCharset($share->get('name'),
+                                    Horde_String::convertCharset($share->get('name'),
                                                            NLS::getCharset(),
                                                            'utf-8'));
             }

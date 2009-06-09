@@ -3,7 +3,7 @@
     <?php
     if ($class['_edit']) {
         $label = _("New Entry");
-        echo Horde::link(Util::addParameter(Horde::applicationUrl('add.php'), array('class'=>$class['_id'], 'student'=>$student['__key'])), $label) . Horde::img('add.png', $label, null, $registry->getImageDir('skoli')) . '</a>';
+        echo Horde::link(Horde_Util::addParameter(Horde::applicationUrl('add.php'), array('class'=>$class['_id'], 'student'=>$student['__key'])), $label) . Horde::img('add.png', $label, null, $registry->getImageDir('skoli')) . '</a>';
     }
     ?>
   </td>
@@ -30,7 +30,7 @@
         'class'    => $class['_id'],
         'student'  => $student['__key']
     );
-    echo $treeIcon . '&nbsp;' . Horde::link(Util::addParameter(Horde::applicationUrl('search.php'), $params), $label) . htmlspecialchars($student[$conf['addresses']['name_field']]) . '</a>';
+    echo $treeIcon . '&nbsp;' . Horde::link(Horde_Util::addParameter(Horde::applicationUrl('search.php'), $params), $label) . htmlspecialchars($student[$conf['addresses']['name_field']]) . '</a>';
     ?>
   </td>
 <?php if (in_array('lastentry', $student_columns)): ?>

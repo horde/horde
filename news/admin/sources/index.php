@@ -29,11 +29,11 @@ $view_url = Horde::applicationUrl('browse.php');
 $view_img = Horde::img('category.png', _("View items"), '', $registry->getImageDir('horde'));
 
 foreach ($sources as $source_id => $source) {
-    $sources[$source_id]['actions'][] = Horde::link(Util::addParameter($view_url, 'source_id', $source_id), _("View articles")) .
+    $sources[$source_id]['actions'][] = Horde::link(Horde_Util::addParameter($view_url, 'source_id', $source_id), _("View articles")) .
                                         $view_img . '</a>';
-    $sources[$source_id]['actions'][] = Horde::link(Util::addParameter($delete_url, 'source_id', $source_id), _("Delete")) .
+    $sources[$source_id]['actions'][] = Horde::link(Horde_Util::addParameter($delete_url, 'source_id', $source_id), _("Delete")) .
                                         $delete_img . '</a>';
-    $sources[$source_id]['actions'][] = Horde::link(Util::addParameter($edit_url, 'source_id', $source_id), _("Edit")) .
+    $sources[$source_id]['actions'][] = Horde::link(Horde_Util::addParameter($edit_url, 'source_id', $source_id), _("Edit")) .
                                         $edit_img . '</a>';
 }
 

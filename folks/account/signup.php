@@ -23,7 +23,7 @@ if ($conf['signup']['allow'] !== true ||
     exit;
 }
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $form = new HordeSignupForm($vars);
 if ($form->validate()) {
     $form->getInfo(null, $info);

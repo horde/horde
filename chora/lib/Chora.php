@@ -98,7 +98,7 @@ class Chora
         /* See if any have been passed as GET variables, and if so, assign
          * them into the acts array. */
         foreach ($defaultActs as $key => $default) {
-            $acts[$key] = Util::getFormData($key, $default);
+            $acts[$key] = Horde_Util::getFormData($key, $default);
         }
 
         if (!isset($sourceroots[$acts['rt']])) {
@@ -118,7 +118,7 @@ class Chora
         $GLOBALS['conf']['paths']['temp'] = Horde::getTempDir();
 
         try {
-            $GLOBALS['VC'] = Horde_Vcs::factory(String::ucfirst($sourcerootopts['type']),
+            $GLOBALS['VC'] = Horde_Vcs::factory(Horde_String::ucfirst($sourcerootopts['type']),
                 array('cache' => $cache,
                       'sourceroot' => $sourcerootopts['location'],
                       'paths' => $GLOBALS['conf']['paths'],
@@ -134,7 +134,7 @@ class Chora
         $GLOBALS['conf']['options']['introTitle'] = isset($sourcerootopts['title']) ? $sourcerootopts['title'] : '';
         $GLOBALS['conf']['options']['sourceRootName'] = $sourcerootopts['name'];
 
-        $where = Util::getFormData('f', '/');
+        $where = Horde_Util::getFormData('f', '/');
 
         /* Location relative to the sourceroot. */
         $where = preg_replace(array('|^/|', '|\.\.|'), '', $where);
@@ -267,7 +267,7 @@ class Chora
             $arglist['f'] = $uri;
         }
 
-        $url = Util::addParameter(Horde::applicationUrl($script), $arglist);
+        $url = Horde_Util::addParameter(Horde::applicationUrl($script), $arglist);
 
         return empty($anchor) ? $url : ($url . '#' . $anchor);
     }
@@ -281,7 +281,7 @@ class Chora
     {
         $arglist = self::_getArgList($GLOBALS['acts'], $GLOBALS['defaultActs'], array());
 
-        $fields = Util::formInput();
+        $fields = Horde_Util::formInput();
         foreach ($arglist as $key => $val) {
             $fields .= '<input type="hidden" name="' . htmlspecialchars($key) . '" value="' . htmlspecialchars($val) . '" />';
         }

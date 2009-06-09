@@ -17,8 +17,8 @@ function handle_sentmailselect($updated)
 
     if ($conf['user']['allow_folders'] &&
         !$prefs->isLocked('sent_mail_folder')) {
-        $sent_mail_folder = Util::getFormData('sent_mail_folder');
-        $sent_mail_new = String::convertCharset(Util::getFormData('sent_mail_new'), NLS::getCharset(), 'UTF7-IMAP');
+        $sent_mail_folder = Horde_Util::getFormData('sent_mail_folder');
+        $sent_mail_new = Horde_String::convertCharset(Horde_Util::getFormData('sent_mail_new'), NLS::getCharset(), 'UTF7-IMAP');
         $sent_mail_default = $prefs->getValue('sent_mail_folder');
         if (empty($sent_mail_folder) && !empty($sent_mail_new)) {
             $sent_mail_folder = IMP::appendNamespace($sent_mail_new);
@@ -44,9 +44,9 @@ function handlefolders($updated, $pref, $folder, $new)
     global $conf, $prefs;
 
     if ($conf['user']['allow_folders']) {
-        $folder = Util::getFormData($folder);
+        $folder = Horde_Util::getFormData($folder);
         if (isset($folder) && !$prefs->isLocked($pref)) {
-            $new = String::convertCharset(Util::getFormData($new), NLS::getCharset(), 'UTF7-IMAP');
+            $new = Horde_String::convertCharset(Horde_Util::getFormData($new), NLS::getCharset(), 'UTF7-IMAP');
             if ($folder == IMP_PREF_NO_FOLDER) {
                 $prefs->setValue($pref, '');
             } else {
@@ -79,7 +79,7 @@ function handle_trashselect($updated)
     global $prefs;
     $ret = true;
 
-    if (Util::getFormData('trash') == IMP_PREF_VTRASH) {
+    if (Horde_Util::getFormData('trash') == IMP_PREF_VTRASH) {
         if ($prefs->isLocked('use_vtrash')) {
             $ret = false;
         } else {
@@ -105,20 +105,20 @@ function handle_sourceselect($updated)
 {
     global $prefs;
 
-    $search_sources = Util::getFormData('search_sources');
+    $search_sources = Horde_Util::getFormData('search_sources');
     if (!is_null($search_sources)) {
         $prefs->setValue('search_sources', $search_sources);
         unset($_SESSION['imp']['cache']['ac_ajax']);
         $updated = true;
     }
 
-    $search_fields_string = Util::getFormData('search_fields_string');
+    $search_fields_string = Horde_Util::getFormData('search_fields_string');
     if (!is_null($search_fields_string)) {
         $prefs->setValue('search_fields', $search_fields_string);
         $updated = true;
     }
 
-    $add_source = Util::getFormData('add_source');
+    $add_source = Horde_Util::getFormData('add_source');
     if (!is_null($add_source)) {
         $prefs->setValue('add_source', $add_source);
         $updated = true;
@@ -129,14 +129,14 @@ function handle_sourceselect($updated)
 
 function handle_initialpageselect($updated)
 {
-    $initial_page = Util::getFormData('initial_page');
+    $initial_page = Horde_Util::getFormData('initial_page');
     $GLOBALS['prefs']->setValue('initial_page', $initial_page);
     return true;
 }
 
 function handle_encryptselect($updated)
 {
-    $default_encrypt = Util::getFormData('default_encrypt');
+    $default_encrypt = Horde_Util::getFormData('default_encrypt');
     $GLOBALS['prefs']->setValue('default_encrypt', $default_encrypt);
     return true;
 }
@@ -148,21 +148,21 @@ function handle_spamselect($updated)
 
 function handle_defaultsearchselect($updated)
 {
-    $default_search = Util::getFormData('default_search');
+    $default_search = Horde_Util::getFormData('default_search');
     $GLOBALS['prefs']->setValue('default_search', $default_search);
     return true;
 }
 
 function handle_soundselect($updated)
 {
-    return $GLOBALS['prefs']->setValue('nav_audio', Util::getFormData('nav_audio'));
+    return $GLOBALS['prefs']->setValue('nav_audio', Horde_Util::getFormData('nav_audio'));
 }
 
 function handle_flagmanagement($updated)
 {
     $imp_flags = &IMP_Imap_Flags::singleton();
-    $flag_action = Util::getFormData('flag_action');
-    $flag_data = Util::getFormData('flag_data');
+    $flag_action = Horde_Util::getFormData('flag_action');
+    $flag_data = Horde_Util::getFormData('flag_data');
 
     if ($flag_action == 'add') {
         $imp_flags->addFlag($flag_data);
@@ -186,14 +186,14 @@ function handle_flagmanagement($updated)
         default:
             /* Change labels for user-defined flags. */
             if ($val['t'] == 'imapp') {
-                $label = Util::getFormData('label_' . $md5);
+                $label = Horde_Util::getFormData('label_' . $md5);
                 if (strlen($label) && ($label != $val['l'])) {
                     $imp_flags->updateFlag($key, array('l' => $label));
                 }
             }
 
             /* Change background for all flags. */
-            $bg = strtolower(Util::getFormData('bg_' . $md5));
+            $bg = strtolower(Horde_Util::getFormData('bg_' . $md5));
             if ((isset($val['b']) && ($bg != $val['b'])) ||
                 (!isset($val['b']) && ($bg != $def_color))) {
                 $imp_flags->updateFlag($key, array('b' => $bg));
@@ -263,6 +263,6 @@ foreach (($maint->exportIntervalPrefs()) as $val) {
 
 /* Make sure we have an active IMAP stream. */
 if (!$GLOBALS['registry']->call('mail/server')) {
-    header('Location: ' . Util::addParameter(Horde::applicationUrl('redirect.php'), 'url', Horde::selfUrl(true)));
+    header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('redirect.php'), 'url', Horde::selfUrl(true)));
     exit;
 }

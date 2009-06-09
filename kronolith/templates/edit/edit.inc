@@ -1,6 +1,6 @@
 <?php $showCalSelect = (!$GLOBALS['prefs']->isLocked('default_share') && count($calendars) > 1); ?>
 <form action="<?php echo ($event->isInitialized() && !$event->isRemote() ? 'edit.php' : 'add.php') ?>" method="post" name="eventform" id="eventform">
-<?php Util::pformInput() ?>
+<?php Horde_Util::pformInput() ?>
 <input type="hidden" name="year" value="<?php if (isset($year)) echo htmlspecialchars($year) ?>" />
 <input type="hidden" name="month" value="<?php if (isset($month)) echo htmlspecialchars($month) ?>" />
 <input type="hidden" name="mday" value="<?php if (isset($day)) echo htmlspecialchars($day) ?>" />
@@ -37,7 +37,7 @@
   <input type="radio" name="edit_recur" value="future" id="edit_future" onclick="KronolithEventForm.setStartDate($F('recur_ex'))" /> <?php echo Horde::label('edit_future', _("Future")) ?>
   <input type="radio" name="edit_recur" value="all" id="edit_all" checked="checked" /> <?php echo Horde::label('edit_all', _("All")) ?>
   <input type="radio" name="edit_recur" value="copy" id="edit_copy" /> <?php echo Horde::label('edit_copy', _("Save As New")) ?>
-  <input type="hidden" name="recur_ex" id="recur_ex" value="<?php echo Util::getFormData('datetime') ?>" />
+  <input type="hidden" name="recur_ex" id="recur_ex" value="<?php echo Horde_Util::getFormData('datetime') ?>" />
  </td>
 </tr>
 <?php endif; ?>

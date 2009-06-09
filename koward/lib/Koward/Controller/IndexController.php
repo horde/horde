@@ -32,8 +32,8 @@ class IndexController extends Koward_Controller_Application
             /* Destroy any existing session on login and make sure to use a
              * new session ID, to avoid session fixation issues. */
             Horde::getCleanSession();
-            if ($this->koward->auth->authenticate(Util::getPost('horde_user'),
-                                                  array('password' => Util::getPost('horde_pass')))) {
+            if ($this->koward->auth->authenticate(Horde_Util::getPost('horde_user'),
+                                                  array('password' => Horde_Util::getPost('horde_pass')))) {
                 $entry = sprintf('Login success for %s [%s] to Horde',
                                  Auth::getAuth(), $_SERVER['REMOTE_ADDR']);
                 Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_NOTICE);
@@ -50,7 +50,7 @@ class IndexController extends Koward_Controller_Application
                 exit;
             } else {
                 $entry = sprintf('FAILED LOGIN for %s [%s] to Horde',
-                                 Util::getFormData('horde_user'), $_SERVER['REMOTE_ADDR']);
+                                 Horde_Util::getFormData('horde_user'), $_SERVER['REMOTE_ADDR']);
                 Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_ERR);
             }
         }

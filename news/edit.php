@@ -23,13 +23,13 @@ if (empty($allowed_cats)) {
     exit;
 }
 
-$id = (int)Util::getFormData('id', 0);
-$page = (int)Util::getFormData('page', 0);
-$browse_url = Util::addParameter(Horde::applicationUrl('edit.php'), array('page' => $page, 'id' => $id), null, false);
+$id = (int)Horde_Util::getFormData('id', 0);
+$page = (int)Horde_Util::getFormData('page', 0);
+$browse_url = Horde_Util::addParameter(Horde::applicationUrl('edit.php'), array('page' => $page, 'id' => $id), null, false);
 $edit_url = Horde::applicationUrl('add.php');
 $read_url = Horde::applicationUrl('reads.php');
 $has_comments = $registry->hasMethod('forums/doComments');
-$actionID = Util::getFormData('actionID');
+$actionID = Horde_Util::getFormData('actionID');
 
 // save as future version
 if (!empty($actionID) && $id > 0) {
@@ -112,7 +112,7 @@ case 'unlock';
 break;
 case 'renew';
 
-    $version = Util::getFormData('version');
+    $version = Horde_Util::getFormData('version');
 
     $version_data = $news->db->getRow('SELECT content FROM ' . $news->prefix . '_versions WHERE id = ? AND version = ?',
                                       array($id, $version), DB_FETCHMODE_ASSOC);
@@ -152,7 +152,7 @@ break;
 }
 
 $title = _("Edit");
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $form = new News_Search($vars);
 $form->getInfo(null, $info);
 
@@ -179,7 +179,7 @@ if ($count instanceof PEAR_Error) {
 }
 
 // Select rows
-$page = Util::getGet('news_page', 0);
+$page = Horde_Util::getGet('news_page', 0);
 $per_page = $prefs->getValue('per_page');
 $sql = $news->db->modifyLimitQuery($sql, $page*$per_page, $per_page);
 $rows = $news->db->getAll($sql, $binds[1], DB_FETCHMODE_ASSOC);

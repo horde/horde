@@ -21,7 +21,7 @@ if (!Auth::getAuth() || $prefs->isLocked('remote_cals')) {
     exit;
 }
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $url = $vars->get('url');
 
 $remote_calendar = null;

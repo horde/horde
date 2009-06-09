@@ -48,7 +48,7 @@ if ($pageOb['mode'] == 'edit') {
 ?>
 <?php if ($pageOb['mode'] == 'list'): ?>
 <form method="post" name="postings" action="<?php echo $pageOb['url'] ?>">
-<?php Util::pformInput() ?>
+<?php Horde_Util::pformInput() ?>
 <?php endif; ?>
 <table class="postingList" width="100%" cellspacing="0">
  <tr class="item">
@@ -67,11 +67,11 @@ if ($pageOb['mode'] == 'edit') {
 
 <?php foreach ($headers as $key => $val): ?>
 <?php if ($pageOb['mode'] == 'list'): ?>
-  <th class="<?php echo ($sortby == $key) ? 'selected' : 'item' ?>" width="<?php echo $val['width'] ?>" onclick="document.location.href='<?php echo addslashes(Util::addParameter(($sortby == $key) ? $sorturl : $pageOb['url'], array('sortby' => $key, 'actionID' => 'change_sort'))) ?>';">
+  <th class="<?php echo ($sortby == $key) ? 'selected' : 'item' ?>" width="<?php echo $val['width'] ?>" onclick="document.location.href='<?php echo addslashes(Horde_Util::addParameter(($sortby == $key) ? $sorturl : $pageOb['url'], array('sortby' => $key, 'actionID' => 'change_sort'))) ?>';">
   <?php if ($sortby == $key): ?>
-    <?php echo Horde::link(Util::addParameter($sorturl, array('sortby' => $key, 'actionID' => 'change_sort')), $val['stext'], null, null, null, $val['stext']) . Horde::img($sortImg, $sortText, '', $registry->getImageDir('horde')) ?></a>
+    <?php echo Horde::link(Horde_Util::addParameter($sorturl, array('sortby' => $key, 'actionID' => 'change_sort')), $val['stext'], null, null, null, $val['stext']) . Horde::img($sortImg, $sortText, '', $registry->getImageDir('horde')) ?></a>
   <?php endif; ?>
-  <?php echo Horde::widget(Util::addParameter(($sortby == $key) ? $sorturl : $pageOb['url'], array('sortby' => $key, 'actionID' => 'change_sort')), $val['stext'], 'widget', null, null, $val['text']) ?>
+  <?php echo Horde::widget(Horde_Util::addParameter(($sortby == $key) ? $sorturl : $pageOb['url'], array('sortby' => $key, 'actionID' => 'change_sort')), $val['stext'], 'widget', null, null, $val['text']) ?>
 <?php else: ?>
   <th class="item" width="<?php echo $val['width'] ?>">
   <?php echo str_replace('_', '', $val['text']) ?>

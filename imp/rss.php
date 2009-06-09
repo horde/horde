@@ -30,7 +30,7 @@ $unseen_num = 0;
 
 /* Determine the mailbox that was requested and if only new mail should be
  * displayed. Default to new mail in INBOX. */
-$request = Util::getPathInfo();
+$request = Horde_Util::getPathInfo();
 if (!empty($request)) {
     $request_parts = explode('/-/', $request);
     if (!empty($request_parts[0])) {

@@ -12,7 +12,7 @@
 
 require_once dirname(__FILE__) . '/tabs.php';
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 
 $title = _("Forgot your username?");
 $form = new Horde_Form($vars, $title);

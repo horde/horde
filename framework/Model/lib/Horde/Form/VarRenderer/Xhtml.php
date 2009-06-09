@@ -224,37 +224,37 @@ if (tmp) {
             $img = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/images/view.php');
             if (isset($image['img']['vfs_id'])) {
                 /* Calling an image from VFS. */
-                $img = Util::addParameter($img, array('f' => $image['img']['vfs_id'],
+                $img = Horde_Util::addParameter($img, array('f' => $image['img']['vfs_id'],
                                                       's' => 'vfs',
                                                       'p' => $image['img']['vfs_path']));
             } else {
                 /* Calling an image from a tmp directory (uploads). */
-                $img = Util::addParameter($img, 'f', $image['img']['file']);
+                $img = Horde_Util::addParameter($img, 'f', $image['img']['file']);
             }
 
             // TODO: possible to change to unobtrusive JS?
             /* Rotate 270. */
-            $html .= Horde::link('#', '', '', '', 'showImage(\'' . Util::addParameter($img, array('a' => 'rotate', 'v' => '270')) . '\', \'_p_' . $varname . '\', true);') . Horde::img('rotate-270.png', _("Rotate Left"), '', $img_dir) . '</a>';
+            $html .= Horde::link('#', '', '', '', 'showImage(\'' . Horde_Util::addParameter($img, array('a' => 'rotate', 'v' => '270')) . '\', \'_p_' . $varname . '\', true);') . Horde::img('rotate-270.png', _("Rotate Left"), '', $img_dir) . '</a>';
 
             /* Rotate 180. */
-            $html .= Horde::link('#', '', '', '', 'showImage(\'' . Util::addParameter($img, array('a' => 'rotate', 'v' => '180')) . '\', \'_p_' . $varname . '\', true);') . Horde::img('rotate-180.png', _("Rotate 180"), '', $img_dir) . '</a>';
+            $html .= Horde::link('#', '', '', '', 'showImage(\'' . Horde_Util::addParameter($img, array('a' => 'rotate', 'v' => '180')) . '\', \'_p_' . $varname . '\', true);') . Horde::img('rotate-180.png', _("Rotate 180"), '', $img_dir) . '</a>';
 
             /* Rotate 90. */
-            $html .= Horde::link('#', '', '', '', 'showImage(\'' . Util::addParameter($img, array('a' => 'rotate', 'v' => '90')) . '\', \'_p_' . $varname . '\', true);') . Horde::img('rotate-90.png', _("Rotate Right"), '', $img_dir) . '</a>';
+            $html .= Horde::link('#', '', '', '', 'showImage(\'' . Horde_Util::addParameter($img, array('a' => 'rotate', 'v' => '90')) . '\', \'_p_' . $varname . '\', true);') . Horde::img('rotate-90.png', _("Rotate Right"), '', $img_dir) . '</a>';
 
             /* Flip image. */
-            $html .= Horde::link('#', '', '', '', 'showImage(\'' . Util::addParameter($img, 'a', 'flip') . '\', \'_p_' . $varname . '\', true);') . Horde::img('flip.png', _("Flip"), '', $img_dir) . '</a>';
+            $html .= Horde::link('#', '', '', '', 'showImage(\'' . Horde_Util::addParameter($img, 'a', 'flip') . '\', \'_p_' . $varname . '\', true);') . Horde::img('flip.png', _("Flip"), '', $img_dir) . '</a>';
 
             /* Mirror image. */
-            $html .= Horde::link('#', '', '', '', 'showImage(\'' . Util::addParameter($img, 'a', 'mirror') . '\', \'_p_' . $varname . '\', true);') . Horde::img('mirror.png', _("Mirror"), '', $img_dir) . '</a>';
+            $html .= Horde::link('#', '', '', '', 'showImage(\'' . Horde_Util::addParameter($img, 'a', 'mirror') . '\', \'_p_' . $varname . '\', true);') . Horde::img('mirror.png', _("Mirror"), '', $img_dir) . '</a>';
 
             /* Apply grayscale. */
-            $html .= Horde::link('#', '', '', '', 'showImage(\'' . Util::addParameter($img, 'a', 'grayscale') . '\', \'_p_' . $varname . '\', true);') . Horde::img('grayscale.png', _("Grayscale"), '', $img_dir) . '</a>';
+            $html .= Horde::link('#', '', '', '', 'showImage(\'' . Horde_Util::addParameter($img, 'a', 'grayscale') . '\', \'_p_' . $varname . '\', true);') . Horde::img('grayscale.png', _("Grayscale"), '', $img_dir) . '</a>';
 
             /* Resize width. */
             $html .= sprintf('%s    <input type="text" class="form-input-resize" onchange="src=getResizeSrc(\'%s\', \'%s\');showImage(src, \'_p_%s\', true);" %s />',
                    _("w:"),
-                   Util::addParameter($img, 'a', 'resize'),
+                   Horde_Util::addParameter($img, 'a', 'resize'),
                    $varname,
                    $varname,
                    '_w_'. $varname);
@@ -262,13 +262,13 @@ if (tmp) {
             /* Resize height. */
             $html .= sprintf('%s    <input type="text" class="form-input-resize" onchange="src=getResizeSrc(\'%s\', \'%s\');showImage(src, \'_p_%s\', true);" %s />',
                    _("h:"),
-                   Util::addParameter($img, 'a', 'resize'),
+                   Horde_Util::addParameter($img, 'a', 'resize'),
                    $varname,
                    $varname,
                    '_h_'. $varname);
 
             /* Apply fixed ratio resize. */
-            $html .= Horde::link('#', '', '', '', 'src=getResizeSrc(\'' . Util::addParameter($img, 'a', 'resize') . '\', \'' . $varname . '\', \'1\');showImage(src, \'_p_' . $varname . '\', true);') . Horde::img('ratio.png', _("Fix ratio"), '', $img_dir) . '</a>';
+            $html .= Horde::link('#', '', '', '', 'src=getResizeSrc(\'' . Horde_Util::addParameter($img, 'a', 'resize') . '\', \'' . $varname . '\', \'1\');showImage(src, \'_p_' . $varname . '\', true);') . Horde::img('ratio.png', _("Fix ratio"), '', $img_dir) . '</a>';
 
             /* Keep also original if it has been requested. */
             if ($var->type->show_keeporig) {
@@ -1045,7 +1045,7 @@ EOT;
     {
         $img_params = $var->getValue($vars);
         $img_url = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/images/view.php');
-        $img_url = Util::addParameter($img_url, $img_params);
+        $img_url = Horde_Util::addParameter($img_url, $img_params);
 
         return Horde::img($img_url, isset($img_params['f']) ? $img_params['f'] : '', '', '');
     }
@@ -1170,7 +1170,7 @@ EOT;
         } elseif (preg_match('/(.*?)\r?\n([A-Z]{1,3})-(\d{5})\s+(.*)/i', $address, $addressParts)) {
             /* European address style. */
             include 'Horde/NLS/carsigns.php';
-            $country = array_search(String::upper($addressParts[2]), $carsigns);
+            $country = array_search(Horde_String::upper($addressParts[2]), $carsigns);
 
             /* Map24 generated map. */
             if (in_array($country, array('al', 'ad', 'am', 'az', 'be', 'ba',
@@ -1203,7 +1203,7 @@ EOT;
             }
 
             /* Mapquest generated map. */
-            $mapurl2 = 'http://www.mapquest.com/maps/map.adp?country=' . String::upper($country);
+            $mapurl2 = 'http://www.mapquest.com/maps/map.adp?country=' . Horde_String::upper($country);
             $desc2 = _("MapQuest map");
             $icon2 = 'map_eu.png';
             if (!empty($addressParts[1])) {
@@ -1345,7 +1345,7 @@ EOT;
                     if ($GLOBALS['registry']->hasMethod('files/getViewLink')) {
                         $filename = basename($filename);
                         $url = $GLOBALS['registry']->call('files/getViewLink', array($dir, $filename));
-                        $filename = Horde::link($url, _("Preview"), null, 'form_file_view') . htmlspecialchars(Util::realPath($dir . '/' . $filename), ENT_QUOTES, $this->_charset) . '</a>';
+                        $filename = Horde::link($url, _("Preview"), null, 'form_file_view') . htmlspecialchars(Horde_Util::realPath($dir . '/' . $filename), ENT_QUOTES, $this->_charset) . '</a>';
                     } else {
                         if (!empty($dir) && ($dir != '.')) {
                             $filename = $dir . '/' . $filename;

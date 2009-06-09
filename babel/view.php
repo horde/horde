@@ -25,12 +25,12 @@ $meta_params = array(
 		     "Content-Transfer-Encoding" => "8bit",
 		     "Plural-Forms" => "nplurals=2; plural=(n > 1);");
 
-$app      = Util::getFormData('module');
-$editmode = Util::getFormData('editmode', 0);
-$cstring  = Util::getFormData('cstring');
-$page     = Util::getFormData('page', 0);
-$filter   = Util::getFormData('filter');
-$search   = Util::getFormData('search');
+$app      = Horde_Util::getFormData('module');
+$editmode = Horde_Util::getFormData('editmode', 0);
+$cstring  = Horde_Util::getFormData('cstring');
+$page     = Horde_Util::getFormData('page', 0);
+$filter   = Horde_Util::getFormData('filter');
+$search   = Horde_Util::getFormData('search');
 
 if ($app) {
     /* Render the page. */
@@ -50,9 +50,9 @@ if ($app) {
 
 echo $template->fetch(BABEL_TEMPLATES . '/layout.html');
 
-$app = Util::getFormData('module');
+$app = Horde_Util::getFormData('module');
 $show = 'edit';
-$vars = &Variables::getDefaultVariables();
+$vars = &Horde_Variables::getDefaultVariables();
 
 if ($app) {
     
@@ -73,8 +73,8 @@ if ($app) {
 
 //
 
-$f_cancel = Util::getFormData('cancel');
-$f_save = Util::getFormData('submit');
+$f_cancel = Horde_Util::getFormData('cancel');
+$f_save = Horde_Util::getFormData('submit');
 
 if (($f_save || $f_cancel) && $cstring) {
     if ($curlock = $locks->getLocks(md5($cstring), $lockscope)) {
@@ -89,11 +89,11 @@ if (($f_save || $f_cancel) && $cstring) {
 if ($f_save && $cstring) {
     
     $decstr = $po->encstr[$cstring];
-    $msgstr = Util::getFormData('msgstr');
+    $msgstr = Horde_Util::getFormData('msgstr');
     $comments = trim($po->comments[$decstr]);
 
-    $phpformat = Util::getFormData('phpformat');
-    $fuzzy = Util::getFormData('fuzzy');
+    $phpformat = Horde_Util::getFormData('phpformat');
+    $fuzzy = Horde_Util::getFormData('fuzzy');
     
     $status = $po->status[$decstr];
     foreach($status as $k => $v) {
@@ -143,7 +143,7 @@ if ($f_save && $cstring) {
 
 /* Set up the template fields. */
 $template->set('menu', Babel::getMenu('string'));
-$template->set('notify', Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
 
 /* Create upload form */
 $form = &new Horde_Form($vars, _("View Translation"), $show);
@@ -163,7 +163,7 @@ if (!$app) {
     if (Babel::hasPermission('view', 'tabs', PERMS_EDIT)) {
 	$hmenu_desc = _("Edit Header");
 	$url = Horde::applicationUrl('edit.php');
-	$url = Util::addParameter($url, array('module' => $app,
+	$url = Horde_Util::addParameter($url, array('module' => $app,
 					      'url'    => 'view'));
 	
 	$hmenu = Horde::link($url, $hmenu_desc, 'menuitem', null);
@@ -225,7 +225,7 @@ if (!$app) {
 	$hmenu_desc = _("All");
     }
     $url = Horde::applicationUrl('view.php');
-    $url = Util::addParameter($url, array('module' => $app));
+    $url = Horde_Util::addParameter($url, array('module' => $app));
     $filter_html .= Horde::link($url, _("Edit Mode"), 'menuitem', null). '&nbsp;' . $hmenu_desc . '</a>&nbsp;';
     $filter_html .= '|&nbsp;';
 
@@ -235,7 +235,7 @@ if (!$app) {
 	$hmenu_desc = _("Translated");
     }
     $url = Horde::applicationUrl('view.php');
-    $url = Util::addParameter($url, array('module' => $app, 'filter' => 'translated'));
+    $url = Horde_Util::addParameter($url, array('module' => $app, 'filter' => 'translated'));
     $filter_html .= Horde::link($url, $hmenu_desc, 'menuitem', null). '&nbsp;' . $hmenu_desc . '</a>&nbsp;';
     $filter_html .= '|&nbsp;';
 
@@ -246,7 +246,7 @@ if (!$app) {
 	$hmenu_desc = _("Fuzzy");
     }
     $url = Horde::applicationUrl('view.php');
-    $url = Util::addParameter($url, array('module' => $app, 'filter' => 'fuzzy'));
+    $url = Horde_Util::addParameter($url, array('module' => $app, 'filter' => 'fuzzy'));
     $filter_html .= Horde::link($url, $hmenu_desc, 'menuitem', null). '&nbsp;' . $hmenu_desc . '</a>&nbsp;';
     $filter_html .= '|&nbsp;';
 
@@ -256,7 +256,7 @@ if (!$app) {
 	$hmenu_desc = _("Untranslated");
     }
     $url = Horde::applicationUrl('view.php');
-    $url = Util::addParameter($url, array('module' => $app, 'filter' => 'untranslated'));
+    $url = Horde_Util::addParameter($url, array('module' => $app, 'filter' => 'untranslated'));
     $filter_html .= Horde::link($url, $hmenu_desc, 'menuitem', null). '&nbsp;' . $hmenu_desc . '</a>&nbsp;';
     $filter_html .= ']&nbsp;';
 
@@ -375,7 +375,7 @@ if (!$app) {
 
 		if (Babel::hasPermission('viewsource', 'tabs', PERMS_EDIT)) {
 		    $surl = Horde::applicationUrl('viewsource.php');
-		    $surl = Util::addParameter($surl, array('module' => $app,
+		    $surl = Horde_Util::addParameter($surl, array('module' => $app,
 							    'file'   => $sfile,
 							    'line'   => $sline));
 		    
@@ -432,7 +432,7 @@ if (!$app) {
 	      if (Babel::hasPermission('view', 'tabs', PERMS_EDIT)) {
 		  if (!$editmode || $cstring != $encstr) {
 		      $surl = Horde::applicationUrl('view.php');
-		      $surl = Util::addParameter($surl, array('module' => $app, 'cstring' => $encstr, 'editmode' => 1, 'page' => $page, 'filter' => $filter, 'search' => $search));
+		      $surl = Horde_Util::addParameter($surl, array('module' => $app, 'cstring' => $encstr, 'editmode' => 1, 'page' => $page, 'filter' => $filter, 'search' => $search));
 		      $surl .= "#" . md5($encstr);
 		      
 		      echo Horde::link($surl, _("Edit Translation")) . Horde::img('babel.png') . '&nbsp;' ._("Edit Translation") . "</a>";
@@ -484,7 +484,7 @@ if (!$app) {
 <tr><td>
 <?php
   $viewurl = Horde::applicationUrl('view.php');
-$viewurl = Util::addParameter($viewurl, array('editmode' => $editmode,
+$viewurl = Horde_Util::addParameter($viewurl, array('editmode' => $editmode,
 					      'module' => $app, 
 					      'filter' => $filter,
 					      'search' => $search));

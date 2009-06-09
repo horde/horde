@@ -67,17 +67,17 @@ function _changed($mbox, $compare, $rw = null)
 function _getListMessages($mbox, $change)
 {
     $args = array(
-        'cached' => Util::getPost('cached'),
-        'cacheid' => Util::getPost('cacheid'),
+        'cached' => Horde_Util::getPost('cached'),
+        'cacheid' => Horde_Util::getPost('cacheid'),
         'mbox' => $mbox,
-        'rangeslice' => Util::getPost('rangeslice'),
-        'qsearch' => Util::getPost('qsearch'),
-        'qsearchmbox' => Util::getPost('qsearchmbox'),
+        'rangeslice' => Horde_Util::getPost('rangeslice'),
+        'qsearch' => Horde_Util::getPost('qsearch'),
+        'qsearchmbox' => Horde_Util::getPost('qsearchmbox'),
     );
 
-    $search = Util::getPost('search');
+    $search = Horde_Util::getPost('search');
     if (empty($search)) {
-        list($slice_start, $slice_end) = explode(':', Util::getPost('slice'), 2);
+        list($slice_start, $slice_end) = explode(':', Horde_Util::getPost('slice'), 2);
         $args += array(
             'slice_start' => intval($slice_start),
             'slice_end' => intval($slice_end)
@@ -87,8 +87,8 @@ function _getListMessages($mbox, $change)
         $args += array(
             'search_uid' => $search->imapuid,
             'search_view' => $search->view,
-            'search_before' => intval(Util::getPost('search_before')),
-            'search_after' => intval(Util::getPost('search_after'))
+            'search_before' => intval(Horde_Util::getPost('search_before')),
+            'search_after' => intval(Horde_Util::getPost('search_after'))
         );
     }
 
@@ -97,11 +97,11 @@ function _getListMessages($mbox, $change)
 
     // TODO: This can potentially be optimized for arrival time sort - if the
     // cache ID changes, we know the changes must occur at end of mailbox.
-    if (empty($res->reset) && (Util::getPost('purge') || $change)) {
+    if (empty($res->reset) && (Horde_Util::getPost('purge') || $change)) {
         $res->update = 1;
     }
 
-    $req_id = Util::getPost('request_id');
+    $req_id = Horde_Util::getPost('request_id');
     if (!is_null($req_id)) {
         $res->request_id = intval($req_id);
     }
@@ -139,10 +139,10 @@ function _getQuota()
     return null;
 }
 
-// Need to load Util:: to give us access to Util::getPathInfo().
+// Need to load Horde_Util:: to give us access to Horde_Util::getPathInfo().
 require_once dirname(__FILE__) . '/lib/base.load.php';
 require_once HORDE_BASE . '/lib/core.php';
-$action = basename(Util::getPathInfo());
+$action = basename(Horde_Util::getPathInfo());
 if (empty($action)) {
     // This is the only case where we really don't return anything, since
     // the frontend can be presumed not to make this request on purpose.
@@ -161,9 +161,9 @@ $session_timeout = 'json';
 require_once IMP_BASE . '/lib/base.php';
 
 // Process common request variables.
-$mbox = Util::getPost('view');
-$indices = $imp_imap->ob->utils->fromSequenceString(Util::getPost('uid'));
-$cacheid = Util::getPost('cacheid');
+$mbox = Horde_Util::getPost('view');
+$indices = $imp_imap->ob->utils->fromSequenceString(Horde_Util::getPost('uid'));
+$cacheid = Horde_Util::getPost('cacheid');
 
 // Open an output buffer to ensure that we catch errors that might break JSON
 // encoding.
@@ -183,9 +183,9 @@ case 'CreateFolder':
 
     $imp_folder = IMP_Folder::singleton();
 
-    $new = String::convertCharset($mbox, NLS::getCharset(), 'UTF7-IMAP');
+    $new = Horde_String::convertCharset($mbox, NLS::getCharset(), 'UTF7-IMAP');
     try {
-        $new = $imptree->createMailboxName(Util::getPost('parent'), $new);
+        $new = $imptree->createMailboxName(Horde_Util::getPost('parent'), $new);
         $result = $imp_folder->create($new, $prefs->getValue('subscribe'));
         if ($result) {
             $result = DIMP::getFolderResponse($imptree);
@@ -212,9 +212,9 @@ case 'DeleteFolder':
     break;
 
 case 'RenameFolder':
-    $old = Util::getPost('old_name');
-    $new_parent = Util::getPost('new_parent');
-    $new = Util::getPost('new_name');
+    $old = Horde_Util::getPost('old_name');
+    $new_parent = Horde_Util::getPost('new_parent');
+    $new = Horde_Util::getPost('new_name');
     if (!$old || !$new) {
         break;
     }
@@ -227,7 +227,7 @@ case 'RenameFolder':
     try {
         $new = $imptree->createMailboxName($new_parent, $new);
 
-        $new = String::convertCharset($new, NLS::getCharset(), 'UTF7-IMAP');
+        $new = Horde_String::convertCharset($new, NLS::getCharset(), 'UTF7-IMAP');
         if ($old != $new) {
             $result = $imp_folder->rename($old, $new);
             if ($result) {
@@ -252,12 +252,12 @@ case 'EmptyFolder':
     break;
 
 case 'FlagAll':
-    $flags = Horde_Serialize::unserialize(Util::getPost('flags'), Horde_Serialize::JSON);
+    $flags = Horde_Serialize::unserialize(Horde_Util::getPost('flags'), Horde_Serialize::JSON);
     if (empty($mbox) || empty($flags)) {
         break;
     }
 
-    $set = Util::getPost('set');
+    $set = Horde_Util::getPost('set');
 
     $imp_message = &IMP_Message::singleton();
     $result = $imp_message->flagAllInMailbox($flags, array($mbox), $set);
@@ -315,8 +315,8 @@ case 'ViewPort':
     }
 
     /* Change sort preferences if necessary. */
-    $sortby = Util::getPost('sortby');
-    $sortdir = Util::getPost('sortdir');
+    $sortby = Horde_Util::getPost('sortby');
+    $sortdir = Horde_Util::getPost('sortdir');
     if (!is_null($sortby) || !is_null($sortdir)) {
         IMP::setSort($sortby, $sortdir, $mbox);
     }
@@ -324,8 +324,8 @@ case 'ViewPort':
     $result = new stdClass;
     $changed = _changed($mbox, $cacheid, false);
 
-    if (Util::getPost('rangeslice') ||
-        !Util::getPost('checkcache') ||
+    if (Horde_Util::getPost('rangeslice') ||
+        !Horde_Util::getPost('checkcache') ||
         $changed) {
         $result->ViewPort = _getListMessages($mbox, $changed);
     }
@@ -333,7 +333,7 @@ case 'ViewPort':
 
 case 'MoveMessage':
 case 'CopyMessage':
-    $to = Util::getPost('tofld');
+    $to = Horde_Util::getPost('tofld');
     if (!$to || empty($indices)) {
         break;
     }
@@ -368,7 +368,7 @@ case 'CopyMessage':
     break;
 
 case 'FlagMessage':
-    $flags = Util::getPost('flags');
+    $flags = Horde_Util::getPost('flags');
     if (!$flags || empty($indices)) {
         break;
     }
@@ -410,8 +410,8 @@ case 'DeleteMessage':
     break;
 
 case 'AddContact':
-    $email = Util::getPost('email');
-    $name = Util::getPost('name');
+    $email = Horde_Util::getPost('email');
+    $name = Horde_Util::getPost('name');
     // Allow $name to be empty.
     if (empty($email)) {
         break;
@@ -429,7 +429,7 @@ case 'AddContact':
 
 case 'ReportSpam':
     $change = _changed($mbox, $cacheid, false);
-    $spam_result = IMP_Spam::reportSpam($indices, Util::getPost('spam') ? 'spam' : 'notspam');
+    $spam_result = IMP_Spam::reportSpam($indices, Horde_Util::getPost('spam') ? 'spam' : 'notspam');
     if ($spam_result) {
         $result = _generateDeleteResult($mbox, $indices, $change);
         // If $spam_result is non-zero, then we know the message has been
@@ -444,7 +444,7 @@ case 'Blacklist':
     }
 
     $imp_filter = new IMP_Filter();
-    if (Util::getPost('blacklist')) {
+    if (Horde_Util::getPost('blacklist')) {
         $change = _changed($mbox, $cacheid, false);
         if ($imp_filter->blacklistMessage($indices, false)) {
             $result = _generateDeleteResult($mbox, $indices, $change);
@@ -475,13 +475,13 @@ case 'Html2Text':
     $result = new stdClass;
     // Need to replace line endings or else IE won't display line endings
     // properly.
-    $result->text = str_replace("\n", "\r\n", Text_Filter::filter(Util::getPost('text'), 'html2text'));
+    $result->text = str_replace("\n", "\r\n", Text_Filter::filter(Horde_Util::getPost('text'), 'html2text'));
     break;
 
 case 'Text2Html':
     require_once 'Horde/Text/Filter.php';
     $result = new stdClass;
-    $result->text = Text_Filter::filter(Util::getPost('text'), 'text2html', array('parselevel' => TEXT_HTML_MICRO_LINKURL, 'class' => null, 'callback' => null));
+    $result->text = Text_Filter::filter(Horde_Util::getPost('text'), 'text2html', array('parselevel' => TEXT_HTML_MICRO_LINKURL, 'class' => null, 'callback' => null));
     break;
 
 case 'GetForwardData':
@@ -489,7 +489,7 @@ case 'GetForwardData':
     $msg = $header = null;
     $idx_string = _getIdxString($indices);
 
-    $imp_compose = IMP_Compose::singleton(Util::getPost('imp_compose'));
+    $imp_compose = IMP_Compose::singleton(Horde_Util::getPost('imp_compose'));
     $imp_contents = IMP_Contents::singleton($idx_string);
     $imp_ui = new IMP_UI_Compose();
     $fwd_msg = $imp_ui->getForwardData($imp_compose, $imp_contents, $idx_string);
@@ -507,9 +507,9 @@ case 'GetForwardData':
     break;
 
 case 'GetReplyData':
-    $imp_compose = IMP_Compose::singleton(Util::getPost('imp_compose'));
+    $imp_compose = IMP_Compose::singleton(Horde_Util::getPost('imp_compose'));
     $imp_contents = IMP_Contents::singleton(_getIdxString($indices));
-    $reply_msg = $imp_compose->replyMessage(Util::getPost('type'), $imp_contents);
+    $reply_msg = $imp_compose->replyMessage(Horde_Util::getPost('type'), $imp_contents);
     $header = $reply_msg['headers'];
     $header['replytype'] = 'reply';
 
@@ -521,7 +521,7 @@ case 'GetReplyData':
     break;
 
 case 'DeleteDraft':
-    $index = Util::getPost('index');
+    $index = Horde_Util::getPost('index');
     if (empty($indices)) {
         break;
     }
@@ -531,9 +531,9 @@ case 'DeleteDraft':
     break;
 
 case 'DeleteAttach':
-    $atc = Util::getPost('atc_indices');
+    $atc = Horde_Util::getPost('atc_indices');
     if (!is_null($atc)) {
-        $imp_compose = IMP_Compose::singleton(Util::getPost('imp_compose'));
+        $imp_compose = IMP_Compose::singleton(Horde_Util::getPost('imp_compose'));
         foreach ($imp_compose->deleteAttachment($atc) as $val) {
             $notification->push(sprintf(_("Deleted the attachment \"%s\"."), Horde_Mime::decode($val)), 'horde.success');
         }
@@ -601,10 +601,10 @@ case 'ShowPortal':
     break;
 
 case 'chunkContent':
-    $chunk = basename(Util::getPost('chunk'));
+    $chunk = basename(Horde_Util::getPost('chunk'));
     if (!empty($chunk)) {
         $result = new stdClass;
-        $result->chunk = Util::bufferOutput('include', IMP_TEMPLATES . '/chunks/' . $chunk . '.php');
+        $result->chunk = Horde_Util::bufferOutput('include', IMP_TEMPLATES . '/chunks/' . $chunk . '.php');
     }
     break;
 
@@ -636,7 +636,7 @@ case 'ModifyPollFolder':
         break;
     }
 
-    $add = Util::getPost('add');
+    $add = Horde_Util::getPost('add');
     $display_folder = IMP::displayFolder($mbox);
 
     $imptree = IMP_Imap_Tree::singleton();
@@ -658,7 +658,7 @@ case 'ModifyPollFolder':
     break;
 
 case 'SendMDN':
-    $index = Util::getPost('index');
+    $index = Horde_Util::getPost('index');
     if (empty($mbox) || empty($index)) {
         break;
     }
@@ -682,7 +682,7 @@ case 'SMIMEPersonal':
     $result = new stdClass;
     $result->success = false;
 
-    $passphrase = Util::getFormData('dialog_input');
+    $passphrase = Horde_Util::getFormData('dialog_input');
 
     if ($action == 'SMIMEPersonal') {
         $imp_smime = Horde_Crypt::singleton(array('IMP', 'Smime'));
@@ -705,7 +705,7 @@ case 'SMIMEPersonal':
         try {
             Horde::requireSecureConnection();
             if ($passphrase) {
-                if ($imp_pgp->storePassphrase(($action == 'PGPSymmetric') ? 'symmetric' : 'personal', $passphrase, Util::getFormData('symmetricid'))) {
+                if ($imp_pgp->storePassphrase(($action == 'PGPSymmetric') ? 'symmetric' : 'personal', $passphrase, Horde_Util::getFormData('symmetricid'))) {
                     $result->success = 1;
                 } else {
                     $result->error = _("Invalid passphrase entered.");
@@ -725,7 +725,7 @@ case 'SMIMEPersonal':
     break;
 
 case 'Fetchmail':
-    $fetch_list = Util::getFormData('accounts');
+    $fetch_list = Horde_Util::getFormData('accounts');
     if (empty($fetch_list)) {
         $result->error = _("No accounts selected.");
     } else {

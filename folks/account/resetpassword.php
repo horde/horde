@@ -32,18 +32,18 @@ function _getCAPTCHA($new = false)
 $auth = Auth::singleton($conf['auth']['driver']);
 if (!$auth->hasCapability('resetpassword')) {
     $notification->push(_("Cannot reset password automatically, contact your administrator."), 'horde.error');
-    header('Location: ' . Auth::getLoginScreen('', Util::getFormData('url')));
+    header('Location: ' . Auth::getLoginScreen('', Horde_Util::getFormData('url')));
     exit;
 }
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 
 $title = _("Reset Your Password");
 $form = new Horde_Form($vars, $title);
 $form->setButtons(_("Continue"));
 
 // Get user security pass
-$user = Util::getFormData('username');
+$user = Horde_Util::getFormData('username');
 if ($user) {
     $u_prefs = Prefs::singleton($conf['prefs']['driver'], 'horde', Auth::addHook($user), '', null, false);
     $u_prefs->retrieve();
@@ -81,7 +81,7 @@ if ($form->validate()) {
     }
 
     /* Check the given values with the prefs stored ones. */
-    if ((!empty($answer) && String::lower($answer) == String::lower($info['security_answer'])) ||
+    if ((!empty($answer) && Horde_String::lower($answer) == Horde_String::lower($info['security_answer'])) ||
             empty($answer)) {
 
         /* Info matches, so reset the password. */

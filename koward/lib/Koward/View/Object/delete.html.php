@@ -2,7 +2,7 @@
 <?= $this->renderPartial('menu'); ?>
 
 <form action="<?= $this->submit_url ?>" method="post" name="delete">
-<?php echo Util::formInput() ?>
+<?php echo Horde_Util::formInput() ?>
 
 <div class="headerbox">
 

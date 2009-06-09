@@ -143,7 +143,7 @@ class Kronolith
             'URI_AJAX' => Horde::url($kronolith_webroot . '/ajax.php', true, -1),
             'URI_PREFS' => Horde::url($horde_webroot . '/services/prefs/', true, -1),
             'URI_IMG' => $registry->getImageDir() . '/',
-            //'URI_VIEW' => Util::addParameter(Horde::url($imp_webroot . '/view.php', true, -1), array('actionID' => 'view_source', 'id' => 0), null, false),
+            //'URI_VIEW' => Horde_Util::addParameter(Horde::url($imp_webroot . '/view.php', true, -1), array('actionID' => 'view_source', 'id' => 0), null, false),
             'SESSION_ID' => defined('SID') ? SID : '',
             'prefs_url' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'kronolith')),
             'name' => $registry->get('name'),
@@ -585,7 +585,7 @@ class Kronolith
             $calendars = array($driver[0] => array($driver[1]));
         } else {
             $calendars = array(
-                String::ucfirst($GLOBALS['conf']['calendar']['driver']) => $GLOBALS['display_calendars'],
+                Horde_String::ucfirst($GLOBALS['conf']['calendar']['driver']) => $GLOBALS['display_calendars'],
                 'Horde' => $GLOBALS['display_external_calendars'],
                 'Ical' => $GLOBALS['display_remote_calendars']);
             if (!empty($GLOBALS['conf']['holidays']['enable'])) {
@@ -979,7 +979,7 @@ class Kronolith
         /* Update preferences for which calendars to display. If the
          * user doesn't have any selected calendars to view then fall
          * back to an available calendar. */
-        if (($calendarId = Util::getFormData('display_cal')) !== null) {
+        if (($calendarId = Horde_Util::getFormData('display_cal')) !== null) {
             if (is_array($calendarId)) {
                 $calendars = $calendarId;
                 $GLOBALS['display_calendars'] = array();
@@ -1018,7 +1018,7 @@ class Kronolith
         }
 
         /* Check for single "toggle" calendars. */
-        if (($calendarId = Util::getFormData('toggle_calendar')) !== null) {
+        if (($calendarId = Horde_Util::getFormData('toggle_calendar')) !== null) {
             if (strncmp($calendarId, 'remote_', 7) === 0) {
                 $calendarId = substr($calendarId, 7);
                 if (in_array($calendarId, $GLOBALS['display_remote_calendars'])) {
@@ -1358,7 +1358,7 @@ class Kronolith
      */
     public static function responseFromICal($response)
     {
-        switch (String::upper($response)) {
+        switch (Horde_String::upper($response)) {
         case 'ACCEPTED':
             return self::RESPONSE_ACCEPTED;
 
@@ -1473,7 +1473,7 @@ class Kronolith
             $GLOBALS['conf']['urls']['pretty'] == 'rewrite') {
             $feed_url = 'feed/' . $calendar;
         } else {
-            $feed_url = Util::addParameter('feed/index.php', 'c', $calendar);
+            $feed_url = Horde_Util::addParameter('feed/index.php', 'c', $calendar);
         }
         return Horde::applicationUrl($feed_url, true, -1);
     }
@@ -1547,7 +1547,7 @@ class Kronolith
 
         $myemail = $ident->getValue('from_addr');
         if (!$myemail) {
-            $notification->push(sprintf(_("You do not have an email address configured in your Personal Information Options. You must set one %shere%s before event notifications can be sent."), Horde::link(Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs.php'), array('app' => 'horde', 'group' => 'identities'))), '</a>'), 'horde.error', array('content.raw'));
+            $notification->push(sprintf(_("You do not have an email address configured in your Personal Information Options. You must set one %shere%s before event notifications can be sent."), Horde::link(Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs.php'), array('app' => 'horde', 'group' => 'identities'))), '</a>'), 'horde.error', array('content.raw'));
             return;
         }
 
@@ -1621,14 +1621,14 @@ class Kronolith
             $message .= _("Attached is an iCalendar file with more information about the event. If your mail client supports iTip requests you can use this file to easily update your local copy of the event.");
 
             if ($action == self::ITIP_REQUEST) {
-                $attend_link = Util::addParameter(Horde::applicationUrl('attend.php', true, -1), array('c' => $event->getCalendar(), 'e' => $event->getId(), 'u' => $email), null, false);
-                $message .= "\n\n" . sprintf(_("If your email client doesn't support iTip requests you can use one of the following links to accept or decline the event.\n\nTo accept the event:\n%s\n\nTo accept the event tentatively:\n%s\n\nTo decline the event:\n%s\n"), Util::addParameter($attend_link, 'a', 'accept', false), Util::addParameter($attend_link, 'a', 'tentative', false), Util::addParameter($attend_link, 'a', 'decline', false));
+                $attend_link = Horde_Util::addParameter(Horde::applicationUrl('attend.php', true, -1), array('c' => $event->getCalendar(), 'e' => $event->getId(), 'u' => $email), null, false);
+                $message .= "\n\n" . sprintf(_("If your email client doesn't support iTip requests you can use one of the following links to accept or decline the event.\n\nTo accept the event:\n%s\n\nTo accept the event tentatively:\n%s\n\nTo decline the event:\n%s\n"), Horde_Util::addParameter($attend_link, 'a', 'accept', false), Horde_Util::addParameter($attend_link, 'a', 'tentative', false), Horde_Util::addParameter($attend_link, 'a', 'decline', false));
             }
 
             /* Build the iCalendar data */
             $iCal = new Horde_iCalendar();
             $iCal->setAttribute('METHOD', $method);
-            $iCal->setAttribute('X-WR-CALNAME', String::convertCharset($share->get('name'), NLS::getCharset(), 'utf-8'));
+            $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), NLS::getCharset(), 'utf-8'));
             $vevent = $event->toiCalendar($iCal);
             if ($action == self::ITIP_CANCEL && !empty($instance)) {
                 $vevent->setAttribute('RECURRENCE-ID', $instance, array('VALUE' => 'DATE'));
@@ -1856,10 +1856,10 @@ class Kronolith
      */
     public static function currentDate()
     {
-        if ($date = Util::getFormData('date')) {
+        if ($date = Horde_Util::getFormData('date')) {
             return new Horde_Date($date . '000000');
         }
-        if ($date = Util::getFormData('datetime')) {
+        if ($date = Horde_Util::getFormData('datetime')) {
             return new Horde_Date($date);
         }
 
@@ -1901,8 +1901,7 @@ class Kronolith
         $date = self::currentDate();
         $date_stamp = $date->dateString();
 
-        require_once 'Horde/Variables.php';
-        $tabs = new Horde_UI_Tabs('view', Variables::getDefaultVariables());
+        $tabs = new Horde_UI_Tabs('view', Horde_Variables::getDefaultVariables());
         $tabs->preserve('date', $date_stamp);
 
         $tabs->addTab(_("Day"), Horde::applicationUrl('day.php'),
@@ -1932,8 +1931,7 @@ class Kronolith
             return;
         }
 
-        require_once 'Horde/Variables.php';
-        $tabs = new Horde_UI_Tabs('event', Variables::getDefaultVariables());
+        $tabs = new Horde_UI_Tabs('event', Horde_Variables::getDefaultVariables());
 
         $date = self::currentDate();
         $tabs->preserve('datetime', $date->dateString());
@@ -1989,7 +1987,7 @@ class Kronolith
     public static function getDriver($driver = null, $calendar = null)
     {
         if (empty($driver)) {
-            $driver = String::ucfirst($GLOBALS['conf']['calendar']['driver']);
+            $driver = Horde_String::ucfirst($GLOBALS['conf']['calendar']['driver']);
         }
 
         if (!isset(self::$_instances[$driver])) {
@@ -2082,14 +2080,14 @@ class Kronolith
         case 'Event':
             require_once KRONOLITH_BASE . '/lib/Views/Event.php';
 
-            if (Util::getFormData('calendar') == '**remote') {
-                $event = self::getDriver('Ical', Util::getFormData('remoteCal'))
-                    ->getEvent(Util::getFormData('eventID'));
-            } elseif ($uid = Util::getFormData('uid')) {
+            if (Horde_Util::getFormData('calendar') == '**remote') {
+                $event = self::getDriver('Ical', Horde_Util::getFormData('remoteCal'))
+                    ->getEvent(Horde_Util::getFormData('eventID'));
+            } elseif ($uid = Horde_Util::getFormData('uid')) {
                 $event = self::getDriver()->getByUID($uid);
             } else {
-                $event = self::getDriver(null, Util::getFormData('calendar'))
-                    ->getEvent(Util::getFormData('eventID'));
+                $event = self::getDriver(null, Horde_Util::getFormData('calendar'))
+                    ->getEvent(Horde_Util::getFormData('eventID'));
             }
             if (!is_a($event, 'PEAR_Error') &&
                 !$event->hasPermission(PERMS_READ)) {
@@ -2101,12 +2099,12 @@ class Kronolith
         case 'EditEvent':
             require_once KRONOLITH_BASE . '/lib/Views/EditEvent.php';
 
-            if (Util::getFormData('calendar') == '**remote') {
-                $event = self::getDriver('Ical', Util::getFormData('remoteCal'))
-                    ->getEvent(Util::getFormData('eventID'));
+            if (Horde_Util::getFormData('calendar') == '**remote') {
+                $event = self::getDriver('Ical', Horde_Util::getFormData('remoteCal'))
+                    ->getEvent(Horde_Util::getFormData('eventID'));
             } else {
-                $event = self::getDriver(null, Util::getFormData('calendar'))
-                    ->getEvent(Util::getFormData('eventID'));
+                $event = self::getDriver(null, Horde_Util::getFormData('calendar'))
+                    ->getEvent(Horde_Util::getFormData('eventID'));
             }
             if (!is_a($event, 'PEAR_Error') &&
                 !$event->hasPermission(PERMS_EDIT)) {
@@ -2118,8 +2116,8 @@ class Kronolith
         case 'DeleteEvent':
             require_once KRONOLITH_BASE . '/lib/Views/DeleteEvent.php';
 
-            $event = self::getDriver(null, Util::getFormData('calendar'))
-                ->getEvent(Util::getFormData('eventID'));
+            $event = self::getDriver(null, Horde_Util::getFormData('calendar'))
+                ->getEvent(Horde_Util::getFormData('eventID'));
             if (!is_a($event, 'PEAR_Error') &&
                 !$event->hasPermission(PERMS_DELETE)) {
                 $event = PEAR::raiseError(_("Permission Denied"));
@@ -2130,14 +2128,14 @@ class Kronolith
         case 'ExportEvent':
             require_once KRONOLITH_BASE . '/lib/Views/ExportEvent.php';
 
-            if (Util::getFormData('calendar') == '**remote') {
-                $event = self::getDriver('Ical', Util::getFormData('remoteCal'))
-                    ->getEvent(Util::getFormData('eventID'));
-            } elseif ($uid = Util::getFormData('uid')) {
+            if (Horde_Util::getFormData('calendar') == '**remote') {
+                $event = self::getDriver('Ical', Horde_Util::getFormData('remoteCal'))
+                    ->getEvent(Horde_Util::getFormData('eventID'));
+            } elseif ($uid = Horde_Util::getFormData('uid')) {
                 $event = self::getDriver()->getByUID($uid);
             } else {
-                $event = self::getDriver(null, Util::getFormData('calendar'))
-                    ->getEvent(Util::getFormData('eventID'));
+                $event = self::getDriver(null, Horde_Util::getFormData('calendar'))
+                    ->getEvent(Horde_Util::getFormData('eventID'));
             }
             if (!is_a($event, 'PEAR_Error') &&
                 !$event->hasPermission(PERMS_READ)) {
@@ -2245,7 +2243,7 @@ class Kronolith
             (!empty($conf['hooks']['permsdenied']) ||
              self::hasPermission('max_events') === true ||
              self::hasPermission('max_events') > self::countEvents())) {
-            $menu->add(Util::addParameter(Horde::applicationUrl('new.php'), 'url', Horde::selfUrl(true, false, true)), _("_New Event"), 'new.png');
+            $menu->add(Horde_Util::addParameter(Horde::applicationUrl('new.php'), 'url', Horde::selfUrl(true, false, true)), _("_New Event"), 'new.png');
         }
         if ($browser->hasFeature('dom')) {
             Horde::addScriptFile('goto.js', 'kronolith');
@@ -2259,8 +2257,8 @@ class Kronolith
         }
 
         /* Print. */
-        if ($conf['menu']['print'] && ($view = Util::nonInputVar('view'))) {
-            $menu->add(Util::addParameter($view->link(), 'print', 1), _("_Print"), 'print.png', $registry->getImageDir('horde'), '_blank', 'popup(kronolithPrintLink ? kronolithPrintLink : this.href); return false;', '__noselection');
+        if ($conf['menu']['print'] && ($view = Horde_Util::nonInputVar('view'))) {
+            $menu->add(Horde_Util::addParameter($view->link(), 'print', 1), _("_Print"), 'print.png', $registry->getImageDir('horde'), '_blank', 'popup(kronolithPrintLink ? kronolithPrintLink : this.href); return false;', '__noselection');
         }
 
         if ($returnType == 'object') {

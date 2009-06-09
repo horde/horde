@@ -13,7 +13,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 
 $view = Kronolith::getView('Year');
 $title = $view->year;
-$print_view = (bool)Util::getFormData('print');
+$print_view = (bool)Horde_Util::getFormData('print');
 
 Horde::addScriptFile('tooltip.js', 'horde', true);
 if (!$print_view) {

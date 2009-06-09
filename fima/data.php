@@ -48,10 +48,10 @@ $time_fields = array('date' => 'date');
 /* Initial values. */
 $param = array('time_fields' => $time_fields,
                'file_types'  => $file_types);
-$import_format = Util::getFormData('import_format', '');
-$import_step   = Util::getFormData('import_step', 0) + 1;
+$import_format = Horde_Util::getFormData('import_format', '');
+$import_step   = Horde_Util::getFormData('import_step', 0) + 1;
 $next_step     = IMPORT_FILE;
-$actionID      = Util::getFormData('actionID');
+$actionID      = Horde_Util::getFormData('actionID');
 $error         = false;
 
 /* Loop through the action handlers. */
@@ -89,8 +89,8 @@ case 'export':
                 $row[$key] = Fima::convertValueToAmount($value);
                 break;
             case 'eo':
-            case 'desc':            
-                $row[$key] = String::convertCharset($value, NLS::getCharset(), $params['charset']);
+            case 'desc':
+                $row[$key] = Horde_String::convertCharset($value, NLS::getCharset(), $params['charset']);
                 break;
             default:
                 break;
@@ -105,7 +105,7 @@ case 'export':
         break;
     }
 
-    switch (Util::getFormData('exportID')) {
+    switch (Horde_Util::getFormData('exportID')) {
     case EXPORT_CSV:
         $csv = &Horde_Data::singleton('csv');
         $csv->exportFile(_("postings.csv"), $data, true);
@@ -127,7 +127,7 @@ case IMPORT_FILE:
     }
 
     $_SESSION['import_data']['target'] = $ledger;
-    $_SESSION['import_data']['purge'] = Util::getFormData('purge');
+    $_SESSION['import_data']['purge'] = Horde_Util::getFormData('purge');
     break;
 }
 

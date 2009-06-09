@@ -13,7 +13,6 @@ class Driver {
 require 'Date/Calc.php';
 require 'Horde/Date.php';
 require 'Horde/Date/Recurrence.php';
-require 'Horde/Util.php';
 require 'Horde/iCalendar.php';
 
 $iCal = new Horde_iCalendar();

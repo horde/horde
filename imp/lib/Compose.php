@@ -446,21 +446,21 @@ class IMP_Compose
 
         $browser_charset = NLS::getCharset();
 
-        $headers->addHeader('From', String::convertCharset($header['from'], $browser_charset, $charset));
+        $headers->addHeader('From', Horde_String::convertCharset($header['from'], $browser_charset, $charset));
 
         if (!empty($header['replyto']) &&
             ($header['replyto'] != $barefrom)) {
-            $headers->addHeader('Reply-to', String::convertCharset($header['replyto'], $browser_charset, $charset));
+            $headers->addHeader('Reply-to', Horde_String::convertCharset($header['replyto'], $browser_charset, $charset));
         }
         if (!empty($header['to'])) {
-            $headers->addHeader('To', String::convertCharset($header['to'], $browser_charset, $charset));
+            $headers->addHeader('To', Horde_String::convertCharset($header['to'], $browser_charset, $charset));
         } elseif (empty($header['to']) && empty($header['cc'])) {
             $headers->addHeader('To', 'undisclosed-recipients:;');
         }
         if (!empty($header['cc'])) {
-            $headers->addHeader('Cc', String::convertCharset($header['cc'], $browser_charset, $charset));
+            $headers->addHeader('Cc', Horde_String::convertCharset($header['cc'], $browser_charset, $charset));
         }
-        $headers->addHeader('Subject', String::convertCharset($header['subject'], $browser_charset, $charset));
+        $headers->addHeader('Subject', Horde_String::convertCharset($header['subject'], $browser_charset, $charset));
 
         /* Add necessary headers for replies. */
         if (!empty($opts['reply_type']) && ($opts['reply_type'] == 'reply')) {
@@ -485,7 +485,7 @@ class IMP_Compose
         $headers_result = Horde::loadConfiguration('header.php', '_header');
         if (!is_a($headers_result, 'PEAR_Error')) {
             foreach ($headers_result as $key => $val) {
-                $headers->addHeader(trim($key), String::convertCharset(trim($val), NLS::getCharset(), $charset));
+                $headers->addHeader(trim($key), Horde_String::convertCharset(trim($val), NLS::getCharset(), $charset));
             }
         }
 
@@ -597,7 +597,7 @@ class IMP_Compose
             }
 
             try {
-                $GLOBALS['imp_imap']->ob->append(String::convertCharset($opts['sent_folder'], NLS::getCharset(), 'UTF-8'), array(array('data' => $fcc, 'flags' => $flags)));
+                $GLOBALS['imp_imap']->ob->append(Horde_String::convertCharset($opts['sent_folder'], NLS::getCharset(), 'UTF-8'), array(array('data' => $fcc, 'flags' => $flags)));
             } catch (Horde_Imap_Client_Exception $e) {
                 $notification->push(sprintf(_("Message sent successfully, but not saved to %s"), IMP::displayFolder($opts['sent_folder'])));
                 $sent_saved = false;
@@ -879,9 +879,9 @@ class IMP_Compose
         }
 
         // Convert IDN hosts to ASCII.
-        if (Util::extensionExists('idn')) {
+        if (Horde_Util::extensionExists('idn')) {
             $old_error = error_reporting(0);
-            $host = idn_to_ascii(String::convertCharset($host, NLS::getCharset(), 'UTF-8'));
+            $host = idn_to_ascii(Horde_String::convertCharset($host, NLS::getCharset(), 'UTF-8'));
             error_reporting($old_error);
         } elseif (Horde_Mime::is8bit($ob['mailbox'])) {
             throw new IMP_Compose_Exception(sprintf(_("Invalid character in e-mail address: %s."), $email));
@@ -913,7 +913,7 @@ class IMP_Compose
                                           $options = array())
     {
         $nls_charset = NLS::getCharset();
-        $body = String::convertCharset($body, $nls_charset, $charset);
+        $body = Horde_String::convertCharset($body, $nls_charset, $charset);
 
         if (!empty($options['html'])) {
             $body_html = $body;
@@ -969,18 +969,18 @@ class IMP_Compose
             $htmlBody->setType('text/html');
             $htmlBody->setCharset($charset);
             $htmlBody->setDisposition('inline');
-            $htmlBody->setDescription(String::convertCharset(_("HTML Version of Message"), $nls_charset, $charset));
+            $htmlBody->setDescription(Horde_String::convertCharset(_("HTML Version of Message"), $nls_charset, $charset));
 
             /* Run tidy on the HTML, if available. */
             if ($tidy_config = IMP::getTidyConfig(strlen($body_html))) {
-                $tidy = tidy_parse_string(String::convertCharset($body_html, $charset, 'UTF-8'), $tidy_config, 'utf8');
+                $tidy = tidy_parse_string(Horde_String::convertCharset($body_html, $charset, 'UTF-8'), $tidy_config, 'utf8');
                 $tidy->cleanRepair();
-                $htmlBody->setContents(String::convertCharset(tidy_get_output($tidy), 'UTF-8', $charset));
+                $htmlBody->setContents(Horde_String::convertCharset(tidy_get_output($tidy), 'UTF-8', $charset));
             } else {
                 $htmlBody->setContents($body_html);
             }
 
-            $textBody->setDescription(String::convertCharset(_("Plaintext Version of Message"), $nls_charset, $charset));
+            $textBody->setDescription(Horde_String::convertCharset(_("Plaintext Version of Message"), $nls_charset, $charset));
 
             $textpart = new Horde_Mime_Part();
             $textpart->setType('multipart/alternative');
@@ -1466,8 +1466,8 @@ class IMP_Compose
         if ($attached == 1) {
             if (!($name = $headerob->getValue('subject'))) {
                 $name = _("[No Subject]");
-            } elseif (String::length($name) > 80) {
-                $name = String::substr($name, 0, 80) . '...';
+            } elseif (Horde_String::length($name) > 80) {
+                $name = Horde_String::substr($name, 0, 80) . '...';
             }
             return 'Fwd: ' . $GLOBALS['imp_imap']->ob->utils->getBaseSubject($name, array('keepblob' => true));
         } else {
@@ -1510,11 +1510,11 @@ class IMP_Compose
             $tmp[_("Cc")] = $ob;
         }
 
-        $max = max(array_map(array('String', 'length'), array_keys($tmp))) + 2;
+        $max = max(array_map(array('Horde_String', 'length'), array_keys($tmp))) + 2;
         $text = '';
 
         foreach ($tmp as $key => $val) {
-            $text .= String::pad($key . ': ', $max, ' ', STR_PAD_LEFT) . $val . "\n";
+            $text .= Horde_String::pad($key . ': ', $max, ' ', STR_PAD_LEFT) . $val . "\n";
         }
 
         return $text;
@@ -1540,7 +1540,7 @@ class IMP_Compose
             throw new IMP_Compose_Exception($res);
         }
 
-        $filename = Util::dispelMagicQuotes($_FILES[$name]['name']);
+        $filename = Horde_Util::dispelMagicQuotes($_FILES[$name]['name']);
         $tempfile = $_FILES[$name]['tmp_name'];
 
         /* Check for filesize limitations. */
@@ -1904,13 +1904,13 @@ class IMP_Compose
             '/%r/' => $h->getValue('date'),
 
             /* Date as ddd, dd mmm yyyy. */
-            '/%d/' => String::convertCharset(strftime("%a, %d %b %Y", $udate), NLS::getExternalCharset()),
+            '/%d/' => Horde_String::convertCharset(strftime("%a, %d %b %Y", $udate), NLS::getExternalCharset()),
 
             /* Date in locale's default. */
-            '/%x/' => String::convertCharset(strftime("%x", $udate), NLS::getExternalCharset()),
+            '/%x/' => Horde_String::convertCharset(strftime("%x", $udate), NLS::getExternalCharset()),
 
             /* Date and time in locale's default. */
-            '/%c/' => String::convertCharset(strftime("%c", $udate), NLS::getExternalCharset()),
+            '/%c/' => Horde_String::convertCharset(strftime("%c", $udate), NLS::getExternalCharset()),
 
             /* Message-ID. */
             '/%m/' => $message_id,
@@ -2102,18 +2102,18 @@ class IMP_Compose
         $fullpath = sprintf('%s/%s/%d', self::VFS_LINK_ATTACH_PATH, $auth, $ts);
         $charset = $part->getCharset();
 
-        $trailer = String::convertCharset(_("Attachments"), NLS::getCharset(), $charset);
+        $trailer = Horde_String::convertCharset(_("Attachments"), NLS::getCharset(), $charset);
 
         if ($prefs->getValue('delete_attachments_monthly')) {
             /* Determine the first day of the month in which the current
              * attachments will be ripe for deletion, then subtract 1 second
              * to obtain the last day of the previous month. */
             $del_time = mktime(0, 0, 0, date('n') + $prefs->getValue('delete_attachments_monthly_keep') + 1, 1, date('Y')) - 1;
-            $trailer .= String::convertCharset(' (' . sprintf(_("Links will expire on %s"), strftime('%x', $del_time)) . ')', NLS::getCharset(), $charset);
+            $trailer .= Horde_String::convertCharset(' (' . sprintf(_("Links will expire on %s"), strftime('%x', $del_time)) . ')', NLS::getCharset(), $charset);
         }
 
         foreach ($this->getAttachments() as $att) {
-            $trailer .= "\n" . Util::addParameter($baseurl, array('u' => $auth, 't' => $ts, 'f' => $att->getName()), null, false);
+            $trailer .= "\n" . Horde_Util::addParameter($baseurl, array('u' => $auth, 't' => $ts, 'f' => $att->getName()), null, false);
             if ($conf['compose']['use_vfs']) {
                 $res = $vfs->rename(self::VFS_ATTACH_PATH, $att->getInformation('temp_filename'), $fullpath, escapeshellcmd($att->getName()));
             } else {
@@ -2192,14 +2192,14 @@ class IMP_Compose
         $type = $part->getType();
         $part_charset = $part->getCharset();
         $charset = NLS::getCharset();
-        $msg = String::convertCharset($part->getContents(), $part_charset);
+        $msg = Horde_String::convertCharset($part->getContents(), $part_charset);
 
         /* Enforce reply limits. */
         if (!empty($options['replylimit']) &&
             !empty($GLOBALS['conf']['compose']['reply_limit'])) {
             $limit = $GLOBALS['conf']['compose']['reply_limit'];
-            if (String::length($msg) > $limit) {
-                $msg = String::substr($msg, 0, $limit) . "\n" . _("[Truncated Text]");
+            if (Horde_String::length($msg) > $limit) {
+                $msg = Horde_String::substr($msg, 0, $limit) . "\n" . _("[Truncated Text]");
             }
         }
 
@@ -2207,9 +2207,9 @@ class IMP_Compose
         if (($mode == 'html)' &&
             ($tidy_config = IMP::getTidyConfig($part->getBytes())))) {
             $tidy_config['show-body-only'] = true;
-            $tidy = tidy_parse_string(String::convertCharset($msg, $charset, 'UTF-8'), $tidy_config, 'UTF8');
+            $tidy = tidy_parse_string(Horde_String::convertCharset($msg, $charset, 'UTF-8'), $tidy_config, 'UTF8');
             $tidy->cleanRepair();
-            $msg = String::convertCharset(tidy_get_output($tidy), 'UTF-8', $charset);
+            $msg = Horde_String::convertCharset(tidy_get_output($tidy), 'UTF-8', $charset);
         }
 
         if ($mode == 'html') {
@@ -2230,7 +2230,7 @@ class IMP_Compose
 
             if ($part->getContentTypeParameter('format') == 'flowed') {
                 $flowed = new Horde_Text_Flowed($msg);
-                if (String::lower($part->getContentTypeParameter('delsp')) == 'yes') {
+                if (Horde_String::lower($part->getContentTypeParameter('delsp')) == 'yes') {
                     $flowed->setDelSp(true);
                 }
                 $flowed->setMaxLength(0);
@@ -2329,7 +2329,7 @@ class IMP_Compose
         for ($i = 1, $fcount = count($_FILES); $i <= $fcount; ++$i) {
             $key = $field . $i;
             if (isset($_FILES[$key]) && ($_FILES[$key]['error'] != 4)) {
-                $filename = Util::dispelMagicQuotes($_FILES[$key]['name']);
+                $filename = Horde_Util::dispelMagicQuotes($_FILES[$key]['name']);
                 if (!empty($_FILES[$key]['error'])) {
                     switch ($_FILES[$key]['error']) {
                     case UPLOAD_ERR_INI_SIZE:
@@ -2392,18 +2392,18 @@ class IMP_Compose
 
         $headers = array();
         foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
-            $headers[$val] = $imp_ui->getAddressList(Util::getFormData($val), Util::getFormData($val . '_list'), Util::getFormData($val . '_field'), Util::getFormData($val . '_new'));
+            $headers[$val] = $imp_ui->getAddressList(Horde_Util::getFormData($val), Horde_Util::getFormData($val . '_list'), Horde_Util::getFormData($val . '_field'), Horde_Util::getFormData($val . '_new'));
         }
 
         try {
-            $body = $this->_saveDraftMsg($headers, Util::getFormData('message', ''), Util::getFormData('charset'), Util::getFormData('rtemode'), false);
+            $body = $this->_saveDraftMsg($headers, Horde_Util::getFormData('message', ''), Horde_Util::getFormData('charset'), Horde_Util::getFormData('rtemode'), false);
         } catch (IMP_Compose_Exception $e) {
             return;
         }
 
         $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
         // TODO: Garbage collection?
-        $result = $vfs->writeData(self::VFS_DRAFTS_PATH, hash('md5', Util::getFormData('user')), $body, true);
+        $result = $vfs->writeData(self::VFS_DRAFTS_PATH, hash('md5', Horde_Util::getFormData('user')), $body, true);
         if (is_a($result, 'PEAR_Error')) {
             return;
         }

@@ -59,7 +59,7 @@ class Horde_Block_imp_summary extends Horde_Block
         $folders = $imaptree->getPollList(true, true);
 
         /* Quota info, if available. */
-        $quota_msg = Util::bufferOutput(array('IMP', 'quota'));
+        $quota_msg = Horde_Util::bufferOutput(array('IMP', 'quota'));
         if (!empty($quota_msg)) {
             $html .= '<tr><td colspan="3">' . $quota_msg . '</td></tr>';
         }
@@ -77,7 +77,7 @@ class Horde_Block_imp_summary extends Horde_Block
                         if (!empty($info['recent'])) {
                             $newmsgs[$folder] = $info['recent'];
                         }
-                        $url = Util::addParameter(Horde::applicationUrl('mailbox.php', true), array('no_newmail_popup' => 1, 'mailbox' => $folder));
+                        $url = Horde_Util::addParameter(Horde::applicationUrl('mailbox.php', true), array('no_newmail_popup' => 1, 'mailbox' => $folder));
                         $html .= '<tr style="cursor:pointer" class="text" onclick="self.location=\'' . $url . '\'"><td>';
                         if (!empty($info['unseen'])) {
                             $html .= '<strong>';
@@ -117,17 +117,17 @@ class Horde_Block_imp_summary extends Horde_Block
 
             if ($prefs->getValue('nav_popup')) {
                 $alert = IMP::getNewMessagePopup($newmsgs);
-                if (!Util::getFormData('httpclient')) {
+                if (!Horde_Util::getFormData('httpclient')) {
                     $alert = 'document.observe("dom:loaded", function() { ' . $alert . ' });';
                 }
                 $notification->push($alert, 'javascript');
-                $html .= Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'javascript'));
+                $html .= Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'javascript'));
             }
 
             if (($sound = $prefs->getValue('nav_audio'))) {
                 $notification->push($registry->getImageDir() .
                                     '/audio/' . $sound, 'audio');
-                $html .= Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'audio'));
+                $html .= Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'audio'));
             }
         } elseif (!empty($this->_params['show_unread'])) {
             if (count($folders) == 0) {

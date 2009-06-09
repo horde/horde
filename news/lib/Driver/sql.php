@@ -619,7 +619,7 @@ class News_Driver_sql extends News_Driver {
         $tag_link = Horde::applicationUrl('search.php');
         foreach ($tags_elemets as $tag => $time) {
             sort($time);
-            $tags->addElement($tag, Util::addParameter($tag_link, array('word' => $tag)),
+            $tags->addElement($tag, Horde_Util::addParameter($tag_link, array('word' => $tag)),
                               count($tags_elemets[$tag]), $time[0]);
         }
 

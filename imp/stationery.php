@@ -13,7 +13,7 @@ $authentication = 'horde';
 require_once dirname(__FILE__) . '/lib/base.php';
 require_once 'Horde/Prefs/UI.php';
 
-$compose_url = Util::addParameter(Horde::url($registry->get('webroot', 'horde') . '/services/prefs.php', true), 'app', 'imp', false);
+$compose_url = Horde_Util::addParameter(Horde::url($registry->get('webroot', 'horde') . '/services/prefs.php', true), 'app', 'imp', false);
 
 /* Is the preference locked? */
 if ($prefs->isLocked('stationery')) {
@@ -24,20 +24,20 @@ if ($prefs->isLocked('stationery')) {
 /* Retrieve stationery. */
 $stationery_list = @unserialize($prefs->getValue('stationery', false));
 $stationery_list = is_array($stationery_list)
-    ? String::convertCharset($stationery_list, $prefs->getCharset())
+    ? Horde_String::convertCharset($stationery_list, $prefs->getCharset())
     : array();
 
 /* Get form data. */
-$selected = Util::getFormData('stationery');
+$selected = Horde_Util::getFormData('stationery');
 if (strlen($selected)) {
     $selected = (int)$selected;
 }
 
 /* Always check for stationery type switches. */
-$content = Util::getFormData('content', '');
-$last_type = Util::getFormData('last_type');
-$name = Util::getFormData('name', '');
-$type = Util::getFormData('type', 'plain');
+$content = Horde_Util::getFormData('content', '');
+$last_type = Horde_Util::getFormData('last_type');
+$name = Horde_Util::getFormData('name', '');
+$type = Horde_Util::getFormData('type', 'plain');
 if (!empty($last_type) && $last_type != $type) {
     if ($type == 'plain') {
         require_once 'Horde/Text/Filter.php';
@@ -49,11 +49,11 @@ if (!empty($last_type) && $last_type != $type) {
 $stationery = array('n' => $name, 't' => $type, 'c' => $content);
 
 /* Run through the action handlers. */
-$actionID = Util::getFormData('actionID');
+$actionID = Horde_Util::getFormData('actionID');
 $updated = false;
 switch ($actionID) {
 case 'update':
-    if (Util::getFormData('edit')) {
+    if (Horde_Util::getFormData('edit')) {
         /* Stationery has been switched. */
         if (strlen($selected)) {
             /* Edit existing. */
@@ -63,7 +63,7 @@ case 'update':
         } else {
             $stationery = array('n' => '', 't' => 'plain', 'c' => '');
         }
-    } elseif (Util::getFormData('delete')) {
+    } elseif (Horde_Util::getFormData('delete')) {
         /* Delete stationery. */
         if (isset($stationery_list[$selected])) {
             $updated = sprintf(_("The stationery \"%s\" has been deleted."), $stationery_list[$selected]['n']);
@@ -71,7 +71,7 @@ case 'update':
             $selected = null;
         }
         $stationery = array('n' => '', 't' => 'plain', 'c' => '');
-    } elseif (Util::getFormData('save')) {
+    } elseif (Horde_Util::getFormData('save')) {
         /* Saving stationery. */
         if (!strlen($selected)) {
             $selected = count($stationery_list);
@@ -86,7 +86,7 @@ case 'update':
 }
 
 if ($updated) {
-    $prefs->setValue('stationery', serialize(String::convertCharset($stationery_list, NLS::getCharset(), $prefs->getCharset())), false);
+    $prefs->setValue('stationery', serialize(Horde_String::convertCharset($stationery_list, NLS::getCharset(), $prefs->getCharset())), false);
     $notification->push($updated, 'horde.success');
 }
 
@@ -103,14 +103,14 @@ if (is_a($result, 'PEAR_Error')) {
 extract($result);
 
 $app = 'imp';
-$chunk = Util::nonInputVar('chunk');
+$chunk = Horde_Util::nonInputVar('chunk');
 Prefs_UI::generateHeader(null, $chunk);
 
 $t = new IMP_Template();
 $t->setOption('gettext', true);
 $t->set('action', Horde::selfUrl());
-$t->set('forminput', Util::formInput());
-$t->set('navcell', Util::bufferOutput(array('Prefs_UI', 'generateNavigationCell'), 'compose'));
+$t->set('forminput', Horde_Util::formInput());
+$t->set('navcell', Horde_Util::bufferOutput(array('Prefs_UI', 'generateNavigationCell'), 'compose'));
 
 $slist = array();
 foreach ($stationery_list as $key => $choice) {
@@ -130,7 +130,7 @@ $t->set('plain', $stationery['t'] == 'plain');
 $t->set('html', $stationery['t'] == 'html');
 $t->set('content_label', Horde::label('content', _("Stationery:")));
 $t->set('content', $stationery['c']);
-$t->set('button_href', Util::addParameter($compose_url, 'group', 'compose'));
+$t->set('button_href', Horde_Util::addParameter($compose_url, 'group', 'compose'));
 $t->set('button_val', htmlspecialchars(_("Return to Message Composition"), ENT_COMPAT, NLS::getCharset()));
 
 echo $t->fetch(IMP_TEMPLATES . '/stationery/stationery.html');

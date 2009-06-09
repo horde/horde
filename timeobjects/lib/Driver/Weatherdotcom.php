@@ -182,30 +182,30 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
             // simplify and just check for it's presence or use night.
             $title = sprintf("%s %d%s/%d%s", (!empty($data['day']['condition']) ? $data['day']['condition'] : $data['night']['condition']),
                                              $data['temperatureHigh'],
-                                             String::upper($units['temp']),
+                                             Horde_String::upper($units['temp']),
                                              $data['temperatureLow'],
-                                             String::upper($units['temp']));
+                                             Horde_String::upper($units['temp']));
             $daytime = sprintf(_("Conditions: %s\nHigh: %d%s\nPrecipitation: %d%%\nHumidity: %d%%\nWinds: From the %s at %d%s"),
                            $data['day']['condition'],
-                           $data['temperatureHigh'], String::upper($units['temp']),
+                           $data['temperatureHigh'], Horde_String::upper($units['temp']),
                            $data['day']['precipitation'],
                            $data['day']['humidity'],
                            $data['day']['windDirection'],
                            $data['day']['wind'],
-                           String::upper($units['wind']));
+                           Horde_String::upper($units['wind']));
              if (!empty($data['day']['windGust']) && $data['day']['windgust'] > 0) {
-                 $daytime .= sprintf(_(" gusting %d%s"), $data['day']['windgust'], String::upper($units['wind']));
+                 $daytime .= sprintf(_(" gusting %d%s"), $data['day']['windgust'], Horde_String::upper($units['wind']));
              }
              $nighttime = sprintf(_("Conditions: %s\nLow: %d%s\nPrecipitation: %d%%\nHumidity: %d%%\nWinds: From the %s at %d%s"),
                            $data['night']['condition'],
-                           $data['temperatureLow'], String::upper($units['temp']),
+                           $data['temperatureLow'], Horde_String::upper($units['temp']),
                            $data['night']['precipitation'],
                            $data['night']['humidity'],
                            $data['night']['windDirection'],
                            $data['night']['wind'],
-                           String::upper($units['wind']));
+                           Horde_String::upper($units['wind']));
              if (!empty($data['night']['windGust']) && $data['night']['windgust'] > 0) {
-                 $nighttime .= sprintf(_(" gusting %d%s"), $data['night']['windgust'], String::upper($units['wind']));
+                 $nighttime .= sprintf(_(" gusting %d%s"), $data['night']['windgust'], Horde_String::upper($units['wind']));
              }
             $description = sprintf(_("Location: %s\nSunrise: %sAM Sunset: %sPM\n\nDay:\n%s\n\nEvening:\n%s"),
                                    $location['name'],

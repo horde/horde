@@ -23,13 +23,13 @@ if (strpos($mime_type, 'text/plain') !== false) {
     $data = reset($data);
     echo '<div class="fixed">' . Text_Filter::filter($data['data'], 'text2html', array('parselevel' => TEXT_HTML_MICRO)) . '</div>';
 } elseif (strpos($mime_type, 'image/') !== false) {
-    echo Horde::img(Util::addParameter(Horde::selfUrl(true), 'p', 1), '', '', '');
+    echo Horde::img(Horde_Util::addParameter(Horde::selfUrl(true), 'p', 1), '', '', '');
 } elseif ($pretty->canRender('inline')) {
     $data = $pretty->render('inline');
     $data = reset($data);
     echo $data['data'];
 } else {
-    echo Horde::link(Util::addParameter(Horde::selfUrl(true), 'p', 1)) . Horde::img('download.png', '', '', $registry->getImageDir('horde')) . ' ' . sprintf(_("Download revision %s"), $r) . '</a>';
+    echo Horde::link(Horde_Util::addParameter(Horde::selfUrl(true), 'p', 1)) . Horde::img('download.png', '', '', $registry->getImageDir('horde')) . ' ' . sprintf(_("Download revision %s"), $r) . '</a>';
 }
 ?>
 </div>

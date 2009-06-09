@@ -279,13 +279,13 @@ class Ingo_Script_imap extends Ingo_Script
                                     sprintf(_("Filter activity: The message \"%s\" from \"%s\" has been moved to the folder \"%s\"."),
                                             !empty($msg['envelope']['subject']) ? Horde_Mime::decode($msg['envelope']['subject'], NLS::getCharset()) : _("[No Subject]"),
                                             !empty($msg['envelope']['from']) ? Horde_Mime::decode(Horde_Mime_Address::addrArray2String($msg['envelope']['from']), NLS::getCharset()) : _("[No Sender]"),
-                                            String::convertCharset($rule['action-value'], 'UTF7-IMAP', NLS::getCharset())),
+                                            Horde_String::convertCharset($rule['action-value'], 'UTF7-IMAP', NLS::getCharset())),
                                     'horde.message');
                             }
                         } else {
                             $GLOBALS['notification']->push(sprintf(_("Filter activity: %s message(s) have been moved to the folder \"%s\"."),
                                                         count($indices),
-                                                        String::convertCharset($rule['action-value'], 'UTF7-IMAP', NLS::getCharset())), 'horde.message');
+                                                        Horde_String::convertCharset($rule['action-value'], 'UTF7-IMAP', NLS::getCharset())), 'horde.message');
                         }
                     } elseif ($rule['action'] == Ingo_Storage::ACTION_DISCARD) {
                         /* We need to grab the overview first. */
@@ -321,11 +321,11 @@ class Ingo_Script_imap extends Ingo_Script
                                     sprintf(_("Filter activity: The message \"%s\" from \"%s\" has been copied to the folder \"%s\"."),
                                             !empty($msg['envelope']['subject']) ? Horde_Mime::decode($msg['envelope']['subject'], NLS::getCharset()) : _("[No Subject]"),
                                             !empty($msg['envelope']['from']) ? Horde_Mime::decode($msg['envelope']['from'], NLS::getCharset()) : _("[No Sender]"),
-                                            String::convertCharset($rule['action-value'], 'UTF7-IMAP', NLS::getCharset())),
+                                            Horde_String::convertCharset($rule['action-value'], 'UTF7-IMAP', NLS::getCharset())),
                                     'horde.message');
                             }
                         } else {
-                            $GLOBALS['notification']->push(sprintf(_("Filter activity: %s message(s) have been copied to the folder \"%s\"."), count($indices), String::convertCharset($rule['action-value'], 'UTF7-IMAP', NLS::getCharset())), 'horde.message');
+                            $GLOBALS['notification']->push(sprintf(_("Filter activity: %s message(s) have been copied to the folder \"%s\"."), count($indices), Horde_String::convertCharset($rule['action-value'], 'UTF7-IMAP', NLS::getCharset())), 'horde.message');
                         }
                     }
                 }

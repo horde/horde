@@ -18,7 +18,7 @@ if (!Auth::getAuth()) {
     exit;
 }
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $class = $skoli_shares->getShare($vars->get('c'));
 if (is_a($class, 'PEAR_Error')) {
     $notification->push($class, 'horde.error');

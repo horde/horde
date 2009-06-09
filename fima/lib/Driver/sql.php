@@ -505,13 +505,13 @@ class Fima_Driver_sql extends Fima_Driver {
                      'owner' => $row['account_owner'],
                      'number' => sprintf('%\'04d', $row['account_number']),
                      'type' => $row['account_type'],
-                     'name' => String::convertCharset($row['account_name'], $this->_params['charset']),
+                     'name' => Horde_String::convertCharset($row['account_name'], $this->_params['charset']),
                      'eo' => $row['account_eo'],
-                     'desc' => String::convertCharset($row['account_desc'], $this->_params['charset']),
+                     'desc' => Horde_String::convertCharset($row['account_desc'], $this->_params['charset']),
                      'closed' => $row['account_closed'],
                      'label' => trim($row['account_number'] . ' ' .
                                 (($parent === null) ? '' : $parent['name'] . ' - ') . 
-                                String::convertCharset($row['account_name'], $this->_params['charset'])),
+                                Horde_String::convertCharset($row['account_name'], $this->_params['charset'])),
                      'parent_id' => ($parent === null) ? null : $parent['account_id'],
                      'parent_number' => ($parent === null) ? '' : $parent['number'],
                      'parent_name' => ($parent === null) ? '' : $parent['name']);
@@ -542,9 +542,9 @@ class Fima_Driver_sql extends Fima_Driver {
                         $this->_ledger,
                         sprintf('%\'04d', $number),
                         $type,
-                        String::convertCharset($name, NLS::getCharset(), $this->_params['charset']),
+                        Horde_String::convertCharset($name, NLS::getCharset(), $this->_params['charset']),
                         (int)(bool)$eo,
-                        String::convertCharset($desc, NLS::getCharset(), $this->_params['charset']),
+                        Horde_String::convertCharset($desc, NLS::getCharset(), $this->_params['charset']),
                         (int)(bool)$closed);
 
         /* Log the query at a DEBUG log level. */
@@ -587,9 +587,9 @@ class Fima_Driver_sql extends Fima_Driver {
                          $this->_params['table_accounts']);
         $values = array(sprintf('%\'04d', $number),
                         $type,
-                        String::convertCharset($name, NLS::getCharset(), $this->_params['charset']),
+                        Horde_String::convertCharset($name, NLS::getCharset(), $this->_params['charset']),
                         (int)(bool)$eo,
-                        String::convertCharset($desc, NLS::getCharset(), $this->_params['charset']),
+                        Horde_String::convertCharset($desc, NLS::getCharset(), $this->_params['charset']),
                         (int)(bool)$closed,
                         $this->_ledger,
                         $accountId);
@@ -701,7 +701,7 @@ class Fima_Driver_sql extends Fima_Driver {
                      'date' => $row['posting_date'],
                      'asset' => $row['posting_asset'],
                      'account' => $row['posting_account'],
-                     'desc' => String::convertCharset($row['posting_desc'], $this->_params['charset']),
+                     'desc' => Horde_String::convertCharset($row['posting_desc'], $this->_params['charset']),
                      'amount' => $row['posting_amount'],
                      'eo' => (int)(bool)$row['posting_eo']);
     }
@@ -736,7 +736,7 @@ class Fima_Driver_sql extends Fima_Driver {
                         $account,
                         (int)(bool)$eo,
                         (float)$amount,
-                        String::convertCharset($desc, NLS::getCharset(), $this->_params['charset']));
+                        Horde_String::convertCharset($desc, NLS::getCharset(), $this->_params['charset']));
 
         /* Log the query at a DEBUG log level. */
         Horde::logMessage(sprintf('Fima_Driver_sql::_addPosting(): %s', $query),
@@ -784,7 +784,7 @@ class Fima_Driver_sql extends Fima_Driver {
                         $account,
                         (int)(bool)$eo,
                         (float)$amount,
-                        String::convertCharset($desc, NLS::getCharset(), $this->_params['charset']),
+                        Horde_String::convertCharset($desc, NLS::getCharset(), $this->_params['charset']),
                         $this->_ledger,
                         $postingId);
 

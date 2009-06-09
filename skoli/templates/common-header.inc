@@ -20,7 +20,7 @@ if (!empty($refresh_time) && ($refresh_time > 0) && !empty($refresh_url)) {
 
 Horde::includeScriptFiles();
 
-$bc = Util::nonInputVar('bodyClass');
+$bc = Horde_Util::nonInputVar('bodyClass');
 if ($prefs->getValue('show_panel')) {
     if ($bc) {
         $bc .= ' ';
@@ -35,4 +35,4 @@ if ($prefs->getValue('show_panel')) {
 <link href="<?php echo Horde::applicationUrl('themes/categoryCSS.php') ?>" rel="stylesheet" type="text/css" />
 </head>
 
-<body<?php if ($bc) echo ' class="' . $bc . '"' ?><?php if ($bi = Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>
+<body<?php if ($bc) echo ' class="' . $bc . '"' ?><?php if ($bi = Horde_Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>

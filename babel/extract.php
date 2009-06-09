@@ -27,7 +27,7 @@ if ($app) {
 
 echo $template->fetch(BABEL_TEMPLATES . '/layout.html');
 
-$vars = &Variables::getDefaultVariables();
+$vars = &Horde_Variables::getDefaultVariables();
 
 /* Create upload form */
 $form = &new Horde_Form($vars, _("Extract Translation"), 'extract');

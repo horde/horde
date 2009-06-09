@@ -27,7 +27,7 @@ if (!empty($refresh_time) && ($refresh_time > 0) && !empty($refresh_url)) {
 Horde::includeScriptFiles();
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 
-$bc = Util::nonInputVar('bodyClass');
+$bc = Horde_Util::nonInputVar('bodyClass');
 if (isset($view) && is_object($view) && $prefs->getValue('show_panel')) {
     if ($bc) {
         $bc .= ' ';
@@ -52,4 +52,4 @@ var kronolithPrintLink = '';
 <?php Kronolith::outputInlineScript(); ?>
 </head>
 
-<body<?php if ($bc) echo ' class="' . $bc . '"'; if ($bi = Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>
+<body<?php if ($bc) echo ' class="' . $bc . '"'; if ($bi = Horde_Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>

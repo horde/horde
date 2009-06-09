@@ -14,13 +14,12 @@
  */
 
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Variables.php';
 
 if (!Auth::isAuthenticated()) {
     Horde::authenticationFailureRedirect();
 }
 
-$user = Util::getFormData('user');
+$user = Horde_Util::getFormData('user');
 if (empty($user)) {
     $notification->push(_("User is not selected"), 'horde.warning');
     header('Location: ' . Folks::getUrlFor('list', 'list'));
@@ -29,7 +28,7 @@ if (empty($user)) {
 
 $title = _("Do you really want to report this user?");
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $form = new Horde_Form($vars, $title);
 $form->setButtons(array(_("Report"), _("Cancel")));
 
@@ -45,10 +44,10 @@ $form->addHidden('', 'user', 'text', true, true);
 $form->addVariable(_("Report type"), 'type', 'radio', true, false, null, array($enum));
 $form->addVariable(_("Report reason"), 'reason', 'longtext', true);
 
-$user_id = Util::getFormData('id');
+$user_id = Horde_Util::getFormData('id');
 
 if ($form->validate()) {
-    if (Util::getFormData('submitbutton') == _("Report")) {
+    if (Horde_Util::getFormData('submitbutton') == _("Report")) {
 
         $body =  _("User") . ': ' . $user . "\n"
             . _("Report type") . ': ' . $enum[$vars->get('type')] . "\n"

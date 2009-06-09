@@ -13,15 +13,14 @@
 
 define('FOLKS_BASE', dirname(__FILE__));
 require_once FOLKS_BASE . '/lib/base.php';
-require_once 'Horde/Variables.php';
 
-if (Util::getFormData('submitbutton') == _("Close")) {
+if (Horde_Util::getFormData('submitbutton') == _("Close")) {
 
     echo '<script type="text/javascript">RedBox.close();</script>';
 
-} elseif (Util::getFormData('formname') == 'savesearch') {
+} elseif (Horde_Util::getFormData('formname') == 'savesearch') {
 
-    $result = $folks_driver->saveSearch(Util::getFormData('search_criteria'), Util::getFormData('search_name'));
+    $result = $folks_driver->saveSearch(Horde_Util::getFormData('search_criteria'), Horde_Util::getFormData('search_name'));
     if ($result instanceof PEAR_Error) {
         $notification->push($result);
     } else {
@@ -30,9 +29,9 @@ if (Util::getFormData('submitbutton') == _("Close")) {
         exit;
     }
 
-} elseif ((Util::getGet('delete') == 1) && Util::getGet('query')) {
+} elseif ((Horde_Util::getGet('delete') == 1) && Horde_Util::getGet('query')) {
 
-    $result = $folks_driver->deleteSavedSearch(Util::getGet('query'));
+    $result = $folks_driver->deleteSavedSearch(Horde_Util::getGet('query'));
     if ($result instanceof PEAR_Error) {
         $notification->push($result);
     } else {
@@ -43,7 +42,7 @@ if (Util::getFormData('submitbutton') == _("Close")) {
 }
 
 // Render
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $vars->set('search_criteria', $_SESSION['folks']['last_search']);
 $form = new Horde_Form($vars, '', 'savesearch');
 $form->addVariable(_("Name"), 'search_name', 'text', true);

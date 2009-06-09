@@ -24,7 +24,7 @@ Horde_Autoloader::addClassPath($kronolith_dir);
 Horde_Autoloader::addClassPattern('/^Kronolith_/', $kronolith_dir);
 
 /* Registry. */
-$session_control = Util::nonInputVar('session_control');
+$session_control = Horde_Util::nonInputVar('session_control');
 if ($session_control == 'none') {
     $registry = &Registry::singleton(Registry::SESSION_NONE);
 } elseif ($session_control == 'readonly') {
@@ -85,7 +85,7 @@ if (empty($no_maint) && Kronolith::loginTasksFlag() &&
        $maint->runMaintenance();
     }
     Kronolith::loginTasksFlag(0);
-} elseif (Util::getFormData(MAINTENANCE_DONE_PARAM) &&
+} elseif (Horde_Util::getFormData(MAINTENANCE_DONE_PARAM) &&
           Kronolith::loginTasksFlag()) {
     $maint = Maintenance::factory('kronolith', array('last_maintenance' => $GLOBALS['prefs']->getValue('last_kronolith_maintenance')));
     if (!$maint) {

@@ -22,4 +22,4 @@ Horde::includeScriptFiles();
 <?php echo Horde::stylesheetLink('babel') ?>
 </head>
 
-<body<?php if (Util::nonInputVar('bodyClass')) echo ' class="' . $bodyClass . '"' ?>>
+<body<?php if (Horde_Util::nonInputVar('bodyClass')) echo ' class="' . $bodyClass . '"' ?>>

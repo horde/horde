@@ -18,7 +18,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 
 $viewmode = $_SESSION['imp']['view'];
 
-if (!($path = Util::getFormData('imple'))) {
+if (!($path = Horde_Util::getFormData('imple'))) {
     if ($viewmode == 'dimp') {
         Horde::sendHTTPResponse(new stdClass(), 'json');
     }

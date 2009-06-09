@@ -23,7 +23,7 @@ Horde_Autoloader::addClassPath($rto_dir);
 Horde_Autoloader::addClassPattern('/^TimeObjects_/', $rto_dir);
 
 /* Registry. */
-$session_control = Util::nonInputVar('session_control');
+$session_control = Horde_Util::nonInputVar('session_control');
 if ($session_control == 'none') {
     $registry = &Registry::singleton(Registry::SESSION_NONE);
 } elseif ($session_control == 'readonly') {

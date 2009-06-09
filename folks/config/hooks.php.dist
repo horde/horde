@@ -278,10 +278,10 @@ if (!function_exists('_horde_hook_signup_preprocess')) {
     function _horde_hook_signup_preprocess($info)
     {
         if (isset($info['extra']['username'])) {
-            $info['extra']['username'] = String::lower($info['extra']['username']);
+            $info['extra']['username'] = Horde_String::lower($info['extra']['username']);
             $username = $info['extra']['username'];
         } else {
-            $info['user_name'] = String::lower($info['user_name']);
+            $info['user_name'] = Horde_String::lower($info['user_name']);
             $username = $info['user_name'];
         }
 
@@ -328,8 +328,8 @@ if (!function_exists('_horde_hook_signup_addextra')) {
             if ($field == 'password') {
                 $value = hash('md5', $value);
             }
-            $fields[] = 'user_' . String::lower($field);
-            $values[] = String::convertCharset($value, NLS::getCharset(), $conf['sql']['charset']);
+            $fields[] = 'user_' . Horde_String::lower($field);
+            $values[] = Horde_String::convertCharset($value, NLS::getCharset(), $conf['sql']['charset']);
         }
 
         $values[] = $userID;
@@ -343,7 +343,7 @@ if (!function_exists('_horde_hook_signup_addextra')) {
 
         require_once $GLOBALS['registry']->get('fileroot', 'folks') . '/lib/Folks.php';
         $code = Folks::encodeString($userID, 'activate' . hash('md5', $extra['password']));
-        $link = Util::addParameter(Horde::applicationUrl('account/approve.php', true, -1),
+        $link = Horde_Util::addParameter(Horde::applicationUrl('account/approve.php', true, -1),
                                     array('user' => $userID, 'code' => $code),
                                     null, false);
 

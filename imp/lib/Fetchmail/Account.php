@@ -154,7 +154,7 @@ class IMP_Fetchmail_Account
     {
         $list = $this->getAll($key);
         foreach ($list as $val2) {
-            if (strpos(String::lower($val), String::lower($val2)) !== false) {
+            if (strpos(Horde_String::lower($val), Horde_String::lower($val2)) !== false) {
                 return true;
             }
         }

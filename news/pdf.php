@@ -16,7 +16,7 @@
 $no_compress = true;
 require_once dirname(__FILE__) . '/lib/base.php';
 
-$id = Util::getFormData('id');
+$id = Horde_Util::getFormData('id');
 $row = $news->get($id);
 
 // Check if the news exists
@@ -53,7 +53,7 @@ $pdf->newLine(4);
 
 $pdf->write(12, _("On") . ': ' . News::dateFormat($row['publish']) . "\n");
 $pdf->write(12, _("Link") . ': ' . News::getUrlFor('news', $id, true) . "\n\n", News::getUrlFor('news', $id, true));
-$pdf->multiCell(0, 12, String::convertCharset(strip_tags($row['content']), NLS::getCharset(), 'UTF-8'));
+$pdf->multiCell(0, 12, Horde_String::convertCharset(strip_tags($row['content']), NLS::getCharset(), 'UTF-8'));
 
 $browser->downloadHeaders($id . '.pdf', 'application/pdf');
 echo $pdf->getOutput();

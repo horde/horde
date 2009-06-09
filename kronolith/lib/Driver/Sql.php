@@ -864,7 +864,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      */
     public function convertFromDriver($value)
     {
-        return String::convertCharset($value, $this->_params['charset']);
+        return Horde_String::convertCharset($value, $this->_params['charset']);
     }
 
     /**
@@ -877,7 +877,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      */
     public function convertToDriver($value)
     {
-        return String::convertCharset($value, NLS::getCharset(), $this->_params['charset']);
+        return Horde_String::convertCharset($value, NLS::getCharset(), $this->_params['charset']);
     }
 
     /**

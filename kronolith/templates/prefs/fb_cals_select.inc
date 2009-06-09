@@ -6,7 +6,7 @@
   <?php echo _("Copy this URL for use wherever you need your Free/Busy URL:") ?>
  </div>
  <p class="text">
-  <?php echo Util::addParameter(Horde::applicationUrl('fb.php', true, -1), 'u', Auth::getAuth()) ?>
+  <?php echo Horde_Util::addParameter(Horde::applicationUrl('fb.php', true, -1), 'u', Auth::getAuth()) ?>
  </p>
 </div>
 

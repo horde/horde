@@ -8,8 +8,8 @@
 <div class="item" style="padding:1em">
  <?php echo Horde::label('exportID', _("Select the export format:")) ?><br />
  <select name="exportID" id="exportID">
-  <option value="<?php echo EXPORT_CSV ?>"<?php echo Util::getFormData('exportID') == EXPORT_CSV ? ' selected="selected"' : '' ?>><?php echo _("Comma separated values (CSV)") ?></option>
-  <option value="<?php echo EXPORT_TSV ?>"<?php echo Util::getFormData('exportID') == EXPORT_TSV ? ' selected="selected"' : '' ?>><?php echo _("Tab separated values (TSV)") ?></option>
+  <option value="<?php echo EXPORT_CSV ?>"<?php echo Horde_Util::getFormData('exportID') == EXPORT_CSV ? ' selected="selected"' : '' ?>><?php echo _("Comma separated values (CSV)") ?></option>
+  <option value="<?php echo EXPORT_TSV ?>"<?php echo Horde_Util::getFormData('exportID') == EXPORT_TSV ? ' selected="selected"' : '' ?>><?php echo _("Tab separated values (TSV)") ?></option>
  </select><br />
 
 <?php if (count($classes) > 1): ?>

@@ -160,7 +160,7 @@ function send_agendas()
                               __FILE__, __LINE__, PEAR_LOG_ERR);
             return;
         }
-        $pad = max(String::length(_("All day")) + 2, $twentyFour ? 6 : 8);
+        $pad = max(Horde_String::length(_("All day")) + 2, $twentyFour ? 6 : 8);
 
         $message = sprintf(_("Your daily agenda for %s"),
                            strftime($dateFormat, $runtime))

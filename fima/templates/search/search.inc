@@ -1,11 +1,11 @@
 <form method="post" name="search" action="postings.php">
-<?php Util::pformInput() ?>
+<?php Horde_Util::pformInput() ?>
 <input type="hidden" name="actionID" value="search_postings" />
 
 <div class="header">
 <?php echo htmlspecialchars($title) ?>
 <?php if (isset($_SESSION['fima_search'])): ?>
-<?php echo Horde::link(Util::addParameter(Horde::applicationUrl('search.php'), 'actionID', 'clear_search'), _("Clear Search Query")) . Horde::img('delete.png', _("Clear Search Query"), '', $registry->getImageDir('horde')) ?></a>
+<?php echo Horde::link(Horde_Util::addParameter(Horde::applicationUrl('search.php'), 'actionID', 'clear_search'), _("Clear Search Query")) . Horde::img('delete.png', _("Clear Search Query"), '', $registry->getImageDir('horde')) ?></a>
 <?php endif; ?>
 </div>
 

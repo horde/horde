@@ -31,7 +31,7 @@ function switchDateView(view, date)
 </script>
 
 <form method="post" action="attendees.php" name="attendeesForm">
-<?php Util::pformInput() ?>
+<?php Horde_Util::pformInput() ?>
 <input type="hidden" name="actionID" value="add" />
 <input type="hidden" name="actionValue" value="" />
 <input type="hidden" name="view" value="<?php echo htmlspecialchars($view) ?>" />

@@ -11,7 +11,7 @@
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-$viewName = Util::getFormData('view', 'Event');
+$viewName = Horde_Util::getFormData('view', 'Event');
 $view = Kronolith::getView($viewName);
 if (is_a($view->event, 'PEAR_Error')) {
     $notification->push($view->event, 'horde.error');
@@ -24,7 +24,7 @@ case 'DeleteEvent':
     /* Shortcut when we're deleting events and don't want confirmation. */
     if (!$view->event->recurs() &&
         !($prefs->getValue('confirm_delete') ||
-          Util::getFormData('confirm'))) {
+          Horde_Util::getFormData('confirm'))) {
         header('Location: ' . Horde::applicationUrl('delete.php?' . $_SERVER['QUERY_STRING'], true));
         exit;
     }
@@ -33,18 +33,18 @@ case 'DeleteEvent':
 case 'EditEvent':
     if ($view->event->isPrivate() &&
         $view->event->getCreatorId() != Auth::getAuth()) {
-        $url = Util::getFormData('url');
+        $url = Horde_Util::getFormData('url');
         if (empty($url)) {
             $url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true);
         }
-        header('Location: ' . Util::addParameter($url, 'unique', hash('md5', microtime()), false));
+        header('Location: ' . Horde_Util::addParameter($url, 'unique', hash('md5', microtime()), false));
         exit;
     }
     break;
 }
 
 $title = $view->getTitle();
-$print_view = (bool)Util::getFormData('print');
+$print_view = (bool)Horde_Util::getFormData('print');
 if (!$print_view) {
     Horde::addScriptFile('popup.js', 'horde', true);
 }

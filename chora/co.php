@@ -18,7 +18,7 @@ if ($atdir) {
 }
 
 /* Should we pretty-print this output or not? */
-$plain = Util::getFormData('p', 0);
+$plain = Horde_Util::getFormData('p', 0);
 
 /* Create the VC_File object and populate it. */
 try {
@@ -28,7 +28,7 @@ try {
 }
 
 /* Get the revision number. */
-$r = Util::getFormData('r');
+$r = Horde_Util::getFormData('r');
 
 /* If no revision is specified, default to HEAD.  If a revision is
  * specified, it's safe to cache for a long time. */

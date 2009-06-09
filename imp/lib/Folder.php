@@ -132,7 +132,7 @@ class IMP_Folder
 
             $abbrev = $label = str_repeat(' ', 4 * $ob['c']) . $ob['l'];
             if (strlen($abbrev) > 26) {
-                $abbrev = String::substr($abbrev, 0, 10) . '...' . String::substr($abbrev, -13, 13);
+                $abbrev = Horde_String::substr($abbrev, 0, 10) . '...' . Horde_String::substr($abbrev, -13, 13);
             }
             $list[$ob['v']] = array('val' => $imaptree->isContainer($ob) ? '' : $ob['v'], 'label' => $label, 'abbrev' => $abbrev);
         }

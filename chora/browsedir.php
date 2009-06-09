@@ -18,7 +18,7 @@ if (!$atdir) {
 }
 
 $rev = $VC->hasFeature('snapshots')
-    ? Util::getFormData('rev')
+    ? Horde_Util::getFormData('rev')
     : null;
 
 try {

@@ -29,9 +29,9 @@ if (!$conf['compose']['link_attachments']) {
 }
 
 // Gather required form variables.
-$mail_user = Util::getFormData('u', null);
-$time_stamp = Util::getFormData('t', null);
-$file_name = Util::getFormData('f', null);
+$mail_user = Horde_Util::getFormData('u', null);
+$time_stamp = Horde_Util::getFormData('t', null);
+$file_name = Horde_Util::getFormData('f', null);
 if (is_null($mail_user) || is_null($time_stamp) || is_null($file_name)) {
     Horde::fatal(_("The attachment was not found."), $self_url, __LINE__);
 }
@@ -54,7 +54,7 @@ if (!$vfsroot->exists($full_path, $file_name)) {
 // Check to see if we need to send a verification message.
 if ($conf['compose']['link_attachments_notify']) {
     if ($vfsroot->exists($full_path, $file_name . '.notify')) {
-        $delete_id = Util::getFormData('d');
+        $delete_id = Horde_Util::getFormData('d');
         $read_id = $vfsroot->read($full_path, $file_name . '.notify');
         if (is_a($read_id, 'PEAR_Error')) {
             Horde::logMessage($read_id, __FILE__, __LINE__, PEAR_LOG_ERR);
@@ -100,7 +100,7 @@ if ($conf['compose']['link_attachments_notify']) {
                 $msg = new Horde_Mime_Part();
                 $msg->setType('text/plain');
                 $msg->setCharset(NLS::getCharset());
-                $msg->setContents(String::wrap(sprintf(_("Your linked attachment has been downloaded by at least one user.\n\nAttachment name: %s\nAttachment date: %s\n\nClick on the following link to permanently delete the attachment:\n%s"), $file_name, date('r', $time_stamp), Util::addParameter(Horde::selfUrl(true, false, true), 'd', $id))));
+                $msg->setContents(Horde_String::wrap(sprintf(_("Your linked attachment has been downloaded by at least one user.\n\nAttachment name: %s\nAttachment date: %s\n\nClick on the following link to permanently delete the attachment:\n%s"), $file_name, date('r', $time_stamp), Horde_Util::addParameter(Horde::selfUrl(true, false, true), 'd', $id))));
 
                 $msg->send($mail_address, $msg_headers);
             }
@@ -121,7 +121,7 @@ if ($mime_type === false) {
 
 // Prevent 'jar:' attacks on Firefox.  See Ticket #5892.
 if ($browser->isBrowser('mozilla')) {
-    if (in_array(String::lower($mime_type), array('application/java-archive', 'application/x-jar'))) {
+    if (in_array(Horde_String::lower($mime_type), array('application/java-archive', 'application/x-jar'))) {
         $mime_type = 'application/octet-stream';
     }
 }

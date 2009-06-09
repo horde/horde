@@ -19,7 +19,7 @@ class Koward_Form_Actions extends Horde_Form {
     {
         $this->koward = &Koward::singleton();
 
-        parent::Horde_Form(Variables::getDefaultVariables());
+        parent::Horde_Form(Horde_Variables::getDefaultVariables());
 
         $this->setTitle(_("Object actions"));
 
@@ -32,9 +32,7 @@ class Koward_Form_Actions extends Horde_Form {
 
     function &execute()
     {
-        require_once 'Horde/Util.php';
-
-        $submit = Util::getFormData('submitbutton');
+        $submit = Horde_Util::getFormData('submitbutton');
         if (!empty($submit)) {
             $type = $this->koward->getType($this->object);
             foreach ($this->koward->objects[$type]['actions'] as $action => $label) {

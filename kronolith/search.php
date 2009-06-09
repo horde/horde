@@ -11,13 +11,13 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Get search parameters. */
-$search_mode = Util::getFormData('search_mode', 'basic');
-$search_calendar = explode('|', Util::getFormData('calendar', '|__any'), 2);
+$search_mode = Horde_Util::getFormData('search_mode', 'basic');
+$search_calendar = explode('|', Horde_Util::getFormData('calendar', '|__any'), 2);
 $events = null;
 
 if ($search_mode == 'basic') {
-    $desc = Util::getFormData('pattern_desc');
-    $title = Util::getFormData('pattern_title');
+    $desc = Horde_Util::getFormData('pattern_desc');
+    $title = Horde_Util::getFormData('pattern_title');
     if (strlen($desc) || strlen($title)) {
         $event = Kronolith::getDriver()->getEvent();
         $event->setDescription($desc);
@@ -25,7 +25,7 @@ if ($search_mode == 'basic') {
         $event->status = null;
 
         $time1 = $_SERVER['REQUEST_TIME'];
-        $range = Util::getFormData('range');
+        $range = Horde_Util::getFormData('range');
         if ($range == '+') {
             $event->start = new Horde_Date($time1);
             $event->end = null;
@@ -53,10 +53,10 @@ if ($search_mode == 'basic') {
      * a default end date. */
     $event->initialized = true;
 
-    $q_title = Util::getFormData('title');
+    $q_title = Horde_Util::getFormData('title');
     if (strlen($q_title)) {
         $event->readForm();
-        if (Util::getFormData('status') == Kronolith::STATUS_NONE) {
+        if (Horde_Util::getFormData('status') == Kronolith::STATUS_NONE) {
             $event->status = null;
         }
 

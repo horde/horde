@@ -16,9 +16,7 @@ if (!Auth::isAdmin('news:admin')) {
     Horde::authenticationFailureRedirect();
 }
 
-require_once 'Horde/Variables.php';
-
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $tabs = new Horde_UI_Tabs('admin', $vars);
 
 $tabs->addTab(_("Sources"), Horde::applicationUrl('admin/sources/index.php'), 'sources');

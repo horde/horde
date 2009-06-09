@@ -14,10 +14,10 @@ function handle_remote_cal_management($updated)
 {
     global $prefs;
 
-    $calName = Util::getFormData('remote_name');
-    $calUrl  = trim(Util::getFormData('remote_url'));
-    $calUser = trim(Util::getFormData('remote_user'));
-    $calPasswd = trim(Util::getFormData('remote_password'));
+    $calName = Horde_Util::getFormData('remote_name');
+    $calUrl  = trim(Horde_Util::getFormData('remote_url'));
+    $calUser = trim(Horde_Util::getFormData('remote_user'));
+    $calPasswd = trim(Horde_Util::getFormData('remote_password'));
 
     $key = Auth::getCredential('password');
     if ($key) {
@@ -25,7 +25,7 @@ function handle_remote_cal_management($updated)
         $calPasswd = base64_encode(Secret::write($key, $calPasswd));
     }
 
-    $calActionID = Util::getFormData('remote_action', 'add');
+    $calActionID = Horde_Util::getFormData('remote_action', 'add');
 
     if ($calActionID == 'add') {
         if (!empty($calName) && !empty($calUrl)) {
@@ -67,7 +67,7 @@ function handle_remote_cal_management($updated)
 
 function handle_shareselect($updated)
 {
-    $default_share = Util::getFormData('default_share');
+    $default_share = Horde_Util::getFormData('default_share');
     if (!is_null($default_share)) {
         $sharelist = Kronolith::listCalendars();
         if ((is_array($sharelist)) > 0 && isset($sharelist[$default_share])) {
@@ -81,7 +81,7 @@ function handle_shareselect($updated)
 
 function handle_holiday_drivers($updated)
 {
-    $holiday_driversSelected = Util::getFormData('holiday_drivers');
+    $holiday_driversSelected = Horde_Util::getFormData('holiday_drivers');
     $holiday_driversFiltered = array();
 
     if (is_array($holiday_driversSelected)) {
@@ -98,13 +98,13 @@ function handle_sourceselect($updated)
 {
     global $prefs;
 
-    $search_sources = Util::getFormData('search_sources');
+    $search_sources = Horde_Util::getFormData('search_sources');
     if ($search_sources !== null) {
         $prefs->setValue('search_sources', $search_sources);
         $updated = true;
     }
 
-    $search_fields_string = Util::getFormData('search_fields_string');
+    $search_fields_string = Horde_Util::getFormData('search_fields_string');
     if ($search_fields_string !== null) {
         $prefs->setValue('search_fields', $search_fields_string);
         $updated = true;
@@ -115,7 +115,7 @@ function handle_sourceselect($updated)
 
 function handle_fb_cals_select($updated)
 {
-    $fb_calsSelected = Util::getFormData('fb_cals');
+    $fb_calsSelected = Horde_Util::getFormData('fb_cals');
     $fb_cals = Kronolith::listCalendars();
     $fb_calsFiltered = array();
 
@@ -132,7 +132,7 @@ function handle_fb_cals_select($updated)
 function handle_default_alarm_management($updated)
 {
     $GLOBALS['prefs']->setValue('default_alarm',
-                                (int)Util::getFormData('alarm_value') * (int)Util::getFormData('alarm_unit'));
+                                (int)Horde_Util::getFormData('alarm_value') * (int)Horde_Util::getFormData('alarm_unit'));
     return true;
 }
 

@@ -52,7 +52,7 @@ class Horde_Block_imp_tree_folders extends Horde_Block
             return;
         }
 
-        $name_url = Util::addParameter(Horde::applicationUrl('mailbox.php'), 'no_newmail_popup', 1);
+        $name_url = Horde_Util::addParameter(Horde::applicationUrl('mailbox.php'), 'no_newmail_popup', 1);
 
         /* Initialize the IMP_Tree object. */
         $imaptree = &IMP_Imap_Tree::singleton();
@@ -82,7 +82,7 @@ class Horde_Block_imp_tree_folders extends Horde_Block
                 'icon' => $val['icon'],
                 'icondir' => $val['icondir'],
                 'iconopen' => $val['iconopen'],
-                'url' => ($val['container']) ? null : Util::addParameter($name_url, 'mailbox', $val['value']),
+                'url' => ($val['container']) ? null : Horde_Util::addParameter($name_url, 'mailbox', $val['value']),
             );
             $tree->addNode($parent . $val['value'],
                            ($val['level']) ? $parent . $val['parent'] : $parent,

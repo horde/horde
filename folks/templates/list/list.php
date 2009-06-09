@@ -48,10 +48,10 @@ $sortText = _("Sort Direction");
 foreach ($headers as $key => $val) {
     echo '<th class="widget leftAlign nowrap">' . "\n";
     if ($criteria['sort_by'] == $key) {
-        echo Horde::link(Util::addParameter($list_url, 'sort_dir', ($criteria['sort_dir'] == 'DESC') ? 'ASC' : 'DESC'), $val['text'], null, null, null, $val['text']);
+        echo Horde::link(Horde_Util::addParameter($list_url, 'sort_dir', ($criteria['sort_dir'] == 'DESC') ? 'ASC' : 'DESC'), $val['text'], null, null, null, $val['text']);
         echo Horde::img($sortImg, $sortText, null, $registry->getImageDir('horde')) . '</a>&nbsp;';
     }
-    echo Horde::widget(Util::addParameter(($criteria['sort_by'] == $key) ? $list_url : $list_url, 'sort_by', $key), $val['text'], 'widget');
+    echo Horde::widget(Horde_Util::addParameter(($criteria['sort_by'] == $key) ? $list_url : $list_url, 'sort_by', $key), $val['text'], 'widget');
     echo '</th>';
 }
 ?>

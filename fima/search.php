@@ -12,7 +12,7 @@
 require_once FIMA_BASE . '/lib/base.php';
 
 /* Get the current action ID. */
-$actionID = Util::getFormData('actionID');
+$actionID = Horde_Util::getFormData('actionID');
 
 switch ($actionID) {
 case 'clear_search':

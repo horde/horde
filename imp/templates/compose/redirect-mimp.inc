@@ -11,7 +11,7 @@ $f = &$c->add(new Horde_Mobile_form('compose.php'));
 $f->add(new Horde_Mobile_hidden('thismailbox', $thismailbox));
 $f->add(new Horde_Mobile_hidden('index', $index));
 $f->add(new Horde_Mobile_hidden('action', 'rc'));
-$f->add(new Horde_Mobile_hidden('array_index', Util::getFormData('array_index')));
+$f->add(new Horde_Mobile_hidden('array_index', Horde_Util::getFormData('array_index')));
 
 $f->add(new Horde_Mobile_input('to', $header['to'], _("To: ")));
 

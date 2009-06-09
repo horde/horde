@@ -16,7 +16,7 @@ class Ingo_Driver_ldap extends Ingo_Driver
      */
     public function __construct($params = array())
     {
-        if (!Util::extensionExists('ldap')) {
+        if (!Horde_Util::extensionExists('ldap')) {
             Horde::fatal(PEAR::raiseError(_("LDAP support is required but the LDAP module is not available or not loaded.")), __FILE__, __LINE__);
         }
 
@@ -214,7 +214,7 @@ class Ingo_Driver_ldap extends Ingo_Driver
             $values[] = $script;
         }
 
-        $replace = array(String::lower($this->_params['script_attribute']) => $values);
+        $replace = array(Horde_String::lower($this->_params['script_attribute']) => $values);
         if (empty($values)) {
             $r = @ldap_mod_del($ldapcn, $userDN, $replace);
         } else {

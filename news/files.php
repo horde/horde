@@ -16,13 +16,13 @@
 $no_compress = true;
 require_once dirname(__FILE__) . '/lib/base.php';
 
-$news_id = Util::getFormData('news_id', false);
-$actionID = Util::getFormData('actionID');
-$file_id = Util::getFormData('file_id');
-$file_name = Util::getFormData('file_name');
-$news_lang = Util::getFormData('news_lang', News::getLang());
-$file_type = Util::getFormData('file_type');
-$file_size = Util::getFormData('file_size');
+$news_id = Horde_Util::getFormData('news_id', false);
+$actionID = Horde_Util::getFormData('actionID');
+$file_id = Horde_Util::getFormData('file_id');
+$file_name = Horde_Util::getFormData('file_name');
+$news_lang = Horde_Util::getFormData('news_lang', News::getLang());
+$file_type = Horde_Util::getFormData('file_type');
+$file_size = Horde_Util::getFormData('file_size');
 
 /* Run through action handlers. */
 switch ($actionID) {

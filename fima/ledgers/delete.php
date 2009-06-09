@@ -18,7 +18,7 @@ if (!Auth::getAuth()) {
     exit;
 }
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $ledger_id = $vars->get('l');
 if ($ledger_id == Auth::getAuth()) {
     $notification->push(_("This ledger cannot be deleted."), 'horde.warning');
@@ -40,7 +40,7 @@ if (is_a($ledger, 'PEAR_Error')) {
 $form = new Fima_DeleteLedgerForm($vars, $ledger);
 
 // Execute if the form is valid (must pass with POST variables only).
-if ($form->validate(new Variables($_POST))) {
+if ($form->validate(new Horde_Variables($_POST))) {
     $result = $form->execute();
     if (is_a($result, 'PEAR_Error')) {
         $notification->push($result, 'horde.error');

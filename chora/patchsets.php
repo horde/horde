@@ -26,7 +26,7 @@ if (!$VC->isFile($fullname)) {
 }
 
 $ps_opts = array();
-if ($ps_id = Util::getFormData('ps')) {
+if ($ps_id = Horde_Util::getFormData('ps')) {
     $ps_opts['range'] = array($ps_id);
 }
 

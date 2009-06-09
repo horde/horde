@@ -68,7 +68,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
             $this->_imppgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
         }
 
-        if (Util::getFormData('rawpgpkey')) {
+        if (Horde_Util::getFormData('rawpgpkey')) {
             return array(
                 $this->_mimepart->getMimeId() => array(
                     'data' => $this->_mimepart->getContents(),
@@ -336,7 +336,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
         $status[] = _("The message below has been digitally signed via PGP.");
 
         if ($GLOBALS['prefs']->getValue('pgp_verify') ||
-            Util::getFormData('pgp_verify_msg')) {
+            Horde_Util::getFormData('pgp_verify_msg')) {
             $graphicsdir = $GLOBALS['registry']->getImageDir('horde');
             $sig_part = $this->_params['contents']->getMIMEPart($sig_id);
 
@@ -370,7 +370,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
         } else {
             switch ($_SESSION['imp']['view']) {
             case 'imp':
-                $status[] = Horde::link(Util::addParameter(IMP::selfUrl(), array('pgp_verify_msg' => 1))) . _("Click HERE to verify the message.") . '</a>';
+                $status[] = Horde::link(Horde_Util::addParameter(IMP::selfUrl(), array('pgp_verify_msg' => 1))) . _("Click HERE to verify the message.") . '</a>';
                 break;
 
             case 'dimp':

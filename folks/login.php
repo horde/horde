@@ -81,14 +81,14 @@ if (isset($_GET['logout_reason'])) {
  */
 if ($conf['login']['prelogin'] &&
     Auth::getAuth() &&
-   ($app = Util::getGet('app'))) {
+   ($app = Horde_Util::getGet('app'))) {
     Horde::callHook('_folks_hook_prelogin', array($app), 'folks');
 }
 
 /*
  * Login parameters
  */
-$url_param = Util::getFormData('url');
+$url_param = Horde_Util::getFormData('url');
 $login_url = Auth::getLoginScreen('folks', $url_param);
 
 /*
@@ -124,13 +124,13 @@ if (isset($_COOKIE['folks_login_code']) &&
  * Form
  */
 $title = sprintf(_("Login to %s"), $registry->get('name', 'horde'));
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $form = new Folks_Login_Form($vars, $title, 'folks_login');
 
 /*
  * Check time between one login and anther
  */
-$username = strtolower(trim(Util::getPost('username')));
+$username = strtolower(trim(Horde_Util::getPost('username')));
 if ($username && $conf['login']['diff']) {
     $last_try = $cache->get('login_last_try_' . $username, $conf['cache']['default_lifetime']);
     if ($last_try && $_SERVER['REQUEST_TIME'] - $last_try <= $conf['login']['diff']) {

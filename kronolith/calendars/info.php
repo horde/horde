@@ -21,7 +21,7 @@ if (!Auth::getAuth()) {
 }
 
 $calendar = null;
-$calendarId = Util::getFormData('c');
+$calendarId = Horde_Util::getFormData('c');
 if (strncmp($calendarId, 'remote_', 7) === 0) {
     $calendarId = substr($calendarId, 7);
     $remote_calendars = unserialize($prefs->getValue('remote_cals'));
@@ -42,7 +42,7 @@ if (strncmp($calendarId, 'remote_', 7) === 0) {
                      . ($rewrite ? '/rpc/kronolith/' : '/rpc.php/kronolith/'),
                      true, -1)
           . $calendar->get('owner') . '/' . $calendar->getName() . '.ics'
-        : Util::addParameter(Horde::applicationUrl('ics.php', true, -1), 'c',
+        : Horde_Util::addParameter(Horde::applicationUrl('ics.php', true, -1), 'c',
                              $calendar->getName());
 }
 

@@ -14,9 +14,9 @@ define('NEWS_BASE', dirname(__FILE__) . '/../..');
 require_once NEWS_BASE . '/lib/base.php';
 require NEWS_BASE . '/admin/tabs.php';
 
-$category_id = Util::getFormData('category_id');
+$category_id = Horde_Util::getFormData('category_id');
 $title = !empty($category_id) ? _("Edit category") : _("Add category");
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $form = new Horde_Form($vars, $title, 'editcategory');
 
 if ($category_id && !$form->isSubmitted()) {

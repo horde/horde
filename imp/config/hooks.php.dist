@@ -86,7 +86,7 @@
 // if (!function_exists('_imp_hook_trailer')) {
 //     function _imp_hook_trailer($trailer)
 //     {
-//         $vdomain = String::lower(preg_replace('|^.*?\.|i', '', getenv('HTTP_HOST')));
+//         $vdomain = Horde_String::lower(preg_replace('|^.*?\.|i', '', getenv('HTTP_HOST')));
 //         $ldapServer = 'localhost';
 //         $ldapPort = '389';
 //         $searchBase = 'ispmanDomain=' . $vdomain  . ",o=ispman";
@@ -120,7 +120,7 @@
 // if (!function_exists('_imp_hook_vinfo')) {
 //     function _imp_hook_vinfo($type = 'username', $data = null)
 //     {
-//         $vdomain = String::lower(preg_replace('|^mail\.|i', '', getenv('HTTP_HOST')));
+//         $vdomain = Horde_String::lower(preg_replace('|^mail\.|i', '', getenv('HTTP_HOST')));
 //
 //         switch ($type) {
 //         case 'username':

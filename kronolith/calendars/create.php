@@ -21,7 +21,7 @@ if (!Auth::getAuth() || $prefs->isLocked('default_share')) {
     exit;
 }
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $form = new Kronolith_CreateCalendarForm($vars);
 
 // Execute if the form is valid.

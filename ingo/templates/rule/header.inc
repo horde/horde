@@ -11,7 +11,7 @@ function delete_condition(num)
 </script>
 
 <form method="post" name="rule" action="<?php echo Horde::applicationUrl('rule.php') ?>">
-<?php Util::pformInput() ?>
+<?php Horde_Util::pformInput() ?>
 <input type="hidden" name="actionID" value="rule_update" />
 <input type="hidden" name="conditionnumber" value="-1" />
 <input type="hidden" name="new_folder_name" value="" />

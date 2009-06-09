@@ -38,18 +38,18 @@ class Kronolith_View_DeleteEvent {
             return;
         }
 
-        if ($datetime = Util::getFormData('datetime')) {
+        if ($datetime = Horde_Util::getFormData('datetime')) {
             $datetime = new Horde_Date($datetime);
             $month = $datetime->month;
             $year = $datetime->year;
             $day = $datetime->mday;
         } else {
-            $month = Util::getFormData('month', date('n'));
-            $day = Util::getFormData('mday', date('j'));
-            $year = Util::getFormData('year', date('Y'));
+            $month = Horde_Util::getFormData('month', date('n'));
+            $day = Horde_Util::getFormData('mday', date('j'));
+            $year = Horde_Util::getFormData('year', date('Y'));
         }
 
-        $url = Util::getFormData('url');
+        $url = Horde_Util::getFormData('url');
 
         echo '<div id="DeleteEvent"' . ($active ? '' : ' style="display:none"') . '>';
         if (!$this->event->recurs()) {

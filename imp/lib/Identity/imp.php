@@ -78,9 +78,8 @@ class Identity_imp extends Identity
 
         /* Prepare email validator */
         require_once 'Horde/Form.php';
-        require_once 'Horde/Variables.php';
         $email = new Horde_Form_Type_email();
-        $vars = new Variables();
+        $vars = new Horde_Variables();
         $var = new Horde_Form_Variable('', 'replyto_addr', $email, false);
 
         /* Verify From address. */
@@ -205,7 +204,7 @@ class Identity_imp extends Identity
     {
         static $list;
 
-        $address = String::lower($address);
+        $address = Horde_String::lower($address);
         if (!isset($list)) {
             $list = $this->getAllFromAddresses(true);
         }
@@ -274,14 +273,14 @@ class Identity_imp extends Identity
 
         foreach ($this->_identitiesWithDefaultLast() as $key => $identity) {
             /* Get From Addresses. */
-            $list[String::lower($this->getFromAddress($key))] = $key;
+            $list[Horde_String::lower($this->getFromAddress($key))] = $key;
 
             /* Get Aliases. */
             if ($alias) {
                 $addrs = $this->getAliasAddress($key);
                 if (!empty($addrs)) {
                     foreach (array_filter($addrs) as $val) {
-                        $list[String::lower($val)] = $key;
+                        $list[Horde_String::lower($val)] = $key;
                     }
                 }
             }
@@ -395,7 +394,7 @@ class Identity_imp extends Identity
             if (!empty($address['host'])) {
                 $find_address .= '@' . $address['host'];
             }
-            $find_address = String::lower($find_address);
+            $find_address = Horde_String::lower($find_address);
 
             /* Search 'tieto' addresses first. */
             /* Check for this address explicitly. */

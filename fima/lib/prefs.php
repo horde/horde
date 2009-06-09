@@ -15,7 +15,7 @@ function handle_ledgerselect($updated)
 {
     global $prefs;
 
-    $active_ledger = Util::getFormData('active_ledger');
+    $active_ledger = Horde_Util::getFormData('active_ledger');
     if (!is_null($active_ledger)) {
         $ledgers = Fima::listLedgers();
         if (is_array($ledgers) && array_key_exists($active_ledger, $ledgers)) {
@@ -30,7 +30,7 @@ function handle_closedperiodselect($updated)
 {
     global $prefs;
     
-    $period = Util::getFormData('closedperiod');
+    $period = Horde_Util::getFormData('closedperiod');
     if ((int)$period['year'] > 0 && (int)$period['month'] > 0) {
         $period = mktime(0, 0, 0, $period['month'] + 1, 0, $period['year']);
     } else {

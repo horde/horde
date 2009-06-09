@@ -11,7 +11,7 @@ class Horde_Form_Type_Boolean extends Horde_Form_Type {
 
     public function getInfo($vars, $var, &$info)
     {
-        $info = String::lower($vars->get($var->name)) == 'on';
+        $info = Horde_String::lower($vars->get($var->name)) == 'on';
     }
 
 }

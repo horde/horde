@@ -21,9 +21,9 @@
    <div class="rightFloat">
 <?php if ($pageOb['page_count'] > 1): ?>
     <form method="get" name="pagenav" action="<?php echo Horde::applicationUrl('postings.php') ?>">
-    <?php Util::pformInput() ?>
+    <?php Horde_Util::pformInput() ?>
     <?php echo $pageOb['pages_first'] . '&nbsp;' . $pageOb['pages_prev'] ?>
-    <input type="text" name="page" value="<?php echo htmlspecialchars($pageOb['page']) ?>" size="<?php echo String::length($pageOb['page_count']) ?>" />
+    <input type="text" name="page" value="<?php echo htmlspecialchars($pageOb['page']) ?>" size="<?php echo Horde_String::length($pageOb['page_count']) ?>" />
     <?php echo $pageOb['pages_next'] . '&nbsp;' . $pageOb['pages_last'] ?>
     </form>
 <?php endif; ?>

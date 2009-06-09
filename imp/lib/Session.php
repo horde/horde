@@ -333,9 +333,9 @@ class IMP_Session
     {
         /* TODO: For now, redirect MIMP to mailbox page. */
         if ($_SESSION['imp']['view'] == 'mimp') {
-            $url = Util::addParameter(Horde::applicationUrl('mailbox-mimp.php', true), array('mailbox' => 'INBOX'));
+            $url = Horde_Util::addParameter(Horde::applicationUrl('mailbox-mimp.php', true), array('mailbox' => 'INBOX'));
             if (!empty($actionID)) {
-                $url = Util::addParameter($url, array('actionID' => $actionID), null, false);
+                $url = Horde_Util::addParameter($url, array('actionID' => $actionID), null, false);
             }
             return $url;
         }
@@ -363,13 +363,13 @@ class IMP_Session
         }
 
         if ($init_url == 'folders.php') {
-            $url = Util::addParameter(Horde::applicationUrl($init_url, !$encode), array_merge(array('folders_token' => IMP::getRequestToken('imp.folders')), IMP::getComposeArgs()), null, $encode);
+            $url = Horde_Util::addParameter(Horde::applicationUrl($init_url, !$encode), array_merge(array('folders_token' => IMP::getRequestToken('imp.folders')), IMP::getComposeArgs()), null, $encode);
         } else {
-            $url = Util::addParameter(Horde::applicationUrl('mailbox.php', !$encode), array_merge(array('mailbox' => $init_url, 'mailbox_token' => IMP::getRequestToken('imp.mailbox')), IMP::getComposeArgs()), null, $encode);
+            $url = Horde_Util::addParameter(Horde::applicationUrl('mailbox.php', !$encode), array_merge(array('mailbox' => $init_url, 'mailbox_token' => IMP::getRequestToken('imp.mailbox')), IMP::getComposeArgs()), null, $encode);
         }
 
         if (!empty($actionID)) {
-            $url = Util::addParameter($url, 'actionID', $actionID, $encode);
+            $url = Horde_Util::addParameter($url, 'actionID', $actionID, $encode);
         }
 
         return $url;

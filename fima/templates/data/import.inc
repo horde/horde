@@ -1,5 +1,5 @@
 <form method="post" name="import_form" enctype="multipart/form-data" action="data.php">
-<?php Util::pformInput() ?>
+<?php Horde_Util::pformInput() ?>
 <input type="hidden" name="actionID" value="<?php echo htmlspecialchars($next_step) ?>" />
 <input type="hidden" name="import_step" value="<?php echo (int)$import_step ?>" />
 

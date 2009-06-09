@@ -11,11 +11,11 @@
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-$id = Util::getFormData('id');
-$index = Util::getFormData('index');
+$id = Horde_Util::getFormData('id');
+$index = Horde_Util::getFormData('index');
 
 /* Run through the action handlers. */
-$actionID = Util::getFormData('actionID');
+$actionID = Horde_Util::getFormData('actionID');
 switch ($actionID) {
 case 'save_image':
     $contents = &IMP_Contents::singleton($index);
@@ -26,12 +26,12 @@ case 'save_image':
         'data' => $mime_part->getContents(),
         'type' => $mime_part->getType()
     );
-    $res = $registry->call('images/saveImage', array(null, Util::getFormData('gallery'), $image_data));
+    $res = $registry->call('images/saveImage', array(null, Horde_Util::getFormData('gallery'), $image_data));
     if (is_a($res, 'PEAR_Error')) {
         $notification->push($res, 'horde.error');
         break;
     }
-    Util::closeWindowJS();
+    Horde_Util::closeWindowJS();
     exit;
 }
 

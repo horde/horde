@@ -4,10 +4,10 @@
 <?php if ($pageOb['mode'] == 'list'): ?>
   <?php echo Horde::link($pageOb['url'], _("Refresh List")) . Horde::img('reload.png', _("Refresh List"), '', $registry->getImageDir('horde')) ?> </a>
 <?php if (!isset($_SESSION['fima_search'])): ?>
-  <?php echo Horde::link(Util::addParameter(Horde::applicationUrl('search.php'), 'search_type', $prefs->getValue('active_postingtype')), _("Search Postings")) . Horde::img('search.png', _("Search"), '', $registry->getImageDir('horde')) ?></a>
+  <?php echo Horde::link(Horde_Util::addParameter(Horde::applicationUrl('search.php'), 'search_type', $prefs->getValue('active_postingtype')), _("Search Postings")) . Horde::img('search.png', _("Search"), '', $registry->getImageDir('horde')) ?></a>
 <?php else: ?>
   <?php echo Horde::link(Horde::applicationUrl('search.php'), _("Edit Search Query")) . Horde::img('edit.png', _("Edit Search Query"), '', $registry->getImageDir('horde')) ?></a>
-  <?php echo Horde::link(Util::addParameter($pageOb['url'], 'actionID', 'clear_search'), _("Clear Search Query")) . Horde::img('delete.png', _("Clear Search Query"), '', $registry->getImageDir('horde')) ?></a>
+  <?php echo Horde::link(Horde_Util::addParameter($pageOb['url'], 'actionID', 'clear_search'), _("Clear Search Query")) . Horde::img('delete.png', _("Clear Search Query"), '', $registry->getImageDir('horde')) ?></a>
 <?php endif; ?>
 <?php endif; ?>
  </div>
@@ -34,6 +34,6 @@
 
 <?php if ($pageOb['mode'] != 'list'): ?>
 <form method="post" name="postings" action="<?php echo $pageOb['url'] ?>">
-<?php Util::pformInput() ?>
+<?php Horde_Util::pformInput() ?>
 <?php endif; ?>
 

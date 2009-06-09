@@ -34,7 +34,7 @@ $tagger = Kronolith::getTagger();
 
 <div id="pageControlsInner">
 <form action="<?php echo Horde::selfUrl() ?>" method="post">
-<?php echo Util::formInput() ?>
+<?php echo Horde_Util::formInput() ?>
  <h4><?php echo _("Search for Calendars:") ?></h4>
  <p>
   <input id="calendarSearch" type="text" for="mycalendars,sharedcalendars,remotecalendars,externalcalendars" />

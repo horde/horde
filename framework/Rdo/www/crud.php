@@ -21,14 +21,13 @@ if (!Auth::isAdmin()) {
     die('Permission denied');
 }
 
-require_once 'Horde/Variables.php';
 require_once 'Horde/Autoloader.php';
 require_once dirname(__FILE__) . '/Form.php';
 require_once dirname(__FILE__) . '/Table.php';
 
-$what2process = Util::getFormData('what2process', 'Rdo');
-$table = Util::getFormData('table', 'horde_user');
-$self_url = Util::addParameter(Horde::selfUrl(false), array('table' => $table, 'what2process' => $what2process), null, false);
+$what2process = Horde_Util::getFormData('what2process', 'Rdo');
+$table = Horde_Util::getFormData('table', 'horde_user');
+$self_url = Horde_Util::addParameter(Horde::selfUrl(false), array('table' => $table, 'what2process' => $what2process), null, false);
 
 if ($what2process == 'Rdo') {
 
@@ -63,12 +62,12 @@ if ($what2process == 'Rdo') {
     $mapper = $table;
 }
 
-$action = Util::getFormData('action');
+$action = Horde_Util::getFormData('action');
 
-$filter = Util::getFormData('filter', array());
+$filter = Horde_Util::getFormData('filter', array());
 $title = sprintf('%s: %s', $action, $table);
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $form = Horde_Form_Helper::factory($what2process, $vars, $title, null, $mapper);
 
 switch ($action) {
@@ -108,7 +107,7 @@ case 'update':
 case 'search':
 case 'search_active':
     $form->getInfo($vars, $filter);
-    $self_url = Util::addParameter($self_url, 'action', 'search');
+    $self_url = Horde_Util::addParameter($self_url, 'action', 'search');
     break;
 }
 

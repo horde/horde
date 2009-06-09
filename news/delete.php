@@ -14,7 +14,6 @@
  */
 
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Variables.php';
 
 if (!Auth::isAdmin('news:admin')) {
     $notification->push(_("Only admin can delete a news."));
@@ -22,11 +21,11 @@ if (!Auth::isAdmin('news:admin')) {
     exit;
 }
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $form = new Horde_Form($vars, _("Are you sure you want to delete this news?"), 'delete');
 $form->setButtons(array(_("Remove"), _("Cancel")));
 
-$id = (int)Util::getFormData('id');
+$id = (int)Horde_Util::getFormData('id');
 $form->addHidden('', 'id', 'int', $id);
 
 $row = $news->get($id);
@@ -35,7 +34,7 @@ $form->addVariable($row['content'], 'content', 'description', true);
 
 if ($form->validate()) {
 
-    if (Util::getFormData('submitbutton') == _("Remove")) {
+    if (Horde_Util::getFormData('submitbutton') == _("Remove")) {
 
         // Delete attachment
         $sql = 'SELECT file_id FROM ' . $news->prefix . '_files WHERE news_id = ?';

@@ -17,8 +17,8 @@ if (!Auth::isAuthenticated()) {
     Horde::authenticationFailureRedirect();
 }
 
-$id = Util::getFormData('id', 0);
-$actionID = Util::getFormData('actionID', false);
+$id = Horde_Util::getFormData('id', 0);
+$actionID = Horde_Util::getFormData('actionID', false);
 $url = Horde::applicationUrl('reads.php');
 
 $sql = 'SELECT id, user, ip, readdate FROM ' . $news->prefix . '_user_reads WHERE ';

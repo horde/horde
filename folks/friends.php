@@ -20,8 +20,7 @@ if (!Auth::isAuthenticated()) {
 
 $title = _("Friends");
 
-require_once 'Horde/Variables.php';
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $form = new Folks_Activity_Form($vars, _("What are you doing right now?"), 'short');
 if ($form->validate()) {
     $result = $form->execute();

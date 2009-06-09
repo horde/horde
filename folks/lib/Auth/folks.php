@@ -59,7 +59,7 @@ class Auth_folks extends Auth_application {
 
         $login = Horde::url($webroot . '/login.php', true);
         if (!empty($url)) {
-            $login = Util::addParameter($login, 'url', $url);
+            $login = Horde_Util::addParameter($login, 'url', $url);
         }
         return $login;
     }

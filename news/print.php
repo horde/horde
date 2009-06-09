@@ -15,8 +15,8 @@
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-$id = Util::getFormData('id');
-$version = Util::getFormData('version', false);
+$id = Horde_Util::getFormData('id');
+$version = Horde_Util::getFormData('version', false);
 $row = $news->get($id);
 $template_path = News::getTemplatePath($row['category1'], 'news');
 

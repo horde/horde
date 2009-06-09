@@ -31,7 +31,7 @@ if (count($classes) == 0) {
 
 $class_options = array();
 foreach ($classes as $key=>$class) {
-    $class_options[] = '<option value="' . htmlspecialchars($key) . '"' . (Util::getFormData('class') == $key ? ' selected="selected"' : '') . '>' .
+    $class_options[] = '<option value="' . htmlspecialchars($key) . '"' . (Horde_Util::getFormData('class') == $key ? ' selected="selected"' : '') . '>' .
                        htmlspecialchars($class->get('name')) . "</option>\n";
 }
 
@@ -39,8 +39,8 @@ $wholeclass_option = '<option value="all">' .
                      htmlspecialchars(_("Whole class")) . "</option>\n";
 $student_options = array();
 $student_options[] = $wholeclass_option;
-if (Util::getFormData('class') != '') {
-    $class = Util::getFormData('class');
+if (Horde_Util::getFormData('class') != '') {
+    $class = Horde_Util::getFormData('class');
 } else {
     reset($classes);
     $class = key($classes);
@@ -51,14 +51,14 @@ foreach ($export_class['_students'] as $address) {
                          htmlspecialchars($address[$conf['addresses']['name_field']]) . "</option>\n";
 }
 
-$actionID = Util::getFormData('actionID');
+$actionID = Horde_Util::getFormData('actionID');
 
 /* Loop through the action handlers. */
 switch ($actionID) {
 case 'export':
     $data = array();
     $driver = &Skoli_Driver::singleton($class);
-    if (Util::getFormData('student') == 'all') {
+    if (Horde_Util::getFormData('student') == 'all') {
         /* Export whole class. */
         $subjects = $driver->getSubjects('mark');
         foreach ($export_class['_students'] as $student) {
@@ -107,7 +107,7 @@ case 'export':
         $subjects = $driver->getSubjects('mark');
         foreach ($subjects as $subject) {
             $params = array(array('name' => 'subject', 'value' => $subject, 'strict' => 1));
-            $marks = Skoli::listEntries($class, Util::getFormData('student'), 'mark', $params, SKOLI_SORT_DATE, SKOLI_SORT_DESCEND);
+            $marks = Skoli::listEntries($class, Horde_Util::getFormData('student'), 'mark', $params, SKOLI_SORT_DATE, SKOLI_SORT_DESCEND);
             foreach ($marks as $mark) {
                 $data[] = array($subject, $mark['date'], $mark['title'], Skoli::convertNumber($mark['mark']), Skoli::convertNumber($mark['weight']));
             }
@@ -117,14 +117,14 @@ case 'export':
         $subjects = $driver->getSubjects('objective');
         foreach ($subjects as $subject) {
             $params = array(array('name' => 'subject', 'value' => $subject, 'strict' => 1));
-            $objectives = Skoli::listEntries($class, Util::getFormData('student'), 'objective', $params, SKOLI_SORT_DATE, SKOLI_SORT_DESCEND);
+            $objectives = Skoli::listEntries($class, Horde_Util::getFormData('student'), 'objective', $params, SKOLI_SORT_DATE, SKOLI_SORT_DESCEND);
             foreach ($objectives as $objective) {
                 $data[] = array($subject, $objective['date'], $objective['category'], $objective['objective']);
             }
         }
 
         $data[] = array(_("Outcomes"));
-        $outcomes = Skoli::listEntries($class, Util::getFormData('student'), 'outcome', null, SKOLI_SORT_DATE, SKOLI_SORT_DESCEND);
+        $outcomes = Skoli::listEntries($class, Horde_Util::getFormData('student'), 'outcome', null, SKOLI_SORT_DATE, SKOLI_SORT_DESCEND);
         foreach ($outcomes as $outcome) {
             $completed = isset($outcome['completed']) && $outcome['completed'] != '' ? _("Completed") : _("Open");
             $comment = isset($outcome['comment']) ? $outcome['comment'] : '';
@@ -132,7 +132,7 @@ case 'export':
         }
 
         $data[] = array(_("Absences"));
-        $absences = Skoli::listEntries($class, Util::getFormData('student'), 'absence', null, SKOLI_SORT_DATE, SKOLI_SORT_DESCEND);
+        $absences = Skoli::listEntries($class, Horde_Util::getFormData('student'), 'absence', null, SKOLI_SORT_DATE, SKOLI_SORT_DESCEND);
         foreach ($absences as $absence) {
             $excused = isset($absence['excused']) && $absence['excused'] != '' ? _("Excused") : _("Not excused");
             $comment = isset($absence['comment']) ? $absence['comment'] : '';
@@ -159,15 +159,15 @@ case 'export':
         break;
     }
 
-    switch (Util::getFormData('exportID')) {
+    switch (Horde_Util::getFormData('exportID')) {
     case EXPORT_CSV:
         $csv = &Horde_Data::singleton('csv');
-        $csv->exportFile(_("class.csv"), $data, (Util::getFormData('student') == 'all'));
+        $csv->exportFile(_("class.csv"), $data, (Horde_Util::getFormData('student') == 'all'));
         exit;
 
     case EXPORT_TSV:
         $tsv = &Horde_Data::singleton('tsv');
-        $tsv->exportFile(_("class.tsv"), $data, (Util::getFormData('student') == 'all'));
+        $tsv->exportFile(_("class.tsv"), $data, (Horde_Util::getFormData('student') == 'all'));
         exit;
 
     }

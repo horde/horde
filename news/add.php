@@ -14,7 +14,6 @@
  */
 
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Variables.php';
 
 /**
  * This routine removes all attributes from a given tag except
@@ -97,11 +96,11 @@ if (!Auth::isAuthenticated()) {
 // Default vars
 $title = _("Add news");
 $default_lang = News::getLang();
-$id = Util::getFormData('id', false);
-$return = Util::getFormData('return', false);
+$id = Horde_Util::getFormData('id', false);
+$return = Horde_Util::getFormData('return', false);
 
 // We just delete default image?
-if ($id && Util::getFormData('submitbutton') == _("Delete existing picture")) {
+if ($id && Horde_Util::getFormData('submitbutton') == _("Delete existing picture")) {
     $result = $news->write_db->query('UPDATE ' . $news->prefix . ' SET picture = ? WHERE id = ?', array(0, $id));
     if ($sources instanceof PEAR_Error) {
         $notification->push($sources);
@@ -113,7 +112,7 @@ if ($id && Util::getFormData('submitbutton') == _("Delete existing picture")) {
 }
 
 // Prepare form
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $form = new Horde_Form($vars, '', 'addnews');
 $form->addHidden('', 'return', 'text', false, true);
 
@@ -432,7 +431,7 @@ if ($form->validate()) {
 
         // Do we have a gallery?
         if (empty($info['gallery'])) {
-            $abbr = String::substr(strip_tags($info['body'][$default_lang]['content']), 0, $conf['preview']['list_content']);
+            $abbr = Horde_String::substr(strip_tags($info['body'][$default_lang]['content']), 0, $conf['preview']['list_content']);
             $result = $registry->call('images/createGallery',
                                         array(null,
                                                 array('name' => $info['body'][$default_lang]['title'],
@@ -510,7 +509,7 @@ if ($form->validate()) {
                                             . '(id, lang, title, abbreviation, content, picture_comment, tags) VALUES (?, ?, ?, ?, ?, ?, ?)');
 
     foreach ($info['body'] as $lang => $values) {
-        $abbr = String::substr(strip_tags($values['content']), 0, $conf['preview']['list_content']);
+        $abbr = Horde_String::substr(strip_tags($values['content']), 0, $conf['preview']['list_content']);
         $news->write_db->execute($query_body, array($id, $lang, $values['title'], $abbr, $values['content'], $values['caption'], $values['tags']));
     }
 
@@ -537,7 +536,7 @@ if ($form->validate()) {
         $url = $return;
     } elseif (in_array($info['category1'], $allowed_cats) ||
               in_array($info['category2'], $allowed_cats)) {
-        $url = Util::addParameter(Horde::applicationUrl('edit.php'), 'id', $id);
+        $url = Horde_Util::addParameter(Horde::applicationUrl('edit.php'), 'id', $id);
     } else {
         $url = Horde::applicationUrl('browse.php');
     }
@@ -602,6 +601,6 @@ require_once NEWS_TEMPLATES . '/common-header.inc';
 require_once NEWS_TEMPLATES . '/menu.inc';
 require_once NEWS_TEMPLATES . '/add/before.inc';
 
-$form->renderActive(null, null, Util::addParameter(Horde::applicationUrl('add.php'), 'id', $id, false), 'post');
+$form->renderActive(null, null, Horde_Util::addParameter(Horde::applicationUrl('add.php'), 'id', $id, false), 'post');
 
 require_once $registry->get('templates', 'horde') . '/common-footer.inc';

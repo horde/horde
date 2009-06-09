@@ -19,7 +19,7 @@ if (!Auth::getAuth() || $prefs->isLocked('active_ledger')) {
     exit;
 }
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $form = new Fima_CreateLedgerForm($vars);
 
 // Execute if the form is valid.

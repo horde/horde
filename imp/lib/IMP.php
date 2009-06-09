@@ -84,10 +84,10 @@ class IMP
             return false;
         }
 
-        if (Util::getFormData('popup')) {
-            Util::closeWindowJS();
+        if (Horde_Util::getFormData('popup')) {
+            Horde_Util::closeWindowJS();
         } else {
-            $url = Util::addParameter(self::getLogoutUrl(null, true), 'url', Horde::selfUrl(true));
+            $url = Horde_Util::addParameter(self::getLogoutUrl(null, true), 'url', Horde::selfUrl(true));
             header('Location: ' . $url);
         }
         exit;
@@ -317,7 +317,7 @@ class IMP
         $fields = array('to', 'cc', 'bcc', 'message', 'body', 'subject');
 
         foreach ($fields as $val) {
-            if (($$val = Util::getFormData($val))) {
+            if (($$val = Horde_Util::getFormData($val))) {
                 $args[$val] = $$val;
             }
         }
@@ -353,7 +353,7 @@ class IMP
         }
 
         $options += self::getComposeArgs();
-        $url = Util::addParameter(Horde::applicationUrl('compose.php', true), $options, null, false);
+        $url = Horde_Util::addParameter(Horde::applicationUrl('compose.php', true), $options, null, false);
         header('Location: ' . $url);
         return true;
     }
@@ -424,7 +424,7 @@ class IMP
             foreach ($args as $k => $v) {
                 $encode_args[$k] = rawurlencode($v);
             }
-            return 'javascript:void(window.open(\'' . Util::addParameter(Horde::applicationUrl('compose-dimp.php'), $encode_args, null, false) . '\', \'\', \'width=820,height=610,status=1,scrollbars=yes,resizable=yes\'));';
+            return 'javascript:void(window.open(\'' . Horde_Util::addParameter(Horde::applicationUrl('compose-dimp.php'), $encode_args, null, false) . '\', \'\', \'width=820,height=610,status=1,scrollbars=yes,resizable=yes\'));';
         }
 
         if (($view != 'mimp') &&
@@ -438,7 +438,7 @@ class IMP
             return "javascript:" . self::popupIMPString('compose.php', $args);
         }
 
-        return Util::addParameter(Horde::applicationUrl(($view == 'mimp') ? 'compose-mimp.php' : 'compose.php'), $args);
+        return Horde_Util::addParameter(Horde::applicationUrl(($view == 'mimp') ? 'compose-mimp.php' : 'compose.php'), $args);
     }
 
     /**
@@ -487,13 +487,13 @@ class IMP
             if (stripos($out, $key) === 0) {
                 $len = strlen($key);
                 if ((strlen($out) == $len) || ($out[$len + 1] == $delimiter)) {
-                    $out = substr_replace($out, String::convertCharset($val, NLS::getCharset(), 'UTF7-IMAP'), 0, $len);
+                    $out = substr_replace($out, Horde_String::convertCharset($val, NLS::getCharset(), 'UTF7-IMAP'), 0, $len);
                     break;
                 }
             }
         }
 
-        $cache[$folder] = String::convertCharset($out, 'UTF7-IMAP');
+        $cache[$folder] = Horde_String::convertCharset($out, 'UTF7-IMAP');
 
         return $cache[$folder];
     }
@@ -591,14 +591,14 @@ class IMP
                 }
 
                 if (!empty($mailbox) && !$GLOBALS['imp_imap']->isReadOnly($mailbox)) {
-                    $menu_trash_url = Util::addParameter(self::generateIMPUrl($menu_mailbox_url, $mailbox), array('actionID' => 'empty_mailbox', 'mailbox_token' => self::getRequestToken('imp.mailbox')));
+                    $menu_trash_url = Horde_Util::addParameter(self::generateIMPUrl($menu_mailbox_url, $mailbox), array('actionID' => 'empty_mailbox', 'mailbox_token' => self::getRequestToken('imp.mailbox')));
                     $menu->add($menu_trash_url, _("Empty _Trash"), 'empty_trash.png', null, null, "return window.confirm('" . addslashes(_("Are you sure you wish to empty your trash folder?")) . "');", '__noselection');
                 }
             }
 
             if (!empty($spam_folder) &&
                 $prefs->getValue('empty_spam_menu')) {
-                $menu_spam_url = Util::addParameter(self::generateIMPUrl($menu_mailbox_url, $spam_folder), array('actionID' => 'empty_mailbox', 'mailbox_token' => self::getRequestToken('imp.mailbox')));
+                $menu_spam_url = Horde_Util::addParameter(self::generateIMPUrl($menu_mailbox_url, $spam_folder), array('actionID' => 'empty_mailbox', 'mailbox_token' => self::getRequestToken('imp.mailbox')));
                 $menu->add($menu_spam_url, _("Empty _Spam"), 'empty_spam.png', null, null, "return window.confirm('" . addslashes(_("Are you sure you wish to empty your spam folder?")) . "');", '__noselection');
             }
         }
@@ -609,7 +609,7 @@ class IMP
         }
 
         if ($conf['user']['allow_folders']) {
-            $menu->add(Util::nocacheUrl(Horde::applicationUrl('folders.php')), _("_Folders"), 'folders/folder.png');
+            $menu->add(Horde_Util::nocacheUrl(Horde::applicationUrl('folders.php')), _("_Folders"), 'folders/folder.png');
         }
 
         if ($_SESSION['imp']['protocol'] != 'pop') {
@@ -664,7 +664,7 @@ class IMP
     static public function menu()
     {
         $t = new IMP_Template();
-        $t->set('forminput', Util::formInput());
+        $t->set('forminput', Horde_Util::formInput());
         $t->set('use_folders', ($_SESSION['imp']['protocol'] != 'pop') && $GLOBALS['conf']['user']['allow_folders'], true);
         if ($t->get('use_folders')) {
             Horde::addScriptFile('imp.js', 'imp', true);
@@ -798,7 +798,7 @@ class IMP
             $folders = array();
             foreach ($var as $mb => $nm) {
                 $folders[] = array(
-                    'url' => Util::addParameter(self::generateIMPUrl('mailbox.php', $mb), 'no_newmail_popup', 1),
+                    'url' => Horde_Util::addParameter(self::generateIMPUrl('mailbox.php', $mb), 'no_newmail_popup', 1),
                     'name' => htmlspecialchars(self::displayFolder($mb)),
                     'new' => (int)$nm,
                 );
@@ -808,7 +808,7 @@ class IMP
             if (($_SESSION['imp']['protocol'] != 'pop') &&
                 $GLOBALS['prefs']->getValue('use_vinbox') &&
                 ($vinbox_id = $GLOBALS['prefs']->getValue('vinbox_id'))) {
-                $t->set('vinbox', Horde::link(Util::addParameter(self::generateIMPUrl('mailbox.php', $GLOBALS['imp_search']->createSearchID($vinbox_id)), 'no_newmail_popup', 1)));
+                $t->set('vinbox', Horde::link(Horde_Util::addParameter(self::generateIMPUrl('mailbox.php', $GLOBALS['imp_search']->createSearchID($vinbox_id)), 'no_newmail_popup', 1)));
             }
         } else {
             $t->set('msg', ($var == 1) ? _("You have 1 new message.") : sprintf(_("You have %s new messages."), $var));
@@ -830,7 +830,7 @@ class IMP
      */
     static public function prefsURL($full = false)
     {
-        return Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs.php', $full), array('app' => 'imp'));
+        return Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs.php', $full), array('app' => 'imp'));
     }
 
     /**
@@ -982,7 +982,7 @@ class IMP
     static public function generateIMPUrl($page, $mailbox, $uid = null,
                                           $tmailbox = null, $encode = true)
     {
-        return Util::addParameter(Horde::applicationUrl($page), self::getIMPMboxParameters($mailbox, $uid, $tmailbox), null, $encode);
+        return Horde_Util::addParameter(Horde::applicationUrl($page), self::getIMPMboxParameters($mailbox, $uid, $tmailbox), null, $encode);
     }
 
     /**
@@ -1315,11 +1315,11 @@ class IMP
      */
     static public function getCurrentMailboxInfo()
     {
-        $mbox = Util::getFormData('mailbox');
+        $mbox = Horde_Util::getFormData('mailbox');
         return array(
             'mailbox' => empty($mbox) ? 'INBOX' : $mbox,
-            'thismailbox' => Util::getFormData('thismailbox', $mbox),
-            'index' => Util::getFormData('index')
+            'thismailbox' => Horde_Util::getFormData('thismailbox', $mbox),
+            'index' => Horde_Util::getFormData('index')
         );
     }
 
@@ -1336,8 +1336,8 @@ class IMP
         $params = array_filter(array(
             'server_key' => isset($_SESSION['imp']['server_key']) ?
                           $_SESSION['imp']['server_key'] :
-                          Util::getFormData('server_key'),
-            'language' => Util::getFormData('language')
+                          Horde_Util::getFormData('server_key'),
+            'language' => Horde_Util::getFormData('language')
         ));
 
         if ($force ||
@@ -1352,7 +1352,7 @@ class IMP
             : Auth::addLogoutParameters($url, $reason);
 
         if (!empty($params)) {
-            $url = Util::addParameter($url, $params, null, false);
+            $url = Horde_Util::addParameter($url, $params, null, false);
         }
 
         return $url;
@@ -1371,7 +1371,7 @@ class IMP
     static public function popupIMPString($url, $params = array(),
                                           $width = 700, $height = 650)
     {
-        return "IMP.popup('" . Horde::applicationUrl($url) . "'," . $width . "," . $height . ",'" . $GLOBALS['browser']->escapeJSCode(str_replace('+', '%20', substr(Util::addParameter('', $params, null, false), 1))) . "');";
+        return "IMP.popup('" . Horde::applicationUrl($url) . "'," . $width . "," . $height . ",'" . $GLOBALS['browser']->escapeJSCode(str_replace('+', '%20', substr(Horde_Util::addParameter('', $params, null, false), 1))) . "');";
     }
 
     /**
@@ -1440,7 +1440,7 @@ class IMP
      */
     static public function getTidyConfig($size)
     {
-        if (!Util::extensionExists('tidy') ||
+        if (!Horde_Util::extensionExists('tidy') ||
             function_exists('tidy_load_config') &&
             ($size > 250000)) {
             return false;

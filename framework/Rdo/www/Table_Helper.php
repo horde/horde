@@ -287,11 +287,11 @@ class Horde_Rdo_Table_Helper extends Horde_Template
         if ($this->_params['update'] || $this->_params['delete']) {
             $content .= '<td class="nowrap">' . "\n";
             if ($this->_params['update']) {
-                $content .= '<a class="update" href="' . Util::addParameter($url, 'action', 'update') . '&' . $keys . '">' .
+                $content .= '<a class="update" href="' . Horde_Util::addParameter($url, 'action', 'update') . '&' . $keys . '">' .
                     '<img src="<tag:img_dir />/edit.png" alt="<gettext>Edit</gettext>" title="<gettext>Edit</gettext>" /></a> ' . "\n";
             }
             if ($this->_params['delete']) {
-                $content .= '<a class="delete" href="' . Util::addParameter($url, 'action', 'delete') . '&' . $keys . '">' .
+                $content .= '<a class="delete" href="' . Horde_Util::addParameter($url, 'action', 'delete') . '&' . $keys . '">' .
                     '<img src="<tag:img_dir />/delete.png" alt="<gettext>Delete</gettext>" title="<gettext>Delete</gettext>" /></a> ' . "\n";
             }
             $content .= '</td>' . "\n";

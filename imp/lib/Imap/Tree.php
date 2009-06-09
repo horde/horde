@@ -716,7 +716,7 @@ class IMP_Imap_Tree
                 }
 
                 $elt = $this->_makeElt($val, self::ELT_VFOLDER | self::ELT_IS_SUBSCRIBED);
-                $elt['l'] = $elt['v'] = String::substr($val, String::length($this->VFOLDER_KEY) + String::length($this->_delimiter));
+                $elt['l'] = $elt['v'] = Horde_String::substr($val, Horde_String::length($this->VFOLDER_KEY) + Horde_String::length($this->_delimiter));
                 $this->_insertElt($elt);
             } else {
                 /* Break apart the name via the delimiter and go step by

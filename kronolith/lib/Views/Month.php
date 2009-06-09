@@ -169,23 +169,23 @@ class Kronolith_View_Month {
 
                 $html .= '<td class="' . $style . '" height="70" width="14%" valign="top"><div>';
 
-                $url = Util::addParameter(Horde::applicationUrl('day.php'),
+                $url = Horde_Util::addParameter(Horde::applicationUrl('day.php'),
                                           'date', $date->dateString());
                 $html .= '<a class="day" href="' . $url . '">' . $date->mday . '</a>';
 
                 if ($addLinks) {
-                    $url = Util::addParameter(Horde::applicationUrl('new.php'),
+                    $url = Horde_Util::addParameter(Horde::applicationUrl('new.php'),
                                               array('date' => $date->dateString(),
                                                     'url' => $this->link(0, true)));
                     if ($sidebyside) {
-                        $url = Util::addParameter($url, 'calendar', $id);
+                        $url = Horde_Util::addParameter($url, 'calendar', $id);
                     }
                     $html .= Horde::link($url, _("Create a New Event"), 'newEvent') .
                         Horde::img('new_small.png', '+') . '</a>';
                 }
 
                 if ($date->dayOfWeek() == Horde_Date::DATE_MONDAY) {
-                    $url = Util::addParameter('week.php', 'date', $date->dateString());
+                    $url = Horde_Util::addParameter('week.php', 'date', $date->dateString());
                     $html .= Horde::link(Horde::applicationUrl($url), '', 'week') . sprintf(_("Week %d"), $week) . '</a>';
                 }
 
@@ -233,7 +233,7 @@ class Kronolith_View_Month {
     function link($offset = 0, $full = false)
     {
         $month = $this->getMonth($offset);
-        return Horde::applicationUrl(Util::addParameter('month.php', 'date', $month->dateString()), $full);
+        return Horde::applicationUrl(Horde_Util::addParameter('month.php', 'date', $month->dateString()), $full);
     }
 
     function getName()

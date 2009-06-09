@@ -1,5 +1,5 @@
 <form method="post" name="filters" action="<?php echo Horde::applicationUrl('whitelist.php') ?>">
-<?php Util::pformInput() ?>
+<?php Horde_Util::pformInput() ?>
 <input type="hidden" name="actionID" value="rule_update" />
 <h1 class="header">
   <?php echo _("Whitelist") ?>

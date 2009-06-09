@@ -42,7 +42,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      */
     protected function _render()
     {
-        switch (Util::getFormData('imp_img_view')) {
+        switch (Horde_Util::getFormData('imp_img_view')) {
         case 'data':
             /* If calling page is asking us to output data, do that without
              * any further delay and exit. */
@@ -163,7 +163,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      */
     protected function _popupImageWindow()
     {
-        $self_url = Util::addParameter(IMP::selfUrl(), array('imp_img_view' => ((Util::getFormData('imp_img_view') == 'load_convert') ? 'view_convert' : 'data')));
+        $self_url = Horde_Util::addParameter(IMP::selfUrl(), array('imp_img_view' => ((Horde_Util::getFormData('imp_img_view') == 'load_convert') ? 'view_convert' : 'data')));
         $title = $this->_mimepart->getName(true);
 
         $str = <<<EOD
@@ -263,7 +263,7 @@ EOD;
         if (!empty($GLOBALS['conf']['image']['convert'])) {
             $context['convert'] = $GLOBALS['conf']['image']['convert'];
             $img = Horde_Image::factory('Im', array('context' => $context));
-        } elseif (Util::extensionExists('gd')) {
+        } elseif (Horde_Util::extensionExists('gd')) {
             $img = Horde_Image::factory('Gd', array('context' => $context));
         }
 

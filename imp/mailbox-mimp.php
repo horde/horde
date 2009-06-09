@@ -28,7 +28,7 @@ $readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);
 NLS::setTimeZone();
 
 /* Run through the action handlers */
-$actionID = Util::getFormData('a');
+$actionID = Horde_Util::getFormData('a');
 switch ($actionID) {
 // 'm' = message missing
 case 'm':
@@ -45,7 +45,7 @@ case 'e':
 
 // 'c' = change sort
 case 'c':
-    IMP::setSort(Util::getFormData('sb'), Util::getFormData('sd'));
+    IMP::setSort(Horde_Util::getFormData('sb'), Horde_Util::getFormData('sd'));
     break;
 }
 
@@ -54,17 +54,17 @@ $mailbox_url = IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox']);
 
 /* Build the list of messages in the mailbox. */
 $imp_mailbox = &IMP_Mailbox::singleton($imp_mbox['mailbox']);
-$pageOb = $imp_mailbox->buildMailboxPage(Util::getFormData('p'), Util::getFormData('s'));
+$pageOb = $imp_mailbox->buildMailboxPage(Horde_Util::getFormData('p'), Horde_Util::getFormData('s'));
 
 /* Generate page links. */
 $pages_first = $pages_prev = $pages_last = $pages_next = null;
 if ($pageOb['page'] != 1) {
-    $pages_first = new Horde_Mobile_link(_("First Page"), Util::addParameter($mailbox_url, 'p', 1));
-    $pages_prev = new Horde_Mobile_link(_("Previous Page"), Util::addParameter($mailbox_url, 'p', $pageOb['page'] - 1));
+    $pages_first = new Horde_Mobile_link(_("First Page"), Horde_Util::addParameter($mailbox_url, 'p', 1));
+    $pages_prev = new Horde_Mobile_link(_("Previous Page"), Horde_Util::addParameter($mailbox_url, 'p', $pageOb['page'] - 1));
 }
 if ($pageOb['page'] != $pageOb['pagecount']) {
-    $pages_next = new Horde_Mobile_link(_("Next Page"), Util::addParameter($mailbox_url, 'p', $pageOb['page'] + 1));
-    $pages_last = new Horde_Mobile_link(_("Last Page"), Util::addParameter($mailbox_url, 'p', $pageOb['pagecount']));
+    $pages_next = new Horde_Mobile_link(_("Next Page"), Horde_Util::addParameter($mailbox_url, 'p', $pageOb['page'] + 1));
+    $pages_last = new Horde_Mobile_link(_("Last Page"), Horde_Util::addParameter($mailbox_url, 'p', $pageOb['pagecount']));
 }
 
 /* Generate mailbox summary string. */
@@ -101,8 +101,8 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     /* Format the from header. */
     $getfrom = $imp_ui->getFrom($ob['envelope']);
     $msg['from'] = $getfrom['from'];
-    if (String::length($msg['from']) > $conf['mimp']['mailbox']['max_from_chars']) {
-        $msg['from'] = String::substr($msg['from'], 0, $conf['mimp']['mailbox']['max_from_chars']) . '...';
+    if (Horde_String::length($msg['from']) > $conf['mimp']['mailbox']['max_from_chars']) {
+        $msg['from'] = Horde_String::substr($msg['from'], 0, $conf['mimp']['mailbox']['max_from_chars']) . '...';
     }
 
     /* Get flag information. */
@@ -118,8 +118,8 @@ while (list(,$ob) = each($mbox_info['overview'])) {
             $msg['status'] .= $val['abbrev'];
         } elseif ($val['type'] == 'imapp') {
             $msg['subject'] = '*' .
-                ((String::length($val['label']) > 8)
-                     ? String::substr($val['label'], 0, 5) . '...'
+                ((Horde_String::length($val['label']) > 8)
+                     ? Horde_String::substr($val['label'], 0, 5) . '...'
                      : $val['label']
                 ) .
                 '* ' . $msg['subject'];
@@ -130,8 +130,8 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         $msg['subject'] = '>> ' . ltrim($msg['subject']);
     }
 
-    if (String::length($msg['subject']) > $conf['mimp']['mailbox']['max_subj_chars']) {
-        $msg['subject'] = String::substr($msg['subject'], 0, $conf['mimp']['mailbox']['max_subj_chars']) . '...';
+    if (Horde_String::length($msg['subject']) > $conf['mimp']['mailbox']['max_subj_chars']) {
+        $msg['subject'] = Horde_String::substr($msg['subject'], 0, $conf['mimp']['mailbox']['max_subj_chars']) . '...';
     }
 
     /* Generate the target link. */
@@ -142,14 +142,14 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     $msgs[] = $msg;
 }
 
-$mailbox = Util::addParameter($mailbox_url, 'p', $pageOb['page']);
+$mailbox = Horde_Util::addParameter($mailbox_url, 'p', $pageOb['page']);
 $items = array($mailbox => _("Refresh"));
 
 /* Determine if we are going to show the Purge Deleted link. */
 if (!$readonly &&
     !$prefs->getValue('use_trash') &&
     !$imp_search->isVINBOXFolder()) {
-    $items[Util::addParameter($mailbox, array('a' => 'e'))] = _("Purge Deleted");
+    $items[Horde_Util::addParameter($mailbox, array('a' => 'e'))] = _("Purge Deleted");
 }
 
 /* Create sorting links. */
@@ -168,17 +168,17 @@ foreach ($sort_list as $key => $val) {
         if (($key == Horde_Imap_Client::SORT_SUBJECT) &&
             IMP::threadSortAvailable($mailbox)) {
             if (is_null($threadob)) {
-                $items[Util::addParameter($mailbox, array('a' => 'c', 'sb' => Horde_Imap_Client::SORT_THREAD, 'sd' => $sortdir))] = _("Sort by Thread");
+                $items[Horde_Util::addParameter($mailbox, array('a' => 'c', 'sb' => Horde_Imap_Client::SORT_THREAD, 'sd' => $sortdir))] = _("Sort by Thread");
             } else {
                 $sortkey = Horde_Imap_Client::SORT_THREAD;
-                $items[Util::addParameter($mailbox, array('a' => 'c', 'sb' => Horde_Imap_Client::SORT_SUBJECT, 'sd' => $sortdir))] = _("Do Not Sort by Thread");
+                $items[Horde_Util::addParameter($mailbox, array('a' => 'c', 'sb' => Horde_Imap_Client::SORT_SUBJECT, 'sd' => $sortdir))] = _("Do Not Sort by Thread");
             }
         }
         if ($sortpref['by'] == $key) {
             $val = '*' . $val;
             $sortdir = !$sortdir;
         }
-        $sort[$key] = new Horde_Mobile_link($val, Util::addParameter($mailbox, array('a' => 'c', 'sb' => $sortkey, 'sd' => $sortdir)));
+        $sort[$key] = new Horde_Mobile_link($val, Horde_Util::addParameter($mailbox, array('a' => 'c', 'sb' => $sortkey, 'sd' => $sortdir)));
     }
 }
 
@@ -192,7 +192,7 @@ foreach ($items as $link => $label) {
 
 $nav = array('pages_first', 'pages_prev', 'pages_next', 'pages_last');
 foreach ($nav as $n) {
-    if (Util::nonInputVar($n)) {
+    if (Horde_Util::nonInputVar($n)) {
         $mset->add($$n);
     }
 }

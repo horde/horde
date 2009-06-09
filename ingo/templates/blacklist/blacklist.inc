@@ -1,5 +1,5 @@
 <form method="post" name="filters" action="<?php echo Horde::applicationUrl('blacklist.php') ?>">
-<?php Util::pformInput() ?>
+<?php Horde_Util::pformInput() ?>
 <input type="hidden" name="actionID" value="rule_update" />
 <input type="hidden" name="new_folder_name" value="" />
 

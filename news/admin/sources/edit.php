@@ -14,7 +14,7 @@ define('NEWS_BASE', dirname(__FILE__) . '/../..');
 require_once NEWS_BASE . '/lib/base.php';
 require '../tabs.php';
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $source_id = $vars->get('source_id');
 $title = !empty($source_id) ? _("Edit Source") : _("Add Source");
 

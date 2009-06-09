@@ -18,7 +18,7 @@ if (!defined('HORDE_BASE')) {
 require_once HORDE_BASE . '/lib/core.php';
 
 // Registry.
-$session_control = Util::nonInputVar('session_control');
+$session_control = Horde_Util::nonInputVar('session_control');
 if ($session_control == 'none') {
     $registry = &Registry::singleton(HORDE_SESSION_NONE);
 } elseif ($session_control == 'readonly') {

@@ -17,13 +17,13 @@ require_once dirname(__FILE__) . '/lib/base.php';
 NLS::setCharset('UTF-8');
 
 // Determine the username to show free/busy time for.
-$cal = Util::getFormData('c');
-$user = Util::getFormData('u');
+$cal = Horde_Util::getFormData('c');
+$user = Horde_Util::getFormData('u');
 if (!empty($cal)) {
     if (is_array($cal)) {
         $cal = implode('|', $cal);
     }
-} elseif ($pathInfo = Util::getPathInfo()) {
+} elseif ($pathInfo = Horde_Util::getPathInfo()) {
     $user = basename($pathInfo);
 }
 

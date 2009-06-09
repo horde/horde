@@ -78,7 +78,7 @@ if ($driver->supportShares()) {
     }
 
     /* Select current share. */
-    $_SESSION['ingo']['current_share'] = Util::getFormData('ruleset', @$_SESSION['ingo']['current_share']);
+    $_SESSION['ingo']['current_share'] = Horde_Util::getFormData('ruleset', @$_SESSION['ingo']['current_share']);
     if (empty($_SESSION['ingo']['current_share']) ||
         empty($GLOBALS['all_rulesets'][$_SESSION['ingo']['current_share']]) ||
         !$GLOBALS['all_rulesets'][$_SESSION['ingo']['current_share']]->hasPermission(Auth::getAuth(), PERMS_READ)) {

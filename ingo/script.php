@@ -27,7 +27,7 @@ if ($scriptor) {
 
 /* Activate/deactivate script if requested.
    activateScript() does its own $notification->push() on error. */
-$actionID = Util::getFormData('actionID');
+$actionID = Horde_Util::getFormData('actionID');
 switch ($actionID) {
 case 'action_activate':
     if (!empty($script)) {

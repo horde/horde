@@ -83,13 +83,13 @@ class Kronolith_View_Event {
         $status = Kronolith::statusToString($this->event->getStatus());
         $attendees = $this->event->getAttendees();
 
-        if ($datetime = Util::getFormData('datetime')) {
+        if ($datetime = Horde_Util::getFormData('datetime')) {
             $datetime = new Horde_Date($datetime);
             $month = $datetime->month;
             $year = $datetime->year;
         } else {
-            $month = (int)Util::getFormData('month', date('n'));
-            $year = (int)Util::getFormData('year', date('Y'));
+            $month = (int)Horde_Util::getFormData('month', date('n'));
+            $year = (int)Horde_Util::getFormData('year', date('Y'));
         }
 
         $dateFormat = $prefs->getValue('date_format');

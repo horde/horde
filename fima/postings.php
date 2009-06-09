@@ -12,15 +12,14 @@
 
 @define('FIMA_BASE', dirname(__FILE__));
 require_once FIMA_BASE . '/lib/base.php';
-require_once 'Horde/Variables.php';
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 
 /* Get the current action ID. */
-$actionID = Util::getFormData('actionID');
+$actionID = Horde_Util::getFormData('actionID');
 
 /* Change posting type. */
-if (($postingtype = Util::getFormData('postingtype')) !== null) {
+if (($postingtype = Horde_Util::getFormData('postingtype')) !== null) {
     $postingtypeold = $prefs->getValue('active_postingtype');
     $prefs->setValue('active_postingtype', $postingtype);
 }
@@ -31,7 +30,7 @@ $closedperiod = (int)$prefs->getValue('closed_period');
 /* Create page array. */
 $pageOb = array();
 $pageOb['url'] = Horde::applicationUrl('postings.php');
-if (($pageOb['page'] = Util::getFormData('page')) === null) {
+if (($pageOb['page'] = Horde_Util::getFormData('page')) === null) {
     $pageOb['page'] = $prefs->getValue('startpage');
 }
 $pageOb['mode'] = 'list';
@@ -43,25 +42,25 @@ $filters = array();
 switch ($actionID) {
 case 'change_sort':
     /* Sort out the sorting values. */
-    if (($sortby = Util::getFormData('sortby')) !== null) {
+    if (($sortby = Horde_Util::getFormData('sortby')) !== null) {
         $prefs->setValue('sortby', $sortby);
     }
-    if (($sortdir = Util::getFormData('sortdir')) !== null) {
+    if (($sortdir = Horde_Util::getFormData('sortdir')) !== null) {
         $prefs->setValue('sortdir', $sortdir);
     }
     break;
 
 case 'search_postings':
     /* If we're searching, only list those postings that match the search result. */
-    $_SESSION['fima_search'] = array('type'         => Util::getFormData('search_type'),
-                                     'date_start'   => Util::getFormData('search_date_start'),
-                                     'date_end'     => Util::getFormData('search_date_end'),
-                                     'asset'        => Util::getFormData('search_asset'),
-                                     'account'      => Util::getFormData('search_account'),
-                                     'desc'         => Util::getFormData('search_desc'),
-                                     'amount_start' => Util::getFormData('search_amount_start'),
-                                     'amount_end'   => Util::getFormData('search_amount_end'),
-                                     'eo'           => Util::getFormData('search_eo'));
+    $_SESSION['fima_search'] = array('type'         => Horde_Util::getFormData('search_type'),
+                                     'date_start'   => Horde_Util::getFormData('search_date_start'),
+                                     'date_end'     => Horde_Util::getFormData('search_date_end'),
+                                     'asset'        => Horde_Util::getFormData('search_asset'),
+                                     'account'      => Horde_Util::getFormData('search_account'),
+                                     'desc'         => Horde_Util::getFormData('search_desc'),
+                                     'amount_start' => Horde_Util::getFormData('search_amount_start'),
+                                     'amount_end'   => Horde_Util::getFormData('search_amount_end'),
+                                     'eo'           => Horde_Util::getFormData('search_eo'));
 
     /* Build filters. */
     if ($_SESSION['fima_search']['type'] !== null) {
@@ -131,17 +130,17 @@ case 'clear_search':
 
 case 'add_postings':
     $pageOb['mode'] = 'edit';
-    $pageOb['url'] = Util::addParameter($pageOb['url'], 'actionID', 'add_postings');
+    $pageOb['url'] = Horde_Util::addParameter($pageOb['url'], 'actionID', 'add_postings');
     $actionID = 'save_postings';
     $postings = array();
     $title = _("Add Postings");
     break;
 
 case 'edit_postings':
-    $postingset = Util::getFormData('indices');
+    $postingset = Horde_Util::getFormData('indices');
     if ($postingset !== null) {
         $pageOb['mode'] = 'edit';
-        $pageOb['url'] = Util::addParameter($pageOb['url'], 'actionID', 'add_postings');
+        $pageOb['url'] = Horde_Util::addParameter($pageOb['url'], 'actionID', 'add_postings');
         $actionID = 'save_postings';
         $filters[] = array('id', $postingset);
         $title = _("Edit Postings");
@@ -149,7 +148,7 @@ case 'edit_postings':
     break;
 
 case 'shift_postings':
-    $postingset = Util::getFormData('indices');
+    $postingset = Horde_Util::getFormData('indices');
     if ($postingset !== null) {
         $pageOb['mode'] = 'shift';
         $actionID = 'update_postings';
@@ -167,7 +166,7 @@ case 'transfer_postings':
 
 case 'save_postings':
     /* Get the form values. */
-    $postingset = Util::getFormData('posting_id');
+    $postingset = Horde_Util::getFormData('posting_id');
 
     $share = &$GLOBALS['fima_shares']->getShare($ledger);
     if (!$share->hasPermission(Auth::getAuth(), PERMS_EDIT)) {
@@ -180,12 +179,12 @@ case 'save_postings':
         $posting_owner = $ledger;
         $posting_type = $prefs->getValue('active_postingtype');
 
-        $posting_dates = Util::getFormData('date');
-        $posting_assets = Util::getFormData('asset');
-        $posting_accounts = Util::getFormData('account');
-        $posting_eos = Util::getFormData('eo');
-        $posting_amounts = Util::getFormData('amount');
-        $posting_descs = Util::getFormData('desc');
+        $posting_dates = Horde_Util::getFormData('date');
+        $posting_assets = Horde_Util::getFormData('asset');
+        $posting_accounts = Horde_Util::getFormData('account');
+        $posting_eos = Horde_Util::getFormData('eo');
+        $posting_amounts = Horde_Util::getFormData('amount');
+        $posting_descs = Horde_Util::getFormData('desc');
         
         $postings = array();
         $savecount = 0;
@@ -282,7 +281,7 @@ case 'save_postings':
 
 case 'delete_postings':
     /* Delete postings if we're provided with valid account IDs. */
-    $postingset = Util::getFormData('indices');
+    $postingset = Horde_Util::getFormData('indices');
 
     $share = &$GLOBALS['fima_shares']->getShare($ledger);
     if (!$share->hasPermission(Auth::getAuth(), PERMS_DELETE)) {
@@ -313,7 +312,7 @@ case 'delete_postings':
 
 case 'update_postings':
     /* Get the form values. */
-    $postingset = Util::getFormData('posting_id');
+    $postingset = Horde_Util::getFormData('posting_id');
 
     $share = &$GLOBALS['fima_shares']->getShare($ledger);
     if (!$share->hasPermission(Auth::getAuth(), PERMS_EDIT)) {
@@ -321,9 +320,9 @@ case 'update_postings':
         header('Location: ' . Horde::applicationUrl('postings.php', true));
         exit;
     } elseif ($postingset !== null) {
-        $posting_type = Util::getFormData('type');
-        $posting_asset = Util::getFormData('asset');
-        $posting_account = Util::getFormData('account');
+        $posting_type = Horde_Util::getFormData('type');
+        $posting_asset = Horde_Util::getFormData('asset');
+        $posting_account = Horde_Util::getFormData('account');
         
         if ($posting_type || $posting_asset || $posting_account) {
             $storage = &Fima_Driver::singleton($ledger);
@@ -355,19 +354,19 @@ case 'copymove_postings':
         $notification->push(sprintf(_("Access denied transfering postings in %s."), $share->get('name')), 'horde.error');
         header('Location: ' . Horde::applicationUrl('postings.php', true));
         exit;
-    } elseif (!$share->hasPermission(Auth::getAuth(), PERMS_DELETE) && (!Util::getFormData('keep') || Util::getFormData('delete'))) {
+    } elseif (!$share->hasPermission(Auth::getAuth(), PERMS_DELETE) && (!Horde_Util::getFormData('keep') || Horde_Util::getFormData('delete'))) {
         $notification->push(sprintf(_("Access denied transfering postings in %s."), $share->get('name')), 'horde.error');
         header('Location: ' . Horde::applicationUrl('postings.php', true));
         exit;
     } else {
-        $type_from = Util::getFormData('type_from');
-        $period_from = Util::getFormData('period_from');
-        $keep = Util::getFormData('keep');
-        $summarize = Util::getFormData('summarize');
-        $summarize_account = Util::getFormData('summarize_post_account');
-        $type_to = Util::getFormData('type_to');
-        $period_to = Util::getFormData('period_to');
-        $delete = Util::getFormData('delete');
+        $type_from = Horde_Util::getFormData('type_from');
+        $period_from = Horde_Util::getFormData('period_from');
+        $keep = Horde_Util::getFormData('keep');
+        $summarize = Horde_Util::getFormData('summarize');
+        $summarize_account = Horde_Util::getFormData('summarize_post_account');
+        $type_to = Horde_Util::getFormData('type_to');
+        $period_to = Horde_Util::getFormData('period_to');
+        $delete = Horde_Util::getFormData('delete');
 
         $period_from_start = mktime(0, 0, 0, ($period_from['month'] === '') ? 1 : $period_from['month'], 1, (int)$period_from['year']);
         $period_from_end = mktime(0, 0, 0, ($period_from['month'] === '') ? 12 : $period_from['month'] + 1, ($period_from['month'] === '') ? 31 : 0, (int)$period_from['year']);
@@ -506,10 +505,10 @@ default:
 }
 
 /* Print. */
-$print_view = (bool)Util::getFormData('print');
+$print_view = (bool)Horde_Util::getFormData('print');
 if (!$print_view && $pageOb['mode'] == 'list') {
     Horde::addScriptFile('popup.js', 'horde', true);
-    $print_link = Util::addParameter(Horde::applicationUrl('postings.php'), array('print' => 1));
+    $print_link = Horde_Util::addParameter(Horde::applicationUrl('postings.php'), array('print' => 1));
 }
 
 /* Filters. */
@@ -625,7 +624,7 @@ if ($pageOb['mode'] == 'list') {
 if ($pageOb['mode'] == 'list' || $pageOb['mode'] == 'edit') {
     $sortby = $prefs->getValue('sortby');
     $sortdir = $prefs->getValue('sortdir');
-    $sorturl = Util::addParameter($pageOb['url'], 'sortdir', ($sortdir) ? 0 : 1);
+    $sorturl = Horde_Util::addParameter($pageOb['url'], 'sortdir', ($sortdir) ? 0 : 1);
 }
 
 /* Generate page links. */
@@ -635,18 +634,18 @@ if ($pageOb['mode'] == 'list') {
         $pageOb['pages_first'] = Horde::img('nav/first-grey.png', null, null, $graphicsdir);
         $pageOb['pages_prev'] = Horde::img('nav/left-grey.png', null, null, $graphicsdir);
     } else {
-        $first_url = Util::addParameter($pageOb['url'], 'page', 1);
+        $first_url = Horde_Util::addParameter($pageOb['url'], 'page', 1);
         $pageOb['pages_first'] = Horde::link($first_url, _("First Page")) . Horde::img('nav/first.png', '<<', null, $graphicsdir) . '</a>';
-        $prev_url = Util::addParameter($pageOb['url'], 'page', $pageOb['page'] - 1);
+        $prev_url = Horde_Util::addParameter($pageOb['url'], 'page', $pageOb['page'] - 1);
         $pageOb['pages_prev'] = Horde::link($prev_url, _("Previous Page"), '', '', '', '', '', array('id' => 'prev')) . Horde::img('nav/left.png', '<', null, $graphicsdir) . '</a>';
     }
     if ($pageOb['page'] == $pageOb['page_count']) {
         $pageOb['pages_last'] = Horde::img('nav/last-grey.png', null, null, $graphicsdir);
         $pageOb['pages_next'] = Horde::img('nav/right-grey.png', null, null, $graphicsdir);
     } else {
-        $next_url = Util::addParameter($pageOb['url'], 'page', $pageOb['page'] + 1);
+        $next_url = Horde_Util::addParameter($pageOb['url'], 'page', $pageOb['page'] + 1);
         $pageOb['pages_next'] = Horde::link($next_url, _("Next Page"), '', '', '', '', '', array('id' => 'next')) . Horde::img('nav/right.png', '>', null, $graphicsdir) . '</a>';
-        $last_url = Util::addParameter($pageOb['url'], 'page', $pageOb['page_count']);
+        $last_url = Horde_Util::addParameter($pageOb['url'], 'page', $pageOb['page_count']);
         $pageOb['pages_last'] = Horde::link($last_url, _("Last Page")) . Horde::img('nav/last.png', '>>', null, $graphicsdir) . '</a>';
     }
 }

@@ -4,7 +4,7 @@
 
 <div id="class-list-buttons">
  <form method="get" action="create.php">
-<?php echo Util::formInput() ?>
+<?php echo Horde_Util::formInput() ?>
   <input type="submit" class="button" value="<?php echo _("Create a new Class") ?>" />
  </form>
 </div>
@@ -23,11 +23,11 @@
  <?php $class = $classes[$class_id] ?>
   <tr>
    <td><?php echo htmlspecialchars($class->get('name')) ?></td>
-   <td><a href="<?php echo Util::addParameter($edit_url_base, 'c', $class->getName()) ?>" title="<?php echo _("Edit") ?>"><?php echo $edit_img ?></a></td>
+   <td><a href="<?php echo Horde_Util::addParameter($edit_url_base, 'c', $class->getName()) ?>" title="<?php echo _("Edit") ?>"><?php echo $edit_img ?></a></td>
 <?php if (empty($conf['share']['no_sharing'])): ?>
-   <td><a onclick="return !popup(this.href);" href="<?php echo Util::addParameter($perms_url_base, 'share', $class->getName()) ?>" target="_blank" title="<?php echo _("Change Permissions") ?>"><?php echo $perms_img ?></a></td>
+   <td><a onclick="return !popup(this.href);" href="<?php echo Horde_Util::addParameter($perms_url_base, 'share', $class->getName()) ?>" target="_blank" title="<?php echo _("Change Permissions") ?>"><?php echo $perms_img ?></a></td>
 <?php endif; ?>
-   <td><a href="<?php echo Util::addParameter($delete_url_base, 'c', $class->getName()) ?>" title="<?php echo _("Delete") ?>"><?php echo $delete_img ?></a></td>
+   <td><a href="<?php echo Horde_Util::addParameter($delete_url_base, 'c', $class->getName()) ?>" title="<?php echo _("Delete") ?>"><?php echo $delete_img ?></a></td>
   </tr>
 <?php endforeach; ?>
  </tbody>

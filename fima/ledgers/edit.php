@@ -18,7 +18,7 @@ if (!Auth::getAuth()) {
     exit;
 }
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $ledger = $fima_shares->getShare($vars->get('l'));
 if (is_a($ledger, 'PEAR_Error')) {
     $notification->push($ledger, 'horde.error');

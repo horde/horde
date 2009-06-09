@@ -14,15 +14,15 @@ define('NEWS_BASE', dirname(__FILE__) . '/../..');
 require_once NEWS_BASE . '/lib/base.php';
 require '../tabs.php';
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $form = new Horde_Form($vars, _("Do you really wont to delete this source?"), 'delete');
 $form->setButtons(array(_("Remove"), _("Cancel")));
 
-$source_id = Util::getFormData('source_id');
+$source_id = Horde_Util::getFormData('source_id');
 $form->addHidden('', 'source_id', 'int', $source_id);
 
 if ($form->validate()) {
-    if (Util::getFormData('submitbutton') == _("Remove")) {
+    if (Horde_Util::getFormData('submitbutton') == _("Remove")) {
         $news->deleteSource($source_id);
         if ($result instanceof PEAR_Error) {
             $notification->push(_("Source was not deleted.") . ' ' . $result->getMessage(), 'horde.error');

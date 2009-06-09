@@ -13,11 +13,10 @@
 define('AUTH_HANDLER', true);
 define('FOLKS_BASE', dirname(__FILE__) . '/..');
 require_once FOLKS_BASE . '/lib/base.php';
-require_once 'Horde/Variables.php';
 
 $auth = Auth::singleton($conf['auth']['driver']);
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $tabs = new Horde_UI_Tabs('what', $vars);
 $tabs->addTab(_("Login"), Horde::applicationUrl('login.php'), 'login');
 

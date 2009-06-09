@@ -95,7 +95,7 @@ class IMP_Imple_SpellChecker extends IMP_Imple
         }
 
         try {
-            return $speller->spellCheck(Util::getPost($args['input']));
+            return $speller->spellCheck(Horde_Util::getPost($args['input']));
         } catch (Exception $e) {
             Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
             return array('bad' => array(), 'suggestions' => array());

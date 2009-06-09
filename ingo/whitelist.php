@@ -24,10 +24,10 @@ if (!in_array(Ingo_Storage::ACTION_WHITELIST, $_SESSION['ingo']['script_categori
 $whitelist = &$ingo_storage->retrieve(Ingo_Storage::ACTION_WHITELIST);
 
 /* Perform requested actions. */
-$actionID = Util::getFormData('actionID');
+$actionID = Horde_Util::getFormData('actionID');
 switch ($actionID) {
 case 'rule_update':
-    $ret = $whitelist->setWhitelist(Util::getFormData('whitelist'));
+    $ret = $whitelist->setWhitelist(Horde_Util::getFormData('whitelist'));
     if (is_a($ret, 'PEAR_Error')) {
         $notification->push($ret, $ret->getCode());
     } else {

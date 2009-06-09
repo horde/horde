@@ -15,7 +15,7 @@ require_once HORDE_BASE . '/lib/base.php';
 require_once 'Horde/Loader.php';
 
 // Block to load
-$block_id = Util::getFormData('block');
+$block_id = Horde_Util::getFormData('block');
 list($app, $name) = explode(':', $block_id);
 
 // Load collection
@@ -25,11 +25,11 @@ $blocks = new Horde_Block_Collection(null, array($app));
 $params = $blocks->getParams($app, $name);
 if (empty($params) ||
     !$blocks->isEditable($app, $name)) {
-    echo '<script type="text/javascript">noParams("' . Util::getFormData('widget') . '", "' . _("This block has no special parameters.") . '");</script>';
+    echo '<script type="text/javascript">noParams("' . Horde_Util::getFormData('widget') . '", "' . _("This block has no special parameters.") . '");</script>';
 } else {
     $block = &$blocks->getBlock($app, $name);
 
-    $defaults = Util::getFormData('defaults');
+    $defaults = Horde_Util::getFormData('defaults');
     if (empty($defaults)) {
         foreach ($params as $key => $val) {
             $defaults[$key] = $val;

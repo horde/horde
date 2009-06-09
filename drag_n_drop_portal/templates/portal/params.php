@@ -1,9 +1,9 @@
 <h1 class="header"><?php echo htmlspecialchars($blocks->getName($app, $name)) ?></h1>
 <form action="<?php echo Horde::selfUrl() ?>#block" method="post" id="blockform" name="blockform">
-<?php Util::pformInput() ?>
+<?php Horde_Util::pformInput() ?>
 <input type="hidden" name="action" value="save" />
-<input type="hidden" name="block" value="<?php echo Util::getFormData('block') ?>" />
-<input type="hidden" name="widget" value="<?php echo Util::getFormData('widget') ?>" />
+<input type="hidden" name="block" value="<?php echo Horde_Util::getFormData('block') ?>" />
+<input type="hidden" name="widget" value="<?php echo Horde_Util::getFormData('widget') ?>" />
 <table style="width: 100%; border-collapse: collapse;">
 <?php if ($block->updateable): ?>
 <tr>

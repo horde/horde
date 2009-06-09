@@ -15,9 +15,7 @@ if (!Auth::isAuthenticated()) {
     Horde::authenticationFailureRedirect();
 }
 
-require_once 'Horde/Variables.php';
-
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $tabs = new Horde_UI_Tabs('what', $vars);
 $tabs->addTab(_("Edit my profile"), Horde::applicationUrl('edit/edit.php'), 'edit');
 $tabs->addTab(_("Privacy"), Horde::applicationUrl('edit/privacy.php'), 'privacy');

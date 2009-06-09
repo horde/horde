@@ -910,7 +910,7 @@ function _kronolith_export($uid, $contentType)
         $share = &$kronolith_shares->getShare($event->getCalendar());
 
         $iCal = new Horde_iCalendar($version);
-        $iCal->setAttribute('X-WR-CALNAME', String::convertCharset($share->get('name'), NLS::getCharset(), 'utf-8'));
+        $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), NLS::getCharset(), 'utf-8'));
 
         // Create a new vEvent.
         $vEvent = &$event->toiCalendar($iCal);
@@ -960,7 +960,7 @@ function _kronolith_exportCalendar($calendar, $contentType)
         $share = &$kronolith_shares->getShare($calendar);
 
         $iCal = new Horde_iCalendar($version);
-        $iCal->setAttribute('X-WR-CALNAME', String::convertCharset($share->get('name'), NLS::getCharset(), 'utf-8'));
+        $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), NLS::getCharset(), 'utf-8'));
 
         foreach ($events as $dayevents) {
             foreach ($dayevents as $event) {
@@ -1229,9 +1229,9 @@ function _kronolith_updateAttendee($response, $sender = null)
 
     $found = false;
     $error = _("No attendees have been updated because none of the provided email addresses have been found in the event's attendees list.");
-    $sender_lcase = String::lower($sender);
+    $sender_lcase = Horde_String::lower($sender);
     foreach ($atnames as $index => $attendee) {
-        $attendee = str_replace('mailto:', '', String::lower($attendee));
+        $attendee = str_replace('mailto:', '', Horde_String::lower($attendee));
         $name = isset($atparms[$index]['CN']) ? $atparms[$index]['CN'] : null;
         if ($event->hasAttendee($attendee)) {
             if (is_null($sender) || $sender_lcase == $attendee) {

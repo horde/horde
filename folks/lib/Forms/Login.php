@@ -16,7 +16,7 @@ class Folks_Login_Form extends Horde_Form {
     {
         parent::__construct($vars, $title, $name);
 
-        $this->addHidden('', 'url', 'text', Util::getFormData('url', '/'));
+        $this->addHidden('', 'url', 'text', Horde_Util::getFormData('url', '/'));
         $this->setButtons(_("Login"));
 
         $this->addVariable(_("Username"), 'username', 'text', true, false,

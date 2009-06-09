@@ -12,7 +12,7 @@
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-$path = Util::getFormData('imple');
+$path = Horde_Util::getFormData('imple');
 if (!$path) {
     exit;
 }

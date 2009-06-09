@@ -11,7 +11,7 @@ if (!empty($refresh_time) && ($refresh_time > 0) && !empty($refresh_url)) {
     echo "<meta http-equiv=\"refresh\" content=\"$refresh_time;url=$refresh_url\">\n";
 }
 
-if (Util::nonInputVar('js_vars')) {
+if (Horde_Util::nonInputVar('js_vars')) {
     echo '<script type="text/javascript">//<![CDATA[' . "\n" .
        'var Chora = ' . Horde_Serialize::serialize($js_vars, Horde_Serialize::JSON, NLS::getCharset()) . ";\n//]]></script>\n";
 }
@@ -23,4 +23,4 @@ Horde::includeScriptFiles();
 <?php echo Horde::stylesheetLink('chora') ?>
 </head>
 
-<body<?php if ($bc = Util::nonInputVar('bodyClass')) echo ' class="' . $bc . '"' ?><?php if ($bi = Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>
+<body<?php if ($bc = Horde_Util::nonInputVar('bodyClass')) echo ' class="' . $bc . '"' ?><?php if ($bi = Horde_Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>

@@ -51,7 +51,7 @@ class Horde_Block_Kronolith_month extends Horde_Block {
         }
         $date = new Horde_Date(time());
 
-        return $title . ', ' . Horde::link(Horde::url(Util::addParameter($registry->getInitialPage(), $url_params), true)) . $date->strftime('%B, %Y') . '</a>';
+        return $title . ', ' . Horde::link(Horde::url(Horde_Util::addParameter($registry->getInitialPage(), $url_params), true)) . $date->strftime('%B, %Y') . '</a>';
     }
 
     /**
@@ -174,7 +174,7 @@ class Horde_Block_Kronolith_month extends Horde_Block {
                 $url_params['display_cal'] = $this->_params['calendar'];
             }
             /* Set up the link to the day view. */
-            $url = Util::addParameter(Horde::applicationUrl('day.php', true),
+            $url = Horde_Util::addParameter(Horde::applicationUrl('day.php', true),
                                       $url_params);
 
             $date_stamp = $date_ob->dateString();

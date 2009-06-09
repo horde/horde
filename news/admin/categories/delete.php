@@ -13,15 +13,15 @@ define('NEWS_BASE', dirname(__FILE__) . '/../..');
 require_once NEWS_BASE . '/lib/base.php';
 require NEWS_BASE . '/admin/tabs.php';
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $form = new Horde_Form($vars, _("Do you really wont to delete this category?"), 'delete');
 $form->setButtons(array(_("Remove"), _("Cancel")));
 
-$category_id = Util::getFormData('category_id');
+$category_id = Horde_Util::getFormData('category_id');
 $form->addHidden('', 'category_id', 'int', $category_id);
 
 if ($form->validate()) {
-    if (Util::getFormData('submitbutton') == _("Remove")) {
+    if (Horde_Util::getFormData('submitbutton') == _("Remove")) {
         $news_cat->deleteCategory($category_id);
         if ($result instanceof PEAR_Error) {
             $notification->push(_("Category was not deleted.") . ' ' . $result->getMessage(), 'horde.error');

@@ -23,7 +23,7 @@ function Submit(action)
 <h1 class="header"><?php echo htmlspecialchars($share->get('name')) ?></h1>
 
 <form method="post" name="accounts" action="accounts.php">
-<?php Util::pformInput() ?>
+<?php Horde_Util::pformInput() ?>
 <input type="hidden" name="actionID" value="" />
 
 <div id="accountList">

@@ -16,11 +16,11 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 
 $title = _("Diff");
-$id = Util::getFormData('id', 0);
-$version = Util::getFormData('version', 0);
+$id = Horde_Util::getFormData('id', 0);
+$version = Horde_Util::getFormData('version', 0);
 
 /* Set up the diff renderer. */
-$render_type = Util::getFormData('render', 'inline');
+$render_type = Horde_Util::getFormData('render', 'inline');
 $class = 'Text_Diff_Renderer_' . $render_type;
 $renderer = &new $class();
 

@@ -1,18 +1,9 @@
 <?php
 /**
- * @package Horde_Form
- */
-
-/** String */
-include_once 'Horde/String.php';
-
-/**
  * Horde_Form Master Class.
  *
  * The Horde_Form:: package provides form rendering, validation, and
  * other functionality for the Horde Application Framework.
- *
- * $Horde: incubator/Horde_Form/Horde/Form.php,v 1.19 2008/08/26 15:32:55 selsky Exp $
  *
  * Copyright 2001-2007 Robert E. Coyle <robertecoyle@hotmail.com>
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
@@ -22,7 +13,6 @@ include_once 'Horde/String.php';
  *
  * @author  Robert E. Coyle <robertecoyle@hotmail.com>
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Horde 3.0
  * @package Horde_Form
  */
 class Horde_Form {
@@ -44,7 +34,7 @@ class Horde_Form {
     public function __construct($vars, $title = '', $name = null)
     {
         if (is_null($name)) {
-            $name = String::lower(get_class($this));
+            $name = Horde_String::lower(get_class($this));
         }
 
         $this->_vars = $vars;
@@ -835,7 +825,7 @@ class Horde_Form_Type_text extends Horde_Form_Type {
     {
         $valid = true;
 
-        if (!empty($this->_maxlength) && String::length($value) > $this->_maxlength) {
+        if (!empty($this->_maxlength) && Horde_String::length($value) > $this->_maxlength) {
             $valid = false;
             $message = sprintf(_("Value is over the maximum length of %s."), $this->_maxlength);
         } elseif ($var->isRequired() && empty($this->_regex)) {
@@ -1038,14 +1028,14 @@ class Horde_Form_Type_countedtext extends Horde_Form_Type_longtext {
     {
         $valid = true;
 
-        $length = String::length(trim($value));
+        $length = Horde_String::length(trim($value));
 
         if ($var->isRequired() && $length <= 0) {
             $valid = false;
             $message = _("This field is required.");
         } elseif ($length > $this->_chars) {
             $valid = false;
-            $message = sprintf(_("There are too many characters in this field. You have entered %s characters; you must enter less than %s."), String::length(trim($value)), $this->_chars);
+            $message = sprintf(_("There are too many characters in this field. You have entered %s characters; you must enter less than %s."), Horde_String::length(trim($value)), $this->_chars);
         }
 
         return $valid;
@@ -1434,7 +1424,7 @@ class Horde_Form_Type_boolean extends Horde_Form_Type {
 
     function getInfo($vars, $var, &$info)
     {
-        $info = String::lower($vars->get($var->getVarName())) == 'on';
+        $info = Horde_String::lower($vars->get($var->getVarName())) == 'on';
     }
 
     /**
@@ -3350,7 +3340,7 @@ class Horde_Form_Type_dblookup extends Horde_Form_Type_enum {
 
             $col = $db->getCol($sql);
             if (!is_a($col, 'PEAR_Error')) {
-                $values = Horde_Array::combine($col, $col);
+                $values = array_combine($col, $col);
             }
         }
         parent::init($values, $prompt);
@@ -3393,7 +3383,7 @@ class Horde_Form_Type_figlet extends Horde_Form_Type {
             return false;
         }
 
-        if (String::lower($value) != String::lower($this->_text)) {
+        if (Horde_String::lower($value) != Horde_String::lower($this->_text)) {
             $message = _("The text you entered did not match the text on the screen.");
             return false;
         }

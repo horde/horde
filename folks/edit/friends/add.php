@@ -22,7 +22,7 @@ require_once FOLKS_BASE . '/lib/Friends.php';
 $friends = Folks_Friends::singleton();
 
 // Perform action
-$user = Util::getFormData('user');
+$user = Horde_Util::getFormData('user');
 if ($user) {
     if ($friends->isFriend($user)) {
         $result = $friends->removeFriend($user);
@@ -44,8 +44,8 @@ if ($user) {
             $body = sprintf(_("User %s added you to his firends list on %s. \nTo approve, go to: %s \nTo reject, go to: %s \nTo see to his profile, go to: %s \n"),
                             Auth::getAuth(),
                             $registry->get('name', 'horde'),
-                            Util::addParameter(Horde::applicationUrl('edit/friends/approve.php', true, -1), 'user', Auth::getAuth()),
-                            Util::addParameter(Horde::applicationUrl('edit/friends/reject.php', true, -1), 'user', Auth::getAuth()),
+                            Horde_Util::addParameter(Horde::applicationUrl('edit/friends/approve.php', true, -1), 'user', Auth::getAuth()),
+                            Horde_Util::addParameter(Horde::applicationUrl('edit/friends/reject.php', true, -1), 'user', Auth::getAuth()),
                             Folks::getUrlFor('user', Auth::getAuth(), true, -1));
             $result = $friends->sendNotification($user, $title, $body);
             if ($result instanceof PEAR_Error) {

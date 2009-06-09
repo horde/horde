@@ -362,7 +362,7 @@ class IMP_Message
                 /* TODO: When Horde_iCalendar supports setting of charsets
                  * we need to set it there instead of relying on the fact
                  * that both Nag and IMP use the same charset. */
-                $body = String::convertCharset($body, $body_part->getCharset(), NLS::getCharset());
+                $body = Horde_String::convertCharset($body, $body_part->getCharset(), NLS::getCharset());
 
                 /* Create a new iCalendar. */
                 $vCal = new Horde_iCalendar();

@@ -15,9 +15,8 @@ require_once CRUMB_BASE . '/lib/base.php';
 require_once 'Horde/Form.php';
 require_once 'Horde/Form/Renderer.php';
 require_once CRUMB_BASE . '/lib/Forms/ContactSearch.php';
-require_once 'Horde/Variables.php';
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 
 $searchform = new Horde_Form_ContactSearch($vars);
 

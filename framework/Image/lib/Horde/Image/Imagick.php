@@ -17,7 +17,7 @@ class Horde_Image_Imagick extends Horde_Image
     public function __construct($params, $context = array())
     {
         parent::__construct($params, $context);
-        if (Util::loadExtension('imagick')) {
+        if (Horde_Util::loadExtension('imagick')) {
             ini_set('imagick.locale_fix', 1);
             $this->_imagick = new Imagick();
             if (!empty($params['filename'])) {

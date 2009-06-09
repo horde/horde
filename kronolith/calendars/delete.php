@@ -20,7 +20,7 @@ if (!Auth::getAuth()) {
     exit;
 }
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $calendar_id = $vars->get('c');
 if ($calendar_id == Auth::getAuth()) {
     $notification->push(_("This calendar cannot be deleted."), 'horde.warning');
@@ -42,7 +42,7 @@ if (is_a($calendar, 'PEAR_Error')) {
 $form = new Kronolith_DeleteCalendarForm($vars, $calendar);
 
 // Execute if the form is valid (must pass with POST variables only).
-if ($form->validate(new Variables($_POST))) {
+if ($form->validate(new Horde_Variables($_POST))) {
     $result = $form->execute();
     if (is_a($result, 'PEAR_Error')) {
         $notification->push($result, 'horde.error');

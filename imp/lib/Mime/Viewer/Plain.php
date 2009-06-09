@@ -39,7 +39,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         }
 
         // Convert to the local charset.
-        $text = String::convertCharset($text, $this->_mimepart->getCharset());
+        $text = Horde_String::convertCharset($text, $this->_mimepart->getCharset());
 
         // Check for 'flowed' text data.
         if ($this->_mimepart->getContentTypeParameter('format') == 'flowed') {
@@ -234,7 +234,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 
                     $part2 = new Horde_Mime_Part();
                     $part2->setType('application/x-imp-pgp-signature');
-                    $part2->setContents(String::convertCharset(implode("\n", $val['data']) . "\n" . implode("\n", $sig['data']), $charset));
+                    $part2->setContents(Horde_String::convertCharset(implode("\n", $val['data']) . "\n" . implode("\n", $sig['data']), $charset));
 
                     $part->addPart($part1);
                     $part->addPart($part2);
@@ -258,7 +258,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
      */
     protected function _parseUUencode()
     {
-        $text = String::convertCharset($this->_mimepart->getContents(), $this->_mimepart->getCharset());
+        $text = Horde_String::convertCharset($this->_mimepart->getContents(), $this->_mimepart->getCharset());
 
         /* Don't want to use convert_uudecode() here as there may be multiple
          * files residing in the text. */

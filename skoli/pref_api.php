@@ -16,7 +16,7 @@ require_once HORDE_BASE . '/lib/core.php';
 $registry = &Registry::singleton();
 
 /* Which application. */
-$app = Util::getFormData('app');
+$app = Horde_Util::getFormData('app');
 if (!$app) {
     echo '<ul id="app">';
     foreach ($registry->listApps() as $app) {
@@ -33,7 +33,7 @@ $appbase = $registry->get('fileroot', $app);
 require_once $appbase . '/lib/base.php';
 
 /* Which preference. */
-$pref = Util::getFormData('pref');
+$pref = Horde_Util::getFormData('pref');
 if (!$pref) {
     $_prefs = array();
     if (is_callable(array('Horde', 'loadConfiguration'))) {
@@ -61,9 +61,9 @@ if (!$pref) {
 }
 
 /* Which action. */
-if (Util::getPost('pref') == $pref) {
+if (Horde_Util::getPost('pref') == $pref) {
     /* POST for saving a pref. */
-    $prefs->setValue($pref, Util::getPost('value'));
+    $prefs->setValue($pref, Horde_Util::getPost('value'));
 }
 
 /* GET returns the current value, POST returns the new value. */

@@ -15,7 +15,7 @@
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-$id = Util::getFormData('id');
+$id = Horde_Util::getFormData('id');
 $row = $news->get($id);
 if ($row instanceof PEAR_Error) {
     $notification->push($row);
@@ -35,7 +35,7 @@ if (!Auth::isAuthenticated()) {
     _error(_("Only authenticated users can send mails."));
 }
 
-$to = Util::getFormData('email');
+$to = Horde_Util::getFormData('email');
 if (empty($to)) {
     _error(_("No mail entered."));
     exit;

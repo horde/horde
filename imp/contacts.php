@@ -18,7 +18,7 @@ $source_list = $registry->call('contacts/sources');
 
 /* If we self-submitted, use that source. Otherwise, choose a good
  * source. */
-$source = Util::getFormData('source');
+$source = Horde_Util::getFormData('source');
 if (empty($source) || !isset($source_list[$source])) {
     /* We don't just pass the second argument to getFormData() because
      * we want to trap for invalid sources, not just no source. */
@@ -27,13 +27,13 @@ if (empty($source) || !isset($source_list[$source])) {
 }
 
 /* Get the search as submitted (defaults to '' which should list everyone). */
-$search = Util::getFormData('search');
+$search = Horde_Util::getFormData('search');
 
 /* Get the name of the calling form (Defaults to 'compose'). */
-$formname = Util::getFormData('formname', 'compose');
+$formname = Horde_Util::getFormData('formname', 'compose');
 
 /* Are we limiting to only the 'To:' field? */
-$to_only = Util::getFormData('to_only');
+$to_only = Horde_Util::getFormData('to_only');
 
 $search_params = IMP_Compose::getAddressSearchParams();
 $apiargs = array(
@@ -43,7 +43,7 @@ $apiargs = array(
 );
 
 $addresses = array();
-if (Util::getFormData('searched') || $prefs->getValue('display_contact')) {
+if (Horde_Util::getFormData('searched') || $prefs->getValue('display_contact')) {
     $results = $registry->call('contacts/search', $apiargs);
     foreach ($results as $r) {
         /* The results list returns an array for each source searched. Make
@@ -55,7 +55,7 @@ if (Util::getFormData('searched') || $prefs->getValue('display_contact')) {
 /* If self-submitted, preserve the currently selected users encoded by
  * javascript to pass as value|text. */
 $selected_addresses = array();
-foreach (explode('|', Util::getFormData('sa')) as $addr) {
+foreach (explode('|', Horde_Util::getFormData('sa')) as $addr) {
     if (strlen(trim($addr))) {
         $selected_addresses[] = @htmlspecialchars($addr, ENT_QUOTES, NLS::getCharset());
     }
@@ -65,9 +65,9 @@ foreach (explode('|', Util::getFormData('sa')) as $addr) {
 $template = new IMP_Template();
 $template->setOption('gettext', true);
 
-$template->set('action', Horde::url(Util::addParameter(Horde::applicationUrl('contacts.php'), array('uniq' => uniqid(mt_rand())))));
+$template->set('action', Horde::url(Horde_Util::addParameter(Horde::applicationUrl('contacts.php'), array('uniq' => uniqid(mt_rand())))));
 $template->set('formname', $formname);
-$template->set('formInput', Util::formInput());
+$template->set('formInput', Horde_Util::formInput());
 $template->set('search', htmlspecialchars($search));
 if (count($source_list) > 1) {
     $template->set('multiple_source', true);

@@ -10,10 +10,10 @@
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-$view = Kronolith::getView(Util::getFormData('view'));
+$view = Kronolith::getView(Horde_Util::getFormData('view'));
 if ($view) {
     $print_view = false;
-    Kronolith::tabs(strtolower(str_replace('kronolith_view_', '', String::lower(get_class($view)))));
+    Kronolith::tabs(strtolower(str_replace('kronolith_view_', '', Horde_String::lower(get_class($view)))));
     $view->html();
-    echo '<div style="display:none" id="view_vars" view="' . htmlspecialchars(Util::getFormData('view')) . '" date="' . Kronolith::currentDate()->format(DATE_RFC2822) . '" print="' . Util::addParameter($view->link(), 'print', 1) . '">';
+    echo '<div style="display:none" id="view_vars" view="' . htmlspecialchars(Horde_Util::getFormData('view')) . '" date="' . Kronolith::currentDate()->format(DATE_RFC2822) . '" print="' . Horde_Util::addParameter($view->link(), 'print', 1) . '">';
 }

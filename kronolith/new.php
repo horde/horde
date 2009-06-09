@@ -18,32 +18,32 @@ if (Kronolith::hasPermission('max_events') !== true &&
         $message = Horde::callHook('_perms_hook_denied', array('kronolith:max_events'), 'horde', $message);
     }
     $notification->push($message, 'horde.error', array('content.raw'));
-    $url = Util::addParameter($prefs->getValue('defaultview') . '.php', array('month' => Util::getFormData('month'),
-                                                                              'year' => Util::getFormData('year')));
+    $url = Horde_Util::addParameter($prefs->getValue('defaultview') . '.php', array('month' => Horde_Util::getFormData('month'),
+                                                                              'year' => Horde_Util::getFormData('year')));
     header('Location: ' . Horde::applicationUrl($url, true));
     exit;
 }
 
-$calendar_id = Util::getFormData('calendar', Kronolith::getDefaultCalendar(PERMS_EDIT));
+$calendar_id = Horde_Util::getFormData('calendar', Kronolith::getDefaultCalendar(PERMS_EDIT));
 if (!$calendar_id) {
-    $url = Util::addParameter($prefs->getValue('defaultview') . '.php', array('month' => Util::getFormData('month'),
-                                                                              'year' => Util::getFormData('year')));
+    $url = Horde_Util::addParameter($prefs->getValue('defaultview') . '.php', array('month' => Horde_Util::getFormData('month'),
+                                                                              'year' => Horde_Util::getFormData('year')));
     header('Location: ' . Horde::applicationUrl($url, true));
 }
 
 $event = Kronolith::getDriver()->getEvent();
 $_SESSION['kronolith']['attendees'] = $event->getAttendees();
 
-$date = Util::getFormData('datetime');
+$date = Horde_Util::getFormData('datetime');
 if (!$date) {
-    $date = Util::getFormData('date', date('Ymd')) . '000600';
+    $date = Horde_Util::getFormData('date', date('Ymd')) . '000600';
     if ($prefs->getValue('twentyFour')) {
         $event->start->hour = 12;
     }
 }
 $event->start = new Horde_Date($date);
 $event->end = new Horde_Date($event->start);
-if (Util::getFormData('allday')) {
+if (Horde_Util::getFormData('allday')) {
     $event->end->mday++;
 } else {
     // Default to a 1 hour duration.
@@ -53,11 +53,11 @@ $month = $event->start->month;
 $year = $event->start->year;
 
 $buttons = array('<input type="submit" class="button" name="save" value="' . _("Save Event") . '" />');
-$url = Util::getFormData('url');
+$url = Horde_Util::getFormData('url');
 if (isset($url)) {
     $cancelurl = $url;
 } else {
-    $cancelurl = Util::addParameter('month.php', array('month' => $month,
+    $cancelurl = Horde_Util::addParameter('month.php', array('month' => $month,
                                                        'year' => $year));
     $cancelurl = Horde::applicationUrl($cancelurl, true);
 }

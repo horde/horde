@@ -27,7 +27,7 @@ function _getStories($feed_id)
     }
 }
 
-$feed_id = Util::getPost('feed_id');
+$feed_id = Horde_Util::getPost('feed_id');
 $stories = _getStories($feed_id);
 $df = $GLOBALS['prefs']->getValue('date_format');
 foreach ($stories as $story) {

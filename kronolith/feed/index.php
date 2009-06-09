@@ -31,7 +31,7 @@ require_once KRONOLITH_BASE . '/lib/version.php';
 require_once 'Horde/Identity.php';
 require_once 'Horde/Template.php';
 
-$calendar = Util::getFormData('c');
+$calendar = Horde_Util::getFormData('c');
 $share = $kronolith_shares->getShare($calendar);
 if (is_a($share, 'PEAR_Error')) {
     _no_access(404, 'Not Found',
@@ -66,7 +66,7 @@ if (!$share->hasPermission(Auth::getAuth(), PERMS_READ)) {
     }
 }
 
-$feed_type = basename(Util::getFormData('type'));
+$feed_type = basename(Horde_Util::getFormData('type'));
 if (empty($feed_type)) {
     // If not specified, default to Atom.
     $feed_type = 'atom';
@@ -86,7 +86,7 @@ if (is_a($events, 'PEAR_Error')) {
 if (isset($conf['urls']['pretty']) && $conf['urls']['pretty'] == 'rewrite') {
     $self_url = 'feed/' . $calendar;
 } else {
-    $self_url = Util::addParameter('feed/index.php', 'c', $calendar);
+    $self_url = Horde_Util::addParameter('feed/index.php', 'c', $calendar);
 }
 $self_url = Horde::applicationUrl($self_url, true, -1);
 

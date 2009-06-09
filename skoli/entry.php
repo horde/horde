@@ -12,7 +12,6 @@
 
 @define('SKOLI_BASE', dirname(__FILE__));
 require_once SKOLI_BASE . '/lib/base.php';
-require_once 'Horde/Variables.php';
 require_once 'Horde/UI/Tabs.php';
 
 // Exit if this isn't an authenticated user.
@@ -21,7 +20,7 @@ if (!Auth::getAuth()) {
     exit;
 }
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $driver = &Skoli_Driver::singleton();
 $entry = $driver->getEntry($vars->get('entry'));
 if (is_a($entry, 'PEAR_Error') || !count($entry)) {
@@ -34,14 +33,14 @@ $share = $GLOBALS['skoli_shares']->getShare($entry['class_id']);
 // Check permissions
 if (!$share->hasPermission(Auth::getAuth(), PERMS_READ)) {
     $notification->push(_("You are not allowed to view this entry."), 'horde.error');
-    header('Location: ' . Util::addParameter(Horde::applicationUrl('search.php', true), 'actionID', 'search'));
+    header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('search.php', true), 'actionID', 'search'));
     exit;
 }
 
 $studentdetails = Skoli::getStudent($share->get('address_book'), $entry['student_id']);
 
 // Get view.
-$viewName = Util::getFormData('view', 'Entry');
+$viewName = Horde_Util::getFormData('view', 'Entry');
 
 if ($viewName != 'DeleteEntry') {
     require_once SKOLI_BASE . '/lib/Forms/Entry.php';
@@ -64,7 +63,7 @@ if ($viewName != 'DeleteEntry') {
                 $notification->push(sprintf(_("Couldn't update this entry: %s"), $result->getMessage()), 'horde.error');
             } else {
                 $notification->push(sprintf(_("The entry for \"%s\" has been saved."), $studentdetails[$conf['addresses']['name_field']]), 'horde.success');
-                header('Location: ' . Util::addParameter(Horde::applicationUrl('search.php', true), 'actionID', 'search'));
+                header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('search.php', true), 'actionID', 'search'));
                 exit;
             }
         }
@@ -72,19 +71,19 @@ if ($viewName != 'DeleteEntry') {
 }
 
 // Entry actions.
-$actionID = Util::getFormData('actionID');
+$actionID = Horde_Util::getFormData('actionID');
 if ($actionID == 'delete') {
     if (is_a($deleted = $driver->deleteEntry($entry['object_id']), 'PEAR_Error')) {
         $notification->push(sprintf(_("There was an error deleting this entry: %s"), $deleted->getMessage()), 'horde.error');
     } else {
         $notification->push(sprintf(_("The entry for \"%s\" has been deleted."), $studentdetails[$conf['addresses']['name_field']]), 'horde.success');
-        header('Location: ' . Util::addParameter(Horde::applicationUrl('search.php', true), 'actionID', 'search'));
+        header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('search.php', true), 'actionID', 'search'));
         exit;
     }
 }
 
 // Get tabs.
-$url = Util::addParameter(Horde::applicationUrl('entry.php'), 'entry', $entry['object_id']);
+$url = Horde_Util::addParameter(Horde::applicationUrl('entry.php'), 'entry', $entry['object_id']);
 $tabs = new Horde_UI_Tabs('view', $vars);
 $tabs->addTab(_("View"), $url, array('tabname' => 'Entry', 'id' => 'tabEntry'));
 if ($share->hasPermission(Auth::getAuth(), PERMS_EDIT)) {

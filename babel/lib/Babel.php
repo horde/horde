@@ -57,7 +57,7 @@ class Babel {
 		continue;
 	    }
 	    
-	    if (Util::getFormData('module') == $app) {
+	    if (Horde_Util::getFormData('module') == $app) {
 		$html .= '<option class="control" value="' . $app . '" selected>' .  '+ ' . $desc;
 	    } else {
 		$html .= '<option value="' . $app . '">' . '&#8211; ' . $desc;

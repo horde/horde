@@ -2,7 +2,7 @@
 
 <?php $flags_val = $prefs->getValue('filter_seen') ?>
 <form method="post" name="filtersettings" action="filters.php">
-<?php Util::pformInput() ?>
+<?php Horde_Util::pformInput() ?>
 <input type="hidden" name="actionID" value="settings_save" />
 <h1 class="header">
  <?php echo _("Additional Settings") ?>

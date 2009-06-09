@@ -52,16 +52,16 @@ class Kronolith_View_EditEvent {
         }
         $_SESSION['kronolith']['attendees'] = $this->event->getAttendees();
 
-        if ($datetime = Util::getFormData('datetime')) {
+        if ($datetime = Horde_Util::getFormData('datetime')) {
             $datetime = new Horde_Date($datetime);
             $month = $datetime->month;
             $year = $datetime->year;
         } else {
-            $month = Util::getFormData('month', date('n'));
-            $year = Util::getFormData('year', date('Y'));
+            $month = Horde_Util::getFormData('month', date('n'));
+            $year = Horde_Util::getFormData('year', date('Y'));
         }
 
-        $url = Util::getFormData('url');
+        $url = Horde_Util::getFormData('url');
         $perms = PERMS_EDIT;
         if ($this->event->getCreatorId() == Auth::getAuth()) {
             $perms |= PERMS_DELEGATE;
@@ -92,7 +92,7 @@ class Kronolith_View_EditEvent {
         if (isset($url)) {
             $cancelurl = $url;
         } else {
-            $cancelurl = Util::addParameter('month.php', array('month' => $month,
+            $cancelurl = Horde_Util::addParameter('month.php', array('month' => $month,
                                                                'year', $year));
             $cancelurl = Horde::applicationUrl($cancelurl, true);
         }

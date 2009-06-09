@@ -32,14 +32,14 @@ require_once 'Horde/Identity.php';
 /* The message text and headers. */
 $msg = '';
 $header = array(
-    'in_reply_to' => Util::getFormData('in_reply_to'),
-    'references' => Util::getFormData('references')
+    'in_reply_to' => Horde_Util::getFormData('in_reply_to'),
+    'references' => Horde_Util::getFormData('references')
 );
 
 /* Set the current identity. */
 $identity = &Identity::singleton(array('imp', 'imp'));
 if (!$prefs->isLocked('default_identity')) {
-    $identity_id = Util::getFormData('identity');
+    $identity_id = Horde_Util::getFormData('identity');
     if (!is_null($identity_id)) {
         $identity->setDefault($identity_id);
     }
@@ -47,8 +47,8 @@ if (!$prefs->isLocked('default_identity')) {
 
 $save_sent_mail = $prefs->getValue('save_sent_mail');
 $sent_mail_folder = $identity->getValue('sent_mail_folder');
-$index = Util::getFormData('index');
-$thismailbox = Util::getFormData('thismailbox');
+$index = Horde_Util::getFormData('index');
+$thismailbox = Horde_Util::getFormData('thismailbox');
 $resume_draft = false;
 
 /* Determine if mailboxes are readonly. */
@@ -66,10 +66,10 @@ $compose_disable = !empty($conf['hooks']['disable_compose']) &&
 NLS::setTimeZone();
 
 /* Initialize the IMP_Compose:: object. */
-$imp_compose = &IMP_Compose::singleton(Util::getFormData('composeCache'));
+$imp_compose = &IMP_Compose::singleton(Horde_Util::getFormData('composeCache'));
 
 /* Run through the action handlers. */
-$actionID = Util::getFormData('a');
+$actionID = Horde_Util::getFormData('a');
 switch ($actionID) {
 // 'd' = draft
 case 'd':
@@ -91,15 +91,15 @@ case 'd':
     break;
 
 case _("Expand Names"):
-    $action = Util::getFormData('action');
+    $action = Horde_Util::getFormData('action');
     $imp_ui = new IMP_UI_Compose();
-    $header['to'] = $imp_ui->expandAddresses(Util::getFormData('to'), $imp_compose);
+    $header['to'] = $imp_ui->expandAddresses(Horde_Util::getFormData('to'), $imp_compose);
     if ($action !== 'rc') {
         if ($prefs->getValue('compose_cc')) {
-            $header['cc'] = $imp_ui->expandAddresses(Util::getFormData('cc'), $imp_compose);
+            $header['cc'] = $imp_ui->expandAddresses(Horde_Util::getFormData('cc'), $imp_compose);
         }
         if ($prefs->getValue('compose_bcc')) {
-            $header['bcc'] = $imp_ui->expandAddresses(Util::getFormData('bcc'), $imp_compose);
+            $header['bcc'] = $imp_ui->expandAddresses(Horde_Util::getFormData('bcc'), $imp_compose);
         }
     }
     if (!is_null($action)) {
@@ -117,7 +117,7 @@ case 'rl':
         break;
     }
     $actions = array('r' => 'reply', 'ra' => 'reply_all', 'rl' => 'reply_list');
-    $reply_msg = $imp_compose->replyMessage($actions[$actionID], $imp_contents, Util::getFormData('to'));
+    $reply_msg = $imp_compose->replyMessage($actions[$actionID], $imp_contents, Horde_Util::getFormData('to'));
     $header = $reply_msg['headers'];
     break;
 
@@ -137,7 +137,7 @@ case _("Redirect"):
 
     $imp_ui = new IMP_UI_Compose();
 
-    $f_to = $imp_ui->getAddressList(Util::getFormData('to'));
+    $f_to = $imp_ui->getAddressList(Horde_Util::getFormData('to'));
 
     try {
         $imp_ui->redirectMessage($f_to, $imp_compose, $imp_contents, NLS::getEmailCharset());
@@ -156,12 +156,12 @@ case _("Send"):
     if ($compose_disable) {
         break;
     }
-    $message = Util::getFormData('message', '');
-    $f_to = Util::getFormData('to');
+    $message = Horde_Util::getFormData('message', '');
+    $f_to = Horde_Util::getFormData('to');
     $f_cc = $f_bcc = null;
     $header = array();
 
-    if ($ctype = Util::getFormData('ctype')) {
+    if ($ctype = Horde_Util::getFormData('ctype')) {
         if (!($imp_contents = &_getIMPContents($index, $thismailbox))) {
             break;
         }
@@ -188,21 +188,21 @@ case _("Send"):
     }
 
     try {
-        $header['from'] = $identity->getFromLine(null, Util::getFormData('from'));
+        $header['from'] = $identity->getFromLine(null, Horde_Util::getFormData('from'));
     } catch (Horde_Exception $e) {
         $header['from'] = '';
     }
     $header['replyto'] = $identity->getValue('replyto_addr');
-    $header['subject'] = Util::getFormData('subject');
+    $header['subject'] = Horde_Util::getFormData('subject');
 
     $imp_ui = new IMP_UI_Compose();
 
-    $header['to'] = $imp_ui->getAddressList(Util::getFormData('to'));
+    $header['to'] = $imp_ui->getAddressList(Horde_Util::getFormData('to'));
     if ($prefs->getValue('compose_cc')) {
-        $header['cc'] = $imp_ui->getAddressList(Util::getFormData('cc'));
+        $header['cc'] = $imp_ui->getAddressList(Horde_Util::getFormData('cc'));
     }
     if ($prefs->getValue('compose_bcc')) {
-        $header['bcc'] = $imp_ui->getAddressList(Util::getFormData('bcc'));
+        $header['bcc'] = $imp_ui->getAddressList(Horde_Util::getFormData('bcc'));
     }
 
     $options = array(
@@ -210,12 +210,12 @@ case _("Send"):
         'sent_folder' => $sent_mail_folder,
         'reply_type' => $ctype,
         'reply_index' => empty($index) ? null : $index . IMP::IDX_SEP . $thismailbox,
-        'readreceipt' => Util::getFormData('request_read_receipt')
+        'readreceipt' => Horde_Util::getFormData('request_read_receipt')
     );
 
     try {
         if ($imp_compose->buildAndSendMessage($message, $header, NLS::getEmailCharset(), false, $options)) {
-            if (Util::getFormData('resume_draft') &&
+            if (Horde_Util::getFormData('resume_draft') &&
                 $prefs->getValue('auto_delete_drafts')) {
                 $imp_message = &IMP_Message::singleton();
                 $idx_array = array($index . IMP::IDX_SEP . $thismailbox);
@@ -242,11 +242,11 @@ $select_list = $identity->getSelectList();
 
 /* Grab any data that we were supplied with. */
 if (empty($msg)) {
-    $msg = Util::getFormData('message', '');
+    $msg = Horde_Util::getFormData('message', '');
 }
 foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
     if (empty($header[$val])) {
-        $header[$val] = Util::getFormData($val);
+        $header[$val] = Horde_Util::getFormData($val);
     }
 }
 

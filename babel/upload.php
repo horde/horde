@@ -12,7 +12,7 @@
 @define('BABEL_BASE', dirname(__FILE__)) ;
 require_once BABEL_BASE . '/lib/base.php';
 
-$vars = &Variables::getDefaultVariables();
+$vars = &Horde_Variables::getDefaultVariables();
 
 /* Create upload form */
 $form = &new Horde_Form($vars, _("Upload new Translation"), 'upload');
@@ -22,7 +22,7 @@ $form->addVariable(_("Translations File (.PO)"), 'po_file', 'file', true, false)
 $form->addVariable('', '', 'spacer', true);
 
 /* Validate form if submitted */
-if (Util::getFormData('submitbutton') == _("Upload")) {
+if (Horde_Util::getFormData('submitbutton') == _("Upload")) {
     if ($form->validate($vars, false)) {
 	$form->getInfo($vars, $form_values);
 	

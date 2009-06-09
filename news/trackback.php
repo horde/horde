@@ -22,12 +22,12 @@ header('Content-type: text/xml');
 
 /* Try to create object */
 $trackback_data = array(
-    'id'        => Util::getFormData('id'),
+    'id'        => Horde_Util::getFormData('id'),
     'host'      => $_SERVER['REMOTE_ADDR'],
-    'title'     => Util::getFormData('title'),
-    'excerpt'   => Util::getFormData('excerpt'),
-    'url'       => Util::getFormData('url'),
-    'blog_name' => Util::getFormData('blog_name')
+    'title'     => Horde_Util::getFormData('title'),
+    'excerpt'   => Horde_Util::getFormData('excerpt'),
+    'url'       => Horde_Util::getFormData('url'),
+    'blog_name' => Horde_Util::getFormData('blog_name')
 );
 
 $trackback = News::loadTrackback($trackback_data);

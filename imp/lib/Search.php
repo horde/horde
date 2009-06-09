@@ -590,7 +590,7 @@ class IMP_Search
     public function editURL($id = null)
     {
         $id = $this->_strip($id);
-        return Util::addParameter(Horde::applicationUrl('search.php'), array('edit_query' => $id));
+        return Horde_Util::addParameter(Horde::applicationUrl('search.php'), array('edit_query' => $id));
     }
 
     /**
@@ -604,7 +604,7 @@ class IMP_Search
     public function deleteURL($id = null)
     {
         $id = $this->_strip($id);
-        return Util::addParameter(Horde::applicationUrl('folders.php'),
+        return Horde_Util::addParameter(Horde::applicationUrl('folders.php'),
                                   array('actionID' => 'delete_search_query',
                                         'folders_token' => IMP::getRequestToken('imp.folders'),
                                         'queryid' => $id,

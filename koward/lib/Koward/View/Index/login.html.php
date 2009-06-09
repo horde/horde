@@ -11,7 +11,7 @@
 
 <tr>
     <td class="light rightAlign"><strong><?php echo Horde::label('horde_user', _("Username")) ?></strong>&nbsp;</td>
-    <td class="leftAlign"><input type="text" id="horde_user" name="horde_user" value="<?php echo htmlspecialchars(Util::getFormData('horde_user')) ?>" style="direction:ltr" /></td>
+    <td class="leftAlign"><input type="text" id="horde_user" name="horde_user" value="<?php echo htmlspecialchars(Horde_Util::getFormData('horde_user')) ?>" style="direction:ltr" /></td>
 </tr>
 
 <tr>

@@ -26,7 +26,7 @@ if (!count(Skoli_School::listAddressBooks())) {
     exit;
 }
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $form = new Skoli_CreateClassForm($vars);
 
 // Execute if the form is valid.

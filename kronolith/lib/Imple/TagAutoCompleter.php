@@ -100,7 +100,7 @@ class Kronolith_Imple_TagAutoCompleter extends Kronolith_Imple
     {
         // Avoid errors if 'input' isn't set and short-circuit empty searches.
         if (empty($args['input']) ||
-            !($input = Util::getFormData($args['input']))) {
+            !($input = Horde_Util::getFormData($args['input']))) {
             return array();
         }
         return array_map('htmlspecialchars', $this->getTagList($input));

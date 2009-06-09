@@ -8,8 +8,8 @@
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-if (!Util::getFormData('cancel')) {
-    $targetcalendar = Util::getFormData('targetcalendar');
+if (!Horde_Util::getFormData('cancel')) {
+    $targetcalendar = Horde_Util::getFormData('targetcalendar');
     if (strpos($targetcalendar, ':')) {
         list($calendar_id, $user) = explode(':', $targetcalendar, 2);
     } else {
@@ -39,7 +39,7 @@ if (!Util::getFormData('cancel')) {
 
             $notification->push(sprintf(_("There was an error adding the event: %s"), $message), 'horde.error');
         } else {
-            if (Util::getFormData('sendupdates', false)) {
+            if (Horde_Util::getFormData('sendupdates', false)) {
                 $event = Kronolith::getDriver()->getEvent($result);
                 if (is_a($event, 'PEAR_Error')) {
                     $notification->push($event, 'horde.error');
@@ -51,11 +51,11 @@ if (!Util::getFormData('cancel')) {
     }
 }
 
-if ($url = Util::getFormData('url')) {
+if ($url = Horde_Util::getFormData('url')) {
     header('Location: ' . $url);
 } else {
-    $url = Util::addParameter($prefs->getValue('defaultview') . '.php',
-                              array('month' => Util::getFormData('month'),
-                                    'year' => Util::getFormData('year')));
+    $url = Horde_Util::addParameter($prefs->getValue('defaultview') . '.php',
+                              array('month' => Horde_Util::getFormData('month'),
+                                    'year' => Horde_Util::getFormData('year')));
     header('Location: ' . Horde::applicationUrl($url, true));
 }

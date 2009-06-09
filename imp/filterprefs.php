@@ -27,36 +27,36 @@ $anymailbox_locked = $prefs->isLocked('filter_any_mailbox') || empty($_SESSION['
 $menuitem_locked = $prefs->isLocked('filter_menuitem');
 
 /* Run through the action handlers. */
-$actionID = Util::getFormData('actionID');
+$actionID = Horde_Util::getFormData('actionID');
 switch ($actionID) {
 case 'update_prefs':
     if (!$login_locked) {
-        $prefs->setValue('filter_on_login', Util::getFormData('filter_login') ? 1 : 0);
+        $prefs->setValue('filter_on_login', Horde_Util::getFormData('filter_login') ? 1 : 0);
     }
     if (!$display_locked) {
-        $prefs->setValue('filter_on_display', Util::getFormData('filter_display') ? 1 : 0);
+        $prefs->setValue('filter_on_display', Horde_Util::getFormData('filter_display') ? 1 : 0);
     }
     if (!$sidebar_locked) {
-        $prefs->setValue('filter_on_sidebar', Util::getFormData('filter_sidebar') ? 1 : 0);
+        $prefs->setValue('filter_on_sidebar', Horde_Util::getFormData('filter_sidebar') ? 1 : 0);
     }
     if (!$anymailbox_locked) {
-        $prefs->setValue('filter_any_mailbox', Util::getFormData('filter_any_mailbox') ? 1 : 0);
+        $prefs->setValue('filter_any_mailbox', Horde_Util::getFormData('filter_any_mailbox') ? 1 : 0);
     }
     if (!$menuitem_locked) {
-        $prefs->setValue('filter_menuitem', Util::getFormData('filter_menuitem') ? 1 : 0);
+        $prefs->setValue('filter_menuitem', Horde_Util::getFormData('filter_menuitem') ? 1 : 0);
     }
     $notification->push(_("Preferences successfully updated."), 'horde.success');
     break;
 }
 
 $app = 'imp';
-$chunk = Util::nonInputVar('chunk');
+$chunk = Horde_Util::nonInputVar('chunk');
 $group = 'filters';
 Prefs_UI::generateHeader(null, $chunk);
 
 $t = new IMP_Template();
 $t->setOption('gettext', true);
-$t->set('navcell', Util::bufferOutput(array('Prefs_UI', 'generateNavigationCell'), 'filters'));
+$t->set('navcell', Horde_Util::bufferOutput(array('Prefs_UI', 'generateNavigationCell'), 'filters'));
 $t->set('prefsurl', IMP::prefsURL(true));
 $t->set('return_text', _("Return to Options"));
 
@@ -77,7 +77,7 @@ if (!$blacklist_link && !$whitelist_link && !$filters_link) {
     $t->set('notactive', true);
 } else {
     $t->set('selfurl', Horde::applicationUrl('filterprefs.php'));
-    $t->set('forminput', Util::formInput());
+    $t->set('forminput', Horde_Util::formInput());
     $t->set('group', $group);
     $t->set('app', $app);
 

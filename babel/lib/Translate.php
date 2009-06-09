@@ -511,7 +511,7 @@ class Translate {
 	    }
 	    if (!empty($module) && $module != $apps[$i]) { continue; }
 	    $package = ucfirst($apps[$i]);
-	    $package_u = String::upper($apps[$i]);
+	    $package_u = Horde_String::upper($apps[$i]);
 	    @include $dirs[$i] . '/lib/version.php';
 	    $version = eval('return(defined("' . $package_u . '_VERSION") ? ' . $package_u . '_VERSION : "???");');
 	    Translate_Display::header(sprintf(_("Initializing module %s..."), $apps[$i]));

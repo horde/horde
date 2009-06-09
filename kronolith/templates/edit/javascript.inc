@@ -1,7 +1,7 @@
 <script type="text/javascript">
 KronolithEventForm = new Object();
 
-<?php if (!Util::nonInputVar('issearch')): ?>
+<?php if (!Horde_Util::nonInputVar('issearch')): ?>
 KronolithEventForm.setInterval = function(field)
 {
     elt = document.eventform[field];
@@ -79,7 +79,7 @@ KronolithEventForm.updateWday = function(span)
         day = $('end_day').value;
         month = $('end_month').value - 1;
         year = $('end_year').value;
-<?php if (!Util::nonInputVar('issearch')): ?>
+<?php if (!Horde_Util::nonInputVar('issearch')): ?>
     } else if (span == 'recur_end_wday') {
         spanObj = $('recur_end_wday');
         day = $('recur_enddate_day').value;
@@ -248,7 +248,7 @@ KronolithEventForm.setStartDate = function(date)
     $('su').checked = false;
 }
 
-<?php if (Util::getFormData('allday') == 1): ?>
+<?php if (Horde_Util::getFormData('allday') == 1): ?>
 Event.observe(window, 'load', function() {
     $('allday').click;
 });

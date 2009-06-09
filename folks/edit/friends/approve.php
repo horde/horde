@@ -18,7 +18,7 @@ if (!Auth::isAuthenticated()) {
     Horde::authenticationFailureRedirect();
 }
 
-$user = Util::getGet('user');
+$user = Horde_Util::getGet('user');
 if (empty($user)) {
     $notification->push(_("You must supply a username."));
     header('Location: ' . Horde::applicationUrl('edit/friends/index.php'));

@@ -15,24 +15,24 @@ require_once dirname(__FILE__) . '/lib/base.php';
 /* Initialize Fetchmail libraries. */
 $fm_account = new IMP_Fetchmail_Account();
 
-$driver = Util::getFormData('fm_driver');
+$driver = Horde_Util::getFormData('fm_driver');
 $fetch_url = Horde::applicationUrl('fetchmailprefs.php');
-$prefs_url = Util::addParameter(IMP::prefsURL(true), 'group', 'fetchmail', false);
+$prefs_url = Horde_Util::addParameter(IMP::prefsURL(true), 'group', 'fetchmail', false);
 $to_edit = null;
 
 /* Handle clients without javascript. */
-$actionID = Util::getFormData('actionID');
+$actionID = Horde_Util::getFormData('actionID');
 if ($actionID === null) {
-    if (Util::getPost('edit')) {
+    if (Horde_Util::getPost('edit')) {
         $actionID = 'fetchmail_prefs_edit';
-    } elseif (Util::getPost('save')) {
+    } elseif (Horde_Util::getPost('save')) {
         $actionID = 'fetchmail_prefs_save';
-    } elseif (Util::getPost('delete')) {
+    } elseif (Horde_Util::getPost('delete')) {
         $actionID = 'fetchmail_prefs_delete';
-    } elseif (Util::getPost('back')) {
+    } elseif (Horde_Util::getPost('back')) {
         header('Location: ' . $prefs_url);
         exit;
-    } elseif (Util::getPost('select')) {
+    } elseif (Horde_Util::getPost('select')) {
         header('Location: ' . $fetch_url);
         exit;
     }
@@ -47,26 +47,26 @@ case 'fetchmail_create':
     break;
 
 case 'fetchmail_prefs_edit':
-    $to_edit = Util::getFormData('account');
+    $to_edit = Horde_Util::getFormData('account');
     $driver = $fm_account->getValue('driver', $to_edit);
     $fetchmail = IMP_Fetchmail::factory($driver, array());
     break;
 
 case 'fetchmail_prefs_save':
-    $to_edit = Util::getFormData('edit_account');
+    $to_edit = Horde_Util::getFormData('edit_account');
     if ($to_edit == '') {
         $to_edit = $fm_account->add();
     }
 
     $fetchmail = IMP_Fetchmail::factory($driver, array());
 
-    $id = Util::getFormData('fm_id');
+    $id = Horde_Util::getFormData('fm_id');
     if (empty($id)) {
         $id = _("Unnamed");
     }
 
     foreach ($fetchmail->getParameterList() as $val) {
-        $fm_account->setValue($val, ($val == 'id') ? $id : Util::getFormData('fm_' . $val), $to_edit);
+        $fm_account->setValue($val, ($val == 'id') ? $id : Horde_Util::getFormData('fm_' . $val), $to_edit);
     }
 
     $prefs->setValue('fetchmail_login', (bool)array_sum($fm_account->getAll('loginfetch')));
@@ -75,7 +75,7 @@ case 'fetchmail_prefs_save':
     break;
 
 case 'fetchmail_prefs_delete':
-    $to_delete = Util::getFormData('edit_account');
+    $to_delete = Horde_Util::getFormData('edit_account');
     if ($to_delete !== null) {
         $deleted_account = $fm_account->delete($to_delete);
         $notification->push(sprintf(_("The account \"%s\" has been deleted."), $deleted_account['id']), 'horde.success');
@@ -95,15 +95,15 @@ if (is_a($result, 'PEAR_Error')) {
 extract($result);
 
 $app = 'imp';
-$chunk = Util::nonInputVar('chunk');
+$chunk = Horde_Util::nonInputVar('chunk');
 
 /* Prepare template. */
 $t = new IMP_Template();
 $t->setOption('gettext', true);
-$t->set('navcell', Util::bufferOutput(array('Prefs_UI', 'generateNavigationCell'), 'fetchmail'));
+$t->set('navcell', Horde_Util::bufferOutput(array('Prefs_UI', 'generateNavigationCell'), 'fetchmail'));
 $t->set('fetchurl', $fetch_url);
 $t->set('prefsurl', $prefs_url);
-$t->set('forminput', Util::formInput());
+$t->set('forminput', Horde_Util::formInput());
 
 if (empty($actionID)) {
     /* If actionID is still empty, we haven't selected an account yet. */

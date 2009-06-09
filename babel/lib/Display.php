@@ -72,7 +72,7 @@ class Translate_Display {
 	$f = array('/&lt;/', '/&gt;/');
 	$t = array('<', '>');
 	$msg = preg_replace($f, $t, $msg);
-	return String::convertCharset(html_entity_decode($msg), NLS::getCharset(), Translate_Display::parseCharset($po->meta['Content-Type']));
+	return Horde_String::convertCharset(html_entity_decode($msg), NLS::getCharset(), Translate_Display::parseCharset($po->meta['Content-Type']));
     }
     
     function display_string($msg) {
@@ -81,7 +81,7 @@ class Translate_Display {
 	$f = array('/</', '/>/');
 	$t = array('&lt;', '&gt;');
 	$msg = preg_replace($f, $t, $msg);
-	return String::convertCharset($msg, Translate_Display::parseCharset($po->meta['Content-Type']), NLS::getCharset());
+	return Horde_String::convertCharset($msg, Translate_Display::parseCharset($po->meta['Content-Type']), NLS::getCharset());
     }
     
     function get_percent($used, $total) {

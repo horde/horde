@@ -49,7 +49,7 @@ $subscribe_url_base = $webdav ?
     Horde::url($registry->get('webroot', 'horde')
                . ($rewrite ? '/rpc/kronolith/' : '/rpc.php/kronolith/'),
                true, -1) :
-    Util::addParameter(Horde::applicationUrl('ics.php', true, -1), 'c', '');
+    Horde_Util::addParameter(Horde::applicationUrl('ics.php', true, -1), 'c', '');
 
 $calendars = array();
 $sorted_calendars = array();

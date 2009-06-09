@@ -13,17 +13,16 @@
 
 require_once dirname(__FILE__) . '/lib/base.php';
 require_once FOLKS_BASE . '/lib/Forms/Search.php';
-require_once 'Horde/Variables.php';
 
 $title = _("Search");
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $form = new Folks_Search_Form($vars, $title, 'search');
 
 if (isset($_SESSION['folks']['last_search']) && !$form->isSubmitted()) {
     $criteria = unserialize($_SESSION['folks']['last_search']);
 }
-if (Util::getGet('query') && !$form->isSubmitted()) {
-    $criteria = $folks_driver->getSearchCriteria(Util::getGet('query'));
+if (Horde_Util::getGet('query') && !$form->isSubmitted()) {
+    $criteria = $folks_driver->getSearchCriteria(Horde_Util::getGet('query'));
     if ($criteria instanceof PEAR_Error) {
         $notification->push($criteria);
         $criteria = array();
@@ -40,19 +39,19 @@ if (!empty($criteria)) {
         $count = 0;
     }
 
-    if (($sort_by = Util::getFormData('sort_by')) !== null) {
+    if (($sort_by = Horde_Util::getFormData('sort_by')) !== null) {
         $criteria['sort_by'] = $sort_by;
     } else {
         $criteria['sort_by'] = $prefs->getValue('sort_by');
     }
 
-    if (($sort_dir = Util::getFormData('sort_dir')) !== null) {
+    if (($sort_dir = Horde_Util::getFormData('sort_dir')) !== null) {
         $criteria['sort_dir'] = $sort_dir;
     } else {
         $criteria['sort_dir'] = $prefs->getValue('sort_dir');
     }
 
-    $page = Util::getGet('page', 0);
+    $page = Horde_Util::getGet('page', 0);
     $perpage = $prefs->getValue('per_page');
     $users = $folks_driver->getUsers($criteria, $page * $perpage, $perpage);
     if ($users instanceof PEAR_Error) {
@@ -60,7 +59,7 @@ if (!empty($criteria)) {
         $users = array();
     }
 
-    $vars = Variables::getDefaultVariables();
+    $vars = Horde_Variables::getDefaultVariables();
     $pager = new Horde_UI_Pager('page',
                                 $vars, array('num' => $count,
                                             'url' => 'search.php',

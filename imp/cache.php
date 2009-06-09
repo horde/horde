@@ -19,10 +19,10 @@
  * DEFAULT: 525600 = 1 year */
 $expire_time = 525600;
 
-// Need to load Util:: to give us access to Util::getPathInfo().
+// Need to load Horde_Util:: to give us access to Horde_Util::getPathInfo().
 require_once dirname(__FILE__) . '/lib/base.load.php';
 require_once HORDE_BASE . '/lib/core.php';
-$path_info = trim(Util::getPathInfo(), '/');
+$path_info = trim(Horde_Util::getPathInfo(), '/');
 if (empty($path_info)) {
     exit;
 }

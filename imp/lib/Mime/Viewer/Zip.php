@@ -26,7 +26,7 @@ class IMP_Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Zip
      */
     protected function _render()
     {
-        if (!Util::getFormData('zip_attachment')) {
+        if (!Horde_Util::getFormData('zip_attachment')) {
             $this->_callback = array(&$this, '_IMPcallback');
             return parent::_render();
         }
@@ -35,7 +35,7 @@ class IMP_Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Zip
          * in 'zip_attachment'. */
         $data = $this->_mimepart->getContents();
         $zip = &Horde_Compress::singleton('zip');
-        $fileKey = Util::getFormData('zip_attachment') - 1;
+        $fileKey = Horde_Util::getFormData('zip_attachment') - 1;
         $zipInfo = $zip->decompress($data, array('action' => HORDE_COMPRESS_ZIP_LIST));
 
         /* Verify that the requested file exists. */
@@ -81,7 +81,7 @@ class IMP_Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Zip
         $name = preg_replace('/(&nbsp;)+$/', '', $val['name']);
 
         if (!empty($val['size']) && (strstr($val['attr'], 'D') === false) &&
-            ((($val['method'] == 0x8) && Util::extensionExists('zlib')) ||
+            ((($val['method'] == 0x8) && Horde_Util::extensionExists('zlib')) ||
              ($val['method'] == 0x0))) {
             $mime_part = $this->_mimepart;
             $mime_part->setName(basename($name));

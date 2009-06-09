@@ -1,7 +1,4 @@
 <?php
-
-require_once 'Horde/Variables.php';
-
 /**
  * News search form
  *
@@ -67,7 +64,7 @@ class News_Search extends Horde_Form {
     static public function getPager($info, $count, $url)
     {
         $pager = new Horde_UI_Pager('news_page',
-                                    Variables::getDefaultVariables(),
+                                    Horde_Variables::getDefaultVariables(),
                                     array('num' => $count,
                                           'url' => $url,
                                           'page_count' => 10,
@@ -88,7 +85,7 @@ class News_Search extends Horde_Form {
     /**
      * Fetch the field values of the submitted form.
      *
-     * @param Variables $vars  A Variables instance, optional since Horde 3.2.
+     * @param Horde_Variables $vars  A Horde_Variables instance, optional since Horde 3.2.
      * @param array $info      Array to be filled with the submitted field
      *                         values.
      */
@@ -104,7 +101,7 @@ class News_Search extends Horde_Form {
      *
      * @param array  $variables  An array of Horde_Form_Variable objects to
      *                           fetch from.
-     * @param object $vars       The Variables object.
+     * @param object $vars       The Horde_Variables object.
      * @param array  $info       The array to be filled with the submitted
      *                           field values.
      */

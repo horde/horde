@@ -337,7 +337,7 @@ class Folks_Driver {
         }
 
         $profile = $GLOBALS['cache']->get('folksProfile' . $user, $GLOBALS['conf']['cache']['default_lifetime']);
-        if ($profile || (Auth::isAdmin() && Util::getGet('debug'))) {
+        if ($profile || (Auth::isAdmin() && Horde_Util::getGet('debug'))) {
 
             $profile = unserialize($profile);
 

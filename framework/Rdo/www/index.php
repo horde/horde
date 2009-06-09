@@ -23,10 +23,9 @@ if (!Auth::isAdmin()) {
 
 require_once 'Horde/Form.php';
 require_once 'Horde/Form/Renderer.php';
-require_once 'Horde/Variables.php';
 require_once 'Horde/Array.php';
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 
 $dbh = DB::connect($conf['sql']);
 $tables = $dbh->getListOf('tables');

@@ -19,8 +19,8 @@ try {
 }
 
 /* Initialise the form variables correctly. */
-$r1 = Util::getFormData('r1');
-$r2 = Util::getFormData('r2');
+$r1 = Horde_Util::getFormData('r1');
+$r2 = Horde_Util::getFormData('r2');
 
 /* Ensure that we have valid revision numbers. */
 if (!$VC->isValidRevision($r1) || !$VC->isValidRevision($r2)) {
@@ -28,15 +28,15 @@ if (!$VC->isValidRevision($r1) || !$VC->isValidRevision($r2)) {
 }
 
 /* If no type has been specified, then default to human readable. */
-$type = Util::getFormData('t', 'colored');
-if (Util::getFormData('ty') == 'u') {
+$type = Horde_Util::getFormData('t', 'colored');
+if (Horde_Util::getFormData('ty') == 'u') {
     $type = 'unified';
 }
 
 /* Unless otherwise specified, show whitespace differences and 3 lines
  * of context. */
-$ws = Util::getFormData('ws', 1);
-$num = (int)Util::getFormData('num', 3);
+$ws = Horde_Util::getFormData('ws', 1);
+$num = (int)Horde_Util::getFormData('num', 3);
 
 /* Cache the output of the diff for a week - it can be longer, since
  * it should never change. */

@@ -8,7 +8,7 @@
 <a href="<?php echo News::getImageUrl($id, 'big'); ?>" target="_blank" title="<?php echo _("Click for full picture") ?>">
     <img src="<?php echo News::getImageUrl($id, 'small'); ?>" style="height: 50px; width: 50px;" />
 </a><br />
-<a href="<?php echo Util::addParameter($browse_url, array('id' => $id, 'actionID' => 'deletepicture')) ?>" onclick="confirm('<?php echo _("Do you really want to delete this picture?") ?>');"><?php echo _("Delete picture") ?></a>
+<a href="<?php echo Horde_Util::addParameter($browse_url, array('id' => $id, 'actionID' => 'deletepicture')) ?>" onclick="confirm('<?php echo _("Do you really want to delete this picture?") ?>');"><?php echo _("Delete picture") ?></a>
 <?php endif; ?>
 </td>
 <td>
@@ -102,13 +102,13 @@ if (sizeof($versions)>0) {
         }
         echo _(" by ") . $version['user_uid'] . _(" at ") . $version['created'] . "\n(";
 
-        $url = Util::addParameter(Horde::applicationUrl('news.php'), array('id' => $id, 'version' => $version['version']));
+        $url = Horde_Util::addParameter(Horde::applicationUrl('news.php'), array('id' => $id, 'version' => $version['version']));
         echo Horde::link($url, _("View"), '', '_blank', '', _("View")) . _("View") . '</a> | ';
 
-        $url = Util::addParameter(Horde::applicationUrl('edit.php'), array('id' => $id, 'actionID' => 'renew'));
-        echo Horde::link(Util::addParameter($url,'version', $version['version']),_("Renew")) . _("Renew") . '</a> | ';
+        $url = Horde_Util::addParameter(Horde::applicationUrl('edit.php'), array('id' => $id, 'actionID' => 'renew'));
+        echo Horde::link(Horde_Util::addParameter($url,'version', $version['version']),_("Renew")) . _("Renew") . '</a> | ';
 
-        $url = Util::addParameter(Horde::applicationUrl('diff.php'), array('id' => $id, 'version' => $version['version']));
+        $url = Horde_Util::addParameter(Horde::applicationUrl('diff.php'), array('id' => $id, 'version' => $version['version']));
         echo Horde::link('#', _("Diff"), '', '', "popup('$url')") . _("Diff") . '</a> ';
 
         echo ')<br />' . "\n";

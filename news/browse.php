@@ -17,15 +17,15 @@ require_once dirname(__FILE__) . '/lib/base.php';
 
 // Default vars
 $title = _("Browse");
-$page = Util::getGet('news_page', 0);
+$page = Horde_Util::getGet('news_page', 0);
 $per_page = $prefs->getValue('per_page');
 $browse_url = Horde::applicationUrl('browse.php');
-$cid = Util::getGet('cid');
+$cid = Horde_Util::getGet('cid');
 
 // Define creteria
 if (!empty($_GET)) {
     $criteria = $_GET;
-    $browse_url = Util::addParameter($browse_url, $_GET);
+    $browse_url = Horde_Util::addParameter($browse_url, $_GET);
 } else {
     $criteria = array();
 }

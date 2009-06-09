@@ -19,7 +19,6 @@ class ObjectController extends Koward_Controller_Application
     public function listall()
     {
         require_once 'Horde/UI/Tabs.php';
-        require_once 'Horde/Variables.php';
 
         $this->object_type = $this->params->get('id', $this->types[0]);
 
@@ -70,7 +69,7 @@ class ObjectController extends Koward_Controller_Application
             }
         }
 
-        $this->tabs = new Horde_UI_Tabs(null, Variables::getDefaultVariables());
+        $this->tabs = new Horde_UI_Tabs(null, Horde_Variables::getDefaultVariables());
         foreach ($this->koward->objects as $key => $configuration) {
             if (!$this->koward->hasAccess($this->getPermissionId() . '/' . $key)) {
                 continue;
@@ -139,8 +138,6 @@ class ObjectController extends Koward_Controller_Application
                 $this->koward->notification->push(_("The object that should be viewed has not been specified."),
                                                  'horde.error');
             } else {
-                require_once 'Horde/Variables.php';
-
                 $this->object = $this->koward->getObject($this->params->id);
 
                 $this->object_type = $this->koward->getType($this->object);
@@ -201,7 +198,7 @@ class ObjectController extends Koward_Controller_Application
                     }
                 }
 
-                $this->vars = Variables::getDefaultVariables();
+                $this->vars = Horde_Variables::getDefaultVariables();
                 $this->form = new Koward_Form_Object($this->vars, $this->object,
                                                     array('title' => _("View object")));
                 $this->edit = Horde::link(
@@ -241,8 +238,7 @@ class ObjectController extends Koward_Controller_Application
     {
         $this->object = null;
 
-        require_once 'Horde/Util.php';
-        $type = Util::getFormData('type');
+        $type = Horde_Util::getFormData('type');
 
         if (!empty($type)) {
             $this->checkAccess($this->getPermissionId() . '/' . $type,
@@ -277,8 +273,7 @@ class ObjectController extends Koward_Controller_Application
     private function _edit()
     {
         try {
-            require_once 'Horde/Variables.php';
-            $this->vars = Variables::getDefaultVariables();
+            $this->vars = Horde_Variables::getDefaultVariables();
             foreach ($this->params as $key => $value) {
                 if (!$this->vars->exists($key)) {
                     if (is_array($value) && count($value) == 1) {
@@ -314,8 +309,7 @@ class ObjectController extends Koward_Controller_Application
     public function search()
     {
         try {
-            require_once 'Horde/Variables.php';
-            $this->vars = Variables::getDefaultVariables();
+            $this->vars = Horde_Variables::getDefaultVariables();
             $this->form = new Koward_Form_Search($this->vars, $this->object);
 
             $this->allowEdit = $this->koward->hasAccess('object/edit',

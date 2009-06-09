@@ -59,7 +59,6 @@ require_once BABEL_BASE . '/lib/Gettext/PO.php';
 
 /* Form and Variables */
 require_once 'Horde/Form.php';
-require_once 'Horde/Variables.php';
 require_once 'Horde/Form/Renderer.php';
 require_once 'Horde/Form/Action.php';
 
@@ -72,10 +71,10 @@ require_once 'Horde/Template.php';
 $template = &new Horde_Template();
 
 /* Module selection */
-$app = Util::getFormData('module');
+$app = Horde_Util::getFormData('module');
   
 /* Language selection */
-if (($lang = Util::getFormData('display_language')) !== null) {
+if (($lang = Horde_Util::getFormData('display_language')) !== null) {
     $_SESSION['babel']['language'] = $lang;
 } elseif (isset($_SESSION['babel']['language'])) {
     $lang = $_SESSION['babel']['language'];
@@ -99,7 +98,7 @@ if (($lang = Util::getFormData('display_language')) !== null) {
 						  
 /* Set up the template fields. */
 $template->set('menu', Babel::getMenu('string'));
-$template->set('notify', Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
 $template->set('lang', Babel::displayLanguage());
 $fmenu = Babel::LanguageSelection();
 

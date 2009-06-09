@@ -41,7 +41,7 @@ class Horde_Block_skoli_tree_menu extends Horde_Block {
                                false,
                                array('icon' => 'add.png',
                                      'icondir' => $icondir,
-                                     'url' => Util::addParameter($add, array('class' => $name))));
+                                     'url' => Horde_Util::addParameter($add, array('class' => $name))));
             }
             $tree->addNode($parent . '__search',
                            $parent,

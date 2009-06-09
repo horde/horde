@@ -12,8 +12,8 @@
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-$folder = Util::getFormData('folder');
-$index = Util::getFormData('uid');
+$folder = Horde_Util::getFormData('folder');
+$index = Horde_Util::getFormData('uid');
 if (!$index || !$folder) {
     exit;
 }

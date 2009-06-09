@@ -45,7 +45,7 @@ class Maintenance_Kronolith extends Maintenance {
                 }
                 break;
             } elseif ($val['confirmed'] ||
-                      Util::getFormData($key . '_confirm')) {
+                      Horde_Util::getFormData($key . '_confirm')) {
                 /* Perform maintenance if confirmed. */
                 $mod = &$this->_loadModule($key);
                 $mod->doMaintenance();

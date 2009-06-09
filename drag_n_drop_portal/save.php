@@ -19,7 +19,7 @@ if (!Auth::isAuthenticated()) {
 }
 
 $layout = array();
-$params = Util::getPost('params');
+$params = Horde_Util::getPost('params');
 foreach ($_POST as $column => $rows) {
     if (substr($column, 0, 11) != 'widget_col_') {
         continue;

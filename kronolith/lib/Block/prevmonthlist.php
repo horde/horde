@@ -44,7 +44,7 @@ class Horde_Block_Kronolith_prevmonthlist extends Horde_Block {
         } else {
             $url_params = array();
         }
-        return Horde::link(Horde::url(Util::addParameter($GLOBALS['registry']->getInitialPage(), $url_params), true)) . _("Prior Events") . '</a>';
+        return Horde::link(Horde::url(Horde_Util::addParameter($GLOBALS['registry']->getInitialPage(), $url_params), true)) . _("Prior Events") . '</a>';
     }
 
     /**

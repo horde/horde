@@ -48,7 +48,7 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
         } else {
             $url_params = array();
         }
-        return Horde::link(Horde::url(Util::addParameter($registry->getInitialPage(), $url_params), true)) . htmlspecialchars($registry->get('name')) . '</a>';
+        return Horde::link(Horde::url(Horde_Util::addParameter($registry->getInitialPage(), $url_params), true)) . htmlspecialchars($registry->get('name')) . '</a>';
     }
 
     /**
@@ -148,7 +148,7 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
                         $url_params['display_cal'] = $this->_params['calendar'];
                     }
                     $daylink = Horde::applicationUrl('day.php', true);
-                    $daylink = Util::addParameter($daylink, $url_params);
+                    $daylink = Horde_Util::addParameter($daylink, $url_params);
                     $html .= Horde::link($daylink, sprintf(_("Goto %s"),
                                                            $dayname));
                     $html .= $dayname . '</a></strong></td></tr>';

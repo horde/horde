@@ -206,8 +206,8 @@ class Ingo_Storage_sql extends Ingo_Storage
                 $ob->setVacationEnd((int)$data['vacation_end']);
                 $ob->setVacationExcludes(explode("\n", $data['vacation_excludes']), false);
                 $ob->setVacationIgnorelist((bool)$data['vacation_ignorelists']);
-                $ob->setVacationReason(String::convertCharset($data['vacation_reason'], $this->_params['charset']));
-                $ob->setVacationSubject(String::convertCharset($data['vacation_subject'], $this->_params['charset']));
+                $ob->setVacationReason(Horde_String::convertCharset($data['vacation_reason'], $this->_params['charset']));
+                $ob->setVacationSubject(Horde_String::convertCharset($data['vacation_subject'], $this->_params['charset']));
                 $ob->setSaved(true);
             } elseif ($data = @unserialize($GLOBALS['prefs']->getDefault('vacation'))) {
                 $ob->setVacationAddresses($data['addresses'], false);
@@ -342,10 +342,10 @@ class Ingo_Storage_sql extends Ingo_Storage
             $query = sprintf($query, $this->_params['table_vacations']);
             $values = array(
                 implode("\n", $ob->getVacationAddresses()),
-                String::convertCharset($ob->getVacationSubject(),
+                Horde_String::convertCharset($ob->getVacationSubject(),
                                        NLS::getCharset(),
                                        $this->_params['charset']),
-                String::convertCharset($ob->getVacationReason(),
+                Horde_String::convertCharset($ob->getVacationReason(),
                                        NLS::getCharset(),
                                        $this->_params['charset']),
                 (int)$ob->getVacationDays(),
@@ -462,11 +462,11 @@ class Ingo_Storage_filters_sql extends Ingo_Storage_filters {
         while ($row = $result->fetchRow(DB_FETCHMODE_ASSOC)) {
             $data[$row['rule_order']] = array(
                 'id' => (int)$row['rule_id'],
-                'name' => String::convertCharset($row['rule_name'], $this->_params['charset']),
+                'name' => Horde_String::convertCharset($row['rule_name'], $this->_params['charset']),
                 'action' => (int)$row['rule_action'],
-                'action-value' => String::convertCharset($row['rule_value'], $this->_params['charset']),
+                'action-value' => Horde_String::convertCharset($row['rule_value'], $this->_params['charset']),
                 'flags' => (int)$row['rule_flags'],
-                'conditions' => empty($row['rule_conditions']) ? null : String::convertCharset(unserialize($row['rule_conditions']), $this->_params['charset']),
+                'conditions' => empty($row['rule_conditions']) ? null : Horde_String::convertCharset(unserialize($row['rule_conditions']), $this->_params['charset']),
                 'combine' => (int)$row['rule_combine'],
                 'stop' => (bool)$row['rule_stop'],
                 'disable' => !(bool)$row['rule_active']);
@@ -516,11 +516,11 @@ class Ingo_Storage_filters_sql extends Ingo_Storage_filters {
      */
     protected function _ruleToBackend($rule)
     {
-        return array(String::convertCharset($rule['name'], NLS::getCharset(), $this->_params['charset']),
+        return array(Horde_String::convertCharset($rule['name'], NLS::getCharset(), $this->_params['charset']),
                      (int)$rule['action'],
-                     isset($rule['action-value']) ? String::convertCharset($rule['action-value'], NLS::getCharset(), $this->_params['charset']) : null,
+                     isset($rule['action-value']) ? Horde_String::convertCharset($rule['action-value'], NLS::getCharset(), $this->_params['charset']) : null,
                      isset($rule['flags']) ? (int)$rule['flags'] : null,
-                     isset($rule['conditions']) ? serialize(String::convertCharset($rule['conditions'], NLS::getCharset(), $this->_params['charset'])) : null,
+                     isset($rule['conditions']) ? serialize(Horde_String::convertCharset($rule['conditions'], NLS::getCharset(), $this->_params['charset'])) : null,
                      isset($rule['combine']) ? (int)$rule['combine'] : null,
                      isset($rule['stop']) ? (int)$rule['stop'] : null,
                      isset($rule['disable']) ? (int)(!$rule['disable']) : 1);

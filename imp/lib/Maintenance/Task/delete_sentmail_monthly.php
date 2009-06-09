@@ -36,7 +36,7 @@ class Maintenance_Task_delete_sentmail_monthly extends Maintenance_Task
         foreach (array_keys($old_folders) as $k) {
             foreach ($sent_mail_folders as $folder) {
                 if (preg_match('/^' . str_replace('/', '\/', $folder) . '-([^-]+)-([0-9]{4})$/i', $k, $regs)) {
-                    $folder_array[$k] = String::convertCharset((is_numeric($regs[1])) ? mktime(0, 0, 0,$regs[1], 1, $regs[2]) : strtotime("$regs[1] 1, $regs[2]"), NLS::getCharset(), 'UTF7-IMAP');
+                    $folder_array[$k] = Horde_String::convertCharset((is_numeric($regs[1])) ? mktime(0, 0, 0,$regs[1], 1, $regs[2]) : strtotime("$regs[1] 1, $regs[2]"), NLS::getCharset(), 'UTF7-IMAP');
                 }
             }
         }

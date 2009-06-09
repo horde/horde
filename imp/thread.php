@@ -15,7 +15,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
  * DEFAULT/'thread' - Thread mode
  * 'msgview' - Multiple message view
  */
-$mode = Util::getFormData('mode', 'thread');
+$mode = Horde_Util::getFormData('mode', 'thread');
 
 $imp_mailbox = &IMP_Mailbox::singleton($imp_mbox['mailbox'], $imp_mbox['index']);
 
@@ -27,7 +27,7 @@ if ($mode == 'thread') {
     }
 } else {
     /* MSGVIEW MODE: Make sure we have a valid list of messages. */
-    $msglist = $GLOBALS['imp_imap']->ob->utils->fromSequenceString(Util::getFormData('msglist'));
+    $msglist = $GLOBALS['imp_imap']->ob->utils->fromSequenceString(Horde_Util::getFormData('msglist'));
     if (empty($msglist)) {
         $error = true;
     }
@@ -45,11 +45,11 @@ if ($error) {
 NLS::setTimeZone();
 
 /* Run through action handlers. */
-$actionID = Util::getFormData('actionID');
+$actionID = Horde_Util::getFormData('actionID');
 switch ($actionID) {
 case 'add_address':
     try {
-        $contact_link = IMP::addAddress(Util::getFormData('address'), Util::getFormData('name'));
+        $contact_link = IMP::addAddress(Horde_Util::getFormData('address'), Horde_Util::getFormData('name'));
         $notification->push(sprintf(_("Entry \"%s\" was successfully added to the address book"), $contact_link), 'horde.success', array('content.raw'));
     } catch (Horde_Exception $e) {
         $notification->push($e);
@@ -127,7 +127,7 @@ foreach ($loop_array as $mbox => $idxlist) {
             $curr_msg['link'] = Horde::widget('#display', _("Back to Multiple Message View Index"), 'widget', '', '', _("Back to Multiple Message View Index"), true);
         }
         $curr_msg['link'] .= ' | ' . Horde::widget(IMP::generateIMPUrl('message.php', $imp_mbox['mailbox'], $idx, $mbox), _("Go to Message"), 'widget', '', '', _("Go to Message"), true);
-        $curr_msg['link'] .= ' | ' . Horde::widget(Util::addParameter(IMP::generateIMPUrl('mailbox.php', $mbox), array('start' => $imp_mailbox->getArrayIndex($idx))), sprintf(_("Back to %s"), $page_label), 'widget', '', '', sprintf(_("Bac_k to %s"), $page_label));
+        $curr_msg['link'] .= ' | ' . Horde::widget(Horde_Util::addParameter(IMP::generateIMPUrl('mailbox.php', $mbox), array('start' => $imp_mailbox->getArrayIndex($idx))), sprintf(_("Back to %s"), $page_label), 'widget', '', '', sprintf(_("Bac_k to %s"), $page_label));
 
         $curr_tree['class'] = (++$rowct % 2) ? 'text' : 'item0';
         $curr_tree['subject'] = (($mode == 'thread') ? $threadtree[$idx] : null) . ' ' . Horde::link('#i' . $idx) . $subject_header . '</a> (' . $addr . ')';
@@ -147,13 +147,13 @@ $template->set(
     'subject',
     $mode == 'thread' ? $subject : sprintf(_("%d Messages"), count($msgs)));
 if ($mode == 'thread') {
-    $delete_link = Util::addParameter(
+    $delete_link = Horde_Util::addParameter(
         IMP::generateIMPUrl('mailbox.php', $mbox),
         array('start' => $imp_mailbox->getArrayIndex($idx),
               'actionID' => 'delete_messages',
               'mailbox_token' => IMP::getRequestToken('imp.mailbox')));
     foreach ($thread as $val) {
-        $delete_link = Util::addParameter(
+        $delete_link = Horde_Util::addParameter(
             $delete_link,
             array('indices[]' => $val . IMP::IDX_SEP . $imp_mbox['mailbox']));
     }

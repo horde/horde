@@ -20,7 +20,7 @@ $remove = array("!", "'", '"', "?", ".", ",", ";", ":", ')', '(', 1, 2, 3, 4, 5,
 $result = $news->db->query('UPDATE news_body SET tags = ""');
 $result = $news->db->query('SELECT id, title FROM news_body WHERE tags = "" ORDER BY id ASC');
 while ($row = $result->fetchRow(DB_FETCHMODE_ASSOC)) {
-    $row['title'] = String::lower($row['title'], true);
+    $row['title'] = Horde_String::lower($row['title'], true);
     $row['title'] = str_replace($remove, '', $row['title']);
     $tags = explode(' ', $row['title']);
     foreach ($tags as $i => $tag) {

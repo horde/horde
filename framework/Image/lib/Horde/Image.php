@@ -1,5 +1,4 @@
 <?php
-require_once 'Horde/Util.php';
 /**
  * This class defines the Horde_Image:: API, and also provides some
  * utility functions, such as generating highlights of a color.
@@ -14,7 +13,7 @@ require_once 'Horde/Util.php';
  *
  * @package Horde_Image
  *
- * @TODO: - Can we depend on the Util:: class or some other solution needed?
+ * @TODO: - Can we depend on the Horde_Util:: class or some other solution needed?
  *        - Exceptions
  */
 class Horde_Image
@@ -443,7 +442,7 @@ class Horde_Image
      */
     public function toFile($data = false)
     {
-        $tmp = Util::getTempFile('img', false, $this->_tmpdir);
+        $tmp = Horde_Util::getTempFile('img', false, $this->_tmpdir);
         $fp = @fopen($tmp, 'wb');
         fwrite($fp, $data ? $data : $this->raw());
         fclose($fp);

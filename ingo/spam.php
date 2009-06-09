@@ -47,16 +47,13 @@ if (!in_array(Ingo_Storage::ACTION_SPAM, $_SESSION['ingo']['script_categories'])
     exit;
 }
 
-/* Load libraries. */
-require_once 'Horde/Variables.php';
-
 /* Get the spam object and rule. */
 $spam = &$ingo_storage->retrieve(Ingo_Storage::ACTION_SPAM);
 $filters = &$ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 $spam_id = $filters->findRuleId(Ingo_Storage::ACTION_SPAM);
 $spam_rule = $filters->getRule($spam_id);
 
-$vars = &Variables::getDefaultVariables();
+$vars = &Horde_Variables::getDefaultVariables();
 if ($vars->get('submitbutton') == _("Return to Rules List")) {
     header('Location: ' . Horde::applicationUrl('filters.php', true));
     exit;

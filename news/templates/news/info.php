@@ -1,9 +1,9 @@
 <?php
 
 echo '<div class="header">' . _("News data") . '</div>';
-echo _("By") . ': ' .  Horde::link(Util::addParameter($browse_url, 'user', $row['user'])) . $row['user'] . '</a><br />';
-echo _("On") . ': ' .  Horde::link(Util::addParameter($browse_url, 'publish', $row['publish'])) . News::dateFormat($row['publish']) . '</a><br />';
-echo _("Category") . ': ' . Horde::link(Util::addParameter($browse_url, 'cid', $row['category1'])) . $GLOBALS['news_cat']->getName($row['category1']) . '</a><br />';
+echo _("By") . ': ' .  Horde::link(Horde_Util::addParameter($browse_url, 'user', $row['user'])) . $row['user'] . '</a><br />';
+echo _("On") . ': ' .  Horde::link(Horde_Util::addParameter($browse_url, 'publish', $row['publish'])) . News::dateFormat($row['publish']) . '</a><br />';
+echo _("Category") . ': ' . Horde::link(Horde_Util::addParameter($browse_url, 'cid', $row['category1'])) . $GLOBALS['news_cat']->getName($row['category1']) . '</a><br />';
 
 $plain = preg_replace('/\s\s+/', ' ', trim(strip_tags($row['content'])));
 echo _("Chars") . ': ' . number_format(strlen($plain)) . '<br />';

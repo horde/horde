@@ -12,7 +12,6 @@
 
 require_once dirname(__FILE__) . '/lib/base.php';
 require_once 'Horde/Help.php';
-require_once 'Horde/Variables.php';
 
 /* Redirect if vacation is not available. */
 if (!in_array(Ingo_Storage::ACTION_VACATION, $_SESSION['ingo']['script_categories'])) {
@@ -28,7 +27,7 @@ $vac_id = $filters->findRuleId(Ingo_Storage::ACTION_VACATION);
 $vac_rule = $filters->getRule($vac_id);
 
 /* Load libraries. */
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 if ($vars->get('submitbutton') == _("Return to Rules List")) {
     header('Location: ' . Horde::applicationUrl('filters.php', true));
     exit;

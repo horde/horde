@@ -1,18 +1,18 @@
 <?php
 if (empty($url)) {
-    $url = Util::addParameter('month.php', array('month' => $month,
+    $url = Horde_Util::addParameter('month.php', array('month' => $month,
                                                  'year' => $year));
     $url = Horde::applicationUrl($url, true);
 }
 ?>
 <form action="delete.php" method="post" name="delete">
-<?php echo Util::formInput() ?>
+<?php echo Horde_Util::formInput() ?>
 <input type="hidden" name="year" value="<?php if (isset($year)) echo htmlspecialchars($year) ?>" />
 <input type="hidden" name="month" value="<?php if (isset($month)) echo htmlspecialchars($month) ?>" />
 <input type="hidden" name="mday" value="<?php if (isset($day)) echo htmlspecialchars($day) ?>" />
 <input type="hidden" name="url" value="<?php echo htmlspecialchars($url) ?>" />
 <input type="hidden" name="eventID" value="<?php echo htmlspecialchars($this->event->getId()) ?>" />
-<input type="hidden" name="calendar" value="<?php echo htmlspecialchars(Util::getFormData('calendar')) ?>" />
+<input type="hidden" name="calendar" value="<?php echo htmlspecialchars(Horde_Util::getFormData('calendar')) ?>" />
 
 <div class="headerbox">
 <?php if (!empty($this->event->attendees)): ?>

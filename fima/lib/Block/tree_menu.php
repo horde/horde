@@ -15,7 +15,7 @@ class Horde_Block_fima_tree_menu extends Horde_Block {
         global $registry;
 
         $menus = array(
-            array('add', _("Add Postings"), 'add.png', Util::addParameter(Horde::applicationUrl('postings.php'), 'actionID', 'add_postings')),
+            array('add', _("Add Postings"), 'add.png', Horde_Util::addParameter(Horde::applicationUrl('postings.php'), 'actionID', 'add_postings')),
             array('search', _("Search"), 'search.png', Horde::applicationUrl('search.php'), $registry->getImageDir('horde')),
             array('accounts', _("Accounts"), 'accounts.png', Horde::applicationUrl('accounts.php')),
             array('reports', _("Reports"), 'report.png', Horde::applicationUrl('report.php')),

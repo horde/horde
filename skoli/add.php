@@ -21,7 +21,7 @@ if (count(Skoli::listClasses(false, PERMS_EDIT)) == 0 && Auth::getAuth()) {
     exit;
 }
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $form = new Skoli_EntryForm($vars);
 
 // Execute if the form is valid.
@@ -33,7 +33,7 @@ if ($form->validate($vars)) {
         $notification->push(sprintf(_("The new entry for \"%s\" has been added."), $result), 'horde.success');
     }
 
-    header('Location: ' . Horde::applicationUrl(Util::addParameter('add.php', 'class', $vars->get('class_id')), true));
+    header('Location: ' . Horde::applicationUrl(Horde_Util::addParameter('add.php', 'class', $vars->get('class_id')), true));
     exit;
 }
 

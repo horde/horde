@@ -35,14 +35,14 @@ if (is_a($blacklist, 'PEAR_Error')) {
 $folder = $blacklist_folder = null;
 
 /* Perform requested actions. */
-$actionID = Util::getFormData('actionID');
+$actionID = Horde_Util::getFormData('actionID');
 switch ($actionID) {
 case 'create_folder':
-    $blacklist_folder = Ingo::createFolder(Util::getFormData('new_folder_name'));
+    $blacklist_folder = Ingo::createFolder(Horde_Util::getFormData('new_folder_name'));
     break;
 
 case 'rule_update':
-    switch (Util::getFormData('action')) {
+    switch (Horde_Util::getFormData('action')) {
     case 'delete':
         $folder = '';
         break;
@@ -52,14 +52,14 @@ case 'rule_update':
         break;
 
     case 'folder':
-        $folder = Util::getFormData('actionvalue');
+        $folder = Horde_Util::getFormData('actionvalue');
         break;
     }
 
     if (($folder == Ingo::BLACKLIST_MARKER) && !$have_mark) {
         $notification->push("Not supported by this script generator.", 'horde.error');
     } else {
-        $ret = $blacklist->setBlacklist(Util::getFormData('blacklist'));
+        $ret = $blacklist->setBlacklist(Horde_Util::getFormData('blacklist'));
         if (is_a($ret, 'PEAR_Error')) {
             $notification->push($ret, $ret->getCode());
         } else {

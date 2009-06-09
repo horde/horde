@@ -91,7 +91,7 @@ class Horde_Image_Gd extends Horde_Image
             return '';
         }
 
-        return Util::bufferOutput('image' . $this->_type, $this->_im);
+        return Horde_Util::bufferOutput('image' . $this->_type, $this->_im);
     }
 
     /**

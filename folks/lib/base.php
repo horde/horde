@@ -50,6 +50,6 @@ $GLOBALS['cache'] = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
 $GLOBALS['folks_driver']->updateOnlineStatus();
 
 // Start output compression.
-if (!Util::nonInputVar('no_compress')) {
+if (!Horde_Util::nonInputVar('no_compress')) {
     Horde::compressOutput();
 }

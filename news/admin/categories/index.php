@@ -29,9 +29,9 @@ $delete_url = Horde::applicationUrl('admin/categories/delete.php');
 $delete_img = Horde::img('delete.png', _("Delete"), '', $registry->getImageDir('horde'));
 
 foreach ($categories as $category_id => $category) {
-    $categories[$category_id]['actions'][] = Horde::link(Util::addParameter($delete_url, 'category_id', $category_id), _("Delete")) .
+    $categories[$category_id]['actions'][] = Horde::link(Horde_Util::addParameter($delete_url, 'category_id', $category_id), _("Delete")) .
                                     $delete_img . '</a>';
-    $categories[$category_id]['actions'][] = Horde::link(Util::addParameter($edit_url, 'category_id', $category_id), _("Edit")) .
+    $categories[$category_id]['actions'][] = Horde::link(Horde_Util::addParameter($edit_url, 'category_id', $category_id), _("Edit")) .
                                      $edit_img . '</a>';
 }
 

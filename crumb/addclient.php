@@ -12,12 +12,11 @@
 
 @define('CRUMB_BASE', dirname(__FILE__));
 require_once CRUMB_BASE . '/lib/base.php';
-require_once 'Horde/Variables.php';
 require_once 'Horde/Form.php';
 require_once 'Horde/Form/Renderer.php';
 require_once CRUMB_BASE . '/lib/Forms/AddClient.php';
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $formname = $vars->get('formname');
 
 $addform = new Horde_Form_AddClient($vars);

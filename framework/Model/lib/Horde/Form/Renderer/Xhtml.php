@@ -144,7 +144,7 @@ if (document.getElementById(%1$s)){
             . (empty($this->_name) ? '' : ' id="' . $this->_name. '"')
             . (is_null($this->_enctype) ? '' : ' enctype="' . $this->_enctype . '"')
             . ">\n";
-        echo Util::formInput();
+        echo Horde_Util::formInput();
 
         $this->listFormVars($form);
 

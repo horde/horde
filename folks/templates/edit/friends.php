@@ -35,7 +35,7 @@ if (empty($list)) {
     <?php
         foreach ($actions as $action) {
             echo '<td>';
-            echo '<a href="' . Util::addParameter($action['url'], $action['id'], $user) . '">'
+            echo '<a href="' . Horde_Util::addParameter($action['url'], $action['id'], $user) . '">'
                             . $action['img']  . ' ' . $action['name'] . '</a>';
             echo '</td>';
         }

@@ -34,7 +34,7 @@ class MIMP
             (empty($GLOBALS['conf']['hooks']['disable_compose']) ||
              Horde::callHook('_imp_hook_disable_compose', array(true), 'imp'))) {
 
-            $items[Util::addParameter(Horde::applicationUrl('compose-mimp.php'), 'u', uniqid(mt_rand()))] = _("New Message");
+            $items[Horde_Util::addParameter(Horde::applicationUrl('compose-mimp.php'), 'u', uniqid(mt_rand()))] = _("New Message");
         }
 
         if ($page != 'folders') {
@@ -43,7 +43,7 @@ class MIMP
 
         // @TODO - Options for mobile browsers
         // if ($options_link = Horde::getServiceLink('options', 'mimp')) {
-        //     $items[Util::addParameter($options_link, 'mobile', 1, false)] = _("Options");
+        //     $items[Horde_Util::addParameter($options_link, 'mobile', 1, false)] = _("Options");
         // }
         $logout_link = IMP::getLogoutUrl(AUTH_REASON_LOGOUT);
         if (!empty($logout_link)) {

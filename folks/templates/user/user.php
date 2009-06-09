@@ -120,7 +120,7 @@ if (!empty($friends)):
 <td class="header" colspan="2">
 <span style="float: right">
 <a href="<?php echo Horde::applicationUrl('edit/friends/index.php') ?>" title="<?php echo _("Edit my firends") ?>"><img src="<?php echo $registry->getImageDir('horde') ?>/plus.png" /></a>
-<a href="<?php echo Util::addParameter(Horde::applicationUrl('edit/friends/index.php'), 'user', $user) ?>" title="<?php echo sprintf(_("Add %s as a friend?"), $user) ?>"><img src="<?php echo $registry->getImageDir('horde') ?>/nav/right.png" /></a>
+<a href="<?php echo Horde_Util::addParameter(Horde::applicationUrl('edit/friends/index.php'), 'user', $user) ?>" title="<?php echo sprintf(_("Add %s as a friend?"), $user) ?>"><img src="<?php echo $registry->getImageDir('horde') ?>/nav/right.png" /></a>
 </span>
 <?php echo _("Friends") ?> (<?php echo count($friends) ?>)
 </td>

@@ -14,7 +14,7 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 
 // Load profile
-$user = Util::getFormData('user', Auth::getAuth());
+$user = Horde_Util::getFormData('user', Auth::getAuth());
 $profile = $folks_driver->getProfile($user);
 if ($profile instanceof PEAR_Error) {
     $notification->push($profile);
@@ -47,8 +47,7 @@ if ($profile['activity_log'] == 'all' ||
 // Prepare an process activity form
 if ($user == Auth::getAuth()) {
     require_once FOLKS_BASE . '/lib/Forms/Activity.php';
-    require_once 'Horde/Variables.php';
-    $vars = Variables::getDefaultVariables();
+    $vars = Horde_Variables::getDefaultVariables();
     $form = new Folks_Activity_Form($vars, _("What are you doing right now?"), 'short');
     if ($form->validate()) {
         $result = $form->execute();

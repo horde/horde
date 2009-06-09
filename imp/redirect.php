@@ -11,9 +11,9 @@
 
 function _framesetUrl($url)
 {
-    if (!$GLOBALS['noframeset'] && Util::getFormData('load_frameset')) {
+    if (!$GLOBALS['noframeset'] && Horde_Util::getFormData('load_frameset')) {
         $full_url = Horde::applicationUrl($GLOBALS['registry']->get('webroot', 'horde') . '/index.php', true);
-        $url = Util::addParameter($full_url, 'url', _addAnchor($url, 'param'), false);
+        $url = Horde_Util::addParameter($full_url, 'url', _addAnchor($url, 'param'), false);
     }
     return $url;
 }
@@ -24,26 +24,26 @@ function _newSessionUrl($actionID, $isLogin)
     $addActionID = true;
 
     if ($GLOBALS['url_in']) {
-        $url = Horde::url(Util::removeParameter($GLOBALS['url_in'], session_name()), true);
+        $url = Horde::url(Horde_Util::removeParameter($GLOBALS['url_in'], session_name()), true);
     } elseif (Auth::getProvider() == 'imp') {
         $url = Horde::applicationUrl($GLOBALS['registry']->get('webroot', 'horde') . '/', true);
         /* Force the initial page to IMP if we're logging in to compose a
          * message. */
         if ($actionID == 'login_compose') {
-            $url = Util::addParameter($url, 'url', _addAnchor(IMP_Session::getInitialUrl('login_compose', false), 'param'));
+            $url = Horde_Util::addParameter($url, 'url', _addAnchor(IMP_Session::getInitialUrl('login_compose', false), 'param'));
             $addActionID = false;
         }
     } else {
         $url = IMP_Session::getInitialUrl($actionID, false);
         if ($isLogin) {
             /* Don't show popup window in initial page. */
-            $url = Util::addParameter($url, 'no_newmail_popup', 1, false);
+            $url = Horde_Util::addParameter($url, 'no_newmail_popup', 1, false);
         }
     }
 
     if ($addActionID && $actionID) {
         /* Preserve the actionID. */
-        $url = Util::addParameter($url, 'actionID', $actionID, false);
+        $url = Horde_Util::addParameter($url, 'actionID', $actionID, false);
     }
 
     return $url;
@@ -65,7 +65,7 @@ function _addAnchor($url, $type)
         break;
 
     case 'url':
-        $anchor = Util::getFormData('anchor_string');
+        $anchor = Horde_Util::getFormData('anchor_string');
         if (!empty($anchor)) {
             $url .= '#' . $anchor;
         } else {
@@ -82,10 +82,10 @@ $authentication = 'none';
 require_once dirname(__FILE__) . '/lib/base.php';
 require_once 'Horde/Maintenance.php';
 
-$actionID = (Util::getFormData('action') == 'compose') ? 'login_compose' : Util::getFormData('actionID');
-$autologin = Util::getFormData('autologin');
-$imapuser = Util::getPost('imapuser');
-$pass = Util::getPost('pass');
+$actionID = (Horde_Util::getFormData('action') == 'compose') ? 'login_compose' : Horde_Util::getFormData('actionID');
+$autologin = Horde_Util::getFormData('autologin');
+$imapuser = Horde_Util::getPost('imapuser');
+$pass = Horde_Util::getPost('pass');
 if (!empty($autologin)) {
     $imapuser = IMP_Session::canAutoLogin();
     $pass = Auth::getCredential('password');
@@ -95,14 +95,14 @@ $noframeset = false;
 
 /* Get URL/Anchor strings now. */
 $url_anchor = null;
-$url_in = $url_form = Util::getFormData('url');
+$url_in = $url_form = Horde_Util::getFormData('url');
 if (($pos = strrpos($url_in, '#')) !== false) {
     $url_anchor = substr($url_in, $pos + 1);
     $url_in = substr($url_in, 0, $pos);
 }
 
 /* If we are returning from Maintenance processing. */
-if (Util::getFormData(MAINTENANCE_DONE_PARAM)) {
+if (Horde_Util::getFormData(MAINTENANCE_DONE_PARAM)) {
     /* Finish up any login tasks we haven't completed yet. */
     IMP_Session::loginTasks();
 
@@ -127,12 +127,12 @@ if (isset($_SESSION['imp']) && is_array($_SESSION['imp'])) {
     if (empty($url_in)) {
         $url = IMP_Session::getInitialUrl($actionID, false);
     } elseif (!empty($actionID)) {
-        $url = Util::addParameter($url_in, 'actionID', $actionID, false);
+        $url = Horde_Util::addParameter($url_in, 'actionID', $actionID, false);
     }
 
     /* Don't show popup window in initial page. */
     if ($isLogin) {
-        $url = Util::addParameter($url, 'no_newmail_popup', 1, false);
+        $url = Horde_Util::addParameter($url, 'no_newmail_popup', 1, false);
     }
 
     _redirect(_framesetUrl($url));
@@ -146,19 +146,19 @@ if (!is_null($imapuser) && !is_null($pass)) {
         Horde::getCleanSession();
     }
 
-    if (IMP_Session::createSession($imapuser, $pass, Util::getFormData('server_key', IMP_Session::getAutoLoginServer()))) {
-        $ie_version = Util::getFormData('ie_version');
+    if (IMP_Session::createSession($imapuser, $pass, Horde_Util::getFormData('server_key', IMP_Session::getAutoLoginServer()))) {
+        $ie_version = Horde_Util::getFormData('ie_version');
         if ($ie_version) {
             $browser->setIEVersion($ie_version);
         }
 
-        if (($horde_language = Util::getFormData('new_lang'))) {
+        if (($horde_language = Horde_Util::getFormData('new_lang'))) {
             $_SESSION['horde_language'] = $horde_language;
         }
 
         $view = empty($conf['user']['select_view'])
             ? (empty($conf['user']['force_view']) ? 'imp' : $conf['user']['force_view'])
-            : Util::getFormData('select_view', 'imp');
+            : Horde_Util::getFormData('select_view', 'imp');
 
         setcookie('default_imp_view', $view, time() + 30 * 86400,
                   $conf['cookie']['path'],

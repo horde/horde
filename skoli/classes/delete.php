@@ -18,7 +18,7 @@ if (!Auth::getAuth()) {
     exit;
 }
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $class_id = $vars->get('c');
 
 $class = $skoli_shares->getShare($class_id);
@@ -35,7 +35,7 @@ if (is_a($class, 'PEAR_Error')) {
 $form = new Skoli_DeleteClassForm($vars, $class);
 
 // Execute if the form is valid (must pass with POST variables only).
-if ($form->validate(new Variables($_POST))) {
+if ($form->validate(new Horde_Variables($_POST))) {
     $result = $form->execute();
     if (is_a($result, 'PEAR_Error')) {
         $notification->push($result, 'horde.error');

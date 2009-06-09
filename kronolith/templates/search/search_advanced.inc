@@ -3,14 +3,14 @@ $issearch = true;
 require KRONOLITH_TEMPLATES . '/edit/javascript.inc';
 ?>
 <form method="post" name="eventform" action="search.php">
-<?php Util::pformInput() ?>
+<?php Horde_Util::pformInput() ?>
 <input type="hidden" name="actionID" value="search_calendar" />
 <input type="hidden" name="search_mode" value="advanced" />
 
 <br /><br />
 <h1 class="header">
  <span class="smallheader rightFloat">
-  <?php echo Horde::widget(Util::addParameter(Horde::applicationUrl('search.php'), 'search_mode', 'basic'), _("Basic Search"), 'smallheader', '', '', _("_Basic Search")) ?>
+  <?php echo Horde::widget(Horde_Util::addParameter(Horde::applicationUrl('search.php'), 'search_mode', 'basic'), _("Basic Search"), 'smallheader', '', '', _("_Basic Search")) ?>
  </span>
  <?php echo _("Advanced Search") ?>
 </h1>

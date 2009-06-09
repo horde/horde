@@ -55,6 +55,6 @@ $GLOBALS['news'] = News_Driver::factory();
 $GLOBALS['news_cat'] = new News_Categories();
 
 // Start compression.
-if (!Util::nonInputVar('no_compress')) {
+if (!Horde_Util::nonInputVar('no_compress')) {
     Horde::compressOutput();
 }

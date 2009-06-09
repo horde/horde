@@ -12,7 +12,6 @@
  */
 
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Variables.php';
 
 $title = _("Popularity");
 
@@ -22,7 +21,7 @@ if ($count instanceof PEAR_Error) {
     $count = 0;
 }
 
-$page = Util::getGet('page', 0);
+$page = Horde_Util::getGet('page', 0);
 $perpage = $prefs->getValue('per_page');
 $criteria = array('sort_by' => 'popularity', 'sort_dir'  => 0);
 $users = $folks_driver->getUsers($criteria, $page * $perpage, $perpage);
@@ -31,7 +30,7 @@ if ($users instanceof PEAR_Error) {
     $users = array();
 }
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $pager = new Horde_UI_Pager('page',
                             $vars, array('num' => $count,
                                          'url' => 'popularity.php',

@@ -151,7 +151,7 @@ class Kronolith_Tagger
         foreach ($existing_tags as $tag_id => $existing_tag) {
             $found = false;
             foreach ($tags as $tag_text) {
-                //if ($existing_tag == String::lower($tag_text, true)) {
+                //if ($existing_tag == Horde_String::lower($tag_text, true)) {
                 if ($existing_tag == $tag_text) {
                     $found = true;
                     break;

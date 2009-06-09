@@ -20,7 +20,7 @@ if (!Auth::getAuth()) {
     exit;
 }
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $calendar = $kronolith_shares->getShare($vars->get('c'));
 if (is_a($calendar, 'PEAR_Error')) {
     $notification->push($calendar, 'horde.error');

@@ -26,16 +26,15 @@ require_once dirname(__FILE__) . '/lib/base.php';
 require_once BABEL_BASE . '/lib/Gettext/PO.php';
 
 require_once 'Horde/Form.php';
-require_once 'Horde/Variables.php';
 require_once 'Horde/Form/Renderer.php';
 require_once 'Horde/Form/Action.php';
 
 require_once 'Horde/UI/Tabs.php';
 
-$app = Util::getFormData('module');
+$app = Horde_Util::getFormData('module');
 
 $show = 'edit';
-$vars = &Variables::getDefaultVariables();
+$vars = &Horde_Variables::getDefaultVariables();
 
 if ($app) {
     $napp = ($app == 'horde') ? '' : $app;
@@ -46,28 +45,28 @@ if ($app) {
 
 /* Set up the template fields. */
 $template->set('menu', Babel::getMenu('string'));
-$template->set('notify', Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
 
 /* Create upload form */
 $form = &new Horde_Form($vars, _("Edit Translation"), $show);
 
 /* Validate form if submitted */
-if ($app && Util::getFormData('submitbutton') == _("Save")) {
+if ($app && Horde_Util::getFormData('submitbutton') == _("Save")) {
 
     if ($form->validate($vars, false)) {
 	$form->getInfo($vars, $form_values);
 	
 	foreach($meta_params as $k => $v) {
-	    if ($val = Util::getFormData($k)) {
+	    if ($val = Horde_Util::getFormData($k)) {
 		$po->meta[$k] = $val;
 	    }
 	}
 	
 	$po->save($pofile);
 	
-	if (Util::getFormData('url') == 'view') {
+	if (Horde_Util::getFormData('url') == 'view') {
 	    $url = Horde::applicationUrl('view.php');
-	    $url = Util::addParameter($url, array('module' => $app));
+	    $url = Horde_Util::addParameter($url, array('module' => $app));
 	    header('Location: ' . $url);
 	    exit;
 	}
@@ -85,7 +84,7 @@ if (!$app) {
     $vars->set('module', $app);
     
     $form->addHidden('', 'url', 'text', false);
-    $vars->set('url', Util::getFormData('url'));
+    $vars->set('url', Horde_Util::getFormData('url'));
     
     foreach($meta_params as $k => $v) {
 	$form->addVariable($k, $k, 'text', false, false);

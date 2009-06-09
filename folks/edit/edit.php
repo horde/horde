@@ -52,7 +52,7 @@ $form->addVariable(_("Picture"), 'user_picture', 'image', false);
 $form->setButtons(array(_("Save"), _("Delete picture")));
 
 if ($form->validate()) {
-    switch (Util::getFormData('submitbutton')) {
+    switch (Horde_Util::getFormData('submitbutton')) {
 
     case _("Save"):
         $form->getInfo(null, $info);

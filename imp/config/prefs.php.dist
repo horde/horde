@@ -191,7 +191,7 @@ if (isset($GLOBALS['conf']['utils']['gnupg'])) {
     );
 }
 
-if (Util::extensionExists('openssl') && isset($GLOBALS['conf']['utils']['openssl_binary'])) {
+if (Horde_Util::extensionExists('openssl') && isset($GLOBALS['conf']['utils']['openssl_binary'])) {
     $prefGroups['smime'] = array(
         'column' => _("Other Options"),
         'label' => _("S/MIME Options"),
@@ -553,7 +553,7 @@ $_prefs['mailto_handler'] = array(
     'xurl' => 'javascript:if(typeof navigator.registerProtocolHandler==\'undefined\')alert(\''
         . addslashes(_("Your browser does not support this feature."))
         . '\');else navigator.registerProtocolHandler(\'mailto\',\''
-        . Util::addParameter(Horde::applicationUrl('compose.php', true),
+        . Horde_Util::addParameter(Horde::applicationUrl('compose.php', true),
                              array('actionID' => 'mailto_link', 'to' => ''), false)
         . '%s\',\'' . $GLOBALS['registry']->get('name') . '\');',
     'desc' => sprintf(_("Click here to open all mailto: links in %s."), $GLOBALS['registry']->get('name')));

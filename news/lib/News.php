@@ -94,21 +94,21 @@ class News {
 
         case 'news':
             if (empty($GLOBALS['conf']['urls']['pretty'])) {
-                return Util::addParameter(Horde::applicationUrl('news.php', $full, $append_session), 'id', $data);
+                return Horde_Util::addParameter(Horde::applicationUrl('news.php', $full, $append_session), 'id', $data);
             } else {
                 return Horde::applicationUrl('article/' . $data, $full, $append_session);
             }
 
         case 'category':
             if (empty($GLOBALS['conf']['urls']['pretty'])) {
-                return Util::addParameter(Horde::applicationUrl('browse.php', $full, $append_session), 'category', $data);
+                return Horde_Util::addParameter(Horde::applicationUrl('browse.php', $full, $append_session), 'category', $data);
             } else {
                 return Horde::applicationUrl('category/' . $data, $full, $append_session);
             }
 
         case 'source':
             if (empty($GLOBALS['conf']['urls']['pretty'])) {
-                return Util::addParameter(Horde::applicationUrl('browse.php', $full, $append_session), 'source', $data);
+                return Horde_Util::addParameter(Horde::applicationUrl('browse.php', $full, $append_session), 'source', $data);
             } else {
                 return Horde::applicationUrl('source/' . $data, $full, $append_session);
             }
@@ -201,18 +201,18 @@ class News {
         $view_url = Horde::applicationUrl('files.php');
 
         $html = '<table><tr valign="top"><td>';
-        $html .= Horde::link(Util::addParameter($view_url, array('actionID' => 'download_zip_all', 'news_id' => $id)), _("Compress and dowload all files at once")) . $dowload_zip . '</a> ' . "\n";
+        $html .= Horde::link(Horde_Util::addParameter($view_url, array('actionID' => 'download_zip_all', 'news_id' => $id)), _("Compress and dowload all files at once")) . $dowload_zip . '</a> ' . "\n";
         $html .= _("Attached files: ") . '</td><td>' . "\n";
 
         foreach ($files as $file) {
-            $view_url = Util::addParameter($view_url, $file);
+            $view_url = Horde_Util::addParameter($view_url, $file);
             $html .= ' -  ' . "\n";
-            $html .= Horde::link(Util::addParameter($view_url, 'actionID', 'download_zip'), sprintf(_("Compress and dowload %s"), $file['file_name'])) . $dowload_zip . '</a> ' . "\n";
-            $html .= Horde::link(Util::addParameter($view_url, 'actionID', 'download_file'), sprintf(_("Dowload %s"), $file['file_name'])) . $dowload_img . '</a> ' . "\n";
-            $html .= Horde::link(Util::addParameter($view_url, 'actionID', 'view_file'), sprintf(_("Preview %s"), $file['file_name']), '', '_file_view');
+            $html .= Horde::link(Horde_Util::addParameter($view_url, 'actionID', 'download_zip'), sprintf(_("Compress and dowload %s"), $file['file_name'])) . $dowload_zip . '</a> ' . "\n";
+            $html .= Horde::link(Horde_Util::addParameter($view_url, 'actionID', 'download_file'), sprintf(_("Dowload %s"), $file['file_name'])) . $dowload_img . '</a> ' . "\n";
+            $html .= Horde::link(Horde_Util::addParameter($view_url, 'actionID', 'view_file'), sprintf(_("Preview %s"), $file['file_name']), '', '_file_view');
             $html .= Horde::img(Horde_Mime_Viewer::getIcon($file['file_type']), $file['file_name'], 'width="16" height="16"', '') . ' ';
             if (Auth::isAdmin('news:admin')) {
-                $html .= Horde::link(Util::addParameter($delete_url, $file), sprintf(_("Delete %s"), $file['file_name'])) . $delete_img . '</a> ' . "\n";
+                $html .= Horde::link(Horde_Util::addParameter($delete_url, $file), sprintf(_("Delete %s"), $file['file_name'])) . $delete_img . '</a> ' . "\n";
             }
             $html .= $file['file_name'] . '</a> ' . "\n";
             $html .= ' (' . self::format_filesize($file['file_size']) . ')';
@@ -402,7 +402,7 @@ class News {
     static public function getImageUrl($id, $view = 'small', $type = 'news')
     {
         if (empty($GLOBALS['conf']['images']['direct'])) {
-            return Util::addParameter(Horde::applicationUrl('view.php'),
+            return Horde_Util::addParameter(Horde::applicationUrl('view.php'),
                                      array('type' => $type,
                                            'view' => $view,
                                            'id' => $id),

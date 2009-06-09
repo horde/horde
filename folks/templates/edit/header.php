@@ -24,7 +24,7 @@ echo '<tr><td><a href="' . Horde::applicationUrl('edit/friends/invite.php') . '"
 echo '<tr><td><a href="' . Horde::applicationUrl('edit/friends/index.php') . '">' . _("All") . '</a>';
 
 foreach ($groups as $group_id => $group_name) {
-    echo '<tr><td><a href="' . Util::addParameter(Horde::applicationUrl('edit/friends/friends.php'), $group_id) . '">' . $group_name . '</a>';
+    echo '<tr><td><a href="' . Horde_Util::addParameter(Horde::applicationUrl('edit/friends/friends.php'), $group_id) . '">' . $group_name . '</a>';
 }
 
 echo '<tr><td><a href="' . Horde::applicationUrl('edit/friends/know.php') . '">' . _("Might know") . '</a>';

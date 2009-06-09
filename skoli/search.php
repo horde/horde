@@ -23,39 +23,39 @@ if (count($classes) == 0) {
     exit;
 }
 
-$actionID = Util::getFormData('actionID');
+$actionID = Horde_Util::getFormData('actionID');
 
 if (!isset($_SESSION['skoli'])) {
     $_SESSION['skoli'] = array();
 }
 
-if (($classid = Util::getFormData('class')) !== null) {
+if (($classid = Horde_Util::getFormData('class')) !== null) {
     $_SESSION['skoli']['search_classid'] = $classid;
 } else if (isset($_SESSION['skoli']['search_classid'])) {
     $classid = $_SESSION['skoli']['search_classid'];
 }
-if (($studentid = Util::getFormData('student')) !== null) {
+if (($studentid = Horde_Util::getFormData('student')) !== null) {
     $_SESSION['skoli']['search_studentid'] = $studentid;
 } else if (isset($_SESSION['skoli']['search_studentid'])) {
     $studentid = $_SESSION['skoli']['search_studentid'];
 }
-if (($type = Util::getFormData('type')) !== null) {
+if (($type = Horde_Util::getFormData('type')) !== null) {
     $_SESSION['skoli']['search_type'] = $type;
 } else if (isset($_SESSION['skoli']['search_type'])) {
     $type = $_SESSION['skoli']['search_type'];
 }
-if (($search = Util::getFormData('stext')) !== null) {
+if (($search = Horde_Util::getFormData('stext')) !== null) {
     $_SESSION['skoli']['search_stext'] = $search;
 } else if (isset($_SESSION['skoli']['search_stext'])) {
     $search = $_SESSION['skoli']['search_stext'];
 }
 
 /* Sort out the sorting values */
-$sortby = Util::getFormData('sortby');
-$sortdir = Util::getFormData('sortdir');
+$sortby = Horde_Util::getFormData('sortby');
+$sortdir = Horde_Util::getFormData('sortdir');
 if ($sortby === null) {
     $sortby = SKOLI_SORT_CLASS;
-} else if ($sortby == Util::getFormData('sortby')) {
+} else if ($sortby == Horde_Util::getFormData('sortby')) {
     $sortdir = !$sortdir;
 }
 if ($sortdir === null) {
@@ -137,7 +137,7 @@ if ($actionID == 'search') {
 
     $dynamic_sort = false;
     $params = array('actionID' => 'search');
-    $baseurl = Util::addParameter('search.php', $params);
+    $baseurl = Horde_Util::addParameter('search.php', $params);
     echo '<div id="page">';
     require SKOLI_TEMPLATES . '/search/header.inc';
     if (count($list) > 0) {
@@ -169,7 +169,7 @@ if ($actionID == 'search') {
                            (isset($entry['comment']) && $entry['comment'] != '' ? ', ' . $entry['comment'] : '');
                 break;
             }
-            $detailswrapped = String::wordwrap($details, $prefs->getValue('entry_details_wrap'), '<br />', true);
+            $detailswrapped = Horde_String::wordwrap($details, $prefs->getValue('entry_details_wrap'), '<br />', true);
             $entry['details'] = current(explode('<br />', $detailswrapped));
             require SKOLI_TEMPLATES . '/search/entries.inc';
         }

@@ -681,7 +681,7 @@ class Fima {
         if (!$GLOBALS['display_ledgers']) {
             $GLOBALS['display_ledgers'] = array();
         }
-        if (($ledgerId = Util::getFormData('display_ledger')) !== null) {
+        if (($ledgerId = Horde_Util::getFormData('display_ledger')) !== null) {
             if (is_array($ledgerId)) {
                 $GLOBALS['display_ledgers'] = $ledgerId;
             } else {
@@ -739,7 +739,7 @@ class Fima {
         $GLOBALS['prefs']->setValue('display_ledgers', serialize($GLOBALS['display_ledgers']));
         
         /* Update active ledger. */
-        if (($changeledger = Util::getFormData('changeledger')) !== null) {
+        if (($changeledger = Horde_Util::getFormData('changeledger')) !== null) {
             $GLOBALS['prefs']->setValue('active_ledger', $changeledger);
         }
     }
@@ -751,12 +751,12 @@ class Fima {
     {
         global $conf, $registry, $browser, $print_link;
         
-        $actionID = Util::getFormData('actionID');
+        $actionID = Horde_Util::getFormData('actionID');
         
         require_once 'Horde/Menu.php';
         $menu = new Menu(HORDE_MENU_MASK_ALL);
         $menu->add(Horde::applicationUrl('postings.php'), _("_List Postings"), 'list.png', null, null, null, (basename($_SERVER['PHP_SELF']) == 'index.php' && basename(dirname($_SERVER['PHP_SELF'])) != 'ledgers') ? 'current' : ($actionID === null ? null : '__noselection'));
-        $menu->add(Util::addParameter(Horde::applicationUrl('postings.php'), 'actionID', 'add_postings'), _("Add _Postings"), 'add.png', null, null, null, $actionID == 'add_postings' ? 'current' : '__noselection');
+        $menu->add(Horde_Util::addParameter(Horde::applicationUrl('postings.php'), 'actionID', 'add_postings'), _("Add _Postings"), 'add.png', null, null, null, $actionID == 'add_postings' ? 'current' : '__noselection');
         $menu->add(Horde::applicationUrl('search.php'), _("Search"), 'search.png', $registry->getImageDir('horde'));
         $menu->add(Horde::applicationUrl('accounts.php'), _("_Accounts"), 'accounts.png');
         

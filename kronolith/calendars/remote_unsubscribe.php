@@ -21,7 +21,7 @@ if (!Auth::getAuth() || $prefs->isLocked('remote_cals')) {
     exit;
 }
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $url = $vars->get('url');
 
 $remote_calendar = null;
@@ -41,7 +41,7 @@ if (is_null($remote_calendar)) {
 $form = new Kronolith_UnsubscribeRemoteCalendarForm($vars, $remote_calendar);
 
 // Execute if the form is valid (must pass with POST variables only).
-if ($form->validate(new Variables($_POST))) {
+if ($form->validate(new Horde_Variables($_POST))) {
     $result = $form->execute();
     if (is_a($result, 'PEAR_Error')) {
         $notification->push($result, 'horde.error');

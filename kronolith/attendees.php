@@ -9,7 +9,6 @@
 
 require_once dirname(__FILE__) . '/lib/base.php';
 require_once 'Horde/Identity.php';
-require_once 'Horde/Variables.php';
 
 // Get the current attendees array from the session cache.
 $attendees = (isset($_SESSION['kronolith']['attendees']) &&
@@ -19,11 +18,11 @@ $attendees = (isset($_SESSION['kronolith']['attendees']) &&
 $editAttendee = null;
 
 // Get the action ID and value. This specifies what action the user initiated.
-$actionID = Util::getFormData('actionID');
-if (Util::getFormData('clearAll')) {
+$actionID = Horde_Util::getFormData('actionID');
+if (Horde_Util::getFormData('clearAll')) {
     $actionID =  'clear';
 }
-$actionValue = Util::getFormData('actionValue');
+$actionValue = Horde_Util::getFormData('actionValue');
 
 // Perform the specified action, if there is one.
 switch ($actionID) {
@@ -31,10 +30,10 @@ case 'add':
     $parser = new Mail_RFC822;
     // Add new attendees. Multiple attendees can be seperated on a single line
     // by whitespace and/or commas.
-    $newAttendees = trim(Util::getFormData('newAttendees'));
+    $newAttendees = trim(Horde_Util::getFormData('newAttendees'));
     if (empty($newAttendees)) {
-        if (Util::getFormData('addNewClose')) {
-            Util::closeWindowJS();
+        if (Horde_Util::getFormData('addNewClose')) {
+            Horde_Util::closeWindowJS();
             exit;
         }
         break;
@@ -99,8 +98,8 @@ case 'add':
 
     $_SESSION['kronolith']['attendees'] = $attendees;
 
-    if (Util::getFormData('addNewClose')) {
-        Util::closeWindowJS();
+    if (Horde_Util::getFormData('addNewClose')) {
+        Horde_Util::closeWindowJS();
         exit;
     }
     break;
@@ -151,22 +150,22 @@ case 'changeresp':
 case 'dismiss':
     // Close the attendee window.
     if ($browser->hasFeature('javascript')) {
-        Util::closeWindowJS();
+        Horde_Util::closeWindowJS();
         exit;
     }
 
-    $url = Util::getFormData('url');
+    $url = Horde_Util::getFormData('url');
     if (!empty($url)) {
         $location = Horde::applicationUrl($url, true);
     } else {
-        $url = Util::addParameter($prefs->getValue('defaultview') . '.php',
-                                  'month', Util::getFormData('month'));
-        $url = Util::addParameter($url, 'year', Util::getFormData('year'));
+        $url = Horde_Util::addParameter($prefs->getValue('defaultview') . '.php',
+                                  'month', Horde_Util::getFormData('month'));
+        $url = Horde_Util::addParameter($url, 'year', Horde_Util::getFormData('year'));
         $location = Horde::applicationUrl($url, true);
     }
 
     // Make sure URL is unique.
-    $location = Util::addParameter($location, 'unique', hash('md5', microtime()));
+    $location = Horde_Util::addParameter($location, 'unique', hash('md5', microtime()));
     header('Location: ' . $location);
     exit;
 
@@ -178,7 +177,7 @@ case 'clear':
 }
 
 // Get the current Free/Busy view; default to the 'day' view if none specified.
-$view = Util::getFormData('view', 'Day');
+$view = Horde_Util::getFormData('view', 'Day');
 
 // Pre-format our delete image/link.
 $delimg = Horde::img('delete.png', _("Remove Attendee"), null,
@@ -186,7 +185,7 @@ $delimg = Horde::img('delete.png', _("Remove Attendee"), null,
 
 $ident = &Identity::singleton();
 $identities = $ident->getAll('id');
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $tabs = new Horde_UI_Tabs(null, $vars);
 $tabs->addTab(_("Day"), 'javascript:switchView(\'Day\')', 'Day');
 $tabs->addTab(_("Work Week"), 'javascript:switchView(\'Workweek\')', 'Workweek');
@@ -244,7 +243,7 @@ foreach ($attendees as $email => $status) {
     }
 }
 
-$date = Util::getFormData('date', date('Ymd')) . '000000';
+$date = Horde_Util::getFormData('date', date('Ymd')) . '000000';
 $date = new Horde_Date($date);
 $vfb_html = $attendee_view->render($date);
 

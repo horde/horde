@@ -44,7 +44,7 @@ if (!$form->isSubmitted()) {
 
 } elseif ($form->validate()) {
 
-    if (Util::getFormData('submitbutton') == _("Delete all current comments")) {
+    if (Horde_Util::getFormData('submitbutton') == _("Delete all current comments")) {
 
         $result = $registry->call('forums/deleteForum', array('folks', Auth::getAuth()));
         if ($result instanceof PEAR_Error) {

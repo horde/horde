@@ -1,5 +1,5 @@
 <form method="post" name="report" action="report.php">
-<?php Util::pformInput() ?>
+<?php Horde_Util::pformInput() ?>
 <input type="hidden" name="actionID" value="open_report" />
 <input type="hidden" name="sortby" value="<?php echo $params['sortby'] ?>" />
 <input type="hidden" name="sortdir" value="<?php echo $params['sortdir'] ?>" />

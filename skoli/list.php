@@ -16,14 +16,13 @@ require_once SKOLI_BASE . '/lib/base.php';
 $title = _("My Classes");
 
 /* Get and set Variables */
-require_once 'Horde/Variables.php';
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 
 /* Get the current action ID. */
-$actionID = Util::getFormData('actionID');
+$actionID = Horde_Util::getFormData('actionID');
 
 /* Sort out the sorting values */
-if (($sortby_class = Util::getFormData('sortby_class')) !== null) {
+if (($sortby_class = Horde_Util::getFormData('sortby_class')) !== null) {
     if ($sortby_class == $prefs->getValue('sortby_class')) {
         $prefs->setValue('sortdir_class', !$prefs->getValue('sortdir_class'));
     } else {
@@ -39,7 +38,7 @@ if (($sortby_class = Util::getFormData('sortby_class')) !== null) {
         $prefs->setValue('sortby_student', $sortby_class);
     }
 }
-if (($sortby_student = Util::getFormData('sortby_student')) !== null) {
+if (($sortby_student = Horde_Util::getFormData('sortby_student')) !== null) {
     $prefs->setValue('sortby_student', $sortby_student);
     if ($sortby_student == $prefs->getValue('sortby_student')) {
         $prefs->setValue('sortdir_student', !$prefs->getValue('sortdir_student'));
@@ -64,7 +63,7 @@ if (count(Skoli::listClasses()) == 0 && Auth::getAuth()) {
 switch ($actionID) {
 case 'search_classes':
     /* Get the search parameters. */
-    $search_pattern = Util::getFormData('search_pattern');
+    $search_pattern = Horde_Util::getFormData('search_pattern');
 
     /* Get the full, sorted student list for all classes. */
     $list = Skoli::listStudents(null,
@@ -125,7 +124,7 @@ if (count($list) > 0) {
 
     $baseurl = 'list.php';
     if ($actionID == 'search_classes') {
-        $baseurl = Util::addParameter(
+        $baseurl = Horde_Util::addParameter(
             $baseurl,
             array('actionID' => 'search_classes',
                   'search_pattern' => $search_pattern));

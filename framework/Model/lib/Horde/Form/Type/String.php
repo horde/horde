@@ -24,7 +24,7 @@ class Horde_Form_Type_String extends Horde_Form_Type {
     {
         $valid = true;
 
-        if (!empty($this->_maxlength) && String::length($value) > $this->_maxlength) {
+        if (!empty($this->_maxlength) && Horde_String::length($value) > $this->_maxlength) {
             $valid = false;
             $message = sprintf(_("Value is over the maximum length of %s."), $this->_maxlength);
         } elseif ($var->required && empty($this->_regex)) {

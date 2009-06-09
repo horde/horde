@@ -35,7 +35,7 @@ function sbarToggle()
 
 <div id="pageControlsInner">
 <form action="<?php echo Horde::selfUrl() ?>" method="post">
-<?php echo Util::formInput() ?>
+<?php echo Horde_Util::formInput() ?>
  <h4><?php echo _("Search for Classes:") ?></h4>
  <p>
   <input id="classSearch" type="text" for="myclasses,sharedclasses" />

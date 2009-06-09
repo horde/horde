@@ -18,9 +18,9 @@ $blocks = &Horde_Block_Collection::singleton('news_layout', array('news'));
 $layout = &Horde_Block_Layout_Manager::singleton('news_layout', $blocks, unserialize($prefs->getValue('news_layout')));
 
 // Handle requested actions.
-$layout->handle(Util::getFormData('action'),
-                (int)Util::getFormData('row'),
-                (int)Util::getFormData('col'));
+$layout->handle(Horde_Util::getFormData('action'),
+                (int)Horde_Util::getFormData('row'),
+                (int)Horde_Util::getFormData('col'));
 if ($layout->updated()) {
     $prefs->setValue('news_layout', $layout->serialize());
 }

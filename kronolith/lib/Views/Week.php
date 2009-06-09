@@ -342,7 +342,7 @@ class Kronolith_View_Week {
     function link($offset = 0, $full = false)
     {
         $week = $this->getWeek($offset);
-        return Horde::applicationUrl(Util::addParameter($this->_controller,
+        return Horde::applicationUrl(Horde_Util::addParameter($this->_controller,
                                                         'date',
                                                         $week->dateString()),
                                      $full);

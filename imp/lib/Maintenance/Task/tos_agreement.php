@@ -26,7 +26,7 @@ class Maintenance_Task_tos_agreement extends Maintenance_Task
      */
     function doMaintenance()
     {
-        $result = Util::getFormData('not_agree');
+        $result = Horde_Util::getFormData('not_agree');
         if (isset($result)) {
             header('Location: ' . IMP::getLogoutUrl(array(AUTH_REASON_MESSAGE => _("You did not agree to the Terms of Service agreement, so you were not allowed to login.")), true));
             exit;

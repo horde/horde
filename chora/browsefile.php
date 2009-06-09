@@ -23,7 +23,7 @@ if (!$VC->isFile($fullname)) {
     Chora::fatal(sprintf(_("$fullname: no such file or directory"), $where), '404 Not Found');
 }
 
-$onb = Util::getFormData('onb');
+$onb = Horde_Util::getFormData('onb');
 try {
     $fl = $VC->getFileObject($where, array('branch' => $onb));
 } catch (Horde_Vcs_Exception $e) {
@@ -82,7 +82,7 @@ while (list(,$lg) = each($logs)) {
 
     require CHORA_TEMPLATES . '/log/rev.inc';
 
-    if (($i++ > 100) && !Util::getFormData('all')) {
+    if (($i++ > 100) && !Horde_Util::getFormData('all')) {
         break;
     }
 }

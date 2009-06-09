@@ -306,9 +306,9 @@ class IMP_Contents
             !$part->getContents()) {
             $contents = $this->getBodyPart($id, array('length' => empty($options['length']) ? null : $options['length']));
             if (($part->getPrimaryType() == 'text') &&
-                (String::upper($part->getCharset()) == 'US-ASCII') &&
+                (Horde_String::upper($part->getCharset()) == 'US-ASCII') &&
                 Horde_Mime::is8bit($contents)) {
-                $contents = String::convertCharset($contents, 'US-ASCII');
+                $contents = Horde_String::convertCharset($contents, 'US-ASCII');
             }
             $part->setContents($contents);
 
@@ -404,9 +404,9 @@ class IMP_Contents
          * give the user a link to open the part in a new window with the
          * correct character set. */
         if (($mode != 'full') && ($mime_part->getPrimaryType() == 'text')) {
-            $default_charset = String::upper(NLS::getCharset());
+            $default_charset = Horde_String::upper(NLS::getCharset());
             if ($default_charset !== 'UTF-8') {
-                $charset_upper = String::upper($mime_part->getCharset());
+                $charset_upper = Horde_String::upper($mime_part->getCharset());
                 if (($charset_upper != 'US-ASCII') &&
                     ($charset_upper != $default_charset)) {
                     $ret['status'][] = array(
@@ -467,7 +467,7 @@ class IMP_Contents
         // account for any content-encoding & HTML tags.
         $pmime = $this->getMIMEPart($mimeid, array('length' => $maxlen * 3));
         $ptext = $pmime->getContents();
-        $ptext = String::convertCharset($ptext, $pmime->getCharset());
+        $ptext = Horde_String::convertCharset($ptext, $pmime->getCharset());
         if ($pmime->getType() == 'text/html') {
             require_once 'Horde/Text/Filter.php';
             $ptext = Text_Filter::filter($ptext, 'html2text',
@@ -476,8 +476,8 @@ class IMP_Contents
 
         $this->_build = $oldbuild;
 
-        if (String::length($ptext) > $maxlen) {
-            return array('cut' => true, 'text' => String::substr($ptext, 0, $maxlen) . ' ...');
+        if (Horde_String::length($ptext) > $maxlen) {
+            return array('cut' => true, 'text' => Horde_String::substr($ptext, 0, $maxlen) . ' ...');
         }
 
         return array('cut' => false, 'text' => $ptext);
@@ -524,7 +524,7 @@ class IMP_Contents
      */
     public function getSummary($id, $mask = 0)
     {
-        $download_zip = (($mask & self::SUMMARY_DOWNLOAD_ZIP) && Util::extensionExists('zlib'));
+        $download_zip = (($mask & self::SUMMARY_DOWNLOAD_ZIP) && Horde_Util::extensionExists('zlib'));
         $param_array = array();
 
         $this->_buildMessage();
@@ -625,8 +625,8 @@ class IMP_Contents
             ($id != 0) &&
             (intval($id) != 1) &&
             (strpos($id, '.') === false)) {
-            $url = Util::removeParameter(Horde::selfUrl(true), array('actionID', 'imapid', 'index'));
-            $url = Util::addParameter($url, array('actionID' => 'strip_attachment', 'imapid' => $id, 'index' => $this->_index, 'message_token' => IMP::getRequestToken('imp.impcontents')));
+            $url = Horde_Util::removeParameter(Horde::selfUrl(true), array('actionID', 'imapid', 'index'));
+            $url = Horde_Util::addParameter($url, array('actionID' => 'strip_attachment', 'imapid' => $id, 'index' => $this->_index, 'message_token' => IMP::getRequestToken('imp.impcontents')));
             $part['strip'] = Horde::link($url, _("Strip Attachment"), 'stripAtc', null, "return window.confirm('" . addslashes(_("Are you sure you wish to PERMANENTLY delete this attachment?")) . "');") . '</a>';
         }
 
@@ -652,7 +652,7 @@ class IMP_Contents
         $params = $this->_urlViewParams($mime_part, $actionID, isset($options['params']) ? $options['params'] : array());
 
         return empty($options['dload'])
-            ? Util::addParameter(Horde::applicationUrl('view.php'), $params)
+            ? Horde_Util::addParameter(Horde::applicationUrl('view.php'), $params)
             : Horde::downloadUrl($mime_part->getName(true), $params);
     }
 

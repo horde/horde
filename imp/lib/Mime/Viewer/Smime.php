@@ -62,7 +62,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
         /* Check to see if S/MIME support is available. */
         $this->_initSMIME();
 
-        if (Util::getFormData('view_smime_key')) {
+        if (Horde_Util::getFormData('view_smime_key')) {
             return $this->_outputSMIMEKey();
         }
 
@@ -245,7 +245,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
         $sig_result = null;
 
         if ($GLOBALS['prefs']->getValue('smime_verify') ||
-            Util::getFormData('smime_verify_msg')) {
+            Horde_Util::getFormData('smime_verify_msg')) {
             try {
                 $sig_result = $this->_impsmime->verifySignature($raw_text);
             } catch (Horde_Exception $e) {
@@ -258,7 +258,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
         } else {
             switch ($_SESSION['imp']['view']) {
             case 'imp':
-                $status[] = Horde::link(Util::addParameter(IMP::selfUrl(), 'smime_verify_msg', 1)) . _("Click HERE to verify the message.") . '</a>';
+                $status[] = Horde::link(Horde_Util::addParameter(IMP::selfUrl(), 'smime_verify_msg', 1)) . _("Click HERE to verify the message.") . '</a>';
                 break;
 
             case 'dimp':

@@ -534,10 +534,10 @@ function _imp_adminDo($task, $params)
 
     switch ($task) {
     case 'add':
-        return $imap->addMailbox(String::convertCharset($params[0], NLS::getCharset(), 'utf7-imap'));
+        return $imap->addMailbox(Horde_String::convertCharset($params[0], NLS::getCharset(), 'utf7-imap'));
 
     case 'remove':
-        return $imap->removeMailbox(String::convertCharset($params[0], NLS::getCharset(), 'utf7-imap'));
+        return $imap->removeMailbox(Horde_String::convertCharset($params[0], NLS::getCharset(), 'utf7-imap'));
 
     case 'list':
         return $imap->listMailboxes();

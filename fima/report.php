@@ -13,22 +13,22 @@ require_once FIMA_BASE . '/lib/base.php';
 require_once FIMA_BASE . '/config/report.php';
 require_once FIMA_BASE . '/lib/Report.php';
 
-$actionID = Util::getFormData('actionID');
+$actionID = Horde_Util::getFormData('actionID');
 
 switch ($actionID) {
 case 'open_report':
-    $_SESSION['fima_report'] = array('report_id'       => Util::getFormData('report_id'),
-                                     'display'		   => Util::getFormData('display'),
-                                     'posting_account' => Util::getFormData('posting_account'),
-                                     'period_start'    => Util::getFormData('period_start'),
-                                     'period_end'      => Util::getFormData('period_end'),
-                                     'reference_start' => Util::getFormData('reference_start'),
-                                     'reference_end'   => Util::getFormData('reference_end'),
-                                     'cumulate'        => Util::getFormData('cumulate'),
-                                     'nullrows'        => Util::getFormData('nullrows'),
-                                     'subaccounts'     => Util::getFormData('subaccounts'),
-                                     'yearly'          => Util::getFormData('yearly'),
-                                     'graph'           => Util::getFormData('graph'));
+    $_SESSION['fima_report'] = array('report_id'       => Horde_Util::getFormData('report_id'),
+                                     'display'		   => Horde_Util::getFormData('display'),
+                                     'posting_account' => Horde_Util::getFormData('posting_account'),
+                                     'period_start'    => Horde_Util::getFormData('period_start'),
+                                     'period_end'      => Horde_Util::getFormData('period_end'),
+                                     'reference_start' => Horde_Util::getFormData('reference_start'),
+                                     'reference_end'   => Horde_Util::getFormData('reference_end'),
+                                     'cumulate'        => Horde_Util::getFormData('cumulate'),
+                                     'nullrows'        => Horde_Util::getFormData('nullrows'),
+                                     'subaccounts'     => Horde_Util::getFormData('subaccounts'),
+                                     'yearly'          => Horde_Util::getFormData('yearly'),
+                                     'graph'           => Horde_Util::getFormData('graph'));
     break;
 case 'clear_report':
     unset($_SESSION['fima_report']);
@@ -86,9 +86,9 @@ if (!isset($params['graph'])) {
     $params['graph'] = 0;
 }
 
-$params['out'] = Util::getFormData('out');
-$params['sortby']  = Util::getFormData('sortby');
-$params['sortdir'] = Util::getFormData('sortdir');
+$params['out'] = Horde_Util::getFormData('out');
+$params['sortby']  = Horde_Util::getFormData('sortby');
+$params['sortdir'] = Horde_Util::getFormData('sortdir');
 
 /* Get posting types and output displays. */
 $types = Fima::getPostingTypes();
@@ -118,7 +118,7 @@ case 'display_report':
         $params['title'] = $_reports[$params['report_id']];
         
         /* Build report url. */
-        $params['url'] = Util::addParameter(Horde::applicationUrl('report.php'), 'actionID', 'display_report');
+        $params['url'] = Horde_Util::addParameter(Horde::applicationUrl('report.php'), 'actionID', 'display_report');
 
         /* Add params from options. */
         $params['graphsize'] = $prefs->getValue('report_graphsize');

@@ -11,7 +11,7 @@
 @define('FIMA_BASE', dirname(__FILE__));
 require_once FIMA_BASE . '/lib/base.php';
 require_once FIMA_BASE . '/lib/Forms/account.php';
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 
 /* Redirect to the account list if no action has been requested. */
 $actionID = $vars->get('actionID');
@@ -76,7 +76,7 @@ case 'modify_account':
         if (!isset($account) || !isset($account['account_id'])) {
             $notification->push(_("Account not found."), 'horde.error');
         } else {
-            $vars = new Variables($account);
+            $vars = new Horde_Variables($account);
             $vars->set('actionID', 'save_account');
             $vars->set('number_new', $vars->get('number'));
             $form = new Fima_AccountForm($vars, sprintf(_("Edit: %s"), trim($account['number'] . ' ' . $account['name'])), $share->hasPermission(Auth::getAuth(), PERMS_DELETE));
@@ -92,7 +92,7 @@ case 'save_account':
     if ($vars->get('submitbutton') == _("Delete this account")) {
         /* Redirect to the delete form. */
         $account_id = $vars->get('account_id');
-        header('Location: ' . Util::addParameter(Horde::applicationUrl('account.php', true), array('account' => $account_id, 'actionID' => 'delete_account'), null, false));
+        header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('account.php', true), array('account' => $account_id, 'actionID' => 'delete_account'), null, false));
         exit;
     }
 
@@ -160,7 +160,7 @@ case 'save_account':
         $notification->push(sprintf(_("Saved %s."), trim($info['number_new'] . ' ' . $info['name'])), 'horde.success');
         /* Return to the accounts. */
         if ($vars->get('submitbutton') == _("Save and New")) {
-            header('Location: ' . Util::addParameter(Horde::applicationUrl('account.php', true), array('account' => $vars->get('parent_id'), 'actionID' => 'add_account'), null, false));
+            header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('account.php', true), array('account' => $vars->get('parent_id'), 'actionID' => 'add_account'), null, false));
         } else {
             header('Location: ' . Horde::applicationUrl('accounts.php', true));
         }
@@ -178,7 +178,7 @@ case 'delete_account':
         if (!isset($account) || !isset($account['account_id'])) {
             $notification->push(_("Account not found."), 'horde.error');
         } else {
-            $vars = new Variables($account);
+            $vars = new Horde_Variables($account);
             $vars->set('actionID', 'purge_account');
             $vars->set('dssubaccounts', array('type' => 'none', 'account' => $account_id));
             $vars->set('dspostings', array('type' => 'delete', 'account' => $account_id));
@@ -195,7 +195,7 @@ case 'purge_account':
     if ($vars->get('submitbutton') == _("Edit this account")) {
         /* Redirect to the edit form. */
         $account_id = $vars->get('account_id');
-        header('Location: ' . Util::addParameter(Horde::applicationUrl('account.php', true), array('account' => $account_id, 'actionID' => 'modify_account'), null, false));
+        header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('account.php', true), array('account' => $account_id, 'actionID' => 'modify_account'), null, false));
         exit;
     }
 

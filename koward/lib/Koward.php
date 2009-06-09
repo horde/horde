@@ -53,8 +53,6 @@ class Koward {
         global $registry, $notification, $browser;
 
         /* Horde core classes that aren't autoloaded. */
-        include_once 'Horde/Util.php';
-        include_once 'Horde/String.php';
         include_once 'Horde/NLS.php';
         include_once 'Horde/Auth.php';
         include_once 'Horde/Perms.php';

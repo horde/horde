@@ -21,7 +21,7 @@ if (!Auth::getAuth() || $prefs->isLocked('remote_cals')) {
     exit;
 }
 
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 $form = new Kronolith_SubscribeRemoteCalendarForm($vars);
 
 // Execute if the form is valid.

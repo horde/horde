@@ -30,9 +30,9 @@ function _importKeyDialog($target)
     $t->setOption('gettext', true);
     $t->set('selfurl', Horde::applicationUrl('pgp.php'));
     $t->set('broken_mp_form', $GLOBALS['browser']->hasQuirk('broken_multipart_form'));
-    $t->set('reload', htmlspecialchars(Util::getFormData('reload')));
+    $t->set('reload', htmlspecialchars(Horde_Util::getFormData('reload')));
     $t->set('target', $target);
-    $t->set('forminput', Util::formInput());
+    $t->set('forminput', Horde_Util::formInput());
     $t->set('import_public_key', $target == 'process_import_public_key');
     $t->set('import_personal_public_key', $target == 'process_import_personal_public_key');
     $t->set('import_personal_private_key', $target == 'process_import_personal_private_key');
@@ -41,7 +41,7 @@ function _importKeyDialog($target)
 
 function _getImportKey()
 {
-    $key = Util::getFormData('import_key');
+    $key = Horde_Util::getFormData('import_key');
     if (!empty($key)) {
         return $key;
     }
@@ -64,9 +64,9 @@ function _textWindowOutput($filename, $msg)
 function _reloadWindow()
 {
     $cacheSess = &Horde_SessionObjects::singleton();
-    $reload = Util::getFormData('reload');
+    $reload = Horde_Util::getFormData('reload');
     $cacheSess->setPruneFlag($reload, true);
-    Util::closeWindowJS('opener.focus();opener.location.href="' . $cacheSess->query($reload) . '";');
+    Horde_Util::closeWindowJS('opener.focus();opener.location.href="' . $cacheSess->query($reload) . '";');
 }
 
 require_once dirname(__FILE__) . '/lib/base.php';
@@ -80,17 +80,17 @@ try {
 $secure_check = Horde::isConnectionSecure();
 
 /* Run through the action handlers */
-$actionID = Util::getFormData('actionID');
+$actionID = Horde_Util::getFormData('actionID');
 switch ($actionID) {
 case 'generate_key':
     /* Check that fields are filled out (except for Comment) and that the
        passphrases match. */
-    $realname = Util::getFormData('generate_realname');
-    $email = Util::getFormData('generate_email');
-    $comment = Util::getFormData('generate_comment');
-    $keylength = Util::getFormData('generate_keylength');
-    $passphrase1 = Util::getFormData('generate_passphrase1');
-    $passphrase2 = Util::getFormData('generate_passphrase2');
+    $realname = Horde_Util::getFormData('generate_realname');
+    $email = Horde_Util::getFormData('generate_email');
+    $comment = Horde_Util::getFormData('generate_comment');
+    $keylength = Horde_Util::getFormData('generate_keylength');
+    $passphrase1 = Horde_Util::getFormData('generate_passphrase1');
+    $passphrase2 = Horde_Util::getFormData('generate_passphrase2');
 
     if (empty($realname) || empty($email)) {
         $notification->push(_("Name and/or email cannot be empty"), 'horde.error');
@@ -212,7 +212,7 @@ case 'process_import_personal_private_key':
 case 'view_public_key':
 case 'info_public_key':
     try {
-        $key = $imp_pgp->getPublicKey(Util::getFormData('email'), array('noserver' => true));
+        $key = $imp_pgp->getPublicKey(Horde_Util::getFormData('email'), array('noserver' => true));
     } catch (Horde_Exception $e) {
         $key = $e->getMessage();
     }
@@ -241,29 +241,29 @@ case 'info_personal_private_key':
 
 case 'delete_public_key':
     try {
-        $imp_pgp->deletePublicKey(Util::getFormData('email'));
-        $notification->push(sprintf(_("PGP Public Key for \"%s\" was successfully deleted."), Util::getFormData('email')), 'horde.success');
+        $imp_pgp->deletePublicKey(Horde_Util::getFormData('email'));
+        $notification->push(sprintf(_("PGP Public Key for \"%s\" was successfully deleted."), Horde_Util::getFormData('email')), 'horde.success');
     } catch (Horde_Exception $e) {
         $notification->push($e);
     }
     break;
 
 case 'save_options':
-    $prefs->setValue('use_pgp', Util::getFormData('use_pgp') ? 1 : 0);
-    $prefs->setValue('pgp_attach_pubkey', Util::getFormData('pgp_attach_pubkey') ? 1 : 0);
-    $prefs->setValue('pgp_scan_body', Util::getFormData('pgp_scan_body') ? 1 : 0);
-    $prefs->setValue('pgp_verify', Util::getFormData('pgp_verify') ? 1 : 0);
+    $prefs->setValue('use_pgp', Horde_Util::getFormData('use_pgp') ? 1 : 0);
+    $prefs->setValue('pgp_attach_pubkey', Horde_Util::getFormData('pgp_attach_pubkey') ? 1 : 0);
+    $prefs->setValue('pgp_scan_body', Horde_Util::getFormData('pgp_scan_body') ? 1 : 0);
+    $prefs->setValue('pgp_verify', Horde_Util::getFormData('pgp_verify') ? 1 : 0);
     $notification->push(_("Preferences successfully updated."), 'horde.success');
     break;
 
 case 'save_attachment_public_key':
     /* Retrieve the key from the message. */
     try {
-        $contents = &IMP_Contents::singleton(Util::getFormData('uid') . IMP::IDX_SEP . Util::getFormData('mailbox'));
+        $contents = &IMP_Contents::singleton(Horde_Util::getFormData('uid') . IMP::IDX_SEP . Horde_Util::getFormData('mailbox'));
     } catch (Horde_Exception $e) {
         Horde::fatal($e, __FILE__, __LINE__);
     }
-    $mime_part = $contents->getMIMEPart(Util::getFormData('mime_id'));
+    $mime_part = $contents->getMIMEPart(Horde_Util::getFormData('mime_id'));
     if (empty($mime_part)) {
         Horde::fatal('Cannot retrieve public key from message.', __FILE__, __LINE__);
     }
@@ -271,7 +271,7 @@ case 'save_attachment_public_key':
     /* Add the public key to the storage system. */
     try {
         $imp_pgp->addPublicKey($mime_part->getContents());
-        Util::closeWindowJS();
+        Horde_Util::closeWindowJS();
     } catch (Horde_Exception $e) {
         $notification->push($e, $key_info->getCode());
     }
@@ -311,7 +311,7 @@ extract($result);
 require_once 'Horde/Help.php';
 require_once 'Horde/Prefs/UI.php';
 $app = 'imp';
-$chunk = Util::nonInputVar('chunk');
+$chunk = Horde_Util::nonInputVar('chunk');
 Prefs_UI::generateHeader('pgp', $chunk);
 
 /* If PGP preference not active, do NOT show PGP Admin screen. */
@@ -343,13 +343,13 @@ if ($prefs->getValue('use_pgp')) {
     if (!$t->get('empty_pubkey_list')) {
         $plist = array();
         foreach ($pubkey_list as $val) {
-            $linkurl = Util::addParameter($selfURL, 'email', $val['email']);
+            $linkurl = Horde_Util::addParameter($selfURL, 'email', $val['email']);
             $plist[] = array(
                 'name' => $val['name'],
                 'email' => $val['email'],
-                'view' => Horde::link(Util::addParameter($linkurl, 'actionID', 'view_public_key'), sprintf(_("View %s Public Key"), $val['name']), null, 'view_key'),
-                'info' => Horde::link(Util::addParameter($linkurl, 'actionID', 'info_public_key'), sprintf(_("Information on %s Public Key"), $val['name']), null, 'info_key'),
-                'delete' => Horde::link(Util::addParameter($linkurl, 'actionID', 'delete_public_key'), sprintf(_("Delete %s Public Key"), $val['name']), null, null, "if (confirm('" . addslashes(_("Are you sure you want to delete this public key?")) . "')) { return true; } else { return false; }")
+                'view' => Horde::link(Horde_Util::addParameter($linkurl, 'actionID', 'view_public_key'), sprintf(_("View %s Public Key"), $val['name']), null, 'view_key'),
+                'info' => Horde::link(Horde_Util::addParameter($linkurl, 'actionID', 'info_public_key'), sprintf(_("Information on %s Public Key"), $val['name']), null, 'info_key'),
+                'delete' => Horde::link(Horde_Util::addParameter($linkurl, 'actionID', 'delete_public_key'), sprintf(_("Delete %s Public Key"), $val['name']), null, null, "if (confirm('" . addslashes(_("Are you sure you want to delete this public key?")) . "')) { return true; } else { return false; }")
             );
         }
         $t->set('pubkey_list', $plist);
@@ -360,7 +360,7 @@ if ($prefs->getValue('use_pgp')) {
         $t->set('no_source', !$GLOBALS['prefs']->getValue('add_source'));
         if (!$t->get('no_source')) {
             $cacheSess = &Horde_SessionObjects::singleton();
-            $t->set('public_import_url', Util::addParameter(Util::addParameter($selfURL, 'actionID', 'import_public_key'), 'reload', $cacheSess->storeOid($selfURL, false)));
+            $t->set('public_import_url', Horde_Util::addParameter(Horde_Util::addParameter($selfURL, 'actionID', 'import_public_key'), 'reload', $cacheSess->storeOid($selfURL, false)));
             $t->set('import_pubkey-help', Help::link('imp', 'pgp-import-pubkey'));
         }
     }
@@ -370,14 +370,14 @@ if ($prefs->getValue('use_pgp')) {
     if ($secure_check) {
         $t->set('has_key', $prefs->getValue('pgp_public_key') && $prefs->getValue('pgp_private_key'));
         if ($t->get('has_key')) {
-            $t->set('viewpublic', Horde::link(Util::addParameter($selfURL, 'actionID', 'view_personal_public_key'), _("View Personal Public Key"), null, 'view_key'));
-            $t->set('infopublic', Horde::link(Util::addParameter($selfURL, 'actionID', 'info_personal_public_key'), _("Information on Personal Public Key"), null, 'info_key'));
-            $t->set('sendkey', Horde::link(Util::addParameter($selfURL, 'actionID', 'send_public_key'), _("Send Key to Public Keyserver")));
+            $t->set('viewpublic', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'view_personal_public_key'), _("View Personal Public Key"), null, 'view_key'));
+            $t->set('infopublic', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'info_personal_public_key'), _("Information on Personal Public Key"), null, 'info_key'));
+            $t->set('sendkey', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'send_public_key'), _("Send Key to Public Keyserver")));
             $t->set('personalkey-public-help', Help::link('imp', 'pgp-personalkey-public'));
             $passphrase = $imp_pgp->getPassphrase('personal');
-            $t->set('passphrase', (empty($passphrase)) ? Horde::link('#', _("Enter Passphrase"), null, null, IMP::passphraseDialogJS('PGPPersonal') . ';return false;') . _("Enter Passphrase") : Horde::link(Util::addParameter($selfURL, 'actionID', 'unset_passphrase'), _("Unload Passphrase")) . _("Unload Passphrase"));
-            $t->set('viewprivate', Horde::link(Util::addParameter($selfURL, 'actionID', 'view_personal_private_key'), _("View Personal Private Key"), null, 'view_key'));
-            $t->set('infoprivate', Horde::link(Util::addParameter($selfURL, 'actionID', 'info_personal_private_key'), _("Information on Personal Private Key"), null, 'info_key'));
+            $t->set('passphrase', (empty($passphrase)) ? Horde::link('#', _("Enter Passphrase"), null, null, IMP::passphraseDialogJS('PGPPersonal') . ';return false;') . _("Enter Passphrase") : Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'unset_passphrase'), _("Unload Passphrase")) . _("Unload Passphrase"));
+            $t->set('viewprivate', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'view_personal_private_key'), _("View Personal Private Key"), null, 'view_key'));
+            $t->set('infoprivate', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'info_personal_private_key'), _("Information on Personal Private Key"), null, 'info_key'));
             $t->set('personalkey-private-help', Help::link('imp', 'pgp-personalkey-private'));
             $t->set('deletekeypair', addslashes(_("Are you sure you want to delete your keypair? (This is NOT recommended!)")));
             $t->set('personalkey-delete-help', Help::link('imp', 'pgp-personalkey-delete'));
@@ -392,7 +392,7 @@ if ($prefs->getValue('use_pgp')) {
             $t->set('personalkey-create-keylength-help', Help::link('imp', 'pgp-personalkey-create-keylength'));
             $t->set('personalkey-create-passphrase-help', Help::link('imp', 'pgp-personalkey-create-passphrase'));
             $t->set('keygen',  addslashes(_("Key generation may take a long time to complete.  Continue with key generation?")));
-            $t->set('personal_import_url', Util::addParameter($selfURL, 'actionID', 'import_personal_public_key'));
+            $t->set('personal_import_url', Horde_Util::addParameter($selfURL, 'actionID', 'import_personal_public_key'));
             $t->set('personalkey-create-actions-help', Help::link('imp', 'pgp-personalkey-create-actions'));
         }
     }

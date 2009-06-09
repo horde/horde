@@ -42,7 +42,7 @@ Horde_Autoloader::addClassPattern('/^IMP_/', $imp_dir);
 
 // Registry.
 $s_ctrl = 0;
-switch (Util::nonInputVar('session_control')) {
+switch (Horde_Util::nonInputVar('session_control')) {
 case 'netscape':
     if ($browser->isBrowser('mozilla')) {
         session_cache_limiter('private, must-revalidate');
@@ -62,7 +62,7 @@ $registry = &Registry::singleton($s_ctrl);
 // We explicitly do not check application permissions for the compose
 // and login pages, since those are handled below and need to fall through
 // to IMP-specific code.
-$compose_page = Util::nonInputVar('compose_page');
+$compose_page = Horde_Util::nonInputVar('compose_page');
 if (is_a(($pushed = $registry->pushApp('imp', !(defined('AUTH_HANDLER') || $compose_page))), 'PEAR_Error')) {
     if ($pushed->getCode() == 'permission_denied') {
         Horde::authenticationFailureRedirect();
@@ -80,7 +80,7 @@ if (!isset($GLOBALS['imp_imap'])) {
 }
 
 // Start compression.
-if (!Util::nonInputVar('no_compress')) {
+if (!Horde_Util::nonInputVar('no_compress')) {
     Horde::compressOutput();
 }
 
@@ -100,7 +100,7 @@ $viewmode = isset($_SESSION['imp']['view'])
     ? $_SESSION['imp']['view']
     : 'imp';
 
-$authentication = Util::nonInputVar('authentication', 0);
+$authentication = Horde_Util::nonInputVar('authentication', 0);
 if ($authentication !== 'none') {
     // If we've gotten to this point and have valid login credentials
     // but don't actually have an IMP session, then we need to go
@@ -128,7 +128,7 @@ if ($authentication !== 'none') {
     } elseif ($viewmode == 'dimp') {
         // Handle session timeouts
         if (!IMP::checkAuthentication(true)) {
-            switch (Util::nonInputVar('session_timeout')) {
+            switch (Horde_Util::nonInputVar('session_timeout')) {
             case 'json':
                 $GLOBALS['notification']->push(null, 'dimp.timeout');
                 Horde::sendHTTPResponse(Horde::prepareResponse(), 'json');
@@ -137,7 +137,7 @@ if ($authentication !== 'none') {
                 exit;
 
             default:
-                Horde::redirect(Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'imp') . '/redirect.php'), 'url', Horde::selfUrl(true)));
+                Horde::redirect(Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'imp') . '/redirect.php'), 'url', Horde::selfUrl(true)));
             }
         }
     } else {
@@ -159,14 +159,14 @@ if ($authentication !== 'none') {
 }
 
 // Handle logout requests
-if (($viewmode == 'dimp') && Util::nonInputVar('dimp_logout')) {
+if (($viewmode == 'dimp') && Horde_Util::nonInputVar('dimp_logout')) {
     Horde::redirect(str_replace('&amp;', '&', IMP::getLogoutUrl()));
 }
 
 // Notification system.
 $notification = &Notification::singleton();
 if (($viewmode == 'mimp') ||
-    (Util::nonInputVar('login_page') && $GLOBALS['browser']->isMobile())) {
+    (Horde_Util::nonInputVar('login_page') && $GLOBALS['browser']->isMobile())) {
     require_once 'Horde/Notification/Listener/mobile.php';
     $GLOBALS['imp_notify'] = &$notification->attach('status', null, 'Notification_Listener_mobile');
 } elseif ($viewmode == 'dimp') {
@@ -193,7 +193,7 @@ $GLOBALS['imp_search'] = new IMP_Search(array('id' => (isset($_SESSION['imp']) &
 
 if ($viewmode == 'mimp') {
     // Mobile markup renderer.
-    $debug = Util::nonInputVar('mimp_debug');
+    $debug = Horde_Util::nonInputVar('mimp_debug');
     $GLOBALS['mimp_render'] = new Horde_Mobile(null, $debug);
     $GLOBALS['mimp_render']->set('debug', !empty($debug));
 }

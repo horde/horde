@@ -10,9 +10,6 @@
  * @package Skoli
  */
 
-/** Variables */
-require_once 'Horde/Variables.php';
-
 /** Horde_Form */
 require_once 'Horde/Form.php';
 

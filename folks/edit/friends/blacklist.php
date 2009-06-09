@@ -22,7 +22,7 @@ require_once FOLKS_BASE . '/lib/Friends.php';
 $friends = Folks_Friends::singleton();
 
 // Perform action
-$user = Util::getGet('user');
+$user = Horde_Util::getGet('user');
 if ($user) {
     if ($friends->isBlacklisted($user)) {
         $result = $friends->removeBlacklisted($user);

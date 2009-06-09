@@ -46,8 +46,8 @@ if (Kronolith::hasPermission('max_events') !== true &&
 }
 
 /* Initial values. */
-$import_step   = Util::getFormData('import_step', 0) + 1;
-$actionID      = Util::getFormData('actionID');
+$import_step   = Horde_Util::getFormData('import_step', 0) + 1;
+$actionID      = Horde_Util::getFormData('actionID');
 $next_step     = Horde_Data::IMPORT_FILE;
 $app_fields    = array('title' => _("Title"),
                        'start_date' => _("Start Date"),
@@ -70,27 +70,27 @@ $time_fields   = array('start_date'     => 'date',
                        'recur_end_date' => 'date');
 $param         = array('time_fields' => $time_fields,
                        'file_types'  => $file_types);
-$import_format = Util::getFormData('import_format', '');
+$import_format = Horde_Util::getFormData('import_format', '');
 $error         = false;
 $kronolith_driver = Kronolith::getDriver();
 
 /* Loop through the action handlers. */
 switch ($actionID) {
 case 'export':
-    if (Util::getFormData('all_events')) {
+    if (Horde_Util::getFormData('all_events')) {
         $start = null;
         $end = null;
     } else {
-        $start->mday = Util::getFormData('start_day');
-        $start->month = Util::getFormData('start_month');
-        $start->year = Util::getFormData('start_year');
-        $end->mday = Util::getFormData('end_day');
-        $end->month = Util::getFormData('end_month');
-        $end->year = Util::getFormData('end_year');
+        $start->mday = Horde_Util::getFormData('start_day');
+        $start->month = Horde_Util::getFormData('start_month');
+        $start->year = Horde_Util::getFormData('start_year');
+        $end->mday = Horde_Util::getFormData('end_day');
+        $end->month = Horde_Util::getFormData('end_month');
+        $end->year = Horde_Util::getFormData('end_year');
     }
 
     $events = array();
-    $calendars = Util::getFormData('exportCal', $display_calendars);
+    $calendars = Horde_Util::getFormData('exportCal', $display_calendars);
     if (!is_array($calendars)) {
         $calendars = array($calendars);
     }
@@ -107,7 +107,7 @@ case 'export':
         break;
     }
 
-    $exportID = Util::getFormData('exportID');
+    $exportID = Horde_Util::getFormData('exportID');
     switch ($exportID) {
     case Horde_Data::EXPORT_CSV:
         $data = array();
@@ -168,7 +168,7 @@ case 'export':
             }
         }
 
-        $iCal->setAttribute('X-WR-CALNAME', String::convertCharset(implode(', ', $calNames), NLS::getCharset(), 'utf-8'));
+        $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset(implode(', ', $calNames), NLS::getCharset(), 'utf-8'));
         $data = $iCal->exportvCalendar();
         $browser->downloadHeaders(_("events.ics"), 'text/calendar', false, strlen($data));
         echo $data;
@@ -177,8 +177,8 @@ case 'export':
     break;
 
 case Horde_Data::IMPORT_FILE:
-    $_SESSION['import_data']['import_cal'] = Util::getFormData('importCal');
-    $_SESSION['import_data']['purge'] = Util::getFormData('purge');
+    $_SESSION['import_data']['import_cal'] = Horde_Util::getFormData('importCal');
+    $_SESSION['import_data']['purge'] = Horde_Util::getFormData('purge');
     break;
 }
 

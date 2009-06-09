@@ -15,7 +15,7 @@ require_once dirname(__FILE__) . '/tabs.php';
 $title = _("Renew account");
 
 // Get supplied code
-$code = Util::getGet('code');
+$code = Horde_Util::getGet('code');
 if (empty($code)) {
     $notification->push(_("You must supply a confirmation code."));
     header('Location: ' . Auth::getLoginScreen('folks', Horde::applicationUrl('edit/edit.php')));
@@ -23,7 +23,7 @@ if (empty($code)) {
 }
 
 // Get supplied username
-$user = Util::getGet('user');
+$user = Horde_Util::getGet('user');
 if (empty($code)) {
     $notification->push(_("You must supply a username."));
     header('Location: ' . Auth::getLoginScreen('folks', Horde::applicationUrl('edit/edit.php')));

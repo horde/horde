@@ -38,7 +38,7 @@ class IMP_Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Tnef
      */
     protected function _render()
     {
-        if (!Util::getFormData('tnef_attachment')) {
+        if (!Horde_Util::getFormData('tnef_attachment')) {
             $ret = $this->_renderInfo();
             reset($ret);
             $ret[key($ret)]['data'] = '<html><body>' . $ret[key($ret)]['data'] . '</body></html>';
@@ -51,7 +51,7 @@ class IMP_Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Tnef
 
         /* Display the requested file. Its position in the $tnefData
          * array can be found in 'tnef_attachment'. */
-        $tnefKey = Util::getFormData('tnef_attachment') - 1;
+        $tnefKey = Horde_Util::getFormData('tnef_attachment') - 1;
 
         /* Verify that the requested file exists. */
         if (isset($tnefData[$tnefKey])) {

@@ -15,11 +15,11 @@ require_once HORDE_BASE . '/lib/base.php';
 require_once 'Horde/Loader.php';
 
 // Block to load
-$block_id = Util::getFormData('block');
+$block_id = Horde_Util::getFormData('block');
 list($app, $name) = explode(':', $block_id);
 
 $block_data = array();
-$block = Horde_Block_Collection::getBlock($app, $name, Util::getFormData('defaults'));
+$block = Horde_Block_Collection::getBlock($app, $name, Horde_Util::getFormData('defaults'));
 if ($block instanceof PEAR_Error) {
     $block_data['title'] = $block->getMessage();
     $block_data['content'] = $block->getDebugInfo();

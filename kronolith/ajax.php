@@ -56,14 +56,14 @@ function saveEvent($event)
         $GLOBALS['notification']->push($result, 'horde.error');
         return true;
     }
-    $start = new Horde_Date(Util::getFormData('view_start'));
-    $end   = new Horde_Date(Util::getFormData('view_end'));
+    $start = new Horde_Date(Horde_Util::getFormData('view_start'));
+    $end   = new Horde_Date(Horde_Util::getFormData('view_end'));
     $end->hour = 23;
     $end->min = $end->sec = 59;
     Kronolith::addEvents($events, $event, $start, $end, true, true);
     $result = new stdClass;
-    $result->cal = Util::getFormData('cal');
-    $result->view = Util::getFormData('view');
+    $result->cal = Horde_Util::getFormData('cal');
+    $result->view = Horde_Util::getFormData('view');
     $result->sig = $start->dateString() . $end->dateString();
     if (count($events)) {
         $result->events = $events;
@@ -71,10 +71,10 @@ function saveEvent($event)
     return $result;
 }
 
-// Need to load Util:: to give us access to Util::getPathInfo().
+// Need to load Horde_Util:: to give us access to Horde_Util::getPathInfo().
 require_once dirname(__FILE__) . '/base.load.php';
 require_once HORDE_BASE . '/lib/core.php';
-$action = basename(Util::getPathInfo());
+$action = basename(Horde_Util::getPathInfo());
 if (empty($action)) {
     // This is the only case where we really don't return anything, since
     // the frontend can be presumed not to make this request on purpose.
@@ -92,7 +92,7 @@ $session_timeout = 'json';
 require_once KRONOLITH_BASE . '/lib/base.php';
 
 // Process common request variables.
-$cacheid = Util::getPost('cacheid');
+$cacheid = Horde_Util::getPost('cacheid');
 
 // Open an output buffer to ensure that we catch errors that might break JSON
 // encoding.
@@ -104,12 +104,12 @@ try {
 
     switch ($action) {
     case 'ListEvents':
-        $start = new Horde_Date(Util::getFormData('start'));
-        $end   = new Horde_Date(Util::getFormData('end'));
-        $cal   = Util::getFormData('cal');
+        $start = new Horde_Date(Horde_Util::getFormData('start'));
+        $end   = new Horde_Date(Horde_Util::getFormData('end'));
+        $cal   = Horde_Util::getFormData('cal');
         $result = new stdClass;
         $result->cal = $cal;
-        $result->view = Util::getFormData('view');
+        $result->view = Horde_Util::getFormData('view');
         $result->sig = $start->dateString() . $end->dateString();
         if (!($kronolith_driver = getDriver($cal))) {
             break;
@@ -125,11 +125,11 @@ try {
         break;
 
     case 'GetEvent':
-        if (!($kronolith_driver = getDriver(Util::getFormData('cal')))) {
+        if (!($kronolith_driver = getDriver(Horde_Util::getFormData('cal')))) {
             $result = true;
             break;
         }
-        if (is_null($id = Util::getFormData('id'))) {
+        if (is_null($id = Horde_Util::getFormData('id'))) {
             $result = true;
             break;
         }
@@ -149,11 +149,11 @@ try {
         break;
 
     case 'SaveEvent':
-        if (!($kronolith_driver = getDriver(Util::getFormData('cal')))) {
+        if (!($kronolith_driver = getDriver(Horde_Util::getFormData('cal')))) {
             $result = true;
             break;
         }
-        $event = $kronolith_driver->getEvent(Util::getFormData('id'));
+        $event = $kronolith_driver->getEvent(Horde_Util::getFormData('id'));
         if (is_a($event, 'PEAR_Error')) {
             $notification->push($event, 'horde.error');
             $result = true;
@@ -174,10 +174,10 @@ try {
         break;
 
     case 'UpdateEvent':
-        if (!($kronolith_driver = getDriver(Util::getFormData('cal')))) {
+        if (!($kronolith_driver = getDriver(Horde_Util::getFormData('cal')))) {
             break;
         }
-        if (is_null($id = Util::getFormData('id'))) {
+        if (is_null($id = Horde_Util::getFormData('id'))) {
             $result = true;
             break;
         }
@@ -195,7 +195,7 @@ try {
             $result = true;
             break;
         }
-        $attributes = Horde_Serialize::unserialize(Util::getFormData('att'), Horde_Serialize::JSON);
+        $attributes = Horde_Serialize::unserialize(Horde_Util::getFormData('att'), Horde_Serialize::JSON);
         foreach ($attributes as $attribute => $value) {
             switch ($attribute) {
             case 'start_date':
@@ -219,11 +219,11 @@ try {
         break;
 
     case 'DeleteEvent':
-        if (!($kronolith_driver = getDriver(Util::getFormData('cal')))) {
+        if (!($kronolith_driver = getDriver(Horde_Util::getFormData('cal')))) {
             $result = true;
             break;
         }
-        if (is_null($id = Util::getFormData('id'))) {
+        if (is_null($id = Horde_Util::getFormData('id'))) {
             $result = true;
             break;
         }
@@ -254,14 +254,14 @@ try {
         break;
 
     case 'SearchEvents':
-        $query = Horde_Serialize::unserialize(Util::getFormData('query'), Horde_Serialize::JSON);
+        $query = Horde_Serialize::unserialize(Horde_Util::getFormData('query'), Horde_Serialize::JSON);
         if (!isset($query->start)) {
             $query->start = new Horde_Date($_SERVER['REQUEST_TIME']);
         }
         if (!isset($query->end)) {
             $query->end = null;
         }
-        $cals   = Horde_Serialize::unserialize(Util::getFormData('cals'), Horde_Serialize::JSON);
+        $cals   = Horde_Serialize::unserialize(Horde_Util::getFormData('cals'), Horde_Serialize::JSON);
         $events = array();
         foreach ($cals as $cal) {
             if (!($kronolith_driver = getDriver($cal))) {
@@ -278,7 +278,7 @@ try {
         }
         $result = new stdClass;
         $result->view = 'search';
-        $result->query = Util::getFormData('query');
+        $result->query = Horde_Util::getFormData('query');
         if ($events) {
             $result->events = $events;
         }
@@ -286,7 +286,7 @@ try {
 
     case 'SearchCalendars':
         $result = new stdClass;
-        $result->events = 'Searched for calendars: ' . Util::getFormData('title');
+        $result->events = 'Searched for calendars: ' . Horde_Util::getFormData('title');
         break;
 
     case 'SaveCalPref':
@@ -294,10 +294,10 @@ try {
         break;
 
     case 'ChunkContent':
-        $chunk = basename(Util::getPost('chunk'));
+        $chunk = basename(Horde_Util::getPost('chunk'));
         if (!empty($chunk)) {
             $result = new stdClass;
-            $result->chunk = Util::bufferOutput('include', KRONOLITH_TEMPLATES . '/chunks/' . $chunk . '.php');
+            $result->chunk = Horde_Util::bufferOutput('include', KRONOLITH_TEMPLATES . '/chunks/' . $chunk . '.php');
         }
         break;
 

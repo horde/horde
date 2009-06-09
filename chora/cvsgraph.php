@@ -27,7 +27,7 @@ if (!is_file($fullname . ',v')) {
 $root = escapeShellCmd($VC->sourceroot());
 $file = escapeShellCmd($where . ',v');
 
-if (Util::getFormData('show_image')) {
+if (Horde_Util::getFormData('show_image')) {
     // Pipe out the actual image.
     $args = array('c' => $conf['paths']['cvsgraph_conf'],
                   'r' => $root);

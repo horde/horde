@@ -1,5 +1,5 @@
 <form method="post" name="export" action="<?php echo Horde::downloadUrl(_("events.csv"), null, 'data.php') ?>">
-<?php Util::pformInput() ?>
+<?php Horde_Util::pformInput() ?>
 <input type="hidden" name="actionID" value="export" />
 
 <br class="spacer" />

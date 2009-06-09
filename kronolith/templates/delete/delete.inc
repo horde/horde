@@ -1,12 +1,12 @@
 <?php
 if (empty($url)) {
-    $url = Util::addParameter('month.php', array('month' => $month,
+    $url = Horde_Util::addParameter('month.php', array('month' => $month,
                                                  'year' => $year));
     $url = Horde::applicationUrl($url, true);
 }
 ?>
 <form action="delete.php" method="post" id="deleteform" name="delete">
-<?php echo Util::formInput() ?>
+<?php echo Horde_Util::formInput() ?>
 <input type="hidden" name="year" value="<?php if (isset($year)) echo htmlspecialchars($year) ?>" />
 <input type="hidden" name="month" value="<?php if (isset($month)) echo htmlspecialchars($month) ?>" />
 <input type="hidden" name="mday" value="<?php if (isset($day)) echo htmlspecialchars($day) ?>" />

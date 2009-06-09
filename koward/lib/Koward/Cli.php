@@ -139,9 +139,8 @@ class Koward_Cli extends Horde_Controller_Request_Base
                 /**
                  * FIXME: Allow retrieving the form fields without specifying $vars.
                  */
-                require_once 'Horde/Variables.php';
                 $object = null;
-                $form = new Koward_Form_Object(Variables::getDefaultVariables(), $object);
+                $form = new Koward_Form_Object(Horde_Variables::getDefaultVariables(), $object);
 
                 $fields = array_keys($form->getTypeFields($type));
 

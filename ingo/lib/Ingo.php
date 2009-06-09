@@ -97,7 +97,7 @@ class Ingo
     static public function createFolder($folder)
     {
         return $GLOBALS['registry']->hasMethod('mail/createFolder')
-            ? $GLOBALS['registry']->call('mail/createFolder', array('folder' => String::convertCharset($folder, NLS::getCharset(), 'UTF7-IMAP')))
+            ? $GLOBALS['registry']->call('mail/createFolder', array('folder' => Horde_String::convertCharset($folder, NLS::getCharset(), 'UTF7-IMAP')))
             : false;
     }
 
@@ -411,7 +411,7 @@ class Ingo
             $menu->add(Horde::applicationUrl('script.php'), _("_Script"), 'script.png');
         }
         if (!empty($GLOBALS['ingo_shares']) && empty($GLOBALS['conf']['share']['no_sharing'])) {
-            $menu->add('#', _("_Permissions"), 'perms.png', $GLOBALS['registry']->getImageDir('horde'), '', 'popup(\'' . Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/shares/edit.php', true), array('app' => 'ingo', 'share' => htmlspecialchars($_SESSION['ingo']['backend']['id'] . ':' . Auth::getAuth())), null, false) . '\');return false;');
+            $menu->add('#', _("_Permissions"), 'perms.png', $GLOBALS['registry']->getImageDir('horde'), '', 'popup(\'' . Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/shares/edit.php', true), array('app' => 'ingo', 'share' => htmlspecialchars($_SESSION['ingo']['backend']['id'] . ':' . Auth::getAuth())), null, false) . '\');return false;');
         }
 
         if ($returnType == 'object') {

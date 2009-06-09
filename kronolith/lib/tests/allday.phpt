@@ -19,7 +19,6 @@ $prefs = new Prefs;
 
 require 'Date/Calc.php';
 require 'Horde/Date.php';
-require 'Horde/Util.php';
 require 'Horde/iCalendar.php';
 
 $iCal = new Horde_iCalendar();

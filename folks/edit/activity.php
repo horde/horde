@@ -18,8 +18,8 @@ require_once 'tabs.php';
 
 $title = _("Activity");
 
-$activity_scope = Util::getGet('activity_scope');
-$activity_date = Util::getGet('activity_date');
+$activity_scope = Horde_Util::getGet('activity_scope');
+$activity_date = Horde_Util::getGet('activity_date');
 if ($activity_scope && $activity_date) {
     $result = $folks_driver->deleteActivity($activity_scope, $activity_date);
     if ($result instanceof PEAR_Error) {

@@ -91,7 +91,7 @@ class Maintenance_Task_rename_sentmail_monthly extends Maintenance_Task
 
         $text = (substr($GLOBALS['language'], 0, 2) == 'en') ? strtolower(strftime('-%b-%Y', $last_maintenance)) : strftime('-%m-%Y', $last_maintenance);
 
-        return $folder . String::convertCharset($text, NLS::getExternalCharset(), 'UTF7-IMAP');
+        return $folder . Horde_String::convertCharset($text, NLS::getExternalCharset(), 'UTF7-IMAP');
     }
 
 }

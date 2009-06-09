@@ -13,10 +13,10 @@ function _save(&$event)
 {
     $res = $event->save();
     $tagger = Kronolith::getTagger();
-    $tagger->replaceTags($event->getUID(), Util::getFormData('tags'));
+    $tagger->replaceTags($event->getUID(), Horde_Util::getFormData('tags'));
     if (is_a($res, 'PEAR_Error')) {
         $GLOBALS['notification']->push(sprintf(_("There was an error editing the event: %s"), $res->getMessage()), 'horde.error');
-    } elseif (Util::getFormData('sendupdates', false)) {
+    } elseif (Horde_Util::getFormData('sendupdates', false)) {
         Kronolith::sendITipNotifications($event, $GLOBALS['notification'], Kronolith::ITIP_REQUEST);
     }
 }
@@ -37,26 +37,26 @@ function _check_max()
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-$url = Util::getFormData('url');
+$url = Horde_Util::getFormData('url');
 $kronolith_driver = Kronolith::getDriver();
 
-if ($exception = Util::getFormData('del_exception')) {
-    $calendar = Util::getFormData('calendar');
+if ($exception = Horde_Util::getFormData('del_exception')) {
+    $calendar = Horde_Util::getFormData('calendar');
     $share = &$kronolith_shares->getShare($calendar);
     if (is_a($share, 'PEAR_Error')) {
         $notification->push(sprintf(_("There was an error accessing the calendar: %s"), $share->getMessage()), 'horde.error');
     } else {
         $kronolith_driver->open($calendar);
-        $event = &$kronolith_driver->getEvent(Util::getFormData('eventID'));
+        $event = &$kronolith_driver->getEvent(Horde_Util::getFormData('eventID'));
         $result = sscanf($exception, '%04d%02d%02d', $year, $month, $day);
         if ($result == 3 && !is_a($event, 'PEAR_Error') && $event->recurs()) {
             $event->recurrence->deleteException($year, $month, $day);
             _save($event);
         }
     }
-} elseif (!Util::getFormData('cancel')) {
-    $source = Util::getFormData('existingcalendar');
-    $targetcalendar = Util::getFormData('targetcalendar');
+} elseif (!Horde_Util::getFormData('cancel')) {
+    $source = Horde_Util::getFormData('existingcalendar');
+    $targetcalendar = Horde_Util::getFormData('targetcalendar');
     if (strpos($targetcalendar, ':')) {
         list($target, $user) = explode(':', $targetcalendar, 2);
     } else {
@@ -70,13 +70,13 @@ if ($exception = Util::getFormData('del_exception')) {
     } else {
         $event = false;
 
-        if (($edit_recur = Util::getFormData('edit_recur')) &&
+        if (($edit_recur = Horde_Util::getFormData('edit_recur')) &&
             $edit_recur != 'all' && $edit_recur != 'copy' &&
             _check_max()) {
             /* Get event details. */
             $kronolith_driver->open($source);
-            $event = &$kronolith_driver->getEvent(Util::getFormData('eventID'));
-            $recur_ex = Util::getFormData('recur_ex');
+            $event = &$kronolith_driver->getEvent(Horde_Util::getFormData('eventID'));
+            $recur_ex = Horde_Util::getFormData('recur_ex');
             $exception = new Horde_Date($recur_ex);
 
             switch ($edit_recur) {
@@ -119,7 +119,7 @@ if ($exception = Util::getFormData('del_exception')) {
             $event->setUID(null);
             _save($event);
             $event = null;
-        } elseif (Util::getFormData('saveAsNew') ||
+        } elseif (Horde_Util::getFormData('saveAsNew') ||
                   $edit_recur == 'copy') {
             if (_check_max()) {
                 $kronolith_driver->open($target);
@@ -140,7 +140,7 @@ if ($exception = Util::getFormData('del_exception')) {
                      ($user != Auth::getAuth() &&
                       $share->hasPermission(Auth::getAuth(), PERMS_DELEGATE)))) {
                     $kronolith_driver->open($source);
-                    $res = $kronolith_driver->move(Util::getFormData('eventID'), $target);
+                    $res = $kronolith_driver->move(Horde_Util::getFormData('eventID'), $target);
                     if (is_a($res, 'PEAR_Error')) {
                         $notification->push(sprintf(_("There was an error moving the event: %s"), $res->getMessage()), 'horde.error');
                     } else {
@@ -150,7 +150,7 @@ if ($exception = Util::getFormData('del_exception')) {
             }
 
             $kronolith_driver->open($event_load_from);
-            $event = &$kronolith_driver->getEvent(Util::getFormData('eventID'));
+            $event = &$kronolith_driver->getEvent(Horde_Util::getFormData('eventID'));
         }
 
         if ($event && !is_a($event, 'PEAR_Error')) {
@@ -174,12 +174,12 @@ if ($exception = Util::getFormData('del_exception')) {
 if (!empty($url)) {
     $location = $url;
 } else {
-    $url = Util::addParameter($prefs->getValue('defaultview') . '.php',
-                              array('month' => Util::getFormData('month'),
-                                    'year' => Util::getFormData('year')));
+    $url = Horde_Util::addParameter($prefs->getValue('defaultview') . '.php',
+                              array('month' => Horde_Util::getFormData('month'),
+                                    'year' => Horde_Util::getFormData('year')));
     $location = Horde::applicationUrl($url, true);
 }
 
 // Make sure URL is unique.
-$location = Util::addParameter($location, 'unique', hash('md5', microtime()), false);
+$location = Horde_Util::addParameter($location, 'unique', hash('md5', microtime()), false);
 header('Location: ' . $location);

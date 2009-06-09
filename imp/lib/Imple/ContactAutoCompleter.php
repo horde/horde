@@ -120,7 +120,7 @@ class IMP_Imple_ContactAutoCompleter extends IMP_Imple
     {
         // Avoid errors if 'input' isn't set and short-circuit empty searches.
         if (empty($args['input']) ||
-            !($input = Util::getPost($args['input']))) {
+            !($input = Horde_Util::getPost($args['input']))) {
             return array();
         }
 

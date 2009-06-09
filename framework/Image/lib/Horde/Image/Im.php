@@ -108,7 +108,7 @@ class Horde_Image_Im extends Horde_Image
 
         // Perform convert command if needed
         if (count($this->_operations) || count($this->_postSrcOperations) || $convert) {
-            $tmpout = Util::getTempFile('img', false, $this->_tmpdir);
+            $tmpout = Horde_Util::getTempFile('img', false, $this->_tmpdir);
             $command = $this->_convert . ' ' . implode(' ', $this->_operations)
                 . ' "' . $tmpin . '"\'[0]\' '
                 . implode(' ', $this->_postSrcOperations)
@@ -472,7 +472,7 @@ class Horde_Image_Im extends Horde_Image
         }
 
         // Now an output file
-        $tmpout = Util::getTempFile('img', false, $this->_tmpdir);
+        $tmpout = Horde_Util::getTempFile('img', false, $this->_tmpdir);
 
         // Substitue them in the cmd string
         $cmd = str_replace(array('__FILEIN__', '__FILEOUT__', '__CONVERT__'),

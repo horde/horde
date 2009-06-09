@@ -169,7 +169,7 @@ class IMP_Views_ShowMessage
                     $result[$head] = $result['reply-to'];
                     unset($result['reply-to']);
                 }
-                $headers[] = array('id' => String::ucfirst($head), 'name' => $str, 'value' => '');
+                $headers[] = array('id' => Horde_String::ucfirst($head), 'name' => $str, 'value' => '');
             } elseif ($val = $mime_headers->getValue($head)) {
                 if ($head == 'date') {
                     /* Add local time to date header. */
@@ -181,7 +181,7 @@ class IMP_Views_ShowMessage
                     $val = htmlspecialchars($val);
                 }
                 if (!$preview) {
-                    $headers[] = array('id' => String::ucfirst($head), 'name' => $str, 'value' => $val);
+                    $headers[] = array('id' => Horde_String::ucfirst($head), 'name' => $str, 'value' => $val);
                 }
             }
         }
