@@ -32,9 +32,6 @@ class Horde_Kolab_Server_Object_Organizationalperson extends Horde_Kolab_Server_
     /** The postal address */
     const ATTRIBUTE_POSTALADDRESS = 'postalAddress';
 
-    /** The raw postal address as stored in the database */
-    const ATTRIBUTE_POSTALADDRESSRAW = 'postalAddressRaw';
-
     /** The job title */
     const ATTRIBUTE_JOBTITLE = 'title';
 
@@ -71,23 +68,6 @@ class Horde_Kolab_Server_Object_Organizationalperson extends Horde_Kolab_Server_
             self::ATTRIBUTE_FAX,
             self::ATTRIBUTE_POSTALADDRESS,
         ),
-        'derived' => array(
-            self::ATTRIBUTE_POSTALADDRESS => array(
-                'base' => array(
-                    self::ATTRIBUTE_POSTALADDRESS,
-                ),
-                'method' => 'getPostalAddress',
-            ),
-            self::ATTRIBUTE_POSTALADDRESSRAW => array(
-                'base' => array(
-                    self::ATTRIBUTE_POSTALADDRESS,
-                ),
-                'method' => '_get',
-                'args' => array(
-                    self::ATTRIBUTE_POSTALADDRESS,
-                ),
-            ),
-        ),
         'collapsed' => array(
             self::ATTRIBUTE_POSTALADDRESS => array(
                 'base' => array(
@@ -122,27 +102,6 @@ class Horde_Kolab_Server_Object_Organizationalperson extends Horde_Kolab_Server_
                           ),
         );
         return $criteria;
-    }
-
-    /**
-     * Get the value for the postal address. This is not the complete postal
-     * address but just an additional section you may set to complete the postal
-     * address (things like "c/o John Doe").
-     *
-     * @return string The postal address.
-     */
-    protected function getPostalAddress()
-    {
-        $postal = $this->_get(self::ATTRIBUTE_POSTALADDRESS, true);
-        if (empty($postal)) {
-            return $postal;
-        }
-        $postal_parts = explode('$', $postal);
-        if (isset($postal_parts[1])) {
-            return $this->unquote($postal_parts[1]);
-        } else {
-            return '';
-        }
     }
 
     /**
