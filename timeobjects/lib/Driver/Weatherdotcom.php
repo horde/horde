@@ -64,13 +64,24 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
     /**
      *
      * @param mixed $start  The start time of the period
-     * @param mixed $time   The end time of the period
+     * @param mixed $end   The end time of the period
      *
      * @return array of listTimeObjects arrays.
      */
-    public function listTimeObjects($start = null, $time = null)
+    public function listTimeObjects($start = null, $end = null)
     {
         global $conf;
+
+        // No need to continue if the forecast days are not in the current
+        // range.
+        $forecast_start = new Horde_Date(time());
+        $forecast_end = new Horde_Date($forecast_start);
+        // Today is day 1, so subtract a day
+        $forecast_end->mday += $this->_params['days'] - 1;
+        if ($end->compareDate($forecast_start) <= -1 ||
+            $start->compareDate($forecast_end) >= 1) {
+            return array();
+        }
 
         if (!class_exists('Services_Weather') || !class_exists('Cache')) {
             throw new TimeObjects_Exception('Services_Weather or PEAR Cache Classes not found.');
@@ -160,10 +171,9 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
             throw new TimeObjects_Exception($location->getMessage());
         }
 
-        $now = new Horde_Date(time());
         $objects = array();
         foreach ($forecast['days'] as $which => $data) {
-            $day = new Horde_Date($now);
+            $day = new Horde_Date($forecast_start);
             $day->mday += $which;
             $day_end = new Horde_Date($day);
             $day_end->mday++;
