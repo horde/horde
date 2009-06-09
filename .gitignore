@@ -1,4 +1,3 @@
-*/config/*.local.php
 .DS_Store
 libs
 .cache
@@ -10,6 +9,9 @@ run-tests.log
 .#*
 *.orig
 *.rej
+
+# Ignore locally defined HORDE_BASE config
+*/config/*.local.php
 */lib/base.local.php
 
 # Don't store compressed JS files in git
