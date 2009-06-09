@@ -19,7 +19,7 @@
  * DEFAULT: 525600 = 1 year */
 $expire_time = 525600;
 
-/* Load IMP.php to access IMP::getPathInfo(). */
+// Need to load Util:: to give us access to Util::getPathInfo().
 require_once dirname(__FILE__) . '/lib/base.load.php';
 require_once HORDE_BASE . '/lib/core.php';
 $path_info = trim(Util::getPathInfo(), '/');
