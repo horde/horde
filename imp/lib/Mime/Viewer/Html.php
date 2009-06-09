@@ -260,7 +260,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     protected function _blockImages($matches)
     {
         if (is_null($this->_blockimg)) {
-            $this->_blockimg = Horde::url($GLOBALS['registry']->getImageDir('imp') . '/spacer_red.png', false, -1);
+            $this->_blockimg = Horde::url($GLOBALS['registry']->getImageDir('imp', false) . '/spacer_red.png', false, -1);
         }
 
         return empty($matches[2])
