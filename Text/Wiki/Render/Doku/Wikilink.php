@@ -17,10 +17,14 @@ class Text_Wiki_Render_Doku_Wikilink extends Text_Wiki_Render {
     
     function token($options)
     {
-        if ($options['type'] == 'start') {
+        if (!isset($options['type'])) {
             return '[['.$options['page'].
                 (strlen($options['anchor']) ? '#'.$options['anchor'] : '').
-                (strlen($options['text']) /*&& $options['page'] != $options['text']*/ ? '|' : '');
+                (strlen($options['text']) && $options['page'] != $options['text'] ? '|'.$options['text'] : '').']]';
+        } else if ($options['type'] == 'start') {
+            return '[['.$options['page'].
+                (strlen($options['anchor']) ? '#'.$options['anchor'] : '').
+                (strlen($options['text']) && $options['page'] != $options['text'] ? '|'.$options['text'] : '');
         } else {
             return ']]';
         }

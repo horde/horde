@@ -17,12 +17,19 @@ class Text_Wiki_Render_Tiki_Wikilink extends Text_Wiki_Render {
     
     function token($options)
     {
-        if ($options['type'] == 'start') {
+        if (isset($options['type'])) {
+            if ($options['type'] == 'start') {
+                return '(('.$options['page'].
+                    (strlen($options['anchor']) ? '#'.$options['anchor'] : '').
+                    (strlen($options['text']) /*&& $options['page'] != $options['text']*/ ? '|' : '');
+            } else {
+                return '))';
+            }
+        } else {
             return '(('.$options['page'].
                 (strlen($options['anchor']) ? '#'.$options['anchor'] : '').
-                (strlen($options['text']) /*&& $options['page'] != $options['text']*/ ? '|' : '');
-        } else {
-            return '))';
+                (strlen($options['text']) && /*$options['page'] != $options['text']*/ ? '|' . $options['text'] : '').
+                '))';
         }
     }
 }
