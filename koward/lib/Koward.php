@@ -69,6 +69,8 @@ class Koward {
         /* Browser detection object. */
         if (class_exists('Horde_Browser')) {
             $browser = Horde_Browser::singleton();
+        } else if (class_exists('Browser')) {
+            $browser = Browser::singleton();
         }
 
         if ($webroot === null) {
