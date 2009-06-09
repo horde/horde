@@ -962,19 +962,9 @@ var DimpBase = {
         DIMP.conf.msg_index = r.index;
         DIMP.conf.msg_folder = r.folder;
 
-        // Add subject/priority
+        // Add subject
         tmp = pm.select('.subject');
         tmp.invoke('update', r.subject === null ? '[' + DIMP.text.badsubject + ']' : r.subject);
-        switch (r.priority) {
-        case 'high':
-        case 'low':
-            // Can't use invoke() here - new Element must be created for
-            // each object.
-            tmp.each(function(t) {
-                t.insert({ top: new Element('DIV', { className: 'msgflags flag' + r.priority.capitalize() + 'priority' }) });
-            });
-            break;
-        }
 
         // Add date
         $('msgHeadersColl').select('.date').invoke('update', r.minidate);

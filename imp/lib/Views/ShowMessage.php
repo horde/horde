@@ -70,7 +70,6 @@ class IMP_Views_ShowMessage
      * 'folder' - The IMAP folder
      * 'index' - The IMAP UID
      * 'msgtext' - The text of the message
-     * 'priority' - The X-Priority of the message ('low', 'high', 'normal')
      * 'to' - The To addresses
      *
      * FOR PREVIEW MODE:
@@ -83,6 +82,7 @@ class IMP_Views_ShowMessage
      * 'bcc' - The Bcc addresses
      * 'headers' - An array of headers (not including basic headers)
      * 'list_info' - List information.
+     * 'priority' - The X-Priority of the message ('low', 'high', 'normal')
      * 'replyTo' - The Reply-to addresses
      * </pre>
      */
@@ -219,7 +219,9 @@ class IMP_Views_ShowMessage
             : htmlspecialchars(_("[No Subject]"));
 
         /* Get X-Priority. */
-        $result['priority'] = $imp_ui->getXpriority($mime_headers->getValue('x-priority'));
+        if (!$preview) {
+            $result['priority'] = $imp_ui->getXpriority($mime_headers->getValue('x-priority'));
+        }
 
         // Create message text and attachment list.
         $parts_list = $imp_contents->getContentTypeMap();
