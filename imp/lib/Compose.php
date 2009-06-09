@@ -123,7 +123,7 @@ class IMP_Compose
      * Store a serialized version of ourself in the current session on
      * shutdown.
      */
-    function __destruct()
+    public function __destruct()
     {
         if ($this->_modified) {
             $this->_modified = false;

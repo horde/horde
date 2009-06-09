@@ -51,7 +51,7 @@ class IMP_Imap
     /**
      * Constructor.
      */
-    function __construct()
+    public function __construct()
     {
         /* Register the logging callback. */
         Horde_Imap_Client_Exception::$logCallback = array($this, 'logException');
@@ -63,7 +63,7 @@ class IMP_Imap
     /**
      * Save the Horde_Imap_Client object on session shutdown.
      */
-    function __destruct()
+    public function __destruct()
     {
         /* Only need to serialize object once a second. When we do serialize,
          * make sure we login in order to ensure we have done the necessary
