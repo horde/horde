@@ -216,7 +216,7 @@ class Horde_Kolab_IMAP_pear extends Horde_Kolab_IMAP
     function getMessageHeader($uid, $peek_for_body = true)
     {
         $ret = $this->_imap->cmdUidFetch($uid, 'BODY[HEADER]');
-        if (String::upper($ret['RESPONSE']['CODE']) != 'OK') {
+        if (Horde_String::upper($ret['RESPONSE']['CODE']) != 'OK') {
             return PEAR::raiseError(sprintf(_("Failed fetching headers of IMAP message %s. Error was %s"),
                                             $uid,
                                             $ret['RESPONSE']['CODE'] . ', ' . $ret['RESPONSE']['STR_CODE']));
@@ -243,7 +243,7 @@ class Horde_Kolab_IMAP_pear extends Horde_Kolab_IMAP
     function getMessageBody($uid)
     {
         $ret = $this->_imap->cmdUidFetch($uid, 'BODY[TEXT]');
-        if (String::upper($ret['RESPONSE']['CODE']) != 'OK') {
+        if (Horde_String::upper($ret['RESPONSE']['CODE']) != 'OK') {
             return PEAR::raiseError(sprintf(_("Failed fetching body of IMAP message %s. Error was %s"),
                                             $uid,
                                             $ret['RESPONSE']['CODE'] . ', ' . $ret['RESPONSE']['STR_CODE']));
@@ -270,7 +270,7 @@ class Horde_Kolab_IMAP_pear extends Horde_Kolab_IMAP
     function getMessage($uid)
     {
         $ret = $this->_imap->cmdUidFetch($uid, 'RFC822');
-        if (String::upper($ret['RESPONSE']['CODE']) != 'OK') {
+        if (Horde_String::upper($ret['RESPONSE']['CODE']) != 'OK') {
             return PEAR::raiseError(sprintf(_("Failed fetching IMAP message %s. Error was %s"),
                                             $uid,
                                             $ret['RESPONSE']['CODE'] . ', ' . $ret['RESPONSE']['STR_CODE']));
@@ -419,7 +419,7 @@ class Horde_Kolab_IMAP_pear extends Horde_Kolab_IMAP
     function copyMessage($uid, $new_folder)
     {
         $ret = $this->_imap->cmdUidCopy($uid, $new_folder);
-        if (String::upper($ret['RESPONSE']['CODE']) != 'OK') {
+        if (Horde_String::upper($ret['RESPONSE']['CODE']) != 'OK') {
             return PEAR::raiseError(sprintf(_("IMAP error. Message: %s. Error: %s"),
                                             $uid,
                                             $ret['RESPONSE']['CODE'] . ', ' . $ret['RESPONSE']['STR_CODE']));
@@ -469,7 +469,7 @@ class Horde_Kolab_IMAP_pear extends Horde_Kolab_IMAP
 
         foreach ($uids as $uid) {
             $ret = $this->_imap->cmdUidStore($uid, '+FLAGS.SILENT', '\Deleted');
-            if (String::upper($ret['RESPONSE']['CODE']) != 'OK') {
+            if (Horde_String::upper($ret['RESPONSE']['CODE']) != 'OK') {
                 return PEAR::raiseError(sprintf(_("IMAP error. Message: %s. Error: %s"),
                                                 $uid,
                                                 $ret['RESPONSE']['CODE'] . ', ' . $ret['RESPONSE']['STR_CODE']));
@@ -489,7 +489,7 @@ class Horde_Kolab_IMAP_pear extends Horde_Kolab_IMAP
     function undeleteMessages($uid)
     {
         $ret = $this->_imap->cmdUidStore($uid, '-FLAGS.SILENT', '\Deleted');
-        if (String::upper($ret['RESPONSE']['CODE']) != 'OK') {
+        if (Horde_String::upper($ret['RESPONSE']['CODE']) != 'OK') {
             return PEAR::raiseError(sprintf(_("IMAP error. Message: %s. Error: %s"),
                                             $uid,
                                             $ret['RESPONSE']['CODE'] . ', ' . $ret['RESPONSE']['STR_CODE']));

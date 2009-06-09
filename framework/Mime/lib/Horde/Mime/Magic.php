@@ -1,7 +1,4 @@
 <?php
-
-require_once 'Horde/Util.php';
-
 /**
  * The Horde_Mime_Magic:: class provides an interface to determine a MIME type
  * for various content, if it provided with different levels of information.
@@ -64,7 +61,7 @@ class Horde_Mime_Magic
            return 'application/octet-stream';
         }
 
-        $ext = String::lower($ext);
+        $ext = Horde_String::lower($ext);
         $map = self::_getMimeExtensionMap();
         $pos = 0;
 
@@ -155,7 +152,7 @@ class Horde_Mime_Magic
     static public function analyzeFile($path, $magic_db = null)
     {
         /* If the PHP Mimetype extension is available, use that. */
-        if (Util::extensionExists('fileinfo')) {
+        if (Horde_Util::extensionExists('fileinfo')) {
             $res = empty($magic_db)
                 ? @finfo_open(FILEINFO_MIME)
                 : @finfo_open(FILEINFO_MIME, $magic_db);
@@ -177,7 +174,7 @@ class Horde_Mime_Magic
             }
         }
 
-        if (Util::extensionExists('mime_magic')) {
+        if (Horde_Util::extensionExists('mime_magic')) {
             return trim(mime_content_type($path));
         }
 
@@ -197,7 +194,7 @@ class Horde_Mime_Magic
     static public function analyzeData($data, $magic_db = null)
     {
         /* If the PHP Mimetype extension is available, use that. */
-        if (Util::extensionExists('fileinfo')) {
+        if (Horde_Util::extensionExists('fileinfo')) {
             $res = empty($magic_db)
                 ? @finfo_open(FILEINFO_MIME)
                 : @finfo_open(FILEINFO_MIME, $magic_db);

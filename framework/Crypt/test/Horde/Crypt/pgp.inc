@@ -15,7 +15,7 @@ $browser = &Browser::singleton();
 
 $pgp = Horde_Crypt::factory('Pgp', array(
     'program' => '/usr/bin/gpg',
-    'temp' => Util::getTempDir()
+    'temp' => Horde_Util::getTempDir()
 ));
 
 $pubkey = file_get_contents($filedir . '/fixtures/pgp_public.asc');

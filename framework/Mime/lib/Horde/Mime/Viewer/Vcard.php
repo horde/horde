@@ -35,9 +35,9 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Driver
         $ret = $this->_renderInline();
         if (!empty($ret)) {
             reset($ret);
-            $ret[key($ret)]['data'] = Util::bufferOutput('include', $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc') .
+            $ret[key($ret)]['data'] = Horde_Util::bufferOutput('include', $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc') .
                 $ret[key($ret)]['data'] .
-                Util::bufferOutput('include', $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc');
+                Horde_Util::bufferOutput('include', $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc');
         }
         return $ret;
     }
@@ -62,10 +62,10 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Driver
             $notification->push(_("There was an error reading the contact data."), 'horde.error');
         }
 
-        if (Util::getFormData('import') &&
-            Util::getFormData('source') &&
+        if (Horde_Util::getFormData('import') &&
+            Horde_Util::getFormData('source') &&
             $registry->hasMethod('contacts/import')) {
-            $source = Util::getFormData('source');
+            $source = Horde_Util::getFormData('source');
             $count = 0;
             foreach ($iCal->getComponents() as $c) {
                 if (is_a($c, 'Horde_iCalendar_vcard')) {
@@ -125,12 +125,12 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Driver
             $photos = $vc->getAllAttributes('PHOTO');
             foreach ($photos as $photo) {
                 if (isset($photo['params']['VALUE']) &&
-                    String::upper($photo['params']['VALUE']) == 'URI') {
+                    Horde_String::upper($photo['params']['VALUE']) == 'URI') {
                     $html .= $this->_row(_("Photo"),
                                          '<img src="' . htmlspecialchars($photo['value']) . '" />',
                                          false);
                 } elseif (isset($photo['params']['ENCODING']) &&
-                          String::upper($photo['params']['ENCODING']) == 'B' &&
+                          Horde_String::upper($photo['params']['ENCODING']) == 'B' &&
                           isset($photo['params']['TYPE']) &&
                           ($GLOBALS['browser']->hasFeature('datauri') === true ||
                            $GLOBALS['browser']->hasFeature('datauri') >= strlen($photo['value']))) {
@@ -151,7 +151,7 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Driver
                 }
                 $types = array();
                 foreach ($label['params']['TYPE'] as $type) {
-                    switch(String::upper($type)) {
+                    switch(Horde_String::upper($type)) {
                     case 'HOME':
                         $types[] = _("Home Address");
                         break;
@@ -215,7 +215,7 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Driver
                 }
                 $types = array();
                 foreach ($item['params']['TYPE'] as $type) {
-                    switch(String::upper($type)) {
+                    switch(Horde_String::upper($type)) {
                     case 'HOME':
                         $types[] = _("Home Address");
                         break;
@@ -259,7 +259,7 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Driver
                         $number['params']['TYPE'] = array($number['params']['TYPE']);
                     }
                     foreach ($number['params']['TYPE'] as $type) {
-                        $number['params'][String::upper($type)] = true;
+                        $number['params'][Horde_String::upper($type)] = true;
                     }
                 }
                 if (isset($number['params']['FAX'])) {
@@ -289,7 +289,7 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Driver
                         $address['params']['TYPE'] = array($address['params']['TYPE']);
                     }
                     foreach ($address['params']['TYPE'] as $type) {
-                        $address['params'][String::upper($type)] = true;
+                        $address['params'][Horde_String::upper($type)] = true;
                     }
                 }
                 $email = '<a href="';
@@ -350,7 +350,7 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Driver
             $registry->hasMethod('contacts/sources')) {
             $html .= '<tr><td colspan="2" class="smallheader"><form action="'
                 . Horde::selfUrl() . '" method="get" name="vcard_import">'
-                . Util::formInput();
+                . Horde_Util::formInput();
             foreach ($_GET as $key => $val) {
                 $html .= '<input type="hidden" name="' . htmlspecialchars($key)
                     . '" value="' . htmlspecialchars($val) . '" />';
@@ -387,7 +387,7 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Driver
 
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')) . $html,
+                'data' => Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')) . $html,
                 'status' => array(),
                 'type' => 'text/html; charset=' . NLS::getCharset()
             )

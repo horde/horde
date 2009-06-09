@@ -51,7 +51,7 @@ class Horde_SpellChecker_Aspell extends Horde_SpellChecker
 
         // Write to stdin.
         if ($this->_encoding) {
-            $input = String::convertCharset($input, $charset, $this->_encoding);
+            $input = Horde_String::convertCharset($input, $charset, $this->_encoding);
         }
 
         // The '^' character tells aspell to spell check the entire line.
@@ -78,13 +78,13 @@ class Horde_SpellChecker_Aspell extends Horde_SpellChecker
 
         if (strlen($out) === 0) {
             if ($this->_encoding) {
-                $err = String::convertCharset($err, $this->_encoding, $charset);
+                $err = Horde_String::convertCharset($err, $this->_encoding, $charset);
             }
             throw Exception('Spellcheck failed. Command line: ', $this->_cmd());
         }
 
         if ($this->_encoding) {
-            $out = String::convertCharset($out, $this->_encoding, $charset);
+            $out = Horde_String::convertCharset($out, $this->_encoding, $charset);
         }
 
         // Parse output.

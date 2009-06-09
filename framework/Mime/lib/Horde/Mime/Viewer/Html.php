@@ -57,7 +57,7 @@ class Horde_Mime_Viewer_html extends Horde_Mime_Viewer_Driver
 
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => String::convertCharset($html['data'], $this->_mimepart->getCharset()),
+                'data' => Horde_String::convertCharset($html['data'], $this->_mimepart->getCharset()),
                 'status' => $html['status'],
                 'type' => 'text/html; charset=' . NLS::getCharset()
             )
@@ -169,7 +169,7 @@ class Horde_Mime_Viewer_html extends Horde_Mime_Viewer_Driver
             if (!$inline) {
                 $temp = array();
                 foreach ($phish_warning as $val) {
-                    $temp[] = String::convertCharset($val, NLS::getCharset(), $this->_mimepart->getCharset());
+                    $temp[] = Horde_String::convertCharset($val, NLS::getCharset(), $this->_mimepart->getCharset());
                 }
                 $warning = $temp;
             }

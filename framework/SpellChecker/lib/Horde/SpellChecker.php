@@ -1,7 +1,4 @@
 <?php
-
-require_once 'Horde/String.php';
-
 /**
  * The Horde_SpellChecker:: class provides a unified spellchecker API.
  *
@@ -70,7 +67,7 @@ abstract class Horde_SpellChecker
      */
     static public function getInstance($driver, $params = array())
     {
-        $class = 'Horde_SpellChecker_' . String::ucfirst(basename($driver));
+        $class = 'Horde_SpellChecker_' . Horde_String::ucfirst(basename($driver));
         if (!class_exists($class)) {
             throw new Exception('Driver ' . $driver . ' not found');
         }
@@ -131,7 +128,7 @@ abstract class Horde_SpellChecker
     {
         return (empty($this->_localDict))
             ? false
-            : in_array(String::lower($word, true), $this->_localDict);
+            : in_array(Horde_String::lower($word, true), $this->_localDict);
     }
 
 }

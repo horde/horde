@@ -136,7 +136,7 @@ class Horde_Crypt
     protected function _createTempFile($descrip = 'horde-crypt',
                                        $delete = true)
     {
-        return Util::getTempFile($descrip, $delete, $this->_tempdir, true);
+        return Horde_Util::getTempFile($descrip, $delete, $this->_tempdir, true);
     }
 
 }

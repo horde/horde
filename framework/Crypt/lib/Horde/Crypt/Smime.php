@@ -292,7 +292,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
 
         $msg = new Horde_Mime_Part();
         $msg->setCharset($charset);
-        $msg->setDescription(String::convertCharset(_("S/MIME Encrypted Message"), NLS::getCharset(), $charset));
+        $msg->setDescription(Horde_String::convertCharset(_("S/MIME Encrypted Message"), NLS::getCharset(), $charset));
         $msg->setDisposition('inline');
         $msg->setType('application/pkcs7-mime');
         $msg->setContentTypeParameter('smime-type', 'enveloped-data');
@@ -563,7 +563,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $text .= "<strong>" . _("Public Key Info") . ":</strong>\n";
         $text .= sprintf("&nbsp;&nbsp;%s: %s\n", _("Public Key Algorithm"), $certificate['subjectPublicKeyInfo']['algorithm']);
         if ($certificate['subjectPublicKeyInfo']['algorithm'] == 'rsaEncryption') {
-            if (Util::extensionExists('bcmath')) {
+            if (Horde_Util::extensionExists('bcmath')) {
                 $modulus = $certificate['subjectPublicKeyInfo']['subjectPublicKey']['modulus'];
                 $modulus_hex = '';
                 while ($modulus != '0') {
@@ -620,7 +620,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $text .= sprintf("&nbsp;&nbsp;%s: %d\n", _("Serial Number"), $certificate['serialNumber']);
 
         foreach ($cert_details['fingerprints'] as $hash => $fingerprint) {
-            $label = sprintf(_("%s Fingerprint"), String::upper($hash));
+            $label = sprintf(_("%s Fingerprint"), Horde_String::upper($hash));
             $fingerprint_str = '';
             for ($i = 0; $i < strlen($fingerprint); $i += 2) {
                 $fingerprint_str .= substr($fingerprint, $i, 2) . ':';
@@ -707,7 +707,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
             if (($val[11] == '-') || ($val[9] == '+')) {
                 // handle time zone offset here
                 $seconds = 0;
-            } elseif (String::upper($val[11]) == 'Z') {
+            } elseif (Horde_String::upper($val[11]) == 'Z') {
                 $seconds = 0;
             } else {
                 $seconds = substr($val, 10, 2);
@@ -946,7 +946,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
                     }
                 } else {
                     /* Method works for arbitrary length integers */
-                    if (Util::extensionExists('bcmath')) {
+                    if (Horde_Util::extensionExists('bcmath')) {
                         for ($i = 0; $i < strlen($integer_data); $i++) {
                             $value = bcadd(bcmul($value, 256), ord($integer_data[$i]));
                         }
@@ -1141,7 +1141,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
      */
     public function checkForOpenSSL()
     {
-        if (!Util::extensionExists('openssl')) {
+        if (!Horde_Util::extensionExists('openssl')) {
             throw new Horde_Exception(_("The openssl module is required for the Horde_Crypt_Smime:: class."));
         }
     }
@@ -1177,7 +1177,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
                     continue;
                 }
                 list($kind, $value) = explode(':', $name, 2);
-                if (String::lower($kind) == 'email') {
+                if (Horde_String::lower($kind) == 'email') {
                     return $value;
                 }
             }

@@ -34,10 +34,10 @@ class Horde_Mime_Viewer_Ooo extends Horde_Mime_Viewer_Driver
      */
     protected function _render()
     {
-        $has_xslt = Util::extensionExists('xslt');
+        $has_xslt = Horde_Util::extensionExists('xslt');
         $has_ssfile = function_exists('domxml_xslt_stylesheet_file');
         if (($use_xslt = $has_xslt || $has_ssfile)) {
-            $tmpdir = Util::createTempDir(true);
+            $tmpdir = Horde_Util::createTempDir(true);
         }
 
         $fnames = array('content.xml', 'styles.xml', 'meta.xml');
@@ -74,7 +74,7 @@ class Horde_Mime_Viewer_Ooo extends Horde_Mime_Viewer_Driver
             }
         }
 
-        if (!Util::extensionExists('xslt')) {
+        if (!Horde_Util::extensionExists('xslt')) {
             return array();
         }
 

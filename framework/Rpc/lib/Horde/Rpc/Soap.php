@@ -87,7 +87,7 @@ class Horde_RPC_PhpSoap extends Horde_RPC {
             return $handler->getResponse($request);
         }
 
-        /* We can't use Util::bufferOutput() here for some reason. */
+        /* We can't use Horde_Util::bufferOutput() here for some reason. */
         $beginTime = time();
         ob_start();
         $this->_server->handle($request);

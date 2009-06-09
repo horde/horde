@@ -127,7 +127,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      */
     protected function __construct($params = array())
     {
-        $this->_tempdir = Util::createTempDir(true, $params['temp']);
+        $this->_tempdir = Horde_Util::createTempDir(true, $params['temp']);
 
         if (empty($params['program'])) {
             Horde::fatal(new Horde_Exception('The location of the GnuPG binary must be given to the Horde_Crypt_Pgp:: class.'), __FILE__, __LINE__);
@@ -287,7 +287,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             /* Headers are prefaced with a ':' as the first character on the
                line. */
             if (strpos($line, ':') === 0) {
-                $lowerLine = String::lower($line);
+                $lowerLine = Horde_String::lower($line);
 
                 /* If we have a key (rather than a signature block), get the
                    key's ID */
@@ -450,7 +450,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      */
     protected function _pgpPrettyKeyFormatter(&$s, $k, $m)
     {
-        $s .= ':' . str_repeat(' ', $m - String::length($s));
+        $s .= ':' . str_repeat(' ', $m - Horde_String::length($s));
     }
 
     /**
@@ -919,7 +919,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         if ($errno == 0) {
             throw new Horde_Exception(_("Connection refused to the public keyserver."), 'horde.error');
         } else {
-            throw new Horde_Exception(sprintf(_("Connection refused to the public keyserver. Reason: %s (%s)"), String::convertCharset($errstr, NLS::getExternalCharset()), $errno), 'horde.error');
+            throw new Horde_Exception(sprintf(_("Connection refused to the public keyserver. Reason: %s (%s)"), Horde_String::convertCharset($errstr, NLS::getExternalCharset()), $errno), 'horde.error');
         }
     }
 
@@ -1000,7 +1000,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      */
     protected function _createKeyring($type = 'public')
     {
-        $type = String::lower($type);
+        $type = Horde_String::lower($type);
 
         if ($type === 'public') {
             if (empty($this->_publicKeyring)) {
@@ -1028,7 +1028,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      */
     protected function _putInKeyring($keys = array(), $type = 'public')
     {
-        $type = String::lower($type);
+        $type = Horde_String::lower($type);
 
         if (!is_array($keys)) {
             $keys = array($keys);
@@ -1377,7 +1377,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $pgp_sign->setType('application/pgp-signature');
         $pgp_sign->setCharset($charset);
         $pgp_sign->setDisposition('inline');
-        $pgp_sign->setDescription(String::convertCharset(_("PGP Digital Signature"), NLS::getCharset(), $charset));
+        $pgp_sign->setDescription(Horde_String::convertCharset(_("PGP Digital Signature"), NLS::getCharset(), $charset));
         $pgp_sign->setContents($msg_sign);
 
         /* Get the algorithim information from the signature. Since we are
@@ -1422,7 +1422,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $part->setType('multipart/encrypted');
         $part->setCharset($charset);
         $part->setContentTypeParameter('protocol', 'application/pgp-encrypted');
-        $part->setDescription(String::convertCharset(_("PGP Encrypted Data"), NLS::getCharset(), $charset));
+        $part->setDescription(Horde_String::convertCharset(_("PGP Encrypted Data"), NLS::getCharset(), $charset));
         $part->setContents('This message is in MIME format and has been PGP encrypted.' . "\n");
 
         $part1 = new Horde_Mime_Part();
@@ -1466,7 +1466,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
 
         $charset = NLS::getEmailCharset();
         $part->setCharset($charset);
-        $part->setDescription(String::convertCharset(_("PGP Signed/Encrypted Data"), NLS::getCharset(), $charset));
+        $part->setDescription(Horde_String::convertCharset(_("PGP Signed/Encrypted Data"), NLS::getCharset(), $charset));
 
         return $part;
     }
@@ -1485,7 +1485,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $part = new Horde_Mime_Part();
         $part->setType('application/pgp-keys');
         $part->setCharset($charset);
-        $part->setDescription(String::convertCharset(_("PGP Public Key"), NLS::getCharset(), $charset));
+        $part->setDescription(Horde_String::convertCharset(_("PGP Public Key"), NLS::getCharset(), $charset));
         $part->setContents($key);
 
         return $part;

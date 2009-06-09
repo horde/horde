@@ -103,13 +103,13 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
                 ' bytes' . "\n" .
                 sprintf(ngettext("File Count: %d file", "File Count: %d files", $fileCount), $fileCount) .
                 "\n\n" .
-                String::pad(_("File Name"), $maxlen, ' ', STR_PAD_RIGHT) .
-                String::pad(_("Attributes"), 10, ' ', STR_PAD_LEFT) .
-                String::pad(_("Size"), 10, ' ', STR_PAD_LEFT) .
-                String::pad(_("Modified Date"), 19, ' ', STR_PAD_LEFT) .
-                String::pad(_("Method"), 10, ' ', STR_PAD_LEFT) .
-                String::pad(_("CRC"), 10, ' ', STR_PAD_LEFT) .
-                String::pad(_("Ratio"), 10, ' ', STR_PAD_LEFT) .
+                Horde_String::pad(_("File Name"), $maxlen, ' ', STR_PAD_RIGHT) .
+                Horde_String::pad(_("Attributes"), 10, ' ', STR_PAD_LEFT) .
+                Horde_String::pad(_("Size"), 10, ' ', STR_PAD_LEFT) .
+                Horde_String::pad(_("Modified Date"), 19, ' ', STR_PAD_LEFT) .
+                Horde_String::pad(_("Method"), 10, ' ', STR_PAD_LEFT) .
+                Horde_String::pad(_("CRC"), 10, ' ', STR_PAD_LEFT) .
+                Horde_String::pad(_("Ratio"), 10, ' ', STR_PAD_LEFT) .
                 "\n"
             ) . str_repeat('-', 69 + $maxlen) . "\n";
 
@@ -118,13 +118,13 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
                 ? 0
                 : 100 * ($val['csize'] / $val['size']);
 
-            $val['name']   = String::pad($val['name'], $maxlen, ' ', STR_PAD_RIGHT);
-            $val['attr']   = String::pad($val['attr'], 10,' ', STR_PAD_LEFT);
-            $val['size']   = String::pad($val['size'], 10, ' ', STR_PAD_LEFT);
-            $val['date']   = String::pad(strftime("%d-%b-%Y %H:%M", $val['date']), 19, ' ', STR_PAD_LEFT);
-            $val['method'] = String::pad($val['method'], 10, ' ', STR_PAD_LEFT);
-            $val['crc']    = String::pad($val['crc'], 10, ' ', STR_PAD_LEFT);
-            $val['ratio']  = String::pad(sprintf("%1.1f%%", $ratio), 10, ' ', STR_PAD_LEFT);
+            $val['name']   = Horde_String::pad($val['name'], $maxlen, ' ', STR_PAD_RIGHT);
+            $val['attr']   = Horde_String::pad($val['attr'], 10,' ', STR_PAD_LEFT);
+            $val['size']   = Horde_String::pad($val['size'], 10, ' ', STR_PAD_LEFT);
+            $val['date']   = Horde_String::pad(strftime("%d-%b-%Y %H:%M", $val['date']), 19, ' ', STR_PAD_LEFT);
+            $val['method'] = Horde_String::pad($val['method'], 10, ' ', STR_PAD_LEFT);
+            $val['crc']    = Horde_String::pad($val['crc'], 10, ' ', STR_PAD_LEFT);
+            $val['ratio']  = Horde_String::pad(sprintf("%1.1f%%", $ratio), 10, ' ', STR_PAD_LEFT);
 
             $val = array_map(array('Text', 'htmlAllSpaces'), $val);
             if (!is_null($this->_callback)) {

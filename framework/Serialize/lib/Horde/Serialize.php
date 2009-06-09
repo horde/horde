@@ -121,10 +121,10 @@ class Horde_Serialize
     {
         switch ($mode) {
         case self::BZIP:
-            return Util::extensionExists('bz2');
+            return Horde_Util::extensionExists('bz2');
 
         case self::WDDX:
-            return Util::extensionExists('wddx');
+            return Horde_Util::extensionExists('wddx');
 
         case self::IMAPUTF7:
             return class_exists('Horde_Imap_Client');
@@ -136,13 +136,13 @@ class Horde_Serialize
         case self::GZ_DEFLATE:
         case self::GZ_COMPRESS:
         case self::GZ_ENCODE:
-            return Util::extensionExists('zlib');
+            return Horde_Util::extensionExists('zlib');
 
         case self::SQLXML:
             return @include_once 'XML/sql2xml.php';
 
         case self::LZF:
-            return Util::extensionExists('lzf');
+            return Horde_Util::extensionExists('lzf');
 
         case self::NONE:
         case self::BASIC:
@@ -198,8 +198,7 @@ class Horde_Serialize
             break;
 
         case self::IMAPUTF7:
-            require_once 'Horde/String.php';
-            $data = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap(String::convertCharset($data, 'ISO-8859-1', 'UTF-8'));
+            $data = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap(Horde_String::convertCharset($data, 'ISO-8859-1', 'UTF-8'));
             break;
 
         case self::IMAPUTF8:
@@ -245,8 +244,7 @@ class Horde_Serialize
 
         // $params = Source character set
         case self::UTF7:
-            require_once 'Horde/String.php';
-            $data = String::convertCharset($data, $params, 'UTF-7');
+            $data = Horde_String::convertCharset($data, $params, 'UTF-7');
             break;
 
         // $params = Source character set
@@ -256,9 +254,8 @@ class Horde_Serialize
 
         // $params = Source character set
         case self::JSON:
-            require_once 'Horde/String.php';
             if (!empty($params)) {
-                $data = String::convertCharset($data, $params, 'UTF-8');
+                $data = Horde_String::convertCharset($data, $params, 'UTF-8');
             }
             $data = json_encode($data);
             break;
@@ -315,8 +312,7 @@ class Horde_Serialize
             break;
 
         case self::IMAPUTF7:
-            require_once 'Horde/String.php';
-            $data = String::convertCharset(Horde_Imap_Client_Utf7imap::Utf7ImapToUtf8($data), 'UTF-8', 'ISO-8859-1');
+            $data = Horde_String::convertCharset(Horde_Imap_Client_Utf7imap::Utf7ImapToUtf8($data), 'UTF-8', 'ISO-8859-1');
             break;
 
         case self::IMAPUTF8:
@@ -347,8 +343,7 @@ class Horde_Serialize
 
         // $params = Output character set
         case self::UTF7:
-            require_once 'Horde/String.php';
-            $data = String::convertCharset($data, 'utf-7', $params);
+            $data = Horde_String::convertCharset($data, 'utf-7', $params);
             break;
 
         // $params = Output character set

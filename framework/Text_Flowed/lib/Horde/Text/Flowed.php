@@ -260,7 +260,7 @@ class Horde_Text_Flowed
             if (empty($line)) {
                 /* Line is empty. */
                 $this->_output[] = array('text' => $quotestr, 'level' => $num_quotes);
-            } elseif (empty($this->_maxlength) || ((String::length($line, $this->_charset) + $num_quotes) <= $this->_maxlength)) {
+            } elseif (empty($this->_maxlength) || ((Horde_String::length($line, $this->_charset) + $num_quotes) <= $this->_maxlength)) {
                 /* Line does not require rewrapping. */
                 $this->_output[] = array('text' => $quotestr . $this->_stuff($line, $num_quotes, $toflowed), 'level' => $num_quotes);
             } else {
@@ -270,12 +270,12 @@ class Horde_Text_Flowed
                 while ($line) {
                     /* Stuff and re-quote the line. */
                     $line = $quotestr . $this->_stuff($line, $num_quotes, $toflowed);
-                    $line_length = String::length($line, $this->_charset);
+                    $line_length = Horde_String::length($line, $this->_charset);
                     if ($line_length <= $this->_optlength) {
                         /* Remaining section of line is short enough. */
                         $this->_output[] = array('text' => $line, 'level' => $num_quotes);
                         break;
-                    } elseif ($m = String::regexMatch($line, array('^(.{' . $min . ',' . $opt . '}) (.*)', '^(.{' . $min . ',' . $this->_maxlength . '}) (.*)', '^(.{' . $min . ',})? (.*)'), $this->_charset)) {
+                    } elseif ($m = Horde_String::regexMatch($line, array('^(.{' . $min . ',' . $opt . '}) (.*)', '^(.{' . $min . ',' . $this->_maxlength . '}) (.*)', '^(.{' . $min . ',})? (.*)'), $this->_charset)) {
                         /* We need to wrap text at a certain number of
                          * *characters*, not a certain number of *bytes*;
                          * thus the need for a multibyte capable regex.
@@ -299,8 +299,8 @@ class Horde_Text_Flowed
                          * absolutely sure it does not exceed 998 characters
                          * in length or else we must truncate. */
                         if ($line_length > 998) {
-                            $this->_output[] = array('text' => String::substr($line, 0, 998, $this->_charset), 'level' => $num_quotes);
-                            $line = String::substr($line, 998, null, $this->_charset);
+                            $this->_output[] = array('text' => Horde_String::substr($line, 0, 998, $this->_charset), 'level' => $num_quotes);
+                            $line = Horde_String::substr($line, 998, null, $this->_charset);
                         } else {
                             $this->_output[] = array('text' => $line, 'level' => $num_quotes);
                             break;

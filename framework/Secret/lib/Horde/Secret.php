@@ -79,8 +79,7 @@ class Horde_Secret
     {
         $ret = false;
 
-        require_once 'Horde/Util.php';
-        if (Util::extensionExists('mcrypt')) {
+        if (Horde_Util::extensionExists('mcrypt')) {
             $old_error = error_reporting(0);
             $td = mcrypt_module_open(MCRYPT_GOST, '', MCRYPT_MODE_ECB, '');
             if ($td) {

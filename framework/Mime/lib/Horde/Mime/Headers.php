@@ -273,10 +273,8 @@ class Horde_Mime_Headers
      */
     public function addHeader($header, $value, $options = array())
     {
-        require_once 'Horde/String.php';
-
         $header = trim($header);
-        $lcHeader = String::lower($header);
+        $lcHeader = Horde_String::lower($header);
 
         if (!isset($this->_headers[$lcHeader])) {
             $this->_headers[$lcHeader] = array();
@@ -318,8 +316,7 @@ class Horde_Mime_Headers
      */
     public function removeHeader($header)
     {
-        require_once 'Horde/String.php';
-        unset($this->_headers[String::lower(trim($header))]);
+        unset($this->_headers[Horde_String::lower(trim($header))]);
     }
 
     /**
@@ -356,9 +353,7 @@ class Horde_Mime_Headers
      */
     public function setValue($header, $value, $options = array())
     {
-        require_once 'Horde/String.php';
-
-        if (isset($this->_headers[String::lower($header)])) {
+        if (isset($this->_headers[Horde_String::lower($header)])) {
             $this->addHeader($header, $value, $decode);
             return true;
         }
@@ -376,9 +371,7 @@ class Horde_Mime_Headers
      */
     public function getString($header)
     {
-        require_once 'Horde/String.php';
-
-        $lcHeader = String::lower($header);
+        $lcHeader = Horde_String::lower($header);
         return (isset($this->_headers[$lcHeader]))
             ? $this->_headers[$lcHeader]['header']
             : null;
@@ -400,10 +393,8 @@ class Horde_Mime_Headers
      */
     public function getValue($header)
     {
-        require_once 'Horde/String.php';
-
         $entry = null;
-        $header = String::lower($header);
+        $header = Horde_String::lower($header);
 
         if (isset($this->_headers[$header])) {
             $ptr = &$this->_headers[$header];
@@ -550,8 +541,6 @@ class Horde_Mime_Headers
         $mime = self::mimeParamFields();
         $to_process = array();
 
-        require_once 'Horde/String.php';
-
         foreach (explode("\n", $text) as $val) {
             $val = rtrim($val);
             if (empty($val)) {
@@ -562,7 +551,7 @@ class Horde_Mime_Headers
                 $currtext .= ' ' . ltrim($val);
             } else {
                 if (!is_null($currheader)) {
-                    if (in_array(String::lower($currheader), $mime)) {
+                    if (in_array(Horde_String::lower($currheader), $mime)) {
                         $res = Horde_Mime::decodeParam($currheader, $currtext);
                         $to_process[] = array($currheader, $res['val'], array('decode' => true, 'params' => $res['params']));
                     } else {
@@ -582,7 +571,7 @@ class Horde_Mime_Headers
         reset($to_process);
         while (list(,$val) = each($to_process)) {
             if ($eightbit_check && Horde_Mime::is8bit($val[1])) {
-                $val[1] = String::convertCharset($val[1], self::$defaultCharset);
+                $val[1] = Horde_String::convertCharset($val[1], self::$defaultCharset);
             }
             $headers->addHeader($val[0], $val[1], $val[2]);
         }

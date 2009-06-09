@@ -59,7 +59,7 @@ class Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Driver
      */
     protected function _renderInline()
     {
-        $text = String::convertCharset($this->_mimepart->getContents(), $this->_mimepart->getCharset());
+        $text = Horde_String::convertCharset($this->_mimepart->getContents(), $this->_mimepart->getCharset());
 
         /* Check for 'flowed' text data. */
         $data = ($this->_mimepart->getContentTypeParameter('format') == 'flowed')

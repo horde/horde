@@ -48,7 +48,7 @@ class Horde_Editor_xinha extends Horde_Editor
         } elseif (isset($GLOBALS['language'])) {
             $language = explode('_', $GLOBALS['language']);
             if (count($language) > 1) {
-                $country = String::lower($language[1]);
+                $country = Horde_String::lower($language[1]);
                 if ($country == $language[0]) {
                     $language = $language[0];
                 } else {

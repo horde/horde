@@ -8,8 +8,7 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
-        require_once 'Horde/String.php';
-        String::setDefaultCharset('UTF-8');
+        Horde_String::setDefaultCharset('UTF-8');
         $this->ical = new Horde_iCalendar();
     }
 

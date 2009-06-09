@@ -73,9 +73,9 @@ class Horde_Mime_Viewer_Css extends Horde_Mime_Viewer_Source
 
         // Need Horde headers for CSS tags.
         reset($ret);
-        $ret[key($ret)]['data'] =  Util::bufferOutput('require', $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc') .
+        $ret[key($ret)]['data'] = Horde_Util::bufferOutput('require', $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc') .
             $ret[key($ret)]['data'] .
-            Util::bufferOutput('require', $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc');
+            Horde_Util::bufferOutput('require', $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc');
 
         return $ret;
     }

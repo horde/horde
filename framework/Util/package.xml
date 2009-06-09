@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Util</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Utility Libraries</summary>
+ <description>These classes provide functionality useful for all kind of applications.</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-06-09</date>
+ <version>
+  <release>0.2.0</release>
+  <api>0.2.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>* Removed Horde_Array::combine() and Horde_Util::hmac().
+ * Initial Horde 4 package.
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Array">
+      <dir name="Sort">
+       <file name="Helper.php" role="php" />
+      </dir> <!-- /lib/Horde/Array/Sort -->
+     </dir> <!-- /lib/Horde/Array -->
+     <file name="Array.php" role="php" />
+     <file name="String.php" role="php" />
+     <file name="Util.php" role="php" />
+     <file name="Variables.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Util">
+      <file name="Array_sort.phpt" role="test" />
+      <file name="Variables_remove.phpt" role="test" />
+      <file name="addParameter.phpt" role="test" />
+      <file name="case.phpt" role="test" />
+      <file name="case_php6.phpt" role="test" />
+      <file name="length.phpt" role="test" />
+      <file name="pad.phpt" role="test" />
+      <file name="removeParameter.phpt" role="test" />
+      <file name="utf-8.phpt" role="test" />
+     </dir> <!-- /test/Horde/Util -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.5.4</min>
+   </pearinstaller>
+  </required>
+  <optional>
+   <package>
+    <name>PEAR</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Horde_Browser</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <extension>
+    <name>iconv</name>
+   </extension>
+   <extension>
+    <name>mbstring</name>
+   </extension>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Array.php" as="Horde/Array.php" />
+   <install name="lib/Horde/Array/Sort/Helper.php" as="Horde/Array/Sort/Helper.php" />
+   <install name="lib/Horde/String.php" as="Horde/String.php" />
+   <install name="lib/Horde/Util.php" as="Horde/Util.php" />
+   <install name="lib/Horde/Variables.php" as="Horde/Variables.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <date>2008-09-25</date>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>* Added magic PHP5 methods to the Variables class.
+* Added array_merge_recursive_overwrite() to Horde_Array().
+* Fixed a bug in Horde_Array::arraySort where auto-detecting the first key failed.
+* Added sorter functions for array keys.
+* Removed use of array_unique().
+* Cleaned up addParameter() in the Util class.
+* Implemented a much more efficient, yet safer file wiping algorithm.
+* Fixed Util::addParameter when it is passed a base URL that contains an urlencoded ampersand.
+* Added a parameter to Util::nocacheUrl() to not encode url.
+* Added Util::getPathInfo().
+* Signed parameters to go.php with an HMAC based on a new secret key configuration value, to prevent using go.php as an open referrer.
+* Made logout tokens only valid for a configurable length of time.
+* Made it possible to use String.php without having any other files available.
+* Use utf8_decode() in String::length() if possible.
+* Always use preg_match() in String::regexMatch().
+* Workaround for korean messages in a non-standard charset.
+* Fixed String::substr() length calculations.
+* Added multibyte-safe String::wordwrap() method.
+* Added parameter to use wordwrap() for line folding.
+* Use C as the portable locale (Bug #6194).
+* Don't use utf8_encode/decode on very large strings if other options are available. (Bug #6660)
+* Fixed order of checks in String::convertCharset (Bug #6794).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-05-08</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Converted to package.xml 2.0 for pear.horde.org
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-10-28</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Initial release as a PEAR package
+   </notes>
+  </release>
+ </changelog>
+</package>

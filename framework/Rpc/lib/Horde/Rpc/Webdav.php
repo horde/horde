@@ -623,10 +623,10 @@ Horde::logMessage(print_r($list, true), __FILE__, __LINE__, PEAR_LOG_ERR);
             }
             $properties[$prop['xmlns']][$prop['name']] = $prop['name'];
         }
-        
+
         // Handle certain standard properties specially
         if (in_array('displayname', $properties['DAV:'])) {
-            $props[] = $this->mkprop('displayname', String::convertCharset($item['name'], NLS::getCharset(), 'UTF-8'));
+            $props[] = $this->mkprop('displayname', Horde_String::convertCharset($item['name'], NLS::getCharset(), 'UTF-8'));
             unset($properties['DAV:']['displayname']);
         }
         if (in_array('getlastmodified', $properties['DAV:'])) {

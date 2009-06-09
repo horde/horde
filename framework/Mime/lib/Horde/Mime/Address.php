@@ -43,8 +43,8 @@ class Horde_Mime_Address
         $host = ltrim($host, '@');
         if ((!isset($opts['idn']) || !$opts['idn']) &&
             (stripos($host, 'xn--') === 0) &&
-            Util::extensionExists('idn')) {
-            $host = String::convertCharset(idn_to_utf8($host), 'UTF-8');
+            Horde_Util::extensionExists('idn')) {
+            $host = Horde_String::convertCharset(idn_to_utf8($host), 'UTF-8');
         }
 
         $address .= self::encode($mailbox, 'address') . '@' . $host;
@@ -238,7 +238,7 @@ class Horde_Mime_Address
         foreach ($addresses as $addr) {
             $val = self::addrObject2String($addr, $opts);
             if (!empty($val)) {
-                $addrList[String::lower(self::bareAddress($val))] = $val;
+                $addrList[Horde_String::lower(self::bareAddress($val))] = $val;
             }
         }
 

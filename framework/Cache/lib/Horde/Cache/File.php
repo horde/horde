@@ -58,8 +58,7 @@ class Horde_Cache_File extends Horde_Cache_Base
         if (!empty($params['dir']) && @is_dir($params['dir'])) {
             $this->_dir = $params['dir'];
         } else {
-            require_once 'Horde/Util.php';
-            $this->_dir = Util::getTempDir();
+            $this->_dir = Horde_Util::getTempDir();
         }
 
         foreach (array('prefix', 'sub') as $val) {
@@ -153,9 +152,8 @@ class Horde_Cache_File extends Horde_Cache_Base
      */
     public function set($key, $data, $lifetime = null)
     {
-        require_once 'Horde/Util.php';
         $filename = $this->_keyToFile($key, true);
-        $tmp_file = Util::getTempFile('HordeCache', true, $this->_dir);
+        $tmp_file = Horde_Util::getTempFile('HordeCache', true, $this->_dir);
         if (isset($this->_params['umask'])) {
             chmod($tmp_file, 0666 & ~$this->_params['umask']);
         }

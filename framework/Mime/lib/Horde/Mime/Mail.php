@@ -1,7 +1,4 @@
 <?php
-
-require_once 'Horde/String.php';
-
 /**
  * The Horde_Mime_Mail:: class wraps around the various MIME library classes
  * to provide a simple interface for creating and sending MIME messages.
@@ -141,7 +138,7 @@ class Horde_Mime_Mail
     public function addHeader($header, $value, $charset = 'iso-8859-1',
                               $overwrite = null)
     {
-        $lc_header = String::lower($header);
+        $lc_header = Horde_String::lower($header);
 
         /* Only encode value if charset is explicitly specified, otherwise
          * the message's charset will be used when building the message. */
@@ -181,7 +178,7 @@ class Horde_Mime_Mail
     {
         $value = $this->_headers->getValue($header);
         $this->_headers->removeHeader($header);
-        if (in_array(String::lower($header), array('to', 'cc', 'bcc'))) {
+        if (in_array(Horde_String::lower($header), array('to', 'cc', 'bcc'))) {
             try {
                 $this->removeRecipients($value);
             } catch (Horde_Mime_Exception $e) {}
@@ -201,7 +198,7 @@ class Horde_Mime_Mail
     public function setBody($body, $charset = 'iso-8859-1', $wrap = false)
     {
         if ($wrap) {
-            $body = String::wrap($body, $wrap === true ? 76 : $wrap, "\n");
+            $body = Horde_String::wrap($body, $wrap === true ? 76 : $wrap, "\n");
         }
         $this->_body = new Horde_Mime_Part();
         $this->_body->setType('text/plain');

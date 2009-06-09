@@ -994,14 +994,14 @@ class Horde_Date_Recurrence
         $parts = explode(';', $rrule);
         foreach ($parts as $part) {
             list($key, $value) = explode('=', $part, 2);
-            $rdata[String::upper($key)] = $value;
+            $rdata[Horde_String::upper($key)] = $value;
         }
 
         if (isset($rdata['FREQ'])) {
             // Always default the recurInterval to 1.
             $this->setRecurInterval(isset($rdata['INTERVAL']) ? $rdata['INTERVAL'] : 1);
 
-            switch (String::upper($rdata['FREQ'])) {
+            switch (Horde_String::upper($rdata['FREQ'])) {
             case 'DAILY':
                 $this->setRecurType(self::RECUR_DAILY);
                 break;

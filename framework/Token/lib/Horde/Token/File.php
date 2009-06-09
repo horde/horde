@@ -42,7 +42,7 @@ class Horde_Token_File extends Horde_Token
 
         /* Choose the directory to save the stub files. */
         if (!isset($this->_params['token_dir'])) {
-            $this->_params['token_dir'] = Util::getTempDir();
+            $this->_params['token_dir'] = Horde_Util::getTempDir();
         }
 
         /* Set timeout to 24 hours if not specified. */

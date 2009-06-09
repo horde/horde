@@ -73,12 +73,12 @@ class Horde_Mime_Viewer_Rar extends Horde_Mime_Viewer_Driver
             Text::htmlAllSpaces(sprintf(ngettext("File Count: %d file", "File Count: %d files", $fileCount), $fileCount)) .
             "\n\n" .
             Text::htmlAllSpaces(
-                String::pad(_("File Name"), 50, ' ', STR_PAD_RIGHT) .
-                String::pad(_("Attributes"), 10, ' ', STR_PAD_LEFT) .
-                String::pad(_("Size"), 10, ' ', STR_PAD_LEFT) .
-                String::pad(_("Modified Date"), 19, ' ', STR_PAD_LEFT) .
-                String::pad(_("Method"), 10, ' ', STR_PAD_LEFT) .
-                String::pad(_("Ratio"), 10, ' ', STR_PAD_LEFT)
+                Horde_String::pad(_("File Name"), 50, ' ', STR_PAD_RIGHT) .
+                Horde_String::pad(_("Attributes"), 10, ' ', STR_PAD_LEFT) .
+                Horde_String::pad(_("Size"), 10, ' ', STR_PAD_LEFT) .
+                Horde_String::pad(_("Modified Date"), 19, ' ', STR_PAD_LEFT) .
+                Horde_String::pad(_("Method"), 10, ' ', STR_PAD_LEFT) .
+                Horde_String::pad(_("Ratio"), 10, ' ', STR_PAD_LEFT)
             ) . "\n" .
             str_repeat('-', 109) . "\n";
 
@@ -88,12 +88,12 @@ class Horde_Mime_Viewer_Rar extends Horde_Mime_Viewer_Driver
                 : 100 * ($val['csize'] / $val['size']);
 
             $text .= Text::htmlAllSpaces(
-                String::pad($val['name'], 50, ' ', STR_PAD_RIGHT) .
-                String::pad($val['attr'], 10, ' ', STR_PAD_LEFT) .
-                String::pad($val['size'], 10, ' ', STR_PAD_LEFT) .
-                String::pad(strftime("%d-%b-%Y %H:%M", $val['date']), 19, ' ', STR_PAD_LEFT) .
-                String::pad($val['method'], 10, ' ', STR_PAD_LEFT) .
-                String::pad(sprintf("%1.1f%%", $ratio), 10, ' ', STR_PAD_LEFT)
+                Horde_String::pad($val['name'], 50, ' ', STR_PAD_RIGHT) .
+                Horde_String::pad($val['attr'], 10, ' ', STR_PAD_LEFT) .
+                Horde_String::pad($val['size'], 10, ' ', STR_PAD_LEFT) .
+                Horde_String::pad(strftime("%d-%b-%Y %H:%M", $val['date']), 19, ' ', STR_PAD_LEFT) .
+                Horde_String::pad($val['method'], 10, ' ', STR_PAD_LEFT) .
+                Horde_String::pad(sprintf("%1.1f%%", $ratio), 10, ' ', STR_PAD_LEFT)
             ) . "\n";
         }
 

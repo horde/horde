@@ -1,7 +1,4 @@
 <?php
-
-require_once 'Horde/String.php';
-
 /**
  * The Horde_Mime_Part:: class provides a wrapper around MIME parts and
  * methods for dealing with them.
@@ -187,7 +184,7 @@ class Horde_Mime_Part
      */
     public function setDisposition($disposition)
     {
-        $disposition = String::lower($disposition);
+        $disposition = Horde_String::lower($disposition);
 
         if (in_array($disposition, array('inline', 'attachment'))) {
             $this->_disposition = $disposition;
@@ -381,7 +378,7 @@ class Horde_Mime_Part
             return;
         }
 
-        list($this->_type, $this->_subtype) = explode('/', String::lower($mimetype));
+        list($this->_type, $this->_subtype) = explode('/', Horde_String::lower($mimetype));
 
         /* Known types. */
         $known = array(
@@ -535,7 +532,7 @@ class Horde_Mime_Part
     public function setTransferEncoding($encoding)
     {
         $known = array('7bit', '8bit', 'binary', 'base64', 'quoted-printable');
-        $encoding = String::lower($encoding);
+        $encoding = Horde_String::lower($encoding);
 
         if (in_array($encoding, $known)) {
             $this->_transferEncoding = $encoding;
@@ -963,7 +960,7 @@ class Horde_Mime_Part
         /* Quoted-Printable Encoding: See RFC 2045, section 6.7 */
         case 'quoted-printable':
             $output = Horde_Mime::quotedPrintableEncode($this->_contents, $eol);
-            if (($eollength = String::length($eol)) &&
+            if (($eollength = Horde_String::length($eol)) &&
                 (substr($output, $eollength * -1) == $eol)) {
                 return substr($output, 0, $eollength * -1);
             }
@@ -1062,7 +1059,7 @@ class Horde_Mime_Part
             }
         } else {
             $bytes = ($this->getPrimaryType() == 'text')
-                ? String::length($this->_contents, $this->getCharset())
+                ? Horde_String::length($this->_contents, $this->getCharset())
                 : strlen($this->_contents);
         }
 
@@ -1443,7 +1440,7 @@ class Horde_Mime_Part
         /* Set the default character set. */
         if (($data['subtype'] == 'text') &&
             (self::$defaultCharset != 'us-ascii') &&
-            (String::lower($ob->getCharset()) == 'us-ascii')) {
+            (Horde_String::lower($ob->getCharset()) == 'us-ascii')) {
             $ob->setCharset(self::$defaultCharset);
         }
 

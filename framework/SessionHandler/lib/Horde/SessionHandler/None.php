@@ -47,7 +47,7 @@ class Horde_SessionHandler_None extends Horde_SessionHandler
         $sessions = array();
 
         $path = session_save_path();
-        $d = @dir(empty($path) ? Util::getTempDir() : $path);
+        $d = @dir(empty($path) ? Horde_Util::getTempDir() : $path);
         if (!$d) {
             return $sessions;
         }

@@ -24,7 +24,7 @@ class Horde_Mime_Viewer_Report extends Horde_Mime_Viewer_Driver
             return false;
         }
 
-        $viewer = Horde_Mime_Viewer::factory($this->_mimepart, 'message/' . String::lower($type));
+        $viewer = Horde_Mime_Viewer::factory($this->_mimepart, 'message/' . Horde_String::lower($type));
         if ($viewer) {
             $viewer->setParams($this->_params);
         }

@@ -58,7 +58,7 @@ class Horde_Mime
             require_once 'Horde/NLS.php';
             $charset = NLS::getCharset();
         }
-        $charset = String::lower($charset);
+        $charset = Horde_String::lower($charset);
 
         if (($charset == 'us-ascii') || !self::is8bit($text, $charset)) {
             return $text;
@@ -158,7 +158,7 @@ class Horde_Mime
                  (($text[$i + 1] == "\n") || ($text[$i + 1] == "\r"))) ||
                 (($ascii < 32) || ($ascii > 126) || ($ascii === 61))) {
                 $char_len = 3;
-                $char = '=' . String::upper(sprintf('%02s', dechex($ascii)));
+                $char = '=' . Horde_String::upper(sprintf('%02s', dechex($ascii)));
             } else {
                 $char_len = 1;
             }
@@ -289,12 +289,12 @@ class Horde_Mime
         case 'Q':
         case 'q':
             $decoded = preg_replace('/=([0-9a-f]{2})/ie', 'chr(0x\1)', str_replace('_', ' ', $encoded_text));
-            $decoded = String::convertCharset($decoded, $charset, $to_charset);
+            $decoded = Horde_String::convertCharset($decoded, $charset, $to_charset);
             break;
 
         case 'B':
         case 'b':
-            $decoded = String::convertCharset(base64_decode($encoded_text), $charset, $to_charset);
+            $decoded = Horde_String::convertCharset(base64_decode($encoded_text), $charset, $to_charset);
             break;
 
         default:
@@ -356,7 +356,7 @@ class Horde_Mime
         $pre_len = strlen($name) + 2;
 
         if (self::is8bit($val, $charset)) {
-            $string = String::lower($charset) . '\'' . (empty($opts['lang']) ? '' : String::lower($opts['lang'])) . '\'' . rawurlencode($val);
+            $string = Horde_String::lower($charset) . '\'' . (empty($opts['lang']) ? '' : Horde_String::lower($opts['lang'])) . '\'' . rawurlencode($val);
             $encode = true;
             /* Account for trailing '*'. */
             ++$pre_len;
@@ -435,7 +435,7 @@ class Horde_Mime
 
         if (is_array($data)) {
             // Use dummy base values
-            $ret['val'] = (String::lower($type) == 'content-type')
+            $ret['val'] = (Horde_String::lower($type) == 'content-type')
                 ? 'text/plain'
                 : 'attachment';
             $params = $data;
@@ -495,7 +495,7 @@ class Horde_Mime
             /* Ignore language. */
             $quote = strpos($val, "'", $quote + 1);
             substr($val, $quote + 1);
-            $ret['params'][$name] = String::convertCharset(urldecode(substr($val, $quote + 1)), $orig_charset, $charset);
+            $ret['params'][$name] = Horde_String::convertCharset(urldecode(substr($val, $quote + 1)), $orig_charset, $charset);
         }
 
         /* MIME parameters are supposed to be encoded via RFC 2231, but many

@@ -298,20 +298,20 @@ class Horde_Browser
         } else {
             $this->_agent = $userAgent;
         }
-        $this->_lowerAgent = String::lower($this->_agent);
+        $this->_lowerAgent = Horde_String::lower($this->_agent);
 
         // Set our accept string.
         if (is_null($accept)) {
             if (isset($_SERVER['HTTP_ACCEPT'])) {
-                $this->_accept = String::lower(trim($_SERVER['HTTP_ACCEPT']));
+                $this->_accept = Horde_String::lower(trim($_SERVER['HTTP_ACCEPT']));
             }
         } else {
-            $this->_accept = String::lower($accept);
+            $this->_accept = Horde_String::lower($accept);
         }
 
         // Check for UTF support.
         if (isset($_SERVER['HTTP_ACCEPT_CHARSET'])) {
-            $this->setFeature('utf', strpos(String::lower($_SERVER['HTTP_ACCEPT_CHARSET']), 'utf') !== false);
+            $this->setFeature('utf', strpos(Horde_String::lower($_SERVER['HTTP_ACCEPT_CHARSET']), 'utf') !== false);
         }
 
         if (empty($this->_agent)) {
@@ -1063,7 +1063,7 @@ class Horde_Browser
             return true;
         } elseif (($error == UPLOAD_ERR_INI_SIZE) ||
                   ($error == UPLOAD_ERR_FORM_SIZE)) {
-            return PEAR::raiseError(sprintf(_("There was a problem with the file upload: The %s was larger than the maximum allowed size (%d bytes)."), $name, min($uploadSize, Util::getFormData('MAX_FILE_SIZE'))), $error);
+            return PEAR::raiseError(sprintf(_("There was a problem with the file upload: The %s was larger than the maximum allowed size (%d bytes)."), $name, min($uploadSize, Horde_Util::getFormData('MAX_FILE_SIZE'))), $error);
         } elseif ($error == UPLOAD_ERR_PARTIAL) {
             return PEAR::raiseError(sprintf(_("There was a problem with the file upload: The %s was only partially uploaded."), $name), $error);
         }
@@ -1149,7 +1149,7 @@ class Horde_Browser
      */
     public function isViewable($mimetype)
     {
-        $mimetype = String::lower($mimetype);
+        $mimetype = Horde_String::lower($mimetype);
         list($type, $subtype) = explode('/', $mimetype);
 
         if (!empty($this->_accept)) {

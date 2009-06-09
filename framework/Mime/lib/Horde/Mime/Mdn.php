@@ -94,7 +94,7 @@ class Horde_Mime_Mdn
         }
 
         return ($addr_arr[0]['mailbox'] == $ret_arr[0]['mailbox']) &&
-               (String::lower($addr_arr[0]['host']) == String::lower($ret_arr[0]['host']));
+               (Horde_String::lower($addr_arr[0]['host']) == Horde_String::lower($ret_arr[0]['host']));
     }
 
     /**

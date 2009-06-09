@@ -72,7 +72,7 @@ class Horde_Mime_Viewer_Richtext extends Horde_Mime_Viewer_Driver
     {
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => String::convertCharset($this->_toHTML(), $this->_mimepart->getCharset()),
+                'data' => Horde_String::convertCharset($this->_toHTML(), $this->_mimepart->getCharset()),
                 'status' => array(),
                 'type' => 'text/html; charset=' . NLS::getCharset()
             )
