@@ -101,16 +101,6 @@ div#quota {
 }
 
 /* Message List */
-span.loadingImg {
-    z-index: 1000;
-    border: 1px #e0e0e0 solid;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    background: #fff url("graphics/loading.gif") no-repeat center;
-    padding: 3px;
-    width: 16px;
-    height: 16px;
-}
 #msgLoading, #viewportLoading {
     position: absolute;
     margin: 10px 0 0 10px;

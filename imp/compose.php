@@ -817,9 +817,6 @@ $t = new IMP_Template();
 $t->setOption('gettext', true);
 $t->set('post_action', Util::addParameter(Horde::applicationUrl('compose.php'), 'uniq', uniqid(mt_rand())));
 $t->set('allow_compose', !$compose_disable);
-if ($has_js) {
-    $t->set('loading_img', Horde::img('loading.gif', _("Loading...")));
-}
 
 if ($redirect) {
     /* Prepare the redirect template. */

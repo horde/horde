@@ -526,6 +526,21 @@ span.threadImg8 {
     background-image: url("graphics/tree/rev-joinbottom.png");
 }
 
+/* Loading graphic */
+span.loadingImg {
+    z-index: 1000;
+    border: 1px #e0e0e0 solid;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    background: #fff url("graphics/loading.gif") no-repeat center;
+    padding: 3px;
+    width: 16px;
+    height: 16px;
+}
+td.addressTr span.loadingImg {
+    padding: 0 0 0 16px;
+}
+
 /* MIME styles. */
 .mimeStatusMessage, .mimeStatusWarning, .mimeHeaders, .mimePartInfo {
     padding: 4px;
