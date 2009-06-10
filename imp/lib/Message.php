@@ -197,7 +197,6 @@ class IMP_Message
         /* Check for Trash folder. */
         $use_trash_folder = !$this->_usepop && empty($options['nuke']) && !$use_vtrash && $use_trash;
         if ($use_trash_folder) {
-            include_once IMP_BASE . '/lib/Folder.php';
             $imp_folder = IMP_Folder::singleton();
 
             if (!$imp_folder->exists($trash) &&

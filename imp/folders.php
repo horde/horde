@@ -223,7 +223,6 @@ case 'nopoll_folder':
 
 case 'folders_empty_mailbox':
     if (!empty($folder_list)) {
-        include_once IMP_BASE . '/lib/Message.php';
         $imp_message = &IMP_Message::singleton();
         $imp_message->emptyMailbox($folder_list);
     }
@@ -232,7 +231,6 @@ case 'folders_empty_mailbox':
 case 'mark_folder_seen':
 case 'mark_folder_unseen':
     if (!empty($folder_list)) {
-        include_once IMP_BASE . '/lib/Message.php';
         $imp_message = &IMP_Message::singleton();
         $imp_message->flagAllInMailbox(array('seen'), $folder_list, ($actionID == 'mark_folder_seen'));
     }

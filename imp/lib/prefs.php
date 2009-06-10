@@ -26,7 +26,6 @@ function handle_sentmailselect($updated)
             $sent_mail_folder = IMP::appendNamespace($sent_mail_default);
         }
         if (!empty($sent_mail_folder)) {
-            include_once IMP_BASE . '/lib/Folder.php';
             $imp_folder = &IMP_Folder::singleton();
             if (!$imp_folder->exists($sent_mail_folder)) {
                 $imp_folder->create($sent_mail_folder, $prefs->getValue('subscribe'));
@@ -52,7 +51,6 @@ function handlefolders($updated, $pref, $folder, $new)
             } else {
                 if (empty($folder) && !empty($new)) {
                     $folder = IMP::appendNamespace($new);
-                    include_once IMP_BASE . '/lib/Folder.php';
                     $imp_folder = &IMP_Folder::singleton();
                     if (!$imp_folder->create($folder, $prefs->getValue('subscribe'))) {
                         $folder = null;
