@@ -18,8 +18,8 @@ function _generateDeleteResult($mbox, $indices, $change, $nothread = false)
     $result = new stdClass;
     $result->folder = $mbox;
     $result->uids = $GLOBALS['imp_imap']->ob->utils->toSequenceString($indices, array('mailbox' => true));
-    $result->remove = ($GLOBALS['prefs']->getValue('hide_deleted') ||
-                       $GLOBALS['prefs']->getValue('use_trash'));
+    $result->remove = intval($GLOBALS['prefs']->getValue('hide_deleted') ||
+                             $GLOBALS['prefs']->getValue('use_trash'));
     $result->cacheid = $imp_mailbox->getCacheID($mbox);
 
     /* Check if we need to update thread information. */
