@@ -1109,7 +1109,7 @@ class IMP
              * See Bug #7296. */
             if ($sortby > 10) {
                 $sortby = Horde_Imap_Client::SORT_ARRIVAL;
-                $GLOBALS['prefs']->setValue($sortby);
+                $GLOBALS['prefs']->setValue('sortby', $sortby);
             }
         }
 
