@@ -67,10 +67,9 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         }
 
         // Build filter stack. Starts with HTML markup and tab expansion.
-        require_once 'Horde/Text/Filter.php';
         $filters = array(
             'text2html' => array(
-                'parselevel' => TEXT_HTML_MICRO,
+                'parselevel' => Horde_Text_Filter_Text2html::MICRO,
                 'charset' => NLS::getCharset()
             ),
             'tabs2spaces' => array(),
@@ -105,7 +104,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         }
 
         // Run filters.
-        $text = Text_Filter::filter($text, array_keys($filters), array_values($filters));
+        $text = Horde_Text_Filter::filter($text, array_keys($filters), array_values($filters));
 
         // Wordwrap.
         $text = str_replace(array('  ', "\n "), array(' &nbsp;', "\n&nbsp;"), $text);

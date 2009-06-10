@@ -610,9 +610,7 @@ class Chora
      */
     static public function formatLogMessage($log)
     {
-        require_once 'Horde/Text/Filter.php';
-
-        $log = Text_Filter::filter($log, 'text2html', array('parselevel' => TEXT_HTML_MICRO, 'charset' => NLS::getCharset(), 'class' => ''));
+        $log = Text_Filter::filter($log, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'charset' => NLS::getCharset(), 'class' => ''));
 
         return (empty($GLOBALS['conf']['tickets']['regexp']) || empty($GLOBALS['conf']['tickets']['replacement']))
             ? $log

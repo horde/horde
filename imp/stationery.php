@@ -40,8 +40,7 @@ $name = Horde_Util::getFormData('name', '');
 $type = Horde_Util::getFormData('type', 'plain');
 if (!empty($last_type) && $last_type != $type) {
     if ($type == 'plain') {
-        require_once 'Horde/Text/Filter.php';
-        $content = Text_Filter::filter($content, 'html2text');
+        $content = Horde_Text_Filter::filter($content, 'html2text');
     } else {
         $content = nl2br(htmlspecialchars(htmlspecialchars($content)));
     }

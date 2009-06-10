@@ -37,19 +37,18 @@ class Folks_Activity_Form extends Horde_Form {
             return PEAR::raiseError(_("You cannot post an empty activity message."));
         }
 
-        require_once 'Horde/Text/Filter.php';
         $filters = array('text2html', 'bbcode', 'highlightquotes', 'emoticons');
-        $filters_params = array(array('parselevel' => TEXT_HTML_MICRO),
+        $filters_params = array(array('parselevel' => Horde_Text_Filter_Text2html::MICRO),
                                 array(),
                                 array(),
                                 array());
 
         if (($hasBBcode = strpos($message, '[')) !== false &&
                 strpos($message, '[/', $hasBBcode) !== false) {
-            $filters_params[0]['parselevel'] = TEXT_HTML_NOHTML;
+            $filters_params[0]['parselevel'] = Horde_Text_Filter_Text2html::NOHTML;
         }
 
-        $message = Text_Filter::filter(trim($message), $filters, $filters_params);
+        $message = Horde_Text_Filter::filter(trim($message), $filters, $filters_params);
 
         $result = $GLOBALS['folks_driver']->logActivity($message, 'folks:custom');
         if ($result instanceof PEAR_Error) {

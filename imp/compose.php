@@ -60,7 +60,6 @@ $compose_page = true;
 $session_control = 'netscape';
 require_once dirname(__FILE__) . '/lib/base.php';
 require_once 'Horde/Identity.php';
-require_once 'Horde/Text/Filter.php';
 
 /* The message text. */
 $msg = '';
@@ -683,7 +682,7 @@ if (!is_null($oldrtemode) && ($oldrtemode != $rtemode)) {
                            array('<p>&nbsp;</p>', '<p class="imp-signature"><!--begin_signature-->' . $imp_compose->text2html($sig) . '<!--end_signature--></p>'),
                            $msg);
     } else {
-        $msg = Text_Filter::filter($msg, 'html2text');
+        $msg = Horde_Text_Filter::filter($msg, 'html2text');
     }
 }
 
@@ -799,7 +798,7 @@ if (!$redirect) {
     foreach ($identity->getAllSignatures() as $ident => $sig) {
         $smf = $identity->getValue('sent_mail_folder', $ident);
         $js_ident[] = array(
-            ($rtemode) ? str_replace(' target="_blank"', '', Text_Filter::filter($sig, 'text2html', array('parselevel' => TEXT_HTML_MICRO_LINKURL, 'class' => null, 'callback' => null))) : $sig,
+            ($rtemode) ? str_replace(' target="_blank"', '', Horde_Text_Filter::filter($sig, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL, 'class' => null, 'callback' => null))) : $sig,
             $identity->getValue('sig_first', $ident),
             ($smf_check) ? $smf : IMP::displayFolder($smf),
             $identity->saveSentmail($ident),

@@ -508,8 +508,7 @@ class IMP
         global $conf, $prefs;
 
         if ($prefs->getValue('filtering') && strlen($text)) {
-            require_once 'Horde/Text/Filter.php';
-            $text = Text_Filter::filter($text, 'words', array('words_file' => $conf['msgsettings']['filtering']['words'], 'replacement' => $conf['msgsettings']['filtering']['replacement']));
+            $text = Horde_Text_Filter::filter($text, 'words', array('words_file' => $conf['msgsettings']['filtering']['words'], 'replacement' => $conf['msgsettings']['filtering']['replacement']));
         }
 
         return $text;

@@ -229,8 +229,7 @@ class IMP_UI_Message
                 }
                 break;
             } else {
-                require_once 'Horde/Text/Filter.php';
-                if ($url = Text_Filter::filter($match, 'linkurls', array('callback' => 'Horde::externalUrl'))) {
+                if ($url = Horde_Text_Filter::filter($match, 'linkurls', array('callback' => 'Horde::externalUrl'))) {
                     if ($raw) {
                         return $match;
                     }
@@ -454,9 +453,7 @@ class IMP_UI_Message
      */
     public function getDisplaySubject($subject)
     {
-        require_once 'Horde/Text/Filter.php';
-
-        return Text_Filter::filter(IMP::filterText($subject), 'text2html', array('parselevel' => TEXT_HTML_MICRO, 'class' => null, 'callback' => null));
+        return Horde_Text_Filter::filter(IMP::filterText($subject), 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'class' => null, 'callback' => null));
     }
 
 }

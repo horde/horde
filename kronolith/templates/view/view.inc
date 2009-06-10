@@ -4,7 +4,7 @@
 <!-- location -->
 <tr>
  <td class="rightAlign"><strong><?php echo _("Location") ?>&nbsp;&nbsp;</strong></td>
- <td><?php echo empty($location) ? '&nbsp;' : Text_Filter::filter($location, 'text2html', array('parselevel' => TEXT_HTML_MICRO, 'class' => 'text')) ?> </td>
+ <td><?php echo empty($location) ? '&nbsp;' : Horde_Text_Filter::filter($location, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'class' => 'text')) ?> </td>
 </tr>
 <?php endif; ?>
 
@@ -141,7 +141,7 @@ if ($this->event->isInitialized() && $this->event->alarm > 0):
  <td colspan="2" class="control"><strong><?php echo _("Description") ?></strong></td>
 </tr>
 <tr>
- <td colspan="2" class="description"><?php require_once 'Horde/Text/Filter.php'; echo Text_Filter::filter($description, 'text2html', array('parselevel' => TEXT_HTML_MICRO, 'class' => 'text')) ?></td>
+ <td colspan="2" class="description"><?php echo Horde_Text_Filter::filter($description, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'class' => 'text')) ?></td>
 </tr>
 <?php endif; ?>
 

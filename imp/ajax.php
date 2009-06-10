@@ -471,17 +471,15 @@ case 'ShowPreview':
     break;
 
 case 'Html2Text':
-    require_once 'Horde/Text/Filter.php';
     $result = new stdClass;
     // Need to replace line endings or else IE won't display line endings
     // properly.
-    $result->text = str_replace("\n", "\r\n", Text_Filter::filter(Horde_Util::getPost('text'), 'html2text'));
+    $result->text = str_replace("\n", "\r\n", Horde_Text_Filter::filter(Horde_Util::getPost('text'), 'html2text'));
     break;
 
 case 'Text2Html':
-    require_once 'Horde/Text/Filter.php';
     $result = new stdClass;
-    $result->text = Text_Filter::filter(Horde_Util::getPost('text'), 'text2html', array('parselevel' => TEXT_HTML_MICRO_LINKURL, 'class' => null, 'callback' => null));
+    $result->text = Horde_Text_Filter::filter(Horde_Util::getPost('text'), 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL, 'class' => null, 'callback' => null));
     break;
 
 case 'GetForwardData':

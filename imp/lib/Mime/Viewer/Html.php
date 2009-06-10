@@ -136,8 +136,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         /* We are done processing if in mimp mode. */
         if ($_SESSION['imp']['view'] == 'mimp') {
-            require_once 'Horde/Text/Filter.php';
-            $data = Text_Filter::filter($data, 'html2text');
+            $data = Horde_Text_Filter::filter($data, 'html2text');
 
             // Filter bad language.
             return array('html' => IMP::filterText($data), 'status' => array());
@@ -231,9 +230,8 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             }
         }
 
-        require_once 'Horde/Text/Filter.php';
         if ($GLOBALS['prefs']->getValue('emoticons')) {
-            $data = Text_Filter::filter($data, array('emoticons'), array(array('emoticons' => true)));
+            $data = Horde_Text_Filter::filter($data, array('emoticons'), array(array('emoticons' => true)));
         }
 
         return array(

@@ -469,9 +469,7 @@ class IMP_Contents
         $ptext = $pmime->getContents();
         $ptext = Horde_String::convertCharset($ptext, $pmime->getCharset());
         if ($pmime->getType() == 'text/html') {
-            require_once 'Horde/Text/Filter.php';
-            $ptext = Text_Filter::filter($ptext, 'html2text',
-                                         array('charset' => NLS::getCharset()));
+            $ptext = Horde_Text_Filter::filter($ptext, 'html2text', array('charset' => NLS::getCharset()));
         }
 
         $this->_build = $oldbuild;

@@ -917,8 +917,7 @@ class IMP_Compose
 
         if (!empty($options['html'])) {
             $body_html = $body;
-            require_once 'Horde/Text/Filter.php';
-            $body = Text_Filter::filter($body, 'html2text', array('wrap' => false, 'charset' => $charset));
+            $body = Horde_Text_Filter::filter($body, 'html2text', array('wrap' => false, 'charset' => $charset));
         }
 
         /* Get trailer message (if any). */
@@ -934,8 +933,7 @@ class IMP_Compose
             }
 
             if (!empty($trailer_file)) {
-                require_once 'Horde/Text/Filter.php';
-                $trailer = Text_Filter::filter("\n" . file_get_contents($trailer_file), 'environment');
+                $trailer = Horde_Text_Filter::filter("\n" . file_get_contents($trailer_file), 'environment');
                 /* If there is a user defined function, call it with the
                  * current trailer as an argument. */
                 if (!empty($GLOBALS['conf']['hooks']['trailer'])) {
@@ -2213,11 +2211,9 @@ class IMP_Compose
         }
 
         if ($mode == 'html') {
-            require_once 'Horde/Text/Filter.php';
-            $msg = Text_Filter::filter($msg, 'xss', array('body_only' => true, 'strip_styles' => true, 'strip_style_attributes' => false));
+            $msg = Horde_Text_Filter::filter($msg, 'xss', array('body_only' => true, 'strip_styles' => true, 'strip_style_attributes' => false));
         } elseif ($type == 'text/html') {
-            require_once 'Horde/Text/Filter.php';
-            $msg = Text_Filter::filter($msg, 'html2text', array('charset' => $charset));
+            $msg = Horde_Text_Filter::filter($msg, 'html2text', array('charset' => $charset));
             $type = 'text/plain';
         }
 
@@ -2375,8 +2371,7 @@ class IMP_Compose
      */
     public function text2html($msg)
     {
-        require_once 'Horde/Text/Filter.php';
-        return Text_Filter::filter($msg, 'text2html', array('parselevel' => TEXT_HTML_MICRO_LINKURL, 'class' => null, 'callback' => null));
+        return Horde_Text_Filter::filter($msg, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL, 'class' => null, 'callback' => null));
     }
 
     /**

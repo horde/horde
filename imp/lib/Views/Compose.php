@@ -46,14 +46,13 @@ class IMP_Views_Compose
         }
 
         /* Get user identities. */
-        require_once 'Horde/Text/Filter.php';
         $all_sigs = $identity->getAllSignatures();
         foreach ($all_sigs as $ident => $sig) {
             $identities[] = array(
                 // 0 = Plain text signature
                 $sig,
                 // 1 = HTML signature
-                str_replace(' target="_blank"', '', Text_Filter::filter($sig, 'text2html', array('parselevel' => TEXT_HTML_MICRO_LINKURL, 'class' => null, 'callback' => null))),
+                str_replace(' target="_blank"', '', Horde_Text_Filter::filter($sig, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL, 'class' => null, 'callback' => null))),
                 // 2 = Signature location
                 (bool)$identity->getValue('sig_first', $ident),
                 // 3 = Sent mail folder name

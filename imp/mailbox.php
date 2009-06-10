@@ -799,8 +799,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
             }
 
             if (!$preview_tooltip) {
-                require_once 'Horde/Text/Filter.php';
-                $ptext = Text_Filter::filter($ptext, 'text2html', array('parselevel' => TEXT_HTML_NOHTML, 'charset' => '', 'class' => ''));
+                $ptext = Horde_Text_Filter::filter($ptext, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::NOHTML, 'charset' => '', 'class' => ''));
             }
 
             $maxlen = $prefs->getValue('preview_maxlen');

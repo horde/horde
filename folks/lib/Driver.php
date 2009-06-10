@@ -350,19 +350,18 @@ class Folks_Driver {
             }
 
             // Filter description
-            require_once 'Horde/Text/Filter.php';
             $filters = array('text2html', 'bbcode', 'highlightquotes', 'emoticons');
-            $filters_params = array(array('parselevel' => TEXT_HTML_MICRO),
+            $filters_params = array(array('parselevel' => Horde_Text_Filter_Text2html::MICRO),
                                     array(),
                                     array(),
                                     array());
 
             if (($hasBBcode = strpos($profile['user_description'], '[')) !== false &&
                     strpos($profile['user_description'], '[/', $hasBBcode) !== false) {
-                $filters_params[0]['parselevel'] = TEXT_HTML_NOHTML;
+                $filters_params[0]['parselevel'] = Horde_Text_Filter_Text2html::NOHTML;
             }
 
-            $profile['user_description'] = Text_Filter::filter(trim($profile['user_description']), $filters, $filters_params);
+            $profile['user_description'] = Horde_Text_Filter::filter(trim($profile['user_description']), $filters, $filters_params);
 
             // Get user last external data
             foreach ($profile as $key => $value) {

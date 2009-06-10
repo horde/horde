@@ -360,11 +360,10 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
                 $sig_text = $e->getMessage();
             }
 
-            require_once 'Horde/Text/Filter.php';
             $ret[$base_id]['status'][] = array(
                 'icon' => $icon,
                 'text' => array(
-                    Text_Filter::filter($sig_text, 'text2html', array('parselevel' => TEXT_HTML_NOHTML))
+                    Horde_Text_Filter::filter($sig_text, 'text2html', array('parselevel' => Horde_Text_Filter::Text2html::NOHTML))
                 )
             );
         } else {
