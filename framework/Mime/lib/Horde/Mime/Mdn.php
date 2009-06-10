@@ -144,7 +144,6 @@ class Horde_Mime_Mdn
                              $err = array())
     {
         require_once 'Horde/Identity.php';
-        require_once 'Horde/Text.php';
 
         /* Set up some variables we use later. */
         $identity = &Identity::singleton();

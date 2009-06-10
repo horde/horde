@@ -88,8 +88,6 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
         }
         $maxlen = empty($max_array) ? 0 : max($max_array);
 
-        require_once 'Horde/Text.php';
-
         $name = $this->_mimepart->getName(true);
         if (empty($name)) {
             $name = _("unnamed");
@@ -97,7 +95,7 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
 
         $text = '<strong>' . htmlspecialchars(sprintf(_("Contents of \"%s\""), $name)) . ':</strong>' . "\n" .
             '<table><tr><td align="left"><tt><span class="fixed">' .
-            Text::htmlAllSpaces(
+            Horde_Text::htmlAllSpaces(
                 _("Archive Name") . ': ' . $name . "\n" .
                 _("Archive File Size") . ': ' . strlen($contents) .
                 ' bytes' . "\n" .

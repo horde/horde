@@ -67,8 +67,6 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Driver
         }
         $fileCount = count($tarData);
 
-        require_once 'Horde/Text.php';
-
         $name = $this->_mimepart->getName(true);
         if (empty($name)) {
             $name = _("unnamed");
@@ -76,11 +74,11 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Driver
 
         $text = '<strong>' . htmlspecialchars(sprintf(_("Contents of \"%s\""), $name)) . ':</strong>' . "\n" .
             '<table><tr><td align="left"><tt><span class="fixed">' .
-            Text::htmlAllSpaces(_("Archive Name") . ':  ' . $name) . "\n" .
-            Text::htmlAllSpaces(_("Archive File Size") . ': ' . strlen($contents) . ' bytes') . "\n" .
-            Text::htmlAllSpaces(sprintf(ngettext("File Count: %d file", "File Count: %d files", $fileCount), $fileCount)) .
+            Horde_Text::htmlAllSpaces(_("Archive Name") . ':  ' . $name) . "\n" .
+            Horde_Text::htmlAllSpaces(_("Archive File Size") . ': ' . strlen($contents) . ' bytes') . "\n" .
+            Horde_Text::htmlAllSpaces(sprintf(ngettext("File Count: %d file", "File Count: %d files", $fileCount), $fileCount)) .
             "\n\n" .
-            Text::htmlAllSpaces(
+            Horde_Text::htmlAllSpaces(
                 str_pad(_("File Name"), 62, ' ', STR_PAD_RIGHT) .
                 str_pad(_("Attributes"), 15, ' ', STR_PAD_LEFT) .
                 str_pad(_("Size"), 10, ' ', STR_PAD_LEFT) .
@@ -89,7 +87,7 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Driver
             str_repeat('-', 106) . "\n";
 
         foreach ($tarData as $val) {
-            $text .= Text::htmlAllSpaces(
+            $text .= Horde_Text::htmlAllSpaces(
                 str_pad($val['name'], 62, ' ', STR_PAD_RIGHT) .
                 str_pad($val['attr'], 15, ' ', STR_PAD_LEFT) .
                 str_pad($val['size'], 10, ' ', STR_PAD_LEFT) .
