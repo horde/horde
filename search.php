@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: incubator/operator/search.php,v 1.10 2009/01/06 17:51:06 jan Exp $
+ * $Horde: incubator/operator/search.php,v 1.11 2009/06/10 17:33:30 slusarz Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -16,11 +16,10 @@ require_once OPERATOR_BASE . '/lib/base.php';
 // Form libraries.
 require_once 'Horde/Form.php';
 require_once 'Horde/Form/Renderer.php';
-require_once 'Horde/Variables.php';
 require_once OPERATOR_BASE . '/lib/Form/SearchCDR.php';
 
 $renderer = new Horde_Form_Renderer();
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 
 if (!$vars->exists('rowstart')) {
     $rowstart = 0;

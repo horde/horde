@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: incubator/operator/viewgraph.php,v 1.10 2009/06/10 05:24:30 slusarz Exp $
+ * $Horde: incubator/operator/viewgraph.php,v 1.11 2009/06/10 17:33:30 slusarz Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -16,11 +16,10 @@ require_once OPERATOR_BASE . '/lib/base.php';
 // Form libraries.
 require_once 'Horde/Form.php';
 require_once 'Horde/Form/Renderer.php';
-require_once 'Horde/Variables.php';
 require_once OPERATOR_BASE . '/lib/Form/SearchCDR.php';
 
 $renderer = new Horde_Form_Renderer();
-$vars = Variables::getDefaultVariables();
+$vars = Horde_Variables::getDefaultVariables();
 
 $form = new SearchCDRForm(_("Graph CDR Data"), $vars);
 if ($form->isSubmitted() && $form->validate($vars, true)) {
