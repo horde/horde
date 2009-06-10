@@ -363,7 +363,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
             $ret[$base_id]['status'][] = array(
                 'icon' => $icon,
                 'text' => array(
-                    Horde_Text_Filter::filter($sig_text, 'text2html', array('parselevel' => Horde_Text_Filter::Text2html::NOHTML))
+                    Horde_Text_Filter::filter($sig_text, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::NOHTML))
                 )
             );
         } else {
