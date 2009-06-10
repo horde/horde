@@ -17,10 +17,10 @@
  */
 
 define('IMP_CONFIG', dirname(__FILE__) . '/../config');
-require_once 'Horde/CLI.php';
+require_once 'Horde/Cli.php';
 
 /* Make sure no one runs this from the web. */
-if (!Horde_CLI::runningFromCLI()) {
+if (!Horde_Cli::runningFromCLI()) {
     fwrite(STDERR, "Must be run from the command line\n");
     exit(1);
 }
@@ -32,10 +32,10 @@ if (!file_exists(IMP_CONFIG . '/bounce.txt')) {
 
 /* Load the CLI environment - make sure there's no time limit, init some
  * variables, etc. */
-Horde_CLI::init();
+Horde_Cli::init();
 
 /* Read the message content. */
-$data = Horde_CLI::readStdin();
+$data = Horde_Cli::readStdin();
 
 /* Who's the spammer? */
 preg_match('/return-path: <(.*?)>\r?\n/i', $data, $matches);

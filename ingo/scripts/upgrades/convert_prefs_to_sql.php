@@ -25,14 +25,14 @@
 require_once HORDE_BASE . '/lib/core.php';
 
 /* Make sure no one runs this from the web. */
-if (!Horde_CLI::runningFromCLI()) {
+if (!Horde_Cli::runningFromCLI()) {
     exit("Must be run from the command line\n");
 }
 
 /* Load the CLI environment - make sure there's no time limit, init some
  * variables, etc. */
-Horde_CLI::init();
-$cli = &Horde_CLI::singleton();
+Horde_Cli::init();
+$cli = &Horde_Cli::singleton();
 
 /* Initialize the needed libraries. */
 require_once dirname(dirname(dirname(__FILE__))) . '/lib/base.php';

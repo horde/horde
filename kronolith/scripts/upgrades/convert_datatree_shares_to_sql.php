@@ -4,8 +4,6 @@
  * This script migrates Kronolith's share data from the datatree Horde_Share
  * driver to the new SQL Horde_Share driver. You should run the appropriate
  * 2.1_to_2.2.sql upgrade script for your RDBMS before executing this script.
- *
- * $Horde: kronolith/scripts/upgrades/convert_datatree_shares_to_sql.php,v 1.7 2008/10/23 15:45:05 jan Exp $
  */
 
 @define('AUTH_HANDLER', true);
@@ -13,11 +11,11 @@
 
 /* Set up the CLI environment */
 require_once HORDE_BASE . '/lib/core.php';
-require_once 'Horde/CLI.php';
-if (!Horde_CLI::runningFromCli()) {
+require_once 'Horde/Cli.php';
+if (!Horde_Cli::runningFromCli()) {
     exit("Must be run from the command line\n");
 }
-$cli = &Horde_CLI::singleton();
+$cli = &Horde_Cli::singleton();
 $cli->init();
 
 /* Grab what we need to steal the DB config */

@@ -11,10 +11,10 @@
 
 /* Set up the CLI environment */
 require_once HORDE_BASE . '/lib/core.php';
-if (!Horde_CLI::runningFromCli()) {
+if (!Horde_Cli::runningFromCli()) {
     exit("Must be run from the command line\n");
 }
-$cli = &Horde_CLI::singleton();
+$cli = &Horde_Cli::singleton();
 $cli->init();
 
 /* Grab what we need to steal the DB config */

@@ -22,16 +22,16 @@
 
 // Do CLI checks and environment setup first.
 require_once HORDE_BASE . '/lib/core.php';
-require_once 'Horde/CLI.php';
+require_once 'Horde/Cli.php';
 
 // Makre sure no one runs this from the web.
-if (!Horde_CLI::runningFromCli()) {
+if (!Horde_Cli::runningFromCli()) {
     exit("Must be run from the command line\n");
 }
 
 // Load the CLI environment - make sure there's no time limit, init some
 // variables, etc.
-$cli = &Horde_CLI::singleton();
+$cli = &Horde_Cli::singleton();
 $cli->init();
 
 // Read command line parameters.

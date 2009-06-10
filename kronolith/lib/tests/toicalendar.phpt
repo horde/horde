@@ -3,8 +3,8 @@ Kronolith_Event::toiCalendar() test.
 --FILE--
 <?php
 
-require 'Horde/CLI.php';
-Horde_CLI::init();
+require 'Horde/Cli.php';
+Horde_Cli::init();
 define('AUTH_HANDLER', true);
 require dirname(__FILE__) . '/../base.php';
 require 'Horde/iCalendar.php';

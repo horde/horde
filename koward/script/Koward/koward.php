@@ -34,7 +34,7 @@ if (!$opts->base) {
  * Ensure that the base parameters (especially SERVER_NAME) get set for the
  * command line.
  */
-$cli = Horde_CLI::singleton();
+$cli = Horde_Cli::singleton();
 $cli->init();
 
 /**

@@ -202,7 +202,7 @@ class Koward {
                 if (!empty($session->user_uid)) {
                     $user = $this->getObject($session->user_uid);
                     if (get_class($user) == $this->conf['koward']['cli_admin']
-                        && Horde_CLI::runningFromCLI()) {
+                        && Horde_Cli::runningFromCLI()) {
                         return true;
                     }
                     $type = $this->getType($user);
