@@ -72,7 +72,7 @@ function saveEvent($event)
 }
 
 // Need to load Horde_Util:: to give us access to Horde_Util::getPathInfo().
-require_once dirname(__FILE__) . '/base.load.php';
+require_once dirname(__FILE__) . '/lib/base.load.php';
 require_once HORDE_BASE . '/lib/core.php';
 $action = basename(Horde_Util::getPathInfo());
 if (empty($action)) {
