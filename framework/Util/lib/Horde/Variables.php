@@ -45,7 +45,7 @@ class Horde_Variables
      */
     public function &getDefaultVariables()
     {
-        $vars = new Variables(null);
+        $vars = new Horde_Variables(null);
         return $vars;
     }
 
