@@ -225,7 +225,6 @@ if (is_a($result, 'PEAR_Error')) {
 }
 extract($result);
 
-require_once 'Horde/Help.php';
 require_once 'Horde/Prefs/UI.php';
 $app = 'imp';
 $chunk = Horde_Util::nonInputVar('chunk');
@@ -245,16 +244,16 @@ try {
 /* If S/MIME preference not active, do NOT show S/MIME Admin screen. */
 $t = new IMP_Template();
 $t->setOption('gettext', true);
-$t->set('use_smime_help', Help::link('imp', 'smime-overview'));
+$t->set('use_smime_help', Horde_Help::link('imp', 'smime-overview'));
 if ($openssl_check && $prefs->getValue('use_smime')) {
     Horde::addScriptFile('imp.js', 'imp', true);
     $t->set('smimeactive', true);
-    $t->set('manage_pubkey-help', Help::link('imp', 'smime-manage-pubkey'));
+    $t->set('manage_pubkey-help', Horde_Help::link('imp', 'smime-manage-pubkey'));
 
     $t->set('verify_notlocked', !$prefs->isLocked('smime_verify'));
     if ($t->get('verify_notlocked')) {
         $t->set('smime_verify', $prefs->getValue('smime_verify'));
-        $t->set('smime_verify-help', Help::link('imp', 'smime-option-verify'));
+        $t->set('smime_verify-help', Horde_Help::link('imp', 'smime-option-verify'));
     }
 
     $t->set('empty_pubkey_list', empty($pubkey_list));
@@ -279,10 +278,10 @@ if ($openssl_check && $prefs->getValue('use_smime')) {
         if (!$t->get('no_source')) {
             $cacheSess = &Horde_SessionObjects::singleton();
             $t->set('public_import_url', Horde_Util::addParameter(Horde_Util::addParameter($selfURL, 'actionID', 'import_public_key'), 'reload', $cacheSess->storeOid($selfURL, false)));
-            $t->set('import_pubkey-help', Help::link('imp', 'smime-import-pubkey'));
+            $t->set('import_pubkey-help', Horde_Help::link('imp', 'smime-import-pubkey'));
         }
     }
-    $t->set('personalkey-help', Help::link('imp', 'smime-overview-personalkey'));
+    $t->set('personalkey-help', Horde_Help::link('imp', 'smime-overview-personalkey'));
 
     $t->set('secure_check', is_a($secure_check, 'PEAR_Error'));
     if (!$t->get('secure_check')) {
@@ -294,10 +293,10 @@ if ($openssl_check && $prefs->getValue('use_smime')) {
             $t->set('passphrase', empty($passphrase) ? Horde::link('#', _("Enter Passphrase"), null, null, IMP::passphraseDialogJS('SMIMEPersonal') . ';return false;') . _("Enter Passphrase") : Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'unset_passphrase'), _("Unload Passphrase")) . _("Unload Passphrase"));
             $t->set('viewprivate', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'view_personal_private_key'), _("View Personal Private Key"), null, 'view_key'));
             $t->set('deletekeypair', addslashes(_("Are you sure you want to delete your keypair? (This is NOT recommended!)")));
-            $t->set('personalkey-delete-help', Help::link('imp', 'smime-delete-personal-certs'));
+            $t->set('personalkey-delete-help', Horde_Help::link('imp', 'smime-delete-personal-certs'));
         } else {
             $t->set('personal_import_url', Horde_Util::addParameter($selfURL, 'actionID', 'import_personal_certs'));
-            $t->set('import-cert-help', Help::link('imp', 'smime-import-personal-certs'));
+            $t->set('import-cert-help', Horde_Help::link('imp', 'smime-import-personal-certs'));
         }
     }
 } else {

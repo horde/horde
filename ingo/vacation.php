@@ -11,7 +11,6 @@
  */
 
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Help.php';
 
 /* Redirect if vacation is not available. */
 if (!in_array(Ingo_Storage::ACTION_VACATION, $_SESSION['ingo']['script_categories'])) {
@@ -149,7 +148,7 @@ $form_title = _("Vacation");
 if (!empty($vac_rule['disable'])) {
     $form_title .= ' [<span class="form-error">' . _("Disabled") . '</span>]';
 }
-$form_title .= ' ' . Help::link('ingo', 'vacation');
+$form_title .= ' ' . Horde_Help::link('ingo', 'vacation');
 $form->setTitle($form_title);
 
 $title = _("Vacation Edit");

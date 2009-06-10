@@ -60,7 +60,6 @@ function &_getIMPContents($index, $mailbox)
 $compose_page = true;
 $session_control = 'netscape';
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Help.php';
 require_once 'Horde/Identity.php';
 require_once 'Horde/Text/Filter.php';
 
@@ -859,7 +858,7 @@ if ($redirect) {
 
             if ($first_to) {
                 $first_to = false;
-                $entry['help'] = Help::link('imp', 'compose-to');
+                $entry['help'] = Horde_Help::link('imp', 'compose-to');
             } else {
                 $entry['help'] = null;
             }
@@ -870,7 +869,7 @@ if ($redirect) {
     } else {
         $t->set('input_tabindex', ++$tabindex);
         $t->set('input_value', htmlspecialchars($header['to']));
-        $t->set('help', Help::link('imp', 'compose-to'));
+        $t->set('help', Horde_Help::link('imp', 'compose-to'));
     }
 
     $template_output = $t->fetch(IMP_TEMPLATES . '/compose/redirect.html');
@@ -943,10 +942,10 @@ if ($redirect) {
     if ($conf['user']['allow_folders'] && !$readonly_drafts) {
         $t->set('save_draft_ak', Horde::getAccessKeyAndTitle(_("Save _Draft")));
     }
-    $t->set('help_buttons', Help::link('imp', 'compose-buttons'));
+    $t->set('help_buttons', Horde_Help::link('imp', 'compose-buttons'));
     $t->set('di_locked', $prefs->isLocked('default_identity'));
     if ($t->get('di_locked')) {
-        $t->set('help_compose-from', Help::link('imp', 'compose-from'));
+        $t->set('help_compose-from', Horde_Help::link('imp', 'compose-from'));
         $t->set('fromaddr_locked', $prefs->isLocked('from_addr'));
         try {
             $t->set('from', htmlspecialchars($identity->getFromLine(null, Horde_Util::getFormData('from'))));
@@ -959,7 +958,7 @@ if ($redirect) {
     } else {
         $select_list = $identity->getSelectList();
         $t->set('identity_label', Horde::label('identity', _("_Identity")));
-        $t->set('help_compose-from', Help::link('imp', 'compose-identity'));
+        $t->set('help_compose-from', Horde_Help::link('imp', 'compose-identity'));
         $t->set('last_identity', $identity->getDefault());
         $t->set('count_select_list', count($select_list) > 1);
         if (count($select_list) > 1) {
@@ -1015,7 +1014,7 @@ if ($redirect) {
 
                 if ($first_addr) {
                     $first_addr = false;
-                    $entry['help'] = Help::link('imp', 'compose-' . $val);
+                    $entry['help'] = Horde_Help::link('imp', 'compose-' . $val);
                 } else {
                     $entry['help'] = null;
                 }
@@ -1026,7 +1025,7 @@ if ($redirect) {
             $addr['multiple'] = false;
             $addr['input_tabindex'] = ++$tabindex;
             $addr['input_value'] = htmlspecialchars($header[$val]);
-            $addr['help_compose'] = Help::link('imp', 'compose-' . $val);
+            $addr['help_compose'] = Horde_Help::link('imp', 'compose-' . $val);
         }
         $address_array[] = $addr;
     }
@@ -1035,7 +1034,7 @@ if ($redirect) {
     $t->set('subject_label', Horde::label('subject', _("S_ubject")));
     $t->set('subject_tabindex', ++$tabindex);
     $t->set('subject', htmlspecialchars($header['subject']));
-    $t->set('help-subject', Help::link('imp', 'compose-subject'));
+    $t->set('help-subject', Horde_Help::link('imp', 'compose-subject'));
 
     $t->set('set_priority', $prefs->getValue('set_priority'));
     $t->set('unlocked_charset', !$prefs->isLocked('sending_charset'));
@@ -1047,7 +1046,7 @@ if ($redirect) {
             $charset_array[] = array('value' => $charset, 'selected' => (strtolower($charset) == strtolower($encoding)), 'label' => $label);
         }
         $t->set('charset_array', $charset_array);
-        $t->set('help_compose_charset', Help::link('imp', 'compose-charset'));
+        $t->set('help_compose_charset', Horde_Help::link('imp', 'compose-charset'));
     }
     if ($t->get('set_priority')) {
         $t->set('priority_label', Horde::label('priority', _("_Priority")));
@@ -1066,7 +1065,7 @@ if ($redirect) {
             $priority_option[] = array('val' => $key, 'label' => $val, 'selected' => ($priority == $key));
         }
         $t->set('pri_opt', $priority_option);
-        $t->set('help_priority', Help::link('imp', 'compose-priority'));
+        $t->set('help_priority', Horde_Help::link('imp', 'compose-priority'));
     }
 
     $t->set('stationery', !empty($stationery_list));
@@ -1111,7 +1110,7 @@ if ($redirect) {
         );
     }
     $t->set('compose_options', $compose_options);
-    $t->set('help_options', Help::link('imp', 'compose-options'));
+    $t->set('help_options', Horde_Help::link('imp', 'compose-options'));
 
     $t->set('ssm', ($conf['user']['allow_folders'] && !$prefs->isLocked('save_sent_mail')));
     if ($t->get('ssm')) {
@@ -1163,12 +1162,12 @@ if ($redirect) {
     if ($t->get('use_encrypt')) {
         $t->set('encrypt_label', Horde::label('encrypt_options', _("Encr_yption Options")));
         $t->set('encrypt_options', IMP::encryptList($encrypt_options));
-        $t->set('help-encrypt', Help::link('imp', 'compose-options-encrypt'));
+        $t->set('help-encrypt', Horde_Help::link('imp', 'compose-options-encrypt'));
         $t->set('pgp_options', ($prefs->getValue('use_pgp') && $prefs->getValue('pgp_public_key')));
         if ($t->get('pgp_options')) {
             $t->set('pgp_attach_pubkey', Horde_Util::getFormData('pgp_attach_pubkey', $prefs->getValue('pgp_attach_pubkey')));
             $t->set('pap', Horde::label('pap', _("Attach a copy of your PGP public key to the message?")));
-            $t->set('help-pubkey', Help::link('imp', 'pgp-compose-attach-pubkey'));
+            $t->set('help-pubkey', Horde_Help::link('imp', 'pgp-compose-attach-pubkey'));
         }
     }
     if ($registry->hasMethod('contacts/ownVCard')) {
@@ -1189,7 +1188,7 @@ if ($redirect) {
             }
         }
         $t->set('attach_size', number_format($imp_compose->maxAttachmentSize(), 0, $localeinfo['decimal_point'], $localeinfo['thousands_sep']));
-        $t->set('help-attachments', Help::link('imp', 'compose-attachments'));
+        $t->set('help-attachments', Horde_Help::link('imp', 'compose-attachments'));
 
         $save_attach = $prefs->getValue('save_attachments');
         $show_link_attach = ($conf['compose']['link_attachments'] && !$conf['compose']['link_all_attachments']);
@@ -1200,11 +1199,11 @@ if ($redirect) {
             $attach_options = array();
             if ($show_save_attach) {
                 $save_attach_val = Horde_Util::getFormData('save_attachments_select', ($save_attach == 'prompt_yes'));
-                $attach_options[] = array('label' => _("Save Attachments with message in sent-mail folder?"), 'name' => 'save_attachments_select', 'select_yes' => ($save_attach_val == 1), 'select_no' => ($save_attach_val == 0), 'help' => Help::link('imp', 'compose-save-attachments'));
+                $attach_options[] = array('label' => _("Save Attachments with message in sent-mail folder?"), 'name' => 'save_attachments_select', 'select_yes' => ($save_attach_val == 1), 'select_no' => ($save_attach_val == 0), 'help' => Horde_Help::link('imp', 'compose-save-attachments'));
             }
             if ($show_link_attach) {
                 $link_attach_val = Horde_Util::getFormData('link_attachments');
-                $attach_options[] = array('label' => _("Link Attachments?"), 'name' => 'link_attachments', 'select_yes' => ($link_attach_val == 1), 'select_no' => ($link_attach_val == 0), 'help' => Help::link('imp', 'compose-link-attachments'));
+                $attach_options[] = array('label' => _("Link Attachments?"), 'name' => 'link_attachments', 'select_yes' => ($link_attach_val == 1), 'select_no' => ($link_attach_val == 0), 'help' => Horde_Help::link('imp', 'compose-link-attachments'));
             }
             $t->set('attach_options', $attach_options);
         }
@@ -1238,7 +1237,7 @@ if ($redirect) {
             if ($t->get('perc_attach')) {
                 $t->set('perc_attach', sprintf(_("%s%% of allowed size"), number_format($imp_compose->sizeOfAttachments() / $conf['compose']['attach_size_limit'] * 100, 2, $localeinfo['decimal_point'], $localeinfo['thousands_sep'])));
             }
-            $t->set('help-current-attachments', Help::link('imp', 'compose-current-attachments'));
+            $t->set('help-current-attachments', Horde_Help::link('imp', 'compose-current-attachments'));
         }
     }
 

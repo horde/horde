@@ -42,9 +42,6 @@ if (is_a(($pushed = $registry->pushApp('kronolith', !defined('AUTH_HANDLER'))), 
 $conf = &$GLOBALS['conf'];
 define('KRONOLITH_TEMPLATES', $registry->get('templates'));
 
-/* Horde framework libraries. */
-require_once 'Horde/Help.php';
-
 /* Notification system. */
 $notification = &Notification::singleton();
 require_once KRONOLITH_BASE . '/lib/Notification/Listener/status.php';

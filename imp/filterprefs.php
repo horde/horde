@@ -10,7 +10,6 @@
  */
 
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Help.php';
 require_once 'Horde/Prefs/UI.php';
 
 $result = Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp');
@@ -92,7 +91,7 @@ if (!$blacklist_link && !$whitelist_link && !$filters_link) {
             $links[] = array(
                 'img' => Horde::img('filters.png', $val['g']),
                 'link' => Horde::link(Horde::url($val['l'])),
-                'help' => Help::link('imp', $val['h']),
+                'help' => Horde_Help::link('imp', $val['h']),
                 'text' => $val['g']
             );
         }
@@ -115,7 +114,7 @@ if (!$blacklist_link && !$whitelist_link && !$filters_link) {
                 'key' => $key,
                 'checked' => $prefs->getValue($val['p']),
                 'label' => Horde::label('filter_' . $key, $val['g']),
-                'help' => isset($val['h']) ? Help::link('imp', $val['h']) : null
+                'help' => isset($val['h']) ? Horde_Help::link('imp', $val['h']) : null
             );
         }
     }

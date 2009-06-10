@@ -11,7 +11,6 @@
  */
 
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Help.php';
 
 /* Redirect if forward is not available. */
 if (!in_array(Ingo_Storage::ACTION_FORWARD, $_SESSION['ingo']['script_categories'])) {
@@ -95,7 +94,7 @@ $form_title = _("Forward");
 if (!empty($fwd_rule['disable'])) {
     $form_title .= ' [<span class="form-error">' . _("Disabled") . '</span>]';
 }
-$form_title .= ' ' . Help::link('ingo', 'forward');
+$form_title .= ' ' . Horde_Help::link('ingo', 'forward');
 $form->setTitle($form_title);
 
 $title = _("Forwards Edit");

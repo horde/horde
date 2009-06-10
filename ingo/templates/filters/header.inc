@@ -14,7 +14,7 @@ function moveFromTo(from, to, upurl, downurl)
 <?php Horde_Util::pformInput() ?>
 <input type="hidden" name="actionID" value="" />
 <div class="header">
- <?php echo _("Existing Rules") . ' ' . Help::link('ingo', 'filters_rules') ?>
+ <?php echo _("Existing Rules") . ' ' . Horde_Help::link('ingo', 'filters_rules') ?>
 </div>
 
 <table width="100%" cellspacing="0" class="striped">

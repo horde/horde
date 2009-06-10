@@ -393,7 +393,7 @@ try {
         if ($var->hasHelp()) {
             global $registry;
             if (isset($registry) && is_a($registry, 'Registry')) {
-                $help = Help::link($GLOBALS['registry']->getApp(), $var->getHelp());
+                $help = Horde_Help::link($GLOBALS['registry']->getApp(), $var->getHelp());
             } else {
                 $help = @htmlspecialchars($var->getHelp());
             }

@@ -24,7 +24,7 @@ function delete_condition(num)
 <div class="header">
  <?php echo _("Filter Rule") ?>
  <?php if (!empty($rule['disable'])): ?>[<span style="form-error"><?php echo _("Disabled") ?></span>]<?php endif; ?>
- <?php echo Help::link('ingo', 'rule') ?>
+ <?php echo Horde_Help::link('ingo', 'rule') ?>
 </div>
 
 <table width="100%" cellspacing="0">
@@ -33,7 +33,7 @@ function delete_condition(num)
       <?php echo Horde::label('name', _("Rule Name:")) ?> <input class="input" id="name" name="name" size="50" value="<?php echo (isset($rule['name'])) ? @htmlspecialchars($rule['name'], ENT_COMPAT, NLS::getCharset()) : '' ?>" />
     </td>
     <td width="40" class="rightAlign">
-      <?php echo Help::link('ingo', 'rule-name') ?>&nbsp;
+      <?php echo Horde_Help::link('ingo', 'rule-name') ?>&nbsp;
     </td>
   </tr>
 
@@ -45,7 +45,7 @@ function delete_condition(num)
       <input id="any" onclick="document.rule.submit(); return true;" type="radio" name="combine" value="<?php echo Ingo_Storage::COMBINE_ANY ?>"<?php echo ($rule['combine'] == Ingo_Storage::COMBINE_ANY) ? ' checked="checked"' : '' ?> /><?php echo Horde::label('any', _("Any of the following")) ?>
     </td>
     <td width="40" class="rightAlign">
-      <?php echo Help::link('ingo', 'rule-combine') ?>&nbsp;
+      <?php echo Horde_Help::link('ingo', 'rule-combine') ?>&nbsp;
     </td>
   </tr>
 

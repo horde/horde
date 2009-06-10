@@ -50,7 +50,6 @@ require_once FIMA_BASE . '/lib/Fima.php';
 require_once FIMA_BASE . '/lib/Driver.php';
 
 // Horde libraries.
-require_once 'Horde/Help.php';
 require_once 'Horde/History.php';
 
 // Start output compression.

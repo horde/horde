@@ -1,7 +1,7 @@
       </table>
     </td>
     <td width="40" align="right">
-      <?php echo Help::link('ingo', 'rule-matches') ?>&nbsp;
+      <?php echo Horde_Help::link('ingo', 'rule-matches') ?>&nbsp;
     </td>
   </tr>
 
@@ -15,7 +15,7 @@
       <?php echo $actionvaluelabel ?>
       <?php echo $actionvalue ?>
     </td><td width="40" align="right">
-      <?php echo Help::link('ingo', 'rule-action') ?>&nbsp;
+      <?php echo Horde_Help::link('ingo', 'rule-action') ?>&nbsp;
     </td>
   </tr>
 
@@ -39,7 +39,7 @@
       </table>
     </td>
     <td width="40" align="right">
-      <?php echo Help::link('ingo', 'rule-mark') ?>&nbsp;
+      <?php echo Horde_Help::link('ingo', 'rule-mark') ?>&nbsp;
     </td>
   </tr>
 <?php endif; ?>
@@ -50,7 +50,7 @@
       <input type="checkbox" id="stop" name="stop" value="1"<?php echo ($rule['stop']) ? ' checked="checked"' : '' ?> /> <?php echo Horde::label('stop', _("Stop checking if this rule matches?")) ?>
     </td>
     <td width="40" align="right">
-      <?php echo Help::link('ingo', 'rule-stop') ?>&nbsp;
+      <?php echo Horde_Help::link('ingo', 'rule-stop') ?>&nbsp;
     </td>
   </tr>
 <?php endif; ?>

@@ -35,7 +35,6 @@ function _image($name, $alt, $type)
 }
 
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Help.php';
 Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('folders.js', 'imp', true);
 
@@ -397,7 +396,7 @@ if ($prefs->getValue('subscribe')) {
 $a_template->set('nav_poll', !$prefs->isLocked('nav_poll') && !$prefs->getValue('nav_poll_all'));
 $a_template->set('notrash', !$prefs->getValue('use_trash'));
 $a_template->set('file_upload', $_SESSION['imp']['file_upload']);
-$a_template->set('help', Help::link('imp', 'folder-options'));
+$a_template->set('help', Horde_Help::link('imp', 'folder-options'));
 $a_template->set('expand_all', Horde::widget(Horde_Util::addParameter($folders_url, array('actionID' => 'expand_all_folders', 'folders_token' => $folders_token)), _("Expand All Folders"), 'widget', '', '', _("Expand All"), true));
 $a_template->set('collapse_all', Horde::widget(Horde_Util::addParameter($folders_url, array('actionID' => 'collapse_all_folders', 'folders_token' => $folders_token)), _("Collapse All Folders"), 'widget', '', '', _("Collapse All"), true));
 

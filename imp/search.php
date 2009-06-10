@@ -17,7 +17,6 @@
  */
 
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Help.php';
 
 /* Redirect back to the mailbox if searching is not allowed. */
 if ($_SESSION['imp']['protocol'] == 'pop') {
@@ -163,7 +162,7 @@ if (!$edit_query_vfolder) {
                     . '</a>'));
     }
 }
-$t->set('search_help', Help::link('imp', 'search'));
+$t->set('search_help', Horde_Help::link('imp', 'search'));
 $t->set('match_or', $search['match'] == 'or');
 $t->set('label_or', Horde::label('search_match_or', _("Match Any Query")));
 $t->set('match_and', ($search['match'] == null) || ($search['match'] == 'and'));

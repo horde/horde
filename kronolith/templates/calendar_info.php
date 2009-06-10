@@ -35,6 +35,6 @@
 <?php echo htmlspecialchars(Kronolith::embedCode($calendar->getName())); ?>
 </p>
 <?php if (Horde::showService('help')) {
-    echo '<p>' . Help::link('kronolith', 'embed') . ' ' . _("Learn how to embed other calendar views.") . '</p>';
+    echo '<p>' . Horde_Help::link('kronolith', 'embed') . ' ' . _("Learn how to embed other calendar views.") . '</p>';
 } ?>
 <?php endif; ?>

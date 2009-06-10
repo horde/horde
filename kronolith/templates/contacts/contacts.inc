@@ -196,6 +196,6 @@ window.onload = function() {
 <div class="rightAlign">
   <input type="button" class="button" onclick="updateMessage();" value="<?php echo _("Add to attendees") ?>" />
   <input type="button" class="button" onclick="window.close();" value="<?php echo _("Close window") ?>" />
-  <?php echo Help::link('kronolith', 'invite-addressbook') ?>
+  <?php echo Horde_Help::link('kronolith', 'invite-addressbook') ?>
 </div>
 </form>

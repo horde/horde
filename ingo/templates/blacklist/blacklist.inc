@@ -5,7 +5,7 @@
 
 <h1 class="header">
  <?php echo _("Blacklist") ?>
- <?php echo Help::link('ingo', 'blacklist') ?>
+ <?php echo Horde_Help::link('ingo', 'blacklist') ?>
 <?php if (!empty($bl_rule['disable'])): ?>
   &nbsp;[<span style="color:red"><?php echo _("Disabled") ?></span>]
 <?php endif; ?>
@@ -24,7 +24,7 @@
       <?php echo $folder_list ?>
     </td>
     <td width="40" align="right">
-      <?php echo Help::link('ingo', 'blacklist-action') ?>&nbsp;
+      <?php echo Horde_Help::link('ingo', 'blacklist-action') ?>&nbsp;
     </td>
   </tr>
   <tr class="item1">
@@ -33,7 +33,7 @@
       <textarea name="blacklist" id="blacklist" rows="15" cols="80"><?php echo htmlspecialchars(implode("\n", $blacklist->getBlacklist())) ?></textarea>
     </td>
     <td width="40" align="right">
-      <?php echo Help::link('ingo', 'blacklist-addresses') ?>&nbsp;
+      <?php echo Horde_Help::link('ingo', 'blacklist-addresses') ?>&nbsp;
     </td>
   </tr>
   <tr>

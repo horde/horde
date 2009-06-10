@@ -8,7 +8,7 @@
     <span class="rightFloat">
       <a href="#" onclick="javascript:window.close();" style="cursor:pointer"><?php echo Horde::img('close.png', _("Close Window"), '', $registry->getImageDir('horde')) ?></a>
     </span>
-    <?php echo Horde::img('perms.png', '', '', $registry->getImageDir('horde')) . '&nbsp;' . sprintf(_("Edit permissions for %s"), htmlspecialchars($share->get('name'))) . '&nbsp;' . Help::link('kronolith', 'shares') ?>
+    <?php echo Horde::img('perms.png', '', '', $registry->getImageDir('horde')) . '&nbsp;' . sprintf(_("Edit permissions for %s"), htmlspecialchars($share->get('name'))) . '&nbsp;' . Horde_Help::link('kronolith', 'shares') ?>
   </td>
 </tr>
 <tr><td colspan="7">&nbsp;</td></tr>

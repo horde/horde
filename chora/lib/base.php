@@ -44,9 +44,6 @@ define('CHORA_TEMPLATES', $registry->get('templates'));
 $notification = &Notification::singleton();
 $notification->attach('status');
 
-// Horde base libraries.
-require_once 'Horde/Help.php';
-
 // Chora base library.
 require_once CHORA_BASE . '/lib/Chora.php';
 

@@ -308,7 +308,6 @@ if (is_a($result, 'PEAR_Error')) {
 }
 extract($result);
 
-require_once 'Horde/Help.php';
 require_once 'Horde/Prefs/UI.php';
 $app = 'imp';
 $chunk = Horde_Util::nonInputVar('chunk');
@@ -321,23 +320,23 @@ if ($prefs->getValue('use_pgp')) {
     Horde::addScriptFile('prototype.js', 'horde', true);
     Horde::addScriptFile('imp.js', 'imp', true);
     $t->set('pgpactive', true);
-    $t->set('overview-help', Help::link('imp', 'pgp-overview'));
+    $t->set('overview-help', Horde_Help::link('imp', 'pgp-overview'));
     $t->set('attach_pubkey_notlocked', !$prefs->isLocked('pgp_attach_pubkey'));
     if ($t->get('attach_pubkey_notlocked')) {
         $t->set('attach_pubkey', $prefs->getValue('pgp_attach_pubkey'));
-        $t->set('attach_pubkey-help', Help::link('imp', 'pgp-option-attach-pubkey'));
+        $t->set('attach_pubkey-help', Horde_Help::link('imp', 'pgp-option-attach-pubkey'));
     }
     $t->set('scan_body_notlocked', !$prefs->isLocked('pgp_scan_body'));
     if ($t->get('scan_body_notlocked')) {
         $t->set('scan_body', $prefs->getValue('pgp_scan_body'));
-        $t->set('scan_body-help', Help::link('imp', 'pgp-option-scan-body'));
+        $t->set('scan_body-help', Horde_Help::link('imp', 'pgp-option-scan-body'));
     }
     $t->set('verify_notlocked', !$prefs->isLocked('pgp_verify'));
     if ($t->get('verify_notlocked')) {
         $t->set('pgp_verify', $prefs->getValue('pgp_verify'));
-        $t->set('pgp_verify-help', Help::link('imp', 'pgp-option-verify'));
+        $t->set('pgp_verify-help', Horde_Help::link('imp', 'pgp-option-verify'));
     }
-    $t->set('manage_pubkey-help', Help::link('imp', 'pgp-manage-pubkey'));
+    $t->set('manage_pubkey-help', Horde_Help::link('imp', 'pgp-manage-pubkey'));
 
     $t->set('empty_pubkey_list', empty($pubkey_list));
     if (!$t->get('empty_pubkey_list')) {
@@ -361,10 +360,10 @@ if ($prefs->getValue('use_pgp')) {
         if (!$t->get('no_source')) {
             $cacheSess = &Horde_SessionObjects::singleton();
             $t->set('public_import_url', Horde_Util::addParameter(Horde_Util::addParameter($selfURL, 'actionID', 'import_public_key'), 'reload', $cacheSess->storeOid($selfURL, false)));
-            $t->set('import_pubkey-help', Help::link('imp', 'pgp-import-pubkey'));
+            $t->set('import_pubkey-help', Horde_Help::link('imp', 'pgp-import-pubkey'));
         }
     }
-    $t->set('personalkey-help', Help::link('imp', 'pgp-overview-personalkey'));
+    $t->set('personalkey-help', Horde_Help::link('imp', 'pgp-overview-personalkey'));
 
     $t->set('secure_check', !$secure_check);
     if ($secure_check) {
@@ -373,27 +372,27 @@ if ($prefs->getValue('use_pgp')) {
             $t->set('viewpublic', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'view_personal_public_key'), _("View Personal Public Key"), null, 'view_key'));
             $t->set('infopublic', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'info_personal_public_key'), _("Information on Personal Public Key"), null, 'info_key'));
             $t->set('sendkey', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'send_public_key'), _("Send Key to Public Keyserver")));
-            $t->set('personalkey-public-help', Help::link('imp', 'pgp-personalkey-public'));
+            $t->set('personalkey-public-help', Horde_Help::link('imp', 'pgp-personalkey-public'));
             $passphrase = $imp_pgp->getPassphrase('personal');
             $t->set('passphrase', (empty($passphrase)) ? Horde::link('#', _("Enter Passphrase"), null, null, IMP::passphraseDialogJS('PGPPersonal') . ';return false;') . _("Enter Passphrase") : Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'unset_passphrase'), _("Unload Passphrase")) . _("Unload Passphrase"));
             $t->set('viewprivate', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'view_personal_private_key'), _("View Personal Private Key"), null, 'view_key'));
             $t->set('infoprivate', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'info_personal_private_key'), _("Information on Personal Private Key"), null, 'info_key'));
-            $t->set('personalkey-private-help', Help::link('imp', 'pgp-personalkey-private'));
+            $t->set('personalkey-private-help', Horde_Help::link('imp', 'pgp-personalkey-private'));
             $t->set('deletekeypair', addslashes(_("Are you sure you want to delete your keypair? (This is NOT recommended!)")));
-            $t->set('personalkey-delete-help', Help::link('imp', 'pgp-personalkey-delete'));
+            $t->set('personalkey-delete-help', Horde_Help::link('imp', 'pgp-personalkey-delete'));
         } else {
             require_once 'Horde/Identity.php';
             $imp_identity = &Identity::singleton(array('imp', 'imp'));
             $t->set('fullname', $imp_identity->getFullname());
-            $t->set('personalkey-create-name-help', Help::link('imp', 'pgp-personalkey-create-name'));
-            $t->set('personalkey-create-comment-help', Help::link('imp', 'pgp-personalkey-create-comment'));
+            $t->set('personalkey-create-name-help', Horde_Help::link('imp', 'pgp-personalkey-create-name'));
+            $t->set('personalkey-create-comment-help', Horde_Help::link('imp', 'pgp-personalkey-create-comment'));
             $t->set('fromaddr', $imp_identity->getFromAddress());
-            $t->set('personalkey-create-email-help', Help::link('imp', 'pgp-personalkey-create-email'));
-            $t->set('personalkey-create-keylength-help', Help::link('imp', 'pgp-personalkey-create-keylength'));
-            $t->set('personalkey-create-passphrase-help', Help::link('imp', 'pgp-personalkey-create-passphrase'));
+            $t->set('personalkey-create-email-help', Horde_Help::link('imp', 'pgp-personalkey-create-email'));
+            $t->set('personalkey-create-keylength-help', Horde_Help::link('imp', 'pgp-personalkey-create-keylength'));
+            $t->set('personalkey-create-passphrase-help', Horde_Help::link('imp', 'pgp-personalkey-create-passphrase'));
             $t->set('keygen',  addslashes(_("Key generation may take a long time to complete.  Continue with key generation?")));
             $t->set('personal_import_url', Horde_Util::addParameter($selfURL, 'actionID', 'import_personal_public_key'));
-            $t->set('personalkey-create-actions-help', Help::link('imp', 'pgp-personalkey-create-actions'));
+            $t->set('personalkey-create-actions-help', Horde_Help::link('imp', 'pgp-personalkey-create-actions'));
         }
     }
 
@@ -401,7 +400,7 @@ if ($prefs->getValue('use_pgp')) {
     $t->set('use_pgp_locked', $prefs->isLocked('use_pgp'));
     if (!$t->get('use_pgp_locked')) {
         $t->set('use_pgp_label', Horde::label('use_pgp', _("Enable PGP functionality?")));
-        $t->set('use_pgp_help', Help::link('imp', 'pgp-overview'));
+        $t->set('use_pgp_help', Horde_Help::link('imp', 'pgp-overview'));
     }
 }
 $t->set('prefsurl', IMP::prefsURL(true));
