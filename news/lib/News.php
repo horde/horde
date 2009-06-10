@@ -500,9 +500,7 @@ class News {
      */
     static public function getMenu($returnType = 'object')
     {
-        require_once 'Horde/Menu.php';
-
-        $menu = &new Menu();
+        $menu = new Horde_Menu();
         $img_dir = $GLOBALS['registry']->getImageDir('horde');
 
         if ($GLOBALS['prefs']->getValue('news_layout') != '') {

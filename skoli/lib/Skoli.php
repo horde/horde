@@ -491,9 +491,7 @@ class Skoli {
     {
         global $conf, $registry, $browser, $print_link;
 
-        require_once 'Horde/Menu.php';
-
-        $menu = new Menu(HORDE_MENU_MASK_ALL);
+        $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
         $menu->add(Horde::applicationUrl('list.php'), _("List Classes"), 'skoli.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
         if (count(Skoli::listClasses(false, PERMS_EDIT))) {
             $menu->add(Horde::applicationUrl('add.php'), _("_New Entry"), 'add.png', null, null, null, Horde_Util::getFormData('entry') ? '__noselection' : null);

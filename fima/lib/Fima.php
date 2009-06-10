@@ -753,8 +753,7 @@ class Fima {
         
         $actionID = Horde_Util::getFormData('actionID');
         
-        require_once 'Horde/Menu.php';
-        $menu = new Menu(HORDE_MENU_MASK_ALL);
+        $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
         $menu->add(Horde::applicationUrl('postings.php'), _("_List Postings"), 'list.png', null, null, null, (basename($_SERVER['PHP_SELF']) == 'index.php' && basename(dirname($_SERVER['PHP_SELF'])) != 'ledgers') ? 'current' : ($actionID === null ? null : '__noselection'));
         $menu->add(Horde_Util::addParameter(Horde::applicationUrl('postings.php'), 'actionID', 'add_postings'), _("Add _Postings"), 'add.png', null, null, null, $actionID == 'add_postings' ? 'current' : '__noselection');
         $menu->add(Horde::applicationUrl('search.php'), _("Search"), 'search.png', $registry->getImageDir('horde'));

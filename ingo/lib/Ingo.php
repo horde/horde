@@ -384,9 +384,7 @@ class Ingo
      */
     static public function getMenu($returnType = 'object')
     {
-        require_once 'Horde/Menu.php';
-
-        $menu = new Menu();
+        $menu = new Horde_Menu();
         $menu->add(Horde::applicationUrl('filters.php'), _("Filter _Rules"), 'ingo.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
         if (!is_a($whitelist_url = $GLOBALS['registry']->link('mail/showWhitelist'), 'PEAR_Error')) {
             $menu->add(Horde::url($whitelist_url), _("_Whitelist"), 'whitelist.png');

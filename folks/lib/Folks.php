@@ -294,10 +294,8 @@ class Folks {
      */
     static function getMenu($returnType = 'object')
     {
-        require_once 'Horde/Menu.php';
-
         $img = $GLOBALS['registry']->getImageDir('horde');
-        $menu = new Menu(HORDE_MENU_MASK_ALL);
+        $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
         $menu->add(self::getUrlFor('user', Auth::getAuth()), _("My profile"), 'myaccount.png', $img);
         $menu->add(self::getUrlFor('list', 'friends'), _("Friends"), 'group.png', $img);
         $menu->add(Horde::applicationUrl('edit/edit.php'), _("Edit profile"), 'edit.png', $img);

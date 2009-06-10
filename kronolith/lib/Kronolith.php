@@ -2235,8 +2235,7 @@ class Kronolith
             $GLOBALS['notification']->push(_("No calendars are available to guests."));
         }
 
-        require_once 'Horde/Menu.php';
-        $menu = new Menu();
+        $menu = new Horde_Menu();
 
         $menu->add(Horde::applicationUrl($prefs->getValue('defaultview') . '.php'), _("_Today"), 'today.png', null, null, null, '__noselection');
         if (self::getDefaultCalendar(PERMS_EDIT) &&

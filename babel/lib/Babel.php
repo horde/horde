@@ -190,8 +190,7 @@ class Babel {
     {
         global $registry;
 
-	require_once 'Horde/Menu.php';
-	$menu = &new Menu();
+	$menu = &new Horde_Menu();
 	
         $menu->addArray(array('url' => Horde::applicationUrl('index.php'),
 			      'text' => _("_General"),

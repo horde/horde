@@ -48,9 +48,6 @@ require_once BABEL_BASE . '/lib/Translate.php';
 require_once BABEL_BASE . '/lib/Translate_Help.php';
 require_once BABEL_BASE . '/lib/Display.php';
 
-/* Menu */
-require_once 'Horde/Menu.php';
-
 /* Gettext (PO) */
 require_once BABEL_BASE . '/lib/Gettext/PO.php';
 

@@ -273,8 +273,7 @@ foreach (IMP::getComposeArgs() as $arg => $value) {
 }
 $t->set('extra_hidden', $extra_hidden);
 
-require_once 'Horde/Menu.php';
-$menu = new Menu(HORDE_MENU_MASK_NONE);
+$menu = new Horde_Menu(Horde_Menu::MASK_NONE);
 $t->set('menu', $menu->render());
 $t->set('title', sprintf(_("Welcome to %s"), $registry->get('name', ($imp_auth) ? 'horde' : null)));
 

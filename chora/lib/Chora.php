@@ -437,8 +437,7 @@ class Chora
      */
     static public function getMenu()
     {
-        require_once 'Horde/Menu.php';
-        $menu = new Menu();
+        $menu = new Horde_Menu();
         $menu->add(self::url('browsedir'), _("_Browse"), 'chora.png');
         return $menu->render();
     }

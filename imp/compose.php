@@ -29,8 +29,7 @@ function _mailboxReturnURL($encode, $url = null)
 
 function _popupSuccess()
 {
-    require_once 'Horde/Menu.php';
-    $menu = new Menu(HORDE_MENU_MASK_NONE);
+    $menu = new Horde_Menu(Horde_Menu::MASK_NONE);
     $menu->add(Horde::applicationUrl('compose.php'), _("New Message"), 'compose.png');
     $menu->add('', _("Close this window"), 'close.png', $GLOBALS['registry']->getImageDir('horde'), '', 'window.close();');
     require IMP_TEMPLATES . '/common-header.inc';

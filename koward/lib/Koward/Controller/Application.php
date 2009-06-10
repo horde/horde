@@ -54,8 +54,7 @@ class Koward_Controller_Application extends Horde_Controller_Base
     {
         global $registry;
 
-        require_once 'Horde/Menu.php';
-        $menu = new Menu();
+        $menu = new Horde_Menu();
 
         if ($this->koward->hasAccess('object/listall')) {
             $menu->add($this->urlFor(array('controller' => 'object', 'action' => 'listall')),

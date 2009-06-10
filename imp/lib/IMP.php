@@ -564,14 +564,12 @@ class IMP
     {
         global $conf, $prefs, $registry;
 
-        require_once 'Horde/Menu.php';
-
         $menu_search_url = Horde::applicationUrl('search.php');
         $menu_mailbox_url = Horde::applicationUrl('mailbox.php');
 
         $spam_folder = self::folderPref($prefs->getValue('spam_folder'), true);
 
-        $menu = new Menu(HORDE_MENU_MASK_ALL & ~HORDE_MENU_MASK_LOGIN);
+        $menu = new Horde_Menu(Horde_Menu::MASK_ALL & ~Horde_Menu::MASK_LOGIN);
 
         $menu->add(self::generateIMPUrl($menu_mailbox_url, 'INBOX'), _("_Inbox"), 'folders/inbox.png');
 
@@ -650,7 +648,7 @@ class IMP
             $logout_url = self::getLogoutUrl();
 
             $id = $menu->add($logout_url, _("_Log out"), 'logout.png', $registry->getImageDir('horde'), $logout_target);
-            $menu->setPosition($id, HORDE_MENU_POS_LAST);
+            $menu->setPosition($id, Horde_Menu::POS_LAST);
         }
 
         return ($type == 'object') ? $menu : $menu->render();
