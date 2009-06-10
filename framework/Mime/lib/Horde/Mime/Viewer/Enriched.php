@@ -171,8 +171,7 @@ class Horde_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Driver
         $text = preg_replace('/^ (.*) $/s', '\1', $text);
 
         // Make URLs clickable.
-        require_once 'Horde/Text/Filter.php';
-        $text = Text_Filter::filter($text, 'linkurls', array('callback' => 'Horde::externalUrl'));
+        $text = Horde_Text_Filter::filter($text, 'linkurls', array('callback' => 'Horde::externalUrl'));
 
         /* Wordwrap -- note this could impact on our above RFC compliance *IF*
          * we honored nofill tags (which we don't yet). */

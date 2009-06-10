@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Text_Filter</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Text Filter API</summary>
+ <description>The Horde_Text_Filter:: class provides common methods for
+ fitering and converting text.
+ </description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <developer>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
+  <active>yes</active>
+ </developer>
+ <date>2009-06-10</date>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>* Initial Horde 4 package.
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Text">
+      <dir name="Filter">
+       <file name="Bbcode.php" role="php" />
+       <file name="Cleanascii.php" role="php" />
+       <file name="Dimsignature.php" role="php" />
+       <file name="Emails.php" role="php" />
+       <file name="Emoticons.php" role="php" />
+       <file name="Environment.php" role="php" />
+       <file name="Highlightquotes.php" role="php" />
+       <file name="Html2text.php" role="php" />
+       <file name="Linkurls.php" role="php" />
+       <file name="Simplemarkup.php" role="php" />
+       <file name="Space2html.php" role="php" />
+       <file name="Tabs2spaces.php" role="php" />
+       <file name="Text2html.php" role="php" />
+       <file name="Words.php" role="php" />
+       <file name="Xss.php" role="php" />
+      </dir> <!-- /lib/Horde/Text/Filter -->
+      <file name="Filter.php" role="php" />
+     </dir> <!-- /lib/Horde/Text -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Text">
+      <dir name="Filter">
+       <dir name="fixtures">
+        <file name="html2text.html" role="test" />
+        <file name="style_xss01.html" role="test" />
+        <file name="text2html.txt" role="test" />
+        <file name="xss01.html" role="test" />
+        <file name="xss02.html" role="test" />
+        <file name="xss03.html" role="test" />
+        <file name="xss04.html" role="test" />
+        <file name="xss05.html" role="test" />
+        <file name="xss06.html" role="test" />
+        <file name="xss07.html" role="test" />
+        <file name="xss08.html" role="test" />
+        <file name="xss09.html" role="test" />
+        <file name="xss10.html" role="test" />
+        <file name="xss11.html" role="test" />
+        <file name="xss12.html" role="test" />
+        <file name="xss13.html" role="test" />
+        <file name="xss14.html" role="test" />
+        <file name="xss15.html" role="test" />
+        <file name="xss16.html" role="test" />
+        <file name="xss17.html" role="test" />
+        <file name="xss18.html" role="test" />
+        <file name="xss19.html" role="test" />
+        <file name="xss20.html" role="test" />
+        <file name="xss21.html" role="test" />
+        <file name="xss22.html" role="test" />
+        <file name="xss23.html" role="test" />
+        <file name="xss24.html" role="test" />
+        <file name="xss25.html" role="test" />
+        <file name="xss26.html" role="test" />
+        <file name="xss27.html" role="test" />
+        <file name="xss28.html" role="test" />
+        <file name="xss29.html" role="test" />
+        <file name="xss30.html" role="test" />
+        <file name="xss31.html" role="test" />
+        <file name="xss32.html" role="test" />
+        <file name="xss33.html" role="test" />
+        <file name="xss34.html" role="test" />
+        <file name="xss35.html" role="test" />
+        <file name="xss36.html" role="test" />
+        <file name="xss37.html" role="test" />
+        <file name="xss38.html" role="test" />
+        <file name="xss39.html" role="test" />
+        <file name="xss40.html" role="test" />
+        <file name="xss41.html" role="test" />
+        <file name="xss42.html" role="test" />
+        <file name="xss43.html" role="test" />
+        <file name="xss44.html" role="test" />
+        <file name="xss45.html" role="test" />
+        <file name="xss46.html" role="test" />
+        <file name="xss47.html" role="test" />
+        <file name="xss48.html" role="test" />
+        <file name="xss49.html" role="test" />
+        <file name="xss50.html" role="test" />
+        <file name="xss51.html" role="test" />
+        <file name="xss52.html" role="test" />
+        <file name="xss53.html" role="test" />
+        <file name="xss54.html" role="test" />
+        <file name="xss55.html" role="test" />
+        <file name="xss56.html" role="test" />
+        <file name="xss57.html" role="test" />
+        <file name="xss58.html" role="test" />
+        <file name="xss59.html" role="test" />
+        <file name="xss60.html" role="test" />
+        <file name="xss61.html" role="test" />
+        <file name="xss62.html" role="test" />
+        <file name="xss63.html" role="test" />
+        <file name="xss64.html" role="test" />
+        <file name="xss65.html" role="test" />
+        <file name="xss66.html" role="test" />
+        <file name="xss67.html" role="test" />
+        <file name="xss68.html" role="test" />
+        <file name="xss69.html" role="test" />
+        <file name="xss70.html" role="test" />
+        <file name="xss71.html" role="test" />
+        <file name="xss72.html" role="test" />
+        <file name="xss73.html" role="test" />
+        <file name="xss74.html" role="test" />
+        <file name="xss75.html" role="test" />
+        <file name="xss76.html" role="test" />
+        <file name="xss77.html" role="test" />
+        <file name="xss78.html" role="test" />
+        <file name="xss79.html" role="test" />
+        <file name="xss80.html" role="test" />
+        <file name="xss81.html" role="test" />
+        <file name="xss82.html" role="test" />
+        <file name="xss83.html" role="test" />
+        <file name="xss84.html" role="test" />
+        <file name="xss85.html" role="test" />
+        <file name="xss97.html" role="test" />
+        <file name="xss98.html" role="test" />
+        <file name="xss99.html" role="test" />
+        <file name="xss100.html" role="test" />
+       </dir> <!-- /test/Horde/Text/Filter/fixtures -->
+       <file name="emails.phpt" role="test" />
+       <file name="environment.phpt" role="test" />
+       <file name="html2text.phpt" role="test" />
+       <file name="html2text2.phpt" role="test" />
+       <file name="space2html.phpt" role="test" />
+       <file name="text2html.phpt" role="test" />
+       <file name="xss.phpt" role="test" />
+      </dir> <!-- /test/Horde/Text/Filter -->
+     </dir> <!-- /test/Horde/Text -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.5.4</min>
+   </pearinstaller>
+   <package>
+    <name>Util</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+  <optional>
+   <extension>
+    <name>gettext</name>
+   </extension>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Text/Filter/Bbcode.php" as="Horde/Text/Filter/Bbcode.php" />
+   <install name="lib/Horde/Text/Filter/Cleanascii.php" as="Horde/Text/Filter/Cleanascii.php" />
+   <install name="lib/Horde/Text/Filter/Dimsignature.php" as="Horde/Text/Filter/Dimsignature.php" />
+   <install name="lib/Horde/Text/Filter/Emails.php" as="Horde/Text/Filter/Emails.php" />
+   <install name="lib/Horde/Text/Filter/Emoticons.php" as="Horde/Text/Filter/Emoticons.php" />
+   <install name="lib/Horde/Text/Filter/Environment.php" as="Horde/Text/Filter/Environment.php" />
+   <install name="lib/Horde/Text/Filter/Highlightquotes.php" as="Horde/Text/Filter/Highlightquotes.php" />
+   <install name="lib/Horde/Text/Filter/Html2text.php" as="Horde/Text/Filter/Html2text.php" />
+   <install name="lib/Horde/Text/Filter/Linkurls.php" as="Horde/Text/Filter/Linkurls.php" />
+   <install name="lib/Horde/Text/Filter/Simplemarkup.php" as="Horde/Text/Filter/Simplemarkup.php" />
+   <install name="lib/Horde/Text/Filter/Space2html.php" as="Horde/Text/Filter/Space2html.php" />
+   <install name="lib/Horde/Text/Filter/Tabs2spaces.php" as="Horde/Text/Filter/Tabs2spaces.php" />
+   <install name="lib/Horde/Text/Filter/Text2html.php" as="Horde/Text/Filter/Text2html.php" />
+   <install name="lib/Horde/Text/Filter/Words.php" as="Horde/Text/Filter/Words.php" />
+   <install name="lib/Horde/Text/Filter/Xss.php" as="Horde/Text/Filter/Xss.php" />
+   <install name="lib/Horde/Text/Filter.php" as="Horde/Text/Filter.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <date>2006-05-08</date>
+   <time>23:39:08</time>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>* Don't strip BASE tags when 'strip_styles' is false.
+   * Added ability to link &lt;test@example.com&gt; e-mail addresses in plain text.
+   * Removed dependency on external javascript file when toggling quoted lines.
+   * Converted to package.xml 2.0 for pear.horde.org
+   * Allow the bad words filter to leave the first character of a matching word and replace the rest with '*' (duck@obala.net).
+   * Improved efficiency of the linkurls filter when searching long lines
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-10-12</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Initial release as a PEAR package
+   </notes>
+  </release>
+ </changelog>
+</package>
