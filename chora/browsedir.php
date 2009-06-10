@@ -84,7 +84,7 @@ if ($dirList) {
             continue;
         }
         $url = Chora::url('browsedir', $where . '/' . $currentDir . '/');
-        $currDir = Text::htmlAllSpaces($currentDir);
+        $currDir = Horde_Text::htmlAllSpaces($currentDir);
         require CHORA_TEMPLATES . '/directory/dir.inc';
     }
     echo '</tbody>';
@@ -111,7 +111,7 @@ if ($fileList) {
         $log = $lg->queryLog();
         $attic = $currFile->isDeleted();
         $fileName = $where . ($attic ? '/' . 'Attic' : '') . '/' . $realname;
-        $name = Text::htmlAllSpaces($realname);
+        $name = Horde_Text::htmlAllSpaces($realname);
         $url = Chora::url('browsefile', $fileName);
         $readableDate = Chora::readableTime($date);
         if ($log) {

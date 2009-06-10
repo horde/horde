@@ -202,8 +202,6 @@ class IMP_UI_Message
     {
         $output = '';
 
-        require_once 'Horde/Text.php';
-
         /* Split the incoming data by the ',' character. */
         foreach (preg_split("/,/", $data) as $entry) {
             /* Get the data inside of the brackets. If there is no brackets,

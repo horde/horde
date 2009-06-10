@@ -200,7 +200,7 @@ class Chora
             }
             $path .= $dir;
             if (!empty($dir)) {
-                $bar .= '/ <a href="' . self::url('browsedir', $path . ($i == $dir_count && !$GLOBALS['atdir'] ? '' : '/')) . '">'. Text::htmlallspaces($dir) . '</a> ';
+                $bar .= '/ <a href="' . self::url('browsedir', $path . ($i == $dir_count && !$GLOBALS['atdir'] ? '' : '/')) . '">'. Horde_Text::htmlallspaces($dir) . '</a> ';
             }
         }
 

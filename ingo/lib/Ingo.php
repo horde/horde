@@ -66,8 +66,6 @@ class Ingo
                     $text .= '<option value="">' . _("Create new folder") . "</option>\n";
                 }
 
-                require_once 'Horde/Text.php';
-
                 foreach ($mailboxes as $mbox) {
                     $sel = ($mbox['val'] && ($mbox['val'] === $value)) ? ' selected="selected"' : '';
                     $disabled = empty($mbox['val']) ? ' disabled="disabled"' : '';
@@ -75,7 +73,7 @@ class Ingo
                     $label = $mbox['abbrev'];
                     $text .= sprintf('<option%s value="%s"%s>%s</option>%s',
                                      $disabled, $val, $sel,
-                                     Text::htmlSpaces($label), "\n");
+                                     Horde_Text::htmlSpaces($label), "\n");
                 }
 
                 $text .= '</select>';

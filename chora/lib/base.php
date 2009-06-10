@@ -45,7 +45,6 @@ $notification = &Notification::singleton();
 $notification->attach('status');
 
 // Horde base libraries.
-require_once 'Horde/Text.php';
 require_once 'Horde/Help.php';
 
 // Chora base library.

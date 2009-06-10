@@ -211,8 +211,6 @@ class IMP
      */
     static public function flistSelect($options = array())
     {
-        require_once 'Horde/Text.php';
-
         $imp_folder = IMP_Folder::singleton();
 
         /* Don't filter here - since we are going to parse through every
@@ -247,7 +245,7 @@ class IMP
             $val = isset($filter[$mbox['val']]) ? '' : htmlspecialchars($mbox['val']);
             $sel = ($mbox['val'] && !empty($options['selected']) && ($mbox['val'] === $options['selected'])) ? ' selected="selected"' : '';
             $label = empty($options['abbrev']) ? $mbox['label'] : $mbox['abbrev'];
-            $text .= sprintf('<option value="%s"%s>%s</option>%s', $val, $sel, Text::htmlSpaces($label), "\n");
+            $text .= sprintf('<option value="%s"%s>%s</option>%s', $val, $sel, Horde_Text::htmlSpaces($label), "\n");
         }
 
         /* Add the list of virtual folders to the list. */
@@ -257,7 +255,7 @@ class IMP
                 $vfolder_sel = $GLOBALS['imp_search']->searchMboxID();
                 $text .= '<option value="" disabled="disabled">- - - - - - - - -</option>' . "\n";
                 foreach ($vfolders as $id => $val) {
-                    $text .= sprintf('<option value="%s"%s>%s</option>%s', $GLOBALS['imp_search']->createSearchID($id), ($vfolder_sel == $id) ? ' selected="selected"' : '', Text::htmlSpaces($val), "\n");
+                    $text .= sprintf('<option value="%s"%s>%s</option>%s', $GLOBALS['imp_search']->createSearchID($id), ($vfolder_sel == $id) ? ' selected="selected"' : '', Horde_Text::htmlSpaces($val), "\n");
                 }
             }
         }
@@ -274,7 +272,7 @@ class IMP
                 foreach ($tasklists as $id => $tasklist) {
                     $text .= sprintf('<option value="%s">%s</option>%s',
                                      '_tasklist_' . $id,
-                                     Text::htmlSpaces($tasklist->get('name')),
+                                     Horde_Text::htmlSpaces($tasklist->get('name')),
                                      "\n");
                 }
             }
@@ -292,7 +290,7 @@ class IMP
                 foreach ($notepads as $id => $notepad) {
                     $text .= sprintf('<option value="%s">%s</option>%s',
                                      '_notepad_' . $id,
-                                     Text::htmlSpaces($notepad->get('name')),
+                                     Horde_Text::htmlSpaces($notepad->get('name')),
                                      "\n");
                 }
             }

@@ -233,7 +233,7 @@ class IMP_UI_Mailbox
      * Formats the subject header.
      *
      * @param string $subject     The MIME encoded subject header.
-     * @param string $htmlspaces  Run through Text::htmlSpaces()?
+     * @param string $htmlspaces  Run through Horde_Text::htmlSpaces()?
      *
      * @return string  The formatted subject header.
      */
@@ -247,8 +247,7 @@ class IMP_UI_Mailbox
         $new_subject = $subject = IMP::filterText(preg_replace("/\s+/", ' ', $subject));
 
         if ($htmlspaces) {
-            require_once 'Horde/Text.php';
-            $new_subject = Text::htmlSpaces($subject);
+            $new_subject = Horde_Text::htmlSpaces($subject);
             if (empty($new_subject)) {
                 $new_subject = htmlspecialchars($subject);
             }

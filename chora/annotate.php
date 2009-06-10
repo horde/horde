@@ -41,7 +41,7 @@ try {
     Chora::fatal($e);
 }
 
-$title = sprintf(_("Source Annotation of %s (revision %s)"), Text::htmlAllSpaces($where), $rev);
+$title = sprintf(_("Source Annotation of %s (revision %s)"), Horde_Text::htmlAllSpaces($where), $rev);
 $extraLink = sprintf('<a href="%s">%s</a> | <a href="%s">%s</a>',
                      Chora::url('co', $where, array('r' => $rev)), _("View"),
                      Chora::url('co', $where, array('r' => $rev, 'p' => 1)), _("Download"));
@@ -72,7 +72,7 @@ while (list(,$line) = each($lines)) {
     }
     $prev = $fl->queryPreviousRevision($rev);
 
-    $line = Text::htmlAllSpaces($line['line']);
+    $line = Horde_Text::htmlAllSpaces($line['line']);
     include CHORA_TEMPLATES . '/annotate/line.inc';
 }
 

@@ -54,7 +54,7 @@ if ($type != 'colored') {
 $abbrev_r1 = $VC->abbrev($r1);
 $abbrev_r2 = $VC->abbrev($r2);
 $title = sprintf(_("Diff for %s between version %s and %s"),
-                 Text::htmlallspaces($where), $abbrev_r1, $abbrev_r2);
+                 Horde_Text::htmlallspaces($where), $abbrev_r1, $abbrev_r2);
 
 /* Format log entries. */
 $log_messages = array();
