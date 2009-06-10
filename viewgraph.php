@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: incubator/operator/viewgraph.php,v 1.9 2009/01/06 17:51:06 jan Exp $
+ * $Horde: incubator/operator/viewgraph.php,v 1.10 2009/06/10 05:24:30 slusarz Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -85,11 +85,11 @@ if (!empty($stats)) {
     $numcalls_graph = $minutes_graph = $failed_graph =
                       Horde::applicationUrl('graphgen.php');
     
-    $numcalls_graph = Util::addParameter($numcalls_graph, array(
+    $numcalls_graph = Horde_Util::addParameter($numcalls_graph, array(
         'graph' => 'numcalls', 'key' => $cachekey));
-    $minutes_graph = Util::addParameter($minutes_graph, array(
+    $minutes_graph = Horde_Util::addParameter($minutes_graph, array(
         'graph' => 'minutes', 'key' => $cachekey));
-    $failed_graph = Util::addParameter($failed_graph, array(
+    $failed_graph = Horde_Util::addParameter($failed_graph, array(
         'graph' => 'failed', 'key' => $cachekey));
 }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: incubator/operator/graphgen.php,v 1.9 2009/05/31 17:14:08 bklang Exp $
+ * $Horde: incubator/operator/graphgen.php,v 1.10 2009/06/10 05:24:30 slusarz Exp $
  *
  * Copyright 2008 The Horde Project <http://www.horde.org>
  *
@@ -19,9 +19,9 @@ require_once 'Image/Graph.php';
 #setlocale(LC_ALL, NLS::select());
 setlocale(LC_ALL, 'en_US');
 
-$graphtype = Util::getFormData('graph');
+$graphtype = Horde_Util::getFormData('graph');
 $graphinfo = Operator::getGraphInfo($graphtype);
-$cachekey = Util::getFormData('key');
+$cachekey = Horde_Util::getFormData('key');
 
 $stats = unserialize($cache->get($cachekey, 0));
 
