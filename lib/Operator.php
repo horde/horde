@@ -2,7 +2,7 @@
 /**
  * Operator Base Class.
  *
- * $Horde: incubator/operator/lib/Operator.php,v 1.15 2009/06/10 06:01:00 slusarz Exp $
+ * $Horde: incubator/operator/lib/Operator.php,v 1.16 2009/06/10 06:07:34 slusarz Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -20,8 +20,6 @@ class Operator {
     function getMenu($returnType = 'object')
     {
         global $conf, $registry, $browser, $print_link;
-
-        require_once 'Horde/Menu.php';
 
         $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
         $menu->add(Horde::applicationUrl('viewgraph.php'), _("View Graphs"), 'graphs.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
