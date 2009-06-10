@@ -70,14 +70,14 @@ IMP.unblockImages = function(e)
 {
     var elt = e.element().up('TABLE.mimeStatusMessage');
 
-    elt.next('.htmlMessage').select('[blocked]').each(function(elt) {
-        var src = decodeURIComponent(elt.readAttribute('blocked'));
-        if (elt.hasAttribute('src')) {
-            elt.writeAttribute('src', src);
-        } else if (elt.hasAttribute('background')) {
-            elt.writeAttribute('background', src);
-        } else if (elt.style.backgroundImage) {
-            elt.setStyle({ backgroundImage: 'url(' + src + ')' });
+    elt.next('.htmlMessage').select('[blocked]').each(function(e) {
+        var src = decodeURIComponent(e.readAttribute('blocked'));
+        if (e.hasAttribute('src')) {
+            e.writeAttribute('src', src);
+        } else if (e.hasAttribute('background')) {
+            e.writeAttribute('background', src);
+        } else if (e.style.backgroundImage) {
+            e.setStyle({ backgroundImage: 'url(' + src + ')' });
         }
     });
 
