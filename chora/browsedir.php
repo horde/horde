@@ -111,7 +111,7 @@ if ($fileList) {
         $log = $lg->queryLog();
         $attic = $currFile->isDeleted();
         $fileName = $where . ($attic ? '/' . 'Attic' : '') . '/' . $realname;
-        $name = Horde_Text::htmlAllSpaces($realname);
+        $name = Horde_Text_Filter::filter($realname, 'space2html', array('charset' => NLS::getCharset(), 'encode' => true, 'encode_all' => true));
         $url = Chora::url('browsefile', $fileName);
         $readableDate = Chora::readableTime($date);
         if ($log) {
