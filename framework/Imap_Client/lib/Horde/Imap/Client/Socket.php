@@ -3220,6 +3220,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 }
             } while ($tmp !== false);
         } else {
+            // Skip 0-length literal data
+            if (!$len) {
+                return $data;
+            }
+
             while ($len && ($in = fread($this->_stream, min($len, 8192)))) {
                 $data .= $in;
                 $in_len = strlen($in);
