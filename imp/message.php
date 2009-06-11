@@ -37,7 +37,7 @@ if (!$imp_search->isSearchMbox($imp_mbox['mailbox'])) {
 
 /* Make sure we have a valid index. */
 $imp_mailbox = &IMP_Mailbox::singleton($imp_mbox['mailbox'], $imp_mbox['index']);
-if (!$imp_mailbox->isValidIndex()) {
+if (!$imp_mailbox->isValidIndex(false)) {
     _returnToMailbox(null, 'message_missing');
     require IMP_BASE . '/mailbox.php';
     exit;

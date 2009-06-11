@@ -69,18 +69,18 @@ class IMP_Mailbox
      * It will only create a new instance if no IMP_Mailbox instance with
      * the same parameters currently exists.
      *
-     * @param string $mailbox  See IMP_Mailbox constructor.
-     * @param integer $index   See IMP_Mailbox constructor.
+     * @param string $mailbox  See constructor.
+     * @param integer $uid     See constructor.
      *
      * @return mixed  The created concrete IMP_Mailbox instance, or false
      *                on error.
      */
-    static public function singleton($mailbox, $index = null)
+    static public function singleton($mailbox, $uid = null)
     {
         if (!isset(self::$_instances[$mailbox])) {
-            self::$_instances[$mailbox] = new IMP_Mailbox($mailbox, $index);
-        } elseif (!is_null($index)) {
-            self::$_instances[$mailbox]->setIndex($index);
+            self::$_instances[$mailbox] = new IMP_Mailbox($mailbox, $uid);
+        } elseif (!is_null($uid)) {
+            self::$_instances[$mailbox]->setIndex($uid);
         }
 
         return self::$_instances[$mailbox];
@@ -90,21 +90,21 @@ class IMP_Mailbox
      * Constructor.
      *
      * @param string $mailbox  The mailbox to work with.
-     * @param integer $index   The index of the current message.
+     * @param integer $uid     The UID of the current message.
      */
-    protected function __construct($mailbox, $index = null)
+    protected function __construct($mailbox, $uid = null)
     {
         $this->_mailbox = $mailbox;
         $this->_searchmbox = $GLOBALS['imp_search']->isSearchMbox($mailbox);
 
-        if (!is_null($index)) {
+        if (!is_null($uid)) {
             /* Try to rebuild sorted information from the session cache. */
             if (isset($_SESSION['imp']['cache']['imp_mailbox'][$mailbox])) {
                 $tmp = unserialize($_SESSION['imp']['cache']['imp_mailbox'][$mailbox]);
                 $this->_sorted = $tmp['s'];
                 $this->_sortedInfo = $tmp['i'];
             }
-            $this->setIndex($index);
+            $this->setIndex($uid);
         }
     }
 
@@ -435,12 +435,16 @@ class IMP_Mailbox
      * Checks to see if the current index is valid.
      * This function is only useful if an index was passed to the constructor.
      *
+     * @param boolean $rebuild  Rebuild mailbox list, if needed.
+     *
      * @return boolean  True if index is valid, false if not.
      */
-    public function isValidIndex()
+    public function isValidIndex($rebuild = true)
     {
-        $this->_rebuild();
-        $this->setIndex(0, 'offset');
+        if ($rebuild) {
+            $this->_rebuild();
+            $this->setIndex(0, 'offset');
+        }
         return !is_null($this->_arrayIndex);
     }
 
