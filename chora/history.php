@@ -124,7 +124,7 @@ foreach ($grid as $cols) {
     $maxCol = max($val, $maxCol);
 }
 
-$title = sprintf(_("Source Branching View for %s"), Horde_Text::htmlallspaces($where));
+$title = sprintf(_("Source Branching View for %s"), Horde_Text_Filter::filter($where, 'space2html', array('charset' => NLS::getCharset(), 'encode' => true, 'encode_all' => true)));
 $extraLink = Chora::getFileViews($where, 'history');
 
 require CHORA_TEMPLATES . '/common-header.inc';

@@ -84,7 +84,7 @@ if ($dirList) {
             continue;
         }
         $url = Chora::url('browsedir', $where . '/' . $currentDir . '/');
-        $currDir = Horde_Text::htmlAllSpaces($currentDir);
+        $currDir = Horde_Text_Filter::filter($currentDir, 'space2html', array('charset' => NLS::getCharset(), 'encode' => true, 'encode_all' => true));
         require CHORA_TEMPLATES . '/directory/dir.inc';
     }
     echo '</tbody>';

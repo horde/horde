@@ -200,7 +200,7 @@ class Chora
             }
             $path .= $dir;
             if (!empty($dir)) {
-                $bar .= '/ <a href="' . self::url('browsedir', $path . ($i == $dir_count && !$GLOBALS['atdir'] ? '' : '/')) . '">'. Horde_Text::htmlallspaces($dir) . '</a> ';
+                $bar .= '/ <a href="' . self::url('browsedir', $path . ($i == $dir_count && !$GLOBALS['atdir'] ? '' : '/')) . '">'. Horde_Text_Filter::filter($dir, 'space2html', array('charset' => NLS::getCharset(), 'encode' => true, 'encode_all' => true)) . '</a> ';
             }
         }
 
@@ -610,7 +610,7 @@ class Chora
      */
     static public function formatLogMessage($log)
     {
-        $log = Text_Filter::filter($log, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'charset' => NLS::getCharset(), 'class' => ''));
+        $log = Horde_Text_Filter::filter($log, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'charset' => NLS::getCharset(), 'class' => ''));
 
         return (empty($GLOBALS['conf']['tickets']['regexp']) || empty($GLOBALS['conf']['tickets']['replacement']))
             ? $log

@@ -73,7 +73,7 @@ class Ingo
                     $label = $mbox['abbrev'];
                     $text .= sprintf('<option%s value="%s"%s>%s</option>%s',
                                      $disabled, $val, $sel,
-                                     Horde_Text::htmlSpaces($label), "\n");
+                                     Horde_Text_Filter::filter($label, 'space2html', array('charset' => NLS::getCharset(), 'encode' => true)), "\n");
                 }
 
                 $text .= '</select>';

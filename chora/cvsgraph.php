@@ -48,7 +48,7 @@ if (Horde_Util::getFormData('show_image')) {
     passthru($conf['paths']['cvsgraph'] . ' ' . $argstr . ' ' . $file);
 } else {
     // Display the wrapper page for the image.
-    $title = sprintf(_("Graph for %s"), Horde_Text::htmlAllSpaces($where));
+    $title = sprintf(_("Graph for %s"), Horde_Text_Filter::filter($where, 'space2html', array('charset' => NLS::getCharset(), 'encode' => true, 'encode_all' => true)));
     $extraLink = Chora::getFileViews($where, 'cvsgraph');
 
     require CHORA_TEMPLATES . '/common-header.inc';
