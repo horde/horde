@@ -823,7 +823,30 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 break;
 
             case Horde_Imap_Client::FETCH_HEADERS:
-                // TODO
+                // Ignore 'length', 'peek'
+                foreach ($seq_ids as $id) {
+                    $ob = $this->_pop3Cache('hdrob', $id);
+                    foreach ($c_val as $val) {
+                        $tmp = $ob;
+
+                        if (empty($val['notsearch'])) {
+                            $tmp2 = $tmp->toArray(array('nowrap' => true));
+                            foreach (array_keys($tmp2) as $hdr) {
+                                if (!in_array($hdr, $val['headers'])) {
+                                    $tmp->removeHeader($hdr);
+                                }
+                            }
+                        } else {
+                            foreach ($val['headers'] as $hdr) {
+                                $tmp->removeHeader($hdr);
+                            }
+                        }
+
+                        $ret[$id]['headers'][$val['label']] = empty($val['parse'])
+                            ? $tmp->toString(array('nowrap' => true))
+                            : $tmp;
+                    }
+                }
                 break;
 
             case Horde_Imap_Client::FETCH_STRUCTURE:
@@ -926,9 +949,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         case 'hdr':
             try {
                 $resp = $this->_sendLine('TOP ' . $index . ' 0');
-                $data = $this->_getMultiline();
+                $data = $this->_getMultiline() . "\r\n";
             } catch (Horde_Imap_Client_Exception $e) {
-                $data = Horde_Mime_Part::getRawPartText($this->_pop3Cache('msg', $index), 'header', 0);
+                $data = Horde_Mime_Part::getRawPartText($this->_pop3Cache('msg', $index), 'header', 0) . "\r\n";
             }
             break;
 
