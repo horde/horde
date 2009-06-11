@@ -65,6 +65,8 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Driver
         if (is_a($tarData, 'PEAR_Error')) {
             return array();
         }
+
+        $charset = NLS::getCharset();
         $fileCount = count($tarData);
 
         $name = $this->_mimepart->getName(true);
@@ -74,24 +76,28 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Driver
 
         $text = '<strong>' . htmlspecialchars(sprintf(_("Contents of \"%s\""), $name)) . ':</strong>' . "\n" .
             '<table><tr><td align="left"><tt><span class="fixed">' .
-            Horde_Text::htmlAllSpaces(_("Archive Name") . ':  ' . $name) . "\n" .
-            Horde_Text::htmlAllSpaces(_("Archive File Size") . ': ' . strlen($contents) . ' bytes') . "\n" .
-            Horde_Text::htmlAllSpaces(sprintf(ngettext("File Count: %d file", "File Count: %d files", $fileCount), $fileCount)) .
+            Horde_Text_Filter::filter(_("Archive Name") . ':  ' . $name, 'space2html', array('charset' => $charset, 'encode' => true, 'encode_all' => true)) . "\n" .
+            Horde_Text_Filter::filter(_("Archive File Size") . ': ' . strlen($contents) . ' bytes', 'space2html', array('charset' => $charset, 'encode' => true, 'encode_all' => true)) . "\n" .
+            Horde_Text_Filter::filter(sprintf(ngettext("File Count: %d file", "File Count: %d files", $fileCount), $fileCount), 'space2html', array('charset' => $charset, 'encode' => true, 'encode_all' => true)) .
             "\n\n" .
-            Horde_Text::htmlAllSpaces(
+            Horde_Text_Filter::filter(
                 str_pad(_("File Name"), 62, ' ', STR_PAD_RIGHT) .
                 str_pad(_("Attributes"), 15, ' ', STR_PAD_LEFT) .
                 str_pad(_("Size"), 10, ' ', STR_PAD_LEFT) .
-                str_pad(_("Modified Date"), 19, ' ', STR_PAD_LEFT)
+                str_pad(_("Modified Date"), 19, ' ', STR_PAD_LEFT),
+                'space2html',
+                array('charset' => $charset, 'encode' => true, 'encode_all' => true)
             ) . "\n" .
             str_repeat('-', 106) . "\n";
 
         foreach ($tarData as $val) {
-            $text .= Horde_Text::htmlAllSpaces(
+            $text .= Horde_Text_Filter::filter(
                 str_pad($val['name'], 62, ' ', STR_PAD_RIGHT) .
                 str_pad($val['attr'], 15, ' ', STR_PAD_LEFT) .
                 str_pad($val['size'], 10, ' ', STR_PAD_LEFT) .
-                str_pad(strftime("%d-%b-%Y %H:%M", $val['date']), 19, ' ', STR_PAD_LEFT)
+                str_pad(strftime("%d-%b-%Y %H:%M", $val['date']), 19, ' ', STR_PAD_LEFT),
+                'space2html',
+                array('charset' => $charset, 'encode' => true, 'encode_all' => true)
             ) . "\n";
         }
 
@@ -99,7 +105,7 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Driver
             $this->_mimepart->getMimeId() => array(
                 'data' => nl2br($text . str_repeat('-', 106) . "\n" . '</span></tt></td></tr></table>'),
                 'status' => array(),
-                'type' => 'text/html; charset=' . NLS::getCharset()
+                'type' => 'text/html; charset=' . $charset
             )
         );
     }

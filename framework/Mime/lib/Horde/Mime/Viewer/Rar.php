@@ -57,6 +57,8 @@ class Horde_Mime_Viewer_Rar extends Horde_Mime_Viewer_Driver
         if (is_a($rarData, 'PEAR_Error')) {
             return array();
         }
+
+        $charset = NLS::getCharset();
         $fileCount = count($rarData);
 
         $name = $this->_mimepart->getName(true);
@@ -66,18 +68,19 @@ class Horde_Mime_Viewer_Rar extends Horde_Mime_Viewer_Driver
 
         $text = '<strong>' . htmlspecialchars(sprintf(_("Contents of \"%s\""), $name)) . ':</strong>' . "\n" .
             '<table><tr><td align="left"><tt><span class="fixed">' .
-            Horde_Text::htmlAllSpaces(_("Archive Name") . ':  ' . $name) . "\n" .
-            Horde_Text::htmlAllSpaces(_("Archive File Size") . ': ' . strlen($contents) . ' bytes') . "\n" .
-            Horde_Text::htmlAllSpaces(sprintf(ngettext("File Count: %d file", "File Count: %d files", $fileCount), $fileCount)) .
+            Horde_Text_Filter::filter(_("Archive Name") . ':  ' . $name, 'space2html', array('charset' => $charset, 'encode' => true, 'encode_all' => true)) . "\n" .
+            Horde_Text_Filter::filter(_("Archive File Size") . ': ' . strlen($contents) . ' bytes', 'space2html', array('charset' => $charset, 'encode' => true, 'encode_all' => true)) . "\n" .
+            Horde_Text_Filter::filter(sprintf(ngettext("File Count: %d file", "File Count: %d files", $fileCount), $fileCount), 'space2html', array('charset' => $charset, 'encode' => true, 'encode_all' => true)) .
             "\n\n" .
-            Horde_Text::htmlAllSpaces(
+            Horde_Text_Filter::filter(
                 Horde_String::pad(_("File Name"), 50, ' ', STR_PAD_RIGHT) .
                 Horde_String::pad(_("Attributes"), 10, ' ', STR_PAD_LEFT) .
                 Horde_String::pad(_("Size"), 10, ' ', STR_PAD_LEFT) .
                 Horde_String::pad(_("Modified Date"), 19, ' ', STR_PAD_LEFT) .
                 Horde_String::pad(_("Method"), 10, ' ', STR_PAD_LEFT) .
-                Horde_String::pad(_("Ratio"), 10, ' ', STR_PAD_LEFT)
-            ) . "\n" .
+                Horde_String::pad(_("Ratio"), 10, ' ', STR_PAD_LEFT),
+                'space2html',
+                array('charset' => $charset, 'encode' => true, 'encode_all' => true)) . "\n" .
             str_repeat('-', 109) . "\n";
 
         foreach ($rarData as $val) {
@@ -85,13 +88,15 @@ class Horde_Mime_Viewer_Rar extends Horde_Mime_Viewer_Driver
                 ? 0
                 : 100 * ($val['csize'] / $val['size']);
 
-            $text .= Horde_Text::htmlAllSpaces(
+            $text .= Horde_Text_Filter::filter(
                 Horde_String::pad($val['name'], 50, ' ', STR_PAD_RIGHT) .
                 Horde_String::pad($val['attr'], 10, ' ', STR_PAD_LEFT) .
                 Horde_String::pad($val['size'], 10, ' ', STR_PAD_LEFT) .
                 Horde_String::pad(strftime("%d-%b-%Y %H:%M", $val['date']), 19, ' ', STR_PAD_LEFT) .
                 Horde_String::pad($val['method'], 10, ' ', STR_PAD_LEFT) .
-                Horde_String::pad(sprintf("%1.1f%%", $ratio), 10, ' ', STR_PAD_LEFT)
+                Horde_String::pad(sprintf("%1.1f%%", $ratio), 10, ' ', STR_PAD_LEFT),
+                'space2html',
+                array('encode' => true, 'encode_all' => true)
             ) . "\n";
         }
 
@@ -99,7 +104,7 @@ class Horde_Mime_Viewer_Rar extends Horde_Mime_Viewer_Driver
             $this->_mimepart->getMimeId() => array(
                 'data' => nl2br($text . str_repeat('-', 106) . "\n" . '</span></tt></td></tr></table>'),
                 'status' => array(),
-                'type' => 'text/html; charset=' . NLS::getCharset()
+                'type' => 'text/html; charset=' . $charset
             )
         );
     }

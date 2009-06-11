@@ -95,7 +95,7 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
 
         $text = '<strong>' . htmlspecialchars(sprintf(_("Contents of \"%s\""), $name)) . ':</strong>' . "\n" .
             '<table><tr><td align="left"><tt><span class="fixed">' .
-            Horde_Text::htmlAllSpaces(
+            Horde_Text_Filter::filter(
                 _("Archive Name") . ': ' . $name . "\n" .
                 _("Archive File Size") . ': ' . strlen($contents) .
                 ' bytes' . "\n" .
@@ -108,7 +108,9 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
                 Horde_String::pad(_("Method"), 10, ' ', STR_PAD_LEFT) .
                 Horde_String::pad(_("CRC"), 10, ' ', STR_PAD_LEFT) .
                 Horde_String::pad(_("Ratio"), 10, ' ', STR_PAD_LEFT) .
-                "\n"
+                "\n",
+                'space2html',
+                array('charset' => NLS::getCharset(), 'encode' => true, 'encode_all' => true)
             ) . str_repeat('-', 69 + $maxlen) . "\n";
 
         foreach ($zipInfo as $key => $val) {
