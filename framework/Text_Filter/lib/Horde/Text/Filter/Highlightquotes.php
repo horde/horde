@@ -180,7 +180,7 @@ class Horde_Text_Filter_Highlightquotes extends Horde_Text_Filter
                     /* Add quote block start tags for each cite level. */
                     $out .= ($this->_params['citeblock'] ? '<div class="citation ' : '<font class="') .
                         'quoted' . (($i % $this->_params['cssLevels']) + 1) . '"' .
-                        ((($level == 0) && ($qcount > 8) && $this->_params['hideBlocks']) ? ' style="display:none"' : '') .
+                        ((($i == 0) && ($qcount > 8) && $this->_params['hideBlocks']) ? ' style="display:none"' : '') .
                         '>';
                 }
             }
