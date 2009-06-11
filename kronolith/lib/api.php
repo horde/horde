@@ -30,7 +30,7 @@ $_services['show'] = array(
 );
 
 $_services['browse'] = array(
-    'args' => array('path' => 'string'),
+    'args' => array('path' => 'string', 'properties' => '{urn:horde}stringArray'),
     'type' => '{urn:horde}hashHash',
 );
 
