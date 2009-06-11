@@ -3,10 +3,8 @@
 $hordeimg = $registry->getImageDir('horde');
 
 $usetrash = $prefs->getValue('use_trash');
-$menu_view = $prefs->getValue('menu_view');
-$show_text = ($menu_view == 'text' || $menu_view == 'both');
+$show_text = in_array($prefs->getValue('menu_view'), array('both', 'text'));
 $loading_text = _("Loading...");
-$is_ie6 = ($browser->isBrowser('msie') && ($browser->getMajor() < 7));
 
 $has_blacklist = $registry->hasMethod('mail/blacklistFrom');
 $has_whitelist = $registry->hasMethod('mail/whitelistFrom');

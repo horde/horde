@@ -13,11 +13,6 @@
 class DIMP
 {
     /**
-     * Charset cache.
-     */
-    static protected $_charset;
-
-    /**
      * Output a dimp-style action (menubar) link.
      *
      * @param array $params  A list of parameters.
@@ -37,11 +32,8 @@ class DIMP
         $tooltip = (empty($params['tooltip'])) ? '' : $params['tooltip'];
 
         if (empty($params['title'])) {
-            if (!isset(self::$_charset)) {
-                self::$_charset = NLS::getCharset();
-            }
             $old_error = error_reporting(0);
-            $tooltip = nl2br(htmlspecialchars($tooltip, ENT_QUOTES, self::$_charset));
+            $tooltip = nl2br(htmlspecialchars($tooltip, ENT_QUOTES, NLS::getCharset()));
             $title = $ak = '';
         } else {
             $title = $params['title'];
