@@ -15,7 +15,7 @@ v5.0-git
 [mms] Optimize viewport row insertion/updating (DIMP).
 [mms] Add support for defining and displaying custom IMAP flags and for
       configuring the highlighting of system flags (Request #937).
-[mms] Move attachment dispaly on mailbox page from hook to preference.
+[mms] Move attachment display on mailbox page from hook to preference.
 [mms] Always do X-Priority header processing by default.
 [mms] Support $MDNSent keyword (RFC 3503) on IMAP server.
 [mms] Link URLs/e-mails in subjects in message views (Request #7487).
