@@ -127,3 +127,13 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
  <a id="ctx_contacts_new"><span class="contextImg"></span><?php echo _("New Message") ?></a>
  <a id="ctx_contacts_add"><span class="contextImg"></span><?php echo _("Add to Address Book") ?></a>
 </div>
+
+<div style="display:none">
+ <span id="largeaddrspan">
+  <span class="largeaddrtoggle">
+   <span class="largeaddrlist">[<?php echo _("Show Addresses - %d recipients") ?>]</span>
+   <span class="largeaddrlist" style="display:none">[<?php echo _("Hide Addresses") ?>]</span>
+  </span>
+  <span class="dispaddrlist" style="display:none"></span>
+ </span>
+</div>
