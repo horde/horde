@@ -279,7 +279,11 @@ case 'FlagAll':
 
 case 'ListFolders':
     $imptree = IMP_Imap_Tree::singleton();
-    $result = DIMP::getFolderResponse($imptree, array('a' => $imptree->folderList(IMP_Imap_Tree::FLIST_CONTAINER | IMP_Imap_Tree::FLIST_VFOLDER), 'c' => array(), 'd' => array()));
+    $mask = IMP_Imap_Tree::FLIST_CONTAINER | IMP_Imap_Tree::FLIST_VFOLDER | IMP_Imap_Tree::FLIST_ELT;
+    if (Horde_Util::getPost('unsub')) {
+        $mask |= IMP_Imap_Tree::FLIST_UNSUB;
+    }
+    $result = DIMP::getFolderResponse($imptree, array('a' => $imptree->folderList($mask), 'c' => array(), 'd' => array()));
 
     $quota = _getQuota();
     if (!is_null($quota)) {

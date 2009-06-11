@@ -100,6 +100,7 @@ class DIMP
              "<head>\n";
 
         // TODO: Make dimp work with IE 8 standards mode
+        //       Needs prototypejs 1.6.0.4
         if ($GLOBALS['browser']->isBrowser('msie') &&
             ($GLOBALS['browser']->getMajor() == 8)) {
             echo '<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />' . "\n";
@@ -223,6 +224,7 @@ class DIMP
             'empty_folder' => _("Permanently delete all messages in %s?"),
             'getmail' => Horde::highlightAccessKey(addslashes(_("_Get Mail")), Horde::getAccessKey(_("_Get Mail"), true)),
             'hide_preview' => _("Hide Preview"),
+            'hide_unsub' => _("Hide Unsubscribed"),
             'hidealog' => _("Hide Alerts Log"),
             'listmsg_wait' => _("The server is still generating the message list."),
             'listmsg_timeout' => _("The server was unable to generate the message list."),
@@ -241,6 +243,7 @@ class DIMP
             'rename_prompt' => _("Rename folder to:"),
             'search' => _("Search"),
             'show_preview' => _("Show Preview"),
+            'show_unsub' => _("Show Unsubscribed"),
             'showalog' => Horde::highlightAccessKey(addslashes(_("_Alerts Log")), Horde::getAccessKey(_("_Alerts Log"), true)),
             'verify' => _("Verifying..."),
             'vp_empty' => _("There are no messages in this mailbox."),
@@ -298,11 +301,10 @@ class DIMP
     {
         $GLOBALS['notification']->notify(array('listeners' => 'status'));
         $msgs = $GLOBALS['imp_notify']->getStack(true);
-        if (!count($msgs)) {
-            return '';
-        }
 
-        return 'DimpCore.showNotifications(' . Horde_Serialize::serialize($msgs, Horde_Serialize::JSON) . ')';
+        return count($msgs)
+            ? 'DimpCore.showNotifications(' . Horde_Serialize::serialize($msgs, Horde_Serialize::JSON) . ')'
+            : '';
     }
 
     /**
@@ -313,7 +315,7 @@ class DIMP
      * @param array $changes     An array with three sub arrays - to be used
      *                           instead of the return from
      *                           $imptree->eltDiff():
-     *                           'a' - a list of folders to add
+     *                           'a' - a list of folders/objects to add
      *                           'c' - a list of changed folders
      *                           'd' - a list of folders to delete
      *
@@ -333,7 +335,7 @@ class DIMP
         if (!empty($changes['a'])) {
             $result['a'] = array();
             foreach ($changes['a'] as $val) {
-                $result['a'][] = DIMP::_createFolderElt($imptree->element($val));
+                $result['a'][] = DIMP::_createFolderElt(is_array($val) ? $val : $imptree->element($val));
             }
         }
 
@@ -376,6 +378,8 @@ class DIMP
      * 's' (special) = Is this a "special" element? [boolean] [DEFAULT: no]
      * 't' (title) = The title value. [string] [DEFAULT: 'm' val]
      * 'u' (unseen) = The number of unseen messages. [integer]
+     * 'un' (unsubscribed) = Is this folder unsubscribed? [boolean]
+     *                       [DEFAULT: no]
      * 'v' (virtual) = Is this a virtual folder? [boolean] [DEFAULT: no]
      * </pre>
      */
@@ -398,6 +402,9 @@ class DIMP
         }
         if ($elt['vfolder']) {
             $ob->v = 1;
+        }
+        if (!$elt['sub']) {
+            $ob->un = 1;
         }
 
         $tmp = IMP::getLabel($ob->m);

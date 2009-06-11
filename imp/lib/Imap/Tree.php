@@ -54,8 +54,9 @@ class IMP_Imap_Tree
     /* Defines used with folderList(). */
     const FLIST_CONTAINER = 1;
     const FLIST_UNSUB = 2;
-    const FLIST_OB = 4;
-    const FLIST_VFOLDER = 8;
+    const FLIST_VFOLDER = 4;
+    const FLIST_OB = 8;
+    const FLIST_ELT = 16;
 
     /* Add a percent to folder key since it allows us to sort by name but
      * never conflict with an IMAP mailbox of the same name (since '%' is an
@@ -1698,12 +1699,14 @@ class IMP_Imap_Tree
      * <pre>
      * IMP_Imap_Tree::FLIST_CONTAINER - Show container elements.
      * IMP_Imap_Tree::FLIST_UNSUB - Show unsubscribed elements.
-     * IMP_Imap_Tree::FLIST_OB - Return full tree object.
      * IMP_Imap_Tree::FLIST_VFOLDER - Show Virtual Folders.
+     * IMP_Imap_Tree::FLIST_OB - Return full tree object.
+     * IMP_Imap_Tree::FLIST_ELT - Return element object.
      * </pre>
      * @param string $base  Return all mailboxes below this element.
      *
-     * @return array  An array of IMAP mailbox names.
+     * @return array  Either an array of IMAP mailbox names or an array of
+     *                objects (if FLIST_OB ot FLIST_ELT is specified).
      */
     public function folderList($mask = 0, $base = null)
     {
@@ -1741,7 +1744,9 @@ class IMP_Imap_Tree
                      !$this->isContainer($mailbox)) &&
                     (($mask & self::FLIST_VFOLDER) ||
                      !$this->isVFolder($mailbox))) {
-                    $ret_array[] = ($mask & self::FLIST_OB) ? $mailbox : $mailbox['v'];
+                    $ret_array[] = ($mask & self::FLIST_OB)
+                        ? $mailbox
+                        : (($mask & self::FLIST_ELT) ? $this->element($mailbox['v']) : $mailbox['v']);
                 }
             } while (($mailbox = $this->next(self::NEXT_SHOWCLOSED)));
         }
@@ -1802,7 +1807,7 @@ class IMP_Imap_Tree
     /**
      * Return extended information on an element.
      *
-     * @param string $name  The name of the tree element.
+     * @param mixed $name  The name of the tree element or a tree element.
      *
      * @return array  Returns the element with extended information, or false
      *                if not found.  The information returned is as follows:
@@ -1823,6 +1828,7 @@ class IMP_Imap_Tree
      * 'polled' - (boolean) Show polled information?
      * 'recent' - (integer) The number of new messages in the element (if
      *            polled).
+     * 'sub' - (boolean) Is folder subscribed to?
      * 'special' - (integer) A mask indicating if this is a "special" element.
      * 'specialvfolder' - (boolean) Is this a "special" virtual folder?
      * 'unseen' - (integer) The number of unseen messages in the element (if
@@ -1836,7 +1842,9 @@ class IMP_Imap_Tree
     {
         static $elt;
 
-        $mailbox = $this->get($mailbox);
+        if (!is_array($mailbox)) {
+            $mailbox = $this->get($mailbox);
+        }
         if (!$mailbox) {
             return false;
         }
@@ -1860,6 +1868,7 @@ class IMP_Imap_Tree
             'recent' => 0,
             'special' => 0,
             'specialvfolder' => false,
+            'sub' => $this->isSubscribed($mailbox),
             'user_icon' => false,
             'value' => $mailbox['v'],
             'vfolder' => false,

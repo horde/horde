@@ -10,7 +10,7 @@
 var DimpBase = {
     // Vars used and defaulting to null/false:
     //   cfolderaction, folder, folderswitch, offset, pollPE, pp, sfolder,
-    //   uid, viewport
+    //   showunsub, uid, viewport
     // message_list_template set via templates/javascript/mailbox.js
     bcache: $H(),
     cacheids: {},
@@ -710,6 +710,10 @@ var DimpBase = {
 
         case 'previewtoggle':
             this.togglePreviewPane();
+            break;
+
+        case 'mboxsubtoggle':
+            this.toggleSubscribed();
             break;
 
         case 'oa_blacklist':
@@ -1950,6 +1954,10 @@ var DimpBase = {
             ftype = ob.s ? 'special' : 'folder';
         }
 
+        if (ob.un) {
+            cname += ' unsubFolder';
+        }
+
         div = new Element('DIV', { className: 'iconDiv' });
         if (ob.i) {
             div.setStyle({ backgroundImage: 'url("' + ob.i + '")' });
@@ -2085,6 +2093,21 @@ var DimpBase = {
     {
         var nf = $('normalfolders');
         nf.setStyle({ height: (document.viewport.getHeight() - nf.cumulativeOffset()[1]) + 'px' });
+    },
+
+    toggleSubscribed: function()
+    {
+        this.showunsub = !this.showunsub;
+        $('mboxsubtoggle').setText(this.showunsub ? DIMP.text.hide_unsub : DIMP.text.show_unsub);
+        $('foldersLoading').show();
+        $('foldersSidebar').hide();
+
+        // TODO - Only do for unsub -> sub switch
+        [ $('specialfolders').childElements(), $('dropbase').nextSiblings() ].flatten().each(function(elt) {
+            this.deleteFolderElt(elt.readAttribute('id'), true);
+        }, this);
+
+        DimpCore.doAction('ListFolders', { unsub: Number(this.showunsub) }, null, this._folderLoadCallback.bind(this));
     },
 
     /* Flag actions for message list. */

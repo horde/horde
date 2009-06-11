@@ -389,6 +389,9 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 
 <div class="context" id="ctx_otheractions" style="display:none">
  <a id="previewtoggle" class="sep"><span class="contextImg"></span><?php echo ($prefs->getValue('dimp_show_preview') ? _("Hide Preview") : _("Show Preview")); ?></a>
+<?php if ($conf['user']['allow_folders']): ?>
+ <a id="mboxsubtoggle" class="sep"><span class="contextImg"></span><?php echo _("Show Unsubscribed") ?></a>
+<?php endif; ?>
 <?php if (!empty($flag_list)): ?>
  <a id="oa_setflag"><span class="contextImg"></span><?php echo _("Mark as") ?></a>
  <a id="oa_unsetflag" class="sep"><span class="contextImg"></span><?php echo _("Unmark as") ?></a>

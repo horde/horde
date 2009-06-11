@@ -333,7 +333,7 @@ div.vpRow.flagDeleted {
     height: 100%;
     background-repeat: no-repeat;
 }
-#sidebarPanel div.base {
+#sidebarPanel div.base, #mboxsubtoggle span.contextImg {
     background-image: url("graphics/folder.png");
 }
 #sidebarPanel div.col {
@@ -360,10 +360,13 @@ div.vpRow.flagDeleted {
 #sidebarPanel div.trash {
     background-image: url("graphics/folder_trash.png");
 }
-#sidebarPanel #normalfolders {
+#normalfolders {
     overflow-x: hidden;
 }
-#sidebarPanel #myfolders {
+#normalfolders li.unsubFolder {
+    font-style: italic;
+}
+#myfolders {
     display: none;
 }
 #sidebarPanel .over a, #sidebarPanel li.folder:hover, #sidebarPanel li.custom:hover, #sidebarPanel li.servicelink:hover {

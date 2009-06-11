@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Add display of unsubscribed folders to DIMP.
 [mms] Add message information to preview screen (DIMP).
 [mms] Add Alt + PGUP/PGDN shortcut to scroll through preview message (DIMP).
 [jan] Show possible event conflicts in iTip viewer (Request #3991, Gonçalo
