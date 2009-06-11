@@ -76,6 +76,7 @@ class IMP_Views_ShowMessage
      * 'fulldate' - The fully formatted date
      * 'js' - Javascript code to run on display (only if the previewview
      *        hook is active)
+     * 'log' - Log information
      * 'minidate' - A miniature date
      *
      * FOR NON-PREVIEW MODE:
@@ -198,7 +199,10 @@ class IMP_Views_ShowMessage
             /* Grab maillog information. */
             if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
                 foreach (IMP_Maillog::parseLog($envelope['message-id']) as $val) {
-                    $result['log'][] = htmlspecialchars($val['msg']);
+                    $result['log'][] = array_map('htmlspecialchars', array(
+                        'm' => $val['msg'],
+                        't' => $val['action']
+                    ));
                 }
             }
         } else {

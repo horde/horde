@@ -524,12 +524,20 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     font-weight: bold;
     padding-right: 5px;
 }
+
 #partlist table {
     margin-top: 3px;
     margin-bottom: 1px;
 }
 #partlist td {
     padding-bottom: 2px;
+}
+
+#infolist {
+    padding-top: 2px;
+}
+#infolist ul {
+    list-style-type: none;
 }
 
 #msgHeadersContent {
@@ -1016,9 +1024,9 @@ span.readonlyImg {
 }
 
 /* Growler notification styles. */
-#Growler div.imp-reply {
+#Growler div.imp-reply, span.imp-reply {
     background-image: url("graphics/mail_answered.png");
 }
-#Growler div.imp-forward, div.imp-redirect {
+#Growler div.imp-forward, div.imp-redirect, span.imp-forward, span.imp-redirect {
     background-image: url("graphics/mail_forwarded.png");
 }

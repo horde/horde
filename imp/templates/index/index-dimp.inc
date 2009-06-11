@@ -311,7 +311,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
              <td>
               <div><span class="infoLabel"><?php echo _("Message Information") ?></span></div>
               <div id="infolist" style="display:none">
-               <table cellspacing="2"></table>
+               <ul></ul>
               </div>
              </td>
             </tr>

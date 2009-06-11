@@ -1030,10 +1030,10 @@ var DimpBase = {
             }
 
             log.each(function(entry) {
-                tmp += '<tr><td>' + entry + '</td></tr>';
+                tmp += '<li><span class="iconImg imp-' + entry.t + '"></span>' + entry.m + '</li>';
             });
 
-            $('infolist').down('TABLE').update(tmp);
+            $('infolist').down('UL').update(tmp);
         }
 
         if (opts) {
