@@ -50,7 +50,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="array_nested.phpt" role="test" />
       <file name="array_simple.html" role="test" />
       <file name="array_simple.phpt" role="test" />
-      <file name="divider.html" role="test" />
+      <file name="divider.phpt" role="test" />
       <file name="if.html" role="test" />
       <file name="if.phpt" role="test" />
       <file name="iterator.phpt" role="test" />
@@ -69,10 +69,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <pearinstaller>
     <min>1.5.4</min>
    </pearinstaller>
+<!--
    <package>
     <name>Horde</name>
     <channel>pear.horde.org</channel>
    </package>
+-->
   </required>
   <optional>
    <extension>

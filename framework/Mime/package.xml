@@ -221,7 +221,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Mime/Mail.php" as="Horde/Mime/Mail.php" />
    <install name="lib/Horde/Mime/Part.php" as="Horde/Mime/Part.php" />
    <install name="lib/Horde/Mime/Viewer.php" as="Horde/Mime/Viewer.php" />
-   <install name="lib/Horde/Mime/mime.magic.php" as="Horde/Mime/mime.magic.php" />
    <install name="lib/Horde/Mime/mime.mapping.php" as="Horde/Mime/mime.mapping.php" />
    <install name="lib/Horde/Mime.php" as="Horde/Mime.php" />
   </filelist>
