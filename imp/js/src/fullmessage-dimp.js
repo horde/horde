@@ -155,6 +155,12 @@ var DimpFullmessage = {
                 elt.replace(DimpCore.buildAddressLinks(this[a], elt.cloneNode(false)));
             }
         }, this);
+
+        /* Add message information. */
+        if (this.log) {
+            $('msgInfo').show();
+            DimpCore.updateInfoList(this.log);
+        }
     }
 
 };

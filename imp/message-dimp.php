@@ -49,7 +49,7 @@ $js_out = array(
     'DIMP.conf.msg_folder = "' . $show_msg_result['folder'] . '"'
 );
 
-foreach (array('from', 'to', 'cc', 'bcc', 'replyTo') as $val) {
+foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log') as $val) {
     if (!empty($show_msg_result[$val])) {
         $js_out[] = 'DimpFullmessage.' . $val . ' = ' . Horde_Serialize::serialize($show_msg_result[$val], Horde_Serialize::JSON);
     }

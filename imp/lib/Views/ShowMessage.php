@@ -69,6 +69,7 @@ class IMP_Views_ShowMessage
      * 'from' - The From addresses
      * 'folder' - The IMAP folder
      * 'index' - The IMAP UID
+     * 'log' - Log information
      * 'msgtext' - The text of the message
      * 'to' - The To addresses
      *
@@ -76,7 +77,6 @@ class IMP_Views_ShowMessage
      * 'fulldate' - The fully formatted date
      * 'js' - Javascript code to run on display (only if the previewview
      *        hook is active)
-     * 'log' - Log information
      * 'minidate' - A miniature date
      *
      * FOR NON-PREVIEW MODE:
@@ -187,6 +187,16 @@ class IMP_Views_ShowMessage
             }
         }
 
+        /* Grab maillog information. */
+        if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
+            foreach (IMP_Maillog::parseLog($envelope['message-id']) as $val) {
+                $result['log'][] = array_map('htmlspecialchars', array(
+                    'm' => $val['msg'],
+                    't' => $val['action']
+                ));
+            }
+        }
+
         if ($preview) {
             /* Get minidate. */
             $imp_mailbox_ui = new IMP_UI_Mailbox();
@@ -195,16 +205,6 @@ class IMP_Views_ShowMessage
                 $minidate = _("Unknown Date");
             }
             $result['minidate'] = htmlspecialchars($minidate);
-
-            /* Grab maillog information. */
-            if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
-                foreach (IMP_Maillog::parseLog($envelope['message-id']) as $val) {
-                    $result['log'][] = array_map('htmlspecialchars', array(
-                        'm' => $val['msg'],
-                        't' => $val['action']
-                    ));
-                }
-            }
         } else {
             /* Display the user-specified headers for the current identity. */
             $user_hdrs = $imp_ui->getUserHeaders();
@@ -247,11 +247,6 @@ class IMP_Views_ShowMessage
         $part_info = $part_info_display = array('icon', 'description', 'type', 'size', 'download', 'download_zip');
         if ($show_parts != 'all') {
             array_unshift($part_info, 'id');
-        }
-
-        /* Retrieve any history information for this message. */
-        if (!$preview && !empty($GLOBALS['conf']['maillog']['use_maillog'])) {
-            IMP_Maillog::displayLog($mime_headers->getValue('message-id'));
         }
 
         /* Do MDN processing now. */

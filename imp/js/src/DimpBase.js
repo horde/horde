@@ -1033,7 +1033,7 @@ var DimpBase = {
     // opts = index, mailbox
     updateMsgInfo: function(log, opts)
     {
-        var tmp = '';
+        var tmp;
 
         if (!opts ||
             (this.pp.imapuid == opts.index &&
@@ -1045,11 +1045,7 @@ var DimpBase = {
                 $('infolist_exp').hide();
             }
 
-            log.each(function(entry) {
-                tmp += '<li><span class="iconImg imp-' + entry.t + '"></span>' + entry.m + '</li>';
-            });
-
-            $('infolist').down('UL').update(tmp);
+            DimpCore.updateInfoList(log);
         }
 
         if (opts) {
@@ -1648,18 +1644,6 @@ var DimpBase = {
                     this._setFilterText(false);
                 }
                 $('qsearch_input').focus();
-                break;
-
-            case 'infolist_toggle':
-                $('infolist_col', 'infolist_exp').invoke('toggle');
-                Effect.toggle('infolist', 'blind', {
-                    duration: 0.2,
-                    queue: {
-                        position: 'end',
-                        scope: 'infolist',
-                        limit: 2
-                    }
-                });
                 break;
 
             default:
