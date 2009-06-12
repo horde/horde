@@ -358,7 +358,7 @@ class Horde_Util
          * browsers do not always honor the 'no-cache' header. */
         $browser = &Horde_Browser::singleton();
         if ($browser->hasQuirk('cache_same_url')) {
-            if (is_null(self::$randnum)) {
+            if (is_null(self::$_randnum)) {
                 self::$_randnum = base_convert(microtime(), 10, 36);
             }
             return self::addParameter($url, 'nocache', self::$_randnum, $encode);
