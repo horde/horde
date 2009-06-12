@@ -1,4 +1,4 @@
-#sidebarPanel div.base, #mboxsubtoggle span.contextImg {
+#sidebarPanel div.base, #mboxsubtoggle span.contextImg, #ctx_folder_sub span.contextImg, #ctx_folder_unsub span.contextImg {
     background-image: url("graphics/folder.png");
 }
 #sidebarPanel div.col {
