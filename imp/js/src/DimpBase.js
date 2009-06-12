@@ -1847,6 +1847,10 @@ var DimpBase = {
         var nf = $('normalfolders'),
             nfheight = nf.getStyle('max-height');
 
+        if (this.folder) {
+            this.highlightSidebar(this.getFolderId(this.folder));
+        }
+
         $('foldersLoading').hide();
         $('foldersSidebar').show();
 
