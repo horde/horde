@@ -337,6 +337,8 @@ function _simpleButton($id, $text, $image, $imagedir = null)
  <a id="ctx_folder_unseen" class="sep"><span class="contextImg"></span><?php echo _("Mark all as New") ?></a>
  <a id="ctx_folder_poll"><span class="contextImg"></span><?php echo _("Check for New Mail") ?></a>
  <a id="ctx_folder_nopoll"><span class="contextImg"></span><?php echo _("Do Not Check for New Mail") ?></a>
+ <a id="ctx_folder_sub"><span class="contextImg"></span><?php echo _("Subscribe") ?></a>
+ <a id="ctx_folder_unsub"><span class="contextImg"></span><?php echo _("Unsubscribe") ?></a>
 </div>
 
 <div class="context" id="ctx_container" style="display:none">

@@ -313,6 +313,13 @@ case 'Poll':
     }
     break;
 
+case 'Subscribe':
+    $imp_folder = IMP_Folder::singleton();
+    $result = Horde_Util::getPost('sub')
+        ? $imp_folder->subscribe(array($mbox))
+        : $imp_folder->unsubscribe(array($mbox));
+    break;
+
 case 'ViewPort':
     if (empty($mbox)) {
         break;

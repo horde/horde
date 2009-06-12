@@ -675,6 +675,11 @@ var DimpBase = {
             this.modifyPoll(baseelt.up('LI').readAttribute('mbox'), id == 'ctx_folder_poll');
             break;
 
+        case 'ctx_folder_sub':
+        case 'ctx_folder_unsub':
+            this.subscribeFolder(baseelt.up('LI').readAttribute('mbox'), id == 'ctx_folder_sub');
+            break;
+
         case 'ctx_container_create':
             this.createSubFolder(baseelt);
             break;
@@ -756,17 +761,24 @@ var DimpBase = {
 
             if (baseelt.readAttribute('mbox') == 'INBOX') {
                 elts.invoke('hide');
-            } else if (DIMP.conf.fixed_folders &&
-                       DIMP.conf.fixed_folders.indexOf(baseelt.readAttribute('mbox')) != -1) {
-                elts.shift();
-                elts.invoke('hide');
+                $('ctx_folder_sub', 'ctx_folder_unsub').invoke('hide');
             } else {
-                elts.invoke('show');
+                tmp = baseelt.hasClassName('unsubFolder');
+                [ $('ctx_folder_sub') ].invoke(tmp ? 'show' : 'hide');
+                [ $('ctx_folder_unsub') ].invoke(tmp ? 'hide' : 'show');
+
+                if (DIMP.conf.fixed_folders &&
+                    DIMP.conf.fixed_folders.indexOf(baseelt.readAttribute('mbox')) != -1) {
+                    elts.shift();
+                    elts.invoke('hide');
+                } else {
+                    elts.invoke('show');
+                }
             }
 
             tmp = baseelt.hasAttribute('u');
             [ $('ctx_folder_poll') ].invoke(tmp ? 'hide' : 'show');
-            [ $('ctx_folder_nopoll') ].invoke(tmp? 'show' : 'hide');
+            [ $('ctx_folder_nopoll') ].invoke(tmp ? 'show' : 'hide');
             break;
 
         case 'ctx_reply':
@@ -886,7 +898,7 @@ var DimpBase = {
         var p = DIMP.conf.preview_pref = !DIMP.conf.preview_pref;
         $('previewtoggle').setText(p ? DIMP.text.hide_preview : DIMP.text.show_preview);
         [ $('msgList') ].invoke(p ? 'removeClassName' : 'addClassName', 'msglistNoPreview');
-        this._updatePrefs('show_preview', p ? 1 : 0);
+        this._updatePrefs('show_preview', Number(p));
         this.viewport.showSplitPane(p);
         if (p) {
             this.initPreviewPane();
@@ -1071,7 +1083,7 @@ var DimpBase = {
     {
         if (update) {
             DIMP.conf.toggle_pref = !DIMP.conf.toggle_pref;
-            this._updatePrefs('dimp_toggle_headers', elt.id == 'th_expand' ? 1 : 0);
+            this._updatePrefs('dimp_toggle_headers', Number(elt.id == 'th_expand'));
         }
         [ elt.up().select('A'), $('msgHeadersColl', 'msgHeaders') ].flatten().invoke('toggle');
     },
@@ -2114,6 +2126,18 @@ var DimpBase = {
         DimpCore.doAction('ListFolders', { unsub: Number(this.showunsub) }, null, this._folderLoadCallback.bind(this));
     },
 
+    subscribeFolder: function(f, sub)
+    {
+        var fid = this.getFolderId(f);
+        DimpCore.doAction('Subscribe', { view: f, sub: Number(sub) });
+
+        if (this.showunsub) {
+            [ $(fid) ].invoke(sub ? 'removeClassName' : 'addClassName', 'unsubFolder');
+        } else if (!sub) {
+            this.deleteFolderElt(fid);
+        }
+    },
+
     /* Flag actions for message list. */
     _getFlagSelection: function(opts)
     {
@@ -2291,7 +2315,7 @@ var DimpBase = {
 
     modifyPoll: function(folder, add)
     {
-        DimpCore.doAction('ModifyPoll', { view: folder, add: (add) ? 1 : 0 }, null, this.bcache.get('modifyPFC') || this.bcache.set('modifyPFC', this._modifyPollCallback.bind(this)));
+        DimpCore.doAction('ModifyPoll', { view: folder, add: Number(add) }, null, this.bcache.get('modifyPFC') || this.bcache.set('modifyPFC', this._modifyPollCallback.bind(this)));
     },
 
     _modifyPollCallback: function(r)
