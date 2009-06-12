@@ -13,6 +13,7 @@ var DimpCore = {
     // Vars used and defaulting to null/false:
     //   DMenu, Growler, inAjaxCallback, is_init, is_logout,
     //   onDoActionComplete
+    is_ie6: false /*@cc_on || @_jscript_version < 5.7 @*/,
     server_error: 0,
 
     doActionOpts: {

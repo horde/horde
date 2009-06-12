@@ -2434,7 +2434,7 @@ var DimpBase = {
         /* Init quicksearch. */
         $('qsearch_input').observe('blur', this._quicksearchOnBlur.bind(this));
 
-        if (DIMP.conf.is_ie6) {
+        if (DimpCore.is_ie6) {
             /* Disable text selection in preview pane for IE 6. */
             document.observe('selectstart', Event.stop);
             Event.observe(window, 'resize', this._resizeIE6.bind(this));
@@ -2456,7 +2456,7 @@ var DimpBase = {
     // IE 6 width fixes (See Bug #6793)
     _resizeIE6: function()
     {
-        if (DIMP.conf.is_ie6) {
+        if (DimpCore.is_ie6) {
             var tmp = parseInt($('sidebarPanel').getStyle('width'), 10),
                 tmp1 = document.viewport.getWidth() - tmp - 30;
             $('normalfolders').setStyle({ width: tmp + 'px' });
@@ -2472,7 +2472,7 @@ var DimpBase = {
 
     _resizeIE6Iframe: function(iframe)
     {
-        if (DIMP.conf.is_ie6) {
+        if (DimpCore.is_ie6) {
             iframe.setStyle({ width: $('dimpmain').getStyle('width'), height: (document.viewport.getHeight() - 20) + 'px' });
         }
     }

@@ -66,7 +66,6 @@ $code['conf'] = array_filter(array(
         : array_map(array('DIMP', '_appendedFolderPref'), $GLOBALS['conf']['server']['fixed_folders']),
     'flags' => $flags,
     'ham_spammbox' => intval(!empty($GLOBALS['conf']['notspam']['spamfolder'])),
-    'is_ie6' => intval($GLOBALS['browser']->isBrowser('msie') && ($GLOBALS['browser']->getMajor() < 7)),
     'limit_factor' => intval($GLOBALS['conf']['dimp']['viewport']['limit_factor']),
     'login_view' => $GLOBALS['prefs']->getValue('dimp_login_view'),
     'name' => $GLOBALS['registry']->get('name', 'dimp'),
