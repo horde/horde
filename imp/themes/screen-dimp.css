@@ -369,7 +369,7 @@ div.vpRow.flagDeleted {
 #myfolders {
     display: none;
 }
-#sidebarPanel .over a, #sidebarPanel li.folder:hover, #sidebarPanel li.custom:hover, #sidebarPanel li.servicelink:hover {
+#sidebarPanel .over a, #sidebarPanel li.folder[ftype=folder]:hover, #sidebarPanel li.custom:hover, #sidebarPanel li.servicelink:hover {
     font-weight: bold;
     text-decoration: underline;
 }
