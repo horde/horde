@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_RPC_PhpSoap class provides a PHP 5 Soap implementation
+ * The Horde_Rpc_Soap class provides a PHP 5 Soap implementation
  * of the Horde RPC system.
  *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
@@ -10,12 +10,12 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @since   Horde 3.2
- * @package Horde_RPC
+ * @package Horde_Rpc
  */
 class Horde_Rpc_Soap extends Horde_Rpc
 {
     /**
-     * Resource handler for the RPC server.
+     * Resource handler for the SOAP server.
      *
      * @var object
      */
@@ -51,7 +51,7 @@ class Horde_Rpc_Soap extends Horde_Rpc
     {
         NLS::setCharset('UTF-8');
 
-        parent::Horde_RPC($params);
+        parent::__construct($params);
 
         if (!empty($params['allowedTypes'])) {
             $this->_allowedTypes = $params['allowedTypes'];
@@ -65,11 +65,11 @@ class Horde_Rpc_Soap extends Horde_Rpc
 
         $this->_server = new SoapServer(null, array('uri' => Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/rpc.php', true, false)));
         $this->_server->addFunction(SOAP_FUNCTIONS_ALL);
-        $this->_server->setClass('Horde_RPC_PhpSoap_Caller', $params);
+        $this->_server->setClass('Horde_Rpc_Soap_Caller', $params);
     }
 
     /**
-     * Takes an RPC request and returns the result.
+     * Takes a SOAP request and returns the result.
      *
      * @param string  The raw request string.
      *
@@ -78,13 +78,9 @@ class Horde_Rpc_Soap extends Horde_Rpc
     function getResponse($request)
     {
         if ($request == 'disco' || $request == 'wsdl') {
-            /* TODO - replace PEAR here? For now fall back to the PEAR
-             * server. */
-            if (!class_exists('Horde_RPC_soap')) {
-                include dirname(__FILE__) . '/soap.php';
-            }
-            $handler = new Horde_RPC_soap($this->_params);
-            return $handler->getResponse($request);
+            /*@TODO Replace with subcalls for disco and wsdl generation from the old SOAP driver. */
+            //$handler = new Horde_Rpc_Soap($this->_params);
+            //return $handler->getResponse($request);
         }
 
         /* We can't use Horde_Util::bufferOutput() here for some reason. */
@@ -161,7 +157,7 @@ class Horde_Rpc_Soap extends Horde_Rpc
 
 }
 
-class Horde_RPC_PhpSoap_Caller {
+class Horde_Rpc_Soap_Caller {
 
     /**
      * List of method names to allow.

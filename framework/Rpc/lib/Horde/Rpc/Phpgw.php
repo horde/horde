@@ -1,18 +1,19 @@
 <?php
 /**
- * The Horde_RPC_phpgw class provides an XMLRPC implementation of the
+ * The Horde_Rpc_Phpgw class provides an XMLRPC implementation of the
  * Horde RPC system compatible with phpgw. It is based on the
  * xmlrpc.php implementation by Jan Schneider.
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Braun <mi.braun@onlinehome.de>
- * @since   Horde 3.2
- * @package Horde_RPC
+ * @author   Michael Braun <mi.braun@onlinehome.de>
+ * @since    Horde 3.2
+ * @category Horde
+ * @package  Horde_Rpc
  */
-class Horde_RPC_phpgw extends Horde_RPC {
-
+class Horde_Rpc_Phpgw extends Horde_Rpc
+{
     /**
      * Resource handler for the XML-RPC server.
      *
@@ -23,9 +24,9 @@ class Horde_RPC_phpgw extends Horde_RPC {
     /**
      * XMLRPC server constructor.
      */
-    function Horde_RPC_phpgw()
+    function __construct()
     {
-        parent::Horde_RPC();
+        parent::__construct();
 
         $this->_server = xmlrpc_server_create();
 
@@ -34,7 +35,7 @@ class Horde_RPC_phpgw extends Horde_RPC {
             $methods = explode('/', $method);
             array_shift($methods);
             $method = implode('.', $methods);
-            xmlrpc_server_register_method($this->_server, $method, array('Horde_RPC_phpgw', '_dispatcher'));
+            xmlrpc_server_register_method($this->_server, $method, array('Horde_Rpc_Phpgw', '_dispatcher'));
         }
     }
 
@@ -152,7 +153,6 @@ class Horde_RPC_phpgw extends Horde_RPC {
             $options = array_merge($options, $GLOBALS['conf']['http']['proxy']);
         }
 
-        require_once 'HTTP/Request.php';
         $http = new HTTP_Request($url, $options);
         if (!empty($language)) {
             $http->addHeader('Accept-Language', $language);

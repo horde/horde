@@ -1,16 +1,15 @@
 <?php
 /**
- * $Horde: framework/RPC/RPC/jsonrpc.php,v 1.9 2009/02/21 01:58:14 chuck Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Joey Hewitt <joey@joeyhewitt.com>
- * @author  Jan Schneider <jan@horde.org>
- * @since   Horde 3.2
- * @package Horde_RPC
+ * @author   Joey Hewitt <joey@joeyhewitt.com>
+ * @author   Jan Schneider <jan@horde.org>
+ * @since    Horde 3.2
+ * @category Horde
+ * @package  Horde_Rpc
  */
 
 /**
@@ -22,11 +21,12 @@
  *   works with positional parameters.
  * - Service Descriptions are not supported yet.
  *
- * @link http://json-rpc.org
- * @package Horde_RPC
+ * @link     http://json-rpc.org
+ * @category Horde
+ * @package  Horde_RPC
  */
-class Horde_RPC_jsonrpc extends Horde_RPC {
-
+class Horde_Rpc_Jsonrpc extends Horde_Rpc
+{
     /**
      * Returns the Content-Type of the response.
      *
@@ -165,7 +165,7 @@ class Horde_RPC_jsonrpc extends Horde_RPC {
             $options = array_merge($options, $GLOBALS['conf']['http']['proxy']);
         }
 
-        require_once 'HTTP/Request.php';
+        /*@TODO Use Horde_Http_Request */
         $http = new HTTP_Request($url, $options);
         if (!empty($language)) {
             $http->addHeader('Accept-Language', $language);

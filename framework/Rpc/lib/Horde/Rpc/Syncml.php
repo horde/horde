@@ -4,10 +4,8 @@ require_once 'SyncML.php';
 require_once 'SyncML/Backend.php';
 
 /**
- * The Horde_RPC_syncml class provides a SyncML implementation of the Horde
+ * The Horde_Rpc_Syncml class provides a SyncML implementation of the Horde
  * RPC system.
- *
- * $Horde: framework/RPC/RPC/syncml.php,v 1.45 2009/01/06 17:49:38 jan Exp $
  *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
@@ -17,11 +15,10 @@ require_once 'SyncML/Backend.php';
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Anthony Mills <amills@pyramid6.com>
  * @since   Horde 3.0
- * @package Horde_RPC
+ * @package Horde_Rpc
  */
-
-class Horde_RPC_syncml extends Horde_RPC {
-
+class Horde_Rpc_Syncml extends Horde_Rpc
+{
     /**
      * SyncML handles authentication internally, so bypass the RPC framework
      * auth check by just returning true here.

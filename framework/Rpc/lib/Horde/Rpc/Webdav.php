@@ -1,9 +1,7 @@
 <?php
 /**
- * The Horde_RPC_webdav class provides a WebDAV implementation of the
+ * The Horde_Rpc_Webdav class provides a WebDAV implementation of the
  * Horde RPC system.
- *
- * $Horde: framework/RPC/RPC/webdav.php,v 1.49 2009/03/05 04:20:33 slusarz Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -50,14 +48,10 @@
  * @author  Hartmut Holzgraefe
  * @author  Christian Stocker
  * @since   Horde 3.0
- * @package Horde_RPC
+ * @package Horde_Rpc
  */
-
-// Use Horde's Xml_Element to construct the DAV responses
-require_once 'Horde/Xml/Element.php';
-
-class Horde_RPC_webdav extends Horde_RPC {
-
+class Horde_Rpc_Webdav extends Horde_Rpc
+{
     /**
      * CalDAV XML namespace
      *
@@ -223,16 +217,16 @@ class Horde_RPC_webdav extends Horde_RPC {
      *
      * @access private
      */
-    function Horde_RPC_webdav()
+    public function __construct()
     {
         // PHP messages destroy XML output -> switch them off
-        ini_set("display_errors", 0);
+        ini_set('display_errors', 0);
 
         // copy $_SERVER variables to local _SERVER array
         // so that derived classes can simply modify these
         $this->_SERVER = $_SERVER;
 
-        parent::Horde_RPC();
+        parent::__construct();
     }
 
     /**
@@ -264,7 +258,6 @@ class Horde_RPC_webdav extends Horde_RPC {
         $this->ServeRequest();
         exit;
     }
-
 
     /**
      * GET implementation.
@@ -734,8 +727,7 @@ Horde::logMessage(print_r($list, true), __FILE__, __LINE__, PEAR_LOG_ERR);
             $timeout = 600;
         }
 
-        require_once 'Horde/Lock.php';
-        $locks = &Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
+        $locks = Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
         if (is_a($locks, 'PEAR_Error')) {
             Horde::logMessage($locks, __FILE__, __LINE__, PEAR_LOG_ERR);
             return 500;
@@ -780,8 +772,7 @@ Horde::logMessage(print_r($list, true), __FILE__, __LINE__, PEAR_LOG_ERR);
             return 500;
         }
 
-        require_once 'Horde/Lock.php';
-        $locks = &Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
+        $locks = Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
         if (is_a($locks, 'PEAR_Error')) {
             Horde::logMessage($locks, __FILE__, __LINE__, PEAR_LOG_ERR);
             return 500;
@@ -810,8 +801,7 @@ Horde::logMessage(print_r($list, true), __FILE__, __LINE__, PEAR_LOG_ERR);
             return false;
         }
 
-        require_once 'Horde/Lock.php';
-        $locks = &Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
+        $locks = Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
         if (is_a($locks, 'PEAR_Error')) {
             Horde::logMessage($locks, __FILE__, __LINE__, PEAR_LOG_ERR);
             return false;

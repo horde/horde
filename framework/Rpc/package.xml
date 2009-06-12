@@ -6,7 +6,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <name>Rpc</name>
  <channel>pear.horde.org</channel>
  <summary>Horde RPC API</summary>
- <description>The Horde_RPC:: class provides a common abstracted interface to
+ <description>The Horde_Rpc:: class provides a common abstracted interface to
 various remote methods of accessing Horde functionality.
  </description>
  <lead>
@@ -42,6 +42,7 @@ various remote methods of accessing Horde functionality.
       <dir name="Syncml">
        <file name="Wbxml.php" role="php" />
       </dir> <!-- /lib/Horde/Rpc/Syncml -->
+      <file name="Exception.php" role="php" />
       <file name="Jsonrpc.php" role="php" />
       <file name="Phpgw.php" role="php" />
       <file name="Soap.php" role="php" />
@@ -77,30 +78,15 @@ various remote methods of accessing Horde functionality.
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Rpc/Syncml/Wbxml.php" as="Horde/Rpc/Syncml/Wbxml.php" />
+   <install name="lib/Horde/Rpc/Exception.php" as="Horde/Rpc/Exception.php" />
    <install name="lib/Horde/Rpc/Jsonrpc.php" as="Horde/Rpc/Jsonrpc.php" />
    <install name="lib/Horde/Rpc/Phpgw.php" as="Horde/Rpc/Phpgw.php" />
    <install name="lib/Horde/Rpc/Soap.php" as="Horde/Rpc/Soap.php" />
+   <install name="lib/Horde/Rpc/Syncml/Wbxml.php" as="Horde/Rpc/Syncml/Wbxml.php" />
    <install name="lib/Horde/Rpc/Syncml.php" as="Horde/Rpc/Syncml.php" />
    <install name="lib/Horde/Rpc/Webdav.php" as="Horde/Rpc/Webdav.php" />
    <install name="lib/Horde/Rpc/Xmlrpc.php" as="Horde/Rpc/Xmlrpc.php" />
    <install name="lib/Horde/Rpc.php" as="Horde/Rpc.php" />
   </filelist>
  </phprelease>
- <changelog>
-  <release>
-   <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2003-11-25</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial release as a Horde package
-   </notes>
-  </release>
- </changelog>
 </package>

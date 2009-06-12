@@ -1,9 +1,7 @@
 <?php
 /**
- * The Horde_RPC_xmlrpc class provides an XMLRPC implementation of the
+ * The Horde_Rpc_xmlrpc class provides an XMLRPC implementation of the
  * Horde RPC system.
- *
- * $Horde: framework/RPC/RPC/xmlrpc.php,v 1.24 2009/01/06 17:49:38 jan Exp $
  *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
@@ -12,10 +10,10 @@
  *
  * @author  Jan Schneider <jan@horde.org>
  * @since   Horde 3.0
- * @package Horde_RPC
+ * @package Horde_Rpc
  */
-class Horde_RPC_xmlrpc extends Horde_RPC {
-
+class Horde_Rpc_Xmlrpc extends Horde_Rpc
+{
     /**
      * Resource handler for the XMLRPC server.
      *
@@ -28,14 +26,14 @@ class Horde_RPC_xmlrpc extends Horde_RPC {
      *
      * @access private
      */
-    function Horde_RPC_xmlrpc()
+    public function __construct()
     {
-        parent::Horde_RPC();
+        parent::__construct();
 
         $this->_server = xmlrpc_server_create();
 
         foreach ($GLOBALS['registry']->listMethods() as $method) {
-            xmlrpc_server_register_method($this->_server, str_replace('/', '.', $method), array('Horde_RPC_xmlrpc', '_dispatcher'));
+            xmlrpc_server_register_method($this->_server, str_replace('/', '.', $method), array('Horde_Rpc_Xmlrpc', '_dispatcher'));
         }
     }
 
@@ -122,7 +120,7 @@ class Horde_RPC_xmlrpc extends Horde_RPC {
             $options = array_merge($options, $GLOBALS['conf']['http']['proxy']);
         }
 
-        require_once 'HTTP/Request.php';
+        /*@TODO Use Horde_Http_Request */
         $http = new HTTP_Request($url, $options);
         if (!empty($language)) {
             $http->addHeader('Accept-Language', $language);

@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_RPC:: class provides a set of server and client methods for
+ * The Horde_Rpc:: class provides a set of server and client methods for
  * RPC communication.
  *
  * TODO:
@@ -8,7 +8,7 @@
  *
  * EXAMPLE:
  * <code>
- * $response = Horde_RPC::request('xmlrpc',
+ * $response = Horde_Rpc::request('xmlrpc',
  *                                'http://localhost:80/horde/rpc.php',
  *                                'contacts.search',
  *                                array(array('jan'), array('localsql'),
@@ -17,8 +17,6 @@
  *                                      'pass' => Auth::getCredential('password')));
  * </code>
  *
- * $Horde: framework/RPC/RPC.php,v 1.30 2009/01/06 17:49:37 jan Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -26,10 +24,10 @@
  *
  * @author  Jan Schneider <jan@horde.org>
  * @since   Horde 3.0
- * @package Horde_RPC
+ * @package Horde_Rpc
  */
-class Horde_RPC {
-
+class Horde_Rpc
+{
     /**
      * All driver-specific parameters.
      *
@@ -58,9 +56,9 @@ class Horde_RPC {
      * @param array $config  A hash containing any additional configuration or
      *                       connection parameters a subclass might need.
      *
-     * @return Horde_RPC  An RPC server instance.
+     * @return Horde_Rpc  An RPC server instance.
      */
-    function Horde_RPC($params = array())
+    public function __construct($params = array())
     {
         $this->_params = $params;
 
@@ -173,19 +171,14 @@ class Horde_RPC {
      * @return mixed            The returned result from the method or a PEAR
      *                          error object on failure.
      */
-    function request($driver, $url, $method, $params = null, $options = array())
+    public static function request($driver, $url, $method, $params = null, $options = array())
     {
         $driver = basename($driver);
-        $class = 'Horde_RPC_' . $driver;
-        if (!class_exists($class)) {
-            include 'Horde/RPC/' . $driver . '.php';
-        }
-
+        $class = 'Horde_Rpc_' . $driver;
         if (class_exists($class)) {
             return call_user_func(array($class, 'request'), $url, $method, $params, $options);
         } else {
-            include_once 'PEAR.php';
-            return PEAR::raiseError('Class definition of ' . $class . ' not found.');
+            throw new Horde_Rpc_Exception('Class definition of ' . $class . ' not found.');
         }
     }
 
@@ -193,33 +186,21 @@ class Horde_RPC {
      * Attempts to return a concrete RPC server instance based on
      * $driver.
      *
-     * @param mixed $driver  The type of concrete RPC subclass to return. If
-     *                       $driver is an array, then we will look in
-     *                       $driver[0]/lib/RPC/ for the subclass
-     *                       implementation named $driver[1].php.
+     * @param mixed $driver  The type of concrete Horde_Rpc subclass to return.
      * @param array $params  A hash containing any additional configuration or
      *                       connection parameters a subclass might need.
      *
-     * @return Horde_RPC  The newly created concrete Horde_RPC server instance,
-     *                    or PEAR_Error on error.
+     * @return Horde_Rpc  The newly created concrete Horde_Rpc server instance,
+     *                    or an exception if there is an error.
      */
-    function factory($driver, $params = null)
+    public static function factory($driver, $params = null)
     {
         $driver = basename($driver);
-        if ($driver == 'soap' && class_exists('SoapServer')) {
-            $driver = 'PhpSoap';
-        }
-
-        $class = 'Horde_RPC_' . $driver;
-        if (!class_exists($class)) {
-            include 'Horde/RPC/' . $driver . '.php';
-        }
-
+        $class = 'Horde_Rpc_' . $driver;
         if (class_exists($class)) {
             return new $class($params);
         } else {
-            include_once 'PEAR.php';
-            return PEAR::raiseError('Class definition of ' . $class . ' not found.');
+            throw new Horde_Rpc_Exception('Class definition of ' . $class . ' not found.');
         }
     }
 
