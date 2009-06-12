@@ -4,6 +4,7 @@ $hordeimg = $registry->getImageDir('horde');
 
 $usetrash = $prefs->getValue('use_trash');
 $show_text = in_array($prefs->getValue('menu_view'), array('both', 'text'));
+$use_sub = $prefs->getValue('subscribe');
 $loading_text = _("Loading...");
 
 $has_blacklist = $registry->hasMethod('mail/blacklistFrom');
@@ -337,8 +338,10 @@ function _simpleButton($id, $text, $image, $imagedir = null)
  <a id="ctx_folder_unseen" class="sep"><span class="contextImg"></span><?php echo _("Mark all as New") ?></a>
  <a id="ctx_folder_poll"><span class="contextImg"></span><?php echo _("Check for New Mail") ?></a>
  <a id="ctx_folder_nopoll"><span class="contextImg"></span><?php echo _("Do Not Check for New Mail") ?></a>
+<?php if ($use_sub): ?>
  <a id="ctx_folder_sub"><span class="contextImg"></span><?php echo _("Subscribe") ?></a>
  <a id="ctx_folder_unsub"><span class="contextImg"></span><?php echo _("Unsubscribe") ?></a>
+<?php endif; ?>
 </div>
 
 <div class="context" id="ctx_container" style="display:none">
@@ -391,7 +394,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 
 <div class="context" id="ctx_otheractions" style="display:none">
  <a id="previewtoggle" class="sep"><span class="contextImg"></span><?php echo ($prefs->getValue('dimp_show_preview') ? _("Hide Preview") : _("Show Preview")); ?></a>
-<?php if ($conf['user']['allow_folders']): ?>
+<?php if ($conf['user']['allow_folders'] && $use_sub): ?>
  <a id="mboxsubtoggle" class="sep"><span class="contextImg"></span><?php echo _("Show Unsubscribed") ?></a>
 <?php endif; ?>
 <?php if (!empty($flag_list)): ?>

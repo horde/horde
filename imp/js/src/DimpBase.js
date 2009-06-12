@@ -761,11 +761,15 @@ var DimpBase = {
 
             if (baseelt.readAttribute('mbox') == 'INBOX') {
                 elts.invoke('hide');
-                $('ctx_folder_sub', 'ctx_folder_unsub').invoke('hide');
+                if ($('ctx_folder_sub')) {
+                    $('ctx_folder_sub', 'ctx_folder_unsub').invoke('hide');
+                }
             } else {
-                tmp = baseelt.hasClassName('unsubFolder');
-                [ $('ctx_folder_sub') ].invoke(tmp ? 'show' : 'hide');
-                [ $('ctx_folder_unsub') ].invoke(tmp ? 'hide' : 'show');
+                if ($('ctx_folder_sub')) {
+                    tmp = baseelt.hasClassName('unsubFolder');
+                    [ $('ctx_folder_sub') ].invoke(tmp ? 'show' : 'hide');
+                    [ $('ctx_folder_unsub') ].invoke(tmp ? 'hide' : 'show');
+                }
 
                 if (DIMP.conf.fixed_folders &&
                     DIMP.conf.fixed_folders.indexOf(baseelt.readAttribute('mbox')) != -1) {
