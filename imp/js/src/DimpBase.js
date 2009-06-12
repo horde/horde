@@ -325,12 +325,6 @@ var DimpBase = {
 
         iframe = new Element('IFRAME', { id: 'iframe' + name, className: 'iframe', frameBorder: 0, src: loc });
         this._resizeIE6Iframe(iframe);
-
-        // Hide menu in prefs pages.
-        if (name == 'options') {
-            iframe.observe('load', function() { $('iframeoptions').contentWindow.document.getElementById('menu').style.display = 'none'; });
-        }
-
         container.insert(iframe);
     },
 

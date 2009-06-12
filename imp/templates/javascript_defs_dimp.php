@@ -48,7 +48,7 @@ $code['conf'] = array_filter(array(
     'URI_DIMP' => Horde::applicationUrl('index-dimp.php', true, -1),
     'URI_MESSAGE' => Horde::applicationUrl('message-dimp.php'),
     'URI_PREFS' => Horde::url($horde_webroot . '/services/prefs/', true, -1),
-    'URI_PREFS_IMP' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'imp')),
+    'URI_PREFS_IMP' => str_replace('&amp;', '&', Horde_Util::addParameter(Horde::getServiceLink('options', 'imp'), array('nomenu' => 1))),
     'URI_TIMEOUT' => Auth::addLogoutParameters($horde_webroot . '/login.php', AUTH_REASON_SESSION),
     'URI_VIEW' => Horde::applicationUrl('view.php', true, -1),
 
