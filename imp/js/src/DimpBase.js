@@ -547,6 +547,17 @@ var DimpBase = {
                 if (this.folderswitch) {
                     this.folderswitch = false;
 
+                    tmp = $('applyfilterlink');
+                    if (tmp) {
+                        if (this.isSearch() ||
+                            (!DIMP.conf.filter_any &&
+                             this.folder.toUpperCase() != 'INBOX')) {
+                            tmp.hide();
+                        } else {
+                            tmp.show();
+                        }
+                    }
+
                     if (this.folder == DIMP.conf.spam_mbox) {
                         if (!DIMP.conf.spam_spammbox && $('button_spam')) {
                             [ $('button_spam').up(), $('ctx_message_spam') ].invoke('hide');
@@ -1552,6 +1563,13 @@ var DimpBase = {
 
             case 'fetchmaillink':
                 IMPDialog.display({ dialog_load: DIMP.conf.URI_AJAX + '/FetchmailDialog' });
+                e.stop();
+                return;
+
+            case 'applyfilterlink':
+                if (this.viewport) {
+                    this.viewport.reload({ applyfilter: 1 });
+                }
                 e.stop();
                 return;
 

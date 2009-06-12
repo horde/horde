@@ -15,7 +15,7 @@ class IMP_Views_ListMessages
     /**
      * Returns a list of messages for use with ViewPort.
      *
-     * @var array $args  TODO
+     * @var array $args  TODO (applyfilter)
      *
      * @return array  TODO
      */
@@ -45,8 +45,9 @@ class IMP_Views_ListMessages
 
         /* Run filters now. */
         if (!empty($_SESSION['imp']['filteravail']) &&
-            ($mbox == 'INBOX') &&
-            $GLOBALS['prefs']->getValue('filter_on_display')) {
+            !empty($args['applyfilter']) ||
+            (($mbox == 'INBOX') &&
+             $GLOBALS['prefs']->getValue('filter_on_display'))) {
             $imp_filter = new IMP_Filter();
             $imp_filter->filter($mbox);
         }

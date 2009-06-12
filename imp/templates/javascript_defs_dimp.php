@@ -61,6 +61,7 @@ $code['conf'] = array_filter(array(
     'buffer_pages' => intval($GLOBALS['conf']['dimp']['viewport']['buffer_pages']),
     'debug' => intval(!empty($GLOBALS['conf']['dimp']['js']['debug'])),
     'disable_compose' => intval(!empty($GLOBALS['conf']['hooks']['disable_compose']) && Horde::callHook('_imp_hook_disable_compose', array(), 'imp')),
+    'filter_any' => intval($GLOBALS['prefs']->getValue('filter_any_mailbox')),
     'fixed_folders' => empty($GLOBALS['conf']['server']['fixed_folders'])
         ? array()
         : array_map(array('DIMP', '_appendedFolderPref'), $GLOBALS['conf']['server']['fixed_folders']),

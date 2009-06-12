@@ -67,6 +67,7 @@ function _changed($mbox, $compare, $rw = null)
 function _getListMessages($mbox, $change)
 {
     $args = array(
+        'applyfilter' => Horde_Util::getPost('applyfilter'),
         'cached' => Horde_Util::getPost('cached'),
         'cacheid' => Horde_Util::getPost('cacheid'),
         'mbox' => $mbox,

@@ -64,6 +64,9 @@ function _simpleButton($id, $text, $image, $imagedir = null)
     <?php echo _simpleButton('fetchmaillink', _("_Fetch Mail"), 'fetchmail.png') ?>
 <?php endif; ?>
     <?php echo _simpleButton('alertsloglink', _("Alerts _Log"), 'info_icon.png', $hordeimg) ?>
+<?php if (!empty($_SESSION['imp']['filteravail'])): ?>
+    <?php echo _simpleButton('applyfilterlink', _("Apply Filter"), 'filters.png') ?>
+<?php endif; ?>
    </ul>
    <div class="sepfull" style="width:<?php echo $sidebar_width ?>"></div>
    <ul id="serviceActions">
