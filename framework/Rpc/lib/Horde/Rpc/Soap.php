@@ -3,8 +3,6 @@
  * The Horde_RPC_PhpSoap class provides a PHP 5 Soap implementation
  * of the Horde RPC system.
  *
- * $Horde: framework/RPC/RPC/PhpSoap.php,v 1.2 2009/01/06 17:49:38 jan Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -14,8 +12,8 @@
  * @since   Horde 3.2
  * @package Horde_RPC
  */
-class Horde_RPC_PhpSoap extends Horde_RPC {
-
+class Horde_Rpc_Soap extends Horde_Rpc
+{
     /**
      * Resource handler for the RPC server.
      *
@@ -51,6 +49,8 @@ class Horde_RPC_PhpSoap extends Horde_RPC {
      */
     public function __construct($params = array())
     {
+        NLS::setCharset('UTF-8');
+
         parent::Horde_RPC($params);
 
         if (!empty($params['allowedTypes'])) {
@@ -143,6 +143,14 @@ class Horde_RPC_PhpSoap extends Horde_RPC {
         if (!isset($options['allowRedirects'])) {
             $options['allowRedirects'] = true;
             $options['maxRedirects']   = 3;
+        }
+        if (isset($options['user'])) {
+            $options['login'] = $options['user'];
+            unset($options['user']);
+        }
+        if (isset($options['pass'])) {
+            $options['password'] = $options['pass'];
+            unset($options['pass']);
         }
         $options['location'] = $url;
         $options['uri'] = $options['namespace'];
