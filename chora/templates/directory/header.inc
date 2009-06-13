@@ -7,8 +7,8 @@
     <?php echo Chora::formInputs() ?>
     <input type="hidden" name="f" value="<?php echo htmlspecialchars(Horde_Util::getFormData('f')) ?>" />
     <select name="rev" onchange="this.form.submit()">
-<?php foreach (array_map('htmlspecialchars', $branches) as $val): ?>
-     <option value="<?php echo $val ?>"<?php echo ($val == $rev) ? ' selected="selected"' : '' ?>><?php echo $val ?></option>
+<?php foreach ($branches as $branch): ?>
+     <option value="<?php echo htmlspecialchars($branch) ?>"<?php echo ($branch == $rev) ? ' selected="selected"' : '' ?>><?php echo htmlspecialchars($branch) ?></option>
 <?php endforeach; ?>
     </select>
     <noscript><input class="button" type="submit" value="<?php echo _("View") ?>" /></noscript>
