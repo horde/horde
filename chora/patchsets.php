@@ -67,7 +67,7 @@ while (list($id, $patchset) = each($patchsets)) {
 
         $file['file'] = Horde::link(Chora::url('patchsets', $member['file'])) . htmlspecialchars($member['file']) . '</a>';
 
-        if ($member['from'] == 'INITIAL') {
+        if ($member['from'] == Horde_Vcs_Patchset::INITIAL) {
             $file['from'] = '<ins>' . _("New File") . '</ins>';
             $file['diff'] = '';
         } else {
@@ -75,7 +75,7 @@ while (list($id, $patchset) = each($patchsets)) {
             $file['diff'] = Horde::link(Chora::url('diff', $member['file'], array('r1' => $member['from'], 'r2' => $member['to']))) . ' ' . $diff_img . '</a>';
         }
 
-        if (substr($member['to'], -6) == '(DEAD)') {
+        if ($member['from'] == Horde_Vcs_Patchset::DEAD) {
             $file['to'] = '<del>' . _("Deleted") . '</del>';
             $file['diff'] = '';
         } else {
