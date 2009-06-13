@@ -65,8 +65,22 @@ class Horde_Vcs_Git extends Horde_Vcs
     {
         parent::__construct($params);
 
+        if (!is_executable($this->getPath('git'))) {
+            throw new Horde_Vcs_Exception('Missing git binary (' . $this->getPath('git') . ' is missing or not executable)');
+        }
+
         $v = trim(shell_exec($this->getPath('git') . ' --version'));
         $this->version = preg_replace('/[^\d\.]/', '', $v);
+
+        // Try to find the repository if we don't have the exact path. @TODO put
+        // this into a builder method/object and cache the results.
+        if (!file_exists($this->sourceroot() . '/HEAD')) {
+            if (file_exists($this->sourceroot() . '.git/HEAD')) {
+                $this->_sourceroot .= '.git';
+            } elseif (file_exists($this->sourceroot() . '/.git/HEAD')) {
+                $this->_sourceroot .= '/.git';
+            }
+        }
     }
 
     /**
