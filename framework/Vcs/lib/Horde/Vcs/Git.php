@@ -349,6 +349,14 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
         return array_keys($this->_rep->getBranchList());
     }
 
+    /**
+     * @TODO ?
+     */
+    public function getDefaultBranch()
+    {
+        return 'master';
+    }
+
 }
 
 /**

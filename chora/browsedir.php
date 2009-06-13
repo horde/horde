@@ -55,8 +55,12 @@ foreach ($umap as $key => $val) {
     $url[$key] = Chora::url('browsedir', $where . '/', $arg);
 }
 
+$branches = array();
 if ($VC->hasFeature('branches')) {
     $branches = $dir->getBranches();
+    if ($rev === null) {
+        $rev = $dir->getDefaultBranch();
+    }
 }
 
 /* Print out the directory header. */
