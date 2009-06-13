@@ -19,10 +19,6 @@ if ($atdir) {
     exit;
 }
 
-if (!$VC->isFile($fullname)) {
-    Chora::fatal(sprintf(_("$fullname: no such file or directory"), $where), '404 Not Found');
-}
-
 $onb = Horde_Util::getFormData('onb');
 try {
     $fl = $VC->getFileObject($where, array('branch' => $onb));

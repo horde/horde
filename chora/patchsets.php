@@ -21,10 +21,6 @@ if (!$GLOBALS['VC']->hasFeature('patchsets')) {
     exit;
 }
 
-if (!$VC->isFile($fullname)) {
-    Chora::fatal(sprintf(_("%s: no such file or directory"), $where), '404 Not Found');
-}
-
 $ps_opts = array();
 if ($ps_id = Horde_Util::getFormData('ps')) {
     $ps_opts['range'] = array($ps_id);
