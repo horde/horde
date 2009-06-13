@@ -8,6 +8,8 @@
  * 'paths': Hash with the locations of all necessary binaries: 'git'
  * </pre>
  *
+ * @TODO find bad output earlier - use proc_open, check stderr or result codes?
+ *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
