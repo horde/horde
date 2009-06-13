@@ -28,7 +28,7 @@ class Text_Wiki_Render_Tiki_Wikilink extends Text_Wiki_Render {
         } else {
             return '(('.$options['page'].
                 (strlen($options['anchor']) ? '#'.$options['anchor'] : '').
-                (strlen($options['text']) && /*$options['page'] != $options['text']*/ ? '|' . $options['text'] : '').
+                (strlen($options['text']) /*&& $options['page'] != $options['text']*/ ? '|' . $options['text'] : '').
                 '))';
         }
     }
