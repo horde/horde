@@ -80,10 +80,12 @@ class Horde_Vcs_Git extends Horde_Vcs
     /**
      * TODO
      */
-    public function isFile($where)
+    public function isFile($where, $branch = null)
     {
+        if (!$branch) { $branch = 'master'; }
+
         $where = str_replace($this->sourceroot() . '/', '', $where);
-        $command = $this->getCommand() . ' ls-tree master ' . escapeshellarg($where) . ' 2>&1';
+        $command = $this->getCommand() . ' ls-tree ' . escapeshellarg($branch) . ' ' . escapeshellarg($where) . ' 2>&1';
         exec($command, $entry, $retval);
 
         if (!count($entry)) { return false; }
@@ -406,6 +408,13 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
         }
 
         exec($cmd, $revs);
+        if (count($revs) == 0) {
+            if (!$rep->isFile($fl, isset($opts['branch']) ? $opts['branch'] : null)) {
+                throw new Horde_Vcs_Exception('No such file: ' . $fl);
+            } else {
+                throw new Horde_Vcs_Exception('No revisions found');
+            }
+        }
         if (stripos($revs[0], 'fatal') === 0) {
             throw new Horde_Vcs_Exception(implode(', ', $revs));
         }
