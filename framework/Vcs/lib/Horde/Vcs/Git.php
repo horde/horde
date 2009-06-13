@@ -757,8 +757,6 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset
                 'members' => array()
             );
 
-            $ps = &$this->_patchsets[$rev];
-
             foreach ($log->queryFiles() as $file) {
                 $to = $rev;
                 $status = 0;
@@ -779,7 +777,7 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset
                     break;
                 }
 
-                $ps['members'][] = array(
+                $this->_patchsets[$rev]['members'][] = array(
                     'file' => $file['srcPath'],
                     'from' => $from,
                     'status' => $status,
