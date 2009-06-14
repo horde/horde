@@ -17,7 +17,11 @@ class Text_Wiki_Render_Tiki_Paragraph extends Text_Wiki_Render {
     
     function token($options)
     {
-        return '';
+        if ($options['type'] == 'start') {
+            return "";
+        } else {
+            return "\n\n";
+        }
     }
 }
 ?>
