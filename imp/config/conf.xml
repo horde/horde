@@ -348,7 +348,7 @@
    hooks.php.dist.">false</configboolean>
    <configboolean name="signature" required="false" desc="Should we use a
    custom signature hook? If so, make sure you define _imp_hook_signature() in
-   hooks.php. The hook will be used to set $_SESSION['imp']['user'] when
+   hooks.php. The hook will be used to dyncamically set the signature when
    composing a message. There is an example in
    hooks.php.dist.">false</configboolean>
    <configboolean name="trailer" required="false" desc="Should we use a custom
