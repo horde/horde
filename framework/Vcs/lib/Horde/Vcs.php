@@ -1164,8 +1164,9 @@ abstract class Horde_Vcs_Log
  */
 abstract class Horde_Vcs_Patchset
 {
-    const INITIAL = 1;
-    const DEAD = 2;
+    const MODIFIED = 0;
+    const ADDED = 1;
+    const DELETED = 2;
 
     /**
      * @var array

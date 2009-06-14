@@ -766,18 +766,18 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset
 
             foreach ($log->queryFiles() as $file) {
                 $to = $rev;
-                $status = 0;
+                $status = self::MODIFIED;
 
                 switch ($file['status']) {
                 case 'A':
                     $from = null;
-                    $status = self::INITIAL;
+                    $status = self::ADDED;
                     break;
 
                 case 'D':
                     $from = $to;
                     $to = null;
-                    $status = self::DEAD;
+                    $status = self::DELETED;
                     break;
 
                 default:
