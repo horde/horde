@@ -19,7 +19,7 @@ class Text_Wiki_Render_Tiki_Url extends Text_Wiki_Render {
     function token($options)
     {
         if ($options['type'] == 'start') {
-            if (! strlen($options['text']) || $options['page'] == $options['text']) {
+            if (! strlen($options['text']) || $options['href'] == $options['text']) {
                 return '['.$options['href'];
             } else {
                 return '['.$options['href'].'|';
@@ -29,7 +29,7 @@ class Text_Wiki_Render_Tiki_Url extends Text_Wiki_Render {
             return ']';
         }
         else {
-            if (! strlen($options['text']) || $options['page'] == $options['text']) {
+            if (! strlen($options['text']) || $options['href'] == $options['text']) {
                 return '['.$options['href'].']';
             } else {
                 return '['.$options['href'].'|'.$options['text'].']';
