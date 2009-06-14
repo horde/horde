@@ -192,8 +192,12 @@ class Horde_Vcs_Git extends Horde_Vcs
         $this->assertValidRevision($rev);
 
         $file_ob = $this->getFileObject($file);
+        $hash = $file_ob->getHashForRevision($rev);
+        if ($hash == '0000000000000000000000000000000000000000') {
+            throw new Horde_Vcs_Exception($file . ' is deleted in commit ' . $rev);
+        }
 
-        if ($pipe = popen($this->getCommand() . ' cat-file blob ' . $file_ob->getHashForRevision($rev) . ' 2>&1', VC_WINDOWS ? 'rb' : 'r')) {
+        if ($pipe = popen($this->getCommand() . ' cat-file blob ' . $hash . ' 2>&1', VC_WINDOWS ? 'rb' : 'r')) {
             return $pipe;
         }
 
@@ -478,6 +482,9 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
      */
     public function getHashForRevision($rev)
     {
+        if (!isset($this->_logs[$rev])) {
+            throw new Horde_Vcs_Exception('This file doesn\'t exist at that revision');
+        }
         return $this->_logs[$rev]->getHashForPath($this->queryModulePath());
     }
 
@@ -754,7 +761,7 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset
                 'branches' => $log->queryBranch(),
                 'tags' => $log->queryTags(),
                 'log' => $log->queryLog(),
-                'members' => array()
+                'members' => array(),
             );
 
             foreach ($log->queryFiles() as $file) {
@@ -769,19 +776,19 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset
 
                 case 'D':
                     $from = $to;
-                    $to = self::DEAD;
+                    $to = null;
+                    $status = self::DEAD;
                     break;
 
                 default:
                     $from = $log->queryParent();
-                    break;
                 }
 
                 $this->_patchsets[$rev]['members'][] = array(
                     'file' => $file['srcPath'],
                     'from' => $from,
                     'status' => $status,
-                    'to' => $to
+                    'to' => $to,
                 );
             }
         }
