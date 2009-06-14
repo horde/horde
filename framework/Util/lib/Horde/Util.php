@@ -476,17 +476,17 @@ class Horde_Util
      */
     static public function getTempDir()
     {
-        /* First, try PHP's upload_tmp_dir directive. */
+        // First, try PHP's upload_tmp_dir directive.
         $tmp = ini_get('upload_tmp_dir');
 
-        /* Otherwise, try to determine the TMPDIR environment
-         * variable. */
+        // Otherwise, try to determine the TMPDIR environment
+        // variable.
         if (empty($tmp)) {
             $tmp = getenv('TMPDIR');
         }
 
-        /* If we still cannot determine a value, then cycle through a
-         * list of preset possibilities. */
+        // If we still cannot determine a value, then cycle through a
+        // list of preset possibilities.
         $tmp_locations = array('/tmp', '/var/tmp', 'c:\WUTemp', 'c:\temp',
                                'c:\windows\temp', 'c:\winnt\temp');
         while (empty($tmp) && count($tmp_locations)) {
@@ -496,49 +496,112 @@ class Horde_Util
             }
         }
 
-        /* If it is still empty, we have failed, so return false;
-         * otherwise return the directory determined. */
+        // If it is still empty, we have failed, so return false;
+        // otherwise return the directory determined.
         return empty($tmp) ? false : $tmp;
     }
 
     /**
      * Creates a temporary filename for the lifetime of the script, and
-     * (optionally) register it to be deleted at request shutdown.
+     * (optionally) registers it to be deleted at request shutdown.
      *
      * @param string $prefix   Prefix to make the temporary name more
      *                         recognizable.
      * @param boolean $delete  Delete the file at the end of the request?
      * @param string $dir      Directory to create the temporary file in.
-     * @param boolean $secure  If deleting file, should we securely delete the
-     *                         file?
+     * @param boolean $secureDelete  If deleting the file, should we securely delete the
+     *                               file by overwriting it with random data?
      *
      * @return string   Returns the full path-name to the temporary file.
      *                  Returns false if a temp file could not be created.
      */
     static public function getTempFile($prefix = '', $delete = true, $dir = '',
-                                       $secure = false)
+                                       $secureDelete = false)
     {
-        $tmp_dir = (empty($dir) || !is_dir($dir))
+        $tempDir = (empty($dir) || !is_dir($dir))
             ? self::getTempDir()
             : $dir;
 
-        if (empty($tmp_dir)) {
+        if (empty($tempDir)) {
             return false;
         }
 
-        $tmp_file = tempnam($tmp_dir, $prefix);
+        $tempFile = tempnam($tempDir, $prefix);
 
-        /* If the file was created, then register it for deletion and
-         * return. */
-        if (empty($tmp_file)) {
+        // If the file was created, then register it for deletion and return.
+        if (empty($tempFile)) {
             return false;
         }
 
         if ($delete) {
-            self::deleteAtShutdown($tmp_file, true, $secure);
+            self::deleteAtShutdown($tempFile, true, $secureDelete);
+        }
+        return $tempFile;
+    }
+
+    /**
+     * Creates a temporary filename with a specific extension for the lifetime
+     * of the script, and (optionally) registers it to be deleted at request
+     * shutdown.
+     *
+     * @param string $extension      The file extension to use.
+     * @param string $prefix         Prefix to make the temporary name more
+     *                               recognizable.
+     * @param boolean $delete        Delete the file at the end of the request?
+     * @param string $dir            Directory to create the temporary file in.
+     * @param boolean $secureDelete  If deleting file, should we securely delete the
+     *                               file by overwriting it with random data?
+     *
+     * @return string   Returns the full path-name to the temporary file.
+     *                  Returns false if a temporary file could not be created.
+     */
+    static public function getTempFileWithExtension($extension = '.tmp', $prefix = '', $delete = true, $dir = '',
+                                                    $secureDelete = false)
+    {
+        $tempDir = (empty($dir) || !is_dir($dir))
+            ? self::getTempDir()
+            : $dir;
+
+        if (empty($tempDir)) {
+            return false;
         }
 
-        return $tmp_file;
+        $windows = substr(PHP_OS, 0, 3) == 'WIN';
+        $tries = 1;
+        do {
+            // Get a known, unique temporary file name.
+            $sysFileName = tempnam($tempDir, $prefix);
+            if ($sysFileName === false) {
+                return false;
+            }
+
+            // tack on the extension
+            $tmpFileName = $sysFileName . $extension;
+            if ($sysFileName == $tmpFileName) {
+                return $sysFileName;
+            }
+
+            // Move or point the created temporary file to the full filename
+            // with extension. These calls fail if the new name already
+            // exists.
+            $fileCreated = ($windows ? @rename($sysFileName, $tmpFileName) : @link($sysFileName, $tmpFileName));
+            if ($fileCreated) {
+                if (!$windows) {
+                    unlink($sysFileName);
+                }
+
+                if ($delete) {
+                    self::deleteAtShutdown($tmpFileName, true, $secureDelete);
+                }
+
+                return $tmpFileName;
+            }
+
+            unlink($sysFileName);
+            $tries++;
+        } while ($tries <= 5);
+
+        return false;
     }
 
     /**
