@@ -638,17 +638,20 @@ var ViewPort = Class.create({
             this.opts.onCacheUpdate(r.view);
         }
 
-        if (r.request_id == this.active_req) {
+        if (r.request_id &&
+            r.request_id == this.active_req) {
             this.active_req = null;
             offset = buffer.getMetaData('req_offset');
             buffer.setMetaData({ req_offset: undefined });
 
-            // TODO: Flag for no _fetchBuffer()?
-            this._updateContent(Object.isUndefined(offset) ? (r.rownum ? Number(r.rownum) - 1 : this.currentOffset()) : offset);
-
             if (this.opts.onEndFetch) {
                 this.opts.onEndFetch();
             }
+        }
+
+        // TODO: Flag for no _fetchBuffer()?
+        if (this.view == r.view) {
+            this._updateContent(Object.isUndefined(offset) ? (r.rownum ? Number(r.rownum) - 1 : this.currentOffset()) : offset);
         }
 
         this.isbusy = false;
