@@ -147,7 +147,7 @@ class Horde_Rpc_Jsonrpc extends Horde_Rpc
      * @return mixed  The returned result from the method or a PEAR_Error on
      *                failure.
      */
-    function request($url, $method, $params = null, $options = array())
+    public static function request($url, $method, $params = null, $options = array())
     {
         $options['method'] = 'POST';
         $language = isset($GLOBALS['language']) ? $GLOBALS['language'] :

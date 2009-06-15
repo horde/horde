@@ -136,7 +136,7 @@ class Horde_Rpc_Phpgw extends Horde_Rpc
      * @return mixed            The returned result from the method or a PEAR
      *                          error object on failure.
      */
-    function request($url, $method, $params = null, $options = array())
+    public static function request($url, $method, $params = null, $options = array())
     {
         $options['method'] = 'POST';
         $language = isset($GLOBALS['language']) ? $GLOBALS['language'] :

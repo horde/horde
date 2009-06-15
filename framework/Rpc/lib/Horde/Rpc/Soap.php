@@ -131,7 +131,7 @@ class Horde_Rpc_Soap extends Horde_Rpc
      * @return mixed            The returned result from the method or a PEAR
      *                          error object on failure.
      */
-    public function request($url, $method, $params = null, $options = array())
+    public static function request($url, $method, $params = null, $options = array())
     {
         if (!isset($options['timeout'])) {
             $options['timeout'] = 5;
