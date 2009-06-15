@@ -1966,6 +1966,7 @@ class IMP
             'uri' => Horde::applicationUrl('ajax.php', true, -1) . '/' . $type,
             'params' => $params,
             'text' => $text,
+            'password' => true,
             'ok_text' => _("OK"),
             'cancel_text' => _("Cancel")
         );

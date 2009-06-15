@@ -41,7 +41,7 @@ var IMPDialog = {
         if (data.form) {
             n.insert(data.form);
         } else {
-            n.insert(new Element('INPUT', { name: 'dialog_input', type: 'text', size: 15 }));
+            n.insert(new Element('INPUT', { name: 'dialog_input', type: data.password ? 'password' : 'text', size: 15 }));
         }
 
         if (data.ok_text) {
