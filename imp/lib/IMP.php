@@ -1037,11 +1037,13 @@ class IMP
     /**
      * Return a list of valid encrypt HTML option tags.
      *
-     * @param string $default  The default encrypt option.
+     * @param string $default      The default encrypt option.
+     * @param boolean $returnList  Whether to return a hash with options
+     *                             instead of the options tag.
      *
      * @return string  The list of option tags.
      */
-    static public function encryptList($default = null)
+    static public function encryptList($default = null, $returnList = false)
     {
         if (is_null($default)) {
             $default = $GLOBALS['prefs']->getValue('default_encrypt');
@@ -1066,6 +1068,10 @@ class IMP
                 self::SMIME_SIGN => _("S/MIME Sign Message"),
                 self::SMIME_SIGNENC => _("S/MIME Sign/Encrypt Message")
             );
+        }
+
+        if ($returnList) {
+            return $enc_opts;
         }
 
         foreach ($enc_opts as $key => $val) {
