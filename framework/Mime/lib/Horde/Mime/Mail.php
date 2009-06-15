@@ -21,6 +21,13 @@ class Horde_Mime_Mail
     protected $_headers;
 
     /**
+     * The base MIME part.
+     *
+     * @var Horde_Mime_Part
+     */
+    protected $_base;
+
+    /**
      * The main body part.
      *
      * @var Horde_Mime_Part
@@ -83,24 +90,27 @@ class Horde_Mime_Mail
      * @throws Horde_Mime_Exception
      */
     function __construct($subject = null, $body = null, $to = null,
-                         $from = null, $charset = 'iso-8859-1')
+                         $from = null, $charset = null)
     {
         /* Set SERVER_NAME. */
         if (!isset($_SERVER['SERVER_NAME'])) {
             $_SERVER['SERVER_NAME'] = php_uname('n');
+        }
+        if (!$charset) {
+            $charset = 'iso-8859-1';
         }
 
         $this->_headers = new Horde_Mime_Headers();
         $this->_charset = $charset;
 
         if ($subject) {
-            $this->addHeader('Subject', $subject);
+            $this->addHeader('Subject', $subject, $charset);
         }
         if ($to) {
-            $this->addHeader('To', $to);
+            $this->addHeader('To', $to, $charset);
         }
         if ($from) {
-            $this->addHeader('From', $from);
+            $this->addHeader('From', $from, $charset);
         }
         if ($body) {
             $this->setBody($body, $charset);
@@ -266,6 +276,19 @@ class Horde_Mime_Mail
     }
 
     /**
+     * Sets the base MIME part.
+     *
+     * If the base part is set, any text bodies will be ignored when building
+     * the message.
+     *
+     * @param Horde_Mime_Part $part  A Horde_Mime_Part object.
+     */
+    public function setBasePart($part)
+    {
+        $this->_base = $part;
+    }
+
+    /**
      * Adds an attachment.
      *
      * @param string $file     The path to the file.
@@ -407,40 +430,44 @@ class Horde_Mime_Mail
             $this->_headers->addHeader('Date', date('r'));
         }
 
-        /* Send in flowed format. */
-        if ($flowed && !empty($this->_body)) {
-            $flowed = new Horde_Text_Flowed($this->_body->getContents(), $this->_body->getCharset());
-            $flowed->setDelSp(true);
-            $this->_body->setContentTypeParameter('format', 'flowed');
-            $this->_body->setContentTypeParameter('DelSp', 'Yes');
-            $this->_body->setContents($flowed->toFlowed());
-        }
-
-        /* Build mime message. */
-        $body = null;
-        if (!empty($this->_body) && !empty($this->_htmlBody)) {
-            $body = new Horde_Mime_Part();
-            $body->setType('multipart/alternative');
-            $this->_body->setDescription(_("Plaintext Version of Message"));
-            $body->addPart($this->_body);
-            $this->_htmlBody->setDescription(_("HTML Version of Message"));
-            $body->addPart($this->_htmlBody);
-        } elseif (!empty($this->_htmlBody)) {
-            $body = $this->_htmlBody;
-        } elseif (!empty($this->_body)) {
-            $body = $this->_body;
-        }
-        if (count($this->_parts)) {
-            $basepart = new Horde_Mime_Part();
-            $basepart->setType('multipart/mixed');
-            if ($body) {
-                $basepart->addPart($body);
-            }
-            foreach ($this->_parts as $mime_part) {
-                $basepart->addPart($mime_part);
-            }
+        if (isset($this->_base)) {
+            $basepart = $this->_base;
         } else {
-            $basepart = $body;
+            /* Send in flowed format. */
+            if ($flowed && !empty($this->_body)) {
+                $flowed = new Horde_Text_Flowed($this->_body->getContents(), $this->_body->getCharset());
+                $flowed->setDelSp(true);
+                $this->_body->setContentTypeParameter('format', 'flowed');
+                $this->_body->setContentTypeParameter('DelSp', 'Yes');
+                $this->_body->setContents($flowed->toFlowed());
+            }
+
+            /* Build mime message. */
+            $body = null;
+            if (!empty($this->_body) && !empty($this->_htmlBody)) {
+                $body = new Horde_Mime_Part();
+                $body->setType('multipart/alternative');
+                $this->_body->setDescription(_("Plaintext Version of Message"));
+                $body->addPart($this->_body);
+                $this->_htmlBody->setDescription(_("HTML Version of Message"));
+                $body->addPart($this->_htmlBody);
+            } elseif (!empty($this->_htmlBody)) {
+                $body = $this->_htmlBody;
+            } elseif (!empty($this->_body)) {
+                $body = $this->_body;
+            }
+            if (count($this->_parts)) {
+                $basepart = new Horde_Mime_Part();
+                $basepart->setType('multipart/mixed');
+                if ($body) {
+                    $basepart->addPart($body);
+                }
+                foreach ($this->_parts as $mime_part) {
+                    $basepart->addPart($mime_part);
+                }
+            } else {
+                $basepart = $body;
+            }
         }
 
         /* Check mailer configuration. */
