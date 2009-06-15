@@ -310,7 +310,7 @@ var ImpCompose = {
     changeHandler: function(e)
     {
         var elt = e.element(),
-            id = elt.readAttribute('id');
+            id = elt.identify();
 
         switch (id) {
         case 'identity':
