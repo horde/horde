@@ -79,6 +79,8 @@ class Horde_Mime_Mail
      * @param string $to       The message recipient(s).
      * @param string $from     The message sender.
      * @param string $charset  The character set of the message.
+     *
+     * @throws Horde_Mime_Exception
      */
     function __construct($subject = null, $body = null, $to = null,
                          $from = null, $charset = 'iso-8859-1')
