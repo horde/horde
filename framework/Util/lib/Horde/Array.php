@@ -25,7 +25,7 @@ class Horde_Array
     static public function prepareAddressList($addr)
     {
         /* Remove any extra space in the address and make it lowercase. */
-        $addr = array_map(array('String', 'lower'), array_map('trim', $addr));
+        $addr = array_map(array('Horde_String', 'lower'), array_map('trim', $addr));
 
         /* Remove duplicate entries. */
         $addr = array_keys(array_flip($addr));
