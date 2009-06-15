@@ -265,10 +265,14 @@ class News {
         $vfspath = self::VFS_PATH . '/images/' . $type;
         $vfs_name = $id . '.' . $conf['images']['image_type'];
 
-        $driver = empty($conf['image']['convert']) ? 'gd' : 'im';
-        $img = Horde_Image::factory($driver,
-                                    array('type' => $conf['images']['image_type'],
-                                            'temp' => Horde::getTempDir()));
+        $context = array('tmpdir' => Horde::getTempDir());
+        if (!empty($conf['image']['convert'])) {
+            $context['convert'] = $conf['image']['convert'];
+        }
+        $params = array('type' => $conf['images']['image_type'],
+                        'context' => $context);
+        $driver = empty($conf['image']['convert']) ? 'Gd' : 'Im';
+        $img = Horde_Image::factory($driver, $params);
 
         if ($img instanceof PEAR_Error) {
             return $img;
