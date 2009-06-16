@@ -115,6 +115,82 @@ class Horde_Kolab_Server_ObjectTest extends Horde_Kolab_Test_Server
         $this->assertEquals($expect, $ndn);
     }
 
+
+    /**
+     * Provide test data for the GetFn test.
+     *
+     * @return array The test object data.
+     */
+    public static function provideGetArrayChanges()
+    {
+        return array(
+            array(
+                array(
+                    array(
+                        'a',
+                    ),
+                    array(
+                        'a',
+                    ),
+                ),
+                true,
+            ),
+            array(
+                array(
+                    array(
+                        'a',
+                    ),
+                    array(
+                        'b',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    array(
+                    ),
+                    array(
+                        'a' => 'b',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    array(
+                    ),
+                    array(
+                        'b',
+                    ),
+                ),
+                false,
+            ),
+        );
+    }
+
+    /**
+     * Check the generating of the "First Name" attribute.
+     *
+     * @param string $data   Object data.
+     * @param string $expect Expect this full name.
+     *
+     * @dataProvider provideGetArrayChanges
+     *
+     * @return NULL
+     */
+    public function testGetArrayChanges($data, $expect)
+    {
+        $ko = &Horde_Kolab_Server_Object::factory('Horde_Kolab_Server_Object_Kolab_User',
+                                                  null, $this->_dummydb, array(
+                                                      'dn' => 'test',
+                                                      'cn' => 'Frank Mustermann',
+                                                      'sn' => 'Mustermann'));
+        $this->assertNoError($ko);
+        $c = $ko->getArrayChanges($data[0], $data[1]);
+        $this->assertEquals($expect, empty($c));
+    }
+
 }
 
 /**
