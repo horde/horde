@@ -13,6 +13,10 @@ if (!empty($title)) $page_title .= ' :: ' . $title;
 if (!empty($refresh_time) && !empty($refresh_url)) {
     echo "<meta http-equiv=\"refresh\" content=\"$refresh_time;url=$refresh_url\" />\n";
 }
+if ($GLOBALS['browser']->isBrowser('msie') &&
+    ($GLOBALS['browser']->getMajor() == 8)) {
+    echo '<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />' . "\n";
+}
 echo Horde_Util::bufferOutput('require', IMP_TEMPLATES . '/javascript_defs.php');
 IMP::includeScriptFiles();
 IMP::includeStylesheetFiles(!empty($printer_friendly));

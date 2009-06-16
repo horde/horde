@@ -83,6 +83,8 @@ v5.0-git
 v4.3.5-cvs
 ----------
 
+[mms] Fix some javascript if using IE 8 (uses IE 7 compatibility mode) (Bug
+      #8345).
 [jan] Allow to lock default_encrypt preference.
 [mjr] Add example hook showing how to set the add_source preference (Bug #8285).
 [mms] Fix unqualified domain preference (Bug #8272).
