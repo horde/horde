@@ -13,6 +13,10 @@ $parser = $render = $source = '';
 $plist = array('Default', 'BBCode', 'Cowiki', 'Doku', 'Mediawiki', 'Tiki', 'X-choice', 'Creole');
 $rlist = array('Xhtml', 'Plain', 'Latex', 'Cowiki', 'Doku', 'Tiki', 'Ooosxw', 'Pdf', 'Docbook', 'Creole');
 
+if (get_magic_quotes_gpc()) {
+    echo "\nWARNING: to this script work properly you have to set magic_quotes_gpc = Off on your php.ini file\n";
+}
+
 /**
  * Here we need to know if we are running from command line or from web
  * That runs anyway: if (isset($_SERVER['SERVER_NAME'])) {
