@@ -566,7 +566,7 @@ td.addressTr span.loadingImg {
 .mimeHeaders {
     border: 1px solid #ccc;
     background: #f9f9f9;
-    width: 100%;
+    width: auto;
     font-family: "Lucida Console",Courier,"Courier New";
 }
 .mimePartInfo {
