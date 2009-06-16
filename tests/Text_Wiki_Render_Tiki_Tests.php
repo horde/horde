@@ -122,7 +122,9 @@ class Text_Wiki_Render_Tiki_SetUp_Tests extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $obj = Text_Wiki::singleton('Tiki');
-        $className = 'Text_Wiki_Render_Tiki_' . $this->renderRule;
+        $testClassName = get_class($this);
+        $ruleName = preg_replace('/Text_Wiki_Render_Tiki_(.+?)_Test/', '\\1', $testClassName);
+        $className = 'Text_Wiki_Render_Tiki_' . $ruleName;
         $this->t = new $className($obj);
     }
 
@@ -130,8 +132,6 @@ class Text_Wiki_Render_Tiki_SetUp_Tests extends PHPUnit_Framework_TestCase
 
 class Text_Wiki_Render_Tiki_Anchor_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
-
-    var $renderRule = 'Anchor';
     
     public function testTikiRenderAnchor()
     {
@@ -146,8 +146,6 @@ class Text_Wiki_Render_Tiki_Anchor_Test extends Text_Wiki_Render_Tiki_SetUp_Test
 class Text_Wiki_Render_Tiki_Blockquote_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
     
-    var $renderRule = 'Blockquote';
-    
     public function testTikiRenderBlockquote()
     {
         $this->markTestIncomplete('check if Text_Wiki_Render_Tiki_Blockquote output a valid Tiki syntax.');
@@ -157,8 +155,6 @@ class Text_Wiki_Render_Tiki_Blockquote_Test extends Text_Wiki_Render_Tiki_SetUp_
 
 class Text_Wiki_Render_Tiki_Bold_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
-    
-    var $renderRule = 'Bold';
     
     public function testTikiRenderBold()
     {
@@ -170,8 +166,6 @@ class Text_Wiki_Render_Tiki_Bold_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 
 class Text_Wiki_Render_Tiki_Box_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
-    
-    var $renderRule = 'Box';
     
     public function testTikiRenderBox()
     {
@@ -186,8 +180,6 @@ class Text_Wiki_Render_Tiki_Box_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 class Text_Wiki_Render_Tiki_Break_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
     
-    var $renderRule = 'Break';
-    
     public function testTikiRenderBreak()
     {
         $options = array();
@@ -198,8 +190,6 @@ class Text_Wiki_Render_Tiki_Break_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 
 class Text_Wiki_Render_Tiki_Center_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
-    
-    var $renderRule = 'Center';
     
     public function testTikiRenderCenter()
     {
@@ -214,8 +204,6 @@ class Text_Wiki_Render_Tiki_Center_Test extends Text_Wiki_Render_Tiki_SetUp_Test
 
 class Text_Wiki_Render_Tiki_Code_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
-    
-    var $renderRule = 'Code';
     
     public function testTikiRenderCode()
     {
@@ -232,8 +220,6 @@ class Text_Wiki_Render_Tiki_Code_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 class Text_Wiki_Render_Tiki_Colortext_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
     
-    var $renderRule = 'Colortext';
-    
     public function testTikiRenderColortext()
     {
         $options = array('type' => 'start', 'color' => 'red');
@@ -249,8 +235,6 @@ class Text_Wiki_Render_Tiki_Colortext_Test extends Text_Wiki_Render_Tiki_SetUp_T
 class Text_Wiki_Render_Tiki_Deflist_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
     
-    var $renderRule = 'Deflist';
-    
     public function testTikiRenderDeflist()
     {
         $this->markTestIncomplete('This test has not been implemented yet.');
@@ -260,8 +244,6 @@ class Text_Wiki_Render_Tiki_Deflist_Test extends Text_Wiki_Render_Tiki_SetUp_Tes
 
 class Text_Wiki_Render_Tiki_Delimiter_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
-    
-    var $renderRule = 'Delimiter';
     
     public function testTikiRenderDelimiter()
     {
@@ -274,8 +256,6 @@ class Text_Wiki_Render_Tiki_Delimiter_Test extends Text_Wiki_Render_Tiki_SetUp_T
 class Text_Wiki_Render_Tiki_Embed_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
     
-    var $renderRule = 'Embed';
-    
     public function testTikiRenderEmbed()
     {
         $options = array('text' => 'Sample text');
@@ -287,8 +267,6 @@ class Text_Wiki_Render_Tiki_Embed_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 class Text_Wiki_Render_Tiki_Emphasis_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
     
-    var $renderRule = 'Emphasis';
-    
     public function testTikiRenderEmphasis()
     {
         $options = array();
@@ -299,8 +277,6 @@ class Text_Wiki_Render_Tiki_Emphasis_Test extends Text_Wiki_Render_Tiki_SetUp_Te
 
 class Text_Wiki_Render_Tiki_Freelink_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {    
-    
-    var $renderRule = 'Freelink';
     
     public function testTikiRenderFreelink()
     {
@@ -317,8 +293,6 @@ class Text_Wiki_Render_Tiki_Freelink_Test extends Text_Wiki_Render_Tiki_SetUp_Te
 class Text_Wiki_Render_Tiki_Function_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {    
     
-    var $renderRule = 'Function';
-    
     public function testTikiRenderFunction()
     {
         $this->markTestIncomplete('This test has not been implemented yet.');
@@ -328,8 +302,6 @@ class Text_Wiki_Render_Tiki_Function_Test extends Text_Wiki_Render_Tiki_SetUp_Te
 
 class Text_Wiki_Render_Tiki_Heading_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {    
-    
-    var $renderRule = 'Heading';
     
     public function testTikiRenderHeading()
     {
@@ -348,8 +320,6 @@ class Text_Wiki_Render_Tiki_Heading_Test extends Text_Wiki_Render_Tiki_SetUp_Tes
 class Text_Wiki_Render_Tiki_Horiz_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {    
     
-    var $renderRule = 'Horiz';
-    
     public function testTikiRenderHoriz()
     {
         $options = array();
@@ -361,8 +331,6 @@ class Text_Wiki_Render_Tiki_Horiz_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 class Text_Wiki_Render_Tiki_Html_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
     
-    var $renderRule = 'Html';
-    
     public function testTikiRenderHtml()
     {
         $this->markTestIncomplete('This test has not been implemented yet.');
@@ -372,8 +340,6 @@ class Text_Wiki_Render_Tiki_Html_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 
 class Text_Wiki_Render_Tiki_Image_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
-    
-    var $renderRule = 'Image';
     
     public function testTikiRenderImage()
     {
@@ -390,8 +356,6 @@ class Text_Wiki_Render_Tiki_Image_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 class Text_Wiki_Render_Tiki_Include_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
     
-    var $renderRule = 'Include';
-    
     public function testTikiRenderInclude()
     {
         $this->markTestIncomplete('This test has not been implemented yet.');
@@ -401,8 +365,6 @@ class Text_Wiki_Render_Tiki_Include_Test extends Text_Wiki_Render_Tiki_SetUp_Tes
 
 class Text_Wiki_Render_Tiki_Interwiki_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
-    
-    var $renderRule = 'Interwiki';
     
     public function testTikiRenderInterwiki()
     {
@@ -418,8 +380,6 @@ class Text_Wiki_Render_Tiki_Interwiki_Test extends Text_Wiki_Render_Tiki_SetUp_T
 class Text_Wiki_Render_Tiki_Italic_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
     
-    var $renderRule = 'Italic';
-    
     public function testTikiRenderItalic()
     {
         $options = array();
@@ -430,8 +390,6 @@ class Text_Wiki_Render_Tiki_Italic_Test extends Text_Wiki_Render_Tiki_SetUp_Test
 
 class Text_Wiki_Render_Tiki_List_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
-    
-    var $renderRule = 'List';
     
     public function testTikiRenderNumberListStart()
     {
@@ -463,8 +421,6 @@ class Text_Wiki_Render_Tiki_List_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 class Text_Wiki_Render_Tiki_Newline_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
     
-    var $renderRule = 'Newline';
-    
     public function testTikiRenderNewline()
     {
         $options = array();
@@ -475,8 +431,6 @@ class Text_Wiki_Render_Tiki_Newline_Test extends Text_Wiki_Render_Tiki_SetUp_Tes
 
 class Text_Wiki_Render_Tiki_Paragraph_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
-    
-    var $renderRule = 'Paragraph';
     
     public function testTikiRenderParagraph()
     {
@@ -491,8 +445,6 @@ class Text_Wiki_Render_Tiki_Paragraph_Test extends Text_Wiki_Render_Tiki_SetUp_T
 class Text_Wiki_Render_Tiki_Phplookup_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
     
-    var $renderRule = 'Phplookup';
-    
     public function testTikiRenderPhplookup()
     {
         $this->markTestIncomplete('This test has not been implemented yet.');
@@ -503,8 +455,6 @@ class Text_Wiki_Render_Tiki_Phplookup_Test extends Text_Wiki_Render_Tiki_SetUp_T
 class Text_Wiki_Render_Tiki_Prefilter_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
     
-    var $renderRule = 'Prefilter';
-    
     public function testTikiRenderPrefilter()
     {
         $this->markTestIncomplete('This test has not been implemented yet.');
@@ -514,8 +464,6 @@ class Text_Wiki_Render_Tiki_Prefilter_Test extends Text_Wiki_Render_Tiki_SetUp_T
 
 class Text_Wiki_Render_Tiki_Preformatted_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
-    
-    var $renderRule = 'Preformatted';
     
     public function testTikiRenderPreformatted()
     {
@@ -528,8 +476,6 @@ class Text_Wiki_Render_Tiki_Preformatted_Test extends Text_Wiki_Render_Tiki_SetU
 class Text_Wiki_Render_Tiki_Raw_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
     
-    var $renderRule = 'Raw';
-    
     public function testTikiRenderRaw()
     {
         $options = array('text' => 'Some raw text');
@@ -541,8 +487,6 @@ class Text_Wiki_Render_Tiki_Raw_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 class Text_Wiki_Render_Tiki_Revise_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
     
-    var $renderRule = 'Revise';
-    
     public function testTikiRenderRevise()
     {
         $this->markTestIncomplete('Check if Text_Wiki_Render_Tiki_Revise output a valid Tiki syntax.');
@@ -552,8 +496,6 @@ class Text_Wiki_Render_Tiki_Revise_Test extends Text_Wiki_Render_Tiki_SetUp_Test
 
 class Text_Wiki_Render_Tiki_Strong_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
-    
-    var $renderRule = 'Strong';
     
     public function testTikiRenderStrong()
     {
@@ -566,8 +508,6 @@ class Text_Wiki_Render_Tiki_Strong_Test extends Text_Wiki_Render_Tiki_SetUp_Test
 class Text_Wiki_Render_Tiki_Subscript_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
     
-    var $renderRule = 'Subscript';
-    
     public function testTikiRenderSubscript()
     {
         $this->markTestIncomplete('Check if Text_Wiki_Render_Tiki_Subscript output a valid Tiki syntax.');
@@ -578,8 +518,6 @@ class Text_Wiki_Render_Tiki_Subscript_Test extends Text_Wiki_Render_Tiki_SetUp_T
 class Text_Wiki_Render_Tiki_Superscript_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
     
-    var $renderRule = 'Superscript';
-    
     public function testTikiRenderSuperscript()
     {
         $this->markTestIncomplete('Check if Text_Wiki_Render_Tiki_Superscript output a valid Tiki syntax.');
@@ -589,8 +527,6 @@ class Text_Wiki_Render_Tiki_Superscript_Test extends Text_Wiki_Render_Tiki_SetUp
 
 class Text_Wiki_Render_Tiki_Table_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
-    
-    var $renderRule = 'Table';
     
     public function testTikiRenderTable()
     {
@@ -636,8 +572,6 @@ class Text_Wiki_Render_Tiki_Table_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 class Text_Wiki_Render_Tiki_Tighten_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
     
-    var $renderRule = 'Tighten';
-    
     public function testTikiRenderTighten()
     {
         $options = array();
@@ -648,8 +582,6 @@ class Text_Wiki_Render_Tiki_Tighten_Test extends Text_Wiki_Render_Tiki_SetUp_Tes
 
 class Text_Wiki_Render_Tiki_Toc_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
-    
-    var $renderRule = 'Toc';
     
     public function testTikiRenderToc()
     {
@@ -662,8 +594,6 @@ class Text_Wiki_Render_Tiki_Toc_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 class Text_Wiki_Render_Tiki_tt_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
     
-    var $renderRule = 'tt';
-    
     public function testTikiRendertt()
     {
         $this->markTestIncomplete('Check if Text_Wiki_Render_Tiki_tt output a valid Tiki syntax.');
@@ -673,8 +603,6 @@ class Text_Wiki_Render_Tiki_tt_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 
 class Text_Wiki_Render_Tiki_Underline_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
-    
-    var $renderRule = 'Underline';
     
     public function testTikiRenderUnderline()
     {
@@ -686,8 +614,6 @@ class Text_Wiki_Render_Tiki_Underline_Test extends Text_Wiki_Render_Tiki_SetUp_T
 
 class Text_Wiki_Render_Tiki_Url_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
-    
-    var $renderRule = 'Url';
     
     public function testTikiRenderUrlMultiToken()
     {
@@ -715,8 +641,6 @@ class Text_Wiki_Render_Tiki_Url_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 
 class Text_Wiki_Render_Tiki_Wikilink_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
 {
-    
-    var $renderRule = 'Wikilink';
     
     public function testTikiRenderWikilinkMultiToken()
     {

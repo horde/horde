@@ -3,7 +3,7 @@
 require_once('PHPUnit/Framework.php');
 require_once('Text/Wiki/Tiki.php');
 
-class Text_Wiki_Parser_Tiki_Test extends PHPUnit_Framework_TestCase {
+class Text_Wiki_Parse_Tiki_Test extends PHPUnit_Framework_TestCase {
 
     protected function setUp()
     {
