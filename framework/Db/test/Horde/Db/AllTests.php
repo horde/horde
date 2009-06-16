@@ -18,7 +18,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 
 require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
-require_once dirname(__FILE__).'/Adapter/MissingTest.php';
+require_once dirname(__FILE__) . '/Adapter/MissingTest.php';
 
 /**
  * @author     Mike Naberezny <mike@maintainable.com>
@@ -56,16 +56,30 @@ class Horde_Db_AllTests {
         $basedir = dirname(__FILE__);
         $baseregexp = preg_quote($basedir . DIRECTORY_SEPARATOR, '/');
 
-        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($basedir)) as $file) {
+        // Handle the Adapter tests
+        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($basedir . '/Adapter')) as $file) {
             if ($file->isFile() && preg_match('/Suite.php$/', $file->getFilename())) {
                 $pathname = $file->getPathname();
                 require $pathname;
 
                 $class = str_replace(DIRECTORY_SEPARATOR, '_',
                                      preg_replace("/^$baseregexp(.*)\.php/", '\\1', $pathname));
-                $suite->addTestSuite('Horde_Db_'.$class);
+                $suite->addTestSuite('Horde_Db_' . $class);
             }
         }
+
+        // Add other tests
+        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($basedir)) as $file) {
+            if ($file->isFile() && !preg_match("/^{$baseregexp}Adapter/", $file->getPathname()) && preg_match('/Test.php$/', $file->getFilename())) {
+                $pathname = $file->getPathname();
+                require $pathname;
+
+                $class = str_replace(DIRECTORY_SEPARATOR, '_',
+                                     preg_replace("/^$baseregexp(.*)\.php/", '\\1', $pathname));
+                $suite->addTestSuite('Horde_Db_' . $class);
+            }
+        }
+
 
         return $suite;
     }
