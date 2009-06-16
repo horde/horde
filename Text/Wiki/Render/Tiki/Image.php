@@ -17,8 +17,10 @@ class Text_Wiki_Render_Tiki_Image extends Text_Wiki_Render {
     function token($options)
     {
         $img = '{img src=' . $options['src'];
-        foreach ($options['attr'] as $var => $val) {
-            $img .= ' '.$var.'='.$val;
+        if (is_array($options['attr'])) {
+            foreach ($options['attr'] as $var => $val) {
+                $img .= ' '.$var.'='.$val;
+            }
         }
         $img .= '}';
         return $img;
