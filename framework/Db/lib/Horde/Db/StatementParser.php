@@ -20,22 +20,30 @@
  */
 class Horde_Db_StatementParser implements Iterator
 {
-    private $_count;
-    private $_currentStatement;
+    protected $_count = 0;
+    protected $_currentStatement;
 
-    public function __construct(SplFileObject $file)
+    public function __construct($file)
     {
+        if (is_string($file)) {
+            $file = new SplFileObject($file, 'r');
+        }
         $this->_file = $file;
-        $this->_count = 0;
     }
 
     public function current()
     {
+        if (is_null($this->_currentStatement)) {
+            $this->rewind();
+        }
         return $this->_currentStatement;
     }
 
     public function key()
     {
+        if (is_null($this->_currentStatement)) {
+            $this->rewind();
+        }
         return $this->_count;
     }
 
@@ -51,7 +59,9 @@ class Horde_Db_StatementParser implements Iterator
     public function rewind()
     {
         $this->_count = 0;
-        return $this->_file->rewind();
+        $this->_currentStatement = null;
+        $this->_file->rewind();
+        $this->next();
     }
 
     public function valid()
