@@ -285,6 +285,9 @@ class Horde_Vcs_Git extends Horde_Vcs
         return substr($rev, 0, 7) . '[...]';
     }
 
+    /**
+     * TODO
+     */
     public function getBranchList()
     {
         if (!isset($this->_branchlist)) {
@@ -312,6 +315,13 @@ class Horde_Vcs_Git extends Horde_Vcs
 class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
 {
     /**
+     * The current branch.
+     *
+     * @var string
+     */
+    protected $_branch;
+
+    /**
      * Create a Directory object to store information about the files in a
      * single directory in the repository.
      *
@@ -325,7 +335,7 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
     {
         parent::__construct($rep, $dn, $opts);
 
-        $branch = empty($opts['rev']) ? 'master' : $opts['rev'];
+        $this->_branch = empty($opts['rev']) ? 'master' : $opts['rev'];
 
         // @TODO See if we have a valid cache of the tree at this revision
 
@@ -337,7 +347,7 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
             $dir .= '/';
         }
 
-        $cmd = $rep->getCommand() . ' ls-tree --full-name ' . escapeshellarg($branch) . ' ' . escapeshellarg($dir) . ' 2>&1';
+        $cmd = $rep->getCommand() . ' ls-tree --full-name ' . escapeshellarg($this->_branch) . ' ' . escapeshellarg($dir) . ' 2>&1';
         $stream = popen($cmd, 'r');
         if (!$stream) {
             throw new Horde_Vcs_Exception('Failed to execute git ls-tree: ' . $cmd);
@@ -356,7 +366,7 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
             if ($type == 'tree') {
                 $this->_dirs[] = basename($file);
             } else {
-                $this->_files[] = $rep->getFileObject($file, array('branch' => $branch, 'quicklog' => !empty($opts['quicklog'])));
+                $this->_files[] = $rep->getFileObject($file, array('branch' => $this->_branch, 'quicklog' => !empty($opts['quicklog'])));
             }
         }
 
@@ -368,7 +378,11 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
      */
     public function getBranches()
     {
-        return array_keys($this->_rep->getBranchList());
+        $blist = array_keys($this->_rep->getBranchList());
+        if (!in_array($this->_branch, $blist)) {
+            $blist[] = $this->_branch;
+        }
+        return $blist;
     }
 
     /**
@@ -442,7 +456,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
 
         /* Get the list of revisions. Need to get all revisions, not just
          * those on $this->_branch, for branch determination reasons. */
-        foreach (array_keys($rep->getBranchList()) as $key) {
+        foreach (array_keys($this->queryBranches()) as $key) {
             $revs = array();
             $cmd = $rep->getCommand() . ' rev-list ' . escapeshellarg($key) . ' -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
             exec($cmd, $revs);
@@ -540,7 +554,15 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
      */
     public function queryBranches()
     {
-        return $this->_rep->getBranchList();
+        /* If dealing with a branch that is not explicitly named (i.e. an
+         * implicit branch for a given tree-ish commit ID), we need to add
+         * that information to the branch list. */
+        $revlist = $this->_rep->getBranchList();
+        if (!empty($this->_branch) &&
+            !in_array($this->_branch, $revlist)) {
+            $revlist[$this->_branch] = $this->_branch;
+        }
+        return $revlist;
     }
 
    /**
