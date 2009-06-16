@@ -152,10 +152,10 @@ span.dimpactionDrafts {
     background-image: url("graphics/search.png");
 }
 
-#th_expand span.iconImg, #partlist_col, #infolist_col {
+#th_expand span.iconImg, #partlist_col, #msgloglist_col {
     background-image: url("graphics/arrow_collapsed.png");
 }
-#th_collapse span.iconImg, #partlist_exp, #infolist_exp {
+#th_collapse span.iconImg, #partlist_exp, #msgloglist_exp {
     background-image: url("graphics/arrow_expanded.png");
 }
 #msg_view_source span.iconImg {

@@ -523,7 +523,7 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 #msgAtc td {
     padding-bottom: 0;
 }
-.atcLabel, .infoLabel {
+.atcLabel, .msgLogLabel {
     font-weight: bold;
     padding-right: 5px;
 }
@@ -536,10 +536,10 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     padding-bottom: 2px;
 }
 
-#infolist {
+#msgloglist {
     padding-top: 2px;
 }
-#infolist ul {
+#msgloglist ul {
     list-style-type: none;
 }
 
@@ -1000,10 +1000,10 @@ span.threadImg {
     width: 0;
     margin-right: 0;
 }
-#th_expand span.iconImg, #partlist_col, #infolist_col {
+#th_expand span.iconImg, #partlist_col, #msgloglist_col {
     background-image: url("graphics/arrow_collapsed.png");
 }
-#th_collapse span.iconImg, #partlist_exp, #infolist_exp {
+#th_collapse span.iconImg, #partlist_exp, #msgloglist_exp {
     background-image: url("graphics/arrow_expanded.png");
 }
 #msg_view_source span.iconImg {

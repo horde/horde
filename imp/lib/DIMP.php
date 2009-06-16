@@ -358,4 +358,27 @@ class DIMP
         return array();
     }
 
+    /**
+     * Build data structure needed by DimpCore javascript to display message
+     * log information.
+     *
+     * @var string $msg_id  The Message-ID header of the message.
+     *
+     * @return array  An array of information that can be parsed by
+     *                DimpCore.updateInfoList().
+     */
+    static public function getMsgLogInfo($msg_id)
+    {
+        $ret = array();
+
+        foreach (IMP_Maillog::parseLog($msg_id) as $val) {
+            $ret[] = array_map('htmlspecialchars', array(
+                'm' => $val['msg'],
+                't' => $val['action']
+            ));
+        }
+
+        return $ret;
+    }
+
 }

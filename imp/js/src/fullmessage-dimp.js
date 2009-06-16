@@ -158,8 +158,8 @@ var DimpFullmessage = {
 
         /* Add message information. */
         if (this.log) {
-            $('msgInfo').show();
-            DimpCore.updateInfoList(this.log);
+            $('msgLogInfo').show();
+            DimpCore.updateMsgLog(this.log);
         }
     }
 

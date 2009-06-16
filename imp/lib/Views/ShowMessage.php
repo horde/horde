@@ -188,13 +188,9 @@ class IMP_Views_ShowMessage
         }
 
         /* Grab maillog information. */
-        if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
-            foreach (IMP_Maillog::parseLog($envelope['message-id']) as $val) {
-                $result['log'][] = array_map('htmlspecialchars', array(
-                    'm' => $val['msg'],
-                    't' => $val['action']
-                ));
-            }
+        if (!empty($GLOBALS['conf']['maillog']['use_maillog']) &&
+            ($tmp = DIMP::getMsgLogInfo($envelope['message-id']))) {
+            $result['log'] = $tmp;
         }
 
         if ($preview) {

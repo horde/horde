@@ -185,11 +185,9 @@ if (count($_POST)) {
 
         /* Update maillog information. */
         if (!empty($header['in_reply_to']) &&
-            !empty($GLOBALS['conf']['maillog']['use_maillog'])) {
-            $result->log = array();
-            foreach (IMP_Maillog::parseLog($header['in_reply_to']) as $val) {
-                $result->log[] = htmlspecialchars($val['msg']);
-            }
+            !empty($GLOBALS['conf']['maillog']['use_maillog']) &&
+            ($tmp = DIMP::getMsgLogInfo($header['in_reply_to']))) {
+            $result->log = $tmp;
         }
 
         $res = DIMP::getFolderResponse($imptree);

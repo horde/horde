@@ -318,14 +318,14 @@ var DimpCore = {
         return elt;
     },
 
-    /* Add message info to message view. */
-    updateInfoList: function(log)
+    /* Add message log info to message view. */
+    updateMsgLog: function(log)
     {
         var tmp = '';
         log.each(function(entry) {
             tmp += '<li><span class="iconImg imp-' + entry.t + '"></span>' + entry.m + '</li>';
         });
-        $('infolist').down('UL').update(tmp);
+        $('msgloglist').down('UL').update(tmp);
     },
 
     /* Removes event handlers from address links. */
@@ -387,13 +387,13 @@ var DimpCore = {
                 });
                 break;
 
-            case 'infolist_toggle':
-                $('infolist_col', 'infolist_exp').invoke('toggle');
-                Effect.toggle('infolist', 'blind', {
+            case 'msgloglist_toggle':
+                $('msgloglist_col', 'msgloglist_exp').invoke('toggle');
+                Effect.toggle('msgloglist', 'blind', {
                     duration: 0.2,
                     queue: {
                         position: 'end',
-                        scope: 'infolist',
+                        scope: 'msgloglist',
                         limit: 2
                     }
                 });

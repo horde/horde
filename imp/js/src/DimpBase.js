@@ -1021,9 +1021,9 @@ var DimpBase = {
 
         // Add message information
         if (r.log) {
-            this.updateMsgInfo(r.log);
+            this.updateMsgLog(r.log);
         } else {
-            $('msgInfo').hide();
+            $('msgLogInfo').hide();
         }
 
         $('msgBody').update(r.msgtext);
@@ -1040,21 +1040,21 @@ var DimpBase = {
     },
 
     // opts = index, mailbox
-    updateMsgInfo: function(log, opts)
+    updateMsgLog: function(log, opts)
     {
         var tmp;
 
         if (!opts ||
             (this.pp.imapuid == opts.index &&
              this.pp.view == opts.mailbox)) {
-            $('msgInfo').show();
+            $('msgLogInfo').show();
 
             if (opts) {
-                $('infolist_col').show();
-                $('infolist_exp').hide();
+                $('msgloglist_col').show();
+                $('msgloglist_exp').hide();
             }
 
-            DimpCore.updateInfoList(log);
+            DimpCore.updateMsgLog(log);
         }
 
         if (opts) {

@@ -249,7 +249,7 @@ var DimpCompose = {
                     }
 
                     if (d.log) {
-                        DIMP.baseWindow.DimpBase.updateMsgInfo(d.log, { index: d.index, mailbox: d.reply_folder });
+                        DIMP.baseWindow.DimpBase.updateMsgLog(d.log, { index: d.index, mailbox: d.reply_folder });
                     }
 
                     DIMP.baseWindow.DimpCore.showNotifications(r.msgs);

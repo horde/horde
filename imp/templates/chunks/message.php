@@ -91,11 +91,11 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
          </td>
         </tr>
 <?php endif; ?>
-        <tr id="msgInfo" style="display:none">
-         <td class="label"><a id="infolist_toggle"><span class="iconImg" id="infolist_col"></span><span class="iconImg" id="infolist_exp" style="display:none"></span></a></td>
+        <tr id="msgLogInfo" style="display:none">
+         <td class="label"><a id="msgloglist_toggle"><span class="iconImg" id="msgloglist_col"></span><span class="iconImg" id="msgloglist_exp" style="display:none"></span></a></td>
          <td>
-          <div><span class="infoLabel"><?php echo _("Message Information") ?></span></div>
-          <div id="infolist" style="display:none">
+          <div><span class="msgLogLabel"><?php echo _("Message Log Information") ?></span></div>
+          <div id="msgloglist" style="display:none">
            <ul></ul>
           </div>
          </td>
