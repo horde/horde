@@ -127,23 +127,22 @@ class Horde_Kolab_Server_OrgPersonTest extends Horde_Kolab_Test_Server
     public function testHandlingAPostalAddress($server)
     {
         $person = $this->assertAdd($server, $this->objects[0],
-                                   array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESSRAW => 'Kolab_Server_OrgPersonTest_123$$$ '));
+                                   array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => 'Kolab_Server_OrgPersonTest_123$$$ '));
 
         $this->assertStoreFetch($person, $server,
                                 array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_SN => 'Kolab_Server_OrgPersonTest_456'),
-                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESSRAW => 'Kolab_Server_OrgPersonTest_456$$$ '));
+                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => array('Kolab_Server_OrgPersonTest_456$$$ ')));
 
         $this->assertStoreFetch($person, $server,
                                 array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_SN => 'Kolab_Server_OrgPersonTest_123',
                                       Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_STREET => 'Street 1',
                                       Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALCODE => '12345',
-                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => 'c/o here',
                                       Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_CITY => 'Nowhere'),
-                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESSRAW => 'Kolab_Server_OrgPersonTest_123$c/o here$Street 1$12345 Nowhere'));
+                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => array('Kolab_Server_OrgPersonTest_123$$Street 1$12345 Nowhere')));
         $this->assertStoreFetch($person, $server,
                                 array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTOFFICEBOX => 'öäü/)(="§%$&§§$\'*',
                                       Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_STREET => null),
-                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESSRAW => 'Kolab_Server_OrgPersonTest_123$c/o here$öäü/)(="§%\24&§§\24\'*$12345 Nowhere'));
+                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => array('Kolab_Server_OrgPersonTest_123$$öäü/)(="§%\24&§§\24\'*$12345 Nowhere')));
 
         $this->assertStoreFetch($person, $server,
                                 array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_STREET => null,
@@ -152,7 +151,7 @@ class Horde_Kolab_Server_OrgPersonTest extends Horde_Kolab_Test_Server
                                       Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => '',
                                       Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTOFFICEBOX => null,
                                       Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_CITY => null),
-                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESSRAW => 'Kolab_Server_OrgPersonTest_123$$$ '));
+                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => array('Kolab_Server_OrgPersonTest_123$$$ ')));
     }
 
 

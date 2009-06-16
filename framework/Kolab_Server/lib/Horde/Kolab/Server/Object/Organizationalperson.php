@@ -74,7 +74,6 @@ class Horde_Kolab_Server_Object_Organizationalperson extends Horde_Kolab_Server_
                     self::ATTRIBUTE_SN,
                     self::ATTRIBUTE_STREET,
                     self::ATTRIBUTE_POSTOFFICEBOX,
-                    self::ATTRIBUTE_POSTALADDRESS,
                     self::ATTRIBUTE_POSTALCODE,
                     self::ATTRIBUTE_CITY,
                 ),

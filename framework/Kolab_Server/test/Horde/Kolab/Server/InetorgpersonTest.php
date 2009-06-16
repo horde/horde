@@ -173,16 +173,16 @@ class Horde_Kolab_Server_InetorgpersonTest extends Horde_Kolab_Test_Server
         $this->assertStoreFetch($person, $server,
                                 array(Horde_Kolab_Server_Object_Inetorgperson::ATTRARRAY_LABELEDURI => array('a' => 'http://a.example.com',
                                                                                                              'b' => 'http://b.example.com')),
-                                array(Horde_Kolab_Server_Object_Inetorgperson::ATTRARRAY_LABELEDURI => array('a' => 'http://a.example.com',
-                                                                                                             'b' => 'http://b.example.com')));
+                                array(Horde_Kolab_Server_Object_Inetorgperson::ATTRARRAY_LABELEDURI => array('a' => array('http://a.example.com'),
+                                                                                                             'b' => array('http://b.example.com'))));
 
         $this->assertStoreFetch($person, $server,
                                 array(Horde_Kolab_Server_Object_Inetorgperson::ATTRARRAY_LABELEDURI => array('a' => 'http://a.example.com',
                                                                                                              'b' => 'http://b.example.com',
                                                                                                              'c' => 'http://c.example.com')),
-                                array(Horde_Kolab_Server_Object_Inetorgperson::ATTRARRAY_LABELEDURI => array('a' => 'http://a.example.com',
-                                                                                                             'b' => 'http://b.example.com',
-                                                                                                             'c' => 'http://c.example.com')));
+                                array(Horde_Kolab_Server_Object_Inetorgperson::ATTRARRAY_LABELEDURI => array('a' => array('http://a.example.com'),
+													     'b' => array('http://b.example.com'),
+													     'c' => array('http://c.example.com'))));
 
         $this->assertStoreFetch($person, $server,
                                 array(Horde_Kolab_Server_Object_Inetorgperson::ATTRARRAY_LABELEDURI => array()),
@@ -190,7 +190,7 @@ class Horde_Kolab_Server_InetorgpersonTest extends Horde_Kolab_Test_Server
 
         $this->assertStoreFetch($person, $server,
                                 array(Horde_Kolab_Server_Object_Inetorgperson::ATTRARRAY_LABELEDURI => array('a' => 'http://a.example.com')),
-                                array(Horde_Kolab_Server_Object_Inetorgperson::ATTRARRAY_LABELEDURI => array('a' => 'http://a.example.com')));
+                                array(Horde_Kolab_Server_Object_Inetorgperson::ATTRARRAY_LABELEDURI => array('a' => array('http://a.example.com'))));
     }
 
 
