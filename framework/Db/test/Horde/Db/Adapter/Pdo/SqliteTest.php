@@ -374,7 +374,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
         $columns = $this->_conn->columns('unit_tests');
         $this->assertEquals(12, count($columns));
 
-        $col = $columns[0];
+        $col = $columns['id'];
         $this->assertEquals('id',            $col->getName());
         $this->assertEquals('integer',       $col->getType());
         $this->assertEquals(false,           $col->isNull());
