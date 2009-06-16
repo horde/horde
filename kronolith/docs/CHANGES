@@ -23,6 +23,7 @@ v3.0-git
 v2.3.2-cvs
 ----------
 
+[jan] Propagate the 'modified' API method (Request #8274).
 [cjh] Fix the signature of the kronolith/import API method
       (rpolli@babel.it, Bug #8309).
 [jan] Correctly create all-day events if using the all-day link in the day
