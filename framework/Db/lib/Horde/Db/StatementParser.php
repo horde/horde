@@ -3,7 +3,7 @@
  * Copyright 2006-2009 The Horde Project (http://www.horde.org/)
  *
  * @author     Chuck Hagenbuch <chuck@horde.org>
- * @author     James Pepin <james@bluestatedigital.com>
+ * @author     James Pepin <james@jamespepin.com>
  * @license    http://opensource.org/licenses/bsd-license.php
  * @category   Horde
  * @package    Horde_Db
@@ -13,7 +13,7 @@
  * Class for parsing a stream into individual SQL statements.
  *
  * @author     Chuck Hagenbuch <chuck@horde.org>
- * @author     James Pepin <james@bluestatedigital.com>
+ * @author     James Pepin <james@jamespepin.com>
  * @license    http://opensource.org/licenses/bsd-license.php
  * @category   Horde
  * @package    Horde_Db
