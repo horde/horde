@@ -245,7 +245,7 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
                                                        Horde_Kolab_Server_Exception::SYSTEM);
             }
         } else {
-            $entry  = $this->_ldap->getEntry($mod_uid, $changes['attributes']);
+            $entry  = $this->_ldap->getEntry($uid, $changes['attributes']);
             $result = $this->_ldap->modify($entry, $data);
             if ($result instanceOf PEAR_Error) {
                 throw new Horde_Kolab_Server_Exception($result,
