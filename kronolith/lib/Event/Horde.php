@@ -84,10 +84,10 @@ class Kronolith_Event_Horde extends Kronolith_Event
     public function toJson($allDay = null, $full = false, $time_format = 'H:i')
     {
         $json = parent::toJson($allDay, $full, $time_format);
-        $json->icn = $this->external_icon;
+        $json->ic = $this->external_icon;
         // @TODO: What is expected for external calendar links? This is currently
         // broken in the UI.
-        //$json->link = $this->getLink();
+        //$json->ln = $this->getLink();
         return $json;
     }
 

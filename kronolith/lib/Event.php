@@ -1001,6 +1001,30 @@ abstract class Kronolith_Event
      * Returns a simple object suitable for json transport representing this
      * event.
      *
+     * Possible properties are:
+     * - t: title
+     * - c: calendar id
+     * - s: start date
+     * - e: end date
+     * - x: status (Kronolith::STATUS_* constant)
+     * - al: all-day?
+     * - bg: background color
+     * - fg: foreground color
+     * - pe: edit permissions?
+     * - pd: delete permissions?
+     * - a: alarm text
+     * - r: recurrence type (Horde_Date_Recurrence::RECUR_* constant)
+     * - ic: icon
+     * - ln: link
+     * - id: event id
+     * - ty: calendar type (driver)
+     * - l: location
+     * - sd: formatted start date
+     * - st: formatted start time
+     * - ed: formatted end date
+     * - et: formatted end time
+     * - tg: tag list
+     *
      * @param boolean $allDay      If not null, overrides whether the event is
      *                             an all-day event.
      * @param boolean $full        Whether to return all event details.
