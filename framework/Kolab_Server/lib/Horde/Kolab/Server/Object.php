@@ -895,8 +895,10 @@ class Horde_Kolab_Server_Object
                 }
                 if ($old === false && !($value === null || $value === '' || $value === array())) {
                     $changes['add'][$key] = $value;
+                    $changes['attributes'][] = $key;
                 } else if ($old !== false && ($value === null || $value === '' || $value === array())) {
                     $changes['delete'][] = $key;
+                    $changes['attributes'][] = $key;
                 } else if (is_array($old) || is_array($value)) {
                     if (!is_array($old)) {
                         $old = array($old);
@@ -907,16 +909,21 @@ class Horde_Kolab_Server_Object
                     $adds = array_diff($value, $old);
                     if (!empty($adds)) {
                         $changes['add'][$key] = $adds;
+                        $changes['attributes'][] = $key;
                     }
                     $deletes = array_diff($old, $value);
                     if (!empty($deletes)) {
                         $changes['delete'][$key] = $deletes;
+                        $changes['attributes'][] = $key;
                     }
                 } else {
                     $changes['replace'][$key] = $value;
+                    $changes['attributes'][] = $key;
                 }
             }
         }
+
+        $changes['attributes'] = array_unique($changes['attributes']);
 
         return $changes;
     }
@@ -929,7 +936,7 @@ class Horde_Kolab_Server_Object
      *
      * @return array The differences between both arrays.
      */
-    protected function getArrayChanges($a1, $a2)
+    public function getArrayChanges($a1, $a2)
     {
         if (empty($a1) || empty($a2)) {
             return !empty($a1) ? $a1 : $a2;
