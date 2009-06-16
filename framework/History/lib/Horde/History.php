@@ -295,7 +295,7 @@ class Horde_History
             }
         }
 
-        return $last;
+        return (int)$last;
     }
 
     /**
