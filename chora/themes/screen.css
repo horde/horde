@@ -1,27 +1,5 @@
-/* Menu bottom margin, added for BC. */
-#menu {
-    margin-bottom: 8px;
-}
-
-/* Image alignment, added for BC. */
-img {
-    vertical-align: middle;
-}
-
-/* Table CSS, added for BC. */
 th {
-    color: #333;
     border-bottom: 1px solid #999;
-}
-
-/* Sort arrow styles, added for BC. */
-.sortup {
-    background: #bbcbff url("graphics/za.png") center left no-repeat;
-    padding-left: 10px;
-}
-.sortdown {
-    background: #bbcbff url("graphics/az.png") center left no-repeat;
-    padding-left: 10px;
 }
 
 .QuickFinderNoMatch {
@@ -84,14 +62,6 @@ table.headerbar tr {
 }
 table.headerbar td {
     border-right: none;
-}
-table.revlog th.sortup, table.headerbar th.sortup, table.browse th.sortup {
-    background: #bbcbff url("graphics/za.png") center left no-repeat;
-    padding-left: 10px;
-}
-table.revlog th.sortdown, table.headerbar th.sortdown, table.browse th.sortdown {
-    background: #bbcbff url("graphics/az.png") center left no-repeat;
-    padding-left: 10px;
 }
 
 /* History View. */
@@ -163,19 +133,10 @@ h3.revision_log, h3.checkout {
     margin-top: 4px;
     margin-bottom: 0;
 }
-.revlog .sdiff {
+.revlog .sdiff, .revlog .selection .selected .sdiff, .revlog .selection .pdiff {
     display: none;
 }
-.revlog .selection .sdiff {
-    display: inline;
-}
-.revlog .selection .selected .sdiff {
-    display: none;
-}
-.revlog .selection .pdiff {
-    display: none;
-}
-.revlog .selection .selected .pdiff {
+.revlog .selection .sdiff, .revlog .selection .selected .pdiff {
     display: inline;
 }
 
