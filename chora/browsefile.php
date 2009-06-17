@@ -61,6 +61,16 @@ while (list(,$lg) = each($logs)) {
     $rev = $lg->queryRevision();
     $branch_info = $lg->queryBranch();
 
+    $added = $deleted = null;
+    $fileinfo = $lg->queryFiles($where);
+    if ($fileinfo && isset($fileinfo['added'])) {
+        $added = $fileinfo['added'];
+        $deleted = $fileinfo['deleted'];
+    }
+
+    // TODO: Remove in favor of getting info from queryFiles()
+    $changedlines = $lg->queryChangedLines();
+
     $textUrl = Chora::url('co', $where, array('r' => $rev));
     $commitDate = Chora::formatDate($lg->queryDate());
     $readableDate = Chora::readableTime($lg->queryDate(), true);

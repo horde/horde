@@ -9,8 +9,11 @@
 <?php foreach (array_diff($branch_info, array($onb)) as $val): ?>
   <span class="branch"><?php echo Horde::link(Chora::url('browsefile', $where, array('onb' => $val))) . htmlspecialchars($val) ?></a></span>
 <?php endforeach; ?>
-<?php if (!empty($lg->lines)): ?>
-  <small>(<?php printf('%s lines', $lg->lines) ?>)</small>
+<?php if (!empty($changedlines)): ?>
+  <small>(<?php printf('%s lines', htmlspecialchars($changedlines)) ?>)</small>
+<?php endif; ?>
+<?php if (!is_null($added)): ?>
+    <small>(<span class="diffadd">+<?php echo $added ?></span>, <span class="diffdel">-<?php echo $deleted ?></span> <?php echo _("lines") ?>)</small>
 <?php endif; ?>
 </td>
  <td class="ago" sortval="<?php echo (int)$lg->queryDate() ?>"><a title="<?php echo $readableDate ?>"><?php echo $commitDate ?></a></td>

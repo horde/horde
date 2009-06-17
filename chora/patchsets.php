@@ -89,6 +89,11 @@ while (list($id, $patchset) = each($patchsets)) {
             $file['to'] = Horde::link(Chora::url('co', $member['file'], array('r' => $member['to'])), $member['to']) . htmlspecialchars($VC->abbrev($member['to'])) . '</a>';
         }
 
+        if (isset($member['added'])) {
+            $file['added'] = $member['added'];
+            $file['deleted'] = $member['deleted'];
+        }
+
         $files[] = $file;
     }
 

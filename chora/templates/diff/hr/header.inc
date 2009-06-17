@@ -50,6 +50,7 @@
    </li>
 <?php endif; ?>
    <?php if (!empty($val['tags'])): ?><li class="tags"><?php echo _("Tags:") ?> <?php echo implode(', ', $val['tags']) ?></li><?php endif; ?>
+   <?php if (isset($val['added'])): ?><li><?php echo _("Statistics:") ?> <span class="diffadd">+<?php echo htmlspecialchars($val['added']) ?></span> <?php echo _("lines") ?>, <span class="diffdel">-<?php echo htmlspecialchars($val['deleted']) ?></span> <?php echo _("lines") ?></li><?php endif; ?>
   </ul>
   <a href="<?php echo Chora::url('co', $where, array('r' => $val['rev'])) ?>" title="<?php echo htmlspecialchars($val['rev']) ?>"><?php echo htmlspecialchars($VC->abbrev($val['rev'])) ?></a>: <?php echo $val['msg'] ?>
   <div class="diffclear"></div>

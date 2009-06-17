@@ -1029,7 +1029,9 @@ abstract class Horde_Vcs_File
      */
     public function queryLogs($rev = null)
     {
-        return is_null($rev) ? $this->_logs : (isset($this->_logs[$rev]) ? $this->_logs[$rev] : null);
+        return is_null($rev)
+            ? $this->_logs
+            : (isset($this->_logs[$rev]) ? $this->_logs[$rev] : null);
     }
 
     /**
@@ -1059,6 +1061,7 @@ abstract class Horde_Vcs_Log
 {
     protected $_rep;
     protected $_file;
+    protected $_files;
     protected $_rev;
     protected $_author;
     protected $_tags = array();
@@ -1161,6 +1164,16 @@ abstract class Horde_Vcs_Log
         }
 
         return $symBranches;
+    }
+
+    /**
+     * TODO
+     */
+    public function queryFiles($file = null)
+    {
+        return is_null($file)
+            ? $this->_files
+            : (isset($this->_files[$file]) ? $this->_files[$file] : null);
     }
 
 }

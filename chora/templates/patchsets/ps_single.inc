@@ -25,6 +25,6 @@
 
 <ul class="singlepsfiles">
 <?php foreach ($files as $file): ?>
- <li><?php echo $file['file'] . ': ' . $file['from'] . ' -> ' . $file['to'] . ' ' . $file['diff'] ?></li>
+ <li><?php echo $file['file'] . (isset($file['added']) ? (' (<span class="diffadd">+' . $file['added'] . '</span>, <span class="diffdel">-' . $file['deleted'] . '</span>) ') : '') . ': ' . $file['from'] . ' -> ' . $file['to'] . ' ' . $file['diff'] ?></li>
 <?php endforeach; ?>
 </ul>

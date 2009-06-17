@@ -170,6 +170,14 @@ ul.singlepsfiles li {
     padding-bottom: 4px;
 }
 
+/* Diff stat information. */
+.diffadd {
+    color: blue;
+}
+.diffdel {
+    color: red;
+}
+
 /* Checkout. */
 div.checkout {
     padding: 3px;

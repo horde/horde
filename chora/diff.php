@@ -61,14 +61,19 @@ $log_messages = array();
 foreach ($VC->getRevisionRange($fl, $r1, $r2) as $val) {
     $clog = $fl->queryLogs($val);
     if (!is_null($clog)) {
-        $log_messages[] = array(
+        $fileinfo = $clog->queryFiles($where);
+        $stats = ($fileinfo && isset($fileinfo['added']))
+            ? array('added' => $fileinfo['added'], 'deleted' => $fileinfo['deleted'])
+            : array();
+
+        $log_messages[] = array_merge(array(
             'rev' => $val,
             'msg' => Chora::formatLogMessage($clog->queryLog()),
             'author' => Chora::showAuthorName($clog->queryAuthor(), true),
             'branchinfo' => $clog->queryBranch(),
             'date' => Chora::formatDate($clog->queryDate()),
             'tags' => Chora::getTags($clog, $where),
-        );
+        ), $stats);
     }
 }
 

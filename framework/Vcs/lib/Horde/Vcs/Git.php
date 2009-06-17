@@ -625,11 +625,6 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
     protected $_parent = null;
 
     /**
-     * @var array
-     */
-    protected $_files = array();
-
-    /**
      * Constructor.
      *
      * @throws Horde_Vcs_Exception
@@ -638,8 +633,21 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
     {
         parent::__construct($rep, $fl, $rev);
 
+        /* Get diff statistics. */
+        $stats = array();
+        $cmd = $rep->getCommand() . ' diff-tree --numstat ' . escapeshellarg($rev);
+        exec($cmd, $output);
+
+        reset($output);
+        // Skip the first entry (it is the revision number)
+        next($output);
+        while (list(,$v) = each($output)) {
+            $tmp = explode("\t", $v);
+            $stats[$tmp[2]] = array_slice($tmp, 0, 2);
+        }
+
         // @TODO use Commit, CommitDate, and Merge properties
-        $cmd = $rep->getCommand() . ' whatchanged --no-color --pretty=format:"Rev:%H%nParents:%P%nAuthor:%an <%ae>%nAuthorDate:%at%nRefs:%d%n%n%s%n%b" --no-abbrev -n 1 ' . $rev;
+        $cmd = $rep->getCommand() . ' whatchanged --no-color --pretty=format:"Rev:%H%nParents:%P%nAuthor:%an <%ae>%nAuthorDate:%at%nRefs:%d%n%n%s%n%b" --no-abbrev -n 1 ' . escapeshellarg($rev);
         $pipe = popen($cmd, 'r');
         if (!is_resource($pipe)) {
             throw new Horde_Vcs_Exception('Unable to run ' . $cmd . ': ' . error_get_last());
@@ -713,7 +721,12 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
         // http://www.kernel.org/pub/software/scm/git/docs/git-diff-tree.html
         while ($line) {
             preg_match('/:(\d+) (\d+) (\w+) (\w+) (.+)\t(.+)(\t(.+))?/', $line, $matches);
-            $this->_files[$matches[6]] = array(
+
+            $statinfo = isset($stats[$matches[6]])
+                ? array('added' => $stats[$matches[6]][0], 'deleted' => $stats[$matches[6]][1])
+                : array();
+
+            $this->_files[$matches[6]] = array_merge(array(
                 'srcMode' => $matches[1],
                 'dstMode' => $matches[2],
                 'srcSha1' => $matches[3],
@@ -721,7 +734,7 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
                 'status' => $matches[5],
                 'srcPath' => $matches[6],
                 'dstPath' => isset($matches[7]) ? $matches[7] : ''
-            );
+            ), $statinfo);
 
             $line = fgets($pipe);
         }
@@ -743,14 +756,6 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
     public function queryBranch()
     {
         return $this->_file->queryBranch($this->_rev);
-    }
-
-    /**
-     * TODO
-     */
-    public function queryFiles()
-    {
-        return $this->_files;
     }
 
     /**
@@ -831,12 +836,16 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset
                     $from = $log->queryParent();
                 }
 
-                $this->_patchsets[$rev]['members'][] = array(
+                $statinfo = isset($file['added'])
+                    ? array('added' => $file['added'], 'deleted' => $file['deleted'])
+                    : array();
+
+                $this->_patchsets[$rev]['members'][] = array_merge(array(
                     'file' => $file['srcPath'],
                     'from' => $from,
                     'status' => $status,
                     'to' => $to,
-                );
+                ), $statinfo);
             }
         }
     }
