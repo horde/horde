@@ -56,6 +56,7 @@ require CHORA_TEMPLATES . '/headerbar.inc';
 require CHORA_TEMPLATES . '/log/header.inc';
 
 $i = 0;
+$diff_img = Horde::img('diff.png');
 reset($logs);
 while (list(,$lg) = each($logs)) {
     $rev = $lg->queryRevision();

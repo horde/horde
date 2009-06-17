@@ -1,9 +1,9 @@
 <tr id="rev<?php echo $rev ?>">
  <td>
   <?php if ($diffUrl): ?>
-  <a href="<?php echo $diffUrl ?>" class="pdiff" title="<?php echo _("Show changes to the previous revision") ?>"><?php echo Horde::img('diff.png') ?></a>
+  <a href="<?php echo $diffUrl ?>" class="pdiff" title="<?php echo _("Show changes to the previous revision") ?>"><?php echo $diff_img ?></a>
   <?php endif ?>
-  <a href="<?php echo Chora::url('diff', $where, array('r1' => 0, 'r2' => $rev)) ?>" class="sdiff" title="<?php echo _("Show changes to the selected revision") ?>" onclick="Chora_RevLog.sdiff(this);"><?php echo Horde::img('diff.png') ?></a>
+  <a href="<?php echo Chora::url('diff', $where, array('r1' => 0, 'r2' => $rev)) ?>" class="sdiff" title="<?php echo _("Show changes to the selected revision") ?>" onclick="Chora_RevLog.sdiff(this);"><?php echo $diff_img ?></a>
  </td>
  <td><a href="<?php echo $textUrl ?>" title="<?php echo htmlspecialchars($rev) ?>"><?php echo htmlspecialchars($VC->abbrev($rev)) ?></a>
 <?php foreach (array_diff($branch_info, array($onb)) as $val): ?>
