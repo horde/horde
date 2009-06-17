@@ -29,9 +29,9 @@ if (!$conf['compose']['link_attachments']) {
 }
 
 // Gather required form variables.
-$mail_user = Horde_Util::getFormData('u', null);
-$time_stamp = Horde_Util::getFormData('t', null);
-$file_name = Horde_Util::getFormData('f', null);
+$mail_user = Horde_Util::getFormData('u');
+$time_stamp = Horde_Util::getFormData('t');
+$file_name = Horde_Util::getFormData('f');
 if (is_null($mail_user) || is_null($time_stamp) || is_null($file_name)) {
     Horde::fatal(_("The attachment was not found."), $self_url, __LINE__);
 }
