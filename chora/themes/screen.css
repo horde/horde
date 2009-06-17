@@ -151,6 +151,25 @@ h3.revision_log, h3.checkout {
     width: 35%;
 }
 
+.singleps span.headerLabel {
+    font-size: 110%;
+    font-weight: bold;
+    padding-right: 5px;
+}
+.singleps span.ago a:hover {
+    text-decoration: none;
+}
+.singlepslog {
+    padding: 10px 0 20px 20px;
+}
+ul.singlepsfiles {
+    list-style: none;
+    padding: 10px 0 0 20px;
+}
+ul.singlepsfiles li {
+    padding-bottom: 4px;
+}
+
 /* Checkout. */
 div.checkout {
     padding: 3px;

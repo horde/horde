@@ -797,7 +797,11 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset
         }
 
         reset($revs);
-        while(list($rev, $log) = each($revs)) {
+        while (list($rev, $log) = each($revs)) {
+            if (empty($log)) {
+                continue;
+            }
+
             $this->_patchsets[$rev] = array(
                 'date' => $log->queryDate(),
                 'author' => $log->queryAuthor(),

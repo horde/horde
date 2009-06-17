@@ -24,6 +24,9 @@ if (!$GLOBALS['VC']->hasFeature('patchsets')) {
 $ps_opts = array();
 if ($ps_id = Horde_Util::getFormData('ps')) {
     $ps_opts['range'] = array($ps_id);
+    $title = sprintf(_("Patchset (%s) for %s"), $ps_id, $where);
+} else {
+    $title = sprintf(_("Patchsets for %s"), $where);
 }
 
 try {
@@ -33,7 +36,10 @@ try {
     Chora::fatal($e);
 }
 
-$title = sprintf(_("Patchsets for %s"), $where);
+if (empty($patchsets)) {
+    Chora::fatal(_("Patchset Not Found"), '400 Bad Request');
+}
+
 $extraLink = Chora::getFileViews($where, 'patchsets');
 
 Horde::addScriptFile('prototype.js', 'horde', true);
@@ -51,35 +57,36 @@ require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';
 require CHORA_TEMPLATES . '/patchsets/header.inc';
 
+if (!$ps_id) {
+    require CHORA_TEMPLATES . '/patchsets/header_table.inc';
+}
+
+$diff_img = Horde::img('diff.png', _("Diff"));
+
 reset($patchsets);
 while (list($id, $patchset) = each($patchsets)) {
-    // The diff should be from the top of the source tree so as to
-    // get all files.
-    // @TODO: Fix this (support needs to be written in diff page)
-    // $patchset_link = Horde::link(Chora::url('diff', substr($where, 0, strpos($where, '/', 1)), array('r1' => $id - 1, 'r2' => $id, 't' => 'unified'))) . $VC->abbrev($id) . '</a>';
-    $patchset_link = htmlspecialchars($VC->abbrev($id));
+    $patchset_link = Horde::link(Chora::url('patchsets', $where, array('ps' => $id)), sprintf("Patchset for %s", $id)) . htmlspecialchars($VC->abbrev($id)) . '</a>';
 
     $files = $tags = array();
-    $diff_img = Horde::img('diff.png', _("Diff"));
 
     foreach ($patchset['members'] as $member) {
         $file = array();
 
-        $file['file'] = Horde::link(Chora::url('patchsets', $member['file'])) . htmlspecialchars($member['file']) . '</a>';
+        $file['file'] = Horde::link(Chora::url('co', $member['file'])) . htmlspecialchars($member['file']) . '</a>';
 
         if ($member['status'] == Horde_Vcs_Patchset::ADDED) {
             $file['from'] = '<ins>' . _("New File") . '</ins>';
             $file['diff'] = '';
         } else {
-            $file['from'] = Horde::link(Chora::url('co', $member['file'], array('r' => $member['from']))) . htmlspecialchars($VC->abbrev($member['from'])) . '</a>';
-            $file['diff'] = Horde::link(Chora::url('diff', $member['file'], array('r1' => $member['from'], 'r2' => $member['to']))) . ' ' . $diff_img . '</a>';
+            $file['from'] = Horde::link(Chora::url('co', $member['file'], array('r' => $member['from'])), $member['from']) . htmlspecialchars($VC->abbrev($member['from'])) . '</a>';
+            $file['diff'] = Horde::link(Chora::url('diff', $member['file'], array('r1' => $member['from'], 'r2' => $member['to'])), _("Diff")) . ' ' . $diff_img . '</a>';
         }
 
         if ($member['status'] == Horde_Vcs_Patchset::DELETED) {
             $file['to'] = '<del>' . _("Deleted") . '</del>';
             $file['diff'] = '';
         } else {
-            $file['to'] = Horde::link(Chora::url('co', $member['file'], array('r' => $member['to']))) . htmlspecialchars($VC->abbrev($member['to'])) . '</a>';
+            $file['to'] = Horde::link(Chora::url('co', $member['file'], array('r' => $member['to'])), $member['to']) . htmlspecialchars($VC->abbrev($member['to'])) . '</a>';
         }
 
         $files[] = $file;
@@ -98,8 +105,14 @@ while (list($id, $patchset) = each($patchsets)) {
         $tags = array_merge($tags, $patchset['tag']);
     }
 
-    require CHORA_TEMPLATES . '/patchsets/ps.inc';
+    if ($ps_id) {
+        require CHORA_TEMPLATES . '/patchsets/ps_single.inc';
+    } else {
+        require CHORA_TEMPLATES . '/patchsets/ps.inc';
+    }
 }
 
-require CHORA_TEMPLATES . '/patchsets/footer.inc';
+if (!$ps_id) {
+    require CHORA_TEMPLATES . '/patchsets/footer.inc';
+}
 require $registry->get('templates', 'horde') . '/common-footer.inc';
