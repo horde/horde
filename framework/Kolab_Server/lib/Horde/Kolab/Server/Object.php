@@ -45,6 +45,15 @@ class Horde_Kolab_Server_Object
     /** The time the object was created */
     const ATTRIBUTE_CREATIONDATE = 'createTimestamp';
 
+    /** The time the object was last modified */
+    const ATTRIBUTE_MODIFICATIONDATE = 'modifyTimestamp';
+
+    /** The time the object was created */
+    const ATTRDATE_CREATIONDATE = 'createTimestampDate';
+
+    /** The time the object was last modified */
+    const ATTRDATE_MODIFICATIONDATE = 'modifyTimestampDate';
+
     /** Access rules for this object */
     const ATTRIBUTE_ACI = 'OpenLDAPaci';
 
@@ -127,6 +136,7 @@ class Horde_Kolab_Server_Object
         'defined' => array(
             self::ATTRIBUTE_OC,
             self::ATTRIBUTE_CREATIONDATE,
+            self::ATTRIBUTE_MODIFICATIONDATE,
             self::ATTRIBUTE_ACI,
         ),
         /**
@@ -138,6 +148,18 @@ class Horde_Kolab_Server_Object
             ),
             self::ATTRIBUTE_ID => array(
                 'method' => 'getId',
+            ),
+            self::ATTRDATE_CREATIONDATE => array(
+                'method' => 'getDate',
+                'args' => array(
+                    self::ATTRIBUTE_CREATIONDATE,
+                ),
+            ),
+            self::ATTRDATE_MODIFICATIONDATE => array(
+                'method' => 'getDate',
+                'args' => array(
+                    self::ATTRIBUTE_MODIFICATIONDATE,
+                ),
             ),
         ),
         /**
@@ -564,6 +586,26 @@ class Horde_Kolab_Server_Object
     }
 
     /**
+     * Get a derived attribute date by converting it into a Horde_Date object.
+     *
+     * @param string $key   Name of the attribute that holds the
+     *                      date.
+     *
+     * @return mixed A Horde_Date object or false if the date was not
+     *               converted successfully.
+     */
+    protected function getDate($key)
+    {
+        $date = $this->_get($key);
+        if (empty($date) || !class_exists('Horde_Date')) {
+            return false;
+        }
+
+        $result = new Horde_Date($date);
+        return $result;
+    }
+
+    /**
      * Set a collapsed attribute value.
      *
      * @param string  $key        The attribute to collapse into.
@@ -923,7 +965,9 @@ class Horde_Kolab_Server_Object
             }
         }
 
-        $changes['attributes'] = array_unique($changes['attributes']);
+        if (!empty($changes['attributes'])) {
+            $changes['attributes'] = array_unique($changes['attributes']);
+        }
 
         return $changes;
     }

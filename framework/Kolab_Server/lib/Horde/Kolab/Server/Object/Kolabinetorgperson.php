@@ -86,6 +86,9 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
     /** The date of birth */
     const ATTRIBUTE_DATEOFBIRTH = 'apple-birthday';
 
+    /** The date of birth as Horde_Date */
+    const ATTRDATE_DATEOFBIRTH = 'apple-birthdayDate';
+
     /** The place of birth */
     const ATTRIBUTE_PLACEOFBIRTH = 'birthPlace';
 
@@ -201,6 +204,17 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
         ),
         'locked' => array(
             self::ATTRIBUTE_MAIL,
+        ),
+        /**
+         * Derived attributes are calculated based on other attribute values.
+         */
+        'derived' => array(
+            self::ATTRDATE_DATEOFBIRTH => array(
+                'method' => 'getDate',
+                'args' => array(
+                    self::ATTRIBUTE_DATEOFBIRTH,
+                ),
+            ),
         ),
         'object_classes' => array(
             self::OBJECTCLASS_KOLABINETORGPERSON,

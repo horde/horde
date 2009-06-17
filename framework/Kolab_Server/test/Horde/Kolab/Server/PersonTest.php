@@ -97,6 +97,14 @@ class Horde_Kolab_Server_PersonTest extends Horde_Kolab_Test_Server
             Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN           => 'Kolab_Server_PersonTest_123456',
             Horde_Kolab_Server_Object_Person::ATTRIBUTE_USERPASSWORD => 'Kolab_Server_PersonTest_123456',
         ),
+        /* Person with a creation date*/
+        array(
+            'type' => 'Horde_Kolab_Server_Object_Person',
+            Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN           => 'Kolab_Server_PersonTest_123456',
+            Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN           => 'Kolab_Server_PersonTest_123456',
+            Horde_Kolab_Server_Object_Person::ATTRIBUTE_USERPASSWORD => 'Kolab_Server_PersonTest_123456',
+            Horde_Kolab_Server_Object_Person::ATTRIBUTE_CREATIONDATE => '191008030000Z',
+        ),
     );
 
     /**
@@ -260,5 +268,21 @@ class Horde_Kolab_Server_PersonTest extends Horde_Kolab_Test_Server
         $this->assertSimpleSequence($person, $server,
                                     Horde_Kolab_Server_Object_Person::ATTRIBUTE_TELNO,
                                     array('123456789', '+1234567890', array('1', '2'), null, '0'), true);
+    }
+
+    /**
+     * Test retrrieving a date.
+     *
+     * @dataProvider provideServers
+     *
+     * @return NULL
+     */
+    public function testGetDate($server)
+    {
+        $person = $this->assertAdd($server, $this->objects[8],
+                                   array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_TELNO => ''));
+	$cdate = $person->get(Horde_Kolab_Server_Object_Person::ATTRDATE_CREATIONDATE);
+	$this->assertEquals('Horde_Date', get_class($cdate));
+	$this->assertEquals('1910-08-03 01:00:00', (string) $cdate);
     }
 }

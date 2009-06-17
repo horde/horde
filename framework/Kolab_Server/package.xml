@@ -159,6 +159,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Date</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>PHPUnit</name>
     <channel>pear.phpunit.de</channel>
    </package>
