@@ -4,6 +4,8 @@ Horde_Mime_Mail reusing test
 <?php
 
 require dirname(__FILE__) . '/mail_dummy.inc';
+require_once 'Horde/String.php';
+require_once 'Horde/Util.php';
 
 $mail = new Horde_Mime_Mail('My Subject', "This is\nthe body",
                             'recipient@example.com', 'sender@example.com',

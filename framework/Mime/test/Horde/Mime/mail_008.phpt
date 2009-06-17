@@ -4,6 +4,8 @@ Horde_Mime_Mail flowed text test
 <?php
 
 require dirname(__FILE__) . '/mail_dummy.inc';
+require_once 'Horde/String.php';
+require_once 'Horde/Util.php';
 
 $mail = new Horde_Mime_Mail();
 $mail->addHeader('Subject', 'My Subject');

@@ -4,6 +4,10 @@ Horde_Mime_Mail HTML test
 <?php
 
 require dirname(__FILE__) . '/mail_dummy.inc';
+require_once 'Horde/String.php';
+require_once 'Horde/Text/Filter.php';
+require_once 'Horde/Text/Filter/Html2text.php';
+require_once 'Horde/Util.php';
 
 $mail = new Horde_Mime_Mail('My Subject', null, 'recipient@example.com',
                             'sender@example.com');
