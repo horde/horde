@@ -1061,7 +1061,7 @@ abstract class Horde_Vcs_Log
 {
     protected $_rep;
     protected $_file;
-    protected $_files;
+    protected $_files = array();
     protected $_rev;
     protected $_author;
     protected $_tags = array();
@@ -1173,7 +1173,7 @@ abstract class Horde_Vcs_Log
     {
         return is_null($file)
             ? $this->_files
-            : (isset($this->_files[$file]) ? $this->_files[$file] : null);
+            : (isset($this->_files[$file]) ? $this->_files[$file] : array());
     }
 
 }

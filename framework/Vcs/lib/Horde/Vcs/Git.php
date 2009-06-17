@@ -653,16 +653,10 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
             throw new Horde_Vcs_Exception('Unable to run ' . $cmd . ': ' . error_get_last());
         }
 
-        $line = trim(fgets($pipe));
+        //$line = trim(fgets($pipe));
         while (true) {
-            $line = fgets($pipe);
-            if ($line === false) {
-                throw new Horde_Vcs_Exception('Unexpected end of log output');
-            }
-
-            $line = trim($line);
-            if ($line == '') { break; }
-
+            $line = trim(fgets($pipe));
+            if (!strlen($line)) { break; }
             if (strpos($line, ':') === false) {
                 throw new Horde_Vcs_Exception('Malformed log line: ' . $line);
             }
@@ -710,7 +704,7 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log
 
         $log = '';
         $line = fgets($pipe);
-        while (substr($line, 0, 1) != ':') {
+        while ($line !== false && substr($line, 0, 1) != ':') {
             $log .= $line;
             $line = fgets($pipe);
         }
