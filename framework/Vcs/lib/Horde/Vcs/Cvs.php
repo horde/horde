@@ -334,11 +334,6 @@ class Horde_Vcs_Directory_Cvs extends Horde_Vcs_Directory
         return array('HEAD');
     }
 
-    public function getDefaultBranch()
-    {
-        return 'HEAD';
-    }
-
 }
 
 /**

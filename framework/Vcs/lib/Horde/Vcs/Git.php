@@ -98,7 +98,9 @@ class Horde_Vcs_Git extends Horde_Vcs
      */
     public function isFile($where, $branch = null)
     {
-        if (!$branch) { $branch = 'master'; }
+        if (!$branch) {
+            $this->getDefaultBranch();
+        }
 
         $where = str_replace($this->sourceroot() . '/', '', $where);
         $command = $this->getCommand() . ' ls-tree ' . escapeshellarg($branch) . ' ' . escapeshellarg($where) . ' 2>&1';
@@ -303,6 +305,14 @@ class Horde_Vcs_Git extends Horde_Vcs
         return $this->_branchlist;
     }
 
+    /**
+     * @TODO ?
+     */
+    public function getDefaultBranch()
+    {
+        return 'master';
+    }
+
 }
 
 /**
@@ -335,7 +345,9 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
     {
         parent::__construct($rep, $dn, $opts);
 
-        $this->_branch = empty($opts['rev']) ? 'master' : $opts['rev'];
+        $this->_branch = empty($opts['rev'])
+            ? $rep->getDefaultBranch()
+            : $opts['rev'];
 
         // @TODO See if we have a valid cache of the tree at this revision
 
@@ -385,14 +397,6 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
         return $blist;
     }
 
-    /**
-     * @TODO ?
-     */
-    public function getDefaultBranch()
-    {
-        return 'master';
-    }
-
 }
 
 /**
@@ -405,6 +409,8 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
 class Horde_Vcs_File_Git extends Horde_Vcs_File
 {
     /**
+     * The master list of revisions for this file.
+     *
      * @var array
      */
     protected $_revlist = array();
@@ -425,40 +431,53 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
 
         $log_list = null;
 
-        if (version_compare($rep->version, '1.6.0', '>=')) {
-            $cmd = $rep->getCommand() . ' rev-list --branches -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
+        /* First, grab the master list of revisions. If quicklog is specified,
+         * we don't need this master list - we are only concerned about the
+         * most recent revision for the given branch. */
+        if ($this->_quicklog) {
+            $branchlist = empty($this->_branch)
+                ? array($rep->getDefaultBranch())
+                : array($this->_branch);
         } else {
-            $cmd = $rep->getCommand() . ' branch -v --no-abbrev';
-            exec($cmd, $branch_heads);
-            if (stripos($branch_heads[0], 'fatal') === 0) {
-                throw new Horde_Vcs_Exception(implode(', ', $branch_heads));
-            }
-            foreach ($branch_heads as &$hd) {
-                $line = explode(' ', substr($hd, 2));
-                $hd = $line[1];
-            }
-
-            $cmd = $rep->getCommand() . ' rev-list ' . implode(' ', $branch_heads) . ' -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
-        }
-
-        exec($cmd, $revs);
-        if (count($revs) == 0) {
-            if (!$rep->isFile($fl, isset($opts['branch']) ? $opts['branch'] : null)) {
-                throw new Horde_Vcs_Exception('No such file: ' . $fl);
+            if (version_compare($rep->version, '1.6.0', '>=')) {
+                $cmd = $rep->getCommand() . ' rev-list --branches -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
             } else {
-                throw new Horde_Vcs_Exception('No revisions found');
+                $cmd = $rep->getCommand() . ' branch -v --no-abbrev';
+                exec($cmd, $branch_heads);
+                if (stripos($branch_heads[0], 'fatal') === 0) {
+                    throw new Horde_Vcs_Exception(implode(', ', $branch_heads));
+                }
+                foreach ($branch_heads as &$hd) {
+                    $line = explode(' ', substr($hd, 2));
+                    $hd = $line[1];
+                }
+
+                $cmd = $rep->getCommand() . ' rev-list ' . implode(' ', $branch_heads) . ' -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
             }
+
+            exec($cmd, $revs);
+            if (count($revs) == 0) {
+                if (!$rep->isFile($fl, isset($opts['branch']) ? $opts['branch'] : null)) {
+                    throw new Horde_Vcs_Exception('No such file: ' . $fl);
+                } else {
+                    throw new Horde_Vcs_Exception('No revisions found');
+                }
+            }
+
+            if (stripos($revs[0], 'fatal') === 0) {
+                throw new Horde_Vcs_Exception(implode(', ', $revs));
+            }
+
+            $this->_revs = $revs;
+
+            $branchlist = array_keys($this->queryBranches());
         }
-        if (stripos($revs[0], 'fatal') === 0) {
-            throw new Horde_Vcs_Exception(implode(', ', $revs));
-        }
-        $this->_revs = $revs;
 
         /* Get the list of revisions. Need to get all revisions, not just
          * those on $this->_branch, for branch determination reasons. */
-        foreach (array_keys($this->queryBranches()) as $key) {
+        foreach ($branchlist as $key) {
             $revs = array();
-            $cmd = $rep->getCommand() . ' rev-list ' . escapeshellarg($key) . ' -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
+            $cmd = $rep->getCommand() . ' rev-list ' . ($this->_quicklog ? '-n 1' : '') . ' ' . escapeshellarg($key) . ' -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
             exec($cmd, $revs);
 
             if (!empty($revs)) {
@@ -469,17 +488,19 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
                 $this->_revlist[$key] = $revs;
 
                 if (!empty($this->_branch) && ($this->_branch == $key)) {
-                    $log_list = $this->_quicklog
-                        ? array(reset($revs))
-                        : $revs;
+                    $log_list = $revs;
+                }
+
+                if ($this->_quicklog) {
+                    $this->_revs[] = reset($revs);
                 }
             }
         }
 
         if (is_null($log_list)) {
-            $log_list = $this->_quicklog
-                ? array(reset($this->_revs))
-                : (empty($this->_branch) ? $this->_revs : array());
+            $log_list = ($this->_quicklog || empty($this->_branch))
+                ? $this->_revs
+                : array();
         }
 
         foreach ($log_list as $val) {

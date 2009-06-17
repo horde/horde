@@ -59,7 +59,7 @@ $branches = array();
 if ($VC->hasFeature('branches')) {
     $branches = $dir->getBranches();
     if (is_null($rev)) {
-        $rev = $dir->getDefaultBranch();
+        $rev = $VC->getDefaultBranch();
     }
 }
 

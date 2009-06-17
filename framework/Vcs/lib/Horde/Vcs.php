@@ -593,6 +593,14 @@ class Horde_Vcs
         return $rev;
     }
 
+    /**
+     * @TODO ?
+     */
+    public function getDefaultBranch()
+    {
+        return 'master';
+    }
+
 }
 
 /**
