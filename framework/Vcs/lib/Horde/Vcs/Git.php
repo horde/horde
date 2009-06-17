@@ -99,7 +99,7 @@ class Horde_Vcs_Git extends Horde_Vcs
     public function isFile($where, $branch = null)
     {
         if (!$branch) {
-            $this->getDefaultBranch();
+            $branch = $this->getDefaultBranch();
         }
 
         $where = str_replace($this->sourceroot() . '/', '', $where);
