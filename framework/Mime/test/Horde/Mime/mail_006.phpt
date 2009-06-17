@@ -10,7 +10,7 @@ require_once 'Horde/Util.php';
 $mail = new Horde_Mime_Mail('My Subject', "This is\nthe body",
                             'recipient@example.com', 'sender@example.com',
                             'iso-8859-15');
-$mail->addAttachment(dirname(__FILE__) . '/attachment.bin');
+$mail->addAttachment(dirname(__FILE__) . '/fixtures/attachment.bin');
 $mail->addAttachment(dirname(__FILE__) . '/mail_dummy.inc', 'my_name.html', 'text/html', 'iso-8859-15');
 
 echo $mail->send('dummy');

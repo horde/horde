@@ -104,13 +104,33 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="test">
     <dir name="Horde">
      <dir name="Mime">
+      <dir name="fixtures">
+       <file name="attachment.bin" role="test" />
+       <file name="bug_325.txt" role="test" />
+       <file name="url1.html" role="test" />
+       <file name="url2.html" role="test" />
+       <file name="url3.html" role="test" />
+       <file name="url4.html" role="test" />
+       <file name="url5.html" role="test" />
+       <file name="url6.html" role="test" />
+       <file name="url7.html" role="test" />
+      </dir> <!-- /test/Horde/Mime/fixtures -->
+      <file name="AllTests.php" role="test" />
       <file name="bug_325.phpt" role="test" />
+      <file name="bug_4834.phpt" role="test" />
+      <file name="bug_6896.phpt" role="test" />
       <file name="mail_001.phpt" role="test" />
       <file name="mail_002.phpt" role="test" />
       <file name="mail_003.phpt" role="test" />
       <file name="mail_004.phpt" role="test" />
       <file name="mail_005.phpt" role="test" />
+      <file name="mail_006.phpt" role="test" />
+      <file name="mail_007.phpt" role="test" />
+      <file name="mail_008.phpt" role="test" />
       <file name="mail_dummy.inc" role="test" />
+      <file name="rfc2231.phpt" role="test" />
+      <file name="url.phpt" role="test" />
+      <file name="viewer_php.phpt" role="test" />
      </dir> <!-- /test/Horde/Mime -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->

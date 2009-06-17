@@ -12,7 +12,7 @@ $mail = new Horde_Mime_Mail('My Subject', "This is\nthe body",
                             'iso-8859-15');
 $mail->addPart('text/plain', 'This is a plain text', 'iso-8859-1', 'inline');
 $mail->addPart('application/octet-stream',
-               file_get_contents(dirname(__FILE__) . '/attachment.bin'),
+               file_get_contents(dirname(__FILE__) . '/fixtures/attachment.bin'),
                null, 'attachment');
 
 echo $mail->send('dummy');

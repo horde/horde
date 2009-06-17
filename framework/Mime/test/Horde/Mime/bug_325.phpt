@@ -6,7 +6,7 @@ Bug #338 (fileinfo returning charset)
 <?php
 require_once 'Horde/Util.php';
 require dirname(__FILE__) . '/../../../lib/Horde/Mime/Magic.php';
-echo Horde_Mime_Magic::analyzeFile(dirname(__FILE__) . '/bug_325.txt');
+echo Horde_Mime_Magic::analyzeFile(dirname(__FILE__) . '/fixtures/bug_325.txt');
 ?>
 --EXPECT--
 text/plain

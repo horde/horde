@@ -40,7 +40,7 @@ $browser = new Browser();
 for ($i = 1; $i <= 7; $i++) {
     $part = new Horde_Mime_Part();
     $part->setType('text/html');
-    $part->setContents(file_get_contents($dirname . '/url' . $i . '.html'));
+    $part->setContents(file_get_contents($dirname . '/fixtures/url' . $i . '.html'));
     $viewer = Horde_Mime_Viewer::factory($part, 'text/html');
     echo $viewer->render();
 }
