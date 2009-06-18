@@ -308,11 +308,15 @@ class IMP_Mailbox
                 $query->flag('\\deleted', false);
             }
 
-            $this->_sorted = $this->_sortedInfo = array();
-            foreach ($GLOBALS['imp_search']->runSearch($query, $this->_mailbox) as $val) {
-                list($idx, $mbox) = explode(IMP::IDX_SEP, $val);
-                $this->_sorted[] = $idx;
-                $this->_sortedInfo[] = array('m' => $mbox);
+            try {
+                foreach ($GLOBALS['imp_search']->runSearch($query, $this->_mailbox) as $val) {
+                    list($idx, $mbox) = explode(IMP::IDX_SEP, $val);
+                    $this->_sorted[] = $idx;
+                    $this->_sortedInfo[] = array('m' => $mbox);
+                }
+            } catch (Horde_Imap_Client_Exception $e) {
+                $this->_sorted = $this->_sortedInfo = array();
+                $GLOBALS['notification']->push(_("Mailbox listing failed") . ': ' . $e->getMessage(), 'horde.error');
             }
         } else {
             $sortpref = IMP::getSort($this->_mailbox);
@@ -332,6 +336,7 @@ class IMP_Mailbox
                     $this->_sorted = $res['sort'];
                 } catch (Horde_Imap_Client_Exception $e) {
                     $this->_sorted = array();
+                    $GLOBALS['notification']->push(_("Mailbox listing failed") . ': ' . $e->getMessage(), 'horde.error');
                 }
             }
         }

@@ -123,6 +123,7 @@ class IMP_Search
      *                    current ID set in the object).
      *
      * @return array  The sorted list.
+     * @throws Horde_Imap_Client_Exception
      */
     public function runSearch($ob, $id = null)
     {
@@ -148,12 +149,10 @@ class IMP_Search
         }
 
         foreach ($search['folders'] as $val) {
-            try {
-                $results = $GLOBALS['imp_imap']->ob->search($val, $query, array('reverse' => $sortpref['dir'], 'sort' => array($sortpref['by'])));
-                foreach ($results['sort'] as $val2) {
-                    $sorted[] = $val2 . IMP::IDX_SEP . $val;
-                }
-            } catch (Horde_Imap_Client_Exception $e) {}
+            $results = $GLOBALS['imp_imap']->ob->search($val, $query, array('reverse' => $sortpref['dir'], 'sort' => array($sortpref['by'])));
+            foreach ($results['sort'] as $val2) {
+                $sorted[] = $val2 . IMP::IDX_SEP . $val;
+            }
         }
 
         return $sorted;
