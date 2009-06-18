@@ -85,17 +85,18 @@ class IMP_Views_ShowMessage
      * 'list_info' - List information.
      * 'priority' - The X-Priority of the message ('low', 'high', 'normal')
      * 'replyTo' - The Reply-to addresses
+     * 'save_as' - The save link
      * </pre>
      */
     public function showMessage($args)
     {
         $preview = !empty($args['preview']);
-        $folder = $args['folder'];
+        $mailbox = $args['folder'];
         $index = $args['index'];
         $error_msg = _("Requested message not found.");
 
         $result = array(
-            'folder' => $folder,
+            'folder' => $mailbox,
             'index' => $index
         );
 
@@ -105,7 +106,7 @@ class IMP_Views_ShowMessage
         /* Get envelope/header information. We don't use flags in this
          * view. */
         try {
-            $fetch_ret = $GLOBALS['imp_imap']->ob->fetch($folder, array(
+            $fetch_ret = $GLOBALS['imp_imap']->ob->fetch($mailbox, array(
                 Horde_Imap_Client::FETCH_ENVELOPE => true,
                 Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => false))
             ), array('ids' => array($index)));
@@ -117,7 +118,7 @@ class IMP_Views_ShowMessage
 
         /* Parse MIME info and create the body of the message. */
         try {
-            $imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $folder);
+            $imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox);
         } catch (Horde_Exception $e) {
             $result['error'] = $error_msg;
             $result['errortype'] = 'horde.error';
@@ -246,8 +247,8 @@ class IMP_Views_ShowMessage
         }
 
         /* Do MDN processing now. */
-        if ($imp_ui->MDNCheck($folder, $index, $mime_headers)) {
-            $result['msgtext'] .= $imp_ui->formatStatusMsg(array('text' => array(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link('', '', '', '', 'DimpCore.doAction(\'SendMDN\',{folder:\'' . $folder . '\',index:' . $index . '}); return false;', '', '') . _("HERE") . '</a>'))));
+        if ($imp_ui->MDNCheck($mailbox, $index, $mime_headers)) {
+            $result['msgtext'] .= $imp_ui->formatStatusMsg(array('text' => array(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link('', '', '', '', 'DimpCore.doAction(\'SendMDN\',{folder:\'' . $mailbox . '\',index:' . $index . '}); return false;', '', '') . _("HERE") . '</a>'))));
         }
 
         /* Build body text. This needs to be done before we build the
@@ -342,6 +343,7 @@ class IMP_Views_ShowMessage
 
         if (!$preview) {
             $result['list_info'] = $imp_ui->getListInformation($mime_headers);
+            $result['save_as'] = Horde::downloadUrl(htmlspecialchars_decode($result['subject']), array_merge(array('actionID' => 'save_message'), IMP::getIMPMboxParameters($mailbox, $index, $mailbox)));
         }
 
         return $result;

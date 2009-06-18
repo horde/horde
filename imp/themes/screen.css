@@ -596,7 +596,7 @@ td.addressTr span.loadingImg {
     padding: 0 1px;
     vertical-align: bottom;
 }
-.downloadAtc {
+.downloadAtc, .saveAsImg {
     background-image: url("graphics/download.png");
 }
 .downloadZipAtc {

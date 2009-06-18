@@ -62,6 +62,7 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
 <?php if (!empty($conf['user']['allow_view_source'])): ?>
       <div id="msg_view_source"><span class="iconImg"></span><a><?php echo _("View Message Source") ?></a></div>
 <?php endif; ?>
+      <div><span class="iconImg saveAsImg"</span><a href="<?php echo $show_msg_result['save_as'] ?>"><?php echo _("Save") ?></a></div>
      </div>
      <div id="msgHeadersContent">
       <table cellspacing="0">

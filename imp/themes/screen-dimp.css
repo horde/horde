@@ -391,7 +391,7 @@ div.vpRow.flagDeleted {
     text-decoration: none;
     color: #000;
 }
-.dimpOptions div:hover {
+.dimpOptions div a:hover {
     text-decoration: underline;
 }
 .dimpOptions div img {
