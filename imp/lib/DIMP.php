@@ -99,13 +99,6 @@ class DIMP
              (!empty($GLOBALS['language']) ? '<html lang="' . strtr($GLOBALS['language'], '_', '-') . '"' : '<html') . ">\n".
              "<head>\n";
 
-        // TODO: Make dimp work with IE 8 standards mode
-        //       Needs prototypejs 1.6.0.4
-        if ($GLOBALS['browser']->isBrowser('msie') &&
-            ($GLOBALS['browser']->getMajor() == 8)) {
-            echo '<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />' . "\n";
-        }
-
         echo '<title>' . htmlspecialchars($page_title) . "</title>\n" .
              '<link href="' . $GLOBALS['registry']->getImageDir() . "/favicon.ico\" rel=\"SHORTCUT ICON\" />\n";
         include IMP_BASE . '/templates/javascript_defs_dimp.php';
