@@ -180,7 +180,7 @@ if (count($_POST)) {
         }
 
         if ($sent && $prefs->getValue('compose_confirm')) {
-            $notification->push(_("Message sent successfully."), 'horde.success');
+            $notification->push(empty($header['subject']) ? _("Message sent successfully.") : sprintf(_("Message \"%s\" sent successfully."), $header['subject']), 'horde.success');
         }
 
         /* Update maillog information. */
