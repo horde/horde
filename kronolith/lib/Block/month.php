@@ -75,6 +75,9 @@ class Horde_Block_Kronolith_month extends Horde_Block {
             if (is_a($this->_share, 'PEAR_Error')) {
                 return _(sprintf("There was an error accessing the calendar: %s", $this->_share->getMessage()));
             }
+            if (is_a($this->_share, 'PEAR_Error')) {
+                return $this->_share;
+            }
             if (!$this->_share->hasPermission(Auth::getAuth(), PERMS_SHOW)) {
                 return _("Permission Denied");
             }
