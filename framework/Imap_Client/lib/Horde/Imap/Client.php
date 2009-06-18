@@ -57,7 +57,7 @@
  *   statuscache - (boolean) Cache STATUS responses?
  *                 DEFAULT: False
  *   timeout - (integer)  Connection timeout, in seconds.
- *             DEFAULT: 10 seconds
+ *             DEFAULT: 30 seconds
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *

@@ -3237,9 +3237,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         if (!strlen($data)) {
             if ($this->_debug) {
-                fwrite($this->_debug, '[ERROR: IMAP read error.]' . "\n");
+                fwrite($this->_debug, '[ERROR: IMAP read/timeout error.]' . "\n");
             }
-            throw new Horde_Imap_Client_Exception('IMAP read error.', Horde_Imap_Client_Exception::SERVER_READERROR);
+            throw new Horde_Imap_Client_Exception('IMAP read error or IMAP connection timed out.', Horde_Imap_Client_Exception::SERVER_READERROR);
         }
 
         if ($this->_debug) {

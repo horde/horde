@@ -112,7 +112,7 @@ abstract class Horde_Imap_Client_Base
         }
 
         if (empty($params['timeout'])) {
-            $params['timeout'] = 10;
+            $params['timeout'] = 30;
         }
 
         if (empty($params['cache'])) {
