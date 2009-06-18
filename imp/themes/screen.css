@@ -69,14 +69,6 @@
     margin-bottom: 1em;
 }
 
-/* Fetchmail styling. */
-#fetchmail {
-    padding: 1em;
-}
-#fetchmail ul {
-    list-style: none;
-}
-
 /* Navbar action styling. */
 ul.msgactions, ul.msgactions ul {
     list-style: none;

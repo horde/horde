@@ -160,7 +160,7 @@ if (empty($action)) {
 // The following actions do not need write access to the session and
 // should be opened read-only for performance reasons.
 $session_control = null;
-if (in_array($action, array('chunkContent', 'Html2Text', 'Text2Html', 'GetReplyData', 'FetchmailDialog'))) {
+if (in_array($action, array('chunkContent', 'Html2Text', 'Text2Html', 'GetReplyData'))) {
     $session_control = 'readonly';
 }
 
@@ -767,28 +767,6 @@ case 'SMIMEPersonal':
         $notify = false;
     }
 
-    break;
-
-case 'Fetchmail':
-    $fetch_list = Horde_Util::getFormData('accounts');
-    if (empty($fetch_list)) {
-        $result->error = _("No accounts selected.");
-    } else {
-        IMP_Fetchmail::fetchmail($fetch_list);
-        $result->success = 1;
-    }
-
-    /* Don't send dimp notifications via this response since the listener
-     * on the browser (dialog.js) doesn't know what to do with them. Instead,
-     * notifications will be picked up via the PollFolders() call that is
-     * done on success. */
-    $notify = false;
-
-    break;
-
-case 'FetchmailDialog':
-    $result = IMP_Fetchmail::fetchmailDialogForm();
-    $notify = false;
     break;
 }
 

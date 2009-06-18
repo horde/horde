@@ -136,13 +136,6 @@ if (!$is_pop3) {
         'desc' => _("Configure flag highlighting."),
         'members' => array('flagmanagement')
     );
-
-    $prefGroups['fetchmail'] = array(
-        'column' => _("Message Options"),
-        'label' => _("Fetch Mail"),
-        'desc' => _("Configure accounts for fetching mail from other accounts."),
-        'members' => array('fetchmail_link', 'fetchmail_menu')
-    );
 }
 
 $prefGroups['display'] = array(
@@ -1250,41 +1243,6 @@ $_prefs['msgflags_color'] = array(
     'type' => 'implicit');
 
 // End IMAP Flag preferences
-
-
-// Fetch Mail preferences
-
-// Change this if you want to customize how fetchmailprefs.php works.
-$_prefs['fetchmail_link'] = array(
-    'type' => 'link',
-    'url' => 'fetchmailprefs.php',
-    'img' => 'fetchmail.png',
-    'desc' => _("Edit your preferences for accessing other mail accounts."));
-
-// Show the Fetch mail icon on the menubar?
-$_prefs['fetchmail_menu'] = array(
-    'value' => 0,
-    'locked' => false,
-    'shared' => false,
-    'type' => 'checkbox',
-    'desc' => _("Show the Fetch Mail icon on the menubar?"));
-
-// Don't change anything here.
-$_prefs['fm_accounts'] = array(
-    // value = serialize(array())
-    'value' => 'a:0:{}',
-    'locked' => false,
-    'shared' => false,
-    'type' => 'implicit');
-
-$_prefs['fetchmail_login'] = array(
-    'value' => 0,
-    'locked' => false,
-    'shared' => false,
-    'type' => 'implicit');
-
-// End Fetch Mail preferences
-
 
 // Display Options preferences
 

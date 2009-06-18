@@ -35,6 +35,7 @@ TODO
 * maintenance tasks
 * tos_agreement, gnupg, openssl, spellchecking (moved to Horde)
 * conf: alternate_login, redirect_on_logout moved to Horde.
+* fetchmail removed
 
 
 Upgrading IMP From 4.1.x To 4.2.x

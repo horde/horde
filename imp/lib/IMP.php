@@ -591,18 +591,6 @@ class IMP
             $menu->add($menu_search_url, _("_Search"), 'search.png');
         }
 
-        if (($_SESSION['imp']['protocol'] != 'pop') &&
-            $prefs->getValue('fetchmail_menu')) {
-            Horde::addScriptFile('effects.js', 'horde', true);
-            Horde::addScriptFile('redbox.js', 'horde', true);
-            Horde::addScriptFile('dialog.js', 'imp', true);
-
-            $js_params = array(
-                'dialog_load' => Horde::applicationUrl('ajax.php', true, -1) . '/FetchmailDialog'
-            );
-            $menu->add('javascript:IMPDialog.display(' . Horde::escapeJson($js_params, array('urlencode' => true)) . ')', _("Fetch Mail"), 'fetchmail.png');
-        }
-
         if ($prefs->getValue('filter_menuitem')) {
             $menu->add(Horde::applicationUrl('filterprefs.php'), _("Fi_lters"), 'filters.png');
         }

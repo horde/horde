@@ -77,7 +77,7 @@
   </configsection>
  </configtab>
 
- <configtab name="mailbox" desc="Mailbox and Fetchmail">
+ <configtab name="mailbox" desc="Mailbox">
   <configsection name="mailbox">
    <configheader>Mailbox Settings</configheader>
    <configboolean name="show_preview" desc="Should we allow users to display
@@ -86,17 +86,6 @@
    caching. Note that this option only determines whether or not users
    are allowed to show previews - each user can still turn previews on
    or off in their preferences.">false</configboolean>
-  </configsection>
-
-  <configsection name="fetchmail">
-   <configheader>Fetchmail Settings</configheader>
-   <configboolean name="show_account_colors" desc="Should we display colors for
-   messages fetched from other accounts in the mailbox index? This is a
-   performance hit unless mailbox caching is enabled.">false</configboolean>
-   <configinteger name="size_limit" desc="What is the maximum total size of
-   mails to be fetched (in bytes)? (Remember you need more than the double of
-   this value for 'memory_limit' in php.ini.) Set this value to 0 for no
-   limit.">4000000</configinteger>
   </configsection>
  </configtab>
 

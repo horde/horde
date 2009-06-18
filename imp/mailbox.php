@@ -234,12 +234,6 @@ $pageOb = $imp_mailbox->buildMailboxPage(Horde_Util::getFormData('page'), $start
 $show_preview = ($conf['mailbox']['show_preview'] && $prefs->getValue('preview_enabled'));
 
 $overview_headers = array('x-priority');
-if (empty($conf['fetchmail']['show_account_colors'])) {
-    $fetchmail = false;
-} else {
-    $fetchmail = true;
-    $overview_headers[] = 'x-color';
-}
 $mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end']), array('preview' => $show_preview, 'headers' => $overview_headers, 'structure' => $prefs->getValue('atc_flag')));
 
 /* Determine sorting preferences. */
@@ -723,7 +717,6 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     $msg = array(
         'bg' => '',
         'class' => '',
-        'color' => '',
         'date' => htmlspecialchars($imp_ui->getDate($ob['envelope']['date'])),
         'number' => $ob['seq'],
         'preview' => '',
@@ -765,14 +758,6 @@ while (list(,$ob) = each($mbox_info['overview'])) {
                 $msg['class'] = $val['classname'];
             }
             $msg['bg'] = $val['bg'];
-        }
-    }
-
-    /* Show colors for fetchmail messages? */
-    if ($fetchmail) {
-        $color = $ob['headers']->getValue('x-color');
-        if ($color) {
-            $msg['color'] = htmlspecialchars($color);
         }
     }
 

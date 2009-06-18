@@ -1582,11 +1582,6 @@ var DimpBase = {
                 e.stop();
                 return;
 
-            case 'fetchmaillink':
-                IMPDialog.display({ dialog_load: DIMP.conf.URI_AJAX + '/FetchmailDialog' });
-                e.stop();
-                return;
-
             case 'applyfilterlink':
                 if (this.viewport) {
                     this.viewport.reload({ applyfilter: 1 });
