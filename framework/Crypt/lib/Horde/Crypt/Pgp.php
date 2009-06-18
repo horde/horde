@@ -635,12 +635,19 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      *
      * @return boolean  Returns true on valid passphrase, false on invalid
      *                  passphrase.
+     * @throws Horde_Exception
      */
     public function verifyPassphrase($public_key, $private_key, $passphrase)
     {
+        /* Get e-mail address of public key. */
+        $key_info = $this->pgpPacketInformation($public_key);
+        if (!isset($key_info['signature']['id1']['email'])) {
+            throw new Horde_Exception(_("Could not determine the recipient's e-mail address."), 'horde.error');
+        }
+
         /* Encrypt a test message. */
         try {
-            $this->encrypt('Test', array('type' => 'message', 'pubkey' => $public_key));
+            $result = $this->encrypt('Test', array('type' => 'message', 'pubkey' => $public_key, 'recips' => array($key_info['signature']['id1']['email'] => $public_key)));
         } catch (Horde_Exception $e) {
             return false;
         }
@@ -1081,6 +1088,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             '--batch',
             '--always-trust'
         );
+
         if (empty($params['symmetric'])) {
             /* Store public key in temporary keyring. */
             $keyring = $this->_putInKeyring(array_values($params['recips']));
