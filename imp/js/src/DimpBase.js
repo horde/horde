@@ -619,10 +619,9 @@ var DimpBase = {
     _addMouseEvents: function(p, popdown)
     {
         if (popdown) {
-            var bidelt = $(p.id);
-            bidelt.insert({ after: new Element('SPAN', { className: 'iconImg popdownImg popdown', id: p.id + '_img' }) });
+            popdown.insert({ after: new Element('SPAN', { className: 'iconImg popdownImg popdown', id: p.id + '_img' }) });
             p.id += '_img';
-            p.offset = bidelt.up();
+            p.offset = popdown.up();
             p.left = true;
         }
 
@@ -689,6 +688,22 @@ var DimpBase = {
             this.createSubFolder(baseelt);
             break;
 
+        case 'ctx_folderopts_new':
+            this.createBaseFolder();
+            break;
+
+        case 'ctx_folderopts_sub':
+        case 'ctx_folderopts_unsub':
+            this.toggleSubscribed();
+            break;
+
+        case 'ctx_folderopts_expand':
+        case 'ctx_folderopts_collapse':
+            $('normalfolders').select('LI.folder').each(function(f) {
+                this._toggleSubFolder(f, id == 'ctx_folderopts_expand' ? 'exp' : 'col', true);
+            }.bind(this));
+            break;
+
         case 'ctx_message_spam':
         case 'ctx_message_ham':
             this.reportSpam(id == 'ctx_message_spam');
@@ -720,10 +735,6 @@ var DimpBase = {
 
         case 'previewtoggle':
             this.togglePreviewPane();
-            break;
-
-        case 'mboxsubtoggle':
-            this.toggleSubscribed();
             break;
 
         case 'oa_blacklist':
@@ -1579,9 +1590,8 @@ var DimpBase = {
                 e.stop();
                 return;
 
-            case 'newfolder':
-                this.createBaseFolder();
-                e.stop();
+            case 'folderopts':
+                DimpCore.DMenu.trigger($('folderopts_img'), true);
                 return;
 
             case 'button_forward':
@@ -1909,20 +1919,12 @@ var DimpBase = {
         }
     },
 
-    _toggleSubFolder: function(base, mode)
+    _toggleSubFolder: function(base, mode, noeffect)
     {
         base = $(base);
 
         var s,
-            id = base.readAttribute('id'),
-            opts = {
-                duration: 0.2,
-                queue: {
-                    position: 'end',
-                    scope: 'subfolder',
-                    limit: 2
-                }
-            };
+            id = base.readAttribute('id');
 
         /* Strip off the specialContainer suffix. */
         if (base.hasClassName('specialContainer')) {
@@ -1936,7 +1938,19 @@ var DimpBase = {
              (mode == 'exp' && !s.visible()) ||
              (mode == 'col' && s.visible()))) {
             base.firstDescendant().toggleClassName('exp').toggleClassName('col');
-            Effect.toggle(s, 'blind', opts);
+
+            if (noeffect) {
+                s.toggle();
+            } else {
+                Effect.toggle(s, 'blind', {
+                    duration: 0.2,
+                    queue: {
+                        limit: 3,
+                        position: 'end',
+                        scope: 'subfolder'
+                    }
+                });
+            }
         }
     },
 
@@ -2114,9 +2128,9 @@ var DimpBase = {
     toggleSubscribed: function()
     {
         this.showunsub = !this.showunsub;
-        $('mboxsubtoggle').setText(this.showunsub ? DIMP.text.hide_unsub : DIMP.text.show_unsub);
         $('foldersLoading').show();
         $('foldersSidebar').hide();
+        $('ctx_folderopts_sub', 'ctx_folderopts_unsub').invoke('toggle');
 
         // TODO - Only do for unsub -> sub switch
         [ $('specialfolders').childElements(), $('dropbase').nextSiblings() ].flatten().each(function(elt) {
@@ -2411,7 +2425,9 @@ var DimpBase = {
         this._setFilterText(true);
 
         /* Add popdown menus. Check for disabled compose at the same time. */
-        this._addMouseEvents({ id: 'button_other', type: 'otheractions' }, true);
+        this._addMouseEvents({ id: 'button_other', type: 'otheractions' }, $('button_other'));
+        this._addMouseEvents({ id: 'folderopts', type: 'folderopts' }, $('folderopts').down(1));
+
         DM.addSubMenu('ctx_message_reply', 'ctx_reply');
         [ 'ctx_message_', 'oa_', 'ctx_draft_' ].each(function(i) {
             if ($(i + 'setflag')) {
@@ -2423,7 +2439,7 @@ var DimpBase = {
         if (DIMP.conf.disable_compose) {
             $('button_reply', 'button_forward').compact().invoke('up', 'SPAN').concat($('button_compose', 'composelink', 'ctx_contacts_new')).compact().invoke('remove');
         } else {
-            this._addMouseEvents({ id: 'button_reply', type: 'reply' }, true);
+            this._addMouseEvents({ id: 'button_reply', type: 'reply' }, $('button_reply'));
             DM.disable('button_reply_img', true, true);
         }
 
@@ -2531,14 +2547,14 @@ DimpBase._folderDragConfig = {
     threshold: 5,
     onDrag: function(d, e) {
         if (!d.wasDragged) {
-            $('newfolder').hide();
+            $('folderopts').hide();
             $('dropbase').show();
             d.ghost.removeClassName('on');
         }
     },
     onEnd: function(d, e) {
         if (d.wasDragged) {
-            $('newfolder').show();
+            $('folderopts').show();
             $('dropbase').hide();
         }
     }

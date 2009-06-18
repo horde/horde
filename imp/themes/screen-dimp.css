@@ -333,17 +333,14 @@ div.vpRow.flagDeleted {
     height: 100%;
     background-repeat: no-repeat;
 }
-#sidebarPanel div.base, #mboxsubtoggle span.contextImg, #ctx_folder_sub span.contextImg, #ctx_folder_unsub span.contextImg {
+#sidebarPanel div.base, #ctx_folder_sub span.contextImg, #ctx_folder_unsub span.contextImg, #ctx_folderopts_sub span.contextImg, #ctx_folderopts_unsub span.contextImg {
     background-image: url("graphics/folder.png");
 }
-#sidebarPanel div.col {
+#sidebarPanel div.col, #ctx_folderopts_collapse span.contextImg {
     background-image: url("graphics/folder_minus.png");
 }
-#sidebarPanel div.exp {
+#sidebarPanel div.exp, #ctx_folderopts_expand span.contextImg {
     background-image: url("graphics/folder_plus.png");
-}
-#sidebarPanel div.create {
-    background-image: url("graphics/folder_create.png");
 }
 #sidebarPanel div.drafts {
     background-image: url("graphics/folder_drafts.png");
@@ -376,6 +373,11 @@ div.vpRow.flagDeleted {
 
 #foldersSidebar {
     overflow: hidden;
+}
+
+#folderopts a {
+    display: inline !important;
+    padding-right: 2px;
 }
 
 /* Options */
@@ -942,7 +944,7 @@ span.dimpactionDrafts {
 #oa_selectall span.contextImg {
     background-image: url("graphics/tick.png");
 }
-#ctx_folder_create span.contextImg, #ctx_container_create span.contextImg {
+#ctx_folder_create span.contextImg, #ctx_container_create span.contextImg, #ctx_folderopts_new span.contextImg {
     background-image: url("graphics/folders/folder_create.png");
 }
 #ctx_folder_rename span.contextImg, #ctx_container_rename span.contextImg {

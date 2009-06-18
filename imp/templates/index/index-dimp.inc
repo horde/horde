@@ -117,9 +117,9 @@ function _simpleButton($id, $text, $image, $imagedir = null)
     <div class="sepfull" style="width:<?php echo $sidebar_width ?>"></div>
     <div id="myfolders"><?php echo _("My Folders") ?></div>
     <ul class="folderlist" id="normalfolders">
-     <li class="folder" id="newfolder">
-      <div class="iconDiv create"></div>
-      <a title="<?php echo _("New Folder") ?>"><?php echo _("New Folder") ?></a>
+     <li class="folder" id="folderopts">
+      <div class="iconDiv base"></div>
+      <a title="<?php echo _("Folder Options") ?>"><?php echo _("Folder Options") ?></a>
      </li>
      <li class="folder" id="dropbase" style="display:none">
       <div class="iconDiv base"></div>
@@ -352,6 +352,16 @@ function _simpleButton($id, $text, $image, $imagedir = null)
  <a id="ctx_container_rename"><span class="contextImg"></span><?php echo _("Rename Folder") ?></a>
 </div>
 
+<div class="context" id="ctx_folderopts" style="display:none">
+ <a id="ctx_folderopts_new"><span class="contextImg"></span><?php echo _("New Folder") ?></a>
+<?php if ($conf['user']['allow_folders'] && $use_sub): ?>
+ <a id="ctx_folderopts_sub" style="display:none"><span class="contextImg"></span><?php echo _("Hide Unsubscribed") ?></a>
+ <a id="ctx_folderopts_unsub"><span class="contextImg"></span><?php echo _("Show Unsubscribed") ?></a>
+<?php endif; ?>
+ <a id="ctx_folderopts_expand"><span class="contextImg"></span><?php echo _("Expand All") ?></a>
+ <a id="ctx_folderopts_collapse"><span class="contextImg"></span><?php echo _("Collapse All") ?></a>
+</div>
+
 <div class="context" id="ctx_message" style="display:none">
  <a id="ctx_message_reply"><span class="contextImg"></span><?php echo _("Reply") ?></a>
  <a id="ctx_message_forward" class="sep"><span class="contextImg"></span><?php echo _("Forward") ?></a>
@@ -397,9 +407,6 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 
 <div class="context" id="ctx_otheractions" style="display:none">
  <a id="previewtoggle" class="sep"><span class="contextImg"></span><?php echo ($prefs->getValue('dimp_show_preview') ? _("Hide Preview") : _("Show Preview")); ?></a>
-<?php if ($conf['user']['allow_folders'] && $use_sub): ?>
- <a id="mboxsubtoggle" class="sep"><span class="contextImg"></span><?php echo _("Show Unsubscribed") ?></a>
-<?php endif; ?>
 <?php if (!empty($flag_list)): ?>
  <a id="oa_setflag"><span class="contextImg"></span><?php echo _("Mark as") ?></a>
  <a id="oa_unsetflag" class="sep"><span class="contextImg"></span><?php echo _("Unmark as") ?></a>
