@@ -11,26 +11,27 @@ form#repository-picker {
 }
 
 /* Options boxes. */
-table.options {
-    width: 99%;
+div.options, div.browsefileoptions {
     margin: 0 0 8px 5px;
 }
-table.options td {
-    font-size: 80%;
-    width: 33%;
+div.options span, div.browsefileoptions span {
+    display: -moz-inline-stack;
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
     border: 1px solid #ccc;
-    padding: 2px;
+    padding: 6px;
     background: #e9e9e9;
     vertical-align: top;
 }
-table.options td.spacer {
-    width: 10px;
-    background: none;
-    border: none;
+div.browsefileoptions span {
+    width: 31.3%;
 }
-table.options em {
-    display: block;
+div.options em, div.browsefileoptions em {
     margin-top: 4px;
+}
+div.browsefileoptions form {
+    margin-bottom: 4px;
 }
 
 /* Tables. */
@@ -138,6 +139,9 @@ h3.revision_log, h3.checkout {
 }
 .revlog .selection .sdiff, .revlog .selection .selected .pdiff {
     display: inline;
+}
+.revlog .difflines {
+    display: block;
 }
 
 /* Patchset logs. */
@@ -277,4 +281,9 @@ div.difflog {
 }
 div.diffclear {
     clear: both;
+}
+
+/* Browsefile definitions. */
+td.browseLocation em {
+    display: block;
 }

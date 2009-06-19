@@ -10,12 +10,11 @@
   <span class="branch"><?php echo Horde::link(Chora::url('browsefile', $where, array('onb' => $val))) . htmlspecialchars($val) ?></a></span>
 <?php endforeach; ?>
 <?php if (!empty($changedlines)): ?>
-  <small>(<?php printf('%s lines', htmlspecialchars($changedlines)) ?>)</small>
+  <small class="difflines">(<?php printf('%s lines', htmlspecialchars($changedlines)) ?>)</small>
+<?php elseif (!is_null($added)): ?>
+  <small class="difflines">(<span class="diffadd">+<?php echo $added ?></span>, <span class="diffdel">-<?php echo $deleted ?></span> <?php echo _("lines") ?>)</small>
 <?php endif; ?>
-<?php if (!is_null($added)): ?>
-    <small>(<span class="diffadd">+<?php echo $added ?></span>, <span class="diffdel">-<?php echo $deleted ?></span> <?php echo _("lines") ?>)</small>
-<?php endif; ?>
-</td>
+ </td>
  <td class="ago" sortval="<?php echo (int)$lg->queryDate() ?>"><a title="<?php echo $readableDate ?>"><?php echo $commitDate ?></a></td>
  <td class="author"><?php echo $author ?></td>
  <td class="log">

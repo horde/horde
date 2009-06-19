@@ -1,21 +1,19 @@
 <?php if (count($branches) > 1): ?>
-<table class="options" cellspacing="0">
- <tr>
-  <td>
-   <form method="get" action="browsedir.php">
+<div class="options">
+ <span>
+  <form method="get" action="browsedir.php">
    <?php echo _("View Branch:") ?>
-    <?php echo Chora::formInputs() ?>
-    <input type="hidden" name="f" value="<?php echo htmlspecialchars(Horde_Util::getFormData('f')) ?>" />
-    <select name="rev" onchange="this.form.submit()">
+   <?php echo Chora::formInputs() ?>
+   <input type="hidden" name="f" value="<?php echo htmlspecialchars(Horde_Util::getFormData('f')) ?>" />
+   <select name="rev" onchange="this.form.submit()">
 <?php foreach ($branches as $branch): ?>
-     <option value="<?php echo htmlspecialchars($branch) ?>"<?php echo ($branch == $rev) ? ' selected="selected"' : '' ?>><?php echo htmlspecialchars($branch) ?></option>
+    <option value="<?php echo htmlspecialchars($branch) ?>"<?php echo ($branch == $rev) ? ' selected="selected"' : '' ?>><?php echo htmlspecialchars($branch) ?></option>
 <?php endforeach; ?>
-    </select>
-    <noscript><input class="button" type="submit" value="<?php echo _("View") ?>" /></noscript>
-   </form>
-  </td>
- </tr>
-</table>
+   </select>
+   <noscript><input class="button" type="submit" value="<?php echo _("View") ?>" /></noscript>
+  </form>
+ </span>
+</div>
 <?php endif; ?>
 
 <table id="browse" cellspacing="0" class="browse sortable striped nowrap">

@@ -1,31 +1,30 @@
-<table class="options" cellspacing="0">
- <tr>
-  <td>
-   <form method="get" action="diff.php">
-    <?php echo Chora::formInputs() ?>
-    <input type="hidden" name="f" value="<?php echo htmlspecialchars(Horde_Util::getFormData('f')) ?>" />
-    <input type="hidden" name="r1" value="<?php echo htmlspecialchars(Horde_Util::getFormData('r1')) ?>" />
-    <input type="hidden" name="r2" value="<?php echo htmlspecialchars(Horde_Util::getFormData('r2')) ?>" />
-    <?php echo _("Download diff as: ") ?>
-    <select name="t" onchange="this.form.submit()">
+<div class="options">
+ <span>
+  <form method="get" action="diff.php">
+   <?php echo Chora::formInputs() ?>
+   <input type="hidden" name="f" value="<?php echo htmlspecialchars(Horde_Util::getFormData('f')) ?>" />
+   <input type="hidden" name="r1" value="<?php echo htmlspecialchars(Horde_Util::getFormData('r1')) ?>" />
+   <input type="hidden" name="r2" value="<?php echo htmlspecialchars(Horde_Util::getFormData('r2')) ?>" />
+   <?php echo _("Download diff as: ") ?>
+   <select name="t" onchange="this.form.submit()">
 <?php if (isset($diff_types['unified'])): ?>
-     <option value="unified"><?php echo _("Unified") ?></option>
+    <option value="unified"><?php echo _("Unified") ?></option>
 <?php endif; ?>
 <?php if (isset($diff_types['context'])): ?>
-     <option value="context"><?php echo _("Context") ?></option>
+    <option value="context"><?php echo _("Context") ?></option>
 <?php endif; ?>
 <?php if (isset($diff_types['column'])): ?>
-     <option value="column"><?php echo _("Column") ?></option>
+    <option value="column"><?php echo _("Column") ?></option>
 <?php endif; ?>
 <?php if (isset($diff_types['ed'])): ?>
-     <option value="ed"><?php echo _("Ed Script") ?></option>
+    <option value="ed"><?php echo _("Ed Script") ?></option>
 <?php endif; ?>
-    </select>
-    <input class="button" type="submit" value="<?php echo _("Get Diff") ?>" /><br />
-   </form>
-  </td>
- </tr>
-</table>
+   </select>
+   <input class="button" type="submit" value="<?php echo _("Get Diff") ?>" /><br />
+  </form>
+ </span>
+</div>
+
 <table cellspacing="0" class="hrdiff">
 <caption>
  <?php $blank = $registry->getImageDir('horde') . '/blank.gif' ?>
@@ -50,7 +49,7 @@
    </li>
 <?php endif; ?>
    <?php if (!empty($val['tags'])): ?><li class="tags"><?php echo _("Tags:") ?> <?php echo implode(', ', $val['tags']) ?></li><?php endif; ?>
-   <?php if (isset($val['added'])): ?><li><?php echo _("Statistics:") ?> <span class="diffadd">+<?php echo htmlspecialchars($val['added']) ?></span> <?php echo _("lines") ?>, <span class="diffdel">-<?php echo htmlspecialchars($val['deleted']) ?></span> <?php echo _("lines") ?></li><?php endif; ?>
+   <?php if (isset($val['added'])): ?><li><?php echo _("Changes:") ?> <span class="diffadd">+<?php echo htmlspecialchars($val['added']) ?></span>, <span class="diffdel">-<?php echo htmlspecialchars($val['deleted']) ?></span> <?php echo _("lines") ?></li><?php endif; ?>
   </ul>
   <a href="<?php echo Chora::url('co', $where, array('r' => $val['rev'])) ?>" title="<?php echo htmlspecialchars($val['rev']) ?>"><?php echo htmlspecialchars($VC->abbrev($val['rev'])) ?></a>: <?php echo $val['msg'] ?>
   <div class="diffclear"></div>
