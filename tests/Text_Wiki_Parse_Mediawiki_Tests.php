@@ -25,8 +25,8 @@ class Text_Wiki_Parse_Mediawiki_AllTests extends PHPUnit_Framework_TestSuite
     public static function suite()
     {
         $suite = new PHPUnit_Framework_TestSuite('Text_Wiki_Render_Mediawiki_TestSuite');
-        /*$suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Break_Test');
-        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Code_Test');
+        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Break_Test');
+        /*$suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Code_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Comment_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Deflist_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Emphasis_Test');*/
@@ -52,16 +52,46 @@ class Text_Wiki_Parse_Mediawiki_SetUp_Tests extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $obj = Text_Wiki::singleton('Mediawiki');
+        $obj = Text_Wiki::factory('Mediawiki');
         $testClassName = get_class($this);
         $ruleName = preg_replace('/Text_Wiki_Parse_Mediawiki_(.+?)_Test/', '\\1', $testClassName);
-        $className = 'Text_Wiki_Parse_' . $ruleName;
-        $this->t = new $className($obj);
-        
+        $this->className = 'Text_Wiki_Parse_' . $ruleName;
+        $this->t = new $this->className($obj);
         $this->fixture = file_get_contents('mediawiki_syntax.txt');
         preg_match_all($this->t->regex, $this->fixture, $this->matches);
     }
+    
+    protected function tearDown()
+    {
+        unset($this->t->wiki);
+        unset($this->t);
+    }
 
+}
+
+class Text_Wiki_Parse_Mediawiki_Break_Test extends Text_Wiki_Parse_Mediawiki_SetUp_Tests
+{
+    
+    public function testMediawikiParseBreakProcess()
+    {
+        $matches1 = array(0 => '<br />');
+        $matches2 = array(0 => '<br   />');
+        
+        $this->assertEquals('0', $this->t->process($matches1));
+        $this->assertEquals('1', $this->t->process($matches2));
+
+        $tokens = array(0 => array(0 => 'Break', 1 => array()),
+                        1 => array(0 => 'Break', 1 => array()));
+
+        $this->assertEquals($tokens, $this->t->wiki->tokens);
+    }
+    
+    public function testMediawikiParseBreakRegex()
+    {
+        $expectedResult = array(0 => array(0 => '<br />', 1 => '<br   />'));
+        $this->assertEquals($expectedResult, $this->matches);
+    }
+    
 }
 
 class Text_Wiki_Parse_Mediawiki_Heading_Test extends Text_Wiki_Parse_Mediawiki_SetUp_Tests
@@ -73,6 +103,10 @@ class Text_Wiki_Parse_Mediawiki_Heading_Test extends Text_Wiki_Parse_Mediawiki_S
         $matches2 = array(0 => "=Level 1 heading=\n", 1 => '=', 2 => 'Level 1 heading');
         $matches3 = array(0 => "==Level 2 heading==\n", 1 => '==', 2 => 'Level 2 heading');
 
+        $this->assertEquals("0Level 6 heading1\n", $this->t->process($matches1));
+        $this->assertEquals("2Level 1 heading3\n", $this->t->process($matches2));
+        $this->assertEquals("4Level 2 heading5\n", $this->t->process($matches3));
+
         $tokens = array(
             0 => array(0 => 'Heading', 1 => array('type' => 'start', 'level' => 6, 'text' => 'Level 6 heading', 'id' => 'toc0')),
             1 => array(0 => 'Heading', 1 => array('type' => 'end', 'level' => 6)),
@@ -81,10 +115,7 @@ class Text_Wiki_Parse_Mediawiki_Heading_Test extends Text_Wiki_Parse_Mediawiki_S
             4 => array(0 => 'Heading', 1 => array('type' => 'start', 'level' => 2, 'text' => 'Level 2 heading', 'id' => 'toc2')),
             5 => array(0 => 'Heading', 1 => array('type' => 'end', 'level' => 2))
         );
-
-        $this->assertEquals("0Level 6 heading1\n", $this->t->process($matches1));
-        $this->assertEquals("2Level 1 heading3\n", $this->t->process($matches2));
-        $this->assertEquals("4Level 2 heading5\n", $this->t->process($matches3));
+        
         $this->assertEquals($tokens, $this->t->wiki->tokens);
     }
     
