@@ -37,6 +37,7 @@ div.browsefileoptions form {
 /* Tables. */
 table.revlog, table.headerbar, table.browse, table.stats {
     width: 99%;
+    font-size: 100%;
     margin: 0 0 8px 5px;
     border-top: 1px solid #ddd;
     border-left: 1px solid #ddd;
@@ -223,6 +224,7 @@ table.annotate .logentry {
 /* Diff styles. */
 table.hrdiff {
     width: 99%;
+    font-size: 100%;
     margin: 0 0 8px 5px;
 }
 table.hrdiff th {
