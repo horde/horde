@@ -1,5 +1,6 @@
 <?php
 
+require_once 'PEAR.php';
 require_once 'PHPUnit/Framework.php';
 require_once 'Text/Wiki.php';
 
@@ -9,8 +10,26 @@ class Text_Wiki_Tests extends PHPUnit_Framework_TestCase
     function setUp()
     {
         $this->obj = Text_Wiki::factory();
+
         $this->obj->renderConf = array();
         $this->obj->parseConf = array();
+        $this->obj->formatConf = array();
+        $this->obj->rules = array('Prefilter', 'Delimiter', 'Code', 'Function', 'Html', 'Raw', 'Include');
+        $this->obj->disable = array('Html', 'Include', 'Embed');
+        $this->obj->path = array('parse' => array(), 'render' => array());
+
+        $this->sourceText = 'A very \'\'simple\'\' \'\'\'source\'\'\' text. Not sure [[how]] to [http://example.com improve] the transform() tests.' . "\n";
+        $this->tokens = array(
+            0 => array(0 => 'Heading', 1 => array('type' => 'start', 'level' => 6, 'text' => 'Level 6 heading', 'id' => 'toc0')),
+            1 => array(0 => 'Heading', 1 => array('type' => 'end', 'level' => 6)),
+            2 => array(0 => 'Heading', 1 => array('type' => 'start', 'level' => 1, 'text' => 'Level 1 heading', 'id' => 'toc1')),
+            3 => array(0 => 'Heading', 1 => array('type' => 'end', 'level' => 1)),
+            4 => array(0 => 'Heading', 1 => array('type' => 'start', 'level' => 2, 'text' => 'Level 2 heading', 'id' => 'toc2')),
+            5 => array(0 => 'Heading', 1 => array('type' => 'end', 'level' => 2)),
+            6 => array(0 => 'Break', 1 => array()),
+            7 => array(0 => 'Break', 1 => array())
+        );
+        $this->_countRulesTokens = array('Heading' => 6, 'Break' => 2);
     }
     
     function testSingletonOfSameParserShouldReturnSameObject()
@@ -60,6 +79,7 @@ class Text_Wiki_Tests extends PHPUnit_Framework_TestCase
         
         $this->assertEquals(array('base' => '/other/path/'), $this->obj->getParseConf('Secondrule'));
         $this->assertEquals('/path/to/scripts/', $this->obj->getParseConf('include', 'base'));
+        $this->assertNull($this->obj->getParseConf('inexistentRule', 'inexistentKey'));
     }
     
     function testSetRenderConf()
@@ -98,68 +118,115 @@ class Text_Wiki_Tests extends PHPUnit_Framework_TestCase
         $this->assertNull($this->obj->getRenderConf('Xhtml', 'Center', 'InvalidKey'));
     }
 
-    public function testSetFormatConf()
+    public function testSetFormatConfWithThreeArguments()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $expectedResult = array('Xhtml' => array('css' => 'center'));
+        $this->obj->setFormatConf('Xhtml', 'css', 'center');
+        $this->assertEquals($expectedResult, $this->obj->formatConf);
     }
-
+    
+    public function testSetFormatConfWithTwoArguments()
+    {
+        $expectedResult = array('Xhtml' => array('css' => 'center'));
+        $this->obj->setFormatConf('Xhtml', array('css' => 'center'));
+        $this->assertEquals($expectedResult, $this->obj->formatConf);
+    }
+    
     public function testGetFormatConf()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->obj->formatConf = array('Xhtml' => array('base' => '/path/to/scripts/',
+                                                       'anotherKey' => 'anotherValue'),
+                                      'Docbook' => array('base' => '/other/path/'));
+        
+        $this->assertEquals(array('base' => '/other/path/'), $this->obj->getFormatConf('Docbook'));
+        $this->assertEquals('/path/to/scripts/', $this->obj->getFormatConf('Xhtml', 'base'));
+        $this->assertNull($this->obj->getFormatConf('inexistentFormat'));
     }
-
-    public function testInsertRule()
+    
+    public function testInsertRuleShouldReturnNullIfRuleAlreadyExist()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->assertNull($this->obj->insertRule('Code', 'Prefilter'));
     }
 
+    public function testInsertRuleShouldReturnNullIfInexistentRuleToInsertAfter()
+    {
+        $this->assertNull($this->obj->insertRule('Code', 'InexistentRule'));
+    }
+
+    public function testInsertRuleShouldInsertRuleAtTheEnd()
+    {
+        $return = $this->obj->insertRule('NewRule');
+        $this->assertTrue($return);
+        $this->assertEquals('Newrule', end($this->obj->rules));
+    }
+    
+    public function testInsertRuleShouldInsertRuleAtTheBeginning()
+    {
+        $return = $this->obj->insertRule('NewRule', '');
+        $this->assertTrue($return);
+        $this->assertEquals('Newrule', $this->obj->rules[0]);
+    }
+
+    public function testInsertRuleShouldInsertRuleInExactPlace()
+    {
+        $key = array_search('Function', $this->obj->rules);
+        $return = $this->obj->insertRule('NewRule', 'Function');
+        $this->assertTrue($return);
+        $this->assertEquals('Newrule', $this->obj->rules[$key+1]);
+    }
+    
     public function testDeleteRule()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $rules = array(0 => 'Prefilter', 1 => 'Delimiter', 2 => 'Code', 3 => 'Function', 5 => 'Raw', 6 => 'Include');
+        $this->obj->deleteRule('Html');
+        $this->assertEquals($rules, $this->obj->rules);
+        
+        $rules = array(0 => 'Prefilter', 2 => 'Code', 3 => 'Function', 5 => 'Raw', 6 => 'Include');
+        $this->obj->deleteRule('Delimiter');
+        $this->assertEquals($rules, $this->obj->rules);
     }
 
     public function testChangeRule()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $rules = array('Prefilter', 'Delimiter', 'Code', 'Function', 'Html', 'Newrulename', 'Include');
+        $this->obj->changeRule('Raw', 'NewRuleName');
+        $this->assertEquals($rules, $this->obj->rules);
+
+        // should delete the 'Function' rule and rename 'Code' rule to 'Function'
+        $rules = array(0 => 'Prefilter', 1 => 'Delimiter', 2 => 'Function', 4 => 'Html', 5 => 'Newrulename', 6 => 'Include');
+        $this->obj->changeRule('Code', 'Function');
+        $this->assertEquals($rules, $this->obj->rules);
+
+        // no changes as inexistent old rule name
+        $this->obj->changeRule('InexistentRule', 'NewRule');
+        $this->assertEquals($rules, $this->obj->rules);
     }
 
     public function testEnableRule()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->obj->enableRule('Include');
+        $disable = array(0 => 'Html', 2 => 'Embed');
+        $this->assertEquals($disable, $this->obj->disable);
+        $this->obj->enableRule('InvalidRule');
+        $this->assertEquals($disable, $this->obj->disable);
     }
 
     public function testDisableRule()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->obj->disableRule('Newrule');
+        $disable = array(0 => 'Html', 1 => 'Include', 2 => 'Embed', 3 => 'Newrule');
+        $this->assertEquals($disable, $this->obj->disable);
+
+        // nothing change as rule is already marked as disabled
+        $this->obj->disableRule('Include');
+        $this->assertEquals($disable, $this->obj->disable);
     }
 
     public function testTransform()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $obj = Text_Wiki::factory('Mediawiki');
+        $expectedResult = 'A very \'\'simple\'\' __source__ text. Not sure ((how)) to [http://example.com|improve] the transform() tests.' . "\n\n";
+        $this->assertEquals($expectedResult, $obj->transform($this->sourceText, 'Tiki'));
     }
 
     public function testParse()
@@ -170,6 +237,13 @@ class Text_Wiki_Tests extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testParseShouldSetSourceProperty()
+    {
+        $this->obj->parse($this->sourceText);
+        // TODO: check why there is a line break at the beginning and end of $this->obj->source
+        $this->assertEquals("\n".$this->sourceText."\n", $this->obj->source);
+    }
+
     public function testRender()
     {
         // Remove the following lines when you implement this test.
@@ -178,8 +252,15 @@ class Text_Wiki_Tests extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testRenderShouldReturnErrorIfInvalidFormat()
+    {
+        $result = $this->obj->render('InvalidFormat');
+        $this->assertTrue(is_a($result, 'PEAR_Error'));
+    }
+
     public function test_renderToken()
     {
+        // $matches = array(0 => '0', 1 => 0);
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
           'This test has not been implemented yet.'
@@ -204,18 +285,17 @@ class Text_Wiki_Tests extends PHPUnit_Framework_TestCase
 
     public function testGetSource()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->obj->source = $this->sourceText;
+        $this->assertEquals($this->sourceText, $this->obj->getSource());
     }
 
     public function testGetTokens()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $breakTokens = array_slice($this->tokens, 6, 2, true);
+
+        $this->obj->tokens = $this->tokens;
+        $this->assertEquals($this->tokens, $this->obj->getTokens());
+        $this->assertEquals($breakTokens, $this->obj->getTokens('Break'));
     }
 
     public function testAddTokenReturnIdOnly()
@@ -227,69 +307,75 @@ class Text_Wiki_Tests extends PHPUnit_Framework_TestCase
 
     public function testAddTokenReturnTokenNumberWithDelimiters()
     {
-        /* the asserts below are failing because $id is a static variable inside addToken()
-         * that persists with the same value even if you use different Text_Wiki objects
-         * (although the comment on addToken says that the value of $id will reset to zero when
-         * Text_Wiki object is created)
-        $options = array('type' => 'someType', 'anotherOption' => 'value');
-        $return1 = $this->obj->addToken('Test', $options);
-        $return2 = $this->obj->addToken('Test', $options);
-        $return3 = $this->obj->addToken('Test2', $options);
-        $this->assertEquals('0', $return1);
-        $this->assertEquals('1', $return2);
-        $this->assertEquals('2', $return3);
-        
-        $tokens = array(0 => array(0 => 'Test', 1 => $options),
-                        1 => array(0 => 'Test', 1 => $options),
-                        2 => array(0 => 'Test2', 1 => $options));
-        */
-    }
-
-    function addToken($rule, $options = array(), $id_only = false)
-    {
-        // increment the token ID number.  note that if you parse
-        // multiple times with the same Text_Wiki object, the ID number
-        // will not reset to zero.
-        static $id;
-        if (! isset($id)) {
-            $id = 0;
-        } else {
-            $id ++;
-        }
-
-        // force the options to be an array
-        settype($options, 'array');
-
-        // add the token
-        $this->tokens[$id] = array(
-            0 => $rule,
-            1 => $options
-        );
-        if (!isset($this->_countRulesTokens[$rule])) {
-            $this->_countRulesTokens[$rule] = 1;
-        } else {
-            ++$this->_countRulesTokens[$rule];
-        }
-
-        // return a value
-        if ($id_only) {
-            // return the last token number
-            return $id;
-        } else {
-            // return the token number with delimiters
-            return $this->delim . $id . $this->delim;
-        }
-    }
-    
-    
-    public function testSetToken()
-    {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
           'This test has not been implemented yet.'
         );
     }
+    
+    public function testSetTokenShouldChangeOptionsOfAlreadyExistingRuleAndKeepName()
+    {
+        $this->obj->tokens = $this->tokens;
+        $this->obj->_countRulesTokens = $this->_countRulesTokens;
 
+        $tokens = array(
+            0 => array(0 => 'Heading', 1 => array('type' => 'start', 'level' => 6, 'text' => 'Level 6 heading', 'id' => 'toc0')),
+            1 => array(0 => 'Heading', 1 => array('type' => 'end', 'level' => 6)),
+            2 => array(0 => 'Heading', 1 => array()),
+            3 => array(0 => 'Heading', 1 => array('type' => 'end', 'level' => 1)),
+            4 => array(0 => 'Heading', 1 => array('type' => 'start', 'level' => 2, 'text' => 'Level 2 heading', 'id' => 'toc2')),
+            5 => array(0 => 'Heading', 1 => array('type' => 'end', 'level' => 2)),
+            6 => array(0 => 'Break', 1 => array()),
+            7 => array(0 => 'Break', 1 => array())
+        );
+        $this->obj->setToken(2, 'Heading', array());
+        $this->assertEquals($tokens, $this->obj->tokens);
+        $this->assertEquals($this->_countRulesTokens, $this->obj->_countRulesTokens);
+    }
+
+    public function testSetTokenShouldReplaceRuleWithNewRule()
+    {
+        $this->obj->tokens = $this->tokens;
+        $this->obj->_countRulesTokens = $this->_countRulesTokens;
+        
+        $tokens = array(
+            0 => array(0 => 'Heading', 1 => array('type' => 'start', 'level' => 6, 'text' => 'Level 6 heading', 'id' => 'toc0')),
+            1 => array(0 => 'Heading', 1 => array('type' => 'end', 'level' => 6)),
+            2 => array(0 => 'Heading', 1 => array('type' => 'start', 'level' => 1, 'text' => 'Level 1 heading', 'id' => 'toc1')),
+            3 => array(0 => 'Raw', 1 => array('type' => 'end')),
+            4 => array(0 => 'Heading', 1 => array('type' => 'start', 'level' => 2, 'text' => 'Level 2 heading', 'id' => 'toc2')),
+            5 => array(0 => 'Heading', 1 => array('type' => 'end', 'level' => 2)),
+            6 => array(0 => 'Break', 1 => array()),
+            7 => array(0 => 'Break', 1 => array())
+        );
+        $this->_countRulesTokens = array('Heading' => 5, 'Break' => 2, 'Raw' => 1);
+        $this->obj->setToken(3, 'Raw', array('type' => 'end'));
+        $this->assertEquals($tokens, $this->obj->tokens);
+        $this->assertEquals($this->_countRulesTokens, $this->obj->_countRulesTokens);
+    }
+
+    public function testSetTokenShouldAddNewRule()
+    {
+        $this->obj->tokens = $this->tokens;
+        $this->obj->_countRulesTokens = $this->_countRulesTokens;
+        
+        $tokens = array(
+            0 => array(0 => 'Heading', 1 => array('type' => 'start', 'level' => 6, 'text' => 'Level 6 heading', 'id' => 'toc0')),
+            1 => array(0 => 'Heading', 1 => array('type' => 'end', 'level' => 6)),
+            2 => array(0 => 'Heading', 1 => array('type' => 'start', 'level' => 1, 'text' => 'Level 1 heading', 'id' => 'toc1')),
+            3 => array(0 => 'Heading', 1 => array('type' => 'end', 'level' => 1)),
+            4 => array(0 => 'Heading', 1 => array('type' => 'start', 'level' => 2, 'text' => 'Level 2 heading', 'id' => 'toc2')),
+            5 => array(0 => 'Heading', 1 => array('type' => 'end', 'level' => 2)),
+            6 => array(0 => 'Break', 1 => array()),
+            7 => array(0 => 'Break', 1 => array()),
+            8 => array(0 => 'Raw', 1 => array('type' => 'end')),
+        );
+        $this->_countRulesTokens = array('Heading' => 6, 'Break' => 2, 'Raw' => 1);
+        $this->obj->setToken(8, 'Raw', array('type' => 'end'));
+        $this->assertEquals($tokens, $this->obj->tokens);
+        $this->assertEquals($this->_countRulesTokens, $this->obj->_countRulesTokens);
+    }
+    
     public function testLoadParseObj()
     {
         // Remove the following lines when you implement this test.
@@ -297,7 +383,7 @@ class Text_Wiki_Tests extends PHPUnit_Framework_TestCase
           'This test has not been implemented yet.'
         );
     }
-
+    
     public function testLoadRenderObj()
     {
         // Remove the following lines when you implement this test.
@@ -314,20 +400,46 @@ class Text_Wiki_Tests extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testAddPath()
+    public function testAddPathShouldAddDirToExistentType()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $path = array('parse' => array('Text/Wiki/Parse/Default/'), 'render' => array());
+        $this->obj->addPath('parse', 'Text/Wiki/Parse/Default/');
+        $this->assertEquals($path, $this->obj->path);
+        
+        // dir without trailing trailing slash
+        $path = array('parse' => array('Text/Wiki/Parse/Other/', 'Text/Wiki/Parse/Default/'), 'render' => array());
+        $this->obj->addPath('parse', 'Text/Wiki/Parse/Other');
+        $this->assertEquals($path, $this->obj->path);
+    }
+    
+    public function testAddPathCreateTypeAndThenAddDir()
+    {
+        $this->obj->path = array();
+        $path = array('parse' => array('Text/Wiki/Parse/Default/'));
+        $this->obj->addPath('parse', 'Text/Wiki/Parse/Default/');
+        $this->assertEquals($path, $this->obj->path);
+    }
+    
+    public function testGetPathShouldReturnPathArray()
+    {
+        $path = array('parse' => array('Text/Wiki/Parse/Default/', 'Text/Wiki/Parse/Other/'), 'render' => array('Text/Wiki/Parse/Xhtml/'));
+        $this->obj->path = $path;
+        $this->assertEquals($path, $this->obj->getPath());
     }
 
-    public function testGetPath()
+    public function testGetPathShouldReturnTypePaths()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $path = array('parse' => array('Text/Wiki/Parse/Default/', 'Text/Wiki/Parse/Other/'), 'render' => array('Text/Wiki/Parse/Xhtml/'));
+        $this->obj->path = $path;
+        $this->assertEquals($path['parse'], $this->obj->getPath('parse'));
+        $this->assertEquals($path['render'], $this->obj->getPath('render'));
+    }
+    
+    public function testGetPathShouldReturnEmptyArray()
+    {
+        $path = array('parse' => array('Text/Wiki/Parse/Default/', 'Text/Wiki/Parse/Other/'), 'render' => array('Text/Wiki/Parse/Xhtml/'));
+        $this->obj->path = $path;
+        $this->assertEquals(array(), $this->obj->getPath('InexistentType'));
     }
 
     public function testFindFile()
@@ -340,25 +452,21 @@ class Text_Wiki_Tests extends PHPUnit_Framework_TestCase
 
     public function testFixPath()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->assertEquals('path/', $this->obj->fixPath('path'));
+        $this->assertEquals('/longer/path/path/', $this->obj->fixPath('/longer/path/path'));
+        $this->assertEquals('/longer/path/path/with/trailing/slash/', $this->obj->fixPath('/longer/path/path/with/trailing/slash/'));
+        $this->assertEquals('', $this->obj->fixPath(''));
     }
-
+    
     public function testError()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $errorObject = $this->obj->error('Some error message');
+        $this->assertTrue(is_a($errorObject, 'PEAR_Error'));
+        $this->assertEquals('Some error message', $errorObject->message);
     }
 
     public function testIsError()
     {
-        if (! class_exists('PEAR_Error')) {
-            include_once 'PEAR.php';
-        }
         
         $this->assertTrue($this->obj->isError(PEAR::throwError('Some error message')));
         $notPearErrorObject = new Text_Wiki;
