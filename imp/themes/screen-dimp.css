@@ -339,28 +339,28 @@ div.vpRow.flagDeleted {
     background-repeat: no-repeat;
 }
 #sidebarPanel div.base, #ctx_folder_sub span.contextImg, #ctx_folder_unsub span.contextImg, #ctx_folderopts_sub span.contextImg, #ctx_folderopts_unsub span.contextImg {
-    background-image: url("graphics/folder.png");
+    background-image: url("graphics/folders/folder.png");
 }
 #sidebarPanel div.col, #ctx_folderopts_collapse span.contextImg {
-    background-image: url("graphics/folder_minus.png");
+    background-image: url("graphics/folders/minus.png");
 }
 #sidebarPanel div.exp, #ctx_folderopts_expand span.contextImg {
-    background-image: url("graphics/folder_plus.png");
+    background-image: url("graphics/folders/plus.png");
 }
 #sidebarPanel div.drafts {
-    background-image: url("graphics/folder_drafts.png");
+    background-image: url("graphics/folders/drafts.png");
 }
 #sidebarPanel div.inbox {
-    background-image: url("graphics/folder_inbox.png");
+    background-image: url("graphics/folders/inbox.png");
 }
 #sidebarPanel div.sent {
-    background-image: url("graphics/folder_sent.png");
+    background-image: url("graphics/folders/sent.png");
 }
 #sidebarPanel div.spam {
-    background-image: url("graphics/folder_spam.png");
+    background-image: url("graphics/folders/spam.png");
 }
 #sidebarPanel div.trash {
-    background-image: url("graphics/folder_trash.png");
+    background-image: url("graphics/folders/trash.png");
 }
 #normalfolders {
     overflow-x: hidden;
@@ -950,13 +950,13 @@ span.dimpactionDrafts {
     background-image: url("graphics/tick.png");
 }
 #ctx_folder_create span.contextImg, #ctx_container_create span.contextImg, #ctx_folderopts_new span.contextImg {
-    background-image: url("graphics/folders/folder_create.png");
+    background-image: url("graphics/folders/create.png");
 }
 #ctx_folder_rename span.contextImg, #ctx_container_rename span.contextImg {
-    background-image: url("graphics/folders/folder_edit.png");
+    background-image: url("graphics/folders/edit.png");
 }
 #ctx_folder_delete span.contextImg {
-    background-image: url("graphics/folders/folder_delete.png");
+    background-image: url("graphics/folders/delete.png");
 }
 #ctx_message_spam span.contextImg {
     background-image: url("graphics/spam.png");
