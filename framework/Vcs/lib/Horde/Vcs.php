@@ -598,7 +598,7 @@ class Horde_Vcs
      */
     public function getDefaultBranch()
     {
-        return 'master';
+        return 'HEAD';
     }
 
 }
@@ -841,7 +841,7 @@ abstract class Horde_Vcs_File
     /**
      * TODO
      */
-    protected $_branch;
+    protected $_branch = null;
 
     /**
      * Create a repository file object, and give it information about

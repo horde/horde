@@ -457,29 +457,27 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File
                     $log = $rep->getLogObject($this, null);
                     $rev = $log->queryRevision();
                     $onbranch = false;
-                    $onhead = (substr_count($rev, '.') > 1);
+                    $onhead = (substr_count($rev, '.') == 1);
 
                     // Determine branch information.
-                    if (!empty($branches)) {
-                        if ($onhead) {
-                            foreach ($branches as $key => $val) {
-                                if (strpos($rev, $val) === 0) {
-                                    $onbranch = true;
-                                    $log->setBranch($key);
-                                    if (!isset($this->_branches[$key])) {
-                                        $this->_branches[$key] = $rev;
-                                        $this->_revlist[$key] = $rep->getRevisionRange($this, '1.1', $rev);
-                                    }
-                                    break;
+                    if ($onhead) {
+                        $onbranch = (empty($this->_branch) || $this->_branch == 'HEAD') ||
+                            ($rep->cmp($branches[$this->_branch], $rev) === 1);
+                    } elseif ($this->_branch != 'HEAD') {
+                        foreach ($branches as $key => $val) {
+                            if (strpos($rev, $val) === 0) {
+                                $onbranch = true;
+                                $log->setBranch($key);
+                                if (!isset($this->_branches[$key])) {
+                                    $this->_branches[$key] = $rev;
+                                    $this->_revlist[$key] = $rep->getRevisionRange($this, '1.1', $rev);
                                 }
+                                break;
                             }
-                        } else {
-                            $onbranch = $this->_branch &&
-                                ($rep->cmp($branches[$this->_branch], $rev) === 1);
                         }
                     }
 
-                    if (!$this->_branch || $onbranch) {
+                    if ($onbranch) {
                         $this->_revs[] = $rev;
                         $this->_logs[$rev] = $log;
                     }
