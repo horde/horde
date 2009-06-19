@@ -285,30 +285,26 @@ var DimpBase = {
             return;
         }
 
-        $('sidebarPanel').select('.on').invoke('removeClassName', 'on');
+        var curr = $('sidebarPanel').down('.on'),
+            elt = $(id);
 
-        var elt = $(id);
-        if (!elt) {
+        if (!elt || curr == elt) {
             return;
         }
+
         if (!elt.match('LI')) {
             elt = elt.up();
             if (!elt) {
                 return;
             }
         }
+
+        if (curr) {
+            curr.removeClassName('on');
+        }
         elt.addClassName('on');
 
-        // Make sure all subfolders are expanded
-        // The last 2 elements of ancestors() are the BODY and HTML tags -
-        // don't need to parse through them.
-        elt.ancestors().slice(0, -2).find(function(n) {
-            if (n.hasClassName('subfolders')) {
-                this._toggleSubFolder(n.readAttribute('id').substring(3), 'exp');
-            } else {
-                return (n.readAttribute('id') == 'foldersSidebar');
-            }
-        }, this);
+        this._toggleSubFolder(elt, 'exp');
     },
 
     iframeContent: function(name, loc)
@@ -1902,7 +1898,7 @@ var DimpBase = {
         }
 
         if (elt.hasClassName('exp') || elt.hasClassName('col')) {
-            this._toggleSubFolder(li.id, 'tog');
+            this._toggleSubFolder(li, 'tog');
         } else {
             switch (li.readAttribute('ftype')) {
             case 'container':
@@ -1921,37 +1917,33 @@ var DimpBase = {
 
     _toggleSubFolder: function(base, mode, noeffect)
     {
-        base = $(base);
+        // Make sure all subfolders are expanded.
+        // The last 2 elements of ancestors() are the BODY and HTML tags -
+        // don't need to parse through them.
+        var subs = (mode == 'exp')
+            ? base.ancestors().slice(0, -2).reverse().findAll(function(n) { return n.hasClassName('subfolders'); })
+            : [ base ];
 
-        var s,
-            id = base.readAttribute('id');
+        subs.each(function(s) {
+            if (s &&
+                (mode == 'tog' ||
+                 (mode == 'exp' && !s.visible()) ||
+                 (mode == 'col' && s.visible()))) {
+                s.previous().down().toggleClassName('exp').toggleClassName('col');
 
-        /* Strip off the specialContainer suffix. */
-        if (base.hasClassName('specialContainer')) {
-            id = id.slice(0, -8);
-        }
-
-        s = $(this.getSubFolderId(id));
-
-        if (s &&
-            (mode == 'tog' ||
-             (mode == 'exp' && !s.visible()) ||
-             (mode == 'col' && s.visible()))) {
-            base.firstDescendant().toggleClassName('exp').toggleClassName('col');
-
-            if (noeffect) {
-                s.toggle();
-            } else {
-                Effect.toggle(s, 'blind', {
-                    duration: 0.2,
-                    queue: {
-                        limit: 3,
-                        position: 'end',
-                        scope: 'subfolder'
-                    }
-                });
+                if (noeffect) {
+                    s.toggle();
+                } else {
+                    Effect.toggle(s, 'blind', {
+                        duration: 0.2,
+                        queue: {
+                            position: 'end',
+                            scope: 'subfolder'
+                        }
+                    });
+                }
             }
-        }
+        }.bind(this));
     },
 
     // Folder actions.
