@@ -61,12 +61,6 @@ class Text_Wiki_Parse_Mediawiki_SetUp_Tests extends PHPUnit_Framework_TestCase
         preg_match_all($this->t->regex, $this->fixture, $this->matches);
     }
     
-    protected function tearDown()
-    {
-        unset($this->t->wiki);
-        unset($this->t);
-    }
-
 }
 
 class Text_Wiki_Parse_Mediawiki_Break_Test extends Text_Wiki_Parse_Mediawiki_SetUp_Tests
