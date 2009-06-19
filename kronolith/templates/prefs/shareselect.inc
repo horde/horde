@@ -7,7 +7,7 @@ if (!$prefs->isLocked('default_share')):
     }
 ?>
 
-    <strong><?php echo Horde::label('default_share', _("Your default calendar")) ?></strong>&nbsp;
+    <?php echo Horde::label('default_share', _("Your default calendar")) ?><br />
     <select id="default_share" name="default_share">
     <?php foreach ($sharelist as $id => $share): ?>
      <option value="<?php echo htmlspecialchars($id) ?>"<?php if ($id == $default_share) echo ' selected="selected"' ?>><?php echo htmlspecialchars($share->get('name')) ?></option>

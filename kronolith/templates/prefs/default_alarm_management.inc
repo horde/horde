@@ -18,7 +18,7 @@ if (!$alarm_value) {
     }
 }
 ?>
-<strong><?php echo _("Default Alarm Setting:") ?></strong>&nbsp;
+<?php echo _("Default Alarm Setting:") ?><br />
 <label for="alarm_value" class="hidden"><?php echo _("Alarm Value") ?></label>
 <input type="text" size="2" id="alarm_value" name="alarm_value" value="<?php echo (int)$alarm_value ?>" />&nbsp;
 <label for="alarm_unit" class="hidden"><?php echo _("Alarm Unit") ?></label>
