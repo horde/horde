@@ -5,9 +5,9 @@
    <?php echo _("View Branch:") ?>
    <?php echo Chora::formInputs() ?>
    <input type="hidden" name="f" value="<?php echo htmlspecialchars(Horde_Util::getFormData('f')) ?>" />
-   <select name="rev" onchange="this.form.submit()">
+   <select name="onb" onchange="this.form.submit()">
 <?php foreach ($branches as $branch): ?>
-    <option value="<?php echo htmlspecialchars($branch) ?>"<?php echo ($branch == $rev) ? ' selected="selected"' : '' ?>><?php echo htmlspecialchars($branch) ?></option>
+    <option value="<?php echo htmlspecialchars($branch) ?>"<?php echo ($branch == $onb) ? ' selected="selected"' : '' ?>><?php echo htmlspecialchars($branch) ?></option>
 <?php endforeach; ?>
    </select>
    <noscript><input class="button" type="submit" value="<?php echo _("View") ?>" /></noscript>

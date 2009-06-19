@@ -4,7 +4,7 @@
   <td class="browseLocation">
    <?php echo _("Location:") ?>
    <strong>[ <a href="<?php echo Chora::url('browsedir') ?>"><?php echo $conf['options']['sourceRootName'] ?></a> ]
-   <?php echo Chora::whereMenu($where) ?></strong>
+   <?php echo Chora::whereMenu($where, isset($onb) ? $onb : null) ?></strong>
 <?php if (!empty($onb)): ?>
     <em><?php echo _("Tracking Branch") ?>: <strong><?php echo $onb ?></strong></em>
 <?php endif; ?>

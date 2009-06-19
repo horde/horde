@@ -75,7 +75,7 @@ if (!$plain) {
     );
     if ($VC->hasFeature('snapshots')) {
         $snapdir = dirname($file->queryPath());
-        $views[] = Horde::widget(Chora::url('browsedir', $snapdir == '.' ? '' : $snapdir . '/', array('rev' => $r)), _("Snapshot"), 'widget', '', '', _("_Snapshot"));
+        $views[] = Horde::widget(Chora::url('browsedir', $snapdir == '.' ? '' : $snapdir . '/', array('onb' => $r)), _("Snapshot"), 'widget', '', '', _("_Snapshot"));
     }
     $extraLink = _("View:") . ' ' . implode(' | ', $views);
 

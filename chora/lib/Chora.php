@@ -185,10 +185,12 @@ class Chora
      * Create the breadcrumb directory listing.
      *
      * @param string $where  The current filepath.
+     * @param string $onb    If not null, the branch to add to the generated
+     *                       URLs.
      *
      * @return string  The directory string.
      */
-    static public function whereMenu($where)
+    static public function whereMenu($where, $onb = null)
     {
         $bar = '';
         $dirs = explode('/', $where);
@@ -201,7 +203,11 @@ class Chora
             }
             $path .= $dir;
             if (!empty($dir)) {
-                $bar .= '/ <a href="' . self::url('browsedir', $path . ($i == $dir_count && !$GLOBALS['atdir'] ? '' : '/')) . '">'. Horde_Text_Filter::filter($dir, 'space2html', array('charset' => NLS::getCharset(), 'encode' => true, 'encode_all' => true)) . '</a> ';
+                $url = self::url('browsedir', $path . ($i == $dir_count && !$GLOBALS['atdir'] ? '' : '/'));
+                if (!empty($onb)) {
+                    $url = Horde_Util::addParameter($url, array('onb' => $onb));
+                }
+                $bar .= '/ <a href="' . $url . '">'. Horde_Text_Filter::filter($dir, 'space2html', array('charset' => NLS::getCharset(), 'encode' => true, 'encode_all' => true)) . '</a> ';
             }
         }
 
