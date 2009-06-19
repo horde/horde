@@ -205,7 +205,6 @@ $_prefs['show_panel'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'implicit',
-    'desc' => _("Show calendar options panel?"),
 );
 
 // show Free/Busy legend?
