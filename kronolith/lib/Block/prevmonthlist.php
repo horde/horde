@@ -23,7 +23,10 @@ class Horde_Block_Kronolith_prevmonthlist extends Horde_Block {
                                             'default' => '__all'),
                         'months' => array('name' => _("Months Before"),
                                           'type' => 'int',
-                                          'default' => 2));
+                                          'default' => 2),
+                        'alarms' => array('name' => _("Show only events that have an alarm set?"),
+                                          'type' => 'checkbox',
+                                          'default' => 0));
         $params['calendar']['values']['__all'] = _("All Visible");
         foreach (Kronolith::listCalendars() as $id => $cal) {
             $params['calendar']['values'][$id] = $cal->get('name');
@@ -117,7 +120,7 @@ class Horde_Block_Kronolith_prevmonthlist extends Horde_Block {
                     continue;
                 }
 
-                if ($prefs->getValue('summary_alarms') && !$event->alarm) {
+                if ($this->_parmas['alarms'] && !$event->alarm) {
                     continue;
                 }
                 if ($firstevent) {

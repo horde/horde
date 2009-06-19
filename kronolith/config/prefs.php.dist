@@ -17,13 +17,6 @@ $prefGroups['view'] = array(
                        'show_shared_side_by_side'),
 );
 
-$prefGroups['summary'] = array(
-    'column' => _("Display Options"),
-    'label' => _("Portal Options"),
-    'desc' => _("Select which events to show in the portal."),
-    'members' => array('summary_days', 'summary_alarms'),
-);
-
 $prefGroups['share'] = array(
     'column' => _("Calendars"),
     'label' => _("Default Calendar"),
@@ -231,35 +224,6 @@ $_prefs['show_shared_side_by_side'] = array(
     'shared' => false,
     'type' => 'checkbox',
     'desc' => _("Show shared calendars side-by-side?"),
-);
-
-// days to show in summary
-$_prefs['summary_days'] = array(
-    'value' => 7,
-    'locked' => false,
-    'shared' => false,
-    'type' => 'enum',
-    'desc' => _("Select the time span to show:"),
-    'enum' => array(1 => '1 ' . _("day"),
-                    2 => '2 ' . _("days"),
-                    3 => '3 ' . _("days"),
-                    4 => '4 ' . _("days"),
-                    5 => '5 ' . _("days"),
-                    6 => '6 ' . _("days"),
-                    7 => '1 ' . _("week"),
-                    14 => '2 ' . _("weeks"),
-                    21 => '3 ' . _("weeks"),
-                    28 => '4 ' . _("weeks"),
-    ),
-);
-
-// show alarms in summary?
-$_prefs['summary_alarms'] = array(
-    'value' => 0,
-    'locked' => false,
-    'shared' => false,
-    'type' => 'checkbox',
-    'desc' => _("Show only events that have an alarm set?"),
 );
 
 // default calendar selection widget

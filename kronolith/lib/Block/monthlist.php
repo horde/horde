@@ -26,7 +26,10 @@ class Horde_Block_Kronolith_monthlist extends Horde_Block {
                                             'default' => 2),
                         'maxevents' => array('name' => _("Maximum number of events to display (0 = no limit)"),
                                              'type' => 'int',
-                                             'default' => 0));
+                                             'default' => 0),
+                        'alarms' => array('name' => _("Show only events that have an alarm set?"),
+                                          'type' => 'checkbox',
+                                          'default' => 0));
         $params['calendar']['values']['__all'] = _("All Visible");
         foreach (Kronolith::listCalendars() as $id => $cal) {
             $params['calendar']['values'][$id] = $cal->get('name');
@@ -123,7 +126,7 @@ class Horde_Block_Kronolith_monthlist extends Horde_Block {
                     $event->end = $tomorrow;
                 }
                 if (($event->end->compareDate($now) < 0 && !$event->isAllDay()) ||
-                    ($prefs->getValue('summary_alarms') && !$event->alarm)) {
+                    ($this->_parmas['alarms'] && !$event->alarm)) {
                     continue;
                 }
 

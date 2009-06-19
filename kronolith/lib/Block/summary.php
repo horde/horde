@@ -23,9 +23,25 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
         $params = array('calendar' => array('name' => _("Calendar"),
                                             'type' => 'enum',
                                             'default' => '__all'),
+                        'days' => array('name' => _("The time span to show"),
+                                        'type' => 'enum',
+                                        'default' => 7,
+                                        'values' => array(1 => '1 ' . _("day"),
+                                                          2 => '2 ' . _("days"),
+                                                          3 => '3 ' . _("days"),
+                                                          4 => '4 ' . _("days"),
+                                                          5 => '5 ' . _("days"),
+                                                          6 => '6 ' . _("days"),
+                                                          7 => '1 ' . _("week"),
+                                                          14 => '2 ' . _("weeks"),
+                                                          21 => '3 ' . _("weeks"),
+                                                          28 => '4 ' . _("weeks"))),
                         'maxevents' => array('name' => _("Maximum number of events to display (0 = no limit)"),
                                              'type' => 'int',
-                                             'default' => 0));
+                                             'default' => 0),
+                        'alarms' => array('name' => _("Show only events that have an alarm set?"),
+                                          'type' => 'checkbox',
+                                          'default' => 0));
         $params['calendar']['values']['__all'] = _("All Visible");
         foreach (Kronolith::listCalendars() as $id => $cal) {
             $params['calendar']['values'][$id] = $cal->get('name');
@@ -71,7 +87,7 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
         $today = date('j');
 
         $startDate = new Horde_Date(array('year' => date('Y'), 'month' => date('n'), 'mday' => date('j')));
-        $endDate = new Horde_Date(array('year' => date('Y'), 'month' => date('n'), 'mday' => date('j') + $prefs->getValue('summary_days')));
+        $endDate = new Horde_Date(array('year' => date('Y'), 'month' => date('n'), 'mday' => date('j') + $this->_params['days']));
 
         if (isset($this->_params['calendar']) &&
             $this->_params['calendar'] != '__all') {
@@ -95,7 +111,7 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
         }
 
         $html = '';
-        $iMax = $today + $prefs->getValue('summary_days');
+        $iMax = $today + $this->_params['days'];
         $firstday = true;
         $totalevents = 0;
         for ($i = $today; $i < $iMax; ++$i) {
@@ -122,7 +138,7 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
                 if ($event->end->compareDate($now) < 0) {
                     continue;
                 }
-                if ($prefs->getValue('summary_alarms') && !$event->alarm) {
+                if ($this->_parmas['alarms'] && !$event->alarm) {
                     continue;
                 }
                 $event_active = $event->start->compareDateTime($now) < 0 &&
