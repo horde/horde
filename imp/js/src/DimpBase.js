@@ -1922,13 +1922,12 @@ var DimpBase = {
         // don't need to parse through them.
         var subs = (mode == 'exp')
             ? base.ancestors().slice(0, -2).reverse().findAll(function(n) { return n.hasClassName('subfolders'); })
-            : [ base ];
+            : [ base.next('.subfolders') ];
 
-        subs.each(function(s) {
-            if (s &&
-                (mode == 'tog' ||
-                 (mode == 'exp' && !s.visible()) ||
-                 (mode == 'col' && s.visible()))) {
+        subs.compact().each(function(s) {
+            if (mode == 'tog' ||
+                (mode == 'exp' && !s.visible()) ||
+                (mode == 'col' && s.visible())) {
                 s.previous().down().toggleClassName('exp').toggleClassName('col');
 
                 if (noeffect) {
