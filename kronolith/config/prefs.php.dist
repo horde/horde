@@ -12,8 +12,9 @@ $prefGroups['view'] = array(
     'members' => array('dynamic_view', 'confirm_delete', 'defaultview',
                        'time_between_days', 'week_start_monday',
                        'day_hour_start', 'day_hour_end', 'day_hour_force',
-                       'slots_per_hour', 'show_icons', 'show_time', 'show_location',
-                       'show_panel', 'show_fb_legend', 'show_shared_side_by_side'),
+                       'slots_per_hour', 'show_icons', 'show_time',
+                       'show_location', 'show_fb_legend',
+                       'show_shared_side_by_side'),
 );
 
 $prefGroups['summary'] = array(
@@ -209,7 +210,7 @@ $_prefs['show_panel'] = array(
     'value' => 1,
     'locked' => false,
     'shared' => false,
-    'type' => 'checkbox',
+    'type' => 'implicit',
     'desc' => _("Show calendar options panel?"),
 );
 
