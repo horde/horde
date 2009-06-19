@@ -2,6 +2,11 @@
  * DIMP core CSS.
  */
 
+/* Make sure we never scroll vertically. */
+html {
+    overflow-y: hidden;
+}
+
 /* global */
 input {
     vertical-align: middle;
