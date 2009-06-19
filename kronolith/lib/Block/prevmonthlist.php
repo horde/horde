@@ -120,7 +120,7 @@ class Horde_Block_Kronolith_prevmonthlist extends Horde_Block {
                     continue;
                 }
 
-                if ($this->_parmas['alarms'] && !$event->alarm) {
+                if ($this->_params['alarms'] && !$event->alarm) {
                     continue;
                 }
                 if ($firstevent) {
