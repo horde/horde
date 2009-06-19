@@ -125,6 +125,7 @@ h3.revision_log, h3.checkout {
     margin-bottom: 4px;
 }
 .revlog .branch {
+    display: block;
     font-style: italic;
 }
 .revlog .message {

@@ -6,9 +6,11 @@
   <a href="<?php echo Chora::url('diff', $where, array('r1' => 0, 'r2' => $rev)) ?>" class="sdiff" title="<?php echo _("Show changes to the selected revision") ?>" onclick="Chora_RevLog.sdiff(this);"><?php echo $diff_img ?></a>
  </td>
  <td><a href="<?php echo $textUrl ?>" title="<?php echo htmlspecialchars($rev) ?>"><?php echo htmlspecialchars($VC->abbrev($rev)) ?></a>
-<?php foreach (array_diff($branch_info, array($onb)) as $val): ?>
-  <span class="branch"><?php echo Horde::link(Chora::url('browsefile', $where, array('onb' => $val))) . htmlspecialchars($val) ?></a></span>
-<?php endforeach; ?>
+<?php $branchlist = array_diff($branch_info, array($onb)); if (!empty($branchlist)): ?>
+  <span class="branch">
+<?php foreach ($branchlist as $val): ?>
+  <?php echo Horde::link(Chora::url('browsefile', $where, array('onb' => $val))) . htmlspecialchars($val) ?></a>
+<?php endforeach; endif; ?>
 <?php if (!empty($changedlines)): ?>
   <small class="difflines">(<?php printf('%s lines', htmlspecialchars($changedlines)) ?>)</small>
 <?php elseif (!is_null($added)): ?>
