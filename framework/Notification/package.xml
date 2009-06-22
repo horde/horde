@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Notification</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Notification System</summary>
+ <description>The Horde_Notification:: class provides a subject-observer pattern for raising and showing messages of different types and to different listeners.
+ </description>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-06-24</date>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>* Initial Horde 4 package.
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Notification">
+      <dir name="Listener">
+       <file name="Audio.php" role="php" />
+       <file name="Javascript.php" role="php" />
+       <file name="Mobile.php" role="php" />
+       <file name="Status.php" role="php" />
+      </dir> <!-- /lib/Horde/Notification/Listener -->
+      <file name="Event.php" role="php" />
+      <file name="Listener.php" role="php" />
+     </dir> <!-- /lib/Horde/Notification -->
+     <file baseinstalldir="/Horde" name="Notification.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.5.4</min>
+   </pearinstaller>
+   <extension>
+    <name>gettext</name>
+   </extension>
+  </required>
+  <optional>
+   <package>
+    <name>Alarm</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Auth</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Notification/Listener/Audio.php" as="Horde/Notification/Listener/Audio.php" />
+   <install name="lib/Horde/Notification/Listener/Javascript.php" as="Horde/Notification/Listener/Javascript.php" />
+   <install name="lib/Horde/Notification/Listener/Mobile.php" as="Horde/Notification/Listener/Mobile.php" />
+   <install name="lib/Horde/Notification/Listener/Status.php" as="Horde/Notification/Listener/Status.php" />
+   <install name="lib/Horde/Notification/Event.php" as="Horde/Notification/Event.php" />
+   <install name="lib/Horde/Notification/Listener.php" as="Horde/Notification/Listener.php" />
+   <install name="lib/Horde/Notification.php" as="Horde/Notification.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <date>2006-05-08</date>
+   <time>22:52:05</time>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Converted to package.xml 2.0 for pear.horde.org
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-07-05</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Initial release as a PEAR package
+   </notes>
+  </release>
+ </changelog>
+</package>
