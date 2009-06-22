@@ -82,19 +82,31 @@ class Koward_Form_Search extends Horde_Form {
         if (isset($info['object'])) {
             $search_criteria = array();
             foreach ($info['object'] as $key => $value) {
-                if (!empty($value)) {
+                if ($value != '' && $value !== null) {
                     $search_criteria[] = array('field' => $key,
                                                'op'    => 'contains',
                                                'test' => $value);
                 }
             }
+            if (empty($search_criteria)) {
+                throw new Koward_Exception('Provide at least a single search parameter!');
+            }
             $search_criteria = array('AND' => $search_criteria);
             $criteria = array('AND' => array($search_criteria,
                                              $this->koward->search['criteria']));
-            $filter = $this->koward->getServer()->searchQuery($criteria);
             $params = array('scope' => 'sub',
                             'attributes' => array_merge(array('dn'), $attributes));
-            return $this->koward->getServer()->search($filter, $params);
+            if (!empty($this->koward->conf['koward']['search']['sizelimit'])) {
+                $params['sizelimit'] = $this->koward->conf['koward']['search']['sizelimit'];
+            }
+            $server = &$this->koward->getServer();
+            $result = $server->find($criteria, $params);
+            if (!empty($server->lastSearch)
+                && method_exists($server->lastSearch, 'sizeLimitExceeded')
+                && $server->lastSearch->sizeLimitExceeded()) {
+                $this->koward->notification->push(sprintf(_("More than the maximal allowed amount of %s elements were found. The list of results has been shortened."), $this->koward->conf['koward']['search']['sizelimit'], 'horde.message'));
+            }
+            return $result;
         }
     }
 }
