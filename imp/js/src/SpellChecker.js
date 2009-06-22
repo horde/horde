@@ -158,7 +158,7 @@ var SpellChecker = Class.create({
 
     onComplete: function(request)
     {
-        var bad, content, d, re, re_text,
+        var bad, content, d,
             i = 0,
             input = $(this.target),
             result = request.responseJSON;
@@ -181,20 +181,18 @@ var SpellChecker = Class.create({
         bad = result.bad || [];
 
         content = this.targetValue();
-        if (this.htmlAreaParent) {
-            content = content.replace(/\r?\n/g, '');
-        } else {
-            content = content.replace(/\r?\n/g, '~~~').escapeHTML();
-        }
+        content = this.htmlAreaParent
+            ? content.replace(/\r?\n/g, '')
+            : content.replace(/\r?\n/g, '~~~').escapeHTML();
 
         $A(bad).each(function(node) {
-            re = new RegExp("(?:^|\\b)" + RegExp.escape(node) + "(?:\\b|$)", 'g');
-            re_text = '<span index="' + (i++) + '" class="spellcheckIncorrect">' + node + '</span>';
-            content = content.replace(re, re_text);
-            // Go through and see if we matched anything inside a tag.
-            if (this.htmlAreaParent) {
-                content = content.replace(new RegExp("(<[^>]*)" + RegExp.escape(re_text) + "([^>]*>)", 'g'), '\$1' + node + '\$2');
-            }
+            var re_text = '<span index="' + (i++) + '" class="spellcheckIncorrect">' + node + '</span>';
+            content = content.replace(new RegExp("(?:^|\\b)" + RegExp.escape(node) + "(?:\\b|$)", 'g'), re_text);
+
+            // Go through and see if we matched anything inside a tag (i.e.
+            // class/spellcheckIncorrect is often matched if using a
+            // non-English lang).
+            content = content.replace(new RegExp("(<[^>]*)" + RegExp.escape(re_text) + "([^>]*>)", 'g'), '\$1' + node + '\$2');
         }, this);
 
         if (!this.reviewDiv) {
