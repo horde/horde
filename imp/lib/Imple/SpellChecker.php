@@ -89,14 +89,14 @@ class IMP_Imple_SpellChecker extends IMP_Imple
 
         try {
             $speller = Horde_SpellChecker::getInstance($GLOBALS['conf']['spell']['driver'], $spellArgs);
-        } catch (Exception $e) {
+        } catch (Horde_Exception $e) {
             Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
             return array();
         }
 
         try {
             return $speller->spellCheck(Horde_Util::getPost($args['input']));
-        } catch (Exception $e) {
+        } catch (Horde_Exception $e) {
             Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
             return array('bad' => array(), 'suggestions' => array());
         }
