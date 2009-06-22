@@ -1903,7 +1903,7 @@ class IMP_Imap_Tree
 
             case $elt['trash']:
                 if ($GLOBALS['prefs']->getValue('use_vtrash')) {
-                    $row['icon'] = ($this->isOpen($mailbox)) ? 'folders/folder_open.png' : 'folders/folder.png';
+                    $row['icon'] = ($this->isOpen($mailbox)) ? 'folders/open.png' : 'folders/folder.png';
                     $row['alt'] = _("Mailbox");
                 } else {
                     $row['icon'] = 'folders/trash.png';
@@ -1930,7 +1930,7 @@ class IMP_Imap_Tree
                     $row['alt'] = _("Sent mail folder");
                     $row['special'] = self::SPECIAL_SENT;
                 } else {
-                    $row['icon'] = ($this->isOpen($mailbox)) ? 'folders/folder_open.png' : 'folders/folder.png';
+                    $row['icon'] = ($this->isOpen($mailbox)) ? 'folders/open.png' : 'folders/folder.png';
                     $row['alt'] = _("Mailbox");
                 }
                 break;
@@ -1954,11 +1954,11 @@ class IMP_Imap_Tree
             /* We are dealing with folders here. */
             $row['container'] = true;
             if ($this->_forceopen && $this->isOpen($mailbox)) {
-                $row['icon'] = 'folders/folder_open.png';
+                $row['icon'] = 'folders/open.png';
                 $row['alt'] = _("Opened Folder");
             } else {
                 $row['icon'] = 'folders/folder.png';
-                $row['iconopen'] = 'folders/folder_open.png';
+                $row['iconopen'] = 'folders/open.png';
                 $row['alt'] = ($this->_forceopen) ? _("Closed Folder") : _("Folder");
             }
             if ($this->isVFolder($mailbox)) {
