@@ -276,8 +276,8 @@ class ObjectController extends Koward_Controller_Application
             $this->vars = Horde_Variables::getDefaultVariables();
             foreach ($this->params as $key => $value) {
                 if (!$this->vars->exists($key)) {
-                    if (is_array($value) && count($value) == 1) {
-                        $this->vars->set($key, $value[0]);
+                    if ($key != 'object' && is_array($value) && count($value) == 1) {
+                        $this->vars->set($key, array_pop($value));
                     } else {
                         $this->vars->set($key, $value);
                     }
