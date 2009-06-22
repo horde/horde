@@ -20,7 +20,7 @@ class Horde_SpellChecker_Aspell extends Horde_SpellChecker
      * @param string $text  TODO
      *
      * @return array  TODO
-     * @throws Exception
+     * @throws Horde_Exception
      */
     public function spellCheck($text)
     {
@@ -43,7 +43,7 @@ class Horde_SpellChecker_Aspell extends Horde_SpellChecker
 
         $process = proc_open($this->_cmd(), $descspec, $pipes);
         if (!is_resource($process)) {
-            throw Exception('Spellcheck failed. Command line: ', $this->_cmd());
+            throw new Horde_Exception('Spellcheck failed. Command line: ', $this->_cmd());
         }
 
         require_once 'Horde/NLS.php';
@@ -80,7 +80,7 @@ class Horde_SpellChecker_Aspell extends Horde_SpellChecker
             if ($this->_encoding) {
                 $err = Horde_String::convertCharset($err, $this->_encoding, $charset);
             }
-            throw Exception('Spellcheck failed. Command line: ', $this->_cmd());
+            throw new Horde_Exception('Spellcheck failed. Command line: ', $this->_cmd());
         }
 
         if ($this->_encoding) {

@@ -63,13 +63,13 @@ abstract class Horde_SpellChecker
      *
      * @return Horde_SpellChecker  The newly created Horde_SpellChecker
      *                             instance.
-     * @throws Exception
+     * @throws Horde_Exception
      */
     static public function getInstance($driver, $params = array())
     {
         $class = 'Horde_SpellChecker_' . Horde_String::ucfirst(basename($driver));
         if (!class_exists($class)) {
-            throw new Exception('Driver ' . $driver . ' not found');
+            throw new Horde_Exception('Driver ' . $driver . ' not found');
         }
         return new $class($params);
     }
@@ -101,7 +101,7 @@ abstract class Horde_SpellChecker
      * @param string $text  TODO
      *
      * @return array  TODO
-     * @throws Exception
+     * @throws Horde_Exception
      */
     abstract public function spellCheck($text);
 
