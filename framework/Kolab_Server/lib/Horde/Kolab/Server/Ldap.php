@@ -57,6 +57,13 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
     private $_schema;
 
     /**
+     * The last search result.
+     *
+     * @var Net_LDAP2_Search
+     */
+    public $lastSearch;
+
+    /**
      * Construct a new Horde_Kolab_Server_ldap object.
      *
      * @param array $params Parameter array.
@@ -461,6 +468,21 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
     }
 
     /**
+     * Find object data matching a given set of criteria.
+     *
+     * @param array  $criteria The criteria for the search.
+     * @param string $params   Additional search parameters.
+     *
+     * @return array The result array.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function find($criteria, $params = array())
+    {
+        return $this->search($this->searchQuery($criteria), $params);
+    }
+
+    /**
      * Search for object data.
      *
      * @param string $filter The LDAP search filter.
@@ -481,12 +503,12 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
         if (!isset($base)) {
             $base = $this->_base_dn;
         }
-        $result = $this->_ldap->search($base, $filter, $params);
+        $this->lastSearch = &$this->_ldap->search($base, $filter, $params);
         if (is_a($result, 'PEAR_Error')) {
             throw new Horde_Kolab_Server_Exception($result,
                                                    Horde_Kolab_Server_Exception::SYSTEM);
         }
-        $data   = $result->as_struct();
+        $data   = $this->lastSearch->as_struct();
         if (is_a($data, 'PEAR_Error')) {
             throw new Horde_Kolab_Server_Exception($data,
                                                    Horde_Kolab_Server_Exception::SYSTEM);

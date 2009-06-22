@@ -657,6 +657,18 @@ abstract class Horde_Kolab_Server
     abstract public function read($uid, $attrs = null);
 
     /**
+     * Find object data matching a given set of criteria.
+     *
+     * @param array  $criteria The criteria for the search.
+     * @param string $params   Additional search parameters.
+     *
+     * @return array The result array.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    abstract public function find($criteria, $params = array());
+
+    /**
      * Stub for saving object data.
      *
      * @param string  $uid    The UID of the object to be added.
