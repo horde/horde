@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<contact version="1.0">
+  <uid>1</uid>
+  <body></body>
+  <categories></categories>
+  <creation-date>1970-01-01T00:00:00Z</creation-date>
+  <last-modification-date>1970-01-01T00:00:00Z</last-modification-date>
+  <sensitivity>public</sensitivity>
+  <product-id>Horde::Kolab</product-id>
+  <name>
+    <full-name>User Name</full-name>
+  </name>
+  <email>
+    <display-name>User Name</display-name>
+    <smtp-address>user@example.org</smtp-address>
+    <uid></uid>
+  </email>
+  <pgp-publickey>PGP Test Key</pgp-publickey>
+</contact>

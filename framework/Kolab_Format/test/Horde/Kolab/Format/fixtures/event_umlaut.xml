@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<event version="1.0" >
+ <product-id>KOrganizer 3.3 (proko2 branch after 2.1.5), Kolab resource</product-id>
+ <uid>libkcal-543769073.139</uid>
+ <creation-date>2006-03-16T15:00:53Z</creation-date>
+ <last-modification-date>2007-01-25T11:36:40Z</last-modification-date>
+ <sensitivity>public</sensitivity>
+ <pilot-sync-status>1</pilot-sync-status>
+ <start-date>2006-03-15T18:30:00Z</start-date>
+ <summary>Summary</summary>
+ <organizer>
+  <display-name>Orga Nizer</display-name>
+  <smtp-address>orga.nizer@example.com</smtp-address>
+ </organizer>
+ <body>...übbe...</body>
+ <revision>0</revision>
+ <show-time-as>busy</show-time-as>
+ <end-date>2007-03-15T20:00:00Z</end-date>
+</event>

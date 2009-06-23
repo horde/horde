@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Kolab_Format</name>
+ <channel>pear.horde.org</channel>
+ <summary>A package for reading/writing Kolab data formats</summary>
+ <description>This package allows to convert Kolab data objects from
+ XML to hashes.</description>
+ <lead>
+  <name>Gunnar Wrobel</name>
+  <user>wrobel</user>
+  <email>p@rdus.de</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Thomas Jarosch</name>
+  <user>jarosch</user>
+  <email>thomas.jarosch@intra2net.com</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-04-02</date>
+ <version>
+  <release>1.0.1</release>
+  <api>1.0.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+ <notes>
+   * Handle parsing errors within the DOM XML extension correctly
+     kolab/issue3520 (calendar with certain entries does not display in web client)
+     https://www.intevation.de/roundup/kolab/issue3520
+     kolab/issue3525 (free/busy regeneration aborts for unparsable events)
+     https://www.intevation.de/roundup/kolab/issue3525
+   * Accept ISO-8859-1 encoding even if advertised as UTF-8
+     kolab/issue3528 (Events with broken encoding should work)
+     https://www.intevation.de/roundup/kolab/issue3528
+ </notes>
+ <contents>
+  <dir name="/">
+   <file name="COPYING" role="doc" />
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Kolab">
+      <dir name="Format">
+       <file name="usage.txt" role="doc" />
+      </dir> <!-- /doc/Horde/Kolab/Format -->
+     </dir> <!-- /doc/Horde/Kolab -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
+   <dir name="examples">
+    <dir name="Horde">
+     <dir name="Kolab">
+      <dir name="Format">
+       <file name="event.php" role="doc" />
+       <file name="new_type.php" role="doc" />
+      </dir> <!-- /examples/Horde/Kolab/Format -->
+     </dir> <!-- /examples/Horde/Kolab -->
+    </dir> <!-- /examples/Horde -->
+   </dir> <!-- /examples -->
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Kolab">
+      <file name="Format.php" role="php" />
+      <dir name="Format">
+       <file name="Date.php" role="php" />
+       <file name="XML.php" role="php" />
+       <dir name="XML">
+        <file name="annotation.php" role="php" />
+        <file name="contact.php" role="php" />
+        <file name="distributionlist.php" role="php" />
+        <file name="event.php" role="php" />
+        <file name="hprefs.php" role="php" />
+        <file name="note.php" role="php" />
+        <file name="task.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/Format/XML -->
+      </dir> <!-- /lib/Horde/Kolab/Format -->
+     </dir> <!-- /lib/Horde/Kolab -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Kolab">
+      <dir name="Format">
+       <file name="AllTests.php" role="test" />
+       <file name="ContactTest.php" role="test" />
+       <file name="PreferencesTest.php" role="test" />
+       <file name="RecurrenceTest.php" role="test" />
+       <file name="XmlTest.php" role="test" />
+       <dir name="fixtures">
+        <file name="contact_category.xml" role="test" />
+        <file name="contact_mail.xml" role="test" />
+        <file name="contact_pgp.xml" role="test" />
+        <file name="preferences_read_old.xml" role="test" />
+        <file name="preferences_write_old.xml" role="test" />
+        <file name="recur_fail.xml" role="test" />
+        <file name="recur.xml" role="test" />
+       </dir> <!-- /test/Horde/Kolab/Format/fixtures -->
+      </dir> <!-- /test/Horde/Kolab/Format -->
+     </dir> <!-- /test/Horde/Kolab -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>Horde_DOM</name>
+    <channel>pear.horde.org</channel>
+    <min>0.1.0</min>
+   </package>
+   <package>
+    <name>Horde_NLS</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Util</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+  <optional>
+   <package>
+    <name>Horde_Prefs</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Horde_Date</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="doc/Horde/Kolab/Format/usage.txt" as="Horde/Kolab/Format/usage.txt" />
+   <install name="examples/Horde/Kolab/Format/event.php" as="Horde/Kolab/Format/event.php" />
+   <install name="examples/Horde/Kolab/Format/new_type.php" as="Horde/Kolab/Format/new_type.php" />
+   <install name="lib/Horde/Kolab/Format.php" as="Horde/Kolab/Format.php" />
+   <install name="lib/Horde/Kolab/Format/Date.php" as="Horde/Kolab/Format/Date.php" />
+   <install name="lib/Horde/Kolab/Format/XML.php" as="Horde/Kolab/Format/XML.php" />
+   <install name="lib/Horde/Kolab/Format/XML/annotation.php" as="Horde/Kolab/Format/XML/annotation.php" />
+   <install name="lib/Horde/Kolab/Format/XML/contact.php" as="Horde/Kolab/Format/XML/contact.php" />
+   <install name="lib/Horde/Kolab/Format/XML/distributionlist.php" as="Horde/Kolab/Format/XML/distributionlist.php" />
+   <install name="lib/Horde/Kolab/Format/XML/event.php" as="Horde/Kolab/Format/XML/event.php" />
+   <install name="lib/Horde/Kolab/Format/XML/hprefs.php" as="Horde/Kolab/Format/XML/hprefs.php" />
+   <install name="lib/Horde/Kolab/Format/XML/note.php" as="Horde/Kolab/Format/XML/note.php" />
+   <install name="lib/Horde/Kolab/Format/XML/task.php" as="Horde/Kolab/Format/XML/task.php" />
+   <install name="test/Horde/Kolab/Format/AllTests.php" as="Horde/Kolab/Format/AllTests.php" />
+   <install name="test/Horde/Kolab/Format/ContactTest.php" as="Horde/Kolab/Format/ContactTest.php" />
+   <install name="test/Horde/Kolab/Format/PreferencesTest.php" as="Horde/Kolab/Format/PreferencesTest.php" />
+   <install name="test/Horde/Kolab/Format/RecurrenceTest.php" as="Horde/Kolab/Format/RecurrenceTest.php" />
+   <install name="test/Horde/Kolab/Format/XmlTest.php" as="Horde/Kolab/Format/XmlTest.php" />
+   <install name="test/Horde/Kolab/Format/fixtures/contact_category.xml" as="Horde/Kolab/Format/fixtures/contact_category.xml" />
+   <install name="test/Horde/Kolab/Format/fixtures/contact_mail.xml" as="Horde/Kolab/Format/fixtures/contact_mail.xml" />
+   <install name="test/Horde/Kolab/Format/fixtures/contact_pgp.xml" as="Horde/Kolab/Format/fixtures/contact_pgp.xml" />
+   <install name="test/Horde/Kolab/Format/fixtures/preferences_read_old.xml" as="Horde/Kolab/Format/fixtures/preferences_read_old.xml" />
+   <install name="test/Horde/Kolab/Format/fixtures/preferences_write_old.xml" as="Horde/Kolab/Format/fixtures/preferences_write_old.xml" />
+   <install name="test/Horde/Kolab/Format/fixtures/recur.xml" as="Horde/Kolab/Format/fixtures/recur.xml" />
+   <install name="test/Horde/Kolab/Format/fixtures/recur_fail.xml" as="Horde/Kolab/Format/fixtures/recur_fail.xml" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <date>2008-12-12</date>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <notes>
+     * Fixed copyright information.
+   </notes>
+  </release>
+  <release>
+   <date>2008-11-07</date>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+     * Added functions to provide MIME related information.
+   </notes>
+  </release>
+  <release>
+   <date>2008-10-29</date>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+     * Fixed handling of return values from _load/_saveArray().
+     * Allowed disabling the automatic creation of categories.
+     * Merge a single mail address into the list of mail addresses.
+     * Support storing public gpg keys in the contact format.
+     * Fixed a PHP5 only check when reading XML content.
+     * Use the 'application' instead of the 'categories' element in the 
+       preferences driver.
+     * Fix category handling when no preference backend is available.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.2</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2008-08-01</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+     * Renamed package to Kolab_Format.
+     * Removed some unnecessary translations.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.1</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2008-07-29</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+    * Estimated amount of required time in tasks is a float.
+    * Only convert recurrence end of type date to a date.
+    * Fixed calls to _loadArray/_saveArray.
+    * Added experimental annotations format.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2008-07-11</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+     * Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>
