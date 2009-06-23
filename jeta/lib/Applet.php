@@ -10,7 +10,7 @@
  * @author  Michael Slusarz <slusarz@curecanti.org>
  * @package Jeta
  */
-class Jeta_Applet
+abstract class Jeta_Applet
 {
     /**
      * Parameters used by the class.
