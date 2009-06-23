@@ -482,7 +482,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
 
             if (!empty($revs)) {
                 if (stripos($revs[0], 'fatal') === 0) {
-                    throw new Horde_Vcs_Exception($revs);
+                    throw new Horde_Vcs_Exception(implode(', ', $revs));
                 }
 
                 $this->_revlist[$key] = $revs;
