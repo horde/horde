@@ -51,9 +51,7 @@ class Jeta_Applet
      *
      * @return string  The HTML needed to load the applet.
      */
-    abstract public function generateAppletCode()
-    {
-    }
+    abstract public function generateAppletCode();
 
     /**
      * Generate the HTML param tags.
