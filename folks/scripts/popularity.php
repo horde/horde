@@ -83,7 +83,7 @@ foreach ($apps as $app => $defs) {
             $cli->fatal($row2);
         }
 
-        @$users[$row[1] += $row2[0] * $defs['modify'];
+        @$users[$row[1]] += $row2[0] * $defs['modify'];
         $total += $row2[0] * $defs['modify'];
     }
 }
