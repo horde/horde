@@ -20,7 +20,7 @@ require_once HORDE_BASE . '/lib/Test.php';
 $horde_test = new Horde_Test;
 
 $module = 'Kronolith';
-require_once KRONOLITH_DIR . '/lib/version.php';
+require_once KRONOLITH_BASE . '/lib/version.php';
 $module_version = KRONOLITH_VERSION;
 
 require TEST_TEMPLATES . 'header.inc';
