@@ -65,7 +65,7 @@ class Horde_Form_AddClient extends Horde_Form
             }
         } elseif ($vars->get('chooseQueue') == 'assign') {
             $queues = $GLOBALS['registry']->listQueues();
-
+        }
 
         $action = &Horde_Form_Action::factory('reload');
         $select = &$this->addVariable(_("Group"), 'rectype', 'enum', true, false, null, array($addOrPick, true));
