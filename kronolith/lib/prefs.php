@@ -85,8 +85,8 @@ function handle_holiday_drivers($updated)
     $holiday_driversFiltered = array();
 
     if (is_array($holiday_driversSelected)) {
-        foreach($holiday_driversSelected as $holiday_driver) {
-        $holiday_driversFiltered[] = $holiday_driver;
+        foreach ($holiday_driversSelected as $holiday_driver) {
+            $holiday_driversFiltered[] = $holiday_driver;
         }
     }
 
@@ -185,13 +185,16 @@ foreach (($maint->exportIntervalPrefs()) as $val) {
     $$val = &$intervals;
 }
 
-if (!empty($GLOBALS['conf']['holidays']['enable']) &&
-    @include_once('Date/Holidays.php')) {
-    foreach (Date_Holidays::getInstalledDrivers() as $driver) {
-        if ($driver['id'] == 'Composite') {
-            continue;
+if (!empty($GLOBALS['conf']['holidays']['enable'])) {
+    if (class_exists('Date_Holidays')) {
+        foreach (Date_Holidays::getInstalledDrivers() as $driver) {
+            if ($driver['id'] == 'Composite') {
+                continue;
+            }
+            $_prefs['holiday_drivers']['enum'][$driver['id']] = $driver['title'];
         }
-        $_prefs['holiday_drivers']['enum'][$driver['id']] = $driver['title'];
+        asort($_prefs['holiday_drivers']['enum']);
+    } else {
+        $notification->push(_("Holidays support is not available on this server."), 'horde.error');
     }
-    asort($_prefs['holiday_drivers']['enum']);
 }
