@@ -1,9 +1,4 @@
 <?php
-/* Add necessary javascript files. */
-Horde::addScriptFile('prototype.js', 'horde', true);
-Horde::addScriptFile('colorpicker.js', 'horde', true);
-Horde::addScriptFile('flagmanagement.js', 'imp', true);
-
 /* Get the list of flags. */
 $imp_flags = &IMP_Imap_Flags::singleton();
 $flaglist = $imp_flags->getList(array('div' => true, 'fgcolor' => true));
@@ -11,10 +6,6 @@ $flaglist = $imp_flags->getList(array('div' => true, 'fgcolor' => true));
 /* Get the graphics. */
 $picker_img = Horde::img('colorpicker.png', _("Color Picker"), '', $registry->getImageDir('horde'));
 $delete_img = Horde::img('delete.png');
-
-IMP::addInlineScript(array(
-    'ImpFlagmanagement.new_prompt = ' . Horde_Serialize::serialize(_("Please enter the label for the new flag:"), Horde_Serialize::JSON, NLS::getCharset())
-));
 
 ?>
 <input type="hidden" name="flag_action" id="flag_action" />

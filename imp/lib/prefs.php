@@ -159,11 +159,11 @@ function handle_soundselect($updated)
 function handle_flagmanagement($updated)
 {
     $imp_flags = &IMP_Imap_Flags::singleton();
-    $flag_action = Horde_Util::getFormData('flag_action');
-    $flag_data = Horde_Util::getFormData('flag_data');
+    $action = Horde_Util::getFormData('flag_action');
+    $data = Horde_Util::getFormData('flag_data');
 
-    if ($flag_action == 'add') {
-        $imp_flags->addFlag($flag_data);
+    if ($action == 'add') {
+        $imp_flags->addFlag($data);
         return false;
     }
 
@@ -173,9 +173,9 @@ function handle_flagmanagement($updated)
     foreach ($imp_flags->getList() as $key => $val) {
         $md5 = hash('md5', $key);
 
-        switch ($flag_action) {
+        switch ($action) {
         case 'delete':
-            if ($flag_data == ('bg_' . $md5)) {
+            if ($data == ('bg_' . $md5)) {
                 $imp_flags->deleteFlag($key);
                 return false;
             }
@@ -263,4 +263,18 @@ foreach (($maint->exportIntervalPrefs()) as $val) {
 if (!$GLOBALS['registry']->call('mail/server')) {
     header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('redirect.php'), 'url', Horde::selfUrl(true)));
     exit;
+}
+
+/* Add necessary javascript files here (so they are added to the document
+ * HEAD. */
+switch ($group) {
+case 'flags':
+    Horde::addScriptFile('prototype.js', 'horde', true);
+    Horde::addScriptFile('colorpicker.js', 'horde', true);
+    Horde::addScriptFile('flagmanagement.js', 'imp', true);
+
+    IMP::addInlineScript(array(
+        'ImpFlagmanagement.new_prompt = ' . Horde_Serialize::serialize(_("Please enter the label for the new flag:"), Horde_Serialize::JSON, NLS::getCharset())
+    ));
+    break;
 }
