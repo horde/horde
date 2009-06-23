@@ -134,6 +134,6 @@ var_dump($result);
 /**
  * Upload a photo
  */
-$path = "/Users/mrubinsk/Desktop/horde_fb.jpg"
+$path = "/Users/mrubinsk/Desktop/horde_fb.jpg";
 $results = $facebook->photos->upload($path);
 var_dump($results);
