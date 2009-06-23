@@ -29,7 +29,7 @@ class Folks_Friends_facebook extends Folks_Friends {
     protected function _getFriends()
     {
         if (!$this->_loadFB) {
-            return $this->_fb);
+            return $this->_fb;
         }
 
         try {
@@ -47,7 +47,7 @@ class Folks_Friends_facebook extends Folks_Friends {
     public function getGroups()
     {
         if (!$this->_loadFB) {
-            return $this->_fb);
+            return $this->_fb;
         }
 
         try {
