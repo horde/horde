@@ -2,7 +2,7 @@
 /**
  * Operator base application file.
  *
- * $Horde: incubator/operator/lib/base.php,v 1.5 2009/01/06 17:51:06 jan Exp $
+ * $Horde: incubator/operator/lib/base.php,v 1.6 2009/06/24 23:39:29 slusarz Exp $
  *
  * This file brings in all of the dependencies that every Operator script will
  * need, and sets up objects that all scripts use.
@@ -33,7 +33,7 @@ $conf = &$GLOBALS['conf'];
 @define('OPERATOR_TEMPLATES', $registry->get('templates'));
 
 // Notification system.
-$notification = &Notification::singleton();
+$notification = &Horde_Notification::singleton();
 $notification->attach('status');
 
 // Define the base file path of Operator.
