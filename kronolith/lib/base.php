@@ -38,9 +38,8 @@ $conf = &$GLOBALS['conf'];
 define('KRONOLITH_TEMPLATES', $registry->get('templates'));
 
 /* Notification system. */
-$notification = &Notification::singleton();
-require_once KRONOLITH_BASE . '/lib/Notification/Listener/status.php';
-$GLOBALS['kronolith_notify'] = &$notification->attach('status', null, 'Notification_Listener_status_kronolith');
+$notification = &Horde_Notification::singleton();
+$GLOBALS['kronolith_notify'] = &$notification->attach('status', null, 'Kronolith_Notification_Listener_Status');
 
 /* Kronolith base library. */
 require_once KRONOLITH_BASE . '/lib/Kronolith.php';

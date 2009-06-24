@@ -1,23 +1,20 @@
 <?php
-
-require_once 'Horde/Notification/Listener/status.php';
-
 /**
- * The Notification_Listener_status_imp:: class extends the
+ * The IMP_Notification_Listener_StatusImp:: class extends the
  * Notification_Listener_status:: class to display the messages for
  * IMP's special message types 'imp.forward' and 'imp.reply'.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Notification
  */
-class Notification_Listener_status_imp extends Notification_Listener_status {
-
+class IMP_Notification_Listener_StatusImp extends Horde_Notification_Listener_Status
+{
     /**
-     * Constructor
+     * Constructor.
      */
-    function Notification_Listener_status_imp()
+    public function __construct()
     {
-        parent::Notification_Listener_status();
+        parent::__construct();
         $this->_handles['imp.reply'] = true;
         $this->_handles['imp.forward'] = true;
         $this->_handles['imp.redirect'] = true;
@@ -29,7 +26,7 @@ class Notification_Listener_status_imp extends Notification_Listener_status {
      *
      * @param array $message  One message hash from the stack.
      */
-    function getMessage($message)
+    public function getMessage($message)
     {
         $event = $this->getEvent($message);
         switch ($message['type']) {

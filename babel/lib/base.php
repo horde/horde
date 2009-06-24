@@ -23,7 +23,7 @@ if (!defined('BABEL_BASE')) {
 require_once HORDE_BASE . '/lib/core.php';
 
 /* Notification system. */
-$notification = &Notification::singleton();
+$notification = &Horde_Notification::singleton();
 $notification->attach('status');
 
 /* Registry. */
@@ -31,7 +31,7 @@ $registry = &Registry::singleton();
 
 if (is_a(($pushed = $registry->pushApp('babel', !defined('AUTH_HANDLER'))), 'PEAR_Error')) {
     if ($pushed->getCode() == 'permission_denied') {
-        Horde::authenticationFailureRedirect(); 
+        Horde::authenticationFailureRedirect();
     }
     Horde::fatal($pushed, __FILE__, __LINE__, false);
 }

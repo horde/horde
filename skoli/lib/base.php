@@ -32,7 +32,7 @@ $conf = &$GLOBALS['conf'];
 require_once 'Horde/History.php';
 
 // Notification system.
-$notification = &Notification::singleton();
+$notification = &Horde_Notification::singleton();
 $notification->attach('status');
 
 // Define the base file path of Skoli.

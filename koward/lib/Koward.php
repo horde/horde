@@ -56,10 +56,9 @@ class Koward {
         include_once 'Horde/NLS.php';
         include_once 'Horde/Auth.php';
         include_once 'Horde/Perms.php';
-        include_once 'Horde/Notification.php';
         include_once 'Horde/Registry.php';
 
-        $notification = Notification::singleton();
+        $notification = &Horde_Notification::singleton();
         $notification->attach('status');
 
         $registry = Registry::singleton();

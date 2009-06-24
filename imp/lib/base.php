@@ -19,7 +19,7 @@
  * Global variables defined:
  *   $imp_imap    - An IMP_Imap object
  *   $imp_mbox    - Current mailbox information
- *   $imp_notify  - A Notification_Listener_Mobile object
+ *   $imp_notify  - A Horde_Notification_Listener object
  *   $imp_search  - An IMP_Search object
  *   $mimp_render - (MIMP view only) A Horde_Mobile object
  *
@@ -161,18 +161,14 @@ if (($viewmode == 'dimp') && Horde_Util::nonInputVar('dimp_logout')) {
 }
 
 // Notification system.
-$notification = &Notification::singleton();
+$notification = &Horde_Notification::singleton();
 if (($viewmode == 'mimp') ||
     (Horde_Util::nonInputVar('login_page') && $GLOBALS['browser']->isMobile())) {
-    require_once 'Horde/Notification/Listener/mobile.php';
-    $GLOBALS['imp_notify'] = &$notification->attach('status', null, 'Notification_Listener_mobile');
+    $GLOBALS['imp_notify'] = &$notification->attach('status', null, 'Horde_Notification_Listener_Mobile');
 } elseif ($viewmode == 'dimp') {
-    require_once IMP_BASE . '/lib/Notification/Listener/status-dimp.php';
-    $GLOBALS['imp_notify'] = &$notification->attach('status', null, 'Notification_Listener_status_dimp');
+    $GLOBALS['imp_notify'] = &$notification->attach('status', null, 'IMP_Notification_Listener_DimpStatus');
 } else {
-    require_once IMP_BASE . '/lib/Notification/Listener/status.php';
-    require_once 'Horde/Notification/Listener/audio.php';
-    $GLOBALS['imp_notify'] = &$notification->attach('status', null, 'Notification_Listener_status_imp');
+    $GLOBALS['imp_notify'] = &$notification->attach('status', null, 'IMP_Notification_Listener_ImpStatus');
     $notification->attach('audio');
 }
 

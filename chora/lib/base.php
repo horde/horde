@@ -41,7 +41,7 @@ $conf = &$GLOBALS['conf'];
 define('CHORA_TEMPLATES', $registry->get('templates'));
 
 // Notification system.
-$notification = &Notification::singleton();
+$notification = &Horde_Notification::singleton();
 $notification->attach('status');
 
 // Chora base library.

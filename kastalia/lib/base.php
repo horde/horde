@@ -31,7 +31,7 @@ $conf = &$GLOBALS['conf'];
 @define('KASTALIA_TEMPLATES', $registry->get('templates'));
 
 // Notification system.
-$notification = &Notification::singleton();
+$notification = &Horde_Notification::singleton();
 $notification->attach('status');
 
 // Define the base file path of Kastalia.

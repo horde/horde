@@ -33,7 +33,7 @@ if (!defined('INGO_TEMPLATES')) {
 }
 
 // Notification system.
-$notification = &Notification::singleton();
+$notification = &Horde_Notification::singleton();
 $notification->attach('status');
 
 // Redirect the user to the Horde login page if they haven't authenticated.

@@ -38,7 +38,7 @@ $conf = &$GLOBALS['conf'];
 define('JETA_TEMPLATES', $registry->get('templates'));
 
 // Notification system.
-$notification = &Notification::singleton();
+$notification = &Horde_Notification::singleton();
 $notification->attach('status');
 
 // Includes.

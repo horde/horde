@@ -42,7 +42,7 @@ if (!defined('FIMA_BASE')) {
 }
 
 // Notification system.
-$notification = &Notification::singleton();
+$notification = &Horde_Notification::singleton();
 $notification->attach('status');
 
 // Fima base library

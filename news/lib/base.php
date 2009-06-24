@@ -34,7 +34,7 @@ $conf = &$GLOBALS['conf'];
 define('NEWS_TEMPLATES', $registry->get('templates'));
 
 // Notification system.
-$notification = &Notification::singleton();
+$notification = &Horde_Notification::singleton();
 $notification->attach('status');
 
 // Define the base file path of News.
