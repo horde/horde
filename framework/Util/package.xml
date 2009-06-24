@@ -79,7 +79,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.php.net</channel>
    </package>
    <package>
-    <name>Horde_Browser</name>
+    <name>Browser</name>
     <channel>pear.horde.org</channel>
    </package>
    <extension>
