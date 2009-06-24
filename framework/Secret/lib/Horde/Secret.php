@@ -1,9 +1,9 @@
 <?php
 /**
- * The Secret:: class provides an API for encrypting and decrypting
+ * The Horde_Secret:: class provides an API for encrypting and decrypting
  * small pieces of data with the use of a shared key.
  *
- * The Secret:: functions use the Horde Cipher:: class if mcrypt is not
+ * The Horde_Secret:: functions use the Horde_Cipher:: class if mcrypt is not
  * available.
  *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
@@ -44,17 +44,17 @@ class Horde_Secret
             return false;
         }
 
-        $ret = Secret::_getMcryptData($key, $message, 'encrypt');
+        $ret = self::_getMcryptData($key, $message, 'encrypt');
         if ($ret !== false) {
             return $ret;
         }
 
-        $ptr = Secret::_getCipherOb($key);
+        $ptr = self::_getCipherOb($key);
         return $ptr->encrypt($message);
     }
 
     /**
-     * Decrypt a message encrypted with Secret::write().
+     * Decrypt a message encrypted with write().
      *
      * @param string $key      The key to use for decryption.
      * @param string $message  The ciphertext message.
@@ -63,12 +63,12 @@ class Horde_Secret
      */
     static public function read($key, $ciphertext)
     {
-        $ret = Secret::_getMcryptData($key, $ciphertext, 'decrypt');
+        $ret = self::_getMcryptData($key, $ciphertext, 'decrypt');
         if ($ret !== false) {
             return rtrim($ret, "\0");
         }
 
-        $ptr = Secret::_getCipherOb($key);
+        $ptr = self::_getCipherOb($key);
         return $ptr->decrypt($ciphertext);
     }
 
@@ -127,11 +127,11 @@ class Horde_Secret
             } else {
                 $key = hash('md5', mt_rand());
                 $_COOKIE[$keyname . '_key'] = $key;
-                Secret::_setCookie($keyname, $key);
+                self::_setCookie($keyname, $key);
             }
         } else {
             $key = session_id();
-            Secret::_setCookie($keyname, $key);
+            self::_setCookie($keyname, $key);
         }
 
         return $key;
@@ -153,7 +153,7 @@ class Horde_Secret
                 self::$_keyCache[$keyname] = $_COOKIE[$keyname . '_key'];
             } else {
                 self::$_keyCache[$keyname] = session_id();
-                Secret::_setCookie($keyname, self::$_keyCache[$keyname]);
+                self::_setCookie($keyname, self::$_keyCache[$keyname]);
             }
         }
 
@@ -197,6 +197,3 @@ class Horde_Secret
     }
 
 }
-
-// TODO - Remove once apps are transitioned to Horde 4
-class Secret extends Horde_Secret {}
