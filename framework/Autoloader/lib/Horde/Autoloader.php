@@ -6,11 +6,6 @@
  * @package  Horde_Autoloader
  * @license  http://www.gnu.org/copyleft/lesser.html
  */
-
-/**
- * @category Horde
- * @package  Horde_Autoloader
- */
 class Horde_Autoloader
 {
     /**
@@ -19,8 +14,15 @@ class Horde_Autoloader
      * @var array
      */
     protected static $_classPatterns = array(
-        array('/^Horde_/', 'Horde/'),
+        array('/^Horde_/i', 'Horde/'),
     );
+
+    /**
+     * The include path cache.
+     *
+     * @var array
+     */
+    protected static $_includeCache = null;
 
     /**
      * Autoload implementation automatically registered with
@@ -71,19 +73,24 @@ class Horde_Autoloader
      */
     public static function addClassPath($path, $prepend = true)
     {
-        $include_path = get_include_path();
-        if ($include_path == $path
-            || strpos($include_path, PATH_SEPARATOR . $path)
-            || strpos($include_path, $path . PATH_SEPARATOR) !== false) {
+        if (is_null(self::$_includeCache)) {
+            self::$_includeCache = array_keys(array_flip(array_map('realpath', explode(PATH_SEPARATOR, get_include_path()))));
+        }
+
+        $path = realpath($path);
+
+        if (in_array($path, self::$_includeCache)) {
             // The path is already present in our stack; don't re-add it.
-            return $include_path;
+            return implode(PATH_SEPARATOR, self::$_includeCache);
         }
 
         if ($prepend) {
-            $include_path = $path . PATH_SEPARATOR . $include_path;
+            array_unshift(self::$_includeCache, $path);
         } else {
-            $include_path .= PATH_SEPARATOR . $path;
+            self::$_includeCache[] = $path;
         }
+
+        $include_path = implode(PATH_SEPARATOR, self::$_includeCache);
         set_include_path($include_path);
 
         return $include_path;
