@@ -19,12 +19,8 @@ if (!defined('HORDE_BASE')) {
     define('HORDE_BASE', dirname(__FILE__) . '/../..');
 }
 
-// Load the Horde Framework core, and set up inclusion paths.
+// Load the Horde Framework core.
 require_once HORDE_BASE . '/lib/core.php';
-
-$news_dir = dirname(__FILE__);
-Horde_Autoloader::addClassPath($news_dir);
-Horde_Autoloader::addClassPattern('/^News/', $news_dir);
 
 // Registry.
 $registry = &Registry::singleton();

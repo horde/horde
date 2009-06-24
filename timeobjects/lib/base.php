@@ -17,10 +17,8 @@ if (!defined('HORDE_BASE')) {
     }
 }
 
-/* Load the Horde Framework core, and set up inclusion paths. */
+/* Load the Horde Framework core. */
 require_once HORDE_BASE . '/lib/core.php';
-Horde_Autoloader::addClassPath($rto_dir);
-Horde_Autoloader::addClassPattern('/^TimeObjects_/', $rto_dir);
 
 /* Registry. */
 $session_control = Horde_Util::nonInputVar('session_control');

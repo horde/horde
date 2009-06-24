@@ -32,13 +32,10 @@
  */
 
 // Determine BASE directories.
-$imp_dir = dirname(__FILE__);
-require_once $imp_dir . '/base.load.php';
+require_once dirname(__FILE__) . '/base.load.php';
 
-// Load the Horde Framework core, and set up inclusion paths.
+// Load the Horde Framework core.
 require_once HORDE_BASE . '/lib/core.php';
-Horde_Autoloader::addClassPath($imp_dir);
-Horde_Autoloader::addClassPattern('/^IMP_/', $imp_dir);
 
 // Registry.
 $s_ctrl = 0;

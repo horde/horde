@@ -22,10 +22,8 @@ if (!defined('JETA_BASE')) {
     define('JETA_BASE', dirname(__FILE__) . '/..');
 }
 
-// Load the Horde Framework core, and set up inclusion paths.
+// Load the Horde Framework core.
 require_once HORDE_BASE . '/lib/core.php';
-require_once 'Horde/Autoloader.php';
-Horde_Autoloader::addClassPattern('/^Jeta_/', JETA_BASE . '/lib/');
 
 // Registry.
 $registry = &Registry::singleton();

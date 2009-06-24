@@ -13,13 +13,10 @@
  */
 
 // Determine BASE directories.
-$ingo_dir = dirname(__FILE__);
-require_once $ingo_dir . '/base.load.php';
+require_once dirname(__FILE__) . '/base.load.php';
 
-// Load the Horde Framework core, and set up inclusion paths.
+// Load the Horde Framework core.
 require_once HORDE_BASE . '/lib/core.php';
-Horde_Autoloader::addClassPath($ingo_dir);
-Horde_Autoloader::addClassPattern('/^Ingo_/', $ingo_dir);
 
 // Registry.
 $registry = &Registry::singleton();

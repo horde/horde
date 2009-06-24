@@ -9,19 +9,14 @@
  * used:
  * - $session_control - Sets special session control limitations
  *
- * $Horde: kronolith/lib/base.php,v 1.142 2008/10/15 15:15:14 jan Exp $
- *
  * @package Kronolith
  */
 
 // Determine BASE directories.
-$kronolith_dir = dirname(__FILE__);
-require_once $kronolith_dir . '/base.load.php';
+require_once dirname(__FILE__) . '/base.load.php';
 
-/* Load the Horde Framework core, and set up inclusion paths. */
+/* Load the Horde Framework core. */
 require_once HORDE_BASE . '/lib/core.php';
-Horde_Autoloader::addClassPath($kronolith_dir);
-Horde_Autoloader::addClassPattern('/^Kronolith_/', $kronolith_dir);
 
 /* Registry. */
 $session_control = Horde_Util::nonInputVar('session_control');
