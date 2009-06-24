@@ -57,9 +57,8 @@ $key = Auth::getCredential('password');
 $username = $calendar['user'];
 $password = $calendar['password'];
 if ($key) {
-    require_once 'Horde/Secret.php';
-    $username = Secret::read($key, base64_decode($username));
-    $password = Secret::read($key, base64_decode($password));
+    $username = Horde_Secret::read($key, base64_decode($username));
+    $password = Horde_Secret::read($key, base64_decode($password));
 }
 
 $vars->set('name', $calendar['name']);

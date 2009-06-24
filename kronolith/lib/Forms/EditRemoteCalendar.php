@@ -49,9 +49,8 @@ class Kronolith_EditRemoteCalendarForm extends Horde_Form {
         if (strlen($username) || strlen($password)) {
             $key = Auth::getCredential('password');
             if ($key) {
-                require_once 'Horde/Secret.php';
-                $username = base64_encode(Secret::write($key, $username));
-                $password = base64_encode(Secret::write($key, $password));
+                $username = base64_encode(Horde_Secret::write($key, $username));
+                $password = base64_encode(Horde_Secret::write($key, $password));
             }
         }
 

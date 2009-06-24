@@ -39,9 +39,6 @@ if (is_a(($pushed = $registry->pushApp('babel', !defined('AUTH_HANDLER'))), 'PEA
 $conf = &$GLOBALS['conf'];
 @define('BABEL_TEMPLATES', $registry->get('templates'));
 
-/* Horde base libraries */
-require_once 'Horde/Secret.php';
-
 /* Babel base library */
 require_once BABEL_BASE . '/lib/Babel.php';
 require_once BABEL_BASE . '/lib/Translate.php';

@@ -162,10 +162,10 @@ do {
     if (Auth::getCredential('password') == $info['old']) {
         Auth::setCredential('password', $info['new']);
         if (Auth::getProvider() == 'imp' || !empty($_SESSION['imp']['pass'])) {
-            $_SESSION['imp']['pass'] = Secret::write(Secret::getKey('imp'),
+            $_SESSION['imp']['pass'] = Horde_Secret::write(Horde_Secret::getKey('imp'),
                                                         $info['new']);
         } elseif (Auth::getProvider() == 'mimp' || !empty($_SESSION['mimp']['pass'])) {
-            $_SESSION['mimp']['pass'] = Secret::write(Secret::getKey('mimp'),
+            $_SESSION['mimp']['pass'] = Horde_Secret::write(Horde_Secret::getKey('mimp'),
                                                         $info['new']);
         }
     }
