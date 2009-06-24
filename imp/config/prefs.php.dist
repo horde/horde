@@ -54,6 +54,13 @@ if (!$is_pop3) {
               'purge_spam_keep'));
 }
 
+$prefGroups['accounts'] = array(
+    'column' => _("General Options"),
+    'label' => _("Additional Accounts"),
+    'desc' => _("Configure additional mail accounts to display."),
+    'members' => array('accountsmanagement')
+);
+
 $prefGroups['compose'] = array(
     'column' => _("Message Options"),
     'label' => _("Message Composition"),
@@ -522,6 +529,22 @@ $_prefs['purge_trash_keep'] = array(
     'help' => 'prefs-purge_trash_keep');
 
 // End Login Tasks preferences
+
+
+// Accounts preferences
+
+// UI for flag management.
+$_prefs['accountsmanagement'] = array(
+    'type' => 'special'
+);
+
+$_prefs['accounts'] = array(
+    'value' => json_encode(array()),
+    'locked' => false,
+    'shared' => false,
+    'type' => 'implicit');
+
+// End Accounts preferences
 
 
 // Message Composition preferences
