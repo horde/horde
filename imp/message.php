@@ -198,6 +198,15 @@ $index_array = $imp_mailbox->getIMAPIndex();
 $index = $index_array['index'];
 $mailbox_name = $index_array['mailbox'];
 
+/* Parse the message. */
+try {
+    $imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox_name);
+} catch (Horde_Exception $e) {
+    _returnToMailbox(null, 'message_missing');
+    require IMP_BASE . '/mailbox.php';
+    exit;
+}
+
 /* Get envelope/flag/header information. */
 try {
     /* Need to fetch flags before HEADERTEXT, because SEEN flag might be set
@@ -218,15 +227,6 @@ $envelope = $fetch_ret[$index]['envelope'];
 $flags = $flags_ret[$index]['flags'];
 $mime_headers = reset($fetch_ret[$index]['headertext']);
 $use_pop = ($_SESSION['imp']['protocol'] == 'pop');
-
-/* Parse the message. */
-try {
-    $imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox_name);
-} catch (Horde_Exception $e) {
-    _returnToMailbox(null, 'message_missing');
-    require IMP_BASE . '/mailbox.php';
-    exit;
-}
 
 /* Get the title/mailbox label of the mailbox page. */
 $page_label = IMP::getLabel($imp_mbox['mailbox']);
