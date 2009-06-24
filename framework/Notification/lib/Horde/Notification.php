@@ -19,7 +19,7 @@ class Horde_Notification
      *
      * @var Horde_Notification
      */
-    protected $_instances = array();
+    static protected $_instances = array();
 
     /**
      * Hash containing all attached listener objects.
@@ -105,13 +105,13 @@ class Horde_Notification
      */
     public function attach($listener, $params = array(), $class = null)
     {
-        $listener = basename($listener);
+        $listener = ucfirst(basename($listener));
         if (!empty($this->_listeners[$listener])) {
             return $this->_listeners[$listener];
         }
 
         if (is_null($class)) {
-            $class = 'Horde_Notification_Listener_' . ucfirst($listener);
+            $class = 'Horde_Notification_Listener_' . $listener;
         }
 
         if (class_exists($class)) {
@@ -122,7 +122,7 @@ class Horde_Notification
             return $this->_listeners[$listener];
         }
 
-        throw new Horde_Exception(sprintf('Notification listener %s not found.', $listener));
+        throw new Horde_Exception(sprintf('Notification listener %s not found.', $class));
     }
 
     /**
@@ -134,7 +134,7 @@ class Horde_Notification
      */
     public function detach($listener)
     {
-        $listener = basename($listener);
+        $listener = ucfirst(basename($listener));
         if (!isset($this->_listeners[$listener])) {
             throw new Horde_Exception(sprintf('Notification listener %s not found.', $listener));
         }
