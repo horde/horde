@@ -138,7 +138,8 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
                 if ($event->end->compareDate($now) < 0) {
                     continue;
                 }
-                if ($this->_params['alarms'] && !$event->alarm) {
+
+                if (!empty($this->_params['alarms']) && !$event->alarm) {
                     continue;
                 }
                 $event_active = $event->start->compareDateTime($now) < 0 &&
