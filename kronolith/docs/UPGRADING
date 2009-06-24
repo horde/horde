@@ -12,6 +12,12 @@ backup your existing data before running any of the steps described below. You
 can't use the updated data with your old Kronolith version anymore.
 
 
+Upgrading Kronolith from 2.3 to 3.x
+=====================================
+
+* Removed prefs: last_kronolith_maintenance
+
+
 Upgrading Kronolith from 2.3 to 2.3.x
 =====================================
 

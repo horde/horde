@@ -39,10 +39,11 @@ $prefGroups['event_options'] = array(
     'desc' => _("Set default values for new events."),
     'members' => array('default_alarm_management'),
 );
-$prefGroups['maintenance'] = array(
+
+$prefGroups['logintasks'] = array(
     'column' => _("Events"),
-    'label' => _("Maintenance"),
-    'desc' => _("Set options for deleting old events."),
+    'label' => _("Login Tasks"),
+    'desc' => sprintf(_("Customize tasks to run upon logon to %s."), $GLOBALS['registry']->get('name')),
     'members' => array('purge_events', 'purge_events_interval', 'purge_events_keep')
 );
 
@@ -404,20 +405,28 @@ $_prefs['fb_cals'] = array(
 // Free/Busy calendars selector.
 $_prefs['fb_cals_select'] = array('type' => 'special');
 
+
+// Login Tasks preferences
+
 $_prefs['purge_events'] = array(
     'value' => 0,
     'locked' => false,
     'shared' => false,
     'type' => 'checkbox',
-    'desc' => _("Purge old events from your calender?"),
+    'desc' => _("Purge old events from your calendar?"),
 );
 
-// 'value': yearly = 1, monthly = 2, weekly = 3, daily = 4, every login = 5
 $_prefs['purge_events_interval'] = array(
-    'value' => '2',
+    'value' => Horde_LoginTasks::MONTHLY,
     'locked' => false,
     'shared' => false,
-    'type' => 'select',
+    'type' => 'enum',
+    'enum' => array(
+        Horde_LoginTasks::YEARLY => _("Yearly"),
+        Horde_LoginTasks::MONTHLY => _("Monthly"),
+        Horde_LoginTasks::WEEKLY => _("Weekly"),
+        Horde_LoginTasks::DAILY => _("Daily"),
+        Horde_LoginTasks::EVERY => _("Every Login")),
     'desc' => _("Purge old events how often:"),
 );
 
@@ -429,11 +438,4 @@ $_prefs['purge_events_keep'] = array(
     'desc' => _("Purge old events older than this amount of days."),
 );
 
-// last time maintenance was run.
-// value is a UNIX timestamp of the last time maintenance ran for the user.
-$_prefs['last_kronolith_maintenance'] = array(
-    'value' => 0,
-    'locked' => false,
-    'shared' => false,
-    'type' => 'implicit'
-);
+// End Login Tasks preferences

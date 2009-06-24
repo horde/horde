@@ -59,31 +59,24 @@ Kronolith::initialize();
 
 // TODO - Maintenance operations need to be refactored to a more global
 //        operation and then wen can get rid of these hackish checks
-/* Do maintenance operations - need to check for a number of conditions to be
+/* Do login tasks - need to check for a number of conditions to be
  * sure that we aren't here due to alarm notifications (which would occur after
  * headers are sent), we aren't on any of the portal pages, and that we haven't
- * already performed maintenance.
+ * already performed login tasks.
  */
-require_once 'Horde/Maintenance.php';
 if (empty($no_maint) && Kronolith::loginTasksFlag() &&
     !strstr($_SERVER['PHP_SELF'], 'maintenance.php') &&
-    !headers_sent() && !defined('AUTH_HANDLER') &&
-    $GLOBALS['prefs']->getValue('do_maintenance')) {
+    !headers_sent() && !defined('AUTH_HANDLER')) {
     Kronolith::loginTasksFlag(2);
-    $maint = Maintenance::factory('kronolith', array('last_maintenance' => $GLOBALS['prefs']->getValue('last_kronolith_maintenance')));
-    if (!$maint) {
-        $GLOBALS['notification']->push(_("Could not execute maintenance operations."), 'horde.warning');
-    } else {
-       $maint->runMaintenance();
-    }
+
+    $tasks = &Horde_LoginTasks::singleton('kronolith', Horde_Util::addParameter(Horde::selfUrl(true, true, true), array('logintasks_done' => true)));
+    $tasks->runTasks();
+
     Kronolith::loginTasksFlag(0);
-} elseif (Horde_Util::getFormData(MAINTENANCE_DONE_PARAM) &&
+} elseif (Horde_Util::getFormData('logintasks_done') &&
           Kronolith::loginTasksFlag()) {
-    $maint = Maintenance::factory('kronolith', array('last_maintenance' => $GLOBALS['prefs']->getValue('last_kronolith_maintenance')));
-    if (!$maint) {
-        $GLOBALS['notification']->push(_("Could not execute maintenance operations."), 'horde.warning');
-    } else {
-        $maint->runMaintenance();
-    }
+    $tasks = &Horde_LoginTasks::singleton('kronolith', Horde_Util::addParameter(Horde::selfUrl(true, true, true), array('logintasks_done' => true)));
+    $tasks->runTasks();
+
     Kronolith::loginTasksFlag(0);
 }

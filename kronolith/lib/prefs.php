@@ -178,13 +178,6 @@ function prefs_callback()
 
 }
 
-/* Get the interval variables for the prefs */
-require_once KRONOLITH_BASE . '/lib/Maintenance/kronolith.php';
-$maint = &new Maintenance_Kronolith();
-foreach (($maint->exportIntervalPrefs()) as $val) {
-    $$val = &$intervals;
-}
-
 if (!empty($GLOBALS['conf']['holidays']['enable'])) {
     if (class_exists('Date_Holidays')) {
         foreach (Date_Holidays::getInstalledDrivers() as $driver) {

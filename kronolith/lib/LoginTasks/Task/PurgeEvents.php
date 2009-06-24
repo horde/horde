@@ -1,8 +1,6 @@
 <?php
 /**
- * $Horde: kronolith/lib/Maintenance/Task/purge_events.php,v 1.5 2009/01/06 18:01:02 jan Exp $
- *
- * Maintenance module that purges old events.
+ * Login tasks module that purges old events.
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -10,24 +8,36 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Horde_Maintenance
+ * @package Horde_LoginTasks
  */
-class Maintenance_Task_purge_events extends Maintenance_Task {
+class Kronolith_LoginTasks_Task_PurgeEvents extends Horde_LoginTasks_Task
+{
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->active = $GLOBALS['prefs']->getValue('purge_events');
+        if ($this->active) {
+            $this->interval = $GLOBALS['prefs']->getValue('purge_events_interval');
+            if ($GLOBALS['prefs']->isLocked('purge_events')) {
+                $this->display = Horde_LoginTasks::DISPLAY_NONE;
+            }
+        }
+    }
 
     /**
      * Purge old messages in the Trash folder.
      *
      * @return boolean  Whether any messages were purged from the Trash folder.
      */
-    function doMaintenance()
+    public function execute()
     {
-        global $prefs, $notification;
-
         /* Get the current time minus the number of days specified in
          * 'purge_events_keep'.  An event will be deleted if it has an end
          * time prior to this time. */
         $del_time = new Horde_Date($_SERVER['REQUEST_TIME']);
-        $del_time->mday -= $prefs->getValue('purge_events_keep');
+        $del_time->mday -= $GLOBALS['prefs']->getValue('purge_events_keep');
 
         /* Need to have PERMS_DELETE on a calendar to delete events from it */
         $calendars = Kronolith::listCalendars(false, PERMS_DELETE);
@@ -57,18 +67,19 @@ class Maintenance_Task_purge_events extends Maintenance_Task {
                 }
             }
         }
-        $notification->push(sprintf(ngettext("Deleted %d event older than %d days.", "Deleted %d events older than %d days.", $count), $count, $prefs->getValue('purge_events_keep')));
+
+        $GLOBALS['notification']->push(sprintf(ngettext("Deleted %d event older than %d days.", "Deleted %d events older than %d days.", $count), $count, $GLOBALS['prefs']->getValue('purge_events_keep')));
 
         return true;
     }
 
     /**
-     * Return information for the maintenance function.
+     * Return information for the login task.
      *
      * @return string  Description of what the operation is going to do during
      *                 this login.
      */
-    function describeMaintenance()
+    public function describe()
     {
         return sprintf(_("All of your events older than %d days will be permanently deleted."),
                        $GLOBALS['prefs']->getValue('purge_events_keep'));

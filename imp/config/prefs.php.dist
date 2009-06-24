@@ -41,7 +41,8 @@ $prefGroups['logintasks'] = array(
     'column' => _("General Options"),
     'label' => _("Login Tasks"),
     'desc' => sprintf(_("Customize tasks to run upon logon to %s."), $GLOBALS['registry']->get('name')),
-    'members' => array()
+    'members' => array('delete_attachments_monthly',
+                       'delete_attachments_monthly_keep')
 );
 if (!$is_pop3) {
     $prefGroups['logintasks']['members'] = array_merge(
@@ -53,9 +54,6 @@ if (!$is_pop3) {
               'purge_trash_keep', 'purge_spam', 'purge_spam_interval',
               'purge_spam_keep'));
 }
-$prefGroups['logintasks']['members'] = array_merge(
-    $prefGroups['logintasks']['members'],
-    array('delete_attachments_monthly', 'delete_attachments_monthly_keep'));
 
 $prefGroups['compose'] = array(
     'column' => _("Message Options"),
@@ -380,7 +378,16 @@ $_prefs['acl'] = array(
 // End folder sharing preferences
 
 
-// Login/Maintenance Tasks preferences
+// Login Tasks preferences
+
+// Listing of Horde_LoginTasks constants -> strings
+$logintasks_labels = array(
+    Horde_LoginTasks::YEARLY => _("Yearly"),
+    Horde_LoginTasks::MONTHLY => _("Monthly"),
+    Horde_LoginTasks::WEEKLY => _("Weekly"),
+    Horde_LoginTasks::DAILY => _("Daily"),
+    Horde_LoginTasks::EVERY => _("Every Login")
+);
 
 // select widget for the initial_page preference
 $_prefs['initialpageselect'] = array('type' => 'special');
@@ -430,12 +437,12 @@ $_prefs['purge_sentmail'] = array(
     'help' => 'prefs-purge_sentmail');
 
 // how often to purge the Sent-Mail folder?
-// 'value': yearly = 1, monthly = 2, weekly = 3, daily = 4, every login = 5
 $_prefs['purge_sentmail_interval'] = array(
-    'value' => '2',
+    'value' => Horde_LoginTasks::MONTHLY,
     'locked' => false,
     'shared' => false,
-    'type' => 'select',
+    'type' => 'enum',
+    'enum' => $logintasks_labels,
     'desc' => _("Purge sent-mail how often:"),
     'help' => 'prefs-purge_sentmail_interval');
 
@@ -476,12 +483,12 @@ $_prefs['purge_spam'] = array(
     'help' => 'prefs-purge_spam');
 
 // how often to purge the Spam folder?
-// 'value': yearly = 1, monthly = 2, weekly = 3, daily = 4, every login = 5
 $_prefs['purge_spam_interval'] = array(
-    'value' => '2',
+    'value' => Horde_LoginTasks::MONTHLY,
     'locked' => false,
     'shared' => false,
-    'type' => 'select',
+    'type' => 'enum',
+    'enum' => $logintasks_labels,
     'desc' => _("Purge Spam how often:"),
     'help' => 'prefs-purge_spam_interval');
 
@@ -504,12 +511,12 @@ $_prefs['purge_trash'] = array(
     'help' => 'prefs-purge_trash');
 
 // how often to purge the Trash folder?
-// 'value': yearly = 1, monthly = 2, weekly = 3, daily = 4, every login = 5
 $_prefs['purge_trash_interval'] = array(
-    'value' => '2',
+    'value' => Horde_LoginTasks::MONTHLY,
     'locked' => false,
     'shared' => false,
-    'type' => 'select',
+    'type' => 'enum',
+    'enum' => $logintasks_labels,
     'desc' => _("Purge Trash how often:"),
     'help' => 'prefs-purge_trash_interval');
 
@@ -522,14 +529,7 @@ $_prefs['purge_trash_keep'] = array(
     'desc' => _("Purge messages in Trash folder older than this amount of days."),
     'help' => 'prefs-purge_trash_keep');
 
-// show tos agreement?
-$_prefs['tos_agreement'] = array(
-    'value' => 0,
-    'locked' => false,
-    'shared' => false,
-    'type' => 'implicit');
-
-// End Login/Maintenance preferences
+// End Login Tasks preferences
 
 
 // Message Composition preferences

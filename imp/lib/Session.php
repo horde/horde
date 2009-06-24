@@ -202,16 +202,9 @@ class IMP_Session
         IMP::loginTasksFlag(2);
         IMP::checkAuthentication(true);
 
-        /* Do maintenance operations. */
-        if ($GLOBALS['prefs']->getValue('do_maintenance')) {
-            require_once 'Horde/Maintenance.php';
-            $maint = &Maintenance::factory('imp', array('last_maintenance' => $GLOBALS['prefs']->getValue('last_maintenance')));
-            if (!$maint) {
-                $GLOBALS['notification']->push(_("Could not execute maintenance operations."), 'horde.warning');
-            } else {
-                $maint->runMaintenance();
-            }
-        }
+        /* Do login tasks. */
+        $tasks = &Horde_LoginTasks::singleton('imp', Horde_Util::addParameter(Horde::selfUrl(true, true, true), array('logintasks_done' => true)));
+        $tasks->runTasks();
 
         /* If the user wants to run filters on login, make sure they get
            run. */
@@ -220,7 +213,6 @@ class IMP_Session
             $imp_filter = new IMP_Filter();
             $imp_filter->filter('INBOX');
         }
-
 
         /* Check for drafts due to session timeouts. */
         $imp_compose = &IMP_Compose::singleton();

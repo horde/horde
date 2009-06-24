@@ -1,6 +1,6 @@
 <?php
 /**
- * Maintenance module that deletes old sent-mail folders.
+ * Logint tasks module that deletes old sent-mail folders.
  *
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *
@@ -8,24 +8,33 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Maintenance
+ * @package Horde_LoginTasks
  */
-class Maintenance_Task_delete_sentmail_monthly extends Maintenance_Task
+class IMP_LoginTasks_Task_DeleteSentmailMonthly extends Horde_LoginTasks_Task
 {
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->active = $GLOBALS['prefs']->getValue('delete_sentmail_monthly');
+        if ($this->active &&
+            $GLOBALS['prefs']->isLocked('delete_sentmail_monthly')) {
+            $this->display = Horde_LoginTasks::DISPLAY_NONE;
+        }
+    }
+
     /**
      * Purge the old sent-mail folders.
      *
      * @return boolean  Whether any sent-mail folders were deleted.
      */
-    function doMaintenance()
+    public function execute()
     {
-        global $notification, $prefs;
-
         /* Get list of all folders, parse through and get the list of all
            old sent-mail folders. Then sort this array according to
            the date. */
         include_once 'Horde/Identity.php';
-
         $identity = &Identity::singleton(array('imp', 'imp'));
         $imp_folder = &IMP_Folder::singleton();
         $sent_mail_folders = $identity->getAllSentmailFolders();
@@ -43,9 +52,9 @@ class Maintenance_Task_delete_sentmail_monthly extends Maintenance_Task
         arsort($folder_array, SORT_NUMERIC);
 
         /* See if any folders need to be purged. */
-        $purge_folders = array_slice(array_keys($folder_array), $prefs->getValue('delete_sentmail_monthly_keep'));
+        $purge_folders = array_slice(array_keys($folder_array), $GLOBALS['prefs']->getValue('delete_sentmail_monthly_keep'));
         if (count($purge_folders)) {
-            $notification->push(_("Old sent-mail folders being purged."), 'horde.message');
+            $GLOBALS['notification']->push(_("Old sent-mail folders being purged."), 'horde.message');
 
             /* Delete the old folders now. */
             if ($imp_folder->delete($purge_folders, true)) {
@@ -57,12 +66,12 @@ class Maintenance_Task_delete_sentmail_monthly extends Maintenance_Task
     }
 
     /**
-     * Return information for the maintenance function.
+     * Return information for the login task.
      *
      * @return string  Description of what the operation is going to do during
      *                 this login.
      */
-    function describeMaintenance()
+    public function describe()
     {
         return sprintf(_("All old sent-mail folders more than %s months old will be deleted."), $GLOBALS['prefs']->getValue('delete_sentmail_monthly_keep'));
     }

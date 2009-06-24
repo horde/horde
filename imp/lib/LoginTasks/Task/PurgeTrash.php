@@ -1,6 +1,6 @@
 <?php
 /**
- * Maintenance module that purges old messages in the Trash folder.
+ * Login tasks module that purges old messages in the Trash folder.
  *
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *
@@ -8,23 +8,35 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Maintenance
+ * @package Horde_LoginTasks
  */
-class Maintenance_Task_purge_trash extends Maintenance_Task
+class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
 {
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->active = $GLOBALS['prefs']->getValue('purge_trash');
+        if ($this->active) {
+            $this->interval = $GLOBALS['prefs']->getValue('purge_trash_interval');
+            if ($GLOBALS['prefs']->isLocked('purge_trash')) {
+                $this->display = Horde_LoginTasks::DISPLAY_NONE;
+            }
+        }
+    }
+
     /**
      * Purge old messages in the Trash folder.
      *
      * @return boolean  Whether any messages were purged from the Trash folder.
      */
-    function doMaintenance()
+    public function execute()
     {
-        global $prefs, $notification;
-
         /* If we aren't using a Trash folder or if there is no Trash
            folder set, just return. */
-        $trash_folder = IMP::folderPref($prefs->getValue('trash_folder'), true);
-        if (!$prefs->getValue('use_trash') || !$trash_folder) {
+        $trash_folder = IMP::folderPref($GLOBALS['prefs']->getValue('trash_folder'), true);
+        if (!$GLOBALS['prefs']->getValue('use_trash') || !$trash_folder) {
             return false;
         }
 
@@ -37,7 +49,7 @@ class Maintenance_Task_purge_trash extends Maintenance_Task
         /* Get the current UNIX timestamp minus the number of days
            specified in 'purge_trash_keep'.  If a message has a
            timestamp prior to this value, it will be deleted. */
-        $del_time = new Horde_Date(time() - ($prefs->getValue('purge_trash_keep') * 86400));
+        $del_time = new Horde_Date(time() - ($GLOBALS['prefs']->getValue('purge_trash_keep') * 86400));
 
         /* Get the list of messages older than 'purge_trash_keep' days. */
         $query = new Horde_Imap_Client_Search_Query();
@@ -51,23 +63,19 @@ class Maintenance_Task_purge_trash extends Maintenance_Task
         $imp_message = IMP_Message::singleton();
         if ($imp_message->delete(array($trash_folder => $msg_ids), array('nuke' => true))) {
             $msgcount = count($msg_ids);
-            if ($msgcount == 1) {
-                $notification->push(_("Purging 1 message from Trash folder."), 'horde.message');
-            } else {
-                $notification->push(sprintf(_("Purging %d messages from Trash folder."), $msgcount), 'horde.message');
-            }
+            $notification->push(sprintf(ngettext("Purging %d message from Trash folder.", "Purging %d messages from Trash folder.", $msgcount), $msgcount), 'horde.message');
         }
 
         return true;
     }
 
     /**
-     * Return information for the maintenance function.
+     * Return information for the login task.
      *
      * @return string  Description of what the operation is going to do during
      *                 this login.
      */
-    function describeMaintenance()
+    public function describe()
     {
         return sprintf(_("All messages in your \"%s\" folder older than %s days will be permanently deleted."),
                        IMP::displayFolder(IMP::folderPref($GLOBALS['prefs']->getValue('trash_folder'), true)),

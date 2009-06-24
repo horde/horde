@@ -447,14 +447,6 @@
    load because the list of available note categories must be generated on
    every page load), you should disable this checkbox.">true</configboolean>
   </configsection>
-
-  <configsection name="tos">
-   <configheader>Terms of Service Agreement</configheader>
-   <configstring name="file" required="false" desc="If you want to require users to
-   accept certain terms before they can use the system, enter the name of the
-   agreement file to display here. Also, make sure to activate the preference in
-   prefs.php (set the value of 'tos_agreement' to 1)."/>
-  </configsection>
  </configtab>
 
  <configtab name="mimp" desc="Mobile View (mimp) Options">

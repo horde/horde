@@ -176,12 +176,6 @@ if (($viewmode == 'mimp') ||
     $notification->attach('audio');
 }
 
-if ((IMP::loginTasksFlag() === 2) &&
-    !defined('AUTH_HANDLER') &&
-    !strstr($_SERVER['PHP_SELF'], 'maintenance.php')) {
-    IMP_Session::loginTasks();
-}
-
 // Initialize global $imp_mbox array.
 $GLOBALS['imp_mbox'] = IMP::getCurrentMailboxInfo();
 

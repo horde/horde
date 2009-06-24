@@ -80,7 +80,6 @@ function _addAnchor($url, $type)
 @define('AUTH_HANDLER', true);
 $authentication = 'none';
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Maintenance.php';
 
 $actionID = (Horde_Util::getFormData('action') == 'compose') ? 'login_compose' : Horde_Util::getFormData('actionID');
 $autologin = Horde_Util::getFormData('autologin');
@@ -101,8 +100,8 @@ if (($pos = strrpos($url_in, '#')) !== false) {
     $url_in = substr($url_in, 0, $pos);
 }
 
-/* If we are returning from Maintenance processing. */
-if (Horde_Util::getFormData(MAINTENANCE_DONE_PARAM)) {
+/* If we are returning from LoginTasks processing. */
+if (Horde_Util::getFormData('logintasks_done')) {
     /* Finish up any login tasks we haven't completed yet. */
     IMP_Session::loginTasks();
 

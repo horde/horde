@@ -228,18 +228,6 @@ function prefs_callback()
         $imaptree->init();
     }
 
-    /* If a maintenance option has been activated, we need to make sure the
-     * global Horde 'do_maintenance' pref is also active. */
-    if (!$prefs->isLocked('do_maintenance') &&
-        !$prefs->getValue('do_maintenance')) {
-        foreach (array('rename_sentmail_monthly', 'delete_sentmail_monthly', 'purge_sentmail', 'delete_attachments_monthly', 'purge_trash') as $val) {
-            if ($prefs->getValue($val)) {
-                $prefs->setValue('do_maintenance', true);
-                break;
-            }
-        }
-    }
-
     if ($prefs->isDirty('mail_domain')) {
         $maildomain = preg_replace('/[^-\.a-z0-9]/i', '', $prefs->getValue('mail_domain'));
         $prefs->setValue('maildomain', $maildomain);
@@ -251,12 +239,6 @@ function prefs_callback()
     if ($prefs->isDirty('compose_popup')) {
         $GLOBALS['notification']->push('if (window.parent.frames.horde_menu) window.parent.frames.horde_menu.location.reload();', 'javascript');
     }
-}
-
-require_once IMP_BASE . '/lib/Maintenance/imp.php';
-$maint = &new Maintenance_IMP();
-foreach (($maint->exportIntervalPrefs()) as $val) {
-    $$val = &$intervals;
 }
 
 /* Make sure we have an active IMAP stream. */

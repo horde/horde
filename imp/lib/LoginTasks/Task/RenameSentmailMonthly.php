@@ -1,6 +1,6 @@
 <?php
 /**
- * Maintenance module that renames the sent-mail folder.
+ * Login tasks module that renames the sent-mail folder.
  *
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *
@@ -8,16 +8,28 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Maintenance
+ * @package Horde_LoginTasks
  */
-class Maintenance_Task_rename_sentmail_monthly extends Maintenance_Task
+class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
 {
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->active = $GLOBALS['prefs']->getValue('rename_sentmail_monthly');
+        if ($this->active &&
+            $GLOBALS['prefs']->isLocked('rename_sentmail_monthly')) {
+            $this->display = Horde_LoginTasks::DISPLAY_NONE;
+        }
+    }
+
     /**
      * Renames the old sent-mail folders.
      *
      * @return boolean  Whether all sent-mail folders were renamed.
      */
-    function doMaintenance()
+    public function execute()
     {
         $success = true;
 
@@ -30,7 +42,7 @@ class Maintenance_Task_rename_sentmail_monthly extends Maintenance_Task
             /* Display a message to the user and rename the folder.
                Only do this if sent-mail folder currently exists. */
             if ($imp_folder->exists($sent_folder)) {
-                $old_folder = Maintenance_Task_rename_sentmail_monthly::_renameSentmailMonthlyName($sent_folder);
+                $old_folder = $this->_renameSentmailMonthlyName($sent_folder);
                 $GLOBALS['notification']->push(sprintf(_("%s folder being renamed at the start of the month."), IMP::displayFolder($sent_folder)), 'horde.message');
                 if ($imp_folder->exists($old_folder)) {
                     $GLOBALS['notification']->push(sprintf(_("%s already exists. Your %s folder was not renamed."), IMP::displayFolder($old_folder), IMP::displayFolder($sent_folder)), 'horde.warning');
@@ -47,12 +59,12 @@ class Maintenance_Task_rename_sentmail_monthly extends Maintenance_Task
     }
 
     /**
-     * Returns information for the maintenance function.
+     * Returns information for the login task.
      *
      * @return string  Description of what the operation is going to do during
      *                 this login.
      */
-    function describeMaintenance()
+    public function describe()
     {
         include_once 'Horde/Identity.php';
         $identity = &Identity::singleton(array('imp', 'imp'));
@@ -60,7 +72,7 @@ class Maintenance_Task_rename_sentmail_monthly extends Maintenance_Task
         $new_folders = $old_folders = array();
         foreach ($identity->getAllSentmailfolders() as $folder) {
             $old_folders[] = IMP::displayFolder($folder);
-            $new_folders[] = IMP::displayFolder(Maintenance_Task_rename_sentmail_monthly::_renameSentmailMonthlyName($folder));
+            $new_folders[] = IMP::displayFolder($this->_renameSentmailMonthlyName($folder));
         }
 
         return sprintf(_("The current folder(s) \"%s\" will be renamed to \"%s\"."), implode(', ', $old_folders), implode(', ', $new_folders));
@@ -78,14 +90,13 @@ class Maintenance_Task_rename_sentmail_monthly extends Maintenance_Task
      *   can accurately find all the old sent-mail folders.
      * </pre>
      *
-     * @access private
-     *
      * @param string $folder  The name of the sent-mail folder to rename.
      *
      * @return string  New sent-mail folder name.
      */
-    function _renameSentmailMonthlyName($folder)
+    protected function _renameSentmailMonthlyName($folder)
     {
+        // @TODO
         $last_maintenance = $GLOBALS['prefs']->getValue('last_maintenance');
         $last_maintenance = empty($last_maintenance) ? mktime(0, 0, 0, date('m') - 1, 1) : $last_maintenance;
 

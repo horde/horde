@@ -29,6 +29,8 @@ supported.
 *  x-priority now handled in the core code
 *  old attachment icon handling see atc_flag pref
 *  imp_hook_msglist_flags hook now used to dynamically set flags on messages
+* maintenance tasks
+* tos_agreement (moved to Horde)
 
 
 
