@@ -165,8 +165,8 @@ class IMP_Views_ListMessages
         $data = $msglist = $rowlist = array();
         foreach (range($slice_start, $slice_end) as $key) {
             $uid = $sorted_list['s'][$key] .
-                (isset($sorted_list['m'][$key]['m'])
-                    ? IMP::IDX_SEP . $sorted_list['m'][$key]['m']
+                (isset($sorted_list['m'][$key])
+                    ? IMP::IDX_SEP . $sorted_list['m'][$key]
                     : '');
             if ($uid) {
                 $msglist[$key] = $sorted_list['s'][$key];

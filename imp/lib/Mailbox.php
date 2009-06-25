@@ -42,13 +42,12 @@ class IMP_Mailbox
     protected $_sorted = null;
 
     /**
-     * The array of information about the sorted indices list.
-     * Entries:
-     *  'm' = Mailbox (if not exist, then use current mailbox)
+     * The mailboxes corresponding to the sorted indices list.
+     * If empty, uses $_mailbox.
      *
      * @var array
      */
-    protected $_sortedInfo = array();
+    protected $_sortedMbox = array();
 
     /**
      * Is this a search malbox?
@@ -101,8 +100,8 @@ class IMP_Mailbox
             /* Try to rebuild sorted information from the session cache. */
             if (isset($_SESSION['imp']['cache']['imp_mailbox'][$mailbox])) {
                 $tmp = json_decode($_SESSION['imp']['cache']['imp_mailbox'][$mailbox]);
-                $this->_sorted = $tmp->s;
-                $this->_sortedInfo = $tmp->i;
+                $this->_sorted = $this->_searchmbox ? $tmp->s : $tmp;
+                $this->_sortedMbox = $this->_searchmbox ? $tmp->m : array();
             }
             $this->setIndex($uid);
         }
@@ -117,7 +116,11 @@ class IMP_Mailbox
     public function __destruct()
     {
         if (!is_null($this->_arrayIndex)) {
-            $_SESSION['imp']['cache']['imp_mailbox'][$this->_mailbox] = json_encode(array('i' => $this->_sortedInfo, 's' => $this->_sorted));
+            /* Casting $_sorted to integers saves a significant amount of
+             * space when json_encoding (no need to quote every value). */
+            $_SESSION['imp']['cache']['imp_mailbox'][$this->_mailbox] = $this->_searchmbox
+                ? json_encode(array('m' => $this->_sortedMbox, 's' => array_map('intval', $this->_sorted)))
+                : json_encode(array_map('intval', $this->_sorted));
         }
     }
 
@@ -189,7 +192,7 @@ class IMP_Mailbox
                we're looking at. If we're hiding deleted messages, for
                example, there may be gaps here. */
             if (isset($this->_sorted[$i - 1])) {
-                $mboxname = ($this->_searchmbox) ? $this->_sortedInfo[$i - 1]['m'] : $this->_mailbox;
+                $mboxname = ($this->_searchmbox) ? $this->_sortedMbox[$i - 1] : $this->_mailbox;
                 if (!isset($to_process[$mboxname])) {
                     $to_process[$mboxname] = array();
                 }
@@ -312,10 +315,10 @@ class IMP_Mailbox
                 foreach ($GLOBALS['imp_search']->runSearch($query, $this->_mailbox) as $val) {
                     list($idx, $mbox) = explode(IMP::IDX_SEP, $val);
                     $this->_sorted[] = $idx;
-                    $this->_sortedInfo[] = array('m' => $mbox);
+                    $this->_sortedMbox[] = $mbox;
                 }
             } catch (Horde_Imap_Client_Exception $e) {
-                $this->_sorted = $this->_sortedInfo = array();
+                $this->_sorted = $this->_sortedMbox = array();
                 $GLOBALS['notification']->push(_("Mailbox listing failed") . ': ' . $e->getMessage(), 'horde.error');
             }
         } else {
@@ -468,7 +471,7 @@ class IMP_Mailbox
         return isset($this->_sorted[$index])
             ? array(
                   'index' => $this->_sorted[$index],
-                  'mailbox' => ($this->_searchmbox) ? $this->_sortedInfo[$index]['m'] : $this->_mailbox
+                  'mailbox' => $this->_searchmbox ? $this->_sortedMbox[$index] : $this->_mailbox
               )
             : array();
     }
@@ -695,7 +698,7 @@ class IMP_Mailbox
             /* Need to compare both mbox name and message UID to obtain the
              * correct array index since there may be duplicate UIDs. */
             foreach (array_keys($this->_sorted, $uid) as $key) {
-                if ($this->_sortedInfo[$key]['m'] == $mbox) {
+                if ($this->_sortedMbox[$key] == $mbox) {
                     return $key;
                 }
             }
@@ -724,7 +727,7 @@ class IMP_Mailbox
         $s = $this->_sorted;
         array_unshift($s, 0);
         unset($s[0]);
-        $m = $this->_sortedInfo;
+        $m = $this->_sortedMbox;
         array_unshift($m, 0);
         unset($m[0]);
 
@@ -758,7 +761,7 @@ class IMP_Mailbox
                 $val = $this->getArrayIndex($index, $key);
                 unset($this->_sorted[$val]);
                 if ($this->_searchmbox) {
-                    unset($this->_sortedInfo[$val]);
+                    unset($this->_sortedMbox[$val]);
                 }
                 ++$msgcount;
             }
@@ -766,7 +769,7 @@ class IMP_Mailbox
 
         $this->_sorted = array_values($this->_sorted);
         if ($this->_searchmbox) {
-            $this->_sortedInfo = array_values($this->_sortedInfo);
+            $this->_sortedMbox = array_values($this->_sortedMbox);
         }
 
         $this->_threadob = null;
