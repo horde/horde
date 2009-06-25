@@ -100,9 +100,9 @@ class IMP_Mailbox
         if (!is_null($uid)) {
             /* Try to rebuild sorted information from the session cache. */
             if (isset($_SESSION['imp']['cache']['imp_mailbox'][$mailbox])) {
-                $tmp = unserialize($_SESSION['imp']['cache']['imp_mailbox'][$mailbox]);
-                $this->_sorted = $tmp['s'];
-                $this->_sortedInfo = $tmp['i'];
+                $tmp = json_decode($_SESSION['imp']['cache']['imp_mailbox'][$mailbox]);
+                $this->_sorted = $tmp->s;
+                $this->_sortedInfo = $tmp->i;
             }
             $this->setIndex($uid);
         }
@@ -117,7 +117,7 @@ class IMP_Mailbox
     public function __destruct()
     {
         if (!is_null($this->_arrayIndex)) {
-            $_SESSION['imp']['cache']['imp_mailbox'][$this->_mailbox] = serialize(array('i' => $this->_sortedInfo, 's' => $this->_sorted));
+            $_SESSION['imp']['cache']['imp_mailbox'][$this->_mailbox] = json_encode(array('i' => $this->_sortedInfo, 's' => $this->_sorted));
         }
     }
 
