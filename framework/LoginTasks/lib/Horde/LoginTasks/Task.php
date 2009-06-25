@@ -80,6 +80,9 @@ abstract class Horde_LoginTasks_Task
      * @return string  Description that will be displayed on the login task
      *                 confirmation page.
      */
-    abstract public function describe();
+    public function describe()
+    {
+        return '';
+    }
 
 }
