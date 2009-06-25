@@ -1167,7 +1167,9 @@ var DimpBase = {
         var fid = this.getFolderId(f),
             elt = $(fid);
 
-        if (!elt || !elt.hasAttribute('u')) {
+        if (!elt ||
+            !elt.hasAttribute('u') ||
+            elt.readAttribute('u') == unseen) {
             return;
         }
 
