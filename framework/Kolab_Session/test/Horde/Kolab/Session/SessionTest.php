@@ -66,7 +66,7 @@ class Horde_Kolab_Session_SessionTest extends Horde_Kolab_Test_Server
         $conf['kolab']['imap']['port']       = 200;
         $conf['kolab']['freebusy']['server'] = 'fb.example.com';
 
-        $session = &new Horde_Kolab_Session();
+        $session = new Horde_Kolab_Session();
         $params  = $session->getImapParams();
         if (is_a($params, 'PEAR_Error')) {
             $this->assertEquals('', $params->getMessage());

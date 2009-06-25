@@ -42,7 +42,7 @@ class Horde_Kolab_Server_ObjectTest extends Horde_Kolab_Test_Server
      */
     protected function setUp()
     {
-        $this->_dummydb = &new DummyDB();
+        $this->_dummydb = new DummyDB();
     }
 
     /**
@@ -73,7 +73,7 @@ class Horde_Kolab_Server_ObjectTest extends Horde_Kolab_Test_Server
      */
     public function testConstructDn($dn, $data, $expect)
     {
-        $ko  = &new Horde_Kolab_Server_Object($this->_dummydb, $dn, $data);
+        $ko  = new Horde_Kolab_Server_Object($this->_dummydb, $dn, $data);
         $ndn = $ko->get(Horde_Kolab_Server_Object_Kolab_User::ATTRIBUTE_UID);
         $this->assertNoError($ndn);
         $this->assertEquals($expect, $ndn);

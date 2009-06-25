@@ -128,7 +128,7 @@ class Horde_Kolab_IMAP
 
         $class = 'Horde_Kolab_IMAP_' . $driver;
         if (class_exists($class)) {
-            $driver = &new $class($server, $port);
+            $driver = new $class($server, $port);
         } else {
             return PEAR::raiseError(sprintf(_("Failed to load Kolab IMAP driver %s"), $driver));
         }

@@ -55,7 +55,7 @@ class Horde_Kolab_IMAP_pear extends Horde_Kolab_IMAP
             return true;
         }
 
-        $this->_imap = &new Net_IMAP($this->_server, $this->_port);
+        $this->_imap = new Net_IMAP($this->_server, $this->_port);
         $result = $this->_imap->login($login, $password, true, false);
         if (is_a($result, 'PEAR_Error')) {
             return $result;

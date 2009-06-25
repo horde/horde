@@ -253,7 +253,7 @@ class Horde_Kolab_Server_Object
         $result = Horde_Kolab_Server_Object::loadClass($type);
 
         if (class_exists($type)) {
-            $object = &new $type($storage, $uid, $data);
+            $object = new $type($storage, $uid, $data);
         } else {
             throw new Horde_Kolab_Server_Exception('Class definition of ' . $type . ' not found.');
         }
