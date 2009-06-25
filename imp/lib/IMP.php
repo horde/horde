@@ -881,27 +881,6 @@ class IMP
     }
 
     /**
-     * Either sets or checks the value of the logintasks flag.
-     *
-     * @param integer $set  The value of the flag.
-     *
-     * @return integer  The value of the flag.
-     *                  0 = No login tasks pending
-     *                  1 = Login tasks pending
-     *                  2 = Login tasks pending, previous tasks interrupted
-     */
-    static public function loginTasksFlag($set = null)
-    {
-        if (!is_null($set)) {
-            $_SESSION['imp']['logintasks'] = $set;
-        }
-
-        return isset($_SESSION['imp']['logintasks'])
-            ? $_SESSION['imp']['logintasks']
-            : 0;
-    }
-
-    /**
      * Convert a preference value to/from the value stored in the preferences.
      *
      * Preferences that need to call this function before storing/retrieving:

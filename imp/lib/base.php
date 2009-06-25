@@ -183,4 +183,11 @@ if ($viewmode == 'mimp') {
     $debug = Horde_Util::nonInputVar('mimp_debug');
     $GLOBALS['mimp_render'] = new Horde_Mobile(null, $debug);
     $GLOBALS['mimp_render']->set('debug', !empty($debug));
+} elseif (empty($_SESSION['imp']['logintasks']) &&
+          ($authentication !== 'none') &&
+          !defined('AUTH_HANDLER')) {
+    /* This captures all login tasks requests other than the IMP
+     * authentication + frameset case which needs to be handled in
+     * redirect.php. */
+    IMP_Session::loginTasks();
 }

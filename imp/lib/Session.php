@@ -70,13 +70,11 @@ class IMP_Session
         $_SESSION['imp'] = array(
             'cache' => array(),
             'imap' => array(),
+            'logintasks' => false,
             'server_key' => $server,
             'showunsub' => false
         );
         $sess = &$_SESSION['imp'];
-
-        /* Set the logintasks flag. */
-        IMP::loginTasksFlag(1);
 
         /* Run the username through virtualhost expansion functions if
          * necessary. */
@@ -192,18 +190,17 @@ class IMP_Session
 
     /**
      * Perform IMP login tasks.
+     *
+     * @param string $url  The URL to use for the Horde_LoginTasks redirect.
      */
-    static public function loginTasks()
+    static public function loginTasks($url = null)
     {
-        if (!IMP::loginTasksFlag()) {
+        if (!empty($_SESSION['imp']['logintasks'])) {
             return;
         }
 
-        IMP::loginTasksFlag(2);
-        IMP::checkAuthentication(true);
-
         /* Do login tasks. */
-        $tasks = &Horde_LoginTasks::singleton('imp', Horde_Util::addParameter(Horde::selfUrl(true, true, true), array('logintasks_done' => true)));
+        $tasks = &Horde_LoginTasks::singleton('imp', is_null($url) ? Horde::selfUrl(true, true, true) : $url);
         $tasks->runTasks();
 
         /* If the user wants to run filters on login, make sure they get
@@ -218,7 +215,7 @@ class IMP_Session
         $imp_compose = &IMP_Compose::singleton();
         $imp_compose->recoverSessionExpireDraft();
 
-        IMP::loginTasksFlag(0);
+        $_SESSION['imp']['logintasks'] = true;
     }
 
     /**

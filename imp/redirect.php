@@ -12,8 +12,11 @@
 function _framesetUrl($url)
 {
     if (!$GLOBALS['noframeset'] && Horde_Util::getFormData('load_frameset')) {
-        $full_url = Horde::applicationUrl($GLOBALS['registry']->get('webroot', 'horde') . '/index.php', true);
-        $url = Horde_Util::addParameter($full_url, 'url', _addAnchor($url, 'param'), false);
+        $url = Horde_Util::addParameter(Horde::applicationUrl($GLOBALS['registry']->get('webroot', 'horde') . '/index.php', true), array('url' => _addAnchor($url, 'param')), null, false);
+
+        /* Need to do a loginTasks check here because we must display login
+         * tasks before frameset is loaded. */
+        IMP_Session::loginTasks($url);
     }
     return $url;
 }
@@ -89,7 +92,7 @@ if (!empty($autologin)) {
     $imapuser = IMP_Session::canAutoLogin();
     $pass = Auth::getCredential('password');
 }
-$isLogin = IMP::loginTasksFlag();
+$isLogin = empty($_SESSION['imp']['logintasks']);
 $noframeset = false;
 
 /* Get URL/Anchor strings now. */
@@ -98,14 +101,6 @@ $url_in = $url_form = Horde_Util::getFormData('url');
 if (($pos = strrpos($url_in, '#')) !== false) {
     $url_anchor = substr($url_in, $pos + 1);
     $url_in = substr($url_in, 0, $pos);
-}
-
-/* If we are returning from LoginTasks processing. */
-if (Horde_Util::getFormData('logintasks_done')) {
-    /* Finish up any login tasks we haven't completed yet. */
-    IMP_Session::loginTasks();
-
-    _redirect(_framesetUrl(_newSessionUrl($actionID, $isLogin)));
 }
 
 /* If we already have a session: */
@@ -118,9 +113,6 @@ if (isset($_SESSION['imp']) && is_array($_SESSION['imp'])) {
         unset($_SESSION['imp']);
         _redirect(IMP::getLogoutUrl(AUTH_REASON_FAILED, true));
     }
-
-    /* Finish up any login tasks we haven't completed yet. */
-    IMP_Session::loginTasks();
 
     $url = $url_in;
     if (empty($url_in)) {
@@ -167,8 +159,6 @@ if (!is_null($imapuser) && !is_null($pass)) {
         if (!empty($conf['hooks']['postlogin'])) {
             Horde::callHook('_imp_hook_postlogin', array($actionID, $isLogin), 'imp');
         }
-
-        IMP_Session::loginTasks();
 
         _redirect(_framesetUrl(_newSessionUrl($actionID, $isLogin)));
     }
