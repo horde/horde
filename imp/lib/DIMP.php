@@ -129,7 +129,7 @@ class DIMP
     static public function notify()
     {
         $GLOBALS['notification']->notify(array('listeners' => 'status'));
-        $msgs = $GLOBALS['imp_notify']->getStack(true);
+        $msgs = $GLOBALS['imp_notify']->getStack();
 
         return count($msgs)
             ? 'DimpCore.showNotifications(' . Horde_Serialize::serialize($msgs, Horde_Serialize::JSON) . ')'

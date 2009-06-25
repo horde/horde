@@ -1,8 +1,8 @@
 <?php
 /**
  * The IMP_Notification_Listener_StatusDimp:: class extends the
- * IMP_Notification_Listener_StatusImp:: class to return all messages instead
- * of printing them.
+ * IMP_Notification_Listener_StatusImp:: class to return all dimp specific
+ * messages instead of printing them.
  *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
@@ -14,32 +14,6 @@
  */
 class IMP_Notification_Listener_StatusDimp extends IMP_Notification_Listener_StatusImp
 {
-    /**
-     * The notified message stack.
-     *
-     * @var array
-     */
-    protected $_messageStack = array();
-
-    /**
-     * Returns all status message if there are any on the 'status' message
-     * stack.
-     *
-     * @param array &$messageStack  The stack of messages.
-     * @param array $options        An array of options.
-     */
-    public function notify(&$messageStack, $options = array())
-    {
-        while ($message = array_shift($messageStack)) {
-            $event = @unserialize($message['event']);
-            $this->_messageStack[] = array('type' => $message['type'],
-                                           'flags' => $message['flags'],
-                                           'message' => is_object($event)
-                                               ? $event->getMessage()
-                                               : null);
-        }
-    }
-
     /**
      * Handle every message of type dimp.*; otherwise delegate back to
      * the parent.
@@ -54,27 +28,20 @@ class IMP_Notification_Listener_StatusDimp extends IMP_Notification_Listener_Sta
     }
 
     /**
-     * Returns the message stack.
-     * To return something useful, notify() needs to be called first.
+     * Returns all status message if there are any on the 'status' message
+     * stack.
      *
-     * @param boolean $encode  Encode HTML entities?
-     *
-     * @return array  List of message hashes.
+     * @param array &$messageStack  The stack of messages.
+     * @param array $options        An array of options.
      */
-    public function getStack($encode = false)
+    public function notify(&$messageStack, $options = array())
     {
-        $msgs = $this->_messageStack;
-        if (!$encode) {
-            return $msgs;
+        /* Don't capture notification messages if we are logging out are
+         * accessing the options pages. */
+        if (Auth::getAuth() && !strstr($_SERVER['PHP_SELF'], '/prefs.php')) {
+            $options['store'] = true;
         }
-
-        for ($i = 0, $mcount = count($msgs); $i < $mcount; ++$i) {
-            if (!in_array('content.raw', $this->getFlags($msgs[$i]))) {
-                $msgs[$i]['message'] = htmlspecialchars($msgs[$i]['message'], ENT_COMPAT, NLS::getCharset());
-            }
-        }
-
-        return $msgs;
+        parent::notify($messageStack, $options);
     }
 
 }
