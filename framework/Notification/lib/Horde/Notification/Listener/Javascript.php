@@ -73,7 +73,8 @@ class Horde_Notification_Listener_Javascript extends Horde_Notification_Listener
      */
     public function getMessage($message, $options = array())
     {
-        return $this->getEvent($message);
+        $event = $this->getEvent($message);
+        return $event->getMessage();
     }
 
 }
