@@ -93,7 +93,7 @@ class Horde_Kolab_IMAP_test extends Horde_Kolab_IMAP
     function _parseFolder($folder)
     {
         if (substr($folder, 0, 5) == 'INBOX') {
-            $user = split('@', $this->_user);
+            $user = explode('@', $this->_user);
             return 'user/' . $user[0] . substr($folder, 5);
         }
         return $folder;
@@ -346,7 +346,7 @@ class Horde_Kolab_IMAP_test extends Horde_Kolab_IMAP
     function getMailboxes()
     {
         $mboxes = array_keys($GLOBALS['KOLAB_TESTING']);
-        $user = split('@', $this->_user);
+        $user = explode('@', $this->_user);
         $pattern = '#^user/' . $user[0] . '#';
         $result = array();
         foreach ($mboxes as $mbox) {
