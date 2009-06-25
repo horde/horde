@@ -60,9 +60,12 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
             /* The browser can display the image type directly - output the JS
              * code to render the auto resize popup image window. */
             return $this->_popupImageWindow();
-        }
 
-        return parent::_render();
+        default:
+            return $GLOBALS['browser']->getFeature('dom')
+                ? $this->_popupImageWindow()
+                : parent::_render();
+        }
     }
 
     /**
@@ -163,6 +166,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      */
     protected function _popupImageWindow()
     {
+        $loading = _("Loading...");
         $self_url = Horde_Util::addParameter(IMP::selfUrl(), array('imp_img_view' => ((Horde_Util::getFormData('imp_img_view') == 'load_convert') ? 'view_convert' : 'data')));
         $title = $this->_mimepart->getName(true);
 
@@ -171,17 +175,9 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
 <head>
 <title>$title</title>
 <style type="text/css"><!-- body { margin:0px; padding:0px; } --></style>
-EOD;
-
-        /* Only use javascript if we are using a DOM capable browser. */
-        if ($GLOBALS['browser']->getFeature('dom')) {
-            /* Javascript display. */
-            $loading = _("Loading...");
-            $str .= <<<EOD
 <script type="text/javascript">
 function resizeWindow()
 {
-
     var h, img = document.getElementById('disp_image'), w;
     document.getElementById('splash').style.display = 'none';
     img.style.display = 'block';
@@ -194,17 +190,6 @@ function resizeWindow()
 </script></head>
 <body onload="resizeWindow();"><span id="splash" style="color:gray;font-family:sans-serif;padding:2px;">$loading</span><img id="disp_image" style="display:none;" src="$self_url" /></body></html>
 EOD;
-        } else {
-            /* Non-javascript display. */
-            $img_txt = _("Image");
-            $str .= <<<EOD
-</head>
-<body bgcolor="#ffffff">
-<img border="0" src="$self_url" alt="$img_txt" />
-</body>
-</html>
-EOD;
-        }
 
         return array(
             $this->_mimepart->getMimeId() => array(
