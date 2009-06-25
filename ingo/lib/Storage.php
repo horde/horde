@@ -244,7 +244,7 @@ class Ingo_Storage
      */
     public function getActionInfo($action)
     {
-        $ob = &new stdClass;
+        $ob = new stdClass;
         $ob->flags = false;
         $ob->type = 'text';
 
@@ -352,7 +352,7 @@ class Ingo_Storage
         );
 
         /* Create the information object. */
-        $ob = &new stdClass;
+        $ob = new stdClass;
         $ob->label = $labels[$test];
         foreach ($types as $key => $val) {
             if (in_array($test, $val)) {

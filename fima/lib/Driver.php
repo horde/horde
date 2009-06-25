@@ -358,13 +358,13 @@ class Fima_Driver {
         require_once dirname(__FILE__) . '/Driver/' . $driver . '.php';
         $class = 'Fima_Driver_' . $driver;
         if (class_exists($class)) {
-            $fima = &new $class($ledger, $params);
+            $fima = new $class($ledger, $params);
             $result = $fima->initialize();
             if (is_a($result, 'PEAR_Error')) {
-                $fima =& new Fima_Driver($params, sprintf(_("The Finances backend is not currently available: %s"), $result->getMessage()));
+                $fima = new Fima_Driver($params, sprintf(_("The Finances backend is not currently available: %s"), $result->getMessage()));
             }
         } else {
-            $fima =& new Fima_Driver($params, sprintf(_("Unable to load the definition of %s."), $class));
+            $fima = new Fima_Driver($params, sprintf(_("Unable to load the definition of %s."), $class));
         }
         
         return $fima;

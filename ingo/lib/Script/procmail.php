@@ -181,7 +181,7 @@ class Ingo_Script_procmail extends Ingo_Script {
                         $this->addItem(new Procmail_Comment($filter['name'], !empty($filter['disable']), true));
                         $loop = 0;
                         foreach ($filter['conditions'] as $condition) {
-                            $recipe = &new Procmail_Recipe($filter, $this->_params);
+                            $recipe = new Procmail_Recipe($filter, $this->_params);
                             if ($loop++) {
                                 $recipe->addFlag('E');
                             }

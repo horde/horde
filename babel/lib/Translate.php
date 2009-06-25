@@ -40,7 +40,7 @@ class Translate {
 		
 		$pofile = $dir . "/$file";
 		
-		$tmppo = &new File_Gettext_PO();
+		$tmppo = new File_Gettext_PO();
 		$tmppo->load($pofile);
 		$fuzzy = 0;
 		$untranslated = 0;
@@ -135,7 +135,7 @@ class Translate {
     {
 	static $ff;
 	if (!isset($ff)) {
-	    $ff = &new File_Find();
+	    $ff = new File_Find();
 	}
 	
 	if (substr($file, 0, 1) != '/') {

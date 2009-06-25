@@ -39,7 +39,7 @@ $vars = &Horde_Variables::getDefaultVariables();
 if ($app) {
     $napp = ($app == 'horde') ? '' : $app;
     $pofile = HORDE_BASE . '/' . $napp . '/po/' . $_SESSION['babel']['language'] . '.po';
-    $po = &new File_Gettext_PO();
+    $po = new File_Gettext_PO();
     $po->load($pofile);
 }
 
@@ -48,7 +48,7 @@ $template->set('menu', Babel::getMenu('string'));
 $template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
 
 /* Create upload form */
-$form = &new Horde_Form($vars, _("Edit Translation"), $show);
+$form = new Horde_Form($vars, _("Edit Translation"), $show);
 
 /* Validate form if submitted */
 if ($app && Horde_Util::getFormData('submitbutton') == _("Save")) {
@@ -102,7 +102,7 @@ require BABEL_TEMPLATES . '/common-header.inc';
 echo $template->fetch(BABEL_TEMPLATES . '/layout.html');
 
 $renderer_params = array();
-$renderer = &new Horde_Form_Renderer($renderer_params);
+$renderer = new Horde_Form_Renderer($renderer_params);
 $renderer->setAttrColumnWidth('20%');
 
 $form->renderActive($renderer, $vars, Horde::selfURL(), 'post');

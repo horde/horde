@@ -22,7 +22,7 @@ $version = Horde_Util::getFormData('version', 0);
 /* Set up the diff renderer. */
 $render_type = Horde_Util::getFormData('render', 'inline');
 $class = 'Text_Diff_Renderer_' . $render_type;
-$renderer = &new $class();
+$renderer = new $class();
 
 /* get current version content */
 $current_data = array();

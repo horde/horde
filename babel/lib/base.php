@@ -59,7 +59,7 @@ require_once 'Horde/UI/Pager.php';
 
 /* Templates */
 require_once 'Horde/Template.php';
-$template = &new Horde_Template();
+$template = new Horde_Template();
 
 /* Module selection */
 $app = Horde_Util::getFormData('module');

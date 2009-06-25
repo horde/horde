@@ -65,7 +65,7 @@ class Skoli_Driver {
             $classes = Skoli::listClasses();
         }
         if ($class != '' && !isset($classes[$class])) {
-            $class = &new Skoli_Driver(sprintf(_("Access for class \"%s\" is denied"), $class));
+            $class = new Skoli_Driver(sprintf(_("Access for class \"%s\" is denied"), $class));
             return $class;
         }
 
@@ -81,13 +81,13 @@ class Skoli_Driver {
         require_once dirname(__FILE__) . '/Driver/' . $driver . '.php';
         $objclass = 'Skoli_Driver_' . $driver;
         if (class_exists($objclass)) {
-            $class = &new $objclass($class, $params);
+            $class = new $objclass($class, $params);
             $result = $class->initialize();
             if (is_a($result, 'PEAR_Error')) {
-                $class = &new Skoli_Driver(sprintf(_("The School backend is not currently available: %s"), $result->getMessage()));
+                $class = new Skoli_Driver(sprintf(_("The School backend is not currently available: %s"), $result->getMessage()));
             }
         } else {
-            $class = &new Skoli_Driver(sprintf(_("Unable to load the definition of %s."), $objclass));
+            $class = new Skoli_Driver(sprintf(_("Unable to load the definition of %s."), $objclass));
         }
 
         return $class;

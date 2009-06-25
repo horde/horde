@@ -172,20 +172,20 @@ class Fima_ReportGraph {
     function &factory($driver = null, $data = null, $params = null)
     {
         if ($driver === null) {
-            $report =& new Fima_ReportGraph($data, $params, _("No report driver loaded"));
+            $report = new Fima_ReportGraph($data, $params, _("No report driver loaded"));
             return $report;
         }
 
         require_once dirname(__FILE__) . '/ReportGraph/' . $driver . '.php';
         $class = 'Fima_ReportGraph_' . $driver;
         if (class_exists($class)) {
-            $report = &new $class($data, $params);
+            $report = new $class($data, $params);
             $result = $report->initialize();
             if (is_a($result, 'PEAR_Error')) {
-                $report =& new Fima_ReportGraph($data, $params, sprintf(_("The Finances report graphs are not currently available: %s"), $result->getMessage()));
+                $report = new Fima_ReportGraph($data, $params, sprintf(_("The Finances report graphs are not currently available: %s"), $result->getMessage()));
             }
         } else {
-            $report =& new Fima_ReportGraph($data, $params, sprintf(_("Unable to load the definition of %s."), $class));
+            $report = new Fima_ReportGraph($data, $params, sprintf(_("Unable to load the definition of %s."), $class));
         }
         
         return $report;

@@ -22,7 +22,7 @@ class Ingo_Storage_mock extends Ingo_Storage
                 return new Ingo_Storage_blacklist();
 
             case self::ACTION_FILTERS:
-                $ob = &new Ingo_Storage_filters();
+                $ob = new Ingo_Storage_filters();
                 include INGO_BASE . '/config/prefs.php.dist';
                 $ob->setFilterList(unserialize($_prefs['rules']['value']));
                 return $ob;

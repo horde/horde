@@ -32,7 +32,7 @@ class Ingo_SieveTest extends Ingo_TestBase {
 
     function testForwardKeep()
     {
-        $forward = &new Ingo_Storage_forward();
+        $forward = new Ingo_Storage_forward();
         $forward->setForwardAddresses('joefabetes@example.com');
         $forward->setForwardKeep(true);
 
@@ -45,7 +45,7 @@ keep;
 
     function testForwardNoKeep()
     {
-        $forward = &new Ingo_Storage_forward();
+        $forward = new Ingo_Storage_forward();
         $forward->setForwardAddresses('joefabetes@example.com');
         $forward->setForwardKeep(false);
 
@@ -57,7 +57,7 @@ redirect "joefabetes@example.com";
 
     function testBlacklistMarker()
     {
-        $bl = &new Ingo_Storage_blacklist(3);
+        $bl = new Ingo_Storage_blacklist(3);
         $bl->setBlacklist(array('spammer@example.com'));
         $bl->setBlacklistFolder(Ingo::BLACKLIST_MARKER);
 
@@ -73,7 +73,7 @@ stop;
 
     function testWhitelist()
     {
-        $wl = &new Ingo_Storage_whitelist(3);
+        $wl = new Ingo_Storage_whitelist(3);
         $wl->setWhitelist(array('spammer@example.com'));
 
         $this->store($wl);
@@ -85,7 +85,7 @@ stop;
 
     function testVacationDisabled()
     {
-        $vacation = &new Ingo_Storage_vacation();
+        $vacation = new Ingo_Storage_vacation();
         $vacation->setVacationAddresses(array('from@example.com'));
         $vacation->setVacationSubject('Subject');
         $vacation->setVacationReason("Because I don't like working!");
@@ -96,7 +96,7 @@ stop;
 
     function testVacationEnabled()
     {
-        $vacation = &new Ingo_Storage_vacation();
+        $vacation = new Ingo_Storage_vacation();
         $vacation->setVacationAddresses(array('from@example.com'));
         $vacation->setVacationSubject('Subject');
         $vacation->setVacationReason("Because I don't like working!");
@@ -112,7 +112,7 @@ vacation :days 7 :addresses "from@example.com" :subject "Subject" "Because I don
 
     function testSpamDisabled()
     {
-        $spam = &new Ingo_Storage_spam();
+        $spam = new Ingo_Storage_spam();
         $spam->setSpamLevel(7);
         $spam->setSpamFolder("Junk");
 
@@ -122,7 +122,7 @@ vacation :days 7 :addresses "from@example.com" :subject "Subject" "Because I don
 
     function testSpamEnabled()
     {
-        $spam = &new Ingo_Storage_spam();
+        $spam = new Ingo_Storage_spam();
         $spam->setSpamLevel(7);
         $spam->setSpamFolder("Junk");
 

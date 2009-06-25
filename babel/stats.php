@@ -26,7 +26,7 @@ echo $template->fetch(BABEL_TEMPLATES . '/layout.html');
 $vars = &Horde_Variables::getDefaultVariables();
 
 /* Create upload form */
-$form = &new Horde_Form($vars, _("View Statistics"), 'stats');
+$form = new Horde_Form($vars, _("View Statistics"), 'stats');
 
 if (!$app) {
     $form->setButtons(_("View"));
@@ -34,7 +34,7 @@ if (!$app) {
     $form->addVariable('', '', 'spacer', true);
     
     $renderer_params = array();
-    $renderer = &new Horde_Form_Renderer($renderer_params);
+    $renderer = new Horde_Form_Renderer($renderer_params);
     $renderer->setAttrColumnWidth('20%');
     
     $form->renderActive($renderer, $vars, Horde::selfURL(), 'post');

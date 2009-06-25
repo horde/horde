@@ -5,7 +5,7 @@
 
 require_once dirname(__FILE__) . '/../Image/gd.php';
 
-$image = &new Horde_Image_gd(array('height' => 400, 'width' => 400));
+$image = new Horde_Image_gd(array('height' => 400, 'width' => 400));
 
 $image->rectangle(30, 30, 100, 60, 'black', 'yellow');
 $image->roundedRectangle(30, 30, 100, 60, 15, 'black', 'red');

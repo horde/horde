@@ -37,7 +37,7 @@ class TimeObjects_Driver
     {
         $class = 'TimeObjects_Driver_' . basename($name);
         if (class_exists($class)) {
-            $driver = &new $class($params);
+            $driver = new $class($params);
         } else {
             $driver = PEAR::raiseError(sprintf(_("Unable to load the definition of %s."), $class));
         }

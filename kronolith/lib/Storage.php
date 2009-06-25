@@ -53,7 +53,7 @@ class Kronolith_Storage {
         require_once dirname(__FILE__) . '/Storage/' . $driver . '.php';
         $class = 'Kronolith_Storage_' . $driver;
         if (class_exists($class)) {
-            $driver = &new $class($user, $params);
+            $driver = new $class($user, $params);
         } else {
             $driver = PEAR::raiseError(sprintf(_("Unable to load the definition of %s."), $class));
             return $driver;
@@ -61,7 +61,7 @@ class Kronolith_Storage {
 
         $result = $driver->initialize();
         if (is_a($result, 'PEAR_Error')) {
-            $driver = &new Kronolith_Storage($params);
+            $driver = new Kronolith_Storage($params);
         }
 
         return $driver;

@@ -29,7 +29,7 @@ class Ingo_MaildropTest extends Ingo_TestBase {
 
     function testForwardKeep()
     {
-        $forward = &new Ingo_Storage_forward();
+        $forward = new Ingo_Storage_forward();
         $forward->setForwardAddresses('joefabetes@example.com');
         $forward->setForwardKeep(true);
 
@@ -45,7 +45,7 @@ to "${DEFAULT}"
 
     function testForwardNoKeep()
     {
-        $forward = &new Ingo_Storage_forward();
+        $forward = new Ingo_Storage_forward();
         $forward->setForwardAddresses('joefabetes@example.com');
         $forward->setForwardKeep(false);
 
@@ -61,7 +61,7 @@ exit
 
     function testBlacklistWithFolder()
     {
-        $bl = &new Ingo_Storage_blacklist(3);
+        $bl = new Ingo_Storage_blacklist(3);
         $bl->setBlacklist(array('spammer@example.com'));
         $bl->setBlacklistFolder('Junk');
 
@@ -76,7 +76,7 @@ to Junk
 
     function testBlacklistMarker()
     {
-        $bl = &new Ingo_Storage_blacklist(3);
+        $bl = new Ingo_Storage_blacklist(3);
         $bl->setBlacklist(array('spammer@example.com'));
         $bl->setBlacklistFolder(Ingo::BLACKLIST_MARKER);
 
@@ -91,7 +91,7 @@ to ++DELETE++
 
     function testBlacklistDiscard()
     {
-        $bl = &new Ingo_Storage_blacklist(3);
+        $bl = new Ingo_Storage_blacklist(3);
         $bl->setBlacklist(array('spammer@example.com'));
         $bl->setBlacklistFolder(null);
 
@@ -106,7 +106,7 @@ to "/dev/null"
 
     function testWhitelist()
     {
-        $wl = &new Ingo_Storage_whitelist(3);
+        $wl = new Ingo_Storage_whitelist(3);
         $wl->setWhitelist(array('spammer@example.com'));
 
         $this->store($wl);

@@ -58,7 +58,7 @@ if ($app) {
     
     $napp = ($app == 'horde') ? '' : $app;
     $pofile = HORDE_BASE . '/' . $napp . '/po/' . $lang . '.po';
-    $po = &new File_Gettext_PO();
+    $po = new File_Gettext_PO();
     $po->load($pofile);
 
     // Set Scope
@@ -146,7 +146,7 @@ $template->set('menu', Babel::getMenu('string'));
 $template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
 
 /* Create upload form */
-$form = &new Horde_Form($vars, _("View Translation"), $show);
+$form = new Horde_Form($vars, _("View Translation"), $show);
 
 if (!$app) {
     $form->setButtons(_("View"));
@@ -154,7 +154,7 @@ if (!$app) {
     $form->addVariable('', '', 'spacer', true);
     
     $renderer_params = array();
-    $renderer = &new Horde_Form_Renderer($renderer_params);
+    $renderer = new Horde_Form_Renderer($renderer_params);
     $renderer->setAttrColumnWidth('20%');
     
     $form->renderActive($renderer, $vars, Horde::selfURL(), 'post');
@@ -488,7 +488,7 @@ $viewurl = Horde_Util::addParameter($viewurl, array('editmode' => $editmode,
 					      'module' => $app, 
 					      'filter' => $filter,
 					      'search' => $search));
- $pager = &new Horde_UI_Pager('page', $vars, array('num' => $numitem, 'url' => $viewurl, 'page_count' => 10, 'perpage' => $perpage));
+ $pager = new Horde_UI_Pager('page', $vars, array('num' => $numitem, 'url' => $viewurl, 'page_count' => 10, 'perpage' => $perpage));
  echo $pager->render($page, $numitem, $viewurl);
 ?>
 </td></tr></table>

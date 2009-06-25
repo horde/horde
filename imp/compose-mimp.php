@@ -250,7 +250,7 @@ foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
     }
 }
 
-$menu = &new Horde_Mobile_card('o', _("Menu"));
+$menu = new Horde_Mobile_card('o', _("Menu"));
 $mset = &$menu->add(new Horde_Mobile_linkset());
 MIMP::addMIMPMenu($mset, 'compose');
 
