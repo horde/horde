@@ -10,7 +10,7 @@
  * @author Mike Cochrane <mike@graftonhall.co.nz>
  */
 
-require_once dirname(__FILE__) . '/base.load.php';
+require_once dirname(__FILE__) . '/lib/base.load.php';
 $ingo_configured = (is_readable(INGO_BASE . '/config/conf.php') &&
                     is_readable(INGO_BASE . '/config/prefs.php') &&
                     is_readable(INGO_BASE . '/config/backends.php') &&
