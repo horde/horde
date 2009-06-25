@@ -83,7 +83,7 @@ $_services['mailboxCacheId'] = array(
 
 $_services['server'] = array(
     'args' => array(),
-    'type' => 'string'
+    'type' => '{urn:horde}hashHash'
 );
 
 $_services['favouriteRecipients'] = array(
@@ -428,10 +428,15 @@ function _imp_mailboxCacheId($mailbox)
 }
 
 /**
- * Returns the currently logged on IMAP server.
+ * Returns information on the currently logged on IMAP server.
  *
- * @return string  The server hostname.  Returns null if the user has not
- *                 authenticated into IMP yet.
+ * @return mixed  Returns null if the user has not authenticated into IMP yet.
+ *                Otherwise, an array with the following entries:
+ * <pre>
+ * 'hostspec' - (string) The server hostname.
+ * 'port' - (integer) The server port.
+ * 'protocol' - (string) Either 'imap' or 'pop'.
+ * </pre>
  */
 function _imp_server()
 {
@@ -440,10 +445,14 @@ function _imp_server()
 
     if (IMP::checkAuthentication(true)) {
         $imap_obj = unserialize($_SESSION['imp']['imap_ob']);
-        return $imap_obj->getParam('hostspec');
-    } else {
-        return null;
+        return array(
+            'hostspec' => $imap_obj->getParam('hostspec'),
+            'port' => $imap_obj->getParam('hostspec'),
+            'protocol' => $_SESSION['imp']['protocol']
+        );
     }
+
+    return null;
 }
 
 /**

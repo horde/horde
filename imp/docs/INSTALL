@@ -158,6 +158,11 @@ To function properly, IMP **requires** the following:
    The selected IMAP server MUST support IMAP4rev1 (RFC 3501).
    The selected POP server MUST support POP3 (RFC 1939/STD 53).
 
+   .. If using a POP server, caching, on-demand filtering, searching, and
+      sorting are disabled.
+      POP3 support is limited essentially to only viewing messages.
+      An IMAP server is REQUIRED for all other advanced features.
+
 The following items are not required, but are strongly **RECOMMENDED**:
 
 1. Sendmail or equivalent.

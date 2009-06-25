@@ -26,7 +26,8 @@
  *
  * script: (string) The type of Ingo_Script driver this server uses.
  *         Valid options:
- *           'imap'     - IMAP client side filtering
+ *           'imap'     - IMAP client side filtering (POP3 servers NOT
+                          supported)
  *           'maildrop' - Maildrop scripts
  *           'procmail' - Procmail scripts
  *           'sieve'    - Sieve scripts

@@ -161,7 +161,9 @@ class IMP_Imap
             return false;
         }
 
-        $protocol = isset($server['protocol']) ? strtolower($server['protocol']) : 'imap';
+        $protocol = isset($server['protocol'])
+            ? strtolower($server['protocol'])
+            : 'imap';
 
         $imap_config = array(
             'debug' => isset($server['debug']) ? $server['debug'] : null,

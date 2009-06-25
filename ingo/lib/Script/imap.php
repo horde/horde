@@ -346,8 +346,13 @@ class Ingo_Script_imap extends Ingo_Script
      */
     public function canApply()
     {
-        return $this->performAvailable() &&
-               $GLOBALS['registry']->hasMethod('mail/server');
+        if ($this->performAvailable() &&
+            $GLOBALS['registry']->hasMethod('mail/server')) {
+            $server = $GLOBALS['registry']->call('mail/server');
+            return ($server['protocol'] == 'imap');
+        }
+
+        return false;
     }
 
     /**
@@ -357,11 +362,9 @@ class Ingo_Script_imap extends Ingo_Script
      */
     public function apply()
     {
-        if ($this->canApply()) {
-            return $this->perform(array('mailbox' => 'INBOX'));
-        }
-
-        return false;
+        return $this->canApply()
+            ? $this->perform(array('mailbox' => 'INBOX'))
+            : false;
     }
 
 }
