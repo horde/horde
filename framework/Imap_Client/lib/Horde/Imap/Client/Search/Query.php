@@ -77,6 +77,22 @@ class Horde_Imap_Client_Search_Query
      */
     public function __construct()
     {
+        $this->__wakeup();
+    }
+
+    /**
+     * Tasks to perform on a serialize().
+     */
+    public function __sleep()
+    {
+        return array_diff(array_keys(get_class_vars(__CLASS__)), array('_utils'));
+    }
+
+    /**
+     * Tasks to perform on an unserialize().
+     */
+    public function __wakeup()
+    {
         $this->_utils = new Horde_Imap_Client_Utils();
     }
 
