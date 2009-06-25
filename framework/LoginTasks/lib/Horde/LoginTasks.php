@@ -139,15 +139,13 @@ class Horde_LoginTasks
             if (!is_null($fileroot) &&
                 is_dir($fileroot . '/lib/LoginTasks/Task')) {
                 foreach (scandir($fileroot . '/lib/LoginTasks/Task') as $file) {
-                    if (stripos($file, '.php') !== false) {
-                        $classname = $app . '_LoginTasks_Task_' . substr($file, 0, -4);
-                        if (class_exists($classname)) {
-                            $tasks[$classname] = $app;
-                            if (!isset($lasttasks[$app])) {
-                                $lasttasks[$app] = empty($last_logintasks[$app])
-                                    ? 0
-                                    : getdate($last_logintasks[$app]);
-                            }
+                    $classname = $app . '_LoginTasks_Task_' . basename($file, '.php');
+                    if (class_exists($classname)) {
+                        $tasks[$classname] = $app;
+                        if (!isset($lasttasks[$app])) {
+                            $lasttasks[$app] = empty($last_logintasks[$app])
+                                ? 0
+                                : getdate($last_logintasks[$app]);
                         }
                     }
                 }
@@ -212,17 +210,19 @@ class Horde_LoginTasks
      * This function will generate the list of tasks to perform during this
      * login and will redirect to the login tasks page if necessary.  This is
      * the function that should be called from the application upon login.
+     *
+     * @param boolean $confirmed  If true, indicates that any pending actions
+     *                            have been confirmed by the user.
      */
-    public function runTasks()
+    public function runTasks($confirmed = false)
     {
         if ($this->_tasklist === true) {
             return;
         }
 
         /* Perform ready tasks now. */
-        foreach ($this->_tasklist->ready() as $key => $val) {
-            if (($val->display == self::DISPLAY_AGREE) ||
-                ($val->display == self::DISPLAY_NOTICE) ||
+        foreach ($this->_tasklist->ready($this->_init || $confirmed) as $key => $val) {
+            if (in_array($val->display, array(self::DISPLAY_AGREE, self::DISPLAY_NOTICE, self::DISPLAY_NONE)) ||
                 Horde_Util::getFormData('logintasks_confirm_' . $key)) {
                 $val->execute();
             }

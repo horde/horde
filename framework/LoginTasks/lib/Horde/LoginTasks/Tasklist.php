@@ -45,7 +45,7 @@ class Horde_LoginTasks_Tasklist
      *
      * @var integer
      */
-    protected $_ptr = null;
+    protected $_ptr = -1;
 
     /**
      * Constructor.
@@ -93,22 +93,23 @@ class Horde_LoginTasks_Tasklist
     /**
      * Returns the list of tasks to perform.
      *
+     * @param boolean $complete  Mark ready tasks as completed?
+     *
      * @return array  The list of tasks to perform.
      */
-    public function ready()
+    public function ready($advance = false)
     {
         $tmp = array();
 
         reset($this->_tasks);
         while (list($k, $v) = each($this->_tasks)) {
-            if ($v['display'] &&
-                (is_null($this->_ptr) || ($k > $this->_ptr))) {
+            if ($v['display'] && ($k > $this->_ptr)) {
                 break;
             }
             $tmp[] = $v['task'];
         }
 
-        if (!is_null($this->_ptr)) {
+        if ($advance) {
             $this->_tasks = array_slice($this->_tasks, $this->_ptr);
             $this->_ptr = 0;
         }
