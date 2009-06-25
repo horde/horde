@@ -165,11 +165,11 @@ $notification = &Horde_Notification::singleton();
 if (($viewmode == 'mimp') ||
     (Horde_Util::nonInputVar('login_page') && $GLOBALS['browser']->isMobile())) {
     $GLOBALS['imp_notify'] = &$notification->attach('status', null, 'Horde_Notification_Listener_Mobile');
-} elseif ($viewmode == 'dimp') {
-    $GLOBALS['imp_notify'] = &$notification->attach('status', null, 'IMP_Notification_Listener_StatusDimp');
 } else {
-    $GLOBALS['imp_notify'] = &$notification->attach('status', null, 'IMP_Notification_Listener_StatusImp');
-    $notification->attach('audio');
+    $GLOBALS['imp_notify'] = &$notification->attach('status', array('viewmode' => $viewmode), 'IMP_Notification_Listener_Status');
+    if ($viewmode == 'imp') {
+        $notification->attach('audio');
+    }
 }
 
 // Initialize global $imp_mbox array.
