@@ -105,13 +105,13 @@ class Horde_Notification
      */
     public function attach($listener, $params = array(), $class = null)
     {
-        $listener = ucfirst(basename($listener));
+        $listener = strtolower(basename($listener));
         if (!empty($this->_listeners[$listener])) {
             return $this->_listeners[$listener];
         }
 
         if (is_null($class)) {
-            $class = 'Horde_Notification_Listener_' . $listener;
+            $class = 'Horde_Notification_Listener_' . ucfirst($listener);
         }
 
         if (class_exists($class)) {
@@ -134,7 +134,7 @@ class Horde_Notification
      */
     public function detach($listener)
     {
-        $listener = ucfirst(basename($listener));
+        $listener = strtolower(basename($listener));
         if (!isset($this->_listeners[$listener])) {
             throw new Horde_Exception(sprintf('Notification listener %s not found.', $listener));
         }
@@ -202,6 +202,8 @@ class Horde_Notification
             $options['listeners'] = array($options['listeners']);
         }
 
+        $options['listeners'] = array_map('strtolower', $options['listeners']);
+
         if ($this->_alarm && in_array('status', $options['listeners'])) {
             $this->_alarm->notify(Auth::getAuth());
         }
@@ -233,7 +235,7 @@ class Horde_Notification
             }
             return $count;
         } else {
-            return @count($_SESSION[$this->_stack][$this->_listeners[$my_listener]->getName()]);
+            return @count($_SESSION[$this->_stack][$this->_listeners[strtolower($my_listener)]->getName()]);
         }
     }
 

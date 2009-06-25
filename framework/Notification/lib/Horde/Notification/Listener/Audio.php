@@ -19,6 +19,7 @@ class Horde_Notification_Listener_Audio extends Horde_Notification_Listener
     public function __construct()
     {
         $this->_handles = array('audio' => '');
+        $this->_name = 'audio';
     }
 
     /**
@@ -32,7 +33,7 @@ class Horde_Notification_Listener_Audio extends Horde_Notification_Listener
     {
         if (count($messageStack)) {
             while ($message = array_shift($messageStack)) {
-                $this->getMessage($message);
+                echo $this->getMessage($message);
             }
         }
     }
@@ -41,12 +42,15 @@ class Horde_Notification_Listener_Audio extends Horde_Notification_Listener
      * Outputs one message.
      *
      * @param array $message  One message hash from the stack.
+     * @param array $options  An array of options (not used).
+     *
+     * @return text  The message representation.
      */
-    public function getMessage($message)
+    public function getMessage($message, $options = array())
     {
         $event = $this->getEvent($message);
-        echo '<embed src="', htmlspecialchars($event->getMessage()),
-             '" width="0" height="0" autostart="true" />';
+        return '<embed src="' . htmlspecialchars($event->getMessage()) .
+               '" width="0" height="0" autostart="true" />';
     }
 
 }

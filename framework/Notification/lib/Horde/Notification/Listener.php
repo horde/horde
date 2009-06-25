@@ -11,8 +11,15 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Notification
  */
-class Horde_Notification_Listener
+abstract class Horde_Notification_Listener
 {
+    /**
+     * The base type of this listener.
+     *
+     * @var string
+     */
+    protected $_name;
+
     /**
      * Array of message types that this listener handles.
      *
@@ -39,7 +46,7 @@ class Horde_Notification_Listener
      */
     public function getName()
     {
-        return get_class($this);
+        return $this->_name;
     }
 
     /**
@@ -49,18 +56,17 @@ class Horde_Notification_Listener
      * @param array &$messageStack  The stack of messages.
      * @param array $options        An array of options.
      */
-    public function notify(&$messageStacks, $options = array())
-    {
-    }
+    abstract public function notify(&$messageStacks, $options = array());
 
     /**
      * Processes one message from the message stack.
      *
      * @param array $message  One message hash from the stack.
+     * @param array $options  An array of options.
+     *
+     * @return mixed  TODO
      */
-    public function getMessage($message)
-    {
-    }
+    abstract public function getMessage($message, $options = array());
 
     /**
      * Unserialize an event from the message stack, checking to see if the

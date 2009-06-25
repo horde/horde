@@ -22,6 +22,7 @@ class Horde_Notification_Listener_Javascript extends Horde_Notification_Listener
             'javascript' => '',
             'javascript-file' => ''
         );
+        $this->_name = 'javascript';
     }
 
     /**
@@ -42,12 +43,13 @@ class Horde_Notification_Listener_Javascript extends Horde_Notification_Listener
         }
 
         $files = array();
+
         while ($message = array_shift($messageStack)) {
-            $event = $this->getEvent($message);
+            $msg_text = $this->getMessage($message);
             if ($message['type'] == 'javascript') {
-                echo $event->getMessage() . "\n";
+                echo $msg_text . "\n";
             } elseif ($message['type'] == 'javascript-file') {
-                $files[] = $event->getMessage();
+                $files[] = $msg_text;
             }
         }
 
@@ -59,6 +61,19 @@ class Horde_Notification_Listener_Javascript extends Horde_Notification_Listener
                 }
             }
         }
+    }
+
+    /**
+     * Outputs one message.
+     *
+     * @param array $message  One message hash from the stack.
+     * @param array $options  An array of options (not used).
+     *
+     * @return string  The message text.
+     */
+    public function getMessage($message, $options = array())
+    {
+        return $this->getEvent($message);
     }
 
 }

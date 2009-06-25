@@ -31,6 +31,7 @@ class Horde_Notification_Listener_Mobile extends Horde_Notification_Listener_Sta
             'horde.warning' => _("WARN"),
             'horde.message' => _("MSG")
         );
+        $this->_name = 'status';
     }
 
     /**
@@ -70,8 +71,9 @@ class Horde_Notification_Listener_Mobile extends Horde_Notification_Listener_Sta
      * Outputs one message.
      *
      * @param array $message  One message hash from the stack.
+     * @param array $options  An array of options (not used).
      */
-    public function getMessage($message)
+    public function getMessage($message, $options = array())
     {
         if (!$this->_mobile) {
             $p = new Horde_Notification_Listener_Status();
