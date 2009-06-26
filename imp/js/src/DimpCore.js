@@ -449,11 +449,11 @@ var DimpCore = {
     {
         switch (elt.readAttribute('id')) {
         case 'ctx_contacts_new':
-            this.compose('new', { to: elt.readAttribute('address') });
+            this.compose('new', { to: baseelt.readAttribute('address') });
             break;
 
         case 'ctx_contacts_add':
-            this.doAction('AddContact', { name: elt.readAttribute('personal'), email: elt.readAttribute('email') }, null, true);
+            this.doAction('AddContact', { name: baseelt.readAttribute('personal'), email: baseelt.readAttribute('email') }, null, true);
             break;
         }
     },
