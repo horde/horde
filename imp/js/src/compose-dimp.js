@@ -724,6 +724,7 @@ var DimpCompose = {
     {
         var boundResize = this.resizeMsgArea.bind(this);
 
+        DimpCore.growler_log = false;
         DimpCore.init();
 
         /* Attach event handlers. */

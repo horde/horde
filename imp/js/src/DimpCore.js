@@ -13,6 +13,7 @@ var DimpCore = {
     // Vars used and defaulting to null/false:
     //   DMenu, Growler, inAjaxCallback, is_init, is_logout,
     //   onDoActionComplete
+    growler_log: true,
     is_ie6: false /*@cc_on || @_jscript_version < 5.7 @*/,
     server_error: 0,
 
@@ -487,7 +488,7 @@ var DimpCore = {
         /* Add Growler notification handler. */
         this.Growler = new Growler({
             location: 'br',
-            log: true,
+            log: this.growler_log,
             noalerts: DIMP.text.noalerts
         });
 

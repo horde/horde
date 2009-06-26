@@ -140,6 +140,7 @@ var DimpFullmessage = {
 
     onDomLoad: function()
     {
+        DimpCore.growler_log = false;
         DimpCore.init();
 
         if (DIMP.conf.disable_compose) {
