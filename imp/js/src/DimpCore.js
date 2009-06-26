@@ -404,10 +404,6 @@ var DimpCore = {
                 window.print();
                 break;
 
-            case 'msg_view_source':
-                this.popupWindow(this.addURLParam(DIMP.conf.URI_VIEW, { uid: DIMP.conf.msg_index, mailbox: DIMP.conf.msg_folder, actionID: 'view_source', id: 0 }, true), DIMP.conf.msg_index + '|' + DIMP.conf.msg_folder);
-                break;
-
             case 'alertsloglink':
                 $('alertsloglink').down('A').update(this.Growler.toggleLog() ? DIMP.text.hidealog : DIMP.text.showalog);
                 break;

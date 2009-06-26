@@ -23,8 +23,8 @@ $readonly = $imp_imap->isReadOnly($folder);
 
 $args = array(
     'headers' => array_diff(array_keys($imp_ui->basicHeaders()), array('subject')),
-    'folder' => $folder,
     'index' => $index,
+    'mailbox' => $folder,
     'preview' => false,
 );
 
@@ -44,12 +44,8 @@ $scripts = array(
     array('imp.js', 'imp', true)
 );
 
-$js_out = array(
-    'DIMP.conf.msg_index = "' . $show_msg_result['index'] . '"',
-    'DIMP.conf.msg_folder = "' . $show_msg_result['folder'] . '"'
-);
-
-foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log') as $val) {
+$js_out = array();
+foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'index', 'mailbox') as $val) {
     if (!empty($show_msg_result[$val])) {
         $js_out[] = 'DimpFullmessage.' . $val . ' = ' . Horde_Serialize::serialize($show_msg_result[$val], Horde_Serialize::JSON);
     }

@@ -52,8 +52,8 @@ class IMP_Views_ShowMessage
      * <pre>
      * 'headers' - The headers desired in the returned headers array (only used
      *             with non-preview view)
-     * 'folder' - The folder name
-     * 'index' - The folder index
+     * 'index' - The UID of the message
+     * 'mailbox' - The mailbox name
      * 'preview' - Is this the preview view?
      * </pre>
      *
@@ -67,9 +67,9 @@ class IMP_Views_ShowMessage
      * 'error' - Contains an error message (only on error)
      * 'errortype' - Contains the error type (only on error)
      * 'from' - The From addresses
-     * 'folder' - The IMAP folder
      * 'index' - The IMAP UID
      * 'log' - Log information
+     * 'mailbox' - The IMAP mailbox
      * 'msgtext' - The text of the message
      * 'to' - The To addresses
      *
@@ -91,13 +91,13 @@ class IMP_Views_ShowMessage
     public function showMessage($args)
     {
         $preview = !empty($args['preview']);
-        $mailbox = $args['folder'];
+        $mailbox = $args['mailbox'];
         $index = $args['index'];
         $error_msg = _("Requested message not found.");
 
         $result = array(
-            'folder' => $mailbox,
-            'index' => $index
+            'index' => $index,
+            'mailbox' => $mailbox
         );
 
         /* Set the current time zone. */

@@ -962,7 +962,7 @@ var DimpBase = {
             t = $('msgHeadersContent').down('THEAD');
 
         if (!r.error) {
-            search = this.viewport.getSelection().search({ imapuid: { equal: [ r.index ] }, view: { equal: [ r.folder ] } });
+            search = this.viewport.getSelection().search({ imapuid: { equal: [ r.index ] }, view: { equal: [ r.mailbox ] } });
             if (search.size()) {
                 row = search.get('dataob').first();
                 this.updateSeenUID(row, 1);
@@ -971,7 +971,7 @@ var DimpBase = {
 
         if (this.pp &&
             (this.pp.imapuid != r.index ||
-             this.pp.view != r.folder)) {
+             this.pp.view != r.mailbox)) {
             return;
         }
 
@@ -984,15 +984,12 @@ var DimpBase = {
         }
 
         // Store in cache.
-        ppuid = this._getPPId(r.index, r.folder);
+        ppuid = this._getPPId(r.index, r.mailbox);
         this._expirePPCache([ ppuid ]);
         this.ppcache[ppuid] = resp;
         this.ppfifo.push(ppuid);
 
         DimpCore.removeAddressLinks(pm);
-
-        DIMP.conf.msg_index = r.index;
-        DIMP.conf.msg_folder = r.folder;
 
         // Add subject
         tmp = pm.select('.subject');
@@ -1625,9 +1622,13 @@ var DimpBase = {
 
             case 'msg_newwin':
             case 'msg_newwin_options':
-                this.msgWindow(this.viewport.getSelection().search({ imapuid: { equal: [ DIMP.conf.msg_index ] } , view: { equal: [ DIMP.conf.msg_folder ] } }).get('dataob').first());
+                this.msgWindow(this.viewport.getSelection().search({ imapuid: { equal: [ this.pp.imapuid ] } , view: { equal: [ this.pp.view ] } }).get('dataob').first());
                 e.stop();
                 return;
+
+            case 'msg_view_source':
+                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.pp.imapuid, mailbox: this.pp.view, actionID: 'view_source', id: 0 }, true), DIMP.conf.msg_index + '|' + DIMP.conf.msg_folder);
+                break;
 
             case 'applicationfolders':
                 tmp = e.element();

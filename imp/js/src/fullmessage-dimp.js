@@ -7,10 +7,12 @@
 
 var DimpFullmessage = {
 
+    // Variables defaulting to empty/false:
+    //  index, mailbox
     quickreply: function(type)
     {
         var func, ob = {};
-        ob[$F('folder')] = [ $F('index') ];
+        ob[this.mailbox] = [ this.index ];
 
         $('msgData').hide();
         $('qreply').show();
@@ -92,13 +94,17 @@ var DimpFullmessage = {
             case 'button_ham':
             case 'button_spam':
                 if (id == 'button_deleted') {
-                    DIMP.baseWindow.DimpBase.deleteMsg({ index: DIMP.conf.msg_index, mailbox: DIMP.conf.msg_folder });
+                    DIMP.baseWindow.DimpBase.deleteMsg({ index: this.index, mailbox: this.mailbox });
                 } else {
-                    DIMP.baseWindow.DimpBase.reportSpam(id == 'button_spam', { index: DIMP.conf.msg_index, mailbox: DIMP.conf.msg_folder });
+                    DIMP.baseWindow.DimpBase.reportSpam(id == 'button_spam', { index: this.index, mailbox: this.mailbox });
                 }
                 window.close();
                 e.stop();
                 return;
+
+            case 'msg_view_source':
+                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.index, mailbox: this.mailbox, actionID: 'view_source', id: 0 }, true), DIMP.conf.msg_index + '|' + DIMP.conf.msg_folder);
+                break;
 
             case 'qreply':
                 if (orig.match('DIV.headercloseimg IMG')) {

@@ -99,7 +99,7 @@ $viewmode = isset($_SESSION['imp']['view'])
 
 $authentication = Horde_Util::nonInputVar('authentication', 0);
 if ($authentication !== 'none') {
-    // If we've gotten to this point and have valid login credentials
+    // If we've reached this point and have valid login credentials
     // but don't actually have an IMP session, then we need to go
     // through redirect.php to ensure that everything gets set up
     // properly. Single-signon and transparent authentication setups
@@ -129,6 +129,7 @@ if ($authentication !== 'none') {
             case 'json':
                 $GLOBALS['notification']->push(null, 'dimp.timeout');
                 Horde::sendHTTPResponse(Horde::prepareResponse(), 'json');
+                // Fall through
 
             case 'none':
                 exit;
@@ -144,9 +145,7 @@ if ($authentication !== 'none') {
     /* Some stuff that only needs to be initialized if we are
      * authenticated. */
     // Initialize some message parsing variables.
-    if (!empty($GLOBALS['conf']['mailformat']['brokenrfc2231'])) {
-        Horde_Mime::$brokenRFC2231 = true;
-    }
+    Horde_Mime::$brokenRFC2231 = !empty($GLOBALS['conf']['mailformat']['brokenrfc2231']);
 
     // Set default message character set, if necessary
     if ($def_charset = $GLOBALS['prefs']->getValue('default_msg_charset')) {

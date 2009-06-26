@@ -475,8 +475,8 @@ case 'ShowPreview':
 
     $ptr = each($indices);
     $args = array(
-        'folder' => $ptr['key'],
         'index' => intval(reset($ptr['value'])),
+        'mailbox' => $ptr['key'],
         'preview' => true,
     );
 
@@ -541,6 +541,7 @@ case 'DeleteDraft':
         $idx_array = array($imp_compose->getMetadata('draft_index') . IMP::IDX_SEP . IMP::folderPref($prefs->getValue('drafts_folder'), true));
         $imp_message->delete($idx_array, array('nuke' => true));
     }
+    $result = true;
     break;
 
 case 'DeleteAttach':
