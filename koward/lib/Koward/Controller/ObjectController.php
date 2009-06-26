@@ -181,8 +181,16 @@ class ObjectController extends Koward_Controller_Application
                             exit;
                         } else if ($this->actions->validate()) {
                             $action = $this->actions->execute();
-			    //FIXME: Hack
+                            //FIXME: Hack
                             $result = $this->object->$action();
+
+                            // Refresh the object view
+			    $this->actions = null;
+                            $this->object = $this->koward->getObject($this->params->id);
+                            $buttons = $this->_getButtons($this->object, $this->object_type);
+                            if (!empty($buttons)) {
+                                $this->actions = new Koward_Form_Actions($this->object, $buttons);
+                            }
 
                             $this->action_url = $this->urlFor(array('controller' => 'object',
                                                                     'action' => 'view',
