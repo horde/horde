@@ -101,17 +101,18 @@ class Horde_SessionObjects
         if (isset($_SESSION[$this->_name]['__prune']) &&
             ($_SESSION[$this->_name]['__prune'] > $this->_size)) {
             $pruneList = array();
+            $prune_count = $_SESSION[$this->_name]['__prune'] - $this->_size;
+
             foreach ($_SESSION[$this->_name] as $key => $val) {
                 if ($val['prune']) {
                     $pruneList[] = $key;
+                    if (!--$prune_count) {
+                        break;
+                    }
                 }
             }
 
-            $pruneOids = array_slice($pruneList, 0, $_SESSION[$this->_name]['__prune'] - $this->_size);
-            foreach ($pruneOids as $val) {
-                unset($_SESSION[$this->_name][$val]);
-            }
-            $_SESSION[$this->_name]['__prune'] -= count($pruneOids);
+            $this->prune($pruneList);
         }
     }
 
@@ -223,7 +224,8 @@ class Horde_SessionObjects
     }
 
     /**
-     * Sets the prune flag on a store object.
+     * Sets the prune flag on a store object.  The object will be pruned
+     * when the maximum storage size is reached.
      *
      * @param string $oid     The object ID.
      * @param boolean $prune  True to allow pruning, false for no pruning.
@@ -239,6 +241,33 @@ class Horde_SessionObjects
             $ptr[$oid]['prune'] = $prune;
             ($prune) ? ++$ptr['__prune'] : --$ptr['__prune'];
         }
+    }
+
+    /**
+     * Immediately prune an object.
+     *
+     * @param mixed $oid  The object ID or an array of object IDs.
+     */
+    public function prune($oid)
+    {
+        if (!isset($_SESSION[$this->_name])) {
+            return;
+        }
+
+        if (!is_array($oid)) {
+            $oid = array($oid);
+        }
+
+        $prune_count = 0;
+
+        foreach ($oid as $val) {
+            if (isset($_SESSION[$this->_name][$val])) {
+                ++$prune_count;
+                unset($_SESSION[$this->_name][$val]);
+            }
+        }
+
+        $_SESSION[$this->_name]['__prune'] -= $prune_count;
     }
 
     /**
