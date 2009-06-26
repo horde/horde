@@ -134,6 +134,7 @@ if ($compose_mode) {
         'cc' => intval($GLOBALS['prefs']->getValue('compose_cc')),
         'close_draft' => intval($GLOBALS['prefs']->getValue('close_draft')),
         'compose_cursor' => ($compose_cursor ? $compose_cursor : 'top'),
+        'drafts_mbox' => IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true),
         'rte_avail' => intval($GLOBALS['browser']->hasFeature('rte')),
         'spellcheck' => intval($GLOBALS['prefs']->getValue('compose_spellcheck')),
     ));

@@ -10,8 +10,8 @@
 var DimpCompose = {
     // Variables defaulting to empty/false:
     //   auto_save_interval, button_pressed, compose_cursor, dbtext,
-    //   editor_on, mp_padding, resizebcc, resizecc, resizeto, row_height,
-    //   sbtext, skip_spellcheck, spellcheck, uploading
+    //   drafts_mbox, editor_on, mp_padding, resizebcc, resizecc, resizeto,
+    //   row_height, sbtext, skip_spellcheck, spellcheck, uploading
     last_msg: '',
     textarea_ready: true,
 
@@ -19,7 +19,16 @@ var DimpCompose = {
     {
         if (window.confirm(DIMP.text_compose.cancel)) {
             DimpCore.doAction(DIMP.conf_compose.auto_save_interval_val ? 'DeleteDraft' : 'CancelCompose', { imp_compose: $F('composeCache') });
+            this.updateDraftsMailbox();
             return this.closeCompose();
+        }
+    },
+
+    updateDraftsMailbox: function()
+    {
+        if (DIMP.baseWindow &&
+            DIMP.baseWindow.DimpBase.folder == DIMP.conf_compose.drafts_mbox) {
+            DIMP.baseWindow.DimpBase.poll();
         }
     },
 
@@ -216,19 +225,18 @@ var DimpCompose = {
         if (d.success || d.action == 'add_attachment') {
             switch (d.action) {
             case 'auto_save_draft':
-                this.button_pressed = false;
-                break;
-
             case 'save_draft':
                 this.button_pressed = false;
-                if (DIMP.baseWindow) {
-                    DIMP.baseWindow.DimpBase.poll();
-                    if (!DIMP.conf_compose.qreply) {
+
+                this.updateDraftsMailbox();
+
+                if (d.action == 'save_draft') {
+                    if (DIMP.baseWindow && !DIMP.conf_compose.qreply) {
                         DIMP.baseWindow.DimpCore.showNotifications(r.msgs);
                     }
-                }
-                if (DIMP.conf_compose.close_draft) {
-                    return this.closeCompose();
+                    if (DIMP.conf_compose.close_draft) {
+                        return this.closeCompose();
+                    }
                 }
                 break;
 
