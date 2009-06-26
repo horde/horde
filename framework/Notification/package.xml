@@ -40,7 +40,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Event.php" role="php" />
       <file name="Listener.php" role="php" />
      </dir> <!-- /lib/Horde/Notification -->
-     <file baseinstalldir="/Horde" name="Notification.php" role="php" />
+     <file name="Notification.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
   </dir> <!-- / -->
