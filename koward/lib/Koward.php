@@ -58,10 +58,10 @@ class Koward {
         include_once 'Horde/Perms.php';
         include_once 'Horde/Registry.php';
 
+        $registry = Registry::singleton();
+
         $notification = &Horde_Notification::singleton();
         $notification->attach('status');
-
-        $registry = Registry::singleton();
 
         /* Browser detection object. */
         if (class_exists('Horde_Browser')) {
