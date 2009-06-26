@@ -437,14 +437,12 @@ var DimpCompose = {
         }
 
         // Set auto-save-drafts now if not already active.
-        if (DIMP.conf_compose.auto_save_interval_val && !this.auto_save_interval) {
+        if (DIMP.conf_compose.auto_save_interval_val &&
+            !this.auto_save_interval) {
             this.auto_save_interval = new PeriodicalExecuter(function() {
-                var cur_msg;
-                if (this.editor_on) {
-                    cur_msg = FCKeditorAPI.GetInstance('message').GetHTML();
-                } else {
-                    cur_msg = $F(msgval);
-                }
+                var cur_msg = this.editor_on
+                    ? FCKeditorAPI.GetInstance('message').GetHTML()
+                    : $F(msgval);
                 cur_msg = cur_msg.replace(/\r/g, '');
                 if (!cur_msg.empty() && this.last_msg != cur_msg) {
                     this.uniqueSubmit('auto_save_draft');

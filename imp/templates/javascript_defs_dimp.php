@@ -129,6 +129,7 @@ if ($compose_mode) {
     /* Variables used in compose page. */
     $code['conf_compose'] = array_filter(array(
         'attach_limit' => ($GLOBALS['conf']['compose']['attach_count_limit'] ? intval($GLOBALS['conf']['compose']['attach_count_limit']) : -1),
+        'auto_save_interval_val' => intval($GLOBALS['prefs']->getValue('auto_save_drafts')),
         'bcc' => intval($GLOBALS['prefs']->getValue('compose_bcc')),
         'cc' => intval($GLOBALS['prefs']->getValue('compose_cc')),
         'close_draft' => intval($GLOBALS['prefs']->getValue('close_draft')),

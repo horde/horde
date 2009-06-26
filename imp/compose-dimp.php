@@ -105,7 +105,9 @@ if (count($_POST)) {
             /* Delete existing draft. */
             _removeAutoSaveDraft($old_index);
 
-            if ($action != 'auto_save_draft') {
+            if ($action == 'auto_save_draft') {
+                $notification->push(_("Draft automatically saved."), 'horde.message');
+            } else {
                 $notification->push($res);
             }
         } catch (IMP_Compose_Exception $e) {
