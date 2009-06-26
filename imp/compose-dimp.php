@@ -180,7 +180,10 @@ if (count($_POST)) {
         }
 
         if ($sent && $prefs->getValue('compose_confirm')) {
-            $notification->push(empty($header['subject']) ? _("Message sent successfully.") : sprintf(_("Message \"%s\" sent successfully."), $header['subject']), 'horde.success');
+            $notify_text = (Horde_String::length($header['subject']) > 100)
+                ? Horde_String::substr($header['subject'], 0, 100) . ' ...'
+                : $header['subject'];
+            $notification->push(empty($header['subject']) ? _("Message sent successfully.") : sprintf(_("Message \"%s\" sent successfully."), $notify_text), 'horde.success');
         }
 
         /* Update maillog information. */
