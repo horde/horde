@@ -1725,7 +1725,7 @@ var DimpBase = {
 
     _createFolderForm: function(action, text)
     {
-        var n = $($('folderform').down().cloneNode(true));
+        var n = $($('folderform').down().cloneNode(true)).writeAttribute('id', 'RB_folder');
         n.down('P').insert(text);
 
         this.cfolderaction = action;
