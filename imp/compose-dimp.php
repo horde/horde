@@ -97,11 +97,13 @@ if (count($_POST)) {
 
         /* Save the draft. */
         try {
+            $old_index = $imp_compose->getMetadata('draft_index');
+
             $res = $imp_compose->saveDraft($header, Horde_Util::getFormData('message', ''), NLS::getCharset(), Horde_Util::getFormData('html'));
             $result->success = 1;
 
             /* Delete existing draft. */
-            _removeAutoSaveDraft($imp_compose->getMetadata('draft_index'));
+            _removeAutoSaveDraft($old_index);
 
             if ($action != 'auto_save_draft') {
                 $notification->push($res);
