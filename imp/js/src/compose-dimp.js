@@ -226,7 +226,9 @@ var DimpCompose = {
                 this.button_pressed = false;
                 if (DIMP.baseWindow) {
                     DIMP.baseWindow.DimpBase.poll();
-                    DIMP.baseWindow.DimpCore.showNotifications(r.msgs);
+                    if (!DIMP.conf_compose.qreply) {
+                        DIMP.baseWindow.DimpCore.showNotifications(r.msgs);
+                    }
                 }
                 if (DIMP.conf_compose.close_draft) {
                     return this.closeCompose();
@@ -252,7 +254,9 @@ var DimpCompose = {
                         DIMP.baseWindow.DimpBase.updateMsgLog(d.log, { index: d.index, mailbox: d.reply_folder });
                     }
 
-                    DIMP.baseWindow.DimpCore.showNotifications(r.msgs);
+                    if (!DIMP.conf_compose.qreply) {
+                        DIMP.baseWindow.DimpCore.showNotifications(r.msgs);
+                    }
                 }
                 return this.closeCompose();
 
