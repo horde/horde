@@ -601,11 +601,6 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 .msgBody table td {
     padding: 0;
 }
-.msgfullread .msgBody {
-    border-left: 1px silver solid;
-    border-right: 1px silver solid;
-    border-bottom: 1px silver solid;
-}
 
 /* Message Composition. */
 .composeAddrbook {
