@@ -271,9 +271,11 @@ class IMP_Compose
         try {
             $ids = $GLOBALS['imp_imap']->ob->append($drafts_mbox, array(array('data' => $data, 'flags' => $append_flags, 'messageid' => $headers->getValue('message-id'))));
             $this->_metadata['draft_index'] = reset($ids);
+            $this->_modified = true;
             return sprintf(_("The draft has been saved to the \"%s\" folder."), IMP::displayFolder($drafts_mbox));
         } catch (Horde_Imap_Client_Exception $e) {
             unset($this->_metadata['draft_index']);
+            $this->_modified = true;
             return _("The draft was not successfully saved.");
         }
     }
@@ -337,6 +339,7 @@ class IMP_Compose
         );
 
         list($this->_metadata['draft_index'],) = explode(IMP::IDX_SEP, $index);
+        $this->_modified = true;
 
         return array(
             'header' => $header,
