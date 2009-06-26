@@ -532,14 +532,15 @@ case 'GetReplyData':
     $result->identity = $reply_msg['identity'];
     break;
 
+case 'CancelCompose':
 case 'DeleteDraft':
-    $index = Horde_Util::getPost('index');
-    if (empty($indices)) {
-        break;
+    $imp_compose = IMP_Compose::singleton(Horde_Util::getPost('imp_compose'));
+    $imp_compose->destroy();
+    if ($action == 'DeleteDraft') {
+        $imp_message = &IMP_Message::singleton();
+        $idx_array = array($imp_compose->getMetadata('draft_index') . IMP::IDX_SEP . IMP::folderPref($prefs->getValue('drafts_folder'), true));
+        $imp_message->delete($idx_array, array('nuke' => true));
     }
-    $imp_message = &IMP_Message::singleton();
-    $idx_array = array($index . IMP::IDX_SEP . IMP::folderPref($prefs->getValue('drafts_folder'), true));
-    $imp_message->delete($idx_array, array('nuke' => true));
     break;
 
 case 'DeleteAttach':

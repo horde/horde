@@ -1,10 +1,10 @@
 <?php
 /**
- * compose.php - Used by DIMP_Views_Compose:: to render the compose screen.
+ * compose.php - Used by IMP_Views_Compose:: to render the compose screen.
  *
  * Variables passed in from calling code:
- *   $args('folder', 'index'), $compose_html, $draft_index, $from, $id,
- *   $identity, $composeCache, $rte, $selected_identity, $sent_mail_folder
+ *   $compose_html, $from, $id, $identity, $composeCache, $rte,
+ *   $selected_identity, $sent_mail_folder
  *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
@@ -39,12 +39,6 @@ function _createDAcompose($text, $image, $id)
 <input type="hidden" id="action" name="action" />
 <input type="hidden" id="last_identity" name="last_identity" value="<?php echo (int)$selected_identity ?>" />
 <input type="hidden" id="html" name="html" value="<?php echo intval($rte && $compose_html) ?>" />
-<input type="hidden" id="in_reply_to" name="in_reply_to" />
-<input type="hidden" id="references" name="references" />
-<input type="hidden" id="folder" name="folder" value="<?php echo $args['folder'] ?>" />
-<input type="hidden" id="index" name="index" value="<?php echo $args['index'] ?>" />
-<input type="hidden" id="draft_index" name="draft_index" value="<?php echo $draft_index ?>" />
-<input type="hidden" id="reply_type" name="reply_type" />
 <input type="hidden" id="composeCache" name="composeCache" value="<?php echo $composeCache ?>" />
 
 <div class="dimpActions dimpActionsCompose">

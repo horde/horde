@@ -33,7 +33,7 @@ $compose_disable = !empty($conf['hooks']['disable_compose']) &&
 
 /* The headers of the message. */
 $header = array();
-foreach (array('to', 'cc', 'bcc', 'subject', 'in_reply_to', 'references') as $v) {
+foreach (array('to', 'cc', 'bcc', 'subject') as $v) {
     $header[$v] = rawurldecode(Horde_Util::getFormData($v, ''));
 }
 
@@ -101,13 +101,9 @@ if (count($_POST)) {
             $result->success = 1;
 
             /* Delete existing draft. */
-            _removeAutoSaveDraft(Horde_Util::getFormData('draft_index'));
+            _removeAutoSaveDraft($imp_compose->getMetadata('draft_index'));
 
-            if ($action == 'auto_save_draft') {
-                /* Just update the last draft index so subsequent
-                 * drafts are properly replaced. */
-                $result->draft_index = (int)$imp_compose->saveDraftIndex();
-            } else {
+            if ($action != 'auto_save_draft') {
                 $notification->push($res);
             }
         } catch (IMP_Compose_Exception $e) {
@@ -140,11 +136,10 @@ if (count($_POST)) {
         $message = Horde_Util::getFormData('message');
         $html = Horde_Util::getFormData('html');
 
-        $result->index = intval(Horde_Util::getFormData('index'));
+        $result->index = $imp_compose->getMetadata('index');
 
-        $reply_folder = Horde_Util::getFormData('folder');
-        if ($reply_type = Horde_Util::getFormData('reply_type')) {
-            $result->reply_folder = Horde_Util::getFormData('folder');
+        if ($reply_type = $imp_compose->getMetadata('reply_type')) {
+            $result->reply_folder = $imp_compose->getMetadata('mailbox');
             $result->reply_type = $reply_type;
         }
 
@@ -155,8 +150,6 @@ if (count($_POST)) {
 
         $options = array(
             'readreceipt' => Horde_Util::getFormData('request_read_receipt'),
-            'reply_index' => $result->index . IMP::IDX_SEP . $reply_folder,
-            'reply_type' => $reply_type,
             'save_attachments' => Horde_Util::getFormData('save_attachments_select'),
             'save_sent' => (($prefs->isLocked('save_sent_mail'))
                             ? $identity->getValue('save_sent_mail')
@@ -175,7 +168,7 @@ if (count($_POST)) {
         /* Remove any auto-saved drafts. */
         if ($prefs->getValue('auto_save_drafts') ||
             $prefs->getValue('auto_delete_drafts')) {
-            _removeAutoSaveDraft(Horde_Util::getFormData('draft_index'));
+            _removeAutoSaveDraft($imp_compose->getMetadata('draft_index'));
             $result->draft_delete = 1;
         }
 
@@ -187,10 +180,12 @@ if (count($_POST)) {
         }
 
         /* Update maillog information. */
-        if (!empty($header['in_reply_to']) &&
-            !empty($GLOBALS['conf']['maillog']['use_maillog']) &&
-            ($tmp = DIMP::getMsgLogInfo($header['in_reply_to']))) {
-            $result->log = $tmp;
+        if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
+            $in_reply_to = $imp_compose->getMetadata('in_reply_to');
+            if (!empty($in_reply_to) &&
+                ($tmp = DIMP::getMsgLogInfo($in_reply_to))) {
+                $result->log = $tmp;
+            }
         }
 
         $res = DIMP::getFolderResponse($imptree);
@@ -306,19 +301,18 @@ if ($get_sig && !empty($sig)) {
         : $msg . "\n" . $sig;
 }
 
-$args = array(
-    'folder' => $folder,
-    'index' => $index,
-    'composeCache' => $imp_compose->getCacheId(),
-    'qreply' => false,
-);
-
 $t = new IMP_Template(IMP_TEMPLATES . '/imp/');
 $t->setOption('gettext', true);
 $t->set('title', $title);
 $t->set('closelink', IMP::img('close.png', 'X', array('id' => 'compose_close'), $registry->getImageDir('horde')));
 
-$compose_result = IMP_Views_Compose::showCompose($args);
+$compose_result = IMP_Views_Compose::showCompose(array(
+    'folder' => $folder,
+    'index' => $index,
+    'composeCache' => $imp_compose->getCacheId(),
+    'qreply' => false,
+));
+
 $t->set('compose_html', $compose_result['html']);
 
 /* Javscript variables to be set immediately. */

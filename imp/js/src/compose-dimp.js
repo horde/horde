@@ -18,9 +18,7 @@ var DimpCompose = {
     confirmCancel: function()
     {
         if (window.confirm(DIMP.text_compose.cancel)) {
-            if (DIMP.conf_compose.auto_save_interval_val) {
-                DimpCore.doAction('DeleteDraft', { index: $F('index') });
-            }
+            DimpCore.doAction(DIMP.conf_compose.auto_save_interval_val ? 'DeleteDraft' : 'CancelCompose', { imp_compose: $F('composeCache') });
             return this.closeCompose();
         }
     },
@@ -45,7 +43,7 @@ var DimpCompose = {
             this.removeAttach(al);
         }
 
-        $('draft_index', 'composeCache').invoke('setValue', '');
+        $('composeCache').setValue('');
         $('qreply', 'sendcc', 'sendbcc').invoke('hide');
         [ $('msgData'), $('togglecc').up(), $('togglebcc').up() ].invoke('show');
         if (this.editor_on) {
@@ -219,7 +217,6 @@ var DimpCompose = {
             switch (d.action) {
             case 'auto_save_draft':
                 this.button_pressed = false;
-                $('draft_index').setValue(d.draft_index);
                 break;
 
             case 'save_draft':
@@ -242,6 +239,7 @@ var DimpCompose = {
                         DIMP.baseWindow.DimpBase.flag(d.reply_type == 'reply' ? '\\answered' : '$forwarded', true, { index: d.index, mailbox: d.reply_folder, noserver: true });
                     }
 
+                    // @TODO: Needed?
                     if (d.folder) {
                         DIMP.baseWindow.DimpBase.createFolder(d.folder);
                     }
@@ -489,9 +487,6 @@ var DimpCompose = {
             this.toggleCC('bcc');
         }
         $('subject').setValue(header.subject);
-        $('in_reply_to').setValue(header.in_reply_to);
-        $('references').setValue(header.references);
-        $('reply_type').setValue(header.replytype);
 
         Field.focus(focus || 'to');
         this.resizeMsgArea();

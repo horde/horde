@@ -31,10 +31,7 @@ require_once 'Horde/Identity.php';
 
 /* The message text and headers. */
 $msg = '';
-$header = array(
-    'in_reply_to' => Horde_Util::getFormData('in_reply_to'),
-    'references' => Horde_Util::getFormData('references')
-);
+$header = array();
 
 /* Set the current identity. */
 $identity = &Identity::singleton(array('imp', 'imp'));
@@ -161,7 +158,10 @@ case _("Send"):
     $f_cc = $f_bcc = null;
     $header = array();
 
-    if ($ctype = Horde_Util::getFormData('ctype')) {
+    $index = $imp_compose->getMetadata('index');
+    $thismailbox = $imp_compose->getMetadata('mailbox');
+
+    if ($ctype = $imp_compose->getMetadata('reply_type')) {
         if (!($imp_contents = &_getIMPContents($index, $thismailbox))) {
             break;
         }
@@ -208,13 +208,13 @@ case _("Send"):
     $options = array(
         'save_sent' => $save_sent_mail,
         'sent_folder' => $sent_mail_folder,
-        'reply_type' => $ctype,
-        'reply_index' => empty($index) ? null : $index . IMP::IDX_SEP . $thismailbox,
         'readreceipt' => Horde_Util::getFormData('request_read_receipt')
     );
 
     try {
         if ($imp_compose->buildAndSendMessage($message, $header, NLS::getEmailCharset(), false, $options)) {
+            $imp_compose->destroy();
+
             if (Horde_Util::getFormData('resume_draft') &&
                 $prefs->getValue('auto_delete_drafts')) {
                 $imp_message = &IMP_Message::singleton();

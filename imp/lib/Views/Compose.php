@@ -66,10 +66,9 @@ class IMP_Views_Compose
             );
         }
 
-        $draft_index = $composeCache = null;
+        $composeCache = null;
         if (!empty($args['composeCache'])) {
             $imp_compose = &IMP_Compose::singleton($args['composeCache']);
-            $draft_index = intval($imp_compose->saveDraftIndex());
             $composeCache = $args['composeCache'];
 
             if ($imp_compose->numberOfAttachments()) {

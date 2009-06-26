@@ -61,14 +61,9 @@ $session_control = 'netscape';
 require_once dirname(__FILE__) . '/lib/base.php';
 require_once 'Horde/Identity.php';
 
-/* The message text. */
+/* The message headers and text. */
+$header = array();
 $msg = '';
-
-/* The headers of the message. */
-$header = array(
-    'in_reply_to' => Horde_Util::getFormData('in_reply_to'),
-    'references' => Horde_Util::getFormData('references')
-);
 
 $get_sig = true;
 $pgp_passphrase_dialog = $pgp_symmetric_passphrase_dialog = $showmenu = $smime_passphrase_dialog = false;
@@ -120,7 +115,6 @@ if ($actionID) {
 $save_sent_mail = Horde_Util::getFormData('save_sent_mail');
 $sent_mail_folder = $identity->getValue('sent_mail_folder');
 $index = Horde_Util::getFormData('index');
-$reply_index = Horde_Util::getFormData('reply_index');
 $thismailbox = Horde_Util::getFormData('thismailbox');
 
 /* Check for duplicate submits. */
@@ -338,7 +332,6 @@ case 'reply_list':
     $title .= ' ' . $header['subject'];
 
     $encoding = empty($charset) ? $reply_msg['encoding'] : $charset;
-    $reply_index = $index;
     break;
 
 case 'forward':
@@ -368,6 +361,7 @@ case 'redirect_send':
 
     try {
         $imp_ui->redirectMessage($f_to, $imp_compose, $imp_contents, $encoding);
+        $imp_compose->destroy();
         if ($isPopup) {
             if ($prefs->getValue('compose_confirm')) {
                 $notification->push(_("Message redirected successfully."), 'horde.success');
@@ -422,8 +416,6 @@ case 'send_message':
         'save_sent' => $save_sent_mail,
         'sent_folder' => $sent_mail_folder,
         'save_attachments' => Horde_Util::getFormData('save_attachments_select'),
-        'reply_type' => Horde_Util::getFormData('reply_type'),
-        'reply_index' => (empty($reply_index) ? null : $reply_index . IMP::IDX_SEP . $thismailbox),
         'encrypt' => $prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : Horde_Util::getFormData('encrypt_options'),
         'priority' => Horde_Util::getFormData('x_priority'),
         'readreceipt' => Horde_Util::getFormData('request_read_receipt')
@@ -431,6 +423,7 @@ case 'send_message':
 
     try {
         $sent = $imp_compose->buildAndSendMessage($message, $header, $charset, $rtemode, $options);
+        $imp_compose->destroy();
     } catch (IMP_Compose_Exception $e) {
         $get_sig = false;
         $code = $e->getCode();
@@ -502,6 +495,7 @@ case 'save_draft':
     /* Save the draft. */
     try {
         $result = $imp_compose->saveDraft($header, $message, NLS::getCharset(), $rtemode);
+        $imp_compose->destroy();
 
         /* Closing draft if requested by preferences. */
         if ($isPopup) {
@@ -538,6 +532,7 @@ case 'fwd_digest':
 
 case 'cancel_compose':
     $imp_compose->deleteAllAttachments();
+    $imp_compose->destroy();
     if ($isPopup) {
         Horde_Util::closeWindowJS();
     } else {
@@ -874,20 +869,6 @@ if ($redirect) {
 
     $template_output = $t->fetch(IMP_TEMPLATES . '/compose/redirect.html');
 } else {
-    if (!($reply_type = Horde_Util::getFormData('reply_type'))) {
-        switch ($actionID) {
-        case 'reply':
-        case 'reply_all':
-        case 'reply_list':
-            $reply_type = 'reply';
-            break;
-
-        case 'forward':
-            $reply_type = 'forward';
-            break;
-        }
-    }
-
     /* Prepare the compose template. */
     $tabindex = 0;
 
@@ -901,11 +882,9 @@ if ($redirect) {
         'compose_formToken' => Horde_Token::generateId('compose'),
         'composeCache' => $composeCacheID,
         'mailbox' => htmlspecialchars($imp_mbox['mailbox']),
-        'thismailbox' => $thismailbox,
         'attachmentAction' => '',
         'oldrtemode' => $rtemode,
-        'rtemode' => $rtemode,
-        'index' => $index
+        'rtemode' => $rtemode
     );
 
     if ($_SESSION['imp']['file_upload']) {
@@ -913,14 +892,6 @@ if ($redirect) {
     }
     foreach (array('page', 'start', 'popup') as $val) {
         $hidden[$val] = htmlspecialchars(Horde_Util::getFormData($val));
-    }
-    if ($reply_type) {
-        $hidden['reply_type'] = $reply_type;
-        $hidden['reply_index'] = $reply_index;
-        $hidden['in_reply_to'] = htmlspecialchars($header['in_reply_to']);
-        if ($reply_type == 'reply') {
-            $hidden['references'] = htmlspecialchars($header['references']);
-        }
     }
     if (!empty($resume_draft)) {
         $hidden['resume_draft'] = 1;

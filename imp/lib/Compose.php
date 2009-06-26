@@ -23,11 +23,25 @@ class IMP_Compose
     const VFS_DRAFTS_PATH = '.horde/imp/drafts';
 
     /**
+     * Singleton instances.
+     *
+     * @var array
+     */
+    static protected $_instances = array();
+
+    /**
      * The cached attachment data.
      *
      * @var array
      */
     protected $_cache = array();
+
+    /**
+     * Various metadata for this message.
+     *
+     * @var array
+     */
+    protected $_metadata = array();
 
     /**
      * The aggregate size of all attachments (in bytes).
@@ -59,13 +73,6 @@ class IMP_Compose
     protected $_linkAttach = false;
 
     /**
-     * The UID of the last draft saved via saveDraft().
-     *
-     * @var integer
-     */
-    protected $_draftIdx;
-
-    /**
      * The cache ID used to store object in session.
      *
      * @var string
@@ -73,7 +80,7 @@ class IMP_Compose
     protected $_cacheid;
 
     /**
-     * Has the attachment list been modified.
+     * Mark as modified for purposes of storing in the session.
      *
      * @var boolean
      */
@@ -91,22 +98,17 @@ class IMP_Compose
      */
     static public function singleton($cacheid = null)
     {
-        static $instance = array();
-
-        if (!is_null($cacheid) && !isset($instance[$cacheid])) {
-            $cacheSess = Horde_SessionObjects::singleton();
-            $instance[$cacheid] = $cacheSess->query($cacheid);
-            if (!empty($instance[$cacheid])) {
-                $cacheSess->setPruneFlag($cacheid, true);
-            }
+        if (!is_null($cacheid) && !isset(self::$_instances[$cacheid])) {
+            $obs = Horde_SessionObjects::singleton();
+            self::$_instances[$cacheid] = $obs->query($cacheid);
         }
 
-        if (is_null($cacheid) || empty($instance[$cacheid])) {
+        if (is_null($cacheid) || empty(self::$_instances[$cacheid])) {
             $cacheid = is_null($cacheid) ? uniqid(mt_rand()) : $cacheid;
-            $instance[$cacheid] = new IMP_Compose($cacheid);
+            self::$_instances[$cacheid] = new IMP_Compose($cacheid);
         }
 
-        return $instance[$cacheid];
+        return self::$_instances[$cacheid];
     }
 
     /**
@@ -127,9 +129,32 @@ class IMP_Compose
     {
         if ($this->_modified) {
             $this->_modified = false;
-            $cacheSess = Horde_SessionObjects::singleton();
-            $cacheSess->overwrite($this->_cacheid, $this, false);
+            $obs = Horde_SessionObjects::singleton();
+            $obs->overwrite($this->_cacheid, $this, false);
         }
+    }
+
+    /**
+     * Destroys an IMP_Compose instance.
+     */
+    public function destroy()
+    {
+        $obs = Horde_SessionObjects::singleton();
+        $obs->prune($this->_cacheid);
+    }
+
+    /**
+     * Gets metadata about the current object.
+     *
+     * @param string $name  The metadata name.
+     *
+     * @return mixed  The metadata value or null if it doesn't exist.
+     */
+    public function getMetadata($name)
+    {
+        return isset($this->_metadata[$name])
+            ? $this->_metadata[$name]
+            : null;
     }
 
     /**
@@ -223,7 +248,6 @@ class IMP_Compose
     protected function _saveDraftServer($data, $drafts_mbox)
     {
         $imp_folder = IMP_Folder::singleton();
-        $this->_draftIdx = null;
 
         /* Check for access to drafts folder. */
         if (!$imp_folder->exists($drafts_mbox) &&
@@ -246,21 +270,12 @@ class IMP_Compose
         /* Add the message to the mailbox. */
         try {
             $ids = $GLOBALS['imp_imap']->ob->append($drafts_mbox, array(array('data' => $data, 'flags' => $append_flags, 'messageid' => $headers->getValue('message-id'))));
-            $this->_draftIdx = reset($ids);
+            $this->_metadata['draft_index'] = reset($ids);
             return sprintf(_("The draft has been saved to the \"%s\" folder."), IMP::displayFolder($drafts_mbox));
         } catch (Horde_Imap_Client_Exception $e) {
+            unset($this->_metadata['draft_index']);
             return _("The draft was not successfully saved.");
         }
-    }
-
-    /**
-     * Returns the UID of the last message saved via saveDraft().
-     *
-     * @return integer  An IMAP UID.
-     */
-    public function saveDraftIndex()
-    {
-        return $this->_draftIdx;
     }
 
     /**
@@ -321,7 +336,7 @@ class IMP_Compose
             'subject' => $headers->getValue('subject')
         );
 
-        list($this->_draftIdx,) = explode(IMP::IDX_SEP, $index);
+        list($this->_metadata['draft_index'],) = explode(IMP::IDX_SEP, $index);
 
         return array(
             'header' => $header,
@@ -330,7 +345,6 @@ class IMP_Compose
             'msg' => $message
         );
     }
-
 
     /**
      * Builds and sends a MIME message.
@@ -344,10 +358,6 @@ class IMP_Compose
      * 'save_sent' = (bool) Save sent mail?
      * 'sent_folder' = (string) The sent-mail folder (UTF7-IMAP).
      * 'save_attachments' = (bool) Save attachments with the message?
-     * 'reply_type' = (string) What kind of reply this is (reply or forward).
-     * 'reply_index' = (string) The IMAP message mailbox/index of the message
-     *                 we are replying to. The index should be in
-     *                 IMP::parseIndicesList() format #1.
      * 'encrypt' => (integer) A flag whether to encrypt or sign the message.
      *              One of IMP::PGP_ENCRYPT, IMP::PGP_SIGNENC,
      *              IMP::SMIME_ENCRYPT, or IMP::SMIME_SIGNENC.
@@ -463,12 +473,13 @@ class IMP_Compose
         $headers->addHeader('Subject', Horde_String::convertCharset($header['subject'], $browser_charset, $charset));
 
         /* Add necessary headers for replies. */
-        if (!empty($opts['reply_type']) && ($opts['reply_type'] == 'reply')) {
-            if (!empty($header['references'])) {
-                $headers->addHeader('References', implode(' ', preg_split('|\s+|', trim($header['references']))));
+        if (!empty($this->_metadata['reply_type']) &&
+            ($this->_metadata['reply_type'] == 'reply')) {
+            if (!empty($this->_metadata['references'])) {
+                $headers->addHeader('References', implode(' ', preg_split('|\s+|', trim($this->_metadata['references']))));
             }
-            if (!empty($header['in_reply_to'])) {
-                $headers->addHeader('In-Reply-To', $header['in_reply_to']);
+            if (!empty($this->_metadata['in_reply_to'])) {
+                $headers->addHeader('In-Reply-To', $this->_metadata['in_reply_to']);
             }
         }
 
@@ -501,7 +512,7 @@ class IMP_Compose
                 /* Unsuccessful send. */
                 Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
                 if (isset($sentmail)) {
-                    $sentmail->log(empty($opts['reply_type']) ? 'new' : $opts['reply_type'], $headers->getValue('message-id'), $val['recipients'], false);
+                    $sentmail->log(empty($this->_metadata['reply_type']) ? 'new' : $this->_metadata['reply_type'], $headers->getValue('message-id'), $val['recipients'], false);
                 }
 
                 throw new IMP_Compose_Exception(sprintf(_("There was an error sending your message: %s"), $e->getMessage()));
@@ -509,37 +520,35 @@ class IMP_Compose
 
             /* Store history information. */
             if (isset($sentmail)) {
-                $sentmail->log(empty($opts['reply_type']) ? 'new' : $opts['reply_type'], $headers->getValue('message-id'), $val['recipients'], true);
+                $sentmail->log(empty($this->_metadata['reply_type']) ? 'new' : $this->_metadata['reply_type'], $headers->getValue('message-id'), $val['recipients'], true);
             }
         }
 
         $sent_saved = true;
 
-        if (!empty($opts['reply_type'])) {
+        if (!empty($this->_metadata['reply_type'])) {
             /* Log the reply. */
-            if (!empty($header['in_reply_to']) &&
+            if (!empty($this->_metadata['in_reply_to']) &&
                 !empty($conf['maillog']['use_maillog'])) {
-                IMP_Maillog::log($opts['reply_type'], $header['in_reply_to'], $recipients);
+                IMP_Maillog::log($this->_metadata['reply_type'], $this->_metadata['in_reply_to'], $recipients);
             }
 
-            if (!empty($opts['reply_index'])) {
-                $imp_message = IMP_Message::singleton();
+            $imp_message = IMP_Message::singleton();
+            $reply_index = array($this->_metadata['index'] . IMP::IDX_SEP . $this->_metadata['mailbox']);
 
-                switch ($opts['reply_type']) {
-                case 'reply':
-                    /* Make sure to set the IMAP reply flag and unset any
-                     * 'flagged' flag. */
-                    $imp_message->flag(array('\\answered'), array($opts['reply_index']));
-                    $imp_message->flag(array('\\flagged'), array($opts['reply_index']), false);
-                    break;
+            switch ($this->_metadata['reply_type']) {
+            case 'reply':
+                /* Make sure to set the IMAP reply flag and unset any
+                 * 'flagged' flag. */
+                $imp_message->flag(array('\\answered'), $reply_index);
+                $imp_message->flag(array('\\flagged'), $reply_index, false);
+                break;
 
-                case 'forward':
-                    /* Set the '$Forwarded' flag, if possible, in the mailbox.
-                     * This flag is a pseudo-standard flag. See, e.g.:
-                     * http://tools.ietf.org/html/draft-melnikov-imap-keywords-03 */
-                    $imp_message->flag(array('$Forwarded'), array($opts['reply_index']));
-                    break;
-                }
+            case 'forward':
+                /* Set the '$Forwarded' flag, if possible, in the mailbox.
+                 * See RFC 4550 [2.8] */
+                $imp_message->flag(array('$Forwarded'), $reply_index);
+                break;
             }
         }
 
@@ -1170,22 +1179,27 @@ class IMP_Compose
             'to' => '',
             'cc' => '',
             'bcc' => '',
-            'subject' => '',
-            'in_reply_to' => '',
-            'references' => ''
+            'subject' => ''
         );
 
         $h = $contents->getHeaderOb();
         $match_identity = $this->_getMatchingIdentity($h);
 
-        /* Set the message_id and references headers. */
+        $this->_metadata['index'] = $contents->getIndex();
+        $this->_metadata['mailbox'] = $contents->getMailbox();
+        $this->_metadata['reply_type'] = 'reply';
+        $this->_modified = true;
+
+        /* Set the message-id related headers. */
         if (($msg_id = $h->getValue('message-id'))) {
-            $header['in_reply_to'] = chop($msg_id);
-            if (($header['references'] = $h->getValue('references'))) {
-                $header['references'] .= ' ' . $header['in_reply_to'];
+            $this->_metadata['in_reply_to'] = chop($msg_id);
+
+            if (($refs = $h->getValue('references'))) {
+                $refs .= ' ' . $this->_metadata['in_reply_to'];
             } else {
-                $header['references'] = $header['in_reply_to'];
+                $refs = $this->_metadata['in_reply_to'];
             }
+            $this->_metadata['references'] = $refs;
         }
 
         $subject = $h->getValue('subject');
@@ -1349,18 +1363,21 @@ class IMP_Compose
             'to' => '',
             'cc' => '',
             'bcc' => '',
-            'subject' => '',
-            'in_reply_to' => '',
-            'references' => ''
+            'subject' => ''
         );
 
         $h = $contents->getHeaderOb();
         $format = 'text';
         $msg = '';
 
-        /* We need the Message-Id so we can log this event. */
-        $message_id = $h->getValue('message-id');
-        $header['in_reply_to'] = chop($message_id);
+        $this->_metadata['index'] = $contents->getIndex();
+        $this->_metadata['mailbox'] = $contents->getMailbox();
+
+        /* We need the Message-Id so we can log this event. This header is not
+         * added to the outgoing messages. */
+        $this->_metadata['in_reply_to'] = trim($h->getValue('message-id'));
+        $this->_metadata['reply_type'] = 'forward';
+        $this->_modified = true;
 
         $header['subject'] = $h->getValue('subject');
         if (!empty($header['subject'])) {
