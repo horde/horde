@@ -1553,10 +1553,9 @@ class IMP
      * Outputs the necessary style tags, honoring local configuration
      * choices as to stylesheet caching.
      *
-     * @param boolean $print  Include print CSS?
-     * @param string $app     The application to load ('dimp' or 'imp').
+     * @param string $app  The application to load ('dimp' or 'imp').
      */
-    static public function includeStylesheetFiles($print = false, $app = 'imp')
+    static public function includeStylesheetFiles($app = 'imp')
     {
         global $conf, $prefs, $registry;
 
@@ -1569,30 +1568,6 @@ class IMP
             $css = self::_getDIMPStylesheets($theme);
         }
         $css_out = array();
-
-        // Add print specific stylesheets.
-        if ($print) {
-            // Add Horde print stylesheet
-            $tmp = array('u' => $registry->get('themesuri', 'horde') . '/print/screen.css',
-                         'f' => $registry->get('themesfs', 'horde') . '/print/screen.css');
-            if ($app == 'dimp') {
-                $tmp['m'] = 'print';
-                $css_out[] = $tmp;
-                $css_out[] = array('u' => $themesuri . '/print-dimp.css',
-                                   'f' => $themesfs . '/print-dimp.css',
-                                   'm' => 'print');
-            } else {
-                $css_out[] = $tmp;
-            }
-            if (file_exists($themesfs . '/' . $theme . '/print.css')) {
-                $tmp = array('u' => $themesuri . '/' . $theme . '/print.css',
-                             'f' => $themesfs . '/' . $theme . '/print.css');
-                if ($app == 'dimp') {
-                    $tmp['m'] = 'print';
-                }
-                $css_out[] = $tmp;
-            }
-        }
 
         if ($app == 'dimp') {
             // Load custom stylesheets.
@@ -1674,7 +1649,7 @@ class IMP
         }
 
         foreach ($css_out as $file) {
-            echo '<link href="' . $file['u'] . '" rel="stylesheet" type="text/css"' . (isset($file['m']) ? ' media="' . $file['m'] . '"' : '') . ' />' . "\n";
+            echo '<link href="' . $file['u'] . '" rel="stylesheet" type="text/css" />' . "\n";
         }
     }
 

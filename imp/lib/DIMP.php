@@ -103,7 +103,7 @@ class DIMP
              '<link href="' . $GLOBALS['registry']->getImageDir() . "/favicon.ico\" rel=\"SHORTCUT ICON\" />\n";
         include IMP_BASE . '/templates/javascript_defs_dimp.php';
 
-        IMP::includeStylesheetFiles(true, 'dimp');
+        IMP::includeStylesheetFiles('dimp');
 
         echo "</head>\n";
 

@@ -15,7 +15,7 @@ if (!empty($refresh_time) && !empty($refresh_url)) {
 }
 echo Horde_Util::bufferOutput('require', IMP_TEMPLATES . '/javascript_defs.php');
 IMP::includeScriptFiles();
-IMP::includeStylesheetFiles(!empty($printer_friendly));
+IMP::includeStylesheetFiles();
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
 <link href="<?php echo $GLOBALS['registry']->getImageDir() ?>/favicon.ico" rel="SHORTCUT ICON" />
