@@ -154,6 +154,10 @@ class Koward_Form_Object extends Horde_Form {
                 } else {
                     $form_attributes[$key]['label'] = $key;
                 }
+                if (isset($this->koward->attributes[$key])) {
+                    $form_attributes[$key] = array_merge($form_attributes[$key],
+                                                         $this->koward->attributes[$key]);
+                }
                 if (isset($config['attributes']['fields'][$key])) {
                     $form_attributes[$key] = array_merge($form_attributes[$key],
                                                          $config['attributes']['fields'][$key]);
