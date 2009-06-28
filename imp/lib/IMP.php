@@ -138,7 +138,7 @@ class IMP
      */
     static public function getLabel($mbox)
     {
-        return ($GLOBALS['imp_search']->isSearchMbox($mbox))
+        return IMP_Search::isSearchMbox($mbox)
             ? $GLOBALS['imp_search']->getLabel($mbox)
             : self::displayFolder($mbox);
     }

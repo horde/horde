@@ -269,7 +269,7 @@ class IMP_Search
     public function getLabel($id = null)
     {
         $id = $this->_strip($id);
-        return (isset($_SESSION['imp']['search']['q'][$id]['label']))
+        return isset($_SESSION['imp']['search']['q'][$id]['label'])
             ? $_SESSION['imp']['search']['q'][$id]['label']
             : '';
     }
@@ -666,7 +666,7 @@ class IMP_Search
         $pos = strpos($id, null);
         return ($pos === false)
             ? $id
-            : substr($id, $pos);
+            : substr($id, $pos + 1);
     }
 
     /**
