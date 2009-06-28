@@ -54,6 +54,9 @@ class Kronolith_Imple_Embed extends Kronolith_Imple {
         /* Default to no limit for the number of events */
         $max_events = (!empty($args['maxevents']) ? $args['maxevents'] : 0);
 
+        /* Default to one week */
+        $count_days = (!empty($args['days']) ? $args['days'] : 7);
+
         if (!empty($args['css']) && $args['css'] == 'none') {
             $nocss = true;
         }
@@ -65,15 +68,14 @@ class Kronolith_Imple_Embed extends Kronolith_Imple {
         /* Build the block parameters */
         $params = array('calendar' => $calendar,
                         'maxevents' => $max_events,
-                        'months' => $count_month);
+                        'months' => $count_month,
+                        'days' => $count_days);
 
         /* Call the Horde_Block api to get the calendar HTML */
         $title = $registry->call('horde/blockTitle', array('kronolith', $view, $params));
         $results = $registry->call('horde/blockContent', array('kronolith', $view, $params));
 
         /* Some needed paths */
-        // @TODO: Is this going to be merged to FW_3? If so, need to keep this
-        // in Kronolith's js path - otherwise we can change it to Horde's
         $js_path = $registry->get('jsuri', 'horde');
         $pturl = Horde::url($js_path . '/prototype.js', true);
 
