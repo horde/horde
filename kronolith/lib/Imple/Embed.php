@@ -89,7 +89,7 @@ class Kronolith_Imple_Embed extends Kronolith_Imple {
         /* CSS */
         if (empty($nocss)) {
             $cssurl = Horde::url($registry->get('themesuri', 'kronolith') . '/embed.css', true);
-            $hcssurl = Horde::url($registry->get('themesurl', 'horde') . '/embed.css', true);
+            $hcssurl = Horde::url($registry->get('themesuri', 'horde') . '/embed.css', true);
         } else {
             $cssurl= '';
         }
