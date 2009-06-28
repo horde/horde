@@ -10,10 +10,7 @@
 
 @define('KRONOLITH_BASE', dirname(dirname(__FILE__)));
 require_once KRONOLITH_BASE . '/lib/base.php';
-require_once 'Horde/RPC.php';
-if (@include_once 'HTTP/WebDAV/Server.php') {
-    require_once 'Horde/RPC/webdav.php';
-}
+@include_once 'HTTP/WebDAV/Server.php';
 
 // Exit if this isn't an authenticated user.
 if (!Auth::getAuth()) {
