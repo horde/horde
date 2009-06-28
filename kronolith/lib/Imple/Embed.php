@@ -74,7 +74,7 @@ class Kronolith_Imple_Embed extends Kronolith_Imple {
         /* Some needed paths */
         // @TODO: Is this going to be merged to FW_3? If so, need to keep this
         // in Kronolith's js path - otherwise we can change it to Horde's
-        $js_path = $registry->get('jsuri', 'kronolith');
+        $js_path = $registry->get('jsuri', 'horde');
         $pturl = Horde::url($js_path . '/prototype.js', true);
 
         /* Local js */
