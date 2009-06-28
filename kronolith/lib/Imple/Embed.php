@@ -76,8 +76,7 @@ class Kronolith_Imple_Embed extends Kronolith_Imple {
         $results = $registry->call('horde/blockContent', array('kronolith', $view, $params));
 
         /* Some needed paths */
-        $js_path = $registry->get('jsuri', 'horde');
-        $pturl = Horde::url($js_path . '/prototype.js', true);
+        $js_path = $registry->get('jsuri', 'kronolith');
 
         /* Local js */
         $jsurl = Horde::url($js_path . '/embed.js', true);
@@ -85,6 +84,7 @@ class Kronolith_Imple_Embed extends Kronolith_Imple {
         /* Horde's js */
         $hjs_path = $registry->get('jsuri', 'horde');
         $hjsurl = Horde::url($hjs_path . '/horde-embed.js', true);
+        $pturl = Horde::url($hjs_path . '/prototype.js', true);
 
         /* CSS */
         if (empty($nocss)) {
