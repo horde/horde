@@ -126,7 +126,7 @@ class Horde_Block_Kronolith_monthlist extends Horde_Block {
                     $event->end = $tomorrow;
                 }
                 if (($event->end->compareDate($now) < 0 && !$event->isAllDay()) ||
-                    ($this->_params['alarms'] && !$event->alarm)) {
+                    (!empty($this->_params['alarms']) && !$event->alarm)) {
                     continue;
                 }
 
