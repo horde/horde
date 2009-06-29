@@ -58,7 +58,7 @@ class Horde_Kolab_Format_XML_Distributionlist extends Horde_Kolab_Format_XML
                 )
             );
 
-        parent::Horde_Kolab_Format_XML();
+        parent::__construct();
     }
 
     /**

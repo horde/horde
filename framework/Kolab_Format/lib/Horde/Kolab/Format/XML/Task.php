@@ -109,7 +109,7 @@ class Horde_Kolab_Format_XML_Task extends Horde_Kolab_Format_XML
             ),
         );
 
-        parent::Horde_Kolab_Format_XML();
+        parent::__construct();
     }
 
     /**

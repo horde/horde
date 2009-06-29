@@ -66,7 +66,7 @@ class Horde_Kolab_Format_XML_Hprefs extends Horde_Kolab_Format_XML
             ),
         );
 
-        parent::Horde_Kolab_Format_XML();
+        parent::__construct();
     }
 
     /**
@@ -78,7 +78,7 @@ class Horde_Kolab_Format_XML_Hprefs extends Horde_Kolab_Format_XML
      *
      * @throws Horde_Exception If parsing the XML data failed.
      */
-    protected function load(&$xmltext)
+    public function load(&$xmltext)
     {
         $object = parent::load($xmltext);
 
@@ -103,7 +103,7 @@ class Horde_Kolab_Format_XML_Hprefs extends Horde_Kolab_Format_XML
      *
      * @throws Horde_Exception If converting the data to XML failed.
      */
-    protected function save($object)
+    public function save($object)
     {
         if (empty($object['application'])) {
             if (!empty($object['categories'])) {

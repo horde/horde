@@ -15,7 +15,7 @@ require_once 'PHPUnit/Framework.php';
 require_once 'Horde/NLS.php';
 require_once 'Horde/Kolab/Format.php';
 require_once 'Horde/Kolab/Format/XML.php';
-require_once 'Horde/Kolab/Format/XML/hprefs.php';
+require_once 'Horde/Kolab/Format/XML/Hprefs.php';
 
 
 class Horde_Kolab_Format_XML_hprefs_dummy extends Horde_Kolab_Format_XML_hprefs

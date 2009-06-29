@@ -70,16 +70,16 @@ class Horde_Kolab_Format_XmlTest extends PHPUnit_Framework_TestCase
     }
 
 
-    /**
-     * Check the preparation of the basic XML structure
-     */
-    public function testBasic()
-    {
-        $xml = &new Horde_Kolab_Format_XML();
-        $xml->_prepareSave();
-        $base = $xml->_xmldoc->dump_mem(true);
-        $this->assertEquals("<?xml version=\"1.0\"?>\n<kolab version=\"1.0\"/>\n", $base);
-    }
+/*     /\** */
+/*      * Check the preparation of the basic XML structure */
+/*      *\/ */
+/*     public function testBasic() */
+/*     { */
+/*         $xml = &new Horde_Kolab_Format_XML(); */
+/*         $xml->_prepareSave(); */
+/*         $base = $xml->_xmldoc->dump_mem(true); */
+/*         $this->assertEquals("<?xml version=\"1.0\"?>\n<kolab version=\"1.0\"/>\n", $base); */
+/*     } */
 
     /**
      * The resulting XML string should be readable.

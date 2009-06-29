@@ -298,7 +298,7 @@ class Horde_Kolab_Format_XML_Contact extends Horde_Kolab_Format_XML
             ),
         );
 
-        parent::Horde_Kolab_Format_XML();
+        parent::__construct();
     }
 
     /**

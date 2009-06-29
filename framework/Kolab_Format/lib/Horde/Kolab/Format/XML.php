@@ -777,7 +777,7 @@ class Horde_Kolab_Format_XML
      */
     protected function _createTextNode($parent, $name, $value)
     {
-        $value = String::convertCharset($value, NLS::getCharset(), 'utf-8');
+        $value = Horde_String::convertCharset($value, NLS::getCharset(), 'utf-8');
 
         $node = $this->_xmldoc->create_element($name);
 
@@ -847,7 +847,7 @@ class Horde_Kolab_Format_XML
      */
     protected function _getNodeContent($node)
     {
-        return String::convertCharset($node->get_content(), 'utf-8');
+        return Horde_String::convertCharset($node->get_content(), 'utf-8');
     }
 
 

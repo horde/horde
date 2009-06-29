@@ -82,13 +82,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Date.php" role="php" />
        <file name="XML.php" role="php" />
        <dir name="XML">
-        <file name="annotation.php" role="php" />
-        <file name="contact.php" role="php" />
-        <file name="distributionlist.php" role="php" />
-        <file name="event.php" role="php" />
-        <file name="hprefs.php" role="php" />
-        <file name="note.php" role="php" />
-        <file name="task.php" role="php" />
+        <file name="Annotation.php" role="php" />
+        <file name="Contact.php" role="php" />
+        <file name="Distributionlist.php" role="php" />
+        <file name="Event.php" role="php" />
+        <file name="Hprefs.php" role="php" />
+        <file name="Note.php" role="php" />
+        <file name="Task.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Format/XML -->
       </dir> <!-- /lib/Horde/Kolab/Format -->
      </dir> <!-- /lib/Horde/Kolab -->
@@ -159,13 +159,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Kolab/Format.php" as="Horde/Kolab/Format.php" />
    <install name="lib/Horde/Kolab/Format/Date.php" as="Horde/Kolab/Format/Date.php" />
    <install name="lib/Horde/Kolab/Format/XML.php" as="Horde/Kolab/Format/XML.php" />
-   <install name="lib/Horde/Kolab/Format/XML/annotation.php" as="Horde/Kolab/Format/XML/annotation.php" />
-   <install name="lib/Horde/Kolab/Format/XML/contact.php" as="Horde/Kolab/Format/XML/contact.php" />
-   <install name="lib/Horde/Kolab/Format/XML/distributionlist.php" as="Horde/Kolab/Format/XML/distributionlist.php" />
-   <install name="lib/Horde/Kolab/Format/XML/event.php" as="Horde/Kolab/Format/XML/event.php" />
-   <install name="lib/Horde/Kolab/Format/XML/hprefs.php" as="Horde/Kolab/Format/XML/hprefs.php" />
-   <install name="lib/Horde/Kolab/Format/XML/note.php" as="Horde/Kolab/Format/XML/note.php" />
-   <install name="lib/Horde/Kolab/Format/XML/task.php" as="Horde/Kolab/Format/XML/task.php" />
+   <install name="lib/Horde/Kolab/Format/XML/Annotation.php" as="Horde/Kolab/Format/XML/Annotation.php" />
+   <install name="lib/Horde/Kolab/Format/XML/Contact.php" as="Horde/Kolab/Format/XML/Contact.php" />
+   <install name="lib/Horde/Kolab/Format/XML/Distributionlist.php" as="Horde/Kolab/Format/XML/Distributionlist.php" />
+   <install name="lib/Horde/Kolab/Format/XML/Event.php" as="Horde/Kolab/Format/XML/Event.php" />
+   <install name="lib/Horde/Kolab/Format/XML/Hprefs.php" as="Horde/Kolab/Format/XML/Hprefs.php" />
+   <install name="lib/Horde/Kolab/Format/XML/Note.php" as="Horde/Kolab/Format/XML/Note.php" />
+   <install name="lib/Horde/Kolab/Format/XML/Task.php" as="Horde/Kolab/Format/XML/Task.php" />
    <install name="test/Horde/Kolab/Format/AllTests.php" as="Horde/Kolab/Format/AllTests.php" />
    <install name="test/Horde/Kolab/Format/ContactTest.php" as="Horde/Kolab/Format/ContactTest.php" />
    <install name="test/Horde/Kolab/Format/PreferencesTest.php" as="Horde/Kolab/Format/PreferencesTest.php" />

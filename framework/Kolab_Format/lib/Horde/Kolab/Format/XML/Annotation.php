@@ -56,7 +56,7 @@ class Horde_Kolab_Format_XML_Annotation extends Horde_Kolab_Format_XML
             ),
         );
 
-        parent::Horde_Kolab_Format_XML();
+        parent::__construct();
     }
 
     /**
