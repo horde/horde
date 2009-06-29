@@ -29,7 +29,7 @@ class Horde_Kolab_Format_XML_hprefs_dummy extends Horde_Kolab_Format_XML_hprefs
         return $this->_saveDefault($parent_node,
                                    $name,
                                    $value,
-                                   array('type' => HORDE_KOLAB_XML_TYPE_DATETIME));
+                                   array('type' => self::TYPE_DATETIME));
     }
 
     function _saveModificationDate($parent_node, $name, $value, $missing)
@@ -38,7 +38,7 @@ class Horde_Kolab_Format_XML_hprefs_dummy extends Horde_Kolab_Format_XML_hprefs
         return $this->_saveDefault($parent_node,
                                    $name,
                                    0,
-                                   array('type' => HORDE_KOLAB_XML_TYPE_DATETIME));
+                                   array('type' => self::TYPE_DATETIME));
     }
 }
 

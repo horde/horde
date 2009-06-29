@@ -128,8 +128,10 @@ class Horde_Kolab_Format_XML
      * The XML document this driver works with.
      *
      * @var Horde_DOM_Document
+     *
+     * @todo Make protected (fix the XmlTest for that)
      */
-    protected $_xmldoc = null;
+    public $_xmldoc = null;
 
     /**
      * The name of the root element.
@@ -163,8 +165,10 @@ class Horde_Kolab_Format_XML
      * Fields for a simple person
      *
      * @var array
+     *
+     * @todo Make protected (fix the XmlTest for that)
      */
-    protected $_fields_simple_person = array(
+    public $_fields_simple_person = array(
         'type'    => self::TYPE_COMPOSITE,
         'value'   => self::VALUE_MAYBE_MISSING,
         'array'   => array(
@@ -190,8 +194,10 @@ class Horde_Kolab_Format_XML
      * Fields for an attendee
      *
      * @var array
+     *
+     * @todo Make protected (fix the XmlTest for that)
      */
-    protected $_fields_attendee = array(
+    public $_fields_attendee = array(
         'type'    => self::TYPE_MULTIPLE,
         'value'   => self::VALUE_DEFAULT,
         'default' => array(),
@@ -364,7 +370,7 @@ class Horde_Kolab_Format_XML
      */
     public function &factory($object_type = '', $params = null)
     {
-        $object_type = str_replace('-', '', $object_type);
+        $object_type = ucfirst(str_replace('-', '', $object_type));
         $class       = 'Horde_Kolab_Format_XML_' . $object_type;
 
         if (class_exists($class)) {
@@ -523,8 +529,10 @@ class Horde_Kolab_Format_XML
      *                string.
      *
      * @throws Horde_Exception If parsing the XML data failed.
+     *
+     * @todo Make protected (fix the XmlTest for that)
      */
-    protected function _getXmlData($children, $name, $params)
+    public function _getXmlData($children, $name, $params)
     {
         $value   = null;
         $missing = false;
@@ -586,8 +594,10 @@ class Horde_Kolab_Format_XML
      * @return Horde_DOM_Node The root node of the document.
      *
      * @throws Horde_Exception If parsing the XML data failed.
+     *
+     * @todo Make protected (fix the XmlTest for that)
      */
-    protected function _parseXml(&$xmltext)
+    public function _parseXml(&$xmltext)
     {
         $params = array(
             'xml' => $xmltext,
@@ -646,8 +656,10 @@ class Horde_Kolab_Format_XML
      * @param string $xmltext  The XML of the message as string.
      *
      * @return Horde_DOM_Node The root node of the document.
+     *
+     * @todo Make protected (fix the XmlTest for that)
      */
-    protected function _prepareSave()
+    public function _prepareSave()
     {
         if ($this->_xmldoc != null) {
             $root = $this->_xmldoc->document_element();
@@ -698,8 +710,10 @@ class Horde_Kolab_Format_XML
      * @return Horde_DOM_Node The new/updated child node.
      *
      * @throws Horde_Exception If converting the data to XML failed.
+     *
+     * @todo Make protected (fix the XmlTest for that)
      */
-    protected function _updateNode($parent_node, $attributes, $name, $params,
+    public function _updateNode($parent_node, $attributes, $name, $params,
                                    $append = false)
     {
         $value   = null;

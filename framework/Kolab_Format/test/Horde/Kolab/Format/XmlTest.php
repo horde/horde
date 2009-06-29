@@ -17,35 +17,6 @@ require_once 'Horde/Kolab/Format.php';
 require_once 'Horde/Kolab/Format/XML.php';
 
 /**
- * A dummy XML type
- *
- * $Horde: framework/Kolab_Format/test/Horde/Kolab/Format/XmlTest.php,v 1.5 2009/01/06 17:49:23 jan Exp $
- *
- * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
- *
- * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @package Kolab_Format
- */
-class Horde_Kolab_Format_XML_dummy extends Horde_Kolab_Format_XML
-{
-    function _saveValue($node, $name, $value, $missing)
-    {
-        $result='';
-        $result .= $name . ': ';
-        $result .= $value;
-        if ($missing) $result .= ', missing';
-
-        return $this->_saveDefault($node, 
-                                   $name, 
-                                   $result, 
-                                   array('type' => HORDE_KOLAB_XML_TYPE_STRING));
-    }
-}
-
-/**
  * Test the XML format.
  *
  * $Horde: framework/Kolab_Format/test/Horde/Kolab/Format/XmlTest.php,v 1.5 2009/01/06 17:49:23 jan Exp $
@@ -70,16 +41,16 @@ class Horde_Kolab_Format_XmlTest extends PHPUnit_Framework_TestCase
     }
 
 
-/*     /\** */
-/*      * Check the preparation of the basic XML structure */
-/*      *\/ */
-/*     public function testBasic() */
-/*     { */
-/*         $xml = &new Horde_Kolab_Format_XML(); */
-/*         $xml->_prepareSave(); */
-/*         $base = $xml->_xmldoc->dump_mem(true); */
-/*         $this->assertEquals("<?xml version=\"1.0\"?>\n<kolab version=\"1.0\"/>\n", $base); */
-/*     } */
+    /**
+     * Check the preparation of the basic XML structure
+     */
+    public function testBasic()
+    {
+        $xml = &new Horde_Kolab_Format_XML();
+        $xml->_prepareSave();
+        $base = $xml->_xmldoc->dump_mem(true);
+        $this->assertEquals("<?xml version=\"1.0\"?>\n<kolab version=\"1.0\"/>\n", $base);
+    }
 
     /**
      * The resulting XML string should be readable.
@@ -109,28 +80,38 @@ class Horde_Kolab_Format_XmlTest extends PHPUnit_Framework_TestCase
         $xml->_updateNode($root,
                           array(),
                           'empty1',
-                          array('value' => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING));
+                          array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING));
         $this->assertEquals($base, $xml->_xmldoc->dump_mem(true));
 
         // A missing attribute should cause an error if it
         // is not allowed to be empty
-        $this->assertTrue(is_a($xml->_updateNode($root,
-                                                array(),
-                                                'empty1',
-                                                array('value' => HORDE_KOLAB_XML_VALUE_NOT_EMPTY)), 'PEAR_Error'));
+        try {
+            $xml->_updateNode($root,
+                              array(),
+                              'empty1',
+                              array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY));
+            $this->assertTrue(false);
+        } catch (Exception $e) {
+            $this->assertTrue(is_a($e, 'Horde_Exception'));
+        }
 
         $xml->_updateNode($root,
                          array(),
                          'empty1',
-                         array('value' => HORDE_KOLAB_XML_VALUE_DEFAULT,
+                         array('value' => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
                                'default' => 'empty1', 'type' => 0));
         $this->assertEquals("<?xml version=\"1.0\"?>\n<kolab version=\"1.0\">\n  <empty1>empty1</empty1>\n</kolab>\n",  $xml->_xmldoc->dump_mem(true));
 
-        $this->assertTrue(is_a($xml->_updateNode($root,
-                                                array(),
-                                                'empty1',
-                                                array('value' => HORDE_KOLAB_XML_VALUE_CALCULATED,
-                                                      'save' => '_unknown')), 'PEAR_Error'));
+        try {
+            $xml->_updateNode($root,
+                              array(),
+                              'empty1',
+                              array('value' => Horde_Kolab_Format_Xml::VALUE_CALCULATED,
+                                    'save' => '_unknown'));
+            $this->assertTrue(false);
+        } catch (Exception $e) {
+            $this->assertTrue(is_a($e, 'Horde_Exception'));
+        }
     }
 
 
@@ -147,12 +128,12 @@ class Horde_Kolab_Format_XmlTest extends PHPUnit_Framework_TestCase
         $dxml->_updateNode($droot,
                           array(),
                           'empty2',
-                          array('value' => HORDE_KOLAB_XML_VALUE_CALCULATED,
+                          array('value' => Horde_Kolab_Format_Xml::VALUE_CALCULATED,
                                 'save' => 'Value', 'type' => 0));
         $dxml->_updateNode($droot,
                           array('present1' => 'present1'),
                           'present1',
-                          array('value' => HORDE_KOLAB_XML_VALUE_CALCULATED,
+                          array('value' => Horde_Kolab_Format_Xml::VALUE_CALCULATED,
                                 'save' => 'Value', 'type' => 0));
         $this->assertEquals("<?xml version=\"1.0\"?>\n<kolab version=\"1.0\">\n  <empty2>empty2: , missing</empty2>\n  <present1>present1: present1</present1>\n</kolab>\n",  $dxml->_xmldoc->dump_mem(true));
 
@@ -162,14 +143,14 @@ class Horde_Kolab_Format_XmlTest extends PHPUnit_Framework_TestCase
         $xml->_updateNode($root,
                          array(),
                          'empty1',
-                         array('value' => HORDE_KOLAB_XML_VALUE_DEFAULT,
+                         array('value' => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
                                'default' => 'empty1', 'type' => 0));
 
         // Back to the original object: Test saving a normal value
         $xml->_updateNode($root,
                          array('present1' => 'present1'),
                          'present1',
-                         array('value' => HORDE_KOLAB_XML_VALUE_DEFAULT,
+                         array('value' => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
                                'default' => 'empty1', 'type' => 0));
         $this->assertEquals("<?xml version=\"1.0\"?>\n<kolab version=\"1.0\">\n  <empty1>empty1</empty1>\n  <present1>present1</present1>\n</kolab>\n",  $xml->_xmldoc->dump_mem(true));
 
@@ -177,7 +158,7 @@ class Horde_Kolab_Format_XmlTest extends PHPUnit_Framework_TestCase
         $xml->_updateNode($root,
                          array('present1' => 'new1'),
                          'present1',
-                         array('value' => HORDE_KOLAB_XML_VALUE_DEFAULT,
+                         array('value' => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
                                'default' => 'empty1', 'type' => 0));
         $this->assertEquals("<?xml version=\"1.0\"?>\n<kolab version=\"1.0\">\n  <empty1>empty1</empty1>\n  <present1>new1</present1>\n</kolab>\n",  $xml->_xmldoc->dump_mem(true));
 
@@ -185,9 +166,9 @@ class Horde_Kolab_Format_XmlTest extends PHPUnit_Framework_TestCase
         $xml->_updateNode($root,
                          array('date1' => 1175080008),
                          'date1',
-                         array('value' => HORDE_KOLAB_XML_VALUE_DEFAULT,
+                         array('value' => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
                                'default' => 'empty1', 
-                               'type' => HORDE_KOLAB_XML_TYPE_DATETIME));
+                               'type' => Horde_Kolab_Format_Xml::TYPE_DATETIME));
         $this->assertEquals("<?xml version=\"1.0\"?>\n<kolab version=\"1.0\">\n  <empty1>empty1</empty1>\n  <present1>new1</present1>\n  <date1>2007-03-28T11:06:48Z</date1>\n</kolab>\n",  $xml->_xmldoc->dump_mem(true));
 
         // Now load the data back in
@@ -196,44 +177,49 @@ class Horde_Kolab_Format_XmlTest extends PHPUnit_Framework_TestCase
         // Test loading a value that may be empty
         $this->assertEquals(null, $xml->_getXmlData($children,
                                                    'empty2',
-                                                   array('value' => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                                                   array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
                                                          'default' => '', 
-                                                         'type' => HORDE_KOLAB_XML_TYPE_STRING)));
+                                                         'type' => Horde_Kolab_Format_Xml::TYPE_STRING)));
 
         // Test loading a value that may not be empty
-        $this->assertTrue(is_a($xml->_getXmlData($children,
-                                                'empty2',
-                                                array('value' => HORDE_KOLAB_XML_VALUE_NOT_EMPTY,
-                                                      'default' => '', 
-                                                      'type' => HORDE_KOLAB_XML_TYPE_STRING)), 'PEAR_Error'));
+        try {
+            $xml->_getXmlData($children,
+                              'empty2',
+                              array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
+                                    'default' => '', 
+                                    'type' => Horde_Kolab_Format_Xml::TYPE_STRING));
+            $this->assertTrue(false);
+        } catch (Exception $e) {
+            $this->assertTrue(is_a($e, 'Horde_Exception'));
+        }
 
         // Test loading a missing value with a default
         $this->assertEquals(0 ,$xml->_getXmlData($children,
                                                 'date2',
-                                                array('value' => HORDE_KOLAB_XML_VALUE_DEFAULT,
+                                                array('value' => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
                                                       'default' => 0, 
-                                                      'type' => HORDE_KOLAB_XML_TYPE_DATETIME)));
+                                                      'type' => Horde_Kolab_Format_Xml::TYPE_DATETIME)));
 
         // Test loading a calculated value
         $this->assertEquals('new1', $dxml->_getXmlData($children,
                                                       'present1',
-                                                      array('value' => HORDE_KOLAB_XML_VALUE_CALCULATED,
+                                                      array('value' => Horde_Kolab_Format_Xml::VALUE_CALCULATED,
                                                             'func' => '_calculate',
-                                                            'type' => HORDE_KOLAB_XML_TYPE_STRING)));
+                                                            'type' => Horde_Kolab_Format_Xml::TYPE_STRING)));
 
         // Test loading a normal value
         $this->assertEquals('new1', $xml->_getXmlData($children,
                                                      'present1',
-                                                     array('value' => HORDE_KOLAB_XML_VALUE_DEFAULT,
+                                                     array('value' => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
                                                            'default' => 'empty',
-                                                           'type' => HORDE_KOLAB_XML_TYPE_STRING)));
+                                                           'type' => Horde_Kolab_Format_Xml::TYPE_STRING)));
 
         // Test loading a date value
         $this->assertEquals(1175080008, $xml->_getXmlData($children,
                                                           'date1',
-                                                          array('value' => HORDE_KOLAB_XML_VALUE_DEFAULT,
+                                                          array('value' => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
                                                                 'default' => 0,
-                                                                'type' => HORDE_KOLAB_XML_TYPE_DATETIME)));
+                                                                'type' => Horde_Kolab_Format_Xml::TYPE_DATETIME)));
     }
 
 
@@ -299,5 +285,34 @@ class Horde_Kolab_Format_XmlTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(5, count($data[0]));
         $this->assertEquals('', $data[0]['smtp-address']);
         $this->assertEquals('test@example.com', $data[1]['smtp-address']);
+    }
+}
+
+/**
+ * A dummy XML type
+ *
+ * $Horde: framework/Kolab_Format/test/Horde/Kolab/Format/XmlTest.php,v 1.5 2009/01/06 17:49:23 jan Exp $
+ *
+ * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @author  Gunnar Wrobel <wrobel@pardus.de>
+ * @package Kolab_Format
+ */
+class Horde_Kolab_Format_XML_dummy extends Horde_Kolab_Format_XML
+{
+    function _saveValue($node, $name, $value, $missing)
+    {
+        $result='';
+        $result .= $name . ': ';
+        $result .= $value;
+        if ($missing) $result .= ', missing';
+
+        return $this->_saveDefault($node, 
+                                   $name, 
+                                   $result, 
+                                   array('type' => self::TYPE_STRING));
     }
 }

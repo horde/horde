@@ -69,7 +69,12 @@ class Horde_Kolab_Format_RecurrenceTest extends PHPUnit_Framework_TestCase
         $recur = file_get_contents(dirname(__FILE__) . '/fixtures/recur_fail.xml');
 
         // Check that the xml fails because of a missing interval value
-        $this->assertTrue(is_a($xml->load($recur), 'PEAR_Error'));
+        try {
+            $this->assertTrue(is_a($xml->load($recur), 'PEAR_Error'));
+            $this->assertTrue(false);
+        } catch (Exception $e) {
+            $this->assertTrue(is_a($e, 'Horde_Exception'));
+        }
     }
 
 
@@ -135,7 +140,6 @@ class Horde_Kolab_Format_RecurrenceTest extends PHPUnit_Framework_TestCase
         $object = array('uid' => 0, 'start-date' => 0, 'end-date' => 60);
         $object['recurrence'] = $r->toHash();
         $recur = $xml->save($object);
-
         $object = $xml->load($recur);
         if (is_a($object, 'PEAR_Error')) {
             $this->ensureEquals('', $object->getMessage());
