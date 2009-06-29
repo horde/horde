@@ -271,6 +271,22 @@ class Horde_Kolab_Server_None extends Horde_Kolab_Server
     }
 
     /**
+     * Find object data matching a given set of criteria.
+     *
+     * @param array  $criteria The criteria for the search.
+     * @param string $params   Additional search parameters.
+     *
+     * @return array The result array.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function find($criteria, $params = array())
+    {
+        /* In the default class we just return an empty array */
+        return array();
+    }
+
+    /**
      * Returns the set of objects supported by this server.
      *
      * @return array An array of supported objects.
