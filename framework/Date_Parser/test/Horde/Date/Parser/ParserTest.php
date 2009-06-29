@@ -47,18 +47,4 @@ class Horde_Date_Parser_ParserTest extends Horde_Test_Case
         $this->assertEquals(2, count($tokens));
     }
 
-    public function testGuess()
-    {
-        $parser = Horde_Date_Parser::factory();
-
-        $span = new Horde_Date_Span(new Horde_Date('2006-08-16 00:00:00'), new Horde_Date('2006-08-17 00:00:00'));
-        $this->assertEquals(new Horde_Date('2006-08-16 12:00:00'), $parser->guess($span));
-
-        $span = new Horde_Date_Span(new Horde_Date('2006-08-16 00:00:00'), new Horde_Date('2006-08-17 00:00:01'));
-        $this->assertEquals(new Horde_Date('2006-08-16 12:00:00'), $parser->guess($span));
-
-        $span = new Horde_Date_Span(new Horde_Date('2006-11-01 00:00:00'), new Horde_Date('2006-12-01 00:00:00'));
-        $this->assertEquals(new Horde_Date('2006-11-16 00:00:00'), $parser->guess($span));
-    }
-
 }

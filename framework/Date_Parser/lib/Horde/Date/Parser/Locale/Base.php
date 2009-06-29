@@ -14,8 +14,8 @@ class Horde_Date_Parser_Locale_Base
 
     /**
     # Parses a string containing a natural language date or time. If the parser
-    # can find a date or time, either a Time or Chronic::Span will be returned
-    # (depending on the value of <tt>:guess</tt>). If no date or time can be found,
+    # can find a date or time, either a Horde_Date or Horde_Date_Span will be returned
+    # (depending on the value of <tt>:return</tt>). If no date or time can be found,
     # +nil+ will be returned.
     #
     # Options are:
@@ -28,17 +28,20 @@ class Horde_Date_Parser_Locale_Base
     #     past. Specify <tt>:future</tt> or omit to set a future context.
     #
     # [<tt>:now</tt>]
-    #     Time (defaults to Time.now)
+    #     Time (defaults to time())
     #
-    #     By setting <tt>:now</tt> to a Time, all computations will be based off
-    #     of that time instead of Time.now
+    #     By setting <tt>:now</tt> to a Horde_Date, all computations will be based off
+    #     of that time instead of time().
     #
-    # [<tt>:guess</tt>]
-    #     +true+ or +false+ (defaults to +true+)
+    # [<tt>:return</tt>]
+    #     'result', 'span', or 'date' (defaults to 'date')
     #
     #     By default, the parser will guess a single point in time for the
     #     given date or time. If you'd rather have the entire time span returned,
-    #     set <tt>:guess</tt> to +false+ and a Chronic::Span will be returned.
+    #     set <tt>:return</tt> to 'span' and a Horde_Date_Span will be returned.
+    #     If you want the entire result, including tokens (for retrieving the text
+    #     that was or was not tagged, for example), set <tt>:return</tt> to 'result'
+    #     and you will get a result object.
     #
     # [<tt>:ambiguousTimeRange</tt>]
     #     Integer or <tt>:none</tt> (defaults to <tt>6</tt> (6am-6pm))
@@ -57,7 +60,7 @@ class Horde_Date_Parser_Locale_Base
         $defaultOptions = array(
             'context' => 'future',
             'now' => new Horde_Date(time()),
-            'guess' => true,
+            'return' => 'date',
             'ambiguousTimeRange' => 6,
         );
         $options = array_merge($defaultOptions, $this->args, $specifiedOptions);
@@ -94,16 +97,20 @@ class Horde_Date_Parser_Locale_Base
         }
 
         // strip any non-tagged tokens
-        $tokens = array_values(array_filter($tokens, create_function('$t', 'return $t->tagged();')));
+        $taggedTokens = array_values(array_filter($tokens, create_function('$t', 'return $t->tagged();')));
 
         // do the heavy lifting
-        $span = $this->tokensToSpan($tokens, $options);
+        $span = $this->tokensToSpan($taggedTokens, $options);
 
-        // guess a time within a span if required
-        if ($options['guess']) {
-            return $this->guess($span);
-        } else {
-            return $span;
+        // generate the result and return it, the span, or a guessed time within the span
+        $result = new Horde_Date_Parser_Result($span, $tokens);
+        switch ($options['return']) {
+        case 'result':
+            return $result;
+        case 'span':
+            return $result->span;
+        case 'date':
+            return $result->guess();
         }
     }
 
@@ -184,22 +191,6 @@ class Horde_Date_Parser_Locale_Base
     public function baseTokenize($text)
     {
         return array_map(create_function('$w', 'return new Horde_Date_Parser_Token($w);'), preg_split('/\s+/', $text));
-    }
-
-    /**
-     * Guess a specific time within the given span
-     */
-    public function guess($span)
-    {
-        if (! $span instanceof Horde_Date_Span) {
-            return null;
-        }
-
-        if ($span->width() > 1) {
-            return $span->begin->add($span->width() / 2);
-        } else {
-            return $span->begin;
-        }
     }
 
     public function initDefinitions()

@@ -335,7 +335,7 @@ class Horde_Date_Parser_Locale_BaseTest extends Horde_Test_Case
         $time = $this->parser->parse("this year");
         $this->assertEquals(new Horde_Date(2006, 10, 24, 12, 30), $time);
 
-        $span = $this->parser->parse("this year", array('context' => 'past', 'guess' => false));
+        $span = $this->parser->parse("this year", array('context' => 'past', 'return' => 'span'));
         $this->assertEquals(new Horde_Date_Span('2006-01-01 00:00:00', '2006-08-16 00:00:00'), $span);
     }
 
@@ -657,7 +657,7 @@ class Horde_Date_Parser_Locale_BaseTest extends Horde_Test_Case
 
     public function testParseGuess_o_r_g_r()
     {
-        $span = $this->parser->parse("3rd month next year", array('guess' => false));
+        $span = $this->parser->parse("3rd month next year", array('return' => 'span'));
         $this->assertEquals(new Horde_Date_Span('2007-03-01 00:00:00', '2007-04-01 00:00:00'), $span);
 
         $time = $this->parser->parse("3rd thursday this september");
@@ -675,15 +675,15 @@ class Horde_Date_Parser_Locale_BaseTest extends Horde_Test_Case
 
     public function testParseSpan()
     {
-        $span = $this->parser->parse('friday', array('guess' => false));
+        $span = $this->parser->parse('friday', array('return' => 'span'));
         $this->assertEquals(new Horde_Date(2006, 8, 18), $span->begin);
         $this->assertEquals(new Horde_Date(2006, 8, 19), $span->end);
 
-        $span = $this->parser->parse('november', array('guess' => false));
+        $span = $this->parser->parse('november', array('return' => 'span'));
         $this->assertEquals(new Horde_Date(2006, 11, 1), $span->begin);
         $this->assertEquals(new Horde_Date(2006, 12, 1), $span->end);
 
-        $span = $this->parser->parse('weekend', array('guess' => false));
+        $span = $this->parser->parse('weekend', array('return' => 'span'));
         $this->assertEquals(new Horde_Date(2006, 8, 19), $span->begin);
         $this->assertEquals(new Horde_Date(2006, 8, 21), $span->end);
     }

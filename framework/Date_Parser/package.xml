@@ -57,6 +57,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        </dir> <!-- /lib/Horde/Date/Parser/Locale -->
        <file name="Exception.php" role="php" />
        <file name="Handler.php" role="php" />
+       <file name="Result.php" role="php" />
        <file name="Token.php" role="php" />
       </dir> <!-- /lib/Horde/Date/Parser -->
       <file name="Parser.php" role="php" />
@@ -95,6 +96,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Date/Parser/Locale/De/Separator.php" as="Horde/Date/Parser/Locale/De/Separator.php" />
    <install name="lib/Horde/Date/Parser/Locale/De/Timezone.php" as="Horde/Date/Parser/Locale/De/Timezone.php" />
    <install name="lib/Horde/Date/Parser/Locale/De.php" as="Horde/Date/Parser/Locale/De.php" />
+   <install name="lib/Horde/Date/Parser/Result.php" as="Horde/Date/Parser/Result.php" />
    <install name="lib/Horde/Date/Parser/Token.php" as="Horde/Date/Parser/Token.php" />
    <install name="lib/Horde/Date/Parser.php" as="Horde/Date/Parser.php" />
   </filelist>
