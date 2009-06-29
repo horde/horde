@@ -427,8 +427,9 @@ class Horde_Kolab_Format_XML
      */
     public function load(&$xmltext)
     {
-        $noderoot = $this->_parseXml($xmltext);
-        if (is_a($noderoot, 'PEAR_Error') || empty($noderoot)) {
+        try {
+            $noderoot = $this->_parseXml($xmltext);
+        } catch (Horde_Exception $e) {
             /**
              * If the first call does not return successfully this might mean we
              * got an attachment with broken encoding. There are some Kolab
@@ -441,10 +442,6 @@ class Horde_Kolab_Format_XML
                 $xmltext = mb_convert_encoding($xmltext, 'UTF-8', 'ISO-8859-1');
             }
             $noderoot = $this->_parseXml($xmltext);
-        }
-
-        if (is_a($noderoot, 'PEAR_Error')) {
-            throw new Horde_Exception($noderoot);
         }
         if (empty($noderoot)) {
             return false;
