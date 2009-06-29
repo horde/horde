@@ -2200,7 +2200,7 @@ abstract class Kronolith_Event
             }
 
             if (!empty($this->external) && !empty($this->external_icon)) {
-                $link = $status . Horde::img($this->external_icon, '', '', '') . ' ' . $link;
+                $link = $status . '<img src="' . $this->external_icon . '" /> ' . $link;
             } else if (!empty($status)) {
                 $link .= ' ' . $status;
             }
