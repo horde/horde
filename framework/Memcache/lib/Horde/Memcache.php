@@ -14,7 +14,7 @@
  * 'hostspec'    - The memcached host(s) to connect to.
  *                 DEFAULT: 'localhost'
  * 'large_items' - Allow storing large data items (larger than
- *                 Horde_Memcache::MEMCACHE_MAX_SIZE)?
+ *                 Horde_Memcache::MAX_SIZE)?
  *                 DEFAULT: true
  * 'persistent'  - Use persistent DB connections?
  *                 DEFAULT: false
@@ -50,7 +50,7 @@ class Horde_Memcache
      * smaller than the actual value due to overhead.  By default, the max
      * slab size of memcached (as of 1.1.2) is 1 MB.
      */
-    const MEMCACHE_MAX_SIZE = 1000000;
+    const MAX_SIZE = 1000000;
 
     /**
      * The singleton instance.
@@ -297,13 +297,13 @@ class Horde_Memcache
             $len = strlen($var);
         }
 
-        if (!$this->_large && ($len > self::MEMCACHE_MAX_SIZE)) {
+        if (!$this->_large && ($len > self::MAX_SIZE)) {
             return false;
         }
 
-        for ($i = 0; ($i * self::MEMCACHE_MAX_SIZE) < $len; ++$i) {
+        for ($i = 0; ($i * self::MAX_SIZE) < $len; ++$i) {
             $curr_key = ($i) ? ($key . '_s' . $i) : $key;
-            $res = $this->_memcache->set($this->_key($curr_key), substr($var, $i * self::MEMCACHE_MAX_SIZE, self::MEMCACHE_MAX_SIZE), empty($this->_params['compression']) ? 0 : MEMCACHE_COMPRESSED, $expire);
+            $res = $this->_memcache->set($this->_key($curr_key), substr($var, $i * self::MAX_SIZE, self::MAX_SIZE), empty($this->_params['compression']) ? 0 : MEMCACHE_COMPRESSED, $expire);
             if ($res === false) {
                 $this->delete($key);
                 $i = 1;
@@ -342,7 +342,7 @@ class Horde_Memcache
         error_reporting($old_error);
         $len = strlen($var);
 
-        if ($len > self::MEMCACHE_MAX_SIZE) {
+        if ($len > self::MAX_SIZE) {
             if ($this->_large) {
                 $res = $this->_memcache->get(array($this->_key($key), $this->_key($key . '_os')));
                 if (!empty($res)) {
