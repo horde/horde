@@ -146,9 +146,8 @@ class Horde_Kolab_Server_Object_Organizationalperson extends Horde_Kolab_Server_
             $postal_data['street_segment'] = $postal_data[self::ATTRIBUTE_STREET];
         }
 
-        $info[$key] = sprintf('%s$%s$%s$%s %s',
+        $info[$key] = sprintf('%s$%s$%s %s',
                               $postal_data[self::ATTRIBUTE_SN],
-                              $postal_data[self::ATTRIBUTE_POSTALADDRESS],
                               $postal_data['street_segment'],
                               $postal_data[self::ATTRIBUTE_POSTALCODE],
                               $postal_data[self::ATTRIBUTE_CITY]);
