@@ -1633,7 +1633,7 @@ var DimpBase = {
             case 'applicationfolders':
                 tmp = e.element();
                 if (!tmp.hasClassName('custom')) {
-                    tmp.up('LI.custom');
+                    tmp = tmp.up('LI.custom');
                 }
                 if (tmp) {
                     this.go('app:' + tmp.down('A').identify().substring(3));
