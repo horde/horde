@@ -8,7 +8,7 @@
 
 $horde_img = $registry->getImageDir('horde');
 
-$close_img = IMP::img('close.png', 'X', array(), $horde_img);
+$close_img = Horde::img('close.png', 'X', array(), $horde_img);
 $menu_view = $prefs->getValue('menu_view');
 $show_text = ($menu_view == 'text' || $menu_view == 'both');
 
@@ -58,7 +58,7 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
    <div class="msgHeaders">
     <div id="msgHeaders">
      <div class="dimpOptions noprint">
-      <div id="msg_print"><?php echo IMP::img('print.png', '', '', $horde_img) ?><a><?php echo _("Print") ?></a></div>
+      <div id="msg_print"><?php echo Horde::img('print.png', '', '', $horde_img) ?><a><?php echo _("Print") ?></a></div>
 <?php if (!empty($conf['user']['allow_view_source'])): ?>
       <div id="msg_view_source"><span class="iconImg"></span><a><?php echo _("View Message Source") ?></a></div>
 <?php endif; ?>

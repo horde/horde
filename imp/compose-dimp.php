@@ -308,7 +308,7 @@ if ($get_sig && !empty($sig)) {
 $t = new IMP_Template(IMP_TEMPLATES . '/imp/');
 $t->setOption('gettext', true);
 $t->set('title', $title);
-$t->set('closelink', IMP::img('close.png', 'X', array('id' => 'compose_close'), $registry->getImageDir('horde')));
+$t->set('closelink', Horde::img('close.png', 'X', array('id' => 'compose_close'), $registry->getImageDir('horde')));
 
 $compose_result = IMP_Views_Compose::showCompose(array(
     'folder' => $folder,

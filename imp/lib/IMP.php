@@ -1614,24 +1614,7 @@ class IMP
      */
     public function stylesheetCallback($matches)
     {
-        return $matches[1] . IMP::base64ImgData($matches[2]) . $matches[3];
-    }
-
-    /**
-     * TODO - Move to Horde core
-     */
-    public function base64ImgData($file)
-    {
-        /* Only encode image files if they are below 3,000 bytes. RFC 2397
-         * only requires support of up to 1,024 characters (base64 encoded,
-         * not the size of the image).  However, browsers that support data
-         * URLs generally support more. Opera seems to have the smallest
-         * allowance - 4100 characters - so use Opera as a limit. */
-        $filename = realpath($GLOBALS['registry']->get('fileroot', 'horde')) . preg_replace('/^' . preg_quote($GLOBALS['registry']->get('webroot', 'horde'), '/') . '/', '', $file);
-
-        return (filesize($filename) <= 3000)
-            ? 'data:image/' . substr($file, strrpos($file, '.') + 1) . ';base64,' . base64_encode(file_get_contents($filename))
-            : $file;
+        return $matches[1] . Horde::base64ImgData($matches[2]) . $matches[3];
     }
 
     /**
@@ -1718,64 +1701,6 @@ class IMP
 
         return $css;
     }
-
-    /**
-     * Constructs a correctly-pathed link to an image.
-     * TODO - Move to Horde core
-     *
-     * @param string $src   The image file.
-     * @param string $alt   Text describing the image.
-     * @param mixed  $attr  Any additional attributes for the image tag. Can
-     *                      be a pre-built string or an array of key/value
-     *                      pairs that will be assembled and html-encoded.
-     * @param string $dir   The root graphics directory.
-     *
-     * @return string  The full image tag.
-     */
-    static public function img($src, $alt = '', $attr = '', $dir = null)
-    {
-        /* If browser does not support images, simply return the ALT text. */
-        if (!$GLOBALS['browser']->hasFeature('images') ||
-            !$GLOBALS['browser']->hasFeature('dataurl')) {
-            return Horde::img($src, $alt, $attr, $dir);
-        }
-
-        /* If no directory has been specified, get it from the registry. */
-        if (is_null($dir)) {
-            $dir = $GLOBALS['registry']->getImageDir();
-        }
-
-        /* If a directory has been provided, prepend it to the image source. */
-        if (!empty($dir)) {
-            $src = $dir . '/' . $src;
-        }
-
-        /* Build all of the tag attributes. */
-        $attributes = array('alt' => $alt);
-        if (is_array($attr)) {
-            $attributes = array_merge($attributes, $attr);
-        }
-        if (empty($attributes['title'])) {
-            $attributes['title'] = '';
-        }
-
-        $img = '<img';
-        $charset = NLS::getCharset();
-        $old_error = error_reporting(0);
-        foreach ($attributes as $attribute => $value) {
-            $img .= ' ' . $attribute . '="' . ($attribute == 'src' ? $value : htmlspecialchars($value, ENT_COMPAT, $charset)) . '"';
-        }
-        error_reporting($old_error);
-
-        /* If the user supplied a pre-built string of attributes, add that. */
-        if (is_string($attr) && !empty($attr)) {
-            $img .= ' ' . $attr;
-        }
-
-        /* Return the closed image tag. */
-        return $img . ' src="' . IMP::base64ImgData($src) . '" />';
-    }
-
 
     /**
      * Do garbage collection in the statically served file directory.

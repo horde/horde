@@ -40,8 +40,8 @@ function _simpleButton($id, $text, $image, $imagedir = null)
         . (strlen($id) ? ' id="' . $id . '"' : '')
         . (strlen($ak) ? ' accesskey="' . $ak . '"' : '') . '>'
         . ($imagedir
-            ? IMP::img($image, Horde::stripAccessKey($text), '', $imagedir)
-            : IMP::img($image, Horde::stripAccessKey($text)))
+            ? Horde::img($image, Horde::stripAccessKey($text), '', $imagedir)
+            : Horde::img($image, Horde::stripAccessKey($text)))
         . '<a>'
         . Horde::highlightAccessKey($text, $ak) . '</a></li>';
 }
@@ -179,7 +179,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
         <input autocomplete="off" id="qsearch_input" type="text" size="25" />
        </form>
        <span>
-        <?php echo IMP::img('close.png', '', array('id' => 'qsearch_close', 'style' => 'display:none', 'title' => _("Clear Search")), $hordeimg) ?>
+        <?php echo Horde::img('close.png', '', array('id' => 'qsearch_close', 'style' => 'display:none', 'title' => _("Clear Search")), $hordeimg) ?>
        </span>
       </div>
       <span>
@@ -271,7 +271,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
         <div id="msgHeaders" style="display:none">
          <div class="dimpOptions noprint">
           <div id="msg_newwin_options"><span class="iconImg"></span><a><?php echo _("Open in new window") ?></a></div>
-          <div id="msg_print"><?php echo IMP::img('print.png', '', '', $hordeimg) ?><a><?php echo _("Print") ?></a></div>
+          <div id="msg_print"><?php echo Horde::img('print.png', '', '', $hordeimg) ?><a><?php echo _("Print") ?></a></div>
 <?php if (!empty($conf['user']['allow_view_source'])): ?>
           <div id="msg_view_source"><span class="iconImg"></span><a><?php echo _("View Message Source") ?></a></div>
 <?php endif; ?>
