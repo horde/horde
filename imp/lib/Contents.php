@@ -624,7 +624,7 @@ class IMP_Contents
             (intval($id) != 1) &&
             (strpos($id, '.') === false)) {
             $url = Horde_Util::removeParameter(Horde::selfUrl(true), array('actionID', 'imapid', 'index'));
-            $url = Horde_Util::addParameter($url, array('actionID' => 'strip_attachment', 'imapid' => $id, 'index' => $this->_index, 'message_token' => IMP::getRequestToken('imp.impcontents')));
+            $url = Horde_Util::addParameter($url, array('actionID' => 'strip_attachment', 'imapid' => $id, 'index' => $this->_index, 'message_token' => Horde::getRequestToken('imp.impcontents')));
             $part['strip'] = Horde::link($url, _("Strip Attachment"), 'stripAtc', null, "return window.confirm('" . addslashes(_("Are you sure you wish to PERMANENTLY delete this attachment?")) . "');") . '</a>';
         }
 

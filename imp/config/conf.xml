@@ -135,10 +135,6 @@
    next login. If IMP will be the exclusive means of accessing the mail server,
    or you are not concerned about this behavior, this setting should be set to
    true.">true</configboolean>
-   <configinteger name="token_lifetime" desc="This is the length of time in
-   seconds that links protected with request tokens (to prevent cross-site
-   request forgery) will be valid. Higher values may make your users more
-   vulnerable to these attacks.">1800</configinteger>
    <configswitch name="cachejs" desc="Cache static javascript and combine into
    a single page for delivery to the remote browser?">none
     <case name="none" desc="No" />

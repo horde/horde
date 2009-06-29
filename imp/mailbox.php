@@ -84,7 +84,7 @@ $open_compose_window = null;
 /* Run through the action handlers */
 if ($actionID && ($actionID != 'message_missing')) {
     try {
-        IMP::checkRequestToken('imp.mailbox', Horde_Util::getFormData('mailbox_token'));
+        Horde::checkRequestToken('imp.mailbox', Horde_Util::getFormData('mailbox_token'));
     } catch (Horde_Exception $e) {
         $notification->push($e);
         $actionID = null;
@@ -210,7 +210,7 @@ case 'login_compose':
 }
 
 /* Token to use in requests */
-$mailbox_token = IMP::getRequestToken('imp.mailbox');
+$mailbox_token = Horde::getRequestToken('imp.mailbox');
 
 /* Deal with filter options. */
 if (!$readonly && !empty($_SESSION['imp']['filteravail'])) {

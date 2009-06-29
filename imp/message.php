@@ -57,7 +57,7 @@ $user_identity = &Identity::singleton(array('imp', 'imp'));
 $actionID = Horde_Util::getFormData('actionID');
 if ($actionID && ($actionID != 'print_message')) {
     try {
-        IMP::checkRequestToken('imp.message', Horde_Util::getFormData('message_token'));
+        Horde::checkRequestToken('imp.message', Horde_Util::getFormData('message_token'));
     } catch (Horde_Exception $e) {
         $notification->push($e);
         $actionID = null;
@@ -181,7 +181,7 @@ case 'strip_attachment':
 }
 
 /* Token to use in requests */
-$message_token = IMP::getRequestToken('imp.message');
+$message_token = Horde::getRequestToken('imp.message');
 
 /* We may have done processing that has taken us past the end of the
  * message array, so we will return to mailbox.php if that is the

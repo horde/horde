@@ -79,7 +79,7 @@ $open_compose_window = null;
 $actionID = Horde_Util::getFormData('actionID');
 if ($actionID) {
     try {
-        IMP::checkRequestToken('imp.folders', Horde_Util::getFormData('folders_token'));
+        Horde::checkRequestToken('imp.folders', Horde_Util::getFormData('folders_token'));
     } catch (Horde_Exception $e) {
         $notification->push($e);
         $actionID = null;
@@ -275,7 +275,7 @@ case 'folders_empty_mailbox_confirm':
         $template->set('empty', ($actionID == 'folders_empty_mailbox_confirm'));
         $template->set('folders', $loop);
         $template->set('folders_url', $folders_url);
-        $template->set('folders_token', IMP::getRequestToken('imp.folders'));
+        $template->set('folders_token', Horde::getRequestToken('imp.folders'));
         echo $template->fetch(IMP_TEMPLATES . '/folders/folders_confirm.html');
 
         require $registry->get('templates', 'horde') . '/common-footer.inc';
@@ -324,7 +324,7 @@ case 'mbox_size':
 }
 
 /* Token to use in requests */
-$folders_token = IMP::getRequestToken('imp.folders');
+$folders_token = Horde::getRequestToken('imp.folders');
 
 $folders_url = Horde_Util::addParameter($folders_url, 'folders_token', $folders_token);
 

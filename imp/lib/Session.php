@@ -352,9 +352,9 @@ class IMP_Session
         }
 
         if ($init_url == 'folders.php') {
-            $url = Horde_Util::addParameter(Horde::applicationUrl($init_url, !$encode), array_merge(array('folders_token' => IMP::getRequestToken('imp.folders')), IMP::getComposeArgs()), null, $encode);
+            $url = Horde_Util::addParameter(Horde::applicationUrl($init_url, !$encode), array_merge(array('folders_token' => Horde::getRequestToken('imp.folders')), IMP::getComposeArgs()), null, $encode);
         } else {
-            $url = Horde_Util::addParameter(Horde::applicationUrl('mailbox.php', !$encode), array_merge(array('mailbox' => $init_url, 'mailbox_token' => IMP::getRequestToken('imp.mailbox')), IMP::getComposeArgs()), null, $encode);
+            $url = Horde_Util::addParameter(Horde::applicationUrl('mailbox.php', !$encode), array_merge(array('mailbox' => $init_url, 'mailbox_token' => Horde::getRequestToken('imp.mailbox')), IMP::getComposeArgs()), null, $encode);
         }
 
         if (!empty($actionID)) {

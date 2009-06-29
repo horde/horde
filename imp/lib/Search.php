@@ -605,7 +605,7 @@ class IMP_Search
         $id = $this->_strip($id);
         return Horde_Util::addParameter(Horde::applicationUrl('folders.php'),
                                   array('actionID' => 'delete_search_query',
-                                        'folders_token' => IMP::getRequestToken('imp.folders'),
+                                        'folders_token' => Horde::getRequestToken('imp.folders'),
                                         'queryid' => $id,
                                   ));
     }

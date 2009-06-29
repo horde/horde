@@ -94,39 +94,6 @@ class IMP
     }
 
     /**
-     * Get a token for protecting a form.
-     *
-     * @param string $slug  TODO
-     *
-     * @return  TODO
-     */
-    static public function getRequestToken($slug)
-    {
-        $token = Horde_Token::generateId($slug);
-        $_SESSION['horde_form_secrets'][$token] = time();
-        return $token;
-    }
-
-    /**
-     * Check if a token for a form is valid.
-     *
-     * @param string $slug   TODO
-     * @param string $token  TODO
-     *
-     * @throws Horde_Exception
-     */
-    static public function checkRequestToken($slug, $token)
-    {
-        if (empty($_SESSION['horde_form_secrets'][$token])) {
-            throw new Horde_Exception(_("We cannot verify that this request was really sent by you. It could be a malicious request. If you intended to perform this action, you can retry it now."));
-        }
-
-        if ($_SESSION['horde_form_secrets'][$token] + $GLOBALS['conf']['server']['token_lifetime'] < time()) {
-            throw new Horde_Exception(sprintf(_("This request cannot be completed because the link you followed or the form you submitted was only valid for %d minutes. Please try again now."), round($GLOBALS['conf']['server']['token_lifetime'] / 60)));
-        }
-    }
-
-    /**
      * Returns the plain text label that is displayed for the current mailbox,
      * replacing virtual search mailboxes with an appropriate description and
      * removing namespace and mailbox prefix information from what is shown to

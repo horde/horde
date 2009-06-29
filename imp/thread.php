@@ -151,7 +151,7 @@ if ($mode == 'thread') {
         IMP::generateIMPUrl('mailbox.php', $mbox),
         array('start' => $imp_mailbox->getArrayIndex($idx),
               'actionID' => 'delete_messages',
-              'mailbox_token' => IMP::getRequestToken('imp.mailbox')));
+              'mailbox_token' => Horde::getRequestToken('imp.mailbox')));
     foreach ($thread as $val) {
         $delete_link = Horde_Util::addParameter(
             $delete_link,

@@ -104,7 +104,7 @@ if ($actionID) {
 
     default:
         try {
-            IMP::checkRequestToken('imp.compose', Horde_Util::getFormData('compose_requestToken'));
+            Horde::checkRequestToken('imp.compose', Horde_Util::getFormData('compose_requestToken'));
         } catch (Horde_Exception $e) {
             $notification->push($e);
             $actionID = null;
@@ -818,7 +818,7 @@ if ($redirect) {
     $t->set('index', htmlspecialchars($index));
     $t->set('status', Horde_Util::bufferOutput(array('IMP', 'status')));
     $t->set('title', htmlspecialchars($title));
-    $t->set('token', IMP::getRequestToken('imp.compose'));
+    $t->set('token', Horde::getRequestToken('imp.compose'));
 
     if ($registry->hasMethod('contacts/search')) {
         $t->set('has_search', true);
@@ -878,7 +878,7 @@ if ($redirect) {
     $hidden = array(
         'actionID' => '',
         'user' => $_SESSION['imp']['uniquser'],
-        'compose_requestToken' => IMP::getRequestToken('imp.compose'),
+        'compose_requestToken' => Horde::getRequestToken('imp.compose'),
         'compose_formToken' => Horde_Token::generateId('compose'),
         'composeCache' => $composeCacheID,
         'mailbox' => htmlspecialchars($imp_mbox['mailbox']),

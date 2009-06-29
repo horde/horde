@@ -55,7 +55,7 @@ case 'u':
         $imp_message->undelete($indices_array);
     } else {
         try {
-            IMP::checkRequestToken('imp.message-mimp', Horde_Util::getFormData('mt'));
+            Horde::checkRequestToken('imp.message-mimp', Horde_Util::getFormData('mt'));
             $imp_message->delete($indices_array);
             if ($prefs->getValue('mailbox_return')) {
                 header('Location: ' . Horde_Util::addParameter(IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox']), array('s' => $imp_mailbox->getMessageIndex()), null, false));
@@ -301,7 +301,7 @@ if (!$readonly) {
     if (in_array('\\deleted', $flags)) {
         $mset->add(new Horde_Mobile_link(_("Undelete"), Horde_Util::addParameter($self_link, array('a' => 'u'))));
     } else {
-        $mset->add(new Horde_Mobile_link(_("Delete"), Horde_Util::addParameter($self_link, array('a' => 'd', 'mt' => IMP::getRequestToken('imp.message-mimp')))));
+        $mset->add(new Horde_Mobile_link(_("Delete"), Horde_Util::addParameter($self_link, array('a' => 'd', 'mt' => Horde::getRequestToken('imp.message-mimp')))));
     }
 }
 
