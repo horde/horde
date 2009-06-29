@@ -63,7 +63,8 @@ class Skoli_School {
                         break;
                     }
                 }
-                if (isset($activesemester[$property]) && !is_array($form->_vars->get($property))) {
+                $datevars = $form->_vars->get($property);
+                if (isset($activesemester[$property]) && empty($datevars['day'])) {
                     require_once 'Horde/Date.php';
                     if ($property == 'start') {
                         $startdate = 0;
