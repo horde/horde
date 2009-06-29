@@ -45,6 +45,7 @@
  *   RFC 4467/5092 - URLAUTH
  *   RFC 4469 - CATENATE
  *   RFC 4978 - COMPRESS=DEFLATE
+ *              See: http://bugs.php.net/bug.php?id=48725
  *   RFC 3348/5258 - LIST-EXTENDED
  *   RFC 5257 - ANNOTATE
  *   RFC 5259 - CONVERT
