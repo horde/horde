@@ -36,6 +36,25 @@ class Horde_Mime_Part
     static public $defaultCharset = 'us-ascii';
 
     /**
+     * Valid encoding types.
+     *
+     * @var array
+     */
+    static public $encodingTypes = array(
+        '7bit', '8bit', 'base64', 'binary', 'quoted-printable'
+    );
+
+    /**
+     * Valid MIME types.
+     *
+     * @var array
+     */
+    static public $mimeTypes = array(
+        'text', 'multipart', 'message', 'application', 'audio', 'image',
+        'video', 'model'
+    );
+
+    /**
      * The type (ex.: text) of this part.
      * Per RFC 2045, the default is 'application'.
      *
@@ -54,9 +73,9 @@ class Horde_Mime_Part
     /**
      * The body of the part.
      *
-     * @var string
+     * @var resource
      */
-    protected $_contents = '';
+    protected $_contents;
 
     /**
      * The desired transfer encoding of this part.
@@ -271,28 +290,30 @@ class Horde_Mime_Part
     /**
      * Set the body contents of this part.
      *
-     * @param string $contents  The part body.
+     * @param mixed $contents   The part body. Either a string or a stream
+     *                          resource.
      * @param string $encoding  The current encoding of the contents.
      */
     public function setContents($contents, $encoding = null)
     {
-        $this->_contents = $contents;
-        $this->_flags['contentsSet'] = true;
-        $this->_flags['currentEncoding'] = is_null($encoding) ? $this->getCurrentEncoding() : $encoding;
+        $this->_contents = $this->_writeStream($contents);
+        $this->_flags['currentEncoding'] = is_null($encoding)
+            ? $this->getCurrentEncoding()
+            : $encoding;
     }
 
     /**
      * Add to the body contents of this part.
      *
-     * @param string $contents  The contents to append to the current part
-     *                          body.
+     * @param mixed $contents   The contents to append to the current part
+     *                          body. Either a string or a stream resource.
      * @param string $encoding  The current encoding of the contents. If not
      *                          specified, will try to auto determine the
      *                          encoding.
      */
     public function appendContents($contents, $encoding = null)
     {
-        if (empty($this->_flags['contentsSet'])) {
+        if (empty($this->_contents)) {
             $this->setContents($contents, $encoding);
         } else {
             if (!is_null($encoding) &&
@@ -300,7 +321,10 @@ class Horde_Mime_Part
                 $this->setTransferEncoding($encoding);
                 $this->transferDecodeContents();
             }
-            $this->setContents($this->_contents . $contents, $encoding);
+            $this->_contents = $this->_writeStream($contents, array('fp' => $this->_contents));
+            $this->_flags['currentEncoding'] = is_null($encoding)
+                ? $this->getCurrentEncoding()
+                : $encoding;
         }
     }
 
@@ -309,8 +333,10 @@ class Horde_Mime_Part
      */
     public function clearContents()
     {
-        $this->_contents = '';
-        unset($this->_flags['contentsSet'], $this->_flags['currentEncoding']);
+        if (!empty($this->_contents)) {
+            fclose($this->_contents);
+            $this->_contents = null;
+        }
     }
 
     /**
@@ -320,6 +346,17 @@ class Horde_Mime_Part
      */
     public function getContents()
     {
+        return $this->_readStream($this->_contents);
+    }
+
+    /**
+     * Return the body of the part (as a stream resource).
+     *
+     * @return resource  The raw body of the part as a stream resource.
+     */
+    public function getContentsAsStream()
+    {
+        rewind($this->_contents);
         return $this->_contents;
     }
 
@@ -327,11 +364,14 @@ class Horde_Mime_Part
      * Returns the contents in strict RFC 822 & 2045 output - namely, all
      * newlines end with the canonical <CR><LF> sequence.
      *
-     * @return string  The raw body of the part, with <CR><LF> EOL..
+     * @param boolean $stream  Return a stream resource instead of a string.
+     *
+     * @return mixed  The raw body of the part, with <CR><LF> EOL (returned
+     *                as stream if $stream is true).
      */
-    public function getCanonicalContents()
+    public function getCanonicalContents($stream = false)
     {
-        return $this->replaceEOL($this->_contents, self::RFC_EOL);
+        return $this->replaceEOL($this->_contents, self::RFC_EOL, $stream);
     }
 
     /**
@@ -340,8 +380,12 @@ class Horde_Mime_Part
      */
     public function transferEncodeContents()
     {
-        $contents = $this->transferEncode();
-        $encode = $this->_flags['currentEncoding'] = $this->_flags['lastTransferEncode'];
+        if (!$this->_contents) {
+            return;
+        }
+
+        $contents = $this->transferEncode(true);
+        $encode = $this->_flags['lastTransferEncode'];
         $this->setContents($contents, $encode);
         $this->setTransferEncoding($encode);
     }
@@ -351,17 +395,113 @@ class Horde_Mime_Part
      */
     public function transferDecodeContents()
     {
-        $contents = $this->transferDecode();
-        $encode = $this->_flags['currentEncoding'] = $this->_flags['lastTransferDecode'];
-        $this->setTransferEncoding($encode);
-
-        /* Don't set contents if they are empty, because this will do stuff
-           like reset the internal bytes field, even though we shouldn't do
-           that (the user has their reasons to set the bytes field to a
-           non-zero value without putting the contents into this part). */
-        if (strlen($contents)) {
-            $this->setContents($contents, $encode);
+        if (!$this->_contents) {
+            return;
         }
+
+        $contents = $this->transferDecode(true);
+        $encode = $this->_flags['lastTransferDecode'];
+        $this->setContents($contents, $encode);
+        $this->setTransferEncoding($encode);
+    }
+
+    /**
+     * Encodes the contents with the part's transfer encoding.
+     *
+     * @param boolean $stream  Return a stream resource instead of a string.
+     *
+     * @return mixed  The encoded text, either as a string or a resource.
+     */
+    public function transferEncode($stream = false)
+    {
+        $encoding = $this->getTransferEncoding();
+        $eol = $this->getEOL();
+
+        /* Set the 'lastTransferEncode' flag so that transferEncodeContents()
+           can save a call to getTransferEncoding(). */
+        $this->_flags['lastTransferEncode'] = $encoding;
+
+        /* If contents are empty, or contents are already encoded to the
+           correct encoding, return now. */
+        if (empty($this->_contents)) {
+            return $this->_contents;
+        } elseif ($encoding == $this->_flags['currentEncoding']) {
+            return $stream
+                ? $this->_contents
+                : $this->_readStream($this->_contents);
+        }
+
+        $close_fp = true;
+
+        switch ($encoding) {
+        case 'base64':
+            /* Base64 Encoding: See RFC 2045, section 6.8 */
+            $fp = $this->_writeStream($this->_contents, array('filter' => 'convert.base64-encode', 'params' => array('line-length' => 76, 'line-break-chars' => $eol)));
+            break;
+
+        case 'quoted-printable':
+            /* Quoted-Printable Encoding: See RFC 2045, section 6.7 */
+            $fp = $this->_writeStream($this->_contents, array('filter' => 'convert.quoted-printable-encode', 'params' => array('line-break-chars' => $eol)));
+            break;
+
+        default:
+            $fp = $this->_contents;
+            $close_fp = false;
+            break;
+        }
+
+        return $stream ? $fp : $this->_readStream($fp, $close_fp);
+    }
+
+    /**
+     * Decodes the contents of the part to either a 7bit or 8bit encoding.
+     *
+     * @param boolean $stream  Return a stream resource instead of a string.
+     *
+     * @return mixed  The decoded text, either as a string or a resource.
+     */
+    public function transferDecode($stream = false)
+    {
+        $encoding = $this->getCurrentEncoding();
+
+        /* If the contents are empty, return now. */
+        if (empty($this->_contents)) {
+            $this->_flags['lastTransferDecode'] = $encoding;
+            return $this->_contents;
+        }
+
+        $close_fp = true;
+
+        switch ($encoding) {
+        case 'base64':
+            $this->_flags['lastTransferDecode'] = '8bit';
+            $fp = $this->_writeStream($this->_contents, array('filter' => 'convert.base64-decode'));
+            break;
+
+        case 'quoted-printable':
+            $fp = $this->_writeStream($this->_contents, array('filter' => 'convert.quoted-printable-decode'));
+            $this->_flags['lastTransferDecode'] = $this->_scanStream($fp, '8bit')
+                ? '8bit'
+                : '7bit';
+            break;
+
+        case 'uuencode':
+        case 'x-uuencode':
+        case 'x-uue':
+            /* Support for uuencoded encoding - although not required by RFCs,
+             * some mailers may still encode this way. */
+            $this->_flags['lastTransferDecode'] = '8bit';
+            $fp = $this->_writeStream(convert_uuencode($this->_readStream($this->__contents)));
+            break;
+
+        default:
+            $fp = $this->_contents;
+            $this->_flags['lastTransferDecode'] = $encoding;
+            $close_fp = false;
+            break;
+        }
+
+        return $stream ? $fp : $this->_readStream($fp, $close_fp);
     }
 
     /**
@@ -380,13 +520,7 @@ class Horde_Mime_Part
 
         list($this->_type, $this->_subtype) = explode('/', Horde_String::lower($mimetype));
 
-        /* Known types. */
-        $known = array(
-            'text', 'multipart', 'message', 'application', 'audio', 'image',
-            'video', 'model'
-        );
-
-        if (in_array($this->_type, $known)) {
+        if (in_array($this->_type, self::$mimeTypes)) {
             /* Set the boundary string for 'multipart/*' parts. */
             if ($this->_type == 'multipart') {
                 if (!$this->getContentTypeParameter('boundary')) {
@@ -531,15 +665,14 @@ class Horde_Mime_Part
      */
     public function setTransferEncoding($encoding)
     {
-        $known = array('7bit', '8bit', 'binary', 'base64', 'quoted-printable');
         $encoding = Horde_String::lower($encoding);
 
-        if (in_array($encoding, $known)) {
+        if (in_array($encoding, self::$encodingTypes)) {
             $this->_transferEncoding = $encoding;
         } else {
             /* RFC 2045: Any entity with unrecognized encoding must be treated
-               as if it has a Content-Type of "application/octet-stream"
-               regardless of what the Content-Type field actually says. */
+             * as if it has a Content-Type of "application/octet-stream"
+             * regardless of what the Content-Type field actually says. */
             $this->setType('application/octet-stream');
             $this->_transferEncoding = 'x-unknown';
         }
@@ -786,49 +919,59 @@ class Horde_Mime_Part
      * Return the entire part in MIME format. Includes headers on request.
      *
      * @param boolean $headers  Include the MIME headers?
+     * @param boolean $stream   Return a stream resource instead of a string.
      *
-     * @return string  The MIME string.
+     * @return mixed  The MIME string (returned as a resource if $stream is
+     *                true).
      */
-    public function toString($headers = true)
+    public function toString($headers = true, $stream = false)
     {
         $eol = $this->getEOL();
         $ptype = $this->getPrimaryType();
-        $text = '';
+        $parts = $parts_close = array();
 
         if ($headers) {
             $hdr_ob = $this->addMimeHeaders();
             $hdr_ob->setEOL($eol);
-            $text = $hdr_ob->toString(array('charset' => $this->getCharset()));
+            $parts[] = $hdr_ob->toString(array('charset' => $this->getCharset()));
         }
 
         /* Any information about a message/* is embedded in the message
            contents themself. Simply output the contents of the part
            directly and return. */
         if ($ptype == 'message') {
-            return $text . $this->_contents;
+            $parts[] = $this->_contents;
+        } else {
+            $parts[] = $parts_close[] = $this->transferEncode(true);
+
+            /* Deal with multipart messages. */
+            if ($ptype == 'multipart') {
+                if (empty($this->_contents)) {
+                    $parts[] = 'This message is in MIME format.' . $eol;
+                }
+
+                $this->_generateBoundary();
+                $boundary = trim($this->getContentTypeParameter('boundary'), '"');
+
+                reset($this->_parts);
+                while (list(,$part) = each($this->_parts)) {
+                    $parts[] = $eol . '--' . $boundary . $eol;
+                    $oldEOL = $part->getEOL();
+                    $part->setEOL($eol);
+                    $tmp = $part->toString(true, $stream);
+                    if (!empty($stream)) {
+                        $parts_close[] = $tmp;
+                    }
+                    $parts[] = $tmp;
+                    $part->setEOL($oldEOL);
+                }
+                $text .= $eol . '--' . $boundary . '--' . $eol;
+            }
         }
 
-        $text .= $this->transferEncode();
-
-        /* Deal with multipart messages. */
-        if ($ptype == 'multipart') {
-            $this->_generateBoundary();
-            $boundary = trim($this->getContentTypeParameter('boundary'), '"');
-            if (!strlen($this->_contents)) {
-                $text .= 'This message is in MIME format.' . $eol;
-            }
-            reset($this->_parts);
-            while (list(,$part) = each($this->_parts)) {
-                $text .= $eol . '--' . $boundary . $eol;
-                $oldEOL = $part->getEOL();
-                $part->setEOL($eol);
-                $text .= $part->toString(true);
-                $part->setEOL($oldEOL);
-            }
-            $text .= $eol . '--' . $boundary . '--' . $eol;
-        }
-
-        return $text;
+        $newfp = $this->_writeStream($parts);
+        array_map('fclose', $parts_close);
+        return $stream ? $newfp : $newfp->readStream($newfp);
     }
 
     /**
@@ -836,13 +979,17 @@ class Horde_Mime_Part
      * newlines end with the canonical <CR><LF> sequence.
      *
      * @param boolean $headers  Include the MIME headers?
+     * @param boolean $stream   Return a stream resource instead of a string.
      *
-     * @return string  The entire MIME part.
+     * @return mixed  The canonical text of the part, with <CR><LF> EOL
+     *                (returned as stream if $stream is true).
      */
-    public function toCanonicalString($headers = true)
+    public function toCanonicalString($headers = true, $stream = false)
     {
-        $string = $this->toString($headers);
-        return $this->replaceEOL($string, self::RFC_EOL);
+        $fp = $this->toString($headers, true);
+        $res = $this->replaceEOL($fp, self::RFC_EOL, $stream);
+        fclose($fp);
+        return $res;
     }
 
     /**
@@ -886,9 +1033,9 @@ class Horde_Mime_Part
 
         case 'text':
             $eol = $this->getEOL();
-            if (Horde_Mime::is8bit($this->_contents)) {
-                $encoding = ($this->_encode7bit) ? 'quoted-printable' : '8bit';
-            } elseif (preg_match("/(?:" . $eol . "|^)[^" . $eol . "]{999,}(?:" . $eol . "|$)/", $this->_contents)) {
+            if ($this->_scanStream($this->_contents, '8bit')) {
+                $encoding = $this->_encode7bit ? 'quoted-printable' : '8bit';
+            } elseif ($this->_scanStream($this->_contents, 'preg', "/(?:" . $eol . "|^)[^" . $eol . "]{999,}(?:" . $eol . "|$)/")) {
                 /* If the text is longer than 998 characters between
                  * linebreaks, use quoted-printable encoding to ensure the
                  * text will not be chopped (i.e. by sendmail if being sent
@@ -898,8 +1045,8 @@ class Horde_Mime_Part
             break;
 
         default:
-            if (Horde_Mime::is8bit($this->_contents)) {
-                $encoding = ($this->_encode7bit) ? 'base64' : '8bit';
+            if ($this->_scanStream($this->_contents, '8bit')) {
+                $encoding = $this->_encode7bit ? 'base64' : '8bit';
             }
             break;
         }
@@ -909,8 +1056,8 @@ class Horde_Mime_Part
          * MUST be in binary format. RFC 2046 [2.7, 2.8, 2.9]. Q-P and base64
          * can handle binary data fine so no need to switch those encodings. */
         if (in_array($encoding, array('8bit', '7bit')) &&
-            preg_match('/\x00/', $this->_contents)) {
-            $encoding = ($this->_encode7bit) ? 'base64' : 'binary';
+            $this->_scanStream($this->_contents, 'preg', '/\x00/')) {
+            $encoding = $this->_encode7bit ? 'base64' : 'binary';
         }
 
         return $encoding;
@@ -929,112 +1076,38 @@ class Horde_Mime_Part
     }
 
     /**
-     * Encodes the contents with the part's transfer encoding.
-     *
-     * @return string  The encoded text.
-     */
-    public function transferEncode()
-    {
-        $encoding = $this->getTransferEncoding();
-        $eol = $this->getEOL();
-
-        /* Set the 'lastTransferEncode' flag so that transferEncodeContents()
-           can save a call to getTransferEncoding(). */
-        $this->_flags['lastTransferEncode'] = $encoding;
-
-        /* If contents are empty, or contents are already encoded to the
-           correct encoding, return now. */
-        if (!strlen($this->_contents) ||
-            ($encoding == $this->_flags['currentEncoding'])) {
-            return $this->_contents;
-        }
-
-        switch ($encoding) {
-        /* Base64 Encoding: See RFC 2045, section 6.8 */
-        case 'base64':
-            /* Keeping these two lines separate seems to use much less
-               memory than combining them (as of PHP 4.3). */
-            $encoded_contents = base64_encode($this->_contents);
-            return chunk_split($encoded_contents, 76, $eol);
-
-        /* Quoted-Printable Encoding: See RFC 2045, section 6.7 */
-        case 'quoted-printable':
-            $output = Horde_Mime::quotedPrintableEncode($this->_contents, $eol);
-            if (($eollength = Horde_String::length($eol)) &&
-                (substr($output, $eollength * -1) == $eol)) {
-                return substr($output, 0, $eollength * -1);
-            }
-            return $output;
-
-        default:
-            return $this->replaceEOL($this->_contents);
-        }
-    }
-
-    /**
-     * Decodes the contents of the part to either a 7bit or 8bit encoding.
-     *
-     * @return string  The decoded text.
-     *                 Returns the empty string if there is no text to decode.
-     */
-    public function transferDecode()
-    {
-        $encoding = $this->getCurrentEncoding();
-
-        /* If the contents are empty, return now. */
-        if (!strlen($this->_contents)) {
-            $this->_flags['lastTransferDecode'] = $encoding;
-            return $this->_contents;
-        }
-
-        switch ($encoding) {
-        case 'base64':
-            $this->_flags['lastTransferDecode'] = '8bit';
-            return base64_decode($this->_contents);
-
-        case 'quoted-printable':
-            $message = preg_replace("/=\r?\n/", '', $this->_contents);
-            $message = quoted_printable_decode($this->replaceEOL($message));
-            $this->_flags['lastTransferDecode'] = (Horde_Mime::is8bit($message)) ? '8bit' : '7bit';
-            return $message;
-
-        /* Support for uuencoded encoding - although not required by RFCs,
-           some mailers may still encode this way. */
-        case 'uuencode':
-        case 'x-uuencode':
-        case 'x-uue':
-            $this->_flags['lastTransferDecode'] = '8bit';
-            return convert_uuencode($this->_contents);
-
-        default:
-            if (isset($this->_flags['lastTransferDecode']) &&
-                ($this->_flags['lastTransferDecode'] != $encoding)) {
-                $message = $this->replaceEOL($this->_contents);
-            } else {
-                $message = $this->_contents;
-            }
-            $this->_flags['lastTransferDecode'] = $encoding;
-            return $message;
-        }
-    }
-
-    /**
      * Replace newlines in this part's contents with those specified by either
      * the given newline sequence or the part's current EOL setting.
      *
-     * @param string $text  The text to replace.
-     * @param string $eol   The EOL sequence to use. If not present, uses the
-     *                      part's current EOL setting.
+     * @param mixed $text      The text to replace. Either a string or a
+     *                         string resource.
+     * @param string $eol      The EOL sequence to use. If not present, uses
+     *                         the part's current EOL setting.
+     * @param boolean $stream  If true, returns a stream resource.
      *
      * @return string  The text with the newlines replaced by the desired
-     *                 newline sequence.
+     *                 newline sequence (returned as a stream resource if
+     *                 $stream is true).
      */
-    public function replaceEOL($text, $eol = null)
+    public function replaceEOL($text, $eol = null, $stream = false)
     {
         if (is_null($eol)) {
             $eol = $this->getEOL();
         }
-        return preg_replace("/\r?\n/", $eol, $text);
+
+        $fp = $this->_writeStream($text);
+        $newfp = fopen('php://temp', 'r+');
+
+        rewind($fp);
+        while ($line = fgets($fp)) {
+            fwrite($newfp, rtrim($line) . $eol);
+        }
+
+        if (is_string($text)) {
+            fclose($fp);
+        }
+
+        return $stream ? $newfp : $this->_readStream($newfp, true);
     }
 
     /**
@@ -1044,11 +1117,10 @@ class Horde_Mime_Part
      */
     public function getBytes()
     {
-        $bytes = 0;
-
-        if (empty($this->_flags['contentsSet']) && $this->_bytes) {
-            $bytes = $this->_bytes;
+        if (empty($this->_contents)) {
+            $bytes = $this->_bytes ? $this->_bytes : 0;
         } elseif ($this->getPrimaryType() == 'multipart') {
+            $bytes = 0;
             reset($this->_parts);
             while (list(,$part) = each($this->_parts)) {
                 /* Skip multipart entries (since this may result in double
@@ -1058,9 +1130,8 @@ class Horde_Mime_Part
                 }
             }
         } else {
-            $bytes = ($this->getPrimaryType() == 'text')
-                ? Horde_String::length($this->_contents, $this->getCharset())
-                : strlen($this->_contents);
+            fseek($this->_contents, 0, SEEK_END);
+            $bytes = ftell($this->_contents);
         }
 
         return $bytes;
@@ -1284,7 +1355,7 @@ class Horde_Mime_Part
         }
 
         /* Make sure the message has a trailing newline. */
-        $msg = $this->toString(false);
+        $msg = $this->toString(false, true);
         if (substr($msg, -1) != "\n") {
             $msg .= "\n";
         }
@@ -1328,6 +1399,119 @@ class Horde_Mime_Part
         }
 
         return null;
+    }
+
+    /**
+     * Write data to a stream.
+     *
+     * @param array $data     The data to write. Either a stream resource or
+     *                        a string.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'filter - (string) A filter to apply to the string.
+     * 'fp' - (resource) Use this stream instead of creating a new one.
+     * 'params' - (array)  Any params needed by the filter.
+     * </pre>
+     *
+     * @return resource  The stream resource.
+     */
+    protected function _writeStream($data, $options = array())
+    {
+        if (empty($options['fp'])) {
+            $fp = fopen('php://temp', 'r+');
+        } else {
+            $fp = $options['fp'];
+            fseek($fp, 0, SEEK_END);
+        }
+
+        if (!is_array($data)) {
+            $data = array($data);
+        }
+
+        if (!empty($options['filter'])) {
+            $append_filter = stream_filter_append($fp, $options['filter'], STREAM_FILTER_WRITE, empty($options['params']) ? array() : $options['params']);
+        }
+
+        reset($data);
+        while (list(,$d) = each($data)) {
+            if (is_resource($d)) {
+                rewind($d);
+                stream_copy_to_stream($d, $fp);
+            } else {
+                $len = strlen($d);
+                $i = 0;
+                while ($i < $len) {
+                    fwrite($fp, substr($d, $i, 8192));
+                    $i += 8192;
+                }
+            }
+        }
+
+        if (!empty($options['filter'])) {
+            stream_filter_remove($append_filter);
+        }
+
+
+        return $fp;
+    }
+
+    /**
+     * Read data from a stream.
+     *
+     * @param resource $fp    An active stream.
+     * @param boolean $close  Close the stream when done reading?
+     *
+     * @return string  The data from the stream.
+     */
+    protected function _readStream($fp, $close = false)
+    {
+        $out = '';
+
+        if (!is_resource($fp)) {
+            return $out;
+        }
+
+        rewind($fp);
+        while ($tmp = fread($fp, 8192)) {
+            $out .= $tmp;
+        }
+
+        if ($close) {
+            fclose($fp);
+        }
+
+        return $out;
+    }
+
+    /**
+     * Scans a stream for the requested data.
+     *
+     * @param resource $fp  A stream resource.
+     * @param string $type  Either '8bit' or 'preg'.
+     * @param mixed $data   Any additional data needed to do the scan.
+     *
+     * @param boolean  The result of the scan.
+     */
+    protected function _scanStream($fp, $type, $data = null)
+    {
+        rewind($fp);
+        while ($line = fread($fp, 8192)) {
+            switch ($type) {
+            case '8bit':
+                if (Horde_Mime::is8bit($line)) {
+                    return true;
+                }
+                break;
+
+            case 'preg':
+                if (preg_match($data, $line)) {
+                    return true;
+                }
+                break;
+            }
+        }
+
+        return false;
     }
 
     /**
