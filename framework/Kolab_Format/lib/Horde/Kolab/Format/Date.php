@@ -2,24 +2,30 @@
 /**
  * Helper functions to handle format conversions.
  *
- * $Horde: framework/Kolab_Format/lib/Horde/Kolab/Format/Date.php,v 1.6 2009/01/06 17:49:22 jan Exp $
+ * PHP version 5
  *
- * @package Kolab_Format
+ * @category Kolab
+ * @package  Kolab_Format
+ * @author   Stuart Binge <omicron@mighty.co.za>
+ * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 
 /**
  * Kolab date handling functions. Based upon Kolab.php from Stuart Binge.
- *
- * $Horde: framework/Kolab_Format/lib/Horde/Kolab/Format/Date.php,v 1.6 2009/01/06 17:49:22 jan Exp $
  *
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
  *
- * @author  Stuart Binge <omicron@mighty.co.za>
- * @author  Thomas Jarosch <thomas.jarosch@intra2net.com>
- * @package Kolab_Format
+ * @category Kolab
+ * @package  Kolab_Format
+ * @author   Stuart Binge <omicron@mighty.co.za>
+ * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
+ * @license  http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 class Horde_Kolab_Format_Date
 {
@@ -27,11 +33,11 @@ class Horde_Kolab_Format_Date
      * Returns a UNIX timestamp corresponding the given date string which is in
      * the format prescribed by the Kolab Format Specification.
      *
-     * @param string $date  The string representation of the date.
+     * @param string $date The string representation of the date.
      *
      * @return integer  The unix timestamp corresponding to $date.
      */
-    function decodeDate($date)
+    static public function decodeDate($date)
     {
         if (empty($date)) {
             return 0;
@@ -46,18 +52,18 @@ class Horde_Kolab_Format_Date
      * Returns a UNIX timestamp corresponding the given date-time string which
      * is in the format prescribed by the Kolab Format Specification.
      *
-     * @param string $datetime  The string representation of the date & time.
+     * @param string $datetime The string representation of the date & time.
      *
      * @return integer  The unix timestamp corresponding to $datetime.
      */
-    function decodeDateTime($datetime)
+    static public function decodeDateTime($datetime)
     {
         if (empty($datetime)) {
             return 0;
         }
 
-        list($year, $month, $day, $hour, $minute, $second)
-            = sscanf($datetime, '%d-%d-%dT%d:%d:%dZ');
+        list($year, $month, $day, $hour, $minute, $second) = sscanf($datetime,
+                                                                    '%d-%d-%dT%d:%d:%dZ');
         return gmmktime($hour, $minute, $second, $month, $day, $year);
     }
 
@@ -66,11 +72,11 @@ class Horde_Kolab_Format_Date
      * string which is in either format prescribed by the Kolab Format
      * Specification.
      *
-     * @param string $date  The string representation of the date (& time).
+     * @param string $date The string representation of the date (& time).
      *
      * @return integer  The unix timestamp corresponding to $date.
      */
-    function decodeDateOrDateTime($date)
+    static public function decodeDateOrDateTime($date)
     {
         if (empty($date)) {
             return 0;
@@ -83,9 +89,11 @@ class Horde_Kolab_Format_Date
      * Returns a string containing the current UTC date in the format
      * prescribed by the Kolab Format Specification.
      *
+     * @param int $date The integer representation of the date.
+     *
      * @return string  The current UTC date in the format 'YYYY-MM-DD'.
      */
-    function encodeDate($date = false)
+    static public function encodeDate($date = false)
     {
         if ($date === false) {
             $date = time();
@@ -98,11 +106,13 @@ class Horde_Kolab_Format_Date
      * Returns a string containing the current UTC date and time in the format
      * prescribed by the Kolab Format Specification.
      *
+     * @param int $datetime The integer representation of the date.
+     *
      * @return string    The current UTC date and time in the format
      *                   'YYYY-MM-DDThh:mm:ssZ', where the T and Z are literal
      *                   characters.
      */
-    function encodeDateTime($datetime = false)
+    static public function encodeDateTime($datetime = false)
     {
         if ($datetime === false) {
             $datetime = time();

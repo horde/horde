@@ -2,40 +2,45 @@
 /**
  * Implementation for distributionlists in the Kolab XML format.
  *
- * $Horde: framework/Kolab_Format/lib/Horde/Kolab/Format/XML/distributionlist.php,v 1.6 2008/12/12 11:25:52 wrobel Exp $
+ * PHP version 5
  *
- * @package Kolab_Format
+ * @category Kolab
+ * @package  Kolab_Format
+ * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 
 /**
  * Kolab XML handler for distributionlist groupware objects
  *
- * $Horde: framework/Kolab_Format/lib/Horde/Kolab/Format/XML/distributionlist.php,v 1.6 2008/12/12 11:25:52 wrobel Exp $
- *
- * Copyright 2007-2008 Klarälvdalens Datakonsult AB
+ * Copyright 2007-2009 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
  *
- * @since   Horde 3.2
- * @author  Thomas Jarosch <thomas.jarosch@intra2net.com>
- * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @author  Mike Gabriel <m.gabriel@das-netzwerkteam.de>
- * @package Kolab_Format
+ * @category Kolab
+ * @package  Kolab_Format
+ * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @since    Horde 3.2
  */
-class Horde_Kolab_Format_XML_distributionlist extends Horde_Kolab_Format_XML {
-
+class Horde_Kolab_Format_XML_Distributionlist extends Horde_Kolab_Format_XML
+{
     /**
      * Specific data fields for the contact object
      *
      * @var array
      */
-    var $_fields_specific;
+    protected $_fields_specific;
 
     /**
      * Constructor
      */
-    function Horde_Kolab_Format_XML_distributionlist()
+    public function __construct()
     {
         $this->_root_name = "distribution-list";
 
@@ -43,12 +48,12 @@ class Horde_Kolab_Format_XML_distributionlist extends Horde_Kolab_Format_XML {
          */
         $this->_fields_specific = array(
                 'display-name' => array(
-                    'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                    'value'   => HORDE_KOLAB_XML_VALUE_NOT_EMPTY
+                    'type'    => self::TYPE_STRING,
+                    'value'   => self::VALUE_NOT_EMPTY
                 ),
                 'member' => array(
-                    'type'    => HORDE_KOLAB_XML_TYPE_MULTIPLE,
-                    'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                    'type'    => self::TYPE_MULTIPLE,
+                    'value'   => self::VALUE_MAYBE_MISSING,
                     'array'   => $this->_fields_simple_person,
                 )
             );
@@ -59,13 +64,13 @@ class Horde_Kolab_Format_XML_distributionlist extends Horde_Kolab_Format_XML {
     /**
      * Load the groupware object based on the specifc XML values.
      *
-     * @access protected
+     * @param array &$children An array of XML nodes.
      *
-     * @param array $children An array of XML nodes.
+     * @return array Array with data.
      *
-     * @return array|PEAR_Error Array with data.
+     * @throws Horde_Exception If parsing the XML data failed.
      */
-    function _load(&$children)
+    protected function _load(&$children)
     {
         $object = $this->_loadArray($children, $this->_fields_specific);
         if (is_a($object, 'PEAR_Error')) {
@@ -78,10 +83,12 @@ class Horde_Kolab_Format_XML_distributionlist extends Horde_Kolab_Format_XML {
             unset($object['display-name']);
         }
 
-        // the mapping from $object['member'] as stored in XML back to Turba_Objects (contacts)
-        // must be performed in the Kolab_IMAP storage driver as we need access to the search
-        // facilities of the kolab storage driver.
-
+        /**
+         * The mapping from $object['member'] as stored in XML back to
+         * Turba_Objects (contacts) must be performed in the
+         * Kolab_IMAP storage driver as we need access to the search
+         * facilities of the kolab storage driver.
+         */
         $object['__type'] = 'Group';
         return $object;
     }
@@ -89,14 +96,14 @@ class Horde_Kolab_Format_XML_distributionlist extends Horde_Kolab_Format_XML {
     /**
      * Save the  specifc XML values.
      *
-     * @access protected
+     * @param array $root   The XML document root.
+     * @param array $object The resulting data array.
      *
-     * @param array $root     The XML document root.
-     * @param array $object   The resulting data array.
+     * @return boolean True on success.
      *
-     * @return boolean|PEAR_Error True on success.
+     * @throws Horde_Exception If converting the data to XML failed.
      */
-    function _save($root, $object)
+    protected function _save($root, $object)
     {
         // Map the display-name of a kolab dist list to horde's lastname attribute
         if (isset($object['last-name'])) {

@@ -2,68 +2,74 @@
 /**
  * Implementation for contacts in the Kolab XML format.
  *
- * $Horde: framework/Kolab_Format/lib/Horde/Kolab/Format/XML/contact.php,v 1.7 2008/12/12 11:25:52 wrobel Exp $
+ * PHP version 5
  *
- * @package Kolab_Format
+ * @category Kolab
+ * @package  Kolab_Format
+ * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 
 /**
  * Kolab XML handler for contact groupware objects
  *
- * $Horde: framework/Kolab_Format/lib/Horde/Kolab/Format/XML/contact.php,v 1.7 2008/12/12 11:25:52 wrobel Exp $
- *
- * Copyright 2007-2008 Klarälvdalens Datakonsult AB
+ * Copyright 2007-2009 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
  *
- * @since   Horde 3.2
- * @author  Thomas Jarosch <thomas.jarosch@intra2net.com>
- * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @package Kolab_Format
+ * @category Kolab
+ * @package  Kolab_Format
+ * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @since    Horde 3.2
  */
-class Horde_Kolab_Format_XML_contact extends Horde_Kolab_Format_XML {
-
+class Horde_Kolab_Format_XML_Contact extends Horde_Kolab_Format_XML
+{
     /**
      * Specific data fields for the contact object
      *
      * @var array
      */
-    var $_fields_specific;
+    protected $_fields_specific;
 
     /**
      * Structure of the name field
      *
      * @var array
      */
-    var $_fields_name = array(
+    protected $_fields_name = array(
         'given-name' => array (
-            'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-            'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+            'type'    => self::TYPE_STRING,
+            'value'   => self::VALUE_MAYBE_MISSING,
         ),
         'middle-names' => array (
-            'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-            'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+            'type'    => self::TYPE_STRING,
+            'value'   => self::VALUE_MAYBE_MISSING,
         ),
         'last-name' => array (
-            'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-            'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+            'type'    => self::TYPE_STRING,
+            'value'   => self::VALUE_MAYBE_MISSING,
         ),
         'full-name' => array (
-            'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-            'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+            'type'    => self::TYPE_STRING,
+            'value'   => self::VALUE_MAYBE_MISSING,
         ),
         'initials' => array (
-            'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-            'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+            'type'    => self::TYPE_STRING,
+            'value'   => self::VALUE_MAYBE_MISSING,
         ),
         'prefix' => array (
-            'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-            'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+            'type'    => self::TYPE_STRING,
+            'value'   => self::VALUE_MAYBE_MISSING,
         ),
         'suffix' => array (
-            'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-            'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+            'type'    => self::TYPE_STRING,
+            'value'   => self::VALUE_MAYBE_MISSING,
         )
     );
 
@@ -72,34 +78,34 @@ class Horde_Kolab_Format_XML_contact extends Horde_Kolab_Format_XML {
      *
      * @var array
      */
-    var $_fields_address = array(
-        'type'    => HORDE_KOLAB_XML_TYPE_COMPOSITE,
-        'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+    protected $_fields_address = array(
+        'type'    => self::TYPE_COMPOSITE,
+        'value'   => self::VALUE_MAYBE_MISSING,
         'array'   => array(
             'type' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_DEFAULT,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_DEFAULT,
                 'default' => 'home',
             ),
             'street' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'locality' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'region' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'postal-code' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'country' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
         )
     );
@@ -109,18 +115,18 @@ class Horde_Kolab_Format_XML_contact extends Horde_Kolab_Format_XML {
      *
      * @var array
      */
-    var $_fields_phone = array(
-        'type'    => HORDE_KOLAB_XML_TYPE_COMPOSITE,
-        'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+    protected $_fields_phone = array(
+        'type'    => self::TYPE_COMPOSITE,
+        'value'   => self::VALUE_MAYBE_MISSING,
         'array'   => array(
             'type' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_DEFAULT,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_DEFAULT,
                 'default' => '',
             ),
             'number' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
         ),
     );
@@ -130,7 +136,7 @@ class Horde_Kolab_Format_XML_contact extends Horde_Kolab_Format_XML {
      *
      * @var array
      */
-    var $_address_types = array(
+    protected $_address_types = array(
         'business',
         'home',
         'other',
@@ -141,7 +147,7 @@ class Horde_Kolab_Format_XML_contact extends Horde_Kolab_Format_XML {
      *
      * @var array
      */
-    var $_phone_types = array(
+    protected $_phone_types = array(
         'business1',
         'business2',
         'businessfax',
@@ -165,7 +171,7 @@ class Horde_Kolab_Format_XML_contact extends Horde_Kolab_Format_XML {
     /**
      * Constructor
      */
-    function Horde_Kolab_Format_XML_contact()
+    public function __construct()
     {
         $this->_root_name = "contact";
 
@@ -173,122 +179,122 @@ class Horde_Kolab_Format_XML_contact extends Horde_Kolab_Format_XML {
          */
         $this->_fields_specific = array(
             'name' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_COMPOSITE,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_COMPOSITE,
+                'value'   => self::VALUE_MAYBE_MISSING,
                 'array'   => $this->_fields_name,
             ),
             'free-busy-url' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'organization' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'web-page' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'im-address' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'department' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'office-location' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'profession' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'job-title' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'manager-name' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'assistant' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'nick-name' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'spouse-name' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'birthday' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'anniversary' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'picture' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'children' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'gender' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'language' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'address' => array(
-                'type'    => HORDE_KOLAB_XML_TYPE_MULTIPLE,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_MULTIPLE,
+                'value'   => self::VALUE_MAYBE_MISSING,
                 'array'   => $this->_fields_address,
             ),
             'email' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_MULTIPLE,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_MULTIPLE,
+                'value'   => self::VALUE_MAYBE_MISSING,
                 'array'   => $this->_fields_simple_person,
             ),
             'phone' => array(
-                'type'    => HORDE_KOLAB_XML_TYPE_MULTIPLE,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_MULTIPLE,
+                'value'   => self::VALUE_MAYBE_MISSING,
                 'array'   => $this->_fields_phone,
             ),
             'preferred-address' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'latitude' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'longitude' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             // Horde specific fields
             'pgp-publickey' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             // Support for broken clients
             'website' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
             'im-adress' => array (
-                'type'    => HORDE_KOLAB_XML_TYPE_STRING,
-                'value'   => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type'    => self::TYPE_STRING,
+                'value'   => self::VALUE_MAYBE_MISSING,
             ),
         );
 
@@ -298,13 +304,13 @@ class Horde_Kolab_Format_XML_contact extends Horde_Kolab_Format_XML {
     /**
      * Load the groupware object based on the specifc XML values.
      *
-     * @access protected
+     * @param array &$children An array of XML nodes.
      *
-     * @param array $children An array of XML nodes.
+     * @return array Array with the object data.
      *
-     * @return array|PEAR_Error Array with the object data.
+     * @throws Horde_Exception If parsing the XML data failed.
      */
-    function _load(&$children)
+    protected function _load(&$children)
     {
         $object = $this->_loadArray($children, $this->_fields_specific);
         if (is_a($object, 'PEAR_Error')) {
@@ -382,14 +388,14 @@ class Horde_Kolab_Format_XML_contact extends Horde_Kolab_Format_XML {
     /**
      * Save the  specifc XML values.
      *
-     * @access protected
+     * @param array $root   The XML document root.
+     * @param array $object The resulting data array.
      *
-     * @param array $root     The XML document root.
-     * @param array $object   The resulting data array.
+     * @return boolean True on success.
      *
-     * @return boolean|PEAR_Error True on success.
+     * @throws Horde_Exception If converting the data to XML failed.
      */
-    function _save($root, $object)
+    protected function _save($root, $object)
     {
         // Handle name fields
         $name = array();
@@ -420,6 +426,7 @@ class Horde_Kolab_Format_XML_contact extends Horde_Kolab_Format_XML {
             if (!empty($email)) {
                 $new_email = array('display-name' => $object['name']['full-name'],
                                    'smtp-address' => $email);
+
                 $object['email'][] = $new_email;
             }
         }
@@ -436,9 +443,10 @@ class Horde_Kolab_Format_XML_contact extends Horde_Kolab_Format_XML {
 
                 // Update existing phone entry of this type
                 $updated = false;
-                foreach($object['phone'] as $index => $phone) {
+                foreach ($object['phone'] as $index => $phone) {
                     if ($phone['type'] == $type) {
                         $object['phone'][$index] = $new_phone;
+
                         $updated = true;
                         break;
                     }
@@ -450,7 +458,7 @@ class Horde_Kolab_Format_XML_contact extends Horde_Kolab_Format_XML {
         }
 
         // Phone cleanup: remove empty numbers
-        foreach($object['phone'] as $index => $phone) {
+        foreach ($object['phone'] as $index => $phone) {
             if (empty($phone['number'])) {
                 unset($object['phone'][$index]);
             }
@@ -462,7 +470,7 @@ class Horde_Kolab_Format_XML_contact extends Horde_Kolab_Format_XML {
         }
 
         foreach ($this->_address_types as $type) {
-            $basekey = 'addr-' . $type . '-';
+            $basekey     = 'addr-' . $type . '-';
             $new_address = array('type'   => $type);
             foreach (array_keys($this->_fields_address['array']) as $subkey) {
                 $key = $basekey . $subkey;
@@ -473,9 +481,10 @@ class Horde_Kolab_Format_XML_contact extends Horde_Kolab_Format_XML {
 
             // Update existing address entry of this type
             $updated = false;
-            foreach($object['address'] as $index => $address) {
+            foreach ($object['address'] as $index => $address) {
                 if ($address['type'] == $type) {
                     $object['address'][$index] = $new_address;
+
                     $updated = true;
                 }
             }
@@ -485,9 +494,9 @@ class Horde_Kolab_Format_XML_contact extends Horde_Kolab_Format_XML {
         }
 
         // Address cleanup: remove empty addresses
-        foreach($object['address'] as $index => $address) {
+        foreach ($object['address'] as $index => $address) {
             $all_empty = true;
-            foreach($address as $name => $value) {
+            foreach ($address as $name => $value) {
                 if (!empty($value) && $name != "type") {
                     $all_empty = false;
                     break;
