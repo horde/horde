@@ -1466,18 +1466,7 @@ class IMP
                     $js_tocache[$file['p'] . $file['f']] = false;
                     $mtime[] = filemtime($file['p'] . $file['f']);
                 } else {
-                    if (!$file['d'] &&
-                        ($app == 'dimp') &&
-                        ($file['f'] == 'mailbox.js')) {
-                        // Special dimp case: we keep mailbox.js in templates
-                        // not for purposes of running PHP scripts in the
-                        // file, but for ease of templating.  Thus, this file
-                        // is OK to include inline.
-                        $js_tocache[$file['p'] . $file['f']] = true;
-                        $mtime[] = filemtime($file['p'] . $file['f']);
-                    } else {
-                        $js_force[] = $file['u'];
-                    }
+                    $js_force[] = $file['u'];
                 }
             }
         }

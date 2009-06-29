@@ -322,7 +322,7 @@
 // allows additional information to be added/edited from the data that is
 // passed to the mailbox display template:
 //    imp: TODO
-//   dimp: imp/templates/javascript/mailbox-dimp.js.
+//   dimp: imp/js/src/mailbox-dimp.js.
 // The current entry array is passed in, the value returned should be the
 // altered array to use in the template. If you are going to add new columns,
 // you also have to update these fields:

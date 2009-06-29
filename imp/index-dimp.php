@@ -21,7 +21,7 @@ $scripts = array(
     array('dragdrop2.js', 'horde', true),
     array('dhtmlHistory.js', 'horde', true),
     array('redbox.js', 'horde', true),
-    array('/templates/javascript/mailbox-dimp.js', 'imp', false),
+    array('mailbox-dimp.js', 'imp', true),
     array('DimpSlider.js', 'imp', true),
     array('imp.js', 'imp', true),
     array('dialog.js', 'imp', true)
