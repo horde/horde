@@ -351,7 +351,7 @@ class Horde_Browser
                     $this->setFeature('javascript', 1.5);
                 }
                 if ($this->_majorVersion >= 9) {
-                    $this->setFeature('dataurl');
+                    $this->setFeature('dataurl', 4100);
                     if ($this->_minorVersion >= 5) {
                         $this->setFeature('rte');
                     }
