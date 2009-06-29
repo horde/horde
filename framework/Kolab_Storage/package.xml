@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Kolab_Storage</name>
+ <channel>pear.horde.org</channel>
+ <summary>A package for handling Kolab data stored on an IMAP server.</summary>
+ <description>Storing user data in an IMAP account belonging to the
+ user is one of the Kolab server core concepts. This package provides
+ all the necessary means to deal with this type of data storage
+ effectively.
+ </description>
+ <lead>
+  <name>Gunnar Wrobel</name>
+  <user>wrobel</user>
+  <email>p@rdus.de</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Thomas Jarosch</name>
+  <user>jarosch</user>
+  <email>thomas.jarosch@intra2net.com</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-02-24</date>
+ <version>
+  <release>0.4.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>
+  * Fixed list driver to prevent overwriting folder data when
+    authenticating twice (relevant for testing).
+  * Allow to supress triggering (relevant for testing).
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Kolab">
+      <dir name="Storage">
+       <file name="usage.txt" role="doc" />
+      </dir> <!-- /doc/Horde/Kolab/Storage -->
+     </dir> <!-- /doc/Horde/Kolab -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
+   <dir name="examples">
+    <dir name="Horde">
+     <dir name="Kolab">
+      <dir name="Storage">
+       <file name="list.php" role="doc" />
+      </dir> <!-- /examples/Horde/Kolab/Storage -->
+     </dir> <!-- /examples/Horde/Kolab -->
+    </dir> <!-- /examples/Horde -->
+   </dir> <!-- /examples -->
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Kolab">
+      <file name="Deprecated.php" role="php" />
+      <file name="Storage.php" role="php" />
+      <dir name="Storage">
+       <file name="Cache.php" role="php" />
+       <file name="Data.php" role="php" />
+       <file name="Folder.php" role="php" />
+       <file name="List.php" role="php" />
+       <file name="Perms.php" role="php" />
+      </dir> <!-- /lib/Horde/Kolab/Storage -->
+      <dir name="Test">
+       <file name="Storage.php" role="php" />
+      </dir> <!-- /lib/Horde/Kolab/Test -->
+     </dir> <!-- /lib/Horde/Kolab -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Kolab">
+      <dir name="Storage">
+       <file name="AllTests.php" role="test" />
+       <file name="CacheTest.php" role="test" />
+       <file name="DataTest.php" role="test" />
+       <file name="FolderTest.php" role="test" />
+       <file name="ListTest.php" role="test" />
+       <file name="PermsTest.php" role="test" />
+      </dir> <!-- /test/Horde/Kolab/Storage -->
+     </dir> <!-- /test/Horde/Kolab -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>Net_IMAP</name>
+    <channel>pear.php.net</channel>
+    <min>1.1.0beta2</min>
+   </package>
+   <package>
+    <name>Mail_mimeDecode</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>HTTP_Request</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Kolab_Format</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Kolab_Server</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Auth</name>
+    <channel>pear.horde.org</channel>
+    <min>0.1.1</min>
+   </package>
+   <package>
+    <name>Horde_Cache</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Group</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Horde_History</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Horde_LDAP</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Perms</name>
+    <channel>pear.horde.org</channel>
+    <min>0.1.0</min>
+   </package>
+   <package>
+    <name>Horde_SessionObjects</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Horde_MIME</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Horde_NLS</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Util</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="doc/Horde/Kolab/Storage/usage.txt" as="Horde/Kolab/Storage/usage.txt" />
+   <install name="examples/Horde/Kolab/Storage/list.php" as="Horde/Kolab/Storage/list.php" />
+   <install name="lib/Horde/Kolab/Deprecated.php" as="Horde/Kolab/Deprecated.php" />
+   <install name="lib/Horde/Kolab/Storage.php" as="Horde/Kolab/Storage.php" />
+   <install name="lib/Horde/Kolab/Storage/Cache.php" as="Horde/Kolab/Storage/Cache.php" />
+   <install name="lib/Horde/Kolab/Storage/Data.php" as="Horde/Kolab/Storage/Data.php" />
+   <install name="lib/Horde/Kolab/Storage/Folder.php" as="Horde/Kolab/Storage/Folder.php" />
+   <install name="lib/Horde/Kolab/Storage/List.php" as="Horde/Kolab/Storage/List.php" />
+   <install name="lib/Horde/Kolab/Storage/Perms.php" as="Horde/Kolab/Storage/Perms.php" />
+   <install name="lib/Horde/Kolab/Test/Storage.php" as="Horde/Kolab/Test/Storage.php" />
+   <install name="test/Horde/Kolab/Storage/AllTests.php" as="Horde/Kolab/Storage/AllTests.php" />
+   <install name="test/Horde/Kolab/Storage/CacheTest.php" as="Horde/Kolab/Storage/CacheTest.php" />
+   <install name="test/Horde/Kolab/Storage/DataTest.php" as="Horde/Kolab/Storage/DataTest.php" />
+   <install name="test/Horde/Kolab/Storage/FolderTest.php" as="Horde/Kolab/Storage/FolderTest.php" />
+   <install name="test/Horde/Kolab/Storage/ListTest.php" as="Horde/Kolab/Storage/ListTest.php" />
+   <install name="test/Horde/Kolab/Storage/PermsTest.php" as="Horde/Kolab/Storage/PermsTest.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <date>2008-12-05</date>
+   <version>
+    <release>0.3.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+    * Added attachment support.
+    * Fixed triggering folders.
+    * Fixed renaming default folders.
+    * Implemented extended free/busy access concept.
+    * kolab/issue3292 (Sharing default groupware resources does not work
+      in the web client)
+   </notes>
+  </release>
+  <release>
+   <date>2008-09-12</date>
+   <version>
+    <release>0.2.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>* Fixed the Kolab_Storage::getFolder() function.
+  * Added Kolab_List::getForeignDefault() to retrieve the default folders of other
+    users. Also fixes issues with overlapping default folders.
+  * Fixed retrieval of general Kolab annotations.
+  * Correctly determine the owner of the INBOX of another user.
+  * Automatically trigger a folder within the folder handler.
+  * Moved Kolab session handler from Kolab_Storage to Kolab_Server.
+  * Moved the IMAP drivers from Kolab_Storage to Kolab_Server as the
+    IMAP connection must be handled by the Kolab session.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2008-09-11</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+     * Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>
