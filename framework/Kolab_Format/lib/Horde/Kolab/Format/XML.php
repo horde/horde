@@ -565,7 +565,7 @@ class Horde_Kolab_Format_XML
             foreach($children as $child) {
                 if ($child->type == XML_ELEMENT_NODE && $child->tagname == $name) {
                     $value    = $this->_getXmlData(array($child), $name,
-                              1                  $params['array']);
+						   $params['array']);
                     $result[] = $value;
                 }
             }
