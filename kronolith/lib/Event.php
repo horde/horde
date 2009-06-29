@@ -2167,36 +2167,24 @@ abstract class Kronolith_Event
                     $alarm_value = $this->alarm;
                     $title = sprintf(ngettext("Alarm %d minute before", "Alarm %d minutes before", $alarm_value), $alarm_value);
                 }
-                $status .= Horde::img('alarm-' . $icon_color . '.png', $title,
-                                      array('title' => $title,
-                                            'class' => 'iconAlarm'),
-                                      Horde::url($registry->getImageDir(), true, -1));
+                $status .= '<img src="' . Horde::url($registry->getImageDir(), true, -1) . '/alarm-' . $icon_color . '.png" alt="' . $title . '" title="' . $title . '" class="iconAlarm" />';
             }
 
             if ($this->recurs()) {
                 $title = Kronolith::recurToString($this->recurrence->getRecurType());
-                $status .= Horde::img('recur-' . $icon_color . '.png', $title,
-                                      array('title' => $title,
-                                            'class' => 'iconRecur'),
-                                      Horde::url($registry->getImageDir(), true, -1));
+                $status .= '<img src="' . Horde::url($registry->getImageDir(), true, -1) . '/recur-' . $icon_color . '.png" alt="' . $title . '" title="' . $title . '" class="iconRecur" />';
             }
 
             if ($this->isPrivate()) {
                 $title = _("Private event");
-                $status .= Horde::img('private-' . $icon_color . '.png', $title,
-                                      array('title' => $title,
-                                            'class' => 'iconPrivate'),
-                                      Horde::url($registry->getImageDir(), true, -1));
+                $status .= '<img src="' . Horde::url($registry->getImageDir(), true, -1) . '/private-' . $icon_color . '.png" alt="' . $title . '" title="' . $title . '" class="iconPrivate" />';
             }
 
             if (!empty($this->attendees)) {
                 $title = count($this->attendees) == 1
                     ? _("1 attendee")
                     : sprintf(_("%s attendees"), count($this->attendees));
-                $status .= Horde::img('attendees.png', $title,
-                                      array('title' => $title,
-                                            'class' => 'iconPeople'),
-                                      Horde::url($registry->getImageDir(), true, -1));
+                $status .= '<img src="' . Horde::url($registry->getImageDir(), true, -1) . '/attendees.png" alt="' . $title . '" title="' . $title . '" class="iconPeople" />';
             }
 
             if (!empty($this->external) && !empty($this->external_icon)) {
@@ -2216,14 +2204,14 @@ abstract class Kronolith_Event
                 $editurl = $this->getEditUrl(array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'),
                                                    'url' => $from_url));
                 $edit = Horde::link($editurl, sprintf(_("Edit %s"), $event_title), 'iconEdit')
-                    . Horde::img('edit-' . $icon_color . '.png', _("Edit"), '', Horde::url($registry->getImageDir(), true, -1))
+                    . '<img src="' . Horde::url($registry->getImageDir(), true, -1) . '/edit-' . $icon_color . '.png" alt="' . _("Edit") . '" />'
                     . '</a>';
             }
             if ($this->hasPermission(PERMS_DELETE)) {
                 $delurl = $this->getDeleteUrl(array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'),
                                                     'url' => $from_url));
                 $delete = Horde::link($delurl, sprintf(_("Delete %s"), $event_title), 'iconDelete')
-                    . Horde::img('delete-' . $icon_color . '.png', _("Delete"), '', Horde::url($registry->getImageDir(), true, -1))
+                    . '<img src="' . Horde::url($registry->getImageDir(), true, -1) . '/delete-' . $icon_color . '.png" alt="' . _("Delete") . '" />'
                     . '</a>';
             }
 
