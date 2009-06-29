@@ -47,8 +47,7 @@ abstract class Horde_Kolab_Format
      *
      *                                    'version' - The format version.
      *
-     * @return mixed    The newly created concrete Horde_Kolab_Format_XML instance, or
-     *                  a PEAR error.
+     * @return mixed    The newly created concrete Horde_Kolab_Format_XML instance
      *
      * @throws Horde_Exception If the specified driver could not be loaded.
      */

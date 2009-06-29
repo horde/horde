@@ -75,9 +75,6 @@ class Horde_Kolab_Format_PreferencesTest extends PHPUnit_Framework_TestCase
 
         $xml = file_get_contents(dirname(__FILE__) . '/fixtures/preferences_read_old.xml');
         $object = $preferences->load($xml);
-        if (is_a($object, 'PEAR_Error')) {
-            $this->assertEquals('', $object->getMessage());
-        }
         $this->assertContains('test', $object['pref']);
         $this->assertEquals('Test', $object['application']);
 
@@ -85,9 +82,6 @@ class Horde_Kolab_Format_PreferencesTest extends PHPUnit_Framework_TestCase
                         'pref' => array('test'),
                         'categories' => 'Test');
         $xml = $preferences->save($object);
-        if (is_a($xml, 'PEAR_Error')) {
-            $this->assertEquals('', $xml->getMessage());
-        }
         $expect = file_get_contents(dirname(__FILE__) . '/fixtures/preferences_write_old.xml');
         $this->assertEquals($expect, $xml);
 
@@ -95,9 +89,6 @@ class Horde_Kolab_Format_PreferencesTest extends PHPUnit_Framework_TestCase
                         'pref' => array('test'),
                         'application' => 'Test');
         $xml = $preferences->save($object);
-        if (is_a($xml, 'PEAR_Error')) {
-            $this->assertEquals('', $xml->getMessage());
-        }
         $expect = file_get_contents(dirname(__FILE__) . '/fixtures/preferences_write_old.xml');
         $this->assertEquals($expect, $xml);
     }

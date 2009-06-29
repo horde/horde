@@ -364,9 +364,11 @@ class Horde_Kolab_Format_XML
      * @param string    $object_type The object type that should be handled.
      * @param array     $params      Any additional parameters.
      *
-     * @return Horde_Kolab_Format_XML|PEAR_Error The newly created concrete
-     *                                           Horde_Kolab_Format_XML
-     *                                           instance.
+     * @return Horde_Kolab_Format_XML The newly created concrete
+     *                                Horde_Kolab_Format_XML instance.
+     *
+     * @throws Horde_Exception If the class for the object type could
+     *                         not be loaded.
      */
     public function &factory($object_type = '', $params = null)
     {
@@ -476,7 +478,7 @@ class Horde_Kolab_Format_XML
      *
      * @param array $children An array of XML nodes.
      *
-     * @return array|PEAR_Error The data array representing the object.
+     * @return array The data array representing the object.
      *
      * @throws Horde_Exception If parsing the XML data failed.
      */

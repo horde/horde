@@ -73,9 +73,6 @@ class Horde_Kolab_Format_XML_Distributionlist extends Horde_Kolab_Format_XML
     protected function _load(&$children)
     {
         $object = $this->_loadArray($children, $this->_fields_specific);
-        if (is_a($object, 'PEAR_Error')) {
-            return $object;
-        }
 
         // Map the display-name of a kolab dist list to horde's lastname attribute
         if (isset($object['display-name'])) {

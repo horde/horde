@@ -100,9 +100,6 @@ class Horde_Kolab_Format_XML_Event extends Horde_Kolab_Format_XML
     protected function _load(&$children)
     {
         $object = parent::_load($children);
-        if (is_a($object, 'PEAR_Error')) {
-            return $object;
-        }
 
         // Translate start/end date including full day events
         if (strlen($object['start-date']) == 10) {

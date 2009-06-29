@@ -46,22 +46,16 @@ class Horde_Kolab_Format_EventTest extends PHPUnit_Framework_TestCase
     public function testIssue3525()
     {
         $xml = Horde_Kolab_Format::factory('XML', 'event');
-        if (is_a($xml, 'PEAR_Error')) {
-            $this->assertEquals('', $xml->getMessage());
-        }
 
         // Load XML
         $event = file_get_contents(dirname(__FILE__) . '/fixtures/event_umlaut.xml');
         $result = $xml->load($event);
         // Check that the xml loads fine
-        $this->assertFalse(is_a($result, 'PEAR_Error'));
         $this->assertEquals(mb_convert_encoding($result['body'], 'UTF-8', 'ISO-8859-1'), '...übbe...');
 
         // Load XML
         $event = file_get_contents(dirname(__FILE__) . '/fixtures/event_umlaut_broken.xml');
         $result = $xml->load($event);
-        // Check that the xml loads fine
-        $this->assertFalse(is_a($result, 'PEAR_Error'));
         //FIXME: Why does Kolab Format return ISO-8859-1? UTF-8 would seem more appropriate
         $this->assertEquals(mb_convert_encoding($result['body'], 'UTF-8', 'ISO-8859-1'), '...übbe...');
     }

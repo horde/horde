@@ -54,15 +54,9 @@ class Horde_Kolab_Format_RecurrenceTest extends PHPUnit_Framework_TestCase
     public function testBug6388()
     {
         $xml = Horde_Kolab_Format::factory('XML', 'event');
-        if (is_a($xml, 'PEAR_Error')) {
-            $this->assertEquals('', $xml->getMessage());
-        }
 
         // Load XML
         $recur = file_get_contents(dirname(__FILE__) . '/fixtures/recur.xml');
-
-        // Check that the xml loads fine
-        $this->assertFalse(is_a($xml->load($recur), 'PEAR_Error'));
 
         // Load XML
         $xml = &Horde_Kolab_Format::factory('XML', 'event');
@@ -70,7 +64,7 @@ class Horde_Kolab_Format_RecurrenceTest extends PHPUnit_Framework_TestCase
 
         // Check that the xml fails because of a missing interval value
         try {
-            $this->assertTrue(is_a($xml->load($recur), 'PEAR_Error'));
+            $xml->load($recur);
             $this->assertTrue(false);
         } catch (Exception $e) {
             $this->assertTrue(is_a($e, 'Horde_Exception'));
@@ -84,17 +78,11 @@ class Horde_Kolab_Format_RecurrenceTest extends PHPUnit_Framework_TestCase
     public function testExceptions()
     {
         $xml = Horde_Kolab_Format::factory('XML', 'event');
-        if (is_a($xml, 'PEAR_Error')) {
-            $this->assertEquals('', $xml->getMessage());
-        }
 
         // Load XML
         $recur = file_get_contents(dirname(__FILE__) . '/fixtures/recur.xml');
 
         $object = $xml->load($recur);
-        if (is_a($object, 'PEAR_Error')) {
-            $this->ensureEquals('', $object->getMessage());
-        }
 
         $r = &new Horde_Date_Recurrence($object['start-date']);
         $r->fromHash($object['recurrence']);
@@ -107,9 +95,6 @@ class Horde_Kolab_Format_RecurrenceTest extends PHPUnit_Framework_TestCase
         $recur = $xml->save($object);
 
         $object = $xml->load($recur);
-        if (is_a($object, 'PEAR_Error')) {
-            $this->ensureEquals('', $object->getMessage());
-        }
 
         $s = &new Horde_Date_Recurrence($object['start-date']);
         $s->fromHash($object['recurrence']);
@@ -125,9 +110,6 @@ class Horde_Kolab_Format_RecurrenceTest extends PHPUnit_Framework_TestCase
     public function testCompletions()
     {
         $xml = Horde_Kolab_Format::factory('XML', 'event');
-        if (is_a($xml, 'PEAR_Error')) {
-            $this->assertEquals('', $xml->getMessage());
-        }
 
         $r = &new Horde_Date_Recurrence(0);
         $r->setRecurType(Horde_Date_Recurrence::RECUR_DAILY);
@@ -141,9 +123,6 @@ class Horde_Kolab_Format_RecurrenceTest extends PHPUnit_Framework_TestCase
         $object['recurrence'] = $r->toHash();
         $recur = $xml->save($object);
         $object = $xml->load($recur);
-        if (is_a($object, 'PEAR_Error')) {
-            $this->ensureEquals('', $object->getMessage());
-        }
 
         $s = &new Horde_Date_Recurrence(0);
         $s->fromHash($object['recurrence']);

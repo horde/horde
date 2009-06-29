@@ -79,9 +79,6 @@ class Horde_Kolab_Format_XML_Note extends Horde_Kolab_Format_XML
     protected function _load(&$children)
     {
         $object = $this->_loadArray($children, $this->_fields_specific);
-        if (is_a($object, 'PEAR_Error')) {
-            return $object;
-        }
 
         $object['desc'] = $object['summary'];
         unset($object['summary']);

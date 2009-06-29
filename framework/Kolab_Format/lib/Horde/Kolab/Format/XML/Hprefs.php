@@ -87,7 +87,7 @@ class Horde_Kolab_Format_XML_Hprefs extends Horde_Kolab_Format_XML
                 $object['application'] = $object['categories'];
                 unset($object['categories']);
             } else {
-                return PEAR::raiseError('Preferences XML object is missing an application setting.');
+                throw new Horde_Exception('Preferences XML object is missing an application setting.');
             }
         }
 
@@ -110,7 +110,7 @@ class Horde_Kolab_Format_XML_Hprefs extends Horde_Kolab_Format_XML
                 $object['application'] = $object['categories'];
                 unset($object['categories']);
             } else {
-                return PEAR::raiseError('Preferences XML object is missing an application setting.');
+                throw new Horde_Exception('Preferences XML object is missing an application setting.');
             }
         }
 

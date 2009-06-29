@@ -82,9 +82,6 @@ class Horde_Kolab_Format_ContactTest extends PHPUnit_Framework_TestCase
                         'full-name' => 'User Name',
                         'email' => 'user@example.org');
         $xml = $contact->save($object);
-        if (is_a($xml, 'PEAR_Error')) {
-            $this->assertEquals('', $xml->getMessage());
-        }
         $expect = file_get_contents(dirname(__FILE__) . '/fixtures/contact_mail.xml');
         $this->assertEquals($expect, $xml);
     }
@@ -100,9 +97,6 @@ class Horde_Kolab_Format_ContactTest extends PHPUnit_Framework_TestCase
                         'pgp-publickey' => 'PGP Test Key',
                         'email' => 'user@example.org');
         $xml = $contact->save($object);
-        if (is_a($xml, 'PEAR_Error')) {
-            $this->assertEquals('', $xml->getMessage());
-        }
         $expect = file_get_contents(dirname(__FILE__) . '/fixtures/contact_pgp.xml');
         $this->assertEquals($expect, $xml);
     }
@@ -117,16 +111,10 @@ class Horde_Kolab_Format_ContactTest extends PHPUnit_Framework_TestCase
         $contact = &new Horde_Kolab_Format_XML_contact();
         $xml = file_get_contents(dirname(__FILE__) . '/fixtures/contact_category.xml');
         $object = $contact->load($xml);
-        if (is_a($object, 'PEAR_Error')) {
-            $this->assertEquals('', $object->getMessage());
-        }
         $this->assertContains('Test', $object['categories']);
 
         $prefs = 'some string';
         $object = $contact->load($xml);
-        if (is_a($object, 'PEAR_Error')) {
-            $this->assertEquals('', $object->getMessage());
-        }
         $this->assertContains('Test', $object['categories']);
     }
 
@@ -150,9 +138,6 @@ class Horde_Kolab_Format_ContactTest extends PHPUnit_Framework_TestCase
             $xml = file_get_contents(dirname(__FILE__) . '/fixtures/contact_category.xml');
 
             $object = $contact->load($xml);
-            if (is_a($object, 'PEAR_Error')) {
-                $this->assertEquals('', $object->getMessage());
-            }
             $this->assertContains('Test', $object['categories']);
             $this->assertEquals('Test', $prefs->getValue('categories'));
         }
