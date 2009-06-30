@@ -651,7 +651,7 @@ class IMP
     {
         global $notification;
 
-        /* Displau IMAP alerts. */
+        /* Display IMAP alerts. */
         foreach ($GLOBALS['imp_imap']->ob->alerts() as $alert) {
             $notification->push($alert, 'horde.warning');
         }
@@ -824,7 +824,7 @@ class IMP
         reset($indices);
         if (!is_array(current($indices))) {
             /* Build the list of indices/mailboxes if input is format #1. */
-            foreach ($indices as $msgIndex) {
+            while (list(,$msgIndex) = each($indices)) {
                 if (strpos($msgIndex, self::IDX_SEP) === false) {
                     return false;
                 } else {
@@ -834,12 +834,14 @@ class IMP
             }
         } else {
             /* We are dealing with format #2. */
-            foreach ($indices as $key => $val) {
+            while (list($key, $val) = each($indices)) {
                 if ($GLOBALS['imp_search']->isSearchMbox($key)) {
                     $msgList += self::parseIndicesList($val);
                 } else {
                     /* Make sure we don't have any duplicate keys. */
-                    $msgList[$key] = is_array($val) ? array_keys(array_flip($val)) : array($val);
+                    $msgList[$key] = is_array($val)
+                        ? array_keys(array_flip($val))
+                        : array($val);
                 }
             }
         }
@@ -1438,6 +1440,8 @@ class IMP
             }
         }
 
+        sort($s_list);
+
         require_once IMP_BASE . '/lib/version.php';
         $sig = hash('md5', serialize($s_list) . max($mtime) . IMP_VERSION);
 
@@ -1759,14 +1763,11 @@ class IMP
      */
     public static function getCache()
     {
-        global $conf;
-
-        $cache = Horde_Cache::singleton($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
-        if (is_a($cache, 'PEAR_Error')) {
-            Horde::fatal($cache, __FILE__, __LINE__);
+        try {
+            return Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+        } catch (Horde_Exception $e) {
+            Horde::fatal($e, __FILE__, __LINE__);
         }
-
-        return $cache;
     }
 
     /**
