@@ -84,7 +84,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                  * directly. So output an <img> tag to load the image. */
                 return array(
                     $this->_mimepart->getMimeId() => array(
-                        'data' => Horde::img($this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('imp_img_view' => 'data'))), $this->_mimepart->getName(true), null, ''),
+                        'data' => $this->_outputImgTag('data', $this->_mimepart->getName(true)),
                         'status' => array(),
                         'type' => 'text/html; charset=' . NLS::getCharset()
                     )
@@ -140,9 +140,9 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
         $status = array(sprintf(_("An image named %s is attached to this message. A thumbnail is below."), $this->_mimepart->getName(true)));
 
         if ($GLOBALS['browser']->hasFeature('javascript')) {
-            $status[] = $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', Horde::img($this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('imp_img_view' => 'view_thumbnail')), false), _("View Attachment"), null, ''), null, null, null);
+            $status[] = $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', $this->_outputImgTag('view_thumbnail', _("View Attachment")), null, null, null);
         } else {
-            $status[] = Horde::link($this->_params['contents']->urlView($this->_mimepart, 'view_attach')) . Horde::img($this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('imp_img_view' => 'view_thumbnail')), false), _("View Attachment"), null, '') . '</a>';
+            $status[] = Horde::link($this->_params['contents']->urlView($this->_mimepart, 'view_attach')) . $this->_outputImgTag('view_thumbnail', _("View Attachment")) . '</a>';
         }
 
         return array(
@@ -265,4 +265,18 @@ EOD;
 
         return $img;
     }
+
+    /**
+     * Output an image tag.
+     *
+     * @param string $type  The view type.
+     * @param string $alt   The ALT text.
+     *
+     * @return string  An image tag.
+     */
+    protected function _outputImgTag($type, $alt)
+    {
+        return '<img src="' . $this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('imp_img_view' => $type))) . '" alt="' . htmlspecialchars($alt, ENT_COMPAT, NLS::getCharset()) . '" />';
+    }
+
 }
