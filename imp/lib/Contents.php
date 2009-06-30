@@ -572,16 +572,6 @@ class IMP_Contents
             $download_zip ||
             ($mask & self::SUMMARY_SIZE)) {
             $part['bytes'] = $size = $mime_part->getBytes();
-
-            if ($part['bytes'] &&
-                ($mime_part->getCurrentEncoding() == 'base64')) {
-                /* From RFC 2045 [6.8]: "...the encoded data are consistently
-                 * only about 33 percent larger than the unencoded data."
-                 * Thus, adding 33% to the byte size is a good estimate for
-                 * our purposes. */
-                $size *= 1.33;
-            }
-
             $part['size'] = ($size > 1048576)
                 ? sprintf(_("%s MB"), number_format($size / 1048576, 1))
                 : sprintf(_("%s KB"), max(round($size / 1024), 1));
