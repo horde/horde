@@ -1544,10 +1544,13 @@ abstract class Horde_Imap_Client_Base
      *     'start' - (integer) If a portion of the full text is desired to be
      *               returned, the starting position is identified here.
      *               DEFAULT: The entire text is returned.
+     *     'stream' - (boolean) If true, returns a stream resource with the
+     *                message data instead of a string.
      *   Return key: 'fullmsg'
-     *   Return format: (string) The full text of the entire message (or the
+     *   Return format: (mixed) The full text of the entire message (or the
      *                  portion of the text delineated by the 'start'/'length'
-     *                  parameters).
+     *                  parameters). If the 'stream' parameter is set, returns
+     *                  a stream resource.
      *
      * Key: Horde_Imap_Client::FETCH_HEADERTEXT
      *   Desc: Returns the header text. Header text is defined only for the
@@ -1604,11 +1607,14 @@ abstract class Horde_Imap_Client_Base
      *     'start' - (integer) If a portion of the full text is desired to be
      *               returned, the starting position is identified here.
      *               DEFAULT: The entire text is returned.
+     *     'stream' - (boolean) If true, returns a stream resource with the
+     *                message data instead of a string.
      *   Return key: 'bodytext'
      *   Return format: (array) An array of body text entries. Keys are the
      *                  the 'id', values are the message body text strings
      *                  (or the portion of the text delineated by the
-     *                  'start'/'length' parameters).
+     *                  'start'/'length' parameters). If the 'stream'
+     *                  parameter is set, returns a stream resource.
      *
      * Key: Horde_Imap_Client::FETCH_MIMEHEADER
      *   Desc: Returns the MIME header text. MIME header text is defined only
@@ -1660,11 +1666,14 @@ abstract class Horde_Imap_Client_Base
      *     'start' - (integer) If a portion of the full data is desired to be
      *               returned, the starting position is identified here.
      *               DEFAULT: The entire data is returned.
+     *     'stream' - (boolean) If true, returns a stream resource with the
+     *                message data instead of a string.
      *   Return key: 'bodypart' (and possibly 'bodypartdecode')
      *   Return format: (array) An array of body part data entries. Keys are
      *                  the 'id', values are the body part data (or the
      *                  portion of the data delineated by the 'start'/'length'
-     *                  parameters).
+     *                  parameters). If the 'stream' parameter is set, returns
+     *                  a stream resource.
      *
      * Key: Horde_Imap_Client::FETCH_BODYPARTSIZE
      *   Desc: Returns the decoded body part size for a given MIME ID.

@@ -2065,6 +2065,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         $t = &$this->_temp;
         $t['fetchparams'] = array();
+        $t['literalstream'] = array();
         $fp = &$t['fetchparams'];
         $fetch = array();
 
@@ -2108,6 +2109,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 break;
 
             case Horde_Imap_Client::FETCH_FULLMSG:
+                if (!empty($c_val['stream'])) {
+                    $this->_temp['literalstream'][] = 'BODY[]';
+                }
+
                 if (empty($c_val['peek'])) {
                     $this->openMailbox($this->_selected, Horde_Imap_Client::OPEN_READWRITE);
                 }
@@ -2123,7 +2128,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             case Horde_Imap_Client::FETCH_BODYPART:
             case Horde_Imap_Client::FETCH_HEADERS:
                 foreach ($c_val as $val) {
-                    $cmd = empty($val['id'])
+                    $base_id = $cmd = empty($val['id'])
                         ? ''
                         : $val['id'] . '.';
                     $main_cmd = 'BODY';
@@ -2134,6 +2139,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         break;
 
                     case Horde_Imap_Client::FETCH_BODYTEXT:
+                        if (!empty($val['stream'])) {
+                            $this->_temp['literalstream'][] = $main_cmd . '[' . $base_id . 'TEXT]';
+                        }
                         $cmd .= 'TEXT';
                         break;
 
@@ -2148,6 +2156,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         if (empty($val['id'])) {
                             throw new Horde_Imap_Client_Exception('Need a non-zero MIME ID when retrieving a MIME body part.');
                         }
+
+                        if (!empty($val['stream'])) {
+                            $this->_temp['literalstream'][] = $main_cmd . '[' . $val['id'] . ']';
+                        }
+
                         // Remove the last dot from the string.
                         $cmd = substr($cmd, 0, -1);
 
@@ -2257,6 +2270,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         $this->_sendLine($cmd);
+
+        $t['literalstream'] = array();
 
         return $t['fetchresp'][$use_seq ? 'seq' : 'uid'];
     }
@@ -2368,9 +2383,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                             $tmp['fullmsg'] = $data[++$i];
                         } elseif (is_numeric(substr($tag, -1))) {
                             // BODY[MIMEID] request
-                            if (!isset($tmp['bodypart'])) {
-                                $tmp['bodypart'] = array();
-                            }
                             $tmp['bodypart'][$tag] = $data[++$i];
                         } else {
                             // BODY[HEADER|TEXT|MIME] request
@@ -3136,26 +3148,26 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 do {
                     $literal_len = null;
 
-                    if (!$literal && (substr($line, -1) == '}')) {
-                        $pos = strrpos($line, '{');
-                        $literal_len = substr($line, $pos + 1, -1);
-                        if (is_numeric($literal_len)) {
-                            // Check for literal8 response
-                            if ($line[$pos - 1] == '~') {
-                                $binary = true;
-                                $line = substr($line, 0, $pos - 1);
-                                $this->_temp['literal8'][substr($line, strrpos($line, ' '))] = true;
-                            } else {
-                                $line = substr($line, 0, $pos);
-                            }
-                        } else {
-                            $literal_len = null;
-                        }
-                    }
-
                     if ($literal) {
                         $this->_temp['token']['ptr'][$this->_temp['token']['paren']][] = $line;
                     } else {
+                        if (substr($line, -1) == '}') {
+                            $pos = strrpos($line, '{');
+                            $literal_len = substr($line, $pos + 1, -1);
+                            if (is_numeric($literal_len)) {
+                                // Check for literal8 response
+                                if ($line[$pos - 1] == '~') {
+                                    $binary = true;
+                                    $line = substr($line, 0, $pos - 1);
+                                    $this->_temp['literal8'][substr($line, strrpos($line, ' '))] = true;
+                                } else {
+                                    $line = substr($line, 0, $pos);
+                                }
+                            } else {
+                                $literal_len = null;
+                            }
+                        }
+
                         $this->_tokenizeData($line);
                     }
 
@@ -3209,26 +3221,42 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         $data = '';
+        $got_data = $stream = false;
 
         if (is_null($len)) {
             do {
                 /* Can't do a straight fgets() because extremely large lines
                  * will result in read errors. */
-                if ($tmp = fgets($this->_stream, 8192)) {
-                    $data .= $tmp;
-                    if (!isset($tmp[8190]) || ($tmp[8190] == "\n")) {
+                if ($in = fgets($this->_stream, 8192)) {
+                    $data .= $in;
+                    $got_data = true;
+                    if (!isset($in[8190]) || ($in[8190] == "\n")) {
                         break;
                     }
                 }
-            } while ($tmp !== false);
+            } while ($in !== false);
         } else {
             // Skip 0-length literal data
             if (!$len) {
                 return $data;
             }
 
+            // Add data to a stream, if desired.
+            if (!empty($this->_temp['literalstream']) &&
+                in_array(end($this->_temp['token']['ptr'][$this->_temp['token']['paren']]), $this->_temp['literalstream'])) {
+                $data = fopen('php://temp', 'r+');
+                $stream = true;
+            }
+
             while ($len && ($in = fread($this->_stream, min($len, 8192)))) {
-                $data .= $in;
+                if ($stream) {
+                    fwrite($data, $in);
+                } else {
+                    $data .= $in;
+                }
+
+                $got_data = true;
+
                 $in_len = strlen($in);
                 if ($in_len > $len) {
                     break;
@@ -3237,7 +3265,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
-        if (!strlen($data)) {
+        if (!$got_data) {
             if ($this->_debug) {
                 fwrite($this->_debug, '[ERROR: IMAP read/timeout error.]' . "\n");
             }
@@ -3245,7 +3273,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         if ($this->_debug) {
-            fwrite($this->_debug, 'S (' . microtime(true) . '): ' . ($binary ? '[BINARY DATA - ' . $len . ' bytes]' : $data));
+            if ($stream) {
+                rewind($data);
+            }
+
+            fwrite($this->_debug, 'S (' . microtime(true) . '): ' . ($binary ? '[BINARY DATA - ' . $len . ' bytes]' : ($stream ? stream_get_contents($data): $data)));
         }
 
         return is_null($len) ? rtrim($data) : $data;
