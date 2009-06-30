@@ -144,6 +144,13 @@ var DimpFullmessage = {
         DimpCore.DMenu.addElement(bid + '_img', 'ctx_' + ctx, { offset: bidelt.up(), left: true });
     },
 
+    resizeWindow: function()
+    {
+        var mb = $('msgData').down('DIV.msgBody');
+
+        mb.setStyle({ height: (document.viewport.getHeight() - mb.cumulativeOffset()[1] - parseInt(mb.getStyle('paddingTop'), 10) - parseInt(mb.getStyle('paddingBottom'), 10)) + 'px' });
+    },
+
     onDomLoad: function()
     {
         DimpCore.growler_log = false;
@@ -168,6 +175,8 @@ var DimpFullmessage = {
             $('msgLogInfo').show();
             DimpCore.updateMsgLog(this.log);
         }
+
+        this.resizeWindow();
     }
 
 };
@@ -180,3 +189,4 @@ DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpFullmessage.clickHandler.
 
 /* Attach event handlers. */
 document.observe('dom:loaded', DimpFullmessage.onDomLoad.bind(DimpFullmessage));
+Event.observe(window, 'resize', DimpFullmessage.resizeWindow.bind(DimpFullmessage));
