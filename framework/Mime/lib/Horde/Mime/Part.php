@@ -313,7 +313,7 @@ class Horde_Mime_Part
      * Set the body contents of this part.
      *
      * @param mixed $contents   The part body. Either a string or a stream
-     *                          resource.
+     *                          resource, or an array containing both.
      * @param string $encoding  The current encoding of the contents.
      */
     public function setContents($contents, $encoding = null)
