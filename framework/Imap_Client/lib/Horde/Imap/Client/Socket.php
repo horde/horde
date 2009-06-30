@@ -2294,7 +2294,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $i = 0;
         $cnt = count($data);
-        $fp = $this->_temp['fetchparams'];
+        $fp = isset($this->_temp['fetchparams'])
+            ? $this->_temp['fetchparams']
+            : array();
 
         if (isset($this->_temp['fetchresp']['seq'][$id])) {
             $tmp = $this->_temp['fetchresp']['seq'][$id];
