@@ -1470,7 +1470,7 @@ class IMP_Compose
                 $part->setCharset(NLS::getCharset());
                 $part->setType('message/rfc822');
                 $part->setName(_("Forwarded Message"));
-                $part->setContents($contents->fullMessageText());
+                $part->setContents($contents->fullMessageText(array('stream' => true)));
 
                 try {
                     $this->addMIMEPartAttachment($part);
@@ -1835,12 +1835,15 @@ class IMP_Compose
 
         switch ($this->_cache[$id]['filetype']) {
         case 'vfs':
+            // TODO: Use streams
             $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
             $part->setContents($vfs->read(self::VFS_ATTACH_PATH, $this->_cache[$id]['filename']));
             break;
 
         case 'file':
-            $part->setContents(file_get_contents($this->_cache[$id]['filename']));
+            $fp = fopen($this->_cache[$id]['filename'], 'r');
+            $part->setContents($fp);
+            fclose($fp);
         }
 
         return $part;

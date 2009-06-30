@@ -232,23 +232,34 @@ class IMP_Contents
     /**
      * Returns the full message text.
      *
-     * @return string  The full message text.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'stream' - (boolean) If true, return a stream for bodytext.
+     *            DEFAULT: No
+     * </pre>
+     *
+     * @return mixed  The full message text, or an array with a text entry
+     *                (header text) and a stream resource (body text) if
+     *                'stream' is true.
      */
-    public function fullMessageText()
+    public function fullMessageText($options = array())
     {
         if (is_null($this->_mailbox)) {
             return $this->_message->toString();
         }
 
         try {
-            // TODO - use streams
             $res = $GLOBALS['imp_imap']->ob->fetch($this->_mailbox, array(
-                Horde_Imap_Client::FETCH_HEADERTEXT => array(array('peek' => true)),
-                Horde_Imap_Client::FETCH_BODYTEXT => array(array('peek' => true))
+                Horde_Imap_Client::FETCH_HEADERTEXT => array(array('peek' => true, 'stream' => !empty($options['stream']))),
+                Horde_Imap_Client::FETCH_BODYTEXT => array(array('peek' => true, 'stream' => !empty($options['stream'])))
             ), array('ids' => array($this->_index)));
-            return $res[$this->_index]['headertext'][0] . $res[$this->_index]['bodytext'][0];
+            return empty($options['stream'])
+                ? $res[$this->_index]['headertext'][0] . $res[$this->_index]['bodytext'][0]
+                : array($res[$this->_index]['headertext'][0], $res[$this->_index]['bodytext'][0]);
         } catch (Horde_Imap_Client_Exception $e) {
-            return '';
+            return empty($options['stream'])
+                ? ''
+                : array();
         }
     }
 
@@ -314,14 +325,8 @@ class IMP_Contents
             !is_null($part) &&
             empty($options['nocontents']) &&
             !is_null($this->_mailbox) &&
-            !$part->getContents()) {
-            $contents = $this->getBodyPart($id, array('length' => empty($options['length']) ? null : $options['length'], 'stream' => true));
-            if (($part->getPrimaryType() == 'text') &&
-                (Horde_String::upper($part->getCharset()) == 'US-ASCII') &&
-                Horde_Mime::is8bit($contents)) {
-                $contents = Horde_String::convertCharset($contents, 'US-ASCII');
-            }
-            $part->setContents($contents);
+            !$part->getContentsAsStream()) {
+            $part->setContents($this->getBodyPart($id, array('length' => empty($options['length']) ? null : $options['length'], 'stream' => true)));
 
             if (empty($options['nodecode'])) {
                 $part->transferDecodeContents();

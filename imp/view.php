@@ -37,6 +37,14 @@ function _sanitizeName($name)
     return Horde_String::convertCharset(trim(preg_replace('/[^\pL\pN-+_. ]/u', '_', $name), ' _'), 'UTF-8');
 }
 
+function _fullMessageTextLength($ob)
+{
+    fseek($ob[1], 0, SEEK_END);
+    $len = strlen($ob[0]) + ftell($ob[1]);
+    rewind($ob[1]);
+    return $len;
+}
+
 /* Don't compress if we are already sending in compressed format. */
 if ((isset($_GET['actionID']) && ($_GET['actionID'] == 'download_all')) ||
     !empty($_GET['zip'])) {
@@ -162,9 +170,10 @@ case 'view_attach':
     exit;
 
 case 'view_source':
-    $msg = $contents->fullMessageText();
-    $browser->downloadHeaders('Message Source', 'text/plain', true, strlen($msg));
-    echo $msg;
+    $msg = $contents->fullMessageText(array('stream' => true));
+    $browser->downloadHeaders('Message Source', 'text/plain', true, _fullMessageTextLength($msg));
+    echo $msg[0];
+    fpassthru($msg[1]);
     exit;
 
 case 'save_message':
@@ -182,8 +191,10 @@ case 'save_message':
 
     $date = new DateTime($mime_headers->getValue('date'));
 
-    $body = 'From ' . $from . ' ' . $date->format('D M d H:i:s Y') . "\r\n" . $contents->fullMessageText();
-    $browser->downloadHeaders($name . '.eml', 'message/rfc822', false, strlen($body));
-    echo $body;
+    $hdr = 'From ' . $from . ' ' . $date->format('D M d H:i:s Y') . "\r\n";
+    $msg = $contents->fullMessageText(array('stream' => true));
+    $browser->downloadHeaders($name . '.eml', 'message/rfc822', false, strlen($hdr) + _fullMessageTextLength($msg));
+    echo $hdr . $msg[0];
+    fpassthru($msg[1]);
     exit;
 }

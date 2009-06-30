@@ -52,7 +52,7 @@ class IMP_Spam
                 /* If a (not)spam reporting program has been provided, use
                  * it. */
                 if (!empty($GLOBALS['conf'][$action]['program'])) {
-                    $raw_msg = $imp_contents->fullMessageText();
+                    $raw_msg = $imp_contents->fullMessageText(true);
 
                     /* Use a pipe to write the message contents. This should
                      * be secure. */
@@ -72,7 +72,9 @@ class IMP_Spam
                         Horde::logMessage('Cannot open process ' . $prog, __FILE__, __LINE__, PEAR_LOG_ERR);
                         return 0;
                     }
-                    fwrite($pipes[0], $raw_msg);
+                    fwrite($pipes[0], $raw_msg[0]);
+                    rewind($raw_msg[1]);
+                    stream_copy_to_stream($raw_msg[1], $pipes[0]);
                     fclose($pipes[0]);
                     $stderr = '';
                     while (!feof($pipes[2])) {
