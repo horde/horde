@@ -571,8 +571,6 @@ class IMP_Compose
                 $headers->addHeader('Bcc', $header['bcc']);
             }
 
-            $fcc = $headers->toString(array('charset' => $charset, 'defserver' => $_SESSION['imp']['maildomain']));
-
             /* Strip attachments if requested. */
             $save_attach = $prefs->getValue('save_attachments');
             if (($save_attach == 'never') ||
@@ -592,8 +590,9 @@ class IMP_Compose
                 }
             }
 
-            /* Add the body text to the message string. */
-            $fcc .= $mime_message->toString(false);
+            /* Generate the message string. */
+            $fcc = $headers->toString(array('charset' => $charset, 'defserver' => $_SESSION['imp']['maildomain'])) .
+                $mime_message->toString(false);
 
             $imp_folder = IMP_Folder::singleton();
 
@@ -2158,14 +2157,15 @@ class IMP_Compose
             $link_part->setType('text/plain');
             $link_part->setCharset($charset);
             $link_part->setDisposition('inline');
-            $link_part->setContents($trailer, $part->getCurrentEncoding());
+            $link_part->setContents($trailer, '8bit');
             $link_part->setDescription(_("Attachment Information"));
 
             $mixed_part->addPart($link_part);
             return $mixed_part;
         }
 
-        $part->appendContents("\n-----\n" . $trailer, $part->getCurrentEncoding());
+        $part->appendContents("\n-----\n" . $trailer, '8bit');
+
         return $part;
     }
 
