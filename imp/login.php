@@ -31,6 +31,8 @@ $logout_reason = $auth->getLogoutReason();
 $actionID = (Horde_Util::getFormData('action') == 'compose') ? 'login_compose' : Horde_Util::getFormData('actionID');
 $url_param = Horde_Util::getFormData('url');
 
+$load_frameset = intval($imp_auth && empty($conf['menu']['always']));
+
 /* Handle cases where we already have a session. */
 if (!empty($_SESSION['imp']) && is_array($_SESSION['imp'])) {
     if ($logout_reason) {
@@ -339,8 +341,8 @@ IMP::addInlineScript(array(
     'ImpLogin.ie_clientcaps = ' . intval($t->get('ie_clientcaps')),
     'ImpLogin.imp_auth = ' . intval($imp_auth),
     'ImpLogin.lang_url = ' . Horde_Serialize::serialize($lang_url, Horde_Serialize::JSON, $charset),
-    'ImpLogin.nomenu = ' . intval(empty($conf['menu']['always'])),
-    'ImpLogin.reloadmenu = ' . intval($logout_reason && $imp_auth && $conf['menu']['always']),
+    'ImpLogin.nomenu = ' . $load_frameset,
+    'ImpLogin.reloadmenu = ' . intval($logout_reason && $load_frameset),
     'ImpLogin.show_list = ' . intval($show_list),
     'ImpLogin.dimp_sel = ' . intval($dimp_sel),
 ));

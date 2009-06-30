@@ -11,17 +11,19 @@
 
 function _framesetUrl($url)
 {
-    if (!$GLOBALS['noframeset'] && Horde_Util::getFormData('load_frameset')) {
+    if (!empty($conf['menu']['always']) ||
+        $GLOBALS['prefs']->getValue('show_sidebar')) {
         $url = Horde_Util::addParameter(Horde::applicationUrl($GLOBALS['registry']->get('webroot', 'horde') . '/index.php', true), array('url' => _addAnchor($url, 'param')), null, false);
 
         /* Need to do a loginTasks check here because we must display login
          * tasks before frameset is loaded. */
         IMP_Session::loginTasks($url);
     }
+
     return $url;
 }
 
-function _newSessionUrl($actionID, $isLogin)
+function _newSessionUrl($actionID)
 {
     $url = '';
     $addActionID = true;
@@ -30,15 +32,16 @@ function _newSessionUrl($actionID, $isLogin)
         $url = Horde::url(Horde_Util::removeParameter($GLOBALS['url_in'], session_name()), true);
     } elseif (Auth::getProvider() == 'imp') {
         $url = Horde::applicationUrl($GLOBALS['registry']->get('webroot', 'horde') . '/', true);
+
         /* Force the initial page to IMP if we're logging in to compose a
          * message. */
         if ($actionID == 'login_compose') {
-            $url = Horde_Util::addParameter($url, 'url', _addAnchor(IMP_Session::getInitialUrl('login_compose', false), 'param'));
+            $url = Horde_Util::addParameter($url, 'url', _addAnchor(IMP_Session::getInitialUrl($actionID, false), 'param'));
             $addActionID = false;
         }
     } else {
         $url = IMP_Session::getInitialUrl($actionID, false);
-        if ($isLogin) {
+        if ($GLOBALS['isLogin']) {
             /* Don't show popup window in initial page. */
             $url = Horde_Util::addParameter($url, 'no_newmail_popup', 1, false);
         }
@@ -93,7 +96,6 @@ if (!empty($autologin)) {
     $pass = Auth::getCredential('password');
 }
 $isLogin = empty($_SESSION['imp']['logintasks']);
-$noframeset = false;
 
 /* Get URL/Anchor strings now. */
 $url_anchor = null;
@@ -160,7 +162,7 @@ if (!is_null($imapuser) && !is_null($pass)) {
             Horde::callHook('_imp_hook_postlogin', array($actionID, $isLogin), 'imp');
         }
 
-        _redirect(_framesetUrl(_newSessionUrl($actionID, $isLogin)));
+        _redirect(_framesetUrl(_newSessionUrl($actionID)));
     }
 
     _redirect(IMP::getLogoutUrl(null, true));
