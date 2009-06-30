@@ -42,19 +42,23 @@ class Horde_Autoloader
             list($pattern, $replace) = $classPattern;
             $file = $class;
 
-            if (!is_null($replace)) {
-                $file = preg_replace($pattern, $replace, $file);
+            if (!is_null($replace) &&
+                preg_match($pattern, $file, $matches, PREG_OFFSET_CAPTURE)) {
+                $file_path = str_replace(array('::', '_'), '/', substr($file, 0, $matches[0][1])) .
+                    $replace .
+                    str_replace(array('::', '_'), '/', substr($file, $matches[0][1] + strlen($matches[0][0])));
+            } else {
+                $file_path = str_replace(array('::', '_'), '/', $file);
             }
 
             if (!is_null($replace) || preg_match($pattern, $file)) {
-                $file = str_replace(array('::', '_'), '/', $file) . '.php';
                 $err_mask = E_ALL ^ E_WARNING;
                 if (defined('E_DEPRECATED')) {
                     $err_mask = $err_mask ^ E_DEPRECATED;
                 }
                 $oldErrorReporting = error_reporting($err_mask);
                 /* @TODO H4: Change back to include */
-                $included = include_once $file;
+                $included = include_once $file_path . '.php';
                 error_reporting($oldErrorReporting);
                 if ($included) {
                     return true;
