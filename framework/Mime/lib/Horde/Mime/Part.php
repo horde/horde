@@ -24,8 +24,13 @@ class Horde_Mime_Part
     /* The default MIME disposition. */
     const DEFAULT_DISPOSITION = 'inline';
 
-    /* The default MIME encoding. */
-    const DEFAULT_ENCODING = '7bit';
+    /* The default encoding. */
+    const DEFAULT_ENCODING = 'binary';
+
+    /* Constants indicating the valid transfer encoding allowed. */
+    const ENCODE_7BIT = 1;
+    const ENCODE_8BIT = 2;
+    const ENCODE_BINARY = 4;
 
     /**
      * The default charset to use when parsing text parts with no charset
@@ -78,7 +83,7 @@ class Horde_Mime_Part
     protected $_subtype = 'octet-stream';
 
     /**
-     * The body of the part.
+     * The body of the part. Always stored in binary format.
      *
      * @var resource
      */
@@ -90,13 +95,6 @@ class Horde_Mime_Part
      * @var string
      */
     protected $_transferEncoding = self::DEFAULT_ENCODING;
-
-    /**
-     * Should the message be encoded via 7-bit?
-     *
-     * @var boolean
-     */
-    protected $_encode7bit = true;
 
     /**
      * The description of this part.
@@ -154,11 +152,11 @@ class Horde_Mime_Part
     protected $_eol = self::EOL;
 
     /**
-     * Internal class flags.
+     * Internal temp array.
      *
      * @var array
      */
-    protected $_flags = array();
+    protected $_temp = array();
 
     /**
      * Unique Horde_Mime_Part boundary string.
@@ -312,41 +310,56 @@ class Horde_Mime_Part
     /**
      * Set the body contents of this part.
      *
-     * @param mixed $contents   The part body. Either a string or a stream
-     *                          resource, or an array containing both.
-     * @param string $encoding  The current encoding of the contents.
+     * @param mixed $contents  The part body. Either a string or a stream
+     *                         resource, or an array containing both.
+     * @param array $options   Additional options:
+     * <pre>
+     * 'encoding' - (string) The encoding of $contents.
+     *              DEFAULT: Current transfer encoding value.
+     * 'usestream' - (boolean) If $contents is a stream, should we directly
+     *               use that stream?
+     *               DEFAULT: $contents copied to a new stream.
+     * </pre>
      */
-    public function setContents($contents, $encoding = null)
+    public function setContents($contents, $options = array())
     {
-        $this->_contents = $this->_writeStream($contents);
-        $this->_flags['currentEncoding'] = is_null($encoding)
-            ? $this->getCurrentEncoding()
-            : $encoding;
+        $this->clearContents();
+        if (empty($options['encoding'])) {
+            $options['encoding'] = $this->_transferEncoding;
+        }
+
+        $fp = (empty($options['usestream']) || !is_resource($contents))
+            ? $this->_writeStream($contents)
+            : $contents;
+
+        $this->setTransferEncoding($options['encoding']);
+        $this->_contents = $this->_transferDecode($fp, $options['encoding']);
     }
 
     /**
      * Add to the body contents of this part.
      *
-     * @param mixed $contents   The contents to append to the current part
-     *                          body. Either a string or a stream resource.
-     * @param string $encoding  The current encoding of the contents. If not
-     *                          specified, will try to auto determine the
-     *                          encoding.
+     * @param mixed $contents   The part body. Either a string or a stream
+     *                          resource, or an array containing both.
+     * <pre>
+     * 'encoding' - (string) The encoding of $contents.
+     *              DEFAULT: Current transfer encoding value.
+     * 'usestream' - (boolean) If $contents is a stream, should we directly
+     *               use that stream?
+     *               DEFAULT: $contents copied to a new stream.
+     * </pre>
      */
-    public function appendContents($contents, $encoding = null)
+    public function appendContents($contents, $options = array())
     {
         if (empty($this->_contents)) {
             $this->setContents($contents, $encoding);
         } else {
-            if (!is_null($encoding) &&
-                ($encoding != $this->getCurrentEncoding())) {
-                $this->setTransferEncoding($encoding);
-                $this->transferDecodeContents();
-            }
-            $this->_contents = $this->_writeStream($contents, array('fp' => $this->_contents));
-            $this->_flags['currentEncoding'] = is_null($encoding)
-                ? $this->getCurrentEncoding()
-                : $encoding;
+            $fp = (empty($options['usestream']) || !is_resource($contents))
+                ? $this->_writeStream($contents)
+                : $contents;
+
+            $this->_writeStream((empty($options['encoding']) || ($options['encoding'] == $this->_transferEncoding)) ? $fp : $this->_transferDecode($fp, $options['encoding']), array('fp' => $this->_contents));
+            unset($this->_temp['sendTransferEncoding']);
         }
     }
 
@@ -358,189 +371,107 @@ class Horde_Mime_Part
         if (!empty($this->_contents)) {
             fclose($this->_contents);
             $this->_contents = null;
+            unset($this->_temp['sendTransferEncoding']);
         }
     }
 
     /**
      * Return the body of the part.
      *
-     * @return string  The raw body of the part.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'canonical' - (boolean) Returns the contents in strict RFC 822 &
+     *               2045 output - namely, all newlines end with the
+     *               canonical <CR><LF> sequence.
+     *               DEFAULT: No
+     * 'stream' - (boolean) Return the body as a stream resource.
+     *            DEFAULT: No
+     * </pre>
+     *
+     * @return mixed  The body text of the part, or a stream resource if
+     *                'stream' is true.
      */
-    public function getContents()
+    public function getContents($options = array())
     {
-        return $this->_readStream($this->_contents);
+        return empty($options['canonical'])
+            ? (empty($options['stream']) ? $this->_readStream($this->_contents) : $this->_contents)
+            : $this->replaceEOL($this->_contents, self::RFC_EOL, !empty($options['stream']));
     }
 
     /**
-     * Return the body of the part (as a stream resource).
+     * Decodes the contents of the part to binary encoding.
      *
-     * @return resource  The raw body of the part as a stream resource.
+     * @param resource $fp      A stream containing the data to decode.
+     * @param string $encoding  The original file encoding.
+     *
+     * @return resource  A new file resource with the decoded data.
      */
-    public function getContentsAsStream()
+    protected function _transferDecode($fp, $encoding)
     {
-        rewind($this->_contents);
-        return $this->_contents;
-    }
+        /* If the contents are empty, return now. */
+        $stat = fstat($fp);
+        if ($stat['size']) {
+            switch ($encoding) {
+            case 'base64':
+                return $this->_writeStream($fp, array('filter' => 'convert.base64-decode'));
 
-    /**
-     * Returns the contents in strict RFC 822 & 2045 output - namely, all
-     * newlines end with the canonical <CR><LF> sequence.
-     *
-     * @param boolean $stream  Return a stream resource instead of a string.
-     *
-     * @return mixed  The raw body of the part, with <CR><LF> EOL (returned
-     *                as stream if $stream is true).
-     */
-    public function getCanonicalContents($stream = false)
-    {
-        return $this->replaceEOL($this->_contents, self::RFC_EOL, $stream);
-    }
+            case 'quoted-printable':
+                return $this->_writeStream($fp, array('filter' => 'convert.quoted-printable-decode'));
 
-    /**
-     * Transfer encode the contents (to the transfer encoding identified via
-     * getTransferEncoding()) and set as the part's new contents.
-     */
-    public function transferEncodeContents()
-    {
-        if (empty($this->_contents)) {
-            return;
+            case 'uuencode':
+            case 'x-uuencode':
+            case 'x-uue':
+                /* Support for uuencoded encoding - although not required by
+                 * RFCs, some mailers may still encode this way. */
+                return $this->_writeStream(convert_uuencode($this->_readStream($fp)));
+            }
         }
 
-        $contents = $this->transferEncode(true);
-        $encode = $this->_flags['lastTransferEncode'];
-        $this->setContents($contents, $encode);
-        $this->setTransferEncoding($encode);
+        return $fp;
     }
 
     /**
-     * Transfer decode the contents and set them as the new contents.
-     */
-    public function transferDecodeContents()
-    {
-        if (empty($this->_contents)) {
-            return;
-        }
-
-        $contents = $this->transferDecode(true);
-        $encode = $this->_flags['lastTransferDecode'];
-        $this->setContents($contents, $encode);
-        $this->setTransferEncoding($encode);
-    }
-
-    /**
-     * Encodes the contents with the part's transfer encoding.
+     * Encodes the contents of the part as necessary for transport.
      *
-     * @param boolean $stream  Return a stream resource instead of a string.
+     * @param resource $fp      A stream containing the data to encode.
+     * @param string $encoding  The encoding to use.
      *
-     * @return mixed  The encoded text, either as a string or a resource.
+     * @return resource  A new file resource with the encoded data.
      */
-    public function transferEncode($stream = false)
+    protected function _transferEncode($fp, $encoding)
     {
-        $encoding = $this->getTransferEncoding();
-        $eol = $this->getEOL();
-
-        /* Set the 'lastTransferEncode' flag so that transferEncodeContents()
-           can save a call to getTransferEncoding(). */
-        $this->_flags['lastTransferEncode'] = $encoding;
-
-        /* If contents are empty, or contents are already encoded to the
-           correct encoding, return now. */
-        if (empty($this->_contents)) {
-            return $this->_contents;
-        } elseif ($encoding == $this->_flags['currentEncoding']) {
-            return $stream
-                ? $this->_contents
-                : $this->_readStream($this->_contents);
-        }
-
-        $close_fp = true;
+        $this->_temp['transferEncodeClose'] = true;
 
         switch ($encoding) {
         case 'base64':
             /* Base64 Encoding: See RFC 2045, section 6.8 */
-            $fp = $this->_writeStream($this->_contents, array('filter' => 'convert.base64-encode', 'params' => array('line-length' => 76, 'line-break-chars' => $eol)));
-            break;
+            return $this->_writeStream($fp, array('filter' => 'convert.base64-encode', 'params' => array('line-length' => 76, 'line-break-chars' => $this->getEOL())));
 
         case 'quoted-printable':
             /* Quoted-Printable Encoding: See RFC 2045, section 6.7 */
-            $fp = $this->_writeStream($this->_contents, array('filter' => 'convert.quoted-printable-encode', 'params' => array('line-break-chars' => $eol)));
-            break;
+            return $this->_writeStream($fp, array('filter' => 'convert.quoted-printable-encode', 'params' => array('line-break-chars' => $this->getEOL())));
 
         default:
-            $fp = $this->_contents;
-            $close_fp = false;
-            break;
+            $this->_temp['transferEncodeClose'] = false;
+            return $fp;
         }
-
-        return $stream ? $fp : $this->_readStream($fp, $close_fp);
-    }
-
-    /**
-     * Decodes the contents of the part to either a 7bit or 8bit encoding.
-     *
-     * @param boolean $stream  Return a stream resource instead of a string.
-     *
-     * @return mixed  The decoded text, either as a string or a resource.
-     */
-    public function transferDecode($stream = false)
-    {
-        $encoding = $this->getCurrentEncoding();
-
-        /* If the contents are empty, return now. */
-        if (empty($this->_contents)) {
-            $this->_flags['lastTransferDecode'] = $encoding;
-            return $this->_contents;
-        }
-
-        $close_fp = true;
-
-        switch ($encoding) {
-        case 'base64':
-            $this->_flags['lastTransferDecode'] = '8bit';
-            $fp = $this->_writeStream($this->_contents, array('filter' => 'convert.base64-decode'));
-            break;
-
-        case 'quoted-printable':
-            $fp = $this->_writeStream($this->_contents, array('filter' => 'convert.quoted-printable-decode'));
-            $this->_flags['lastTransferDecode'] = $this->_scanStream($fp, '8bit')
-                ? '8bit'
-                : '7bit';
-            break;
-
-        case 'uuencode':
-        case 'x-uuencode':
-        case 'x-uue':
-            /* Support for uuencoded encoding - although not required by RFCs,
-             * some mailers may still encode this way. */
-            $this->_flags['lastTransferDecode'] = '8bit';
-            $fp = $this->_writeStream(convert_uuencode($this->_readStream($this->__contents)));
-            break;
-
-        default:
-            $fp = $this->_contents;
-            $this->_flags['lastTransferDecode'] = $encoding;
-            $close_fp = false;
-            break;
-        }
-
-        return $stream ? $fp : $this->_readStream($fp, $close_fp);
     }
 
     /**
      * Set the MIME type of this part.
      *
-     * @param string $mimetype  The MIME type to set (ex.: text/plain).
+     * @param string $type  The MIME type to set (ex.: text/plain).
      */
-    public function setType($mimetype)
+    public function setType($type)
     {
         /* RFC 2045: Any entity with unrecognized encoding must be treated
-           as if it has a Content-Type of "application/octet-stream"
-           regardless of what the Content-Type field actually says. */
+         * as if it has a Content-Type of "application/octet-stream"
+         * regardless of what the Content-Type field actually says. */
         if ($this->_transferEncoding == 'x-unknown') {
             return;
         }
 
-        list($this->_type, $this->_subtype) = explode('/', Horde_String::lower($mimetype));
+        list($this->_type, $this->_subtype) = explode('/', Horde_String::lower($type));
 
         if (in_array($this->_type, self::$mimeTypes)) {
             /* Set the boundary string for 'multipart/*' parts. */
@@ -563,12 +494,12 @@ class Horde_Mime_Part
       * @param boolean $charset  Append character set information to the end
       *                          of the content type if this is a text/* part?
       *
-      * @return string  The mimetype of this part
-      *                 (ex.: text/plain; charset=us-ascii).
+      * @return string  The mimetype of this part (ex.: text/plain;
+      *                 charset=us-ascii) or false.
       */
      public function getType($charset = false)
      {
-         if (!isset($this->_type) || !isset($this->_subtype)) {
+         if (empty($this->_type) || empty($this->_subtype)) {
              return false;
          }
 
@@ -637,11 +568,11 @@ class Horde_Mime_Part
     }
 
     /**
-     * Get the character set to use for of this part.  Returns a charset for
+     * Get the character set to use for of this part. Returns a charset for
      * all types (not just 'text/*') since we use this charset to determine
      * how to encode text in MIME headers.
      *
-     * @return string  The character set of this part.  Returns null if there
+     * @return string  The character set of this part. Returns null if there
      *                 is no character set.
      */
     public function getCharset()
@@ -681,17 +612,36 @@ class Horde_Mime_Part
     }
 
     /**
-     * Set the transfer encoding to use for this part.
+     * Set the transfer encoding to use for this part. Only needed in the
+     * following circumstances:
+     * 1.) Indicate what the transfer encoding is if the data has not yet been
+     * set in the object (can only be set if there presently are not
+     * any contents).
+     * 2.) Force the encoding to a certain type on a toString() call (if
+     * 'send' is true).
      *
      * @param string $encoding  The transfer encoding to use.
+     * @param array $options    Additional options:
+     * <pre>
+     * 'send' - (boolean) If true, use $encoding as the sending encoding.
+     *          DEFAULT: $encoding is used to change the base encoding.
+     * </pre>
      */
-    public function setTransferEncoding($encoding)
+    public function setTransferEncoding($encoding, $options = array())
     {
+        if (empty($options['send']) && !empty($this->_contents)) {
+            return;
+        }
+
         $encoding = Horde_String::lower($encoding);
 
         if (in_array($encoding, self::$encodingTypes)) {
-            $this->_transferEncoding = $encoding;
-        } else {
+            if (empty($options['send'])) {
+                $this->_transferEncoding = $encoding;
+            } else {
+                $this->_temp['sendEncoding'] = $encoding;
+            }
+        } elseif (empty($options['send'])) {
             /* RFC 2045: Any entity with unrecognized encoding must be treated
              * as if it has a Content-Type of "application/octet-stream"
              * regardless of what the Content-Type field actually says. */
@@ -883,18 +833,21 @@ class Horde_Mime_Part
      * Returns a Horde_Mime_Header object containing all MIME headers needed
      * for the part.
      *
-     * @param Horde_Mime_Headers $headers  The Horde_Mime_Headers object to
-     *                                     add the MIME headers to. If not
-     *                                     specified, adds the headers to a
-     *                                     new object.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'encode' - (integer) A mask of allowable encodings.
+     *            DEFAULT: See self::_getTransferEncoding()
+     * 'headers' - (Horde_Mime_Headers) The object to add the MIME headers to.
+     *             DEFAULT: Add headers to a new object
+     * </pre>
      *
      * @return Horde_Mime_Headers  A Horde_Mime_Headers object.
      */
-    public function addMimeHeaders($headers = null)
+    public function addMimeHeaders($options = array())
     {
-        if (is_null($headers)) {
-            $headers = new Horde_Mime_Headers();
-        }
+        $headers = empty($options['headers'])
+            ? new Horde_Mime_Headers()
+            : $options['headers'];
 
         /* Get the Content-Type itself. */
         $ptype = $this->getPrimaryType();
@@ -927,7 +880,7 @@ class Horde_Mime_Part
         }
 
         /* Add transfer encoding information. */
-        $headers->replaceHeader('Content-Transfer-Encoding', $this->getTransferEncoding());
+        $headers->replaceHeader('Content-Transfer-Encoding', $this->_getTransferEncoding(empty($options['encode']) ? null : $options['encode']));
 
         /* Add content ID information. */
         if (!is_null($this->_contentid)) {
@@ -938,25 +891,48 @@ class Horde_Mime_Part
     }
 
     /**
-     * Return the entire part in MIME format. Includes headers on request.
+     * Return the entire part in MIME format.
      *
-     * @param boolean $headers  Include the MIME headers?
-     * @param boolean $stream   Return a stream resource instead of a string.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'canonical' - (boolean) Returns the encoded part in strict RFC 822 &
+     *               2045 output - namely, all newlines end with the canonical
+     *               <CR><LF> sequence.
+     *               DEFAULT: false
+     * 'encode' - (integer) A mask of allowable encodings.
+     *            DEFAULT: self::ENCODE_7BIT
+     * 'headers' - (boolean) Include the MIME headers?
+     *             DEFAULT: true
+     * 'stream' - (boolean) Return a stream resource.
+     *            DEFAULT: false
+     * </pre>
      *
      * @return mixed  The MIME string (returned as a resource if $stream is
      *                true).
      */
-    public function toString($headers = true, $stream = false)
+    public function toString($options = array())
     {
         $eol = $this->getEOL();
         $ptype = $this->getPrimaryType();
         $parts = $parts_close = array();
+        $headers = true;
 
-        if ($headers) {
-            $hdr_ob = $this->addMimeHeaders();
-            $hdr_ob->setEOL($eol);
-            $parts[] = $hdr_ob->toString(array('charset' => $this->getCharset()));
+        if ($isbase = empty($options['_notbase'])) {
+            $headers = !empty($options['headers']);
+
+            if (empty($options['encode'])) {
+                $options['encode'] = null;
+            }
+            $options['headers'] = true;
+            $options['_notbase'] = true;
+
+            $oldbaseptr = null;
+        } else {
+            $oldbaseptr = &$options['_baseptr'];
         }
+
+        $this->_temp['toString'] = '';
+        $options['_baseptr'] = &$this->_temp['toString'];
 
         /* Any information about a message/* is embedded in the message
            contents themself. Simply output the contents of the part
@@ -964,7 +940,28 @@ class Horde_Mime_Part
         if ($ptype == 'message') {
             $parts[] = $this->_contents;
         } else {
-            $parts[] = $parts_close[] = $this->transferEncode(true);
+            if (!empty($this->_contents)) {
+                $encoding = $this->_getTransferEncoding($options['encode']);
+                switch ($encoding) {
+                case '8bit':
+                    if (empty($options['_baseptr'])) {
+                        $options['_baseptr'] = '8bit';
+                    }
+                    break;
+
+                case 'binary':
+                    $options['_baseptr'] = 'binary';
+                    break;
+                }
+
+                $parts[] = $this->_transferEncode($this->_contents, $encoding);
+
+                /* If not using $this->_contents, we can close the stream when
+                 * finished. */
+                if ($this->_temp['transferEncodeClose']) {
+                    $parts_close[] = end($parts);
+                }
+            }
 
             /* Deal with multipart messages. */
             if ($ptype == 'multipart') {
@@ -980,8 +977,8 @@ class Horde_Mime_Part
                     $parts[] = $eol . '--' . $boundary . $eol;
                     $oldEOL = $part->getEOL();
                     $part->setEOL($eol);
-                    $tmp = $part->toString(true, $stream);
-                    if (!empty($stream)) {
+                    $tmp = $part->toString($options);
+                    if (!empty($options['stream'])) {
                         $parts_close[] = $tmp;
                     }
                     $parts[] = $tmp;
@@ -991,110 +988,124 @@ class Horde_Mime_Part
             }
         }
 
+        if ($headers) {
+            $hdr_ob = $this->addMimeHeaders(array('encode' => $options['encode']));
+            $hdr_ob->setEOL($eol);
+            if (!empty($this->_temp['toString'])) {
+                $hdr_ob->replaceHeader('Content-Transfer-Encoding', $this->_temp['toString']);
+            }
+            array_unshift($parts, $hdr_ob->toString(array('charset' => $this->getCharset())));
+        }
+
         $newfp = $this->_writeStream($parts);
         array_map('fclose', $parts_close);
-        return $stream ? $newfp : $this->_readStream($newfp);
-    }
 
-    /**
-     * Returns the encoded part in strict RFC 822 & 2045 output - namely, all
-     * newlines end with the canonical <CR><LF> sequence.
-     *
-     * @param boolean $headers  Include the MIME headers?
-     * @param boolean $stream   Return a stream resource instead of a string.
-     *
-     * @return mixed  The canonical text of the part, with <CR><LF> EOL
-     *                (returned as stream if $stream is true).
-     */
-    public function toCanonicalString($headers = true, $stream = false)
-    {
-        $fp = $this->toString($headers, true);
-        $res = $this->replaceEOL($fp, self::RFC_EOL, $stream);
-        fclose($fp);
-        return $res;
-    }
+        if (!is_null($oldbaseptr)) {
+            switch ($this->_temp['toString']) {
+            case '8bit':
+                if (empty($oldbaseptr)) {
+                    $oldbaseptr = '8bit';
+                }
+                break;
 
-    /**
-     * Should we make sure the message is encoded via 7-bit (e.g. to adhere
-     * to mail delivery standards such as RFC 2821)?
-     *
-     * @param boolean $use7bit  Use 7-bit encoding?
-     */
-    public function strict7bit($use7bit)
-    {
-        $this->_encode7bit = $use7bit;
+            case 'binary':
+                $oldbaseptr = 'binary';
+                break;
+            }
+        }
+
+        if ($isbase && !empty($options['canonical'])) {
+            return $this->replaceEOL($newfp, self::RFC_EOL, !empty($options['stream']));
+        }
+
+        return empty($options['stream'])
+            ? $this->_readStream($newfp)
+            : $newfp;
     }
 
     /**
      * Get the transfer encoding for the part based on the user requested
      * transfer encoding and the current contents of the part.
      *
+     * @param integer $encode  A mask of allowable encodings.
+     *
      * @return string  The transfer-encoding of this part.
      */
-    public function getTransferEncoding()
+    protected function _getTransferEncoding($encode = self::ENCODE_7BIT)
     {
-        $encoding = $this->_transferEncoding;
+        if (!empty($this->_temp['sendEncoding'])) {
+            return $this->_temp['sendEncoding'];
+        } elseif (!empty($this->_temp['sendTransferEncoding'][$encode])) {
+            return $this->_temp['sendTransferEncoding'][$encode];
+        }
 
-        /* If there are no contents, return whatever the current value of
-           $_transferEncoding is. */
         if (empty($this->_contents)) {
-            return $encoding;
-        }
+            $encoding = '7bit';
+        } else {
+            $nobinary = false;
 
-        $ptype = $this->getPrimaryType();
+            switch ($this->getPrimaryType()) {
+            case 'message':
+            case 'multipart':
+                /* RFC 2046 [5.2.1] - message/rfc822 messages only allow 7bit,
+                 * 8bit, and binary encodings. If the current encoding is
+                 * either base64 or q-p, switch it to 8bit instead.
+                 * RFC 2046 [5.2.2, 5.2.3, 5.2.4] - All other message/*
+                 * messages only allow 7bit encodings.
+                 *
+                 * TODO: What if message contains 8bit characters and we are
+                 * in strict 7bit mode? Not sure there is anything we can do
+                 * in that situation, especially for message/rfc822 parts.
+                 *
+                 * These encoding will be figured out later (via toString()).
+                 * They are limited to 7bit, 8bit, and binary. Default to
+                 * '7bit' per RFCs. */
+                $encoding = '7bit';
+                $nobinary = true;
+                break;
 
-        switch ($ptype) {
-        case 'message':
-            /* RFC 2046 [5.2.1] - message/rfc822 messages only allow 7bit,
-               8bit, and binary encodings. If the current encoding is either
-               base64 or q-p, switch it to 8bit instead.
-               RFC 2046 [5.2.2, 5.2.3, 5.2.4] - All other message/* messages
-               only allow 7bit encodings. */
-            $encoding = ($this->getSubType() == 'rfc822') ? '8bit' : '7bit';
-            break;
+            case 'text':
+                $eol = $this->getEOL();
 
-        case 'text':
-            $eol = $this->getEOL();
-            if ($this->_scanStream($this->_contents, '8bit')) {
-                $encoding = $this->_encode7bit ? 'quoted-printable' : '8bit';
-            } elseif ($this->_scanStream($this->_contents, 'preg', "/(?:" . $eol . "|^)[^" . $eol . "]{999,}(?:" . $eol . "|$)/")) {
-                /* If the text is longer than 998 characters between
-                 * linebreaks, use quoted-printable encoding to ensure the
-                 * text will not be chopped (i.e. by sendmail if being sent
-                 * as mail text). */
-                $encoding = 'quoted-printable';
+                if ($this->_scanStream($this->_contents, '8bit')) {
+                    $encoding = ($encode & self::ENCODE_8BIT || $encode & self::ENCODE_BINARY)
+                        ? '8bit'
+                        : 'quoted-printable';
+                } elseif ($this->_scanStream($this->_contents, 'preg', "/(?:" . $eol . "|^)[^" . $eol . "]{999,}(?:" . $eol . "|$)/")) {
+                    /* If the text is longer than 998 characters between
+                     * linebreaks, use quoted-printable encoding to ensure the
+                     * text will not be chopped (i.e. by sendmail if being
+                     * sent as mail text). */
+                    $encoding = 'quoted-printable';
+                } else {
+                    $encoding = '7bit';
+                }
+                break;
+
+            default:
+                $encoding = ($encode & self::ENCODE_8BIT || $encode & self::ENCODE_BINARY)
+                    ? '8bit'
+                    : 'base64';
+                break;
             }
-            break;
 
-        default:
-            if ($this->_scanStream($this->_contents, '8bit')) {
-                $encoding = $this->_encode7bit ? 'base64' : '8bit';
+            /* Need to do one last check for binary data if encoding is 7bit
+             * or 8bit.  If the message contains a NULL character at all, the
+             * message MUST be in binary format. RFC 2046 [2.7, 2.8, 2.9]. Q-P
+             * and base64 can handle binary data fine so no need to switch
+             * those encodings. */
+            if (!$nobinary &&
+                in_array($encoding, array('8bit', '7bit')) &&
+                $this->_scanStream($this->_contents, 'binary')) {
+                $encoding = ($encode & self::ENCODE_BINARY)
+                    ? 'binary'
+                    : 'base64';
             }
-            break;
         }
 
-        /* Need to do one last check for binary data if encoding is 7bit or
-         * 8bit.  If the message contains a NULL character at all, the message
-         * MUST be in binary format. RFC 2046 [2.7, 2.8, 2.9]. Q-P and base64
-         * can handle binary data fine so no need to switch those encodings. */
-        if (in_array($encoding, array('8bit', '7bit')) &&
-            $this->_scanStream($this->_contents, 'preg', '/\x00/')) {
-            $encoding = $this->_encode7bit ? 'base64' : 'binary';
-        }
+        $this->_temp['sendTransferEncoding'][$encode] = $encoding;
 
         return $encoding;
-    }
-
-    /**
-     * Retrieves the current encoding of the contents in the object.
-     *
-     * @return string  The current encoding.
-     */
-    public function getCurrentEncoding()
-    {
-        return empty($this->_flags['currentEncoding'])
-            ? $this->_transferEncoding
-            : $this->_flags['currentEncoding'];
     }
 
     /**
@@ -1122,7 +1133,7 @@ class Horde_Mime_Part
 
         rewind($fp);
         while ($line = fgets($fp)) {
-            fwrite($newfp, rtrim($line) . $eol);
+            fwrite($newfp, rtrim($line, "\r\n") . $eol);
         }
 
         if (is_string($text)) {
@@ -1152,8 +1163,8 @@ class Horde_Mime_Part
                 }
             }
         } else {
-            fseek($this->_contents, 0, SEEK_END);
-            $bytes = ftell($this->_contents);
+            $stat = fstat($this->_contents);
+            $bytes = $stat['size'];
         }
 
         return $bytes;
@@ -1195,12 +1206,17 @@ class Horde_Mime_Part
      *
      * @param string $cid  Use this CID (if not already set).  Else, generate
      *                     a random CID.
+     *
+     * @return string  The Content-ID for this part.
      */
     public function setContentId($cid = null)
     {
         if (is_null($this->_contentid)) {
-            $this->_contentid = (is_null($cid)) ? (Horde_Mime::generateRandomId() . '@' . $_SERVER['SERVER_NAME']) : $cid;
+            $this->_contentid = is_null($cid)
+                ? (Horde_Mime::generateRandomId() . '@' . $_SERVER['SERVER_NAME'])
+                : $cid;
         }
+
         return $this->_contentid;
     }
 
@@ -1340,49 +1356,57 @@ class Horde_Mime_Part
      */
     public function send($email, $headers, $driver, $params = array())
     {
-        require_once 'Mail.php';
         $mailer = Mail::factory($driver, $params);
 
         $old_basepart = $this->_basepart;
         $this->_basepart = true;
 
-        /* Add MIME Headers if they don't already exist. */
-        if (!$headers->getValue('MIME-Version')) {
-            $headers = $this->addMimeHeaders($headers);
-        }
-        $headerArray = $headers->toArray(array('charset' => $this->getCharset()));
-
         /* Does the SMTP backend support 8BITMIME (RFC 1652) or
          * BINARYMIME (RFC 3030) extensions? Requires PEAR's Mail package
          * version 1.2+ and Net_SMTP version 1.3+. */
+        $encode = self::ENCODE_7BIT;
         if (($driver == 'smtp') && method_exists($mailer, 'getSMTPObject')) {
             $net_smtp = $mailer->getSMTPObject();
-            if (!is_a($net_smtp, 'PEAR_Error') &&
+            if (!($net_smtp instanceof PEAR_Error) &&
                 method_exists($net_smtp, 'getServiceExtensions')) {
                 $smtp_ext = $net_smtp->getServiceExtensions();
-                $this->strict7bit(false);
-                $encoding = $this->getTransferEncoding();
-                if (($encoding == '8bit') &&
-                    isset($smtp_ext['8BITMIME'])) {
-                    $mailer->addServiceExtensionParameter('BODY', '8BITMIME');
-                } elseif (($encoding == 'binary') &&
-                          isset($smtp_ext['BINARYMIME'])) {
-                    $mailer->addServiceExtensionParameter('BODY', 'BINARYMIME');
-                } else {
-                    $this->strict7bit(true);
-                    $encoding = $this->getTransferEncoding();
+                if (isset($smtp_ext['8BITMIME'])) {
+                    $encode |= self::ENCODE_8BIT;
                 }
-                $headers->replaceHeader('Content-Transfer-Encoding', $encoding);
+                if (isset($smtp_ext['BINARYMIME'])) {
+                    $encode |= self::ENCODE_BINARY;
+                }
             }
         }
 
         /* Make sure the message has a trailing newline. */
-        $msg = $this->toString(false);
+        $msg = $this->toString(array('encode' => $encode, 'headers' => false));
         if (substr($msg, -1) != "\n") {
             $msg .= "\n";
         }
 
-        $result = $mailer->send(Horde_Mime::encodeAddress($email), $headerArray, $msg);
+        /* Add MIME Headers if they don't already exist. */
+        if (!$headers->getValue('MIME-Version')) {
+            $headers = $this->addMimeHeaders(array('encode' => $encode, 'headers' => $headers));
+        }
+
+        if (!empty($this->_temp['toString'])) {
+            $headers->replaceHeader('Content-Transfer-Encoding', $this->_temp['toString']);
+            switch ($this->_temp['toString']) {
+            case 'binary':
+                $mailer->addServiceExtensionParameter('BODY', 'BINARYMIME');
+                break;
+
+            case '8bit':
+                $mailer->addServiceExtensionParameter('BODY', '8BITMIME');
+                break;
+            }
+        }
+//        print_r($msg);
+        print_r($headers);
+        exit;
+
+        $result = $mailer->send(Horde_Mime::encodeAddress($email), $headers->toArray(array('charset' => $this->getCharset())), $msg);
 
         $this->_basepart = $old_basepart;
 
@@ -1473,7 +1497,6 @@ class Horde_Mime_Part
             stream_filter_remove($append_filter);
         }
 
-
         return $fp;
     }
 
@@ -1509,7 +1532,7 @@ class Horde_Mime_Part
      * Scans a stream for the requested data.
      *
      * @param resource $fp  A stream resource.
-     * @param string $type  Either '8bit' or 'preg'.
+     * @param string $type  Either '8bit', 'binary', or 'preg'.
      * @param mixed $data   Any additional data needed to do the scan.
      *
      * @param boolean  The result of the scan.
@@ -1524,6 +1547,10 @@ class Horde_Mime_Part
                     return true;
                 }
                 break;
+
+            case 'binary':
+                $data = '/\x00/';
+                // Fall through
 
             case 'preg':
                 if (preg_match($data, $line)) {
@@ -1614,8 +1641,7 @@ class Horde_Mime_Part
         }
 
         if (isset($data['contents'])) {
-            $ob->setContents($data['contents'], $ob->getTransferEncoding());
-            $ob->transferDecodeContents();
+            $ob->setContents($data['contents']);
         }
 
         if (isset($data['disposition'])) {
@@ -1702,7 +1728,6 @@ class Horde_Mime_Part
             'decode_headers' => false
         );
 
-        require_once 'Mail/mimeDecode.php';
         $mimeDecode = new Mail_mimeDecode($text, Horde_Mime_Part::EOL);
         if (!($ob = $mimeDecode->decode($decode_args))) {
             throw new Horde_Mime_Exception('Could not decode MIME message.');

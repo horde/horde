@@ -270,7 +270,6 @@ class Horde_Mime_Mail
      */
     public function addMimePart($part)
     {
-        $part->transferEncodeContents();
         $this->_parts[] = $part;
         return count($this->_parts) - 1;
     }

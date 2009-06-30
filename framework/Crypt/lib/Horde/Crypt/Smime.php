@@ -251,15 +251,14 @@ class Horde_Crypt_Smime extends Horde_Crypt
     public function signMIMEPart($mime_part, $params)
     {
         /* Sign the part as a message */
-        $message = $this->encrypt($mime_part->toCanonicalString(), $params);
+        $message = $this->encrypt($mime_part->toString(array('headers' => true, 'canonical' => true)), $params);
 
         /* Break the result into its components */
         $mime_message = Horde_Mime_Part::parseMessage($message);
 
         $smime_sign = $mime_message->getPart('2');
         $smime_sign->setDescription(_("S/MIME Cryptographic Signature"));
-        $smime_sign->transferDecodeContents();
-        $smime_sign->setTransferEncoding('base64');
+        $smime_sign->setTransferEncoding('base64', array('send' => true));
 
         $smime_part = new Horde_Mime_Part();
         $smime_part->setType('multipart/signed');
@@ -285,7 +284,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
     public function encryptMIMEPart($mime_part, $params = array())
     {
         /* Sign the part as a message */
-        $message = $this->encrypt($mime_part->toCanonicalString(), $params);
+        $message = $this->encrypt($mime_part->toString(array('headers' => true, 'canonical' => true)), $params);
 
         /* Get charset for mime part description. */
         $charset = NLS::getEmailCharset();

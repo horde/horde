@@ -1375,9 +1375,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
          * + Content-Type params 'micalg' & 'protocol' are REQUIRED.
          * + The digitally signed message MUST be constrained to 7 bits.
          * + The MIME headers MUST be a part of the signed data. */
-
-        $mime_part->strict7bit(true);
-        $msg_sign = $this->encrypt($mime_part->toCanonicalString(), $params);
+        $msg_sign = $this->encrypt($mime_part->toString(array('headers' => true, 'canonical' => true, 'encode' => Horde_Mime_Part::ENCODE_7BIT)), $params);
 
         /* Add the PGP signature. */
         $charset = NLS::getEmailCharset();
@@ -1421,7 +1419,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     {
         $params = array_merge($params, array('type' => 'message'));
 
-        $signenc_body = $mime_part->toCanonicalString();
+        $signenc_body = $mime_part->toString(array('headers' => true, 'canonical' => true));
         $message_encrypt = $this->encrypt($signenc_body, $params);
 
         /* Set up MIME Structure according to RFC 3156. */

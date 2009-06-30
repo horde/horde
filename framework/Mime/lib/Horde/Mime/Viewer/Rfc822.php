@@ -53,7 +53,7 @@ class Horde_Mime_Viewer_Rfc822 extends Horde_Mime_Viewer_Driver
          * the headers by searching for the CRLFCRLF sequence, use
          * getCanonicalContents() to make sure we are getting the text with
          * CRLF's. */
-        $text = $this->_mimepart->getCanonicalContents();
+        $text = $this->_mimepart->getContents(array('canonical' => true));
         if (empty($text)) {
             return array();
         }
