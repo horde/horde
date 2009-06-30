@@ -2279,6 +2279,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $i = 0;
         $cnt = count($data);
+        $fp = $this->_temp['fetchparams'];
 
         if (isset($this->_temp['fetchresp']['seq'][$id])) {
             $tmp = $this->_temp['fetchresp']['seq'][$id];
@@ -2294,7 +2295,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             case 'BODY':
             case 'BODYSTRUCTURE':
                 // Only care about these if doing a FETCH command.
-                $tmp['structure'] = empty($this->_temp['fetchparams']['parsestructure'])
+                $tmp['structure'] = empty($fp['parsestructure'])
                     ? $this->_parseBodystructure($data[++$i])
                     : Horde_Mime_Part::parseStructure($this->_parseBodystructure($data[++$i]));
                 break;
@@ -2336,7 +2337,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     $tag = substr($tag, 5);
 
                     // BODY[HEADER.FIELDS] request
-                    if (!empty($this->_temp['fetchparams']['hdrfields']) &&
+                    if (!empty($fp['hdrfields']) &&
                         (strpos($tag, 'HEADER.FIELDS') !== false)) {
                         if (!isset($tmp['headers'])) {
                             $tmp['headers'] = array();
@@ -2355,7 +2356,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         // Ignore the trailing bracket
                         ++$i;
 
-                        $tmp['headers'][$this->_temp['fetchparams']['hdrfields'][$sig]] = empty($this->_temp['fetchparams']['parseheaders'])
+                        $tmp['headers'][$fp['hdrfields'][$sig]] = empty($fp['parseheaders'])
                             ? $data[++$i]
                             : Horde_Mime_Headers::parseHeaders($data[++$i]);
                     } else {
