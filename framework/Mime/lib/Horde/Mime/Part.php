@@ -972,7 +972,7 @@ class Horde_Mime_Part
                     $parts[] = $tmp;
                     $part->setEOL($oldEOL);
                 }
-                $text .= $eol . '--' . $boundary . '--' . $eol;
+                $parts[] = $eol . '--' . $boundary . '--' . $eol;
             }
         }
 
