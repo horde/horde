@@ -134,13 +134,6 @@ class Horde_Mime_Part
     protected $_parts = array();
 
     /**
-     * Information/Statistics on the subpart.
-     *
-     * @var array
-     */
-    protected $_information = array();
-
-    /**
      * The MIME ID of this part.
      *
      * @var string
@@ -201,6 +194,28 @@ class Horde_Mime_Part
      * @var boolean
      */
     protected $_basepart = false;
+
+    /**
+     * Function to run on serialize().
+     */
+    public function __sleep()
+    {
+        if (!empty($this->_contents)) {
+            $this->_contents = $this->_readStream($this->_contents, true);
+        }
+
+        return array_diff(array_keys(get_class_vars(__CLASS__)), array('defaultCharset', 'memoryLimit', 'encodingTypes', 'mimeTypes'));
+    }
+
+    /**
+     * Function to run on unserialize().
+     */
+    public function __wakeup()
+    {
+        if (!empty($this->_contents)) {
+            $this->setContents($this->_contents);
+        }
+    }
 
     /**
      * Set the content-disposition of this part.
@@ -387,7 +402,7 @@ class Horde_Mime_Part
      */
     public function transferEncodeContents()
     {
-        if (!$this->_contents) {
+        if (empty($this->_contents)) {
             return;
         }
 
@@ -402,7 +417,7 @@ class Horde_Mime_Part
      */
     public function transferDecodeContents()
     {
-        if (!$this->_contents) {
+        if (empty($this->_contents)) {
             return;
         }
 
@@ -978,7 +993,7 @@ class Horde_Mime_Part
 
         $newfp = $this->_writeStream($parts);
         array_map('fclose', $parts_close);
-        return $stream ? $newfp : $newfp->readStream($newfp);
+        return $stream ? $newfp : $this->_readStream($newfp);
     }
 
     /**
@@ -1362,7 +1377,7 @@ class Horde_Mime_Part
         }
 
         /* Make sure the message has a trailing newline. */
-        $msg = $this->toString(false, true);
+        $msg = $this->toString(false);
         if (substr($msg, -1) != "\n") {
             $msg .= "\n";
         }
