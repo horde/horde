@@ -2574,7 +2574,11 @@ abstract class Horde_Imap_Client_Base
                 switch ($label) {
                 case 'structure':
                     if (isset($cf[Horde_Imap_Client::FETCH_STRUCTURE])) {
-                        $tmp[is_array($val) ? 'HICstructa' : 'HICstructm'] = $val;
+                        if (is_array($val)) {
+                            $tmp['HICstructa'] = $val;
+                        } else {
+                            $tmp['HICstructm'] = clone $val;
+                        }
                     }
                     break;
 
