@@ -2,6 +2,8 @@
 v5.0-git
 --------
 
+[mms] Use PHP temporary streams when working with message body data to reduce
+      memory usage (Request #3359).
 [mms] Add ability to expand/collapse all folders in DIMP.
 [mms] Add Folder Options menu to DIMP.
 [mms] Add save link to full message display in DIMP.

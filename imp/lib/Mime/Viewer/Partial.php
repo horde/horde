@@ -67,7 +67,7 @@ class IMP_Horde_Mime_Viewer_Partial extends Horde_Mime_Viewer_Driver
             if ($val == $number) {
                 $parts[$number] = $this->_mimepart->getContents();
             } else {
-                $ic = &IMP_Contents::singleton($val . IMP::IDX_SEP . $mbox);
+                $ic = IMP_Contents::singleton($val . IMP::IDX_SEP . $mbox);
                 $parts[$ic->getMIMEMessage()->getContentTypeParameter('number')] = $ic->getBody();
             }
         }

@@ -55,12 +55,12 @@ $id = Horde_Util::getFormData('id');
  * get the necessary Horde_Mime_Part. */
 if ($actionID == 'compose_attach_preview') {
     /* Initialize the IMP_Compose:: object. */
-    $imp_compose = &IMP_Compose::singleton(Horde_Util::getFormData('composeCache'));
+    $imp_compose = IMP_Compose::singleton(Horde_Util::getFormData('composeCache'));
     $mime = $imp_compose->buildAttachment($id);
 
     /* Create a dummy IMP_Contents() object so we can use the view code below.
      * Then use the 'view_attach' handler to output. */
-    $contents = &IMP_Contents::singleton($mime);
+    $contents = IMP_Contents::singleton($mime);
     $actionID = 'view_attach';
     $id = $mime->getMimeId();
 } else {
@@ -75,7 +75,7 @@ if ($actionID == 'compose_attach_preview') {
     }
 
     try {
-        $contents = &IMP_Contents::singleton($uid . IMP::IDX_SEP . $mailbox);
+        $contents = IMP_Contents::singleton($uid . IMP::IDX_SEP . $mailbox);
     } catch (Horde_Exception $e) {
         Horde::fatal($e, __FILE__, __LINE__);
     }
@@ -103,7 +103,7 @@ case 'download_all':
     }
 
     if (!empty($tosave)) {
-        $horde_compress = &Horde_Compress::singleton('zip');
+        $horde_compress = Horde_Compress::singleton('zip');
         $body = $horde_compress->compress($tosave);
         $browser->downloadHeaders($zipfile, 'application/zip', false, strlen($body));
         echo $body;
@@ -115,9 +115,20 @@ case 'download_render':
     switch ($actionID) {
     case 'download_attach':
         $mime = $contents->getMIMEPart($id);
-        $body = $mime->getContents();
-        $type = $mime->getType(true);
-        $name = $mime->getName(true);
+        if (!$name = $mime->getName(true)) {
+           $name = _("unnamed");
+        }
+
+        /* Compress output? */
+        if (Horde_Util::getFormData('zip')) {
+            $horde_compress = Horde_Compress::singleton('zip');
+            $body = $horde_compress->compress(array(array('data' => $mime->getContents(), 'name' => $name)));
+            $name .= '.zip';
+            $type = 'application/zip';
+        } else {
+            $body = $mime->getContentsAsStream();
+            $type = $mime->getType(true);
+        }
         break;
 
     case 'download_render':
@@ -126,23 +137,18 @@ case 'download_render':
         $key = key($render);
         $body = $render[$key]['data'];
         $type = $render[$key]['type'];
-        $name = $render[$key]['name'];
+        if (!$name = $render[$key]['name']) {
+           $name = _("unnamed");
+        }
         break;
     }
 
-    if (empty($name)) {
-        $name = _("unnamed");
-    }
-
-    /* Compress output? */
-    if (($actionID == 'download_attach') && Horde_Util::getFormData('zip')) {
-        $horde_compress = &Horde_Compress::singleton('zip');
-        $body = $horde_compress->compress(array(array('data' => $body, 'name' => $name)));
-        $name .= '.zip';
-        $type = 'application/zip';
-    }
     $browser->downloadHeaders($name, $type, false, strlen($body));
-    echo $body;
+    if (is_resource($body)) {
+        fpassthru($body);
+    } else {
+        echo $body;
+    }
     exit;
 
 case 'view_attach':

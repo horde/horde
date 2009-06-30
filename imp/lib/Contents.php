@@ -151,17 +151,24 @@ class IMP_Contents
     /**
      * Returns the entire body of the message.
      *
-     * @return string  The text of the body of the message.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'stream' - (boolean) If true, return a stream.
+     *            DEFAULT: No
+     * </pre>
+     *
+     * @return mixed  The text of the part, or a stream resource if 'stream'
+     *                is true.
      */
-    public function getBody()
+    public function getBody($options = array())
     {
         if (is_null($this->_mailbox)) {
-            return $this->_message->toString();
+            return $this->_message->toString(true, !empty($options['stream']));
         }
 
         try {
             $res = $GLOBALS['imp_imap']->ob->fetch($this->_mailbox, array(
-                Horde_Imap_Client::FETCH_BODYTEXT => array(array('peek' => true))
+                Horde_Imap_Client::FETCH_BODYTEXT => array(array('peek' => true, 'stream' => !empty($options['stream'])))
             ), array('ids' => array($this->_index)));
             return $res[$this->_index]['bodytext'][0];
         } catch (Horde_Imap_Client_Exception $e) {
@@ -180,9 +187,12 @@ class IMP_Contents
      *            DEFAULT: All data is retrieved.
      * 'mimeheaders' - (boolean) Include the MIME headers also?
      *                 DEFAULT: No
+     * 'stream' - (boolean) If true, return a stream.
+     *            DEFAULT: No
      * </pre>
      *
-     * @return string  The text of the part.
+     * @return mixed  The text of the part, or a stream resource if 'stream'
+     *                is true.
      */
     public function getBodyPart($id, $options = array())
     {
@@ -199,7 +209,7 @@ class IMP_Contents
         }
 
         $query = array(
-            Horde_Imap_Client::FETCH_BODYPART => array(array('id' => $id, 'peek' => true))
+            Horde_Imap_Client::FETCH_BODYPART => array(array('id' => $id, 'peek' => true, 'stream' => !empty($options['stream'])))
         );
         if (!empty($options['length'])) {
             $query[Horde_Imap_Client::FETCH_BODYPART][0]['start'] = 0;
@@ -227,10 +237,11 @@ class IMP_Contents
     public function fullMessageText()
     {
         if (is_null($this->_mailbox)) {
-            return $this->_message->toString(true);
+            return $this->_message->toString();
         }
 
         try {
+            // TODO - use streams
             $res = $GLOBALS['imp_imap']->ob->fetch($this->_mailbox, array(
                 Horde_Imap_Client::FETCH_HEADERTEXT => array(array('peek' => true)),
                 Horde_Imap_Client::FETCH_BODYTEXT => array(array('peek' => true))
@@ -304,7 +315,7 @@ class IMP_Contents
             empty($options['nocontents']) &&
             !is_null($this->_mailbox) &&
             !$part->getContents()) {
-            $contents = $this->getBodyPart($id, array('length' => empty($options['length']) ? null : $options['length']));
+            $contents = $this->getBodyPart($id, array('length' => empty($options['length']) ? null : $options['length'], 'stream' => true));
             if (($part->getPrimaryType() == 'text') &&
                 (Horde_String::upper($part->getCharset()) == 'US-ASCII') &&
                 Horde_Mime::is8bit($contents)) {
