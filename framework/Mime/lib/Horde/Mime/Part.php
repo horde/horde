@@ -36,6 +36,13 @@ class Horde_Mime_Part
     static public $defaultCharset = 'us-ascii';
 
     /**
+     * The memory limit for use with the PHP temp stream.
+     *
+     * @var integer
+     */
+    static public $memoryLimit = 1048576;
+
+    /**
      * Valid encoding types.
      *
      * @var array
@@ -1096,7 +1103,7 @@ class Horde_Mime_Part
         }
 
         $fp = $this->_writeStream($text);
-        $newfp = fopen('php://temp', 'r+');
+        $newfp = fopen('php://temp/maxmemory:' . self::$memoryLimit, 'r+');
 
         rewind($fp);
         while ($line = fgets($fp)) {
@@ -1418,7 +1425,7 @@ class Horde_Mime_Part
     protected function _writeStream($data, $options = array())
     {
         if (empty($options['fp'])) {
-            $fp = fopen('php://temp', 'r+');
+            $fp = fopen('php://temp/maxmemory:' . self::$memoryLimit, 'r+');
         } else {
             $fp = $options['fp'];
             fseek($fp, 0, SEEK_END);
