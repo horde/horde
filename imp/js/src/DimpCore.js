@@ -376,30 +376,6 @@ var DimpCore = {
             id = elt.readAttribute('id');
 
             switch (id) {
-            case 'partlist_toggle':
-                $('partlist_col', 'partlist_exp').invoke('toggle');
-                Effect.toggle('partlist', 'blind', {
-                    duration: 0.2,
-                    queue: {
-                        position: 'end',
-                        scope: 'partlist',
-                        limit: 2
-                    }
-                });
-                break;
-
-            case 'msgloglist_toggle':
-                $('msgloglist_col', 'msgloglist_exp').invoke('toggle');
-                Effect.toggle('msgloglist', 'blind', {
-                    duration: 0.2,
-                    queue: {
-                        position: 'end',
-                        scope: 'msgloglist',
-                        limit: 2
-                    }
-                });
-                break;
-
             case 'msg_print':
                 window.print();
                 break;

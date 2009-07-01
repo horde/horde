@@ -1620,6 +1620,20 @@ var DimpBase = {
                 this._toggleHeaders(elt, true);
                 break;
 
+            case 'msgloglist_toggle':
+            case 'partlist_toggle':
+                tmp = (id == 'partlist_toggle') ? 'partlist' : 'msgloglist';
+                $(tmp + '_col', tmp + '_exp').invoke('toggle');
+                Effect.toggle(tmp, 'blind', {
+                    duration: 0.2,
+                    queue: {
+                        position: 'end',
+                        scope: tmp,
+                        limit: 2
+                    }
+                });
+                break;
+
             case 'msg_newwin':
             case 'msg_newwin_options':
                 this.msgWindow(this.viewport.getSelection().search({ imapuid: { equal: [ this.pp.imapuid ] } , view: { equal: [ this.pp.view ] } }).get('dataob').first());

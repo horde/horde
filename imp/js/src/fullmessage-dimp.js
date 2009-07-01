@@ -102,6 +102,27 @@ var DimpFullmessage = {
                 e.stop();
                 return;
 
+            case 'msgloglist_toggle':
+            case 'partlist_toggle':
+                tmp = (id == 'partlist_toggle') ? 'partlist' : 'msgloglist';
+                $(tmp + '_col', tmp + '_exp').invoke('toggle');
+                Effect.toggle(tmp, 'blind', {
+                    afterFinish: function() {
+                        this.resizeWindow();
+                        $('msgData').down('DIV.msgBody').setStyle({ overflowY: 'auto' })
+                    }.bind(this),
+                    beforeSetup: function() {
+                        $('msgData').down('DIV.msgBody').setStyle({ overflowY: 'hidden' })
+                    },
+                    duration: 0.2,
+                    queue: {
+                        position: 'end',
+                        scope: tmp,
+                        limit: 2
+                    }
+                });
+                break;
+
             case 'msg_view_source':
                 DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.index, mailbox: this.mailbox, actionID: 'view_source', id: 0 }, true), DIMP.conf.msg_index + '|' + DIMP.conf.msg_folder);
                 break;
