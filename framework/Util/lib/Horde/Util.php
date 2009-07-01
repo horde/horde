@@ -981,21 +981,3 @@ class Horde_Util
     }
 
 }
-
-/* Stand-in functions if gettext is not available. */
-if (!function_exists('_'))
-{
-    function _($string)
-    {
-        return $string;
-    }
-
-    function ngettext($msgid1, $msgid2, $n)
-    {
-        return $n > 1 ? $msgid2 : $msgid1;
-    }
-
-    function bindtextdomain() { }
-
-    function textdomain() { }
-}
