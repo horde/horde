@@ -269,7 +269,7 @@ class IMP_Contents
 
         try {
             $res = $GLOBALS['imp_imap']->ob->fetch($this->_mailbox, array(
-                Horde_Imap_Client::FETCH_HEADERTEXT => array(array('peek' => true, 'stream' => !empty($options['stream']))),
+                Horde_Imap_Client::FETCH_HEADERTEXT => array(array('peek' => true)),
                 Horde_Imap_Client::FETCH_BODYTEXT => array(array('peek' => true, 'stream' => !empty($options['stream'])))
             ), array('ids' => array($this->_index)));
             return empty($options['stream'])

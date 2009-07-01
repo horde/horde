@@ -230,9 +230,8 @@ class IMP_Compose
 
         /* Need to add Message-ID so we can use it in the index search. */
         $draft_headers->addMessageIdHeader();
-        $draft_headers = $base->addMimeHeaders(array('headers' => $draft_headers));
 
-        return $draft_headers->toString(array('charset' => $charset, 'defserver' => $session ? $_SESSION['imp']['maildomain'] : null)) . $base->toString(array('headers' => false));
+        return $base->toString(array('defserver' => $session ? $_SESSION['imp']['maildomain'] : null, 'headers' => $draft_headers));
     }
 
     /**
@@ -591,8 +590,7 @@ class IMP_Compose
             }
 
             /* Generate the message string. */
-            $fcc = $headers->toString(array('charset' => $charset, 'defserver' => $_SESSION['imp']['maildomain'])) .
-                $mime_message->toString(array('headers' => false));
+            $fcc = $mime_message->toString(array('defserver' => $_SESSION['imp']['maildomain'], 'headers' => $headers, 'stream' => true));
 
             $imp_folder = IMP_Folder::singleton();
 
