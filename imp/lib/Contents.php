@@ -34,6 +34,14 @@ class IMP_Contents
     const RENDER_INLINE_AUTO = 16;
 
     /**
+     * Flag to indicate whether the last call to getBodypart() returned
+     * decoded data.
+     *
+     * @var string
+     */
+    public $lastBodyPartDecode = null;
+
+    /**
      * Singleton instances
      *
      * @var array
@@ -182,6 +190,10 @@ class IMP_Contents
      * @param integer $id     The ID of the MIME part.
      * @param array $options  Additional options:
      * <pre>
+     * 'decode' - (boolean) Attempt to decode the bodypart on the remote
+     *            server. If successful, sets self::$lastBodyPartDecode to
+     *            the content-type of the decoded data.
+     *            DEFAULT: No
      * 'length' - (integer) If set, only download this many bytes of the
      *            bodypart from the server.
      *            DEFAULT: All data is retrieved.
@@ -196,6 +208,8 @@ class IMP_Contents
      */
     public function getBodyPart($id, $options = array())
     {
+        $this->lastBodyPartDecode = null;
+
         if (empty($id)) {
             return '';
         }
@@ -209,7 +223,7 @@ class IMP_Contents
         }
 
         $query = array(
-            Horde_Imap_Client::FETCH_BODYPART => array(array('id' => $id, 'peek' => true, 'stream' => !empty($options['stream'])))
+            Horde_Imap_Client::FETCH_BODYPART => array(array('decode' => !empty($options['decode']), 'id' => $id, 'peek' => true, 'stream' => !empty($options['stream'])))
         );
         if (!empty($options['length'])) {
             $query[Horde_Imap_Client::FETCH_BODYPART][0]['start'] = 0;
@@ -221,9 +235,14 @@ class IMP_Contents
 
         try {
             $res = $GLOBALS['imp_imap']->ob->fetch($this->_mailbox, $query, array('ids' => array($this->_index)));
-            return empty($options['mimeheaders'])
-                ? $res[$this->_index]['bodypart'][$id]
-                : $res[$this->_index]['mimeheader'][$id] . $res[$this->_index]['bodypart'][$id];
+            if (empty($options['mimeheaders'])) {
+                if (!empty($res[$this->_index]['bodypartdecode'][$id])) {
+                    $this->lastBodyPartDecode = $res[$this->_index]['bodypartdecode'][$id];
+                }
+                return $res[$this->_index]['bodypart'][$id];
+            } else {
+                return $res[$this->_index]['mimeheader'][$id] . $res[$this->_index]['bodypart'][$id];
+            }
         } catch (Horde_Imap_Client_Exception $e) {
             return '';
         }
@@ -323,7 +342,8 @@ class IMP_Contents
             empty($options['nocontents']) &&
             !is_null($this->_mailbox) &&
             !$part->getContents(array('stream' => true))) {
-            $part->setContents($this->getBodyPart($id, array('length' => empty($options['length']) ? null : $options['length'], 'stream' => true)), array('usestream' => true));
+            $body = $this->getBodyPart($id, array('decode' => true, 'length' => empty($options['length']) ? null : $options['length'], 'stream' => true));
+            $part->setContents($body, array('encoding' => $this->lastBodyPartDecode, 'usestream' => true));
         }
 
         return $part;
