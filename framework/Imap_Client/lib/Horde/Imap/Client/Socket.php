@@ -1197,6 +1197,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * for now, simply grab the contents of the stream and do a
              * strlen() call to determine the literal size to send to the
              * IMAP server. */
+            if (is_resource($m_data['data'])) {
+                rewind($m_data['data']);
+            }
             $text = $this->utils->removeBareNewlines(is_resource($m_data['data']) ? stream_get_contents($m_data['data']) : $m_data['data']);
             $datalength = strlen($text);
 
