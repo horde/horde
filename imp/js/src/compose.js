@@ -153,7 +153,8 @@ var ImpCompose = {
 
         e.stop();
 
-        if (actionID == 'redirect') {
+        switch (actionID) {
+        case 'redirect':
             if ($F('to') == '') {
                 alert(IMP.text.compose_recipient);
                 $('to').focus();
@@ -161,7 +162,9 @@ var ImpCompose = {
             }
 
             form = $('redirect');
-        } else if (actionID == 'send_message') {
+            break;
+
+        case 'send_message':
             if (($F('subject') == '') &&
                 !window.confirm(IMP.text.compose_nosubject)) {
                 return;
@@ -181,8 +184,16 @@ var ImpCompose = {
                 IMP.SpellCheckerObject.resume();
             }
 
+            // fall through
+
+        case 'add_attachment':
+        case 'save_draft':
             form = $('compose');
-            $('actionID').setValue('send_message');
+            $('actionID').setValue(actionID);
+            break;
+
+        default:
+            return;
         }
 
         // Ticket #6727; this breaks on WebKit w/FCKeditor.
