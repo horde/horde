@@ -230,9 +230,9 @@ class IMP_Compose
 
         /* Need to add Message-ID so we can use it in the index search. */
         $draft_headers->addMessageIdHeader();
-        $draft_headers = $base->addMimeHeaders($draft_headers);
+        $draft_headers = $base->addMimeHeaders(array('headers' => $draft_headers));
 
-        return $draft_headers->toString(array('charset' => $charset, 'defserver' => $session ? $_SESSION['imp']['maildomain'] : null)) . $base->toString(false);
+        return $draft_headers->toString(array('charset' => $charset, 'defserver' => $session ? $_SESSION['imp']['maildomain'] : null)) . $base->toString(array('headers' => false));
     }
 
     /**
@@ -592,7 +592,7 @@ class IMP_Compose
 
             /* Generate the message string. */
             $fcc = $headers->toString(array('charset' => $charset, 'defserver' => $_SESSION['imp']['maildomain'])) .
-                $mime_message->toString(false);
+                $mime_message->toString(array('headers' => false));
 
             $imp_folder = IMP_Folder::singleton();
 
@@ -1617,9 +1617,6 @@ class IMP_Compose
 
         $type = $part->getType();
         $vfs = $conf['compose']['use_vfs'];
-
-        /* Decode the contents. */
-        $part->transferDecodeContents();
 
         /* Try to determine the MIME type from 1) the extension and
          * then 2) analysis of the file (if available). */

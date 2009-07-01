@@ -163,7 +163,7 @@ class IMP_Contents
     public function getBody($options = array())
     {
         if (is_null($this->_mailbox)) {
-            return $this->_message->toString(true, !empty($options['stream']));
+            return $this->_message->toString(array('headers' => true, 'stream' => !empty($options['stream'])));
         }
 
         try {
@@ -305,9 +305,6 @@ class IMP_Contents
      *            DEFAULT: All data is retrieved.
      * 'nocontents' - (boolean) If true, don't add the contents to the part
      *              DEFAULT: Contents are added to the part
-     * 'nodecode' - (boolean) If 'nocontents' is false, and this setting is
-     *              true, does not transfer decode the contents.
-     *            DEFAULT: Contents are transfer decoded.
      * </pre>
      *
      * @return Horde_Mime_Part  The raw MIME part asked for (reference).
@@ -325,12 +322,8 @@ class IMP_Contents
             !is_null($part) &&
             empty($options['nocontents']) &&
             !is_null($this->_mailbox) &&
-            !$part->getContentsAsStream()) {
-            $part->setContents($this->getBodyPart($id, array('length' => empty($options['length']) ? null : $options['length'], 'stream' => true)));
-
-            if (empty($options['nodecode'])) {
-                $part->transferDecodeContents();
-            }
+            !$part->getContents(array('stream' => true))) {
+            $part->setContents($this->getBodyPart($id, array('length' => empty($options['length']) ? null : $options['length'], 'stream' => true)), array('usestream' => true));
         }
 
         return $part;
@@ -942,7 +935,7 @@ class IMP_Contents
                 if (($key != 0) &&
                     ($val != 'message/rfc822') &&
                     (strpos($val, 'multipart/') === false)) {
-                    $part = $this->getMIMEPart($key, array('nodecode' => true));
+                    $part = $this->getMIMEPart($key);
                     $message->alterPart($key, $part);
                 }
             }

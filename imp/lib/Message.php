@@ -536,7 +536,7 @@ class IMP_Message
                 unset($res['flags'][$pos]);
             }
 
-            $uid = $GLOBALS['imp_imap']->ob->append($mbox, array(array('data' => $res['headertext'][0] . $message->toString(false), 'flags' => $res['flags'], 'messageid' => $res['envelope']['message-id'])));
+            $uid = $GLOBALS['imp_imap']->ob->append($mbox, array(array('data' => $res['headertext'][0] . $message->toString(array('headers' => false)), 'flags' => $res['flags'], 'messageid' => $res['envelope']['message-id'])));
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Exception(_("An error occured while attempting to strip the attachment."));
         }

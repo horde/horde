@@ -39,8 +39,8 @@ function _sanitizeName($name)
 
 function _fullMessageTextLength($ob)
 {
-    $stat = fstat($ob[1]);
-    $len = strlen($ob[0]) + $stat['size']);
+    $stat = fseek($ob[1], 0, SEEK_END);
+    $len = strlen($ob[0]) + ftell($ob[1]);
     rewind($ob[1]);
     return $len;
 }
@@ -134,7 +134,7 @@ case 'download_render':
             $name .= '.zip';
             $type = 'application/zip';
         } else {
-            $body = $mime->getContentsAsStream();
+            $body = $mime->getContents(array('stream' => true));
             $type = $mime->getType(true);
         }
         break;
