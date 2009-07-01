@@ -552,8 +552,8 @@ case 'selectlist_process':
                 $data = $registry->call('files/returnFromSelectlist', array($select_id, $i++));
                 if ($data && !is_a($data, 'PEAR_Error')) {
                     $part = new Horde_Mime_Part();
-                    $part->setContents($data);
                     $part->setName(reset($val));
+                    $part->setContents($data);
                     try {
                         $imp_compose->addMIMEPartAttachment($part);
                     } catch (IMP_Compose_Exception $e) {

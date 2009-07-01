@@ -516,7 +516,7 @@ class IMP_Message
 
             /* We need to make sure all text is in the correct charset. */
             $newPart->setCharset(NLS::getCharset());
-            $newPart->setContents(sprintf(_("[Attachment stripped: Original attachment type: %s, name: %s]"), $oldPart->getType(), $oldPart->getName(true)), '8bit');
+            $newPart->setContents(sprintf(_("[Attachment stripped: Original attachment type: %s, name: %s]"), $oldPart->getType(), $oldPart->getName(true)));
             $message->alterPart($partid, $newPart);
         }
 

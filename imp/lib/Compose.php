@@ -585,7 +585,7 @@ class IMP_Compose
                     $replace_part = new Horde_Mime_Part();
                     $replace_part->setType('text/plain');
                     $replace_part->setCharset($charset);
-                    $replace_part->setContents('[' . _("Attachment stripped: Original attachment type") . ': "' . $oldPart->getType() . '", ' . _("name") . ': "' . $oldPart->getName(true) . '"]', '8bit');
+                    $replace_part->setContents('[' . _("Attachment stripped: Original attachment type") . ': "' . $oldPart->getType() . '", ' . _("name") . ': "' . $oldPart->getName(true) . '"]');
                     $mime_message->alterPart($i, $replace_part);
                 }
             }
@@ -2058,7 +2058,7 @@ class IMP_Compose
                  * fails (?) */
                 $part = new Horde_Mime_Part();
                 $part->setType($response->getHeader('content-type'));
-                $part->setContents($response->getBody(), '8bit');
+                $part->setContents($response->getBody());
                 $part->setDisposition('attachment');
                 $img_data[$url] = '"cid:' . $part->setContentID() . '"';
                 $img_parts[] = $part;
@@ -2157,14 +2157,14 @@ class IMP_Compose
             $link_part->setType('text/plain');
             $link_part->setCharset($charset);
             $link_part->setDisposition('inline');
-            $link_part->setContents($trailer, '8bit');
+            $link_part->setContents($trailer);
             $link_part->setDescription(_("Attachment Information"));
 
             $mixed_part->addPart($link_part);
             return $mixed_part;
         }
 
-        $part->appendContents("\n-----\n" . $trailer, '8bit');
+        $part->appendContents("\n-----\n" . $trailer);
 
         return $part;
     }

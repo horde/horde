@@ -39,8 +39,8 @@ function _sanitizeName($name)
 
 function _fullMessageTextLength($ob)
 {
-    fseek($ob[1], 0, SEEK_END);
-    $len = strlen($ob[0]) + ftell($ob[1]);
+    $stat = fstat($ob[1]);
+    $len = strlen($ob[0]) + $stat['size']);
     rewind($ob[1]);
     return $len;
 }
@@ -153,6 +153,7 @@ case 'download_render':
 
     $browser->downloadHeaders($name, $type, false, strlen($body));
     if (is_resource($body)) {
+        rewind($body);
         fpassthru($body);
     } else {
         echo $body;
@@ -173,6 +174,7 @@ case 'view_source':
     $msg = $contents->fullMessageText(array('stream' => true));
     $browser->downloadHeaders('Message Source', 'text/plain', true, _fullMessageTextLength($msg));
     echo $msg[0];
+    rewind($msg[1]);
     fpassthru($msg[1]);
     exit;
 
@@ -195,6 +197,7 @@ case 'save_message':
     $msg = $contents->fullMessageText(array('stream' => true));
     $browser->downloadHeaders($name . '.eml', 'message/rfc822', false, strlen($hdr) + _fullMessageTextLength($msg));
     echo $hdr . $msg[0];
+    rewind($msg[1]);
     fpassthru($msg[1]);
     exit;
 }

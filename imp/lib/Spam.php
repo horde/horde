@@ -99,7 +99,7 @@ class IMP_Spam
 
                 if ($to) {
                     if (!isset($raw_msg)) {
-                        $raw_msg = $imp_contents->fullMessageText();
+                        $raw_msg = $imp_contents->fullMessageText(true);
                     }
 
                     if (!isset($imp_compose)) {
