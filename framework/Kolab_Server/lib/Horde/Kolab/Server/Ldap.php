@@ -57,7 +57,9 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
     private $_schema;
 
     /**
-     * The last search result.
+     * The last search result. This can be used to retrieve additional
+     * information about the LDAP search result (e.g. if the size
+     * limit for the search has been exceeded).
      *
      * @var Net_LDAP2_Search
      */
@@ -504,11 +506,11 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
             $base = $this->_base_dn;
         }
         $this->lastSearch = &$this->_ldap->search($base, $filter, $params);
-        if (is_a($result, 'PEAR_Error')) {
-            throw new Horde_Kolab_Server_Exception($result,
+        if (is_a($this->lastSearch, 'PEAR_Error')) {
+            throw new Horde_Kolab_Server_Exception($this->lastSearch,
                                                    Horde_Kolab_Server_Exception::SYSTEM);
         }
-        $data   = $this->lastSearch->as_struct();
+        $data = $this->lastSearch->as_struct();
         if (is_a($data, 'PEAR_Error')) {
             throw new Horde_Kolab_Server_Exception($data,
                                                    Horde_Kolab_Server_Exception::SYSTEM);
