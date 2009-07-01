@@ -82,9 +82,9 @@ class IMP_Horde_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
         );
 
         if ($GLOBALS['browser']->hasFeature('javascript')) {
-            $status[] = $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', Horde::img($this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('pdf_view_thumbnail' => 1)), false), _("View Attachment"), null, ''), null, null, null);
+            $status[] = $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', $this->_outputImgTag(), null, null, null);
         } else {
-            $status[] = Horde::link($this->_params['contents']->urlView($this->_mimepart, 'view_attach')) . Horde::img($this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('pdf_view_thumbnail' => 1)), false), _("View Attachment"), null, '') . '</a>';
+            $status[] = Horde::link($this->_params['contents']->urlView($this->_mimepart, 'view_attach')) . $this->_outputImgTag() . '</a>';
         }
 
         return array(
@@ -129,4 +129,15 @@ class IMP_Horde_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
 
         return $img;
     }
+
+    /**
+     * Output an image tag for the thumbnail.
+     *
+     * @return string  An image tag.
+     */
+    protected function _outputImgTag()
+    {
+        return '<img src="' . $this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('pdf_view_thumbnail' => 1))) . '" alt="' . htmlspecialchars(_("View PDF File"), ENT_COMPAT, NLS::getCharset()) . '" />';
+    }
+
 }
