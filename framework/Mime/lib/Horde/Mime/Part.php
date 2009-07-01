@@ -899,9 +899,15 @@ class Horde_Mime_Part
      *               2045 output - namely, all newlines end with the canonical
      *               <CR><LF> sequence.
      *               DEFAULT: false
+     * 'defserver' - (string) The default server to use when creating the
+     *               header string.
+     *               DEFAULT: none
      * 'encode' - (integer) A mask of allowable encodings.
      *            DEFAULT: self::ENCODE_7BIT
-     * 'headers' - (boolean) Include the MIME headers?
+     * 'headers' - (mixed) Include the MIME headers? If true, create a new
+     *             headers object. If a Horde_Mime_Headers object, add MIME
+     *             headers to this object. If a string, use the string
+     *             verbatim.
      *             DEFAULT: true
      * 'stream' - (boolean) Return a stream resource.
      *            DEFAULT: false
@@ -915,19 +921,24 @@ class Horde_Mime_Part
         $eol = $this->getEOL();
         $ptype = $this->getPrimaryType();
         $parts = $parts_close = array();
-        $headers = true;
 
         if ($isbase = empty($options['_notbase'])) {
-            $headers = !empty($options['headers']);
+            $headers = !empty($options['headers'])
+                ? $options['headers']
+                : false;
 
             if (empty($options['encode'])) {
                 $options['encode'] = null;
+            }
+            if (empty($options['defserver'])) {
+                $options['defserver'] = null;
             }
             $options['headers'] = true;
             $options['_notbase'] = true;
 
             $oldbaseptr = null;
         } else {
+            $headers = true;
             $oldbaseptr = &$options['_baseptr'];
         }
 
@@ -988,13 +999,15 @@ class Horde_Mime_Part
             }
         }
 
-        if ($headers) {
-            $hdr_ob = $this->addMimeHeaders(array('encode' => $options['encode']));
+        if (is_string($headers)) {
+            array_unshift($parts, $headers);
+        } elseif ($headers) {
+            $hdr_ob = $this->addMimeHeaders(array('encode' => $options['encode'], 'headers' => ($headers === false) ? null : $headers));
             $hdr_ob->setEOL($eol);
             if (!empty($this->_temp['toString'])) {
                 $hdr_ob->replaceHeader('Content-Transfer-Encoding', $this->_temp['toString']);
             }
-            array_unshift($parts, $hdr_ob->toString(array('charset' => $this->getCharset())));
+            array_unshift($parts, $hdr_ob->toString(array('charset' => $this->getCharset(), 'defserver' => $options['defserver'])));
         }
 
         $newfp = $this->_writeStream($parts);
