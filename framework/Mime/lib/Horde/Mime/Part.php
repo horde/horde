@@ -170,7 +170,7 @@ class Horde_Mime_Part
      *
      * @var integer
      */
-    protected $_bytes = 0;
+    protected $_bytes;
 
     /**
      * The content-ID for this part.
@@ -1150,17 +1150,13 @@ class Horde_Mime_Part
      */
     public function getBytes()
     {
-        if (empty($this->_contents)) {
-            $bytes = $this->_bytes ? $this->_bytes : 0;
+        if (isset($this->_bytes)) {
+            $bytes = $this->_bytes;
         } elseif ($this->getPrimaryType() == 'multipart') {
             $bytes = 0;
             reset($this->_parts);
             while (list(,$part) = each($this->_parts)) {
-                /* Skip multipart entries (since this may result in double
-                   counting). */
-                if ($part->getPrimaryType() != 'multipart') {
-                    $bytes += $part->getBytes();
-                }
+                $bytes += $part->getBytes();
             }
         } else {
             fseek($this->_contents, 0, SEEK_END);
