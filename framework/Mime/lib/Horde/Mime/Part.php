@@ -409,8 +409,8 @@ class Horde_Mime_Part
     protected function _transferDecode($fp, $encoding)
     {
         /* If the contents are empty, return now. */
-        $stat = fstat($fp);
-        if ($stat['size']) {
+        fseek($fp, 0, SEEK_END);
+        if (ftell($fp)) {
             switch ($encoding) {
             case 'base64':
                 return $this->_writeStream($fp, array('filter' => 'convert.base64-decode'));
@@ -1163,8 +1163,8 @@ class Horde_Mime_Part
                 }
             }
         } else {
-            $stat = fstat($this->_contents);
-            $bytes = $stat['size'];
+            fseek($this->_contents, 0, SEEK_END);
+            $bytes = ftell($this->_contents);
         }
 
         return $bytes;
@@ -1402,9 +1402,6 @@ class Horde_Mime_Part
                 break;
             }
         }
-//        print_r($msg);
-        print_r($headers);
-        exit;
 
         $result = $mailer->send(Horde_Mime::encodeAddress($email), $headers->toArray(array('charset' => $this->getCharset())), $msg);
 
