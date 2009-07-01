@@ -202,28 +202,30 @@ class Horde_Mime_Mdn
 
         /* The second part is a machine-parseable description. */
         $part_two = new Horde_Mime_Part('message/disposition-notification');
-        $part_two->setContents('Reporting-UA: ' . $GLOBALS['conf']['server']['name'] . '; ' . $ua . "\n");
+        $part_two_text = array('Reporting-UA: ' . $GLOBALS['conf']['server']['name'] . '; ' . $ua . "\n");
         if (!empty($orig_recip)) {
-            $part_two->appendContents('Original-Recipient: rfc822;' . $orig_recip . "\n");
+            $part_two_text[] = 'Original-Recipient: rfc822;' . $orig_recip . "\n";
         }
-        $part_two->appendContents('Final-Recipient: rfc822;' . $from_addr . "\n");
+        $part_two_text[] = 'Final-Recipient: rfc822;' . $from_addr . "\n";
         if (!empty($msg_id)) {
-            $part_two->appendContents('Original-Message-ID: rfc822;' . $msg_id . "\n");
+            $part_two_text[] = 'Original-Message-ID: rfc822;' . $msg_id . "\n";
         }
-        $part_two->appendContents($dispo . "\n");
+        $part_two_text[] = $dispo . "\n";
         if (in_array('error', $mod) && isset($err['error'])) {
-            $part_two->appendContents('Error: ' . $err['error'] . "\n");
+            $part_two_text[] = 'Error: ' . $err['error'] . "\n";
         }
+        $part_two->setContents($part_two_text);
         $msg->addPart($part_two);
 
         /* The third part is the text of the original message.  RFC 3798 [3]
          * allows us to return only a portion of the entire message - this
          * is left up to the user. */
         $part_three = new Horde_Mime_Part('message/rfc822');
-        $part_three->setContents($this->_headers->toString());
+        $part_three_text = array($this->_headers->toString());
         if (!empty($this->_msgtext)) {
-            $part_three->appendContents($part_three->getEOL() . $this->_msgtext);
+            $part_three_text[] = $part_three->getEOL() . $this->_msgtext;
         }
+        $part_three->setContents($part_three_text);
         $msg->addPart($part_three);
 
         return $msg->send($to, $msg_headers, $maildriver, $mailparams);
