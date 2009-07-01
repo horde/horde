@@ -96,7 +96,9 @@ class IMP_Mailbox
         $this->_mailbox = $mailbox;
         $this->_searchmbox = $GLOBALS['imp_search']->isSearchMbox($mailbox);
 
-        if (!is_null($uid)) {
+        if (is_null($uid)) {
+            unset($_SESSION['imp']['cache']['imp_mailbox'][$mailbox]);
+        } else {
             /* Try to rebuild sorted information from the session cache. */
             if (isset($_SESSION['imp']['cache']['imp_mailbox'][$mailbox])) {
                 $tmp = json_decode($_SESSION['imp']['cache']['imp_mailbox'][$mailbox]);
@@ -193,9 +195,7 @@ class IMP_Mailbox
                example, there may be gaps here. */
             if (isset($this->_sorted[$i - 1])) {
                 $mboxname = ($this->_searchmbox) ? $this->_sortedMbox[$i - 1] : $this->_mailbox;
-                if (!isset($to_process[$mboxname])) {
-                    $to_process[$mboxname] = array();
-                }
+
                 // $uids - KEY: UID, VALUE: sequence number
                 $to_process[$mboxname][$this->_sorted[$i - 1]] = $i;
             }
@@ -238,8 +238,9 @@ class IMP_Mailbox
                     }
                 }
 
-                reset($fetch_res);
-                while (list($k, $v) = each($fetch_res)) {
+                foreach (array_keys($ids) as $k) {
+                    $v = $fetch_res[$k];
+
                     $v['mailbox'] = $mbox;
                     if (isset($v['headers']['imp'])) {
                         $v['headers'] = $v['headers']['imp'];
@@ -277,9 +278,6 @@ class IMP_Mailbox
                 }
             } catch (Horde_Imap_Client_Exception $e) {}
         }
-
-        /* Sort via the sorted array index. */
-        ksort($overview);
 
         return array('overview' => $overview, 'uids' => $uids);
     }
