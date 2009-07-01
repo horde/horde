@@ -1555,8 +1555,10 @@ class Horde_Mime_Part
                 break;
 
             case 'binary':
-                $data = '/\x00/';
-                // Fall through
+                if (strpos($line, null) !== false) {
+                    return true;
+                }
+                break;
 
             case 'preg':
                 if (preg_match($data, $line)) {
