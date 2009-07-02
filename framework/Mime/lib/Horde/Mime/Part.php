@@ -216,6 +216,17 @@ class Horde_Mime_Part
     }
 
     /**
+     * Function to run on clone.
+     */
+    public function __clone()
+    {
+        reset($this->_parts);
+        while (list($k, $v) = each($this->_parts)) {
+            $this->_parts[$k] = clone $v;
+        }
+    }
+
+    /**
      * Set the content-disposition of this part.
      *
      * @param string $disposition  The content-disposition to set (inline or
