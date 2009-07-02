@@ -152,7 +152,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
             return null;
         }
 
-        $raw_text = $GLOBALS['imp_imap']->ob->utils->removeBareNewlines($this->_params['contents']->getBodyPart($this->_mimepart->getMimeId(), array('mimeheaders' => true)));
+        $raw_text = $this->_mimepart->replaceEOL($this->_params['contents']->getBodyPart($this->_mimepart->getMimeId(), array('mimeheaders' => true, 'stream' => true)), Horde_Mime_Part::RFC_EOL);
 
         try {
             $decrypted_data = $this->_impsmime->decryptMessage($raw_text);
@@ -175,7 +175,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
             return array();
         }
 
-        $raw_text = $GLOBALS['imp_imap']->ob->utils->removeBareNewlines($this->_params['contents']->getBodyPart($this->_mimepart->getMimeId(), array('mimeheaders' => true)));
+        $raw_text = $this->_mimepart->replaceEOL($this->_params['contents']->getBodyPart($this->_mimepart->getMimeId(), array('mimeheaders' => true, 'stream' => true)), Horde_Mime_Part::RFC_EOL);
 
         try {
             $sig_result = $this->_impsmime->verifySignature($raw_text);
@@ -237,10 +237,10 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
             return $ret;
         }
 
-        $raw_text = $base_id
-            ? $this->_params['contents']->getBodyPart($base_id, array('mimeheaders' => true))
-            : $this->_params['contents']->fullMessageText();
-        $raw_text = $GLOBALS['imp_imap']->ob->utils->removeBareNewlines($raw_text);
+        $stream = $base_id
+            ? $this->_params['contents']->getBodyPart($base_id, array('mimeheaders' => true, 'stream' => true))
+            : $this->_params['contents']->fullMessageText(array('stream' => true));
+        $raw_text = $this->_mimepart->replaceEOL($stream, Horde_Mime_Part::RFC_EOL);
 
         $sig_result = null;
 
