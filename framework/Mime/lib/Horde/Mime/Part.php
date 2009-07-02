@@ -1126,7 +1126,8 @@ class Horde_Mime_Part
      * the given newline sequence or the part's current EOL setting.
      *
      * @param mixed $text      The text to replace. Either a string or a
-     *                         string resource.
+     *                         stream resource. If a stream, and returning
+     *                         a string, will close the stream when done.
      * @param string $eol      The EOL sequence to use. If not present, uses
      *                         the part's current EOL setting.
      * @param boolean $stream  If true, returns a stream resource.
@@ -1142,18 +1143,11 @@ class Horde_Mime_Part
         }
 
         $fp = $this->_writeStream($text);
-        $newfp = fopen('php://temp/maxmemory:' . self::$memoryLimit, 'r+');
 
-        rewind($fp);
-        while ($line = fgets($fp)) {
-            fwrite($newfp, rtrim($line, "\r\n") . $eol);
-        }
+        stream_filter_register('horde_eol', 'Horde_Util_Filter_Eol');
+        stream_filter_append($fp, 'horde_eol', STREAM_FILTER_READ, array('eol' => $eol));
 
-        if (is_string($text)) {
-            fclose($fp);
-        }
-
-        return $stream ? $newfp : $this->_readStream($newfp, true);
+        return $stream ? $fp : $this->_readStream($fp, true);
     }
 
     /**
