@@ -172,13 +172,8 @@ class IMP_Compose
      */
     public function saveDraft($headers, $message, $charset, $html)
     {
-        $drafts_folder = IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true);
-        if (empty($drafts_folder)) {
-            throw new IMP_Compose_Exception(_("Saving the draft failed. No draft folder specified."));
-        }
-
         $body = $this->_saveDraftMsg($headers, $message, $charset, $html, true);
-        return $this->_saveDraftServer($body, $drafts_folder);
+        return $this->_saveDraftServer($body);
     }
 
     /**
@@ -237,15 +232,18 @@ class IMP_Compose
     /**
      * Save a draft message on the IMAP server.
      *
-     * @param string $data         The text of the draft message.
-     * @param string $drafts_mbox  The mailbox to save the message to
-     *                             (UTF7-IMAP).
+     * @param string $data  The text of the draft message.
      *
      * @return string  Status string.
      * @throw IMP_Compose_Exception
      */
-    protected function _saveDraftServer($data, $drafts_mbox)
+    protected function _saveDraftServer($data)
     {
+        $drafts_mbox = IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true);
+        if (empty($drafts_mbox)) {
+            throw new IMP_Compose_Exception(_("Saving the draft failed. No draft folder specified."));
+        }
+
         $imp_folder = IMP_Folder::singleton();
 
         /* Check for access to drafts folder. */
@@ -2442,13 +2440,8 @@ class IMP_Compose
             }
             $vfs->deleteFile(self::VFS_DRAFTS_PATH, $filename);
 
-            $drafts_folder = IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true);
-            if (empty($drafts_folder)) {
-                return;
-            }
-
             try {
-                $this->_saveDraftServer($data, $drafts_folder);
+                $this->_saveDraftServer($data);
                 $GLOBALS['notification']->push(_("A message you were composing when your session expired has been recovered. You may resume composing your message by going to your Drafts folder."));
             } catch (IMP_Compose_Exception $e) {}
         }
