@@ -1002,7 +1002,7 @@ class Horde_Mime_Part
         if (is_string($headers)) {
             array_unshift($parts, $headers);
         } elseif ($headers) {
-            $hdr_ob = $this->addMimeHeaders(array('encode' => $options['encode'], 'headers' => ($headers === false) ? null : $headers));
+            $hdr_ob = $this->addMimeHeaders(array('encode' => $options['encode'], 'headers' => ($headers === true) ? null : $headers));
             $hdr_ob->setEOL($eol);
             if (!empty($this->_temp['toString'])) {
                 $hdr_ob->replaceHeader('Content-Transfer-Encoding', $this->_temp['toString']);
