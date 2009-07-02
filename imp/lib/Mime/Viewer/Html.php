@@ -156,7 +156,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 $cid = trim($cid, '<>');
                 if ($cid) {
                     $cid_part = $this->_params['contents']->getMIMEPart($mime_id);
-                    $cid_replace['cid:' . $cid] = $this->_params['contents']->urlView($cid_part, 'view_attach', array('params' => array('img_data' => 1)));
+                    $cid_replace['cid:' . $cid] = $this->_params['contents']->urlView($cid_part, 'view_attach', array('params' => array('related_data' => 1)));
                 }
             }
 

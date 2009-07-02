@@ -42,7 +42,12 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      */
     protected function _render()
     {
-        switch (Horde_Util::getFormData('imp_img_view')) {
+        $view = Horde_Util::getFormData('imp_img_view');
+        if (Horde_Util::getFormData('related_data')) {
+            $view = 'data';
+        }
+
+        switch ($view) {
         case 'data':
             /* If calling page is asking us to output data, do that without
              * any further delay and exit. */
