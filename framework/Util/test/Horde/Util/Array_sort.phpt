@@ -3,7 +3,11 @@ Horde_Array::arraySort() tests
 --FILE--
 <?php
 
-require dirname(__FILE__) . '/../Array.php';
+require dirname(__FILE__) . '/../../../lib/Horde/Array.php';
+require dirname(__FILE__) . '/../../../lib/Horde/Array/Sort/Helper.php';
+require dirname(__FILE__) . '/../../../lib/Horde/String.php';
+require dirname(__FILE__) . '/../../../lib/Horde/Util.php';
+
 $array = array(
     array('name' => 'foo', 'desc' => 'foo long desc'),
     array('name' => 'aaaa', 'desc' => 'aaa foo long desc'),

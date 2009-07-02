@@ -7,8 +7,8 @@ if (!setlocale(LC_ALL, 'tr_TR')) echo 'skip No Turkish locale installed.';
 --FILE--
 <?php
 
-require_once dirname(__FILE__) . '/../../lib/Horde/Util.php';
-require_once dirname(__FILE__) . '/../../lib/Horde/String.php';
+require_once dirname(__FILE__) . '/../../../lib/Horde/Util.php';
+require_once dirname(__FILE__) . '/../../../lib/Horde/String.php';
 
 echo Horde_String::upper('abCDefGHiI', true, 'us-ascii') . "\n";
 echo Horde_String::lower('abCDefGHiI', true, 'us-ascii') . "\n";

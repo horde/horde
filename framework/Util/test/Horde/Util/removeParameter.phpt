@@ -3,7 +3,7 @@ Horde_Util::removeParameter() tests
 --FILE--
 <?php
 
-require_once dirname(__FILE__) . '/../../lib/Horde/Util.php';
+require_once dirname(__FILE__) . '/../../../lib/Horde/Util.php';
 
 $url = 'test?foo=1&bar=2';
 echo Horde_Util::removeParameter($url, 'foo') . "\n";

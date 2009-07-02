@@ -3,7 +3,7 @@ Horde_Util::addParameter() tests
 --FILE--
 <?php
 
-require_once dirname(__FILE__) . '/../../lib/Horde/Util.php';
+require_once dirname(__FILE__) . '/../../../lib/Horde/Util.php';
 
 $url = 'test';
 echo ($url = Horde_Util::addParameter($url, 'foo', 1)) . "\n";

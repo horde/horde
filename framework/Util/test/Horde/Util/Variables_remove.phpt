@@ -1,10 +1,12 @@
 --TEST--
-Variables::remove() tests
+Horde_Variables::remove() tests
 --FILE--
 <?php
 
-require dirname(__FILE__) . '/../Variables.php';
-$vars = new Variables(array(
+require dirname(__FILE__) . '/../../../lib/Horde/Array.php';
+require dirname(__FILE__) . '/../../../lib/Horde/Variables.php';
+
+$vars = new Horde_Variables(array(
    'a' => 'a',
    'b' => 'b',
    'c' => array(1, 2, 3),
@@ -19,28 +21,31 @@ $vars = new Variables(array(
 
 $vars->remove('a');
 $vars->remove('d[y][g]');
-print_r($vars->_vars);
+
+print_r($vars->a);
+print "\n";
+print_r($vars->b);
+print "\n";
+print_r($vars->c);
+print "\n";
+print_r($vars->d);
 
 ?>
 --EXPECT--
+b
 Array
 (
-    [b] => b
-    [c] => Array
-        (
-            [0] => 1
-            [1] => 2
-            [2] => 3
-        )
+    [0] => 1
+    [1] => 2
+    [2] => 3
+)
 
-    [d] => Array
+Array
+(
+    [z] => z
+    [y] => Array
         (
-            [z] => z
-            [y] => Array
-                (
-                    [f] => f
-                )
-
+            [f] => f
         )
 
 )

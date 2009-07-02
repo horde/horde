@@ -3,8 +3,8 @@ Horde_String::substr() tests
 --FILE--
 <?php
 
-require_once dirname(__FILE__) . '/../../lib/Horde/Util.php';
-require_once dirname(__FILE__) . '/../../lib/Horde/String.php';
+require_once dirname(__FILE__) . '/../../../lib/Horde/Util.php';
+require_once dirname(__FILE__) . '/../../../lib/Horde/String.php';
 
 $string = "Lörem ipsüm dölör sit ämet";
 echo Horde_String::substr($string, 20, null, 'UTF-8') . "\n";

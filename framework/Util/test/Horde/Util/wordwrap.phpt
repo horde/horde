@@ -3,8 +3,8 @@ Horde_String::wordwrap() tests
 --FILE--
 <?php
 
-require_once dirname(__FILE__) . '/../../lib/Horde/Util.php';
-require_once dirname(__FILE__) . '/../../lib/Horde/String.php';
+require_once dirname(__FILE__) . '/../../../lib/Horde/Util.php';
+require_once dirname(__FILE__) . '/../../../lib/Horde/String.php';
 
 // Test default parameters and break character.
 $string = "Lörem ipsüm dölör sit ämet, cönsectetüer ädipiscing elit. Aliqüäm söllicitüdin fäücibüs mäüris ämet.";

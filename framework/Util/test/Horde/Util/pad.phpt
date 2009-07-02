@@ -3,8 +3,8 @@ Horde_String::pad() tests
 --FILE--
 <?php
 
-require_once dirname(__FILE__) . '/../../lib/Horde/Util.php';
-require_once dirname(__FILE__) . '/../../lib/Horde/String.php';
+require_once dirname(__FILE__) . '/../../../lib/Horde/Util.php';
+require_once dirname(__FILE__) . '/../../../lib/Horde/String.php';
 
 /* Simple single byte tests. */
 echo Horde_String::pad('abc', 2) . "\n";

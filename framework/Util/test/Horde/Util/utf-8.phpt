@@ -3,8 +3,8 @@ UTF-8 Horde_String:: tests
 --FILE--
 <?php
 
-require_once dirname(__FILE__) . '/../../lib/Horde/Util.php';
-require_once dirname(__FILE__) . '/../../lib/Horde/String.php';
+require_once dirname(__FILE__) . '/../../../lib/Horde/Util.php';
+require_once dirname(__FILE__) . '/../../../lib/Horde/String.php';
 
 /* The following strings were taken with permission from the UTF-8
  * sampler by Frank da Cruz <fdc@columbia.edu> and the Kermit Project
