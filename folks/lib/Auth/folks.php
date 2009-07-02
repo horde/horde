@@ -1,7 +1,4 @@
 <?php
-
-require_once dirname(__FILE__) . '/application.php';
-
 /**
  * The Auth_folks class provides a sql implementation of the Horde
  * authentication system with use of folks app
@@ -95,7 +92,7 @@ class Auth_folks extends Auth_application {
         $password = Auth::genRandomPassword();
 
         /* Process. */
-        $fileroot = $GLOBALS['registry']->get('webroot', 'folks');
+        $fileroot = $GLOBALS['registry']->get('fileroot', 'folks');
         if ($fileroot instanceof PEAR_Error) {
             return $fileroot;
         }
