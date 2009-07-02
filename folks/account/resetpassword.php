@@ -28,6 +28,12 @@ function _getCAPTCHA($new = false)
     return $_SESSION['folks']['CAPTCHA'];
 }
 
+// We are already logged
+if (Auth::isAuthenticated()) {
+    header('Location: ' . Folks::getUrlFor('user', Auth::getAuth()));
+    exit;
+}
+
 // Make sure auth backend allows passwords to be reset.
 $auth = Auth::singleton($conf['auth']['driver']);
 if (!$auth->hasCapability('resetpassword')) {
