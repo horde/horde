@@ -29,7 +29,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Removed Horde_Array::combine() and Horde_Util::hmac().
+ <notes>* Added Horde_Util_Filter_Eol.
+ * Removed Horde_Array::combine() and Horde_Util::hmac().
  * Initial Horde 4 package.
  </notes>
  <contents>
@@ -41,6 +42,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Helper.php" role="php" />
       </dir> <!-- /lib/Horde/Array/Sort -->
      </dir> <!-- /lib/Horde/Array -->
+     <dir name="Util">
+      <dir name="Filter">
+       <file name="Eol.php" role="php" />
+      </dir> <!-- /lib/Horde/Util/Filter -->
+     </dir> <!-- /lib/Horde/Util -->
      <file name="Array.php" role="php" />
      <file name="String.php" role="php" />
      <file name="Util.php" role="php" />
@@ -55,6 +61,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="addParameter.phpt" role="test" />
       <file name="case.phpt" role="test" />
       <file name="case_php6.phpt" role="test" />
+      <file name="eol_filter.phpt" role="test" />
       <file name="length.phpt" role="test" />
       <file name="pad.phpt" role="test" />
       <file name="removeParameter.phpt" role="test" />
@@ -96,6 +103,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Array/Sort/Helper.php" as="Horde/Array/Sort/Helper.php" />
    <install name="lib/Horde/String.php" as="Horde/String.php" />
    <install name="lib/Horde/Util.php" as="Horde/Util.php" />
+   <install name="lib/Horde/Util/Filter/Eol.php" as="Horde/Util/Filter/Eol.php" />
    <install name="lib/Horde/Variables.php" as="Horde/Variables.php" />
   </filelist>
  </phprelease>
