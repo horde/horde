@@ -45,7 +45,7 @@ class Horde_Mime_Part
      *
      * @var integer
      */
-    static public $memoryLimit = 1048576;
+    static public $memoryLimit = 2097152;
 
     /**
      * Valid encoding types.
