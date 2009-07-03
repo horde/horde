@@ -383,7 +383,7 @@ class Text_Wiki_Render_Tiki_Interwiki_Test extends Text_Wiki_Render_Tiki_SetUp_T
     
     public function testTikiRenderInterwiki()
     {
-        $this->markTestIncomplete('Check if Text_Wiki_Render_Tiki_Blockquote output a valid Tiki syntax.');
+        $this->markTestIncomplete('Check if Text_Wiki_Render_Tiki_Interwiki output a valid Tiki syntax.');
         $options = array('site' => 'doc.tikiwiki.org', 'page' => 'WikiSyntax');
         $this->assertEquals('((doc.tikiwiki.org:WikiSyntax))', $this->t->token($options));
         $options = array('site' => 'doc.tikiwiki.org', 'page' => 'WikiSyntax', 'text' => 'Page WikiSyntax from doc.tikiwiki.org');
@@ -567,19 +567,19 @@ class Text_Wiki_Render_Tiki_Table_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
     
     public function testTikiRenderTableDependLastVariable()
     {
-        /* test cases that depend on the static variable $last */
-        $this->markTestIncomplete('This test has not been implemented yet.');
-        /*        $options = array('type' => 'row_start');
-        $this->t->last = 'table_start';
-        $this->assertEquals("\n", $this->t->token($options));
+        /* test cases that depend on the static variable $last. we run token()
+           with a different type first to set the appropiate $last value and then 
+           we run it again we the desirable assert value */
+        $options = array('type' => 'table_start');
+        $this->t->token($options);
         $options = array('type' => 'row_start');
-        $this->assertEquals("\n", $this->t->token($options));
+        $this->assertEquals('', $this->t->token($options));
 
+
+        $options = array('type' => 'cell_end');
+        $this->t->token($options);
         $options = array('type' => 'cell_start');
-        $this->t->last = 'cell_end';
         $this->assertEquals(' | ', $this->t->token($options));
-        $options = array('type' => 'cell_start');
-        $this->assertEquals('', $this->t->token($options));*/
     }
 
 }
