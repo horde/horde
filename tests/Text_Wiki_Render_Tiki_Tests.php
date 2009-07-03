@@ -237,7 +237,22 @@ class Text_Wiki_Render_Tiki_Deflist_Test extends Text_Wiki_Render_Tiki_SetUp_Tes
     
     public function testTikiRenderDeflist()
     {
-        $this->markTestIncomplete('This test has not been implemented yet.');
+        $options = array('type' => 'list_start');
+        $this->assertEquals("\n", $this->t->token($options));
+        $options = array('type' => 'list_end');
+        $this->assertEquals("\n\n", $this->t->token($options));
+        $options = array('type' => 'term_start');
+        $this->assertEquals(';', $this->t->token($options));
+        $options = array('type' => 'term_end');
+        $this->assertEquals('', $this->t->token($options));
+        $options = array('type' => 'narr_start');
+        $this->assertEquals(':', $this->t->token($options));
+        $options = array('type' => 'narr_end');
+        $this->assertEquals("\n", $this->t->token($options));
+
+        // test default swicth behavior
+        $options = array('type' => 'InvalidType');
+        $this->assertEquals('', $this->t->token($options));
     }
     
 }
