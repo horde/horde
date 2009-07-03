@@ -77,7 +77,7 @@ class Horde_Autoloader
     public static function addClassPath($path, $prepend = true)
     {
         if (is_null(self::$_includeCache)) {
-            self::$_includeCache = array_keys(array_flip(array_map('realpath', explode(PATH_SEPARATOR, get_include_path()))));
+            self::$_includeCache = array_keys(array_flip(array_map(array('Horde_Util', 'realPath'), explode(PATH_SEPARATOR, get_include_path()))));
         }
 
         $path = realpath($path);
