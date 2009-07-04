@@ -7,7 +7,7 @@ require_once 'Text/Wiki.php';
 class Text_Wiki_Tests extends PHPUnit_Framework_TestCase
 {
     
-    function setUp()
+    protected function setUp()
     {
         $this->obj = Text_Wiki::factory();
 
@@ -32,34 +32,62 @@ class Text_Wiki_Tests extends PHPUnit_Framework_TestCase
         $this->_countRulesTokens = array('Heading' => 6, 'Break' => 2);
     }
     
-    function testSingletonOfSameParserShouldReturnSameObject()
+    public function testSingletonOfSameParserShouldReturnSameObject()
     {
         $obj1 = Text_Wiki::singleton();
         $obj2 = Text_Wiki::singleton();      
         $this->assertEquals(spl_object_hash($obj1), spl_object_hash($obj2));
     }
     
-    function testSingletonOfDifferentParserShouldReturnDifferentObject()
+    public function testSingletonOfDifferentParserShouldReturnDifferentObject()
     {
         $obj1 = Text_Wiki::singleton('Tiki');
         $obj2 = Text_Wiki::singleton();
         $this->assertNotEquals(spl_object_hash($obj1), spl_object_hash($obj2));
     }
     
-    function testFactoryReturnDefaultParserInstance()
+    public function testFactoryReturnDefaultParserInstance()
     {
         $obj = Text_Wiki::factory();
         $this->assertTrue(is_a($obj, 'Text_Wiki_Default'));
     }
     
-    function testFactoryRestrictRulesUniverse()
+    public function testFactoryRestrictRulesUniverse()
     {
         $rules = array('Heading', 'Bold', 'Italic', 'Paragraph');
         $obj = Text_Wiki::factory('Default', $rules);
         $this->assertEquals($rules, $obj->rules);
     }
 
-    function testSetParseConf()
+    public function testTokenIdForMultipleParsingDontCollideWithDifferentObjects()
+    {
+        $sampleText = file_get_contents('fixtures/text_wiki_sample_mediawiki_syntax.txt');
+        $sampleTextTransformed2Xhtml = file_get_contents('fixtures/text_wiki_sample_syntax_transformed_to_xhtml.txt');
+        $sampleTextTransformed2Plain = file_get_contents('fixtures/text_wiki_sample_syntax_transformed_to_plain.txt');
+        $sampleTextTransformed2Plain2 = file_get_contents('fixtures/text_wiki_sample_syntax_transformed_to_plain2.txt');
+        $obj1 = Text_Wiki::factory('Mediawiki');
+        $this->assertEquals($sampleTextTransformed2Xhtml, $obj1->transform($sampleText, 'Xhtml'));
+        $obj2 = Text_Wiki::factory('Mediawiki');
+        $this->assertEquals($sampleTextTransformed2Plain, $obj2->transform($sampleText, 'Plain'));
+        $obj3 = Text_Wiki::factory('Tiki');
+        $this->assertEquals($sampleTextTransformed2Plain2, $obj3->transform($sampleText, 'Plain'));
+    }
+
+    public function testTokenIdForMultipleParsingDontCollideWithSameObjects()
+    {
+        $sampleText = file_get_contents('fixtures/text_wiki_sample_mediawiki_syntax.txt');
+        $sampleTextTransformed2Xhtml = file_get_contents('fixtures/text_wiki_sample_syntax_transformed_to_xhtml.txt');
+        $sampleTextTransformed2Plain = file_get_contents('fixtures/text_wiki_sample_syntax_transformed_to_plain.txt');
+        $sampleTextTransformed2Plain2 = file_get_contents('fixtures/text_wiki_sample_syntax_transformed_to_plain2.txt');
+        $obj1 = Text_Wiki::singleton('Mediawiki');
+        $this->assertEquals($sampleTextTransformed2Xhtml, $obj1->transform($sampleText, 'Xhtml'));
+        $obj2 = Text_Wiki::singleton('Mediawiki');
+        $this->assertEquals($sampleTextTransformed2Plain, $obj2->transform($sampleText, 'Plain'));
+        $obj3 = Text_Wiki::singleton('Tiki');
+        $this->assertEquals($sampleTextTransformed2Plain2, $obj3->transform($sampleText, 'Plain'));
+    }
+
+    public function testSetParseConf()
     {
         $expectedResult = array('Center' => array('css' => 'center'));
         $this->obj->setParseConf('center', 'css', 'center');
@@ -71,7 +99,7 @@ class Text_Wiki_Tests extends PHPUnit_Framework_TestCase
         $this->assertEquals($expectedResult, $this->obj->parseConf);
     }
 
-    function testGetParseConf()
+    public function testGetParseConf()
     {
         $this->obj->parseConf = array('Include' => array('base' => '/path/to/scripts/',
                                                          'anotherKey' => 'anotherValue'),
@@ -82,7 +110,7 @@ class Text_Wiki_Tests extends PHPUnit_Framework_TestCase
         $this->assertNull($this->obj->getParseConf('inexistentRule', 'inexistentKey'));
     }
     
-    function testSetRenderConf()
+    public function testSetRenderConf()
     {
         $this->obj->setRenderConf('xhtml', 'center', 'css', 'center');
         $expectedResult = array('Center' => array('css' => 'center'));
@@ -98,19 +126,19 @@ class Text_Wiki_Tests extends PHPUnit_Framework_TestCase
         $this->assertEquals($expectedResult, $this->obj->renderConf['Xhtml']);
     }
 
-    function testGetRenderConfReturnRule()
+    public function testGetRenderConfReturnRule()
     {
         $this->obj->renderConf['Xhtml'] = array('Center' => array('css' => 'center', 'align' => 'left')); 
         $this->assertEquals(array('css' => 'center', 'align' => 'left'), $this->obj->getRenderConf('Xhtml', 'Center'));
     }
     
-    function testGetRenderConfReturnEspecifKeyRule()
+    public function testGetRenderConfReturnEspecifKeyRule()
     {
         $this->obj->renderConf['Xhtml'] = array('Center' => array('css' => 'center', 'align' => 'left')); 
         $this->assertEquals('center', $this->obj->getRenderConf('Xhtml', 'Center', 'css'));
     }
     
-    function testGetRenderConfReturnFalseForInvalidFormatOrConfOrKey()
+    public function testGetRenderConfReturnFalseForInvalidFormatOrConfOrKey()
     {
         $this->obj->renderConf['Xhtml'] = array('Center' => array('css' => 'center', 'align' => 'left')); 
         $this->assertNull($this->obj->getRenderConf('InvalidFormat', 'InvalidRule', 'InvalidKey'));
