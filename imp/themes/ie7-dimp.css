@@ -24,7 +24,7 @@ div.msgSize {
 form#compose {
     margin-top: -13px;
 }
-#to, #cc, #bcc, .msgBody {
+#to, #cc, #bcc {
     overflow: auto;
 }
 
@@ -41,6 +41,9 @@ form#compose {
     text-decoration: underline;
 }
 
+.dimpOptions div {
+    height: 17px;
+}
 .dimpOptions div a:hover {
     text-decoration: underline;
 }
