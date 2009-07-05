@@ -102,8 +102,7 @@ class Horde_Secret
         $idx = hash('md5', $key);
 
         if (!isset(self::$_cipherCache[$idx])) {
-            self::$_cipherCache[$idx] = &Horde_Cipher::factory('blowfish');
-            self::$_cipherCache[$idx]->setBlockMode('ofb64');
+            self::$_cipherCache[$idx] = Horde_Cipher::factory('rc2');
             self::$_cipherCache[$idx]->setKey($key);
         }
 
