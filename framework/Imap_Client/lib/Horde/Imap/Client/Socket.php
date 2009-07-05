@@ -3136,7 +3136,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 } else {
                     $this->_temp['logout'] = true;
                     $this->logout();
-                    throw new Horde_Imap_Client_Exception('IMAP Server closed the connection: ' . implode(' ', array_slice($read, 1)), Horde_Imap_Client_Exception::IMAP_DISCONNECT);
+                    throw new Horde_Imap_Client_Exception('IMAP Server closed the connection: ' . implode(' ', array_slice($read, 1)), Horde_Imap_Client_Exception::DISCONNECT);
                 }
             }
 
@@ -3222,7 +3222,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if ($this->_debug) {
                 fwrite($this->_debug, '[ERROR: IMAP server closed the connection.]' . "\n");
             }
-            throw new Horde_Imap_Client_Exception('IMAP server closed the connection unexpectedly.', Horde_Imap_Client_Exception::IMAP_DISCONNECT);
+            throw new Horde_Imap_Client_Exception('IMAP server closed the connection unexpectedly.', Horde_Imap_Client_Exception::DISCONNECT);
         }
 
         $data = '';

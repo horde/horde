@@ -272,6 +272,11 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
         stream_set_timeout($this->_stream, $this->_params['timeout']);
 
+        // Add separator to make it easier to read debug log.
+        if ($this->_debug) {
+            fwrite($this->_debug, str_repeat('-', 30) . "\n");
+        }
+
         $line = $this->_getLine();
 
         // Check for string matching APOP timestamp
@@ -1167,7 +1172,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
         if (feof($this->_stream)) {
             $this->logout();
-            throw new Horde_Imap_Client_Exception('POP3 Server closed the connection unexpectedly.', Horde_Imap_Client_Exception::IMAP_DISCONNECT);
+            throw new Horde_Imap_Client_Exception('POP3 Server closed the connection unexpectedly.', Horde_Imap_Client_Exception::DISCONNECT);
         }
 
         $read = rtrim(fgets($this->_stream));
@@ -1211,7 +1216,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     /**
      * Obtain multiline input.
      *
-     * @param boolean $retarray  Return an arrray?
+     * @param boolean $retarray  Return an array?
      *
      * @return mixed  An array if $retarray is true, a string otherwise.
      * @throws Horde_Imap_Client_Exception
