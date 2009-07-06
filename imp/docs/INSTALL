@@ -484,18 +484,18 @@ Configuring IMP
    IMP's setup screen (``Administration/Setup/Webmail/Mailbox and Fetchmail``).
 
 
-Dynamic View (dimp) Troubleshooting
-===================================
+Dynamic View Troubleshooting
+============================
 
-DIMP (IMP's dynamic, AJAX-based view) differs from traditional Horde
-applications in that it requires javascript support; in fact, javascript
-performs the bulk of the page display.  As such, debugging DIMP is more
-complex than with other Horde applications.
+IMP's dynamic, AJAX-based view (formerly known as DIMP) differs from
+traditional Horde applications in that it requires javascript support; in
+fact, javascript performs the bulk of the page display.  As such, debugging
+the dynamic view is more complex than with other Horde applications.
 
-If you run into problems with DIMP, first follow the troubleshooting steps
-for Horde - namely checking PHP error logs and Horde debug logs to determine
-if the problem is located there.  Server-based errors will be logged in the
-traditional manner.
+If you run into problems with the dynamic view, first follow the
+troubleshooting steps for Horde - namely checking PHP error logs and Horde
+debug logs to determine if the problem is located there.  Server-based errors
+will be logged in the traditional manner.
 
 Only if traditional debugging is unsuccessful will you need to move to
 javascript debugging.  It is highly recommended to use Mozilla Firefox with
