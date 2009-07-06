@@ -7,24 +7,6 @@
 
 require_once 'Horde/String.php';
 
-function testBlockCipher(&$cipher, $plaintext, $ciphertext)
-{
-    echo "Testing Encryption: ";
-    if ($cipher->encrypt($plaintext) == $ciphertext) {
-        echo "Pass\n";
-    } else {
-        echo "Fail\n";
-    }
-    echo "Testing Decryption: ";
-    if ($cipher->decrypt($ciphertext) == $plaintext) {
-        echo "Pass\n";
-    } else {
-        echo "Fail\n";
-    }
-    echo "\n";
-    flush();
-}
-
 function testCipher($cipher, $key,  $plaintext, $ciphertext)
 {
     $cipher = &Horde_Cipher::factory($cipher);
