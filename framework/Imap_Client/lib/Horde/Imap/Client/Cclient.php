@@ -1010,6 +1010,12 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                     } else {
                         $ret[$id]['fullmsg'] = $tmp;
                     }
+
+                    if (!empty($c_val['stream'])) {
+                        $ptr = fopen('php://temp', 'r+');
+                        fwrite($ptr, $tmp);
+                        $ret[$id]['fullmsg'] = $ptr;
+                    }
                 }
                 break;
 
@@ -1045,9 +1051,14 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                             $tmp = substr($tmp, $val['start'], $val['length']);
                         }
 
-                        if (!empty($val['parse']) &&
-                            ($type == Horde_Imap_Client::FETCH_BODYPART)) {
-                            $tmp = Horde_Mime_Headers::parseHeaders($tmp);
+                        if ($type == Horde_Imap_Client::FETCH_BODYPART) {
+                            if (!empty($val['parse'])) {
+                                $tmp = Horde_Mime_Headers::parseHeaders($tmp);
+                            } elseif (!empty($val['stream'])) {
+                                $ptr = fopen('php://temp', 'r+');
+                                fwrite($ptr, $tmp);
+                                $tmp = $ptr;
+                            }
                         }
 
                         $ret[$id][$label][$val['id']] = $tmp;
@@ -1085,6 +1096,12 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                             } else {
                                 $ret[$id]['bodytext'][$val['id']] = $tmp;
                             }
+                        }
+
+                        if (!empty($val['stream'])) {
+                            $ptr = fopen('php://temp', 'r+');
+                            fwrite($ptr, $ret[$id]['bodytext'][$val['id']);
+                            $ret[$id]['bodytext'][$val['id']] = $ptr;
                         }
                     }
                 }

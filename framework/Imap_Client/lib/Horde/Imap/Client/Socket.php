@@ -2176,8 +2176,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     case Horde_Imap_Client::FETCH_HEADERS:
                         if (empty($val['label'])) {
                             throw new Horde_Imap_Client_Exception('Need a unique label when doing a headers field search.');
-                        }
-                        if (empty($val['headers'])) {
+                        } elseif (empty($val['headers'])) {
                             throw new Horde_Imap_Client_Exception('Need headers to query when doing a headers field search.');
                         }
                         $fp['parseheaders'] = !empty($val['parse']);
