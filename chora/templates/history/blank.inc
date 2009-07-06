@@ -1,1 +1,1 @@
-<td<?php echo $bg ? " style=\"background:$bg\"":'' ?>>&nbsp;</td>
+<td class="historybg<?php echo $bg ?>">&nbsp;</td>

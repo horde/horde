@@ -20,13 +20,6 @@ if (!$VC->hasFeature('branches')) {
     exit;
 }
 
-/* Spawn the file object. */
-try {
-    $fl = $VC->getFileObject($where);
-} catch (Horde_Vcs_Exception $e) {
-    Chora::fatal($e);
-}
-
 $colset = array('#ccdeff', '#ecf', '#fec', '#efc', '#cfd', '#dcdba0');
 $branch_colors = $colStack = array();
 foreach ($branches as $brrev => $brcont) {
@@ -104,6 +97,15 @@ function _populateGrid($row, $col)
         }
     }
 }
+
+/* Spawn the file object. */
+try {
+    $fl = $VC->getFileObject($where);
+} catch (Horde_Vcs_Exception $e) {
+    Chora::fatal($e);
+}
+
+$revlist = $fl->getBranchList();
 
 /* Start row at the bottom trunk revision.  Since branches always go
  * down, there can never be one above 1.1, and so this is a safe
