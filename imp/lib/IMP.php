@@ -1559,11 +1559,9 @@ class IMP
                 }
 
                 /* Use CSS tidy to clean up file. */
-                require_once HORDE_BASE . '/services/csstidy/class.csstidy.php';
-                $css_tidy = new csstidy();
-                $css_tidy->load_template('highest_compression');
-                $css_tidy->parse($out);
-                $out = $css_tidy->print->plain();
+                try {
+                    $out = Horde_Text_Filter::filter($out, 'csstidy');
+                } catch (Horde_Exception $e) {}
 
                 switch ($cache_type) {
                 case 'filesystem':
