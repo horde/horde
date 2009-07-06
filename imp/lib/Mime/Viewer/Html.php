@@ -116,20 +116,6 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             $msg_charset = $charset;
         }
 
-        /* Run tidy on the HTML. */
-        if ($this->getConfigParam('tidy') &&
-            ($tidy_config = IMP::getTidyConfig(Horde_String::length($data)))) {
-            if ($msg_charset == 'us-ascii') {
-                $tidy = tidy_parse_string($data, $tidy_config, 'ascii');
-                $tidy->cleanRepair();
-                $data = tidy_get_output($tidy);
-            } else {
-                $tidy = tidy_parse_string(Horde_String::convertCharset($data, $msg_charset, 'UTF-8'), $tidy_config, 'utf8');
-                $tidy->cleanRepair();
-                $data = Horde_String::convertCharset(tidy_get_output($tidy), 'UTF-8', $msg_charset);
-            }
-        }
-
         /* Sanitize the HTML. */
         $cleanhtml = $this->_cleanHTML($data, $inline);
         $data = $cleanhtml['html'];

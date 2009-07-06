@@ -163,11 +163,6 @@ $module_list = array(
         'descrip' => 'OpenSSL Support',
         'error' => 'The openssl module is required to use S/MIME in IMP. Compile PHP with <code>--with-openssl</code> to activate.',
         'fatal' => false
-    ),
-    'tidy' => array(
-        'descrip' => 'Tidy support',
-        'error' => 'If the tidy PHP extension is available, IMP can use it to sanitize the output of HTML messages before displaying to the user, and to clean outgoing HTML messages created in the HTML composition mode. See <code>imp/docs/INSTALL</code> for more information.',
-        'fatal' => false,
     )
 );
 

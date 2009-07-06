@@ -110,14 +110,6 @@ To function properly, IMP **requires** the following:
       See http://www.php.net/openssl for information on compiling OpenSSL
       into PHP.
 
-   b. tidy ``--with-tidy``
-
-      The tidy PHP extension is required if you want IMP to sanitize the
-      output of HTML messages before displaying to the user and if you want
-      to clean and repair outgoing HTML messages composed via the HTML
-      composition mode.  See ``imp/config/mime_drivers.php.dist`` for
-      further instructions on how to enable this feature.
-
 3. The following PEAR modules:
    (See `horde/docs/INSTALL`_ for instructions on installing PEAR modules)
 

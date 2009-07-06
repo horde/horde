@@ -1380,34 +1380,6 @@ class IMP
     }
 
     /**
-     * Determines if the tidy extension is available and is the correct
-     * version.  Returns the config array.
-     *
-     * @param integer $size  Size of the HTML data, in bytes.
-     *
-     * @return mixed  The config array, or false if tidy is not available.
-     */
-    static public function getTidyConfig($size)
-    {
-        if (!Horde_Util::extensionExists('tidy') ||
-            function_exists('tidy_load_config') &&
-            ($size > 250000)) {
-            return false;
-        }
-
-        return array(
-            'wrap' => 0,
-            'indent' => true,
-            'indent-spaces' => 4,
-            'tab-size' => 4,
-            'output-xhtml' => true,
-            'enclose-block-text' => true,
-            'hide-comments' => true,
-            'numeric-entities' => true
-        );
-    }
-
-    /**
      * Outputs the necessary script tags, honoring local configuration
      * choices as to script caching.
      */

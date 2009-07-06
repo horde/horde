@@ -975,15 +975,7 @@ class IMP_Compose
             $htmlBody->setCharset($charset);
             $htmlBody->setDisposition('inline');
             $htmlBody->setDescription(Horde_String::convertCharset(_("HTML Version of Message"), $nls_charset, $charset));
-
-            /* Run tidy on the HTML, if available. */
-            if ($tidy_config = IMP::getTidyConfig(strlen($body_html))) {
-                $tidy = tidy_parse_string(Horde_String::convertCharset($body_html, $charset, 'UTF-8'), $tidy_config, 'utf8');
-                $tidy->cleanRepair();
-                $htmlBody->setContents(Horde_String::convertCharset(tidy_get_output($tidy), 'UTF-8', $charset));
-            } else {
-                $htmlBody->setContents($body_html);
-            }
+            $htmlBody->setContents(Horde_Text_Filter::filter($msg, 'cleanhtml', array('charset' => $charset)));
 
             $textBody->setDescription(Horde_String::convertCharset(_("Plaintext Version of Message"), $nls_charset, $charset));
 
@@ -2217,17 +2209,8 @@ class IMP_Compose
             }
         }
 
-        /* Run tidy on the HTML. */
-        if (($mode == 'html)' &&
-            ($tidy_config = IMP::getTidyConfig($part->getBytes())))) {
-            $tidy_config['show-body-only'] = true;
-            $tidy = tidy_parse_string(Horde_String::convertCharset($msg, $charset, 'UTF-8'), $tidy_config, 'UTF8');
-            $tidy->cleanRepair();
-            $msg = Horde_String::convertCharset(tidy_get_output($tidy), 'UTF-8', $charset);
-        }
-
         if ($mode == 'html') {
-            $msg = Horde_Text_Filter::filter($msg, 'xss', array('body_only' => true, 'strip_styles' => true, 'strip_style_attributes' => false));
+            $msg = Horde_Text_Filter::filter($msg, array('cleanhtml', 'xss'), array(array('body_only' => true, 'charset' => $charset), array('body_only' => true, 'strip_styles' => true, 'strip_style_attributes' => false)));
         } elseif ($type == 'text/html') {
             $msg = Horde_Text_Filter::filter($msg, 'html2text', array('charset' => $charset));
             $type = 'text/plain';

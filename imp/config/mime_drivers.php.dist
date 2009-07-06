@@ -93,9 +93,6 @@ $mime_drivers['imp']['html'] = array(
      * bytes).  If exceeded, the user will only be able to download the part.
      * Set to 0 to disable this check. */
     'limit_inline_size' => 1048576,
-    /* Run 'tidy' on all HTML output? This requires at least version 2.0 of the
-     * PECL 'tidy' extension to be installed on your system. */
-    'tidy' => false,
     /* Check for phishing exploits? */
     'phishing_check' => true
 );
