@@ -112,10 +112,16 @@ class Horde_Mime_Viewer_html extends Horde_Mime_Viewer_Driver
                                     $browser->getMajor() == 4) ||
                                    $browser->isBrowser('msie'));
         $strip_styles = $inline || $strip_style_attributes;
-        $data = Horde_Text_Filter::filter($data, 'xss', array(
-            'body_only' => $inline,
-            'strip_styles' => $strip_styles,
-            'strip_style_attributes' => $strip_style_attributes
+
+        $data = Horde_Text_Filter::filter($data, array('cleanhtml', 'xss'), array(
+            array(
+                'charset' => $this->_mimepart->getCharset()
+            ),
+            array(
+                'body_only' => $inline,
+                'strip_styles' => $strip_styles,
+                'strip_style_attributes' => $strip_style_attributes
+            )
         ));
 
         /* Check for phishing exploits. */

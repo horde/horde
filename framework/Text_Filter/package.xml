@@ -37,7 +37,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial Horde 4 package.
+ <notes>* Add support for using the tidy extension when filtering HTML data.
+ * Initial Horde 4 package.
  </notes>
  <contents>
   <dir name="/">
@@ -47,6 +48,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <dir name="Filter">
        <file name="Bbcode.php" role="php" />
        <file name="Cleanascii.php" role="php" />
+       <file name="Cleanhtml.php" role="php" />
        <file name="Dimsignature.php" role="php" />
        <file name="Emails.php" role="php" />
        <file name="Emoticons.php" role="php" />
@@ -199,6 +201,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <filelist>
    <install name="lib/Horde/Text/Filter/Bbcode.php" as="Horde/Text/Filter/Bbcode.php" />
    <install name="lib/Horde/Text/Filter/Cleanascii.php" as="Horde/Text/Filter/Cleanascii.php" />
+   <install name="lib/Horde/Text/Filter/Cleanhtml.php" as="Horde/Text/Filter/Cleanhtml.php" />
    <install name="lib/Horde/Text/Filter/Dimsignature.php" as="Horde/Text/Filter/Dimsignature.php" />
    <install name="lib/Horde/Text/Filter/Emails.php" as="Horde/Text/Filter/Emails.php" />
    <install name="lib/Horde/Text/Filter/Emoticons.php" as="Horde/Text/Filter/Emoticons.php" />
