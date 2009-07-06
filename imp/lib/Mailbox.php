@@ -119,10 +119,15 @@ class IMP_Mailbox
     {
         if (!is_null($this->_arrayIndex)) {
             /* Casting $_sorted to integers saves a significant amount of
-             * space when json_encoding (no need to quote every value). */
+             * space when json_encoding (no need to quote every value). Only
+             * can do for IMAP though (since POP3 UIDs are not limited to
+             * integers. */
+            $sorted = ($_SESSION['imp']['protocol'] == 'pop')
+                ? $this->_sorted
+                : array_map('intval', $this->_sorted);
             $_SESSION['imp']['cache']['imp_mailbox'][$this->_mailbox] = $this->_searchmbox
-                ? json_encode(array('m' => $this->_sortedMbox, 's' => array_map('intval', $this->_sorted)))
-                : json_encode(array_map('intval', $this->_sorted));
+                ? json_encode(array('m' => $this->_sortedMbox, 's' => $sorted))
+                : json_encode($sorted);
         }
     }
 
