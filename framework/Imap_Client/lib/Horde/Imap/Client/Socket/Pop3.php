@@ -896,12 +896,11 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
             case Horde_Imap_Client::FETCH_STRUCTURE:
                 foreach ($seq_ids as $id) {
-                    if ($tmp = $this->_pop3Cache('msg', $id)) {
+                    $tmp = false;
+                    if ($ptr = $this->_pop3Cache('msg', $id)) {
                         try {
-                            $tmp = Horde_Mime_Part::parseMessage(stream_get_contents($tmp), array('structure' => empty($c_val['parse'])));
-                        } catch (Horde_Exception $e) {
-                            $tmp = false;
-                        }
+                            $tmp = Horde_Mime_Part::parseMessage(stream_get_contents($ptr), array('structure' => empty($c_val['parse'])));
+                        } catch (Horde_Exception $e) {}
                     }
                     $ret[$id]['structure'] = $tmp;
                 }
@@ -989,6 +988,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     protected function _pop3Cache($type, $index = null, $data = null)
     {
         if (isset($this->_temp['pop3cache'][$index][$type])) {
+            if ($type == 'msg') {
+                rewind($this->_temp['pop3cache'][$index][$type]);
+            }
             return $this->_temp['pop3cache'][$index][$type];
         }
 
