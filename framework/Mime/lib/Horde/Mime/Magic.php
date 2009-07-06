@@ -151,7 +151,6 @@ class Horde_Mime_Magic
      */
     static public function analyzeFile($path, $magic_db = null)
     {
-        /* If the PHP Mimetype extension is available, use that. */
         if (Horde_Util::extensionExists('fileinfo')) {
             $res = empty($magic_db)
                 ? @finfo_open(FILEINFO_MIME)
@@ -172,10 +171,6 @@ class Horde_Mime_Magic
                     return $type;
                 }
             }
-        }
-
-        if (Horde_Util::extensionExists('mime_magic')) {
-            return trim(mime_content_type($path));
         }
 
         return false;
