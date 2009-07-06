@@ -129,7 +129,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
      */
     public function embeddedMimeParts()
     {
-        return (!empty($GLOBALS['conf']['utils']['gnupg']) && $GLOBALS['prefs']->getValue('pgp_scan_body')) || $this->getConfigParam('uudecode');
+        return (!empty($GLOBALS['conf']['gnupg']['path']) && $GLOBALS['prefs']->getValue('pgp_scan_body')) || $this->getConfigParam('uudecode');
     }
 
     /**
@@ -144,7 +144,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
     {
         $ret = null;
 
-        if (!empty($GLOBALS['conf']['utils']['gnupg']) &&
+        if (!empty($GLOBALS['conf']['gnupg']['path']) &&
             $GLOBALS['prefs']->getValue('pgp_scan_body')) {
             $ret = $this->_parsePGP();
         }

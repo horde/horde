@@ -180,7 +180,7 @@ $prefGroups['events'] = array(
     'members' => array('conflict_interval')
 );
 
-if (isset($GLOBALS['conf']['utils']['gnupg'])) {
+if (isset($GLOBALS['conf']['gnupg']['path'])) {
     $prefGroups['pgp'] = array(
         'column' => _("Other Options"),
         'label' => _("PGP Options"),
@@ -189,7 +189,7 @@ if (isset($GLOBALS['conf']['utils']['gnupg'])) {
     );
 }
 
-if (Horde_Util::extensionExists('openssl') && isset($GLOBALS['conf']['utils']['openssl_binary'])) {
+if (Horde_Util::extensionExists('openssl') && isset($GLOBALS['conf']['openssl']['path'])) {
     $prefGroups['smime'] = array(
         'column' => _("Other Options"),
         'label' => _("S/MIME Options"),

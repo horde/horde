@@ -22,7 +22,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     public function __construct()
     {
         parent::__construct(array(
-            'program' => $GLOBALS['conf']['utils']['gnupg'],
+            'program' => $GLOBALS['conf']['gnupg']['path'],
             'temp' => Horde::getTempDir()
         ));
     }
@@ -308,17 +308,19 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     {
         global $conf;
 
-        if (empty($conf['utils']['gnupg_keyserver'])) {
+        if (empty($conf['gnupg']['keyserver'])) {
             throw new Horde_Exception(_("Public PGP keyserver support has been disabled."));
         }
 
-        $timeout = (empty($conf['utils']['gnupg_timeout'])) ? PGP_KEYSERVER_TIMEOUT : $conf['utils']['gnupg_timeout'];
+        $timeout = empty($conf['gnupg']['timeout'])
+            ? Horde_Crypt_Pgp::KEYSERVER_TIMEOUT
+            : $conf['gnupg']['timeout'];
 
         if ($method == 'put') {
-            return $this->putPublicKeyserver($data, $conf['utils']['gnupg_keyserver'][0], $timeout);
+            return $this->putPublicKeyserver($data, $conf['gnupg']['keyserver'][0], $timeout);
         }
 
-        foreach ($conf['utils']['gnupg_keyserver'] as $server) {
+        foreach ($conf['gnupg']['keyserver'] as $server) {
             try {
                 return $this->getPublicKeyserver($data, $server, $timeout, $additional);
             } catch (Horde_Exception $e) {}

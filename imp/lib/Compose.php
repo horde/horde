@@ -1041,7 +1041,7 @@ class IMP_Compose
         /* Set up the base message now. */
         $encrypt = empty($options['encrypt']) ? 0 : $options['encrypt'];
         if ($GLOBALS['prefs']->getValue('use_pgp') &&
-            !empty($GLOBALS['conf']['utils']['gnupg']) &&
+            !empty($GLOBALS['conf']['gnupg']['path']) &&
             in_array($encrypt, array(IMP::PGP_ENCRYPT, IMP::PGP_SIGN, IMP::PGP_SIGNENC, IMP::PGP_SYM_ENCRYPT, IMP::PGP_SYM_SIGNENC))) {
             $imp_pgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
 

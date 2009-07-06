@@ -1,45 +1,7 @@
 <?xml version="1.0"?>
 <!-- $Id$ -->
 <configuration>
- <configtab name="utils" desc="External Utilities and Menu">
-  <configsection name="spell">
-   <configheader>Spell Checker</configheader>
-   <configswitch name="driver" required="false" desc="Choose a Spell Checking backend">
-    <case name="" desc="None" />
-    <case name="aspell" desc="aspell (command line)">
-     <configsection name="params">
-      <configstring name="path" required="false" desc="Enter the location of
-      the aspell binary" />
-     </configsection>
-    </case>
-   </configswitch>
-  </configsection>
-  <configsection name="utils">
-   <configheader>External Utilities</configheader>
-   <configstring name="gnupg" required="false" desc="If you want users to have
-   the option of using the GNU Privacy Guard program to decrypt/encrypt PGP
-   files, enter the location of the 'gpg' binary here.  If this is empty this
-   feature will be disabled."/>
-   <configmultienum name="gnupg_keyserver" required="false" desc="The address
-   of the public PGP keyserver(s) to use.">pgp.mit.edu
-    <values>
-     <value>pgp.mit.edu</value>
-     <value>keyserver.noreply.org</value>
-    </values>
-   </configmultienum>
-   <configinteger name="gnupg_timeout" required="false" desc="The timeout for
-   connecting to the PGP keyserver. Timeouts are not supported on all
-   systems.">10</configinteger>
-   <configstring name="openssl_cafile" required="false" desc="The location of
-   the root certificates bundle, e.g. /etc/ssl/certs. See
-   http://www.php.net/manual/en/ref.openssl.php#openssl.cert.verification for
-   details."/>
-   <configstring name="openssl_binary" required="false" desc="The location of
-   the OpenSSL binary on your system, e.g. /usr/bin/openssl. This program is
-   REQUIRED to import personal S/MIME certificate information, as there is no
-   native PHP function that can read pkcs12 files."/>
-  </configsection>
-
+ <configtab name="menu" desc="Menu">
   <configsection name="menu">
    <configheader>Menu settings</configheader>
    <configmultienum name="apps" desc="Select any applications that should be

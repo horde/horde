@@ -233,18 +233,7 @@ The following items are not required, but are strongly **RECOMMENDED**:
 
    You must use the 2.x branch of Gollem with IMP 5.x.
 
-6. aspell - Spelling Checker
-
-   Aspell, a comand-line program, is used as IMP's spell-checking engine.
-   You must install and configure aspell to use IMP's spell-check feature.
-
-   Version 0.60 or higher is REQUIRED.
-
-   You can obtain aspell from:
-
-      http://aspell.sourceforge.net/
-
-7. A web server with PATH_INFO support.
+6. A web server with PATH_INFO support.
 
    IMP requires the PATH_INFO environment variable for several features. Every
    modern web server supports this, but you might have to enable this feature
@@ -256,7 +245,7 @@ The following items are not required, but are strongly **RECOMMENDED**:
    create the information using other server variables, but this process is
    slower and less reliable.
 
-8. A configured VFS backend.
+7. A configured VFS backend.
 
    During composition of messages, it is possible that the PHP session may
    timeout. If VFS is enabled in Horde, IMP can store the draft message and

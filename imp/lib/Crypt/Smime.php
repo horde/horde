@@ -248,7 +248,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function verifySignature($text)
     {
-        return $this->verify($text, empty($GLOBALS['conf']['utils']['openssl_cafile']) ? array() : $GLOBALS['conf']['utils']['openssl_cafile']);
+        return $this->verify($text, empty($GLOBALS['conf']['openssl']['cafile']) ? array() : $GLOBALS['conf']['openssl']['cafile']);
     }
 
 
@@ -396,7 +396,10 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function addFromPKCS12($pkcs12, $password, $pkpass = null)
     {
-        $sslpath = (empty($GLOBALS['conf']['utils']['openssl_binary'])) ? null : $GLOBALS['conf']['utils']['openssl_binary'];
+        $sslpath = empty($GLOBALS['conf']['openssl']['path'])
+            ? null
+            : $GLOBALS['conf']['openssl']['path'];
+
         $params = array('sslpath' => $sslpath, 'password' => $password);
         if (!empty($pkpass)) {
             $params['newpassword'] = $pkpass;
@@ -418,9 +421,9 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function extractSignedContents($data)
     {
-        $sslpath = empty($GLOBALS['conf']['utils']['openssl_binary'])
+        $sslpath = empty($GLOBALS['conf']['openssl']['path'])
             ? null
-            : $GLOBALS['conf']['utils']['openssl_binary'];
+            : $GLOBALS['conf']['openssl']['path'];
 
         return parent::extractSignedContents($data, $sslpath);
     }

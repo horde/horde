@@ -64,7 +64,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
     protected function _renderInline()
     {
         if (empty($this->_imppgp) &&
-            !empty($GLOBALS['conf']['utils']['gnupg'])) {
+            !empty($GLOBALS['conf']['gnupg']['path'])) {
             $this->_imppgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
         }
 
@@ -139,7 +139,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
         $status = &self::$_inlinecache[$base_id][$base_id]['status'][0]['text'];
 
         /* Is PGP active? */
-        if (empty($GLOBALS['conf']['utils']['gnupg']) ||
+        if (empty($GLOBALS['conf']['gnupg']['path']) ||
             !$GLOBALS['prefs']->getValue('use_pgp')) {
             $status[] = _("The message below has been encrypted via PGP, however, PGP support is disabled so the message cannot be decrypted.");
             return null;
@@ -326,7 +326,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
         $status = &$ret[$base_id]['status'][0]['text'];
 
         if (!$GLOBALS['prefs']->getValue('use_pgp') ||
-            empty($GLOBALS['conf']['utils']['gnupg'])) {
+            empty($GLOBALS['conf']['gnupg']['path'])) {
             /* If PGP not active, hide signature data and output status
              * information. */
             $status[] = _("The message below has been digitally signed via PGP, but the signature cannot be verified.");

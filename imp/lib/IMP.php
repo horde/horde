@@ -1000,7 +1000,7 @@ class IMP
         $enc_opts = array(self::ENCRYPT_NONE => _("No Encryption"));
         $output = '';
 
-        if (!empty($GLOBALS['conf']['utils']['gnupg']) &&
+        if (!empty($GLOBALS['conf']['gnupg']['path']) &&
             $GLOBALS['prefs']->getValue('use_pgp')) {
             $enc_opts += array(
                 self::PGP_ENCRYPT => _("PGP Encrypt Message"),

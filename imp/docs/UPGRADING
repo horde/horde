@@ -30,7 +30,7 @@ supported.
 *  old attachment icon handling see atc_flag pref
 *  imp_hook_msglist_flags hook now used to dynamically set flags on messages
 * maintenance tasks
-* tos_agreement (moved to Horde)
+* tos_agreement, gnupg, openssl, spellchecking (moved to Horde)
 
 
 
