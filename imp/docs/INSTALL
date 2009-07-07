@@ -58,9 +58,9 @@ To function properly, IMP **requires** the following:
 
    .. Important:: Be sure to have completed all of the steps in the
                   `horde/docs/INSTALL`_ file for the Horde Framework before
-                  installing IMP.
-
-   Many of IMP's prerequisites are also Horde prerequisites.
+                  installing IMP. Many of IMP's prerequisites are also Horde
+                  prerequisites. Additionally, many of IMP's optional features
+                  are configured via the Horde install.
 
 2. The following PHP capabilities:
 
@@ -68,47 +68,9 @@ To function properly, IMP **requires** the following:
 
       File upload support is **required** to allow attachments in mail
       composition and to allow various importing features to work (e.g.
-      importing PGP or S/MIME keys, importing mbox files).  To enable file
-      upload support:
-
-          1. In your php.ini file, the following line **must** be present::
-
-                file_uploads = On
-
-          2. Your temporary upload directory **must** be writable to the user
-             the web server is running as.  If you leave the configuration
-             option ``upload_tmp_dir`` blank in ``php.ini``, PHP will use the
-             default directory compiled into it (normally ``/tmp`` on
-             Unix-like systems).
-
-          3. Set the maximum size of the uploaded files via the
-             ``upload_max_filesize`` configuration option in ``php.ini``.  For
-             example, to allow 5 MB attachments, place the following line in
-             your ``php.ini`` file::
-
-                upload_max_filesize = 5M
-
-       If either ``file_uploads`` is turned off, or your temporary upload
-       directory is *not* writable by the server, all file upload
-       functionality will be disabled by Horde/IMP and will not be available
-       to the user.
-
-       See the `File Uploads`_ FAQ entry for further information.
-
-   The following PHP options are **RECOMMENDED** to enable advanced features
-   in IMP:
-
-.. _`OpenSSL Support`:
-
-   a. OpenSSL support ``--with-openssl``
-
-      The OpenSSL PHP extension is REQUIRED if using TLS or SSL to connect to
-      the IMAP server. Additionally, The OpenSSL PHP extension is used by IMP
-      to provide S/MIME support.  Without the extension, all S/MIME options
-      will be disabled.
-
-      See http://www.php.net/openssl for information on compiling OpenSSL
-      into PHP.
+      importing PGP or S/MIME keys, importing mbox files).  See
+      `horde/docs/INSTALL`_ for instructions on how to enable file upload
+      support.
 
 3. The following PEAR modules:
    (See `horde/docs/INSTALL`_ for instructions on installing PEAR modules)
@@ -118,15 +80,7 @@ To function properly, IMP **requires** the following:
       Auth_SASL is required only if your IMAP server uses CRAM-MD5 or
       DIGEST-MD5 authentication.
 
-4. The following PECL modules:
-   (See `horde/docs/INSTALL`_ for instructions on installing PECL modules)
-
-   a. idn [OPTIONAL]
-
-      idn is required to handle display of Internationalized Domain Names
-      (see RFC 3490).
-
-5. At least one IMAP or POP3 server.
+4. At least one IMAP or POP3 server.
 
    While IMP is an application that is installed on a Web server and is run
    from a Web browser, it is only an IMAP and POP3 *client*, like Outlook,
@@ -163,8 +117,7 @@ The following items are not required, but are strongly **RECOMMENDED**:
    server, sendmail is recommended for use with IMP for improved performance
    and error handling/reporting, as well as a more accurate mail envelope.
 
-   The mail transport settings are set in the Horde configuration, so further
-   documentation can be found there.
+   See `horde/docs/INSTALL`_ for further information.
 
 2. Turba, the Horde contacts manager.
 
@@ -211,7 +164,7 @@ The following items are not required, but are strongly **RECOMMENDED**:
 
       ftp://ftp.horde.org/pub/nag/
 
-   If nag is available on your system, users can easily create new tasks from
+   If Nag is available on your system, users can easily create new tasks from
    individual email messages.
 
    You must use the 3.x branch of Nag with IMP 5.x.

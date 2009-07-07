@@ -152,20 +152,6 @@ $app_output = $horde_test->requiredAppCheck($app_list);
 $php_info = $horde_test->getPhpVersionInformation();
 require TEST_TEMPLATES . 'php_version.inc';
 
-/* PHP modules. */
-$module_list = array(
-    'idn' => array(
-        'descrip' => 'Internationalized Domain Names Support',
-        'error' => 'IMP requires the idn module (installed via PECL) in order to handle Internationalized Domain Names.',
-        'fatal' => false
-    ),
-    'openssl' => array(
-        'descrip' => 'OpenSSL Support',
-        'error' => 'The openssl module is required to use S/MIME in IMP. Compile PHP with <code>--with-openssl</code> to activate.',
-        'fatal' => false
-    )
-);
-
 /* PHP settings. */
 $setting_list = array(
     'file_uploads'  =>  array(
@@ -191,17 +177,11 @@ $pear_list = array(
 );
 
 /* Get the status output now. */
-$module_output = $horde_test->phpModuleCheck($module_list);
 $setting_output = $horde_test->phpSettingCheck($setting_list);
 $file_output = $horde_test->requiredFileCheck($file_list);
 $pear_output = $horde_test->PEARModuleCheck($pear_list);
 
 ?>
-
-<h1>PHP Module Capabilities</h1>
-<ul>
-    <?php echo $module_output ?>
-</ul>
 
 <h1>Miscellaneous PHP Settings</h1>
 <ul>
