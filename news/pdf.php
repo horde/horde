@@ -42,8 +42,10 @@ if ($row['picture']) {
     $file = $conf['vfs']['params']['vfsroot'] . '/'
             . News::VFS_PATH . '/images/news/big/'
             . $id . '.' . $conf['images']['image_type'];
-    if (file_exists($file)) {
+    try {
         $pdf->image($file, 120, 20);
+    } catch (Horde_Pdf_Exception $e) {
+        Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_INFO)
     }
 }
 
