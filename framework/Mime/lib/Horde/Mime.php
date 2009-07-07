@@ -442,7 +442,6 @@ class Horde_Mime
         } else {
             /* Give $string a bogus body part or else decode() will
              * complain. */
-            require_once 'Mail/mimeDecode.php';
             $mime_decode = new Mail_mimeDecode($type . ': ' . $data . "\n\nA");
             $res = $mime_decode->decode();
 
@@ -605,6 +604,38 @@ class Horde_Mime
         return (!is_null($id) && !empty($options['count']) && --$options['count'])
             ? self::mimeIdArithmetic($id, $action, $options)
             : $id;
+    }
+
+    /**
+     * Scans $input for uuencoded data and converts it to unencoded data.
+     *
+     * @param string $input  The input data
+     *
+     * @return array  A list of arrays, with each array corresponding to
+     *                a file in the input and containing the following keys:
+     * <pre>
+     * 'data' - (string) Unencoded data.
+     * 'name' - (string) Filename.
+     * 'perms' - (string) Octal permissions.
+     * </pre>
+     */
+    static public function uudecode($input)
+    {
+        $data = array();
+
+        /* Find all uuencoded sections. */
+        if (preg_match_all("/begin ([0-7]{3}) (.+)\r?\n(.+)\r?\nend/Us", $input, $matches, PREG_SET_ORDER)) {
+            reset($matches);
+            while (list(,$v) = each($matches)) {
+                $data[] = array(
+                    'data' => convert_uudecode($v[3]),
+                    'name' => $v[2],
+                    'perm' => $v[1]
+                );
+            }
+        }
+
+        return $data;
     }
 
 }

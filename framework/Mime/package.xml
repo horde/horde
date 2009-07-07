@@ -31,7 +31,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Remove support for deprecated mime_magic module.
+ <notes>* Added Horde_Mime::uudecode().
+ * Remove support for deprecated mime_magic module.
  * Use Gnumeric to display MS Excel documents.
  * Use AbiWord to display MS Word documents (Request #8011).
  * Add support for decoding IDN (RFC 3490) names (Request #5836).
