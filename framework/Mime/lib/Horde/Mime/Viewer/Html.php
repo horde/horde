@@ -73,10 +73,12 @@ class Horde_Mime_Viewer_html extends Horde_Mime_Viewer_Driver
      *
      * @param string $data     The HTML data.
      * @param boolean $inline  Are we viewing inline?
+     * @param string $charset  The charset of $data (if different than the
+     *                         base part charset).
      *
      * @return array  Two elements: 'html' and 'status'.
      */
-    protected function _cleanHTML($data, $inline)
+    protected function _cleanHTML($data, $inline, $charset = null)
     {
         global $browser;
 
@@ -115,7 +117,7 @@ class Horde_Mime_Viewer_html extends Horde_Mime_Viewer_Driver
 
         $data = Horde_Text_Filter::filter($data, array('cleanhtml', 'xss'), array(
             array(
-                'charset' => $this->_mimepart->getCharset()
+                'charset' => is_null($charset) ? $this->_mimepart->getCharset() : $charset
             ),
             array(
                 'body_only' => $inline,
