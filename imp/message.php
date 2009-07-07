@@ -202,6 +202,7 @@ $mailbox_name = $index_array['mailbox'];
 try {
     $imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox_name);
 } catch (Horde_Exception $e) {
+    $imp_mailbox->removeMsgs(true);
     _returnToMailbox(null, 'message_missing');
     require IMP_BASE . '/mailbox.php';
     exit;

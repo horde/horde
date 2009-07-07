@@ -129,10 +129,15 @@ class IMP_Contents
                 $ret = $GLOBALS['imp_imap']->ob->fetch($this->_mailbox, array(
                     Horde_Imap_Client::FETCH_STRUCTURE => array('parse' => true)
                 ), array('ids' => array($this->_index)));
-                $this->_message = $ret[$this->_index]['structure'];
             } catch (Horde_Imap_Client_Exception $e) {
                 throw new Horde_Exception('Error displaying message.');
             }
+
+            if (!isset($ret[$this->_index]['structure'])) {
+                throw new Horde_Exception('Error displaying message.');
+            }
+
+            $this->_message = $ret[$this->_index]['structure'];
         }
     }
 
