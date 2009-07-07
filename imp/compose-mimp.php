@@ -116,6 +116,8 @@ case 'rl':
     $actions = array('r' => 'reply', 'ra' => 'reply_all', 'rl' => 'reply_list');
     $reply_msg = $imp_compose->replyMessage($actions[$actionID], $imp_contents, Horde_Util::getFormData('to'));
     $header = $reply_msg['headers'];
+
+    $notification->push(_("Reply text will be automatically appended to your outgoing message."), 'horde.message');
     break;
 
 // 'f' = forward
@@ -125,6 +127,8 @@ case 'f':
     }
     $fwd_msg = $imp_compose->forwardMessage($imp_contents);
     $header = $fwd_msg['headers'];
+
+    $notification->push(_("Forwarded message will be automatically added to your outgoing message."), 'horde.message');
     break;
 
 case _("Redirect"):
