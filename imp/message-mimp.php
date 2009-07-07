@@ -286,8 +286,10 @@ foreach ($parts_list as $mime_id => $mime_type) {
 }
 
 /* Display the first 250 characters, or display the entire message? */
-if ($prefs->getValue('mimp_preview_msg') && !Horde_Util::getFormData('fullmsg')) {
-    $msg_text = Horde_String::substr($msg_text, 0, 250) . " [...]\n";
+if ($prefs->getValue('mimp_preview_msg') &&
+    !Horde_Util::getFormData('fullmsg') &&
+    (strlen($msg_text) > 250)) {
+    $msg_text = Horde_String::substr(trim($msg_text), 0, 250) . " [...]\n";
     $fullmsg_link = new Horde_Mobile_link(_("View Full Message"), Horde_Util::addParameter($self_link, array('fullmsg' => 1)));
 } else {
     $fullmsg_link = null;
@@ -362,7 +364,7 @@ foreach ($display_headers as $head => $val) {
     if ((Horde_String::lower($head) == 'to') &&
         !$allto_param &&
         (($pos = strpos($val, ',')) !== false)) {
-        $val = Horded_String::substr($val, 0, strpos($val, ','));
+        $val = Horde_String::substr($val, 0, strpos($val, ','));
         $all_to = true;
     }
     $t = &$hb->add(new Horde_Mobile_text($val . (($all_to) ? ' ' : "\n")));
