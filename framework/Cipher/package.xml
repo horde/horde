@@ -3,7 +3,7 @@
 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0
 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Horde_Cipher</name>
+ <name>Cipher</name>
  <channel>pear.horde.org</channel>
  <summary>Cipher API</summary>
  <description>This package provides a Block Mode Cipher API, supporting the following ciphers:
@@ -86,46 +86,15 @@ And supporting the following block modes:
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="/lib/Horde/Cipher/BlockMode/Cbc.php" as="Horde/Cipher/BlockMode/Cbc.php" />
-   <install name="/lib/Horde/Cipher/BlockMode/Cfb64.php" as="Horde/Cipher/BlockMode/Cfb64.php" />
-   <install name="/lib/Horde/Cipher/BlockMode/Ecb.php" as="Horde/Cipher/BlockMode/Ecb.php" />
-   <install name="/lib/Horde/Cipher/BlockMode/Ofb64.php" as="Horde/Cipher/BlockMode/Ofb64.php" />
-   <install name="/lib/Horde/Cipher/BlockMode.php" as="Horde/Cipher/BlockMode.php" />
-   <install name="/lib/Horde/Cipher/Des.php" as="Horde/Cipher/Des.php" />
-   <install name="/lib/Horde/Cipher/Rc2.php" as="Horde/Cipher/Rc2.php" />
-   <install name="/lib/Horde/Cipher/Rc4.php" as="Horde/Cipher/Rc4.php" />
-   <install name="/lib/Horde/Cipher.php" as="Horde/Cipher.php" />
+   <install name="lib/Horde/Cipher/BlockMode/Cbc.php" as="Horde/Cipher/BlockMode/Cbc.php" />
+   <install name="lib/Horde/Cipher/BlockMode/Cfb64.php" as="Horde/Cipher/BlockMode/Cfb64.php" />
+   <install name="lib/Horde/Cipher/BlockMode/Ecb.php" as="Horde/Cipher/BlockMode/Ecb.php" />
+   <install name="lib/Horde/Cipher/BlockMode/Ofb64.php" as="Horde/Cipher/BlockMode/Ofb64.php" />
+   <install name="lib/Horde/Cipher/BlockMode.php" as="Horde/Cipher/BlockMode.php" />
+   <install name="lib/Horde/Cipher/Des.php" as="Horde/Cipher/Des.php" />
+   <install name="lib/Horde/Cipher/Rc2.php" as="Horde/Cipher/Rc2.php" />
+   <install name="lib/Horde/Cipher/Rc4.php" as="Horde/Cipher/Rc4.php" />
+   <install name="lib/Horde/Cipher.php" as="Horde/Cipher.php" />
   </filelist>
  </phprelease>
- <changelog>
-  <release>
-   <date>2006-05-08</date>
-   <time>18:16:29</time>
-   <version>
-    <release>0.0.2</release>
-    <api>0.0.2</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Converted to package.xml 2.0 for pear.horde.org
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2003-07-03</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial release as a PEAR package
-   </notes>
-  </release>
- </changelog>
 </package>
