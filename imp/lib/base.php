@@ -54,7 +54,7 @@ case 'readonly':
     $s_ctrl = Registry::SESSION_READONLY;
     break;
 }
-$registry = &Registry::singleton($s_ctrl);
+$registry = Registry::singleton($s_ctrl);
 
 // We explicitly do not check application permissions for the compose
 // and login pages, since those are handled below and need to fall through
@@ -86,7 +86,7 @@ if (!Horde_Util::nonInputVar('no_compress')) {
 // that just timed out, store the draft.
 if (!(Auth::isAuthenticated() || (Auth::getProvider() == 'imp'))) {
     if ($compose_page) {
-        $imp_compose = &IMP_Compose::singleton();
+        $imp_compose = IMP_Compose::singleton();
         $imp_compose->sessionExpireDraft();
     }
     Horde::authenticationFailureRedirect();
@@ -106,7 +106,7 @@ if ($authentication !== 'none') {
     // are likely to trigger this case.
     if (empty($_SESSION['imp'])) {
         if ($compose_page) {
-            $imp_compose = &IMP_Compose::singleton();
+            $imp_compose = IMP_Compose::singleton();
             $imp_compose->sessionExpireDraft();
             require IMP_BASE . '/login.php';
         } else {
@@ -117,7 +117,7 @@ if ($authentication !== 'none') {
 
     if ($compose_page) {
         if (!IMP::checkAuthentication(true, ($authentication === 'horde'))) {
-            $imp_compose = &IMP_Compose::singleton();
+            $imp_compose = IMP_Compose::singleton();
             $imp_compose->sessionExpireDraft();
             require IMP_BASE . '/login.php';
             exit;
@@ -160,12 +160,12 @@ if (($viewmode == 'dimp') && Horde_Util::nonInputVar('dimp_logout')) {
 }
 
 // Notification system.
-$notification = &Horde_Notification::singleton();
+$notification = Horde_Notification::singleton();
 if (($viewmode == 'mimp') ||
     (Horde_Util::nonInputVar('login_page') && $GLOBALS['browser']->isMobile())) {
-    $GLOBALS['imp_notify'] = &$notification->attach('status', null, 'Horde_Notification_Listener_Mobile');
+    $GLOBALS['imp_notify'] = $notification->attach('status', null, 'Horde_Notification_Listener_Mobile');
 } else {
-    $GLOBALS['imp_notify'] = &$notification->attach('status', array('viewmode' => $viewmode), 'IMP_Notification_Listener_Status');
+    $GLOBALS['imp_notify'] = $notification->attach('status', array('viewmode' => $viewmode), 'IMP_Notification_Listener_Status');
     if ($viewmode == 'imp') {
         $notification->attach('audio');
     }

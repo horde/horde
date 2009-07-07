@@ -200,7 +200,7 @@ class IMP_Session
         }
 
         /* Do login tasks. */
-        $tasks = &Horde_LoginTasks::singleton('imp', is_null($url) ? Horde::selfUrl(true, true, true) : $url);
+        $tasks = Horde_LoginTasks::singleton('imp', is_null($url) ? Horde::selfUrl(true, true, true) : $url);
         $tasks->runTasks();
 
         /* If the user wants to run filters on login, make sure they get
@@ -212,7 +212,7 @@ class IMP_Session
         }
 
         /* Check for drafts due to session timeouts. */
-        $imp_compose = &IMP_Compose::singleton();
+        $imp_compose = IMP_Compose::singleton();
         $imp_compose->recoverSessionExpireDraft();
 
         $_SESSION['imp']['logintasks'] = true;

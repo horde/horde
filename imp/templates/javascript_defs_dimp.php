@@ -28,7 +28,7 @@ foreach ($dimp_block_list as $block) {
 }
 
 /* Generate flag array. */
-$imp_flags = &IMP_Imap_Flags::singleton();
+$imp_flags = IMP_Imap_Flags::singleton();
 foreach ($imp_flags->getList() as $val) {
     $flags[$val['flag']] = array_filter(array(
         'b' => isset($val['b']) ? $val['b'] : null,

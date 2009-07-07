@@ -25,7 +25,7 @@ foreach ($rows as $val) {
     $t->set('linebreaks', true);
 }
 
-$menu = &new Horde_Mobile_card('o', _("Menu"));
+$menu = new Horde_Mobile_card('o', _("Menu"));
 $mset = &$menu->add(new Horde_Mobile_linkset());
 $mset->add(new Horde_Mobile_link(_("Refresh"), $selfurl));
 if ($subscribe) {

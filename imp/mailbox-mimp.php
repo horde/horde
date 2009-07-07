@@ -38,7 +38,7 @@ case 'm':
 // 'e' = expunge mailbox
 case 'e':
     if (!$readonly) {
-        $imp_message = &IMP_Message::singleton();
+        $imp_message = IMP_Message::singleton();
         $imp_message->expungeMailbox(array($imp_mbox['mailbox'] => 1));
     }
     break;
@@ -53,7 +53,7 @@ case 'c':
 $mailbox_url = IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox']);
 
 /* Build the list of messages in the mailbox. */
-$imp_mailbox = &IMP_Mailbox::singleton($imp_mbox['mailbox']);
+$imp_mailbox = IMP_Mailbox::singleton($imp_mbox['mailbox']);
 $pageOb = $imp_mailbox->buildMailboxPage(Horde_Util::getFormData('p'), Horde_Util::getFormData('s'));
 
 /* Generate page links. */
@@ -106,7 +106,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     }
 
     /* Get flag information. */
-    $imp_flags = &IMP_Imap_Flags::singleton();
+    $imp_flags = IMP_Imap_Flags::singleton();
     $flag_parse = $imp_flags->parse(array(
         'flags' => $ob['flags'],
         'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to']),

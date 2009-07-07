@@ -37,7 +37,7 @@ if (is_null($mail_user) || is_null($time_stamp) || is_null($file_name)) {
 }
 
 // Initialize the VFS.
-$vfsroot = &VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
+$vfsroot = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
 if (is_a($vfsroot, 'PEAR_Error')) {
     Horde::fatal(sprintf(_("Could not create the VFS backend: %s"), $vfsroot->getMessage()), $self_url, __LINE__);
 }
@@ -74,11 +74,11 @@ if ($conf['compose']['link_attachments_notify']) {
             /* Load $mail_user's preferences so that we can use their
              * locale information for the notification message. */
             include_once 'Horde/Prefs.php';
-            $prefs = &Prefs::singleton($conf['prefs']['driver'], 'horde', $mail_user);
+            $prefs = Prefs::singleton($conf['prefs']['driver'], 'horde', $mail_user);
             $prefs->retrieve();
 
             include_once 'Horde/Identity.php';
-            $mail_identity = &Identity::singleton('none', $mail_user);
+            $mail_identity = Identity::singleton('none', $mail_user);
             $mail_address = $mail_identity->getDefaultFromAddress();
 
             /* Ignore missing addresses, which are returned as <>. */

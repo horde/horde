@@ -21,14 +21,14 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Make sure we have a valid index. */
-$imp_mailbox = &IMP_Mailbox::singleton($imp_mbox['mailbox'], $imp_mbox['index']);
+$imp_mailbox = IMP_Mailbox::singleton($imp_mbox['mailbox'], $imp_mbox['index']);
 if (!$imp_mailbox->isValidIndex(false)) {
     header('Location: ' . Horde_Util::addParameter(IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox']), array('a' => 'm'), null, false));
     exit;
 }
 
 /* Initialize IMP_Message object. */
-$imp_message = &IMP_Message::singleton();
+$imp_message = IMP_Message::singleton();
 
 /* Determine if mailbox is readonly. */
 $readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);
@@ -113,7 +113,7 @@ $use_pop = ($_SESSION['imp']['protocol'] == 'pop');
 
 /* Parse the message. */
 try {
-    $imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox_name);
+    $imp_contents = IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox_name);
 } catch (Horde_Exception $e) {
     header('Location: ' . Horde_Util::addParameter(IMP::generateIMPUrl('mailbox-mimp.php', $mailbox_name), array('a' => 'm'), null, false));
     exit;
@@ -154,7 +154,7 @@ $imp_ui = new IMP_UI_Message();
 
 /* Create the Identity object. */
 require_once 'Horde/Identity.php';
-$user_identity = &Identity::singleton(array('imp', 'imp'));
+$user_identity = Identity::singleton(array('imp', 'imp'));
 
 /* Develop the list of headers to display. */
 $basic_headers = $imp_ui->basicHeaders();
@@ -215,7 +215,7 @@ if (!empty($msgAddresses)) {
     }
 }
 
-$imp_flags = &IMP_Imap_Flags::singleton();
+$imp_flags = IMP_Imap_Flags::singleton();
 $flag_parse = $imp_flags->parse(array(
     'flags' => $flags,
     'personal' => $match_identity

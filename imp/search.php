@@ -306,7 +306,7 @@ if (empty($search['mbox'])) {
     $mboxes = array();
     $newcol = $numcolumns = 1;
 
-    $imp_folder = &IMP_Folder::singleton();
+    $imp_folder = IMP_Folder::singleton();
     $mailboxes = $imp_folder->flist(array(), !is_null($shown) ? $shown : null);
     $total = ceil(count($mailboxes) / 3);
 

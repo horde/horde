@@ -90,7 +90,7 @@ if ($updated) {
 }
 
 if ($stationery['t'] == 'html') {
-    $editor = &Horde_Editor::singleton('Fckeditor', array('id' => 'content'));
+    $editor = Horde_Editor::singleton('Fckeditor', array('id' => 'content'));
 }
 
 /* Show the header. */

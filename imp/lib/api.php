@@ -257,7 +257,7 @@ function _imp_folderlist()
     require_once dirname(__FILE__) . '/base.php';
 
     if (IMP::checkAuthentication(true)) {
-        $imp_folder = &IMP_Folder::singleton();
+        $imp_folder = IMP_Folder::singleton();
         return $imp_folder->flist();
     }
 
@@ -277,7 +277,7 @@ function _imp_createFolder($folder)
     require_once dirname(__FILE__) . '/base.php';
 
     if (IMP::checkAuthentication(true)) {
-        $imp_folder = &IMP_Folder::singleton();
+        $imp_folder = IMP_Folder::singleton();
         return $imp_folder->create(IMP::appendNamespace($folder), $GLOBALS['prefs']->getValue('subscribe'));
     }
 
@@ -299,7 +299,7 @@ function _imp_deleteMessages($mailbox, $indices)
     require_once dirname(__FILE__) . '/base.php';
 
     if (IMP::checkAuthentication(true)) {
-        $imp_message = &IMP_Message::singleton();
+        $imp_message = IMP_Message::singleton();
         return $imp_message->delete(array($mailbox => $indices), array('nuke' => true));
     }
 
@@ -321,7 +321,7 @@ function _imp_copyMessages($mailbox, $indices, $target)
     require_once dirname(__FILE__) . '/base.php';
 
     if (IMP::checkAuthentication(true)) {
-        $imp_message = &IMP_Message::singleton();
+        $imp_message = IMP_Message::singleton();
         return $imp_message->copy($target, 'copy', array($mailbox => $indices), true);
     }
 
@@ -343,7 +343,7 @@ function _imp_moveMessages($mailbox, $indices, $target)
     require_once dirname(__FILE__) . '/base.php';
 
     if (IMP::checkAuthentication(true)) {
-        $imp_message = &IMP_Message::singleton();
+        $imp_message = IMP_Message::singleton();
         return $imp_message->copy($target, 'move', array($mailbox => $indices), true);
     }
 
@@ -366,7 +366,7 @@ function _imp_flagMessages($mailbox, $indices, $flags, $set)
     require_once dirname(__FILE__) . '/base.php';
 
     if (IMP::checkAuthentication(true)) {
-        $imp_message = &IMP_Message::singleton();
+        $imp_message = IMP_Message::singleton();
         return $imp_message->flag($flags, 'move', array($mailbox => $indices), $set);
     }
 
@@ -487,9 +487,9 @@ function _imp_changeLanguage()
     require_once dirname(__FILE__) . '/base.php';
 
     if (IMP::checkAuthentication(true)) {
-        $imp_folder = &IMP_Folder::singleton();
+        $imp_folder = IMP_Folder::singleton();
         $imp_folder->clearFlistCache();
-        $imaptree = &IMP_Imap_Tree::singleton();
+        $imaptree = IMP_Imap_Tree::singleton();
         $imaptree->init();
         $GLOBALS['imp_search']->sessionSetup(true);
     }

@@ -34,7 +34,7 @@ class IMP_Quota
      * It will only create a new instance if no instance with the same
      * parameters currently exists.
      *
-     * This method must be invoked as: $var = &IMP_Quota::singleton()
+     * This method must be invoked as: $var = IMP_Quota::singleton()
      *
      * @param string $driver  The type of concrete subclass to return.
      * @param array $params   A hash containing any additional configuration

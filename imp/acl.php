@@ -23,7 +23,7 @@ if ($prefs->isLocked('acl') || empty($_SESSION['imp']['acl'])) {
 }
 
 try {
-    $ACLDriver = &IMP_Imap_Acl::singleton();
+    $ACLDriver = IMP_Imap_Acl::singleton();
 } catch (Horde_Exception $e) {
     $notification->push($error, _("This server does not support sharing folders."));
     header('Location: ' . $prefs_url);
@@ -119,7 +119,7 @@ case 'imp_acl_set':
     break;
 }
 
-$imp_folder = &IMP_Folder::singleton();
+$imp_folder = IMP_Folder::singleton();
 $rights = $ACLDriver->getRights();
 
 if (empty($folder)) {

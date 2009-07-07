@@ -47,14 +47,14 @@ function _getImportKey()
 function _actionWindow()
 {
     $oid = Horde_Util::getFormData('passphrase_action');
-    $cacheSess = &Horde_SessionObjects::singleton();
+    $cacheSess = Horde_SessionObjects::singleton();
     $cacheSess->setPruneFlag($oid, true);
     Horde_Util::closeWindowJS($cacheSess->query($oid));
 }
 
 function _reloadWindow()
 {
-    $cacheSess = &Horde_SessionObjects::singleton();
+    $cacheSess = Horde_SessionObjects::singleton();
     $reload = Horde_Util::getFormData('reload');
     $cacheSess->setPruneFlag($reload, true);
     Horde_Util::closeWindowJS('opener.focus();opener.location.href="' . $cacheSess->query($reload) . '";');
@@ -179,7 +179,7 @@ case 'process_import_personal_certs':
 case 'save_attachment_public_key':
     /* Retrieve the key from the message. */
     try {
-        $contents = &IMP_Contents::singleton(Horde_Util::getFormData('uid') . IMP::IDX_SEP . Horde_Util::getFormData('mailbox'));
+        $contents = IMP_Contents::singleton(Horde_Util::getFormData('uid') . IMP::IDX_SEP . Horde_Util::getFormData('mailbox'));
     } catch (Horde_Exception $e) {
         Horde::fatal($e, __FILE__, __LINE__);
     }
@@ -276,7 +276,7 @@ if ($openssl_check && $prefs->getValue('use_smime')) {
     if (!$t->get('no_file_upload')) {
         $t->set('no_source', !$GLOBALS['prefs']->getValue('add_source'));
         if (!$t->get('no_source')) {
-            $cacheSess = &Horde_SessionObjects::singleton();
+            $cacheSess = Horde_SessionObjects::singleton();
             $t->set('public_import_url', Horde_Util::addParameter(Horde_Util::addParameter($selfURL, 'actionID', 'import_public_key'), 'reload', $cacheSess->storeOid($selfURL, false)));
             $t->set('import_pubkey-help', Horde_Help::link('imp', 'smime-import-pubkey'));
         }

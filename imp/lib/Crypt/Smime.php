@@ -171,7 +171,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         /* See if the address points to the user's public key. */
         if (is_a($key, 'PEAR_Error')) {
             require_once 'Horde/Identity.php';
-            $identity = &Identity::singleton(array('imp', 'imp'));
+            $identity = Identity::singleton(array('imp', 'imp'));
             $personal_pubkey = $this->getPersonalPublicKey();
             if (!empty($personal_pubkey) && $identity->hasAddress($address)) {
                 return $personal_pubkey;

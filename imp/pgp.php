@@ -63,7 +63,7 @@ function _textWindowOutput($filename, $msg)
 
 function _reloadWindow()
 {
-    $cacheSess = &Horde_SessionObjects::singleton();
+    $cacheSess = Horde_SessionObjects::singleton();
     $reload = Horde_Util::getFormData('reload');
     $cacheSess->setPruneFlag($reload, true);
     Horde_Util::closeWindowJS('opener.focus();opener.location.href="' . $cacheSess->query($reload) . '";');
@@ -259,7 +259,7 @@ case 'save_options':
 case 'save_attachment_public_key':
     /* Retrieve the key from the message. */
     try {
-        $contents = &IMP_Contents::singleton(Horde_Util::getFormData('uid') . IMP::IDX_SEP . Horde_Util::getFormData('mailbox'));
+        $contents = IMP_Contents::singleton(Horde_Util::getFormData('uid') . IMP::IDX_SEP . Horde_Util::getFormData('mailbox'));
     } catch (Horde_Exception $e) {
         Horde::fatal($e, __FILE__, __LINE__);
     }
@@ -358,7 +358,7 @@ if ($prefs->getValue('use_pgp')) {
     if (!$t->get('no_file_upload')) {
         $t->set('no_source', !$GLOBALS['prefs']->getValue('add_source'));
         if (!$t->get('no_source')) {
-            $cacheSess = &Horde_SessionObjects::singleton();
+            $cacheSess = Horde_SessionObjects::singleton();
             $t->set('public_import_url', Horde_Util::addParameter(Horde_Util::addParameter($selfURL, 'actionID', 'import_public_key'), 'reload', $cacheSess->storeOid($selfURL, false)));
             $t->set('import_pubkey-help', Horde_Help::link('imp', 'pgp-import-pubkey'));
         }
@@ -382,7 +382,7 @@ if ($prefs->getValue('use_pgp')) {
             $t->set('personalkey-delete-help', Horde_Help::link('imp', 'pgp-personalkey-delete'));
         } else {
             require_once 'Horde/Identity.php';
-            $imp_identity = &Identity::singleton(array('imp', 'imp'));
+            $imp_identity = Identity::singleton(array('imp', 'imp'));
             $t->set('fullname', $imp_identity->getFullname());
             $t->set('personalkey-create-name-help', Horde_Help::link('imp', 'pgp-personalkey-create-name'));
             $t->set('personalkey-create-comment-help', Horde_Help::link('imp', 'pgp-personalkey-create-comment'));

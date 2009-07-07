@@ -118,7 +118,7 @@ class IMP_Views_ShowMessage
 
         /* Parse MIME info and create the body of the message. */
         try {
-            $imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox);
+            $imp_contents = IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox);
         } catch (Horde_Exception $e) {
             $result['error'] = $error_msg;
             $result['errortype'] = 'horde.error';

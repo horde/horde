@@ -34,7 +34,7 @@ class IMP_Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Zip
         /* Send the requested file. Its position in the zip archive is located
          * in 'zip_attachment'. */
         $data = $this->_mimepart->getContents();
-        $zip = &Horde_Compress::singleton('zip');
+        $zip = Horde_Compress::singleton('zip');
         $fileKey = Horde_Util::getFormData('zip_attachment') - 1;
         $zipInfo = $zip->decompress($data, array('action' => HORDE_COMPRESS_ZIP_LIST));
 

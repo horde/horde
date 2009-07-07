@@ -38,7 +38,7 @@ if (!empty($request)) {
         $mailbox = IMP::appendNamespace(preg_replace('/\//', $ns_info['delimiter'], trim($request_parts[0], '/')));
 
         /* Make sure mailbox exists or else exit immediately. */
-        $imp_folder = &IMP_Folder::singleton();
+        $imp_folder = IMP_Folder::singleton();
         if (!$imp_folder->exists($mailbox)) {
             exit;
         }
@@ -47,7 +47,7 @@ if (!empty($request)) {
 }
 
 /* Obtain some information describing the mailbox state. */
-$imp_mailbox = &IMP_Mailbox::singleton($mailbox);
+$imp_mailbox = IMP_Mailbox::singleton($mailbox);
 $total_num = $imp_mailbox->getMessageCount();
 $unseen_num = ($imp_search->isVINBOXFolder($mailbox))
     ? $imp_mailbox->getMessageCount()

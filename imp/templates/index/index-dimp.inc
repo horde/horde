@@ -17,7 +17,7 @@ $sidebar_width = max((int)$prefs->getValue('sidebar_width') - 50, 150) . 'px';
 $show_quota = (isset($_SESSION['imp']['quota']) && is_array($_SESSION['imp']['quota']));
 
 // Get the list of available IMAP flags
-$imp_flags = &IMP_Imap_Flags::singleton();
+$imp_flags = IMP_Imap_Flags::singleton();
 $flag_list = $imp_flags->getList(array('imap' => true));
 
 // Small utility functions to simplify creating dimpactions buttons.

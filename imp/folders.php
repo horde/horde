@@ -60,10 +60,10 @@ IMP::addInlineScript(array(
 ));
 
 /* Initialize the IMP_Folder object. */
-$imp_folder = &IMP_Folder::singleton();
+$imp_folder = IMP_Folder::singleton();
 
 /* Initialize the IMP_Imap_Tree object. */
-$imaptree = &IMP_Imap_Tree::singleton();
+$imaptree = IMP_Imap_Tree::singleton();
 
 /* $folder_list is already encoded in UTF7-IMAP. */
 $folder_list = Horde_Util::getFormData('folder_list', array());
@@ -110,7 +110,7 @@ case 'rebuild_tree':
 
 case 'expunge_folder':
     if (!empty($folder_list)) {
-        $imp_message = &IMP_Message::singleton();
+        $imp_message = IMP_Message::singleton();
         $imp_message->expungeMailbox(array_flip($folder_list));
     }
     break;
@@ -135,7 +135,7 @@ case 'download_folder_zip':
         if ($actionID == 'download_folder') {
             $browser->downloadHeaders($folder_list[0] . '.mbox', null, false, strlen($mbox));
         } else {
-            $horde_compress = &Horde_Compress::singleton('zip');
+            $horde_compress = Horde_Compress::singleton('zip');
             $mbox = $horde_compress->compress(array(array('data' => $mbox, 'name' => $folder_list[0] . '.mbox')));
             $browser->downloadHeaders($folder_list[0] . '.zip', 'application/zip', false, strlen($mbox));
         }
@@ -223,7 +223,7 @@ case 'nopoll_folder':
 
 case 'folders_empty_mailbox':
     if (!empty($folder_list)) {
-        $imp_message = &IMP_Message::singleton();
+        $imp_message = IMP_Message::singleton();
         $imp_message->emptyMailbox($folder_list);
     }
     break;
@@ -231,7 +231,7 @@ case 'folders_empty_mailbox':
 case 'mark_folder_seen':
 case 'mark_folder_unseen':
     if (!empty($folder_list)) {
-        $imp_message = &IMP_Message::singleton();
+        $imp_message = IMP_Message::singleton();
         $imp_message->flagAllInMailbox(array('seen'), $folder_list, ($actionID == 'mark_folder_seen'));
     }
     break;
@@ -296,7 +296,7 @@ case 'mbox_size':
         $loop = array();
         $rowct = $sum = 0;
 
-        $imp_message = &IMP_Message::singleton();
+        $imp_message = IMP_Message::singleton();
 
         foreach ($folder_list as $val) {
             $size = $imp_message->sizeMailbox($val, false);

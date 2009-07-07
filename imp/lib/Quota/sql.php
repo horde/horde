@@ -66,10 +66,10 @@ class IMP_Quota_sql extends IMP_Quota
     protected function _connect()
     {
         if (!$this->_connected) {
-            $this->_db = &DB::connect($this->_params,
-                                      array('persistent' => !empty($this->_params['persistent']),
-                                            'ssl' => !empty($this->_params['ssl'])));
-            if (is_a($this->_db, 'PEAR_Error')) {
+            $this->_db = DB::connect($this->_params,
+                                     array('persistent' => !empty($this->_params['persistent']),
+                                           'ssl' => !empty($this->_params['ssl'])));
+            if ($this->_db instanceof PEAR_Error) {
                 throw new Horde_Exception(_("Unable to connect to SQL server."));
             }
 

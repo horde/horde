@@ -38,7 +38,7 @@ class IMP_Views_Compose
 
         /* Load Identity. */
         require_once 'Horde/Identity.php';
-        $identity = &Identity::singleton(array('imp', 'imp'));
+        $identity = Identity::singleton(array('imp', 'imp'));
         $selected_identity = $identity->getDefault();
         $sent_mail_folder = $identity->getValue('sent_mail_folder');
         if (!empty($sent_mail_folder)) {
@@ -68,7 +68,7 @@ class IMP_Views_Compose
 
         $composeCache = null;
         if (!empty($args['composeCache'])) {
-            $imp_compose = &IMP_Compose::singleton($args['composeCache']);
+            $imp_compose = IMP_Compose::singleton($args['composeCache']);
             $composeCache = $args['composeCache'];
 
             if ($imp_compose->numberOfAttachments()) {

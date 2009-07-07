@@ -15,7 +15,7 @@ class IMP_UI_Compose
 {
     /**
      */
-    function expandAddresses($input, $imp_compose)
+    public function expandAddresses($input, $imp_compose)
     {
         $result = $imp_compose->expandAddresses($this->getAddressList($input));
 
@@ -31,7 +31,7 @@ class IMP_UI_Compose
      *
      * @throws Horde_Exception
      */
-    function redirectMessage($to, $imp_compose, $contents, $encoding)
+    public function redirectMessage($to, $imp_compose, $contents, $encoding)
     {
         try {
             $recip = $imp_compose->recipientList(array('to' => $to));
@@ -40,7 +40,7 @@ class IMP_UI_Compose
         }
         $recipients = implode(', ', $recip['list']);
 
-        $identity = &Identity::singleton(array('imp', 'imp'));
+        $identity = Identity::singleton(array('imp', 'imp'));
         $from_addr = $identity->getFromAddress();
 
         $headers = $contents->getHeaderOb();
@@ -80,7 +80,7 @@ class IMP_UI_Compose
 
     /**
      */
-    function getForwardData(&$imp_compose, &$imp_contents, $index)
+    public function getForwardData(&$imp_compose, &$imp_contents, $index)
     {
         $fwd_msg = $imp_compose->forwardMessage($imp_contents);
         $subject_header = $imp_compose->attachIMAPMessage(array($index), $fwd_msg['headers']);
@@ -95,7 +95,7 @@ class IMP_UI_Compose
 
     /**
      */
-    function attachAutoCompleter($fields)
+    public function attachAutoCompleter($fields)
     {
         /* Attach autocompleters to the compose form elements. */
         foreach ($fields as $val) {
@@ -105,7 +105,7 @@ class IMP_UI_Compose
 
     /**
      */
-    function attachSpellChecker($mode, $add_br = false)
+    public function attachSpellChecker($mode, $add_br = false)
     {
         $menu_view = $GLOBALS['prefs']->getValue('menu_view');
         $show_text = ($menu_view == 'text' || $menu_view == 'both');
@@ -127,7 +127,7 @@ class IMP_UI_Compose
 
     /**
      */
-    function getAddressList($to, $to_list = array(), $to_field = array(),
+    public function getAddressList($to, $to_list = array(), $to_field = array(),
                             $to_new = '', $expand = false)
     {
         $to = rtrim(trim($to), ',');
@@ -169,9 +169,9 @@ class IMP_UI_Compose
 
     /**
      */
-    function initRTE($mode = 'imp', $editoronly = false)
+    public function initRTE($mode = 'imp', $editoronly = false)
     {
-        $editor = &Horde_Editor::singleton('Fckeditor', array('id' => 'message', 'no_notify' => true));
+        $editor = Horde_Editor::singleton('Fckeditor', array('id' => 'message', 'no_notify' => true));
         if ($editoronly) {
             return $editor;
         }

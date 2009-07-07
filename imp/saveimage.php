@@ -18,7 +18,7 @@ $index = Horde_Util::getFormData('index');
 $actionID = Horde_Util::getFormData('actionID');
 switch ($actionID) {
 case 'save_image':
-    $contents = &IMP_Contents::singleton($index);
+    $contents = IMP_Contents::singleton($index);
     $mime_part = $contents->getMIMEPart($id);
     $image_data = array(
         'filename' => $mime_part->getName(true),

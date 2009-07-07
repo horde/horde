@@ -41,7 +41,7 @@ class IMP_Spam
                 /* Fetch the raw message contents (headers and complete
                  * body). */
                 try {
-                    $imp_contents = &IMP_Contents::singleton($idx . IMP::IDX_SEP . $mbox);
+                    $imp_contents = IMP_Contents::singleton($idx . IMP::IDX_SEP . $mbox);
                 } catch (Horde_Exception $e) {
                     continue;
                 }
@@ -104,8 +104,8 @@ class IMP_Spam
 
                     if (!isset($imp_compose)) {
                         require_once 'Horde/Identity.php';
-                        $imp_compose = &IMP_Compose::singleton();
-                        $identity = &Identity::singleton(array('imp', 'imp'));
+                        $imp_compose = IMP_Compose::singleton();
+                        $identity = Identity::singleton(array('imp', 'imp'));
                         try {
                             $from_line = $identity->getFromLine();
                         } catch (Horde_Exception $e) {
@@ -170,7 +170,7 @@ class IMP_Spam
         /* Delete spam after report. */
         $delete_spam = $GLOBALS['prefs']->getValue('delete_spam_after_report');
         if ($delete_spam) {
-            $imp_message = &IMP_Message::singleton();
+            $imp_message = IMP_Message::singleton();
             switch ($delete_spam) {
             case 1:
                 if ($action == 'spam') {

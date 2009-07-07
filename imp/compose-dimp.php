@@ -20,7 +20,7 @@
 function _removeAutoSaveDraft($index)
 {
     if (!empty($index)) {
-        $imp_message = &IMP_Message::singleton();
+        $imp_message = IMP_Message::singleton();
         $imp_message->delete(array($index . IMP::IDX_SEP . IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)), array('nuke' => true));
     }
 }
@@ -42,7 +42,7 @@ $get_sig = true;
 $msg = '';
 
 require_once 'Horde/Identity.php';
-$identity = &Identity::singleton(array('imp', 'imp'));
+$identity = Identity::singleton(array('imp', 'imp'));
 if (!$prefs->isLocked('default_identity')) {
     $identity_id = Horde_Util::getFormData('identity');
     if (!is_null($identity_id)) {
@@ -54,7 +54,7 @@ if (!$prefs->isLocked('default_identity')) {
 NLS::setTimeZone();
 
 /* Initialize the IMP_Compose:: object. */
-$imp_compose = &IMP_Compose::singleton(Horde_Util::getFormData('composeCache'));
+$imp_compose = IMP_Compose::singleton(Horde_Util::getFormData('composeCache'));
 
 /* Init IMP_UI_Compose:: object. */
 $imp_ui = new IMP_UI_Compose();
@@ -149,7 +149,7 @@ if (count($_POST)) {
 
         /* Use IMP_Tree to determine whether the sent mail folder was
          * created. */
-        $imptree = &IMP_Imap_Tree::singleton();
+        $imptree = IMP_Imap_Tree::singleton();
         $imptree->eltDiffStart();
 
         $options = array(
@@ -218,7 +218,7 @@ if (in_array($type, array('reply', 'reply_all', 'reply_list', 'forward', 'resume
     }
 
     try {
-        $imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $folder);
+        $imp_contents = IMP_Contents::singleton($index . IMP::IDX_SEP . $folder);
     } catch (Horde_Exception $e) {
         $notification->push(_("Requested message not found."), 'horde.error');
         $index = $folder = null;

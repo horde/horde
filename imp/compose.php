@@ -40,14 +40,14 @@ function _popupSuccess()
     require $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
 }
 
-function &_getIMPContents($index, $mailbox)
+function _getIMPContents($index, $mailbox)
 {
     if (empty($index)) {
         return false;
     }
 
     try {
-        $imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox);
+        $imp_contents = IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox);
         return $imp_contents;
     } catch (Horde_Exception $e) {
         $GLOBALS['notification']->push(_("Could not retrieve the message from the mail server."), 'horde.error');
@@ -70,7 +70,7 @@ $pgp_passphrase_dialog = $pgp_symmetric_passphrase_dialog = $showmenu = $smime_p
 $cursor_pos = $oldrtemode = $rtemode = $siglocation = null;
 
 /* Set the current identity. */
-$identity = &Identity::singleton(array('imp', 'imp'));
+$identity = Identity::singleton(array('imp', 'imp'));
 if (!$prefs->isLocked('default_identity')) {
     $identity_id = Horde_Util::getFormData('identity');
     if (!is_null($identity_id)) {
@@ -153,7 +153,7 @@ if ($readonly_sentmail) {
 }
 
 /* Initialize the IMP_Compose:: object. */
-$imp_compose = &IMP_Compose::singleton(Horde_Util::getFormData('composeCache'));
+$imp_compose = IMP_Compose::singleton(Horde_Util::getFormData('composeCache'));
 $imp_compose->pgpAttachPubkey((bool) Horde_Util::getFormData('pgp_attach_pubkey'));
 $imp_compose->userLinkAttachments((bool) Horde_Util::getFormData('link_attachments'));
 
@@ -248,7 +248,7 @@ if ($_SESSION['imp']['file_upload']) {
 $title = _("New Message");
 switch ($actionID) {
 case 'mailto':
-    if (!($imp_contents = &_getIMPContents($index, $thismailbox))) {
+    if (!($imp_contents = _getIMPContents($index, $thismailbox))) {
         break;
     }
     $imp_headers = $imp_contents->getHeaderOb();
@@ -309,7 +309,7 @@ case 'redirect_expand_addr':
 case 'reply':
 case 'reply_all':
 case 'reply_list':
-    if (!($imp_contents = &_getIMPContents($index, $thismailbox))) {
+    if (!($imp_contents = _getIMPContents($index, $thismailbox))) {
         break;
     }
 
@@ -335,7 +335,7 @@ case 'reply_list':
     break;
 
 case 'forward':
-    if (!($imp_contents = &_getIMPContents($index, $thismailbox))) {
+    if (!($imp_contents = _getIMPContents($index, $thismailbox))) {
         break;
     }
 
@@ -353,7 +353,7 @@ case 'redirect_compose':
     break;
 
 case 'redirect_send':
-    if (!($imp_contents = &_getIMPContents($index, $thismailbox))) {
+    if (!($imp_contents = _getIMPContents($index, $thismailbox))) {
         break;
     }
 
@@ -449,7 +449,7 @@ case 'send_message':
     if (Horde_Util::getFormData('resume_draft') &&
         $prefs->getValue('auto_delete_drafts') &&
         ($thismailbox == IMP::folderPref($prefs->getValue('drafts_folder'), true)))  {
-        $imp_message = &IMP_Message::singleton();
+        $imp_message = IMP_Message::singleton();
         $idx_array = array($index . IMP::IDX_SEP . $thismailbox);
         if ($imp_message->delete($idx_array)) {
             $notification->push(_("The draft message was automatically deleted because it was successfully completed and sent."), 'horde.success');
@@ -735,7 +735,7 @@ if ($prefs->getValue('use_pgp') && !$prefs->isLocked('default_encrypt')) {
         try {
             $addrs = $imp_compose->recipientList($header);
             if (!empty($addrs['list'])) {
-                $imp_pgp = &Horde_Crypt::singleton(array('IMP', 'Pgp'));
+                $imp_pgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
                 foreach ($addrs['list'] as $val) {
                     $imp_pgp->getPublicKey($val);
                 }

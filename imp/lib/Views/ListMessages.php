@@ -53,7 +53,7 @@ class IMP_Views_ListMessages
         }
 
         /* Generate the sorted mailbox list now. */
-        $imp_mailbox = &IMP_Mailbox::singleton($mbox);
+        $imp_mailbox = IMP_Mailbox::singleton($mbox);
         $sorted_list = $imp_mailbox->getSortedList();
         $msgcount = count($sorted_list['s']);
 
@@ -117,7 +117,7 @@ class IMP_Views_ListMessages
          * is a chance that the mailbox doesn't exist. If there is at least
          * 1 message, we don't need this check. */
         if (empty($msgcount) && !$is_search) {
-            $imp_folder = &IMP_Folder::singleton();
+            $imp_folder = IMP_Folder::singleton();
             if (!$imp_folder->exists($mbox)) {
                 $GLOBALS['notification']->push(sprintf(_("Mailbox %s does not exist."), $label), 'horde.error');
             }
@@ -192,7 +192,7 @@ class IMP_Views_ListMessages
 
         /* Get unseen/thread information. */
         if (!$is_search) {
-            $imptree = &IMP_Imap_Tree::singleton();
+            $imptree = IMP_Imap_Tree::singleton();
             $info = $imptree->getElementInfo($mbox);
             if (!empty($info)) {
                 $md->unseen = $info['unseen'];
@@ -251,7 +251,7 @@ class IMP_Views_ListMessages
                 $ob['flags'] = array_merge($ob['flags'], Horde::callHook('_imp_hook_msglist_flags', array($ob, 'dimp'), 'imp'));
             }
 
-            $imp_flags = &IMP_Imap_Flags::singleton();
+            $imp_flags = IMP_Imap_Flags::singleton();
             $flag_parse = $imp_flags->parse(array(
                 'atc' => isset($ob['structure']) ? $ob['structure'] : null,
                 'flags' => $ob['flags'],

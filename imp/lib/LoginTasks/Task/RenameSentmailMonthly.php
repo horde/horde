@@ -35,8 +35,8 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
 
         include_once 'Horde/Identity.php';
 
-        $identity = &Identity::singleton(array('imp', 'imp'));
-        $imp_folder = &IMP_Folder::singleton();
+        $identity = Identity::singleton(array('imp', 'imp'));
+        $imp_folder = IMP_Folder::singleton();
 
         foreach ($identity->getAllSentmailfolders() as $sent_folder) {
             /* Display a message to the user and rename the folder.
@@ -67,7 +67,7 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
     public function describe()
     {
         include_once 'Horde/Identity.php';
-        $identity = &Identity::singleton(array('imp', 'imp'));
+        $identity = Identity::singleton(array('imp', 'imp'));
 
         $new_folders = $old_folders = array();
         foreach ($identity->getAllSentmailfolders() as $folder) {

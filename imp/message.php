@@ -36,7 +36,7 @@ if (!$imp_search->isSearchMbox($imp_mbox['mailbox'])) {
 }
 
 /* Make sure we have a valid index. */
-$imp_mailbox = &IMP_Mailbox::singleton($imp_mbox['mailbox'], $imp_mbox['index']);
+$imp_mailbox = IMP_Mailbox::singleton($imp_mbox['mailbox'], $imp_mbox['index']);
 if (!$imp_mailbox->isValidIndex(false)) {
     _returnToMailbox(null, 'message_missing');
     require IMP_BASE . '/mailbox.php';
@@ -44,14 +44,14 @@ if (!$imp_mailbox->isValidIndex(false)) {
 }
 
 /* Initialize IMP_Message object. */
-$imp_message = &IMP_Message::singleton();
+$imp_message = IMP_Message::singleton();
 
 /* Set the current time zone. */
 NLS::setTimeZone();
 
 /* Initialize the user's identities. */
 require_once 'Horde/Identity.php';
-$user_identity = &Identity::singleton(array('imp', 'imp'));
+$user_identity = Identity::singleton(array('imp', 'imp'));
 
 /* Run through action handlers. */
 $actionID = Horde_Util::getFormData('actionID');
@@ -200,7 +200,7 @@ $mailbox_name = $index_array['mailbox'];
 
 /* Parse the message. */
 try {
-    $imp_contents = &IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox_name);
+    $imp_contents = IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox_name);
 } catch (Horde_Exception $e) {
     $imp_mailbox->removeMsgs(true);
     _returnToMailbox(null, 'message_missing');
@@ -385,7 +385,7 @@ $mailbox_url = Horde_Util::addParameter(IMP::generateIMPUrl('mailbox.php', $imp_
 /* Generate the view link. */
 $view_link = IMP::generateIMPUrl('view.php', $imp_mbox['mailbox'], $index, $mailbox_name);
 
-$imp_flags = &IMP_Imap_Flags::singleton();
+$imp_flags = IMP_Imap_Flags::singleton();
 
 /* Everything below here is related to preparing the output. */
 if (!IMP::$printMode) {

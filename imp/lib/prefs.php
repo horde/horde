@@ -26,7 +26,7 @@ function handle_sentmailselect($updated)
             $sent_mail_folder = IMP::appendNamespace($sent_mail_default);
         }
         if (!empty($sent_mail_folder)) {
-            $imp_folder = &IMP_Folder::singleton();
+            $imp_folder = IMP_Folder::singleton();
             if (!$imp_folder->exists($sent_mail_folder)) {
                 $imp_folder->create($sent_mail_folder, $prefs->getValue('subscribe'));
             }
@@ -51,7 +51,7 @@ function handlefolders($updated, $pref, $folder, $new)
             } else {
                 if (empty($folder) && !empty($new)) {
                     $folder = IMP::appendNamespace($new);
-                    $imp_folder = &IMP_Folder::singleton();
+                    $imp_folder = IMP_Folder::singleton();
                     if (!$imp_folder->create($folder, $prefs->getValue('subscribe'))) {
                         $folder = null;
                     }
@@ -158,7 +158,7 @@ function handle_soundselect($updated)
 
 function handle_flagmanagement($updated)
 {
-    $imp_flags = &IMP_Imap_Flags::singleton();
+    $imp_flags = IMP_Imap_Flags::singleton();
     $action = Horde_Util::getFormData('flag_action');
     $data = Horde_Util::getFormData('flag_data');
 
@@ -222,9 +222,9 @@ function prefs_callback()
     }
 
     if ($prefs->isDirty('subscribe') || $prefs->isDirty('tree_view')) {
-        $imp_folder = &IMP_Folder::singleton();
+        $imp_folder = IMP_Folder::singleton();
         $imp_folder->clearFlistCache();
-        $imaptree = &IMP_Imap_Tree::singleton();
+        $imaptree = IMP_Imap_Tree::singleton();
         $imaptree->init();
     }
 

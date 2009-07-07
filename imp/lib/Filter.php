@@ -56,7 +56,7 @@ class IMP_Filter
     public function blacklistMessage($indices, $show_link = true)
     {
         if ($this->_processBWlist($indices, _("your blacklist"), 'blacklistFrom', 'showBlacklist', $show_link)) {
-            $imp_message = &IMP_Message::singleton();
+            $imp_message = IMP_Message::singleton();
 
             if (($msg_count = $imp_message->delete($indices))) {
                 if ($msg_count == 1) {
@@ -109,7 +109,7 @@ class IMP_Filter
         $addr = array();
         foreach ($msgList as $mbox => $msgIndices) {
             foreach ($msgIndices as $idx) {
-                $contents = &IMP_Contents::singleton($idx . IMP::IDX_SEP . $mbox);
+                $contents = IMP_Contents::singleton($idx . IMP::IDX_SEP . $mbox);
                 $hdr = $contents->getHeaderOb();
                 $addr[] = Horde_Mime_Address::bareAddress($hdr->getValue('from'));
             }

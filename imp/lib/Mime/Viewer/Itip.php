@@ -236,7 +236,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                     $vCal->setAttribute('PRODID', '-//The Horde Project//' . HORDE_AGENT_HEADER . '//EN');
                     $vCal->setAttribute('METHOD', 'REPLY');
 
-                    $vEvent_reply = &Horde_iCalendar::newComponent('vevent', $vCal);
+                    $vEvent_reply = Horde_iCalendar::newComponent('vevent', $vCal);
                     $vEvent_reply->setAttribute('UID', $vEvent->getAttribute('UID'));
                     if (!is_a($vEvent->getAttribute('SUMMARY'), 'PEAR_error')) {
                         $vEvent_reply->setAttribute('SUMMARY', $vEvent->getAttribute('SUMMARY'));
@@ -259,7 +259,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                     $vEvent_reply->setAttribute('ORGANIZER', $vEvent->getAttribute('ORGANIZER'), array_pop($organizer));
 
                     // Find out who we are and update status.
-                    $identity = &Identity::singleton(array('imp', 'imp'));
+                    $identity = Identity::singleton(array('imp', 'imp'));
                     $attendees = $vEvent->getAttribute('ATTENDEE');
                     if (!is_array($attendees)) {
                         $attendees = array($attendees);
@@ -399,7 +399,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                     require_once 'Horde/Identity.php';
 
                     // Find out who we are and update status.
-                    $identity = &Identity::singleton();
+                    $identity = Identity::singleton();
                     $email = $identity->getFromAddress();
 
                     // Build the reply.
@@ -632,7 +632,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                 $is_attendee = false;
                 if (!is_a($attendees, 'PEAR_Error') && !empty($attendees)) {
                     require_once 'Horde/Identity.php';
-                    $identity = &Identity::singleton(array('imp', 'imp'));
+                    $identity = Identity::singleton(array('imp', 'imp'));
                     for ($i = 0, $c = count($attendees); $i < $c; ++$i) {
                         $attendee = parse_url($attendees[$i]);
                         if (!empty($attendee['path']) &&

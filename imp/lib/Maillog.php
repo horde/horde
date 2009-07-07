@@ -26,7 +26,7 @@ class IMP_Maillog
      */
     static public function log($type, $msg_ids, $data = null)
     {
-        $history = &Horde_History::singleton();
+        $history = Horde_History::singleton();
 
         if (!is_array($msg_ids)) {
             $msg_ids = array($msg_ids);
@@ -75,7 +75,7 @@ class IMP_Maillog
      */
     static public function getLog($msg_id)
     {
-        $history = &Horde_History::singleton();
+        $history = Horde_History::singleton();
 
         $res = $history->getHistory(self::_getUniqueHistoryId($msg_id));
         if (is_a($res, 'PEAR_Error')) {
@@ -193,7 +193,7 @@ class IMP_Maillog
         }
         $msg_ids = array_map(array('IMP_Maillog', '_getUniqueHistoryId'), $msg_ids);
 
-        $history = &Horde_History::singleton();
+        $history = Horde_History::singleton();
         return $history->removeByNames($msg_ids);
     }
 

@@ -1,6 +1,6 @@
 <?php
 /* Get the list of flags. */
-$imp_flags = &IMP_Imap_Flags::singleton();
+$imp_flags = IMP_Imap_Flags::singleton();
 $flaglist = $imp_flags->getList(array('div' => true, 'fgcolor' => true));
 
 /* Get the graphics. */

@@ -46,7 +46,7 @@ class IMP_Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Tnef
         }
 
         /* Get the data from the attachment. */
-        $tnef = &Horde_Compress::singleton('tnef');
+        $tnef = Horde_Compress::singleton('tnef');
         $tnefData = $tnef->decompress($this->_mimepart->getContents());
 
         /* Display the requested file. Its position in the $tnefData
@@ -80,7 +80,7 @@ class IMP_Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Tnef
     protected function _renderInfo()
     {
         /* Get the data from the attachment. */
-        $tnef = &Horde_Compress::singleton('tnef');
+        $tnef = Horde_Compress::singleton('tnef');
         $tnefData = $tnef->decompress($this->_mimepart->getContents());
 
         $text = '';

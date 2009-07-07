@@ -17,7 +17,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
  */
 $mode = Horde_Util::getFormData('mode', 'thread');
 
-$imp_mailbox = &IMP_Mailbox::singleton($imp_mbox['mailbox'], $imp_mbox['index']);
+$imp_mailbox = IMP_Mailbox::singleton($imp_mbox['mailbox'], $imp_mbox['index']);
 
 $error = false;
 if ($mode == 'thread') {
@@ -88,7 +88,7 @@ foreach ($loop_array as $mbox => $idxlist) {
 
         /* Get the body of the message. */
         $curr_msg = $curr_tree = array();
-        $contents = &IMP_Contents::singleton($idx . IMP::IDX_SEP . $mbox);
+        $contents = IMP_Contents::singleton($idx . IMP::IDX_SEP . $mbox);
         $mime_id = $contents->findBody();
         if ($contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE)) {
             $ret = $contents->renderMIMEPart($mime_id, IMP_Contents::RENDER_INLINE);
@@ -138,7 +138,7 @@ foreach ($loop_array as $mbox => $idxlist) {
 }
 
 /* Flag messages as seen. */
-$imp_message = &IMP_Message::singleton();
+$imp_message = IMP_Message::singleton();
 $imp_message->flag(array('\\seen'), $loop_array);
 
 $template = new IMP_Template();
