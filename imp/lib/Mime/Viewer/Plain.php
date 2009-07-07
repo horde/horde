@@ -259,9 +259,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
     {
         $text = Horde_String::convertCharset($this->_mimepart->getContents(), $this->_mimepart->getCharset());
 
-        /* Don't want to use convert_uudecode() here as there may be multiple
-         * files residing in the text. */
-        $files = &Mail_mimeDecode::uudecode($text);
+        $files = Horde_Mime::uudecode($text);
         if (empty($files)) {
             return null;
         }
@@ -273,15 +271,15 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         $text_part = new Horde_Mime_Part();
         $text_part->setType('text/plain');
         $text_part->setCharset(NLS::getCharset());
-        $text_part->setContents(preg_replace("/begin ([0-7]{3}) (.+)\r?\n(.+)\r?\nend/Us", "\n", $text));
+        $text_part->setContents(preg_replace("/begin [0-7]{3} .+\r?\n.+\r?\nend/Us", "\n", $text));
         $new_part->addPart($text_part);
 
         reset($files);
         while (list(,$file) = each($files)) {
             $uupart = new Horde_Mime_Part();
             $uupart->setType('application/octet-stream');
-            $uupart->setContents($file['filedata']);
-            $uupart->setName(strip_tags($file['filename']));
+            $uupart->setContents($file['data']);
+            $uupart->setName(strip_tags($file['name']));
             $new_part->addPart($uupart);
         }
 
