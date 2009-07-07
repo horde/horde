@@ -218,7 +218,10 @@ EOD;
 
         if ($img) {
             if ($thumb) {
-                $img->resize(96, 96, true);
+                $dim = $img->getDimensions();
+                if (($dim['height'] > 96) || ($dim['width'] > 96)) {
+                    $img->resize(96, 96, true);
+                }
             }
             $type = $img->getContentType();
             $data = $img->raw(true);
