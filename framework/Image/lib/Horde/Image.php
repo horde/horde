@@ -554,8 +554,6 @@ class Horde_Image
             $class = str_replace('Horde_Image_', '', get_class($this));
 
             // First, load the driver-agnostic Effects.
-            // TODO: This will need to be revisted when directory structure
-            //       changes for Horde 4.
             $path = dirname(__FILE__) . '/Image/Effect/';
             if (is_dir($path)) {
                 if ($handle = opendir($path)) {
