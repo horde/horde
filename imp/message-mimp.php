@@ -22,7 +22,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Make sure we have a valid index. */
 $imp_mailbox = &IMP_Mailbox::singleton($imp_mbox['mailbox'], $imp_mbox['index']);
-if (!$imp_mailbox->isValidIndex()) {
+if (!$imp_mailbox->isValidIndex(false)) {
     header('Location: ' . Horde_Util::addParameter(IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox']), array('a' => 'm'), null, false));
     exit;
 }
