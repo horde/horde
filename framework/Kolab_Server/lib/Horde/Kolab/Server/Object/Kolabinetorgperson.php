@@ -328,6 +328,7 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
      */
     public function getExternalAccounts()
     {
+        $result = array();
         $account_uids = $this->objectsForUid($this->server, $this->uid, Horde_Kolab_Server_Object_Kolabpop3account::OBJECTCLASS_KOLABEXTERNALPOP3ACCOUNT);
         if ($account_uids !== false) {
             foreach ($account_uids as $account_uid) {
