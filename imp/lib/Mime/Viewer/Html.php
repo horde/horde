@@ -117,7 +117,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         }
 
         /* Sanitize the HTML. */
-        $cleanhtml = $this->_cleanHTML($data, $inline);
+        $cleanhtml = $this->_cleanHTML($data, $inline, $msg_charset);
         $data = $cleanhtml['html'];
 
         /* We are done processing if in mimp mode. */
