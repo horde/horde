@@ -203,8 +203,10 @@ class IMP_Contents
      *            DEFAULT: No
      * </pre>
      *
-     * @return mixed  The text of the part, or a stream resource if 'stream'
-     *                is true.
+     * @return mixed  The text of the part, a stream resource if 'stream'
+     *                is true and 'mimeheaders' is false, or an array of
+     *                header text and a body stream resource if 'stream' is
+     *                true and 'mimeheaders' is true.
      */
     public function getBodyPart($id, $options = array())
     {
@@ -241,7 +243,9 @@ class IMP_Contents
                 }
                 return $res[$this->_index]['bodypart'][$id];
             } else {
-                return $res[$this->_index]['mimeheader'][$id] . $res[$this->_index]['bodypart'][$id];
+                return empty($options['stream'])
+                    ? $res[$this->_index]['mimeheader'][$id] . $res[$this->_index]['bodypart'][$id]
+                    : array($res[$this->_index]['mimeheader'][$id], $res[$this->_index]['bodypart'][$id]);
             }
         } catch (Horde_Imap_Client_Exception $e) {
             return '';
