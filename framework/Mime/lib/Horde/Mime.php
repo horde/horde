@@ -3,6 +3,48 @@
  * The Horde_Mime:: class provides methods for dealing with various MIME (see,
  * e.g., RFC 2045-2049; 2183; 2231) standards.
  *
+ * -----
+ *
+ * This file contains code adapted from PEAR's Mail_mimeDecode library (v1.5).
+ *
+ *   http://pear.php.net/package/Mail_mime
+ *
+ * This code appears in Horde_Mime::decodeParam().
+ *
+ * This code was originally released under this license:
+ *
+ * LICENSE: This LICENSE is in the BSD license style.
+ * Copyright (c) 2002-2003, Richard Heyes <richard@phpguru.org>
+ * Copyright (c) 2003-2006, PEAR <pear-group@php.net>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
+ *
+ * - Redistributions of source code must retain the above copyright
+ *   notice, this list of conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * - Neither the name of the authors, nor the names of its contributors
+ *   may be used to endorse or promote products derived from this
+ *   software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+ * THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * -----
+ *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -432,29 +474,52 @@ class Horde_Mime
     {
         $convert = array();
         $ret = array('params' => array(), 'val' => '');
+        $splitRegex = '/([^;\'"]*[\'"]([^\'"]*([^\'"]*)*)[\'"][^;\'"]*|([^;]+))(;|$)/';
+        $type = Horde_String::lower($type);
 
         if (is_array($data)) {
             // Use dummy base values
-            $ret['val'] = (Horde_String::lower($type) == 'content-type')
+            $ret['val'] = ($type == 'content-type')
                 ? 'text/plain'
                 : 'attachment';
             $params = $data;
         } else {
-            /* Give $string a bogus body part or else decode() will
-             * complain. */
-            $mime_decode = new Mail_mimeDecode($type . ': ' . $data . "\n\nA");
-            $res = $mime_decode->decode();
-
-            /* Are we dealing with content-type or content-disposition? */
-            if (isset($res->disposition)) {
-                $ret['val'] = $res->disposition;
-                $params = isset($res->d_parameters) ? $res->d_parameters : array();
-            } elseif (isset($res->ctype_primary)) {
-                $ret['val'] = $res->ctype_primary . '/' . $res->ctype_secondary;
-                $params = isset($res->ctype_parameters) ? $res->ctype_parameters : array();
-            } else {
+            /* This code was adapted from PEAR's Mail_mimeDecode::. */
+            if (($pos = strpos($data, ';')) === false) {
+                $ret['val'] = trim($data);
                 return $ret;
             }
+
+            $ret['val'] = trim(substr($data, 0, $pos));
+            $data = trim(substr($data, ++$pos));
+
+            if (strlen($data) > 0) {
+                $params = $tmp = array();
+
+                /* This splits on a semi-colon, if there's no preceeding
+                 * backslash. */
+                preg_match_all($splitRegex, $data, $matches);
+
+                for ($i = 0, $cnt = count($matches[0]); $i < $cnt; ++$i) {
+                    $param = $matches[0][$i];
+                    while (substr($param, -2) == '\;') {
+                        $param .= $matches[0][++$i];
+                    }
+                    $tmp[] = $param;
+                }
+
+                for ($i = 0, $cnt = count($tmp); $i < $cnt; ++$i) {
+                    $pos = strpos($tmp[$i], '=');
+                    $p_name = trim(substr($tmp[$i], 0, $pos), "'\";\t\\ ");
+                    $p_val = trim(str_replace('\;', ';', substr($tmp[$i], $pos + 1)), "'\";\t\\ ");
+                    if ($p_val[0] == '"') {
+                        $p_val = substr($param_value, 1, -1);
+                    }
+
+                    $params[$p_name] = $p_val;
+                }
+            }
+            /* End of code adapted from PEAR's Mail_mimeDecode::. */
         }
 
         /* Sort the params list. Prevents us from having to manually keep

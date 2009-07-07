@@ -13,6 +13,11 @@
  */
 class Horde_Mime_Headers
 {
+    /* Constants for getValue(). */
+    const VALUE_STRING = 1;
+    const VALUE_BASE = 2;
+    const VALUE_PARAMS = 3;
+
     /**
      * The default charset to use when parsing text parts with no charset
      * information.
@@ -387,28 +392,47 @@ class Horde_Mime_Headers
      * The values are not MIME encoded.
      *
      * @param string $header  The header to search for.
+     * @param integer $type   The type of return:
+     * <pre>
+     * VALUE_STRING - Returns a string representation of the entire header.
+     * VALUE_BASE - Returns a string representation of the base value of the
+     *              header. If this is not a header that allows parameters,
+     *              this will be equivalent to VALUE_BASE.
+     * VALUE_PARAMS - Returns the list of parameters for this header. If this
+     *                is not a header that allows parameters, this will be
+     *                an empty array.
+     * </pre>
      *
      * @return mixed  The value for the given header.
      *                If the header is not found, returns null.
      */
-    public function getValue($header)
+    public function getValue($header, $type = self::VALUE_STRING)
     {
-        $entry = null;
         $header = Horde_String::lower($header);
 
-        if (isset($this->_headers[$header])) {
-            $ptr = &$this->_headers[$header];
-            $entry = (is_array($ptr['value']) && in_array($header, $this->singleFields(true)))
-                ? $ptr['value'][0]
-                : $ptr['value'];
-            if (isset($ptr['params'])) {
-                foreach ($ptr['params'] as $key => $val) {
-                    $entry .= '; ' . $key . '=' . $val;
-                }
-            }
+        if (!isset($this->_headers[$header])) {
+            return null;
         }
 
-        return $entry;
+        $ptr = &$this->_headers[$header];
+        $base = (is_array($ptr['value']) && in_array($header, $this->singleFields(true)))
+            ? $ptr['value'][0]
+            : $ptr['value'];
+        $params = isset($ptr['params']) ? $ptr['params'] : array();
+
+        switch ($type) {
+        case self::VALUE_BASE:
+            return $base;
+
+        case self::VALUE_PARAMS:
+            return $params;
+
+        case self::VALUE_STRING:
+            foreach ($params as $key => $val) {
+                $base .= '; ' . $key . '=' . $val;
+            }
+            return $base;
+        }
     }
 
     /**
@@ -551,19 +575,18 @@ class Horde_Mime_Headers
                 $currtext .= ' ' . ltrim($val);
             } else {
                 if (!is_null($currheader)) {
-                    if (in_array(Horde_String::lower($currheader), $mime)) {
-                        $res = Horde_Mime::decodeParam($currheader, $currtext);
-                        $to_process[] = array($currheader, $res['val'], array('decode' => true, 'params' => $res['params']));
-                    } else {
-                        $to_process[] = array($currheader, $currtext, array('decode' => true));
-                    }
+                    $to_process[] = array($currheader, $currtext);
                 }
+
                 $pos = strpos($val, ':');
                 $currheader = substr($val, 0, $pos);
                 $currtext = ltrim(substr($val, $pos + 1));
             }
         }
-        $to_process[] = array($currheader, $currtext, array('decode' => true));
+
+        if (!is_null($currheader)) {
+            $to_process[] = array($currheader, $currtext);
+        }
 
         $headers = new Horde_Mime_Headers();
         $eightbit_check = (self::$defaultCharset != 'us-ascii');
@@ -573,7 +596,13 @@ class Horde_Mime_Headers
             if ($eightbit_check && Horde_Mime::is8bit($val[1])) {
                 $val[1] = Horde_String::convertCharset($val[1], self::$defaultCharset);
             }
-            $headers->addHeader($val[0], $val[1], $val[2]);
+
+            if (in_array(Horde_String::lower($val[0]), $mime)) {
+                $res = Horde_Mime::decodeParam($val[0], $val[1]);
+                $headers->addHeader($val[0], $res['val'], array('decode' => true, 'params' => $res['params']));
+            } else {
+                $headers->addHeader($val[0], $val[1], array('decode' => true));
+            }
         }
 
         return $headers;

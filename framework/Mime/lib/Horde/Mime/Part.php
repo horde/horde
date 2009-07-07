@@ -1734,19 +1734,10 @@ class Horde_Mime_Part
      */
     static public function parseMessage($text, $options = array())
     {
-        /* Set up the options for the mimeDecode class. */
-        $decode_args = array(
-            'include_bodies' => true,
-            'decode_bodies' => false,
-            'decode_headers' => false
-        );
+        /* Find the header. */
+        list($hdr_pos, $eol) = self::_findHeader($text);
 
-        $mimeDecode = new Mail_mimeDecode($text, Horde_Mime_Part::EOL);
-        if (!($ob = $mimeDecode->decode($decode_args))) {
-            throw new Horde_Mime_Exception('Could not decode MIME message.');
-        }
-
-        $ob = self::_convertMimeDecodeData($ob);
+        $ob = self::_getStructure(substr($text, 0, $hdr_pos), substr($text, $hdr_pos + $eol));
 
         return empty($options['structure'])
             ? self::parseStructure($ob)
@@ -1754,87 +1745,85 @@ class Horde_Mime_Part
     }
 
     /**
-     * Convert the output from Mail_mimeDecode::decode() into a structure that
-     * parseStructure() can handle.
+     * Creates a structure object from the text of one part of a MIME message.
      *
-     * @param stdClass $ob  The output from Mail_mimeDecode::decode().
+     * @param string $header  The header text.
+     * @param string $body    The body text.
+     * @param string $ctype   The default content-type.
      *
-     * @return array  An array of structure information.
+     * @return array  See Horde_Mime_Part::parseStructure().
      */
-    static protected function _convertMimeDecodeData($ob)
+    static protected function _getStructure($header, $body,
+                                            $ctype = 'application/octet-stream')
     {
-        /* Primary content-type. */
-        if (isset($ob->ctype_primary)) {
-            $part = array(
-                'type' => strtolower($ob->ctype_primary),
-                'subtype' => isset($ob->ctype_secondary) ? strtolower($ob->ctype_secondary) : 'x-unknown'
-            );
-        } else {
-            $part = array(
-                'type' => 'application',
-                'subtype' => 'octet-stream'
-            );
+        $part = array('parts' => array());
+
+        /* Parse headers text into a Horde_Mime_Headers object. */
+        $hdrs = Horde_Mime_Headers::parseHeaders($header);
+
+        /* Content type. */
+        $tmp = $hdrs->getValue('content-type', Horde_Mime_Headers::VALUE_BASE);
+        if (!$tmp) {
+            $tmp = $ctype;
         }
+        list($part['type'], $part['subtype']) = explode('/', strtolower($tmp), 2);
 
         /* Content transfer encoding. */
-        if (isset($ob->headers['content-transfer-encoding'])) {
-            $part['encoding'] = strtolower($ob->headers['content-transfer-encoding']);
+        $tmp = $hdrs->getValue('content-transfer-encoding');
+        if ($tmp) {
+            $part['encoding'] = strtolower($tmp);
         }
 
-        /* Content-type and Disposition parameters. */
-        $param_types = array(
-            'ctype_parameters' => 'parameters',
-            'd_parameters' => 'dparameters'
-        );
-
-        foreach ($param_types as $param_key => $param_value) {
-            if (isset($ob->$param_key)) {
-                $part[$param_value] = array();
-                foreach ($ob->$param_key as $key => $val) {
-                    $part[$param_value][strtolower($key)] = $val;
-                }
-            }
-        }
+        /* Content-Type and Disposition parameters. */
+        $part['dparameters'] = $hdrs->getValue('content-disposition', Horde_Mime_Headers::VALUE_PARAMS);
+        $part['parameters'] = $hdrs->getValue('content-type', Horde_Mime_Headers::VALUE_PARAMS);
 
         /* Content-Description. */
-        if (isset($ob->headers['content-description'])) {
-            $part['description'] = $ob->headers['content-description'];
+        $tmp = $hdrs->getValue('content-description');
+        if ($tmp) {
+            $part['description'] = $tmp;
         }
 
         /* Content-Disposition. */
-        if (isset($ob->headers['content-disposition'])) {
-            $hdr = $ob->headers['content-disposition'];
-            $pos = strpos($hdr, ';');
-            if ($pos !== false) {
-                $hdr = substr($hdr, 0, $pos);
-            }
-            $part['disposition'] = strtolower($hdr);
+        $tmp = $hdrs->getValue('content-disposition', Horde_Mime_Headers::VALUE_BASE);
+        if ($tmp) {
+            $part['disposition'] = strtolower($tmp);
         }
 
         /* Content-ID. */
-        if (isset($ob->headers['content-id'])) {
-            $part['id'] = $ob->headers['content-id'];
+        $tmp = $hdrs->getValue('content-id');
+        if ($tmp) {
+            $part['id'] = $tmp;
         }
 
         /* Get file size (if 'body' text is set). */
-        if (isset($ob->body)) {
-            $part['contents'] = $ob->body;
+        if (!empty($body)) {
+            $part['contents'] = $body;
             if (($part['type'] != 'message') &&
                 ($part['subtype'] != 'rfc822')) {
-                /* Mail_mimeDecode puts an extra linebreak at the end of body
-                 * text. */
-                $size = strlen(str_replace(array("\r\n", "\n"), array("\n", "\r\n"), $ob->body)) - 2;
-                $part['size'] = ($size < 0) ? 0 : $size;
+                $part['size'] = strlen(str_replace(array("\r\n", "\n"), array("\n", "\r\n"), $body));
             }
         }
 
-        /* Process parts also. */
-        if (isset($ob->parts)) {
-            $part['parts'] = array();
-            reset($ob->parts);
-            while (list($key,) = each($ob->parts)) {
-                $part['parts'][] = self::_convertMimeDecodeData($ob->parts[$key]);
+        /* Process subparts. */
+        switch ($part['type']) {
+        case 'message':
+            if ($part['subtype'] == 'rfc822') {
+                $part['parts'][] = self::parseMessage($body, array('structure' => true));
             }
+            break;
+
+        case 'multipart':
+            $tmp = $hdrs->getValue('content-type', Horde_Mime_Headers::VALUE_PARAMS);
+            if (isset($tmp['boundary'])) {
+                $b_find = self::_findBoundary($body, 0, $tmp['boundary']);
+                foreach ($b_find as $val) {
+                    $subpart = substr($body, $val['start'], $val['length']);
+                    list($hdr_pos, $eol) = self::_findHeader($subpart);
+                    $part['parts'][] = self::_getStructure(substr($subpart, 0, $hdr_pos), substr($subpart, $hdr_pos + $eol), ($part['subtype'] == 'digest') ? 'message/rfc822' : 'text/plain');
+                }
+            }
+            break;
         }
 
         return $part;
@@ -1854,90 +1843,122 @@ class Horde_Mime_Part
      */
     static public function getRawPartText($text, $type, $id)
     {
-        return self::_getRawPartText($text, $type, $id, null);
-    }
-
-    /**
-     * Obtain the raw text of a MIME part.
-     *
-     * @param string $text      The full text of the MIME message.
-     * @param string $type      Either 'header' or 'body'.
-     * @param string $id        The MIME ID.
-     * @param string $boundary  The boundary string.
-     *
-     * @return string  The raw text.
-     * @throws Horde_Mime_Exception
-     */
-    static protected function _getRawPartText($text, $type, $id,
-                                              $boundary = null)
-    {
         /* We need to carry around the trailing "\n" because this is needed
          * to correctly find the boundary string. */
-        $hdr_pos = strpos($text, "\n\n");
-        if ($hdr_pos === false) {
-            $hdr_pos = strpos($text, "\r\n\r\n");
-            $curr_pos = $hdr_pos + 3;
-        } else {
-            $curr_pos = $hdr_pos + 1;
-        }
+        list($hdr_pos, $eol) = self::_findHeader($text);
+        $curr_pos = $hdr_pos + $eol - 1;
 
         if ($id == 0) {
             switch ($type) {
             case 'body':
-                if (is_null($boundary)) {
-                    return substr($text, $curr_pos + 1);
-                }
-                $end_boundary = strpos($text, "\n--" . $boundary, $curr_pos);
-                if ($end_boundary === false) {
-                    throw new Horde_Mime_Exception('Could not find MIME part.');
-                }
-                return substr($text, $curr_pos + 1, $end_boundary - $curr_pos);
+                return substr($text, $curr_pos + 1);
 
             case 'header':
                 return trim(substr($text, 0, $hdr_pos));
             }
         }
 
+        $hdr_ob = Horde_Mime_Headers::parseHeaders(trim(substr($text, 0, $hdr_pos)));
+
+        /* If this is a message/rfc822, pass the body into the next loop.
+         * Don't decrement the ID here. */
+        if ($hdr_ob->getValue('Content-Type', Horde_Mime_Headers::VALUE_BASE) == 'message/rfc822') {
+            return self::getRawPartText(substr($text, $curr_pos + 1), $type, $id);
+        }
+
         $base_pos = strpos($id, '.');
         if ($base_pos !== false) {
             $base_pos = substr($id, 0, $base_pos);
-            $id = substr($id, $base_pos + 1);
+            $id = substr($id, $base_pos);
         } else {
             $base_pos = $id;
             $id = 0;
         }
 
-        $hdr_ob = Horde_Mime_Headers::parseHeaders(trim(substr($text, 0, $hdr_pos)));
-        $params = Horde_Mime::decodeParam('content-type', $hdr_ob->getValue('Content-Type'));
-        if (!isset($params['params']['boundary'])) {
+        $params = $hdr_ob->getValue('Content-Type', Horde_Mime_Headers::VALUE_PARAMS);
+        if (!isset($params['boundary'])) {
             throw new Horde_Mime_Exception('Could not find MIME part.');
         }
 
-        $search = "\n--" . $params['params']['boundary'];
+        $b_find = self::_findBoundary($text, $curr_pos, $params['boundary'], $base_pos);
+
+        if (!isset($b_find[$base_pos])) {
+            throw new Horde_Mime_Exception('Could not find MIME part.');
+        }
+
+        return self::getRawPartText(substr($text, $b_find[$base_pos]['start'], $b_find[$base_pos]['length']), $type, $id);
+    }
+
+    /**
+     * Find the location of the end of the header text.
+     *
+     * @param string $text  The text to search.
+     *
+     * @return array  1st element: Header position, 2nd element: Lenght of
+     *                trailing EOL.
+     */
+    static protected function _findHeader($text)
+    {
+        $hdr_pos = strpos($text, "\r\n\r\n");
+        if ($hdr_pos !== false) {
+            return array($hdr_pos, 4);
+        }
+
+        $hdr_pos = strpos($text, "\n\n");
+        return ($hdr_pos === false)
+            ? array(strlen($text), 0)
+            : array($hdr_pos, 2);
+    }
+
+    /**
+     * Find the location of the next boundary string.
+     *
+     * @param string $text      The text to search.
+     * @param integer $pos      The current position in $text.
+     * @param string $boundary  The boundary string.
+     * @param integer $end      If set, return after matching this many
+     *                          boundaries.
+     *
+     * @return array  Keys are the boundary number, values are an array with
+     *                two elements: 'start' and 'length'.
+     */
+    static protected function _findBoundary($text, $pos, $boundary,
+                                            $end = null)
+    {
+        $i = 0;
+        $out = array();
+
+        $search = "\n--" . $boundary;
         $search_len = strlen($search);
 
-        for ($i = 0; $i < $base_pos; ++$i) {
-            $new_pos = strpos($text, $search, $curr_pos);
-            if ($new_pos !== false) {
-                $curr_pos = $new_pos + $search_len;
-                if (isset($text[$curr_pos + 1])) {
-                    switch ($text[$curr_pos + 1]) {
-                    case "\r":
-                        ++$curr_pos;
-                        break;
+        while (($pos = strpos($text, $search, $pos)) !== false) {
+            if (isset($out[$i])) {
+                $out[$i]['length'] = $pos - $out[$i]['start'];
+            }
 
-                    case "\n":
-                        // noop
-                        break;
+            if (!is_null($end) && ($end == $i)) {
+                break;
+            }
 
-                    case '-':
-                        throw new Horde_Mime_Exception('Could not find MIME part.');
-                    }
+            $pos += $search_len;
+            if (isset($text[$pos])) {
+                switch ($text[$pos]) {
+                case "\r":
+                    $pos += 2;
+                    $out[++$i] = array('start' => $pos);
+                    break;
+
+                case "\n":
+                    $out[++$i] = array('start' => ++$pos);
+                    break;
+
+                case '-':
+                    return $out;
                 }
             }
         }
 
-        return self::_getRawPartText(substr($text, $curr_pos), $type, $id, $params['params']['boundary']);
+        return $out;
     }
 
 }
