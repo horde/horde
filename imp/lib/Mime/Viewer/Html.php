@@ -32,13 +32,13 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         # match 1
         (
             # <img> tags
-            <img[^>]+src=
+            <img[^>]+?src=
             # <input> tags
-            |<input[^>]*src=
+            |<input[^>]+?src=
             # "background" attributes
-            |<body[^>]*background=|<td[^>]*background=|<table[^>]*background=
+            |<body[^>]+?background=|<td[^>]*background=|<table[^>]*background=
             # "style" attributes; match 2; quotes: match 3
-            |(style=\s*("|\')?[^>]*background(?:-image)?:(?(3)[^"\']|[^>])*?url\s*\()
+            |(style=\s*("|\')?[^>]*?background(?:-image)?:(?(3)[^"\']|[^>])*?url\s*\()
         )
         # whitespace
         \s*
@@ -57,7 +57,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         (?(2)
             # closing parenthesis
             \s*\)
-            # remainder of the "style" attribute; match 5
+            # remainder of the "style" attribute; match 6
             ((?(3)[^"\'>]*|[^\s>]*))
         )
         /isx';
