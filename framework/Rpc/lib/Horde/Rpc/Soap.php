@@ -92,7 +92,7 @@ class Horde_Rpc_Soap extends Horde_Rpc
                     $GLOBALS['__horde_rpc_PhpSoap']['lastMethodCalled'],
                     implode(', ', array_map(create_function('$a', 'return is_array($a) ? "Array" : $a;'),
                                             $GLOBALS['__horde_rpc_PhpSoap']['lastMethodParams'])),
-                    Auth::getAuth(),
+                    Horde_Auth::getAuth(),
                     time() - $beginTime,
                     ob_get_length()),
             __FILE__, __LINE__, PEAR_LOG_INFO

@@ -395,7 +395,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     {
         include_once 'Horde/Auth.php';
 
-        $auth = Auth::singleton('kolab');
+        $auth = Horde_Auth::singleton('kolab');
         return $auth;
     }
 

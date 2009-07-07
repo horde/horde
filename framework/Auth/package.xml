@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Auth</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Authentication API</summary>
+ <description>The Horde_Auth:: package provides a common abstracted interface into the various backends for the Horde authentication system.
+</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-07-06</date>
+ <version>
+  <release>0.2.0</release>
+  <api>0.2.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+ <notes>* Split Horde_Auth:: into Horde_Auth:: and Horde_Auth_Driver:: components.
+ * Initial Horde 4 package.
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Auth">
+      <dir name="Signup">
+       <file name="Datatree.php" role="php" />
+       <file name="Sql.php" role="php" />
+      </dir> <!-- /lib/Horde/Auth/Signup -->
+      <file name="Application.php" role="php" />
+      <file name="Auto.php" role="php" />
+      <file name="Composite.php" role="php" />
+      <file name="Customsql.php" role="php" />
+      <file name="Cyrsql.php" role="php" />
+      <file name="Cyrus.php" role="php" />
+      <file name="Driver.php" role="php" />
+      <file name="Ftp.php" role="php" />
+      <file name="Http.php" role="php" />
+      <file name="HttpRemote.php" role="php" />
+      <file name="Imap.php" role="php" />
+      <file name="Imsp.php" role="php" />
+      <file name="Ipbasic.php" role="php" />
+      <file name="Kolab.php" role="php" />
+      <file name="Krb5.php" role="php" />
+      <file name="Ldap.php" role="php" />
+      <file name="Login.php" role="php" />
+      <file name="Msad.php" role="php" />
+      <file name="Pam.php" role="php" />
+      <file name="Passwd.php" role="php" />
+      <file name="Peclsasl.php" role="php" />
+      <file name="Radius.php" role="php" />
+      <file name="Shibboleth.php" role="php" />
+      <file name="Signup.php" role="php" />
+      <file name="Smb.php" role="php" />
+      <file name="Smbclient.php" role="php" />
+      <file name="Sql.php" role="php" />
+     </dir> <!-- /lib/Horde/Auth -->
+     <file name="Auth.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Auth">
+      <file name="AllTests.php" role="test" />
+      <file name="KolabScenarioTest.php" role="test" />
+      <file name="KolabTest.php" role="test" />
+      <file name="credentials.php" role="test" />
+      <file name="getCryptedPassword.phpt" role="test" />
+      <file name="getSalt.phpt" role="test" />
+      <file name="passwd.phpt" role="test" />
+      <file name="test.passwd" role="test" />
+     </dir> <!-- /test/Horde/Auth -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.5.4</min>
+   </pearinstaller>
+   <package>
+    <name>Horde_Framework</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Secret</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Util</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+  <optional>
+   <package>
+    <name>DataTree</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Form</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>History</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Imap_Client</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Kolab_Server</name>
+    <channel>pear.horde.org</channel>
+    <min>0.2.0</min>
+   </package>
+   <extension>
+    <name>gettext</name>
+   </extension>
+   <extension>
+    <name>pam_auth</name>
+   </extension>
+   <extension>
+    <name>sasl</name>
+   </extension>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Auth/Signup/Datatree.php" as="Horde/Auth/Signup/Datatree.php" />
+   <install name="lib/Horde/Auth/Signup/Sql.php" as="Horde/Auth/Signup/Sql.php" />
+   <install name="lib/Horde/Auth/Application.php" as="Horde/Auth/Application.php" />
+   <install name="lib/Horde/Auth/Auto.php" as="Horde/Auth/Auto.php" />
+   <install name="lib/Horde/Auth/Composite.php" as="Horde/Auth/Composite.php" />
+   <install name="lib/Horde/Auth/Customsql.php" as="Horde/Auth/Customsql.php" />
+   <install name="lib/Horde/Auth/Cyrsql.php" as="Horde/Auth/Cyrsql.php" />
+   <install name="lib/Horde/Auth/Cyrus.php" as="Horde/Auth/Cyrus.php" />
+   <install name="lib/Horde/Auth/Driver.php" as="Horde/Auth/Driver.php" />
+   <install name="lib/Horde/Auth/Ftp.php" as="Horde/Auth/Ftp.php" />
+   <install name="lib/Horde/Auth/Http.php" as="Horde/Auth/Http.php" />
+   <install name="lib/Horde/Auth/HttpRemote.php" as="Horde/Auth/HttpRemote.php" />
+   <install name="lib/Horde/Auth/Imap.php" as="Horde/Auth/Imap.php" />
+   <install name="lib/Horde/Auth/Imsp.php" as="Horde/Auth/Imsp.php" />
+   <install name="lib/Horde/Auth/Ipbasic.php" as="Horde/Auth/Ipbasic.php" />
+   <install name="lib/Horde/Auth/Kolab.php" as="Horde/Auth/Kolab.php" />
+   <install name="lib/Horde/Auth/Krb5.php" as="Horde/Auth/Krb5.php" />
+   <install name="lib/Horde/Auth/Ldap.php" as="Horde/Auth/Ldap.php" />
+   <install name="lib/Horde/Auth/Login.php" as="Horde/Auth/Login.php" />
+   <install name="lib/Horde/Auth/Msad.php" as="Horde/Auth/Msad.php" />
+   <install name="lib/Horde/Auth/Pam.php" as="Horde/Auth/Pam.php" />
+   <install name="lib/Horde/Auth/Passwd.php" as="Horde/Auth/Passwd.php" />
+   <install name="lib/Horde/Auth/Peclsasl.php" as="Horde/Auth/Peclsasl.php" />
+   <install name="lib/Horde/Auth/Radius.php" as="Horde/Auth/Radius.php" />
+   <install name="lib/Horde/Auth/Shibboleth.php" as="Horde/Auth/Shibboleth.php" />
+   <install name="lib/Horde/Auth/Signup.php" as="Horde/Auth/Signup.php" />
+   <install name="lib/Horde/Auth/Smb.php" as="Horde/Auth/Smb.php" />
+   <install name="lib/Horde/Auth/Smbclient.php" as="Horde/Auth/Smbclient.php" />
+   <install name="lib/Horde/Auth/Sql.php" as="Horde/Auth/Sql.php" />
+   <install name="lib/Horde/Auth.php" as="Horde/Auth.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <date>2008-10-29</date>
+   <version>
+    <release>0.1.1</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <notes>* Imap driver now uses Horde_Imap_Client library.
+  * Add signup drivers to package.xml (Bug #7345).
+  * Fix the "overwriting realm info from application auth drivers" (Bug #6749)
+  * Switched Kolab auth handling from IMAP to LDAP by using Kolab_Server.
+  * Added "add user" capability to the Kolab driver.
+  * Adapted the Kolab auth driver to the changes in Kolab_Server.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <notes>* Fixed error handling when removing user data.
+* Retrieve password where necessary for salt calculations in the custom SQL driver (Bug #3739).
+* Added a query for checking existance of a user to the custom SQL driver (Request #5151).
+* Completed Cyrus virtual domain support in the cyrsql driver.
+* Fixed handling of UID logins in the Kolab driver  (Bugs #1317, #4662).
+* Fixed case handling in the LDAP driver (Bug #2435).
+* Rewrote PAM driver to use PAM extension from PECL.
+* Fixed the PAM driver authentication so that it works with both pam and pam_auth extensions (Bug #6860).
+* Ensured that the LDAP driver always uses the configured filter.
+* Renamed Auth_sasl to Auth_peclsasl (Bug #4547).
+* Allow signup hooks to override the user_name and password fields (Request #2904).
+* Created an SQL driver for signups and allowing backends other than DataTree (Request #7161).
+* Added smbclient driver as an alternative to the smb driver which requires a PHP extension.
+* Fix handling of SSHA and SMD5 salts (ulrich-horde@topfen.net, Bug #2863).
+* Added readSessionData() function to get Horde authentication data from session strings.
+* Allow drivers to include their own isAdmin() implementations (Request #5521).
+* Add Active Directory extension of LDAP driver (Request #3769).
+* Hide the cyrus account in cyrsql driver (vilius@lnk.lt, Request #5626).
+* Bring the passwd driver into compliance with the Auth API.
+* Remove dependency on the mhash extension for some encryption types.
+* Add authentication against a remote HTTP Authentication endpoint (duck@obala.net).
+* CSRF token protections for logout links.
+* Call the postauthenticate hook in Horde_Auth::setAuth() instead of authenticate().
+* Modified the Kolab driver to use the new Kolab_Server package.
+* Improved handling of multiple IMAP server setups in the Kolab driver.
+   </notes>
+  </release>
+ </changelog>
+</package>

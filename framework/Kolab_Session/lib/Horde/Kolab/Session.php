@@ -110,7 +110,7 @@ class Horde_Kolab_Session
         global $conf;
 
         if (empty($user)) {
-            $user = Auth::getAuth();
+            $user = Horde_Auth::getAuth();
             if (empty($user)) {
                 $user = 'anonymous';
             } else if (!strpos($user, '@')) {
@@ -240,13 +240,13 @@ class Horde_Kolab_Session
         $params = array();
         if ($this->user_uid) {
             $params['uid']  = $this->user_uid;
-            $params['pass'] = Auth::getCredential('password');
+            $params['pass'] = Horde_Auth::getCredential('password');
         } else if (isset($user)) {
             $params['user'] = $user;
             if (isset($credentials['password'])) {
                 $params['pass'] = $credentials['password'];
             } else {
-                $params['pass'] = Auth::getCredential('password');
+                $params['pass'] = Horde_Auth::getCredential('password');
             }
         }
         return Horde_Kolab_Server::singleton($params);
@@ -285,8 +285,8 @@ class Horde_Kolab_Session
                 return $imap;
             }
 
-            $result = $imap->connect(Auth::getAuth(),
-                                     Auth::getCredential('password'));
+            $result = $imap->connect(Horde_Auth::getAuth(),
+                                     Horde_Auth::getCredential('password'));
             if (is_a($result, 'PEAR_Error')) {
                 return $result;
             }
@@ -331,7 +331,7 @@ class Horde_Kolab_Session
         }
 
         if (empty($user)) {
-            $user = Auth::getAuth();
+            $user = Horde_Auth::getAuth();
         }
 
         if ($destruct || empty($session)

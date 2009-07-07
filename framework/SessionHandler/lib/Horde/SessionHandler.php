@@ -332,7 +332,7 @@ class Horde_SessionHandler
      * Returns a list of authenticated users and data about their session.
      *
      * @return array  For authenticated users, the sessionid as a key and the
-     *                information returned from Auth::readSessionData() as
+     *                information returned from Horde_Auth::readSessionData() as
      *                values.
      * @throws Horde_Exception
      */
@@ -348,7 +348,7 @@ class Horde_SessionHandler
             } catch (Horde_Exception $e) {
                 continue;
             }
-            $data = Auth::readSessionData($data, true);
+            $data = Horde_Auth::readSessionData($data, true);
             if ($data !== false) {
                 $info[$id] = $data;
             }

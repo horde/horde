@@ -130,7 +130,7 @@ class Horde_LoginTasks
         /* If this application handles Horde auth, need to add Horde tasks
          * here. */
         $app_list = array($this->_app);
-        if (strnatcasecmp($this->_app, Auth::getProvider()) === 0) {
+        if (strnatcasecmp($this->_app, Horde_Auth::getProvider()) === 0) {
             array_unshift($app_list, 'horde');
         }
 
@@ -236,7 +236,7 @@ class Horde_LoginTasks
         if (empty($need_display)) {
             $lasttasks = unserialize($GLOBALS['prefs']->getValue('last_logintasks'));
             $lasttasks[$this->_app] = time();
-            if (strnatcasecmp($this->_app, Auth::getProvider()) === 0) {
+            if (strnatcasecmp($this->_app, Horde_Auth::getProvider()) === 0) {
                 $lasttasks['horde'] = time();
             }
             $GLOBALS['prefs']->setValue('last_logintasks', serialize($lasttasks));

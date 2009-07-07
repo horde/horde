@@ -13,8 +13,8 @@
  *                                'contacts.search',
  *                                array(array('jan'), array('localsql'),
  *                                      array('name', 'email')),
- *                                array('user' => Auth::getAuth(),
- *                                      'pass' => Auth::getCredential('password')));
+ *                                array('user' => Horde_Auth::getAuth(),
+ *                                      'pass' => Horde_Auth::getCredential('password')));
  * </code>
  *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
@@ -86,7 +86,7 @@ class Horde_Rpc
             return true;
         }
 
-        $auth = &Auth::singleton($GLOBALS['conf']['auth']['driver']);
+        $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
 
         if (isset($_SERVER['PHP_AUTH_USER'])) {
             $user = $_SERVER['PHP_AUTH_USER'];

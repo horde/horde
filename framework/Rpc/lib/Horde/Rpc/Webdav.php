@@ -738,7 +738,7 @@ Horde::logMessage(print_r($list, true), __FILE__, __LINE__, PEAR_LOG_ERR);
             $locktype = HORDE_LOCK_TYPE_EXCLUSIVE;
         }
 
-        $lockid = $locks->setLock(Auth::getAuth(), 'webdav', $params['path'],
+        $lockid = $locks->setLock(Horde_Auth::getAuth(), 'webdav', $params['path'],
                                   $timeout, $locktype);
 
         if (is_a($lockid, 'PEAR_Error')) {
@@ -750,7 +750,7 @@ Horde::logMessage(print_r($list, true), __FILE__, __LINE__, PEAR_LOG_ERR);
         }
 
         $params['locktoken'] = $lockid;
-        $params['owner'] = Auth::getAuth();
+        $params['owner'] = Horde_Auth::getAuth();
         $params['timeout'] = $timeout;
 
         return "200";
@@ -849,7 +849,7 @@ Horde::logMessage(print_r($list, true), __FILE__, __LINE__, PEAR_LOG_ERR);
      */
     function check_auth($type, $username, $password)
     {
-        $auth = &Auth::singleton($GLOBALS['conf']['auth']['driver']);
+        $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
         return $auth->authenticate($username, array('password' => $password));
     }
 
