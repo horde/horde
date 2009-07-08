@@ -84,7 +84,7 @@ if (!Horde_Util::nonInputVar('no_compress')) {
 // If IMP isn't responsible for Horde auth, and no one is logged into
 // Horde, redirect to the login screen. If this is a compose window
 // that just timed out, store the draft.
-if (!(Auth::isAuthenticated() || (Auth::getProvider() == 'imp'))) {
+if (!(Horde_Auth::isAuthenticated() || (Horde_Auth::getProvider() == 'imp'))) {
     if ($compose_page) {
         $imp_compose = IMP_Compose::singleton();
         $imp_compose->sessionExpireDraft();

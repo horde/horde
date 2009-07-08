@@ -14,7 +14,7 @@ define('HORDE_BASE', dirname(__FILE__) . '/..');
 require_once HORDE_BASE . '/lib/base.php';
 require_once 'Horde/Loader.php';
 
-if (!Auth::isAuthenticated()) {
+if (!Horde_Auth::isAuthenticated()) {
     Horde::authenticationFailureRedirect();
 }
 

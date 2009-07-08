@@ -25,7 +25,7 @@ if (is_a($share, 'PEAR_Error')) {
 $actionID = Horde_Util::getFormData('actionID');
 switch ($actionID) {
 case 'delete_all':
-    if (!$share->hasPermission(Auth::getAuth(), PERMS_DELETE)) {
+    if (!$share->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE)) {
         $notification->push(_("Access denied deleting all accounts and postings."), 'horde.error');
     } else {
         $storage = &Fima_Driver::singleton($ledger);

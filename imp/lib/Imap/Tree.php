@@ -235,7 +235,7 @@ class IMP_Imap_Tree
         if (!isset($_SESSION['imp']['cache']['tree'])) {
             $imp_cache = IMP::getCache();
             $_SESSION['imp']['cache']['tree'] = $imp_cache
-                ? uniqid(mt_rand() . Auth::getAuth())
+                ? uniqid(mt_rand() . Horde_Auth::getAuth())
                 : null;
         }
 

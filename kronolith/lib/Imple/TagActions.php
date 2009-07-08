@@ -53,10 +53,10 @@ class Kronolith_Imple_TagActions extends Kronolith_Imple
         // Check perms
         if ($args['type'] == 'calendar') {
             $cal = $GLOBALS['kronolith_shares']->getShare($args['resource']);
-            $perm = $cal->hasPermission(Auth::getAuth(), PERMS_EDIT);
+            $perm = $cal->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT);
         } elseif($args['type'] == 'event') {
             $event = Kronolith::getDriver()->getByUID($args['resource']);
-            $perm = $event->hasPermission(PERMS_EDIT, Auth::getAuth());
+            $perm = $event->hasPermission(PERMS_EDIT, Horde_Auth::getAuth());
         }
 
         if ($perm) {
@@ -94,10 +94,10 @@ class Kronolith_Imple_TagActions extends Kronolith_Imple
 
         if ($type == 'calendar') {
             $cal = $GLOBALS['kronolith_shares']->getShare($id);
-            $hasEdit = $cal->hasPermission(Auth::getAuth(), PERMS_EDIT);
+            $hasEdit = $cal->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT);
         } elseif ($type == 'event') {
             $event = Kronolith::getDriver()->getByUID($id);
-            $hasEdit = $event->hasPermission(PERMS_EDIT, Auth::getAuth());
+            $hasEdit = $event->hasPermission(PERMS_EDIT, Horde_Auth::getAuth());
         }
 
         foreach ($tags as $tag_id => $tag) {

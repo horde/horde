@@ -31,7 +31,7 @@ function _error($msg)
     exit;
 }
 
-if (!Auth::isAuthenticated()) {
+if (!Horde_Auth::isAuthenticated()) {
     _error(_("Only authenticated users can send mails."));
 }
 
@@ -48,7 +48,7 @@ if (empty($from)) {
 }
 
 $body = sprintf(_("%s would you like to invite you to read the news\n Title: %s\n\n Published: %s \nLink: %s"),
-                Auth::getAuth(),
+                Horde_Auth::getAuth(),
                 $row['title'],
                 $row['publish'],
                 News::getUrlFor('news', $id, true, -1));

@@ -210,7 +210,7 @@ class IMP_Maillog
             return '';
         }
 
-        return implode('.', array('imp', str_replace('.', '*', Auth::getAuth()), $msgid));
+        return implode('.', array('imp', str_replace('.', '*', Horde_Auth::getAuth()), $msgid));
     }
 
 }

@@ -22,7 +22,7 @@ if ($eventID = Horde_Util::getFormData('eventID')) {
         exit;
     }
     $share = &$kronolith_shares->getShare($event->getCalendar());
-    if (!$share->hasPermission(Auth::getAuth(), PERMS_DELETE, $event->getCreatorID())) {
+    if (!$share->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE, $event->getCreatorID())) {
         $notification->push(_("You do not have permission to delete this event."), 'horde.warning');
     } else {
         $notification_type = Kronolith::ITIP_CANCEL;

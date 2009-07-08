@@ -71,7 +71,7 @@ class News_Driver_sql extends News_Driver {
                 ' WHERE n.id = ? AND n.id=l.id AND l.lang = ?';
 
         /** TODO Allow for now to allow static linked news, but not shown in list
-        if (!Auth::isAdmin('news:admin')) {
+        if (!Horde_Auth::isAdmin('news:admin')) {
             $query .= ' AND n.status = ' . News::CONFIRMED;
         }
         */
@@ -203,7 +203,7 @@ class News_Driver_sql extends News_Driver {
 
         /* Log it */
         $sql = 'INSERT INTO ' . $this->prefix . '_user_reads (id,user,ip,useragent,readdate) VALUES (?, ?, ? , ?, NOW())';
-        $result = $this->write_db->query($sql, array($id, Auth::getAuth(), $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT']));
+        $result = $this->write_db->query($sql, array($id, Horde_Auth::getAuth(), $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT']));
         if ($result instanceof PEAR_Error) {
             return $result;
         }

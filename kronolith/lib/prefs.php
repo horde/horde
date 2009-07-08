@@ -19,7 +19,7 @@ function handle_remote_cal_management($updated)
     $calUser = trim(Horde_Util::getFormData('remote_user'));
     $calPasswd = trim(Horde_Util::getFormData('remote_password'));
 
-    $key = Auth::getCredential('password');
+    $key = Horde_Auth::getCredential('password');
     if ($key) {
         $calUser = base64_encode(Secret::write($key, $calUser));
         $calPasswd = base64_encode(Secret::write($key, $calPasswd));

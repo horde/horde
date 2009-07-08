@@ -40,8 +40,8 @@ class Kronolith_Event_Kolab extends Kronolith_Event
         }
 
         if (isset($event['organizer']['smtp-address'])) {
-            if (Kronolith::isUserEmail(Auth::getAuth(), $event['organizer']['smtp-address'])) {
-                $this->creatorID = Auth::getAuth();
+            if (Kronolith::isUserEmail(Horde_Auth::getAuth(), $event['organizer']['smtp-address'])) {
+                $this->creatorID = Horde_Auth::getAuth();
             } else {
                 $this->creatorID = $event['organizer']['smtp-address'];
             }

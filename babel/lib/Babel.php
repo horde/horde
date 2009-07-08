@@ -164,7 +164,7 @@ class Babel {
     {
 	global $perms;
 	
-	$userId = Auth::getAuth();
+	$userId = Horde_Auth::getAuth();
 	$admin = ($userId == 'admin') ? true : false;
 	
 	if ($admin || !$perms->exists('babel:' . $permission)) {
@@ -176,7 +176,7 @@ class Babel {
 	switch ($filter) {
 	 case 'tabs':
 	    if ($perm) {
-		$allowed  = $perms->hasPermission('babel:' . $permission, Auth::getAuth(), $perm);
+		$allowed  = $perms->hasPermission('babel:' . $permission, Horde_Auth::getAuth(), $perm);
 	    }
 	    break;
 	}

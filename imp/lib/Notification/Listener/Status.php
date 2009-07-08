@@ -63,7 +63,7 @@ class IMP_Notification_Listener_Status extends Horde_Notification_Listener_Statu
         /* For dimp, don't capture notification messages if we are logging
          * out or accessing the options pages. */
         if (($this->_viewmode == 'dimp') &&
-            Auth::getAuth() && !strstr($_SERVER['PHP_SELF'], '/prefs.php')) {
+            Horde_Auth::getAuth() && !strstr($_SERVER['PHP_SELF'], '/prefs.php')) {
             $options['store'] = true;
         }
         parent::notify($messageStack, $options);

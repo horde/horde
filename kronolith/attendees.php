@@ -205,11 +205,11 @@ if (!is_array($cal)) {
 if (!$cal) {
     $cal = $prefs->getValue('default_share');
     if (!$cal) {
-        $cal = Auth::getAuth();
+        $cal = Horde_Auth::getAuth();
     }
     $cal = array($cal);
 }
-$vfb = Kronolith_FreeBusy::generate($cal, null, null, true, Auth::getAuth());
+$vfb = Kronolith_FreeBusy::generate($cal, null, null, true, Horde_Auth::getAuth());
 if (!is_a($vfb, 'PEAR_Error')) {
     $attendee_view->addRequiredMember($vfb);
 } else {

@@ -15,7 +15,7 @@ require_once KRONOLITH_BASE . '/lib/base.php';
 require_once KRONOLITH_BASE . '/lib/Forms/EditCalendar.php';
 
 // Exit if this isn't an authenticated user.
-if (!Auth::getAuth()) {
+if (!Horde_Auth::getAuth()) {
     header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true));
     exit;
 }
@@ -26,7 +26,7 @@ if (is_a($calendar, 'PEAR_Error')) {
     $notification->push($calendar, 'horde.error');
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;
-} elseif ($calendar->get('owner') != Auth::getAuth()) {
+} elseif ($calendar->get('owner') != Horde_Auth::getAuth()) {
     $notification->push(_("You are not allowed to change this calendar."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;

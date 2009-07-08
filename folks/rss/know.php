@@ -14,8 +14,8 @@
 define('AUTH_HANDLER', true);
 require_once dirname(__FILE__) . '/../lib/base.php';
 
-$auth = Auth::singleton($conf['auth']['driver']);
-if (!Auth::getAuth() &&
+$auth = Horde_Auth::singleton($conf['auth']['driver']);
+if (!Horde_Auth::getAuth() &&
     (!isset($_SERVER['PHP_AUTH_USER']) ||
      !$auth->authenticate($_SERVER['PHP_AUTH_USER'], array('password' => isset($_SERVER['PHP_AUTH_PW']) ? $_SERVER['PHP_AUTH_PW'] : null)))) {
     header('WWW-Authenticate: Basic realm="Letter RSS Interface"');
@@ -43,7 +43,7 @@ foreach ($my_list as $friend) {
         continue;
     }
     foreach ($friend_friends as $friend_friend) {
-        if ($friend_friend == Auth::getAuth() ||
+        if ($friend_friend == Horde_Auth::getAuth() ||
             in_array($friend_friend, $my_list)) {
             continue;
         } elseif (isset($users[$friend_friend])) {

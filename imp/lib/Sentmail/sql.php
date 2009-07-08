@@ -88,7 +88,7 @@ class IMP_Sentmail_sql extends IMP_Sentmail
         $query = sprintf('INSERT INTO %s (sentmail_id, sentmail_who, sentmail_ts, sentmail_messageid, sentmail_action, sentmail_recipient, sentmail_success) VALUES (?, ?, ?, ?, ?, ?, ?)',
                          $this->_params['table']);
         $values = array($this->_db->nextId($this->_params['table']),
-                        Auth::getAuth(),
+                        Horde_Auth::getAuth(),
                         time(),
                         $message_id,
                         $action,
@@ -130,7 +130,7 @@ class IMP_Sentmail_sql extends IMP_Sentmail
         }
         $query = sprintf('SELECT sentmail_recipient, count(*) AS sentmail_count FROM %s WHERE sentmail_who = %s AND sentmail_success = 1%s GROUP BY sentmail_recipient ORDER BY sentmail_count DESC LIMIT %d',
                          $this->_params['table'],
-                         $this->_db->quote(Auth::getAuth()),
+                         $this->_db->quote(Horde_Auth::getAuth()),
                          $where,
                          $limit);
 
@@ -170,7 +170,7 @@ class IMP_Sentmail_sql extends IMP_Sentmail
         $query = sprintf('SELECT COUNT(*) FROM %s WHERE sentmail_ts > ?',
                          $this->_params['table']);
         if ($user) {
-            $query .= sprintf(' AND sentmail_who = %s', $this->_db->quote(Auth::getAuth()));
+            $query .= sprintf(' AND sentmail_who = %s', $this->_db->quote(Horde_Auth::getAuth()));
         }
 
         /* Log the query at a DEBUG log level. */

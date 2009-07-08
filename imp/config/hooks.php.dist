@@ -148,7 +148,7 @@
 //         // Where does SpamAssassin live, and what username should we use
 //         // for preferences?
 //         $cmd = '/usr/local/bin/spamc';
-//         $username = Auth::getAuth();
+//         $username = Horde_Auth::getAuth();
 //
 //         // If you use the _sam_hook_username() hook, uncomment the next line
 //         //$username = _sam_hook_username($username);
@@ -379,7 +379,7 @@
 //     function _imp_hook_spam_email($action)
 //     {
 //         $prefix = ($action == 'spam') ? 'spam-' : 'fp-';
-//         return $prefix . Auth::getBareAuth() . '@example.com';
+//         return $prefix . Horde_Auth::getBareAuth() . '@example.com';
 //     }
 // }
 
@@ -493,7 +493,7 @@ if (!function_exists('_imp_hook_quota')) {
     {
         $host = $_SESSION['imp']['server'];
         $user = $_SESSION['imp']['user'];
-        $pass = Auth::getCredential('password');
+        $pass = Horde_Auth::getCredential('password');
         $command = $params[0];
 
         $session = ssh2_connect($host);

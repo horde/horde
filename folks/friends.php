@@ -14,7 +14,7 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 require_once FOLKS_BASE . '/lib/Forms/Activity.php';
 
-if (!Auth::isAuthenticated()) {
+if (!Horde_Auth::isAuthenticated()) {
     Horde::authenticationFailureRedirect();
 }
 
@@ -59,7 +59,7 @@ krsort($firendActivities);
 $firendActivities = array_slice($firendActivities, 0, 30);
 
 // Own activities
-$activities = $folks_driver->getActivity(Auth::getAuth());
+$activities = $folks_driver->getActivity(Horde_Auth::getAuth());
 if ($activities instanceof PEAR_Error) {
     $notification->push($activities);
     header('Location: ' . Folks::getUrlFor('list', 'list'));

@@ -3,7 +3,7 @@ if (!$prefs->isLocked('default_share')):
     $sharelist = Kronolith::listCalendars();
     if (($default_share = $prefs->getValue('default_share')) == null ||
         !isset($sharelist[$default_share])) {
-        $default_share = Auth::getAuth();
+        $default_share = Horde_Auth::getAuth();
     }
 ?>
 

@@ -91,7 +91,7 @@ $prefGroups['authentication'] = array(
     'members' => array('credentialsui'),
 );
 
-$auth = &Auth::singleton($GLOBALS['conf']['auth']['driver']);
+$auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
 if (is_a($auth, 'Auth') && $auth->hasCapability('update')) {
     $prefGroups['forgotpass'] = array(
         'column' => _("Your Information"),

@@ -13,8 +13,8 @@ $authentication = 'none';
 @define('AUTH_HANDLER', true);
 require_once dirname(__FILE__) . '/lib/base.php';
 
-$auth = &Auth::singleton($conf['auth']['driver']);
-if ((!Auth::getAuth() || !IMP::checkAuthentication(true)) &&
+$auth = Horde_Auth::singleton($conf['auth']['driver']);
+if ((!Horde_Auth::getAuth() || !IMP::checkAuthentication(true)) &&
     (!isset($_SERVER['PHP_AUTH_USER']) ||
      !$auth->authenticate($_SERVER['PHP_AUTH_USER'], array('password' => isset($_SERVER['PHP_AUTH_PW']) ? $_SERVER['PHP_AUTH_PW'] : null)))) {
     header('WWW-Authenticate: Basic realm="IMP RSS Interface"');

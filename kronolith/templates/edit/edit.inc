@@ -70,7 +70,7 @@
     $creator = $event->getCreatorId();
     foreach ($calendars as $id => $cal) {
         $delegates = array();
-        if ($cal->hasPermission(Auth::getAuth(), PERMS_EDIT, $creator)) {
+        if ($cal->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT, $creator)) {
             $delegates[$id] = htmlspecialchars($cal->get('name'));
         } else {
             $delegates[$id . ':' . $cal->get('owner')] = htmlspecialchars($cal->get('name'). ' (' . sprintf(_("as %s"), Kronolith::getUserName($cal->get('owner'))) . ')');

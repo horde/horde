@@ -55,7 +55,7 @@ class News_Driver {
     public function get($id)
     {
         // Admins bypass the cache (can read nonpublished and locked news)
-        if (!Auth::isAdmin('news:admin')) {
+        if (!Horde_Auth::isAdmin('news:admin')) {
             $key = 'news_'  . News::getLang() . '_' . $id;
             $data = $GLOBALS['cache']->get($key, $GLOBALS['conf']['cache']['default_lifetime']);
             if ($data) {
@@ -68,7 +68,7 @@ class News_Driver {
             return $data;
         }
 
-        if (!Auth::isAdmin('news:admin')) {
+        if (!Horde_Auth::isAdmin('news:admin')) {
             $GLOBALS['cache']->set($key, serialize($data));
         }
 

@@ -30,7 +30,7 @@ case 'download_file':
 
     $data = News::getFile($file_id);
     if ($data instanceof PEAR_Error) {
-        if (Auth::isAdmin('news:admin')) {
+        if (Horde_Auth::isAdmin('news:admin')) {
             Horde::fatal($data, __FILE__, __LINE__);
         } else {
             header('HTTP/1.0 404 Not Found');
@@ -47,7 +47,7 @@ case 'view_file':
 
     $data = News::getFile($file_id);
     if ($data instanceof PEAR_Error) {
-        if (Auth::isAdmin('news:admin')) {
+        if (Horde_Auth::isAdmin('news:admin')) {
             Horde::fatal($data, __FILE__, __LINE__);
         } else {
             header('HTTP/1.0 404 Not Found');
@@ -107,7 +107,7 @@ case 'download_zip':
 
     $data = News::getFile($file_id);
     if ($data instanceof PEAR_Error) {
-        if (Auth::isAdmin('news:admin')) {
+        if (Horde_Auth::isAdmin('news:admin')) {
             Horde::fatal($data, __FILE__, __LINE__);
         } else {
             header('HTTP/1.0 404 Not Found');

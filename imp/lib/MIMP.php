@@ -45,7 +45,7 @@ class MIMP
         // if ($options_link = Horde::getServiceLink('options', 'mimp')) {
         //     $items[Horde_Util::addParameter($options_link, 'mobile', 1, false)] = _("Options");
         // }
-        $logout_link = IMP::getLogoutUrl(AUTH_REASON_LOGOUT);
+        $logout_link = IMP::getLogoutUrl(Horde_Auth::REASON_LOGOUT);
         if (!empty($logout_link)) {
             $items[$logout_link] = _("Log out");
         }

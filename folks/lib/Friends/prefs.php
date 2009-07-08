@@ -103,7 +103,7 @@ class Folks_Friends_prefs extends Folks_Friends {
     private function _lists($type, $user = null)
     {
         if (empty($user)) {
-            $user = Auth::getAuth();
+            $user = Horde_Auth::getAuth();
         }
 
         $u_prefs = Prefs::singleton($GLOBALS['conf']['prefs']['driver'], $GLOBALS['registry']->getApp(), $user);

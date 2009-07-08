@@ -48,11 +48,10 @@ if (empty($ical)) {
 }
 
 // Registry.
-$registry = &Registry::singleton();
+$registry = Registry::singleton();
 
 // Set user.
-$auth = &Auth::singleton($conf['auth']['driver']);
-$auth->setAuth($user, array());
+Horde_Auth::setAuth($user, array());
 
 // Import data.
 $result = $registry->call('calendar/import',

@@ -212,7 +212,7 @@ function _ingo_setVacation($info)
         /* Remove empty lines. */
         $info['addresses'] = preg_replace('/\n+/', "\n", $info['addresses']);
         if (empty($addresses)) {
-            $info['addresses'] = Auth::getAuth();
+            $info['addresses'] = Horde_Auth::getAuth();
         }
     }
 

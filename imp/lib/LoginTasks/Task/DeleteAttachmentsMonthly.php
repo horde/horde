@@ -34,7 +34,7 @@ class IMP_LoginTasks_Task_DeleteAttachmentsMonthly extends Horde_LoginTasks_Task
         $del_time = gmmktime(0, 0, 0, date('n') - $GLOBALS['prefs']->getValue('delete_attachments_monthly_keep'), 1, date('Y'));
 
         $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
-        $path = IMP_Compose::VFS_LINK_ATTACH_PATH . '/' . Auth::getAuth();
+        $path = IMP_Compose::VFS_LINK_ATTACH_PATH . '/' . Horde_Auth::getAuth();
 
         /* Make sure cleaning is done recursively. */
         $files = $vfs->listFolder($path, null, true, false, true);

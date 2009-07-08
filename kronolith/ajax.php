@@ -305,7 +305,7 @@ try {
         $tagger = new Kronolith_Tagger();
         $result = new stdClass;
         $result->tags = array();
-        $tags = $tagger->getCloud(Auth::getAuth(), 10);
+        $tags = $tagger->getCloud(Horde_Auth::getAuth(), 10);
         foreach ($tags as $tag) {
             $result->tags[] = $tag['tag_name'];
         }

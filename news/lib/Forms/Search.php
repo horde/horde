@@ -49,7 +49,7 @@ class News_Search extends Horde_Form {
         $this->addVariable(_("Unpublish"), 'unpublish', 'datetime', false, false, false, $GLOBALS['news']->datetimeParams());
         $this->addVariable(_("User"), 'user', 'text', false, false, false);
 
-        if (Auth::isAdmin()) {
+        if (Horde_Auth::isAdmin()) {
             $this->addVariable(_("Editor"), 'editor', 'text', false, false, false);
         }
 

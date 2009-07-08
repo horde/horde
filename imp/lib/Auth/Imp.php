@@ -1,6 +1,6 @@
 <?php
 /**
- * The Auth_imp:: class provides an IMP implementation of the Horde
+ * The Horde_Auth_Imp:: class provides an IMP implementation of the Horde
  * authentication system.
  *
  * Required parameters: NONE
@@ -14,7 +14,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Auth
  */
-class Auth_imp extends Auth
+class IMP_Auth_Imp extends Horde_Auth_Driver
 {
     /**
      * Find out if a set of login credentials are valid, and if
@@ -28,10 +28,10 @@ class Auth_imp extends Auth
      *
      * @return boolean  Whether or not the credentials are valid.
      */
-    function authenticate($userID = null, $credentials = array(),
-                          $login = false)
+    public function authenticate($userID = null, $credentials = array(),
+                                 $login = false)
     {
-        return parent::authenticate($userID, $credentials, $login && ($this->getProvider() == 'imp'));
+        return parent::authenticate($userID, $credentials, $login && (Horde_Auth::getProvider() == 'imp'));
     }
 
     /**
@@ -40,9 +40,9 @@ class Auth_imp extends Auth
      * @param string $userID      The userID to check.
      * @param array $credentials  An array of login credentials.
      *
-     * @return boolean  Whether or not the credentials are valid.
+     * @throws Horde_Exception
      */
-    function _authenticate($userID, $credentials)
+    protected function _authenticate($userID, $credentials)
     {
         // Check for valid IMAP Client object.
         if (!$GLOBALS['imp_imap']->ob) {
@@ -52,22 +52,19 @@ class Auth_imp extends Auth
                 !isset($credentials['password']) ||
                 !$GLOBALS['imp_imap']->createImapObject($userID, $credentials['password'], $key)) {
                 IMP::loginLogMessage('failed', __FILE__, __LINE__);
-                $this->_setAuthError(AUTH_REASON_FAILED);
-                return false;
+                throw new Horde_Exception('', Horde_Auth::REASON_FAILED);
             }
         }
 
         try {
             $GLOBALS['imp_imap']->ob->login();
-            return true;
         } catch (Horde_Imap_Client_Exception $e) {
             IMP::loginLogMessage($e->getMessage(), __FILE__, __LINE__);
             if ($e->getCode() == Horde_Imap_Client_Exception::SERVER_CONNECT) {
-                $this->_setAuthError(AUTH_REASON_MESSAGE, _("Could not connect to the remote server."));
-            } else {
-                $this->_setAuthError(AUTH_REASON_BADLOGIN);
+                throw new Horde_Exception(_("Could not connect to the remote server."));
             }
-            return false;
+
+            throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
     }
 }

@@ -14,7 +14,7 @@ require_once 'Horde/Group.php';
 
 $shares = &Horde_Share::singleton('folks');
 $groups = &Group::singleton();
-$auth = &Auth::singleton($conf['auth']['driver']);
+$auth = Horde_Auth::singleton($conf['auth']['driver']);
 
 $reload = false;
 $actionID = Horde_Util::getFormData('actionID', 'edit');
@@ -31,7 +31,7 @@ case 'edit':
     }
     if (is_a($share, 'PEAR_Error')) {
         $notification->push($share, 'horde.error');
-    } elseif (isset($share) && Auth::getAuth() != $share->get('owner')) {
+    } elseif (isset($share) && Horde_Auth::getAuth() != $share->get('owner')) {
         exit('permission denied');
     }
     break;
@@ -41,16 +41,16 @@ case 'editform':
     if (is_a($share, 'PEAR_Error')) {
         $notification->push(_("Attempt to edit a non-existent share."), 'horde.error');
     } else {
-        if (Auth::getAuth() != $share->get('owner')) {
+        if (Horde_Auth::getAuth() != $share->get('owner')) {
             exit('permission denied');
         }
         $perm = &$share->getPermission();
 
         // Process owner and owner permissions.
         $old_owner = $share->get('owner');
-        $new_owner = Auth::addHook(Horde_Util::getFormData('owner', $old_owner));
+        $new_owner = Horde_Auth::addHook(Horde_Util::getFormData('owner', $old_owner));
         if ($old_owner !== $new_owner && !empty($new_owner)) {
-            if ($old_owner != Auth::getAuth() && !Auth::isAdmin()) {
+            if ($old_owner != Horde_Auth::getAuth() && !Horde_Auth::isAdmin()) {
                 $notification->push(_("Only the owner or system administrator may change ownership or owner permissions for a share"), 'horde.error');
             } else {
                 $share->set('owner', $new_owner);
@@ -133,7 +133,7 @@ case 'editform':
 
         foreach ($u_names as $key => $user) {
             // Apply backend hooks
-            $user = Auth::addHook($user);
+            $user = Horde_Auth::addHook($user);
             // If the user is empty, or we've already set permissions
             // via the owner_ options, don't do anything here.
             if (empty($user) || $user == $new_owner) {
@@ -235,7 +235,7 @@ if ($auth->hasCapability('list')) {
 if (!empty($conf['share']['any_group'])) {
     $groupList = $groups->listGroups();
 } else {
-    $groupList = $groups->getGroupMemberships(Auth::getAuth(), true);
+    $groupList = $groups->getGroupMemberships(Horde_Auth::getAuth(), true);
 }
 if (is_a($groupList, 'PEAR_Error')) {
     Horde::logMessage($groupList, __FILE__, __LINE__, PEAR_LOG_NOTICE);

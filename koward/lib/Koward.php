@@ -35,7 +35,7 @@ class Koward {
         $this->registry     = &$registry;
         $this->notification = &$notification;
 
-        $this->auth = &Auth::singleton($conf['auth']['driver']);
+        $this->auth = Horde_Auth::singleton($conf['auth']['driver']);
 
         $this->conf       = Horde::loadConfiguration('conf.php', 'conf');
         $this->objects    = Horde::loadConfiguration('objects.php', 'objects');
@@ -105,8 +105,8 @@ class Koward {
     public function getServer()
     {
         if (!isset(self::$server)) {
-            self::$server = Horde_Kolab_Server::singleton(array('user' => Auth::getAuth(),
-                                                                'pass' => Auth::getCredential('password')));
+            self::$server = Horde_Kolab_Server::singleton(array('user' => Horde_Auth::getAuth(),
+                                                                'pass' => Horde_Auth::getCredential('password')));
         }
 
         return self::$server;

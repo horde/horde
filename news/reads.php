@@ -13,7 +13,7 @@
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-if (!Auth::isAuthenticated()) {
+if (!Horde_Auth::isAuthenticated()) {
     Horde::authenticationFailureRedirect();
 }
 

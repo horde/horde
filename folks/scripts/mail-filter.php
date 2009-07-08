@@ -176,8 +176,7 @@ $title = _("Email problem");
 $body = _("Dear %s, we tried to send you an email, but if turns out that the mail is usable any more. Maybe you run over quota. If your mail is discontinued, please update your profile with the email you are using now at %s.");
 
 // Horde Auto login to send messages with
-$auth = Auth::singleton('auto', array('username' => $opts_hash['--username']));
-$auth->setAuth($opts_hash['--username'], array('transparent' => 1));
+Horde_Auth::setAuth($opts_hash['--username'], array('transparent' => 1));
 
 // Send messages
 foreach ($users as $user) {

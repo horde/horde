@@ -14,7 +14,7 @@
 require_once dirname(__FILE__) . '/../../lib/base.php';
 require_once FOLKS_BASE . '/lib/Friends.php';
 
-if (!Auth::isAuthenticated()) {
+if (!Horde_Auth::isAuthenticated()) {
     Horde::authenticationFailureRedirect();
 }
 
@@ -37,13 +37,13 @@ if ($result instanceof PEAR_Error) {
 $notification->push(sprintf(_("User \"%s\" was confirmed as a friend."), $user), 'horde.success');
 
 $title = sprintf(_("%s approved you as a friend on %s"),
-                    Auth::getAuth(),
+                    Horde_Auth::getAuth(),
                     $registry->get('name', 'horde'));
 
 $body = sprintf(_("User %s confirmed you as a friend on %s.. \nTo see to his profile, go to: %s \n"),
-                Auth::getAuth(),
+                Horde_Auth::getAuth(),
                 $registry->get('name', 'horde'),
-                Folks::getUrlFor('user', Auth::getAuth(), true, -1));
+                Folks::getUrlFor('user', Horde_Auth::getAuth(), true, -1));
 
 $friends->sendNotification($user, $title, $body);
 

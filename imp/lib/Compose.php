@@ -1000,7 +1000,7 @@ class IMP_Compose
             if (($this->_linkAttach &&
                  $GLOBALS['conf']['compose']['link_attachments']) ||
                 !empty($GLOBALS['conf']['compose']['link_all_attachments'])) {
-                $base = $this->linkAttachments(Horde::applicationUrl('attachment.php', true), $textpart, Auth::getAuth());
+                $base = $this->linkAttachments(Horde::applicationUrl('attachment.php', true), $textpart, Horde_Auth::getAuth());
 
                 if ($this->_pgpAttachPubkey || $this->_attachVCard) {
                     $new_body = new Horde_Mime_Part();

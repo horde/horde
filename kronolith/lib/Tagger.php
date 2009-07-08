@@ -83,7 +83,7 @@ class Kronolith_Tagger
             $tags = self::$_tagger->splitTags($tags);
         }
 
-        self::$_tagger->tag(Auth::getAuth(),
+        self::$_tagger->tag(Horde_Auth::getAuth(),
                    array('object' => $localId,
                          'type' => self::$_type_ids[$content_type]),
                    $tags);
@@ -269,7 +269,7 @@ class Kronolith_Tagger
      */
     public function listTags($token)
     {
-        return self::$_tagger->getTags(array('q' => $token, 'userId' => Auth::getAuth()));
+        return self::$_tagger->getTags(array('q' => $token, 'userId' => Horde_Auth::getAuth()));
     }
 
     /**

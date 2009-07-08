@@ -72,9 +72,9 @@ class IMP
                                                $hordeauth = false)
     {
         if ($hordeauth) {
-            $reason = Auth::isAuthenticated();
+            $reason = Horde_Auth::isAuthenticated();
         } else {
-            $auth_imp = Auth::singleton(array('imp', 'imp'));
+            $auth_imp = Horde_Auth::singleton(array('imp', 'imp'));
             $reason = $auth_imp->authenticate(null, array(), false);
         }
 
@@ -599,7 +599,7 @@ class IMP
          * then we only show the logout link if the sidebar isn't shown or if
          * the configuration says to always show the current user a logout
          * link. */
-        $impAuth = ((Auth::getProvider() == 'imp') || $_SESSION['imp']['autologin']);
+        $impAuth = ((Horde_Auth::getProvider() == 'imp') || $_SESSION['imp']['autologin']);
         if (!$impAuth ||
             !$prefs->getValue('show_sidebar') ||
             Horde::showService('logout')) {
@@ -1290,15 +1290,15 @@ class IMP
         ));
 
         if ($force ||
-            !((Auth::getProvider() != 'imp') || !$_SESSION['imp']['autologin'])) {
+            !((Horde_Auth::getProvider() != 'imp') || !$_SESSION['imp']['autologin'])) {
             $url = $GLOBALS['registry']->get('webroot', 'imp') . '/login.php';
         } else {
             $url = Horde::getServiceLink('logout', 'horde', true);
         }
 
         $url = (!is_null($reason) && is_array($reason))
-            ? Auth::addLogoutParameters($url, $reason[0], $reason[1])
-            : Auth::addLogoutParameters($url, $reason);
+            ? Horde_Auth::addLogoutParameters($url, $reason[0], $reason[1])
+            : Horde_Auth::addLogoutParameters($url, $reason);
 
         if (!empty($params)) {
             $url = Horde_Util::addParameter($url, $params, null, false);
@@ -1720,7 +1720,7 @@ class IMP
         $key = &self::$_authkey;
 
         if (is_null($key)) {
-            $key = Horde_Secret::getKey(Auth::getProvider() == 'imp' ? 'auth' : 'imp');
+            $key = Horde_Secret::getKey(Horde_Auth::getProvider() == 'imp' ? 'auth' : 'imp');
         }
         return $key;
     }

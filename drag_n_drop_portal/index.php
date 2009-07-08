@@ -15,7 +15,7 @@ require_once HORDE_BASE . '/lib/base.php';
 require_once 'Horde/Loader.php';
 require_once './lib/Block/Layout/View/js.php';
 
-if (!Auth::isAuthenticated()) {
+if (!Horde_Auth::isAuthenticated()) {
     Horde::authenticationFailureRedirect();
 }
 

@@ -26,7 +26,7 @@ $form = new Horde_Form($vars, $title, 'invite');
 $form->addVariable(_("Friend's e-mail"), 'email', 'email', true);
 
 $v = &$form->addVariable(_("Subject"), 'subject', 'text', true);
-$v->setDefault(sprintf(_("%s Invited to join %s."), ucfirst(Auth::getAuth()), $registry->get('name', 'horde')));
+$v->setDefault(sprintf(_("%s Invited to join %s."), ucfirst(Horde_Auth::getAuth()), $registry->get('name', 'horde')));
 
 $v = &$form->addVariable(_("Body"), 'body', 'longtext', true);
 $body = Horde::loadConfiguration('invite.php', 'body', 'folks');
@@ -34,9 +34,9 @@ if ($body instanceof PEAR_Error) {
     $body = $body->getMessage();
 } else {
     $body = sprintf($body, $registry->get('name', 'horde'),
-                            Folks::getUrlFor('user', Auth::getAuth(), true),
+                            Folks::getUrlFor('user', Horde_Auth::getAuth(), true),
                             Horde::applicationUrl('account/signup.php', true),
-                            Auth::getAuth());
+                            Horde_Auth::getAuth());
 }
 $v->setDefault($body);
 

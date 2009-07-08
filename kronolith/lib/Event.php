@@ -282,7 +282,7 @@ abstract class Kronolith_Event
     public function hasPermission($permission, $user = null)
     {
         if ($user === null) {
-            $user = Auth::getAuth();
+            $user = Horde_Auth::getAuth();
         }
 
         if ($this->remoteCal) {
@@ -387,7 +387,7 @@ abstract class Kronolith_Event
         $vEvent->setAttribute('ORGANIZER',
                               'mailto:' . Kronolith::getUserEmail($this->getCreatorId()),
                               array('CN' => $name));
-        if (!$this->isPrivate() || $this->getCreatorId() == Auth::getAuth()) {
+        if (!$this->isPrivate() || $this->getCreatorId() == Horde_Auth::getAuth()) {
             if (!empty($this->description)) {
                 $vEvent->setAttribute('DESCRIPTION', $v1 ? $this->description : Horde_String::convertCharset($this->description, NLS::getCharset(), 'utf-8'));
             }
@@ -814,7 +814,7 @@ abstract class Kronolith_Event
     {
         // See if it's a new event.
         if ($this->getId() === null) {
-            $this->setCreatorId(Auth::getAuth());
+            $this->setCreatorId(Horde_Auth::getAuth());
         }
         if (!empty($hash['title'])) {
             $this->setTitle($hash['title']);
@@ -944,7 +944,7 @@ abstract class Kronolith_Event
         }
 
         if (empty($user)) {
-            $user = Auth::getAuth();
+            $user = Horde_Auth::getAuth();
         }
         if (empty($prefs)) {
             $prefs = $GLOBALS['prefs'];
@@ -1297,7 +1297,7 @@ abstract class Kronolith_Event
      */
     public function getCreatorId()
     {
-        return !empty($this->creatorID) ? $this->creatorID : Auth::getAuth();
+        return !empty($this->creatorID) ? $this->creatorID : Horde_Auth::getAuth();
     }
 
     /**
@@ -1330,7 +1330,7 @@ abstract class Kronolith_Event
         }
 
         if ($user === null) {
-            $user = Auth::getAuth();
+            $user = Horde_Auth::getAuth();
         }
 
         $twentyFour = $GLOBALS['prefs']->getValue('twentyFour');
@@ -1338,10 +1338,10 @@ abstract class Kronolith_Event
         $end = $this->end->format($twentyFour ? 'G:i' : 'g:ia');
 
         // We explicitly allow admin access here for the alarms notifications.
-        if (!Auth::isAdmin() && $this->isPrivate() &&
+        if (!Horde_Auth::isAdmin() && $this->isPrivate() &&
             $this->getCreatorId() != $user) {
             return _("busy");
-        } elseif (Auth::isAdmin() || $this->hasPermission(PERMS_READ, $user)) {
+        } elseif (Horde_Auth::isAdmin() || $this->hasPermission(PERMS_READ, $user)) {
             return strlen($this->title) ? $this->title : _("[Unnamed event]");
         } else {
             return _("busy");
@@ -1562,7 +1562,7 @@ abstract class Kronolith_Event
         if (strpos($targetcalendar, ':')) {
             list(, $creator) = explode(':', $targetcalendar, 2);
         } else {
-            $creator = isset($this->eventID) ? $this->getCreatorId() : Auth::getAuth();
+            $creator = isset($this->eventID) ? $this->getCreatorId() : Horde_Auth::getAuth();
         }
         $this->setCreatorId($creator);
 
@@ -2199,7 +2199,7 @@ abstract class Kronolith_Event
 
             $edit = '';
             $delete = '';
-            if ((!$this->isPrivate() || $this->getCreatorId() == Auth::getAuth())
+            if ((!$this->isPrivate() || $this->getCreatorId() == Horde_Auth::getAuth())
                 && $this->hasPermission(PERMS_EDIT)) {
                 $editurl = $this->getEditUrl(array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'),
                                                    'url' => $from_url));
@@ -2246,10 +2246,10 @@ abstract class Kronolith_Event
     public function getTooltip()
     {
         $tooltip = $this->getTimeRange()
-            . "\n" . sprintf(_("Owner: %s"), ($this->getCreatorId() == Auth::getAuth() ?
+            . "\n" . sprintf(_("Owner: %s"), ($this->getCreatorId() == Horde_Auth::getAuth() ?
                                               _("Me") : Kronolith::getUserName($this->getCreatorId())));
 
-        if (!$this->isPrivate() || $this->getCreatorId() == Auth::getAuth()) {
+        if (!$this->isPrivate() || $this->getCreatorId() == Horde_Auth::getAuth()) {
             if ($this->location) {
                 $tooltip .= "\n" . _("Location") . ': ' . $this->location;
             }

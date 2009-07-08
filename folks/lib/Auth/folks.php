@@ -1,9 +1,9 @@
 <?php
 /**
- * The Auth_folks class provides a sql implementation of the Horde
- * authentication system with use of folks app
+ * The Folks_Auth_Folks class provides a sql implementation of the Horde
+ * authentication system with use of folks app.
  *
- * $Id: folks.php 930 2008-09-26 09:14:36Z duck $
+ * $Horde$
  *
  * Copyright 2008 Obala d.o.o. (http://www.obala.si/)
  *
@@ -12,42 +12,38 @@
  *
  * @author Duck <duck@obala.net>
  */
-class Auth_folks extends Auth_application {
-
+class Folks_Auth_Folks extends Horde_Auth_Application
+{
     /**
      * An array of capabilities, so that the driver can report which
      * operations it supports and which it doesn't.
      *
      * @var array
      */
-    var $capabilities = array('add'           => false,
-                              'update'        => false,
-                              'resetpassword' => true,
-                              'remove'        => false,
-                              'list'          => false,
-                              'transparent'   => false);
+    protected $capabilities = array(
+        'resetpassword' => true
+    );
 
     /**
      * Constructs a new Application authentication object.
      *
      * @param array $params  A hash containing connection parameters.
      */
-    function Auth_folks($params = array())
+    public function __construct($params = array())
     {
-        $this->_params = array('app' => 'folks');
+        $params['app'] = 'folks';
+        parent::__construct($params);
     }
 
     /**
      * Returns the URI of the login screen for this authentication object.
-     *
-     * @access private
      *
      * @param string $app  The application to use.
      * @param string $url  The URL to redirect to after login.
      *
      * @return string  The login screen URI.
      */
-    function _getLoginScreen($app = 'folks', $url = '')
+    public function getLoginScreen($app = 'folks', $url = '')
     {
         $webroot = $GLOBALS['registry']->get('webroot', 'folks');
         if ($webroot instanceof PEAR_Error) {
@@ -64,13 +60,11 @@ class Auth_folks extends Auth_application {
     /**
      * Checks if $userId exists in the system.
      *
-     * @abstract
-     *
      * @param string $userId User ID for which to check
      *
      * @return boolean  Whether or not $userId already exists.
      */
-    function exists($userId)
+    public function exists($userId)
     {
         return $GLOBALS['registry']->callByPackage('folks',
                                                     'userExists',
@@ -83,24 +77,24 @@ class Auth_folks extends Auth_application {
      *
      * @param string $userId  The user id for which to reset the password.
      *
-     * @return mixed  The new password on success or a PEAR_Error object on
-     *                failure.
+     * @return string  The new password on success.
+     * @throws Horde_Exception
      */
-    function resetPassword($userId)
+    public function resetPassword($userId)
     {
         /* Get a new random password. */
-        $password = Auth::genRandomPassword();
+        $password = Horde_Auth::genRandomPassword();
 
         /* Process. */
         $fileroot = $GLOBALS['registry']->get('fileroot', 'folks');
         if ($fileroot instanceof PEAR_Error) {
-            return $fileroot;
+            throw new Horde_Exception($fileroot);
         }
 
         require_once $fileroot . '/lib/base.php';
         $result = $GLOBALS['folks_driver']->changePassword($password, $userId);
         if ($result instanceof PEAR_Error) {
-            return $result;
+            throw new Horde_Exception($result);
         }
 
         return $password;
@@ -110,9 +104,10 @@ class Auth_folks extends Auth_application {
      * Automatic authentication: Finds out if the client matches an allowed IP
      * block.
      *
-     * @return boolean  Whether or not the client is allowed.
+     * @return boolean
+     * @throws Horde_Exception
      */
-    function transparent()
+    protected function _transparent()
     {
         if (!isset($_COOKIE['folks_login_code']) ||
             !isset($_COOKIE['folks_login_user'])) {
@@ -121,7 +116,7 @@ class Auth_folks extends Auth_application {
 
         $fileroot = $GLOBALS['registry']->get('webroot', 'folks');
         if ($fileroot instanceof PEAR_Error) {
-            return $fileroot;
+            throw new Horde_Exception($fileroot);
         }
 
         require_once $fileroot . '/lib/base.php';
@@ -132,9 +127,9 @@ class Auth_folks extends Auth_application {
         if ($this->setAuth($_COOKIE['folks_login_user'], array('transparent' => 1, 'password' => null))) {
             $GLOBALS['folks_driver']->resetOnlineUsers();
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**

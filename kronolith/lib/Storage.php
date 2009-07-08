@@ -37,7 +37,7 @@ class Kronolith_Storage {
     function &factory($user = null, $driver = null, $params = null)
     {
         if (is_null($user)) {
-            $user = Auth::getAuth();
+            $user = Horde_Auth::getAuth();
         }
 
         if (is_null($driver)) {
@@ -96,7 +96,7 @@ class Kronolith_Storage {
         static $instances = array();
 
         if (is_null($user)) {
-            $user = Auth::getAuth();
+            $user = Horde_Auth::getAuth();
         }
 
         if (is_null($driver)) {

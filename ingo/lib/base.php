@@ -37,7 +37,7 @@ $notification = &Horde_Notification::singleton();
 $notification->attach('status');
 
 // Redirect the user to the Horde login page if they haven't authenticated.
-if (!Auth::isAuthenticated() && !defined('AUTH_HANDLER')) {
+if (!Horde_Auth::isAuthenticated() && !defined('AUTH_HANDLER')) {
     Horde::authenticationFailureRedirect();
 }
 
@@ -60,13 +60,13 @@ if ($driver->supportShares()) {
     $GLOBALS['all_rulesets'] = Ingo::listRulesets();
 
     /* If personal share doesn't exist then create it. */
-    $signature = $_SESSION['ingo']['backend']['id'] . ':' . Auth::getAuth();
+    $signature = $_SESSION['ingo']['backend']['id'] . ':' . Horde_Auth::getAuth();
     if (!$GLOBALS['ingo_shares']->exists($signature)) {
         require_once 'Horde/Identity.php';
         $identity = &Identity::singleton();
         $name = $identity->getValue('fullname');
         if (trim($name) == '') {
-            $name = Auth::removeHook(Auth::getAuth());
+            $name = Horde_Auth::removeHook(Horde_Auth::getAuth());
         }
         $share = &$GLOBALS['ingo_shares']->newShare($signature);
         $share->set('name', $name);
@@ -78,7 +78,7 @@ if ($driver->supportShares()) {
     $_SESSION['ingo']['current_share'] = Horde_Util::getFormData('ruleset', @$_SESSION['ingo']['current_share']);
     if (empty($_SESSION['ingo']['current_share']) ||
         empty($GLOBALS['all_rulesets'][$_SESSION['ingo']['current_share']]) ||
-        !$GLOBALS['all_rulesets'][$_SESSION['ingo']['current_share']]->hasPermission(Auth::getAuth(), PERMS_READ)) {
+        !$GLOBALS['all_rulesets'][$_SESSION['ingo']['current_share']]->hasPermission(Horde_Auth::getAuth(), PERMS_READ)) {
         $_SESSION['ingo']['current_share'] = $signature;
     }
 } else {

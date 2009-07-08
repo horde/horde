@@ -112,8 +112,8 @@ class Ingo
             $user = ($full ||
                      (isset($_SESSION['ingo']['backend']['hordeauth']) &&
                       $_SESSION['ingo']['backend']['hordeauth'] === 'full')) ?
-                Auth::getAuth() :
-                Auth::getBareAuth();
+                Horde_Auth::getAuth() :
+                Horde_Auth::getBareAuth();
         } else {
             list(, $user) = explode(':', $_SESSION['ingo']['current_share'], 2);
         }
@@ -286,15 +286,15 @@ class Ingo
         // Set authentication parameters.
         if (!empty($_SESSION['ingo']['backend']['hordeauth'])) {
             $params['username'] = ($_SESSION['ingo']['backend']['hordeauth'] === 'full')
-                        ? Auth::getAuth() : Auth::getBareAuth();
-            $params['password'] = Auth::getCredential('password');
+                        ? Horde_Auth::getAuth() : Horde_Auth::getBareAuth();
+            $params['password'] = Horde_Auth::getCredential('password');
         } elseif (isset($_SESSION['ingo']['backend']['params']['username']) &&
                   isset($_SESSION['ingo']['backend']['params']['password'])) {
             $params['username'] = $_SESSION['ingo']['backend']['params']['username'];
             $params['password'] = $_SESSION['ingo']['backend']['params']['password'];
         } else {
-            $params['username'] = Auth::getBareAuth();
-            $params['password'] = Auth::getCredential('password');
+            $params['username'] = Horde_Auth::getBareAuth();
+            $params['password'] = Horde_Auth::getCredential('password');
         }
 
         return Ingo_Driver::factory($_SESSION['ingo']['backend']['driver'], $params);
@@ -313,7 +313,7 @@ class Ingo
     static public function listRulesets($owneronly = false,
                                         $permission = PERMS_SHOW)
     {
-        $rulesets = $GLOBALS['ingo_shares']->listShares(Auth::getAuth(), $permission, $owneronly ? Auth::getAuth() : null);
+        $rulesets = $GLOBALS['ingo_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null);
         if (is_a($rulesets, 'PEAR_Error')) {
             Horde::logMessage($rulesets, __FILE__, __LINE__, PEAR_LOG_ERR);
             return array();
@@ -338,7 +338,7 @@ class Ingo
             }
             static $all_perms;
             if (!isset($all_perms)) {
-                $all_perms = $GLOBALS['ingo_shares']->getPermissions($_SESSION['ingo']['current_share'], Auth::getAuth());
+                $all_perms = $GLOBALS['ingo_shares']->getPermissions($_SESSION['ingo']['current_share'], Horde_Auth::getAuth());
             }
             return $all_perms & $mask;
         }
@@ -407,7 +407,7 @@ class Ingo
             $menu->add(Horde::applicationUrl('script.php'), _("_Script"), 'script.png');
         }
         if (!empty($GLOBALS['ingo_shares']) && empty($GLOBALS['conf']['share']['no_sharing'])) {
-            $menu->add('#', _("_Permissions"), 'perms.png', $GLOBALS['registry']->getImageDir('horde'), '', 'popup(\'' . Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/shares/edit.php', true), array('app' => 'ingo', 'share' => htmlspecialchars($_SESSION['ingo']['backend']['id'] . ':' . Auth::getAuth())), null, false) . '\');return false;');
+            $menu->add('#', _("_Permissions"), 'perms.png', $GLOBALS['registry']->getImageDir('horde'), '', 'popup(\'' . Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/shares/edit.php', true), array('app' => 'ingo', 'share' => htmlspecialchars($_SESSION['ingo']['backend']['id'] . ':' . Horde_Auth::getAuth())), null, false) . '\');return false;');
         }
 
         if ($returnType == 'object') {

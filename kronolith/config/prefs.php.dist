@@ -233,7 +233,7 @@ $_prefs['shareselect'] = array('type' => 'special');
 // default calendar
 // Set locked to true if you don't want users to have multiple calendars.
 $_prefs['default_share'] = array(
-    'value' => Auth::getAuth() ? Auth::getAuth() : 0,
+    'value' => Horde_Auth::getAuth() ? Horde_Auth::getAuth() : 0,
     'locked' => false,
     'shared' => false,
     'type' => 'implicit',

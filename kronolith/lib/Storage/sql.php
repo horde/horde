@@ -138,7 +138,7 @@ class Kronolith_Storage_sql extends Kronolith_Storage {
 
         /* Log the query at debug level. */
         Horde::logMessage(sprintf('SQL search by %s: query = "%s"',
-                                  Auth::getAuth(), $query),
+                                  Horde_Auth::getAuth(), $query),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
@@ -179,7 +179,7 @@ class Kronolith_Storage_sql extends Kronolith_Storage {
 
         /* Log the query at debug level. */
         Horde::logMessage(sprintf('SQL insert by %s: query = "%s"',
-                                  Auth::getAuth(), $query),
+                                  Horde_Auth::getAuth(), $query),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */

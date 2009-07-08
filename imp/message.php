@@ -718,7 +718,7 @@ if (!empty($atc_parts) && ($show_parts != 'none')) {
 }
 
 if (IMP::$printMode && !empty($conf['print']['add_printedby'])) {
-    $hdrs[] = array('name' => _("Printed By"), 'val' => $user_identity->getFullname() ? $user_identity->getFullname() : Auth::getAuth(), 'i' => (++$i % 2));
+    $hdrs[] = array('name' => _("Printed By"), 'val' => $user_identity->getFullname() ? $user_identity->getFullname() : Horde_Auth::getAuth(), 'i' => (++$i % 2));
 }
 
 $m_template->set('headers', $hdrs);

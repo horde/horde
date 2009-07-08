@@ -41,7 +41,7 @@ class Kronolith_View_Event {
 
         $createdby = '';
         $modifiedby = '';
-        $userId = Auth::getAuth();
+        $userId = Horde_Auth::getAuth();
         if ($this->event->getUID()) {
             /* Get the event's history. */
             $history = &Horde_History::singleton();
@@ -75,7 +75,7 @@ class Kronolith_View_Event {
         $creatorId = $this->event->getCreatorId();
         $description = $this->event->getDescription();
         $location = $this->event->getLocation();
-        $private = $this->event->isPrivate() && $creatorId != Auth::getAuth();
+        $private = $this->event->isPrivate() && $creatorId != Horde_Auth::getAuth();
         $owner = Kronolith::getUserName($creatorId);
         $status = Kronolith::statusToString($this->event->getStatus());
         $attendees = $this->event->getAttendees();

@@ -28,8 +28,8 @@
     <label for="owner" class="hidden"><?php echo _("Owner:") ?></label>
     <select id="owner" name="owner">
       <option value=""><?php echo _("Select a new owner:") ?></option>
-      <option value="<?php echo htmlspecialchars(Auth::removeHook($owner)) ?>" selected="selected"><?php echo htmlspecialchars(Auth::removeHook($owner)) ?></option>
-<?php foreach ($userList as $user) { if ($user != Auth::removeHook($owner)) { ?>
+      <option value="<?php echo htmlspecialchars(Horde_Auth::removeHook($owner)) ?>" selected="selected"><?php echo htmlspecialchars(Horde_Auth::removeHook($owner)) ?></option>
+<?php foreach ($userList as $user) { if ($user != Horde_Auth::removeHook($owner)) { ?>
       <option value="<?php echo htmlspecialchars($user) ?>"><?php echo htmlspecialchars($user) ?></option>
 <?php } } ?>
     </select>
@@ -37,7 +37,7 @@
 <?php else: ?>
   <td class="light">
     <label for="owner" class="hidden"><?php echo _("Owner:") ?></label>
-    <input type="text" id="owner" name="owner" value="<?php echo htmlspecialchars(Auth::removeHook($owner)) ?>" />
+    <input type="text" id="owner" name="owner" value="<?php echo htmlspecialchars(Horde_Auth::removeHook($owner)) ?>" />
   </td>
 <?php endif; ?>
 </tr>
@@ -183,7 +183,7 @@
 <?php
 foreach ($userperms as $user => $uperm) {
     if ($user != $owner) {
-        $user = Auth::removeHook($user);
+        $user = Horde_Auth::removeHook($user);
 ?>
 <tr>
   <td class="light"><?php echo htmlspecialchars($user) ?><input type="hidden" name="u_names[<?php echo htmlspecialchars($user) ?>]" value="<?php echo htmlspecialchars($user) ?>" /></td>
@@ -220,7 +220,7 @@ foreach ($userperms as $user => $uperm) {
 <?php
 foreach ($userList as $user) {
     if (!isset($userperms[Auth::addHook($user)]) &&
-        $user != Auth::removeHook($owner)) {
+        $user != Horde_Auth::removeHook($owner)) {
 ?>
       <option value="<?php echo htmlspecialchars($user) ?>"><?php echo htmlspecialchars($user) ?></option>
 <?php } } ?>

@@ -15,14 +15,14 @@ require_once KRONOLITH_BASE . '/lib/base.php';
 require_once KRONOLITH_BASE . '/lib/Forms/DeleteCalendar.php';
 
 // Exit if this isn't an authenticated user.
-if (!Auth::getAuth()) {
+if (!Horde_Auth::getAuth()) {
     header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true));
     exit;
 }
 
 $vars = Horde_Variables::getDefaultVariables();
 $calendar_id = $vars->get('c');
-if ($calendar_id == Auth::getAuth()) {
+if ($calendar_id == Horde_Auth::getAuth()) {
     $notification->push(_("This calendar cannot be deleted."), 'horde.warning');
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;
@@ -33,7 +33,7 @@ if (is_a($calendar, 'PEAR_Error')) {
     $notification->push($calendar, 'horde.error');
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;
-} elseif ($calendar->get('owner') != Auth::getAuth()) {
+} elseif ($calendar->get('owner') != Horde_Auth::getAuth()) {
     $notification->push(_("You are not allowed to delete this calendar."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('calendars/', true));
     exit;

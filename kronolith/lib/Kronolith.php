@@ -163,9 +163,9 @@ class Kronolith
             'debug' => !empty($conf['js']['debug']),
         );
         foreach ($GLOBALS['all_calendars'] as $id => $calendar) {
-            $owner = $calendar->get('owner') == Auth::getAuth();
+            $owner = $calendar->get('owner') == Horde_Auth::getAuth();
             $code['conf']['calendars']['internal'][$id] = array(
-                'name' => ($owner ? '' : '[' . Auth::removeHook($calendar->get('owner')) . '] ')
+                'name' => ($owner ? '' : '[' . Horde_Auth::removeHook($calendar->get('owner')) . '] ')
                     . $calendar->get('name'),
                 'owner' => $owner,
                 'fg' => self::foregroundColor($calendar),
@@ -1105,23 +1105,23 @@ class Kronolith
 
         /* If an authenticated user has no calendars visible and their
          * personal calendar doesn't exist, create it. */
-        if (Auth::getAuth() &&
+        if (Horde_Auth::getAuth() &&
             !count($GLOBALS['display_calendars']) &&
-            !$GLOBALS['kronolith_shares']->exists(Auth::getAuth())) {
+            !$GLOBALS['kronolith_shares']->exists(Horde_Auth::getAuth())) {
             require_once 'Horde/Identity.php';
             $identity = &Identity::singleton();
             $name = $identity->getValue('fullname');
             if (trim($name) == '') {
-                $name = Auth::removeHook(Auth::getAuth());
+                $name = Horde_Auth::removeHook(Horde_Auth::getAuth());
             }
-            $share = &$GLOBALS['kronolith_shares']->newShare(Auth::getAuth());
+            $share = &$GLOBALS['kronolith_shares']->newShare(Horde_Auth::getAuth());
             $share->set('name', sprintf(_("%s's Calendar"), $name));
             $GLOBALS['kronolith_shares']->addShare($share);
             $GLOBALS['all_calendars'][Auth::getAuth()] = &$share;
 
             /* Make sure the personal calendar is displayed by default. */
-            if (!in_array(Auth::getAuth(), $GLOBALS['display_calendars'])) {
-                $GLOBALS['display_calendars'][] = Auth::getAuth();
+            if (!in_array(Horde_Auth::getAuth(), $GLOBALS['display_calendars'])) {
+                $GLOBALS['display_calendars'][] = Horde_Auth::getAuth();
             }
 
             /* Calendar auto-sharing with the user's groups */
@@ -1139,11 +1139,11 @@ class Kronolith
                     break;
                 }
                 $groups = &Group::singleton();
-                $group_list = $groups->getGroupMemberships(Auth::getAuth());
+                $group_list = $groups->getGroupMemberships(Horde_Auth::getAuth());
                 if (!is_a($group_list, 'PEAR_Error') && count($group_list)) {
                     $perm = $share->getPermission();
                     // Add the default perm, not added otherwise
-                    $perm->addUserPermission(Auth::getAuth(), PERMS_ALL, false);
+                    $perm->addUserPermission(Horde_Auth::getAuth(), PERMS_ALL, false);
                     foreach ($group_list as $group_id => $group_name) {
                         $perm->addGroupPermission($group_id, $perm_value, false);
                     }
@@ -1427,7 +1427,7 @@ class Kronolith
      */
     public static function listCalendars($owneronly = false, $permission = PERMS_SHOW)
     {
-        $calendars = $GLOBALS['kronolith_shares']->listShares(Auth::getAuth(), $permission, $owneronly ? Auth::getAuth() : null, 0, 0, 'name');
+        $calendars = $GLOBALS['kronolith_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null, 0, 0, 'name');
         if (is_a($calendars, 'PEAR_Error')) {
             Horde::logMessage($calendars, __FILE__, __LINE__, PEAR_LOG_ERR);
             return array();
@@ -1451,8 +1451,8 @@ class Kronolith
             $prefs->isLocked('default_share')) {
             return $default_share;
         } elseif (isset($GLOBALS['all_calendars'][Auth::getAuth()]) &&
-                  $GLOBALS['all_calendars'][Auth::getAuth()]->hasPermission(Auth::getAuth(), $permission)) {
-            return Auth::getAuth();
+                  $GLOBALS['all_calendars'][Auth::getAuth()]->hasPermission(Horde_Auth::getAuth(), $permission)) {
+            return Horde_Auth::getAuth();
         } elseif (count($calendars)) {
             return key($calendars);
         }
@@ -1558,8 +1558,8 @@ class Kronolith
         $mail_params = $conf['mailer']['params'];
         if ($mail_driver == 'smtp' && $mail_params['auth'] &&
             empty($mail_params['username'])) {
-            $mail_params['username'] = Auth::getAuth();
-            $mail_params['password'] = Auth::getCredential('password');
+            $mail_params['username'] = Horde_Auth::getAuth();
+            $mail_params['password'] = Horde_Auth::getCredential('password');
         }
 
         $share = &$GLOBALS['kronolith_shares']->getShare($event->getCalendar());
@@ -1747,8 +1747,8 @@ class Kronolith
         $mail_params = $conf['mailer']['params'];
         if ($mail_driver == 'smtp' && $mail_params['auth'] &&
             empty($mail_params['username'])) {
-            $mail_params['username'] = Auth::getAuth();
-            $mail_params['password'] = Auth::getCredential('password');
+            $mail_params['username'] = Horde_Auth::getAuth();
+            $mail_params['password'] = Horde_Auth::getCredential('password');
         }
 
         foreach ($addresses as $lang => $twentyFour) {
@@ -1830,7 +1830,7 @@ class Kronolith
                       'df' => $prefs->getValue('date_format'));
 
         if ($prefs->getValue('event_notification_exclude_self') &&
-            $user == Auth::getAuth()) {
+            $user == Horde_Auth::getAuth()) {
             return false;
         }
 
@@ -1943,7 +1943,7 @@ class Kronolith
                   'id' => 'tabEvent',
                   'onclick' => 'return ShowTab(\'Event\');'));
         if ((!$event->isPrivate() ||
-             $event->getCreatorId() == Auth::getAuth()) &&
+             $event->getCreatorId() == Horde_Auth::getAuth()) &&
             $event->hasPermission(PERMS_EDIT)) {
             $tabs->addTab(
                 $event->isRemote() ? _("Save As New") : _("_Edit"),
@@ -2045,7 +2045,7 @@ class Kronolith
             if ($cal['url'] == $calendar) {
                 $user = isset($cal['user']) ? $cal['user'] : '';
                 $password = isset($cal['password']) ? $cal['password'] : '';
-                $key = Auth::getCredential('password');
+                $key = Horde_Auth::getCredential('password');
                 if ($key && $user) {
                     $user = Horde_Secret::read($key, base64_decode($user));
                     $password = Horde_Secret::read($key, base64_decode($password));
@@ -2231,7 +2231,7 @@ class Kronolith
 
         /* Check here for guest calendars so that we don't get multiple
          * messages after redirects, etc. */
-        if (!Auth::getAuth() && !count($GLOBALS['all_calendars'])) {
+        if (!Horde_Auth::getAuth() && !count($GLOBALS['all_calendars'])) {
             $GLOBALS['notification']->push(_("No calendars are available to guests."));
         }
 

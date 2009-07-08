@@ -37,7 +37,7 @@ class Koward_Controller_Application extends Horde_Controller_Base
 
         $this->welcome = isset($this->koward->conf['koward']['greeting']) ? $this->koward->conf['koward']['greeting'] : _("Welcome.");
 
-        $this->current_user = Auth::getAuth();
+        $this->current_user = Horde_Auth::getAuth();
 
         $session = Horde_Kolab_Session::singleton();
         if (!empty($session->user_uid)) {
@@ -78,7 +78,7 @@ class Koward_Controller_Application extends Horde_Controller_Base
             $menu->add($this->urlFor(array('controller' => 'check', 'action' => 'show')),
                    _("_Test"), 'problem.png', $registry->getImageDir('horde'));
         }
-        if (Auth::getAuth()) {
+        if (Horde_Auth::getAuth()) {
             $menu->add($this->urlFor(array('controller' => 'index', 'action' => 'logout')),
                        _("_Logout"), 'logout.png', $registry->getImageDir('horde'));
         }
@@ -98,9 +98,9 @@ class Koward_Controller_Application extends Horde_Controller_Base
 
         if (!$this->koward->hasAccess($id, $permission)) {
             $this->koward->notification->push(_("Access denied."), 'horde.error');
-            Horde::logMessage(sprintf('User %s does not have access to action %s!', Auth::getAuth(), $id),
+            Horde::logMessage(sprintf('User %s does not have access to action %s!', Horde_Auth::getAuth(), $id),
                               __FILE__, __LINE__, PEAR_LOG_NOTICE);
-            if (Auth::getAuth()) {
+            if (Horde_Auth::getAuth()) {
                 $url = $this->urlFor(array('controller' => 'index', 'action' => 'index'));
             } else {
                 $url = $this->urlFor(array('controller' => 'index', 'action' => 'login'));

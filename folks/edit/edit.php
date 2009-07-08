@@ -17,7 +17,7 @@ require_once 'tabs.php';
 
 $title = _("Edit my profile");
 
-$profile = $folks_driver->getRawProfile(Auth::getAuth());
+$profile = $folks_driver->getRawProfile(Horde_Auth::getAuth());
 if ($profile instanceof PEAR_Error) {
     $notification->push($profile);
     header('Location: ' . Folks::getUrlFor('list', 'list'));
@@ -34,7 +34,7 @@ $v->setDefault('SI');
 $form->addVariable(_("Homepage"), 'user_url', 'text', false);
 
 if ($registry->hasMethod('video/listVideos')) {
-    $result = $registry->call('video/listVideos', array(array('author' => Auth::getAuth()), 0, 100));
+    $result = $registry->call('video/listVideos', array(array('author' => Horde_Auth::getAuth()), 0, 100));
     if ($result instanceof PEAR_Error) {
         $notification->push($result);
     } else {
@@ -75,7 +75,7 @@ if ($form->validate()) {
     break;
 
     case _("Delete picture"):
-        $result = $folks_driver->deleteImage(Auth::getAuth());;
+        $result = $folks_driver->deleteImage(Horde_Auth::getAuth());;
         if ($result instanceof PEAR_Error) {
             $notification->push($result);
         } else {

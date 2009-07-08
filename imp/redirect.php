@@ -30,7 +30,7 @@ function _newSessionUrl($actionID)
 
     if ($GLOBALS['url_in']) {
         $url = Horde::url(Horde_Util::removeParameter($GLOBALS['url_in'], session_name()), true);
-    } elseif (Auth::getProvider() == 'imp') {
+    } elseif (Horde_Auth::getProvider() == 'imp') {
         $url = Horde::applicationUrl($GLOBALS['registry']->get('webroot', 'horde') . '/', true);
 
         /* Force the initial page to IMP if we're logging in to compose a
@@ -93,7 +93,7 @@ $imapuser = Horde_Util::getPost('imapuser');
 $pass = Horde_Util::getPost('pass');
 if (!empty($autologin)) {
     $imapuser = IMP_Session::canAutoLogin();
-    $pass = Auth::getCredential('password');
+    $pass = Horde_Auth::getCredential('password');
 }
 $isLogin = empty($_SESSION['imp']['logintasks']);
 
@@ -113,7 +113,7 @@ if (isset($_SESSION['imp']) && is_array($_SESSION['imp'])) {
         (!is_null($pass) && ($pass != $GLOBALS['imp_imap']->ob->getParam('password')))) {
         /* Disable the old session. */
         unset($_SESSION['imp']);
-        _redirect(IMP::getLogoutUrl(AUTH_REASON_FAILED, true));
+        _redirect(IMP::getLogoutUrl(Horde_Auth::REASON_FAILED, true));
     }
 
     $url = $url_in;
@@ -133,7 +133,7 @@ if (isset($_SESSION['imp']) && is_array($_SESSION['imp'])) {
 
 /* Create a new session if we're given the proper parameters. */
 if (!is_null($imapuser) && !is_null($pass)) {
-    if (Auth::getProvider() == 'imp') {
+    if (Horde_Auth::getProvider() == 'imp') {
         /* Destroy any existing session on login and make sure to use a new
          * session ID, to avoid session fixation issues. */
         Horde::getCleanSession();

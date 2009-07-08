@@ -31,7 +31,7 @@ if (@include_once 'HTTP/WebDAV/Server.php') {
 }
 
 // Exit if this isn't an authenticated user.
-if (!Auth::getAuth()) {
+if (!Horde_Auth::getAuth()) {
     header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php'));
     exit;
 }

@@ -73,7 +73,7 @@ if (!empty($criteria)) {
     $users = array();
 }
 
-if (Auth::isAuthenticated()) {
+if (Horde_Auth::isAuthenticated()) {
     $queries = $folks_driver->getSavedSearch();
     if ($queries instanceof PEAR_Error) {
         $notification->push($queries);
@@ -93,7 +93,7 @@ require FOLKS_TEMPLATES . '/list/list.php';
 
 echo '<br />';
 $form->renderActive(null, null, null, 'post');
-if (Auth::isAuthenticated()) {
+if (Horde_Auth::isAuthenticated()) {
     require FOLKS_TEMPLATES . '/list/search.php';
 }
 

@@ -37,7 +37,7 @@ if ($help_link) {
 }
 $today = Kronolith::currentDate();
 $remote_calendars = @unserialize($prefs->getValue('remote_cals'));
-$current_user = Auth::getAuth();
+$current_user = Horde_Auth::getAuth();
 $my_calendars = array();
 $shared_calendars = array();
 foreach (Kronolith::listCalendars() as $id => $cal) {

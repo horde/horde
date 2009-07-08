@@ -15,7 +15,7 @@
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-if (!Auth::isAdmin('news:admin')) {
+if (!Horde_Auth::isAdmin('news:admin')) {
     $notification->push(_("Only admin can delete a news."));
     header('Location: ' . Horde::applicationUrl('edit.php'));
     exit;

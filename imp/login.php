@@ -24,9 +24,9 @@ if (!empty($pref_server)) {
 }
 
 /* Get an Auth object. */
-$imp_auth = (Auth::getProvider() == 'imp');
-$auth = &Auth::singleton($conf['auth']['driver']);
-$logout_reason = $auth->getLogoutReason();
+$imp_auth = (Horde_Auth::getProvider() == 'imp');
+$auth = Horde_Auth::singleton($conf['auth']['driver']);
+$logout_reason = Horde_Auth::getLogoutReason();
 
 $actionID = (Horde_Util::getFormData('action') == 'compose') ? 'login_compose' : Horde_Util::getFormData('actionID');
 $url_param = Horde_Util::getFormData('url');
@@ -37,10 +37,10 @@ $load_frameset = intval($imp_auth && empty($conf['menu']['always']));
 if (!empty($_SESSION['imp']) && is_array($_SESSION['imp'])) {
     if ($logout_reason) {
         /* Log logout requests now. */
-        if ($logout_reason == AUTH_REASON_LOGOUT) {
+        if ($logout_reason == Horde_Auth::REASON_LOGOUT) {
             IMP::loginLogMessage('logout', __FILE__, __LINE__, PEAR_LOG_NOTICE);
         } else {
-            Horde::logMessage($_SERVER['REMOTE_ADDR'] . ' ' . $auth->getLogoutReasonString(), __FILE__, __LINE__, PEAR_LOG_NOTICE);
+            Horde::logMessage($_SERVER['REMOTE_ADDR'] . ' ' . Horde_Auth::getLogoutReasonString(), __FILE__, __LINE__, PEAR_LOG_NOTICE);
         }
 
         $language = (isset($prefs)) ? $prefs->getValue('language') : NLS::select();
@@ -53,7 +53,7 @@ if (!empty($_SESSION['imp']) && is_array($_SESSION['imp'])) {
         }
 
         if ($imp_auth) {
-            Auth::clearAuth();
+            Horde_Auth::clearAuth();
             @session_destroy();
             Horde::setupSessionHandler();
             @session_start();
@@ -73,23 +73,23 @@ if (!empty($_SESSION['imp']) && is_array($_SESSION['imp'])) {
 }
 
 /* Log session timeouts. */
-if ($logout_reason == AUTH_REASON_SESSION) {
+if ($logout_reason == Horde_Auth::REASON_SESSION) {
     $entry = sprintf('Session timeout for client [%s]', $_SERVER['REMOTE_ADDR']);
     Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_NOTICE);
 
     /* Make sure everything is really cleared. */
-    Auth::clearAuth();
+    Horde_Auth::clearAuth();
     unset($_SESSION['imp']);
 }
 
 /* Redirect the user on logout if redirection is enabled. */
-if ($logout_reason == AUTH_REASON_LOGOUT &&
+if ($logout_reason == Horde_Auth::REASON_LOGOUT &&
     ($conf['user']['redirect_on_logout'] ||
      !empty($conf['auth']['redirect_on_logout']))) {
     if (!empty($conf['auth']['redirect_on_logout'])) {
-        $url = Auth::addLogoutParameters($conf['auth']['redirect_on_logout'], AUTH_REASON_LOGOUT);
+        $url = Horde_Auth::addLogoutParameters($conf['auth']['redirect_on_logout'], Horde_Auth::REASON_LOGOUT);
     } else {
-        $url = Auth::addLogoutParameters($conf['user']['redirect_on_logout'], AUTH_REASON_LOGOUT);
+        $url = Horde_Auth::addLogoutParameters($conf['user']['redirect_on_logout'], Horde_Auth::REASON_LOGOUT);
     }
     if (!isset($_COOKIE[session_name()])) {
         $url = Horde_Util::addParameter($url, session_name(), session_id());
@@ -100,7 +100,7 @@ if ($logout_reason == AUTH_REASON_LOGOUT &&
 
 /* Redirect the user if an alternate login page has been specified. */
 if (!empty($conf['auth']['alternate_login'])) {
-    $url = Auth::addLogoutParameters($conf['auth']['alternate_login']);
+    $url = Horde_Auth::addLogoutParameters($conf['auth']['alternate_login']);
     if (!isset($_COOKIE[session_name()])) {
         $url = Horde_Util::addParameter($url, session_name(), session_id(), false);
     }
@@ -110,7 +110,7 @@ if (!empty($conf['auth']['alternate_login'])) {
     header('Location: ' . $url);
     exit;
 } elseif ($conf['user']['alternate_login']) {
-    $url = Auth::addLogoutParameters($conf['user']['alternate_login']);
+    $url = Horde_Auth::addLogoutParameters($conf['user']['alternate_login']);
     if (!isset($_COOKIE[session_name()])) {
         $url = Horde_Util::addParameter($url, session_name(), session_id(), false);
     }
@@ -143,18 +143,17 @@ if (!$logout_reason && IMP_Session::canAutoLogin($server_key, $autologin)) {
     exit;
 }
 
-$reason = $auth->getLogoutReasonString();
 $title = sprintf(_("Welcome to %s"), $registry->get('name', ($imp_auth) ? 'horde' : null));
 
-if ($reason) {
-    $notification->push(str_replace('<br />', ' ', $reason), 'horde.message');
+if ($logout_reason) {
+    $notification->push(str_replace('<br />', ' ', $logout_reason), 'horde.message');
 }
 
 /* Build the <select> widget for the servers and hordeauth servers lists. */
 $show_list = ($conf['server']['server_list'] == 'shown');
 if ($show_list) {
     $hordeauth_servers_list = $servers_list = array();
-    $isAuth = Auth::isAuthenticated();
+    $isAuth = Horde_Auth::isAuthenticated();
     foreach ($servers as $key => $val) {
         $entry = array(
             'sel' => ($server_key == $key) || IMP_Session::isPreferredServer($val, $key),
@@ -267,7 +266,7 @@ $t->set('anchor_string', htmlspecialchars(Horde_Util::getFormData('anchor_string
 $t->set('server_key', (!$display_list) ? htmlspecialchars($server_key) : null);
 
 /* Do we need to do IE version detection? */
-$t->set('ie_clientcaps', (!Auth::getAuth() && ($browser->getBrowser() == 'msie') && ($browser->getMajor() >= 5)));
+$t->set('ie_clientcaps', (!Horde_Auth::getAuth() && ($browser->getBrowser() == 'msie') && ($browser->getMajor() >= 5)));
 
 $extra_hidden = array();
 foreach (IMP::getComposeArgs() as $arg => $value) {

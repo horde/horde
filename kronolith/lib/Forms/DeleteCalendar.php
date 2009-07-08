@@ -46,7 +46,7 @@ class Kronolith_DeleteCalendarForm extends Horde_Form {
             return false;
         }
 
-        if ($this->_calendar->get('owner') != Auth::getAuth()) {
+        if ($this->_calendar->get('owner') != Horde_Auth::getAuth()) {
             return PEAR::raiseError(_("Permission denied"));
         }
 
@@ -65,14 +65,14 @@ class Kronolith_DeleteCalendarForm extends Horde_Form {
         // Make sure we still own at least one calendar.
         if (count(Kronolith::listCalendars(true)) == 0) {
             // If the default share doesn't exist then create it.
-            if (!$GLOBALS['kronolith_shares']->exists(Auth::getAuth())) {
+            if (!$GLOBALS['kronolith_shares']->exists(Horde_Auth::getAuth())) {
                 require_once 'Horde/Identity.php';
                 $identity = &Identity::singleton();
                 $name = $identity->getValue('fullname');
                 if (trim($name) == '') {
-                    $name = Auth::removeHook(Auth::getAuth());
+                    $name = Horde_Auth::removeHook(Horde_Auth::getAuth());
                 }
-                $calendar = &$GLOBALS['kronolith_shares']->newShare(Auth::getAuth());
+                $calendar = &$GLOBALS['kronolith_shares']->newShare(Horde_Auth::getAuth());
                 if (is_a($calendar, 'PEAR_Error')) {
                     return;
                 }

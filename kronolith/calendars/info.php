@@ -12,7 +12,7 @@
 require_once KRONOLITH_BASE . '/lib/base.php';
 
 // Exit if this isn't an authenticated user.
-if (!Auth::getAuth()) {
+if (!Horde_Auth::getAuth()) {
     exit;
 }
 

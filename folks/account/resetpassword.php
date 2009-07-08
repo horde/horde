@@ -29,16 +29,16 @@ function _getCAPTCHA($new = false)
 }
 
 // We are already logged
-if (Auth::isAuthenticated()) {
-    header('Location: ' . Folks::getUrlFor('user', Auth::getAuth()));
+if (Horde_Auth::isAuthenticated()) {
+    header('Location: ' . Folks::getUrlFor('user', Horde_Auth::getAuth()));
     exit;
 }
 
 // Make sure auth backend allows passwords to be reset.
-$auth = Auth::singleton($conf['auth']['driver']);
+$auth = Horde_Auth::singleton($conf['auth']['driver']);
 if (!$auth->hasCapability('resetpassword')) {
     $notification->push(_("Cannot reset password automatically, contact your administrator."), 'horde.error');
-    header('Location: ' . Auth::getLoginScreen('', Horde_Util::getFormData('url')));
+    header('Location: ' . Horde_Auth::getLoginScreen('', Horde_Util::getFormData('url')));
     exit;
 }
 
@@ -51,7 +51,7 @@ $form->setButtons(_("Continue"));
 // Get user security pass
 $user = Horde_Util::getFormData('username');
 if ($user) {
-    $u_prefs = Prefs::singleton($conf['prefs']['driver'], 'horde', Auth::addHook($user), '', null, false);
+    $u_prefs = Prefs::singleton($conf['prefs']['driver'], 'horde', Horde_Auth::addHook($user), '', null, false);
     $u_prefs->retrieve();
     $answer = $u_prefs->getValue('security_answer');
     $question = $u_prefs->getValue('security_question');
@@ -82,7 +82,7 @@ if ($form->validate()) {
     $email = Folks::getUserEmail($info['username']);
     if ($email instanceof PEAR_Error) {
         $notification->push($email);
-        header('Location: ' . Auth::getLoginScreen('', $info['url']));
+        header('Location: ' . Horde_Auth::getLoginScreen('', $info['url']));
         exit;
     }
 
@@ -94,7 +94,7 @@ if ($form->validate()) {
         $password = $auth->resetPassword($info['username']);
         if ($password instanceof PEAR_Error) {
             $notification->push($password);
-            header('Location: ' . Auth::getLoginScreen('', $info['url']));
+            header('Location: ' . Horde_Auth::getLoginScreen('', $info['url']));
             exit;
         }
 
@@ -107,7 +107,7 @@ if ($form->validate()) {
         Folks::sendMail($email, _("Your password has been reset"), $body);
 
         $notification->push(sprintf(_("Your password has been reset, check your email (%s) and log in with your new password."), $email), 'horde.success');
-        header('Location: ' . Auth::getLoginScreen('', $info['url']));
+        header('Location: ' . Horde_Auth::getLoginScreen('', $info['url']));
         exit;
     } else {
         /* Info submitted does not match what is in prefs, redirect user back

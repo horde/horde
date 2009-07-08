@@ -136,7 +136,7 @@ class Skoli {
     {
         global $registry;
 
-        $classes = $GLOBALS['skoli_shares']->listShares(Auth::getAuth(), $permission, $owneronly ? Auth::getAuth() : null, 0, 0, 'name');
+        $classes = $GLOBALS['skoli_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null, 0, 0, 'name');
         if (is_a($classes, 'PEAR_Error')) {
             Horde::logMessage($classes, __FILE__, __LINE__, PEAR_LOG_ERR);
             return array();
@@ -208,13 +208,13 @@ class Skoli {
             $share = $GLOBALS['skoli_shares']->getShare($class);
 
             /* Check permissions */
-            if (!$share->hasPermission(Auth::getAuth(), PERMS_READ) || !isset($addressbooks[$share->get('address_book')])) {
+            if (!$share->hasPermission(Horde_Auth::getAuth(), PERMS_READ) || !isset($addressbooks[$share->get('address_book')])) {
                 continue;
             }
 
             $list[$i] = $share->datatreeObject->data;
             $list[$i]['_id'] = $class;
-            $list[$i]['_edit'] = $share->hasPermission(Auth::getAuth(), PERMS_EDIT);
+            $list[$i]['_edit'] = $share->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT);
 
             /* Add all students to the list */
             $driver = &Skoli_Driver::singleton($class);
@@ -334,12 +334,12 @@ class Skoli {
         $addressbooks = $registry->call('contacts/sources');
         foreach ($classes as $class_id=>$share) {
             /* Check permissions */
-            if (!$share->hasPermission(Auth::getAuth(), PERMS_READ) || !isset($addressbooks[$share->get('address_book')])) {
+            if (!$share->hasPermission(Horde_Auth::getAuth(), PERMS_READ) || !isset($addressbooks[$share->get('address_book')])) {
                 continue;
             }
 
-            $share_permissions_edit = $share->hasPermission(Auth::getAuth(), PERMS_EDIT);
-            $share_permissions_delete = $share->hasPermission(Auth::getAuth(), PERMS_DELETE);
+            $share_permissions_edit = $share->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT);
+            $share_permissions_delete = $share->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE);
 
             $driver = &Skoli_Driver::singleton($class_id);
             $entries = $driver->getEntries($studentid, $type, $searchparams);

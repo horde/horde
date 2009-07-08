@@ -37,9 +37,6 @@ $cli = &Horde_Cli::singleton();
 /* Initialize the needed libraries. */
 require_once dirname(dirname(dirname(__FILE__))) . '/lib/base.php';
 
-/* Initialize authentication backend. */
-$auth = &Auth::singleton($conf['auth']['driver']);
-
 /* Initialize storage backends. */
 if ($conf['storage']['driver'] != 'sql') {
     $cli->fatal('You need to configure an SQL storage backend in Ingo\'s configuration', __FILE__, __LINE__);
@@ -69,7 +66,7 @@ while (!feof(STDIN)) {
 
     echo 'Converting filters for user: ' . $user;
 
-    $auth->setAuth($user, array());
+    Horde_Auth::setAuth($user, array());
     $_SESSION['ingo']['current_share'] = ':' . $user;
 
     foreach ($rules as $rule) {

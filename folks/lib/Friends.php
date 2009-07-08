@@ -93,7 +93,7 @@ class Folks_Friends {
     static public function singleton($driver = null, $params = null)
     {
         if (empty($params['user'])) {
-            $params['user'] = Auth::getAuth();
+            $params['user'] = Horde_Auth::getAuth();
         }
 
         $signature = $driver . ':' . $params['user'];
@@ -112,7 +112,7 @@ class Folks_Friends {
      */
     protected function __construct($params)
     {
-        $this->_user = empty($params['user']) ? Auth::getAuth() : $params['user'];
+        $this->_user = empty($params['user']) ? Horde_Auth::getAuth() : $params['user'];
 
         $this->_cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
                                             Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
@@ -144,7 +144,7 @@ class Folks_Friends {
             return (boolean)$GLOBALS['prefs']->getValue('friends_approval');
         }
 
-        $prefs = Prefs::singleton($GLOBALS['conf']['prefs']['driver'], 'folks', Auth::addHook($user), '', null, false);
+        $prefs = Prefs::singleton($GLOBALS['conf']['prefs']['driver'], 'folks', Horde_Auth::addHook($user), '', null, false);
         $prefs->retrieve();
 
         return (boolean)$prefs->getValue('friends_approval');
@@ -219,7 +219,7 @@ class Folks_Friends {
         }
 
         // Check if users exits
-        $auth = Auth::singleton($GLOBALS['conf']['auth']['driver']);
+        $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
         if (!$auth->exists($user)) {
             return PEAR::raiseError(sprintf(_("User \"%s\" does not exits"), $user));
         }
@@ -288,7 +288,7 @@ class Folks_Friends {
         }
 
         // Check if users exits
-        $auth = Auth::singleton($GLOBALS['conf']['auth']['driver']);
+        $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
         if (!$auth->exists($friend)) {
             return PEAR::raiseError(sprintf(_("User \"%s\" does not exits"), $friend));
         }

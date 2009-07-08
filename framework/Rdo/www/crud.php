@@ -17,7 +17,7 @@
 @define('HORDE_BASE', dirname(__FILE__) . '/../../');
 require_once HORDE_BASE . '/lib/base.php';
 
-if (!Auth::isAdmin()) {
+if (!Horde_Auth::isAdmin()) {
     die('Permission denied');
 }
 

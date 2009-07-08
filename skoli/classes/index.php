@@ -12,7 +12,7 @@
 require_once SKOLI_BASE . '/lib/base.php';
 
 // Exit if this isn't an authenticated user.
-if (!Auth::getAuth()) {
+if (!Horde_Auth::getAuth()) {
     header('Location: ' . Horde::applicationUrl('list.php', true));
     exit;
 }

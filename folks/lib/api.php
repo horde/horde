@@ -128,7 +128,7 @@ $_services['getImageUrl'] = array(
     'type' => 'string'
 );
 
-if (Auth::isAdmin()) {
+if (Horde_Auth::isAdmin()) {
     $_services['userList'] = array(
         'type' => '{urn:horde}stringArray'
     );
@@ -334,7 +334,7 @@ function _folks_isBlacklisted($user = null)
 
     $friends = Folks_Friends::singleton('sql', array('user' => $user));
 
-    return $friends->isBlacklisted(Auth::getAuth());
+    return $friends->isBlacklisted(Horde_Auth::getAuth());
 }
 
 /**
@@ -407,8 +407,8 @@ function _folks_listTimeObjects($categories, $start, $end)
 function _folks_logActivity($message, $scope = 'folks', $user = null)
 {
     if (empty($user)) {
-        $user = Auth::getAuth();
-    } elseif ($user !== Auth::getAuth() && !Auth::isAdmin('admin:' . $scope)) {
+        $user = Horde_Auth::getAuth();
+    } elseif ($user !== Horde_Auth::getAuth() && !Horde_Auth::isAdmin('admin:' . $scope)) {
         return PEAR::raiseError(_("You cannot log activities for other users."));
     }
 
@@ -445,7 +445,7 @@ function _folks_setStatus($online = true, $user = null)
     require_once dirname(__FILE__) . '/base.php';
 
     if ($user == null) {
-        $user = Auth::getAuth();
+        $user = Horde_Auth::getAuth();
     }
 
     if ($online) {
@@ -469,7 +469,7 @@ function _folks_getStatus($user = null)
     require_once dirname(__FILE__) . '/base.php';
 
     if ($user == null) {
-        $user = Auth::getAuth();
+        $user = Horde_Auth::getAuth();
     }
 
     return $GLOBALS['folks_driver']->isOnline($user);

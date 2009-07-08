@@ -2,7 +2,7 @@
 <h1><?php echo $title ?></h1>
 
 <?php
-if ($user == Auth::getAuth()) {
+if ($user == Horde_Auth::getAuth()) {
     echo $form->renderActive(null, null, '', 'post') . '<br />';
 }
 ?>
@@ -50,9 +50,9 @@ include FOLKS_TEMPLATES . '/user/actions.php';
             echo '<span class="offline">' . _("Offline") . '</span>';
             if ($profile['last_online_on'] &&
                 ($profile['last_online'] == 'all' ||
-                Auth::isAuthenticated() && (
+                Horde_Auth::isAuthenticated() && (
                     $profile['last_online'] == 'authenticated' ||
-                    $profile['last_online'] == 'friends' && $friends_driver->isFriend(Auth::getAuth())))
+                    $profile['last_online'] == 'friends' && $friends_driver->isFriend(Horde_Auth::getAuth())))
                 ) {
                 echo ' ' . _("Last time online") . ': ' . Folks::format_datetime($profile['last_online_on']);
             }
@@ -222,7 +222,7 @@ $path = $registry->get('webroot', 'genie');
 <tr>
 <td class="header" colspan="2">
 <span style="float: right">
-<a href="<?php echo $path ?>/wishlist.php?wishlist=<?php echo Auth::getAuth() ?>" title="<?php echo _("Add your content") ?>"><img src="<?php echo $registry->getImageDir('horde') ?>/plus.png" /></a>
+<a href="<?php echo $path ?>/wishlist.php?wishlist=<?php echo Horde_Auth::getAuth() ?>" title="<?php echo _("Add your content") ?>"><img src="<?php echo $registry->getImageDir('horde') ?>/plus.png" /></a>
 <a href="<?php echo $path ?>" title="<?php echo _("Preview") ?>"><img src="<?php echo $registry->getImageDir('horde') ?>/nav/right.png" /></a>
 </span>
 <a href="<?php echo $path ?>/wishlist.php?wishlist=<?php echo $user ?>" title="<?php echo _("Others user content") ?>" ><?php echo $registry->get('name', 'genie') ?> (<?php echo $profile['count_wishes'] ?>)</a>
@@ -248,7 +248,7 @@ $path = $registry->get('webroot', 'ansel');
 <tr>
 <td class="header" colspan="2">
 <span style="float: right">
-<a href="<?php echo $path ?>/view.php?groupby=owner&view=List&owner=<?php echo Auth::getAuth() ?>" title="<?php echo _("Add your content") ?>"><img src="<?php echo $registry->getImageDir('horde') ?>/plus.png" /></a>
+<a href="<?php echo $path ?>/view.php?groupby=owner&view=List&owner=<?php echo Horde_Auth::getAuth() ?>" title="<?php echo _("Add your content") ?>"><img src="<?php echo $registry->getImageDir('horde') ?>/plus.png" /></a>
 <a href="<?php echo $path ?>" title="<?php echo _("Preview") ?>"><img src="<?php echo $registry->getImageDir('horde') ?>/nav/right.png" /></a>
 </span>
 <a href="<?php echo $path ?>/view.php?groupby=owner&view=List&owner=<?php echo $user ?>" title="<?php echo _("Others user content") ?>" ><?php echo $registry->get('name', 'ansel') ?> (<?php echo $profile['count_galleries'] ?>)</a> |
@@ -373,9 +373,9 @@ case 'never':
     break;
 
 case 'authenticated':
-    $allow_comments = Auth::isAuthenticated();
+    $allow_comments = Horde_Auth::isAuthenticated();
     if ($allow_comments) {
-        if ($friends_driver->isBlacklisted(Auth::getAuth())) {
+        if ($friends_driver->isBlacklisted(Horde_Auth::getAuth())) {
             $allow_comments = false;
             $comments_reason = sprintf(_("You are on %s blacklist."), $user);
         }
@@ -388,13 +388,13 @@ case 'authenticated':
     break;
 
 case 'friends':
-    $allow_comments = $friends_driver->isFriend(Auth::getAuth());
+    $allow_comments = $friends_driver->isFriend(Horde_Auth::getAuth());
     $comments_reason = _("Only authenticated users can post comments.");
     break;
 
 default:
     $allow_comments = true;
-    if (Auth::isAuthenticated() && $friends_driver->isBlacklisted(Auth::getAuth())) {
+    if (Horde_Auth::isAuthenticated() && $friends_driver->isBlacklisted(Horde_Auth::getAuth())) {
         $allow_comments = false;
         $comments_reason = sprintf(_("You are on %s blacklist."), $user);
     }

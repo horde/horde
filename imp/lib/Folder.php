@@ -56,7 +56,7 @@ class IMP_Folder
     protected function __construct()
     {
         if (!empty($GLOBALS['conf']['server']['cache_folders'])) {
-            $this->_cacheid = 'imp_folder_cache|' . Auth::getAuth();
+            $this->_cacheid = 'imp_folder_cache|' . Horde_Auth::getAuth();
         }
     }
 

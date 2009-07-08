@@ -11,7 +11,7 @@
  */
 
 /* Only admin should be using this. */
-if (!Auth::isAdmin('news:admin')) {
+if (!Horde_Auth::isAdmin('news:admin')) {
     $notification->push(_("You are not authorised for this action."), 'horde.warning');
     Horde::authenticationFailureRedirect();
 }

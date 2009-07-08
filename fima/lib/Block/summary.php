@@ -37,7 +37,7 @@ class Horde_Block_fima_summary extends Horde_Block {
                      'show_ledger' => array(
                          'type' => 'enum',
                          'name' => _("Show summary of this ledger"),
-                         'default' => Auth::getAuth(),
+                         'default' => Horde_Auth::getAuth(),
                          'values' => $ledgers),
                      'show_months' => array(
                          'type' => 'enum',

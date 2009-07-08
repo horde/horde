@@ -16,7 +16,7 @@ require_once KRONOLITH_BASE . '/lib/Forms/EditRemoteCalendar.php';
 
 // Exit if this isn't an authenticated user or if the user can't
 // subscribe to remote calendars (remote_cals is locked).
-if (!Auth::getAuth() || $prefs->isLocked('remote_cals')) {
+if (!Horde_Auth::getAuth() || $prefs->isLocked('remote_cals')) {
     header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true));
     exit;
 }
@@ -53,7 +53,7 @@ if ($form->validate($vars)) {
     exit;
 }
 
-$key = Auth::getCredential('password');
+$key = Horde_Auth::getCredential('password');
 $username = $calendar['user'];
 $password = $calendar['password'];
 if ($key) {

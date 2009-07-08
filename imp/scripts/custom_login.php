@@ -4,7 +4,7 @@ $authentication = 'none';
 require_once '/lib/base.php';
 
 /* Set up the password encryption token. */
-Horde_Secret::setKey(Auth::getProvider() == 'imp' ? 'auth' : 'imp');
+Horde_Secret::setKey(Horde_Auth::getProvider() == 'imp' ? 'auth' : 'imp');
 
 /* Use the first server defined in servers.php. */
 // CUSTOMIZE THIS

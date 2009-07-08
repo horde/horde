@@ -50,8 +50,8 @@ class Folks_Notification {
         $result = false;
 
         if (empty($user)) {
-            if (Auth::isAuthenticated()) {
-                $user = Auth::getAuth();
+            if (Horde_Auth::isAuthenticated()) {
+                $user = Horde_Auth::getAuth();
             } else {
                 return true;
             }
@@ -92,8 +92,8 @@ class Folks_Notification {
         $result = false;
 
         if (empty($user)) {
-            if (Auth::isAuthenticated()) {
-                $user = Auth::getAuth();
+            if (Horde_Auth::isAuthenticated()) {
+                $user = Horde_Auth::getAuth();
             } else {
                 return true;
             }

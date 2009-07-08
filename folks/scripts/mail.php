@@ -83,7 +83,7 @@ foreach ($opts as $opt) {
 
 // Login to horde if username & password are set.
 if (!empty($username) && !empty($password)) {
-    $auth = Auth::singleton($conf['auth']['driver']);
+    $auth = Horde_Auth::singleton($conf['auth']['driver']);
     if (!$auth->authenticate($username, array('password' => $password))) {
         $error = _("Login is incorrect.");
         Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_ERR);
@@ -96,7 +96,7 @@ if (!empty($username) && !empty($password)) {
 }
 
 // Only admins can run this operation
-if (!Auth::isAdmin('folks:admin')) {
+if (!Horde_Auth::isAdmin('folks:admin')) {
     $cli->fatal('ADMIN ONLY');
 }
 

@@ -63,7 +63,7 @@ class Kronolith_View_EditEvent {
 
         $url = Horde_Util::getFormData('url');
         $perms = PERMS_EDIT;
-        if ($this->event->getCreatorId() == Auth::getAuth()) {
+        if ($this->event->getCreatorId() == Horde_Auth::getAuth()) {
             $perms |= PERMS_DELEGATE;
         }
         $calendars = Kronolith::listCalendars(false, $perms);

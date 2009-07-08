@@ -175,7 +175,7 @@ function _kronolith_perms()
  */
 function _kronolith_removeUserData($user)
 {
-    if (!Auth::isAdmin() && $user != Auth::getAuth()) {
+    if (!Horde_Auth::isAdmin() && $user != Horde_Auth::getAuth()) {
         return PEAR::raiseError(_("You are not allowed to remove user data."));
     }
 
@@ -339,7 +339,7 @@ function _kronolith_browse($path = '', $properties = array())
         //
         // This request is for all calendars owned by the requested user
         //
-        $calendars = $GLOBALS['kronolith_shares']->listShares(Auth::getAuth(),
+        $calendars = $GLOBALS['kronolith_shares']->listShares(Horde_Auth::getAuth(),
                                                               PERMS_SHOW,
                                                               $parts[0]);
         $results = array();
@@ -358,7 +358,7 @@ function _kronolith_browse($path = '', $properties = array())
                 $results[$retpath . '.ics']['icon'] = $registry->getImageDir() . '/mime/icalendar.png';
             }
             if (in_array('browseable', $properties)) {
-                $results[$retpath]['browseable'] = $calendar->hasPermission(Auth::getAuth(), PERMS_READ);
+                $results[$retpath]['browseable'] = $calendar->hasPermission(Horde_Auth::getAuth(), PERMS_READ);
                 $results[$retpath . '.ics']['browseable'] = false;
             }
             if (in_array('contenttype', $properties)) {
@@ -1013,7 +1013,7 @@ function _kronolith_delete($uid)
     }
 
     $event = null;
-    if (Auth::isAdmin()) {
+    if (Horde_Auth::isAdmin()) {
         $event = $events[0];
     }
 
@@ -1021,7 +1021,7 @@ function _kronolith_delete($uid)
     if (empty($event)) {
         $ownerCalendars = Kronolith::listCalendars(true, PERMS_DELETE);
         foreach ($events as $ev) {
-            if (Auth::isAdmin() || isset($ownerCalendars[$ev->getCalendar()])) {
+            if (Horde_Auth::isAdmin() || isset($ownerCalendars[$ev->getCalendar()])) {
                 $event = $ev;
                 break;
             }
@@ -1072,7 +1072,7 @@ function _kronolith_replace($uid, $content, $contentType)
     }
 
     if (!$event->hasPermission(PERMS_EDIT) ||
-        ($event->isPrivate() && $event->getCreatorId() != Auth::getAuth())) {
+        ($event->isPrivate() && $event->getCreatorId() != Horde_Auth::getAuth())) {
         return PEAR::raiseError(_("Permission Denied"));
     }
 
@@ -1222,7 +1222,7 @@ function _kronolith_updateAttendee($response, $sender = null)
     }
 
     if (empty($event) ||
-        ($event->isPrivate() && $event->getCreatorId() != Auth::getAuth())) {
+        ($event->isPrivate() && $event->getCreatorId() != Horde_Auth::getAuth())) {
         return PEAR::raiseError(_("Permission Denied"));
     }
 
@@ -1313,8 +1313,8 @@ function _kronolith_listAlarms($time, $user = null)
     require_once dirname(__FILE__) . '/base.php';
     require_once 'Horde/Group.php';
 
-    $current_user = Auth::getAuth();
-    if ((empty($user) || $user != $current_user) && !Auth::isAdmin()) {
+    $current_user = Horde_Auth::getAuth();
+    if ((empty($user) || $user != $current_user) && !Horde_Auth::isAdmin()) {
         return PEAR::raiseError(_("Permission Denied"));
     }
 

@@ -38,7 +38,7 @@ class Horde_Block_folks_my_comments extends Horde_Block {
      */
     function _content()
     {
-        if (!Auth::isAuthenticated()) {
+        if (!Horde_Auth::isAuthenticated()) {
             return '';
         }
 
@@ -57,13 +57,13 @@ class Horde_Block_folks_my_comments extends Horde_Block {
               . '<th>' . _("User") . '</th></tr></thead>';
 
         $threads = $GLOBALS['registry']->call('forums/getThreadsByForumOwner',
-                                    array(Auth::getAuth(), 'message_timestamp', 1, false,
+                                    array(Horde_Auth::getAuth(), 'message_timestamp', 1, false,
                                             'folks', 0, $this->_params['limit']));
         if ($threads instanceof PEAR_Error) {
             return $threads->getMessage();
         }
 
-        $url = Folks::getUrlFor('user', Auth::getAuth());
+        $url = Folks::getUrlFor('user', Horde_Auth::getAuth());
         foreach ($threads as $message) {
             $html .= '<tr><td>'
                   . '<a href="' . $url . '" title="' . $message['message_date']. '">'

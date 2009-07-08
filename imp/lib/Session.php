@@ -95,8 +95,8 @@ class IMP_Session
         }
 
         /* Determine the unique user name. */
-        if (Auth::isAuthenticated()) {
-            $sess['uniquser'] = Auth::removeHook(Auth::getAuth());
+        if (Horde_Auth::isAuthenticated()) {
+            $sess['uniquser'] = Horde_Auth::removeHook(Horde_Auth::getAuth());
         } else {
             $sess['uniquser'] = $imapuser;
             if (!empty($ptr['realm'])) {
@@ -110,9 +110,9 @@ class IMP_Session
             return false;
         }
 
-        /* Do necessary authentication now (since Auth:: may need to set
+        /* Do necessary authentication now (since Horde_Auth:: may need to set
          * values in Horde-land). */
-        $auth_imp = &Auth::singleton(array('imp', 'imp'));
+        $auth_imp = Horde_Auth::singleton(array('imp', 'imp'));
         if ($auth_imp->authenticate($sess['uniquser'], array('password' => $password), true) !== true) {
             unset($_SESSION['imp']);
             return false;
@@ -267,11 +267,11 @@ class IMP_Session
         }
 
         if ((!empty($auto_server) || $force) &&
-            Auth::getAuth() &&
+            Horde_Auth::getAuth() &&
             !empty($servers[$server_key]['hordeauth'])) {
             return (strcasecmp($servers[$server_key]['hordeauth'], 'full') == 0)
-                ? Auth::getAuth()
-                : Auth::getBareAuth();
+                ? Horde_Auth::getAuth()
+                : Horde_Auth::getBareAuth();
         }
 
         return false;

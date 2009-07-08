@@ -38,7 +38,7 @@ class Kronolith_Notification_Listener_Status extends Horde_Notification_Listener
     {
         /* Don't capture notification messages if we are logging out are
          * accessing the options pages. */
-        if (Auth::getAuth() && !strstr($_SERVER['PHP_SELF'], '/prefs.php')) {
+        if (Horde_Auth::getAuth() && !strstr($_SERVER['PHP_SELF'], '/prefs.php')) {
             $options['store'] = true;
         }
         parent::notify($messageStack, $options);

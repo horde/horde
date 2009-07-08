@@ -264,13 +264,13 @@ class Folks {
     static public function getUserEmail($user)
     {
         // We should always realy on registration data
-        // $prefs = Prefs::singleton($GLOBALS['conf']['prefs']['driver'], 'horde', Auth::addHook($user), '', null, false);
+        // $prefs = Prefs::singleton($GLOBALS['conf']['prefs']['driver'], 'horde', Horde_Auth::addHook($user), '', null, false);
         // $prefs->retrieve();
         // $email = $prefs->getValue('alternate_email') ? $prefs->getValue('alternate_email') : $prefs->getValue('from_addr');
 
         // If there is no email set use the registration one
         if (empty($email)) {
-            if (Auth::isAuthenticated()) {
+            if (Horde_Auth::isAuthenticated()) {
                 $profile = $GLOBALS['folks_driver']->getProfile($user);
             } else {
                 $profile = $GLOBALS['folks_driver']->getRawProfile($user);
@@ -296,7 +296,7 @@ class Folks {
     {
         $img = $GLOBALS['registry']->getImageDir('horde');
         $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
-        $menu->add(self::getUrlFor('user', Auth::getAuth()), _("My profile"), 'myaccount.png', $img);
+        $menu->add(self::getUrlFor('user', Horde_Auth::getAuth()), _("My profile"), 'myaccount.png', $img);
         $menu->add(self::getUrlFor('list', 'friends'), _("Friends"), 'group.png', $img);
         $menu->add(Horde::applicationUrl('edit/edit.php'), _("Edit profile"), 'edit.png', $img);
         $menu->add(Horde::applicationUrl('services.php'), _("Services"), 'horde.png', $img);

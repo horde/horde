@@ -58,7 +58,7 @@ class Kronolith_Storage_kolab extends Kronolith_Storage {
 
         require_once 'HTTP/Request.php';
         $http = new HTTP_Request($fb_url, $options);
-        $http->setBasicAuth(Auth::getAuth(), Auth::getCredential('password'));
+        $http->setBasicAuth(Horde_Auth::getAuth(), Horde_Auth::getCredential('password'));
         @$http->sendRequest();
         if ($http->getResponseCode() != 200) {
             return PEAR::raiseError(sprintf(_("Unable to retrieve free/busy information for %s"),

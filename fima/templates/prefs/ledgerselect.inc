@@ -3,7 +3,7 @@ if (!$prefs->isLocked('activet_ledger')):
     $ledgers = Fima::listLedgers();
     if (($active_ledger = $prefs->getValue('active_ledger')) == null ||
         !isset($ledgers[$active_ledger])) {
-        $active_ledger = Auth::getAuth();
+        $active_ledger = Horde_Auth::getAuth();
     }
 ?>
 

@@ -13,13 +13,13 @@
 require_once dirname(__FILE__) . '/tabs.php';
 require_once 'Horde/Auth/Signup.php';
 
-$auth = Auth::singleton($conf['auth']['driver']);
+$auth = Horde_Auth::singleton($conf['auth']['driver']);
 
 // Make sure signups are enabled before proceeding
 if ($conf['signup']['allow'] !== true ||
     !$auth->hasCapability('add')) {
     $notification->push(_("User Registration has been disabled for this site."), 'horde.error');
-    header('Location: ' . Auth::getLoginScreen());
+    header('Location: ' . Horde_Auth::getLoginScreen());
     exit;
 }
 
@@ -52,7 +52,7 @@ if ($form->validate()) {
         $notification->push(sprintf(_("There was a problem adding \"%s\" to the system: %s"), $info['user_name'], $success->getMessage()), 'horde.error');
     } else {
         $notification->push($success_message, 'horde.success');
-        $url = Auth::getLoginScreen('', $info['url']);
+        $url = Horde_Auth::getLoginScreen('', $info['url']);
         header('Location: ' . $url);
         exit;
     }

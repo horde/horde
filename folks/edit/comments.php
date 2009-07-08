@@ -46,11 +46,11 @@ if (!$form->isSubmitted()) {
 
     if (Horde_Util::getFormData('submitbutton') == _("Delete all current comments")) {
 
-        $result = $registry->call('forums/deleteForum', array('folks', Auth::getAuth()));
+        $result = $registry->call('forums/deleteForum', array('folks', Horde_Auth::getAuth()));
         if ($result instanceof PEAR_Error) {
             $notification->push($result);
         } else {
-            $result = $folks_driver->updateComments(Auth::getAuth(), true);
+            $result = $folks_driver->updateComments(Horde_Auth::getAuth(), true);
             if ($result instanceof PEAR_Error) {
                 $notification->push($result);
             } else {
@@ -64,8 +64,8 @@ if (!$form->isSubmitted()) {
         if ($vars->get('user_comments') == 'moderate' && $profile['user_comments'] != 'moderate' ||
             $vars->get('user_comments') != 'moderate' && $profile['user_comments'] == 'moderate') {
 
-            $info = array('author' => Auth::getAuth(),
-                            'forum_name' => Auth::getAuth(),
+            $info = array('author' => Horde_Auth::getAuth(),
+                            'forum_name' => Horde_Auth::getAuth(),
                             'forum_moderated' => ($profile['user_comments'] == 'moderate'));
             $result = $registry->call('forums/saveFrom', array('folks', '', $info));
             if ($result instanceof PEAR_Error) {

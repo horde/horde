@@ -137,7 +137,7 @@ if (!function_exists('_folks_hook_getService')) {
             return $GLOBALS['registry']->callByPackage('ansel', 'listGalleries', array('ansel', PERMS_SHOW, null, true, 0, 3, $user));
 
         case 'blogs':
-            return $GLOBALS['registry']->callByPackage('thomas', 'getRecentPosts', array($user, Auth::getAuth(), '', 3));
+            return $GLOBALS['registry']->callByPackage('thomas', 'getRecentPosts', array($user, Horde_Auth::getAuth(), '', 3));
 
         case 'classifieds':
             return $GLOBALS['registry']->callByPackage('classified', 'listAds', array(array('user_uid' => $user), 0, 3));
@@ -223,13 +223,13 @@ if (!function_exists('_folks_hook_prelogin')) {
     {
         require_once 'Horde/Group.php';
         $group = Group::singleton();
-        $user_uid = Auth::getAuth();
+        $user_uid = Horde_Auth::getAuth();
 
         switch ($app) {
 
         case 'gollem':
 
-            if (Auth::isAdmin() || $group->userIsInGroup($user_uid, 1, false)) {
+            if (Horde_Auth::isAdmin() || $group->userIsInGroup($user_uid, 1, false)) {
                 $_GET['backend_key'] = 'kjbnzi78';
                 require $GLOBALS['registry']->get('fileroot', 'gollem') .  '/redirect.php';
                 exit;
@@ -241,7 +241,7 @@ if (!function_exists('_folks_hook_prelogin')) {
 
         case 'imp':
 
-            if (Auth::isAdmin()
+            if (Horde_Auth::isAdmin()
                 || $group->userIsInGroup($user_uid, 1, false)
                 || $group->userIsInGroup($user_uid, 2, false)) {
 
@@ -376,7 +376,7 @@ if (!function_exists('_horde_hook_post_pushapp')) {
             return;
         }
 
-        $user = Auth::getAuth();
+        $user = Horde_Auth::getAuth();
         if ($user) {
             return;
         }
@@ -403,7 +403,6 @@ if (!function_exists('_horde_hook_post_pushapp')) {
             return;
         }
 
-        $auth = &Auth::singleton('folks');
-        return $auth->setAuth($_COOKIE['folks_login_user'], array('transparent' => 1, 'password' => null));
+        return Horde_Auth::setAuth($_COOKIE['folks_login_user'], array('transparent' => 1, 'password' => null));
     }
 }

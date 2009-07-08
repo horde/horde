@@ -8,7 +8,7 @@
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-if (!Auth::getAuth()) {
+if (!Horde_Auth::getAuth()) {
     Horde_Util::closeWindowJS();
     exit;
 }

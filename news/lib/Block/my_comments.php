@@ -38,7 +38,7 @@ class Horde_Block_news_my_comments extends Horde_Block {
      */
     function _content()
     {
-        if (!Auth::isAuthenticated()) {
+        if (!Horde_Auth::isAuthenticated()) {
             return '';
         }
 
@@ -57,7 +57,7 @@ class Horde_Block_news_my_comments extends Horde_Block {
               . '<th>' . _("User") . '</th></tr></thead>';
 
         $threads = $GLOBALS['registry']->call('forums/getThreadsByForumOwner',
-                                    array(Auth::getAuth(), 'message_timestamp', 1, false,
+                                    array(Horde_Auth::getAuth(), 'message_timestamp', 1, false,
                                             'news', 0, $this->_params['limit']));
         if ($threads instanceof PEAR_Error) {
             return $threads->getMessage();

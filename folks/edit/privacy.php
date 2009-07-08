@@ -17,7 +17,7 @@ require_once 'tabs.php';
 
 $title = _("Privacy");
 
-$profile = $folks_driver->getRawProfile(Auth::getAuth());
+$profile = $folks_driver->getRawProfile(Horde_Auth::getAuth());
 if ($profile instanceof PEAR_Error) {
     $notification->push($profile);
     header('Location: ' . Folks::getUrlFor('list', 'list'));

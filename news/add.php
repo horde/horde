@@ -88,7 +88,7 @@ function _max_upload_size()
 }
 
 // Is logged it?
-if (!Auth::isAuthenticated()) {
+if (!Horde_Auth::isAuthenticated()) {
     $notification->push(_("Only authenticated users can post news."), 'horde.warning');
     Horde::authenticationFailureRedirect();
 }
@@ -215,7 +215,7 @@ if ($conf['attributes']['attachments']) {
     }
 }
 
-if (Auth::isAdmin('news:admin')) {
+if (Horde_Auth::isAdmin('news:admin')) {
 
     $form->setSection('admin', _("Admin"), '', true);
     $form->addVariable(_("News administrator options"), 'content', 'header', false);
@@ -277,7 +277,7 @@ if ($form->validate()) {
 
     if (!empty($allowed_cats) &&
         (in_array($info['category1'], $allowed_cats) || in_array($info['category2'], $allowed_cats))) {
-        $info['editor'] = Auth::getAuth();
+        $info['editor'] = Horde_Auth::getAuth();
         $info['status'] = News::CONFIRMED;
     }
 
@@ -343,7 +343,7 @@ if ($form->validate()) {
         $data = array($info['sortorder'],
                       $info['status'],
                       $info['publish'],
-                      Auth::getAuth(),
+                      Horde_Auth::getAuth(),
                       $info['editor'],
                       @$info['sourcelink'],
                       isset($info['source']) ? $info['source'] : '',
@@ -521,7 +521,7 @@ if ($form->validate()) {
     }
     $version = $news->db->getOne('SELECT MAX(version) FROM ' . $news->prefix . '_versions WHERE id = ?', array($id));
     $result = $news->write_db->query('INSERT INTO ' . $news->prefix . '_versions (id, version, action, created, user_uid, content) VALUES (?, ?, ?, NOW(), ? ,?)',
-                                array($id, $version + 1, $status_version, Auth::getAuth(), serialize($info['body'])));
+                                array($id, $version + 1, $status_version, Horde_Auth::getAuth(), serialize($info['body'])));
     if ($result instanceof PEAR_Error) {
         $notification->push($result);
     }

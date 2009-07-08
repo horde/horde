@@ -318,7 +318,7 @@ class Chora
     static public function checkPerms($key)
     {
         return (!$GLOBALS['perms']->exists('chora:sourceroots:' . $key) ||
-                $GLOBALS['perms']->hasPermission('chora:sourceroots:' . $key, Auth::getAuth(), PERMS_READ | PERMS_SHOW));
+                $GLOBALS['perms']->hasPermission('chora:sourceroots:' . $key, Horde_Auth::getAuth(), PERMS_READ | PERMS_SHOW));
     }
 
     /**

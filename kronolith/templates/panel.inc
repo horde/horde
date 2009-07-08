@@ -13,7 +13,7 @@ Horde::addScriptFile('calendar-panel.js', 'kronolith', true);
 
 $info_img = Horde::img('info_icon.png', _("Calendar Information"), array('class' => 'calendar-info'), $registry->getImageDir('horde'));
 
-$current_user = Auth::getAuth();
+$current_user = Horde_Auth::getAuth();
 $my_calendars = array();
 $shared_calendars = array();
 foreach (Kronolith::listCalendars() as $id => $cal) {
@@ -40,7 +40,7 @@ $tagger = Kronolith::getTagger();
   <input id="calendarSearch" type="text" for="mycalendars,sharedcalendars,remotecalendars,externalcalendars" />
  </p>
 
-<?php if (Auth::getAuth()): ?>
+<?php if (Horde_Auth::getAuth()): ?>
  <p>
   <a href="<?php echo Horde::applicationUrl('calendars/') ?>"><?php echo _("[Manage Calendars]") ?></a>
  </p>
@@ -61,7 +61,7 @@ $tagger = Kronolith::getTagger();
          <li class="panel-tags">
 <?php
 echo $tag;
-if ($cal->hasPermission(Auth::getAuth(), PERMS_EDIT)) {
+if ($cal->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
     echo '<a href="#" id="remove' . md5($id . $tag_id) . '">'
         . Horde::img('delete-small.png', _("Remove Tag"), '', $registry->getImageDir('horde'))
         . '</a>';
@@ -97,7 +97,7 @@ Kronolith_Imple::factory('TagActions', array('triggerId' => 'remove' . md5($id .
  <h4><?php echo _("Shared Calendars:") ?></h4>
  <ul id="sharedcalendars">
 <?php foreach ($shared_calendars as $id => $cal): ?>
-  <li<?php echo Kronolith::getCSSColors($cal) ?>><label><input type="checkbox" class="checkbox" name="display_cal[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_calendars) ? ' checked="checked"' : '') . ' /> [' . htmlspecialchars(Auth::removeHook($cal->get('owner'))) . '] ' . htmlspecialchars($cal->get('name')) ?></label> <?php echo $info_img ?></li>
+  <li<?php echo Kronolith::getCSSColors($cal) ?>><label><input type="checkbox" class="checkbox" name="display_cal[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_calendars) ? ' checked="checked"' : '') . ' /> [' . htmlspecialchars(Horde_Auth::removeHook($cal->get('owner'))) . '] ' . htmlspecialchars($cal->get('name')) ?></label> <?php echo $info_img ?></li>
 <?php endforeach; ?>
  </ul>
 <?php endif; ?>

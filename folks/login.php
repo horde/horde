@@ -64,7 +64,7 @@ function _loginNotice($user)
 if (isset($_GET['logout_reason'])) {
     setcookie('folks_login_user', '', $_SERVER['REQUEST_TIME'] - 1000, $conf['cookie']['path'], $conf['cookie']['domain']);
     setcookie('folks_login_code', '', $_SERVER['REQUEST_TIME'] - 1000, $conf['cookie']['path'], $conf['cookie']['domain']);
-    $folks_driver->deleteOnlineUser(Auth::getAuth());
+    $folks_driver->deleteOnlineUser(Horde_Auth::getAuth());
 
     @session_destroy();
     if (!empty($_GET['redirect'])) {
@@ -80,7 +80,7 @@ if (isset($_GET['logout_reason'])) {
  * Special login for apps (gollem, imp)?
  */
 if ($conf['login']['prelogin'] &&
-    Auth::getAuth() &&
+    Horde_Auth::getAuth() &&
    ($app = Horde_Util::getGet('app'))) {
     Horde::callHook('_folks_hook_prelogin', array($app), 'folks');
 }
@@ -89,14 +89,14 @@ if ($conf['login']['prelogin'] &&
  * Login parameters
  */
 $url_param = Horde_Util::getFormData('url');
-$login_url = Auth::getLoginScreen('folks', $url_param);
+$login_url = Horde_Auth::getLoginScreen('folks', $url_param);
 
 /*
  * We are already logged in?
  */
-if (Auth::isAuthenticated()) {
+if (Horde_Auth::isAuthenticated()) {
     if (empty($url_param)) {
-        $url_param = Folks::getUrlFor('user', Auth::getAuth());
+        $url_param = Folks::getUrlFor('user', Horde_Auth::getAuth());
     }
     header('Location: ' . $url_param);
     exit;
@@ -110,8 +110,7 @@ if (isset($_COOKIE['folks_login_code']) &&
     $_COOKIE['folks_login_code'] == $folks_driver->getCookie($_COOKIE['folks_login_user'])) {
 
     // Horde Auto login
-    $auth = Auth::singleton('auto', array('username' => $_COOKIE['folks_login_user']));
-    $auth->setAuth($_COOKIE['folks_login_user'], array('transparent' => 1));
+    Horde_Auth::setAuth($_COOKIE['folks_login_user'], array('transparent' => 1));
 
     if (empty($url_param)) {
         $url_param = Folks::getUrlFor('user', $_COOKIE['folks_login_user']);
@@ -191,8 +190,7 @@ if ($form->isSubmitted()) {
     }
 
     // Horde Auto login
-    $auth = &Auth::singleton('auto', array('username' => $username));
-    $auth->setAuth($username, array('transparent' => 1, 'password' => $info['password']));
+    Horde_Auth::setAuth($username, array('transparent' => 1, 'password' => $info['password']));
 
     // Save user last login info.
     // We ignore last_login pref as it can be turned off by user

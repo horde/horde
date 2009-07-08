@@ -2,7 +2,7 @@
 Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('QuickFinder.js', 'horde', true);
 
-$current_user = Auth::getAuth();
+$current_user = Horde_Auth::getAuth();
 $my_classes = array();
 $shared_classes = array();
 foreach (Skoli::listClasses() as $id => $cl) {
@@ -44,7 +44,7 @@ function sbarToggle()
   <label><input type="checkbox" class="checkbox" name="show_students" value="1"<?php echo ($prefs->getValue('show_students') ? ' checked="checked"' : '') . ' /> ' . _("Show students?") ?></label>
  </p>
 
-<?php if (Auth::getAuth()): ?>
+<?php if (Horde_Auth::getAuth()): ?>
  <p>
   <a href="<?php echo Horde::applicationUrl('classes/') ?>"><?php echo _("[Manage Classes]") ?></a>
  </p>
@@ -63,7 +63,7 @@ function sbarToggle()
  <h4><?php echo _("Shared Classes:") ?></h4>
  <ul id="sharedclasses">
 <?php foreach ($shared_classes as $id => $cl): ?>
-  <li><label><input type="checkbox" class="checkbox" name="display_class[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_classes) ? ' checked="checked"' : '') . ' /> [' . htmlspecialchars(Auth::removeHook($cl->get('owner'))) . '] ' . htmlspecialchars($cl->get('name')) ?></label></li>
+  <li><label><input type="checkbox" class="checkbox" name="display_class[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_classes) ? ' checked="checked"' : '') . ' /> [' . htmlspecialchars(Horde_Auth::removeHook($cl->get('owner'))) . '] ' . htmlspecialchars($cl->get('name')) ?></label></li>
 <?php endforeach; ?>
  </ul>
 <?php endif; ?>

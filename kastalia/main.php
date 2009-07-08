@@ -23,10 +23,10 @@ require(KASTALIA_BASE . '/config/conf.php');
 
 
 
-echo Auth::getAuth();
+echo Horde_Auth::getAuth();
 
-echo $registry->hasPermission(Auth::getAuth(), PERMS_EDIT);
-if($registry->hasPermission(Auth::getAuth(), PERMS_EDIT)) {
+echo $registry->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT);
+if($registry->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
    echo "TASTA";
    exit(0);
 }

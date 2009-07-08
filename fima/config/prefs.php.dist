@@ -29,7 +29,7 @@ $_prefs['ledgerselect'] = array('type' => 'special');
 // active ledger
 // Set locked to true if you don't want users to have multiple ledgers.
 $_prefs['active_ledger'] = array(
-    'value' => Auth::getAuth() ? Auth::getAuth() : 0,
+    'value' => Horde_Auth::getAuth() ? Horde_Auth::getAuth() : 0,
     'locked' => false,
     'shared' => true,
     'type' => 'implicit'
