@@ -2,7 +2,7 @@
 /**
  * Operator Base Class.
  *
- * $Horde: incubator/operator/lib/Operator.php,v 1.16 2009/06/10 06:07:34 slusarz Exp $
+ * $Horde: incubator/operator/lib/Operator.php,v 1.17 2009/07/08 18:29:18 slusarz Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -92,16 +92,16 @@ class Operator {
 
         $accountcodes = $operator_driver->getAccountCodes();
 
-        if (Auth::isAdmin() || 
+        if (Horde_Auth::isAdmin() || 
             $GLOBALS['perms']->hasPermission('operator:accountcodes',
-                                             Auth::getAuth(),
+                                             Horde_Auth::getAuth(),
                                              PERMS_READ)) {
             $permfilter = false;
         }
 
         if (!$permfilter ||
             $GLOBALS['perms']->hasPermission('operator:accountcodes:%',
-                                             Auth::geAuth(), 
+                                             Horde_Auth::geAuth(), 
                                              PERMS_READ)) {
 
             // Add an option to select all accounts
@@ -127,9 +127,9 @@ class Operator {
                     $permitem = 'operator:accountcodes:' . $accountcode;
                 }
 
-                if (Auth::isAdmin() ||
+                if (Horde_Auth::isAdmin() ||
                     $GLOBALS['perms']->hasPermission($permitem,
-                                                     Auth::getAuth(),
+                                                     Horde_Auth::getAuth(),
                                                      PERMS_SHOW)) {
                     $accountcodes[$accountcode] = $values[$index];
                 }

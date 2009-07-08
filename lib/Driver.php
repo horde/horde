@@ -3,7 +3,7 @@
  * Operator_Driver:: defines an API for implementing storage backends for
  * Operator.
  *
- * $Horde: incubator/operator/lib/Driver.php,v 1.6 2009/05/31 22:20:06 bklang Exp $
+ * $Horde: incubator/operator/lib/Driver.php,v 1.7 2009/07/08 18:29:18 slusarz Exp $
  *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
@@ -29,11 +29,11 @@ class Operator_Driver {
         } else {
             $permentry = 'operator:accountcodes:' . $accountcode;
         }
-        if (Auth::isAdmin() ||
+        if (Horde_Auth::isAdmin() ||
             $GLOBALS['perms']->hasPermission('operator:accountcodes',
-                                              Auth::getAuth(),
+                                              Horde_Auth::getAuth(),
                                               PERMS_READ) ||
-            $GLOBALS['perms']->hasPermission($permentry, Auth::getAuth(),
+            $GLOBALS['perms']->hasPermission($permentry, Horde_Auth::getAuth(),
                                               PERMS_READ)) {
             return $this->_getRecords($start, $end, $accountcode, $dcontext,
                                       $rowstart, $rowlimit);
@@ -66,11 +66,11 @@ class Operator_Driver {
         } else {
             $permentry = 'operator:accountcodes:' . $accountcode;
         }
-        if (Auth::isAdmin() ||
+        if (Horde_Auth::isAdmin() ||
             $GLOBALS['perms']->hasPermission('operator:accountcodes',
-                                              Auth::getAuth(),
+                                              Horde_Auth::getAuth(),
                                               PERMS_READ) ||
-            $GLOBALS['perms']->hasPermission($permentry, Auth::getAuth(), 
+            $GLOBALS['perms']->hasPermission($permentry, Horde_Auth::getAuth(), 
                                               PERMS_READ)) {
             return $this->_getMonthlyCallStats($start, $end, $accountcode,
                                                $dcontext);
