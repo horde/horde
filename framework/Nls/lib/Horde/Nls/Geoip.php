@@ -98,7 +98,7 @@ class Horde_Nls_Geoip
             self::$_instance = new Horde_Nls_Geoip($datafile);
         }
 
-        return $instance;
+        return self::$_instance;
     }
 
     /**
