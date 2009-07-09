@@ -172,10 +172,7 @@ $saved_searches = $imp_search->getSearchQueries();
 if (!empty($saved_searches)) {
     $ss = array();
     foreach ($saved_searches as $key => $val) {
-        if (Horde_String::length($val) > 100) {
-            $val = Horde_String::substr($val, 0, 100) . ' ...';
-        }
-        $ss[] = array('val' => htmlspecialchars($key), 'text' => htmlspecialchars($val));
+        $ss[] = array('val' => htmlspecialchars($key), 'text' => htmlspecialchars(Horde_String::truncate($val)));
     }
     $t->set('saved_searches', $ss);
 }
