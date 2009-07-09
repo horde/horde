@@ -146,7 +146,7 @@ if (!$logout_reason && IMP_Session::canAutoLogin($server_key, $autologin)) {
 $title = sprintf(_("Welcome to %s"), $registry->get('name', ($imp_auth) ? 'horde' : null));
 
 if ($logout_reason) {
-    $notification->push(str_replace('<br />', ' ', $logout_reason), 'horde.message');
+    $notification->push(str_replace('<br />', ' ', Horde_Auth::getLogoutReasonString()), 'horde.message');
 }
 
 /* Build the <select> widget for the servers and hordeauth servers lists. */
