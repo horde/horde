@@ -1,6 +1,6 @@
 <?php
 /**
- * $Horde: incubator/operator/graphgen.php,v 1.10 2009/06/10 05:24:30 slusarz Exp $
+ * $Horde: incubator/operator/graphgen.php,v 1.11 2009/07/09 08:18:18 slusarz Exp $
  *
  * Copyright 2008 The Horde Project <http://www.horde.org>
  *
@@ -16,7 +16,7 @@ require_once OPERATOR_BASE . '/lib/base.php';
 // Load PEAR's Image_Graph library
 require_once 'Image/Graph.php';
 
-#setlocale(LC_ALL, NLS::select());
+#setlocale(LC_ALL, Horde_Nls::select());
 setlocale(LC_ALL, 'en_US');
 
 $graphtype = Horde_Util::getFormData('graph');
