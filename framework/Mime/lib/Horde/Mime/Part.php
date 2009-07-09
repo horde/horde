@@ -1359,12 +1359,12 @@ class Horde_Mime_Part
     /**
      * Sends this message.
      *
-     * @param string $email                 The address list to send to.
-     * @param Horde_Mime_Headers $headers   The Horde_Mime_Headers object
-     *                                      holding this message's headers.
-     * @param string $driver                The Mail:: driver to use.
-     * @param array $params                 Any parameters necessary for the
-     *                                      Mail driver.
+     * @param string $email                The address list to send to.
+     * @param Horde_Mime_Headers $headers  The Horde_Mime_Headers object
+     *                                     holding this message's headers.
+     * @param string $driver               The Mail:: driver to use.
+     * @param array $params                Any parameters necessary for the
+     *                                     Mail driver.
      *
      * @throws Horde_Mime_Exception
      */
