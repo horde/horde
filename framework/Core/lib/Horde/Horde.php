@@ -438,7 +438,7 @@ HTML;
             return self::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/problem.php?return_url=' . urlencode(self::selfUrl(true, true, true)));
 
         case 'logout':
-            return self::url(Horde_Auth::addLogoutParameters($GLOBALS['registry']->get('webroot', 'horde') . '/login.php', AUTH_REASON_LOGOUT));
+            return self::url(Horde_Auth::addLogoutParameters($GLOBALS['registry']->get('webroot', 'horde') . '/login.php', Horde_Auth::REASON_LOGOUT));
 
         case 'login':
             return Horde_Auth::getLoginScreen('', $referrer ? self::selfUrl(true) : null);
