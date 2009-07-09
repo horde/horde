@@ -24,7 +24,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         global $conf, $prefs;
 
         $mime_id = $this->_mimepart->getMimeId();
-        $type = 'text/html; charset=' . NLS::getCharset();
+        $type = 'text/html; charset=' . Horde_Nls::getCharset();
 
         // Trim extra whitespace in the text.
         $text = trim($this->_mimepart->getContents());
@@ -70,7 +70,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         $filters = array(
             'text2html' => array(
                 'parselevel' => Horde_Text_Filter_Text2html::MICRO,
-                'charset' => NLS::getCharset()
+                'charset' => Horde_Nls::getCharset()
             ),
             'tabs2spaces' => array(),
         );
@@ -270,7 +270,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 
         $text_part = new Horde_Mime_Part();
         $text_part->setType('text/plain');
-        $text_part->setCharset(NLS::getCharset());
+        $text_part->setCharset(Horde_Nls::getCharset());
         $text_part->setContents(preg_replace("/begin [0-7]{3} .+\r?\n.+\r?\nend/Us", "\n", $text));
         $new_part->addPart($text_part);
 

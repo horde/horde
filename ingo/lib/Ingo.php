@@ -73,7 +73,7 @@ class Ingo
                     $label = $mbox['abbrev'];
                     $text .= sprintf('<option%s value="%s"%s>%s</option>%s',
                                      $disabled, $val, $sel,
-                                     Horde_Text_Filter::filter($label, 'space2html', array('charset' => NLS::getCharset(), 'encode' => true)), "\n");
+                                     Horde_Text_Filter::filter($label, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)), "\n");
                 }
 
                 $text .= '</select>';
@@ -95,7 +95,7 @@ class Ingo
     static public function createFolder($folder)
     {
         return $GLOBALS['registry']->hasMethod('mail/createFolder')
-            ? $GLOBALS['registry']->call('mail/createFolder', array('folder' => Horde_String::convertCharset($folder, NLS::getCharset(), 'UTF7-IMAP')))
+            ? $GLOBALS['registry']->call('mail/createFolder', array('folder' => Horde_String::convertCharset($folder, Horde_Nls::getCharset(), 'UTF7-IMAP')))
             : false;
     }
 

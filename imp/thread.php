@@ -42,7 +42,7 @@ if ($error) {
 }
 
 /* Set the current time zone. */
-NLS::setTimeZone();
+Horde_Nls::setTimeZone();
 
 /* Run through action handlers. */
 $actionID = Horde_Util::getFormData('actionID');
@@ -75,7 +75,7 @@ if ($mode == 'thread') {
     $loop_array = IMP::parseIndicesList($msglist);
 }
 
-$charset = NLS::getCharset();
+$charset = Horde_Nls::getCharset();
 $imp_ui = new IMP_UI_Message();
 
 foreach ($loop_array as $mbox => $idxlist) {

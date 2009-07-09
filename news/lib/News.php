@@ -32,7 +32,7 @@ class News {
         static $lang;
 
         if ($lang === null) {
-            $lang = NLS::Select();
+            $lang = Horde_Nls::Select();
             if (!empty($conf['attributes']['languages']) &&
                 !in_array($lang, $conf['attributes']['languages'])) {
                 $lang = $conf['attributes']['languages'][0];

@@ -6,7 +6,7 @@ Horde::addScriptFile('views.js', 'kronolith', true);
 Horde::addScriptFile('stripe.js', 'horde', true);
 
 if (isset($language)) {
-    header('Content-type: text/html; charset=' . NLS::getCharset());
+    header('Content-type: text/html; charset=' . Horde_Nls::getCharset());
     header('Vary: Accept-Language');
 }
 ?>

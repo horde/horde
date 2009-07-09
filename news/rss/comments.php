@@ -21,11 +21,11 @@ if (!$rss) {
     $list = News::getLastComments(50);
     $title = _("Last comments");
 
-    $rss = '<?xml version="1.0" encoding="' . NLS::getCharset() . '" ?>
+    $rss = '<?xml version="1.0" encoding="' . Horde_Nls::getCharset() . '" ?>
 <rss version="2.0">
 <channel>
     <title>' . htmlspecialchars($title) . '</title>
-    <language>' . str_replace('_', '-', strtolower(NLS::select())) . '</language>
+    <language>' . str_replace('_', '-', strtolower(Horde_Nls::select())) . '</language>
     <lastBuildDate>' . date('r') . '</lastBuildDate>
     <description>' . htmlspecialchars($title) . '</description>
     <link>' . Horde::applicationUrl('index.php', true, -1) . '</link>
@@ -49,5 +49,5 @@ if (!$rss) {
     $cache->set($cache_key, $rss);
 }
 
-header('Content-type: text/xml; charset=' . NLS::getCharset());
+header('Content-type: text/xml; charset=' . Horde_Nls::getCharset());
 echo $rss;

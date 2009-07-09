@@ -73,4 +73,4 @@ $code = array(
     )
 );
 
-echo IMP::wrapInlineScript(array('var IMP = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, NLS::getCharset()) . ';'));
+echo IMP::wrapInlineScript(array('var IMP = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, Horde_Nls::getCharset()) . ';'));

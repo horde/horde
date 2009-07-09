@@ -343,10 +343,10 @@ class Ingo_Storage_sql extends Ingo_Storage
             $values = array(
                 implode("\n", $ob->getVacationAddresses()),
                 Horde_String::convertCharset($ob->getVacationSubject(),
-                                       NLS::getCharset(),
+                                       Horde_Nls::getCharset(),
                                        $this->_params['charset']),
                 Horde_String::convertCharset($ob->getVacationReason(),
-                                       NLS::getCharset(),
+                                       Horde_Nls::getCharset(),
                                        $this->_params['charset']),
                 (int)$ob->getVacationDays(),
                 (int)$ob->getVacationStart(),
@@ -516,11 +516,11 @@ class Ingo_Storage_filters_sql extends Ingo_Storage_filters {
      */
     protected function _ruleToBackend($rule)
     {
-        return array(Horde_String::convertCharset($rule['name'], NLS::getCharset(), $this->_params['charset']),
+        return array(Horde_String::convertCharset($rule['name'], Horde_Nls::getCharset(), $this->_params['charset']),
                      (int)$rule['action'],
-                     isset($rule['action-value']) ? Horde_String::convertCharset($rule['action-value'], NLS::getCharset(), $this->_params['charset']) : null,
+                     isset($rule['action-value']) ? Horde_String::convertCharset($rule['action-value'], Horde_Nls::getCharset(), $this->_params['charset']) : null,
                      isset($rule['flags']) ? (int)$rule['flags'] : null,
-                     isset($rule['conditions']) ? serialize(Horde_String::convertCharset($rule['conditions'], NLS::getCharset(), $this->_params['charset'])) : null,
+                     isset($rule['conditions']) ? serialize(Horde_String::convertCharset($rule['conditions'], Horde_Nls::getCharset(), $this->_params['charset'])) : null,
                      isset($rule['combine']) ? (int)$rule['combine'] : null,
                      isset($rule['stop']) ? (int)$rule['stop'] : null,
                      isset($rule['disable']) ? (int)(!$rule['disable']) : 1);

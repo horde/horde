@@ -34,7 +34,7 @@ $imp_message = IMP_Message::singleton();
 $readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);
 
 /* Set the current time zone. */
-NLS::setTimeZone();
+Horde_Nls::setTimeZone();
 
 /* Run through action handlers */
 $actionID = Horde_Util::getFormData('a');

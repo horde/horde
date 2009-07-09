@@ -102,7 +102,7 @@ class Kronolith
         header('X-UA-Compatible: IE=7');
 
         if (isset($GLOBALS['language'])) {
-            header('Content-type: text/html; charset=' . NLS::getCharset());
+            header('Content-type: text/html; charset=' . Horde_Nls::getCharset());
             header('Vary: Accept-Language');
         }
 
@@ -153,7 +153,7 @@ class Kronolith
             'week_start' => (int)$prefs->getValue('week_start_monday'),
             'date_format' => str_replace(array('%e', '%d', '%a', '%A', '%m', '%h', '%b', '%B', '%y', '%Y'),
                                          array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy'),
-                                         NLS::getLangInfo(D_FMT)),
+                                         Horde_Nls::getLangInfo(D_FMT)),
             'time_format' => $prefs->getValue('twentyFour') ? 'HH:mm' : 'hh:mm tt',
             'status' => array('tentative' => self::STATUS_TENTATIVE,
                              'confirmed' => self::STATUS_CONFIRMED,
@@ -210,10 +210,10 @@ class Kronolith
             'allday' => _("All day"),
         );
         for ($i = 1; $i <= 12; ++$i) {
-            $code['text']['month'][$i - 1] = NLS::getLangInfo(constant('MON_' . $i));
+            $code['text']['month'][$i - 1] = Horde_Nls::getLangInfo(constant('MON_' . $i));
         }
         for ($i = 1; $i <= 7; ++$i) {
-            $code['text']['weekday'][$i] = NLS::getLangInfo(constant('DAY_' . $i));
+            $code['text']['weekday'][$i] = Horde_Nls::getLangInfo(constant('DAY_' . $i));
         }
         foreach (array(Horde_Date_Recurrence::RECUR_DAILY,
                        Horde_Date_Recurrence::RECUR_WEEKLY,
@@ -225,7 +225,7 @@ class Kronolith
             $code['text']['recur'][$recurType] = self::recurToString($recurType);
         }
 
-        return array('var Kronolith = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, NLS::getCharset()) . ';');
+        return array('var Kronolith = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, Horde_Nls::getCharset()) . ';');
     }
 
     /**
@@ -1628,7 +1628,7 @@ class Kronolith
             /* Build the iCalendar data */
             $iCal = new Horde_iCalendar();
             $iCal->setAttribute('METHOD', $method);
-            $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), NLS::getCharset(), 'utf-8'));
+            $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), Horde_Nls::getCharset(), 'utf-8'));
             $vevent = $event->toiCalendar($iCal);
             if ($action == self::ITIP_CANCEL && !empty($instance)) {
                 $vevent->setAttribute('RECURRENCE-ID', $instance, array('VALUE' => 'DATE'));
@@ -1641,10 +1641,10 @@ class Kronolith
             $ics->setContents($iCal->exportvCalendar());
             $ics->setName($filename);
             $ics->setContentTypeParameter('METHOD', $method);
-            $ics->setCharset(NLS::getCharset());
+            $ics->setCharset(Horde_Nls::getCharset());
 
             $recipient = empty($status['name']) ? $email : Horde_Mime_Address::trimAddress($status['name'] . ' <' . $email . '>');
-            $mail = new Horde_Mime_Mail($subject, $message, $recipient, $from, NLS::getCharset());
+            $mail = new Horde_Mime_Mail($subject, $message, $recipient, $from, Horde_Nls::getCharset());
             require_once KRONOLITH_BASE . '/lib/version.php';
             try {
                 $mail->addHeader('User-Agent', 'Kronolith ' . KRONOLITH_VERSION);
@@ -1752,7 +1752,7 @@ class Kronolith
         }
 
         foreach ($addresses as $lang => $twentyFour) {
-            NLS::setLang($lang);
+            Horde_Nls::setLang($lang);
 
             switch ($action) {
             case 'add':
@@ -1785,8 +1785,8 @@ class Kronolith
                                                      null,
                                                      implode(',', $df_recipients),
                                                      $from,
-                                                     NLS::getCharset());
-                    $mime_mail->setBody($message, NLS::getCharset(), true);
+                                                     Horde_Nls::getCharset());
+                    $mime_mail->setBody($message, Horde_Nls::getCharset(), true);
                     Horde::logMessage(sprintf('Sending event notifications for %s to %s', $event->title, implode(', ', $df_recipients)), __FILE__, __LINE__, PEAR_LOG_DEBUG);
                     try {
                         $mime_mail->send($mail_driver, $mail_params, false, false);

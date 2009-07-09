@@ -81,7 +81,7 @@ class Kronolith_Imple_TagAutoCompleter extends Kronolith_Imple
                 $js_vars['existing'] = $this->_params['existing'];
             }
 
-            $script = array('new PrettyAutocompleter(' . Horde_Serialize::serialize($js_vars, Horde_Serialize::JSON, NLS::getCharset()) . ')');
+            $script = array('new PrettyAutocompleter(' . Horde_Serialize::serialize($js_vars, Horde_Serialize::JSON, Horde_Nls::getCharset()) . ')');
         } else {
             $script = array('new Ajax.Autocompleter(' . implode(',', $params) . ')');
         }

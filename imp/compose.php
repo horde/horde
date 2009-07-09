@@ -135,7 +135,7 @@ if ($token = Horde_Util::getFormData('compose_formToken')) {
 }
 
 /* Set the current time zone. */
-NLS::setTimeZone();
+Horde_Nls::setTimeZone();
 
 /* Determine if compose mode is disabled. */
 $compose_disable = !empty($conf['hooks']['disable_compose']) &&
@@ -170,8 +170,8 @@ $imp_ui = new IMP_UI_Compose();
  * $charset - charset to use when sending messages
  * $encoding - best guessed charset offered to the user as the default value
  *             in the charset dropdown list. */
-$charset = $prefs->isLocked('sending_charset') ? NLS::getEmailCharset() : Horde_Util::getFormData('charset');
-$encoding = empty($charset) ? NLS::getEmailCharset() : $charset;
+$charset = $prefs->isLocked('sending_charset') ? Horde_Nls::getEmailCharset() : Horde_Util::getFormData('charset');
+$encoding = empty($charset) ? Horde_Nls::getEmailCharset() : $charset;
 
 /* Is this a popup window? */
 $has_js = $browser->hasFeature('javascript');
@@ -494,7 +494,7 @@ case 'save_draft':
 
     /* Save the draft. */
     try {
-        $result = $imp_compose->saveDraft($header, $message, NLS::getCharset(), $rtemode);
+        $result = $imp_compose->saveDraft($header, $message, Horde_Nls::getCharset(), $rtemode);
         $imp_compose->destroy();
 
         /* Closing draft if requested by preferences. */
@@ -802,7 +802,7 @@ if (!$redirect) {
             Horde_Mime_Address::addrArray2String($identity->getBccAddresses($ident))
         );
     }
-    $js_code[] = 'ImpCompose.identities = ' . Horde_Serialize::serialize($js_ident, Horde_Serialize::JSON, NLS::getCharset());
+    $js_code[] = 'ImpCompose.identities = ' . Horde_Serialize::serialize($js_ident, Horde_Serialize::JSON, Horde_Nls::getCharset());
 }
 
 
@@ -1150,7 +1150,7 @@ if ($redirect) {
         $t->set('attach_vcard', Horde_Util::getFormData('vcard'));
     }
     if ($_SESSION['imp']['file_upload']) {
-        $localeinfo = NLS::getLocaleInfo();
+        $localeinfo = Horde_Nls::getLocaleInfo();
         if ($GLOBALS['registry']->hasMethod('files/selectlistLink')) {
             $res = $GLOBALS['registry']->call('files/selectlistLink', array(_("Attach Files"), 'widget', 'compose', true));
             $t->set('selectlistlink', (is_a($res, 'PEAR_Error')) ? null : $res);

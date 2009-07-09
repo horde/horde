@@ -481,7 +481,7 @@ class Maildrop_Recipe {
             }
 
             // Writing vacation.msg file
-            $reason = Horde_Mime::encode($params['action-value']['reason'], NLS::getCharset());
+            $reason = Horde_Mime::encode($params['action-value']['reason'], Horde_Nls::getCharset());
             $driver = Ingo::getDriver();
             $driver->_connect();
             $result = $driver->_vfs->writeData($driver->_params['vfs_path'], 'vacation.msg', $reason, true);
@@ -515,7 +515,7 @@ class Maildrop_Recipe {
                 $this->_action[] = '        ($current_time <= ' . $end . ')) ';
                 $this->_action[] = '      {';
             }
-            $this->_action[] = "  cc \"| mailbot -D " . $params['action-value']['days'] . " -c '" . NLS::getCharset() . "' -t \$HOME/vacation.msg -d \$HOME/vacation -A 'From: $from' -s '" . Horde_Mime::encode($params['action-value']['subject'], NLS::getCharset())  . "' /usr/sbin/sendmail -t \"";
+            $this->_action[] = "  cc \"| mailbot -D " . $params['action-value']['days'] . " -c '" . Horde_Nls::getCharset() . "' -t \$HOME/vacation.msg -d \$HOME/vacation -A 'From: $from' -s '" . Horde_Mime::encode($params['action-value']['subject'], Horde_Nls::getCharset())  . "' /usr/sbin/sendmail -t \"";
             if (($start != 0) && ($end !== 0)) {
                 $this->_action[] = '      }';
                 $this->_action[] = '  }';

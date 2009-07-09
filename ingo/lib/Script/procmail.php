@@ -507,12 +507,12 @@ class Procmail_Recipe {
                     $this->_action[] = '     -a"From: <' . $address . '>" \\';
                     $this->_action[] = '     -A"X-Loop: ' . $address . '" \\';
                     if (Horde_Mime::is8bit($params['action-value']['reason'])) {
-                        $this->_action[] = '     -i"Subject: ' . Horde_Mime::encode($params['action-value']['subject'] . ' (Re: $SUBJECT)', NLS::getCharset()) . '" \\';
+                        $this->_action[] = '     -i"Subject: ' . Horde_Mime::encode($params['action-value']['subject'] . ' (Re: $SUBJECT)', Horde_Nls::getCharset()) . '" \\';
                         $this->_action[] = '     -i"Content-Transfer-Encoding: quoted-printable" \\';
-                        $this->_action[] = '     -i"Content-Type: text/plain; charset=' . NLS::getCharset() . '" ; \\';
+                        $this->_action[] = '     -i"Content-Type: text/plain; charset=' . Horde_Nls::getCharset() . '" ; \\';
                         $reason = Horde_Mime::quotedPrintableEncode($params['action-value']['reason'], "\n");
                     } else {
-                        $this->_action[] = '     -i"Subject: ' . Horde_Mime::encode($params['action-value']['subject'] . ' (Re: $SUBJECT)', NLS::getCharset()) . '" ; \\';
+                        $this->_action[] = '     -i"Subject: ' . Horde_Mime::encode($params['action-value']['subject'] . ' (Re: $SUBJECT)', Horde_Nls::getCharset()) . '" ; \\';
                         $reason = $params['action-value']['reason'];
                     }
                     $reason = addcslashes($reason, "\\\n\r\t\"`");

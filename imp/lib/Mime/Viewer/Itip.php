@@ -60,7 +60,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
     {
         global $registry;
 
-        $charset = NLS::getCharset();
+        $charset = Horde_Nls::getCharset();
         $data = $this->_mimepart->getContents();
         $mime_id = $this->_mimepart->getMimeId();
 

@@ -915,7 +915,7 @@ function _kronolith_export($uid, $contentType)
         $share = &$kronolith_shares->getShare($event->getCalendar());
 
         $iCal = new Horde_iCalendar($version);
-        $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), NLS::getCharset(), 'utf-8'));
+        $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), Horde_Nls::getCharset(), 'utf-8'));
 
         // Create a new vEvent.
         $vEvent = &$event->toiCalendar($iCal);
@@ -965,7 +965,7 @@ function _kronolith_exportCalendar($calendar, $contentType)
         $share = &$kronolith_shares->getShare($calendar);
 
         $iCal = new Horde_iCalendar($version);
-        $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), NLS::getCharset(), 'utf-8'));
+        $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), Horde_Nls::getCharset(), 'utf-8'));
 
         foreach ($events as $dayevents) {
             foreach ($dayevents as $event) {
@@ -1359,7 +1359,7 @@ function _kronolith_listAlarms($time, $user = null)
                 if (($reminder == 'owner' && $alarm_user == $owner) ||
                     ($reminder == 'show' && in_array($calendar, $shown_calendars)) ||
                     $reminder == 'read') {
-                    NLS::setLanguageEnvironment($prefs->getValue('language'));
+                    Horde_Nls::setLanguageEnvironment($prefs->getValue('language'));
                     $alarm = $event->toAlarm($time, $alarm_user, $prefs);
                     if ($alarm) {
                         $alarm_list[] = $alarm;

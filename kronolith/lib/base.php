@@ -49,7 +49,7 @@ require_once KRONOLITH_BASE . '/lib/Driver.php';
 Horde::compressOutput();
 
 /* Set the timezone variable, if available. */
-NLS::setTimeZone();
+Horde_Nls::setTimeZone();
 
 /* Create a share instance. */
 $GLOBALS['kronolith_shares'] = &Horde_Share::singleton($registry->getApp());

@@ -101,7 +101,7 @@ class IMP_Views_ShowMessage
         );
 
         /* Set the current time zone. */
-        NLS::setTimeZone();
+        Horde_Nls::setTimeZone();
 
         /* Get envelope/header information. We don't use flags in this
          * view. */

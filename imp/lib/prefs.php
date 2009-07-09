@@ -18,7 +18,7 @@ function handle_sentmailselect($updated)
     if ($conf['user']['allow_folders'] &&
         !$prefs->isLocked('sent_mail_folder')) {
         $sent_mail_folder = Horde_Util::getFormData('sent_mail_folder');
-        $sent_mail_new = Horde_String::convertCharset(Horde_Util::getFormData('sent_mail_new'), NLS::getCharset(), 'UTF7-IMAP');
+        $sent_mail_new = Horde_String::convertCharset(Horde_Util::getFormData('sent_mail_new'), Horde_Nls::getCharset(), 'UTF7-IMAP');
         $sent_mail_default = $prefs->getValue('sent_mail_folder');
         if (empty($sent_mail_folder) && !empty($sent_mail_new)) {
             $sent_mail_folder = IMP::appendNamespace($sent_mail_new);
@@ -45,7 +45,7 @@ function handlefolders($updated, $pref, $folder, $new)
     if ($conf['user']['allow_folders']) {
         $folder = Horde_Util::getFormData($folder);
         if (isset($folder) && !$prefs->isLocked($pref)) {
-            $new = Horde_String::convertCharset(Horde_Util::getFormData($new), NLS::getCharset(), 'UTF7-IMAP');
+            $new = Horde_String::convertCharset(Horde_Util::getFormData($new), Horde_Nls::getCharset(), 'UTF7-IMAP');
             if ($folder == IMP_PREF_NO_FOLDER) {
                 $prefs->setValue($pref, '');
             } else {
@@ -256,7 +256,7 @@ case 'flags':
     Horde::addScriptFile('flagmanagement.js', 'imp', true);
 
     IMP::addInlineScript(array(
-        'ImpFlagmanagement.new_prompt = ' . Horde_Serialize::serialize(_("Please enter the label for the new flag:"), Horde_Serialize::JSON, NLS::getCharset())
+        'ImpFlagmanagement.new_prompt = ' . Horde_Serialize::serialize(_("Please enter the label for the new flag:"), Horde_Serialize::JSON, Horde_Nls::getCharset())
     ));
     break;
 }

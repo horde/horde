@@ -47,7 +47,7 @@ if (!empty($_SERVER['Content-Type'])) {
 switch ($ct) {
 case 'json':
     header('Content-Type: application/json');
-    echo Horde_Serialize::serialize($result, Horde_Serialize::JSON, NLS::getCharset());
+    echo Horde_Serialize::serialize($result, Horde_Serialize::JSON, Horde_Nls::getCharset());
     break;
 
 case 'plain':

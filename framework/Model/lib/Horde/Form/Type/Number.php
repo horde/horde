@@ -31,7 +31,7 @@ class Horde_Form_Type_Number extends Horde_Form_Type {
     public function getInfo($vars, $var, &$info)
     {
         $value = $vars->get($var->name);
-        $linfo = NLS::getLocaleInfo();
+        $linfo = Horde_Nls::getLocaleInfo();
         $value = str_replace($linfo['mon_thousands_sep'], '', $value);
         $info = str_replace($linfo['mon_decimal_point'], '.', $value);
     }
@@ -46,7 +46,7 @@ class Horde_Form_Type_Number extends Horde_Form_Type {
         }
 
         /* Get current locale information. */
-        $linfo = NLS::getLocaleInfo();
+        $linfo = Horde_Nls::getLocaleInfo();
 
         /* Build the pattern. */
         $pattern = '(-)?';

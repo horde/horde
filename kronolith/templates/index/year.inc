@@ -31,7 +31,7 @@
   <thead><tr>
     <th class="kronolithMinicalEmpty">&nbsp;</th>
     <?php for ($i = $prefs->getValue('week_start_monday'), $c = $i + 7; $i < $c; $i++): ?>
-    <th title="<?php echo NLS::getLangInfo(constant('DAY_' . ($i % 7 + 1))) ?>"><?php echo substr(NLS::getLangInfo(constant('DAY_' . ($i % 7 + 1))), 0, 1) ?></th>
+    <th title="<?php echo Horde_Nls::getLangInfo(constant('DAY_' . ($i % 7 + 1))) ?>"><?php echo substr(Horde_Nls::getLangInfo(constant('DAY_' . ($i % 7 + 1))), 0, 1) ?></th>
     <?php endfor; ?>
   </tr></thead>
   <tbody>

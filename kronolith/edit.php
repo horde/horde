@@ -25,7 +25,7 @@ function _check_max()
 {
     if (Kronolith::hasPermission('max_events') !== true &&
         Kronolith::hasPermission('max_events') <= Kronolith::countEvents()) {
-        $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), Kronolith::hasPermission('max_events')), ENT_COMPAT, NLS::getCharset());
+        $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), Kronolith::hasPermission('max_events')), ENT_COMPAT, Horde_Nls::getCharset());
         if (!empty($GLOBALS['conf']['hooks']['permsdenied'])) {
             $message = Horde::callHook('_perms_hook_denied', array('kronolith:max_events'), 'horde', $message);
         }

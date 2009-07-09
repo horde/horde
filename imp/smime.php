@@ -62,7 +62,7 @@ function _reloadWindow()
 
 function _textWindowOutput($filename, $msg, $html = false)
 {
-    $type = ($html ? 'text/html' : 'text/plain') . '; charset=' . NLS::getCharset();
+    $type = ($html ? 'text/html' : 'text/plain') . '; charset=' . Horde_Nls::getCharset();
     $GLOBALS['browser']->downloadHeaders($filename, $type, true, strlen($msg));
     echo $msg;
 }

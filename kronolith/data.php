@@ -35,7 +35,7 @@ $templates = array(
 );
 if (Kronolith::hasPermission('max_events') !== true &&
     Kronolith::hasPermission('max_events') <= Kronolith::countEvents()) {
-    $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), Kronolith::hasPermission('max_events')), ENT_COMPAT, NLS::getCharset());
+    $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), Kronolith::hasPermission('max_events')), ENT_COMPAT, Horde_Nls::getCharset());
     if (!empty($conf['hooks']['permsdenied'])) {
         $message = Horde::callHook('_perms_hook_denied', array('kronolith:max_events'), 'horde', $message);
     }
@@ -168,7 +168,7 @@ case 'export':
             }
         }
 
-        $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset(implode(', ', $calNames), NLS::getCharset(), 'utf-8'));
+        $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset(implode(', ', $calNames), Horde_Nls::getCharset(), 'utf-8'));
         $data = $iCal->exportvCalendar();
         $browser->downloadHeaders(_("events.ics"), 'text/calendar', false, strlen($data));
         echo $data;
@@ -241,7 +241,7 @@ if (is_array($next_step)) {
 
     foreach ($next_step as $row) {
         if ($max_events !== true && $num_events >= $max_events) {
-            $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), Kronolith::hasPermission('max_events')), ENT_COMPAT, NLS::getCharset());
+            $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), Kronolith::hasPermission('max_events')), ENT_COMPAT, Horde_Nls::getCharset());
             if (!empty($conf['hooks']['permsdenied'])) {
                 $message = Horde::callHook('_perms_hook_denied', array('kronolith:max_events'), 'horde', $message);
             }

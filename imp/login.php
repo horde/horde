@@ -43,7 +43,7 @@ if (!empty($_SESSION['imp']) && is_array($_SESSION['imp'])) {
             Horde::logMessage($_SERVER['REMOTE_ADDR'] . ' ' . Horde_Auth::getLogoutReasonString(), __FILE__, __LINE__, PEAR_LOG_NOTICE);
         }
 
-        $language = (isset($prefs)) ? $prefs->getValue('language') : NLS::select();
+        $language = (isset($prefs)) ? $prefs->getValue('language') : Horde_Nls::select();
 
         unset($_SESSION['imp']);
 
@@ -59,7 +59,7 @@ if (!empty($_SESSION['imp']) && is_array($_SESSION['imp'])) {
             @session_start();
         }
 
-        NLS::setLang($language);
+        Horde_Nls::setLang($language);
 
         /* Hook to preselect the correct language in the widget. */
         $_GET['new_lang'] = $language;
@@ -172,7 +172,7 @@ if ($show_list) {
 $lang_url = null;
 $choose_language = ($imp_auth && !$prefs->isLocked('language'));
 if ($choose_language) {
-    $_SESSION['horde_language'] = NLS::select();
+    $_SESSION['horde_language'] = Horde_Nls::select();
     $langs = array();
     foreach ($nls['languages'] as $key => $val) {
         $langs[] = array(
@@ -330,7 +330,7 @@ Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('login.js', 'imp', true);
 require IMP_TEMPLATES . '/common-header.inc';
 
-$charset = NLS::getCharset();
+$charset = Horde_Nls::getCharset();
 $login_params = $autologin
     ? array('autologin' => $autologin, 'server_key' => '')
     : array('server_key' => '');

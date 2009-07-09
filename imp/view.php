@@ -33,7 +33,7 @@
 
 function _sanitizeName($name)
 {
-    $name = Horde_String::convertCharset($name, NLS::getCharset(), 'UTF-8');
+    $name = Horde_String::convertCharset($name, Horde_Nls::getCharset(), 'UTF-8');
     return Horde_String::convertCharset(trim(preg_replace('/[^\pL\pN-+_. ]/u', '_', $name), ' _'), 'UTF-8');
 }
 

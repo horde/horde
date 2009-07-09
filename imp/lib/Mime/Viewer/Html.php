@@ -93,7 +93,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             $this->_mimepart->getMimeId() => array(
                 'data' => $render['html'],
                 'status' => $render['status'],
-                'type' => 'text/html; charset=' . NLS::getCharset()
+                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             )
         );
     }
@@ -108,7 +108,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     protected function _IMPrender($inline)
     {
         $data = $this->_mimepart->getContents();
-        $charset = NLS::getCharset();
+        $charset = Horde_Nls::getCharset();
         $msg_charset = $this->_mimepart->getCharset();
 
         if ($inline) {
@@ -231,7 +231,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
      */
     protected function _mailtoCallback($m)
     {
-        return 'href="' . $GLOBALS['registry']->call('mail/compose', array(Horde_String::convertCharset(html_entity_decode($m[2]), 'ISO-8859-1', NLS::getCharset()))) . '"';
+        return 'href="' . $GLOBALS['registry']->call('mail/compose', array(Horde_String::convertCharset(html_entity_decode($m[2]), 'ISO-8859-1', Horde_Nls::getCharset()))) . '"';
     }
 
     /**

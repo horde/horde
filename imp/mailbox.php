@@ -76,7 +76,7 @@ if (!is_array(($indices = Horde_Util::getFormData('indices')))) {
 }
 
 /* Set the current time zone. */
-NLS::setTimeZone();
+Horde_Nls::setTimeZone();
 
 $do_filter = false;
 $open_compose_window = null;
@@ -813,7 +813,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     }
 
     /* Format the From: Header. */
-    $getfrom = $imp_ui->getFrom($ob['envelope'], array('fullfrom' => true, 'specialchars' => NLS::getCharset()));
+    $getfrom = $imp_ui->getFrom($ob['envelope'], array('fullfrom' => true, 'specialchars' => Horde_Nls::getCharset()));
     $msg['from'] = $getfrom['from'];
     $msg['fullfrom'] = $getfrom['fullfrom'];
     switch ($fromlinkstyle) {

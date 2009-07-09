@@ -33,7 +33,7 @@ class DIMP
 
         if (empty($params['title'])) {
             $old_error = error_reporting(0);
-            $tooltip = nl2br(htmlspecialchars($tooltip, ENT_QUOTES, NLS::getCharset()));
+            $tooltip = nl2br(htmlspecialchars($tooltip, ENT_QUOTES, Horde_Nls::getCharset()));
             $title = $ak = '';
         } else {
             $title = $params['title'];
@@ -91,7 +91,7 @@ class DIMP
         }
 
         if (isset($GLOBALS['language'])) {
-            header('Content-type: text/html; charset=' . NLS::getCharset());
+            header('Content-type: text/html; charset=' . Horde_Nls::getCharset());
             header('Vary: Accept-Language');
         }
 

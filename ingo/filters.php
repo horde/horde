@@ -61,7 +61,7 @@ case 'rule_enable':
 
     case 'rule_copy':
         if (!Ingo::hasPermission('allow_rules')) {
-            $message = @htmlspecialchars(_("You are not allowed to create or edit custom rules."), ENT_COMPAT, NLS::getCharset());
+            $message = @htmlspecialchars(_("You are not allowed to create or edit custom rules."), ENT_COMPAT, Horde_Nls::getCharset());
             if (!empty($conf['hooks']['permsdenied'])) {
                 $message = Horde::callHook('_perms_hook_denied', array('ingo:allow_rules'), 'horde', $message);
             }
@@ -69,7 +69,7 @@ case 'rule_enable':
             break 2;
         } elseif (Ingo::hasPermission('max_rules') !== true &&
                   Ingo::hasPermission('max_rules') <= count($filters->getFilterList())) {
-            $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d rules."), Ingo::hasPermission('max_rules')), ENT_COMPAT, NLS::getCharset());
+            $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d rules."), Ingo::hasPermission('max_rules')), ENT_COMPAT, Horde_Nls::getCharset());
             if (!empty($conf['hooks']['permsdenied'])) {
                 $message = Horde::callHook('_perms_hook_denied', array('ingo:max_rules'), 'horde', $message);
             }
@@ -213,7 +213,7 @@ if (count($filter_list) == 0) {
 
         /* Create description. */
         if (!$edit_allowed) {
-            $entry['descriplink'] = @htmlspecialchars($name, ENT_COMPAT, NLS::getCharset());
+            $entry['descriplink'] = @htmlspecialchars($name, ENT_COMPAT, Horde_Nls::getCharset());
         } elseif (!empty($filter['conditions'])) {
             $descrip = '';
             $condition_size = count($filter['conditions']) - 1;
@@ -242,9 +242,9 @@ if (count($filter_list) == 0) {
                 $descrip .= "\n[stop]";
             }
 
-            $entry['descriplink'] = Horde::linkTooltip($editurl, sprintf(_("Edit %s"), $name), null, null, null, $descrip) . @htmlspecialchars($name, ENT_COMPAT, NLS::getCharset()) . '</a>';
+            $entry['descriplink'] = Horde::linkTooltip($editurl, sprintf(_("Edit %s"), $name), null, null, null, $descrip) . @htmlspecialchars($name, ENT_COMPAT, Horde_Nls::getCharset()) . '</a>';
         } else {
-            $entry['descriplink'] = Horde::link($editurl, sprintf(_("Edit %s"), $name)) . @htmlspecialchars($name, ENT_COMPAT, NLS::getCharset()) . '</a>';
+            $entry['descriplink'] = Horde::link($editurl, sprintf(_("Edit %s"), $name)) . @htmlspecialchars($name, ENT_COMPAT, Horde_Nls::getCharset()) . '</a>';
         }
 
         /* Create edit link. */

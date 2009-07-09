@@ -46,7 +46,7 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer {
         if ($var->type->fraction) {
             $value = sprintf('%01.' . $var->type->fraction . 'f', $value);
         }
-        $linfo = NLS::getLocaleInfo();
+        $linfo = Horde_Nls::getLocaleInfo();
         /* Only if there is a mon_decimal_point do the
          * substitution. */
         if (!empty($linfo['mon_decimal_point'])) {
@@ -93,7 +93,7 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer {
             . 'id="%2$s" value="%3$s"%4$s%5$s%6$s />',
             ($var->isDisabled() ? ' form-input-disabled" ' : ''),
             $var->getVarName(),
-            htmlspecialchars($var->getValue($vars), ENT_QUOTES, NLS::getCharset()),
+            htmlspecialchars($var->getValue($vars), ENT_QUOTES, Horde_Nls::getCharset()),
             ($var->isDisabled() ? ' disabled="disabled" ' : ''),
             ($var->type->maxlength ? ' maxlength="' . $var->type->maxlength . '"' : ''),
             $this->_getActionScripts($form, $var)
@@ -115,7 +115,7 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer {
         return sprintf(
             '<input type="text" class="form-input-phone" name="%1$s" id="%1$s" value="%2$s" %3$s%4$s />',
             $var->getVarName(),
-            htmlspecialchars($var->getValue($vars), ENT_QUOTES, NLS::getCharset()),
+            htmlspecialchars($var->getValue($vars), ENT_QUOTES, Horde_Nls::getCharset()),
             ($var->isDisabled() ? ' disabled="disabled" ' : ''),
             $this->_getActionScripts($form, $var)
         );
@@ -130,7 +130,7 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer {
     {
         return sprintf('    <input type="text" class="form-input-ipaddress" name="%1$s" id="%1$s" value="%2$s" %3$s%4$s />',
                        $var->getVarName(),
-                       htmlspecialchars($var->getValue($vars), ENT_QUOTES, NLS::getCharset()),
+                       htmlspecialchars($var->getValue($vars), ENT_QUOTES, Horde_Nls::getCharset()),
                        $var->isDisabled() ? ' disabled="disabled" ' : '',
                        $this->_getActionScripts($form, $var)
                );
@@ -166,7 +166,7 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer {
             /* Hidden tag to store the preview image filename. */
             $html = sprintf('    <input type="hidden" name="%1$s" id="%1$s" value="%2$s" />',
                    $varname . '[img]',
-                   htmlspecialchars($image['img'], ENT_QUOTES, NLS::getCharset()));
+                   htmlspecialchars($image['img'], ENT_QUOTES, Horde_Nls::getCharset()));
 
             /* Unserialize the img information to get the full array. */
             $image['img'] = @unserialize($image['img']);
@@ -597,7 +597,7 @@ if (tmp) {
         $prompt = $var->type->prompt;
         $htmlchars = $var->getOption('htmlchars');
         if ($prompt) {
-            $prompt = '<option value="">' . ($htmlchars ? htmlspecialchars($prompt, ENT_QUOTES, NLS::getCharset()) : $prompt) . '</option>';
+            $prompt = '<option value="">' . ($htmlchars ? htmlspecialchars($prompt, ENT_QUOTES, Horde_Nls::getCharset()) : $prompt) . '</option>';
         }
         return sprintf('    <select name="%1$s" id="%1$s"%2$s>%3$s%4$s    </select>',
                $var->getVarName(),
@@ -626,7 +626,7 @@ if (tmp) {
         /* Hidden tag to store the current first level. */
         $html = sprintf('    <input type="hidden" name="%1$s[old]" id="%1$s[old]" value="%2$s" />',
                         $varname,
-                        htmlspecialchars($selected['1'], ENT_QUOTES, NLS::getCharset()));
+                        htmlspecialchars($selected['1'], ENT_QUOTES, Horde_Nls::getCharset()));
 
         /* First level. */
         $values_1 = Horde_Array::valuesToKeys(array_keys($values));
@@ -635,7 +635,7 @@ if (tmp) {
                          'if (this.value) { document.' . $form->getName() . '.formname.value=\'\';' . 'document.' . $form->getName() . '.submit() }',
                          ($var->hasAction() ? ' ' . $this->_genActionScript($form, $var->_action, $varname) : ''));
         if (!empty($prompts)) {
-            $html .= '<option value="">' . htmlspecialchars($prompts[0], ENT_QUOTES, NLS::getCharset()) . '</option>';
+            $html .= '<option value="">' . htmlspecialchars($prompts[0], ENT_QUOTES, Horde_Nls::getCharset()) . '</option>';
         }
         $html .= $this->_selectOptions($values_1, $selected['1']);
         $html .= '    </select>';
@@ -645,7 +645,7 @@ if (tmp) {
                          $varname,
                          ($var->hasAction() ? ' ' . $this->_genActionScript($form, $var->_action, $varname) : ''));
         if (!empty($prompts)) {
-            $html .= '<option value="">' . htmlspecialchars($prompts[1], ENT_QUOTES, NLS::getCharset()) . '</option>';
+            $html .= '<option value="">' . htmlspecialchars($prompts[1], ENT_QUOTES, Horde_Nls::getCharset()) . '</option>';
         }
         $values_2 = array();
         if (!empty($selected['1'])) {
@@ -919,7 +919,7 @@ EOT;
     function _renderVarDisplayDefault($form, $var, $vars)
     {
         return nl2br(htmlspecialchars($var->getValue($vars), ENT_QUOTES,
-            NLS::getCharset()));
+            Horde_Nls::getCharset()));
     }
 
     function _renderVarDisplay_html($form, $var, $vars)
@@ -962,7 +962,7 @@ EOT;
             return Horde::link($mail_link, $email_val)
                 . htmlspecialchars($display_email) . '</a>';
         } else {
-            return nl2br(htmlspecialchars($display_email, ENT_QUOTES, NLS::getCharset()));
+            return nl2br(htmlspecialchars($display_email, ENT_QUOTES, Horde_Nls::getCharset()));
         }
     }
 
@@ -993,7 +993,7 @@ EOT;
         if (count($values) == 0) {
             return _("No values");
         } elseif (isset($values[$value]) && $value != '') {
-            return htmlspecialchars($values[$value], ENT_QUOTES, NLS::getCharset());
+            return htmlspecialchars($values[$value], ENT_QUOTES, Horde_Nls::getCharset());
         }
     }
 
@@ -1003,7 +1003,7 @@ EOT;
         if (count($values) == 0) {
             return _("No values");
         } elseif (isset($values[$var->getValue($vars)])) {
-            return htmlspecialchars($values[$var->getValue($vars)], ENT_QUOTES, NLS::getCharset());
+            return htmlspecialchars($values[$var->getValue($vars)], ENT_QUOTES, Horde_Nls::getCharset());
         }
     }
 
@@ -1020,7 +1020,7 @@ EOT;
                     $display[] = $name;
                 }
             }
-            return htmlspecialchars(implode(', ', $display), ENT_QUOTES, NLS::getCharset());
+            return htmlspecialchars(implode(', ', $display), ENT_QUOTES, Horde_Nls::getCharset());
         }
     }
 
@@ -1037,7 +1037,7 @@ EOT;
                     $display[] = $name;
                 }
             }
-            return htmlspecialchars(implode(', ', $display), ENT_QUOTES, NLS::getCharset());
+            return htmlspecialchars(implode(', ', $display), ENT_QUOTES, Horde_Nls::getCharset());
         }
     }
 
@@ -1217,7 +1217,7 @@ EOT;
             }
         }
 
-        $html = nl2br(htmlspecialchars($var->getValue($vars), ENT_QUOTES, NLS::getCharset()));
+        $html = nl2br(htmlspecialchars($var->getValue($vars), ENT_QUOTES, Horde_Nls::getCharset()));
         if (!empty($mapurl)) {
             $html .= '&nbsp;&nbsp;' . Horde::link(Horde::externalUrl($mapurl), $desc, null, '_blank') . Horde::img($icon, $desc, '', $registry->getImageDir('horde')) . '</a>';
         }
@@ -1255,7 +1255,7 @@ EOT;
     function _renderVarDisplay_invalid($form, $var, $vars)
     {
         return '<p class="form-error form-inline">'
-                . htmlspecialchars($var->type->message, ENT_QUOTES, NLS::getCharset())
+                . htmlspecialchars($var->type->message, ENT_QUOTES, Horde_Nls::getCharset())
                 . '</p>';
     }
 
@@ -1374,7 +1374,7 @@ EOT;
                 $selected = '';
             }
             $result .= '        <option value="';
-            $result .= ($htmlchars) ? htmlspecialchars($value, ENT_QUOTES, NLS::getCharset()) : $value;
+            $result .= ($htmlchars) ? htmlspecialchars($value, ENT_QUOTES, Horde_Nls::getCharset()) : $value;
             $result .= '"' . $selected . '>';
             $result .= ($htmlchars) ? htmlspecialchars($display) : $display;
             $result .= "</option>\n";
@@ -1394,7 +1394,7 @@ EOT;
                 $selected = '';
             }
             $result .= " <option value=\""
-                . htmlspecialchars($value, ENT_QUOTES, NLS::getCharset())
+                . htmlspecialchars($value, ENT_QUOTES, Horde_Nls::getCharset())
                 . "\"$selected>" . htmlspecialchars($display) . "</option>\n";
         }
 

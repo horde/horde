@@ -117,7 +117,7 @@ class IMP_Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Tnef
             $this->_mimepart->getMimeId() => array(
                 'data' => $text,
                 'status' => array($status),
-                'type' => 'text/html; charset=' . NLS::getCharset()
+                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             )
         );
     }

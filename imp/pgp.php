@@ -57,7 +57,7 @@ function _getImportKey()
 
 function _textWindowOutput($filename, $msg)
 {
-    $GLOBALS['browser']->downloadHeaders($filename, 'text/plain; charset=' . NLS::getCharset(), true, strlen($msg));
+    $GLOBALS['browser']->downloadHeaders($filename, 'text/plain; charset=' . Horde_Nls::getCharset(), true, strlen($msg));
     echo $msg;
 }
 

@@ -4,7 +4,7 @@
  */
 
 require_once 'Horde/Serialize.php';
-$charset = NLS::getCharset();
+$charset = Horde_Nls::getCharset();
 
 /* Variables used in core javascript files. */
 $var = array(

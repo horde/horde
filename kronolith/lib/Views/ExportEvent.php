@@ -21,7 +21,7 @@ class Kronolith_View_ExportEvent {
             if (!is_a($share, 'PEAR_Error')) {
                 $iCal->setAttribute('X-WR-CALNAME',
                                     Horde_String::convertCharset($share->get('name'),
-                                                           NLS::getCharset(),
+                                                           Horde_Nls::getCharset(),
                                                            'utf-8'));
             }
         }
@@ -32,7 +32,7 @@ class Kronolith_View_ExportEvent {
 
         $GLOBALS['browser']->downloadHeaders(
             $event->getTitle() . '.ics',
-            'text/calendar; charset=' . NLS::getCharset(),
+            'text/calendar; charset=' . Horde_Nls::getCharset(),
             true, strlen($content));
         echo $content;
         exit;

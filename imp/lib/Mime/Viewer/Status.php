@@ -140,7 +140,7 @@ class IMP_Horde_Mime_Viewer_Status extends Horde_Mime_Viewer_Driver
         $ret[$this->_mimepart->getMimeId()] = array(
             'data' => $data,
             'status' => $status,
-            'type' => 'text/html; charset=' . NLS::getCharset()
+            'type' => 'text/html; charset=' . Horde_Nls::getCharset()
         );
 
         return $ret;

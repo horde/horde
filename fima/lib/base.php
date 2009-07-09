@@ -56,7 +56,7 @@ require_once 'Horde/History.php';
 Horde::compressOutput();
 
 // Set the timezone variable.
-NLS::setTimeZone();
+Horde_Nls::setTimeZone();
 
 // Create a share instance.
 require_once 'Horde/Share.php';

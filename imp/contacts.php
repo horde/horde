@@ -57,7 +57,7 @@ if (Horde_Util::getFormData('searched') || $prefs->getValue('display_contact')) 
 $selected_addresses = array();
 foreach (explode('|', Horde_Util::getFormData('sa')) as $addr) {
     if (strlen(trim($addr))) {
-        $selected_addresses[] = @htmlspecialchars($addr, ENT_QUOTES, NLS::getCharset());
+        $selected_addresses[] = @htmlspecialchars($addr, ENT_QUOTES, Horde_Nls::getCharset());
     }
 }
 
@@ -84,11 +84,11 @@ $a_list = array();
 foreach ($addresses as $addr) {
     if (!empty($addr['email'])) {
         if (strpos($addr['email'], ',') !== false) {
-            $a_list[] = @htmlspecialchars(Horde_Mime_Address::encode($addr['name'], 'personal') . ': ' . $addr['email'] . ';', ENT_QUOTES, NLS::getCharset());
+            $a_list[] = @htmlspecialchars(Horde_Mime_Address::encode($addr['name'], 'personal') . ': ' . $addr['email'] . ';', ENT_QUOTES, Horde_Nls::getCharset());
         } else {
             $mbox_host = explode('@', $addr['email']);
             if (isset($mbox_host[1])) {
-                $a_list[] = @htmlspecialchars(Horde_Mime_Address::writeAddress($mbox_host[0], $mbox_host[1], $addr['name']), ENT_QUOTES, NLS::getCharset());
+                $a_list[] = @htmlspecialchars(Horde_Mime_Address::writeAddress($mbox_host[0], $mbox_host[1], $addr['name']), ENT_QUOTES, Horde_Nls::getCharset());
             }
         }
     }

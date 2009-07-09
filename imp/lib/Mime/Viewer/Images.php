@@ -91,7 +91,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                     $this->_mimepart->getMimeId() => array(
                         'data' => $this->_outputImgTag('data', $this->_mimepart->getName(true)),
                         'status' => array(),
-                        'type' => 'text/html; charset=' . NLS::getCharset()
+                        'type' => 'text/html; charset=' . Horde_Nls::getCharset()
                     )
                 );
             } else {
@@ -121,7 +121,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                         'text' => $status
                     )
                 ),
-                'type' => 'text/html; charset=' . NLS::getCharset()
+                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             )
         );
     }
@@ -159,7 +159,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                         'text' => $status
                     )
                 ),
-                'type' => 'text/html; charset=' . NLS::getCharset()
+                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             )
         );
     }
@@ -200,7 +200,7 @@ EOD;
             $this->_mimepart->getMimeId() => array(
                 'data' => $str,
                 'status' => array(),
-                'type' => 'text/html; charset=' . NLS::getCharset()
+                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             )
         );
     }
@@ -284,7 +284,7 @@ EOD;
      */
     protected function _outputImgTag($type, $alt)
     {
-        return '<img src="' . $this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('imp_img_view' => $type))) . '" alt="' . htmlspecialchars($alt, ENT_COMPAT, NLS::getCharset()) . '" />';
+        return '<img src="' . $this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('imp_img_view' => $type))) . '" alt="' . htmlspecialchars($alt, ENT_COMPAT, Horde_Nls::getCharset()) . '" />';
     }
 
 }

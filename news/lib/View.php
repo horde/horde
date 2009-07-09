@@ -21,7 +21,7 @@ class News_View extends Horde_View {
     {
         /* Set parents defualt data */
         parent::__construct(array('templatePath' => NEWS_TEMPLATES,
-                                  'encoding' => NLS::select()));
+                                  'encoding' => Horde_Nls::select()));
     }
 
     /**

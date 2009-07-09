@@ -411,7 +411,7 @@ class IMP_Contents
                                 )
                             )
                         ),
-                        'type' => 'text/html; charset=' . NLS::getCharset()
+                        'type' => 'text/html; charset=' . Horde_Nls::getCharset()
                     )
                 );
             }
@@ -442,7 +442,7 @@ class IMP_Contents
          * give the user a link to open the part in a new window with the
          * correct character set. */
         if (($mode != 'full') && ($mime_part->getPrimaryType() == 'text')) {
-            $default_charset = Horde_String::upper(NLS::getCharset());
+            $default_charset = Horde_String::upper(Horde_Nls::getCharset());
             if ($default_charset !== 'UTF-8') {
                 $charset_upper = Horde_String::upper($mime_part->getCharset());
                 if (($charset_upper != 'US-ASCII') &&
@@ -507,7 +507,7 @@ class IMP_Contents
         $ptext = $pmime->getContents();
         $ptext = Horde_String::convertCharset($ptext, $pmime->getCharset());
         if ($pmime->getType() == 'text/html') {
-            $ptext = Horde_Text_Filter::filter($ptext, 'html2text', array('charset' => NLS::getCharset()));
+            $ptext = Horde_Text_Filter::filter($ptext, 'html2text', array('charset' => Horde_Nls::getCharset()));
         }
 
         $this->_build = $oldbuild;

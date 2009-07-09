@@ -130,9 +130,8 @@ if (document.getElementById(%1$s)){
                 }
             }
         }
-        require_once 'Horde/NLS.php';
         echo '<input type="hidden" name="_formvars" value="'
-            . htmlspecialchars(serialize($vars), ENT_QUOTES, NLS::getCharset())
+            . htmlspecialchars(serialize($vars), ENT_QUOTES, Horde_Nls::getCharset())
             . '" />';
     }
 

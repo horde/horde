@@ -35,7 +35,7 @@ class Horde_Block_News_last_blogs extends Horde_Block {
                  'ORDER BY n.publish DESC ' .
                  'LIMIT 0, ' . $this->_params['limit'];
 
-        $params = array(News::CONFIRMED, 0, NLS::select());
+        $params = array(News::CONFIRMED, 0, Horde_Nls::select());
         $rows = $GLOBALS['news']->db->getAll($query, $params, DB_FETCHMODE_ASSOC);
         if ($rows instanceof PEAR_Error) {
             return $rows->getDebugInfo();

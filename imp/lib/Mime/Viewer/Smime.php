@@ -118,7 +118,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
                         'text' => array(_("This message has been encrypted via S/MIME."))
                     )
                 ),
-                'type' => 'text/html; charset=' . NLS::getCharset()
+                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             )
         );
         $status = &self::$_inlinecache[$base_id][$base_id]['status'][0]['text'];
@@ -185,7 +185,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
             $this->_mimepart->getMimeId() => array(
                 'data' => $this->_impsmime->certToHTML($sig_result->cert),
                 'status' => array(),
-                'type' => 'text/html; charset=' . NLS::getCharset()
+                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             )
         );
     }
@@ -226,7 +226,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
                         'text' => array(_("This message has been digitally signed via S/MIME."))
                     )
                 ),
-                'type' => 'text/html; charset=' . NLS::getCharset()
+                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             ),
             $sig_id => null
         );
@@ -309,7 +309,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
             if (!empty($subject) &&
                 $GLOBALS['registry']->hasMethod('contacts/addField') &&
                 $GLOBALS['prefs']->getValue('add_source')) {
-                $status[] = sprintf(_("The S/MIME certificate of %s: "), @htmlspecialchars($subject, ENT_COMPAT, NLS::getCharset())) . $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', _("View"), array('params' => array('mode' => IMP_Contents::RENDER_INLINE, 'view_smime_key' => 1))) . '/' . Horde::link('#', '', null, null, $this->_impsmime->savePublicKeyURL($sig_result->cert, $this->_params['contents']->getIndex(), $sig_id) . ' return false;') . _("Save in your Address Book") . '</a>';
+                $status[] = sprintf(_("The S/MIME certificate of %s: "), @htmlspecialchars($subject, ENT_COMPAT, Horde_Nls::getCharset())) . $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', _("View"), array('params' => array('mode' => IMP_Contents::RENDER_INLINE, 'view_smime_key' => 1))) . '/' . Horde::link('#', '', null, null, $this->_impsmime->savePublicKeyURL($sig_result->cert, $this->_params['contents']->getIndex(), $sig_id) . ' return false;') . _("Save in your Address Book") . '</a>';
             }
         }
 

@@ -96,17 +96,17 @@ $history = &Horde_History::singleton();
 $now = new Horde_Date(time());
 
 $template = new Horde_Template();
-$template->set('charset', NLS::getCharset());
+$template->set('charset', Horde_Nls::getCharset());
 $template->set('updated', $now->format(DATE_ATOM));
 $template->set('kronolith_name', 'Kronolith');
 $template->set('kronolith_version', KRONOLITH_VERSION);
 $template->set('kronolith_uri', 'http://www.horde.org/kronolith/');
 $template->set('kronolith_icon', Horde::url($registry->getImageDir() . '/kronolith.png', true, -1));
 $template->set('xsl', $registry->get('themesuri') . '/feed-rss.xsl');
-$template->set('calendar_name', @htmlspecialchars($share->get('name'), ENT_COMPAT, NLS::getCharset()));
-$template->set('calendar_desc', @htmlspecialchars($share->get('desc'), ENT_COMPAT, NLS::getCharset()), true);
-$template->set('calendar_owner', @htmlspecialchars($identity->getValue('fullname'), ENT_COMPAT, NLS::getCharset()));
-$template->set('calendar_email', @htmlspecialchars($identity->getValue('from_addr'), ENT_COMPAT, NLS::getCharset()), true);
+$template->set('calendar_name', @htmlspecialchars($share->get('name'), ENT_COMPAT, Horde_Nls::getCharset()));
+$template->set('calendar_desc', @htmlspecialchars($share->get('desc'), ENT_COMPAT, Horde_Nls::getCharset()), true);
+$template->set('calendar_owner', @htmlspecialchars($identity->getValue('fullname'), ENT_COMPAT, Horde_Nls::getCharset()));
+$template->set('calendar_email', @htmlspecialchars($identity->getValue('from_addr'), ENT_COMPAT, Horde_Nls::getCharset()), true);
 $template->set('self_url', $self_url);
 
 $twentyFour = $prefs->getValue('twentyFor');
@@ -122,7 +122,7 @@ foreach ($events as $day_events) {
         }
         $modified = new Horde_Date($modified);
         /* Description. */
-        $desc = @htmlspecialchars($event->getDescription(), ENT_COMPAT, NLS::getCharset());
+        $desc = @htmlspecialchars($event->getDescription(), ENT_COMPAT, Horde_Nls::getCharset());
         if (strlen($desc)) {
             $desc .= '<br /><br />';
         }
@@ -139,15 +139,15 @@ foreach ($events as $day_events) {
             $attendees[] = empty($status['name']) ? $attendee : Horde_Mime_Address::trimAddress($status['name'] . (strpos($attendee, '@') === false ? '' : ' <' . $attendee . '>'));
         }
         if (count($attendees)) {
-            $desc .= '<br />' . _("Who:") . ' ' . @htmlspecialchars(implode(', ', $attendees), ENT_COMPAT, NLS::getCharset());
+            $desc .= '<br />' . _("Who:") . ' ' . @htmlspecialchars(implode(', ', $attendees), ENT_COMPAT, Horde_Nls::getCharset());
         }
         if (strlen($event->getLocation())) {
-            $desc .= '<br />' . _("Where:") . ' ' . @htmlspecialchars($event->getLocation(), ENT_COMPAT, NLS::getCharset());
+            $desc .= '<br />' . _("Where:") . ' ' . @htmlspecialchars($event->getLocation(), ENT_COMPAT, Horde_Nls::getCharset());
         }
         $desc .= '<br />' . _("Event Status:") . ' ' . Kronolith::statusToString($event->getStatus());
 
-        $entries[$id]['title'] = @htmlspecialchars($event->getTitle(), ENT_COMPAT, NLS::getCharset());
-        $entries[$id]['desc'] = @htmlspecialchars($desc, ENT_COMPAT, NLS::getCharset());
+        $entries[$id]['title'] = @htmlspecialchars($event->getTitle(), ENT_COMPAT, Horde_Nls::getCharset());
+        $entries[$id]['desc'] = @htmlspecialchars($desc, ENT_COMPAT, Horde_Nls::getCharset());
         $entries[$id]['url'] = htmlspecialchars(Horde::url($event->getViewUrl(), true, -1));
         $entries[$id]['modified'] = $modified->format(DATE_ATOM);
     }

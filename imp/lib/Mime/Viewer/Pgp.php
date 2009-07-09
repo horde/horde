@@ -131,7 +131,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
                         'text' => $resymmetric ? self::$_inlinecache[$base_id][$base_id]['status'][0]['text'] : array()
                     )
                 ),
-                'type' => 'text/html; charset=' . NLS::getCharset()
+                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             ),
             $version_id => null,
             $data_id => null
@@ -293,7 +293,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
             $mime_id => array(
                 'data' => $data,
                 'status' => array($status),
-                'type' => 'text/html; charset=' . NLS::getCharset()
+                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             )
         );
     }
@@ -319,7 +319,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
                         'text' => array()
                     )
                 ),
-                'type' => 'text/html; charset=' . NLS::getCharset()
+                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             ),
             $sig_id => null
         );

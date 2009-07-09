@@ -143,12 +143,12 @@ function send_agendas()
         $lang = $prefs->getValue('language');
         $twentyFour = $prefs->getValue('twentyFour');
         $dateFormat = $prefs->getValue('date_format');
-        NLS::setLanguageEnvironment($lang);
+        Horde_Nls::setLanguageEnvironment($lang);
         $mime_mail = new Horde_Mime_Mail(sprintf(_("Your daily agenda for %s"), strftime($dateFormat, $runtime)),
                                          null,
                                          $email,
                                          $GLOBALS['conf']['reminder']['from_addr'],
-                                         NLS::getCharset());
+                                         Horde_Nls::getCharset());
 
         $mail_driver = $GLOBALS['conf']['mailer']['type'];
         $mail_params = $GLOBALS['conf']['mailer']['params'];
@@ -172,7 +172,7 @@ function send_agendas()
             $message .= $event->title . "\n";
         }
 
-        $mime_mail->setBody($message, NLS::getCharset(), true);
+        $mime_mail->setBody($message, Horde_Nls::getCharset(), true);
         try {
             $mime_mail->addRecipients($email);
         } catch (Horde_Mime_Exception $e) {}

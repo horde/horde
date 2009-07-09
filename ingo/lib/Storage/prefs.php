@@ -63,7 +63,7 @@ class Ingo_Storage_prefs extends Ingo_Storage
                 /* Convert rules from the old format. */
                 $data = @unserialize($prefs->getValue('rules'));
             } else {
-                $data = Horde_String::convertCharset($data, $prefs->getCharset(), NLS::getCharset());
+                $data = Horde_String::convertCharset($data, $prefs->getCharset(), Horde_Nls::getCharset());
             }
             if ($data) {
                 $ob->setFilterlist($data);
@@ -86,7 +86,7 @@ class Ingo_Storage_prefs extends Ingo_Storage
                 /* Convert vacation from the old format. */
                 $data = unserialize($prefs->getValue('vacation'));
             } elseif (is_array($data)) {
-                $data = $prefs->convertFromDriver($data, NLS::getCharset());
+                $data = $prefs->convertFromDriver($data, Horde_Nls::getCharset());
             }
             if ($data) {
                 $ob->setVacationAddresses($data['addresses'], false);
@@ -144,7 +144,7 @@ class Ingo_Storage_prefs extends Ingo_Storage
             return $prefs->setValue('blacklist', serialize($data));
 
         case self::ACTION_FILTERS:
-            return $prefs->setValue('rules', serialize(Horde_String::convertCharset($ob->getFilterList(), NLS::getCharset(), $prefs->getCharset())), false);
+            return $prefs->setValue('rules', serialize(Horde_String::convertCharset($ob->getFilterList(), Horde_Nls::getCharset(), $prefs->getCharset())), false);
 
         case self::ACTION_FORWARD:
             $data = array(
@@ -164,7 +164,7 @@ class Ingo_Storage_prefs extends Ingo_Storage
                 'start' => $ob->getVacationStart(),
                 'end' => $ob->getVacationEnd(),
             );
-            return $prefs->setValue('vacation', serialize($prefs->convertToDriver($data, NLS::getCharset())), false);
+            return $prefs->setValue('vacation', serialize($prefs->convertToDriver($data, Horde_Nls::getCharset())), false);
 
         case self::ACTION_WHITELIST:
             return $prefs->setValue('whitelist', serialize($ob->getWhitelist()));

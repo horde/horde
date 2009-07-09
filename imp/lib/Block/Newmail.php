@@ -37,7 +37,7 @@ class IMP_Block_Newmail extends Horde_Block
         } else {
             require_once 'Horde/Identity.php';
 
-            $charset = NLS::getCharset();
+            $charset = Horde_Nls::getCharset();
             $imp_ui = new IMP_UI_Mailbox('INBOX');
             $shown = empty($this->_params['msgs_shown']) ? 3 : $this->_params['msgs_shown'];
 

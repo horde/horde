@@ -15,7 +15,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Check rule permissions. */
 if (!Ingo::hasPermission('allow_rules')) {
-    $message = @htmlspecialchars(_("You are not allowed to create or edit custom rules."), ENT_COMPAT, NLS::getCharset());
+    $message = @htmlspecialchars(_("You are not allowed to create or edit custom rules."), ENT_COMPAT, Horde_Nls::getCharset());
     if (!empty($conf['hooks']['permsdenied'])) {
         $message = Horde::callHook('_perms_hook_denied', array('ingo:allow_rules'), 'horde', $message);
     }
@@ -166,7 +166,7 @@ default:
     if (is_null($edit_number)) {
         if (Ingo::hasPermission('max_rules') !== true &&
             Ingo::hasPermission('max_rules') <= count($filters->getFilterList())) {
-            $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d rules."), Ingo::hasPermission('max_rules')), ENT_COMPAT, NLS::getCharset());
+            $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d rules."), Ingo::hasPermission('max_rules')), ENT_COMPAT, Horde_Nls::getCharset());
             if (!empty($conf['hooks']['permsdenied'])) {
                 $message = Horde::callHook('_perms_hook_denied', array('ingo:max_rules'), 'horde', $message);
             }

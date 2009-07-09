@@ -51,7 +51,7 @@ if (!$prefs->isLocked('default_identity')) {
 }
 
 /* Set the current time zone. */
-NLS::setTimeZone();
+Horde_Nls::setTimeZone();
 
 /* Initialize the IMP_Compose:: object. */
 $imp_compose = IMP_Compose::singleton(Horde_Util::getFormData('composeCache'));
@@ -78,7 +78,7 @@ if (count($_POST)) {
     }
 
     /* Set the default charset. */
-    $charset = NLS::getEmailCharset();
+    $charset = Horde_Nls::getEmailCharset();
     if (!$prefs->isLocked('sending_charset')) {
         $charset = Horde_Util::getFormData('charset', $charset);
     }
@@ -99,7 +99,7 @@ if (count($_POST)) {
         try {
             $old_index = $imp_compose->getMetadata('draft_index');
 
-            $res = $imp_compose->saveDraft($header, Horde_Util::getFormData('message', ''), NLS::getCharset(), Horde_Util::getFormData('html'));
+            $res = $imp_compose->saveDraft($header, Horde_Util::getFormData('message', ''), Horde_Nls::getCharset(), Horde_Util::getFormData('html'));
             $result->success = 1;
 
             /* Delete existing draft. */

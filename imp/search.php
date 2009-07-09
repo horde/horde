@@ -32,7 +32,7 @@ $search_mailbox = Horde_Util::getFormData('search_mailbox');
 
 $imp_search_fields = $imp_search->searchFields();
 
-$charset = NLS::getCharset();
+$charset = Horde_Nls::getCharset();
 
 /* Get URL parameter data. */
 $search = array();

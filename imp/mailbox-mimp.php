@@ -25,7 +25,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 $readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);
 
 /* Set the current time zone. */
-NLS::setTimeZone();
+Horde_Nls::setTimeZone();
 
 /* Run through the action handlers */
 $actionID = Horde_Util::getFormData('a');

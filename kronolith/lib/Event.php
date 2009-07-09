@@ -379,17 +379,17 @@ abstract class Kronolith_Event
             $vEvent->setAttribute('LAST-MODIFIED', $modified);
         }
 
-        $vEvent->setAttribute('SUMMARY', $v1 ? $this->getTitle() : Horde_String::convertCharset($this->getTitle(), NLS::getCharset(), 'utf-8'));
+        $vEvent->setAttribute('SUMMARY', $v1 ? $this->getTitle() : Horde_String::convertCharset($this->getTitle(), Horde_Nls::getCharset(), 'utf-8'));
         $name = Kronolith::getUserName($this->getCreatorId());
         if (!$v1) {
-            $name = Horde_String::convertCharset($name, NLS::getCharset(), 'utf-8');
+            $name = Horde_String::convertCharset($name, Horde_Nls::getCharset(), 'utf-8');
         }
         $vEvent->setAttribute('ORGANIZER',
                               'mailto:' . Kronolith::getUserEmail($this->getCreatorId()),
                               array('CN' => $name));
         if (!$this->isPrivate() || $this->getCreatorId() == Horde_Auth::getAuth()) {
             if (!empty($this->description)) {
-                $vEvent->setAttribute('DESCRIPTION', $v1 ? $this->description : Horde_String::convertCharset($this->description, NLS::getCharset(), 'utf-8'));
+                $vEvent->setAttribute('DESCRIPTION', $v1 ? $this->description : Horde_String::convertCharset($this->description, Horde_Nls::getCharset(), 'utf-8'));
             }
 
             // Tags
@@ -398,12 +398,12 @@ abstract class Kronolith_Event
                 $tags = implode(', ', $tags);
             }
             if (!empty($tags)) {
-                $vEvent->setAttribute('CATEGORIES', $v1 ? $tags : Horde_String::convertCharset($tags, NLS::getCharset(), 'utf-8'));
+                $vEvent->setAttribute('CATEGORIES', $v1 ? $tags : Horde_String::convertCharset($tags, Horde_Nls::getCharset(), 'utf-8'));
             }
 
             // Location
             if (!empty($this->location)) {
-                $vEvent->setAttribute('LOCATION', $v1 ? $this->location : Horde_String::convertCharset($this->location, NLS::getCharset(), 'utf-8'));
+                $vEvent->setAttribute('LOCATION', $v1 ? $this->location : Horde_String::convertCharset($this->location, Horde_Nls::getCharset(), 'utf-8'));
             }
         }
         $vEvent->setAttribute('CLASS', $this->isPrivate() ? 'PRIVATE' : 'PUBLIC');
@@ -513,7 +513,7 @@ abstract class Kronolith_Event
                 }
             } else {
                 if (!empty($status['name'])) {
-                    $params['CN'] = Horde_String::convertCharset($status['name'], NLS::getCharset(), 'utf-8');
+                    $params['CN'] = Horde_String::convertCharset($status['name'], Horde_Nls::getCharset(), 'utf-8');
                 }
                 if (!empty($email)) {
                     $email = 'mailto:' . $email;
@@ -1583,7 +1583,7 @@ abstract class Kronolith_Event
         // strptime() is locale dependent, i.e. %p is not always matching
         // AM/PM. Set the locale to C to workaround this, but grab the
         // locale's D_FMT before that.
-        $date_format = NLS::getLangInfo(D_FMT);
+        $date_format = Horde_Nls::getLangInfo(D_FMT);
         $old_locale = setlocale(LC_TIME, 0);
         setlocale(LC_TIME, 'C');
 
@@ -2142,7 +2142,7 @@ abstract class Kronolith_Event
                                        array('style' => $this->getCSSColors(false)));
         }
 
-        $link .= @htmlspecialchars($event_title, ENT_QUOTES, NLS::getCharset());
+        $link .= @htmlspecialchars($event_title, ENT_QUOTES, Horde_Nls::getCharset());
 
         if ($this->hasPermission(PERMS_READ) &&
             (isset($this->eventID) ||

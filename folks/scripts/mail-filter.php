@@ -106,7 +106,7 @@ foreach (array('host', 'user', 'pass', 'port', 'protocol', 'folder') as $opt) {
 
 // Set charset to UTF-8 for most flexible conversion between email charset and
 // backend charset.
-NLS::setCharsetEnvironment('UTF-8');
+Horde_Nls::setCharsetEnvironment('UTF-8');
 
 // Read and parse the message.
 $messages = array();

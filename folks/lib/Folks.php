@@ -46,7 +46,7 @@ class Folks {
     {
         $result = Horde::loadConfiguration('countries.php', 'countries', 'folks');
         if ($result instanceof PEAR_Error) {
-            return NLS::getCountryISO();
+            return Horde_Nls::getCountryISO();
         }
 
         return $result;
@@ -236,7 +236,7 @@ class Folks {
      */
     static public function sendMail($to, $subject, $body, $attaches = array())
     {
-        $mail = new Horde_Mime_Mail($subject, $body, $to, $GLOBALS['conf']['support'], NLS::getCharset());
+        $mail = new Horde_Mime_Mail($subject, $body, $to, $GLOBALS['conf']['support'], Horde_Nls::getCharset());
 
         require_once FOLKS_BASE . '/lib/version.php';
         $mail->addHeader('User-Agent', 'Folks ' . FOLKS_VERSION);
@@ -245,7 +245,7 @@ class Folks {
 
         foreach ($attaches as $file) {
             if (file_exists($file)) {
-                $mail->addAttachment($file, null, null, NLS::getCharset());
+                $mail->addAttachment($file, null, null, Horde_Nls::getCharset());
             }
         }
 

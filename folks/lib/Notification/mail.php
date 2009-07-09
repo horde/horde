@@ -59,7 +59,7 @@ class Folks_Notification_mail extends Folks_Notification {
 
         $mail = new Horde_Mime_Mail($subject, $body, null,
                                     $this->_params['from_addr'],
-                                    NLS::getCharset());
+                                    Horde_Nls::getCharset());
 
         $mail->addHeader('User-Agent', 'Folks ' . FOLKS_VERSION);
         $mail->addHeader('X-Originating-IP', $_SERVER['REMOTE_ADDR']);
@@ -67,7 +67,7 @@ class Folks_Notification_mail extends Folks_Notification {
 
         foreach ($attachments as $file) {
             if (file_exists($file)) {
-                $mail->addAttachment($file, null, null, NLS::getCharset());
+                $mail->addAttachment($file, null, null, Horde_Nls::getCharset());
             }
         }
 
@@ -80,7 +80,7 @@ class Folks_Notification_mail extends Folks_Notification {
             if (empty($to)) {
                 continue;
             }
-            $mail->addHeader('To', $to, NLS::getCharset(), true);
+            $mail->addHeader('To', $to, Horde_Nls::getCharset(), true);
             $mail->send($mail_driver, $mail_params);
         }
 

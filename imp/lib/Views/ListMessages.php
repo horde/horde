@@ -41,7 +41,7 @@ class IMP_Views_ListMessages
         $label = IMP::getLabel($mbox);
 
         /* Set the current time zone. */
-        NLS::setTimeZone();
+        Horde_Nls::setTimeZone();
 
         /* Run filters now. */
         if (!empty($_SESSION['imp']['filteravail']) &&
@@ -233,7 +233,7 @@ class IMP_Views_ListMessages
 
         /* Get mailbox information. */
         $overview = $imp_mailbox->getMailboxArray($msglist, array('headers' => array('list-post', 'x-priority'), 'structure' => $GLOBALS['prefs']->getValue('atc_flag')));
-        $charset = NLS::getCharset();
+        $charset = Horde_Nls::getCharset();
         $imp_ui = new IMP_UI_Mailbox($folder);
 
         /* Display message information. */

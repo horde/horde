@@ -49,7 +49,7 @@ if (!$conf['user']['allow_folders']) {
 $subscribe = $prefs->getValue('subscribe');
 $showAll = (!$subscribe || $_SESSION['imp']['showunsub']);
 
-$charset = NLS::getCharset();
+$charset = Horde_Nls::getCharset();
 
 /* Get the base URL for this page. */
 $folders_url = Horde::selfUrl();

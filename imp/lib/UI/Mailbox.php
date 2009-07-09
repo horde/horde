@@ -148,7 +148,7 @@ class IMP_UI_Mailbox
         }
 
         if (!isset($this->_cache['localeinfo'])) {
-            $this->_cache['localeinfo'] = NLS::getLocaleInfo();
+            $this->_cache['localeinfo'] = Horde_Nls::getLocaleInfo();
         }
 
         $size = $size / 1024;
@@ -247,7 +247,7 @@ class IMP_UI_Mailbox
         $new_subject = $subject = IMP::filterText(preg_replace("/\s+/", ' ', $subject));
 
         if ($htmlspaces) {
-            $new_subject = Horde_Text_Filter::filter($subject, 'space2html', array('charset' => NLS::getCharset(), 'encode' => true));
+            $new_subject = Horde_Text_Filter::filter($subject, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true));
             if (empty($new_subject)) {
                 $new_subject = htmlspecialchars($subject);
             }

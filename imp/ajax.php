@@ -184,7 +184,7 @@ case 'CreateFolder':
 
     $imp_folder = IMP_Folder::singleton();
 
-    $new = Horde_String::convertCharset($mbox, NLS::getCharset(), 'UTF7-IMAP');
+    $new = Horde_String::convertCharset($mbox, Horde_Nls::getCharset(), 'UTF7-IMAP');
     try {
         $new = $imptree->createMailboxName(Horde_Util::getPost('parent'), $new);
         $result = $imp_folder->create($new, $prefs->getValue('subscribe'));
@@ -228,7 +228,7 @@ case 'RenameFolder':
     try {
         $new = $imptree->createMailboxName($new_parent, $new);
 
-        $new = Horde_String::convertCharset($new, NLS::getCharset(), 'UTF7-IMAP');
+        $new = Horde_String::convertCharset($new, Horde_Nls::getCharset(), 'UTF7-IMAP');
         if ($old != $new) {
             $result = $imp_folder->rename($old, $new);
             if ($result) {

@@ -137,7 +137,7 @@ class IMP
         $contact_link = $registry->link('contacts/show', array('uid' => $result, 'source' => $prefs->getValue('add_source')));
 
         $old_error = error_reporting(0);
-        $escapeName = htmlspecialchars($newName, ENT_COMPAT, NLS::getCharset());
+        $escapeName = htmlspecialchars($newName, ENT_COMPAT, Horde_Nls::getCharset());
         error_reporting($old_error);
 
         return (!empty($contact_link) && !is_a($contact_link, 'PEAR_Error'))
@@ -212,7 +212,7 @@ class IMP
             $val = isset($filter[$mbox['val']]) ? '' : htmlspecialchars($mbox['val']);
             $sel = ($mbox['val'] && !empty($options['selected']) && ($mbox['val'] === $options['selected'])) ? ' selected="selected"' : '';
             $label = empty($options['abbrev']) ? $mbox['label'] : $mbox['abbrev'];
-            $text .= sprintf('<option value="%s"%s>%s</option>%s', $val, $sel, Horde_Text_Filter::filter($label, 'space2html', array('charset' => NLS::getCharset(), 'encode' => true)), "\n");
+            $text .= sprintf('<option value="%s"%s>%s</option>%s', $val, $sel, Horde_Text_Filter::filter($label, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)), "\n");
         }
 
         /* Add the list of virtual folders to the list. */
@@ -222,7 +222,7 @@ class IMP
                 $vfolder_sel = $GLOBALS['imp_search']->searchMboxID();
                 $text .= '<option value="" disabled="disabled">- - - - - - - - -</option>' . "\n";
                 foreach ($vfolders as $id => $val) {
-                    $text .= sprintf('<option value="%s"%s>%s</option>%s', $GLOBALS['imp_search']->createSearchID($id), ($vfolder_sel == $id) ? ' selected="selected"' : '', Horde_Text_Filter::filter($val, 'space2html', array('charset' => NLS::getCharset(), 'encode' => true)), "\n");
+                    $text .= sprintf('<option value="%s"%s>%s</option>%s', $GLOBALS['imp_search']->createSearchID($id), ($vfolder_sel == $id) ? ' selected="selected"' : '', Horde_Text_Filter::filter($val, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)), "\n");
                 }
             }
         }
@@ -239,7 +239,7 @@ class IMP
                 foreach ($tasklists as $id => $tasklist) {
                     $text .= sprintf('<option value="%s">%s</option>%s',
                                      '_tasklist_' . $id,
-                                     Horde_Text_Filter::filter($tasklist->get('name'), 'space2html', array('charset' => NLS::getCharset(), 'encode' => true)),
+                                     Horde_Text_Filter::filter($tasklist->get('name'), 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)),
                                      "\n");
                 }
             }
@@ -257,7 +257,7 @@ class IMP
                 foreach ($notepads as $id => $notepad) {
                     $text .= sprintf('<option value="%s">%s</option>%s',
                                      '_notepad_' . $id,
-                                     Horde_Text_Filter::filter($notepad->get('name'), 'space2html', array('charset' => NLS::getCharset(), 'encode' => true)),
+                                     Horde_Text_Filter::filter($notepad->get('name'), 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)),
                                      "\n");
                 }
             }
@@ -452,7 +452,7 @@ class IMP
             if (stripos($out, $key) === 0) {
                 $len = strlen($key);
                 if ((strlen($out) == $len) || ($out[$len + 1] == $delimiter)) {
-                    $out = substr_replace($out, Horde_String::convertCharset($val, NLS::getCharset(), 'UTF7-IMAP'), 0, $len);
+                    $out = substr_replace($out, Horde_String::convertCharset($val, Horde_Nls::getCharset(), 'UTF7-IMAP'), 0, $len);
                     break;
                 }
             }
@@ -1332,7 +1332,7 @@ class IMP
      */
     static public function escapeJSON($json)
     {
-        return '/*-secure-' . rawurlencode(Horde_Serialize::serialize($json, Horde_Serialize::JSON, NLS::getCharset())) . '*/';
+        return '/*-secure-' . rawurlencode(Horde_Serialize::serialize($json, Horde_Serialize::JSON, Horde_Nls::getCharset())) . '*/';
     }
 
     /**

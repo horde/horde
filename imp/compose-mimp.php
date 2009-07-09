@@ -60,7 +60,7 @@ $compose_disable = !empty($conf['hooks']['disable_compose']) &&
     Horde::callHook('_imp_hook_disable_compose', array(), 'imp');
 
 /* Set the current time zone. */
-NLS::setTimeZone();
+Horde_Nls::setTimeZone();
 
 /* Initialize the IMP_Compose:: object. */
 $imp_compose = IMP_Compose::singleton(Horde_Util::getFormData('composeCache'));
@@ -141,7 +141,7 @@ case _("Redirect"):
     $f_to = $imp_ui->getAddressList(Horde_Util::getFormData('to'));
 
     try {
-        $imp_ui->redirectMessage($f_to, $imp_compose, $imp_contents, NLS::getEmailCharset());
+        $imp_ui->redirectMessage($f_to, $imp_compose, $imp_contents, Horde_Nls::getEmailCharset());
         if ($prefs->getValue('compose_confirm')) {
             $notification->push(_("Message redirected successfully."), 'horde.success');
         }
@@ -216,7 +216,7 @@ case _("Send"):
     );
 
     try {
-        if ($imp_compose->buildAndSendMessage($message, $header, NLS::getEmailCharset(), false, $options)) {
+        if ($imp_compose->buildAndSendMessage($message, $header, Horde_Nls::getEmailCharset(), false, $options)) {
             $imp_compose->destroy();
 
             if (Horde_Util::getFormData('resume_draft') &&

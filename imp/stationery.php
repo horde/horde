@@ -85,7 +85,7 @@ case 'update':
 }
 
 if ($updated) {
-    $prefs->setValue('stationery', serialize(Horde_String::convertCharset($stationery_list, NLS::getCharset(), $prefs->getCharset())), false);
+    $prefs->setValue('stationery', serialize(Horde_String::convertCharset($stationery_list, Horde_Nls::getCharset(), $prefs->getCharset())), false);
     $notification->push($updated, 'horde.success');
 }
 
@@ -130,7 +130,7 @@ $t->set('html', $stationery['t'] == 'html');
 $t->set('content_label', Horde::label('content', _("Stationery:")));
 $t->set('content', $stationery['c']);
 $t->set('button_href', Horde_Util::addParameter($compose_url, 'group', 'compose'));
-$t->set('button_val', htmlspecialchars(_("Return to Message Composition"), ENT_COMPAT, NLS::getCharset()));
+$t->set('button_val', htmlspecialchars(_("Return to Message Composition"), ENT_COMPAT, Horde_Nls::getCharset()));
 
 echo $t->fetch(IMP_TEMPLATES . '/stationery/stationery.html');
 if (!$chunk) {

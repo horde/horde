@@ -82,7 +82,7 @@ $description = ($total_num == 0)
     : sprintf(_("%u of %u messages in %s unread."), $unseen_num, $total_num, IMP::getLabel($mailbox));
 
 $t = new IMP_Template();
-$t->set('charset', NLS::getCharset());
+$t->set('charset', Horde_Nls::getCharset());
 $t->set('xsl', $registry->get('themesuri') . '/feed-rss.xsl');
 $t->set('pubDate', htmlspecialchars(date('r')));
 $t->set('desc', htmlspecialchars($description));

@@ -36,7 +36,7 @@ class IMP_Imple_SpellChecker extends IMP_Imple
         if (empty($params['states'])) {
             $params['states'] = '""';
         } else {
-            $params['states'] = Horde_Serialize::serialize($params['states'], Horde_Serialize::JSON, NLS::getCharset());
+            $params['states'] = Horde_Serialize::serialize($params['states'], Horde_Serialize::JSON, Horde_Nls::getCharset());
         }
         if (empty($params['locales'])) {
             $params['locales'] = array();
@@ -45,7 +45,7 @@ class IMP_Imple_SpellChecker extends IMP_Imple
             }
         }
         asort($params['locales'], SORT_LOCALE_STRING);
-        $params['locales'] = Horde_Serialize::serialize($params['locales'], Horde_Serialize::JSON, NLS::getCharset());
+        $params['locales'] = Horde_Serialize::serialize($params['locales'], Horde_Serialize::JSON, Horde_Nls::getCharset());
 
         parent::__construct($params);
     }

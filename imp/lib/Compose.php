@@ -454,7 +454,7 @@ class IMP_Compose
             $mdn->addMDNRequestHeaders($headers, $barefrom);
         }
 
-        $browser_charset = NLS::getCharset();
+        $browser_charset = Horde_Nls::getCharset();
 
         $headers->addHeader('From', Horde_String::convertCharset($header['from'], $browser_charset, $charset));
 
@@ -496,7 +496,7 @@ class IMP_Compose
         $headers_result = Horde::loadConfiguration('header.php', '_header');
         if (!is_a($headers_result, 'PEAR_Error')) {
             foreach ($headers_result as $key => $val) {
-                $headers->addHeader(trim($key), Horde_String::convertCharset(trim($val), NLS::getCharset(), $charset));
+                $headers->addHeader(trim($key), Horde_String::convertCharset(trim($val), Horde_Nls::getCharset(), $charset));
             }
         }
 
@@ -604,7 +604,7 @@ class IMP_Compose
             }
 
             try {
-                $GLOBALS['imp_imap']->ob->append(Horde_String::convertCharset($opts['sent_folder'], NLS::getCharset(), 'UTF-8'), array(array('data' => $fcc, 'flags' => $flags)));
+                $GLOBALS['imp_imap']->ob->append(Horde_String::convertCharset($opts['sent_folder'], Horde_Nls::getCharset(), 'UTF-8'), array(array('data' => $fcc, 'flags' => $flags)));
             } catch (Horde_Imap_Client_Exception $e) {
                 $notification->push(sprintf(_("Message sent successfully, but not saved to %s"), IMP::displayFolder($opts['sent_folder'])));
                 $sent_saved = false;
@@ -668,7 +668,7 @@ class IMP_Compose
                 $recipients += isset($address['grounpname']) ? count($address['addresses']) : 1;
             }
             if ($recipients > $timelimit) {
-                $error = @htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $timelimit, $conf['sentmail']['params']['limit_period']), ENT_COMPAT, NLS::getCharset());
+                $error = @htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $timelimit, $conf['sentmail']['params']['limit_period']), ENT_COMPAT, Horde_Nls::getCharset());
                 if (!empty($conf['hooks']['permsdenied'])) {
                     $error = Horde::callHook('_perms_hook_denied', array('imp:max_timelimit'), 'horde', $error);
                 }
@@ -862,7 +862,7 @@ class IMP_Compose
                     $num_recipients += count(explode(',', $recipient));
                 }
                 if ($num_recipients > $max_recipients) {
-                    $message = @htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients."), $max_recipients), ENT_COMPAT, NLS::getCharset());
+                    $message = @htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients."), $max_recipients), ENT_COMPAT, Horde_Nls::getCharset());
                     if (!empty($conf['hooks']['permsdenied'])) {
                         $message = Horde::callHook('_perms_hook_denied', array('imp:max_recipients'), 'horde', $message);
                     }
@@ -888,7 +888,7 @@ class IMP_Compose
         // Convert IDN hosts to ASCII.
         if (Horde_Util::extensionExists('idn')) {
             $old_error = error_reporting(0);
-            $host = idn_to_ascii(Horde_String::convertCharset($host, NLS::getCharset(), 'UTF-8'));
+            $host = idn_to_ascii(Horde_String::convertCharset($host, Horde_Nls::getCharset(), 'UTF-8'));
             error_reporting($old_error);
         } elseif (Horde_Mime::is8bit($ob['mailbox'])) {
             throw new IMP_Compose_Exception(sprintf(_("Invalid character in e-mail address: %s."), $email));
@@ -919,7 +919,7 @@ class IMP_Compose
     protected function _createMimeMessage($to, $body, $charset,
                                           $options = array())
     {
-        $nls_charset = NLS::getCharset();
+        $nls_charset = Horde_Nls::getCharset();
         $body = Horde_String::convertCharset($body, $nls_charset, $charset);
 
         if (!empty($options['html'])) {
@@ -1406,7 +1406,7 @@ class IMP_Compose
 
         return array(
             'body' => $msg,
-            'encoding' => isset($msg_text) ? $msg_text['encoding'] : NLS::getCharset(),
+            'encoding' => isset($msg_text) ? $msg_text['encoding'] : Horde_Nls::getCharset(),
             'format' => $format,
             'headers' => $header,
             'identity' => $this->_getMatchingIdentity($h)
@@ -1454,7 +1454,7 @@ class IMP_Compose
                 $headerob = $contents->getHeaderOb();
 
                 $part = new Horde_Mime_Part();
-                $part->setCharset(NLS::getCharset());
+                $part->setCharset(Horde_Nls::getCharset());
                 $part->setType('message/rfc822');
                 $part->setName(_("Forwarded Message"));
                 $part->setContents($contents->fullMessageText(array('stream' => true)));
@@ -1571,7 +1571,7 @@ class IMP_Compose
         }
         $part = new Horde_Mime_Part();
         $part->setType($type);
-        $part->setCharset(NLS::getCharset());
+        $part->setCharset(Horde_Nls::getCharset());
         $part->setName($filename);
         $part->setBytes($_FILES[$name]['size']);
         $part->setDisposition('attachment');
@@ -1909,13 +1909,13 @@ class IMP_Compose
             '/%r/' => $h->getValue('date'),
 
             /* Date as ddd, dd mmm yyyy. */
-            '/%d/' => Horde_String::convertCharset(strftime("%a, %d %b %Y", $udate), NLS::getExternalCharset()),
+            '/%d/' => Horde_String::convertCharset(strftime("%a, %d %b %Y", $udate), Horde_Nls::getExternalCharset()),
 
             /* Date in locale's default. */
-            '/%x/' => Horde_String::convertCharset(strftime("%x", $udate), NLS::getExternalCharset()),
+            '/%x/' => Horde_String::convertCharset(strftime("%x", $udate), Horde_Nls::getExternalCharset()),
 
             /* Date and time in locale's default. */
-            '/%c/' => Horde_String::convertCharset(strftime("%c", $udate), NLS::getExternalCharset()),
+            '/%c/' => Horde_String::convertCharset(strftime("%c", $udate), Horde_Nls::getExternalCharset()),
 
             /* Message-ID. */
             '/%m/' => $message_id,
@@ -2107,14 +2107,14 @@ class IMP_Compose
         $fullpath = sprintf('%s/%s/%d', self::VFS_LINK_ATTACH_PATH, $auth, $ts);
         $charset = $part->getCharset();
 
-        $trailer = Horde_String::convertCharset(_("Attachments"), NLS::getCharset(), $charset);
+        $trailer = Horde_String::convertCharset(_("Attachments"), Horde_Nls::getCharset(), $charset);
 
         if ($prefs->getValue('delete_attachments_monthly')) {
             /* Determine the first day of the month in which the current
              * attachments will be ripe for deletion, then subtract 1 second
              * to obtain the last day of the previous month. */
             $del_time = mktime(0, 0, 0, date('n') + $prefs->getValue('delete_attachments_monthly_keep') + 1, 1, date('Y')) - 1;
-            $trailer .= Horde_String::convertCharset(' (' . sprintf(_("Links will expire on %s"), strftime('%x', $del_time)) . ')', NLS::getCharset(), $charset);
+            $trailer .= Horde_String::convertCharset(' (' . sprintf(_("Links will expire on %s"), strftime('%x', $del_time)) . ')', Horde_Nls::getCharset(), $charset);
         }
 
         foreach ($this->getAttachments() as $att) {
@@ -2197,7 +2197,7 @@ class IMP_Compose
         $part = $contents->getMIMEPart($body_id);
         $type = $part->getType();
         $part_charset = $part->getCharset();
-        $charset = NLS::getCharset();
+        $charset = Horde_Nls::getCharset();
         $msg = Horde_String::convertCharset($part->getContents(), $part_charset);
 
         /* Enforce reply limits. */
@@ -2243,7 +2243,7 @@ class IMP_Compose
         }
 
         /* Determine default encoding. */
-        $encoding = NLS::getEmailCharset();
+        $encoding = Horde_Nls::getEmailCharset();
         if (($charset == 'UTF-8') &&
             (strcasecmp($part_charset, 'US-ASCII') !== 0) &&
             (strcasecmp($part_charset, $encoding) !== 0)) {
@@ -2290,7 +2290,7 @@ class IMP_Compose
 
         $part = new Horde_Mime_Part();
         $part->setType('text/x-vcard');
-        $part->setCharset(NLS::getCharset());
+        $part->setCharset(Horde_Nls::getCharset());
         $part->setContents($vcard);
         $part->setName((strlen($name) ? $name : 'vcard') . '.vcf');
         $this->_attachVCard = $part;

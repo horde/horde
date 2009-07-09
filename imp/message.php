@@ -47,7 +47,7 @@ if (!$imp_mailbox->isValidIndex(false)) {
 $imp_message = IMP_Message::singleton();
 
 /* Set the current time zone. */
-NLS::setTimeZone();
+Horde_Nls::setTimeZone();
 
 /* Initialize the user's identities. */
 require_once 'Horde/Identity.php';
@@ -262,14 +262,14 @@ if (!IMP::$printMode) {
             $origin_host = array($origin_host);
         }
         foreach ($origin_host as $host) {
-            $from_img .= NLS::generateFlagImageByHost($host) . ' ';
+            $from_img .= Horde_Nls::generateFlagImageByHost($host) . ' ';
         }
         trim($from_img);
     }
 
     if (empty($from_img) && !empty($envelope['from'])) {
         $from_ob = reset($envelope['from']);
-        $from_img = NLS::generateFlagImageByHost($from_ob['host']);
+        $from_img = Horde_Nls::generateFlagImageByHost($from_ob['host']);
     }
 
     if (!empty($from_img)) {

@@ -361,7 +361,7 @@ class IMP_Message
                 /* TODO: When Horde_iCalendar supports setting of charsets
                  * we need to set it there instead of relying on the fact
                  * that both Nag and IMP use the same charset. */
-                $body = Horde_String::convertCharset($body, $body_part->getCharset(), NLS::getCharset());
+                $body = Horde_String::convertCharset($body, $body_part->getCharset(), Horde_Nls::getCharset());
 
                 /* Create a new iCalendar. */
                 $vCal = new Horde_iCalendar();
@@ -515,7 +515,7 @@ class IMP_Message
             $newPart->setDisposition('attachment');
 
             /* We need to make sure all text is in the correct charset. */
-            $newPart->setCharset(NLS::getCharset());
+            $newPart->setCharset(Horde_Nls::getCharset());
             $newPart->setContents(sprintf(_("[Attachment stripped: Original attachment type: %s, name: %s]"), $oldPart->getType(), $oldPart->getName(true)));
             $message->alterPart($partid, $newPart);
         }
