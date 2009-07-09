@@ -109,7 +109,7 @@ class IMP_Spam
                         try {
                             $from_line = $identity->getFromLine();
                         } catch (Horde_Exception $e) {
-                            $from = '';
+                            $from_line = null;
                         }
                     }
 
@@ -126,7 +126,9 @@ class IMP_Spam
                     $spam_headers->addMessageIdHeader();
                     $spam_headers->addHeader('Date', date('r'));
                     $spam_headers->addHeader('To', $to);
-                    $spam_headers->addHeader('From', $from_line);
+                    if (!is_null($from_line)) {
+                        $spam_headers->addHeader('From', $from_line);
+                    }
                     $spam_headers->addHeader('Subject', sprintf(_("%s report from %s"), $action, $_SESSION['imp']['uniquser']));
 
                     /* Send the message. */
@@ -149,23 +151,25 @@ class IMP_Spam
         }
 
         /* Report what we've done. */
-        switch ($action) {
-        case 'spam':
-            if ($report_count > 1) {
-                $notification->push(sprintf(_("%d messages have been reported as spam."), $report_count), 'horde.message');
-            } else {
-                $notification->push(_("The message has been reported as spam."), 'horde.message');
-            }
-            break;
+        if ($report_count == 1) {
+            $hdrs = $imp_contents->getHeaderOb();
+            $subject = Horde_String::truncate($hdrs->getValue('subject'));
 
-        case 'notspam':
-            if ($report_count > 1) {
-                    $notification->push(sprintf(_("%d messages have been reported as not spam."), $report_count), 'horde.message');
-            } else {
-                    $notification->push(_("The message has been reported as not spam."), 'horde.message');
+            switch ($action) {
+            case 'spam':
+                $msg = sprintf(_("The message \"%s\" has been reported as spam."), $subject);
+                break;
+
+            case 'notspam':
+                $msg = sprintf(_("The message \"%s\" has been reported as spam."), $subject);
+                break;
             }
-            break;
+        } elseif ($action == 'spam') {
+            $msg = sprintf(_("%d messages have been reported as spam."), $report_count);
+        } else {
+            $msg = sprintf(_("%d messages have been reported as not spam."), $report_count);
         }
+        $notification->push($msg, 'horde.message');
 
         /* Delete spam after report. */
         $delete_spam = $GLOBALS['prefs']->getValue('delete_spam_after_report');
