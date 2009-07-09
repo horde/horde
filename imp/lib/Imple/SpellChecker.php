@@ -40,8 +40,8 @@ class IMP_Imple_SpellChecker extends IMP_Imple
         }
         if (empty($params['locales'])) {
             $params['locales'] = array();
-            foreach (array_keys($GLOBALS['nls']['spelling']) as $lcode) {
-                $params['locales'][$lcode] = $GLOBALS['nls']['languages'][$lcode];
+            foreach (array_keys(Horde_Nls::$config['spelling']) as $lcode) {
+                $params['locales'][$lcode] = Horde_Nls::$config['languages'][$lcode];
             }
         }
         asort($params['locales'], SORT_LOCALE_STRING);
