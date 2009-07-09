@@ -31,6 +31,7 @@ supported.
 *  imp_hook_msglist_flags hook now used to dynamically set flags on messages
 * maintenance tasks
 * tos_agreement, gnupg, openssl, spellchecking (moved to Horde)
+* conf: alternate_login, redirect_on_logout moved to Horde.
 
 
 

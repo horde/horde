@@ -40,17 +40,6 @@
    will be a 'Message Source' link in the parts list of every message, allowing
    the user to view the entire raw message, or to download it and save it to
    disk.">true</configboolean>
-   <configstring name="alternate_login" desc="If this is not false, it is
-   assumed to be the URL of an alternate login screen which will be
-   used in place of IMP's default one.  If all you need is a
-   message-of-the-day section on the normal login screen, you can set
-   one in imp/config/motd.php.  &lt;b&gt;This setting will be ignored
-   if an alternate login screen is configured for horde.&lt;/b&gt;">
-   false</configstring>
-   <configstring name="redirect_on_logout" desc="If this is not false, it is
-   assumed to be the URL of an alternate logout page which users will be sent
-   to when they log out. &lt;b&gt;This setting will be ignored if an alternate
-   logout page is configured for horde&lt;/b&gt;">false</configstring>
    <configswitch name="select_view" desc="If either DIMP or MIMP is available,
    allow user to select the application view on login?">true
     <case name="true" desc="Yes"/>
