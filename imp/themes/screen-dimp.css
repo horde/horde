@@ -597,7 +597,6 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 .msgBody {
     background: #fff url("graphics/backhead_shadow.png") top repeat-x;
     padding: 7px 5px 5px;
-    overflow-y: auto;
 }
 .msgBody table td {
     padding: 0;
