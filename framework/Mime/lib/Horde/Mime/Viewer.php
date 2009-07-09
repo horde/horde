@@ -115,20 +115,19 @@ class Horde_Mime_Viewer
 
         /* Make sure horde config is loaded. */
         if (empty(self::$_config['mime_drivers']['horde'])) {
-            $res = Horde::loadConfiguration('mime_drivers.php', array('mime_drivers', 'mime_drivers_map'), 'horde');
-            if (is_a($res, 'PEAR_Error')) {
+            try {
+                self::$_config = Horde::loadConfiguration('mime_drivers.php', array('mime_drivers', 'mime_drivers_map'), 'horde');
+            } catch (Horde_Exception $e) {
                 return false;
             }
-            self::$_config = $res;
         }
 
         /* Make sure app's config is loaded. There is no requirement that
          * an app have a separate config, so ignore any errors. */
         if (($app != 'horde') && empty(self::$_config['mime_drivers'][$app])) {
-            $res = Horde::loadConfiguration('mime_drivers.php', array('mime_drivers', 'mime_drivers_map'), $app);
-            if (!is_a($res, 'PEAR_Error')) {
-                self::$_config = Horde_Array::array_merge_recursive_overwrite(self::$_config, $res);
-            }
+            try {
+                self::$_config = Horde_Array::array_merge_recursive_overwrite(self::$_config, Horde::loadConfiguration('mime_drivers.php', array('mime_drivers', 'mime_drivers_map'), $app));
+            } catch (Horde_Exception $e) {}
         }
 
         $driver = '';

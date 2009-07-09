@@ -12,10 +12,6 @@
  * @author  Jon Parise <jon@horde.org>
  * @package Core
  */
-
-/* Log (need to include because of constants). */
-include_once 'Log.php';
-
 class Horde
 {
     /**
@@ -63,7 +59,9 @@ class Horde
     /**
      * Logs a message to the global Horde log backend.
      *
-     * @param mixed $message     Either a string or a PEAR_Error object.
+     * @param mixed $message     Either a string or an object with a
+     *                           getMessage() method (e.g. PEAR_Error,
+     *                           Exception).
      * @param string $file       What file was the log function called from
      *                           (e.g. __FILE__)?
      * @param integer $line      What line was the log function called from
@@ -92,7 +90,7 @@ class Horde
             return;
         }
 
-        if (is_a($message, 'PEAR_Error')) {
+        if ($message instanceof PEAR_Error) {
             $userinfo = $message->getUserInfo();
             $message = $message->getMessage();
             if (!empty($userinfo)) {
@@ -149,7 +147,7 @@ class Horde
             empty($conf['log']['name']) ||
             empty($conf['log']['ident']) ||
             !isset($conf['log']['params'])) {
-            self::fatal(PEAR::raiseError('Horde is not correctly configured to log error messages. You must configure at least a text file log in horde/config/conf.php.'), __FILE__, __LINE__, false);
+            self::fatal(new Horde_Exception('Horde is not correctly configured to log error messages. You must configure at least a text file log in horde/config/conf.php.'), __FILE__, __LINE__, false);
         }
 
         self::$_logger = Log::singleton($conf['log']['type'],
@@ -157,7 +155,7 @@ class Horde
                                         $conf['log']['ident'],
                                         $conf['log']['params']);
         if (!is_a(self::$_logger, 'Log')) {
-            self::fatal(PEAR::raiseError('An error has occurred. Furthermore, Horde encountered an error attempting to log this error. Please check your Horde logging configuration in horde/config/conf.php.'), __FILE__, __LINE__, false);
+            self::fatal(new Horde_Exception('An error has occurred. Furthermore, Horde encountered an error attempting to log this error. Please check your Horde logging configuration in horde/config/conf.php.'), __FILE__, __LINE__, false);
         }
 
         return self::$_logger;
@@ -188,19 +186,21 @@ class Horde
     /**
      * Aborts with a fatal error, displaying debug information to the user.
      *
-     * @param mixed $error   A PEAR_Error object with debug information or an
-     *                       error message.
+     * @param mixed $error   Either a string or an object with a getMessage()
+     *                       method (e.g. PEAR_Error, Exception).
+     *                       @todo Better Exception handling
      * @param integer $file  The file in which the error occured.
      * @param integer $line  The line on which the error occured.
      * @param boolean $log   Log this message via logMessage()?
      */
-    static public function fatal($error, $file, $line, $log = true)
+    static public function fatal($error, $file = null, $line = null,
+                                 $log = true)
     {
         $admin = Horde_Auth::isAdmin();
         $cli = Horde_Cli::runningFromCLI();
 
         $errortext = '<h1>' . _("A fatal error has occurred") . '</h1>';
-        if (is_a($error, 'PEAR_Error')) {
+        if ($error instanceof PEAR_Error) {
             $info = array_merge(array('file' => 'conf.php', 'variable' => '$conf'),
                                 array($error->getUserInfo()));
 
@@ -229,6 +229,13 @@ class Horde
             $errortext .= '<h3>' . htmlspecialchars($error->getMessage()) . '</h3>';
         } elseif (is_string($error)) {
             $errortext .= '<h3>' . htmlspecialchars($error) . '</h3>';
+        }
+
+        if (is_null($file) && $error instanceof Exception) {
+            $file = $error->getFile();
+        }
+        if (is_null($line) && $error instanceof Exception) {
+            $line = $error->getLine();
         }
 
         if ($admin) {
@@ -634,6 +641,7 @@ HTML;
      *
      * @return mixed  The value of $var_names, in a compact()'ed array if
      *                $var_names is an array.
+     * @throws Horde_Exception
      */
     static public function loadConfiguration($config_file, $var_names = null,
                                              $app = null, $show_output = false)
@@ -665,11 +673,11 @@ HTML;
             $output = ob_get_clean();
 
             if (!empty($output) && !$show_output) {
-                return PEAR::raiseError(sprintf('Failed to import configuration file "%s": ', $file) . strip_tags($output));
+                throw new Horde_Exception(sprintf('Failed to import configuration file "%s": ', $file) . strip_tags($output));
             }
 
             if (!$success) {
-                return PEAR::raiseError(sprintf('Failed to import configuration file "%s".', $file));
+                throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $file));
             }
 
             $was_included = true;
@@ -690,11 +698,11 @@ HTML;
                 $output = ob_get_clean();
 
                 if (!empty($output) && !$show_output) {
-                    return PEAR::raiseError(sprintf('Failed to import configuration file "%s": ', $file) . strip_tags($output));
+                    throw new Horde_Exception(sprintf('Failed to import configuration file "%s": ', $file) . strip_tags($output));
                 }
 
                 if (!$success) {
-                    return PEAR::raiseError(sprintf('Failed to import configuration file "%s".', $file));
+                    throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $file));
                 }
 
                 $was_included = true;
@@ -704,7 +712,7 @@ HTML;
         // Return an error if neither main or vhosted versions of the config
         // file exist.
         if (!$was_included) {
-            return PEAR::raiseError(sprintf('Failed to import configuration file "%s".', $config_dir . $config_file));
+            throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $config_dir . $config_file));
         }
 
         if (isset($output) && $show_output) {
@@ -766,13 +774,14 @@ HTML;
      *
      * @return array  A hash with the VFS parameters; the VFS driver in 'type'
      *                and the connection parameters in 'params'.
+     * @throws Horde_Exception
      */
     static public function getVFSConfig($name)
     {
         global $conf;
 
         if (!isset($conf[$name]['type'])) {
-            return PEAR::raiseError(_("You must configure a VFS backend."));
+            throw new Horde_Exception(_("You must configure a VFS backend."));
         }
 
         $vfs = ($conf[$name]['type'] == 'horde')
@@ -835,7 +844,7 @@ HTML;
         $fileroot = isset($registry) ? $registry->get('fileroot') : '';
 
         if (!is_array($params) || !count($params)) {
-            self::fatal(PEAR::raiseError(
+            self::fatal(new Horde_Exception(
                 sprintf(_("No configuration information specified for %s."), $name) . "\n\n" .
                 sprintf(_("The file %s should contain some %s settings."),
                     $fileroot . '/config/' . $file,
@@ -845,7 +854,7 @@ HTML;
 
         foreach ($fields as $field) {
             if (!isset($params[$field])) {
-                self::fatal(PEAR::raiseError(
+                self::fatal(new Horde_Exception(
                     sprintf(_("Required \"%s\" not specified in %s configuration."), $field, $name) . "\n\n" .
                     sprintf(_("The file %s should contain a %s setting."),
                         $fileroot . '/config/' . $file,
@@ -1672,7 +1681,7 @@ HTML;
                                          array(&$sh, 'gc'));
                 $GLOBALS['horde_sessionhandler'] = $sh;
             } catch (Horde_Exception $e) {
-                self::fatal(PEAR::raiseError('Horde is unable to correctly start the custom session handler.'), __FILE__, __LINE__, false);
+                self::fatal(new Horde_Exception('Horde is unable to correctly start the custom session handler.'), __FILE__, __LINE__, false);
             }
         }
     }
@@ -1861,23 +1870,24 @@ HTML;
      *                      the failure.
      *
      * @return mixed  Either the results of the hook or PEAR error on failure.
+     * @todo Throw Horde_Exception
      */
     static public function callHook($hook, $args = array(), $app = 'horde',
                                     $error = 'PEAR_Error')
     {
         if (!isset(self::$_hooksLoaded[$app])) {
-            $success = self::loadConfiguration('hooks.php', null, $app);
-            if (is_a($success, 'PEAR_Error')) {
-                self::logMessage($success, __FILE__, __LINE__, PEAR_LOG_DEBUG);
-                self::$_hooksLoaded[$app] = false;
-            } else {
+            try {
+                self::loadConfiguration('hooks.php', null, $app);
                 self::$_hooksLoaded[$app] = true;
+            } catch (Horde_Exception $e) {
+                self::logMessage($e, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                self::$_hooksLoaded[$app] = false;
             }
         }
 
         if (function_exists($hook)) {
             $result = call_user_func_array($hook, $args);
-            if (is_a($result, 'PEAR_Error')) {
+            if ($result instanceof PEAR_Error) {
                 self::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
             }
             return $result;

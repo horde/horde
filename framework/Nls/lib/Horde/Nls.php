@@ -99,6 +99,8 @@ class Horde_Nls
      * Sets the language.
      *
      * @param string $lang  The language abbreviation.
+     *
+     * @throws Horde_Exception
      */
     static public function setLang($lang = null)
     {

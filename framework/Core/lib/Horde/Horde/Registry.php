@@ -101,14 +101,13 @@ class Horde_Registry
      * Create a new Horde_Registry instance.
      *
      * @param integer $session_flags  Any session flags.
+     *
+     * @throws Horde_Exception
      */
     protected function __construct($session_flags = 0)
     {
         /* Import and global Horde's configuration values. */
         $this->_cache['conf-horde'] = Horde::loadConfiguration('conf.php', 'conf', 'horde');
-        if (is_a($this->_cache['conf-horde'], 'PEAR_Error')) {
-            return $this->_cache['conf-horde'];
-        }
 
         $conf = $GLOBALS['conf'] = &$this->_cache['conf-horde'];
 
@@ -768,7 +767,7 @@ class Horde_Registry
      *                             scripts that handle login.
      *
      * @return boolean  Whether or not the _appStack was modified.
-     *                  Return PEAR_Error on error.
+     * @throws Horde_Exception
      */
     public function pushApp($app, $checkPerms = true)
     {
@@ -811,10 +810,7 @@ class Horde_Registry
         Horde_Nls::setLanguageEnvironment($GLOBALS['language'], $app);
 
         /* Import this application's configuration values. */
-        $success = $this->importConfig($app);
-        if (is_a($success, 'PEAR_Error')) {
-            return $success;
-        }
+        $this->importConfig($app);
 
         /* Load preferences after the configuration has been loaded to make
          * sure the prefs file has all the information it needs. */
@@ -845,6 +841,7 @@ class Horde_Registry
      * app to whichever app was current before this one took over.
      *
      * @return string  The name of the application that was popped.
+     * @throws Horde_Exception
      */
     public function popApp()
     {
@@ -897,23 +894,17 @@ class Horde_Registry
      *
      * @param string $app  The name of the application.
      *
-     * @return boolean  True on success, PEAR_Error on error.
+     * @throws Horde_Exception
      */
     public function importConfig($app)
     {
         if (($app != 'horde') &&
             !$this->_loadCacheVar('conf-' . $app)) {
-            $success = Horde::loadConfiguration('conf.php', 'conf', $app);
-            if (is_a($success, 'PEAR_Error')) {
-                return $success;
-            }
-            $this->_cache['conf-' . $app] = Horde_Array::array_merge_recursive_overwrite($this->_cache['conf-horde'], $success);
+            $this->_cache['conf-' . $app] = Horde_Array::array_merge_recursive_overwrite($this->_cache['conf-horde'], Horde::loadConfiguration('conf.php', 'conf', $app));
             $this->_saveCacheVar('conf-' . $app);
         }
 
         $GLOBALS['conf'] = &$this->_cache['conf-' . $app];
-
-        return true;
     }
 
     /**
