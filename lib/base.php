@@ -2,7 +2,7 @@
 /**
  * Operator base application file.
  *
- * $Horde: incubator/operator/lib/base.php,v 1.6 2009/06/24 23:39:29 slusarz Exp $
+ * $Horde: incubator/operator/lib/base.php,v 1.7 2009/07/09 06:08:45 slusarz Exp $
  *
  * This file brings in all of the dependencies that every Operator script will
  * need, and sets up objects that all scripts use.
@@ -22,7 +22,7 @@ if (!defined('HORDE_BASE')) {
 require_once HORDE_BASE . '/lib/core.php';
 
 // Registry.
-$registry = &Registry::singleton();
+$registry = Horde_Registry::singleton();
 if (is_a(($pushed = $registry->pushApp('operator', !defined('AUTH_HANDLER'))), 'PEAR_Error')) {
     if ($pushed->getCode() == 'permission_denied') {
         Horde::authenticationFailureRedirect();
