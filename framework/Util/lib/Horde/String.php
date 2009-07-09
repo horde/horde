@@ -589,6 +589,21 @@ class Horde_String
     }
 
     /**
+     * Return a truncated string, suitable for notifications.
+     *
+     * @param string $text     The original string.
+     * @param integer $length  The maximum length.
+     *
+     * @return string  The truncated string, if longer than $length.
+     */
+    static public function truncate($text, $length = 100)
+    {
+        return (self::length($text) > $length)
+            ? self::substr($text, 0, 100) . ' ...'
+            : $text;
+    }
+
+    /**
      * Returns true if the every character in the parameter is an alphabetic
      * character.
      *
