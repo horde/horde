@@ -110,7 +110,7 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
                 Horde_String::pad(_("Ratio"), 10, ' ', STR_PAD_LEFT) .
                 "\n",
                 'space2html',
-                array('charset' => NLS::getCharset(), 'encode' => true, 'encode_all' => true)
+                array('charset' => Horde_Nls::getCharset(), 'encode' => true, 'encode_all' => true)
             ) . str_repeat('-', 69 + $maxlen) . "\n";
 
         foreach ($zipInfo as $key => $val) {
@@ -140,7 +140,7 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
             $this->_mimepart->getMimeId() => array(
                 'data' => nl2br($text . str_repeat('-', 69 + $maxlen) . "\n" . '</span></tt></td></tr></table>'),
                 'status' => array(),
-                'type' => 'text/html; charset=' . NLS::getCharset()
+                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             )
         );
     }

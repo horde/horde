@@ -49,7 +49,7 @@ class Horde_Rpc_Soap extends Horde_Rpc
      */
     public function __construct($params = array())
     {
-        NLS::setCharset('UTF-8');
+        Horde_Nls::setCharset('UTF-8');
 
         parent::__construct($params);
 

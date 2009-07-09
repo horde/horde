@@ -93,7 +93,7 @@ class Horde_Notification_Listener_Status extends Horde_Notification_Listener
         $text = $event->getMessage();
 
         if (!in_array('content.raw', $this->getFlags($message))) {
-            $text = htmlspecialchars($text, ENT_COMPAT, NLS::getCharset());
+            $text = htmlspecialchars($text, ENT_COMPAT, Horde_Nls::getCharset());
         }
 
         return empty($options['data'])

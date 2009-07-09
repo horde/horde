@@ -5,7 +5,7 @@ Horde_Mime_Mail encoding test
 
 require dirname(__FILE__) . '/mail_dummy.inc';
 require_once 'Horde/String.php';
-require 'Horde/NLS.php';
+require 'Horde/Nls.php';
 require_once 'Horde/Util.php';
 
 $mail = new Horde_Mime_Mail('Schöner Betreff', "Hübsche Umlaute \n und Leerzeichen.",

@@ -54,7 +54,7 @@ class Horde_Mime_Viewer_Rpm extends Horde_Mime_Viewer_Driver
             $this->_mimepart->getMimeId() => array(
                 'data' => '<html><body><pre>' . htmlentities($data) . '</pre></body></html>',
                 'status' => array(),
-                'type' => 'text/html; charset=' . NLS::getCharset()
+                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             )
         );
     }

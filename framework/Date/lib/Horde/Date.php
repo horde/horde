@@ -844,10 +844,6 @@ class Horde_Date
      */
     protected function _strftime($format)
     {
-        if (preg_match('/%[bBpxX]/', $format)) {
-            require_once 'Horde/NLS.php';
-        }
-
         return preg_replace(
             array('/%b/e',
                   '/%B/e',
@@ -870,8 +866,8 @@ class Horde_Date
                   '/%y/e',
                   '/%Y/',
                   '/%%/'),
-            array('$this->_strftime(NLS::getLangInfo(constant(\'ABMON_\' . (int)$this->_month)))',
-                  '$this->_strftime(NLS::getLangInfo(constant(\'MON_\' . (int)$this->_month)))',
+            array('$this->_strftime(Horde_Nls::getLangInfo(constant(\'ABMON_\' . (int)$this->_month)))',
+                  '$this->_strftime(Horde_Nls::getLangInfo(constant(\'MON_\' . (int)$this->_month)))',
                   '(int)($this->_year / 100)',
                   'sprintf(\'%02d\', $this->_mday)',
                   '$this->_strftime(\'%m/%d/%y\')',
@@ -881,13 +877,13 @@ class Horde_Date
                   'sprintf(\'%02d\', $this->_month)',
                   'sprintf(\'%02d\', $this->_min)',
                   "\n",
-                  '$this->_strftime(NLS::getLangInfo($this->_hour < 12 ? AM_STR : PM_STR))',
+                  '$this->_strftime(Horde_Nls::getLangInfo($this->_hour < 12 ? AM_STR : PM_STR))',
                   '$this->_strftime(\'%H:%M\')',
                   'sprintf(\'%02d\', $this->_sec)',
                   "\t",
                   '$this->_strftime(\'%H:%M:%S\')',
-                  '$this->_strftime(NLS::getLangInfo(D_FMT))',
-                  '$this->_strftime(NLS::getLangInfo(T_FMT))',
+                  '$this->_strftime(Horde_Nls::getLangInfo(D_FMT))',
+                  '$this->_strftime(Horde_Nls::getLangInfo(T_FMT))',
                   'substr(sprintf(\'%04d\', $this->_year), -2)',
                   (int)$this->_year,
                   '%'),

@@ -150,11 +150,11 @@ class Horde_Registry
         }
 
         /* Initialize the localization routines and variables. We can't use
-         * NLS::setLanguageEnvironment() here because that depends on the
+         * Horde_Nls::setLanguageEnvironment() here because that depends on the
          * registry to be already initialized. */
-        NLS::setLang();
-        NLS::setTextdomain('horde', HORDE_BASE . '/locale', NLS::getCharset());
-        Horde_String::setDefaultCharset(NLS::getCharset());
+        Horde_Nls::setLang();
+        Horde_Nls::setTextdomain('horde', HORDE_BASE . '/locale', Horde_Nls::getCharset());
+        Horde_String::setDefaultCharset(Horde_Nls::getCharset());
 
         /* Check for caching availability. Using cache while not authenticated
          * isn't possible because, although storage is possible, retrieval
@@ -808,7 +808,7 @@ class Horde_Registry
          * language for this app, the have to be loaded after the
          * configuration, because they rely on configuration settings. So try
          * with the current language, and reset the language later. */
-        NLS::setLanguageEnvironment($GLOBALS['language'], $app);
+        Horde_Nls::setLanguageEnvironment($GLOBALS['language'], $app);
 
         /* Import this application's configuration values. */
         $success = $this->importConfig($app);
@@ -826,7 +826,7 @@ class Horde_Registry
         if (isset($GLOBALS['prefs'])) {
             $language = $GLOBALS['prefs']->getValue('language');
             if ($language != $GLOBALS['language']) {
-                NLS::setLanguageEnvironment($language, $app);
+                Horde_Nls::setLanguageEnvironment($language, $app);
             }
         }
 
@@ -858,7 +858,7 @@ class Horde_Registry
             $this->importConfig($app);
             $this->loadPrefs($app);
             $language = $GLOBALS['prefs']->getValue('language');
-            NLS::setLanguageEnvironment($language, $app);
+            Horde_Nls::setLanguageEnvironment($language, $app);
         }
 
         return $previous;

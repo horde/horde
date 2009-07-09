@@ -266,7 +266,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
         }
 
         try {
-            $mailbox = Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, NLS::getCharset(), 'utf7-imap');
+            $mailbox = Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, Horde_Nls::getCharset(), 'utf7-imap');
             $ob->createMailbox($mailbox);
             $ob->setACL($mailbox, $this->_params['cyradm'], 'lrswipcda');
         } catch (Horde_Imap_Client_Exception $e) {
@@ -278,12 +278,12 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
                 ($this->_params['domain_field'] != 'none')) {
                 list($userName, $domain) = explode('@', $userName);
                 $tmp = $userName . $this->_separator . $value . '@' . $domain;
-Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $domain, NLS::getCharset(), 'utf7-imap');
+Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $domain, Horde_Nls::getCharset(), 'utf7-imap');
             } else {
                 $tmp = $userName . $this->_separator . $value;
             }
 
-            $tmp = Horde_String::convertCharset($tmp, NLS::getCharset(), 'utf7-imap');
+            $tmp = Horde_String::convertCharset($tmp, Horde_Nls::getCharset(), 'utf7-imap');
             $ob->createMailbox($tmp);
             $ob->setACL($tmp, $this->_params['cyradm'], 'lrswipcda');
         }

@@ -15,7 +15,7 @@ class PrefsStub {
     }
 }
 
-require_once 'Horde/NLS.php';
+require_once 'Horde/Nls.php';
 require 'pgp.inc';
 
 $prefs = new PrefsStub;

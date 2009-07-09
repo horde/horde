@@ -46,8 +46,7 @@ class Horde_SpellChecker_Aspell extends Horde_SpellChecker
             throw new Horde_Exception('Spellcheck failed. Command line: ', $this->_cmd());
         }
 
-        require_once 'Horde/NLS.php';
-        $charset = NLS::getCharset();
+        $charset = Horde_Nls::getCharset();
 
         // Write to stdin.
         if ($this->_encoding) {

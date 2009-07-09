@@ -65,7 +65,7 @@ class Horde_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Driver
             $this->_mimepart->getMimeId() => array(
                 'data' => Horde_String::convertCharset($this->_toHTML(), $this->_mimepart->getCharset()),
                 'status' => array(),
-                'type' => 'text/html; charset=' . NLS::getCharset()
+                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             )
         );
     }

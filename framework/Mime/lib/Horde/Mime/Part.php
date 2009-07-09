@@ -1211,7 +1211,7 @@ class Horde_Mime_Part
             return $bytes;
         }
 
-        $localeinfo = NLS::getLocaleInfo();
+        $localeinfo = Horde_Nls::getLocaleInfo();
         return number_format($bytes / 1024, 2, $localeinfo['decimal_point'], $localeinfo['thousands_sep']);
      }
 

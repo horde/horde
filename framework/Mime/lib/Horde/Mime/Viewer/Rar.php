@@ -58,7 +58,7 @@ class Horde_Mime_Viewer_Rar extends Horde_Mime_Viewer_Driver
             return array();
         }
 
-        $charset = NLS::getCharset();
+        $charset = Horde_Nls::getCharset();
         $fileCount = count($rarData);
 
         $name = $this->_mimepart->getName(true);

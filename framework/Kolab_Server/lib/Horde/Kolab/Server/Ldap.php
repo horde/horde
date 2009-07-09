@@ -590,8 +590,8 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
         if (isset($criteria['field'])) {
             $rhs     = isset($criteria['test']) ? $criteria['test'] : '';
             /* Keep this in for reference as we did not really test servers with different encoding yet */
-            // require_once 'Horde/NLS.php';
-            //$rhs     = Horde_String::convertCharset($criteria['test'], NLS::getCharset(), $this->params['charset']);
+            // require_once 'Horde/Nls.php';
+            //$rhs     = Horde_String::convertCharset($criteria['test'], Horde_Nls::getCharset(), $this->params['charset']);
             switch ($criteria['op']) {
             case '=':
                 $op = 'equals';

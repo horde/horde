@@ -158,7 +158,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Driver
 
         $this->_backend->addUser($userId, $credentials);
 
-        $mailbox = Horde_String::convertCharset('user' . $this->_params['separator'] . $userId, NLS::getCharset(), 'utf7-imap');
+        $mailbox = Horde_String::convertCharset('user' . $this->_params['separator'] . $userId, Horde_Nls::getCharset(), 'utf7-imap');
 
         try {
             $this->_ob->createMailbox($mailbox);
@@ -170,7 +170,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Driver
             is_array($this->_params['folders'])) {
             foreach ($this->_params['folders'] as $folder) {
                 try {
-                    $this->_ob->createMailbox($mailbox . Horde_String::convertCharset($this->_params['separator'] . $folder, NLS::getCharset(), 'utf7-imap'));
+                    $this->_ob->createMailbox($mailbox . Horde_String::convertCharset($this->_params['separator'] . $folder, Horde_Nls::getCharset(), 'utf7-imap'));
                 } catch (Horde_Imap_Client_Exception $e) {}
             }
         }
@@ -198,7 +198,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Driver
 
         $this->_backend->removeUser($userId);
 
-        $mailbox = Horde_String::convertCharset('user' . $this->_params['separator'] . $userId, NLS::getCharset(), 'utf7-imap');
+        $mailbox = Horde_String::convertCharset('user' . $this->_params['separator'] . $userId, Horde_Nls::getCharset(), 'utf7-imap');
 
         /* Set ACL for mailbox deletion. */
         list($admin) = explode('@', $this->_params['cyradmin']);

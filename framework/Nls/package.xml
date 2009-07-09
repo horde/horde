@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Nls</name>
+ <channel>pear.horde.org</channel>
+ <summary>Localization Package</summary>
+ <description>TODO
+ </description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-07-08</date>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>* Initial Horde 4 package.
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Nls">
+      <file name="Carsigns.php" role="php" />
+      <file name="Coordinates.php" role="php" />
+      <file name="Countries.php" role="php" />
+      <file name="Geoip.php" role="php" />
+      <file name="Tld.php" role="php" />
+     </dir> <!-- /lib/Horde/Nls -->
+     <file name="Nls.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.5.4</min>
+   </pearinstaller>
+   <package>
+    <name>Browser</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Util</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+  <optional>
+   <extension>
+    <name>geoip</name>
+   </extension>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Nls/Carsigns.php" as="Horde/Nls/Carsigns.php" />
+   <install name="lib/Horde/Nls/Coordinates.php" as="Horde/Nls/Coordinates.php" />
+   <install name="lib/Horde/Nls/Countries.php" as="Horde/Nls/Countries.php" />
+   <install name="lib/Horde/Nls/Geoip.php" as="Horde/Nls/Geoip.php" />
+   <install name="lib/Horde/Nls/Tld.php" as="Horde/Nls/Tld.php" />
+   <install name="lib/Horde/Nls.php" as="Horde/Nls.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <date>2006-05-08</date>
+   <time>22:48:51</time>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Converted to package.xml 2.0 for pear.horde.org
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-02-11</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Initial packaging
+   </notes>
+  </release>
+ </changelog>
+</package>

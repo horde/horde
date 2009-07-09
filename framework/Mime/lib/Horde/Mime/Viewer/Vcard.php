@@ -389,7 +389,7 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Driver
             $this->_mimepart->getMimeId() => array(
                 'data' => Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')) . $html,
                 'status' => array(),
-                'type' => 'text/html; charset=' . NLS::getCharset()
+                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             )
         );
     }

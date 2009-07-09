@@ -19,7 +19,7 @@
  */
 require_once 'PHPUnit/Framework.php';
 
-require_once 'Horde/NLS.php';
+require_once 'Horde/Nls.php';
 require_once 'Horde/Kolab/Format.php';
 
 /**
@@ -49,7 +49,7 @@ class Horde_Kolab_Format_MimeAttrTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        NLS::setCharset('utf-8');
+        Horde_Nls::setCharset('utf-8');
     }
 
     /**

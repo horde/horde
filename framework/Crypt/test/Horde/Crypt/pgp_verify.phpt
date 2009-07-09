@@ -14,8 +14,8 @@ class mock_prefs {
 }
 $GLOBALS['prefs'] = new mock_prefs();
 
-require_once 'Horde/NLS.php';
-NLS::setTimezone();
+require_once 'Horde/Nls.php';
+Horde_Nls::setTimezone();
 require 'pgp.inc';
 
 echo $pgp->decrypt(file_get_contents(dirname(__FILE__) . '/fixtures/clear.txt'),

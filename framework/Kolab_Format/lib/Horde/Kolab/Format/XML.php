@@ -15,9 +15,6 @@
 /** We need the DOM library for XML access. */
 require_once 'Horde/DOM.php';
 
-/** We need the NLS library for language support. */
-require_once 'Horde/NLS.php';
-
 /**
  * Kolab XML to array hash converter.
  *
@@ -790,7 +787,7 @@ class Horde_Kolab_Format_XML
      */
     protected function _createTextNode($parent, $name, $value)
     {
-        $value = Horde_String::convertCharset($value, NLS::getCharset(), 'utf-8');
+        $value = Horde_String::convertCharset($value, Horde_Nls::getCharset(), 'utf-8');
 
         $node = $this->_xmldoc->create_element($name);
 

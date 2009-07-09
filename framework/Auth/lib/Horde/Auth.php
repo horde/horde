@@ -548,7 +548,7 @@ class Horde_Auth
 
         /* Reload preferences for the new user. */
         $GLOBALS['registry']->loadPrefs();
-        NLS::setLang($GLOBALS['prefs']->getValue('language'));
+        Horde_Nls::setLang($GLOBALS['prefs']->getValue('language'));
 
         /* Fetch the user's last login time. */
         $old_login = @unserialize($GLOBALS['prefs']->getValue('last_login'));

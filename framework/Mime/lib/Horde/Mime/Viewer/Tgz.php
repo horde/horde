@@ -66,7 +66,7 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Driver
             return array();
         }
 
-        $charset = NLS::getCharset();
+        $charset = Horde_Nls::getCharset();
         $fileCount = count($tarData);
 
         $name = $this->_mimepart->getName(true);
