@@ -9,7 +9,7 @@
  *
  * @package Core
  */
-class RegistryCaller
+class Horde_Registry_Caller
 {
     /**
      * TODO

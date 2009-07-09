@@ -1135,37 +1135,3 @@ class Horde_Registry
     }
 
 }
-
-/**
- * @package Core
- */
-class Horde_Registry_Caller
-{
-    /**
-     * TODO
-     */
-    protected $registry;
-
-    /**
-     * TODO
-     */
-    protected $api;
-
-    /**
-     * TODO
-     */
-    public function __construct($registry, $api)
-    {
-        $this->registry = $registry;
-        $this->api = $api;
-    }
-
-    /**
-     * TODO
-     */
-    public function __call($method, $args)
-    {
-        return $this->registry->call($this->api . '/' . $method, $args);
-    }
-
-}
