@@ -6,6 +6,7 @@
  * configuration array.
  *
  * Requires the following parameter settings in imp/servers.php:
+ * <pre>
  * 'quota' => array(
  *     'driver' => 'maildir',
  *     'params' => array(
@@ -18,6 +19,7 @@
  *        two-character sequence "~U" to represent the user's account name,
  *        and the actual username will be substituted in that location.
  *        E.g., '/home/~U/Maildir/' or '/var/mail/~U/Maildir/'
+ * </pre>
  *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *

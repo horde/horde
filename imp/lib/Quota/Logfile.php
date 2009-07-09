@@ -5,6 +5,7 @@
  * server.
  *
  * Requires the following parameter settings in imp/servers.php:
+ * <pre>
  * 'quota' => array(
  *     'driver' => 'logfile',
  *     'params' => array(
@@ -27,6 +28,7 @@
  *            number.
  * midocc - String between usage and total storage space.
  * endocc - String after the storage number.
+ * </pre>
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -34,7 +36,7 @@
  * @author  Tim Gorter <email@teletechnics.co.nz>
  * @package IMP_Quota
  */
-class IMP_Quota_logfile extends IMP_Quota
+class IMP_Quota_Logfile extends IMP_Quota
 {
     /**
      * Constructor

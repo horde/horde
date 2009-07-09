@@ -46,13 +46,13 @@ class IMP_Quota
     static public function singleton($driver, $params = array())
     {
         ksort($params);
-        $signature = md5(serialize(array($driver, $params)));
+        $sig = hash('md5', serialize(array($driver, $params)));
 
-        if (!isset(self::$_instances[$signature])) {
-            self::$_instances[$signature] = IMP_Quota::getInstance($driver, $params);
+        if (!isset(self::$_instances[$sig])) {
+            self::$_instances[$sig] = IMP_Quota::getInstance($driver, $params);
         }
 
-        return self::$_instances[$signature];
+        return self::$_instances[$sig];
     }
 
     /**
@@ -68,7 +68,7 @@ class IMP_Quota
     static public function getInstance($driver, $params = array())
     {
         $driver = basename($driver);
-        $class = 'IMP_Quota_' . $driver;
+        $class = 'IMP_Quota_' . ucfirst($driver);
 
         if (class_exists($class)) {
             return new $class($params);
@@ -156,4 +156,5 @@ class IMP_Quota
 
         return array($calc, $unit);
     }
+
 }

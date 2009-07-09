@@ -10,7 +10,7 @@
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @package IMP_Quota
  */
-class IMP_Quota_imap extends IMP_Quota
+class IMP_Quota_Imap extends IMP_Quota
 {
     /**
      * Get quota information (used/allocated), in bytes.

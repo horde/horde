@@ -43,8 +43,7 @@ class IMP_Sentmail
             $params = Horde::getDriverConfig('sentmail', $driver);
         }
 
-        $driver = basename($driver);
-        $class = 'IMP_Sentmail_' . $driver;
+        $class = 'IMP_Sentmail_' . ucfirst(basename($driver));
 
         if (class_exists($class)) {
             try {
@@ -60,7 +59,7 @@ class IMP_Sentmail
      *
      * @throws Horde_Exception
      */
-    public function __construct($params = array())
+    protected function __construct($params = array())
     {
         $this->_params = $params;
     }

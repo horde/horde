@@ -22,7 +22,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package IMP
  */
-class IMP_Sentmail_sql extends IMP_Sentmail
+class IMP_Sentmail_Sql extends IMP_Sentmail
 {
     /**
      * Handle for the current database connection.
@@ -38,7 +38,7 @@ class IMP_Sentmail_sql extends IMP_Sentmail
      *
      * @throws Horde_Exception
      */
-    function __construct($params = array())
+    protected function __construct($params = array())
     {
         parent::__construct($params);
 
@@ -58,7 +58,7 @@ class IMP_Sentmail_sql extends IMP_Sentmail
         $this->_db = DB::connect($this->_params,
                                  array('persistent' => !empty($this->_params['persistent']),
                                        'ssl' => !empty($this->_params['ssl'])));
-        if (is_a($this->_db, 'PEAR_Error')) {
+        if ($this->_db instanceof PEAR_Error) {
             throw new Horde_Exception($this->_db);
         }
 
@@ -103,7 +103,7 @@ class IMP_Sentmail_sql extends IMP_Sentmail
         $result = $this->_db->query($query, $values);
 
         /* Log errors. */
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
         }
     }
@@ -140,7 +140,7 @@ class IMP_Sentmail_sql extends IMP_Sentmail
 
         /* Execute the query. */
         $recipients = $this->_db->getAll($query);
-        if (is_a($recipients, 'PEAR_Error')) {
+        if ($recipients instanceof PEAR_Error) {
             Horde::logMessage($recipients, __FILE__, __LINE__, PEAR_LOG_ERR);
             throw new Horde_Exception($recipients);
         }
@@ -179,7 +179,7 @@ class IMP_Sentmail_sql extends IMP_Sentmail
 
         /* Execute the query. */
         $recipients = $this->_db->getOne($query, array(time() - $hours * 3600));
-        if (is_a($recipients, 'PEAR_Error')) {
+        if ($recipients instanceof PEAR_Error) {
             Horde::logMessage($recipients, __FILE__, __LINE__, PEAR_LOG_ERR);
             throw new Horde_Exception($recipients);
         }
@@ -207,7 +207,7 @@ class IMP_Sentmail_sql extends IMP_Sentmail
 
         /* Execute the query. */
         $result = $this->_db->query($query, array($before));
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
             throw new Horde_Exception($result);
         }

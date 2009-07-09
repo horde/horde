@@ -3,7 +3,9 @@
  * Implementation of the Quota API for MDaemon servers.
  *
  * Parameters required:
- *   'app_location'  --  TODO
+ * <pre>
+ * 'app_location'  --  TODO
+ * </pre>
  *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
@@ -13,7 +15,7 @@
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @package IMP_Quota
  */
-class IMP_Quota_mdaemon extends IMP_Quota
+class IMP_Quota_Mdaemon extends IMP_Quota
 {
     /**
      * Get quota information (used/allocated), in bytes.

@@ -23,19 +23,21 @@
  * @author  Eric Rostetter <eric.rostetter@physics.utexas.edu>
  * @package IMP_Quota
  */
-class IMP_Quota_command extends IMP_Quota
+class IMP_Quota_Command extends IMP_Quota
 {
     /**
-     * Constructor
+     * Constructor.
      *
      * @param array $params  Hash containing connection parameters.
      */
     protected function __construct($params = array())
     {
-        $params = array_merge(array('quota_path' => 'quota',
-                                    'grep_path'  => 'grep',
-                                    'partition'  => null),
-                              $params);
+        $params = array_merge(array(
+            'quota_path' => 'quota',
+            'grep_path'  => 'grep',
+            'partition'  => null
+        ), $params);
+
         parent::__construct($params);
     }
 

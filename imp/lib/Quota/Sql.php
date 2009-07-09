@@ -42,7 +42,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package IMP_Quota
  */
-class IMP_Quota_sql extends IMP_Quota
+class IMP_Quota_Sql extends IMP_Quota
 {
     /**
      * SQL connection object.
@@ -52,31 +52,22 @@ class IMP_Quota_sql extends IMP_Quota
     protected $_db;
 
     /**
-     * State of SQL connection.
-     *
-     * @var boolean
-     */
-    protected $_connected = false;
-
-    /**
      * Connects to the database
      *
      * @throws Horde_Exception
      */
     protected function _connect()
     {
-        if (!$this->_connected) {
-            $this->_db = DB::connect($this->_params,
-                                     array('persistent' => !empty($this->_params['persistent']),
-                                           'ssl' => !empty($this->_params['ssl'])));
-            if ($this->_db instanceof PEAR_Error) {
-                throw new Horde_Exception(_("Unable to connect to SQL server."));
-            }
-
-            $this->_connected = true;
+        if ($this->_db) {
+            return;
         }
 
-        return true;
+        $this->_db = DB::connect($this->_params,
+                                 array('persistent' => !empty($this->_params['persistent']),
+                                       'ssl' => !empty($this->_params['ssl'])));
+        if ($this->_db instanceof PEAR_Error) {
+            throw new Horde_Exception(_("Unable to connect to SQL server."));
+        }
     }
 
     /**
@@ -89,7 +80,8 @@ class IMP_Quota_sql extends IMP_Quota
      */
     public function getQuota()
     {
-        $conn = $this->_connect();
+        $this->_connect();
+
         $user = $_SESSION['imp']['user'];
         $quota = array('limit' => 0, 'usage' => 0);
 
@@ -102,7 +94,7 @@ class IMP_Quota_sql extends IMP_Quota
                                        $this->_db->quote($domain)),
                                  $this->_params['query_quota']);
             $result = $this->_db->query($query);
-            if (is_a($result, 'PEAR_Error')) {
+            if ($result instanceof PEAR_Error) {
                 throw new Horde_Exception($result);
             }
 
@@ -111,7 +103,7 @@ class IMP_Quota_sql extends IMP_Quota
                 $quota['limit'] = current($row);
             }
         } else {
-            Horde::logMessage('IMP_Quota_sql: query_quota SQL query not set', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('IMP_Quota_Sql: query_quota SQL query not set', __FILE__, __LINE__, PEAR_LOG_DEBUG);
         }
 
         if (!empty($this->_params['query_used'])) {
@@ -123,7 +115,7 @@ class IMP_Quota_sql extends IMP_Quota
                                        $this->_db->quote($domain)),
                                  $this->_params['query_used']);
             $result = $this->_db->query($query);
-            if (is_a($result, 'PEAR_Error')) {
+            if ($result instanceof PEAR_Error) {
                 throw new Horde_Exception($result);
             }
 
@@ -132,7 +124,7 @@ class IMP_Quota_sql extends IMP_Quota
                 $quota['usage'] = current($row);
             }
         } else {
-            Horde::logMessage('IMP_Quota_sql: query_used SQL query not set', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('IMP_Quota_Sql: query_used SQL query not set', __FILE__, __LINE__, PEAR_LOG_DEBUG);
         }
 
         return $quota;

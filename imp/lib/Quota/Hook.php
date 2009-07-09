@@ -18,7 +18,7 @@
  * @author  Michael Redinger <Michael.Redinger@uibk.ac.at>
  * @package IMP_Quota
  */
-class IMP_Quota_hook extends IMP_Quota
+class IMP_Quota_Hook extends IMP_Quota
 {
     /**
      * Get quota information (used/allocated), in bytes.

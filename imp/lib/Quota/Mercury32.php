@@ -4,6 +4,7 @@
  * For reading Quota, read size folder user.
  *
  * Requires the following parameter settings in imp/servers.php:
+ * <pre>
  * 'quota' => array(
  *     'driver' => 'mercury32',
  *     'params' => array(
@@ -12,6 +13,7 @@
  * );
  *
  * 'mail_user_folder' --  The path to folder mail mercury
+ * </pre>
  *
  *****************************************************************************
  * PROBLEM TO ACCESS NETWORK DIRECOTRY
@@ -38,7 +40,7 @@
  * @author  Frank Lupo <frank_lupo@email.it>
  * @package IMP_Quota
  */
-class IMP_Quota_mercury32 extends IMP_Quota
+class IMP_Quota_Mercury32 extends IMP_Quota
 {
     /**
      * Get quota information (used/allocated), in bytes.
