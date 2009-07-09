@@ -290,7 +290,7 @@ if (!empty($pageOb['end'])) {
 
 /* Generate paging links. */
 if ($pageOb['pagecount']) {
-    $rtl = !empty($nls['rtl'][$language]);
+    $rtl = !empty(Horde_Nls::$config['rtl'][$language]);
     if ($pageOb['page'] == 1) {
         $pages_first = Horde::img($rtl ? 'nav/last-grey.png' : 'nav/first-grey.png', null, null, $graphicsdir);
         $pages_prev = Horde::img($rtl ? 'nav/right-grey.png' : 'nav/left-grey.png', null, null, $graphicsdir);

@@ -19,7 +19,7 @@ class Translate {
     }
     
     function stats($app, $filter_lang = false) {
-	global $nls, $module, $apps, $dirs, $lang;
+	global $module, $apps, $dirs, $lang;
 	
 	$report = array();
 	$dir = Translate::getPath($app);
@@ -33,7 +33,7 @@ class Translate {
 		    continue;
 		}
 		
-		if (!isset($nls['languages'][$locale]) || $locale == 'en_US') {
+		if (!isset(Horde_Nls::$config['languages'][$locale]) || $locale == 'en_US') {
 		    continue; 
 		}
 		$i++;

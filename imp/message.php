@@ -457,7 +457,7 @@ if (!IMP::$printMode) {
 
     $n_template->set('back_to', Horde::widget($mailbox_url, sprintf(_("Back to %s"), $h_page_label), 'widget', '', '', sprintf(_("Bac_k to %s"), $h_page_label), true));
 
-    $rtl = !empty($nls['rtl'][$language]);
+    $rtl = !empty(Horde_Nls::$config['rtl'][$language]);
     if (Horde_Util::nonInputVar('prev_url')) {
         $n_template->set('prev', Horde::link($prev_url, _("Previous Message")));
         $n_template->set('prev_img', Horde::img($rtl ? 'nav/right.png' : 'nav/left.png', $rtl ? '>' : '<', '', $registry->getImageDir('horde')));

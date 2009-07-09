@@ -71,7 +71,7 @@ if (($lang = Horde_Util::getFormData('display_language')) !== null) {
     $lang = $_SESSION['babel']['language'];
 } else {
     
-    $tests =  $nls['languages'];
+    $tests =  Horde_Nls::$config['languages'];
     
     // Unset English
     unset($tests['en_US']);

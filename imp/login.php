@@ -174,7 +174,7 @@ $choose_language = ($imp_auth && !$prefs->isLocked('language'));
 if ($choose_language) {
     $_SESSION['horde_language'] = Horde_Nls::select();
     $langs = array();
-    foreach ($nls['languages'] as $key => $val) {
+    foreach (Horde_Nls::$config['languages'] as $key => $val) {
         $langs[] = array(
             'sel' => ($key == $_SESSION['horde_language']),
             'val' => $key,

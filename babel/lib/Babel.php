@@ -29,13 +29,13 @@ class Babel {
     }
     
     function displayLanguage() {
-	global $nls, $lang, $app;
+	global $lang, $app;
 	
-	if (!isset($nls['languages'][$lang])) {
+	if (!isset(Horde_Nls::$config['languages'][$lang])) {
 	    return;
 	}
 	
-	$res = sprintf(_("Language: %s (%s)"), $nls['languages'][$lang], $lang);
+	$res = sprintf(_("Language: %s (%s)"), Horde_Nls::$config['languages'][$lang], $lang);
 	if ($app) {
 	    $res .= '&nbsp; | &nbsp; ' . sprintf(_("Module: %s"), $app);
 	}
@@ -82,7 +82,7 @@ class Babel {
     }
     
     function LanguageSelection() {
-	global $nls, $app;
+	global $app;
 	
 	$html = '';
 	$html .= '<span style="float:right">';
@@ -91,7 +91,7 @@ class Babel {
 	$html .= '<input type="hidden" name="module" value="' . $app . '">';
 	$html .= '<select name="display_language" onchange="languageSubmit()">';
 	
-	$tests =  $nls['languages'];
+	$tests =  Horde_Nls::$config['languages'];
 	
 	// Unset English
 	unset($tests['en_US']);

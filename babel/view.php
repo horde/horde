@@ -201,7 +201,7 @@ if (!$app) {
     echo '</tr>';
 
     echo "\n<tr class=\"item" . ($i++ % 2) . "\">";
-    echo "\n\t<td>" . $nls['languages'][$lang] . "</td>";
+    echo "\n\t<td>" . Horde_Nls::$config['languages'][$lang] . "</td>";
     echo "\n\t<td>" . $lang . "</td>";
     echo "\n\t<td>" . Translate_Display::create_bargraph(@$report[$lang][2], @$report[$lang][0]) . "</td>";
     echo "\n\t<td>" . @$report[$lang][2] . "</td>";
