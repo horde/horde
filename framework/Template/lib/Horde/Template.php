@@ -11,6 +11,8 @@
  * template engines (PHP code, XSLT, etc.) without requiring usage
  * changes.
  *
+ * Compilation code adapted from code written by Bruno Pedro <bpedro@ptm.pt>.
+ *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -22,6 +24,16 @@
  */
 class Horde_Template
 {
+    /** The identifier to use for memory-only templates. */
+    const TEMPLATE_STRING = '**string';
+
+    /**
+     * The Horde_Cache object to use.
+     *
+     * @var Horde_Cache
+     */
+    protected $_cache;
+
     /**
      * Option values.
      *
@@ -51,51 +63,67 @@ class Horde_Template
     protected $_arrays = array();
 
     /**
-     * Cloop tag values.
-     *
-     * @var array
-     */
-    protected $_carrays = array();
-
-    /**
-     * If tag values.
-     *
-     * @var array
-     */
-    protected $_ifs = array();
-
-    /**
-     * Name of cached template file.
+     * Path to template source.
      *
      * @var string
      */
     protected $_templateFile = null;
 
     /**
-     * Cached source of template file.
+     * Template source.
      *
      * @var string
      */
     protected $_template = null;
 
     /**
-     * Constructor. Can set the template base path and whether or not
-     * to drop template variables after a parsing a template.
+     * Foreach variable mappings.
      *
-     * @param string  $basepath  The directory where templates are read from.
+     * @var array
+     */
+    protected $_foreachMap = array();
+
+    /**
+     * Foreach variable incrementor.
+     *
+     * @var integer
+     */
+    protected $_foreachVar = 0;
+
+    /**
+     * preg_match() cache.
+     *
+     * @var array
+     */
+    protected $_pregcache = array();
+
+    /**
+     * Constructor.
+     *
+     * @param string $basepath  The directory where templates are read from.
      */
     public function __construct($basepath = null)
     {
         if (!is_null($basepath)) {
             $this->_basepath = $basepath;
         }
+
+        try {
+            $this->_cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+        } catch (Horde_Exception $e) {}
     }
 
     /**
      * Sets an option.
+     * Currently available options are:
+     * <pre>
+     * 'debug' - Output debugging information to screen
+     * 'forcecompile' - Force a compilation on every page load
+     * 'gettext' - Activate gettext detection
+     * <pre>
      *
      * @param string $option  The option name.
-     * @param mixed  $val     The option's value.
+     * @param mixed $val      The option's value.
      */
     public function setOption($option, $val)
     {
@@ -110,7 +138,8 @@ class Horde_Template
     public function setTemplate($template)
     {
         $this->_template = $template;
-        $this->_templateFile = 'string';
+        $this->_parse();
+        $this->_templateFile = self::TEMPLATE_STRING;
     }
 
     /**
@@ -132,49 +161,19 @@ class Horde_Template
      *
      * @param string|array $tag   Either the tag name or a hash with tag names
      *                            as keys and tag values as values.
-     * @param mixed $var          The value to replace the tag with.
-     * @param boolean $isIf       Is this for an <if:> tag? (Default: no).
+     * @param mixed        $var   The value to replace the tag with.
      */
-    public function set($tag, $var, $isIf = false)
+    public function set($tag, $var)
     {
         if (is_array($tag)) {
             foreach ($tag as $tTag => $tVar) {
-                $this->set($tTag, $tVar, $isIf);
+                $this->set($tTag, $tVar);
             }
         } elseif (is_array($var) || is_object($var)) {
             $this->_arrays[$tag] = $var;
-            if ($isIf) {
-                // Just store the same variable that we stored in
-                // $this->_arrays - if we don't modify it, PHP's
-                // reference counting ensures we're not using any
-                // additional memory here.
-                $this->_ifs[$tag] = $var;
-            }
         } else {
             $this->_scalars[$tag] = $var;
-            if ($isIf) {
-                // Just store the same variable that we stored in
-                // $this->_scalars - if we don't modify it, PHP's
-                // reference counting ensures we're not using any
-                // additional memory here.
-                $this->_ifs[$tag] = $var;
-            }
         }
-    }
-
-    /**
-     * Sets values for a cloop.
-     *
-     * @param string $tag   The name of the cloop.
-     * @param array $array  The values for the cloop.
-     * @param array $cases  The cases (test values) for the cloops.
-     */
-    public function setCloop($tag, $array, $cases)
-    {
-        $this->_carrays[$tag] = array(
-            'array' => $array,
-            'cases' => $cases,
-        );
     }
 
     /**
@@ -188,7 +187,8 @@ class Horde_Template
     {
         if (isset($this->_arrays[$tag])) {
             return $this->_arrays[$tag];
-        } elseif (isset($this->_scalars[$tag])) {
+        }
+        if (isset($this->_scalars[$tag])) {
             return $this->_scalars[$tag];
         }
         return null;
@@ -201,14 +201,44 @@ class Horde_Template
      * @param string $filename  The file to fetch the template from.
      *
      * @return string  The parsed template.
-     * @throws Horde_Exception
      */
-    public function fetch($filename)
+    public function fetch($filename = null)
     {
-        $contents = $this->_getTemplate($filename);
+        $file = $this->_basepath . $filename;
+        $force = $this->getOption('forcecompile');
 
-        // Parse and return the contents.
-        return $this->parse($contents);
+        if (!is_null($filename) && ($file != $this->_templateFile)) {
+            $this->_template = $this->_templateFile = null;
+        }
+
+        /* First, check for a cached compiled version. */
+        $cacheid = 'horde_template|' . filemtime($file) . '|' . $file . '|' . $this->getOption('gettext');
+        if (!$force && is_null($this->_template) && $this->_cache) {
+            $this->_template = $this->_cache->get($cacheid, 0);
+            if ($this->_template === false) {
+                $this->_template = null;
+            }
+        }
+
+        /* Parse and compile the template. */
+        if ($force || is_null($this->_template)) {
+            $this->_template = str_replace("\n", " \n", file_get_contents($file));
+            $this->_parse();
+            if ($this->_cache &&
+                isset($cacheid) &&
+                !$this->_cache->set($cacheid, $this->_template)) {
+                Horde::logMessage(sprintf(_("Could not save the compiled template file '%s'."), $file), __FILE__, __LINE__, PEAR_LOG_ERR);
+            }
+        }
+
+        $this->_templateFile = $file;
+
+        /* Template debugging. */
+        if ($this->getOption('debug')) {
+            echo '<pre>' . htmlspecialchars($this->_template) . '</pre>';
+        }
+
+        return $this->parse();
     }
 
     /**
@@ -220,338 +250,244 @@ class Horde_Template
      */
     public function parse($contents = null)
     {
-        if (is_null($contents)) {
-            $contents = $this->_template;
+        if (!is_null($contents)) {
+            $this->setTemplate(str_replace("\n", " \n", $contents));
         }
 
-        // Process ifs.
-        if (!empty($this->_ifs)) {
-            foreach (array_keys($this->_ifs) as $tag) {
-                $contents = $this->_parseIf($tag, $contents);
-            }
-        }
+        /* Evaluate the compiled template and return the output. */
+        ob_start();
+        eval('?>' . $this->_template);
+        return is_null($contents)
+            ? ob_get_clean()
+            : str_replace(" \n", "\n", ob_get_clean());
+    }
 
-        // Process tags.
-        $replace = $search = array();
-        reset($this->_scalars);
-        while (list($key, $value) = each($this->_scalars)) {
-            $search[] = $this->_getTag($key);
-            $replace[] = $value;
-        }
-        if (count($search)) {
-            $contents = str_replace($search, $replace, $contents);
-        }
-
-        // Process cloops.
-        reset($this->_carrays);
-        while (list($key, $array) = each($this->_carrays)) {
-            $contents = $this->_parseCloop($key, $array, $contents);
-        }
+    /**
+     * Parses all variables/tags in the template.
+     */
+    protected function _parse()
+    {
+        // Escape XML instructions.
+        $this->_template = preg_replace('/\?>|<\?/', '<?php echo \'$0\' ?>', $this->_template);
 
         // Parse gettext tags, if the option is enabled.
         if ($this->getOption('gettext')) {
-            $contents = $this->_parseGettext($contents);
+            $this->_parseGettext();
         }
+
+        // Process ifs.
+        $this->_parseIf();
 
         // Process loops and arrays.
-        reset($this->_arrays);
-        while (list($key, $array) = each($this->_arrays)) {
-            $contents = $this->_parseLoop($key, $array, $contents);
-        }
+        $this->_parseLoop();
 
-        // Return parsed template.
-        return $contents;
-    }
+        // Process base scalar tags.  Needs to be after _parseLoop() as we
+        // rely on _foreachMap().
+        $this->_parseTags();
 
-    /**
-     * Returns full start and end tags for a named tag.
-     *
-     * @param string $tag        The name of the tag.
-     * @param string $directive  The kind of tag [tag, if, loop, cloop].
-     *
-     * @return array  'b' => Start tag, 'e' => End tag.
-     */
-    protected function _getTags($tag, $directive)
-    {
-        return array(
-            'b' => '<' . $directive . ':' . $tag . '>',
-            'e' => '</' . $directive . ':' . $tag . '>'
-        );
-    }
-
-    /**
-     * Formats a scalar tag (default format is <tag:name>).
-     *
-     * @param string $tag  The name of the tag.
-     *
-     * @return string  The full tag with the current start/end delimiters.
-     */
-    protected function _getTag($tag)
-    {
-        return '<tag:' . $tag . ' />';
-    }
-
-    /**
-     * Extracts a portion of a template.
-     *
-     * @param array $t           The tag to extract. Hash format is:
-     *                             $t['b'] - The start tag
-     *                             $t['e'] - The end tag
-     * @param string &$contents  The template to extract from.
-     */
-    protected function _getStatement($t, &$contents)
-    {
-        // Locate the statement.
-        $pos = strpos($contents, $t['b']);
-        if ($pos === false) {
-            return false;
-        }
-
-        $tag_length = strlen($t['b']);
-        $fpos = $pos + $tag_length;
-        $lpos = strpos($contents, $t['e']);
-        $length = $lpos - $fpos;
-
-        // Extract & return the statement.
-        return substr($contents, $fpos, $length);
+        // Finally, process any associative array scalar tags.
+        $this->_parseAssociativeTags();
     }
 
     /**
      * Parses gettext tags.
-     *
-     * @param string $contents  The unparsed content of the file.
-     *
-     * @return string  The parsed contents of the gettext blocks.
      */
-    protected function _parseGettext($contents)
+    protected function _parseGettext()
     {
-        // Get the tags & loop.
-        $t = array(
-            'b' => '<gettext>',
-            'e' => '</gettext>'
-        );
-
-        while ($text = $this->_getStatement($t, $contents)) {
-            $contents = str_replace($t['b'] . $text . $t['e'], _($text), $contents);
+        if (preg_match_all("/<gettext>(.+?)<\/gettext>/s", $this->_template, $matches, PREG_SET_ORDER)) {
+            $replace = array();
+            foreach ($matches as $val) {
+                $replace[$val[0]] = '<?php echo _(\'' . str_replace("'", "\\'", $val[1]) . '\'); ?>';
+            }
+            $this->_doReplace($replace);
         }
-
-        return $contents;
     }
 
     /**
-     * Parses a given if statement.
+     * Parses 'if' statements.
      *
-     * @param string $tag       The name of the if block to parse.
-     * @param string $contents  The unparsed contents of the if block.
-     *
-     * @return string  The parsed contents of the if block.
+     * @param string $key  The key prefix to parse.
      */
-    protected function _parseIf($tag, $contents, $key = null)
+    protected function _parseIf($key = null)
     {
-        // Get the tags & if statement.
-        $t = $this->_getTags($tag, 'if');
-        $et = $this->_getTags($tag, 'else');
+        $replace = array();
 
-        // explode the tag, so we have the correct keys for the array
-        if (isset($key)) {
-            list($tg, $k) = explode('.', $tag);
-        }
-        while (($if = $this->_getStatement($t, $contents)) !== false) {
+        foreach ($this->_doSearch('if', $key) as $val) {
+            $replace[$val[0]] = '<?php if (!empty(' . $this->_generatePHPVar('scalars', $val[1]) . ') || !empty(' . $this->_generatePHPVar('arrays', $val[1]) . ')): ?>';
+            $replace[$val[2]] = '<?php endif; ?>';
+
             // Check for else statement.
-            if ($else = $this->_getStatement($et, $if)) {
-                // Process the if statement.
-                $replace = ((isset($key) && $this->_ifs[$tg][$key][$k]) || (isset($this->_ifs[$tag]) && $this->_ifs[$tag]))
-                    ? str_replace($et['b'] . $else . $et['e'], '', $if)
-                    : $else;
-            } else {
-                // Process the if statement.
-                $replace = isset($key)
-                    ? ($this->_ifs[$tg][$key][$k] ? $if : null)
-                    : ($this->_ifs[$tag] ? $if : null);
+            foreach ($this->_doSearch('else', $key) as $val2) {
+                $replace[$val2[0]] = '<?php else: ?>';
+                $replace[$val2[2]] = '';
             }
-
-            // Parse the template.
-            $contents = str_replace($t['b'] . $if . $t['e'], $replace, $contents);
         }
 
-        // Return parsed template.
-        return $contents;
+        $this->_doReplace($replace);
     }
 
     /**
      * Parses the given array for any loops or other uses of the array.
      *
-     * @param string $tag       The name of the loop to parse.
-     * @param array  $array     The values for the loop.
-     * @param string $contents  The unparsed contents of the loop.
-     *
-     * @return string  The parsed contents of the loop.
+     * @param string $key  The key prefix to parse.
      */
-    protected function _parseLoop($tag, $array, $contents)
+    protected function _parseLoop($key = null)
     {
-        // Get the tags & loop.
-        $t = $this->_getTags($tag, 'loop');
-        $loop = $this->_getStatement($t, $contents);
+        $replace = array();
 
-        // See if we have a divider.
-        $l = $this->_getTags($tag, 'divider');
-        $divider = $this->_getStatement($l, $loop);
-        $contents = str_replace($l['b'] . $divider . $l['e'], '', $contents);
+        foreach ($this->_doSearch('loop', $key) as $val) {
+            $divider = null;
 
-        // Process the array.
-        do {
-            $parsed = '';
-            $first = true;
-            reset($array);
-            while (list($key, $value) = each($array)) {
-                if (is_array($value) || is_object($value)) {
-                    $i = $loop;
-                    reset($value);
-                    while (list($key2, $value2) = each($value)) {
-                        if (!is_array($value2) && !is_object($value2)) {
-                            // Replace associative array tags.
-                            $aa_tag = $tag . '.' . $key2;
-                            $i = str_replace($this->_getTag($aa_tag), $value2, $i);
-                            $pos = strpos($tag, '.');
-                            if (($pos !== false) &&
-                                !empty($this->_ifs[substr($tag, 0, $pos)])) {
-                                $this->_ifs[$aa_tag] = $value2;
-                                $i = $this->_parseIf($aa_tag, $i);
-                                unset($this->_ifs[$aa_tag]);
-                            }
-                        } else {
-                            // Check to see if it's a nested loop.
-                            $i = $this->_parseLoop($tag . '.' . $key2, $value2, $i);
-                        }
-                    }
-                    $i = str_replace($this->_getTag($tag), $key, $i);
-                } elseif (is_string($key) && !is_array($value) && !is_object($value)) {
-                    $contents = str_replace($this->_getTag($tag . '.' . $key), $value, $contents);
-                } elseif (!is_array($value) && !is_object($value)) {
-                    $i = str_replace($this->_getTag($tag . ''), $value, $loop);
-                } else {
-                    $i = null;
-                }
-
-                // Parse conditions in the array.
-                if (!empty($this->_ifs[$tag][$key]) &&
-                    is_array($this->_ifs[$tag][$key]) &&
-                    $this->_ifs[$tag][$key]) {
-                    reset($this->_ifs[$tag][$key]);
-                    foreach (array_keys($this->_ifs[$tag][$key]) as $cTag) {
-                        $i = $this->_parseIf($tag . '.' . $cTag, $i, $key);
-                    }
-                }
-
-                // Add the parsed iteration.
-                if (isset($i)) {
-                    // If it's not the first time through, prefix the
-                    // loop divider, if there is one.
-                    if (!$first) {
-                        $i = $divider . $i;
-                    }
-                    $parsed .= rtrim($i);
-                }
-
-                // No longer the first time through.
-                $first = false;
+            // See if we have a divider.
+            if (preg_match("/<divider:" . $val[1] . ">(.*)<\/divider:" . $val[1] . ">/sU", $this->_template, $m)) {
+                $divider = $m[1];
+                $replace[$m[0]] = '';
             }
 
-            // Replace the parsed pieces of the template.
-            $contents = str_replace($t['b'] . $loop . $t['e'], $parsed, $contents);
-        } while ($loop = $this->_getStatement($t, $contents));
+            if (!isset($this->_foreachMap[$val[1]])) {
+                $this->_foreachMap[$val[1]] = ++$this->_foreachVar;
+            }
+            $varId = $this->_foreachMap[$val[1]];
+            $var = $this->_generatePHPVar('arrays', $val[1]);
 
-        return $contents;
+            $replace[$val[0]] = '<?php ' .
+                (($divider) ? '$i' . $varId . ' = count(' . $var . '); ' : '') .
+                'foreach (' . $this->_generatePHPVar('arrays', $val[1]) . ' as $k' . $varId . ' => $v' . $varId . '): ?>';
+            $replace[$val[2]] = '<?php ' .
+                (($divider) ? 'if (--$i' . $varId . ' != 0) { echo \'' . $divider . '\'; }; ' : '') .
+                'endforeach; ?>';
+
+            // Parse ifs.
+            $this->_parseIf($val[1]);
+
+            // Parse interior loops.
+            $this->_parseLoop($val[1]);
+
+            // Replace scalars.
+            $this->_parseTags($val[1]);
+        }
+
+        $this->_doReplace($replace);
     }
 
     /**
-     * Parses the given case loop (cloop).
+     * Replaces 'tag' tags with their PHP equivalents.
      *
-     * @param string $tag       The name of the cloop to parse.
-     * @param array  $array     The values for the cloop.
-     * @param string $contents  The unparsed contents of the cloop.
-     *
-     * @return string  The parsed contents of the cloop.
+     * @param string $key  The key prefix to parse.
      */
-    protected function _parseCloop($tag, $array, $contents)
+    protected function _parseTags($key = null)
     {
-        // Get the tags & cloop.
-        $t = $this->_getTags($tag, 'cloop');
+        $replace = array();
 
-        while ($loop = $this->_getStatement($t, $contents)) {
-            // Set up the cases.
-            $array['cases'][] = 'default';
-            $case_content = array();
-
-            // Get the case strings.
-            foreach ($array['cases'] as $case) {
-                $ctags[$case] = $this->_getTags($case, 'case');
-                $case_content[$case] = $this->_getStatement($ctags[$case], $loop);
+        foreach ($this->_doSearch('tag', $key, true) as $val) {
+            $replace_text = '<?php ';
+            if (isset($this->_foreachMap[$val[1]])) {
+                $var = $this->_foreachMap[$val[1]];
+                $replace_text .= 'if (isset($v' . $var . ')) { echo is_array($v' . $var . ') ? $k' . $var . ' : $v' . $var . '; } else';
             }
-
-            // Process the cloop.
-            $parsed = '';
-            reset($array['array']);
-            while (list($key, $value) = each($array['array'])) {
-                if (is_numeric($key) &&
-                    (is_array($value) || is_object($value))) {
-                    // Set up the cases.
-                    $current_case = isset($value['case'])
-                        ? $value['case']
-                        : 'default';
-                    unset($value['case']);
-                    $i = $case_content[$current_case];
-
-                    // Loop through each value.
-                    reset($value);
-                    while (list($key2, $value2) = each($value)) {
-                        $i = (is_array($value2) || is_object($value2))
-                            ? $this->_parseLoop($tag . '.' . $key2, $value2, $i)
-                            : str_replace($this->_getTag($tag . '.' . $key2), $value2, $i);
-                    }
-                }
-
-                // Add the parsed iteration.
-                $parsed .= rtrim($i);
-            }
-
-            // Parse the cloop.
-            $contents = str_replace($t['b'] . $loop . $t['e'], $parsed, $contents);
+            $var = $this->_generatePHPVar('scalars', $val[1]);
+            $replace[$val[0]] = $replace_text . 'if (isset(' . $var . ')) { echo ' . $var . '; } ?>';
         }
 
-        return $contents;
+        $this->_doReplace($replace);
     }
 
     /**
-     * Fetch the contents of a template into $this->_template; cache
-     * the filename in $this->_templateFile.
-     *
-     * @param string $filename  Location of template file on disk.
-     *
-     * @return string  The loaded template content.
-     * @throws Horde_Exception
+     * Parse associative tags (i.e. <tag:foo.bar />).
      */
-    protected function _getTemplate($filename = null)
+    protected function _parseAssociativeTags()
     {
-        if (!is_null($filename) && ($filename != $this->_templateFile)) {
-            $this->_template = null;
+        $replace = array();
+
+        foreach ($this->_pregcache['tag'] as $key => $val) {
+            $parts = explode('.', $val[1]);
+            $var = '$this->_arrays[\'' . $parts[0] . '\'][\'' . $parts[1] . '\']';
+            $replace[$val[0]] = '<?php if (isset(' . $var . ')) { echo ' . $var . '; } ?>';
+            unset($this->_pregcache['tag'][$key]);
         }
 
-        if (!is_null($this->_template)) {
-            return $this->_template;
+        $this->_doReplace($replace);
+    }
+
+    /**
+     * Output the correct PHP variable string for use in template space.
+     */
+    protected function _generatePHPVar($tag, $key)
+    {
+        $out = '';
+
+        $a = explode('.', $key);
+        $a_count = count($a);
+
+        if ($a_count == 1) {
+            switch ($tag) {
+            case 'arrays':
+                $out = '$this->_arrays';
+                break;
+
+            case 'scalars':
+                $out = '$this->_scalars';
+                break;
+            }
+        } else {
+            $out = '$v' . $this->_foreachMap[implode('.', array_slice($a, 0, -1))];
         }
 
-        // Get the contents of the file.
-        $file = $this->_basepath . $filename;
-        $contents = file_get_contents($file);
-        if ($contents === false) {
-            throw new Horde_Exception(sprintf(_("Template \"%s\" not found."), $file));
+        return $out . '[\'' . end($a) . '\']';
+    }
+
+    /**
+     * TODO
+     */
+    protected function _doSearch($tag, $key, $noclose = false)
+    {
+        $out = array();
+        $level = (is_null($key)) ? 0 : substr_count($key, '.') + 1;
+
+        if (!isset($this->_pregcache[$key])) {
+            $regex = ($noclose) ?
+                "/<" . $tag . ":(.+?)\s\/>/" :
+                "/<" . $tag . ":([^>]+)>/";
+            preg_match_all($regex, $this->_template, $this->_pregcache[$tag], PREG_SET_ORDER);
         }
 
-        $this->_template = $contents;
-        $this->_templateFile = $filename;
+        foreach ($this->_pregcache[$tag] as $pkey => $val) {
+            $val_level = substr_count($val[1], '.');
+            $add = false;
+            if (is_null($key)) {
+                $add = !$val_level;
+            } else {
+                $add = (($val_level == $level) &&
+                        (strpos($val[1], $key . '.') === 0));
+            }
+            if ($add) {
+                if (!$noclose) {
+                    $val[2] = '</' . $tag . ':' . $val[1] . '>';
+                }
+                $out[] = $val;
+                unset($this->_pregcache[$tag][$pkey]);
+            }
+        }
 
-        return $this->_template;
+        return $out;
+    }
+
+    /**
+     * TODO
+     */
+    protected function _doReplace($replace)
+    {
+        if (empty($replace)) {
+            return;
+        }
+
+        $search = array();
+
+        foreach (array_keys($replace) as $val) {
+            $search[] = '/' . preg_quote($val, '/') . '/';
+        }
+
+        $this->_template = preg_replace($search, array_values($replace), $this->_template);
     }
 
 }
