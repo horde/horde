@@ -78,10 +78,10 @@ class IMP_Imple_SpellChecker extends IMP_Imple
         }
 
         /* Add local dictionary words. */
-        $result = Horde::loadConfiguration('spelling.php', 'ignore_list');
-        if (!is_a($result, 'PEAR_Error')) {
+        try {
+            $result = Horde::loadConfiguration('spelling.php', 'ignore_list');
             $spellArgs['localDict'] = $result;
-        }
+        } catch (Horde_Exception $e) {}
 
         if (!empty($args['html'])) {
             $spellArgs['html'] = true;

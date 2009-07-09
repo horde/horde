@@ -62,13 +62,12 @@ class Folks_Driver {
 
     /**
      * Load VFS Backend
+     *
+     * @throws Horde_Exception
      */
     protected function _loadVFS()
     {
         $v_params = Horde::getVFSConfig('images');
-        if ($v_params instanceof PEAR_Error) {
-            return $v_params;
-        }
 
         return VFS::singleton($v_params['type'], $v_params['params']);
     }

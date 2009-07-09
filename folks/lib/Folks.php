@@ -44,12 +44,11 @@ class Folks {
      */
     static function getCountries()
     {
-        $result = Horde::loadConfiguration('countries.php', 'countries', 'folks');
-        if ($result instanceof PEAR_Error) {
+        try {
+           return Horde::loadConfiguration('countries.php', 'countries', 'folks');
+        } catch (Horde_Exception $e)
             return Horde_Nls::getCountryISO();
         }
-
-        return $result;
     }
 
     /**

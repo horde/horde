@@ -41,8 +41,9 @@ class Chora
     {
         global $acts, $defaultActs, $where, $atdir, $fullname, $sourceroot;
 
-        $GLOBALS['sourceroots'] = Horde::loadConfiguration('sourceroots.php', 'sourceroots');
-        if (is_a($GLOBALS['sourceroots'], 'PEAR_Error')) {
+        try {
+            $GLOBALS['sourceroots'] = Horde::loadConfiguration('sourceroots.php', 'sourceroots');
+        } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($GLOBALS['sourceroots']);
             $GLOBALS['sourceroots'] = array();
         }

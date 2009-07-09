@@ -348,5 +348,7 @@ IMP::addInlineScript(array(
 
 echo $t->fetch(IMP_TEMPLATES . '/login/login.html');
 
-Horde::loadConfiguration('motd.php', null, null, true);
+try {
+    Horde::loadConfiguration('motd.php', null, null, true);
+} catch (Horde_Exception $e) {}
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -88,11 +88,11 @@ case 'fetchmail_prefs_delete':
 }
 
 require_once 'Horde/Prefs/UI.php';
-$result = Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp');
-if (is_a($result, 'PEAR_Error')) {
-    Horde::fatal($result, __FILE__, __LINE__);
+try {
+    extract(Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp'));
+} catch (Horde_Exception $e) {
+    Horde::fatal($e, __FILE__, __LINE__);
 }
-extract($result);
 
 $app = 'imp';
 $chunk = Horde_Util::nonInputVar('chunk');

@@ -130,7 +130,7 @@ class IMP
         $result = $registry->call('contacts/import',
                                   array(array('name' => $newName, 'email' => $newAddress),
                                         'array', $prefs->getValue('add_source')));
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceof PEAR_Error) {
             throw new Horde_Exception($result);
         }
 
@@ -140,7 +140,7 @@ class IMP
         $escapeName = htmlspecialchars($newName, ENT_COMPAT, Horde_Nls::getCharset());
         error_reporting($old_error);
 
-        return (!empty($contact_link) && !is_a($contact_link, 'PEAR_Error'))
+        return (!empty($contact_link) && !$contact_link instanceof PEAR_Error)
             ? Horde::link(Horde::url($contact_link), sprintf(_("Go to address book entry of \"%s\""), $newName)) . $escapeName . '</a>'
             : $escapeName;
     }
@@ -233,7 +233,7 @@ class IMP
             $tasklists = $GLOBALS['registry']->call('tasks/listTasklists',
                                                     array(false, PERMS_EDIT));
 
-            if (!is_a($tasklists, 'PEAR_Error') && count($tasklists)) {
+            if (!$tasklists instanceof PEAR_Error && count($tasklists)) {
                 $text .= '<option value="" disabled="disabled">&nbsp;</option><option value="" disabled="disabled">- - ' . _("Task Lists") . ' - -</option>' . "\n";
 
                 foreach ($tasklists as $id => $tasklist) {
@@ -251,7 +251,7 @@ class IMP
             $notepads = $GLOBALS['registry']->call('notes/listNotepads',
                                                     array(false, PERMS_EDIT));
 
-            if (!is_a($notepads, 'PEAR_Error') && count($notepads)) {
+            if (!$notepads instanceof PEAR_Error && count($notepads)) {
                 $text .= '<option value="" disabled="disabled">&nbsp;</option><option value="" disabled="disabled">- - ' . _("Notepads") . ' - -</option>' . "\n";
 
                 foreach ($notepads as $id => $notepad) {

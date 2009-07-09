@@ -34,14 +34,10 @@ require_once $appbase . '/lib/base.php';
 $pref = Horde_Util::getFormData('pref');
 if (!$pref) {
     $_prefs = array();
-    if (is_callable(array('Horde', 'loadConfiguration'))) {
-        $result = Horde::loadConfiguration('prefs.php', array('_prefs'), $app);
-        if (is_a($result, 'PEAR_Error')) {
-            exit;
-        }
-        extract($result);
-    } elseif (file_exists($appbase . '/config/prefs.php')) {
-        require $appbase . '/config/prefs.php';
+    try {
+        extract(Horde::loadConfiguration('prefs.php', array('_prefs'), $app));
+    } catch (Horde_Exception $e) {
+        Horde::fatal($e, __FILE__, __LINE__);
     }
 
     echo '<ul id="pref">';

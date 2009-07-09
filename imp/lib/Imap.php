@@ -86,9 +86,10 @@ class IMP_Imap
      */
     static public function loadServerConfig($server = null)
     {
-        $servers = Horde::loadConfiguration('servers.php', 'servers', 'imp');
-        if (is_a($servers, 'PEAR_Error')) {
-            Horde::logMessage($servers, __FILE__, __LINE__, PEAR_LOG_ERR);
+        try {
+            $servers = Horde::loadConfiguration('servers.php', 'servers', 'imp');
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
             return false;
         }
 

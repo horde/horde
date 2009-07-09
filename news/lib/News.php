@@ -226,6 +226,8 @@ class News {
 
     /**
      * Load VFS Backend
+     *
+     * @throws Horde_Exception
      */
     static public function loadVFS()
     {
@@ -236,11 +238,7 @@ class News {
         }
 
         $v_params = Horde::getVFSConfig('images');
-        if ($v_params instanceof PEAR_Error) {
-            return $v_params;
-        }
 
-        require_once 'VFS.php';
         $vfs = VFS::singleton($v_params['type'], $v_params['params']);
         return $vfs;
     }

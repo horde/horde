@@ -656,8 +656,7 @@ $_prefs['sending_charset'] = array(
     'locked' => false,
     'shared' => true,
     'type' => 'enum',
-    'enum' => array_merge(array('' => _("Default")),
-                  $GLOBALS['nls']['encodings']),
+    'enum' => array_merge(array('' => _("Default")), Horde_Nls::$config['encodings']),
     'desc' => _("Your default charset for sending messages:"));
 
 // Select widget for the 'default_encrypt' preference
@@ -938,8 +937,7 @@ $_prefs['default_msg_charset'] = array(
     'shared' => false,
     'type' => 'enum',
     'enum' => array_merge(
-        array('' => _("Default (US-ASCII)")),
-        $GLOBALS['nls']['encodings']
+        array('' => _("Default (US-ASCII)")), Horde_Nls::$config['encodings']
     ),
     'desc' => _("The default charset for messages with no charset information:"),
     'help' => 'prefs-default_msg_charset');

@@ -493,12 +493,12 @@ class IMP_Compose
         $headers->addUserAgentHeader();
 
         /* Tack on any site-specific headers. */
-        $headers_result = Horde::loadConfiguration('header.php', '_header');
-        if (!is_a($headers_result, 'PEAR_Error')) {
+        try {
+            $headers_result = Horde::loadConfiguration('header.php', '_header');
             foreach ($headers_result as $key => $val) {
                 $headers->addHeader(trim($key), Horde_String::convertCharset(trim($val), Horde_Nls::getCharset(), $charset));
             }
-        }
+        } catch (Horde_Exception $e) {}
 
         if ($conf['sentmail']['driver'] != 'none') {
             $sentmail = IMP_Sentmail::factory();

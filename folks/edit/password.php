@@ -54,7 +54,6 @@ do {
     // Check some password policy
     $password_policy = Horde::loadConfiguration('password_policy.php', 'password_policy', 'folks');
     if (is_array($password_policy)) {
-
         // Check max/min lengths if specified in the backend config.
         if (isset($password_policy['minLength']) &&
             strlen($info['new']) < $password_policy['minLength']) {

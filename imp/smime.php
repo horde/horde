@@ -219,11 +219,11 @@ try {
     $notification->push($e);
 }
 
-$result = Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp');
-if (is_a($result, 'PEAR_Error')) {
-    Horde::fatal($result, __FILE__, __LINE__);
+try {
+    extract(Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp'));
+} catch (Horde_Exception $e) {
+    Horde::fatal($e, __FILE__, __LINE__);
 }
-extract($result);
 
 require_once 'Horde/Prefs/UI.php';
 $app = 'imp';
