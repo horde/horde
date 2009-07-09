@@ -98,7 +98,7 @@ $app = 'imp';
 $chunk = Horde_Util::nonInputVar('chunk');
 
 /* Prepare template. */
-$t = new IMP_Template();
+$t = new Horde_Template();
 $t->setOption('gettext', true);
 $t->set('navcell', Horde_Util::bufferOutput(array('Prefs_UI', 'generateNavigationCell'), 'fetchmail'));
 $t->set('fetchurl', $fetch_url);

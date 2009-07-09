@@ -301,7 +301,7 @@ if (count($filter_list) == 0) {
     }
 
     /* Output the template. */
-    $template = new Ingo_Template();
+    $template = new Horde_Template();
     $template->set('down_img', $down_img);
     $template->set('up_img', $up_img);
     $template->set('filter', $display, true);

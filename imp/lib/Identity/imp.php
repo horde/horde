@@ -49,7 +49,7 @@ class Identity_imp extends Identity
      */
     function __construct()
     {
-        parent::Identity();
+        parent::__construct();
         $this->_properties = array_merge(
             $this->_properties,
             array('replyto_addr', 'alias_addr', 'tieto_addr', 'bcc_addr',

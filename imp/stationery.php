@@ -105,7 +105,7 @@ $app = 'imp';
 $chunk = Horde_Util::nonInputVar('chunk');
 Prefs_UI::generateHeader(null, $chunk);
 
-$t = new IMP_Template();
+$t = new Horde_Template();
 $t->setOption('gettext', true);
 $t->set('action', Horde::selfUrl());
 $t->set('forminput', Horde_Util::formInput());

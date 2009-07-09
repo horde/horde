@@ -32,7 +32,7 @@ class IMP_UI_Mailbox
      *
      * @param string $mailbox  The current mailbox.
      */
-    function __construct($mailbox = null)
+    public function __construct($mailbox = null)
     {
         $this->_mailbox = $mailbox;
     }

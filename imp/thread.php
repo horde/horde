@@ -141,7 +141,7 @@ foreach ($loop_array as $mbox => $idxlist) {
 $imp_message = IMP_Message::singleton();
 $imp_message->flag(array('\\seen'), $loop_array);
 
-$template = new IMP_Template();
+$template = new Horde_Template();
 $template->setOption('gettext', true);
 $template->set(
     'subject',

@@ -16,7 +16,7 @@ function _importKeyDialog($target)
     require IMP_TEMPLATES . '/common-header.inc';
     IMP::status();
 
-    $t = new IMP_Template();
+    $t = new Horde_Template();
     $t->setOption('gettext', true);
     $t->set('selfurl', Horde::applicationUrl('smime.php'));
     $t->set('broken_mp_form', $GLOBALS['browser']->hasQuirk('broken_multipart_form'));
@@ -242,7 +242,7 @@ try {
 }
 
 /* If S/MIME preference not active, do NOT show S/MIME Admin screen. */
-$t = new IMP_Template();
+$t = new Horde_Template();
 $t->setOption('gettext', true);
 $t->set('use_smime_help', Horde_Help::link('imp', 'smime-overview'));
 if ($openssl_check && $prefs->getValue('use_smime')) {

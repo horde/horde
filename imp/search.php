@@ -140,7 +140,7 @@ if (!$conf['user']['allow_folders']) {
 }
 
 /* Prepare the search template. */
-$t = new IMP_Template();
+$t = new Horde_Template();
 $t->setOption('gettext', true);
 
 $t->set('action', Horde::applicationUrl('search.php'));

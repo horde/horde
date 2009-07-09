@@ -26,7 +26,7 @@ function _importKeyDialog($target)
     require IMP_TEMPLATES . '/common-header.inc';
     IMP::status();
 
-    $t = new IMP_Template();
+    $t = new Horde_Template();
     $t->setOption('gettext', true);
     $t->set('selfurl', Horde::applicationUrl('pgp.php'));
     $t->set('broken_mp_form', $GLOBALS['browser']->hasQuirk('broken_multipart_form'));
@@ -314,7 +314,7 @@ $chunk = Horde_Util::nonInputVar('chunk');
 Prefs_UI::generateHeader('pgp', $chunk);
 
 /* If PGP preference not active, do NOT show PGP Admin screen. */
-$t = new IMP_Template();
+$t = new Horde_Template();
 $t->setOption('gettext', true);
 if ($prefs->getValue('use_pgp')) {
     Horde::addScriptFile('prototype.js', 'horde', true);

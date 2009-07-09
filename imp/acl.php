@@ -145,7 +145,7 @@ $chunk = Horde_Util::nonInputVar('chunk');
 Prefs_UI::generateHeader(null, $chunk);
 
 /* Set up template. */
-$t = new IMP_Template();
+$t = new Horde_Template();
 $t->setOption('gettext', true);
 $t->set('aclurl', Horde::applicationUrl('acl.php'));
 $t->set('forminput', Horde_Util::formInput());

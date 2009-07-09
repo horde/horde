@@ -33,7 +33,7 @@ function _popupSuccess()
     $menu->add(Horde::applicationUrl('compose.php'), _("New Message"), 'compose.png');
     $menu->add('', _("Close this window"), 'close.png', $GLOBALS['registry']->getImageDir('horde'), '', 'window.close();');
     require IMP_TEMPLATES . '/common-header.inc';
-    $success_template = new IMP_Template();
+    $success_template = new Horde_Template();
     $success_template->set('menu', $menu->render());
     echo $success_template->fetch(IMP_TEMPLATES . '/compose/success.html');
     IMP::status();
@@ -807,7 +807,7 @@ if (!$redirect) {
 
 
 /* Set up the base template now. */
-$t = new IMP_Template();
+$t = new Horde_Template();
 $t->setOption('gettext', true);
 $t->set('post_action', Horde_Util::addParameter(Horde::applicationUrl('compose.php'), 'uniq', uniqid(mt_rand())));
 $t->set('allow_compose', !$compose_disable);

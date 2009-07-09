@@ -62,7 +62,7 @@ foreach (explode('|', Horde_Util::getFormData('sa')) as $addr) {
 }
 
 /* Prepare the contacts template. */
-$template = new IMP_Template();
+$template = new Horde_Template();
 $template->setOption('gettext', true);
 
 $template->set('action', Horde::url(Horde_Util::addParameter(Horde::applicationUrl('contacts.php'), array('uniq' => uniqid(mt_rand())))));

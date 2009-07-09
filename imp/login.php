@@ -252,7 +252,7 @@ if ($browser->isMobile()) {
 $display_list = ($show_list && !empty($hordeauth_servers_list));
 
 /* Prepare the login template. */
-$t = new IMP_Template();
+$t = new Horde_Template();
 $t->setOption('gettext', true);
 $tabindex = 0;
 

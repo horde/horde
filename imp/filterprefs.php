@@ -53,7 +53,7 @@ $chunk = Horde_Util::nonInputVar('chunk');
 $group = 'filters';
 Prefs_UI::generateHeader(null, $chunk);
 
-$t = new IMP_Template();
+$t = new Horde_Template();
 $t->setOption('gettext', true);
 $t->set('navcell', Horde_Util::bufferOutput(array('Prefs_UI', 'generateNavigationCell'), 'filters'));
 $t->set('prefsurl', IMP::prefsURL(true));

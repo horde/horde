@@ -607,7 +607,7 @@ case 'ShowPortal':
     $result = new stdClass;
     $result->portal = '';
     if (!empty($blocks)) {
-        $t = new IMP_Template(IMP_TEMPLATES . '/imp/');
+        $t = new Horde_Template(IMP_TEMPLATES . '/imp/');
         $t->set('block', $blocks);
         $result->portal = $t->fetch('portal.html');
     }

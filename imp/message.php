@@ -422,7 +422,7 @@ if (!IMP::$printMode) {
     }
 
     /* Prepare the navbar top template. */
-    $t_template = new IMP_Template();
+    $t_template = new Horde_Template();
     $t_template->set('message_url', $message_url);
     $t_template->set('form_input', Horde_Util::formInput());
     $t_template->set('mailbox', htmlspecialchars($imp_mbox['mailbox']));
@@ -435,7 +435,7 @@ if (!IMP::$printMode) {
     $t_template->set('message_token', $message_token);
 
     /* Prepare the navbar navigate template. */
-    $n_template = new IMP_Template();
+    $n_template = new Horde_Template();
     $n_template->setOption('gettext', true);
     $n_template->set('readonly', $readonly);
     $n_template->set('usepop', $use_pop);
@@ -473,7 +473,7 @@ if (!IMP::$printMode) {
     }
 
     /* Prepare the navbar actions template. */
-    $a_template = new IMP_Template();
+    $a_template = new Horde_Template();
     $a_template->setOption('gettext', true);
     $a_template->set('readonly', $readonly);
     $compose_params = array('index' => $index, 'identity' => $identity, 'thismailbox' => $mailbox_name);
@@ -569,7 +569,7 @@ $hdrs = array();
 $i = 1;
 
 /* Prepare the main message template. */
-$m_template = new IMP_Template();
+$m_template = new Horde_Template();
 foreach ($display_headers as $head => $val) {
     $hdrs[] = array('name' => $basic_headers[$head], 'val' => $val, 'i' => (++$i % 2));
 }
