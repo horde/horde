@@ -54,13 +54,11 @@ class Koward {
 
         /* Horde core classes that aren't autoloaded. */
         include_once 'Horde/NLS.php';
-        include_once 'Horde/Auth.php';
         include_once 'Horde/Perms.php';
-        include_once 'Horde/Registry.php';
 
-        $registry = Registry::singleton();
+        $registry = Horde_Registry::singleton();
 
-        $notification = &Horde_Notification::singleton();
+        $notification = Horde_Notification::singleton();
         $notification->attach('status');
 
         /* Browser detection object. */

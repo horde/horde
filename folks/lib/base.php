@@ -18,7 +18,7 @@ if (!defined('HORDE_BASE')) {
 require_once HORDE_BASE . '/lib/core.php';
 
 // Registry.
-$registry = &Registry::singleton();
+$registry = Horde_Registry::singleton();
 if (($pushed = $registry->pushApp('folks', !defined('AUTH_HANDLER'))) instanceof PEAR_Error) {
     if ($pushed->getCode() == 'permission_denied') {
         Horde::authenticationFailureRedirect();

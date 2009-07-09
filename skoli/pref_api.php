@@ -13,7 +13,7 @@
 @define('HORDE_BASE', dirname(dirname(__FILE__)));
 require_once HORDE_BASE . '/lib/core.php';
 
-$registry = &Registry::singleton();
+$registry = Horde_Registry::singleton();
 
 /* Which application. */
 $app = Horde_Util::getFormData('app');

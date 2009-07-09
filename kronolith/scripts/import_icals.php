@@ -20,7 +20,6 @@
 
 // Do CLI checks and environment setup first.
 require_once HORDE_BASE . '/lib/core.php';
-require_once 'Horde/Cli.php';
 
 // Make sure no one runs this from the web.
 if (!Horde_Cli::runningFromCLI()) {
@@ -29,7 +28,7 @@ if (!Horde_Cli::runningFromCLI()) {
 
 // Load the CLI environment - make sure there's no time limit, init some
 // variables, etc.
-$cli = &Horde_Cli::singleton();
+$cli = Horde_Cli::singleton();
 $cli->init();
 
 // Read command line parameters.
@@ -48,7 +47,7 @@ if (empty($ical)) {
 }
 
 // Registry.
-$registry = Registry::singleton();
+$registry = Horde_Registry::singleton();
 
 // Set user.
 Horde_Auth::setAuth($user, array());

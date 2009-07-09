@@ -47,14 +47,14 @@ case 'netscape':
     break;
 
 case 'none':
-    $s_ctrl = Registry::SESSION_NONE;
+    $s_ctrl = Horde_Registry::SESSION_NONE;
     break;
 
 case 'readonly':
-    $s_ctrl = Registry::SESSION_READONLY;
+    $s_ctrl = Horde_Registry::SESSION_READONLY;
     break;
 }
-$registry = Registry::singleton($s_ctrl);
+$registry = Horde_Registry::singleton($s_ctrl);
 
 // We explicitly do not check application permissions for the compose
 // and login pages, since those are handled below and need to fall through

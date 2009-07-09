@@ -23,11 +23,11 @@ require_once HORDE_BASE . '/lib/core.php';
 /* Registry. */
 $session_control = Horde_Util::nonInputVar('session_control');
 if ($session_control == 'none') {
-    $registry = &Registry::singleton(Registry::SESSION_NONE);
+    $registry = Horde_Registry::singleton(Horde_Registry::SESSION_NONE);
 } elseif ($session_control == 'readonly') {
-    $registry = &Registry::singleton(Registry::SESSION_READONLY);
+    $registry = Horde_Registry::singleton(Horde_Registry::SESSION_READONLY);
 } else {
-    $registry = &Registry::singleton();
+    $registry = Horde_Registry::singleton();
 }
 
 if (is_a(($pushed = $registry->pushApp('timeobjects', !defined('AUTH_HANDLER'))), 'PEAR_Error')) {

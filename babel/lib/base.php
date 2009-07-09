@@ -27,7 +27,7 @@ $notification = &Horde_Notification::singleton();
 $notification->attach('status');
 
 /* Registry. */
-$registry = &Registry::singleton();
+$registry = Horde_Registry::singleton();
 
 if (is_a(($pushed = $registry->pushApp('babel', !defined('AUTH_HANDLER'))), 'PEAR_Error')) {
     if ($pushed->getCode() == 'permission_denied') {

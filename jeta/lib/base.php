@@ -26,7 +26,7 @@ if (!defined('JETA_BASE')) {
 require_once HORDE_BASE . '/lib/core.php';
 
 // Registry.
-$registry = &Registry::singleton();
+$registry = Horde_Registry::singleton();
 if (is_a(($pushed = $registry->pushApp('jeta', !defined('AUTH_HANDLER'))), 'PEAR_Error')) {
     if ($pushed->getCode() == 'permission_denied') {
         Horde::authenticationFailureRedirect();

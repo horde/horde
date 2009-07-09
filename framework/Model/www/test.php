@@ -14,7 +14,7 @@
 require_once HORDE_BASE . '/lib/core.php';
 require_once 'Horde/Autoloader.php';
 Horde_Autoloader::addClassPath(dirname(__FILE__));
-$registry = Registry::singleton();
+$registry = Horde_Registry::singleton();
 $vars = Horde_Variables::getDefaultVariables();
 
 $vars->set('example_bar', 'text with a beginning and an end');
