@@ -46,22 +46,20 @@ Application Framework.
   <dir name="/">
    <dir name="lib">
     <dir name="Horde">
-     <dir name="Horde">
-      <file name="Config.php" role="php" />
-      <file name="ErrorHandler.php" role="php" />
-      <file name="Exception.php" role="php" />
-      <file name="Help.php" role="php" />
-      <file name="Menu.php" role="php" />
-      <file name="Registry.php" role="php" />
-      <dir name="Registry">
-       <file name="Caller.php" role="php" />
-      </dir> <!-- /lib/Horde/Horde/Registry -->
-      <dir name="Script">
-       <file name="Files.php" role="php" />
-      </dir> <!-- /lib/Horde/Horde/Script -->
-     </dir> <!-- /lib/Horde/Horde -->
-     <file name="Horde.php" role="php" />
+     <file name="Config.php" role="php" />
+     <file name="ErrorHandler.php" role="php" />
+     <file name="Exception.php" role="php" />
+     <file name="Help.php" role="php" />
+     <file name="Menu.php" role="php" />
+     <file name="Registry.php" role="php" />
+     <dir name="Registry">
+      <file name="Caller.php" role="php" />
+     </dir> <!-- /lib/Horde/Registry -->
+     <dir name="Script">
+      <file name="Files.php" role="php" />
+     </dir> <!-- /lib/Horde/Script -->
     </dir> <!-- /lib/Horde -->
+    <file name="Horde.php" role="php" />
    </dir> <!-- /lib -->
    <dir name="test">
     <dir name="Horde">
@@ -114,15 +112,15 @@ Application Framework.
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Horde/Config.php" as="Horde/Config.php" />
-   <install name="lib/Horde/Horde/ErrorHandler.php" as="Horde/ErrorHandler.php" />
-   <install name="lib/Horde/Horde/Exception.php" as="Horde/Exception.php" />
-   <install name="lib/Horde/Horde/Help.php" as="Horde/Help.php" />
-   <install name="lib/Horde/Horde/Menu.php" as="Horde/Menu.php" />
-   <install name="lib/Horde/Horde/Registry.php" as="Horde/Registry.php" />
-   <install name="lib/Horde/Horde/Registry/Caller.php" as="Horde/Registry/Caller.php" />
-   <install name="lib/Horde/Horde/Script/Files.php" as="Horde/Script/Files.php" />
-   <install name="lib/Horde/Horde.php" as="Horde.php" />
+   <install name="lib/Horde/Config.php" as="Horde/Config.php" />
+   <install name="lib/Horde/ErrorHandler.php" as="Horde/ErrorHandler.php" />
+   <install name="lib/Horde/Exception.php" as="Horde/Exception.php" />
+   <install name="lib/Horde/Help.php" as="Horde/Help.php" />
+   <install name="lib/Horde/Menu.php" as="Horde/Menu.php" />
+   <install name="lib/Horde/Registry.php" as="Horde/Registry.php" />
+   <install name="lib/Horde/Registry/Caller.php" as="Horde/Registry/Caller.php" />
+   <install name="lib/Horde/Script/Files.php" as="Horde/Script/Files.php" />
+   <install name="lib/Horde.php" as="Horde.php" />
   </filelist>
  </phprelease>
  <changelog>
