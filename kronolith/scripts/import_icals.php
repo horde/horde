@@ -53,10 +53,10 @@ $registry = Horde_Registry::singleton();
 Horde_Auth::setAuth($user, array());
 
 // Import data.
-$result = $registry->call('calendar/import',
-                          array($ical, 'text/calendar', $cal));
-if (is_a($result, 'PEAR_Error')) {
-    $cli->fatal($result->toString());
+try {
+    $result = $registry->call('calendar/import', array($ical, 'text/calendar', $cal));
+} catch (Horde_Exception $e) {
+    $cli->fatal($e->toString());
 }
 
 $cli->message('Imported successfully ' . count($result) . ' events', 'cli.success');

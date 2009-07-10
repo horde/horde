@@ -225,6 +225,7 @@ class Kronolith_FreeBusy {
      * @param string $email  The email address to look for.
      *
      * @return mixed  The url on success or false on failure.
+     * @throws Horde_Exception
      */
     function getUrl($email)
     {
@@ -233,13 +234,11 @@ class Kronolith_FreeBusy {
 
         $result = $GLOBALS['registry']->call('contacts/getField',
                                              array($email, 'freebusyUrl', $sources, true, true));
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        } elseif (is_array($result)) {
+        if (is_array($result)) {
             return array_shift($result);
-        } else {
-            return $result;
         }
+
+        return $result;
     }
 
 }

@@ -38,7 +38,7 @@ class Skoli_School {
             return PEAR::raiseError(sprintf(_("Error loading the school \"%s\" from template."), $schoolName));
         } else {
             $this->school = self::$schools[$schoolName];
-        }       
+        }
     }
 
     /**
@@ -92,7 +92,7 @@ class Skoli_School {
                     unset($marksformat['custom']);
                 }
                 $form->addVariable(_(ucfirst($property)), $property, 'enum', true, true, null, array($marksformat, _("Choose:")));
-            } else {    
+            } else {
                 require_once 'Horde/Form/Action.php';
                 if ($form->_vars->exists($property) && !isset($marksformat[$form->_vars->get($property)])) {
                     $form->_vars->set($property . '_custom', $form->_vars->get($property));

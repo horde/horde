@@ -498,10 +498,7 @@ class Folks_Driver {
 
         // Delete comments
         if ($registry->hasMethod('forums/deleteForum')) {
-            $comments = $registry->call('forums/deleteForum', array('folks', $user));
-            if ($comments instanceof PEAR_Error) {
-                return $comments;
-            }
+            $registry->call('forums/deleteForum', array('folks', $user));
         }
 
         // Delete user

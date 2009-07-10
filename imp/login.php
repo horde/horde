@@ -55,7 +55,7 @@ if (!empty($_SESSION['imp']) && is_array($_SESSION['imp'])) {
         if ($imp_auth) {
             Horde_Auth::clearAuth();
             @session_destroy();
-            Horde::setupSessionHandler();
+            $registry->setupSessionHandler();
             @session_start();
         }
 

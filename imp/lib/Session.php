@@ -155,10 +155,11 @@ class IMP_Session
         $sess['file_upload'] = $GLOBALS['browser']->allowFileUploads();
 
         /* Is the 'mail/canApplyFilters' API call available? */
-        if ($registry->hasMethod('mail/canApplyFilters') &&
-            $registry->call('mail/canApplyFilters')) {
-            $sess['filteravail'] = true;
-        }
+        try {
+            if ($registry->call('mail/canApplyFilters')) {
+                $sess['filteravail'] = true;
+            }
+        } catch (Horde_Exception $e) {}
 
         /* Is the 'tasks/listTasklists' call available? */
         if ($conf['tasklist']['use_tasklist'] &&

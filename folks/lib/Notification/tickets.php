@@ -59,9 +59,6 @@ class Folks_Notification_tickets extends Folks_Notification {
                                     'user_email' => $this->_getUserFromAddr()));
 
         $ticket_id = $registry->call('tickets/addTicket', array($info));
-        if ($ticket_id instanceof PEAR_Error) {
-            return $ticket_id;
-        }
 
         if (empty($attachments) ||
             !$registry->hasMethod('tickets/addAttachment')) {
@@ -74,9 +71,6 @@ class Folks_Notification_tickets extends Folks_Notification {
                         array('ticket_id' => $ticket_id,
                                 'name' => $attachment['name'],
                                 'data' => file_get_contents($attachment['file'])));
-            if ($result instanceof PEAR_Error) {
-                return $result;
-            }
         }
 
         return true;

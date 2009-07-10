@@ -26,9 +26,10 @@ case 'save_image':
         'data' => $mime_part->getContents(),
         'type' => $mime_part->getType()
     );
-    $res = $registry->call('images/saveImage', array(null, Horde_Util::getFormData('gallery'), $image_data));
-    if (is_a($res, 'PEAR_Error')) {
-        $notification->push($res, 'horde.error');
+    try {
+        $registry->call('images/saveImage', array(null, Horde_Util::getFormData('gallery'), $image_data));
+    } catch (Horde_Exception $e) {
+        $notification->push($e, 'horde.error');
         break;
     }
     Horde_Util::closeWindowJS();

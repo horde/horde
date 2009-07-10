@@ -68,8 +68,10 @@ class Koward_Cli extends Horde_Controller_Request_Base
          */
         $this->_path = $registry->get('webroot', 'koward') . '/' . $args[0];
 
-        if (is_a(($pushed = $registry->pushApp('koward', false)), 'PEAR_Error')) {
-            if ($pushed->getCode() == 'permission_denied') {
+        try {
+            $registry->pushApp('koward', false);
+        } catch (Horde_Exception $e) {
+            if ($e->getCode() == 'permission_denied') {
                 echo 'Perission denied!';
                 exit;
             }
@@ -87,10 +89,12 @@ class Koward_Cli extends Horde_Controller_Request_Base
             }
         }
 
-        if (is_a(($pushed = $registry->pushApp('koward',
-                                               empty($this->auth_handler)
-                                               || $this->auth_handler != $this->params[':action'])), 'PEAR_Error')) {
-            if ($pushed->getCode() == 'permission_denied') {
+        try {
+            $registry->pushApp('koward',
+                               empty($this->auth_handler)
+                               || $this->auth_handler != $this->params[':action']);
+        } catch (Horde_Exception $e) {
+            if ($e->getCode() == 'permission_denied') {
                 header('Location: ' . $this->urlFor(array('controller' => 'index', 'action' => 'login')));
                 exit;
             }

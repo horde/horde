@@ -63,6 +63,7 @@ class Folks_Auth_Folks extends Horde_Auth_Application
      * @param string $userId User ID for which to check
      *
      * @return boolean  Whether or not $userId already exists.
+     * @throws Horde_Exception
      */
     public function exists($userId)
     {

@@ -242,7 +242,13 @@ function prefs_callback()
 }
 
 /* Make sure we have an active IMAP stream. */
-if (!$GLOBALS['registry']->call('mail/server')) {
+try {
+    $res = $GLOBALS['registry']->call('mail/server');
+} catch (Horde_Exception $e) {
+    $res = false;
+}
+
+if (!$res) {
     header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('redirect.php'), 'url', Horde::selfUrl(true)));
     exit;
 }

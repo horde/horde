@@ -268,7 +268,11 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         $headers = $this->_params['contents']->getHeaderOb();
 
         /* Try to get back a result from the search. */
-        $res = $GLOBALS['registry']->call('contacts/getField', array(Horde_Mime_Address::bareAddress($headers->getValue('from')), '__key', $params['sources'], false, true));
-        return is_a($res, 'PEAR_Error') ? false : count($res);
+        try {
+            $res = $GLOBALS['registry']->call('contacts/getField', array(Horde_Mime_Address::bareAddress($headers->getValue('from')), '__key', $params['sources'], false, true));
+            return count($res);
+        } catch (Horde_Exception $e) {
+            return false;
+        }
     }
 }

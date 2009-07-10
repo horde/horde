@@ -10,7 +10,7 @@
  * need, and sets up objects that all scripts use.
  *
  * @author Ben Klang <ben@alkaloid.net>
- * 
+ *
  */
 
 // Check for a prior definition of HORDE_BASE (perhaps by an auto_prepend_file
@@ -24,11 +24,13 @@ require_once HORDE_BASE . '/lib/core.php';
 
 // Registry.
 $registry = Horde_Registry::singleton();
-if (is_a(($pushed = $registry->pushApp('crumb', !defined('AUTH_HANDLER'))), 'PEAR_Error')) {
-    if ($pushed->getCode() == 'permission_denied') {
+try {
+    $registry->pushApp('crumb', !defined('AUTH_HANDLER'));
+} catch (Horde_Exception $e) {
+    if ($e->getCode() == 'permission_denied') {
         Horde::authenticationFailureRedirect();
     }
-    Horde::fatal($pushed, __FILE__, __LINE__, false);
+    Horde::fatal($e, __FILE__, __LINE__, false);
 }
 $conf = &$GLOBALS['conf'];
 @define('CRUMB_TEMPLATES', $registry->get('templates'));

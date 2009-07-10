@@ -46,18 +46,17 @@ if (!$form->isSubmitted()) {
 
     if (Horde_Util::getFormData('submitbutton') == _("Delete all current comments")) {
 
-        $result = $registry->call('forums/deleteForum', array('folks', Horde_Auth::getAuth()));
-        if ($result instanceof PEAR_Error) {
-            $notification->push($result);
-        } else {
+        try {
+            $registry->call('forums/deleteForum', array('folks', Horde_Auth::getAuth()));
             $result = $folks_driver->updateComments(Horde_Auth::getAuth(), true);
             if ($result instanceof PEAR_Error) {
                 $notification->push($result);
             } else {
                 $notification->push(_("Comments deleted successfuly"), 'horde.success');
             }
+        } catch (Horde_Exception $e) {
+            $notification->push($e);
         }
-
     } else {
 
         // Update forum status
@@ -67,9 +66,10 @@ if (!$form->isSubmitted()) {
             $info = array('author' => Horde_Auth::getAuth(),
                             'forum_name' => Horde_Auth::getAuth(),
                             'forum_moderated' => ($profile['user_comments'] == 'moderate'));
-            $result = $registry->call('forums/saveFrom', array('folks', '', $info));
-            if ($result instanceof PEAR_Error) {
-                $notification->push($result);
+            try {
+                $registry->call('forums/saveFrom', array('folks', '', $info));
+            } catch (Horde_Exception $e) {
+                $notification->push($e);
             }
         }
 
@@ -92,11 +92,10 @@ $form->renderActive(null, null, null, 'post');
 
 if ($profile['user_comments'] == 'moderate') {
     echo '<br />';
-    $result = $registry->call('forums/moderateForm', array('folks'));
-    if ($result instanceof PEAR_Error) {
-        echo $result->getMessage();
-    } else {
-        echo $result;
+    try {
+        echo $registry->call('forums/moderateForm', array('folks'));
+    } catch (Horde_Exception $e) {
+        echo $e->getMessage();
     }
 }
 

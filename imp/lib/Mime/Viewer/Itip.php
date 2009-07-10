@@ -100,11 +100,11 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                 // vEvent cancellation.
                 if ($registry->hasMethod('calendar/delete')) {
                     $guid = $components[$key]->getAttribute('UID');
-                    $event = $registry->call('calendar/delete', array('guid' => $guid));
-                    if (is_a($event, 'PEAR_Error')) {
-                        $msgs[] = array('error', _("There was an error deleting the event:") . ' ' . $event->getMessage());
-                    } else {
+                    try {
+                        $registry->call('calendar/delete', array('guid' => $guid));
                         $msgs[] = array('success', _("Event successfully deleted."));
+                    } catch (Horde_Exception $e) {
+                        $msgs[] = array('error', _("There was an error deleting the event:") . ' ' . $e->getMessage());
                     }
                 } else {
                     $msgs[] = array('warning', _("This action is not supported."));
@@ -114,11 +114,11 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
             case 'update':
                 // vEvent reply.
                 if ($registry->hasMethod('calendar/updateAttendee')) {
-                    $event = $registry->call('calendar/updateAttendee', array('response' => $components[$key], 'sender' => $params[0]->getFromAddress()));
-                    if (is_a($event, 'PEAR_Error')) {
-                        $msgs[] = array('error', _("There was an error updating the event:") . ' ' . $event->getMessage());
-                    } else {
+                    try {
+                        $event = $registry->call('calendar/updateAttendee', array('response' => $components[$key], 'sender' => $params[0]->getFromAddress()));
                         $msgs[] = array('success', _("Respondent Status Updated."));
+                    } catch (Horde_Exception $e) {
+                        $msgs[] = array('error', _("There was an error updating the event:") . ' ' . $e->getMessage());
                     }
                 } else {
                     $msgs[] = array('warning', _("This action is not supported."));
@@ -138,32 +138,34 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                     $handled = false;
                     $guid = $components[$key]->getAttribute('UID');
                     // Check if this is an update.
-                    if ($registry->hasMethod('calendar/export') &&
-                        !is_a($registry->call('calendar/export', array($guid, 'text/calendar')), 'PEAR_Error')) {
+                    try {
+                        $registry->call('calendar/export', array($guid, 'text/calendar');
+
                         // Try to update in calendar.
                         if ($registry->hasMethod('calendar/replace')) {
-                            $result = $registry->call('calendar/replace', array('uid' => $guid, 'content' => $components[$key], 'contentType' => $this->mime_part->getType()));
-                            if (is_a($result, 'PEAR_Error')) {
-                                // Could be a missing permission.
-                                $msgs[] = array('warning', _("There was an error updating the event:") . ' ' . $result->getMessage() . '. ' . _("Trying to import the event instead."));
-                            } else {
+                            try {
+                                $registry->call('calendar/replace', array('uid' => $guid, 'content' => $components[$key], 'contentType' => $this->mime_part->getType()));
                                 $handled = true;
                                 $url = Horde::url($registry->link('calendar/show', array('uid' => $guid)));
                                 $msgs[] = array('success', _("The event was updated in your calendar.") .
                                                              '&nbsp;' . Horde::link($url, _("View event"), null, '_blank') . Horde::img('mime/icalendar.png', _("View event"), null, $registry->getImageDir('horde')) . '</a>');
+                            } catch (Horde_Exception $e) {}
+                                // Could be a missing permission.
+                                $msgs[] = array('warning', _("There was an error updating the event:") . ' ' . $e->getMessage() . '. ' . _("Trying to import the event instead."));
                             }
                         }
-                    }
+                    } catch (Horde_Exception $e) {}
+
                     if (!$handled && $registry->hasMethod('calendar/import')) {
                         // Import into calendar.
                         $handled = true;
-                        $guid = $registry->call('calendar/import', array('content' => $components[$key], 'contentType' => $this->mime_part->getType()));
-                        if (is_a($guid, 'PEAR_Error')) {
-                            $msgs[] = array('error', _("There was an error importing the event:") . ' ' . $guid->getMessage());
-                        } else {
+                        try {
+                            $guid = $registry->call('calendar/import', array('content' => $components[$key], 'contentType' => $this->mime_part->getType()));
                             $url = Horde::url($registry->link('calendar/show', array('uid' => $guid)));
                             $msgs[] = array('success', _("The event was added to your calendar.") .
                                             '&nbsp;' . Horde::link($url, _("View event"), null, '_blank') . Horde::img('mime/icalendar.png', _("View event"), null, $registry->getImageDir('horde')) . '</a>');
+                        } catch (Horde_Exception $e) {
+                            $msgs[] = array('error', _("There was an error importing the event:") . ' ' . $e->getMessage());
                         }
                     }
                     if (!$handled) {
@@ -174,11 +176,11 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                 case 'vFreebusy':
                     // Import into Kronolith.
                     if ($registry->hasMethod('calendar/import_vfreebusy')) {
-                        $res = $registry->call('calendar/import_vfreebusy', array($components[$key]));
-                        if (is_a($res, 'PEAR_Error')) {
-                            $msgs[] = array('error', _("There was an error importing user's free/busy information:") . ' ' . $res->getMessage());
-                        } else {
+                        try {
+                            $registry->call('calendar/import_vfreebusy', array($components[$key]));
                             $msgs[] = array('success', _("The user's free/busy information was sucessfully stored."));
+                        } catch (Horde_Exception $e) {
+                            $msgs[] = array('error', _("There was an error importing user's free/busy information:") . ' ' . $e->getMessage());
                         }
                     } else {
                         $msgs[] = array('warning', _("This action is not supported."));
@@ -188,13 +190,13 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                 case 'vTodo':
                     // Import into Nag.
                     if ($registry->hasMethod('tasks/import')) {
-                        $guid = $registry->call('tasks/import', array($components[$key], $this->mime_part->getType()));
-                        if (is_a($guid, 'PEAR_Error')) {
-                            $msgs[] = array('error', _("There was an error importing the task:") . ' ' . $guid->getMessage());
-                        } else {
+                        try {
+                            $guid = $registry->call('tasks/import', array($components[$key], $this->mime_part->getType()));
                             $url = Horde::url($registry->link('tasks/show', array('uid' => $guid)));
                             $msgs[] = array('success', _("The task has been added to your tasklist.") .
                                                          '&nbsp;' . Horde::link($url, _("View task"), null, '_blank') . Horde::img('mime/icalendar.png', _("View task"), null, $registry->getImageDir('horde')) . '</a>');
+                        } catch (Horde_Exception $e) {
+                            $msgs[] = array('error', _("There was an error importing the task:") . ' ' . $e->getMessage());
                         }
                     } else {
                         $msgs[] = array('warning', _("This action is not supported."));
@@ -621,11 +623,11 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
 
         case 'REQUEST':
             // Check if this is an update.
-            if ($registry->hasMethod('calendar/export') &&
-                !is_a($registry->call('calendar/export', array($vevent->getAttribute('UID'), 'text/calendar')), 'PEAR_Error')) {
+            try {
+                $registry->call('calendar/export', array($vevent->getAttribute('UID'), 'text/calendar'));
                 $is_update = true;
                 $desc = _("%s wants to notify you about changes of \"%s\".");
-            } else {
+            } catch (Horde_Exception $e) {
                 $is_update = false;
 
                 // Check that you are one of the attendees here.
@@ -788,50 +790,52 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
         }
 
         if ($registry->hasMethod('calendar/getFbCalendars') &&
-            $registry->hasMethod('calendar/listEvents') &&
-            !is_a($calendars = $registry->call('calendar/getFbCalendars'), 'PEAR_Error')) {
+            $registry->hasMethod('calendar/listEvents')) {
+            try {
+                $calendars = $registry->call('calendar/getFbCalendars');
 
-            $vevent_allDay = true;
-            $vevent_start = new Horde_Date($start);
-            $vevent_end = new Horde_Date($end);
-            // Check if it's an all-day event.
-            if (is_array($start)) {
-                $vevent_end = $vevent_end->sub(1);
-            } else {
-                $vevent_allDay = false;
-                $time_span_start = new Horde_Date($start);
-                $time_span_start = $time_span_start->sub($prefs->getValue('conflict_interval') * 60);
-                $time_span_end = new Horde_Date($end);
-                $time_span_end = $time_span_end->add($prefs->getValue('conflict_interval') * 60);
-            }
-            $events = $registry->call('calendar/listEvents', array($start, $vevent_end, $calendars, false));
-
-            if (!is_a($events, 'PEAR_Error') && count($events)) {
-                $html .= '<h2 class="smallheader">' . _("Possible Conflicts") . '</h2><table id="itipconflicts">';
-                // TODO: Check if there are too many events to show.
-                foreach ($events as $calendar) {
-                    foreach ($calendar as $event) {
-                        if ($vevent_allDay || $event->isAllDay()) {
-                            $html .= '<tr class="itipcollision">';
-                        } else {
-                            if ($event->end->compareDateTime($time_span_start) <= -1 ||
-                                $event->start->compareDateTime($time_span_end) >= 1) {
-                               continue;
-                            }
-                            if ($event->end->compareDateTime($vevent_start) <= -1 ||
-                                $event->start->compareDateTime($vevent_end) >= 1) {
-                                $html .= '<tr class="itipnearcollision">';
-                            } else {
-                                $html .= '<tr class="itipcollision">';
-                            }
-                        }
-
-                        $html .= '<td>'. $event->getTitle() . '</td><td>'
-                            . $event->getTimeRange() . '</td></tr>';
-                    }
+                $vevent_allDay = true;
+                $vevent_start = new Horde_Date($start);
+                $vevent_end = new Horde_Date($end);
+                // Check if it's an all-day event.
+                if (is_array($start)) {
+                    $vevent_end = $vevent_end->sub(1);
+                } else {
+                    $vevent_allDay = false;
+                    $time_span_start = new Horde_Date($start);
+                    $time_span_start = $time_span_start->sub($prefs->getValue('conflict_interval') * 60);
+                    $time_span_end = new Horde_Date($end);
+                    $time_span_end = $time_span_end->add($prefs->getValue('conflict_interval') * 60);
                 }
-                $html .= '</table>';
-            }
+                $events = $registry->call('calendar/listEvents', array($start, $vevent_end, $calendars, false));
+
+                if (count($events)) {
+                    $html .= '<h2 class="smallheader">' . _("Possible Conflicts") . '</h2><table id="itipconflicts">';
+                    // TODO: Check if there are too many events to show.
+                    foreach ($events as $calendar) {
+                        foreach ($calendar as $event) {
+                            if ($vevent_allDay || $event->isAllDay()) {
+                                $html .= '<tr class="itipcollision">';
+                            } else {
+                                if ($event->end->compareDateTime($time_span_start) <= -1 ||
+                                    $event->start->compareDateTime($time_span_end) >= 1) {
+                                   continue;
+                                }
+                                if ($event->end->compareDateTime($vevent_start) <= -1 ||
+                                    $event->start->compareDateTime($vevent_end) >= 1) {
+                                    $html .= '<tr class="itipnearcollision">';
+                                } else {
+                                    $html .= '<tr class="itipcollision">';
+                                }
+                            }
+
+                            $html .= '<td>'. $event->getTitle() . '</td><td>'
+                                . $event->getTimeRange() . '</td></tr>';
+                        }
+                    }
+                    $html .= '</table>';
+                }
+            } catch (Horde_Exception $e) {}
         }
 
         if ($_SESSION['imp']['view'] != 'imp') {

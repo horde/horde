@@ -9,9 +9,6 @@ if ($conf['comments']['allow'] != 'never' &&
                     array('message_subject' => $row['title']), $conf['comments']['comment_template']);
 
     $comments = $registry->call('forums/doComments', $params);
-    if ($comments instanceof PEAR_Error) {
-        return $comments;
-    }
 
     if (!empty($comments['threads'])) {
         echo $comments['threads'];

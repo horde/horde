@@ -125,10 +125,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
             throw new Horde_Exception(_("Not a valid public key."));
         }
 
-        $result = $GLOBALS['registry']->call('contacts/addField', array($email, $name, self::PUBKEY_FIELD, $cert, $GLOBALS['prefs']->getValue('add_source')));
-        if (is_a($result, 'PEAR_Error')) {
-            throw new Horde_Exception($result);
-        }
+        $GLOBALS['registry']->call('contacts/addField', array($email, $name, self::PUBKEY_FIELD, $cert, $GLOBALS['prefs']->getValue('add_source')));
     }
 
     /**
@@ -166,17 +163,19 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
     public function getPublicKey($address)
     {
         $params = IMP_Compose::getAddressSearchParams();
-        $key = $GLOBALS['registry']->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], false, true));
 
-        /* See if the address points to the user's public key. */
-        if (is_a($key, 'PEAR_Error')) {
+        try {
+            $key = $GLOBALS['registry']->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], false, true));
+        } catch (Horde_Exception $e) {
+            /* See if the address points to the user's public key. */
             require_once 'Horde/Identity.php';
             $identity = Identity::singleton(array('imp', 'imp'));
             $personal_pubkey = $this->getPersonalPublicKey();
             if (!empty($personal_pubkey) && $identity->hasAddress($address)) {
                 return $personal_pubkey;
             }
-            throw new Horde_Exception($key);
+
+            throw $e;
         }
 
         /* If more than one public key is returned, just return the first in
@@ -197,12 +196,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         if (empty($params['sources'])) {
             return array();
         }
-        $result = $GLOBALS['registry']->call('contacts/getAllAttributeValues', array(self::PUBKEY_FIELD, $params['sources']));
-        if (is_a($result, 'PEAR_Error')) {
-            throw new Horde_Exception($result);
-        }
-
-        return $result;
+        return $GLOBALS['registry']->call('contacts/getAllAttributeValues', array(self::PUBKEY_FIELD, $params['sources']));
     }
 
     /**
@@ -215,10 +209,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
     public function deletePublicKey($email)
     {
         $params = IMP_Compose::getAddressSearchParams();
-        $result = $GLOBALS['registry']->call('contacts/deleteField', array($email, self::PUBKEY_FIELD, $params['sources']));
-        if (is_a($result, 'PEAR_Error')) {
-            throw new Horde_Exception($result);
-        }
+        $GLOBALS['registry']->call('contacts/deleteField', array($email, self::PUBKEY_FIELD, $params['sources']));
     }
 
     /**

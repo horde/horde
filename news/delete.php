@@ -56,9 +56,10 @@ if ($form->validate()) {
             }
         }
         if ($image['gallery']) {
-            $result = $registry->call('images/removeGallery', array(null, $image['gallery']));
-            if ($result instanceof PEAR_Error) {
-                $notification->push($result);
+            try {
+                $registry->call('images/removeGallery', array(null, $image['gallery']));
+            } catch (Horde_Exception $e) {
+                $notification->push($e);
             }
         }
 
@@ -71,9 +72,10 @@ if ($form->validate()) {
 
         // Delete forum
         if ($registry->hasMethod('forums/deleteForum')) {
-            $comments = $registry->call('forums/deleteForum', array('news', $id));
-            if ($comments instanceof PEAR_Error) {
-                $notification->push($comments);
+            try {
+                $registry->call('forums/deleteForum', array('news', $id));
+            } catch (Horde_Exception $e) {
+                $notification->push($e);
             }
         }
 

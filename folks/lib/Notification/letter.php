@@ -74,10 +74,6 @@ class Folks_Notification_letter extends Folks_Notification {
     public function notifyFriends($user, $subject, $body, $attachments = array())
     {
         $friends = $GLOBALS['registry']->call('users/getFriends');
-        if ($friends instanceof PEAR_Error) {
-            return $friends;
-        }
-
         return $this->notify($friends, $subject, $body, $attachments);
     }
 }

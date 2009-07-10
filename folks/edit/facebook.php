@@ -25,9 +25,10 @@ if (!$conf['facebook']['enabled']) {
 }
 
 // Load horde central block
-$block = $registry->call('horde/blockContent', array('horde', 'fb_summary'));
-if ($block instanceof PEAR_Error) {
-    $notification->push($block);
+try {
+    $block = $registry->call('horde/blockContent', array('horde', 'fb_summary'));
+} catch (Horde_Exception $e) {
+    $notification->push($e);
     header('Location: ' . Horde::applicationUrl('user.php'));
     exit;
 }

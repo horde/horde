@@ -22,15 +22,16 @@ class Horde_Form_AddClient extends Horde_Form
                            'assign' => _("Assign Existing"));
 
         $action = &Horde_Form_Action::factory('reload');
-       
+
         $select = &$this->addVariable(_("Contact Information"), 'chooseContact', 'enum', true, false, null, array($addOrPick, true));
         $select->setAction($action);
         $select->setOption('trackchange', true);
 
         if ($vars->get('chooseContact') == 'create') {
-            $turbaform = $GLOBALS['registry']->call('contacts/getAddClientForm', array(&$vars));
-            if (is_a($turbaform, 'PEAR_Error')) {
-                Horde::logMessage($addform, __FILE__, __LINE__, PEAR_LOG_ERR);
+            try {
+                $turbaform = $GLOBALS['registry']->call('contacts/getAddClientForm', array(&$vars));
+            } catch (Horde_Exception $e) {
+                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
                 $notification->push(_("An internal error has occurred.  Details have beenlogged for the administrator."));
                 $addform = null;
             }
@@ -53,9 +54,10 @@ class Horde_Form_AddClient extends Horde_Form
         $select->setOption('trackchange', true);
 
         if ($vars->get('chooseQueue') == 'create') {
-            $whupsform = $GLOBALS['registry']->call('tickets/getAddQueueForm', array(&$vars));
-            if (is_a($whupsform, 'PEAR_Error')) {
-                Horde::logMessage($addform, __FILE__, __LINE__, PEAR_LOG_ERR);
+            try {
+                $whupsform = $GLOBALS['registry']->call('tickets/getAddQueueForm', array(&$vars));
+            } catch (Horde_Exception $e) {
+                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
                 $notification->push(_("An internal error has occurred.  Details have been logged for the administrator."));
                 $addform = null;
             }

@@ -145,7 +145,7 @@ class Skoli_CreateClassForm extends Horde_Form {
                     $this->_vars->set('contact_list_create', true);
                 }
             }
-            $this->addVariable(_("Name"), 'contact_list', 'text', false, 
+            $this->addVariable(_("Name"), 'contact_list', 'text', false,
                 $conf['addresses']['contact_list'] == 'auto' || $prefs->getValue('contact_list') == 'auto' ? true : false, _("The substitutions %c, %g or %s will be replaced automatically by the class, grade respectively semester name."));
             if (!$this->_vars->exists('contact_list')) {
                 $contactlist = $conf['addresses']['contact_list'] == 'auto' ? $conf['addresses']['contact_list_name'] : $prefs->getValue('contact_list_name');
@@ -215,15 +215,17 @@ class Skoli_CreateClassForm extends Horde_Form {
             if ($createlist) {
                 $apiargs = array(
                     'content' => array(
-                        '__type' => 'Group', 
+                        '__type' => 'Group',
                         '__members' => serialize($this->_vars->get('students')),
-                        'name' => Skoli_School::parseContactListName($this->_vars->get('contact_list'), $this->_vars, true), 
+                        'name' => Skoli_School::parseContactListName($this->_vars->get('contact_list'), $this->_vars, true),
                     ),
                     'contentType' => 'array',
                     'source' => $this->_vars->get('address_book')
                 );
-                $result = $registry->call('contacts/import', $apiargs);
-                if ($result === false || is_a($result, 'PEAR_Error')) {
+
+                try {
+                    $registry->call('contacts/import', $apiargs);
+                } catch (Horde_Exception $e) {
                     $notification->push(sprintf(_("Couldn't create the contact list \"%s\"."), $this->_vars->get('contact_list')), 'horde.warning');
                 }
             }

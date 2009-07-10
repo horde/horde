@@ -134,10 +134,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             } catch (Horde_Exception $e) {}
 
             /* Add key to the user's address book. */
-            $result = $GLOBALS['registry']->call('contacts/addField', array($sig['email'], $sig['name'], self::PUBKEY_FIELD, $public_key, $GLOBALS['prefs']->getValue('add_source')));
-            if (is_a($result, 'PEAR_Error')) {
-                throw new Horde_Exception($result);
-            }
+            $GLOBALS['registry']->call('contacts/addField', array($sig['email'], $sig['name'], self::PUBKEY_FIELD, $public_key, $GLOBALS['prefs']->getValue('add_source')));
         }
 
         return $key_info;
@@ -184,37 +181,35 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
 
         /* Try retrieving by e-mail only first. */
         $params = IMP_Compose::getAddressSearchParams();
-        $result = $GLOBALS['registry']->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], false, true));
+        try {
+            $result = $GLOBALS['registry']->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], false, true));
+        } catch (Horde_Exception $e) {
+            /* TODO: Retrieve by ID. */
 
-        /* TODO: Retrieve by ID. */
-
-        /* See if the address points to the user's public key. */
-        if (is_a($result, 'PEAR_Error')) {
+            /* See if the address points to the user's public key. */
             require_once 'Horde/Identity.php';
             $identity = Identity::singleton(array('imp', 'imp'));
             $personal_pubkey = $this->getPersonalPublicKey();
             if (!empty($personal_pubkey) && $identity->hasAddress($address)) {
                 $result = $personal_pubkey;
-            }
-        }
+            } elseif (empty($options['noserver'])) {
+                try {
+                    $result = $this->getFromPublicKeyserver($keyid, $address);
 
-        /* Try retrieving via a PGP public keyserver. */
-        if (empty($options['noserver']) && is_a($result, 'PEAR_Error')) {
-            try {
-                $result = $this->getFromPublicKeyserver($keyid, $address);
-
-                /* If there is a cache driver configured and a cache object
-                 * exists, store the retrieved public key in the cache. */
-                if (is_object($cache)) {
-                    $cache->set("PGPpublicKey_" . $address . $keyid, $result, 3600);
+                    /* If there is a cache driver configured and a cache
+                     * object exists, store the retrieved public key in the
+                     * cache. */
+                    if (is_object($cache)) {
+                        $cache->set("PGPpublicKey_" . $address . $keyid, $result, 3600);
+                    }
+                } catch (Horde_Exception $e) {
+                    /* Return now, if no public key found at all. */
+                    Horde::logMessage('PGPpublicKey: ' . $e->getMessage(), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    throw new Horde_Exception(sprintf(_("Could not retrieve public key for %s."), $address));
                 }
-            } catch (Horde_Exception $e) {}
-        }
-
-        /* Return now, if no public key found at all. */
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage('PGPpublicKey: ' . $result->getMessage(), __FILE__, __LINE__, PEAR_LOG_DEBUG);
-            throw new Horde_Exception(sprintf(_("Could not retrieve public key for %s."), $address));
+            } else {
+                $result = '';
+            }
         }
 
         /* If more than one public key is returned, just return the first in
@@ -240,12 +235,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             return array();
         }
 
-        $res = $GLOBALS['registry']->call('contacts/getAllAttributeValues', array(self::PUBKEY_FIELD, $params['sources']));
-        if (is_a($res, 'PEAR_Error')) {
-            throw new Horde_Exception($res);
-        }
-
-        return $res;
+        return $GLOBALS['registry']->call('contacts/getAllAttributeValues', array(self::PUBKEY_FIELD, $params['sources']));
     }
 
     /**
@@ -258,12 +248,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     public function deletePublicKey($email)
     {
         $params = IMP_Compose::getAddressSearchParams();
-        $res = $GLOBALS['registry']->call('contacts/deleteField', array($email, self::PUBKEY_FIELD, $params['sources']));
-        if (is_a($res, 'PEAR_Error')) {
-            throw new Horde_Exception($res);
-        }
-
-        return $res;
+        return $GLOBALS['registry']->call('contacts/deleteField', array($email, self::PUBKEY_FIELD, $params['sources']));
     }
 
     /**

@@ -120,9 +120,14 @@ class Kronolith_Imple_ContactAutoCompleter extends Kronolith_Imple
             }
         }
 
-        $res = $GLOBALS['registry']->call('contacts/search', array($search, $src, $fields, true));
-        if (is_a($res, 'PEAR_Error') || !count($res)) {
-            Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
+        try {
+            $res = $GLOBALS['registry']->call('contacts/search', array($search, $src, $fields, true));
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            return array();
+        }
+
+        if (!count($res)) {
             return array();
         }
 

@@ -56,11 +56,12 @@ class Horde_Block_news_my_comments extends Horde_Block {
               . '<thead><tr><th>' . _("Title") . '</th>'
               . '<th>' . _("User") . '</th></tr></thead>';
 
-        $threads = $GLOBALS['registry']->call('forums/getThreadsByForumOwner',
-                                    array(Horde_Auth::getAuth(), 'message_timestamp', 1, false,
-                                            'news', 0, $this->_params['limit']));
-        if ($threads instanceof PEAR_Error) {
-            return $threads->getMessage();
+        try {
+            $threads = $GLOBALS['registry']->call('forums/getThreadsByForumOwner',
+                                        array(Horde_Auth::getAuth(), 'message_timestamp', 1, false,
+                                                'news', 0, $this->_params['limit']));
+        } catch (Horde_Exception $e) {
+            return $e->getMessage();
         }
 
         foreach ($threads as $message) {

@@ -159,7 +159,7 @@ class Skoli {
      * This function will also sort the resulting list, if requested.
      *
      * @param array $classes            An array of classes to display, a
-     *                                  single classname or null/empty to 
+     *                                  single classname or null/empty to
      *                                  display classes $GLOBALS['display_classes'].
      * @param string $sortby_student    The field by which to sort
      *                                  (SKOLI_SORT_PRIORITY, SKOLI_SORT_NAME
@@ -270,11 +270,10 @@ class Skoli {
             'source' => $addressbook,
             'objectId' => $id
         );
-        $result = $registry->call('contacts/getContact', $apiargs);
-        if ($result === false || is_a($result, 'PEAR_Error')) {
+        try {
+            $student = $registry->call('contacts/getContact', $apiargs);
+        } catch (Horde_Exception $e) {
             $notification->push(sprintf(_("Couldn't create the contact list \"%s\"."), $this->_vars->get('contact_list')), 'horde.info');
-        } else {
-           $student = $result;
         }
         return $student;
     }

@@ -545,23 +545,25 @@ case 'selectlist_process':
     if (!empty($select_id) &&
         $registry->hasMethod('files/selectlistResults') &&
         $registry->hasMethod('files/returnFromSelectlist')) {
-        $filelist = $registry->call('files/selectlistResults', array($select_id));
-        if ($filelist && !is_a($filelist, 'PEAR_Error')) {
-            $i = 0;
-            foreach ($filelist as $val) {
-                $data = $registry->call('files/returnFromSelectlist', array($select_id, $i++));
-                if ($data && !is_a($data, 'PEAR_Error')) {
-                    $part = new Horde_Mime_Part();
-                    $part->setName(reset($val));
-                    $part->setContents($data);
-                    try {
-                        $imp_compose->addMIMEPartAttachment($part);
-                    } catch (IMP_Compose_Exception $e) {
-                        $notification->push($e, 'horde.error');
+        try {
+            $filelist = $registry->call('files/selectlistResults', array($select_id));
+            if ($filelist) {
+                $i = 0;
+                foreach ($filelist as $val) {
+                    $data = $registry->call('files/returnFromSelectlist', array($select_id, $i++));
+                    if ($data) {
+                        $part = new Horde_Mime_Part();
+                        $part->setName(reset($val));
+                        $part->setContents($data);
+                        try {
+                            $imp_compose->addMIMEPartAttachment($part);
+                        } catch (IMP_Compose_Exception $e) {
+                            $notification->push($e, 'horde.error');
+                        }
                     }
                 }
             }
-        }
+        } catch (Horde_Exception $e) {}
     }
     break;
 
@@ -1151,9 +1153,10 @@ if ($redirect) {
     }
     if ($_SESSION['imp']['file_upload']) {
         $localeinfo = Horde_Nls::getLocaleInfo();
-        if ($GLOBALS['registry']->hasMethod('files/selectlistLink')) {
-            $res = $GLOBALS['registry']->call('files/selectlistLink', array(_("Attach Files"), 'widget', 'compose', true));
-            $t->set('selectlistlink', (is_a($res, 'PEAR_Error')) ? null : $res);
+        try {
+            $t->set('selectlistlink', $GLOBALS['registry']->call('files/selectlistLink', array(_("Attach Files"), 'widget', 'compose', true)));
+        } catch (Horde_Exception $e) {
+            $t->set('selectlistlink', null);
         }
         $t->set('maxattachsize', !$imp_compose->maxAttachmentSize());
         if (!$t->get('maxattachsize')) {

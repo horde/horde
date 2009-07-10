@@ -319,7 +319,7 @@ class IMP_Message
      *                        created.
      * @param string $action  Either 'copy' or 'move'.
      * @param mixed $indices  See IMP::parseIndicesList().
-     * @param string $type    The object type to create, defaults to task.
+     * @param string $type    The object type to create ('note' or 'task').
      *
      * @return boolean  True if successful, false if not.
      */
@@ -378,13 +378,21 @@ class IMP_Message
                     $vTodo->setAttribute('PRIORITY', '3');
 
                     /* Get the list of editable tasklists. */
-                    $lists = $registry->call('tasks/listTasklists',
-                                             array(false, PERMS_EDIT));
+                    try {
+                        $lists = $registry->call('tasks/listTasklists', array(false, PERMS_EDIT));
+                    } catch (Horde_Exception $e) {
+                        $lists = null;
+                        $notification->push($e, $e->getCode());
+                    }
 
                     /* Attempt to add the new vTodo item to the requested
                      * tasklist. */
-                    $res = $registry->call('tasks/import',
-                                           array($vTodo, 'text/calendar', $list));
+                    try {
+                        $res = $registry->call('tasks/import', array($vTodo, 'text/calendar', $list));
+                    } catch (Horde_Exception $e) {
+                        $res = null;
+                        $notification->push($e, $e->getCode());
+                    }
                     break;
 
                 case 'note':
@@ -394,53 +402,60 @@ class IMP_Message
                     $vNote->setAttribute('BODY', $subject . "\n". $body);
 
                     /* Get the list of editable notepads. */
-                    $lists = $registry->call('notes/listNotepads',
-                                             array(false, PERMS_EDIT));
+                    try {
+                        $lists = $registry->call('notes/listNotepads', array(false, PERMS_EDIT));
+                    } catch (Horde_Exception $e) {
+                        $lists = null;
+                        $notification->push($e, $e->getCode());
+                    }
 
                     /* Attempt to add the new vNote item to the requested
                      * notepad. */
-                    $res = $registry->call('notes/import',
-                                           array($vNote, 'text/x-vnote', $list));
+                    try {
+                        $res = $registry->call('notes/import', array($vNote, 'text/x-vnote', $list));
+                    } catch (Horde_Exception $e) {
+                        $res = null;
+                        $notification->push($e, $e->getCode());
+                    }
                     break;
                 }
 
-                if (is_a($res, 'PEAR_Error')) {
-                    $notification->push($res, $res->getCode());
-                } elseif (!$res) {
-                    switch ($type) {
-                    case 'task':
-                        $notification->push(_("An unknown error occured while creating the new task."), 'horde.error');
-                        break;
+                if (!is_null($res)) {
+                    if (!$res) {
+                        switch ($type) {
+                        case 'task':
+                            $notification->push(_("An unknown error occured while creating the new task."), 'horde.error');
+                            break;
 
-                    case 'note':
-                        $notification->push(_("An unknown error occured while creating the new note."), 'horde.error');
-                        break;
-                    }
-                } else {
-                    $name = '"' . htmlspecialchars($subject) . '"';
-
-                    /* Attempt to convert the object name into a hyperlink. */
-                    switch ($type) {
-                    case 'task':
-                        $link = $registry->link('tasks/show',
-                                                array('uid' => $res));
-                        break;
-                    case 'note':
-                        if ($registry->hasMethod('notes/show')) {
-                            $link = $registry->link('notes/show',
-                                                    array('uid' => $res));
-                        } else {
-                            $link = false;
+                        case 'note':
+                            $notification->push(_("An unknown error occured while creating the new note."), 'horde.error');
+                            break;
                         }
-                        break;
-                    }
-                    if ($link && !is_a($link, 'PEAR_Error')) {
-                        $name = sprintf('<a href="%s">%s</a>',
-                                        Horde::url($link),
-                                        $name);
-                    }
+                    } elseif (!is_null($lists)) {
+                        $name = '"' . htmlspecialchars($subject) . '"';
 
-                    $notification->push(sprintf(_("%s was successfully added to \"%s\"."), $name, htmlspecialchars($lists[$list]->get('name'))), 'horde.success', array('content.raw'));
+                        /* Attempt to convert the object name into a
+                         * hyperlink. */
+                        try {
+                            switch ($type) {
+                            case 'task':
+                                $link = $registry->link('tasks/show', array('uid' => $res));
+                                break;
+
+                            case 'note':
+                                $link = $registry->hasMethod('notes/show')
+                                    ? $registry->link('notes/show', array('uid' => $res))
+                                    : false;
+                                break;
+                            }
+
+                            if ($link) {
+                                $name = sprintf('<a href="%s">%s</a>', Horde::url($link), $name);
+                            }
+
+                            $notification->push(sprintf(_("%s was successfully added to \"%s\"."), $name, htmlspecialchars($lists[$list]->get('name'))), 'horde.success', array('content.raw'));
+                        } catch (Horde_Exception $e) {}
+                    }
                 }
             }
         }

@@ -8,10 +8,12 @@ class Koward_Controller_Application extends Horde_Controller_Base
     {
         global $registry;
 
-        if (is_a(($pushed = $registry->pushApp('koward',
-                                               empty($this->auth_handler)
-                                               || $this->auth_handler != $this->params[':action'])), 'PEAR_Error')) {
-            if ($pushed->getCode() == 'permission_denied') {
+        try {
+            $registry->pushApp('koward',
+                               empty($this->auth_handler)
+                               || $this->auth_handler != $this->params[':action']);
+        } catch (Horde_Exception $e) {
+            if ($e->getCode() == 'permission_denied') {
                 header('Location: ' . $this->urlFor(array('controller' => 'index', 'action' => 'login')));
                 exit;
             }

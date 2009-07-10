@@ -753,7 +753,14 @@ class IMP_Compose
         foreach ($r_array as $recipient) {
             $emails[] = $recipient['mailbox'] . '@' . $recipient['host'];
         }
-        $results = $registry->call('contacts/search', array($emails, array($abook), array($abook => array('email'))));
+
+        try {
+            $results = $registry->call('contacts/search', array($emails, array($abook), array($abook => array('email'))));
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e);
+            $notification->push(_("Could not save recipients."));
+            return;
+        }
 
         foreach ($r_array as $recipient) {
             /* Skip email addresses that already exist in the add_source. */
@@ -776,13 +783,13 @@ class IMP_Compose
             }
             $name = Horde_Mime::decode($name);
 
-            $result = $registry->call('contacts/import', array(array('name' => $name, 'email' => $recipient['mailbox'] . '@' . $recipient['host']), 'array', $abook));
-            if (is_a($result, 'PEAR_Error')) {
-                if ($result->getCode() == 'horde.error') {
-                    $notification->push($result, $result->getCode());
-                }
-            } else {
+            try {
+                $registry->call('contacts/import', array(array('name' => $name, 'email' => $recipient['mailbox'] . '@' . $recipient['host']), 'array', $abook));
                 $notification->push(sprintf(_("Entry \"%s\" was successfully added to the address book"), $name), 'horde.success');
+            } catch (Horde_Exception $e) {
+                if ($e->getCode() == 'horde.error') {
+                    $notification->push($e, $e->getCode());
+                }
             }
         }
     }
@@ -2283,9 +2290,10 @@ class IMP_Compose
             return;
         }
 
-        $vcard = $GLOBALS['registry']->call('contacts/ownVCard');
-        if (is_a($vcard, 'PEAR_Error')) {
-            throw new IMP_Compose_Exception($vcard);
+        try {
+            $vcard = $GLOBALS['registry']->call('contacts/ownVCard');
+        } catch (Horde_Exception $e) {
+            throw new IMP_Compose_Exception($e);
         }
 
         $part = new Horde_Mime_Part();
@@ -2482,11 +2490,14 @@ class IMP_Compose
     static public function getAddressList($search = '')
     {
         $sparams = IMP_Compose::getAddressSearchParams();
-        $res = $GLOBALS['registry']->call('contacts/search', array($search, $sparams['sources'], $sparams['fields'], true));
-        if (is_a($res, 'PEAR_Error')) {
-            Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
+        try {
+            $res = $GLOBALS['registry']->call('contacts/search', array($search, $sparams['sources'], $sparams['fields'], true));
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
             return array();
-        } elseif (!count($res)) {
+        }
+
+        if (!count($res)) {
             return array();
         }
 

@@ -34,16 +34,16 @@ $v->setDefault('SI');
 $form->addVariable(_("Homepage"), 'user_url', 'text', false);
 
 if ($registry->hasMethod('video/listVideos')) {
-    $result = $registry->call('video/listVideos', array(array('author' => Horde_Auth::getAuth()), 0, 100));
-    if ($result instanceof PEAR_Error) {
-        $notification->push($result);
-    } else {
+    try {
+        $result = $registry->call('video/listVideos', array(array('author' => Horde_Auth::getAuth()), 0, 100));
         $videos = array();
         foreach ($result as $video_id => $video) {
             $videos[$video_id] = $video['video_title'] . ' - ' . Folks::format_date($video['video_created']);
         }
         $video_link = '<a href="' .  $registry->link('video/edit') . '">' . _("Upload a new video") . '</a>';
         $form->addVariable(_("Video"), 'user_video', 'enum', false, false, $video_link, array($videos, _("--- Select ---")));
+    } catch (Horde_Exception $e) {
+        $notification->push($e);
     }
 }
 

@@ -41,10 +41,9 @@ class Ingo
     {
         global $conf, $registry;
 
-        if (!empty($conf['rules']['usefolderapi']) &&
-            $registry->hasMethod('mail/folderlist')) {
-            $mailboxes = $registry->call('mail/folderlist');
-            if (!is_a($mailboxes, 'PEAR_Error')) {
+        if (!empty($conf['rules']['usefolderapi'])) {
+            try {
+                $mailboxes = $registry->call('mail/folderlist');
                 $createfolder = $registry->hasMethod('mail/createFolder');
 
                 $text = '<select id="' . $tagname . '" name="' . $tagname . '"';
@@ -78,7 +77,7 @@ class Ingo
 
                 $text .= '</select>';
                 return $text;
-            }
+            } catch (Horde_Exception $e) {}
         }
 
         return '<input id="' . $tagname . '" name="' . $tagname . '" size="40" value="' . $value . '" />';
@@ -89,8 +88,8 @@ class Ingo
      *
      * @param string $folder  The name of the folder to create.
      *
-     * @return boolean  True on success, false if not created, PEAR_Error on
-     *                  failure.
+     * @return boolean  True on success, false if not created. PEAR_Error on
+     * @throws Horde_Exception
      */
     static public function createFolder($folder)
     {

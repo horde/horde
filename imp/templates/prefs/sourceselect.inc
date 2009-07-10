@@ -1,8 +1,16 @@
 <?php
 if ($registry->hasMethod('contacts/sources')) {
     $search = IMP_Compose::getAddressSearchParams();
-    $readable = $registry->call('contacts/sources');
-    $writeable = $registry->call('contacts/sources', true);
+    try {
+        $readable = $registry->call('contacts/sources');
+    } catch (Horde_Exception $e) {
+        $readable = null;
+    }
+    try {
+        $writeable = $registry->call('contacts/sources', true);
+    } catch (Horde_Exception $e) {
+        $writeable = null;
+    }
 
     $nbReadSources = count(array_keys($readable));
     $nbWriteSources = count(array_keys($writeable));
@@ -21,13 +29,13 @@ if ($registry->hasMethod('contacts/sources')) {
     }
 
     $readSelect = '';
-    if (!is_a($readable, 'PEAR_Error') && is_array($readable)) {
+    if (is_array($readable)) {
         foreach (array_diff(array_keys($readable), $search['sources']) as $source) {
             $readSelect .= '<option value="' . $source . '">' . $readable[$source] . "</option>\n";
         }
     }
 
-    if (!is_a($writeable, 'PEAR_Error') && is_array($writeable)) {
+    if (is_array($writeable)) {
         $writeSelect = '<option value="">' . _("None") . '</option>' . "\n";
         $writeSource = '';
         foreach ($writeable as $source => $name) {
@@ -38,9 +46,11 @@ if ($registry->hasMethod('contacts/sources')) {
     }
 
     $search_fields = array();
-    if (!is_a($readable, 'PEAR_Error') && is_array($readable)) {
+    if (is_array($readable)) {
         foreach (array_keys($readable) as $source) {
-            $search_fields[$source] = $registry->call('contacts/fields', $source);
+            try {
+                $search_fields[$source] = $registry->call('contacts/fields', $source);
+            } catch (Horde_Exception $e) {}
         }
     }
 

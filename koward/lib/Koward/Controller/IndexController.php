@@ -31,7 +31,7 @@ class IndexController extends Koward_Controller_Application
         if (isset($_POST['horde_user']) && isset($_POST['horde_pass'])) {
             /* Destroy any existing session on login and make sure to use a
              * new session ID, to avoid session fixation issues. */
-            Horde::getCleanSession();
+            $GLOBALS['registry']->getCleanSession();
             if ($this->koward->auth->authenticate(Horde_Util::getPost('horde_user'),
                                                   array('password' => Horde_Util::getPost('horde_pass')))) {
                 $entry = sprintf('Login success for %s [%s] to Horde',

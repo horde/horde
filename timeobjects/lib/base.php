@@ -30,11 +30,13 @@ if ($session_control == 'none') {
     $registry = Horde_Registry::singleton();
 }
 
-if (is_a(($pushed = $registry->pushApp('timeobjects', !defined('AUTH_HANDLER'))), 'PEAR_Error')) {
-    if ($pushed->getCode() == 'permission_denied') {
+try {
+    $registry->pushApp('timeobjects', !defined('AUTH_HANDLER'));
+} catch (Horde_Exception $e) {
+    if ($e->getCode() == 'permission_denied') {
         Horde::authenticationFailureRedirect();
     }
-    Horde::fatal($pushed, __FILE__, __LINE__, false);
+    Horde::fatal($e, __FILE__, __LINE__, false);
 }
 
 if (!defined('TIMEOBJECTS_BASE')) {

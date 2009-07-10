@@ -27,6 +27,7 @@ class IMP_Filter
      * Runs the filters if they are able to be applied manually.
      *
      * @param string $mbox  The mailbox to apply the filters to.
+     * @throws Horde_Exception
      */
     public function filter($mbox)
     {
@@ -52,6 +53,7 @@ class IMP_Filter
      *                            notification message?
      *
      * @return boolean  True if the messages(s) were deleted.
+     * @throws Horde_Exception
      */
     public function blacklistMessage($indices, $show_link = true)
     {
@@ -79,6 +81,7 @@ class IMP_Filter
      *                            notification message?
      *
      * @return boolean  True if the messages(s) were whitelisted.
+     * @throws Horde_Exception
      */
     public function whitelistMessage($indices, $show_link = true)
     {
@@ -98,6 +101,7 @@ class IMP_Filter
      *                         notification message?
      *
      * @return boolean  True on success.
+     * @throws Horde_Exception
      */
     protected function _processBWlist($indices, $descrip, $reg1, $reg2, $link)
     {

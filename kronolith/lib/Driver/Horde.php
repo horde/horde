@@ -48,6 +48,7 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
      *                                   toJson() method?
      *
      * @return array  Events in the given time range.
+     * @throws Horde_Exception
      */
     public function listEvents($startDate = null, $endDate = null,
                                $showRecurrence = false, $hasAlarm = false,
@@ -59,9 +60,6 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
         }
 
         $eventsList = $this->_params['registry']->call($this->api . '/listTimeObjects', array(array($category), $startDate, $endDate));
-        if (is_a($eventsList, 'PEAR_Error')) {
-            return $eventsList;
-        }
 
         if (is_null($startDate)) {
             $startDate = new Horde_Date(array('mday' => 1,

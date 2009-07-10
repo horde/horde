@@ -478,13 +478,11 @@ class News {
 
         $params = array(0, 'message_timestamp', 1, false, 'news', null, 0, $limit);
         $threads = $registry->call('forums/getThreads', $params);
-        if ($threads instanceof PEAR_Error) {
-            return $threads;
-        }
 
         foreach ($threads as $id => $message) {
-            $news_id = $registry->call('forums/getForumName', array('news', $message['forum_id']));
-            if ($news_id instanceof PEAR_Error) {
+            try {
+                $news_id = $registry->call('forums/getForumName', array('news', $message['forum_id']));
+            } catch (Horde_Exception $e) {
                 unset($threads[$id]);
                 continue;
             }

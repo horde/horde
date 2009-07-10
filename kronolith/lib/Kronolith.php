@@ -1077,8 +1077,13 @@ class Kronolith
             $apis = array_unique($GLOBALS['registry']->listAPIs());
             foreach ($apis as $api) {
                 if ($GLOBALS['registry']->hasMethod($api . '/listTimeObjects')) {
-                    $categories = $GLOBALS['registry']->call($api . '/listTimeObjectCategories');
-                    if (is_a($categories, 'PEAR_Error') || !count($categories)) {
+                    try {
+                        $categories = $GLOBALS['registry']->call($api . '/listTimeObjectCategories');
+                    } catch (Horde_Exception $e) {
+                        continue;
+                    }
+
+                    if (!count($categories)) {
                         continue;
                     }
 

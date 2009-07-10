@@ -136,7 +136,7 @@ if (!is_null($imapuser) && !is_null($pass)) {
     if (Horde_Auth::getProvider() == 'imp') {
         /* Destroy any existing session on login and make sure to use a new
          * session ID, to avoid session fixation issues. */
-        Horde::getCleanSession();
+        $registry->getCleanSession();
     }
 
     if (IMP_Session::createSession($imapuser, $pass, Horde_Util::getFormData('server_key', IMP_Session::getAutoLoginServer()))) {

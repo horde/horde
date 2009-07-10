@@ -127,12 +127,7 @@ class IMP
             $newName = $newAddress;
         }
 
-        $result = $registry->call('contacts/import',
-                                  array(array('name' => $newName, 'email' => $newAddress),
-                                        'array', $prefs->getValue('add_source')));
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
-        }
+        $result = $registry->call('contacts/import', array(array('name' => $newName, 'email' => $newAddress), 'array', $prefs->getValue('add_source')));
 
         $contact_link = $registry->link('contacts/show', array('uid' => $result, 'source' => $prefs->getValue('add_source')));
 
@@ -230,37 +225,38 @@ class IMP
         /* Add the list of editable tasklists to the list. */
         if (!empty($options['inc_tasklists']) &&
             !empty($_SESSION['imp']['tasklistavail'])) {
-            $tasklists = $GLOBALS['registry']->call('tasks/listTasklists',
-                                                    array(false, PERMS_EDIT));
+            try {
+                $tasklists = $GLOBALS['registry']->call('tasks/listTasklists', array(false, PERMS_EDIT));
 
-            if (!$tasklists instanceof PEAR_Error && count($tasklists)) {
-                $text .= '<option value="" disabled="disabled">&nbsp;</option><option value="" disabled="disabled">- - ' . _("Task Lists") . ' - -</option>' . "\n";
+                if (count($tasklists)) {
+                    $text .= '<option value="" disabled="disabled">&nbsp;</option><option value="" disabled="disabled">- - ' . _("Task Lists") . ' - -</option>' . "\n";
 
-                foreach ($tasklists as $id => $tasklist) {
-                    $text .= sprintf('<option value="%s">%s</option>%s',
-                                     '_tasklist_' . $id,
-                                     Horde_Text_Filter::filter($tasklist->get('name'), 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)),
-                                     "\n");
+                    foreach ($tasklists as $id => $tasklist) {
+                        $text .= sprintf('<option value="%s">%s</option>%s',
+                                         '_tasklist_' . $id,
+                                         Horde_Text_Filter::filter($tasklist->get('name'), 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)),
+                                         "\n");
+                    }
                 }
-            }
+            } catch (Horde_Exception $e) {}
         }
 
         /* Add the list of editable notepads to the list. */
         if (!empty($options['inc_notepads']) &&
             !empty($_SESSION['imp']['notepadavail'])) {
-            $notepads = $GLOBALS['registry']->call('notes/listNotepads',
-                                                    array(false, PERMS_EDIT));
+            try {
+                $notepads = $GLOBALS['registry']->call('notes/listNotepads', array(false, PERMS_EDIT));
+                if (count($notepads)) {
+                    $text .= '<option value="" disabled="disabled">&nbsp;</option><option value="" disabled="disabled">- - ' . _("Notepads") . ' - -</option>' . "\n";
 
-            if (!$notepads instanceof PEAR_Error && count($notepads)) {
-                $text .= '<option value="" disabled="disabled">&nbsp;</option><option value="" disabled="disabled">- - ' . _("Notepads") . ' - -</option>' . "\n";
-
-                foreach ($notepads as $id => $notepad) {
-                    $text .= sprintf('<option value="%s">%s</option>%s',
-                                     '_notepad_' . $id,
-                                     Horde_Text_Filter::filter($notepad->get('name'), 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)),
-                                     "\n");
+                    foreach ($notepads as $id => $notepad) {
+                        $text .= sprintf('<option value="%s">%s</option>%s',
+                                         '_notepad_' . $id,
+                                         Horde_Text_Filter::filter($notepad->get('name'), 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)),
+                                         "\n");
+                    }
                 }
-            }
+            } catch (Horde_Exception $e) {}
         }
 
         return $text;

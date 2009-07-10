@@ -24,11 +24,13 @@ require_once HORDE_BASE . '/lib/core.php';
 
 // Registry.
 $registry = Horde_Registry::singleton();
-if (($pushed = $registry->pushApp('news', !defined('AUTH_HANDLER'))) instanceof PEAR_Error) {
-    if ($pushed->getCode() == 'permission_denied') {
+try {
+    $registry->pushApp('news', !defined('AUTH_HANDLER'));
+} catch (Horde_Exception $e) {
+    if ($e->getCode() == 'permission_denied') {
         Horde::authenticationFailureRedirect();
     }
-    Horde::fatal($pushed, __FILE__, __LINE__, false);
+    Horde::fatal($e, __FILE__, __LINE__, false);
 }
 $conf = &$GLOBALS['conf'];
 define('NEWS_TEMPLATES', $registry->get('templates'));

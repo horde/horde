@@ -234,13 +234,15 @@ if (Horde_Auth::isAdmin('news:admin')) {
     foreach ($registry->listAPIs() as $api) {
         if ($registry->hasMethod($api . '/getSellingForm')) {
             $apis[$api] = array();
-            $articles = $registry->call($api  . '/listCostObjects');
-            if ($articles instanceof PEAR_Error) {
-                $notification->push($articles);
-            } elseif (!empty($articles)) {
-                foreach ($articles[0]['objects'] as $item) {
-                    $apis[$api][$item['id']] = $item['name'];
+            try {
+                $articles = $registry->call($api  . '/listCostObjects');
+                if (!empty($articles)) {
+                    foreach ($articles[0]['objects'] as $item) {
+                        $apis[$api][$item['id']] = $item['name'];
+                    }
                 }
+            } catch (Horde_Exception $e) {
+                $notification->push($e);
             }
         }
     }
@@ -432,28 +434,29 @@ if ($form->validate()) {
         // Do we have a gallery?
         if (empty($info['gallery'])) {
             $abbr = Horde_String::substr(strip_tags($info['body'][$default_lang]['content']), 0, $conf['preview']['list_content']);
-            $result = $registry->call('images/createGallery',
-                                        array(null,
-                                                array('name' => $info['body'][$default_lang]['title'],
-                                                        'desc' => $abbr)));
-            if ($result instanceof PEAR_Error) {
-                $notification->push(_("There was an error creating gallery: ") . $result->getMessage(), 'horde.warning');
-            } else {
+            try {
+                $result = $registry->call('images/createGallery',
+                                            array(null,
+                                                    array('name' => $info['body'][$default_lang]['title'],
+                                                            'desc' => $abbr)));
                 $info['gallery'] = $result;
+            } catch (Horde_Exception $e) {
+                $notification->push(_("There was an error creating gallery: ") . $e->getMessage(), 'horde.warning');
             }
         }
 
         if (!empty($info['gallery'])) {
             $news->write_db->query('UPDATE ' . $news->prefix . ' SET gallery = ? WHERE id = ?', array($info['gallery'], $id));
             foreach ($images_uploaded as $i) {
-                $result = $registry->call('images/saveImage',
+                try {
+                    $registry->call('images/saveImage',
                                             array(null, $info['gallery'],
                                                     array('filename' => $info['picture_' . $i]['file'],
                                                             'description' => $info['caption_' . ($i == 0 ? $i . '_' . $default_lang: $i)],
                                                             'type' => $info['picture_' . $i]['type'],
                                                             'data' => file_get_contents($info['picture_' . $i]['file']))));
-                if ($result instanceof PEAR_Error) {
-                    $notification->push(_("There was an error with the uploaded image: ") . $result->getMessage(), 'horde.warning');
+                } catch (Horde_Exception $e) {
+                    $notification->push(_("There was an error with the uploaded image: ") . $e->getMessage(), 'horde.warning');
                 }
             }
         }

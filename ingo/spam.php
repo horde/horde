@@ -79,14 +79,16 @@ if ($form->validate($vars)) {
 
     // Create a new folder if requested.
     if ($vars->get('actionID') == 'create_folder') {
-        $result = Ingo::createFolder($vars->get('new_folder_name'));
-        if (is_string($result)) {
-            $spam->setSpamFolder($result);
-        } else {
-            $success = false;
-            if (is_a($result, 'PEAR_Error')) {
-                $notification->push($result->getMessage());
+        try {
+            $result = Ingo::createFolder($vars->get('new_folder_name'));
+            if ($result) {
+                $spam->setSpamFolder($result);
+            } else {
+                $success = false;
             }
+        } catch (Horde_Exception $e) {
+            $success = false;
+            $notification->push($e->getMessage());
         }
     } else {
         $spam->setSpamFolder($vars->get('folder'));

@@ -60,11 +60,13 @@ $registry = Horde_Registry::singleton($s_ctrl);
 // and login pages, since those are handled below and need to fall through
 // to IMP-specific code.
 $compose_page = Horde_Util::nonInputVar('compose_page');
-if (is_a(($pushed = $registry->pushApp('imp', !(defined('AUTH_HANDLER') || $compose_page))), 'PEAR_Error')) {
-    if ($pushed->getCode() == 'permission_denied') {
+try {
+    $registry->pushApp('imp', !(defined('AUTH_HANDLER') || $compose_page));
+} catch (Horde_Exception $e) {
+    if ($e->getCode() == 'permission_denied') {
         Horde::authenticationFailureRedirect();
     }
-    Horde::fatal($pushed, __FILE__, __LINE__, false);
+    Horde::fatal($e, __FILE__, __LINE__, false);
 }
 $conf = &$GLOBALS['conf'];
 if (!defined('IMP_TEMPLATES')) {
