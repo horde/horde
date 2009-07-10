@@ -106,8 +106,10 @@ class Horde
             $message = $message->getMessage();
         }
 
-        $app = isset($GLOBALS['registry']) ? $GLOBALS['registry']->getApp() : 'horde';
-        $message = '[' . $app . '] ' . $message . ' [pid ' . getmypid() . ' on line ' . $line . ' of "' . $file . '"]';
+        $app = isset($GLOBALS['registry'])
+            ? $GLOBALS['registry']->getApp()
+            : null;
+        $message = '[' . ($app ? $app : 'horde') . '] ' . $message . ' [pid ' . getmypid() . ' on line ' . $line . ' of "' . $file . '"]';
 
         /* Make sure to log in the system's locale. */
         $locale = setlocale(LC_TIME, 0);
