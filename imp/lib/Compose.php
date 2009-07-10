@@ -2553,23 +2553,3 @@ class IMP_Compose
         return array('sources' => $src, 'fields' => $fields);
     }
 }
-
-class IMP_Compose_Exception extends Horde_Exception
-{
-    protected $_encrypt = null;
-
-    public function __set($name, $val)
-    {
-        if ($name == 'encrypt') {
-            $this->_encrypt = $val;
-        }
-    }
-
-    public function __get($name)
-    {
-        if ($name == 'encrypt') {
-            return $this->_encrypt;
-        }
-    }
-
-}
