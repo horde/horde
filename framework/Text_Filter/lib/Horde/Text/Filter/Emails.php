@@ -132,10 +132,11 @@ EOP;
         }
 
         parse_str($args, $extra);
-        $url = $GLOBALS['registry']->call('mail/compose',
-                                          array(array('to' => $email),
-                                          $extra));
-        if (is_a($url, 'PEAR_Error')) {
+        try {
+            $url = $GLOBALS['registry']->call('mail/compose',
+                                              array(array('to' => $email),
+                                              $extra));
+        } catch (Horde_Exception $e) {
             $url = 'mailto:' . urlencode($email);
         }
 

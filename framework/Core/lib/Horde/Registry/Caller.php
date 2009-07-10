@@ -32,6 +32,8 @@ class Horde_Registry_Caller
 
     /**
      * TODO
+     *
+     * @throws Horde_Exception
      */
     public function __call($method, $args)
     {

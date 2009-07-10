@@ -263,10 +263,9 @@ class Horde_Menu
         if (isset($conf['menu']['apps']) && is_array($conf['menu']['apps'])) {
             foreach ($conf['menu']['apps'] as $app) {
                 if ($registry->get('status', $app) != 'inactive' && $registry->hasPermission($app, PERMS_SHOW)) {
-                    $url = $registry->getInitialPage($app);
-                    if (!is_a($url, 'PEAR_Error')) {
-                        $this->add(Horde::url($url), $registry->get('name', $app), $registry->get('icon', $app), '');
-                    }
+                    try {
+                        $this->add(Horde::url($registry->getInitialPage($app)), $registry->get('name', $app), $registry->get('icon', $app), '');
+                    } catch (Horde_Exception $e) {}
                 }
             }
         }

@@ -1367,21 +1367,27 @@ class Horde_Config
             $f = array();
             if ($GLOBALS['registry']->hasMethod('clients/getClientSource')) {
                 $addressbook = $GLOBALS['registry']->call('clients/getClientSource');
-                $fields = $GLOBALS['registry']->call('clients/clientFields', array($addressbook));
-                if ($fields instanceof PEAR_Error) {
-                    $fields = $GLOBALS['registry']->call('clients/fields', array($addressbook));
-                }
-                if (!$fields instanceof PEAR_Error) {
-                    foreach ($fields as $field) {
-                        $f[$field['name']] = $field['label'];
+                try {
+                    $fields = $GLOBALS['registry']->call('clients/clientFields', array($addressbook));
+                } catch (Horde_Exception $e) {
+                    try {
+                        $fields = $GLOBALS['registry']->call('clients/fields', array($addressbook));
+                    } catch (Horde_Exception $e) {
+                        $fields = array();
                     }
+                }
+
+                foreach ($fields as $field) {
+                    $f[$field['name']] = $field['label'];
                 }
             }
             return $f;
 
         case 'list-contact-sources':
-            $res = $GLOBALS['registry']->call('contacts/sources');
-            return $res;
+            try {
+                return $GLOBALS['registry']->call('contacts/sources');
+            } catch (Horde_Exception $e) {}
+            break;
         }
 
         return array();

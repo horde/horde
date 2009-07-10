@@ -331,9 +331,10 @@ class Horde_Auth
         $errApps = array();
 
         foreach ($GLOBALS['registry']->listApps(array('notoolbar', 'hidden', 'active', 'admin')) as $app) {
-            if ($GLOBALS['registry']->hasMethod('removeUserData', $app) &&
-                is_a($result = $GLOBALS['registry']->callByPackage($app, 'removeUserData', array($userId)), 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            try {
+                $GLOBALS['registry']->callByPackage($app, 'removeUserData', array($userId));
+            } catch (Horde_Exception $e) {
+                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
                 $errApps[] = $app;
             }
         }

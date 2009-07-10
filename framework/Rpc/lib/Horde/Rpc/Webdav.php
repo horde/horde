@@ -319,15 +319,15 @@ class Horde_Rpc_Webdav extends Horde_Rpc
             $content .= fgets($options['stream']);
         }
 
-        $result = $GLOBALS['registry']->callByPackage($pieces[0], 'put', array('path' => $path, 'content' => $content, 'type' => $options['content_type']));
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            if ($result->getCode()) {
-                return $this->_checkHTTPCode($result->getCode())
-                    . ' ' . $result->getMessage();
-            } else {
-                return '500 Internal Server Error. Check server logs';
+        try {
+            $GLOBALS['registry']->callByPackage($pieces[0], 'put', array('path' => $path, 'content' => $content, 'type' => $options['content_type']));
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            if ($e->getCode()) {
+                return $this->_checkHTTPCode($e->getCode()) . ' ' . $result->getMessage();
             }
+
+            return '500 Internal Server Error. Check server logs';
         }
 
         return true;
@@ -351,28 +351,29 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         $path = $options['path'];
         $pieces = explode('/', trim($this->path, '/'), 2);
 
-        if (count($pieces) == 2) {
-            $app = $pieces[0];
-            $path = $pieces[1];
-
-            // TODO: Support HTTP/1.1 If-Match on ETag here
-
-            // Delete access is checked in each app.
-            $result = $GLOBALS['registry']->callByPackage($app, 'path_delete', array($path));
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_INFO);
-                if ($result->getCode()) {
-                    return $this->_checkHTTPCode($result->getCode())
-                        . ' ' . $result->getMessage();
-                } else {
-                    return '500 Internal Server Error. Check server logs';
-                }
-            }
-            return '204 No Content';
-        } else {
+        if (count($pieces) != 2) {
             Horde::logMessage(sprintf(_("Error deleting from path %s; must be [app]/[path]", $options['path'])), __FILE__, __LINE__, PEAR_LOG_INFO);
             return '403 Must supply a resource within the application to delete.';
         }
+
+        $app = $pieces[0];
+        $path = $pieces[1];
+
+        // TODO: Support HTTP/1.1 If-Match on ETag here
+
+        // Delete access is checked in each app.
+        try {
+            $GLOBALS['registry']->callByPackage($app, 'path_delete', array($path));
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_INFO);
+            if ($e->getCode()) {
+                return $this->_checkHTTPCode($e->getCode()) . ' ' . $e->getMessage();
+            }
+
+            return '500 Internal Server Error. Check server logs';
+        }
+
+        return '204 No Content';
     }
 
     /**
@@ -411,21 +412,21 @@ class Horde_Rpc_Webdav extends Horde_Rpc
 
         // Take the module name from the path
         $pieces = explode('/', $path, 2);
-        if (count($pieces) == 2) {
-            // Send the request to the application
-            $result = $GLOBALS['registry']->callByPackage($pieces[0], 'mkcol', array('path' => $path));
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-                if ($result->getCode()) {
-                    return $this->_checkHTTPCode($result->getCode())
-                        . ' ' . $result->getMessage();
-                } else {
-                    return '500 Internal Server Error. Check server logs';
-                }
-            }
-        } else {
+        if (count($pieces) != 2) {
             Horde::logMessage(sprintf(_("Unable to create directory %s; must be [app]/[path]"), $path), __FILE__, __LINE__, PEAR_LOG_INFO);
             return '403 Must specify a resource within an application.  MKCOL disallowed at top level.';
+        }
+
+        // Send the request to the application
+        try {
+            $GLOBALS['registry']->callByPackage($pieces[0], 'mkcol', array('path' => $path));
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            if ($e->getCode()) {
+                return $this->_checkHTTPCode($e->getCode()) . ' ' . $e->getMessage();
+            }
+
+            return '500 Internal Server Error. Check server logs';
         }
 
         return '200 OK';
@@ -446,25 +447,26 @@ class Horde_Rpc_Webdav extends Horde_Rpc
 
         // Take the module name from the path
         $sourcePieces = explode('/', $path, 2);
-        if (count($sourcePieces) == 2) {
-            $destPieces = explode('/', $options['dest'], 2);
-            if (!(count($destPieces) == 2) || $sourcesPieces[0] != $destPieces[0]) {
-                return '400 Can not move across applications.';
-            }
-            // Send the request to the module
-            $result = $GLOBALS['registry']->callByPackage($sourcePieces[0], 'move', array('path' => $path, 'dest' => $options['dest']));
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-                if ($result->getCode()) {
-                    return $this->_checkHTTPCode($result->getCode())
-                        . ' ' . $result->getMessage();
-                } else {
-                    return '500 Internal Server Error. Check server logs';
-                }
-            }
-        } else {
+        if (count($sourcePieces) != 2) {
             Horde::logMessage(sprintf(_("Unable to rename %s; must be [app]/[path] and within the same application."), $path), __FILE__, __LINE__, PEAR_LOG_INFO);
             return '403 Must specify a resource within an application.  MOVE disallowed at top level.';
+        }
+
+        $destPieces = explode('/', $options['dest'], 2);
+        if (!(count($destPieces) == 2) || $sourcesPieces[0] != $destPieces[0]) {
+            return '400 Can not move across applications.';
+        }
+
+        // Send the request to the module
+        try {
+            $GLOBALS['registry']->callByPackage($sourcePieces[0], 'move', array('path' => $path, 'dest' => $options['dest']));
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            if ($e->getCode()) {
+                return $this->_checkHTTPCode($e->getCode()) . ' ' . $e->getMessage();
+            }
+
+            return '500 Internal Server Error. Check server logs';
         }
 
         return '200 OK';
@@ -539,7 +541,13 @@ class Horde_Rpc_Webdav extends Horde_Rpc
                         // Make sure the applications each only return one level
                         $options['depth'] = 0;
                     }
-                    $results = $registry->callByPackage($app, 'browse', array('path' => '/', 'depth' => $options['depth']));
+
+                    try {
+                        $results = $registry->callByPackage($app, 'browse', array('path' => '/', 'depth' => $options['depth']));
+                    } catch (Horde_Exception $e) {
+                        continue;
+                    }
+
                     $options['depth'] = $origdepth;
 
                     foreach ($results as $itemPath => $item) {
@@ -555,18 +563,20 @@ class Horde_Rpc_Webdav extends Horde_Rpc
                     }
                 }
             }
-Horde::logMessage(print_r($list, true), __FILE__, __LINE__, PEAR_LOG_ERR);
             return $list;
         } else {
             $path = trim($path, '/');
             $pieces = explode('/', $path);
-            $items = $registry->callByPackage($pieces[0], 'browse', array('path' => $path, 'depth' => $options['depth']));
+
+            try {
+                $items = $registry->callByPackage($pieces[0], 'browse', array('path' => $path, 'depth' => $options['depth']));
+            } catch (Horde_Exception $e) {
+                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+                return $e;
+            }
+
             if ($items === false) {
                 // File not found
-                return $items;
-            }
-            if (is_a($items, 'PEAR_Error')) {
-                Horde::logMessage($items, __FILE__, __LINE__, PEAR_LOG_ERR);
                 return $items;
             }
             if (empty($items)) {

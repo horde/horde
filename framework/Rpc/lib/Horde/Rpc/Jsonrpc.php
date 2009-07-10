@@ -74,9 +74,10 @@ class Horde_Rpc_Jsonrpc extends Horde_Rpc
         }
 
         // Call the method.
-        $result = $GLOBALS['registry']->call($method, $params);
-        if (is_a($result, 'PEAR_Error')) {
-            return $this->_raiseError($result, $request);
+        try {
+            $result = $GLOBALS['registry']->call($method, $params);
+        } catch (Horde_Exception $e) {
+            return $this->_raiseError($e, $request);
         }
 
         // Return result.

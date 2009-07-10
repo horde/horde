@@ -87,6 +87,7 @@ class Horde_Registry
      * @param integer $session_flags  Any session flags.
      *
      * @return Horde_Registry  The Horde_Registry instance.
+     * @thros Horde_Exception
      */
     static public function singleton($session_flags = 0)
     {
@@ -133,7 +134,7 @@ class Horde_Registry
                SESSION_NONE. */
             $_SESSION = array();
         } else {
-            Horde::setupSessionHandler();
+            $this->setupSessionHandler();
             $old_error = error_reporting(0);
             session_start();
             if ($session_flags & self::SESSION_READONLY) {
@@ -142,10 +143,6 @@ class Horde_Registry
                 session_write_close();
             }
             error_reporting($old_error);
-
-            if (!isset($_SESSION['_registry'])) {
-                $_SESSION['_registry'] = array();
-            }
         }
 
         /* Initialize the localization routines and variables. We can't use
@@ -187,11 +184,8 @@ class Horde_Registry
         }
 
         /* Create the global Perms object. */
+        // TODO: Remove(?)
         $GLOBALS['perms'] = Perms::singleton();
-
-        /* Attach javascript notification listener. */
-        $notification = Horde_Notification::singleton();
-        $notification->attach('javascript');
     }
 
     /**
@@ -259,10 +253,8 @@ class Horde_Registry
         /* Read the registry configuration files. */
         require HORDE_BASE . '/config/registry.php';
         $files = glob(HORDE_BASE . '/config/registry.d/*.php');
-        if ($files) {
-            foreach ($files as $r) {
-                include $r;
-            }
+        foreach ($files as $r) {
+            include $r;
         }
 
         if ($vhost) {
@@ -544,8 +536,8 @@ class Horde_Registry
      * @param string $method  The method to call.
      * @param array $args     Arguments to the method.
      *
-     * @return  TODO
-     *          Returns PEAR_Error on error.
+     * @return mixed  TODO
+     * @throws Horde_Exception
      */
     public function call($method, $args = array())
     {
@@ -556,7 +548,7 @@ class Horde_Registry
         } elseif (!empty($this->_cache['interfaces'][$interface])) {
             $app = $this->_cache['interfaces'][$interface];
         } else {
-            return PEAR::raiseError('The method "' . $method . '" is not defined in the Horde Registry.');
+            throw new Horde_Exception('The method "' . $method . '" is not defined in the Horde Registry.');
         }
 
         return $this->callByPackage($app, $call, $args);
@@ -569,8 +561,8 @@ class Horde_Registry
      * @param string $call  The method to call.
      * @param array $args   Arguments to the method.
      *
-     * @return  TODO
-     *          Returns PEAR_Error on error.
+     * @return mixed  TODO
+     * @throws Horde_Exception
      */
     public function callByPackage($app, $call, $args = array())
     {
@@ -578,7 +570,7 @@ class Horde_Registry
          * $app's services and included the API file, so we don't try
          * to do it again explicitly in this method. */
         if (!$this->hasMethod($call, $app)) {
-            return PEAR::raiseError(sprintf('The method "%s" is not defined in the API for %s.', $call, $app));
+            throw new Horde_Exception(sprintf('The method "%s" is not defined in the API for %s.', $call, $app));
         }
 
         /* Load the API now. */
@@ -590,7 +582,7 @@ class Horde_Registry
         /* Make sure that the function actually exists. */
         $function = '_' . $app . '_' . str_replace('/', '_', $call);
         if (!function_exists($function)) {
-            return PEAR::raiseError('The function implementing ' . $call . ' (' . $function . ') is not defined in ' . $app . '\'s API.');
+            throw new Horde_Exception('The function implementing ' . $call . ' (' . $function . ') is not defined in ' . $app . '\'s API.');
         }
 
         $checkPerms = isset($this->_cache['api'][$app][$call]['checkperms'])
@@ -601,9 +593,6 @@ class Horde_Registry
          * including any files which might do it for us. Return an
          * error immediately if pushApp() fails. */
         $pushed = $this->pushApp($app, $checkPerms);
-        if (is_a($pushed, 'PEAR_Error')) {
-            return $pushed;
-        }
 
         $res = call_user_func_array($function, $args);
 
@@ -626,8 +615,8 @@ class Horde_Registry
      * @param array $args     Arguments to the method.
      * @param mixed $extra    Extra, non-standard arguments to the method.
      *
-     * @return  TODO
-     *          Returns PEAR_Error on error.
+     * @return mixed  TODO
+     * @throws Horde_Exception
      */
     public function link($method, $args = array(), $extra = '')
     {
@@ -638,7 +627,7 @@ class Horde_Registry
         } elseif (!empty($this->_cache['interfaces'][$interface])) {
             $app = $this->_cache['interfaces'][$interface];
         } else {
-            return PEAR::raiseError('The method "' . $method . '" is not defined in the Horde Registry.');
+            throw new Horde_Exception('The method "' . $method . '" is not defined in the Horde Registry.');
         }
 
         return $this->linkByPackage($app, $call, $args, $extra);
@@ -652,8 +641,8 @@ class Horde_Registry
      * @param array $args   Arguments to the method.
      * @param mixed $extra  Extra, non-standard arguments to the method.
      *
-     * @return  TODO
-     *          Returns PEAR_Error on error.
+     * @return mixed  TODO
+     * @throws Horde_Exception
      */
     public function linkByPackage($app, $call, $args = array(), $extra = '')
     {
@@ -661,13 +650,13 @@ class Horde_Registry
          * services and included the API file, so we don't try to do
          * it it again explicitly in this method. */
         if (!$this->hasMethod($call, $app)) {
-            return PEAR::raiseError('The method "' . $call . '" is not defined in ' . $app . '\'s API.');
+            throw new Horde_Exception('The method "' . $call . '" is not defined in ' . $app . '\'s API.');
         }
 
         /* Make sure the link is defined. */
         $this->_loadApiCache();
         if (empty($this->_cache['api'][$app][$call]['link'])) {
-            return PEAR::raiseError('The link ' . $call . ' is not defined in ' . $app . '\'s API.');
+            throw new Horde_Exception('The link ' . $call . ' is not defined in ' . $app . '\'s API.');
         }
 
         /* Initial link value. */
@@ -717,8 +706,8 @@ class Horde_Registry
      * @param string $path  The application string.
      * @param string $app   The application being called.
      *
-     * @return  TODO
-     *          Returns PEAR_Error on error.
+     * @return string  The application file path.
+     * @throws Horde_Exception
      */
     public function applicationFilePath($path, $app = null)
     {
@@ -727,7 +716,7 @@ class Horde_Registry
         }
 
         if (!isset($this->applications[$app])) {
-            return PEAR::raiseError(sprintf(_("\"%s\" is not configured in the Horde Registry."), $app));
+            throw new Horde_Exception(sprintf(_("\"%s\" is not configured in the Horde Registry."), $app));
         }
 
         return str_replace('%application%', $this->applications[$app]['fileroot'], $path);
@@ -739,8 +728,7 @@ class Horde_Registry
      * @param string $path  The application string.
      * @param string $app   The application being called.
      *
-     * @return  TODO
-     *          Returns PEAR_Error on error.
+     * @return string  The application web path.
      */
     public function applicationWebPath($path, $app = null)
     {
@@ -791,7 +779,7 @@ class Horde_Registry
          *  - To anyone who is allowed by an explicit ACL on $app. */
         if ($checkPerms && !$this->hasPermission($app)) {
             Horde::logMessage(sprintf('%s does not have READ permission for %s', Horde_Auth::getAuth() ? 'User ' . Horde_Auth::getAuth() : 'Guest user', $app), __FILE__, __LINE__, PEAR_LOG_DEBUG);
-            return PEAR::raiseError(sprintf(_('%s is not authorised for %s.'), Horde_Auth::getAuth() ? 'User ' . Horde_Auth::getAuth() : 'Guest user', $this->applications[$app]['name']), 'permission_denied');
+            throw new Horde_Exception(sprintf(_('%s is not authorised for %s.'), Horde_Auth::getAuth() ? 'User ' . Horde_Auth::getAuth() : 'Guest user', $this->applications[$app]['name']), 'permission_denied');
         }
 
         /* Set up autoload paths for the current application. This needs to
@@ -893,8 +881,6 @@ class Horde_Registry
      * them into the global $conf variable.
      *
      * @param string $app  The name of the application.
-     *
-     * @throws Horde_Exception
      */
     public function importConfig($app)
     {
@@ -926,9 +912,9 @@ class Horde_Registry
         if (!Horde_Auth::getAuth()) {
             $GLOBALS['prefs'] = Prefs::factory('session', $app, '', '', null, false);
         } else {
-            if (!isset($GLOBALS['prefs']) || $GLOBALS['prefs']->getUser() != Horde_Auth::getAuth()) {
-                $GLOBALS['prefs'] = Prefs::factory($GLOBALS['conf']['prefs']['driver'], $app,
-                                                   Horde_Auth::getAuth(), Horde_Auth::getCredential('password'));
+            if (!isset($GLOBALS['prefs']) ||
+                ($GLOBALS['prefs']->getUser() != Horde_Auth::getAuth())) {
+                $GLOBALS['prefs'] = Prefs::factory($GLOBALS['conf']['prefs']['driver'], $app, Horde_Auth::getAuth(), Horde_Auth::getCredential('password'));
             } else {
                 $GLOBALS['prefs']->retrieve($app);
             }
@@ -1041,7 +1027,7 @@ class Horde_Registry
      * @param string $app  The name of the application.
      *
      * @return string  URL pointing to the inital page of the application.
-     *                 Returns PEAR_Error on error.
+     * @throws Horde_Exception
      */
     public function getInitialPage($app = null)
     {
@@ -1049,9 +1035,11 @@ class Horde_Registry
             $app = $this->getApp();
         }
 
-        return isset($this->applications[$app])
-            ? $this->applications[$app]['webroot'] . '/' . (isset($this->applications[$app]['initial_page']) ? $this->applications[$app]['initial_page'] : '')
-            : PEAR::raiseError(sprintf(_("\"%s\" is not configured in the Horde Registry."), $app));
+        if (isset($this->applications[$app])) {
+            return $this->applications[$app]['webroot'] . '/' . (isset($this->applications[$app]['initial_page']) ? $this->applications[$app]['initial_page'] : '');
+        }
+
+        throw new Horde_Exception(sprintf(_("\"%s\" is not configured in the Horde Registry."), $app));
     }
 
     /**
@@ -1120,8 +1108,86 @@ class Horde_Registry
             return $id;
         } elseif (isset($_SESSION['_registry']['md5'][$name])) {
             return $id . '|' . $_SESSION['_registry']['md5'][$name];
-        } else {
-            return false;
+        }
+
+        return false;
+    }
+
+    /**
+     * Sets a custom session handler up, if there is one.
+     * If the global variable 'session_cache_limiter' is defined, its value
+     * will override the cache limiter setting found in the configuration
+     * file.
+     *
+     * The custom session handler object will be contained in the global
+     * 'horde_sessionhandler' variable.
+     */
+    public function setupSessionHandler()
+    {
+        global $conf;
+
+        ini_set('url_rewriter.tags', 0);
+        if (!empty($conf['session']['use_only_cookies'])) {
+            ini_set('session.use_only_cookies', 1);
+            if (!empty($conf['cookie']['domain']) &&
+                strpos($conf['server']['name'], '.') === false) {
+                Horde::fatal('Session cookies will not work without a FQDN and with a non-empty cookie domain. Either use a fully qualified domain name like "http://www.example.com" instead of "http://example" only, or set the cookie domain in the Horde configuration to an empty value, or enable non-cookie (url-based) sessions in the Horde configuration.', __FILE__, __LINE__);
+            }
+        }
+
+        session_set_cookie_params($conf['session']['timeout'],
+                                  $conf['cookie']['path'], $conf['cookie']['domain'], $conf['use_ssl'] == 1 ? 1 : 0);
+        session_cache_limiter(Horde_Util::nonInputVar('session_cache_limiter', $conf['session']['cache_limiter']));
+        session_name(urlencode($conf['session']['name']));
+
+        $type = empty($conf['sessionhandler']['type'])
+            ? 'none'
+            : $conf['sessionhandler']['type'];
+
+        if ($type == 'external') {
+            $calls = $conf['sessionhandler']['params'];
+            session_set_save_handler($calls['open'],
+                                     $calls['close'],
+                                     $calls['read'],
+                                     $calls['write'],
+                                     $calls['destroy'],
+                                     $calls['gc']);
+        } elseif ($type != 'none') {
+            try {
+                $sh = Horde_SessionHandler::singleton($conf['sessionhandler']['type'], array_merge(Horde::getDriverConfig('sessionhandler', $conf['sessionhandler']['type']), array('memcache' => !empty($conf['sessionhandler']['memcache']))));
+                ini_set('session.save_handler', 'user');
+                session_set_save_handler(array(&$sh, 'open'),
+                                         array(&$sh, 'close'),
+                                         array(&$sh, 'read'),
+                                         array(&$sh, 'write'),
+                                         array(&$sh, 'destroy'),
+                                         array(&$sh, 'gc'));
+                $GLOBALS['horde_sessionhandler'] = $sh;
+            } catch (Horde_Exception $e) {
+                Horde::fatal(new Horde_Exception('Horde is unable to correctly start the custom session handler.'), __FILE__, __LINE__, false);
+            }
+        }
+    }
+
+    /**
+     * Destroys any existing session on login and make sure to use a new
+     * session ID, to avoid session fixation issues. Should be called before
+     * checking a login.
+     */
+    public function getCleanSession()
+    {
+        // Make sure to force a completely new session ID and clear all
+        // session data.
+        session_regenerate_id(true);
+        session_unset();
+
+        /* Reset cookie timeouts, if necessary. */
+        if (!empty($GLOBALS['conf']['session']['timeout'])) {
+            $app = $this->getApp();
+            if (Horde_Secret::clearKey($app)) {
+                Horde_Secret::setKey($app);
+            }
+            Horde_Secret::setKey('auth');
         }
     }
 

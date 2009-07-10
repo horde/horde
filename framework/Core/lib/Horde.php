@@ -162,28 +162,6 @@ class Horde
     }
 
     /**
-     * Destroys any existing session on login and make sure to use a new
-     * session ID, to avoid session fixation issues. Should be called before
-     * checking a login.
-     */
-    static public function getCleanSession()
-    {
-        // Make sure to force a completely new session ID and clear all
-        // session data.
-        session_regenerate_id(true);
-        session_unset();
-
-        /* Reset cookie timeouts, if necessary. */
-        if (!empty($GLOBALS['conf']['session']['timeout'])) {
-            $app = $GLOBALS['registry']->getApp();
-            if (Horde_Secret::clearKey($app)) {
-                Horde_Secret::setKey($app);
-            }
-            Horde_Secret::setKey('auth');
-        }
-    }
-
-    /**
      * Aborts with a fatal error, displaying debug information to the user.
      *
      * @param mixed $error   Either a string or an object with a getMessage()
@@ -1631,59 +1609,6 @@ HTML;
         }
 
         return $css;
-    }
-
-    /**
-     * Sets a custom session handler up, if there is one.
-     * If the global variable 'session_cache_limiter' is defined, its value
-     * will override the cache limiter setting found in the configuration
-     * file.
-     *
-     * The custom session handler object will be contained in the global
-     * 'horde_sessionhandler' variable.
-     */
-    static public function setupSessionHandler()
-    {
-        global $conf;
-
-        ini_set('url_rewriter.tags', 0);
-        if (!empty($conf['session']['use_only_cookies'])) {
-            ini_set('session.use_only_cookies', 1);
-            if (!empty($conf['cookie']['domain']) &&
-                strpos($conf['server']['name'], '.') === false) {
-                self::fatal('Session cookies will not work without a FQDN and with a non-empty cookie domain. Either use a fully qualified domain name like "http://www.example.com" instead of "http://example" only, or set the cookie domain in the Horde configuration to an empty value, or enable non-cookie (url-based) sessions in the Horde configuration.', __FILE__, __LINE__);
-            }
-        }
-
-        session_set_cookie_params($conf['session']['timeout'],
-                                  $conf['cookie']['path'], $conf['cookie']['domain'], $conf['use_ssl'] == 1 ? 1 : 0);
-        session_cache_limiter(Horde_Util::nonInputVar('session_cache_limiter', $conf['session']['cache_limiter']));
-        session_name(urlencode($conf['session']['name']));
-
-        $type = !empty($conf['sessionhandler']['type']) ? $conf['sessionhandler']['type'] : 'none';
-        if ($type == 'external') {
-            $calls = $conf['sessionhandler']['params'];
-            session_set_save_handler($calls['open'],
-                                     $calls['close'],
-                                     $calls['read'],
-                                     $calls['write'],
-                                     $calls['destroy'],
-                                     $calls['gc']);
-        } elseif ($type != 'none') {
-            try {
-                $sh = &Horde_SessionHandler::singleton($conf['sessionhandler']['type'], array_merge(self::getDriverConfig('sessionhandler', $conf['sessionhandler']['type']), array('memcache' => !empty($conf['sessionhandler']['memcache']))));
-                ini_set('session.save_handler', 'user');
-                session_set_save_handler(array(&$sh, 'open'),
-                                         array(&$sh, 'close'),
-                                         array(&$sh, 'read'),
-                                         array(&$sh, 'write'),
-                                         array(&$sh, 'destroy'),
-                                         array(&$sh, 'gc'));
-                $GLOBALS['horde_sessionhandler'] = $sh;
-            } catch (Horde_Exception $e) {
-                self::fatal(new Horde_Exception('Horde is unable to correctly start the custom session handler.'), __FILE__, __LINE__, false);
-            }
-        }
     }
 
     /**

@@ -68,17 +68,13 @@ class Horde_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Driver
             $source = Horde_Util::getFormData('source');
             $count = 0;
             foreach ($iCal->getComponents() as $c) {
-                if (is_a($c, 'Horde_iCalendar_vcard')) {
-                    $contacts = $registry->call('contacts/import',
-                                                array($c, null, $source));
-                    if (is_a($contacts, 'PEAR_Error')) {
-                        $notification->push(
-                            _("There was an error importing the contact data:") . ' '
-                            . $contacts->getMessage(),
-                            'horde.error');
-                        continue;
+                if ($c instanceof Horde_iCalendar_vcard) {
+                    try {
+                        $contacts = $registry->call('contacts/import', array($c, null, $source));
+                        ++$count;
+                    } catch (Horde_Exception $e) {
+                        $notification->push(_("There was an error importing the contact data:") . ' ' . $e->getMessage(), 'horde.error');
                     }
-                    $count++;
                 }
             }
             $notification->push(sprintf(ngettext(

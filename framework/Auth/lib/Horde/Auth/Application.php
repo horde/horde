@@ -81,7 +81,11 @@ class Horde_Auth_Application extends Horde_Auth_Driver
             throw new Horde_Exception($this->_params['app'] . ' does not provide an authenticate() method.');
         }
 
-        if (!$GLOBALS['registry']->callByPackage($this->_params['app'], 'authenticate', array('userId' => $userId, 'credentials' => $credentials, 'params' => $this->_params))) {
+        try {
+            if (!$GLOBALS['registry']->callByPackage($this->_params['app'], 'authenticate', array('userId' => $userId, 'credentials' => $credentials, 'params' => $this->_params))) {
+                throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
+            }
+        } catch (Horde_Exception $e) {
             throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
 
@@ -185,11 +189,7 @@ class Horde_Auth_Application extends Horde_Auth_Driver
     public function removeUser($userId)
     {
         if ($this->hasCapability('remove')) {
-            $res = $GLOBALS['registry']->callByPackage($this->_params['app'], 'removeUser', array($userId));
-            if (is_a($res, 'PEAR_Error')) {
-                throw new Horde_Exception($result);
-            }
-
+            $GLOBALS['registry']->callByPackage($this->_params['app'], 'removeUser', array($userId));
             Horde_Auth::removeUserData($userId);
         } else {
             parent::removeUser($userId);

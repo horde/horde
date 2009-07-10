@@ -71,10 +71,11 @@ class Horde_Rpc_Xmlrpc extends Horde_Rpc
             return 'Method "' . $method . '" is not defined';
         }
 
-        $result = $registry->call($method, $params);
-        if (is_a($result, 'PEAR_Error')) {
-            $result = array('faultCode' => (int)$result->getCode(),
-                            'faultString' => $result->getMessage());
+        try {
+            $result = $registry->call($method, $params);
+        } catch (Horde_Exception $e) {
+            $result = array('faultCode' => (int)$e->getCode(),
+                            'faultString' => $e->getMessage());
         }
 
         return $result;
