@@ -81,7 +81,7 @@ class Horde
     static public function logMessage($message, $file, $line,
                                       $priority = PEAR_LOG_INFO)
     {
-        $logger = &self::getLogger();
+        $logger = self::getLogger();
         if ($logger === false) {
             return;
         }
@@ -263,7 +263,7 @@ HTML;
     static public function addScriptFile($file, $app = null, $direct = false,
                                          $full = false)
     {
-        $hsf = &Horde_Script_Files::singleton();
+        $hsf = Horde_Script_Files::singleton();
         $hsf->add($file, $app, $direct, $full);
     }
 
@@ -272,7 +272,7 @@ HTML;
      */
     static public function includeScriptFiles()
     {
-        $hsf = &Horde_Script_Files::singleton();
+        $hsf = Horde_Script_Files::singleton();
         $hsf->includeFiles();
     }
 
@@ -283,7 +283,7 @@ HTML;
      */
     static public function listScriptFiles()
     {
-        $hsf = &Horde_Script_Files::singleton();
+        $hsf = Horde_Script_Files::singleton();
         return $hsf->listFiles();
     }
 
@@ -295,7 +295,7 @@ HTML;
      */
     static public function disableAutoloadHordeJS()
     {
-        $hsf = &Horde_Script_Files::singleton();
+        $hsf = Horde_Script_Files::singleton();
         $hsf->disableAutoloadHordeJS();
     }
 
@@ -1463,7 +1463,7 @@ HTML;
      */
     static public function allowOutputCompression()
     {
-        $browser = &Horde_Browser::singleton();
+        $browser = Horde_Browser::singleton();
         return !$browser->hasQuirk('buggy_compression') &&
                (ini_get('zlib.output_compression') == '') &&
                (ini_get('zend_accelerator.compress_all') == '') &&
@@ -1767,7 +1767,7 @@ HTML;
     static public function authenticationFailureRedirect()
     {
         if (Horde_Cli::runningFromCLI()) {
-            $cli = &Horde_Cli::singleton();
+            $cli = Horde_Cli::singleton();
             $cli->fatal(_("You are not authenticated."));
         }
 
