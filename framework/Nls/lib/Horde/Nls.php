@@ -465,10 +465,12 @@ class Horde_Nls
         }
 
         if (!isset(self::$_cache['nl_info'])) {
-            self::$_cache['nl_info'] = nl_langinfo($item);
+            self::$_cache['nl_info'] = array();
         }
-
-        return self::$_cache['nl_info'];
+        if (!isset(self::$_cache['nl_info'][$item])) {
+            self::$_cache['nl_info'][$item] = nl_langinfo($item);
+        }
+        return self::$_cache['nl_info'][$item];
     }
 
     /**
