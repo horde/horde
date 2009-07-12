@@ -187,10 +187,10 @@ class Horde_Registry
         }
 
         /* Create the global Perms object. */
-        $GLOBALS['perms'] = &Perms::singleton();
+        $GLOBALS['perms'] = Perms::singleton();
 
         /* Attach javascript notification listener. */
-        $notification = &Horde_Notification::singleton();
+        $notification = Horde_Notification::singleton();
         $notification->attach('javascript');
     }
 
@@ -929,11 +929,11 @@ class Horde_Registry
         /* If there is no logged in user, return an empty Prefs::
          * object with just default preferences. */
         if (!Horde_Auth::getAuth()) {
-            $GLOBALS['prefs'] = &Prefs::factory('session', $app, '', '', null, false);
+            $GLOBALS['prefs'] = Prefs::factory('session', $app, '', '', null, false);
         } else {
             if (!isset($GLOBALS['prefs']) || $GLOBALS['prefs']->getUser() != Horde_Auth::getAuth()) {
-                $GLOBALS['prefs'] = &Prefs::factory($GLOBALS['conf']['prefs']['driver'], $app,
-                                                    Horde_Auth::getAuth(), Horde_Auth::getCredential('password'));
+                $GLOBALS['prefs'] = Prefs::factory($GLOBALS['conf']['prefs']['driver'], $app,
+                                                   Horde_Auth::getAuth(), Horde_Auth::getCredential('password'));
             } else {
                 $GLOBALS['prefs']->retrieve($app);
             }
