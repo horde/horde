@@ -1,6 +1,6 @@
 <?php
 /**
- * Stream filter class to convert WOL characters.
+ * Stream filter class to convert EOL characters.
  *
  * Usage:
  *   stream_filter_register('horde_eol', 'Horde_Util_Filter_Eol');
