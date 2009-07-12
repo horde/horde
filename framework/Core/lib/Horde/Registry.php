@@ -899,12 +899,7 @@ class Horde_Registry
     public function importConfig($app)
     {
         if (($app != 'horde') && !$this->_loadCacheVar('conf-' . $app)) {
-            try {
-                $appConfig = Horde::loadConfiguration('conf.php', 'conf', $app);
-            } catch (Horde_Exception $e) {
-                $appConfig = array();
-            }
-
+            $appConfig = Horde::loadConfiguration('conf.php', 'conf', $app);
             $this->_cache['conf-' . $app] = Horde_Array::array_merge_recursive_overwrite($this->_cache['conf-horde'], $appConfig);
             $this->_saveCacheVar('conf-' . $app);
         }
