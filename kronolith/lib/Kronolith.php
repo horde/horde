@@ -1117,7 +1117,7 @@ class Kronolith
             $share = &$GLOBALS['kronolith_shares']->newShare(Horde_Auth::getAuth());
             $share->set('name', sprintf(_("%s's Calendar"), $name));
             $GLOBALS['kronolith_shares']->addShare($share);
-            $GLOBALS['all_calendars'][Auth::getAuth()] = &$share;
+            $GLOBALS['all_calendars'][Horde_Auth::getAuth()] = &$share;
 
             /* Make sure the personal calendar is displayed by default. */
             if (!in_array(Horde_Auth::getAuth(), $GLOBALS['display_calendars'])) {
@@ -1450,8 +1450,8 @@ class Kronolith
         if (isset($calendars[$default_share]) ||
             $prefs->isLocked('default_share')) {
             return $default_share;
-        } elseif (isset($GLOBALS['all_calendars'][Auth::getAuth()]) &&
-                  $GLOBALS['all_calendars'][Auth::getAuth()]->hasPermission(Horde_Auth::getAuth(), $permission)) {
+        } elseif (isset($GLOBALS['all_calendars'][Horde_Auth::getAuth()]) &&
+                  $GLOBALS['all_calendars'][Horde_Auth::getAuth()]->hasPermission(Horde_Auth::getAuth(), $permission)) {
             return Horde_Auth::getAuth();
         } elseif (count($calendars)) {
             return key($calendars);
