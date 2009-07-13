@@ -2,6 +2,8 @@
 v5.0-git
 --------
 
+[mms] When generating and sending compressed ZIP data, use server-side temp
+      streams to minimize memory usage.
 [mms] Decode bodypart data on server if possible (RFC 3516).
 [mms] Use PHP temporary streams when working with message body data to reduce
       memory usage (Request #3359).

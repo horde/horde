@@ -319,12 +319,12 @@ class IMP_UI_Message
         /* Set up the add address icon link if contact manager is
          * available. */
         if (!is_null($addURL) && $link && $prefs->getValue('add_source')) {
-            $add_link = $registry->link('contacts/add', array('source' => $prefs->getValue('add_source')));
-            if (is_a($add_link, 'PEAR_Error')) {
+            try {
+                $registry->link('contacts/add', array('source' => $prefs->getValue('add_source')));
                 $add_link = $registry->hasMethod('contacts/import')
                     ? Horde_Util::addParameter($addURL, 'actionID', 'add_address')
                     : null;
-            }
+            } catch (Horde_Exception $e) {}
         }
 
         foreach (Horde_Mime_Address::getAddressesFromObject($addrlist) as $ob) {

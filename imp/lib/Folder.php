@@ -476,11 +476,12 @@ class IMP_Folder
      * @param array $folder_list  A list of folder names to generate a mbox
      *                            file for (UTF7-IMAP).
      *
-     * @return string  An mbox format mailbox file.
+     * @return resource  A stream resource containing the text of a mbox
+     *                   format mailbox file.
      */
     public function generateMbox($folder_list)
     {
-        $body = '';
+        $body = fopen('php://temp', 'r+');
 
         if (empty($folder_list)) {
             return $body;
@@ -488,7 +489,7 @@ class IMP_Folder
 
         foreach ($folder_list as $folder) {
             try {
-                $status = $GLOBALS['imp_imap']->status($folder, Horde_Imap_Client::STATUS_MESSAGES);
+                $status = $GLOBALS['imp_imap']->ob->status($folder, Horde_Imap_Client::STATUS_MESSAGES);
             } catch (Horde_Imap_Client_Exception $e) {
                 continue;
             }
@@ -497,7 +498,7 @@ class IMP_Folder
                  * overhead. */
                 try {
                     $res = $GLOBALS['imp_imap']->ob->fetch($folder, array(
-                            Horde_Imap_Client::FETCH_FULLMSG => array('peek' => true),
+                            Horde_Imap_Client::FETCH_FULLMSG => array('peek' => true, 'stream' => true),
                             Horde_Imap_Client::FETCH_ENVELOPE => true,
                             Horde_Imap_Client::FETCH_DATE => true,
                         ), array('ids' => array($i), 'sequence' => true));
@@ -517,8 +518,11 @@ class IMP_Folder
                 /* We need this long command since some MUAs (e.g. pine)
                  * require a space in front of single digit days. */
                 $date = sprintf('%s %2s %s', $ptr['date']->format('D M'), $ptr['date']->format('j'), $ptr['date']->format('H:i:s Y'));
-                $body .= 'From ' . $from . ' ' . $date . "\r\n" .
-                    $ptr['fullmsg'] . "\r\n";
+                fwrite($body, 'From ' . $from . ' ' . $date . "\r\n");
+                rewind($ptr['fullmsg']);
+                stream_copy_to_stream($ptr['fullmsg'], $body);
+                fclose($ptr['fullmsg']);
+                fwrite($body, "\r\n");
             }
         }
 

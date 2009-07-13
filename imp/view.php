@@ -107,18 +107,20 @@ case 'download_all':
         if (!$name) {
             $name = sprintf(_("part %s"), $val);
         }
-        $tosave[] = array('data' => $mime->getContents(), 'name' => $name);
+        $tosave[] = array('data' => $mime->getContents(array('stream' => true)), 'name' => $name);
     }
 
     if (!empty($tosave)) {
         try {
             $horde_compress = Horde_Compress::factory('zip');
-            $body = $horde_compress->compress($tosave);
+            $body = $horde_compress->compress($tosave, array('stream' => true));
         } catch (Horde_Exception $e) {
             Horde::fatal($e);
         }
-        $browser->downloadHeaders($zipfile, 'application/zip', false, strlen($body));
-        echo $body;
+        fseek($body, 0, SEEK_END);
+        $browser->downloadHeaders($zipfile, 'application/zip', false, ftell($body));
+        rewind($body);
+        fpassthru($body);
     }
     exit;
 
@@ -135,7 +137,7 @@ case 'download_render':
         if (Horde_Util::getFormData('zip')) {
             try {
                 $horde_compress = Horde_Compress::factory('zip');
-                $body = $horde_compress->compress(array(array('data' => $mime->getContents(), 'name' => $name)));
+                $body = $horde_compress->compress(array(array('data' => $mime->getContents(), 'name' => $name)), array('stream' => true));
             } catch (Horde_Exception $e) {
                 Horde::fatal($e);
             }
@@ -159,11 +161,13 @@ case 'download_render':
         break;
     }
 
-    $browser->downloadHeaders($name, $type, false, strlen($body));
     if (is_resource($body)) {
+        fseek($body, 0, SEEK_END);
+        $browser->downloadHeaders($name, $type, false, ftell($body));
         rewind($body);
         fpassthru($body);
     } else {
+        $browser->downloadHeaders($name, $type, false, strlen($body));
         echo $body;
     }
     exit;

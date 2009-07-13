@@ -133,18 +133,24 @@ case 'download_folder_zip':
     if (!empty($folder_list)) {
         $mbox = $imp_folder->generateMbox($folder_list);
         if ($actionID == 'download_folder') {
-            $browser->downloadHeaders($folder_list[0] . '.mbox', null, false, strlen($mbox));
+            $data = $mbox;
+            fseek($data, 0, SEEK_END);
+            $browser->downloadHeaders($folder_list[0] . '.mbox', null, false, ftell($data));
         } else {
             $horde_compress = Horde_Compress::factory('zip');
             try {
-                $mbox = $horde_compress->compress(array(array('data' => $mbox, 'name' => $folder_list[0] . '.mbox')));
+                $data = $horde_compress->compress(array(array('data' => $mbox, 'name' => $folder_list[0] . '.mbox')), array('stream' => true));
+                fclose($mbox);
             } catch (Horde_Exception $e) {
+                fclose($mbox);
                 $notification->push($e, 'horde.error');
                 break;
             }
-            $browser->downloadHeaders($folder_list[0] . '.zip', 'application/zip', false, strlen($mbox));
+            fseek($data, 0, SEEK_END);
+            $browser->downloadHeaders($folder_list[0] . '.zip', 'application/zip', false, ftell($data));
         }
-        echo $mbox;
+        rewind($data);
+        fpassthru($data);
         exit;
     }
     break;
