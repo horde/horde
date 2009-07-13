@@ -113,6 +113,7 @@ class Horde_Auth_Driver
                 }
             }
         } catch (Horde_Exception $e) {
+            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_DEBUG);
             Horde_Auth::setAuthError($e->getCode() || Horde_Auth::REASON_MESSAGE, $e->getMessage());
         }
 
