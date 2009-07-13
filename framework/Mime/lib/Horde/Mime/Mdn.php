@@ -146,7 +146,7 @@ class Horde_Mime_Mdn
         require_once 'Horde/Identity.php';
 
         /* Set up some variables we use later. */
-        $identity = &Identity::singleton();
+        $identity = Identity::singleton();
         $from_addr = $identity->getDefaultFromAddress();
 
         $to = $this->getMdnReturnAddr();

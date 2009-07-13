@@ -68,7 +68,7 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
     {
         $contents = $this->_mimepart->getContents();
 
-        $zip = &Horde_Compress::singleton('zip');
+        $zip = Horde_Compress::singleton('zip');
 
         /* Make sure this is a valid zip file. */
         if ($zip->checkZipData($contents) === false) {

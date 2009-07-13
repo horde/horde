@@ -49,7 +49,7 @@ class Horde_Mime_Viewer_Ooo extends Horde_Mime_Viewer_Driver
             'table:number-columns-spanned=' => 'colspan='
         );
 
-        $zip = &Horde_Compress::singleton('zip');
+        $zip = Horde_Compress::singleton('zip');
         $list = $zip->decompress($this->_mimepart->getContents(), array('action' => HORDE_COMPRESS_ZIP_LIST));
 
         foreach ($list as $key => $file) {

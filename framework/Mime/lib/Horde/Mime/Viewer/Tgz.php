@@ -52,7 +52,7 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Driver
 
         /* Decompress gzipped files. */
         if (in_array($subtype, $this->_gzipSubtypes)) {
-            $gzip = &Horde_Compress::singleton('gzip');
+            $gzip = Horde_Compress::singleton('gzip');
             $contents = $gzip->decompress($contents);
             if (is_a($contents, 'PEAR_Error') || empty($contents)) {
                 return array();
@@ -60,7 +60,7 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Driver
         }
 
         /* Obtain the list of files/data in the tar file. */
-        $tar = &Horde_Compress::singleton('tar');
+        $tar = Horde_Compress::singleton('tar');
         $tarData = $tar->decompress($contents);
         if (is_a($tarData, 'PEAR_Error')) {
             return array();

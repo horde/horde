@@ -49,7 +49,7 @@ class Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Driver
      */
     protected function _renderInline()
     {
-        $tnef = &Horde_Compress::singleton('tnef');
+        $tnef = Horde_Compress::singleton('tnef');
 
         $data = '<table border="1">';
         $info = $tnef->decompress($this->_mimepart->getContents());
