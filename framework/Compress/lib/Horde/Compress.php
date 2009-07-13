@@ -35,7 +35,7 @@ class Horde_Compress
             $driver = basename($driver);
         }
 
-        $class = (empty($app) ? 'Horde' : $app) . '_Auth_' . ucfirst($driver);
+        $class = (empty($app) ? 'Horde' : $app) . '_Compress_' . ucfirst($driver);
 
         if (class_exists($class)) {
             return new $class($params);
