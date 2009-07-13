@@ -84,20 +84,20 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.php.net</channel>
    </package>
    <package>
-   <name>Horde_Cache</name>
+    <name>Cache</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-   <name>Horde_Serialize</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>MIME</name>
+    <name>Mime</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
     <name>Secret</name>
     <channel>pear.horde.org</channel>
+   </package>
+   <package>
+     <name>Serialize</name>
+     <channel>pear.horde.org</channel>
    </package>
    <extension>
     <name>imap</name>
