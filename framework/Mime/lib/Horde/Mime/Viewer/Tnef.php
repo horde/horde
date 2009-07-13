@@ -49,11 +49,11 @@ class Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Driver
      */
     protected function _renderInline()
     {
-        $tnef = Horde_Compress::singleton('tnef');
+        $tnef = Horde_Compress::factory('tnef');
+        $info = $tnef->decompress($this->_mimepart->getContents());
 
         $data = '<table border="1">';
-        $info = $tnef->decompress($this->_mimepart->getContents());
-        if (empty($info) || is_a($info, 'PEAR_Error')) {
+        if (empty($info)) {
             $data .= '<tr><td>' . _("MS-TNEF Attachment contained no data.") . '</td></tr>';
         } else {
             $data .= '<tr><td>' . _("Name") . '</td><td>' . _("Mime Type") . '</td></tr>';

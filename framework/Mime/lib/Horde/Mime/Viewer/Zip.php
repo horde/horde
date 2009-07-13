@@ -68,17 +68,9 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
     {
         $contents = $this->_mimepart->getContents();
 
-        $zip = Horde_Compress::singleton('zip');
-
-        /* Make sure this is a valid zip file. */
-        if ($zip->checkZipData($contents) === false) {
-            return array();
-        }
-
+        $zip = Horde_Compress::factory('zip');
         $zipInfo = $zip->decompress($contents, array('action' => HORDE_COMPRESS_ZIP_LIST));
-        if (is_a($zipInfo, 'PEAR_Error')) {
-            return array();
-        }
+
         $fileCount = count($zipInfo);
 
         /* Determine maximum file name length. */
