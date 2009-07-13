@@ -54,6 +54,20 @@ class Horde_Compress_Zip extends Horde_Compress
     );
 
     /**
+     * Temporary data for compressing files.
+     *
+     * @var array
+     */
+    protected $_ctrldir;
+
+    /**
+     * Temporary contents for compressing files.
+     *
+     * @var resource
+     */
+    protected $_tmp;
+
+    /**
      * Create a ZIP compressed file from an array of file data.
      *
      * @param array $data    The data to compress.
@@ -64,21 +78,60 @@ class Horde_Compress_Zip extends Horde_Compress
      * 'name' - (string) The pathname to the file.
      * 'time' - (integer) [optional] The timestamp to use for the file.
      * </pre>
-     * @param array $params  The parameter array (unused).
+     * @param array $params  The parameter array.
+     * <pre>
+     * 'stream' - (boolean) If set, return a stream instead of a string.
+     *            DEFAULT: Return string
+     * </pre>
      *
-     * @return string  The ZIP file.
+     * @return mixed  The ZIP file as either a string or a stream resource.
+     * @throws Horde_Exception
      */
     public function compress($data, $params = array())
     {
-        $contents = '';
-        $ctrldir = array();
+        if (!Horde_Util::extensionExists('zlib')) {
+            throw new Horde_Exception(_("This server can't compress zip files."));
+        }
+
+        $this->_ctrldir = array();
+        $this->_tmp = fopen('php://temp', 'r+');
 
         reset($data);
         while (list(, $val) = each($data)) {
-            $ctrldir = $this->_addToZipFile($val, $contents, $ctrldir);
+            $this->_addToZipFile($val);
         }
 
-        return $this->_createZIPFile($contents, $ctrldir);
+        /* Creates the ZIP file.
+         * Official ZIP file format: http://www.pkware.com/appnote.txt */
+        $dir = implode('', $this->_ctrldir);
+
+        fseek($this->_tmp, 0, SEEK_END);
+        $offset = ftell($this->_tmp);
+
+        fwrite($this->_tmp,
+            $dir . self::CTRL_DIR_END .
+            /* Total # of entries "on this disk". */
+            pack('v', count($this->_ctrldir)) .
+            /* Total # of entries overall. */
+            pack('v', count($this->_ctrldir)) .
+            /* Size of central directory. */
+            pack('V', strlen($dir)) .
+            /* Offset to start of central dir. */
+            pack('V', $offset) .
+            /* ZIP file comment length. */
+            "\x00\x00"
+        );
+
+        rewind($this->_tmp);
+
+        if (empty($params['stream'])) {
+            $out = stream_get_contents($this->_tmp);
+            fclose($this->_tmp);
+        } else {
+            $out = $this->_tmp;
+        }
+
+        return $out;
     }
 
     /**
@@ -266,15 +319,17 @@ class Horde_Compress_Zip extends Horde_Compress
     /**
      * Adds a "file" to the ZIP archive.
      *
-     * @param array $file       See self::createZipFile().
-     * @param string $contents  The zip data.
-     * @param array $ctrldir    An array of central directory information.
-     *
-     * @return array  The updated value of $ctrldir.
+     * @param array $file  See self::createZipFile().
      */
-    protected function _addToZipFile($file, $contents, $ctrldir)
+    protected function _addToZipFile($file)
     {
-        $data = $file['data'];
+        if (is_resource($file['data'])) {
+            rewind($file['data']);
+            $data = stream_get_contents($file['data']);
+        } else {
+            $data = $file['data'];
+        }
+
         $name = str_replace('\\', '/', $file['name']);
 
         /* See if time/date information has been provided. */
@@ -290,10 +345,8 @@ class Horde_Compress_Zip extends Horde_Compress
         /* "Local file header" segment. */
         $unc_len = strlen($data);
         $crc     = crc32($data);
-        $zdata   = gzcompress($data);
-        $zdata   = substr(substr($zdata, 0, strlen($zdata) - 4), 2);
+        $zdata   = gzdeflate($data);
         $c_len   = strlen($zdata);
-        $old_offset = strlen($contents);
 
         /* Common data for the two entries. */
         $common =
@@ -308,52 +361,29 @@ class Horde_Compress_Zip extends Horde_Compress
             pack('v', 0);               /* Extra field length. */
 
         /* Add this entry to zip data. */
-        $contents .=
+        fseek($this->_tmp, 0, SEEK_END);
+        $old_offset = ftell($this->_tmp);
+
+        fwrite($this->_tmp,
             self::FILE_HEADER .        /* Begin creating the ZIP data. */
             $common .                   /* Common data. */
             $name .                     /* File name. */
-            $zdata;                     /* "File data" segment. */
+            $zdata                      /* "File data" segment. */
+        );
 
         /* Add to central directory record. */
-        $cdrec = self::CTRL_DIR_HEADER .
-                 "\x00\x00" .               /* Version made by. */
-                 $common .                  /* Common data. */
-                 pack('v', 0) .             /* File comment length. */
-                 pack('v', 0) .             /* Disk number start. */
-                 pack('v', 0) .             /* Internal file attributes. */
-                 pack('V', 32) .            /* External file attributes -
-                                               'archive' bit set. */
-                 pack('V', $old_offset) .   /* Relative offset of local
-                                               header. */
-                 $name;                     /* File name. */
-
-        // Save to central directory array. */
-        $ctrldir[] = $cdrec;
-
-        return $ctrldir;
-    }
-
-    /**
-     * Creates the ZIP file.
-     * Official ZIP file format: http://www.pkware.com/appnote.txt
-     *
-     * @return string  The ZIP file.
-     */
-    protected function _createZIPFile($contents, $ctrlDir)
-    {
-        $dir = implode('', $ctrlDir);
-
-        return $contents . $dir . self::CTRL_DIR_END .
-            /* Total # of entries "on this disk". */
-            pack('v', count($ctrlDir)) .
-            /* Total # of entries overall. */
-            pack('v', count($ctrlDir)) .
-            /* Size of central directory. */
-            pack('V', strlen($dir)) .
-            /* Offset to start of central dir. */
-            pack('V', strlen($contents)) .
-            /* ZIP file comment length. */
-            "\x00\x00";
+        $this->_ctrldir[] =
+            self::CTRL_DIR_HEADER .
+            "\x00\x00" .               /* Version made by. */
+            $common .                  /* Common data. */
+            pack('v', 0) .             /* File comment length. */
+            pack('v', 0) .             /* Disk number start. */
+            pack('v', 0) .             /* Internal file attributes. */
+            pack('V', 32) .            /* External file attributes -
+                                          'archive' bit set. */
+            pack('V', $old_offset) .   /* Relative offset of local
+                                          header. */
+            $name;                     /* File name. */
     }
 
 }
