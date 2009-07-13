@@ -84,7 +84,7 @@ if ($logout_reason == Horde_Auth::REASON_SESSION) {
 
 /* Redirect the user on logout if redirection is enabled. */
 if ($logout_reason == Horde_Auth::REASON_LOGOUT &&
-    ($conf['user']['redirect_on_logout'] ||
+    (!empty($conf['user']['redirect_on_logout']) ||
      !empty($conf['auth']['redirect_on_logout']))) {
     if (!empty($conf['auth']['redirect_on_logout'])) {
         $url = Horde_Auth::addLogoutParameters($conf['auth']['redirect_on_logout'], Horde_Auth::REASON_LOGOUT);
