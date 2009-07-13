@@ -1212,7 +1212,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 }
 
                 foreach ($options['ids'] as $id) {
-                    $ret[$id]['date'] = new DateTime($hdrinfo[$id]->MailDate);
+                    $ret[$id]['date'] = new Horde_Imap_Client_DateTime($hdrinfo[$id]->MailDate);
                 }
                 break;
 

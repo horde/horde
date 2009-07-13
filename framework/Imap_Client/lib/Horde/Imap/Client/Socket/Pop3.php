@@ -932,7 +932,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             case Horde_Imap_Client::FETCH_DATE:
                 foreach ($seq_ids as $id) {
                     $tmp = $this->_pop3Cache('hdrob', $id);
-                    $ret[$id]['date'] = new DateTime($tmp->getValue('date'));
+                    $ret[$id]['date'] = new Horde_Imap_Client_DateTime($tmp->getValue('date'));
                 }
                 break;
 

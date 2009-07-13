@@ -2328,7 +2328,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 break;
 
             case 'INTERNALDATE':
-                $tmp['date'] = new DateTime($data[++$i]);
+                $tmp['date'] = new Horde_Imap_Client_DateTime($data[++$i]);
                 break;
 
             case 'RFC822.SIZE':
