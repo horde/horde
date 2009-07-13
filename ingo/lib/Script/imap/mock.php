@@ -23,19 +23,9 @@ class Ingo_Script_imap_mock extends Ingo_Script_imap_api
 
         $dh = opendir($dir);
         while (($dent = readdir($dh)) !== false) {
-            if ($dent == '.' || $dent == '..') {
-                continue;
+            if (!in_array($dent, array('.', '..'))) {
+                $this->_fixtures[$dent] = Horde_Mime_Part::parseHeaders(file_get_contents($dir . '/' . $dent));
             }
-            $name = $dir . '/' . $dent;
-            $fh = fopen($name, 'r');
-            $data = fread($fh, filesize($name));
-            fclose($fh);
-
-            $params = array('input'          => &$data,
-                            'include_bodies' => true,
-                            'decode_bodies'  => true,
-                            'decode_headers' => true);
-            $this->_fixtures[$dent] = Mail_mimeDecode::decode($params);
         }
         closedir($dh);
 
@@ -121,7 +111,7 @@ class Ingo_Script_imap_mock extends Ingo_Script_imap_api
                     $fixture = $this->_fixtures[$this->_folders['INBOX'][$i]['fixture']];
                     $result[] = array(
                         'envelope' => array(
-                            'from' => $fixture->headers['from'],
+                            'from' => $fixture->getValue('from'),
                             'uid' => $uid
                         )
                     );
