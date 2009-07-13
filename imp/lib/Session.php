@@ -80,12 +80,8 @@ class IMP_Session
          * necessary. */
         if (!empty($conf['hooks']['vinfo'])) {
             try {
-                $hook_user = Horde::callHook('_imp_hook_vinfo', array('username', $imapuser), 'imp');
-                if (!is_a($hook_user, 'PEAR_Error')) {
-                    $imapuser = $hook_user;
-                }
-            } catch (Horde_Exception $e) {
-            }
+                $imapuser = Horde::callHook('_imp_hook_vinfo', array('username', $imapuser), 'imp');
+            } catch (Horde_Exception $e) {}
         }
 
         /* Load the server configuration. */

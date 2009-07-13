@@ -35,9 +35,13 @@ $templates = array(
 );
 if (Kronolith::hasPermission('max_events') !== true &&
     Kronolith::hasPermission('max_events') <= Kronolith::countEvents()) {
-    $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), Kronolith::hasPermission('max_events')), ENT_COMPAT, Horde_Nls::getCharset());
-    if (!empty($conf['hooks']['permsdenied'])) {
-        $message = Horde::callHook('_perms_hook_denied', array('kronolith:max_events'), 'horde', $message);
+    try {
+        if (!empty($conf['hooks']['permsdenied'])) {
+            Horde::callHook('_perms_hook_denied', array('kronolith:max_events'), 'horde');
+        }
+        $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), Kronolith::hasPermission('max_events')), ENT_COMPAT, Horde_Nls::getCharset());
+    } catch (Horde_Exception $e) {
+        $message = $e->getMessage();
     }
     $notification->push($message, 'horde.warning', array('content.raw'));
     $templates[Horde_Data::IMPORT_FILE] = array(KRONOLITH_TEMPLATES . '/data/export.inc');
@@ -241,9 +245,13 @@ if (is_array($next_step)) {
 
     foreach ($next_step as $row) {
         if ($max_events !== true && $num_events >= $max_events) {
-            $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), Kronolith::hasPermission('max_events')), ENT_COMPAT, Horde_Nls::getCharset());
-            if (!empty($conf['hooks']['permsdenied'])) {
-                $message = Horde::callHook('_perms_hook_denied', array('kronolith:max_events'), 'horde', $message);
+            try {
+                if (!empty($conf['hooks']['permsdenied'])) {
+                    Horde::callHook('_perms_hook_denied', array('kronolith:max_events'), 'horde');
+                }
+                $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), Kronolith::hasPermission('max_events')), ENT_COMPAT, Horde_Nls::getCharset());
+            } catch (Horde_Exception $e) {
+                $message = $e->getMessage();
             }
             $notification->push($message, 'horde.error', array('content.raw'));
             break;

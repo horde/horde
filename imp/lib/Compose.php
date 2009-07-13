@@ -619,7 +619,9 @@ class IMP_Compose
 
         /* Call post-sent hook. */
         if (!empty($conf['hooks']['postsent'])) {
-            Horde::callHook('_imp_hook_postsent', array($save_msg['msg'], $headers), 'imp', null);
+            try {
+                Horde::callHook('_imp_hook_postsent', array($save_msg['msg'], $headers), 'imp');
+            } catch (Horde_Exception $e) {}
         }
 
         return $sent_saved;
@@ -668,11 +670,14 @@ class IMP_Compose
                 $recipients += isset($address['grounpname']) ? count($address['addresses']) : 1;
             }
             if ($recipients > $timelimit) {
-                $error = @htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $timelimit, $conf['sentmail']['params']['limit_period']), ENT_COMPAT, Horde_Nls::getCharset());
                 if (!empty($conf['hooks']['permsdenied'])) {
-                    $error = Horde::callHook('_perms_hook_denied', array('imp:max_timelimit'), 'horde', $error);
+                    try {
+                        Horde::callHook('_perms_hook_denied', array('imp:max_timelimit'), 'horde');
+                    } catch (Horde_Exception $e) {
+                        throw new IMP_Compose_Exception($e);
+                    }
                 }
-                throw new IMP_Compose_Exception($error);
+                throw new IMP_Compose_Exception(@htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $timelimit, $conf['sentmail']['params']['limit_period']), ENT_COMPAT, Horde_Nls::getCharset()));
             }
         }
 
@@ -869,11 +874,14 @@ class IMP_Compose
                     $num_recipients += count(explode(',', $recipient));
                 }
                 if ($num_recipients > $max_recipients) {
-                    $message = @htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients."), $max_recipients), ENT_COMPAT, Horde_Nls::getCharset());
                     if (!empty($conf['hooks']['permsdenied'])) {
-                        $message = Horde::callHook('_perms_hook_denied', array('imp:max_recipients'), 'horde', $message);
+                        try {
+                            Horde::callHook('_perms_hook_denied', array('imp:max_recipients'), 'horde');
+                        } catch (Horde_Exception $e) {
+                            throw new IMP_Compose_Exception($e);
+                        }
                     }
-                    throw new IMP_Compose_Exception($message);
+                    throw new IMP_Compose_Exception(@htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients."), $max_recipients), ENT_COMPAT, Horde_Nls::getCharset()));
                 }
             }
         }
@@ -951,7 +959,11 @@ class IMP_Compose
                 /* If there is a user defined function, call it with the
                  * current trailer as an argument. */
                 if (!empty($GLOBALS['conf']['hooks']['trailer'])) {
-                    $trailer = Horde::callHook('_imp_hook_trailer', array($trailer), 'imp');
+                    try {
+                        $trailer = Horde::callHook('_imp_hook_trailer', array($trailer), 'imp');
+                    } catch (Horde_Exception $e) {
+                        throw new IMP_Compose_Exception($e);
+                    }
                 }
 
                 $body .= $trailer;

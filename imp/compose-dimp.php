@@ -28,8 +28,7 @@ function _removeAutoSaveDraft($index)
 require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Determine if compose mode is disabled. */
-$compose_disable = !empty($conf['hooks']['disable_compose']) &&
-                   Horde::callHook('_imp_hook_disable_compose', array(), 'imp');
+$compose_disable = !IMP::canCompose();
 
 /* The headers of the message. */
 $header = array();

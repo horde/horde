@@ -16,8 +16,7 @@ $d_read = $GLOBALS['prefs']->getValue('disposition_request_read');
 $save_attach = $GLOBALS['prefs']->getValue('save_attachments');
 
 /* Determine if compose mode is disabled. */
-$compose_disable = !empty($GLOBALS['conf']['hooks']['disable_compose']) &&
-                   Horde::callHook('_imp_hook_disable_compose', array(), 'imp');
+$compose_disable = !IMP::canCompose();
 
 // Small utility function to simplify creating dimpactions buttons.
 // As of right now, we don't show text only links.

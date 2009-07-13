@@ -138,8 +138,7 @@ if ($token = Horde_Util::getFormData('compose_formToken')) {
 Horde_Nls::setTimeZone();
 
 /* Determine if compose mode is disabled. */
-$compose_disable = !empty($conf['hooks']['disable_compose']) &&
-                   Horde::callHook('_imp_hook_disable_compose', array(), 'imp');
+$compose_disable = !IMP::canCompose();
 
 /* Determine if mailboxes are readonly. */
 $readonly_drafts = $readonly_sentmail = false;

@@ -489,8 +489,7 @@ if (!IMP::$printMode) {
         }
     }
 
-    $disable_compose = !empty($conf['hooks']['disable_compose']) &&
-                       Horde::callHook('_imp_hook_disable_compose', array(), 'imp');
+    $disable_compose = !IMP::canCompose();
 
     if (!$disable_compose) {
         $a_template->set('reply', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply') + $compose_params), _("Reply"), 'widget hasmenu', '', '', _("_Reply"), true));

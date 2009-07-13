@@ -56,8 +56,7 @@ if ($imp_imap->isReadOnly($sent_mail_folder)) {
 }
 
 /* Determine if compose mode is disabled. */
-$compose_disable = !empty($conf['hooks']['disable_compose']) &&
-    Horde::callHook('_imp_hook_disable_compose', array(), 'imp');
+$compose_disable = !IMP::canCompose();
 
 /* Set the current time zone. */
 Horde_Nls::setTimeZone();

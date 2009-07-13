@@ -248,7 +248,9 @@ class IMP_Views_ListMessages
 
             /* Get all the flag information. */
             if (!empty($GLOBALS['conf']['hooks']['msglist_flags'])) {
-                $ob['flags'] = array_merge($ob['flags'], Horde::callHook('_imp_hook_msglist_flags', array($ob, 'dimp'), 'imp'));
+                try {
+                    $ob['flags'] = array_merge($ob['flags'], Horde::callHook('_imp_hook_msglist_flags', array($ob, 'dimp'), 'imp'));
+                } catch (Horde_Exception $e) {}
             }
 
             $imp_flags = IMP_Imap_Flags::singleton();
@@ -304,7 +306,9 @@ class IMP_Views_ListMessages
 
         /* Allow user to alter template array. */
         if (!empty($GLOBALS['conf']['imp']['hooks']['mailboxarray'])) {
-            $msgs = Horde::callHook('_imp_hook_mailboxarray', array($msgs, 'dimp'), 'imp');
+            try {
+                $msgs = Horde::callHook('_imp_hook_mailboxarray', array($msgs, 'dimp'), 'imp');
+            } catch (Horde_Exception $e) {}
         }
 
         return $msgs;

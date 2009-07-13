@@ -30,10 +30,7 @@ class MIMP
             $items[IMP::generateIMPUrl('mailbox-mimp.php', 'INBOX')] = _("Inbox");
         }
 
-        if (($page != 'compose') &&
-            (empty($GLOBALS['conf']['hooks']['disable_compose']) ||
-             Horde::callHook('_imp_hook_disable_compose', array(true), 'imp'))) {
-
+        if (($page != 'compose') && IMP::canCompose()) {
             $items[Horde_Util::addParameter(Horde::applicationUrl('compose-mimp.php'), 'u', uniqid(mt_rand()))] = _("New Message");
         }
 

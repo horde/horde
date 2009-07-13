@@ -240,20 +240,24 @@ class IMP_Folder
 
         /* Check permissions. */
         if (!IMP::hasPermission('create_folders')) {
-            $old_error = error_reporting(0);
-            $message = htmlspecialchars(_("You are not allowed to create folders."), ENT_COMPAT, Horde_Nls::getCharset());
-            error_reporting($old_error);
-            if (!empty($conf['hooks']['permsdenied'])) {
-                $message = Horde::callHook('_perms_hook_denied', array('imp:create_folders'), 'horde', $message);
+            try {
+                if (!empty($conf['hooks']['permsdenied'])) {
+                    Horde::callHook('_perms_hook_denied', array('imp:create_folders'), 'horde', $message);
+                }
+                $message = @htmlspecialchars(_("You are not allowed to create folders."), ENT_COMPAT, Horde_Nls::getCharset());
+            } catch (Horde_Exception $e) {
+                $message = $e->getMessage();
             }
             $notification->push($message, 'horde.error', array('content.raw'));
             return false;
         } elseif (!IMP::hasPermission('max_folders')) {
-            $old_error = error_reporting(0);
-            $message = htmlspecialchars(sprintf(_("You are not allowed to create more than %d folders."), IMP::hasPermission('max_folders', true)), ENT_COMPAT, Horde_Nls::getCharset());
-            error_reporting($old_error);
-            if (!empty($conf['hooks']['permsdenied'])) {
-                $message = Horde::callHook('_perms_hook_denied', array('imp:max_folders'), 'horde', $message);
+            $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d folders."), IMP::hasPermission('max_folders', true)), ENT_COMPAT, Horde_Nls::getCharset());
+            try {
+                if (!empty($conf['hooks']['permsdenied'])) {
+                    Horde::callHook('_perms_hook_denied', array('imp:max_folders'), 'horde', $message);
+                }
+            } catch (Horde_Exception $e) {
+                $message = $e->getMessage();
             }
             $notification->push($message, 'horde.error', array('content.raw'));
             return false;

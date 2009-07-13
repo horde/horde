@@ -401,7 +401,9 @@ class IMP_Imap_Tree
 
         if ($_SESSION['imp']['protocol'] != 'pop') {
             if (!empty($GLOBALS['conf']['hooks']['display_folder'])) {
-                $this->_setInvisible($elt, !Horde::callHook('_imp_hook_display_folder', array($elt['v']), 'imp'));
+                try {
+                    $this->_setInvisible($elt, !Horde::callHook('_imp_hook_display_folder', array($elt['v']), 'imp'));
+                } catch (Horde_Exception $e) {}
             }
 
             if ($elt['c'] != 0) {
@@ -1648,10 +1650,12 @@ class IMP_Imap_Tree
         }
 
         if (!isset($mbox_icons)) {
-            $mbox_icons = Horde::callHook('_imp_hook_mbox_icons', array(), 'imp', false);
-            if (!$mbox_icons) {
-                return false;
-            }
+            try {
+                $mbox_icons = Horde::callHook('_imp_hook_mbox_icons', array(), 'imp', false);
+                if (!$mbox_icons) {
+                    return false;
+                }
+            } catch (Horde_Exception $e) {}
         }
 
         if (isset($mbox_icons[$elt['v']])) {

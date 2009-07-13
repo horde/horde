@@ -32,11 +32,7 @@ if (!function_exists('_folks_hook_countService')) {
 
         case 'wishes':
             $result = $GLOBALS['registry']->callByPackage('genie', 'listUserItems', array($user));
-            if ($result instanceof PEAR_Error) {
-                return $result;
-            } else {
-                return count($result);
-            }
+            return count($result);
 
         case 'galleries':
             return $GLOBALS['registry']->callByPackage('ansel', 'countGalleries', array('ansel', PERMS_SHOW, $user));
@@ -286,7 +282,7 @@ if (!function_exists('_horde_hook_signup_preprocess')) {
         }
 
         if (!eregi("^[_a-z0-9-]*$", $username)) {
-            return PEAR::raiseError(_("Username can contain only alphanumeric characters, underscore and minus."));
+            throw new Horde_Exception(_("Username can contain only alphanumeric characters, underscore and minus."));
         }
 
         $_db = DB::connect($GLOBALS['conf']['sql'], true);
@@ -295,13 +291,13 @@ if (!function_exists('_horde_hook_signup_preprocess')) {
         $result = $_db->getRow($query, array($username, $info['extra']['email']), DB_FETCHMODE_ASSOC);
 
         if ($result instanceof PEAR_Error) {
-            return $result;
+            throw new Horde_Exception($result);
         } elseif (empty($result)) {
             return $info;
         } elseif ($result['user_uid'] == $username) {
-            return PEAR::raiseError(_("There is already an user registered with this username"));
+            throw new Horde_Exception(_("There is already an user registered with this username"));
         } elseif ($result['user_email'] == $info['extra']['email']) {
-            return PEAR::raiseError(_("There is already an user registered with this email"));
+            throw new Horde_Exception(_("There is already an user registered with this email"));
         }
 
         return $info;
@@ -338,7 +334,7 @@ if (!function_exists('_horde_hook_signup_addextra')) {
 
         $result = $_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
-            return $result;
+            throw new Horde_Exception($result);
         }
 
         require_once $GLOBALS['registry']->get('fileroot', 'folks') . '/lib/Folks.php';

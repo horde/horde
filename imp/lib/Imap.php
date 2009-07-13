@@ -242,8 +242,12 @@ class IMP_Imap
     {
         if (!isset($this->_readonly[$mailbox])) {
             /* These tests work on both regular and search mailboxes. */
-            $res = !empty($GLOBALS['conf']['hooks']['mbox_readonly']) &&
-                Horde::callHook('_imp_hook_mbox_readonly', array($mailbox), 'imp');
+            try {
+                $res = !empty($GLOBALS['conf']['hooks']['mbox_readonly']) &&
+                    Horde::callHook('_imp_hook_mbox_readonly', array($mailbox), 'imp');
+            } catch (Horde_Exception $e) {
+                $res = false;
+            }
 
             /* This check can only be done for regular IMAP mailboxes. */
             // TODO: POP3 also?

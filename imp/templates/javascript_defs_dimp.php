@@ -60,7 +60,7 @@ $code['conf'] = array_filter(array(
     'base_mbox' => IMP_Imap_Tree::BASE_ELT,
     'buffer_pages' => intval($GLOBALS['conf']['dimp']['viewport']['buffer_pages']),
     'debug' => intval(!empty($GLOBALS['conf']['dimp']['js']['debug'])),
-    'disable_compose' => intval(!empty($GLOBALS['conf']['hooks']['disable_compose']) && Horde::callHook('_imp_hook_disable_compose', array(), 'imp')),
+    'disable_compose' => !IMP::canCompose(),
     'filter_any' => intval($GLOBALS['prefs']->getValue('filter_any_mailbox')),
     'fixed_folders' => empty($GLOBALS['conf']['server']['fixed_folders'])
         ? array()

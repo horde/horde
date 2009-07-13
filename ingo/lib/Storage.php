@@ -652,11 +652,11 @@ class Ingo_Storage_vacation extends Ingo_Storage_rule
             return $this->_addr;
         }
 
-        $addresses = Horde::callHook('_ingo_hook_vacation_addresses', array(Ingo::getUser()), 'ingo');
-        if (is_a($addresses, 'PEAR_Error')) {
-            $addresses = array();
+        try {
+            return Horde::callHook('_ingo_hook_vacation_addresses', array(Ingo::getUser()), 'ingo');
+        } catch (Horde_Exception $e) {
+            return array();
         }
-        return $addresses;
     }
 
     public function getVacationDays()

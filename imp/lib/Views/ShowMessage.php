@@ -18,6 +18,7 @@ class IMP_Views_ShowMessage
      *                         Horde_Mime_Address::parseAddressList().
      *
      * @return array  Array with the following keys: inner, personal, raw.
+     * @throws Horde_Exception
      */
     private function _buildAddressList($addrlist)
     {
@@ -332,13 +333,17 @@ class IMP_Views_ShowMessage
         }
 
         if ($preview && !empty($GLOBALS['conf']['dimp']['hooks']['previewview'])) {
-            $res = Horde::callHook('_imp_hook_dimp_previewview', array($result), 'imp');
-            if (!empty($res)) {
-                $result = $res[0];
-                $result['js'] = $res[1];
-            }
+            try {
+                $res = Horde::callHook('_imp_hook_dimp_previewview', array($result), 'imp');
+                if (!empty($res)) {
+                    $result = $res[0];
+                    $result['js'] = $res[1];
+                }
+            } catch (Horde_Exception $e) {}
         } elseif (!$preview && !empty($GLOBALS['conf']['dimp']['hooks']['messageview'])) {
-            $result = Horde::callHook('_imp_hook_dimp_messageview', array($result), 'imp');
+            try {
+                $result = Horde::callHook('_imp_hook_dimp_messageview', array($result), 'imp');
+            } catch (Horde_Exception $e) {}
         }
 
         if (!$preview) {

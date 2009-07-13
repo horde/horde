@@ -469,8 +469,9 @@ class Identity_imp extends Identity
         }
 
         if (!empty($GLOBALS['conf']['hooks']['signature'])) {
-            $val = Horde::callHook('_imp_hook_signature', array($val),
-                                   'imp', $val);
+            try {
+                $val = Horde::callHook('_imp_hook_signature', array($val), 'imp');
+            } catch (Horde_Exception $e) {}
         }
 
         $this->_signatures[$ident] = $val;

@@ -135,7 +135,10 @@ function smtpd_access_policy($query)
     if ($pos !== false) {
         $user = substr($user, 0, $pos);
     }
-    $user = Horde::callHook('_ingo_hook_smtpd_access_policy_username', $query, 'ingo', $user);
+
+    try {
+        $user = Horde::callHook('_ingo_hook_smtpd_access_policy_username', $query, 'ingo');
+    } catch (Horde_Exception $e) {}
 
     // Get $user's rules if we don't have them already.
     if (!isset($whitelists[$user])) {

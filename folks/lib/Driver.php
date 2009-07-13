@@ -374,16 +374,12 @@ class Folks_Driver {
                     }
                 } else {
                     $profile['count_' . $service] = Horde::callHook('_folks_hook_countService', array($service, $user), 'folks');
-                    if ($profile['count_' . $service] instanceof PEAR_Error) {
-                        return $profile['count_' . $service];
-                    } elseif (empty($profile['count_' . $service])) {
+                    if (empty($profile['count_' . $service])) {
                         continue;
                     }
                 }
                 $profile['count_' . $service . '_list'] = Horde::callHook('_folks_hook_getService', array($service, $user), 'folks');
-                if ($profile['count_' . $service . '_list'] instanceof PEAR_Error) {
-                    return PEAR::raiseError($profile['count_' . $service . '_list']);
-                } elseif (empty($profile['count_' . $service . '_list'])) {
+                if (empty($profile['count_' . $service . '_list'])) {
                     $profile['count_' . $service] = 0;
                 }
             }

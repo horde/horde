@@ -52,8 +52,7 @@ foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'index', 'mailbox') 
 }
 
 /* Determine if compose mode is disabled. */
-$disable_compose = !empty($conf['hooks']['disable_compose']) &&
-    !Horde::callHook('_imp_hook_disable_compose', array(), 'imp');
+$disable_compose = !IMP::canCompose();
 
 if (!$disable_compose) {
     $compose_args = array(

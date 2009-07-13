@@ -561,8 +561,7 @@ class IMP
             }
         }
 
-        if (empty($GLOBALS['conf']['hooks']['disable_compose']) ||
-            !Horde::callHook('_imp_hook_disable_compose', array(false), 'imp')) {
+        if (IMP::canCompose()) {
             $menu->add(self::composeLink(array('mailbox' => $GLOBALS['imp_mbox']['mailbox'])), _("_New Message"), 'compose.png');
         }
 
@@ -1792,6 +1791,21 @@ class IMP
     static public function selfUrl()
     {
         return self::$newUrl ? self::$newUrl : Horde::selfUrl(true);
+    }
+
+    /**
+     * Determine the status of composing.
+     *
+     * @return boolean  Is compose allowed?
+     */
+    static public function canCompose()
+    {
+        try {
+            return empty($conf['hooks']['disable_compose']) ||
+                   !Horde::callHook('_imp_hook_disable_compose', array(), 'imp');
+        } catch (Horde_Exception $e) {
+            return true;
+        }
     }
 
 }

@@ -18,7 +18,9 @@ function _outputSummaries($msgs, $mbox)
 
     /* Allow user to alter template array. */
     if (!empty($GLOBALS['conf']['imp']['hooks']['mailboxarray'])) {
-        $msgs = Horde::callHook('_imp_hook_mailboxarray', array($msgs, 'imp'), 'imp');
+        try {
+            $msgs = Horde::callHook('_imp_hook_mailboxarray', array($msgs, 'imp'), 'imp');
+        } catch (Horde_Exception $e) {}
     }
 
     if (!isset($template)) {
@@ -559,7 +561,7 @@ if ($pageOb['msgcount']) {
         $a_template->set('whitelist', Horde::widget('#', _("Whitelist"), 'widget whitelistAction', '', '', _("_Whitelist")));
     }
 
-    if (empty($conf['hooks']['disable_compose']) || !Horde::callHook('_imp_hook_disable_compose', array(), 'imp')) {
+    if (IMP::canCompose()) {
         $a_template->set('forward', Horde::widget('#', _("Forward"), 'widget forwardAction', '', '', _("Fo_rward")));
     }
 
@@ -750,10 +752,9 @@ while (list(,$ob) = each($mbox_info['overview'])) {
 
     /* Get all the flag information. */
     if (!empty($GLOBALS['conf']['hooks']['msglist_flags'])) {
-        $flags = Horde::callHook('_imp_hook_msglist_flags', array($ob, 'imp'), 'imp');
-        if (!is_a($flags, 'PEAR_Error')) {
-            $ob['flags'] = array_merge($ob['flags'], $flags);
-        }
+        try {
+            $ob['flags'] = array_merge($ob['flags'], Horde::callHook('_imp_hook_msglist_flags', array($ob, 'imp'), 'imp'));
+        } catch (Horde_Exception $e) {}
     }
 
     $flag_parse = $imp_flags->parse(array(
