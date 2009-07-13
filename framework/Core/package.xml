@@ -37,7 +37,8 @@ Application Framework.
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Renamed Menu:: as Horde_Menu::.
+ <notes>* Moved Horde_Exception to Exception package.
+ * Renamed Menu:: as Horde_Menu::.
  * Renamed Help:: as Horde_Help::.
  * Removed Text::/Horde_Text::.
  * Converted Horde to Horde 4 coding conventions.
@@ -48,7 +49,6 @@ Application Framework.
     <dir name="Horde">
      <file name="Config.php" role="php" />
      <file name="ErrorHandler.php" role="php" />
-     <file name="Exception.php" role="php" />
      <file name="Help.php" role="php" />
      <file name="Menu.php" role="php" />
      <file name="Registry.php" role="php" />
@@ -91,6 +91,10 @@ Application Framework.
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Exception</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Prefs</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -114,7 +118,6 @@ Application Framework.
   <filelist>
    <install name="lib/Horde/Config.php" as="Horde/Config.php" />
    <install name="lib/Horde/ErrorHandler.php" as="Horde/ErrorHandler.php" />
-   <install name="lib/Horde/Exception.php" as="Horde/Exception.php" />
    <install name="lib/Horde/Help.php" as="Horde/Help.php" />
    <install name="lib/Horde/Menu.php" as="Horde/Menu.php" />
    <install name="lib/Horde/Registry.php" as="Horde/Registry.php" />
