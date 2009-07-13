@@ -109,7 +109,7 @@ if (!empty($conf['auth']['alternate_login'])) {
     }
     header('Location: ' . $url);
     exit;
-} elseif ($conf['user']['alternate_login']) {
+} elseif (!empty($conf['user']['alternate_login'])) {
     $url = Horde_Auth::addLogoutParameters($conf['user']['alternate_login']);
     if (!isset($_COOKIE[session_name()])) {
         $url = Horde_Util::addParameter($url, session_name(), session_id(), false);
