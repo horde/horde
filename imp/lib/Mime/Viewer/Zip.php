@@ -23,6 +23,7 @@ class IMP_Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Zip
      * </pre>
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @throws Horde_Exception
      */
     protected function _render()
     {
@@ -34,13 +35,13 @@ class IMP_Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Zip
         /* Send the requested file. Its position in the zip archive is located
          * in 'zip_attachment'. */
         $data = $this->_mimepart->getContents();
-        $zip = Horde_Compress::singleton('zip');
+        $zip = Horde_Compress::factory('zip');
         $fileKey = Horde_Util::getFormData('zip_attachment') - 1;
-        $zipInfo = $zip->decompress($data, array('action' => HORDE_COMPRESS_ZIP_LIST));
+        $zipInfo = $zip->decompress($data, array('action' => Horde_Compress::ZIP_LIST));
 
         /* Verify that the requested file exists. */
         if (isset($zipInfo[$fileKey])) {
-            $text = $zip->decompress($data, array('action' => HORDE_COMPRESS_ZIP_DATA, 'info' => &$zipInfo, 'key' => $fileKey));
+            $text = $zip->decompress($data, array('action' => Horde_Compress::ZIP_DATA, 'info' => $zipInfo, 'key' => $fileKey));
             if (!empty($text)) {
                 return array(
                     $this->_mimepart->getMimeId() => array(

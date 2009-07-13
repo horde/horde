@@ -111,8 +111,12 @@ case 'download_all':
     }
 
     if (!empty($tosave)) {
-        $horde_compress = Horde_Compress::singleton('zip');
-        $body = $horde_compress->compress($tosave);
+        try {
+            $horde_compress = Horde_Compress::factory('zip');
+            $body = $horde_compress->compress($tosave);
+        } catch (Horde_Exception $e) {
+            Horde::fatal($e);
+        }
         $browser->downloadHeaders($zipfile, 'application/zip', false, strlen($body));
         echo $body;
     }
@@ -129,8 +133,12 @@ case 'download_render':
 
         /* Compress output? */
         if (Horde_Util::getFormData('zip')) {
-            $horde_compress = Horde_Compress::singleton('zip');
-            $body = $horde_compress->compress(array(array('data' => $mime->getContents(), 'name' => $name)));
+            try {
+                $horde_compress = Horde_Compress::factory('zip');
+                $body = $horde_compress->compress(array(array('data' => $mime->getContents(), 'name' => $name)));
+            } catch (Horde_Exception $e) {
+                Horde::fatal($e);
+            }
             $name .= '.zip';
             $type = 'application/zip';
         } else {

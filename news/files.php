@@ -80,7 +80,6 @@ case 'view_file':
 break;
 
 case 'download_zip_all':
-
     $file_id = sprintf(_("FilesOfNews-%s"), $news_id);
     $zipfiles = array();
     foreach ($news->getFiles($news_id) as $file) {
@@ -96,15 +95,18 @@ case 'download_zip_all':
         exit;
     }
 
-    $zip = Horde_Compress::singleton('zip');
-    $body = @$zip->compress($zipfiles);
+    try {
+        $zip = Horde_Compress::factory('zip');
+        $body = $zip->compress($zipfiles);
+    } catch (Horde_Exception $e) {
+        Horde::fatal($e);
+    }
     $browser->downloadHeaders($news_id . '.zip', 'application/zip', false, strlen($body));
     echo $body;
 
 break;
 
 case 'download_zip':
-
     $data = News::getFile($file_id);
     if ($data instanceof PEAR_Error) {
         if (Horde_Auth::isAdmin('news:admin')) {
@@ -117,8 +119,13 @@ case 'download_zip':
     }
 
     $zipfiles = array('data' => $data, 'name' => $file_id);
-    $zip = Horde_Compress::singleton('zip');
-    $body = @$zip->compress($zipfiles);
+
+    try {
+        $zip = Horde_Compress::factory('zip');
+        $body = $zip->compress($zipfiles);
+    } catch (Horde_Exception $e) {
+        Horde::fatal($e);
+    }
     $browser->downloadHeaders($file_id . '.zip', 'application/zip', false, strlen($body));
     echo $body;
 
