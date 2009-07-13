@@ -31,6 +31,7 @@ class Horde_Mime_Viewer_Ooo extends Horde_Mime_Viewer_Driver
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @throws Horde_Exception
      */
     protected function _render()
     {

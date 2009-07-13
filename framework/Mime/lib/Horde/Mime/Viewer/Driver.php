@@ -123,20 +123,36 @@ class Horde_Mime_Viewer_Driver
     {
         switch ($mode) {
         case 'full':
-            return $this->_render();
+            try {
+                return $this->_render();
+            } catch (Horde_Exception $e) {
+                $error = $e;
+            }
+            break;
 
         case 'inline':
-            return $this->_renderInline();
+            try {
+                return $this->_renderInline();
+            } catch (Horde_Exception $e) {
+                $error = $e;
+            }
 
         case 'info':
-            return $this->_renderInfo();
+            try {
+                return $this->_renderInfo();
+            } catch (Horde_Exception $e) {
+                $error = $e;
+            }
         }
+
+        // TODO: Error handling
     }
 
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @throws Horde_Exception
      */
     protected function _render()
     {
@@ -150,6 +166,7 @@ class Horde_Mime_Viewer_Driver
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @throws Horde_Exception
      */
     protected function _renderInline()
     {
@@ -163,6 +180,7 @@ class Horde_Mime_Viewer_Driver
      * Return the rendered information about the Horde_Mime_Part object.
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @throws Horde_Exception
      */
     protected function _renderInfo()
     {

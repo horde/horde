@@ -38,6 +38,7 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @throws Horde_Exception
      */
     protected function _render()
     {
@@ -53,6 +54,7 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @throws Horde_Exception
      */
     protected function _renderInline()
     {
@@ -63,6 +65,7 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
      * Converts the ZIP file to an HTML display.
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @throws Horde_Exception
      */
     protected function _toHTML()
     {

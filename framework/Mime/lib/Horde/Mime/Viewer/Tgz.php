@@ -39,6 +39,7 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Driver
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @throws Horde_Exception
      */
     protected function _renderInline()
     {
