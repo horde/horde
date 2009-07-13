@@ -70,9 +70,6 @@ class Horde_Auth_Signup
         // Perform any preprocessing if requested.
         if ($conf['signup']['preprocess']) {
             $info = Horde::callHook('_horde_hook_signup_preprocess', array($info));
-            if (is_a($info, 'PEAR_Error')) {
-                return $info;
-            }
         }
 
         // Check to see if the username already exists.
@@ -88,14 +85,14 @@ class Horde_Auth_Signup
         }
 
         $result = true;
+
         // Attempt to add/update any extra data handed in.
         if (!empty($info['extra'])) {
-            $result = false;
-            $result = Horde::callHook('_horde_hook_signup_addextra',
-                                     array($info['user_name'], $info['extra']));
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_EMERG);
-                return $result;
+            try {
+                return Horde::callHook('_horde_hook_signup_addextra', array($info['user_name'], $info['extra']));
+            } catch (Horde_Exception $e) {
+                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_EMERG);
+                return PEAR::raiseError($e->getMessage(), $e->getCode());
             }
         }
 
@@ -118,11 +115,9 @@ class Horde_Auth_Signup
 
         // Perform any preprocessing if requested.
         if ($conf['signup']['preprocess']) {
-            $info = Horde::callHook('_horde_hook_signup_preprocess',
-                                    array($info));
-            if (is_a($info, 'PEAR_Error')) {
-                return $info;
-            }
+            try {
+                $info = Horde::callHook('_horde_hook_signup_preprocess', array($info));
+            } catch (Horde_Exception $e) {}
         }
 
         // Check to see if the username already exists.
@@ -148,8 +143,9 @@ class Horde_Auth_Signup
         }
 
         if ($conf['signup']['queue']) {
-            $result = Horde::callHook('_horde_hook_signup_queued',
-                                      array($info['user_name'], $info));
+            try {
+                $result = Horde::callHook('_horde_hook_signup_queued', array($info['user_name'], $info));
+            } catch (Horde_Exception $e) {}
         }
 
         if (!empty($conf['signup']['email'])) {
@@ -258,8 +254,11 @@ class HordeSignupForm extends Horde_Form {
         $this->addHidden('', 'url', 'text', false);
 
         /* Use hooks get any extra fields required in signing up. */
-        $extra = Horde::callHook('_horde_hook_signup_getextra');
-        if (!is_a($extra, 'PEAR_Error') && !empty($extra)) {
+        try {
+            $extra = Horde::callHook('_horde_hook_signup_getextra');
+        } catch (Horde_Exception $e) {}
+
+        if (!empty($extra)) {
             if (!isset($extra['user_name'])) {
                 $this->addVariable(_("Choose a username"), 'user_name', 'text', true);
             }

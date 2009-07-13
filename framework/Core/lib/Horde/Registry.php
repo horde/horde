@@ -819,7 +819,9 @@ class Horde_Registry
         $this->_appStack[] = $app;
 
         /* Call post-push hook. */
-        Horde::callHook('_horde_hook_post_pushapp', array($app), 'horde', null);
+        try {
+            Horde::callHook('_horde_hook_post_pushapp', array($app), 'horde');
+        } catch (Horde_Exception $e) {}
 
         return true;
     }

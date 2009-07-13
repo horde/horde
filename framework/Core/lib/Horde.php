@@ -1791,16 +1791,10 @@ HTML;
      *                      function.
      * @param string $app   If specified look for hooks in the config directory
      *                      of this app.
-     * @param mixed $error  What to return if $app/config/hooks.php or $hook
-     *                      does not exist. If this is the string 'PEAR_Error'
-     *                      a PEAR error object is returned instead, detailing
-     *                      the failure.
      *
-     * @return mixed  Either the results of the hook or PEAR error on failure.
-     * @todo Throw Horde_Exception
+     * @return mixed  The results of the hook.
      */
-    static public function callHook($hook, $args = array(), $app = 'horde',
-                                    $error = 'PEAR_Error')
+    static public function callHook($hook, $args = array(), $app = 'horde')
     {
         if (!isset(self::$_hooksLoaded[$app])) {
             try {
@@ -1812,20 +1806,16 @@ HTML;
             }
         }
 
-        if (function_exists($hook)) {
-            $result = call_user_func_array($hook, $args);
-            if ($result instanceof PEAR_Error) {
-                self::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            }
-            return $result;
+        if (!function_exists($hook)) {
+            throw new Horde_Exception(sprintf('Hook %s in application %s not called.', $hook, $app));
+
         }
 
-        if (is_string($error) && strcmp($error, 'PEAR_Error') == 0) {
-            $error = PEAR::raiseError(sprintf('Hook %s in application %s not called.', $hook, $app));
-            self::logMessage($error, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        try {
+            return call_user_func_array($hook, $args);
+        } catch (Horde_Exception $e) {
+            self::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
         }
-
-        return $error;
     }
 
     /**

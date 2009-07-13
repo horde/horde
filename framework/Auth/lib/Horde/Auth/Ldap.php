@@ -325,9 +325,6 @@ class Horde_Auth_Ldap extends Horde_Auth_Driver
         global $conf;
         if (!empty($conf['hooks']['authldap'])) {
             $entry = Horde::callHook('_horde_hook_authldap', array($userId, $credentials));
-            if ($entry instanceof PEAR_Error) {
-                throw new Horde_Exception($entry);
-            }
             $dn = $entry['dn'];
             /* Remove the dn entry from the array. */
             unset($entry['dn']);
@@ -380,9 +377,6 @@ class Horde_Auth_Ldap extends Horde_Auth_Driver
 
         if (!empty($GLOBALS['conf']['hooks']['authldap'])) {
             $entry = Horde::callHook('_horde_hook_authldap', array($userId));
-            if ($entry instanceof PEAR_Error) {
-                throw new Horde_Exception($entry);
-            }
             $dn = $entry['dn'];
         } else {
             /* Search for the user's full DN. */
@@ -419,9 +413,6 @@ class Horde_Auth_Ldap extends Horde_Auth_Driver
 
         if (!empty($GLOBLS['conf']['hooks']['authldap'])) {
             $entry = Horde::callHook('_horde_hook_authldap', array($oldID, $credentials));
-            if ($entry instanceof PEAR_Error) {
-                throw new Horde_Exception($entry);
-            }
             $olddn = $entry['dn'];
             $entry = Horde::callHook('_horde_hook_authldap', array($newID, $credentials));
             $newdn = $entry['dn'];

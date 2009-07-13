@@ -76,7 +76,10 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         /* Connect to the MSAD server. */
         $this->_connect();
 
-        $entry = Horde::callHook('_horde_hook_authmsad', array($accountName, $credentials), 'horde', null);
+        try {
+            $entry = Horde::callHook('_horde_hook_authmsad', array($accountName, $credentials), 'horde');
+        } catch (Horde_Exception $e) {}
+
         if (!is_null($entry)) {
             $dn = $entry['dn'];
             unset($entry['dn']);
@@ -132,13 +135,14 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         /* Connect to the MSAD server. */
         $this->_connect();
 
-        $entry = Horde::callHook('_horde_hook_authmsad', array($accountName), 'horde', null);
-        if (!is_null($entry)) {
-            $dn = $entry['dn'];
-        } else {
+        try {
+            $entry = Horde::callHook('_horde_hook_authmsad', array($accountName), 'horde');
+        } catch (Horde_Exception $e) {}
+
+        $dn = is_null($entry)
             /* Search for the user's full DN. */
-            $dn = $this->_findDN($accountName);
-        }
+            ? $this->_findDN($accountName)
+            : $entry['dn'];
 
         if (!@ldap_delete($this->_ds, $dn)) {
             throw new Horde_Exception(sprintf(_("Horde_Auth_Msad: Unable to remove user \"%s\""), $accountName));
@@ -163,7 +167,10 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         /* Connect to the MSAD server. */
         $this->_connect();
 
-        $entry = Horde::callHook('_horde_hook_authmsad', array($oldId, $credentials), 'horde', null);
+        try {
+            $entry = Horde::callHook('_horde_hook_authmsad', array($oldId, $credentials), 'horde');
+        } catch (Horde_Exception $e) {}
+
         if (!is_null($entry)) {
             $olddn = $entry['dn'];
             unset($entry['dn']);

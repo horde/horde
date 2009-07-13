@@ -74,12 +74,14 @@ class Horde_Auth_Driver
         $userId = trim($userId);
 
         if (!empty($GLOBALS['conf']['hooks']['preauthenticate'])) {
-            if (!Horde::callHook('_horde_hook_preauthenticate', array($userId, $credentials, $realm), 'horde', false)) {
-                if (Horde_Auth::getAuthError() != Horde_Auth::REASON_MESSAGE) {
-                    Horde_Auth::setAuthError(Horde_Auth::REASON_FAILED);
+            try {
+                if (!Horde::callHook('_horde_hook_preauthenticate', array($userId, $credentials, $realm), 'horde')) {
+                    if (Horde_Auth::getAuthError() != Horde_Auth::REASON_MESSAGE) {
+                        Horde_Auth::setAuthError(Horde_Auth::REASON_FAILED);
+                    }
+                    return false;
                 }
-                return false;
-            }
+            } catch (Horde_Exception $e) {}
         }
 
         /* Store the credentials being checked so that subclasses can modify

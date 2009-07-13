@@ -511,12 +511,15 @@ class Horde_Auth
     {
         $userId = self::addHook(trim($userId));
 
-        if (!empty($GLOBALS['conf']['hooks']['postauthenticate']) &&
-            !Horde::callHook('_horde_hook_postauthenticate', array($userId, $credentials, $realm), 'horde', false)) {
-            if (self::getAuthError() != self::REASON_MESSAGE) {
-                self::setAuthError(self::REASON_FAILED);
-            }
-            return false;
+        if (!empty($GLOBALS['conf']['hooks']['postauthenticate'])) {
+            try {
+                if (!Horde::callHook('_horde_hook_postauthenticate', array($userId, $credentials, $realm), 'horde')) {
+                    if (self::getAuthError() != self::REASON_MESSAGE) {
+                        self::setAuthError(self::REASON_FAILED);
+                    }
+                    return false;
+                }
+            } catch (Horde_Exception $e) {}
         }
 
         /* If we're already set with this userId, don't continue. */
@@ -685,17 +688,13 @@ class Horde_Auth
      * @param string $userId  The authentication backend's user name.
      *
      * @return string  The internal Horde user name.
+     * @throws Horde_Exception
      */
     static public function addHook($userId)
     {
-        if (!empty($GLOBALS['conf']['hooks']['username'])) {
-            $newId = Horde::callHook('_username_hook_frombackend', array($userId));
-            if (!is_a($newId, 'PEAR_Error')) {
-                return $newId;
-            }
-        }
-
-        return $userId;
+        return empty($GLOBALS['conf']['hooks']['username'])
+            ? $userId
+            : Horde::callHook('_username_hook_frombackend', array($userId));
     }
 
     /**
@@ -710,17 +709,13 @@ class Horde_Auth
      * @param string $userId  The internal Horde user name.
      *
      * @return string  The authentication backend's user name.
+     * @throws Horde_Exception
      */
     static public function removeHook($userId)
     {
-        if (!empty($GLOBALS['conf']['hooks']['username'])) {
-            $newId = Horde::callHook('_username_hook_tobackend', array($userId));
-            if (!is_a($newId, 'PEAR_Error')) {
-                return $newId;
-            }
-        }
-
-        return $userId;
+        return empty($GLOBALS['conf']['hooks']['username'])
+            ? $userId
+            : Horde::callHook('_username_hook_tobackend', array($userId));
     }
 
     /**
