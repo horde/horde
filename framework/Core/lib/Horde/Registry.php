@@ -896,6 +896,9 @@ class Horde_Registry
     {
         if (($app != 'horde') && !$this->_loadCacheVar('conf-' . $app)) {
             $appConfig = Horde::loadConfiguration('conf.php', 'conf', $app);
+            if (empty($appConfig)) {
+                $appConfig = array();
+            }
             $this->_cache['conf-' . $app] = Horde_Array::array_merge_recursive_overwrite($this->_cache['conf-horde'], $appConfig);
             $this->_saveCacheVar('conf-' . $app);
         }
