@@ -77,7 +77,7 @@ if (empty($cid)) {
 }
 
 if (!($cache = IMP::getCache())) {
-    Horde::fatal('No cache backend available.', __FILE__, __LINE__);
+    Horde::fatal(new Horde_Exception('No cache backend available.'));
 }
 
 // If cache info doesn't exist, just output an empty body.

@@ -1731,7 +1731,7 @@ class IMP
         try {
             return Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
         } catch (Horde_Exception $e) {
-            Horde::fatal($e, __FILE__, __LINE__);
+            Horde::fatal($e);
         }
     }
 

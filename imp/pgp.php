@@ -74,7 +74,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 try {
     $imp_pgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
 } catch (Horde_Exception $e) {
-    Horde::fatal($e, __FILE__, __LINE__);
+    Horde::fatal($e);
 }
 
 $secure_check = Horde::isConnectionSecure();
@@ -261,11 +261,11 @@ case 'save_attachment_public_key':
     try {
         $contents = IMP_Contents::singleton(Horde_Util::getFormData('uid') . IMP::IDX_SEP . Horde_Util::getFormData('mailbox'));
     } catch (Horde_Exception $e) {
-        Horde::fatal($e, __FILE__, __LINE__);
+        Horde::fatal($e);
     }
     $mime_part = $contents->getMIMEPart(Horde_Util::getFormData('mime_id'));
     if (empty($mime_part)) {
-        Horde::fatal('Cannot retrieve public key from message.', __FILE__, __LINE__);
+        Horde::fatal(new Horde_Exception('Cannot retrieve public key from message.'));
     }
 
     /* Add the public key to the storage system. */
@@ -305,7 +305,7 @@ try {
 try {
     extract(Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp'));
 } catch (Horde_Exception $e) {
-    Horde::fatal($e, __FILE__, __LINE__);
+    Horde::fatal($e);
 }
 
 require_once 'Horde/Prefs/UI.php';

@@ -85,7 +85,7 @@ if ($actionID == 'compose_attach_preview') {
     try {
         $contents = IMP_Contents::singleton($uid . IMP::IDX_SEP . $mailbox);
     } catch (Horde_Exception $e) {
-        Horde::fatal($e, __FILE__, __LINE__);
+        Horde::fatal($e);
     }
 }
 

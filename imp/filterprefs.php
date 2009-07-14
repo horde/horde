@@ -15,7 +15,7 @@ require_once 'Horde/Prefs/UI.php';
 try {
     extract(Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp'));
 } catch (Horde_Exception $e) {
-    Horde::fatal($e, __FILE__, __LINE__);
+    Horde::fatal($e);
 }
 
 /* Are preferences locked? */

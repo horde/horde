@@ -73,7 +73,7 @@ case 'imp_acl_set':
         try {
             $current_acl = $ACLDriver->getACL($folder);
         } catch (Horde_Exception $e) {
-            Horde::fatal($e, __FILE__, __LINE__);
+            Horde::fatal($e);
         }
         foreach ($acls as $user => $acl) {
             if ($acl) {
@@ -129,7 +129,7 @@ if (empty($folder)) {
 try {
     $curr_acl = $ACLDriver->getACL($folder);
 } catch (Horde_Exception $e) {
-    Horde::fatal($e, __FILE__, __LINE__);
+    Horde::fatal($e);
 }
 $canEdit = $ACLDriver->canEdit($folder, $_SESSION['imp']['uniquser']);
 
@@ -137,7 +137,7 @@ require_once 'Horde/Prefs/UI.php';
 try {
     extract(Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp'));
 } catch (Horde_Exception $e) {
-    Horde::fatal($e, __FILE__, __LINE__);
+    Horde::fatal($e);
 }
 
 $app = 'imp';
