@@ -1807,8 +1807,8 @@ HTML;
         }
 
         if (!function_exists($hook)) {
-            throw new Horde_Exception(sprintf('Hook %s in application %s not called.', $hook, $app));
-
+            self::logMessage(sprintf('Hook %s in application %s not called.', $hook, $app), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            return null;
         }
 
         try {
