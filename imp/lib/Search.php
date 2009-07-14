@@ -619,7 +619,7 @@ class IMP_Search
      */
     static public function isSearchMbox($id)
     {
-        return (strpos($id, null) !== false);
+        return (strpos($id, "\0") !== false);
     }
 
     /**
