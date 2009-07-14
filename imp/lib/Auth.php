@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Auth_Imp:: class provides an IMP implementation of the Horde
+ * The Horde_Auth:: class provides an IMP implementation of the Horde
  * authentication system.
  *
  * Required parameters: NONE
@@ -14,7 +14,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Auth
  */
-class IMP_Auth_Imp extends Horde_Auth_Driver
+class IMP_Auth extends Horde_Auth_Base
 {
     /**
      * Find out if a set of login credentials are valid, and if

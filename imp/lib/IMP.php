@@ -74,7 +74,7 @@ class IMP
         if ($hordeauth) {
             $reason = Horde_Auth::isAuthenticated();
         } else {
-            $auth_imp = Horde_Auth::singleton(array('imp', 'imp'));
+            $auth_imp = new IMP_Auth();
             $reason = $auth_imp->authenticate(null, array(), false);
         }
 

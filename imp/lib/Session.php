@@ -108,7 +108,7 @@ class IMP_Session
 
         /* Do necessary authentication now (since Horde_Auth:: may need to set
          * values in Horde-land). */
-        $auth_imp = Horde_Auth::singleton(array('imp', 'imp'));
+        $auth_imp = new IMP_Auth();
         if ($auth_imp->authenticate($sess['uniquser'], array('password' => $password), true) !== true) {
             unset($_SESSION['imp']);
             return false;
