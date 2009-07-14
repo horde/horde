@@ -14,7 +14,7 @@
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @package Horde_Auth
  */
-class Horde_Auth_Kolab extends Horde_Auth_Driver
+class Horde_Auth_Kolab extends Horde_Auth_Base
 {
     /**
      * An array of capabilities, so that the driver can report which
@@ -138,7 +138,7 @@ class Horde_Auth_Kolab extends Horde_Auth_Driver
      */
     function setAuth($userId, $credentials, $realm = null, $changeRequested = false)
     {
-        // TODO - setAuth doesn't exist in Horde_Auth_Driver
+        // TODO - setAuth doesn't exist in Horde_Auth_Base
         //        This should probably use _username_hook_frombackend.
 
         if (class_exists('Horde_Kolab_Session')) {

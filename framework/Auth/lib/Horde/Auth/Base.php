@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Auth_Driver:: class provides a common abstracted interface to
+ * The Horde_Auth_Base:: class provides a common abstracted interface to
  * creating various authentication backends.
  *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
@@ -12,7 +12,7 @@
  * @author  Michael Slusarz <slusarz@curecanti.org>
  * @package Horde_Auth
  */
-class Horde_Auth_Driver
+abstract class Horde_Auth_Base
 {
     /**
      * An array of capabilities, so that the driver can report which
@@ -127,9 +127,7 @@ class Horde_Auth_Driver
      *
      * @throws Horde_Exception
      */
-    protected function _authenticate()
-    {
-    }
+    abstract protected function _authenticate();
 
     /**
      * Adds a set of authentication credentials.

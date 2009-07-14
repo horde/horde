@@ -17,7 +17,7 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Auth
  */
-class Horde_Auth_Application extends Horde_Auth_Driver
+class Horde_Auth_Application extends Horde_Auth_Base
 {
     /**
      * Cache for hasCapability().

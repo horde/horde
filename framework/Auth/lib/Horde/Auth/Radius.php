@@ -55,7 +55,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Auth
  */
-class Horde_Auth_Radius extends Horde_Auth_Driver
+class Horde_Auth_Radius extends Horde_Auth_Base
 {
     /**
      * Constructor.

@@ -27,7 +27,7 @@
  * @author  Jon Parise <jon@horde.org>
  * @package Horde_Auth
  */
-class Horde_Auth_Peclsasl extends Horde_Auth_Driver
+class Horde_Auth_Peclsasl extends Horde_Auth_Base
 {
     /**
      * Constructor.

@@ -19,7 +19,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Horde_Auth
  */
-class Horde_Auth_Login extends Horde_Auth_Driver
+class Horde_Auth_Login extends Horde_Auth_Base
 {
     /**
      * List of users that should be excluded from being listed/handled

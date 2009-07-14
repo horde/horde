@@ -20,7 +20,7 @@
  * @author  Max Kalika <max@horde.org>
  * @package Horde_Auth
  */
-class Horde_Auth_Ftp extends Horde_Auth_Driver
+class Horde_Auth_Ftp extends Horde_Auth_Base
 {
     /**
      * Constructor.

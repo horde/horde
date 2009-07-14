@@ -83,7 +83,7 @@
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @package Horde_Auth
  */
-class Horde_Auth_Cyrus extends Horde_Auth_Driver
+class Horde_Auth_Cyrus extends Horde_Auth_Base
 {
     /**
      * Horde_Imap_Client object.
@@ -95,7 +95,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Driver
     /**
      * Pointer to another backend that Cyrus authenticates against.
      *
-     * @var Horde_Auth_Driver
+     * @var Horde_Auth_Base
      */
      protected $_backend;
 

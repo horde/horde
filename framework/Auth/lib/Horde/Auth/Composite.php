@@ -12,7 +12,7 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Auth
  */
-class Horde_Auth_Composite extends Horde_Auth_Driver
+class Horde_Auth_Composite extends Horde_Auth_Base
 {
     /**
      * Hash containing any instantiated drivers.

@@ -30,7 +30,7 @@
  * @author  Jon Parise <jon@horde.org>
  * @package Horde_Auth
  */
-class Horde_Auth_Ldap extends Horde_Auth_Driver
+class Horde_Auth_Ldap extends Horde_Auth_Base
 {
     /**
      * An array of capabilities, so that the driver can report which

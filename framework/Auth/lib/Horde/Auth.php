@@ -68,17 +68,17 @@ class Horde_Auth
     static protected $_instances = array();
 
     /**
-     * Attempts to return a concrete Horde_Auth_Driver instance based on
+     * Attempts to return a concrete Horde_Auth_Base instance based on
      * $driver.
      *
-     * @param mixed $driver  The type of concrete Horde_Auth_Driver subclass
+     * @param mixed $driver  The type of concrete Horde_Auth_Base subclass
      *                       to return. If $driver is an array, then look
      *                       in $driver[0]/lib/Auth/ for the subclass
      *                       implementation named $driver[1].php.
      * @param array $params  A hash containing any additional configuration or
      *                       parameters a subclass might need.
      *
-     * @return Horde_Auth_Driver  The newly created concrete instance.
+     * @return Horde_Auth_Base  The newly created concrete instance.
      * @throws Horde_Exception
      */
     static public function factory($driver, $params = null)
@@ -90,18 +90,11 @@ class Horde_Auth
             $driver = basename($driver);
         }
 
-        /* Return a base Horde_Auth_Driver object if no driver is
-         * specified. */
-        if (empty($driver) || (strcasecmp($driver, 'none') == 0)) {
-            return new Horde_Auth_Driver();
-        }
-
         if (empty($params)) {
             $params = Horde::getDriverConfig('auth', $driver);
         }
 
         $class = (empty($app) ? 'Horde' : $app) . '_Auth_' . ucfirst($driver);
-
         if (class_exists($class)) {
             return new $class($params);
         }
@@ -116,14 +109,14 @@ class Horde_Auth
      *
      * This method must be invoked as: $var = Horde_Auth::singleton()
      *
-     * @param mixed $driver  The type of concrete Horde_Auth_Driver subclass
+     * @param mixed $driver  The type of concrete Horde_Auth_Base subclass
      *                       to return. If $driver is an array, then look
      *                       in $driver[0]/lib/Auth/ for the subclass
      *                       implementation named $driver[1].php.
      * @param array $params  A hash containing any additional configuration or
      *                       connection parameters a subclass might need.
      *
-     * @return Horde_Auth_Driver  The concrete reference.
+     * @return Horde_Auth_Base  The concrete reference.
      * @throws Horde_Exception
      */
     static public function singleton($driver, $params = array())

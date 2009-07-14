@@ -33,7 +33,7 @@
  * @author  Marcus I. Ryan <marcus@riboflavin.net>
  * @package Horde_Auth
  */
-class Horde_Auth_Smb extends Horde_Auth_Driver
+class Horde_Auth_Smb extends Horde_Auth_Base
 {
     /**
      * Constructor.

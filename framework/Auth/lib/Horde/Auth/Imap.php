@@ -37,7 +37,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Horde_Auth
  */
-class Horde_Auth_Imap extends Horde_Auth_Driver
+class Horde_Auth_Imap extends Horde_Auth_Base
 {
     /**
      * Constructor.

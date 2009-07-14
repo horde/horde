@@ -13,7 +13,7 @@
  * @author  Michael Rubinsky <mrubinsk@horde.org>
  * @package Horde_Auth
  */
-class Horde_Auth_imsp extends Horde_Auth_Driver
+class Horde_Auth_imsp extends Horde_Auth_Base
 {
     /**
      * Private authentication function.

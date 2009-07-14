@@ -28,7 +28,7 @@
  * @author  Cassio Nishiguchi <cassio@protectnetwork.org>
  * @package Horde_Auth
  */
-class Horde_Auth_Shibboleth extends Horde_Auth_Driver
+class Horde_Auth_Shibboleth extends Horde_Auth_Base
 {
     /**
      * An array of capabilities, so that the driver can report which

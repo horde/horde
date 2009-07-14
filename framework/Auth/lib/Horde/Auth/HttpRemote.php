@@ -11,7 +11,7 @@
  * @author  Duck <duck@obala.net>
  * @package Horde_Auth
  */
-class Horde_Auth_HttpRemote extends Horde_Auth_Driver
+class Horde_Auth_HttpRemote extends Horde_Auth_Base
 {
     /**
      * Find out if a set of login credentials are valid.
