@@ -76,10 +76,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         /* Connect to the MSAD server. */
         $this->_connect();
 
-        try {
-            $entry = Horde::callHook('_horde_hook_authmsad', array($accountName, $credentials), 'horde');
-        } catch (Horde_Exception $e) {}
-
+        $entry = Horde::callHook('_horde_hook_authmsad', array($accountName, $credentials), 'horde');
         if (!is_null($entry)) {
             $dn = $entry['dn'];
             unset($entry['dn']);
@@ -135,10 +132,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         /* Connect to the MSAD server. */
         $this->_connect();
 
-        try {
-            $entry = Horde::callHook('_horde_hook_authmsad', array($accountName), 'horde');
-        } catch (Horde_Exception $e) {}
-
+        $entry = Horde::callHook('_horde_hook_authmsad', array($accountName), 'horde');
         $dn = is_null($entry)
             /* Search for the user's full DN. */
             ? $this->_findDN($accountName)
@@ -167,10 +161,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         /* Connect to the MSAD server. */
         $this->_connect();
 
-        try {
-            $entry = Horde::callHook('_horde_hook_authmsad', array($oldId, $credentials), 'horde');
-        } catch (Horde_Exception $e) {}
-
+        $entry = Horde::callHook('_horde_hook_authmsad', array($oldId, $credentials), 'horde');
         if (!is_null($entry)) {
             $olddn = $entry['dn'];
             unset($entry['dn']);

@@ -512,14 +512,12 @@ class Horde_Auth
         $userId = self::addHook(trim($userId));
 
         if (!empty($GLOBALS['conf']['hooks']['postauthenticate'])) {
-            try {
-                if (!Horde::callHook('_horde_hook_postauthenticate', array($userId, $credentials, $realm), 'horde')) {
-                    if (self::getAuthError() != self::REASON_MESSAGE) {
-                        self::setAuthError(self::REASON_FAILED);
-                    }
-                    return false;
+            if (Horde::callHook('_horde_hook_postauthenticate', array($userId, $credentials, $realm), 'horde') === false) {
+                if (self::getAuthError() != self::REASON_MESSAGE) {
+                    self::setAuthError(self::REASON_FAILED);
                 }
-            } catch (Horde_Exception $e) {}
+                return false;
+            }
         }
 
         /* If we're already set with this userId, don't continue. */
@@ -578,14 +576,14 @@ class Horde_Auth
             : $_SERVER['HTTP_X_FORWARDED_FOR'];
 
         if (class_exists('Net_DNS')) {
-    	    $resolver = new Net_DNS_Resolver();
-    	    $resolver->retry = isset($GLOBALS['conf']['dns']['retry']) ? $GLOBALS['conf']['dns']['retry'] : 1;
-    	    $resolver->retrans = isset($GLOBALS['conf']['dns']['retrans']) ? $GLOBALS['conf']['dns']['retrans'] : 1;
-    	    $response = $resolver->query($host, 'PTR');
-    	    $ptrdname = $response ? $response->answer[0]->ptrdname : $host;
-    	} else {
-    	    $ptrdname = @gethostbyaddr($host);
-    	}
+            $resolver = new Net_DNS_Resolver();
+            $resolver->retry = isset($GLOBALS['conf']['dns']['retry']) ? $GLOBALS['conf']['dns']['retry'] : 1;
+            $resolver->retrans = isset($GLOBALS['conf']['dns']['retrans']) ? $GLOBALS['conf']['dns']['retrans'] : 1;
+            $response = $resolver->query($host, 'PTR');
+            $ptrdname = $response ? $response->answer[0]->ptrdname : $host;
+        } else {
+            $ptrdname = @gethostbyaddr($host);
+        }
 
         $last_login = array('time' => time(), 'host' => $ptrdname);
         $GLOBALS['prefs']->setValue('last_login', serialize($last_login));
@@ -688,7 +686,6 @@ class Horde_Auth
      * @param string $userId  The authentication backend's user name.
      *
      * @return string  The internal Horde user name.
-     * @throws Horde_Exception
      */
     static public function addHook($userId)
     {
@@ -709,7 +706,6 @@ class Horde_Auth
      * @param string $userId  The internal Horde user name.
      *
      * @return string  The authentication backend's user name.
-     * @throws Horde_Exception
      */
     static public function removeHook($userId)
     {

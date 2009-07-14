@@ -159,7 +159,9 @@ class Horde_Registry
         if (Horde_Auth::getAuth()) {
             try {
                 $this->_cacheob = Horde_Cache::singleton($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
-            } catch (Horde_Exception $e) {}
+            } catch (Horde_Exception $e) {
+                // @TODO Log error
+            }
         }
 
         $this->_regmtime = max(filemtime(HORDE_BASE . '/config/registry.php'),
@@ -819,9 +821,7 @@ class Horde_Registry
         $this->_appStack[] = $app;
 
         /* Call post-push hook. */
-        try {
-            Horde::callHook('_horde_hook_post_pushapp', array($app), 'horde');
-        } catch (Horde_Exception $e) {}
+        Horde::callHook('_horde_hook_post_pushapp', array($app), 'horde');
 
         return true;
     }
