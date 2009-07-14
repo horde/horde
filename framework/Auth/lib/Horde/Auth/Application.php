@@ -2,11 +2,17 @@
 /**
  * The Horde_Auth_Application class provides a wrapper around
  * application-provided Horde authentication which fits inside the
- * Horde Horde_Auth:: API.
+ * Horde_Auth:: API.
  *
  * Required parameters:
  * <pre>
  * 'app' - (string) The application which is providing authentication.
+ * </pre>
+ *
+ * Optional parameters:
+ * <pre>
+ * 'params' - (array) Parameters to pass to the application's authenticate
+ *            method.
  * </pre>
  *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
@@ -25,6 +31,20 @@ class Horde_Auth_Application extends Horde_Auth_Base
      * @var array
      */
     protected $_loaded = array();
+
+    /**
+     * Equivalent methods in application's API.
+     *
+     * @var array
+     */
+    protected $_apiMethods = array(
+        'add' => 'authAddUser',
+        'authenticate' => 'authAuthenticate',
+        'exists' => 'authUserExists',
+        'list' => 'authUserList',
+        'remove' => 'authRemoveUser',
+        'update' => 'authUpdateUser'
+    );
 
     /**
      * Constructor.
@@ -50,17 +70,10 @@ class Horde_Auth_Application extends Horde_Auth_Base
     {
         $capability = strtolower($capability);
 
-        $methods = array(
-            'add' => 'addUser',
-            'exists' => 'userExists',
-            'list' => 'userList',
-            'remove' => 'removeUser',
-            'update' => 'updateUser'
-        );
-
         if (!in_array($capability, $this->_loaded) &&
-            isset($methods[$capability])) {
-            $this->_capabilities[$capability] = $GLOBALS['registry']->hasMethod($methods[$capability], $this->_params['app']);
+            isset($this->_apiMethods[$capability])) {
+            $registry = Horde_Registry::singleton();
+            $this->_capabilities[$capability] = $registry->hasMethod($this->_apiMethods[$capability], $this->_params['app']);
             $this->_loaded[] = $capability;
         }
 
@@ -77,14 +90,14 @@ class Horde_Auth_Application extends Horde_Auth_Base
      */
     protected function _authenticate($userId, $credentials)
     {
-        if (!$GLOBALS['registry']->hasMethod('authenticate', $this->_params['app'])) {
+        if (!$this->hasCapability('authenticate')) {
             throw new Horde_Exception($this->_params['app'] . ' does not provide an authenticate() method.');
         }
 
+        $registry = Horde_Registry::singleton();
+
         try {
-            if (!$GLOBALS['registry']->callByPackage($this->_params['app'], 'authenticate', array('userId' => $userId, 'credentials' => $credentials, 'params' => $this->_params))) {
-                throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
-            }
+            $result = $registry->callByPackage($this->_params['app'], 'authenticate', array($userId, $credentials, $this->_params['params']));
         } catch (Horde_Exception $e) {
             throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
@@ -125,9 +138,12 @@ class Horde_Auth_Application extends Horde_Auth_Base
      */
     public function listUsers()
     {
-        return $this->hasCapability('list')
-            ? $GLOBALS['registry']->callByPackage($this->_params['app'], 'userList')
-            : parent::listUsers();
+        if ($this->hasCapability('list')) {
+            $registry = Horde_Registry::singleton();
+            return $registry->callByPackage($this->_params['app'], $this->_apiMethods['list']);
+        } else {
+            return parent::listUsers();
+        }
     }
 
     /**
@@ -139,9 +155,12 @@ class Horde_Auth_Application extends Horde_Auth_Base
      */
     public function exists($userId)
     {
-        return $this->hasCapability('exists')
-            ? $GLOBALS['registry']->callByPackage($this->_params['app'], 'userExists', array($userId))
-            : parent::exists($userId);
+        if ($this->hasCapability('exists')) {
+            $registry = Horde_Registry::singleton();
+            return $registry->callByPackage($this->_params['app'], $this->_apiMethods['exists'], array($userId));
+        } else {
+            return parent::exists($userId);
+        }
     }
 
     /**
@@ -155,7 +174,8 @@ class Horde_Auth_Application extends Horde_Auth_Base
     public function addUser($userId, $credentials)
     {
         if ($this->hasCapability('add')) {
-            $GLOBALS['registry']->callByPackage($this->_params['app'], 'addUser', array($userId, $credentials));
+            $registry = Horde_Registry::singleton();
+            $registry->callByPackage($this->_params['app'], $this->_apiMethods['exists'], array($userId, $credentials));
         } else {
             parent::addUser($userId, $credentials);
         }
@@ -173,9 +193,10 @@ class Horde_Auth_Application extends Horde_Auth_Base
     public function updateUser($oldID, $newID, $credentials)
     {
         if ($this->hasCapability('update')) {
-            $GLOBALS['registry']->callByPackage($this->_params['app'], 'updateUser', array($oldID, $newID, $credentials));
+            $registry = Horde_Registry::singleton();
+            $registry->callByPackage($this->_params['app'], $this->_apiMethods['update'], array($oldID, $newID, $credentials));
         } else {
-            parent::addUser($userId, $credentials);
+            parent::updateUser($userId, $credentials);
         }
     }
 
@@ -189,7 +210,8 @@ class Horde_Auth_Application extends Horde_Auth_Base
     public function removeUser($userId)
     {
         if ($this->hasCapability('remove')) {
-            $GLOBALS['registry']->callByPackage($this->_params['app'], 'removeUser', array($userId));
+            $registry = Horde_Registry::singleton();
+            $registry->callByPackage($this->_params['app'], $this->_apiMethods['remove'], array($userId));
             Horde_Auth::removeUserData($userId);
         } else {
             parent::removeUser($userId);
