@@ -604,6 +604,10 @@ class Horde_Registry
             $this->popApp();
         }
 
+        if (is_a($res, 'PEAR_Error')) {
+            throw new Horde_Exception($res);
+        }
+
         return $res;
     }
 
