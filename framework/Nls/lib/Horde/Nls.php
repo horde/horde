@@ -125,9 +125,9 @@ class Horde_Nls
         $lang_charset = $lang . '.' . self::getCharset();
         if ($lang_charset != setlocale(LC_ALL, $lang_charset)) {
             /* Next try language with its default charset. */
-            $charset = empty($GLOBALS['nls']['charsets'][$lang])
+            $charset = empty(self::$config['charsets'][$lang])
                 ? 'ISO-8859-1'
-                : $GLOBALS['nls']['charsets'][$lang];
+                : self::$config['charsets'][$lang];
             $lang_charset = $lang . '.' . $charset;
             self::_cachedCharset(0, $charset);
             if ($lang_charset != setlocale(LC_ALL, $lang_charset)) {
@@ -200,7 +200,7 @@ class Horde_Nls
      */
     static public function isValid($language)
     {
-        return !empty($GLOBALS['nls']['languages'][$language]);
+        return !empty(self::$config['languages'][$language]);
     }
 
     /**
@@ -214,8 +214,6 @@ class Horde_Nls
      */
     static protected function _map($language)
     {
-        $aliases = &$GLOBALS['nls']['aliases'];
-
         // Translate the $language to get broader matches.
         // (eg. de-DE should match de_DE)
         $trans_lang = str_replace('-', '_', $language);
@@ -226,8 +224,8 @@ class Horde_Nls
         }
 
         // See if we get a match for this
-        if (!empty($aliases[$trans_lang])) {
-            return $aliases[$trans_lang];
+        if (!empty(self::$config['aliases'][$trans_lang])) {
+            return self::$config['aliases'][$trans_lang];
         }
 
         // If we get that far down, the language cannot be found.
@@ -254,9 +252,9 @@ class Horde_Nls
         }
 
         if ($original) {
-            $charset = empty($GLOBALS['nls']['charsets'][$GLOBALS['language']])
+            $charset = empty(self::$config['charsets'][$GLOBALS['language']])
                 ? 'ISO-8859-1'
-                : $GLOBALS['nls']['charsets'][$GLOBALS['language']];
+                : self::$config['charsets'][$GLOBALS['language']];
         } else {
             $browser = Horde_Browser::singleton();
             if ($browser->hasFeature('utf') &&
@@ -299,9 +297,9 @@ class Horde_Nls
             }
         }
 
-        return empty($GLOBALS['nls']['charsets'][$GLOBALS['language']])
+        return empty(self::$config['charsets'][$GLOBALS['language']])
             ? 'ISO-8859-1'
-            : $GLOBALS['nls']['charsets'][$GLOBALS['language']];
+            : self::$config['charsets'][$GLOBALS['language']];
     }
 
     /**
