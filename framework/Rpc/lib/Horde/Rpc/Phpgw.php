@@ -94,7 +94,7 @@ class Horde_Rpc_Phpgw extends Horde_Rpc
             } else {
                 @session_destroy();
                 session_id($params[0]["sessionid"]);
-                Horde::setupSessionHandler();
+                Horde_Registry::setupSessionHandler();
                 session_start();
             }
         }
