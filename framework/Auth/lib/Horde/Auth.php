@@ -81,12 +81,12 @@ class Horde_Auth
      */
     static public function factory($driver, $params = null)
     {
-        $driver = basename($driver);
+        $driver = str_replace(' ', '_' , ucwords(str_replace('_', ' ', basename($driver))));
         if (empty($params)) {
             $params = Horde::getDriverConfig('auth', $driver);
         }
 
-        $class = 'Horde_Auth_' . ucfirst($driver);
+        $class = 'Horde_Auth_' . $driver;
         if (class_exists($class)) {
             return new $class($params);
         }

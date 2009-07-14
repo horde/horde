@@ -38,6 +38,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Auth">
+      <dir name="Http">
+       <file name="Remote.php" role="php" />
+      </dir> <!-- /lib/Horde/Auth/Http -->
       <dir name="Signup">
        <file name="Sql.php" role="php" />
       </dir> <!-- /lib/Horde/Auth/Signup -->
@@ -50,7 +53,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Cyrus.php" role="php" />
       <file name="Ftp.php" role="php" />
       <file name="Http.php" role="php" />
-      <file name="HttpRemote.php" role="php" />
       <file name="Imap.php" role="php" />
       <file name="Imsp.php" role="php" />
       <file name="Ipbasic.php" role="php" />
@@ -140,7 +142,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Auth/Signup/Sql.php" as="Horde/Auth/Signup/Sql.php" />
    <install name="lib/Horde/Auth/Application.php" as="Horde/Auth/Application.php" />
    <install name="lib/Horde/Auth/Auto.php" as="Horde/Auth/Auto.php" />
    <install name="lib/Horde/Auth/Base.php" as="Horde/Auth/Base.php" />
@@ -149,8 +150,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Auth/Cyrsql.php" as="Horde/Auth/Cyrsql.php" />
    <install name="lib/Horde/Auth/Cyrus.php" as="Horde/Auth/Cyrus.php" />
    <install name="lib/Horde/Auth/Ftp.php" as="Horde/Auth/Ftp.php" />
+   <install name="lib/Horde/Auth/Http/Remote.php" as="Horde/Auth/Http/Remote.php" />
    <install name="lib/Horde/Auth/Http.php" as="Horde/Auth/Http.php" />
-   <install name="lib/Horde/Auth/HttpRemote.php" as="Horde/Auth/HttpRemote.php" />
    <install name="lib/Horde/Auth/Imap.php" as="Horde/Auth/Imap.php" />
    <install name="lib/Horde/Auth/Imsp.php" as="Horde/Auth/Imsp.php" />
    <install name="lib/Horde/Auth/Ipbasic.php" as="Horde/Auth/Ipbasic.php" />
@@ -164,6 +165,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Auth/Peclsasl.php" as="Horde/Auth/Peclsasl.php" />
    <install name="lib/Horde/Auth/Radius.php" as="Horde/Auth/Radius.php" />
    <install name="lib/Horde/Auth/Shibboleth.php" as="Horde/Auth/Shibboleth.php" />
+   <install name="lib/Horde/Auth/Signup/Sql.php" as="Horde/Auth/Signup/Sql.php" />
    <install name="lib/Horde/Auth/Signup.php" as="Horde/Auth/Signup.php" />
    <install name="lib/Horde/Auth/Smb.php" as="Horde/Auth/Smb.php" />
    <install name="lib/Horde/Auth/Smbclient.php" as="Horde/Auth/Smbclient.php" />

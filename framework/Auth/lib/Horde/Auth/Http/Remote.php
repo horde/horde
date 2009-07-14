@@ -1,6 +1,6 @@
 <?php
 /**
- * The Auth_Http_Remote class authenticates users against a remote
+ * The Horde_Auth_Http_Remote class authenticates users against a remote
  * HTTP-Auth endpoint.
  *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
@@ -11,7 +11,7 @@
  * @author  Duck <duck@obala.net>
  * @package Horde_Auth
  */
-class Horde_Auth_HttpRemote extends Horde_Auth_Base
+class Horde_Auth_Http_Remote extends Horde_Auth_Base
 {
     /**
      * Find out if a set of login credentials are valid.
