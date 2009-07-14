@@ -692,7 +692,8 @@ HTML;
         // Return an error if neither main or vhosted versions of the config
         // file exist.
         if (!$was_included) {
-            throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $config_dir . $config_file));
+            Horde::logMessage(sprintf('Failed to import configuration file "%s".', $config_dir . $config_file), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            return;
         }
 
         if (isset($output) && $show_output) {
