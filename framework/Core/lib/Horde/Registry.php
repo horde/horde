@@ -87,7 +87,7 @@ class Horde_Registry
      * @param integer $session_flags  Any session flags.
      *
      * @return Horde_Registry  The Horde_Registry instance.
-     * @thros Horde_Exception
+     * @throws Horde_Exception
      */
     static public function singleton($session_flags = 0)
     {
