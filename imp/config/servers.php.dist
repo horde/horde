@@ -138,6 +138,11 @@
  *        IMAP server needs to support mailbox management via IMAP commands.
  *        Do not define this value if you do not want mailbox management.
  *
+ *        The following paramaeters are available (defined in 'params'):
+ *        'admin_user' - The admin user.
+ *        'admin_password' - The admin user.
+ *        'userhierarchy' - The hierarchy where user mailboxes are stored.
+ *
  * acl: (boolean) Set to true if you want to use Access Control Lists (folder
  *      sharing). Set to false to disable (DEFAULT). Not all IMAP servers
  *      support this feature.
@@ -246,19 +251,10 @@ $servers['cyrus'] = array(
     'preferred' => '',
     'admin' => array(
         'params' => array(
-            'login' => 'cyrus',
-            'password' => 'cyrus_pass',
-            // The 'userhierarchy' parameter defaults to 'user.'
-            // If you are using a nonstandard hierarchy for personal
-            // mailboxes, you will need to set it here.
-            'userhierarchy' => 'user.',
-            // Although these defaults are normally all that is required,
-            // you can modify the following parameters from their default
-            // values.
-            'protocol' => 'imap',
-            'hostspec' => 'localhost',
-            'port' => 143
-        )
+            'admin_user' => 'cyrus',
+            'admin_password' => 'cyrus_pass',
+            'userhierarchy' => 'user.'
+        ),
     ),
     'quota' => array(
         'driver' => 'imap',

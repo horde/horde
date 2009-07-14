@@ -11,103 +11,148 @@
  * @package IMP
  */
 
-$_services['perms'] = array(
-    'args' => array(),
-    'type' => '{urn:horde}stringArray');
-
-$_services['authCredentials'] = array(
-    'args' => array(),
-    'type' => '{urn:horde}hashHash'
-);
-
-$_services['authenticate'] = array(
-    'args' => array('userID' => 'string', 'credentials' => '{urn:horde}hash', 'params' => '{urn:horde}hash'),
-    'checkperms' => false,
-    'type' => 'boolean'
-);
-
-$_services['compose'] = array(
-    'args' => array('args' => '{urn:horde}hash', 'extra' => '{urn:horde}hash'),
-    'type' => 'string'
-);
-
-$_services['batchCompose'] = array(
-    'args' => array('args' => '{urn:horde}hash', 'extra' => '{urn:horde}hash'),
-    'type' => 'string'
-);
-
-$_services['folderlist'] = array(
-    'args' => array(),
-    'type' => '{urn:horde}stringArray'
-);
-
-$_services['createFolder'] = array(
-    'args' => array('folder' => 'string'),
-    'type' => 'string'
-);
-
-$_services['deleteMessages'] = array(
-    'args' => array('mailbox' => 'string', 'indices' => '{urn:horde}integerArray'),
-    'type' => 'integer'
-);
-
-$_services['copyMessages'] = array(
-    'args' => array('mailbox' => 'string', 'indices' => '{urn:horde}integerArray', 'target' => 'string'),
-    'type' => 'boolean'
-);
-
-$_services['moveMessages'] = array(
-    'args' => array('mailbox' => 'string', 'indices' => '{urn:horde}integerArray', 'target' => 'string'),
-    'type' => 'boolean'
-);
-
-$_services['flagMessages'] = array(
-    'args' => array('mailbox' => 'string', 'indices' => '{urn:horde}integerArray', 'flags' => '{urn:horde}stringArray', 'set' => 'boolean'),
-    'type' => 'boolean'
-);
-
-$_services['msgEnvelope'] = array(
-    'args' => array('mailbox' => 'string', 'indices' => '{urn:horde}integerArray'),
-    'type' => '{urn:horde}hashHash'
-);
-
-$_services['searchMailbox'] = array(
-    'args' => array('mailbox' => 'string', 'query' => 'object'),
-    'type' => '{urn:horde}integerArray'
-);
-
-$_services['mailboxCacheId'] = array(
-    'args' => array('mailbox' => 'string'),
-    'type' => 'string'
-);
-
-$_services['server'] = array(
-    'args' => array(),
-    'type' => '{urn:horde}hashHash'
-);
-
-$_services['favouriteRecipients'] = array(
-    'args' => array('limit' => 'int'),
-    'type' => '{urn:horde}stringArray'
-);
-
-$_services['changeLanguage'] = array(
-    'args' => array(),
-    'type' => 'boolean'
-);
-
-if (!empty($_SESSION['imp']['admin'])) {
-    $_services['userList'] = array(
+$_services = array_merge($_services, array(
+    'perms' => array(
+        'args' => array(),
         'type' => '{urn:horde}stringArray'
-    );
+    ),
 
-    $_services['addUser'] = array(
-        'args' => array('userId' => 'string')
-    );
+    'authCredentials' => array(
+        'args' => array(),
+        'type' => '{urn:horde}hashHash'
+    ),
 
-    $_services['removeUser'] = array(
-        'args' => array('userId' => 'string')
-    );
+    'compose' => array(
+        'args' => array(
+            'args' => '{urn:horde}hash',
+            'extra' => '{urn:horde}hash'
+        ),
+        'type' => 'string'
+    ),
+
+    'batchCompose' => array(
+        'args' => array(
+            'args' => '{urn:horde}hash',
+            'extra' => '{urn:horde}hash'
+        ),
+        'type' => 'string'
+    ),
+
+    'folderlist' => array(
+        'args' => array(),
+        'type' => '{urn:horde}stringArray'
+    ),
+
+    'createFolder' => array(
+        'args' => array('folder' => 'string'),
+        'type' => 'string'
+    ),
+
+    'deleteMessages' => array(
+        'args' => array(
+            'mailbox' => 'string',
+            'indices' => '{urn:horde}integerArray'
+        ),
+        'type' => 'integer'
+    ),
+
+    'copyMessages' => array(
+        'args' => array(
+            'mailbox' => 'string',
+            'indices' => '{urn:horde}integerArray',
+            'target' => 'string'
+        ),
+        'type' => 'boolean'
+    ),
+
+    'moveMessages' => array(
+        'args' => array(
+            'mailbox' => 'string',
+            'indices' => '{urn:horde}integerArray',
+            'target' => 'string'
+        ),
+        'type' => 'boolean'
+    ),
+
+    'flagMessages' => array(
+        'args' => array(
+            'mailbox' => 'string',
+            'indices' => '{urn:horde}integerArray',
+            'flags' => '{urn:horde}stringArray',
+            'set' => 'boolean'
+        ),
+        'type' => 'boolean'
+    ),
+
+    'msgEnvelope' => array(
+        'args' => array(
+            'mailbox' => 'string',
+            'indices' => '{urn:horde}integerArray'
+        ),
+        'type' => '{urn:horde}hashHash'
+    ),
+
+    'searchMailbox' => array(
+        'args' => array(
+            'mailbox' => 'string',
+            'query' => 'object'
+        ),
+        'type' => '{urn:horde}integerArray'
+    ),
+
+    'mailboxCacheId' => array(
+        'args' => array(
+            'mailbox' => 'string'
+        ),
+        'type' => 'string'
+    ),
+
+    'server' => array(
+        'args' => array(),
+        'type' => '{urn:horde}hashHash'
+    ),
+
+    'favouriteRecipients' => array(
+        'args' => array(
+            'limit' => 'int'
+        ),
+        'type' => '{urn:horde}stringArray'
+    ),
+
+    'changeLanguage' => array(
+        'args' => array(),
+        'type' => 'boolean'
+    ),
+
+    'authAuthenticate' => array(
+        'args' => array(
+            'userID' => 'string',
+            'credentials' => '{urn:horde}hash',
+            'params' => '{urn:horde}hash'
+        ),
+        'checkperms' => false,
+        'type' => 'boolean'
+    )
+));
+
+/* Only available if admin config is set for this server/login. */
+if (!empty($_SESSION['imp']['admin'])) {
+    $_services = array_merge($_services, array(
+        'authAddUser' => array(
+            'args' => array(
+                'userId' => 'string',
+                'credentials' => '{urn:horde}stringArray'
+            )
+        ),
+        'authRemoveUser' => array(
+            'args' => array(
+                'userId' => 'string'
+            )
+        ),
+        'authUserList' => array(
+            'type' => '{urn:horde}stringArray'
+        )
+    ));
 }
 
 /**
@@ -150,7 +195,6 @@ function _imp_authCredentials()
 {
     $app_name = $GLOBALS['registry']->get('name');
 
-    require_once dirname(__FILE__) . '/Imap.php';
     $servers = IMP_Imap::loadServerConfig();
     $server_list = array();
     foreach ($servers as $key => $val) {
@@ -176,31 +220,6 @@ function _imp_authCredentials()
     );
 
     return $credentials;
-}
-
-/**
- * Tries to authenticate with the mail server and create a mail session.
- *
- * @param string $userID      The username of the user.
- * @param array $credentials  Credentials of the user. Only allowed key:
- *                            'password'.
- * @param array $params       Additional parameters. Only allowed key:
- *                            'server'.
- *
- * @return boolean True on success, false on failure.
- */
-function _imp_authenticate($userID, $credentials, $params = array())
-{
-    $GLOBALS['authentication'] = 'none';
-    $GLOBALS['noset_view'] = true;
-    require_once dirname(__FILE__) . '/base.php';
-    require_once IMP_BASE . '/lib/Session.php';
-
-    $server_key = empty($params['server'])
-        ? IMP_Session::getAutoLoginServer()
-        : $params['server'];
-
-     return IMP_Session::createSession($userID, $credentials['password'], $server_key);
 }
 
 /**
@@ -436,6 +455,7 @@ function _imp_mailboxCacheId($mailbox)
  * 'hostspec' - (string) The server hostname.
  * 'port' - (integer) The server port.
  * 'protocol' - (string) Either 'imap' or 'pop'.
+ * 'secure' - (string) Either 'none', 'ssl', or 'tls'.
  * </pre>
  */
 function _imp_server()
@@ -447,8 +467,9 @@ function _imp_server()
         $imap_obj = unserialize($_SESSION['imp']['imap_ob']);
         return array(
             'hostspec' => $imap_obj->getParam('hostspec'),
-            'port' => $imap_obj->getParam('hostspec'),
-            'protocol' => $_SESSION['imp']['protocol']
+            'port' => $imap_obj->getParam('port'),
+            'protocol' => $_SESSION['imp']['protocol'],
+            'secure' => $imap_obj->getParam('secure')
         );
     }
 
@@ -496,15 +517,50 @@ function _imp_changeLanguage()
 }
 
 /**
+ * Tries to authenticate with the mail server and create a mail session.
+ *
+ * @param string $userID      The username of the user.
+ * @param array $credentials  Credentials of the user. Only allowed key:
+ *                            'password'.
+ * @param array $params       Additional parameters. Only allowed key:
+ *                            'server'.
+ *
+ * @return boolean True on success, false on failure.
+ */
+function _imp_authAuthenticate($userID, $credentials, $params = array())
+{
+    $GLOBALS['authentication'] = 'none';
+    $GLOBALS['noset_view'] = true;
+    require_once dirname(__FILE__) . '/base.php';
+
+    $server_key = empty($params['server'])
+        ? IMP_Session::getAutoLoginServer()
+        : $params['server'];
+
+     return IMP_Session::createSession($userID, $credentials['password'], $server_key);
+}
+
+/**
  * Adds a set of authentication credentials.
  *
- * @param string $userId  The userId to add.
+ * @param string $userId      The userId to add.
+ * @param array $credentials  An array of login credentials. For IMAP,
+ *                            this must contain a password entry.
  *
- * @return boolean  True on success or a PEAR_Error object on failure.
+ * @throws Horde_Exception
  */
-function _imp_addUser($userId)
+function _imp_authAddUser($userId, $credentials)
 {
-    return _imp_adminDo('add', array($userId));
+    if (($params = _imp_server()) === null) {
+        return;
+    }
+
+    $params = array_merge($params, $_SESSION['imp']['admin']['params']);
+    if (isset($params['admin_password'])) {
+        $params['admin_password'] = Horde_Secret::read(IMP::getAuthKey(), $params['admin_password']);
+    }
+    $auth = Horde_Auth::singleton('imap', $params);
+    $auth->addUser($userId, $credentials);
 }
 
 /**
@@ -512,43 +568,38 @@ function _imp_addUser($userId)
  *
  * @param string $userId  The userId to delete.
  *
- * @return boolean  True on success or a PEAR_Error object on failure.
+ * @throws Horde_Exception
  */
-function _imp_removeUser($userId)
+function _imp_authRemoveUser($userId)
 {
-    return _imp_adminDo('remove', array($userId));
+    if (($params = _imp_server()) === null) {
+        return;
+    }
+
+    $params = array_merge($params, $_SESSION['imp']['admin']['params']);
+    if (isset($params['admin_password'])) {
+        $params['admin_password'] = Horde_Secret::read(IMP::getAuthKey(), $params['admin_password']);
+    }
+    $auth = Horde_Auth::singleton('imap', $params);
+    $auth->removeUser($userId);
 }
 
 /**
  * Lists all users in the system.
  *
- * @return array  The array of userIds, or a PEAR_Error object on failure.
+ * @return array  The array of userIds.
+ * @throws Horde_Exception
  */
-function _imp_userList()
+function _imp_authUserList()
 {
-    return _imp_adminDo('list', array());
-}
-
-/**
- * Private function to perform an admin event.
- */
-function _imp_adminDo($task, $params)
-{
-    require_once 'Horde/IMAP/Admin.php';
-
-    $admin_params = $_SESSION['imp']['admin']['params'];
-    $admin_params['admin_user'] = $admin_params['login'];
-    $admin_params['admin_password'] = Horde_Secret::read(IMP::getAuthKey(), $admin_params['password']);
-    $imap = new IMAP_Admin($admin_params);
-
-    switch ($task) {
-    case 'add':
-        return $imap->addMailbox(Horde_String::convertCharset($params[0], Horde_Nls::getCharset(), 'utf7-imap'));
-
-    case 'remove':
-        return $imap->removeMailbox(Horde_String::convertCharset($params[0], Horde_Nls::getCharset(), 'utf7-imap'));
-
-    case 'list':
-        return $imap->listMailboxes();
+    if (($params = _imp_server()) === null) {
+        return;
     }
+
+    $params = array_merge($params, $_SESSION['imp']['admin']['params']);
+    if (isset($params['admin_password'])) {
+        $params['admin_password'] = Horde_Secret::read(IMP::getAuthKey(), $params['admin_password']);
+    }
+    $auth = Horde_Auth::singleton('imap', $params);
+    return $auth->listUsers();
 }
