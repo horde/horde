@@ -44,7 +44,7 @@ class Horde_Auth_Smb extends Horde_Auth_Base
      */
     public function __construct($params = array())
     {
-        if (!Util::extensionExists('smbauth')) {
+        if (!Horde_Util::extensionExists('smbauth')) {
             throw new Horde_Exception(_("Horde_Auth_Smb: Required smbauth extension not found."));
         }
 
