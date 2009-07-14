@@ -73,9 +73,12 @@ class Horde_Text_Filter_Emails extends Horde_Text_Filter
             /eix
 EOR;
 
-        if (isset($GLOBALS['registry']) &&
-            is_a($GLOBALS['registry'], 'Registry') &&
-            $GLOBALS['registry']->hasMethod('mail/compose') &&
+        if (class_exists('Horde_Registry')) {
+            $registry = Horde_Registry::singleton();
+        }
+
+        if ($registry &&
+            $registry->hasMethod('mail/compose') &&
             !$this->_params['always_mailto']) {
             /* If we have a mail/compose registry method, use it. */
             $replacement = 'Horde_Text_Filter_Emails::callback(\'registry\', \''
@@ -96,9 +99,9 @@ EOR;
                         . htmlspecialchars('$10$11') . '" title="'
                         . sprintf(_("New Message to %s"), htmlspecialchars('$10'))
                         . '">' . htmlspecialchars('$10$11') . '</a>'
+                        . htmlspecialchars('$14')
 EOP;
-                $replacement = 'chr(1).chr(1).chr(1).base64_encode('
-                    . $replacement . ').chr(1).chr(1).chr(1)';
+                $replacement = 'chr(1).chr(1).chr(1).base64_encode(' . $replacement . ').chr(1).chr(1).chr(1)';
             } else {
                 $replacement = 'Horde_Text_Filter_Emails::callback(\'link\', \''
                     . $this->_params['encode'] . '\', \'' . $class
@@ -133,9 +136,10 @@ EOP;
 
         parse_str($args, $extra);
         try {
-            $url = $GLOBALS['registry']->call('mail/compose',
-                                              array(array('to' => $email),
-                                              $extra));
+            $registry = Horde_Registry::singleton();
+            $url = $registry->call('mail/compose',
+                                   array(array('to' => $email),
+                                   $extra));
         } catch (Horde_Exception $e) {
             $url = 'mailto:' . urlencode($email);
         }
