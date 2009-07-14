@@ -727,6 +727,8 @@ HTML;
     {
         global $conf;
 
+        $type = Horde_String::lower($type);
+
         $c = null;
         if (is_array($backend)) {
             $c = Horde_Array::getElement($conf, $backend);
