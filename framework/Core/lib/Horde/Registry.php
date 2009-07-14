@@ -107,9 +107,13 @@ class Horde_Registry
      */
     protected function __construct($session_flags = 0)
     {
-        /* Import and global Horde's configuration values. */
+        /* Import and global Horde's configuration values. Almost a chicken
+         * and egg issue - since loadConfiguration() uses registry in certain
+         * instances. However, if HORDE_BASE is defined, and app is
+         * 'horde', registry is not used in the method so we are free to
+         * call it here (prevents us from duplicating a bunch of code
+         * here. */
         $this->_cache['conf-horde'] = Horde::loadConfiguration('conf.php', 'conf', 'horde');
-
         $conf = $GLOBALS['conf'] = &$this->_cache['conf-horde'];
 
         /* Initial Horde-wide settings. */
@@ -182,7 +186,7 @@ class Horde_Registry
 
         /* Stop system if Horde is inactive. */
         if ($this->applications['horde']['status'] == 'inactive') {
-            Horde::fatal(_("This system is currently deactivated."), __FILE__, __LINE__);
+            Horde::fatal(new Horde_Exception(_("This system is currently deactivated.")));
         }
 
         /* Create the global Perms object. */
@@ -223,7 +227,7 @@ class Horde_Registry
      */
     public function __clone()
     {
-        Horde::fatal('Horde_Registry objects should never be cloned.', __FILE__, __LINE__);
+        Horde::fatal(new Horde_Exception('Horde_Registry objects should never be cloned.'));
     }
 
     /**
@@ -773,7 +777,7 @@ class Horde_Registry
         if (!isset($this->applications[$app]) ||
             $this->applications[$app]['status'] == 'inactive' ||
             ($this->applications[$app]['status'] == 'admin' && !Horde_Auth::isAdmin())) {
-            Horde::fatal($app . ' is not activated', __FILE__, __LINE__);
+            Horde::fatal(new Horde_Exception($app . ' is not activated'));
         }
 
         /* If permissions checking is requested, return an error if the
@@ -1137,7 +1141,7 @@ class Horde_Registry
             ini_set('session.use_only_cookies', 1);
             if (!empty($conf['cookie']['domain']) &&
                 strpos($conf['server']['name'], '.') === false) {
-                Horde::fatal('Session cookies will not work without a FQDN and with a non-empty cookie domain. Either use a fully qualified domain name like "http://www.example.com" instead of "http://example" only, or set the cookie domain in the Horde configuration to an empty value, or enable non-cookie (url-based) sessions in the Horde configuration.', __FILE__, __LINE__);
+                Horde::fatal(new Horde_Exception('Session cookies will not work without a FQDN and with a non-empty cookie domain. Either use a fully qualified domain name like "http://www.example.com" instead of "http://example" only, or set the cookie domain in the Horde configuration to an empty value, or enable non-cookie (url-based) sessions in the Horde configuration.'));
             }
         }
 
