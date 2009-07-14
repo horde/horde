@@ -1207,7 +1207,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * using literal8 "~{#} format", but it doesn't seem to work in
              * all servers tried (UW-IMAP/Cyrus). However, there is no other
              * way to append null data, so try anyway. */
-            $binary = (strpos($text, null) !== false);
+            $binary = (strpos($text, "\0") !== false);
 
             /* Need to add 2 additional characters (we send CRLF at the end of
              * a line) to literal count for multiappend messages to ensure the

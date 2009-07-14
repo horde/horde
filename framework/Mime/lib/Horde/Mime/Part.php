@@ -1560,7 +1560,7 @@ class Horde_Mime_Part
                 break;
 
             case 'binary':
-                if (strpos($line, null) !== false) {
+                if (strpos($line, "\0") !== false) {
                     return true;
                 }
                 break;
