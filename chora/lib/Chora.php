@@ -44,7 +44,7 @@ class Chora
         try {
             $GLOBALS['sourceroots'] = Horde::loadConfiguration('sourceroots.php', 'sourceroots');
         } catch (Horde_Exception $e) {
-            $GLOBALS['notification']->push($GLOBALS['sourceroots']);
+            $GLOBALS['notification']->push($e);
             $GLOBALS['sourceroots'] = array();
         }
         $sourceroots = self::sourceroots();
@@ -95,6 +95,7 @@ class Chora
         $acts = array();
         if (!isset($defaultActs['rt'])) {
             self::fatal(_("No repositories found."));
+            return;
         }
 
         /* See if any have been passed as GET variables, and if so, assign
