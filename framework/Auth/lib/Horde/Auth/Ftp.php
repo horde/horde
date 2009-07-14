@@ -33,7 +33,6 @@ class Horde_Auth_Ftp extends Horde_Auth_Base
     {
         if (!Horde_Util::extensionExists('ftp')) {
             throw new Horde_Exception('Horde_Auth_Ftp: Required FTP extension not found. Compile PHP with the --enable-ftp switch.');
-            return false;
         }
 
         $params = array_merge(array(
