@@ -128,17 +128,13 @@ class Horde_Config
         include_once 'Horde/DOM.php';
         $doc = Horde_DOM_Document::factory(array('filename' => $path . '/conf.xml'));
 
-        /* Check if there is a CVS version tag and store it. */
+        /* Check if there is a CVS/Git version tag and store it. */
         $node = $doc->first_child();
         while (!empty($node)) {
-            if ($node->type == XML_COMMENT_NODE) {
-                // @TODO: Old CVS tag
-                if (preg_match('/\$.*?conf\.xml,v .*? .*\$/', $node->node_value(), $match) ||
-                // New Git tag
-                    preg_match('/\$Id:\s*[0-9a-f]+\s*\$/', $node->node_value(), $match)) {
-                    $this->_versionTag = $match[0] . "\n";
-                    break;
-                }
+            if (($node->type == XML_COMMENT_NODE) &&
+                ($vers_tag = $this->getVersion($node->node_value()))) {
+                $this->_versionTag = $vers_tag . "\n";
+                break;
             }
             $node = $node->next_sibling();
         }
@@ -151,6 +147,25 @@ class Horde_Config
         }
 
         return $this->_xmlConfigTree;
+    }
+
+    /**
+     * Get the Horde version string for a config file.
+     *
+     * @param string $text  The text to parse.
+     *
+     * @return string  The version string or false if not found.
+     */
+    static public function getVersion($text)
+    {
+        // @TODO: Old CVS tag
+        if (preg_match('/\$.*?conf\.xml,v .*? .*\$/', $text, $match) ||
+            // New Git tag
+            preg_match('/\$Id:\s*[0-9a-f]+\s*\$/', $text, $match)) {
+            return $match[0];
+        }
+
+        return false;
     }
 
     /**
