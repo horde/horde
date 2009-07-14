@@ -1,0 +1,59 @@
+<?php
+/**
+ * Turba addressbooks - edit.
+ *
+ * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (ASL). If you
+ * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ */
+
+require_once dirname(__FILE__) . '/../lib/base.php';
+require_once TURBA_BASE . '/lib/Forms/EditAddressBook.php';
+
+// Exit if this isn't an authenticated user, or if there's no source
+// configured for shares.
+if (!Horde_Auth::getAuth() || empty($_SESSION['turba']['has_share'])) {
+    require TURBA_BASE . '/'
+        . ($browse_source_count ? basename($prefs->getValue('initial_page')) : 'search.php');
+    exit;
+}
+
+$vars = Horde_Variables::getDefaultVariables();
+$addressbook = $turba_shares->getShare($vars->get('a'));
+if (is_a($addressbook, 'PEAR_Error')) {
+    $notification->push($addressbook, 'horde.error');
+    header('Location: ' . Horde::applicationUrl('addressbooks/', true));
+    exit;
+} elseif ($addressbook->get('owner') != Horde_Auth::getAuth()) {
+    $notification->push(_("You are not allowed to change this addressbook."), 'horde.error');
+    header('Location: ' . Horde::applicationUrl('addressbooks/', true));
+    exit;
+}
+$form = new Turba_EditAddressBookForm($vars, $addressbook);
+
+// Execute if the form is valid.
+if ($form->validate($vars)) {
+    $original_name = $addressbook->get('name');
+    $result = $form->execute();
+    if (is_a($result, 'PEAR_Error')) {
+        $notification->push($result, 'horde.error');
+    } else {
+        if ($addressbook->get('name') != $original_name) {
+            $notification->push(sprintf(_("The addressbook \"%s\" has been renamed to \"%s\"."), $original_name, $addressbook->get('name')), 'horde.success');
+        } else {
+            $notification->push(sprintf(_("The addressbook \"%s\" has been saved."), $original_name), 'horde.success');
+        }
+    }
+
+    header('Location: ' . Horde::applicationUrl('addressbooks/', true));
+    exit;
+}
+
+$vars->set('name', $addressbook->get('name'));
+$vars->set('description', $addressbook->get('desc'));
+$title = $form->getTitle();
+require TURBA_TEMPLATES . '/common-header.inc';
+require TURBA_TEMPLATES . '/menu.inc';
+echo $form->renderActive($form->getRenderer(), $vars, 'edit.php', 'post');
+require $registry->get('templates', 'horde') . '/common-footer.inc';
