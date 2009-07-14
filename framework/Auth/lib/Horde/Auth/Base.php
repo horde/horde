@@ -125,9 +125,13 @@ abstract class Horde_Auth_Base
      * field, and the REASON_* constant in the code field (defaults to
      * REASON_MESSAGE).
      *
+     * @param string $userID      The userID to check.
+     * @param array $credentials  An array of login credentials.
+     *
      * @throws Horde_Exception
      */
-    abstract protected function _authenticate();
+    abstract protected function _authenticate($userId, $credentials);
+
 
     /**
      * Adds a set of authentication credentials.
