@@ -72,9 +72,7 @@ class Horde_Auth
      * $driver.
      *
      * @param mixed $driver  The type of concrete Horde_Auth_Base subclass
-     *                       to return. If $driver is an array, then look
-     *                       in $driver[0]/lib/Auth/ for the subclass
-     *                       implementation named $driver[1].php.
+     *                       to return.
      * @param array $params  A hash containing any additional configuration or
      *                       parameters a subclass might need.
      *
@@ -83,18 +81,12 @@ class Horde_Auth
      */
     static public function factory($driver, $params = null)
     {
-        if (is_array($driver)) {
-            list($app, $driv_name) = $driver;
-            $driver = basename($driv_name);
-        } else {
-            $driver = basename($driver);
-        }
-
+        $driver = basename($driver);
         if (empty($params)) {
             $params = Horde::getDriverConfig('auth', $driver);
         }
 
-        $class = (empty($app) ? 'Horde' : $app) . '_Auth_' . ucfirst($driver);
+        $class = 'Horde_Auth_' . ucfirst($driver);
         if (class_exists($class)) {
             return new $class($params);
         }
@@ -110,9 +102,7 @@ class Horde_Auth
      * This method must be invoked as: $var = Horde_Auth::singleton()
      *
      * @param mixed $driver  The type of concrete Horde_Auth_Base subclass
-     *                       to return. If $driver is an array, then look
-     *                       in $driver[0]/lib/Auth/ for the subclass
-     *                       implementation named $driver[1].php.
+     *                       to return.
      * @param array $params  A hash containing any additional configuration or
      *                       connection parameters a subclass might need.
      *
