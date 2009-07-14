@@ -39,7 +39,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <dir name="Horde">
      <dir name="Auth">
       <dir name="Signup">
-       <file name="Datatree.php" role="php" />
        <file name="Sql.php" role="php" />
       </dir> <!-- /lib/Horde/Auth/Signup -->
       <file name="Application.php" role="php" />
@@ -112,10 +111,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
   </required>
   <optional>
    <package>
-    <name>DataTree</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
     <name>Form</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -145,7 +140,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Auth/Signup/Datatree.php" as="Horde/Auth/Signup/Datatree.php" />
    <install name="lib/Horde/Auth/Signup/Sql.php" as="Horde/Auth/Signup/Sql.php" />
    <install name="lib/Horde/Auth/Application.php" as="Horde/Auth/Application.php" />
    <install name="lib/Horde/Auth/Auto.php" as="Horde/Auth/Auto.php" />
