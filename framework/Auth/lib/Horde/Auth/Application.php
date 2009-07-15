@@ -97,7 +97,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
         $registry = Horde_Registry::singleton();
 
         try {
-            $result = $registry->callByPackage($this->_params['app'], 'authenticate', array($userId, $credentials, $this->_params['params']));
+            $result = $registry->callByPackage($this->_params['app'], $this->_apiMethods['authenticate'], array($userId, $credentials));
         } catch (Horde_Auth_Exception $e) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
