@@ -186,7 +186,7 @@ class Horde_Registry
 
         /* Stop system if Horde is inactive. */
         if ($this->applications['horde']['status'] == 'inactive') {
-            Horde::fatal(new Horde_Exception(_("This system is currently deactivated.")));
+            Horde::fatal(_("This system is currently deactivated."), __FILE__, __LINE__);
         }
 
         /* Create the global Perms object. */
@@ -227,7 +227,7 @@ class Horde_Registry
      */
     public function __clone()
     {
-        Horde::fatal(new Horde_Exception('Horde_Registry objects should never be cloned.'));
+        Horde::fatal('Horde_Registry objects should never be cloned.', __FILE__, __LINE__);
     }
 
     /**
@@ -784,7 +784,7 @@ class Horde_Registry
         if (!isset($this->applications[$app]) ||
             $this->applications[$app]['status'] == 'inactive' ||
             ($this->applications[$app]['status'] == 'admin' && !Horde_Auth::isAdmin())) {
-            Horde::fatal(new Horde_Exception($app . ' is not activated'));
+            Horde::fatal($app . ' is not activated', __FILE__, __LINE__);
         }
 
         /* If permissions checking is requested, return an error if the
@@ -1151,7 +1151,7 @@ class Horde_Registry
             ini_set('session.use_only_cookies', 1);
             if (!empty($conf['cookie']['domain']) &&
                 strpos($conf['server']['name'], '.') === false) {
-                Horde::fatal(new Horde_Exception('Session cookies will not work without a FQDN and with a non-empty cookie domain. Either use a fully qualified domain name like "http://www.example.com" instead of "http://example" only, or set the cookie domain in the Horde configuration to an empty value, or enable non-cookie (url-based) sessions in the Horde configuration.'));
+                Horde::fatal('Session cookies will not work without a FQDN and with a non-empty cookie domain. Either use a fully qualified domain name like "http://www.example.com" instead of "http://example" only, or set the cookie domain in the Horde configuration to an empty value, or enable non-cookie (url-based) sessions in the Horde configuration.', __FILE__, __LINE__);
             }
         }
 
