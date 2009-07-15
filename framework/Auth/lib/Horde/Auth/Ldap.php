@@ -295,7 +295,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
                 }
 
                 if ($toexpire == 0) {
-                    $this->_authCredentials['changeRequested'] = true;
+                    $this->_credentials['params']['change'] = true;
                 } elseif ($toexpire < 0) {
                     throw new Horde_Auth_Exception('', Horde_Auth::REASON_EXPIRED);
                 }

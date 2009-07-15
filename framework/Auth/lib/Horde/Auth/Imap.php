@@ -62,7 +62,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
             'userhierarchy' => 'user.'
         ), $params);
 
-        parent::__construct(array_merge($default_params, $params));
+        parent::__construct($params);
 
         if (!empty($this->_params['admin_user'])) {
             $this->_capabilities['add'] = true;

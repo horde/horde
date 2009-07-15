@@ -220,7 +220,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         $ssl = ($this->_params['ssl']) ? 'ldaps://' : '';
         $this->_ds = ldap_connect($ssl . $this->_params['hostspec'], $this->_params['port']);
         if (!$this->_ds) {
-            return PEAR::raiseError(_("Failed to connect to MSAD server."));
+            throw new Horde_Auth_Exception(_("Failed to connect to MSAD server."));
         }
 
         if (!ldap_set_option($this->_ds, LDAP_OPT_PROTOCOL_VERSION, 3)) {
@@ -249,7 +249,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         }
 
         if (!$bind) {
-            return PEAR::raiseError(_("Could not bind to MSAD server."));
+            throw new Horde_Auth_Exception(_("Could not bind to MSAD server."));
         }
 
         return true;
@@ -258,13 +258,11 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
     /**
      * Find the user dn
      *
-     * @access private
-     *
      * @param string $userId  The user UID to find.
      *
      * @return string  The user's full DN
      */
-    function _findDN($userId)
+    protected function _findDN($userId)
     {
         /* Search for the user's full DN. */
         foreach ($this->_params['uid'] as $uid) {
@@ -278,7 +276,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
                                );
             /* Searching the tree is not successful */
             if (!$search) {
-                return PEAR::raiseError(_("Could not search the MSAD server."));
+                throw new Horde_Auth_Exception(_("Could not search the MSAD server."));
             }
 
             /* Fetch the search result */
@@ -289,14 +287,14 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
             }
         }
 
-        if (is_array($result) && (count($result) > 1)) {
-            $dn = $result[0]['dn'];
-        } else {
-            return PEAR::raiseError(_("Empty result."));
+        if (!is_array($result) || (count($result) <= 1)) {
+            throw new Horde_Auth_Exception(_("Empty result."));
         }
+
         /* Be sure the horde userId is the configured one */
-        $this->_authCredentials['userId'] = $result[0][$this->_params['authId']][0];
-        return $dn;
+        $this->_credentials['userId'] = $result[0][$this->_params['authId']][0];
+
+        return $result[0]['dn'];
     }
 
 }

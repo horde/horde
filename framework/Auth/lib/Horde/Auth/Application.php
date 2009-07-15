@@ -42,7 +42,9 @@ class Horde_Auth_Application extends Horde_Auth_Base
         'authenticate' => 'authAuthenticate',
         'exists' => 'authUserExists',
         'list' => 'authUserList',
+        'loginparams' => 'authLoginParams',
         'remove' => 'authRemoveUser',
+        'transparent' => 'authTransparent',
         'update' => 'authUpdateUser'
     );
 
@@ -98,22 +100,9 @@ class Horde_Auth_Application extends Horde_Auth_Base
 
         try {
             $result = $registry->callByPackage($this->_params['app'], $this->_apiMethods['authenticate'], array($userId, $credentials));
+            $this->_credentials['params']['app'] = $this->_params['app'];
         } catch (Horde_Auth_Exception $e) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
-        }
-
-        // Horrific hack.  Avert your eyes.  Since an application may already
-        // set the authentication information necessary, we don't want to
-        // overwrite that info.  Coming into this function, we know that
-        // the authentication has not yet been set in this session.  So after
-        // calling the app-specific auth handler, if authentication
-        // information has suddenly appeared, it follows that the information
-        // has been stored already in the session and we shouldn't overwrite.
-        // So grab the authentication ID set and stick it in $_authCredentials
-        // this will eventually cause setAuth() in authenticate() to exit
-        // before re-setting the auth info values.
-        if ($ret && ($authid = Horde_Auth::getAuth())) {
-            $this->_authCredentials['userId'] = $authid;
         }
     }
 
@@ -203,6 +192,46 @@ class Horde_Auth_Application extends Horde_Auth_Base
         } else {
             parent::removeUser($userId);
         }
+    }
+
+    /**
+     * Attempt transparent authentication.
+     *
+     * @return boolean  Whether transparent login is supported.
+     * @throws Horde_Auth_Exception
+     */
+    protected function _transparent()
+    {
+        if (!$this->hasCapability('transparent')) {
+            return false;
+        }
+
+        $registry = Horde_Registry::singleton();
+        if (!$registry->callByPackage($this->_params['app'], $this->_apiMethods['transparent'])) {
+            return false;
+        }
+
+        $this->_credentials['params']['app'] = $this->_params['app'];
+        return true;
+    }
+
+    /**
+     * Returns information on what login parameters to display on the login
+     * screen.
+     *
+     * Is defined in an application's API in the function name identified by
+     * self::_apiMethods['loginparams'].
+     *
+     * @throws Horde_Exception
+     */
+    public function getLoginParams()
+    {
+        if (!$this->hasCapability('loginparams')) {
+            return parent::getLoginParams();
+        }
+
+        $registry = Horde_Registry::singleton();
+        return $registry->callByPackage($this->_params['app'], $this->_apiMethods['loginparams']);
     }
 
 }

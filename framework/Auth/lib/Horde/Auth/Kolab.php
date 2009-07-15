@@ -132,11 +132,10 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
      *
      * @param string $userId            The userId who has been authorized.
      * @param array $credentials        The credentials of the user.
-     * @param string $realm             The authentication realm to use.
-     * @param boolean $changeRequested  Whether to request that the user change
+     * @param boolean $change           Whether to request that the user change
      *                                  their password.
      */
-    function setAuth($userId, $credentials, $realm = null, $changeRequested = false)
+    function setAuth($userId, $credentials, $change = false)
     {
         // TODO - setAuth doesn't exist in Horde_Auth_Base
         //        This should probably use _username_hook_frombackend.
@@ -146,7 +145,7 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
             $userId = $session->user_mail;
         }
 
-        return parent::setAuth($userId, $credentials, $realm, $changeRequested);
+        return parent::setAuth($userId, $credentials, $change);
     }
 
     /**

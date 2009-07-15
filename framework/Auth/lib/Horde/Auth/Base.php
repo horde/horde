@@ -22,6 +22,7 @@ abstract class Horde_Auth_Base
      */
     protected $_capabilities = array(
         'add'           => false,
+        'authenticate'  => true,
         'groups'        => false,
         'list'          => false,
         'resetpassword' => false,
@@ -42,7 +43,7 @@ abstract class Horde_Auth_Base
      *
      * @var array
      */
-    protected $_authCredentials = array();
+    protected $_credentials = array();
 
     /**
      * Constructor.
@@ -63,18 +64,16 @@ abstract class Horde_Auth_Base
      * @param boolean $login      Whether to log the user in. If false, we'll
      *                            only test the credentials and won't modify
      *                            the current session. Defaults to true.
-     * @param string $realm       The authentication realm to check.
      *
      * @return boolean  Whether or not the credentials are valid.
      */
-    public function authenticate($userId, $credentials, $login = true,
-                                 $realm = null)
+    public function authenticate($userId, $credentials, $login = true)
     {
         $auth = false;
         $userId = trim($userId);
 
         if (!empty($GLOBALS['conf']['hooks']['preauthenticate'])) {
-            if (!Horde::callHook('_horde_hook_preauthenticate', array($userId, $credentials, $realm), 'horde')) {
+            if (!Horde::callHook('_horde_hook_preauthenticate', array($userId, $credentials), 'horde')) {
                 if (Horde_Auth::getAuthError() != Horde_Auth::REASON_MESSAGE) {
                     Horde_Auth::setAuthError(Horde_Auth::REASON_FAILED);
                 }
@@ -83,11 +82,10 @@ abstract class Horde_Auth_Base
         }
 
         /* Store the credentials being checked so that subclasses can modify
-         * them if necessary (like transparent auth does). */
-        $this->_authCredentials = array(
-            'changeRequested' => false,
+         * them if necessary. */
+        $this->_credentials = array(
             'credentials' => $credentials,
-            'realm' => $realm,
+            'params' => array('change' => false),
             'userId' => $userId
         );
 
@@ -96,19 +94,12 @@ abstract class Horde_Auth_Base
 
             if ($login) {
                 $auth = Horde_Auth::setAuth(
-                    $this->_authCredentials['userId'],
-                    $this->_authCredentials['credentials'],
-                    $this->_authCredentials['realm'],
-                    $this->_authCredentials['changeRequested']
+                    $this->_credentials['userId'],
+                    $this->_credentials['credentials'],
+                    $this->_credentials['params']
                 );
             } else {
-                if (!Horde_Auth::checkSessionIP()) {
-                    Horde_Auth::setAuthError(self::REASON_SESSIONIP);
-                } elseif (!Horde_Auth::checkBrowserString()) {
-                    Horde_Auth::setAuthError(self::REASON_BROWSER);
-                } else {
-                    $auth = true;
-                }
+                $auth = Horde_Auth::checkExistingAuth();
             }
         } catch (Horde_Auth_Exception $e) {
             if ($e->getCode()) {
@@ -124,9 +115,9 @@ abstract class Horde_Auth_Base
     /**
      * Authentication stub.
      *
-     * Horde_Auth_Exception should pass a message string (if any) in the message
-     * field, and the REASON_* constant in the code field (defaults to
-     * REASON_MESSAGE).
+     * On failure, Horde_Auth_Exception should pass a message string (if any)
+     * in the message field, and the Horde_Auth::REASON_* constant in the code
+     * field (defaults to Horde_Auth::REASON_MESSAGE).
      *
      * @param string $userID      The userID to check.
      * @param array $credentials  An array of login credentials.
@@ -203,29 +194,44 @@ abstract class Horde_Auth_Base
     }
 
     /**
-     * Automatic authentication: Finds out if the client matches an allowed IP
-     * block.
+     * Automatic authentication.
      *
      * @return boolean  Whether or not the client is allowed.
+     * @throws Horde_Auth_Exception
      */
     public function transparent()
     {
-        try {
-            return $this->_transparent();
-        } catch (Horde_Auth_Exception $e) {
-            Horde_Auth::setAuthError($e->getCode() || Horde_Auth::REASON_MESSAGE, $e->getMessage());
-            return false;
+        /* Reset the credentials being checked so that subclasses can modify
+         * them if necessary. */
+        $this->_credentials = array(
+            'credentials' => array(),
+            'params' => array('change' => false),
+            'userId' => ''
+        );
+
+        if ($this->_transparent()) {
+            return Horde_Auth::setAuth(
+                $this->_credentials['userId'],
+                $this->_credentials['credentials'],
+                $this->_credentials['params']
+            );
         }
+
+        return false;
     }
 
     /**
      * Transparent authentication stub.
      *
-     * If the auth error message is desired to be set, Horde_Auth_Exception should
-     * thrown instead of returning false.
-     * The Horde_Auth_Exception object should have a message string (if any) in the
-     * message field, and the REASON_* constant in the code field (defaults to
-     * REASON_MESSAGE).
+     * Transparent authentication should set 'userId', 'credentials', or
+     * 'params' in $this->_credentials as needed - these values will be used
+     * to set the credentials in the session.
+     *
+     * Transparent authentication should normally never throw an error - false
+     * should normally be returned. However, it is also possible that a
+     * transparent authentication is the only available auth method; if so,
+     * attempting to login via a login page may cause an endless loop. In this
+     * case, an Exception should be thrown which will act as a fatal error.
      *
      * @return boolean  Whether transparent login is supported.
      * @throws Horde_Auth_Exception
@@ -277,15 +283,26 @@ abstract class Horde_Auth_Base
     }
 
     /**
-     * Driver-level admin check stub.
+     * Returns information on what login parameters to display on the login
+     * screen. If not defined, will display the default (username, password).
      *
-     * @todo
-     *
-     * @return boolean  False.
+     * @return array  An array with the following elements:
+     * <pre>
+     * 'js_code' - (array) A list of javascript code to output to the login
+     *              page.
+     * 'js_files' - (array) A list of javascript files to include in the login
+     *              page.
+     * 'params' - (array) TODO
+     * </pre>
+     * @throws Horde_Exception
      */
-    public function isAdmin($permission = null, $permlevel = null, $user = null)
+    public function getLoginParams()
     {
-        return false;
+        return array(
+            'js_code' => array(),
+            'js_files' => array(),
+            'params' => array()
+        );
     }
 
 }

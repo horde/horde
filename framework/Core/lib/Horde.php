@@ -433,12 +433,10 @@ HTML;
             return self::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/problem.php?return_url=' . urlencode(self::selfUrl(true, true, true)));
 
         case 'logout':
-            return self::url(Horde_Auth::addLogoutParameters($GLOBALS['registry']->get('webroot', 'horde') . '/login.php', Horde_Auth::REASON_LOGOUT));
+            return Horde_Auth::getLogoutUrl(array('reason' => Horde_Auth::REASON_LOGOUT));
 
         case 'login':
-            /* Get an Auth object. */
-            $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
-            return $auth->getLoginScreen('', $referrer ? self::selfUrl(true) : null);
+            return self::url($GLOBALS['registry']->get('webroot', 'horde') . '/login.php');
 
         case 'options':
             global $conf;
@@ -1777,23 +1775,6 @@ HTML;
                        $for,
                        !empty($ak) ? ' accesskey="' . $ak . '"' : '',
                        $label);
-    }
-
-    /**
-     * Redirects to the main Horde login page on authentication failure.
-     */
-    static public function authenticationFailureRedirect()
-    {
-        if (Horde_Cli::runningFromCLI()) {
-            $cli = Horde_Cli::singleton();
-            $cli->fatal(_("You are not authenticated."));
-        }
-
-        $url = $GLOBALS['registry']->get('webroot', 'horde') . '/login.php';
-        $url = Horde_Util::addParameter($url, array('url' => self::selfUrl(true), 'nosidebar' => 1), null, false);
-        $url = Horde_Auth::addLogoutParameters($url);
-        header('Location: ' . self::url($url, true));
-        exit;
     }
 
     /**

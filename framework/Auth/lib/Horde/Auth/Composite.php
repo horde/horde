@@ -1,8 +1,15 @@
 <?php
 /**
- * The Auth_composite class provides a wrapper around
- * application-provided Horde authentication which fits inside the
- * Horde Horde_Auth:: API.
+ * The Horde_Auth_Composite class provides a way to combine two separate
+ * drivers for admin vs. authentication purposes.
+ *
+ * Required parameters:
+ * <pre>
+ * 'admin_driver' - (string) TODO
+ * 'admin_driver_config' - (array) TODO
+ * 'auth_driver' - (string) TODO
+ * 'auth_driver_config' - (string) TODO
+ * </pre>
  *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
@@ -22,23 +29,6 @@ class Horde_Auth_Composite extends Horde_Auth_Base
     protected $_drivers = array();
 
     /**
-     * Return the named parameter for the current auth driver.
-     *
-     * @param string $param  The parameter to fetch.
-     *
-     * @return string  The parameter's value.
-     */
-    public function getParam($param)
-    {
-        if (($login_driver = Horde_Auth::getDriverByParam('loginscreen_switch', $this->_params)) &&
-            $this->_loadDriver($login_driver)) {
-            return $this->_drivers[$login_driver]->getParam($param);
-        }
-
-        return null;
-    }
-
-    /**
      * Find out if a set of login credentials are valid.
      *
      * @param string $userId      The userId to check.
@@ -48,19 +38,8 @@ class Horde_Auth_Composite extends Horde_Auth_Base
      */
     protected function _authenticate($userId, $credentials)
     {
-        if (($auth_driver = Horde_Auth::getDriverByParam('loginscreen_switch', $this->_params)) &&
-            $this->_loadDriver($auth_driver)) {
-            $this->_drivers[$auth_driver]->authenticate($userId, $credentials);
-            return;
-        }
-
-        if (($auth_driver = Horde_Auth::getDriverByParam('username_switch', $this->_params, array($userId))) &&
-            $this->_loadDriver($auth_driver)) {
-            $this->_drivers[$auth_driver]->hasCapability('transparent');
-            return;
-        }
-
-        throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
+        $driver = $this->_loadDriver('auth');
+        return $driver->authenticate($userId, $credentials, false);
     }
 
     /**
@@ -73,28 +52,10 @@ class Horde_Auth_Composite extends Horde_Auth_Base
      */
     public function hasCapability($capability)
     {
-        switch ($capability) {
-        case 'add':
-        case 'update':
-        case 'remove':
-        case 'list':
-            if (!empty($this->_params['admin_driver']) &&
-                $this->_loadDriver($this->_params['admin_driver'])) {
-                return $this->_drivers[$this->_params['admin_driver']]->hasCapability($capability);
-            } else {
-                return false;
-            }
-            break;
-
-        case 'transparent':
-            if (($login_driver = Horde_Auth::getDriverByParam('loginscreen_switch', $this->_params)) &&
-                $this->_loadDriver($login_driver)) {
-                return $this->_drivers[$login_driver]->hasCapability('transparent');
-            }
-            return false;
-            break;
-
-        default:
+        try {
+            $driver = $this->_loadDriver('admin');
+            return $driver->hasCapability($capability);
+        } catch (Horde_Auth_Exception $e) {
             return false;
         }
     }
@@ -107,12 +68,12 @@ class Horde_Auth_Composite extends Horde_Auth_Base
      */
     protected function _transparent()
     {
-        if (($login_driver = Horde_Auth::getDriverByParam('loginscreen_switch', $this->_params)) &&
-            $this->_loadDriver($login_driver)) {
-            return $this->_drivers[$login_driver]->transparent();
+        try {
+            $driver = $this->_loadDriver('auth');
+            return $driver->transparent();
+        } catch (Horde_Auth_Exception $e) {
+            return false;
         }
-
-        return false;
     }
 
     /**
@@ -125,12 +86,8 @@ class Horde_Auth_Composite extends Horde_Auth_Base
      */
     public function addUser($userId, $credentials)
     {
-        if (!empty($this->_params['admin_driver']) &&
-            $this->_loadDriver($this->_params['admin_driver'])) {
-            $this->_drivers[$this->_params['admin_driver']]->addUser($userId, $credentials);
-        } else {
-            parent::addUser($userId, $credentials);
-        }
+        $driver = $this->_loadDriver('admin');
+        $driver->addUser($userId, $credentials);
     }
 
     /**
@@ -144,12 +101,8 @@ class Horde_Auth_Composite extends Horde_Auth_Base
      */
     public function updateUser($oldID, $newID, $credentials)
     {
-        if (!empty($this->_params['admin_driver']) &&
-            $this->_loadDriver($this->_params['admin_driver'])) {
-            $this->_drivers[$this->_params['admin_driver']]->updateUser($oldID, $newID, $credentials);
-        } else {
-            parent::updateUser($oldID, $newID, $credentials);
-        }
+        $driver = $this->_loadDriver('admin');
+        $driver->updateUser($oldID, $newID, $credentials);
     }
 
     /**
@@ -161,12 +114,8 @@ class Horde_Auth_Composite extends Horde_Auth_Base
      */
     public function removeUser($userId)
     {
-        if (!empty($this->_params['admin_driver']) &&
-            $this->_loadDriver($this->_params['admin_driver'])) {
-            $this->_drivers[$this->_params['admin_driver']]->removeUser($userId);
-        } else {
-            parent::removeUser($userId);
-        }
+        $driver = $this->_loadDriver('admin');
+        $driver->removeUser($userId);
     }
 
     /**
@@ -177,12 +126,8 @@ class Horde_Auth_Composite extends Horde_Auth_Base
      */
     public function listUsers()
     {
-        if (!empty($this->_params['admin_driver']) &&
-            $this->_loadDriver($this->_params['admin_driver'])) {
-            return $this->_drivers[$this->_params['admin_driver']]->listUsers();
-        }
-
-        return parent::listUsers();
+        $driver = $this->_loadDriver('admin');
+        return $driver->listUsers();
     }
 
     /**
@@ -194,12 +139,12 @@ class Horde_Auth_Composite extends Horde_Auth_Base
      */
     public function exists($userId)
     {
-        if (!empty($this->_params['admin_driver']) &&
-            $this->_loadDriver($this->_params['admin_driver'])) {
-            return $this->_drivers[$this->_params['admin_driver']]->exists($userId);
+        try {
+            $driver = $this->_loadDriver('admin');
+            return $driver->exists($userId);
+        } catch (Horde_Auth_Exception $e) {
+            return false;
         }
-
-        return parent::exists($userId);
     }
 
     /**
@@ -208,29 +153,15 @@ class Horde_Auth_Composite extends Horde_Auth_Base
      *
      * @param string $driver  The name of the driver to load.
      *
-     * @return boolean  True if driver successfully initializes.
+     * @throws Horde_Auth_Exception
      */
     protected function _loadDriver($driver)
     {
         if (empty($this->_drivers[$driver])) {
-            // This is a bit specialized for Horde::getDriverConfig(),
-            // so localize it here:
-            global $conf;
-            if (!empty($this->_params['drivers'][$driver]['params'])) {
-                $params = $this->_params['drivers'][$driver]['params'];
-                if (isset($conf[$this->_params['drivers'][$driver]['driver']])) {
-                    $params = array_merge($conf[$this->_params['drivers'][$driver]['driver']], $params);
-                }
-            } elseif (!empty($conf[$driver])) {
-                $params = $conf[$driver];
-            } else {
-                $params = null;
-            }
-
-            $this->_drivers[$driver] = Horde_Auth::singleton($this->_params['drivers'][$driver]['driver'], $params);
+            $this->_drivers[$driver] = Horde_Auth::singleton($this->_params[$driver . '_driver'], $this->_params[$driver . '_driver_config']);
         }
 
-        return isset($this->_drivers[$driver]);
+        return $this->_drivers[$driver];
     }
 
 }
