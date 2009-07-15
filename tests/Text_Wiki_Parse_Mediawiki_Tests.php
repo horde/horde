@@ -45,8 +45,8 @@ class Text_Wiki_Parse_Mediawiki_AllTests extends PHPUnit_Framework_TestSuite
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Superscript_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Table_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Tt_Test');
-        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Url_Test');
-        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Wikilink_Test');*/
+        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Url_Test');*/
+        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Wikilink_Test');
         
         return $suite;
     }
@@ -193,4 +193,62 @@ class Text_Wiki_Parse_Mediawiki_Redirect_Test extends Text_Wiki_Parse_Mediawiki_
     }
     
 }
+
+class Text_Wiki_Parse_Mediawiki_Wikilink_Test extends Text_Wiki_Parse_Mediawiki_SetUp_Tests
+{
+    
+    public function testMediawikiParseWikilinkProcessWithSpaceUnderscoreFalse()
+    {
+        $this->t->conf['spaceUnderscore'] = false;
+
+        $matches1 = array(0 => '[[convallis elementum]]', 1 => '', 2 => '', 3 => 'convallis elementum', 4 => '', 5 => '', 6 => '');
+        $matches2 = array(0 => '[[Etiam]]', 1 => '', 2 => '', 3 => 'Etiam', 4 => '', 5 => '', 6 => '');
+        $matches3 = array(0 => '[[pt:Language link]]', 1 => '', 2 => 'pt:', 3 => 'Language link', 4 => '', 5 => '', 6 => '');
+        $matches4 = array(0 => '[[Image:some image]]', 1 => '', 2 => 'Image:', 3 => 'some image', 4 => '', 5 => '', 6 => '');
+        $matches5 = array(0 => '[[Etiam|description text]]', 1 => '', 2 => '', 3 => 'Etiam', 4 => '', 5 => 'description text', 6 => '');
+
+        $this->assertRegExp("/\d+?/", $this->t->process($matches1));
+        $this->assertRegExp("/\d+?/", $this->t->process($matches2));
+        $this->assertRegExp("/\d+?/", $this->t->process($matches3));
+        $this->assertRegExp("/\d+?/", $this->t->process($matches4));
+        $this->assertRegExp("/\d+?/", $this->t->process($matches5));
+
+        $tokens = array(
+            0 => array(0 => 'Wikilink', 1 => array('page' => 'convallis elementum', 'anchor' => '', 'text' => 'convallis elementum')),
+            1 => array(0 => 'Wikilink', 1 => array('page' => 'Etiam', 'anchor' => '', 'text' => 'Etiam')),
+            2 => array(0 => 'Wikilink', 1 => array('page' => 'pt:Language link', 'anchor' => '', 'text' => 'pt:Language link')),
+            3 => array(0 => 'Image', 1 => array('src' => 'some image', 'attr' => array('alt' => 'some image'))),
+            4 => array(0 => 'Wikilink', 1 => array('page' => 'Etiam', 'anchor' => '', 'text' => 'description text')),
+        );
+        
+        $this->assertEquals(array_values($tokens), array_values($this->t->wiki->tokens));
+    }
+     
+    public function testMediawikiParseWikilinkProcessWithSpaceUnderscoreTrue()
+    {
+        $this->t->conf['spaceUnderscore'] = true;
+
+        $matches1 = array(0 => '[[convallis elementum]]', 1 => '', 2 => '', 3 => 'convallis elementum', 4 => '', 5 => '', 6 => '');
+
+        $this->assertRegExp("/\d+?/", $this->t->process($matches1));
+
+        $tokens = array(
+            0 => array(0 => 'Wikilink', 1 => array('page' => 'convallis_elementum', 'anchor' => '', 'text' => 'convallis elementum')),
+        );
+        
+        $this->assertEquals(array_values($tokens), array_values($this->t->wiki->tokens));
+    }
+    
+    public function testMediawikiParseWikilinkRegex()
+    {
+        require_once(dirname(__FILE__) . '/fixtures/test_mediawiki_wikilink_expected_matches.php');
+        global $expectedWikilinkMatches;
+        $fixture = file_get_contents(dirname(__FILE__) . '/fixtures/mediawiki_syntax_to_test_wikilink.txt');
+        preg_match_all($this->t->regex, $fixture, $matches);
+        
+        $this->assertEquals($expectedWikilinkMatches, $matches);
+    }
+    
+}
+
 ?>
