@@ -71,7 +71,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
      * @param array $credentials  An array of login credentials. For IMAP,
      *                            this must contain a password entry.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _authenticate($userId, $credentials)
     {
@@ -80,7 +80,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
             $ob->login();
             $ob->logout();
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
     }
 
@@ -90,7 +90,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
      * @param string $userId       The userId to add.
      * @param array  $credentials  The credentials to use.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function addUser($userId, $credentials)
     {
@@ -100,7 +100,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
             $ob->createMailbox($mailbox);
             $ob->setACL($mailbox, $this->_params['admin_user'], 'lrswipcda');
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception($e);
+            throw new Horde_Auth_Exception($e);
         }
     }
 
@@ -109,7 +109,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
      *
      * @param string $userId  The userId to delete.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function removeUser($userId)
     {
@@ -118,7 +118,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
             $ob->setACL($mailbox, $this->_params['admin_user'], 'lrswipcda');
             $ob->deleteMailbox(Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, Horde_Nls::getCharset(), 'utf7-imap'));
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception($e);
+            throw new Horde_Auth_Exception($e);
         }
 
         Horde_Auth::removeUserData($userId);
@@ -128,7 +128,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
      * List all users in the system.
      *
      * @return array  The array of userIds.
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function listUsers()
     {
@@ -136,7 +136,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
             $ob->_getOb($this->_params['admin_user'], $this->_params['admin_password']);
             $list = $ob->listMailboxes($this->_params['userhierarchy'] . '%', Horde_Imap_Client::MBOX_ALL, array('flat' => true));
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception($e);
+            throw new Horde_Auth_Exception($e);
         }
 
         return empty($list)

@@ -22,12 +22,12 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
      *
      * @param array $params  A hash containing connection parameters.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function __construct($params = array())
     {
         if (!Horde_Util::extensionExists('ldap')) {
-            throw new Horde_Exception(_("Horde_Auth_Ldap: Required LDAP extension not found."));
+            throw new Horde_Auth_Exception(_("Horde_Auth_Ldap: Required LDAP extension not found."));
         }
 
         $params = array_merge(array(
@@ -69,7 +69,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
      * @param string $accountName  The user sAMAccountName to find.
      * @param array $credentials   The credentials to be set.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function addUser($accountName, $credentials)
     {
@@ -114,7 +114,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         $success = @ldap_add($this->_ds, $dn, $entry);
 
         if (!$success) {
-           throw new Horde_Exception(sprintf(_("Auth_msad: Unable to add user \"%s\". This is what the server said: "), $accountName) . ldap_error($this->_ds));
+           throw new Horde_Auth_Exception(sprintf(_("Auth_msad: Unable to add user \"%s\". This is what the server said: "), $accountName) . ldap_error($this->_ds));
         }
 
         @ldap_close($this->_ds);
@@ -125,7 +125,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
      *
      * @param string $accountName  The user sAMAccountName to remove.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function removeUser($accountName)
     {
@@ -139,7 +139,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
             : $entry['dn'];
 
         if (!@ldap_delete($this->_ds, $dn)) {
-            throw new Horde_Exception(sprintf(_("Horde_Auth_Msad: Unable to remove user \"%s\""), $accountName));
+            throw new Horde_Auth_Exception(sprintf(_("Horde_Auth_Msad: Unable to remove user \"%s\""), $accountName));
         }
         @ldap_close($this->_ds);
 
@@ -154,7 +154,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
      * @param string $newID       The new userId.
      * @param array $credentials  The new credentials
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function updateUser($oldId, $newId, $credentials)
     {
@@ -186,7 +186,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         }
 
         if (!$success) {
-            throw new Horde_Exception(sprintf(_("Horde_Auth_Msad: Unable to update user \"%s\""), $newID), __FILE__, __LINE__);
+            throw new Horde_Auth_Exception(sprintf(_("Horde_Auth_Msad: Unable to update user \"%s\""), $newID), __FILE__, __LINE__);
         }
 
         @ldap_close($this->_ds);
@@ -199,7 +199,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
      * @param string $user_id  The user id for which to reset the password.
      *
      * @return string  The new password on success.
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function resetPassword($user_id)
     {
@@ -212,7 +212,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
     /**
      * Does an ldap connect and binds as the guest user.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _connect()
     {

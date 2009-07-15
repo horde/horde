@@ -27,12 +27,12 @@ class Horde_Auth_Ftp extends Horde_Auth_Base
      *
      * @param array $params  A hash containing connection parameters.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function __construct($params = array())
     {
         if (!Horde_Util::extensionExists('ftp')) {
-            throw new Horde_Exception('Horde_Auth_Ftp: Required FTP extension not found. Compile PHP with the --enable-ftp switch.');
+            throw new Horde_Auth_Exception('Horde_Auth_Ftp: Required FTP extension not found. Compile PHP with the --enable-ftp switch.');
         }
 
         $params = array_merge(array(
@@ -50,7 +50,7 @@ class Horde_Auth_Ftp extends Horde_Auth_Base
      * @param array $credentials  An array of login credentials. For FTP,
      *                            this must contain a password entry.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _authenticate($userId, $credentials)
     {
@@ -60,7 +60,7 @@ class Horde_Auth_Ftp extends Horde_Auth_Base
         @ftp_quit($ftp);
 
         if ($res) {
-            throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
     }
 

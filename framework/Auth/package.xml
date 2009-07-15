@@ -51,6 +51,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Customsql.php" role="php" />
       <file name="Cyrsql.php" role="php" />
       <file name="Cyrus.php" role="php" />
+      <file name="Exception.php" role="php" />
       <file name="Ftp.php" role="php" />
       <file name="Http.php" role="php" />
       <file name="Imap.php" role="php" />
@@ -153,6 +154,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Auth/Customsql.php" as="Horde/Auth/Customsql.php" />
    <install name="lib/Horde/Auth/Cyrsql.php" as="Horde/Auth/Cyrsql.php" />
    <install name="lib/Horde/Auth/Cyrus.php" as="Horde/Auth/Cyrus.php" />
+   <install name="lib/Horde/Auth/Exception.php" as="Horde/Auth/Exception.php" />
    <install name="lib/Horde/Auth/Ftp.php" as="Horde/Auth/Ftp.php" />
    <install name="lib/Horde/Auth/Http/Remote.php" as="Horde/Auth/Http/Remote.php" />
    <install name="lib/Horde/Auth/Http.php" as="Horde/Auth/Http.php" />

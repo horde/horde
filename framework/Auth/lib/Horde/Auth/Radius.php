@@ -62,29 +62,29 @@ class Horde_Auth_Radius extends Horde_Auth_Base
      *
      * @param array $params  A hash containing connection parameters.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function __construct($params = array())
     {
         parent::__construct($params);
 
         if (!Horde_Util::extensionExists('radius')) {
-            throw new Horde_Exception('Horde_Auth_Radius:: requires the radius PECL extension to be loaded.');
+            throw new Horde_Auth_Exception('Horde_Auth_Radius:: requires the radius PECL extension to be loaded.');
         }
 
         /* A RADIUS host is required. */
         if (empty($this->_params['host'])) {
-            throw new Horde_Exception('Horde_Auth_Radius:: requires a RADIUS host to connect to.');
+            throw new Horde_Auth_Exception('Horde_Auth_Radius:: requires a RADIUS host to connect to.');
         }
 
         /* A RADIUS secret string is required. */
         if (empty($this->_params['secret'])) {
-            throw new Horde_Exception('Horde_Auth_Radius:: requires a RADIUS secret string.');
+            throw new Horde_Auth_Exception('Horde_Auth_Radius:: requires a RADIUS secret string.');
         }
 
         /* A RADIUS authentication method is required. */
         if (empty($this->_params['method'])) {
-            throw new Horde_Exception('Horde_Auth_Radius:: requires a RADIUS authentication method.');
+            throw new Horde_Auth_Exception('Horde_Auth_Radius:: requires a RADIUS authentication method.');
         }
 
         /* RADIUS NAS Identifier. */
@@ -123,13 +123,13 @@ class Horde_Auth_Radius extends Horde_Auth_Base
      *                            For radius, this must contain a password
      *                            entry.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _authenticate($username, $credentials)
     {
         /* Password is required. */
         if (!isset($credentials['password'])) {
-            throw new Horde_Exception(_("Password required for RADIUS authentication."));
+            throw new Horde_Auth_Exception(_("Password required for RADIUS authentication."));
         }
 
         $res = radius_auth_open();
@@ -153,10 +153,10 @@ class Horde_Auth_Radius extends Horde_Auth_Base
             break;
 
         case RADIUS_ACCESS_REJECT:
-            throw new Horde_Exception(_("Authentication rejected by RADIUS server."));
+            throw new Horde_Auth_Exception(_("Authentication rejected by RADIUS server."));
 
         default:
-            throw new Horde_Exception(radius_strerror($res));
+            throw new Horde_Auth_Exception(radius_strerror($res));
         }
     }
 

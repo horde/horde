@@ -44,7 +44,7 @@ class Horde_Auth_Composite extends Horde_Auth_Base
      * @param string $userId      The userId to check.
      * @param array $credentials  The credentials to use.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _authenticate($userId, $credentials)
     {
@@ -60,7 +60,7 @@ class Horde_Auth_Composite extends Horde_Auth_Base
             return;
         }
 
-        throw new Horde_Exception('', Horde_Auth::REASON_FAILED);
+        throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
     }
 
     /**
@@ -139,7 +139,7 @@ class Horde_Auth_Composite extends Horde_Auth_Base
      * @param string $userId       The userId to add.
      * @param array  $credentials  The credentials to use.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function addUser($userId, $credentials)
     {
@@ -158,7 +158,7 @@ class Horde_Auth_Composite extends Horde_Auth_Base
      * @param string $newID       The new userId.
      * @param array $credentials  The new credentials
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function updateUser($oldID, $newID, $credentials)
     {
@@ -175,7 +175,7 @@ class Horde_Auth_Composite extends Horde_Auth_Base
      *
      * @param string $userId  The userId to delete.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function removeUser($userId)
     {
@@ -191,7 +191,7 @@ class Horde_Auth_Composite extends Horde_Auth_Base
      * List all users in the system.
      *
      * @return array  The array of userIds.
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function listUsers()
     {

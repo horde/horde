@@ -30,12 +30,12 @@ class Horde_Auth_imsp extends Horde_Auth_Base
 
         $imsp = Net_IMSP_Auth::singleton($this->_params['auth_method']);
         if ($imsp instanceof PEAR_Error) {
-            throw new Horde_Exception($imsp->getMessage());
+            throw new Horde_Auth_Exception($imsp->getMessage());
         }
 
         $result = $imsp->authenticate($this->_params, false);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
     }
 

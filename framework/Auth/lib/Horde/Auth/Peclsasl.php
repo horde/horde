@@ -34,12 +34,12 @@ class Horde_Auth_Peclsasl extends Horde_Auth_Base
      *
      * @param array $params  A hash containing connection parameters.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function __construct($params = array())
     {
         if (!Horde_Util::extensionExists('sasl')) {
-            throw new Horde_Exception('Horde_Auth_Peclsasl:: requires the sasl PECL extension to be loaded.');
+            throw new Horde_Auth_Exception('Horde_Auth_Peclsasl:: requires the sasl PECL extension to be loaded.');
         }
 
         $params = array_merge(array(
@@ -58,21 +58,21 @@ class Horde_Auth_Peclsasl extends Horde_Auth_Base
      * @param string $userId      The userId to check.
      * @param array $credentials  An array of login credentials.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _authenticate($userId, $credentials)
     {
         if (empty($credentials['password'])) {
-            throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
 
         $conn = sasl_server_new($this->_params['service']);
         if (!is_resource($conn)) {
-            throw new Horde_Exception(_("Failed to create new SASL connection."));
+            throw new Horde_Auth_Exception(_("Failed to create new SASL connection."));
         }
 
         if (!sasl_checkpass($conn, $userId, $credentials['password'])) {
-            throw new Horde_Exception(sasl_errdetail($conn));
+            throw new Horde_Auth_Exception(sasl_errdetail($conn));
         }
     }
 

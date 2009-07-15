@@ -74,14 +74,14 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
      * @param string $userId      The userId to check.
      * @param array $credentials  The credentials to use.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _authenticate($userId, $credentials)
     {
         try {
             $this->_connect();
-        } catch (Horde_Exception $e) {
-            throw new Horde_Exception('', Horde_Auth::REASON_FAILED);
+        } catch (Horde_Auth_Exception $e) {
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
 
         /* Build a custom query, based on the config file. */
@@ -95,7 +95,7 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
 
         $result = $this->_db->query($query);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception('', Horde_Auth::REASON_FAILED);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
 
         $row = $result->fetchRow(DB_GETMODE_ASSOC);
@@ -107,7 +107,7 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
         }
 
         $result->free();
-        throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
+        throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
     }
 
     /**
@@ -116,7 +116,7 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
      * @param string $userId      The userId to add.
      * @param array $credentials  The credentials to add.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function addUser($userId, $credentials)
     {
@@ -132,7 +132,7 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
 
         $result = $this->_db->query($query);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Auth_Exception($result);
         }
     }
 
@@ -143,7 +143,7 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
      * @param string $newId       The new userId.
      * @param array $credentials  The new credentials
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     function updateUser($oldId, $newId, $credentials)
     {
@@ -161,7 +161,7 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
 
         $result = $this->_db->query($query);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Auth_Exception($result);
         }
     }
 
@@ -172,7 +172,7 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
      * @param string $userId  The user id for which to reset the password.
      *
      * @return string  The new password on success.
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function resetPassword($userId)
     {
@@ -191,7 +191,7 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
 
         $result = $this->_db->query($query);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Auth_Exception($result);
         }
 
         return $password;
@@ -202,7 +202,7 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
      *
      * @param string $userId  The userId to delete.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function removeUser($userId)
     {
@@ -214,7 +214,7 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
 
         $result = $this->_db->query($query);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Auth_Exception($result);
         }
 
         $this->removeUserData($userId);
@@ -224,7 +224,7 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
      * List all users in the system.
      *
      * @return array  The array of userIds.
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function listUsers()
     {
@@ -236,7 +236,7 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
 
         $result = $this->_db->getAll($query, null, DB_FETCHMODE_ORDERED);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Auth_Exception($result);
         }
 
         /* Loop through and build return array. */
@@ -257,7 +257,7 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
     {
         try {
             $this->_connect();
-        } catch (Horde_Exception $e) {
+        } catch (Horde_Auth_Exception $e) {
             return false;
         }
 

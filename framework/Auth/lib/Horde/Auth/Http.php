@@ -75,19 +75,19 @@ class Horde_Auth_Http extends Horde_Auth_Base
      * @param array  $credentials  An array of login credentials. For IMAP,
      *                             this must contain a password entry.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _authenticate($userId, $credentials)
     {
         if (empty($credentials['password']) ||
             empty($this->_users[$userId])) {
-            throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
 
         $hash = Horde_Auth::getCryptedPassword($credentials['password'], $this->_users[$userId], $this->_params['encryption'], !empty($this->_params['show_encryption']));
 
         if ($hash != $this->_users[$userId]) {
-            throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
     }
 
@@ -125,7 +125,7 @@ class Horde_Auth_Http extends Horde_Auth_Base
      * authentication info present.
      *
      * @return boolean  Whether or not the client is allowed.
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _transparent()
     {
@@ -134,7 +134,7 @@ class Horde_Auth_Http extends Horde_Auth_Base
             return Horde_Auth::setAuth(Horde_Util::dispelMagicQuotes($_SERVER['PHP_AUTH_USER']), array('password' => Horde_Util::dispelMagicQuotes($_SERVER['PHP_AUTH_PW']), 'transparent' => 1));
         }
 
-        throw new Horde_Exception(_("HTTP Authentication not found."));
+        throw new Horde_Auth_Exception(_("HTTP Authentication not found."));
     }
 
 }

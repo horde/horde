@@ -149,7 +149,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
     /**
      * Read and, if requested, lock the password file.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _read()
     {
@@ -158,7 +158,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
         }
 
         if (empty($this->_params['filename'])) {
-            throw new Horde_Exception('No password file set.');
+            throw new Horde_Auth_Exception('No password file set.');
         }
 
         if ($this->_params['lock']) {
@@ -169,7 +169,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
 
         $fp = fopen($this->_params['filename'], 'r');
         if (!$fp) {
-            throw new Horde_Exception("Couldn't open '" . $this->_params['filename'] . "'.");
+            throw new Horde_Auth_Exception("Couldn't open '" . $this->_params['filename'] . "'.");
         }
 
         $this->_users = array();
@@ -215,7 +215,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
         if (!empty($this->_params['group_filename'])) {
             $fp = fopen($this->_params['group_filename'], 'r');
             if (!$fp) {
-                throw new Horde_Exception("Couldn't open '" . $this->_params['group_filename'] . "'.");
+                throw new Horde_Auth_Exception("Couldn't open '" . $this->_params['group_filename'] . "'.");
             }
 
             $this->_groups = array();
@@ -242,24 +242,24 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
      * @param array $credentials  An array of login credentials. For MCAL,
      *                            this must contain a password entry.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _authenticate($userId, $credentials)
     {
         if (empty($credentials['password'])) {
-            throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
 
         try {
             $this->_read();
-        } catch (Horde_Exception $e) {
+        } catch (Horde_Auth_Exception $e) {
             Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception('', Horde_Auth::REASON_FAILED);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
 
         if (!isset($this->_users[$userId]) ||
             !$this->_comparePasswords($this->_users[$userId]['password'], $credentials['password'])) {
-            throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
 
         if (!empty($this->_params['required_groups'])) {
@@ -272,7 +272,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
             }
 
             if (!$allowed) {
-                throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
+                throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
             }
         }
     }
@@ -281,7 +281,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
      * List all users in the system.
      *
      * @return array  The array of userIds.
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function listUsers()
     {
@@ -306,18 +306,18 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
      * @param string $userId      The userId to add.
      * @param array $credentials  The credentials to add.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function addUser($userId, $credentials)
     {
         $this->_read();
 
         if (!$this->_locked) {
-            throw new Horde_Exception('Password file not locked');
+            throw new Horde_Auth_Exception('Password file not locked');
         }
 
         if (isset($this->_users[$userId])) {
-            throw new Horde_Exception("Couldn't add user '$user', because the user already exists.");
+            throw new Horde_Auth_Exception("Couldn't add user '$user', because the user already exists.");
         }
 
         $this->_users[$userId] = array(
@@ -336,18 +336,18 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
      * @param string $newID        The new userId.
      * @param array  $credentials  The new credentials
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function updateUser($oldID, $newID, $credentials)
     {
         $this->_read();
 
         if (!$this->_locked) {
-            throw new Horde_Exception('Password file not locked');
+            throw new Horde_Auth_Exception('Password file not locked');
         }
 
         if (!isset($this->_users[$userId])) {
-            throw new Horde_Exception("Couldn't modify user '$oldID', because the user doesn't exist.");
+            throw new Horde_Auth_Exception("Couldn't modify user '$oldID', because the user doesn't exist.");
         }
 
         $this->_users[$newID] = array(
@@ -366,7 +366,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
      * @param string $userId  The user id for which to reset the password.
      *
      * @return string  The new password.
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function resetPassword($userId)
     {
@@ -381,18 +381,18 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
      *
      * @param string $userId  The userId to delete.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function removeUser($userId)
     {
         $this->_read();
 
         if (!$this->_locked) {
-            throw new Horde_Exception('Password file not locked');
+            throw new Horde_Auth_Exception('Password file not locked');
         }
 
         if (!isset($this->_users[$userId])) {
-            throw new Horde_Exception("Couldn't delete user '$oldID', because the user doesn't exist.");
+            throw new Horde_Auth_Exception("Couldn't delete user '$oldID', because the user doesn't exist.");
         }
 
         unset($this->_users[$userId]);

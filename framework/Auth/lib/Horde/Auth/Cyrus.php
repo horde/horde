@@ -150,7 +150,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
      * @param string $userId      The userId to add.
      * @param array $credentials  The credentials to add.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function addUser($userId, $credentials)
     {
@@ -163,7 +163,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
         try {
             $this->_ob->createMailbox($mailbox);
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception($e);
+            throw new Horde_Auth_Exception($e);
         }
 
         if (isset($this->_params['folders']) &&
@@ -180,7 +180,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
             try {
                 $this->_ob->setQuota($mailbox, array('storage' => $this->_params['quota']));
             } catch (Horde_Imap_Client_Exception $e) {
-                throw new Horde_Exception($e);
+                throw new Horde_Auth_Exception($e);
             }
         }
     }
@@ -190,7 +190,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
      *
      * @param string $userId  The userId to delete.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function removeUser($userId)
     {
@@ -207,7 +207,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
             $this->_ob->setACL($mailbox, $admin, array('rights' => 'lrswipcda'));
             $this->_ob->deleteMailbox($mailbox);
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception($e);
+            throw new Horde_Auth_Exception($e);
         }
 
         Horde_Auth::removeUserData($userId);
@@ -216,7 +216,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
     /**
      * Attempts to open connections to the IMAP servers.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _connect()
     {
@@ -236,7 +236,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
             $this->_ob = Horde_Imap_Client::getInstance('Socket', $imap_config);
             $this->_ob->login();
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception($e);
+            throw new Horde_Auth_Exception($e);
         }
     }
 
@@ -244,7 +244,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
      * List all users in the system.
      *
      * @return array  The array of userIds.
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function listUsers()
     {
@@ -258,7 +258,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
      * @param string $newID       The new userId.
      * @param array $credentials  The new credentials
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function updateUser($oldID, $newID, $credentials)
     {

@@ -160,15 +160,15 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
      * @param string $userId      The userId to check.
      * @param array $credentials  The credentials to use.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _authenticate($userId, $credentials)
     {
         try {
             $this->_connect();
-        } catch (Horde_Exception $e) {
+        } catch (Horde_Auth_Exception $e) {
             Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception('', Horde_Auth::REASON_FAILED);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
 
         if (!empty($this->_params['domain_field']) &&
@@ -192,26 +192,26 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
         $result = $this->_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception('', Horde_Auth::REASON_FAILED);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
 
         $row = $result->fetchRow(DB_GETMODE_ASSOC);
         if (is_array($row)) {
             $result->free();
         } else {
-            throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
 
         if (!$this->_comparePasswords($row[$this->_params['password_field']],
                                       $credentials['password'])) {
-            throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
 
         $now = time();
         if (!empty($this->_params['hard_expiration_field']) &&
             !empty($row[$this->_params['hard_expiration_field']]) &&
             ($now > $row[$this->_params['hard_expiration_field']])) {
-            throw new Horde_Exception('', Horde_Auth::REASON_EXPIRED);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_EXPIRED);
         }
 
         if (!empty($this->_params['soft_expiration_field']) &&
@@ -227,7 +227,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
      * @param string $userId       The userId to add.
      * @param array  $credentials  The credentials to add.
      *
-     * @throw Horde_Exception
+     * @throw Horde_Auth_Exception
      */
     public function addUser($userId, $credentials)
     {
@@ -259,7 +259,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
 
             $dbresult2 = $this->_db->query($query, $values);
             if ($dbresult2 instanceof PEAR_Error) {
-                throw new Horde_Exception($dbresult2);
+                throw new Horde_Auth_Exception($dbresult2);
             }
         } else {
             parent::addUser($userId, $credentials);
@@ -270,7 +270,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
             $ob->createMailbox($mailbox);
             $ob->setACL($mailbox, $this->_params['cyradm'], 'lrswipcda');
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception($e);
+            throw new Horde_Auth_Exception($e);
         }
 
         foreach ($this->_params['folders'] as $folders) {
@@ -293,14 +293,14 @@ Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $dom
             try {
                 $this->_ob->setQuota($mailbox, array('storage' => $this->_params['quota']));
             } catch (Horde_Imap_Client_Exception $e) {
-                throw new Horde_Exception($e);
+                throw new Horde_Auth_Exception($e);
             }
         }
 
         if (isset($this->_params['quota']) &&
             ($this->_params['quota'] >= 0) &&
             !@imap_set_quota($this->_imapStream, 'user' . $this->_separator . $userId, $this->_params['quota'])) {
-            throw new Horde_Exception(sprintf(_("IMAP mailbox quota creation failed: %s"), imap_last_error()));
+            throw new Horde_Auth_Exception(sprintf(_("IMAP mailbox quota creation failed: %s"), imap_last_error()));
         }
     }
 
@@ -309,7 +309,7 @@ Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $dom
      *
      * @param string $userId  The userId to delete.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     function removeUser($userId)
     {
@@ -348,7 +348,7 @@ Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $dom
             $this->_ob->setACL($mailbox, $admin, array('rights' => 'lrswipcda'));
             $this->_ob->deleteMailbox($mailbox);
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception($e);
+            throw new Horde_Auth_Exception($e);
         }
 
         Horde_Auth::removeUserData($userId);
@@ -358,7 +358,7 @@ Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $dom
      * List all users in the system.
      *
      * @return mixed  The array of userIds.
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function listUsers()
     {
@@ -384,7 +384,7 @@ Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $dom
 
         $result = $this->_db->getAll($query, null, DB_FETCHMODE_ORDERED);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Auth_Exception($result);
         }
 
         /* Loop through and build return array. */
@@ -414,7 +414,7 @@ Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $dom
      * @param string $newID       The new userId.
      * @param array $credentials  The new credentials
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function updateUser($oldID, $newID, $credentials)
     {
@@ -451,14 +451,14 @@ Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $dom
 
         $res = $this->_db->query($query, $values);
         if ($res instanceof PEAR_Error) {
-            throw new Horde_Exception($res);
+            throw new Horde_Auth_Exception($res);
         }
     }
 
     /**
      * Attempts to open connections to the SQL and IMAP servers.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _connect()
     {
@@ -488,7 +488,7 @@ Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $dom
             $this->_ob = Horde_Imap_Client::getInstance('Socket', $imap_config);
             $this->_ob->login();
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception($e);
+            throw new Horde_Auth_Exception($e);
         }
 
         $this->_connected = true;

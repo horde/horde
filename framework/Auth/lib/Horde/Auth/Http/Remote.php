@@ -19,7 +19,7 @@ class Horde_Auth_Http_Remote extends Horde_Auth_Base
      * @param string $userId       The userId to check.
      * @param array  $credentials  An array of login credentials.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _authenticate($userId, $credentials)
     {
@@ -39,7 +39,7 @@ class Horde_Auth_Http_Remote extends Horde_Auth_Base
         $request->sendRequest();
 
         if ($request->getResponseCode() != 200) {
-            throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
     }
 

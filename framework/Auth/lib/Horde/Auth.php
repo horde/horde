@@ -77,7 +77,7 @@ class Horde_Auth
      *                       parameters a subclass might need.
      *
      * @return Horde_Auth_Base  The newly created concrete instance.
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     static public function factory($driver, $params = null)
     {
@@ -91,7 +91,7 @@ class Horde_Auth
             return new $class($params);
         }
 
-        throw new Horde_Exception('Class definition of ' . $class . ' not found.');
+        throw new Horde_Auth_Exception('Class definition of ' . $class . ' not found.');
     }
 
     /**
@@ -107,7 +107,7 @@ class Horde_Auth
      *                       connection parameters a subclass might need.
      *
      * @return Horde_Auth_Base  The concrete reference.
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     static public function singleton($driver, $params = array())
     {
@@ -307,7 +307,7 @@ class Horde_Auth
      *
      * @param string $userId  The userId to delete.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     static public function removeUserData($userId)
     {
@@ -316,14 +316,14 @@ class Horde_Auth
         foreach ($GLOBALS['registry']->listApps(array('notoolbar', 'hidden', 'active', 'admin')) as $app) {
             try {
                 $GLOBALS['registry']->callByPackage($app, 'removeUserData', array($userId));
-            } catch (Horde_Exception $e) {
+            } catch (Horde_Auth_Exception $e) {
                 Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
                 $errApps[] = $app;
             }
         }
 
         if (count($errApps)) {
-            throw new Horde_Exception(sprintf(_("The following applications encountered errors removing user data: %s"), implode(', ', $errApps)));
+            throw new Horde_Auth_Exception(sprintf(_("The following applications encountered errors removing user data: %s"), implode(', ', $errApps)));
         }
     }
 

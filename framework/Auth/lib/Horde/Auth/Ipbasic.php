@@ -51,12 +51,12 @@ class Horde_Auth_Ipbasic extends Horde_Auth_Base
      * block.
      *
      * @return boolean  Whether or not the client is allowed.
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _transparent()
     {
         if (!isset($_SERVER['REMOTE_ADDR'])) {
-            throw new Horde_Exception(_("IP Address not avaialble."));
+            throw new Horde_Auth_Exception(_("IP Address not avaialble."));
         }
 
         $client = $_SERVER['REMOTE_ADDR'];
@@ -66,7 +66,7 @@ class Horde_Auth_Ipbasic extends Horde_Auth_Base
             }
         }
 
-        throw new Horde_Exception(_("IP Address not within allowed CIDR block."));
+        throw new Horde_Auth_Exception(_("IP Address not within allowed CIDR block."));
     }
 
     /**

@@ -86,20 +86,20 @@ class Horde_Auth_Application extends Horde_Auth_Base
      * @param string $userId      The userId to check.
      * @param array $credentials  The credentials to use.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _authenticate($userId, $credentials)
     {
         if (!$this->hasCapability('authenticate')) {
-            throw new Horde_Exception($this->_params['app'] . ' does not provide an authenticate() method.');
+            throw new Horde_Auth_Exception($this->_params['app'] . ' does not provide an authenticate() method.');
         }
 
         $registry = Horde_Registry::singleton();
 
         try {
             $result = $registry->callByPackage($this->_params['app'], 'authenticate', array($userId, $credentials, $this->_params['params']));
-        } catch (Horde_Exception $e) {
-            throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
+        } catch (Horde_Auth_Exception $e) {
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
 
         // Horrific hack.  Avert your eyes.  Since an application may already
@@ -134,7 +134,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
      * List all users in the system.
      *
      * @return array  The array of userIds.
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function listUsers()
     {
@@ -169,7 +169,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
      * @param string $userId      The userId to add.
      * @param array $credentials  The credentials to use.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function addUser($userId, $credentials)
     {
@@ -188,7 +188,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
      * @param string $newID       The new userId.
      * @param array $credentials  The new credentials
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function updateUser($oldID, $newID, $credentials)
     {
@@ -205,7 +205,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
      *
      * @param string $userId  The userId to delete.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function removeUser($userId)
     {

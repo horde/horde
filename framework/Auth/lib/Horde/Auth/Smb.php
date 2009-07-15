@@ -40,12 +40,12 @@ class Horde_Auth_Smb extends Horde_Auth_Base
      *
      * @param array $params  A hash containing connection parameters.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function __construct($params = array())
     {
         if (!Horde_Util::extensionExists('smbauth')) {
-            throw new Horde_Exception(_("Horde_Auth_Smb: Required smbauth extension not found."));
+            throw new Horde_Auth_Exception(_("Horde_Auth_Smb: Required smbauth extension not found."));
         }
 
         /* Ensure we've been provided with all of the necessary parameters. */
@@ -62,12 +62,12 @@ class Horde_Auth_Smb extends Horde_Auth_Base
      * @param string $userId      The userId to check.
      * @param array $credentials  An array of login credentials.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function _authenticate($userId, $credentials)
     {
         if (empty($credentials['password'])) {
-            throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
 
         /* Authenticate. */
@@ -78,9 +78,9 @@ class Horde_Auth_Smb extends Horde_Auth_Base
                          $credentials['password']);
 
         if ($rval === 1) {
-            throw new Horde_Exception(_("Failed to connect to SMB server."));
+            throw new Horde_Auth_Exception(_("Failed to connect to SMB server."));
         } elseif ($rval !== 0) {
-            throw new Horde_Exception(err2str());
+            throw new Horde_Auth_Exception(err2str());
         }
     }
 

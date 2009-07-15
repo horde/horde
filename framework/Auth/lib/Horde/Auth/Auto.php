@@ -51,18 +51,18 @@ class Horde_Auth_Auto extends Horde_Auth_Base
     }
 
     /**
-     * Horde_Exception should pass a message string (if any) in the message
+     * Horde_Auth_Exception should pass a message string (if any) in the message
      * field, and the REASON_* constant in the code field (defaults to
      * REASON_MESSAGE).
      *
      * @param string $userID      The userID to check.
      * @param array $credentials  An array of login credentials.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _authenticate($userId, $credentials)
     {
-        throw new Horde_Exception('unsupported');
+        throw new Horde_Auth_Exception('unsupported');
     }
 
     /**

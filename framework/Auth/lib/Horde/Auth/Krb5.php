@@ -25,12 +25,12 @@ class Horde_Auth_Krb5 extends Horde_Auth_Base
      *
      * @param array $params  Not used.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function __construct($params = array())
     {
         if (!Horde_Util::extensionExists('krb5')) {
-            throw new Horde_Exception(_("Horde_Auth_Krb5: Required krb5 extension not found."));
+            throw new Horde_Auth_Exception(_("Horde_Auth_Krb5: Required krb5 extension not found."));
         }
 
         parent::__construct($params);
@@ -44,12 +44,12 @@ class Horde_Auth_Krb5 extends Horde_Auth_Base
      *                            For kerberos, this must contain a password
      *                            entry.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _authenticate($userId, $credentials)
     {
         if (empty($credentials['password'])) {
-            throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
 
         $result = krb5_login($userId, $credentials['password']);
@@ -59,13 +59,13 @@ class Horde_Auth_Krb5 extends Horde_Auth_Base
             return;
 
         case KRB5_BAD_PASSWORD:
-            throw new Horde_Exception(_("Bad kerberos password."));
+            throw new Horde_Auth_Exception(_("Bad kerberos password."));
 
         case KRB5_BAD_USER:
-            throw new Horde_Exception(_("Bad kerberos username."));
+            throw new Horde_Auth_Exception(_("Bad kerberos username."));
 
         default:
-            throw new Horde_Exception(_("Kerberos server rejected authentication."));
+            throw new Horde_Auth_Exception(_("Kerberos server rejected authentication."));
         }
     }
 

@@ -110,7 +110,7 @@ abstract class Horde_Auth_Base
                     $auth = true;
                 }
             }
-        } catch (Horde_Exception $e) {
+        } catch (Horde_Auth_Exception $e) {
             Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_DEBUG);
             Horde_Auth::setAuthError($e->getCode() || Horde_Auth::REASON_MESSAGE, $e->getMessage());
         }
@@ -121,14 +121,14 @@ abstract class Horde_Auth_Base
     /**
      * Authentication stub.
      *
-     * Horde_Exception should pass a message string (if any) in the message
+     * Horde_Auth_Exception should pass a message string (if any) in the message
      * field, and the REASON_* constant in the code field (defaults to
      * REASON_MESSAGE).
      *
      * @param string $userID      The userID to check.
      * @param array $credentials  An array of login credentials.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     abstract protected function _authenticate($userId, $credentials);
 
@@ -138,11 +138,11 @@ abstract class Horde_Auth_Base
      * @param string $userId      The userId to add.
      * @param array $credentials  The credentials to use.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function addUser($userId, $credentials)
     {
-        throw new Horde_Exception('unsupported');
+        throw new Horde_Auth_Exception('unsupported');
     }
 
     /**
@@ -152,11 +152,11 @@ abstract class Horde_Auth_Base
      * @param string $newID       The new userId.
      * @param array $credentials  The new credentials
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function updateUser($oldID, $newID, $credentials)
     {
-        throw new Horde_Exception('unsupported');
+        throw new Horde_Auth_Exception('unsupported');
     }
 
     /**
@@ -164,22 +164,22 @@ abstract class Horde_Auth_Base
      *
      * @param string $userId  The userId to delete.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function removeUser($userId)
     {
-        throw new Horde_Exception('unsupported');
+        throw new Horde_Auth_Exception('unsupported');
     }
 
     /**
      * Lists all users in the system.
      *
      * @return mixed  The array of userIds.
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function listUsers()
     {
-        throw new Horde_Exception('unsupported');
+        throw new Horde_Auth_Exception('unsupported');
     }
 
     /**
@@ -194,7 +194,7 @@ abstract class Horde_Auth_Base
         try {
             $users = $this->listUsers();
             return in_array($userId, $users);
-        } catch (Horde_Exception $e) {
+        } catch (Horde_Auth_Exception $e) {
             return false;
         }
     }
@@ -209,7 +209,7 @@ abstract class Horde_Auth_Base
     {
         try {
             return $this->_transparent();
-        } catch (Horde_Exception $e) {
+        } catch (Horde_Auth_Exception $e) {
             Horde_Auth::setAuthError($e->getCode() || Horde_Auth::REASON_MESSAGE, $e->getMessage());
             return false;
         }
@@ -218,14 +218,14 @@ abstract class Horde_Auth_Base
     /**
      * Transparent authentication stub.
      *
-     * If the auth error message is desired to be set, Horde_Exception should
+     * If the auth error message is desired to be set, Horde_Auth_Exception should
      * thrown instead of returning false.
-     * The Horde_Exception object should have a message string (if any) in the
+     * The Horde_Auth_Exception object should have a message string (if any) in the
      * message field, and the REASON_* constant in the code field (defaults to
      * REASON_MESSAGE).
      *
      * @return boolean  Whether transparent login is supported.
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _transparent()
     {
@@ -239,11 +239,11 @@ abstract class Horde_Auth_Base
      * @param string $userId  The user id for which to reset the password.
      *
      * @return string  The new password on success.
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function resetPassword($userId)
     {
-        throw new Horde_Exception('unsupported');
+        throw new Horde_Auth_Exception('unsupported');
     }
 
     /**

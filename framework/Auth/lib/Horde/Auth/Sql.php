@@ -111,15 +111,15 @@ class Horde_Auth_Sql extends Horde_Auth_Base
      * @param string $userId      The userId to check.
      * @param array $credentials  The credentials to use.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _authenticate($userId, $credentials)
     {
         try {
             $this->_connect();
-        } catch (Horde_Exception $e) {
+        } catch (Horde_Auth_Exception $e) {
             Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception('', Horde_Auth::REASON_FAILED);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
 
         /* Build the SQL query. */
@@ -133,26 +133,26 @@ class Horde_Auth_Sql extends Horde_Auth_Base
         $result = $this->_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception('', Horde_Auth::REASON_FAILED);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
 
         $row = $result->fetchRow(DB_GETMODE_ASSOC);
         if (is_array($row)) {
             $result->free();
         } else {
-            throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
 
         if (!$this->_comparePasswords($row[$this->_params['password_field']],
                                       $credentials['password'])) {
-            throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
 
         $now = time();
         if (!empty($this->_params['hard_expiration_field']) &&
             !empty($row[$this->_params['hard_expiration_field']]) &&
             ($now > $row[$this->_params['hard_expiration_field']])) {
-            throw new Horde_Exception('', Horde_Auth::REASON_EXPIRED);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_EXPIRED);
         }
 
         if (!empty($this->_params['soft_expiration_field']) &&
@@ -168,7 +168,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
      * @param string $userId      The userId to add.
      * @param array $credentials  The credentials to add.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function addUser($userId, $credentials)
     {
@@ -189,7 +189,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
 
         $result = $this->_write_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Auth_Exception($result);
         }
     }
 
@@ -200,7 +200,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
      * @param string $newID       The new userId.
      * @param array $credentials  The new credentials
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function updateUser($oldID, $newID, $credentials)
     {
@@ -258,7 +258,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
         $result = $this->_write_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception($result);
+            throw new Horde_Auth_Exception($result);
         }
     }
 
@@ -269,7 +269,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
      * @param string $userId  The user id for which to reset the password.
      *
      * @return string  The new password on success.
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function resetPassword($userId)
     {
@@ -293,7 +293,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
 
         $result = $this->_write_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Auth_Exception($result);
         }
 
         return $password;
@@ -304,7 +304,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
      *
      * @param string $userId  The userId to delete.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function removeUser($userId)
     {
@@ -320,7 +320,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
 
         $result = $this->_write_db->query($query, $values);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Auth_Exception($result);
         }
 
         Horde_Auth::removeUserData($userId);
@@ -330,7 +330,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
      * List all users in the system.
      *
      * @return array  The array of userIds.
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function listUsers()
     {
@@ -345,7 +345,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
 
         $res = $this->_db->getCol($query);
         if ($res instanceof PEAR_Error) {
-            throw new Horde_Exception($res);
+            throw new Horde_Auth_Exception($res);
         }
 
         return $res;
@@ -394,7 +394,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
     /**
      * Attempts to open a connection to the SQL server.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     function _connect()
     {
@@ -442,7 +442,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
                                         array('persistent' => !empty($this->_params['persistent']),
                                               'ssl' => !empty($this->_params['ssl'])));
         if ($this->_write_db instanceof PEAR_Error) {
-            throw new Horde_Exception($this->_write_db);
+            throw new Horde_Auth_Exception($this->_write_db);
         }
 
         // Set DB portability options.
@@ -462,7 +462,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
                                       array('persistent' => !empty($params['persistent']),
                                             'ssl' => !empty($params['ssl'])));
             if ($this->_db instanceof PEAR_Error) {
-                throw new Horde_Exception($this->_db);
+                throw new Horde_Auth_Exception($this->_db);
             }
 
             switch ($this->_db->phptype) {

@@ -57,12 +57,12 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
      *
      * @param array $params  A hash containing connection parameters.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function __construct($params = array())
     {
         if (!Horde_Util::extensionExists('ldap')) {
-            throw new Horde_Exception(_("Horde_Auth_Ldap: Required LDAP extension not found."));
+            throw new Horde_Auth_Exception(_("Horde_Auth_Ldap: Required LDAP extension not found."));
         }
 
         /* Ensure we've been provided with all of the necessary parameters. */
@@ -76,14 +76,14 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
     /**
      * Does an ldap connect and binds as the guest user or as the optional dn.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _connect()
     {
         /* Connect to the LDAP server. */
         $this->_ds = @ldap_connect($this->_params['hostspec']);
         if (!$this->_ds) {
-            throw new Horde_Exception(_("Failed to connect to LDAP server."));
+            throw new Horde_Auth_Exception(_("Failed to connect to LDAP server."));
         }
 
         if (isset($this->_params['version'])) {
@@ -125,7 +125,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
             : @ldap_bind($this->_ds);
 
         if (!$bind) {
-            throw new Horde_Exception(_("Could not bind to LDAP server."));
+            throw new Horde_Auth_Exception(_("Could not bind to LDAP server."));
         }
     }
 
@@ -135,7 +135,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
      * @param string $userId  The userId to find.
      *
      * @return string  The users full DN
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _findDN($userId)
     {
@@ -152,14 +152,14 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
                          array($this->_params['uid']));
         if (!$search) {
             Horde::logMessage(ldap_error($this->_ds), __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception(_("Could not search the LDAP server."));
+            throw new Horde_Auth_Exception(_("Could not search the LDAP server."));
         }
 
         $result = @ldap_get_entries($this->_ds, $search);
         if (is_array($result) && (count($result) > 1)) {
             $dn = $result[0]['dn'];
         } else {
-            throw new Horde_Exception(_("Empty result."));
+            throw new Horde_Auth_Exception(_("Empty result."));
         }
 
         return $dn;
@@ -263,7 +263,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
      * @param string $userId       The userId to check.
      * @param array  $credentials  An array of login credentials.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _authenticate($userId, $credentials)
     {
@@ -277,7 +277,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
         $bind = @ldap_bind($this->_ds, $dn, $credentials['password']);
         if ($bind == false) {
             @ldap_close($this->_ds);
-            throw new Horde_Exception('', Horde_Auth::REASON_FAILED);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
 
         if ($this->_params['password_expiration'] == 'yes') {
@@ -297,7 +297,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
                 if ($toexpire == 0) {
                     $this->_authCredentials['changeRequested'] = true;
                 } elseif ($toexpire < 0) {
-                    throw new Horde_Exception('', Horde_Auth::REASON_EXPIRED);
+                    throw new Horde_Auth_Exception('', Horde_Auth::REASON_EXPIRED);
                 }
             }
         }
@@ -311,12 +311,12 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
      * @param string $userId      The userId to add.
      * @param array $credentials  The credentials to be set.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function addUser($userId, $credentials)
     {
         if ($this->_params['ad']) {
-            throw new Horde_Exception(_("Horde_Auth_Ldap: Adding users is not supported for Active Directory"));
+            throw new Horde_Auth_Exception(_("Horde_Auth_Ldap: Adding users is not supported for Active Directory"));
         }
 
         /* Connect to the LDAP server. */
@@ -353,7 +353,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
         $result = @ldap_add($this->_ds, $dn, $entry);
 
         if (!$result) {
-           throw new Horde_Exception(sprintf(_("Horde_Auth_Ldap: Unable to add user \"%s\". This is what the server said: "), $userId) . @ldap_error($this->_ds));
+           throw new Horde_Auth_Exception(sprintf(_("Horde_Auth_Ldap: Unable to add user \"%s\". This is what the server said: "), $userId) . @ldap_error($this->_ds));
         }
 
         @ldap_close($this->_ds);
@@ -364,12 +364,12 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
      *
      * @param string $userId  The userId to add.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function removeUser($userId)
     {
         if ($this->_params['ad']) {
-           throw new Horde_Exception(_("Horde_Auth_Ldap: Removing users is not supported for Active Directory"));
+           throw new Horde_Auth_Exception(_("Horde_Auth_Ldap: Removing users is not supported for Active Directory"));
         }
 
         /* Connect to the LDAP server. */
@@ -385,7 +385,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
 
         $result = @ldap_delete($this->_ds, $dn);
         if (!$result) {
-           throw new Horde_Exception(sprintf(_("Auth_ldap: Unable to remove user \"%s\""), $userId));
+           throw new Horde_Auth_Exception(sprintf(_("Auth_ldap: Unable to remove user \"%s\""), $userId));
         }
 
         @ldap_close($this->_ds);
@@ -400,12 +400,12 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
      * @param string $newID       The new userId.
      * @param array $credentials  The new credentials
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function updateUser($oldID, $newID, $credentials)
     {
         if ($this->_params['ad']) {
-           throw new Horde_Exception(_("Horde_Auth_Ldap: Updating users is not supported for Active Directory."));
+           throw new Horde_Auth_Exception(_("Horde_Auth_Ldap: Updating users is not supported for Active Directory."));
         }
 
         /* Connect to the LDAP server. */
@@ -430,7 +430,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
             if ($shadow['shadowlastchange'] &&
                 $shadow['shadowmin'] &&
                 ($shadow['shadowlastchange'] + $shadow['shadowmin'] > (time() / 86400))) {
-                throw new Horde_Exception(_("Minimum password age has not yet expired"));
+                throw new Horde_Auth_Exception(_("Minimum password age has not yet expired"));
             }
 
             /* Set the lastchange field */
@@ -490,7 +490,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
         }
 
         if (!$result) {
-            throw new Horde_Exception(sprintf(_("Horde_Auth_Ldap: Unable to update user \"%s\""), $newID));
+            throw new Horde_Auth_Exception(sprintf(_("Horde_Auth_Ldap: Unable to update user \"%s\""), $newID));
         }
 
         @ldap_close($this->_ds);
@@ -500,7 +500,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
      * List Users
      *
      * @return array  List of Users
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function listUsers()
     {

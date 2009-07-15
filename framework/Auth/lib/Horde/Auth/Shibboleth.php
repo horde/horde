@@ -63,12 +63,12 @@ class Horde_Auth_Shibboleth extends Horde_Auth_Base
      * configured header.
      *
      * @return boolean  Whether or not the client is allowed.
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _transparent()
     {
         if (empty($_SERVER[$this->_params['username_header']])) {
-            throw new Horde_Exception(_("Shibboleth authentication not available."));
+            throw new Horde_Auth_Exception(_("Shibboleth authentication not available."));
         }
 
         $username = $_SERVER[$this->_params['username_header']];

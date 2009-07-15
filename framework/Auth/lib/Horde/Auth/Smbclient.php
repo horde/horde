@@ -49,12 +49,12 @@ class Horde_Auth_Smbclient extends Horde_Auth_Base
      * @param string $userId      The userId to check.
      * @param array $credentials  An array of login credentials.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     protected function _authenticate($userId, $credentials)
     {
         if (empty($credentials['password'])) {
-            throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
 
         /* Authenticate. */
@@ -68,14 +68,14 @@ class Horde_Auth_Smbclient extends Horde_Auth_Base
 
         $sc = popen($cmdline, 'w');
         if ($sc === false) {
-            throw new Horde_Exception(_("Unable to execute smbclient."));
+            throw new Horde_Auth_Exception(_("Unable to execute smbclient."));
         }
 
         fwrite($sc, $credentials['password']);
         $rc = pclose($sc);
 
         if ((int)($rc & 0xff) != 0) {
-            throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
     }
 

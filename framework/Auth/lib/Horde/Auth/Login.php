@@ -59,17 +59,17 @@ class Horde_Auth_Login extends Horde_Auth_Base
     protected function _authenticate($userId, $credentials)
     {
         if (empty($credentials['password'])) {
-            throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
 
         $proc = @popen($this->_location . ' -c /bin/true ' . $userId, 'w');
         if (!is_resource($proc)) {
-            throw new Horde_Exception('', Horde_Auth::REASON_FAILED);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
 
         fwrite($proc, $credentials['password']);
         if (@pclose($proc) !== 0) {
-            throw new Horde_Exception('', Horde_Auth::REASON_FAILED);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
     }
 
