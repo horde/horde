@@ -222,7 +222,7 @@ class IMP_Session
      */
     static public function getAutoLoginServer()
     {
-        if (($servers = $GLOBALS['imp_imap']->loadServerConfig()) === false) {
+        if (($servers = IMP_Imap::loadServerConfig()) === false) {
             return null;
         }
 
