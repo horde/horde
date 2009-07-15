@@ -1,3 +1,6 @@
+#REDIRECT [[Some page name]]
+#redirect [[Other page name]]
+
 
 [http://www.example.com]
 
@@ -70,6 +73,9 @@ Can be 4 hyphens or more:
 *** List
 * List
 * List
+
+Invalid horizontal rule
+---
 
 # List
 # List

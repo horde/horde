@@ -50,6 +50,7 @@ class Text_Wiki_Mediawiki extends Text_Wiki {
         'Toc',
 //        'Titlebar',
         'Horiz',
+        'Redirect',
         'Break',
 //        'Blockquote',
 //        'Box',

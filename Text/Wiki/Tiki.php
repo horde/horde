@@ -51,6 +51,7 @@ class Text_Wiki_Tiki extends Text_Wiki {
         'Toc',
         'Titlebar',
         'Horiz',
+        'Redirect',
         'Break',
         'Blockquote',
         'List',

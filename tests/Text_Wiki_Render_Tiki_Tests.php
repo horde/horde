@@ -31,6 +31,7 @@ require_once 'Text/Wiki/Render/Tiki/Phplookup.php';
 require_once 'Text/Wiki/Render/Tiki/Prefilter.php';
 require_once 'Text/Wiki/Render/Tiki/Preformatted.php';
 require_once 'Text/Wiki/Render/Tiki/Raw.php';
+require_once 'Text/Wiki/Render/Tiki/Redirect.php';
 require_once 'Text/Wiki/Render/Tiki/Revise.php';
 require_once 'Text/Wiki/Render/Tiki/Strong.php';
 require_once 'Text/Wiki/Render/Tiki/Subscript.php';
@@ -78,6 +79,7 @@ class Text_Wiki_Render_Tiki_AllTests extends PHPUnit_Framework_TestSuite
         $suite->addTestSuite('Text_Wiki_Render_Tiki_Prefilter_Test');
         $suite->addTestSuite('Text_Wiki_Render_Tiki_Preformatted_Test');
         $suite->addTestSuite('Text_Wiki_Render_Tiki_Raw_Test');
+        $suite->addTestSuite('Text_Wiki_Render_Tiki_Redirect_Test');
         $suite->addTestSuite('Text_Wiki_Render_Tiki_Revise_Test');
         $suite->addTestSuite('Text_Wiki_Render_Tiki_Strong_Test');
         $suite->addTestSuite('Text_Wiki_Render_Tiki_Subscript_Test');
@@ -495,6 +497,20 @@ class Text_Wiki_Render_Tiki_Raw_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
     {
         $options = array('text' => 'Some raw text');
         $this->assertEquals('~np~Some raw text~/np~', $this->t->token($options));
+    }
+    
+}
+
+class Text_Wiki_Render_Tiki_Redirect_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
+{
+    
+    public function testTikiRenderRedirect()
+    {
+        $options = array('type' => 'start', 'text' => 'Some wiki link');
+        $this->assertEquals('{REDIRECT(pageName="', $this->t->token($options));
+
+        $options = array('type' => 'end');
+        $this->assertEquals('")}{REDIRECT}', $this->t->token($options));
     }
     
 }

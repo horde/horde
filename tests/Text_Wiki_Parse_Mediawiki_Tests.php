@@ -12,12 +12,16 @@ require_once 'Text/Wiki/Parse/Mediawiki/List.php';
 require_once 'Text/Wiki/Parse/Mediawiki/Newline.php';
 require_once 'Text/Wiki/Parse/Mediawiki/Preformatted.php';
 require_once 'Text/Wiki/Parse/Mediawiki/Raw.php';
+require_once 'Text/Wiki/Parse/Mediawiki/Redirect.php';
 require_once 'Text/Wiki/Parse/Mediawiki/Subscript.php';
 require_once 'Text/Wiki/Parse/Mediawiki/Superscript.php';
 require_once 'Text/Wiki/Parse/Mediawiki/Table.php';
 require_once 'Text/Wiki/Parse/Mediawiki/Tt.php';
 require_once 'Text/Wiki/Parse/Mediawiki/Url.php';
 require_once 'Text/Wiki/Parse/Mediawiki/Wikilink.php';
+
+// default parse rules used by Mediawiki parser
+require_once 'Text/Wiki/Parse/Default/Horiz.php';
 
 class Text_Wiki_Parse_Mediawiki_AllTests extends PHPUnit_Framework_TestSuite
 {
@@ -31,11 +35,13 @@ class Text_Wiki_Parse_Mediawiki_AllTests extends PHPUnit_Framework_TestSuite
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Deflist_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Emphasis_Test');*/
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Heading_Test');
+        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Horiz_Test');
         /*$suite->addTestSuite('Text_Wiki_Parse_Mediawiki_List_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Newline_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Preformatted_Test');
-        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Raw_Test');
-        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Subscript_Test');
+        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Raw_Test');*/
+        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Redirect_Test');
+        /*$suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Subscript_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Superscript_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Table_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Tt_Test');
@@ -71,13 +77,13 @@ class Text_Wiki_Parse_Mediawiki_Break_Test extends Text_Wiki_Parse_Mediawiki_Set
         $matches1 = array(0 => '<br />');
         $matches2 = array(0 => '<br   />');
         
-        $this->assertEquals('0', $this->t->process($matches1));
-        $this->assertEquals('1', $this->t->process($matches2));
+        $this->assertRegExp('/\d+?/', $this->t->process($matches1));
+        $this->assertRegExp('/\d+?/', $this->t->process($matches2));
 
         $tokens = array(0 => array(0 => 'Break', 1 => array()),
                         1 => array(0 => 'Break', 1 => array()));
 
-        $this->assertEquals($tokens, $this->t->wiki->tokens);
+        $this->assertEquals(array_values($tokens), array_values($this->t->wiki->tokens));
     }
     
     public function testMediawikiParseBreakRegex()
@@ -97,9 +103,9 @@ class Text_Wiki_Parse_Mediawiki_Heading_Test extends Text_Wiki_Parse_Mediawiki_S
         $matches2 = array(0 => "=Level 1 heading=\n", 1 => '=', 2 => 'Level 1 heading');
         $matches3 = array(0 => "==Level 2 heading==\n", 1 => '==', 2 => 'Level 2 heading');
 
-        $this->assertEquals("0Level 6 heading1\n", $this->t->process($matches1));
-        $this->assertEquals("2Level 1 heading3\n", $this->t->process($matches2));
-        $this->assertEquals("4Level 2 heading5\n", $this->t->process($matches3));
+        $this->assertRegExp("/\d+?Level 6 heading\d+?\n/", $this->t->process($matches1));
+        $this->assertRegExp("/\d+?Level 1 heading\d+?\n/", $this->t->process($matches2));
+        $this->assertRegExp("/\d+?Level 2 heading\d+?\n/", $this->t->process($matches3));
 
         $tokens = array(
             0 => array(0 => 'Heading', 1 => array('type' => 'start', 'level' => 6, 'text' => 'Level 6 heading', 'id' => 'toc0')),
@@ -110,7 +116,7 @@ class Text_Wiki_Parse_Mediawiki_Heading_Test extends Text_Wiki_Parse_Mediawiki_S
             5 => array(0 => 'Heading', 1 => array('type' => 'end', 'level' => 2))
         );
         
-        $this->assertEquals($tokens, $this->t->wiki->tokens);
+        $this->assertEquals(array_values($tokens), array_values($this->t->wiki->tokens));
     }
     
     public function testMediawikiParseHeadingRegex()
@@ -125,4 +131,66 @@ class Text_Wiki_Parse_Mediawiki_Heading_Test extends Text_Wiki_Parse_Mediawiki_S
     
 }
 
+// Mediawiki parse uses horiz rule from default parser
+class Text_Wiki_Parse_Mediawiki_Horiz_Test extends Text_Wiki_Parse_Mediawiki_SetUp_Tests
+{
+    
+    public function testMediawikiParseHorizProcess()
+    {
+        $matches1 = array(0 => '----', 1 => '----');
+        $matches2 = array(0 => '------', 1 => '------');
+
+        $this->assertRegExp("/\d+?/", $this->t->process($matches1));
+        $this->assertRegExp("/\d+?/", $this->t->process($matches2));
+
+        $tokens = array(
+            0 => array(0 => 'Horiz', array()),
+            1 => array(0 => 'Horiz', array()),
+        );
+        
+        $this->assertEquals(array_values($tokens), array_values($this->t->wiki->tokens));
+    }
+    
+    public function testMediawikiParseHeadingRegex()
+    {
+        $expectedResult = array(
+            0 => array(0 => '----', 1 => '------'),
+            1 => array(0 => '----', 1 => '------'),
+        );
+        $this->assertEquals($expectedResult, $this->matches);
+    }
+    
+}
+
+class Text_Wiki_Parse_Mediawiki_Redirect_Test extends Text_Wiki_Parse_Mediawiki_SetUp_Tests
+{
+    
+    public function testMediawikiParseRedirectProcess()
+    {
+        $matches1 = array(0 => "#REDIRECT [[Some page name]]", 1 => 'Some page name');
+        $matches2 = array(0 => "#redirect [[Other page name]]", 1 => 'Other page name');
+
+        $this->assertRegExp("/\d+?Some page name\d+?/", $this->t->process($matches1));
+        $this->assertRegExp("/\d+?Other page name\d+?/", $this->t->process($matches2));
+
+        $tokens = array(
+            0 => array(0 => 'Redirect', 1 => array('type' => 'start', 'text' => 'Some page name')),
+            1 => array(0 => 'Redirect', 1 => array('type' => 'end')),
+            2 => array(0 => 'Redirect', 1 => array('type' => 'start', 'text' => 'Other page name')),
+            3 => array(0 => 'Redirect', 1 => array('type' => 'end')),
+        );
+        
+        $this->assertEquals(array_values($tokens), array_values($this->t->wiki->tokens));
+    }
+    
+    public function testMediawikiParseRedirectRegex()
+    {
+        $expectedResult = array(
+            0 => array(0 => "#REDIRECT [[Some page name]]", 1 => "#redirect [[Other page name]]"),
+            1 => array(0 => 'Some page name', 1 => 'Other page name'),
+        );
+        $this->assertEquals($expectedResult, $this->matches);
+    }
+    
+}
 ?>
