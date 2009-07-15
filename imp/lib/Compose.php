@@ -495,8 +495,10 @@ class IMP_Compose
         /* Tack on any site-specific headers. */
         try {
             $headers_result = Horde::loadConfiguration('header.php', '_header');
-            foreach ($headers_result as $key => $val) {
-                $headers->addHeader(trim($key), Horde_String::convertCharset(trim($val), Horde_Nls::getCharset(), $charset));
+            if (is_array($headers_result)) {
+                foreach ($headers_result as $key => $val) {
+                    $headers->addHeader(trim($key), Horde_String::convertCharset(trim($val), Horde_Nls::getCharset(), $charset));
+                }
             }
         } catch (Horde_Exception $e) {}
 
