@@ -34,7 +34,6 @@
  * Example Usage:
  * <pre>
  * $conf['auth']['driver'] = 'composite';
- * $conf['auth']['params']['loginscreen_switch'] = '_horde_select_loginscreen';
  * $conf['auth']['params']['admin_driver'] = 'cyrus';
  * $conf['auth']['params']['drivers']['imp'] = array(
  *     'driver' => 'application',
@@ -265,19 +264,6 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
     public function updateUser($oldID, $newID, $credentials)
     {
         $this->_backend->updateUser($oldID, $newID, $credentials);
-    }
-
-    /**
-     * Return the URI of the login screen for this authentication method.
-     *
-     * @param string $app  The application to use.
-     * @param string $url  The URL to redirect to after login.
-     *
-     * @return string  The login screen URI.
-     */
-    public function getLoginScreen($app = 'horde', $url = '')
-    {
-        return $this->_backend->getLoginScreen($app, $url);
     }
 
     /**

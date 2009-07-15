@@ -78,7 +78,7 @@ abstract class Horde_Auth_Base
                 if (Horde_Auth::getAuthError() != Horde_Auth::REASON_MESSAGE) {
                     Horde_Auth::setAuthError(Horde_Auth::REASON_FAILED);
                 }
-                return false;
+                return $auth;
             }
         }
 
@@ -111,8 +111,11 @@ abstract class Horde_Auth_Base
                 }
             }
         } catch (Horde_Auth_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_DEBUG);
-            Horde_Auth::setAuthError($e->getCode() || Horde_Auth::REASON_MESSAGE, $e->getMessage());
+            if ($e->getCode()) {
+                Horde_Auth::setAuthError($e->getCode());
+            } else {
+                Horde_Auth::setAuthError(Horde_Auth::REASON_MESSAGE, $e->getMessage());
+            }
         }
 
         return $auth;
@@ -257,24 +260,6 @@ abstract class Horde_Auth_Base
     public function hasCapability($capability)
     {
         return !empty($this->_capabilities[$capability]);
-    }
-
-    /**
-     * Returns the URI of the login screen for the current authentication
-     * method.
-     *
-     * @param string $app  The application to use.
-     * @param string $url  The URL to redirect to after login.
-     *
-     * @return string  The login screen URI.
-     */
-    public function getLoginScreen($app = 'horde', $url = '')
-    {
-        $login = Horde::url($GLOBALS['registry']->get('webroot', $app) . '/login.php', true);
-        if (!empty($url)) {
-            $login = Horde_Util::addParameter($login, 'url', $url);
-        }
-        return $login;
     }
 
     /**

@@ -116,24 +116,6 @@ class Horde_Auth_Composite extends Horde_Auth_Base
     }
 
     /**
-     * Return the URI of the login screen for this authentication object.
-     *
-     * @param string $app  The application to use.
-     * @param string $url  The URL to redirect to after login.
-     *
-     * @return string  The login screen URI.
-     */
-    public function getLoginScreen($app = 'horde', $url = '')
-    {
-        if (($login_driver = Horde_Auth::getDriverByParam('loginscreen_switch', $this->_params)) &&
-            $this->_loadDriver($login_driver)) {
-            return $this->_drivers[$login_driver]->getLoginScreen($app, $url);
-        }
-
-        return parent::getLoginScreen($app, $url);
-    }
-
-    /**
      * Add a set of authentication credentials.
      *
      * @param string $userId       The userId to add.

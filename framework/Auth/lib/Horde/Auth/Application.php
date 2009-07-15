@@ -118,19 +118,6 @@ class Horde_Auth_Application extends Horde_Auth_Base
     }
 
     /**
-     * Return the URI of the login screen for this authentication method.
-     *
-     * @param string $app  The application to use.
-     * @param string $url  The URL to redirect to after login.
-     *
-     * @return string  The login screen URI.
-     */
-    public function getLoginScreen($app = 'horde', $url = '')
-    {
-        return parent::getLoginScreen($this->_params['app'], $url);
-    }
-
-    /**
      * List all users in the system.
      *
      * @return array  The array of userIds.
