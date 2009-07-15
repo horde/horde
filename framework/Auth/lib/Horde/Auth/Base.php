@@ -132,7 +132,6 @@ abstract class Horde_Auth_Base
      */
     abstract protected function _authenticate($userId, $credentials);
 
-
     /**
      * Adds a set of authentication credentials.
      *
