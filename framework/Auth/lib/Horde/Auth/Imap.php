@@ -40,6 +40,13 @@
 class Horde_Auth_Imap extends Horde_Auth_Base
 {
     /**
+     * Cached Horde_Imap_Client_Base object.
+     *
+     * @var Horde_Imap_Client_Base
+     */
+    protected $_ob;
+
+    /**
      * Constructor.
      *
      * @param array $params  A hash containing connection parameters.
@@ -76,9 +83,8 @@ class Horde_Auth_Imap extends Horde_Auth_Base
     protected function _authenticate($userId, $credentials)
     {
         try {
-            $ob->_getOb($userId, $credentials['password']);
+            $ob = $this->_getOb($userId, $credentials['password']);
             $ob->login();
-            $ob->logout();
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
@@ -95,7 +101,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
     public function addUser($userId, $credentials)
     {
         try {
-            $ob->_getOb($this->_params['admin_user'], $this->_params['admin_password']);
+            $ob = $this->_getOb($this->_params['admin_user'], $this->_params['admin_password']);
             $mailbox = Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, Horde_Nls::getCharset(), 'utf7-imap');
             $ob->createMailbox($mailbox);
             $ob->setACL($mailbox, $this->_params['admin_user'], 'lrswipcda');
@@ -114,7 +120,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
     public function removeUser($userId)
     {
         try {
-            $ob->_getOb($this->_params['admin_user'], $this->_params['admin_password']);
+            $ob = $this->_getOb($this->_params['admin_user'], $this->_params['admin_password']);
             $ob->setACL($mailbox, $this->_params['admin_user'], 'lrswipcda');
             $ob->deleteMailbox(Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, Horde_Nls::getCharset(), 'utf7-imap'));
         } catch (Horde_Imap_Client_Exception $e) {
@@ -133,7 +139,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
     public function listUsers()
     {
         try {
-            $ob->_getOb($this->_params['admin_user'], $this->_params['admin_password']);
+            $ob = $this->_getOb($this->_params['admin_user'], $this->_params['admin_password']);
             $list = $ob->listMailboxes($this->_params['userhierarchy'] . '%', Horde_Imap_Client::MBOX_ALL, array('flat' => true));
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Auth_Exception($e);
@@ -148,18 +154,23 @@ class Horde_Auth_Imap extends Horde_Auth_Base
      * Get Horde_Imap_Client object.
      *
      * @return Horde_Imap_Client_Base  IMAP client object.
+     * @throws Horde_Exception
      */
     protected function _getOb($user, $pass)
     {
-        $imap_config = array(
-            'hostspec' => empty($this->_params['hostspec']) ? null : $this->_params['hostspec'],
-            'password' => $pass,
-            'port' => empty($this->_params['port']) ? null : $this->_params['port'],
-            'secure' => ($this->_params['secure'] == 'none') ? null : $this->_params['secure'],
-            'username' => $user
-        );
+        if (!$this->_ob) {
+            $imap_config = array(
+                'hostspec' => empty($this->_params['hostspec']) ? null : $this->_params['hostspec'],
+                'password' => $pass,
+                'port' => empty($this->_params['port']) ? null : $this->_params['port'],
+                'secure' => ($this->_params['secure'] == 'none') ? null : $this->_params['secure'],
+                'username' => $user
+            );
 
-        return Horde_Imap_Client::getInstance('Socket', $imap_config);
+            $this->_ob = Horde_Imap_Client::getInstance('Socket', $imap_config);
+        }
+
+        return $this->_ob;
     }
 
 }
