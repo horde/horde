@@ -57,7 +57,7 @@ class Text_Wiki_Parse_Mediawiki_SetUp_Tests extends PHPUnit_Framework_TestCase
         $ruleName = preg_replace('/Text_Wiki_Parse_Mediawiki_(.+?)_Test/', '\\1', $testClassName);
         $this->className = 'Text_Wiki_Parse_' . $ruleName;
         $this->t = new $this->className($obj);
-        $this->fixture = file_get_contents('fixtures/mediawiki_syntax.txt');
+        $this->fixture = file_get_contents(dirname(__FILE__) . '/fixtures/mediawiki_syntax.txt');
         preg_match_all($this->t->regex, $this->fixture, $this->matches);
     }
     

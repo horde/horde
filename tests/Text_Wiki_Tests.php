@@ -61,10 +61,10 @@ class Text_Wiki_Tests extends PHPUnit_Framework_TestCase
 
     public function testTokenIdForMultipleParsingDontCollideWithDifferentObjects()
     {
-        $sampleText = file_get_contents('fixtures/text_wiki_sample_mediawiki_syntax.txt');
-        $sampleTextTransformed2Xhtml = file_get_contents('fixtures/text_wiki_sample_syntax_transformed_to_xhtml.txt');
-        $sampleTextTransformed2Plain = file_get_contents('fixtures/text_wiki_sample_syntax_transformed_to_plain.txt');
-        $sampleTextTransformed2Plain2 = file_get_contents('fixtures/text_wiki_sample_syntax_transformed_to_plain2.txt');
+        $sampleText = file_get_contents(dirname(__FILE__) . '/fixtures/text_wiki_sample_mediawiki_syntax.txt');
+        $sampleTextTransformed2Xhtml = file_get_contents(dirname(__FILE__) . '/fixtures/text_wiki_sample_syntax_transformed_to_xhtml.txt');
+        $sampleTextTransformed2Plain = file_get_contents(dirname(__FILE__) . '/fixtures/text_wiki_sample_syntax_transformed_to_plain.txt');
+        $sampleTextTransformed2Plain2 = file_get_contents(dirname(__FILE__) . '/fixtures/text_wiki_sample_syntax_transformed_to_plain2.txt');
         $obj1 = Text_Wiki::factory('Mediawiki');
         $this->assertEquals($sampleTextTransformed2Xhtml, $obj1->transform($sampleText, 'Xhtml'));
         $obj2 = Text_Wiki::factory('Mediawiki');
@@ -75,10 +75,10 @@ class Text_Wiki_Tests extends PHPUnit_Framework_TestCase
 
     public function testTokenIdForMultipleParsingDontCollideWithSameObjects()
     {
-        $sampleText = file_get_contents('fixtures/text_wiki_sample_mediawiki_syntax.txt');
-        $sampleTextTransformed2Xhtml = file_get_contents('fixtures/text_wiki_sample_syntax_transformed_to_xhtml.txt');
-        $sampleTextTransformed2Plain = file_get_contents('fixtures/text_wiki_sample_syntax_transformed_to_plain.txt');
-        $sampleTextTransformed2Plain2 = file_get_contents('fixtures/text_wiki_sample_syntax_transformed_to_plain2.txt');
+        $sampleText = file_get_contents(dirname(__FILE__) . '/fixtures/text_wiki_sample_mediawiki_syntax.txt');
+        $sampleTextTransformed2Xhtml = file_get_contents(dirname(__FILE__) . '/fixtures/text_wiki_sample_syntax_transformed_to_xhtml.txt');
+        $sampleTextTransformed2Plain = file_get_contents(dirname(__FILE__) . '/fixtures/text_wiki_sample_syntax_transformed_to_plain.txt');
+        $sampleTextTransformed2Plain2 = file_get_contents(dirname(__FILE__) . '/fixtures/text_wiki_sample_syntax_transformed_to_plain2.txt');
         $obj1 = Text_Wiki::singleton('Mediawiki');
         $this->assertEquals($sampleTextTransformed2Xhtml, $obj1->transform($sampleText, 'Xhtml'));
         $obj2 = Text_Wiki::singleton('Mediawiki');
