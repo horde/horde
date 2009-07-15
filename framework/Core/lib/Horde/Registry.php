@@ -600,7 +600,11 @@ class Horde_Registry
          * error immediately if pushApp() fails. */
         $pushed = $this->pushApp($app, $checkPerms);
 
-        $res = call_user_func_array($function, $args);
+        try {
+            $result = call_user_func_array($function, $args);
+        } catch (Horde_Exception $e) {
+            $result = $e;
+        }
 
         /* If we changed application context in the course of this
          * call, undo that change now. */
@@ -608,11 +612,14 @@ class Horde_Registry
             $this->popApp();
         }
 
-        if (is_a($res, 'PEAR_Error')) {
-            throw new Horde_Exception($res);
+        if ($result instanceof Exception) {
+            throw $e;
+        }
+        if (is_a($result, 'PEAR_Error')) {
+            throw new Horde_Exception($result);
         }
 
-        return $res;
+        return $result;
     }
 
     /**
@@ -1093,9 +1100,9 @@ class Horde_Registry
 
         if ($this->_cacheob &&
             ($id = $this->_getCacheId($name))) {
-            $res = $this->_cacheob->get($id, 86400);
-            if ($res !== false) {
-                $this->_cache[$name] = unserialize($res);
+            $result = $this->_cacheob->get($id, 86400);
+            if ($result !== false) {
+                $this->_cache[$name] = unserialize($result);
                 Horde::logMessage('Horde_Registry: retrieved ' . $name . ' with cache ID ' . $id, __FILE__, __LINE__, PEAR_LOG_DEBUG);
                 return true;
             }
