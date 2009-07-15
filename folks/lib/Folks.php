@@ -46,7 +46,7 @@ class Folks {
     {
         try {
            return Horde::loadConfiguration('countries.php', 'countries', 'folks');
-        } catch (Horde_Exception $e)
+        } catch (Horde_Exception $e) {
             return Horde_Nls::getCountryISO();
         }
     }
