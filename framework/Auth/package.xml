@@ -6,7 +6,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <name>Auth</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Authentication API</summary>
- <description>The Horde_Auth:: package provides a common abstracted interface into the various backends for the Horde authentication system.
+ <description>The Horde_Auth:: package provides a common interface into the various backends for the Horde authentication system.
 </description>
  <lead>
   <name>Chuck Hagenbuch</name>
@@ -99,7 +99,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.5.4</min>
    </pearinstaller>
    <package>
-    <name>Horde_Framework</name>
+    <name>Core</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Exception</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
