@@ -23,10 +23,7 @@ $registry = Horde_Registry::singleton();
 try {
     $registry->pushApp('ingo', !defined('AUTH_HANDLER'));
 } catch (Horde_Exception $e) {
-    if ($e->getCode() == 'permission_denied') {
-        Horde::authenticationFailureRedirect();
-    }
-    throw $e;
+    Horde_Auth::authenticationFailureRedirect('ingo', $e);
 }
 $conf = &$GLOBALS['conf'];
 
@@ -37,11 +34,6 @@ if (!defined('INGO_TEMPLATES')) {
 // Notification system.
 $notification = Horde_Notification::singleton();
 $notification->attach('status');
-
-// Redirect the user to the Horde login page if they haven't authenticated.
-if (!Horde_Auth::isAuthenticated() && !defined('AUTH_HANDLER')) {
-    Horde::authenticationFailureRedirect();
-}
 
 // Start compression.
 Horde::compressOutput();

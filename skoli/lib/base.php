@@ -22,10 +22,7 @@ $registry = Horde_Registry::singleton();
 try {
     $registry->pushApp('skoli', !defined('AUTH_HANDLER'));
 } catch (Horde_Exception $e) {
-    if ($e->getCode() == 'permission_denied') {
-        Horde::authenticationFailureRedirect();
-    }
-    throw $e;
+    Horde_Auth::authenticationFailureRedirect('skoli', $e);
 }
 $conf = &$GLOBALS['conf'];
 @define('SKOLI_TEMPLATES', $registry->get('templates'));

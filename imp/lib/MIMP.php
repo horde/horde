@@ -43,10 +43,7 @@ class MIMP
         //     $items[Horde_Util::addParameter($options_link, 'mobile', 1, false)] = _("Options");
         // }
 
-        $logout_link = IMP::getLogoutUrl(Horde_Auth::REASON_LOGOUT);
-        if (!empty($logout_link)) {
-            $items[$logout_link] = _("Log out");
-        }
+        $items[Horde::getServiceLink('logout')] = _("Log out");
 
         foreach ($items as $link => $label) {
             $menu->add(new Horde_Mobile_link($label, $link));

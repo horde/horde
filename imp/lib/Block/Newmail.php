@@ -14,11 +14,11 @@ class IMP_Block_Newmail extends Horde_Block
 
     function _content()
     {
-        $GLOBALS['authentication'] = 'none';
-        require_once dirname(__FILE__) . '/../base.php';
-
-        if (!IMP::checkAuthentication(true)) {
-            return '';
+        $GLOBALS['imp_authentication'] = 'throw';
+        try {
+            require_once dirname(__FILE__) . '/../base.php';
+        } catch (Horde_Exception $e) {
+            return;
         }
 
         /* Filter on INBOX display, if requested. */

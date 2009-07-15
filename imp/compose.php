@@ -56,8 +56,8 @@ function _getIMPContents($index, $mailbox)
 }
 
 
-$compose_page = true;
-$session_control = 'netscape';
+$imp_compose_page = true;
+$imp_session_control = 'netscape';
 require_once dirname(__FILE__) . '/lib/base.php';
 
 /* The message headers and text. */

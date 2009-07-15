@@ -39,14 +39,14 @@ class Horde_Block_imp_summary extends Horde_Block
     {
         global $notification, $prefs, $registry;
 
-        $GLOBALS['authentication'] = 'none';
-        require dirname(__FILE__) . '/../base.php';
+        $GLOBALS['imp_authentication'] = 'throw';
+        try {
+            require_once dirname(__FILE__) . '/../base.php';
+        } catch (Horde_Exception $e) {
+            return;
+        }
 
         $html = '<table cellspacing="0" width="100%">';
-
-        if (!IMP::checkAuthentication(true)) {
-            return $html . '<tr><td class="text">' . Horde::link(Horde::applicationUrl('index.php', true), sprintf(_("Log in to %s"), $registry->applications['imp']['name'])) . sprintf(_("Log in to %s"), $registry->applications['imp']['name']) . '</a></td></tr></table>';
-        }
 
         /* Filter on INBOX display, if requested. */
         if ($prefs->getValue('filter_on_display')) {

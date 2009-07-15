@@ -282,11 +282,6 @@
    virtual users hook? If so, make sure you define _imp_hook_vinfo() in
    hooks.php. The hook will be used to set $_SESSION['imp']['user'] at login
    time. There are examples in hooks.php.dist.">false</configboolean>
-   <configboolean name="postlogin" required="false" desc="Should we
-   run a custom function post-login? If so, make sure you define
-   _imp_hook_postlogin() in hooks.php. The hook can be used to do anything
-   after the session is established but before we redirect to the initial
-   login page.  There are examples in hooks.php.dist.">false</configboolean>
    <configboolean name="postsent" required="false" desc="Should we
    run a custom function after sending a message? If so, make sure you define
    _imp_hook_postsent() in hooks.php. The hook will be used to do anything

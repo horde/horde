@@ -46,46 +46,8 @@ class IMP
     /* hideDeletedMsgs() cache. */
     static private $_delhide = null;
 
-    /* getAuthKey() cache. */
-    static private $_authkey = null;
-
     /* filesystemGC() cache. */
     static private $_dirlist = array();
-
-    /**
-     * Makes sure the user has been authenticated to view the page.
-     *
-     * @param boolean $return     If this is true, return false instead of
-     *                            exiting/redirecting if authentication fails.
-     * @param boolean $hordeauth  Just check for Horde auth and don't bother
-     *                            the IMAP server.
-     *
-     * @return boolean  True on success, false on error.
-     */
-    static public function checkAuthentication($return = false,
-                                               $hordeauth = false)
-    {
-        if ($hordeauth) {
-            $reason = Horde_Auth::isAuthenticated();
-        } else {
-            $auth_imp = new IMP_Auth();
-            $reason = $auth_imp->authenticate(null, array(), false);
-        }
-
-        if ($reason === true) {
-            return true;
-        } elseif ($return) {
-            return false;
-        }
-
-        if (Horde_Util::getFormData('popup')) {
-            Horde_Util::closeWindowJS();
-        } else {
-            $url = Horde_Util::addParameter(self::getLogoutUrl(null, true), 'url', Horde::selfUrl(true));
-            header('Location: ' . $url);
-        }
-        exit;
-    }
 
     /**
      * Returns the plain text label that is displayed for the current mailbox,
@@ -525,7 +487,7 @@ class IMP
 
         $spam_folder = self::folderPref($prefs->getValue('spam_folder'), true);
 
-        $menu = new Horde_Menu(Horde_Menu::MASK_ALL & ~Horde_Menu::MASK_LOGIN);
+        $menu = new Horde_Menu();
 
         $menu->add(self::generateIMPUrl($menu_mailbox_url, 'INBOX'), _("_Inbox"), 'folders/inbox.png');
 
@@ -582,28 +544,6 @@ class IMP
 
         if ($prefs->getValue('filter_menuitem')) {
             $menu->add(Horde::applicationUrl('filterprefs.php'), _("Fi_lters"), 'filters.png');
-        }
-
-        /* Logout. If IMP can auto login or IMP is providing authentication,
-         * then we only show the logout link if the sidebar isn't shown or if
-         * the configuration says to always show the current user a logout
-         * link. */
-        $impAuth = ((Horde_Auth::getProvider() == 'imp') || $_SESSION['imp']['autologin']);
-        if (!$impAuth ||
-            !$prefs->getValue('show_sidebar') ||
-            Horde::showService('logout')) {
-            /* If IMP provides authentication and the sidebar isn't always on,
-             * target the main frame for logout to hide the sidebar while
-             * logged out. */
-            $logout_target = ($impAuth) ? '_parent' : null;
-
-            /* If IMP doesn't provide Horde authentication then we need to use
-             * IMP's logout screen since logging out should *not* end a Horde
-             * session. */
-            $logout_url = self::getLogoutUrl();
-
-            $id = $menu->add($logout_url, _("_Log out"), 'logout.png', $registry->getImageDir('horde'), $logout_target);
-            $menu->setPosition($id, Horde_Menu::POS_LAST);
         }
 
         return ($type == 'object') ? $menu : $menu->render();
@@ -1197,41 +1137,6 @@ class IMP
     }
 
     /**
-     * Returns the proper logout URL for logging out of IMP.
-     *
-     * @param integer $reason
-     * @param boolean $force  Force URL to IMP login page.
-     *
-     * @return string  The logout URL.
-     */
-    static public function getLogoutUrl($reason = null, $force = false)
-    {
-        $params = array_filter(array(
-            'server_key' => isset($_SESSION['imp']['server_key']) ?
-                          $_SESSION['imp']['server_key'] :
-                          Horde_Util::getFormData('server_key'),
-            'language' => Horde_Util::getFormData('language')
-        ));
-
-        if ($force ||
-            !((Horde_Auth::getProvider() != 'imp') || !$_SESSION['imp']['autologin'])) {
-            $url = $GLOBALS['registry']->get('webroot', 'imp') . '/login.php';
-        } else {
-            $url = Horde::getServiceLink('logout', 'horde', true);
-        }
-
-        $url = (!is_null($reason) && is_array($reason))
-            ? Horde_Auth::addLogoutParameters($url, $reason[0], $reason[1])
-            : Horde_Auth::addLogoutParameters($url, $reason);
-
-        if (!empty($params)) {
-            $url = Horde_Util::addParameter($url, $params, null, false);
-        }
-
-        return $url;
-    }
-
-    /**
      * Output the javascript needed to call the IMP popup JS function.
      *
      * @param string $url      The IMP page to load.
@@ -1257,50 +1162,6 @@ class IMP
     static public function escapeJSON($json)
     {
         return '/*-secure-' . rawurlencode(Horde_Serialize::serialize($json, Horde_Serialize::JSON, Horde_Nls::getCharset())) . '*/';
-    }
-
-    /**
-     * Log login related message.
-     *
-     * @param string $status  Either 'login', 'logout', or 'failed'.
-     * @param string $file    The file where the error occurred.
-     * @param integer $line   The line where the error occurred.
-     * @param integer $level  The logging level.
-     */
-    static public function loginLogMessage($status, $file, $line,
-                                           $level = PEAR_LOG_ERR)
-    {
-        switch ($status) {
-        case 'login':
-            $status_msg = 'Login success';
-            break;
-
-        case 'logout':
-            $status_msg = 'Logout';
-            break;
-
-        case 'failed':
-            $status_msg = 'FAILED LOGIN';
-            break;
-
-        default:
-            $status_msg = $status;
-            break;
-        }
-
-        $imp_imap = $GLOBALS['imp_imap']->ob;
-
-        $msg = sprintf(
-            $status_msg . ' for %s [%s]%s to {%s:%s [%s]}',
-            (!empty($_SESSION['imp']['uniquser'])) ? $_SESSION['imp']['uniquser'] : '',
-            $_SERVER['REMOTE_ADDR'],
-            (empty($_SERVER['HTTP_X_FORWARDED_FOR'])) ? '' : ' (forwarded for [' . $_SERVER['HTTP_X_FORWARDED_FOR'] . '])',
-            (!is_null($imp_imap)) ? $imp_imap->getParam('hostspec') : '',
-            (!is_null($imp_imap)) ? $imp_imap->getParam('port') : '',
-            (!empty($_SESSION['imp']['protocol'])) ? $_SESSION['imp']['protocol'] : ''
-        );
-
-        Horde::logMessage($msg, $file, $line, $level);
     }
 
     /**
@@ -1618,21 +1479,6 @@ class IMP
     }
 
     /**
-     * Return the key used for [en|de]crypting auth credentials.
-     *
-     * @return string  The secret key.
-     */
-    static public function getAuthKey()
-    {
-        $key = &self::$_authkey;
-
-        if (is_null($key)) {
-            $key = Horde_Secret::getKey(Horde_Auth::getProvider() == 'imp' ? 'auth' : 'imp');
-        }
-        return $key;
-    }
-
-    /**
      * Returns a Horde_Cache object (if configured) and handles any errors
      * associated with creating the object.
      *
@@ -1710,8 +1556,7 @@ class IMP
     static public function canCompose()
     {
         try {
-            return empty($conf['hooks']['disable_compose']) ||
-                   !Horde::callHook('_imp_hook_disable_compose', array(), 'imp');
+            return empty($conf['hooks']['disable_compose']) || !Horde::callHook('_imp_hook_disable_compose', array(), 'imp');
         } catch (Horde_Exception $e) {
             return true;
         }

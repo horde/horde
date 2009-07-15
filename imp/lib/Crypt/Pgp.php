@@ -393,7 +393,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         }
 
         return isset($_SESSION['imp']['cache']['pgp'][$type][$id])
-            ? Horde_Secret::read(IMP::getAuthKey(), $_SESSION['imp']['cache']['pgp'][$type][$id])
+            ? Horde_Secret::read(Horde_Secret::getKey('imp'), $_SESSION['imp']['cache']['pgp'][$type][$id])
             : null;
     }
 
@@ -417,7 +417,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             $id = 'personal';
         }
 
-        $_SESSION['imp']['cache']['pgp'][$type][$id] = Horde_Secret::write(IMP::getAuthKey(), $passphrase);
+        $_SESSION['imp']['cache']['pgp'][$type][$id] = Horde_Secret::write(Horde_Secret::getKey('imp'), $passphrase);
         return true;
     }
 

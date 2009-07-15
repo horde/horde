@@ -11,10 +11,6 @@
 
 require_once dirname(__FILE__) . '/../lib/base.php';
 
-if (!Horde_Auth::getAuth()) {
-    Horde::authenticationFailureRedirect();
-}
-
 /* Keys - these are obtained when registering for the service */
 $consumer_key = '********';
 $consumer_secret = '*********';

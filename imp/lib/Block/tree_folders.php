@@ -17,11 +17,10 @@ class Horde_Block_imp_tree_folders extends Horde_Block
 
     function _buildTree(&$tree, $indent = 0, $parent = null)
     {
-        $GLOBALS['authentication'] = 'none';
-        require_once dirname(__FILE__) . '/../base.php';
-
-        /* Abort immediately if we're not currently logged in. */
-        if (!IMP::checkAuthentication(true)) {
+        $GLOBALS['imp_authentication'] = 'throw';
+        try {
+            require_once dirname(__FILE__) . '/../base.php';
+        } catch (Horde_Exception $e) {
             return;
         }
 

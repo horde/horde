@@ -9,7 +9,7 @@
  * @package IMP
  */
 
-$authentication = 'horde';
+$imp_authentication = 'horde';
 require_once dirname(__FILE__) . '/lib/base.php';
 require_once 'Horde/Prefs/UI.php';
 

@@ -16,9 +16,8 @@
 
 // We do not need to be authenticated to get the file. Most users won't send
 // linked attachments just to other IMP users.
-@define('AUTH_HANDLER', true);
-$authentication = 'none';
-$session_control = 'none';
+$imp_authentication = 'none';
+$imp_session_control = 'none';
 require_once dirname(__FILE__) . '/lib/base.php';
 
 $self_url = Horde::selfUrl(false, true, true);
@@ -38,7 +37,7 @@ if (is_null($mail_user) || is_null($time_stamp) || is_null($file_name)) {
 
 // Initialize the VFS.
 $vfsroot = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
-if (is_a($vfsroot, 'PEAR_Error')) {
+if ($vfsroot instanceof PEAR_Error) {
     throw new Horde_Exception(sprintf(_("Could not create the VFS backend: %s"), $vfsroot->getMessage()));
 }
 

@@ -48,10 +48,10 @@ function _fullMessageTextLength($ob)
 /* Don't compress if we are already sending in compressed format. */
 if ((isset($_GET['actionID']) && ($_GET['actionID'] == 'download_all')) ||
     !empty($_GET['zip'])) {
-    $no_compress = true;
+    $imp_no_compress = true;
 }
 
-$session_control = 'readonly';
+$imp_session_control = 'readonly';
 require_once dirname(__FILE__) . '/lib/base.php';
 
 $actionID = Horde_Util::getFormData('actionID');

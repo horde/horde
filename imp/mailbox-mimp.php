@@ -69,6 +69,7 @@ if ($pageOb['page'] != $pageOb['pagecount']) {
 
 /* Generate mailbox summary string. */
 $title = IMP::getLabel($imp_mbox['mailbox']);
+$mimp_render = new Horde_Mobile();
 $mimp_render->set('title', $title);
 if ($pageOb['msgcount']) {
     $msgcount = $pageOb['msgcount'];

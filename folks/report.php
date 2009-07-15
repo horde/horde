@@ -15,10 +15,6 @@
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-if (!Horde_Auth::isAuthenticated()) {
-    Horde::authenticationFailureRedirect();
-}
-
 $user = Horde_Util::getFormData('user');
 if (empty($user)) {
     $notification->push(_("User is not selected"), 'horde.warning');

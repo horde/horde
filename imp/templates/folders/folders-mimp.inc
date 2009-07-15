@@ -1,5 +1,6 @@
 <?php
 
+$mimp_render = new Horde_Mobile();
 $mimp_render->set('title', $title);
 $c = &$mimp_render->add(new Horde_Mobile_card('m', $title));
 $c->softkey('#o', _("Menu"));

@@ -9,14 +9,11 @@
  * @package IMP
  */
 
-$authentication = 'none';
-@define('AUTH_HANDLER', true);
-require_once dirname(__FILE__) . '/lib/base.php';
-
-$auth = Horde_Auth::singleton($conf['auth']['driver']);
-if ((!Horde_Auth::getAuth() || !IMP::checkAuthentication(true)) &&
-    (!isset($_SERVER['PHP_AUTH_USER']) ||
-     !$auth->authenticate($_SERVER['PHP_AUTH_USER'], array('password' => isset($_SERVER['PHP_AUTH_PW']) ? $_SERVER['PHP_AUTH_PW'] : null)))) {
+$imp_authentication = 'throw';
+try {
+    require_once dirname(__FILE__) . '/lib/base.php';
+} catch (Horde_Exception $e) {
+    //!$auth->authenticate($_SERVER['PHP_AUTH_USER'], array('password' => isset($_SERVER['PHP_AUTH_PW']) ? $_SERVER['PHP_AUTH_PW'] : null)))) {
     header('WWW-Authenticate: Basic realm="IMP RSS Interface"');
     header('HTTP/1.0 401 Unauthorized');
     echo '401 Unauthorized';

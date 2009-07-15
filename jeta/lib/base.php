@@ -22,10 +22,7 @@ $registry = Horde_Registry::singleton();
 try {
     $registry->pushApp('jeta', !defined('AUTH_HANDLER'));
 } catch (Horde_Exception $e) {
-    if ($e->getCode() == 'permission_denied') {
-        Horde::authenticationFailureRedirect();
-    }
-    throw $e;
+    Horde_Auth::authenticationFailureRedirect('jeta', $e);
 }
 
 $conf = &$GLOBALS['conf'];

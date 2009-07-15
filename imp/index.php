@@ -22,4 +22,8 @@ if (!$imp_configured) {
         array('servers.php' => 'This file controls the default settings for IMP, and also defines the list of available servers if you are using the server list.'));
 }
 
-require IMP_BASE . '/redirect.php';
+// Will redirect to login page if not authenticated.
+require_once IMP_BASE . '/lib/base.php';
+
+// Load initial page as defined by view mode & preferences.
+require IMP_Auth::getInitialPage();

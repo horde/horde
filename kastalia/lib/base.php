@@ -24,23 +24,17 @@ $registry = Horde_Registry::singleton();
 try {
     $registry->pushApp('kastalia', !defined('AUTH_HANDLER'));
 } catch (Horde_Exception $e) {
-    if ($e->getCode() == 'permission_denied') {
-        Horde::authenticationFailureRedirect();
-    }
-    throw $e;
+    Horde_Auth::authenticationFailureRedirect('kastalia', $e);
 }
 $conf = &$GLOBALS['conf'];
 @define('KASTALIA_TEMPLATES', $registry->get('templates'));
 
 // Notification system.
-$notification = &Horde_Notification::singleton();
+$notification = Horde_Notification::singleton();
 $notification->attach('status');
 
 // Define the base file path of Kastalia.
 @define('KASTALIA_BASE', dirname(__FILE__) . '/..');
-
-// Kastalia base library
-require_once KASTALIA_BASE . '/lib/Kastalia.php';
 
 // Start output compression.
 Horde::compressOutput();

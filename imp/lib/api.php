@@ -132,13 +132,25 @@ $_services = array(
         'type' => '{urn:horde}hashHash'
     ),
 
-    /* Horde_Auth_Application method. */
+    /* Horde_Auth_Application methods. */
+    'authLoginParams' => array(
+        'args' => array(),
+        'checkperms' => false,
+        'type' => '{urn:horde}hashHash'
+    ),
+
     'authAuthenticate' => array(
         'args' => array(
             'userID' => 'string',
             'credentials' => '{urn:horde}hash',
             'params' => '{urn:horde}hash'
         ),
+        'checkperms' => false,
+        'type' => 'boolean'
+    ),
+
+    'authTransparent' => array(
+        'args' => array(),
         'checkperms' => false,
         'type' => 'boolean'
     )
@@ -263,7 +275,7 @@ function _imp_compose($args = array(), $extra = array())
  */
 function _imp_batchCompose($args = array(), $extra = array())
 {
-    $GLOBALS['authentication'] = 'none';
+    $GLOBALS['imp_authentication'] = 'none';
     require_once dirname(__FILE__) . '/base.php';
 
     $links = array();
@@ -281,15 +293,15 @@ function _imp_batchCompose($args = array(), $extra = array())
  */
 function _imp_folderlist()
 {
-    $GLOBALS['authentication'] = 'none';
-    require_once dirname(__FILE__) . '/base.php';
-
-    if (IMP::checkAuthentication(true)) {
-        $imp_folder = IMP_Folder::singleton();
-        return $imp_folder->flist();
+    try {
+        $GLOBALS['imp_authentication'] = 'throw';
+        require_once dirname(__FILE__) . '/base.php';
+    } catch (Horde_Exception $e) {
+        return false;
     }
 
-    return false;
+    $imp_folder = IMP_Folder::singleton();
+    return $imp_folder->flist();
 }
 
 /**
@@ -301,15 +313,15 @@ function _imp_folderlist()
  */
 function _imp_createFolder($folder)
 {
-    $GLOBALS['authentication'] = 'none';
-    require_once dirname(__FILE__) . '/base.php';
-
-    if (IMP::checkAuthentication(true)) {
-        $imp_folder = IMP_Folder::singleton();
-        return $imp_folder->create(IMP::appendNamespace($folder), $GLOBALS['prefs']->getValue('subscribe'));
+    try {
+        $GLOBALS['imp_authentication'] = 'throw';
+        require_once dirname(__FILE__) . '/base.php';
+    } catch (Horde_Exception $e) {
+        return false;
     }
 
-    return false;
+    $imp_folder = IMP_Folder::singleton();
+    return $imp_folder->create(IMP::appendNamespace($folder), $GLOBALS['prefs']->getValue('subscribe'));
 }
 
 /**
@@ -323,15 +335,15 @@ function _imp_createFolder($folder)
  */
 function _imp_deleteMessages($mailbox, $indices)
 {
-    $GLOBALS['authentication'] = 'none';
-    require_once dirname(__FILE__) . '/base.php';
-
-    if (IMP::checkAuthentication(true)) {
-        $imp_message = IMP_Message::singleton();
-        return $imp_message->delete(array($mailbox => $indices), array('nuke' => true));
+    try {
+        $GLOBALS['imp_authentication'] = 'throw';
+        require_once dirname(__FILE__) . '/base.php';
+    } catch (Horde_Exception $e) {
+        return false;
     }
 
-    return false;
+    $imp_message = IMP_Message::singleton();
+    return $imp_message->delete(array($mailbox => $indices), array('nuke' => true));
 }
 
 /**
@@ -345,15 +357,15 @@ function _imp_deleteMessages($mailbox, $indices)
  */
 function _imp_copyMessages($mailbox, $indices, $target)
 {
-    $GLOBALS['authentication'] = 'none';
-    require_once dirname(__FILE__) . '/base.php';
-
-    if (IMP::checkAuthentication(true)) {
-        $imp_message = IMP_Message::singleton();
-        return $imp_message->copy($target, 'copy', array($mailbox => $indices), true);
+    try {
+        $GLOBALS['imp_authentication'] = 'throw';
+        require_once dirname(__FILE__) . '/base.php';
+    } catch (Horde_Exception $e) {
+        return false;
     }
 
-    return false;
+    $imp_message = IMP_Message::singleton();
+    return $imp_message->copy($target, 'copy', array($mailbox => $indices), true);
 }
 
 /**
@@ -367,15 +379,15 @@ function _imp_copyMessages($mailbox, $indices, $target)
  */
 function _imp_moveMessages($mailbox, $indices, $target)
 {
-    $GLOBALS['authentication'] = 'none';
-    require_once dirname(__FILE__) . '/base.php';
-
-    if (IMP::checkAuthentication(true)) {
-        $imp_message = IMP_Message::singleton();
-        return $imp_message->copy($target, 'move', array($mailbox => $indices), true);
+    try {
+        $GLOBALS['imp_authentication'] = 'throw';
+        require_once dirname(__FILE__) . '/base.php';
+    } catch (Horde_Exception $e) {
+        return false;
     }
 
-    return false;
+    $imp_message = IMP_Message::singleton();
+    return $imp_message->copy($target, 'move', array($mailbox => $indices), true);
 }
 
 /**
@@ -390,15 +402,15 @@ function _imp_moveMessages($mailbox, $indices, $target)
  */
 function _imp_flagMessages($mailbox, $indices, $flags, $set)
 {
-    $GLOBALS['authentication'] = 'none';
-    require_once dirname(__FILE__) . '/base.php';
-
-    if (IMP::checkAuthentication(true)) {
-        $imp_message = IMP_Message::singleton();
-        return $imp_message->flag($flags, 'move', array($mailbox => $indices), $set);
+    try {
+        $GLOBALS['imp_authentication'] = 'throw';
+        require_once dirname(__FILE__) . '/base.php';
+    } catch (Horde_Exception $e) {
+        return false;
     }
 
-    return false;
+    $imp_message = IMP_Message::singleton();
+    return $imp_message->flag($flags, 'move', array($mailbox => $indices), $set);
 }
 
 /**
@@ -411,12 +423,14 @@ function _imp_flagMessages($mailbox, $indices, $flags, $set)
  */
 function _imp_msgEnvelope($mailbox, $indices)
 {
-    $GLOBALS['authentication'] = 'none';
-    require_once dirname(__FILE__) . '/base.php';
+    try {
+        $GLOBALS['imp_authentication'] = 'throw';
+        require_once dirname(__FILE__) . '/base.php';
+    } catch (Horde_Exception $e) {
+        return false;
+    }
 
-    return IMP::checkAuthentication(true)
-        ? $GLOBALS['imp_imap']->ob->fetch($mailbox, array(Horde_Imap_Client::FETCH_ENVELOPE => true), array('ids' => $indices))
-        : false;
+    return $GLOBALS['imp_imap']->ob->fetch($mailbox, array(Horde_Imap_Client::FETCH_ENVELOPE => true), array('ids' => $indices));
 }
 
 /**
@@ -430,12 +444,14 @@ function _imp_msgEnvelope($mailbox, $indices)
  */
 function _imp_searchMailbox($mailbox, $query)
 {
-    $GLOBALS['authentication'] = 'none';
-    require_once dirname(__FILE__) . '/base.php';
+    try {
+        $GLOBALS['imp_authentication'] = 'throw';
+        require_once dirname(__FILE__) . '/base.php';
+    } catch (Horde_Exception $e) {
+        return false;
+    }
 
-    return IMP::checkAuthentication(true)
-        ? $GLOBALS['imp_search']->runSearchQuery($query, $mailbox)
-        : false;
+    return $GLOBALS['imp_search']->runSearchQuery($query, $mailbox);
 }
 
 /**
@@ -447,12 +463,14 @@ function _imp_searchMailbox($mailbox, $query)
  */
 function _imp_mailboxCacheId($mailbox)
 {
-    $GLOBALS['authentication'] = 'none';
-    require_once dirname(__FILE__) . '/base.php';
+    try {
+        $GLOBALS['imp_authentication'] = 'throw';
+        require_once dirname(__FILE__) . '/base.php';
+    } catch (Horde_Exception $e) {
+        return false;
+    }
 
-    return IMP::checkAuthentication(true)
-        ? $GLOBALS['imp_imap']->ob->getCacheId($mailbox)
-        : null;
+    return $GLOBALS['imp_imap']->ob->getCacheId($mailbox);
 }
 
 /**
@@ -469,20 +487,20 @@ function _imp_mailboxCacheId($mailbox)
  */
 function _imp_server()
 {
-    $GLOBALS['authentication'] = 'none';
-    require_once dirname(__FILE__) . '/base.php';
-
-    if (IMP::checkAuthentication(true)) {
-        $imap_obj = unserialize($_SESSION['imp']['imap_ob']);
-        return array(
-            'hostspec' => $imap_obj->getParam('hostspec'),
-            'port' => $imap_obj->getParam('port'),
-            'protocol' => $_SESSION['imp']['protocol'],
-            'secure' => $imap_obj->getParam('secure')
-        );
+    try {
+        $GLOBALS['imp_authentication'] = 'throw';
+        require_once dirname(__FILE__) . '/base.php';
+    } catch (Horde_Exception $e) {
+        return null;
     }
 
-    return null;
+    $imap_obj = unserialize($_SESSION['imp']['imap_ob']);
+    return array(
+        'hostspec' => $imap_obj->getParam('hostspec'),
+        'port' => $imap_obj->getParam('port'),
+        'protocol' => $_SESSION['imp']['protocol'],
+        'secure' => $imap_obj->getParam('secure')
+    );
 }
 
 /**
@@ -497,7 +515,7 @@ function _imp_server()
 function _imp_favouriteRecipients($limit,
                                   $filter = array('new', 'forward', 'reply', 'redirect'))
 {
-    $GLOBALS['authentication'] = 'none';
+    $GLOBALS['imp_authentication'] = 'none';
     require_once dirname(__FILE__) . '/base.php';
 
     if ($GLOBALS['conf']['sentmail']['driver'] != 'none') {
@@ -513,16 +531,18 @@ function _imp_favouriteRecipients($limit,
  */
 function _imp_changeLanguage()
 {
-    $GLOBALS['authentication'] = 'none';
-    require_once dirname(__FILE__) . '/base.php';
-
-    if (IMP::checkAuthentication(true)) {
-        $imp_folder = IMP_Folder::singleton();
-        $imp_folder->clearFlistCache();
-        $imaptree = IMP_Imap_Tree::singleton();
-        $imaptree->init();
-        $GLOBALS['imp_search']->sessionSetup(true);
+    try {
+        $GLOBALS['imp_authentication'] = 'throw';
+        require_once dirname(__FILE__) . '/base.php';
+    } catch (Horde_Exception $e) {
+        return;
     }
+
+    $imp_folder = IMP_Folder::singleton();
+    $imp_folder->clearFlistCache();
+    $imaptree = IMP_Imap_Tree::singleton();
+    $imaptree->init();
+    $GLOBALS['imp_search']->sessionSetup(true);
 }
 
 /**
@@ -535,53 +555,166 @@ function _imp_changeLanguage()
  */
 function _imp_cacheOutput($params)
 {
-    $GLOBALS['authentication'] = 'none';
-    require_once dirname(__FILE__) . '/base.php';
-
-    if (IMP::checkAuthentication(true)) {
-        switch ($params['id']) {
-        case 'fckeditor':
-            return array(
-                'data' =>
-                     'FCKConfig.ToolbarSets["ImpToolbar"] = ' . $GLOBALS['prefs']->getValue('fckeditor_buttons') . ";\n" .
-                     // To more closely match "normal" textarea behavior,
-                     // send <BR> on enter instead of <P>.
-                     "FCKConfig.EnterMode = \'br\';\n" .
-                     'FCKConfig.ShiftEnterMode = \'p\';',
-                'type' => 'text/javascript'
-            );
-        }
+    try {
+        $GLOBALS['imp_authentication'] = 'throw';
+        require_once dirname(__FILE__) . '/base.php';
+    } catch (Horde_Exception $e) {
+        throw new Horde_Exception('No cache data available');
     }
 
-    throw new Horde_Exception('No cache data available');
+    switch ($params['id']) {
+    case 'fckeditor':
+        return array(
+            'data' =>
+                'FCKConfig.ToolbarSets["ImpToolbar"] = ' . $GLOBALS['prefs']->getValue('fckeditor_buttons') . ";\n" .
+                /* To more closely match "normal" textarea behavior, send
+                 * send <BR> on enter instead of <P>. */
+                "FCKConfig.EnterMode = \'br\';\n" .
+                'FCKConfig.ShiftEnterMode = \'p\';',
+            'type' => 'text/javascript'
+        );
+    }
+}
+
+/*
+ * TODO
+ */
+function _imp_authLoginParams()
+{
+    $params = array();
+
+    if ($GLOBALS['conf']['server']['server_list'] == 'shown') {
+        $servers = IMP_Imap::loadServerConfig();
+        $server_list = array();
+        foreach ($servers as $key => $val) {
+            $server_list[$key] = array('name' => $val['name']);
+        }
+        $params['imp_server_key'] = array(
+            'label' => _("Server"),
+            'selected' => Horde_Util::getFormData('imp_server_key', IMP_Auth::getAutoLoginServer()),
+            'type' => 'select',
+            'value' => $server_list
+        );
+    }
+
+    /* If dimp/mimp are available, show selection of alternate views. */
+    if (!empty($GLOBALS['conf']['user']['select_view'])) {
+        $views = array();
+        if (!($view_cookie = Horde_Util::getFormData('imp_select_view'))) {
+            if (isset($_COOKIE['default_imp_view'])) {
+                $view_cookie = $_COOKIE['default_imp_view'];
+            } else {
+                $browser = Horde_Browser::singleton();
+                $view_cookie = $browser->isMobile() ? 'mimp' : 'imp';
+            }
+        }
+
+        $params['imp_select_view'] = array(
+            'label' => _("Mode"),
+            'type' => 'select',
+            'value' => array(
+                'imp' => array(
+                    'name' => _("Traditional"),
+                    'selected' => $view_cookie == 'imp'
+                ),
+                'dimp' => array(
+                    'hidden' => true,
+                    'name' => _("Dynamic")
+                    // Dimp selected is handled by javascript (dimp_sel)
+                ),
+                'mimp' => array(
+                    'name' => _("Minimalist"),
+                    'selected' => $view_cookie == 'mimp'
+                )
+            )
+        );
+    }
+
+    return array(
+        'js_code' => array(
+            'ImpLogin.dimp_sel=' . intval($view_cookie == 'dimp'),
+            'ImpLogin.server_key_error=' . Horde_Serialize::serialize(_("Please choose a mail server."), Horde_Serialize::JSON)
+        ),
+        'js_files' => array(
+            array('login.js', 'imp')
+        ),
+        'params' => $params
+    );
 }
 
 /**
  * Tries to authenticate with the mail server and create a mail session.
  *
- * @param string $userID      The username of the user.
- * @param array $credentials  Credentials of the user. Only allowed key:
+ * @param string $userId      The username of the user.
+ * @param array $credentials  Credentials of the user. Allowed keys:
+ *                            'imp_select_view', 'imp_server_key',
  *                            'password'.
- * @param array $params       Additional parameters. Only allowed key:
- *                            'server'.
  *
- * @return boolean True on success, false on failure.
+ * @throws Horde_Auth_Exception
  */
-function _imp_authAuthenticate($userID, $credentials, $params = array())
+function _imp_authAuthenticate($userId, $credentials)
 {
-    $GLOBALS['authentication'] = 'none';
-    $GLOBALS['noset_view'] = true;
+    $GLOBALS['imp_authentication'] = 'none';
     require_once dirname(__FILE__) . '/base.php';
 
-    $server_key = empty($params['server'])
-        ? IMP_Session::getAutoLoginServer()
-        : $params['server'];
+    $new_session = IMP_Auth::authenticate(array(
+        'password' => $credentials['password'],
+        'server' => !empty($credentials['imp_server_key']) ? $credentials['imp_server_key'] : '',
+        'userid' => $userId
+    ));
 
-     return IMP_Session::createSession($userID, $credentials['password'], $server_key);
+    if ($new_session) {
+        global $conf;
+
+        /* Set view in session/cookie. */
+        $view = empty($conf['user']['select_view'])
+            ? (empty($conf['user']['force_view']) ? 'imp' : $conf['user']['force_view'])
+            : (empty($credentials['imp_select_view']) ? 'imp' : $credentials['imp_select_view']);
+
+        setcookie('default_imp_view', $view, time() + 30 * 86400,
+                  $conf['cookie']['path'],
+                  $conf['cookie']['domain']);
+
+        $_SESSION['imp']['view'] = $view;
+    }
 }
 
 /**
- * Adds a set of authentication credentials.
+ * Tries to transparently authenticate with the mail server and create a mail
+ * session.
+ *
+ * @return boolean  Whether transparent login is supported.
+ * @throws Horde_Auth_Exception
+ */
+function _imp_authTransparent()
+{
+    /* Transparent auth is a bit goofy - we most likely have reached this
+     * code from the pushApp() call in base.php already. As such, some of the
+     * IMP init has not yet been done, so we need to do the necessary init
+     * here or else things will fail in IMP_Auth. */
+    $GLOBALS['imp_authentication'] = 'none';
+    require_once dirname(__FILE__) . '/base.php';
+    if (!isset($GLOBALS['imp_imap'])) {
+        $GLOBALS['imp_imap'] = new IMP_Imap();
+    }
+    if (!isset($GLOBALS['imp_search'])) {
+        $GLOBALS['imp_search'] = new IMP_Search();
+    }
+
+    if (IMP_Auth::transparent() === false) {
+        return false;
+    }
+
+    /* Set view in session. */
+    $_SESSION['imp']['view'] = empty($GLOBALS['conf']['user']['select_view'])
+        ? (empty($GLOBALS['conf']['user']['force_view']) ? 'imp' : $GLOBALS['conf']['user']['force_view'])
+        : 'imp';
+
+    return true;
+}
+
+/**
+ * Adds a user defined by authentication credentials.
  *
  * @param string $userId      The userId to add.
  * @param array $credentials  An array of login credentials. For IMAP,
@@ -597,14 +730,14 @@ function _imp_authAddUser($userId, $credentials)
 
     $params = array_merge($params, $_SESSION['imp']['admin']['params']);
     if (isset($params['admin_password'])) {
-        $params['admin_password'] = Horde_Secret::read(IMP::getAuthKey(), $params['admin_password']);
+        $params['admin_password'] = Horde_Secret::read(Horde_Secret::getKey('imp'), $params['admin_password']);
     }
     $auth = Horde_Auth::singleton('imap', $params);
     $auth->addUser($userId, $credentials);
 }
 
 /**
- * Deletes a set of authentication credentials.
+ * Deletes a user defined by authentication credentials.
  *
  * @param string $userId  The userId to delete.
  *
@@ -618,7 +751,7 @@ function _imp_authRemoveUser($userId)
 
     $params = array_merge($params, $_SESSION['imp']['admin']['params']);
     if (isset($params['admin_password'])) {
-        $params['admin_password'] = Horde_Secret::read(IMP::getAuthKey(), $params['admin_password']);
+        $params['admin_password'] = Horde_Secret::read(Horde_Secret::getKey('imp'), $params['admin_password']);
     }
     $auth = Horde_Auth::singleton('imap', $params);
     $auth->removeUser($userId);
@@ -638,7 +771,7 @@ function _imp_authUserList()
 
     $params = array_merge($params, $_SESSION['imp']['admin']['params']);
     if (isset($params['admin_password'])) {
-        $params['admin_password'] = Horde_Secret::read(IMP::getAuthKey(), $params['admin_password']);
+        $params['admin_password'] = Horde_Secret::read(Horde_Secret::getKey('imp'), $params['admin_password']);
     }
     $auth = Horde_Auth::singleton('imap', $params);
     return $auth->listUsers();

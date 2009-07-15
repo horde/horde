@@ -27,26 +27,19 @@ $registry = Horde_Registry::singleton();
 try {
     $registry->pushApp('crumb', !defined('AUTH_HANDLER'));
 } catch (Horde_Exception $e) {
-    if ($e->getCode() == 'permission_denied') {
-        Horde::authenticationFailureRedirect();
-    }
-    throw $e;
+    Horde_Auth::authenticationFailureRedirect('crumb', $e);
 }
 $conf = &$GLOBALS['conf'];
 @define('CRUMB_TEMPLATES', $registry->get('templates'));
 
 // Notification system.
-$notification = &Horde_Notification::singleton();
+$notification = Horde_Notification::singleton();
 $notification->attach('status');
 
 // Define the base file path of Crumb.
 @define('CRUMB_BASE', dirname(__FILE__) . '/..');
 
-// Crumb base library
-require_once CRUMB_BASE . '/lib/Crumb.php';
-
 // Crumb driver
-require_once CRUMB_BASE . '/lib/Driver.php';
 $crumb_driver = Crumb_Driver::factory();
 
 // Start output compression.

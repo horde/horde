@@ -40,17 +40,6 @@
 //     }
 // }
 
-// Here is an example _imp_hook_postlogin function to redirect to a
-// custom server after login.
-
-// if (!function_exists('_imp_hook_postlogin')) {
-//     function _imp_hook_postlogin($actionID, $isLogin)
-//     {
-//         header('Location: http://mail' . mt_rand(1, 9) . '.example.com/horde/');
-//         exit;
-//     }
-// }
-
 // This is an example for a post-sending hook that performs an action after
 // a message has been sent successfully.
 // $message = Base Horde_Mime_part object.

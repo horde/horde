@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Logins now handled by Horde login handler.
 [mms] When generating and sending compressed ZIP data, use server-side temp
       streams to minimize memory usage.
 [mms] Decode bodypart data on server if possible (RFC 3516).

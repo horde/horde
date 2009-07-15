@@ -13,7 +13,7 @@
 /* Only admin should be using this. */
 if (!Horde_Auth::isAdmin('news:admin')) {
     $notification->push(_("You are not authorised for this action."), 'horde.warning');
-    Horde::authenticationFailureRedirect();
+    Horde_Auth::authenticationFailureRedirect('news');
 }
 
 $vars = Horde_Variables::getDefaultVariables();

@@ -34,10 +34,7 @@ $registry = Horde_Registry::singleton();
 try {
     $registry->pushApp('kastalia', !defined('AUTH_HANDLER'));
 } catch (Horde_Exception $e) {
-    if ($e->getCode() == 'permission_denied') {
-        Horde::authenticationFailureRedirect();
-    }
-    throw $e;
+    Horde_Auth::authenticationFailureRedirect('kastalia', $e);
 }
 //################### </MANUELLER ANMELDE CHECK (WENN base.php NICHT INCLUDIERT WIRD)> ###################
 

@@ -154,10 +154,10 @@ if (empty($action)) {
 // The following actions do not need write access to the session and
 // should be opened read-only for performance reasons.
 if (in_array($action, array('chunkContent', 'Html2Text', 'Text2Html', 'GetReplyData', 'FetchmailDialog'))) {
-    $session_control = 'readonly';
+    $imp_session_control = 'readonly';
 }
 
-$dimp_logout = ($action == 'LogOut');
+$imp_dimp_logout = ($action == 'LogOut');
 $session_timeout = 'json';
 require_once IMP_BASE . '/lib/base.php';
 

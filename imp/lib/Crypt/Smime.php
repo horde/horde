@@ -270,7 +270,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         }
 
         if (isset($_SESSION['imp']['smime']['passphrase'])) {
-            return Horde_Secret::read(IMP::getAuthKey(), $_SESSION['imp']['smime']['passphrase']);
+            return Horde_Secret::read(Horde_Secret::getKey('imp'), $_SESSION['imp']['smime']['passphrase']);
         } elseif (isset($_SESSION['imp']['smime']['null_passphrase'])) {
             return ($_SESSION['imp']['smime']['null_passphrase']) ? null : false;
         } else {
@@ -299,7 +299,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         if (!isset($_SESSION['imp']['smime'])) {
             $_SESSION['imp']['smime'] = array();
         }
-        $_SESSION['imp']['smime']['passphrase'] = Horde_Secret::write(IMP::getAuthKey(), $passphrase);
+        $_SESSION['imp']['smime']['passphrase'] = Horde_Secret::write(Horde_Secret::getKey('imp'), $passphrase);
 
         return true;
     }

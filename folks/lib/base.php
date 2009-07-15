@@ -22,16 +22,13 @@ $registry = Horde_Registry::singleton();
 try {
     $registry->pushApp('folks', !defined('AUTH_HANDLER'));
 } catch (Horde_Exception $e) {
-    if ($e->getCode() == 'permission_denied') {
-        Horde::authenticationFailureRedirect();
-    }
-    throw $e;
+    Horde_Auth::authenticationFailureRedirect('folks', $e);
 }
 $conf = &$GLOBALS['conf'];
 define('FOLKS_TEMPLATES', $registry->get('templates'));
 
 // Notification system.
-$notification = &Horde_Notification::singleton();
+$notification = Horde_Notification::singleton();
 $notification->attach('status');
 
 // Define the base file path of Folks.
@@ -39,9 +36,6 @@ if (!defined('FOLKS_BASE')) {
     define('FOLKS_BASE', dirname(__FILE__) . '/..');
 }
 
-// Folks base library
-require_once FOLKS_BASE . '/lib/Folks.php';
-require_once FOLKS_BASE . '/lib/Driver.php';
 $GLOBALS['folks_driver'] = Folks_Driver::factory();
 
 // Cache

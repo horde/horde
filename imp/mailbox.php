@@ -205,10 +205,6 @@ case 'view_messages':
     $redirect = Horde_Util::addParameter(IMP::generateIMPUrl('thread.php', $imp_mbox['mailbox'], null, null, false), array('mode' => 'msgview', 'msglist' => $GLOBALS['imp_imap']->ob->utils->toSequenceString(IMP::parseIndicesList($indices), array('mailbox' => true))), null, false);
     header('Location: ' . $redirect);
     exit;
-
-case 'login_compose':
-    $open_compose_window = IMP::openComposeWin();
-    break;
 }
 
 /* Token to use in requests */

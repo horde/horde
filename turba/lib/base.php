@@ -9,7 +9,6 @@
  * need, and sets up objects that all scripts use.
  */
 
-
 // Determine BASE directories.
 require_once dirname(__FILE__) . '/base.load.php';
 
@@ -21,10 +20,7 @@ $registry = Horde_Registry::singleton();
 try {
     $registry->pushApp('turba', !defined('AUTH_HANDLER'));
 } catch (Horde_Exception $e) {
-    if ($e->getCode() == 'permission_denied') {
-        Horde::authenticationFailureRedirect();
-    }
-    throw $e;
+    Horde_Auth::authenticationFailureRedirect('turba', $e);
 }
 $conf = $GLOBALS['conf'];
 define('TURBA_TEMPLATES', $registry->get('templates'));

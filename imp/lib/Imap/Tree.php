@@ -232,11 +232,9 @@ class IMP_Imap_Tree
             $this->_namespaces = (empty($GLOBALS['conf']['user']['allow_folders'])) ? array() : $ns;
         }
 
-        if (!isset($_SESSION['imp']['cache']['tree'])) {
-            $imp_cache = IMP::getCache();
-            $_SESSION['imp']['cache']['tree'] = $imp_cache
-                ? uniqid(mt_rand() . Horde_Auth::getAuth())
-                : null;
+        $imp_cache = IMP::getCache();
+        if ($imp_cache) {
+            $_SESSION['imp']['cache']['tree'] = uniqid(mt_rand() . Horde_Auth::getAuth());
         }
 
         /* Must set these values here because PHP 5 does not allow assignment
@@ -289,13 +287,11 @@ class IMP_Imap_Tree
     {
         /* We only need to store the object if using Horde_Cache and the tree
          * has changed. */
-        if (empty($this->_changed) ||
-            is_null($_SESSION['imp']['cache']['tree'])) {
-            return;
+        if (!empty($this->_changed) &&
+            isset($_SESSION['imp']['cache']['tree'])) {
+            $imp_cache = IMP::getCache();
+            $imp_cache->set($_SESSION['imp']['cache']['tree'], serialize($this), 86400);
         }
-
-        $imp_cache = IMP::getCache();
-        $imp_cache->set($_SESSION['imp']['cache']['tree'], serialize($this), 86400);
     }
 
     /**

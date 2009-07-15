@@ -3,25 +3,30 @@
  * IMP base inclusion file. This file brings in all of the dependencies that
  * every IMP script will need, and sets up objects that all scripts use.
  *
- * The following variables, defined in the script that calls this one, are
- * used:
- *   $authentication  - The type of authentication to use:
- *                      'horde' - Only use horde authentication
- *                      'none'  - Do not authenticate
- *                      Default - Authenticate to IMAP/POP server
- *   $compose_page    - If true, we are on IMP's compose page
- *   $dimp_logout     - Logout and redirect to the login page.
- *   $login_page      - If true, we are on IMP's login page
- *   $mimp_debug      - If true, output text/plain version of page.
- *   $no_compress     - Controls whether the page should be compressed
- *   $session_control - Sets special session control limitations
+ * The following global variables are used:
+ * <pre>
+ * imp_authentication - The type of authentication to use:
+ *   'horde' - Only use horde authentication
+ *   'none'  - Do not authenticate
+ *   'throw' - Authenticate to IMAP/POP server; on no auth, throw a
+ *             Horde_Exception
+ *   Default - Authenticate to IMAP/POP server; on no auth redirect to login
+ *             screen
+ * imp_compose_page - If true, we are on IMP's compose page
+ * imp_dimp_logout - Logout and redirect to the login page.
+ * imp_no_compress - Controls whether the page should be compressed
+ * imp_session_control - Sets special session control limitations:
+ * <pre>
+ * 'netscape'
+ * 'none'
+ * 'readonly'
+ * </pre>
  *
  * Global variables defined:
  *   $imp_imap    - An IMP_Imap object
  *   $imp_mbox    - Current mailbox information
  *   $imp_notify  - A Horde_Notification_Listener object
  *   $imp_search  - An IMP_Search object
- *   $mimp_render - (MIMP view only) A Horde_Mobile object
  *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
@@ -39,7 +44,7 @@ require_once HORDE_BASE . '/lib/core.php';
 
 // Registry.
 $s_ctrl = 0;
-switch (Horde_Util::nonInputVar('session_control')) {
+switch (Horde_Util::nonInputVar('imp_session_control')) {
 case 'netscape':
     if ($browser->isBrowser('mozilla')) {
         session_cache_limiter('private, must-revalidate');
@@ -56,17 +61,54 @@ case 'readonly':
 }
 $registry = Horde_Registry::singleton($s_ctrl);
 
-// We explicitly do not check application permissions for the compose
-// and login pages, since those are handled below and need to fall through
-// to IMP-specific code.
-$compose_page = Horde_Util::nonInputVar('compose_page');
+// Determine view mode.
+$viewmode = isset($_SESSION['imp']['view'])
+    ? $_SESSION['imp']['view']
+    : 'imp';
+
+// Handle dimp logout requests.
+if (($viewmode == 'dimp') && Horde_Util::nonInputVar('imp_dimp_logout')) {
+    Horde::redirect(str_replace('&amp;', '&', Horde::getServiceLink('logout')));
+}
+
+// Determine imp authentication type.
+$authentication = Horde_Util::nonInputVar('imp_authentication');
+if ($authentication == 'horde') {
+    IMP_Auth::$authType = 'horde';
+}
+
 try {
-    $registry->pushApp('imp', !(defined('AUTH_HANDLER') || $compose_page));
+    $registry->pushApp('imp', ($authentication != 'none'));
 } catch (Horde_Exception $e) {
-    if ($e->getCode() == 'permission_denied') {
-        Horde::authenticationFailureRedirect();
+    if ($e->getCode() == Horde_Registry::AUTH_FAILURE) {
+        if ($authentication == 'throw') {
+            throw $e;
+        }
+
+        if ($viewmode == 'dimp') {
+            // Handle session timeouts
+            switch (Horde_Util::nonInputVar('session_timeout')) {
+            case 'json':
+                $GLOBALS['notification']->push(null, 'dimp.timeout');
+                Horde::sendHTTPResponse(Horde::prepareResponse(), 'json');
+                exit;
+
+            case 'none':
+                exit;
+
+            default:
+                // TODO: Redirect to login screen
+                exit;
+            }
+        }
+
+        if (Horde_Util::nonInputVar('imp_compose_page')) {
+            $imp_compose = IMP_Compose::singleton();
+            $imp_compose->sessionExpireDraft();
+        }
     }
-    throw $e;
+
+    Horde_Auth::authenticationFailureRedirect('imp', $e);
 }
 
 $conf = &$GLOBALS['conf'];
@@ -74,6 +116,12 @@ if (!defined('IMP_TEMPLATES')) {
     define('IMP_TEMPLATES', $registry->get('templates'));
 }
 
+// Start compression.
+if (!Horde_Util::nonInputVar('imp_no_compress')) {
+    Horde::compressOutput();
+}
+
+/* Some stuff that only needs to be initialized if we are authenticated. */
 // TODO: Remove once this can be autoloaded
 require_once 'Horde/Identity.php';
 
@@ -82,74 +130,7 @@ if (!isset($GLOBALS['imp_imap'])) {
     $GLOBALS['imp_imap'] = new IMP_Imap();
 }
 
-// Start compression.
-if (!Horde_Util::nonInputVar('no_compress')) {
-    Horde::compressOutput();
-}
-
-// If IMP isn't responsible for Horde auth, and no one is logged into
-// Horde, redirect to the login screen. If this is a compose window
-// that just timed out, store the draft.
-if (!(Horde_Auth::isAuthenticated() || (Horde_Auth::getProvider() == 'imp'))) {
-    if ($compose_page) {
-        $imp_compose = IMP_Compose::singleton();
-        $imp_compose->sessionExpireDraft();
-    }
-    Horde::authenticationFailureRedirect();
-}
-
-// Determine view mode.
-$viewmode = isset($_SESSION['imp']['view'])
-    ? $_SESSION['imp']['view']
-    : 'imp';
-
-$authentication = Horde_Util::nonInputVar('authentication', 0);
 if ($authentication !== 'none') {
-    // If we've reached this point and have valid login credentials
-    // but don't actually have an IMP session, then we need to go
-    // through redirect.php to ensure that everything gets set up
-    // properly. Single-signon and transparent authentication setups
-    // are likely to trigger this case.
-    if (empty($_SESSION['imp'])) {
-        if ($compose_page) {
-            $imp_compose = IMP_Compose::singleton();
-            $imp_compose->sessionExpireDraft();
-            require IMP_BASE . '/login.php';
-        } else {
-            require IMP_BASE . '/redirect.php';
-        }
-        exit;
-    }
-
-    if ($compose_page) {
-        if (!IMP::checkAuthentication(true, ($authentication === 'horde'))) {
-            $imp_compose = IMP_Compose::singleton();
-            $imp_compose->sessionExpireDraft();
-            require IMP_BASE . '/login.php';
-            exit;
-        }
-    } elseif ($viewmode == 'dimp') {
-        // Handle session timeouts
-        if (!IMP::checkAuthentication(true)) {
-            switch (Horde_Util::nonInputVar('session_timeout')) {
-            case 'json':
-                $GLOBALS['notification']->push(null, 'dimp.timeout');
-                Horde::sendHTTPResponse(Horde::prepareResponse(), 'json');
-                // Fall through
-
-            case 'none':
-                exit;
-
-            default:
-                Horde::redirect(Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'imp') . '/redirect.php'), 'url', Horde::selfUrl(true)));
-            }
-        }
-    } else {
-        IMP::checkAuthentication(false, ($authentication === 'horde'));
-    }
-
-    /* Some stuff that only needs to be initialized if we are
-     * authenticated. */
     // Initialize some message parsing variables.
     Horde_Mime::$brokenRFC2231 = !empty($GLOBALS['conf']['mailformat']['brokenrfc2231']);
 
@@ -160,15 +141,8 @@ if ($authentication !== 'none') {
     }
 }
 
-// Handle logout requests
-if (($viewmode == 'dimp') && Horde_Util::nonInputVar('dimp_logout')) {
-    Horde::redirect(str_replace('&amp;', '&', IMP::getLogoutUrl()));
-}
-
-// Notification system.
 $notification = Horde_Notification::singleton();
-if (($viewmode == 'mimp') ||
-    (Horde_Util::nonInputVar('login_page') && $GLOBALS['browser']->isMobile())) {
+if ($viewmode == 'mimp') {
     $GLOBALS['imp_notify'] = $notification->attach('status', null, 'Horde_Notification_Listener_Mobile');
 } else {
     $GLOBALS['imp_notify'] = $notification->attach('status', array('viewmode' => $viewmode), 'IMP_Notification_Listener_Status');
@@ -182,17 +156,3 @@ $GLOBALS['imp_mbox'] = IMP::getCurrentMailboxInfo();
 
 // Initialize IMP_Search object.
 $GLOBALS['imp_search'] = new IMP_Search(array('id' => (isset($_SESSION['imp']) && IMP_Search::isSearchMbox($GLOBALS['imp_mbox']['mailbox'])) ? $GLOBALS['imp_mbox']['mailbox'] : null));
-
-if ($viewmode == 'mimp') {
-    // Mobile markup renderer.
-    $debug = Horde_Util::nonInputVar('mimp_debug');
-    $GLOBALS['mimp_render'] = new Horde_Mobile(null, $debug);
-    $GLOBALS['mimp_render']->set('debug', !empty($debug));
-} elseif (empty($_SESSION['imp']['logintasks']) &&
-          ($authentication !== 'none') &&
-          !defined('AUTH_HANDLER')) {
-    /* This captures all login tasks requests other than the IMP
-     * authentication + frameset case which needs to be handled in
-     * redirect.php. */
-    IMP_Session::loginTasks();
-}

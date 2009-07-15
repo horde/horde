@@ -27,16 +27,13 @@ $registry = Horde_Registry::singleton();
 try {
     $registry->pushApp('news', !defined('AUTH_HANDLER'));
 } catch (Horde_Exception $e) {
-    if ($e->getCode() == 'permission_denied') {
-        Horde::authenticationFailureRedirect();
-    }
-    throw $e;
+    Horde_Auth::authenticationFailureRedirect('news', $e);
 }
 $conf = &$GLOBALS['conf'];
 define('NEWS_TEMPLATES', $registry->get('templates'));
 
 // Notification system.
-$notification = &Horde_Notification::singleton();
+$notification = Horde_Notification::singleton();
 $notification->attach('status');
 
 // Define the base file path of News.
@@ -45,8 +42,8 @@ if (!defined('NEWS_BASE')) {
 }
 
 // Cache
-$GLOBALS['cache'] = &Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
-                                            Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+$GLOBALS['cache'] = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
+                                           Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
 
 // Set up News drivers.
 $GLOBALS['news'] = News_Driver::factory();

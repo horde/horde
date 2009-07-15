@@ -15,7 +15,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 require_once FOLKS_BASE . '/lib/Forms/Activity.php';
 
 if (!Horde_Auth::isAuthenticated()) {
-    Horde::authenticationFailureRedirect();
+    Horde_Auth::authenticationFailureRedirect('folks');
 }
 
 $title = _("Friends");

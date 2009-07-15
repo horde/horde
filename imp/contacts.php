@@ -10,7 +10,7 @@
  * @package IMP
  */
 
-$authentication = 'horde';
+$imp_authentication = 'horde';
 require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Get the lists of address books through the API. */

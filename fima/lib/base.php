@@ -30,10 +30,7 @@ if ($session_control == 'none') {
 try {
     $registry->pushApp('fima', !defined('AUTH_HANDLER'));
 } catch (Horde_Exception $e) {
-    if ($e->getCode() == 'permission_denied') {
-        Horde::authenticationFailureRedirect();
-    }
-    throw $e;
+    Horde_Auth::authenticationFailureRedirect('fima', $e);
 }
 $conf = &$GLOBALS['conf'];
 @define('FIMA_TEMPLATES', $registry->get('templates'));
@@ -44,11 +41,10 @@ if (!defined('FIMA_BASE')) {
 }
 
 // Notification system.
-$notification = &Horde_Notification::singleton();
+$notification = Horde_Notification::singleton();
 $notification->attach('status');
 
 // Fima base library
-require_once FIMA_BASE . '/lib/Fima.php';
 require_once FIMA_BASE . '/lib/Driver.php';
 
 // Horde libraries.
@@ -61,7 +57,6 @@ Horde::compressOutput();
 Horde_Nls::setTimeZone();
 
 // Create a share instance.
-require_once 'Horde/Share.php';
-$GLOBALS['fima_shares'] = &Horde_Share::singleton($registry->getApp());
+$GLOBALS['fima_shares'] = Horde_Share::singleton($registry->getApp());
 
 Fima::initialize();

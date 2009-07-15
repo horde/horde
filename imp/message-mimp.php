@@ -127,6 +127,9 @@ $msgcount = $imp_mailbox->getMessageCount();
 $mailbox_link = Horde_Util::addParameter(IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox']), array('s' => $msgindex));
 $self_link = IMP::generateIMPUrl('message-mimp.php', $imp_mbox['mailbox'], $index, $mailbox_name);
 
+/* Init render object. */
+$mimp_render = new Horde_Mobile();
+
 /* Output download confirmation screen. */
 $atc_id = Horde_Util::getFormData('atc');
 if (($actionID == 'c') && !is_null($atc_id)) {

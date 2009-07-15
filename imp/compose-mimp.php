@@ -238,6 +238,7 @@ case _("Send"):
 $cacheID = $imp_compose->getCacheId();
 
 $title = _("Message Composition");
+$mimp_render = new Horde_Mobile();
 $mimp_render->set('title', $title);
 
 $select_list = $identity->getSelectList();

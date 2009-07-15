@@ -72,9 +72,6 @@ $folder_list = Horde_Util::getFormData('folder_list', array());
 $refresh_url = Horde::applicationUrl('folders.php', true);
 $refresh_time = $prefs->getValue('refresh_time');
 
-/* Other variables. */
-$open_compose_window = null;
-
 /* Run through the action handlers. */
 $actionID = Horde_Util::getFormData('actionID');
 if ($actionID) {
@@ -245,10 +242,6 @@ case 'mark_folder_unseen':
         $imp_message = IMP_Message::singleton();
         $imp_message->flagAllInMailbox(array('seen'), $folder_list, ($actionID == 'mark_folder_seen'));
     }
-    break;
-
-case 'login_compose':
-    $open_compose_window = IMP::openComposeWin();
     break;
 
 case 'delete_folder_confirm':
@@ -525,14 +518,6 @@ if (count($rows) > 10) {
 
 /* No need for extra template - close out the tags here. */
 echo '</form></div>';
-
-if ($open_compose_window === false) {
-    if (!isset($options)) {
-        $options = array();
-    }
-    Horde::addScriptFile('imp.js', 'imp', true);
-    Horde::addInlineScript(IMP::popupIMPString('compose.php', array_merge(array('popup' => 1), $options, IMP::getComposeArgs())));
-}
 
 $notification->notify(array('listeners' => 'audio'));
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -34,10 +34,7 @@ $registry = Horde_Registry::singleton();
 try {
     $registry->pushApp('chora', !defined('AUTH_HANDLER'));
 } catch (Horde_Exception $e) {
-    if ($e->getCode() == 'permission_denied') {
-        Horde::authenticationFailureRedirect();
-    }
-    throw $e;
+    Horde_Auth::authenticationFailureRedirect('chora', $e);
 }
 $conf = &$GLOBALS['conf'];
 define('CHORA_TEMPLATES', $registry->get('templates'));
@@ -46,11 +43,8 @@ define('CHORA_TEMPLATES', $registry->get('templates'));
 $notification = &Horde_Notification::singleton();
 $notification->attach('status');
 
-// Chora base library.
-require_once CHORA_BASE . '/lib/Chora.php';
-
 // Initialize objects, path, etc.
 Chora::initialize();
 
-// Start compression, if requested.
+// Start compression.
 Horde::compressOutput();

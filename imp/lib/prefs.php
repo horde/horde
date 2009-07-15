@@ -243,14 +243,10 @@ function prefs_callback()
 
 /* Make sure we have an active IMAP stream. */
 try {
-    $res = $GLOBALS['registry']->call('mail/server');
+    $GLOBALS['registry']->call('mail/server');
 } catch (Horde_Exception $e) {
-    $res = false;
-}
-
-if (!$res) {
-    header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('redirect.php'), 'url', Horde::selfUrl(true)));
-    exit;
+    // TODO: Send to login screen
+    throw $e;
 }
 
 /* Add necessary javascript files here (so they are added to the document

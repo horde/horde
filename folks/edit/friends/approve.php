@@ -15,7 +15,7 @@ require_once dirname(__FILE__) . '/../../lib/base.php';
 require_once FOLKS_BASE . '/lib/Friends.php';
 
 if (!Horde_Auth::isAuthenticated()) {
-    Horde::authenticationFailureRedirect();
+    Horde_Auth::authenticationFailureRedirect('folks');
 }
 
 $user = Horde_Util::getGet('user');

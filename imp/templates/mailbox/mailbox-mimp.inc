@@ -11,6 +11,7 @@ if ($readonly) {
     $title .= ' [' . _("Read-Only") . ']';
 }
 
+$mimp_render = new Horde_Mobile();
 $c = &$mimp_render->add(new Horde_Mobile_card('m', $title));
 $c->softkey('#o', _("Menu"));
 

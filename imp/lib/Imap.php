@@ -123,7 +123,7 @@ class IMP_Imap
             return false;
         }
 
-        Horde_Imap_Client::$encryptKey = IMP::getAuthKey();
+        Horde_Imap_Client::$encryptKey = Horde_Secret::getKey('imp');
 
         $old_error = error_reporting(0);
         $this->ob = unserialize($_SESSION['imp']['imap_ob']);
