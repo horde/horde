@@ -67,7 +67,14 @@ if (!empty($_SESSION['imp']) && is_array($_SESSION['imp'])) {
         $registry->loadPrefs('horde');
         $registry->loadPrefs();
     } else {
-        header('Location: ' . IMP_Session::getInitialUrl($actionID, false));
+        if ($url_param) {
+            $url = Horde::applicationUrl('redirect.php', true);
+            $params = array('url' => $url_param);
+            $url = Horde_Util::addParameter($url, $params, null, false);
+        } else {
+            $url = IMP_Session::getInitialUrl($actionID, false);
+        }
+        header('Location: ' . $url);
         exit;
     }
 }
@@ -134,7 +141,7 @@ if ($conf['server']['server_list'] != 'shown') {
 
 if (!$logout_reason && IMP_Session::canAutoLogin($server_key, $autologin)) {
     $url = Horde::applicationUrl('redirect.php', true);
-    $params = array('actionID' => 'login', 'autologin' => true);
+    $params = array('actionID' => 'login', 'autologin' => true, 'url' => $url_param);
     if (count($used_servers) == 1) {
         $params['server_key'] = key($used_servers);
     }
