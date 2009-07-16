@@ -1681,11 +1681,11 @@ HTML;
      */
     static public function stripAccessKey($label)
     {
-        if (!isset($GLOBALS['nls'])) {
+        if (!isset(Horde_Nls::$config['multibyte'])) {
             self::loadConfiguration('nls.php', null, 'horde');
         }
-        $multibyte = isset($GLOBALS['nls']['multibyte'][Horde_Nls::getCharset(true)]);
 
+        $multibyte = isset(Horde_Nls::$config['multibyte'][Horde_Nls::getCharset(true)]);
         return preg_replace('/_([A-Za-z])/',
                             $multibyte && preg_match('/[\x80-\xff]/', $label) ? '' : '\1',
                             $label);
