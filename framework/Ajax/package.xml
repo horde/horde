@@ -33,6 +33,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <dir name="Ajax">
       <dir name="Imple">
        <file name="Base.php" role="php" />
+       <file name="SpellChecker.php" role="php" />
       </dir> <!-- /lib/Horde/Ajax/Imple -->
       <file name="Imple.php" role="php" />
      </dir> <!-- /lib/Horde/Ajax -->
@@ -48,16 +49,26 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
+   <package>
+    <name>Core</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
-  <package>
-   <name>Core</name>
-   <channel>pear.horde.org</channel>
-  </package>
-  <optional/>
+  <optional>
+   <package>
+    <name>SpellChecker</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Serialize</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
    <install name="lib/Horde/Ajax/Imple/Base.php" as="Horde/Ajax/Imple/Base.php" />
+   <install name="lib/Horde/Ajax/Imple/SpellChecker.php" as="Horde/Ajax/Imple/SpellChecker.php" />
    <install name="lib/Horde/Ajax/Imple.php" as="Horde/Ajax/Imple.php" />
   </filelist>
  </phprelease>
