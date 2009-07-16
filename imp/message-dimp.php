@@ -74,17 +74,17 @@ if (!$disable_compose) {
     $js_out = array_merge($js_out, $compose_result['js']);
     $scripts[] = array('compose-dimp.js', 'imp', true);
 
-    IMP::addInlineScript($compose_result['jsonload'], 'load');
+    Horde::addInlineScript($compose_result['jsonload'], 'load');
 }
 
-IMP::addInlineScript($js_out);
-IMP::addInlineScript(array(DIMP::notify()), 'dom');
+Horde::addInlineScript($js_out);
+Horde::addInlineScript(array(DIMP::notify()), 'dom');
 
 DIMP::header($show_msg_result['subject'], $scripts);
 echo "<body>\n";
 require IMP_TEMPLATES . '/chunks/message.php';
 IMP::includeScriptFiles();
-IMP::outputInlineScript();
+Horde::outputInlineScript();
 if (!$disable_compose) {
     echo $compose_result['jsappend'];
 }

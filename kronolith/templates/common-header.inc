@@ -49,7 +49,7 @@ var kronolithPrintLink = '';
 <?php foreach ($GLOBALS['display_calendars'] as $calendar): ?>
 <link href="<?php echo Kronolith::feedUrl($calendar) ?>" rel="alternate" type="application/atom+xml" />
 <?php endforeach; ?>
-<?php Kronolith::outputInlineScript(); ?>
+<?php Horde::outputInlineScript(); ?>
 </head>
 
 <body<?php if ($bc) echo ' class="' . $bc . '"'; if ($bi = Horde_Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>

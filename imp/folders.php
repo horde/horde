@@ -55,7 +55,7 @@ $charset = Horde_Nls::getCharset();
 $folders_url = Horde::selfUrl();
 
 /* This JS define is required by all folder pages. */
-IMP::addInlineScript(array(
+Horde::addInlineScript(array(
     'ImpFolders.folders_url = ' . Horde_Serialize::serialize($folders_url, Horde_Serialize::JSON, $charset)
 ));
 
@@ -366,7 +366,7 @@ reset($raw_rows);
 while (list(,$r) = each($raw_rows)) {
     $displayNames[] = $r['display'];
 }
-IMP::addInlineScript(array(
+Horde::addInlineScript(array(
     'ImpFolders.displayNames = ' . Horde_Serialize::serialize($displayNames, Horde_Serialize::JSON, $charset)
 ));
 
@@ -531,7 +531,7 @@ if ($open_compose_window === false) {
         $options = array();
     }
     Horde::addScriptFile('imp.js', 'imp', true);
-    IMP::addInlineScript(IMP::popupIMPString('compose.php', array_merge(array('popup' => 1), $options, IMP::getComposeArgs())));
+    Horde::addInlineScript(IMP::popupIMPString('compose.php', array_merge(array('popup' => 1), $options, IMP::getComposeArgs())));
 }
 
 $notification->notify(array('listeners' => 'audio'));

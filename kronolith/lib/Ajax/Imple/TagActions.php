@@ -27,7 +27,7 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
         } elseif ($action == 'delete') {
             $js = "Event.observe('" . $dom_id . "', 'click', function(event) {removeTag('" . $content_id . "', '" . $content_type . "', " . $tag_id . ", '" . $endpoint . "'); Event.stop(event)});";
         }
-        Kronolith::addInlineScript($js, 'window');
+        Horde::addInlineScript($js, 'window');
     }
 
     /**

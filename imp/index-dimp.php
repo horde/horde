@@ -44,7 +44,7 @@ if (!empty($site_menu)) {
     }
 }
 
-IMP::addInlineScript($js_code, true);
+Horde::addInlineScript($js_code, true);
 DIMP::header('', $scripts);
 
 /* Get application folders list. */
@@ -63,6 +63,6 @@ foreach (DIMP::menuList() as $app) {
 echo "<body>\n";
 require IMP_TEMPLATES . '/index/index-dimp.inc';
 IMP::includeScriptFiles();
-IMP::outputInlineScript();
+Horde::outputInlineScript();
 $notification->notify(array('listeners' => array('javascript')));
 echo "</body>\n</html>";

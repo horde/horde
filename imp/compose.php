@@ -1224,7 +1224,7 @@ if ($redirect) {
 Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('compose.js', 'imp', true);
 require IMP_TEMPLATES . '/common-header.inc';
-IMP::addInlineScript($js_code);
+Horde::addInlineScript($js_code);
 if ($showmenu) {
     IMP::menu();
 }

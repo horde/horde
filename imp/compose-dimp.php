@@ -322,15 +322,15 @@ if ($show_editor) {
 if (Horde_Util::getFormData('popup')) {
     $compose_result['js'][] = 'DIMP.conf_compose.popup = 1';
 }
-IMP::addInlineScript($compose_result['js']);
+Horde::addInlineScript($compose_result['js']);
 
 /* Some actions, like adding forwards, may return error messages so explicitly
  * display those messages now. */
-IMP::addInlineScript(array(DIMP::notify()), 'dom');
+Horde::addInlineScript(array(DIMP::notify()), 'dom');
 
 /* Javascript to be run on window load. */
 $compose_result['js_onload'][] = 'DimpCompose.fillForm(' . Horde_Serialize::serialize($msg, Horde_Serialize::JSON) . ', ' . Horde_Serialize::serialize($header, Horde_Serialize::JSON) . ', "' . (($type == 'new' || $type == 'forward') ? 'to' : 'message') . '", true)';
-IMP::addInlineScript($compose_result['js_onload'], 'load');
+Horde::addInlineScript($compose_result['js_onload'], 'load');
 
 $scripts = array(
     array('compose-dimp.js', 'imp', true)
@@ -339,6 +339,6 @@ $scripts = array(
 DIMP::header(_("Message Composition"), $scripts);
 echo $t->fetch('compose.html');
 IMP::includeScriptFiles();
-IMP::outputInlineScript();
+Horde::outputInlineScript();
 echo $compose_result['jsappend'];
 echo "</body>\n</html>";

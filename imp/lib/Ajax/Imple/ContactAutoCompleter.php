@@ -99,7 +99,7 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_Base
                 if (!isset($addrlist)) {
                     $addrlist = IMP_Compose::getAddressList();
                 }
-                IMP::addInlineScript('if (!IMP) { var IMP = {}; } IMP.ac_list = '. Horde_Serialize::serialize(array_map('htmlspecialchars', $addrlist), Horde_Serialize::JSON, Horde_Nls::getCharset()));
+                Horde::addInlineScript('if (!IMP) { var IMP = {}; } IMP.ac_list = '. Horde_Serialize::serialize(array_map('htmlspecialchars', $addrlist), Horde_Serialize::JSON, Horde_Nls::getCharset()));
                 self::$_listOutput = true;
             }
             $func = 'Autocompleter.Local';
@@ -109,7 +109,7 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_Base
         }
 
         $params[] = '{' . implode(',', $js_params) . '}';
-        IMP::addInlineScript('new ' . $func . '(' . implode(',', $params) . ')', 'dom');
+        Horde::addInlineScript('new ' . $func . '(' . implode(',', $params) . ')', 'dom');
     }
 
     /**

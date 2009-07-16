@@ -111,7 +111,7 @@ class Kronolith
              "<head>\n" .
              '<title>' . htmlspecialchars($page_title) . "</title>\n" .
              '<link href="' . $GLOBALS['registry']->getImageDir() . "/favicon.ico\" rel=\"SHORTCUT ICON\" />\n".
-             self::wrapInlineScript(self::includeJSVars());
+             Horde::wrapInlineScript(self::includeJSVars());
 
         self::includeStylesheetFiles(true);
 
@@ -226,81 +226,6 @@ class Kronolith
         }
 
         return array('var Kronolith = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, Horde_Nls::getCharset()) . ';');
-    }
-
-    /**
-     * Add inline javascript to the output buffer.
-     *
-     * @param mixed $script    The script text to add (can be stored in an
-     *                         array also).
-     * @param string $onload   Load the script after the page has loaded?
-     *                         Either 'dom' (on dom:loaded), 'load'.
-     *
-     * @return string  The javascript text to output, or empty if the page
-     *                 headers have not yet been sent.
-     */
-    public static function addInlineScript($script, $onload = false)
-    {
-        if (is_array($script)) {
-            $script = implode(';', $script);
-        }
-
-        $script = trim($script);
-        if (empty($script)) {
-            return;
-        }
-        switch ($onload) {
-        case 'dom':
-            $script = 'document.observe("dom:loaded", function() {' . $script . '});';
-            break;
-
-        case 'load':
-            $script = 'Event.observe(window, "load", function() {' . $script . '});';
-            break;
-        }
-
-        if (!isset($GLOBALS['__kronolith_inline_script'])) {
-            $GLOBALS['__kronolith_inline_script'] = array();
-        }
-        $GLOBALS['__kronolith_inline_script'][] = $script;
-
-        // If headers have already been sent, we need to output a <script> tag
-        // directly.
-        if (ob_get_length() || headers_sent()) {
-            self::outputInlineScript();
-        }
-    }
-
-    /**
-     * Print inline javascript to the output buffer.
-     *
-     * @return string  The javascript text to output.
-     */
-    public static function outputInlineScript()
-    {
-        if (!empty($GLOBALS['__kronolith_inline_script'])) {
-            echo '<script type="text/javascript">//<![CDATA[' . "\n";
-            foreach ($GLOBALS['__kronolith_inline_script'] as $val) {
-                echo $val . "\n";
-            }
-            echo "//]]></script>\n";
-        }
-
-        $GLOBALS['__kronolith_inline_script'] = array();
-    }
-
-    /**
-     * Print inline javascript to output buffer after wrapping with necessary
-     * javascript tags.
-     *
-     * @param array $script  The script to output.
-     *
-     * @return string  The script with the necessary HTML javascript tags
-     *                 appended.
-     */
-    public static function wrapInlineScript($script)
-    {
-        return '<script type="text/javascript">//<![CDATA[' . "\n" . implode("\n", $script) . "\n//]]></script>\n";
     }
 
     /**

@@ -730,7 +730,7 @@ Horde::addScriptFile('imp.js', 'imp', true);
 Horde::addScriptFile('message.js', 'imp', true);
 require IMP_TEMPLATES . '/common-header.inc';
 if (IMP::$printMode) {
-    IMP::addInlineScript('ImpMessage.printmode = true');
+    Horde::addInlineScript('ImpMessage.printmode = true');
 } else {
     if (!empty($conf['maillog']['use_maillog'])) {
         IMP_Maillog::displayLog($envelope['message-id']);

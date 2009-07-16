@@ -88,7 +88,7 @@ class Kronolith_Ajax_Imple_TagAutoCompleter extends Horde_Ajax_Imple_Base
             $script = array('new Ajax.Autocompleter(' . implode(',', $params) . ')');
         }
 
-        Kronolith::addInlineScript($script, 'dom');
+        Horde::addInlineScript($script, 'dom');
     }
 
     /**

@@ -56,7 +56,7 @@ class Kronolith_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_Base
 
         $params[] = '{' . implode(',', $js_params) . '}';
 
-        Kronolith::addInlineScript('new Ajax.Autocompleter(' . implode(',', $params) . ')', 'dom');
+        Horde::addInlineScript('new Ajax.Autocompleter(' . implode(',', $params) . ')', 'dom');
     }
 
     /**

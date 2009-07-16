@@ -189,7 +189,7 @@ class IMP_UI_Compose
                 $js_onload[] = 'oFCKeditor.Height = $(\'message\').getHeight()';
                 $js_onload[] = 'oFCKeditor.ReplaceTextarea()';
             }
-            IMP::addInlineScript($js_onload, 'load');
+            Horde::addInlineScript($js_onload, 'load');
         }
 
         return $editor->getJS();

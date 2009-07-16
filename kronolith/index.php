@@ -63,7 +63,7 @@ Kronolith::header('', $scripts);
 echo "<body class=\"kronolithAjax\">\n";
 require KRONOLITH_TEMPLATES . '/index/index.inc';
 Kronolith::includeScriptFiles();
-Kronolith::outputInlineScript();
+Horde::outputInlineScript();
 $notification->notify(array('listeners' => array('javascript')));
 Horde_Ajax_Imple::getInstance(array('kronolith', 'TagAutoCompleter'), array('triggerId' => 'kronolithEventTags', 'pretty' => true));
 echo "</body>\n</html>";

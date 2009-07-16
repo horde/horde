@@ -261,7 +261,7 @@ case 'flags':
     Horde::addScriptFile('colorpicker.js', 'horde', true);
     Horde::addScriptFile('flagmanagement.js', 'imp', true);
 
-    IMP::addInlineScript(array(
+    Horde::addInlineScript(array(
         'ImpFlagmanagement.new_prompt = ' . Horde_Serialize::serialize(_("Please enter the label for the new flag:"), Horde_Serialize::JSON, Horde_Nls::getCharset())
     ));
     break;

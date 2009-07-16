@@ -342,7 +342,7 @@ $login_params = $autologin
     ? array('autologin' => $autologin, 'server_key' => '')
     : array('server_key' => '');
 
-IMP::addInlineScript(array(
+Horde::addInlineScript(array(
     'ImpLogin.autologin_url = ' . Horde_Serialize::serialize(Horde_Util::addParameter(Horde::selfUrl(), $login_params, null, false), Horde_Serialize::JSON, $charset),
     'ImpLogin.ie_clientcaps = ' . intval($t->get('ie_clientcaps')),
     'ImpLogin.imp_auth = ' . intval($imp_auth),

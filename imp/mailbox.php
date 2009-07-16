@@ -874,7 +874,7 @@ if (($pageOb['end'] - $pageOb['begin']) >= 20) {
     echo $n_template->fetch(IMP_TEMPLATES . '/mailbox/navbar.html');
 }
 
-IMP::addInlineScript(array(
+Horde::addInlineScript(array(
     'ImpMailbox.sortlimit = ' . intval($sortpref['limit']),
     'ImpMailbox.unread = ' . strval($unread)
 ));

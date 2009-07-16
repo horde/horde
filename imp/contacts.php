@@ -102,7 +102,7 @@ $title = _("Address Book");
 Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('contacts.js', 'imp', true);
 require IMP_TEMPLATES . '/common-header.inc';
-IMP::addInlineScript(array(
+Horde::addInlineScript(array(
     'ImpContacts.formname = \'' . $formname . '\'',
     'ImpContacts.to_only = ' . intval($to_only),
 ));

@@ -43,7 +43,7 @@ IMP::includeStylesheetFiles();
 <link href="<?php echo Horde::applicationUrl('search.php') ?>" rel="search" />
 <?php endif ?>
 <?php if (!empty($ie_clientcaps)): ?><style>IE\:clientcaps {behavior:url(#default#clientcaps)}</style><?php endif; ?>
-<?php IMP::outputInlineScript(); ?>
+<?php Horde::outputInlineScript(); ?>
 </head>
 
 <body<?php if ($bc = Horde_Util::nonInputVar('bodyClass')) echo ' class="' . $bc . '"' ?><?php if ($bi = Horde_Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>

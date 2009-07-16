@@ -55,9 +55,6 @@ class IMP
     /* filesystemGC() cache. */
     static private $_dirlist = array();
 
-    /* Inline script cache. */
-    static private $_inlineScript = array();
-
     /**
      * Makes sure the user has been authenticated to view the page.
      *
@@ -1165,70 +1162,6 @@ class IMP
         if ($delete || !empty($entry)) {
             $GLOBALS['prefs']->setValue('sortpref', @serialize($sortpref));
         }
-    }
-
-    /**
-     * Add inline javascript to the output buffer.
-     *
-     * @param mixed $script    The script text to add (can be stored in an
-     *                         array also).
-     * @param string $onload   Load the script after the page has loaded?
-     *                         Either 'dom' (on dom:loaded), 'load'.
-     */
-    static public function addInlineScript($script, $onload = false)
-    {
-        if (is_array($script)) {
-            $script = implode(';', $script);
-        }
-
-        $script = trim($script);
-        if (empty($script)) {
-            return;
-        }
-
-        switch ($onload) {
-        case 'dom':
-            $script = 'document.observe("dom:loaded", function() {' . $script . '});';
-            break;
-
-        case 'load':
-            $script = 'Event.observe(window, "load", function() {' . $script . '});';
-            break;
-        }
-
-        self::$_inlineScript[] = $script;
-
-        // If headers have already been sent, we need to output a
-        // <script> tag directly.
-        if (ob_get_length() || headers_sent()) {
-            self::outputInlineScript();
-        }
-    }
-
-    /**
-     * Print pending inline javascript to the output buffer.
-     */
-    static public function outputInlineScript()
-    {
-        if (!empty(self::$_inlineScript)) {
-            echo self::wrapInlineScript(self::$_inlineScript);
-        }
-
-        self::$_inlineScript = array();
-    }
-
-    /**
-     * Print inline javascript to output buffer after wrapping with necessary
-     * javascript tags.
-     *
-     * @param array $script  The script to output.
-     *
-     * @return string  The script with the necessary HTML javascript tags
-     *                 appended.
-     */
-    static public function wrapInlineScript($script)
-    {
-        return '<script type="text/javascript">//<![CDATA[' . "\n" . implode("\n", $script) . "\n//]]></script>\n";
     }
 
     /**
