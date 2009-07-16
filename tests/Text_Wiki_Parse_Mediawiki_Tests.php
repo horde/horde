@@ -44,8 +44,8 @@ class Text_Wiki_Parse_Mediawiki_AllTests extends PHPUnit_Framework_TestSuite
         /*$suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Subscript_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Superscript_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Table_Test');
-        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Tt_Test');
-        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Url_Test');*/
+        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Tt_Test');*/
+        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Url_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Wikilink_Test');
         
         return $suite;
@@ -249,6 +249,82 @@ class Text_Wiki_Parse_Mediawiki_Wikilink_Test extends Text_Wiki_Parse_Mediawiki_
         $this->assertEquals($expectedWikilinkMatches, $matches);
     }
     
+}
+
+class Text_Wiki_Parse_Mediawiki_Url_Test extends PHPUnit_Framework_TestCase
+{
+
+    protected function setUp()
+    {
+        $textWiki = new Text_Wiki('Mediawiki');
+        $this->obj = new Text_Wiki_Parse_Url($textWiki);
+    }
+
+    public function testMediawikiParseUrlParse()
+    {
+        // for some weird reason I was unable to mock this class calling the constructor that is why to
+        // test the regular expression I'm testing the tokens created (instead of testing many times each process function was called)
+        $this->obj->wiki->source = file_get_contents(dirname(__FILE__) . '/fixtures/mediawiki_syntax.txt');
+        $this->obj->parse();
+
+        $tokens = array(
+            1 => array(0 => 'Url', 1 => array('type' => 'descr', 'href' => 'http://www.example.com', 'text' => 'See the example site')),
+            2 => array(0 => 'Url', 1 => array('type' => 'descr', 'href' => 'http://exemple.com/index.php', 'text' => 'consectetur adipiscing')),
+            3 => array(0 => 'Url', 1 => array('type' => 'descr', 'href' => 'http://exemple.com/index.php#anchor', 'text' => 'Pellentesque')),
+            4 => array(0 => 'Url', 1 => array('type' => 'descr', 'href' => 'http://www.somelink.com/index.php', 'text' => 'http://www.somelink.com/index.php')),
+            5 => array(0 => 'Url', 1 => array('type' => 'inline', 'href' => 'http://example.com/index.php', 'text' => 'http://example.com/index.php'))
+        );
+
+        $this->assertEquals(array_values($tokens), array_values($this->obj->wiki->tokens));
+    }
+
+/*    public function testMediawikiParseUrlParseWithMocking()
+    {
+        // NOT WORKING: unable to mock the class Text_Wiki_Parse_Url using its constructor
+        $textWiki = Text_Wiki::factory('Mediawiki');
+        $obj = $this->getMock('Text_Wiki_Parse_Url',
+            array('process', 'processWithoutProtocol', 'processInlineEmail', 'processFootnote', 'processOrdinary', 'processDescr'),
+            array($textWiki),
+        );
+        $obj->expects($this->once())->method('process');
+        $obj->expects($this->never())->method('processWithoutProtocol');
+        $obj->expects($this->never())->method('processInlineEmail');
+        $obj->expects($this->never())->method('processFootnote');
+        $obj->expects($this->exactly(2))->method('processOrdinary');
+        $obj->expects($this->exactly(5))->method('processDescr');
+        $obj->wiki->source = file_get_contents(dirname(__FILE__) . '/fixtures/mediawiki_syntax.txt');
+        $obj->parse();
+    }*/
+
+    public function testProcess()
+    {
+        $this->markTestIncomplete('Test incomplete');
+    }
+
+    public function testProcessWithoutProtocol()
+    {
+        $this->markTestIncomplete('Test incomplete');
+    }
+
+    public function testProcessInlineEmail()
+    {
+        $this->markTestIncomplete('Test incomplete');
+    }
+
+    public function testProcessFootnote()
+    {
+        $this->markTestIncomplete('Test incomplete');
+    }
+
+    public function testProcessOrdinary()
+    {
+        $this->markTestIncomplete('Test incomplete');
+    }
+
+    public function testProcessDescr()
+    {
+        $this->markTestIncomplete('Test incomplete');
+    }
 }
 
 ?>

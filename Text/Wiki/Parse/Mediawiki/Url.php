@@ -212,6 +212,7 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
         return $matches[1] . $this->wiki->addToken($this->rule, $options) . $matches[5];
     }
 
+    // TODO: check if this is supported by Mediawiki parser (apparently it is not)
     function processWithoutProtocol(&$matches)
     {
         // set options
@@ -225,6 +226,7 @@ class Text_Wiki_Parse_Url extends Text_Wiki_Parse {
         return $matches[1] . $this->wiki->addToken($this->rule, $options) . $matches[4];
     }
 
+    // TODO: check if this is supported by Mediawiki parser (apparently it is not)
     function processInlineEmail(&$matches)
     {
         // set options

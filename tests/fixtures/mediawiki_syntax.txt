@@ -1,10 +1,11 @@
 #REDIRECT [[Some page name]]
 #redirect [[Other page name]]
 
-
-[http://www.example.com]
-
 [http://www.example.com See the example site]
+
+[http://www.somelink.com/index.php]
+
+http://example.com/index.php
 
 '''Bold text''' and ''italic text'' and even '''''bold italic text'''''
 
