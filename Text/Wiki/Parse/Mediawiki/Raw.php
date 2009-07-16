@@ -40,7 +40,7 @@ class Text_Wiki_Parse_Raw extends Text_Wiki_Parse {
     * @access public
     * @var string
     */
-    var $regex = "/<nowiki>(.*)<\/nowiki>/Ums";
+    var $regex = "/<nowiki>\n?(.*?)\n?<\/nowiki>/ms";
     
     
     /**

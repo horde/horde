@@ -9,8 +9,6 @@ http://example.com/index.php
 
 '''Bold text''' and ''italic text'' and even '''''bold italic text'''''
 
-'''Bold then into ''italics'' and bold again''' ''going to italics '''then bold'''''
-
 =Level 1 heading=
 Lorem ipsum dolor sit amet, [http://exemple.com/index.php consectetur adipiscing] elit. Etiam commodo felis vitae sem convallis elementum vel a mauris. Sed rhoncus dapibus orci ullamcorper tempor. Mauris tortor ante, hendrerit ut scelerisque ut, aliquet blandit metus. Morbi fermentum vulputate mi ac sagittis. Suspendisse in vehicula mauris.
 
@@ -85,3 +83,4 @@ Invalid horizontal rule
 ### List
 # List
 # List
+
