@@ -6,7 +6,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <name>Release</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Release generation library</summary>
- <description>These package provides the tools necessary to create the Horde distribution packages.
+ <description>This package provides the tools necessary to create the Horde distribution packages.
  </description>
  <lead>
   <name>Chuck Hagenbuch</name>
@@ -74,10 +74,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <optional/>
  </dependencies>
  <phprelease>
-  <install>
-   <file name="lib/Horde/Release.php" as="Horde/Release.php" />
-   <file name="lib/Horde/Release/Whups.php" as="Horde/Release/Whups.php" />
-  </install>
+  <filelist>
+   <install name="lib/Horde/Release.php" as="Horde/Release.php" />
+   <install name="lib/Horde/Release/Whups.php" as="Horde/Release/Whups.php" />
+  </filelist>
  </phprelease>
  <changelog/>
 </package>
