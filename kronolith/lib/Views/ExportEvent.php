@@ -13,7 +13,6 @@ class Kronolith_View_ExportEvent {
      */
     function Kronolith_View_ExportEvent(&$event)
     {
-        require_once 'Horde/iCalendar.php';
         $iCal = new Horde_iCalendar('2.0');
 
         if (!$event->isRemote()) {

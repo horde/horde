@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: kronolith/imple.php,v 1.5 2009/01/06 18:00:59 jan Exp $
- *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

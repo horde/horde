@@ -1,5 +1,3 @@
--- $Horde: kronolith/scripts/upgrades/1.1_to_2.0.mysql.sql,v 1.6 2006/12/13 04:58:22 chuck Exp $
---
 -- You can simply execute this file in your database.
 --
 -- Run as:

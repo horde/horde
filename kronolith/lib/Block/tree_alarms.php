@@ -4,8 +4,6 @@ $block_name = _("Menu Alarms");
 $block_type = 'tree';
 
 /**
- * $Horde: kronolith/lib/Block/tree_alarms.php,v 1.12 2008/01/02 16:48:35 chuck Exp $
- *
  * @package Horde_Block
  */
 class Horde_Block_kronolith_tree_alarms extends Horde_Block {
@@ -18,7 +16,6 @@ class Horde_Block_kronolith_tree_alarms extends Horde_Block {
 
         $horde_alarm = null;
         if (!empty($GLOBALS['conf']['alarms']['driver'])) {
-            require_once 'Horde/Alarm.php';
             $horde_alarm = Horde_Alarm::factory();
         }
 

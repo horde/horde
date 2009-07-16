@@ -6,8 +6,6 @@
  * The first argument must be a DSN to the database containing the calendar
  * and event tables, e.g.: "mysql://root:password@localhost/squirrelmail".
  *
- * $Horde: kronolith/scripts/import_squirrelmail_calendar.php,v 1.3 2009/01/06 18:01:04 jan Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -22,7 +20,6 @@
 
 // Do CLI checks and environment setup first.
 require_once HORDE_BASE . '/lib/core.php';
-require_once 'Horde/Cli.php';
 
 // Makre sure no one runs this from the web.
 if (!Horde_Cli::runningFromCli()) {
@@ -53,7 +50,6 @@ if ($conf['auth']['admins']) {
 // share code breaks, causing a new, completely empty share to be created with
 // no owner.
 require_once KRONOLITH_BASE . '/lib/base.php';
-require_once 'Horde/iCalendar.php';
 
 // Connect to database.
 $db = &DB::connect($dsn);

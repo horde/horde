@@ -1,5 +1,3 @@
--- $Horde: kronolith/scripts/upgrades/1.1_to_2.0.pgsql.sql,v 1.4 2006/12/13 04:58:22 chuck Exp $
---
 -- Update script to update Kronolith 1.1 data to 2.x data for pgsql
 -- Converted from mysql version by Daniel E. Markle <lexicon@seul.org>
 --

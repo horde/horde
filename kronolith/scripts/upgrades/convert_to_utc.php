@@ -5,11 +5,10 @@
  */
 
 @define('AUTH_HANDLER', true);
-@define('HORDE_BASE', dirname(__FILE__) . '/../../..');
 
 /* Set up the CLI environment. */
+require_once dirname(__FILE__) . '/../../lib/base.load.php';
 require_once HORDE_BASE . '/lib/core.php';
-require_once 'Horde/Cli.php';
 if (!Horde_Cli::runningFromCLI()) {
     exit("Must be run from the command line\n");
 }
@@ -17,8 +16,7 @@ $cli = &Horde_Cli::singleton();
 $cli->init();
 
 /* Load required libraries. */
-require_once dirname(__FILE__) . '/../../lib/base.php';
-require_once 'DB.php';
+require_once KRONOLITH_BASE . '/../../lib/base.php';
 require_once 'Horde/Prefs.php';
 
 /* Prepare DB stuff. */

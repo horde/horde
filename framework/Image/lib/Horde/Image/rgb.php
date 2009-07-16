@@ -2,13 +2,11 @@
 /**
  * RGB color names/values.
  *
- * $Horde: framework/Image/Image/rgb.php,v 1.3 2005/10/13 05:59:17 selsky Exp $
- *
  * @package Horde_Image
  */
 $GLOBALS['horde_image_rgb_colors'] = array(
-    'aqua' => array(0, 255, 255), 		
-    'lime' => array(0, 255, 0), 		
+    'aqua' => array(0, 255, 255),
+    'lime' => array(0, 255, 0),
     'teal' => array(0, 128, 128),
     'whitesmoke' => array(245, 245, 245),
     'gainsboro' => array(220, 220, 220),

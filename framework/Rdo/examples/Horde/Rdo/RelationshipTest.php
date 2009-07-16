@@ -2,8 +2,6 @@
 /**
  * @package Horde_Rdo
  * @subpackage UnitTests
- *
- * $Horde: framework/Rdo/examples/Horde/Rdo/RelationshipTest.php,v 1.1 2008/03/05 20:37:32 chuck Exp $
  */
 
 // class definitions.

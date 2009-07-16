@@ -1,7 +1,4 @@
 <?php
-
-require_once dirname(__FILE__) . '/Day.php';
-
 /**
  * The Kronolith_View_Week:: class provides an API for viewing weeks.
  *
@@ -287,7 +284,6 @@ class Kronolith_View_Week {
             $rows[] = array('row' => $row, 'slot' => '<span class="' . $hourclass . '">' . $time . '</span>');
         }
 
-        require_once 'Horde/Template.php';
         $template = new Horde_Template();
         $template->set('row_height', round(20 / $this->_slotsPerHour));
         $template->set('rows', $rows);

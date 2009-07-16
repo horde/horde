@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-<!-- $Horde: ingo/locale/eu_ES/help.xml,v 1.1 2008/07/17 21:07:11 jan Exp $ -->
 <help><entry id="blacklist" md5="5c12e162f66f68c6c2d84cc7c280d710" state="uptodate">
     <title>Zerrenda beltza</title>
     <para>SARRERAKO ONTZIAn ikusi nahi ez dituzun helbide elektronikoen zerrenda bat da zerrenda beltza.</para></entry> <entry id="blacklist-action" md5="1701f4152c090004e3b40205439f9108" state="uptodate">

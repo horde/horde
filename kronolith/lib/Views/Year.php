@@ -1,7 +1,4 @@
 <?php
-
-require_once KRONOLITH_BASE . '/lib/Day.php';
-
 /**
  * The Kronolith_View_Year:: class provides an API for viewing years.
  *

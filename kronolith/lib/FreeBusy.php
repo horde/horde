@@ -199,8 +199,7 @@ class Kronolith_FreeBusy {
         }
 
         /* Check storage driver. */
-        require_once KRONOLITH_BASE . '/lib/Storage.php';
-        $storage = &Kronolith_Storage::singleton();
+        $storage = Kronolith_Storage::singleton();
 
         $fb = $storage->search($email);
         if (!is_a($fb, 'PEAR_Error')) {

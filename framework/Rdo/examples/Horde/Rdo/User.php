@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: framework/Rdo/examples/Horde/Rdo/User.php,v 1.3 2008/09/02 17:24:59 chuck Exp $
- *
  * @package Horde_Rdo
  */
 

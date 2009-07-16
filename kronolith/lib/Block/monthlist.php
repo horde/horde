@@ -6,8 +6,6 @@ $block_name = _("Upcoming Events");
  * Horde_Block_Kronolith_monthlist:: Implementation of the Horde_Block API
  * to display a list of calendar items grouped by month.
  *
- * $Horde: kronolith/lib/Block/monthlist.php,v 1.57 2008/10/13 23:00:16 jan Exp $
- *
  * @package Horde_Block
  */
 class Horde_Block_Kronolith_monthlist extends Horde_Block {
@@ -64,7 +62,6 @@ class Horde_Block_Kronolith_monthlist extends Horde_Block {
         // @TODO Remove this hack when maintenance is refactored.
         $no_maint = true;
         require_once dirname(__FILE__) . '/../base.php';
-        require_once KRONOLITH_BASE . '/lib/Day.php';
 
         global $registry, $prefs;
 

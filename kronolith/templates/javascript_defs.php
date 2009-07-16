@@ -3,7 +3,6 @@
  * JavaScript variables for the traditional interface.
  */
 
-require_once 'Horde/Serialize.php';
 $charset = Horde_Nls::getCharset();
 
 /* Variables used in core javascript files. */

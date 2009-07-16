@@ -40,12 +40,8 @@ $conf = &$GLOBALS['conf'];
 define('KRONOLITH_TEMPLATES', $registry->get('templates'));
 
 /* Notification system. */
-$notification = &Horde_Notification::singleton();
-$GLOBALS['kronolith_notify'] = &$notification->attach('status', null, 'Kronolith_Notification_Listener_Status');
-
-/* Kronolith base library. */
-require_once KRONOLITH_BASE . '/lib/Kronolith.php';
-require_once KRONOLITH_BASE . '/lib/Driver.php';
+$notification = Horde_Notification::singleton();
+$GLOBALS['kronolith_notify'] = $notification->attach('status', null, 'Kronolith_Notification_Listener_Status');
 
 /* Start compression, if requested. */
 Horde::compressOutput();
@@ -54,12 +50,12 @@ Horde::compressOutput();
 Horde_Nls::setTimeZone();
 
 /* Create a share instance. */
-$GLOBALS['kronolith_shares'] = &Horde_Share::singleton($registry->getApp());
+$GLOBALS['kronolith_shares'] = Horde_Share::singleton($registry->getApp());
 
 Kronolith::initialize();
 
 // TODO - Maintenance operations need to be refactored to a more global
-//        operation and then wen can get rid of these hackish checks
+//        operation and then we can get rid of these hackish checks
 /* Do login tasks - need to check for a number of conditions to be
  * sure that we aren't here due to alarm notifications (which would occur after
  * headers are sent), we aren't on any of the portal pages, and that we haven't
@@ -70,13 +66,13 @@ if (empty($no_maint) && Kronolith::loginTasksFlag() &&
     !headers_sent() && !defined('AUTH_HANDLER')) {
     Kronolith::loginTasksFlag(2);
 
-    $tasks = &Horde_LoginTasks::singleton('kronolith', Horde_Util::addParameter(Horde::selfUrl(true, true, true), array('logintasks_done' => true)));
+    $tasks = Horde_LoginTasks::singleton('kronolith', Horde_Util::addParameter(Horde::selfUrl(true, true, true), array('logintasks_done' => true)));
     $tasks->runTasks();
 
     Kronolith::loginTasksFlag(0);
 } elseif (Horde_Util::getFormData('logintasks_done') &&
           Kronolith::loginTasksFlag()) {
-    $tasks = &Horde_LoginTasks::singleton('kronolith', Horde_Util::addParameter(Horde::selfUrl(true, true, true), array('logintasks_done' => true)));
+    $tasks = Horde_LoginTasks::singleton('kronolith', Horde_Util::addParameter(Horde::selfUrl(true, true, true), array('logintasks_done' => true)));
     $tasks->runTasks();
 
     Kronolith::loginTasksFlag(0);

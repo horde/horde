@@ -12,8 +12,8 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 require_once 'Horde/Group.php';
 
-$shares = &Horde_Share::singleton('kronolith');
-$groups = &Group::singleton();
+$shares = Horde_Share::singleton('kronolith');
+$groups = Group::singleton();
 $auth = Horde_Auth::singleton($conf['auth']['driver']);
 
 $reload = false;

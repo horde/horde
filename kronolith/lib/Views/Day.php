@@ -1,7 +1,4 @@
 <?php
-
-require_once KRONOLITH_BASE . '/lib/Day.php';
-
 /**
  * The Kronolith_View_Day:: class provides an API for viewing days.
  *
@@ -272,7 +269,6 @@ class Kronolith_View_Day extends Kronolith_Day {
             $rows[] = array('row' => $row, 'slot' => $newEventUrl);
         }
 
-        require_once 'Horde/Template.php';
         $template = new Horde_Template();
         $template->set('row_height', round(20 / $this->_slotsPerHour));
         $template->set('rows', $rows);

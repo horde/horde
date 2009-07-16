@@ -4,15 +4,12 @@
  * mainly provides some utility functions, such as the ability to make
  * pixels or solid images for now.
  *
- * $Horde: framework/Image/Image/png.php,v 1.30 2009/01/06 17:49:20 jan Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Horde 3.0
  * @package Horde_Image
  */
 class Horde_Image_Png extends Horde_Image {

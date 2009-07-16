@@ -1,5 +1,3 @@
--- $Horde: kronolith/scripts/upgrades/2.1_to_2.2.pgsql.sql,v 1.8 2008/12/03 16:10:50 chuck Exp $
-
 BEGIN;
 ALTER TABLE kronolith_events ADD event_private INT;
 UPDATE kronolith_events SET event_private = 0;

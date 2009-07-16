@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: kronolith/feed/index.php,v 1.6 2009/01/06 18:01:00 jan Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -25,11 +23,9 @@ function _no_access($status, $reason, $body)
 
 $session_control = 'readonly';
 @define('AUTH_HANDLER', true);
-@define('KRONOLITH_BASE', dirname(__FILE__) . '/..');
-require_once KRONOLITH_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../lib/base.php';
 require_once KRONOLITH_BASE . '/lib/version.php';
 require_once 'Horde/Identity.php';
-require_once 'Horde/Template.php';
 
 $calendar = Horde_Util::getFormData('c');
 $share = $kronolith_shares->getShare($calendar);

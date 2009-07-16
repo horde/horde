@@ -2,8 +2,6 @@
 /**
  * Kronolith external API interface.
  *
- * $Horde: kronolith/lib/api.php,v 1.241 2008/11/22 02:04:23 bklang Exp $
- *
  * This file defines Kronolith's external API interface. Other applications
  * can interact with Kronolith through this API.
  *

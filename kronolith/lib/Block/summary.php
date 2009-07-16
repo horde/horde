@@ -6,8 +6,6 @@ $block_name = _("Calendar Summary");
  * Horde_Block_Kronolith_summary:: Implementation of the Horde_Block API to
  * display a summary of calendar items.
  *
- * $Horde: kronolith/lib/Block/summary.php,v 1.71 2008/10/13 23:00:17 jan Exp $
- *
  * @package Horde_Block
  */
 class Horde_Block_Kronolith_summary extends Horde_Block {
@@ -79,7 +77,6 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
         // @TODO Remove this hack when maintenance is refactored.
         $no_maint = true;
         require_once dirname(__FILE__) . '/../base.php';
-        require_once KRONOLITH_BASE . '/lib/Day.php';
 
         Horde::addScriptFile('tooltip.js', 'horde', true);
 

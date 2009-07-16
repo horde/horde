@@ -11,16 +11,8 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-// Check for a prior definition of HORDE_BASE (perhaps by an
-// auto_prepend_file definition for site customization).
-if (!defined('HORDE_BASE')) {
-    define('HORDE_BASE', dirname(__FILE__) . '/../..');
-}
-
-// Find the base file path of Jeta.
-if (!defined('JETA_BASE')) {
-    define('JETA_BASE', dirname(__FILE__) . '/..');
-}
+// Determine BASE directories.
+require_once dirname(__FILE__) . '/base.load.php';
 
 // Load the Horde Framework core.
 require_once HORDE_BASE . '/lib/core.php';
@@ -40,8 +32,5 @@ $conf = &$GLOBALS['conf'];
 define('JETA_TEMPLATES', $registry->get('templates'));
 
 // Notification system.
-$notification = &Horde_Notification::singleton();
+$notification = Horde_Notification::singleton();
 $notification->attach('status');
-
-// Includes.
-require_once JETA_BASE . '/lib/Jeta.php';

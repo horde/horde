@@ -1,5 +1,3 @@
--- $Horde: kronolith/scripts/upgrades/2.1_to_2.2.sql,v 1.7 2008/06/17 14:53:26 mrubinsk Exp $
-
 ALTER TABLE kronolith_events ADD COLUMN event_private INT DEFAULT 0 NOT NULL;
 ALTER TABLE kronolith_events ADD COLUMN event_recurcount INT;
 

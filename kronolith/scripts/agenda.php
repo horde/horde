@@ -1,8 +1,6 @@
 #!/usr/bin/env php
 <?php
 /**
- * $Horde: kronolith/scripts/agenda.php,v 1.4 2009/01/06 18:01:04 jan Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

@@ -3,8 +3,6 @@
  * Kronolith_Storage:: defines an API for storing free/busy
  * information.
  *
- * $Horde: kronolith/lib/Storage/sql.php,v 1.14 2006/01/18 17:49:00 ben Exp $
- *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @package Kronolith
  */
@@ -149,7 +147,6 @@ class Kronolith_Storage_sql extends Kronolith_Storage {
             if (is_array($row)) {
                 /* Retrieve Freebusy object.  TODO: check for multiple
                  * results and merge them into one and return. */
-                require_once 'Horde/Serialize.php';
                 $vfb = Horde_Serialize::unserialize($row['vfb_serialized'], Horde_Serialize::BASIC);
                 return $vfb;
             }
@@ -172,7 +169,6 @@ class Kronolith_Storage_sql extends Kronolith_Storage {
         $owner = (!$public) ? $this->_user : '';
 
         /* Build the SQL query. */
-        require_once 'Horde/Serialize.php';
         $query = sprintf('INSERT INTO %s (vfb_owner, vfb_email, vfb_serialized) VALUES (?, ?, ?)',
                          $this->_params['table']);
         $values = array($owner, $email, Horde_Serialize::serialize($vfb, Horde_Serialize::BASIC));

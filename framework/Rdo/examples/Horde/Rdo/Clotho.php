@@ -2,8 +2,6 @@
 /**
  * @package Horde_Rdo
  * @subpackage UnitTests
- *
- * $Horde: framework/Rdo/examples/Horde/Rdo/Clotho.php,v 1.2 2008/09/02 17:24:59 chuck Exp $
  */
 
 require_once 'Horde/Autoloader.php';

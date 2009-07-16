@@ -1,5 +1,3 @@
--- $Horde: kronolith/scripts/upgrades/1.1_to_2.0.oci8.sql,v 1.1 2006/04/06 22:05:39 jan Exp $
-
 ALTER TABLE kronolith_events ADD COLUMN event_id_new VARCHAR(32);
 UPDATE kronolith_events SET event_id_new = event_id;
 ALTER TABLE kronolith_events DROP COLUMN event_id;

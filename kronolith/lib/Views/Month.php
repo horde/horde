@@ -1,7 +1,4 @@
 <?php
-
-require_once KRONOLITH_BASE . '/lib/Day.php';
-
 /**
  * The Kronolith_View_Month:: class provides an API for viewing
  * months.

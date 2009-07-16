@@ -35,7 +35,7 @@ if (!defined('INGO_TEMPLATES')) {
 }
 
 // Notification system.
-$notification = &Horde_Notification::singleton();
+$notification = Horde_Notification::singleton();
 $notification->attach('status');
 
 // Redirect the user to the Horde login page if they haven't authenticated.
@@ -58,7 +58,7 @@ if (!isset($_SESSION['ingo']) || !is_array($_SESSION['ingo'])) {
 // Create shares if necessary.
 $driver = Ingo::getDriver();
 if ($driver->supportShares()) {
-    $GLOBALS['ingo_shares'] = &Horde_Share::singleton($registry->getApp());
+    $GLOBALS['ingo_shares'] = Horde_Share::singleton($registry->getApp());
     $GLOBALS['all_rulesets'] = Ingo::listRulesets();
 
     /* If personal share doesn't exist then create it. */

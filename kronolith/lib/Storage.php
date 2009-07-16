@@ -2,8 +2,6 @@
 /**
  * Kronolith_Storage:: defines an API for storing free/busy information.
  *
- * $Horde: kronolith/lib/Storage.php,v 1.8 2008/06/06 04:25:13 chuck Exp $
- *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @package Kronolith
  */
@@ -50,7 +48,6 @@ class Kronolith_Storage {
             $params = Horde::getDriverConfig('storage', $driver);
         }
 
-        require_once dirname(__FILE__) . '/Storage/' . $driver . '.php';
         $class = 'Kronolith_Storage_' . $driver;
         if (class_exists($class)) {
             $driver = new $class($user, $params);

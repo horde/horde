@@ -6,8 +6,6 @@ $block_name = _("This Month");
  * Horde_Block_Kronolith_month:: Implementation of the Horde_Block API
  * to display a mini month view of calendar items.
  *
- * $Horde: kronolith/lib/Block/month.php,v 1.43 2008/10/16 17:39:51 mrubinsk Exp $
- *
  * @package Horde_Block
  */
 class Horde_Block_Kronolith_month extends Horde_Block {
@@ -66,7 +64,6 @@ class Horde_Block_Kronolith_month extends Horde_Block {
         // @TODO Remove this hack when maintenance is refactored.
         $no_maint = true;
         require_once dirname(__FILE__) . '/../base.php';
-        require_once KRONOLITH_BASE . '/lib/Day.php';
 
         if (isset($this->_params['calendar']) && $this->_params['calendar'] != '__all') {
             if (empty($this->_share)) {

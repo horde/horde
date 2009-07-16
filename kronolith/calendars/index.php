@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: kronolith/calendars/index.php,v 1.5 2009/01/06 18:01:00 jan Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -23,8 +21,7 @@ function shorten_url($url, $separator = '...', $first_chunk_length = 35, $last_c
     return $url;
 }
 
-@define('KRONOLITH_BASE', dirname(dirname(__FILE__)));
-require_once KRONOLITH_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../lib/base.php';
 require_once 'Horde/RPC.php';
 if (@include_once 'HTTP/WebDAV/Server.php') {
     require_once 'Horde/RPC/webdav.php';

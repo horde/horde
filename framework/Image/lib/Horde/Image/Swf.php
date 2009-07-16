@@ -1,12 +1,7 @@
 <?php
-
-require_once dirname(__FILE__) . '/../Image.php';
-
 /**
  * This class implements the Horde_Image:: API for SWF, using the PHP
  * Ming extension.
- *
- * $Horde: framework/Image/Image/swf.php,v 1.35 2009/01/06 17:49:20 jan Exp $
  *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
@@ -14,7 +9,6 @@ require_once dirname(__FILE__) . '/../Image.php';
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Horde 3.0
  * @package Horde_Image
  */
 class Horde_Image_Swf extends Horde_Image {

@@ -4,13 +4,10 @@
  *
  * Copyright 2006-2007 Duck <duck@obala.net>
  *
- * $Horde: incubator/Horde_Rdo/crud.php,v 1.8 2008/09/02 17:25:04 chuck Exp $
- *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Duck <duck@obala.net>
- * @since   Horde 4.0
  * @package Horde_Rdo
  */
 
