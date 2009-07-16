@@ -370,18 +370,6 @@ table.multipleMsgs td.msgheader {
     vertical-align: top;
 }
 
-/* SpellChecker styles. */
-.spellcheckChecking, .spellcheckIncorrect {
-    color: #f00;
-}
-.spellcheckIncorrect, .spellcheckCorrected {
-    text-decoration: underline;
-    cursor: pointer;
-}
-.spellcheckCorrected {
-    color: #090;
-}
-
 /* Contacts styles. */
 #contactstable #search {
     width: 150px;

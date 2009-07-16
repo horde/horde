@@ -124,7 +124,7 @@ class IMP_UI_Compose
             )
         );
 
-        $imple = Horde_Ajax_Imple::getInstance(array('imp', 'SpellChecker'), $args);
+        $imple = Horde_Ajax_Imple::getInstance('SpellChecker', $args);
         $imple->attach();
     }
 
