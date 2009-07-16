@@ -1817,7 +1817,7 @@ HTML;
         try {
             return call_user_func_array($hook, $args);
         } catch (Horde_Exception $e) {
-            self::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            self::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
         }
     }
 
