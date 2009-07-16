@@ -65,5 +65,5 @@ require KRONOLITH_TEMPLATES . '/index/index.inc';
 Kronolith::includeScriptFiles();
 Kronolith::outputInlineScript();
 $notification->notify(array('listeners' => array('javascript')));
-Kronolith_Imple::factory('TagAutoCompleter', array('triggerId' => 'kronolithEventTags', 'pretty' => true));
+Horde_Ajax_Imple::getInstance(array('kronolith', 'TagAutoCompleter'), array('triggerId' => 'kronolithEventTags', 'pretty' => true));
 echo "</body>\n</html>";

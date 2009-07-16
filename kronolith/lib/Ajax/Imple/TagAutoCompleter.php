@@ -8,7 +8,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Kronolith
  */
-class Kronolith_Imple_TagAutoCompleter extends Kronolith_Imple
+class Kronolith_Ajax_Imple_TagAutoCompleter extends Horde_Ajax_Imple_Base
 {
     /**
      * Constructor.
@@ -39,15 +39,17 @@ class Kronolith_Imple_TagAutoCompleter extends Kronolith_Imple
      */
     public function attach()
     {
-        global $registry;
-        parent::attach();
+        Horde::addScriptFile('prototype.js', 'horde', true);
+        Horde::addScriptFile('effects.js', 'horde', true);
         Horde::addScriptFile('autocomplete.js', 'horde', true);
+
+        $registry = Horde_Registry::singleton();
 
         if ($pretty = !empty($this->_params['pretty'])) {
             Horde::addScriptFile('prettyautocomplete.js', 'horde', true);
-            $this->_params['uri'] =  Horde::url($GLOBALS['registry']->get('webroot', 'kronolith') . '/imple.php?imple=TagAutoCompleter', true);
+            $this->_params['uri'] = $this->_getUrl('TagAutoCompleter', 'kronolith');
         } else {
-            $this->_params['uri'] =  Horde::url($GLOBALS['registry']->get('webroot', 'kronolith') . '/imple.php?imple=TagAutoCompleter/input=' . rawurlencode($this->_params['triggerId']), true);
+            $this->_params['uri'] = $this->_getUrl('TagAutoCompleter', 'kronolith', array('input' => $this->_params['triggerId']));
         }
 
         if (!$pretty) {
@@ -113,7 +115,7 @@ class Kronolith_Imple_TagAutoCompleter extends Kronolith_Imple
      *
      * @return array  All matching tags.
      */
-    static public function getTagList($search = '')
+    public function getTagList($search = '')
     {
         $tagger = Kronolith::getTagger();
         $tags = $tagger->listTags($search);

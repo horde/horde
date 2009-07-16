@@ -1,26 +1,21 @@
 <?php
 /**
- * Kronolith_Imple_Embed:: Class for embedding calendar widgets in external
- * websites. Meant to be called via a single script tag, therefore this will
- * always return nothing but valid javascript.
+ * Kronolith_Ajax_Imple_Embed:: will allow embedding calendar widgets in
+ * external websites. Meant to be called via a single script tag, therefore
+ * this will always return nothing but valid javascript.
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- *
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Kronolith
  */
-class Kronolith_Imple_Embed extends Kronolith_Imple {
-
+class Kronolith_Ajax_Imple_Embed extends Horde_Ajax_Imple_Base
+{
     /**
-     * Override the parent method since it uses Horde::addScriptFile()
-     *
      */
-    function attach()
+    public function attach()
     {
-        //noop
     }
-
 
     /**
      * Handles the output of the embedded widget. This must always be valid
@@ -37,7 +32,7 @@ class Kronolith_Imple_Embed extends Kronolith_Imple {
      *
      * @param array $args  Arguments for this view.
      */
-    function handle($args)
+    public function handle($args)
     {
         /* First, determine the type of view we are asking for */
         $view = $args['view'];
@@ -66,10 +61,12 @@ class Kronolith_Imple_Embed extends Kronolith_Imple {
 
 
         /* Build the block parameters */
-        $params = array('calendar' => $calendar,
-                        'maxevents' => $max_events,
-                        'months' => $count_month,
-                        'days' => $count_days);
+        $params = array(
+            'calendar' => $calendar,
+            'maxevents' => $max_events,
+            'months' => $count_month,
+            'days' => $count_days
+        );
 
         /* Call the Horde_Block api to get the calendar HTML */
         $title = $registry->call('horde/blockTitle', array('kronolith', $view, $params));

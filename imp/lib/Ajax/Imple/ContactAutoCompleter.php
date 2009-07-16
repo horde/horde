@@ -1,5 +1,7 @@
 <?php
 /**
+ * Attach the contact auto completer to a javascript element.
+ *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -8,7 +10,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package IMP
  */
-class IMP_Imple_ContactAutoCompleter extends IMP_Imple
+class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_Base
 {
     /**
      * The URL to use in attach().
@@ -33,7 +35,7 @@ class IMP_Imple_ContactAutoCompleter extends IMP_Imple
      * 'resultsId' => TODO (optional)
      * </pre>
      */
-    function __construct($params)
+    public function __construct($params)
     {
         if (empty($params['triggerId'])) {
             $params['triggerId'] = $this->_randomid();
@@ -50,7 +52,8 @@ class IMP_Imple_ContactAutoCompleter extends IMP_Imple
      */
     public function attach()
     {
-        parent::attach();
+        Horde::addScriptFile('prototype.js', 'horde', true);
+        Horde::addScriptFile('effects.js', 'horde', true);
         Horde::addScriptFile('autocomplete.js', 'horde', true);
 
         $params = array(
@@ -86,7 +89,7 @@ class IMP_Imple_ContactAutoCompleter extends IMP_Imple
         if (!$ac_browser || $_SESSION['imp']['cache']['ac_ajax']) {
             $func = 'Ajax.Autocompleter';
             if (empty($this->_url)) {
-                $this->_url = Horde::url($GLOBALS['registry']->get('webroot', 'imp') . '/imple.php?imple=ContactAutoCompleter/input=' . rawurlencode($this->_params['triggerId']), true);
+                $this->_url = $this->_getUrl('ContactAutoCompleter', 'imp', array('input' => $this->_params['triggerId']));
             }
             $params[] = '"' . $this->_url . '"';
 

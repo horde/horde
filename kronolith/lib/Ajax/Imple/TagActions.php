@@ -1,30 +1,26 @@
 <?php
 /**
- * Kronolith_Imple_TagActions:: Class to handle ajax requests for adding and
+ * Kronolith_Ajax_Imple_TagActions:: handles ajax requests for adding and
  * removing tags from kronolith objects.
  *
  * Copyright 2009 The Horde Project (http://www.horde.org)
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- *
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Kronolith
  */
-class Kronolith_Imple_TagActions extends Kronolith_Imple
+class Kronolith_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
 {
+    /**
+     */
     public function attach()
     {
-        // TODO: HACK! attach is called in the contructor which means that even
-        // if we are only handling the request, we try to attach().
-        if (count($this->_params) == 0) {
-            return;
-        }
         Horde::addScriptFile('tagactions.js');
         $dom_id = $this->_params['triggerId'];
         $action = $this->_params['action'];
         $content_id = $this->_params['resource'];
         $content_type = $this->_params['type'];
         $tag_id = !empty($this->_params['tagId']) ? $this->_params['tagId'] : null;
-        $endpoint = Horde::url('imple.php', true);
+        $endpoint = $this->_getUrl('TagActions', 'kronolith');
 
         if ($action == 'add') {
             $js = "Event.observe('" . $dom_id . "_" . $content_id . "', 'click', function(event) {addTag('" . $content_id . "', '" . $content_type . "', '" . $endpoint . "'); Event.stop(event)});";

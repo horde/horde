@@ -1,5 +1,7 @@
 <?php
 /**
+ * Attach the spellchecker to a javascript element.
+ *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -8,7 +10,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package IMP
  */
-class IMP_Imple_SpellChecker extends IMP_Imple
+class IMP_Ajax_Imple_SpellChecker extends Horde_Ajax_Imple_Base
 {
     /**
      * Constructor.
@@ -22,7 +24,7 @@ class IMP_Imple_SpellChecker extends IMP_Imple
      * 'triggerId' => TODO (optional)
      * </pre>
      */
-    function __construct($params = array())
+    public function __construct($params = array())
     {
         if (empty($params['id'])) {
             $params['id'] = $this->_randomid();
@@ -54,10 +56,13 @@ class IMP_Imple_SpellChecker extends IMP_Imple
      */
     public function attach()
     {
-        parent::attach();
+        Horde::addScriptFile('prototype.js', 'horde', true);
+        Horde::addScriptFile('effects.js', 'horde', true);
         Horde::addScriptFile('KeyNavList.js', 'imp', true);
         Horde::addScriptFile('SpellChecker.js', 'imp', true);
-        $url = Horde::url($GLOBALS['registry']->get('webroot', 'imp') . '/imple.php?imple=SpellChecker/input=' . rawurlencode($this->_params['targetId']), true);
+
+        $url = $this->_getUrl('SpellChecker', 'imp', array('input' => $this->_params['targetId']));
+
         IMP::addInlineScript($this->_params['id'] . ' = new SpellChecker("' . $url . '", "' . $this->_params['targetId'] . '", "' . $this->_params['triggerId'] . '", ' . $this->_params['states'] . ', ' . $this->_params['locales'] . ', \'widget\');', 'dom');
     }
 

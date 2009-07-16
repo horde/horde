@@ -1,5 +1,7 @@
 <?php
 /**
+ * Attach the contact auto completer to a javascript element.
+ *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -8,7 +10,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Kronolith
  */
-class Kronolith_Imple_ContactAutoCompleter extends Kronolith_Imple
+class Kronolith_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_Base
 {
     /**
      * Constructor.
@@ -36,13 +38,14 @@ class Kronolith_Imple_ContactAutoCompleter extends Kronolith_Imple
      */
     public function attach()
     {
-        parent::attach();
+        Horde::addScriptFile('prototype.js', 'horde', true);
+        Horde::addScriptFile('effects.js', 'horde', true);
         Horde::addScriptFile('autocomplete.js', 'horde', true);
 
         $params = array(
             '"' . $this->_params['triggerId'] . '"',
             '"' . $this->_params['resultsId'] . '"',
-            '"' . Horde::url($GLOBALS['registry']->get('webroot', 'kronolith') . '/imple.php?imple=ContactAutoCompleter/input=' . rawurlencode($this->_params['triggerId']), true) . '"'
+            '"' . $this->_getUrl('ContactAutoCompleter', 'kronolith', array('input' => $this->_params['triggerId'])) . '"'
         );
 
         $js_params = array(

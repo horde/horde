@@ -99,7 +99,8 @@ class IMP_UI_Compose
     {
         /* Attach autocompleters to the compose form elements. */
         foreach ($fields as $val) {
-            call_user_func_array(array('IMP_Imple', 'factory'), array('ContactAutoCompleter', array('triggerId' => $val)));
+            $imple = Horde_Ajax_Imple::getInstance(array('imp', 'ContactAutoCompleter'), array('triggerId' => $val));
+            $imple->attach();
         }
     }
 
@@ -122,7 +123,9 @@ class IMP_UI_Compose
                 'Error' => $spell_img . $br . _("Spell Check Failed")
             )
         );
-        call_user_func_array(array('IMP_Imple', 'factory'), array('SpellChecker', $args));
+
+        $imple = Horde_Ajax_Imple::getInstance(array('imp', 'SpellChecker'), $args);
+        $imple->attach();
     }
 
     /**

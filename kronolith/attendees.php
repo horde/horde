@@ -248,7 +248,7 @@ $date = new Horde_Date($date);
 $vfb_html = $attendee_view->render($date);
 
 // Add the ContactAutoCompleter
-Kronolith_Imple::factory('ContactAutoCompleter', array('triggerId' => 'newAttendees'));
+Horde_Ajax_Imple::getInstance(array('kronolith', 'ContactAutoCompleter'), array('triggerId' => 'newAttendees'));
 
 $title = _("Edit attendees");
 require KRONOLITH_TEMPLATES . '/common-header.inc';
