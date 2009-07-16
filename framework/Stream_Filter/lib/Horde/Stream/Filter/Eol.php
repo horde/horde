@@ -3,7 +3,7 @@
  * Stream filter class to convert EOL characters.
  *
  * Usage:
- *   stream_filter_register('horde_eol', 'Horde_Util_Filter_Eol');
+ *   stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
  *   stream_filter_[app|pre]pend($stream, 'horde_eol', $params);
  *
  * $params can contain the following:
@@ -18,9 +18,9 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Util
+ * @package Horde_Stream_Filter
  */
-class Horde_Util_Filter_Eol extends php_user_filter
+class Horde_Stream_Filter_Eol extends php_user_filter
 {
     protected $_search;
     protected $_replace;

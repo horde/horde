@@ -1,11 +1,15 @@
+/**
+ * @package    Horde_Stream_Filter
+ * @subpackage UnitTests
+ */
 --TEST--
-Horde_Util_Filter_Eol:: tests
+Horde_Stream_Filter_Eol:: tests
 --FILE--
 <?php
 
-require_once dirname(__FILE__) . '/../../../lib/Horde/Util/Filter/Eol.php';
+require_once dirname(__FILE__) . '/../../../lib/Horde/Stream/Filter/Eol.php';
 
-stream_filter_register('horde_eol', 'Horde_Util_Filter_Eol');
+stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
 
 $test = fopen('php://temp', 'r+');
 fwrite($test, "A\r\nB\rC\nD\r\n\r\nE\r\rF\n\nG\r\n\n\r\nH\r\n\r\r\nI");

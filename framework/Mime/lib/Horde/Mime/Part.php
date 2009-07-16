@@ -1155,7 +1155,7 @@ class Horde_Mime_Part
 
         $fp = $this->_writeStream($text);
 
-        stream_filter_register('horde_eol', 'Horde_Util_Filter_Eol');
+        stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
         stream_filter_append($fp, 'horde_eol', STREAM_FILTER_READ, array('eol' => $eol));
 
         return $stream ? $fp : $this->_readStream($fp, true);
