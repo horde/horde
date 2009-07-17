@@ -60,7 +60,15 @@ function _doConnectionTest()
             "<blockquote><em>IMAP server capabilities:</em><blockquote><pre>";
 
         try {
-            echo htmlspecialchars(print_r($imap_client->capability(), true));
+            foreach ($imap_client->capability() as $key => $val) {
+                if (is_array($val)) {
+                    foreach ($val as $val2) {
+                        echo htmlspecialchars($key) . '=' . htmlspecialchars($val2) . "\n";
+                    }
+                } else {
+                    echo htmlspecialchars($key) . "\n";
+                }
+            }
         } catch (Horde_Imap_Client_Exception $e) {
             _errorMsg($e);
         }
@@ -207,7 +215,7 @@ if (isset($_POST['user']) && isset($_POST['passwd'])) {
 
 <form name="form1" method="post" action="test.php">
 <table>
-<tr><td align="right"><label for="server">Server:</label></td><td><input type="text" id="server" name="server" /></td></tr>
+<tr><td align="right"><label for="server">Server:</label></td><td><input type="text" id="server" name="server" /></td><td>(If blank, attempts to connects to a server running on the same machine as IMP)</td></tr>
 <tr><td align="right"><label for="port">Port:</label></td><td><input type="text" id="port" name="port" /></td><td>(If non-standard port; leave blank to auto-detect using standard ports)</td></tr>
 <tr><td align="right"><label for="user">User:</label></td><td><input type="text" id="user" name="user" /></td></tr>
 <tr><td align="right"><label for="passwd">Password:</label></td><td><input type="password" id="passwd" name="passwd" /></td></tr>
