@@ -1,6 +1,6 @@
 <?php
 /**
- * The Ingo_Script_maildrop:: class represents a maildrop script generator.
+ * The Ingo_Script_Maildrop:: class represents a maildrop script generator.
  *
  * Copyright 2005-2007 Matt Weyland <mathias@weyland.ch>
  *
@@ -19,7 +19,7 @@ define('MAILDROP_STORAGE_ACTION_STOREANDFORWARD', 100);
 
 /**
  */
-class Ingo_Script_maildrop extends Ingo_Script {
+class Ingo_Script_Maildrop extends Ingo_Script {
 
     /**
      * The list of actions allowed (implemented) for this driver.
@@ -329,7 +329,7 @@ class Ingo_Script_maildrop extends Ingo_Script {
 
 /**
  * The Maildrop_Comment:: class represents a maildrop comment.  This is
- * a pretty simple class, but it makes the code in Ingo_Script_maildrop::
+ * a pretty simple class, but it makes the code in Ingo_Script_Maildrop::
  * cleaner as it provides a generate() function and can be added to the
  * recipe list the same way as a recipe can be.
  *
@@ -414,7 +414,7 @@ class Maildrop_Recipe {
      *                             'action-value' (only used if the
      *                             'action' requires it)
      * @param array $scriptparams  Array of parameters passed to
-     *                             Ingo_Script_maildrop::.
+     *                             Ingo_Script_Maildrop::.
      */
     function Maildrop_Recipe($params = array(), $scriptparams = array())
     {

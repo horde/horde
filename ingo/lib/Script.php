@@ -115,7 +115,7 @@ class Ingo_Script
     static public function factory($script, $params = array())
     {
         $script = basename($script);
-        $class = 'Ingo_Script_' . $script;
+        $class = 'Ingo_Script_' . ucfirst($script);
 
         return class_exists($class)
             ? new $class($params)

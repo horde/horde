@@ -1,6 +1,6 @@
 <?php
 /**
- * Ingo_Storage_mock:: is used for testing purposes.  It just keeps the
+ * Ingo_Storage_Mock:: is used for testing purposes.  It just keeps the
  * data local and doesn't put it anywhere.
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
@@ -10,7 +10,7 @@
  * @package Ingo
  */
 
-class Ingo_Storage_mock extends Ingo_Storage
+class Ingo_Storage_Mock extends Ingo_Storage
 {
     protected $_data = array();
 
@@ -19,25 +19,25 @@ class Ingo_Storage_mock extends Ingo_Storage
         if (empty($this->_data[$field])) {
             switch ($field) {
             case self::ACTION_BLACKLIST:
-                return new Ingo_Storage_blacklist();
+                return new Ingo_Storage_Blacklist();
 
             case self::ACTION_FILTERS:
-                $ob = new Ingo_Storage_filters();
+                $ob = new Ingo_Storage_Filters();
                 include INGO_BASE . '/config/prefs.php.dist';
                 $ob->setFilterList(unserialize($_prefs['rules']['value']));
                 return $ob;
 
             case self::ACTION_FORWARD:
-                return new Ingo_Storage_forward();
+                return new Ingo_Storage_Forward();
 
             case self::ACTION_VACATION:
-                return new Ingo_Storage_vacation();
+                return new Ingo_Storage_Vacation();
 
             case self::ACTION_WHITELIST:
-                return new Ingo_Storage_whitelist();
+                return new Ingo_Storage_Whitelist();
 
             case self::ACTION_SPAM:
-                return new Ingo_Storage_spam();
+                return new Ingo_Storage_Spam();
 
             default:
                 return false;

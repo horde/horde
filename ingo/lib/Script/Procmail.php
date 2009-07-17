@@ -1,6 +1,6 @@
 <?php
 /**
- * The Ingo_Script_procmail:: class represents a Procmail script generator.
+ * The Ingo_Script_Procmail:: class represents a Procmail script generator.
  *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
@@ -11,7 +11,7 @@
  * @author  Ben Chavet <ben@horde.org>
  * @package Ingo
  */
-class Ingo_Script_procmail extends Ingo_Script {
+class Ingo_Script_Procmail extends Ingo_Script {
 
     /**
      * The list of actions allowed (implemented) for this driver.
@@ -320,7 +320,7 @@ class Ingo_Script_procmail extends Ingo_Script {
 
 /**
  * The Procmail_Comment:: class represents a Procmail comment.  This is
- * a pretty simple class, but it makes the code in Ingo_Script_procmail::
+ * a pretty simple class, but it makes the code in Ingo_Script_Procmail::
  * cleaner as it provides a generate() function and can be added to the
  * recipe list the same way as a recipe can be.
  *
@@ -399,7 +399,7 @@ class Procmail_Recipe {
      *                                'action-value' (only used if the
      *                                'action' requires it)
      * @param array $scriptparams  Array of parameters passed to
-     *                             Ingo_Script_procmail::.
+     *                             Ingo_Script_Procmail::.
      */
     function Procmail_Recipe($params = array(), $scriptparams = array())
     {

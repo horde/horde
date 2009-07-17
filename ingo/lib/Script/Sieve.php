@@ -1,6 +1,6 @@
 <?php
 /**
- * The Ingo_Script_sieve class represents a Sieve Script.
+ * The Ingo_Script_Sieve class represents a Sieve Script.
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -8,7 +8,7 @@
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @package Ingo
  */
-class Ingo_Script_sieve extends Ingo_Script {
+class Ingo_Script_Sieve extends Ingo_Script {
 
     /**
      * The list of actions allowed (implemented) for this driver.
@@ -1666,12 +1666,12 @@ class Sieve_Test_Relational extends Sieve_Test {
 
             foreach ($headers as $val) {
                 $headerstr .= (empty($headerstr) ? '"' : ', "') .
-                    Ingo_Script_sieve::escapeString($val) . '"';
+                    Ingo_Script_Sieve::escapeString($val) . '"';
             }
 
             $code .= $headerstr . "] ";
         } elseif ($header_count == 1) {
-            $code .= '"' . Ingo_Script_sieve::escapeString($headers[0]) . '" ';
+            $code .= '"' . Ingo_Script_Sieve::escapeString($headers[0]) . '" ';
         }
 
         return $code . '["' . $this->_vars['value'] . '"]';
@@ -1855,11 +1855,11 @@ class Sieve_Test_Exists extends Sieve_Test {
             $headerstr = '';
             foreach ($headers as $header) {
                 $headerstr .= (empty($headerstr) ? '"' : ', "') .
-                    Ingo_Script_sieve::escapeString($header) . '"';
+                    Ingo_Script_Sieve::escapeString($header) . '"';
             }
             $code .= $headerstr . "] ";
         } elseif (count($headers) == 1) {
-            $code .= '"' . Ingo_Script_sieve::escapeString($headers[0]) . '" ';
+            $code .= '"' . Ingo_Script_Sieve::escapeString($headers[0]) . '" ';
         } else {
             return "**error** No Headers Specified";
         }
@@ -1935,12 +1935,12 @@ class Sieve_Test_Address extends Sieve_Test {
                 $header = trim($header);
                 if (!empty($header)) {
                     $headerstr .= empty($headerstr) ? '"' : ', "';
-                    $headerstr .= Ingo_Script_sieve::escapeString($header, $this->_vars['match-type'] == ':regex') . '"';
+                    $headerstr .= Ingo_Script_Sieve::escapeString($header, $this->_vars['match-type'] == ':regex') . '"';
                 }
             }
             $code .= $headerstr . "] ";
         } elseif (count($headers) == 1) {
-            $code .= '"' . Ingo_Script_sieve::escapeString($headers[0], $this->_vars['match-type'] == ':regex') . '" ';
+            $code .= '"' . Ingo_Script_Sieve::escapeString($headers[0], $this->_vars['match-type'] == ':regex') . '" ';
         } else {
             return "No Headers Specified";
         }
@@ -1954,12 +1954,12 @@ class Sieve_Test_Address extends Sieve_Test {
                 $addr = trim($addr);
                 if (!empty($addr)) {
                     $addressstr .= empty($addressstr) ? '"' : ', "';
-                    $addressstr .= Ingo_Script_sieve::escapeString($addr, $this->_vars['match-type'] == ':regex') . '"';
+                    $addressstr .= Ingo_Script_Sieve::escapeString($addr, $this->_vars['match-type'] == ':regex') . '"';
                 }
             }
             $code .= $addressstr . "] ";
         } elseif (count($addresses) == 1) {
-            $code .= '"' . Ingo_Script_sieve::escapeString($addresses[0], $this->_vars['match-type'] == ':regex') . '" ';
+            $code .= '"' . Ingo_Script_Sieve::escapeString($addresses[0], $this->_vars['match-type'] == ':regex') . '" ';
         } else {
             return "No Addresses Specified";
         }
@@ -2053,7 +2053,7 @@ class Sieve_Test_Header extends Sieve_Test {
             $headerstr = '';
             foreach ($headers as $header) {
                 $headerstr .= empty($headerstr) ? '"' : ', "';
-                $headerstr .= Ingo_Script_sieve::escapeString($header, $this->_vars['match-type'] == ':regex') . '"';
+                $headerstr .= Ingo_Script_Sieve::escapeString($header, $this->_vars['match-type'] == ':regex') . '"';
             }
             $code .= $headerstr . "] ";
         } elseif (count($headers) == 1) {
@@ -2069,11 +2069,11 @@ class Sieve_Test_Header extends Sieve_Test {
             $stringlist = '';
             foreach ($strings as $str) {
                 $stringlist .= empty($stringlist) ? '"' : ', "';
-                $stringlist .= Ingo_Script_sieve::escapeString($str, $this->_vars['match-type'] == ':regex') . '"';
+                $stringlist .= Ingo_Script_Sieve::escapeString($str, $this->_vars['match-type'] == ':regex') . '"';
             }
             $code .= $stringlist . "] ";
         } elseif (count($strings) == 1) {
-            $code .= '"' . Ingo_Script_sieve::escapeString(reset($strings), $this->_vars['match-type'] == ':regex') . '" ';
+            $code .= '"' . Ingo_Script_Sieve::escapeString(reset($strings), $this->_vars['match-type'] == ':regex') . '" ';
         } else {
             return _("No strings specified");
         }
@@ -2153,11 +2153,11 @@ class Sieve_Test_Body extends Sieve_Test {
             $stringlist = '';
             foreach ($strings as $str) {
                 $stringlist .= empty($stringlist) ? '"' : ', "';
-                $stringlist .= Ingo_Script_sieve::escapeString($str, $this->_vars['match-type'] == ':regex') . '"';
+                $stringlist .= Ingo_Script_Sieve::escapeString($str, $this->_vars['match-type'] == ':regex') . '"';
             }
             $code .= $stringlist . "] ";
         } elseif (count($strings) == 1) {
-            $code .= '"' . Ingo_Script_sieve::escapeString($strings[0], $this->_vars['match-type'] == ':regex') . '" ';
+            $code .= '"' . Ingo_Script_Sieve::escapeString($strings[0], $this->_vars['match-type'] == ':regex') . '" ';
         } else {
             return _("No strings specified");
         }
@@ -2325,7 +2325,7 @@ class Sieve_Action_Redirect extends Sieve_Action {
     function toCode($depth = 0)
     {
         return str_repeat(' ', $depth * 4) . 'redirect ' .
-            '"' . Ingo_Script_sieve::escapeString($this->_vars['address']) . '";';
+            '"' . Ingo_Script_Sieve::escapeString($this->_vars['address']) . '";';
     }
 
     /**
@@ -2371,7 +2371,7 @@ class Sieve_Action_Reject extends Sieve_Action {
      */
     function toCode()
     {
-        return 'reject "' . Ingo_Script_sieve::escapeString($this->_vars['reason']) . '";';
+        return 'reject "' . Ingo_Script_Sieve::escapeString($this->_vars['reason']) . '";';
     }
 
     /**
@@ -2524,7 +2524,7 @@ class Sieve_Action_Fileinto extends Sieve_Action {
      */
     function toCode()
     {
-        return 'fileinto "' . Ingo_Script_sieve::escapeString($this->_vars['folder']) . '";';
+        return 'fileinto "' . Ingo_Script_Sieve::escapeString($this->_vars['folder']) . '";';
     }
 
     /**
@@ -2715,12 +2715,12 @@ class Sieve_Action_Vacation extends Sieve_Action {
                 $address = trim($address);
                 if (!empty($address)) {
                     $stringlist .= empty($stringlist) ? '"' : ', "';
-                    $stringlist .= Ingo_Script_sieve::escapeString($address) . '"';
+                    $stringlist .= Ingo_Script_Sieve::escapeString($address) . '"';
                 }
             }
             $stringlist = "[" . $stringlist . "] ";
         } elseif (count($addresses) == 1) {
-            $stringlist = '"' . Ingo_Script_sieve::escapeString($addresses[0]) . '" ';
+            $stringlist = '"' . Ingo_Script_Sieve::escapeString($addresses[0]) . '" ';
         }
 
         if (!empty($stringlist)) {
@@ -2728,11 +2728,10 @@ class Sieve_Action_Vacation extends Sieve_Action {
         }
 
         if (!empty($this->_vars['subject'])) {
-            include_once 'Horde/MIME.php';
-            $code .= ':subject "' . MIME::encode(Ingo_Script_sieve::escapeString($this->_vars['subject']), 'UTF-8') . '" ';
+            $code .= ':subject "' . Horde_Mime::encode(Ingo_Script_Sieve::escapeString($this->_vars['subject']), 'UTF-8') . '" ';
         }
         return $code
-            . '"' . Ingo_Script_sieve::escapeString($this->_vars['reason'])
+            . '"' . Ingo_Script_Sieve::escapeString($this->_vars['reason'])
             . '";';
     }
 
@@ -2833,13 +2832,13 @@ class Sieve_Action_Flag extends Sieve_Action {
                     $flag = trim($flag);
                     if (!empty($flag)) {
                         $stringlist .= empty($stringlist) ? '"' : ', "';
-                        $stringlist .= Ingo_Script_sieve::escapeString($flag) . '"';
+                        $stringlist .= Ingo_Script_Sieve::escapeString($flag) . '"';
                     }
                 }
                 $stringlist = '[' . $stringlist . ']';
                 $code .= $stringlist . ';';
             } else {
-                $code .= '"' . Ingo_Script_sieve::escapeString($this->_vars['flags'][0]) . '";';
+                $code .= '"' . Ingo_Script_Sieve::escapeString($this->_vars['flags'][0]) . '";';
             }
         }
         return $code;
@@ -2939,7 +2938,7 @@ class Sieve_Action_Notify extends Sieve_Action {
     function toCode()
     {
         return 'notify :method "mailto" :options "' .
-            Ingo_Script_sieve::escapeString($this->_vars['address']) .
+            Ingo_Script_Sieve::escapeString($this->_vars['address']) .
             '" :message "' .
             _("You have received a new message") . "\n" .
             _("From:") . " \$from\$ \n" .

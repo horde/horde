@@ -1,6 +1,6 @@
 <?php
 /**
- * Ingo_Driver_sivtest:: Implements the Sieve_Driver api to allow scripts to
+ * Ingo_Driver_Sivtest:: implements the Sieve_Driver api to allow scripts to
  * be installed and set active via the Cyrus sivtest command line utility.
  *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
@@ -14,7 +14,7 @@
  * @author  Liam Hoekenga <liamr@umich.edu>
  * @package Ingo
  */
-class Ingo_Driver_sivtest extends Ingo_Driver
+class Ingo_Driver_Sivtest extends Ingo_Driver
 {
     /**
      * The Net_Sieve object.

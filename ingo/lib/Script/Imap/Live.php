@@ -1,6 +1,6 @@
 <?php
 /**
- * The Ingo_Script_imap_live:: driver.
+ * The Ingo_Script_Imap_Live:: driver.
  *
  * Copyright 2006-2009 The Horde Project (http://www.horde.org/)
  *
@@ -11,7 +11,7 @@
  * @author  Michael Slusarz <slusarz@curecanti.org>
  * @package Ingo
  */
-class Ingo_Script_imap_live extends Ingo_Script_imap_api
+class Ingo_Script_Imap_Live extends Ingo_Script_Imap_Api
 {
     /**
      */

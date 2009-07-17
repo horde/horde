@@ -1,6 +1,6 @@
 <?php
 /**
- * Ingo_Storage_prefs:: implements the Ingo_Storage:: API to save Ingo data
+ * Ingo_Storage_Prefs:: implements the Ingo_Storage:: API to save Ingo data
  * via the Horde preferences system.
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
@@ -10,7 +10,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Ingo
  */
-class Ingo_Storage_prefs extends Ingo_Storage
+class Ingo_Storage_Prefs extends Ingo_Storage
 {
     /**
      * Constructor.
@@ -29,7 +29,7 @@ class Ingo_Storage_prefs extends Ingo_Storage
      *                           See lib/Storage.php for the available fields.
      * @param boolean $readonly  Whether to disable any write operations.
      *
-     * @return Ingo_Storage_rule|Ingo_Storage_filters  The specified data.
+     * @return Ingo_Storage_Rule|Ingo_Storage_Filters  The specified data.
      */
     protected function _retrieve($field, $readonly = false)
     {
@@ -40,7 +40,7 @@ class Ingo_Storage_prefs extends Ingo_Storage
 
         switch ($field) {
         case self::ACTION_BLACKLIST:
-            $ob = new Ingo_Storage_blacklist();
+            $ob = new Ingo_Storage_Blacklist();
             $data = @unserialize($prefs->getValue('blacklist'));
             if ($data) {
                 $ob->setBlacklist($data['a'], false);
@@ -49,7 +49,7 @@ class Ingo_Storage_prefs extends Ingo_Storage
             break;
 
         case self::ACTION_WHITELIST:
-            $ob = new Ingo_Storage_whitelist();
+            $ob = new Ingo_Storage_Whitelist();
             $data = @unserialize($prefs->getValue('whitelist'));
             if ($data) {
                 $ob->setWhitelist($data, false);
@@ -57,7 +57,7 @@ class Ingo_Storage_prefs extends Ingo_Storage
             break;
 
         case self::ACTION_FILTERS:
-            $ob = new Ingo_Storage_filters();
+            $ob = new Ingo_Storage_Filters();
             $data = @unserialize($prefs->getValue('rules', false));
             if ($data === false) {
                 /* Convert rules from the old format. */
@@ -71,7 +71,7 @@ class Ingo_Storage_prefs extends Ingo_Storage
             break;
 
         case self::ACTION_FORWARD:
-            $ob = new Ingo_Storage_forward();
+            $ob = new Ingo_Storage_Forward();
             $data = @unserialize($prefs->getValue('forward'));
             if ($data) {
                 $ob->setForwardAddresses($data['a'], false);
@@ -80,7 +80,7 @@ class Ingo_Storage_prefs extends Ingo_Storage
             break;
 
         case self::ACTION_VACATION:
-            $ob = new Ingo_Storage_vacation();
+            $ob = new Ingo_Storage_Vacation();
             $data = @unserialize($prefs->getValue('vacation', false));
             if ($data === false) {
                 /* Convert vacation from the old format. */
@@ -105,7 +105,7 @@ class Ingo_Storage_prefs extends Ingo_Storage
             break;
 
         case self::ACTION_SPAM:
-            $ob = new Ingo_Storage_spam();
+            $ob = new Ingo_Storage_Spam();
             $data = @unserialize($prefs->getValue('spam'));
             if ($data) {
                 $ob->setSpamFolder($data['folder']);
@@ -124,7 +124,7 @@ class Ingo_Storage_prefs extends Ingo_Storage
     /**
      * Stores the specified data in the storage backend.
      *
-     * @param Ingo_Storage_rule|Ingo_Storage_filters $ob  The object to store.
+     * @param Ingo_Storage_Rule|Ingo_Storage_Filters $ob  The object to store.
      *
      * @return boolean  True on success.
      */

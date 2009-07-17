@@ -2,7 +2,7 @@
 /**
  * TODO
  */
-class Ingo_Script_imap_mock extends Ingo_Script_imap_api
+class Ingo_Script_Imap_Mock extends Ingo_Script_Imap_Api
 {
     /**
      * TODO

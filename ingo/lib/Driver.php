@@ -41,7 +41,7 @@ class Ingo_Driver
     static public function factory($driver, $params = array())
     {
         $driver = basename($driver);
-        $class = 'Ingo_Driver_' . $driver;
+        $class = 'Ingo_Driver_' . ucfirst($driver);
 
         return class_exists($class)
             ? new $class($params)

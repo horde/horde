@@ -1,6 +1,6 @@
 <?php
 /**
- * The Ingo_Script_imap:: class represents an IMAP client-side script
+ * The Ingo_Script_Imap:: class represents an IMAP client-side script
  * generator.
  *
  * $Horde: ingo/lib/Script/imap.php,v 1.76 2009/01/19 18:10:01 mrubinsk Exp $
@@ -13,7 +13,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Ingo
  */
-class Ingo_Script_imap extends Ingo_Script
+class Ingo_Script_Imap extends Ingo_Script
 {
     /**
      * The list of actions allowed (implemented) for this driver.
@@ -82,7 +82,7 @@ class Ingo_Script_imap extends Ingo_Script
     /**
      * The API to use for IMAP functions.
      *
-     * @var Ingo_Script_imap_api
+     * @var Ingo_Script_Imap_Api
      */
     protected $_api;
 
@@ -99,7 +99,7 @@ class Ingo_Script_imap extends Ingo_Script
     public function perform($params)
     {
         if (empty($params['api'])) {
-            $this->_api = Ingo_Script_imap_api::factory('live', $params);
+            $this->_api = Ingo_Script_Imap_Api::factory('live', $params);
         } else {
             $this->_api = &$params['api'];
         }
@@ -365,95 +365,6 @@ class Ingo_Script_imap extends Ingo_Script
         return $this->canApply()
             ? $this->perform(array('mailbox' => 'INBOX'))
             : false;
-    }
-
-}
-
-class Ingo_Script_imap_api
-{
-    /**
-     * TODO
-     */
-    protected $_params;
-
-    /**
-     * TODO
-     */
-    static public function factory($type, $params)
-    {
-        $class = 'Ingo_Script_imap_' . $type;
-        return new $class($params);
-    }
-
-    /**
-     * TODO
-     */
-    public function __construct($params = array())
-    {
-        $this->_params = $params;
-    }
-
-    /**
-     * TODO
-     */
-    public function deleteMessages($indices)
-    {
-        return PEAR::raiseError('Not implemented.');
-    }
-
-    /**
-     * TODO
-     */
-    public function moveMessages($indices, $folder)
-    {
-        return PEAR::raiseError('Not implemented.');
-    }
-
-    /**
-     * TODO
-     */
-    public function copyMessages($indices, $folder)
-    {
-        return PEAR::raiseError('Not implemented.');
-    }
-
-    /**
-     * TODO
-     */
-    public function setMessageFlags($indices, $flags)
-    {
-        return PEAR::raiseError('Not implemented.');
-    }
-
-    /**
-     * TODO
-     */
-    public function fetchEnvelope($indices)
-    {
-        return PEAR::raiseError('Not implemented.');
-    }
-
-    /**
-     * TODO
-     */
-    public function search($query)
-    {
-        return PEAR::raiseError('Not implemented.');
-    }
-
-    /**
-     * TODO
-     */
-    public function getCache()
-    {
-        return false;
-    }
-
-    /**
-     * TODO
-     */
-    public function storeCache($timestamp)
-    {
     }
 
 }
