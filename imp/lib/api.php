@@ -11,7 +11,7 @@
  * @package IMP
  */
 
-$_services = array_merge($_services, array(
+$_services = array(
     'perms' => array(
         'args' => array(),
         'type' => '{urn:horde}stringArray'
@@ -142,7 +142,7 @@ $_services = array_merge($_services, array(
         'checkperms' => false,
         'type' => 'boolean'
     )
-));
+);
 
 /* Only available if admin config is set for this server/login. */
 if (!empty($_SESSION['imp']['admin'])) {
