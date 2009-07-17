@@ -435,7 +435,13 @@ HTML;
             return self::url(Horde_Auth::addLogoutParameters($GLOBALS['registry']->get('webroot', 'horde') . '/login.php', Horde_Auth::REASON_LOGOUT));
 
         case 'login':
-            return Horde_Auth::getLoginScreen('', $referrer ? self::selfUrl(true) : null);
+            /* Get an Auth object. */
+            try {
+                $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
+            } catch (Horde_Exception $e) {
+                Horde::fatal($e, __FILE__, __LINE__);
+            }
+            return $auth->getLoginScreen('', $referrer ? self::selfUrl(true) : null);
 
         case 'options':
             global $conf;
