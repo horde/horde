@@ -182,7 +182,9 @@ class IMP_UI_Compose
         $fck_buttons = $GLOBALS['prefs']->getValue('fckeditor_buttons');
         if (!empty($fck_buttons)) {
             $js_onload = array(
-                'oFCKeditor.Config.CustomConfigurationsPath = "' . IMP::getCacheURL('fckeditor', null) . '"',
+                // This needs to work even if Horde_Cache is not available,
+                // so need to use app-specific cache output.
+                'oFCKeditor.Config.CustomConfigurationsPath = "' . Horde::getCacheUrl('app', array('app' => 'imp', 'id' => 'fckeditor')) . '"',
                 'oFCKeditor.ToolbarSet = "ImpToolbar"'
             );
             if ($mode == 'imp') {

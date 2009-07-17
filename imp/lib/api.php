@@ -124,6 +124,15 @@ $_services = array_merge($_services, array(
         'type' => 'boolean'
     ),
 
+    /* Cache display method. */
+    'cacheOutput' => array(
+        'args' => array(
+            '{urn:horde}hashHash'
+        ),
+        'type' => '{urn:horde}hashHash'
+    ),
+
+    /* Horde_Auth_Application method. */
     'authAuthenticate' => array(
         'args' => array(
             'userID' => 'string',
@@ -514,6 +523,37 @@ function _imp_changeLanguage()
         $imaptree->init();
         $GLOBALS['imp_search']->sessionSetup(true);
     }
+}
+
+/**
+ * Application-specific cache output driver.
+ *
+ * @param array $params  A list of params needed (USED: 'id').
+ *
+ * @return array  See Horde::getCacheUrl().
+ * @throws Horde_Exception
+ */
+function _imp_cacheOutput($params)
+{
+    $GLOBALS['authentication'] = 'none';
+    require_once dirname(__FILE__) . '/base.php';
+
+    if (IMP::checkAuthentication(true)) {
+        switch ($params['id']) {
+        case 'fckeditor':
+            return array(
+                'data' =>
+                     'FCKConfig.ToolbarSets["ImpToolbar"] = ' . $GLOBALS['prefs']->getValue('fckeditor_buttons') . ';' . "\n" .
+                     // To more closely match "normal" textarea behavior,
+                     // send <BR> on enter instead of <P>.
+                     'FCKConfig.EnterMode = \'br\';' . "\n" .
+                     'FCKConfig.ShiftEnterMode = \'p\';',
+                'type' => 'text/javascript'
+            );
+        }
+    }
+
+    throw new Horde_Exception('No cache data available');
 }
 
 /**

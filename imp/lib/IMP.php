@@ -1354,8 +1354,9 @@ class IMP
             break;
 
         case 'horde_cache':
+            // Do lifetime checking here, not on cache display page.
             $exists = $cache->exists($sig, empty($conf['server']['cachejsparams']['lifetime']) ? 0 : $conf['server']['cachejsparams']['lifetime']);
-            $js_url = self::getCacheURL('js', $sig);
+            $js_url = Horde::getCacheUrl('js', array('cid' => $sig));
             break;
         }
 
@@ -1388,25 +1389,6 @@ class IMP
         foreach (array_merge(array($js_url), $js_force) as $val) {
             echo '<script type="text/javascript" src="' . $val . '"></script>' . "\n";
         }
-    }
-
-    /**
-     * Creates a URL for cached IMP data.
-     *
-     * @param string $type  The cache type.
-     * @param string $cid   The cache id.
-     *
-     * @return string  The URL to the cache page.
-     */
-    static public function getCacheURL($type, $cid)
-    {
-        $parts = array(
-            $GLOBALS['registry']->get('webroot', 'imp'),
-            'cache.php',
-            $type,
-            $cid
-        );
-        return Horde::url(implode('/', $parts));
     }
 
     /**
@@ -1466,8 +1448,9 @@ class IMP
                 break;
 
             case 'horde_cache':
+                // Do lifetime checking here, not on cache display page.
                 $exists = $cache->exists($sig, empty($GLOBALS['conf']['server']['cachecssparams']['lifetime']) ? 0 : $GLOBALS['conf']['server']['cachecssparams']['lifetime']);
-                $css_url = self::getCacheURL('css', $sig);
+                $css_url = Horde::getCacheUrl('css', array('cid' => $sig));
                 break;
             }
 
