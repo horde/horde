@@ -302,7 +302,7 @@ class Horde_Memcache
         }
 
         for ($i = 0; ($i * self::MAX_SIZE) < $len; ++$i) {
-            $curr_key = ($i) ? ($key . '_s' . $i) : $key;
+            $curr_key = $i ? ($key . '_s' . $i) : $key;
             $res = $this->_memcache->set($this->_key($curr_key), substr($var, $i * self::MAX_SIZE, self::MAX_SIZE), empty($this->_params['compression']) ? 0 : MEMCACHE_COMPRESSED, $expire);
             if ($res === false) {
                 $this->delete($key);
@@ -414,7 +414,7 @@ class Horde_Memcache
      */
     protected function _key($key)
     {
-        return md5($this->_params['prefix'] . $key);
+        return hash('md5', $this->_params['prefix'] . $key);
     }
 
     /**
