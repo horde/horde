@@ -601,6 +601,9 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 .msgBody table td {
     padding: 0;
 }
+.msgfullread DIV.msgBody {
+    overflow: auto;
+}
 
 /* Message Composition. */
 .composeAddrbook {
