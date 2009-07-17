@@ -31,11 +31,8 @@ class IMP
     const MAILBOX_START_FIRSTPAGE = 3;
     const MAILBOX_START_LASTPAGE = 4;
 
-    /* IMP internal indexing strings. */
-    // String used to separate messages.
-    const MSG_SEP = "\0";
-    // String used to separate indexes.
-    const IDX_SEP = "\1";
+    /* IMP internaltring used to separate indexes. */
+    const IDX_SEP = "\0";
 
     /* Are we currently in "print" mode? */
     static public $printMode = false;
@@ -793,10 +790,10 @@ class IMP
      * @param mixed $indices  The following inputs are allowed:
      * <pre>
      * 1. An array of messages indices in the following format:
-     *    msg_id IMP::IDX_SEP msg_folder
+     *    msg_id IMP::IDX_SEP msg_mbox
      *      msg_id      = Message index of the message
-     *      IMP::IDX_SEP = IMP constant used to separate index/folder
-     *      msg_folder  = The full folder name containing the message index
+     *      IMP::IDX_SEP = IMP constant used to separate index/mailbox
+     *      msg_folder  = The full mailbox name containing the message index
      * 2. An array with the full folder name as keys and an array of message
      *    indices as the values.
      * </pre>
