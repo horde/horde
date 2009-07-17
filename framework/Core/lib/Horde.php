@@ -1388,6 +1388,9 @@ HTML;
 
         /* Only encode image files if they are below the dataurl limit. */
         $filename = realpath($GLOBALS['registry']->get('fileroot', 'horde')) . preg_replace('/^' . preg_quote($GLOBALS['registry']->get('webroot', 'horde'), '/') . '/', '', $file);
+        if (!file_exists($filename)) {
+            return $file;
+        }
 
         /* Delete approx. 50 chars from the limit to account for the various
          * data/base64 header text.  Multiply by 0.75 to determine the
