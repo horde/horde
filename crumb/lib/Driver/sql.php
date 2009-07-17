@@ -20,8 +20,6 @@
  * The table structure can be created by the scripts/sql/crumb_foo.sql
  * script.
  *
- * $Horde$
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -96,7 +94,7 @@ class Crumb_Driver_sql extends Crumb_Driver {
     /**
      * Attempts to open a persistent connection to the SQL server.
      *
-     * @return boolean  True on success; exits (Horde::fatal()) on error.
+     * @return boolean  True on success.
      */
     function _connect()
     {
@@ -122,7 +120,7 @@ class Crumb_Driver_sql extends Crumb_Driver {
         $this->_write_db = &DB::connect($this->_params,
                                         array('persistent' => !empty($this->_params['persistent'])));
         if (is_a($this->_write_db, 'PEAR_Error')) {
-            Horde::fatal($this->_write_db, __FILE__, __LINE__);
+            throw new Horde_Exception($this->_write_db);
         }
 
         // Set DB portability options.
@@ -140,7 +138,7 @@ class Crumb_Driver_sql extends Crumb_Driver {
             $this->_db = &DB::connect($params,
                                       array('persistent' => !empty($params['persistent'])));
             if (is_a($this->_db, 'PEAR_Error')) {
-                Horde::fatal($this->_db, __FILE__, __LINE__);
+                throw new Horde_Exception($this->_write_db);
             }
 
             // Set DB portability options.

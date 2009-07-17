@@ -22,12 +22,12 @@ if ($app == 'horde') {
 }
 
 if (empty($srcfile)) {
-    Horde::fatal(_("Missing filename!"), __FILE__, __LINE__, false);
+    throw new Horde_Exception(_("Missing filename!"));
 }
 
 $rpath = realpath(HORDE_BASE);
 if (!preg_match(";$rpath;", $srcfile)) {
-    Horde::fatal(sprintf(_("Access denied to %s"), $srcfile), __FILE__, __LINE__, false);
+    throw new Horde_Exception(sprintf(_("Access denied to %s"), $srcfile));
 }
 
 // Get File content
@@ -44,38 +44,38 @@ require $registry->get('templates', 'horde') . '/common-footer.inc';
 
 function printCode($code, $sline = 1, $sdiff = 10) {
     if (!is_array($code)) $code = explode("\n", $code);
-    
+
     $count_lines = count($code);
     $r = '';
-    
+
     $from = $sline - $sdiff;
     $to   = $sline + $sdiff;
-    
+
     foreach ($code as $line => $code_line) {
-	
+
 	if ($from && $line < $from) {
 	    continue;
 	}
-	
+
 	if ($to && $line > $to) {
 	    break;
 	}
-	
+
 	$r1 = ($line + 1);
-	
+
 	if (ereg("<\?(php)?[^[:graph:]]", $code_line)) {
 	    $r2 = highlight_string($code_line, 1)."<br />";
 	} else {
 	    $r2 = ereg_replace("(&lt;\?php&nbsp;)+", "", highlight_string("<?php ".$code_line, 1))."<br />";
 	}
-	
+
 	if ($r1 == $sline) {
 	    $r .= sprintf('<tr><td align="right" class="control"><b>%s&nbsp;</b></td><td class="item0">%s</td></tr>', $r1, $r2);
 	} else {
 	    $r .= sprintf('<tr><td align="right" class="control">%s&nbsp;</td><td>%s</td></tr>', $r1, $r2);
 	}
     }
-    
+
     $r = '<table width="100%" cellspacing=0>' . $r . '</table>';
 
     echo "<div class=\"code\">".$r."</div>";

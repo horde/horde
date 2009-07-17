@@ -15,7 +15,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 /* Get the list of filter rules. */
 $filters = &$ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 if (is_a($filters, 'PEAR_Error')) {
-    Horde::fatal($filters, __FILE__, __LINE__);
+    throw new Horde_Exception($filters);
 }
 
 /* Load the Ingo_Script:: driver. */

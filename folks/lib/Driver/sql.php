@@ -557,7 +557,7 @@ class Folks_Driver_sql extends Folks_Driver {
     /**
      * Attempts to open a persistent connection to the SQL server.
      *
-     * @return boolean  True on success; exits (Horde::fatal()) on error.
+     * @return boolean  True on success.
      */
     private function _connect()
     {
@@ -579,7 +579,7 @@ class Folks_Driver_sql extends Folks_Driver {
         $this->_write_db = DB::connect($this->_params,
                                         array('persistent' => !empty($this->_params['persistent'])));
         if ($this->_write_db instanceof PEAR_Error) {
-            Horde::fatal($this->_write_db, __FILE__, __LINE__);
+            throw new Horde_Exception($this->_write_db);
         }
 
         // Set DB portability options.
@@ -597,7 +597,7 @@ class Folks_Driver_sql extends Folks_Driver {
             $this->_db = DB::connect($params,
                                       array('persistent' => !empty($params['persistent'])));
             if ($this->_db instanceof PEAR_Error) {
-                Horde::fatal($this->_db, __FILE__, __LINE__);
+                throw new Horde_Exception($this->_db);
             }
 
             // Set DB portability options.

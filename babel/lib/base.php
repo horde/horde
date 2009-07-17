@@ -35,7 +35,7 @@ try {
     if ($e->getCode() == 'permission_denied') {
         Horde::authenticationFailureRedirect();
     }
-    Horde::fatal($e, __FILE__, __LINE__, false);
+    throw $e;
 }
 
 $conf = &$GLOBALS['conf'];
@@ -65,19 +65,19 @@ $template = new Horde_Template();
 
 /* Module selection */
 $app = Horde_Util::getFormData('module');
-  
+
 /* Language selection */
 if (($lang = Horde_Util::getFormData('display_language')) !== null) {
     $_SESSION['babel']['language'] = $lang;
 } elseif (isset($_SESSION['babel']['language'])) {
     $lang = $_SESSION['babel']['language'];
 } else {
-    
+
     $tests =  Horde_Nls::$config['languages'];
-    
+
     // Unset English
     unset($tests['en_US']);
-    
+
     foreach($tests as $dir => $desc) {
 	if (!Babel::hasPermission("language:$dir")) {
 	    continue;
@@ -88,7 +88,7 @@ if (($lang = Horde_Util::getFormData('display_language')) !== null) {
     }
     $_SESSION['babel']['language'] = $lang;
 }
-						  
+
 /* Set up the template fields. */
 $template->set('menu', Babel::getMenu('string'));
 $template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
@@ -102,11 +102,11 @@ if ($app) {
 $template->set('fmenu', $fmenu);
 
 if ($lang && !Babel::hasPermission("language:$lang")) {
-    Horde::fatal(sprintf(_("Access forbidden to '%s'."), $lang), __FILE__, __LINE__, true);
+    throw new Horde_Exception(sprintf(_("Access forbidden to '%s'."), $lang));
 }
 
 if ($app && !Babel::hasPermission("module:$app")) {
-    Horde::fatal(sprintf(_("Access forbidden to '%s'."), $app), __FILE__, __LINE__, true);
+    throw new Horde_Exception(sprintf(_("Access forbidden to '%s'."), $app));
 }
 
 /* Custom sort function */

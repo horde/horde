@@ -36,7 +36,7 @@ try {
     if ($e->getCode() == 'permission_denied') {
         Horde::authenticationFailureRedirect();
     }
-    Horde::fatal($e, __FILE__, __LINE__, false);
+    throw $e;
 }
 
 if (!defined('TIMEOBJECTS_BASE')) {

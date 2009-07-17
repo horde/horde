@@ -70,11 +70,7 @@ case 'imp_acl_set':
     }
 
     if ($ok_form) {
-        try {
-            $current_acl = $ACLDriver->getACL($folder);
-        } catch (Horde_Exception $e) {
-            Horde::fatal($e);
-        }
+        $current_acl = $ACLDriver->getACL($folder);
         foreach ($acls as $user => $acl) {
             if ($acl) {
                 $acl = array_flip($acl);
@@ -126,19 +122,12 @@ if (empty($folder)) {
     $folder = 'INBOX';
 }
 
-try {
-    $curr_acl = $ACLDriver->getACL($folder);
-} catch (Horde_Exception $e) {
-    Horde::fatal($e);
-}
+$curr_acl = $ACLDriver->getACL($folder);
 $canEdit = $ACLDriver->canEdit($folder, $_SESSION['imp']['uniquser']);
 
 require_once 'Horde/Prefs/UI.php';
-try {
-    extract(Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp'));
-} catch (Horde_Exception $e) {
-    Horde::fatal($e);
-}
+
+extract(Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp'));
 
 $app = 'imp';
 $chunk = Horde_Util::nonInputVar('chunk');

@@ -34,11 +34,7 @@ require_once $appbase . '/lib/base.php';
 $pref = Horde_Util::getFormData('pref');
 if (!$pref) {
     $_prefs = array();
-    try {
-        extract(Horde::loadConfiguration('prefs.php', array('_prefs'), $app));
-    } catch (Horde_Exception $e) {
-        Horde::fatal($e, __FILE__, __LINE__);
-    }
+    extract(Horde::loadConfiguration('prefs.php', array('_prefs'), $app));
 
     echo '<ul id="pref">';
     foreach ($_prefs as $pref => $params) {

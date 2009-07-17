@@ -379,13 +379,15 @@ class Turba_Object {
 
     /**
      * Loads the VFS configuration and initializes the VFS backend.
+     *
+     * @throws Horde_Exception
      */
     function _vfsInit()
     {
         if (!isset($this->_vfs)) {
             $v_params = Horde::getVFSConfig('documents');
             if (is_a($v_params, 'PEAR_Error')) {
-                Horde::fatal($v_params, __FILE__, __LINE__);
+                throw new Horde_Exception($v_params);
             }
             $result = VFS::singleton($v_params['type'], $v_params['params']);
             if (is_a($result, 'PEAR_Error')) {

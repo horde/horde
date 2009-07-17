@@ -27,7 +27,7 @@ try {
     if ($e->getCode() == 'permission_denied') {
         Horde::authenticationFailureRedirect();
     }
-    Horde::fatal($e, __FILE__, __LINE__, false);
+    throw $e;
 }
 $conf = &$GLOBALS['conf'];
 @define('KASTALIA_TEMPLATES', $registry->get('templates'));

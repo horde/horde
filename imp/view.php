@@ -82,11 +82,7 @@ if ($actionID == 'compose_attach_preview') {
         exit;
     }
 
-    try {
-        $contents = IMP_Contents::singleton($uid . IMP::IDX_SEP . $mailbox);
-    } catch (Horde_Exception $e) {
-        Horde::fatal($e);
-    }
+    $contents = IMP_Contents::singleton($uid . IMP::IDX_SEP . $mailbox);
 }
 
 /* Run through action handlers */
@@ -111,12 +107,8 @@ case 'download_all':
     }
 
     if (!empty($tosave)) {
-        try {
-            $horde_compress = Horde_Compress::factory('zip');
-            $body = $horde_compress->compress($tosave, array('stream' => true));
-        } catch (Horde_Exception $e) {
-            Horde::fatal($e);
-        }
+        $horde_compress = Horde_Compress::factory('zip');
+        $body = $horde_compress->compress($tosave, array('stream' => true));
         fseek($body, 0, SEEK_END);
         $browser->downloadHeaders($zipfile, 'application/zip', false, ftell($body));
         rewind($body);
@@ -135,12 +127,8 @@ case 'download_render':
 
         /* Compress output? */
         if (Horde_Util::getFormData('zip')) {
-            try {
-                $horde_compress = Horde_Compress::factory('zip');
-                $body = $horde_compress->compress(array(array('data' => $mime->getContents(), 'name' => $name)), array('stream' => true));
-            } catch (Horde_Exception $e) {
-                Horde::fatal($e);
-            }
+            $horde_compress = Horde_Compress::factory('zip');
+            $body = $horde_compress->compress(array(array('data' => $mime->getContents(), 'name' => $name)), array('stream' => true));
             $name .= '.zip';
             $type = 'application/zip';
         } else {

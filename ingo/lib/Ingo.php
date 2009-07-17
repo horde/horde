@@ -207,13 +207,13 @@ class Ingo
      * single value or an array of multiple values.
      *
      * @return array  The backend entry.
-     *                Calls Horde::fatal() on error.
+     * @throws Horde_Exception
      */
     static public function getBackend()
     {
         include INGO_BASE . '/config/backends.php';
         if (!isset($backends) || !is_array($backends)) {
-            Horde::fatal(PEAR::raiseError(_("No backends configured in backends.php")), __FILE__, __LINE__);
+            throw new Horde_Exception(_("No backends configured in backends.php"));
         }
 
         $backend = null;
@@ -237,16 +237,16 @@ class Ingo
 
         /* Check for valid backend configuration. */
         if (!isset($backend)) {
-            Horde::fatal(PEAR::raiseError(_("No backend configured for this host")), __FILE__, __LINE__);
+            throw new Horde_Exception(_("No backend configured for this host"));
         }
 
         $backends[$backend]['id'] = $name;
         $backend = $backends[$backend];
 
         if (empty($backend['script'])) {
-            Horde::fatal(PEAR::raiseError(sprintf(_("No \"%s\" element found in backend configuration."), 'script')), __FILE__, __LINE__);
+            throw new Horde_Exception(sprintf(_("No \"%s\" element found in backend configuration."), 'script'));
         } elseif (empty($backend['driver'])) {
-            Horde::fatal(PEAR::raiseError(sprintf(_("No \"%s\" element found in backend configuration."), 'driver')), __FILE__, __LINE__);
+            throw new Horde_Exception(sprintf(_("No \"%s\" element found in backend configuration."), 'driver'));
         }
 
         /* Make sure the 'params' entry exists. */
@@ -260,14 +260,15 @@ class Ingo
     /**
      * Loads a Ingo_Script:: backend and checks for errors.
      *
-     * @return Ingo_Script  Script object on success, PEAR_Error on failure.
+     * @return Ingo_Script  Script object on success.
+     * @throws Horde_Exception
      */
     static public function loadIngoScript()
     {
         $ingo_script = Ingo_Script::factory($_SESSION['ingo']['backend']['script'],
                                             isset($_SESSION['ingo']['backend']['scriptparams']) ? $_SESSION['ingo']['backend']['scriptparams'] : array());
         if (is_a($ingo_script, 'PEAR_Error')) {
-            Horde::fatal($ingo_script, __FILE__, __LINE__);
+            throw new Horde_Exception($ingo_script);
         }
 
         return $ingo_script;

@@ -31,7 +31,7 @@ case 'download_file':
     $data = News::getFile($file_id);
     if ($data instanceof PEAR_Error) {
         if (Horde_Auth::isAdmin('news:admin')) {
-            Horde::fatal($data, __FILE__, __LINE__);
+            throw new Horde_Exception($data);
         } else {
             header('HTTP/1.0 404 Not Found');
             echo '<h1>HTTP/1.0 404 Not Found</h1>';
@@ -48,7 +48,7 @@ case 'view_file':
     $data = News::getFile($file_id);
     if ($data instanceof PEAR_Error) {
         if (Horde_Auth::isAdmin('news:admin')) {
-            Horde::fatal($data, __FILE__, __LINE__);
+            throw new Horde_Exception($data);
         } else {
             header('HTTP/1.0 404 Not Found');
             echo '<h1>HTTP/1.0 404 Not Found</h1>';
@@ -95,12 +95,8 @@ case 'download_zip_all':
         exit;
     }
 
-    try {
-        $zip = Horde_Compress::factory('zip');
-        $body = $zip->compress($zipfiles);
-    } catch (Horde_Exception $e) {
-        Horde::fatal($e);
-    }
+    $zip = Horde_Compress::factory('zip');
+    $body = $zip->compress($zipfiles);
     $browser->downloadHeaders($news_id . '.zip', 'application/zip', false, strlen($body));
     echo $body;
 
@@ -110,7 +106,7 @@ case 'download_zip':
     $data = News::getFile($file_id);
     if ($data instanceof PEAR_Error) {
         if (Horde_Auth::isAdmin('news:admin')) {
-            Horde::fatal($data, __FILE__, __LINE__);
+            throw new Horde_Exception($data);
         } else {
             header('HTTP/1.0 404 Not Found');
             echo '<h1>HTTP/1.0 404 Not Found</h1>';
@@ -120,12 +116,8 @@ case 'download_zip':
 
     $zipfiles = array('data' => $data, 'name' => $file_id);
 
-    try {
-        $zip = Horde_Compress::factory('zip');
-        $body = $zip->compress($zipfiles);
-    } catch (Horde_Exception $e) {
-        Horde::fatal($e);
-    }
+    $zip = Horde_Compress::factory('zip');
+    $body = $zip->compress($zipfiles);
     $browser->downloadHeaders($file_id . '.zip', 'application/zip', false, strlen($body));
     echo $body;
 

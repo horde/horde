@@ -1641,14 +1641,11 @@ class IMP
      * associated with creating the object.
      *
      * @return Horde_Cache  A pointer to a Horde_Cache object.
+     * @throws Horde_Exception
      */
     public static function getCache()
     {
-        try {
-            return Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
-        } catch (Horde_Exception $e) {
-            Horde::fatal($e);
-        }
+        return Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
     }
 
     /**

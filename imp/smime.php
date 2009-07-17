@@ -80,12 +80,7 @@ function _printKeyInfo($cert)
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-try {
-    $imp_smime = Horde_Crypt::singleton(array('IMP', 'Smime'));
-} catch (Horde_Exception $e) {
-    Horde::fatal($e);
-}
-
+$imp_smime = Horde_Crypt::singleton(array('IMP', 'Smime'));
 $secure_check = Horde::isConnectionSecure();
 
 /* Run through the action handlers */
@@ -178,14 +173,10 @@ case 'process_import_personal_certs':
 
 case 'save_attachment_public_key':
     /* Retrieve the key from the message. */
-    try {
-        $contents = IMP_Contents::singleton(Horde_Util::getFormData('uid') . IMP::IDX_SEP . Horde_Util::getFormData('mailbox'));
-    } catch (Horde_Exception $e) {
-        Horde::fatal($e);
-    }
+    $contents = IMP_Contents::singleton(Horde_Util::getFormData('uid') . IMP::IDX_SEP . Horde_Util::getFormData('mailbox'));
     $mime_part = $contents->getMIMEPart(Horde_Util::getFormData('mime_id'));
     if (empty($mime_part)) {
-        Horde::fatal(new Horde_Exception('Cannot retrieve public key from message.'));
+        throw new Horde_Exception('Cannot retrieve public key from message.');
     }
 
     /* Add the public key to the storage system. */
@@ -219,11 +210,7 @@ try {
     $notification->push($e);
 }
 
-try {
-    extract(Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp'));
-} catch (Horde_Exception $e) {
-    Horde::fatal($e);
-}
+extract(Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp'));
 
 require_once 'Horde/Prefs/UI.php';
 $app = 'imp';

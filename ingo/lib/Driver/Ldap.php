@@ -13,11 +13,13 @@ class Ingo_Driver_Ldap extends Ingo_Driver
 {
     /**
      * Constructor.
+     *
+     * @throws Horde_Exception
      */
     public function __construct($params = array())
     {
         if (!Horde_Util::extensionExists('ldap')) {
-            Horde::fatal(PEAR::raiseError(_("LDAP support is required but the LDAP module is not available or not loaded.")), __FILE__, __LINE__);
+            throw new Horde_Exception(_("LDAP support is required but the LDAP module is not available or not loaded."));
         }
 
         $default_params = array(

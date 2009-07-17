@@ -56,6 +56,8 @@ class Ingo_Storage_Sql extends Ingo_Storage
      * Constructor.
      *
      * @param array $params  Additional parameters for the subclass.
+     *
+     * @throws Horde_Exception
      */
     public function __construct($params = array())
     {
@@ -84,7 +86,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                                         array('persistent' => !empty($this->_params['persistent']),
                                               'ssl' => !empty($this->_params['ssl'])));
         if (is_a($this->_write_db, 'PEAR_Error')) {
-            Horde::fatal($this->_write_db, __FILE__, __LINE__);
+            throw new Horde_Exception($this->_write_db);
         }
         /* Set DB portability options. */
         switch ($this->_write_db->phptype) {
@@ -103,7 +105,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                                       array('persistent' => !empty($params['persistent']),
                                             'ssl' => !empty($params['ssl'])));
             if (is_a($this->_db, 'PEAR_Error')) {
-                Horde::fatal($this->_db, __FILE__, __LINE__);
+                throw new Horde_Exception($this->_db);
             }
 
             switch ($this->_db->phptype) {

@@ -112,7 +112,7 @@ class Horde_Form {
     {
         $type_class = 'Horde_Form_Type_' . $type;
         if (!class_exists($type_class)) {
-            Horde::fatal(PEAR::raiseError(sprintf('Nonexistant class "%s" for field type "%s"', $type_class, $type)), __FILE__, __LINE__);
+            throw new Horde_Exception(sprintf('Nonexistant class "%s" for field type "%s"', $type_class, $type));
         }
         $type_ob = new $type_class();
         call_user_func_array(array(&$type_ob, 'init'), $params);

@@ -55,7 +55,7 @@ $config['password'] = $db_pass;
 unset($config['charset']);
 $db = DB::connect($config);
 if (is_a($db, 'PEAR_Error')) {
-    Horde::fatal($db, __FILE__, __LINE__);
+    throw new Horde_Exception($db);
 }
 if (!$for_real) {
     $cli->message('No changes will done to the existing data. Please read the comments in the code, then set the $for_real flag to true before running.', 'cli.message');

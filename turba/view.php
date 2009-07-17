@@ -13,7 +13,7 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 
 if ($conf['documents']['type'] == 'none') {
-    Horde::fatal(new Horde_Exception(_("The VFS backend needs to be configured to enable attachment uploads.")));
+    throw new Horde_Exception(_("The VFS backend needs to be configured to enable attachment uploads."));
 }
 
 $source = Horde_Util::getFormData('source');
@@ -24,32 +24,32 @@ $type = Horde_Util::getFormData('type');
 
 /* Get the object. */
 if (!isset($cfgSources[$source])) {
-    Horde::fatal(_("The contact you requested does not exist."), __FILE__, __LINE__);
+    throw new Horde_Exception(_("The contact you requested does not exist."));
 }
 $driver = Turba_Driver::singleton($source);
 $object = $driver->getObject($key);
 if (is_a($object, 'PEAR_Error')) {
-    Horde::fatal($object, __FILE__, __LINE__);
+    throw new Horde_Exception($object);
 }
 
 /* Check permissions. */
 if (!$object->hasPermission(PERMS_READ)) {
-    Horde::fatal(_("You do not have permission to view this contact."), __FILE__, __LINE__);
+    throw new Horde_Exception(_("You do not have permission to view this contact."));
 }
 
 $v_params = Horde::getVFSConfig('documents');
 if (is_a($v_params, 'PEAR_Error')) {
-    Horde::fatal($v_params, __FILE__, __LINE__);
+    throw new Horde_Exception($v_params);
 }
 $vfs = VFS::singleton($v_params['type'], $v_params['params']);
 if (is_a($vfs, 'PEAR_Error')) {
-    Horde::fatal($vfs, __FILE__, __LINE__);
+    throw new Horde_Exception($vfs);
 } else {
     $data = $vfs->read(TURBA_VFS_PATH . '/' . $object->getValue('__uid'), $filename);
 }
 if (is_a($data, 'PEAR_Error')) {
     Horde::logMessage($data, __FILE__, __LINE__, PEAR_LOG_ERR);
-    Horde::fatal(sprintf(_("Access denied to %s"), $filename), __FILE__, __LINE__);
+    throw new Horde_Exception(sprintf(_("Access denied to %s"), $filename));
 }
 
 /* Run through action handlers */

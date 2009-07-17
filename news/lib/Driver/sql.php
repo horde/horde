@@ -371,7 +371,8 @@ class News_Driver_sql extends News_Driver {
     /**
      * Attempts to open a persistent connection to the SQL server.
      *
-     * @return boolean  True on success; exits (Horde::fatal()) on error.
+     * @return boolean  True on success.
+     * @throws Horde_Exception
      */
     private function _connect()
     {
@@ -396,7 +397,7 @@ class News_Driver_sql extends News_Driver {
         $this->write_db = &DB::connect($this->_params,
                                         array('persistent' => !empty($this->_params['persistent'])));
         if ($this->write_db instanceof PEAR_Error) {
-            Horde::fatal($this->write_db, __FILE__, __LINE__);
+            throw new Horde_Exception($this->write_db);
         }
 
         // Set DB portability options.
@@ -414,7 +415,7 @@ class News_Driver_sql extends News_Driver {
             $this->db = &DB::connect($params,
                                       array('persistent' => !empty($params['persistent'])));
             if ($this->db instanceof PEAR_Error) {
-                Horde::fatal($this->db, __FILE__, __LINE__);
+                throw new Horde_Exception($this->db);
             }
 
             // Set DB portability options.

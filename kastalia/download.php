@@ -37,7 +37,7 @@ try {
     if ($e->getCode() == 'permission_denied') {
         Horde::authenticationFailureRedirect();
     }
-    Horde::fatal($e, __FILE__, __LINE__, false);
+    throw $e;
 }
 //################### </MANUELLER ANMELDE CHECK (WENN base.php NICHT INCLUDIERT WIRD)> ###################
 
