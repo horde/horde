@@ -1946,4 +1946,36 @@ HTML;
         return '<script type="text/javascript">//<![CDATA[' . "\n" . implode("\n", $script) . "\n//]]></script>\n";
     }
 
+    /**
+     * Creates a URL for cached IMP data.
+     *
+     * @param string $type   The cache type ('app', 'css', 'js').
+     * @param array $params  Optional parameters:
+     * <pre>
+     * RESERVED PARAMETERS:
+     * 'app' - REQUIRED for $type == 'app'. Identifies the application to
+     *         call the 'cacheOutput' API call, which is passed in the
+     *         value of the entire $params array (which may include parameters
+     *         other than those listed here). The return from cacheOutput
+     *         should be a 2-element array: 'data' (the cached data) and
+     *         'type' (the content-type of the data).
+     * 'cid' - REQUIRED for $type == 'css' || 'js'. The cacheid of the
+     *         data (stored in Horde_Cache).
+     * 'nocache' - If true, sets the cache limiter to 'nocache' instead of
+     *             the default 'public'.
+     * </pre>
+     *
+     * @return string  The URL to the cache page.
+     */
+    static public function getCacheUrl($type, $params = array())
+    {
+        $registry = Horde_Registry::singleton();
+        $url = $GLOBALS['registry']->get('webroot', 'horde') . '/services/cache.php?cache=' . $type;
+        foreach ($params as $key => $val) {
+            $url .= '/' . $key . '=' . rawurlencode(strval($val));
+        }
+
+        return Horde::url($url);
+    }
+
 }
