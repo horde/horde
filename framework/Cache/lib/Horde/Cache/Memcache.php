@@ -36,7 +36,7 @@ class Horde_Cache_Memcache extends Horde_Cache_Base
      */
     public function __construct($params = array())
     {
-        $this->_memcache = &Horde_Memcache::singleton();
+        $this->_memcache = Horde_Memcache::singleton();
 
         parent::__construct($params);
     }
