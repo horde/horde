@@ -1079,8 +1079,9 @@ class Horde_Registry
                 $data = serialize($this->_cache[$name]);
                 $_SESSION['_registry']['md5'][$name] = $md5sum = hash('md5', $data);
                 $id = $this->_getCacheId($name, false) . '|' . $md5sum;
-                $this->_cacheob->set($id, $data, 86400);
-                Horde::logMessage('Horde_Registry: stored ' . $name . ' with cache ID ' . $id, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                if ($this->_cacheob->set($id, $data, 86400)) {
+                    Horde::logMessage('Horde_Registry: stored ' . $name . ' with cache ID ' . $id, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                }
             }
         }
     }
