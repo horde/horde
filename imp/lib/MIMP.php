@@ -42,6 +42,7 @@ class MIMP
         // if ($options_link = Horde::getServiceLink('options', 'mimp')) {
         //     $items[Horde_Util::addParameter($options_link, 'mobile', 1, false)] = _("Options");
         // }
+
         $logout_link = IMP::getLogoutUrl(Horde_Auth::REASON_LOGOUT);
         if (!empty($logout_link)) {
             $items[$logout_link] = _("Log out");
@@ -51,16 +52,11 @@ class MIMP
             $menu->add(new Horde_Mobile_link($label, $link));
         }
 
-        if (is_readable(IMP_BASE . '/config/menu.php')) {
-            include IMP_BASE . '/config/menu.php';
-            if (isset($_menu) && is_array($_menu)) {
-                foreach ($_menu as $menuitem) {
-                    if ($menuitem == 'separator') {
-                        continue;
-                    }
-                    $menu->add(new Horde_Mobile_link($menuitem['text'], $menuitem['url']));
-                }
+        foreach ($menu->getSiteLinks() as $menuitem) {
+            if ($menuitem != 'separator') {
+                $menu->add(new Horde_Mobile_link($menuitem['text'], $menuitem['url']));
             }
         }
     }
+
 }
