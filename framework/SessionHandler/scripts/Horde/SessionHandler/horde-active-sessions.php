@@ -38,18 +38,18 @@ require_once HORDE_BASE . '/lib/base.php';
 
 /* Check for sessionhandler object. */
 if (empty($GLOBALS['horde_sessionhandler'])) {
-    Horde::fatal(PEAR::raiseError('Horde is unable to load the session handler'), __FILE__, __LINE__, false);
+    throw new Horde_Exception('Horde is unable to load the session handler');
 }
 
 $type = !empty($conf['sessionhandler']['type']) ?
     $conf['sessionhandler']['type'] : 'builtin';
 if ($type == 'external') {
-    Horde::fatal(PEAR::raiseError('Session counting is not supported in the \'external\' SessionHandler at this time.'), __FILE__, __LINE__, false);
+    throw new Horde_Exception('Session counting is not supported in the \'external\' SessionHandler at this time.');
 }
 
 $sessions = $GLOBALS['horde_sessionhandler']->getSessionsInfo();
 if (is_a($sessions, 'PEAR_Error')) {
-    Horde::fatal($sessions, __FILE__, __LINE__, false);
+    throw new Horde_Exception($sessions);
 }
 
 if (($argc < 2) || (($argv[1] != '-l') && ($argv[1] != '-ll'))) {

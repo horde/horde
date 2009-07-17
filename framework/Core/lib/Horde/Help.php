@@ -246,12 +246,13 @@ class Horde_Help
      * Initializes the XML parser.
      *
      * @return boolean  Returns true on success, false on failure.
+     * @throws Horde_Exception
      */
     protected function _init()
     {
         if (!isset($this->_parser)) {
             if (!Horde_Util::extensionExists('xml')) {
-                Horde::fatal(PEAR::raiseError('The XML functions are not available. Rebuild PHP with --with-xml.'), __FILE__, __LINE__, false);
+                throw new Horde_Exception('The XML functions are not available. Rebuild PHP with --with-xml.');
             }
 
             /* Create a new parser and set its default properties. */

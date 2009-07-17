@@ -130,7 +130,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $this->_tempdir = Horde_Util::createTempDir(true, $params['temp']);
 
         if (empty($params['program'])) {
-            Horde::fatal(new Horde_Exception('The location of the GnuPG binary must be given to the Horde_Crypt_Pgp:: class.'), __FILE__, __LINE__);
+            throw new Horde_Exception('The location of the GnuPG binary must be given to the Horde_Crypt_Pgp:: class.');
         }
 
         /* Store the location of GnuPG and set common options. */

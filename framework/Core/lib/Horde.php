@@ -136,6 +136,7 @@ class Horde
      * instantiated.
      *
      * @return mixed  Log object on success, false if disabled.
+     * @throws Horde_Exception
      */
     static public function getLogger()
     {
@@ -156,15 +157,15 @@ class Horde
             empty($conf['log']['name']) ||
             empty($conf['log']['ident']) ||
             !isset($conf['log']['params'])) {
-            self::fatal(new Horde_Exception('Horde is not correctly configured to log error messages. You must configure at least a text file log in horde/config/conf.php.'), __FILE__, __LINE__, false);
+            throw new Horde_Exception('Horde is not correctly configured to log error messages. You must configure at least a text file log in horde/config/conf.php.');
         }
 
         self::$_logger = Log::singleton($conf['log']['type'],
                                         $conf['log']['name'],
                                         $conf['log']['ident'],
                                         $conf['log']['params']);
-        if (!is_a(self::$_logger, 'Log')) {
-            self::fatal(new Horde_Exception('An error has occurred. Furthermore, Horde encountered an error attempting to log this error. Please check your Horde logging configuration in horde/config/conf.php.'), __FILE__, __LINE__, false);
+        if (!self::$_logger instanceof Log) {
+            throw new Horde_Exception('An error has occurred. Furthermore, Horde encountered an error attempting to log this error. Please check your Horde logging configuration in horde/config/conf.php.');
         }
 
         return self::$_logger;
@@ -436,11 +437,7 @@ HTML;
 
         case 'login':
             /* Get an Auth object. */
-            try {
-                $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
-            } catch (Horde_Exception $e) {
-                Horde::fatal($e, __FILE__, __LINE__);
-            }
+            $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
             return $auth->getLoginScreen('', $referrer ? self::selfUrl(true) : null);
 
         case 'options':
@@ -824,6 +821,8 @@ HTML;
      * @param string $file      The configuration file that should contain
      *                          these settings.
      * @param string $variable  The name of the configuration variable.
+     *
+     * @throws Horde_Exception
      */
     static public function assertDriverConfig($params, $driver, $fields,
                                               $name = null,
@@ -840,22 +839,20 @@ HTML;
         $fileroot = isset($registry) ? $registry->get('fileroot') : '';
 
         if (!is_array($params) || !count($params)) {
-            self::fatal(new Horde_Exception(
+            throw new Horde_Exception(
                 sprintf(_("No configuration information specified for %s."), $name) . "\n\n" .
                 sprintf(_("The file %s should contain some %s settings."),
                     $fileroot . '/config/' . $file,
-                    sprintf("%s['%s']['params']", $variable, $driver))),
-                __FILE__, __LINE__);
+                    sprintf("%s['%s']['params']", $variable, $driver)));
         }
 
         foreach ($fields as $field) {
             if (!isset($params[$field])) {
-                self::fatal(new Horde_Exception(
+                throw new Horde_Exception(
                     sprintf(_("Required \"%s\" not specified in %s configuration."), $field, $name) . "\n\n" .
                     sprintf(_("The file %s should contain a %s setting."),
                         $fileroot . '/config/' . $file,
-                        sprintf("%s['%s']['params']['%s']", $variable, $driver, $field))),
-                    __FILE__, __LINE__);
+                        sprintf("%s['%s']['params']['%s']", $variable, $driver, $field)));
             }
         }
     }

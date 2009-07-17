@@ -205,7 +205,8 @@ class Horde_Auth_Signup_Sql extends Horde_Auth_Signup
     /**
      * Attempts to open a connection to the sql server.
      *
-     * @return boolean  True on success; exits (Horde::fatal()) on error.
+     * @return boolean  True on success.
+     * @throws Horde_Exception
      */
     protected function _connect()
     {
@@ -227,7 +228,7 @@ class Horde_Auth_Signup_Sql extends Horde_Auth_Signup
         unset($params['charset']);
         $this->_write_db = MDB2::factory($params);
         if (is_a($this->_write_db, 'PEAR_Error')) {
-            Horde::fatal($this->_write_db, __FILE__, __LINE__);
+            throw new Horde_Exception($this->_write_db);
         }
 
         /* Set DB portability options. */
@@ -246,7 +247,7 @@ class Horde_Auth_Signup_Sql extends Horde_Auth_Signup
             $params = array_merge($params, $this->_params['read']);
             $this->_db = MDB2::factory($params);
             if (is_a($this->_db, 'PEAR_Error')) {
-                Horde::fatal($this->_db, __FILE__, __LINE__);
+                thorw new Horde_Exception($this->_db);
             }
 
             /* Set DB portability options. */

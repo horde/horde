@@ -186,7 +186,7 @@ class Horde_Registry
 
         /* Stop system if Horde is inactive. */
         if ($this->applications['horde']['status'] == 'inactive') {
-            Horde::fatal(_("This system is currently deactivated."), __FILE__, __LINE__);
+            throw new Horde_Exception(_("This system is currently deactivated."));
         }
 
         /* Create the global Perms object. */
@@ -224,10 +224,12 @@ class Horde_Registry
 
     /**
      * Clone should never be called on this object. If it is, die.
+     *
+     * @throws Horde_Exception
      */
     public function __clone()
     {
-        Horde::fatal('Horde_Registry objects should never be cloned.', __FILE__, __LINE__);
+        throw new Horde_Exception('Horde_Registry objects should never be cloned.');
     }
 
     /**
@@ -784,7 +786,7 @@ class Horde_Registry
         if (!isset($this->applications[$app]) ||
             $this->applications[$app]['status'] == 'inactive' ||
             ($this->applications[$app]['status'] == 'admin' && !Horde_Auth::isAdmin())) {
-            Horde::fatal($app . ' is not activated', __FILE__, __LINE__);
+            throw new Horde_Exception($app . ' is not activated.');
         }
 
         /* If permissions checking is requested, return an error if the
@@ -1142,6 +1144,8 @@ class Horde_Registry
      *
      * The custom session handler object will be contained in the global
      * 'horde_sessionhandler' variable.
+     *
+     * @throws Horde_Exception
      */
     public function setupSessionHandler()
     {
@@ -1152,7 +1156,7 @@ class Horde_Registry
             ini_set('session.use_only_cookies', 1);
             if (!empty($conf['cookie']['domain']) &&
                 strpos($conf['server']['name'], '.') === false) {
-                Horde::fatal('Session cookies will not work without a FQDN and with a non-empty cookie domain. Either use a fully qualified domain name like "http://www.example.com" instead of "http://example" only, or set the cookie domain in the Horde configuration to an empty value, or enable non-cookie (url-based) sessions in the Horde configuration.', __FILE__, __LINE__);
+                throw new Horde_Exception('Session cookies will not work without a FQDN and with a non-empty cookie domain. Either use a fully qualified domain name like "http://www.example.com" instead of "http://example" only, or set the cookie domain in the Horde configuration to an empty value, or enable non-cookie (url-based) sessions in the Horde configuration.');
             }
         }
 
@@ -1174,19 +1178,15 @@ class Horde_Registry
                                      $calls['destroy'],
                                      $calls['gc']);
         } elseif ($type != 'none') {
-            try {
-                $sh = Horde_SessionHandler::singleton($conf['sessionhandler']['type'], array_merge(Horde::getDriverConfig('sessionhandler', $conf['sessionhandler']['type']), array('memcache' => !empty($conf['sessionhandler']['memcache']))));
-                ini_set('session.save_handler', 'user');
-                session_set_save_handler(array(&$sh, 'open'),
-                                         array(&$sh, 'close'),
-                                         array(&$sh, 'read'),
-                                         array(&$sh, 'write'),
-                                         array(&$sh, 'destroy'),
-                                         array(&$sh, 'gc'));
-                $GLOBALS['horde_sessionhandler'] = $sh;
-            } catch (Horde_Exception $e) {
-                Horde::fatal(new Horde_Exception('Horde is unable to correctly start the custom session handler.'), __FILE__, __LINE__, false);
-            }
+            $sh = Horde_SessionHandler::singleton($conf['sessionhandler']['type'], array_merge(Horde::getDriverConfig('sessionhandler', $conf['sessionhandler']['type']), array('memcache' => !empty($conf['sessionhandler']['memcache']))));
+            ini_set('session.save_handler', 'user');
+            session_set_save_handler(array(&$sh, 'open'),
+                                     array(&$sh, 'close'),
+                                     array(&$sh, 'read'),
+                                     array(&$sh, 'write'),
+                                     array(&$sh, 'destroy'),
+                                     array(&$sh, 'gc'));
+            $GLOBALS['horde_sessionhandler'] = $sh;
         }
     }
 

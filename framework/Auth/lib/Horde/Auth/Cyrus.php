@@ -115,6 +115,8 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
      * Constructor.
      *
      * @param array $params  A hash containing connection parameters.
+     *
+     * @throws Horde_Exception
      */
     public function __construct($params = array())
     {
@@ -136,7 +138,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
         if (!$this->_backend->hasCapability('add') ||
             !$this->_backend->hasCapability('update') ||
             !$this->_backend->hasCapability('remove')) {
-            Horde::fatal('Horde_Auth_Cyrus: Backend does not have required capabilites.', __FILE__, __LINE__);
+            throw new Horde_Exception('Horde_Auth_Cyrus: Backend does not have required capabilites.');
         }
 
         $this->_capabilities['list'] = $this->_backend->hasCapability('list');
