@@ -27,7 +27,6 @@ function _getIMPContents($index, $mailbox)
 }
 
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Identity.php';
 
 /* The message text and headers. */
 $msg = '';

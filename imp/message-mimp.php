@@ -153,7 +153,6 @@ if (($actionID == 'c') && !is_null($atc_id)) {
 $imp_ui = new IMP_UI_Message();
 
 /* Create the Identity object. */
-require_once 'Horde/Identity.php';
 $user_identity = Identity::singleton(array('imp', 'imp'));
 
 /* Develop the list of headers to display. */

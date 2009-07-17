@@ -77,7 +77,6 @@ if ($conf['compose']['link_attachments_notify']) {
             $prefs = Prefs::singleton($conf['prefs']['driver'], 'horde', $mail_user);
             $prefs->retrieve();
 
-            include_once 'Horde/Identity.php';
             $mail_identity = Identity::singleton('none', $mail_user);
             $mail_address = $mail_identity->getDefaultFromAddress();
 

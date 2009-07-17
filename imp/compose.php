@@ -59,7 +59,6 @@ function _getIMPContents($index, $mailbox)
 $compose_page = true;
 $session_control = 'netscape';
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Identity.php';
 
 /* The message headers and text. */
 $header = array();

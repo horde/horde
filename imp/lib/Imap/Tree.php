@@ -1796,7 +1796,6 @@ class IMP_Imap_Tree
         global $prefs, $registry;
 
         /* Initialize the user's identities. */
-        require_once 'Horde/Identity.php';
         $identity = Identity::singleton(array('imp', 'imp'));
 
         return array(

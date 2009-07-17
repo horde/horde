@@ -368,7 +368,6 @@ if ($prefs->getValue('use_pgp')) {
             $t->set('deletekeypair', addslashes(_("Are you sure you want to delete your keypair? (This is NOT recommended!)")));
             $t->set('personalkey-delete-help', Horde_Help::link('imp', 'pgp-personalkey-delete'));
         } else {
-            require_once 'Horde/Identity.php';
             $imp_identity = Identity::singleton(array('imp', 'imp'));
             $t->set('fullname', $imp_identity->getFullname());
             $t->set('personalkey-create-name-help', Horde_Help::link('imp', 'pgp-personalkey-create-name'));

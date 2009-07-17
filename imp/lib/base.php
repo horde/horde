@@ -68,10 +68,14 @@ try {
     }
     throw $e;
 }
+
 $conf = &$GLOBALS['conf'];
 if (!defined('IMP_TEMPLATES')) {
     define('IMP_TEMPLATES', $registry->get('templates'));
 }
+
+// TODO: Remove once this can be autoloaded
+require_once 'Horde/Identity.php';
 
 // Initialize global $imp_imap object.
 if (!isset($GLOBALS['imp_imap'])) {

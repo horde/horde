@@ -37,7 +37,6 @@ class IMP_Views_Compose
         );
 
         /* Load Identity. */
-        require_once 'Horde/Identity.php';
         $identity = Identity::singleton(array('imp', 'imp'));
         $selected_identity = $identity->getDefault();
         $sent_mail_folder = $identity->getValue('sent_mail_folder');

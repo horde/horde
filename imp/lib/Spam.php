@@ -105,7 +105,6 @@ class IMP_Spam
                     }
 
                     if (!isset($imp_compose)) {
-                        require_once 'Horde/Identity.php';
                         $imp_compose = IMP_Compose::singleton();
                         $identity = Identity::singleton(array('imp', 'imp'));
                         try {

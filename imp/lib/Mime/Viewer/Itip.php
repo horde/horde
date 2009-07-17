@@ -230,8 +230,6 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                     $organizer = $vEvent->getAttribute('ORGANIZER', true);
                     $organizerName = isset($organizer['cn']) ? $organizer['cn'] : '';
 
-                    require_once 'Horde/Identity.php';
-
                     // Build the reply.
                     $vCal = new Horde_iCalendar();
                     $vCal->setAttribute('PRODID', '-//The Horde Project//' . HORDE_AGENT_HEADER . '//EN');
@@ -397,8 +395,6 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                     $vfb_reply = $registry->call('calendar/getFreeBusy',
                                                  array('startStamp' => $startStamp,
                                                        'endStamp' => $endStamp));
-                    require_once 'Horde/Identity.php';
-
                     // Find out who we are and update status.
                     $identity = Identity::singleton();
                     $email = $identity->getFromAddress();
@@ -632,7 +628,6 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                 // Check that you are one of the attendees here.
                 $is_attendee = false;
                 if (!is_a($attendees, 'PEAR_Error') && !empty($attendees)) {
-                    require_once 'Horde/Identity.php';
                     $identity = Identity::singleton(array('imp', 'imp'));
                     for ($i = 0, $c = count($attendees); $i < $c; ++$i) {
                         $attendee = parse_url($attendees[$i]);

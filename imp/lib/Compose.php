@@ -323,7 +323,6 @@ class IMP_Compose
         $identity_id = null;
         $headers = $contents->getHeaderOb();
         if (($fromaddr = Horde_Mime_Address::bareAddress($headers->getValue('from')))) {
-            require_once 'Horde/Identity.php';
             $identity = Identity::singleton(array('imp', 'imp'));
             $identity_id = $identity->getMatchingIdentity($fromaddr);
         }
@@ -1229,7 +1228,6 @@ class IMP_Compose
 
         if (in_array($actionID, array('reply_all', '*'))) {
             /* Filter out our own address from the addresses we reply to. */
-            require_once 'Horde/Identity.php';
             $identity = Identity::singleton(array('imp', 'imp'));
             $all_addrs = array_keys($identity->getAllFromAddresses(true));
 
@@ -1448,7 +1446,6 @@ class IMP_Compose
             $msgAddresses[] = $h->getValue($val);
         }
 
-        require_once 'Horde/Identity.php';
         $user_identity = Identity::singleton(array('imp', 'imp'));
         return $user_identity->getMatchingIdentity($msgAddresses);
     }

@@ -264,7 +264,6 @@ class IMP_Imap_Flags
 
         if (isset($options['personal'])) {
             if (is_array($options['personal'])) {
-                require_once 'Horde/Identity.php';
                 $identity = Identity::singleton(array('imp', 'imp'));
                 foreach ($options['personal'] as $val) {
                     if ($identity->hasAddress($val['inner'])) {

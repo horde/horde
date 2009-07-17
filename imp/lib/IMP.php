@@ -1171,7 +1171,6 @@ class IMP
     static public function isSpecialFolder($mbox)
     {
         /* Get the identities. */
-        require_once 'Horde/Identity.php';
         $identity = Identity::singleton(array('imp', 'imp'));
 
         return (($mbox == self::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)) || in_array($mbox, $identity->getAllSentmailFolders()));

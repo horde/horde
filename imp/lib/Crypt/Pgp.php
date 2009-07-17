@@ -187,7 +187,6 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             /* TODO: Retrieve by ID. */
 
             /* See if the address points to the user's public key. */
-            require_once 'Horde/Identity.php';
             $identity = Identity::singleton(array('imp', 'imp'));
             $personal_pubkey = $this->getPersonalPublicKey();
             if (!empty($personal_pubkey) && $identity->hasAddress($address)) {

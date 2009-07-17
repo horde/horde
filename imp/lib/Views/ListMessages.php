@@ -229,8 +229,6 @@ class IMP_Views_ListMessages
             return $msgs;
         }
 
-        require_once 'Horde/Identity.php';
-
         /* Get mailbox information. */
         $overview = $imp_mailbox->getMailboxArray($msglist, array('headers' => array('list-post', 'x-priority'), 'structure' => $GLOBALS['prefs']->getValue('atc_flag')));
         $charset = Horde_Nls::getCharset();

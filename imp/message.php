@@ -50,7 +50,6 @@ $imp_message = IMP_Message::singleton();
 Horde_Nls::setTimeZone();
 
 /* Initialize the user's identities. */
-require_once 'Horde/Identity.php';
 $user_identity = Identity::singleton(array('imp', 'imp'));
 
 /* Run through action handlers. */

@@ -33,8 +33,6 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
     {
         $success = true;
 
-        include_once 'Horde/Identity.php';
-
         $identity = Identity::singleton(array('imp', 'imp'));
         $imp_folder = IMP_Folder::singleton();
 
@@ -66,7 +64,6 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
      */
     public function describe()
     {
-        include_once 'Horde/Identity.php';
         $identity = Identity::singleton(array('imp', 'imp'));
 
         $new_folders = $old_folders = array();
