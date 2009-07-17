@@ -2,19 +2,23 @@
 /**
  * IMP_Sentmail implementation for PHP's PEAR database abstraction layer.
  *
- * Required values for $params:<pre>
- *      'phptype'       The database type (e.g. 'pgsql', 'mysql', etc.).
- *      'table'         The name of the foo table in 'database'.</pre>
+ * Required values for $params:
+ * <pre>
+ * 'phptype'       The database type (e.g. 'pgsql', 'mysql', etc.).
+ * 'table'         The name of the foo table in 'database'.
+ * </pre>
  *
- * Required by some database implementations:<pre>
- *      'database'      The name of the database.
- *      'hostspec'      The hostname of the database server.
- *      'protocol'      The communication protocol ('tcp', 'unix', etc.).
- *      'username'      The username with which to connect to the database.
- *      'password'      The password associated with 'username'.
- *      'options'       Additional options to pass to the database.
- *      'tty'           The TTY on which to connect to the database.
- *      'port'          The port on which to connect to the database.</pre>
+ * Required by some database implementations:
+ * <pre>
+ * 'database'      The name of the database.
+ * 'hostspec'      The hostname of the database server.
+ * 'protocol'      The communication protocol ('tcp', 'unix', etc.).
+ * 'username'      The username with which to connect to the database.
+ * 'password'      The password associated with 'username'.
+ * 'options'       Additional options to pass to the database.
+ * 'tty'           The TTY on which to connect to the database.
+ * 'port'          The port on which to connect to the database.
+ * </pre>
  *
  * The table structure can be created by the scripts/sql/imp_sentmail.sql
  * script.
@@ -96,7 +100,7 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
                         (int)$success);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('IMP_Sentmail_sql::_log(): %s', $query),
+        Horde::logMessage(sprintf('IMP_Sentmail_Sql::_log(): %s', $query),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
@@ -135,7 +139,7 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
                          $limit);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('IMP_Sentmail_sql::favouriteRecipients(): %s', $query),
+        Horde::logMessage(sprintf('IMP_Sentmail_Sql::favouriteRecipients(): %s', $query),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
@@ -148,7 +152,7 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
         /* Extract email addresses. */
         $favourites = array();
         foreach ($recipients as $recipient) {
-            $favourites[] = $recipient[0];
+            $favourites[] = reset($recipient);
         }
 
         return $favourites;
@@ -174,7 +178,7 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
         }
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('IMP_Sentmail_sql::numberOfRecipients(): %s', $query),
+        Horde::logMessage(sprintf('IMP_Sentmail_Sql::numberOfRecipients(): %s', $query),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
@@ -192,8 +196,6 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
      *
      * @param integer $before  Unix timestamp before that all log entries
      *                         should be deleted.
-     *
-     * @throw Horde_Exception
      */
     protected function _deleteOldEntries($before)
     {
@@ -202,14 +204,13 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
                          $this->_params['table']);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('IMP_Sentmail_sql::_deleteOldEntries(): %s', $query),
+        Horde::logMessage(sprintf('IMP_Sentmail_Sql::_deleteOldEntries(): %s', $query),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
         $result = $this->_db->query($query, array($before));
         if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception($result);
         }
     }
 

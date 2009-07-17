@@ -149,7 +149,6 @@ class IMP_Sentmail
      *
      * @param integer $before  Unix timestamp before that all log entries
      *                         should be deleted.
-     * @throws Horde_Exception
      */
     protected function _deleteOldEntries($before)
     {
