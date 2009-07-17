@@ -277,14 +277,26 @@ class Horde_Menu
      */
     public function addSiteLinks()
     {
+        foreach ($this->getSiteLinks() as $menuitem) {
+            $this->addArray($menuitem);
+        }
+    }
+
+    /**
+     * Get the list of site links to add to the menu.
+     *
+     * @return array  A list of menu items to add.
+     */
+    public function getSiteLinks()
+    {
         if (is_readable($this->_menufile)) {
             include $this->_menufile;
             if (isset($_menu) && is_array($_menu)) {
-                foreach ($_menu as $menuitem) {
-                    $this->addArray($menuitem);
-                }
+                return $_menu;
             }
         }
+
+        return array();
     }
 
     /**
