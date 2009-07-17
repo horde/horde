@@ -106,7 +106,7 @@ class Horde_Cache_Sql extends Horde_Cache_Base
 
         /* Create the memory cache object, if configured. */
         if (!empty($this->_params['use_memorycache'])) {
-            $this->_mc = &Horde_Cache::singleton($params['use_memorycache'], !empty($conf['cache'][$params['use_memorycache']]) ? $conf['cache'][$params['use_memorycache']] : array());
+            $this->_mc = Horde_Cache::singleton($params['use_memorycache'], !empty($conf['cache'][$params['use_memorycache']]) ? $conf['cache'][$params['use_memorycache']] : array());
         }
 
         parent::__construct($this->_params);
@@ -358,8 +358,7 @@ class Horde_Cache_Sql extends Horde_Cache_Base
             throw new Horde_Exception($result->getMessage());
         }
 
-        require_once 'DB.php';
-        $this->_write_db = &DB::connect(
+        $this->_write_db = DB::connect(
             $this->_params,
             array('persistent' => !empty($this->_params['persistent']),
                   'ssl' => !empty($this->_params['ssl']))
@@ -379,7 +378,7 @@ class Horde_Cache_Sql extends Horde_Cache_Base
          * seperately. */
         if (!empty($this->_params['splitread'])) {
             $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = &DB::connect(
+            $this->_db = DB::connect(
                 $params,
                 array('persistent' => !empty($params['persistent']),
                       'ssl' => !empty($params['ssl']))

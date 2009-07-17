@@ -438,9 +438,9 @@ class Horde_Auth_Sql extends Horde_Auth_Base
         }
 
         /* Connect to the SQL server using the supplied parameters. */
-        $this->_write_db = &DB::connect($this->_params,
-                                        array('persistent' => !empty($this->_params['persistent']),
-                                              'ssl' => !empty($this->_params['ssl'])));
+        $this->_write_db = DB::connect($this->_params,
+                                       array('persistent' => !empty($this->_params['persistent']),
+                                             'ssl' => !empty($this->_params['ssl'])));
         if ($this->_write_db instanceof PEAR_Error) {
             throw new Horde_Auth_Exception($this->_write_db);
         }
@@ -458,9 +458,9 @@ class Horde_Auth_Sql extends Horde_Auth_Base
          * seperately. */
         if (!empty($this->_params['splitread'])) {
             $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = &DB::connect($params,
-                                      array('persistent' => !empty($params['persistent']),
-                                            'ssl' => !empty($params['ssl'])));
+            $this->_db = DB::connect($params,
+                                     array('persistent' => !empty($params['persistent']),
+                                           'ssl' => !empty($params['ssl'])));
             if ($this->_db instanceof PEAR_Error) {
                 throw new Horde_Auth_Exception($this->_db);
             }

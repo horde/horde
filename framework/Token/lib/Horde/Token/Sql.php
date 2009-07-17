@@ -196,10 +196,9 @@ class Horde_Token_Sql extends Horde_Token
         }
 
         /* Connect to the SQL server using the supplied parameters. */
-        require_once 'DB.php';
-        $this->_write_db = &DB::connect($this->_params,
-                                  array('persistent' => !empty($this->_params['persistent']),
-                                        'ssl' => !empty($this->_params['ssl'])));
+        $this->_write_db = DB::connect($this->_params,
+                                 array('persistent' => !empty($this->_params['persistent']),
+                                       'ssl' => !empty($this->_params['ssl'])));
         if (is_a($this->_write_db, 'PEAR_Error')) {
             return $this->_write_db;
         }
@@ -217,9 +216,9 @@ class Horde_Token_Sql extends Horde_Token
          * seperately. */
         if (!empty($this->_params['splitread'])) {
             $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = &DB::connect($params,
-                                      array('persistent' => !empty($params['persistent']),
-                                            'ssl' => !empty($params['ssl'])));
+            $this->_db = DB::connect($params,
+                                     array('persistent' => !empty($params['persistent']),
+                                           'ssl' => !empty($params['ssl'])));
             if (is_a($this->_db, 'PEAR_Error')) {
                 return $this->_db;
             }

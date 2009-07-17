@@ -66,7 +66,7 @@ class Horde_Cache
      * multiple Horde_Cache instances) are required.
      *
      * This method must be invoked as:
-     *   $var = &Horde_Cache::singleton()
+     *   $var = Horde_Cache::singleton()
      *
      * @param mixed $driver  The type of concrete Horde_Cache subclass to
      *                       return. If $driver is an array, then we will look

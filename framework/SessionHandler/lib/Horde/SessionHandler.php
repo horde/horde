@@ -99,7 +99,7 @@ class Horde_SessionHandler
      * currently exists.
      *
      * This method must be invoked as:
-     *   $var = &Horde_SessionHandler::singleton()
+     *   $var = Horde_SessionHandler::singleton()
      *
      * @param string $driver  See Horde_SessionHandler::factory().
      * @param array $params   See Horde_SessionHandler::factory().

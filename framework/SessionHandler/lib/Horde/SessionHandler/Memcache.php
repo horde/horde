@@ -73,7 +73,7 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
     {
         if (!empty($params['persistent_driver'])) {
             try {
-                $this->_persistent = &self::singleton($params['persistent_driver'], empty($params['persistent_params']) ? null : $params['persistent_params']);
+                $this->_persistent = self::singleton($params['persistent_driver'], empty($params['persistent_params']) ? null : $params['persistent_params']);
             } catch (Horde_Exception $e) {
                 throw new Horde_Exception('Horde is unable to correctly start the persistent session handler.');
             }
@@ -113,7 +113,7 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
      */
     protected function _open($save_path = null, $session_name = null)
     {
-        $this->_memcache = &Horde_Memcache::singleton();
+        $this->_memcache = Horde_Memcache::singleton();
         if (is_a($this->_memcache, 'PEAR_Error')) {
             throw new Horde_Exception($this->_memcache);
         }

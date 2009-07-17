@@ -40,7 +40,7 @@ class Horde_History
      * It will only create a new instance if no History instance
      * currently exists.
      *
-     * This method must be invoked as: $var = &History::singleton()
+     * This method must be invoked as: $var = History::singleton()
      *
      * @return Horde_History  The concrete Horde_History reference.
      * @throws Horde_Exception
@@ -67,7 +67,7 @@ class Horde_History
             throw new Horde_Exception(_("The History system is disabled."));
         }
 
-        $this->_write_db = &DB::connect($conf['sql']);
+        $this->_write_db = DB::connect($conf['sql']);
 
         /* Set DB portability options. */
         $portability = DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS;
@@ -84,7 +84,7 @@ class Horde_History
          * seperately. */
         if (!empty($conf['sql']['splitread'])) {
             $params = array_merge($conf['sql'], $conf['sql']['read']);
-            $this->_db = &DB::connect($params);
+            $this->_db = DB::connect($params);
 
             /* Set DB portability options. */
             if (is_a($this->_db, 'DB_common')) {
@@ -124,7 +124,7 @@ class Horde_History
      */
     public function log($guid, $attributes = array(), $replaceAction = false)
     {
-        $history = &$this->getHistory($guid);
+        $history = $this->getHistory($guid);
 
         if (!isset($attributes['who'])) {
             $attributes['who'] = Horde_Auth::getAuth();
@@ -280,7 +280,7 @@ class Horde_History
          * get much faster now with a SELECT MAX(history_ts)
          * ... query. */
         try {
-            $history = &$this->getHistory($guid);
+            $history = $this->getHistory($guid);
         } catch (Horde_Exception $e) {
             return 0;
         }

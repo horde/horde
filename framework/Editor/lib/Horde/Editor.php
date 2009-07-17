@@ -60,7 +60,7 @@ class Horde_Editor
      * multiple Horde_Editor instances) are required.
      *
      * This method must be invoked as:
-     *   $var = &Horde_Editor::singleton()
+     *   $var = Horde_Editor::singleton()
      *
      * @param mixed $driver  The type of concrete Horde_Editor subclass to
      *                       return. If $driver is an array, then we will look
@@ -72,7 +72,7 @@ class Horde_Editor
      * @return Horde_Editor  The concrete Horde_Editor reference, or false on
      *                       error.
      */
-    public static function &singleton($driver, $params = null)
+    public static function singleton($driver, $params = null)
     {
         static $instances = array();
 
@@ -82,7 +82,7 @@ class Horde_Editor
 
         $signature = serialize(array($driver, $params));
         if (!array_key_exists($signature, $instances)) {
-            $instances[$signature] = &Horde_Editor::factory($driver, $params);
+            $instances[$signature] = Horde_Editor::factory($driver, $params);
         }
 
         return $instances[$signature];
