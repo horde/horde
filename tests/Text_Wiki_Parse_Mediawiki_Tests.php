@@ -32,14 +32,14 @@ class Text_Wiki_Parse_Mediawiki_AllTests extends PHPUnit_Framework_TestSuite
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Break_Test');
         /*$suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Code_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Comment_Test');
-        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Deflist_Test');
-        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Emphasis_Test');*/
+        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Deflist_Test');*/
+        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Emphasis_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Heading_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Horiz_Test');
         /*$suite->addTestSuite('Text_Wiki_Parse_Mediawiki_List_Test');
-        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Newline_Test');
+        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Newline_Test');*/
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Preformatted_Test');
-        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Raw_Test');*/
+        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Raw_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Redirect_Test');
         /*$suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Subscript_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Superscript_Test');
@@ -63,7 +63,13 @@ class Text_Wiki_Parse_Mediawiki_SetUp_Tests extends PHPUnit_Framework_TestCase
         $ruleName = preg_replace('/Text_Wiki_Parse_Mediawiki_(.+?)_Test/', '\\1', $testClassName);
         $this->className = 'Text_Wiki_Parse_' . $ruleName;
         $this->t = new $this->className($obj);
-        $this->fixture = file_get_contents(dirname(__FILE__) . '/fixtures/mediawiki_syntax.txt');
+
+        if (file_exists(dirname(__FILE__) . '/fixtures/mediawiki_syntax_to_test_' . strtolower($ruleName) . '.txt')) {
+            $this->fixture = file_get_contents(dirname(__FILE__) . '/fixtures/mediawiki_syntax_to_test_' . strtolower($ruleName) . '.txt');
+        } else {
+            $this->fixture = file_get_contents(dirname(__FILE__) . '/fixtures/mediawiki_syntax.txt');
+        }
+
         preg_match_all($this->t->regex, $this->fixture, $this->matches);
     }
     
@@ -89,6 +95,70 @@ class Text_Wiki_Parse_Mediawiki_Break_Test extends Text_Wiki_Parse_Mediawiki_Set
     public function testMediawikiParseBreakRegex()
     {
         $expectedResult = array(0 => array(0 => '<br />', 1 => '<br   />'));
+        $this->assertEquals($expectedResult, $this->matches);
+    }
+    
+}
+
+class Text_Wiki_Parse_Mediawiki_Emphasis_Test extends Text_Wiki_Parse_Mediawiki_SetUp_Tests
+{
+    
+    public function testMediawikiParseEmphasisProcess()
+    {
+        $matches1 = array(0 => "''italic text''", 1 => "'", 2 => 'italic text');
+        $matches2 = array(0 => "'''Bold text'''", 1 => "''", 2 => 'Bold text');
+        $matches3 = array(0 => "''''unknow type''''", 1 => "'''", 2 => 'unknow type');
+        $matches4 = array(0 => "'''''bold and italic'''''", 1 => "''''", 2 => 'bold and italic');
+
+        $this->assertRegExp("/\d+?italic text\d+?/", $this->t->process($matches1));
+        $this->assertRegExp("/\d+?Bold text\d+?/", $this->t->process($matches2));
+        $this->assertRegExp("/\d+?'unknow type'\d+?/", $this->t->process($matches3));
+        $this->assertRegExp("/\d+?\d+?bold and italic\d+?\d+?/", $this->t->process($matches4));
+
+        $tokens = array(
+            0 => array(0 => 'Emphasis', 1 => array('type' => 'start')),
+            1 => array(0 => 'Emphasis', 1 => array('type' => 'end')),
+            2 => array(0 => 'Strong', 1 => array('type' => 'start')),
+            3 => array(0 => 'Strong', 1 => array('type' => 'end')),
+            4 => array(0 => 'Strong', 1 => array('type' => 'start')),
+            5 => array(0 => 'Strong', 1 => array('type' => 'end')),
+            6 => array(0 => 'Emphasis', 1 => array('type' => 'start')),
+            7 => array(0 => 'Strong', 1 => array('type' => 'start')),
+            8 => array(0 => 'Strong', 1 => array('type' => 'end')),
+            9 => array(0 => 'Emphasis', 1 => array('type' => 'end'))
+        );
+
+        $this->assertEquals(array_values($tokens), array_values($this->t->wiki->tokens));
+    }
+    
+    public function testMediawikiParseEmphasisRegex()
+    {
+        $expectedResult = array(
+            0 => array(
+                0 => "'''Bold text'''",
+                1 => "''italic text''",
+                2 => "'''''bold italic text'''''",
+                3 => "'''Lorem ipsum dolor sit amet'''",
+                4 => "''adipiscing elit''",
+                5 => "'''''Etiam commodo felis'''''"
+            ),
+            1 => array(
+                0 => "''",
+                1 => "'",
+                2 => "''''",
+                3 => "''",
+                4 => "'",
+                5 => "''''",
+            ),
+            2 => array(
+                0 => 'Bold text',
+                1 => 'italic text',
+                2 => 'bold italic text',
+                3 => 'Lorem ipsum dolor sit amet',
+                4 => 'adipiscing elit',
+                5 => 'Etiam commodo felis'
+            )
+        );
         $this->assertEquals($expectedResult, $this->matches);
     }
     
@@ -157,6 +227,99 @@ class Text_Wiki_Parse_Mediawiki_Horiz_Test extends Text_Wiki_Parse_Mediawiki_Set
             0 => array(0 => '----', 1 => '------'),
             1 => array(0 => '----', 1 => '------'),
         );
+        $this->assertEquals($expectedResult, $this->matches);
+    }
+    
+}
+
+class Text_Wiki_Parse_Mediawiki_Preformatted_Test extends Text_Wiki_Parse_Mediawiki_SetUp_Tests
+{
+     
+    public function testMediawikiParsePreformattedProcess()
+    {
+        $matches1 = array(0 => "<pre>pre tag without line break</pre>", 1 => 'pre tag without line break');
+        // not sure why Text_Wiki_Parse_Preformatted uses $matches[2]
+        $matches2 = array(0 => "<pre>pre tag without line break</pre>", 1 => 'pre tag without line break', 2 => 'some text');
+        
+        $this->assertRegExp("/\d+?/", $this->t->process($matches1));
+        $this->assertRegExp("/\d+?/", $this->t->process($matches2));
+
+        $tokens = array(
+            0 => array(0 => 'Preformatted', 1 => array('text' => 'pre tag without line break')),
+            1 => array(0 => 'Preformatted', 1 => array('text' => 'some text'))
+        );
+        
+        $this->assertEquals(array_values($tokens), array_values($this->t->wiki->tokens));
+    }
+    
+    public function testMediawikiParsePreformattedRegex()
+    {
+        $expectedResult = array(
+            0 => array(
+                0 => "<pre>
+The pre tag ignores [[Wiki]] ''markup''.
+It also doesn't     reformat text.
+It still interprets special characters:
+ &amp;rarr;
+</pre>",
+                1 => "<pre>pre tag without line break</pre>",
+                2 => "<pre>some ''text'' without '''wiki''' parsing</pre>"
+            ),
+            1 => array(
+                0 => "The pre tag ignores [[Wiki]] ''markup''.
+It also doesn't     reformat text.
+It still interprets special characters:
+ &amp;rarr;",
+                1 => "pre tag without line break",
+                2 => "some ''text'' without '''wiki''' parsing",
+            ),
+            2 => array(0 => '', 1 => '', 2 => '')
+        );
+
+        $this->assertEquals($expectedResult, $this->matches);
+    }
+    
+}
+
+class Text_Wiki_Parse_Mediawiki_Raw_Test extends Text_Wiki_Parse_Mediawiki_SetUp_Tests
+{
+     
+    public function testMediawikiParseRawProcess()
+    {
+        $matches1 = array(0 => "<nowiki>nowiki tag without break line</nowiki>", 1 => 'nowiki tag without line break');
+        
+        $this->assertRegExp("/\d+?/", $this->t->process($matches1));
+
+        $tokens = array(
+            0 => array(0 => 'Raw', 1 => array('text' => 'nowiki tag without line break')),
+        );
+        
+        $this->assertEquals(array_values($tokens), array_values($this->t->wiki->tokens));
+    }
+    
+    public function testMediawikiParseRawRegex()
+    {
+        $expectedResult = array(
+            0 => array(
+                0 => "<nowiki>
+The nowiki tag ignores [[Wiki]] ''markup''.
+It reformats text by removing newlines 
+and multiple spaces.
+It still interprets special
+characters: &rarr;
+</nowiki>",
+                1 => "<nowiki>''ignores markup''</nowiki>",
+            ),
+            1 => array(
+                0 => "The nowiki tag ignores [[Wiki]] ''markup''.
+It reformats text by removing newlines 
+and multiple spaces.
+It still interprets special
+characters: &rarr;",
+                1 => "''ignores markup''",
+            )
+        );
+
         $this->assertEquals($expectedResult, $this->matches);
     }
     
