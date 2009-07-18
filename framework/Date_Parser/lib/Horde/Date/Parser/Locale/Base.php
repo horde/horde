@@ -83,7 +83,7 @@ class Horde_Date_Parser_Locale_Base
         $text = $this->preNormalize($text);
 
         // get base tokens for each word
-        $tokens = $this->baseTokenize($text);
+        $tokens = $this->preTokenize($text);
 
         // scan the tokens with each token scanner
         foreach (array('Repeater') as $tokenizer) {
@@ -98,6 +98,10 @@ class Horde_Date_Parser_Locale_Base
 
         // strip any non-tagged tokens
         $taggedTokens = array_values(array_filter($tokens, create_function('$t', 'return $t->tagged();')));
+
+        // Remove tokens we know we don't want - for example, if the first token
+        // is a separator, drop it.
+        $taggedTokens = $this->postTokenize($taggedTokens);
 
         // do the heavy lifting
         $span = $this->tokensToSpan($taggedTokens, $options);
@@ -186,11 +190,40 @@ class Horde_Date_Parser_Locale_Base
     }
 
     /**
-     * Split the text on spaces and convert each word into a Token
+     * Split the text on spaces and convert each word into a Token.
+     *
+     * @param string $text  Text to tokenize
+     *
+     * @return array  Array of Horde_Date_Parser_Tokens.
      */
-    public function baseTokenize($text)
+    public function preTokenize($text)
     {
         return array_map(create_function('$w', 'return new Horde_Date_Parser_Token($w);'), preg_split('/\s+/', $text));
+    }
+
+    /**
+     * Remove tokens that don't fit our definitions.
+     *
+     * @param array $tokens Array of tagged tokens.
+     *
+     * @return array  Filtered tagged tokens.
+     */
+    public function postTokenize($tokens)
+    {
+        if (!count($tokens)) { return $tokens; }
+
+        // First rule: if the first token is a separator, remove it from the
+        // list of tokens we consider in tokensToSpan().
+        $first = clone($tokens[0]);
+        $first->untag('separator_at');
+        $first->untag('separator_comma');
+        $first->untag('separator_in');
+        $first->untag('separator_slash_or_dash');
+        if (!$first->tagged()) {
+            array_shift($tokens);
+        }
+
+        return $tokens;
     }
 
     public function initDefinitions()
