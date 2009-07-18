@@ -21,7 +21,7 @@ class Horde_Oauth_Utils
     public static function urlencodeRfc3986($string)
     {
         return str_replace(array('%7E', '+'),
-                           array('~', '%20'),
+                           array('~', '%2B'),
                            rawurlencode($string));
     }
 
