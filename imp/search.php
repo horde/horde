@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Redirect back to the mailbox if searching is not allowed. */
 if ($_SESSION['imp']['protocol'] == 'pop') {
-    $notification->push(_("Searching is not available with a POP3 server."), 'horde.error');
+    $notification->push(_('Searching is not available with a POP3 server.'), 'horde.error');
     header('Location: ' . Horde::applicationUrl('mailbox.php', true));
     exit;
 }
@@ -42,7 +42,7 @@ if (Horde_Util::getFormData('no_match')) {
 } elseif (($edit_query !== null) && $imp_search->isSearchMbox($edit_query)) {
     if ($imp_search->isVFolder($edit_query)) {
         if (!$imp_search->isEditableVFolder($edit_query)) {
-            $notification->push(_("Special Virtual Folders cannot be edited."), 'horde.error');
+            $notification->push(_('Special Virtual Folders cannot be edited.'), 'horde.error');
             header('Location: ' . Horde::applicationUrl('mailbox.php', true));
             exit;
         }
@@ -87,15 +87,15 @@ case 'do_search':
     /* Save the search as a virtual folder if requested. */
     if (!empty($search['save_vfolder'])) {
         if (empty($search['vfolder_label'])) {
-            $notification->push(_("Virtual Folders require a label."), 'horde.error');
+            $notification->push(_('Virtual Folders require a label.'), 'horde.error');
             break;
         }
 
         $id = $imp_search->addVFolder($query, $search['folders'], $search, $search['vfolder_label'], (empty($edit_query_vfolder) ? null : $edit_query_vfolder));
-        $notification->push(sprintf(_("Virtual Folder \"%s\" created succesfully."), $search['vfolder_label']), 'horde.success');
+        $notification->push(sprintf(_('Virtual Folder "%s" created succesfully.'), $search['vfolder_label']), 'horde.success');
     } else {
         /* Set the search in the IMP session. */
-        $id = $imp_search->createSearchQuery($query, $search['folders'], $search, _("Search Results"));
+        $id = $imp_search->createSearchQuery($query, $search['folders'], $search, _('Search Results'));
     }
 
     /* Redirect to the Mailbox Screen. */
@@ -149,11 +149,11 @@ $t->set('shown', htmlspecialchars($shown));
 $t->set('edit_query_vfolder', htmlspecialchars($edit_query_vfolder));
 if (!$edit_query_vfolder) {
     if (empty($search['mbox'])) {
-        $t->set('search_title', _("Search"));
+        $t->set('search_title', _('Search'));
     } else {
         $t->set('search_title',
                 sprintf(
-                    _("Search %s"),
+                    _('Search %s'),
                     Horde::link(
                         Horde::url(Horde_Util::addParameter('mailbox.php',
                                                       'mailbox',
@@ -164,9 +164,9 @@ if (!$edit_query_vfolder) {
 }
 $t->set('search_help', Horde_Help::link('imp', 'search'));
 $t->set('match_or', $search['match'] == 'or');
-$t->set('label_or', Horde::label('search_match_or', _("Match Any Query")));
+$t->set('label_or', Horde::label('search_match_or', _('Match Any Query')));
 $t->set('match_and', ($search['match'] == null) || ($search['match'] == 'and'));
-$t->set('label_and', Horde::label('search_match_and', _("Match All Queries")));
+$t->set('label_and', Horde::label('search_match_and', _('Match All Queries')));
 
 $saved_searches = $imp_search->getSearchQueries();
 if (!empty($saved_searches)) {
@@ -259,7 +259,7 @@ for ($i = 0; $i <= $search['field_end']; $i++) {
                     $years = -20;
                     $startyear = (($year_default < $curr_year) && ($years > 0)) ? $year_default : $curr_year;
                     $startyear = min($startyear, $startyear + $years);
-                    for ($j = 0; $j <= abs($years); $j++) {
+                    for ($j = 0, $totyears = abs($years); $j <= $years; ++$j) {
                         $yearlist[] = $startyear++;
                     }
                     if ($years < 0) {
@@ -276,8 +276,8 @@ for ($i = 0; $i <= $search['field_end']; $i++) {
                 if ($browser->hasFeature('javascript')) {
                     Horde::addScriptFile('open_calendar.js', 'horde');
                     $fields[$i]['js_calendar_first'] = !$js_first++;
-                    $fields[$i]['js_calendar'] = Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'dateimg' . $i . '\', \'search_date_' . $i . '\'); return false;');
-                    $fields[$i]['js_calendar_img'] = Horde::img('calendar.png', _("Calendar"), 'align="top" id="dateimg' . $i . '"', $GLOBALS['registry']->getImageDir('horde'));
+                    $fields[$i]['js_calendar'] = Horde::link('#', _('Select a date'), '', '', 'openCalendar(\'dateimg' . $i . '\', \'search_date_' . $i . '\'); return false;');
+                    $fields[$i]['js_calendar_img'] = Horde::img('calendar.png', _('Calendar'), 'align="top" id="dateimg' . $i . '"', $GLOBALS['registry']->getImageDir('horde'));
                 }
             }
         }
@@ -285,7 +285,7 @@ for ($i = 0; $i <= $search['field_end']; $i++) {
 }
 $t->set('fields', array_values($fields));
 $t->set('delete_img', $registry->getImageDir('horde') . '/delete.png');
-$t->set('remove', _("Remove Field From Search"));
+$t->set('remove', _('Remove Field From Search'));
 
 if ($subscribe) {
     $t->set('inverse_subscribe', ($shown == IMP_Search::SHOW_UNSUBSCRIBED) ? IMP_Search::SHOW_SUBSCRIBED_ONLY : IMP_Search::SHOW_UNSUBSCRIBED);
@@ -335,7 +335,7 @@ if (empty($search['mbox'])) {
     $t->set('mboxes', array_values($mboxes));
 }
 
-$title = _("Message Search");
+$title = _('Message Search');
 Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('stripe.js', 'horde', true);
 Horde::addScriptFile('search.js', 'imp', true);

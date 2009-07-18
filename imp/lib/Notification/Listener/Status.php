@@ -31,9 +31,9 @@ class IMP_Notification_Listener_Status extends Horde_Notification_Listener_Statu
 
         $image_dir = $GLOBALS['registry']->getImageDir();
 
-        $this->_handles['imp.reply'] = array($image_dir . '/mail_answered.png', _("Reply"));
-        $this->_handles['imp.forward'] = array($image_dir . '/mail_forwarded.png', _("Reply"));
-        $this->_handles['imp.redirect'] = array($image_dir . '/mail_forwarded.png', _("Redirect"));
+        $this->_handles['imp.reply'] = array($image_dir . '/mail_answered.png', _('Reply'));
+        $this->_handles['imp.forward'] = array($image_dir . '/mail_forwarded.png', _('Forward'));
+        $this->_handles['imp.redirect'] = array($image_dir . '/mail_forwarded.png', _('Redirect'));
     }
 
     /**

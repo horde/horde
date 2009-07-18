@@ -94,7 +94,7 @@ function _getListMessages($mbox, $change)
     }
 
     $list_msg = new IMP_Views_ListMessages();
-    $res = $list_msg->ListMessages($args);
+    $res = $list_msg->listMessages($args);
 
     // TODO: This can potentially be optimized for arrival time sort - if the
     // cache ID changes, we know the changes must occur at end of mailbox.
@@ -434,7 +434,7 @@ case 'AddContact':
     try {
         IMP::addAddress($email, $name);
         $result = true;
-        $notification->push(sprintf(_("%s was successfully added to your address book."), $name ? $name : $email), 'horde.success');
+        $notification->push(sprintf(_('%s was successfully added to your address book.'), $name ? $name : $email), 'horde.success');
     } catch (Horde_Exception $e) {
         $notification->push($e, 'horde.error');
         $result = false;
@@ -481,7 +481,7 @@ case 'ShowPreview':
     );
 
     $show_msg = new IMP_Views_ShowMessage();
-    $result = (object) $show_msg->showMessage($args);
+    $result = (object)$show_msg->showMessage($args);
     break;
 
 case 'Html2Text':
@@ -549,7 +549,7 @@ case 'DeleteAttach':
     if (!is_null($atc)) {
         $imp_compose = IMP_Compose::singleton(Horde_Util::getPost('imp_compose'));
         foreach ($imp_compose->deleteAttachment($atc) as $val) {
-            $notification->push(sprintf(_("Deleted the attachment \"%s\"."), Horde_Mime::decode($val)), 'horde.success');
+            $notification->push(sprintf(_('Deleted the attachment "%s".'), Horde_Mime::decode($val)), 'horde.success');
         }
     }
     break;
@@ -634,9 +634,9 @@ case 'PurgeDeleted':
         $expunge_count = count($expunged[$mbox]);
         $display_folder = IMP::displayFolder($mbox);
         if ($expunge_count == 1) {
-            $notification->push(sprintf(_("1 message was purged from \"%s\"."),  $display_folder), 'horde.success');
+            $notification->push(sprintf(_('1 message was purged from "%s".'), $display_folder), 'horde.success');
         } else {
-            $notification->push(sprintf(_("%s messages were purged from \"%s\"."), $expunge_count, $display_folder), 'horde.success');
+            $notification->push(sprintf(_('%s messages were purged from "%s".'), $expunge_count, $display_folder), 'horde.success');
         }
         $result = _generateDeleteResult($mbox, $expunged, $change);
         // Need to manually set remove to true since we want to remove
@@ -656,7 +656,7 @@ case 'ModifyPollFolder':
     $imptree = IMP_Imap_Tree::singleton();
 
     $result = new stdClass;
-    $result->add = (bool) $add;
+    $result->add = (bool)$add;
     $result->folder = $mbox;
 
     if ($add) {
@@ -664,10 +664,10 @@ case 'ModifyPollFolder':
         if ($info = $imptree->getElementInfo($mbox)) {
             $result->poll = array($mbox => $info['unseen']);
         }
-        $notification->push(sprintf(_("\"%s\" mailbox now polled for new mail."),  $display_folder), 'horde.success');
+        $notification->push(sprintf(_('"%s" mailbox now polled for new mail.'), $display_folder), 'horde.success');
     } else {
         $imptree->removePollList($mbox);
-        $notification->push(sprintf(_("\"%s\" mailbox no longer polled for new mail."),  $display_folder), 'horde.success');
+        $notification->push(sprintf(_('"%s" mailbox no longer polled for new mail.'), $display_folder), 'horde.success');
     }
     break;
 
@@ -687,7 +687,7 @@ case 'SendMDN':
     }
 
     $imp_ui = new IMP_UI_Message();
-    $imp_ui->MDNCheck($mbox, $index, $reset($fetch_ret[$index]['headertext']), true);
+    $imp_ui->mdnCheck($mbox, $index, $reset($fetch_ret[$index]['headertext']), true);
     break;
 
 case 'PGPSymmetric':
@@ -706,10 +706,10 @@ case 'SMIMEPersonal':
                 if ($imp_smime->storePassphrase($passphrase)) {
                     $result->success = 1;
                 } else {
-                    $result->error = _("Invalid passphrase entered.");
+                    $result->error = _('Invalid passphrase entered.');
                 }
             } else {
-                $result->error = _("No passphrase entered.");
+                $result->error = _('No passphrase entered.');
             }
         } catch (Horde_Exception $e) {
             $result->error = $e->getMessage();
@@ -722,10 +722,10 @@ case 'SMIMEPersonal':
                 if ($imp_pgp->storePassphrase(($action == 'PGPSymmetric') ? 'symmetric' : 'personal', $passphrase, Horde_Util::getFormData('symmetricid'))) {
                     $result->success = 1;
                 } else {
-                    $result->error = _("Invalid passphrase entered.");
+                    $result->error = _('Invalid passphrase entered.');
                 }
             } else {
-                $result->error = _("No passphrase entered.");
+                $result->error = _('No passphrase entered.');
             }
         } catch (Horde_Exception $e) {
             $result->error = $e->getMessage();
@@ -741,7 +741,7 @@ case 'SMIMEPersonal':
 case 'Fetchmail':
     $fetch_list = Horde_Util::getFormData('accounts');
     if (empty($fetch_list)) {
-        $result->error = _("No accounts selected.");
+        $result->error = _('No accounts selected.');
     } else {
         IMP_Fetchmail::fetchmail($fetch_list);
         $result->success = 1;

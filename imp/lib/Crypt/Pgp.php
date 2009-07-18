@@ -114,7 +114,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         /* Make sure the key is valid. */
         $key_info = $this->pgpPacketInformation($public_key);
         if (!isset($key_info['signature'])) {
-            throw new Horde_Exception(_("Not a valid public key."));
+            throw new Horde_Exception(_('Not a valid public key.'));
         }
 
         /* Remove the '_SIGNATURE' entry. */
@@ -172,7 +172,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         /* If there is a cache driver configured, try to get the public key
          * from the cache. */
         if (empty($options['nocache']) && ($cache = IMP::getCache())) {
-            $result = $cache->get("PGPpublicKey_" . $address . $keyid, 3600);
+            $result = $cache->get('PGPpublicKey_' . $address . $keyid, 3600);
             if ($result) {
                 Horde::logMessage('PGPpublicKey: ' . serialize($result), __FILE__, __LINE__, PEAR_LOG_DEBUG);
                 return $result;
@@ -199,12 +199,12 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
                      * object exists, store the retrieved public key in the
                      * cache. */
                     if (is_object($cache)) {
-                        $cache->set("PGPpublicKey_" . $address . $keyid, $result, 3600);
+                        $cache->set('PGPpublicKey_' . $address . $keyid, $result, 3600);
                     }
                 } catch (Horde_Exception $e) {
                     /* Return now, if no public key found at all. */
                     Horde::logMessage('PGPpublicKey: ' . $e->getMessage(), __FILE__, __LINE__, PEAR_LOG_DEBUG);
-                    throw new Horde_Exception(sprintf(_("Could not retrieve public key for %s."), $address));
+                    throw new Horde_Exception(sprintf(_('Could not retrieve public key for %s.'), $address));
                 }
             } else {
                 $result = '';
@@ -293,7 +293,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         global $conf;
 
         if (empty($conf['gnupg']['keyserver'])) {
-            throw new Horde_Exception(_("Public PGP keyserver support has been disabled."));
+            throw new Horde_Exception(_('Public PGP keyserver support has been disabled.'));
         }
 
         $timeout = empty($conf['gnupg']['timeout'])
@@ -309,7 +309,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
                 return $this->getPublicKeyserver($data, $server, $timeout, $additional);
             } catch (Horde_Exception $e) {}
         }
-        throw new Horde_Exception(_("Could not connect to public PGP keyserver"));
+        throw new Horde_Exception(_('Could not connect to public PGP keyserver'));
     }
 
     /**
@@ -466,6 +466,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     {
         $params = array(
             'actionID' => 'save_attachment_public_key',
+            'mailbox' => $mailbox,
             'uid' => $uid,
             'mime_id' => $id
         );

@@ -6,7 +6,7 @@ $c = &$m->add(new Horde_Mobile_card());
 
 $imp_notify->setMobileObject($c);
 
-$c->add(new Horde_Mobile_text(sprintf(_("Welcome to %s"), ($imp_auth) ? $registry->get('name',' horde') : $registry->get('name'))));
+$c->add(new Horde_Mobile_text(sprintf(_("Welcome to %s"), ($imp_auth) ? $registry->get('name', 'horde') : $registry->get('name'))));
 
 $f = &$c->add(new Horde_Mobile_form(Horde::applicationUrl('redirect.php', false, -1)));
 $f->add(new Horde_Mobile_input('imapuser', htmlspecialchars(Horde_Util::getFormData('imapuser')), _("Username: ")));

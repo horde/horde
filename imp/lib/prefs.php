@@ -213,7 +213,7 @@ function prefs_callback()
         $prefs->getValue('use_trash') &&
         !$prefs->getValue('trash_folder') &&
         !$prefs->getValue('use_vtrash')) {
-        $GLOBALS['notification']->push(_("You have activated move to Trash but no Trash folder is defined. You will be unable to delete messages until you set a Trash folder in the preferences."), 'horde.warning');
+        $GLOBALS['notification']->push(_('You have activated move to Trash but no Trash folder is defined. You will be unable to delete messages until you set a Trash folder in the preferences.'), 'horde.warning');
     }
 
     if ($prefs->isDirty('use_vtrash') || $prefs->isDirty('use_vinbox')) {
@@ -262,7 +262,7 @@ case 'flags':
     Horde::addScriptFile('flagmanagement.js', 'imp', true);
 
     Horde::addInlineScript(array(
-        'ImpFlagmanagement.new_prompt = ' . Horde_Serialize::serialize(_("Please enter the label for the new flag:"), Horde_Serialize::JSON, Horde_Nls::getCharset())
+        'ImpFlagmanagement.new_prompt = ' . Horde_Serialize::serialize(_('Please enter the label for the new flag:'), Horde_Serialize::JSON, Horde_Nls::getCharset())
     ));
     break;
 }

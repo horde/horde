@@ -63,7 +63,7 @@ class IMP_LoginTasks_Task_PurgeSpam extends Horde_LoginTasks_Task
         $imp_message = IMP_Message::singleton();
         if ($imp_message->delete(array($spam_folder => $msg_ids), array('nuke' => true))) {
             $msgcount = count($msg_ids);
-            $notification->push(sprintf(ngettext("Purging %d message from Spam folder.", "Purging %d messages from Spam folder.", $msgcount), $msgcount), 'horde.message');
+            $notification->push(sprintf(ngettext('Purging %d message from Spam folder.', 'Purging %d messages from Spam folder.', $msgcount), $msgcount), 'horde.message');
         }
 
         return true;
@@ -77,7 +77,7 @@ class IMP_LoginTasks_Task_PurgeSpam extends Horde_LoginTasks_Task
      */
     public function describe()
     {
-        return sprintf(_("All messages in your \"%s\" folder older than %s days will be permanently deleted."),
+        return sprintf(_('All messages in your "%s" folder older than %s days will be permanently deleted.'),
                        IMP::displayFolder(IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true)),
                        $GLOBALS['prefs']->getValue('purge_spam_keep'));
     }

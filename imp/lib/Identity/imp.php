@@ -47,7 +47,7 @@ class Identity_imp extends Identity
      * Reads all the user's identities from the prefs object or builds
      * a new identity from the standard values given in prefs.php.
      */
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         $this->_properties = array_merge(
@@ -147,7 +147,7 @@ class Identity_imp extends Identity
         try {
             $ob = Horde_Mime_Address::parseAddressList($address, array('defserver' => $_SESSION['imp']['maildomain']));
         } catch (Horde_Mime_Exception $e) {
-            throw new Horde_Exception (_("Your From address is not a valid email address. This can be fixed in your Personal Information options page."));
+            throw new Horde_Exception (_('Your From address is not a valid email address. This can be fixed in your Personal Information options page.'));
         }
 
         if (empty($name)) {
@@ -459,7 +459,7 @@ class Identity_imp extends Identity
             $sig_dashes = $this->getValue('sig_dashes', $ident);
             $val = str_replace("\r\n", "\n", $val);
             if ($sig_dashes) {
-                $val = "-- \n$val";
+                $val = "-- \n" . $val;
             }
             if (isset($sig_first) && $sig_first) {
                 $val = "\n" . $val . "\n\n\n";

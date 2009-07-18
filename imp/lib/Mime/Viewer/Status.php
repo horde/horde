@@ -90,15 +90,15 @@ class IMP_Horde_Mime_Viewer_Status extends Horde_Mime_Viewer_Driver
         case 'delayed':
             $status = array(
                 array(
-                    'icon' => Horde::img('alerts/error.png', _("Error"), null, $GLOBALS['registry']->getImageDir('horde')),
+                    'icon' => Horde::img('alerts/error.png', _('Error'), null, $GLOBALS['registry']->getImageDir('horde')),
                     'text' => array(
-                        _("ERROR: Your message could not be delivered."),
-                        sprintf(_("Additional error message details can be viewed %s."), $this->_params['contents']->linkViewJS($part2, 'view_attach', _("HERE"), array('jstext' => _("Additional message details"), 'params' => array('mode' => IMP_Contents::RENDER_INLINE))))
+                        _('ERROR: Your message could not be delivered.'),
+                        sprintf(_('Additional error message details can be viewed %s.'), $this->_params['contents']->linkViewJS($part2, 'view_attach', _('HERE'), array('jstext' => _('Additional message details'), 'params' => array('mode' => IMP_Contents::RENDER_INLINE))))
                     )
                 )
             );
-            $msg_link = _("The text of the returned message can be viewed %s.");
-            $msg_link_status = _("The text of the returned message");
+            $msg_link = _('The text of the returned message can be viewed %s.');
+            $msg_link_status = _('The text of the returned message');
             break;
 
         case 'delivered':
@@ -106,15 +106,15 @@ class IMP_Horde_Mime_Viewer_Status extends Horde_Mime_Viewer_Driver
         case 'relayed':
             $status = array(
                 array(
-                    'icon' => Horde::img('alerts/success.png', _("Success"), null, $GLOBALS['registry']->getImageDir('horde')),
+                    'icon' => Horde::img('alerts/success.png', _('Success'), null, $GLOBALS['registry']->getImageDir('horde')),
                     'text' => array(
-                        _("Your message was successfully delivered."),
-                        sprintf(_("Additional message details can be viewed %s."), $this->_params['contents']->linkViewJS($part2, 'view_attach', _("HERE"), array('jstext' => _("Additional message details"), 'params' => array('mode' => IMP_Contents::RENDER_INLINE))))
+                        _('Your message was successfully delivered.'),
+                        sprintf(_('Additional message details can be viewed %s.'), $this->_params['contents']->linkViewJS($part2, 'view_attach', _('HERE'), array('jstext' => _('Additional message details'), 'params' => array('mode' => IMP_Contents::RENDER_INLINE))))
                     )
                 )
             );
-            $msg_link = _("The text of the message can be viewed %s.");
-            $msg_link_status = _("The text of the message");
+            $msg_link = _('The text of the message can be viewed %s.');
+            $msg_link_status = _('The text of the message');
             break;
         }
 
@@ -124,13 +124,13 @@ class IMP_Horde_Mime_Viewer_Status extends Horde_Mime_Viewer_Driver
         /* Display a link to the returned message, if it exists. */
         $part3 = $this->_params['contents']->getMIMEPart($part3_id);
         if ($part3) {
-            $status[0]['text'][] = sprintf($msg_link, $this->_params['contents']->linkViewJS($part3, 'view_attach', _("HERE"), array('jstext' => $msg_link_status, 'ctype' => 'message/rfc822')));
+            $status[0]['text'][] = sprintf($msg_link, $this->_params['contents']->linkViewJS($part3, 'view_attach', _('HERE'), array('jstext' => $msg_link_status, 'ctype' => 'message/rfc822')));
         }
 
         if (empty($first_part)) {
             $data = '';
         } else {
-            $status[0]['text'][] = _("The mail server generated the following informational message:");
+            $status[0]['text'][] = _('The mail server generated the following informational message:');
             $status = array_merge($status, $first_part[$part1_id]['status']);
             $data = $first_part[$part1_id]['data'];
         }

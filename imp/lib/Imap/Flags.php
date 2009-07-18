@@ -162,7 +162,7 @@ class IMP_Imap_Flags
 
         /* Flags are named PREFIX{$i}. Keep incrementing until we find the
          * next available flag. */
-        for ($i = 0; ; ++$i) {
+        for ($i = 0;; ++$i) {
             $curr = self::PREFIX . $i;
             if (!isset($this->_flags[$curr])) {
                 $this->_flags[$curr] = array(

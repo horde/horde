@@ -22,7 +22,7 @@ function _printKeyInfo($key = '')
 
 function _importKeyDialog($target)
 {
-    $title = _("Import PGP Key");
+    $title = _('Import PGP Key');
     require IMP_TEMPLATES . '/common-header.inc';
     IMP::status();
 
@@ -46,7 +46,7 @@ function _getImportKey()
         return $key;
     }
 
-    $res = $GLOBALS['browser']->wasFileUploaded('upload_key', _("key"));
+    $res = $GLOBALS['browser']->wasFileUploaded('upload_key', _('key'));
     if (!is_a($res, 'PEAR_Error')) {
         return file_get_contents($_FILES['upload_key']['tmp_name']);
     } else {
@@ -88,15 +88,15 @@ case 'generate_key':
     $passphrase2 = Horde_Util::getFormData('generate_passphrase2');
 
     if (empty($realname) || empty($email)) {
-        $notification->push(_("Name and/or email cannot be empty"), 'horde.error');
+        $notification->push(_('Name and/or email cannot be empty'), 'horde.error');
     } elseif (empty($passphrase1) || empty($passphrase2)) {
-        $notification->push(_("Passphrases cannot be empty"), 'horde.error');
+        $notification->push(_('Passphrases cannot be empty'), 'horde.error');
     } elseif ($passphrase1 !== $passphrase2) {
-        $notification->push(_("Passphrases do not match"), 'horde.error');
+        $notification->push(_('Passphrases do not match'), 'horde.error');
     } else {
         try {
             $imp_pgp->generatePersonalKeys($realname, $email, $passphrase1, $comment, $keylength);
-            $notification->push(_("Personal PGP keypair generated successfully."), 'horde.success');
+            $notification->push(_('Personal PGP keypair generated successfully.'), 'horde.success');
         } catch (Horde_Exception $e) {
             $notification->push($e);
         }
@@ -105,7 +105,7 @@ case 'generate_key':
 
 case 'delete_key':
     $imp_pgp->deletePersonalKeys();
-    $notification->push(_("Personal PGP keys deleted successfully."), 'horde.success');
+    $notification->push(_('Personal PGP keys deleted successfully.'), 'horde.success');
     break;
 
 case 'import_public_key':
@@ -115,7 +115,7 @@ case 'import_public_key':
 case 'process_import_public_key':
     $publicKey = _getImportKey();
     if (empty($publicKey)) {
-        $notification->push(_("No PGP public key imported."), 'horde.error');
+        $notification->push(_('No PGP public key imported.'), 'horde.error');
         $actionID = 'import_public_key';
         _importKeyDialog('process_import_public_key');
     } else {
@@ -123,7 +123,7 @@ case 'process_import_public_key':
         try {
             $key_info = $imp_pgp->addPublicKey($publicKey);
             foreach ($key_info['signature'] as $sig) {
-                $notification->push(sprintf(_("PGP Public Key for \"%s (%s)\" was successfully added."), $sig['name'], $sig['email']), 'horde.success');
+                $notification->push(sprintf(_('PGP Public Key for "%s (%s)" was successfully added.'), $sig['name'], $sig['email']), 'horde.success');
             }
             _reloadWindow();
         } catch (Horde_Exception $e) {
@@ -148,20 +148,20 @@ case 'process_import_personal_public_key':
                 if (isset($key_info['secret_key'])) {
                     /* Key contains private key too, don't allow to add this
                      * as public key. */
-                    $notification->push(_("Imported key contains your PGP private key. Only add your public key in the first step!"), 'horde.error');
+                    $notification->push(_('Imported key contains your PGP private key. Only add your public key in the first step!'), 'horde.error');
                     _importKeyDialog('process_import_personal_public_key');
                 } else {
                     /* Success in importing public key - Move on to private
                      * key now. */
                     $imp_pgp->addPersonalPublicKey($publicKey);
-                    $notification->push(_("PGP public key successfully added."), 'horde.success');
+                    $notification->push(_('PGP public key successfully added.'), 'horde.success');
                     $actionID = 'import_personal_private_key';
                     _importKeyDialog('process_import_personal_private_key');
                 }
             } else {
                 /* Invalid public key imported - Redo public key import
                  * screen. */
-                $notification->push(_("Invalid personal PGP public key."), 'horde.error');
+                $notification->push(_('Invalid personal PGP public key.'), 'horde.error');
                 _importKeyDialog('process_import_personal_public_key');
             }
         } catch (Horde_Exception $e) {
@@ -170,7 +170,7 @@ case 'process_import_personal_public_key':
         }
     } else {
         /* No public key imported - Redo public key import screen. */
-        $notification->push(_("No personal PGP public key imported."), 'horde.error');
+        $notification->push(_('No personal PGP public key imported.'), 'horde.error');
         _importKeyDialog('process_import_personal_public_key');
     }
     exit;
@@ -185,12 +185,12 @@ case 'process_import_personal_private_key':
                 /* Personal public and private keys have been imported
                  * successfully - close the import popup window. */
                 $imp_pgp->addPersonalPrivateKey($privateKey);
-                $notification->push(_("PGP private key successfully added."), 'horde.success');
+                $notification->push(_('PGP private key successfully added.'), 'horde.success');
                 _reloadWindow();
             } else {
                 /* Invalid private key imported - Redo private key import
                  * screen. */
-                $notification->push(_("Invalid personal PGP private key."), 'horde.error');
+                $notification->push(_('Invalid personal PGP private key.'), 'horde.error');
                 _importKeyDialog('process_import_personal_private_key');
             }
         } catch (Horde_Exception $e) {
@@ -199,7 +199,7 @@ case 'process_import_personal_private_key':
         }
     } else {
         /* No private key imported - Redo private key import screen. */
-        $notification->push(_("No personal PGP private key imported."), 'horde.error');
+        $notification->push(_('No personal PGP private key imported.'), 'horde.error');
         _importKeyDialog('process_import_personal_private_key');
     }
     exit;
@@ -237,7 +237,7 @@ case 'info_personal_private_key':
 case 'delete_public_key':
     try {
         $imp_pgp->deletePublicKey(Horde_Util::getFormData('email'));
-        $notification->push(sprintf(_("PGP Public Key for \"%s\" was successfully deleted."), Horde_Util::getFormData('email')), 'horde.success');
+        $notification->push(sprintf(_('PGP Public Key for "%s" was successfully deleted.'), Horde_Util::getFormData('email')), 'horde.success');
     } catch (Horde_Exception $e) {
         $notification->push($e);
     }
@@ -248,7 +248,7 @@ case 'save_options':
     $prefs->setValue('pgp_attach_pubkey', Horde_Util::getFormData('pgp_attach_pubkey') ? 1 : 0);
     $prefs->setValue('pgp_scan_body', Horde_Util::getFormData('pgp_scan_body') ? 1 : 0);
     $prefs->setValue('pgp_verify', Horde_Util::getFormData('pgp_verify') ? 1 : 0);
-    $notification->push(_("Preferences successfully updated."), 'horde.success');
+    $notification->push(_('Preferences successfully updated.'), 'horde.success');
     break;
 
 case 'save_attachment_public_key':
@@ -270,13 +270,13 @@ case 'save_attachment_public_key':
 
 case 'unset_passphrase':
     $imp_pgp->unsetPassphrase('personal');
-    $notification->push(_("Passphrase successfully unloaded."), 'horde.success');
+    $notification->push(_('Passphrase successfully unloaded.'), 'horde.success');
     break;
 
 case 'send_public_key':
     try {
         $imp_pgp->sendToPublicKeyserver($imp_pgp->getPersonalPublicKey());
-        $notification->push(_("Key successfully sent to the public keyserver."), 'horde.success');
+        $notification->push(_('Key successfully sent to the public keyserver.'), 'horde.success');
     } catch (Horde_Exception $e) {
         $notification->push($e);
     }
@@ -333,9 +333,9 @@ if ($prefs->getValue('use_pgp')) {
             $plist[] = array(
                 'name' => $val['name'],
                 'email' => $val['email'],
-                'view' => Horde::link(Horde_Util::addParameter($linkurl, 'actionID', 'view_public_key'), sprintf(_("View %s Public Key"), $val['name']), null, 'view_key'),
-                'info' => Horde::link(Horde_Util::addParameter($linkurl, 'actionID', 'info_public_key'), sprintf(_("Information on %s Public Key"), $val['name']), null, 'info_key'),
-                'delete' => Horde::link(Horde_Util::addParameter($linkurl, 'actionID', 'delete_public_key'), sprintf(_("Delete %s Public Key"), $val['name']), null, null, "if (confirm('" . addslashes(_("Are you sure you want to delete this public key?")) . "')) { return true; } else { return false; }")
+                'view' => Horde::link(Horde_Util::addParameter($linkurl, 'actionID', 'view_public_key'), sprintf(_('View %s Public Key'), $val['name']), null, 'view_key'),
+                'info' => Horde::link(Horde_Util::addParameter($linkurl, 'actionID', 'info_public_key'), sprintf(_('Information on %s Public Key'), $val['name']), null, 'info_key'),
+                'delete' => Horde::link(Horde_Util::addParameter($linkurl, 'actionID', 'delete_public_key'), sprintf(_('Delete %s Public Key'), $val['name']), null, null, 'if (confirm(\'' . addslashes(_('Are you sure you want to delete this public key?')) . '\')) { return true; } else { return false; }')
             );
         }
         $t->set('pubkey_list', $plist);
@@ -356,16 +356,16 @@ if ($prefs->getValue('use_pgp')) {
     if ($secure_check) {
         $t->set('has_key', $prefs->getValue('pgp_public_key') && $prefs->getValue('pgp_private_key'));
         if ($t->get('has_key')) {
-            $t->set('viewpublic', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'view_personal_public_key'), _("View Personal Public Key"), null, 'view_key'));
-            $t->set('infopublic', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'info_personal_public_key'), _("Information on Personal Public Key"), null, 'info_key'));
-            $t->set('sendkey', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'send_public_key'), _("Send Key to Public Keyserver")));
+            $t->set('viewpublic', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'view_personal_public_key'), _('View Personal Public Key'), null, 'view_key'));
+            $t->set('infopublic', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'info_personal_public_key'), _('Information on Personal Public Key'), null, 'info_key'));
+            $t->set('sendkey', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'send_public_key'), _('Send Key to Public Keyserver')));
             $t->set('personalkey-public-help', Horde_Help::link('imp', 'pgp-personalkey-public'));
             $passphrase = $imp_pgp->getPassphrase('personal');
-            $t->set('passphrase', (empty($passphrase)) ? Horde::link('#', _("Enter Passphrase"), null, null, IMP::passphraseDialogJS('PGPPersonal') . ';return false;') . _("Enter Passphrase") : Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'unset_passphrase'), _("Unload Passphrase")) . _("Unload Passphrase"));
-            $t->set('viewprivate', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'view_personal_private_key'), _("View Personal Private Key"), null, 'view_key'));
-            $t->set('infoprivate', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'info_personal_private_key'), _("Information on Personal Private Key"), null, 'info_key'));
+            $t->set('passphrase', (empty($passphrase)) ? Horde::link('#', _('Enter Passphrase'), null, null, IMP::passphraseDialogJS('PGPPersonal') . ';return false;') . _('Enter Passphrase') : Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'unset_passphrase'), _('Unload Passphrase')) . _('Unload Passphrase'));
+            $t->set('viewprivate', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'view_personal_private_key'), _('View Personal Private Key'), null, 'view_key'));
+            $t->set('infoprivate', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'info_personal_private_key'), _('Information on Personal Private Key'), null, 'info_key'));
             $t->set('personalkey-private-help', Horde_Help::link('imp', 'pgp-personalkey-private'));
-            $t->set('deletekeypair', addslashes(_("Are you sure you want to delete your keypair? (This is NOT recommended!)")));
+            $t->set('deletekeypair', addslashes(_('Are you sure you want to delete your keypair? (This is NOT recommended!)')));
             $t->set('personalkey-delete-help', Horde_Help::link('imp', 'pgp-personalkey-delete'));
         } else {
             $imp_identity = Identity::singleton(array('imp', 'imp'));
@@ -376,7 +376,7 @@ if ($prefs->getValue('use_pgp')) {
             $t->set('personalkey-create-email-help', Horde_Help::link('imp', 'pgp-personalkey-create-email'));
             $t->set('personalkey-create-keylength-help', Horde_Help::link('imp', 'pgp-personalkey-create-keylength'));
             $t->set('personalkey-create-passphrase-help', Horde_Help::link('imp', 'pgp-personalkey-create-passphrase'));
-            $t->set('keygen',  addslashes(_("Key generation may take a long time to complete.  Continue with key generation?")));
+            $t->set('keygen', addslashes(_('Key generation may take a long time to complete.  Continue with key generation?')));
             $t->set('personal_import_url', Horde_Util::addParameter($selfURL, 'actionID', 'import_personal_public_key'));
             $t->set('personalkey-create-actions-help', Horde_Help::link('imp', 'pgp-personalkey-create-actions'));
         }
@@ -385,7 +385,7 @@ if ($prefs->getValue('use_pgp')) {
 } else {
     $t->set('use_pgp_locked', $prefs->isLocked('use_pgp'));
     if (!$t->get('use_pgp_locked')) {
-        $t->set('use_pgp_label', Horde::label('use_pgp', _("Enable PGP functionality?")));
+        $t->set('use_pgp_label', Horde::label('use_pgp', _('Enable PGP functionality?')));
         $t->set('use_pgp_help', Horde_Help::link('imp', 'pgp-overview'));
     }
 }

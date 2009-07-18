@@ -50,7 +50,7 @@ switch ($actionID) {
 case 'add_address':
     try {
         $contact_link = IMP::addAddress(Horde_Util::getFormData('address'), Horde_Util::getFormData('name'));
-        $notification->push(sprintf(_("Entry \"%s\" was successfully added to the address book"), $contact_link), 'horde.success', array('content.raw'));
+        $notification->push(sprintf(_('Entry "%s" was successfully added to the address book'), $contact_link), 'horde.success', array('content.raw'));
     } catch (Horde_Exception $e) {
         $notification->push($e);
     }
@@ -95,7 +95,7 @@ foreach ($loop_array as $mbox => $idxlist) {
             $ret = reset($ret);
             $curr_msg['body'] = $ret['data'];
         } else {
-            $curr_msg['body'] = '<em>' . _("There is no text that can be displayed inline.") . '</em>';
+            $curr_msg['body'] = '<em>' . _('There is no text that can be displayed inline.') . '</em>';
         }
         $curr_msg['idx'] = $idx;
 
@@ -104,8 +104,8 @@ foreach ($loop_array as $mbox => $idxlist) {
 
         if (IMP::isSpecialFolder($mbox)) {
             $curr_msg['addr_to'] = true;
-            $curr_msg['addr'] = _("To:") . ' ' . $imp_ui->buildAddressLinks($envelope['to'], Horde::selfUrl(true), true);
-            $addr = _("To:") . ' ' . htmlspecialchars(Horde_Mime_Address::addrObject2String(reset($envelope['to'])), ENT_COMPAT, $charset);
+            $curr_msg['addr'] = _('To:') . ' ' . $imp_ui->buildAddressLinks($envelope['to'], Horde::selfUrl(true), true);
+            $addr = _('To:') . ' ' . htmlspecialchars(Horde_Mime_Address::addrObject2String(reset($envelope['to'])), ENT_COMPAT, $charset);
         } else {
             $curr_msg['addr_to'] = false;
             $curr_msg['addr'] = $imp_ui->buildAddressLinks($envelope['from'], Horde::selfUrl(true), true);
@@ -122,12 +122,12 @@ foreach ($loop_array as $mbox => $idxlist) {
 
         /* Create links to current message and mailbox. */
         if ($mode == 'thread') {
-            $curr_msg['link'] = Horde::widget('#display', _("Back to Thread Display"), 'widget', '', '', _("Back to Thread Display"), true);
+            $curr_msg['link'] = Horde::widget('#display', _('Back to Thread Display'), 'widget', '', '', _('Back to Thread Display'), true);
         } else {
-            $curr_msg['link'] = Horde::widget('#display', _("Back to Multiple Message View Index"), 'widget', '', '', _("Back to Multiple Message View Index"), true);
+            $curr_msg['link'] = Horde::widget('#display', _('Back to Multiple Message View Index'), 'widget', '', '', _('Back to Multiple Message View Index'), true);
         }
-        $curr_msg['link'] .= ' | ' . Horde::widget(IMP::generateIMPUrl('message.php', $imp_mbox['mailbox'], $idx, $mbox), _("Go to Message"), 'widget', '', '', _("Go to Message"), true);
-        $curr_msg['link'] .= ' | ' . Horde::widget(Horde_Util::addParameter(IMP::generateIMPUrl('mailbox.php', $mbox), array('start' => $imp_mailbox->getArrayIndex($idx))), sprintf(_("Back to %s"), $page_label), 'widget', '', '', sprintf(_("Bac_k to %s"), $page_label));
+        $curr_msg['link'] .= ' | ' . Horde::widget(IMP::generateIMPUrl('message.php', $imp_mbox['mailbox'], $idx, $mbox), _('Go to Message'), 'widget', '', '', _('Go to Message'), true);
+        $curr_msg['link'] .= ' | ' . Horde::widget(Horde_Util::addParameter(IMP::generateIMPUrl('mailbox.php', $mbox), array('start' => $imp_mailbox->getArrayIndex($idx))), sprintf(_('Back to %s'), $page_label), 'widget', '', '', sprintf(_('Bac_k to %s'), $page_label));
 
         $curr_tree['class'] = (++$rowct % 2) ? 'text' : 'item0';
         $curr_tree['subject'] = (($mode == 'thread') ? $threadtree[$idx] : null) . ' ' . Horde::link('#i' . $idx) . $subject_header . '</a> (' . $addr . ')';
@@ -145,7 +145,7 @@ $template = new Horde_Template();
 $template->setOption('gettext', true);
 $template->set(
     'subject',
-    $mode == 'thread' ? $subject : sprintf(_("%d Messages"), count($msgs)));
+    $mode == 'thread' ? $subject : sprintf(_('%d Messages'), count($msgs)));
 if ($mode == 'thread') {
     $delete_link = Horde_Util::addParameter(
         IMP::generateIMPUrl('mailbox.php', $mbox),
@@ -157,14 +157,14 @@ if ($mode == 'thread') {
             $delete_link,
             array('indices[]' => $val . IMP::IDX_SEP . $imp_mbox['mailbox']));
     }
-    $template->set('delete', Horde::link('#', _("Delete Thread"), null, null, "if (confirm('" . addslashes(_("Are you sure you want to delete all messages in this thread?")) . "')) { window.location = '" . $delete_link . "'; } return false;") . Horde::img('delete.png', _("Delete Thread"), null, $registry->getImageDir('horde')) . '</a>');
+    $template->set('delete', Horde::link('#', _('Delete Thread'), null, null, 'if (confirm("' . addslashes(_('Are you sure you want to delete all messages in this thread?')) . '")) { window.location = "' . $delete_link . '"; } return false;') . Horde::img('delete.png', _('Delete Thread'), null, $registry->getImageDir('horde')) . '</a>');
 }
 $template->set('thread', $mode == 'thread');
 $template->set('messages', $msgs);
 $template->set('tree', $tree);
 
 /* Output page. */
-$title = ($mode == 'thread') ? _("Thread View") : _("Multiple Message View");
+$title = ($mode == 'thread') ? _('Thread View') : _('Multiple Message View');
 require IMP_TEMPLATES . '/common-header.inc';
 IMP::menu();
 IMP::status();

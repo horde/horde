@@ -59,7 +59,7 @@ class IMP_Spam
                     $prog = str_replace(array('%u','%l', '%d'),
                         array(
                             escapeshellarg(Horde_Auth::getAuth()),
-					        escapeshellarg(Horde_Auth::getBareAuth()),
+                            escapeshellarg(Horde_Auth::getBareAuth()),
                             escapeshellarg(Horde_Auth::getAuthDomain())
                         ), $GLOBALS['conf'][$action]['program']);
                     $proc = proc_open($prog,
@@ -130,7 +130,7 @@ class IMP_Spam
                     if (!is_null($from_line)) {
                         $spam_headers->addHeader('From', $from_line);
                     }
-                    $spam_headers->addHeader('Subject', sprintf(_("%s report from %s"), $action, $_SESSION['imp']['uniquser']));
+                    $spam_headers->addHeader('Subject', sprintf(_('%s report from %s'), $action, $_SESSION['imp']['uniquser']));
 
                     /* Send the message. */
                     try {
@@ -158,17 +158,17 @@ class IMP_Spam
 
             switch ($action) {
             case 'spam':
-                $msg = sprintf(_("The message \"%s\" has been reported as spam."), $subject);
+                $msg = sprintf(_('The message "%s" has been reported as spam.'), $subject);
                 break;
 
             case 'notspam':
-                $msg = sprintf(_("The message \"%s\" has been reported as spam."), $subject);
+                $msg = sprintf(_('The message "%s" has been reported as spam.'), $subject);
                 break;
             }
         } elseif ($action == 'spam') {
-            $msg = sprintf(_("%d messages have been reported as spam."), $report_count);
+            $msg = sprintf(_('%d messages have been reported as spam.'), $report_count);
         } else {
-            $msg = sprintf(_("%d messages have been reported as not spam."), $report_count);
+            $msg = sprintf(_('%d messages have been reported as not spam.'), $report_count);
         }
         $notification->push($msg, 'horde.message');
 
@@ -184,9 +184,9 @@ class IMP_Spam
                         $delete_spam = 0;
                     } else {
                         if ($msg_count == 1) {
-                            $notification->push(_("The message has been deleted."), 'horde.message');
+                            $notification->push(_('The message has been deleted.'), 'horde.message');
                         } else {
-                            $notification->push(sprintf(_("%d messages have been deleted."), $msg_count), 'horde.message');
+                            $notification->push(sprintf(_('%d messages have been deleted.'), $msg_count), 'horde.message');
                         }
                     }
                 }
@@ -199,7 +199,7 @@ class IMP_Spam
                         $delete_spam = 0;
                     }
                 } else {
-                    $notification->push(_("Could not move message to spam mailbox - no spam mailbox defined in preferences."), 'horde.error');
+                    $notification->push(_('Could not move message to spam mailbox - no spam mailbox defined in preferences.'), 'horde.error');
                     $delete_spam = 0;
                 }
                 break;

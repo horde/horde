@@ -22,7 +22,7 @@ $collection = new Horde_Block_Collection();
 $dimp_block_list = array();
 
 // Show a folder summary of the mailbox.  All polled folders are displayed.
-$dimp_block_list[_("Folder Summary")] = array(
+$dimp_block_list[_('Folder Summary')] = array(
     'ob' => new IMP_Block_Foldersummary(array())
 );
 

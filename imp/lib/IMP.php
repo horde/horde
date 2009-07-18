@@ -32,7 +32,7 @@ class IMP
     const MAILBOX_START_LASTPAGE = 4;
 
     /* IMP internaltring used to separate indexes. */
-    const IDX_SEP = "\0";
+    const IDX_SEP = '\0';
 
     /* Are we currently in "print" mode? */
     static public $printMode = false;
@@ -130,7 +130,7 @@ class IMP
         error_reporting($old_error);
 
         return (!empty($contact_link) && !$contact_link instanceof PEAR_Error)
-            ? Horde::link(Horde::url($contact_link), sprintf(_("Go to address book entry of \"%s\""), $newName)) . $escapeName . '</a>'
+            ? Horde::link(Horde::url($contact_link), sprintf(_('Go to address book entry of "%s"'), $newName)) . $escapeName . '</a>'
             : $escapeName;
     }
 
@@ -186,9 +186,9 @@ class IMP
             (!empty($GLOBALS['conf']['hooks']['permsdenied']) ||
              (self::hasPermission('create_folders') &&
               self::hasPermission('max_folders')))) {
-            $text .= '<option value="" disabled="disabled">- - - - - - - -</option>' . "\n";
-            $text .= '<option value="*new*">' . _("New Folder") . "</option>\n";
-            $text .= '<option value="" disabled="disabled">- - - - - - - -</option>' . "\n";
+            $text .= "<option value=\"\" disabled=\"disabled\">- - - - - - - -</option>\n".
+                '<option value="*new*">' . _('New Folder') . "</option>\n" .
+                "<option value=\"\" disabled=\"disabled\">- - - - - - - -</option>\n";
         }
 
         /* Add the list of mailboxes to the lists. */
@@ -209,7 +209,7 @@ class IMP
             $vfolders = $GLOBALS['imp_search']->listQueries(true);
             if (!empty($vfolders)) {
                 $vfolder_sel = $GLOBALS['imp_search']->searchMboxID();
-                $text .= '<option value="" disabled="disabled">- - - - - - - - -</option>' . "\n";
+                $text .= "<option value=\"\" disabled=\"disabled\">- - - - - - - - -</option>\n";
                 foreach ($vfolders as $id => $val) {
                     $text .= sprintf('<option value="%s"%s>%s</option>%s', $GLOBALS['imp_search']->createSearchID($id), ($vfolder_sel == $id) ? ' selected="selected"' : '', Horde_Text_Filter::filter($val, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)), "\n");
                 }
@@ -223,7 +223,7 @@ class IMP
                 $tasklists = $GLOBALS['registry']->call('tasks/listTasklists', array(false, PERMS_EDIT));
 
                 if (count($tasklists)) {
-                    $text .= '<option value="" disabled="disabled">&nbsp;</option><option value="" disabled="disabled">- - ' . _("Task Lists") . ' - -</option>' . "\n";
+                    $text .= '<option value="" disabled="disabled">&nbsp;</option><option value="" disabled="disabled">- - ' . _('Task Lists') . ' - -</option>' . "\n";
 
                     foreach ($tasklists as $id => $tasklist) {
                         $text .= sprintf('<option value="%s">%s</option>%s',
@@ -241,7 +241,7 @@ class IMP
             try {
                 $notepads = $GLOBALS['registry']->call('notes/listNotepads', array(false, PERMS_EDIT));
                 if (count($notepads)) {
-                    $text .= '<option value="" disabled="disabled">&nbsp;</option><option value="" disabled="disabled">- - ' . _("Notepads") . ' - -</option>' . "\n";
+                    $text .= '<option value="" disabled="disabled">&nbsp;</option><option value="" disabled="disabled">- - ' . _('Notepads') . " - -</option>\n";
 
                     foreach ($notepads as $id => $notepad) {
                         $text .= sprintf('<option value="%s">%s</option>%s',
@@ -390,7 +390,7 @@ class IMP
             if (isset($args['to'])) {
                 $args['to'] = addcslashes($args['to'], '\\"');
             }
-            return "javascript:" . self::popupIMPString('compose.php', $args);
+            return 'javascript:' . self::popupIMPString('compose.php', $args);
         }
 
         return Horde_Util::addParameter(Horde::applicationUrl(($view == 'mimp') ? 'compose-mimp.php' : 'compose.php'), $args);
@@ -421,11 +421,11 @@ class IMP
 
         /* Substitute any translated prefix text. */
         $sub_array = array(
-            'INBOX' => _("Inbox"),
-            $prefs->getValue('sent_mail_folder') => _("Sent"),
-            $prefs->getValue('drafts_folder') => _("Drafts"),
-            $prefs->getValue('trash_folder') => _("Trash"),
-            $prefs->getValue('spam_folder') => _("Spam")
+            'INBOX' => _('Inbox'),
+            $prefs->getValue('sent_mail_folder') => _('Sent'),
+            $prefs->getValue('drafts_folder') => _('Drafts'),
+            $prefs->getValue('trash_folder') => _('Trash'),
+            $prefs->getValue('spam_folder') => _('Spam')
         );
 
         /* Strip namespace information. */
@@ -527,7 +527,7 @@ class IMP
 
         $menu = new Horde_Menu(Horde_Menu::MASK_ALL & ~Horde_Menu::MASK_LOGIN);
 
-        $menu->add(self::generateIMPUrl($menu_mailbox_url, 'INBOX'), _("_Inbox"), 'folders/inbox.png');
+        $menu->add(self::generateIMPUrl($menu_mailbox_url, 'INBOX'), _('_Inbox'), 'folders/inbox.png');
 
         if ($_SESSION['imp']['protocol'] != 'pop') {
             if ($prefs->getValue('use_trash') &&
@@ -544,27 +544,27 @@ class IMP
 
                 if (!empty($mailbox) && !$GLOBALS['imp_imap']->isReadOnly($mailbox)) {
                     $menu_trash_url = Horde_Util::addParameter(self::generateIMPUrl($menu_mailbox_url, $mailbox), array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')));
-                    $menu->add($menu_trash_url, _("Empty _Trash"), 'empty_trash.png', null, null, "return window.confirm('" . addslashes(_("Are you sure you wish to empty your trash folder?")) . "');", '__noselection');
+                    $menu->add($menu_trash_url, _('Empty _Trash'), 'empty_trash.png', null, null, "return window.confirm('" . addslashes(_('Are you sure you wish to empty your trash folder?')) . "');", '__noselection');
                 }
             }
 
             if (!empty($spam_folder) &&
                 $prefs->getValue('empty_spam_menu')) {
                 $menu_spam_url = Horde_Util::addParameter(self::generateIMPUrl($menu_mailbox_url, $spam_folder), array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')));
-                $menu->add($menu_spam_url, _("Empty _Spam"), 'empty_spam.png', null, null, "return window.confirm('" . addslashes(_("Are you sure you wish to empty your spam folder?")) . "');", '__noselection');
+                $menu->add($menu_spam_url, _('Empty _Spam'), 'empty_spam.png', null, null, "return window.confirm('" . addslashes(_('Are you sure you wish to empty your spam folder?')) . "');", '__noselection');
             }
         }
 
-        if (IMP::canCompose()) {
-            $menu->add(self::composeLink(array('mailbox' => $GLOBALS['imp_mbox']['mailbox'])), _("_New Message"), 'compose.png');
+        if (self::canCompose()) {
+            $menu->add(self::composeLink(array('mailbox' => $GLOBALS['imp_mbox']['mailbox'])), _('_New Message'), 'compose.png');
         }
 
         if ($conf['user']['allow_folders']) {
-            $menu->add(Horde_Util::nocacheUrl(Horde::applicationUrl('folders.php')), _("_Folders"), 'folders/folder.png');
+            $menu->add(Horde_Util::nocacheUrl(Horde::applicationUrl('folders.php')), _('_Folders'), 'folders/folder.png');
         }
 
         if ($_SESSION['imp']['protocol'] != 'pop') {
-            $menu->add($menu_search_url, _("_Search"), 'search.png');
+            $menu->add($menu_search_url, _('_Search'), 'search.png');
         }
 
         if (($_SESSION['imp']['protocol'] != 'pop') &&
@@ -577,11 +577,11 @@ class IMP
             $js_params = array(
                 'dialog_load' => Horde::applicationUrl('ajax.php', true, -1) . '/FetchmailDialog'
             );
-            $menu->add('javascript:IMPDialog.display(\'' . IMP::escapeJSON($js_params) . '\')', _("Fetch Mail"), 'fetchmail.png');
+            $menu->add('javascript:IMPDialog.display(\'' . self::escapeJSON($js_params) . '\')', _('Fetch Mail'), 'fetchmail.png');
         }
 
         if ($prefs->getValue('filter_menuitem')) {
-            $menu->add(Horde::applicationUrl('filterprefs.php'), _("Fi_lters"), 'filters.png');
+            $menu->add(Horde::applicationUrl('filterprefs.php'), _('Fi_lters'), 'filters.png');
         }
 
         /* Logout. If IMP can auto login or IMP is providing authentication,
@@ -602,7 +602,7 @@ class IMP
              * session. */
             $logout_url = self::getLogoutUrl();
 
-            $id = $menu->add($logout_url, _("_Log out"), 'logout.png', $registry->getImageDir('horde'), $logout_target);
+            $id = $menu->add($logout_url, _('_Log out'), 'logout.png', $registry->getImageDir('horde'), $logout_target);
             $menu->setPosition($id, Horde_Menu::POS_LAST);
         }
 
@@ -621,12 +621,12 @@ class IMP
             Horde::addScriptFile('imp.js', 'imp', true);
             $menu_view = $GLOBALS['prefs']->getValue('menu_view');
             $ak = $GLOBALS['prefs']->getValue('widget_accesskey')
-                ? Horde::getAccessKey(_("Open Fo_lder"))
+                ? Horde::getAccessKey(_('Open Fo_lder'))
                 : '';
 
             $t->set('ak', $ak);
             $t->set('flist', self::flistSelect(array('selected' => $GLOBALS['imp_mbox']['mailbox'], 'inc_vfolder' => true)));
-            $t->set('flink', sprintf('%s%s<br />%s</a>', Horde::link('#'), ($menu_view != 'text') ? Horde::img('folders/open.png', _("Open Folder"), ($menu_view == 'icon') ? array('title' => _("Open Folder")) : array()) : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("Open Fo_lder"), $ak) : ''));
+            $t->set('flink', sprintf('%s%s<br />%s</a>', Horde::link('#'), ($menu_view != 'text') ? Horde::img('folders/open.png', _('Open Folder'), ($menu_view == 'icon') ? array('title' => _('Open Folder')) : array()) : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_('Open Fo_lder'), $ak) : ''));
         }
         $t->set('menu_string', self::getMenu('string'));
 
@@ -703,7 +703,7 @@ class IMP
             $ret['message'] = $long
                 ? sprintf($strings['long'], $quota['usage'], $unit, $quota['limit'], $unit, $ret['percent'])
                 : sprintf($strings['short'], $ret['percent'], $quota['limit'], $unit);
-            $ret['percent'] = sprintf("%.2f", $ret['percent']);
+            $ret['percent'] = sprintf('%.2f', $ret['percent']);
         } else {
             // Hide unlimited quota message?
             if (!empty($_SESSION['imp']['quota']['hide_when_unlimited'])) {
@@ -719,8 +719,8 @@ class IMP
                     : sprintf($strings['nolimit_short'], $quota['usage'], $unit);
             } else {
                 $ret['message'] = $long
-                    ? sprintf(_("Quota status: NO LIMIT"))
-                    : _("No limit");
+                    ? sprintf(_('Quota status: NO LIMIT'))
+                    : _('No limit');
             }
         }
 
@@ -762,7 +762,7 @@ class IMP
                 $t->set('vinbox', Horde::link(Horde_Util::addParameter(self::generateIMPUrl('mailbox.php', $GLOBALS['imp_search']->createSearchID($vinbox_id)), 'no_newmail_popup', 1)));
             }
         } else {
-            $t->set('msg', ($var == 1) ? _("You have 1 new message.") : sprintf(_("You have %s new messages."), $var));
+            $t->set('msg', ($var == 1) ? _('You have 1 new message.') : sprintf(_('You have %s new messages.'), $var));
         }
         $t_html = str_replace("\n", ' ', $t->fetch(IMP_TEMPLATES . '/newmsg/alert.html'));
 
@@ -986,24 +986,24 @@ class IMP
             $default = $GLOBALS['prefs']->getValue('default_encrypt');
         }
 
-        $enc_opts = array(self::ENCRYPT_NONE => _("No Encryption"));
+        $enc_opts = array(self::ENCRYPT_NONE => _('No Encryption'));
         $output = '';
 
         if (!empty($GLOBALS['conf']['gnupg']['path']) &&
             $GLOBALS['prefs']->getValue('use_pgp')) {
             $enc_opts += array(
-                self::PGP_ENCRYPT => _("PGP Encrypt Message"),
-                self::PGP_SIGN => _("PGP Sign Message"),
-                self::PGP_SIGNENC => _("PGP Sign/Encrypt Message"),
-                self::PGP_SYM_ENCRYPT => _("PGP Encrypt Message with passphrase"),
-                self::PGP_SYM_SIGNENC => _("PGP Sign/Encrypt Message with passphrase")
+                self::PGP_ENCRYPT => _('PGP Encrypt Message'),
+                self::PGP_SIGN => _('PGP Sign Message'),
+                self::PGP_SIGNENC => _('PGP Sign/Encrypt Message'),
+                self::PGP_SYM_ENCRYPT => _('PGP Encrypt Message with passphrase'),
+                self::PGP_SYM_SIGNENC => _('PGP Sign/Encrypt Message with passphrase')
             );
         }
         if ($GLOBALS['prefs']->getValue('use_smime')) {
             $enc_opts += array(
-                self::SMIME_ENCRYPT => _("S/MIME Encrypt Message"),
-                self::SMIME_SIGN => _("S/MIME Sign Message"),
-                self::SMIME_SIGNENC => _("S/MIME Sign/Encrypt Message")
+                self::SMIME_ENCRYPT => _('S/MIME Encrypt Message'),
+                self::SMIME_SIGN => _('S/MIME Sign Message'),
+                self::SMIME_SIGNENC => _('S/MIME Sign/Encrypt Message')
             );
         }
 
@@ -1012,7 +1012,7 @@ class IMP
         }
 
         foreach ($enc_opts as $key => $val) {
-             $output .= '<option value="' . $key . '"' . (($default == $key) ? ' selected="selected"' : '') . '>' . $val . '</option>' . "\n";
+             $output .= '<option value="' . $key . '"' . (($default == $key) ? ' selected="selected"' : '') . '>' . $val . "</option>\n";
         }
 
         return $output;
@@ -1244,7 +1244,7 @@ class IMP
     static public function popupIMPString($url, $params = array(),
                                           $width = 700, $height = 650)
     {
-        return "IMP.popup('" . Horde::applicationUrl($url) . "'," . $width . "," . $height . ",'" . $GLOBALS['browser']->escapeJSCode(str_replace('+', '%20', substr(Horde_Util::addParameter('', $params, null, false), 1))) . "');";
+        return 'IMP.popup(\'' . Horde::applicationUrl($url) . '\',' . $width . ',' . $height . ',\'' . $GLOBALS['browser']->escapeJSCode(str_replace('+', '%20', substr(Horde_Util::addParameter('', $params, null, false), 1))) . '\');';
     }
 
     /**
@@ -1383,7 +1383,7 @@ class IMP
         }
 
         foreach (array_merge(array($js_url), $js_force) as $val) {
-            echo '<script type="text/javascript" src="' . $val . '"></script>' . "\n";
+            echo '<script type="text/javascript" src="' . $val . "\"></script>\n";
         }
     }
 
@@ -1486,7 +1486,7 @@ class IMP
         }
 
         foreach ($css_out as $file) {
-            echo '<link href="' . $file['u'] . '" rel="stylesheet" type="text/css" />' . "\n";
+            echo '<link href="' . $file['u'] . "\" rel=\"stylesheet\" type=\"text/css\" />\n";
         }
     }
 
@@ -1665,15 +1665,15 @@ class IMP
 
         switch ($type) {
         case 'PGPPersonal':
-            $text = _("Enter your personal PGP passphrase.");
+            $text = _('Enter your personal PGP passphrase.');
             break;
 
         case 'PGPSymmetric':
-            $text = _("Enter the passphrase used to encrypt this message.");
+            $text = _('Enter the passphrase used to encrypt this message.');
             break;
 
         case 'SMIMEPersonal':
-            $text = _("Enter your personal S/MIME passphrase.");
+            $text = _('Enter your personal S/MIME passphrase.');
             break;
         }
 
@@ -1683,11 +1683,11 @@ class IMP
             'params' => $params,
             'text' => $text,
             'password' => true,
-            'ok_text' => _("OK"),
-            'cancel_text' => _("Cancel")
+            'ok_text' => _('OK'),
+            'cancel_text' => _('Cancel')
         );
 
-        return 'IMPDialog.display(\'' . IMP::escapeJSON($js_params) . '\')';
+        return 'IMPDialog.display(\'' . self::escapeJSON($js_params) . '\')';
     }
 
     /**

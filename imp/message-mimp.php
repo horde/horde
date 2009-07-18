@@ -132,18 +132,18 @@ $atc_id = Horde_Util::getFormData('atc');
 if (($actionID == 'c') && !is_null($atc_id)) {
     $summary = $imp_contents->getSummary($atc_id, IMP_Contents::SUMMARY_SIZE | IMP_Contents::SUMMARY_DESCRIP_NOLINK_NOHTMLSPECCHARS | IMP_Contents::SUMMARY_DOWNLOAD_NOJS);
 
-    $mimp_render->set('title', _("Verify Download"));
+    $mimp_render->set('title', _('Verify Download'));
 
     $null = null;
     $hb = &$mimp_render->add(new Horde_Mobile_block($null));
 
-    $hb->add(new Horde_Mobile_text(_("Click to verify download of attachment") . ': '));
+    $hb->add(new Horde_Mobile_text(_('Click to verify download of attachment') . ': '));
     $hb->add(new Horde_Mobile_link($summary['description'], $summary['download']));
     $t = &$hb->add(new Horde_Mobile_text(sprintf(' [%s] %s', $summary['type'], $summary['size']) . "\n"));
     $t->set('linebreaks', true);
 
     $hb = &$mimp_render->add(new Horde_Mobile_block($null));
-    $hb->add(new Horde_Mobile_link(_("Return to message view"), $self_link));
+    $hb->add(new Horde_Mobile_link(_('Return to message view'), $self_link));
 
     $mimp_render->display();
     exit;
@@ -186,7 +186,7 @@ if (($subject = $mime_headers->getValue('subject'))) {
         $subject = Horde_String::substr($subject, 0, $conf['mimp']['mailbox']['max_subj_chars']) . '...';
     }
 } else {
-    $subject = _("[No Subject]");
+    $subject = _('[No Subject]');
 }
 $display_headers['subject'] = $subject;
 
@@ -198,7 +198,7 @@ $xpriority = $mime_headers->getValue('x-priority');
 switch ($imp_ui->getXpriority($xpriority)) {
 case 'high':
 case 'low':
-    $basic_headers['priority'] = _("Priority");
+    $basic_headers['priority'] = _('Priority');
     $display_headers['priority'] = $xpriority;
     break;
 }
@@ -289,20 +289,20 @@ if ($prefs->getValue('mimp_preview_msg') &&
     !Horde_Util::getFormData('fullmsg') &&
     (strlen($msg_text) > 250)) {
     $msg_text = Horde_String::substr(trim($msg_text), 0, 250) . " [...]\n";
-    $fullmsg_link = new Horde_Mobile_link(_("View Full Message"), Horde_Util::addParameter($self_link, array('fullmsg' => 1)));
+    $fullmsg_link = new Horde_Mobile_link(_('View Full Message'), Horde_Util::addParameter($self_link, array('fullmsg' => 1)));
 } else {
     $fullmsg_link = null;
 }
 
 /* Create message menu. */
-$menu = new Horde_Mobile_card('o', _("Menu"));
+$menu = new Horde_Mobile_card('o', _('Menu'));
 $mset = &$menu->add(new Horde_Mobile_linkset());
 
 if (!$readonly) {
     if (in_array('\\deleted', $flags)) {
-        $mset->add(new Horde_Mobile_link(_("Undelete"), Horde_Util::addParameter($self_link, array('a' => 'u'))));
+        $mset->add(new Horde_Mobile_link(_('Undelete'), Horde_Util::addParameter($self_link, array('a' => 'u'))));
     } else {
-        $mset->add(new Horde_Mobile_link(_("Delete"), Horde_Util::addParameter($self_link, array('a' => 'd', 'mt' => Horde::getRequestToken('imp.message-mimp')))));
+        $mset->add(new Horde_Mobile_link(_('Delete'), Horde_Util::addParameter($self_link, array('a' => 'd', 'mt' => Horde::getRequestToken('imp.message-mimp')))));
     }
 }
 
@@ -314,18 +314,18 @@ $compose_params = array(
 
 /* Add compose actions (Reply, Reply List, Reply All, Forward, Redirect). */
 if (IMP::canCompose()) {
-    $items = array(IMP::composeLink(array(), array('a' => 'r') + $compose_params) => _("Reply"));
+    $items = array(IMP::composeLink(array(), array('a' => 'r') + $compose_params) => _('Reply'));
 
     if ($list_info['reply_list']) {
-        $items[IMP::composeLink(array(), array('a' => 'rl') + $compose_params)] = _("Reply to List");
+        $items[IMP::composeLink(array(), array('a' => 'rl') + $compose_params)] = _('Reply to List');
     }
 
     if (Horde_Mime_Address::addrArray2String(array_merge($envelope['to'], $envelope['cc']), array('filter' => array_keys($user_identity->getAllFromAddresses(true))))) {
-        $items[IMP::composeLink(array(), array('a' => 'ra') + $compose_params)] = _("Reply All");
+        $items[IMP::composeLink(array(), array('a' => 'ra') + $compose_params)] = _('Reply All');
     }
 
-    $items[IMP::composeLink(array(), array('a' => 'f') + $compose_params)] = _("Forward");
-    $items[IMP::composeLink(array(), array('a' => 'rc') + $compose_params)] = _("Redirect");
+    $items[IMP::composeLink(array(), array('a' => 'f') + $compose_params)] = _('Forward');
+    $items[IMP::composeLink(array(), array('a' => 'rc') + $compose_params)] = _('Redirect');
 }
 
 foreach ($items as $link => $label) {
@@ -333,20 +333,20 @@ foreach ($items as $link => $label) {
 }
 
 if (isset($next_link)) {
-    $mset->add(new Horde_Mobile_link(_("Next"), $next_link));
+    $mset->add(new Horde_Mobile_link(_('Next'), $next_link));
 }
 if (isset($prev_link)) {
-    $mset->add(new Horde_Mobile_link(_("Prev"), $prev_link));
+    $mset->add(new Horde_Mobile_link(_('Prev'), $prev_link));
 }
 
-$mset->add(new Horde_Mobile_link(sprintf(_("To %s"), IMP::getLabel($mailbox_name)), $mailbox_link));
+$mset->add(new Horde_Mobile_link(sprintf(_('To %s'), IMP::getLabel($mailbox_name)), $mailbox_link));
 
 MIMP::addMIMPMenu($mset, 'message');
 
 $mimp_render->set('title', $display_headers['subject']);
 
-$c = &$mimp_render->add(new Horde_Mobile_card('m', ($status ? $status . ' | ' : '') . $display_headers['subject'] . ' ' . sprintf(_("(%d of %d)"), $msgindex, $msgcount)));
-$c->softkey('#o', _("Menu"));
+$c = &$mimp_render->add(new Horde_Mobile_card('m', ($status ? $status . ' | ' : '') . $display_headers['subject'] . ' ' . sprintf(_('(%d of %d)'), $msgindex, $msgcount)));
+$c->softkey('#o', _('Menu'));
 
 $imp_notify->setMobileObject($c);
 $notification->notify(array('listeners' => 'status'));
@@ -367,7 +367,7 @@ foreach ($display_headers as $head => $val) {
     }
     $t = &$hb->add(new Horde_Mobile_text($val . (($all_to) ? ' ' : "\n")));
     if ($all_to) {
-        $hb->add(new Horde_Mobile_link('[' . _("Show All") . ']', Horde_Util::addParameter($self_link, array('allto' => 1))));
+        $hb->add(new Horde_Mobile_link('[' . _('Show All') . ']', Horde_Util::addParameter($self_link, array('allto' => 1))));
         $t = &$hb->add(new Horde_Mobile_text("\n"));
     }
     $t->set('linebreaks', true);
@@ -375,7 +375,7 @@ foreach ($display_headers as $head => $val) {
 
 foreach ($atc_parts as $key) {
     $summary = $imp_contents->getSummary($key, IMP_Contents::SUMMARY_SIZE | IMP_Contents::SUMMARY_DESCRIP_NOLINK_NOHTMLSPECCHARS | IMP_Contents::SUMMARY_DOWNLOAD_NOJS);
-    $hb->add(new Horde_Mobile_text(_("Attachment") . ': ', array('b')));
+    $hb->add(new Horde_Mobile_text(_('Attachment') . ': ', array('b')));
     if (empty($summary['download'])) {
         $hb->add(new Horde_Mobile_text($summary['description']));
     } else {

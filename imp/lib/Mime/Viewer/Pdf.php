@@ -78,7 +78,7 @@ class IMP_Horde_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
         }
 
         $status = array(
-            sprintf(_("A PDF file named %s is attached to this message. A thumbnail is below."), $this->_mimepart->getName(true)),
+            sprintf(_('A PDF file named %s is attached to this message. A thumbnail is below.'), $this->_mimepart->getName(true)),
         );
 
         if ($GLOBALS['browser']->hasFeature('javascript')) {
@@ -92,7 +92,7 @@ class IMP_Horde_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
                 'data' => '',
                 'status' => array(
                     array(
-                        'icon' => Horde::img('mime/image.png', _("Thumbnail of attached PDF file")),
+                        'icon' => Horde::img('mime/image.png', _('Thumbnail of attached PDF file')),
                         'text' => $status
                     )
                 ),
@@ -137,7 +137,7 @@ class IMP_Horde_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
      */
     protected function _outputImgTag()
     {
-        return '<img src="' . $this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('pdf_view_thumbnail' => 1))) . '" alt="' . htmlspecialchars(_("View PDF File"), ENT_COMPAT, Horde_Nls::getCharset()) . '" />';
+        return '<img src="' . $this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('pdf_view_thumbnail' => 1))) . '" alt="' . htmlspecialchars(_('View PDF File'), ENT_COMPAT, Horde_Nls::getCharset()) . '" />';
     }
 
 }

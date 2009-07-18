@@ -152,7 +152,7 @@ class IMP_Maillog
             } else {
                 switch ($entry['action']) {
                 case 'forward':
-                    $msg = sprintf(_("You forwarded this message on %%s to the following recipients: %s."), $entry['recipients']);
+                    $msg = sprintf(_('You forwarded this message on %%s to the following recipients: %s.'), $entry['recipients']);
                     break;
 
                 case 'mdn':
@@ -160,11 +160,11 @@ class IMP_Maillog
                     break;
 
                 case 'redirect':
-                    $msg = sprintf(_("You redirected this message to %s on %%s."), $entry['recipients']);
+                    $msg = sprintf(_('You redirected this message to %s on %%s.'), $entry['recipients']);
                     break;
 
                 case 'reply':
-                    $msg = _("You replied to this message on %s.");
+                    $msg = _('You replied to this message on %s.');
                     break;
                 }
             }

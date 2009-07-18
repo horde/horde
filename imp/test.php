@@ -48,16 +48,16 @@ function _doConnectionTest()
         try {
             $namespaces = $imap_client->getNamespaces();
             foreach ($namespaces as $val) {
-                echo "NAMESPACE: \"" . htmlspecialchars($val['name']) . "\"\n";
-                echo "DELIMITER: " . htmlspecialchars($val['delimiter']) . "\n";
-                echo "TYPE: " . htmlspecialchars($val['type']) . "\n\n";
+                echo 'NAMESPACE: "' . htmlspecialchars($val['name']) . "\"\n";
+                echo 'DELIMITER: ' . htmlspecialchars($val['delimiter']) . "\n";
+                echo 'TYPE: ' . htmlspecialchars($val['type']) . "\n\n";
             }
         } catch (Horde_Imap_Client_Exception $e) {
             _errorMsg($e);
         }
 
         echo "</pre></blockquote></blockquote>\n" .
-            "<blockquote><em>IMAP server capabilities:</em><blockquote><pre>";
+            '<blockquote><em>IMAP server capabilities:</em><blockquote><pre>';
 
         try {
             foreach ($imap_client->capability() as $key => $val) {
@@ -78,9 +78,9 @@ function _doConnectionTest()
         try {
             $id_info = $imap_client->getID();
             if (!empty($id_info)) {
-                echo "<blockquote><em>IMAP server information:</em><blockquote><pre>";
+                echo '<blockquote><em>IMAP server information:</em><blockquote><pre>';
                 foreach ($id_info as $key => $val) {
-                    echo htmlspecialchars("$key:  $val") . "\n";
+                    echo htmlspecialchars($key: . '  ' . $val) . "\n";
                 }
                 echo "</pre></blockquote></blockquote>\n";
             }
@@ -94,7 +94,7 @@ function _doConnectionTest()
 
 function _errorMsg($e)
 {
-    echo '<span style="color:red">ERROR</span> - The server returned the following error message:' . "\n" .
+    echo "<span style=\"color:red\">ERROR</span> - The server returned the following error message:\n" .
         '<pre>' . $e->getMessage() . '</pre><p />';
 }
 

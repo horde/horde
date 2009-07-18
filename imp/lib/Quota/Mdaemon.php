@@ -42,7 +42,7 @@ class IMP_Quota_Mdaemon extends IMP_Quota
             }
         }
 
-        throw new Horde_Exception(_("Unable to retrieve quota"), 'horde.error');
+        throw new Horde_Exception(_('Unable to retrieve quota'), 'horde.error');
     }
 
     /**
@@ -58,9 +58,11 @@ class IMP_Quota_Mdaemon extends IMP_Quota
     {
         $contents = file_get_contents($path . '\imap.mrk');
 
+        $csize = strlen($contents);
         $pointer = 36;
         $size = 0;
-        while ($pointer < strlen($contents)) {
+
+        while ($pointer < $csize) {
             $details = unpack('a17Filename/a11Crap/VSize', substr($contents, $pointer, 36));
             $size += $details['Size'];
             $pointer += 36;

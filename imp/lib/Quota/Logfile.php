@@ -66,7 +66,7 @@ class IMP_Quota_Logfile extends IMP_Quota
     public function getQuota()
     {
         if (!is_file($this->_params['logfile'])) {
-            throw new Horde_Exception(_("Unable to retrieve quota"), 'horde.error');
+            throw new Horde_Exception(_('Unable to retrieve quota'), 'horde.error');
         }
 
         $full = file($this->_params['logfile']);
@@ -76,7 +76,7 @@ class IMP_Quota_Logfile extends IMP_Quota
 
         $uname = $_SESSION['imp']['user'];
         $FTPmail = $this->_params['FTPmail'];
-        $virtline = preg_grep("[$uname: $FTPmail]", $tail);
+        $virtline = preg_grep('[' . $uname . ': ' . $FTPmail . ']', $tail);
         $virtline = array_values($virtline);
         $usage = substr($virtline[0], strpos($virtline[0], $this->_params['beginocc']) + strlen($this->_params['beginocc']), strpos($virtline[0], $this->_params['midocc']));
         $storage  = substr($virtline[0], strpos($virtline[0], $this->_params['midocc']) + strlen($this->_params['midocc']), strpos($virtline[0], $this->_params['endocc']));

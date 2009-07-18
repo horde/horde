@@ -8,7 +8,7 @@
  * @package Horde_Block
  */
 
-$block_name = _("Folder Summary");
+$block_name = _('Folder Summary');
 
 class Horde_Block_imp_summary extends Horde_Block
 {
@@ -27,10 +27,10 @@ class Horde_Block_imp_summary extends Horde_Block
     function _params()
     {
         return array('show_unread' => array('type' => 'boolean',
-                                            'name' => _("Only display folders with unread messages in them?"),
+                                            'name' => _('Only display folders with unread messages in them?'),
                                             'default' => 0),
                      'show_total' => array('type' => 'boolean',
-                                           'name' => _("Show total number of mails in folder?"),
+                                           'name' => _('Show total number of mails in folder?'),
                                            'default' => 0)
                      );
     }
@@ -45,7 +45,7 @@ class Horde_Block_imp_summary extends Horde_Block
         $html = '<table cellspacing="0" width="100%">';
 
         if (!IMP::checkAuthentication(true)) {
-            return $html . '<tr><td class="text">' . Horde::link(Horde::applicationUrl('index.php', true), sprintf(_("Log in to %s"), $registry->applications['imp']['name'])) . sprintf(_("Log in to %s"), $registry->applications['imp']['name']) . '</a></td></tr></table>';
+            return $html . '<tr><td class="text">' . Horde::link(Horde::applicationUrl('index.php', true), sprintf(_('Log in to %s'), $registry->applications['imp']['name'])) . sprintf(_('Log in to %s'), $registry->applications['imp']['name']) . '</a></td></tr></table>';
         }
 
         /* Filter on INBOX display, if requested. */
@@ -131,11 +131,11 @@ class Horde_Block_imp_summary extends Horde_Block
             }
         } elseif (!empty($this->_params['show_unread'])) {
             if (count($folders) == 0) {
-                $html .= _("No folders are being checked for new mail.");
+                $html .= _('No folders are being checked for new mail.');
             } elseif (!$anyUnseen) {
-                $html .= '<em>' . _("No folders with unseen messages") . '</em>';
+                $html .= '<em>' . _('No folders with unseen messages') . '</em>';
             } elseif ($prefs->getValue('nav_popup')) {
-                $html .= '<em>' . _("No folders with new messages") . '</em>';
+                $html .= '<em>' . _('No folders with new messages') . '</em>';
             }
         }
 

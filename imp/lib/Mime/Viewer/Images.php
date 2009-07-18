@@ -101,15 +101,15 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
 
         /* The browser cannot view this image. Inform the user of this and
          * ask user if we should convert to another image type. */
-        $status = array(_("Your browser does not support inline display of this image type."));
+        $status = array(_('Your browser does not support inline display of this image type.'));
 
         /* See if we can convert to an inline browser viewable form. */
         if ($GLOBALS['browser']->hasFeature('javascript')) {
             $img = $this->_getHordeImageOb(false);
             if ($img &&
                 $GLOBALS['browser']->isViewable($img->getContentType())) {
-                $convert_link = $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', _("HERE"), array('params' => array('imp_img_view' => 'load_convert')));
-                $status[] = sprintf(_("Click %s to convert the image file into a format your browser can attempt to view."), $convert_link);
+                $convert_link = $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', _('HERE'), array('params' => array('imp_img_view' => 'load_convert')));
+                $status[] = sprintf(_('Click %s to convert the image file into a format your browser can attempt to view.'), $convert_link);
             }
         }
 
@@ -142,12 +142,12 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
             return array();
         }
 
-        $status = array(sprintf(_("An image named %s is attached to this message. A thumbnail is below."), $this->_mimepart->getName(true)));
+        $status = array(sprintf(_('An image named %s is attached to this message. A thumbnail is below.'), $this->_mimepart->getName(true)));
 
         if ($GLOBALS['browser']->hasFeature('javascript')) {
-            $status[] = $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', $this->_outputImgTag('view_thumbnail', _("View Attachment")), null, null, null);
+            $status[] = $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', $this->_outputImgTag('view_thumbnail', _('View Attachment')), null, null, null);
         } else {
-            $status[] = Horde::link($this->_params['contents']->urlView($this->_mimepart, 'view_attach')) . $this->_outputImgTag('view_thumbnail', _("View Attachment")) . '</a>';
+            $status[] = Horde::link($this->_params['contents']->urlView($this->_mimepart, 'view_attach')) . $this->_outputImgTag('view_thumbnail', _('View Attachment')) . '</a>';
         }
 
         return array(
@@ -155,7 +155,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                 'data' => '',
                 'status' => array(
                     array(
-                        'icon' => Horde::img('mime/image.png', _("Thumbnail of attached image")),
+                        'icon' => Horde::img('mime/image.png', _('Thumbnail of attached image')),
                         'text' => $status
                     )
                 ),
@@ -171,7 +171,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      */
     protected function _popupImageWindow()
     {
-        $loading = _("Loading...");
+        $loading = _('Loading...');
         $self_url = Horde_Util::addParameter(IMP::selfUrl(), array('imp_img_view' => ((Horde_Util::getFormData('imp_img_view') == 'load_convert') ? 'view_convert' : 'data')));
         $title = $this->_mimepart->getName(true);
 

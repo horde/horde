@@ -78,8 +78,8 @@ if (!empty($ids)) {
 }
 
 $description = ($total_num == 0)
-    ? _("No Messages")
-    : sprintf(_("%u of %u messages in %s unread."), $unseen_num, $total_num, IMP::getLabel($mailbox));
+    ? _('No Messages')
+    : sprintf(_('%u of %u messages in %s unread.'), $unseen_num, $total_num, IMP::getLabel($mailbox));
 
 $t = new Horde_Template();
 $t->set('charset', Horde_Nls::getCharset());

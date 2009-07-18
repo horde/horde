@@ -64,9 +64,9 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
             if ($imp_message->delete(array($mbox => $msg_ids), array('nuke' => true))) {
                 $msgcount = count($msg_ids);
                 if ($msgcount == 1) {
-                    $GLOBALS['notification']->push(sprintf(_("Purging 1 message from sent-mail folder %s."), IMP::displayFolder($mbox)), 'horde.message');
+                    $GLOBALS['notification']->push(sprintf(_('Purging 1 message from sent-mail folder %s.'), IMP::displayFolder($mbox)), 'horde.message');
                 } else {
-                    $GLOBALS['notification']->push(sprintf(_("Purging %d messages from sent-mail folder."), $msgcount, IMP::displayFolder($mbox)), 'horde.message');
+                    $GLOBALS['notification']->push(sprintf(_('Purging %d messages from sent-mail folder.'), $msgcount, IMP::displayFolder($mbox)), 'horde.message');
                 }
             }
         }
@@ -84,7 +84,7 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
     {
         $mbox_list = array_map(array('IMP', 'displayFolder'), $this->_getFolders());
 
-        return sprintf(_("All messages in the folder(s) \"%s\" older than %s days will be permanently deleted."),
+        return sprintf(_('All messages in the folder(s) "%s" older than %s days will be permanently deleted.'),
                        implode(', ', $mbox_list),
                        $GLOBALS['prefs']->getValue('purge_sentmail_keep'));
     }

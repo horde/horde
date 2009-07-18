@@ -65,7 +65,7 @@ case 'update':
     } elseif (Horde_Util::getFormData('delete')) {
         /* Delete stationery. */
         if (isset($stationery_list[$selected])) {
-            $updated = sprintf(_("The stationery \"%s\" has been deleted."), $stationery_list[$selected]['n']);
+            $updated = sprintf(_('The stationery "%s" has been deleted.'), $stationery_list[$selected]['n']);
             unset($stationery_list[$selected]);
             $selected = null;
         }
@@ -75,10 +75,10 @@ case 'update':
         if (!strlen($selected)) {
             $selected = count($stationery_list);
             $stationery_list[] = $stationery;
-            $updated = sprintf(_("The stationery \"%s\" has been added."), $stationery['n']);
+            $updated = sprintf(_('The stationery "%s" has been added.'), $stationery['n']);
         } else {
             $stationery_list[$selected] = $stationery;
-            $updated = sprintf(_("The stationery \"%s\" has been updated."), $stationery['n']);
+            $updated = sprintf(_('The stationery "%s" has been updated.'), $stationery['n']);
         }
     }
     break;
@@ -112,21 +112,21 @@ foreach ($stationery_list as $key => $choice) {
     $slist[] = array(
         'val' => $key,
         'selected' => ($selected === $key),
-        'text' => $choice['n'] . ' ' . ($choice['t'] == 'html' ? _("(HTML)") : _("(Plain Text)"))
+        'text' => $choice['n'] . ' ' . ($choice['t'] == 'html' ? _('(HTML)') : _('(Plain Text)'))
     );
 }
 $t->set('slist', $slist);
 $t->set('selected', strlen($selected));
 $t->set('last_type', $stationery['t']);
-$t->set('name_label', Horde::label('name', _("Stationery name:")));
+$t->set('name_label', Horde::label('name', _('Stationery name:')));
 $t->set('name', $stationery['n']);
-$t->set('type_label', Horde::label('name', _("Stationery type:")));
+$t->set('type_label', Horde::label('name', _('Stationery type:')));
 $t->set('plain', $stationery['t'] == 'plain');
 $t->set('html', $stationery['t'] == 'html');
-$t->set('content_label', Horde::label('content', _("Stationery:")));
+$t->set('content_label', Horde::label('content', _('Stationery:')));
 $t->set('content', $stationery['c']);
 $t->set('button_href', Horde_Util::addParameter($compose_url, 'group', 'compose'));
-$t->set('button_val', htmlspecialchars(_("Return to Message Composition"), ENT_COMPAT, Horde_Nls::getCharset()));
+$t->set('button_val', htmlspecialchars(_('Return to Message Composition'), ENT_COMPAT, Horde_Nls::getCharset()));
 
 echo $t->fetch(IMP_TEMPLATES . '/stationery/stationery.html');
 if (!$chunk) {

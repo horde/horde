@@ -57,14 +57,14 @@ class IMP_Filter
      */
     public function blacklistMessage($indices, $show_link = true)
     {
-        if ($this->_processBWlist($indices, _("your blacklist"), 'blacklistFrom', 'showBlacklist', $show_link)) {
+        if ($this->_processBWlist($indices, _('your blacklist'), 'blacklistFrom', 'showBlacklist', $show_link)) {
             $imp_message = IMP_Message::singleton();
 
             if (($msg_count = $imp_message->delete($indices))) {
                 if ($msg_count == 1) {
-                    $GLOBALS['notification']->push(_("The message has been deleted."), 'horde.message');
+                    $GLOBALS['notification']->push(_('The message has been deleted.'), 'horde.message');
                 } else {
-                    $GLOBALS['notification']->push(_("The messages have been deleted."), 'horde.message');
+                    $GLOBALS['notification']->push(_('The messages have been deleted.'), 'horde.message');
                 }
                 return true;
             }
@@ -85,7 +85,7 @@ class IMP_Filter
      */
     public function whitelistMessage($indices, $show_link = true)
     {
-        return $this->_processBWlist($indices, _("your whitelist"), 'whitelistFrom', 'showWhitelist', $show_link);
+        return $this->_processBWlist($indices, _('your whitelist'), 'whitelistFrom', 'showWhitelist', $show_link);
     }
 
     /**
@@ -123,8 +123,8 @@ class IMP_Filter
 
         /* Add link to filter management page. */
         if ($link && $GLOBALS['registry']->hasMethod('mail/' . $reg2)) {
-            $manage_link = Horde::link(Horde::url($GLOBALS['registry']->link('mail/' . $reg2)), sprintf(_("Filters: %s management page"), $descrip)) . _("HERE") . '</a>';
-            $GLOBALS['notification']->push(sprintf(_("Click %s to go to %s management page."), $manage_link, $descrip), 'horde.message', array('content.raw'));
+            $manage_link = Horde::link(Horde::url($GLOBALS['registry']->link('mail/' . $reg2)), sprintf(_('Filters: %s management page'), $descrip)) . _('HERE') . '</a>';
+            $GLOBALS['notification']->push(sprintf(_('Click %s to go to %s management page.'), $manage_link, $descrip), 'horde.message', array('content.raw'));
         }
 
         return true;

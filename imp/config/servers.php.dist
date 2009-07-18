@@ -217,7 +217,7 @@
  * able to log in to them. The only property these entries need is 'name'.
  * This lets you put labels in the list, like this example: */
 $servers['_prompt'] = array(
-    'name' => _("Choose a mail server:")
+    'name' => _('Choose a mail server:')
 );
 
 /* Example configurations: */

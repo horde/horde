@@ -150,7 +150,7 @@ if (!$logout_reason && IMP_Session::canAutoLogin($server_key, $autologin)) {
     exit;
 }
 
-$title = sprintf(_("Welcome to %s"), $registry->get('name', ($imp_auth) ? 'horde' : null));
+$title = sprintf(_('Welcome to %s'), $registry->get('name', ($imp_auth) ? 'horde' : null));
 
 if ($logout_reason) {
     $notification->push(str_replace('<br />', ' ', Horde_Auth::getLogoutReasonString()), 'horde.message');
@@ -204,17 +204,17 @@ if (!empty($conf['user']['select_view'])) {
         array(
             'sel' => $view_cookie == 'imp',
             'val' => 'imp',
-            'name' => _("Traditional")
+            'name' => _('Traditional')
         ),
         array(
             'val' => 'dimp',
-            'name' => _("Dynamic"),
+            'name' => _('Dynamic'),
             'hide' => true
         ),
         array(
             'sel' => $view_cookie == 'mimp',
             'val' => 'mimp',
-            'name' => _("Minimalist")
+            'name' => _('Minimalist')
         )
     );
 
@@ -228,7 +228,7 @@ if ($browser->isMobile()) {
 
     /* Build the <select> widget for the servers list. */
     if ($show_list) {
-        $server_select = new Horde_Mobile_select('server', 'popup', _("Server:"));
+        $server_select = new Horde_Mobile_select('server', 'popup', _('Server:'));
         foreach ($servers_list as $val) {
             $server_select->add($val['name'], $val['val'], $val['sel']);
         }
@@ -237,7 +237,7 @@ if ($browser->isMobile()) {
     /* Build the <select> widget containing the available languages. */
     if ($choose_language) {
         // Language names are already encoded.
-        $lang_select = new Horde_Mobile_select('new_lang', 'popup', _("Language:"));
+        $lang_select = new Horde_Mobile_select('new_lang', 'popup', _('Language:'));
         $lang_select->set('htmlchars', true);
         foreach ($langs as $val) {
             $lang_select->add($val['name'], $val['val'], $val['sel']);
@@ -246,7 +246,7 @@ if ($browser->isMobile()) {
 
     /* Build the <select> widget containing the available views. */
     if (!empty($views)) {
-        $view_select = new Horde_Mobile_select('select_view', 'popup', _("Mode:"));
+        $view_select = new Horde_Mobile_select('select_view', 'popup', _('Mode:'));
         foreach ($views as $val) {
             $view_select->add($val['name'], $val['val'], $val['sel']);
         }
@@ -283,7 +283,7 @@ $t->set('extra_hidden', $extra_hidden);
 
 $menu = new Horde_Menu(Horde_Menu::MASK_NONE);
 $t->set('menu', $menu->render());
-$t->set('title', sprintf(_("Welcome to %s"), $registry->get('name', ($imp_auth) ? 'horde' : null)));
+$t->set('title', sprintf(_('Welcome to %s'), $registry->get('name', ($imp_auth) ? 'horde' : null)));
 
 ob_start();
 $notification->notify(array('listeners' => 'status'));
@@ -324,11 +324,11 @@ if ($t->get('select_view')) {
 }
 
 $t->set('login_tabindex', ++$tabindex);
-$t->set('login', _("Login"));
+$t->set('login', _('Login'));
 
 $t->set('signup_link', false);
 if ($conf['signup']['allow'] && isset($auth) && $auth->hasCapability('add')) {
-    $t->set('signup_text', _("Don't have an account? Sign up."));
+    $t->set('signup_text', _('Do not have an account? Sign up.'));
     $t->set('signup_link', Horde::link(Horde_Util::addParameter(Horde::url($registry->get('webroot', 'horde') . '/signup.php'), 'url', $url_param), $t->get('signup_text'), 'light'));
 }
 

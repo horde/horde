@@ -91,7 +91,7 @@ case 'download_all':
     $headers = $contents->getHeaderOb();
     $zipfile = _sanitizeName($headers->getValue('subject'));
     if (empty($zipfile)) {
-        $zipfile = _("attachments.zip");
+        $zipfile = _('attachments.zip');
     } else {
         $zipfile .= '.zip';
     }
@@ -101,7 +101,7 @@ case 'download_all':
         $mime = $contents->getMIMEPart($val);
         $name = $mime->getName(true);
         if (!$name) {
-            $name = sprintf(_("part %s"), $val);
+            $name = sprintf(_('part %s'), $val);
         }
         $tosave[] = array('data' => $mime->getContents(array('stream' => true)), 'name' => $name);
     }
@@ -122,7 +122,7 @@ case 'download_render':
     case 'download_attach':
         $mime = $contents->getMIMEPart($id);
         if (!$name = $mime->getName(true)) {
-           $name = _("unnamed");
+            $name = _('unnamed');
         }
 
         /* Compress output? */
@@ -144,7 +144,7 @@ case 'download_render':
         $body = $render[$key]['data'];
         $type = $render[$key]['type'];
         if (!$name = $render[$key]['name']) {
-           $name = _("unnamed");
+            $name = _('unnamed');
         }
         break;
     }

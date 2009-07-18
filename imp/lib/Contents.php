@@ -406,8 +406,8 @@ class IMP_Contents
                         'status' => array(
                             array(
                                 'text' => array(
-                                    _("This message part cannot be viewed because it is too large."),
-                                    sprintf(_("Click %s to download the data."), $this->linkView($mime_part, 'download_attach', _("HERE")))
+                                    _('This message part cannot be viewed because it is too large.'),
+                                    sprintf(_('Click %s to download the data.'), $this->linkView($mime_part, 'download_attach', _('HERE')))
                                 )
                             )
                         ),
@@ -449,8 +449,8 @@ class IMP_Contents
                     ($charset_upper != $default_charset)) {
                     $ret['status'][] = array(
                         'text' => array(
-                            sprintf(_("This message was written in a character set (%s) other than your own."), htmlspecialchars($charset_upper)),
-                            sprintf(_("If it is not displayed correctly, %s to open it in a new window."), $this->linkViewJS($mime_part, 'view_attach', _("click here")))
+                            sprintf(_('This message was written in a character set (%s) other than your own.'), htmlspecialchars($charset_upper)),
+                            sprintf(_('If it is not displayed correctly, %s to open it in a new window.'), $this->linkViewJS($mime_part, 'view_attach', _('click here')))
                         )
                     );
                 }
@@ -595,8 +595,8 @@ class IMP_Contents
             ($mask & self::SUMMARY_SIZE)) {
             $part['bytes'] = $size = $mime_part->getBytes();
             $part['size'] = ($size > 1048576)
-                ? sprintf(_("%s MB"), number_format($size / 1048576, 1))
-                : sprintf(_("%s KB"), max(round($size / 1024), 1));
+                ? sprintf(_('%s MB'), number_format($size / 1048576, 1))
+                : sprintf(_('%s KB'), max(round($size / 1024), 1));
         }
 
         /* Get part's icon. */
@@ -605,12 +605,12 @@ class IMP_Contents
         /* Get part's description. */
         $description = $mime_part->getDescription(true);
         if (empty($description)) {
-            $description = _("unnamed");
+            $description = _('unnamed');
         }
 
         if ($mask & self::SUMMARY_DESCRIP_LINK) {
             $part['description'] = $this->canDisplay($id, self::RENDER_FULL)
-                ? $this->linkViewJS($mime_part, 'view_attach', htmlspecialchars($description), array('jstext' => sprintf(_("View %s"), $description), 'params' => $param_array))
+                ? $this->linkViewJS($mime_part, 'view_attach', htmlspecialchars($description), array('jstext' => sprintf(_('View %s'), $description), 'params' => $param_array))
                 : htmlspecialchars($description);
         } elseif ($mask & self::SUMMARY_DESCRIP_NOLINK) {
             $part['description'] = htmlspecialchars($description);
@@ -622,7 +622,7 @@ class IMP_Contents
         if ($is_atc &&
             (is_null($part['bytes']) || $part['bytes'])) {
             if ($mask & self::SUMMARY_DOWNLOAD) {
-                $part['download'] = $this->linkView($mime_part, 'download_attach', '', array('class' => 'downloadAtc', 'dload' => true, 'jstext' => _("Download")));
+                $part['download'] = $this->linkView($mime_part, 'download_attach', '', array('class' => 'downloadAtc', 'dload' => true, 'jstext' => _('Download')));
             } elseif ($mask & self::SUMMARY_DOWNLOAD_NOJS) {
                 $part['download'] = $this->urlView($mime_part, 'download_attach', array('dload' => true));
             }
@@ -634,7 +634,7 @@ class IMP_Contents
             $download_zip &&
             ($part['bytes'] > 204800) &&
             !in_array($mime_type, array('application/zip', 'application/x-zip-compressed'))) {
-            $part['download_zip'] = $this->linkView($mime_part, 'download_attach', null, array('class' => 'downloadZipAtc', 'dload' => true, 'jstext' => sprintf(_("Download %s in .zip Format"), $mime_part->getDescription(true)), 'params' => array('zip' => 1)));
+            $part['download_zip'] = $this->linkView($mime_part, 'download_attach', null, array('class' => 'downloadZipAtc', 'dload' => true, 'jstext' => sprintf(_('Download %s in .zip Format'), $mime_part->getDescription(true)), 'params' => array('zip' => 1)));
         }
 
         /* Display the image save link if the required registry calls are
@@ -642,7 +642,7 @@ class IMP_Contents
         if (($mask && self::SUMMARY_IMAGE_SAVE) &&
             $GLOBALS['registry']->hasMethod('images/selectGalleries') &&
             ($mime_part->getPrimaryType() == 'image')) {
-            $part['img_save'] = Horde::link('#', _("Save Image in Gallery"), 'saveImgAtc', null, IMP::popupIMPString('saveimage.php', array('index' => ($this->_index . IMP::IDX_SEP . $this->_mailbox), 'id' => $id), 450, 200) . "return false;") . '</a>';
+            $part['img_save'] = Horde::link('#', _('Save Image in Gallery'), 'saveImgAtc', null, IMP::popupIMPString('saveimage.php', array('index' => ($this->_index . IMP::IDX_SEP . $this->_mailbox), 'id' => $id), 450, 200) . 'return false;') . '</a>';
         }
 
         /* Strip Attachment? Allow stripping of base parts other than the
@@ -653,7 +653,7 @@ class IMP_Contents
             (strpos($id, '.') === false)) {
             $url = Horde_Util::removeParameter(Horde::selfUrl(true), array('actionID', 'imapid', 'index'));
             $url = Horde_Util::addParameter($url, array('actionID' => 'strip_attachment', 'imapid' => $id, 'index' => $this->_index, 'message_token' => Horde::getRequestToken('imp.impcontents')));
-            $part['strip'] = Horde::link($url, _("Strip Attachment"), 'stripAtc', null, "return window.confirm('" . addslashes(_("Are you sure you wish to PERMANENTLY delete this attachment?")) . "');") . '</a>';
+            $part['strip'] = Horde::link($url, _('Strip Attachment'), 'stripAtc', null, "return window.confirm('" . addslashes(_('Are you sure you wish to PERMANENTLY delete this attachment?')) . '\');') . '</a>';
         }
 
         return $part;
@@ -761,7 +761,7 @@ class IMP_Contents
         }
 
         if (empty($options['jstext'])) {
-            $options['jstext'] = sprintf(_("View %s"), $mime_part->getDescription(true));
+            $options['jstext'] = sprintf(_('View %s'), $mime_part->getDescription(true));
         }
 
         $url = IMP::popupIMPString('view.php', $this->_urlViewParams($mime_part, $actionID, isset($options['params']) ? $options['params'] : array())) . 'return false;';

@@ -293,7 +293,7 @@ class IMP_Imap
         }
 
         if ($this->_uidvalid[$mailbox]) {
-            throw new Horde_Exception(_("Mailbox structure on server has changed."));
+            throw new Horde_Exception(_('Mailbox structure on server has changed.'));
         }
     }
 

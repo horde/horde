@@ -241,11 +241,11 @@ class IMP_Imap_Tree
 
         /* Must set these values here because PHP 5 does not allow assignment
          * of const's to gettext strings. */
-        $this->VFOLDER_LABEL = _("Virtual Folders");
+        $this->VFOLDER_LABEL = _('Virtual Folders');
         $this->VFOLDER_KEY = $this->VFOLDER_LABEL . '%';
-        $this->SHARED_LABEL = _("Shared Folders");
+        $this->SHARED_LABEL = _('Shared Folders');
         $this->SHARED_KEY = $this->SHARED_LABEL . '%';
-        $this->OTHER_LABEL = _("Other Users' Folders");
+        $this->OTHER_LABEL = _('Other Users\' Folders');
         $this->OTHER_KEY = $this->OTHER_LABEL . '%';
 
         $this->init();
@@ -614,12 +614,12 @@ class IMP_Imap_Tree
                 $this->_showunsub = $old_showunsub;
                 return false;
             } else {
+                $i = count($this->_currstack);
                 do {
                     $old = array_pop($this->_currstack);
                     $this->_currkey = $old['k'] + 1;
                     $this->_currparent = $old['p'];
-                } while ((($curr = $this->current()) == false) &&
-                         count($this->_currstack));
+                } while ((($curr = $this->current()) == false) && --$i);
             }
         }
 
@@ -665,7 +665,7 @@ class IMP_Imap_Tree
      */
     public function peek()
     {
-        for ($i = ($this->_currkey + 1); ; ++$i) {
+        for ($i = ($this->_currkey + 1);; ++$i) {
             if (!isset($this->_parent[$this->_currparent][$i])) {
                 return false;
             }
@@ -1896,45 +1896,44 @@ class IMP_Imap_Tree
                 }
             }
 
-
             switch ($mailbox['v']) {
             case 'INBOX':
                 $row['icon'] = 'folders/inbox.png';
-                $row['alt'] = _("Inbox");
+                $row['alt'] = _('Inbox');
                 $row['special'] = self::SPECIAL_INBOX;
                 break;
 
             case $elt['trash']:
                 if ($GLOBALS['prefs']->getValue('use_vtrash')) {
                     $row['icon'] = ($this->isOpen($mailbox)) ? 'folders/open.png' : 'folders/folder.png';
-                    $row['alt'] = _("Mailbox");
+                    $row['alt'] = _('Mailbox');
                 } else {
                     $row['icon'] = 'folders/trash.png';
-                    $row['alt'] = _("Trash folder");
+                    $row['alt'] = _('Trash folder');
                     $row['special'] = self::SPECIAL_TRASH;
                 }
                 break;
 
             case $elt['draft']:
                 $row['icon'] = 'folders/drafts.png';
-                $row['alt'] = _("Draft folder");
+                $row['alt'] = _('Draft folder');
                 $row['special'] = self::SPECIAL_DRAFT;
                 break;
 
             case $elt['spam']:
                 $row['icon'] = 'folders/spam.png';
-                $row['alt'] = _("Spam folder");
+                $row['alt'] = _('Spam folder');
                 $row['special'] = self::SPECIAL_SPAM;
                 break;
 
             default:
                 if (in_array($mailbox['v'], $elt['sent'])) {
                     $row['icon'] = 'folders/sent.png';
-                    $row['alt'] = _("Sent mail folder");
+                    $row['alt'] = _('Sent mail folder');
                     $row['special'] = self::SPECIAL_SENT;
                 } else {
                     $row['icon'] = ($this->isOpen($mailbox)) ? 'folders/open.png' : 'folders/folder.png';
-                    $row['alt'] = _("Mailbox");
+                    $row['alt'] = _('Mailbox');
                 }
                 break;
             }
@@ -1946,11 +1945,11 @@ class IMP_Imap_Tree
                 if ($GLOBALS['imp_search']->isVTrashFolder($mailbox['v'])) {
                     $row['specialvfolder'] = true;
                     $row['icon'] = 'folders/trash.png';
-                    $row['alt'] = _("Virtual Trash Folder");
+                    $row['alt'] = _('Virtual Trash Folder');
                 } elseif ($GLOBALS['imp_search']->isVINBOXFolder($mailbox['v'])) {
                     $row['specialvfolder'] = true;
                     $row['icon'] = 'folders/inbox.png';
-                    $row['alt'] = _("Virtual INBOX Folder");
+                    $row['alt'] = _('Virtual INBOX Folder');
                 }
             }
         } else {
@@ -1958,11 +1957,11 @@ class IMP_Imap_Tree
             $row['container'] = true;
             if ($this->_forceopen && $this->isOpen($mailbox)) {
                 $row['icon'] = 'folders/open.png';
-                $row['alt'] = _("Opened Folder");
+                $row['alt'] = _('Opened Folder');
             } else {
                 $row['icon'] = 'folders/folder.png';
                 $row['iconopen'] = 'folders/open.png';
-                $row['alt'] = ($this->_forceopen) ? _("Closed Folder") : _("Folder");
+                $row['alt'] = ($this->_forceopen) ? _('Closed Folder') : _('Folder');
             }
             if ($this->isVFolder($mailbox)) {
                 $row['vfolder'] = true;
@@ -2016,7 +2015,7 @@ class IMP_Imap_Tree
                     return $new;
                 }
             }
-            throw new Horde_Exception(_("Cannot directly create mailbox in this folder."), 'horde.error');
+            throw new Horde_Exception(_('Cannot directly create mailbox in this folder.'), 'horde.error');
         }
 
         $mbox = $ns_info['name'];

@@ -136,7 +136,7 @@ abstract class IMP_Fetchmail
 
         foreach ($accounts as $val) {
             $params = $fm_account->getAllValues($val);
-            $driver = IMP_Fetchmail::factory($params['driver'], $params);
+            $driver = self::factory($params['driver'], $params);
             if ($driver === false) {
                 continue;
             }
@@ -144,14 +144,14 @@ abstract class IMP_Fetchmail
             try {
                 $res = $driver->getMail();
                 if ($res == 1) {
-                    $GLOBALS['notification']->push(_("Fetchmail: ") . sprintf(_("Fetched 1 message from %s"), $fm_account->getValue('id', $val)), 'horde.success');
+                    $GLOBALS['notification']->push(_('Fetchmail: ') . sprintf(_('Fetched 1 message from %s'), $fm_account->getValue('id', $val)), 'horde.success');
                 } elseif ($res >= 0) {
-                    $GLOBALS['notification']->push(_("Fetchmail: ") . sprintf(_("Fetched %d messages from %s"), $res, $fm_account->getValue('id', $val)), 'horde.success');
+                    $GLOBALS['notification']->push(_('Fetchmail: ') . sprintf(_('Fetched %d messages from %s'), $res, $fm_account->getValue('id', $val)), 'horde.success');
                 } else {
-                    $GLOBALS['notification']->push(_("Fetchmail: no new messages."), 'horde.success');
+                    $GLOBALS['notification']->push(_('Fetchmail: no new messages.'), 'horde.success');
                 }
             } catch (Horde_Exception $e) {
-                $GLOBALS['notification']->push(_("Fetchmail: ") . $e->getMessage(), 'horde.warning');
+                $GLOBALS['notification']->push(_('Fetchmail: ') . $e->getMessage(), 'horde.warning');
             }
         }
     }
@@ -172,9 +172,9 @@ abstract class IMP_Fetchmail
                 $form .= '<li><label><input type="checkbox" name="accounts[]" checked="checked" value="' . $key . '" /> ' . htmlspecialchars($fm_account->getValue('id', $key)) . '</label></li>';
             }
             $form .= '</ul>';
-            $text = _("Select accounts to fetch mail from:");
+            $text = _('Select accounts to fetch mail from:');
         } else {
-            $text = _("You have not configured any external mail accounts.");
+            $text = _('You have not configured any external mail accounts.');
             $form = -1;
         }
 
@@ -186,8 +186,8 @@ abstract class IMP_Fetchmail
         $res->params = array();
         $res->text = $text;
         $res->form = $form;
-        $res->ok_text = ($form == -1) ? '' : _("Fetch Mail");
-        $res->cancel_text = _("Cancel");
+        $res->ok_text = ($form == -1) ? '' : _('Fetch Mail');
+        $res->cancel_text = _('Cancel');
 
         return $res;
     }
@@ -201,9 +201,10 @@ abstract class IMP_Fetchmail
     {
         /* Check for missing params. */
         $paramlist = $this->getParameterList();
-        if (array_diff($paramlist, array_keys($params))) {
+
+        /* if (array_diff($paramlist, array_keys($params))) {
             // TODO: Error message here
-        }
+        } */
 
         $this->_params = $params;
     }
@@ -249,7 +250,7 @@ abstract class IMP_Fetchmail
     {
         if (!empty($GLOBALS['conf']['fetchmail']['size_limit']) &&
             ($size > $GLOBALS['conf']['fetchmail']['size_limit'])) {
-            $GLOBALS['notification']->push(sprintf(_("The message \"%s\" from \"%s\" (%d bytes) exceeds fetch size limit."), Horde_Mime::decode($subject), Horde_Mime::decode($from), $size), 'horde.warning');
+            $GLOBALS['notification']->push(sprintf(_('The message "%s" from "%s" (%d bytes) exceeds fetch size limit.'), Horde_Mime::decode($subject), Horde_Mime::decode($from), $size), 'horde.warning');
             return false;
         }
 

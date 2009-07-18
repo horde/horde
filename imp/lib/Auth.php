@@ -61,7 +61,7 @@ class IMP_Auth extends Horde_Auth_Base
         } catch (Horde_Imap_Client_Exception $e) {
             IMP::loginLogMessage($e->getMessage(), __FILE__, __LINE__);
             if ($e->getCode() == Horde_Imap_Client_Exception::SERVER_CONNECT) {
-                throw new Horde_Exception(_("Could not connect to the remote server."));
+                throw new Horde_Exception(_('Could not connect to the remote server.'));
             }
 
             throw new Horde_Exception('', Horde_Auth::REASON_BADLOGIN);

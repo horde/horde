@@ -11,7 +11,7 @@ echo ((!empty($ie_clientcaps)) ? ' xmlns:IE>' : '>') . '<head>';
 $page_title = $GLOBALS['registry']->get('name');
 if (!empty($title)) $page_title .= ' :: ' . $title;
 if (!empty($refresh_time) && !empty($refresh_url)) {
-    echo "<meta http-equiv=\"refresh\" content=\"$refresh_time;url=$refresh_url\" />\n";
+    echo '<meta http-equiv="refresh" content="' . $refresh_time . ';url=' . $refresh_url . "\" />\n";
 }
 echo Horde_Util::bufferOutput('require', IMP_TEMPLATES . '/javascript_defs.php');
 IMP::includeScriptFiles();

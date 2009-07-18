@@ -115,7 +115,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
                 'status' => array(
                     array(
                         'icon' => Horde::img('mime/encryption.png', 'S/MIME'),
-                        'text' => array(_("This message has been encrypted via S/MIME."))
+                        'text' => array(_('This message has been encrypted via S/MIME.'))
                     )
                 ),
                 'type' => 'text/html; charset=' . Horde_Nls::getCharset()
@@ -126,12 +126,12 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
         /* Is PGP active? */
         $this->_initSMIME();
         if (empty($this->_impsmime)) {
-            $status[] = _("S/MIME support is not currently enabled so the message is unable to be decrypted.");
+            $status[] = _('S/MIME support is not currently enabled so the message is unable to be decrypted.');
             return null;
         }
 
         if (!$this->_impsmime->getPersonalPrivateKey()) {
-            $status[] = _("No personal private key exists so the message is unable to be decrypted.");
+            $status[] = _('No personal private key exists so the message is unable to be decrypted.');
             return null;
         }
 
@@ -146,7 +146,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
                 // Fall through
 
             case 'imp':
-                $status[] = Horde::link('#', '', '', '', IMP::passphraseDialogJS('SMIMEPersonal', $js_action) . ';return false;') . _("You must enter the passphrase for your S/MIME private key to view this message.") . '</a>';
+                $status[] = Horde::link('#', '', '', '', IMP::passphraseDialogJS('SMIMEPersonal', $js_action) . ';return false;') . _('You must enter the passphrase for your S/MIME private key to view this message.') . '</a>';
                 break;
             }
             return null;
@@ -223,7 +223,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
                 'status' => array(
                     array(
                         'icon' => Horde::img('mime/encryption.png', 'S/MIME'),
-                        'text' => array(_("This message has been digitally signed via S/MIME."))
+                        'text' => array(_('This message has been digitally signed via S/MIME.'))
                     )
                 ),
                 'type' => 'text/html; charset=' . Horde_Nls::getCharset()
@@ -233,7 +233,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
         $status = &$ret[$base_id]['status'][0]['text'];
 
         if (!$GLOBALS['prefs']->getValue('use_smime')) {
-            $status[] = _("S/MIME support is not enabled so the digital signature is unable to be verified.");
+            $status[] = _('S/MIME support is not enabled so the digital signature is unable to be verified.');
             return $ret;
         }
 
@@ -250,19 +250,19 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
                 $sig_result = $this->_impsmime->verifySignature($raw_text);
             } catch (Horde_Exception $e) {
                 $ret[$base_id]['status'][0]['icon'] = ($e->getCode() == 'horde.warning')
-                    ? Horde::img('alerts/warning.png', _("Warning"), null, $graphicsdir)
-                    : Horde::img('alerts/error.png', _("Error"), null, $graphicsdir);
+                    ? Horde::img('alerts/warning.png', _('Warning'), null, $graphicsdir)
+                    : Horde::img('alerts/error.png', _('Error'), null, $graphicsdir);
                 $status[] = $e->getMessage();
                 return $ret;
             }
         } else {
             switch ($_SESSION['imp']['view']) {
             case 'imp':
-                $status[] = Horde::link(Horde_Util::addParameter(IMP::selfUrl(), 'smime_verify_msg', 1)) . _("Click HERE to verify the message.") . '</a>';
+                $status[] = Horde::link(Horde_Util::addParameter(IMP::selfUrl(), 'smime_verify_msg', 1)) . _('Click HERE to verify the message.') . '</a>';
                 break;
 
             case 'dimp':
-                $status[] = Horde::link('#', '', 'smimeVerifyMsg') . _("Click HERE to verify the message.") . '</a>';
+                $status[] = Horde::link('#', '', 'smimeVerifyMsg') . _('Click HERE to verify the message.') . '</a>';
                 break;
             }
             return $ret;
@@ -281,7 +281,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
 
         $graphicsdir = $GLOBALS['registry']->getImageDir('horde');
 
-        $ret[$base_id]['status'][0]['icon'] = Horde::img('alerts/success.png', _("Success"), null, $graphicsdir);
+        $ret[$base_id]['status'][0]['icon'] = Horde::img('alerts/success.png', _('Success'), null, $graphicsdir);
 
         /* This message has been verified but there was no output
          * from the PGP program. */
@@ -289,7 +289,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
             $email = (is_array($sig_result->email))
                 ? implode(', ', $sig_result->email)
                 : $sig_result->email;
-            $status[] = sprintf(_("The message has been verified. Sender: %s."), htmlspecialchars($email));
+            $status[] = sprintf(_('The message has been verified. Sender: %s.'), htmlspecialchars($email));
         }
 
         if (!empty($sig_result->cert)) {
@@ -309,7 +309,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
             if (!empty($subject) &&
                 $GLOBALS['registry']->hasMethod('contacts/addField') &&
                 $GLOBALS['prefs']->getValue('add_source')) {
-                $status[] = sprintf(_("The S/MIME certificate of %s: "), @htmlspecialchars($subject, ENT_COMPAT, Horde_Nls::getCharset())) . $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', _("View"), array('params' => array('mode' => IMP_Contents::RENDER_INLINE, 'view_smime_key' => 1))) . '/' . Horde::link('#', '', null, null, $this->_impsmime->savePublicKeyURL($sig_result->cert, $this->_params['contents']->getIndex(), $sig_id) . ' return false;') . _("Save in your Address Book") . '</a>';
+                $status[] = sprintf(_('The S/MIME certificate of %s: '), @htmlspecialchars($subject, ENT_COMPAT, Horde_Nls::getCharset())) . $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', _('View'), array('params' => array('mode' => IMP_Contents::RENDER_INLINE, 'view_smime_key' => 1))) . '/' . Horde::link('#', '', null, null, $this->_impsmime->savePublicKeyURL($sig_result->cert, $this->_params['contents']->getIndex(), $sig_id) . ' return false;') . _('Save in your Address Book') . '</a>';
             }
         }
 

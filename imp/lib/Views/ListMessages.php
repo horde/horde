@@ -19,7 +19,7 @@ class IMP_Views_ListMessages
      *
      * @return array  TODO
      */
-    public function ListMessages($args)
+    public function listMessages($args)
     {
         $mbox = $args['mbox'];
         $is_search = false;
@@ -34,7 +34,7 @@ class IMP_Views_ListMessages
             $query->text($args['qsearch'], false);
 
             /* Set the search in the IMP session. */
-            $GLOBALS['imp_search']->createSearchQuery($query, array($args['qsearchmbox']), array(), _("Search Results"), $mbox);
+            $GLOBALS['imp_search']->createSearchQuery($query, array($args['qsearchmbox']), array(), _('Search Results'), $mbox);
             $is_search = true;
         }
 
@@ -119,7 +119,7 @@ class IMP_Views_ListMessages
         if (empty($msgcount) && !$is_search) {
             $imp_folder = IMP_Folder::singleton();
             if (!$imp_folder->exists($mbox)) {
-                $GLOBALS['notification']->push(sprintf(_("Mailbox %s does not exist."), $label), 'horde.error');
+                $GLOBALS['notification']->push(sprintf(_('Mailbox %s does not exist.'), $label), 'horde.error');
             }
 
             $result->data = $result->rowlist = array();

@@ -30,8 +30,8 @@ function _mailboxReturnURL($encode, $url = null)
 function _popupSuccess()
 {
     $menu = new Horde_Menu(Horde_Menu::MASK_NONE);
-    $menu->add(Horde::applicationUrl('compose.php'), _("New Message"), 'compose.png');
-    $menu->add('', _("Close this window"), 'close.png', $GLOBALS['registry']->getImageDir('horde'), '', 'window.close();');
+    $menu->add(Horde::applicationUrl('compose.php'), _('New Message'), 'compose.png');
+    $menu->add('', _('Close this window'), 'close.png', $GLOBALS['registry']->getImageDir('horde'), '', 'window.close();');
     require IMP_TEMPLATES . '/common-header.inc';
     $success_template = new Horde_Template();
     $success_template->set('menu', $menu->render());
@@ -50,7 +50,7 @@ function _getIMPContents($index, $mailbox)
         $imp_contents = IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox);
         return $imp_contents;
     } catch (Horde_Exception $e) {
-        $GLOBALS['notification']->push(_("Could not retrieve the message from the mail server."), 'horde.error');
+        $GLOBALS['notification']->push(_('Could not retrieve the message from the mail server.'), 'horde.error');
         return false;
     }
 }
@@ -128,7 +128,7 @@ if ($token = Horde_Util::getFormData('compose_formToken')) {
         $notification->push($verified);
         $actionID = null;
     } elseif (!$verified) {
-        $notification->push(_("You have already submitted this page."), 'horde.error');
+        $notification->push(_('You have already submitted this page.'), 'horde.error');
         $actionID = null;
     }
 }
@@ -152,11 +152,11 @@ if ($readonly_sentmail) {
 
 /* Initialize the IMP_Compose:: object. */
 $imp_compose = IMP_Compose::singleton(Horde_Util::getFormData('composeCache'));
-$imp_compose->pgpAttachPubkey((bool) Horde_Util::getFormData('pgp_attach_pubkey'));
-$imp_compose->userLinkAttachments((bool) Horde_Util::getFormData('link_attachments'));
+$imp_compose->pgpAttachPubkey((bool)Horde_Util::getFormData('pgp_attach_pubkey'));
+$imp_compose->userLinkAttachments((bool)Horde_Util::getFormData('link_attachments'));
 
 try {
-    $imp_compose->attachVCard((bool) Horde_Util::getFormData('vcard'), $identity->getValue('fullname'));
+    $imp_compose->attachVCard((bool)Horde_Util::getFormData('vcard'), $identity->getValue('fullname'));
 } catch (IMP_Compose_Exception $e) {
     $notification->push($e);
 }
@@ -231,7 +231,7 @@ if ($_SESSION['imp']['file_upload']) {
         $filenames = $imp_compose->deleteAttachment($deleteList);
         if ($notify) {
             foreach ($filenames as $val) {
-                $notification->push(sprintf(_("Deleted the attachment \"%s\"."), Horde_Mime::decode($val)), 'horde.success');
+                $notification->push(sprintf(_('Deleted the attachment "%s".'), Horde_Mime::decode($val)), 'horde.success');
             }
         }
     }
@@ -243,7 +243,7 @@ if ($_SESSION['imp']['file_upload']) {
 }
 
 /* Run through the action handlers. */
-$title = _("New Message");
+$title = _('New Message');
 switch ($actionID) {
 case 'mailto':
     if (!($imp_contents = _getIMPContents($index, $thismailbox))) {
@@ -321,11 +321,11 @@ case 'reply_list':
     }
 
     if ($actionID == 'reply') {
-        $title = _("Reply:");
+        $title = _('Reply:');
     } elseif ($actionID == 'reply_all') {
-        $title = _("Reply to All:");
+        $title = _('Reply to All:');
     } elseif ($actionID == 'reply_list') {
-        $title = _("Reply to List:");
+        $title = _('Reply to List:');
     }
     $title .= ' ' . $header['subject'];
 
@@ -347,7 +347,7 @@ case 'forward':
     break;
 
 case 'redirect_compose':
-    $title = _("Redirect this message");
+    $title = _('Redirect this message');
     break;
 
 case 'redirect_send':
@@ -362,14 +362,14 @@ case 'redirect_send':
         $imp_compose->destroy();
         if ($isPopup) {
             if ($prefs->getValue('compose_confirm')) {
-                $notification->push(_("Message redirected successfully."), 'horde.success');
+                $notification->push(_('Message redirected successfully.'), 'horde.success');
                 _popupSuccess();
             } else {
                 Horde_Util::closeWindowJS();
             }
         } else {
             if ($prefs->getValue('compose_confirm')) {
-                $notification->push(_("Message redirected successfully."), 'horde.success');
+                $notification->push(_('Message redirected successfully.'), 'horde.success');
             }
             header('Location: ' . _mailboxReturnURL(false));
         }
@@ -446,18 +446,18 @@ case 'send_message':
 
     if (Horde_Util::getFormData('resume_draft') &&
         $prefs->getValue('auto_delete_drafts') &&
-        ($thismailbox == IMP::folderPref($prefs->getValue('drafts_folder'), true)))  {
+        ($thismailbox == IMP::folderPref($prefs->getValue('drafts_folder'), true))) {
         $imp_message = IMP_Message::singleton();
         $idx_array = array($index . IMP::IDX_SEP . $thismailbox);
         if ($imp_message->delete($idx_array)) {
-            $notification->push(_("The draft message was automatically deleted because it was successfully completed and sent."), 'horde.success');
+            $notification->push(_('The draft message was automatically deleted because it was successfully completed and sent.'), 'horde.success');
         }
     }
 
     if ($isPopup) {
         if ($prefs->getValue('compose_confirm') || !$sent) {
             if ($sent) {
-                $notification->push(_("Message sent successfully."), 'horde.success');
+                $notification->push(_('Message sent successfully.'), 'horde.success');
             }
             _popupSuccess();
         } else {
@@ -465,7 +465,7 @@ case 'send_message':
         }
     } else {
         if ($prefs->getValue('compose_confirm') && $sent) {
-            $notification->push(_("Message sent successfully."), 'horde.success');
+            $notification->push(_('Message sent successfully.'), 'horde.success');
         }
         header('Location: ' . _mailboxReturnURL(false));
     }
@@ -520,9 +520,7 @@ case 'fwd_digest':
     if (!empty($indices)) {
         $msglist = unserialize(urldecode($indices));
         $subject_header = $imp_compose->attachIMAPMessage($msglist);
-        if ($subject_header === false) {
-            // TODO: notification
-        } else {
+        if ($subject_header !== false) {
             $header['subject'] = $subject_header;
         }
     }
@@ -742,7 +740,7 @@ if ($prefs->getValue('use_pgp') && !$prefs->isLocked('default_encrypt')) {
             }
         } catch (IMP_Compose_Exception $e) {
         } catch (Horde_Exception $e) {
-            $notification->push(_("PGP encryption cannot be used by default as public keys cannot be found for all recipients."), 'horde.warning');
+            $notification->push(_('PGP encryption cannot be used by default as public keys cannot be found for all recipients.'), 'horde.warning');
             $encrypt_options = ($default_encrypt == IMP::PGP_ENCRYPT) ? IMP::ENCRYPT_NONE : IMP::PGP_SIGN;
         }
     }
@@ -822,13 +820,13 @@ if ($redirect) {
 
     if ($registry->hasMethod('contacts/search')) {
         $t->set('has_search', true);
-        $t->set('abook', Horde::link('#', _("Address Book"), 'widget', null, 'window.open(\'' . Horde_Util::addParameter(Horde::applicationUrl('contacts.php'), array('formname' => 'redirect', 'to_only' => 1)) . '\', \'contacts\', \'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100\'); return false;') . Horde::img('addressbook_browse.png') . '<br />' . _("Address Book") . '</a>');
+        $t->set('abook', Horde::link('#', _('Address Book'), 'widget', null, 'window.open(\'' . Horde_Util::addParameter(Horde::applicationUrl('contacts.php'), array('formname' => 'redirect', 'to_only' => 1)) . '\', \'contacts\', \'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100\'); return false;') . Horde::img('addressbook_browse.png') . '<br />' . _('Address Book') . '</a>');
         if (!$has_js) {
-            $t->set('expand', Horde::link('#', _("Expand Names"), 'widget', null, "$('actionID').value='redirect_expand_addr';uniqSubmit();return false;") . Horde::img('expand.png') . '<br />' . _("Expand Names") . '</a>', true);
+            $t->set('expand', Horde::link('#', _('Expand Names'), 'widget', null, '$("actionID").value="redirect_expand_addr";uniqSubmit();return false;') . Horde::img('expand.png') . '<br />' . _('Expand Names') . '</a>', true);
         }
     }
 
-    $t->set('to', Horde::label('to', _("To")));
+    $t->set('to', Horde::label('to', _('To')));
 
     $tabindex = -1;
     if (is_array($header['to'])) {
@@ -842,7 +840,7 @@ if ($redirect) {
                 $entry['select_tabindex'] = ++$tabindex;
                 $entry['select_name'] = htmlspecialchars($to_item[0]);
                 $entry['select_to'] = array();
-                for ($i = 1; $i < count($to_item); $i++) {
+                for ($i = 1, $items = count($to_item); $i < $items; ++$i) {
                     $entry['select_to'][] = array('val' => htmlspecialchars($to_item[$i]));
                 }
             } else {
@@ -909,9 +907,9 @@ if ($redirect) {
 
     $t->set('title', htmlspecialchars($title));
     $t->set('status', Horde_Util::bufferOutput(array('IMP', 'status')));
-    $t->set('send_msg_ak', Horde::getAccessKeyAndTitle(_("_Send Message")));
+    $t->set('send_msg_ak', Horde::getAccessKeyAndTitle(_('_Send Message')));
     if ($conf['user']['allow_folders'] && !$readonly_drafts) {
-        $t->set('save_draft_ak', Horde::getAccessKeyAndTitle(_("Save _Draft")));
+        $t->set('save_draft_ak', Horde::getAccessKeyAndTitle(_('Save _Draft')));
     }
     $t->set('help_buttons', Horde_Help::link('imp', 'compose-buttons'));
     $t->set('di_locked', $prefs->isLocked('default_identity'));
@@ -928,7 +926,7 @@ if ($redirect) {
         }
     } else {
         $select_list = $identity->getSelectList();
-        $t->set('identity_label', Horde::label('identity', _("_Identity")));
+        $t->set('identity_label', Horde::label('identity', _('_Identity')));
         $t->set('help_compose-from', Horde_Help::link('imp', 'compose-identity'));
         $t->set('last_identity', $identity->getDefault());
         $t->set('count_select_list', count($select_list) > 1);
@@ -944,14 +942,14 @@ if ($redirect) {
             $t->set('identity_text', htmlspecialchars($select_list[0]));
         }
     }
-    $t->set('label_to', Horde::label('to', _("_To")));
+    $t->set('label_to', Horde::label('to', _('_To')));
 
-    $addr_array = array('to' => _("_To"));
+    $addr_array = array('to' => _('_To'));
     if ($prefs->getValue('compose_cc')) {
-        $addr_array['cc'] = _("_Cc");
+        $addr_array['cc'] = _('_Cc');
     }
     if ($prefs->getValue('compose_bcc')) {
-        $addr_array['bcc'] = _("_Bcc");
+        $addr_array['bcc'] = _('_Bcc');
     }
 
     $address_array = array();
@@ -973,7 +971,7 @@ if ($redirect) {
                     $entry['select_tabindex'] = ++$tabindex;
                     $entry['select_name'] = htmlspecialchars($item[0]);
                     $entry['select_arr'] = array();
-                    for ($i = 1; $i < count($item); $i++) {
+                    for ($i = 1, $items = count($item); $i < $items; ++$i) {
                         $entry['select_arr'][] = array('val' => htmlspecialchars($item[$i]));
                     }
                     $entry['input_value'] = null;
@@ -1002,7 +1000,7 @@ if ($redirect) {
     }
     $t->set('addr', $address_array);
 
-    $t->set('subject_label', Horde::label('subject', _("S_ubject")));
+    $t->set('subject_label', Horde::label('subject', _('S_ubject')));
     $t->set('subject_tabindex', ++$tabindex);
     $t->set('subject', htmlspecialchars($header['subject']));
     $t->set('help-subject', Horde_Help::link('imp', 'compose-subject'));
@@ -1010,7 +1008,7 @@ if ($redirect) {
     $t->set('set_priority', $prefs->getValue('set_priority'));
     $t->set('unlocked_charset', !$prefs->isLocked('sending_charset'));
     if ($t->get('unlocked_charset')) {
-        $t->set('charset_label', Horde::label('charset', _("C_harset")));
+        $t->set('charset_label', Horde::label('charset', _('C_harset')));
         $t->set('charset_tabindex', ++$tabindex);
         $charset_array = array();
         foreach (Horde_Nls::$config['encodings'] as $charset => $label) {
@@ -1020,16 +1018,16 @@ if ($redirect) {
         $t->set('help_compose_charset', Horde_Help::link('imp', 'compose-charset'));
     }
     if ($t->get('set_priority')) {
-        $t->set('priority_label', Horde::label('priority', _("_Priority")));
+        $t->set('priority_label', Horde::label('priority', _('_Priority')));
         $t->set('priority_tabindex', ++$tabindex);
 
         $priority = Horde_Util::getFormData('x_priority', 3);
         $priorities = array(
-            1 => '1 (' . _("Highest") . ')',
-            2 => '2 (' . _("High") . ')',
-            3 => '3 (' . _("Normal") . ')',
-            4 => '4 (' . _("Low") . ')',
-            5 => '5 (' . _("Lowest") . ')'
+            1 => '1 (' . _('Highest') . ')',
+            2 => '2 (' . _('High') . ')',
+            3 => '3 (' . _('Normal') . ')',
+            4 => '4 (' . _('Low') . ')',
+            5 => '5 (' . _('Lowest') . ')'
         );
         $priority_option = array();
         foreach ($priorities as $key => $val) {
@@ -1041,7 +1039,7 @@ if ($redirect) {
 
     $t->set('stationery', !empty($stationery_list));
     if ($t->get('stationery')) {
-        $t->set('stationery_label', Horde::label('stationery', _("Stationery")));
+        $t->set('stationery_label', Horde::label('stationery', _('Stationery')));
         $stationeries = array();
         foreach ($stationery_list as $id => $choice) {
             $stationeries[] = array('val' => $id, 'label' => $choice['n'], 'selected' => ($stationery === $id));
@@ -1056,15 +1054,16 @@ if ($redirect) {
         $compose_options[] = array(
             'url' => Horde::link('#', '', 'widget', null, 'window.open(\'' . Horde::applicationUrl('contacts.php') . '\', \'contacts\', \'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100\'); return false;'),
             'img' => Horde::img('addressbook_browse.png'),
-            'label' => $show_text ? _("Address Book") : '');
+            'label' => $show_text ? _('Address Book') : '');
         if (!$has_js) {
             $compose_options[] = array(
                 'url' => Horde::link(
                     '#', '', 'widget', null,
                     "uniqSubmit('compose_expand_addr'); return false;",
-                    '', '', array('name' => 'btn_compose_expand_addr')),
+                    '', '', array('name' => 'btn_compose_expand_addr')
+                ),
                 'img' => Horde::img('expand.png'),
-                'label' => $show_text ? _("Expand Names") : '');
+                'label' => $show_text ? _('Expand Names') : '');
         }
     }
     if ($spellcheck) {
@@ -1077,7 +1076,7 @@ if ($redirect) {
         $compose_options[] = array(
             'url' => Horde::link('#attachments', '', 'widget'),
             'img' => Horde::img('manage_attachments.png'),
-            'label' => $show_text ? _("Attachments") : ''
+            'label' => $show_text ? _('Attachments') : ''
         );
     }
     $t->set('compose_options', $compose_options);
@@ -1086,10 +1085,10 @@ if ($redirect) {
     $t->set('ssm', ($conf['user']['allow_folders'] && !$prefs->isLocked('save_sent_mail')));
     if ($t->get('ssm')) {
         if ($readonly_sentmail) {
-            $notification->push(sprintf(_("Cannot save sent-mail message to \"%s\" as that mailbox is read-only.", $sent_mail_folder), 'horde.warning'));
+            $notification->push(sprintf(_('Cannot save sent-mail message to "%s" as that mailbox is read-only.'), $sent_mail_folder), 'horde.warning');
         }
         $t->set('ssm_selected', $token ? ($save_sent_mail == 'on') : $identity->saveSentmail());
-        $t->set('ssm_label', Horde::label('ssm', _("Sa_ve a copy in ")));
+        $t->set('ssm_label', Horde::label('ssm', _('Sa_ve a copy in ')));
         if ($smf = Horde_Util::getFormData('sent_mail_folder')) {
             $sent_mail_folder = $smf;
         }
@@ -1114,18 +1113,18 @@ if ($redirect) {
     $d_read = $prefs->getValue('disposition_request_read');
     $t->set('rrr', $conf['compose']['allow_receipts'] && ($d_read != 'never'));
     if ($t->get('rrr')) {
-       $t->set('rrr_selected', ($d_read != 'ask') || (Horde_Util::getFormData('request_read_receipt') == 'on'));
-       $t->set('rrr_label', Horde::label('rrr', _("Request a _Read Receipt")));
+        $t->set('rrr_selected', ($d_read != 'ask') || (Horde_Util::getFormData('request_read_receipt') == 'on'));
+        $t->set('rrr_label', Horde::label('rrr', _('Request a _Read Receipt')));
     }
 
     $t->set('compose_html', (!is_null($rtemode) && !$prefs->isLocked('compose_html')));
     if ($t->get('compose_html')) {
-        $t->set('html_img', Horde::img('compose.png', _("Switch Composition Method")));
-        $t->set('html_switch', Horde::link('#', _("Switch Composition Method"), '', '', "$('rtemode').value='" . ($rtemode ? 0 : 1) . "';uniqSubmit();return false;"));
+        $t->set('html_img', Horde::img('compose.png', _('Switch Composition Method')));
+        $t->set('html_switch', Horde::link('#', _('Switch Composition Method'), '', '', '$("rtemode").value="' . ($rtemode ? 0 : 1) . '";uniqSubmit();return false;'));
         $t->set('rtemode', $rtemode);
     }
 
-    $t->set('message_label', Horde::label('message', _("Te_xt")));
+    $t->set('message_label', Horde::label('message', _('Te_xt')));
     $t->set('message_tabindex', ++$tabindex);
     $t->set('message', htmlspecialchars($msg));
 
@@ -1134,25 +1133,25 @@ if ($redirect) {
         if ($prefs->isLocked('default_encrypt')) {
             $t->set('use_encrypt', false);
         } else {
-            $t->set('encrypt_label', Horde::label('encrypt_options', _("Encr_yption Options")));
+            $t->set('encrypt_label', Horde::label('encrypt_options', _('Encr_yption Options')));
             $t->set('encrypt_options', IMP::encryptList($encrypt_options));
             $t->set('help-encrypt', Horde_Help::link('imp', 'compose-options-encrypt'));
         }
         $t->set('pgp_options', ($prefs->getValue('use_pgp') && $prefs->getValue('pgp_public_key')));
         if ($t->get('pgp_options')) {
             $t->set('pgp_attach_pubkey', Horde_Util::getFormData('pgp_attach_pubkey', $prefs->getValue('pgp_attach_pubkey')));
-            $t->set('pap', Horde::label('pap', _("Attach a copy of your PGP public key to the message?")));
+            $t->set('pap', Horde::label('pap', _('Attach a copy of your PGP public key to the message?')));
             $t->set('help-pubkey', Horde_Help::link('imp', 'pgp-compose-attach-pubkey'));
         }
     }
     if ($registry->hasMethod('contacts/ownVCard')) {
-        $t->set('vcard', Horde::label('vcard', _("Attach your contact information to the message?")));
+        $t->set('vcard', Horde::label('vcard', _('Attach your contact information to the message?')));
         $t->set('attach_vcard', Horde_Util::getFormData('vcard'));
     }
     if ($_SESSION['imp']['file_upload']) {
         $localeinfo = Horde_Nls::getLocaleInfo();
         try {
-            $t->set('selectlistlink', $GLOBALS['registry']->call('files/selectlistLink', array(_("Attach Files"), 'widget', 'compose', true)));
+            $t->set('selectlistlink', $GLOBALS['registry']->call('files/selectlistLink', array(_('Attach Files'), 'widget', 'compose', true)));
         } catch (Horde_Exception $e) {
             $t->set('selectlistlink', null);
         }
@@ -1175,11 +1174,11 @@ if ($redirect) {
             $attach_options = array();
             if ($show_save_attach) {
                 $save_attach_val = Horde_Util::getFormData('save_attachments_select', ($save_attach == 'prompt_yes'));
-                $attach_options[] = array('label' => _("Save Attachments with message in sent-mail folder?"), 'name' => 'save_attachments_select', 'select_yes' => ($save_attach_val == 1), 'select_no' => ($save_attach_val == 0), 'help' => Horde_Help::link('imp', 'compose-save-attachments'));
+                $attach_options[] = array('label' => _('Save Attachments with message in sent-mail folder?'), 'name' => 'save_attachments_select', 'select_yes' => ($save_attach_val == 1), 'select_no' => ($save_attach_val == 0), 'help' => Horde_Help::link('imp', 'compose-save-attachments'));
             }
             if ($show_link_attach) {
                 $link_attach_val = Horde_Util::getFormData('link_attachments');
-                $attach_options[] = array('label' => _("Link Attachments?"), 'name' => 'link_attachments', 'select_yes' => ($link_attach_val == 1), 'select_no' => ($link_attach_val == 0), 'help' => Horde_Help::link('imp', 'compose-link-attachments'));
+                $attach_options[] = array('label' => _('Link Attachments?'), 'name' => 'link_attachments', 'select_yes' => ($link_attach_val == 1), 'select_no' => ($link_attach_val == 0), 'help' => Horde_Help::link('imp', 'compose-link-attachments'));
             }
             $t->set('attach_options', $attach_options);
         }
@@ -1202,7 +1201,7 @@ if ($redirect) {
 
                 if ($type != 'application/octet-stream') {
                     $preview_url = Horde_Util::addParameter(Horde::applicationUrl('view.php'), array('actionID' => 'compose_attach_preview', 'id' => $atc_num, 'composeCache' => $composeCacheID));
-                    $entry['name'] = Horde::link($preview_url, _("Preview") . ' ' . $entry['name'], 'link', 'compose_preview_window') . $entry['name'] . '</a>';
+                    $entry['name'] = Horde::link($preview_url, _('Preview') . ' ' . $entry['name'], 'link', 'compose_preview_window') . $entry['name'] . '</a>';
                 }
 
                 $atc[] = $entry;
@@ -1211,7 +1210,7 @@ if ($redirect) {
             $t->set('total_attach_size', number_format($imp_compose->sizeOfAttachments() / 1024, 2, $localeinfo['decimal_point'], $localeinfo['thousands_sep']));
             $t->set('perc_attach', ((!empty($conf['compose']['attach_size_limit'])) && ($conf['compose']['attach_size_limit'] > 0)));
             if ($t->get('perc_attach')) {
-                $t->set('perc_attach', sprintf(_("%s%% of allowed size"), number_format($imp_compose->sizeOfAttachments() / $conf['compose']['attach_size_limit'] * 100, 2, $localeinfo['decimal_point'], $localeinfo['thousands_sep'])));
+                $t->set('perc_attach', sprintf(_('%s%% of allowed size'), number_format($imp_compose->sizeOfAttachments() / $conf['compose']['attach_size_limit'] * 100, 2, $localeinfo['decimal_point'], $localeinfo['thousands_sep'])));
             }
             $t->set('help-current-attachments', Horde_Help::link('imp', 'compose-current-attachments'));
         }

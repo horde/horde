@@ -95,7 +95,7 @@ class IMP_Sentmail
      * @param string $action      Why the message was sent, i.e. "new",
      *                            "reply", "forward", etc.
      * @param string $message_id  The Message-ID.
-     * @param string $recipients  A message recipient.
+     * @param string $recipient   A message recipient.
      * @param boolean $success    Whether the attempt was successful.
      */
     protected function _log($action, $message_id, $recipient, $success)
