@@ -39,8 +39,24 @@ class Horde_Oauth_Request
         $this->_url = $url;
     }
 
+    /**
+     * Sign this request in accordance with OAuth
+     *
+     * @param $signatureMethod
+     * @param $consumer
+     * @param $token
+     * @return unknown_type
+     */
     public function sign($signatureMethod, $consumer, $token = null)
     {
+        if (empty($this->_params['oauth_consumer_key'])) {
+            $this->_params['oauth_consumer_key'] = $consumer->key;
+        }
+
+        if (empty($this->_params['oauth_token']) && !is_null($token)) {
+            $this->_params['oauth_token'] = $token->key;
+        }
+
         $this->_params['oauth_signature_method'] = $signatureMethod->getName();
         $this->_params['oauth_signature'] = $signatureMethod->sign($this, $consumer, $token);
 
@@ -74,6 +90,19 @@ class Horde_Oauth_Request
             $parts[] = Horde_Oauth_Utils::urlencodeRfc3986($k) . '=' . Horde_Oauth_Utils::urlencodeRfc3986($v);
         }
         return implode('&', $parts);
+    }
+
+    public function buildAuthorizationHeader()
+    {
+        $header = '';
+        var_dump($this->_params);
+        foreach ($this->_params as $k => $v) {
+            if (strpos($k, 'oauth_') !== false) {
+                $header .= Horde_Oauth_Utils::urlencodeRfc3986($k) . '="' . Horde_Oauth_Utils::urlencodeRfc3986($v) . '",';
+            }
+        }
+        $header .= 'realm="' . Horde_Oauth_Utils::urlencodeRfc3986('twitter.com') . '"';
+        return 'OAuth ' . $header;
     }
 
     /**
