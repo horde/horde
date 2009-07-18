@@ -20,8 +20,29 @@ class Horde_Oauth_Consumer
 {
     protected $_config;
 
+    /**
+     * Const'r for consumer.
+     *
+     * @param array $config  Configuration values:
+     *  <pre>
+     *    'key'               - Consumer key
+     *    'secret'            - Consumer secret
+     *    'requestTokenUrl'   - The request token URL
+     *    'authorizeTokenUrl' - The authorize URL
+     *    'signatureMethod    - Horde_Oauth_SignatureMethod object
+     *  </pre>
+     *
+     * @return Horde_Oauth_Consumer
+     */
     public function __construct($config)
     {
+        // Check for required config
+        if (!is_array($config) || empty($config['key']) || empty($config['secret']) ||
+            empty($config['requestTokenUrl']) || empty($config['authorizeTokenUrl']) ||
+            empty($config['signatureMethod'])) {
+
+            throw new InvalidArgumentException('Missing a required parameter in Horde_Oauth_Consumer::__construct');
+        }
         $this->_config = $config;
     }
 
@@ -30,6 +51,13 @@ class Horde_Oauth_Consumer
         return isset($this->_config[$name]) ? $this->_config[$name] : null;
     }
 
+    /**
+     * Obtain a request token
+     *
+     * @param array $params  Parameter array
+     *
+     * @return Horde_Oauth_Token  A OAuth request token
+     */
     public function getRequestToken($params = array())
     {
         $params['oauth_consumer_key'] = $this->key;
@@ -38,6 +66,7 @@ class Horde_Oauth_Consumer
         $request->sign($this->signatureMethod, $this);
 
         $client = new Horde_Http_Client;
+
         $response = $client->post(
             $this->requestTokenUrl,
             $request->buildHttpQuery()
@@ -45,11 +74,25 @@ class Horde_Oauth_Consumer
         return Horde_Oauth_Token::fromString($response->getBody());
     }
 
+    /**
+     * Get the user authorization url
+     *
+     * @param Horde_Oauth_Token $token  A OAuth token
+     *
+     * @return string The user authorization url string
+     */
     public function getUserAuthorizationUrl($token)
     {
         return $this->authorizeTokenUrl . '?oauth_token=' . urlencode($token->key) . '&oauth_callback=' . urlencode($this->callbackUrl);
     }
 
+    /**
+     *
+     * @param Horde_Oauth_Token $token
+     * @param $params
+     *
+     * @return unknown_type
+     */
     public function getAccessToken($token, $params = array())
     {
         $params['oauth_consumer_key'] = $this->key;
