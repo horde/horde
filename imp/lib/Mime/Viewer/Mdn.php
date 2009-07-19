@@ -54,8 +54,8 @@ class IMP_Horde_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Driver
 
         $status = array(
             array(
-                'icon' => Horde::img('info_icon.png', _('Info'), null, $GLOBALS['registry']->getImageDir('horde')),
-                'text' => array(_('A message you have sent has resulted in a return notification from the recipient.'))
+                'icon' => Horde::img('info_icon.png', _("Info"), null, $GLOBALS['registry']->getImageDir('horde')),
+                'text' => array(_("A message you have sent has resulted in a return notification from the recipient."))
             )
         );
 
@@ -74,7 +74,7 @@ class IMP_Horde_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Driver
         $curr_id = Horde_Mime::mimeIdArithmetic($curr_id, 'next');
         $part = $this->_params['contents']->getMIMEPart($curr_id);
         if ($part) {
-            $status[0]['text'][] = sprintf(_('Additional information can be viewed %s.'), $this->_params['contents']->linkViewJS($part, 'view_attach', _('HERE'), array('jstext' => _('Additional information details'), 'params' => array('mode' => IMP_Contents::RENDER_INLINE))));
+            $status[0]['text'][] = sprintf(_("Additional information can be viewed %s."), $this->_params['contents']->linkViewJS($part, 'view_attach', _("HERE"), array('jstext' => _("Additional information details"), 'params' => array('mode' => IMP_Contents::RENDER_INLINE))));
         }
 
         /* Display a link to the sent message. Try to download the text of
@@ -82,13 +82,13 @@ class IMP_Horde_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Driver
         $curr_id = Horde_Mime::mimeIdArithmetic($curr_id, 'next');
         $part = $this->_params['contents']->getMIMEPart($curr_id);
         if ($part) {
-            $status[0]['text'][] = sprintf(_('The text of the sent message can be viewed %s.'), $this->_params['contents']->linkViewJS($part, 'view_attach', _('HERE'), array('jstext' => _('The text of the sent message'))));
+            $status[0]['text'][] = sprintf(_("The text of the sent message can be viewed %s."), $this->_params['contents']->linkViewJS($part, 'view_attach', _("HERE"), array('jstext' => _("The text of the sent message"))));
         }
 
         if (empty($first_part)) {
             $data = '';
         } else {
-            $status[0]['text'][] = _('The mail server generated the following informational message:');
+            $status[0]['text'][] = _("The mail server generated the following informational message:");
             $status = array_merge($status, $first_part[$first_id]['status']);
             $data = $first_part[$first_id]['data'];
         }

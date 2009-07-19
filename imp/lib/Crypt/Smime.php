@@ -107,13 +107,13 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         /* Make sure the certificate is valid. */
         $key_info = openssl_x509_parse($cert);
         if (!is_array($key_info) || !isset($key_info['subject'])) {
-            throw new Horde_Exception(_('Not a valid public key.'));
+            throw new Horde_Exception(_("Not a valid public key."));
         }
 
         /* Add key to the user's address book. */
         $email = $this->getEmailFromKey($cert);
         if (is_null($email)) {
-            throw new Horde_Exception(_('No email information located in the public key.'));
+            throw new Horde_Exception(_("No email information located in the public key."));
         }
 
         /* Get the name corresponding to this key. */
@@ -122,7 +122,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         } elseif (isset($key_info['subject']['OU'])) {
             $name = $key_info['subject']['OU'];
         } else {
-            throw new Horde_Exception(_('Not a valid public key.'));
+            throw new Horde_Exception(_("Not a valid public key."));
         }
 
         $GLOBALS['registry']->call('contacts/addField', array($email, $name, self::PUBKEY_FIELD, $cert, $GLOBALS['prefs']->getValue('add_source')));
@@ -325,7 +325,6 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
     {
         $params = array(
             'actionID' => 'save_attachment_public_key',
-            'mailbox' => $mailbox,
             'uid' => $uid,
             'mime_id' => $id
         );

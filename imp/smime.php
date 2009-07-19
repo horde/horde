@@ -12,7 +12,7 @@
 
 function _importKeyDialog($target)
 {
-    $title = _('Import S/MIME Key');
+    $title = _("Import S/MIME Key");
     require IMP_TEMPLATES . '/common-header.inc';
     IMP::status();
 
@@ -35,7 +35,7 @@ function _getImportKey()
         return $key;
     }
 
-    $res = $GLOBALS['browser']->wasFileUploaded('upload_key', _('key'));
+    $res = $GLOBALS['browser']->wasFileUploaded('upload_key', _("key"));
     if (!is_a($res, 'PEAR_Error')) {
         return file_get_contents($_FILES['upload_key']['tmp_name']);
     } else {
@@ -71,7 +71,7 @@ function _printKeyInfo($cert)
 {
     $key_info = $GLOBALS['imp_smime']->certToHTML($cert);
     if (empty($key_info)) {
-        _textWindowOutput('S/MIME Key Information', _('Invalid key'));
+        _textWindowOutput('S/MIME Key Information', _("Invalid key"));
     } else {
         _textWindowOutput('S/MIME Key Information', $key_info, true);
     }
@@ -88,13 +88,13 @@ $actionID = Horde_Util::getFormData('actionID');
 switch ($actionID) {
 case 'delete_key':
     $imp_smime->deletePersonalKeys();
-    $notification->push(_('Personal S/MIME keys deleted successfully.'), 'horde.success');
+    $notification->push(_("Personal S/MIME keys deleted successfully."), 'horde.success');
     break;
 
 case 'delete_public_key':
     try {
         $imp_smime->deletePublicKey(Horde_Util::getFormData('email'));
-        $notification->push(sprintf(_('S/MIME Public Key for "%s" was successfully deleted.'), Horde_Util::getFormData('email')), 'horde.success');
+        $notification->push(sprintf(_("S/MIME Public Key for \"%s\" was successfully deleted."), Horde_Util::getFormData('email')), 'horde.success');
     } catch (Horde_Exception $e) {
         $notification->push($e);
     }
@@ -107,14 +107,14 @@ case 'import_public_key':
 case 'process_import_public_key':
     $publicKey = _getImportKey();
     if (empty($publicKey)) {
-        $notification->push(_('No S/MIME public key imported.'), 'horde.error');
+        $notification->push(_("No S/MIME public key imported."), 'horde.error');
         $actionID = 'import_public_key';
         _importKeyDialog('process_import_public_key');
     } else {
         /* Add the public key to the storage system. */
         try {
             $imp_smime->addPublicKey($publicKey);
-            $notification->push(_('S/MIME Public Key successfully added.'), 'horde.success');
+            $notification->push(_("S/MIME Public Key successfully added."), 'horde.success');
             _reloadWindow();
         } catch (Horde_Exception $e) {
             $notification->push($e, 'horde.error');
@@ -155,16 +155,16 @@ case 'import_personal_certs':
 
 case 'process_import_personal_certs':
     if (!($pkcs12 = _getImportKey())) {
-        $notification->push(_('No personal S/MIME certificates imported.'), 'horde.error');
+        $notification->push(_("No personal S/MIME certificates imported."), 'horde.error');
         $actionID = 'import_personal_certs';
         _importKeyDialog('process_import_personal_certs');
     } else {
         try {
             $imp_smime->addFromPKCS12($pkcs12, Horde_Util::getFormData('upload_key_pass'), Horde_Util::getFormData('upload_key_pk_pass'));
-            $notification->push(_('S/MIME Public/Private Keypair successfully added.'), 'horde.success');
+            $notification->push(_("S/MIME Public/Private Keypair successfully added."), 'horde.success');
             _reloadWindow();
         } catch (Horde_Exception $e) {
-            $notification->push(_('Personal S/MIME certificates NOT imported: ') . $e->getMessage(), 'horde.error');
+            $notification->push(_("Personal S/MIME certificates NOT imported: ") . $e->getMessage(), 'horde.error');
             $actionID = 'import_personal_certs';
             _importKeyDialog('process_import_personal_certs');
         }
@@ -184,21 +184,21 @@ case 'save_attachment_public_key':
         $imp_smime->addPublicKey($mime_part);
         Horde_Util::closeWindowJS();
     } catch (Horde_Exception $e) {
-        $notification->push(_('No Certificate found'), 'horde.error');
+        $notification->push(_("No Certificate found"), 'horde.error');
     }
     exit;
 
 case 'unset_passphrase':
     if ($imp_smime->getPassphrase() !== false) {
         $imp_smime->unsetPassphrase();
-        $notification->push(_('Passphrase successfully unloaded.'), 'horde.success');
+        $notification->push(_("Passphrase successfully unloaded."), 'horde.success');
     }
     break;
 
 case 'save_options':
     $prefs->setValue('use_smime', Horde_Util::getFormData('use_smime') ? 1 : 0);
     $prefs->setValue('smime_verify', Horde_Util::getFormData('smime_verify') ? 1 : 0);
-    $notification->push(_('Preferences successfully updated.'), 'horde.success');
+    $notification->push(_("Preferences successfully updated."), 'horde.success');
     break;
 }
 
@@ -251,9 +251,9 @@ if ($openssl_check && $prefs->getValue('use_smime')) {
             $plist[] = array(
                 'name' => $val['name'],
                 'email' => $val['email'],
-                'view' => Horde::link(Horde_Util::addParameter($linkurl, 'actionID', 'view_public_key'), sprintf(_('View %s Public Key'), $val['name']), null, 'view_key'),
-                'info' => Horde::link(Horde_Util::addParameter($linkurl, 'actionID', 'info_public_key'), sprintf(_('Information on %s Public Key'), $val['name']), null, 'info_key'),
-                'delete' => Horde::link(Horde_Util::addParameter($linkurl, 'actionID', 'delete_public_key'), sprintf(_('Delete %s Public Key'), $val['name']), null, null, 'if (confirm(\'' . addslashes(_('Are you sure you want to delete this public key?')) . '\')) { return true; } else { return false; }')
+                'view' => Horde::link(Horde_Util::addParameter($linkurl, 'actionID', 'view_public_key'), sprintf(_("View %s Public Key"), $val['name']), null, 'view_key'),
+                'info' => Horde::link(Horde_Util::addParameter($linkurl, 'actionID', 'info_public_key'), sprintf(_("Information on %s Public Key"), $val['name']), null, 'info_key'),
+                'delete' => Horde::link(Horde_Util::addParameter($linkurl, 'actionID', 'delete_public_key'), sprintf(_("Delete %s Public Key"), $val['name']), null, null, "if (confirm('" . addslashes(_("Are you sure you want to delete this public key?")) . "')) { return true; } else { return false; }")
             );
         }
         $t->set('pubkey_list', $plist);
@@ -274,12 +274,12 @@ if ($openssl_check && $prefs->getValue('use_smime')) {
     if (!$t->get('secure_check')) {
         $t->set('has_key', $prefs->getValue('smime_public_key') && $prefs->getValue('smime_private_key'));
         if ($t->get('has_key')) {
-            $t->set('viewpublic', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'view_personal_public_key'), _('View Personal Public Key'), null, 'view_key'));
-            $t->set('infopublic', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'info_personal_public_key'), _('Information on Personal Public Key'), null, 'info_key'));
+            $t->set('viewpublic', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'view_personal_public_key'), _("View Personal Public Key"), null, 'view_key'));
+            $t->set('infopublic', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'info_personal_public_key'), _("Information on Personal Public Key"), null, 'info_key'));
             $passphrase = $imp_smime->getPassphrase();
-            $t->set('passphrase', empty($passphrase) ? Horde::link('#', _('Enter Passphrase'), null, null, IMP::passphraseDialogJS('SMIMEPersonal') . ';return false;') . _('Enter Passphrase') : Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'unset_passphrase'), _('Unload Passphrase')) . _('Unload Passphrase'));
-            $t->set('viewprivate', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'view_personal_private_key'), _('View Personal Private Key'), null, 'view_key'));
-            $t->set('deletekeypair', addslashes(_('Are you sure you want to delete your keypair? (This is NOT recommended!)')));
+            $t->set('passphrase', empty($passphrase) ? Horde::link('#', _("Enter Passphrase"), null, null, IMP::passphraseDialogJS('SMIMEPersonal') . ';return false;') . _("Enter Passphrase") : Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'unset_passphrase'), _("Unload Passphrase")) . _("Unload Passphrase"));
+            $t->set('viewprivate', Horde::link(Horde_Util::addParameter($selfURL, 'actionID', 'view_personal_private_key'), _("View Personal Private Key"), null, 'view_key'));
+            $t->set('deletekeypair', addslashes(_("Are you sure you want to delete your keypair? (This is NOT recommended!)")));
             $t->set('personalkey-delete-help', Horde_Help::link('imp', 'smime-delete-personal-certs'));
         } else {
             $t->set('personal_import_url', Horde_Util::addParameter($selfURL, 'actionID', 'import_personal_certs'));
@@ -289,7 +289,7 @@ if ($openssl_check && $prefs->getValue('use_smime')) {
 } else {
     $t->set('use_smime_locked', $prefs->isLocked('use_smime'));
     if (!$t->get('use_smime_locked')) {
-        $t->set('use_smime_label', Horde::label('use_smime', _('Enable S/MIME functionality?')));
+        $t->set('use_smime_label', Horde::label('use_smime', _("Enable S/MIME functionality?")));
     }
 }
 $t->set('prefsurl', IMP::prefsURL(true));

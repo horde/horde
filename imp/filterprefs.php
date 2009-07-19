@@ -40,7 +40,7 @@ case 'update_prefs':
     if (!$menuitem_locked) {
         $prefs->setValue('filter_menuitem', Horde_Util::getFormData('filter_menuitem') ? 1 : 0);
     }
-    $notification->push(_('Preferences successfully updated.'), 'horde.success');
+    $notification->push(_("Preferences successfully updated."), 'horde.success');
     break;
 }
 
@@ -53,7 +53,7 @@ $t = new Horde_Template();
 $t->setOption('gettext', true);
 $t->set('navcell', Horde_Util::bufferOutput(array('Prefs_UI', 'generateNavigationCell'), 'filters'));
 $t->set('prefsurl', IMP::prefsURL(true));
-$t->set('return_text', _('Return to Options'));
+$t->set('return_text', _("Return to Options"));
 
 /* Get filter links. */
 $blacklist_link = $whitelist_link = $filters_link = false;
@@ -77,9 +77,9 @@ if (!$blacklist_link && !$whitelist_link && !$filters_link) {
     $t->set('app', $app);
 
     $link_array = array(
-        array('g' => _('Edit your Filter Rules'), 'l' => $filters_link, 'h' => 'filter-edit-rules'),
-        array('g' => _('Edit your Blacklist'), 'l' => $blacklist_link, 'h' => 'filter-edit-blacklist'),
-        array('g' => _('Edit your Whitelist'), 'l' => $whitelist_link, 'h' => 'filter-edit-whitelist')
+        array('g' => _("Edit your Filter Rules"), 'l' => $filters_link, 'h' => 'filter-edit-rules'),
+        array('g' => _("Edit your Blacklist"), 'l' => $blacklist_link, 'h' => 'filter-edit-blacklist'),
+        array('g' => _("Edit your Whitelist"), 'l' => $whitelist_link, 'h' => 'filter-edit-whitelist')
     );
     $links = array();
     foreach ($link_array as $key => $val) {
@@ -95,11 +95,11 @@ if (!$blacklist_link && !$whitelist_link && !$filters_link) {
     $t->set('links', $links);
 
     $options_array = array(
-        'login' => array('g' => _('Apply filter rules upon logging on?'), 'p' => 'filter_on_login', 'h' => 'filter-on-login', 'l' => $login_locked),
-        'display' => array('g' => _('Apply filter rules whenever Inbox is displayed?'), 'p' => 'filter_on_display', 'h' => 'filter-on-display', 'l' => $display_locked),
-        'sidebar' => array('g' => _('Apply filter rules whenever sidebar is refreshed?'), 'p' => 'filter_on_sidebar', 'h' => 'filter-on-sidebar', 'l' => $sidebar_locked),
-        'any_mailbox' => array('g' => _('Allow filter rules to be applied in any mailbox?'), 'p' => 'filter_any_mailbox', 'h' => 'filter-any-mailbox', 'l' => $anymailbox_locked),
-        'menuitem' => array('g' => _('Show the filter icon on the menubar?'), 'p' => 'filter_menuitem', 'l' => $menuitem_locked));
+        'login' => array('g' => _("Apply filter rules upon logging on?"), 'p' => 'filter_on_login', 'h' => 'filter-on-login', 'l' => $login_locked),
+        'display' => array('g' => _("Apply filter rules whenever Inbox is displayed?"), 'p' => 'filter_on_display', 'h' => 'filter-on-display', 'l' => $display_locked),
+        'sidebar' => array('g' => _("Apply filter rules whenever sidebar is refreshed?"), 'p' => 'filter_on_sidebar', 'h' => 'filter-on-sidebar', 'l' => $sidebar_locked),
+        'any_mailbox' => array('g' => _("Allow filter rules to be applied in any mailbox?"), 'p' => 'filter_any_mailbox', 'h' => 'filter-any-mailbox', 'l' => $anymailbox_locked),
+        'menuitem' => array('g' => _("Show the filter icon on the menubar?"), 'p' => 'filter_menuitem', 'l' => $menuitem_locked));
     if ($_SESSION['imp']['protocol'] == 'pop') {
         unset($options_array['any_mailbox']);
     }
@@ -116,7 +116,7 @@ if (!$blacklist_link && !$whitelist_link && !$filters_link) {
     }
     $t->set('opts', $opts);
     if (!empty($opts)) {
-        $t->set('save_opts', _('Save Options'));
+        $t->set('save_opts', _("Save Options"));
     }
 }
 

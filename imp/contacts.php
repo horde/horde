@@ -73,7 +73,7 @@ if (count($source_list) > 1) {
     $template->set('multiple_source', true);
     $s_list = array();
     foreach ($source_list as $key => $select) {
-        $s_list[] = array('val' => $key, 'selected' => ($key == $source), 'label' => htmlspecialchars($select));
+       $s_list[] = array('val' => $key, 'selected' => ($key == $source), 'label' => htmlspecialchars($select));
     }
     $template->set('source_list', $s_list);
 } else {
@@ -98,7 +98,7 @@ $template->set('cc', !$to_only);
 $template->set('sa', $selected_addresses);
 
 /* Display the form. */
-$title = _('Address Book');
+$title = _("Address Book");
 Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('contacts.js', 'imp', true);
 require IMP_TEMPLATES . '/common-header.inc';

@@ -64,11 +64,11 @@ class IMP_Block_Foldersummary extends Horde_Block
 
         if (count($newmsgs) == 0 && !empty($this->_params['show_unread'])) {
             if (count($folders) == 0) {
-                $html = _('No folders are being checked for new mail.');
+                $html = _("No folders are being checked for new mail.");
             } elseif (!$anyUnseen) {
-                $html = '<em>' . _('No folders with unseen messages') . '</em>';
+                $html = '<em>' . _("No folders with unseen messages") . '</em>';
             } elseif ($GLOBALS['prefs']->getValue('nav_popup')) {
-                $html = '<em>' . _('No folders with new messages') . '</em>';
+                $html = '<em>' . _("No folders with new messages") . '</em>';
             }
         }
 

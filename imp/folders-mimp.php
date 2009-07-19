@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Redirect back to the mailbox if folder use is not allowed. */
 if (empty($conf['user']['allow_folders'])) {
-    $notification->push(_('Folder use is not enabled.'), 'horde.error');
+    $notification->push(_("Folder use is not enabled."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('mailbox-mimp.php', true));
     exit;
 }
@@ -55,9 +55,9 @@ foreach ($tree_ob[0] as $val) {
 
 $selfurl = Horde::applicationUrl('folders-mimp.php');
 if ($subscribe) {
-    $sub_text = $showAll ? _('Show Subscribed Folders') : _('Show All Folders');
+    $sub_text = $showAll ? _("Show Subscribed Folders") : _("Show All Folders");
     $sub_link = Horde_Util::addParameter($selfurl, 'ts', 1);
 }
 
-$title = _('Folders');
+$title = _("Folders");
 require IMP_TEMPLATES . '/folders/folders-mimp.inc';

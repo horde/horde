@@ -80,8 +80,8 @@ class IMP_Folder
         $inbox_entry = array(
             'INBOX' => array(
                 'val' => 'INBOX',
-                'label' => _('Inbox'),
-                'abbrev' => _('Inbox')
+                'label' => _("Inbox"),
+                'abbrev' => _("Inbox")
             )
         );
 
@@ -182,16 +182,16 @@ class IMP_Folder
             if (!$force &&
                 !empty($conf['server']['fixed_folders']) &&
                 in_array(IMP::folderPref($folder, false), $conf['server']['fixed_folders'])) {
-                $notification->push(sprintf(_('The folder "%s" may not be deleted.'), IMP::displayFolder($folder)), 'horde.error');
+                $notification->push(sprintf(_("The folder \"%s\" may not be deleted."), IMP::displayFolder($folder)), 'horde.error');
                 continue;
             }
 
             try {
                 $GLOBALS['imp_imap']->ob->deleteMailbox($folder);
-                $notification->push(sprintf(_('The folder "%s" was successfully deleted.'), IMP::displayFolder($folder)), 'horde.success');
+                $notification->push(sprintf(_("The folder \"%s\" was successfully deleted."), IMP::displayFolder($folder)), 'horde.success');
                 $deleted[] = $folder;
             } catch (Horde_Imap_Client_Exception $e) {
-                $notification->push(sprintf(_('The folder "%s" was not deleted. This is what the server said'), IMP::displayFolder($folder)) . ': ' . $e->getMessage(), 'horde.error');
+                $notification->push(sprintf(_("The folder \"%s\" was not deleted. This is what the server said"), IMP::displayFolder($folder)) . ': ' . $e->getMessage(), 'horde.error');
             }
         }
 
@@ -244,14 +244,14 @@ class IMP_Folder
                 if (!empty($conf['hooks']['permsdenied'])) {
                     Horde::callHook('_perms_hook_denied', array('imp:create_folders'), 'horde', $message);
                 }
-                $message = @htmlspecialchars(_('You are not allowed to create folders.'), ENT_COMPAT, Horde_Nls::getCharset());
+                $message = @htmlspecialchars(_("You are not allowed to create folders."), ENT_COMPAT, Horde_Nls::getCharset());
             } catch (Horde_Exception $e) {
                 $message = $e->getMessage();
             }
             $notification->push($message, 'horde.error', array('content.raw'));
             return false;
         } elseif (!IMP::hasPermission('max_folders')) {
-            $message = @htmlspecialchars(sprintf(_('You are not allowed to create more than %d folders.'), IMP::hasPermission('max_folders', true)), ENT_COMPAT, Horde_Nls::getCharset());
+            $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d folders."), IMP::hasPermission('max_folders', true)), ENT_COMPAT, Horde_Nls::getCharset());
             try {
                 if (!empty($conf['hooks']['permsdenied'])) {
                     Horde::callHook('_perms_hook_denied', array('imp:max_folders'), 'horde', $message);
@@ -265,7 +265,7 @@ class IMP_Folder
 
         /* Make sure we are not trying to create a duplicate folder */
         if ($this->exists($folder)) {
-            $notification->push(sprintf(_('The folder "%s" already exists'), IMP::displayFolder($folder)), 'horde.warning');
+            $notification->push(sprintf(_("The folder \"%s\" already exists"), IMP::displayFolder($folder)), 'horde.warning');
             return false;
         }
 
@@ -273,11 +273,11 @@ class IMP_Folder
         try {
             $GLOBALS['imp_imap']->ob->createMailbox($folder);
         } catch (Horde_Imap_Client_Exception $e) {
-            $notification->push(sprintf(_('The folder "%s" was not created. This is what the server said'), IMP::displayFolder($folder)) . ': ' . $e->getMessage(), 'horde.error');
+            $notification->push(sprintf(_("The folder \"%s\" was not created. This is what the server said"), IMP::displayFolder($folder)) . ': ' . $e->getMessage(), 'horde.error');
             return false;
         }
 
-        $GLOBALS['notification']->push(sprintf(_('The folder "%s" was successfully created.'), IMP::displayFolder($folder)), 'horde.success');
+        $GLOBALS['notification']->push(sprintf(_("The folder \"%s\" was successfully created."), IMP::displayFolder($folder)), 'horde.success');
 
         /* Subscribe, if requested. */
         if ($subscribe) {
@@ -340,7 +340,7 @@ class IMP_Folder
         if (!$force &&
             !empty($GLOBALS['conf']['server']['fixed_folders']) &&
             in_array(IMP::folderPref($old, false), $GLOBALS['conf']['server']['fixed_folders'])) {
-            $GLOBALS['notification']->push(sprintf(_('The folder "%s" may not be renamed.'), IMP::displayFolder($old)), 'horde.error');
+            $GLOBALS['notification']->push(sprintf(_("The folder \"%s\" may not be renamed."), IMP::displayFolder($old)), 'horde.error');
             return false;
         }
 
@@ -356,11 +356,11 @@ class IMP_Folder
         try {
             $GLOBALS['imp_imap']->ob->renameMailbox($old, $new);
         } catch (Horde_Imap_Client_Exception $e) {
-            $GLOBALS['notification']->push(sprintf(_('Renaming "%s" to "%s" failed. This is what the server said'), IMP::displayFolder($old), IMP::displayFolder($new)) . ': ' . $e->getMessage(), 'horde.error');
+            $GLOBALS['notification']->push(sprintf(_("Renaming \"%s\" to \"%s\" failed. This is what the server said"), IMP::displayFolder($old), IMP::displayFolder($new)) . ': ' . $e->getMessage(), 'horde.error');
             return false;
         }
 
-        $GLOBALS['notification']->push(sprintf(_('The folder "%s" was successfully renamed to "%s".'), IMP::displayFolder($old), IMP::displayFolder($new)), 'horde.success');
+        $GLOBALS['notification']->push(sprintf(_("The folder \"%s\" was successfully renamed to \"%s\"."), IMP::displayFolder($old), IMP::displayFolder($new)), 'horde.success');
 
         foreach ($all_folders as $folder_old) {
             $deleted[] = $folder_old;
@@ -392,17 +392,17 @@ class IMP_Folder
         $subscribed = array();
 
         if (!is_array($folders)) {
-            $notification->push(_('No folders were specified'), 'horde.warning');
+            $notification->push(_("No folders were specified"), 'horde.warning');
             return false;
         }
 
         foreach (array_filter($folders) as $folder) {
             try {
                 $GLOBALS['imp_imap']->ob->subscribeMailbox($folder, true);
-                $notification->push(sprintf(_('You were successfully subscribed to "%s"'), IMP::displayFolder($folder)), 'horde.success');
+                $notification->push(sprintf(_("You were successfully subscribed to \"%s\""), IMP::displayFolder($folder)), 'horde.success');
                 $subscribed[] = $folder;
             } catch (Horde_Imap_Client_Exception $e) {
-                $notification->push(sprintf(_('You were not subscribed to "%s". Here is what the server said'), IMP::displayFolder($folder)) . ': ' . $e->getMessage(), 'horde.error');
+                $notification->push(sprintf(_("You were not subscribed to \"%s\". Here is what the server said"), IMP::displayFolder($folder)) . ': ' . $e->getMessage(), 'horde.error');
                 $return_value = false;
             }
         }
@@ -434,20 +434,20 @@ class IMP_Folder
         $unsubscribed = array();
 
         if (!is_array($folders)) {
-            $notification->push(_('No folders were specified'), 'horde.message');
+            $notification->push(_("No folders were specified"), 'horde.message');
             return false;
         }
 
         foreach (array_filter($folders) as $folder) {
             if (strcasecmp($folder, 'INBOX') == 0) {
-                $notification->push(sprintf(_('You cannot unsubscribe from "%s".'), IMP::displayFolder($folder)), 'horde.error');
+                $notification->push(sprintf(_("You cannot unsubscribe from \"%s\"."), IMP::displayFolder($folder)), 'horde.error');
             } else {
                 try {
                     $GLOBALS['imp_imap']->ob->subscribeMailbox($folder, false);
-                    $notification->push(sprintf(_('You were successfully unsubscribed from "%s"'), IMP::displayFolder($folder)), 'horde.success');
+                    $notification->push(sprintf(_("You were successfully unsubscribed from \"%s\""), IMP::displayFolder($folder)), 'horde.success');
                     $unsubscribed[] = $folder;
                 } catch (Horde_Imap_Client_Exception $e) {
-                    $notification->push(sprintf(_('You were not unsubscribed from \"%s\". Here is what the server said'), IMP::displayFolder($folder)) . ': ' . $e->getMessage(), 'horde.error');
+                    $notification->push(sprintf(_("You were not unsubscribed from \"%s\". Here is what the server said"), IMP::displayFolder($folder)) . ': ' . $e->getMessage(), 'horde.error');
                     $return_value = false;
                 }
             }

@@ -20,7 +20,7 @@ class IMP_UI_Compose
         $result = $imp_compose->expandAddresses($this->getAddressList($input));
 
         if (is_array($result)) {
-            $GLOBALS['notification']->push(_('Please resolve ambiguous or invalid addresses.'), 'horde.warning');
+            $GLOBALS['notification']->push(_("Please resolve ambiguous or invalid addresses."), 'horde.warning');
         }
 
         return $result;
@@ -68,7 +68,7 @@ class IMP_UI_Compose
             throw new Horde_Exception($e);
         }
 
-        $entry = sprintf('%s Redirected message sent to %s from %s',
+        $entry = sprintf("%s Redirected message sent to %s from %s",
                          $_SERVER['REMOTE_ADDR'], $recipients, $_SESSION['imp']['uniquser']);
         Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_INFO);
 
@@ -84,7 +84,9 @@ class IMP_UI_Compose
     {
         $fwd_msg = $imp_compose->forwardMessage($imp_contents);
         $subject_header = $imp_compose->attachIMAPMessage(array($index), $fwd_msg['headers']);
-        if ($subject_header !== false) {
+        if ($subject_header === false) {
+            // TODO: notification
+        } else {
             $fwd_msg['headers']['subject'] = $subject_header;
         }
 
@@ -115,10 +117,10 @@ class IMP_UI_Compose
             'targetId' => 'message',
             'triggerId' => 'spellcheck',
             'states' => array(
-                'CheckSpelling' => $spell_img . ($show_text ? $br . _('Check Spelling') : ''),
-                'Checking' => $spell_img . $br . _('Checking ...'),
-                'ResumeEdit' => $spell_img . $br . _('Resume Editing'),
-                'Error' => $spell_img . $br . _('Spell Check Failed')
+                'CheckSpelling' => $spell_img . ($show_text ? $br . _("Check Spelling") : ''),
+                'Checking' => $spell_img . $br . _("Checking ..."),
+                'ResumeEdit' => $spell_img . $br . _("Resume Editing"),
+                'Error' => $spell_img . $br . _("Spell Check Failed")
             )
         );
 
@@ -141,9 +143,9 @@ class IMP_UI_Compose
                 $clean_to .= $val . (($val[Horde_String::length($val) - 1] == ';') ? ' ' : ', ');
             }
             if ($expand) {
-                return $clean_to;
+               return $clean_to;
             } else {
-                return IMP_Compose::formatAddr($clean_to);
+               return IMP_Compose::formatAddr($clean_to);
             }
         }
 

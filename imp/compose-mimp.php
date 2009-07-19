@@ -21,7 +21,7 @@ function _getIMPContents($index, $mailbox)
         $imp_contents = IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox);
         return $imp_contents;
     } catch (Horde_Exception $e) {
-        $GLOBALS['notification']->push(_('Could not retrieve the message from the mail server.'), 'horde.error');
+        $GLOBALS['notification']->push(_("Could not retrieve the message from the mail server."), 'horde.error');
         return false;
     }
 }
@@ -85,7 +85,7 @@ case 'd':
     }
     break;
 
-case _('Expand Names'):
+case _("Expand Names"):
     $action = Horde_Util::getFormData('action');
     $imp_ui = new IMP_UI_Compose();
     $header['to'] = $imp_ui->expandAddresses(Horde_Util::getFormData('to'), $imp_compose);
@@ -115,7 +115,7 @@ case 'rl':
     $reply_msg = $imp_compose->replyMessage($actions[$actionID], $imp_contents, Horde_Util::getFormData('to'));
     $header = $reply_msg['headers'];
 
-    $notification->push(_('Reply text will be automatically appended to your outgoing message.'), 'horde.message');
+    $notification->push(_("Reply text will be automatically appended to your outgoing message."), 'horde.message');
     break;
 
 // 'f' = forward
@@ -126,10 +126,10 @@ case 'f':
     $fwd_msg = $imp_compose->forwardMessage($imp_contents);
     $header = $fwd_msg['headers'];
 
-    $notification->push(_('Forwarded message will be automatically added to your outgoing message.'), 'horde.message');
+    $notification->push(_("Forwarded message will be automatically added to your outgoing message."), 'horde.message');
     break;
 
-case _('Redirect'):
+case _("Redirect"):
     if (!($imp_contents = _getIMPContents($index, $thismailbox))) {
         break;
     }
@@ -141,7 +141,7 @@ case _('Redirect'):
     try {
         $imp_ui->redirectMessage($f_to, $imp_compose, $imp_contents, Horde_Nls::getEmailCharset());
         if ($prefs->getValue('compose_confirm')) {
-            $notification->push(_('Message redirected successfully.'), 'horde.success');
+            $notification->push(_("Message redirected successfully."), 'horde.success');
         }
         require IMP_BASE . '/mailbox-mimp.php';
         exit;
@@ -151,7 +151,7 @@ case _('Redirect'):
     }
     break;
 
-case _('Send'):
+case _("Send"):
     if ($compose_disable) {
         break;
     }
@@ -224,7 +224,7 @@ case _('Send'):
                 $delete_draft = $imp_message->delete($idx_array, array('nuke' => true));
             }
 
-            $notification->push(_('Message sent successfully.'), 'horde.success');
+            $notification->push(_("Message sent successfully."), 'horde.success');
             require IMP_BASE . '/mailbox-mimp.php';
             exit;
         }
@@ -237,7 +237,7 @@ case _('Send'):
 /* Get the message cache ID. */
 $cacheID = $imp_compose->getCacheId();
 
-$title = _('Message Composition');
+$title = _("Message Composition");
 $mimp_render->set('title', $title);
 
 $select_list = $identity->getSelectList();
@@ -252,7 +252,7 @@ foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
     }
 }
 
-$menu = new Horde_Mobile_card('o', _('Menu'));
+$menu = new Horde_Mobile_card('o', _("Menu"));
 $mset = &$menu->add(new Horde_Mobile_linkset());
 MIMP::addMIMPMenu($mset, 'compose');
 

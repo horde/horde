@@ -28,7 +28,7 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
      */
     static public function description()
     {
-        return _('IMAP/POP3 Mail Servers');
+        return _("IMAP/POP3 Mail Servers");
     }
 
     /**
@@ -57,42 +57,42 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
     {
         return array(
             'pop3' => array(
-                'name' => _('POP3'),
+                'name' => _("POP3"),
                 'string' => 'pop3',
                 'port' => 110,
                 'base' => 'POP3',
                 'secure' => false
             ),
             'pop3tls' => array(
-                'name' => _('POP3 over TLS'),
+                'name' => _("POP3 over TLS"),
                 'string' => 'pop3',
                 'port' => 110,
                 'base' => 'POP3',
                 'secure' => 'tls'
             ),
             'pop3ssl' => array(
-                'name' => _('POP3 over SSL'),
+                'name' => _("POP3 over SSL"),
                 'string' => 'pop3',
                 'port' => 995,
                 'base' => 'POP3',
                 'secure' => 'ssl'
             ),
             'imap' => array(
-                'name' => _('IMAP'),
+                'name' => _("IMAP"),
                 'string' => 'imap',
                 'port' => 143,
                 'base' => 'IMAP',
                 'secure' => false
             ),
             'imaptls' => array(
-                'name' => _('IMAP'),
+                'name' => _("IMAP"),
                 'string' => 'imap over TLS',
                 'port' => 143,
                 'base' => 'IMAP',
                 'secure' => 'tls'
             ),
             'imapsslvalid' => array(
-                'name' => _('IMAP over SSL'),
+                'name' => _("IMAP over SSL"),
                 'string' => 'imap',
                 'port' => 993,
                 'base' => 'IMAP',
@@ -126,7 +126,7 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
         try {
             $this->_ob = Horde_Imap_Client::getInstance(($protocols[$this->_params['protocol']]['string'] == 'imap') ? 'Socket' : 'Socket_Pop3', $imap_config);
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception(_('Cannot connect to the remote mail server: ') . $e->getMessage());
+            throw new Horde_Exception(_("Cannot connect to the remote mail server: ") . $e->getMessage());
         }
     }
 
@@ -159,7 +159,7 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
         }
 
         if (!$mbox) {
-            throw new Horde_Exception(_('Invalid Remote Mailbox'));
+            throw new Horde_Exception(_("Invalid Remote Mailbox"));
         }
 
         $query = new Horde_Imap_Client_Search_Query();

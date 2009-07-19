@@ -40,4 +40,4 @@
 
 ?>
 <br />
-<table width="100%"><tr><td align="center"><?php echo Horde::img('horde-power1.png', _('Powered by Horde'), '', $registry->getImageDir('horde')) ?></td></tr></table>
+<table width="100%"><tr><td align="center"><?php echo Horde::img('horde-power1.png', _("Powered by Horde"), '', $registry->getImageDir('horde')) ?></td></tr></table>

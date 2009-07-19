@@ -81,7 +81,7 @@ class IMP_Search
      * 'id'  --  The ID of the search query in use.
      * </pre>
      */
-    public function __construct($params = array())
+    function __construct($params = array())
     {
         if (!empty($params['id'])) {
             $this->_id = $this->_strip($params['id']);
@@ -368,7 +368,7 @@ class IMP_Search
 
         $query = new Horde_Imap_Client_Search_Query();
         $query->flag('\\deleted', true);
-        $label = _('Virtual Trash');
+        $label = _("Virtual Trash");
 
         $this->_saveVFolder = false;
         if (empty($vtrash_id)) {
@@ -422,7 +422,7 @@ class IMP_Search
         $query = new Horde_Imap_Client_Search_Query();
         $query->flag('\\seen', false);
         $query->flag('\\deleted', false);
-        $label = _('Virtual INBOX');
+        $label = _("Virtual INBOX");
 
         $this->_saveVFolder = false;
         if (empty($vinbox_id)) {
@@ -551,7 +551,7 @@ class IMP_Search
         $uiinfo = $this->retrieveUIQuery($id);
 
         if (!empty($uiinfo['field'])) {
-            $text = _('Search') . ' ';
+            $text = _("Search") . ' ';
             $text_array = array();
             foreach ($uiinfo['field'] as $key2 => $val2) {
                 if (isset($flagfields[$val2])) {
@@ -559,7 +559,7 @@ class IMP_Search
                 } else {
                     switch ($searchfields[$val2]['type']) {
                     case self::DATE:
-                        $text_array[] = sprintf("%s '%s'", $searchfields[$val2]['label'], strftime('%x', mktime(0, 0, 0, $uiinfo['date'][$key2]['month'], $uiinfo['date'][$key2]['day'], $uiinfo['date'][$key2]['year'])));
+                        $text_array[] = sprintf("%s '%s'", $searchfields[$val2]['label'], strftime("%x", mktime(0, 0, 0, $uiinfo['date'][$key2]['month'], $uiinfo['date'][$key2]['day'], $uiinfo['date'][$key2]['year'])));
                         break;
 
                     case self::SIZE:
@@ -567,15 +567,15 @@ class IMP_Search
                         break;
 
                     default:
-                        $text_array[] = sprintf("%s for '%s'", $searchfields[$val2]['label'], ((!empty($uiinfo['text_not'][$key2])) ? _('not') . ' ' : '') . $uiinfo['text'][$key2]);
+                        $text_array[] = sprintf("%s for '%s'", $searchfields[$val2]['label'], ((!empty($uiinfo['text_not'][$key2])) ? _("not") . ' ' : '') . $uiinfo['text'][$key2]);
                         break;
                     }
                 }
             }
-            $text .= implode(' ' . (($uiinfo['match'] == 'and') ? _('and') : _('or')) . ' ', $text_array);
+            $text .= implode(' ' . (($uiinfo['match'] == 'and') ? _("and") : _("or")) . ' ', $text_array);
         }
 
-        return $text . ' ' . _('in') . ' ' . implode(', ', $uiinfo['folders']);
+        return $text . ' ' . _("in") . ' ' . implode(', ', $uiinfo['folders']);
     }
 
     /**
@@ -619,7 +619,7 @@ class IMP_Search
      */
     static public function isSearchMbox($id)
     {
-        return (strpos($id, '\0') !== false);
+        return (strpos($id, "\0") !== false);
     }
 
     /**
@@ -678,7 +678,7 @@ class IMP_Search
      */
     public function createSearchID($id)
     {
-        return 'impsearch\0' . $this->_strip($id);
+        return 'impsearch' . "\0" . $this->_strip($id);
     }
 
     /**
@@ -690,64 +690,64 @@ class IMP_Search
     {
         return array(
             'from' => array(
-                'label' => _('From'),
+                'label' => _("From"),
                 'type' => self::HEADER,
                 'not' => true
             ),
             'to' => array(
-                'label' => _('To'),
+                'label' => _("To"),
                 'type' => self::HEADER,
                 'not' => true
             ),
             'cc' => array(
-                'label' => _('Cc'),
+                'label' => _("Cc"),
                 'type' => self::HEADER,
                 'not' => true
             ),
             'bcc' => array(
-                'label' => _('Bcc'),
+                'label' => _("Bcc"),
                 'type' => self::HEADER,
                 'not' => true
             ),
             'subject' => array(
-                'label' => _('Subject'),
+                'label' => _("Subject"),
                 'type' => self::HEADER,
                 'not' => true
             ),
             'body' => array(
-                'label' => _('Body'),
-                'type' => self::BODY,
+               'label' => _("Body"),
+               'type' => self::BODY,
                 'not' => true
             ),
             'text' => array(
-                'label' => _('Entire Message'),
-                'type' => self::TEXT,
+               'label' => _("Entire Message"),
+               'type' => self::TEXT,
                 'not' => true
             ),
             'date_on' => array(
-                'label' => _('Date ='),
+                'label' => _("Date ="),
                 'type' => self::DATE,
                 'not' => true
             ),
             'date_until' => array(
-                'label' => _('Date <'),
+                'label' => _("Date <"),
                 'type' => self::DATE,
                 'not' => true
             ),
             'date_since' => array(
-                'label' => _('Date >='),
+                'label' => _("Date >="),
                 'type' => self::DATE,
                 'not' => true
             ),
             // Displayed in KB, but stored internally in bytes
             'size_smaller' => array(
-                'label' => _('Size (KB) <'),
+                'label' => _("Size (KB) <"),
                 'type' => self::SIZE,
                 'not' => false
             ),
             // Displayed in KB, but stored internally in bytes
             'size_larger' => array(
-                'label' => _('Size (KB) >'),
+                'label' => _("Size (KB) >"),
                 'type' => self::SIZE,
                 'not' => false
             ),
@@ -764,42 +764,42 @@ class IMP_Search
         return array(
             'seen' => array(
                 'flag' => '\\seen',
-                'label' => _('Seen messages'),
+                'label' => _("Seen messages"),
                 'type' => self::FLAG_HAS
             ),
             'unseen' => array(
                 'flag' => '\\seen',
-                'label' => _('Unseen messages'),
+                'label' => _("Unseen messages"),
                 'type' => self::FLAG_NOT
             ),
             'answered' => array(
                 'flag' => '\\answered',
-                'label' => _('Answered messages'),
+                'label' => _("Answered messages"),
                 'type' => self::FLAG_HAS
             ),
             'unanswered' => array(
                 'flag' => '\\answered',
-                'label' => _('Unanswered messages'),
+                'label' => _("Unanswered messages"),
                 'type' => self::FLAG_NOT
             ),
             'flagged' => array(
                 'flag' => '\\flagged',
-                'label' => _('Flagged messages'),
+                'label' => _("Flagged messages"),
                 'type' => self::FLAG_HAS
             ),
             'unflagged' => array(
                 'flag' => '\\flagged',
-                'label' => _('Unflagged messages'),
+                'label' => _("Unflagged messages"),
                 'type' => self::FLAG_NOT
             ),
             'deleted' => array(
                 'flag' => '\\deleted',
-                'label' => _('Deleted messages'),
+                'label' => _("Deleted messages"),
                 'type' => self::FLAG_HAS
             ),
             'undeleted' => array(
                 'flag' => '\\deleted',
-                'label' => _('Undeleted messages'),
+                'label' => _("Undeleted messages"),
                 'type' => self::FLAG_NOT
             ),
         );

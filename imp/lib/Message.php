@@ -105,11 +105,11 @@ class IMP_Message
         switch ($action) {
         case 'move':
             $imap_move = true;
-            $message = _('There was an error moving messages from "%s" to "%s". This is what the server said');
+            $message = _("There was an error moving messages from \"%s\" to \"%s\". This is what the server said");
             break;
 
         case 'copy':
-            $message = _('There was an error copying messages from "%s" to "%s". This is what the server said');
+            $message = _("There was an error copying messages from \"%s\" to \"%s\". This is what the server said");
             break;
         }
 
@@ -117,13 +117,13 @@ class IMP_Message
             $error = null;
 
             if ($GLOBALS['imp_imap']->isReadOnly($targetMbox)) {
-                $error = _('The target directory is read-only.');
+                $error = _("The target directory is read-only.");
             }
 
             if (!$error &&
                 ($action == 'move') &&
                 $GLOBALS['imp_imap']->isReadOnly($mbox)) {
-                $error = _('The source directory is read-only.');
+                $error = _("The source directory is read-only.");
             }
 
             if (!$error) {
@@ -187,7 +187,7 @@ class IMP_Message
         $use_trash = $prefs->getValue('use_trash');
         $use_vtrash = $prefs->getValue('use_vtrash');
         if ($use_trash && !$use_vtrash && empty($trash)) {
-            $notification->push(_('Cannot move messages to Trash - no Trash mailbox set in preferences.'), 'horde.error');
+            $notification->push(_("Cannot move messages to Trash - no Trash mailbox set in preferences."), 'horde.error');
             return false;
         }
 
@@ -209,7 +209,7 @@ class IMP_Message
             $error = null;
 
             if ($GLOBALS['imp_imap']->isReadOnly($mbox)) {
-                $error = _('This folder is read-only.');
+                $error = _("This folder is read-only.");
             }
 
             if (!$error) {
@@ -221,7 +221,7 @@ class IMP_Message
             }
 
             if ($error) {
-                $notification->push(sprintf(_('There was an error deleting messages from the folder "%s".'), IMP::displayFolder($mbox)) . ' ' . $error, 'horde.error');
+                $notification->push(sprintf(_("There was an error deleting messages from the folder \"%s\"."), IMP::displayFolder($mbox)) . ' ' . $error, 'horde.error');
                 $return_value = false;
                 continue;
             }
@@ -424,11 +424,11 @@ class IMP_Message
                     if (!$res) {
                         switch ($type) {
                         case 'task':
-                            $notification->push(_('An unknown error occured while creating the new task.'), 'horde.error');
+                            $notification->push(_("An unknown error occured while creating the new task."), 'horde.error');
                             break;
 
                         case 'note':
-                            $notification->push(_('An unknown error occured while creating the new note.'), 'horde.error');
+                            $notification->push(_("An unknown error occured while creating the new note."), 'horde.error');
                             break;
                         }
                     } elseif (!is_null($lists)) {
@@ -453,7 +453,7 @@ class IMP_Message
                                 $name = sprintf('<a href="%s">%s</a>', Horde::url($link), $name);
                             }
 
-                            $notification->push(sprintf(_('%s was successfully added to "%s".'), $name, htmlspecialchars($lists[$list]->get('name'))), 'horde.success', array('content.raw'));
+                            $notification->push(sprintf(_("%s was successfully added to \"%s\"."), $name, htmlspecialchars($lists[$list]->get('name'))), 'horde.success', array('content.raw'));
                         } catch (Horde_Exception $e) {}
                     }
                 }
@@ -482,19 +482,19 @@ class IMP_Message
     {
         /* Return error if no index was provided. */
         if (!($msgList = IMP::parseIndicesList($indices))) {
-            throw new Horde_Exception(_('An error occured while attempting to strip the attachment.'));
+            throw new Horde_Exception(_("An error occured while attempting to strip the attachment."));
         }
 
         /* If more than one index provided, return error. */
         reset($msgList);
         list($mbox, $index) = each($msgList);
         if (each($msgList) || (count($index) > 1)) {
-            throw new Horde_Exception(_('An error occured while attempting to strip the attachment.'));
+            throw new Horde_Exception(_("An error occured while attempting to strip the attachment."));
         }
         $index = implode('', $index);
 
         if ($GLOBALS['imp_imap']->isReadOnly($mbox)) {
-            throw new Horde_Exception(_('Cannot strip the MIME part as the mailbox is read-only'));
+            throw new Horde_Exception(_("Cannot strip the MIME part as the mailbox is read-only"));
         }
 
         $GLOBALS['imp_imap']->checkUidvalidity($mbox);
@@ -507,7 +507,7 @@ class IMP_Message
             /* For stripping all parts, it only makes sense to strip base
              * parts. Stripping subparts may cause issues with display of the
              * parent multipart type. */
-            for ($i = 2;; ++$i) {
+            for ($i = 2; ; ++$i) {
                 $part = $contents->getMIMEPart($i, array('nocontents' => true));
                 if (!$part) {
                     break;
@@ -531,7 +531,7 @@ class IMP_Message
 
             /* We need to make sure all text is in the correct charset. */
             $newPart->setCharset(Horde_Nls::getCharset());
-            $newPart->setContents(sprintf(_('[Attachment stripped: Original attachment type: %s, name: %s]'), $oldPart->getType(), $oldPart->getName(true)));
+            $newPart->setContents(sprintf(_("[Attachment stripped: Original attachment type: %s, name: %s]"), $oldPart->getType(), $oldPart->getName(true)));
             $message->alterPart($partid, $newPart);
         }
 
@@ -553,7 +553,7 @@ class IMP_Message
 
             $uid = $GLOBALS['imp_imap']->ob->append($mbox, array(array('data' => $message->toString(array('headers' => $res['headertext'][0], 'stream' => true)), 'flags' => $res['flags'], 'messageid' => $res['envelope']['message-id'])));
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception(_('An error occured while attempting to strip the attachment.'));
+            throw new Horde_Exception(_("An error occured while attempting to strip the attachment."));
         }
 
         $this->delete($indices, array('nuke' => true, 'keeplog' => true));
@@ -592,7 +592,7 @@ class IMP_Message
             $error = null;
 
             if ($GLOBALS['imp_imap']->isReadOnly($mbox)) {
-                $error = _('This folder is read-only.');
+                $error = _("This folder is read-only.");
             }
 
             if (!$error) {
@@ -613,7 +613,7 @@ class IMP_Message
             }
 
             if ($error) {
-                $GLOBALS['notification']->push(sprintf(_('There was an error flagging messages in the folder "%s". This folder is read-only.'), IMP::displayFolder($mbox)), 'horde.error');
+                $GLOBALS['notification']->push(sprintf(_("There was an error flagging messages in the folder \"%s\". This folder is read-only."), IMP::displayFolder($mbox)), 'horde.error');
                 return false;
             }
         }
@@ -733,13 +733,13 @@ class IMP_Message
             $display_mbox = IMP::displayFolder($mbox);
 
             if ($GLOBALS['imp_imap']->isReadOnly($mbox)) {
-                $notification->push(sprintf(_('Could not delete messages from %s. This mailbox is read-only.'), $display_mbox), 'horde.error');
+                $notification->push(sprintf(_("Could not delete messages from %s. This mailbox is read-only."), $display_mbox), 'horde.error');
                 continue;
             }
 
             if ($imp_search->isVTrashFolder($mbox)) {
                 $this->expungeMailbox(array_flip($imp_search->getSearchFolders($mbox)));
-                $notification->push(_('Emptied all messages from Virtual Trash Folder.'), 'horde.success');
+                $notification->push(_("Emptied all messages from Virtual Trash Folder."), 'horde.success');
                 continue;
             }
 
@@ -748,7 +748,7 @@ class IMP_Message
             try {
                 $status = $GLOBALS['imp_imap']->ob->status($mbox, Horde_Imap_Client::STATUS_MESSAGES);
                 if (empty($status['messages'])) {
-                    $notification->push(sprintf(_('The mailbox %s is already empty.'), $display_mbox), 'horde.message');
+                    $notification->push(sprintf(_("The mailbox %s is already empty."), $display_mbox), 'horde.message');
                     continue;
                 }
 
@@ -761,7 +761,7 @@ class IMP_Message
                     $this->delete($indices);
                 }
 
-                $notification->push(sprintf(_('Emptied all messages from %s.'), $display_mbox), 'horde.success');
+                $notification->push(sprintf(_("Emptied all messages from %s."), $display_mbox), 'horde.success');
             } catch (Horde_Imap_Client_Exception $e) {}
         }
     }
@@ -786,7 +786,7 @@ class IMP_Message
                 $size += $v['size'];
             }
             return ($formatted)
-                ? sprintf(_('%.2fMB'), $size / (1024 * 1024))
+                ? sprintf(_("%.2fMB"), $size / (1024 * 1024))
                 : $size;
         } catch (Horde_Imap_Client_Exception $e) {
             return 0;

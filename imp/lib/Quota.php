@@ -49,7 +49,7 @@ class IMP_Quota
         $sig = hash('md5', serialize(array($driver, $params)));
 
         if (!isset(self::$_instances[$sig])) {
-            self::$_instances[$sig] = self::getInstance($driver, $params);
+            self::$_instances[$sig] = IMP_Quota::getInstance($driver, $params);
         }
 
         return self::$_instances[$sig];
@@ -116,17 +116,17 @@ class IMP_Quota
         return array(
             'long' => isset($this->_params['format']['long'])
                 ? $this->_params['format']['long']
-                : _('Quota status: %.2f %s / %.2f %s  (%.2f%%)'),
+                : _("Quota status: %.2f %s / %.2f %s  (%.2f%%)"),
             'short' => isset($this->_params['format']['short'])
                 ? $this->_params['format']['short']
-                : _('%.0f%% of %.0f %s'),
+                : _("%.0f%% of %.0f %s"),
             'nolimit_long' => isset($this->_params['format']['nolimit_long'])
                 ? $this->_params['format']['nolimit_long']
-                : _('Quota status: %.2f %s / NO LIMIT'),
+                : _("Quota status: %.2f %s / NO LIMIT"),
             'nolimit_short' => isset($this->_params['format']['nolimit_short'])
                 ? $this->_params['format']['nolimit_short']
-                : _('%.0f %s')
-        );
+                : _("%.0f %s")
+       );
     }
 
     /**

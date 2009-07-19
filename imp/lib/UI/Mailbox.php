@@ -62,7 +62,7 @@ class IMP_UI_Mailbox
         $ret = array('error' => false, 'to' => false);
 
         if (empty($ob['from'])) {
-            $ret['from'] = $ret['fullfrom'] = _('Invalid Address');
+            $ret['from'] = $ret['fullfrom'] = _("Invalid Address");
             $ret['error'] = true;
             return $ret;
         }
@@ -75,7 +75,7 @@ class IMP_UI_Mailbox
         $from = reset($from);
 
         if (empty($from)) {
-            $ret['from'] = _('Invalid Address');
+            $ret['from'] = _("Invalid Address");
             $ret['error'] = true;
         } else {
             $identity = Identity::singleton(array('imp', 'imp'));
@@ -83,13 +83,13 @@ class IMP_UI_Mailbox
                 /* This message was sent by one of the user's identity
                  * addresses - show To: information instead. */
                 if (empty($ob['to'])) {
-                    $ret['from'] = _('Undisclosed Recipients');
+                    $ret['from'] = _("Undisclosed Recipients");
                     $ret['error'] = true;
                 } else {
                     $to = Horde_Mime_Address::getAddressesFromObject($ob['to']);
                     $first_to = reset($to);
                     if (empty($first_to)) {
-                        $ret['from'] = _('Undisclosed Recipients');
+                        $ret['from'] = _("Undisclosed Recipients");
                         $ret['error'] = true;
                     } else {
                         $ret['from'] = empty($first_to['personal'])
@@ -101,7 +101,7 @@ class IMP_UI_Mailbox
                     }
                 }
                 if (!$this->_cache['drafts_sm_folder']) {
-                    $ret['from'] = _('To') . ': ' . $ret['from'];
+                    $ret['from'] = _("To") . ': ' . $ret['from'];
                 }
                 $ret['to'] = true;
             } else {
@@ -109,7 +109,7 @@ class IMP_UI_Mailbox
                     ? $from['inner']
                     : $from['personal'];
                 if ($this->_cache['drafts_sm_folder']) {
-                    $ret['from'] = _('From') . ': ' . $ret['from'];
+                    $ret['from'] = _("From") . ': ' . $ret['from'];
                 }
                 if (!empty($options['fullfrom'])) {
                     $ret['fullfrom'] = $from['display'];
@@ -154,8 +154,8 @@ class IMP_UI_Mailbox
         $size = $size / 1024;
 
         return ($size > 1024)
-            ? sprintf(_('%s MB'), number_format($size / 1024, 1, $this->_cache['localeinfo']['decimal_point'], $this->_cache['localeinfo']['thousands_sep']))
-            : sprintf(_('%s KB'), number_format($size, 0, $this->_cache['localeinfo']['decimal_point'], $this->_cache['localeinfo']['thousands_sep']));
+            ? sprintf(_("%s MB"), number_format($size / 1024, 1, $this->_cache['localeinfo']['decimal_point'], $this->_cache['localeinfo']['thousands_sep']))
+            : sprintf(_("%s KB"), number_format($size, 0, $this->_cache['localeinfo']['decimal_point'], $this->_cache['localeinfo']['thousands_sep']));
     }
 
     /**
@@ -209,12 +209,12 @@ class IMP_UI_Mailbox
         } catch (Exception $e) {
             /* Bug #5717 - Check for UT vs. UTC. */
             if (substr(rtrim($date), -3) != ' UT') {
-                return _('Unknown Date');
+                return _("Unknown Date");
             }
             try {
                 $d = new DateTime($date . 'C');
             } catch (Exception $e) {
-                return _('Unknown Date');
+                return _("Unknown Date");
             }
         }
         $udate = $d->format('U');
@@ -241,10 +241,10 @@ class IMP_UI_Mailbox
     {
         $subject = Horde_Mime::decode($subject);
         if (empty($subject)) {
-            return _('[No Subject]');
+            return _("[No Subject]");
         }
 
-        $new_subject = $subject = IMP::filterText(preg_replace('/\s+/', ' ', $subject));
+        $new_subject = $subject = IMP::filterText(preg_replace("/\s+/", ' ', $subject));
 
         if ($htmlspaces) {
             $new_subject = Horde_Text_Filter::filter($subject, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true));

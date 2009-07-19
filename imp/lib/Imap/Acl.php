@@ -56,12 +56,12 @@ class IMP_Imap_Acl
     protected function __construct()
     {
         if ($_SESSION['imp']['protocol'] != 'imap') {
-            throw new Horde_Exception(_('ACL requires an IMAP server.'));
+            throw new Horde_Exception(_("ACL requires an IMAP server."));
         }
 
         $capability = $GLOBALS['imp_imap']->ob->queryCapability('ACL');
         if (!$capability) {
-            throw new Horde_Exception(_('IMAP server does not support ACLs.'));
+            throw new Horde_Exception(_("IMAP server does not support ACLs."));
         }
 
         $rfc4314 = $GLOBALS['imp_imap']->ob->queryCapability('RIGHTS');
@@ -70,32 +70,32 @@ class IMP_Imap_Acl
 
         $this->_rightsList = array(
             'l' => array(
-                'desc' => _('List - user can see the folder'),
-                'title' => _('List')
+                'desc' => _("List - user can see the folder"),
+                'title' => _("List")
             ),
             'r' => array(
-                'desc' => _('Read messages'),
-                'title' => _('Read')
+                'desc' => _("Read messages"),
+                'title' => _("Read")
             ),
             's' => array(
-                'desc' => _('Mark with Seen/Unseen flags'),
-                'title' => _('Mark (Seen)')
+                'desc' => _("Mark with Seen/Unseen flags"),
+                'title' => _("Mark (Seen)")
             ),
             'w' => array(
-                'desc' => _('Mark with other flags (e.g. Important/Answered)'),
-                'title' => _('Mark (Other)')
+                'desc' => _("Mark with other flags (e.g. Important/Answered)"),
+                'title' => _("Mark (Other)")
             ),
             'i' => array(
-                'desc' => _('Insert messages'),
-                'title' => _('Insert')
+                'desc' => _("Insert messages"),
+                'title' => _("Insert")
             ),
             'p' => array(
-                'desc' => _('Post to this folder (not enforced by IMAP)'),
-                'title' => _('Post')
+                'desc' => _("Post to this folder (not enforced by IMAP)"),
+                'title' => _("Post")
             ),
             'a' => array(
-                'desc' => _('Administer - set permissions for other users'),
-                'title' => _('Administer')
+                'desc' => _("Administer - set permissions for other users"),
+                'title' => _("Administer")
             )
         );
 
@@ -103,32 +103,32 @@ class IMP_Imap_Acl
             // RFC 4314 compliant rights
             $this->_rightsList = array_merge($this->_rightsList, array(
                 'k' => array(
-                    'desc' => _('Create sub folders'),
-                    'title' => _('Create Folders')
+                    'desc' => _("Create sub folders"),
+                    'title' => _("Create Folders")
                 ),
                 'x' => array(
-                    'desc' => _('Delete sub folders'),
-                    'title' => _('Delete Folders')
+                    'desc' => _("Delete sub folders"),
+                    'title' => _("Delete Folders")
                 ),
                 't' => array(
-                    'desc' => _('Delete messages'),
-                    'title' => _('Delete')
+                    'desc' => _("Delete messages"),
+                    'title' => _("Delete")
                 ),
                 'e' => array(
-                    'desc' => _('Purge messages'),
-                    'title' => _('Purge')
+                    'desc' => _("Purge messages"),
+                    'title' => _("Purge")
                 )
             ));
         } else {
             // RFC 2086 compliant rights
             $this->_rightsList = array_merge($this->_rightsList, array(
                 'c' => array(
-                    'desc' =>_('Create sub folders'),
-                    'title' => _('Create Folder')
+                    'desc' =>_("Create sub folders"),
+                    'title' => _("Create Folder")
                 ),
                 'd' => array(
-                    'desc' => _('Delete and purge messages'),
-                    'title' => _('Delete/Purge')
+                    'desc' => _("Delete and purge messages"),
+                    'title' => _("Delete/Purge")
                 )
             ));
         }
@@ -147,7 +147,7 @@ class IMP_Imap_Acl
         try {
             return $GLOBALS['imp_imap']->ob->getACL($mbox);
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception(_('Could not retrieve ACL'));
+            throw new Horde_Exception(_("Could not retrieve ACL"));
         }
     }
 
@@ -166,7 +166,7 @@ class IMP_Imap_Acl
         try {
             $GLOBALS['imp_imap']->ob->setACL($mbox, $user, array('rights' => $acl));
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception(sprintf(_('Could not give user "%s" the following rights for the folder "%s": %s'), $user, $mbox, implode('', $acl)));
+            throw new Horde_Exception(sprintf(_("Couldn't give user \"%s\" the following rights for the folder \"%s\": %s"), $user, $mbox, implode('', $acl)));
         }
     }
 

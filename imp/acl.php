@@ -17,7 +17,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 /* Redirect back to the options screen if ACL is not enabled. */
 $prefs_url = IMP::prefsURL(true);
 if ($prefs->isLocked('acl') || empty($_SESSION['imp']['acl'])) {
-    $notification->push(_('Folder sharing is not enabled.'), 'horde.error');
+    $notification->push(_("Folder sharing is not enabled."), 'horde.error');
     header('Location: ' . $prefs_url);
     exit;
 }
@@ -25,7 +25,7 @@ if ($prefs->isLocked('acl') || empty($_SESSION['imp']['acl'])) {
 try {
     $ACLDriver = IMP_Imap_Acl::singleton();
 } catch (Horde_Exception $e) {
-    $notification->push($error, _('This server does not support sharing folders.'));
+    $notification->push($error, _("This server does not support sharing folders."));
     header('Location: ' . $prefs_url);
     exit;
 }
@@ -49,7 +49,7 @@ $ok_form = true;
 switch (Horde_Util::getFormData('actionID')) {
 case 'imp_acl_set':
     if (!$folder) {
-        $notification->push(_('No folder selected.'), 'horde.error');
+        $notification->push(_("No folder selected."), 'horde.error');
         $ok_form = false;
     }
 
@@ -60,9 +60,9 @@ case 'imp_acl_set':
         try {
             $ACLDriver->editACL($folder, $new_user, $new_acl);
             if (!count($new_acl)) {
-                $notification->push(sprintf(_('All rights on folder "%s" successfully removed for user "%s".'), $folder, $new_user), 'horde.success');
+                $notification->push(sprintf(_("All rights on folder \"%s\" successfully removed for user \"%s\"."), $folder, $new_user), 'horde.success');
             } else {
-                $notification->push(sprintf(_('User "%s" successfully given the specified rights for the folder "%s".'), $new_user, $folder), 'horde.success');
+                $notification->push(sprintf(_("User \"%s\" successfully given the specified rights for the folder \"%s\"."), $new_user, $folder), 'horde.success');
             }
         } catch (Horde_Exception $e) {
             $notification->push($e);
@@ -83,13 +83,13 @@ case 'imp_acl_set':
             }
 
             if (!$user) {
-                $notification->push(_('No user specified.'), 'horde.error');
+                $notification->push(_("No user specified."), 'horde.error');
                 continue;
             }
 
             if (in_array($user, $protected)) {
                 if ($acl) {
-                    $notification->push(sprintf(_('Rights for user "%s" cannot be modified.'), $user), 'horde.error');
+                    $notification->push(sprintf(_("Rights for user \"%s\" cannot be modified."), $user), 'horde.error');
                 }
                 continue;
             }
@@ -103,9 +103,9 @@ case 'imp_acl_set':
             try {
                 $ACLDriver->editACL($folder, $user, $acl);
                 if (!count($acl)) {
-                    $notification->push(sprintf(_('All rights on folder "%s" successfully removed for user "%s".'), $folder, $user), 'horde.success');
+                    $notification->push(sprintf(_("All rights on folder \"%s\" successfully removed for user \"%s\"."), $folder, $user), 'horde.success');
                 } else {
-                    $notification->push(sprintf(_('User "%s" successfully given the specified rights for the folder "%s".'), $user, $folder), 'horde.success');
+                    $notification->push(sprintf(_("User \"%s\" successfully given the specified rights for the folder \"%s\"."), $user, $folder), 'horde.success');
                 }
             } catch (Horde_Exception $e) {
                 $notification->push($e);
@@ -139,10 +139,10 @@ $t->setOption('gettext', true);
 $t->set('aclurl', Horde::applicationUrl('acl.php'));
 $t->set('forminput', Horde_Util::formInput());
 $t->set('aclnavcell', Horde_Util::bufferOutput(array('Prefs_UI', 'generateNavigationCell'), 'acl'));
-$t->set('changefolder', Horde::link('#', _('Change Folder'), 'smallheader', '', '', '', '', array('id' => 'changefolder')));
-$t->set('sharedimg', Horde::img('shared.png', _('Change Folder')));
+$t->set('changefolder', Horde::link('#', _("Change Folder"), 'smallheader', '', '', '', '', array('id' => 'changefolder')));
+$t->set('sharedimg', Horde::img('shared.png', _("Change Folder")));
 $t->set('options', IMP::flistSelect(array('selected' => $folder)));
-$t->set('current', sprintf(_('Current access to %s'), IMP::displayFolder($folder)));
+$t->set('current', sprintf(_("Current access to %s"), IMP::displayFolder($folder)));
 $t->set('folder', $folder);
 $t->set('noacl', !count($curr_acl));
 $t->set('maxrule', 1);
@@ -179,7 +179,7 @@ if (empty($_SESSION['imp']['admin'])) {
         if (in_array($user, $current_users)) {
             continue;
         }
-        $new_user_field .= "\n<option>" . htmlspecialchars($user)
+        $new_user_field .= "\n" . '<option>' . htmlspecialchars($user)
             . '</option>';
     }
     $new_user_field .= "\n</select>";

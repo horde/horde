@@ -32,7 +32,7 @@ $actionID = Horde_Util::getFormData('a');
 switch ($actionID) {
 // 'm' = message missing
 case 'm':
-    $notification->push(_('There was an error viewing the requested message.'), 'horde.error');
+    $notification->push(_("There was an error viewing the requested message."), 'horde.error');
     break;
 
 // 'e' = expunge mailbox
@@ -59,12 +59,12 @@ $pageOb = $imp_mailbox->buildMailboxPage(Horde_Util::getFormData('p'), Horde_Uti
 /* Generate page links. */
 $pages_first = $pages_prev = $pages_last = $pages_next = null;
 if ($pageOb['page'] != 1) {
-    $pages_first = new Horde_Mobile_link(_('First Page'), Horde_Util::addParameter($mailbox_url, 'p', 1));
-    $pages_prev = new Horde_Mobile_link(_('Previous Page'), Horde_Util::addParameter($mailbox_url, 'p', $pageOb['page'] - 1));
+    $pages_first = new Horde_Mobile_link(_("First Page"), Horde_Util::addParameter($mailbox_url, 'p', 1));
+    $pages_prev = new Horde_Mobile_link(_("Previous Page"), Horde_Util::addParameter($mailbox_url, 'p', $pageOb['page'] - 1));
 }
 if ($pageOb['page'] != $pageOb['pagecount']) {
-    $pages_next = new Horde_Mobile_link(_('Next Page'), Horde_Util::addParameter($mailbox_url, 'p', $pageOb['page'] + 1));
-    $pages_last = new Horde_Mobile_link(_('Last Page'), Horde_Util::addParameter($mailbox_url, 'p', $pageOb['pagecount']));
+    $pages_next = new Horde_Mobile_link(_("Next Page"), Horde_Util::addParameter($mailbox_url, 'p', $pageOb['page'] + 1));
+    $pages_last = new Horde_Mobile_link(_("Last Page"), Horde_Util::addParameter($mailbox_url, 'p', $pageOb['pagecount']));
 }
 
 /* Generate mailbox summary string. */
@@ -143,21 +143,21 @@ while (list(,$ob) = each($mbox_info['overview'])) {
 }
 
 $mailbox = Horde_Util::addParameter($mailbox_url, 'p', $pageOb['page']);
-$items = array($mailbox => _('Refresh'));
+$items = array($mailbox => _("Refresh"));
 
 /* Determine if we are going to show the Purge Deleted link. */
 if (!$readonly &&
     !$prefs->getValue('use_trash') &&
     !$imp_search->isVINBOXFolder()) {
-    $items[Horde_Util::addParameter($mailbox, array('a' => 'e'))] = _('Purge Deleted');
+    $items[Horde_Util::addParameter($mailbox, array('a' => 'e'))] = _("Purge Deleted");
 }
 
 /* Create sorting links. */
 $sort = array();
 $sort_list = array(
     Horde_Imap_Client::SORT_ARRIVAL => '#',
-    Horde_Imap_Client::SORT_FROM => _('From'),
-    Horde_Imap_Client::SORT_SUBJECT => _('Subject')
+    Horde_Imap_Client::SORT_FROM => _("From"),
+    Horde_Imap_Client::SORT_SUBJECT => _("Subject")
 );
 foreach ($sort_list as $key => $val) {
     if ($sortpref['limit']) {
@@ -168,10 +168,10 @@ foreach ($sort_list as $key => $val) {
         if (($key == Horde_Imap_Client::SORT_SUBJECT) &&
             IMP::threadSortAvailable($mailbox)) {
             if (is_null($threadob)) {
-                $items[Horde_Util::addParameter($mailbox, array('a' => 'c', 'sb' => Horde_Imap_Client::SORT_THREAD, 'sd' => $sortdir))] = _('Sort by Thread');
+                $items[Horde_Util::addParameter($mailbox, array('a' => 'c', 'sb' => Horde_Imap_Client::SORT_THREAD, 'sd' => $sortdir))] = _("Sort by Thread");
             } else {
                 $sortkey = Horde_Imap_Client::SORT_THREAD;
-                $items[Horde_Util::addParameter($mailbox, array('a' => 'c', 'sb' => Horde_Imap_Client::SORT_SUBJECT, 'sd' => $sortdir))] = _('Do Not Sort by Thread');
+                $items[Horde_Util::addParameter($mailbox, array('a' => 'c', 'sb' => Horde_Imap_Client::SORT_SUBJECT, 'sd' => $sortdir))] = _("Do Not Sort by Thread");
             }
         }
         if ($sortpref['by'] == $key) {
@@ -183,7 +183,7 @@ foreach ($sort_list as $key => $val) {
 }
 
 /* Create mailbox menu. */
-$menu = new Horde_Mobile_card('o', _('Menu'));
+$menu = new Horde_Mobile_card('o', _("Menu"));
 $mset = &$menu->add(new Horde_Mobile_linkset());
 
 foreach ($items as $link => $label) {

@@ -322,7 +322,7 @@ class IMP_Mailbox
                 }
             } catch (Horde_Imap_Client_Exception $e) {
                 $this->_sorted = $this->_sortedMbox = array();
-                $GLOBALS['notification']->push(_('Mailbox listing failed') . ': ' . $e->getMessage(), 'horde.error');
+                $GLOBALS['notification']->push(_("Mailbox listing failed") . ': ' . $e->getMessage(), 'horde.error');
             }
         } else {
             $sortpref = IMP::getSort($this->_mailbox);
@@ -342,7 +342,7 @@ class IMP_Mailbox
                     $this->_sorted = $res['sort'];
                 } catch (Horde_Imap_Client_Exception $e) {
                     $this->_sorted = array();
-                    $GLOBALS['notification']->push(_('Mailbox listing failed') . ': ' . $e->getMessage(), 'horde.error');
+                    $GLOBALS['notification']->push(_("Mailbox listing failed") . ': ' . $e->getMessage(), 'horde.error');
                 }
             }
         }

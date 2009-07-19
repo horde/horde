@@ -16,7 +16,7 @@ class IMP_Horde_Mime_Viewer_Smil extends Horde_Mime_Viewer_Smil
     /**
      * User-defined function callback for start elements.
      *
-     * @param object $parser  Handle to the parser instance (not used).
+     * @param object $parser  Handle to the parser instance.
      * @param string $name    The name of this XML element.
      * @param array $attrs    List of this element's attributes.
      */

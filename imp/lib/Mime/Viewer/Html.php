@@ -207,8 +207,8 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 $cleanhtml['status'][] = array(
                     'icon' => Horde::img('mime/image.png'),
                     'text' => array(
-                        Horde_String::convertCharset(_('Images have been blocked to protect your privacy.'), $charset, $msg_charset),
-                        Horde::link(Horde_Util::addParameter($url, 'view_html_images', 1), '', 'unblockImageLink') . Horde_String::convertCharset(_('Show Images?'), $charset, $msg_charset) . '</a>'
+                        Horde_String::convertCharset(_("Images have been blocked to protect your privacy."), $charset, $msg_charset),
+                        Horde::link(Horde_Util::addParameter($url, 'view_html_images', 1), '', 'unblockImageLink') . Horde_String::convertCharset(_("Show Images?"), $charset, $msg_charset) . '</a>'
                     )
                 );
 

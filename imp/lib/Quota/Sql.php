@@ -66,7 +66,7 @@ class IMP_Quota_Sql extends IMP_Quota
                                  array('persistent' => !empty($this->_params['persistent']),
                                        'ssl' => !empty($this->_params['ssl'])));
         if ($this->_db instanceof PEAR_Error) {
-            throw new Horde_Exception(_('Unable to connect to SQL server.'));
+            throw new Horde_Exception(_("Unable to connect to SQL server."));
         }
     }
 

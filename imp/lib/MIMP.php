@@ -27,25 +27,25 @@ class MIMP
 
         if (!in_array($page, array('mailbox', 'message')) ||
             ($GLOBALS['imp_mbox']['mailbox'] != 'INBOX')) {
-            $items[IMP::generateIMPUrl('mailbox-mimp.php', 'INBOX')] = _('Inbox');
+            $items[IMP::generateIMPUrl('mailbox-mimp.php', 'INBOX')] = _("Inbox");
         }
 
         if (($page != 'compose') && IMP::canCompose()) {
-            $items[Horde_Util::addParameter(Horde::applicationUrl('compose-mimp.php'), 'u', uniqid(mt_rand()))] = _('New Message');
+            $items[Horde_Util::addParameter(Horde::applicationUrl('compose-mimp.php'), 'u', uniqid(mt_rand()))] = _("New Message");
         }
 
         if ($page != 'folders') {
-            $items[Horde::applicationUrl('folders-mimp.php')] = _('Folders');
+            $items[Horde::applicationUrl('folders-mimp.php')] = _("Folders");
         }
 
         // @TODO - Options for mobile browsers
         // if ($options_link = Horde::getServiceLink('options', 'mimp')) {
-        //     $items[Horde_Util::addParameter($options_link, 'mobile', 1, false)] = _('Options');
+        //     $items[Horde_Util::addParameter($options_link, 'mobile', 1, false)] = _("Options");
         // }
 
         $logout_link = IMP::getLogoutUrl(Horde_Auth::REASON_LOGOUT);
         if (!empty($logout_link)) {
-            $items[$logout_link] = _('Log out');
+            $items[$logout_link] = _("Log out");
         }
 
         foreach ($items as $link => $label) {

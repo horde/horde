@@ -33,7 +33,7 @@ class IMP_Block_Newmail extends Horde_Block
 
         $html = '<table cellspacing="0" width="100%">';
         if (empty($ids)) {
-            $html .= '<tr><td><em>' . _('No unread messages') . '</em></td></tr>';
+            $html .= '<tr><td><em>' . _("No unread messages") . '</em></td></tr>';
         } else {
             $charset = Horde_Nls::getCharset();
             $imp_ui = new IMP_UI_Mailbox('INBOX');
@@ -61,8 +61,8 @@ class IMP_Block_Newmail extends Horde_Block
 
             $more_msgs = count($ids) - $shown;
             $text = ($more_msgs > 0)
-                ? sprintf(ngettext('%d more unseen message...', '%d more unseen messages...', $more_msgs), $more_msgs)
-                : _('Go to your Inbox...');
+                ? sprintf(ngettext("%d more unseen message...", "%d more unseen messages...", $more_msgs), $more_msgs)
+                : _("Go to your Inbox...");
             $html .= '<tr><td colspan="2" style="cursor:pointer" align="right" onclick="DimpBase.go(\'folder:INBOX\');return false;">' . $text . '</td></tr>';
         }
 

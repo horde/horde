@@ -41,9 +41,9 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
                Only do this if sent-mail folder currently exists. */
             if ($imp_folder->exists($sent_folder)) {
                 $old_folder = $this->_renameSentmailMonthlyName($sent_folder);
-                $GLOBALS['notification']->push(sprintf(_('%s folder being renamed at the start of the month.'), IMP::displayFolder($sent_folder)), 'horde.message');
+                $GLOBALS['notification']->push(sprintf(_("%s folder being renamed at the start of the month."), IMP::displayFolder($sent_folder)), 'horde.message');
                 if ($imp_folder->exists($old_folder)) {
-                    $GLOBALS['notification']->push(sprintf(_('%s already exists. Your %s folder was not renamed.'), IMP::displayFolder($old_folder), IMP::displayFolder($sent_folder)), 'horde.warning');
+                    $GLOBALS['notification']->push(sprintf(_("%s already exists. Your %s folder was not renamed."), IMP::displayFolder($old_folder), IMP::displayFolder($sent_folder)), 'horde.warning');
                     $success = false;
                 } else {
                     $success =
@@ -72,7 +72,7 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
             $new_folders[] = IMP::displayFolder($this->_renameSentmailMonthlyName($folder));
         }
 
-        return sprintf(_('The current folder(s) "%s" will be renamed to "%s".'), implode(', ', $old_folders), implode(', ', $new_folders));
+        return sprintf(_("The current folder(s) \"%s\" will be renamed to \"%s\"."), implode(', ', $old_folders), implode(', ', $new_folders));
     }
 
     /**

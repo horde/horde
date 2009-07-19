@@ -42,12 +42,12 @@ $t->setOption('gettext', true);
 $t->set('action', Horde::applicationUrl('saveimage.php'));
 $t->set('id', htmlspecialchars($id));
 $t->set('index', htmlspecialchars($index));
-$t->set('image_img', Horde::img('mime/image.png', _('Image'), null, $registry->getImageDir('horde')));
+$t->set('image_img', Horde::img('mime/image.png', _("Image"), null, $registry->getImageDir('horde')));
 
 /* Build the list of galleries. */
 $t->set('gallerylist', $registry->call('images/selectGalleries', array(null, PERMS_EDIT)));
 
-$title = _('Save Image');
+$title = _("Save Image");
 require IMP_TEMPLATES . '/common-header.inc';
 IMP::status();
 echo $t->fetch(IMP_TEMPLATES . '/saveimage/saveimage.html');

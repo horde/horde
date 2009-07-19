@@ -25,7 +25,7 @@ class IMP_Quota_Imap extends IMP_Quota
         try {
             $quota = $GLOBALS['imp_imap']->ob->getQuotaRoot($GLOBALS['imp_search']->isSearchMbox($GLOBALS['imp_mbox']['mailbox']) ? 'INBOX' : $GLOBALS['imp_mbox']['mailbox']);
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception(_('Unable to retrieve quota'), 'horde.error');
+            throw new Horde_Exception(_("Unable to retrieve quota"), 'horde.error');
         }
 
         $quota_val = reset($quota);

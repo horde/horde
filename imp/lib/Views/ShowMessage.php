@@ -94,7 +94,7 @@ class IMP_Views_ShowMessage
         $preview = !empty($args['preview']);
         $mailbox = $args['mailbox'];
         $index = $args['index'];
-        $error_msg = _('Requested message not found.');
+        $error_msg = _("Requested message not found.");
 
         $result = array(
             'index' => $index,
@@ -150,7 +150,7 @@ class IMP_Views_ShowMessage
                 if (!empty($tmp)) {
                     $result[$val] = $tmp;
                 } elseif ($val == 'to') {
-                    $result[$val] = array(array('raw' => _('Undisclosed Recipients')));
+                    $result[$val] = array(array('raw' => _("Undisclosed Recipients")));
                 }
                 if ($preview) {
                     unset($headers_list[$val]);
@@ -200,7 +200,7 @@ class IMP_Views_ShowMessage
             $imp_mailbox_ui = new IMP_UI_Mailbox();
             $minidate = $imp_mailbox_ui->getDate($envelope['date']);
             if (empty($minidate)) {
-                $minidate = _('Unknown Date');
+                $minidate = _("Unknown Date");
             }
             $result['minidate'] = htmlspecialchars($minidate);
         } else {
@@ -218,7 +218,7 @@ class IMP_Views_ShowMessage
         /* Process the subject. */
         $result['subject'] = ($subject = $mime_headers->getValue('subject'))
             ? $imp_ui->getDisplaySubject($subject)
-            : htmlspecialchars(_('[No Subject]'));
+            : htmlspecialchars(_("[No Subject]"));
 
         /* Get X-Priority. */
         if (!$preview) {
@@ -248,8 +248,8 @@ class IMP_Views_ShowMessage
         }
 
         /* Do MDN processing now. */
-        if ($imp_ui->mdnCheck($mailbox, $index, $mime_headers)) {
-            $result['msgtext'] .= $imp_ui->formatStatusMsg(array('text' => array(_('The sender of this message is requesting a Message Disposition Notification from you when you have read this message.'), sprintf(_('Click %s to send the notification message.'), Horde::link('', '', '', '', 'DimpCore.doAction(\'SendMDN\',{folder:\'' . $mailbox . '\',index:' . $index . '}); return false;', '', '') . _('HERE') . '</a>'))));
+        if ($imp_ui->MDNCheck($mailbox, $index, $mime_headers)) {
+            $result['msgtext'] .= $imp_ui->formatStatusMsg(array('text' => array(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link('', '', '', '', 'DimpCore.doAction(\'SendMDN\',{folder:\'' . $mailbox . '\',index:' . $index . '}); return false;', '', '') . _("HERE") . '</a>'))));
         }
 
         /* Build body text. This needs to be done before we build the
@@ -300,15 +300,15 @@ class IMP_Views_ShowMessage
         }
 
         if (!strlen($result['msgtext'])) {
-            $result['msgtext'] = $imp_ui->formatStatusMsg(array('text' => array(_('There are no parts that can be shown inline.'))));
+            $result['msgtext'] = $imp_ui->formatStatusMsg(array('text' => array(_("There are no parts that can be shown inline."))));
         }
 
         if (count($atc_parts) || (count($display_ids) > 2)) {
             $result['atc_label'] = ($show_parts == 'all')
-                ? _('Parts')
-                : sprintf(ngettext('%d Attachment', '%d Attachments', count($atc_parts)), count($atc_parts));
+                ? _("Parts")
+                : sprintf(ngettext("%d Attachment", "%d Attachments", count($atc_parts)), count($atc_parts));
             $result['atc_download'] = (count($display_ids) > 2)
-                ? Horde::link($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all')) . '[' . _('Save All') . ']</a>'
+                ? Horde::link($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all')) . '[' . _("Save All") . ']</a>'
                 : '';
         }
 

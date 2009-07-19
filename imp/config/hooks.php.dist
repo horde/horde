@@ -229,16 +229,16 @@
 // if (!function_exists('_imp_hook_mbox_redirect')) {
 //     function _imp_hook_mbox_redirect($mailbox)
 //     {
-//         if ((strpos($mailbox, 'INBOX/Calendar') !== false) ||
+//         if ((strpos($mailbox, "INBOX/Calendar") !== false) ||
 //             preg_match("!^user/[^/]+/Calendar!", $mailbox)) {
 //             return $GLOBALS['registry']->get('webroot', 'kronolith');
-//         } elseif ((strpos($mailbox, 'INBOX/Tasks') !== false) ||
+//         } elseif ((strpos($mailbox, "INBOX/Tasks") !== false) ||
 //                   preg_match("!^user/[^/]+/Tasks!", $mailbox)) {
 //             return $GLOBALS['registry']->get('webroot', 'nag');
-//         } elseif ((strpos($mailbox, 'INBOX/Notes') !== false) ||
+//         } elseif ((strpos($mailbox, "INBOX/Notes") !== false) ||
 //                   preg_match("!^user/[^/]+/Notes!", $mailbox)) {
 //             return $GLOBALS['registry']->get('webroot', 'mnemo');
-//         } elseif ((strpos($mailbox, 'INBOX/Contacts') !== false) ||
+//         } elseif ((strpos($mailbox, "INBOX/Contacts") !== false) ||
 //                   preg_match("!^user/[^/]+/Contacts!", $mailbox)) {
 //             return $GLOBALS['registry']->get('webroot', 'turba');
 //         }
@@ -271,34 +271,34 @@
 //         $newmailboxes = array();
 //
 //         foreach ($mailboxes as $box) {
-//             $box = preg_replace('/^{[^}]+}/', '', $box);
-//             if ((strpos($box, 'INBOX/Calendar') !== false) ||
-//                 preg_match('!^user/[^/]+/Calendar!', $box)) {
+//             $box = preg_replace("/^{[^}]+}/", "", $box);
+//             if ((strpos($box, "INBOX/Calendar") !== false) ||
+//                 preg_match("!^user/[^/]+/Calendar!", $box)) {
 //                 $newmailboxes[$box] = array(
 //                     'icon' => 'kronolith.png',
 //                     'icondir' => $GLOBALS['registry']->getImageDir('kronolith')
-//                     'alt' => _('Calendar')
+//                     'alt' => _("Calendar")
 //                 );
-//             } elseif ((strpos($box, 'INBOX/Tasks') !== false) ||
-//                       preg_match('!^user/[^/]+/Tasks!', $box)) {
+//             } elseif ((strpos($box, "INBOX/Tasks") !== false) ||
+//                       preg_match("!^user/[^/]+/Tasks!", $box)) {
 //                 $newmailboxes[$box] = array(
 //                     'icon' => 'nag.png',
 //                     'icondir' => $GLOBALS['registry']->getImageDir('nag')
-//                     'alt' => _('Tasks')
+//                     'alt' => _("Tasks")
 //                 );
-//             } elseif ((strpos($box, 'INBOX/Notes') !== false) ||
-//                       preg_match('!^user/[^/]+/Notes!', $box)) {
+//             } elseif ((strpos($box, "INBOX/Notes") !== false) ||
+//                       preg_match("!^user/[^/]+/Notes!", $box)) {
 //                 $newmailboxes[$box] = array(
 //                     'icon' => 'mnemo.png',
 //                     'icondir' => $GLOBALS['registry']->getImageDir('mnemo')
-//                     'alt' => _('Notes')
+//                     'alt' => _("Notes")
 //                 );
-//             } elseif ((strpos($box, 'INBOX/Contacts') !== false) ||
-//                       preg_match('!^user/[^/]+/Contacts!', $box)) {
+//             } elseif ((strpos($box, "INBOX/Contacts") !== false) ||
+//                       preg_match("!^user/[^/]+/Contacts!", $box)) {
 //                 $newmailboxes[$box] = array(
 //                     'icon' => 'turba.png',
 //                     'icondir' => $GLOBALS['registry']->getImageDir('turba')
-//                     'alt' => _('Contacts')
+//                     'alt' => _("Contacts")
 //                 );
 //             }
 //         }
@@ -429,7 +429,7 @@ if (!empty($GLOBALS['conf']['kolab']['enabled'])) {
                     $icons[$name] = array(
                         'icon' => 'kronolith.png',
                         'icondir' => $GLOBALS['registry']->getImageDir('kronolith'),
-                        'alt' => _('Calendar')
+                        'alt' => _("Calendar")
                     );
                     break;
 
@@ -437,7 +437,7 @@ if (!empty($GLOBALS['conf']['kolab']['enabled'])) {
                     $icons[$name] = array(
                         'icon' => 'nag.png',
                         'icondir' => $GLOBALS['registry']->getImageDir('nag'),
-                        'alt' => _('Tasks')
+                        'alt' => _("Tasks")
                     );
                     break;
 
@@ -445,7 +445,7 @@ if (!empty($GLOBALS['conf']['kolab']['enabled'])) {
                     $icons[$name] = array(
                         'icon' => 'mnemo.png',
                         'icondir' => $GLOBALS['registry']->getImageDir('mnemo'),
-                        'alt' => _('Notes')
+                        'alt' => _("Notes")
                     );
                     break;
 
@@ -453,7 +453,7 @@ if (!empty($GLOBALS['conf']['kolab']['enabled'])) {
                     $icons[$name] = array(
                         'icon' => 'turba.png',
                         'icondir' => $GLOBALS['registry']->getImageDir('turba'),
-                        'alt' => _('Contacts')
+                        'alt' => _("Contacts")
                     );
                     break;
 
@@ -461,7 +461,7 @@ if (!empty($GLOBALS['conf']['kolab']['enabled'])) {
                     $icons[$name] = array(
                         'icon' => 'prefs.png',
                         'icondir' => $GLOBALS['registry']->getImageDir('horde'),
-                        'alt' => _('Preferences')
+                        'alt' => _("Preferences")
                     );
                     break;
                 }
@@ -498,11 +498,11 @@ if (!function_exists('_imp_hook_quota')) {
 
         $session = ssh2_connect($host);
         if (!$session) {
-            throw new Horde_Exception(_('Connection to server failed.'), 'horde.error');
+            throw new Horde_Exception(_("Connection to server failed."), 'horde.error');
         }
 
         if (!ssh2_auth_password($session, $user, $pass)) {
-            throw new Horde_Exception(_('Authentication failed.'), 'horde.error');
+            throw new Horde_Exception(_("Authentication failed."), 'horde.error');
         }
 
         $stream = ssh2_exec($session, $command, false);

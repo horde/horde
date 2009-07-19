@@ -62,7 +62,7 @@ case 'fetchmail_prefs_save':
 
     $id = Horde_Util::getFormData('fm_id');
     if (empty($id)) {
-        $id = _('Unnamed');
+        $id = _("Unnamed");
     }
 
     foreach ($fetchmail->getParameterList() as $val) {
@@ -71,18 +71,18 @@ case 'fetchmail_prefs_save':
 
     $prefs->setValue('fetchmail_login', (bool)array_sum($fm_account->getAll('loginfetch')));
 
-    $notification->push(sprintf(_('The account "%s" has been saved.'), $id), 'horde.success');
+    $notification->push(sprintf(_("The account \"%s\" has been saved."), $id), 'horde.success');
     break;
 
 case 'fetchmail_prefs_delete':
     $to_delete = Horde_Util::getFormData('edit_account');
     if ($to_delete !== null) {
         $deleted_account = $fm_account->delete($to_delete);
-        $notification->push(sprintf(_('The account "%s" has been deleted.'), $deleted_account['id']), 'horde.success');
+        $notification->push(sprintf(_("The account \"%s\" has been deleted."), $deleted_account['id']), 'horde.success');
         $prefs->setValue('fetchmail_login', (bool)array_sum($fm_account->getAll('loginfetch')));
         $actionID = null;
     } else {
-        $notification->push(_('You must select an account to be deleted.'), 'horde.warning');
+        $notification->push(_("You must select an account to be deleted."), 'horde.warning');
     }
     break;
 }

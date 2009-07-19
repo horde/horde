@@ -104,7 +104,7 @@ if (count($_POST)) {
             _removeAutoSaveDraft($old_index);
 
             if ($action == 'auto_save_draft') {
-                $notification->push(_('Draft automatically saved.'), 'horde.message');
+                $notification->push(_("Draft automatically saved."), 'horde.message');
             } else {
                 $notification->push($res);
             }
@@ -175,7 +175,7 @@ if (count($_POST)) {
         }
 
         if ($sent && $prefs->getValue('compose_confirm')) {
-            $notification->push(empty($header['subject']) ? _('Message sent successfully.') : sprintf(_('Message "%s" sent successfully.'), Horde_String::truncate($header['subject'])), 'horde.success');
+            $notification->push(empty($header['subject']) ? _("Message sent successfully.") : sprintf(_("Message \"%s\" sent successfully."), Horde_String::truncate($header['subject'])), 'horde.success');
         }
 
         /* Update maillog information. */
@@ -205,7 +205,7 @@ $type = Horde_Util::getFormData('type');
 $index = Horde_Util::getFormData('uid');
 $folder = Horde_Util::getFormData('folder');
 $show_editor = false;
-$title = _('New Message');
+$title = _("New Message");
 
 if (in_array($type, array('reply', 'reply_all', 'reply_list', 'forward', 'resume'))) {
     if (!$index || !$folder) {
@@ -215,7 +215,7 @@ if (in_array($type, array('reply', 'reply_all', 'reply_list', 'forward', 'resume
     try {
         $imp_contents = IMP_Contents::singleton($index . IMP::IDX_SEP . $folder);
     } catch (Horde_Exception $e) {
-        $notification->push(_('Requested message not found.'), 'horde.error');
+        $notification->push(_("Requested message not found."), 'horde.error');
         $index = $folder = null;
         $type = 'new';
     }
@@ -231,11 +231,11 @@ case 'reply_list':
     $header['replytype'] = 'reply';
 
     if ($type == 'reply') {
-        $title = _('Reply:');
+        $title = _("Reply:");
     } elseif ($type == 'reply_all') {
-        $title = _('Reply to All:');
+        $title = _("Reply to All:");
     } elseif ($type == 'reply_list') {
-        $title = _('Reply to List:');
+        $title = _("Reply to List:");
     }
     $title .= ' ' . $header['subject'];
 
@@ -335,7 +335,7 @@ $scripts = array(
     array('compose-dimp.js', 'imp', true)
 );
 
-DIMP::header(_('Message Composition'), $scripts);
+DIMP::header(_("Message Composition"), $scripts);
 echo $t->fetch('compose.html');
 IMP::includeScriptFiles();
 Horde::outputInlineScript();

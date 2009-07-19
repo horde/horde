@@ -86,7 +86,7 @@ class IMP_Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Zip
              ($val['method'] == 0x0))) {
             $mime_part = $this->_mimepart;
             $mime_part->setName(basename($name));
-            $val['name'] = str_replace($name, $this->_params['contents']->linkView($mime_part, 'download_render', $name, array('jstext' => sprintf(_('View %s'), str_replace('&nbsp;', ' ', $name)), 'class' => 'fixed', 'params' => array('zip_attachment' => urlencode($key) + 1))), $val['name']);
+            $val['name'] = str_replace($name, $this->_params['contents']->linkView($mime_part, 'download_render', $name, array('jstext' => sprintf(_("View %s"), str_replace('&nbsp;', ' ', $name)), 'class' => 'fixed', 'params' => array('zip_attachment' => urlencode($key) + 1))), $val['name']);
         }
 
         return $val;

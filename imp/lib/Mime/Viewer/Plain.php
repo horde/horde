@@ -50,7 +50,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
              * escape character or else the line will display as being
              * quoted. Flowed conversion would have already taken care of this
              * for us. */
-            $text = preg_replace('/(\n+)> ?From(\s+)/', '$1From$2', $text);
+            $text = preg_replace('/(\n+)> ?From(\s+)/', "$1From$2", $text);
         }
 
         $text = IMP::filterText($text);
@@ -114,7 +114,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 
         return array(
             $mime_id => array(
-                'data' => "<div class=\"fixed leftAlign\">\n" . $text . '</div>',
+                'data' => '<div class="fixed leftAlign">' . "\n" . $text . '</div>',
                 'status' => array(),
                 'type' => $type
             )

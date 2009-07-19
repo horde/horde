@@ -212,7 +212,7 @@ class IMP_Compose
                     try {
                         Horde_Mime::encodeAddress($this->formatAddr($addr), $charset, $_SESSION['imp']['maildomain']);
                     } catch (Horde_Mime_Exception $e) {
-                        throw new IMP_Compose_Exception(sprintf(_('Saving the draft failed. The %s header contains an invalid e-mail address: %s.'), $k, $e->getMessage()), $e->getCode());
+                        throw new IMP_Compose_Exception(sprintf(_("Saving the draft failed. The %s header contains an invalid e-mail address: %s."), $k, $e->getMessage()), $e->getCode());
                     }
                 }
                 $draft_headers->addHeader($v, $addr);
@@ -241,7 +241,7 @@ class IMP_Compose
     {
         $drafts_mbox = IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true);
         if (empty($drafts_mbox)) {
-            throw new IMP_Compose_Exception(_('Saving the draft failed. No draft folder specified.'));
+            throw new IMP_Compose_Exception(_("Saving the draft failed. No draft folder specified."));
         }
 
         $imp_folder = IMP_Folder::singleton();
@@ -249,7 +249,7 @@ class IMP_Compose
         /* Check for access to drafts folder. */
         if (!$imp_folder->exists($drafts_mbox) &&
             !$imp_folder->create($drafts_mbox, $GLOBALS['prefs']->getValue('subscribe'))) {
-            throw new IMP_Compose_Exception(_('Saving the draft failed. Could not create a drafts folder.'));
+            throw new IMP_Compose_Exception(_("Saving the draft failed. Could not create a drafts folder."));
         }
 
         $append_flags = array('\\draft');
@@ -269,11 +269,11 @@ class IMP_Compose
             $ids = $GLOBALS['imp_imap']->ob->append($drafts_mbox, array(array('data' => $data, 'flags' => $append_flags, 'messageid' => $headers->getValue('message-id'))));
             $this->_metadata['draft_index'] = reset($ids);
             $this->_modified = true;
-            return sprintf(_('The draft has been saved to the "%s" folder.'), IMP::displayFolder($drafts_mbox));
+            return sprintf(_("The draft has been saved to the \"%s\" folder."), IMP::displayFolder($drafts_mbox));
         } catch (Horde_Imap_Client_Exception $e) {
             unset($this->_metadata['draft_index']);
             $this->_modified = true;
-            return _('The draft was not successfully saved.');
+            return _("The draft was not successfully saved.");
         }
     }
 
@@ -516,7 +516,7 @@ class IMP_Compose
                     $sentmail->log(empty($this->_metadata['reply_type']) ? 'new' : $this->_metadata['reply_type'], $headers->getValue('message-id'), $val['recipients'], false);
                 }
 
-                throw new IMP_Compose_Exception(sprintf(_('There was an error sending your message: %s'), $e->getMessage()));
+                throw new IMP_Compose_Exception(sprintf(_("There was an error sending your message: %s"), $e->getMessage()));
             }
 
             /* Store history information. */
@@ -553,7 +553,7 @@ class IMP_Compose
             }
         }
 
-        $entry = sprintf('%s Message sent to %s from %s', $_SERVER['REMOTE_ADDR'], $recipients, $_SESSION['imp']['uniquser']);
+        $entry = sprintf("%s Message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $_SESSION['imp']['uniquser']);
         Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_INFO);
 
         /* Should we save this message in the sent mail folder? */
@@ -575,7 +575,7 @@ class IMP_Compose
                 ((strpos($save_attach, 'prompt') === 0) &&
                  empty($opts['save_attachments']))) {
                 $mime_message->buildMimeIds();
-                for ($i = 2;; ++$i) {
+                for ($i = 2; ; ++$i) {
                     if (!($oldPart = $mime_message->getPart($i))) {
                         break;
                     }
@@ -583,7 +583,7 @@ class IMP_Compose
                     $replace_part = new Horde_Mime_Part();
                     $replace_part->setType('text/plain');
                     $replace_part->setCharset($charset);
-                    $replace_part->setContents('[' . _('Attachment stripped: Original attachment type') . ': "' . $oldPart->getType() . '", ' . _('name') . ': "' . $oldPart->getName(true) . '"]');
+                    $replace_part->setContents('[' . _("Attachment stripped: Original attachment type") . ': "' . $oldPart->getType() . '", ' . _("name") . ': "' . $oldPart->getName(true) . '"]');
                     $mime_message->alterPart($i, $replace_part);
                 }
             }
@@ -607,7 +607,7 @@ class IMP_Compose
             try {
                 $GLOBALS['imp_imap']->ob->append(Horde_String::convertCharset($opts['sent_folder'], Horde_Nls::getCharset(), 'UTF-8'), array(array('data' => $fcc, 'flags' => $flags)));
             } catch (Horde_Imap_Client_Exception $e) {
-                $notification->push(sprintf(_('Message sent successfully, but not saved to %s'), IMP::displayFolder($opts['sent_folder'])));
+                $notification->push(sprintf(_("Message sent successfully, but not saved to %s"), IMP::displayFolder($opts['sent_folder'])));
                 $sent_saved = false;
             }
         }
@@ -647,7 +647,7 @@ class IMP_Compose
 
         /* Properly encode the addresses we're sending to. */
         try {
-            $email = Horde_Mime::encodeAddress($email, $charset, $_SESSION['imp']['maildomain']);
+            $email = Horde_Mime::encodeAddress($email, null, $_SESSION['imp']['maildomain']);
         } catch (Horde_Mime_Exception $e) {
             throw new IMP_Compose_Exception($e);
         }
@@ -663,7 +663,7 @@ class IMP_Compose
         if ($timelimit !== true) {
             if ($conf['sentmail']['driver'] == 'none') {
                 Horde::logMessage('The permission for the maximum number of recipients per time period has been enabled, but no backend for the sent-mail logging has been configured for IMP.', __FILE__, __LINE__, PEAR_LOG_ERR);
-                throw new IMP_Compose_Exception(_('The system is not properly configured. A detailed error description has been logged for the administrator.'));
+                throw new IMP_Compose_Exception(_("The system is not properly configured. A detailed error description has been logged for the administrator."));
             }
             $sentmail = IMP_Sentmail::factory();
             $recipients = $sentmail->numberOfRecipients($conf['sentmail']['params']['limit_period'], true);
@@ -678,7 +678,7 @@ class IMP_Compose
                         throw new IMP_Compose_Exception($e);
                     }
                 }
-                throw new IMP_Compose_Exception(@htmlspecialchars(sprintf(_('You are not allowed to send messages to more than %d recipients within %d hours.'), $timelimit, $conf['sentmail']['params']['limit_period']), ENT_COMPAT, Horde_Nls::getCharset()));
+                throw new IMP_Compose_Exception(@htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $timelimit, $conf['sentmail']['params']['limit_period']), ENT_COMPAT, Horde_Nls::getCharset()));
             }
         }
 
@@ -749,7 +749,7 @@ class IMP_Compose
         } catch (Horde_Mime_Exception $e) {}
 
         if (empty($r_array)) {
-            $notification->push(_('Could not save recipients.'));
+            $notification->push(_("Could not save recipients."));
             return;
         }
 
@@ -764,7 +764,7 @@ class IMP_Compose
             $results = $registry->call('contacts/search', array($emails, array($abook), array($abook => array('email'))));
         } catch (Horde_Exception $e) {
             Horde::logMessage($e);
-            $notification->push(_('Could not save recipients.'));
+            $notification->push(_("Could not save recipients."));
             return;
         }
 
@@ -791,7 +791,7 @@ class IMP_Compose
 
             try {
                 $registry->call('contacts/import', array(array('name' => $name, 'email' => $recipient['mailbox'] . '@' . $recipient['host']), 'array', $abook));
-                $notification->push(sprintf(_('Entry "%s" was successfully added to the address book'), $name), 'horde.success');
+                $notification->push(sprintf(_("Entry \"%s\" was successfully added to the address book"), $name), 'horde.success');
             } catch (Horde_Exception $e) {
                 if ($e->getCode() == 'horde.error') {
                     $notification->push($e, $e->getCode());
@@ -838,7 +838,7 @@ class IMP_Compose
                 try {
                     $obs = Horde_Mime_Address::parseAddressList($email);
                 } catch (Horde_Mime_Exception $e) {
-                    throw new IMP_Compose_Exception(sprintf(_('Invalid e-mail address: %s.'), $email));
+                    throw new IMP_Compose_Exception(sprintf(_("Invalid e-mail address: %s."), $email));
                 }
 
                 foreach ($obs as $ob) {
@@ -862,7 +862,7 @@ class IMP_Compose
         }
 
         if (empty($addrlist)) {
-            throw new IMP_Compose_Exception(_('You must enter at least one recipient.'));
+            throw new IMP_Compose_Exception(_("You must enter at least one recipient."));
         }
 
         /* Count recipients if necessary. We need to split email groups
@@ -882,7 +882,7 @@ class IMP_Compose
                             throw new IMP_Compose_Exception($e);
                         }
                     }
-                    throw new IMP_Compose_Exception(@htmlspecialchars(sprintf(_('You are not allowed to send messages to more than %d recipients.'), $max_recipients), ENT_COMPAT, Horde_Nls::getCharset()));
+                    throw new IMP_Compose_Exception(@htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients."), $max_recipients), ENT_COMPAT, Horde_Nls::getCharset()));
                 }
             }
         }
@@ -907,7 +907,7 @@ class IMP_Compose
             $host = idn_to_ascii(Horde_String::convertCharset($host, Horde_Nls::getCharset(), 'UTF-8'));
             error_reporting($old_error);
         } elseif (Horde_Mime::is8bit($ob['mailbox'])) {
-            throw new IMP_Compose_Exception(sprintf(_('Invalid character in e-mail address: %s.'), $email));
+            throw new IMP_Compose_Exception(sprintf(_("Invalid character in e-mail address: %s."), $email));
         }
 
         return Horde_Mime_Address::writeAddress($ob['mailbox'], $host, isset($ob['personal']) ? $ob['personal'] : '');
@@ -994,10 +994,10 @@ class IMP_Compose
             $htmlBody->setType('text/html');
             $htmlBody->setCharset($charset);
             $htmlBody->setDisposition('inline');
-            $htmlBody->setDescription(Horde_String::convertCharset(_('HTML Version of Message'), $nls_charset, $charset));
+            $htmlBody->setDescription(Horde_String::convertCharset(_("HTML Version of Message"), $nls_charset, $charset));
             $htmlBody->setContents(Horde_Text_Filter::filter($msg, 'cleanhtml', array('charset' => $charset)));
 
-            $textBody->setDescription(Horde_String::convertCharset(_('Plaintext Version of Message'), $nls_charset, $charset));
+            $textBody->setDescription(Horde_String::convertCharset(_("Plaintext Version of Message"), $nls_charset, $charset));
 
             $textpart = new Horde_Mime_Part();
             $textpart->setType('multipart/alternative');
@@ -1072,7 +1072,7 @@ class IMP_Compose
                 /* Check to see if we have the user's passphrase yet. */
                 $passphrase = $imp_pgp->getPassphrase('personal');
                 if (empty($passphrase)) {
-                    $e = new IMP_Compose_Exception(_('PGP: Need passphrase for personal private key.'), 'horde.message');
+                    $e = new IMP_Compose_Exception(_("PGP: Need passphrase for personal private key."), 'horde.message');
                     $e->encrypt = 'pgp_passphrase_dialog';
                     throw $e;
                 }
@@ -1084,7 +1084,7 @@ class IMP_Compose
                  * yet. */
                 $symmetric_passphrase = $imp_pgp->getPassphrase('symmetric', 'imp_compose_' . $this->_cacheid);
                 if (empty($symmetric_passphrase)) {
-                    $e = new IMP_Compose_Exception(_('PGP: Need passphrase to encrypt your message with.'), 'horde.message');
+                    $e = new IMP_Compose_Exception(_("PGP: Need passphrase to encrypt your message with."), 'horde.message');
                     $e->encrypt = 'pgp_symmetric_passphrase_dialog';
                     throw $e;
                 }
@@ -1115,7 +1115,7 @@ class IMP_Compose
                     break;
                 }
             } catch (Horde_Exception $e) {
-                throw new IMP_Compose_Exception(_('PGP Error: ') . $e->getMessage(), $e->getCode());
+                throw new IMP_Compose_Exception(_("PGP Error: ") . $e->getMessage(), $e->getCode());
             }
         } elseif ($GLOBALS['prefs']->getValue('use_smime') &&
                   in_array($encrypt, array(IMP::SMIME_ENCRYPT, IMP::SMIME_SIGN, IMP::SMIME_SIGNENC))) {
@@ -1125,7 +1125,7 @@ class IMP_Compose
             if (in_array($encrypt, array(IMP::SMIME_SIGN, IMP::SMIME_SIGNENC))) {
                 $passphrase = $imp_smime->getPassphrase();
                 if ($passphrase === false) {
-                    $e = new IMP_Compose_Exception(_('S/MIME Error: Need passphrase for personal private key.'), 'horde.error');
+                    $e = new IMP_Compose_Exception(_("S/MIME Error: Need passphrase for personal private key."), 'horde.error');
                     $e->encrypt = 'smime_passphrase_dialog';
                     throw $e;
                 }
@@ -1147,7 +1147,7 @@ class IMP_Compose
                     break;
                 }
             } catch (Horde_Exception $e) {
-                throw new IMP_Compose_Exception(_('S/MIME Error: ') . $e->getMessage(), $e->getCode());
+                throw new IMP_Compose_Exception(_("S/MIME Error: ") . $e->getMessage(), $e->getCode());
             }
         }
 
@@ -1305,13 +1305,13 @@ class IMP_Compose
 
         if ($prefs->getValue('reply_headers') && !empty($h)) {
             $msg_pre = '----- ' .
-                ($from ? sprintf(_('Message from %s'), $from) : _('Message')) .
+                ($from ? sprintf(_("Message from %s"), $from) : _("Message")) .
                 /* Extra '-'s line up with "End Message" below. */
                 " ---------\n" .
                 $this->_getMsgHeaders($h) . "\n\n";
 
-            $msg_post = "\n\n----- " .
-                ($from ? sprintf(_('End message from %s'), $from) : _('End message')) .
+            $msg_post = "\n\n" . '----- ' .
+                ($from ? sprintf(_("End message from %s"), $from) : _("End message")) .
                 " -----\n";
         } else {
             $msg_pre = $this->_expandAttribution($prefs->getValue('attrib_text'), $from, $h) . "\n\n";
@@ -1337,7 +1337,7 @@ class IMP_Compose
                    ($msg_post ? $this->text2html($msg_post) : '');
         } else {
             $msg = empty($msg_text['text'])
-                ? '[' . _('No message body text') . ']'
+                ? '[' . _("No message body text") . ']'
                 : $msg_pre . $msg_text['text'] . $msg_post;
         }
 
@@ -1390,10 +1390,10 @@ class IMP_Compose
 
         $header['subject'] = $h->getValue('subject');
         if (!empty($header['subject'])) {
-            $header['title'] = _('Forward') . ': ' . $header['subject'];
+            $header['title'] = _("Forward") . ': ' . $header['subject'];
             $header['subject'] = 'Fwd: ' . $GLOBALS['imp_imap']->ob->utils->getBaseSubject($header['subject'], array('keepblob' => true));
         } else {
-            $header['title'] = _('Forward');
+            $header['title'] = _("Forward");
             $header['subject'] = 'Fwd:';
         }
 
@@ -1401,9 +1401,9 @@ class IMP_Compose
             $from = Horde_Mime_Address::addrArray2String($h->getOb('from'));
 
             $msg_pre = "\n----- " .
-                ($from ? sprintf(_('Forwarded message from %s'), $from) : _('Forwarded message')) .
+                ($from ? sprintf(_("Forwarded message from %s"), $from) : _("Forwarded message")) .
                 " -----\n" . $this->_getMsgHeaders($h) . "\n";
-            $msg_post = "\n\n----- " . _('End forwarded message') . " -----\n";
+            $msg_post = "\n\n----- " . _("End forwarded message") . " -----\n";
 
             $compose_html = $GLOBALS['prefs']->getValue('compose_html');
 
@@ -1474,7 +1474,7 @@ class IMP_Compose
                 $part = new Horde_Mime_Part();
                 $part->setCharset(Horde_Nls::getCharset());
                 $part->setType('message/rfc822');
-                $part->setName(_('Forwarded Message'));
+                $part->setName(_("Forwarded Message"));
                 $part->setContents($contents->fullMessageText(array('stream' => true)));
 
                 try {
@@ -1488,13 +1488,13 @@ class IMP_Compose
 
         if ($attached == 1) {
             if (!($name = $headerob->getValue('subject'))) {
-                $name = _('[No Subject]');
+                $name = _("[No Subject]");
             } elseif (Horde_String::length($name) > 80) {
                 $name = Horde_String::substr($name, 0, 80) . '...';
             }
             return 'Fwd: ' . $GLOBALS['imp_imap']->ob->utils->getBaseSubject($name, array('keepblob' => true));
         } else {
-            return 'Fwd: ' . sprintf(_('%u Forwarded Messages'), $attached);
+            return 'Fwd: ' . sprintf(_("%u Forwarded Messages"), $attached);
         }
     }
 
@@ -1510,27 +1510,27 @@ class IMP_Compose
         $tmp = array();
 
         if (($ob = $h->getValue('date'))) {
-            $tmp[_('Date')] = $ob;
+            $tmp[_("Date")] = $ob;
         }
 
         if (($ob = Horde_Mime_Address::addrArray2String($h->getOb('from')))) {
-            $tmp[_('From')] = $ob;
+            $tmp[_("From")] = $ob;
         }
 
         if (($ob = Horde_Mime_Address::addrArray2String($h->getOb('reply-to')))) {
-            $tmp[_('Reply-To')] = $ob;
+            $tmp[_("Reply-To")] = $ob;
         }
 
         if (($ob = $h->getValue('subject'))) {
-            $tmp[_('Subject')] = $ob;
+            $tmp[_("Subject")] = $ob;
         }
 
         if (($ob = Horde_Mime_Address::addrArray2String($h->getOb('to')))) {
-            $tmp[_('To')] = $ob;
+            $tmp[_("To")] = $ob;
         }
 
         if (($ob = Horde_Mime_Address::addrArray2String($h->getOb('cc')))) {
-            $tmp[_('Cc')] = $ob;
+            $tmp[_("Cc")] = $ob;
         }
 
         $max = max(array_map(array('Horde_String', 'length'), array_keys($tmp))) + 2;
@@ -1558,7 +1558,7 @@ class IMP_Compose
     {
         global $conf;
 
-        $res = $GLOBALS['browser']->wasFileUploaded($name, _('attachment'));
+        $res = $GLOBALS['browser']->wasFileUploaded($name, _("attachment"));
         if (is_a($res, 'PEAR_Error')) {
             throw new IMP_Compose_Exception($res);
         }
@@ -1569,7 +1569,7 @@ class IMP_Compose
         /* Check for filesize limitations. */
         if (!empty($conf['compose']['attach_size_limit']) &&
             (($conf['compose']['attach_size_limit'] - $this->sizeOfAttachments() - $_FILES[$name]['size']) < 0)) {
-            throw new IMP_Compose_Exception(sprintf(_('Attached file "%s" exceeds the attachment size limits. File NOT attached.'), $filename), 'horde.error');
+            throw new IMP_Compose_Exception(sprintf(_("Attached file \"%s\" exceeds the attachment size limits. File NOT attached."), $filename), 'horde.error');
         }
 
         /* Store the data in a Horde_Mime_Part. Some browsers do not send the
@@ -1599,7 +1599,7 @@ class IMP_Compose
         } else {
             $attachment = Horde::getTempFile('impatt', false);
             if (move_uploaded_file($tempfile, $attachment) === false) {
-                throw new IMP_Compose_Exception(sprintf(_('The file %s could not be attached.'), $filename), 'horde.error');
+                throw new IMP_Compose_Exception(sprintf(_("The file %s could not be attached."), $filename), 'horde.error');
             }
         }
 
@@ -1643,7 +1643,7 @@ class IMP_Compose
             $attachment = Horde::getTempFile('impatt', false);
             $res = file_put_contents($attachment, $part->getContents());
             if ($res === false) {
-                throw new IMP_Compose_Exception(sprintf(_('Could not attach %s to the message.'), $part->getName()), 'horde.error');
+                throw new IMP_Compose_Exception(sprintf(_("Could not attach %s to the message."), $part->getName()), 'horde.error');
             }
 
             if (($type == 'application/octet-stream') &&
@@ -1663,7 +1663,7 @@ class IMP_Compose
         /* Check for filesize limitations. */
         if (!empty($conf['compose']['attach_size_limit']) &&
             (($conf['compose']['attach_size_limit'] - $this->sizeOfAttachments() - $bytes) < 0)) {
-            throw new IMP_Compose_Exception(sprintf(_('Attached file "%s" exceeds the attachment size limits. File NOT attached.'), $part->getName()), 'horde.error');
+            throw new IMP_Compose_Exception(sprintf(_("Attached file \"%s\" exceeds the attachment size limits. File NOT attached."), $part->getName()), 'horde.error');
         }
 
         /* Store the data. */
@@ -1903,7 +1903,7 @@ class IMP_Compose
             $message_id = reset($message_id);
         }
         if (!($subject = $h->getValue('subject'))) {
-            $subject = _('[No Subject]');
+            $subject = _("[No Subject]");
         }
         $udate = strtotime($h->getValue('date'));
 
@@ -1927,13 +1927,13 @@ class IMP_Compose
             '/%r/' => $h->getValue('date'),
 
             /* Date as ddd, dd mmm yyyy. */
-            '/%d/' => Horde_String::convertCharset(strftime('%a, %d %b %Y', $udate), Horde_Nls::getExternalCharset()),
+            '/%d/' => Horde_String::convertCharset(strftime("%a, %d %b %Y", $udate), Horde_Nls::getExternalCharset()),
 
             /* Date in locale's default. */
-            '/%x/' => Horde_String::convertCharset(strftime('%x', $udate), Horde_Nls::getExternalCharset()),
+            '/%x/' => Horde_String::convertCharset(strftime("%x", $udate), Horde_Nls::getExternalCharset()),
 
             /* Date and time in locale's default. */
-            '/%c/' => Horde_String::convertCharset(strftime('%c', $udate), Horde_Nls::getExternalCharset()),
+            '/%c/' => Horde_String::convertCharset(strftime("%c", $udate), Horde_Nls::getExternalCharset()),
 
             /* Message-ID. */
             '/%m/' => $message_id,
@@ -2116,7 +2116,7 @@ class IMP_Compose
         global $conf, $prefs;
 
         if (!$conf['compose']['link_attachments']) {
-            throw new IMP_Compose_Exception(_('Linked attachments are forbidden.'));
+            throw new IMP_Compose_Exception(_("Linked attachments are forbidden."));
         }
 
         $vfs = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
@@ -2125,14 +2125,14 @@ class IMP_Compose
         $fullpath = sprintf('%s/%s/%d', self::VFS_LINK_ATTACH_PATH, $auth, $ts);
         $charset = $part->getCharset();
 
-        $trailer = Horde_String::convertCharset(_('Attachments'), Horde_Nls::getCharset(), $charset);
+        $trailer = Horde_String::convertCharset(_("Attachments"), Horde_Nls::getCharset(), $charset);
 
         if ($prefs->getValue('delete_attachments_monthly')) {
             /* Determine the first day of the month in which the current
              * attachments will be ripe for deletion, then subtract 1 second
              * to obtain the last day of the previous month. */
             $del_time = mktime(0, 0, 0, date('n') + $prefs->getValue('delete_attachments_monthly_keep') + 1, 1, date('Y')) - 1;
-            $trailer .= Horde_String::convertCharset(' (' . sprintf(_('Links will expire on %s'), strftime('%x', $del_time)) . ')', Horde_Nls::getCharset(), $charset);
+            $trailer .= Horde_String::convertCharset(' (' . sprintf(_("Links will expire on %s"), strftime('%x', $del_time)) . ')', Horde_Nls::getCharset(), $charset);
         }
 
         foreach ($this->getAttachments() as $att) {
@@ -2154,14 +2154,14 @@ class IMP_Compose
         if ($part->getPrimaryType() == 'multipart') {
             $mixed_part = new Horde_Mime_Part();
             $mixed_part->setType('multipart/mixed');
-            $mixed_part->addPart($part);
+            $mixed_part->addPart(part);
 
             $link_part = new Horde_Mime_Part();
             $link_part->setType('text/plain');
             $link_part->setCharset($charset);
             $link_part->setDisposition('inline');
             $link_part->setContents($trailer);
-            $link_part->setDescription(_('Attachment Information'));
+            $link_part->setDescription(_("Attachment Information"));
 
             $mixed_part->addPart($link_part);
             return $mixed_part;
@@ -2223,7 +2223,7 @@ class IMP_Compose
             !empty($GLOBALS['conf']['compose']['reply_limit'])) {
             $limit = $GLOBALS['conf']['compose']['reply_limit'];
             if (Horde_String::length($msg) > $limit) {
-                $msg = Horde_String::substr($msg, 0, $limit) . "\n" . _('[Truncated Text]');
+                $msg = Horde_String::substr($msg, 0, $limit) . "\n" . _("[Truncated Text]");
             }
         }
 
@@ -2348,26 +2348,26 @@ class IMP_Compose
                     switch ($_FILES[$key]['error']) {
                     case UPLOAD_ERR_INI_SIZE:
                     case UPLOAD_ERR_FORM_SIZE:
-                        $GLOBALS['notification']->push(sprintf(_('Did not attach "%s" as the maximum allowed upload size has been exceeded.'), $filename), 'horde.warning');
+                        $GLOBALS['notification']->push(sprintf(_("Did not attach \"%s\" as the maximum allowed upload size has been exceeded."), $filename), 'horde.warning');
                         break;
 
                     case UPLOAD_ERR_PARTIAL:
-                        $GLOBALS['notification']->push(sprintf(_('Did not attach "%s" as it was only partially uploaded.'), $filename), 'horde.warning');
+                        $GLOBALS['notification']->push(sprintf(_("Did not attach \"%s\" as it was only partially uploaded."), $filename), 'horde.warning');
                         break;
 
                     default:
-                        $GLOBALS['notification']->push(sprintf(_('Did not attach "%s" as the server configuration did not allow the file to be uploaded.'), $filename), 'horde.warning');
+                        $GLOBALS['notification']->push(sprintf(_("Did not attach \"%s\" as the server configuration did not allow the file to be uploaded."), $filename), 'horde.warning');
                         break;
                     }
                     $success = false;
                 } elseif ($_FILES[$key]['size'] == 0) {
-                    $GLOBALS['notification']->push(sprintf(_('Did not attach "%s" as the file was empty.'), $filename), 'horde.warning');
+                    $GLOBALS['notification']->push(sprintf(_("Did not attach \"%s\" as the file was empty."), $filename), 'horde.warning');
                     $success = false;
                 } else {
                     try {
                         $result = $this->addUploadAttachment($key);
                         if ($notify) {
-                            $GLOBALS['notification']->push(sprintf(_('Added "%s" as an attachment.'), $result), 'horde.success');
+                            $GLOBALS['notification']->push(sprintf(_("Added \"%s\" as an attachment."), $result), 'horde.success');
                         }
                     } catch (IMP_Compose_Exception $e) {
                         $GLOBALS['notification']->push($e, 'horde.error');
@@ -2421,7 +2421,7 @@ class IMP_Compose
             return;
         }
 
-        $GLOBALS['notification']->push(_('The message you were composing has been saved as a draft. The next time you login, you may resume composing your message.'));
+        $GLOBALS['notification']->push(_("The message you were composing has been saved as a draft. The next time you login, you may resume composing your message."));
     }
 
     /**
@@ -2444,7 +2444,7 @@ class IMP_Compose
 
             try {
                 $this->_saveDraftServer($data);
-                $GLOBALS['notification']->push(_('A message you were composing when your session expired has been recovered. You may resume composing your message by going to your Drafts folder.'));
+                $GLOBALS['notification']->push(_("A message you were composing when your session expired has been recovered. You may resume composing your message by going to your Drafts folder."));
             } catch (IMP_Compose_Exception $e) {}
         }
     }
@@ -2483,7 +2483,7 @@ class IMP_Compose
     static public function expandAddresses($addrString)
     {
         return preg_match('|[^\s]|', $addrString)
-            ? self::getAddressList(reset(array_filter(array_map('trim', Horde_Mime_Address::explode($addrString, ',;')))))
+            ? IMP_Compose::getAddressList(reset(array_filter(array_map('trim', Horde_Mime_Address::explode($addrString, ',;')))))
             : '';
     }
 
@@ -2500,7 +2500,7 @@ class IMP_Compose
      */
     static public function getAddressList($search = '')
     {
-        $sparams = self::getAddressSearchParams();
+        $sparams = IMP_Compose::getAddressSearchParams();
         try {
             $res = $GLOBALS['registry']->call('contacts/search', array($search, $sparams['sources'], $sparams['fields'], true));
         } catch (Horde_Exception $e) {

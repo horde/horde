@@ -21,13 +21,13 @@ class IMP_UI_Message
     public function basicHeaders()
     {
         return array(
-            'date'      =>  _('Date'),
-            'from'      =>  _('From'),
-            'to'        =>  _('To'),
-            'cc'        =>  _('Cc'),
-            'bcc'       =>  _('Bcc'),
-            'reply-to'  =>  _('Reply-To'),
-            'subject'   =>  _('Subject')
+            'date'      =>  _("Date"),
+            'from'      =>  _("From"),
+            'to'        =>  _("To"),
+            'cc'        =>  _("Cc"),
+            'bcc'       =>  _("Bcc"),
+            'reply-to'  =>  _("Reply-To"),
+            'subject'   =>  _("Subject")
         );
     }
 
@@ -66,7 +66,7 @@ class IMP_UI_Message
      *
      * @return boolean  True if the MDN request needs to be confirmed.
      */
-    public function mdnCheck($mailbox, $uid, $headers, $confirmed = false)
+    public function MDNCheck($mailbox, $uid, $headers, $confirmed = false)
     {
         if (!$GLOBALS['prefs']->getValue('disposition_send_mdn') ||
             $GLOBALS['imp_imap']->isReadOnly($mailbox)) {
@@ -83,8 +83,8 @@ class IMP_UI_Message
         $msg_id = $headers->getValue('message-id');
         $mdn_flag = $mdn_sent = false;
 
-        /* See if we have already processed this message.
-         * 1st test: $MDNSent keyword (RFC 3503 [3.1]). */
+        /* See if we have already processed this message. */
+        /* 1st test: $MDNSent keyword (RFC 3503 [3.1]). */
         try {
             $status = $GLOBALS['imp_imap']->ob->status($mailbox, Horde_Imap_Client::STATUS_PERMFLAGS);
             if (in_array('\\*', $status['permflags']) ||
@@ -166,7 +166,7 @@ class IMP_UI_Message
         }
 
         /* Else, it's today, use the time only. */
-        return sprintf(_('Today, %s %s'), $time_str, $tz);
+        return sprintf(_("Today, %s %s"), $time_str, $tz);
     }
 
     /**
@@ -203,18 +203,18 @@ class IMP_UI_Message
         $output = '';
 
         /* Split the incoming data by the ',' character. */
-        foreach (preg_split('/,/', $data) as $entry) {
+        foreach (preg_split("/,/", $data) as $entry) {
             /* Get the data inside of the brackets. If there is no brackets,
              * then return the raw text. */
-            if (!preg_match('/\<([^\>]+)\>/', $entry, $matches)) {
+            if (!preg_match("/\<([^\>]+)\>/", $entry, $matches)) {
                 return trim($entry);
             }
 
             /* Remove all whitespace from between brackets (RFC 2369 [2]). */
-            $match = preg_replace('/\s+/', '', $matches[1]);
+            $match = preg_replace("/\s+/", '', $matches[1]);
 
             /* Determine if there are any comments. */
-            preg_match('/(\(.+\))/', $entry, $comments);
+            preg_match("/(\(.+\))/", $entry, $comments);
 
             /* RFC 2369 [2] states that we should only show the *FIRST* URL
              * that appears in a header that we can adequately handle. */
@@ -340,15 +340,15 @@ class IMP_UI_Message
                         : htmlspecialchars($ad['display']);
 
                     if ($link) {
-                        $ret = Horde::link(IMP::composeLink(array('to' => $ad['address'])), sprintf(_('New Message to %s'), $ad['inner'])) . htmlspecialchars($ad['display']) . '</a>';
+                        $ret = Horde::link(IMP::composeLink(array('to' => $ad['address'])), sprintf(_("New Message to %s"), $ad['inner'])) . htmlspecialchars($ad['display']) . '</a>';
                     }
 
                     /* Append the add address icon to every address if contact
                      * manager is available. */
                     if ($add_link) {
                         $curr_link = Horde_Util::addParameter($add_link, array('name' => $ad['personal'], 'address' => $ad['inner']));
-                        $ret .= Horde::link($curr_link, sprintf(_('Add %s to my Address Book'), $ad['inner'])) .
-                            Horde::img('addressbook_add.png', sprintf(_('Add %s to my Address Book'), $ad['inner'])) . '</a>';
+                        $ret .= Horde::link($curr_link, sprintf(_("Add %s to my Address Book"), $ad['inner'])) .
+                            Horde::img('addressbook_add.png', sprintf(_("Add %s to my Address Book"), $ad['inner'])) . '</a>';
                     }
 
                     $group_array[] = $ret;
@@ -368,15 +368,15 @@ class IMP_UI_Message
                  * anything. */
                 if (stristr($ob['host'], 'UNKNOWN') === false) {
                     if ($link) {
-                        $ret = Horde::link(IMP::composeLink(array('to' => $ob['address'])), sprintf(_('New Message to %s'), $ob['inner'])) . htmlspecialchars($ob['display']) . '</a>';
+                        $ret = Horde::link(IMP::composeLink(array('to' => $ob['address'])), sprintf(_("New Message to %s"), $ob['inner'])) . htmlspecialchars($ob['display']) . '</a>';
                     }
 
                     /* Append the add address icon to every address if contact
                      * manager is available. */
                     if ($add_link) {
                         $curr_link = Horde_Util::addParameter($add_link, array('name' => $ob['personal'], 'address' => $ob['inner']));
-                        $ret .= Horde::link($curr_link, sprintf(_('Add %s to my Address Book'), $ob['inner'])) .
-                            Horde::img('addressbook_add.png', sprintf(_('Add %s to my Address Book'), $ob['inner'])) . '</a>';
+                        $ret .= Horde::link($curr_link, sprintf(_("Add %s to my Address Book"), $ob['inner'])) .
+                            Horde::img('addressbook_add.png', sprintf(_("Add %s to my Address Book"), $ob['inner'])) . '</a>';
                     }
                 }
 
@@ -391,7 +391,7 @@ class IMP_UI_Message
         /* If left with an empty address list ($ret), inform the user that the
          * recipient list is purposely "undisclosed". */
         if (empty($addr_array)) {
-            $ret = _('Undisclosed Recipients');
+            $ret = _("Undisclosed Recipients");
         } else {
             /* Build the address line. */
             $addr_count = count($addr_array);
@@ -400,8 +400,8 @@ class IMP_UI_Message
                 Horde::addScriptFile('prototype.js', 'horde', true);
 
                 $ret = '<span>' .
-                    '<span onclick="[ this, this.next(), this.next(1) ].invoke(\'toggle\')" class="widget largeaddrlist">' . sprintf(_('[Show Addresses - %d recipients]'), $addr_count) . '</span>' .
-                    '<span onclick="[ this, this.previous(), this.next() ].invoke(\'toggle\')" class="widget largeaddrlist" style="display:none">' . _('[Hide Addresses]') . '</span>' .
+                    '<span onclick="[ this, this.next(), this.next(1) ].invoke(\'toggle\')" class="widget largeaddrlist">' . sprintf(_("[Show Addresses - %d recipients]"), $addr_count) . '</span>' .
+                    '<span onclick="[ this, this.previous(), this.next() ].invoke(\'toggle\')" class="widget largeaddrlist" style="display:none">' . _("[Hide Addresses]") . '</span>' .
                     '<span style="display:none">' .
                     $ret . '</span></span>';
             }

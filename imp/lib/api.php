@@ -179,10 +179,10 @@ function _imp_perms()
              ),
         ),
         'title' => array(
-            'imp:create_folders' => _('Allow Folder Creation?'),
-            'imp:max_folders' => _('Maximum Number of Folders'),
-            'imp:max_recipients' => _('Maximum Number of Recipients per Message'),
-            'imp:max_timelimit' => _('Maximum Number of Recipients per Time Period'),
+            'imp:create_folders' => _("Allow Folder Creation?"),
+            'imp:max_folders' => _("Maximum Number of Folders"),
+            'imp:max_recipients' => _("Maximum Number of Recipients per Message"),
+            'imp:max_timelimit' => _("Maximum Number of Recipients per Time Period"),
         ),
         'type' => array(
             'imp:create_folders' => 'boolean',
@@ -213,15 +213,15 @@ function _imp_authCredentials()
 
     $credentials = array(
         'username' => array(
-            'desc' => sprintf(_('%s for %s'), _('Username'), $app_name),
+            'desc' => sprintf(_("%s for %s"), _("Username"), $app_name),
             'type' => 'text'
         ),
         'password' => array(
-            'desc' => sprintf(_('%s for %s'), _('Password'), $app_name),
+            'desc' => sprintf(_("%s for %s"), _("Password"), $app_name),
             'type' => 'password'
         ),
         'server' => array(
-            'desc' => sprintf(_('%s for %s'), _('Server'), $app_name),
+            'desc' => sprintf(_("%s for %s"), _("Server"), $app_name),
             'type' => 'enum',
             'enum' => $server_list,
             'value' => key($server_list)
@@ -543,10 +543,10 @@ function _imp_cacheOutput($params)
         case 'fckeditor':
             return array(
                 'data' =>
-                     'FCKConfig.ToolbarSets["ImpToolbar"] = ' . $GLOBALS['prefs']->getValue('fckeditor_buttons') . ";\n" .
+                     'FCKConfig.ToolbarSets["ImpToolbar"] = ' . $GLOBALS['prefs']->getValue('fckeditor_buttons') . ';' . "\n" .
                      // To more closely match "normal" textarea behavior,
                      // send <BR> on enter instead of <P>.
-                     "FCKConfig.EnterMode = \'br\';\n" .
+                     'FCKConfig.EnterMode = \'br\';' . "\n" .
                      'FCKConfig.ShiftEnterMode = \'p\';',
                 'type' => 'text/javascript'
             );

@@ -89,11 +89,11 @@ class IMP_Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Tnef
 
         if (!count($tnefData)) {
             $status = array(
-                'text' => array(_('No attachments found.'))
+                'text' => array(_("No attachments found."))
             );
         } else {
             $status = array(
-                'text' => array(_('The following files were attached to this part:'))
+                'text' => array(_("The following files were attached to this part:"))
             );
 
             reset($tnefData);
@@ -110,8 +110,8 @@ class IMP_Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Tnef
                 }
                 $temp_part->setType($type);
 
-                $link = $this->_params['contents']->linkView($temp_part, 'view_attach', htmlspecialchars($data['name']), array('jstext' => sprintf(_('View %s'), $data['name']), 'params' => array('tnef_attachment' => $key + 1)));
-                $text .= _('Attached File:') . '&nbsp;&nbsp;' . $link . '&nbsp;&nbsp;(' . $data['type'] . '/' . $data['subtype'] . ")<br />\n";
+                $link = $this->_params['contents']->linkView($temp_part, 'view_attach', htmlspecialchars($data['name']), array('jstext' => sprintf(_("View %s"), $data['name']), 'params' => array('tnef_attachment' => $key + 1)));
+                $text .= _("Attached File:") . '&nbsp;&nbsp;' . $link . '&nbsp;&nbsp;(' . $data['type'] . '/' . $data['subtype'] . ")<br />\n";
             }
         }
 

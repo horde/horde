@@ -8,7 +8,7 @@
  * @package Horde_Block
  */
 
-$block_name = _('Menu Folder List');
+$block_name = _("Menu Folder List");
 $block_type = 'tree';
 
 class Horde_Block_imp_tree_folders extends Horde_Block
@@ -34,7 +34,7 @@ class Horde_Block_imp_tree_folders extends Horde_Block
         /* Cache some additional values. */
         $image_dir = $GLOBALS['registry']->getImageDir();
 
-        $tree->addNode($parent . 'compose', $parent, _('New Message'),
+        $tree->addNode($parent . 'compose', $parent, _("New Message"),
                        $indent, false,
                        array('icon' => 'compose.png',
                              'icondir' => $image_dir,
@@ -42,7 +42,7 @@ class Horde_Block_imp_tree_folders extends Horde_Block
                              'target' => $GLOBALS['prefs']->getValue('compose_popup') ? 'horde_menu' : 'horde_main'));
 
         /* Add link to the search page. */
-        $tree->addNode($parent . 'search', $parent, _('Search'),
+        $tree->addNode($parent . 'search', $parent, _("Search"),
                        $indent, false,
                        array('icon' => 'search.png',
                              'icondir' => $image_dir,
