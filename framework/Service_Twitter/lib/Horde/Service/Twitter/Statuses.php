@@ -12,7 +12,7 @@
 class Horde_Service_Twitter_Statuses
 {
 
-    public function __construct($twitter, $oauth)
+    public function __construct($twitter)
     {
         $this->_twitter = $twitter;
     }
@@ -30,6 +30,6 @@ class Horde_Service_Twitter_Statuses
     public function update($status)
     {
         $url = 'http://twitter.com/statuses/update.json';
-        return $this->_twitter->postRequest($url, array('status' => $status));
+        return $this->_twitter->request->post($url, array('status' => $status));
     }
 }

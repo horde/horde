@@ -20,20 +20,65 @@ class Horde_Service_Twitter
      */
     protected $_objCache = array();
 
+    /**
+     * Configuration values
+     *
+     * @var array
+     */
     protected $_config;
+
+    /**
+     * Type of authentication (Oauth, Basic)
+     *
+     * @var string
+     */
+    protected $_authType;
+
+    /**
+     * Can't lazy load the auth or request class since we need to know early if
+     *  we are OAuth or Basic
+     *
+     * @var Horde_Service_Twitter_Auth
+     */
+    protected $_auth;
+
+    /**
+     *
+     * @var Horde_Service_Twitter_Request
+     */
+    protected $_request;
 
     /**
      * Const'r
      *
      * @param array $config  Configuration parameters:
      *   <pre>
-     *     'oauth'  - Horde_Oauth object
+     *     'oauth'    - Horde_Oauth object if using Oauth
+     *     'username' - if using Basic auth
+     *     'password' - if using Basic auth
+     *   </pre>
      */
     public function __construct($config)
     {
         // TODO: Check for req'd config
         $this->_config = $config;
 
+        // Need to determine the type of authentication we will be using early..
+        if (!empty($config['oauth'])) {
+            // OAuth
+            $this->_authType = 'Oauth';
+            $params = array('oauth' => $config['oauth']);
+        } elseif (!empty($config['username']) && !empty($config['password'])) {
+            // Http_Basic
+            $this->_authType = 'Basic';
+            $params = array();
+        }
+
+        $aclass = 'Horde_Service_Twitter_Auth_' . $this->_authType;
+        $rclass = 'Horde_Service_Twitter_Request_' . $this->_authType;
+
+        $this->_auth = new $aclass($this, $params);
+        $this->_request = new $rclass($this);
     }
 
     /**
@@ -48,9 +93,10 @@ class Horde_Service_Twitter
     {
         // First, see if it's an allowed protected value.
         switch ($value) {
-        case 'oauth':
-            return $this->_config['oauth'];
-
+        case 'auth':
+            return $this->_auth;
+        case 'request':
+            return $this->_request;
         }
 
         // If not, assume it's a method/action class...
@@ -64,37 +110,8 @@ class Horde_Service_Twitter
         }
 
 
-        $this->_objCache[$class] = new $class($this, $this->oauth);
+        $this->_objCache[$class] = new $class($this);
         return $this->_objCache[$class];
-    }
-
-    /**
-     * Send a request to the Twitter api
-     *
-     * @param $url
-     * @param $params
-     * @return unknown_type
-     */
-    public function getRequest($url, $params = array())
-    {
-        $request = new Horde_Oauth_Request($url, $params);
-        $request->sign($this->oauth->signatureMethod, $this->oauth, $this->auth->getAccessToken());
-
-        $client = new Horde_Http_Client();
-        $response = $client->get($url, array('Authorization' => $request->buildAuthorizationHeader()));
-
-        return $response->getBody();
-    }
-
-    public function postRequest($url, $params = array())
-    {
-        $request = new Horde_Oauth_Request($url, $params);
-        $request->sign($this->oauth->signatureMethod, $this->oauth, $this->auth->getAccessToken());
-
-        $client = new Horde_Http_Client();
-        $response = $client->post($url, $params, array('Authorization' => $request->buildAuthorizationHeader()));
-
-        return $response->getBody();
     }
 
 }
