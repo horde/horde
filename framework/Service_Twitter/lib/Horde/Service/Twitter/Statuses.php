@@ -60,7 +60,7 @@ class Horde_Service_Twitter_Statuses
      */
     public function update($status, $replyTo = '')
     {
-        $url = 'http://twitter.com/statuses/update.json';
+        $url = $this->_endpoint . '/update.' . $this->_format;
         $params = array('status' => $status);
         if (!empty($replyTo)) {
             $params['in_reply_to_status_id'] = $replyTo;
