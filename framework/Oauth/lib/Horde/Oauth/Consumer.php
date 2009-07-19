@@ -29,6 +29,7 @@ class Horde_Oauth_Consumer
      *    'secret'            - Consumer secret
      *    'requestTokenUrl'   - The request token URL
      *    'authorizeTokenUrl' - The authorize URL
+     *    'accessTokenUrl'    = To obtain an access token
      *    'signatureMethod    - Horde_Oauth_SignatureMethod object
      *  </pre>
      *
@@ -52,11 +53,11 @@ class Horde_Oauth_Consumer
     }
 
     /**
-     * Obtain a request token
+     * Obtain an unprivileged request token
      *
      * @param array $params  Parameter array
      *
-     * @return Horde_Oauth_Token  A OAuth request token
+     * @return Horde_Oauth_Token  The oauth request token
      */
     public function getRequestToken($params = array())
     {
@@ -71,13 +72,14 @@ class Horde_Oauth_Consumer
             $this->requestTokenUrl,
             $request->buildHttpQuery()
         );
+
         return Horde_Oauth_Token::fromString($response->getBody());
     }
 
     /**
-     * Get the user authorization url
+     * Get the user authorization url used to request user authorization
      *
-     * @param Horde_Oauth_Token $token  A OAuth token
+     * @param Horde_Oauth_Token $token  the oauth request token
      *
      * @return string The user authorization url string
      */
@@ -87,9 +89,13 @@ class Horde_Oauth_Consumer
     }
 
     /**
+     * Obtain an access token from a request token
      *
-     * @param Horde_Oauth_Token $token
-     * @param $params
+     * @param Horde_Oauth_Token $token Open auth token containing the oauth_token
+     *                                 returned from provider after authorization
+     *                                 and the token secret returned with the
+     *                                 original request token.
+     * @param array $params           Any additional parameters for this request
      *
      * @return unknown_type
      */
@@ -106,6 +112,7 @@ class Horde_Oauth_Consumer
             $this->accessTokenUrl,
             $request->buildHttpQuery()
         );
+
         return Horde_Oauth_Token::fromString($response->getBody());
     }
 
