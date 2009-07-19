@@ -95,7 +95,6 @@ class Horde_Oauth_Request
     public function buildAuthorizationHeader($realm = '')
     {
         $header = '';
-        var_dump($this->_params);
         foreach ($this->_params as $k => $v) {
             if (strpos($k, 'oauth_') !== false) {
                 $header .= Horde_Oauth_Utils::urlencodeRfc3986($k) . '="' . Horde_Oauth_Utils::urlencodeRfc3986($v) . '",';
