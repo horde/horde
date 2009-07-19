@@ -27,7 +27,7 @@ class Horde_Service_Twitter_Statuses
      */
     public function show($id)
     {
-        $url = $this->_endpoint . '/destroy.' . $this->_format;
+        $url = $this->_endpoint . 'show.' . $this->_format;
         return $this->_twitter->request->post($url, array('id' => $id));
     }
 
@@ -43,7 +43,7 @@ class Horde_Service_Twitter_Statuses
      */
     public function destroy($id)
     {
-        $url = $this->_endpoint . '/destroy.' . $this->_format;
+        $url = $this->_endpoint . 'destroy.' . $this->_format;
         return $this->_twitter->request->post($url, array('id' => $id));
     }
 
@@ -60,7 +60,7 @@ class Horde_Service_Twitter_Statuses
      */
     public function update($status, $replyTo = '')
     {
-        $url = $this->_endpoint . '/update.' . $this->_format;
+        $url = $this->_endpoint . 'update.' . $this->_format;
         $params = array('status' => $status);
         if (!empty($replyTo)) {
             $params['in_reply_to_status_id'] = $replyTo;

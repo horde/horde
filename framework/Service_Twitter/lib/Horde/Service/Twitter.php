@@ -71,7 +71,8 @@ class Horde_Service_Twitter
         } elseif (!empty($config['username']) && !empty($config['password'])) {
             // Http_Basic
             $this->_authType = 'Basic';
-            $params = array();
+            $params = array('username' => $config['username'],
+                            'password' => $config['password']);
         }
 
         $aclass = 'Horde_Service_Twitter_Auth_' . $this->_authType;
