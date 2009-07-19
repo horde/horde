@@ -92,7 +92,7 @@ class Horde_Oauth_Request
         return implode('&', $parts);
     }
 
-    public function buildAuthorizationHeader()
+    public function buildAuthorizationHeader($realm = '')
     {
         $header = '';
         var_dump($this->_params);
@@ -101,7 +101,9 @@ class Horde_Oauth_Request
                 $header .= Horde_Oauth_Utils::urlencodeRfc3986($k) . '="' . Horde_Oauth_Utils::urlencodeRfc3986($v) . '",';
             }
         }
-        $header .= 'realm="' . Horde_Oauth_Utils::urlencodeRfc3986('twitter.com') . '"';
+        if (!empty($realm)) {
+            $header .= 'realm="' . Horde_Oauth_Utils::urlencodeRfc3986($realm) . '"';
+        }
         return 'OAuth ' . $header;
     }
 
