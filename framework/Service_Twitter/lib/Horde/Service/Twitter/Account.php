@@ -56,7 +56,7 @@ class Horde_Service_Twitter_Account
     public function endSession()
     {
         $url = $this->_endpoint . 'end_session.' . $this->_format;
-        return $this->_twitter->request->get($url);
+        return $this->_twitter->request->post($url);
     }
 
     /**
