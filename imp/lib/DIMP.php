@@ -95,7 +95,7 @@ class DIMP
             header('Vary: Accept-Language');
         }
 
-        echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">' . "\n" .
+        echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"DTD/xhtml1-transitional.dtd\">\n" .
              (!empty($GLOBALS['language']) ? '<html lang="' . strtr($GLOBALS['language'], '_', '-') . '"' : '<html') . ">\n".
              "<head>\n";
 
@@ -164,7 +164,7 @@ class DIMP
         if (!empty($changes['a'])) {
             $result['a'] = array();
             foreach ($changes['a'] as $val) {
-                $result['a'][] = DIMP::_createFolderElt(is_array($val) ? $val : $imptree->element($val));
+                $result['a'][] = self::_createFolderElt(is_array($val) ? $val : $imptree->element($val));
             }
         }
 
@@ -174,7 +174,7 @@ class DIMP
                 // Skip the base element, since any change there won't ever be
                 // updated on-screen.
                 if ($val != IMP_Imap_Tree::BASE_ELT) {
-                    $result['c'][] = DIMP::_createFolderElt($imptree->element($val));
+                    $result['c'][] = self::_createFolderElt($imptree->element($val));
                 }
             }
         }
@@ -217,7 +217,7 @@ class DIMP
         $ob = new stdClass;
 
         if ($elt['children']) {
-           $ob->ch = 1;
+            $ob->ch = 1;
         }
         $ob->m = $elt['value'];
         if ($ob->m != $elt['name']) {

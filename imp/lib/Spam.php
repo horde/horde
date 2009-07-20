@@ -59,7 +59,7 @@ class IMP_Spam
                     $prog = str_replace(array('%u','%l', '%d'),
                         array(
                             escapeshellarg(Horde_Auth::getAuth()),
-					        escapeshellarg(Horde_Auth::getBareAuth()),
+                            escapeshellarg(Horde_Auth::getBareAuth()),
                             escapeshellarg(Horde_Auth::getAuthDomain())
                         ), $GLOBALS['conf'][$action]['program']);
                     $proc = proc_open($prog,

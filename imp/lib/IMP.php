@@ -186,9 +186,9 @@ class IMP
             (!empty($GLOBALS['conf']['hooks']['permsdenied']) ||
              (self::hasPermission('create_folders') &&
               self::hasPermission('max_folders')))) {
-            $text .= '<option value="" disabled="disabled">- - - - - - - -</option>' . "\n";
-            $text .= '<option value="*new*">' . _("New Folder") . "</option>\n";
-            $text .= '<option value="" disabled="disabled">- - - - - - - -</option>' . "\n";
+            $text .= "<option value=\"\" disabled=\"disabled\">- - - - - - - -</option>\n" .
+                '<option value="*new*">' . _("New Folder") . "</option>\n" .
+                "<option value=\"\" disabled=\"disabled\">- - - - - - - -</option>\n";
         }
 
         /* Add the list of mailboxes to the lists. */
@@ -241,7 +241,7 @@ class IMP
             try {
                 $notepads = $GLOBALS['registry']->call('notes/listNotepads', array(false, PERMS_EDIT));
                 if (count($notepads)) {
-                    $text .= '<option value="" disabled="disabled">&nbsp;</option><option value="" disabled="disabled">- - ' . _("Notepads") . ' - -</option>' . "\n";
+                    $text .= '<option value="" disabled="disabled">&nbsp;</option><option value="" disabled="disabled">- - ' . _("Notepads") . " - -</option>\n";
 
                     foreach ($notepads as $id => $notepad) {
                         $text .= sprintf('<option value="%s">%s</option>%s',
@@ -555,7 +555,7 @@ class IMP
             }
         }
 
-        if (IMP::canCompose()) {
+        if (self::canCompose()) {
             $menu->add(self::composeLink(array('mailbox' => $GLOBALS['imp_mbox']['mailbox'])), _("_New Message"), 'compose.png');
         }
 
@@ -577,7 +577,7 @@ class IMP
             $js_params = array(
                 'dialog_load' => Horde::applicationUrl('ajax.php', true, -1) . '/FetchmailDialog'
             );
-            $menu->add('javascript:IMPDialog.display(\'' . IMP::escapeJSON($js_params) . '\')', _("Fetch Mail"), 'fetchmail.png');
+            $menu->add('javascript:IMPDialog.display(\'' . self::escapeJSON($js_params) . '\')', _("Fetch Mail"), 'fetchmail.png');
         }
 
         if ($prefs->getValue('filter_menuitem')) {
@@ -1012,7 +1012,7 @@ class IMP
         }
 
         foreach ($enc_opts as $key => $val) {
-             $output .= '<option value="' . $key . '"' . (($default == $key) ? ' selected="selected"' : '') . '>' . $val . '</option>' . "\n";
+             $output .= '<option value="' . $key . '"' . (($default == $key) ? ' selected="selected"' : '') . '>' . $val . "</option>\n";
         }
 
         return $output;
@@ -1383,7 +1383,7 @@ class IMP
         }
 
         foreach (array_merge(array($js_url), $js_force) as $val) {
-            echo '<script type="text/javascript" src="' . $val . '"></script>' . "\n";
+            echo '<script type="text/javascript" src="' . $val . "\"></script>\n";
         }
     }
 
@@ -1486,7 +1486,7 @@ class IMP
         }
 
         foreach ($css_out as $file) {
-            echo '<link href="' . $file['u'] . '" rel="stylesheet" type="text/css" />' . "\n";
+            echo '<link href="' . $file['u'] . "\" rel=\"stylesheet\" type=\"text/css\" />\n";
         }
     }
 
@@ -1687,7 +1687,7 @@ class IMP
             'cancel_text' => _("Cancel")
         );
 
-        return 'IMPDialog.display(\'' . IMP::escapeJSON($js_params) . '\')';
+        return 'IMPDialog.display(\'' . self::escapeJSON($js_params) . '\')';
     }
 
     /**

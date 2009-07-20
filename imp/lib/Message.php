@@ -507,7 +507,7 @@ class IMP_Message
             /* For stripping all parts, it only makes sense to strip base
              * parts. Stripping subparts may cause issues with display of the
              * parent multipart type. */
-            for ($i = 2; ; ++$i) {
+            for ($i = 2;; ++$i) {
                 $part = $contents->getMIMEPart($i, array('nocontents' => true));
                 if (!$part) {
                     break;

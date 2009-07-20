@@ -47,7 +47,7 @@ class Identity_imp extends Identity
      * Reads all the user's identities from the prefs object or builds
      * a new identity from the standard values given in prefs.php.
      */
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         $this->_properties = array_merge(

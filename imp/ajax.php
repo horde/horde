@@ -94,7 +94,7 @@ function _getListMessages($mbox, $change)
     }
 
     $list_msg = new IMP_Views_ListMessages();
-    $res = $list_msg->ListMessages($args);
+    $res = $list_msg->listMessages($args);
 
     // TODO: This can potentially be optimized for arrival time sort - if the
     // cache ID changes, we know the changes must occur at end of mailbox.
@@ -481,7 +481,7 @@ case 'ShowPreview':
     );
 
     $show_msg = new IMP_Views_ShowMessage();
-    $result = (object) $show_msg->showMessage($args);
+    $result = (object)$show_msg->showMessage($args);
     break;
 
 case 'Html2Text':
@@ -634,7 +634,7 @@ case 'PurgeDeleted':
         $expunge_count = count($expunged[$mbox]);
         $display_folder = IMP::displayFolder($mbox);
         if ($expunge_count == 1) {
-            $notification->push(sprintf(_("1 message was purged from \"%s\"."),  $display_folder), 'horde.success');
+            $notification->push(sprintf(_("1 message was purged from \"%s\"."), $display_folder), 'horde.success');
         } else {
             $notification->push(sprintf(_("%s messages were purged from \"%s\"."), $expunge_count, $display_folder), 'horde.success');
         }
@@ -656,7 +656,7 @@ case 'ModifyPollFolder':
     $imptree = IMP_Imap_Tree::singleton();
 
     $result = new stdClass;
-    $result->add = (bool) $add;
+    $result->add = (bool)$add;
     $result->folder = $mbox;
 
     if ($add) {
@@ -664,10 +664,10 @@ case 'ModifyPollFolder':
         if ($info = $imptree->getElementInfo($mbox)) {
             $result->poll = array($mbox => $info['unseen']);
         }
-        $notification->push(sprintf(_("\"%s\" mailbox now polled for new mail."),  $display_folder), 'horde.success');
+        $notification->push(sprintf(_("\"%s\" mailbox now polled for new mail."), $display_folder), 'horde.success');
     } else {
         $imptree->removePollList($mbox);
-        $notification->push(sprintf(_("\"%s\" mailbox no longer polled for new mail."),  $display_folder), 'horde.success');
+        $notification->push(sprintf(_("\"%s\" mailbox no longer polled for new mail."), $display_folder), 'horde.success');
     }
     break;
 

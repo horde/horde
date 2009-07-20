@@ -19,7 +19,7 @@ class IMP_Views_ListMessages
      *
      * @return array  TODO
      */
-    public function ListMessages($args)
+    public function listMessages($args)
     {
         $mbox = $args['mbox'];
         $is_search = false;

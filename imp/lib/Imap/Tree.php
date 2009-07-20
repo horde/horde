@@ -619,7 +619,7 @@ class IMP_Imap_Tree
                     $this->_currkey = $old['k'] + 1;
                     $this->_currparent = $old['p'];
                 } while ((($curr = $this->current()) == false) &&
-                         count($this->_currstack));
+                         !empty($this->_currstack));
             }
         }
 
@@ -665,7 +665,7 @@ class IMP_Imap_Tree
      */
     public function peek()
     {
-        for ($i = ($this->_currkey + 1); ; ++$i) {
+        for ($i = ($this->_currkey + 1);; ++$i) {
             if (!isset($this->_parent[$this->_currparent][$i])) {
                 return false;
             }
@@ -1895,7 +1895,6 @@ class IMP_Imap_Tree
                     $row['unseen'] = $msgs_info['unseen'];
                 }
             }
-
 
             switch ($mailbox['v']) {
             case 'INBOX':

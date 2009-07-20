@@ -49,7 +49,7 @@ class IMP_Quota
         $sig = hash('md5', serialize(array($driver, $params)));
 
         if (!isset(self::$_instances[$sig])) {
-            self::$_instances[$sig] = IMP_Quota::getInstance($driver, $params);
+            self::$_instances[$sig] = self::getInstance($driver, $params);
         }
 
         return self::$_instances[$sig];
@@ -126,7 +126,7 @@ class IMP_Quota
             'nolimit_short' => isset($this->_params['format']['nolimit_short'])
                 ? $this->_params['format']['nolimit_short']
                 : _("%.0f %s")
-       );
+        );
     }
 
     /**

@@ -58,9 +58,11 @@ class IMP_Quota_Mdaemon extends IMP_Quota
     {
         $contents = file_get_contents($path . '\imap.mrk');
 
+        $c_len = strlen($contents);
         $pointer = 36;
         $size = 0;
-        while ($pointer < strlen($contents)) {
+
+        while ($pointer < $c_len) {
             $details = unpack('a17Filename/a11Crap/VSize', substr($contents, $pointer, 36));
             $size += $details['Size'];
             $pointer += 36;

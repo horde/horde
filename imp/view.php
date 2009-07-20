@@ -122,7 +122,7 @@ case 'download_render':
     case 'download_attach':
         $mime = $contents->getMIMEPart($id);
         if (!$name = $mime->getName(true)) {
-           $name = _("unnamed");
+            $name = _("unnamed");
         }
 
         /* Compress output? */
@@ -144,7 +144,7 @@ case 'download_render':
         $body = $render[$key]['data'];
         $type = $render[$key]['type'];
         if (!$name = $render[$key]['name']) {
-           $name = _("unnamed");
+            $name = _("unnamed");
         }
         break;
     }

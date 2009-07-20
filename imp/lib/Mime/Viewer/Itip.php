@@ -813,7 +813,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                             } else {
                                 if ($event->end->compareDateTime($time_span_start) <= -1 ||
                                     $event->start->compareDateTime($time_span_end) >= 1) {
-                                   continue;
+                                    continue;
                                 }
                                 if ($event->end->compareDateTime($vevent_start) <= -1 ||
                                     $event->start->compareDateTime($vevent_end) >= 1) {

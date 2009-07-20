@@ -94,7 +94,7 @@ function _doConnectionTest()
 
 function _errorMsg($e)
 {
-    echo '<span style="color:red">ERROR</span> - The server returned the following error message:' . "\n" .
+    echo "<span style="color:red">ERROR</span> - The server returned the following error message:\n" .
         '<pre>' . $e->getMessage() . '</pre><p />';
 }
 

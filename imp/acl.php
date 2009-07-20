@@ -179,8 +179,7 @@ if (empty($_SESSION['imp']['admin'])) {
         if (in_array($user, $current_users)) {
             continue;
         }
-        $new_user_field .= "\n" . '<option>' . htmlspecialchars($user)
-            . '</option>';
+        $new_user_field .= "\n<option>" . htmlspecialchars($user) . '</option>';
     }
     $new_user_field .= "\n</select>";
 }

@@ -71,8 +71,6 @@ abstract class IMP_Fetchmail
 
     /**
      * Returns a list of available drivers, with a description of each.
-     * This function can be called statically:
-     *   $list = IMP_Fetchmail::listDrivers();
      *
      * @return array  The list of available drivers, with the driver name as
      *                the key and the description as the value.
@@ -100,8 +98,6 @@ abstract class IMP_Fetchmail
 
     /**
      * List the colors available for coloring fetched messages.
-     * This function can be called statically:
-     *   $list = IMP_Fetchmail::listColors();
      *
      * @return array  The list of available colors;
      */
@@ -115,8 +111,6 @@ abstract class IMP_Fetchmail
 
     /**
      * Returns a description of the driver.
-     * This function can be called statically:
-     *   $description = IMP_Fetchmail::description();
      *
      * @return string  The description of the driver.
      */
@@ -125,7 +119,6 @@ abstract class IMP_Fetchmail
     /**
      * Perform fetchmail on the list of accounts given. Outputs informaton
      * to the global notification driver.
-     * This function can be called statically.
      *
      * @param array $accounts  The list of account identifiers to fetch mail
      *                         for.
@@ -136,7 +129,7 @@ abstract class IMP_Fetchmail
 
         foreach ($accounts as $val) {
             $params = $fm_account->getAllValues($val);
-            $driver = IMP_Fetchmail::factory($params['driver'], $params);
+            $driver = self::factory($params['driver'], $params);
             if ($driver === false) {
                 continue;
             }
@@ -201,9 +194,9 @@ abstract class IMP_Fetchmail
     {
         /* Check for missing params. */
         $paramlist = $this->getParameterList();
-        if (array_diff($paramlist, array_keys($params))) {
-            // TODO: Error message here
-        }
+        /* if (array_diff($paramlist, array_keys($params))) {
+         *     TODO: Error message here
+         * } */
 
         $this->_params = $params;
     }

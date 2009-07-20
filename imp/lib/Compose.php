@@ -575,7 +575,7 @@ class IMP_Compose
                 ((strpos($save_attach, 'prompt') === 0) &&
                  empty($opts['save_attachments']))) {
                 $mime_message->buildMimeIds();
-                for ($i = 2; ; ++$i) {
+                for ($i = 2;; ++$i) {
                     if (!($oldPart = $mime_message->getPart($i))) {
                         break;
                     }
@@ -1310,14 +1310,13 @@ class IMP_Compose
                 " ---------\n" .
                 $this->_getMsgHeaders($h) . "\n\n";
 
-            $msg_post = "\n\n" . '----- ' .
+            $msg_post = "\n\n----- " .
                 ($from ? sprintf(_("End message from %s"), $from) : _("End message")) .
                 " -----\n";
         } else {
             $msg_pre = $this->_expandAttribution($prefs->getValue('attrib_text'), $from, $h) . "\n\n";
             $msg_post = '';
         }
-
 
         $compose_html = $GLOBALS['prefs']->getValue('compose_html');
 
@@ -2154,7 +2153,7 @@ class IMP_Compose
         if ($part->getPrimaryType() == 'multipart') {
             $mixed_part = new Horde_Mime_Part();
             $mixed_part->setType('multipart/mixed');
-            $mixed_part->addPart(part);
+            $mixed_part->addPart($part);
 
             $link_part = new Horde_Mime_Part();
             $link_part->setType('text/plain');
@@ -2452,9 +2451,6 @@ class IMP_Compose
     /**
      * Formats the address properly.
      *
-     * This method can be called statically, i.e.:
-     *   $ret = IMP_Compose::formatAddr();
-     *
      * @param string $addr  The address to format.
      *
      * @return string  The formatted address.
@@ -2473,9 +2469,6 @@ class IMP_Compose
      * any address that is either not valid or fails to expand. This function
      * will not search if the address string is empty.
      *
-     * This method can be called statically, i.e.:
-     *   $ret = IMP_Compose::expandAddresses();
-     *
      * @param string $addrString  The name(s) or address(es) to expand.
      *
      * @return array  All matching addresses.
@@ -2483,7 +2476,7 @@ class IMP_Compose
     static public function expandAddresses($addrString)
     {
         return preg_match('|[^\s]|', $addrString)
-            ? IMP_Compose::getAddressList(reset(array_filter(array_map('trim', Horde_Mime_Address::explode($addrString, ',;')))))
+            ? self::getAddressList(reset(array_filter(array_map('trim', Horde_Mime_Address::explode($addrString, ',;')))))
             : '';
     }
 
@@ -2491,16 +2484,13 @@ class IMP_Compose
      * Uses the Registry to expand names and return error information for
      * any address that is either not valid or fails to expand.
      *
-     * This method can be called statically, i.e.:
-     *   $ret = IMP_Compose::expandAddresses();
-     *
      * @param string $search  The term to search by.
      *
      * @return array  All matching addresses.
      */
     static public function getAddressList($search = '')
     {
-        $sparams = IMP_Compose::getAddressSearchParams();
+        $sparams = self::getAddressSearchParams();
         try {
             $res = $GLOBALS['registry']->call('contacts/search', array($search, $sparams['sources'], $sparams['fields'], true));
         } catch (Horde_Exception $e) {
@@ -2533,9 +2523,6 @@ class IMP_Compose
 
     /**
      * Determines parameters needed to do an address search
-     *
-     * This method can be called statically, i.e.:
-     *   $ret = IMP_Compose::getAddressSearchParams();
      *
      * @return array  An array with two keys: 'sources' and 'fields'.
      */

@@ -84,9 +84,7 @@ class IMP_UI_Compose
     {
         $fwd_msg = $imp_compose->forwardMessage($imp_contents);
         $subject_header = $imp_compose->attachIMAPMessage(array($index), $fwd_msg['headers']);
-        if ($subject_header === false) {
-            // TODO: notification
-        } else {
+        if ($subject_header !== false) {
             $fwd_msg['headers']['subject'] = $subject_header;
         }
 
@@ -143,9 +141,9 @@ class IMP_UI_Compose
                 $clean_to .= $val . (($val[Horde_String::length($val) - 1] == ';') ? ' ' : ', ');
             }
             if ($expand) {
-               return $clean_to;
+                return $clean_to;
             } else {
-               return IMP_Compose::formatAddr($clean_to);
+                return IMP_Compose::formatAddr($clean_to);
             }
         }
 

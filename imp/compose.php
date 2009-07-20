@@ -446,7 +446,7 @@ case 'send_message':
 
     if (Horde_Util::getFormData('resume_draft') &&
         $prefs->getValue('auto_delete_drafts') &&
-        ($thismailbox == IMP::folderPref($prefs->getValue('drafts_folder'), true)))  {
+        ($thismailbox == IMP::folderPref($prefs->getValue('drafts_folder'), true))) {
         $imp_message = IMP_Message::singleton();
         $idx_array = array($index . IMP::IDX_SEP . $thismailbox);
         if ($imp_message->delete($idx_array)) {
@@ -520,9 +520,7 @@ case 'fwd_digest':
     if (!empty($indices)) {
         $msglist = unserialize(urldecode($indices));
         $subject_header = $imp_compose->attachIMAPMessage($msglist);
-        if ($subject_header === false) {
-            // TODO: notification
-        } else {
+        if ($subject_header !== false) {
             $header['subject'] = $subject_header;
         }
     }
@@ -842,7 +840,7 @@ if ($redirect) {
                 $entry['select_tabindex'] = ++$tabindex;
                 $entry['select_name'] = htmlspecialchars($to_item[0]);
                 $entry['select_to'] = array();
-                for ($i = 1; $i < count($to_item); $i++) {
+                for ($i = 1, $items = count($to_item); $i < $items; ++$i) {
                     $entry['select_to'][] = array('val' => htmlspecialchars($to_item[$i]));
                 }
             } else {
@@ -973,7 +971,7 @@ if ($redirect) {
                     $entry['select_tabindex'] = ++$tabindex;
                     $entry['select_name'] = htmlspecialchars($item[0]);
                     $entry['select_arr'] = array();
-                    for ($i = 1; $i < count($item); $i++) {
+                    for ($i = 1, $items = count($item); $i < $items; ++$i) {
                         $entry['select_arr'][] = array('val' => htmlspecialchars($item[$i]));
                     }
                     $entry['input_value'] = null;
@@ -1114,8 +1112,8 @@ if ($redirect) {
     $d_read = $prefs->getValue('disposition_request_read');
     $t->set('rrr', $conf['compose']['allow_receipts'] && ($d_read != 'never'));
     if ($t->get('rrr')) {
-       $t->set('rrr_selected', ($d_read != 'ask') || (Horde_Util::getFormData('request_read_receipt') == 'on'));
-       $t->set('rrr_label', Horde::label('rrr', _("Request a _Read Receipt")));
+        $t->set('rrr_selected', ($d_read != 'ask') || (Horde_Util::getFormData('request_read_receipt') == 'on'));
+        $t->set('rrr_label', Horde::label('rrr', _("Request a _Read Receipt")));
     }
 
     $t->set('compose_html', (!is_null($rtemode) && !$prefs->isLocked('compose_html')));

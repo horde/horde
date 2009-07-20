@@ -325,6 +325,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
     {
         $params = array(
             'actionID' => 'save_attachment_public_key',
+            'mailbox' => $mailbox,
             'uid' => $uid,
             'mime_id' => $id
         );

@@ -12,7 +12,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  */
 
-function _outputSummaries($msgs, $mbox)
+function _outputSummaries($msgs)
 {
     static $template;
 
@@ -707,7 +707,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     if ($search_mbox) {
         if (empty($lastMbox) || ($ob['mailbox'] != $lastMbox)) {
             if (!empty($lastMbox)) {
-                _outputSummaries($msgs, $lastMbox);
+                _outputSummaries($msgs);
                 $msgs = array();
             }
             $folder_link = Horde::url(Horde_Util::addParameter('mailbox.php', 'mailbox', $ob['mailbox']));
@@ -858,7 +858,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     $msgs[$ob['uid']] = $msg;
 }
 
-_outputSummaries($msgs, $lastMbox);
+_outputSummaries($msgs);
 
 /* Prepare the message footers template. */
 $mf_template = new Horde_Template();

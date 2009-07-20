@@ -67,7 +67,7 @@ if ($conf['compose']['link_attachments_notify']) {
     } else {
         /* Create a random identifier for this file. */
         $id = uniqid(mt_rand());
-        $res = $vfsroot->writeData($full_path, $file_name . '.notify' , $id, true);
+        $res = $vfsroot->writeData($full_path, $file_name . '.notify', $id, true);
         if (is_a($res, 'PEAR_Error')) {
             Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
         } else {

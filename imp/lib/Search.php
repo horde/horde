@@ -81,7 +81,7 @@ class IMP_Search
      * 'id'  --  The ID of the search query in use.
      * </pre>
      */
-    function __construct($params = array())
+    public function __construct($params = array())
     {
         if (!empty($params['id'])) {
             $this->_id = $this->_strip($params['id']);
@@ -678,7 +678,7 @@ class IMP_Search
      */
     public function createSearchID($id)
     {
-        return 'impsearch' . "\0" . $this->_strip($id);
+        return 'impsearch\0' . $this->_strip($id);
     }
 
     /**

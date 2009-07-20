@@ -303,12 +303,12 @@ $xpriority = $mime_headers->getValue('x-priority');
 switch ($imp_ui->getXpriority($xpriority)) {
 case 'high':
     $basic_headers['priority'] = _("Priority");
-    $display_headers['priority'] = '<div class="msgflags flagHighpriority" title="' . htmlspecialchars(_("High Priority")) . '"></div>' . '&nbsp;' . $xpriority;
+    $display_headers['priority'] = '<div class="msgflags flagHighpriority" title="' . htmlspecialchars(_("High Priority")) . '"></div>&nbsp;' . $xpriority;
     break;
 
 case 'low':
     $basic_headers['priority'] = _("Priority");
-    $display_headers['priority'] = '<div class="msgflags flagLowpriority" title="' . htmlspecialchars(_("Low Priority")) . '"></div>' . '&nbsp;' . $xpriority;
+    $display_headers['priority'] = '<div class="msgflags flagLowpriority" title="' . htmlspecialchars(_("Low Priority")) . '"></div>&nbsp;' . $xpriority;
     break;
 }
 

@@ -80,9 +80,9 @@ class IMP_Quota_Command extends IMP_Quota
         $cmdline = $this->_params['quota_path'] . ' -u ' . $_SESSION['imp']['user'] . ' | ' . $this->_params['grep_path'] . ' ' . $search_string;
         exec($cmdline, $quota_data, $return_code);
         if (($return_code == 0) && (count($quota_data) == 1)) {
-           $quota = split("[[:blank:]]+", trim($quota_data[0]));
-           $blocksize = $this->_blockSize();
-           return array('usage' => $quota[1] * $blocksize,
+            $quota = split("[[:blank:]]+", trim($quota_data[0]));
+            $blocksize = $this->_blockSize();
+            return array('usage' => $quota[1] * $blocksize,
                         'limit' => $quota[2] * $blocksize);
         }
 

@@ -466,6 +466,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     {
         $params = array(
             'actionID' => 'save_attachment_public_key',
+            'mailbox' => $mailbox,
             'uid' => $uid,
             'mime_id' => $id
         );
