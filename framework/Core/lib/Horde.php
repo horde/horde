@@ -231,11 +231,7 @@ class Horde
             if (is_object($error)) {
                 $errortext .= '<h3>' . _("Details:") . '</h3>';
                 $errortext .= '<h4>' . _("The full error message is logged in Horde's log file, and is shown below only to administrators. Non-administrative users will not see error details.") . '</h4>';
-                if (extension_loaded('xdebug')) {
-                    $errortext .= '<br />' . print_r($error, true);
-                } else {
-                    $errortext .= '<p><pre>' . htmlspecialchars(print_r($error, true)) . '</pre></p>';
-                }
+                $errortext .= '<p><pre>' . htmlspecialchars(print_r($error, true)) . '</pre></p>';
             }
         } elseif ($log) {
             $errortext .= '<h3>' . _("Details have been logged for the administrator.") . '</h3>';
