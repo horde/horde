@@ -80,7 +80,10 @@ class IMP_Session
          * necessary. */
         if (!empty($conf['hooks']['vinfo'])) {
             try {
-                $imapuser = Horde::callHook('_imp_hook_vinfo', array('username', $imapuser), 'imp');
+                $newUser = Horde::callHook('_imp_hook_vinfo', array('username', $imapuser), 'imp');
+                if (strlen($newUser)) {
+                    $imapuser = $newUser;
+                }
             } catch (Horde_Exception $e) {}
         }
 
