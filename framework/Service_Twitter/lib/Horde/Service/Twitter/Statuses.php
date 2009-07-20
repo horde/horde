@@ -68,4 +68,11 @@ class Horde_Service_Twitter_Statuses
 
         return $this->_twitter->request->post($url, $params);
     }
+
+    public function friendsTimeline($params = array())
+    {
+        $url = $this->_endpoint . 'friends_timeline.' . $this->_format;
+        return $this->_twitter->request->get($url);
+    }
+
 }
