@@ -123,8 +123,9 @@ class Horde_Variables
         } else {
             array_unshift($keys, $base);
             $place = &$this->_vars;
+            $i = count($keys);
 
-            while (count($keys)) {
+            while ($i--) {
                 $key = array_shift($keys);
                 if (!isset($place[$key])) {
                     $place[$key] = array();
@@ -238,7 +239,9 @@ class Horde_Variables
                     : false;
             } else {
                 $searchspace = &$array[$base];
-                while (count($keys)) {
+                $i = count($keys);
+
+                while ($i--) {
                     $key = array_shift($keys);
                     if (!isset($searchspace[$key])) {
                         $value = null;

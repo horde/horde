@@ -89,8 +89,8 @@ class Horde_Mime_Mail
      *
      * @throws Horde_Mime_Exception
      */
-    function __construct($subject = null, $body = null, $to = null,
-                         $from = null, $charset = null)
+    public function __construct($subject = null, $body = null, $to = null,
+                                $from = null, $charset = null)
     {
         /* Set SERVER_NAME. */
         if (!isset($_SERVER['SERVER_NAME'])) {

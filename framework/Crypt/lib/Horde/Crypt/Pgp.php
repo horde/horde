@@ -654,7 +654,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
 
         /* Try to decrypt the message. */
         try {
-           $this->decrypt($result, array('type' => 'message', 'pubkey' => $public_key, 'privkey' => $private_key, 'passphrase' => $passphrase));
+            $this->decrypt($result, array('type' => 'message', 'pubkey' => $public_key, 'privkey' => $private_key, 'passphrase' => $passphrase));
         } catch (Horde_Exception $e) {
             return false;
         }
@@ -1394,7 +1394,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         /* Setup the multipart MIME Part. */
         $part = new Horde_Mime_Part();
         $part->setType('multipart/signed');
-        $part->setContents('This message is in MIME format and has been PGP signed.' . "\n");
+        $part->setContents("This message is in MIME format and has been PGP signed.\n");
         $part->addPart($mime_part);
         $part->addPart($pgp_sign);
         $part->setContentTypeParameter('protocol', 'application/pgp-signature');
@@ -1429,7 +1429,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $part->setCharset($charset);
         $part->setContentTypeParameter('protocol', 'application/pgp-encrypted');
         $part->setDescription(Horde_String::convertCharset(_("PGP Encrypted Data"), Horde_Nls::getCharset(), $charset));
-        $part->setContents('This message is in MIME format and has been PGP encrypted.' . "\n");
+        $part->setContents("This message is in MIME format and has been PGP encrypted.\n");
 
         $part1 = new Horde_Mime_Part();
         $part1->setType('application/pgp-encrypted');
@@ -1468,7 +1468,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
          * know whether a subclass has extended these methods. */
         $part = $this->signMIMEPart($mime_part, $sign_params);
         $part = $this->encryptMIMEPart($part, $encrypt_params);
-        $part->setContents('This message is in MIME format and has been PGP signed and encrypted.' . "\n");
+        $part->setContents("This message is in MIME format and has been PGP signed and encrypted.\n");
 
         $charset = Horde_Nls::getEmailCharset();
         $part->setCharset($charset);
@@ -1546,7 +1546,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $cmdline = implode(' ', array_merge($this->_gnupg, $options));
 
         if ($mode == 'w') {
-            if ($fp = popen($cmdline, 'w')) {;
+            if ($fp = popen($cmdline, 'w')) {
                 $win32 = !strncasecmp(PHP_OS, 'WIN', 3);
 
                 if (!is_array($input)) {
@@ -1618,7 +1618,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $cmdline = array(
             $keyring,
             '--command-fd 0',
-            '--gen-revoke' . ' ' . $email,
+            '--gen-revoke ' . $email,
         );
         $results = $this->_callGpg($cmdline, 'w', $input, true);
 

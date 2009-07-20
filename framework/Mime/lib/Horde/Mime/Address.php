@@ -392,11 +392,11 @@ class Horde_Mime_Address
 
         /* Convert objects to arrays. */
         foreach (array_keys($ret) as $key) {
-            $ret[$key] = (array) $ret[$key];
+            $ret[$key] = (array)$ret[$key];
             if (isset($ret[$key]['addresses'])) {
                 $ptr = &$ret[$key]['addresses'];
                 foreach (array_keys($ptr) as $key2) {
-                    $ptr[$key2] = (array) $ptr[$key2];
+                    $ptr[$key2] = (array)$ptr[$key2];
                 }
             }
         }

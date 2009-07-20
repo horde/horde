@@ -35,7 +35,7 @@ class Horde_Mime_Viewer_Enscript extends Horde_Mime_Viewer_Source
     {
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => $this->_toHTML(false),
+                'data' => $this->_toHTML(),
                 'status' => array(),
                 'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             )
@@ -51,7 +51,7 @@ class Horde_Mime_Viewer_Enscript extends Horde_Mime_Viewer_Source
     {
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => $this->_toHTML(true),
+                'data' => $this->_toHTML(),
                 'status' => array(),
                 'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             )
@@ -61,11 +61,9 @@ class Horde_Mime_Viewer_Enscript extends Horde_Mime_Viewer_Source
     /**
      * Converts the code to HTML.
      *
-     * @param boolean $inline  Is this an inline display?
-     *
      * @return string  The HTML-ified version of the MIME part contents.
      */
-    protected function _toHTML($inline)
+    protected function _toHTML()
     {
         /* Check to make sure the viewer program exists. */
         if (!isset($this->_conf['location']) ||

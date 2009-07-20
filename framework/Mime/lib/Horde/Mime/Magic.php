@@ -58,7 +58,7 @@ class Horde_Mime_Magic
     static public function extToMime($ext)
     {
         if (empty($ext)) {
-           return 'application/octet-stream';
+            return 'application/octet-stream';
         }
 
         $ext = Horde_String::lower($ext);

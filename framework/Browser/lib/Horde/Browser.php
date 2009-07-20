@@ -556,7 +556,7 @@ class Horde_Browser
                     list($this->_majorVersion, $this->_minorVersion) = explode('.', $version_string[1], 2);
                     $this->_minorVersion = intval($this->_minorVersion);
                     $this->setFeature('rte');
-                } elseif ($this->_majorVersion >= 412)  {
+                } elseif ($this->_majorVersion >= 412) {
                     $this->_majorVersion = 2;
                     $this->_minorVersion = 0;
                 } else {

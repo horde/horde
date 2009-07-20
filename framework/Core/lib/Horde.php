@@ -702,7 +702,7 @@ HTML;
         // Return an error if neither main or vhosted versions of the config
         // file exist.
         if (!$was_included) {
-            Horde::logMessage(sprintf('Failed to import configuration file "%s".', $config_dir . $config_file), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            self::logMessage(sprintf('Failed to import configuration file "%s".', $config_dir . $config_file), __FILE__, __LINE__, PEAR_LOG_DEBUG);
             return;
         }
 
@@ -1972,7 +1972,7 @@ HTML;
             $url .= '/' . $key . '=' . rawurlencode(strval($val));
         }
 
-        return Horde::url($url);
+        return self::url($url);
     }
 
 }

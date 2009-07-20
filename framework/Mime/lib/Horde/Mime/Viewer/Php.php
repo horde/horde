@@ -78,7 +78,7 @@ class Horde_Mime_Viewer_Php extends Horde_Mime_Viewer_Source
      *
      * @return string  The code with line numbers added.
      */
-    protected function _lineNumber($code, $linebreak = "\n")
+    protected function _lineNumber($code)
     {
         // Clean up.
         $code = preg_replace(

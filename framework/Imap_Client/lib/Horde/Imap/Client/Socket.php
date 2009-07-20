@@ -2017,7 +2017,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $this->_temp['threadparse'] = array('base' => null, 'resp' => array());
 
         reset($data);
-        while(list($k, $v) = each($data)) {
+        while (list($k, $v) = each($data)) {
             $subject = empty($v['envelope']['subject'])
                 ? ''
                 : $this->utils->getBaseSubject($v['envelope']['subject']);
@@ -3219,7 +3219,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_temp['logout'] = true;
             $this->logout();
             if ($this->_debug) {
-                fwrite($this->_debug, '[ERROR: IMAP server closed the connection.]' . "\n");
+                fwrite($this->_debug, "[ERROR: IMAP server closed the connection.]\n");
             }
             throw new Horde_Imap_Client_Exception('IMAP server closed the connection unexpectedly.', Horde_Imap_Client_Exception::DISCONNECT);
         }
@@ -3271,7 +3271,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         if (!$got_data) {
             if ($this->_debug) {
-                fwrite($this->_debug, '[ERROR: IMAP read/timeout error.]' . "\n");
+                fwrite($this->_debug, "[ERROR: IMAP read/timeout error.]\n");
             }
             throw new Horde_Imap_Client_Exception('IMAP read error or IMAP connection timed out.', Horde_Imap_Client_Exception::SERVER_READERROR);
         }

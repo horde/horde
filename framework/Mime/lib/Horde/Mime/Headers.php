@@ -273,7 +273,7 @@ class Horde_Mime_Headers
      * <pre>
      * 'decode' - (boolean) MIME decode the value?
      * 'params' - (array) MIME parameters for Content-Type or
-     *            Content-Disposition
+     *            Content-Disposition.
      * </pre>
      */
     public function addHeader($header, $value, $options = array())
@@ -351,7 +351,7 @@ class Horde_Mime_Headers
      * <pre>
      * 'decode' - (boolean) MIME decode the value?
      * 'params' - (array) MIME parameters for Content-Type or
-     *            Content-Disposition
+     *            Content-Disposition.
      * </pre>
      *
      * @return boolean  True if value was set.
@@ -359,7 +359,7 @@ class Horde_Mime_Headers
     public function setValue($header, $value, $options = array())
     {
         if (isset($this->_headers[Horde_String::lower($header)])) {
-            $this->addHeader($header, $value, $decode);
+            $this->addHeader($header, $value, $options);
             return true;
         }
 
@@ -509,7 +509,7 @@ class Horde_Mime_Headers
      */
     public function listHeadersExist()
     {
-        return (bool) count(array_intersect(array_keys($this->listHeaders()), array_keys($this->_headers)));
+        return (bool)count(array_intersect(array_keys($this->listHeaders()), array_keys($this->_headers)));
     }
 
     /**

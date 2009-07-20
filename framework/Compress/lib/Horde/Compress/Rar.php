@@ -54,10 +54,11 @@ class Horde_Compress_Rar extends Horde_Compress
             throw new Horde_Exception(_("Invalid RAR data."));
         }
 
+        $data_len = strlen($data);
         $position = $blockStart + 7;
         $return_array = array();
 
-        while ($position < strlen($data)) {
+        while ($position < $data_len) {
             $head_crc = substr($data, $position + 0, 2);
             $head_type = ord(substr($data, $position + 2, 1));
             $head_flags = unpack('vFlags', substr($data, $position + 3, 2));

@@ -237,7 +237,7 @@ class Horde_Compress_Tnef extends Horde_Compress
                     $datalen = $length + ((4 - ($length % 4)) % 4);
 
                     if ($attr_type == self::MAPI_STRING) {
-                        $length -= 1;
+                        --$length;
                     }
 
                     /* Read and truncate to length. */

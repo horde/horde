@@ -82,7 +82,7 @@ class Horde_Editor
 
         $signature = serialize(array($driver, $params));
         if (!array_key_exists($signature, $instances)) {
-            $instances[$signature] = Horde_Editor::factory($driver, $params);
+            $instances[$signature] = self::factory($driver, $params);
         }
 
         return $instances[$signature];

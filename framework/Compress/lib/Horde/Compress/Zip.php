@@ -237,14 +237,16 @@ class Horde_Compress_Zip extends Horde_Compress
         /* Get details from local file header. */
         $fhStart = strpos($data, self::FILE_HEADER);
 
+        $data_len = strlen($data);
+
         do {
-            if (strlen($data) < $fhStart + 34) {
+            if ($data_len < $fhStart + 34) {
                 throw new Horde_Exception(_("Invalid ZIP data"));
             }
             $info = unpack('vMethod/VTime/VCRC32/VCompressed/VUncompressed/vLength/vExtraLength', substr($data, $fhStart + 8, 25));
             $name = substr($data, $fhStart + 30, $info['Length']);
             $entries[$name]['_dataStart'] = $fhStart + 30 + $info['Length'] + $info['ExtraLength'];
-        } while (strlen($data) > $fhStart + 30 + $info['Length'] &&
+        } while ($data_len > $fhStart + 30 + $info['Length'] &&
                  ($fhStart = strpos($data, self::FILE_HEADER, $fhStart + 30 + $info['Length'])) !== false);
 
         return array_values($entries);
@@ -365,25 +367,25 @@ class Horde_Compress_Zip extends Horde_Compress
         $old_offset = ftell($this->_tmp);
 
         fwrite($this->_tmp,
-            self::FILE_HEADER .        /* Begin creating the ZIP data. */
-            $common .                   /* Common data. */
-            $name .                     /* File name. */
-            $zdata                      /* "File data" segment. */
+            self::FILE_HEADER .  /* Begin creating the ZIP data. */
+            $common .            /* Common data. */
+            $name .              /* File name. */
+            $zdata               /* "File data" segment. */
         );
 
         /* Add to central directory record. */
         $this->_ctrldir[] =
             self::CTRL_DIR_HEADER .
-            "\x00\x00" .               /* Version made by. */
-            $common .                  /* Common data. */
-            pack('v', 0) .             /* File comment length. */
-            pack('v', 0) .             /* Disk number start. */
-            pack('v', 0) .             /* Internal file attributes. */
-            pack('V', 32) .            /* External file attributes -
-                                          'archive' bit set. */
-            pack('V', $old_offset) .   /* Relative offset of local
-                                          header. */
-            $name;                     /* File name. */
+            "\x00\x00" .              /* Version made by. */
+            $common .                 /* Common data. */
+            pack('v', 0) .            /* File comment length. */
+            pack('v', 0) .            /* Disk number start. */
+            pack('v', 0) .            /* Internal file attributes. */
+            pack('V', 32) .           /* External file attributes -
+                                       * 'archive' bit set. */
+            pack('V', $old_offset) .  /* Relative offset of local
+                                       * header. */
+            $name;                    /* File name. */
     }
 
 }

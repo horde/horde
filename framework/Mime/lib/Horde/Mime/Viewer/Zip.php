@@ -88,12 +88,12 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
             $name = _("unnamed");
         }
 
-        $text = '<strong>' . htmlspecialchars(sprintf(_("Contents of \"%s\""), $name)) . ':</strong>' . "\n" .
+        $text = '<strong>' . htmlspecialchars(sprintf(_("Contents of \"%s\""), $name)) . ":</strong>\n" .
             '<table><tr><td align="left"><tt><span class="fixed">' .
             Horde_Text_Filter::filter(
                 _("Archive Name") . ': ' . $name . "\n" .
                 _("Archive File Size") . ': ' . strlen($contents) .
-                ' bytes' . "\n" .
+                " bytes\n" .
                 sprintf(ngettext("File Count: %d file", "File Count: %d files", $fileCount), $fileCount) .
                 "\n\n" .
                 Horde_String::pad(_("File Name"), $maxlen, ' ', STR_PAD_RIGHT) .
@@ -114,7 +114,7 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
                 : 100 * ($val['csize'] / $val['size']);
 
             $val['name']   = Horde_String::pad($val['name'], $maxlen, ' ', STR_PAD_RIGHT);
-            $val['attr']   = Horde_String::pad($val['attr'], 10,' ', STR_PAD_LEFT);
+            $val['attr']   = Horde_String::pad($val['attr'], 10, ' ', STR_PAD_LEFT);
             $val['size']   = Horde_String::pad($val['size'], 10, ' ', STR_PAD_LEFT);
             $val['date']   = Horde_String::pad(strftime("%d-%b-%Y %H:%M", $val['date']), 19, ' ', STR_PAD_LEFT);
             $val['method'] = Horde_String::pad($val['method'], 10, ' ', STR_PAD_LEFT);
@@ -133,7 +133,7 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
 
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => nl2br($text . str_repeat('-', 69 + $maxlen) . "\n" . '</span></tt></td></tr></table>'),
+                'data' => nl2br($text . str_repeat('-', 69 + $maxlen) . "\n</span></tt></td></tr></table>"),
                 'status' => array(),
                 'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             )

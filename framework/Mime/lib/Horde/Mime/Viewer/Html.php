@@ -13,7 +13,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Mime_Viewer
  */
-class Horde_Mime_Viewer_html extends Horde_Mime_Viewer_Driver
+class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
 {
     /**
      * Can this driver render various views?

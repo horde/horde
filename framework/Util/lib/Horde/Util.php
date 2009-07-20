@@ -57,6 +57,16 @@ class Horde_Util
     );
 
     /**
+     * Temp directory locations.
+     *
+     * @var array
+     */
+    static public $tmpLocations = array(
+        '/tmp', '/var/tmp', 'c:\WUTemp', 'c:\temp', 'c:\windows\temp',
+        'c:\winnt\temp'
+    );
+
+    /**
      * Random number for nocacheUrl().
      *
      * @var integer.
@@ -487,17 +497,15 @@ class Horde_Util
 
         // If we still cannot determine a value, then cycle through a
         // list of preset possibilities.
-        $tmp_locations = array('/tmp', '/var/tmp', 'c:\WUTemp', 'c:\temp',
-                               'c:\windows\temp', 'c:\winnt\temp');
-        while (empty($tmp) && count($tmp_locations)) {
-            $tmp_check = array_shift($tmp_locations);
-            if (@is_dir($tmp_check)) {
-                $tmp = $tmp_check;
+        if (empty($tmp)) {
+            foreach (self::$tmpLocations as $tmp_check) {
+                if (@is_dir($tmp_check)) {
+                    $tmp = $tmp_check;
+                    break;
+                }
             }
         }
 
-        // If it is still empty, we have failed, so return false;
-        // otherwise return the directory determined.
         return empty($tmp) ? false : $tmp;
     }
 
@@ -791,8 +799,9 @@ class Horde_Util
      */
     static public function closeWindowJS($code = '')
     {
-        echo '<script type="text/javascript">//<![CDATA[' . "\n"
-            . $code . 'window.close();' . "\n//]]></script>\n";
+        echo "<script type=\"text/javascript\">//<![CDATA[\n" .
+            $code .
+            "window.close();\n//]]></script>\n";
     }
 
     /**
@@ -899,9 +908,10 @@ class Horde_Util
      */
     static public function date2strftime($format)
     {
+        $f_len = strlen($format);
         $result = '';
 
-        for ($pos = 0; $pos < strlen($format);) {
+        for ($pos = 0; $pos < $f_len;) {
             for ($symbol = 0, $symcount = count(self::$dateSymbols); $symbol < $symcount; ++$symbol) {
                 if (strpos($format, self::$dateSymbols[$symbol], $pos) === $pos) {
                     $result .= self::$strftimeSymbols[$symbol];

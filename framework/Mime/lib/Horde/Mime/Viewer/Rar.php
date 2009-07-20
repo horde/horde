@@ -63,7 +63,7 @@ class Horde_Mime_Viewer_Rar extends Horde_Mime_Viewer_Driver
             $name = _("unnamed");
         }
 
-        $text = '<strong>' . htmlspecialchars(sprintf(_("Contents of \"%s\""), $name)) . ':</strong>' . "\n" .
+        $text = '<strong>' . htmlspecialchars(sprintf(_("Contents of \"%s\""), $name)) . ":</strong>\n" .
             '<table><tr><td align="left"><tt><span class="fixed">' .
             Horde_Text_Filter::filter(_("Archive Name") . ':  ' . $name, 'space2html', array('charset' => $charset, 'encode' => true, 'encode_all' => true)) . "\n" .
             Horde_Text_Filter::filter(_("Archive File Size") . ': ' . strlen($contents) . ' bytes', 'space2html', array('charset' => $charset, 'encode' => true, 'encode_all' => true)) . "\n" .
@@ -99,7 +99,7 @@ class Horde_Mime_Viewer_Rar extends Horde_Mime_Viewer_Driver
 
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => nl2br($text . str_repeat('-', 106) . "\n" . '</span></tt></td></tr></table>'),
+                'data' => nl2br($text . str_repeat('-', 106) . "\n</span></tt></td></tr></table>"),
                 'status' => array(),
                 'type' => 'text/html; charset=' . $charset
             )

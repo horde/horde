@@ -250,7 +250,7 @@ class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
         return parent::_search($query, $options);
     }
 
-   /**
+    /**
      * Set the comparator to use for searching/sorting (RFC 5255).
      *
      * @param string $comparator  The comparator string (see RFC 4790 [3.1] -

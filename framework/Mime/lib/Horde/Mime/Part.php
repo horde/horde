@@ -508,20 +508,20 @@ class Horde_Mime_Part
       * @return string  The mimetype of this part (ex.: text/plain;
       *                 charset=us-ascii) or false.
       */
-     public function getType($charset = false)
-     {
-         if (empty($this->_type) || empty($this->_subtype)) {
-             return false;
-         }
+    public function getType($charset = false)
+    {
+        if (empty($this->_type) || empty($this->_subtype)) {
+            return false;
+        }
 
-         $ptype = $this->getPrimaryType();
-         $type = $ptype . '/' . $this->getSubType();
-         if ($charset && ($ptype == 'text')) {
-             $type .= '; charset=' . $this->getCharset();
-         }
+        $ptype = $this->getPrimaryType();
+        $type = $ptype . '/' . $this->getSubType();
+        if ($charset && ($ptype == 'text')) {
+            $type .= '; charset=' . $this->getCharset();
+        }
 
-         return $type;
-     }
+        return $type;
+    }
 
     /**
      * If the subtype of a MIME part is unrecognized by an application, the
@@ -1213,7 +1213,7 @@ class Horde_Mime_Part
 
         $localeinfo = Horde_Nls::getLocaleInfo();
         return number_format($bytes / 1024, 2, $localeinfo['decimal_point'], $localeinfo['thousands_sep']);
-     }
+    }
 
     /**
      * Sets the Content-ID header for this part.
@@ -1289,7 +1289,7 @@ class Horde_Mime_Part
                 }
                 $i = 1;
                 foreach (array_keys($this->_parts) as $val) {
-                    $this->_parts[$val]->buildMimeIds($id . $i++);
+                    $this->_parts[$val]->buildMimeIds($id . ($i++));
                 }
             }
         } else {
@@ -1304,7 +1304,7 @@ class Horde_Mime_Part
             } elseif (!empty($this->_parts)) {
                 $i = 1;
                 foreach (array_keys($this->_parts) as $val) {
-                    $this->_parts[$val]->buildMimeIds($id . $i++);
+                    $this->_parts[$val]->buildMimeIds($id . ($i++));
                 }
             }
         }

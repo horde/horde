@@ -64,10 +64,11 @@ class Horde_Compress_Tar extends Horde_Compress
      */
     public function decompress($data, $params = array())
     {
+        $data_len = strlen($data);
         $position = 0;
         $return_array = array();
 
-        while ($position < strlen($data)) {
+        while ($position < $data_len) {
             $info = @unpack("a100filename/a8mode/a8uid/a8gid/a12size/a12mtime/a8checksum/Ctypeflag/a100link/a6magic/a2version/a32uname/a32gname/a8devmajor/a8devminor", substr($data, $position));
             if (!$info) {
                 throw new Horde_Exception(_("Unable to decompress data."));
@@ -105,8 +106,6 @@ class Horde_Compress_Tar extends Horde_Compress
                         (($mode & 0x004) ? 'r' : '-') .
                         (($mode & 0x002) ? 'w' : '-') .
                         (($mode & 0x001) ? 'x' : '-');
-                } else {
-                    /* Some other type. */
                 }
 
                 $return_array[] = $file;

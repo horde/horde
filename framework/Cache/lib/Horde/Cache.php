@@ -84,7 +84,7 @@ class Horde_Cache
         $signature = hash('md5', serialize(array($driver, $params)));
 
         if (!isset(self::$_instances[$signature])) {
-            self::$_instances[$signature] = Horde_Cache::factory($driver, $params);
+            self::$_instances[$signature] = self::factory($driver, $params);
         }
 
         return self::$_instances[$signature];

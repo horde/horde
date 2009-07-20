@@ -12,4 +12,6 @@
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @package Horde_Mime_Viewer
  */
-class Horde_Mime_Viewer_Default extends Horde_Mime_Viewer_Driver {}
+class Horde_Mime_Viewer_Default extends Horde_Mime_Viewer_Driver
+{
+}

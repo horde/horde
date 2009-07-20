@@ -93,6 +93,8 @@ class Horde_Mime_Viewer_Srchighlite extends Horde_Mime_Viewer_Source
      */
     protected function _typeToLang($type)
     {
+        // TODO: 'prolog', 'flex', 'changelog', 'ruby'
+
         switch ($type) {
         case 'text/x-java':
             return 'java';
@@ -115,8 +117,6 @@ class Horde_Mime_Viewer_Srchighlite extends Horde_Mime_Viewer_Source
 
         case 'application/x-python':
             return 'python';
-
-        // TODO: 'prolog', 'flex', 'changelog', 'ruby'
         }
     }
 }

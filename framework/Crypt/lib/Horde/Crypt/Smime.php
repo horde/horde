@@ -262,7 +262,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
 
         $smime_part = new Horde_Mime_Part();
         $smime_part->setType('multipart/signed');
-        $smime_part->setContents('This is a cryptographically signed message in MIME format.' . "\n");
+        $smime_part->setContents("This is a cryptographically signed message in MIME format.\n");
         $smime_part->setContentTypeParameter('protocol', 'application/pkcs7-signature');
         $smime_part->setContentTypeParameter('micalg', 'sha1');
         $smime_part->addPart($mime_part);
@@ -581,7 +581,8 @@ class Horde_Crypt_Smime extends Horde_Crypt
                 $text .= "&nbsp;&nbsp;" . sprintf(_("RSA Public Key (%d bit)"), strlen($modulus_hex) * 4) . ":\n";
 
                 $modulus_str = '';
-                for ($i = 0; $i < strlen($modulus_hex); $i += 2) {
+
+                for ($i = 0, $m_len = strlen($modulus_hex); $i < $m_len; $i += 2) {
                     if (($i % 32) == 0) {
                         $modulus_str .= "\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
                     }
@@ -621,7 +622,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         foreach ($cert_details['fingerprints'] as $hash => $fingerprint) {
             $label = sprintf(_("%s Fingerprint"), Horde_String::upper($hash));
             $fingerprint_str = '';
-            for ($i = 0; $i < strlen($fingerprint); $i += 2) {
+            for ($i = 0, $f_len = strlen($fingerprint); $i < $f_len; $i += 2) {
                 $fingerprint_str .= substr($fingerprint, $i, 2) . ':';
             }
             $text .= sprintf("&nbsp;&nbsp;%s:\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%s\n", $label, $fingerprint_str);
@@ -630,7 +631,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $text .= sprintf("&nbsp;&nbsp;%s:", _("Signature"));
 
         $sig_str = '';
-        for ($i = 0; $i < strlen($cert_details['signature']); $i++) {
+        for ($i = 0, $s_len = strlen($cert_details['signature']); $i < $s_len; ++$i) {
             if (($i % 16) == 0) {
                 $sig_str .= "\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
             }
@@ -824,7 +825,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
 
                 $newVal = '';
 
-                for ($i = 0; $i < strlen($val); $i++) {
+                for ($i = 0, $v_len = strlen($val); $i < $v_len; ++$i) {
                     $newVal .= sprintf("%02x:", ord($val[$i]));
                 }
                 $cert_details['certificate']['extensions'][$oid] = $newVal;
@@ -836,7 +837,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
                     $val = $val[1];
 
                     $newVal = '';
-                    for ($i = 0; $i < strlen($val); $i++) {
+                    for ($i = 0, $v_len = strlen($val); $i < $v_len; ++$i) {
                         $newVal .= sprintf("%02x:", ord($val[$i]));
                     }
                     $cert_details['certificate']['extensions'][$oid] = $newVal;
@@ -940,13 +941,13 @@ class Horde_Crypt_Smime extends Horde_Crypt
                 $value = 0;
                 if ($len <= 4) {
                     /* Method works fine for small integers */
-                    for ($i = 0; $i < strlen($integer_data); $i++) {
+                    for ($i = 0, $i_len = strlen($integer_data); $i < $i_len; ++$i) {
                         $value = ($value << 8) | ord($integer_data[$i]);
                     }
                 } else {
                     /* Method works for arbitrary length integers */
                     if (Horde_Util::extensionExists('bcmath')) {
-                        for ($i = 0; $i < strlen($integer_data); $i++) {
+                        for ($i = 0, $i_len = strlen($integer_data); $i < $i_len; ++$i) {
                             $value = bcadd(bcmul($value, 256), ord($integer_data[$i]));
                         }
                     } else {
@@ -1014,7 +1015,9 @@ class Horde_Crypt_Smime extends Horde_Crypt
 
                 $value = 0;
                 $i = 1;
-                while ($i < strlen($oid_data)) {
+                $o_len = strlen($oid_data);
+
+                while ($i < $o_len) {
                     $value = $value << 7;
                     $value = $value | (ord($oid_data[$i]) & 0x7f);
 

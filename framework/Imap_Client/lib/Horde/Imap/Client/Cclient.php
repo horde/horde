@@ -825,7 +825,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         return $ret;
     }
 
-   /**
+    /**
      * Set the comparator to use for searching/sorting (RFC 5255).
      *
      * @param string $comparator  The comparator string (see RFC 4790 [3.1] -

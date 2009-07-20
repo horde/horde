@@ -32,7 +32,7 @@ class Horde_Mime_Mdn
      *
      * @param Horde_Mime_Headers $mime_headers  A Horde_Mime_Headers object.
      */
-    function __construct($headers = null)
+    public function __construct($headers = null)
     {
         $this->_headers = $headers;
     }

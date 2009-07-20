@@ -1170,7 +1170,7 @@ class Horde_Config
         $ctx = explode('|', $ctx);
         $ptr = $this->_currentConfig;
 
-        for ($i = 0; $i < count($ctx); ++$i) {
+        for ($i = 0, $ctx_count = count($ctx); $i < $ctx_count; ++$i) {
             if (!isset($ptr[$ctx[$i]])) {
                 return array($default, true);
             }

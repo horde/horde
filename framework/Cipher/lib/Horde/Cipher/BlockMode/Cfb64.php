@@ -24,7 +24,7 @@ class Horde_Cipher_BlockMode_Cfb64 extends Horde_Cipher_BlockMode
      *
      * @return string  The encrypted data.
      */
-    function encrypt($cipher, $plaintext)
+    public function encrypt($cipher, $plaintext)
     {
         $encrypted = '';
 
@@ -53,7 +53,7 @@ class Horde_Cipher_BlockMode_Cfb64 extends Horde_Cipher_BlockMode
      *
      * @return string  The decrypted data.
      */
-    function decrypt($cipher, $ciphertext)
+    public function decrypt($cipher, $ciphertext)
     {
         $decrypted = '';
 

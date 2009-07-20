@@ -203,8 +203,8 @@ class Horde_Menu
 
         /* Sort to match explicitly set positions. */
         ksort($this->_menu);
-        if (!empty($GLOBALS['nls']['rtl'][$GLOBALS['language']]))  {
-            $this->_menu = array_reverse($this->_menu) ;
+        if (!empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) {
+            $this->_menu = array_reverse($this->_menu);
         }
 
         $menu_view = $prefs->getValue('menu_view');

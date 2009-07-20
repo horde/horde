@@ -89,7 +89,7 @@ class Horde_Crypt
         $signature = hash('md5', serialize(array($driver, $params)));
 
         if (!isset(self::$_instances[$signature])) {
-            self::$_instances[$signature] = Horde_Crypt::factory($driver, $params);
+            self::$_instances[$signature] = self::factory($driver, $params);
         }
 
         return self::$_instances[$signature];
