@@ -335,12 +335,21 @@ $attributes['freebusyUrl'] = array(
     'required' => false,
     'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
 );
-$attributes['pgpPublicKey'] = array(
-    'label' => _("PGP Public Key"),
-    'type' => 'pgp',
-    'required' => false,
-    'params' => array('gpg' => $GLOBALS['conf']['gnupg']['path'], 'temp_dir' => Horde::getTempDir(), 'rows' => 3, 'cols' => 40)
-);
+if (!empty($GLOBALS['conf']['gnupg']['path'])) {
+    $attributes['pgpPublicKey'] = array(
+        'label' => _("PGP Public Key"),
+        'type' => 'pgp',
+        'required' => false,
+        'params' => array('gpg' => $GLOBALS['conf']['gnupg']['path'], 'temp_dir' => Horde::getTempDir(), 'rows' => 3, 'cols' => 40)
+    );
+} else {
+    $attributes['pgpPublicKey'] = array(
+        'label' => _("PGP Public Key"),
+        'type' => 'longtext',
+        'required' => false,
+        'params' => array('rows' => 3, 'cols' => 40)
+    );
+}
 $attributes['smimePublicKey'] = array(
     'label' => _("S/MIME Public Certificate"),
     'type' => 'smime',
