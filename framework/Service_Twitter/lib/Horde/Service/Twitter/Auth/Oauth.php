@@ -66,13 +66,20 @@ class Horde_Service_Twitter_Auth_Oauth extends Horde_Service_Twitter_Auth
             return false;
         }
         $token = new Horde_Oauth_Token($params['oauth_token'], $requestSecret);
-
-        return $this->oauth->getAccessToken($token);
+        try {
+            return $this->oauth->getAccessToken($token);
+        } catch (Horde_Oauth_Exception $e) {
+            throw new Horde_Service_Twitter_Exception($e->getMessage());
+        }
     }
 
     public function getRequestToken($params = array())
     {
-        return $this->oauth->getRequestToken($params);
+        try {
+            return $this->oauth->getRequestToken($params);
+        } catch (Horde_Oauth_Exception $e) {
+            throw new Horde_Service_Twitter_Exception($e->getMessage());
+        }
     }
 
 }
