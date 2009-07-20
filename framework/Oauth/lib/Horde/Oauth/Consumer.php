@@ -68,10 +68,14 @@ class Horde_Oauth_Consumer
 
         $client = new Horde_Http_Client;
 
-        $response = $client->post(
-            $this->requestTokenUrl,
-            $request->buildHttpQuery()
-        );
+        try {
+            $response = $client->post(
+                $this->requestTokenUrl,
+                $request->buildHttpQuery()
+            );
+        } catch (Horde_Http_Client_Exception $e) {
+            throw new Horde_Oauth_Exception($e->getMessage());
+        }
 
         return Horde_Oauth_Token::fromString($response->getBody());
     }
@@ -108,10 +112,14 @@ class Horde_Oauth_Consumer
         $request->sign($this->signatureMethod, $this, $token);
 
         $client = new Horde_Http_Client;
-        $response = $client->post(
-            $this->accessTokenUrl,
-            $request->buildHttpQuery()
-        );
+        try {
+            $response = $client->post(
+                $this->accessTokenUrl,
+                $request->buildHttpQuery()
+            );
+        } catch (Horde_Http_Client_Exception $e) {
+            throw new Horde_Oauth_Exception($e->getMessage());
+        }
 
         return Horde_Oauth_Token::fromString($response->getBody());
     }
