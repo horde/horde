@@ -99,7 +99,7 @@ class Horde_Service_Twitter_Statuses
     public function publicTimeline()
     {
         $url = $this->_endpoint . 'public_timeline.' . $this->_format;
-        return $this->_twitter->request->get($url):
+        return $this->_twitter->request->get($url);
     }
 
     /**
@@ -127,7 +127,7 @@ class Horde_Service_Twitter_Statuses
     public function userTimeline($params = array())
     {
         $url = $this->_endpoint . 'user_timeline.' . $this->_format;
-        return $this->_twitter->request->get($url, $params)
+        return $this->_twitter->request->get($url, $params);
     }
 
     /**
@@ -147,8 +147,34 @@ class Horde_Service_Twitter_Statuses
      */
     public function mentions($params = array())
     {
-        $url = $this->_endpoint . 'mentions.' . $this-_format;
-        return $this->_twitter->request->get($url)
+        $url = $this->_endpoint . 'mentions.' . $this->_format;
+        return $this->_twitter->request->get($url, $params);
+    }
+
+    /**
+     * Returns a user's friends, each with current status inline. They are
+     * ordered by the order in which they were added as friends, 100 at a time.
+     *
+     * http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-statuses%C2%A0friends
+     *
+     * @param array $params  Parameters for the friends_timeline call
+     *   <pre>
+     *     id         - For this user id or screen name.
+     *                  Current user if left out.
+     *     user_id    - Specfies the ID of the user for whom to return the
+     *                  user_timeline. Helpful for disambiguating when a valid
+     *                  user ID is also a valid screen name.
+     *     screen_id  - Specfies the screen name of the user for whom to return
+     *                  the user_timeline. Helpful for disambiguating when a
+     *                  valid screen name is also a user ID.
+     *     page       - The page number to return (note there are pagination limits)
+     *   </pre>
+     * @return unknown_type
+     */
+    public function friends($params = array())
+    {
+        $url = $this->_endpoint . 'friends.' . $this->_format;
+        return $this->_twitter->request->get($url, $params);
     }
 
 }
