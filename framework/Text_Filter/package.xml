@@ -192,13 +192,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </package>
   </required>
   <optional>
-   <extension>
-    <name>gettext</name>
-   </extension>
    <package>
     <name>Text_Filter_Csstidy</name>
     <channel>pear.horde.org</channel>
    </package>
+   <extension>
+    <name>gettext</name>
+   </extension>
   </optional>
  </dependencies>
  <phprelease>
