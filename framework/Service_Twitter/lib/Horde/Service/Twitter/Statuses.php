@@ -177,4 +177,30 @@ class Horde_Service_Twitter_Statuses
         return $this->_twitter->request->get($url, $params);
     }
 
+    /**
+     * Returns a user's followers, each with current status inline. They are
+     * ordered by the order in which they were added as friends, 100 at a time.
+     *
+     * http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-statuses%C2%A0friends
+     *
+     * @param array $params  Parameters for the friends_timeline call
+     *   <pre>
+     *     id         - For this user id or screen name.
+     *                  Current user if left out.
+     *     user_id    - Specfies the ID of the user for whom to return the
+     *                  user_timeline. Helpful for disambiguating when a valid
+     *                  user ID is also a valid screen name.
+     *     screen_id  - Specfies the screen name of the user for whom to return
+     *                  the user_timeline. Helpful for disambiguating when a
+     *                  valid screen name is also a user ID.
+     *     page       - The page number to return (note there are pagination limits)
+     *   </pre>
+     * @return unknown_type
+     */
+    public function followers($params = array())
+    {
+        $url = $this->_endpoint . 'followers.' . $this->_format;
+        return $this->_twitter->request->get($url, $params);
+    }
+
 }
