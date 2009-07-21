@@ -13,15 +13,30 @@
 class Horde_Service_Twitter
 {
 
+    /* Constants */
     const REQUEST_TOKEN_URL = 'http://twitter.com/oauth/request_token';
     const USER_AUTHORIZE_URL = 'http://twitter.com/oauth/authorize';
     const ACCESS_TOKEN_URL = 'http://twitter.com/oauth/access_token';
+
     /**
      * Cache for the various objects we lazy load in __get()
      *
      * @var hash of Horde_Service_Twitter_* objects
      */
     protected $_objCache = array();
+
+    /**
+     * (Optional) Cache object
+     *
+     * @var Horde_Cache
+     */
+    protected $_responseCache;
+
+    /**
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
 
     /**
      * Configuration values
@@ -65,6 +80,14 @@ class Horde_Service_Twitter
     {
         // TODO: Check for req'd config
         $this->_config = $config;
+
+        if (!empty($config['cache'])) {
+            $this->_responseCache = $config['cache'];
+        }
+
+        if (!empty($config['logger'])) {
+            $this->_logger = $config['logger'];
+        }
 
         // Need to determine the type of authentication we will be using early..
         if (!empty($config['oauth'])) {

@@ -48,9 +48,8 @@ class Horde_Service_Twitter_Account
     }
 
     /**
-     * Ends the current session.
-     *
-     * @TODO: Verify that this invalidates any OAuth keys/secrets
+     * Ends the current session, invalidates the current auth token if using
+     * OAuth.
      *
      */
     public function endSession()
