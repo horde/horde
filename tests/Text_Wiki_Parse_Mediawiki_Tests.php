@@ -31,8 +31,8 @@ class Text_Wiki_Parse_Mediawiki_AllTests extends PHPUnit_Framework_TestSuite
         $suite = new PHPUnit_Framework_TestSuite('Text_Wiki_Render_Mediawiki_TestSuite');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Break_Test');
         /*$suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Code_Test');
-        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Comment_Test');
-        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Deflist_Test');*/
+        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Comment_Test');*/
+        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Deflist_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Emphasis_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Heading_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Horiz_Test');
@@ -99,6 +99,59 @@ class Text_Wiki_Parse_Mediawiki_Break_Test extends Text_Wiki_Parse_Mediawiki_Set
     }
     
 }
+
+class Text_Wiki_Parse_Mediawiki_Deflist_Test extends Text_Wiki_Parse_Mediawiki_SetUp_Tests
+{
+    
+    public function testMediawikiParseDeflistProcess()
+    {
+        $matches1 = array(
+            0 => "\n;Definition lists\n;item : definition\n;semicolon plus term\n:colon plus definition\n",
+            1 => ";Definition lists\n;item : definition\n;semicolon plus term\n:colon plus definition\n",
+        );
+
+        $this->assertRegExp("/\d+?\d+?Definition lists\d+?\d+?item\d+?\d+?definition\d+?\d+?semicolon plus term\d+?\d+?colon plus definition\d+?\d+?/", $this->t->process($matches1));
+
+        $tokens = array(
+            2 => array(0 => 'Deflist', 1 => array('type' => 'list_start', 'level' => 0)),
+            3 => array(0 => 'Deflist', 1 => array('type' => 'term_start', 'level' => 1, 'count' => 0, 'first' => true)),
+            4 => array(0 => 'Deflist', 1 => array('type' => 'term_end', 'level' => 1, 'count' => 0)),
+            5 => array(0 => 'Deflist', 1 => array('type' => 'term_start', 'level' => 1, 'count' => 1, 'first' => false)),
+            6 => array(0 => 'Deflist', 1 => array('type' => 'term_end', 'level' => 1, 'count' => 1)),
+            7 => array(0 => 'Deflist', 1 => array('type' => 'narr_start', 'level' => 1, 'count' => 2, 'first' => false)),
+            8 => array(0 => 'Deflist', 1 => array('type' => 'narr_end', 'level' => 1, 'count' => 2)),
+            9 => array(0 => 'Deflist', 1 => array('type' => 'term_start', 'level' => 1, 'count' => 3, 'first' => false)),
+            10 => array(0 => 'Deflist', 1 => array('type' => 'term_end', 'level' => 1, 'count' => 3)),
+            11 => array(0 => 'Deflist', 1 => array('type' => 'narr_start', 'level' => 1, 'count' => 4, 'first' => false)),
+            12 => array(0 => 'Deflist', 1 => array('type' => 'narr_end', 'level' => 1, 'count' => 4)),
+            13 => array(0 => 'Deflist', 1 => array('type' => 'list_end', 'level' => 0))
+        );
+
+        $this->assertEquals(array_values($tokens), array_values($this->t->wiki->tokens));
+    }
+    
+    public function testMediawikiParseDeflistRegex()
+    {
+        $expectedResult = array(
+            0 => array(
+                0 => "
+;item : definition
+;semicolon plus term
+:colon plus definition
+",
+            ),
+            1 => array(
+                0 => ";item : definition
+;semicolon plus term
+:colon plus definition
+",
+            ),
+        );
+        $this->assertEquals($expectedResult, $this->matches);
+    }
+    
+}
+
 
 class Text_Wiki_Parse_Mediawiki_Emphasis_Test extends Text_Wiki_Parse_Mediawiki_SetUp_Tests
 {
