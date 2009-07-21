@@ -3,6 +3,13 @@
 class Text_Wiki_Render_Tiki_Deflist extends Text_Wiki_Render {
     
     /**
+     * The last token type rendered
+     *
+     * @var string
+     */
+    var $last = '';
+
+    /**
     * 
     * Renders a token into text matching the requested format.
     * 
@@ -22,33 +29,40 @@ class Text_Wiki_Render_Tiki_Deflist extends Text_Wiki_Render {
         switch ($type) {
         
         case 'list_start':
-            return "{DL()}\n";
+            $output = "{DL()}\n";
             break;
         
         case 'list_end':
-            return "{DL}\n\n";
+            $output = "{DL}\n\n";
             break;
         
         case 'term_start':
-            return '';
+            // support definition item without narrative
+            if ($this->last == 'term_end')
+                $output = "\n";
+            else
+                $output = '';
             break;
         
         case 'term_end':
-            return ": ";
+            $output = ": ";
             break;
         
         case 'narr_start':
-            return '';
+            $output = '';
             break;
         
         case 'narr_end':
-            return "\n";
+            $output = "\n";
             break;
         
         default:
-            return '';
+            $output = '';
         
         }
+
+        $this->last = $type;
+        return $output;
     }
 }
 ?>

@@ -84,6 +84,7 @@ Invalid horizontal rule
 # List
 # List
 
+;Definition lists
 ;item : definition
 ;semicolon plus term
 :colon plus definition

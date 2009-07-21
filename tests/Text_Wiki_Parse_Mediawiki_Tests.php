@@ -135,13 +135,15 @@ class Text_Wiki_Parse_Mediawiki_Deflist_Test extends Text_Wiki_Parse_Mediawiki_S
         $expectedResult = array(
             0 => array(
                 0 => "
+;Definition lists
 ;item : definition
 ;semicolon plus term
 :colon plus definition
 ",
             ),
             1 => array(
-                0 => ";item : definition
+                0 => ";Definition lists
+;item : definition
 ;semicolon plus term
 :colon plus definition
 ",
