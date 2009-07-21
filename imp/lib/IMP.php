@@ -31,8 +31,8 @@ class IMP
     const MAILBOX_START_FIRSTPAGE = 3;
     const MAILBOX_START_LASTPAGE = 4;
 
-    /* IMP internaltring used to separate indexes. */
-    const IDX_SEP = "\0";
+    /* IMP internal string used to separate indexes. */
+    const IDX_SEP = '\0';
 
     /* Are we currently in "print" mode? */
     static public $printMode = false;

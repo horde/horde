@@ -735,7 +735,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         'preview' => '',
         'status' => '',
         'size' => htmlspecialchars($imp_ui->getSize($ob['size'])),
-        'uid' => htmlspecialchars($ob['uid'] . IMP::IDX_SEP . $ob['mailbox']),
+        'uid' => $ob['uid'] . IMP::IDX_SEP . htmlspecialchars($ob['mailbox']),
     );
 
     /* Since this value will be used for an ID element, it cannot contain
