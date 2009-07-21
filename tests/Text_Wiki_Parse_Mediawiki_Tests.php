@@ -36,8 +36,8 @@ class Text_Wiki_Parse_Mediawiki_AllTests extends PHPUnit_Framework_TestSuite
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Emphasis_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Heading_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Horiz_Test');
-        /*$suite->addTestSuite('Text_Wiki_Parse_Mediawiki_List_Test');
-        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Newline_Test');*/
+        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_List_Test');
+        /*$suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Newline_Test');*/
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Preformatted_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Raw_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Redirect_Test');
@@ -282,6 +282,140 @@ class Text_Wiki_Parse_Mediawiki_Horiz_Test extends Text_Wiki_Parse_Mediawiki_Set
             0 => array(0 => '----', 1 => '------'),
             1 => array(0 => '----', 1 => '------'),
         );
+        $this->assertEquals($expectedResult, $this->matches);
+    }
+    
+}
+
+class Text_Wiki_Parse_Mediawiki_List_Test extends Text_Wiki_Parse_Mediawiki_SetUp_Tests
+{
+     
+    public function testMediawikiParseListProcess()
+    {
+        $matches1 = array(
+            1 => "
+# List example
+## List example
+*** List example
+*** List example
+#### List example
+#### List example
+** List example
+",
+            2 => "# List example
+## List example
+*** List example
+*** List example
+#### List example
+#### List example
+** List example
+"
+        );
+
+        $this->assertRegExp("/\d+?\d+? List example\d+?\d+?\d+? List example\d+?\d+?\d+? List example\d+?\d+? List example\d+?\d+?\d+? List example\d+?\d+? List example\d+?\d+?\d+?\d+? List example\d+?\d+?\d+?/", $this->t->process($matches1));
+
+        $tokens = array(
+            432 => array(0 => 'List', 1 => array('type' => 'number_list_start', 'level' => 1)),
+            433 => array(0 => 'List', 1 => array('type' => 'number_item_start', 'level' => 1, 'count' => 0, 'first' => true)),
+            434 => array(0 => 'List', 1 => array('type' => 'number_item_end', 'level' => 1, 'count' => 0)),
+            435 => array(0 => 'List', 1 => array('type' => 'number_list_start', 'level' => 2)),
+            436 => array(0 => 'List', 1 => array('type' => 'number_item_start', 'level' => 2, 'count' => 0, 'first' => false)),
+            437 => array(0 => 'List', 1 => array('type' => 'number_item_end', 'level' => 2, 'count' => 0)),
+            438 => array(0 => 'List', 1 => array('type' => 'bullet_list_start', 'level' => 3)),
+            439 => array(0 => 'List', 1 => array('type' => 'bullet_item_start', 'level' => 3, 'count' => 0, 'first' => false)),
+            440 => array(0 => 'List', 1 => array('type' => 'bullet_item_end', 'level' => 3, 'count' => 0)),
+            441 => array(0 => 'List', 1 => array('type' => 'bullet_item_start', 'level' => 3, 'count' => 1, 'first' => false)),
+            442 => array(0 => 'List', 1 => array('type' => 'bullet_item_end', 'level' => 3, 'count' => 1)),
+            443 => array(0 => 'List', 1 => array('type' => 'number_list_start', 'level' => 4)),
+            444 => array(0 => 'List', 1 => array('type' => 'number_item_start', 'level' => 4, 'count' => 0, 'first' => false)),
+            445 => array(0 => 'List', 1 => array('type' => 'number_item_end', 'level' => 4, 'count' => 0)),
+            446 => array(0 => 'List', 1 => array('type' => 'number_item_start', 'level' => 4, 'count' => 1, 'first' => false)),
+            447 => array(0 => 'List', 1 => array('type' => 'number_item_end', 'level' => 4, 'count' => 1)),
+            448 => array(0 => 'List', 1 => array('type' => 'number_list_end', 'level' => 3)),
+            449 => array(0 => 'List', 1 => array('type' => 'bullet_list_end', 'level' => 2)),
+            450 => array(0 => 'List', 1 => array('type' => 'number_item_start', 'level' => 2, 'count' => 1, 'first' => false)),
+            451 => array(0 => 'List', 1 => array('type' => 'number_item_end', 'level' => 2, 'count' => 1)),
+            452 => array(0 => 'List', 1 => array('type' => 'number_list_end', 'level' => 1)),
+            453 => array(0 => 'List', 1 => array('type' => 'number_list_end', 'level' => 0)),
+        );
+        
+        $this->assertEquals(array_values($tokens), array_values($this->t->wiki->tokens));
+    }
+    
+    public function testMediawikiParseListRegex()
+    {
+        $expectedResult = array(
+            0 => array(
+                0 => "
+* List
+* List
+** List
+** List
+*** List
+* List
+* List
+",
+                1 => "
+# List
+# List
+## List
+## List
+### List
+# List
+# List
+",
+                2 => "
+# List example
+## List example
+*** List example
+*** List example
+#### List example
+#### List example
+** List example
+** List example
+## List example
+# List example
+* List example
+## List example
+## List example
+*** List example
+",
+            ),
+            1 => array(
+                0 => "* List
+* List
+** List
+** List
+*** List
+* List
+* List
+",
+                1 => "# List
+# List
+## List
+## List
+### List
+# List
+# List
+",
+                2 => "# List example
+## List example
+*** List example
+*** List example
+#### List example
+#### List example
+** List example
+** List example
+## List example
+# List example
+* List example
+## List example
+## List example
+*** List example
+"
+            )
+        );
+
         $this->assertEquals($expectedResult, $this->matches);
     }
     

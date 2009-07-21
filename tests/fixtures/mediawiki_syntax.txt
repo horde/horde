@@ -88,3 +88,19 @@ Invalid horizontal rule
 ;item : definition
 ;semicolon plus term
 :colon plus definition
+
+Mixed list:
+# List example
+## List example
+*** List example
+*** List example
+#### List example
+#### List example
+** List example
+** List example
+## List example
+# List example
+* List example
+## List example
+## List example
+*** List example
