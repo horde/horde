@@ -945,11 +945,12 @@ class Horde_Util
      */
     static public function getPathInfo()
     {
-        if (isset($_SERVER['PATH_INFO']) && strpos($_SERVER['SERVER_SOFTWARE'], 'lighttpd') === false) {
+        if (isset($_SERVER['PATH_INFO']) &&
+            (strpos($_SERVER['SERVER_SOFTWARE'], 'lighttpd') === false)) {
             return $_SERVER['PATH_INFO'];
         } elseif (isset($_SERVER['REQUEST_URI']) &&
                   isset($_SERVER['SCRIPT_NAME'])) {
-            $search = array($_SERVER['SCRIPT_NAME']);
+            $search = array((basename($_SERVER['SCRIPT_NAME']) == 'index.php') ? dirname($_SERVER['SCRIPT_NAME']) . '/' : $_SERVER['SCRIPT_NAME']);
             $replace = array('');
             if (!empty($_SERVER['QUERY_STRING'])) {
                 $search[] = '?' . $_SERVER['QUERY_STRING'];
