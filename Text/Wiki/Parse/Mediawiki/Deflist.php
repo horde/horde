@@ -154,17 +154,18 @@ class Text_Wiki_Parse_Deflist extends Text_Wiki_Parse {
                 // stack...
                 array_push($stack, $type);
 
-		// The new list has to be opened in an item (use current type)
-		if ($level > 1) {
-		$return .= $this->wiki->addToken(
-		    $this->rule,
-		    array(
-		        'type' => $type . '_start',
-		        'level' => $level - 1
-                    )
-                );
-		}
-		// ...and add a list-start token to the return.
+                // The new list has to be opened in an item (use current type)
+                if ($level > 1) {
+                    $return .= $this->wiki->addToken(
+                        $this->rule,
+                        array(
+                            'type' => $type . '_start',
+                            'level' => $level - 1
+                        )
+                   );
+                }
+
+                // ...and add a list-start token to the return.
                 $return .= $this->wiki->addToken(
                     $this->rule, 
                     array(
@@ -174,9 +175,9 @@ class Text_Wiki_Parse_Deflist extends Text_Wiki_Parse {
                 );
             }
 
-	    // remove a level from the list?
-	    while (count($stack) > $level) {
-echo ".";
+            // remove a level from the list?
+            while (count($stack) > $level) {
+                echo ".";
                 // so we don't keep counting the stack, we set up a temp
                 // var for the count.  -1 becuase we're going to pop the
                 // stack in the next command.  $tmp will then equal the
@@ -197,12 +198,12 @@ echo ".";
 
                 array_pop($stack);
 
-		// reset to the current (previous) list type so that
+                // reset to the current (previous) list type so that
                 // the new list item matches the proper list type.
-		$type = $stack[$tmp - 1];
+                $type = $stack[$tmp - 1];
 
-		// Close the previously opened List item
-		$return .= $this->wiki->addToken(
+                // Close the previously opened List item
+                $return .= $this->wiki->addToken(
                     $this->rule,
                     array (
                         'type' => $type . '_end',
@@ -260,30 +261,30 @@ echo ".";
         
         // the last list-item may have been indented.  go through the
         // list-type stack and create end-list tokens until the stack
-	// is empty.
-	$level = count($stack);
-	while ($level > 0) {
-	    array_pop($stack);
-            $return .= $this->wiki->addToken(
-                $this->rule, 
-                array (
-                    'type' => 'list_end',
-                    'level' => $level - 1
-                )
-            );
+        // is empty.
+        $level = count($stack);
+        while ($level > 0) {
+            array_pop($stack);
+                $return .= $this->wiki->addToken(
+                    $this->rule, 
+                    array (
+                        'type' => 'list_end',
+                        'level' => $level - 1
+                    )
+                );
 
             // if we are higher than level 1 we need to close fake items
             if ($level > 1) {
-		$return .= $this->wiki->addToken(
-                $this->rule,
-                array (
-                    'type' => $stack[$level - 2] . '_end',
-                    'level' => $level - 2
-                )
+                $return .= $this->wiki->addToken(
+                    $this->rule,
+                    array (
+                        'type' => $stack[$level - 2] . '_end',
+                        'level' => $level - 2
+                    )
                 );
-	    }
-	    $level = count($stack);
-	}
+            }
+            $level = count($stack);
+        }
         
         // we're done!  send back the replacement text.
         return "\n" . $return . "\n\n";
