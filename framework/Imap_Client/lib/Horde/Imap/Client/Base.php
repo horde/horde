@@ -160,7 +160,7 @@ abstract class Horde_Imap_Client_Base
         if (!isset($this->_params['_passencrypt'])) {
             $key = Horde_Imap_Client::$encryptKey;
             if (!is_null($key)) {
-                $this->_params['_passencrypt'] = Secret::write($key, $this->_params['password']);
+                $this->_params['_passencrypt'] = Horde_Secret::write($key, $this->_params['password']);
                 $this->_params['password'] = null;
             }
         }
@@ -173,7 +173,7 @@ abstract class Horde_Imap_Client_Base
     {
         if (isset($this->_params['_passencrypt']) &&
             !is_null(Horde_Imap_Client::$encryptKey)) {
-            $this->_params['password'] = Secret::read(Horde_Imap_Client::$encryptKey, $this->_params['_passencrypt']);
+            $this->_params['password'] = Horde_Secret::read(Horde_Imap_Client::$encryptKey, $this->_params['_passencrypt']);
         }
 
         if (!empty($this->_params['debug'])) {
