@@ -47,7 +47,7 @@ class Text_Wiki_Parse_List extends Text_Wiki_Parse {
     * @see parse()
     */
     //TODO: add text continuations (any number of + signs) and expandable areas (- after *s ot #s)
-    var $regex = '/\n((?:\*|#)+.*?\n(?!(?:\*|#)+))/s';
+    var $regex = '/\n((?:\*|#)+(?!redirect).*?\n(?!(?:\*|#)+))/si';
 
     /**
     * Generates a replacement for the matched text.  Token options are:
