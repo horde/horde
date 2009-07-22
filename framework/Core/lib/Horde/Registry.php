@@ -1075,7 +1075,7 @@ class Horde_Registry
      *
      * @param string $app  The name of the application.
      *
-     * @return string  URL pointing to the inital page of the application.
+     * @return string  URL pointing to the initial page of the application.
      * @throws Horde_Exception
      */
     public function getInitialPage($app = null)
