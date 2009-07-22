@@ -229,7 +229,7 @@ class Identity_imp extends Identity
 
         $val = $this->getValue('from_addr', $ident);
         if (empty($val)) {
-            $val = $_SESSION['imp']['user'];
+            $val = $GLOBALS['imp_imap']->ob->getParam('username');
         }
 
         if (!strstr($val, '@')) {
