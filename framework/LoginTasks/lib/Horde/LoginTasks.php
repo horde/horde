@@ -94,8 +94,9 @@ class Horde_LoginTasks
         if (Horde_Auth::getAuth()) {
             /* Retrieves a cached tasklist or make sure one is created. */
             if (isset($_SESSION['horde_logintasks'][$app])) {
-                $this->_tasklist = unserialize($_SESSION['horde_logintasks'][$app]);
-            } else {
+                $this->_tasklist = @unserialize($_SESSION['horde_logintasks'][$app]);
+            }
+            if ($this->_tasklist === null || $this->_tasklist === false) {
                 $this->_createTaskList($url);
                 $this->_init = true;
             }
