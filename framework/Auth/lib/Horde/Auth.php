@@ -500,12 +500,8 @@ class Horde_Auth
             $options['reason'] = self::getAuthError();
         }
 
-        if (isset($options['app'])) {
-            $params['app'] = $options['app'];
-        }
-
-        if (empty($params['app']) ||
-            ($params['app'] == 'horde') ||
+        if (empty($options['app']) ||
+            ($options['app'] == 'horde') ||
             ($options['reason'] == self::REASON_LOGOUT)) {
             $params = array(
                 'horde_logout_token' => Horde::getRequestToken('horde.logout'),
@@ -515,6 +511,10 @@ class Horde_Auth
             $params = array(
                 'url' => Horde::selfUrl(true)
             );
+        }
+
+        if (isset($options['app'])) {
+            $params['app'] = $options['app'];
         }
 
         if ($options['reason']) {
