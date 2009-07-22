@@ -500,7 +500,13 @@ class Horde_Auth
             $options['reason'] = self::getAuthError();
         }
 
-        if ($options['reason'] == self::REASON_LOGOUT) {
+        if (isset($options['app'])) {
+            $params['app'] = $options['app'];
+        }
+
+        if (empty($params['app']) ||
+            ($params['app'] == 'horde') ||
+            ($options['reason'] == self::REASON_LOGOUT)) {
             $params = array(
                 'horde_logout_token' => Horde::getRequestToken('horde.logout'),
                 'nosidebar' => 1
@@ -511,15 +517,11 @@ class Horde_Auth
             );
         }
 
-        if (isset($options['app'])) {
-            $params['app'] = $options['app'];
-        }
-
         if ($options['reason']) {
             $params[self::REASON_PARAM] = $options['reason'];
             if ($options['reason'] == self::REASON_MESSAGE) {
                 $params[self::REASON_MSG_PARAM] = empty($options['msg'])
-                    ? ''
+                    ? self::getAuthError(true)
                     : $options['msg'];
             }
         }
@@ -885,14 +887,17 @@ class Horde_Auth
     }
 
     /**
-     * Returns the error type for an invalid authentication or false on error.
+     * Returns the error type or message for an invalid authentication.
      *
-     * @return mixed  Error type or false on error.
+     * @param boolean $msg  If true, returns the message string (if set).
+     *
+     * @return mixed  Error type, error message (if $msg is true) or false
+     *                if entry doesn't exist.
      */
-    static public function getAuthError()
+    static public function getAuthError($msg = false)
     {
         return isset(self::$_reason['type'])
-            ? self::$_reason['type']
+            ? ($msg ? self::$_reason['msg'] : self::$_reason['type'])
             : false;
     }
 
