@@ -1,0 +1,25 @@
+<h1 class="header">
+ <strong><gettext>Quota Display</gettext></strong>
+</h1>
+
+<if:quotaerror>
+<div class="text">
+ <em><gettext>ERROR:</gettext> <tag:quotaerrormsg /></em>
+</div>
+</if:quotaerror>
+<if:noquota>
+<div class="text">
+ <em><gettext>No quota found.</gettext></em>
+</div>
+</if:noquota>
+<if:quotadisplay>
+ <tag:quotastyle />
+  <center><tag:quotadisplay /></center>
+ </div>
+</if:quotadisplay>
+
+<if:hasjs>
+<center>
+ <input type="button" class="button" onclick="window.close();" value="<tag:closebutton />" />
+</center>
+</if:hasjs>

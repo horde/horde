@@ -1,0 +1,36 @@
+<form action="login.php" method="get" name="gollemmenu">
+<tag:forminput />
+
+<div id="menu">
+<if:be_select>
+ <span class="rightFloat">
+  <input type="hidden" name="change_backend" value="1" />
+  <label for="backend_key" accesskey="<tag:accesskey />">
+   <select id="backend_key" name="backend_key" onchange="serverSubmit()">
+    <tag:be_select />
+   </select>
+  </label>
+ </span>
+ <div class="rightFloat">
+  <tag:slink />
+ </div>
+</if:be_select>
+ <tag:menu_string />
+ <br class="clear" />
+</div>
+</form>
+
+<script type="text/javascript">
+<!--
+var loading;
+function serverSubmit(clear)
+{
+    if (document.gollemmenu.backend_key[document.gollemmenu.backend_key.selectedIndex].value != '') {
+        if ((loading == null) || (clear != null)) {
+            loading = true;
+            document.gollemmenu.submit();
+        }
+    }
+}
+// -->
+</script>

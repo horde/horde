@@ -1,0 +1,33 @@
+<form method="post" name="selectlist" enctype="multipart/form-data" action="<tag:self_url />">
+<tag:forminput />
+<input type="hidden" name="actionID" value="" />
+<input type="hidden" name="cacheid" value="<tag:cacheid />" />
+<input type="hidden" name="dir" value="<tag:currdir />" />
+<input type="hidden" name="formid" value="<tag:formid />" />
+
+<h1 class="header">
+ <strong><tag:navlink /></strong>
+ <if:changeserver><tag:changeserver /></if:changeserver>
+</h1>
+
+<if:nofiles>
+<div class="text">
+ <em><tag:nofiles /></em>
+</div>
+<else:nofiles>
+<loop:entry>
+<div class="<if:entry.selected>selected<else:entry.selected><tag:entry.item /></else:entry.selected></if:entry.selected> nowrap">
+ <label><if:entry.dir><else:entry.dir><input type="checkbox" name="items[]" value="<tag:entry.name />" /></else:entry.dir></if:entry.dir>
+ <input type="hidden" name="itemTypes[]" value="<tag:entry.type />" /><tag:entry.graphic />&nbsp;
+ <tag:entry.link /></label>
+</div>
+</loop:entry>
+</else:nofiles>
+</if:nofiles>
+
+<div style="text-align: center">
+ <input class="button" type="button" value="<tag:addbutton />" onclick="document.selectlist.actionID.value='select';document.selectlist.submit();" />
+ <input type="button" class="button" onclick="returnID();" value="<tag:donebutton />" />
+ <input type="button" class="button" onclick="window.close();" value="<tag:cancelbutton />" />
+</div>
+</form>

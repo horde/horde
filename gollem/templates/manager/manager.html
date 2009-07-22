@@ -1,0 +1,204 @@
+<if:list_count>
+<if:perms_chmod>
+<div id="attributes" class="managerpopup" style="display:none;">
+<form id="chmodfrm" name="chmodfrm" action="<tag:action />">
+<h1 class="header"><gettext>Attributes</gettext></h1>
+<table width="100%" cellspacing="0" class="text">
+ <tr class="control">
+  <td align="center" width="25%"></td>
+  <td align="center" width="25%" class="smallheader"><gettext>Owner</gettext></td>
+  <td align="center" width="25%" class="smallheader"><gettext>Group</gettext></td>
+  <td align="center" width="25%" class="smallheader"><gettext>All</gettext></td>
+ </tr>
+ <tr class="control">
+  <td align="center" width="25%"><gettext>Read</gettext></td>
+  <td align="center" width="25%"><input name="owner[]" type="checkbox" value="4" <if:owner_read>disabled="disabled" </if:owner_read>/></td>
+  <td align="center" width="25%"><input name="group[]" type="checkbox" value="4" <if:group_read>disabled="disabled" </if:group_read>/></td>
+  <td align="center" width="25%"><input name="all[]" type="checkbox" value="4" <if:all_read>disabled="disabled" </if:all_read>/></td>
+ </tr>
+ <tr class="control">
+  <td align="center" width="25%"><gettext>Write</gettext></td>
+  <td align="center" width="25%"><input name="owner[]" type="checkbox" value="2" <if:owner_write>disabled="disabled" </if:owner_write>/></td>
+  <td align="center" width="25%"><input name="group[]" type="checkbox" value="2" <if:group_write>disabled="disabled" </if:group_write>/></td>
+  <td align="center" width="25%"><input name="all[]" type="checkbox" value="2" <if:all_write>disabled="disabled" </if:all_write>/></td>
+ </tr>
+ <tr class="control">
+  <td align="center" width="25%"><gettext>Execute</gettext></td>
+  <td align="center" width="25%"><input name="owner[]" type="checkbox" value="1" <if:owner_execute>disabled="disabled" </if:owner_execute>/></td>
+  <td align="center" width="25%"><input name="group[]" type="checkbox" value="1" <if:group_execute>disabled="disabled" </if:group_execute>/></td>
+  <td align="center" width="25%"><input name="all[]" type="checkbox" value="1" <if:all_execute>disabled="disabled" </if:all_execute>/></td>
+ </tr>
+ <tr class="control">
+  <td align="center" width="50%" colspan="2"><input class="button" type="button" name="Save" value="<tag:save />" onclick="Gollem.chmodSave();" /></td>
+  <td align="center" width="50%" colspan="2"><input class="button" type="button" name="Cancel" value="<tag:cancel />" onclick="Gollem.chmodCancel()" /></td>
+ </tr>
+</table>
+</form>
+</div>
+</if:perms_chmod>
+
+<if:perms_edit>
+<div id="rename" class="managerpopup" style="display:none;">
+<form id="renamefrm" action="<tag:action />">
+<input type="hidden" id="renamefrm_oldname" name="oldname" value="" />
+<h1 class="header"><gettext>Rename</gettext></h1>
+<div class="control nowrap" style="padding:3px">
+ <gettext>Name:</gettext>
+ <input class="input" type="text" id="renamefrm_newname" name="newname" value="" onkeypress="return Gollem.renameKeyCheck(event);" />
+ <input class="button" type="button" value="<tag:ok />" onclick="Gollem.renameOK();" />
+ <input class="button" type="button" value="<tag:cancel />" onclick="Gollem.renameCancel()" />
+</div>
+</form>
+</div>
+</if:perms_edit>
+</if:list_count>
+
+<div id="createFolder" class="managerpopup" style="display:none;">
+<form id="createfrm" onsubmit="return false;" action="<tag:action />">
+<h1 class="header"><gettext>Create Folder</gettext></h1>
+<div class="control nowrap" style="padding:3px">
+ <gettext>Name:</gettext>
+ <input class="input" type="text" id="createfrm_fname" name="foldername" value="" onkeypress="return Gollem.createFolderKeyCheck(event);" />
+ <input class="button" type="button" value="<tag:ok />" onclick="Gollem.createFolderOK();" />
+ <input class="button" type="button" value="<tag:cancel />" onclick="Gollem.createFolderCancel()" />
+</div>
+</form>
+</div>
+
+<div id="changeDirectory" class="managerpopup" style="display:none;">
+<form id="cdfrm" onsubmit="return false;" action="<tag:action />">
+<h1 class="header"><gettext>Change Folder</gettext></h1>
+<div class="control nowrap" style="padding:3px">
+ <gettext>Go to:</gettext>
+ <input class="input" type="text" id="cdfrm_fname" name="foldername" value="" onkeypress="return Gollem.changeDirectoryKeyCheck(event);" />
+ <input class="button" type="button" value="<tag:ok />" onclick="Gollem.changeDirectoryOK();" />
+ <input class="button" type="button" value="<tag:cancel />" onclick="Gollem.changeDirectoryCancel()" />
+</div>
+</form>
+</div>
+
+<form method="post" id="manager" name="manager" enctype="multipart/form-data" action="<tag:action />">
+<tag:forminput />
+<input type="hidden" id="actionID" name="actionID" value="" />
+<input type="hidden" id="new_folder" name="new_folder" value="" />
+<input type="hidden" id="new_names" name="new_names" value="" />
+<input type="hidden" id="old_names" name="old_names" value="" />
+<input type="hidden" id="chmod" name="chmod" value="" />
+<input type="hidden" id="dir" name="dir" value="<tag:dir />" />
+<input type="hidden" name="targetFolder" value="" />
+
+<div class="header">
+ <strong style="float:right"><tag:itemcount /></strong>
+ <tag:navlink />
+ <tag:refresh />
+ <tag:clipboard />
+<if:create_folder>
+ <tag:create_folder />
+</if:create_folder>
+<if:change_folder>
+ <tag:change_folder />
+</if:change_folder>
+</div>
+
+<if:list_count>
+<table id="filelist_actions" cellspacing="0">
+ <tr class="control">
+  <td class="leftAlign">
+   <select id="action1" name="action1" onchange="Gollem.chooseAction(1);$('action1').selectedIndex=0;">
+    <option selected="selected"><gettext>Actions:</gettext></option>
+<if:perms_chmod>
+    <option value="chmod_modify"><gettext>Change Permissions</gettext></option>
+</if:perms_chmod>
+<if:hasclipboard>
+    <option value="copy_items"><gettext>Copy</gettext></option>
+    <option value="cut_items"><gettext>Cut</gettext></option>
+</if:hasclipboard>
+<if:perms_delete>
+    <option value="delete_items"><gettext>Delete</gettext></option>
+</if:perms_delete>
+<if:perms_edit>
+    <option value="rename_items"><gettext>Rename</gettext></option>
+</if:perms_edit>
+   </select>
+   <tag:actions_help />
+  </td>
+  <td class="rightAlign">
+   <strong><gettext>Filter:</gettext></strong><input id="filter" name="filter" type="text" size="25" value="<tag:filter_val />" />
+   <input type="button" class="button" onclick="Gollem.applyFilter()" value="<gettext>Filter</gettext>" />
+<if:filter_val>
+   <input type="button" class="button" onclick="Gollem.clearFilter()" value="<gettext>Clear</gettext>" />
+</if:filter_val>
+  </td>
+ </tr>
+</table>
+</if:list_count>
+
+<if:empty_dir>
+<p class="text">
+ <em><gettext>There are no files in this folder.</gettext></em>
+</p>
+<else:empty_dir>
+<table id="filelist" class="striped sortable" cellspacing="0">
+<thead>
+ <tr>
+  <th class="nosort" style="text-align:center" width="1%"><input type="checkbox" class="checkbox" name="checkAll" onclick="Gollem.toggleSelection()" <tag:checkall /> /></th>
+<loop:headers>
+  <th<if:headers.id> id="<tag:headers.id />"</if:headers.id><if:headers.class> class="<tag:headers.class />"</if:headers.class> style="text-align:<tag:headers.align />" width="<tag:headers.width />"><tag:headers.sort /><tag:headers.label /></th>
+</loop:headers>
+ </tr>
+</thead>
+<tbody>
+<loop:entry>
+ <tr>
+  <td style="text-align:center"><if:entry.on_clipboard>&nbsp;<else:entry.on_clipboard><input type="checkbox" class="checkbox" name="items[]" value="<tag:entry.name />" /></else:entry.on_clipboard></if:entry.on_clipboard></td>
+<if:columns_type>
+  <td sortval="<tag:entry.type_sort />" class="rightAlign"><input type="hidden" name="itemTypes[]" value="<tag:entry.type />" /><tag:entry.graphic />&nbsp;</td>
+</if:columns_type>
+<if:columns_name>
+  <td><tag:entry.link /></td>
+</if:columns_name>
+<if:columns_edit>
+  <td><if:entry.edit><tag:entry.edit /><else:entry.edit>&nbsp;</else:entry.edit></if:entry.edit>&nbsp;</td>
+</if:columns_edit>
+<if:columns_download>
+  <td><if:entry.dl><tag:entry.dl /><else:entry.dl>&nbsp;</else:entry.dl></if:entry.dl>&nbsp;</td>
+</if:columns_download>
+<if:columns_modified>
+  <td sortval="<tag:entry.date_sort />"><tag:entry.date /></td>
+</if:columns_modified>
+<if:columns_size>
+  <td class="rightAlign"><tag:entry.size /></td>
+</if:columns_size>
+<if:columns_permission>
+  <td class="rightAlign fixed">&nbsp;<tag:entry.perms />&nbsp;</td>
+</if:columns_permission>
+<if:columns_owner>
+  <td class="rightAlign"><tag:entry.owner /></td>
+</if:columns_owner>
+<if:columns_group>
+  <td class="rightAlign"><tag:entry.group /></td>
+</if:columns_group>
+ </tr>
+</loop:entry>
+</tbody>
+</table>
+</else:empty_dir></if:empty_dir>
+
+<tag:page_caption />
+
+<if:perms_edit>
+<br />
+<table id="filelist_upload">
+ <tr>
+  <td class="leftAlign">
+   <div id="upload_row_1">
+    <strong><gettext>File</gettext> 1:</strong>&nbsp;<input id="file_upload_1" name="file_upload_1" type="file" onchange="Gollem.uploadChanged()" size="25" />
+   </div>
+  </td>
+  <td class="leftAlign">
+   &nbsp;<input type="button" class="button" onclick="Gollem.uploadFile()" value="<tag:upload_file />" />&nbsp;<tag:upload_help />
+  </td>
+ </tr>
+</table>
+</if:perms_edit>
+</form>

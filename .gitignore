@@ -20,6 +20,7 @@ run-tests.log
 # Application specific patterns
 chora/config/*.php
 framework/Rdo/examples/Horde/Rdo/conf.php
+gollem/config/*.php
 iPhoto2Ansel/build/
 iPhoto2Ansel/iPhoto2Ansel.xcodeproj/*.pbxuser
 !iPhoto2Ansel/iPhoto2Ansel.xcodeproj/default.pbxuser
