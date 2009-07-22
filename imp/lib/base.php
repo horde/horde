@@ -5,21 +5,21 @@
  *
  * The following global variables are used:
  * <pre>
- * imp_authentication - The type of authentication to use:
+ * $imp_authentication - The type of authentication to use:
  *   'horde' - Only use horde authentication
  *   'none'  - Do not authenticate
  *   'throw' - Authenticate to IMAP/POP server; on no auth, throw a
  *             Horde_Exception
- *   Default - Authenticate to IMAP/POP server; on no auth redirect to login
- *             screen
- * imp_compose_page - If true, we are on IMP's compose page
- * imp_dimp_logout - Logout and redirect to the login page.
- * imp_no_compress - Controls whether the page should be compressed
- * imp_session_control - Sets special session control limitations:
- * <pre>
- * 'netscape'
- * 'none'
- * 'readonly'
+ *   [DEFAULT] - Authenticate to IMAP/POP server; on no auth redirect to login
+ *               screen
+ * $imp_compose_page - If true, we are on IMP's compose page
+ * $imp_dimp_logout - Logout and redirect to the login page.
+ * $imp_no_compress - Controls whether the page should be compressed
+ * $imp_session_control - Sets special session control limitations:
+ *   'netscape' - TODO; start read/write session
+ *   'none' - Do not start a session
+ *   'readonly' - Start session readonly
+ *   [DEFAULT] - Start read/write session
  * </pre>
  *
  * Global variables defined:
