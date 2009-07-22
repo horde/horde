@@ -426,9 +426,9 @@ class Horde_Auth
      */
     static public function getAuth()
     {
-        return (!empty($_SESSION['horde_auth']['userId']))
-            ? $_SESSION['horde_auth']['userId']
-            : false;
+        return empty($_SESSION['horde_auth']['userId'])
+            ? false
+            : $_SESSION['horde_auth']['userId'];
     }
 
     /**
@@ -664,16 +664,14 @@ class Horde_Auth
         /* Clear any existing info. */
         self::clearAuth();
 
-        $credentials = Horde_Secret::write(Horde_Secret::getKey('auth'), serialize($credentials));
-
         $browser = Horde_Browser::singleton();
 
         $_SESSION['horde_auth'] = array(
             'app' => $app_array,
             'browser' => $browser->getAgentString(),
             'change' => !empty($options['change']),
-            'credentials' => $credentials,
-            'driver' => ($app == 'horde') ? $GLOBALS['conf']['auth']['driver'] : $app,
+            'credentials' => Horde_Secret::write(Horde_Secret::getKey('auth'), serialize($credentials)),
+            'driver' => $GLOBALS['conf']['auth']['driver'],
             'remoteAddr' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null,
             'timestamp' => time(),
             'userId' => $userId

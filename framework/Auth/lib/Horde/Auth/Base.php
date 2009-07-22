@@ -43,7 +43,11 @@ abstract class Horde_Auth_Base
      *
      * @var array
      */
-    protected $_credentials = array();
+    protected $_credentials = array(
+        'credentials' => array(),
+        'params' => array('change' => false),
+        'userId' => ''
+    );
 
     /**
      * Constructor.
@@ -83,11 +87,8 @@ abstract class Horde_Auth_Base
 
         /* Store the credentials being checked so that subclasses can modify
          * them if necessary. */
-        $this->_credentials = array(
-            'credentials' => $credentials,
-            'params' => array('change' => false),
-            'userId' => $userId
-        );
+        $this->_credentials['credentials'] = $credentials;
+        $this->_credentials['userId'] = $userId;
 
         try {
             $this->_authenticate($userId, $credentials);
@@ -201,14 +202,6 @@ abstract class Horde_Auth_Base
      */
     public function transparent()
     {
-        /* Reset the credentials being checked so that subclasses can modify
-         * them if necessary. */
-        $this->_credentials = array(
-            'credentials' => array(),
-            'params' => array('change' => false),
-            'userId' => ''
-        );
-
         if ($this->_transparent()) {
             return Horde_Auth::setAuth(
                 $this->_credentials['userId'],
