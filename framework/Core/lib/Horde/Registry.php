@@ -854,6 +854,10 @@ class Horde_Registry
         /* Call post-push hook. */
         Horde::callHook('_horde_hook_post_pushapp', array($app), 'horde');
 
+        /* Do login tasks. */
+        $tasks = Horde_LoginTasks::singleton($app, Horde::selfUrl(true, true, true));
+        $tasks->runTasks();
+
         return true;
     }
 
