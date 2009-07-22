@@ -23,7 +23,7 @@ class Turba_ApiTest extends Turba_TestBase {
         /* HACK: ensure we've included this so that it won't get included
          * again, then override the globals it provides. */
         try {
-            $pushed = $registry->pushApp('turba', false);
+            $pushed = $registry->pushApp('turba', array('check_perms' => false));
         } catch (Horde_Exception $e) {
             return;
         }

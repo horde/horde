@@ -21,9 +21,8 @@ require_once HORDE_BASE . '/lib/core.php';
 
 // Registry.
 $registry = Horde_Registry::singleton();
-$authentication = Horde_Util::nonInputVar('turba_authentication');
 try {
-    $registry->pushApp('turba', ($authentication != 'none'));
+    $registry->pushApp('turba', array('check_perms' => (Horde_Util::nonInputVar('turba_authentication') != 'none'), 'logintasks' => true));
 } catch (Horde_Exception $e) {
     Horde_Auth::authenticationFailureRedirect('turba', $e);
 }

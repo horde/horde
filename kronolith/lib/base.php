@@ -38,9 +38,8 @@ case 'readonly':
 }
 $registry = Horde_Registry::singleton($s_ctrl);
 
-$authentication = Horde_Util::nonInputVar('kronolith_authentication');
 try {
-    $registry->pushApp('kronolith', ($authentication != 'none'));
+    $registry->pushApp('kronolith', array('check_perms' => (Horde_Util::nonInputVar('kronolith_authentication') != 'none'), 'logintasks' => true));
 } catch (Horde_Exception $e) {
     Horde_Auth::authenticationFailureRedirect('kronolith', $e);
 }

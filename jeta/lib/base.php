@@ -20,7 +20,7 @@ require_once HORDE_BASE . '/lib/core.php';
 // Registry.
 $registry = Horde_Registry::singleton();
 try {
-    $registry->pushApp('jeta', true);
+    $registry->pushApp('jeta', array('logintasks' => true));
 } catch (Horde_Exception $e) {
     Horde_Auth::authenticationFailureRedirect('jeta', $e);
 }

@@ -28,9 +28,8 @@ require_once HORDE_BASE . '/lib/core.php';
 
 // Registry.
 $registry = Horde_Registry::singleton();
-$authentication = Horde_Util::nonInputVar('ingo_authentication');
 try {
-    $registry->pushApp('ingo', ($authentication != 'none'));
+    $registry->pushApp('ingo', array('check_perms' => (Horde_Util::nonInputVar('ingo_authentication') != 'none'), 'logintasks' => true));
 } catch (Horde_Exception $e) {
     Horde_Auth::authenticationFailureRedirect('ingo', $e);
 }

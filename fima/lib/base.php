@@ -28,7 +28,7 @@ if ($session_control == 'none') {
 }
 
 try {
-    $registry->pushApp('fima', true);
+    $registry->pushApp('fima', array('logintasks' => true));
 } catch (Horde_Exception $e) {
     Horde_Auth::authenticationFailureRedirect('fima', $e);
 }

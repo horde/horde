@@ -22,7 +22,7 @@ require_once HORDE_BASE . '/lib/core.php';
 // Registry.
 $registry = Horde_Registry::singleton();
 try {
-    $registry->pushApp('crumb', true);
+    $registry->pushApp('crumb', array('logintasks' => true));
 } catch (Horde_Exception $e) {
     Horde_Auth::authenticationFailureRedirect('crumb', $e);
 }

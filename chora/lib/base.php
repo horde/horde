@@ -32,7 +32,7 @@ require_once HORDE_BASE . '/lib/core.php';
 // Registry
 $registry = Horde_Registry::singleton();
 try {
-    $registry->pushApp('chora', true);
+    $registry->pushApp('chora', array('logintasks' => true));
 } catch (Horde_Exception $e) {
     Horde_Auth::authenticationFailureRedirect('chora', $e);
 }

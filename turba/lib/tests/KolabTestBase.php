@@ -140,15 +140,10 @@ class Turba_KolabTestBase extends Horde_Kolab_Test_Storage
         $this->assertTrue($world['auth']->authenticate('wrobel@example.org',
                                                        array('password' => 'none')));
 
-        // TODO: Disable maintenance
-        $GLOBALS['registry']->pushApp('turba');
-
-        // Find the base file path of Turba.
-        if (!defined('TURBA_BASE')) {
-            define('TURBA_BASE', dirname(__FILE__) . '/../..');
-        }
+        $GLOBALS['registry']->pushApp('turba', array('check_perms' => false));
 
         // Turba base libraries.
+        require_once dirname(__FILE__) . '/../../lib/base.load.php';
         require_once TURBA_BASE . '/lib/Turba.php';
         require_once TURBA_BASE . '/lib/Driver.php';
         require_once TURBA_BASE . '/lib/Object.php';
@@ -167,12 +162,12 @@ class Turba_KolabTestBase extends Horde_Kolab_Test_Storage
         $GLOBALS['cfgSources'] = Turba::getConfigFromShares($cfgSources);
     }
 
-
     function provideServerName() {
         return 'localhost.localdomain';
     }
 
     function provideHordeBase() {
-        return dirname(__FILE__) . '/../../../';
+        require_once dirname(__FILE__) . '/../../lib/base.load.php';
+        return HORDE_BASE;
     }
 }

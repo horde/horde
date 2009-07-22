@@ -78,7 +78,7 @@ if ($authentication == 'horde') {
 }
 
 try {
-    $registry->pushApp('imp', ($authentication != 'none'));
+    $registry->pushApp('imp', array('check_perms' => ($authentication != 'none'), 'logintasks' => true));
 } catch (Horde_Exception $e) {
     if ($e->getCode() == Horde_Registry::AUTH_FAILURE) {
         if ($authentication == 'throw') {
