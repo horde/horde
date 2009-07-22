@@ -36,7 +36,7 @@ class IMP_Auth
      * <pre>
      * 'password' - (string) The user password.
      * 'server' - (string) The server key to use (from servers.php).
-     * 'userid' - (string) The username.
+     * 'userId' - (string) The username.
      * </pre>
      *
      * @return boolean  True if session was created, false if pre-existing
@@ -57,7 +57,7 @@ class IMP_Auth
 
         // Check for valid IMAP Client object.
         if (!$GLOBALS['imp_imap']->ob) {
-            if (!isset($credentials['userid']) ||
+            if (!isset($credentials['userId']) ||
                 !isset($credentials['password'])) {
                 throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
             }
@@ -71,7 +71,7 @@ class IMP_Auth
             if (!isset($_SESSION['imp'])) {
                 self::_createSession($credentials);
                 $retval = true;
-            } elseif (!$GLOBALS['imp_imap']->createImapObject($credentials['userid'], $credentials['password'], $credentials['server'])) {
+            } elseif (!$GLOBALS['imp_imap']->createImapObject($credentials['userId'], $credentials['password'], $credentials['server'])) {
                 self::logMessage('failed', __FILE__, __LINE__);
                 throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
             }
@@ -184,7 +184,7 @@ class IMP_Auth
      * <pre>
      * 'password' - (string) The user password.
      * 'server' - (string) The server key to use (from servers.php).
-     * 'userid' - (string) The username.
+     * 'userId' - (string) The username.
      * </pre>
      *
      * @throws Horde_Auth_Exception
@@ -205,7 +205,7 @@ class IMP_Auth
          * necessary. */
         if (!empty($conf['hooks']['vinfo'])) {
             try {
-                $credentials['userid'] = Horde::callHook('_imp_hook_vinfo', array('username', $credentials['userid']), 'imp');
+                $credentials['userId'] = Horde::callHook('_imp_hook_vinfo', array('username', $credentials['userId']), 'imp');
             } catch (Horde_Exception $e) {}
         }
 
@@ -219,7 +219,7 @@ class IMP_Auth
         if (Horde_Auth::getAuth()) {
             $_SESSION['imp']['uniquser'] = Horde_Auth::removeHook(Horde_Auth::getAuth());
         } else {
-            $_SESSION['imp']['uniquser'] = $credentials['userid'];
+            $_SESSION['imp']['uniquser'] = $credentials['userId'];
             if (!empty($ptr['realm'])) {
                 $_SESSION['imp']['uniquser'] .= '@' . $ptr['realm'];
             }
@@ -230,7 +230,7 @@ class IMP_Auth
             self::authenticate(array(
                 'password' => $credentials['password'],
                 'server' => $credentials['server'],
-                'userid' => $credentials['userid']
+                'userId' => $credentials['userId']
             ));
         } catch (Horde_Auth_Exception $e) {
             unset($_SESSION['imp']);

@@ -667,7 +667,7 @@ function _imp_authAuthenticate($userId, $credentials)
     $new_session = IMP_Auth::authenticate(array(
         'password' => $credentials['password'],
         'server' => empty($credentials['imp_server_key']) ? IMP_Auth::getAutoLoginServer() : $credentials['imp_server_key'],
-        'userid' => $userId
+        'userId' => $userId
     ));
 
     if ($new_session) {
