@@ -676,6 +676,10 @@ function _imp_authAuthenticate($userId, $credentials)
                   $conf['cookie']['domain']);
 
         $_SESSION['imp']['view'] = $view;
+
+        /* Set the Horde ID, since it may have been altered by the 'realm'
+         * setting. */
+        $credentials['auth_ob']->setCredential('userId', $_SESSION['imp']['uniquser']);
     }
 }
 

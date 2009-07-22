@@ -1119,6 +1119,8 @@ class IMP
     /**
      * Process mailbox/index information for current page load.
      *
+     * @param boolean $mbox  Use this mailbox, instead of form data.
+     *
      * @return array  Array with the following elements:
      * <pre>
      * 'mailbox' - The current active mailbox (may be search mailbox).
@@ -1126,13 +1128,21 @@ class IMP
      * 'index' - The IMAP message index.
      * </pre>
      */
-    static public function getCurrentMailboxInfo()
+    static public function getCurrentMailboxInfo($mbox = null)
     {
-        $mbox = Horde_Util::getFormData('mailbox');
+        if (is_null($mbox)) {
+            $mbox = Horde_Util::getFormData('mailbox');
+            return array(
+                'mailbox' => empty($mbox) ? 'INBOX' : $mbox,
+                'thismailbox' => Horde_Util::getFormData('thismailbox', $mbox),
+                'index' => Horde_Util::getFormData('index')
+            );
+        }
+
         return array(
-            'mailbox' => empty($mbox) ? 'INBOX' : $mbox,
-            'thismailbox' => Horde_Util::getFormData('thismailbox', $mbox),
-            'index' => Horde_Util::getFormData('index')
+            'mailbox' => $mbox,
+            'thismailbox' => $mbox,
+            'index' => null
         );
     }
 

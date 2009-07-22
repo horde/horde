@@ -217,7 +217,7 @@ class IMP_Auth
         }
 
         /* Determine the unique user name. */
-        if (Horde_Auth::isAuthenticated()) {
+        if (Horde_Auth::getAuth()) {
             $sess['uniquser'] = Horde_Auth::removeHook(Horde_Auth::getAuth());
         } else {
             $sess['uniquser'] = $credentials['userid'];
@@ -231,7 +231,7 @@ class IMP_Auth
             self::authenticate(array(
                 'password' => $credentials['password'],
                 'server' => $credentials['server'],
-                'userid' => $sess['uniquser']
+                'userid' => $credentials['userid']
             ));
         } catch (Horde_Auth_Exception $e) {
             unset($_SESSION['imp']);
@@ -460,9 +460,12 @@ class IMP_Auth
                 break;
 
             default:
-                // TODO: Directly load mailbox.php
-                header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('mailbox.php', true), array('mailbox' => $init_url)));
-                exit;
+                $page = 'mailbox.php';
+                if ($url) {
+                    return Horde_Util::addParameter(Horde::applicationUrl($page, true), array('mailbox' => $init_url));
+                }
+                $GLOBALS['imp_mbox'] = IMP::getCurrentMailboxInfo($init_url);
+                break;
             }
         }
 
