@@ -204,8 +204,8 @@ abstract class Horde_Auth_Base
     {
         if ($this->_transparent()) {
             return Horde_Auth::setAuth(
-                $this->_credentials['userId'],
-                $this->_credentials['credentials'],
+                empty($this->_credentials['userId']) ? Horde_Auth::getAuth() : $this->_credentials['userId'],
+                empty($this->_credentials['credentials']) ? Horde_Auth::getCredential() : $this->_credentials['credentials'],
                 $this->_credentials['params']
             );
         }
