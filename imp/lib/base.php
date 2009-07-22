@@ -68,7 +68,7 @@ $viewmode = isset($_SESSION['imp']['view'])
 
 // Handle dimp logout requests.
 if (($viewmode == 'dimp') && Horde_Util::nonInputVar('imp_dimp_logout')) {
-    Horde::redirect(str_replace('&amp;', '&', Horde::getServiceLink('logout')));
+    Horde::redirect(str_replace('&amp;', '&', Horde::getServiceLink('logout', 'imp')));
 }
 
 // Determine imp authentication type.
