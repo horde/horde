@@ -191,7 +191,7 @@ class Horde_LoginTasks
                     break;
 
                 case self::WEEKLY:
-                    $addtask = (($cur_date['wday'] < $lasttasks[$app]['wday']) || ((time() - 604800) > $this->_lastRun));
+                    $addtask = (($cur_date['wday'] < $lasttasks[$app]['wday']) || ((time() - 604800) > $lasttasks[$app]['wday']));
                     break;
 
                 case self::DAILY:
