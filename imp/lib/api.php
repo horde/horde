@@ -590,12 +590,15 @@ function _imp_authLoginParams()
     if ($GLOBALS['conf']['server']['server_list'] == 'shown') {
         $servers = IMP_Imap::loadServerConfig();
         $server_list = array();
+        $selected = Horde_Util::getFormData('imp_server_key', IMP_Auth::getAutoLoginServer());
         foreach ($servers as $key => $val) {
-            $server_list[$key] = array('name' => $val['name']);
+            $server_list[$key] = array(
+                'name' => $val['name'],
+                'selected' => ($selected == $key)
+            );
         }
         $params['imp_server_key'] = array(
             'label' => _("Server"),
-            'selected' => Horde_Util::getFormData('imp_server_key', IMP_Auth::getAutoLoginServer()),
             'type' => 'select',
             'value' => $server_list
         );
