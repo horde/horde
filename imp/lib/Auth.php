@@ -401,12 +401,12 @@ class IMP_Auth
     {
         global $conf;
 
-        $ptr = $GLOBALS['imp_imap']->loadServerConfig($credentials['server']);
+        $sess = &$_SESSION['imp'];
+
+        $ptr = $GLOBALS['imp_imap']->loadServerConfig($sess['server_key']);
         if ($ptr === false) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
-
-        $sess = &$_SESSION['imp'];
 
         /* Set the protocol. */
         $sess['protocol'] = isset($ptr['protocol'])
