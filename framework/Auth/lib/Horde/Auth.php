@@ -373,7 +373,7 @@ class Horde_Auth
 
         /* Check for cached authentication results. */
         if ($is_auth &&
-            (($_SESSION['horde_auth']['driver'] == $driver) ||
+            ((isset($_SESSION['horde_auth']['driver']) &&$_SESSION['horde_auth']['driver'] == $driver) ||
              isset($_SESSION['horde_auth']['app'][$driver]))) {
             return self::checkExistingAuth();
         }
