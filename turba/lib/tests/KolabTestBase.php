@@ -140,8 +140,7 @@ class Turba_KolabTestBase extends Horde_Kolab_Test_Storage
         $this->assertTrue($world['auth']->authenticate('wrobel@example.org',
                                                        array('password' => 'none')));
 
-        // Disable maintenance
-        $GLOBALS['turba_no_maintenance'] = true;
+        // TODO: Disable maintenance
         $GLOBALS['registry']->pushApp('turba');
 
         // Find the base file path of Turba.

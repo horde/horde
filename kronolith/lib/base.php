@@ -50,27 +50,3 @@ Horde_Nls::setTimeZone();
 $GLOBALS['kronolith_shares'] = Horde_Share::singleton($registry->getApp());
 
 Kronolith::initialize();
-
-// TODO - Maintenance operations need to be refactored to a more global
-//        operation and then we can get rid of these hackish checks
-/* Do login tasks - need to check for a number of conditions to be
- * sure that we aren't here due to alarm notifications (which would occur after
- * headers are sent), we aren't on any of the portal pages, and that we haven't
- * already performed login tasks.
- */
-if (empty($no_maint) && Kronolith::loginTasksFlag() &&
-    !strstr($_SERVER['PHP_SELF'], 'maintenance.php') &&
-    !headers_sent() && !defined('AUTH_HANDLER')) {
-    Kronolith::loginTasksFlag(2);
-
-    $tasks = Horde_LoginTasks::singleton('kronolith', Horde_Util::addParameter(Horde::selfUrl(true, true, true), array('logintasks_done' => true)));
-    $tasks->runTasks();
-
-    Kronolith::loginTasksFlag(0);
-} elseif (Horde_Util::getFormData('logintasks_done') &&
-          Kronolith::loginTasksFlag()) {
-    $tasks = Horde_LoginTasks::singleton('kronolith', Horde_Util::addParameter(Horde::selfUrl(true, true, true), array('logintasks_done' => true)));
-    $tasks->runTasks();
-
-    Kronolith::loginTasksFlag(0);
-}

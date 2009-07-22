@@ -90,10 +90,6 @@ class IMP_Auth
             throw new Horde_Auth_Exception($e->getMessage());
         }
 
-        if (!empty($_SESSION['imp']['logintasks'])) {
-            self::_loginTasks();
-        }
-
         return $retval;
     }
 
@@ -171,7 +167,6 @@ class IMP_Auth
      * 'imap'          -- Config for various IMAP resources (acl, admin,
      *                    namespace, quota)
      * 'imap_ob'       -- The serialized Horde_Imap_Client object.
-     * 'logintasks'    -- Have the login tasks been completed?
      * 'maildomain'    -- See config/servers.php.
      * 'notepadavail'  -- Is listing of notepads available?
      * 'protocol'      -- Either 'imap' or 'pop'.
@@ -202,7 +197,6 @@ class IMP_Auth
         $_SESSION['imp'] = array(
             'cache' => array(),
             'imap' => array(),
-            'logintasks' => false,
             'server_key' => $credentials['server'],
             'showunsub' => false
         );
@@ -312,18 +306,6 @@ class IMP_Auth
         /* Set up search information for the session. */
         $GLOBALS['imp_search']->sessionSetup();
 
-        IMP_Auth::logMessage('login', __FILE__, __LINE__, PEAR_LOG_NOTICE);
-    }
-
-    /**
-     * Perform IMP login tasks.
-     */
-    static protected function _loginTasks()
-    {
-        /* Do login tasks. */
-        $tasks = Horde_LoginTasks::singleton('imp', Horde::selfUrl(true, true, true));
-        $tasks->runTasks();
-
         /* If the user wants to run filters on login, make sure they get
            run. */
         if ($GLOBALS['prefs']->getValue('filter_on_login')) {
@@ -336,7 +318,7 @@ class IMP_Auth
         $imp_compose = IMP_Compose::singleton();
         $imp_compose->recoverSessionExpireDraft();
 
-        $_SESSION['imp']['logintasks'] = true;
+        IMP_Auth::logMessage('login', __FILE__, __LINE__, PEAR_LOG_NOTICE);
     }
 
     /**

@@ -883,7 +883,6 @@ class Kronolith
         /* Initialize Kronolith session if we don't have one */
         if (!isset($_SESSION['kronolith_session'])) {
             $_SESSION['kronolith_session'] = array();
-            self::loginTasksFlag(1);
         }
 
         /* Fetch display preferences. */
@@ -1086,26 +1085,6 @@ class Kronolith
 
         $GLOBALS['prefs']->setValue('display_cals', serialize($GLOBALS['display_calendars']));
 
-    }
-
-    /**
-     * Either sets or checks the value of the logintasks flag.
-     *
-     * @param integer $set  The value of the flag.
-     *
-     * @return integer  The value of the flag.
-     *                  0 = No login tasks pending
-     *                  1 = Login tasks pending
-     *                  2 = Login tasks pending, previous tasks interrupted
-     */
-    public static function loginTasksFlag($set = null)
-    {
-        if (($set !== null)) {
-            $_SESSION['kronolith_session']['_logintasks'] = $set;
-        }
-
-        return isset($_SESSION['kronolith_session']['_logintasks']) ?
-            $_SESSION['kronolith_session']['_logintasks'] : 0;
     }
 
     /**

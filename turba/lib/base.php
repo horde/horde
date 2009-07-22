@@ -2,9 +2,6 @@
 /**
  * Turba base inclusion file.
  *
- * The following global variables are used:
- *   $turba_no_maintenance - Don't perform maintenance tasks.
- *
  * This file brings in all of the dependencies that every Turba script will
  * need, and sets up objects that all scripts use.
  */
@@ -51,15 +48,6 @@ if (!empty($_SESSION['turba']['has_share'])) {
 }
 $GLOBALS['cfgSources'] = Turba::permissionsFilter($GLOBALS['cfgSources']);
 $GLOBALS['attributes'] = $attributes;
-
-// Check for any login tasks needed. Don't need a URL argument since we will
-// never redirect to the confirmation screen.
-if (empty($_SESSION['turba']['maintenance']) &&
-    !Horde_Util::nonInputVar('turba_no_maintenance')) {
-    $tasks = Horde_LoginTasks::singleton('turba', null);
-    $tasks->runTasks();
-    $_SESSION['turba']['maintenance'] = true;
-}
 
 // Build the directory sources select widget.
 $default_source = Horde_Util::nonInputVar('source');
