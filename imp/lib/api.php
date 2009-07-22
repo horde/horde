@@ -595,6 +595,11 @@ function _imp_authLoginParams()
             'type' => 'select',
             'value' => $server_list
         );
+    } else {
+        $params['imp_server_key'] = array(
+            'type' => 'hidden',
+            'value' => IMP_Auth::getAutoLoginServer(),
+        );
     }
 
     /* If dimp/mimp are available, show selection of alternate views. */
