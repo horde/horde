@@ -1220,7 +1220,7 @@ class Horde_Browser
      */
     public function setIEVersion($ver)
     {
-        $_SESSION['__browser'] = array(
+        $_SESSION['horde_browser'] = array(
             'ie_version' => $ver
         );
     }
@@ -1232,8 +1232,8 @@ class Horde_Browser
      */
     public function getIEVersion()
     {
-        return isset($_SESSION['__browser']['ie_version'])
-            ? $_SESSION['__browser']['ie_version']
+        return isset($_SESSION['horde_browser']['ie_version'])
+            ? $_SESSION['horde_browser']['ie_version']
             : null;
     }
 
