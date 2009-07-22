@@ -332,8 +332,8 @@ class Horde_SessionHandler
      * Returns a list of authenticated users and data about their session.
      *
      * @return array  For authenticated users, the sessionid as a key and the
-     *                information returned from Horde_Auth::readSessionData() as
-     *                values.
+     *                information returned from Horde_Auth::readSessionData()
+     *                as values.
      * @throws Horde_Exception
      */
     public function getSessionsInfo()

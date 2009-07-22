@@ -7,8 +7,6 @@
  *   '-l'   List the username of active authenticated users
  *   '-ll'  List the username and login time of active authenticated users
  *
- * $Horde: framework/SessionHandler/scripts/horde-active-sessions.php,v 1.7 2008/09/22 03:50:58 slusarz Exp $
- *
  * @package Horde_SessionHandler
  */
 
@@ -48,9 +46,6 @@ if ($type == 'external') {
 }
 
 $sessions = $GLOBALS['horde_sessionhandler']->getSessionsInfo();
-if (is_a($sessions, 'PEAR_Error')) {
-    throw new Horde_Exception($sessions);
-}
 
 if (($argc < 2) || (($argv[1] != '-l') && ($argv[1] != '-ll'))) {
     $cli->writeln(count($sessions));
