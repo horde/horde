@@ -595,11 +595,6 @@ function _imp_authLoginParams()
             'type' => 'select',
             'value' => $server_list
         );
-    } else {
-        $params['imp_server_key'] = array(
-            'type' => 'hidden',
-            'value' => IMP_Auth::getAutoLoginServer(),
-        );
     }
 
     /* If dimp/mimp are available, show selection of alternate views. */
@@ -664,7 +659,7 @@ function _imp_authAuthenticate($userId, $credentials)
 
     $new_session = IMP_Auth::authenticate(array(
         'password' => $credentials['password'],
-        'server' => !empty($credentials['imp_server_key']) ? $credentials['imp_server_key'] : '',
+        'server' => empty($credentials['imp_server_key']) ? IMP_Auth::getAutoLoginServer() : $credentials['imp_server_key'],
         'userid' => $userId
     ));
 
