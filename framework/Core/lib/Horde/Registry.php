@@ -604,7 +604,7 @@ class Horde_Registry
         /* Switch application contexts now, if necessary, before
          * including any files which might do it for us. Return an
          * error immediately if pushApp() fails. */
-        $pushed = $this->pushApp($app, $checkPerms);
+        $pushed = $this->pushApp($app, array('check_perms' => $checkPerms));
 
         try {
             $result = call_user_func_array($function, $args);
@@ -771,11 +771,18 @@ class Horde_Registry
      * sets up its global $conf hash.
      *
      * @param string $app          The name of the application to push.
-     * @param boolean $checkPerms  Make sure that the current user has
-     *                             permissions to the application being loaded
-     *                             Defaults to true. Should ONLY be disabled
-     *                             by system scripts (cron jobs, etc.) and
-     *                             scripts that handle login.
+     * @param array $options       Additional options:
+     * <pre>
+     * 'check_perms' - (boolean) Make sure that the current user has
+     *                 permissions to the application being loaded. Should
+     *                 ONLY be disabled by system scripts (cron jobs, etc.)
+     *                 and scripts that handle login.
+     *                 DEFAULT: true
+     * <pre>
+     * 'logintasks' - (boolean) Perform login tasks? Only performed if
+     *                'check_perms' is also true.
+     *                DEFAULT: false
+     * </pre>
      *
      * @return boolean  Whether or not the _appStack was modified.
      * @throws Horde_Exception
@@ -784,7 +791,7 @@ class Horde_Registry
      *         Horde_Registry::NOT_ACTIVE
      *         Horde_Registry::PERMISSION_DENIED
      */
-    public function pushApp($app, $checkPerms = true)
+    public function pushApp($app, $options = array())
     {
         if ($app == $this->getApp()) {
             return false;
@@ -796,6 +803,8 @@ class Horde_Registry
             ($this->applications[$app]['status'] == 'admin' && !Horde_Auth::isAdmin())) {
             throw new Horde_Exception($app . ' is not activated.', 'not_active');
         }
+
+        $checkPerms = !isset($options['check_perms']) || !empty($options['check_perms']);
 
         /* If permissions checking is requested, return an error if the
          * current user does not have read perms to the application being
@@ -854,8 +863,10 @@ class Horde_Registry
         Horde::callHook('_horde_hook_post_pushapp', array($app), 'horde');
 
         /* Do login tasks. */
-        $tasks = Horde_LoginTasks::singleton($app, Horde::selfUrl(true, true, true));
-        $tasks->runTasks();
+        if ($checkPerms && !empty($options['logintasks'])) {
+            $tasks = Horde_LoginTasks::singleton($app, Horde::selfUrl(true, true, true));
+            $tasks->runTasks();
+        }
 
         return true;
     }
