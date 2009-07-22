@@ -9,12 +9,6 @@
  * 'app' - (string) The application which is providing authentication.
  * </pre>
  *
- * Optional parameters:
- * <pre>
- * 'params' - (array) Parameters to pass to the application's authenticate
- *            method.
- * </pre>
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
@@ -86,7 +80,8 @@ class Horde_Auth_Application extends Horde_Auth_Base
      * Find out if a set of login credentials are valid.
      *
      * @param string $userId      The userId to check.
-     * @param array $credentials  The credentials to use.
+     * @param array $credentials  The credentials to use. This object will
+     *                            always be available in the 'auth_ob' key.
      *
      * @throws Horde_Auth_Exception
      */
@@ -97,6 +92,8 @@ class Horde_Auth_Application extends Horde_Auth_Base
         }
 
         $registry = Horde_Registry::singleton();
+
+        $credentials['auth_ob'] = $this;
 
         try {
             $result = $registry->callByPackage($this->_params['app'], $this->_apiMethods['authenticate'], array($userId, $credentials));
@@ -232,6 +229,31 @@ class Horde_Auth_Application extends Horde_Auth_Base
 
         $registry = Horde_Registry::singleton();
         return $registry->callByPackage($this->_params['app'], $this->_apiMethods['loginparams']);
+    }
+
+    /**
+     * Provide method to set internal credential values. Necessary as the
+     * application API does not have direct access to the protected member
+     * variables of this class.
+     *
+     * @param string $name  The credential name to set.
+     * @param mixed $value  The credential value to set. If $name is 'userId',
+     *                      this must be a text value. If $name is
+     *                      'credentials' or 'params', this is an array of
+     *                      values to be merged in.
+     */
+    public function setCredential($type, $value)
+    {
+        switch ($type) {
+        case 'userId':
+            $this->_credentials['userId'] = $value;
+            break;
+
+        case 'credentials':
+        case 'params':
+            $this->_credentials[$type] = array_merge($this->_credentials[$type], $value);
+            break;
+        }
     }
 
 }
