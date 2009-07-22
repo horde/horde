@@ -385,14 +385,13 @@ class Horde_Registry
                              $perms = PERMS_SHOW)
     {
         $apps = array();
-        $ahandler = defined('AUTH_HANDLER');
         if (is_null($filter)) {
             $filter = array('notoolbar', 'active');
         }
 
         foreach ($this->applications as $app => $params) {
             if (in_array($params['status'], $filter) &&
-                ($ahandler || $this->hasPermission($app, $perms))) {
+                $this->hasPermission($app, $perms)) {
                 $apps[$app] = $app;
             }
         }
@@ -907,19 +906,9 @@ class Horde_Registry
      */
     public function hasPermission($app, $perms = PERMS_READ)
     {
-        $this->_lastPerms = null;
-
-        if (Horde_Auth::isAdmin()) {
-            return true;
-        }
-
-        if ($GLOBALS['perms']->exists($app) &&
-            !$GLOBALS['perms']->hasPermission($app, Horde_Auth::getAuth(), $perms)) {
-            $this->_lastPerms = 'perms';
-            return false;
-        }
-
-        return true;
+        return Horde_Auth::isAdmin() ||
+               !$GLOBALS['perms']->exists($app) ||
+               $GLOBALS['perms']->hasPermission($app, Horde_Auth::getAuth(), $perms);
     }
 
     /**

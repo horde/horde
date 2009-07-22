@@ -10,9 +10,6 @@
  * @package Horde_SessionHandler
  */
 
-// No auth.
-@define('AUTH_HANDLER', true);
-
 // Find the base file path of Horde.
 @define('HORDE_BASE', dirname(__FILE__) . '/..');
 
@@ -29,6 +26,8 @@ if (!Horde_Cli::runningFromCLI()) {
 $cli = Horde_Cli::singleton();
 $cli->init();
 
+// No auth.
+$horde_authentication = 'none';
 require_once HORDE_BASE . '/lib/base.php';
 
 /* Make sure there's no compression. */
