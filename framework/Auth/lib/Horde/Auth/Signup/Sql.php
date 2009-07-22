@@ -247,7 +247,7 @@ class Horde_Auth_Signup_Sql extends Horde_Auth_Signup
             $params = array_merge($params, $this->_params['read']);
             $this->_db = MDB2::factory($params);
             if (is_a($this->_db, 'PEAR_Error')) {
-                thorw new Horde_Exception($this->_db);
+                throw new Horde_Exception($this->_db);
             }
 
             /* Set DB portability options. */
