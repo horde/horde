@@ -90,17 +90,16 @@ Invalid horizontal rule
 :colon plus definition
 
 Mixed list:
-# List example
-## List example
-*** List example
-*** List example
-#### List example
-#### List example
-** List example
-** List example
-## List example
-# List example
 * List example
-## List example
-## List example
+** List example
+**# List example
+**# List example
 *** List example
+**** List example
+*# List example
+*# List example
+** List example
+* List example
+** List example
+** List example
+**# List example

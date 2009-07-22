@@ -294,49 +294,49 @@ class Text_Wiki_Parse_Mediawiki_List_Test extends Text_Wiki_Parse_Mediawiki_SetU
     {
         $matches1 = array(
             1 => "
-# List example
-## List example
+* List example
+** List example
+**# List example
+**# List example
 *** List example
-*** List example
-#### List example
-#### List example
+**** List example
 ** List example
 ",
-            2 => "# List example
-## List example
+            2 => "* List example
+** List example
+**# List example
+**# List example
 *** List example
-*** List example
-#### List example
-#### List example
+**** List example
 ** List example
 "
         );
 
-        $this->assertRegExp("/\d+?\d+? List example\d+?\d+?\d+? List example\d+?\d+?\d+? List example\d+?\d+? List example\d+?\d+?\d+? List example\d+?\d+? List example\d+?\d+?\d+?\d+? List example\d+?\d+?\d+?/", $this->t->process($matches1));
+        $this->assertRegExp("/\d+?\d+? List example\d+?\d+?\d+? List example\d+?\d+?\d+? List example\d+?\d+? List example\d+?\d+? List example\d+?\d+?\d+? List example\d+?\d+?\d+?\d+? List example\d+?\d+?\d+?/", $this->t->process($matches1));
 
         $tokens = array(
-            432 => array(0 => 'List', 1 => array('type' => 'number_list_start', 'level' => 1)),
-            433 => array(0 => 'List', 1 => array('type' => 'number_item_start', 'level' => 1, 'count' => 0, 'first' => true)),
-            434 => array(0 => 'List', 1 => array('type' => 'number_item_end', 'level' => 1, 'count' => 0)),
-            435 => array(0 => 'List', 1 => array('type' => 'number_list_start', 'level' => 2)),
-            436 => array(0 => 'List', 1 => array('type' => 'number_item_start', 'level' => 2, 'count' => 0, 'first' => false)),
-            437 => array(0 => 'List', 1 => array('type' => 'number_item_end', 'level' => 2, 'count' => 0)),
-            438 => array(0 => 'List', 1 => array('type' => 'bullet_list_start', 'level' => 3)),
-            439 => array(0 => 'List', 1 => array('type' => 'bullet_item_start', 'level' => 3, 'count' => 0, 'first' => false)),
-            440 => array(0 => 'List', 1 => array('type' => 'bullet_item_end', 'level' => 3, 'count' => 0)),
-            441 => array(0 => 'List', 1 => array('type' => 'bullet_item_start', 'level' => 3, 'count' => 1, 'first' => false)),
-            442 => array(0 => 'List', 1 => array('type' => 'bullet_item_end', 'level' => 3, 'count' => 1)),
-            443 => array(0 => 'List', 1 => array('type' => 'number_list_start', 'level' => 4)),
-            444 => array(0 => 'List', 1 => array('type' => 'number_item_start', 'level' => 4, 'count' => 0, 'first' => false)),
-            445 => array(0 => 'List', 1 => array('type' => 'number_item_end', 'level' => 4, 'count' => 0)),
-            446 => array(0 => 'List', 1 => array('type' => 'number_item_start', 'level' => 4, 'count' => 1, 'first' => false)),
-            447 => array(0 => 'List', 1 => array('type' => 'number_item_end', 'level' => 4, 'count' => 1)),
-            448 => array(0 => 'List', 1 => array('type' => 'number_list_end', 'level' => 3)),
-            449 => array(0 => 'List', 1 => array('type' => 'bullet_list_end', 'level' => 2)),
-            450 => array(0 => 'List', 1 => array('type' => 'number_item_start', 'level' => 2, 'count' => 1, 'first' => false)),
-            451 => array(0 => 'List', 1 => array('type' => 'number_item_end', 'level' => 2, 'count' => 1)),
-            452 => array(0 => 'List', 1 => array('type' => 'number_list_end', 'level' => 1)),
-            453 => array(0 => 'List', 1 => array('type' => 'number_list_end', 'level' => 0)),
+            432 => array(0 => 'List', 1 => array('type' => 'bullet_list_start', 'level' => 1)),
+            433 => array(0 => 'List', 1 => array('type' => 'bullet_item_start', 'level' => 1, 'count' => 0, 'first' => true)),
+            434 => array(0 => 'List', 1 => array('type' => 'bullet_item_end', 'level' => 1, 'count' => 0)),
+            435 => array(0 => 'List', 1 => array('type' => 'bullet_list_start', 'level' => 2)),
+            436 => array(0 => 'List', 1 => array('type' => 'bullet_item_start', 'level' => 2, 'count' => 0, 'first' => false)),
+            437 => array(0 => 'List', 1 => array('type' => 'bullet_item_end', 'level' => 2, 'count' => 0)),
+            438 => array(0 => 'List', 1 => array('type' => 'number_list_start', 'level' => 3)),
+            439 => array(0 => 'List', 1 => array('type' => 'number_item_start', 'level' => 3, 'count' => 0, 'first' => false)),
+            440 => array(0 => 'List', 1 => array('type' => 'number_item_end', 'level' => 3, 'count' => 0)),
+            441 => array(0 => 'List', 1 => array('type' => 'number_item_start', 'level' => 3, 'count' => 1, 'first' => false)),
+            442 => array(0 => 'List', 1 => array('type' => 'number_item_end', 'level' => 3, 'count' => 1)),
+            443 => array(0 => 'List', 1 => array('type' => 'bullet_item_start', 'level' => 3, 'count' => 2, 'first' => false)),
+            444 => array(0 => 'List', 1 => array('type' => 'bullet_item_end', 'level' => 3, 'count' => 2)),
+            445 => array(0 => 'List', 1 => array('type' => 'bullet_list_start', 'level' => 4)),
+            446 => array(0 => 'List', 1 => array('type' => 'bullet_item_start', 'level' => 4, 'count' => 0, 'first' => false)),
+            447 => array(0 => 'List', 1 => array('type' => 'bullet_item_end', 'level' => 4, 'count' => 0)),
+            448 => array(0 => 'List', 1 => array('type' => 'bullet_list_end', 'level' => 3)),
+            449 => array(0 => 'List', 1 => array('type' => 'number_list_end', 'level' => 2)),
+            450 => array(0 => 'List', 1 => array('type' => 'bullet_item_start', 'level' => 2, 'count' => 1, 'first' => false)),
+            451 => array(0 => 'List', 1 => array('type' => 'bullet_item_end', 'level' => 2, 'count' => 1)),
+            452 => array(0 => 'List', 1 => array('type' => 'bullet_list_end', 'level' => 1)),
+            453 => array(0 => 'List', 1 => array('type' => 'bullet_list_end', 'level' => 0)),
         );
         
         $this->assertEquals(array_values($tokens), array_values($this->t->wiki->tokens));
@@ -365,20 +365,19 @@ class Text_Wiki_Parse_Mediawiki_List_Test extends Text_Wiki_Parse_Mediawiki_SetU
 # List
 ",
                 2 => "
-# List example
-## List example
-*** List example
-*** List example
-#### List example
-#### List example
-** List example
-** List example
-## List example
-# List example
 * List example
-## List example
-## List example
+** List example
+**# List example
+**# List example
 *** List example
+**** List example
+*# List example
+*# List example
+** List example
+* List example
+** List example
+** List example
+**# List example
 ",
             ),
             1 => array(
@@ -398,20 +397,19 @@ class Text_Wiki_Parse_Mediawiki_List_Test extends Text_Wiki_Parse_Mediawiki_SetU
 # List
 # List
 ",
-                2 => "# List example
-## List example
-*** List example
-*** List example
-#### List example
-#### List example
+                2 => "* List example
 ** List example
+**# List example
+**# List example
+*** List example
+**** List example
+*# List example
+*# List example
 ** List example
-## List example
-# List example
 * List example
-## List example
-## List example
-*** List example
+** List example
+** List example
+**# List example
 "
             )
         );
