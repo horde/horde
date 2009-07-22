@@ -369,9 +369,10 @@ class Horde_Auth
         $driver = empty($options['app'])
             ? $GLOBALS['conf']['auth']['driver']
             : $options['app'];
+        $is_auth = self::getAuth();
 
         /* Check for cached authentication results. */
-        if (self::getAuth() &&
+        if ($is_auth &&
             ((isset($_SESSION['horde_auth']['driver']) && $_SESSION['horde_auth']['driver'] == $driver) ||
              isset($_SESSION['horde_auth']['app'][$driver]))) {
             return self::checkExistingAuth();
@@ -384,9 +385,8 @@ class Horde_Auth
 
             /* If we have a horde session, and the app doesn't need additional
              * auth, mark that in the session and return. */
-            if (self::getAuth() && !$auth->hasCapability('authenticate')) {
-                $_SESSION['horde_auth']['app'][$driver] = true;
-                return true;
+            if ($is_auth && !$auth->hasCapability('authenticate')) {
+                return self::setAuth($is_auth, self::getCredential(), array('app' => $driver));
             }
         }
 
@@ -622,20 +622,23 @@ class Horde_Auth
      * @param array $options      Additional options:
      * <pre>
      * 'app' - (string) The app to set authentication credentials for.
+     *         DEFAULT: Set horde authentication
      * 'change' - (boolean) Whether to request that the user change their
      *            password.
+     *            DEFAULT: No
      * 'login' - (boolean) Do login tasks?
-     *           DEFAULT: TODO
+     *           DEFAULT: True
      * </pre>
      *
      * @return boolean  Whether authentication was successful.
      */
     static public function setAuth($userId, $credentials, $options = array())
     {
+        $app = empty($options['app']) ? 'horde' : $options['app'];
         $userId = self::addHook(trim($userId));
 
         if (!empty($GLOBALS['conf']['hooks']['postauthenticate'])) {
-            if (Horde::callHook('_horde_hook_postauthenticate', array($userId, $credentials, empty($options['app']) ? 'horde' : $options['app']), 'horde') === false) {
+            if (Horde::callHook('_horde_hook_postauthenticate', array($userId, $credentials, $app), 'horde') === false) {
                 if (self::getAuthError() != self::REASON_MESSAGE) {
                     self::setAuthError(self::REASON_FAILED);
                 }
@@ -643,14 +646,13 @@ class Horde_Auth
             }
         }
 
-        if (!empty($options['app'])) {
-            if (!empty($_SESSION['horde_auth'])) {
-                $_SESSION['horde_auth']['app'][$options['app']] = true;
-                return true;
+        $app_array = array();
+        if ($app != 'horde') {
+            if (empty($_SESSION['horde_auth'])) {
+                $app_array = array($app => true);
+            } else {
+                $_SESSION['horde_auth']['app'][$app] = true;
             }
-            $app_array = array($options['app'] => true);
-        } else {
-            $app_array = array();
         }
 
         /* If we're already set with this userId, don't continue. */
@@ -671,7 +673,7 @@ class Horde_Auth
             'browser' => $browser->getAgentString(),
             'change' => !empty($options['change']),
             'credentials' => $credentials,
-            'driver' => empty($options['app']) ? $GLOBALS['conf']['auth']['driver'] : $options['app'],
+            'driver' => ($app == 'horde') ? $GLOBALS['conf']['auth']['driver'] : $app,
             'remoteAddr' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null,
             'timestamp' => time(),
             'userId' => $userId
@@ -681,6 +683,10 @@ class Horde_Auth
         $registry = Horde_Registry::singleton();
         $registry->loadPrefs();
         Horde_Nls::setLang($GLOBALS['prefs']->getValue('language'));
+
+        if (empty($options['login'])) {
+            return true;
+        }
 
         /* Fetch the user's last login time. */
         $old_login = @unserialize($GLOBALS['prefs']->getValue('last_login'));
