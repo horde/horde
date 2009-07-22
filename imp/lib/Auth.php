@@ -230,7 +230,7 @@ class IMP_Auth
             self::authenticate(array(
                 'password' => $credentials['password'],
                 'server' => $credentials['server'],
-                'userId' => $credentials['userId']
+                'userid' => $credentials['userid']
             ));
         } catch (Horde_Auth_Exception $e) {
             unset($_SESSION['imp']);
