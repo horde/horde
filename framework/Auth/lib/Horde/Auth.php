@@ -626,8 +626,8 @@ class Horde_Auth
      * 'change' - (boolean) Whether to request that the user change their
      *            password.
      *            DEFAULT: No
-     * 'login' - (boolean) Do login tasks?
-     *           DEFAULT: True
+     * 'nologin' - (boolean) Don't do login tasks?
+     *             DEFAULT: Perform login tasks
      * </pre>
      *
      * @return boolean  Whether authentication was successful.
@@ -684,7 +684,7 @@ class Horde_Auth
         $registry->loadPrefs();
         Horde_Nls::setLang($GLOBALS['prefs']->getValue('language'));
 
-        if (empty($options['login'])) {
+        if (!empty($options['nologin'])) {
             return true;
         }
 
