@@ -91,12 +91,14 @@ class Horde_LoginTasks
     {
         $this->_app = $app;
 
-        /* Retrieves a cached tasklist or make sure one is created. */
-        if (isset($_SESSION['horde_logintasks'][$app])) {
-            $this->_tasklist = unserialize($_SESSION['horde_logintasks'][$app]);
-        } else {
-            $this->_createTaskList($url);
-            $this->_init = true;
+        if (Horde_Auth::getAuth()) {
+            /* Retrieves a cached tasklist or make sure one is created. */
+            if (isset($_SESSION['horde_logintasks'][$app])) {
+                $this->_tasklist = unserialize($_SESSION['horde_logintasks'][$app]);
+            } else {
+                $this->_createTaskList($url);
+                $this->_init = true;
+            }
         }
     }
 
@@ -105,7 +107,9 @@ class Horde_LoginTasks
      */
     public function __destruct()
     {
-        $_SESSION['horde_logintasks'][$this->_app] = serialize($this->_tasklist);
+        if (isset($this->_tasklist)) {
+            $_SESSION['horde_logintasks'][$this->_app] = serialize($this->_tasklist);
+        }
     }
 
     /**
@@ -217,7 +221,8 @@ class Horde_LoginTasks
      */
     public function runTasks($confirmed = false)
     {
-        if ($this->_tasklist === true) {
+        if (!isset($this->_tasklist) ||
+            ($this->_tasklist === true)) {
             return;
         }
 
