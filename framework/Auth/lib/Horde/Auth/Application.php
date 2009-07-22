@@ -34,6 +34,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
     protected $_apiMethods = array(
         'add' => 'authAddUser',
         'authenticate' => 'authAuthenticate',
+        'authenticatecallback' => 'authAuthenticateCallback',
         'exists' => 'authUserExists',
         'list' => 'authUserList',
         'loginparams' => 'authLoginParams',
@@ -74,6 +75,29 @@ class Horde_Auth_Application extends Horde_Auth_Base
         }
 
         return parent::hasCapability($capability);
+    }
+
+    /**
+     * Finds out if a set of login credentials are valid, and if requested,
+     * mark the user as logged in in the current session.
+     *
+     * @param string $userId      The userId to check.
+     * @param array $credentials  The credentials to check.
+     * @param boolean $login      Whether to log the user in. If false, we'll
+     *                            only test the credentials and won't modify
+     *                            the current session. Defaults to true.
+     *
+     * @return boolean  Whether or not the credentials are valid.
+     */
+    public function authenticate($userId, $credentials, $login = true)
+    {
+        if (!parent::authenticate($userId, $credentials, $login)) {
+            return false;
+        }
+
+        $this->_authCallback();
+
+        return true;
     }
 
     /**
@@ -192,6 +216,23 @@ class Horde_Auth_Application extends Horde_Auth_Base
     }
 
     /**
+     * Automatic authentication.
+     *
+     * @return boolean  Whether or not the client is allowed.
+     * @throws Horde_Auth_Exception
+     */
+    public function transparent()
+    {
+        if (!parent::transparent()) {
+            return false;
+        }
+
+        $this->_authCallback();
+
+        return true;
+    }
+
+    /**
      * Attempt transparent authentication.
      *
      * @return boolean  Whether transparent login is supported.
@@ -253,6 +294,20 @@ class Horde_Auth_Application extends Horde_Auth_Base
         case 'params':
             $this->_credentials[$type] = array_merge($this->_credentials[$type], $value);
             break;
+        }
+    }
+
+    /**
+     * Provide way to finish authentication tasks in an application and ensure
+     * that the full application environment is loaded.
+     *
+     * @throws Horde_Auth_Exception
+     */
+    protected function _authCallback()
+    {
+        if ($this->hasCapability('authenticatecallback')) {
+            $registry = Horde_Registry::singleton();
+            $registry->callByPackage($this->_params['app'], $this->_apiMethods['authenticatecallback']);
         }
     }
 
