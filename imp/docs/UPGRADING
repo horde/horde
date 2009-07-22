@@ -21,6 +21,8 @@ HTML GUI editor
 IMP only supports the FCKeditor javscript HTML GUI editor.  Xinha is no longer
 supported.
 
+TODO
+----
 * servers.php has changed
 * imp_hook_vinfo has changed
 * alternative_display, attachment_display, forward_default pref is gone.
@@ -32,7 +34,7 @@ supported.
 * maintenance tasks
 * tos_agreement, gnupg, openssl, spellchecking (moved to Horde)
 * conf: alternate_login, redirect_on_logout moved to Horde.
-
+* preauth/postauth hooks - moved to Horde
 
 
 Upgrading IMP From 4.1.x To 4.2.x
