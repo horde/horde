@@ -10,9 +10,8 @@
  * @author Duck <duck@obala.net>
  */
 
-define('AUTH_HANDLER', true);
-define('FOLKS_BASE', dirname(__FILE__) . '/..');
-require_once FOLKS_BASE . '/lib/base.php';
+$folks_authentication = 'none';
+require_once dirname(__FILE__) . '/../lib/base.php';
 
 $auth = Horde_Auth::singleton($conf['auth']['driver']);
 

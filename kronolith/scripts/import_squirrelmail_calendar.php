@@ -14,12 +14,8 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-@define('AUTH_HANDLER', true);
-@define('HORDE_BASE', dirname(__FILE__) . '/../..');
-@define('KRONOLITH_BASE', dirname(__FILE__) . '/..');
-
 // Do CLI checks and environment setup first.
-require_once HORDE_BASE . '/lib/core.php';
+require_once dirname(__FILE__) . '/../../lib/core.php';
 
 // Makre sure no one runs this from the web.
 if (!Horde_Cli::runningFromCli()) {
@@ -28,7 +24,7 @@ if (!Horde_Cli::runningFromCli()) {
 
 // Load the CLI environment - make sure there's no time limit, init some
 // variables, etc.
-$cli = &Horde_Cli::singleton();
+$cli = Horde_Cli::singleton();
 $cli->init();
 
 // Read command line parameters.
@@ -41,6 +37,7 @@ $dsn = $argv[1];
 $default_tz = date_default_timezone_get();
 
 // Make sure we load Horde base to get the auth config
+$horde_authentication = 'none';
 require_once HORDE_BASE . '/lib/base.php';
 if ($conf['auth']['admins']) {
     Horde_Auth::setAuth($conf['auth']['admins'][0], array());
@@ -49,10 +46,10 @@ if ($conf['auth']['admins']) {
 // Now that we are authenticated, we can load Kronolith's base. Otherwise, the
 // share code breaks, causing a new, completely empty share to be created with
 // no owner.
-require_once KRONOLITH_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../lib/base.php';
 
 // Connect to database.
-$db = &DB::connect($dsn);
+$db = DB::connect($dsn);
 if (is_a($db, 'PEAR_Error')) {
     $cli->fatal($db->toString());
 }

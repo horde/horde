@@ -1,8 +1,16 @@
 <?php
 /**
  * Ingo base inclusion file.
+ *
  * This file brings in all of the dependencies that every Ingo
  * script will need and sets up objects that all scripts use.
+ *
+ * The following global variables are used:
+ * <pre>
+ * $ingo_authentication - The type of authentication to use:
+ *   'none'  - Do not authenticate
+ *   [DEFAULT] - Authenticate; on failed auth redirect to login screen
+ * </pre>
  *
  * Global variables defined:
  *   $ingo_shared  - TODO
@@ -20,8 +28,9 @@ require_once HORDE_BASE . '/lib/core.php';
 
 // Registry.
 $registry = Horde_Registry::singleton();
+$authentication = Horde_Util::nonInputVar('ingo_authentication');
 try {
-    $registry->pushApp('ingo', !defined('AUTH_HANDLER'));
+    $registry->pushApp('ingo', ($authentication != 'none'));
 } catch (Horde_Exception $e) {
     Horde_Auth::authenticationFailureRedirect('ingo', $e);
 }

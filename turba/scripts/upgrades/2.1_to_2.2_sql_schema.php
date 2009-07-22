@@ -32,22 +32,18 @@ $do_work = true;
 $do_email = true;
 
 /* YOU SHOULD NOT HAVE TO TOUCH ANYTHING BELOW THIS LINE */
-@define('AUTH_HANDLER', true);
-@define('HORDE_BASE', dirname(__FILE__) . '/../../..');
-
 /* Set up the CLI environment */
+require_once dirname(__FILE__) . '/../lib/base.load.php';
 require_once HORDE_BASE . '/lib/core.php';
 if (!Horde_Cli::runningFromCli()) {
     exit("Must be run from the command line\n");
 }
-$cli = &Horde_Cli::singleton();
+$cli = Horde_Cli::singleton();
 $cli->init();
 
 /* Grab what we need to steal the DB config */
 require_once HORDE_BASE . '/config/conf.php';
 require_once 'Horde/Form.php';
-require 'Horde/NLS/carsigns.php';
-require_once 'DB.php';
 
 $config = $GLOBALS['conf']['sql'];
 $config['username'] = $db_user;
@@ -289,9 +285,6 @@ function getBareEmail($address)
     if (!$address) {
         return $address;
     }
-
-    require_once 'Mail/RFC822.php';
-    require_once 'Horde/Mime/Address.php';
 
     static $rfc822;
     if (is_null($rfc822)) {

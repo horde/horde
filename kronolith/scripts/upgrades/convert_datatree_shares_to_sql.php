@@ -6,8 +6,6 @@
  * 2.1_to_2.2.sql upgrade script for your RDBMS before executing this script.
  */
 
-@define('AUTH_HANDLER', true);
-
 /* Set up the CLI environment */
 require_once dirname(__FILE__) . '/../../lib/base.load.php';
 require_once HORDE_BASE . '/lib/core.php';

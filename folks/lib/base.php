@@ -19,8 +19,9 @@ require_once HORDE_BASE . '/lib/core.php';
 
 // Registry.
 $registry = Horde_Registry::singleton();
+$authentication = Horde_Util::nonInputVar('folks_authentication');
 try {
-    $registry->pushApp('folks', !defined('AUTH_HANDLER'));
+    $registry->pushApp('folks', ($authentication != 'none'));
 } catch (Horde_Exception $e) {
     Horde_Auth::authenticationFailureRedirect('folks', $e);
 }

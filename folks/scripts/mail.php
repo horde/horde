@@ -13,10 +13,6 @@
  * @package Folks
  */
 
-$no_compress = true;
-define('AUTH_HANDLER', true);
-define('FOLKS_BASE', dirname(__FILE__) . '/..');
-
 // Do CLI checks and environment setup first.
 require_once 'Horde/Cli.php';
 
@@ -27,15 +23,15 @@ if (!Horde_Cli::runningFromCLI()) {
 
 // Load the CLI environment.
 Horde_Cli::init();
-$cli = &Horde_Cli::singleton();
+$cli = Horde_Cli::singleton();
 
 // Load Folks.
-require_once FOLKS_BASE . '/lib/base.php';
+$folks_authentication = 'none';
+$no_compress = true;
+require_once dirname(__FILE__) . '/../lib/base.php';
 require_once FOLKS_BASE . '/lib/version.php';
-require_once 'Horde/MIME/Mail.php';
 
 // We accept the user name on the command-line.
-require_once 'Console/Getopt.php';
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'h:u:p:dt:f:c:',
                               array('help', 'username=', 'password=', 'time=', 'from=', 'count='));
 

@@ -8,7 +8,7 @@
  * @package Horde_Image
  */
 define('HORDE_BASE', '/var/www/html/horde');
-define('AUTH_HANDLER', true);
+$horde_authentication = 'none';
 require_once HORDE_BASE . '/lib/base.php';
 $GLOBALS['conf']['sql']['adapter'] = $GLOBALS['conf']['sql']['phptype'] == 'mysqli' ? 'mysqli' : 'pdo_' . $GLOBALS['conf']['sql']['phptype'];
 $db = Horde_Db_Adapter::factory($GLOBALS['conf']['sql']);

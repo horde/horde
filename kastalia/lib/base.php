@@ -22,7 +22,7 @@ require_once HORDE_BASE . '/lib/core.php';
 // Registry.
 $registry = Horde_Registry::singleton();
 try {
-    $registry->pushApp('kastalia', !defined('AUTH_HANDLER'));
+    $registry->pushApp('kastalia', true);
 } catch (Horde_Exception $e) {
     Horde_Auth::authenticationFailureRedirect('kastalia', $e);
 }

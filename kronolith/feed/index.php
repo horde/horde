@@ -21,8 +21,8 @@ function _no_access($status, $reason, $body)
     exit;
 }
 
-$session_control = 'readonly';
-@define('AUTH_HANDLER', true);
+$kronolith_authentication = 'none';
+$kronolith_session_control = 'readonly';
 require_once dirname(__FILE__) . '/../lib/base.php';
 require_once KRONOLITH_BASE . '/lib/version.php';
 require_once 'Horde/Identity.php';

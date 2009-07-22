@@ -7,20 +7,17 @@
  * executing this script.
  */
 
-@define('AUTH_HANDLER', true);
-@define('HORDE_BASE', dirname(__FILE__) . '/../../..');
-
 /* Set up the CLI environment */
+require_once dirname(__FILE__) . '/../lib/base.load.php';
 require_once HORDE_BASE . '/lib/core.php';
 if (!Horde_Cli::runningFromCli()) {
     exit("Must be run from the command line\n");
 }
-$cli = &Horde_Cli::singleton();
+$cli = Horde_Cli::singleton();
 $cli->init();
 
 /* Grab what we need to steal the DB config */
 require_once HORDE_BASE . '/config/conf.php';
-require_once 'MDB2.php';
 
 $config = $GLOBALS['conf']['sql'];
 unset($config['charset']);

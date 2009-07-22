@@ -9,10 +9,8 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-@define('AUTH_HANDLER', true);
-@define('HORDE_BASE', dirname(__FILE__) . '/../../..');
-
 // Do CLI checks and environment setup first.
+require_once dirname(__FILE__) . '/../lib/base.load.php';
 require_once HORDE_BASE . '/lib/core.php';
 
 // Make sure no one runs this from the web.
@@ -24,7 +22,7 @@ if (!Horde_Cli::runningFromCLI()) {
 // variables, etc.
 Horde_Cli::init();
 
-@define('TURBA_BASE', dirname(__FILE__) . '/../..');
+$turba_authentication = 'none';
 require_once TURBA_BASE . '/lib/base.php';
 
 // Instantiate DataTree.

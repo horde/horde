@@ -18,11 +18,8 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-@define('AUTH_HANDLER', true);
-
 /* Do CLI checks and environment setup first. */
-@define('HORDE_BASE', dirname(__FILE__) . '/../../..');
-require_once HORDE_BASE . '/lib/core.php';
+require_once dirname(__FILE__) . '/../../../lib/core.php';
 
 /* Make sure no one runs this from the web. */
 if (!Horde_Cli::runningFromCLI()) {
@@ -32,10 +29,11 @@ if (!Horde_Cli::runningFromCLI()) {
 /* Load the CLI environment - make sure there's no time limit, init some
  * variables, etc. */
 Horde_Cli::init();
-$cli = &Horde_Cli::singleton();
+$cli = Horde_Cli::singleton();
 
 /* Initialize the needed libraries. */
-require_once dirname(dirname(dirname(__FILE__))) . '/lib/base.php';
+$ingo_authentication = 'none';
+require_once dirname(__FILE__) . '/../../lib/base.php';
 
 /* Initialize storage backends. */
 if ($conf['storage']['driver'] != 'sql') {

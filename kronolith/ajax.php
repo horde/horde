@@ -85,10 +85,10 @@ if (empty($action)) {
 // The following actions do not need write access to the session and
 // should be opened read-only for performance reasons.
 if (in_array($action, array())) {
-    $session_control = 'readonly';
+    $kronolith_session_control = 'readonly';
 }
 
-$session_timeout = 'json';
+$kronolith_session_timeout = 'json';
 require_once KRONOLITH_BASE . '/lib/base.php';
 
 // Process common request variables.

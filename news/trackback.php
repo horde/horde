@@ -11,7 +11,7 @@
  * @package News
  */
 
-define('AUTH_HANDLER', true);
+$news_authentication = 'none';
 require_once dirname(__FILE__) . '/lib/base.php';
 
 if ($browser->isRobot()) {

@@ -9,7 +9,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-define('AUTH_HANDLER', true);
+$kronolith_authentication = 'none';
 require_once dirname(__FILE__) . '/../lib/base.php';
 require_once 'Horde/Identity.php';
 

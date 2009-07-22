@@ -4,6 +4,13 @@
  *
  * This file brings in all of the dependencies that every Turba script will
  * need, and sets up objects that all scripts use.
+ *
+ * The following global variables are used:
+ * <pre>
+ * $ingo_authentication - The type of authentication to use:
+ *   'none'  - Do not authenticate
+ *   [DEFAULT] - Authenticate; on failed auth redirect to login screen
+ * </pre>
  */
 
 // Determine BASE directories.
@@ -14,8 +21,9 @@ require_once HORDE_BASE . '/lib/core.php';
 
 // Registry.
 $registry = Horde_Registry::singleton();
+$authentication = Horde::nonInputVar('turba_authentication');
 try {
-    $registry->pushApp('turba', !defined('AUTH_HANDLER'));
+    $registry->pushApp('turba', ($authentication != 'none'));
 } catch (Horde_Exception $e) {
     Horde_Auth::authenticationFailureRedirect('turba', $e);
 }

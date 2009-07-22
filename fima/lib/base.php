@@ -28,7 +28,7 @@ if ($session_control == 'none') {
 }
 
 try {
-    $registry->pushApp('fima', !defined('AUTH_HANDLER'));
+    $registry->pushApp('fima', true);
 } catch (Horde_Exception $e) {
     Horde_Auth::authenticationFailureRedirect('fima', $e);
 }
@@ -46,9 +46,6 @@ $notification->attach('status');
 
 // Fima base library
 require_once FIMA_BASE . '/lib/Driver.php';
-
-// Horde libraries.
-require_once 'Horde/History.php';
 
 // Start output compression.
 Horde::compressOutput();

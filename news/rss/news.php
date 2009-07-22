@@ -11,9 +11,8 @@
  * @author McLion <mclion@obala.net>
  */
 
-define('AUTH_HANDLER', true);
-define('NEWS_BASE', dirname(__FILE__) . '/../');
-require_once NEWS_BASE . '/lib/base.php';
+$news_authentication = 'none';
+require_once dirname(__FILE__) . '/../lib/base.php';
 
 $cache_key = 'news_rss_news';
 $rss = $cache->get($cache_key, $conf['cache']['default_lifetime']);

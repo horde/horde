@@ -1,8 +1,5 @@
 #!@php_bin@
 <?php
-
-define('AUTH_HANDLER', true);
-
 /**
  * The Autoloader allows us to omit "require/include" statements.
  */
@@ -43,6 +40,7 @@ $cli->init();
  * really satisfying. We need it to know the location of the
  * configuration though.
  */
+$koward_authentication = 'none';
 require_once $opts->base . '/koward/config/base.php';
 
 /**

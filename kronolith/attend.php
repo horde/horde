@@ -9,7 +9,7 @@
  * @package Kronolith
  */
 
-@define('AUTH_HANDLER', true);
+$kronolith_authentication = 'none';
 require_once dirname(__FILE__) . '/lib/base.php';
 
 $cal = Horde_Util::getFormData('c');

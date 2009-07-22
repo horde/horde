@@ -4,18 +4,17 @@
  * This script converts all dates from the user's timezone to UTC.
  */
 
-@define('AUTH_HANDLER', true);
-
 /* Set up the CLI environment. */
 require_once dirname(__FILE__) . '/../../lib/base.load.php';
 require_once HORDE_BASE . '/lib/core.php';
 if (!Horde_Cli::runningFromCLI()) {
     exit("Must be run from the command line\n");
 }
-$cli = &Horde_Cli::singleton();
+$cli = Horde_Cli::singleton();
 $cli->init();
 
 /* Load required libraries. */
+$kronolith_authentication = 'none';
 require_once KRONOLITH_BASE . '/../../lib/base.php';
 require_once 'Horde/Prefs.php';
 

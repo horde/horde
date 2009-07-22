@@ -5,11 +5,8 @@
  * confuse the new Turba code.
  */
 
-@define('AUTH_HANDLER', true);
-@define('TURBA_BASE', dirname(__FILE__) . '/../..');
-@define('HORDE_BASE', TURBA_BASE . '/..');
-
 // Do CLI checks and environment setup first.
+require_once dirname(__FILE__) . '/../lib/base.load.php';
 require_once HORDE_BASE . '/lib/core.php';
 
 // Make sure no one runs this from the web.
@@ -21,6 +18,7 @@ if (!Horde_Cli::runningFromCLI()) {
 // some variables, etc.
 Horde_Cli::init();
 
+$turba_authentication = 'none';
 require_once TURBA_BASE . '/lib/base.php';
 
 // Re-load source config.

@@ -5,9 +5,16 @@
  * This file brings in all of the dependencies that every Kronolith
  * script will need, and sets up objects that all scripts use.
  *
- * The following variables, defined in the script that calls this one, are
- * used:
- * - $session_control - Sets special session control limitations
+ * The following global variables are used:
+ * <pre>
+ * $kronolith_authentication - The type of authentication to use:
+ *   'none'  - Do not authenticate
+ *   [DEFAULT] - Authenticate; on failure redirect to login screen
+ * $kronolith_session_control - Sets special session control limitations:
+ *   'none' - Do not start a session
+ *   'readonly' - Start session readonly
+ *   [DEFAULT] - Start read-write session
+ * </pre>
  *
  * @package Kronolith
  */
@@ -19,17 +26,21 @@ require_once dirname(__FILE__) . '/base.load.php';
 require_once HORDE_BASE . '/lib/core.php';
 
 /* Registry. */
-$session_control = Horde_Util::nonInputVar('session_control');
-if ($session_control == 'none') {
-    $registry = Horde_Registry::singleton(Horde_Registry::SESSION_NONE);
-} elseif ($session_control == 'readonly') {
-    $registry = Horde_Registry::singleton(Horde_Registry::SESSION_READONLY);
-} else {
-    $registry = Horde_Registry::singleton();
-}
+$s_ctrl = 0;
+switch (Horde_Util::nonInputVar('kronolith_session_control')) {
+case 'none':
+    $s_ctrl = Horde_Registry::SESSION_NONE;
+    break;
 
+case 'readonly':
+    $s_ctrl = Horde_Registry::SESSION_READONLY;
+    break;
+}
+$registry = Horde_Registry::singleton($s_ctrl);
+
+$authentication = Horde_Util::nonInputVar('kronolith_authentication');
 try {
-    $registry->pushApp('kronolith', !defined('AUTH_HANDLER'));
+    $registry->pushApp('kronolith', ($authentication != 'none'));
 } catch (Horde_Exception $e) {
     Horde_Auth::authenticationFailureRedirect('kronolith', $e);
 }
@@ -40,7 +51,7 @@ define('KRONOLITH_TEMPLATES', $registry->get('templates'));
 $notification = Horde_Notification::singleton();
 $GLOBALS['kronolith_notify'] = $notification->attach('status', null, 'Kronolith_Notification_Listener_Status');
 
-/* Start compression, if requested. */
+/* Start compression. */
 Horde::compressOutput();
 
 /* Set the timezone variable, if available. */

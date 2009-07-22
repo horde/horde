@@ -30,7 +30,7 @@ $notification->attach('status');
 $registry = Horde_Registry::singleton();
 
 try {
-    $registry->pushApp('babel', !defined('AUTH_HANDLER'));
+    $registry->pushApp('babel', true);
 } catch (Horde_Exception $e) {
     Horde_Auth::authenticationFailureRedirect('babel', $e);
 }

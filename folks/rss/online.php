@@ -11,7 +11,7 @@
  * @package Folks
  */
 
-define('AUTH_HANDLER', true);
+$folks_authentication = 'none';
 require_once dirname(__FILE__) . '/../lib/base.php';
 
 $users = $folks_driver->getOnlineUsers();

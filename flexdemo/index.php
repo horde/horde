@@ -1,9 +1,7 @@
 <?php
 
-define('AUTH_HANDLER', true);
-define('HORDE_BASE', dirname(__FILE__) . '/..');
-require_once HORDE_BASE . '/lib/base.php';
-require_once 'Horde/Autoloader.php';
+$horde_authentication = 'none';
+require_once dirname(__FILE__) . '/../lib/base.php';
 
 $v = new Horde_View(array('templatePath' => dirname(__FILE__) . '/garland'));
 new Horde_View_Helper_Block($v);

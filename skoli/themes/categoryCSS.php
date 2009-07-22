@@ -10,10 +10,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-@define('AUTH_HANDLER', true);
-@define('SKOLI_BASE', dirname(__FILE__) . '/..');
-require_once SKOLI_BASE . '/lib/base.php';
-require_once 'Horde/Image.php';
+$skoli_authentication = 'none';
+require_once dirname(__FILE__) . '/../lib/base.php';
 require_once 'Horde/Prefs/CategoryManager.php';
 
 header('Content-Type: text/css');

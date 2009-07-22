@@ -19,33 +19,26 @@ require_once HORDE_BASE . '/lib/core.php';
 
 // Registry.
 $registry = Horde_Registry::singleton();
+$authentication = Horde_Util::nonInputVar('skoli_authentication');
 try {
-    $registry->pushApp('skoli', !defined('AUTH_HANDLER'));
+    $registry->pushApp('skoli', ($authentication != 'none'));
 } catch (Horde_Exception $e) {
     Horde_Auth::authenticationFailureRedirect('skoli', $e);
 }
 $conf = &$GLOBALS['conf'];
 @define('SKOLI_TEMPLATES', $registry->get('templates'));
 
-// Horde framework libraries.
-require_once 'Horde/History.php';
-
 // Notification system.
-$notification = &Horde_Notification::singleton();
+$notification = Horde_Notification::singleton();
 $notification->attach('status');
 
 // Define the base file path of Skoli.
 @define('SKOLI_BASE', dirname(__FILE__) . '/..');
 
-// Skoli base library
-require_once SKOLI_BASE . '/lib/Skoli.php';
-require_once SKOLI_BASE . '/lib/Driver.php';
-
 // Start output compression.
 Horde::compressOutput();
 
 // Create a share instance.
-require_once 'Horde/Share.php';
-$GLOBALS['skoli_shares'] = &Horde_Share::singleton($registry->getApp());
+$GLOBALS['skoli_shares'] = Horde_Share::singleton($registry->getApp());
 
 Skoli::initialize();

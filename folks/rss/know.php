@@ -11,7 +11,7 @@
  * @package Folks
  */
 
-define('AUTH_HANDLER', true);
+$folks_authentication = 'none';
 require_once dirname(__FILE__) . '/../lib/base.php';
 
 $auth = Horde_Auth::singleton($conf['auth']['driver']);

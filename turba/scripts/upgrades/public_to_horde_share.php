@@ -19,9 +19,7 @@
  */
 
 // Load Horde and Turba enviroments
-@define('AUTH_HANDLER', true);
-@define('HORDE_BASE', dirname(__FILE__) . '/../../..');
-@define('TURBA_BASE', dirname(__FILE__) . '/../..');
+require_once dirname(__FILE__) . '/../lib/base.load.php';
 require_once HORDE_BASE . '/lib/core.php';
 
 // Set up the CLI enviroment.
@@ -29,9 +27,10 @@ if (!Horde_Cli::runningFromCLI()) {
     exit("Must be run from the command line\n");
 }
 Horde_Cli::init();
-$CLI = &Horde_Cli::singleton();
+$CLI = Horde_Cli::singleton();
 
 // Make sure we load Horde base to get the auth config
+$horde_authentication = 'none';
 require_once HORDE_BASE . '/lib/base.php';
 if ($conf['auth']['admins']) {
     Horde_Auth::setAuth($conf['auth']['admins'][0], array());

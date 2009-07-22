@@ -15,7 +15,7 @@
 
 exit;
 
-define('AUTH_HANDLER', true);
+$folks_authentication = 'none';
 require_once dirname(__FILE__) . '/../lib/base.php';
 
 $db = DB::connect($conf['sql']);

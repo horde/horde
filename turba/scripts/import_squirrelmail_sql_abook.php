@@ -15,11 +15,8 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-@define('AUTH_HANDLER', true);
-@define('HORDE_BASE', dirname(__FILE__) . '/../..');
-@define('TURBA_BASE', dirname(__FILE__) . '/..');
-
 // Do CLI checks and environment setup first.
+require_once dirname(__FILE__) . '/../lib/base.load.php';
 require_once HORDE_BASE . '/lib/core.php';
 
 // Makre sure no one runs this from the web.
@@ -29,7 +26,7 @@ if (!Horde_Cli::runningFromCli()) {
 
 // Load the CLI environment - make sure there's no time limit, init some
 // variables, etc.
-$cli = &Horde_Cli::singleton();
+$cli = Horde_Cli::singleton();
 $cli->init();
 
 // Read command line parameters.
@@ -41,6 +38,7 @@ if ($argc != 2) {
 $dsn = $argv[1];
 
 // Make sure we load Horde base to get the auth config
+$horde_authentication = 'none';
 require_once HORDE_BASE . '/lib/base.php';
 if ($conf['auth']['admins']) {
     Horde_Auth::setAuth($conf['auth']['admins'][0], array());
@@ -54,7 +52,7 @@ require_once TURBA_BASE . '/lib/Object/Group.php';
 require_once 'Horde/Mime/Address.php';
 
 // Connect to database.
-$db = &DB::connect($dsn);
+$db = DB::connect($dsn);
 if (is_a($db, 'PEAR_Error')) {
     $cli->fatal($db->toString());
 }
@@ -64,7 +62,7 @@ $handle = $db->query('SELECT owner, nickname, firstname, lastname, email, label 
 if (is_a($handle, 'PEAR_Error')) {
     $cli->fatal($handle->toString());
 }
-$turba_shares = &Horde_Share::singleton('turba');
+$turba_shares = Horde_Share::singleton('turba');
 $user = null;
 $count = 0;
 while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {

@@ -31,7 +31,7 @@ if ($session_control == 'none') {
 }
 
 try {
-    $registry->pushApp('timeobjects', !defined('AUTH_HANDLER'));
+    $registry->pushApp('timeobjects', true);
 } catch (Horde_Exception $e) {
     Horde_Auth::authenticationFailureRedirect('timeobjects', $e);
 }

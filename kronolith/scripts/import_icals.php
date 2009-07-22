@@ -13,7 +13,7 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-@define('AUTH_HANDLER', true);
+$kronolith_authentication = 'none';
 @define('HORDE_BASE', dirname(__FILE__) . '/../..');
 
 // Do CLI checks and environment setup first.

@@ -9,8 +9,8 @@
  * @package Kronolith
  */
 
-@define('AUTH_HANDLER', true);
-$session_control = 'none';
+$kronolith_authentication = 'none';
+$kronolith_session_control = 'none';
 require_once dirname(__FILE__) . '/lib/base.php';
 
 // We want to always generate UTF-8 iCalendar data.

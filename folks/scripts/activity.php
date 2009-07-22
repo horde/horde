@@ -15,7 +15,7 @@
 
 exit;
 
-define('AUTH_HANDLER', true);
+$folks_authentication = 'none';
 require_once dirname(__FILE__) . '/../lib/base.php';
 
 // Make sure no one runs this from the web.

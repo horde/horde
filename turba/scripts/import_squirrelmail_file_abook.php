@@ -16,11 +16,8 @@
  * @author Ben Chavet <ben@horde.org>
  */
 
-@define('AUTH_HANDLER', true);
-@define('HORDE_BASE', dirname(__FILE__) . '/../..');
-@define('TURBA_BASE', dirname(__FILE__) . '/..');
-
 // Do CLI checks and environment setup first.
+require_once dirname(__FILE__) . '/../lib/base.load.php';
 require_once HORDE_BASE . '/lib/core.php';
 
 // Makre sure no one runs this from the web.
@@ -30,7 +27,7 @@ if (!Horde_Cli::runningFromCli()) {
 
 // Load the CLI environment - make sure there's no time limit, init some
 // variables, etc.
-$cli = &Horde_Cli::singleton();
+$cli = Horde_Cli::singleton();
 $cli->init();
 
 // Read command line parameters.
@@ -42,6 +39,7 @@ if ($argc != 2) {
 $data = $argv[1];
 
 // Make sure we load Horde base to get the auth config
+$horde_authentication = 'none';
 require_once HORDE_BASE . '/lib/base.php';
 if ($conf['auth']['admins']) {
     Horde_Auth::setAuth($conf['auth']['admins'][0], array());

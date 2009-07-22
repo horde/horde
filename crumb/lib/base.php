@@ -2,15 +2,12 @@
 /**
  * Crumb base application file.
  *
- * $Horde$
- *
  * Copyright 2008-2009 The Horde Project <http://www.horde.org>
  *
  * This file brings in all of the dependencies that every Crumb script will
  * need, and sets up objects that all scripts use.
  *
  * @author Ben Klang <ben@alkaloid.net>
- *
  */
 
 // Check for a prior definition of HORDE_BASE (perhaps by an auto_prepend_file
@@ -25,7 +22,7 @@ require_once HORDE_BASE . '/lib/core.php';
 // Registry.
 $registry = Horde_Registry::singleton();
 try {
-    $registry->pushApp('crumb', !defined('AUTH_HANDLER'));
+    $registry->pushApp('crumb', true);
 } catch (Horde_Exception $e) {
     Horde_Auth::authenticationFailureRedirect('crumb', $e);
 }
