@@ -149,6 +149,10 @@ $_services = array(
         'type' => 'boolean'
     ),
 
+    'authAuthenticateCallback' => array(
+        'args' => array()
+    ),
+
     'authTransparent' => array(
         'args' => array(),
         'checkperms' => false,
@@ -664,18 +668,7 @@ function _imp_authAuthenticate($userId, $credentials)
     ));
 
     if ($new_session) {
-        global $conf;
-
-        /* Set view in session/cookie. */
-        $view = empty($conf['user']['select_view'])
-            ? (empty($conf['user']['force_view']) ? 'imp' : $conf['user']['force_view'])
-            : (empty($credentials['imp_select_view']) ? 'imp' : $credentials['imp_select_view']);
-
-        setcookie('default_imp_view', $view, time() + 30 * 86400,
-                  $conf['cookie']['path'],
-                  $conf['cookie']['domain']);
-
-        $_SESSION['imp']['view'] = $view;
+        $_SESSION['imp']['cache']['select_view'] = empty($credentials['imp_select_view']) ? '' : $credentials['imp_select_view'];
 
         /* Set the Horde ID, since it may have been altered by the 'realm'
          * setting. */
@@ -705,16 +698,18 @@ function _imp_authTransparent()
         $GLOBALS['imp_search'] = new IMP_Search();
     }
 
-    if (IMP_Auth::transparent() === false) {
-        return false;
-    }
+    return IMP_Auth::transparent();
+}
 
-    /* Set view in session. */
-    $_SESSION['imp']['view'] = empty($GLOBALS['conf']['user']['select_view'])
-        ? (empty($GLOBALS['conf']['user']['force_view']) ? 'imp' : $GLOBALS['conf']['user']['force_view'])
-        : 'imp';
-
-    return true;
+/**
+ * Does necessary authentication tasks reliant on a full IMP environment.
+ *
+ * @throws Horde_Auth_Exception
+ */
+function _imp_authAuthenticateCallback()
+{
+    require_once dirname(__FILE__) . '/base.php';
+    IMP_Auth::authenticateCallback();
 }
 
 /**

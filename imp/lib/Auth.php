@@ -200,7 +200,6 @@ class IMP_Auth
             'server_key' => $credentials['server'],
             'showunsub' => false
         );
-        $sess = &$_SESSION['imp'];
 
         /* Run the username through virtualhost expansion functions if
          * necessary. */
@@ -218,15 +217,15 @@ class IMP_Auth
 
         /* Determine the unique user name. */
         if (Horde_Auth::getAuth()) {
-            $sess['uniquser'] = Horde_Auth::removeHook(Horde_Auth::getAuth());
+            $_SESSION['imp']['uniquser'] = Horde_Auth::removeHook(Horde_Auth::getAuth());
         } else {
-            $sess['uniquser'] = $credentials['userid'];
+            $_SESSION['imp']['uniquser'] = $credentials['userid'];
             if (!empty($ptr['realm'])) {
-                $sess['uniquser'] .= '@' . $ptr['realm'];
+                $_SESSION['imp']['uniquser'] .= '@' . $ptr['realm'];
             }
         }
 
-        /* Do necessary authentication now. */
+        /* Try authentication. */
         try {
             self::authenticate(array(
                 'password' => $credentials['password'],
@@ -237,88 +236,6 @@ class IMP_Auth
             unset($_SESSION['imp']);
             throw $e;
         }
-
-        /* Set the protocol. */
-        $sess['protocol'] = isset($ptr['protocol'])
-            ? $ptr['protocol']
-            : 'imap';
-
-        /* Set the maildomain. */
-        $maildomain = $GLOBALS['prefs']->getValue('mail_domain');
-        $sess['maildomain'] = $maildomain
-            ? $maildomain
-            : $ptr['maildomain'];
-
-        /* Store some basic IMAP server information. */
-        if ($sess['protocol'] == 'imap') {
-            foreach (array('acl', 'admin', 'namespace', 'quota') as $val) {
-                if (isset($ptr[$val])) {
-                    $sess['imap'][$val] = $ptr[$val];
-
-                    /* 'admin' and 'quota' have password entries - encrypt
-                     * these entries in the session if they exist. */
-                    if (isset($ptr[$val]['params']['password'])) {
-                        $sess['imap'][$val]['params']['password'] = Horde_Secret::write(Horde_Secret::getKey('imp'), $ptr[$val]['params']['password']);
-                    }
-                }
-            }
-        }
-
-        /* Set the SMTP options, if needed. */
-        if ($conf['mailer']['type'] == 'smtp') {
-            $sess['smtp'] = array();
-            foreach (array('smtphost' => 'host', 'smtpport' => 'port') as $key => $val) {
-                if (!empty($ptr[$key])) {
-                    $sess['smtp'][$val] = $ptr[$key];
-                }
-            }
-        }
-
-        /* Does the server allow file uploads? If yes, store the
-         * value, in bytes, of the maximum file size. */
-        $sess['file_upload'] = $GLOBALS['browser']->allowFileUploads();
-
-        /* Is the 'mail/canApplyFilters' API call available? */
-        $registry = Horde_Registry::singleton();
-        try {
-            if ($registry->call('mail/canApplyFilters')) {
-                $sess['filteravail'] = true;
-            }
-        } catch (Horde_Exception $e) {}
-
-        /* Is the 'tasks/listTasklists' call available? */
-        if ($conf['tasklist']['use_tasklist'] &&
-            $registry->hasMethod('tasks/listTasklists')) {
-            $sess['tasklistavail'] = true;
-        }
-
-        /* Is the 'notes/listNotepads' call available? */
-        if ($conf['notepad']['use_notepad'] &&
-            $registry->hasMethod('notes/listNotepads')) {
-            $sess['notepadavail'] = true;
-        }
-
-        /* Is the HTML editor available? */
-        $imp_ui = new IMP_UI_Compose();
-        $editor = $imp_ui->initRTE(null, true);
-        $sess['rteavail'] = $editor->supportedByBrowser();
-
-        /* Set up search information for the session. */
-        $GLOBALS['imp_search']->sessionSetup();
-
-        /* If the user wants to run filters on login, make sure they get
-           run. */
-        if ($GLOBALS['prefs']->getValue('filter_on_login')) {
-            /* Run filters. */
-            $imp_filter = new IMP_Filter();
-            $imp_filter->filter('INBOX');
-        }
-
-        /* Check for drafts due to session timeouts. */
-        $imp_compose = IMP_Compose::singleton();
-        $imp_compose->recoverSessionExpireDraft();
-
-        IMP_Auth::logMessage('login', __FILE__, __LINE__, PEAR_LOG_NOTICE);
     }
 
     /**
@@ -472,6 +389,115 @@ class IMP_Auth
         return $url
             ? Horde::applicationUrl($page, true)
             : IMP_BASE . '/' . $page;
+    }
+
+    /**
+     * Perform login tasks. Must wait until now because we need the full
+     * IMP environment to properly setup the session.
+     *
+     * @throws Horde_Auth_Exception
+     */
+    static public function authenticateCallback()
+    {
+        global $conf;
+
+        $ptr = $GLOBALS['imp_imap']->loadServerConfig($credentials['server']);
+        if ($ptr === false) {
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
+        }
+
+        $sess = &$_SESSION['imp'];
+
+        /* Set the protocol. */
+        $sess['protocol'] = isset($ptr['protocol'])
+            ? $ptr['protocol']
+            : 'imap';
+
+        /* Set the maildomain. */
+        $maildomain = $GLOBALS['prefs']->getValue('mail_domain');
+        $sess['maildomain'] = $maildomain
+            ? $maildomain
+            : $ptr['maildomain'];
+
+        /* Store some basic IMAP server information. */
+        if ($sess['protocol'] == 'imap') {
+            foreach (array('acl', 'admin', 'namespace', 'quota') as $val) {
+                if (isset($ptr[$val])) {
+                    $sess['imap'][$val] = $ptr[$val];
+
+                    /* 'admin' and 'quota' have password entries - encrypt
+                     * these entries in the session if they exist. */
+                    if (isset($ptr[$val]['params']['password'])) {
+                        $sess['imap'][$val]['params']['password'] = Horde_Secret::write(Horde_Secret::getKey('imp'), $ptr[$val]['params']['password']);
+                    }
+                }
+            }
+        }
+
+        /* Set the SMTP options, if needed. */
+        if ($conf['mailer']['type'] == 'smtp') {
+            $sess['smtp'] = array();
+            foreach (array('smtphost' => 'host', 'smtpport' => 'port') as $key => $val) {
+                if (!empty($ptr[$key])) {
+                    $sess['smtp'][$val] = $ptr[$key];
+                }
+            }
+        }
+
+        /* Does the server allow file uploads? If yes, store the
+         * value, in bytes, of the maximum file size. */
+        $sess['file_upload'] = $GLOBALS['browser']->allowFileUploads();
+
+        /* Is the 'mail/canApplyFilters' API call available? */
+        $registry = Horde_Registry::singleton();
+        try {
+            if ($registry->call('mail/canApplyFilters')) {
+                $sess['filteravail'] = true;
+            }
+        } catch (Horde_Exception $e) {}
+
+        /* Is the 'tasks/listTasklists' call available? */
+        if ($conf['tasklist']['use_tasklist'] &&
+            $registry->hasMethod('tasks/listTasklists')) {
+            $sess['tasklistavail'] = true;
+        }
+
+        /* Is the 'notes/listNotepads' call available? */
+        if ($conf['notepad']['use_notepad'] &&
+            $registry->hasMethod('notes/listNotepads')) {
+            $sess['notepadavail'] = true;
+        }
+
+        /* Is the HTML editor available? */
+        $imp_ui = new IMP_UI_Compose();
+        $editor = $imp_ui->initRTE(null, true);
+        $sess['rteavail'] = $editor->supportedByBrowser();
+
+        /* Set view in session/cookie. */
+        $sess['view'] = empty($conf['user']['select_view'])
+            ? (empty($conf['user']['force_view']) ? 'imp' : $conf['user']['force_view'])
+            : (empty($sess['cache']['select_view']) ? 'imp' : $sess['cache']['select_view']);
+
+        setcookie('default_imp_view', $sess['view'], time() + 30 * 86400,
+                  $conf['cookie']['path'],
+                  $conf['cookie']['domain']);
+
+        /* Set up search information for the session. */
+        $GLOBALS['imp_search']->sessionSetup();
+
+        /* If the user wants to run filters on login, make sure they get
+           run. */
+        if ($GLOBALS['prefs']->getValue('filter_on_login')) {
+            /* Run filters. */
+            $imp_filter = new IMP_Filter();
+            $imp_filter->filter('INBOX');
+        }
+
+        /* Check for drafts due to session timeouts. */
+        $imp_compose = IMP_Compose::singleton();
+        $imp_compose->recoverSessionExpireDraft();
+
+        IMP_Auth::logMessage('login', __FILE__, __LINE__, PEAR_LOG_NOTICE);
     }
 
 }
