@@ -92,38 +92,6 @@
 //     }
 // }
 
-// Here is an example _imp_hook_vinfo function.
-//
-// If $type == 'username', this function returns a unique username composed of
-// username + vdomain. $data is set to the username.
-//
-// If $type == 'vdomain', this function returns the HTTP_HOST variable after
-// removing the 'mail.' subdomain. $data is null.
-//
-// ex. $HTTP_HOST = 'mail.mydomain.com', $username = 'myname':
-//   $vdomain  = 'mydomain.com'
-//   $username = 'myname_mydomain_com'
-//
-// Throw a Horde_Exception object on failure.
-
-// if (!function_exists('_imp_hook_vinfo')) {
-//     function _imp_hook_vinfo($type = 'username', $data = null)
-//     {
-//         $vdomain = Horde_String::lower(preg_replace('|^mail\.|i', '', getenv('HTTP_HOST')));
-//
-//         switch ($type) {
-//         case 'username':
-//             return preg_replace('|\.|', '_', $data . '_' . $vdomain);
-//
-//         case 'vdomain':
-//             return $vdomain;
-//
-//         default:
-//             throw new Horde_Exception('invalid type: ' . $type);
-//         }
-//     }
-// }
-
 // Here is an example of the _imp_hook_fetchmail_filter function to run
 // SpamAssassin on email before it is written to the mailbox.
 // Note: to use the spamassassin instead of spamd, change 'spamc' to

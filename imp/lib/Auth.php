@@ -201,14 +201,6 @@ class IMP_Auth
             'showunsub' => false
         );
 
-        /* Run the username through virtualhost expansion functions if
-         * necessary. */
-        if (!empty($conf['hooks']['vinfo'])) {
-            try {
-                $credentials['userId'] = Horde::callHook('_imp_hook_vinfo', array('username', $credentials['userId']), 'imp');
-            } catch (Horde_Exception $e) {}
-        }
-
         /* Load the server configuration. */
         $ptr = $GLOBALS['imp_imap']->loadServerConfig($credentials['server']);
         if ($ptr === false) {

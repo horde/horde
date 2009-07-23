@@ -278,10 +278,6 @@
 
  <configtab name="hooks" desc="Custom Hooks">
   <configsection name="hooks">
-   <configboolean name="vinfo" required="false" desc="Should we use a custom
-   virtual users hook? If so, make sure you define _imp_hook_vinfo() in
-   hooks.php. The hook will be used to set $_SESSION['imp']['user'] at login
-   time. There are examples in hooks.php.dist.">false</configboolean>
    <configboolean name="postsent" required="false" desc="Should we
    run a custom function after sending a message? If so, make sure you define
    _imp_hook_postsent() in hooks.php. The hook will be used to do anything
