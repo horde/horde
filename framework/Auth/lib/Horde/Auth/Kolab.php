@@ -22,10 +22,26 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
      *
      * @var array
      */
-    protected $capabilities = array(
+    protected $_capabilities = array(
         'add' => true,
+        'authenticate' => true,
         'list' => true
     );
+
+    /**
+     * Constructor.
+     *
+     * @param array $params  A hash containing parameters.
+     * @throws Horde_Auth_Exception
+     */
+    public function __construct($params = array())
+    {
+        if (!class_exists('Horde_Kolab_Session')) {
+            throw new Horde_Auth_Exception('The Horde_Kolab_Session class is not available.');
+        }
+
+        parent::__construct($params);
+    }
 
     /**
      * Find out if a set of login credentials are valid.
@@ -47,18 +63,16 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
 
         $params = array();
 
-        if (class_exists('Horde_Kolab_Session')) {
-            try {
-                $session = Horde_Kolab_Session::singleton($userId, $credentials, true);
-            } catch (Horde_Kolab_Server_MissingObjectException $e) {
-                throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
-            } catch (Exception $e) {
-                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
-                throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
-            }
-        } else {
-            throw new Horde_Auth_Exception('The class Horde_Kolab_Session is required for the Kolab auth driver but it is missing!', Horde_Auth::REASON_MESSAGE);
+        try {
+            $session = Horde_Kolab_Session::singleton($userId, $credentials, true);
+        } catch (Horde_Kolab_Server_MissingObjectException $e) {
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
+        } catch (Exception $e) {
+            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
+
+        $this->_credentials['userId'] = $session->user_mail;
 
         if (!isset($conf['auth']['params']) ||
             $conf['auth']['params']['login_block'] != 1) {
@@ -124,31 +138,6 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
     }
 
     /**
-     * Sets a variable in the session saying that authorization has succeeded,
-     * note which userId was authorized, and note when the login took place.
-     *
-     * The kolab driver rewrites UIDs into the correct mail addresses that
-     * need to be used to log into the IMAP server.
-     *
-     * @param string $userId            The userId who has been authorized.
-     * @param array $credentials        The credentials of the user.
-     * @param boolean $change           Whether to request that the user change
-     *                                  their password.
-     */
-    function setAuth($userId, $credentials, $change = false)
-    {
-        // TODO - setAuth doesn't exist in Horde_Auth_Base
-        //        This should probably use _username_hook_frombackend.
-
-        if (class_exists('Horde_Kolab_Session')) {
-            $session = Horde_Kolab_Session::singleton($userId);
-            $userId = $session->user_mail;
-        }
-
-        return parent::setAuth($userId, $credentials, $change);
-    }
-
-    /**
      * List Users
      *
      * @return array  List of Users
@@ -156,10 +145,6 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
      */
     public function listUsers()
     {
-        if (!class_exists('Horde_Kolab_Session')) {
-            throw new Horde_Auth_Exception('The Horde_Kolab_Session class is not available.');
-        }
-
         $session = Horde_Kolab_Session::singleton();
         $server = $session->getServer();
         if ($server instanceof PEAR_Error) {
@@ -170,6 +155,7 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
         foreach ($users as $user) {
             $mails[] = $user->get(KOLAB_ATTR_MAIL);
         }
+
         return $mails;
     }
 
@@ -183,10 +169,6 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
      */
     public function addUser($userId, $credentials)
     {
-        if (!class_exists('Horde_Kolab_Session')) {
-            throw new Horde_Auth_Exception('The Horde_Kolab_Session class is not available.');
-        }
-
         $session = Horde_Kolab_Session::singleton();
         $server = $session->getServer();
         if ($server instanceof PEAR_Error) {
@@ -199,9 +181,9 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
             return true;
         } else if ($result instanceof PEAR_Error) {
             return $result;
-        } else {
-            throw new Horde_Auth_Exception(sprintf('The new Kolab object is a %s rather than a ' . KOLAB_OBJECT_USER, get_class($result)));
         }
+
+        throw new Horde_Auth_Exception(sprintf('The new Kolab object is a %s rather than a ' . KOLAB_OBJECT_USER, get_class($result)));
     }
 
 }
