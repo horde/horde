@@ -378,17 +378,10 @@ class Horde_Auth
             return self::checkExistingAuth();
         }
 
-        if (empty($options['app'])) {
-            $auth = self::singleton($driver);
-        } else {
-            $auth = self::singleton('application', array('app' => $driver));
-
-            /* If we have a horde session, and the app doesn't need additional
-             * auth, mark that in the session and return. */
-            if ($is_auth && !$auth->hasCapability('authenticate')) {
-                return self::setAuth($is_auth, self::getCredential(), array('app' => $driver));
-            }
-        }
+        /* Try transparent authentication. */
+        $auth = empty($options['app'])
+            ? self::singleton($driver)
+            : self::singleton('application', array('app' => $driver));
 
         return $auth->transparent();
     }
@@ -639,13 +632,10 @@ class Horde_Auth
         $app = empty($options['app']) ? 'horde' : $options['app'];
         $userId = self::addHook(trim($userId));
 
-        if (!empty($GLOBALS['conf']['hooks']['postauthenticate'])) {
-            if (Horde::callHook('_horde_hook_postauthenticate', array($userId, $credentials, $app), 'horde') === false) {
-                if (self::getAuthError() != self::REASON_MESSAGE) {
-                    self::setAuthError(self::REASON_FAILED);
-                }
-                return false;
-            }
+        try {
+            list($userId, $credentials) = self::runHook($userId, $credentials, $app, 'postauthenticate');
+        } catch (Horde_Auth_Exception $e) {
+            return false;
         }
 
         $app_array = array();
@@ -815,6 +805,45 @@ class Horde_Auth
         return empty($GLOBALS['conf']['hooks']['username'])
             ? $userId
             : Horde::callHook('_username_hook_tobackend', array($userId));
+    }
+
+    /**
+     * Runs the pre/post-authenticate hook and parses the result.
+     *
+     * @param string $userId      The userId who has been authorized.
+     * @param array $credentials  The credentials of the user.
+     * @param string $app         The app currently being authenticated.
+     * @param string $type        Either 'preauthenticate' or
+     *                            'postauthenticate'.
+     *
+     * @return array  Two element array, $userId and $credentials.
+     * @throws Horde_Auth_Exception
+     */
+    static public function runHook($userId, $credentials, $app, $type)
+    {
+        $ret_array = array($userId, $credentials);
+
+        if (!empty($GLOBALS['conf']['hooks'][$type])) {
+            $result = Horde::callHook('_horde_hook_' . $type, array($userId, $credentials, $app), 'horde');
+            if ($result === false) {
+                if (self::getAuthError() != self::REASON_MESSAGE) {
+                    self::setAuthError(self::REASON_FAILED);
+                }
+                throw new Horde_Auth_Exception($type . ' hook failed');
+            }
+
+            if (is_array($result)) {
+                if (isset($result['userId'])) {
+                    $ret_array[0] = $result['userId'];
+                }
+
+                if (isset($result['credentials'])) {
+                    $ret_array[1] = $result['credentials'];
+                }
+            }
+        }
+
+        return $ret_array;
     }
 
     /**

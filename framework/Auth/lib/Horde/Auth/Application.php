@@ -47,11 +47,13 @@ class Horde_Auth_Application extends Horde_Auth_Base
      * Constructor.
      *
      * @param array $params  A hash containing connection parameters.
+     * @throws Horde_Exception
      */
     public function __construct($params = array())
     {
         Horde::assertDriverConfig($params, 'auth', array('app'), 'authentication application');
 
+        $this->_app = $params['app'];
         parent::__construct($params);
     }
 
@@ -70,7 +72,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
         if (!in_array($capability, $this->_loaded) &&
             isset($this->_apiMethods[$capability])) {
             $registry = Horde_Registry::singleton();
-            $this->_capabilities[$capability] = $registry->hasMethod($this->_apiMethods[$capability], $this->_params['app']);
+            $this->_capabilities[$capability] = $registry->hasMethod($this->_apiMethods[$capability], $this->_app);
             $this->_loaded[] = $capability;
         }
 
@@ -112,7 +114,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
     protected function _authenticate($userId, $credentials)
     {
         if (!$this->hasCapability('authenticate')) {
-            throw new Horde_Auth_Exception($this->_params['app'] . ' does not provide an authenticate() method.');
+            throw new Horde_Auth_Exception($this->_app . ' does not provide an authenticate() method.');
         }
 
         $registry = Horde_Registry::singleton();
@@ -120,8 +122,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
         $credentials['auth_ob'] = $this;
 
         try {
-            $result = $registry->callByPackage($this->_params['app'], $this->_apiMethods['authenticate'], array($userId, $credentials));
-            $this->_credentials['params']['app'] = $this->_params['app'];
+            $result = $registry->callByPackage($this->_app, $this->_apiMethods['authenticate'], array($userId, $credentials));
         } catch (Horde_Auth_Exception $e) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
@@ -137,7 +138,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
     {
         if ($this->hasCapability('list')) {
             $registry = Horde_Registry::singleton();
-            return $registry->callByPackage($this->_params['app'], $this->_apiMethods['list']);
+            return $registry->callByPackage($this->_app, $this->_apiMethods['list']);
         } else {
             return parent::listUsers();
         }
@@ -154,7 +155,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
     {
         if ($this->hasCapability('exists')) {
             $registry = Horde_Registry::singleton();
-            return $registry->callByPackage($this->_params['app'], $this->_apiMethods['exists'], array($userId));
+            return $registry->callByPackage($this->_app, $this->_apiMethods['exists'], array($userId));
         } else {
             return parent::exists($userId);
         }
@@ -172,7 +173,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
     {
         if ($this->hasCapability('add')) {
             $registry = Horde_Registry::singleton();
-            $registry->callByPackage($this->_params['app'], $this->_apiMethods['exists'], array($userId, $credentials));
+            $registry->callByPackage($this->_app, $this->_apiMethods['exists'], array($userId, $credentials));
         } else {
             parent::addUser($userId, $credentials);
         }
@@ -191,7 +192,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
     {
         if ($this->hasCapability('update')) {
             $registry = Horde_Registry::singleton();
-            $registry->callByPackage($this->_params['app'], $this->_apiMethods['update'], array($oldID, $newID, $credentials));
+            $registry->callByPackage($this->_app, $this->_apiMethods['update'], array($oldID, $newID, $credentials));
         } else {
             parent::updateUser($userId, $credentials);
         }
@@ -208,7 +209,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
     {
         if ($this->hasCapability('remove')) {
             $registry = Horde_Registry::singleton();
-            $registry->callByPackage($this->_params['app'], $this->_apiMethods['remove'], array($userId));
+            $registry->callByPackage($this->_app, $this->_apiMethods['remove'], array($userId));
             Horde_Auth::removeUserData($userId);
         } else {
             parent::removeUser($userId);
@@ -241,16 +242,15 @@ class Horde_Auth_Application extends Horde_Auth_Base
     protected function _transparent()
     {
         if (!$this->hasCapability('transparent')) {
-            return false;
+            /* If this application contains neither transparent nor
+             * authenticate capabilities, it does not require any
+             * authentication if already authenticated to Horde. */
+            return (Horde_Auth::getAuth() &&
+                    !$this->hasCapability('authenticate'));
         }
 
         $registry = Horde_Registry::singleton();
-        if (!$registry->callByPackage($this->_params['app'], $this->_apiMethods['transparent'])) {
-            return false;
-        }
-
-        $this->_credentials['params']['app'] = $this->_params['app'];
-        return true;
+        return $registry->callByPackage($this->_app, $this->_apiMethods['transparent']);
     }
 
     /**
@@ -269,7 +269,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
         }
 
         $registry = Horde_Registry::singleton();
-        return $registry->callByPackage($this->_params['app'], $this->_apiMethods['loginparams']);
+        return $registry->callByPackage($this->_app, $this->_apiMethods['loginparams']);
     }
 
     /**
@@ -307,7 +307,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
     {
         if ($this->hasCapability('authenticatecallback')) {
             $registry = Horde_Registry::singleton();
-            $registry->callByPackage($this->_params['app'], $this->_apiMethods['authenticatecallback']);
+            $registry->callByPackage($this->_app, $this->_apiMethods['authenticatecallback']);
         }
     }
 

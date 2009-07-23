@@ -50,6 +50,13 @@ abstract class Horde_Auth_Base
     );
 
     /**
+     * Current application for authentication.
+     *
+     * @param string
+     */
+    protected $_app = 'horde';
+
+    /**
      * Constructor.
      *
      * @param array $params  A hash containing parameters.
@@ -76,19 +83,17 @@ abstract class Horde_Auth_Base
         $auth = false;
         $userId = trim($userId);
 
-        if (!empty($GLOBALS['conf']['hooks']['preauthenticate'])) {
-            if (!Horde::callHook('_horde_hook_preauthenticate', array($userId, $credentials), 'horde')) {
-                if (Horde_Auth::getAuthError() != Horde_Auth::REASON_MESSAGE) {
-                    Horde_Auth::setAuthError(Horde_Auth::REASON_FAILED);
-                }
-                return $auth;
-            }
+        try {
+            list($userId, $credentials) = Horde_Auth::runHook($userId, $credentials, $this->_app, 'preauthenticate');
+         } catch (Horde_Auth_Exception $e) {
+            return false;
         }
 
         /* Store the credentials being checked so that subclasses can modify
          * them if necessary. */
         $this->_credentials['credentials'] = $credentials;
         $this->_credentials['userId'] = $userId;
+        $this->_credentials['params']['app'] = $this->_app;
 
         try {
             $this->_authenticate($userId, $credentials);
@@ -202,10 +207,20 @@ abstract class Horde_Auth_Base
      */
     public function transparent()
     {
+        $userId = empty($this->_credentials['userId'])
+            ? Horde_Auth::getAuth()
+            : $this->_credentials['userId'];
+        $credentials = empty($this->_credentials['credentials'])
+            ? Horde_Auth::getCredential()
+            : $this->_credentials['credentials'];
+
+        list($this->_credentials['userId'], $this->_credentials['credentials']) = Horde_Auth::runHook($userId, $credentials, $this->_app, 'preauthenticate');
+        $this->_credentials['params']['app'] = $this->_app;
+
         if ($this->_transparent()) {
             return Horde_Auth::setAuth(
-                empty($this->_credentials['userId']) ? Horde_Auth::getAuth() : $this->_credentials['userId'],
-                empty($this->_credentials['credentials']) ? Horde_Auth::getCredential() : $this->_credentials['credentials'],
+                $this->_credentials['userId'],
+                $this->_credentials['credentials'],
                 $this->_credentials['params']
             );
         }
