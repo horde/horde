@@ -303,7 +303,7 @@ class IMP_UI_Message
      *
      * @return string  String containing the formatted address list.
      */
-    public function buildAddressLinks($addrlist, $addURL = null, $link = false)
+    public function buildAddressLinks($addrlist, $addURL = null, $link = true)
     {
         global $prefs, $registry;
 
@@ -420,7 +420,7 @@ class IMP_UI_Message
      */
     public function formatStatusMsg($data)
     {
-        if (empty($data) || IMP::$printMode) {
+        if (empty($data)) {
             return '';
         }
 

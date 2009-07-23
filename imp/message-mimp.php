@@ -168,12 +168,12 @@ if (!empty($format_date)) {
 }
 
 /* Build From address links. */
-$display_headers['from'] = $imp_ui->buildAddressLinks($envelope['from']);
+$display_headers['from'] = $imp_ui->buildAddressLinks($envelope['from'], false);
 
 /* Build To/Cc/Bcc links. */
 foreach (array('to', 'cc', 'bcc') as $val) {
     $msgAddresses[] = $mime_headers->getValue($val);
-    $addr_val = $imp_ui->buildAddressLinks($envelope[$val]);
+    $addr_val = $imp_ui->buildAddressLinks($envelope[$val], false);
     if (!empty($addr_val)) {
         $display_headers[$val] = $addr_val;
     }

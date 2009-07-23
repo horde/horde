@@ -188,7 +188,6 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         /* Only display images if specifically allowed by user. */
         if ($inline &&
-            !IMP::$printMode &&
             $GLOBALS['prefs']->getValue('html_image_replacement') &&
             preg_match($this->_img_regex, $data)) {
             /* Make sure the URL parameters are correct for the current

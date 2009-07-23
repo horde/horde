@@ -6,8 +6,6 @@
  */
 
 var ImpMessage = {
-    // The following variables are defined in message.php:
-    //   printmode
 
     _arrowHandler: function(e)
     {
@@ -128,25 +126,13 @@ var ImpMessage = {
 
     onDomLoad: function()
     {
-        if (!this.printmode) {
-            // Set up left and right arrows to go to the previous/next page.
-            document.observe('keydown', this._arrowHandler.bindAsEventListener(this));
-            document.observe('change', this._changeHandler.bindAsEventListener(this));
-            document.observe('click', this._clickHandler.bindAsEventListener(this));
+        // Set up left and right arrows to go to the previous/next page.
+        document.observe('keydown', this._arrowHandler.bindAsEventListener(this));
+        document.observe('change', this._changeHandler.bindAsEventListener(this));
+        document.observe('click', this._clickHandler.bindAsEventListener(this));
 
-            if (Prototype.Browser.IE) {
-                this._messageActionsHover();
-            }
-        }
-    },
-
-    onLoad: function()
-    {
-        if (this.printmode) {
-            Event.observe(window, 'afterprint', function() { window.close(); });
-            try {
-                window.print();
-            } catch (e) {}
+        if (Prototype.Browser.IE) {
+            this._messageActionsHover();
         }
     },
 
@@ -179,6 +165,8 @@ var ImpMessage = {
                     this.submit('spam_report');
                 } else if (elt.hasClassName('notspamAction')) {
                     this.submit('notspam_report');
+                } else if (elt.hasClassName('printAction')) {
+                    window.print();
                 }
             } else if (elt.hasClassName('unblockImageLink')) {
                 IMP.unblockImages(e);
@@ -197,4 +185,3 @@ var ImpMessage = {
 };
 
 document.observe('dom:loaded', ImpMessage.onDomLoad.bind(ImpMessage));
-Event.observe(window, 'load', ImpMessage.onLoad.bind(ImpMessage));

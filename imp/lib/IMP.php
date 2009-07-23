@@ -34,9 +34,6 @@ class IMP
     /* IMP internal string used to separate indexes. */
     const IDX_SEP = '\0';
 
-    /* Are we currently in "print" mode? */
-    static public $printMode = false;
-
     /* Storage place for an altered version of the current URL. */
     static public $newUrl = null;
 
