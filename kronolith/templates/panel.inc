@@ -66,11 +66,13 @@ if ($cal->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
         . Horde::img('delete-small.png', _("Remove Tag"), '', $registry->getImageDir('horde'))
         . '</a>';
 }
-Horde_Ajax_Imple::getInstance(array('kronolith', 'TagActions'), array('triggerId' => 'remove' . md5($id . $tag_id),
-                                             'action' => 'delete',
-                                             'resource' => $id,
-                                             'type' => 'calendar',
-                                             'tagId' => $tag_id));
+$ta = Horde_Ajax_Imple::getInstance(array('kronolith', 'TagActions'),
+                                    array('triggerId' => 'remove' . md5($id . $tag_id),
+                                          'action' => 'delete',
+                                          'resource' => $id,
+                                          'type' => 'calendar',
+                                          'tagId' => $tag_id));
+$ta->attach();
 ?>
         </li>
         <?php endforeach;?>
@@ -80,11 +82,14 @@ Horde_Ajax_Imple::getInstance(array('kronolith', 'TagActions'), array('triggerId
       <div id="newtags-input_<?php echo $id?>_results" class="autocomplete"></div>
       <span id="newtags-input_<?php echo $id?>_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
      <?php
-      Horde_Ajax_Imple::getInstance(array('kronolith', 'TagAutoCompleter'), array('triggerId' => 'newtags-input_' . $id, 'id' => $id));
-      Horde_Ajax_Imple::getInstance(array('kronolith', 'TagActions'), array('triggerId' => 'newtags-button',
-                                                   'resource' => $id,
-                                                   'type' => 'calendar',
-                                                   'action' => 'add'));
+      $tac = Horde_Ajax_Imple::getInstance(array('kronolith', 'TagAutoCompleter'), array('triggerId' => 'newtags-input_' . $id, 'id' => $id));
+      $tac->attach();
+      $ta = Horde_Ajax_Imple::getInstance(array('kronolith', 'TagActions'),
+                                          array('triggerId' => 'newtags-button',
+                                                'resource' => $id,
+                                                'type' => 'calendar',
+                                                'action' => 'add'));
+      $ta->attach();
       ?>
   </div>
   </div>

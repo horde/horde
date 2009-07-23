@@ -379,7 +379,9 @@ endif;
    <input type="text" name="tags" id="tags" value="<?php echo (!empty($tags) ? htmlspecialchars($tags) : '')?>" size="40" />
    <div id="tags_results" name="tags_results" class="autocomplete"></div>
    <span id="tags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
-   <?php Horde_Ajax_Imple::getInstance(array('kronolith', 'TagAutoCompleter'), array('triggerId' => 'tags', 'id' => $event->getUID())); ?>
+   <?php $tac = Horde_Ajax_Imple::getInstance(array('kronolith', 'TagAutoCompleter'), array('triggerId' => 'tags', 'id' => $event->getUID()));
+         $tac->attach();
+   ?>
  </td>
 </tr>
 <!-- spacer -->
