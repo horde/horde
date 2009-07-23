@@ -22,6 +22,11 @@ class Horde_Service_Twitter_Request_Oauth extends Horde_Service_Twitter_Request
 
     public function get($url, $params = array())
     {
+        $key = md5($url . 'get' . serialize($params) . serialize($this->_twitter->auth->getAccessToken()));
+        $cache = $this->_twitter->responseCache;
+        if (!empty($cache) && $results = $cache->get($key, $this->_twitter->cacheLifetime)) {
+            return $results;
+        }
         $request = new Horde_Oauth_Request($url, $params);
         $request->sign($this->_twitter->auth->oauth->signatureMethod,
                        $this->_twitter->auth->oauth,
@@ -36,9 +41,19 @@ class Horde_Service_Twitter_Request_Oauth extends Horde_Service_Twitter_Request
             return '{"request":"' . $url . '", "error:", "' . $e->getMessage() . '"}';
         }
 
-        return $response->getBody();
+        $body = $response->getBody();
+        if (!empty($cache)) {
+            $cache->set($key, $body);
+        }
+
+        return $body;
     }
 
+    /**
+     * Send a POST request to the twitter API. Purposely do not cache results
+     * from these since POST requests alter data on the server.
+     *
+     */
     public function post($url, $params = array())
     {
         $request = new Horde_Oauth_Request($url, $params);

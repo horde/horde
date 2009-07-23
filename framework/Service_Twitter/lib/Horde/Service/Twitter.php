@@ -32,6 +32,9 @@ class Horde_Service_Twitter
      */
     protected $_responseCache;
 
+    protected $_cacheLifetime = 300;
+
+
     /**
      *
      * @var Horde_Log_Logger
@@ -83,6 +86,9 @@ class Horde_Service_Twitter
 
         if (!empty($config['cache'])) {
             $this->_responseCache = $config['cache'];
+            if (!empty($config['cache_lifetime'])) {
+                $this->_cacheLifetime = $config['cache_lifetime'];
+            }
         }
 
         if (!empty($config['logger'])) {
@@ -124,6 +130,10 @@ class Horde_Service_Twitter
             return $this->_auth;
         case 'request':
             return $this->_request;
+        case 'responseCache':
+            return $this->_responseCache;
+        case 'cacheLifetime':
+            return $this->_cacheLifetime;
         }
 
         // If not, assume it's a method/action class...

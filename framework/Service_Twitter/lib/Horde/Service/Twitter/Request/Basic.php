@@ -22,10 +22,20 @@ class Horde_Service_Twitter_Request_Basic extends Horde_Service_Twitter_Request
 
     public function get($url, $params = array())
     {
+        $key = md5($url . 'get' . serialize($params) . $this->_twitter->auth->username);
+        $cache = $this->_twitter->responseCache;
+        if (!empty($cache) && $results = $cache->get($key, $this->_twitter->cacheLifetime)) {
+            return $results;
+        }
         $client = new Horde_Http_Client();
         $response = $client->get($url, array('Authorization' => $this->_twitter->auth->buildAuthorizationHeader()));
 
-        return $response->getBody();
+        $body = $response->getBody();
+        if (!empty($cache)) {
+            $cache->set($key, $body);
+        }
+
+        return $body;
     }
 
     public function post($url, $params = array())
