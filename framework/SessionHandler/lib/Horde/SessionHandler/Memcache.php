@@ -114,9 +114,6 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
     protected function _open($save_path = null, $session_name = null)
     {
         $this->_memcache = Horde_Memcache::singleton();
-        if (is_a($this->_memcache, 'PEAR_Error')) {
-            throw new Horde_Exception($this->_memcache);
-        }
 
         if (isset($this->_persistent)) {
             if (!$this->_persistent->open($save_path, $session_name)) {

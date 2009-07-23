@@ -124,17 +124,17 @@ class Horde_Memcache
 
         /* Check if any of the connections worked. */
         if (empty($servers)) {
-            Horde::logMessage('Could not connect to any defined memcache servers.' , __FILE__, __LINE__, PEAR_LOG_ERR);
-        } else {
-            if (!empty($this->_params['c_threshold'])) {
-                $this->_memcache->setCompressThreshold($this->_params['c_threshold']);
-            }
-
-            // Force consistent hashing
-            ini_set('memcache.hash_strategy', 'consistent');
-
-            Horde::logMessage('Connected to the following memcache servers:' . implode($servers, ', '), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            throw new Horde_Exception('Could not connect to any defined memcache servers.');
         }
+
+        if (!empty($this->_params['c_threshold'])) {
+            $this->_memcache->setCompressThreshold($this->_params['c_threshold']);
+        }
+
+        // Force consistent hashing
+        ini_set('memcache.hash_strategy', 'consistent');
+
+        Horde::logMessage('Connected to the following memcache servers:' . implode($servers, ', '), __FILE__, __LINE__, PEAR_LOG_DEBUG);
     }
 
     /**
@@ -398,7 +398,7 @@ class Horde_Memcache
      * Get the statistics output from the current memcache pool.
      *
      * @return array  The output from Memcache::getExtendedStats() using the
-     *                current Horde configuration values.
+     *                current configuration values.
      */
     public function stats()
     {
