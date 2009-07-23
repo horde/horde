@@ -144,14 +144,12 @@ class Horde_Registry
             $_SESSION = array();
         } else {
             $this->setupSessionHandler();
-            $old_error = error_reporting(0);
             session_start();
             if ($session_flags & self::SESSION_READONLY) {
                 /* Close the session immediately so no changes can be
                    made but values are still available. */
                 session_write_close();
             }
-            error_reporting($old_error);
         }
 
         /* Initialize the localization routines and variables. We can't use
