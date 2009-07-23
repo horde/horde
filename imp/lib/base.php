@@ -130,15 +130,13 @@ if (!isset($GLOBALS['imp_imap'])) {
     $GLOBALS['imp_imap'] = new IMP_Imap();
 }
 
-if ($authentication !== 'none') {
-    // Initialize some message parsing variables.
-    Horde_Mime::$brokenRFC2231 = !empty($GLOBALS['conf']['mailformat']['brokenrfc2231']);
+// Initialize some message parsing variables.
+Horde_Mime::$brokenRFC2231 = !empty($GLOBALS['conf']['mailformat']['brokenrfc2231']);
 
-    // Set default message character set, if necessary
-    if ($def_charset = $GLOBALS['prefs']->getValue('default_msg_charset')) {
-        Horde_Mime_Part::$defaultCharset = $def_charset;
-        Horde_Mime_Headers::$defaultCharset = $def_charset;
-    }
+// Set default message character set, if necessary
+if ($def_charset = $GLOBALS['prefs']->getValue('default_msg_charset')) {
+    Horde_Mime_Part::$defaultCharset = $def_charset;
+    Horde_Mime_Headers::$defaultCharset = $def_charset;
 }
 
 $notification = Horde_Notification::singleton();
