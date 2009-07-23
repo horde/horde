@@ -6,8 +6,7 @@ if (isset($GLOBALS['language'])) {
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
 <?php
-echo (!empty($GLOBALS['language'])) ? '<html lang="' . strtr($GLOBALS['language'], '_', '-') . '"' : '<html';
-echo ((!empty($ie_clientcaps)) ? ' xmlns:IE>' : '>') . '<head>';
+echo (!empty($GLOBALS['language']) ? '<html lang="' . strtr($GLOBALS['language'], '_', '-') . '">' : '<html>') . '<head>';
 $page_title = $GLOBALS['registry']->get('name');
 if (!empty($title)) $page_title .= ' :: ' . $title;
 if (!empty($refresh_time) && !empty($refresh_url)) {
@@ -42,9 +41,7 @@ IMP::includeStylesheetFiles();
 <?php if (!Horde_Util::nonInputVar('login_page')): ?>
 <link href="<?php echo Horde::applicationUrl('search.php') ?>" rel="search" />
 <?php endif ?>
-<?php if (!empty($ie_clientcaps)): ?><style>IE\:clientcaps {behavior:url(#default#clientcaps)}</style><?php endif; ?>
 <?php Horde::outputInlineScript(); ?>
 </head>
 
 <body<?php if ($bc = Horde_Util::nonInputVar('bodyClass')) echo ' class="' . $bc . '"' ?><?php if ($bi = Horde_Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>
-<?php if (!empty($ie_clientcaps)): ?><IE:clientcaps ID="objCCaps" /><?php endif; ?>
