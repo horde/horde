@@ -273,7 +273,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
           <div id="msg_newwin_options"><span class="iconImg"></span><a><?php echo _("Open in new window") ?></a></div>
           <div id="msg_print"><?php echo Horde::img('print.png', '', '', $hordeimg) ?><a><?php echo _("Print") ?></a></div>
 <?php if (!empty($conf['user']['allow_view_source'])): ?>
-          <div id="msg_view_source"><span class="iconImg"></span><a><?php echo _("View Message Source") ?></a></div>
+          <div id="msg_view_source"><span class="iconImg"></span><a><?php echo _("View Source") ?></a></div>
 <?php endif; ?>
          </div>
          <div id="msgHeadersContent">
