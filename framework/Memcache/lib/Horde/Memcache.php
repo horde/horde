@@ -383,7 +383,7 @@ class Horde_Memcache
      */
     public function unlock($key)
     {
-        $this->_memcache->delete($this->_key($key . '_l'));
+        $this->_memcache->delete($this->_key($key . '_l'), 0);
     }
 
     /**
