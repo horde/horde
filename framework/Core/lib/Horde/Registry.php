@@ -342,8 +342,7 @@ class Horde_Registry
 
         $this->_cache['api'] = $this->_cache['type'] = array();
 
-        $apps = $this->listApps($status);
-        foreach ($apps as $app) {
+        foreach (array_keys($this->applications) as $app) {
             $_services = $_types = null;
             $api = $this->get('fileroot', $app) . '/lib/api.php';
             if (is_readable($api)) {
