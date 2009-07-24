@@ -62,14 +62,14 @@ class Text_Wiki_Mediawiki extends Text_Wiki {
 //        'Center',
         'List',
         'Deflist',
+//        'Strong',  ** will be only fake inserted by Emphasis if needed for render
+        'Emphasis', // must run before Newline (see Text_Wiki_Parse_Emphasis::parse())
         'Newline',
         'Paragraph',
         'Url',
 //        'Freelink',
 //        'Colortext',
-//        'Strong',  ** will be only fake inserted by Emphasis if needed for render
 //        'Bold',
-        'Emphasis',
 //        'Italic',
 //        'Underline',
         'Tt',

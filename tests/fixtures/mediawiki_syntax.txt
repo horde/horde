@@ -9,6 +9,16 @@ http://example.com/index.php
 
 '''Bold text''' and ''italic text'' and even '''''bold italic text'''''
 
+'''Bold text''' and ''italic text'' and even '''''bold italic text''''' some text '''bold then ''italic'' then bold''' more text ''italic then '''bold''' then italic again'' some text '''''bold and italic'''''
+
+'''''bold and italic'' and bold'''
+
+'''''bold and italic''' and italic''
+
+'''bold and ''bold and italic'''''
+
+''italic and '''bold and italic'''''
+
 =Level 1 heading=
 Lorem ipsum dolor sit amet, [http://exemple.com/index.php consectetur adipiscing] elit. Etiam commodo felis vitae sem convallis elementum vel a mauris. Sed rhoncus dapibus orci ullamcorper tempor. Mauris tortor ante, hendrerit ut scelerisque ut, aliquet blandit metus. Morbi fermentum vulputate mi ac sagittis. Suspendisse in vehicula mauris.
 

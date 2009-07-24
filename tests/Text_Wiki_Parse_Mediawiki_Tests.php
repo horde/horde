@@ -155,66 +155,78 @@ class Text_Wiki_Parse_Mediawiki_Deflist_Test extends Text_Wiki_Parse_Mediawiki_S
 }
 
 
-class Text_Wiki_Parse_Mediawiki_Emphasis_Test extends Text_Wiki_Parse_Mediawiki_SetUp_Tests
+class Text_Wiki_Parse_Mediawiki_Emphasis_Test extends PHPUnit_Framework_TestCase 
 {
-    
+
+    public function testMediawikiParseEmphasisParse()
+    {
+        $obj = $this->getMock('Text_Wiki_Parse_Emphasis', array('process'), array(), 'Text_Wiki_Parse_Emphasis_Parse_Mock', false);
+        $obj->wiki = $this->getMock('Text_Wiki');
+        $obj->wiki->source = file_get_contents(dirname(__FILE__) . '/fixtures/mediawiki_syntax.txt');
+
+        $lines = explode("\n", $obj->wiki->source);
+        $i = count($lines);
+        $obj->expects($this->exactly($i))->method('process');
+
+        $obj->parse();
+    }
+
     public function testMediawikiParseEmphasisProcess()
     {
-        $matches1 = array(0 => "''italic text''", 1 => "'", 2 => 'italic text');
-        $matches2 = array(0 => "'''Bold text'''", 1 => "''", 2 => 'Bold text');
-        $matches3 = array(0 => "''''unknow type''''", 1 => "'''", 2 => 'unknow type');
-        $matches4 = array(0 => "'''''bold and italic'''''", 1 => "''''", 2 => 'bold and italic');
+        $textwiki = Text_Wiki::factory('Mediawiki');
+        $obj = new Text_Wiki_Parse_Emphasis($textwiki);
 
-        $this->assertRegExp("/\d+?italic text\d+?/", $this->t->process($matches1));
-        $this->assertRegExp("/\d+?Bold text\d+?/", $this->t->process($matches2));
-        $this->assertRegExp("/\d+?'unknow type'\d+?/", $this->t->process($matches3));
-        $this->assertRegExp("/\d+?\d+?bold and italic\d+?\d+?/", $this->t->process($matches4));
-
-        $tokens = array(
-            0 => array(0 => 'Emphasis', 1 => array('type' => 'start')),
-            1 => array(0 => 'Emphasis', 1 => array('type' => 'end')),
-            2 => array(0 => 'Strong', 1 => array('type' => 'start')),
-            3 => array(0 => 'Strong', 1 => array('type' => 'end')),
-            4 => array(0 => 'Strong', 1 => array('type' => 'start')),
-            5 => array(0 => 'Strong', 1 => array('type' => 'end')),
-            6 => array(0 => 'Emphasis', 1 => array('type' => 'start')),
-            7 => array(0 => 'Strong', 1 => array('type' => 'start')),
-            8 => array(0 => 'Strong', 1 => array('type' => 'end')),
-            9 => array(0 => 'Emphasis', 1 => array('type' => 'end'))
+        $lines = array(
+            "'''Bold text''' and ''italic text'' and even '''''bold italic text'''''",
+            "'''Bold text''' and ''italic text'' and even '''''bold italic text''''' some text '''bold then ''italic'' then bold''' more text ''italic then '''bold''' then italic again'' some text '''''bold and italic'''''",
+            "'''''bold and italic''' and italic''",
+            "''italic and '''bold and italic'''''"
         );
 
-        $this->assertEquals(array_values($tokens), array_values($this->t->wiki->tokens));
-    }
-    
-    public function testMediawikiParseEmphasisRegex()
-    {
+        foreach ($lines as $line) {
+            $obj->process($line);
+        }
+
         $expectedResult = array(
-            0 => array(
-                0 => "'''Bold text'''",
-                1 => "''italic text''",
-                2 => "'''''bold italic text'''''",
-                3 => "'''Lorem ipsum dolor sit amet'''",
-                4 => "''adipiscing elit''",
-                5 => "'''''Etiam commodo felis'''''"
-            ),
-            1 => array(
-                0 => "''",
-                1 => "'",
-                2 => "''''",
-                3 => "''",
-                4 => "'",
-                5 => "''''",
-            ),
-            2 => array(
-                0 => 'Bold text',
-                1 => 'italic text',
-                2 => 'bold italic text',
-                3 => 'Lorem ipsum dolor sit amet',
-                4 => 'adipiscing elit',
-                5 => 'Etiam commodo felis'
-            )
+            14 => array(0 => 'Strong', 1 => array('type' => 'start')),
+            15 => array(0 => 'Strong', 1 => array('type' => 'end')),
+            16 => array(0 => 'Emphasis', 1 => array('type' => 'start')),
+            17 => array(0 => 'Emphasis', 1 => array('type' => 'end')),
+            18 => array(0 => 'Emphasis', 1 => array('type' => 'start')),
+            19 => array(0 => 'Strong', 1 => array('type' => 'start')),
+            20 => array(0 => 'Strong',1 => array('type' => 'end')),
+            21 => array(0 => 'Emphasis', 1 => array('type' => 'end')),
+            22 => array(0 => 'Strong', 1 => array('type' => 'start')),
+            23 => array(0 => 'Strong', 1 => array('type' => 'end')),
+            24 => array(0 => 'Emphasis', 1 => array('type' => 'start')),
+            25 => array(0 => 'Emphasis', 1 => array('type' => 'end')),
+            26 => array(0 => 'Emphasis', 1 => array('type' => 'start')),
+            27 => array(0 => 'Strong', 1 => array('type' => 'start')),
+            28 => array(0 => 'Strong', 1 => array('type' => 'end')),
+            29 => array(0 => 'Emphasis', 1 => array('type' => 'end')),
+            30 => array(0 => 'Strong', 1 => array('type' => 'start')),
+            31 => array(0 => 'Emphasis', 1 => array('type' => 'start')),
+            32 => array(0 => 'Emphasis', 1 => array('type' => 'end')),
+            33 => array(0 => 'Strong', 1 => array('type' => 'end')),
+            34 => array(0 => 'Emphasis', 1 => array('type' => 'start')),
+            35 => array(0 => 'Strong', 1 => array('type' => 'start')),
+            36 => array(0 => 'Strong', 1 => array('type' => 'end')),
+            37 => array(0 => 'Emphasis', 1 => array('type' => 'end')),
+            38 => array(0 => 'Emphasis', 1 => array('type' => 'start')),
+            39 => array(0 => 'Strong', 1 => array('type' => 'start')),
+            40 => array(0 => 'Strong', 1 => array('type' => 'end')),
+            41 => array(0 => 'Emphasis', 1 => array('type' => 'end')),
+            42 => array(0 => 'Emphasis', 1 => array('type' => 'start')),
+            43 => array(0 => 'Strong', 1 => array('type' => 'start')),
+            44 => array(0 => 'Strong', 1 => array('type' => 'end')),
+            45 => array(0 => 'Emphasis', 1 => array('type' => 'end')),
+            46 => array(0 => 'Emphasis', 1 => array('type' => 'start')),
+            47 => array(0 => 'Strong', 1 => array('type' => 'start')),
+            48 => array(0 => 'Strong', 1 => array('type' => 'end')),
+            49 => array(0 => 'Emphasis', 1 => array('type' => 'end')),
         );
-        $this->assertEquals($expectedResult, $this->matches);
+        
+        $this->assertEquals(array_values($expectedResult), array_values($obj->wiki->tokens));
     }
     
 }
