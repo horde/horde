@@ -96,8 +96,8 @@ function _ingo_perms()
  *
  * @return mixed  true on success | PEAR_Error on failure
  */
-function _ingo_removeUserData($user) {
-
+function _ingo_removeUserData($user)
+{
     if (!Horde_Auth::isAdmin() && $user != Horde_Auth::getAuth()) {
         return PEAR::raiseError(_("You are not allowed to remove user data."));
     }
