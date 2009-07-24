@@ -1488,8 +1488,8 @@ class IMP_Compose
         if ($attached == 1) {
             if (!($name = $headerob->getValue('subject'))) {
                 $name = _("[No Subject]");
-            } elseif (Horde_String::length($name) > 80) {
-                $name = Horde_String::substr($name, 0, 80) . '...';
+            } else {
+                $name = Horde_String::truncate($name, 80);
             }
             return 'Fwd: ' . $GLOBALS['imp_imap']->ob->utils->getBaseSubject($name, array('keepblob' => true));
         } else {

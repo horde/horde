@@ -513,7 +513,7 @@ class IMP_Contents
         $this->_build = $oldbuild;
 
         if (Horde_String::length($ptext) > $maxlen) {
-            return array('cut' => true, 'text' => Horde_String::substr($ptext, 0, $maxlen) . ' ...');
+            return array('cut' => true, 'text' => Horde_String::truncate($ptext, $maxlen));
         }
 
         return array('cut' => false, 'text' => $ptext);
