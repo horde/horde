@@ -236,9 +236,9 @@ class Text_Wiki_Parse_Mediawiki_Heading_Test extends Text_Wiki_Parse_Mediawiki_S
     
     public function testMediawikiParseHeadingProcess()
     {
-        $matches1 = array(0 => "======Level 6 heading======\n", 1 => '======', 2 => 'Level 6 heading');
-        $matches2 = array(0 => "=Level 1 heading=\n", 1 => '=', 2 => 'Level 1 heading');
-        $matches3 = array(0 => "==Level 2 heading==\n", 1 => '==', 2 => 'Level 2 heading');
+        $matches1 = array(0 => "======Level 6 heading======", 1 => '======', 2 => 'Level 6 heading');
+        $matches2 = array(0 => "=Level 1 heading=", 1 => '=', 2 => 'Level 1 heading');
+        $matches3 = array(0 => "==Level 2 heading==", 1 => '==', 2 => 'Level 2 heading');
 
         $this->assertRegExp("/\d+?Level 6 heading\d+?\n/", $this->t->process($matches1));
         $this->assertRegExp("/\d+?Level 1 heading\d+?\n/", $this->t->process($matches2));
@@ -259,7 +259,7 @@ class Text_Wiki_Parse_Mediawiki_Heading_Test extends Text_Wiki_Parse_Mediawiki_S
     public function testMediawikiParseHeadingRegex()
     {
         $expectedResult = array(
-            0 => array(0 => "=Level 1 heading=\n", 1 => "==Level 2 heading==\n", 2 => "==Level 2 heading==\n", 3 => "===Level 3 heading===\n", 4 => "====Level 4 heading====\n", 5 => "===Level 3 heading===\n", 6 => "===Level 3 heading===\n", 7 => "=====Level 5 heading=====\n", 8 => "======Level 6 heading======\n"),
+            0 => array(0 => "=Level 1 heading=", 1 => "==Level 2 heading==", 2 => "==Level 2 heading==", 3 => "===Level 3 heading===", 4 => "====Level 4 heading====", 5 => "===Level 3 heading===", 6 => "===Level 3 heading===", 7 => "=====Level 5 heading=====", 8 => "======Level 6 heading======"),
             1 => array(0 => '=', 1 => '==', 2 => '==', 3 => '===', 4 => '====', 5 => '===', 6 => '===', 7 => '=====', 8 => '======'),
             2 => array(0 => 'Level 1 heading', 1 => 'Level 2 heading', 2 => 'Level 2 heading', 3 => 'Level 3 heading', 4 => 'Level 4 heading', 5 => 'Level 3 heading', 6 => 'Level 3 heading', 7 => 'Level 5 heading', 8 => 'Level 6 heading')
         );
