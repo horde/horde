@@ -428,7 +428,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
             }
         }
 
-        return $true;
+        return true;
     }
 
 }
