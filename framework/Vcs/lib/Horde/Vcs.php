@@ -501,7 +501,11 @@ class Horde_Vcs
 
         if (!empty($this->_cache)) {
             // TODO: Can't use filemtime() - Git bare repos contain no files
-            $ctime = time() - filemtime($filename);
+            if (file_exists($filename)) {
+                $ctime = time() - filemtime($filename);
+            } else {
+                $ctime = 60;
+            }
             if ($this->_cache->exists($cacheId, $ctime)) {
                 $ob = unserialize($this->_cache->get($cacheId, $ctime));
                 $ob->setRepository($this);
@@ -558,7 +562,11 @@ class Horde_Vcs
 
         if (!empty($this->_cache)) {
             // TODO: Can't use filemtime() - Git bare repos contain no files
-            $ctime = time() - filemtime($filename);
+            if (file_exists($filename)) {
+                $ctime = time() - filemtime($filename);
+            } else {
+                $ctime = 60;
+            }
             if ($this->_cache->exists($cacheId, $ctime)) {
                 return unserialize($this->_cache->get($cacheId, $ctime));
             }
