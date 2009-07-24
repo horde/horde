@@ -2,9 +2,9 @@
 v3.0-git
 --------
 
-[mjr] The listTimeObjects API is now responsible for providing an optional link
-      for the event. It can also now provide a URL to an icon to display in the
-      event's title on the calendar view.
+[jan] Integrate tasks into Ajax interface (Gonçalo Queirós
+      <mail@goncaloqueiros.net>).
+[mjr] Extend listTimeObjects API to include optional links and icons.
 [jan] Allow searching of any type of calendar and improve searching of
       recurring events.
 [cjh] With only SHOW permissions, display event titles as "busy".

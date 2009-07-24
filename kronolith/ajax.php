@@ -124,6 +124,28 @@ try {
         }
         break;
 
+    case 'ListTasks':
+        if (!$registry->hasMethod('tasks/listTasks')) {
+            break;
+        }
+
+        $taskList = Horde_Util::getFormData('list');
+        $taskType  = Horde_Util::getFormData('taskType');
+        $tasks = $registry->call('tasks/listTasks',
+                                 array(null, null, null, $taskList, $taskType, true));
+        if (is_a($tasks, 'PEAR_Error')) {
+            $notification->push($tasks, 'horde.error');
+            break;
+        }
+
+        $result = new stdClass;
+        $result->taskList = $taskList;
+        $result->taskType = $taskType;
+        if (count($tasks)) {
+            $result->tasks = $tasks;
+        }
+        break;
+
     case 'GetEvent':
         if (!($kronolith_driver = getDriver(Horde_Util::getFormData('cal')))) {
             $result = true;
@@ -309,6 +331,27 @@ try {
         foreach ($tags as $tag) {
             $result->tags[] = $tag['tag_name'];
         }
+        break;
+
+    case 'ToggleCompletion':
+        if (!$registry->hasMethod('tasks/toggleCompletion')) {
+            break;
+        }
+        $taskList = Horde_Util::getFormData('taskList');
+        $taskType = Horde_Util::getFormData('taskType');
+        $taskId = Horde_Util::getFormData('taskId');
+        $saved = $registry->call('tasks/toggleCompletion',
+                                 array($taskId, $taskList));
+        if (is_a($saved, 'PEAR_Error')) {
+            $notification->push($saved, 'horde.error');
+            break;
+        }
+
+        $result = new stdClass;
+        $result->taskList = $taskList;
+        $result->taskType = $taskType;
+        $result->taskId = $taskId;
+        $result->toggled = true;
         break;
     }
 } catch (Exception $e) {

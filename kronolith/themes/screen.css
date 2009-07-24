@@ -1114,18 +1114,25 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
     margin-left: 2px;
 }
 #kronolithViewTasks tbody.kronolithViewBody td {
-    padding: 4px 4px 4px 20px;
-    background-image: url("graphics/checkbox_off.png");
-    background-position: 2px 3px;
-    background-repeat: no-repeat;
-    cursor: pointer;
+    padding: 4px 4px 4px 4px;
 }
-#kronolithViewTasks tbody.kronolithViewBody td.kronolithTaskCompleted, #kronolithViewTasks tbody.kronolithViewBody td:hover {
-    background-image: url("graphics/checkbox_on.png");
+#kronolithViewTasks tbody.kronolithViewBody div.kronolithTaskCheckbox {
+    background: url("graphics/checkbox_off.png") no-repeat;
+    cursor: pointer;
+    margin-right: 5px;
+    float: left;
+    width: 16px;
+    height: 16px
+}
+#kronolithViewTasks tbody.kronolithViewBody div.kronolithTaskCheckbox:hover {
+    background: url("graphics/checkbox_on.png") no-repeat;
 }
 #kronolithViewTasks tbody.kronolithViewBody td.kronolithTaskCompleted {
     color: #ccc;
     text-decoration: line-through;
+}
+#kronolithViewTasks tbody.kronolithViewBody td.kronolithTaskCompleted div {
+    background: url("graphics/checkbox_on.png") no-repeat;
 }
 #kronolithViewTasks tbody.kronolithViewBody td.kronolithTaskDue {
     color: #a00;
