@@ -40,7 +40,7 @@ $conf = &$GLOBALS['conf'];
 define('CHORA_TEMPLATES', $registry->get('templates'));
 
 // Notification system.
-$notification = &Horde_Notification::singleton();
+$notification = Horde_Notification::singleton();
 $notification->attach('status');
 
 // Initialize objects, path, etc.
