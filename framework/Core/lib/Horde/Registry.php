@@ -811,11 +811,11 @@ class Horde_Registry
          *  - To all authenticated users if no permission is set on $app.
          *  - To anyone who is allowed by an explicit ACL on $app. */
         if ($checkPerms) {
-            if (!Horde_Auth::isAuthenticated(array('app' => $app))) {
-                throw new Horde_Exception('User is not authorized', self::AUTH_FAILURE);
-            }
-
             if (!$this->hasPermission($app, PERMS_READ)) {
+                if (!Horde_Auth::isAuthenticated(array('app' => $app))) {
+                    throw new Horde_Exception('User is not authorized', self::AUTH_FAILURE);
+                }
+
                 Horde::logMessage(sprintf('%s does not have READ permission for %s', Horde_Auth::getAuth() ? 'User ' . Horde_Auth::getAuth() : 'Guest user', $app), __FILE__, __LINE__, PEAR_LOG_DEBUG);
                 throw new Horde_Exception(sprintf(_('%s is not authorized for %s.'), Horde_Auth::getAuth() ? 'User ' . Horde_Auth::getAuth() : 'Guest user', $this->applications[$app]['name']), 'permission_denied');
             }
@@ -861,7 +861,7 @@ class Horde_Registry
         Horde::callHook('_horde_hook_post_pushapp', array($app), 'horde');
 
         /* Do login tasks. */
-        if ($checkPerms && !empty($options['logintasks'])) {
+        if ($checkPerms && Horde_Auth::getAuth() && !empty($options['logintasks'])) {
             $tasks = Horde_LoginTasks::singleton($app, Horde::selfUrl(true, true, true));
             $tasks->runTasks();
         }
@@ -915,9 +915,17 @@ class Horde_Registry
      */
     public function hasPermission($app, $perms = PERMS_READ)
     {
-        return Horde_Auth::isAdmin() ||
-               !$GLOBALS['perms']->exists($app) ||
-               $GLOBALS['perms']->hasPermission($app, Horde_Auth::getAuth(), $perms);
+        // Admins always are authorized.
+        if (Horde_Auth::isAdmin()) { return true; }
+
+        // If there is no permission for $app, allow access for authenticated
+        // users.
+        if (!$GLOBALS['perms']->exists($app)) {
+            return Horde_Auth::isAuthenticated(array('app' => $app));
+        }
+
+        // Use the permission set for $app.
+        return $GLOBALS['perms']->hasPermission($app, Horde_Auth::getAuth(), $perms);
     }
 
     /**
