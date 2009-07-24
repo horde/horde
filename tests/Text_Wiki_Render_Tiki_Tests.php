@@ -431,9 +431,21 @@ class Text_Wiki_Render_Tiki_List_Test extends Text_Wiki_Render_Tiki_SetUp_Tests
         $this->assertEquals("\n***", $this->t->token($options));
     }
 
+    public function testTikiRenderBulletAndNumberedListEnd()
+    {
+        $options = array('type' => 'bullet_list_end', 'level' => 0);
+        $this->assertEquals("\n\n", $this->t->token($options));
+        $options = array('type' => 'number_list_end', 'level' => 0);
+        $this->assertEquals("\n\n", $this->t->token($options));
+        $options = array('type' => 'bullet_list_end', 'level' => 1);
+        $this->assertEquals("", $this->t->token($options));
+        $options = array('type' => 'bullet_list_end', 'level' => 1);
+        $this->assertEquals("", $this->t->token($options));
+    }
+
     public function testTikiRenderListOtherTypes()
     {
-        $otherTypes = array('bullet_item_end', 'number_item_end', 'bullet_list_start', 'number_list_start', 'bullet_list_end', 'number_list_end');
+        $otherTypes = array('bullet_item_end', 'number_item_end', 'bullet_list_start', 'number_list_start');
         foreach ($otherTypes as $type) {
             $options = array('type' => $type);
             $this->assertEquals('', $this->t->token($options));

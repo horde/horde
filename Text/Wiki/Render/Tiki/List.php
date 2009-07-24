@@ -30,12 +30,16 @@ class Text_Wiki_Render_Tiki_List extends Text_Wiki_Render {
         case 'number_item_start':
             return "\n".str_pad('', $options['level'], '#');
             break;
+        case 'bullet_list_end':
+        case 'number_list_end':
+            if ($options['level'] == 0) {
+                return "\n\n";
+            }
+            break;
         case 'bullet_item_end':
         case 'number_item_end':
         case 'bullet_list_start':
         case 'number_list_start':
-        case 'bullet_list_end':
-        case 'number_list_end':
         default:
             return '';
             break;
