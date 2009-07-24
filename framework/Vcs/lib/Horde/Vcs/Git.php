@@ -353,7 +353,7 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
 
         $dir = $this->queryDir();
         if (substr($dir, 0, 1) == '/') {
-            $dir = substr($dir, 1);
+            $dir = (string)substr($dir, 1);
         }
         if (strlen($dir) && substr($dir, -1) != '/') {
             $dir .= '/';
