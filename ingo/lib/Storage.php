@@ -364,4 +364,17 @@ class Ingo_Storage
         return $ob;
     }
 
+    /**
+     * Removes the user data from the storage backend.
+     * Stub for child class to override if it can implement.
+     *
+     * @param string $user The user name to delete filters for.
+     *
+     * @return mixed  True | PEAR_Error
+     */
+    function removeUserData($user)
+    {
+	return PEAR::raiseError(_("Removing user data is not supported with the current filter storage backend."));
+    }
+
 }

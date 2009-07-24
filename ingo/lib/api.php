@@ -13,6 +13,11 @@ $_services['perms'] = array(
     'args' => array(),
     'type' => '{urn:horde}stringArray');
 
+$_services['removeUserData'] = array(
+    'args' => array('user' => 'string'),
+    'type' => 'boolean'
+);
+
 $_services['blacklistFrom'] = array(
     'args' => array('addresses' => '{urn:horde}stringArray'),
     'type' => 'boolean',
@@ -82,6 +87,68 @@ function _ingo_perms()
             'ingo:max_rules' => 'int'
         )
     );
+}
+
+/**
+ * Removes user data.
+ *
+ * @param string $user  Name of user to remove data for.
+ *
+ * @return mixed  true on success | PEAR_Error on failure
+ */
+function _ingo_removeUserData($user) {
+
+    if (!Horde_Auth::isAdmin() && $user != Horde_Auth::getAuth()) {
+        return PEAR::raiseError(_("You are not allowed to remove user data."));
+    }
+
+    require_once dirname(__FILE__) . '/../lib/base.php';
+
+    /* Remove all filters/rules owned by the user. */
+    $result = $GLOBALS['ingo_storage']->removeUserData($user);
+    if (is_a($result, 'PEAR_Error')) {
+        Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+        return $result;
+    }
+
+    /* Now remove all shares owned by the user. */
+    if (!empty($GLOBALS['ingo_shares'])) {
+        /* Get the user's default share. */
+        $share = $GLOBALS['ingo_shares']->getShare($user);
+        if (is_a($share, 'PEAR_Error')) {
+            Horde::logMessage($share, __FILE__, __LINE__, PEAR_LOG_ERR);
+            return $share;
+        } else {
+            $result = $GLOBALS['ingo_shares']->removeShare($share);
+            if (is_a($result, 'PEAR_Error')) {
+                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                return $result;
+            }
+        }
+
+        /* Get a list of all shares this user has perms to and remove the
+         * perms. */
+        $shares = $GLOBALS['ingo_shares']->listShares($user);
+        if (is_a($shares, 'PEAR_Error')) {
+            Horde::logMessage($shares, __FILE__, __LINE__, PEAR_LOG_ERR);
+        }
+        foreach ($shares as $share) {
+            $share->removeUser($user);
+        }
+
+        /* Get a list of all shares this user owns and has perms to delete and
+         * remove them. */
+        $shares = $GLOBALS['ingo_shares']->listShares($user, PERMS_DELETE, $user);
+        if (is_a($shares, 'PEAR_Error')) {
+            Horde::logMessage($shares, __FILE__, __LINE__, PEAR_LOG_ERR);
+            return $shares;
+        }
+        foreach ($shares as $share) {
+            $GLOBALS['ingo_shares']->removeShare($share);
+        }
+    }
+
+    return true;
 }
 
 /**
