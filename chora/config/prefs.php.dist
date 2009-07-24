@@ -5,13 +5,6 @@
  * See horde/config/prefs.php for documentation on the structure of this file.
  */
 
-$prefGroups['logintasks'] = array(
-    'column' => _("Other Options"),
-    'label' => _("Login Tasks"),
-    'desc' => _("Customize tasks to run upon logging in to Chora."),
-    'members' => array('remember_last_file')
-);
-
 // last browse file/directory
 $_prefs['last_file'] = array(
     'value' => 0,
