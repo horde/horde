@@ -27,12 +27,3 @@ $_prefs['last_sourceroot'] = array(
     'shared' => false,
     'type' => 'implicit'
 );
-
-// show the last login time of user
-$_prefs['remember_last_file'] = array(
-    'value' => 1,
-    'locked' => false,
-    'shared' => false,
-    'type' => 'checkbox',
-    'desc' => _("Use last viewed file or directory at login time")
-);

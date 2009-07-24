@@ -70,17 +70,11 @@ class Chora
 
         /* Use the last sourceroot used as the default value if the user has
          * that preference. */
-        if ($remember = $GLOBALS['prefs']->getValue('remember_last_file')) {
-            $last_file = $GLOBALS['prefs']->getValue('last_file')
-                ? $GLOBALS['prefs']->getValue('last_file')
-                : null;
-            $last_sourceroot = $GLOBALS['prefs']->getValue('last_sourceroot')
-                ? $GLOBALS['prefs']->getValue('last_sourceroot')
-                : null;
-        }
+        $last_sourceroot = $GLOBALS['prefs']->getValue('last_sourceroot')
+            ? $GLOBALS['prefs']->getValue('last_sourceroot')
+            : null;
 
-        if ($remember &&
-            !empty($last_sourceroot) &&
+        if (!empty($last_sourceroot) &&
             !empty($sourceroots[$last_sourceroot]) &&
             is_array($sourceroots[$last_sourceroot])) {
             $defaultActs['rt'] = $last_sourceroot;
@@ -115,7 +109,7 @@ class Chora
         if (empty($GLOBALS['conf']['caching'])) {
             $cache = null;
         } else {
-            $cache = &Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+            $cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
         }
 
         $GLOBALS['conf']['paths']['temp'] = Horde::getTempDir();
