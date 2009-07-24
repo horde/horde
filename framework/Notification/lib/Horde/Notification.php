@@ -204,7 +204,7 @@ class Horde_Notification
 
         $options['listeners'] = array_map('strtolower', $options['listeners']);
 
-        if ($this->_alarm && in_array('status', $options['listeners'])) {
+        if ($this->_alarm && Horde_Auth::getAuth() && in_array('status', $options['listeners'])) {
             $this->_alarm->notify(Horde_Auth::getAuth());
         }
 
