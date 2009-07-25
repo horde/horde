@@ -616,7 +616,7 @@ if ($has_js) {
         $imp_ui->attachAutoCompleter($auto_complete);
         if (!empty($conf['spell']['driver'])) {
             try {
-                Horde_SpellChecker::getInstance($conf['spell']['driver'], array());
+                Horde_SpellChecker::factory($conf['spell']['driver'], array());
                 $spellcheck = true;
                 $imp_ui->attachSpellChecker('imp', true);
             } catch (Exception $e) {

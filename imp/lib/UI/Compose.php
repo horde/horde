@@ -97,7 +97,7 @@ class IMP_UI_Compose
     {
         /* Attach autocompleters to the compose form elements. */
         foreach ($fields as $val) {
-            $imple = Horde_Ajax_Imple::getInstance(array('imp', 'ContactAutoCompleter'), array('triggerId' => $val));
+            $imple = Horde_Ajax_Imple::factory(array('imp', 'ContactAutoCompleter'), array('triggerId' => $val));
             $imple->attach();
         }
     }
@@ -122,7 +122,7 @@ class IMP_UI_Compose
             )
         );
 
-        $imple = Horde_Ajax_Imple::getInstance('SpellChecker', $args);
+        $imple = Horde_Ajax_Imple::factory('SpellChecker', $args);
         $imple->attach();
     }
 

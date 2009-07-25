@@ -58,5 +58,5 @@ require KRONOLITH_TEMPLATES . '/common-header.inc';
 require KRONOLITH_TEMPLATES . '/menu.inc';
 echo $form->renderActive($form->getRenderer(), $vars, 'edit.php', 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';
-$ac = Horde_Ajax_Imple::getInstance(array('kronolith', 'TagAutoCompleter'), array('triggerId' => 'tags', 'id'));
+$ac = Horde_Ajax_Imple::factory(array('kronolith', 'TagAutoCompleter'), array('triggerId' => 'tags', 'id'));
 $ac->attach();

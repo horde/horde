@@ -49,7 +49,7 @@ class IMP_Quota
         $sig = hash('md5', serialize(array($driver, $params)));
 
         if (!isset(self::$_instances[$sig])) {
-            self::$_instances[$sig] = self::getInstance($driver, $params);
+            self::$_instances[$sig] = self::factory($driver, $params);
         }
 
         return self::$_instances[$sig];
@@ -65,7 +65,7 @@ class IMP_Quota
      * @return IMP_Quota  The concrete instance.
      * @throws Horde_Exception
      */
-    static public function getInstance($driver, $params = array())
+    static public function factory($driver, $params = array())
     {
         $driver = basename($driver);
         $class = 'IMP_Quota_' . ucfirst($driver);

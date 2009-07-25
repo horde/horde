@@ -26,7 +26,7 @@ function _doConnectionTest()
     $driver = ($_POST['server_type'] == 'imap') ? 'Socket' : 'Socket_Pop3';
 
     try {
-        $imap_client = Horde_Imap_Client::getInstance($driver, $imap_config);
+        $imap_client = Horde_Imap_Client::factory($driver, $imap_config);
     } catch (Horde_Imap_Client_Exception $e) {
         return _errorMsg($e);
     }

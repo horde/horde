@@ -124,7 +124,7 @@ class IMP_Fetchmail_imap extends IMP_Fetchmail
         );
 
         try {
-            $this->_ob = Horde_Imap_Client::getInstance(($protocols[$this->_params['protocol']]['string'] == 'imap') ? 'Socket' : 'Socket_Pop3', $imap_config);
+            $this->_ob = Horde_Imap_Client::factory(($protocols[$this->_params['protocol']]['string'] == 'imap') ? 'Socket' : 'Socket_Pop3', $imap_config);
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Exception(_("Cannot connect to the remote mail server: ") . $e->getMessage());
         }
