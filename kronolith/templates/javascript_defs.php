@@ -8,7 +8,7 @@ $charset = Horde_Nls::getCharset();
 /* Variables used in core javascript files. */
 $var = array(
     'view_url' => Horde::applicationUrl('view.php'),
-    'pref_api_url' => Horde::applicationUrl('pref_api.php', true),
+    'pref_api_url' => Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs/', true, -1),
     'calendar_info_url' => Horde::applicationUrl('calendars/info.php', true),
     'page_title' => $GLOBALS['registry']->get('name') . ' :: ',
 );

@@ -16,7 +16,7 @@ function table_sortCallback(tableId, column, sortDown)
 
 function doPrefsUpdate(column, sortDown)
 {
-    baseurl = '<?php echo Horde::applicationUrl('pref_api.php', true) ?>';
+    baseurl = '<?php echo Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs/', true, -1) ?>';
     try {
         column = column.substring(1);
         prefscope = 'class';
