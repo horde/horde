@@ -1,32 +1,18 @@
 <?php
 /**
- * Login task for upgrading contact lists after upgrading to Turba 2.2.
+ * Login system task for upgrading contact lists after upgrading to Turba 2.2.
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_LoginTasks
  */
-class Turba_LoginTasks_Task_UpgradeList extends Horde_LoginTasks_Task
+class Turba_LoginTasks_SystemTask_UpgradeList extends Horde_LoginTasks_SystemTask
 {
     /**
      * The interval at which to run the task.
      *
      * @var integer
      */
-    public $interval = Horde_LoginTasks::FIRST_LOGIN;
-
-    /**
-     * The style of the page output.
-     *
-     * @var integer
-     */
-    public $display = Horde_LoginTasks::DISPLAY_NONE;
-
-    /**
-     * The priority of the task.
-     *
-     * @var integer
-     */
-    public $priority = Horde_LoginTasks::PRIORITY_HIGH;
+    public $interval = Horde_LoginTasks::ONCE;
 
     /**
      * Cache array used in _updateShareName().
