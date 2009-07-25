@@ -234,16 +234,16 @@ function prefs_callback()
     }
 
     if ($prefs->isDirty('compose_popup')) {
-        $GLOBALS['notification']->push('if (window.parent.frames.horde_menu) window.parent.frames.horde_menu.location.reload();', 'javascript');
+        Horde::addInlineScript(array(
+            'if (window.parent.frames.horde_menu) window.parent.frames.horde_menu.location.reload();'
+        ));
     }
 }
 
-/* Make sure we have an active IMAP stream. */
-try {
-    $GLOBALS['registry']->call('mail/server');
-} catch (Horde_Exception $e) {
-    // TODO: Send to login screen
-    throw $e;
+/* Make sure we are authenticated here. */
+if (!Horde_Auth::isAuthenticated('imp')) {
+    // TODO: Handle this more gracefully
+    throw new Horde_Exception(_("Not authenticated to imp"));
 }
 
 /* Add necessary javascript files here (so they are added to the document
