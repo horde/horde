@@ -34,6 +34,10 @@ class IMP
     /* IMP internal string used to separate indexes. */
     const IDX_SEP = '\0';
 
+    /* Preferences constants. */
+    const PREF_NO_FOLDER = '\0nofolder';
+    const PREF_VTRASH = '\0vtrash';
+
     /* Storage place for an altered version of the current URL. */
     static public $newUrl = null;
 

@@ -8,9 +8,6 @@
  * @package Horde_Prefs
  */
 
-define('IMP_PREF_NO_FOLDER', '%nofolder');
-define('IMP_PREF_VTRASH', '%vtrash');
-
 function handle_sentmailselect($updated)
 {
     global $conf, $prefs, $identity;
@@ -46,7 +43,7 @@ function handlefolders($updated, $pref, $folder, $new)
         $folder = Horde_Util::getFormData($folder);
         if (isset($folder) && !$prefs->isLocked($pref)) {
             $new = Horde_String::convertCharset(Horde_Util::getFormData($new), Horde_Nls::getCharset(), 'UTF7-IMAP');
-            if ($folder == IMP_PREF_NO_FOLDER) {
+            if ($folder == IMP::PREF_NO_FOLDER) {
                 $prefs->setValue($pref, '');
             } else {
                 if (empty($folder) && !empty($new)) {
@@ -77,7 +74,7 @@ function handle_trashselect($updated)
     global $prefs;
     $ret = true;
 
-    if (Horde_Util::getFormData('trash') == IMP_PREF_VTRASH) {
+    if (Horde_Util::getFormData('trash') == IMP::PREF_VTRASH) {
         if ($prefs->isLocked('use_vtrash')) {
             $ret = false;
         } else {
