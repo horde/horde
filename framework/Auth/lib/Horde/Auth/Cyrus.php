@@ -234,7 +234,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
         );
 
         try {
-            $this->_ob = Horde_Imap_Client::getInstance('Socket', $imap_config);
+            $this->_ob = Horde_Imap_Client::factory('Socket', $imap_config);
             $this->_ob->login();
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Auth_Exception($e);

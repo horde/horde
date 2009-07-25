@@ -65,13 +65,14 @@ abstract class Horde_SpellChecker
      *                             instance.
      * @throws Horde_Exception
      */
-    static public function getInstance($driver, $params = array())
+    static public function factory($driver, $params = array())
     {
         $class = 'Horde_SpellChecker_' . Horde_String::ucfirst(basename($driver));
-        if (!class_exists($class)) {
-            throw new Horde_Exception('Driver ' . $driver . ' not found');
+        if (class_exists($class)) {
+            return new $class($params);
         }
-        return new $class($params);
+
+        throw new Horde_Exception('Driver ' . $driver . ' not found');
     }
 
     /**

@@ -34,7 +34,7 @@ class Horde_Ajax_Imple
      * @return Horde_Ajax_Imple_Base  The newly created concrete instance.
      * @throws Horde_Exception
      */
-    static public function getInstance($driver, $params = array())
+    static public function factory($driver, $params = array())
     {
         if (is_array($driver)) {
             list($app, $driv_name) = $driver;

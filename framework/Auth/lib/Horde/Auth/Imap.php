@@ -167,7 +167,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
                 'username' => $user
             );
 
-            $this->_ob = Horde_Imap_Client::getInstance('Socket', $imap_config);
+            $this->_ob = Horde_Imap_Client::factory('Socket', $imap_config);
         }
 
         return $this->_ob;

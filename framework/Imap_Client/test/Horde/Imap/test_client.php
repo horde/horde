@@ -103,7 +103,7 @@ if (@include_once 'Benchmark/Timer.php') {
 // Add an ID field to send to server (ID extension)
 $params['id'] = array('name' => 'Horde_Imap_Client test program');
 
-$imap_client = Horde_Imap_Client::getInstance($driver, $params);
+$imap_client = Horde_Imap_Client::factory($driver, $params);
 if (($driver == 'Cclient_Pop3') ||
     ($driver == 'Socket_Pop3')) {
     $pop3 = true;

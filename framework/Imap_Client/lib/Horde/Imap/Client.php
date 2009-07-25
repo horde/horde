@@ -156,13 +156,14 @@ class Horde_Imap_Client
      *                                 instance.
      * @throws Horde_Imap_Client_Exception
      */
-    static public function getInstance($driver, $params = array())
+    static public function factory($driver, $params = array())
     {
-        $class = 'Horde_Imap_Client_' . strtr(basename($driver), '-', '_');
-        if (!class_exists($class)) {
-            throw new Horde_Imap_Client_Exception('Driver ' . $driver . ' not found', Horde_Imap_Client_Exception::DRIVER_NOT_FOUND);
+        $class = 'Horde_Imap_Client_' . strtr(ucfirst(basename($driver)), '-', '_');
+        if (class_exists($class)) {
+            return new $class($params);
         }
-        return new $class($params);
+
+        throw new Horde_Imap_Client_Exception('Driver ' . $driver . ' not found', Horde_Imap_Client_Exception::DRIVER_NOT_FOUND);
     }
 
 }

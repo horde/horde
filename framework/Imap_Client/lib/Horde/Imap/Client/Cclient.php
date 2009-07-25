@@ -1632,7 +1632,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
     protected function _getSocket()
     {
         if (!isset($this->_socket)) {
-            $this->_socket = Horde_Imap_Client::getInstance('Socket', $this->_params);
+            $this->_socket = Horde_Imap_Client::factory('Socket', $this->_params);
         }
         return $this->_socket;
     }
