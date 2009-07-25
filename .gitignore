@@ -31,4 +31,5 @@ imp/config/*.txt
 ingo/config/*.php
 jeta/config/*.php
 kronolith/config/*.php
+nag/config/*.php
 turba/config/*.php
