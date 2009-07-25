@@ -136,26 +136,8 @@ class Chora
         /* Location relative to the sourceroot. */
         $where = preg_replace(array('|^/|', '|\.\.|'), '', $where);
 
-        /* Store last file/repository viewed, and set 'where' to
-         * last_file if necessary. */
-        if ($remember) {
-            if (!isset($_SESSION['chora']['login'])) {
-                $_SESSION['chora']['login'] = 0;
-            }
-
-            /* We store last_sourceroot and last_file only when we have
-             * already displayed at least one page. */
-            if (!empty($_SESSION['chora']['login'])) {
-                $GLOBALS['prefs']->setValue('last_sourceroot', $acts['rt']);
-                $GLOBALS['prefs']->setValue('last_file', $where);
-            } else {
-                /* We are displaying the first page. */
-                if ($last_file && !$where) {
-                    $where = $last_file;
-                }
-                $_SESSION['chora']['login'] = 1;
-            }
-        }
+        /* Store last repository viewed */
+        $GLOBALS['prefs']->setValue('last_sourceroot', $acts['rt']);
 
         $fullname = $sourcerootopts['location'] . (substr($sourcerootopts['location'], -1) == '/' ? '' : '/') . $where;
 
@@ -226,9 +208,6 @@ class Chora
         if (is_a($message, 'Horde_Vcs_Exception')) {
             $message = $message->getMessage();
         }
-
-        /* Don't store the bad file in the user's preferences. */
-        $GLOBALS['prefs']->setValue('last_file', '');
 
         if ($code) {
             header('HTTP/1.0 ' . $code);
