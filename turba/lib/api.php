@@ -232,7 +232,7 @@ function _turba_removeUserData($user)
     }
 
     /* Only attempt share removal if we have shares configured */
-    if ($_SESSION['turba']['has_share']) {
+    if (!empty($_SESSION['turba']['has_share'])) {
         $shares = &$GLOBALS['turba_shares']->listShares(
             $user, PERMS_EDIT, $user);
 
