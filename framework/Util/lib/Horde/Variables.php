@@ -43,7 +43,7 @@ class Horde_Variables
     /**
      * TODO
      */
-    public function &getDefaultVariables()
+    public function getDefaultVariables()
     {
         $vars = new Horde_Variables(null);
         return $vars;
