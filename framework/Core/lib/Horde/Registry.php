@@ -777,7 +777,8 @@ class Horde_Registry
      *                 DEFAULT: true
      * <pre>
      * 'logintasks' - (boolean) Perform login tasks? Only performed if
-     *                'check_perms' is also true.
+     *                'check_perms' is also true. System tasks are always
+     *                peformed if the user is authorized.
      *                DEFAULT: false
      * </pre>
      *
@@ -798,7 +799,7 @@ class Horde_Registry
         if (!isset($this->applications[$app]) ||
             $this->applications[$app]['status'] == 'inactive' ||
             ($this->applications[$app]['status'] == 'admin' && !Horde_Auth::isAdmin())) {
-            throw new Horde_Exception($app . ' is not activated.', 'not_active');
+            throw new Horde_Exception($app . ' is not activated.', self::NOT_ACTIVE);
         }
 
         $checkPerms = !isset($options['check_perms']) || !empty($options['check_perms']);
@@ -809,15 +810,13 @@ class Horde_Registry
          *  - To all admins.
          *  - To all authenticated users if no permission is set on $app.
          *  - To anyone who is allowed by an explicit ACL on $app. */
-        if ($checkPerms) {
-            if (!$this->hasPermission($app, PERMS_READ)) {
-                if (!Horde_Auth::isAuthenticated(array('app' => $app))) {
-                    throw new Horde_Exception('User is not authorized', self::AUTH_FAILURE);
-                }
-
-                Horde::logMessage(sprintf('%s does not have READ permission for %s', Horde_Auth::getAuth() ? 'User ' . Horde_Auth::getAuth() : 'Guest user', $app), __FILE__, __LINE__, PEAR_LOG_DEBUG);
-                throw new Horde_Exception(sprintf(_('%s is not authorized for %s.'), Horde_Auth::getAuth() ? 'User ' . Horde_Auth::getAuth() : 'Guest user', $this->applications[$app]['name']), 'permission_denied');
+        if ($checkPerms && !$this->hasPermission($app, PERMS_READ)) {
+            if (!Horde_Auth::isAuthenticated(array('app' => $app))) {
+                throw new Horde_Exception('User is not authorized', self::AUTH_FAILURE);
             }
+
+            Horde::logMessage(sprintf('%s does not have READ permission for %s', Horde_Auth::getAuth() ? 'User ' . Horde_Auth::getAuth() : 'Guest user', $app), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            throw new Horde_Exception(sprintf(_('%s is not authorized for %s.'), Horde_Auth::getAuth() ? 'User ' . Horde_Auth::getAuth() : 'Guest user', $this->applications[$app]['name']), self::PERMISSION_DENIED);
         }
 
         /* Set up autoload paths for the current application. This needs to
@@ -860,9 +859,9 @@ class Horde_Registry
         Horde::callHook('_horde_hook_post_pushapp', array($app), 'horde');
 
         /* Do login tasks. */
-        if ($checkPerms && Horde_Auth::getAuth() && !empty($options['logintasks'])) {
+        if (Horde_Auth::getAuth()) {
             $tasks = Horde_LoginTasks::singleton($app, Horde::selfUrl(true, true, true));
-            $tasks->runTasks();
+            $tasks->runTasks(array('runtasks' => $checkPerms && !empty($options['logintasks'])));
         }
 
         return true;

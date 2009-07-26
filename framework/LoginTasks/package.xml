@@ -24,13 +24,16 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Renamed Maintenance:: -> Horde_LoginTasks::.
+ <notes>* Added system tasks.
+ * Added ONCE interval.
+ * Renamed Maintenance:: -> Horde_LoginTasks::.
  * Initial Horde 4 package.</notes>
  <contents>
   <dir name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="LoginTasks">
+     <file name="SystemTask.php" role="php" />
      <file name="Task.php" role="php" />
      <file name="Tasklist.php" role="php" />
      </dir> <!-- /lib/Horde/LoginTasks -->
@@ -55,6 +58,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/LoginTasks/SystemTask.php" as="Horde/LoginTasks/SystemTask.php" />
    <install name="lib/Horde/LoginTasks/Task.php" as="Horde/LoginTasks/Task.php" />
    <install name="lib/Horde/LoginTasks/Tasklist.php" as="Horde/LoginTasks/Tasklist.php" />
    <install name="lib/Horde/LoginTasks.php" as="Horde/LoginTasks.php" />

@@ -67,7 +67,7 @@ class Horde_LoginTasks
      * if no instance with the same parameters currently exists.
      *
      * This method must be invoked as:
-     *   $var = &Horde_LoginTasks::singleton($app[, $params]);
+     *   $var = Horde_LoginTasks::singleton($app[, $params]);
      *
      * @param string $app  See self::__construct().
      * @param string $url  The URL to redirect to when finished.
@@ -102,7 +102,7 @@ class Horde_LoginTasks
             $this->_tasklist = @unserialize($_SESSION['horde_logintasks'][$app]);
         }
 
-        if (is_null($this->_tasklist) || ($this->_tasklist === false)) {
+        if (empty($this->_tasklist)) {
             $this->_createTaskList($url);
             $this->_init = true;
         }
@@ -129,34 +129,39 @@ class Horde_LoginTasks
         /* Create a new Horde_LoginTasks_Tasklist object. */
         $this->_tasklist = new Horde_LoginTasks_Tasklist($url);
 
-        /* Get last task run date(s). */
-        $old_error = error_reporting();
-        $last_logintasks = unserialize($GLOBALS['prefs']->getValue('last_logintasks'));
-        error_reporting($old_error);
-        if (!is_array($last_logintasks)) {
-            $last_logintasks = array();
+        /* Get last task run date(s). Array keys are app names, values are
+         * last run timestamps. Special key '_once' contains list of
+         * ONCE tasks previously run. */
+        $lasttask_pref = @unserialize($GLOBALS['prefs']->getValue('last_logintasks'));
+        if (!is_array($lasttask_pref)) {
+            $lasttask_pref = array();
         }
 
-        /* If this application handles Horde auth, need to add Horde tasks
-         * here. */
+        /* Add Horde tasks here if not yet run. */
         $app_list = array($this->_app);
         if (($this->_app != 'horde') &&
             !isset($_SESSION['horde_logintasks']['horde'])) {
             array_unshift($app_list, 'horde');
         }
 
+        $lasttasks = $tasks = array();
+
         foreach ($app_list as $app) {
             $fileroot = $GLOBALS['registry']->get('fileroot', $app);
-            if (!is_null($fileroot) &&
-                is_dir($fileroot . '/lib/LoginTasks/Task')) {
-                foreach (scandir($fileroot . '/lib/LoginTasks/Task') as $file) {
-                    $classname = $app . '_LoginTasks_Task_' . basename($file, '.php');
-                    if (class_exists($classname)) {
-                        $tasks[$classname] = $app;
-                        if (!isset($lasttasks[$app])) {
-                            $lasttasks[$app] = empty($last_logintasks[$app])
-                                ? 0
-                                : getdate($last_logintasks[$app]);
+            if (!is_null($fileroot)) {
+                foreach (array('SystemTask', 'Task') as $val) {
+                    if (is_dir($fileroot . '/lib/LoginTasks/' . $val)) {
+                        foreach (scandir($fileroot . '/lib/LoginTasks/' . $val) as $file) {
+                            $classname = $app . '_LoginTasks_' . $val . '_' . basename($file, '.php');
+                            if (class_exists($classname)) {
+                                $tasks[$classname] = $app;
+
+                                if (!isset($lasttasks[$app])) {
+                                    $lasttasks[$app] = empty($lasttask_pref[$app])
+                                        ? 0
+                                        : getdate($lasttask_pref[$app]);
+                                }
+                            }
                         }
                     }
                 }
@@ -208,9 +213,9 @@ class Horde_LoginTasks
                     break;
 
                 case self::ONCE:
-                    $addtask = empty($lasttasks['_once']) || !in_array($classname, $lasttasks['_once']);
-                    $lasttasks['_once'][] = $classname;
-                    $GLOBALS['prefs']->setValue('last_logintasks', serialize($lasttasks));
+                    $addtask = empty($lasttask_pref['_once']) || !in_array($classname, $lasttask_pref['_once']);
+                    $lasttask_pref['_once'][] = $classname;
+                    $GLOBALS['prefs']->setValue('last_logintasks', serialize($lasttask_pref));
                     break;
                 }
             }
@@ -228,19 +233,27 @@ class Horde_LoginTasks
      * login and will redirect to the login tasks page if necessary.  This is
      * the function that should be called from the application upon login.
      *
-     * @param boolean $confirmed  If true, indicates that any pending actions
-     *                            have been confirmed by the user.
+     * @param array $options  Options:
+     * <pre>
+     * 'confirmed' - (boolean) If true, indicates that any pending actions
+     *                         have been confirmed by the user.
+     * 'runtasks' - (boolean) If true, run all tasks. If false, only run
+     *                        system tasks.
+     * </pre>
      */
-    public function runTasks($confirmed = false)
+    public function runTasks($options = array())
     {
         if (!isset($this->_tasklist) ||
             ($this->_tasklist === true)) {
             return;
         }
 
+        $options['advance'] = $this->_init || !empty($options['confirmed']);
+
         /* Perform ready tasks now. */
-        foreach ($this->_tasklist->ready($this->_init || $confirmed) as $key => $val) {
-            if (in_array($val->display, array(self::DISPLAY_AGREE, self::DISPLAY_NOTICE, self::DISPLAY_NONE)) ||
+        foreach ($this->_tasklist->ready($options) as $key => $val) {
+            if ($val instanceof Horde_LoginTasks_SystemTask ||
+                in_array($val->display, array(self::DISPLAY_AGREE, self::DISPLAY_NOTICE, self::DISPLAY_NONE)) ||
                 Horde_Util::getFormData('logintasks_confirm_' . $key)) {
                 $val->execute();
             }
@@ -251,7 +264,7 @@ class Horde_LoginTasks
 
         /* If we've successfully completed every task in the list (or skipped
          * it), record now as the last time login tasks was run. */
-        if (empty($need_display)) {
+        if ($this->_tasklist->isDone()) {
             $lasttasks = unserialize($GLOBALS['prefs']->getValue('last_logintasks'));
             $lasttasks[$this->_app] = time();
             if (($this->_app != 'horde') &&

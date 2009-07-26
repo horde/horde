@@ -69,6 +69,10 @@ class Horde_LoginTasks_Tasklist
             'task' => $task
         );
 
+        if ($task instanceof Horde_LoginTasks_SystemTask) {
+            return;
+        }
+
         if (($task->display == Horde_LoginTasks::DISPLAY_AGREE) ||
             ($task->display == Horde_LoginTasks::DISPLAY_NOTICE)) {
             $tmp['display'] = true;
@@ -93,23 +97,32 @@ class Horde_LoginTasks_Tasklist
     /**
      * Returns the list of tasks to perform.
      *
+     * @param array $options  Options:
+     * <pre>
+     * 'advance' - (boolean) If true, mark ready tasks a completed.
+     * 'runtasks' - (boolean) If true, run all tasks. If false, only run
+     *              system tasks.
+     * </pre>
+     *
      * @param boolean $complete  Mark ready tasks as completed?
      *
      * @return array  The list of tasks to perform.
      */
-    public function ready($advance = false)
+    public function ready($options = array())
     {
         $tmp = array();
 
         reset($this->_tasks);
         while (list($k, $v) = each($this->_tasks)) {
-            if ($v['display'] && ($k > $this->_ptr)) {
+            if ((empty($options['runtasks']) &&
+                 ($v['task'] instanceof Horde_LoginTasks_Task)) ||
+                ($v['display'] && ($k > $this->_ptr))) {
                 break;
             }
             $tmp[] = $v['task'];
         }
 
-        if ($advance) {
+        if (!empty($options['advance'])) {
             $this->_tasks = array_slice($this->_tasks, $this->_ptr);
             $this->_ptr = 0;
         }
@@ -144,6 +157,16 @@ class Horde_LoginTasks_Tasklist
         }
 
         return $tmp;
+    }
+
+    /**
+     * Are all tasks complete?
+     *
+     * @return boolean  True if all tasks are complete.
+     */
+    public function isDone()
+    {
+        return ($this->_ptr == count($this->_tasks));
     }
 
 }
