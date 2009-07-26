@@ -26,6 +26,8 @@ class Horde_LoginTasks
     const EVERY = 5;
     // Do task on first login only.
     const FIRST_LOGIN = 6;
+    // Do task once only.
+    const ONCE = 7;
 
     /* Display styles. */
     const DISPLAY_CONFIRM_NO = 1;
@@ -182,7 +184,7 @@ class Horde_LoginTasks
                 /* If timestamp is empty (= 0), this is the first time the
                    user has logged in. Don't run any other login task
                    operations on the first login. */
-                $addtask = ($ob->interval == self::FIRST_LOGIN);
+                $addtask = in_array($ob->interval, array(self::FIRST_LOGIN, self::ONCE));
             } else {
                 switch ($ob->interval) {
                 case self::YEARLY:
@@ -203,6 +205,12 @@ class Horde_LoginTasks
 
                 case self::EVERY:
                     $addtask = true;
+                    break;
+
+                case self::ONCE:
+                    $addtask = empty($lasttasks['_once']) || !in_array($classname, $lasttasks['_once']);
+                    $lasttasks['_once'][] = $classname;
+                    $GLOBALS['prefs']->setValue('last_logintasks', serialize($lasttasks));
                     break;
                 }
             }
