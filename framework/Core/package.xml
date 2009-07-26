@@ -49,6 +49,9 @@ Application Framework.
     <dir name="Horde">
      <file name="Config.php" role="php" />
      <file name="ErrorHandler.php" role="php" />
+     <dir name="Exception">
+      <file name="HookNotSet.php" role="php" />
+     </dir> <!-- /lib/Horde/Exception -->
      <file name="Help.php" role="php" />
      <file name="Menu.php" role="php" />
      <file name="Registry.php" role="php" />
@@ -118,6 +121,7 @@ Application Framework.
   <filelist>
    <install name="lib/Horde/Config.php" as="Horde/Config.php" />
    <install name="lib/Horde/ErrorHandler.php" as="Horde/ErrorHandler.php" />
+   <install name="lib/Horde/Exception/HookNotSet.php" as="Horde/Exception/HookNotSet.php" />
    <install name="lib/Horde/Help.php" as="Horde/Help.php" />
    <install name="lib/Horde/Menu.php" as="Horde/Menu.php" />
    <install name="lib/Horde/Registry.php" as="Horde/Registry.php" />

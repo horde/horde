@@ -1774,40 +1774,50 @@ HTML;
     }
 
     /**
-     * Provides a standardised function to call a Horde hook, checking whether
-     * a hook config file exists and whether the function itself exists. If
-     * these two conditions are not satisfied it will return the specified
-     * value (by default a PEAR error).
+     * Call a Horde hook, handling all of the necessary lookups and parsing
+     * of the hook code.
      *
      * @param string $hook  The function to call.
      * @param array  $args  An array of any arguments to pass to the hook
      *                      function.
-     * @param string $app   If specified look for hooks in the config directory
-     *                      of this app.
+     * @param string $app   The hook application.
      *
      * @return mixed  The results of the hook.
+     * @throws Horde_Exception  Thrown on error from hook code.
+     * @throws Horde_Exception_HookNotSet  Thrown if hook is not active.
      */
     static public function callHook($hook, $args = array(), $app = 'horde')
     {
-        if (!isset(self::$_hooksLoaded[$app])) {
+        $error = false;
+        $hook_class = $app . '_Hooks';
+
+        if (!class_exists($hook_class)) {
             try {
                 self::loadConfiguration('hooks.php', null, $app);
-                self::$_hooksLoaded[$app] = true;
             } catch (Horde_Exception $e) {
-                self::logMessage($e, __FILE__, __LINE__, PEAR_LOG_DEBUG);
-                self::$_hooksLoaded[$app] = false;
+                $error = true;
             }
         }
 
-        if (!function_exists($hook)) {
-            self::logMessage(sprintf('Hook %s in application %s not called.', $hook, $app), __FILE__, __LINE__, PEAR_LOG_DEBUG);
-            return null;
+        if (class_exists($hook_class)) {
+            $hook_ob = new $hook_class;
+            $error = !method_exists($hook_ob, $hook);
+        } else {
+            $error = true;
+        }
+
+        if ($error) {
+            $error = sprintf('Hook %s in application %s not called.', $hook, $app);
+            self::logMessage($error, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            throw new Horde_Exception_HookNotSet($error);
         }
 
         try {
-            return call_user_func_array($hook, $args);
+            self::logMessage(sprintf('Hook %s in application %s called.', $hook, $app), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            return call_user_func_array(array($hook_ob, $hook), $args);
         } catch (Horde_Exception $e) {
             self::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw $e;
         }
     }
 
