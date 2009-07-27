@@ -277,7 +277,7 @@ var DimpCore = {
         var ptr = parent.frames.horde_main ? parent : window;
         ptr.location = this.addURLParam(url);
         if (force) {
-            setTimeout(ptr.location.reload(), 0.3);
+            setTimeout(function() { ptr.location.reload() }, 0.3);
         }
     },
 
