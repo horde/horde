@@ -235,6 +235,7 @@ KronolithCore = {
                     $('kronolithView' + locCap).appear({ 'queue': 'end', 'afterFinish': function() { this.viewLoading = false; }.bind(this) });
                 }
                 $('kronolithLoading' + loc).insert($('kronolithLoading').remove());
+                this.updateMinical(this.date, loc);
 
                 break;
 
