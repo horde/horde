@@ -68,7 +68,8 @@ class Identity_imp extends Identity
      */
     public function verify($identity = null)
     {
-        if (is_a($result = parent::verify($identity), 'PEAR_Error')) {
+        $result = parent::verify($identity);
+        if ($result instanceof PEAR_Error) {
             return $result;
         }
 

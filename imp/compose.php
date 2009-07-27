@@ -122,13 +122,13 @@ if ($token = Horde_Util::getFormData('compose_formToken')) {
         ? Horde_Token::factory($conf['token']['driver'], Horde::getDriverConfig('token', $conf['token']['driver']))
         : Horde_Token::factory('file');
 
-    $verified = $tokenSource->verify($token);
-    /* Notify and reset the actionID. */
-    if (is_a($verified, 'PEAR_Error')) {
-        $notification->push($verified);
-        $actionID = null;
-    } elseif (!$verified) {
-        $notification->push(_("You have already submitted this page."), 'horde.error');
+    try {
+        if (!$tokenSource->verify($token)) {
+            $notification->push(_("You have already submitted this page."), 'horde.error');
+            $actionID = null;
+        }
+    } catch (Horde_Exception $e) {
+        $notification->push($e->getMessage());
         $actionID = null;
     }
 }

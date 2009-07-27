@@ -36,12 +36,12 @@ function _getImportKey()
     }
 
     $res = $GLOBALS['browser']->wasFileUploaded('upload_key', _("key"));
-    if (!is_a($res, 'PEAR_Error')) {
-        return file_get_contents($_FILES['upload_key']['tmp_name']);
-    } else {
+    if ($res instanceof PEAR_Error) {
         $GLOBALS['notification']->push($res, 'horde.error');
         return;
     }
+
+    return file_get_contents($_FILES['upload_key']['tmp_name']);
 }
 
 function _actionWindow()
@@ -270,7 +270,7 @@ if ($openssl_check && $prefs->getValue('use_smime')) {
     }
     $t->set('personalkey-help', Horde_Help::link('imp', 'smime-overview-personalkey'));
 
-    $t->set('secure_check', is_a($secure_check, 'PEAR_Error'));
+    $t->set('secure_check', $secure_check instanceof PEAR_Error);
     if (!$t->get('secure_check')) {
         $t->set('has_key', $prefs->getValue('smime_public_key') && $prefs->getValue('smime_private_key'));
         if ($t->get('has_key')) {

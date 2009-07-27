@@ -47,12 +47,12 @@ function _getImportKey()
     }
 
     $res = $GLOBALS['browser']->wasFileUploaded('upload_key', _("key"));
-    if (!is_a($res, 'PEAR_Error')) {
-        return file_get_contents($_FILES['upload_key']['tmp_name']);
-    } else {
+    if ($res instanceof PEAR_Error) {
         $GLOBALS['notification']->push($res, 'horde.error');
         return;
     }
+
+    return file_get_contents($_FILES['upload_key']['tmp_name']);
 }
 
 function _textWindowOutput($filename, $msg)

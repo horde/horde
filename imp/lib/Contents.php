@@ -99,7 +99,7 @@ class IMP_Contents
      */
     static public function singleton($in)
     {
-        $sig = is_a($in, 'Horde_Mime_Part')
+        $sig = ($in instanceof Horde_Mime_Part)
             ? hash('md5', serialize($in))
             : $in;
 
@@ -119,7 +119,7 @@ class IMP_Contents
      */
     protected function __construct($in)
     {
-        if (is_a($in, 'Horde_Mime_Part')) {
+        if ($in instanceof Horde_Mime_Part) {
             $this->_message = $in;
         } else {
             list($this->_index, $this->_mailbox) = explode(IMP::IDX_SEP, $in);

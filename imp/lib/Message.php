@@ -522,7 +522,7 @@ class IMP_Message
 
         foreach ($partids as $partid) {
             $oldPart = $message->getPart($partid);
-            if (!is_a($oldPart, 'Horde_Mime_Part')) {
+            if (!($oldPart instanceof Horde_Mime_Part)) {
                 continue;
             }
             $newPart = new Horde_Mime_Part();

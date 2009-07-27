@@ -1550,7 +1550,7 @@ class IMP_Compose
         global $conf;
 
         $res = $GLOBALS['browser']->wasFileUploaded($name, _("attachment"));
-        if (is_a($res, 'PEAR_Error')) {
+        if ($res instanceof PEAR_Error) {
             throw new IMP_Compose_Exception($res);
         }
 
@@ -1687,7 +1687,7 @@ class IMP_Compose
             $result = $vfs_file
                 ? $vfs->write(self::VFS_ATTACH_PATH, $cacheID, $data, true)
                 : $vfs->writeData(self::VFS_ATTACH_PATH, $cacheID, $data, true);
-            if (is_a($result, 'PEAR_Error')) {
+            if ($result instanceof PEAR_Error) {
                 return $result;
             }
 
@@ -2134,7 +2134,7 @@ class IMP_Compose
                 $data = file_get_contents($att->getInformation('temp_filename'));
                 $res = $vfs->writeData($fullpath, escapeshellcmd($att->getName()), $data, true);
             }
-            if (is_a($res, 'PEAR_Error')) {
+            if ($res instanceof PEAR_Error) {
                 Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
                 return IMP_Compose_Exception($res);
             }
@@ -2408,7 +2408,7 @@ class IMP_Compose
         $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
         // TODO: Garbage collection?
         $result = $vfs->writeData(self::VFS_DRAFTS_PATH, hash('md5', Horde_Util::getFormData('user')), $body, true);
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceof PEAR_Error) {
             return;
         }
 
@@ -2428,7 +2428,7 @@ class IMP_Compose
         $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
         if ($vfs->exists(self::VFS_DRAFTS_PATH, $filename)) {
             $data = $vfs->read(self::VFS_DRAFTS_PATH, $filename);
-            if (is_a($data, 'PEAR_Error')) {
+            if ($data instanceof PEAR_Error) {
                 return;
             }
             $vfs->deleteFile(self::VFS_DRAFTS_PATH, $filename);

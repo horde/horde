@@ -562,7 +562,7 @@ case 'ShowPortal':
     $blocks = $linkTags = array();
     $css_load = array('imp' => true);
     foreach ($dimp_block_list as $title => $block) {
-        if (is_a($block['ob'], 'Horde_Block')) {
+        if ($block['ob'] instanceof Horde_Block) {
             $app = $block['ob']->getApp();
             $content = (empty($css_load[$app]) ? Horde::styleSheetLink($app, '', false) : '') . $block['ob']->getContent();
             $css_load[$app] = true;

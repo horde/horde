@@ -116,13 +116,13 @@ class IMP_Horde_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
 
         $img = Horde_Image::factory('Im', array('context' => array('tmpdir' => Horde::getTempdir(),
                                                                    'convert' => $GLOBALS['conf']['image']['convert'])));
-        if (is_a($img, 'PEAR_Error')) {
+        if ($img instanceof PEAR_Error) {
             return false;
         }
 
         if ($load) {
             $ret = $img->loadString(1, $this->_mimepart->getContents());
-            if (is_a($ret, 'PEAR_Error')) {
+            if ($ret instanceof PEAR_Error) {
                 return false;
             }
         }

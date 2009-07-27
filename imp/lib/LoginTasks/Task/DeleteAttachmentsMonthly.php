@@ -40,7 +40,7 @@ class IMP_LoginTasks_Task_DeleteAttachmentsMonthly extends Horde_LoginTasks_Task
 
         /* Make sure cleaning is done recursively. */
         $files = $vfs->listFolder($path, null, true, false, true);
-        if (is_a($files, 'PEAR_Error') || !is_array($files)) {
+        if (($files instanceof PEAR_Error) || !is_array($files)) {
             return false;
         }
 

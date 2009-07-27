@@ -260,13 +260,13 @@ EOD;
             $img = Horde_Image::factory('Gd', array('context' => $context));
         }
 
-        if (!$img || is_a($img, 'PEAR_Error')) {
+        if (!$img || ($img instanceof PEAR_Error)) {
             return false;
         }
 
         if ($load) {
             $ret = $img->loadString(1, $this->_mimepart->getContents());
-            if (is_a($ret, 'PEAR_Error')) {
+            if ($ret instanceof PEAR_Error) {
                 return false;
             }
         }

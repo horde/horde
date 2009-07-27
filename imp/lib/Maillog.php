@@ -57,7 +57,7 @@ class IMP_Maillog
              * is just a waste of time and a potential point of confusion,
              * especially since they most likely don't even know the message
              * is being logged. */
-            if (is_a($r, 'PEAR_Error')) {
+            if ($r instanceof PEAR_Error) {
                 $entry = sprintf('Could not log message details to Horde_History. Error returned: %s', $r->getMessage());
                 Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_ERR);
             }
@@ -78,7 +78,7 @@ class IMP_Maillog
         $history = Horde_History::singleton();
 
         $res = $history->getHistory(self::_getUniqueHistoryId($msg_id));
-        if (is_a($res, 'PEAR_Error')) {
+        if ($res instanceof PEAR_Error) {
             throw new Horde_Exception($res);
         }
 

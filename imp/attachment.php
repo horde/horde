@@ -55,7 +55,7 @@ if ($conf['compose']['link_attachments_notify']) {
     if ($vfsroot->exists($full_path, $file_name . '.notify')) {
         $delete_id = Horde_Util::getFormData('d');
         $read_id = $vfsroot->read($full_path, $file_name . '.notify');
-        if (is_a($read_id, 'PEAR_Error')) {
+        if ($read_id instanceof PEAR_Error) {
             Horde::logMessage($read_id, __FILE__, __LINE__, PEAR_LOG_ERR);
         } elseif ($delete_id == $read_id) {
             $vfsroot->deleteFile($full_path, $file_name);
@@ -67,7 +67,7 @@ if ($conf['compose']['link_attachments_notify']) {
         /* Create a random identifier for this file. */
         $id = uniqid(mt_rand());
         $res = $vfsroot->writeData($full_path, $file_name . '.notify', $id, true);
-        if (is_a($res, 'PEAR_Error')) {
+        if ($res instanceof PEAR_Error) {
             Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
         } else {
             /* Load $mail_user's preferences so that we can use their
@@ -108,7 +108,7 @@ if ($conf['compose']['link_attachments_notify']) {
 
 // Find the file's mime-type.
 $file_data = $vfsroot->read($full_path, $file_name);
-if (is_a($file_data, 'PEAR_Error')) {
+if ($file_data instanceof PEAR_Error) {
     Horde::logMessage($file_data, __FILE__, __LINE__, PEAR_LOG_ERR);
     throw new Horde_Exception(_("The specified file cannot be read."));
 }
