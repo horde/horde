@@ -937,13 +937,13 @@ KronolithCore = {
                 now = new Date();
             if (!now.isBefore(date)) {
                 col.addClassName('kronolithTaskDue');
-                col.insert(new Element('SPAN', { 'class': 'kronolithSep' }).update('&middot;'));
+                col.insert(new Element('SPAN', { 'class': 'kronolithSep' }).update(' &middot; '));
                 col.insert(new Element('SPAN', { 'class': 'kronolithDate' }).update(date.toString(Kronolith.conf.date_format)));
             }
         }
 
         if (!Object.isUndefined(task.value.sd)) {
-            col.insert(new Element('SPAN', { 'class': 'kronolithSep' }).update('&middot;'));
+            col.insert(new Element('SPAN', { 'class': 'kronolithSep' }).update(' &middot; '));
             col.insert(new Element('SPAN', { 'class': 'kronolithInfo' }).update(task.value.sd));
         }
 
