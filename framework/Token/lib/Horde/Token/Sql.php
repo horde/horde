@@ -90,13 +90,11 @@ class Horde_Token_Sql extends Horde_Token
     /**
      * Deletes all expired connection id's from the SQL server.
      *
-     * @return boolean  True on success, a PEAR_Error object on failure.
+     * @throws Horde_Exception
      */
     public function purge()
     {
-        if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_connect();
 
         /* Build SQL query. */
         $query = 'DELETE FROM ' . $this->_params['table']
@@ -106,20 +104,22 @@ class Horde_Token_Sql extends Horde_Token
 
         /* Return an error if the update fails. */
         $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $result;
+            throw new Horde_Exception($result);
         }
-
-        return true;
     }
 
     /**
      * TODO
+     *
+     * @return boolean  TODO
      */
     public function exists($tokenID)
     {
-        if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
+        try {
+            $this->_connect();
+        } catch (Horde_Exception $e) {
             return false;
         }
 
@@ -130,7 +130,7 @@ class Horde_Token_Sql extends Horde_Token
         $values = array($this->encodeRemoteAddress(), $tokenID);
 
         $result = $this->_db->getOne($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
             return false;
         } else {
@@ -140,12 +140,12 @@ class Horde_Token_Sql extends Horde_Token
 
     /**
      * TODO
+     *
+     * @throws Horde_Exception
      */
     public function add($tokenID)
     {
-        if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_connect();
 
         /* Build SQL query. */
         $query = 'INSERT INTO ' . $this->_params['table']
@@ -155,29 +155,24 @@ class Horde_Token_Sql extends Horde_Token
         $values = array($this->encodeRemoteAddress(), $tokenID, time());
 
         $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceof PEAR_Error) {
             Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $result;
+            throw new Horde_Exception($result);
         }
-
-        return true;
     }
 
     /**
      * Opens a connection to the SQL server.
      *
-     * @return boolean  True on success, a PEAR_Error object on failure.
+     * @throws Horde_Exception
      */
     protected function _connect()
     {
         if ($this->_connected) {
-            return true;
+            return;
         }
 
-        $result = Horde_Util::assertDriverConfig($this->_params, array('phptype'), 'token SQL', array('driver' => 'token'));
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        Horde_Util::assertDriverConfig($this->_params, array('phptype'), 'token SQL', array('driver' => 'token'));
 
         if (!isset($this->_params['database'])) {
             $this->_params['database'] = '';
@@ -199,8 +194,8 @@ class Horde_Token_Sql extends Horde_Token
         $this->_write_db = DB::connect($this->_params,
                                  array('persistent' => !empty($this->_params['persistent']),
                                        'ssl' => !empty($this->_params['ssl'])));
-        if (is_a($this->_write_db, 'PEAR_Error')) {
-            return $this->_write_db;
+        if ($this->_write_db instanceof PEAR_Error) {
+            throw new Horde_Exception($this->_write_db);
         }
 
         // Set DB portability options.
@@ -208,8 +203,10 @@ class Horde_Token_Sql extends Horde_Token
         case 'mssql':
             $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
             break;
+
         default:
             $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
+            break;
         }
 
         /* Check if we need to set up the read DB connection
@@ -219,8 +216,8 @@ class Horde_Token_Sql extends Horde_Token
             $this->_db = DB::connect($params,
                                      array('persistent' => !empty($params['persistent']),
                                            'ssl' => !empty($params['ssl'])));
-            if (is_a($this->_db, 'PEAR_Error')) {
-                return $this->_db;
+            if ($this->_db instanceof PEAR_Error) {
+                throw new Horde_Exception($this->_db);
             }
 
             // Set DB portability options.
@@ -228,8 +225,10 @@ class Horde_Token_Sql extends Horde_Token
             case 'mssql':
                 $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
                 break;
+
             default:
                 $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
+                break;
             }
 
         } else {
@@ -238,7 +237,6 @@ class Horde_Token_Sql extends Horde_Token
         }
 
         $this->_connected = true;
-        return true;
     }
 
 }

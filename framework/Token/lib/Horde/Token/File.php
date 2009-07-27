@@ -62,42 +62,41 @@ class Horde_Token_File extends Horde_Token
     /**
      * Deletes all expired connection id's from the SQL server.
      *
-     * @return boolean  True on success, a PEAR_Error object on failure.
+     * @throws Horde_Exception
      */
     public function purge()
     {
         // Make sure we have no open file descriptors before unlinking
         // files.
         if (!$this->_disconnect()) {
-            return PEAR::raiseError('Unable to close file descriptors');
+            throw new Horde_Exception('Unable to close file descriptors');
         }
 
         /* Build stub file list. */
         if (!($dir = opendir($this->_params['token_dir']))) {
-            return PEAR::raiseError('Unable to open token directory');
+            throw new Horde_Exception('Unable to open token directory');
         }
 
         /* Find expired stub files */
         while (($dirEntry = readdir($dir)) != '') {
-            if (preg_match('|^conn_\w{8}$|', $dirEntry) && (time() - filemtime($this->_params['token_dir'] . '/' . $dirEntry) >= $this->_params['timeout'])) {
-                if (!@unlink($this->_params['token_dir'] . '/' . $dirEntry)) {
-                    return PEAR::raiseError('Unable to purge token file.');
-                }
+            if (preg_match('|^conn_\w{8}$|', $dirEntry) && (time() - filemtime($this->_params['token_dir'] . '/' . $dirEntry) >= $this->_params['timeout']) &&
+                !@unlink($this->_params['token_dir'] . '/' . $dirEntry)) {
+                throw new Horde_Exception('Unable to purge token file.');
             }
         }
 
         closedir($dir);
-        return true;
     }
 
     /**
      * TODO
+     *
+     * @return boolean  TODO
+     * @throws Horde_Exception
      */
     public function exists($tokenID)
     {
-        if (is_a(($result = $this->_connect($tokenID)), 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_connect($tokenID);
 
         /* Find already used IDs. */
         $fileContents = file($this->_params['token_dir'] . '/conn_' . $this->encodeRemoteAddress());
@@ -115,43 +114,40 @@ class Horde_Token_File extends Horde_Token
 
     /**
      * TODO
+     *
+     * @throws Horde_Exception
      */
     public function add($tokenID)
     {
-        if (is_a(($result = $this->_connect($tokenID)), 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_connect($tokenID);
 
         /* Write the entry. */
         fwrite($this->_fd, "$tokenID\n");
 
         /* Return an error if the update fails, too. */
         if (!$this->_disconnect()) {
-            return PEAR::raiseError('Failed to close token file cleanly.');
+            throw new Horde_Exception('Failed to close token file cleanly.');
         }
-
-        return true;
     }
 
     /**
      * Opens a file descriptor to a new or existing file.
      *
-     * @return boolean  True on success, a PEAR_Error object on failure.
+     * @throws Horde_Exception
      */
     protected function _connect($tokenID)
     {
-        if (!$this->_connected) {
-
-            // Open a file descriptor to the token stub file.
-            $this->_fd = @fopen($this->_params['token_dir'] . '/conn_' . $this->encodeRemoteAddress(), 'a');
-            if (!$this->_fd) {
-                return PEAR::raiseError('Failed to open token file.');
-            }
-
-            $this->_connected = true;
+        if ($this->_connected) {
+            return;
         }
 
-        return true;
+        // Open a file descriptor to the token stub file.
+        $this->_fd = @fopen($this->_params['token_dir'] . '/conn_' . $this->encodeRemoteAddress(), 'a');
+        if (!$this->_fd) {
+            throw new Horde_Exception('Failed to open token file.');
+        }
+
+        $this->_connected = true;
     }
 
     /**

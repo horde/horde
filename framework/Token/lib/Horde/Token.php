@@ -39,8 +39,7 @@ class Horde_Token
      * @param array $params  A hash containing any additional configuration or
      *                       connection parameters a subclass might need.
      *
-     * @return Horde_Token  The newly created concrete Horde_Token instance, or
-     *                      false an error.
+     * @return Horde_Token  The newly created concrete Horde_Token instance.
      */
     static public function factory($driver, $params = array())
     {
@@ -83,8 +82,7 @@ class Horde_Token
      * @param array $params  A hash containing any additional configuration or
      *                       connection parameters a subclass might need.
      *
-     * @return Horde_Token  The concrete Horde_Token reference, or false on
-     *                      error.
+     * @return Horde_Token  The concrete Horde_Token reference.
      */
     static public function singleton($driver, $params = array())
     {
@@ -137,24 +135,23 @@ class Horde_Token
      * @param string $token  The value of the token to check.
      *
      * @return boolean  True if the token has not been used, false otherwise.
+     * @throws Horde_Exception
      */
     public function verify($token)
     {
         $this->purge();
-        $exists = $this->exists($token);
-        if (is_a($exists, 'PEAR_Error')) {
-            return $exists;
-        } elseif ($exists) {
+        if ($this->exists($token)) {
             return false;
-        } else {
-            return $this->add($token);
         }
+        return $this->add($token);
     }
 
     /**
      * This is an abstract method that should be overridden by a
      * subclass implementation. The base implementation allows all
      * token values.
+     *
+     * @throws Horde_Exception
      */
     public function exists()
     {
@@ -165,20 +162,22 @@ class Horde_Token
      * This is an abstract method that should be overridden by a
      * subclass implementation. The base implementation allows all
      * token values.
+     *
+     * @throws Horde_Exception
      */
     public function add()
     {
-        return true;
     }
 
     /**
      * This is an abstract method that should be overridden by a
      * subclass implementation. The base implementation allows all
      * token values.
+     *
+     * @throws Horde_Exception
      */
     public function purge()
     {
-        return true;
     }
 
 }
