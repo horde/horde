@@ -1,18 +1,6 @@
 <?xml version="1.0"?>
 <!-- $Id$ -->
 <configuration>
- <configtab name="menu" desc="Menu">
-  <configsection name="menu">
-   <configheader>Menu settings</configheader>
-   <configmultienum name="apps" desc="Select any applications that should be
-   linked in IMP's menu">
-    <values>
-     <configspecial name="list-horde-apps" />
-    </values>
-   </configmultienum>
-  </configsection>
- </configtab>
-
  <configtab name="user" desc="User Capabilities and Constraints">
   <configsection name="user">
    <configswitch name="allow_folders" desc="Should we allow users to use
@@ -333,6 +321,18 @@
      </values>
     </configmultienum>
    </configsection>
+  </configsection>
+ </configtab>
+
+ <configtab name="menu" desc="Menu">
+  <configsection name="menu">
+   <configheader>Menu settings</configheader>
+   <configmultienum name="apps" desc="Select any applications that should be
+   linked in IMP's menu">
+    <values>
+     <configspecial name="list-horde-apps" />
+    </values>
+   </configmultienum>
   </configsection>
  </configtab>
 </configuration>
