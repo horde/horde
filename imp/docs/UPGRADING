@@ -24,17 +24,17 @@ supported.
 TODO
 ----
 * servers.php has changed
+* hooks.php has changed
 * imp_hook_vinfo has been removed - use preauth hook instead
 * alternative_display, attachment_display, forward_default pref is gone.
-* imp_hook_spam_bounce -> imp_hook_spam_email
-* imp_hook_msglist_format hook has been removed - instead:
+* Hook: spam_bounce -> spam_email
+* msglist_format hook has been removed - instead:
 *  x-priority now handled in the core code
 *  old attachment icon handling see atc_flag pref
-*  imp_hook_msglist_flags hook now used to dynamically set flags on messages
+*  msglist_flags hook now used to dynamically set flags on messages
 * maintenance tasks
 * tos_agreement, gnupg, openssl, spellchecking (moved to Horde)
 * conf: alternate_login, redirect_on_logout moved to Horde.
-* preauth/postauth hooks - moved to Horde
 
 
 Upgrading IMP From 4.1.x To 4.2.x
