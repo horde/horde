@@ -114,46 +114,5 @@ try {
     Horde_Auth::authenticationFailureRedirect('imp', $e);
 }
 
-$conf = &$GLOBALS['conf'];
-if (!defined('IMP_TEMPLATES')) {
-    define('IMP_TEMPLATES', $registry->get('templates'));
-}
-
-// Start compression.
-if (!Horde_Util::nonInputVar('imp_no_compress')) {
-    Horde::compressOutput();
-}
-
-/* Some stuff that only needs to be initialized if we are authenticated. */
-// TODO: Remove once this can be autoloaded
-require_once 'Horde/Identity.php';
-
-// Initialize global $imp_imap object.
-if (!isset($GLOBALS['imp_imap'])) {
-    $GLOBALS['imp_imap'] = new IMP_Imap();
-}
-
-// Initialize some message parsing variables.
-Horde_Mime::$brokenRFC2231 = !empty($GLOBALS['conf']['mailformat']['brokenrfc2231']);
-
-// Set default message character set, if necessary
-if ($def_charset = $GLOBALS['prefs']->getValue('default_msg_charset')) {
-    Horde_Mime_Part::$defaultCharset = $def_charset;
-    Horde_Mime_Headers::$defaultCharset = $def_charset;
-}
-
-$notification = Horde_Notification::singleton();
-if ($viewmode == 'mimp') {
-    $GLOBALS['imp_notify'] = $notification->attach('status', null, 'Horde_Notification_Listener_Mobile');
-} else {
-    $GLOBALS['imp_notify'] = $notification->attach('status', array('viewmode' => $viewmode), 'IMP_Notification_Listener_Status');
-    if ($viewmode == 'imp') {
-        $notification->attach('audio');
-    }
-}
-
-// Initialize global $imp_mbox array.
-$GLOBALS['imp_mbox'] = IMP::getCurrentMailboxInfo();
-
-// Initialize IMP_Search object.
-$GLOBALS['imp_search'] = new IMP_Search(array('id' => (isset($_SESSION['imp']) && IMP_Search::isSearchMbox($GLOBALS['imp_mbox']['mailbox'])) ? $GLOBALS['imp_mbox']['mailbox'] : null));
+// All other initialization occurs in IMP::initialize().
+IMP::initialize();

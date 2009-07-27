@@ -17,6 +17,8 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
      */
     public function __construct()
     {
+        IMP::initialize();
+
         $this->active = $GLOBALS['prefs']->getValue('rename_sentmail_monthly');
         if ($this->active &&
             $GLOBALS['prefs']->isLocked('rename_sentmail_monthly')) {

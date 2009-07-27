@@ -17,6 +17,8 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
      */
     public function __construct()
     {
+        IMP::initialize();
+
         $this->active = $GLOBALS['prefs']->getValue('purge_trash');
         if ($this->active) {
             $this->interval = $GLOBALS['prefs']->getValue('purge_trash_interval');

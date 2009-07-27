@@ -18,6 +18,8 @@ class IMP_LoginTasks_Task_PurgeSpam extends Horde_LoginTasks_Task
      */
     public function __construct()
     {
+        IMP::initialize();
+
         $this->active = $GLOBALS['prefs']->getValue('purge_spam');
         if ($this->active) {
             $this->interval = $GLOBALS['prefs']->getValue('purge_spam_interval');

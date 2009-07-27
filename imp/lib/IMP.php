@@ -50,6 +50,68 @@ class IMP
     /* filesystemGC() cache. */
     static private $_dirlist = array();
 
+    /* Has init previously been called? */
+    static private $_init = false;
+
+    /**
+     * Performs IMP initialization.
+     */
+    static public function initialize()
+    {
+        if (self::$_init) {
+            return;
+        }
+
+        if (!defined('IMP_TEMPLATES')) {
+            $registry = Horde_Registry::singleton();
+            define('IMP_TEMPLATES', $registry->get('templates'));
+        }
+
+        // Start compression.
+        if (!Horde_Util::nonInputVar('imp_no_compress')) {
+            Horde::compressOutput();
+        }
+
+        // TODO: Remove once this can be autoloaded
+        require_once 'Horde/Identity.php';
+
+        // Initialize global $imp_imap object.
+        if (!isset($GLOBALS['imp_imap'])) {
+            $GLOBALS['imp_imap'] = new IMP_Imap();
+        }
+
+        // Initialize some message parsing variables.
+        Horde_Mime::$brokenRFC2231 = !empty($GLOBALS['conf']['mailformat']['brokenrfc2231']);
+
+        // Set default message character set, if necessary
+        if ($def_charset = $GLOBALS['prefs']->getValue('default_msg_charset')) {
+            Horde_Mime_Part::$defaultCharset = $def_charset;
+            Horde_Mime_Headers::$defaultCharset = $def_charset;
+        }
+
+        $GLOBALS['notification'] = Horde_Notification::singleton();
+        $viewmode = isset($_SESSION['imp']['view'])
+            ? $_SESSION['imp']['view']
+            : 'imp';
+
+        if ($viewmode == 'mimp') {
+            $GLOBALS['imp_notify'] = $GLOBALS['notification']->attach('status', null, 'Horde_Notification_Listener_Mobile');
+        } else {
+            $GLOBALS['imp_notify'] = $GLOBALS['notification']->attach('status', array('viewmode' => $viewmode), 'IMP_Notification_Listener_Status');
+            if ($viewmode == 'imp') {
+                $GLOBALS['notification']->attach('audio');
+            }
+        }
+
+        // Initialize global $imp_mbox array.
+        $GLOBALS['imp_mbox'] = IMP::getCurrentMailboxInfo();
+
+        // Initialize IMP_Search object.
+        $GLOBALS['imp_search'] = new IMP_Search(array('id' => (isset($_SESSION['imp']) && IMP_Search::isSearchMbox($GLOBALS['imp_mbox']['mailbox'])) ? $GLOBALS['imp_mbox']['mailbox'] : null));
+
+        self::$_init = true;
+    }
+
     /**
      * Returns the plain text label that is displayed for the current mailbox,
      * replacing virtual search mailboxes with an appropriate description and
