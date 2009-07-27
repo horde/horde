@@ -1,7 +1,7 @@
 <div id="msgheaders">
  <table cellspacing="0">
 <loop:headers>
-  <tr>
+  <tr<if:headers.class> class="<tag:headers.class />"</if:headers.class>>
    <td class="item<tag:headers.i /> rightAlign nowrap" valign="top"><strong><tag:headers.name />:</strong>&nbsp;</td>
    <td class="item<tag:headers.i /> msgheader"><tag:headers.val /></td>
   </tr>

@@ -53,6 +53,11 @@
     margin-left: 3px;
 }
 
+/* Message view styling. */
+#msgheaders tr.printedby {
+    display: none;
+}
+
 /* Newmail alerts. */
 #newmail {
     padding: 1em;
@@ -607,8 +612,6 @@ td.addressTr span.loadingImg {
 }
 
 
-
-
 /* Print CSS rules. */
 @media print {
     body {
@@ -638,6 +641,10 @@ td.addressTr span.loadingImg {
 
     #msgHeaders, .dispaddrlist {
         display: block !important;
+    }
+
+    #msgheaders tr.printedby {
+        display: table-row !important;
     }
 
     .msgfullread .msgBody {

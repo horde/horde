@@ -694,13 +694,21 @@ if (!empty($atc_parts) && ($show_parts != 'none')) {
         $tmp[] = '</td></tr>';
     }
 
-    $hdrs[] = array('name' => ($show_parts == 'all') ? _("Parts") : _("Attachments"), 'val' => '<table>' . implode('', $tmp) . '</table>', 'i' => (++$i % 2));
+    $hdrs[] = array(
+        'name' => ($show_parts == 'all') ? _("Parts") : _("Attachments"),
+        'val' => '<table>' . implode('', $tmp) . '</table>',
+        'i' => (++$i % 2)
+    );
 }
 
-if (!empty($conf['print']['add_printedby'])) {
-    // TODO
-    //$hdrs[] = array('name' => _("Printed By"), 'val' => $user_identity->getFullname() ? $user_identity->getFullname() : Horde_Auth::getAuth(), 'i' => (++$i % 2));
-}
+//if (!empty($conf['print']['add_printedby'])) {
+    $hdrs[] = array(
+        'class' => 'printedby',
+        'name' => _("Printed By"),
+        'val' => $user_identity->getFullname() ? $user_identity->getFullname() : Horde_Auth::getAuth(),
+        'i' => (++$i % 2)
+    );
+//}
 
 $m_template->set('headers', $hdrs);
 $m_template->set('msgtext', $msgtext);
