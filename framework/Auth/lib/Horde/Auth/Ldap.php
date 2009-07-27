@@ -22,6 +22,9 @@
  *                DEFAULT: NONE (system default will be used)
  * </pre>
  *
+ * 'preauthenticate' hook should return LDAP connection information in the
+ * 'ldap' credentials key.
+ *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
@@ -322,10 +325,11 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
         /* Connect to the LDAP server. */
         $this->_connect();
 
-        global $conf;
-        if (!empty($conf['hooks']['authldap'])) {
-            $entry = Horde::callHook('_horde_hook_authldap', array($userId, $credentials));
+        list($userId, $credentials) = Horde_Auth::runHook($userId, $credentials, $this->_app, 'preauthenticate');
+        if (isset($credentials['ldap'])) {
+            $entry = $credentials['ldap'];
             $dn = $entry['dn'];
+
             /* Remove the dn entry from the array. */
             unset($entry['dn']);
         } else {
@@ -350,6 +354,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
                 $entry['shadowLastChange'] = floor(time() / 86400);
             }
         }
+
         $result = @ldap_add($this->_ds, $dn, $entry);
 
         if (!$result) {
@@ -375,9 +380,9 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
         /* Connect to the LDAP server. */
         $this->_connect();
 
-        if (!empty($GLOBALS['conf']['hooks']['authldap'])) {
-            $entry = Horde::callHook('_horde_hook_authldap', array($userId));
-            $dn = $entry['dn'];
+        list($userId, $credentials) = Horde_Auth::runHook($userId, array(), $this->_app, 'preauthenticate');
+        if (isset($credentials['ldap'])) {
+            $dn = $credentials['ldap']['dn'];
         } else {
             /* Search for the user's full DN. */
             $dn = $this->_findDN($userId);
@@ -411,12 +416,12 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
         /* Connect to the LDAP server. */
         $this->_connect();
 
-        if (!empty($GLOBLS['conf']['hooks']['authldap'])) {
-            $entry = Horde::callHook('_horde_hook_authldap', array($oldID, $credentials));
-            $olddn = $entry['dn'];
-            $entry = Horde::callHook('_horde_hook_authldap', array($newID, $credentials));
-            $newdn = $entry['dn'];
-            unset($entry['dn']);
+        list($oldID, $old_credentials) = Horde_Auth::runHook($oldID, $credentials, $this->_app, 'preauthenticate');
+        if (isset($old_credentials['ldap'])) {
+            $olddn = $old_credentials['ldap']['dn'];
+            list($newID, $new_credentials) = Horde_Auth::runHook($newID, $credentials, $this->_app, 'preauthenticate');
+            $newdn = $new_credentials['ldap']['dn'];
+            unset($new_credentials['ldap']['dn']);
         } else {
             /* Search for the user's full DN. */
             $dn = $this->_findDN($oldID);

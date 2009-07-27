@@ -76,13 +76,13 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         /* Connect to the MSAD server. */
         $this->_connect();
 
-        $entry = Horde::callHook('_horde_hook_authmsad', array($accountName, $credentials), 'horde');
-        if (!is_null($entry)) {
-            $dn = $entry['dn'];
-            unset($entry['dn']);
+        list($accountName, $credentials) = Horde_Auth::runHook($accountName, $credentials, $this->_app, 'preauthenticate');
+        if (isset($credentials['ldap'])) {
+            $dn = $credentials['ldap']['dn'];
         } else {
-            $basedn = (isset($credentials['basedn'])) ?
-                $credentials['basedn'] : $this->_params['basedn'];
+            $basedn = isset($credentials['basedn'])
+                ? $credentials['basedn']
+                : $this->_params['basedn'];
 
             /* Set a default CN */
             $dn = 'cn=' . $accountName . ',' . $basedn;
@@ -114,7 +114,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         $success = @ldap_add($this->_ds, $dn, $entry);
 
         if (!$success) {
-           throw new Horde_Auth_Exception(sprintf(_("Auth_msad: Unable to add user \"%s\". This is what the server said: "), $accountName) . ldap_error($this->_ds));
+           throw new Horde_Auth_Exception(sprintf(_("Horde_Auth_Msad: Unable to add user \"%s\". This is what the server said: "), $accountName) . ldap_error($this->_ds));
         }
 
         @ldap_close($this->_ds);
@@ -132,11 +132,13 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         /* Connect to the MSAD server. */
         $this->_connect();
 
-        $entry = Horde::callHook('_horde_hook_authmsad', array($accountName), 'horde');
-        $dn = is_null($entry)
+        list($accountName, $credentials) = Horde_Auth::runHook($accountName, $credentials, $this->_app, 'preauthenticate');
+        if (isset($credentials['ldap'])) {
+            $dn = $credentials['ldap']['dn'];
+        } else {
             /* Search for the user's full DN. */
-            ? $this->_findDN($accountName)
-            : $entry['dn'];
+            $dn = $this->_findDN($accountName);
+        }
 
         if (!@ldap_delete($this->_ds, $dn)) {
             throw new Horde_Auth_Exception(sprintf(_("Horde_Auth_Msad: Unable to remove user \"%s\""), $accountName));
@@ -161,10 +163,9 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         /* Connect to the MSAD server. */
         $this->_connect();
 
-        $entry = Horde::callHook('_horde_hook_authmsad', array($oldId, $credentials), 'horde');
-        if (!is_null($entry)) {
-            $olddn = $entry['dn'];
-            unset($entry['dn']);
+        list($oldId, $credentials) = Horde_Auth::runHook($oldId, $credentials, $this->_app, 'preauthenticate');
+        if (isset($credentials['ldap'])) {
+            $olddn = $credentials['ldap']['dn'];
         } else {
             /* Search for the user's full DN. */
             $dn = $this->_findDN($oldId);

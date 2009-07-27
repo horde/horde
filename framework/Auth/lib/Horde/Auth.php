@@ -766,8 +766,7 @@ class Horde_Auth
     }
 
     /**
-     * Applies a hook defined by the function _username_hook_frombackend() to
-     * the given user name if this function exists and user hooks are enabled.
+     * Applies the username_frombackend hook to the given user name.
      *
      * This method should be called if a authentication backend's user name
      * needs to be converted to a (unique) Horde user name. The backend's user
@@ -781,14 +780,15 @@ class Horde_Auth
      */
     static public function addHook($userId)
     {
-        return empty($GLOBALS['conf']['hooks']['username'])
-            ? $userId
-            : Horde::callHook('_username_hook_frombackend', array($userId));
+        try {
+            return Horde::callHook('username_frombackend', array($userId));
+        } catch (Horde_Exception_HookNotSet $e) {
+            return $userId;
+        }
     }
 
     /**
-     * Applies a hook defined by the function _username_hook_tobackend() to
-     * the given user name if this function exists and user hooks are enabled.
+     * Applies the username_tobackend hook to the given user name.
      *
      * This method should be called if a Horde user name needs to be converted
      * to an authentication backend's user name or displayed to the user. The
@@ -802,9 +802,11 @@ class Horde_Auth
      */
     static public function removeHook($userId)
     {
-        return empty($GLOBALS['conf']['hooks']['username'])
-            ? $userId
-            : Horde::callHook('_username_hook_tobackend', array($userId));
+        try {
+            return Horde::callHook('username_tobackend', array($userId));
+        } catch (Horde_Exception_HookNotSet $e) {
+            return $userId;
+        }
     }
 
     /**
@@ -823,23 +825,28 @@ class Horde_Auth
     {
         $ret_array = array($userId, $credentials);
 
-        if (!empty($GLOBALS['conf']['hooks'][$type])) {
-            $result = Horde::callHook('_horde_hook_' . $type, array($userId, $credentials, $app), 'horde');
-            if ($result === false) {
-                if (self::getAuthError() != self::REASON_MESSAGE) {
-                    self::setAuthError(self::REASON_FAILED);
-                }
-                throw new Horde_Auth_Exception($type . ' hook failed');
+        try {
+            $result = Horde::callHook($type, array($userId, $credentials), $app);
+        } catch (Horde_Exception $e) {
+            throw new Horde_Auth_Exception($e->getMessage());
+        } catch (Horde_Exception_HookNotSet $e) {
+            return $ret_array;
+        }
+
+        if ($result === false) {
+            if (self::getAuthError() != self::REASON_MESSAGE) {
+                self::setAuthError(self::REASON_FAILED);
+            }
+            throw new Horde_Auth_Exception($type . ' hook failed');
+        }
+
+        if (is_array($result)) {
+            if (isset($result['userId'])) {
+                $ret_array[0] = $result['userId'];
             }
 
-            if (is_array($result)) {
-                if (isset($result['userId'])) {
-                    $ret_array[0] = $result['userId'];
-                }
-
-                if (isset($result['credentials'])) {
-                    $ret_array[1] = $result['credentials'];
-                }
+            if (isset($result['credentials'])) {
+                $ret_array[1] = $result['credentials'];
             }
         }
 

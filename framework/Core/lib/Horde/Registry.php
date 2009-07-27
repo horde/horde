@@ -25,6 +25,7 @@ class Horde_Registry
     const AUTH_FAILURE = 1;
     const NOT_ACTIVE = 2;
     const PERMISSION_DENIED = 3;
+    const HOOK_FATAL = 4;
 
     /**
      * Singleton value.
@@ -788,6 +789,7 @@ class Horde_Registry
      *         Horde_Registry::AUTH_FAILURE
      *         Horde_Registry::NOT_ACTIVE
      *         Horde_Registry::PERMISSION_DENIED
+     *         Horde_Registry::HOOK_FATAL
      */
     public function pushApp($app, $options = array())
     {
@@ -856,7 +858,12 @@ class Horde_Registry
         $this->_appStack[] = $app;
 
         /* Call post-push hook. */
-        Horde::callHook('_horde_hook_post_pushapp', array($app), 'horde');
+        try {
+            Horde::callHook('pushapp', array(), $app);
+        } catch (Horde_Exception $e) {
+            $e->setCode(self::HOOK_FATAL);
+            throw $e;
+        } catch (Horde_Exception_HookNotSet $e) {}
 
         /* Do login tasks. */
         if (Horde_Auth::getAuth()) {
