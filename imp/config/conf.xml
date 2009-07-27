@@ -185,7 +185,7 @@
      tokens/signatures process contained in the original mail, etc.). If you
      need to dynamically set the email address for each user (e.g. DSPAM),
      this setting should be empty and you should look at the
-     _imp_hook_spam_email hook instead."/>
+     spam_email hook instead."/>
      <configstring name="program" required="false" desc="Should we report the spam
      message via an external program (e.g. /usr/local/bin/spamassassin -r)? If you
      include the placeholder %u in this string, it will be replaced with the
@@ -209,7 +209,7 @@
      tokens/signatures process contained in the original mail, etc.). If you
      need to dynamically set the email address for each user (e.g. DSPAM),
      this setting should be empty and you should look at the
-     _imp_hook_spam_email hook instead."/>
+     spam_email hook instead."/>
      <configstring name="program" required="false" desc="Should we report the innocent
      message via an external program (e.g. /usr/local/bin/spamassassin -k)? If you
      include the placeholder %u in this string, it will be replaced with the
@@ -273,64 +273,6 @@
    <configinteger name="ac_threshold" desc="When autocompleting addresses in
    the compose screen, this is the minimum number of characters required
    before the search is performed on the server.">3</configinteger>
-  </configsection>
- </configtab>
-
- <configtab name="hooks" desc="Custom Hooks">
-  <configsection name="hooks">
-   <configboolean name="postsent" required="false" desc="Should we
-   run a custom function after sending a message? If so, make sure you define
-   _imp_hook_postsent() in hooks.php. The hook will be used to do anything
-   after a message has been sent successfully and all regular post-sending
-   processing has been done. There is an example in
-   hooks.php.dist.">false</configboolean>
-   <configboolean name="signature" required="false" desc="Should we use a
-   custom signature hook? If so, make sure you define _imp_hook_signature() in
-   hooks.php. The hook will be used to dynamically set the signature when
-   composing a message. There is an example in
-   hooks.php.dist.">false</configboolean>
-   <configboolean name="trailer" required="false" desc="Should we use a custom
-   function to set the trailer text (if trailer text is appended to outgoing
-   messages)? If so, make sure you define _imp_hook_trailer() in
-   hooks.php. The function will be used to modify the trailer at runtime.
-   There are examples in hooks.php.dist.">false</configboolean>
-   <configboolean name="fetchmail_filter" required="false" desc="Should we use
-   a custom function to filter mail retrieved with the Accounts/Fetchmail icon?
-   If so, make sure you define _imp_hook_fetchmail_filter() in hooks.php.
-   The function is used to filter mail for spam, viruses, or whatever else
-   you set up in the function.">false</configboolean>
-   <configboolean name="mbox_redirect" required="false" desc="Should we use
-   a custom function to dynamically redirect the user based on what mailbox
-   is opened? If so, make sure you define _imp_hook_mbox_redirect() in
-   hooks.php.">false</configboolean>
-   <configboolean name="mbox_icon" required="false" desc="Should we use
-   a custom function to dynamically determine the icons shown for standard
-   folders on the folder page? If so, make sure you define
-   _imp_hook_mbox_icons() in hooks.php.">false</configboolean>
-   <configboolean name="mailboxarray" required="false" desc="Should we run a
-   custom function in which array elements can be added to use in the template
-   file, while processing the message lists? If so, make sure you define
-   _imp_hook_mailboxarray() in config/hooks.php.">false</configboolean>
-   <configboolean name="mbox_readonly" required="false" desc="Should we use a
-   custom function to dynamically determine whether a given folder is
-   read-only? If so, make sure you define _imp_hook_mbox_readonly() in
-   hooks.php.">false</configboolean>
-   <configboolean name="disable_compose" required="false" desc="Should we use
-   a custom function to dynamically determine whether message composition is
-   disabled? If so, make sure you define _imp_hook_disable_compose() in
-   hooks.php.">false</configboolean>
-   <configboolean name="spam_email" required="false" desc="Should we use a
-   custom function to dynamically generate the email address to send spam
-   reporting emails to? If so, make sure you define _imp_hook_spam_email() in
-   hooks.php.">false</configboolean>
-   <configboolean name="msglist_flags" required="false" desc="Should we use
-   a custom function to provide additional flags to messages in the mailbox
-   message list? If so, make sure you define _imp_hook_msglist_flags() in
-   hooks.php.">false</configboolean>
-   <configboolean name="display_folder" required="false" desc="Should we use
-   a custom function to dynamically determine if we show a specified IMAP
-   mailbox in the folderlist ? If so, make sure you define
-   _imp_hook_display_folder() in hooks.php.">false</configboolean>
   </configsection>
  </configtab>
 
@@ -404,25 +346,6 @@
  <configtab name="dimp" desc="Dynamic View (dimp) Options">
   <configheader>Custom Hooks</configheader>
   <configsection name="dimp">
-   <configsection name="hooks">
-    <configboolean name="previewview" required="false" desc="Should we
-    run a custom function in which array elements can be modified, and
-    javascript code be provided to dynamically update page elements in the
-    preview pane? If so, make sure you define _imp_hook_dimp_previewview() in
-    config/hooks.php. The sample documentation in that file can better explain
-    what can be accomplished with this hook.">false</configboolean>
-    <configboolean name="messageview" required="false" desc="Should we
-    run a custom function in which array elements can be added to use in the
-    template file, while displaying the message text? If so, make sure
-    you define _imp_hook_dimp_messageview() in config/hooks.php. The elements
-    will be available as template tags in the imp/templates/chunks/message.php
-    template file.">false</configboolean>
-    <configboolean name="addressformatting" required="false" desc="Should we
-    run a custom function that is used to format email addresses in message
-    headers? If so, make sure you define _imp_hook_dimp_addressformatting() in
-    config/hooks.php.">false</configboolean>
-   </configsection>
-
    <configlist name="css_files" required="false" desc="A list of additional CSS
    files to load from the imp/themes/ directory."/>
 

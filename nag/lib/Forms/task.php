@@ -109,8 +109,13 @@ class Nag_TaskForm extends Horde_Form {
 
         $this->addVariable(_("Estimated Time"), 'estimate', 'number', false);
         $this->addVariable(_("Completed?"), 'completed', 'boolean', false);
-        $this->addVariable(_("Description"), 'desc', 'longtext', false, false,
-                           Horde::callHook('_nag_hook_description_help', array(), 'nag', ''));
+
+        try {
+            $description = Horde::callHook('description_help', array(), 'nag');
+        } catch (Horde_Exception_HookNotSet $e) {
+            $description = '';
+        }
+        $this->addVariable(_("Description"), 'desc', 'longtext', false, false, $description);
 
         $buttons = array(_("Save"));
         if ($delete) {

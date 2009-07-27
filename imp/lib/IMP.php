@@ -1563,14 +1563,17 @@ class IMP
      * Determine the status of composing.
      *
      * @return boolean  Is compose allowed?
+     * @throws Horde_Exception
      */
     static public function canCompose()
     {
         try {
-            return empty($conf['hooks']['disable_compose']) || !Horde::callHook('_imp_hook_disable_compose', array(), 'imp');
-        } catch (Horde_Exception $e) {
+            return !Horde::callHook('disable_compose', array(), 'imp');
+        } catch (Horde_Exception_HookNotSet $e) {
             return true;
         }
+
+
     }
 
 }

@@ -44,11 +44,8 @@ $v->setHelp('vacation-subject');
 $v = &$form->addVariable(_("Reason:"), 'reason', 'longtext', false, false, null, array(10, 40));
 $v->setHelp('vacation-reason');
 $form->setSection('advanced', _("Advanced Settings"));
-if (empty($conf['hooks']['vacation_addresses']) ||
-    empty($conf['hooks']['vacation_only'])) {
-    $v = &$form->addVariable(_("My email addresses:"), 'addresses', 'longtext', true, false, null, array(5, 40));
-    $v->setHelp('vacation-myemail');
-}
+$v = &$form->addVariable(_("My email addresses:"), 'addresses', 'longtext', true, false, null, array(5, 40));
+$v->setHelp('vacation-myemail');
 $v = &$form->addVariable(_("Addresses to not send responses to:"), 'excludes', 'longtext', false, false, null, array(10, 40));
 $v->setHelp('vacation-noresponse');
 $v = &$form->addVariable(_("Do not send responses to bulk or list messages?"), 'ignorelist', 'boolean', false);

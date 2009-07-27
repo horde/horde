@@ -55,16 +55,4 @@
    </case>
   </configswitch>
  </configsection>
-
- <configsection name="hooks">
-  <configheader>Custom Hooks</configheader>
-  <configboolean name="vacation_addresses" required="false" desc="Should we
-  use a hook for vacation addresses? If so, make sure you define
-  _ingo_hook_vacation_addresses() in horde/config/hooks.php. The hook will be
-  used to provide a list of default email addresses for the vacation
-  module.">false</configboolean>
-  <configboolean name="vacation_only" required="false" desc="Should we use the
-  hook only to provide the list of vacation addresses and don't show the
-  addresses field to the users?">true</configboolean>
- </configsection>
 </configuration>

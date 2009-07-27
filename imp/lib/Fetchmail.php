@@ -268,12 +268,6 @@ abstract class IMP_Fetchmail
         }
         $msg .= "\n\n" . $body;
 
-        /* If there is a user defined function, call it with the current
-         * message as an argument. */
-        if ($GLOBALS['conf']['hooks']['fetchmail_filter']) {
-            $msg = Horde::callHook('_imp_hook_fetchmail_filter', array($msg), 'imp');
-        }
-
         try {
             $GLOBALS['imp_imap']->ob->append($this->_params['lmailbox'], array(array('data' => $msg, 'flags' => $flags)));
             return true;

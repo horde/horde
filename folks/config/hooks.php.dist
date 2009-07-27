@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * Folks Hooks configuration file.
  *
  * THE HOOKS PROVIDED IN THIS FILE ARE EXAMPLES ONLY.  DO NOT ENABLE THEM
@@ -9,15 +7,17 @@
  * TO MATCH YOUR SPECIFIC NEEDS AND SYSTEM ENVIRONMENT.
  *
  * For more information please see the horde/config/hooks.php.dist file.
+ *
+ * $Id$
  */
 
+class Folks_Hooks
+{
 // Example count used data hook function. Thera are two examples. One as
 // registry calls and one much faster with direct DB access but requres your
 // monitorig for application structure changes.
 
-if (!function_exists('_folks_hook_countService')) {
-
-    function _folks_hook_countService($service, $user)
+    function countService($service, $user)
     {
         switch ($service) {
 
@@ -52,9 +52,7 @@ if (!function_exists('_folks_hook_countService')) {
 
 // DB optimized version
 //
-// if (!function_exists('_folks_hook_countService')) {
-//
-//     function _folks_hook_countService($service, $user)
+//     function countService($service, $user)
 //     {
 //         switch ($service) {
 //
@@ -112,8 +110,7 @@ if (!function_exists('_folks_hook_countService')) {
 // registry calls and one much faster with direct DB access but requres your
 // monitorig for application structure changes.
 
-if (!function_exists('_folks_hook_getService')) {
-    function _folks_hook_getService($service, $user)
+    function getService($service, $user)
     {
         switch ($service) {
 
@@ -146,8 +143,7 @@ if (!function_exists('_folks_hook_getService')) {
 
 // DB optimized version
 //
-// if (!function_exists('_folks_hook_getService')) {
-//     function _folks_hook_getService($service, $user)
+//     function getService($service, $user)
 //     {
 //         switch ($service) {
 //
@@ -213,9 +209,7 @@ if (!function_exists('_folks_hook_getService')) {
 // paid service and perform autologin or redirect to a wikipage with
 // additional information
 
-if (!function_exists('_folks_hook_prelogin')) {
-
-    function _folks_hook_prelogin($app)
+    function prelogin($app)
     {
         require_once 'Horde/Group.php';
         $group = Group::singleton();
@@ -270,8 +264,7 @@ if (!function_exists('_folks_hook_prelogin')) {
 // attempts are made to add them to the system. Here we lowecase the useranme
 // and check if username or email is already taken
 
-if (!function_exists('_horde_hook_signup_preprocess')) {
-    function _horde_hook_signup_preprocess($info)
+    function signup_preprocess($info)
     {
         if (isset($info['extra']['username'])) {
             $info['extra']['username'] = Horde_String::lower($info['extra']['username']);
@@ -309,8 +302,7 @@ if (!function_exists('_horde_hook_signup_preprocess')) {
 // Here we connect to the database and update folks user table
 // with additional user data and send confirmation code to check his email
 
-if (!function_exists('_horde_hook_signup_addextra')) {
-     function _horde_hook_signup_addextra($userID, $extra)
+     function signup_addextra($userID, $extra)
      {
         global $conf;
 
@@ -363,8 +355,7 @@ if (!function_exists('_horde_hook_signup_addextra')) {
 // If the user has a authentication cookie code. Compara it with one in DB
 // and autologin the user.
 
-if (!function_exists('_horde_hook_post_pushapp')) {
-    function _horde_hook_post_pushapp($app)
+    function pushapp()
     {
         if ($app != 'horde' ||
             !isset($_COOKIE['folks_login_code']) ||

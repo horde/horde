@@ -30,7 +30,11 @@ class IMP_Quota_Hook extends IMP_Quota
      */
     public function getQuota()
     {
-        $quota = Horde::callHook('_imp_hook_quota', $this->_params, 'imp');
+        try {
+            $quota = Horde::callHook('hook_quota', $this->_params, 'imp');
+        } catch (Horde_Exception_HookNotSet $e) {
+            throw new Horde_Exception($e->getMessage());
+        }
 
         if (count($quota) != 2) {
             Horde::logMessage('Incorrect number of return values from quota hook.', __FILE__, __LINE__, PEAR_LOG_ERR);

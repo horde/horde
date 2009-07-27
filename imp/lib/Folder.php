@@ -233,6 +233,7 @@ class IMP_Folder
      * @param boolean $subscribe  Subscribe to folder?
      *
      * @return boolean  Whether or not the folder was successfully created.
+     * @throws Horde_Exception
      */
     public function create($folder, $subscribe)
     {
@@ -241,23 +242,17 @@ class IMP_Folder
         /* Check permissions. */
         if (!IMP::hasPermission('create_folders')) {
             try {
-                if (!empty($conf['hooks']['permsdenied'])) {
-                    Horde::callHook('_perms_hook_denied', array('imp:create_folders'), 'horde', $message);
-                }
+                $message = Horde::callHook('perms_denied', array('imp:create_folders'));
+            } catch (Horde_Exception_HookNotSet $e) {
                 $message = @htmlspecialchars(_("You are not allowed to create folders."), ENT_COMPAT, Horde_Nls::getCharset());
-            } catch (Horde_Exception $e) {
-                $message = $e->getMessage();
             }
             $notification->push($message, 'horde.error', array('content.raw'));
             return false;
         } elseif (!IMP::hasPermission('max_folders')) {
-            $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d folders."), IMP::hasPermission('max_folders', true)), ENT_COMPAT, Horde_Nls::getCharset());
             try {
-                if (!empty($conf['hooks']['permsdenied'])) {
-                    Horde::callHook('_perms_hook_denied', array('imp:max_folders'), 'horde', $message);
-                }
-            } catch (Horde_Exception $e) {
-                $message = $e->getMessage();
+                $message = Horde::callHook('perms_denied', array('imp:max_folders'));
+            } catch (Horde_Exception_HookNotSet $e) {
+                $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d folders."), IMP::hasPermission('max_folders', true)), ENT_COMPAT, Horde_Nls::getCharset());
             }
             $notification->push($message, 'horde.error', array('content.raw'));
             return false;

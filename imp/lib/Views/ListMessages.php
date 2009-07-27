@@ -220,6 +220,7 @@ class IMP_Views_ListMessages
      * @param boolean $search           Is this a search mbox?
      *
      * @return array  TODO
+     * @throws Horde_Exception
      */
     private function _getOverviewData($imp_mailbox, $folder, $msglist, $search)
     {
@@ -245,11 +246,9 @@ class IMP_Views_ListMessages
             );
 
             /* Get all the flag information. */
-            if (!empty($GLOBALS['conf']['hooks']['msglist_flags'])) {
-                try {
-                    $ob['flags'] = array_merge($ob['flags'], Horde::callHook('_imp_hook_msglist_flags', array($ob, 'dimp'), 'imp'));
-                } catch (Horde_Exception $e) {}
-            }
+            try {
+                $ob['flags'] = array_merge($ob['flags'], Horde::callHook('msglist_flags', array($ob, 'dimp'), 'imp'));
+            } catch (Horde_Exception_HookNotSet $e) {}
 
             $imp_flags = IMP_Imap_Flags::singleton();
             $flag_parse = $imp_flags->parse(array(
@@ -303,11 +302,9 @@ class IMP_Views_ListMessages
         }
 
         /* Allow user to alter template array. */
-        if (!empty($GLOBALS['conf']['imp']['hooks']['mailboxarray'])) {
-            try {
-                $msgs = Horde::callHook('_imp_hook_mailboxarray', array($msgs, 'dimp'), 'imp');
-            } catch (Horde_Exception $e) {}
-        }
+        try {
+            $msgs = Horde::callHook('mailboxarray', array($msgs, 'dimp'), 'imp');
+        } catch (Horde_Exception_HookNotSet $e) {}
 
         return $msgs;
     }

@@ -95,7 +95,8 @@
  *
  *        Currently available drivers:
  *          'command'    --  Use the UNIX quota command to handle quotas.
- *          'hook'       --  Use the _imp_hook_quota function to handle quotas.
+ *          'hook'       --  Use the quota hook to handle quotas (see
+ *                           imp/config/hooks.php).
  *          'imap'       --  Use the IMAP QUOTA extension to handle quotas.
  *                           You must be connecting to a IMAP server capable
  *                           of the QUOTAROOT command to use this driver.

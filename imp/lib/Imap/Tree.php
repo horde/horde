@@ -340,6 +340,7 @@ class IMP_Imap_Tree
      * @param integer $attributes  The mailbox's attributes.
      *
      * @return array  See above format.
+     * @throws Horde_Exception
      */
     protected function _makeElt($name, $attributes = 0)
     {
@@ -396,11 +397,9 @@ class IMP_Imap_Tree
         $elt['l'] = IMP::getLabel($tmp[$elt['c']]);
 
         if ($_SESSION['imp']['protocol'] != 'pop') {
-            if (!empty($GLOBALS['conf']['hooks']['display_folder'])) {
-                try {
-                    $this->_setInvisible($elt, !Horde::callHook('_imp_hook_display_folder', array($elt['v']), 'imp'));
-                } catch (Horde_Exception $e) {}
-            }
+            try {
+                $this->_setInvisible($elt, !Horde::callHook('display_folder', array($elt['v']), 'imp'));
+            } catch (Horde_Exception_HookNotSet $e) {}
 
             if ($elt['c'] != 0) {
                 $elt['p'] = implode(is_null($ns_info) ? $this->_delimiter : $ns_info['delimiter'], array_slice($tmp, 0, $elt['c']));
@@ -1633,25 +1632,13 @@ class IMP_Imap_Tree
      */
     public function getCustomIcon($elt)
     {
-        static $mbox_icons;
-
-        if (isset($mbox_icons) && !$mbox_icons) {
-            return false;
-        }
-
-        /* Call the mailbox icon hook, if requested. */
-        if (empty($GLOBALS['conf']['hooks']['mbox_icon'])) {
-            $mbox_icons = false;
-            return false;
-        }
+        static $mbox_icons = array();
 
         if (!isset($mbox_icons)) {
             try {
-                $mbox_icons = Horde::callHook('_imp_hook_mbox_icons', array(), 'imp', false);
-                if (!$mbox_icons) {
-                    return false;
-                }
-            } catch (Horde_Exception $e) {}
+                $mbox_icons = Horde::callHook('mbox_icons', array(), 'imp', false);
+            } catch (Horde_Exception $e) {
+            } catch (Horde_Exception_HookNotSet $e) {}
         }
 
         if (isset($mbox_icons[$elt['v']])) {

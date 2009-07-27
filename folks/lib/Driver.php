@@ -373,12 +373,16 @@ class Folks_Driver {
                         continue;
                     }
                 } else {
-                    $profile['count_' . $service] = Horde::callHook('_folks_hook_countService', array($service, $user), 'folks');
+                    try {
+                        $profile['count_' . $service] = Horde::callHook('countService', array($service, $user), 'folks');
+                    } catch (Horde_Exception_HookNotSet $e) {}
                     if (empty($profile['count_' . $service])) {
                         continue;
                     }
                 }
-                $profile['count_' . $service . '_list'] = Horde::callHook('_folks_hook_getService', array($service, $user), 'folks');
+                try {
+                    $profile['count_' . $service . '_list'] = Horde::callHook('getService', array($service, $user), 'folks');
+                } catch (Horde_Exception_HookNotSet $e) {}
                 if (empty($profile['count_' . $service . '_list'])) {
                     $profile['count_' . $service] = 0;
                 }

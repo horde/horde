@@ -27,13 +27,12 @@ class IMP_Views_ShowMessage
         }
 
         $addr_array = array();
-        $call_hook = !empty($GLOBALS['conf']['dimp']['hooks']['addressformatting']);
 
         foreach (Horde_Mime_Address::getAddressesFromObject($addrlist) as $ob) {
             if (!empty($ob['inner'])) {
-                if ($call_hook) {
-                    $addr_array[] = array('raw' => Horde::callHook('_imp_hook_dimp_addressformatting', array($ob), 'imp'));
-                } else {
+                try {
+                    $addr_array[] = array('raw' => Horde::callHook('dimp_addressformatting', array($ob), 'imp'));
+                } catch (Horde_Exception_HookNotSet $e) {
                     $tmp = array('inner' => $ob['inner']);
                     if (!empty($ob['personal'])) {
                         $tmp['personal'] = $ob['personal'];
@@ -88,6 +87,7 @@ class IMP_Views_ShowMessage
      * 'replyTo' - The Reply-to addresses
      * 'save_as' - The save link
      * </pre>
+     * @throws Horde_Exception
      */
     public function showMessage($args)
     {
@@ -332,18 +332,18 @@ class IMP_Views_ShowMessage
             $result['atc_list'] = $tmp;
         }
 
-        if ($preview && !empty($GLOBALS['conf']['dimp']['hooks']['previewview'])) {
+        if ($preview) {
             try {
-                $res = Horde::callHook('_imp_hook_dimp_previewview', array($result), 'imp');
+                $res = Horde::callHook('dimp_previewview', array($result), 'imp');
                 if (!empty($res)) {
                     $result = $res[0];
                     $result['js'] = $res[1];
                 }
-            } catch (Horde_Exception $e) {}
-        } elseif (!$preview && !empty($GLOBALS['conf']['dimp']['hooks']['messageview'])) {
+            } catch (Horde_Exception_HookNotSet $e) {}
+        } elseif (!$preview) {
             try {
-                $result = Horde::callHook('_imp_hook_dimp_messageview', array($result), 'imp');
-            } catch (Horde_Exception $e) {}
+                $result = Horde::callHook('dimp_messageview', array($result), 'imp');
+            } catch (Horde_Exception_HookNotSet $e) {}
         }
 
         if (!$preview) {

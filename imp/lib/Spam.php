@@ -92,11 +92,11 @@ class IMP_Spam
                  * use it. */
                 if (!empty($GLOBALS['conf'][$action]['email'])) {
                     $to = $GLOBALS['conf'][$action]['email'];
-                } elseif (!empty($GLOBALS['conf']['hooks']['spam_email'])) {
+                } else {
                     /* Call the email generation hook, if requested. */
                     try {
-                        $to = Horde::callHook('_imp_hook_spam_email', array($action), 'imp');
-                    } catch (Horde_Exception $e) {}
+                        $to = Horde::callHook('spam_email', array($action), 'imp');
+                    } catch (Horde_Exception_HookNotSet $e) {}
                 }
 
                 if ($to) {

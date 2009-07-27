@@ -446,6 +446,7 @@ class Identity_imp extends Identity
      * @param integer $ident  The identity to retrieve the signature from.
      *
      * @return string  The full signature.
+     * @throws Horde_Exception
      */
     public function getSignature($ident = null)
     {
@@ -468,11 +469,9 @@ class Identity_imp extends Identity
             }
         }
 
-        if (!empty($GLOBALS['conf']['hooks']['signature'])) {
-            try {
-                $val = Horde::callHook('_imp_hook_signature', array($val), 'imp');
-            } catch (Horde_Exception $e) {}
-        }
+        try {
+            $val = Horde::callHook('prefs_hook_signature', array($val), 'imp');
+        } catch (Horde_Exception_HookNotSet $e) {}
 
         $this->_signatures[$ident] = $val;
 

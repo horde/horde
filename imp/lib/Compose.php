@@ -367,6 +367,7 @@ class IMP_Compose
      *
      * @return boolean  Whether the sent message has been saved in the
      *                  sent-mail folder.
+     * @throws Horde_Exception
      * @throws IMP_Compose_Exception
      */
     public function buildAndSendMessage($body, $header, $charset, $html,
@@ -619,11 +620,9 @@ class IMP_Compose
         $this->_saveRecipients($recipients);
 
         /* Call post-sent hook. */
-        if (!empty($conf['hooks']['postsent'])) {
-            try {
-                Horde::callHook('_imp_hook_postsent', array($save_msg['msg'], $headers), 'imp');
-            } catch (Horde_Exception $e) {}
-        }
+        try {
+            Horde::callHook('postsent', array($save_msg['msg'], $headers), 'imp');
+        } catch (Horde_Exception_HookNotSet $e) {}
 
         return $sent_saved;
     }
@@ -639,6 +638,7 @@ class IMP_Compose
      * @param string $charset              The charset that was used for the
      *                                     headers.
      *
+     * @throws Horde_Exception
      * @throws IMP_Compose_Exception
      */
     public function sendMessage($email, $headers, $message, $charset)
@@ -671,14 +671,12 @@ class IMP_Compose
                 $recipients += isset($address['grounpname']) ? count($address['addresses']) : 1;
             }
             if ($recipients > $timelimit) {
-                if (!empty($conf['hooks']['permsdenied'])) {
-                    try {
-                        Horde::callHook('_perms_hook_denied', array('imp:max_timelimit'), 'horde');
-                    } catch (Horde_Exception $e) {
-                        throw new IMP_Compose_Exception($e);
-                    }
+                try {
+                    $message = Horde::callHook('perms_denied', array('imp:max_timelimit'));
+                } catch (Horde_Exception_HookNotSet $e) {
+                    $message = @htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $timelimit, $conf['sentmail']['params']['limit_period']), ENT_COMPAT, Horde_Nls::getCharset());
                 }
-                throw new IMP_Compose_Exception(@htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $timelimit, $conf['sentmail']['params']['limit_period']), ENT_COMPAT, Horde_Nls::getCharset()));
+                throw new IMP_Compose_Exception($message);
             }
         }
 
@@ -816,6 +814,7 @@ class IMP_Compose
      * 'header' - An array containing the cleaned up 'to', 'cc', and 'bcc'
      *            header strings.
      * </pre>
+     * @throws Horde_Exception
      * @throws IMP_Compose_Exception
      */
     public function recipientList($hdr, $exceed = true)
@@ -875,14 +874,12 @@ class IMP_Compose
                     $num_recipients += count(explode(',', $recipient));
                 }
                 if ($num_recipients > $max_recipients) {
-                    if (!empty($conf['hooks']['permsdenied'])) {
-                        try {
-                            Horde::callHook('_perms_hook_denied', array('imp:max_recipients'), 'horde');
-                        } catch (Horde_Exception $e) {
-                            throw new IMP_Compose_Exception($e);
-                        }
+                    try {
+                        $message = Horde::callHook('perms_denied', array('imp:max_recipients'));
+                    } catch (Horde_Exception_HookNotSet $e) {
+                        $message = @htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients."), $max_recipients), ENT_COMPAT, Horde_Nls::getCharset());
                     }
-                    throw new IMP_Compose_Exception(@htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients."), $max_recipients), ENT_COMPAT, Horde_Nls::getCharset()));
+                    throw new IMP_Compose_Exception($message);
                 }
             }
         }
@@ -930,6 +927,7 @@ class IMP_Compose
      * </pre>
      *
      * @return array  TODO
+     * @throws Horde_Exception
      * @throws IMP_Compose_Exception
      */
     protected function _createMimeMessage($to, $body, $charset,
@@ -957,15 +955,9 @@ class IMP_Compose
 
             if (!empty($trailer_file)) {
                 $trailer = Horde_Text_Filter::filter("\n" . file_get_contents($trailer_file), 'environment');
-                /* If there is a user defined function, call it with the
-                 * current trailer as an argument. */
-                if (!empty($GLOBALS['conf']['hooks']['trailer'])) {
-                    try {
-                        $trailer = Horde::callHook('_imp_hook_trailer', array($trailer), 'imp');
-                    } catch (Horde_Exception $e) {
-                        throw new IMP_Compose_Exception($e);
-                    }
-                }
+                try {
+                    $trailer = Horde::callHook('trailer', array($trailer), 'imp');
+                } catch (Horde_Exception_HookNotSet $e) {}
 
                 $body .= $trailer;
                 if (!empty($options['html'])) {

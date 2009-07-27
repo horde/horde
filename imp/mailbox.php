@@ -17,11 +17,9 @@ function _outputSummaries($msgs)
     static $template;
 
     /* Allow user to alter template array. */
-    if (!empty($GLOBALS['conf']['imp']['hooks']['mailboxarray'])) {
-        try {
-            $msgs = Horde::callHook('_imp_hook_mailboxarray', array($msgs, 'imp'), 'imp');
-        } catch (Horde_Exception $e) {}
-    }
+    try {
+        $msgs = Horde::callHook('mailboxarray', array($msgs, 'imp'), 'imp');
+    } catch (Horde_Exception_HookNotSet $e) {}
 
     if (!isset($template)) {
         $template = new Horde_Template();
@@ -43,18 +41,14 @@ function _outputSummaries($msgs)
 require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Call the mailbox redirection hook, if requested. */
-if (!empty($conf['hooks']['mbox_redirect'])) {
-    try {
-        $redirect = Horde::callHook('_imp_hook_mbox_redirect', array($imp_mbox['mailbox']), 'imp');
-        if (!empty($redirect)) {
-            $redirect = Horde::applicationUrl($redirect, true);
-            header('Location: ' . $redirect);
-            exit;
-        }
-    } catch (Horde_Exception $e) {
-        Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+try {
+    $redirect = Horde::callHook('mbox_redirect', array($imp_mbox['mailbox']), 'imp');
+    if (!empty($redirect)) {
+        $redirect = Horde::applicationUrl($redirect, true);
+        header('Location: ' . $redirect);
+        exit;
     }
-}
+} catch (Horde_Exception_HookNotSet $e) {}
 
 /* Is this a search mailbox? */
 $search_mbox = $imp_search->isSearchMbox($imp_mbox['mailbox']);
@@ -747,11 +741,9 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     $target = IMP::generateIMPUrl('message.php', $imp_mbox['mailbox'], $ob['uid'], $ob['mailbox']);
 
     /* Get all the flag information. */
-    if (!empty($GLOBALS['conf']['hooks']['msglist_flags'])) {
-        try {
-            $ob['flags'] = array_merge($ob['flags'], Horde::callHook('_imp_hook_msglist_flags', array($ob, 'imp'), 'imp'));
-        } catch (Horde_Exception $e) {}
-    }
+    try {
+        $ob['flags'] = array_merge($ob['flags'], Horde::callHook('msglist_flags', array($ob, 'imp'), 'imp'));
+    } catch (Horde_Exception_HookNotSet $e) {}
 
     $flag_parse = $imp_flags->parse(array(
         'atc' => isset($ob['structure']) ? $ob['structure'] : null,

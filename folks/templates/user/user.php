@@ -382,7 +382,7 @@ case 'authenticated':
     } else {
         $comments_reason = _("Only authenticated users can post comments.");
         if ($conf['hooks']['permsdenied']) {
-            $comments_reason = Horde::callHook('_perms_hook_denied', array('folks'), 'horde', $comments_reason);
+            $comments_reason = Horde::callHook('perms_denied', array('folks'));
         }
     }
     break;

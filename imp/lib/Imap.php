@@ -237,17 +237,17 @@ class IMP_Imap
      * @param string $mailbox  The mailbox to check.
      *
      * @return boolean  Is the mailbox read-only?
+     * @throws Horde_Exception
      */
     public function isReadOnly($mailbox)
     {
         if (!isset($this->_readonly[$mailbox])) {
+            $res = false;
+
             /* These tests work on both regular and search mailboxes. */
             try {
-                $res = !empty($GLOBALS['conf']['hooks']['mbox_readonly']) &&
-                    Horde::callHook('_imp_hook_mbox_readonly', array($mailbox), 'imp');
-            } catch (Horde_Exception $e) {
-                $res = false;
-            }
+                $res = Horde::callHook('mbox_readonly', array($mailbox), 'imp');
+            } catch (Horde_Exception_HookNotSet $e) {}
 
             /* This check can only be done for regular IMAP mailboxes. */
             // TODO: POP3 also?

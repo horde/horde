@@ -348,9 +348,10 @@ case Horde_Data::IMPORT_FILE:
     $max_contacts = Turba::getExtendedPermission($driver, 'max_contacts');
     if ($max_contacts !== true &&
         $max_contacts <= $driver->count()) {
-        $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d contacts in \"%s\"."), $max_contacts, $driver->title), ENT_COMPAT, Horde_Nls::getCharset());
-        if (!empty($conf['hooks']['permsdenied'])) {
-            $message = Horde::callHook('_perms_hook_denied', array('turba:max_contacts'), 'horde', $message);
+        try {
+            $message = Horde::callHook('perms_denied', array('turba:max_contacts'));
+        } catch (Horde_Exception_HookNotSet $e) {
+            $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d contacts in \"%s\"."), $max_contacts, $driver->title), ENT_COMPAT, Horde_Nls::getCharset());
         }
         $notification->push($message, 'horde.error', array('content.raw'));
         $error = true;

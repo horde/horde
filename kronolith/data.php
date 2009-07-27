@@ -36,12 +36,9 @@ $templates = array(
 if (Kronolith::hasPermission('max_events') !== true &&
     Kronolith::hasPermission('max_events') <= Kronolith::countEvents()) {
     try {
-        if (!empty($conf['hooks']['permsdenied'])) {
-            Horde::callHook('_perms_hook_denied', array('kronolith:max_events'), 'horde');
-        }
+        $message = Horde::callHook('perms_denied', array('kronolith:max_events'));
+    } catch (Horde_Exception_HookNotSet $e) {
         $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), Kronolith::hasPermission('max_events')), ENT_COMPAT, Horde_Nls::getCharset());
-    } catch (Horde_Exception $e) {
-        $message = $e->getMessage();
     }
     $notification->push($message, 'horde.warning', array('content.raw'));
     $templates[Horde_Data::IMPORT_FILE] = array(KRONOLITH_TEMPLATES . '/data/export.inc');
@@ -246,12 +243,9 @@ if (is_array($next_step)) {
     foreach ($next_step as $row) {
         if ($max_events !== true && $num_events >= $max_events) {
             try {
-                if (!empty($conf['hooks']['permsdenied'])) {
-                    Horde::callHook('_perms_hook_denied', array('kronolith:max_events'), 'horde');
-                }
+                $message = Horde::callHook('perms_denied', array('kronolith:max_events'));
+            } catch (Horde_Exception_HookNotSet $e) {
                 $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), Kronolith::hasPermission('max_events')), ENT_COMPAT, Horde_Nls::getCharset());
-            } catch (Horde_Exception $e) {
-                $message = $e->getMessage();
             }
             $notification->push($message, 'horde.error', array('content.raw'));
             break;

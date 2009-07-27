@@ -694,8 +694,8 @@ $cfgSources['favourites'] = array(
  * 'contact_ownership' = false and the __owner field will be automatically
  * populated with the current username.
  *
- * To integrate with Horde_Share (requires Horde 3.2 or better) set use_shares
- * to true, and uncomment the IMSP Horde_Share hooks in horde/config/hooks.php.
+ * To integrate with Horde_Share, set use_shares to true and uncomment the
+ * IMSP Horde_Share hooks in horde/config/hooks.php.
  */
 // Check that IMSP is configured in Horde but fall through if there is no
 // configuration at all - in case we don't have at least a 3.0.6 Horde

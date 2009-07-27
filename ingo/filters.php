@@ -62,24 +62,18 @@ case 'rule_enable':
     case 'rule_copy':
         if (!Ingo::hasPermission('allow_rules')) {
             try {
-                if (!empty($conf['hooks']['permsdenied'])) {
-                    Horde::callHook('_perms_hook_denied', array('ingo:allow_rules'), 'horde', $message);
-                }
+                $message = Horde::callHook('perms_denied', array('ingo:allow_rules'));
+            } catch (Horde_Exception_HookNotSet $e) {
                 $message = @htmlspecialchars(_("You are not allowed to create or edit custom rules."), ENT_COMPAT, Horde_Nls::getCharset());
-            } catch (Horde_Exception $e) {
-                $message = $e->getMessage();
             }
             $notification->push($message, 'horde.error', array('content.raw'));
             break 2;
         } elseif (Ingo::hasPermission('max_rules') !== true &&
                   Ingo::hasPermission('max_rules') <= count($filters->getFilterList())) {
             try {
-                if (!empty($conf['hooks']['permsdenied'])) {
-                    Horde::callHook('_perms_hook_denied', array('ingo:max_rules'), 'horde', $message);
-                }
+                $message = Horde::callHook('perms_denied', array('ingo:max_rules'));
+            } catch (Horde_Exception_HookNotSet $e) {
                 $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d rules."), Ingo::hasPermission('max_rules')), ENT_COMPAT, Horde_Nls::getCharset());
-            } catch (Horde_Exception $e) {
-                $message = $e->getMessage();
             }
             $notification->push($message, 'horde.error', array('content.raw'));
             break 2;

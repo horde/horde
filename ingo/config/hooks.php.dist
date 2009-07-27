@@ -8,17 +8,24 @@
  *
  * For more information please see the horde/config/hooks.php.dist file.
  *
+ * TODO: smtpd_access_policy_username
+ *
  * $Id$
  */
 
-// Here is an example _ingo_hook_vacation_addresses function to set the
-// default addresses used for the vacation module in Ingo. If you don't want
-// to lock users to the list of addresses provided by this hook, you also need
-// to disable the appropriate setting in Ingo's configuration.
+class Ingo_Hooks
+{
+    /**
+     * Set the default addresses used for the vacation module.
+     *
+     * @param string $user  The username.
+     *
+     * @return array  A list of vacation addresses.
+     */
+//    function vacation_addresses($user = null)
+//    {
+//        // Example #1: User has 2 vacation addresses.
+//        return array($user . '@example.com', $user . '@foobar.com');
+//    }
 
-// if (!function_exists('_ingo_hook_vacation_addresses')) {
-//     function _ingo_hook_vacation_addresses($user = null)
-//     {
-//         return array($user . '@example.com', $user . '@foobar.com');
-//     }
-// }
+}

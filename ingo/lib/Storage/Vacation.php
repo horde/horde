@@ -63,14 +63,10 @@ class Ingo_Storage_Vacation extends Ingo_Storage_Rule
 
     public function getVacationAddresses()
     {
-        if (empty($GLOBALS['conf']['hooks']['vacation_addresses'])) {
-            return $this->_addr;
-        }
-
         try {
-            return Horde::callHook('_ingo_hook_vacation_addresses', array(Ingo::getUser()), 'ingo');
-        } catch (Horde_Exception $e) {
-            return array();
+            return Horde::callHook('vacation_addresses', array(Ingo::getUser()), 'ingo');
+        } catch (Horde_Exception_HookNotSet $e) {
+            return $this->_addr;
         }
     }
 

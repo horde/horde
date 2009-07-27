@@ -82,7 +82,7 @@ if (isset($_GET['logout_reason'])) {
 if ($conf['login']['prelogin'] &&
     Horde_Auth::getAuth() &&
    ($app = Horde_Util::getGet('app'))) {
-    Horde::callHook('_folks_hook_prelogin', array($app), 'folks');
+    Horde::callHook('prelogin', array($app), 'folks');
 }
 
 /*
