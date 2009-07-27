@@ -309,7 +309,7 @@ class Horde_LoginTasks
      */
     public function getLoginTasksUrl()
     {
-        return Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/logintasks.php', true), array('app' => $this->_app));
+        return Horde::url(Horde_Util::addParameter($GLOBALS['registry']->get('webroot', 'horde') . '/services/logintasks.php', array('app' => $this->_app)), true);
     }
 
 }
