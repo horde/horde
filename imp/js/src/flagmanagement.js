@@ -6,7 +6,7 @@
  */
 
 var ImpFlagmanagement = {
-    // Variables set by other code: new_prompt
+    // Variables set by other code: confirm_delete, new_prompt
 
     addFlag: function()
     {
@@ -45,7 +45,9 @@ var ImpFlagmanagement = {
             }
 
             if (elt.hasClassName('flagdelete')) {
-                this._sendData('delete', elt.previous('INPUT').readAttribute('id'));
+                if (window.confirm(this.confirm_delete)) {
+                    this._sendData('delete', elt.previous('INPUT').readAttribute('id'));
+                }
                 e.stop();
                 return;
             }
