@@ -839,198 +839,6 @@ KronolithCore = {
     },
 
     /**
-     * Loads tasks, either from cache or from the server.
-     *
-     * @param integer taskType  The tasks type, (1 = all tasks,
-     *                          0 = incomplete tasks, 2 = complete tasks,
-     *                          3 = future tasks, 4 = future and incomplete
-     *                          tasks)
-     * @param Array tasksLists  The lists from where to obtain the tasks
-     */
-    _loadTasks: function(taskType, taskLists)
-    {
-        if (Object.isUndefined(taskLists)) {
-            taskLists = [];
-            // FIXME: Temporary hack to get the tasklists
-            $H(Kronolith.conf.calendars.external).each(function(cal) {
-                if (cal.value.api = 'Tasks' && cal.value.show)
-                {
-                    taskLists.push(cal.key.substring(6));
-                }
-            });
-        }
-
-        taskLists.each(function(taskList) {
-            var list = this.tcache.get(taskList);
-            if (!Object.isUndefined(list)) {
-                this._insertTasks(taskType, taskList);
-                return;
-            }
-
-            this.startLoading('tasks:' + taskList, taskType, '');
-            this._storeTasksCache($H(), taskList);
-            this.doAction('ListTasks', { 'taskType': taskType, 'list': taskList }, this._loadTasksCallback.bind(this));
-        }, this);
-    },
-
-    /**
-     * Callback method for inserting tasks in the current view.
-     *
-     * @param object r  The ajax response object.
-     */
-    _loadTasksCallback: function(r)
-    {
-        // Hide spinner.
-        this.loading--;
-        if (!this.loading) {
-            $('kronolithLoading').hide();
-        }
-
-        this._storeTasksCache(r.response.tasks || {}, r.response.taskList);
-
-        // Check if this is the still the result of the most current request.
-        if (this.view != 'tasks' ||
-            this.eventsLoading['tasks:' + r.response.taskList] != r.response.taskType) {
-            return;
-        }
-        this._insertTasks(r.response.taskType, r.response.taskList);
-    },
-
-    /**
-     * Reads tasks from the cache and inserts them into the view.
-     *
-     * @param integer taskType  The tasks type, (1 = all tasks,
-     *                          0 = incomplete tasks, 2 = complete tasks,
-     *                          3 = future tasks, 4 = future and incomplete
-     *                          tasks)
-     * @param string tasksList  The task list to be drawn
-     */
-    _insertTasks: function(taskType, taskList)
-    {
-        $('kronolithViewTasksBody').select('tr[taskList=' + taskList + ']').invoke('remove');
-        var tasks = this.tcache.get(taskList);
-        $H(tasks).each(function(task) {
-            // TODO: Check for the taskType
-            this._insertTask(task);
-        }, this);
-    },
-
-    /**
-     * Creates the DOM node for a task and inserts it into the view.
-     *
-     * @param object task  A Hash with the task to insert
-     */
-    _insertTask: function(task)
-    {
-        var body = $('kronolithViewTasksBody'),
-            row = $('kronolithTasksTemplate').cloneNode(true),
-            col = row.down(),
-            div = col.down();
-
-        row.removeAttribute('id');
-        row.writeAttribute('taskList', task.value.l);
-        row.writeAttribute('taskId', task.key);
-        col.addClassName('kronolithTask' + (task.value.cp != 0 ? 'Completed' : ''));
-        col.insert(task.value.n);
-        if (!Object.isUndefined(task.value.du)) {
-            var date = Date.parse(task.value.du),
-                now = new Date();
-            if (!now.isBefore(date)) {
-                col.addClassName('kronolithTaskDue');
-                col.insert(new Element('SPAN', { 'class': 'kronolithSep' }).update(' &middot; '));
-                col.insert(new Element('SPAN', { 'class': 'kronolithDate' }).update(date.toString(Kronolith.conf.date_format)));
-            }
-        }
-
-        if (!Object.isUndefined(task.value.sd)) {
-            col.insert(new Element('SPAN', { 'class': 'kronolithSep' }).update(' &middot; '));
-            col.insert(new Element('SPAN', { 'class': 'kronolithInfo' }).update(task.value.sd));
-        }
-
-        row.insert(col.show());
-        this._insertTaskPosition(row, task);
-    },
-
-    /**
-     * Inserts the task row in the correct position.
-     *
-     * @param Element newRow  The new row to be inserted.
-     * @param object newTask  A Hash with the task being added.
-     */
-    _insertTaskPosition: function(newRow, newTask)
-    {
-        var rows = $('kronolithViewTasksBody').select('tr');
-        // The first row is a template one, so must be ignored
-        for (var i = 1; i < rows.length; i++) {
-            var rowTaskList = rows[i].readAttribute('taskList');
-            var rowTaskId = rows[i].readAttribute('taskId');
-            var rowTask = this.tcache.get(rowTaskList).get(rowTaskId);
-
-            // TODO: Assuming that tasks of the same tasklist are already in
-            // order
-            if (rowTaskList == newTask.value.l) {
-                continue;
-            }
-
-            if (Object.isUndefined(rowTask)) {
-                // TODO: Throw error
-                return;
-            }
-            if (!this._isTaskAfter(newTask.value, rowTask)) {
-                break;
-            }
-        }
-        rows[--i].insert({ 'after': newRow.show() });
-    },
-
-    /**
-     * Analyzes which task should be drawn first.
-     *
-     * TODO: Very incomplete, only a dummy version
-     */
-    _isTaskAfter: function(taskA, taskB)
-    {
-        // TODO: Make all ordering system
-        return (taskA.pr >= taskB.pr);
-    },
-
-    /**
-     * Completes/uncompletes a task.
-     *
-     * @param string taskList  The task list to which the tasks belongs
-     * @param string taskId    The id of the task
-     */
-    _toggleCompletion: function(taskList, taskId)
-    {
-        var task = this.tcache.get(taskList).get(taskId);
-        if (Object.isUndefined(task)) {
-            this._toggleCompletionClass(taskId);
-            // TODO: Show some message?
-            return;
-        }
-        // Update the cache
-        task.cp = (task.cp == "1") ? "0": "1";
-    },
-
-    /**
-     * Toggles the CSS class to show that a tasks is completed/uncompleted.
-     *
-     * @param string taskId    The id of the task
-     */
-    _toggleCompletionClass: function(taskId)
-    {
-        var row = $(taskId);
-        if (row.length == 0) {
-            // FIXME: Show some error?
-            return;
-        }
-        var col = row.down('td.kronolithTaskCol', 0), div = col.down('div.kronolithTaskCheckbox', 0);
-
-        col.toggleClassName('kronolithTask');
-        col.toggleClassName('kronolithTaskCompleted');
-    },
-
-    /**
      * Reads events from the cache and inserts them into the view.
      *
      * If inserting events into day and week views, the calendar parameter is
@@ -1469,6 +1277,198 @@ KronolithCore = {
     },
 
     /**
+     * Loads tasks, either from cache or from the server.
+     *
+     * @param integer taskType  The tasks type, (1 = all tasks,
+     *                          0 = incomplete tasks, 2 = complete tasks,
+     *                          3 = future tasks, 4 = future and incomplete
+     *                          tasks)
+     * @param Array tasksLists  The lists from where to obtain the tasks
+     */
+    _loadTasks: function(taskType, taskLists)
+    {
+        if (Object.isUndefined(taskLists)) {
+            taskLists = [];
+            // FIXME: Temporary hack to get the tasklists
+            $H(Kronolith.conf.calendars.external).each(function(cal) {
+                if (cal.value.api = 'Tasks' && cal.value.show)
+                {
+                    taskLists.push(cal.key.substring(6));
+                }
+            });
+        }
+
+        taskLists.each(function(taskList) {
+            var list = this.tcache.get(taskList);
+            if (!Object.isUndefined(list)) {
+                this._insertTasks(taskType, taskList);
+                return;
+            }
+
+            this.startLoading('tasks:' + taskList, taskType, '');
+            this._storeTasksCache($H(), taskList);
+            this.doAction('ListTasks', { 'taskType': taskType, 'list': taskList }, this._loadTasksCallback.bind(this));
+        }, this);
+    },
+
+    /**
+     * Callback method for inserting tasks in the current view.
+     *
+     * @param object r  The ajax response object.
+     */
+    _loadTasksCallback: function(r)
+    {
+        // Hide spinner.
+        this.loading--;
+        if (!this.loading) {
+            $('kronolithLoading').hide();
+        }
+
+        this._storeTasksCache(r.response.tasks || {}, r.response.taskList);
+
+        // Check if this is the still the result of the most current request.
+        if (this.view != 'tasks' ||
+            this.eventsLoading['tasks:' + r.response.taskList] != r.response.taskType) {
+            return;
+        }
+        this._insertTasks(r.response.taskType, r.response.taskList);
+    },
+
+    /**
+     * Reads tasks from the cache and inserts them into the view.
+     *
+     * @param integer taskType  The tasks type, (1 = all tasks,
+     *                          0 = incomplete tasks, 2 = complete tasks,
+     *                          3 = future tasks, 4 = future and incomplete
+     *                          tasks)
+     * @param string tasksList  The task list to be drawn
+     */
+    _insertTasks: function(taskType, taskList)
+    {
+        $('kronolithViewTasksBody').select('tr[taskList=' + taskList + ']').invoke('remove');
+        var tasks = this.tcache.get(taskList);
+        $H(tasks).each(function(task) {
+            // TODO: Check for the taskType
+            this._insertTask(task);
+        }, this);
+    },
+
+    /**
+     * Creates the DOM node for a task and inserts it into the view.
+     *
+     * @param object task  A Hash with the task to insert
+     */
+    _insertTask: function(task)
+    {
+        var body = $('kronolithViewTasksBody'),
+            row = $('kronolithTasksTemplate').cloneNode(true),
+            col = row.down(),
+            div = col.down();
+
+        row.removeAttribute('id');
+        row.writeAttribute('taskList', task.value.l);
+        row.writeAttribute('taskId', task.key);
+        col.addClassName('kronolithTask' + (task.value.cp != 0 ? 'Completed' : ''));
+        col.insert(task.value.n);
+        if (!Object.isUndefined(task.value.du)) {
+            var date = Date.parse(task.value.du),
+                now = new Date();
+            if (!now.isBefore(date)) {
+                col.addClassName('kronolithTaskDue');
+                col.insert(new Element('SPAN', { 'class': 'kronolithSep' }).update(' &middot; '));
+                col.insert(new Element('SPAN', { 'class': 'kronolithDate' }).update(date.toString(Kronolith.conf.date_format)));
+            }
+        }
+
+        if (!Object.isUndefined(task.value.sd)) {
+            col.insert(new Element('SPAN', { 'class': 'kronolithSep' }).update(' &middot; '));
+            col.insert(new Element('SPAN', { 'class': 'kronolithInfo' }).update(task.value.sd));
+        }
+
+        row.insert(col.show());
+        this._insertTaskPosition(row, task);
+    },
+
+    /**
+     * Inserts the task row in the correct position.
+     *
+     * @param Element newRow  The new row to be inserted.
+     * @param object newTask  A Hash with the task being added.
+     */
+    _insertTaskPosition: function(newRow, newTask)
+    {
+        var rows = $('kronolithViewTasksBody').select('tr');
+        // The first row is a template one, so must be ignored
+        for (var i = 1; i < rows.length; i++) {
+            var rowTaskList = rows[i].readAttribute('taskList');
+            var rowTaskId = rows[i].readAttribute('taskId');
+            var rowTask = this.tcache.get(rowTaskList).get(rowTaskId);
+
+            // TODO: Assuming that tasks of the same tasklist are already in
+            // order
+            if (rowTaskList == newTask.value.l) {
+                continue;
+            }
+
+            if (Object.isUndefined(rowTask)) {
+                // TODO: Throw error
+                return;
+            }
+            if (!this._isTaskAfter(newTask.value, rowTask)) {
+                break;
+            }
+        }
+        rows[--i].insert({ 'after': newRow.show() });
+    },
+
+    /**
+     * Analyzes which task should be drawn first.
+     *
+     * TODO: Very incomplete, only a dummy version
+     */
+    _isTaskAfter: function(taskA, taskB)
+    {
+        // TODO: Make all ordering system
+        return (taskA.pr >= taskB.pr);
+    },
+
+    /**
+     * Completes/uncompletes a task.
+     *
+     * @param string taskList  The task list to which the tasks belongs
+     * @param string taskId    The id of the task
+     */
+    _toggleCompletion: function(taskList, taskId)
+    {
+        var task = this.tcache.get(taskList).get(taskId);
+        if (Object.isUndefined(task)) {
+            this._toggleCompletionClass(taskId);
+            // TODO: Show some message?
+            return;
+        }
+        // Update the cache
+        task.cp = (task.cp == "1") ? "0": "1";
+    },
+
+    /**
+     * Toggles the CSS class to show that a tasks is completed/uncompleted.
+     *
+     * @param string taskId    The id of the task
+     */
+    _toggleCompletionClass: function(taskId)
+    {
+        var row = $(taskId);
+        if (row.length == 0) {
+            // FIXME: Show some error?
+            return;
+        }
+        var col = row.down('td.kronolithTaskCol', 0), div = col.down('div.kronolithTaskCheckbox', 0);
+
+        col.toggleClassName('kronolithTask');
+        col.toggleClassName('kronolithTaskCompleted');
+    },
+
+    /**
      * Parses a date attribute string into a Date object.
      *
      * For other strings use Date.parse().
@@ -1517,25 +1517,6 @@ KronolithCore = {
         }
 
         return [start, end];
-    },
-
-    /**
-     * Stores a set of tasks in the cache.
-     *
-     * @param Hash tasks       The tasks to be stored
-     * @param string taskList  The task list to which the tasks belong
-     */
-    _storeTasksCache: function(tasks, taskList)
-    {
-        if (!this.tcache.get(taskList)) {
-            this.tcache.set(taskList, $H());
-        }
-
-        var taskHash = this.tcache.get(taskList);
-
-        $H(tasks).each(function(task) {
-            taskHash.set(task.key, task.value);
-        });
     },
 
     /**
@@ -1592,6 +1573,25 @@ KronolithCore = {
 
             // Store events in cache.
             calHash.set(date.key, calHash.get(date.key).merge(date.value));
+        });
+    },
+
+    /**
+     * Stores a set of tasks in the cache.
+     *
+     * @param Hash tasks       The tasks to be stored
+     * @param string taskList  The task list to which the tasks belong
+     */
+    _storeTasksCache: function(tasks, taskList)
+    {
+        if (!this.tcache.get(taskList)) {
+            this.tcache.set(taskList, $H());
+        }
+
+        var taskHash = this.tcache.get(taskList);
+
+        $H(tasks).each(function(task) {
+            taskHash.set(task.key, task.value);
         });
     },
 
