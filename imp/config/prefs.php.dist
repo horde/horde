@@ -1288,19 +1288,19 @@ $_prefs['fetchmail_login'] = array(
 
 // Display Options preferences
 
-// which page to start on when opening mailbox
+// Where to start when opening mailbox?
 $_prefs['mailbox_start'] = array(
     'value' => IMP::MAILBOX_START_FIRSTUNSEEN,
     'locked' => false,
     'shared' => false,
     'type' => 'enum',
     'enum' => array(
-        IMP::MAILBOX_START_FIRSTUNSEEN => _("Page with the First (oldest) Unseen Message"),
-        IMP::MAILBOX_START_LASTUNSEEN => _("Page with the Last (newest) Unseen Message"),
-        IMP::MAILBOX_START_FIRSTPAGE => _("First Mailbox Page"),
-        IMP::MAILBOX_START_LASTPAGE => _("Last Mailbox Page")
+        IMP::MAILBOX_START_FIRSTUNSEEN => _("First (oldest) Unseen Message"),
+        IMP::MAILBOX_START_LASTUNSEEN => _("Last (newest) Unseen Message"),
+        IMP::MAILBOX_START_FIRSTPAGE => _("First Page"),
+        IMP::MAILBOX_START_LASTPAGE => _("Last Page")
     ),
-    'desc' => _("When opening a new mailbox for the first time, which page do you want to start on?"),
+    'desc' => _("When opening a mailbox for the first time, where do you want to start?"),
     'help' => 'prefs-mailbox_start');
 
 // default sorting column

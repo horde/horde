@@ -15,7 +15,7 @@ class IMP_Views_ListMessages
     /**
      * Returns a list of messages for use with ViewPort.
      *
-     * @var array $args  TODO (applyfilter)
+     * @var array $args  TODO (applyfilter, initial)
      *
      * @return array  TODO
      */
@@ -64,17 +64,22 @@ class IMP_Views_ListMessages
         $result->label = $label;
         $result->cacheid = $imp_mailbox->getCacheID();
 
+        /* If this is the initial request for a mailbox, figure out the
+         * starting location based on user's preferences. */
+        $rownum = $args['initial']
+            ? intval($imp_mailbox->mailboxStart($msgcount))
+            : null;
+
         /* Determine the row slice to process. */
-        if (isset($args['slice_start'])) {
-            $slice_start = $args['slice_start'];
-            $slice_end = $args['slice_end'];
-        } else {
-            $rownum = 1;
-            foreach (array_keys($sorted_list['s'], $args['search_uid']) as $val) {
-                if (empty($sorted_list['m'][$val]) ||
-                    ($sorted_list['m'][$val] == $args['search_mbox'])) {
-                    $rownum = $val;
-                    break;
+        if (isset($args['search_uid']) || !is_null($rownum)) {
+            if (is_null($rownum)) {
+                $rownum = 1;
+                foreach (array_keys($sorted_list['s'], $args['search_uid']) as $val) {
+                    if (empty($sorted_list['m'][$val]) ||
+                        ($sorted_list['m'][$val] == $args['search_mbox'])) {
+                        $rownum = $val;
+                        break;
+                    }
                 }
             }
 
@@ -87,6 +92,9 @@ class IMP_Views_ListMessages
             }
 
             $result->rownum = $rownum;
+        } else {
+            $slice_start = $args['slice_start'];
+            $slice_end = $args['slice_end'];
         }
 
         $slice_start = max(1, $slice_start);

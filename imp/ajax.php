@@ -70,6 +70,7 @@ function _getListMessages($mbox, $change)
         'applyfilter' => Horde_Util::getPost('applyfilter'),
         'cached' => Horde_Util::getPost('cached'),
         'cacheid' => Horde_Util::getPost('cacheid'),
+        'initial' => Horde_Util::getPost('initial'),
         'mbox' => $mbox,
         'rangeslice' => Horde_Util::getPost('rangeslice'),
         'qsearch' => Horde_Util::getPost('qsearch'),
@@ -77,6 +78,14 @@ function _getListMessages($mbox, $change)
     );
 
     $search = Horde_Util::getPost('search');
+
+    if (!empty($search) || $args['initial']) {
+        $args += array(
+            'search_before' => intval(Horde_Util::getPost('search_before')),
+            'search_after' => intval(Horde_Util::getPost('search_after'))
+        );
+    }
+
     if (empty($search)) {
         list($slice_start, $slice_end) = explode(':', Horde_Util::getPost('slice'), 2);
         $args += array(
@@ -88,8 +97,6 @@ function _getListMessages($mbox, $change)
         $args += array(
             'search_uid' => $search->imapuid,
             'search_view' => $search->view,
-            'search_before' => intval(Horde_Util::getPost('search_before')),
-            'search_after' => intval(Horde_Util::getPost('search_after'))
         );
     }
 

@@ -192,6 +192,8 @@ var ViewPort = Class.create({
             opts.offset = 0;
         }
 
+        opts.initial = 1;
+
         this._fetchBuffer(opts);
     },
 
@@ -407,6 +409,7 @@ var ViewPort = Class.create({
     //
     // OPTIONAL:
     //   background: (boolean) Do fetch in background
+    //   initial: (boolean) Is this the initial access to this view?
     //   nearing: (string) TODO [only used w/offset]
     //   params: (object) Parameters to add to outgoing URL
     //   view: (string) The view to retrieve. Defaults to current view.
@@ -432,17 +435,25 @@ var ViewPort = Class.create({
         params.update({ request_id: r_id });
 
         // Determine if we are querying via offset or a search query
-        if (opts.search) {
-            type = 'search';
-            value = opts.search;
+        if (opts.search || opts.initial) {
+            /* If this is an initial request, 'type' will be set correctly
+             * further down in the code. */
+            if (opts.search) {
+                type = 'search';
+                value = opts.search;
+                params.set('search', Object.toJSON(value));
+            } else {
+                params.set('initial', 1);
+            }
             tmp = this._lookbehind();
 
             params.update({
-                search: Object.toJSON(value),
                 search_after: this.bufferSize() - tmp,
                 search_before: tmp
             });
-        } else {
+        }
+
+        if (!opts.search) {
             type = 'rownum';
             value = opts.offset + 1;
 

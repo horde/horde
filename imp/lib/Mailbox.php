@@ -369,7 +369,8 @@ class IMP_Mailbox
      * @param integer $results  A Horde_Imap_Client::SORT_RESULTS_* constant
      *                          that indicates the desired return type.
      *
-     * @return mixed  Whatever is requested in $results.
+     * @return mixed  Whatever is requested in $results. NOTE: Returns
+     *                sequence numbers instead of UIDs.
      */
     public function unseenMessages($results)
     {
@@ -383,7 +384,8 @@ class IMP_Mailbox
      * @param integer $results  A Horde_Imap_Client::SORT_RESULTS_* constant
      *                          that indicates the desired return type.
      *
-     * @return mixed  Whatever is requested in $results.
+     * @return mixed  Whatever is requested in $results. NOTE: Returns
+     *                sequence numbers instead of UIDs.
      */
     protected function _msgFlagSearch($type, $results)
     {
@@ -413,7 +415,7 @@ class IMP_Mailbox
         }
 
         try {
-            $res = $GLOBALS['imp_imap']->ob->search($this->_mailbox, $criteria, array('results' => array($results)));
+            $res = $GLOBALS['imp_imap']->ob->search($this->_mailbox, $criteria, array('results' => array($results), 'sequence' => true));
             return $count ? $res['count'] : $res;
         } catch (Horde_Imap_Client_Exception $e) {
             return $count ? 0 : array();
@@ -526,47 +528,8 @@ class IMP_Mailbox
                     } elseif ($this->_searchmbox) {
                         $page = 1;
                     } else {
-                        $page_uid = null;
-                        $startpage = $GLOBALS['prefs']->getValue('mailbox_start');
-
-                        switch ($GLOBALS['prefs']->getValue('mailbox_start')) {
-                        case IMP::MAILBOX_START_FIRSTPAGE:
-                            $page = 1;
-                            break;
-
-                        case IMP::MAILBOX_START_LASTPAGE:
-                            $page = $ret['pagecount'];
-                            break;
-
-                        case IMP::MAILBOX_START_FIRSTUNSEEN:
-                            $sortpref = IMP::getSort($this->_mailbox);
-
-                            /* Optimization: if sorting by arrival then first
-                             * unseen information is returned via a
-                             * SELECT/EXAMINE call. */
-                            if ($sortpref['by'] == Horde_Imap_Client::SORT_ARRIVAL) {
-                                try {
-                                    $res = $GLOBALS['imp_imap']->ob->status($this->_mailbox, Horde_Imap_Client::STATUS_FIRSTUNSEEN);
-                                    $page_uid = is_null($res['firstunseen']) ? null : $this->_sorted[$res['firstunseen'] - 1];
-                                } catch (Horde_Imap_Client_Exception $e) {}
-                            } else {
-                                $unseen_msgs = $this->unseenMessages(Horde_Imap_Client::SORT_RESULTS_MIN);
-                                $page_uid = $unseen_msgs['min'];
-                            }
-                            break;
-
-                        case IMP::MAILBOX_START_LASTUNSEEN:
-                            $unseen_msgs = $this->unseenMessages(Horde_Imap_Client::SORT_RESULTS_MAX);
-                            $page_uid = $unseen_msgs['max'];
-                            break;
-                        }
+                        $page = ceil($this->mailboxStart($ret['msgcount']) / $page_size);
                     }
-                }
-
-                if (empty($page)) {
-                    $page = is_null($page_uid)
-                        ? 1
-                        : ceil((array_search($page_uid, $this->_sorted) + 1) / $page_size);
                 }
             }
 
@@ -609,6 +572,52 @@ class IMP_Mailbox
         $_SESSION['imp']['cache']['mbox_page'][$this->_mailbox] = $ret['page'];
 
         return $ret;
+    }
+
+    /**
+     * Determines the sequence number of the first message to display, based
+     * on the user's preferences.
+     *
+     * @param integer $total  The total number of messages in the mailbox.
+     *
+     * @return integer  The sequence number in the mailbox.
+     */
+    public function mailboxStart($total)
+    {
+        switch ($GLOBALS['prefs']->getValue('mailbox_start')) {
+        case IMP::MAILBOX_START_FIRSTPAGE:
+            return 1;
+
+        case IMP::MAILBOX_START_LASTPAGE:
+            return $total;
+
+        case IMP::MAILBOX_START_FIRSTUNSEEN:
+            $sortpref = IMP::getSort($this->_mailbox);
+
+            /* Optimization: if sorting by arrival then first unseen
+             * information is returned via a SELECT/EXAMINE call. */
+            if ($sortpref['by'] == Horde_Imap_Client::SORT_ARRIVAL) {
+                try {
+                    $res = $GLOBALS['imp_imap']->ob->status($this->_mailbox, Horde_Imap_Client::STATUS_FIRSTUNSEEN);
+                    if (!is_null($res['firstunseen'])) {
+                        return $res['firstunseen'];
+                    }
+                } catch (Horde_Imap_Client_Exception $e) {}
+
+                return 1;
+            }
+
+            $unseen_msgs = $this->unseenMessages(Horde_Imap_Client::SORT_RESULTS_MIN);
+            return empty($unseen_msgs['min'])
+                ? 1
+                : $unseen_msgs['min'];
+
+        case IMP::MAILBOX_START_LASTUNSEEN:
+            $unseen_msgs = $this->unseenMessages(Horde_Imap_Client::SORT_RESULTS_MAX);
+            return empty($unseen_msgs['max'])
+                ? 1
+                : $unseen_msgs['max'];
+        }
     }
 
     /**
