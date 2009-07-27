@@ -74,6 +74,9 @@ if (($viewmode == 'dimp') && Horde_Util::nonInputVar('imp_dimp_logout')) {
 // Determine imp authentication type.
 $authentication = Horde_Util::nonInputVar('imp_authentication');
 if ($authentication == 'horde') {
+    // Autoloading for imp is not set until pushApp(), so need to add lib
+    // path here explicitly.
+    Horde_Autoloader::addClassPattern('/^IMP_/i', IMP_BASE . '/lib');
     IMP_Auth::$authType = 'horde';
 }
 
