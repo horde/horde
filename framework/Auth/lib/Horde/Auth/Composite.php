@@ -106,6 +106,21 @@ class Horde_Auth_Composite extends Horde_Auth_Base
     }
 
     /**
+     * Reset a user's password. Used for example when the user does not
+     * remember the existing password.
+     *
+     * @param string $userId  The user id for which to reset the password.
+     *
+     * @return mixed  The new password on success or a PEAR_Error object on
+     *                failure.
+     */
+    public function resetPassword($userId)
+    {
+        $driver = $this->_loadDriver('admin');
+        $driver->resetPassword($userId);
+    }
+
+    /**
      * Delete a set of authentication credentials.
      *
      * @param string $userId  The userId to delete.
