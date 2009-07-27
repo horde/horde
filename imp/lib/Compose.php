@@ -761,7 +761,7 @@ class IMP_Compose
         try {
             $results = $registry->call('contacts/search', array($emails, array($abook), array($abook => array('email'))));
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e);
+            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
             $notification->push(_("Could not save recipients."));
             return;
         }
