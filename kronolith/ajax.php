@@ -130,7 +130,7 @@ try {
         }
 
         $taskList = Horde_Util::getFormData('list');
-        $taskType  = Horde_Util::getFormData('taskType');
+        $taskType = Horde_Util::getFormData('taskType');
         $tasks = $registry->call('tasks/listTasks',
                                  array(null, null, null, $taskList, $taskType, true));
         if (is_a($tasks, 'PEAR_Error')) {
