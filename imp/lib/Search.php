@@ -7,23 +7,19 @@
  * across page accesses. The format of that entry is as follows:
  *
  * $_SESSION['imp']['search'] = array(
- *     'q' => array(
- *         'id_1' => array(
- *             'query' => Horde_Imap_Client_Search_Query object (serialized),
- *             'folders' => array (List of folders to search),
- *             'uiinfo' => array (Info used by search.php to render page.
- *                                For virtual folders, this data is stored
- *                                in the preferences),
- *             'label' => string (Description of search),
- *             'vfolder' => boolean (True if this is a Virtual Folder)
- *         ),
- *         'id_2' => array(
- *             ....
- *         ),
+ *     'id_1' => array(
+ *         'query' => Horde_Imap_Client_Search_Query object (serialized),
+ *         'folders' => array (List of folders to search),
+ *         'uiinfo' => array (Info used by search.php to render page.
+ *                            For virtual folders, this data is stored
+ *                            in the preferences),
+ *         'label' => string (Description of search),
+ *         'vfolder' => boolean (True if this is a Virtual Folder)
+ *     ),
+ *     'id_2' => array(
  *         ....
  *     ),
- *     'vtrash_id' => string (The Virtual Trash query ID),
- *     'vinbox_id' => string (The Virtual Inbox query ID)
+ *     ....
  * );
  *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
@@ -98,9 +94,6 @@ class IMP_Search
      */
     public function sessionSetup($no_vf = false)
     {
-        if (!isset($_SESSION['imp']['search'])) {
-            $_SESSION['imp']['search'] = array('q' => array());
-        }
         if (!$no_vf) {
             $imaptree = IMP_Imap_Tree::singleton();
             foreach ($this->_getVFolderList() as $key => $val) {
@@ -109,7 +102,7 @@ class IMP_Search
                     !$this->isVINBOXFolder($key)) {
                     $imaptree->insertVFolders(array($key => $val['label']));
                     unset($val['uiinfo']);
-                    $_SESSION['imp']['search']['q'][$key] = $val;
+                    $_SESSION['imp']['search'][$key] = $val;
                 }
             }
         }
@@ -134,10 +127,10 @@ class IMP_Search
         $mbox = '';
         $sorted = array();
 
-        if (empty($_SESSION['imp']['search']['q'][$id])) {
+        if (empty($_SESSION['imp']['search'][$id])) {
             return $sorted;
         }
-        $search = &$_SESSION['imp']['search']['q'][$id];
+        $search = &$_SESSION['imp']['search'][$id];
 
         /* Prepare the search query. */
         $query = unserialize($search['query']);
@@ -202,7 +195,7 @@ class IMP_Search
                                       $id = null)
     {
         $id = is_null($id) ? uniqid(mt_rand()) : $this->_strip($id);
-        $_SESSION['imp']['search']['q'][$id] = array(
+        $_SESSION['imp']['search'][$id] = array(
             'query' => serialize($query),
             'folders' => $folders,
             'uiinfo' => $search,
@@ -224,8 +217,8 @@ class IMP_Search
     public function deleteSearchQuery($id = null, $no_delete = false)
     {
         $id = $this->_strip($id);
-        $is_vfolder = !empty($_SESSION['imp']['search']['q'][$id]['vfolder']);
-        unset($_SESSION['imp']['search']['q'][$id]);
+        $is_vfolder = !empty($_SESSION['imp']['search'][$id]['vfolder']);
+        unset($_SESSION['imp']['search'][$id]);
 
         if ($is_vfolder) {
             $vfolders = $this->_getVFolderList();
@@ -249,8 +242,8 @@ class IMP_Search
     public function retrieveUIQuery($id = null)
     {
         $id = $this->_strip($id);
-        if (isset($_SESSION['imp']['search']['q'][$id]['uiinfo'])) {
-            return $_SESSION['imp']['search']['q'][$id]['uiinfo'];
+        if (isset($_SESSION['imp']['search'][$id]['uiinfo'])) {
+            return $_SESSION['imp']['search'][$id]['uiinfo'];
         }
 
         if ($this->isVFolder($id)) {
@@ -272,8 +265,8 @@ class IMP_Search
     public function getLabel($id = null)
     {
         $id = $this->_strip($id);
-        return isset($_SESSION['imp']['search']['q'][$id]['label'])
-            ? $_SESSION['imp']['search']['q'][$id]['label']
+        return isset($_SESSION['imp']['search'][$id]['label'])
+            ? $_SESSION['imp']['search'][$id]['label']
             : '';
     }
 
@@ -330,10 +323,10 @@ class IMP_Search
     public function addVFolder($query, $folders, $search, $label, $id = null)
     {
         $id = $this->createSearchQuery($query, $folders, $search, $label, $id);
-        $_SESSION['imp']['search']['q'][$id]['vfolder'] = true;
+        $_SESSION['imp']['search'][$id]['vfolder'] = true;
         if ($this->_saveVFolder) {
             $vfolders = $this->_getVFolderList();
-            $vfolders[$id] = $_SESSION['imp']['search']['q'][$id];
+            $vfolders[$id] = $_SESSION['imp']['search'][$id];
             $this->_saveVFolderList($vfolders);
         }
 
@@ -381,7 +374,6 @@ class IMP_Search
             $this->addVFolder($query, $flist, array(), $label, $vtrash_id);
         }
         $this->_saveVFolder = true;
-        $_SESSION['imp']['search']['vtrash_id'] = $vtrash_id;
     }
 
     /**
@@ -435,7 +427,6 @@ class IMP_Search
             $this->addVFolder($query, $flist, array(), $label, $vinbox_id);
         }
         $this->_saveVFolder = true;
-        $_SESSION['imp']['search']['vinbox_id'] = $vinbox_id;
     }
 
     /**
@@ -481,11 +472,11 @@ class IMP_Search
     {
         $vfolders = array();
 
-        if (empty($_SESSION['imp']['search']['q'])) {
+        if (empty($_SESSION['imp']['search'])) {
             return $vfolders;
         }
 
-        foreach ($_SESSION['imp']['search']['q'] as $key => $val) {
+        foreach ($_SESSION['imp']['search'] as $key => $val) {
             if (!$vfolder || !empty($val['vfolder'])) {
                 $vfolders[$key] = $this->getLabel($key);
             }
@@ -506,7 +497,9 @@ class IMP_Search
     public function getSearchFolders($id = null)
     {
         $id = $this->_strip($id);
-        return (isset($_SESSION['imp']['search']['q'][$id]['folders'])) ? $_SESSION['imp']['search']['q'][$id]['folders'] : array();
+        return isset($_SESSION['imp']['search'][$id]['folders'])
+            ? $_SESSION['imp']['search'][$id]['folders']
+            : array();
     }
 
     /**
@@ -520,7 +513,11 @@ class IMP_Search
     {
         $retarray = array();
 
-        foreach ($_SESSION['imp']['search']['q'] as $key => $val) {
+        if (empty($_SESSION['imp']['search'])) {
+            return $retarray;
+        }
+
+        foreach ($_SESSION['imp']['search'] as $key => $val) {
             if (!$this->isVFolder($key) &&
                 ($text = $this->searchQueryText($key))) {
                 $retarray[$key] = $text;
@@ -542,10 +539,10 @@ class IMP_Search
     {
         $id = $this->_strip($id);
 
-        if (empty($_SESSION['imp']['search']['q'][$id])) {
+        if (empty($_SESSION['imp']['search'][$id])) {
             return '';
         } elseif ($this->isVINBOXFolder($id) || $this->isVTrashFolder($id)) {
-            return $_SESSION['imp']['search']['q'][$id]['label'];
+            return $_SESSION['imp']['search'][$id]['label'];
         }
 
         $flagfields = $this->flagFields();
@@ -636,7 +633,7 @@ class IMP_Search
     public function isVFolder($id = null)
     {
         $id = $this->_strip($id);
-        return !empty($_SESSION['imp']['search']['q'][$id]['vfolder']);
+        return !empty($_SESSION['imp']['search'][$id]['vfolder']);
     }
 
     /**
