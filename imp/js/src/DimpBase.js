@@ -428,7 +428,7 @@ var DimpBase = {
             }.bind(this),
             onContent: function(row) {
                 var bg, re, u,
-                    thread = this.viewport.getMetaData('thread') || $H(),
+                    thread = $H(this.viewport.getMetaData('thread')),
                     tsort = (this.viewport.getMetaData('sortby') == DIMP.conf.sortthread);
 
                 row.subjectdata = row.status = '';
