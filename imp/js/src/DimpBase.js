@@ -2027,9 +2027,9 @@ var DimpBase = {
                     this.createFolder(tmp);
                 }
             } else {
-                parent_e = (ob.pa == DIMP.conf.base_mbox)
-                    ? $('normalfolders')
-                    : $(this.getSubFolderId(this.getFolderId(ob.pa))).down();
+                parent_e = ob.pa
+                    ? $(this.getSubFolderId(this.getFolderId(ob.pa))).down()
+                    : $('normalfolders');
             }
 
             /* Virtual folders are sorted on the server. */
