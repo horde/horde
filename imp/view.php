@@ -45,16 +45,18 @@ function _fullMessageTextLength($ob)
     return $len;
 }
 
+require_once dirname(__FILE__) . '/lib/base.load.php';
+require_once HORDE_BASE . '/lib/core.php';
+
 /* Don't compress if we are already sending in compressed format. */
-if ((isset($_GET['actionID']) && ($_GET['actionID'] == 'download_all')) ||
-    !empty($_GET['zip'])) {
+$actionID = Horde_Util::getFormData('actionID');
+if (($actionID == 'download_all') || Horde_Util::getFormData('zip')) {
     $imp_no_compress = true;
 }
 
 $imp_session_control = 'readonly';
 require_once dirname(__FILE__) . '/lib/base.php';
 
-$actionID = Horde_Util::getFormData('actionID');
 $ctype = Horde_Util::getFormData('ctype');
 $id = Horde_Util::getFormData('id');
 
@@ -73,10 +75,6 @@ if ($actionID == 'compose_attach_preview') {
     $id = $mime->getMimeId();
 } else {
     $uid = Horde_Util::getFormData('uid');
-    if (!$uid) {
-        // TODO: Remove usage of 'index'
-        $uid = Horde_Util::getFormData('index');
-    }
     $mailbox = Horde_Util::getFormData('mailbox');
     if (!$uid || !$mailbox) {
         exit;
@@ -174,7 +172,6 @@ case 'view_source':
     $msg = $contents->fullMessageText(array('stream' => true));
     $browser->downloadHeaders('Message Source', 'text/plain', true, _fullMessageTextLength($msg));
     echo $msg[0];
-    rewind($msg[1]);
     fpassthru($msg[1]);
     exit;
 
@@ -197,7 +194,6 @@ case 'save_message':
     $msg = $contents->fullMessageText(array('stream' => true));
     $browser->downloadHeaders($name . '.eml', 'message/rfc822', false, strlen($hdr) + _fullMessageTextLength($msg));
     echo $hdr . $msg[0];
-    rewind($msg[1]);
     fpassthru($msg[1]);
     exit;
 }
