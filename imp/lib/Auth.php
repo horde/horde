@@ -373,7 +373,7 @@ class IMP_Auth
                 if ($url) {
                     return Horde_Util::addParameter(Horde::applicationUrl($page, true), array('mailbox' => $init_url));
                 }
-                $GLOBALS['imp_mbox'] = IMP::getCurrentMailboxInfo($init_url);
+                IMP::setCurrentMailboxInfo($init_url);
                 break;
             }
         }

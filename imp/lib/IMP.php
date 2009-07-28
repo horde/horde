@@ -103,11 +103,9 @@ class IMP
             }
         }
 
-        // Initialize global $imp_mbox array.
-        $GLOBALS['imp_mbox'] = IMP::getCurrentMailboxInfo();
-
-        // Initialize IMP_Search object.
-        $GLOBALS['imp_search'] = new IMP_Search(array('id' => (isset($_SESSION['imp']) && IMP_Search::isSearchMbox($GLOBALS['imp_mbox']['mailbox'])) ? $GLOBALS['imp_mbox']['mailbox'] : null));
+        // Initialize global $imp_mbox array. This call also initializes the
+        // IMP_Search object.
+        IMP::setCurrentMailboxInfo();
 
         self::$_init = true;
     }
@@ -1180,33 +1178,38 @@ class IMP
     }
 
     /**
-     * Process mailbox/index information for current page load.
+     * Sets mailbox/index information for current page load.
+     * Sets the global $imp_search object.
      *
-     * @param boolean $mbox  Use this mailbox, instead of form data.
-     *
-     * @return array  Array with the following elements:
+     * The global $imp_mbox objects will contain an array with the following
+     * elements:
      * <pre>
      * 'mailbox' - The current active mailbox (may be search mailbox).
      * 'thismailbox' - The real IMAP mailbox of the current index.
      * 'index' - The IMAP message index.
      * </pre>
+     *
+     * @param boolean $mbox  Use this mailbox, instead of form data.
      */
-    static public function getCurrentMailboxInfo($mbox = null)
+    static public function setCurrentMailboxInfo($mbox = null)
     {
         if (is_null($mbox)) {
             $mbox = Horde_Util::getFormData('mailbox');
-            return array(
+            $GLOBALS['imp_mbox'] = array(
                 'mailbox' => empty($mbox) ? 'INBOX' : $mbox,
                 'thismailbox' => Horde_Util::getFormData('thismailbox', $mbox),
                 'index' => Horde_Util::getFormData('index')
             );
+        } else {
+            $GLOBALS['imp_mbox'] = array(
+                'mailbox' => $mbox,
+                'thismailbox' => $mbox,
+                'index' => null
+            );
         }
 
-        return array(
-            'mailbox' => $mbox,
-            'thismailbox' => $mbox,
-            'index' => null
-        );
+        // Initialize IMP_Search object.
+        $GLOBALS['imp_search'] = new IMP_Search(array('id' => (isset($_SESSION['imp']) && IMP_Search::isSearchMbox($GLOBALS['imp_mbox']['mailbox'])) ? $GLOBALS['imp_mbox']['mailbox'] : null));
     }
 
     /**
