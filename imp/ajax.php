@@ -548,9 +548,10 @@ case 'CancelCompose':
 case 'DeleteDraft':
     $imp_compose = IMP_Compose::singleton(Horde_Util::getPost('imp_compose'));
     $imp_compose->destroy();
-    if ($action == 'DeleteDraft') {
+    $draft_index = $imp_compose->getMetadata('draft_index');
+    if ($draft_index && ($action == 'DeleteDraft')) {
         $imp_message = IMP_Message::singleton();
-        $idx_array = array($imp_compose->getMetadata('draft_index') . IMP::IDX_SEP . IMP::folderPref($prefs->getValue('drafts_folder'), true));
+        $idx_array = array($draft_index . IMP::IDX_SEP . IMP::folderPref($prefs->getValue('drafts_folder'), true));
         $imp_message->delete($idx_array, array('nuke' => true));
     }
     $result = true;
