@@ -52,6 +52,9 @@ class IMP_Search
     const SHOW_UNSUBSCRIBED = 0;
     const SHOW_SUBSCRIBED_ONLY = 1;
 
+    /* The mailbox search prefix. */
+    const MBOX_PREFIX = 'impsearch\0';
+
     /**
      * The ID of the current search query in use.
      *
@@ -619,7 +622,7 @@ class IMP_Search
      */
     static public function isSearchMbox($id)
     {
-        return (strpos($id, "\0") !== false);
+        return (strpos($id, self::MBOX_PREFIX) === 0);
     }
 
     /**
@@ -633,7 +636,7 @@ class IMP_Search
     public function isVFolder($id = null)
     {
         $id = $this->_strip($id);
-        return (!empty($_SESSION['imp']['search']['q'][$id]['vfolder']));
+        return !empty($_SESSION['imp']['search']['q'][$id]['vfolder']);
     }
 
     /**
@@ -663,10 +666,9 @@ class IMP_Search
             return $this->_id;
         }
 
-        $pos = strpos($id, null);
-        return ($pos === false)
-            ? $id
-            : substr($id, $pos + 1);
+        return $this->isSearchMbox($id)
+            ? substr($id, strlen(self::MBOX_PREFIX))
+            : $id;
     }
 
     /**
@@ -678,7 +680,7 @@ class IMP_Search
      */
     public function createSearchID($id)
     {
-        return 'impsearch\0' . $this->_strip($id);
+        return self::MBOX_PREFIX . $this->_strip($id);
     }
 
     /**
