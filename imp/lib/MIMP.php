@@ -16,12 +16,12 @@ class MIMP
     /**
      * Take a Horde_Mobile_card and add global menu items.
      *
-     * @param Horde_Mobile_linkset &$menu  The menu linkset, with page-specific
-     *                                     options already filled in.
-     * @param string $page                 The current page ('compose',
-     *                                     'folders', 'mailbox', 'message').
+     * @param Horde_Mobile_linkset $menu  The menu linkset, with page-specific
+     *                                    options already filled in.
+     * @param string $page                The current page ('compose',
+     *                                    'folders', 'mailbox', 'message').
      */
-    public function addMIMPMenu(&$menu, $page)
+    public function addMIMPMenu($menu, $page)
     {
         $items = array();
 
@@ -38,17 +38,13 @@ class MIMP
             $items[Horde::applicationUrl('folders-mimp.php')] = _("Folders");
         }
 
-        // @TODO - Options for mobile browsers
-        // if ($options_link = Horde::getServiceLink('options', 'mimp')) {
-        //     $items[Horde_Util::addParameter($options_link, 'mobile', 1, false)] = _("Options");
-        // }
-
-        $items[Horde::getServiceLink('logout')] = _("Log out");
+        $items[Horde::getServiceLink('logout', 'imp')] = _("Log out");
 
         foreach ($items as $link => $label) {
             $menu->add(new Horde_Mobile_link($label, $link));
         }
 
+        $menu = new Horde_Menu();
         foreach ($menu->getSiteLinks() as $menuitem) {
             if ($menuitem != 'separator') {
                 $menu->add(new Horde_Mobile_link($menuitem['text'], $menuitem['url']));
