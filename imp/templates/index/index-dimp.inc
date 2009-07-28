@@ -311,7 +311,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
             <tr id="msgLogInfo" style="display:none">
              <td class="label"><a id="msgloglist_toggle"><span class="iconImg" id="msgloglist_col"></span><span class="iconImg" id="msgloglist_exp" style="display:none"></span></a></td>
              <td>
-              <div><span class="msgLogLabel"><?php echo _("Message Log Information") ?></span></div>
+              <div><span class="msgLogLabel"><?php echo _("Message Log") ?></span></div>
               <div id="msgloglist" style="display:none">
                <ul></ul>
               </div>
