@@ -2740,7 +2740,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 }
             }
 
-            $this->_updateCache($out);
+            if (!empty($out)) {
+                $this->_updateCache($out);
+            }
         }
 
         return $this->_temp['modified'];
