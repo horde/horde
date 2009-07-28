@@ -42,7 +42,7 @@ class IMP_Imap_Tree
     /* The string used to indicate the base of the tree. This must be null
      * since this is the only 7-bit character not allowed in IMAP
      * mailboxes. */
-    const BASE_ELT = null;
+    const BASE_ELT = '\0';
 
     /* Defines used with the output from the build() function. */
     const SPECIAL_INBOX = 1;
@@ -58,24 +58,20 @@ class IMP_Imap_Tree
     const FLIST_OB = 8;
     const FLIST_ELT = 16;
 
-    /* Add a percent to folder key since it allows us to sort by name but
-     * never conflict with an IMAP mailbox of the same name (since '%' is an
-     * invalid character in an IMAP mailbox string). */
-    public $VFOLDER_LABEL;
-    public $VFOLDER_KEY;
+    /* Add null to folder key since it allows us to sort by name but
+     * never conflict with an IMAP mailbox. */
+    const VFOLDER_KEY = 'vfolder\0';
 
     /* Defines used with namespace display. */
-    public $SHARED_LABEL;
-    public $SHARED_KEY;
-    public $OTHER_LABEL;
-    public $OTHER_KEY;
+    const SHARED_KEY = 'shared\0';
+    const OTHER_KEY = 'other\0';
 
     /**
      * Singleton instance
      *
      * @var IMP_Imap_Tree
      */
-    static protected $_instance = null;
+    static protected $_instance;
 
     /**
      * Array containing the mailbox tree.
@@ -197,6 +193,20 @@ class IMP_Imap_Tree
     protected $_forceopen = false;
 
     /**
+     * Mailbox icons cache.
+     *
+     * @var array
+     */
+    protected $_mboxIcons;
+
+    /**
+     * Element cache for element().
+     *
+     * @var array
+     */
+    protected $_eltCache;
+
+    /**
      * Attempts to return a reference to a concrete IMP_Imap_Tree instance.
      *
      * If an IMP_Imap_Tree object is currently stored in the cache, re-create
@@ -207,11 +217,12 @@ class IMP_Imap_Tree
      */
     static public function singleton()
     {
-        if (is_null(self::$_instance)) {
+        if (!isset(self::$_instance)) {
             if (!empty($_SESSION['imp']['cache']['tree'])) {
                 $imp_cache = IMP::getCache();
-                unserialize($imp_cache->get($_SESSION['imp']['cache']['tree'], 86400));
+                self::$_instance = @unserialize($imp_cache->get($_SESSION['imp']['cache']['tree'], 86400));
             }
+
             if (empty(self::$_instance)) {
                 self::$_instance = new IMP_Imap_Tree();
             }
@@ -229,22 +240,15 @@ class IMP_Imap_Tree
             $ns = $GLOBALS['imp_imap']->getNamespaceList();
             $ptr = reset($ns);
             $this->_delimiter = $ptr['delimiter'];
-            $this->_namespaces = (empty($GLOBALS['conf']['user']['allow_folders'])) ? array() : $ns;
+            $this->_namespaces = empty($GLOBALS['conf']['user']['allow_folders'])
+                ? array()
+                : $ns;
         }
 
         $imp_cache = IMP::getCache();
         if ($imp_cache) {
             $_SESSION['imp']['cache']['tree'] = uniqid(mt_rand() . Horde_Auth::getAuth());
         }
-
-        /* Must set these values here because PHP 5 does not allow assignment
-         * of const's to gettext strings. */
-        $this->VFOLDER_LABEL = _("Virtual Folders");
-        $this->VFOLDER_KEY = $this->VFOLDER_LABEL . '%';
-        $this->SHARED_LABEL = _("Shared Folders");
-        $this->SHARED_KEY = $this->SHARED_LABEL . '%';
-        $this->OTHER_LABEL = _("Other Users' Folders");
-        $this->OTHER_KEY = $this->OTHER_LABEL . '%';
 
         $this->init();
     }
@@ -255,29 +259,7 @@ class IMP_Imap_Tree
      */
     public function __sleep()
     {
-        /* Don't store $_expanded and $_poll - these values are handled
-         * by the subclasses.
-         * Don't store $_eltdiff - these needs to be regenerated for each
-         * request.
-         * Don't store $_currkey, $_currparent, and $_currstack since the
-         * user MUST call reset() before cycling through the tree.
-         * Don't store $_subscribed and $_fulllist - this information is
-         * stored in the elements.
-         * Reset the $_changed and $_trackdiff flags. */
-        $this->_currkey = $this->_currparent = $this->_eltdiff = $this->_expanded = $this->_fulllist = $this->_poll = $this->_subscribed = null;
-        $this->_currstack = array();
-        $this->_changed = false;
-        $this->_trackdiff = true;
-
-        return array_diff(array_keys(get_class_vars(__CLASS__)), array('_instance'));
-    }
-
-    /**
-     * Do tasks on unserialization.
-     */
-    public function __wakeup()
-    {
-        self::$_instance = $this;
+        return array('_tree', '_showunsub', '_parent', '_unsubview', '_delimiter', '_namespaces');
     }
 
     /**
@@ -426,7 +408,7 @@ class IMP_Imap_Tree
                     }
 
                     if ($GLOBALS['prefs']->getValue('tree_view')) {
-                        $name = ($ns_info['type'] == 'other') ? $this->OTHER_KEY : $this->SHARED_KEY;
+                        $name = ($ns_info['type'] == 'other') ? self::OTHER_KEY : self::SHARED_KEY;
                         if ($elt['c'] == 0) {
                             $elt['p'] = $name;
                             ++$elt['c'];
@@ -451,16 +433,15 @@ class IMP_Imap_Tree
      */
     public function init()
     {
-        $initmode = (($_SESSION['imp']['protocol'] == 'pop') ||
-                     !$GLOBALS['prefs']->getValue('subscribe') ||
-                     $_SESSION['imp']['showunsub'])
-            ? 'unsub' : 'sub';
+        $unsubmode = (($_SESSION['imp']['protocol'] == 'pop') ||
+                      !$GLOBALS['prefs']->getValue('subscribe') ||
+                      $_SESSION['imp']['showunsub']);
 
         /* Reset class variables to the defaults. */
         $this->_changed = true;
         $this->_currkey = $this->_currparent = $this->_subscribed = null;
         $this->_currstack = $this->_tree = $this->_parent = array();
-        $this->_showunsub = $this->_unsubview = ($initmode == 'unsub');
+        $this->_showunsub = $this->_unsubview = $unsubmode;
 
         /* Create a placeholder element to the base of the tree list so we can
          * keep track of whether the base level needs to be sorted. */
@@ -469,6 +450,8 @@ class IMP_Imap_Tree
             'v' => self::BASE_ELT
         );
 
+        /* Add INBOX and exit if folders aren't allowed or if we are using
+         * POP3. */
         if (empty($GLOBALS['conf']['user']['allow_folders']) ||
             ($_SESSION['imp']['protocol'] == 'pop')) {
             $this->_insertElt($this->_makeElt('INBOX', self::ELT_IS_SUBSCRIBED));
@@ -480,11 +463,12 @@ class IMP_Imap_Tree
             if ($val['type'] != 'personal' &&
                 $GLOBALS['prefs']->getValue('tree_view')) {
                 $elt = $this->_makeElt(
-                    ($val['type'] == 'other') ? $this->OTHER_KEY : $this->SHARED_KEY,
+                    ($val['type'] == 'other') ? self::OTHER_KEY : self::SHARED_KEY,
                     self::ELT_NOSELECT | self::ELT_NAMESPACE | self::ELT_NONIMAP | self::ELT_NOSHOW
                 );
                 $elt['l'] = ($val['type'] == 'other')
-                    ? $this->OTHER_LABEL : $this->SHARED_LABEL;
+                    ? _("Other Users' Folders")
+                    : _("Shared Folders");
 
                 foreach ($this->_namespaces as $val2) {
                     if (($val2['type'] == $val['type']) &&
@@ -544,11 +528,8 @@ class IMP_Imap_Tree
     {
         $folder = $this->_convertName($folder);
 
-        if (!isset($this->_tree[$folder])) {
-            return;
-        }
-
-        if ($this->isOpen($this->_tree[$folder])) {
+        if (isset($this->_tree[$folder]) &&
+            $this->isOpen($this->_tree[$folder])) {
             $this->_changed = true;
             $this->_setOpen($this->_tree[$folder], false);
         }
@@ -585,7 +566,10 @@ class IMP_Imap_Tree
             ($this->_currparent != $curr['v'])) {
             /* If the current element is open, and children exist, move into
              * it. */
-            $this->_currstack[] = array('k' => $this->_currkey, 'p' => $this->_currparent);
+            $this->_currstack[] = array(
+                'k' => $this->_currkey,
+                'p' => $this->_currparent
+            );
             $this->_currkey = 0;
             $this->_currparent = $curr['v'];
             $this->_sortLevel($curr['v']);
@@ -599,7 +583,7 @@ class IMP_Imap_Tree
             }
         } else {
             /* Else, increment within the current subfolder. */
-            $this->_currkey++;
+            ++$this->_currkey;
         }
 
         $curr = $this->current();
@@ -608,19 +592,20 @@ class IMP_Imap_Tree
                 $this->_currkey = $this->_currparent = null;
                 $this->_showunsub = $old_showunsub;
                 return false;
-            } else {
-                do {
-                    $old = array_pop($this->_currstack);
-                    $this->_currkey = $old['k'] + 1;
-                    $this->_currparent = $old['p'];
-                } while ((($curr = $this->current()) == false) &&
-                         !empty($this->_currstack));
             }
+
+            do {
+                $old = array_pop($this->_currstack);
+                $this->_currkey = $old['k'] + 1;
+                $this->_currparent = $old['p'];
+            } while ((($curr = $this->current()) == false) &&
+                     !empty($this->_currstack));
         }
 
         $res = $this->_activeElt($curr);
         $this->_showunsub = $old_showunsub;
-        return ($res) ? $curr : $this->next($mask);
+
+        return $res ? $curr : $this->next($mask);
     }
 
     /**
@@ -647,9 +632,9 @@ class IMP_Imap_Tree
      */
     public function current()
     {
-        return (!isset($this->_parent[$this->_currparent][$this->_currkey]))
-            ? false
-            : $this->_tree[$this->_parent[$this->_currparent][$this->_currkey]];
+        return isset($this->_parent[$this->_currparent][$this->_currkey])
+            ? $this->_tree[$this->_parent[$this->_currparent][$this->_currkey]]
+            : false;
     }
 
     /**
@@ -680,7 +665,7 @@ class IMP_Imap_Tree
     public function get($name)
     {
         $name = $this->_convertName($name);
-        return (isset($this->_tree[$name])) ? $this->_tree[$name] : false;
+        return isset($this->_tree[$name]) ? $this->_tree[$name] : false;
     }
 
     /**
@@ -707,14 +692,14 @@ class IMP_Imap_Tree
 
             $ns_info = $this->_getNamespace($val);
             if (is_null($ns_info)) {
-                if (strpos($val, $this->VFOLDER_KEY . $this->_delimiter) === 0) {
-                    $elt = $this->_makeElt($this->VFOLDER_KEY, self::ELT_VFOLDER | self::ELT_NOSELECT | self::ELT_NONIMAP);
-                    $elt['l'] = $this->VFOLDER_LABEL;
+                if (strpos($val, self::VFOLDER_KEY . $this->_delimiter) === 0) {
+                    $elt = $this->_makeElt(self::VFOLDER_KEY, self::ELT_VFOLDER | self::ELT_NOSELECT | self::ELT_NONIMAP);
+                    $elt['l'] = _("Virtual Folders");
                     $this->_insertElt($elt);
                 }
 
                 $elt = $this->_makeElt($val, self::ELT_VFOLDER | self::ELT_IS_SUBSCRIBED);
-                $elt['l'] = $elt['v'] = Horde_String::substr($val, Horde_String::length($this->VFOLDER_KEY) + Horde_String::length($this->_delimiter));
+                $elt['l'] = $elt['v'] = Horde_String::substr($val, Horde_String::length(self::VFOLDER_KEY) + Horde_String::length($this->_delimiter));
                 $this->_insertElt($elt);
             } else {
                 /* Break apart the name via the delimiter and go step by
@@ -801,19 +786,18 @@ class IMP_Imap_Tree
             $this->_sortList($id);
             $id = array_reverse($id);
 
-            $success = true;
             foreach ($id as $val) {
                 $currsuccess = $this->delete($val);
                 if (!$currsuccess) {
-                    $success = false;
+                    return false;
                 }
             }
-            return $success;
-        } else {
-            $id = $this->_convertName($id, true);
+
+            return true;
         }
 
-        $vfolder_base = ($id == $this->VFOLDER_LABEL);
+        $id = $this->_convertName($id, true);
+        $vfolder_base = ($id == self::VFOLDER_KEY);
         $search_id = $GLOBALS['imp_search']->createSearchID($id);
 
         if ($vfolder_base ||
@@ -1005,8 +989,7 @@ class IMP_Imap_Tree
             }
 
             foreach ($this->_parent[$elt['v']] as $val) {
-                $child = &$this->_tree[$val];
-                if ($this->isSubscribed($child) ||
+                if ($this->isSubscribed($this->_tree[$val]) ||
                     $this->hasChildren($this->_tree[$val])) {
                     return true;
                 }
@@ -1128,7 +1111,9 @@ class IMP_Imap_Tree
     {
         if (is_null($this->_expanded)) {
             $serialized = $GLOBALS['prefs']->getValue('expanded_folders');
-            $this->_expanded = ($serialized) ? unserialize($serialized) : array();
+            $this->_expanded = $serialized
+                ? unserialize($serialized)
+                : array();
         }
     }
 
@@ -1161,7 +1146,7 @@ class IMP_Imap_Tree
     {
         $this->_initPollList();
 
-        $plist = ($prune)
+        $plist = $prune
             ? array_values(array_intersect(array_keys($this->_poll), $this->folderList()))
             : $this->_poll;
 
@@ -1186,10 +1171,9 @@ class IMP_Imap_Tree
             if ($GLOBALS['prefs']->getValue('nav_poll_all')) {
                 $navPollList = array_flip($this->_getList(true));
             } else {
-                $old_error = error_reporting(0);
-                $navPollList = unserialize($GLOBALS['prefs']->getValue('nav_poll'));
-                error_reporting($old_error);
+                $navPollList = @unserialize($GLOBALS['prefs']->getValue('nav_poll'));
             }
+
             if ($navPollList) {
                 $this->_poll += $navPollList;
             }
@@ -1207,19 +1191,21 @@ class IMP_Imap_Tree
             $id = array($id);
         }
 
-        if (!empty($id) && !$GLOBALS['prefs']->isLocked('nav_poll')) {
-            $imp_folder = IMP_Folder::singleton();
-            $this->getPollList();
-            foreach ($id as $val) {
-                if (!$this->isSubscribed($this->_tree[$val])) {
-                    $imp_folder->subscribe(array($val));
-                }
-                $this->_poll[$val] = true;
-                $this->_setPolled($this->_tree[$val], true);
-            }
-            $GLOBALS['prefs']->setValue('nav_poll', serialize($this->_poll));
-            $this->_changed = true;
+        if (empty($id) || $GLOBALS['prefs']->isLocked('nav_poll')) {
+            return;
         }
+
+        $imp_folder = IMP_Folder::singleton();
+        $this->getPollList();
+        foreach ($id as $val) {
+            if (!$this->isSubscribed($this->_tree[$val])) {
+                $imp_folder->subscribe(array($val));
+            }
+            $this->_poll[$val] = true;
+            $this->_setPolled($this->_tree[$val], true);
+        }
+        $GLOBALS['prefs']->setValue('nav_poll', serialize($this->_poll));
+        $this->_changed = true;
     }
 
     /**
@@ -1230,27 +1216,30 @@ class IMP_Imap_Tree
      */
     public function removePollList($id)
     {
+        if ($GLOBALS['prefs']->isLocked('nav_poll')) {
+            return;
+        }
+
         if (!is_array($id)) {
             $id = array($id);
         }
 
         $removed = false;
 
-        if (!$GLOBALS['prefs']->isLocked('nav_poll')) {
-            $this->getPollList();
-            foreach ($id as $val) {
-                if ($val != 'INBOX') {
-                    unset($this->_poll[$val]);
-                    if (isset($this->_tree[$val])) {
-                        $this->_setPolled($this->_tree[$val], false);
-                    }
-                    $removed = true;
+        $this->getPollList();
+        foreach ($id as $val) {
+            if ($val != 'INBOX') {
+                unset($this->_poll[$val]);
+                if (isset($this->_tree[$val])) {
+                    $this->_setPolled($this->_tree[$val], false);
                 }
+                $removed = true;
             }
-            if ($removed) {
-                $GLOBALS['prefs']->setValue('nav_poll', serialize($this->_poll));
-                $this->_changed = true;
-            }
+        }
+
+        if ($removed) {
+            $GLOBALS['prefs']->setValue('nav_poll', serialize($this->_poll));
+            $this->_changed = true;
         }
     }
 
@@ -1263,7 +1252,9 @@ class IMP_Imap_Tree
      */
     public function isPolled($elt)
     {
-        return ($GLOBALS['prefs']->getValue('nav_poll_all')) ? true : ($elt['a'] & self::ELT_IS_POLLED);
+        return $GLOBALS['prefs']->getValue('nav_poll_all')
+            ? true
+            : ($elt['a'] & self::ELT_IS_POLLED);
     }
 
     /**
@@ -1419,29 +1410,28 @@ class IMP_Imap_Tree
             'inbox' => true
         );
 
-        if ($base) {
-            $basesort = array();
-            foreach ($mbox as $val) {
-                $basesort[$val] = ($val == 'INBOX') ? 'INBOX' : $this->_tree[$val]['l'];
-            }
-            $config_array['index'] = true;
-            Horde_Imap_Client_Sort::sortMailboxes($basesort, $config_array);
-            $mbox = array_keys($basesort);
-        } else {
+        if (!$base) {
             Horde_Imap_Client_Sort::sortMailboxes($mbox, $config_array);
+            return;
         }
 
-        if ($base) {
-            for ($i = 0, $count = count($mbox); $i < $count; ++$i) {
-                if ($this->_isNonIMAPElt($this->_tree[$mbox[$i]])) {
-                    /* Already sorted by name - simply move to the end of
-                     * the array. */
-                    $mbox[] = $mbox[$i];
-                    unset($mbox[$i]);
-                }
-            }
-            $mbox = array_values($mbox);
+        $basesort = array();
+        foreach ($mbox as $val) {
+            $basesort[$val] = ($val == 'INBOX') ? 'INBOX' : $this->_tree[$val]['l'];
         }
+        $config_array['index'] = true;
+        Horde_Imap_Client_Sort::sortMailboxes($basesort, $config_array);
+        $mbox = array_keys($basesort);
+
+        for ($i = 0, $count = count($mbox); $i < $count; ++$i) {
+            if ($this->_isNonIMAPElt($this->_tree[$mbox[$i]])) {
+                /* Already sorted by name - simply move to the end of
+                 * the array. */
+                $mbox[] = $mbox[$i];
+                unset($mbox[$i]);
+            }
+        }
+        $mbox = array_values($mbox);
     }
 
     /**
@@ -1483,8 +1473,8 @@ class IMP_Imap_Tree
      */
     protected function _getNamespace($mailbox)
     {
-        if (!in_array($mailbox, array($this->OTHER_KEY, $this->SHARED_KEY, $this->VFOLDER_KEY)) &&
-            (strpos($mailbox, $this->VFOLDER_KEY . $this->_delimiter) !== 0)) {
+        if (!in_array($mailbox, array(self::OTHER_KEY, self::SHARED_KEY, self::VFOLDER_KEY)) &&
+            (strpos($mailbox, self::VFOLDER_KEY . $this->_delimiter) !== 0)) {
             return $GLOBALS['imp_imap']->getNamespace($mailbox);
         }
         return null;
@@ -1495,7 +1485,11 @@ class IMP_Imap_Tree
      */
     public function eltDiffStart()
     {
-        $this->_eltdiff = array('a' => array(), 'c' => array(), 'd' => array());
+        $this->_eltdiff = array(
+            'a' => array(),
+            'c' => array(),
+            'd' => array()
+        );
     }
 
     /**
@@ -1547,7 +1541,7 @@ class IMP_Imap_Tree
         }
 
         foreach (array_keys($id) as $key) {
-            $id_key = $this->VFOLDER_KEY . $this->_delimiter . $key;
+            $id_key = self::VFOLDER_KEY . $this->_delimiter . $key;
             if (!isset($this->_tree[$id_key])) {
                 $adds[] = $id_key;
             }
@@ -1564,16 +1558,18 @@ class IMP_Imap_Tree
         }
 
         /* Sort the Virtual Folder list in the object, if necessary. */
-        if ($this->_needSort($this->_tree[$this->VFOLDER_KEY])) {
-            $vsort = array();
-            foreach ($this->_parent[$this->VFOLDER_KEY] as $val) {
-                $vsort[$val] = $this->_tree[$val]['l'];
-            }
-            natcasesort($vsort);
-            $this->_parent[$this->VFOLDER_KEY] = array_keys($vsort);
-            $this->_setNeedSort($this->_tree[$this->VFOLDER_KEY], false);
-            $this->_changed = true;
+        if (!$this->_needSort($this->_tree[self::VFOLDER_KEY])) {
+            return;
         }
+
+        $vsort = array();
+        foreach ($this->_parent[self::VFOLDER_KEY] as $val) {
+            $vsort[$val] = $this->_tree[$val]['l'];
+        }
+        natcasesort($vsort);
+        $this->_parent[self::VFOLDER_KEY] = array_keys($vsort);
+        $this->_setNeedSort($this->_tree[self::VFOLDER_KEY], false);
+        $this->_changed = true;
     }
 
     /**
@@ -1603,7 +1599,9 @@ class IMP_Imap_Tree
         do {
             $row = $this->element($mailbox['v']);
 
-            $row['display'] = ($this->_isNonIMAPElt($mailbox)) ? $mailbox['l'] : IMP::displayFolder($mailbox['v']);
+            $row['display'] = $this->_isNonIMAPElt($mailbox)
+                ? $mailbox['l']
+                : IMP::displayFolder($mailbox['v']);
             $row['peek'] = $this->peek();
 
             if (!empty($row['recent'])) {
@@ -1632,17 +1630,20 @@ class IMP_Imap_Tree
      */
     public function getCustomIcon($elt)
     {
-        static $mbox_icons = array();
-
-        if (!isset($mbox_icons)) {
+        if (!isset($this->_mboxIcons)) {
             try {
-                $mbox_icons = Horde::callHook('mbox_icons', array(), 'imp', false);
-            } catch (Horde_Exception $e) {
-            } catch (Horde_Exception_HookNotSet $e) {}
+                $this->_mboxIcons = Horde::callHook('mbox_icons', array(), 'imp');
+            } catch (Horde_Exception_HookNotSet $e) {
+                $this->_mboxIcons = array();
+            }
         }
 
-        if (isset($mbox_icons[$elt['v']])) {
-            return array('icon' => $mbox_icons[$elt['v']]['icon'], 'icondir' => $mbox_icons[$elt['v']]['icondir'], 'alt' => $mbox_icons[$elt['v']]['alt']);
+        if (isset($this->_mboxIcons[$elt['v']])) {
+            return array(
+                'icon' => $this->_mboxIcons[$elt['v']]['icon'],
+                'icondir' => $this->_mboxIcons[$elt['v']]['icondir'],
+                'alt' => $this->_mboxIcons[$elt['v']]['alt']
+            );
         }
 
         return false;
@@ -1669,7 +1670,9 @@ class IMP_Imap_Tree
     public function rename($old, $new)
     {
         foreach ($old as $key => $val) {
-            $polled = (isset($this->_tree[$val])) ? $this->isPolled($this->_tree[$val]) : false;
+            $polled = isset($this->_tree[$val])
+                ? $this->isPolled($this->_tree[$val])
+                : false;
             if ($this->delete($val)) {
                 $this->insert($new[$key]);
                 if ($polled) {
@@ -1700,7 +1703,9 @@ class IMP_Imap_Tree
         $baseindex = null;
         $ret_array = array();
 
-        $diff_unsub = (($mask & self::FLIST_UNSUB) != $this->_showunsub) ? $this->_showunsub : null;
+        $diff_unsub = (($mask & self::FLIST_UNSUB) != $this->_showunsub)
+            ? $this->_showunsub
+            : null;
         $this->showUnsubscribed($mask & self::FLIST_UNSUB);
 
         $mailbox = $this->reset();
@@ -1776,17 +1781,19 @@ class IMP_Imap_Tree
      */
     protected function _initElement()
     {
-        global $prefs, $registry;
+        if (isset($this->_eltCache)) {
+            return;
+        }
 
         /* Initialize the user's identities. */
         $identity = Identity::singleton(array('imp', 'imp'));
 
-        return array(
-            'trash' => IMP::folderPref($prefs->getValue('trash_folder'), true),
-            'draft' => IMP::folderPref($prefs->getValue('drafts_folder'), true),
-            'spam' => IMP::folderPref($prefs->getValue('spam_folder'), true),
+        $this->_eltCache = array(
+            'trash' => IMP::folderPref($GLOBALS['prefs']->getValue('trash_folder'), true),
+            'draft' => IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true),
+            'spam' => IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true),
             'sent' => $identity->getAllSentmailFolders(),
-            'image_dir' => $registry->getImageDir(),
+            'image_dir' => $GLOBALS['registry']->getImageDir(),
         );
     }
 
@@ -1826,25 +1833,22 @@ class IMP_Imap_Tree
      */
     public function element($mailbox)
     {
-        static $elt;
-
         if (!is_array($mailbox)) {
             $mailbox = $this->get($mailbox);
         }
+
         if (!$mailbox) {
             return false;
         }
 
-        if (!isset($elt)) {
-            $elt = $this->_initElement();
-        }
+        $this->_initElement();
 
         $row = array(
             'base_elt' => $mailbox,
             'children' => $this->hasChildren($mailbox),
             'container' => false,
             'editvfolder' => false,
-            'icondir' => $elt['image_dir'],
+            'icondir' => $this->_eltCache['image_dir'],
             'iconopen' => null,
             'level' => $mailbox['c'],
             'mbox_val' => htmlspecialchars($mailbox['v']),
@@ -1886,7 +1890,7 @@ class IMP_Imap_Tree
                 $row['special'] = self::SPECIAL_INBOX;
                 break;
 
-            case $elt['trash']:
+            case $this->_eltCache['trash']:
                 if ($GLOBALS['prefs']->getValue('use_vtrash')) {
                     $row['icon'] = ($this->isOpen($mailbox)) ? 'folders/open.png' : 'folders/folder.png';
                     $row['alt'] = _("Mailbox");
@@ -1897,20 +1901,20 @@ class IMP_Imap_Tree
                 }
                 break;
 
-            case $elt['draft']:
+            case $this->_eltCache['draft']:
                 $row['icon'] = 'folders/drafts.png';
                 $row['alt'] = _("Draft folder");
                 $row['special'] = self::SPECIAL_DRAFT;
                 break;
 
-            case $elt['spam']:
+            case $this->_eltCache['spam']:
                 $row['icon'] = 'folders/spam.png';
                 $row['alt'] = _("Spam folder");
                 $row['special'] = self::SPECIAL_SPAM;
                 break;
 
             default:
-                if (in_array($mailbox['v'], $elt['sent'])) {
+                if (in_array($mailbox['v'], $this->_eltCache['sent'])) {
                     $row['icon'] = 'folders/sent.png';
                     $row['alt'] = _("Sent mail folder");
                     $row['special'] = self::SPECIAL_SENT;
@@ -1958,7 +1962,9 @@ class IMP_Imap_Tree
             if (!empty($icon['alt'])) {
                 $row['alt'] = $icon['alt'];
             }
-            $row['iconopen'] = isset($icon['iconopen']) ? $icon['iconopen'] : null;
+            $row['iconopen'] = isset($icon['iconopen'])
+                ? $icon['iconopen']
+                : null;
             $row['user_icon'] = true;
         }
 
