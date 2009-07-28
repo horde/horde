@@ -342,7 +342,7 @@ if (isset($prev_link)) {
     $mset->add(new Horde_Mobile_link(_("Prev"), $prev_link));
 }
 
-$mset->add(new Horde_Mobile_link(sprintf(_("To %s"), IMP::getLabel($mailbox_name)), $mailbox_link));
+$mset->add(new Horde_Mobile_link(sprintf(_("To %s"), IMP::getLabel($imp_mbox['mailbox'])), $mailbox_link));
 
 MIMP::addMIMPMenu($mset, 'message');
 

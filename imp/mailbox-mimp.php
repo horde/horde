@@ -8,6 +8,7 @@
  *   's' = (integer) start
  *   'sb' = (integer) change sort: by
  *   'sd' = (integer) change sort: dir
+ *   'search' = (sring) The search string
  *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
@@ -46,6 +47,28 @@ case 'e':
 // 'c' = change sort
 case 'c':
     IMP::setSort(Horde_Util::getFormData('sb'), Horde_Util::getFormData('sd'));
+    break;
+
+// 's' = search
+case 's':
+    require IMP_TEMPLATES . '/mailbox/search-mimp.inc';
+    exit;
+
+// 'rs' = run search
+case 'rs':
+    $search_query = Horde_Util::getFormData('search');
+    if (!empty($search_query) &&
+        ($_SESSION['imp']['protocol'] == 'imap')) {
+        $query = new Horde_Imap_Client_Search_Query();
+        $query->text($search_query, false);
+
+        /* Create the search query and reset the global $imp_mbox variable. */
+        $sq = $imp_search->createSearchQuery($query, array(Horde_Util::getFormData('mailbox')), array(), _("Search Results"));
+        IMP::setCurrentMailboxInfo($imp_search->createSearchID($sq));
+
+        /* Need to re-calculate the read-only value. */
+        $readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);
+    }
     break;
 }
 
@@ -145,6 +168,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
 
 $mailbox = Horde_Util::addParameter($mailbox_url, 'p', $pageOb['page']);
 $items = array($mailbox => _("Refresh"));
+$search_mbox = $imp_search->isSearchMbox($imp_mbox['mailbox']);
 
 /* Determine if we are going to show the Purge Deleted link. */
 if (!$readonly &&
@@ -167,7 +191,8 @@ foreach ($sort_list as $key => $val) {
         $sortdir = $sortpref['dir'];
         $sortkey = $key;
         if (($key == Horde_Imap_Client::SORT_SUBJECT) &&
-            IMP::threadSortAvailable($mailbox)) {
+            IMP::threadSortAvailable($mailbox) &&
+            !$search_mbox) {
             if (is_null($threadob)) {
                 $items[Horde_Util::addParameter($mailbox, array('a' => 'c', 'sb' => Horde_Imap_Client::SORT_THREAD, 'sd' => $sortdir))] = _("Sort by Thread");
             } else {
@@ -181,6 +206,12 @@ foreach ($sort_list as $key => $val) {
         }
         $sort[$key] = new Horde_Mobile_link($val, Horde_Util::addParameter($mailbox, array('a' => 'c', 'sb' => $sortkey, 'sd' => $sortdir)));
     }
+}
+
+/* Add search link. */
+if (!$search_mbox &&
+    ($_SESSION['imp']['protocol'] == 'imap')) {
+    $items[Horde_Util::addParameter($mailbox_url, array('a' => 's'))] = _("Search");
 }
 
 /* Create mailbox menu. */
