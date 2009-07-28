@@ -1,5 +1,7 @@
 <?php
 /**
+ * IMP search script.
+ *
  * URL Parameters:
  * ---------------
  * 'search_mailbox'  --  If exists, don't show the folder selection list; use
@@ -18,10 +20,12 @@
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-/* Redirect back to the mailbox if searching is not allowed. */
+/* Load mailbox page if searching is not allowed. */
 if ($_SESSION['imp']['protocol'] == 'pop') {
     $notification->push(_("Searching is not available with a POP3 server."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('mailbox.php', true));
+    $from_message_page = true;
+    $actionID = $start = null;
+    require_once IMP_BASE . '/mailbox.php';
     exit;
 }
 
