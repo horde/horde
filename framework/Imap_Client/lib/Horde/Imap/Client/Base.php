@@ -2636,7 +2636,7 @@ abstract class Horde_Imap_Client_Base
 
         if (!empty($highestmodseq)) {
             $modseq = max($highestmodseq);
-            $metadata = $this->_cache->getMetaData($this->_selected, $uidvalid, array('HICmodseq'));
+            $metadata = $this->_cache->getMetaData($mailbox, $uidvalid, array('HICmodseq'));
             if (!isset($metadata['HICmodseq']) ||
                 ($metadata['HICmodseq'] != $modseq)) {
                 $this->_updateMetaData($mailbox, array('HICmodseq' => $modseq));
