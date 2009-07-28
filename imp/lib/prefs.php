@@ -215,7 +215,7 @@ function prefs_callback()
 
     if ($prefs->isDirty('use_vtrash') || $prefs->isDirty('use_vinbox')) {
         $imp_search = new IMP_Search();
-        $imp_search->sessionSetup(true);
+        $imp_search->initialize(true);
     }
 
     if ($prefs->isDirty('subscribe') || $prefs->isDirty('tree_view')) {

@@ -172,7 +172,7 @@ $t->set('label_or', Horde::label('search_match_or', _("Match Any Query")));
 $t->set('match_and', ($search['match'] == null) || ($search['match'] == 'and'));
 $t->set('label_and', Horde::label('search_match_and', _("Match All Queries")));
 
-$saved_searches = $imp_search->getSearchQueries();
+$saved_searches = $imp_search->listQueries(IMP_Search::LIST_SEARCH, false);
 if (!empty($saved_searches)) {
     $ss = array();
     foreach ($saved_searches as $key => $val) {

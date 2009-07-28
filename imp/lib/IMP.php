@@ -231,7 +231,7 @@ class IMP
 
         /* Add the list of virtual folders to the list. */
         if (!empty($options['inc_vfolder'])) {
-            $vfolders = $GLOBALS['imp_search']->listQueries(true);
+            $vfolders = $GLOBALS['imp_search']->listQueries(IMP_Search::LIST_VFOLDER);
             if (!empty($vfolders)) {
                 $vfolder_sel = $GLOBALS['imp_search']->searchMboxID();
                 $text .= '<option value="" disabled="disabled">- - - - - - - - -</option>' . "\n";

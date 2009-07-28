@@ -51,6 +51,10 @@ class IMP_Search
     /* The mailbox search prefix. */
     const MBOX_PREFIX = 'impsearch\0';
 
+    /* Bitmask constants for listQueries(). */
+    const LIST_SEARCH = 1;
+    const LIST_VFOLDER = 2;
+
     /**
      * The ID of the current search query in use.
      *
@@ -77,7 +81,7 @@ class IMP_Search
      *
      * @param array $params  Available parameters:
      * <pre>
-     * 'id'  --  The ID of the search query in use.
+     * 'id' - (string) The ID of the search query in use.
      * </pre>
      */
     public function __construct($params = array())
@@ -88,11 +92,11 @@ class IMP_Search
     }
 
     /**
-     * Set up IMP_Search variables for the current session.
+     * Initialize the class.
      *
      * @param boolean $no_vf  Don't readd the Virtual Folders.
      */
-    public function sessionSetup($no_vf = false)
+    public function initialize($no_vf = false)
     {
         if (!$no_vf) {
             $imaptree = IMP_Imap_Tree::singleton();
@@ -283,9 +287,7 @@ class IMP_Search
 
         $vfolder = $GLOBALS['prefs']->getValue('vfolder');
         if (!empty($vfolder)) {
-            $old_error = error_reporting(0);
-            $vfolder = unserialize($vfolder);
-            error_reporting($old_error);
+            $vfolder = @unserialize($vfolder);
         }
 
         if (empty($vfolder) || !is_array($vfolder)) {
@@ -305,6 +307,7 @@ class IMP_Search
     protected function _saveVFolderList($vfolder)
     {
         $GLOBALS['prefs']->setValue('vfolder', serialize($vfolder));
+        unset(self::$_vfolder);
     }
 
     /**
@@ -354,13 +357,12 @@ class IMP_Search
         /* Create Virtual Trash with new folder list. */
         $imp_folder = IMP_Folder::singleton();
         $fl = $imp_folder->flist();
-        $flist = array();
+        $flist = array('INBOX');
         foreach ($fl as $mbox) {
             if (!empty($mbox['val'])) {
                 $flist[] = $mbox['val'];
             }
         }
-        array_unshift($flist, 'INBOX');
 
         $query = new Horde_Imap_Client_Search_Query();
         $query->flag('\\deleted', true);
@@ -397,9 +399,6 @@ class IMP_Search
      */
     public function createVINBOXFolder()
     {
-        /* Initialize IMP_Imap_Tree. */
-        $imaptree = IMP_Imap_Tree::singleton();
-
         /* Delete the current Virtual Inbox folder, if it exists. */
         $vinbox_id = $GLOBALS['prefs']->getValue('vinbox_id');
         if (!empty($vinbox_id)) {
@@ -412,6 +411,7 @@ class IMP_Search
 
         /* Create Virtual INBOX with nav_poll list. Filter out any nav_poll
          * entries that don't exist. Sort the list also. */
+        $imaptree = IMP_Imap_Tree::singleton();
         $flist = $imaptree->getPollList(true, true);
 
         $query = new Horde_Imap_Client_Search_Query();
@@ -461,29 +461,44 @@ class IMP_Search
     }
 
     /**
-     * Return a list of IDs and query labels, sorted by the label.
+     * Return a list of queryies.
      *
-     * @param boolean $vfolder  If true, only return Virtual Folders?
+     * @param integer $mask   A bitmask of the query types to return.
+     *                        IMP_Search::LIST_SEARCH and/or
+     *                        IMP_Search::LIST_VFOLDER.
+     * @param boolean $label  If true, returns the label. Otherwise, returns
+     *                        a textual representation.
      *
      * @return array  An array with the folder IDs as the key and the labels
      *                as the value.
      */
-    public function listQueries($vfolder = false)
+    public function listQueries($mask = null, $label = true)
     {
-        $vfolders = array();
+        $folders = array();
 
         if (empty($_SESSION['imp']['search'])) {
-            return $vfolders;
+            return $folders;
+        }
+
+        if (is_null($mask)) {
+            $mask = self::LIST_SEARCH | self::LIST_VFOLDER;
         }
 
         foreach ($_SESSION['imp']['search'] as $key => $val) {
-            if (!$vfolder || !empty($val['vfolder'])) {
-                $vfolders[$key] = $this->getLabel($key);
+            if ((($mask & self::LIST_VFOLDER) && !empty($val['vfolder'])) ||
+                (($mask & self::LIST_SEARCH) && empty($val['vfolder']))) {
+                $vfolders[$key] = $label
+                    ? $this->getLabel($key)
+                    : $this->searchQueryText($key);
             }
         }
-        natcasesort($vfolders);
 
-        return $vfolders;
+        if ($label) {
+            natcasesort($folders);
+            return $folders;
+        }
+
+        return array_reverse($folders, true);
     }
 
     /**
@@ -500,31 +515,6 @@ class IMP_Search
         return isset($_SESSION['imp']['search'][$id]['folders'])
             ? $_SESSION['imp']['search'][$id]['folders']
             : array();
-    }
-
-    /**
-     * Return a list of search queries valid only for the current session
-     * (i.e. no virtual folders).
-     *
-     * @return array  Keys are the search ids, values are a textual
-     *                description of the search.
-     */
-    public function getSearchQueries()
-    {
-        $retarray = array();
-
-        if (empty($_SESSION['imp']['search'])) {
-            return $retarray;
-        }
-
-        foreach ($_SESSION['imp']['search'] as $key => $val) {
-            if (!$this->isVFolder($key) &&
-                ($text = $this->searchQueryText($key))) {
-                $retarray[$key] = $text;
-            }
-        }
-
-        return array_reverse($retarray, true);
     }
 
     /**

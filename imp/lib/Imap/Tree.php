@@ -486,7 +486,7 @@ class IMP_Imap_Tree
         $this->insert($this->_getList($this->_showunsub));
 
         /* Add virtual folders to the tree. */
-        $this->insertVFolders($GLOBALS['imp_search']->listQueries(true));
+        $this->insertVFolders($GLOBALS['imp_search']->listQueries(IMP_Search::LIST_VFOLDER));
     }
 
     /**

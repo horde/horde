@@ -475,7 +475,7 @@ class IMP_Auth
                   $conf['cookie']['domain']);
 
         /* Set up search information for the session. */
-        $GLOBALS['imp_search']->sessionSetup();
+        $GLOBALS['imp_search']->initialize();
 
         /* If the user wants to run filters on login, make sure they get
            run. */

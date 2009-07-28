@@ -217,7 +217,7 @@ class IMP_Folder
         $this->clearFlistCache();
 
         /* Recreate Virtual Folders. */
-        $GLOBALS['imp_search']->sessionSetup(true);
+        $GLOBALS['imp_search']->initialize(true);
 
         /* Clear the folder from the sort prefs. */
         foreach ($deleted as $val) {
@@ -287,7 +287,7 @@ class IMP_Folder
         $imaptree->insert($folder);
 
         /* Recreate Virtual Folders. */
-        $GLOBALS['imp_search']->sessionSetup(true);
+        $GLOBALS['imp_search']->initialize(true);
 
         return true;
     }

@@ -546,7 +546,7 @@ function _imp_changeLanguage()
     $imp_folder->clearFlistCache();
     $imaptree = IMP_Imap_Tree::singleton();
     $imaptree->init();
-    $GLOBALS['imp_search']->sessionSetup(true);
+    $GLOBALS['imp_search']->initialize(true);
 }
 
 /**
