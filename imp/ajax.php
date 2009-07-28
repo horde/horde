@@ -487,6 +487,11 @@ case 'ShowPreview':
         'preview' => true,
     );
 
+    /* We know we are going to be exclusively dealing with this mailbox, so
+     * select it on the IMAP server (saves some STATUS calls). Open R/W to
+     * clear the RECENT flag. */
+    $imp_imap->ob->openMailbox($ptr['key'], Horde_Imap_Client::OPEN_READWRITE);
+
     $show_msg = new IMP_Views_ShowMessage();
     $result = (object)$show_msg->showMessage($args);
     break;
