@@ -58,39 +58,33 @@ class Horde_Auth_Signup
      * Adds a new user to the system and handles any extra fields that may have
      * been compiled, relying on the hooks.php file.
      *
-     * @params mixed $info  Reference to array of parameteres to be passed
+     * @params mixed $info  Reference to array of parameters to be passed
      *                      to hook.
      *
      * @throws Horde_Exception
      */
-    public function addSignup($info)
+    public function addSignup(&$info)
     {
         global $auth;
 
         // Perform any preprocessing if requested.
-        try {
-            $info = Horde::callHook('signup_preprocess', array($info));
-        } catch (Horde_Exception_HookNotSet $e) {}
-
-        // Check to see if the username already exists.
-        if ($auth->exists($info['user_name']) ||
-            $this->exists($info['user_name'])) {
-            throw new Horde_Exception(sprintf(_("Username \"%s\" already exists."), $info['user_name']));
-        }
+        $this->_preSignup($info);
 
         // Attempt to add the user to the system.
         $auth->addUser($info['user_name'], array('password' => $info['password']));
 
         // Attempt to add/update any extra data handed in.
         if (!empty($info['extra'])) {
-            Horde::callHook('signup_addextra', array($info['user_name'], $info['extra']));
-        } catch (Horde_Exception_HookNotSet $e) {}
+            try {
+                Horde::callHook('signup_addextra', array($info['user_name'], $info['extra']));
+            } catch (Horde_Exception_HookNotSet $e) {}
+        }
     }
 
     /**
      * Queues the user's submitted registration info for later admin approval.
      *
-     * @params mixed $info  Reference to array of parameteres to be passed
+     * @params mixed $info  Reference to array of parameters to be passed
      *                      to hook
      *
      * @throws Horde_Exception
@@ -98,18 +92,10 @@ class Horde_Auth_Signup
      */
     public function queueSignup(&$info)
     {
-        global $auth, $conf;
+        global $conf;
 
         // Perform any preprocessing if requested.
-        try {
-            $info = Horde::callHook('signup_preprocess', array($info));
-        } catch (Horde_Exception_HookNotSet $e) {}
-
-        // Check to see if the username already exists.
-        if ($auth->exists($info['user_name']) ||
-            $this->exists($info['user_name'])) {
-            throw new Horde_Exception(sprintf(_("Username \"%s\" already exists."), $info['user_name']));
-        }
+        $this->_preSignup($info);
 
         // If it's a unique username, go ahead and queue the request.
         $signup = $this->newSignup($info['user_name']);
@@ -153,9 +139,35 @@ class Horde_Auth_Signup
     }
 
     /**
+     * Perform common presignup actions.
+     *
+     * @param array $info  Reference to array of parameters.
+     *
+     * @throws Horde_Exception
+     */
+    protected function _preSignup(&$info)
+    {
+        global $auth;
+
+        try {
+            $info = Horde::callHook('signup_preprocess', array($info));
+        } catch (Horde_Exception_HookNotSet $e) {}
+
+        // Check to see if the username already exists in auth backend.
+        if ($auth->exists($info['user_name'])) {
+            throw new Horde_Exception(sprintf(_("Username \"%s\" already exists."), $info['user_name']));
+        }
+
+        // Check to see if the username already exists in signup queue.
+        if ($this->exists($info['user_name'])) {
+            throw new Horde_Exception(sprintf(_("Username \"%s\" already exists."), $info['user_name']));
+        }
+    }
+
+    /**
      * Queues the user's submitted registration info for later admin approval.
      *
-     * @params mixed $info  Reference to array of parameteres to be passed
+     * @params mixed $info  Reference to array of parameters to be passed
      *                      to hook
      *
      * @throws Horde_Exception

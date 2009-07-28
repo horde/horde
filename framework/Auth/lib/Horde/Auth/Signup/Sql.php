@@ -80,6 +80,10 @@ class Horde_Auth_Signup_Sql extends Horde_Auth_Signup
      */
     public function exists($user)
     {
+        if (empty($GLOBALS['conf']['signup']['queue'])) {
+            return false;
+        }
+
         $stmt = $this->_db->prepare('SELECT 1 FROM ' . $this->_params['table']
                                     . ' WHERE user_name = ?');
 
