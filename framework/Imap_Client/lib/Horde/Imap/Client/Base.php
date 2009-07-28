@@ -742,10 +742,8 @@ abstract class Horde_Imap_Client_Base
     /**
      * Rename a mailbox.
      *
-     * @param string $old     The old mailbox name. Either in UTF7-IMAP or
-     *                        UTF-8.
-     * @param string $new     The new mailbox name. Either in UTF7-IMAP or
-     *                        UTF-8.
+     * @param string $old  The old mailbox name. Either in UTF7-IMAP or UTF-8.
+     * @param string $new  The new mailbox name. Either in UTF7-IMAP or UTF-8.
      *
      * @throws Horde_Imap_Client_Exception
      */
