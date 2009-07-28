@@ -1410,7 +1410,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 /* Update MODSEQ if active for mailbox. */
                 if (!empty($this->_temp['mailbox']['highestmodseq'])) {
                     if (isset($this->_init['enabled']['QRESYNC'])) {
-                        $this->_updateMetaData($mailbox, array('HICmodseq' => $this->_temp['mailbox']['highestmodseq']));
+                        $this->_updateMetaData($mailbox, array('HICmodseq' => $this->_temp['mailbox']['highestmodseq']), isset($this->_temp['mailbox']['uidvalidity']) ? $this->_temp['mailbox']['uidvalidity'] : null);
                     } else {
                         /* Unfortunately, RFC 4551 does not provide any method
                          * to obtain the HIGHESTMODSEQ after an EXPUNGE is

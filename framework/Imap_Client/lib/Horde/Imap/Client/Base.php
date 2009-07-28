@@ -1959,7 +1959,7 @@ abstract class Horde_Imap_Client_Base
                             if (!empty($uids)) {
                                 $this->_fetch(array(Horde_Imap_Client::FETCH_FLAGS => true), array('changedsince' => $metadata['HICmodseq'], 'ids' => $uids));
                             }
-                            $this->_updateMetaData($this->_selected, $status_res['highestmodseq']);
+                            $this->_updateMetaData($this->_selected, $status_res['highestmodseq'], $status_res['uidvalidity']);
                         }
                     }
 
@@ -2639,7 +2639,7 @@ abstract class Horde_Imap_Client_Base
             $metadata = $this->_cache->getMetaData($mailbox, $uidvalid, array('HICmodseq'));
             if (!isset($metadata['HICmodseq']) ||
                 ($metadata['HICmodseq'] != $modseq)) {
-                $this->_updateMetaData($mailbox, array('HICmodseq' => $modseq));
+                $this->_updateMetaData($mailbox, array('HICmodseq' => $modseq), $uidvalid);
             }
         }
     }
@@ -2709,13 +2709,18 @@ abstract class Horde_Imap_Client_Base
     /**
      * Updates metadata for a mailbox.
      *
-     * @param string $mailbox  Mailbox to update.
-     * @param string $data     The data to update.
+     * @param string $mailbox    Mailbox to update.
+     * @param string $data       The data to update.
+     * @param integer $uidvalid  The uidvalidity of the mailbox.  If not set,
+     *                           do a status call to grab it.
      */
-    protected function _updateMetaData($mailbox, $data)
+    protected function _updateMetaData($mailbox, $data, $uidvalid = null)
     {
-        $status = $this->status($mailbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
-        $this->_cache->setMetaData($mailbox, $status['uidvalidity'], $data);
+        if (is_null($uidvalid)) {
+            $status = $this->status($mailbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
+            $uidvalid = $status['uidvalidity'];
+        }
+        $this->_cache->setMetaData($mailbox, $uidvalid, $data);
     }
 
 }
