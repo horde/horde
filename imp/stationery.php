@@ -13,7 +13,7 @@ $imp_authentication = 'horde';
 require_once dirname(__FILE__) . '/lib/base.php';
 require_once 'Horde/Prefs/UI.php';
 
-$compose_url = Horde_Util::addParameter(Horde::url($registry->get('webroot', 'horde') . '/services/prefs.php', true), 'app', 'imp', false);
+$compose_url = Horde::getServiceLink('options', 'imp');
 
 /* Is the preference locked? */
 if ($prefs->isLocked('stationery')) {
@@ -39,11 +39,9 @@ $last_type = Horde_Util::getFormData('last_type');
 $name = Horde_Util::getFormData('name', '');
 $type = Horde_Util::getFormData('type', 'plain');
 if (!empty($last_type) && $last_type != $type) {
-    if ($type == 'plain') {
-        $content = Horde_Text_Filter::filter($content, 'html2text');
-    } else {
-        $content = nl2br(htmlspecialchars(htmlspecialchars($content)));
-    }
+    $content = ($type == 'plain')
+        ? Horde_Text_Filter::filter($content, 'html2text')
+        : nl2br(htmlspecialchars(htmlspecialchars($content)));
 }
 $stationery = array('n' => $name, 't' => $type, 'c' => $content);
 
@@ -56,11 +54,17 @@ case 'update':
         /* Stationery has been switched. */
         if (strlen($selected)) {
             /* Edit existing. */
-            $stationery = array('n' => $stationery_list[$selected]['n'],
-                                't' => $stationery_list[$selected]['t'],
-                                'c' => $stationery_list[$selected]['c']);
+            $stationery = array(
+                'n' => $stationery_list[$selected]['n'],
+                't' => $stationery_list[$selected]['t'],
+                'c' => $stationery_list[$selected]['c']
+            );
         } else {
-            $stationery = array('n' => '', 't' => 'plain', 'c' => '');
+            $stationery = array(
+                'n' => '',
+                't' => 'plain',
+                'c' => ''
+            );
         }
     } elseif (Horde_Util::getFormData('delete')) {
         /* Delete stationery. */
@@ -69,7 +73,11 @@ case 'update':
             unset($stationery_list[$selected]);
             $selected = null;
         }
-        $stationery = array('n' => '', 't' => 'plain', 'c' => '');
+        $stationery = array(
+            'n' => '',
+            't' => 'plain',
+            'c' => ''
+        );
     } elseif (Horde_Util::getFormData('save')) {
         /* Saving stationery. */
         if (!strlen($selected)) {
@@ -94,7 +102,6 @@ if ($stationery['t'] == 'html') {
 }
 
 /* Show the header. */
-require_once 'Horde/Prefs/UI.php';
 extract(Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp'));
 
 $app = 'imp';
@@ -125,7 +132,7 @@ $t->set('plain', $stationery['t'] == 'plain');
 $t->set('html', $stationery['t'] == 'html');
 $t->set('content_label', Horde::label('content', _("Stationery:")));
 $t->set('content', $stationery['c']);
-$t->set('button_href', Horde_Util::addParameter($compose_url, 'group', 'compose'));
+$t->set('button_href', Horde_Util::addParameter($compose_url, array('group' => 'compose')));
 $t->set('button_val', htmlspecialchars(_("Return to Message Composition"), ENT_COMPAT, Horde_Nls::getCharset()));
 
 echo $t->fetch(IMP_TEMPLATES . '/stationery/stationery.html');
