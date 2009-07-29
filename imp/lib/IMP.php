@@ -1044,12 +1044,6 @@ class IMP
 
         if (!isset($entry['b'])) {
             $sortby = $GLOBALS['prefs']->getValue('sortby');
-            /* IMP 4 upgrade: check for old, non-existent sort values.
-             * See Bug #7296. */
-            if ($sortby > 10) {
-                $sortby = Horde_Imap_Client::SORT_ARRIVAL;
-                $GLOBALS['prefs']->setValue('sortby', $sortby);
-            }
         }
 
         $ob = array(
