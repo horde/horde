@@ -36,15 +36,6 @@ class Horde_Script_Files
     protected $_included = array();
 
     /**
-     * The list of deprecated files.
-     *
-     * @var array
-     */
-    protected $_ignored = array(
-        'horde' => array('tooltip.js')
-    );
-
-    /**
      * The list of javascript files to always load from Horde.
      *
      * @var array
