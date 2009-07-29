@@ -32,6 +32,18 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_LoginTasks_SystemTask
         if ($sortby > 10) {
             $GLOBALS['prefs']->setValue('sortby', Horde_Imap_Client::SORT_ARRIVAL);
         }
+
+        $update = false;
+        $sortpref = @unserialize($GLOBALS['prefs']->getValue('sortpref'));
+        foreach ($sortpref as $key => $val) {
+            if ($val > 10) {
+                $sortpref[$key] = Horde_Imap_Client::SORT_ARRIVAL;
+                $update = true;
+            }
+        }
+        if ($update) {
+            $GLOBALS['prefs']->setValue('sortpref', serialize($sortpref));
+        }
     }
 
 }
