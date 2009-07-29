@@ -598,7 +598,7 @@ class IMP
             $js_params = array(
                 'dialog_load' => Horde::applicationUrl('ajax.php', true, -1) . '/FetchmailDialog'
             );
-            $menu->add('javascript:IMPDialog.display(\'' . self::escapeJSON($js_params) . '\')', _("Fetch Mail"), 'fetchmail.png');
+            $menu->add('javascript:IMPDialog.display(\'' . Horde::escapeJson($js_params, array('urlencode' => true)) . '\')', _("Fetch Mail"), 'fetchmail.png');
         }
 
         if ($prefs->getValue('filter_menuitem')) {
@@ -1208,18 +1208,6 @@ class IMP
     }
 
     /**
-     * Do necessary escaping to output JSON in a HTML parameter.
-     *
-     * @param mixed $json  The data to JSON-ify.
-     *
-     * @return string  The escaped string.
-     */
-    static public function escapeJSON($json)
-    {
-        return '/*-secure-' . rawurlencode(Horde_Serialize::serialize($json, Horde_Serialize::JSON, Horde_Nls::getCharset())) . '*/';
-    }
-
-    /**
      * Outputs the necessary script tags, honoring local configuration
      * choices as to script caching.
      */
@@ -1588,7 +1576,7 @@ class IMP
             'cancel_text' => _("Cancel")
         );
 
-        return 'IMPDialog.display(\'' . self::escapeJSON($js_params) . '\')';
+        return 'IMPDialog.display(\'' . Horde::escapeJson($js_params, array('urlencode' => true)) . '\')';
     }
 
     /**
