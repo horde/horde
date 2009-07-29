@@ -774,18 +774,6 @@ class IMP
     }
 
     /**
-     * Generates the URL to the prefs page.
-     *
-     * @param boolean $full  Generate full URL?
-     *
-     * @return string  The URL to the IMP prefs page.
-     */
-    static public function prefsURL($full = false)
-    {
-        return Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs.php', $full), array('app' => 'imp'));
-    }
-
-    /**
      * Get message indices list.
      *
      * @param mixed $indices  The following inputs are allowed:

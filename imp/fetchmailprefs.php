@@ -17,7 +17,7 @@ $fm_account = new IMP_Fetchmail_Account();
 
 $driver = Horde_Util::getFormData('fm_driver');
 $fetch_url = Horde::applicationUrl('fetchmailprefs.php');
-$prefs_url = Horde_Util::addParameter(IMP::prefsURL(true), 'group', 'fetchmail', false);
+$prefs_url = Horde_Util::addParameter(Horde::getServiceLink('options', 'imp'), array('group' => 'fetchmail'), null, false);
 $to_edit = null;
 
 /* Handle clients without javascript. */

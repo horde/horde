@@ -15,7 +15,7 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Redirect back to the options screen if ACL is not enabled. */
-$prefs_url = IMP::prefsURL(true);
+$prefs_url = Horde::getServiceLink('options', 'imp');
 if ($prefs->isLocked('acl') || empty($_SESSION['imp']['acl'])) {
     $notification->push(_("Folder sharing is not enabled."), 'horde.error');
     header('Location: ' . $prefs_url);

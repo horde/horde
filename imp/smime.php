@@ -292,7 +292,7 @@ if ($openssl_check && $prefs->getValue('use_smime')) {
         $t->set('use_smime_label', Horde::label('use_smime', _("Enable S/MIME functionality?")));
     }
 }
-$t->set('prefsurl', IMP::prefsURL(true));
+$t->set('prefsurl', Horde::getServiceLink('options', 'imp'));
 
 echo $t->fetch(IMP_TEMPLATES . '/smime/smime.html');
 if (!$chunk) {

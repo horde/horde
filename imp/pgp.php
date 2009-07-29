@@ -389,7 +389,7 @@ if ($prefs->getValue('use_pgp')) {
         $t->set('use_pgp_help', Horde_Help::link('imp', 'pgp-overview'));
     }
 }
-$t->set('prefsurl', IMP::prefsURL(true));
+$t->set('prefsurl', Horde::getServiceLink('options', 'imp'));
 
 echo $t->fetch(IMP_TEMPLATES . '/pgp/pgp.html');
 if (!$chunk) {

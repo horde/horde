@@ -52,7 +52,7 @@ Prefs_UI::generateHeader(null, $chunk);
 $t = new Horde_Template();
 $t->setOption('gettext', true);
 $t->set('navcell', Horde_Util::bufferOutput(array('Prefs_UI', 'generateNavigationCell'), 'filters'));
-$t->set('prefsurl', IMP::prefsURL(true));
+$t->set('prefsurl', Horde::getServiceLink('options', 'imp'));
 $t->set('return_text', _("Return to Options"));
 
 /* Get filter links. */
