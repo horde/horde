@@ -50,7 +50,7 @@ abstract class Horde_Ajax_Imple_Base
      *
      * @return string
      */
-    protected function _getUrl($driver, $app = 'horde', $params = array())
+    protected function _getUrl($driver, $app = 'horde', $params = array(), $full = false)
     {
         $qstring = 'imple=' . $driver;
 
@@ -63,7 +63,7 @@ abstract class Horde_Ajax_Imple_Base
         }
 
         $registry = Horde_Registry::singleton();
-        return Horde::url($registry->get('webroot', 'horde') . '/services/imple.php?' . $qstring);
+        return Horde::url($registry->get('webroot', 'horde') . '/services/imple.php?' . $qstring, $full);
     }
 
     /**
