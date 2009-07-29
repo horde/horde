@@ -102,8 +102,7 @@ class IMP_Search
             $imaptree = IMP_Imap_Tree::singleton();
             foreach ($this->_getVFolderList() as $key => $val) {
                 if (!empty($val['vfolder']) &&
-                    !$this->isVTrashFolder($key) &&
-                    !$this->isVINBOXFolder($key)) {
+                    !$this->isEditableVFolder($key)) {
                     $imaptree->insertVFolders(array($key => $val['label']));
                     unset($val['uiinfo']);
                     $_SESSION['imp']['search'][$key] = $val;
@@ -445,7 +444,7 @@ class IMP_Search
     }
 
     /**
-     * Is the current active folder an editable Virtual Folder?
+     * Is a mailbox an editable Virtual Folder?
      *
      * @param string $id  The search query id to use (by default, will use
      *                    the current ID set in the object).
