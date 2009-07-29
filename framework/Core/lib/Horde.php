@@ -265,6 +265,8 @@ HTML;
      * @param boolean $direct  Include the file directly without passing it
      *                         through javascript.php
      * @param boolean $full    Output a full URL
+     *
+     * @throws Horde_Exception
      */
     static public function addScriptFile($file, $app = null, $direct = false,
                                          $full = false)
@@ -274,23 +276,91 @@ HTML;
     }
 
     /**
-     * Includes javascript files that were needed before any headers were sent.
+     * Outputs the necessary script tags, honoring configuration choices as
+     * to script caching.
+     *
+     * @throws Horde_Exception
      */
     static public function includeScriptFiles()
     {
-        $hsf = Horde_Script_Files::singleton();
-        $hsf->includeFiles();
-    }
+        global $conf;
 
-    /**
-     * Provide a list of script files to be included in the current page.
-     *
-     * @var array
-     */
-    static public function listScriptFiles()
-    {
+        $cache_type = empty($conf['cachejs'])
+            ? 'none'
+            : $conf['cachejs'];
         $hsf = Horde_Script_Files::singleton();
-        return $hsf->listFiles();
+
+        if ($cache_type == 'none') {
+            $hsf->includeFiles();
+            return;
+        }
+
+        $js_tocache = $js_force = array();
+        $mtime = array(0);
+
+        $s_list = $hsf->listFiles();
+        foreach ($s_list as $app => $files) {
+            foreach ($files as $file) {
+                if ($file['d'] && ($file['f'][0] != '/')) {
+                    $js_tocache[$file['p'] . $file['f']] = false;
+                    $mtime[] = filemtime($file['p'] . $file['f']);
+                } else {
+                    $js_force[] = $file['u'];
+                }
+            }
+        }
+
+        sort($s_list);
+
+        $sig = hash('md5', serialize($s_list) . max($mtime) . $GLOBALS['registry']->getVersion());
+
+        switch ($cache_type) {
+        case 'filesystem':
+            $js_filename = '/static/' . $sig . '.js';
+            $js_path = $GLOBALS['registry']->get('fileroot', 'horde') . $js_filename;
+            $js_url = $GLOBALS['registry']->get('webroot', 'horde') . $js_filename;
+            $exists = file_exists($js_path);
+            break;
+
+        case 'horde_cache':
+            $cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], self::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+
+            // Do lifetime checking here, not on cache display page.
+            $exists = $cache->exists($sig, empty($conf['cachejsparams']['lifetime']) ? 0 : $conf['cachejsparams']['lifetime']);
+            $js_url = self::getCacheUrl('js', array('cid' => $sig));
+            break;
+        }
+
+        if (!$exists) {
+            $out = '';
+            foreach ($js_tocache as $key => $val) {
+                // Seperate JS files with a newline since some compressors may
+                // strip trailing terminators.
+                if ($val) {
+                    // Minify these files a bit by removing newlines and
+                    // comments.
+                    $out .= preg_replace(array('/\n+/', '/\/\*.*?\*\//'), array('', ''), file_get_contents($key)) . "\n";
+                } else {
+                    $out .= file_get_contents($key) . "\n";
+                }
+            }
+
+            switch ($cache_type) {
+            case 'filesystem':
+                if (!file_put_contents($js_path, $out)) {
+                    throw new Horde_Exception('Could not write cached CSS file to disk.');
+                }
+                break;
+
+            case 'horde_cache':
+                $cache->set($sig, $out);
+                break;
+            }
+        }
+
+        foreach (array_merge(array($js_url), $js_force) as $val) {
+            echo '<script type="text/javascript" src="' . $val . "\"></script>\n";
+        }
     }
 
     /**
@@ -1515,122 +1585,213 @@ HTML;
     }
 
     /**
-     * Returns the <link> tags for the CSS stylesheets.
+     * Outputs the necessary style tags, honoring configuration choices as
+     * to stylesheet caching.
      *
-     * @param string|array $app  The Horde application(s).
-     * @param mixed $theme       The theme to use; specify an empty value to
-     *                           retrieve the theme from user preferences, and
-     *                           false for no theme.
-     * @param boolean $inherit   Inherit Horde-wide CSS?
-     *
-     * @return string  <link> tags for CSS stylesheets.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'additional' - (array) TODO
+     * 'sub' - (string) TODO
+     * </pre>
      */
-    static public function stylesheetLink($apps = null, $theme = '',
-                                          $inherit = true)
+    static public function includeStylesheetFiles($options = array())
     {
-        $css = self::getStylesheets($apps, $theme, $inherit);
+        global $conf, $prefs, $registry;
 
-        $html = '';
-        foreach ($css as $css_link) {
-            $html .= '<link href="' . $css_link['u'] . '" rel="stylesheet" type="text/css" />' . "\n";
+        $themesfs = $registry->get('themesfs');
+        $themesuri = $registry->get('themesuri');
+
+        $css = self::getStylesheets($prefs->getValue('theme'), $options);
+        $css_out = array();
+
+        if (!empty($options['additional'])) {
+            $css = array_merge($css, $options['additional']);
         }
 
-        return $html;
+        $cache_type = empty($conf['cachecss'])
+            ? 'none'
+            : $conf['cachecss'];
+
+        if ($cache_type == 'none') {
+            $css_out = $css;
+        } else {
+            $mtime = array(0);
+            $out = '';
+
+            foreach ($css as $file) {
+                $mtime[] = filemtime($file['f']);
+            }
+
+            $sig = hash('md5', serialize($css) . max($mtime) . $GLOBALS['registry']->getVersion());
+
+            switch ($cache_type) {
+            case 'filesystem':
+                $css_filename = '/static/' . $sig . '.css';
+                $css_path = $GLOBALS['registry']->get('fileroot', 'horde') . $css_filename;
+                $css_url = $GLOBALS['registry']->get('webroot', 'horde') . $css_filename;
+                $exists = file_exists($css_path);
+                break;
+
+            case 'horde_cache':
+                $cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], self::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+
+                // Do lifetime checking here, not on cache display page.
+                $exists = $cache->exists($sig, empty($GLOBALS['conf']['cachecssparams']['lifetime']) ? 0 : $GLOBALS['conf']['cachecssparams']['lifetime']);
+                $css_url = self::getCacheUrl('css', array('cid' => $sig));
+                break;
+            }
+
+            if (!$exists) {
+                $flags = defined('FILE_IGNORE_NEW_LINES')
+                    ? (FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES)
+                    : 0;
+
+                foreach ($css as $file) {
+                    $path = substr($file['u'], 0, strrpos($file['u'], '/') + 1);
+
+                    // Fix relative URLs, convert graphics URLs to data URLs
+                    // (if possible), remove multiple whitespaces, and strip
+                    // comments.
+                    $tmp = preg_replace(array('/(url\(["\']?)([^\/])/i', '/\s+/', '/\/\*.*?\*\//'), array('$1' . $path . '$2', ' ', ''), implode('', file($file['f'], $flags)));
+                    if ($GLOBALS['browser']->hasFeature('dataurl')) {
+                        $tmp = preg_replace_callback('/(background(?:-image)?:[^;}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array('Horde', 'stylesheetCallback'), $tmp);
+                    }
+                    $out .= $tmp;
+                }
+
+                /* Use CSS tidy to clean up file. */
+                try {
+                    $out = Horde_Text_Filter::filter($out, 'csstidy');
+                } catch (Horde_Exception $e) {}
+
+                switch ($cache_type) {
+                case 'filesystem':
+                    if (!file_put_contents($css_path, $out)) {
+                        throw new Horde_Exception('Could not write cached CSS file to disk.');
+                    }
+                    break;
+
+                case 'horde_cache':
+                    $cache->set($sig, $out);
+                    break;
+                }
+            }
+
+            $css_out = array(array('u' => $css_url));
+        }
+
+        foreach ($css_out as $file) {
+            echo '<link href="' . $file['u'] . "\" rel=\"stylesheet\" type=\"text/css\" />\n";
+        }
+    }
+
+    /**
+     * Callback for includeStylesheetFiles() to convert images to base64
+     * data strings.
+     *
+     * @param array $matches  The list of matches from preg_replace_callback.
+     *
+     * @return string  The image string.
+     */
+    public function stylesheetCallback($matches)
+    {
+        return $matches[1] . Horde::base64ImgData($matches[2]) . $matches[3];
     }
 
     /**
      * Return the list of base stylesheets to display.
+     * Callback for includeStylesheetFiles() to convert images to base64
+     * data strings.
      *
-     * @param string|array $app  The Horde application(s).
-     * @param mixed $theme       The theme to use; specify an empty value to
-     *                           retrieve the theme from user preferences, and
-     *                           false for no theme.
-     * @param boolean $inherit   Inherit Horde-wide CSS?
+     * @param mixed $theme    The theme to use; specify an empty value to
+     *                        retrieve the theme from user preferences, and
+     *                        false for no theme.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'app' - (string)
+     * 'sub' - (string) TODO
+     * </pre>
      *
-     * @return array
+     * @return array  TODO
      */
-    static public function getStylesheets($apps = null, $theme = '',
-                                          $inherit = true)
+    public function getStylesheets($theme = '', $options = array())
     {
-        if ($theme === '' && isset($GLOBALS['prefs'])) {
+        if (($theme === '') && isset($GLOBALS['prefs'])) {
             $theme = $GLOBALS['prefs']->getValue('theme');
         }
 
         $css = array();
-        $rtl = isset($GLOBALS['nls']['rtl'][$GLOBALS['language']]);
 
-        if (!is_array($apps)) {
-            $apps = is_null($apps) ? array() : array($apps);
-        }
-        if ($inherit) {
-            $key = array_search('horde', $apps);
-            if ($key !== false) {
-                unset($apps[$key]);
-            }
-            array_unshift($apps, 'horde');
+        $css_list = array('screen');
+        if (isset($GLOBALS['nls']['rtl'][$GLOBALS['language']])) {
+            $css_list[] = 'rtl';
         }
 
         /* Collect browser specific stylesheets if needed. */
-        $browser_css = array();
-
         switch ($GLOBALS['browser']->getBrowser()) {
         case 'msie':
             $ie_major = $GLOBALS['browser']->getMajor();
-            if ($ie_major == 7) {
-                $browser_css[] = 'ie7.css';
+            // TODO: IE8 specific styling
+            if ($ie_major >= 7) {
+                $css_list[] = 'ie7';
             } elseif ($ie_major < 7) {
-                $browser_css[] = 'ie6_or_less.css';
+                $css_list[] = 'ie6_or_less';
                 if ($GLOBALS['browser']->getPlatform() == 'mac') {
-                    $browser_css[] = 'ie5mac.css';
+                    $css_list[] = 'ie5mac';
                 }
             }
             break;
 
+
         case 'opera':
-            $browser_css[] = 'opera.css';
+            $css_list[] = 'opera';
             break;
 
         case 'mozilla':
             if ($GLOBALS['browser']->getMajor() >= 5 &&
                 preg_match('/rv:(.*)\)/', $GLOBALS['browser']->getAgentString(), $revision) &&
                 $revision[1] <= 1.4) {
-                $browser_css[] = 'moz14.css';
+                $css_list[] = 'moz14';
             }
             break;
 
         case 'webkit':
-            $browser_css[] = 'webkit.css';
-            break;
+            $css_list[] = 'webkit';
         }
+
+        $curr_app = empty($options['app'])
+            ? $GLOBALS['registry']->getApp()
+            : $options['app'];
+        $apps = array_unique(array('horde', $curr_app));
+        $sub = empty($options['sub']) ? null : $options['sub'];
 
         foreach ($apps as $app) {
-            $themes_fs = $GLOBALS['registry']->get('themesfs', $app);
-            $themes_uri = self::url($GLOBALS['registry']->get('themesuri', $app), false, -1);
-            $css[] = array('u' => $themes_uri . '/screen.css', 'f' => $themes_fs . '/screen.css');
-            if (!empty($theme) &&
-                file_exists($themes_fs . '/' . $theme . '/screen.css')) {
-                $css[] = array('u' => $themes_uri . '/' . $theme . '/screen.css', 'f' => $themes_fs . '/' . $theme . '/screen.css');
-            }
+            $themes_fs = $GLOBALS['registry']->get('themesfs', $app) . '/';
+            $themes_uri = Horde::url($GLOBALS['registry']->get('themesuri', $app), false, -1) . '/';
 
-            if ($rtl) {
-                $css[] = array('u' => $themes_uri . '/rtl.css', 'f' => $themes_fs . '/rtl.css');
-                if (!empty($theme) &&
-                    file_exists($themes_fs . '/' . $theme . '/rtl.css')) {
-                    $css[] = array('u' => $themes_uri . '/' . $theme . '/rtl.css', 'f' => $themes_fs . '/' . $theme . '/rtl.css');
+            foreach ($css_list as $css_name) {
+                $css[$themes_fs . $css_name . '.css'] = $themes_uri . $css_name . '.css';
+                if ($sub && ($app == $curr_app)) {
+                    $css[$themes_fs . $css_name . '-' . $sub . '.css'] = $themes_uri . $css_name . '-' . $sub . '.css';
                 }
-            }
-            foreach ($browser_css as $browser) {
-                if (file_exists($themes_fs . '/' . $browser)) {
-                    $css[] = array('u' => $themes_uri . '/' . $browser, 'f' => $themes_fs . '/' . $browser);
-                }
-                if (!empty($theme) &&
-                    file_exists($themes_fs . '/' . $theme . '/' . $browser)) {
-                    $css[] = array('u' => $themes_uri . '/' . $theme . '/' . $browser, 'f' => $themes_fs . '/' . $theme . '/' . $browser);
+
+                if (!empty($theme)) {
+                    $css[$themes_fs . $theme . '/' . $css_name . '.css'] = $themes_uri . $theme . '/' . $css_name . '.css';
+                    if ($sub && ($app == $curr_app)) {
+                        $css[$themes_fs . $theme . '/' . $css_name . '-' . $sub . '.css'] = $themes_uri . $theme . '/' . $css_name . '-' . $sub . '.css';
+                    }
                 }
             }
         }
 
-        return $css;
+        $css_out = array();
+        foreach ($css as $f => $u) {
+            if (file_exists($f)) {
+                $css_out[] = array('f' => $f, 'u' => $u);
+            }
+        }
+
+        return $css_out;
     }
 
     /**
@@ -1941,7 +2102,7 @@ HTML;
     }
 
     /**
-     * Creates a URL for cached IMP data.
+     * Creates a URL for cached data.
      *
      * @param string $type   The cache type ('app', 'css', 'js').
      * @param array $params  Optional parameters:
