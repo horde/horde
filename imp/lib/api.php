@@ -694,13 +694,7 @@ function _imp_authTransparent()
      * here or else things will fail in IMP_Auth. */
     $GLOBALS['imp_authentication'] = 'none';
     require_once dirname(__FILE__) . '/base.php';
-    if (!isset($GLOBALS['imp_imap'])) {
-        $GLOBALS['imp_imap'] = new IMP_Imap();
-    }
-    if (!isset($GLOBALS['imp_search'])) {
-        $GLOBALS['imp_search'] = new IMP_Search();
-    }
-
+    IMP::initialize();
     return IMP_Auth::transparent();
 }
 
