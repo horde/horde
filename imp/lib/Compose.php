@@ -1310,7 +1310,7 @@ class IMP_Compose
             $msg_post = '';
         }
 
-        $compose_html = $GLOBALS['prefs']->getValue('compose_html');
+        $compose_html = (($_SESSION['imp']['view'] != 'mimp') && $GLOBALS['prefs']->getValue('compose_html'));
 
         $msg_text = $this->_getMessageText($contents, array(
             'html' => ($GLOBALS['prefs']->getValue('reply_format') || $compose_html),
@@ -1396,7 +1396,7 @@ class IMP_Compose
                 " -----\n" . $this->_getMsgHeaders($h) . "\n";
             $msg_post = "\n\n----- " . _("End forwarded message") . " -----\n";
 
-            $compose_html = $GLOBALS['prefs']->getValue('compose_html');
+            $compose_html = (($_SESSION['imp']['view'] != 'mimp') && $GLOBALS['prefs']->getValue('compose_html'));
 
             $msg_text = $this->_getMessageText($contents, array(
                 'html' => ($GLOBALS['prefs']->getValue('reply_format') || $compose_html),

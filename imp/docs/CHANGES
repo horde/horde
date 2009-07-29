@@ -2533,6 +2533,8 @@ OLD MIMP CHANGELOG
 v1.1.2
 ------
 
+[mms] Ignore 'compose_html' preference in IMP (Bug #8415) (Requires IMP 4.3.5).
+[mms] Fix showing Cc and Bcc fields (Bug #8167).
 [cjh] Implement custom menu items (Bug #7630).
 
 
