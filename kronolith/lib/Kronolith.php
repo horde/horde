@@ -1988,13 +1988,10 @@ class Kronolith
         case 'Week':
         case 'WorkWeek':
         case 'Year':
-            require_once KRONOLITH_BASE . '/lib/Views/' . basename($view) . '.php';
             $class = 'Kronolith_View_' . $view;
             return new $class(self::currentDate());
 
         case 'Event':
-            require_once KRONOLITH_BASE . '/lib/Views/Event.php';
-
             if (Horde_Util::getFormData('calendar') == '**remote') {
                 $event = self::getDriver('Ical', Horde_Util::getFormData('remoteCal'))
                     ->getEvent(Horde_Util::getFormData('eventID'));
@@ -2012,8 +2009,6 @@ class Kronolith
             return new Kronolith_View_Event($event);
 
         case 'EditEvent':
-            require_once KRONOLITH_BASE . '/lib/Views/EditEvent.php';
-
             if (Horde_Util::getFormData('calendar') == '**remote') {
                 $event = self::getDriver('Ical', Horde_Util::getFormData('remoteCal'))
                     ->getEvent(Horde_Util::getFormData('eventID'));
@@ -2029,8 +2024,6 @@ class Kronolith
             return new Kronolith_View_EditEvent($event);
 
         case 'DeleteEvent':
-            require_once KRONOLITH_BASE . '/lib/Views/DeleteEvent.php';
-
             $event = self::getDriver(null, Horde_Util::getFormData('calendar'))
                 ->getEvent(Horde_Util::getFormData('eventID'));
             if (!is_a($event, 'PEAR_Error') &&
@@ -2041,8 +2034,6 @@ class Kronolith
             return new Kronolith_View_DeleteEvent($event);
 
         case 'ExportEvent':
-            require_once KRONOLITH_BASE . '/lib/Views/ExportEvent.php';
-
             if (Horde_Util::getFormData('calendar') == '**remote') {
                 $event = self::getDriver('Ical', Horde_Util::getFormData('remoteCal'))
                     ->getEvent(Horde_Util::getFormData('eventID'));

@@ -61,12 +61,10 @@ class Kronolith_View_DeleteEvent {
 
         if ($active && $GLOBALS['browser']->hasFeature('dom')) {
             if ($this->event->hasPermission(PERMS_READ)) {
-                require_once KRONOLITH_BASE . '/lib/Views/Event.php';
                 $view = new Kronolith_View_Event($this->event);
                 $view->html(false);
             }
             if ($this->event->hasPermission(PERMS_EDIT)) {
-                require_once KRONOLITH_BASE . '/lib/Views/EditEvent.php';
                 $edit = new Kronolith_View_EditEvent($this->event);
                 $edit->html(false);
             }
