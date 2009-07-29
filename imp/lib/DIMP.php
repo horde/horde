@@ -61,9 +61,6 @@ class DIMP
      */
     static public function header($title, $scripts = array())
     {
-        // Don't autoload any javascript files.
-        Horde::disableAutoloadHordeJS();
-
         // Need to include script files before we start output
         Horde::addScriptFile('prototype.js', 'horde', true);
         Horde::addScriptFile('effects.js', 'horde', true);
