@@ -64,6 +64,7 @@ class DIMP
         // Need to include script files before we start output
         Horde::addScriptFile('prototype.js', 'horde', true);
         Horde::addScriptFile('effects.js', 'horde', true);
+        Horde::addScriptFile('horde.js', 'horde', true);
 
         // ContextSensitive must be loaded before DimpCore.
         while (list($key, $val) = each($scripts)) {

@@ -71,6 +71,7 @@ class Kronolith
         // Need to include script files before we start output
         Horde::addScriptFile('prototype.js', 'horde', true);
         Horde::addScriptFile('effects.js', 'horde', true);
+        Horde::addScriptFile('horde.js', 'horde', true);
         Horde::addScriptFile('dragdrop2.js', 'horde', true);
         Horde::addScriptFile('Growler.js', 'horde', true);
 
