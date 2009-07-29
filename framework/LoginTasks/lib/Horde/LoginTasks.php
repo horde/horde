@@ -213,9 +213,12 @@ class Horde_LoginTasks
                     break;
 
                 case self::ONCE:
-                    $addtask = empty($lasttask_pref['_once']) || !in_array($classname, $lasttask_pref['_once']);
-                    $lasttask_pref['_once'][] = $classname;
-                    $GLOBALS['prefs']->setValue('last_logintasks', serialize($lasttask_pref));
+                    if (empty($lasttask_pref['_once']) ||
+                        !in_array($classname, $lasttask_pref['_once'])) {
+                        $addtask = true;
+                        $lasttask_pref['_once'][] = $classname;
+                        $GLOBALS['prefs']->setValue('last_logintasks', serialize($lasttask_pref));
+                    }
                     break;
                 }
             }
