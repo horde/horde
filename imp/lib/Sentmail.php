@@ -85,8 +85,6 @@ class IMP_Sentmail
                 $this->_log($action, $message_id, $recipient, $success);
             }
         }
-
-        $this->gc();
     }
 
     /**
@@ -134,14 +132,11 @@ class IMP_Sentmail
     }
 
     /**
-     * Garbage collect log entries with a probability of 1%.
+     * Garbage collect log entries.
      */
     public function gc()
     {
-        /* A 1% chance we will run garbage collection during a call. */
-        if (rand(0, 99) == 0) {
-            $this->_deleteOldEntries(time() - $this->_params['threshold'] * 86400);
-        }
+        $this->_deleteOldEntries(time() - $this->_params['threshold'] * 86400);
     }
 
     /**

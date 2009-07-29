@@ -305,7 +305,7 @@ case 'Poll':
     $imptree = IMP_Imap_Tree::singleton();
 
     $result->poll = array();
-    foreach ($imptree->getPollList(true) as $val) {
+    foreach ($imptree->getPollList() as $val) {
         if ($info = $imptree->getElementInfo($val)) {
             $result->poll[$val] = intval($info['unseen']);
         }

@@ -1118,7 +1118,6 @@ class IMP
 
     /**
      * Set the sorting preference for the current mailbox.
-     * TODO: Purge non-existant search sorts (i.e. non VFolder entries).
      *
      * @param integer $by      The sort type.
      * @param integer $dir     The sort direction.
@@ -1158,7 +1157,7 @@ class IMP
         }
 
         if ($delete || !empty($entry)) {
-            $GLOBALS['prefs']->setValue('sortpref', @serialize($sortpref));
+            $GLOBALS['prefs']->setValue('sortpref', serialize($sortpref));
         }
     }
 

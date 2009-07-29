@@ -409,10 +409,9 @@ class IMP_Search
             return;
         }
 
-        /* Create Virtual INBOX with nav_poll list. Filter out any nav_poll
-         * entries that don't exist. Sort the list also. */
+        /* Create Virtual INBOX with nav_poll list. */
         $imaptree = IMP_Imap_Tree::singleton();
-        $flist = $imaptree->getPollList(true, true);
+        $flist = $imaptree->getPollList();
 
         $query = new Horde_Imap_Client_Search_Query();
         $query->flag('\\seen', false);

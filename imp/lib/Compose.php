@@ -1681,7 +1681,6 @@ class IMP_Compose
         /* Store in VFS. */
         if ($conf['compose']['use_vfs']) {
             $vfs = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
-            VFS_GC::gc($vfs, self::VFS_ATTACH_PATH, 86400);
             $cacheID = uniqid(mt_rand());
 
             $result = $vfs_file

@@ -29,7 +29,7 @@ class IMP_Block_Foldersummary extends Horde_Block
 
         /* Get list of mailboxes to poll. */
         $imptree = IMP_Imap_Tree::singleton();
-        $folders = $imptree->getPollList(true, true);
+        $folders = $imptree->getPollList(true);
 
         $anyUnseen = false;
         $newmsgs = array();

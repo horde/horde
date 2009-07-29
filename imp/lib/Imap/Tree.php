@@ -1137,12 +1137,12 @@ class IMP_Imap_Tree
     /**
      * Initializes and returns the list of mailboxes to poll.
      *
-     * @param boolean $prune  Prune non-existent folders from list?
      * @param boolean $sort   Sort the directory list?
+     * @param boolean $prune  Prune non-existent folders from list?
      *
      * @return array  The list of mailboxes to poll.
      */
-    public function getPollList($prune = false, $sort = false)
+    public function getPollList($sort = false, $prune = false)
     {
         $this->_initPollList();
 
