@@ -12,6 +12,14 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
 
     var $_app = 'kronolith';
 
+    function Horde_Block_Kronolith_summary($params = array(), $row = null, $col = null)
+    {
+        parent::Horde_Block($params, $row, $col);
+        if (!isset($this->_params['days'])) {
+            $this->_params['days'] = 7;
+        }
+    }
+
     function _params()
     {
         @define('KRONOLITH_BASE', dirname(__FILE__) . '/../..');
