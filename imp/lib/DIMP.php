@@ -62,24 +62,14 @@ class DIMP
     static public function header($title, $scripts = array())
     {
         // Need to include script files before we start output
-        Horde::addScriptFile('prototype.js', 'horde', true);
-        Horde::addScriptFile('effects.js', 'horde', true);
-        Horde::addScriptFile('horde.js', 'horde', true);
-
-        // ContextSensitive must be loaded before DimpCore.
-        while (list($key, $val) = each($scripts)) {
-            if (($val[0] == 'ContextSensitive.js') &&
-                ($val[1] == 'imp')) {
-                Horde::addScriptFile($val[0], $val[1], $val[2]);
-                unset($scripts[$key]);
-                break;
-            }
-        }
-        Horde::addScriptFile('DimpCore.js', 'imp', true);
-        Horde::addScriptFile('Growler.js', 'horde', true);
-
-        // Add other scripts now
-        foreach ($scripts as $val) {
+        $core_scripts = array(
+            array('prototype.js', 'horde', true),
+            array('effects.js', 'horde', true),
+            array('horde.js', 'horde', true),
+            array('DimpCore.js', 'imp', true),
+            array('Growler.js', 'horde', true)
+        );
+        foreach (array_merge($core_scripts, $scripts) as $val) {
             call_user_func_array(array('Horde', 'addScriptFile'), $val);
         }
 
