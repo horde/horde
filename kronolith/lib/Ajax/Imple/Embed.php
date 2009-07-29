@@ -17,6 +17,11 @@ class Kronolith_Ajax_Imple_Embed extends Horde_Ajax_Imple_Base
     {
     }
 
+    public function getUrl()
+    {
+        return $this->_getUrl('Embed', 'kronolith', $this->_params, true);
+    }
+
     /**
      * Handles the output of the embedded widget. This must always be valid
      * javascript.
@@ -27,8 +32,9 @@ class Kronolith_Ajax_Imple_Embed extends Horde_Ajax_Imple_Base
      *   calendar  => the share_name for the requested calendar
      *
      * The following are optional (and are not used for all views)
-     *   months     => the number of months to include
+     *   months        => the number of months to include
      *   maxevents     => the maximum number of events to show
+     * </pre>
      *
      * @param array $args  Arguments for this view.
      */

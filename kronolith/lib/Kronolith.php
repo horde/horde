@@ -1398,7 +1398,13 @@ class Kronolith
     public static function embedCode($calendar)
     {
         /* Get the base url */
-        $url = Horde::applicationURL('imple.php', true, -1);
+        $imple = Horde_Ajax_Imple::factory(array('kronolith', 'Embed'),
+                                           array('container' => 'kronolithCal',
+                                                 'view' => 'month',
+                                                 'calendar' => $calendar));
+
+
+        $url = $imple->getUrl();
 
         $html = '<div id="kronolithCal"></div><script src="' . $url
             . '?imple=Embed/container=kronolithCal/view=month/calendar='
