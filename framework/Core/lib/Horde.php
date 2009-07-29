@@ -294,18 +294,6 @@ HTML;
     }
 
     /**
-     * Disable auto-loading of the horde.js script.
-     * Needs to auto-load by default for BC.
-     *
-     * @todo Remove for Horde 4
-     */
-    static public function disableAutoloadHordeJS()
-    {
-        $hsf = Horde_Script_Files::singleton();
-        $hsf->disableAutoloadHordeJS();
-    }
-
-    /**
      * Get a token for protecting a form.
      *
      * @param string $slug  Slug name.

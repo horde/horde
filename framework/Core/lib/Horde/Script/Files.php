@@ -59,13 +59,6 @@ class Horde_Script_Files
     protected $_ptversions = array('tables.js', 'stripe.js');
 
     /**
-     * Auto load horde.js?
-     *
-     * @var boolean
-     */
-    protected $_loadhordejs = true;
-
-    /**
      * Singleton.
      */
     static public function singleton()
@@ -225,10 +218,7 @@ class Horde_Script_Files
         }
 
         /* Add general UI js library. */
-        if ($this->_loadhordejs) {
-            $this->_add('prototype.js', 'horde', true);
-            $this->_add('horde.js', 'horde', true);
-        }
+        $this->_add('tooltips.js', 'horde', true);
 
         /* Add accesskeys.js if access keys are enabled. */
         if ($GLOBALS['prefs']->getValue('widget_accesskey')) {
@@ -254,17 +244,6 @@ class Horde_Script_Files
         }
 
         return $jslist;
-    }
-
-    /**
-     * Disable auto-loading of the horde.js script.
-     * Needs to auto-load by default for BC.
-     *
-     * @todo Remove for Horde 4
-     */
-    public function disableAutoloadHordeJS()
-    {
-        $this->_loadhordejs = false;
     }
 
 }
