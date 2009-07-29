@@ -1032,6 +1032,24 @@ class Horde_Registry
     }
 
     /**
+     * Return the version string for a given application.
+     *
+     * @param string $app  The application to get the value for.
+     *
+     * @return string  The version string for the application.
+     */
+    public function getVersion($app = null)
+    {
+        if (is_null($app)) {
+            $app = $this->getApp();
+        }
+
+        require_once $this->get('fileroot', $app) . '/lib/version.php';
+
+        return constant(strtoupper($app) . '_VERSION');
+    }
+
+    /**
      * Function to work out an application's graphics URI, optionally taking
      * into account any themes directories that may be set up.
      *
