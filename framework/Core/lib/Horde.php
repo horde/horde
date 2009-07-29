@@ -493,9 +493,7 @@ HTML;
              *
              * Finally, add prototypejs security delimiters to returned
              * JSON. */
-            $s_data = '/*-secure-' .
-                Horde_String::convertCharset(str_replace("\00", '', Horde_Serialize::serialize($data, Horde_Serialize::JSON, $charset)), 'UTF-8') .
-                '*/';
+            $s_data = Horde_String::convertCharset(str_replace("\00", '', self::escapeJson($data, array('charset' => $charset))), $charset, 'UTF-8');
 
             if ($ct == 'json') {
                 header('Content-Type: application/json');
@@ -518,6 +516,29 @@ HTML;
         }
 
         exit;
+    }
+
+    /**
+     * Do necessary escaping to output JSON.
+     *
+     * @param mixed $data     The data to JSON-ify.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'charset' - (string) The charset of $data.
+     *             DEFAULT: Horde_Nls::getCharset()
+     * 'urlencode' - (boolean) URL encode the json string
+     *               DEFAULT: No
+     * </pre>
+     *
+     * @return string  The escaped string.
+     */
+    static public function escapeJson($data, $options = array())
+    {
+        $json = Horde_Serialize::serialize($data, Horde_Serialize::JSON, empty($options['charset']) ? Horde_Nls::getCharset() : $options['charset']);
+        if (!empty($options['urlencode'])) {
+            $json = rawurlencode($json);
+        }
+        return '/*-secure-' . $json . '*/';
     }
 
     /**
