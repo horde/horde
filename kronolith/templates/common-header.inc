@@ -45,7 +45,7 @@ var kronolithPrintLink = '';
 //]]></script>
 <title><?php echo htmlspecialchars($page_title) ?></title>
 <link href="<?php echo $GLOBALS['registry']->getImageDir()?>/favicon.ico" rel="SHORTCUT ICON" />
-<?php echo Horde::stylesheetLink('kronolith', empty($print_view) ? '' : 'print') ?>
+<?php Horde::includeStylesheetFiles() ?>
 <?php foreach ($GLOBALS['display_calendars'] as $calendar): ?>
 <link href="<?php echo Kronolith::feedUrl($calendar) ?>" rel="alternate" type="application/atom+xml" />
 <?php endforeach; ?>

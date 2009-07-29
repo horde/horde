@@ -86,54 +86,6 @@
    next login. If IMP will be the exclusive means of accessing the mail server,
    or you are not concerned about this behavior, this setting should be set to
    true.">true</configboolean>
-   <configswitch name="cachejs" desc="Cache static javascript and combine into
-   a single page for delivery to the remote browser?">none
-    <case name="none" desc="No" />
-    <case name="filesystem" desc="Filesystem">
-     <configsection name="cachejsparams">
-      <configphp name="file_location" desc="The filesystem directory to write
-      the static files to. THIS DIRECTORY MUST BE AVAILABLE ON THE SERVER
-      RUNNING PHP AND MUST BE WRITABLE BY THE PHP USER."></configphp>
-      <configphp name="file_url" desc="The corresponding base URL to use to
-      access the static files."></configphp>
-      <configinteger name="lifetime" desc="Lifetime, in seconds, after which
-      the garbage collector will remove static files.">86400</configinteger>
-     </configsection>
-    </case>
-    <case name="horde_cache" desc="Horde_Cache">
-     <configdescription>
-      &lt;strong&gt;Requires a configured Horde_Cache backend.&lt;/strong&gt;
-     </configdescription>
-     <configsection name="cachejsparams">
-      <configinteger name="lifetime" desc="Cache lifetime, in seconds.">
-      86400</configinteger>
-     </configsection>
-    </case>
-   </configswitch>
-   <configswitch name="cachecss" desc="Cache static CSS and combine into
-   a single page for delivery to the remote browser?">none
-    <case name="none" desc="No" />
-    <case name="filesystem" desc="Filesystem">
-     <configsection name="cachecssparams">
-      <configphp name="file_location" desc="The filesystem directory to write
-      the static files to. THIS DIRECTORY MUST BE AVAILABLE ON THE SERVER
-      RUNNING PHP AND MUST BE WRITABLE BY THE PHP USER."></configphp>
-      <configphp name="file_url" desc="The corresponding base URL to use to
-      access the static files."></configphp>
-      <configinteger name="lifetime" desc="Lifetime, in seconds, after which
-      the garbage collector will remove static files.">86400</configinteger>
-     </configsection>
-    </case>
-    <case name="horde_cache" desc="Horde_Cache">
-     <configdescription>
-      &lt;strong&gt;Requires a configured Horde_Cache backend.&lt;/strong&gt;
-     </configdescription>
-     <configsection name="cachecssparams">
-      <configinteger name="lifetime" desc="Cache lifetime, in seconds.">
-      86400</configinteger>
-     </configsection>
-    </case>
-   </configswitch>
   </configsection>
  </configtab>
 
@@ -344,7 +296,6 @@
  </configtab>
 
  <configtab name="dimp" desc="Dynamic View (dimp) Options">
-  <configheader>Custom Hooks</configheader>
   <configsection name="dimp">
    <configlist name="css_files" required="false" desc="A list of additional CSS
    files to load from the imp/themes/ directory."/>

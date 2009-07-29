@@ -27,7 +27,7 @@ Horde::includeScriptFiles();
 <link rel="alternate" type="application/rss+xml" href="<?php echo Folks::getUrlFor('feed', 'activity') ?>" title="<?php echo _("Friends activity") ?>" />
 <link rel="alternate" type="application/rss+xml" href="<?php echo Folks::getUrlFor('feed', 'know') ?>" title="<?php echo _("People you might know") ?>" />
 <?php endif; ?>
-<?php echo Horde::stylesheetLink('folks') ?>
+<?php Horde::includeStylesheetFiles() ?>
 </head>
 
 <body<?php if ($bc = Horde_Util::nonInputVar('bodyClass')) echo ' class="' . $bc . '"' ?><?php if ($bi = Horde_Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>

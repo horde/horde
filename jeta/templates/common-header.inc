@@ -9,7 +9,7 @@ if (isset($language)) {
 <head>
 <title><?php echo htmlspecialchars($registry->get('name')) ?></title>
 <link href="<?php echo $GLOBALS['registry']->getImageDir()?>/favicon.ico" rel="SHORTCUT ICON" />
-<?php echo Horde::stylesheetLink('horde') ?>
+<?php Horde::includeStylesheetFiles() ?>
 </head>
 
 <body>

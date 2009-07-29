@@ -25,7 +25,7 @@ require GOLLEM_TEMPLATES . '/javascript_defs.php';
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
 <link href="<?php echo $GLOBALS['registry']->getImageDir()?>/favicon.ico" rel="SHORTCUT ICON" />
-<?php echo Horde::stylesheetLink('gollem') ?>
+<?php Horde::includeStylesheetFiles() ?>
 <?php Horde::outputInlineScript(); ?>
 </head>
 

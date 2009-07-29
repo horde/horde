@@ -16,13 +16,24 @@ $imp_view = Horde_Util::nonInputVar('imp_view');
 switch ($imp_view) {
 case 'dimp':
     include IMP_TEMPLATES . '/javascript_defs_dimp.php';
-    IMP::includeStylesheetFiles('dimp');
+
+    $css = array();
+    if (!empty($GLOBALS['conf']['dimp']['css_files'])) {
+        foreach ($GLOBALS['conf']['css_files'] as $css_file) {
+            $css[] = array(
+                'u' => $themesuri . '/' . $css_file,
+                'f' => $themesfs .  '/' . $css_file
+            );
+        }
+    }
+
+    Horde::includeStylesheetFiles(array('additional' => $css, 'sub' => 'dimp'));
     break;
 
 default:
     include IMP_TEMPLATES . '/javascript_defs.php';
-    IMP::includeScriptFiles();
-    IMP::includeStylesheetFiles();
+    Horde::includeScriptFiles();
+    Horde::includeStylesheetFiles();
     break;
 }
 ?>

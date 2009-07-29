@@ -25,7 +25,7 @@ Horde::includeScriptFiles();
 <link href="<?php echo $GLOBALS['registry']->getImageDir()?>/favicon.ico" rel="SHORTCUT ICON" />
 <link rel="alternate" title="<?php echo _("Last news") ?>" href="<?php echo Horde::applicationUrl('rss/news.php', true, -1) ?>" type="application/rss+xml" />
 <link rel="alternate" title="<?php echo _("Last comments") ?>" href="<?php echo Horde::applicationUrl('rss/comments.php', true, -1) ?>" type="application/rss+xml" />
-<?php echo Horde::stylesheetLink('news') ?>
+<?php Horde::includeStylesheetFiles() ?>
 </head>
 
 <body<?php if ($bc = Horde_Util::nonInputVar('bodyClass')) echo ' class="' . $bc . '"' ?><?php if ($bi = Horde_Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>

@@ -20,7 +20,7 @@ Horde::includeScriptFiles();
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
 <link href="<?php echo $GLOBALS['registry']->getImageDir() ?>/favicon.ico" rel="SHORTCUT ICON" />
-<?php echo Horde::stylesheetLink('chora') ?>
+<?php Horde::includeStylesheetFiles() ?>
 </head>
 
 <body<?php if ($bc = Horde_Util::nonInputVar('bodyClass')) echo ' class="' . $bc . '"' ?><?php if ($bi = Horde_Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>

@@ -28,7 +28,7 @@ if ($prefs->getValue('show_panel')) {
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
 <link href="<?php echo $GLOBALS['registry']->getImageDir()?>/favicon.ico" rel="SHORTCUT ICON" />
-<?php echo Horde::stylesheetLink('nag', empty($print_view) ? '' : 'print') ?>
+<?php Horde::includeStylesheetFiles() ?>
 <link href="<?php echo Horde::applicationUrl('themes/categoryCSS.php') ?>" rel="stylesheet" type="text/css" />
 <script src="<?php echo $GLOBALS['registry']->get('jsuri', 'horde') ?>/glow/1.5.1/core/core.js" type="text/javascript"></script>
 <script src="<?php echo $GLOBALS['registry']->get('jsuri', 'horde') ?>/glow/1.5.1/widgets/widgets.js" type="text/javascript"></script>

@@ -83,7 +83,7 @@ Horde::addInlineScript(array(DIMP::notify()), 'dom');
 DIMP::header($show_msg_result['subject'], $scripts);
 echo "<body>\n";
 require IMP_TEMPLATES . '/chunks/message.php';
-IMP::includeScriptFiles();
+Horde::includeScriptFiles();
 Horde::outputInlineScript();
 if (!$disable_compose) {
     echo $compose_result['jsappend'];

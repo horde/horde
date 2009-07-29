@@ -337,7 +337,7 @@ $scripts = array(
 
 DIMP::header(_("Message Composition"), $scripts);
 echo $t->fetch('compose.html');
-IMP::includeScriptFiles();
+Horde::includeScriptFiles();
 Horde::outputInlineScript();
 echo $compose_result['jsappend'];
 echo "</body>\n</html>";
