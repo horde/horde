@@ -567,7 +567,7 @@ class IMP_Compose
 
             /* Keep Bcc: headers on saved messages. */
             if (!empty($header['bcc'])) {
-                $headers->addHeader('Bcc', $header['bcc']);
+                $headers->addHeader('Bcc', Horde_String::convertCharset($header['bcc'], $browser_charset, $charset));
             }
 
             /* Strip attachments if requested. */

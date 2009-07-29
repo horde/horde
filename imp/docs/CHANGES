@@ -94,6 +94,7 @@ v5.0-git
 v4.3.5-cvs
 ----------
 
+[mms] Correctly set charset of Bcc header in sent mail (Bug #8362).
 [mms] Fix spellcheck in text-mode for certain words in non-English locales
       (Bug #8330).
 [mms] Fix some javascript if using IE 8 (uses IE 7 compatibility mode) (Bug
