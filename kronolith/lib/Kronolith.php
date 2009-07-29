@@ -74,16 +74,6 @@ class Kronolith
         Horde::addScriptFile('horde.js', 'horde', true);
         Horde::addScriptFile('dragdrop2.js', 'horde', true);
         Horde::addScriptFile('Growler.js', 'horde', true);
-
-        // ContextSensitive must be loaded first.
-        while (list($key, $val) = each($scripts)) {
-            if (($val[0] == 'ContextSensitive.js') &&
-                ($val[1] == 'kronolith')) {
-                Horde::addScriptFile($val[0], $val[1], $val[2]);
-                unset($scripts[$key]);
-                break;
-            }
-        }
         Horde::addScriptFile('kronolith.js', 'kronolith', true);
 
         // Add other scripts now
@@ -224,25 +214,6 @@ class Kronolith
         }
 
         return array('var Kronolith = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, Horde_Nls::getCharset()) . ';');
-    }
-
-    /**
-     * Creates a URL for cached Kronolith data.
-     *
-     * @param string $type  The cache type.
-     * @param string $cid   The cache id.
-     *
-     * @return string  The URL to the cache page.
-     */
-    public static function getCacheURL($type, $cid)
-    {
-        $parts = array(
-            $GLOBALS['registry']->get('webroot'),
-            'cache.php',
-            $type,
-            $cid
-        );
-        return Horde::url(implode('/', $parts));
     }
 
     /**
