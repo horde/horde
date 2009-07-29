@@ -10,13 +10,4 @@
  * @author Ben Klang <ben@alkaloid.net>
  */
 
-@define('CRUMB_BASE', dirname(__FILE__));
-$crumb_configured = (is_readable(CRUMB_BASE . '/config/conf.php'));
-
-if (!$crumb_configured) {
-    require CRUMB_BASE . '/../lib/Test.php';
-    Horde_Test::configFilesMissing('Crumb', CRUMB_BASE,
-                                   array('conf.php'));
-}
-
-require CRUMB_BASE . '/listclients.php';
+require dirname(__FILE__) . '/listclients.php';

@@ -10,14 +10,4 @@
  * @author Duck <duck@obala.net>
  */
 
-define('FOLKS_BASE', dirname(__FILE__));
-$folks_configured = (is_readable(FOLKS_BASE . '/config/conf.php') &&
-                        is_readable(FOLKS_BASE . '/config/prefs.php'));
-
-if (!$folks_configured) {
-    require FOLKS_BASE . '/../lib/Test.php';
-    Horde_Test::configFilesMissing('Folks', FOLKS_BASE,
-                                   array('conf.php', 'prefs.php'));
-}
-
-require FOLKS_BASE . '/list.php';
+require dirname(__FILE__) . '/list.php';

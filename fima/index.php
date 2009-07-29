@@ -10,14 +10,4 @@
  * @author Thomas Trethan <thomas@trethan.net>
  */
 
-@define('FIMA_BASE', dirname(__FILE__));
-$fima_configured = (is_readable(FIMA_BASE . '/config/conf.php') &&
-                    is_readable(FIMA_BASE . '/config/prefs.php'));
-
-if (!$fima_configured) {
-    require FIMA_BASE . '/../lib/Test.php';
-    Horde_Test::configFilesMissing('Fima', FIMA_BASE,
-                                   array('conf.php', 'prefs.php'));
-}
-
-require FIMA_BASE . '/postings.php';
+require dirname(__FILE__) . '/postings.php';

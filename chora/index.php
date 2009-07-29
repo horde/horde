@@ -9,17 +9,4 @@
  * @package Chora
  */
 
-require_once dirname(__FILE__) . '/lib/base.load.php';
-$chora_configured = (is_readable(CHORA_BASE . '/config/conf.php') &&
-                     is_readable(CHORA_BASE . '/config/sourceroots.php') &&
-                     is_readable(CHORA_BASE . '/config/mime_drivers.php') &&
-                     is_readable(CHORA_BASE . '/config/prefs.php'));
-
-if (!$chora_configured) {
-    require HORDE_BASE . '/lib/Test.php';
-    Horde_Test::configFilesMissing('Chora', CHORA_BASE,
-        array('conf.php', 'prefs.php', 'mime_drivers.php'),
-        array('sourceroots.php' => 'This file defines all of the source repositories that you wish Chora to display.'));
-}
-
-require CHORA_BASE . '/browsedir.php';
+require dirname(__FILE__) . '/browsedir.php';
