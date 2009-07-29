@@ -35,8 +35,8 @@ class IMP
     const IDX_SEP = '\0';
 
     /* Preferences constants. */
-    const PREF_NO_FOLDER = '\0nofolder';
-    const PREF_VTRASH = '\0vtrash';
+    const PREF_NO_FOLDER = 'nofolder\0';
+    const PREF_VTRASH = 'vtrash\0';
 
     /* Storage place for an altered version of the current URL. */
     static public $newUrl = null;
@@ -485,10 +485,8 @@ class IMP
      */
     static public function filterText($text)
     {
-        global $conf, $prefs;
-
-        if ($prefs->getValue('filtering') && strlen($text)) {
-            $text = Horde_Text_Filter::filter($text, 'words', array('words_file' => $conf['msgsettings']['filtering']['words'], 'replacement' => $conf['msgsettings']['filtering']['replacement']));
+        if ($GLOBALS['prefs']->getValue('filtering') && strlen($text)) {
+            return Horde_Text_Filter::filter($text, 'words', array('words_file' => $GLOBALS['conf']['msgsettings']['filtering']['words'], 'replacement' => $GLOBALS['conf']['msgsettings']['filtering']['replacement']));
         }
 
         return $text;
@@ -1618,8 +1616,6 @@ class IMP
         } catch (Horde_Exception_HookNotSet $e) {
             return true;
         }
-
-
     }
 
 }
