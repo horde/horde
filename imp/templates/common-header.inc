@@ -12,12 +12,25 @@ if (!empty($title)) $page_title .= ' :: ' . $title;
 if (!empty($refresh_time) && !empty($refresh_url)) {
     echo "<meta http-equiv=\"refresh\" content=\"$refresh_time;url=$refresh_url\" />\n";
 }
-echo Horde_Util::bufferOutput('require', IMP_TEMPLATES . '/javascript_defs.php');
-IMP::includeScriptFiles();
-IMP::includeStylesheetFiles();
+$imp_view = Horde_Util::nonInputVar('imp_view');
+switch ($imp_view) {
+case 'dimp':
+    include IMP_TEMPLATES . '/javascript_defs_dimp.php';
+    IMP::includeStylesheetFiles('dimp');
+    break;
+
+default:
+    include IMP_TEMPLATES . '/javascript_defs.php';
+    IMP::includeScriptFiles();
+    IMP::includeStylesheetFiles();
+    break;
+}
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
 <link href="<?php echo $GLOBALS['registry']->getImageDir() ?>/favicon.ico" rel="SHORTCUT ICON" />
+<?php if ($imp_view == 'dimp'): ?>
+</head>
+<?php else: ?>
 <?php if ($mailbox_url = Horde_Util::nonInputVar('mailbox_url')): ?>
 <link href="<?php echo $mailbox_url ?>" rel="Up" />
 <?php elseif (!Horde_Util::nonInputVar('login_page')): ?>
@@ -45,3 +58,4 @@ IMP::includeStylesheetFiles();
 </head>
 
 <body<?php if ($bc = Horde_Util::nonInputVar('bodyClass')) echo ' class="' . $bc . '"' ?><?php if ($bi = Horde_Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>
+<?php endif; ?>

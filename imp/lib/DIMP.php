@@ -78,22 +78,8 @@ class DIMP
             $page_title .= ' :: ' . $title;
         }
 
-        if (isset($GLOBALS['language'])) {
-            header('Content-type: text/html; charset=' . Horde_Nls::getCharset());
-            header('Vary: Accept-Language');
-        }
-
-        echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"DTD/xhtml1-transitional.dtd\">\n" .
-             (!empty($GLOBALS['language']) ? '<html lang="' . strtr($GLOBALS['language'], '_', '-') . '"' : '<html') . ">\n".
-             "<head>\n";
-
-        echo '<title>' . htmlspecialchars($page_title) . "</title>\n" .
-             '<link href="' . $GLOBALS['registry']->getImageDir() . "/favicon.ico\" rel=\"SHORTCUT ICON\" />\n";
-        include IMP_BASE . '/templates/javascript_defs_dimp.php';
-
-        IMP::includeStylesheetFiles('dimp');
-
-        echo "</head>\n";
+        $GLOBALS['imp_view'] = 'dimp';
+        include IMP_BASE . '/templates/common-header.inc';
 
         // Send what we have currently output so the browser can start
         // loading CSS/JS. See:
@@ -190,7 +176,7 @@ class DIMP
      * 'l' (label) = The folder display label. [string] [DEFAULT: 'm' val]
      * 'm' (mbox) = The mailbox value. [string]
      * 'pa' (parent) = The parent element. [string] [DEFAULT:
-     *                                               DIMP.conf.base_mbox]
+     *                 DIMP.conf.base_mbox]
      * 'po' (polled) = Is the element polled? [boolean] [DEFAULT: no]
      * 's' (special) = Is this a "special" element? [boolean] [DEFAULT: no]
      * 't' (title) = The title value. [string] [DEFAULT: 'm' val]
