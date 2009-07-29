@@ -72,9 +72,9 @@ function _ShowView()
     if (Object.isFunction(stripeAllElements)) {
         stripeAllElements();
     }
-    if (typeof ToolTips == 'object') {
-        ToolTips.out();
-        ToolTips.attachBehavior();
+    if (!Object.isUndefined(Horde_ToolTips)) {
+        Horde_ToolTips.out();
+        Horde_ToolTips.attachBehavior();
     }
 
     var titleDiv = $('view_title');

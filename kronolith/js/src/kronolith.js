@@ -931,9 +931,9 @@ KronolithCore = {
                 if (title) {
                     td.writeAttribute('title', title).addClassName('kronolithHasEvents');
                     if (td.readAttribute('nicetitle')) {
-                        ToolTips.detach(td);
+                        Horde_ToolTips.detach(td);
                     }
-                    ToolTips.attach(td);
+                    Horde_ToolTips.attach(td);
                     if (busy) {
                         td.addClassName('kronolithIsBusy');
                     }

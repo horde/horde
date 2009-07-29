@@ -86,7 +86,7 @@ class Kronolith_Ajax_Imple_Embed extends Horde_Ajax_Imple_Base
 
         /* Horde's js */
         $hjs_path = $registry->get('jsuri', 'horde');
-        $hjsurl = Horde::url($hjs_path . '/horde-embed.js', true);
+        $hjsurl = Horde::url($hjs_path . '/tooltips.js', true);
         $pturl = Horde::url($hjs_path . '/prototype.js', true);
 
         /* CSS */
@@ -102,12 +102,13 @@ class Kronolith_Ajax_Imple_Embed extends Horde_Ajax_Imple_Base
         $html = <<<EOT
         //<![CDATA[
         if (typeof kronolith == 'undefined') {
-            if (typeof Horde_ToolTips == 'undefined') {
-                document.write('<script type="text/javascript" src="$hjsurl"></script>');
-                document.write('<link type="text/css" rel="stylesheet" href="$hcssurl" />');
-            }
             if (typeof Prototype == 'undefined') {
                 document.write('<script type="text/javascript" src="$pturl"></script>');
+            }
+            if (typeof Horde_ToolTips == 'undefined') {
+                Horde_ToolTips_Autoload = false;
+                document.write('<script type="text/javascript" src="$hjsurl"></script>');
+                document.write('<link type="text/css" rel="stylesheet" href="$hcssurl" />');
             }
             kronolith = new Object();
             kronolithNodes = new Array();
