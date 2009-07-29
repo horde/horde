@@ -423,10 +423,11 @@ HTML;
                 self::addScriptFile('popup.js', 'horde', true);
             }
             $url = self::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/help/', true);
-            return Horde_Util::addParameter($url, 'module', $app);
+            return Horde_Util::addParameter($url, array('module' => $app));
 
         case 'problem':
-            return self::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/problem.php?return_url=' . urlencode(self::selfUrl(true, true, true)));
+            $url = self::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/problem.php');
+            return Horde_Util::addParameter($url, array('return_url' => urlencode(self::selfUrl(true, true, true))));
 
         case 'logout':
             return Horde_Auth::getLogoutUrl(array('reason' => Horde_Auth::REASON_LOGOUT));
@@ -435,9 +436,9 @@ HTML;
             return self::url($GLOBALS['registry']->get('webroot', 'horde') . '/login.php');
 
         case 'options':
-            global $conf;
-            if (($conf['prefs']['driver'] != '') && ($conf['prefs']['driver'] != 'none')) {
-                return self::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs.php?app=' . $app);
+            if (!in_array($GLOBALS['conf']['prefs']['driver'], array('', 'none'))) {
+                $url = self::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs.php');
+                return Horde_Util::addParameter($url, array('app' => $app));
             }
             break;
         }
