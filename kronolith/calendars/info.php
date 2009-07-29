@@ -26,17 +26,10 @@ if (strncmp($calendarId, 'remote_', 7) === 0) {
     }
 } elseif (isset($GLOBALS['all_calendars'][$calendarId])) {
     $calendar = $GLOBALS['all_calendars'][$calendarId];
-
-    $webdav = is_callable(array('HTTP_WebDAV_Server_Horde', 'DELETE'));
     $rewrite = isset($conf['urls']['pretty']) &&
         $conf['urls']['pretty'] == 'rewrite';
-    $subscribe_url = $webdav
-        ? Horde::url($registry->get('webroot', 'horde')
-                     . ($rewrite ? '/rpc/kronolith/' : '/rpc.php/kronolith/'),
-                     true, -1)
-          . $calendar->get('owner') . '/' . $calendar->getName() . '.ics'
-        : Horde_Util::addParameter(Horde::applicationUrl('ics.php', true, -1), 'c',
-                             $calendar->getName());
+    $subscribe_url = Horde::url($registry->get('webroot', 'horde') . ($rewrite ? '/rpc/kronolith/' : '/rpc.php/kronolith/'), true, -1)
+      . $calendar->get('owner') . '/' . $calendar->getName() . '.ics';
 }
 
 if (is_null($calendar)) {

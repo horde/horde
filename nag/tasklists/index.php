@@ -22,9 +22,6 @@ function shorten_url($url, $separator = '...', $first_chunk_length = 35, $last_c
 }
 
 require_once dirname(__FILE__) . '/../lib/base.php';
-if (@include_once 'HTTP/WebDAV/Server.php') {
-    require_once 'Horde/RPC/webdav.php';
-}
 
 /* Exit if this isn't an authenticated user. */
 if (!Horde_Auth::getAuth()) {
