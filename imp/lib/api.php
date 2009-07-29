@@ -573,7 +573,7 @@ function _imp_cacheOutput($params)
                 'FCKConfig.ToolbarSets["ImpToolbar"] = ' . $GLOBALS['prefs']->getValue('fckeditor_buttons') . ";\n" .
                 /* To more closely match "normal" textarea behavior, send
                  * send <BR> on enter instead of <P>. */
-                "FCKConfig.EnterMode = \'br\';\n" .
+                "FCKConfig.EnterMode = 'br';\n" .
                 'FCKConfig.ShiftEnterMode = \'p\';',
             'type' => 'text/javascript'
         );

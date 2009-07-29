@@ -713,12 +713,12 @@ if ($get_sig && isset($msg) && !empty($sig)) {
 /* Open the passphrase window here. */
 if ($pgp_passphrase_dialog || $pgp_symmetric_passphrase_dialog) {
     if ($pgp_passphrase_dialog) {
-        $notification->push(IMP::passphraseDialogJS('PGPPersonal', 'uniqSubmit(\'send_message\')'), 'javascript');
+        $notification->push(IMP::passphraseDialogJS('PGPPersonal', 'ImpCompose.uniqSubmit(\'send_message\')'), 'javascript');
     } else {
-        $notification->push(IMP::passphraseDialogJS('PGPSymmetric', 'uniqSubmit(\'send_message\')', array('symmetricid' => 'imp_compose_' . $composeCacheID)), 'javascript');
+        $notification->push(IMP::passphraseDialogJS('PGPSymmetric', 'ImpCompose.uniqSubmit(\'send_message\')', array('symmetricid' => 'imp_compose_' . $composeCacheID)), 'javascript');
     }
 } elseif ($smime_passphrase_dialog) {
-    $notification->push(IMP::passphraseDialogJS('SMIMEPersonal', 'uniqSubmit(\'send_message\')'), 'javascript');
+    $notification->push(IMP::passphraseDialogJS('SMIMEPersonal', 'ImpCompose.uniqSubmit(\'send_message\')'), 'javascript');
 }
 
 /* If PGP encryption is set by default, and we have a recipient list on first
@@ -822,7 +822,7 @@ if ($redirect) {
         $t->set('has_search', true);
         $t->set('abook', Horde::link('#', _("Address Book"), 'widget', null, 'window.open(\'' . Horde_Util::addParameter(Horde::applicationUrl('contacts.php'), array('formname' => 'redirect', 'to_only' => 1)) . '\', \'contacts\', \'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100\'); return false;') . Horde::img('addressbook_browse.png') . '<br />' . _("Address Book") . '</a>');
         if (!$has_js) {
-            $t->set('expand', Horde::link('#', _("Expand Names"), 'widget', null, "$('actionID').value='redirect_expand_addr';uniqSubmit();return false;") . Horde::img('expand.png') . '<br />' . _("Expand Names") . '</a>', true);
+            $t->set('expand', Horde::link('#', _("Expand Names"), 'widget', null, "$('actionID').value='redirect_expand_addr';ImpCompose.uniqSubmit();return false;") . Horde::img('expand.png') . '<br />' . _("Expand Names") . '</a>', true);
         }
     }
 
@@ -1059,7 +1059,7 @@ if ($redirect) {
             $compose_options[] = array(
                 'url' => Horde::link(
                     '#', '', 'widget', null,
-                    "uniqSubmit('compose_expand_addr'); return false;",
+                    "ImpCompose.uniqSubmit('compose_expand_addr'); return false;",
                     '', '', array('name' => 'btn_compose_expand_addr')),
                 'img' => Horde::img('expand.png'),
                 'label' => $show_text ? _("Expand Names") : '');
@@ -1119,7 +1119,7 @@ if ($redirect) {
     $t->set('compose_html', (!is_null($rtemode) && !$prefs->isLocked('compose_html')));
     if ($t->get('compose_html')) {
         $t->set('html_img', Horde::img('compose.png', _("Switch Composition Method")));
-        $t->set('html_switch', Horde::link('#', _("Switch Composition Method"), '', '', "$('rtemode').value='" . ($rtemode ? 0 : 1) . "';uniqSubmit();return false;"));
+        $t->set('html_switch', Horde::link('#', _("Switch Composition Method"), '', '', "$('rtemode').value='" . ($rtemode ? 0 : 1) . "';ImpCompose.uniqSubmit('toggle_editor');return false;"));
         $t->set('rtemode', $rtemode);
     }
 

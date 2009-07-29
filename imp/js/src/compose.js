@@ -151,7 +151,9 @@ var ImpCompose = {
     {
         var form;
 
-        e.stop();
+        if (!Object.isUndefined(e)) {
+            e.stop();
+        }
 
         switch (actionID) {
         case 'redirect':
@@ -190,6 +192,10 @@ var ImpCompose = {
         case 'save_draft':
             form = $('compose');
             $('actionID').setValue(actionID);
+            break;
+
+        case 'toggle_editor':
+            form = $('compose');
             break;
 
         default:
