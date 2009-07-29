@@ -782,5 +782,12 @@ if ($errors) {
                       $errors, __FILE__, __LINE__, PEAR_LOG_DEBUG);
 }
 
+/* Display IMAP alerts. */
+if ($notify) {
+    foreach ($GLOBALS['imp_imap']->ob->alerts() as $alert) {
+        $notification->push($alert, 'horde.warning');
+    }
+}
+
 // Send the final result.
 Horde::sendHTTPResponse(Horde::prepareResponse($result, $notify ? $GLOBALS['imp_notify'] : null), 'json');
