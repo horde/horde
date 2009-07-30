@@ -1,0 +1,403 @@
+/**
+ * $Horde: ansel/themes/screen.css,v 1.82 2009/07/16 19:20:55 mrubinsk Exp $
+ */
+
+/* Table CSS. */
+th {
+    text-align: left;
+}
+
+.coord {
+    font-size: 90%;
+    border: 1px solid #999;
+    color: #aaa;
+}
+
+.instructions {
+    border: 1px solid #ccc;
+    padding: 2px;
+    margin: 8px;
+}
+.instructions p {
+    margin: 0;
+    background: #e9e9e9;
+}
+.breadcrumbs a, .thiscrumb {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 90%;
+}
+
+.instructions {
+    margin: 10px;
+    font-weight: bold;
+}
+
+/* Slideshow controls. */
+.slideControls {
+    text-align: center;
+    margin: 5px;
+    padding: 2px;
+}
+.slideControls a {
+    margin: 2px;
+    padding: 3px;
+}
+.slideControls a:hover {
+    background: #e9e9e9;
+    padding: 2px;
+    border: 1px solid #ccc;
+}
+
+/* Gallery Group view. */
+#galleryGroups {
+    width: 100%;
+}
+#galleryGroups table {
+    border-collapse: collapse;
+}
+#galleryGroups td {
+    margin: 0;
+}
+.galleryGroupsTile {
+    padding: 1em;
+}
+
+#Container {
+    text-align: center;
+}
+#CaptionContainer {
+    margin: 0 auto;
+    text-align: left;
+    font-size: 125%;
+}
+#Caption {
+    padding: 1em;
+}
+
+#sortContainer {
+    margin: 10px;
+    border: 1px solid #ccc;
+}
+#sortContainer div {
+    cursor: move;
+    margin: 10px;
+    height: 170px;
+    float: left;
+}
+#sortContainer a {
+    cursor: move;
+}
+
+/* Widgets */
+.anselWidget {
+    border: 1px solid #ccc;
+}
+.anselWidget .control {
+    background: #eee;
+    text-align: center;
+    border: 0;
+}
+.anselWidgets {
+    margin-right: 5px;
+    margin-left:5px;
+    vertical-align: top;
+}
+.anselWidgets .header {
+    background: none;
+    color: #333333;
+}
+.anselWidgets .header a {
+    color: #333333;
+}
+.anselWidgets #similar img {
+    padding: 1px;
+}
+.embedInput {
+    border-top: 1px solid #ccc;
+    color: #aaa;
+}
+.embedInput input {
+    color: #aaa;
+    width: 250px;
+    margin: 5px;
+}
+.tagTitle {
+    font-size: 100%;
+    border: none;
+}
+#tags {
+    padding: 4px;
+}
+#tags li {
+    list-style: none;
+}
+#tagform {
+    white-space: nowrap;
+    padding: 4px;
+}
+.tag-list {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    font-size: 80%;
+}
+.tag-list li {
+    margin: 0;
+    padding: 0 .2em;
+    display: inline;
+}
+.tag-list img {
+    vertical-align: middle;
+}
+#gallery-actions a:hover {
+    text-decoration: underline;
+}
+#gallery-actions a.widget {
+    color: #000;
+    white-space: normal;
+}
+#gallery-actions-toggle.show, #othergalleries-toggle.show {
+    background: url('graphics/down.png') center center no-repeat;
+    display: block;
+    padding-left: 15px;
+}
+#gallery-actions-toggle.hide, #othergalleries-toggle.hide {
+    background: url('graphics/up.png') center center no-repeat;
+    display: block;
+    padding-left: 15px;
+}
+#gallery-actions-toggle:hover, #othergalleries-toggle:hover {
+    text-decoration: none;
+}
+#othergalleries .treeRow img {
+    margin: 5px;
+}
+
+a.earliest:link, a.earliest:visited, a.earliest:hover, a.earliest:active {
+    color: #ccc;
+}
+
+a.earlier:link, a.earlier:visited, a.earlier:hover, a.earlier:active {
+    color: #99c;
+}
+
+a.later:link, a.later:visited, a.later:hover, a.later:active {
+    color: #99f;
+}
+
+a.latest:link, a.latest:visited, a.latest:hover, a.latest:active {
+    color: #00f;
+}
+
+#ansel_preview {
+    position: absolute;
+}
+
+/* Face recognition/detection rules */
+.face-tile {
+    height: 100px;
+    margin: 5px;
+    float: left;
+}
+.face-div {
+    position:absolute;
+}
+.face-div-name {
+    text-align: center;
+    background: grey;
+    color: white;
+}
+.shown {
+    border: medium solid white;
+}
+
+.similarity-high {
+    color: red;
+}
+.similarity-medium {
+    color: green;
+}
+.similarity-low {
+    color: #ffcc00;
+}
+.similarity-lower {
+    color: #cccccc;
+}
+.bordered-facethumb {
+    border: 1px solid black;
+    margin: 2px;
+    float: left;
+}
+
+.ansel-tile {
+    padding-top: 10px;
+    text-align: center;
+}
+
+/* Gallery styles */
+.gallery-desc {
+    background: #fff;
+    padding: 1em;
+}
+
+/* Gallery tiles */
+.gallery-tile-caption {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    font-size: 100%;
+}
+.gallery-tile p {
+    margin: 0;
+    padding: 0;
+}
+
+/* Image tiles */
+.image-tile-caption {
+    display: block;
+    font-size: 90%;
+    padding: .2em;
+}
+.ansel-tile img {
+    padding: 3px;
+}
+.image-tile-highlight {
+    background-color: red;
+}
+
+/* Actions */
+.anselActions {
+    margin-left: 0;
+    background: #e9e9e9;
+    padding: 4px;
+    border: 1px #cccccc solid;
+}
+.anselActions a, .anselActions a:visited, .anselActions label {
+    white-space: nowrap;
+}
+.anselActions a img {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.success {
+    background: url('graphics/success.png') center left no-repeat;
+    padding-left: 15px;
+}
+.problem {
+    background: url('graphics/problem.png') center left no-repeat;
+    padding-left: 15px;
+}
+
+/* For in place editing */
+form.inplaceeditor-form {
+    background: none;
+}
+form.inplaceeditor-form input[type="submit"] {
+    background:#AAFFAA none repeat scroll 0%;
+    border:1px solid #000000;
+    cursor:pointer;
+    font-weight:bold;
+    padding:2px;
+}
+form.inplaceeditor-form a {
+    background:#FFAAAA none repeat scroll 0%;
+    border:1px solid #000000;
+    cursor:pointer;
+    font-weight:bold;
+    padding:2px;
+}
+.inplaceeditor-empty {
+    font-style: italic;
+    color: #999;
+}
+
+/* Image resizer/slider */
+#slider-track {
+    background: url('graphics/scaler_slider_track.gif') no-repeat;
+    width:200px;
+    margin:10px 0;
+    position: relative;
+    height:18px;
+    margin: 4px auto 4px auto;
+}
+
+.sliderHandle {
+    background: url('graphics/scaler_slider.gif') center left no-repeat;
+    cursor:move;
+    position: absolute;
+    width: 18px;
+    height: 18px;
+}
+
+ /* Google Map stuff */
+#ansel_map {
+    width:100%;
+    height:250px;
+    overflow:hidden;
+    border-bottom: 1px solid #ccc;
+}
+#ansel_map_small {
+    width:100%;
+    height:80px;
+    margin-top:10px;
+    overflow:hidden;
+    border-top: 1px solid #ccc;
+}
+.ansel_location_sameas {
+    background-color: #979797;
+    width: 100%;
+}
+.ansel_location_sameas img {
+    border: 1px solid white;
+    margin: 5px;
+}
+.ansel_geolocation {
+    background: url(http://maps.gstatic.com/intl/en_us/mapfiles/marker.png) center left no-repeat;
+    margin:10px 0 6px;
+    padding:0 0 6px 30px;
+    min-height: 37px;
+}
+#ansel_latlng {
+    color:#666666;
+    font-size:90%;
+    white-space: nowrap;
+    margin-right: 5px;
+}
+
+#ansel_locationtext {
+    margin: 0;
+    font-size: 80%;
+}
+
+#ansel_deleteGeotag {
+    font-size: 70%;
+    font-style: italic;
+}
+
+/* Autocomplete styles. */
+.autocomplete {
+    background: #f4f4f4;
+    border: 1px solid #d4d4d4;
+    position: absolute;
+    padding: 2px 2px 2px 2px;
+}
+.autocomplete ul {
+    margin: 1px;
+    padding: 1px;
+    list-style-type: none;
+}
+.autocomplete ul li {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 90%;
+    color: #000;
+}
+.autocomplete ul .selected {
+    background: gray;
+    color: #fff;
+}

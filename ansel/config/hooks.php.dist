@@ -1,0 +1,96 @@
+<?php
+/**
+ * Ansel Hooks configuration file.
+ *
+ * THE HOOKS PROVIDED IN THIS FILE ARE EXAMPLES ONLY.  DO NOT ENABLE THEM
+ * BLINDLY IF YOU DO NOT KNOW WHAT YOU ARE DOING.  YOU HAVE TO CUSTOMIZE THEM
+ * TO MATCH YOUR SPECIFIC NEEDS AND SYSTEM ENVIRONMENT.
+ *
+ * $Horde: ansel/config/hooks.php.dist,v 1.8 2009/07/27 14:52:51 mrubinsk Exp $
+ */
+
+class Ansel_Hooks
+{
+    /**
+     * Here is an example _ansel_hook_user_age(). is called to get the user age
+     * when he/she tries to view an age limited content. This function must 
+     * return an integer value of user age
+     */
+//    function user_age()
+//     {
+//         $query  = 'SELECT age FROM user WHERE user_uid = ' . $GLOBALS['ansel_db']->quote(Horde_Auth::getAuth());
+//         $result = $GLOBALS['ansel_db']->queryOne($query);
+//         if (is_a($result, 'PEAR_Error')) {
+//               throw new Horde_Exception($result);
+//         }
+//
+//         return (int)$result;
+//     }
+
+
+    /**
+     * Example hook for sending a stream notification to facebook after a user
+     * uploads images to Ansel. This will likely go away, being replaced by
+     * by an remote image import/export functionality.
+     */
+//   function postupload($image_ids)
+//   {
+//       $context = array('http_client' => new Horde_Http_Client(),
+//                        'http_request' => new Horde_Controller_Request_Http(),);
+//       $facebook = new Horde_Service_Facebook($GLOBALS['conf']['facebook']['key'],
+//                                              $GLOBALS['conf']['facebook']['secret'],
+//                                              $context);
+//        $fbp = unserialize($GLOBALS['prefs']->getValue('facebook'));
+//
+//        // If no prefs exist just exit since there's nowhere to publish to.
+//        if (empty($fbp['sid'])) {
+//            return;
+//        } else {
+//            $facebook->auth->setUser($fbp['uid'], $fbp['sid'], 0);
+//        }
+//         // Limit of the number of images to include. This should really come
+//         // from a configuration parameter or at the very least, a user pref.
+//         // (5 is the facebook api's max)
+//         $limit = min(5, (count($image_ids)));
+//         $images = $GLOBALS['ansel_storage']->getImages(array_slice($image_ids, 0, $limit));
+//         $perms = array();
+//         $media = array();
+//         foreach ($images as $image) {
+//             // Only the gallery owner should be able to publish news about the
+//             // gallery, and only public galleries with no passwd or age checks
+//             // should be considered as well since the links on facebook would
+//             // be useless.
+//             if (!isset($perms[$image->gallery])) {
+//                 $g = $GLOBALS['ansel_storage']->getGallery($image->gallery);
+//                 $pwd = $g->get('passwd');
+//                 $no_agelimit = empty($GLOBALS['conf']['ages']['limits']) || $g->get('age') == 0;
+//                 if ($g->get('owner') == Horde_Auth::getAuth() && empty($pwd) && $no_agelimit) {
+//                     $perms[$image->gallery] = true;
+//                 } else {
+//                     $perms[$image->gallery] = false;
+//                 }
+//             }
+//             if ($perms[$image->gallery]) {
+//                $media[] = array('type' => 'image',
+//                                 'href' => Ansel::getUrlFor('view',array('view' => 'Image', 'image' => $image->id, 'gallery' => $image->gallery), true, -1),
+//                                 'src' => Ansel::getImageUrl($image->id, 'thumb', true));
+//
+//             }
+//         }
+//         // For this example, just use the last image's gallery title and description
+//         $attachment = array('name' => $g->get('name'), 'caption' => $g->get('description'), 'media' => $media);
+//
+//         //Do it.
+//         try {
+//             $facebook->streams->publish(sprintf("just uploaded these pictures to %s", $GLOBALS['registry']->get('name')), $attachment);
+//         } catch (Horde_Service_Facebook_Exception $e) {
+//             // For now, just pass back as a pear error...needs to be cleaned up
+//             $GLOBALS['notification']->push('Horde_Service_Facebook: ' . $e->getMessage(), 'horde.err');
+//             throw new Horde_Exception($e);
+//         }
+//         if (!empty($GLOBALS['notification'])) {
+//             $GLOBALS['notification']->push('Notification published to Facebook.', 'horde.success');
+//         }
+//     }
+
+}

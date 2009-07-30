@@ -1,0 +1,36 @@
+========================
+ Ansel Development Team
+========================
+
+
+Core Developers
+===============
+
+- Chuck Hagenbuch <chuck@horde.org>
+- Michael J. Rubinsky <mrubinsk@horde.org>
+
+
+Features
+========
+
+The Exif-reading code was written by Jake Olefsky <jake@olefsky.com>.
+
+The original Exifer is available from
+http://www.offsky.com/software/exif/index.php, and Jake has given his
+permission for the library to be integrated into Ansel.
+
+
+Localization
+============
+
+======================  ===============================================
+Chinese (Traditional)   David Chang <david@tmv.gov.tw>
+Finnish                 Leena Heino <liinu@uta.fi>
+German                  Jan Schneider <jan@horde.org>
+Japanese                Takeshi Taguchi <taguchi@tcltk.jp>
+Lithuanian              Vilius Šumskas <vilius@lnk.lt>
+Slovenian               Duck <duck@obala.net>
+Spanish                 Manuel Perez Ayala <mperaya@alcazaba.unex.es>
+Swedish                 Andreas Dahlén <andreas@dahlen.ws>
+Turkish                 Akif Dinc <akif@dinc.org>
+======================  ===============================================

@@ -1,0 +1,259 @@
+<?xml version="1.0"?>
+<!-- $Horde: ansel/config/conf.xml,v 1.60 2009/05/15 19:44:03 mrubinsk Exp $ -->
+<configuration>
+
+ <configtab name="menu" desc="General Settings and Menu">
+  <configheader>User Interface</configheader>
+  <configsection name="gallery">
+   <configinteger name="listlimit" desc="On installations with large
+   numbers of galleries, it can be useful to disallow using select lists for
+   gallery selection in blocks. Set this to the maximum number of galleries
+   that can be displayed in a gallery drop down list. If more than this number
+   of galleries would appear, then selection list will be disabled."
+   required="false"/>
+   <configinteger name="numlimit" desc="On installations with large
+   numbers of galleries, it can be useful when displaying gallery lists to guest
+   users to display only galleries with a certain number of photos. For example
+   to avoid listing empty galleries. Enter the minimum number of photos you
+   would like to require to be displayed in guest gallery lists. Note that this
+   setting will be ignored when specifically requesting all of a particular
+   user's galleries." required="false"/>
+   <configboolean name="downloadzip" desc="Allow the ability to download an
+   entire gallery as a .zip file? This is a potential performance hit, and will
+   likely require a larger memory_limit value.">false</configboolean>
+   <configboolean name="customlabel" desc="Allow the ability to query the
+   preference backend for other user's identities? This is a performance hit,
+   but will allow for displaying something like
+   &quot;John Smith's Galleries&quot; instead of &quot;jsmith's Galleries&quot;.
+   It also allows a user to specify a custom description to be displayed. So,
+   for example instead of &quot;John Smith's Galleries&quot;, the user could use
+   &quot;John's Family Photos&quot;. This requires a preference backend that
+   doesn't require an explicit login by the user whose preferences we are
+   trying to read. If you are getting errors regarding unloadable preferences
+   when loading Ansel, try turning this off.">true</configboolean>
+  </configsection>
+  <configsection name="menu">
+   <configheader>Menu Settings</configheader>
+   <configboolean name="print" desc="Should we display a Print link in Ansel's
+   menu?">true</configboolean>
+   <configmultienum name="apps" desc="Select any applications that should be
+   linked in Ansel's menu">
+    <values>
+     <configspecial name="list-horde-apps" />
+    </values>
+   </configmultienum>
+  </configsection>
+ </configtab>
+
+ <configtab name="vfs" desc="VFS and Photo Options">
+  <configheader>VFS Options</configheader>
+  <configsection name="images">
+   <configvfs switchname="type" default="horde"/>
+  </configsection>
+  <configsection name="vfs">
+   <configswitch name="src" desc="How should Horde serve the photo files from
+   the VFS? If choosing the Sendfile option, you will need a webserver that
+   supports either the X-Sendfile or the X-LIGHTTPD-send-file headers. If
+   choosing the VFS-Direct option, be aware that this will bypass
+   any permissions checking. Anyone that knows or can guess the URL can view
+   the photo. This option is also only useable with a file based VFS. The PHP
+   option streams the photo through PHP and is the least efficient, but most
+   compatible, choice.">
+     <case name="php" desc="PHP" />
+     <case name="sendfile" desc="Sendfile"/>
+     <case name="direct" desc="VFS Direct">
+      <configstring desc="Specify an alias pointing to the right place on your
+      filesystem defined in your webserver. Eg. '/ansel-images/'"
+      name="path"></configstring>
+     </case>
+    </configswitch>
+  </configsection>
+  <configsection name="image">
+   <configheader>Photo Generation Options</configheader>
+   <configenum name="type" desc="What format should photos be generated in?
+   Make sure that your server supports whichever format you choose!">
+    <values>
+     <value desc="JPEG">jpeg</value>
+     <value desc="PNG">png</value>
+    </values>
+   </configenum>
+   <configstring name="autogen" desc="Should Ansel automatically generate the
+   screen, thumb, and mini photo views immediately after upload? This will only
+   work when uploading from Ansel's UI and not when uploading via the api or
+   mechanisms such as XP Publish. Set this to the maximum number of photos that
+   may be automatically generated.  A value of zero will disable the feature">
+   0</configstring>
+   <configboolean name="prettythumbs" desc="Allow the selection of gallery
+   themes and generation of 'pretty' thumbnails?  This can be a performance
+    hit the first time the thumbnails are generated.">false</configboolean>
+   <configstring name="num_uploads" desc="How many photos should a user be
+   allowed to upload at once?">5</configstring>
+   <configstring name="font" required="false" desc="What font would you like
+   to use when watermarking photos? If you leave this blank, the default for
+   the particular photo manipulation functions will be used. Make sure you
+   select a font that is present on your system!"/>
+  </configsection>
+ </configtab>
+
+ <configtab name="thumbnail" desc="Thumbnail Settings">
+  <configsection name="thumbnail">
+   <configheader>Thumbnail Settings</configheader>
+   <configstring name="perpage" desc="Maximum allowed thumbnails per
+   page">30</configstring>
+   <configstring name="width" desc="Thumbnail width">150</configstring>
+   <configstring name="height" desc="Thumbnail
+   height">150</configstring>
+  </configsection>
+ </configtab>
+
+ <configtab name="screen" desc="Screen Photo Settings">
+  <configsection name="screen">
+   <configheader>Screen Image Settings</configheader>
+   <configstring name="width" desc="Screen photo
+   width">800</configstring>
+   <configstring name="height" desc="Screen photo
+   height">600</configstring>
+  </configsection>
+ </configtab>
+
+ <configtab name="ecard" desc="Ecard Settings">
+  <configsection name="ecard">
+   <configheader>Ecard Settings</configheader>
+   <configboolean name="enable" desc="Allow users to send photos as
+   ecards?">false</configboolean>
+  </configsection>
+ </configtab>
+
+ <configtab name="comments" desc="Photo Comments">
+  <configsection name="comments">
+   <configheader>Photo Comments</configheader>
+    <configenum name="allow" desc="Can users comment on photos? Note that this
+    functionality requires the presence of an application that provides the
+    forums API (such as Agora).">never
+     <values>
+      <value desc="Authenticated users">authenticated</value>
+      <value desc="No one">never</value>
+      <value desc="All">all</value>
+     </values>
+    </configenum>
+  </configsection>
+ </configtab>
+
+ <configtab name="cache" desc="Cache">
+  <configsection name="ansel_cache">
+   <configheader>Cache Settings</configheader>
+   <configboolean name="usecache" desc="Should we save frequently run queries
+   and permissions checks in the cache?  This will reduce load on your
+   database server, but could delay the appearance of newly tagged photos
+   while browsing tags.">false</configboolean>
+  </configsection>
+ </configtab>
+
+ <configtab name="tags" desc="Tags">
+  <configsection name="tags">
+   <configheader>Tag Settings</configheader>
+   <configboolean name="relatedtags" desc="Allow the display of related tags?
+   Related tags allow you to easily browse a tag hierarchy, but could be a
+   performance hit on sites with a large number of similarly tagged photos
+   since an additional SQL query is performed per related
+   tag.">false</configboolean>
+  </configsection>
+ </configtab>
+
+ <configtab name="report_content" desc="Content Reporting">
+  <configsection name="report_content">
+   <configheader>Content Reporting Settings</configheader>
+   <configswitch name="driver" desc="Driver to use">false
+    <case name="false" desc="Disable">
+    </case>
+    <case name="tickets" desc="Create tickets (Whups)">
+     <configphp name="ticket_params" desc="Enter as a PHP array any
+     additional arguments for the created ticket (queue, state, priority,
+     etc). Example for Whups: array('queue' => 2, 'state' => 1, 'priority' => 1,
+     'type' => 1). You will need to look up the appropriate IDs in Whups's
+     database, or whatever is appropriate for the ticket system you are
+     using.">array()</configphp>
+     <configenum name="allow" desc="Who should be allowed to report
+     inappropriate content?">all
+      <values>
+       <value desc="All users">all</value>
+       <value desc="Authenticated users">authenticated</value>
+       <value desc="Never">never</value>
+      </values>
+     </configenum>
+    </case>
+    <case name="mail" desc="Email">
+     <configstring name="email" desc="Where should problem report emails be
+     sent?">webmaster@example.com</configstring>
+     <configstring name="maildomain" desc="If Horde cannot determine a user's
+     email address, this domain will be appended to their
+     username.">example.com</configstring>
+     <configstring name="username" required="false" desc="If requiring SMTP
+     authentication without a global SMTP user (in section &quot;Mailer&quot;
+     and allowing problem reporting for not authenticated users (in section
+     &quot;Menu Settings&quot;), what username should be use for SMTP
+     authentication?"/>
+     <configstring name="password" required="false" desc="The password to use"/>
+     <configenum name="allow" desc="Who should be allowed to report problems?">all
+      <values>
+       <value desc="All users">all</value>
+       <value desc="Authenticated users">authenticated</value>
+       <value desc="Never">never</value>
+      </values>
+     </configenum>
+    </case>
+    <case name="letter" desc="Send internal messages (Letter)">
+     <configlist name="users" desc="Username to send messages to. If none, ansel admins will be used." />
+     <configenum name="allow" desc="Who should be allowed to report problems?">all
+      <values>
+       <value desc="All users">all</value>
+       <value desc="Authenticated users">authenticated</value>
+       <value desc="Never">never</value>
+      </values>
+     </configenum>
+    </case>
+   </configswitch>
+  </configsection>
+ </configtab>
+
+ <configtab name="ages" desc="Age">
+  <configsection name="ages">
+   <configheader>Age Settings</configheader>
+    <configlist name="limits" required="false" desc="Age content limitations
+    (ex 15,18)"/>
+    <configboolean name="hook" desc="Call hook to get the user
+    age?">false</configboolean>
+  </configsection>
+ </configtab>
+
+ <configtab name="faces" desc="Face Detection">
+  <configsection name="faces">
+   <configheader>Face Detection</configheader>
+   <configswitch name="driver">user
+     <case name="false" desc="Disable" />
+     <case name="user" desc="Manual selection of faces" />
+     <case name="opencv" desc="OpenCV PECL extension">
+       <configstring name="defs" desc="Path to frontalface XML definition file" >/usr/share/opencv/haarcascades/haarcascade_frontalface_alt.xml</configstring>
+     </case>
+     <case name="facedetect" desc="Face Detect PECL extension">
+       <configstring name="defs" desc="Path to frontalface XML definition file" >/usr/share/opencv/haarcascades/haarcascade_frontalface_alt.xml</configstring>
+     </case>
+  </configswitch>
+    <configstring name="search" desc="Enable the similar photo functionality for
+    finding similar faces? Set to 0 to disable, or enter the size, in bytes,
+    that should be used as the photo's index length.  If you don't know what
+    this  is, the default value should be OK for most people. You need the
+    libpuzzle pecl extension to use this feature." >7</configstring>
+  </configsection>
+ </configtab>
+
+ <configtab name="hooks" desc="Custom Hooks">
+  <configsection name="hooks">
+    <configboolean name="postupload" required="false" desc="Should we use a
+       custom post upload hook? If so, make sure you define _ansel_hook_postupload()
+       in hooks.php. The hook will be called after the user successfully uploads
+       a set of images and can be used for things like sending notifications to
+       external websites/APIs.">false</configboolean>
+   </configsection>
+  </configtab>
+</configuration>

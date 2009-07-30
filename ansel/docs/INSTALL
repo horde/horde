@@ -1,0 +1,301 @@
+======================
+ Installing Ansel 1.0
+======================
+
+:Last update:   $Date: 2009/05/15 19:48:54 $
+:Revision:      $Revision: 1.13 $
+
+.. contents:: Contents
+.. section-numbering::
+
+This document contains instructions for installing the Ansel Photo Manager.
+
+For information on the capabilities and features of Ansel, see the file
+README_ in the top-level directory of the Ansel distribution.
+
+
+Obtaining Ansel
+===============
+
+Ansel can be obtained from the Horde website and FTP server, at
+
+   http://www.horde.org/ansel/
+
+   ftp://ftp.horde.org/pub/ansel/
+
+Or use the mirror closest to you:
+
+   http://www.horde.org/mirrors.php
+
+Bleeding-edge development versions of Ansel are available via CVS; see the
+file `horde/docs/HACKING`_ in the Horde distribution, or the website
+http://www.horde.org/source/, for information on accessing the Horde CVS
+repository.
+
+
+Prerequisites
+=============
+
+To function properly, Ansel **requires** the following:
+
+1. A working Horde installation.
+
+   Ansel runs within the `Horde Application Framework`_, a set of common
+   tools for Web applications written in PHP. You must install Horde before
+   installing Ansel.
+
+   .. Important:: Ansel 1.0 requires version 3.2.2 or greater of the
+                  Horde Framework - earlier versions of Horde will **not** work.
+
+   .. _`Horde Application Framework`: http://www.horde.org/horde/
+
+   The Horde Framework can be obtained from the Horde website and FTP server,
+   at
+
+      http://www.horde.org/horde/
+
+      ftp://ftp.horde.org/pub/horde/
+
+   Many of Ansel's prerequisites are also Horde prerequisites.
+
+   .. Important:: Be sure to have completed all of the steps in the
+                  `horde/docs/INSTALL`_ file for the Horde Framework before
+                  installing Ansel.
+
+2. The following PHP capabilities:
+
+   a. _`GD` support ``--with-gd``
+
+      The GD extension provides functionality for image manipulation in
+      PHP. You can alternatively use the imagick_ extension or the
+      ImageMagick_ software, but one of these is **required**.
+
+3. A database:
+
+   Ansel needs a database to store information about images and galleries. Any
+   database supported by MDB2 should work; MySQL and PostgreSQL are the most
+   tested. If you use MySQL, you need at least version 5.0.
+
+4. The following PEAR packages:
+   (See `horde/docs/INSTALL`_ for instructions on installing PEAR packages)
+
+   a. MDB2
+
+      Ansel uses the MDB2 classes for database access.  In addition, you will
+      need to ensure you have the proper MDB2_Driver package for your specific
+      database backend.
+
+5. The following PECL modules:
+   (See `horde/docs/INSTALL`_ for instructions on installing PECL modules)
+
+   a. _`imagick`
+
+      The imagick module provides a quicker, more efficient interface to
+      ImageMagick's capabilities and is used if Horde finds it available on
+      your system.  It provides better results when doing things like
+      generating thumbnails with rounded corners and drop shadows. To use the
+      imagick module, make sure you still set the path to ``convert`` as
+      described below. You can alternatively use the GD_ extension or the
+      ImageMagick_ software, but one of these is **required**.
+
+   b. _`OpenCV`
+
+      The opencv module provides the ability to detect human faces in images.
+      If you would like to be able to have Ansel automatically detect faces in
+      your images, you will need to install the opencv module. You will still be
+      able to manually select faces from your images if you do not have opencv
+      installed.
+
+      .. _ `OpenCV library`: http://sourceforge.net/projects/opencvlibrary/
+      .. _ `PHP module`: http://d.hatena.ne.jp/moriyoshi/20070924/1190595577
+
+
+      Alternatively, you may use the php-facedetect module instead of the
+      php-opencv module. You will still need to install the OpenCV library.
+
+      .. _ `PHP Module`: http://www.xarg.org/project/php-facedetect/
+
+   c. _`libpuzzle`
+
+      The libpuzzle module provides the ability to determine similarities
+      between images based on the image content. If you would like Ansel to be
+      able to provide recognition of similar images and similar faces, you will
+      need to install this module.
+
+      .. _ `libpuzzle library`: http://libpuzzle.pureftpd.org/project/libpuzzle
+
+6. The _`ImageMagick` software.
+
+   If using the `ImageMagick software`_ you need to set the path to the
+   ``convert`` utility in Horde's setup screen
+   (``Administration/Setup/Horde/Image Manipulation``). You can alternatively
+   use the GD_ extension or the imagick_ extension, but one of these is
+   **required**.
+
+   .. _`ImageMagick software`: http://www.imagemagick.org/
+
+7. _`Agora`, the Horde forums application.
+
+   `Agora`_ provides the ability for comments to be added to photos via the
+   forums API. If you want your users to be able to comment on photos, an
+   application that provides the forums API is **required**.  `Agora`_ is
+   currently the only such Horde application, but please be aware that currently
+   `Agora`_ is not officially released in a stable version, so use at your own
+   risk.
+
+   .. _ 'Horde Agora': http://www.horde.org/agora
+
+Installing Ansel
+================
+
+Ansel is written in PHP, and must be installed in a web-accessible
+directory. The precise location of this directory will differ from system to
+system. Conventionally, Ansel is installed directly underneath Horde in the
+web server's document tree.
+
+Since Ansel is written in PHP, there is no compilation necessary; simply
+expand the distribution where you want it to reside and rename the root
+directory of the distribution to whatever you wish to appear in the URL. For
+example, with the Apache web server's default document root of
+``/usr/local/apache/htdocs``, you would type::
+
+   cd /usr/local/apache/htdocs/horde
+   tar zxvf /path/to/ansel-h3-x.y.z.tar.gz
+   mv ansel-h3-x.y.z ansel
+
+and would then find Ansel at the URL::
+
+   http://your-server/horde/ansel/
+
+
+Configuring Ansel
+=================
+
+1. Configuring Horde for Ansel
+
+   a. Register the application
+
+      In ``horde/config/registry.php``, find the ``applications['ansel']``
+      stanza. The default settings here should be okay, but you can change
+      them if desired. If you have changed the location of Ansel relative
+      to Horde, either in the URL, in the filesystem or both, you must update
+      the ``fileroot`` and ``webroot`` settings to their correct values.
+
+2. Creating the database tables
+
+   The specific steps to create Ansel's database tables depend on which
+   database you've chosen to use.
+
+   First, look in ``scripts/sql/`` to see if a script already exists for your
+   database type. If so, you should be able to simply execute that script as
+   superuser in your database. (Note that executing the script as the "horde"
+   user will probably fail when granting privileges.)
+
+   If such a script does not exist, you'll need to build your own, using the
+   file ``ansel.sql`` as a starting point.  If you need assistance in creating
+   database tables, you may wish to let us know on the Ansel mailing list.
+
+   You will also need to make sure that the "horde" user in your database has
+   table-creation privileges, so that the tables that `PEAR MDB2`_ uses to
+   provide portable sequences can be created.
+
+   .. _`PEAR MDB2`: http://pear.php.net/MDB2
+
+3. Configuring Ansel
+
+   To configure Ansel, change to the ``config/`` directory of the installed
+   distribution, and make copies of all of the configuration ``dist`` files
+   without the ``dist`` suffix::
+
+      cd config/
+      for foo in *.dist; do cp $foo `basename $foo .dist`; done
+
+   Or on Windows::
+
+      copy *.dist *.
+
+   Documentation on the format and purpose of those files can be found in each
+   file. You may edit these files if you wish to customize Ansel's appearance
+   and behavior.
+
+   You must login to Horde as a Horde Administrator to finish the
+   configuration of Ansel. Use the Horde ``Administration`` menu item to get
+   to the administration page, and then click on the ``Configuration`` icon to
+   get the configuration page. Select ``Photos`` from the selection list of
+   applications. Fill in or change any configuration values as needed. When
+   done click on ``Generate Photos Configuration`` to generate the
+   ``conf.php`` file. If your web server doesn't have write permissions to the
+   Ansel configuration directory or file, it will not be able to write the
+   file. In this case, go back to ``Configuration`` and choose one of the
+   other methods to create the configuration file ``ansel/config/conf.php``.
+
+   Note for international users: Ansel uses GNU gettext to provide local
+   translations of text displayed by applications; the translations are found
+   in the ``po/`` directory. If a translation is not yet available for your
+   locale (and you wish to create one), see the ``horde/po/README`` file, or
+   if you're having trouble using a provided translation, please see the
+   `horde/docs/TRANSLATIONS`_ file for instructions.
+
+   Note for users of Lighttpd web server: The pretty url generation relies on
+   rewrite rules being configured on your web server. Since lighttpd does not
+   support htaccess files like Apache, there is also a configuration file for
+   lighttpd included that contains the necessary rewrite rules. This file is::
+
+       docs/lighttpd-ansel.conf
+
+   Instructions for using it are included in the file.
+
+
+4. Testing Ansel
+
+   Once you have configured Ansel, bring up the included test page in your Web
+   browser to ensure that all necessary prerequisites have been met. See the
+   `horde/docs/INSTALL`_ document for further details on Horde test
+   scripts. If you installed Ansel as described above, the URL to the test
+   page would be::
+
+      http://your-server/horde/ansel/test.php
+
+   Next, use Ansel to create galleries and photos. Test at least the
+   following:
+
+   - Generate galleries
+   - Upload photos
+   - Edit photo properties
+   - Edit photos
+   - Delete photos
+   - Delete galleries
+
+
+Obtaining Support
+=================
+
+If you encounter problems with Ansel, help is available!
+
+The Horde Frequently Asked Questions List (FAQ), available on the Web at
+
+  http://www.horde.org/faq/
+
+The Horde Project runs a number of mailing lists, for individual applications
+and for issues relating to the project as a whole. Information, archives, and
+subscription information can be found at
+
+  http://www.horde.org/mail/
+
+Lastly, Horde developers, contributors and users may also be found on IRC, on
+the channel #horde on the Freenode Network (irc.freenode.net).
+
+Please keep in mind that Ansel is free software written by volunteers.
+For information on reasonable support expectations, please read
+
+  http://www.horde.org/support.php
+
+Thanks for using Ansel!
+
+The Ansel team
+
+
+.. _README: ?f=README.html
+.. _`horde/docs/HACKING`: ../../horde/docs/?f=HACKING.html
+.. _`horde/docs/INSTALL`: ../../horde/docs/?f=INSTALL.html
+.. _`horde/docs/TRANSLATIONS`: ../../horde/docs/?f=TRANSLATIONS.html

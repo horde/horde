@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!-- $Horde: ansel/locale/fi_FI/help.xml,v 1.2 2008/02/22 13:35:50 jan Exp $ -->
+<help>
+  <entry id="overview" md5="df2fe059a57c3b7fb286dd279e155bad" state="uptodate">
+  <title>Yleiskuva</title>
+  <heading>Esittely</heading>
+
+  <para>
+    T&#xE4;m&#xE4; ohjelma mahdollista kuvien k&#xE4;sittelyn, talletuksen ja n&#xE4;ytt&#xE4;misen. Voit tehd&#xE4; verkossa n&#xE4;kyv&#xE4;n valokuvakansion tai gallerian. Voit muuttaa kuvan kokoa, k&#xE4;&#xE4;nt&#xE4;&#xE4;, leikata tai muulla tavalla muuttaa kuvia. Voit organisoida kuvia, nimet&#xE4; niit&#xE4; tai kirjoittaa niille kuvauksen.
+  </para>
+</entry>
+  <entry id="upload" md5="ca8e50685a92d0dd33690d9a24d23fb9" state="uptodate">
+  <title>Kuvien tuonti</title>
+
+  <para>
+    Voit tuoda useimmin k&#xE4;ytettyj&#xE4; kuvatyyppej&#xE4;. Jos kuvan tuonnissa on jotain ongelmia, niin sinulle tulee ilmoitus. Jos ep&#xE4;ilet onko kuva oikeaa tyyppi&#xE4;, niin voit aina yritt&#xE4;&#xE4; tuoda sit&#xE4;. Jos aiot tuoda monta kuvaa kerrallaan, niin voit tehd&#xE4; sen ainakin muutamalla tavalla. Voit tuoda kuvat yhten&#xE4; ZIP-tiedostona ja ne k&#xE4;sitell&#xE4;&#xE4;n yhdell&#xE4; kerralla tai jos k&#xE4;yt&#xE4;t Windows XP, niin voi k&#xE4;ytt&#xE4;&#xE4; <ref ENTRY="xppublish" MODULE="ansel">XP Publishing Wizard</ref> toimintoa.
+  </para>
+</entry>
+  <entry id="xppublish" md5="f4067b7d23111b69a9b69920eb17d794" state="uptodate">
+  <title>Kuvien tuonti: Julkaise Windows XP:st&#xE4;</title>
+  <heading>K&#xE4;ytt&#xE4;en Windows XP:n Publish to the Web toimintoa</heading>
+
+  <para>
+    Windows XP on k&#xE4;tev&#xE4; toiminto, jolla voit julkaista aineistoa suoraan ty&#xF6;p&#xF6;yd&#xE4;lt&#xE4;si www-palveluihin.
+  </para>
+
+  <para><b>1. K&#xE4;ytt&#xF6;&#xF6;notto</b></para>
+
+  <para>
+    Tallenna <href url="xppublish.php" app="ansel">XP asetustiedosto</href>. Talleta se ty&#xF6;p&#xF6;yd&#xE4;llesi ja varmista ett&#xE4; tiedoston p&#xE4;&#xE4;te on .reg. Jos se ei ole, niin nime&#xE4; tiedosto uudestaan ja jos Windows kysyy varmistusta muutokselle, niin vastaa kysymykseen kyll&#xE4;.
+  </para>
+
+  <para>
+    Kaksoisnapsauta install-registry.reg. Sinulta kysyt&#xE4;&#xE4;n haluatko vied&#xE4; n&#xE4;m&#xE4; asetukset rekisteriin. Napsauta "OK". Sinulle pit&#xE4;isi nyt tulla ilmoitus, jossa ilmoitetaan ett&#xE4; asetukset on viety rekisteriin; Napauta j&#xE4;lleen "OK". T&#xE4;m&#xE4;n j&#xE4;lkeen asetukset pit&#xE4;isi olla kunnossa ja voit nyt tuoda tiedostoja.
+  </para>
+
+  <para><b>2. Tuonti</b></para>
+
+  <para>
+    Avaa Windows Explorer, mene kansioon, joka sil&#xE4;t&#xE4;&#xE4; ne tiedostot, jotka haluat tuoda. Tarkista viel&#xE4; ett&#xE4; Windows Explorer on vasemmalla osio "File and Folder Tasks". Sinulla pit&#xE4;isi nyt n&#xE4;ky&#xE4; toiminto "Publish this folder to the Web" tai jos olet valinnut vain yhden tiedoston, niin ""Publish this file to the Web". Napsauta t&#xE4;t&#xE4; linkki&#xE4; ja seuraa ruudulle tulevia ohjeita valitaksesi mitk&#xE4; tiedostot haluat tuoda (voita valita kansiosta mink&#xE4; tiedoston tahansa), kirjaudu sis&#xE4;&#xE4;n galleriaan tai luo uusi ja julkaise kuvat.
+  </para>
+</entry>
+</help>

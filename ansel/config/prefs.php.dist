@@ -1,0 +1,273 @@
+<?php
+/**
+ * $Horde: ansel/config/prefs.php.dist,v 1.72 2009/01/26 17:29:23 mrubinsk Exp $
+ *
+ * See horde/config/prefs.php for documentation on the structure of this file.
+ */
+
+// Make sure that constants are defined.
+require_once dirname(__FILE__) . '/../lib/Ansel.php';
+
+$prefGroups['display'] = array(
+    'column' => _("General Options"),
+    'label' => _("Display Options"),
+    'desc' => _("Change display options such as which view to display by default, how many photos to display on a page, and the default gallery style to use."),
+    'members' => array('grouptitle', 'defaultview', 'tilesperrow',
+                       'tilesperpage', 'facesperpage', 'groupby',
+                       'groupsperpage',
+                       'default_gallerystyle_select', 'default_category_select')
+);
+
+$prefGroups['metadata'] = array(
+    'column' => _("General Options"),
+    'label' => _("Tags and EXIF Options"),
+    'desc' => _("Change options dealing with tags and exif data."),
+    'members' => array('showexif', 'exif_tags')
+);
+
+$prefGroups['perms'] = array(
+    'column' => _("General Options"),
+    'label' => _("Permission Options"),
+    'desc' => _("Change your user permission options such as who can download original photos, and what permissions newly created galleries should have by default."),
+    'members' => array('default_download', 'default_permissions', 'group_permissions', 'guest_permissions')
+);
+
+$prefGroups['watermark'] = array(
+    'column' => _("General Options"),
+    'label' => _("Watermark Options"),
+    'desc' => _("Change your watermark options."),
+    'members' => array('watermark_text', 'watermark_vertical', 'watermark_horizontal',
+                       'watermark_font', 'watermark_auto')
+);
+
+/* Note that for the following to work, your pref backend must support
+   retrieving prefs for other users (such as the SQL backend) */
+$_prefs['grouptitle'] = array(
+    'value' => '',
+    'locked' => false,
+    'shared' => false,
+    'type' => 'text',
+    'desc' => _("Custom text to display describing your galleries. This will be displayed in place of your username when grouping galleries by username."));
+
+$_prefs['defaultview'] = array(
+    'value' => 'galleries',
+    'locked' => false,
+    'shared' => false,
+    'type' => 'enum',
+    'enum' => array('browse' => _("Browse"),
+                    'galleries' => _("Galleries"),
+                    'mygalleries' => _("My Galleries")
+                    ),
+    'desc' => _("View to display by default")
+);
+
+$_prefs['groupby'] = array(
+    'value' => 'none',
+    'locked' => false,
+    'shared' => false,
+    'type' => 'enum',
+    'enum' => array('owner' => _("Owner"),
+                    'category' => _("Category"),
+                    'none' => _("None")),
+    'desc' => _("Group galleries by")
+);
+
+// number of photos on each row in the gallery view
+$_prefs['tilesperrow'] = array(
+    'value' => 3,
+    'locked' => false,
+    'shared' => false,
+    'type' => 'number',
+    'desc' => _("Number of tiles per row")
+);
+
+$_prefs['tilesperpage'] = array(
+    'value' => 9,
+    'locked' => false,
+    'shared' => false,
+    'type' => 'number',
+    'desc' => _("Number of tiles per page")
+);
+
+$_prefs['facesperpage'] = array(
+    'value' => '20',
+    'locked' => !$GLOBALS['conf']['faces']['driver'],
+    'shared' => false,
+    'type' => 'number',
+    'desc' => _("Number of faces per page")
+);
+
+$_prefs['groupsperpage'] = array(
+    'value' => 9,
+    'locked' => false,
+    'shared' => false,
+    'type' => 'number',
+    'desc' => _("Number of groups per page")
+);
+
+$_prefs['showexif'] = array(
+    'value' => false,
+    'locked' => false,
+    'shared' => false,
+    'type' => 'checkbox',
+    'desc' => _("Show EXIF data")
+);
+
+$_prefs['watermark'] = array(
+    'value' => '',
+    'locked' => false,
+    'shared' => false,
+    'type' => 'text',
+    'desc' => _("Custom watermark to use for photos")
+);
+
+$_prefs['myansel_layout'] = array(
+    'value' => 'a:1:{i:0;a:3:{i:0;a:4:{s:3:"app";s:5:"ansel";s:6:"height";i:1;s:5:"width";i:1;s:6:"params";a:2:{s:4:"type";s:5:"cloud";s:6:"params";a:1:{s:5:"count";s:2:"20";}}}i:1;a:4:{s:3:"app";s:5:"ansel";s:6:"height";i:1;s:5:"width";i:1;s:6:"params";a:2:{s:4:"type";s:12:"my_galleries";s:6:"params";a:0:{}}}i:2;a:4:{s:3:"app";s:5:"ansel";s:6:"height";i:1;s:5:"width";i:1;s:6:"params";a:2:{s:4:"type";s:14:"recently_added";s:6:"params";a:2:{s:7:"gallery";s:3:"all";s:5:"limit";s:2:"10";}}}}}',
+    'locked' => false,
+    'shared' => false,
+    'type' => 'implicit'
+);
+
+$_prefs['default_gallerystyle'] = array(
+    'value' => 'ansel_default',
+    'locked' => false,
+    'shared' => false,
+    'type' => 'implicit'
+);
+$_prefs['default_gallerystyle_select'] = array(
+    'type' => 'special'
+);
+
+// Default category
+$_prefs['default_category'] = array(
+    'value' => '',
+    'locked' => false,
+    'shared' => false,
+    'type' => 'implicit'
+);
+
+// Default category
+$_prefs['default_category_select'] = array(
+    'type' => 'special'
+);
+
+$_prefs['show_actions'] = array(
+    'value' => 0,
+    'locked' => false,
+    'shared' => false,
+    'type' => 'implicit',
+);
+
+$_prefs['show_othergalleries'] = array(
+    'value' => 0,
+    'locked' => false,
+    'shared' => false,
+    'type' => 'implicit'
+);
+
+
+$_prefs['watermark_text'] = array(
+    'value' => '',
+    'locked' => false,
+    'shared' => false,
+    'type' => 'text',
+    'desc' => _("Custom watermark to use for photos")
+);
+
+$_prefs['watermark_horizontal'] = array(
+    'value' => 'left',
+    'locked' => false,
+    'shared' => false,
+    'type' => 'enum',
+    'enum' => array('left' => _("Left"),
+                    'center' => _("Center"),
+                    'right' => _("Right")),
+    'desc' => _("Horizontal Alignment")
+);
+
+$_prefs['watermark_vertical'] = array(
+    'value' => 'bottom',
+    'locked' => false,
+    'shared' => false,
+    'type' => 'enum',
+    'enum' => array('top' => _("Top"),
+                    'center' => _("Center"),
+                    'bottom' => _("Bottom")),
+    'desc' => _("Vertical Alignment")
+);
+
+$_prefs['watermark_font'] = array(
+    'value' => 'bottom',
+    'locked' => false,
+    'shared' => false,
+    'type' => 'enum',
+    'enum' => array('tiny' => _("Tiny"),
+                    'small' => _("Small"),
+                    'medium' => _("Medium"),
+                    'large' => _("Large"),
+                    'giant' => _("Giant")),
+    'desc' => _("Vertical Alignment")
+);
+
+$_prefs['watermark_auto'] = array(
+    'value' => 0,
+    'locked' => false,
+    'shared' => false,
+    'type' => 'enum',
+    'enum' => array(_("No"), _("Yes")),
+    'desc' => _("Automatically watermark photos?")
+);
+
+$_prefs['default_download'] = array(
+    'value' => 'edit',
+    'locked' => false,
+    'shared' => false,
+    'type' => 'enum',
+    'enum' => array('all' => _("Anyone"),
+                    'edit' => _("Authenticated users"),
+                    'authenticated' => _("Users with edit permissions")),
+    'desc' => _("Who should be allowed to download original photos")
+);
+
+$_prefs['default_permissions'] = array(
+    'value' => 'read',
+    'locked' => false,
+    'shared' => false,
+    'type' => 'enum',
+    'desc' => _("When a new gallery is created, what permissions should be given to authenticated users by default?"),
+    'enum' => array('none' => _("None"),
+                    'read' => _("Read-only"),
+                    'edit' => _("Read and write"))
+);
+
+$_prefs['guest_permissions'] = array(
+    'value' => 'read',
+    'locked' => false,
+    'shared' => false,
+    'type' => 'enum',
+    'desc' => _("When a new gallery is created, what permissions should be given to guests by default?"),
+    'enum' => array('none' => _("None (Owner only)"),
+                    'read' => _("Read-only"))
+);
+
+$_prefs['group_permissions'] = array(
+    'value' => 'none',
+    'locked' => false,
+    'shared' => false,
+    'type' => 'enum',
+    'desc' => _("When a new gallery is created, what default permissions should be given to groups that the user is a member of?"),
+    'enum' => array('none' => _("None"),
+                    'read' => _("Read-only"),
+                    'edit' => _("Read and write"),
+                    'delete' => _("Read, write, and delete"))
+);
+
+$_prefs['exif_tags'] = array(
+    'value' => 'a:0{}',
+    'locked' => false,
+    'shared' => false,
+    'type' => 'multienum',
+    'desc' => _("Which EXIF fields should we automatically add as photo tags during upload?"),
+    'enum' => array('DateTimeOriginal' => _("Date Photo Taken"),
+                    'ExposureTime' => _("Exposure Time"))
+);

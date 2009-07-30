@@ -1,0 +1,74 @@
+<?xml version="1.0" ?>
+<!-- $Horde: ansel/locale/en_US/help.xml,v 1.5 2006/10/29 18:02:19 chuck Exp $ -->
+<help>
+
+<entry id="overview">
+  <title>Overview</title>
+  <heading>Introduction</heading>
+
+  <para>
+    This application provides image manipulation, storage, and display
+    capabilities for you to have online photo albums and
+    galleries. You can resize, rotate, and otherwise alter your
+    images, organize them, name them, and give them descriptions.
+  </para>
+</entry>
+
+<entry id="upload">
+  <title>Uploading Images: Overview</title>
+
+  <para>
+    You can upload most common kinds of images. If there is a problem
+    with an uploaded file, you will be notified, so when in doubt,
+    give it a try. You also have two options if you have a lot of
+    images to upload at once. You can upload a ZIP file of all of the
+    images, and they will all be processed at once. Or, if you are
+    using Windows XP, you can use the <ref ENTRY="xppublish"
+    MODULE="ansel">XP Publishing Wizard</ref>.
+  </para>
+</entry>
+
+<entry id="xppublish">
+  <title>Uploading Images: Publish from Windows XP</title>
+  <heading>Using Windows XP's Publish to the Web feature</heading>
+
+  <para>
+    Windows XP comes with a nice feature that allows you to publish
+    content from your desktop directly to a web service.
+  </para>
+
+  <para><b>1. Setting it up</b></para>
+
+  <para>
+    Download the <href url="xppublish.php" app="ansel">XP
+    Configuration file</href>. Save it to your desktop, and make sure
+    that the file extension is .reg. If it is not, rename the file,
+    and if Windows asks you to confirm changing the type of the file,
+    say yes.
+  </para>
+
+  <para>
+    Double-click on install-registry.reg. You will be asked whether or
+    not you want to import these values into your registry. Click
+    &quot;OK&quot;. You will be told that the values were imported
+    successfully; click &quot;OK&quot; again. You are now ready to
+    upload files!
+  </para>
+
+  <para><b>2. Uploading</b></para>
+
+  <para>
+    Open Windows Explorer and browse to the folder that you want to
+    upload, or that contains the file(s) that you'd like to upload.
+    Make sure that you can see &quot;File and Folder Tasks&quot; on
+    the left of your Explorer window. You should see an option to
+    &quot;Publish this folder to the Web&quot; or, if you have a
+    specific file selected, &quot;Publish this file to the Web&quot;.
+    Click this link and then follow the instructions to select which
+    files you want to upload (you will get to select anything in the
+    folder during the process), log in, select a gallery or create a
+    new one, and publish the image(s).
+  </para>
+</entry>
+
+</help>

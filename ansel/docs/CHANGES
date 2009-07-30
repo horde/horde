@@ -1,0 +1,129 @@
+--------
+v1.1-cvs
+--------
+
+[mjr] Fix issue with uploading images to galleries in `Browse by Date` mode
+      causing the mode to be reset to `Normal`.
+[mjr] Return to the previously viewed page number when manually selecting
+      face ranges (Bug: 8402).
+[mjr] Significantly reduce the number of javascript errors due to IE issues.
+[mjr] Allow the addition of geolocation data on images that do not contain any
+      and allow the relocating of images that do have the data.
+[mjr] Fix display of EXIF date values (Bug: 8352).
+[mjr] Display a Google Map with thumbnail markers for image location(s) if
+      location data is available.
+[mjr] Add configuration switch to disallow querying the preference backend for
+      other user's identities and preferences (Bug: 8269).
+[mjr] Remove broken implementation of the 'numlimit' configuration option
+      (See Bug: 8139).
+[jan] Fix icon URLs if cookies are turned off.
+[jan] Fix ansel_shares table definition for PostgreSQL.
+[mjr] Fix issue that caused screen image creation to fail when using gd
+      Horde_Image driver.
+[mjr] Fix issue with screen images being generated as PNGs if not using VFS
+      Direct serving.
+
+----
+v1.0
+----
+
+[mjr] Force screen images to be jpegs to reduce image size.
+[mjr] Add a new api method for obtaining the available gallery styles.
+[mjr] Add a widget to the gallery view for showing faces that the gallery owner
+      has tagged.
+[mjr] Allow embedding screen size images in external sites as well.
+[mjr] Add configuration parameter to require a minimum number of
+      images to be present in a gallery before it's displayed in a
+      gallery list. (Duck <duck@obala.net>, Request # 7949)
+[mjr] Add a Link widget to the Image View.
+[mjr] Correct some undefined variable warnings. (Duck <duck@obala.net>)
+[mjr] Fix default parameters for the ansel tag cloud.
+
+--------
+v1.0-RC1
+--------
+
+[jan] Add Turkish translation (Akif Dinc <akif@dinc.org>).
+[jan] Change group field in shares table to work with LDAP groups (Bug #6883).
+[jan] Add WebDAV interface.
+[jan] Add Japanese translation (Takeshi Taguchi <taguchi@tcltk.jp>).
+[mjr] The xppublish feature now uses the correct (not temporary) filenames.
+[cjh] Use the zip extension to read uploaded ZIP files if it's available.
+[mjr] Added rounded, shadowed thumbnails and a 'Polaroid-like' stack of images
+      to use as gallery default images.
+[mjr] Add RSS feeds that can publish feeds across all images, for specific
+      user, specific gallery, and specific tag.
+[mjr] Implement a searchTag api so other applications can list tags and perform
+      tag searches of Ansel resources.
+[mjr] Add support for image and gallery tags.
+[mjr] New blocks for listing recently added images and image comments.
+[mjr] Image comments, titles, and links now correctly update during slideshow
+      and image navigation.
+[cjh] Give Ansel its own Share implementation for now as hierarchical shares
+      are being removed from the main Horde_Share class.
+[cjh] Merge in updates from Exifer 1.5 (final Exifer release), along with some
+      related code cleanup.
+[cjh] Fix screen-size previews of edit operations.
+[cjh] Move images from the DataTree to their own SQL table.
+[jan] Add Slovenian translation (Duck <duck@obala.net>).
+[mjr] Add an addGallery() method to the external api.
+[cjh] Integrate slideshow and image views (Bug #3785).
+[cjh] Add creation of subgalleries, setting gallery owners, and setting image
+      captions to the ansel.php CLI (dorm@dorm.org, Request #3986).
+[cjh] Implement drag-and-drop sorting of images.
+[mas] Fix undefined index warning if no galleries are defined (Bug #2172).
+[jan] Add Swedish translation (Andreas Dahlén <andreas@dahlen.ws>).
+[jan] Add Finnish translation (Leena Heino <liinu@uta.fi>).
+[jan] Add Lithuanian translation (Vilius Sumskas <vilius@lnk.lt>).
+[cjh] Use new Horde_Menu CSS styled menu.
+[cjh] Remove view/ directory as it wasn't being maintained.
+[cjh] Add automatic rotation of images according to Exif information
+      (Brian Templeton <kaetzchen@gmail.com>).
+[cjh] Add API methods (Duck <duck@obala.net>, Roel Gloudemans
+      <roel@gloudemans.info>).
+[cjh] Images can now have categories using the Horde-wide category system
+      (Duck <duck@obala.net>).
+[jan] Add option to not prompt for gallery ID (Duck <duck@obala.net>).
+[cjh] The default gallery "list" format now looks like the gallery image
+      listing view (Duck <duck@obala.net>).
+[jan] Add comments on images.
+[jan] Recursively delete complete directories when deleting images.
+[jan] Don't convert image format when downloading the full image.
+[jan] Store images with correct file extension in the VFS backend.
+[mms] Allow images to be sent as an ecard.
+[jan] Add Spanish translation (Manuel Perez Ayala <mperaya@alcazaba.unex.es>).
+[jan] Add Traditional Chinese translation (David Chang <david@tmv.gov.tw>).
+[cjh] Command line interface to Ansel (Vijay Mahrra
+      <vijay.mahrra@es.easynet.net>).
+[cjh] Store EXIF data for uploaded images into the backend on upload.
+      ("Heath S. Hendrickson" <heath@outerspaceconsultants.com>).
+[cjh] Allow re-ordering images in a gallery.
+      ("Heath S. Hendrickson" <heath@outerspaceconsultants.com>).
+[cjh] Add placeholder tokens in watermark strings
+      ("Heath S. Hendrickson" <heath@outerspaceconsultants.com>).
+[cjh] Allow custom watermark text
+      ("Heath S. Hendrickson" <heath@outerspaceconsultants.com>).
+[cjh] Link for showing exif data in a popup window
+      ("Heath S. Hendrickson" <heath@outerspaceconsultants.com>).
+[cjh] Preference for whether or not to show exif data in the image
+      view ("Heath S. Hendrickson" <heath@outerspaceconsultants.com>).
+[cjh] Support for PHP's native exif_read_data() function
+      ("Heath S. Hendrickson" <heath@outerspaceconsultants.com>).
+[cjh] Add batch-setting of captions.
+[cjh] Add previous and next buttons for navigation within galleries
+      (Brian Keifer <brian@valinor.net>).
+[cjh] Define minimum, maximum, and default sizes for thumbnail and screen
+      images, and allow setting those values in the min-max range on a
+      per-gallery basis (Ben Chavet <ben@chavet.net>).
+[cjh] Authenticated users can now download a zip file containing all images in
+      a gallery.
+[cjh] Add creation and display of subgalleries.
+[cjh] Let users enter the short ids for galleries, instead of using 32
+      character md5 strings.
+[cjh] Add slideshows.
+[cjh] Implement support for Windows XP's Publish To Web wizard.
+[cjh] Add display of embedded exif information in images. Adapted from Exifer,
+      by Jake Olefsky <jake@olefsky.com>.
+[cjh] Show tooltips containing filename and image descriptions.
+[jan] Add German translation.
+[cjh] Initial Ansel code.
