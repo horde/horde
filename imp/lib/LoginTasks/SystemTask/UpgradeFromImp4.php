@@ -10,7 +10,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_LoginTasks
  */
-class IMP_LoginTasks_SystemTask_Upgrade extends Horde_LoginTasks_SystemTask
+class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemTask
 {
     /**
      * The interval at which to run the task.
