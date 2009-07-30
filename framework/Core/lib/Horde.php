@@ -299,6 +299,14 @@ HTML;
         $mtime = array(0);
 
         $s_list = $hsf->listFiles();
+        if (empty($s_list)) {
+            return;
+        }
+
+        /* Output prototype.js separately from the other files. */
+        $js_force[] = $s_list['horde'][0]['u'];
+        unset($s_list['horde'][0]);
+
         foreach ($s_list as $app => $files) {
             foreach ($files as $file) {
                 if ($file['d'] && ($file['f'][0] != '/') && empty($file['e'])) {
@@ -313,7 +321,6 @@ HTML;
         }
 
         sort($s_list);
-
         $sig = hash('md5', serialize($s_list) . max($mtime));
 
         switch ($cache_type) {
@@ -336,7 +343,7 @@ HTML;
         if (!$exists) {
             $out = '';
             foreach ($js_tocache as $key => $val) {
-                // Seperate JS files with a newline since some compressors may
+                // Separate JS files with a newline since some compressors may
                 // strip trailing terminators.
                 if ($val) {
                     // Minify these files a bit by removing newlines and
@@ -360,8 +367,8 @@ HTML;
             }
         }
 
-        foreach (array_merge($js_external, array($js_url), $js_force) as $val) {
-            echo '<script type="text/javascript" src="' . $val . "\"></script>\n";
+        foreach (array_merge($js_force, array($js_url), $js_external) as $val) {
+            $hsf->outputTag($val);
         }
     }
 
