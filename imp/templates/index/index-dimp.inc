@@ -175,10 +175,11 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 
      <div class="dimpActions">
       <div id="qsearch">
+       <span id="qsearch_icon"></span>
        <form action="#" method="post">
         <input autocomplete="off" id="qsearch_input" type="text" size="25" />
        </form>
-       <span>
+       <span class="qsearchClose">
         <?php echo Horde::img('close.png', '', array('id' => 'qsearch_close', 'style' => 'display:none', 'title' => _("Clear Search")), $hordeimg) ?>
        </span>
       </div>
@@ -437,6 +438,13 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 <div class="context" id="ctx_contacts" style="display:none">
  <a id="ctx_contacts_new"><span class="contextImg"></span><?php echo _("New Message") ?></a>
  <a id="ctx_contacts_add"><span class="contextImg"></span><?php echo _("Add to Address Book") ?></a>
+</div>
+
+<div class="context" id="ctx_qsearchopts" style="display:none">
+ <a id="ctx_qsearchopts_all"><?php echo _("Entire Message") ?></a>
+ <a id="ctx_qsearchopts_body"><?php echo _("Body") ?></a>
+ <a id="ctx_qsearchopts_from"><?php echo _("From") ?></a>
+ <a id="ctx_qsearchopts_subject"><?php echo _("Subject") ?></a>
 </div>
 
 <div style="display:none">

@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Make DIMP quicksearch field selection persist across sessions.
 [mms] Move JS/CSS caching to Horde framework.
 [mms] Add simple search function to MIMP.
 [mms] DIMP now honors the 'mailbox_start' preference.

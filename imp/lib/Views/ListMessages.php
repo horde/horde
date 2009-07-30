@@ -31,7 +31,25 @@ class IMP_Views_ListMessages
             strlen($args['qsearchmbox'])) {
             /* Create the search query. */
             $query = new Horde_Imap_Client_Search_Query();
-            $query->text($args['qsearch'], false);
+
+            switch ($GLOBALS['prefs']->getValue('dimp_qsearch_field')) {
+            case 'body':
+                $query->text($args['qsearch'], true);
+                break;
+
+            case 'from':
+                $query->headerText('From', $args['qsearch']);
+                break;
+
+            case 'subject':
+                $query->headerText('Subject', $args['qsearch']);
+                break;
+
+            case 'all':
+            default:
+                $query->text($args['qsearch'], false);
+                break;
+            }
 
             /* Set the search in the IMP session. */
             $GLOBALS['imp_search']->createSearchQuery($query, array($args['qsearchmbox']), array(), _("Search Results"), $mbox);

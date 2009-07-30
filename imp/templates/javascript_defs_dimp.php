@@ -73,6 +73,7 @@ $code['conf'] = array_filter(array(
     'popup_width' => 820,
     'preview_pref' => intval($GLOBALS['prefs']->getValue('dimp_show_preview')),
     'qsearchid' => IMP_Search::MBOX_PREFIX . 'dimpqsearch',
+    'qsearchfield' => $GLOBALS['prefs']->getValue('dimp_qsearch_field'),
     'refresh_time' => intval($GLOBALS['prefs']->getValue('refresh_time')),
     'sortdate' => Horde_Imap_Client::SORT_DATE,
     'sortthread' => Horde_Imap_Client::SORT_THREAD,

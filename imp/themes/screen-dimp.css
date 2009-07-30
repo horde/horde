@@ -761,6 +761,9 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     background: url("graphics/popright.png") 95% 50% no-repeat;
     padding-left: 16px;
 }
+.contextSelected {
+    background: yellow;
+}
 
 /* Email Addresses. */
 a.address {
@@ -800,22 +803,30 @@ a.address:hover img {
 
 /* Search-related styles */
 #qsearch {
-    background: #f3f3f3 url("graphics/search.png") 2px center no-repeat;
-    padding: 1px 0 1px 20px;
+    padding: 1px 0 1px 1px;
     float: right;
     border: 1px solid #999;
     cursor: default;
+    background-color: #f3f3f3;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
 }
 #qsearch form {
     display: inline;
 }
-#qsearch span {
+.qsearchClose {
     display: -moz-inline-stack;
     display: inline-block;
     margin-left: -2px;
     width: 17px;
+}
+#qsearch_icon {
+    height: 16px;
+    width: 16px;
+    display: -moz-inline-stack;
+    display: inline-block;
+    background: #f3f3f3 url("graphics/search.png") center no-repeat;
+    vertical-align: top;
 }
 #qsearch_input {
     border: none;
@@ -826,7 +837,7 @@ a.address:hover img {
 #qsearch_close {
     margin-top: -1px;
 }
-.qsearchFocus {
+.qsearchFocus, .qsearchFocus #qsearch_icon {
     background-color: #fff !important;
 }
 .qsearchFocus #qsearch_input {

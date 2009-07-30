@@ -749,6 +749,14 @@ var DimpBase = {
             this.purgeDeleted();
             break;
 
+        case 'ctx_qsearchopts_all':
+        case 'ctx_qsearchopts_body':
+        case 'ctx_qsearchopts_from':
+        case 'ctx_qsearchopts_subject':
+            DIMP.conf.qsearchfield = id.substring(16);
+            this._updatePrefs('dimp_qsearch_field', DIMP.conf.qsearchfield);
+            break;
+
         default:
             if (menu.endsWith('_setflag') || menu.endsWith('_unsetflag')) {
                 flag = elt.readAttribute('flag');
@@ -811,6 +819,11 @@ var DimpBase = {
                 tmp = tmp.concat($('oa_setflag', 'oa_unsetflag'));
             }
             tmp.compact().invoke(this.viewport.getSelected().size() ? 'show' : 'hide');
+            break;
+
+        case 'ctx_qsearchopts':
+            $(ctx_id).descendants().invoke('removeClassName', 'contextSelected');
+            $(ctx_id + '_' + DIMP.conf.qsearchfield).addClassName('contextSelected');
             break;
 
         default:
@@ -1670,8 +1683,8 @@ var DimpBase = {
                 }
                 break;
 
-            case 'qsearch_close':
-                this.quicksearchClear();
+            case 'qsearch_icon':
+                DimpCore.DMenu.trigger($('qsearch_icon'), true);
                 e.stop();
                 return;
 
@@ -1682,6 +1695,11 @@ var DimpBase = {
                 }
                 $('qsearch_input').focus();
                 break;
+
+            case 'qsearch_close':
+                this.quicksearchClear();
+                e.stop();
+                return;
 
             default:
                 if (elt.hasClassName('RBFolderOk')) {
@@ -2433,6 +2451,7 @@ var DimpBase = {
         /* Add popdown menus. Check for disabled compose at the same time. */
         this._addMouseEvents({ id: 'button_other', type: 'otheractions' }, $('button_other'));
         this._addMouseEvents({ id: 'folderopts', type: 'folderopts' }, $('folderopts').down(1));
+        this._addMouseEvents({ id: 'qsearch_icon', left: true, type: 'qsearchopts' });
 
         DM.addSubMenu('ctx_message_reply', 'ctx_reply');
         [ 'ctx_message_', 'oa_', 'ctx_draft_' ].each(function(i) {
