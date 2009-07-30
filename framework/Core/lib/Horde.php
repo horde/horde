@@ -314,7 +314,7 @@ HTML;
 
         sort($s_list);
 
-        $sig = hash('md5', serialize($s_list) . max($mtime) . $GLOBALS['registry']->getVersion());
+        $sig = hash('md5', serialize($s_list) . max($mtime));
 
         switch ($cache_type) {
         case 'filesystem':
@@ -1636,7 +1636,7 @@ HTML;
                 $mtime[] = filemtime($file['f']);
             }
 
-            $sig = hash('md5', serialize($css) . max($mtime) . $GLOBALS['registry']->getVersion());
+            $sig = hash('md5', serialize($css) . max($mtime));
 
             switch ($cache_type) {
             case 'filesystem':
