@@ -36,20 +36,6 @@ class Horde_Script_Files
     protected $_included = array();
 
     /**
-     * The list of javascript files to always load from Horde.
-     *
-     * @var array
-     */
-    protected $_fromhorde = array('prototype.js');
-
-    /**
-     * The list of javscript files in Horde that have prototypejs'd versions.
-     *
-     * @var array
-     */
-    protected $_ptversions = array('tables.js', 'stripe.js', 'tooltips.js');
-
-    /**
      * Singleton.
      */
     static public function singleton()
@@ -70,7 +56,7 @@ class Horde_Script_Files
      *                         application.
      * @param boolean $direct  Include the file directly without passing it
      *                         through javascript.php?
-     * @param boolean $full    Output a full url
+     * @param boolean $full    Output a full url?
      */
     public function add($file, $app = null, $direct = false, $full = false)
     {
@@ -82,18 +68,18 @@ class Horde_Script_Files
 
         // If headers have already been sent, we need to output a <script>
         // tag directly.
-        echo '<script type="text/javascript" src="' . $res['u'] . '"></script>' . "\n";
+        $this->outputTag($res['u']);
     }
 
     /**
      * Adds an external script file
      *
      * @param string $url  The url to the external script file.
-     * @param string $app  The app scope
+     * @param string $app  The app scope.
      */
-    public function addExternal($url, $app)
+    public function addExternal($url, $app = null)
     {
-        if (empty($app)) {
+        if (is_null($app)) {
             $app = $GLOBALS['registry']->getApp();
         }
 
@@ -104,34 +90,23 @@ class Horde_Script_Files
 
         $this->_included[$app][$url] = true;
 
-        $this->_files[$app][] = array('f' => basename($url),
-                                      'u' => $url,
-                                      'd' => false,
-                                      'e' => true);
+        $this->_files[$app][] = array(
+            'f' => basename($url),
+            'u' => $url,
+            'd' => false,
+            'e' => true
+        );
     }
 
     /**
      * Helper function to determine if given file needs to be output.
      */
-    public function _add($file, $app, $direct, $full = false)
+    public function _add($file, $app, $direct, $full)
     {
         global $registry;
 
         if (empty($app)) {
             $app = $registry->getApp();
-        }
-
-        // Skip any js files that have since been deprecated.
-        if (!empty($this->_ignored[$app]) &&
-            in_array($file, $this->_ignored[$app])) {
-            return false;
-        }
-
-        // Several files will always be the same thing. Don't distinguish
-        // between loading them in different $app scopes; always load them
-        // from Horde scope.
-        if (in_array($file, $this->_fromhorde)) {
-            $app = 'horde';
         }
 
         // Don't include scripts multiple times.
@@ -140,8 +115,13 @@ class Horde_Script_Files
         }
         $this->_included[$app][$file] = true;
 
+        // Always add prototype.js.
+        if (empty($this->_files) && ($file != 'prototype.js')) {
+            $this->add('prototype.js', 'horde');
+        }
+
         // Explicitly check for a directly serve-able version of the script.
-        $path = $GLOBALS['registry']->get('fileroot', $app);
+        $path = $registry->get('fileroot', $app);
         if (!$direct &&
             file_exists($file[0] == '/'
                         ? $path . $file
@@ -167,7 +147,13 @@ class Horde_Script_Files
                     array('file' => $file, 'app' => $app)));
         }
 
-        $out = $this->_files[$app][] = array('f' => $file, 'd' => $direct, 'u' => $url, 'p' => $path);
+        $out = $this->_files[$app][] = array(
+            'f' => $file,
+            'd' => $direct,
+            'u' => $url,
+            'p' => $path
+        );
+
         return $out;
     }
 
@@ -178,7 +164,7 @@ class Horde_Script_Files
     {
         foreach ($this->listFiles() as $app => $files) {
             foreach ($files as $file) {
-                echo '<script type="text/javascript" src="' . $file['u'] . '"></script>' . "\n";
+                $this->outputTag($file['u']);
             }
         }
     }
@@ -196,69 +182,22 @@ class Horde_Script_Files
             return array();
         }
 
-        $prototype = false;
-
-        // Always include Horde-level scripts first.
-        if (!empty($this->_files['horde'])) {
-            foreach ($this->_files['horde'] as $file) {
-                if ($file['f'] == 'prototype.js') {
-                    $prototype = true;
-                    break;
-                }
-            }
-
-            /* Add general UI js library. */
-            $this->_add('tooltips.js', 'horde', true);
-            if (!$prototype) {
-                $keys = array_keys($this->_files['horde']);
-                foreach ($keys as $key) {
-                    $file = $this->_files['horde'][$key];
-                    if (in_array($file['f'], $this->_ptversions)) {
-                        $this->_add('prototype.js', 'horde', true);
-                        $prototype = true;
-                        break;
-                    }
-                }
-            }
-
-            // prototype.js must be included before any script that uses it
-            if ($prototype) {
-                $keys = array_keys($this->_files['horde']);
-                foreach ($keys as $key) {
-                    $file = $this->_files['horde'][$key];
-                    if ($file['f'] == 'prototype.js') {
-                        unset($this->_files['horde'][$key]);
-                        array_unshift($this->_files['horde'], $file);
-                    }
-                }
-                reset($this->_files);
-            }
-        }
-
         /* Add accesskeys.js if access keys are enabled. */
         if ($GLOBALS['prefs']->getValue('widget_accesskey')) {
-            $this->_add('prototype.js', 'horde', true);
-            $this->_add('accesskeys.js', 'horde', true);
+            $this->_add('accesskeys.js', 'horde', true, false);
         }
 
-        /* Make sure 'horde' entries appear first. */
-        reset($this->_files);
-        if (key($this->_files) == 'horde') {
-            return $this->_files;
-        }
+        return $this->_files;
+    }
 
-        if (isset($this->_files['horde'])) {
-            $jslist = array('horde' => $this->_files['horde']);
-        } else {
-            $jslist = array();
-        }
-        foreach ($this->_files as $key => $val) {
-            if ($key != 'horde') {
-                $jslist[$key] = $val;
-            }
-        }
-
-        return $jslist;
+    /**
+     * Outputs a script tag.
+     *
+     * @param string $src  The source URL.
+     */
+    public function outputTag($src)
+    {
+        echo '<script type="text/javascript" src="' . $src . "\"></script>\n";
     }
 
 }
