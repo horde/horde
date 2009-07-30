@@ -295,15 +295,17 @@ HTML;
             return;
         }
 
-        $js_tocache = $js_force = array();
+        $js_tocache = $js_force = $js_external = array();
         $mtime = array(0);
 
         $s_list = $hsf->listFiles();
         foreach ($s_list as $app => $files) {
             foreach ($files as $file) {
-                if ($file['d'] && ($file['f'][0] != '/')) {
+                if ($file['d'] && ($file['f'][0] != '/') && empty($file['e'])) {
                     $js_tocache[$file['p'] . $file['f']] = false;
                     $mtime[] = filemtime($file['p'] . $file['f']);
+                } elseif (!empty($file['e'])) {
+                    $js_external[] = $file['u'];
                 } else {
                     $js_force[] = $file['u'];
                 }
@@ -358,9 +360,21 @@ HTML;
             }
         }
 
-        foreach (array_merge(array($js_url), $js_force) as $val) {
+        foreach (array_merge($js_external, array($js_url), $js_force) as $val) {
             echo '<script type="text/javascript" src="' . $val . "\"></script>\n";
         }
+    }
+
+    /**
+     * Inlude script files from external sources.
+     *
+     * @param string $url  The url to the external script file.
+     * @param string $app  The app scope
+     */
+    static public function addExternalScriptFile($url, $app = null)
+    {
+         $hsf = Horde_Script_Files::singleton();
+         $hsf->addExternal($url, $app);
     }
 
     /**

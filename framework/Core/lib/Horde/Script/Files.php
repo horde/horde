@@ -86,6 +86,31 @@ class Horde_Script_Files
     }
 
     /**
+     * Adds an external script file
+     *
+     * @param string $url  The url to the external script file.
+     * @param string $app  The app scope
+     */
+    public function addExternal($url, $app)
+    {
+        if (empty($app)) {
+            $app = $GLOBALS['registry']->getApp();
+        }
+
+        // Don't include scripts multiple times.
+        if (!empty($this->_included[$app][$url])) {
+            return false;
+        }
+
+        $this->_included[$app][$url] = true;
+
+        $this->_files[$app][] = array('f' => basename($url),
+                                      'u' => $url,
+                                      'd' => false,
+                                      'e' => true);
+    }
+
+    /**
      * Helper function to determine if given file needs to be output.
      */
     public function _add($file, $app, $direct, $full = false)
