@@ -474,6 +474,11 @@ class IMP_Auth
                   $conf['cookie']['path'],
                   $conf['cookie']['domain']);
 
+        /* Suppress menus in options screen. */
+        if ($sess['view'] == 'dimp') {
+            $_SESSION['horde_prefs']['nomenu'] = true;
+        }
+
         /* Set up search information for the session. */
         $GLOBALS['imp_search']->initialize();
 
