@@ -18,8 +18,6 @@ var DimpBase = {
     pivotrow: -1,
     ppcache: {},
     ppfifo: [],
-    // Null character in mailbox name indicates search mailbox.
-    qsearchid: 'dimp\x00qsearch',
     tcache: {},
 
     // Preview pane cache size is 20 entries. Given that a reasonable guess
@@ -1262,7 +1260,7 @@ var DimpBase = {
     /* Search functions. */
     isSearch: function(id)
     {
-        return (id ? id : this.folder) == this.qsearchid;
+        return (id ? id : this.folder) == DIMP.conf.qsearchid;
     },
 
     _quicksearchOnBlur: function()
@@ -1280,7 +1278,7 @@ var DimpBase = {
         } else {
             this.sfolder = this.folder;
             $('qsearch_close').show();
-            this.loadMailbox(this.qsearchid);
+            this.loadMailbox(DIMP.conf.qsearchid);
         }
     },
 
@@ -1296,7 +1294,7 @@ var DimpBase = {
             if (!noload) {
                 this.loadMailbox(this.sfolder);
             }
-            this.viewport.deleteView(this.qsearchid);
+            this.viewport.deleteView(DIMP.conf.qsearchid);
         }
     },
 
