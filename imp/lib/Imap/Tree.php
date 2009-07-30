@@ -1148,14 +1148,14 @@ class IMP_Imap_Tree
 
         $plist = $prune
             ? array_values(array_intersect(array_keys($this->_poll), $this->folderList()))
-            : $this->_poll;
+            : array_keys($this->_poll);
 
         if ($sort) {
             $ns_new = $this->_getNamespace(null);
             Horde_Imap_Client_Sort::sortMailboxes($plist, array('delimiter' => $ns_new['delimiter'], 'inbox' => true));
         }
 
-        return $plist;
+        return array_filter($plist);
     }
 
     /**
