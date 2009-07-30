@@ -29,6 +29,11 @@ class Horde_Auth_Application extends Horde_Auth_Base
     /**
      * Equivalent methods in application's API.
      *
+     * The 'authAuthenticate', 'authAuthenticateCallback', and
+     * 'authTransparent' methods must not have the check_perms flag set
+     * (however, for sanity reasons it is best to have a Horde_Auth::getAuth()
+     * check inside of the authAuthenticate function).
+     *
      * @var array
      */
     protected $_apiMethods = array(
