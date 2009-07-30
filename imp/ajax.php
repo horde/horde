@@ -577,7 +577,8 @@ case 'ShowPortal':
     foreach ($dimp_block_list as $title => $block) {
         if ($block['ob'] instanceof Horde_Block) {
             $app = $block['ob']->getApp();
-            $content = (empty($css_load[$app]) ? Horde::styleSheetLink($app, '', false) : '') . $block['ob']->getContent();
+            // TODO: Fix CSS.
+            $content = $block['ob']->getContent();
             $css_load[$app] = true;
             // Don't do substitutions on our own blocks.
             if ($app != 'imp') {

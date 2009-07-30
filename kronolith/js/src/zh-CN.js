@@ -3,13 +3,13 @@ Date.CultureInfo = {
     name: "zh-CN",
     englishName: "Chinese (People's Republic of China)",
     nativeName: "中文(中华人民共和国)",
-    
+
     /* Day Name Strings */
     dayNames: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
     abbreviatedDayNames: ["日", "一", "二", "三", "四", "五", "六"],
     shortestDayNames: ["日", "一", "二", "三", "四", "五", "六"],
     firstLetterDayNames: ["日", "一", "二", "三", "四", "五", "六"],
-    
+
     /* Month Name Strings */
     monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
     abbreviatedMonthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
@@ -20,15 +20,15 @@ Date.CultureInfo = {
 
     firstDayOfWeek: 0,
     twoDigitYearMax: 2029,
-    
+
     /**
-     * The dateElementOrder is based on the order of the 
-     * format specifiers in the formatPatterns.DatePattern. 
+     * The dateElementOrder is based on the order of the
+     * format specifiers in the formatPatterns.DatePattern.
      *
      * Example:
      <pre>
      shortDatePattern    dateElementOrder
-     ------------------  ---------------- 
+     ------------------  ----------------
      "M/d/yyyy"          "mdy"
      "dd/MM/yyyy"        "dmy"
      "yyyy-MM-dd"        "ymd"
@@ -39,7 +39,7 @@ Date.CultureInfo = {
      * string being parsed.
      */
     dateElementOrder: "ymd",
-    
+
     /* Standard date and time format patterns */
     formatPatterns: {
         shortDate: "yyyy/M/d",
@@ -56,31 +56,31 @@ Date.CultureInfo = {
 
     /**
      * NOTE: If a string format is not parsing correctly, but
-     * you would expect it parse, the problem likely lies below. 
-     * 
+     * you would expect it parse, the problem likely lies below.
+     *
      * The following regex patterns control most of the string matching
      * within the parser.
-     * 
+     *
      * The Month name and Day name patterns were automatically generated
-     * and in general should be (mostly) correct. 
+     * and in general should be (mostly) correct.
      *
      * Beyond the month and day name patterns are natural language strings.
      * Example: "next", "today", "months"
      *
-     * These natural language string may NOT be correct for this culture. 
+     * These natural language string may NOT be correct for this culture.
      * If they are not correct, please translate and edit this file
-     * providing the correct regular expression pattern. 
+     * providing the correct regular expression pattern.
      *
      * If you modify this file, please post your revised CultureInfo file
      * to the Datejs Forum located at http://www.datejs.com/forums/.
      *
      * Please mark the subject of the post with [CultureInfo]. Example:
      *    Subject: [CultureInfo] Translated "da-DK" Danish(Denmark)
-     * 
+     *
      * We will add the modified patterns to the master source files.
      *
-     * As well, please review the list of "Future Strings" section below. 
-     */	
+     * As well, please review the list of "Future Strings" section below.
+     */
     regexPatterns: {
         jan: /^一月/i,
         feb: /^二月/i,
@@ -107,12 +107,12 @@ Date.CultureInfo = {
         past: /^last|past|prev(ious)?/i,
         add: /^(\+|aft(er)?|from|hence)/i,
         subtract: /^(\-|bef(ore)?|ago)/i,
-        
+
         yesterday: /^yes(terday)?/i,
         today: /^t(od(ay)?)?/i,
         tomorrow: /^tom(orrow)?/i,
         now: /^n(ow)?/i,
-        
+
         millisecond: /^ms|milli(second)?s?/i,
         second: /^sec(ond)?s?/i,
         minute: /^mn|min(ute)?s?/i,
@@ -121,7 +121,7 @@ Date.CultureInfo = {
         month: /^m(onth)?s?/i,
         day: /^d(ay)?s?/i,
         year: /^y(ear)?s?/i,
-		
+
         shortMeridian: /^(a|p)/i,
         longMeridian: /^(a\.?m?\.?|p\.?m?\.?)/i,
         timezone: /^((e(s|d)t|c(s|d)t|m(s|d)t|p(s|d)t)|((gmt)?\s*(\+|\-)\s*\d\d\d\d?)|gmt|utc)/i,
@@ -135,12 +135,12 @@ Date.CultureInfo = {
 /********************
  ** Future Strings **
  ********************
- * 
- * The following list of strings may not be currently being used, but 
- * may be incorporated into the Datejs library later. 
+ *
+ * The following list of strings may not be currently being used, but
+ * may be incorporated into the Datejs library later.
  *
  * We would appreciate any help translating the strings below.
- * 
+ *
  * If you modify this file, please post your revised CultureInfo file
  * to the Datejs Forum located at http://www.datejs.com/forums/.
  *

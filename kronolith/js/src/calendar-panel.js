@@ -15,7 +15,7 @@ function sbarToggle()
 
 function removeTag(tagid)
 {
-	
+
 }
 document.observe('dom:loaded', function() {
     $$('#pageControlsInner .checkbox').invoke('observe', 'click', function() {

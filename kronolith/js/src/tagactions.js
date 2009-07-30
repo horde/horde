@@ -27,6 +27,6 @@ function removeTag(resource, type, tagid, endpoint)
                          parameters: params
                      }
     );
-    
+
     return true;
 }

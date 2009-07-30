@@ -3,13 +3,13 @@
  * @author: Coolite Inc. http://www.coolite.com/
  * @date: 2008-04-13
  * @copyright: Copyright (c) 2006-2008, Coolite Inc. (http://www.coolite.com/). All rights reserved.
- * @license: Licensed under The MIT License. See license.txt and http://www.datejs.com/license/. 
+ * @license: Licensed under The MIT License. See license.txt and http://www.datejs.com/license/.
  * @website: http://www.datejs.com/
  */
- 
+
 (function () {
-    var $D = Date, 
-        $P = $D.prototype, 
+    var $D = Date,
+        $P = $D.prototype,
         $C = $D.CultureInfo,
         $f = [],
         p = function (s, l) {
@@ -20,7 +20,7 @@
         };
 
     /**
-     * Converts a PHP format string to Java/.NET format string. 
+     * Converts a PHP format string to Java/.NET format string.
      * A PHP format string can be used with .$format or .format.
      * A Java/.NET format string can be used with .toString().
      * The .parseExact function will only accept a Java/.NET format string
@@ -29,16 +29,16 @@
      <pre>
      var f1 = "%m/%d/%y"
      var f2 = Date.normalizeFormat(f1); // "MM/dd/yy"
-     
+
      new Date().format(f1);    // "04/13/08"
      new Date().$format(f1);   // "04/13/08"
      new Date().toString(f2);  // "04/13/08"
-     
+
      var date = Date.parseExact("04/13/08", f2); // Sun Apr 13 2008
      </pre>
      * @param {String}   A PHP format string consisting of one or more format spcifiers.
      * @return {String}  The PHP format converted to a Java/.NET format string.
-     */        
+     */
     $D.normalizeFormat = function (format) {
         $f = [];
         var t = new Date().$format(format);
@@ -47,14 +47,14 @@
 
     /**
      * Format a local Unix timestamp according to locale settings
-     * 
+     *
      * Example
      <pre>
      Date.strftime("%m/%d/%y", new Date());       // "04/13/08"
      Date.strftime("c", "2008-04-13T17:52:03Z");  // "04/13/08"
      </pre>
      * @param {String}   A format string consisting of one or more format spcifiers [Optional].
-     * @param {Number}   The number representing the number of seconds that have elapsed since January 1, 1970 (local time). 
+     * @param {Number}   The number representing the number of seconds that have elapsed since January 1, 1970 (local time).
      * @return {String}  A string representation of the current Date object.
      */
     $D.strftime = function (format, time) {
@@ -62,9 +62,9 @@
     };
 
     /**
-     * Parse any textual datetime description into a Unix timestamp. 
+     * Parse any textual datetime description into a Unix timestamp.
      * A Unix timestamp is the number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT).
-     * 
+     *
      * Example
      <pre>
      Date.strtotime("04/13/08");              // 1208044800
@@ -83,9 +83,9 @@
     /**
      * Converts the value of the current Date object to its equivalent string representation using a PHP/Unix style of date format specifiers.
      *
-     * The following descriptions are from http://www.php.net/strftime and http://www.php.net/manual/en/function.date.php. 
+     * The following descriptions are from http://www.php.net/strftime and http://www.php.net/manual/en/function.date.php.
      * Copyright © 2001-2008 The PHP Group
-     * 
+     *
      * Format Specifiers
      <pre>
     Format  Description                                                                  Example
@@ -101,7 +101,7 @@
      %e     day of the month as a decimal number, a single digit is preceded by a space  "1" to "31"
      %g     like %G, but without the century                                             "08"
      %G     The 4-digit year corresponding to the ISO week number (see %V).              "2008"
-            This has the same format and value as %Y, except that if the ISO week number 
+            This has the same format and value as %Y, except that if the ISO week number
             belongs to the previous or next year, that year is used instead.
      %h     same as %b                                                                   "Jan" through "Dec"
      %H     hour as a decimal number using a 24-hour clock                               "00" to "23"
@@ -121,9 +121,9 @@
      %U     week number of the current year as a decimal number, starting with the       "0" to ("52" or "53")
             first Sunday as the first day of the first week
      %V     The ISO 8601:1988 week number of the current year as a decimal number,       "00" to ("52" or "53")
-            range 01 to 53, where week 1 is the first week that has at least 4 days 
-            in the current year, and with Monday as the first day of the week. 
-            (Use %G or %g for the year component that corresponds to the week number 
+            range 01 to 53, where week 1 is the first week that has at least 4 days
+            in the current year, and with Monday as the first day of the week.
+            (Use %G or %g for the year component that corresponds to the week number
             for the specified timestamp.)
      %W     week number of the current year as a decimal number, starting with the       "00" to ("52" or "53")
             first Monday as the first day of the first week
@@ -133,9 +133,9 @@
      %y     year as a decimal number without a century                                   "00" "99"
      %Y     year as a decimal number including the century                               "2008"
      %Z     time zone or name or abbreviation                                            "UTC", "EST", "PST"
-     %z     same as %Z 
+     %z     same as %Z
      %%     a literal "%" character                                                      "%"
-      
+
      d      Day of the month, 2 digits with leading zeros                                "01" to "31"
      D      A textual representation of a day, three letters                             "Mon" through "Sun"
      j      Day of the month without leading zeros                                       "1" to "31"
@@ -143,7 +143,7 @@
      N      ISO-8601 numeric representation of the day of the week (added in PHP 5.1.0)  "1" (for Monday) through "7" (for Sunday)
      S      English ordinal suffix for the day of the month, 2 characters                "st", "nd", "rd" or "th". Works well with j
      w      Numeric representation of the day of the week                                "0" (for Sunday) through "6" (for Saturday)
-     z      The day of the year (starting from "0")                                      "0" through "365"      
+     z      The day of the year (starting from "0")                                      "0" through "365"
      W      ISO-8601 week number of year, weeks starting on Monday                       "00" to ("52" or "53")
      F      A full textual representation of a month, such as January or March           "January" through "December"
      m      Numeric representation of a month, with leading zeros                        "01" through "12"
@@ -152,7 +152,7 @@
      t      Number of days in the given month                                            "28" through "31"
      L      Whether it's a leap year                                                     "1" if it is a leap year, "0" otherwise
      o      ISO-8601 year number. This has the same value as Y, except that if the       "2008"
-            ISO week number (W) belongs to the previous or next year, that year 
+            ISO week number (W) belongs to the previous or next year, that year
             is used instead.
      Y      A full numeric representation of a year, 4 digits                            "2008"
      y      A two digit representation of a year                                         "08"
@@ -175,20 +175,20 @@
             always negative, and for those east of UTC is always positive.
      c      ISO 8601 date                                                                "2004-02-12T15:19:21+00:00"
      r      RFC 2822 formatted date                                                      "Thu, 21 Dec 2000 16:01:07 +0200"
-     U      Seconds since the Unix Epoch (January 1 1970 00:00:00 GMT)                   "0"     
+     U      Seconds since the Unix Epoch (January 1 1970 00:00:00 GMT)                   "0"
      </pre>
      * @param {String}   A format string consisting of one or more format spcifiers [Optional].
      * @return {String}  A string representation of the current Date object.
      */
-    $P.$format = function (format) { 
-        var x = this, 
+    $P.$format = function (format) {
+        var x = this,
             y,
             t = function (v) {
                 $f.push(v);
                 return x.toString(v);
             };
 
-        return format ? format.replace(/(%|\\)?.|%%/g, 
+        return format ? format.replace(/(%|\\)?.|%%/g,
         function (m) {
             if (m.charAt(0) === "\\" || m.substring(0, 2) === "%%") {
                 return m.replace("\\", "").replace("%%", "%");
@@ -221,7 +221,7 @@
             case "%U":
                 var d1 = x.clone().set({month: 0, day: 1}).addDays(-1).moveToDayOfWeek(0),
                     d2 = x.clone().addDays(1).moveToDayOfWeek(0, -1);
-                return (d2 < d1) ? "00" : p((d2.getOrdinalNumber() - d1.getOrdinalNumber()) / 7 + 1);                
+                return (d2 < d1) ? "00" : p((d2.getOrdinalNumber() - d1.getOrdinalNumber()) / 7 + 1);
             case "W":
             case "%V":
                 return x.getISOWeek();
@@ -287,7 +287,7 @@
             case "e":
             case "T":
             case "%z":
-            case "%Z":            
+            case "%Z":
                 return x.getTimezone();
             case "Z":
                 return x.getTimezoneOffset() * -60;
@@ -309,7 +309,7 @@
             case "%t":
                 return "\\t";
             case "%r":
-                return t("hh:mm tt");                
+                return t("hh:mm tt");
             case "%R":
                 return t("H:mm");
             case "%T":
@@ -325,8 +325,8 @@
         }
         ) : this._toString();
     };
-    
+
     if (!$P.format) {
         $P.format = $P.$format;
     }
-}());    
+}());

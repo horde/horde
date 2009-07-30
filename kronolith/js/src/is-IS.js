@@ -3,13 +3,13 @@ Date.CultureInfo = {
     name: "is-IS",
     englishName: "Icelandic (Iceland)",
     nativeName: "íslenska (Ísland)",
-    
+
     /* Day Name Strings */
     dayNames: ["sunnudagur", "mánudagur", "þriðjudagur", "miðvikudagur", "fimmtudagur", "föstudagur", "laugardagur"],
     abbreviatedDayNames: ["sun.", "mán.", "þri.", "mið.", "fim.", "fös.", "lau."],
     shortestDayNames: ["su", "má", "þr", "mi", "fi", "fö", "la"],
     firstLetterDayNames: ["s", "m", "þ", "m", "f", "f", "l"],
-    
+
     /* Month Name Strings */
     monthNames: ["janúar", "febrúar", "mars", "apríl", "maí", "júní", "júlí", "ágúst", "september", "október", "nóvember", "desember"],
     abbreviatedMonthNames: ["jan.", "feb.", "mar.", "apr.", "maí", "jún.", "júl.", "ágú.", "sep.", "okt.", "nóv.", "des."],
@@ -20,15 +20,15 @@ Date.CultureInfo = {
 
     firstDayOfWeek: 1,
     twoDigitYearMax: 2029,
-    
+
     /**
-     * The dateElementOrder is based on the order of the 
-     * format specifiers in the formatPatterns.DatePattern. 
+     * The dateElementOrder is based on the order of the
+     * format specifiers in the formatPatterns.DatePattern.
      *
      * Example:
      <pre>
      shortDatePattern    dateElementOrder
-     ------------------  ---------------- 
+     ------------------  ----------------
      "M/d/yyyy"          "mdy"
      "dd/MM/yyyy"        "dmy"
      "yyyy-MM-dd"        "ymd"
@@ -39,7 +39,7 @@ Date.CultureInfo = {
      * string being parsed.
      */
     dateElementOrder: "dmy",
-    
+
     /* Standard date and time format patterns */
     formatPatterns: {
         shortDate: "d.M.yyyy",
@@ -56,31 +56,31 @@ Date.CultureInfo = {
 
     /**
      * NOTE: If a string format is not parsing correctly, but
-     * you would expect it parse, the problem likely lies below. 
-     * 
+     * you would expect it parse, the problem likely lies below.
+     *
      * The following regex patterns control most of the string matching
      * within the parser.
-     * 
+     *
      * The Month name and Day name patterns were automatically generated
-     * and in general should be (mostly) correct. 
+     * and in general should be (mostly) correct.
      *
      * Beyond the month and day name patterns are natural language strings.
      * Example: "next", "today", "months"
      *
-     * These natural language string may NOT be correct for this culture. 
+     * These natural language string may NOT be correct for this culture.
      * If they are not correct, please translate and edit this file
-     * providing the correct regular expression pattern. 
+     * providing the correct regular expression pattern.
      *
      * If you modify this file, please post your revised CultureInfo file
      * to the Datejs Forum located at http://www.datejs.com/forums/.
      *
      * Please mark the subject of the post with [CultureInfo]. Example:
      *    Subject: [CultureInfo] Translated "da-DK" Danish(Denmark)
-     * 
+     *
      * We will add the modified patterns to the master source files.
      *
-     * As well, please review the list of "Future Strings" section below. 
-     */	
+     * As well, please review the list of "Future Strings" section below.
+     */
     regexPatterns: {
         jan: /^jan(.(úar)?)?/i,
         feb: /^feb(.(rúar)?)?/i,
@@ -107,12 +107,12 @@ Date.CultureInfo = {
         past: /^last|past|prev(ious)?/i,
         add: /^(\+|aft(er)?|from|hence)/i,
         subtract: /^(\-|bef(ore)?|ago)/i,
-        
+
         yesterday: /^yes(terday)?/i,
         today: /^t(od(ay)?)?/i,
         tomorrow: /^tom(orrow)?/i,
         now: /^n(ow)?/i,
-        
+
         millisecond: /^ms|milli(second)?s?/i,
         second: /^sec(ond)?s?/i,
         minute: /^mn|min(ute)?s?/i,
@@ -121,7 +121,7 @@ Date.CultureInfo = {
         month: /^m(onth)?s?/i,
         day: /^d(ay)?s?/i,
         year: /^y(ear)?s?/i,
-		
+
         shortMeridian: /^(a|p)/i,
         longMeridian: /^(a\.?m?\.?|p\.?m?\.?)/i,
         timezone: /^((e(s|d)t|c(s|d)t|m(s|d)t|p(s|d)t)|((gmt)?\s*(\+|\-)\s*\d\d\d\d?)|gmt|utc)/i,
@@ -135,12 +135,12 @@ Date.CultureInfo = {
 /********************
  ** Future Strings **
  ********************
- * 
- * The following list of strings may not be currently being used, but 
- * may be incorporated into the Datejs library later. 
+ *
+ * The following list of strings may not be currently being used, but
+ * may be incorporated into the Datejs library later.
  *
  * We would appreciate any help translating the strings below.
- * 
+ *
  * If you modify this file, please post your revised CultureInfo file
  * to the Datejs Forum located at http://www.datejs.com/forums/.
  *
