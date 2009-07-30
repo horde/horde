@@ -2451,7 +2451,7 @@ var DimpBase = {
         /* Add popdown menus. Check for disabled compose at the same time. */
         this._addMouseEvents({ id: 'button_other', type: 'otheractions' }, $('button_other'));
         this._addMouseEvents({ id: 'folderopts', type: 'folderopts' }, $('folderopts').down(1));
-        this._addMouseEvents({ id: 'qsearch_icon', left: true, type: 'qsearchopts' });
+        this._addMouseEvents({ id: 'qsearch_icon', left: true, offset: 'qsearch', type: 'qsearchopts' });
 
         DM.addSubMenu('ctx_message_reply', 'ctx_reply');
         [ 'ctx_message_', 'oa_', 'ctx_draft_' ].each(function(i) {
