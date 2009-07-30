@@ -150,7 +150,8 @@ $_services = array(
     ),
 
     'authAuthenticateCallback' => array(
-        'args' => array()
+        'args' => array(),
+        'checkperms' => false
     ),
 
     'authTransparent' => array(
@@ -705,8 +706,10 @@ function _imp_authTransparent()
  */
 function _imp_authAuthenticateCallback()
 {
-    require_once dirname(__FILE__) . '/base.php';
-    IMP_Auth::authenticateCallback();
+    if (Horde_Auth::getAuth()) {
+        require_once dirname(__FILE__) . '/base.php';
+        IMP_Auth::authenticateCallback();
+    }
 }
 
 /**
