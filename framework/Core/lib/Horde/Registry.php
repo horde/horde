@@ -776,7 +776,6 @@ class Horde_Registry
      *                 ONLY be disabled by system scripts (cron jobs, etc.)
      *                 and scripts that handle login.
      *                 DEFAULT: true
-     * <pre>
      * 'logintasks' - (boolean) Perform login tasks? Only performed if
      *                'check_perms' is also true. System tasks are always
      *                peformed if the user is authorized.
@@ -866,9 +865,9 @@ class Horde_Registry
         } catch (Horde_Exception_HookNotSet $e) {}
 
         /* Do login tasks. */
-        if (Horde_Auth::getAuth()) {
+        if ($checkPerms) {
             $tasks = Horde_LoginTasks::singleton($app, Horde::selfUrl(true, true, true));
-            $tasks->runTasks(array('runtasks' => $checkPerms && !empty($options['logintasks'])));
+            $tasks->runTasks(array('runtasks' => !empty($options['logintasks'])));
         }
 
         return true;
