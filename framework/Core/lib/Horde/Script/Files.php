@@ -47,7 +47,7 @@ class Horde_Script_Files
      *
      * @var array
      */
-    protected $_ptversions = array('tables.js', 'stripe.js');
+    protected $_ptversions = array('tables.js', 'stripe.js', 'tooltips.js');
 
     /**
      * Singleton.
