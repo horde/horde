@@ -14,11 +14,8 @@
  * @package Ansel
  */
 
-// Check for a prior definition of HORDE_BASE (perhaps by an
-// auto_prepend_file definition for site customization).
-if (!defined('HORDE_BASE')) {
-    define('HORDE_BASE', dirname(__FILE__) . '/../..');
-}
+// Determine BASE directories.
+require_once dirname(__FILE__) . '/base.load.php';
 
 // Load the Horde Framework core, and set up inclusion paths.
 require_once HORDE_BASE . '/lib/core.php';
@@ -30,20 +27,12 @@ try {
 } catch (Horde_Exception $e) {
         Horde_Auth::authenticationFailureRedirect('ansel', $e);
 }
-
-$conf = &$GLOBALS['conf'];
-if (!defined('ANSEL_TEMPLATES')) {
-    define('ANSEL_TEMPLATES', $registry->get('templates'));
-}
+$conf = $GLOBALS['conf'];
+define('ANSEL_TEMPLATES', $registry->get('templates'));
 
 // Notification system.
 $GLOBALS['notification'] = Horde_Notification::singleton();
 $GLOBALS['notification']->attach('status');
-
-// Find the base file path of Ansel.
-if (!defined('ANSEL_BASE')) {
-    define('ANSEL_BASE', dirname(__FILE__) . '/..');
-}
 
 // Ansel base libraries.
 require_once ANSEL_BASE . '/lib/Ansel.php';
