@@ -310,7 +310,7 @@ HTML;
         foreach ($s_list as $app => $files) {
             foreach ($files as $file) {
                 if ($file['d'] && ($file['f'][0] != '/') && empty($file['e'])) {
-                    $js_tocache[$file['p'] . $file['f']] = false;
+                    $js_tocache[] = $file['p'] . $file['f'];
                     $mtime[] = filemtime($file['p'] . $file['f']);
                 } elseif (!empty($file['e'])) {
                     $js_external[] = $file['u'];
@@ -342,22 +342,21 @@ HTML;
 
         if (!$exists) {
             $out = '';
-            foreach ($js_tocache as $key => $val) {
+            foreach ($js_tocache as $val) {
                 // Separate JS files with a newline since some compressors may
                 // strip trailing terminators.
-                if ($val) {
-                    // Minify these files a bit by removing newlines and
-                    // comments.
-                    $out .= preg_replace(array('/\n+/', '/\/\*.*?\*\//'), array('', ''), file_get_contents($key)) . "\n";
-                } else {
-                    $out .= file_get_contents($key) . "\n";
+                $js_text = file_get_contents($val);
+                try {
+                    $out .= Horde_Text_Filter::filter($js_text, 'JavascriptMinify') . "\n";
+                } catch (Horde_Exception $e) {
+                    $out .= $js_text . "\n";
                 }
             }
 
             switch ($cache_type) {
             case 'filesystem':
                 if (!file_put_contents($js_path, $out)) {
-                    throw new Horde_Exception('Could not write cached CSS file to disk.');
+                    throw new Horde_Exception('Could not write cached JS file to disk.');
                 }
                 break;
 
