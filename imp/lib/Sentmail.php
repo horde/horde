@@ -136,7 +136,7 @@ class IMP_Sentmail
      */
     public function gc()
     {
-        $this->_deleteOldEntries(time() - $this->_params['threshold'] * 86400);
+        $this->_deleteOldEntries(time() - ((isset($this->_params['threshold']) ? $this->_params['threshold'] : 0) * 86400));
     }
 
     /**
