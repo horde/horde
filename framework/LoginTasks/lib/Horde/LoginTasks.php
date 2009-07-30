@@ -144,7 +144,7 @@ class Horde_LoginTasks
             array_unshift($app_list, 'horde');
         }
 
-        $lasttasks = $tasks = array();
+        $tasks = array();
 
         foreach ($app_list as $app) {
             $fileroot = $GLOBALS['registry']->get('fileroot', $app);
@@ -155,12 +155,6 @@ class Horde_LoginTasks
                             $classname = $app . '_LoginTasks_' . $val . '_' . basename($file, '.php');
                             if (class_exists($classname)) {
                                 $tasks[$classname] = $app;
-
-                                if (!isset($lasttasks[$app])) {
-                                    $lasttasks[$app] = empty($lasttask_pref[$app])
-                                        ? 0
-                                        : getdate($lasttask_pref[$app]);
-                                }
                             }
                         }
                     }
@@ -185,27 +179,26 @@ class Horde_LoginTasks
 
             $addtask = false;
 
-            if (empty($lasttasks[$app])) {
-                /* If timestamp is empty (= 0), this is the first time the
-                   user has logged in. Don't run any other login task
-                   operations on the first login. */
-                $addtask = in_array($ob->interval, array(self::FIRST_LOGIN, self::ONCE));
+            if ($ob->interval == self::FIRST_LOGIN) {
+                $addtask = empty($lasttask_pref[$app]);
             } else {
+                $lastrun = getdate(empty($lasttask_pref[$app]) ? time() : $lasttask_pref[$app]);
+
                 switch ($ob->interval) {
                 case self::YEARLY:
-                    $addtask = ($cur_date['year'] > $lasttasks[$app]['year']);
+                    $addtask = ($cur_date['year'] > $lastrun['year']);
                     break;
 
                 case self::MONTHLY:
-                    $addtask = (($cur_date['year'] > $lasttasks[$app]['year']) || ($cur_date['mon'] > $lasttasks[$app]['mon']));
+                    $addtask = (($cur_date['year'] > $lastrun['year']) || ($cur_date['mon'] > $lastrun['mon']));
                     break;
 
                 case self::WEEKLY:
-                    $addtask = (($cur_date['wday'] < $lasttasks[$app]['wday']) || ((time() - 604800) > $lasttasks[$app]['wday']));
+                    $addtask = (($cur_date['wday'] < $lastrun['wday']) || ((time() - 604800) > $lastrun['wday']));
                     break;
 
                 case self::DAILY:
-                    $addtask = (($cur_date['year'] > $lasttasks[$app]['year']) || ($cur_date['yday'] > $lasttasks[$app]['yday']));
+                    $addtask = (($cur_date['year'] > $lastrun['year']) || ($cur_date['yday'] > $lastrun['yday']));
                     break;
 
                 case self::EVERY:
