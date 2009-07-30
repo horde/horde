@@ -817,8 +817,7 @@ class Nag
 
         list($mail_driver, $mail_params) = Horde::getMailerConfig();
         $mail = new Horde_Mime_Mail();
-        require_once NAG_BASE . '/lib/version.php';
-        $mail->addHeader('User-Agent', 'Nag ' . NAG_VERSION);
+        $mail->addHeader('User-Agent', 'Nag ' . $GLOBALS['registry']->getVersion());
         $mail->addHeader('Precedence', 'bulk');
         $mail->addHeader('Auto-Submitted', 'auto-generated');
         $mail->addHeader('From', $from);

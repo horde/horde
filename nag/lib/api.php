@@ -1122,11 +1122,9 @@ function _nag_export($uid, $contentType)
     case 'text/x-vcalendar':
         $version = '1.0';
     case 'text/calendar':
-        require_once dirname(__FILE__) . '/version.php';
-
         // Create the new iCalendar container.
         $iCal = new Horde_iCalendar($version);
-        $iCal->setAttribute('PRODID', '-//The Horde Project//Nag ' . NAG_VERSION . '//EN');
+        $iCal->setAttribute('PRODID', '-//The Horde Project//Nag ' . $GLOBALS['registry']->getVersion() . '//EN');
         $iCal->setAttribute('METHOD', 'PUBLISH');
 
         // Create new vTodo object.

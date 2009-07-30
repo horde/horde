@@ -29,7 +29,6 @@ $cli = Horde_Cli::singleton();
 $folks_authentication = 'none';
 $no_compress = true;
 require_once dirname(__FILE__) . '/../lib/base.php';
-require_once FOLKS_BASE . '/lib/version.php';
 
 // We accept the user name on the command-line.
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'h:u:p:dt:f:c:',
@@ -125,7 +124,7 @@ while ($row =& $res->fetchRow()) {
 
     // Send mail
     $mail = new MIME_Mail($subject, $body2, $row[1], $conf['support'], Horde_Nls::getCharset());
-    $mail->addHeader('User-Agent', 'Folks' . FOLKS_VERSION);
+    $mail->addHeader('User-Agent', 'Folks' . $registry->getVersion());
     $sent = $mail->send($conf['mailer']['type'], $conf['mailer']['params']);
     if ($sent instanceof PEAR_Error) {
         $cli->message($sent, 'cli.warning');

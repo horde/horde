@@ -26,7 +26,6 @@ class Kronolith_FreeBusy {
         global $kronolith_shares;
 
         require_once 'Horde/Identity.php';
-        require_once KRONOLITH_BASE . '/lib/version.php';
 
         if (!is_array($calendar)) {
             $calendar = array($calendar);
@@ -66,8 +65,7 @@ class Kronolith_FreeBusy {
 
         /* Create the new iCalendar. */
         $vCal = new Horde_iCalendar();
-        $vCal->setAttribute('PRODID', '-//The Horde Project//Kronolith '
-                            . KRONOLITH_VERSION . '//EN');
+        $vCal->setAttribute('PRODID', '-//The Horde Project//Kronolith ' . $GLOBALS['registry']->getVersion() . '//EN');
         $vCal->setAttribute('METHOD', 'PUBLISH');
 
         /* Create new vFreebusy. */

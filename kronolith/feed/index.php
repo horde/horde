@@ -24,7 +24,6 @@ function _no_access($status, $reason, $body)
 $kronolith_authentication = 'none';
 $kronolith_session_control = 'readonly';
 require_once dirname(__FILE__) . '/../lib/base.php';
-require_once KRONOLITH_BASE . '/lib/version.php';
 require_once 'Horde/Identity.php';
 
 $calendar = Horde_Util::getFormData('c');
@@ -95,7 +94,7 @@ $template = new Horde_Template();
 $template->set('charset', Horde_Nls::getCharset());
 $template->set('updated', $now->format(DATE_ATOM));
 $template->set('kronolith_name', 'Kronolith');
-$template->set('kronolith_version', KRONOLITH_VERSION);
+$template->set('kronolith_version', $registry->getVersion());
 $template->set('kronolith_uri', 'http://www.horde.org/kronolith/');
 $template->set('kronolith_icon', Horde::url($registry->getImageDir() . '/kronolith.png', true, -1));
 $template->set('xsl', $registry->get('themesuri') . '/feed-rss.xsl');

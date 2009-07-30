@@ -1309,10 +1309,7 @@ class Kronolith
 
             $recipient = empty($status['name']) ? $email : Horde_Mime_Address::trimAddress($status['name'] . ' <' . $email . '>');
             $mail = new Horde_Mime_Mail($subject, $message, $recipient, $from, Horde_Nls::getCharset());
-            require_once KRONOLITH_BASE . '/lib/version.php';
-            try {
-                $mail->addHeader('User-Agent', 'Kronolith ' . KRONOLITH_VERSION);
-            } catch (Horde_Mime_Exception $e) {}
+            $mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
             $mail->addMimePart($ics);
 
             try {

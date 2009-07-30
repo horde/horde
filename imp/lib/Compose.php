@@ -485,8 +485,7 @@ class IMP_Compose
 
         /* Add the 'User-Agent' header. */
         if (empty($opts['useragent'])) {
-            require_once IMP_BASE . '/lib/version.php';
-            $headers->setUserAgent('Internet Messaging Program (IMP) ' . IMP_VERSION);
+            $headers->setUserAgent('Internet Messaging Program (IMP) ' . $GLOBALS['registry']->getVersion());
         } else {
             $headers->setUserAgent($opts['useragent']);
         }

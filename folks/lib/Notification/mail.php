@@ -55,13 +55,12 @@ class Folks_Notification_mail extends Folks_Notification {
         }
 
         list($mail_driver, $mail_params) = Horde::getMailerConfig();
-        require_once FOLKS_BASE . '/lib/version.php';
 
         $mail = new Horde_Mime_Mail($subject, $body, null,
                                     $this->_params['from_addr'],
                                     Horde_Nls::getCharset());
 
-        $mail->addHeader('User-Agent', 'Folks ' . FOLKS_VERSION);
+        $mail->addHeader('User-Agent', 'Folks ' . $GLOBALS['registry']->getVersion());
         $mail->addHeader('X-Originating-IP', $_SERVER['REMOTE_ADDR']);
         $mail->addHeader('X-Remote-Browser', $_SERVER['HTTP_USER_AGENT']);
 

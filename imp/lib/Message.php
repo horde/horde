@@ -332,8 +332,6 @@ class IMP_Message
             return false;
         }
 
-        require_once IMP_BASE . '/lib/version.php';
-
         foreach ($msgList as $folder => $msgIndices) {
             foreach ($msgIndices as $index) {
                 /* Fetch the message contents. */
@@ -365,7 +363,7 @@ class IMP_Message
 
                 /* Create a new iCalendar. */
                 $vCal = new Horde_iCalendar();
-                $vCal->setAttribute('PRODID', '-//The Horde Project//IMP ' . IMP_VERSION . '//EN');
+                $vCal->setAttribute('PRODID', '-//The Horde Project//IMP ' . $GLOBALS['registry']->getVersion() . '//EN');
                 $vCal->setAttribute('METHOD', 'PUBLISH');
 
                 switch ($type) {

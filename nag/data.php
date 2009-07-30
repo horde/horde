@@ -116,11 +116,10 @@ case 'export':
             exit;
 
         case Horde_Data::EXPORT_ICALENDAR:
-            require_once NAG_BASE . '/lib/version.php';
             $iCal = new Horde_iCalendar();
             $iCal->setAttribute(
                 'PRODID',
-                '-//The Horde Project//Nag ' . NAG_VERSION . '//EN');
+                '-//The Horde Project//Nag ' . $registry->getVersion() . '//EN');
             while ($task = $tasks->each()) {
                 $iCal->addComponent($task->toiCalendar($iCal));
             }
