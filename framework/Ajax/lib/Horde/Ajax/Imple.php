@@ -15,13 +15,6 @@
 class Horde_Ajax_Imple
 {
     /**
-     * Parameters needed by the subclasses.
-     *
-     * @var array
-     */
-    protected $_params = array();
-
-    /**
      * Attempts to return a concrete instance based on $driver.
      *
      * @param mixed $driver  The type of concrete subclass to return. If
