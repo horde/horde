@@ -16,7 +16,7 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael Slusarz <jan@horde.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Text
  */
 class Horde_Text_Filter_Csstidy extends Horde_Text_Filter
