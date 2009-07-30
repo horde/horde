@@ -15,7 +15,7 @@ $view = Kronolith::getView('Week');
 $title = sprintf(_("Week %d"), $view->week);
 $print_view = (bool)Horde_Util::getFormData('print');
 
-Horde::addScriptFile('tooltip.js', 'horde', true);
+Horde::addScriptFile('tooltips.js', 'horde', true);
 if (!$print_view) {
     Horde::addScriptFile('popup.js', 'horde', true);
 }

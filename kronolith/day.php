@@ -15,7 +15,7 @@ $view = Kronolith::getView('Day');
 $title = $view->getTime($prefs->getValue('date_format'));
 $print_view = (bool)Horde_Util::getFormData('print');
 
-Horde::addScriptFile('tooltip.js', 'horde', true);
+Horde::addScriptFile('tooltips.js', 'horde', true);
 if (!$print_view) {
     Horde::addScriptFile('popup.js', 'horde', true);
 }

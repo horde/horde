@@ -140,7 +140,7 @@ case 'apply_filters':
 $filter_list = $filters->getFilterList();
 
 Horde::addScriptFile('prototype.js', 'horde', true);
-Horde::addScriptFile('tooltip.js', 'horde', true);
+Horde::addScriptFile('tooltips.js', 'horde', true);
 Horde::addScriptFile('stripe.js', 'horde', true);
 $title = _("Filter Rules");
 require INGO_TEMPLATES . '/common-header.inc';

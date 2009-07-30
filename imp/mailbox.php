@@ -339,7 +339,7 @@ $sort_url = Horde_Util::addParameter($mailbox_imp_url, 'sortdir', ($sortpref['di
 /* Determine if we are showing previews. */
 $preview_tooltip = ($show_preview) ? $prefs->getValue('preview_show_tooltip') : false;
 if ($preview_tooltip) {
-    Horde::addScriptFile('tooltip.js', 'horde', true);
+    Horde::addScriptFile('tooltips.js', 'horde', true);
 } else {
     $strip_preview = $prefs->getValue('preview_strip_nl');
 }

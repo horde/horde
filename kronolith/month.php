@@ -14,7 +14,7 @@ $view = Kronolith::getView('Month');
 $title = $view->date->strftime('%B %Y');
 $print_view = (bool)Horde_Util::getFormData('print');
 
-Horde::addScriptFile('tooltip.js', 'horde', true);
+Horde::addScriptFile('tooltips.js', 'horde', true);
 if (!$print_view) {
     Horde::addScriptFile('popup.js', 'horde', true);
 }
