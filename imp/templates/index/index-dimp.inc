@@ -174,6 +174,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
      </div>
 
      <div class="dimpActions">
+<?php if ($_SESSION['imp']['protocol'] != 'pop'): ?>
       <div id="qsearch">
        <span id="qsearch_icon"></span>
        <form action="#" method="post">
@@ -183,6 +184,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
         <?php echo Horde::img('close.png', '', array('id' => 'qsearch_close', 'style' => 'display:none', 'title' => _("Clear Search")), $hordeimg) ?>
        </span>
       </div>
+<?php endif; ?>
       <span>
        <?php _createDA(_("Reply"), 'Reply', 'button_reply', 'noselectDisable', $show_text) ?>
       </span>
@@ -440,12 +442,14 @@ function _simpleButton($id, $text, $image, $imagedir = null)
  <a id="ctx_contacts_add"><span class="contextImg"></span><?php echo _("Add to Address Book") ?></a>
 </div>
 
+<?php if ($_SESSION['imp']['protocol'] != 'pop'): ?>
 <div class="context" id="ctx_qsearchopts" style="display:none">
  <a id="ctx_qsearchopts_all"><?php echo _("Entire Message") ?></a>
  <a id="ctx_qsearchopts_body"><?php echo _("Body") ?></a>
  <a id="ctx_qsearchopts_from"><?php echo _("From") ?></a>
  <a id="ctx_qsearchopts_subject"><?php echo _("Subject") ?></a>
 </div>
+<?php endif; ?>
 
 <div style="display:none">
  <span id="largeaddrspan">

@@ -88,7 +88,9 @@ var DimpBase = {
         // from the search input, because the user may immediately start
         // keyboard navigation after that. Thus, we need to ensure that a
         // message click loses focus on the search input.
-        $('qsearch_input').blur();
+        if ($('qsearch')) {
+            $('qsearch_input').blur();
+        }
 
         if (opts.shift) {
             if (selcount) {
@@ -2451,7 +2453,6 @@ var DimpBase = {
         /* Add popdown menus. Check for disabled compose at the same time. */
         this._addMouseEvents({ id: 'button_other', type: 'otheractions' }, $('button_other'));
         this._addMouseEvents({ id: 'folderopts', type: 'folderopts' }, $('folderopts').down(1));
-        this._addMouseEvents({ id: 'qsearch_icon', left: true, offset: 'qsearch', type: 'qsearchopts' });
 
         DM.addSubMenu('ctx_message_reply', 'ctx_reply');
         [ 'ctx_message_', 'oa_', 'ctx_draft_' ].each(function(i) {
@@ -2485,7 +2486,10 @@ var DimpBase = {
         this.setPoll();
 
         /* Init quicksearch. */
-        $('qsearch_input').observe('blur', this._quicksearchOnBlur.bind(this));
+        if ($('qsearch')) {
+            $('qsearch_input').observe('blur', this._quicksearchOnBlur.bind(this));
+            this._addMouseEvents({ id: 'qsearch_icon', left: true, offset: 'qsearch', type: 'qsearchopts' });
+        }
 
         if (DimpCore.is_ie6) {
             /* Disable text selection in preview pane for IE 6. */
