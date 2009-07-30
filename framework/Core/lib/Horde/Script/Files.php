@@ -182,6 +182,8 @@ class Horde_Script_Files
                 }
             }
 
+            /* Add general UI js library. */
+            $this->_add('tooltips.js', 'horde', true);
             if (!$prototype) {
                 $keys = array_keys($this->_files['horde']);
                 foreach ($keys as $key) {
@@ -193,9 +195,6 @@ class Horde_Script_Files
                     }
                 }
             }
-
-            /* Add general UI js library. */
-            $this->_add('tooltips.js', 'horde', true);
 
             // prototype.js must be included before any script that uses it
             if ($prototype) {
