@@ -37,7 +37,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add support for using the tidy extension when filtering HTML data.
+ <notes>* Added javscript minify filter.
+ * Add support for using the tidy extension when filtering HTML data.
  * Initial Horde 4 package.
  </notes>
  <contents>
@@ -55,6 +56,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Environment.php" role="php" />
        <file name="Highlightquotes.php" role="php" />
        <file name="Html2text.php" role="php" />
+       <file name="JavascriptMinify.php" role="php" />
+       <dir name="JavascriptMinify">
+        <file name="JsMin.php" role="php" />
+       </dir> <!-- /lib/Horde/Text/Filter/JavascriptMinify -->
        <file name="Linkurls.php" role="php" />
        <file name="Simplemarkup.php" role="php" />
        <file name="Space2html.php" role="php" />
@@ -212,6 +217,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Text/Filter/Environment.php" as="Horde/Text/Filter/Environment.php" />
    <install name="lib/Horde/Text/Filter/Highlightquotes.php" as="Horde/Text/Filter/Highlightquotes.php" />
    <install name="lib/Horde/Text/Filter/Html2text.php" as="Horde/Text/Filter/Html2text.php" />
+   <install name="lib/Horde/Text/Filter/JavascriptMinify.php" as="Horde/Text/Filter/JavascriptMinify.php" />
+   <install name="lib/Horde/Text/Filter/JavascriptMinify/JsMin.php" as="Horde/Text/Filter/JavascriptMinify/JsMin.php" />
    <install name="lib/Horde/Text/Filter/Linkurls.php" as="Horde/Text/Filter/Linkurls.php" />
    <install name="lib/Horde/Text/Filter/Simplemarkup.php" as="Horde/Text/Filter/Simplemarkup.php" />
    <install name="lib/Horde/Text/Filter/Space2html.php" as="Horde/Text/Filter/Space2html.php" />
