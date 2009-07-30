@@ -194,6 +194,9 @@ class Horde_Script_Files
                 }
             }
 
+            /* Add general UI js library. */
+            $this->_add('tooltips.js', 'horde', true);
+
             // prototype.js must be included before any script that uses it
             if ($prototype) {
                 $keys = array_keys($this->_files['horde']);
@@ -207,9 +210,6 @@ class Horde_Script_Files
                 reset($this->_files);
             }
         }
-
-        /* Add general UI js library. */
-        $this->_add('tooltips.js', 'horde', true);
 
         /* Add accesskeys.js if access keys are enabled. */
         if ($GLOBALS['prefs']->getValue('widget_accesskey')) {
