@@ -80,7 +80,6 @@ foreach ($VC->getRevisionRange($fl, $r1, $r2) as $val) {
 /* Get list of diff types. */
 $diff_types = array_flip($VC->availableDiffTypes());
 
-Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('stripe.js', 'horde', true);
 require CHORA_TEMPLATES . '/common-header.inc';
 require CHORA_TEMPLATES . '/menu.inc';

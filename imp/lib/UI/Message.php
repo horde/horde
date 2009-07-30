@@ -397,8 +397,6 @@ class IMP_UI_Message
             $addr_count = count($addr_array);
             $ret = '<span class="nowrap">' . implode(',</span> <span class="nowrap">', $addr_array) . '</span>';
             if ($link && $addr_count > 15) {
-                Horde::addScriptFile('prototype.js', 'horde', true);
-
                 $ret = '<span>' .
                     '<span onclick="[ this, this.next(), this.next(1) ].invoke(\'toggle\')" class="widget largeaddrlist">' . sprintf(_("[Show Addresses - %d recipients]"), $addr_count) . '</span>' .
                     '<span onclick="[ this, this.previous(), this.next() ].invoke(\'toggle\')" class="widget largeaddrlist" style="display:none">' . _("[Hide Addresses]") . '</span>' .

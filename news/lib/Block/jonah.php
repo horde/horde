@@ -49,7 +49,6 @@ class Horde_Block_News_jonah extends Horde_Block {
         }
         $html .= '</select></form>';
 
-        Horde::addScriptFile('prototype.js', 'horde', true);
         Horde::addScriptFile('effects.js', 'horde', true);
         Horde::addScriptFile('redbox.js', 'horde', true);
         Horde::addScriptFile('feed.js', 'news', true);

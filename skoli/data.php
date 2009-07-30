@@ -176,7 +176,6 @@ case 'export':
 
 $title = _("Export Classes");
 
-Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('effects.js', 'horde', true);
 Horde::addScriptFile('redbox.js', 'horde', true);
 require SKOLI_TEMPLATES . '/common-header.inc';

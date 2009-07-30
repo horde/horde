@@ -52,7 +52,6 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_Base
      */
     public function attach()
     {
-        Horde::addScriptFile('prototype.js', 'horde', true);
         Horde::addScriptFile('effects.js', 'horde', true);
         Horde::addScriptFile('autocomplete.js', 'horde', true);
 

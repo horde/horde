@@ -122,7 +122,6 @@ if ($conf['objects']['allow_absences']) {
 $title = _("Search");
 $notification->push('document.skoli_searchform.stext.focus();', 'javascript');
 
-Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('QuickFinder.js', 'horde', true);
 Horde::addScriptFile('effects.js', 'horde', true);
 Horde::addScriptFile('redbox.js', 'horde', true);
@@ -148,8 +147,8 @@ if ($actionID == 'search') {
 
             switch ($entry['type']) {
             case 'mark':
-                $details = $entry['subject'] . ': ' . $entry['mark'] . 
-                           ($classes[$entry['classid']]->get('marks') == 'percent' ? '%' : '') . 
+                $details = $entry['subject'] . ': ' . $entry['mark'] .
+                           ($classes[$entry['classid']]->get('marks') == 'percent' ? '%' : '') .
                            ' (' . $entry['weight'] . '), ' . $entry['title'];
                 break;
 
@@ -158,8 +157,8 @@ if ($actionID == 'search') {
                 break;
 
             case 'outcome':
-                $details = $entry['outcome'] . ': ' . 
-                           (isset($entry['completed']) && $entry['completed'] != '' ? _("Completed") : _("Open")) . 
+                $details = $entry['outcome'] . ': ' .
+                           (isset($entry['completed']) && $entry['completed'] != '' ? _("Completed") : _("Open")) .
                            (isset($entry['comment']) && $entry['comment'] != '' ? ', ' . $entry['comment'] : '');
                 break;
 

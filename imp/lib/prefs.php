@@ -250,7 +250,6 @@ if (!Horde_Auth::isAuthenticated('imp')) {
  * HEAD. */
 switch ($group) {
 case 'flags':
-    Horde::addScriptFile('prototype.js', 'horde', true);
     Horde::addScriptFile('colorpicker.js', 'horde', true);
     Horde::addScriptFile('flagmanagement.js', 'imp', true);
 

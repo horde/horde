@@ -102,7 +102,6 @@ if ($own_source == $source && $own_id == $contact->getValue('__key')) {
 }
 
 $title = $view->getTitle();
-Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('contact_tabs.js', 'turba', true);
 require TURBA_TEMPLATES . '/common-header.inc';
 if ($print_view) {

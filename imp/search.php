@@ -340,7 +340,6 @@ if (empty($search['mbox'])) {
 }
 
 $title = _("Message Search");
-Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('stripe.js', 'horde', true);
 Horde::addScriptFile('search.js', 'imp', true);
 require IMP_TEMPLATES . '/common-header.inc';

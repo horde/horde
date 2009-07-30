@@ -197,7 +197,6 @@ $t->set('rights', $rightsval);
 $t->set('width', round(100 / (count($rightsval) + 1)) . '%');
 $t->set('prefsurl', $prefs_url);
 
-Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('acl.js', 'imp', true);
 echo $t->fetch(IMP_TEMPLATES . '/acl/acl.html');
 if (!$chunk) {

@@ -304,7 +304,6 @@ Prefs_UI::generateHeader('pgp', $chunk);
 $t = new Horde_Template();
 $t->setOption('gettext', true);
 if ($prefs->getValue('use_pgp')) {
-    Horde::addScriptFile('prototype.js', 'horde', true);
     Horde::addScriptFile('imp.js', 'imp', true);
     $t->set('pgpactive', true);
     $t->set('overview-help', Horde_Help::link('imp', 'pgp-overview'));

@@ -67,7 +67,6 @@ if ($VC->hasFeature('branches')) {
 $printAllCols = count($fileList);
 $sortdirclass = $acts['sbt'] ? 'sortdown' : 'sortup';
 
-Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('tables.js', 'horde', true);
 require CHORA_TEMPLATES . '/common-header.inc';
 require CHORA_TEMPLATES . '/menu.inc';

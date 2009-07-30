@@ -405,7 +405,6 @@ class IMP
         if (($view != 'mimp') &&
             $GLOBALS['prefs']->getValue('compose_popup') &&
             $GLOBALS['browser']->hasFeature('javascript')) {
-            Horde::addScriptFile('prototype.js', 'horde', true);
             Horde::addScriptFile('imp.js', 'imp', true);
             if (isset($args['to'])) {
                 $args['to'] = addcslashes($args['to'], '\\"');
@@ -587,7 +586,6 @@ class IMP
 
         if (($_SESSION['imp']['protocol'] != 'pop') &&
             $prefs->getValue('fetchmail_menu')) {
-            Horde::addScriptFile('prototype.js', 'horde', true);
             Horde::addScriptFile('effects.js', 'horde', true);
             Horde::addScriptFile('redbox.js', 'horde', true);
             Horde::addScriptFile('dialog.js', 'imp', true);
@@ -762,7 +760,6 @@ class IMP
         }
         $t_html = str_replace("\n", ' ', $t->fetch(IMP_TEMPLATES . '/newmsg/alert.html'));
 
-        Horde::addScriptFile('prototype.js', 'horde', true);
         Horde::addScriptFile('effects.js', 'horde', true);
         Horde::addScriptFile('redbox.js', 'horde', true);
         return 'RedBox.overlay = false; RedBox.showHtml(\'' . addcslashes($t_html, "'/") . '\');';
@@ -1230,7 +1227,6 @@ class IMP
     static public function passphraseDialogJS($type, $action = null,
                                               $params = array())
     {
-        Horde::addScriptFile('prototype.js', 'horde', true);
         Horde::addScriptFile('effects.js', 'horde', true);
         Horde::addScriptFile('redbox.js', 'horde', true);
         Horde::addScriptFile('dialog.js', 'imp', true);

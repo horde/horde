@@ -199,8 +199,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             $addr_check = ($GLOBALS['prefs']->getValue('html_image_addrbook') && $this->_inAddressBook());
 
             if (!$view_img && !$addr_check) {
-                $data .= Horde_Util::bufferOutput(array('Horde', 'addScriptFile'), 'prototype.js', 'horde', true) .
-                    Horde_Util::bufferOutput(array('Horde', 'addScriptFile'), 'imp.js', 'imp', true);
+                $data .= Horde_Util::bufferOutput(array('Horde', 'addScriptFile'), 'imp.js', 'imp', true);
 
                 // Unblock javascript code in js/src/imp.js
                 $cleanhtml['status'][] = array(

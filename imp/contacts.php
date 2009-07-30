@@ -99,7 +99,6 @@ $template->set('sa', $selected_addresses);
 
 /* Display the form. */
 $title = _("Address Book");
-Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('contacts.js', 'imp', true);
 require IMP_TEMPLATES . '/common-header.inc';
 Horde::addInlineScript(array(

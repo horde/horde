@@ -181,7 +181,6 @@ if (empty($actionID)) {
 }
 
 Prefs_UI::generateHeader(null, $chunk);
-Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('fetchmailprefs.js', 'imp', true);
 
 $charset = Horde_Nls::getCharset();

@@ -35,7 +35,6 @@ function _image($name, $alt, $type)
 }
 
 require_once dirname(__FILE__) . '/lib/base.php';
-Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('folders.js', 'imp', true);
 
 /* Redirect back to the mailbox if folder use is not allowed. */

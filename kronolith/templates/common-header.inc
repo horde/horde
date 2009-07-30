@@ -1,6 +1,5 @@
 <?php
 
-Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('effects.js', 'horde', true);
 Horde::addScriptFile('views.js', 'kronolith', true);
 Horde::addScriptFile('stripe.js', 'horde', true);

@@ -1,6 +1,5 @@
 <?php if (!$prefs->isLocked('columns')):
 
-Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('effects.js', 'horde', true);
 Horde::addScriptFile('dragdrop.js', 'horde', true);
 

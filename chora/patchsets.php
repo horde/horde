@@ -42,7 +42,6 @@ if (empty($patchsets)) {
 
 $extraLink = Chora::getFileViews($where, 'patchsets');
 
-Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('tables.js', 'horde', true);
 
 // JS search not needed if showing a single patchset

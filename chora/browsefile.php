@@ -46,7 +46,6 @@ if ($VC->hasFeature('branches')) {
     }
 }
 
-Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('tables.js', 'horde', true);
 Horde::addScriptFile('QuickFinder.js', 'horde', true);
 Horde::addScriptFile('revlog.js', 'chora', true);

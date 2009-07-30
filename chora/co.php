@@ -85,7 +85,6 @@ if (!$plain) {
     $log_print = Chora::formatLogMessage($log->queryLog());
     $author = Chora::showAuthorName($log->queryAuthor(), true);
 
-    Horde::addScriptFile('prototype.js', 'horde', true);
     Horde::addScriptFile('stripe.js', 'horde', true);
     require CHORA_TEMPLATES . '/common-header.inc';
     require CHORA_TEMPLATES . '/menu.inc';

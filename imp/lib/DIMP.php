@@ -63,7 +63,6 @@ class DIMP
     {
         // Need to include script files before we start output
         $core_scripts = array(
-            array('prototype.js', 'horde', true),
             array('effects.js', 'horde', true),
             array('horde.js', 'horde', true),
             array('DimpCore.js', 'imp', true),

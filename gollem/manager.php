@@ -555,7 +555,6 @@ $js_code = array(
     'var warn_recursive = ' . intval($GLOBALS['prefs']->getValue('recursive_deletes') == 'warn'),
 );
 
-Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('manager.js', 'gollem', true);
 Horde::addScriptFile('popup.js', 'gollem', true);
 Horde::addScriptFile('tables.js', 'horde', true);

@@ -82,7 +82,6 @@ if (Horde_Auth::isAuthenticated()) {
 }
 
 Horde::addScriptFile('stripe.js', 'horde', true);
-Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('effects.js', 'horde', true);
 Horde::addScriptFile('redbox.js', 'horde', true);
 Horde::addScriptFile('search.js', 'folks', true);

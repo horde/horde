@@ -1,5 +1,4 @@
 <?php
-Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('QuickFinder.js', 'horde', true);
 
 $current_user = Horde_Auth::getAuth();

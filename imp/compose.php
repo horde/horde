@@ -1218,7 +1218,6 @@ if ($redirect) {
     $template_output = $t->fetch(IMP_TEMPLATES . '/compose/compose.html');
 }
 
-Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('compose.js', 'imp', true);
 require IMP_TEMPLATES . '/common-header.inc';
 Horde::addInlineScript($js_code);
