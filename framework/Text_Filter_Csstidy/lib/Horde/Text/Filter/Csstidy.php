@@ -45,7 +45,7 @@ class Horde_Text_Filter_Csstidy extends Horde_Text_Filter
 
         $css_tidy = new csstidy();
         $css_tidy->load_template($this->_params['level']);
-        $css_tidy->parse($out);
+        $css_tidy->parse($text);
 
         return $css_tidy->print->plain();
     }
