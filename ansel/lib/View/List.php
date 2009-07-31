@@ -1,21 +1,18 @@
 <?php
 /**
- * @package Ansel
- */
-
-/** Ansel_View_Abstract */
-require_once ANSEL_BASE . '/lib/Views/Abstract.php';
-
-/**
  * The Ansel_View_Gallery:: class wraps display of individual images.
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_View_List extends Ansel_View_Abstract {
-
+class Ansel_View_List extends Ansel_View_Base
+{
     /**
-     * @static
+     * Const'r - Not much going on here, leave this here for now as a place
+     * to document the additional parameters this View takes.
      *
      * @param array $params  Any parameters that the view might need.
      * <pre>
@@ -32,15 +29,10 @@ class Ansel_View_List extends Ansel_View_Abstract {
      *
      *  pager_url    -  The url for the pager to use see Ansel_Gallery for
      *                  more information on the url parameters.
-     *
-     * @TODO use exceptions from the constructor instead of static
-     * instance-getting.
      */
-    function makeView($params = array())
+    public function __construct($params = array())
     {
-        $view = new Ansel_View_List;
-        $view->_params = $params;
-        return $view;
+        parent::__construct($params);
     }
 
     /**
@@ -48,7 +40,7 @@ class Ansel_View_List extends Ansel_View_Abstract {
      *
      * @return string  The gallery's title.
      */
-    function getTitle()
+    public function getTitle()
     {
         return _("Gallery List");
     }
@@ -59,7 +51,7 @@ class Ansel_View_List extends Ansel_View_Abstract {
      * @return string  The HTML.
      *
      */
-    function html()
+    public function html()
     {
         global $conf, $prefs, $registry, $ansel_storage, $notification;
 
@@ -262,9 +254,19 @@ class Ansel_View_List extends Ansel_View_Abstract {
         return '';
     }
 
-    function viewType()
+    public function viewType()
     {
         return 'List';
+    }
+
+    /**
+     * noop
+     *
+     * @see ansel/lib/View/Ansel_View_Base#getGalleryCrumbData()
+     */
+    public function getGalleryCrumbData()
+    {
+        throw new Horde_Exception('Ansel_View_List::getGalleryCrumbData not implemented.');
     }
 
 }

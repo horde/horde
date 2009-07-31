@@ -11,12 +11,9 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 
 $viewname = basename(Horde_Util::getFormData('view', 'Gallery'));
-include_once ANSEL_BASE . '/lib/Views/' . $viewname . '.php';
 $view = 'Ansel_View_' . $viewname;
 if (!$view || !class_exists($view)) {
-    header('HTTP/1.0 404 Not Found');
-    echo 'Not Found';
-    exit;
+    throw new Horde_Exception(sprintf("Could not load class definition of %s", $view));
 }
 
 /*
@@ -36,11 +33,12 @@ $params['gallery_slug'] = Horde_Util::getFormData('slug');
 $params['force_grouping'] = Horde_Util::getFormData('force_grouping');
 $params['image_id'] = Horde_Util::getFormData('image');
 
-$view = call_user_func(array($view, 'makeView'), $params);
-if (is_a($view, 'PEAR_Error')) {
+try {
+    $view = new $view($params);
+} catch (Horde_Exception $e) {
     require ANSEL_TEMPLATES . '/common-header.inc';
     require ANSEL_TEMPLATES . '/menu.inc';
-    echo '<br /><em>' . htmlspecialchars($view->getMessage()) . '</em>';
+    echo '<br /><em>' . htmlspecialchars($e->getMessage()) . '</em>';
     require $registry->get('templates', 'horde') . '/common-footer.inc';
     exit;
 }

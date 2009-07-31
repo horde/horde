@@ -2,66 +2,55 @@
 /**
  * The Ansel_View_Image:: class wraps display of individual images.
  *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
  * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ *
  * @package Ansel
  */
-
-/** Ansel_View_Abstract */
-require_once ANSEL_BASE . '/lib/Views/Abstract.php';
-
-class Ansel_View_Image extends Ansel_View_Abstract {
-
+class Ansel_View_Image extends Ansel_View_Base
+{
     /**
      *  The image selected for this view.
      *
      * @var Ansel_Image
      */
-    var $image;
+    //public $image;
 
     /**
-     * @static
+     * Const'r
      *
-     * @TODO use exceptions from the constructor instead of static
-     * instance-getting.
      */
-    function makeView($params = array())
+    public function __construct($params = array())
     {
+        parent::__construct();
+
         /* Get the image */
         $image_id = $params['image_id'];
 
+        /* Get the Ansel_Image */
         $image = &$GLOBALS['ansel_storage']->getImage($image_id);
-        if (is_a($image, 'PEAR_Error')) {
-            return $image;
-        }
 
-        /* Create the Ansel_View object */
-        $view = new Ansel_View_Image;
-
-        /* Save params */
-        if (count($params)) {
-            $view->_params = $params;
-        }
-
-        $view->gallery = $view->getGallery();
-        if (is_a($view->gallery, 'PEAR_Error')) {
-            return $view->gallery;
-        }
+        /* Get the Ansel_Gallery */
+        $this->gallery = $view->getGallery();
 
         /* Save the image reference */
-        $view->resource = $image;
+        $this->resource = $image;
 
-        // Check user age
-        if (!$view->gallery->isOldEnough()) {
+        /* Check user age */
+        if (!$this->gallery->isOldEnough()) {
             if (!empty($params['api'])) {
-                return PEAR::raiseError(_("Locked galleries are not viewable via the api."));
+               throw new Horde_Exception('Locked galleries are not viewable via the api.');
             }
             $date = Ansel::getDateParameter(
-                array('year' => isset($view->_params['year']) ? $view->_params['year'] : 0,
-                      'month' => isset($view->_params['month']) ? $view->_params['month'] : 0,
-                      'day' => isset($view->_params['day']) ? $view->_params['day'] : 0));
+                array('year' => isset($this->_params['year']) ? $this->_params['year'] : 0,
+                      'month' => isset($this->_params['month']) ? $this->_params['month'] : 0,
+                      'day' => isset($this->_params['day']) ? $this->_params['day'] : 0));
 
                 $url = Ansel::getUrlFor('view', array_merge(
-                    array('gallery' => $view->gallery->id,
+                    array('gallery' => $this->gallery->id,
                           'slug' => empty($params['slug']) ? '' : $params['slug'],
                           'page' => empty($params['page']) ? 0 : $params['page'],
                           'view' => 'Image',
@@ -69,24 +58,24 @@ class Ansel_View_Image extends Ansel_View_Abstract {
                     $date),
                     true);
 
-            $params = array('gallery' => $view->gallery->id, 'url' => $url);
+            $params = array('gallery' => $this->gallery->id, 'url' => $url);
 
             header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('disclamer.php'), $params, null, false));
             exit;
         }
 
         // Check password
-        if ($view->gallery->hasPasswd()) {
+        if ($this->gallery->hasPasswd()) {
             if (!empty($params['api'])) {
                 return PEAR::raiseError(_("Locked galleries are not viewable via the api."));
             }
             $date = Ansel::getDateParameter(
-                array('year' => isset($view->_params['year']) ? $view->_params['year'] : 0,
-                      'month' => isset($view->_params['month']) ? $view->_params['month'] : 0,
-                      'day' => isset($view->_params['day']) ? $view->_params['day'] : 0));
+                array('year' => isset($this->_params['year']) ? $this->_params['year'] : 0,
+                      'month' => isset($this->_params['month']) ? $this->_params['month'] : 0,
+                      'day' => isset($this->_params['day']) ? $this->_params['day'] : 0));
 
                 $url = Ansel::getUrlFor('view', array_merge(
-                    array('gallery' => $view->gallery->id,
+                    array('gallery' => $this->gallery->id,
                           'slug' => empty($params['slug']) ? '' : $params['slug'],
                           'page' => empty($params['page']) ? 0 : $params['page'],
                           'view' => 'Image',
@@ -94,7 +83,7 @@ class Ansel_View_Image extends Ansel_View_Abstract {
                     $date),
                     true);
 
-            $params = array('gallery' => $view->gallery->id, 'url' => $url);
+            $params = array('gallery' => $this->gallery->id, 'url' => $url);
 
             header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('protect.php'), $params, null, false));
             exit;
@@ -102,15 +91,14 @@ class Ansel_View_Image extends Ansel_View_Abstract {
 
 
         /* Any script files we may need if not calling via the api */
-        if (empty($view->_params['api'])) {
+        if (empty($this->_params['api'])) {
             Horde::addScriptFile('effects.js', 'horde', true);
             Horde::addScriptFile('stripe.js', 'horde', true);
         }
 
-        return $view;
     }
 
-    function getGalleryCrumbData()
+    public function getGalleryCrumbData()
     {
         return $this->gallery->getGalleryCrumbData();
     }
@@ -120,7 +108,7 @@ class Ansel_View_Image extends Ansel_View_Abstract {
      *
      * @return string  The title.
      */
-    function getTitle()
+    public function getTitle()
     {
         return $this->resource->filename;
     }
@@ -130,7 +118,7 @@ class Ansel_View_Image extends Ansel_View_Abstract {
      *
      * @return string  The HTML.
      */
-    function html()
+    public function html()
     {
         global $browser, $conf, $prefs, $registry;
 
@@ -381,7 +369,7 @@ class Ansel_View_Image extends Ansel_View_Abstract {
      *
      * @return string  The HTML
      */
-    function _getExifHtml()
+    private function _getExifHtml()
     {
         $data = Ansel_ImageData::getAttributes($this->resource, true);
 
@@ -399,7 +387,7 @@ class Ansel_View_Image extends Ansel_View_Abstract {
         return $html;
     }
 
-    function viewType()
+    public function viewType()
     {
         return 'Image';
     }

@@ -6,7 +6,7 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_View_Base
+abstract class Ansel_View_Base
 {
     protected $_params = array();
 
@@ -22,16 +22,22 @@ class Ansel_View_Base
      *
      * @var Ansel_Gallery
      */
-    var $gallery;
+    public $gallery;
 
     /**
      * Collection of Ansel_Widgets to display in this view.
      *
      * @var array
      */
-    var $_widgets = array();
+    protected $_widgets = array();
 
-    function &getGallery($galleryId = null, $slug = '')
+
+    public function __construct($params)
+    {
+        $this->_params = $params;
+    }
+
+    public function &getGallery($galleryId = null, $slug = '')
     {
         if (is_null($galleryId) && empty($slug)) {
             $galleryId = !empty($this->_params['gallery_id']) ? $this->_params['gallery_id'] : null;
@@ -73,7 +79,7 @@ class Ansel_View_Base
      *
      * @param Ansel_Widget $widget  The Ansel_Widget to display
      */
-    function addWidget($widget)
+    public function addWidget($widget)
     {
         $result = $widget->attach($this);
         if (!empty($result)) {
@@ -86,7 +92,7 @@ class Ansel_View_Base
      * Output any widgets associated with this view.
      *
      */
-    function renderWidgets()
+    public function renderWidgets()
     {
         $this->_renderWidgets();
     }
@@ -96,7 +102,7 @@ class Ansel_View_Base
      *
      * @return integer  The number of widgets attached to this view.
      */
-    function countWidgets()
+    public function countWidgets()
     {
         return count($this->_widgets);
     }
@@ -105,7 +111,7 @@ class Ansel_View_Base
      * Default widget rendering, can be overridden by any subclass.
      *
      */
-    function _renderWidgets()
+    protected function _renderWidgets()
     {
         echo '<div class="anselWidgets">';
         foreach ($this->_widgets as $widget) {
@@ -128,8 +134,8 @@ class Ansel_View_Base
      *
      * @return string  A serialized JSON array.
      */
-    function json($images = null, $full = false, $from = 0, $count = 0,
-                  $image_view = 'screen', $view_links = false)
+    public function json($images = null, $full = false, $from = 0, $count = 0,
+                         $image_view = 'screen', $view_links = false)
     {
         global $conf, $prefs;
 
@@ -181,8 +187,12 @@ class Ansel_View_Base
      * @abstract
      * @return unknown_type
      */
-    function viewType()
-    {
-    }
+    abstract public function viewType();
+
+    abstract public function getGalleryCrumbData();
+
+    abstract public function getTitle();
+
+    abstract public function html();
 
 }
