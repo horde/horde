@@ -19,7 +19,7 @@ Horde::includeScriptFiles();
 
 ?>
 <title><?php echo $page_title ?></title>
-<?php Horde::includeStylesheetFiles('babel') ?>
+<?php Horde::includeStylesheetFiles() ?>
 </head>
 
 <body<?php if (Horde_Util::nonInputVar('bodyClass')) echo ' class="' . $bodyClass . '"' ?>>
