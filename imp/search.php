@@ -342,6 +342,7 @@ if (empty($search['mbox'])) {
 $title = _("Message Search");
 Horde::addScriptFile('stripe.js', 'horde', true);
 Horde::addScriptFile('search.js', 'imp', true);
+IMP::prepareMenu();
 require IMP_TEMPLATES . '/common-header.inc';
 IMP::menu();
 IMP::status();

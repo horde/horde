@@ -269,6 +269,7 @@ case 'folders_empty_mailbox_confirm':
         }
 
         $title = _("Folder Actions - Confirmation");
+        IMP::prepareMenu();
         require IMP_TEMPLATES . '/common-header.inc';
         IMP::menu();
 
@@ -291,6 +292,7 @@ case 'mbox_size':
         Horde::addScriptFile('tables.js', 'horde', true);
 
         $title = _("Folder Sizes");
+        IMP::prepareMenu();
         require IMP_TEMPLATES . '/common-header.inc';
         IMP::menu();
         IMP::status();
@@ -333,6 +335,7 @@ $folders_url = Horde_Util::addParameter($folders_url, 'folders_token', $folders_
 
 if ($_SESSION['imp']['file_upload'] && ($actionID == 'import_mbox')) {
     $title = _("Folder Navigator");
+    IMP::prepareMenu();
     require IMP_TEMPLATES . '/common-header.inc';
     IMP::menu();
     IMP::status();
@@ -502,6 +505,7 @@ $template->setOption('gettext', true);
 $template->set('rows', $rows);
 
 $title = _("Folder Navigator");
+IMP::prepareMenu();
 require IMP_TEMPLATES . '/common-header.inc';
 IMP::menu();
 IMP::status();

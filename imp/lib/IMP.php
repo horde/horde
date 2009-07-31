@@ -47,6 +47,9 @@ class IMP
     /* hideDeletedMsgs() cache. */
     static private $_delhide = null;
 
+    /* prepareMenu() cache. */
+    static private $_menuTemplate = null;
+
     /* Has init previously been called? */
     static private $_init = false;
 
@@ -603,10 +606,14 @@ class IMP
     }
 
     /**
-     * Outputs IMP's menu to the current output stream.
+     * Build IMP's list of menu items.
      */
-    static public function menu()
+    static public function prepareMenu()
     {
+        if (isset(self::$_menuTemplate)) {
+            return;
+        }
+
         $t = new Horde_Template();
         $t->set('forminput', Horde_Util::formInput());
         $t->set('use_folders', ($_SESSION['imp']['protocol'] != 'pop') && $GLOBALS['conf']['user']['allow_folders'], true);
@@ -623,7 +630,16 @@ class IMP
         }
         $t->set('menu_string', self::getMenu('string'));
 
-        echo $t->fetch(IMP_TEMPLATES . '/menu.html');
+        self::$_menuTemplate = $t;
+    }
+
+    /**
+     * Outputs IMP's menu to the current output stream.
+     */
+    static public function menu()
+    {
+        self::prepareMenu();
+        echo self::$_menuTemplate->fetch(IMP_TEMPLATES . '/menu.html');
     }
 
     /**

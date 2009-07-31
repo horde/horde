@@ -415,6 +415,7 @@ if (!empty($newmsgs)) {
     }
 }
 
+IMP::prepareMenu();
 require IMP_TEMPLATES . '/common-header.inc';
 IMP::menu();
 IMP::status();

@@ -717,6 +717,7 @@ $m_template->set('msgtext', $msgtext);
 Horde::addScriptFile('effects.js', 'horde', true);
 Horde::addScriptFile('imp.js', 'imp', true);
 Horde::addScriptFile('message.js', 'imp', true);
+IMP::prepareMenu();
 require IMP_TEMPLATES . '/common-header.inc';
 if (!empty($conf['maillog']['use_maillog'])) {
     IMP_Maillog::displayLog($envelope['message-id']);
