@@ -91,7 +91,7 @@ class Horde_Script_Files
         $this->_included[$app][$url] = true;
 
         // Always add prototype.js.
-        if (empty($this->_files) && ($file != 'prototype.js')) {
+        if (empty($this->_files)) {
             $this->add('prototype.js', 'horde', true);
         }
 
