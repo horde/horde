@@ -852,7 +852,6 @@ class IMP
      */
     static public function folderPref($folder, $append)
     {
-        if (!isset($GLOBALS['imp_imap'])) var_dump(debug_backtrace());
         $def_ns = $GLOBALS['imp_imap']->defaultNamespace();
         $empty_ns = $GLOBALS['imp_imap']->getNamespace('');
 
