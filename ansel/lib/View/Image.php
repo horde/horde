@@ -323,7 +323,7 @@ class Ansel_View_Image extends Ansel_View_Base
             $this->addWidget(Ansel_Widget::factory('SimilarPhotos'));
 
            // Geolocation
-           $this->addWidget(Ansel_Widget::factory('Geodata', array('images' => array($this->resource->id))));
+           $this->addWidget(Ansel_Widget::factory('Geotag', array('images' => array($this->resource->id))));
 
             // Faces
             if ($conf['faces']['driver']) {

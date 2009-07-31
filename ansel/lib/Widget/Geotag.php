@@ -1,6 +1,6 @@
 <?php
 /**
- * Ansel_Widget_Geodata:: class to wrap the display of a Google map showing
+ * Ansel_Widget_Geotag:: class to wrap the display of a Google map showing
  * images with geolocation data.
  *
  * Copyright 2009 The Horde Project (http://www.horde.org)
@@ -14,7 +14,7 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_Widget_Geodata extends Ansel_Widget_Base
+class Ansel_Widget_Geotag extends Ansel_Widget_Base
 {
     protected $_supported_views = array('Image', 'Gallery');
     protected $_params = array('default_zoom' => 15,

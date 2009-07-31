@@ -48,7 +48,7 @@
 $widgets = array('Actions' => array(),
                  'Tags' => array('view' => 'gallery'),
                  'OtherGalleries' => array(),
-                 'Geodata' => array(),
+                 'Geotag' => array(),
                  'Links' => array(),
                  'GalleryFaces' => array(),
                  'OwnerFaces' => array());
