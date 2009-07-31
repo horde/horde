@@ -2,8 +2,6 @@
 /**
  * Ansel_Search_exif Provides an interface for searching image exif data.
  *
- * $Horde: ansel/lib/Search/exif.php,v 1.2 2009/01/06 17:48:53 jan Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

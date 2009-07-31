@@ -2,8 +2,6 @@
 /**
  * ImageView to create the prettythumb view (rounded, shadowed thumbnails).
  *
- * $Horde: ansel/lib/ImageView/prettythumb.php,v 1.7 2009/05/27 18:07:28 mrubinsk Exp $
- *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */

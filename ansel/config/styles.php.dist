@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: ansel/config/styles.php.dist,v 1.8 2009/06/15 16:01:33 mrubinsk Exp $
- *
  * Configuration for the available gallery style
  *
  * Each entry *must* have:
@@ -42,6 +40,8 @@
  * falback                   -   Fall back to this gallery style if unable to
  *                               use this style (like if we don't have PNG
  *                               support)
+ *
+ * $Id$
  */
 
 // Just a time saver...

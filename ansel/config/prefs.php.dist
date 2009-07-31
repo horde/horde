@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: ansel/config/prefs.php.dist,v 1.72 2009/01/26 17:29:23 mrubinsk Exp $
- *
  * See horde/config/prefs.php for documentation on the structure of this file.
  */
 $prefGroups['display'] = array(

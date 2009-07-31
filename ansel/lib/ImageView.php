@@ -2,8 +2,6 @@
 /**
  * Class to abstract the creation of various image views.
  *
- * $Horde: ansel/lib/ImageView.php,v 1.8 2009/01/06 17:48:51 jan Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -15,10 +13,8 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
- *
  * @package Ansel
  */
-
 class Ansel_ImageView {
 
     /**

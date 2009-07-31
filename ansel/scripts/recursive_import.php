@@ -1,8 +1,6 @@
 #!/usr/bin/php -q
 <?php
 /**
-* $Horde: ansel/scripts/recursive_import.php,v 1.15 2009/07/30 19:50:16 mrubinsk Exp $
-*
 * This script interfaces with Ansel via the command-line
 *
 * See the enclosed file COPYING for license information (GPL). If you
@@ -10,10 +8,9 @@
 *
 * @author Vijay Mahrra <webmaster@stain.net>
 */
-@define('HORDE_BASE', dirname(__FILE__) . '/../..');
-@define('ANSEL_BASE', HORDE_BASE . '/ansel');
 
 // Do CLI checks and environment setup first.
+require_once dirname(__FILE__) . '/../../lib/base.load.php';
 require_once HORDE_BASE . '/lib/core.php';
 
 // Make sure no one runs this from the web.
@@ -23,14 +20,13 @@ if (!Horde_Cli::runningFromCLI()) {
 
 // Load the CLI environment.
 Horde_Cli::init();
-$cli = &Horde_Cli::singleton();
+$cli = Horde_Cli::singleton();
 
 // Load Ansel.
 $ansel_authentication = 'none';
 require_once ANSEL_BASE . '/lib/base.php';
 
 // We accept the user name on the command-line.
-require_once 'Console/Getopt.php';
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'hu:p:lc:g:a:d:k',
                               array('help', 'username=', 'password=', 'dir=', 'keep'));
 

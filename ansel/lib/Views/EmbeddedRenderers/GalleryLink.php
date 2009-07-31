@@ -6,8 +6,6 @@ require_once ANSEL_BASE . '/lib/Views/Gallery.php';
 /**
  * Ansel_View_EmbeddedRenderer_GalleryLink
  *
- * $Horde: ansel/lib/Views/EmbeddedRenderers/GalleryLink.php,v 1.10 2009/07/30 18:02:15 mrubinsk Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

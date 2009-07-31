@@ -2,8 +2,6 @@
 /**
  * ImageView to create the shadowsharpthumb view (sharp corners, shadowed)
  *
- * $Horde: ansel/lib/ImageView/shadowsharpthumb.php,v 1.6 2008/01/16 01:30:58 mrubinsk Exp $
- *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */

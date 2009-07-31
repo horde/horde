@@ -1,8 +1,6 @@
 #!/usr/bin/env php
 <?php
 /**
-* $Horde: ansel/scripts/remote_import.php,v 1.16 2009/06/10 19:57:52 slusarz Exp $
-*
 * This script allows for adding images to an Ansel install using an RPC
 * interface. This script requires Horde's CLI and RPC libraries along with
 * PEAR's Console_Getopt library.  You will need to make sure that those
@@ -14,18 +12,15 @@
 * @author Michael J. Rubinsky <mrubinsk@horde.org>
 */
 
-/* Edit this to include your horde libs if they are not in your path */
-ini_set('include_path', '/var/www/pear' . PATH_SEPARATOR . ini_get('include_path'));
-
-/* Horde autoloading */
-require_once 'Horde/Autoloader.php';
+require_once dirname(__FILE__) . '/../lib/base.load.php';
+require_once HORDE_BASE . '/lib/core.php';
 
 /* Horde_CLI */
 if (!Horde_Cli::runningFromCLI()) {
     exit("Must be run from the command line\n");
 }
 Horde_Cli::init();
-$cli = &Horde_Cli::singleton();
+$cli = Horde_Cli::singleton();
 
 /* Command line options */
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'hu:p:g:s:d:kr:zl',

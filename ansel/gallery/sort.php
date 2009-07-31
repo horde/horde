@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: ansel/gallery/sort.php,v 1.31 2009/07/13 17:18:39 mrubinsk Exp $
- *
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -10,8 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-@define('ANSEL_BASE', dirname(__FILE__) . '/..');
-require_once ANSEL_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../lib/base.php';
 
 /* If we aren't provided with a gallery, redirect to the gallery
  * list. */
@@ -58,7 +55,6 @@ case 'Sort':
     exit;
 }
 
-Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('effects.js', 'horde', true);
 Horde::addScriptFile('dragdrop.js', 'horde', true);
 $title = sprintf(_("%s :: Sort"), $gallery->get('name'));

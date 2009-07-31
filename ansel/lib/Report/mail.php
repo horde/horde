@@ -2,8 +2,6 @@
 /**
  * Report by email class
  *
- * $Horde: ansel/lib/Report/mail.php,v 1.10 2009/02/04 23:51:08 jan Exp $
- *
  * @author  Duck <duck@obala.net>
  * @package Ansel
  */

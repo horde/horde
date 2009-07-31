@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: ansel/lib/prefs.php,v 1.4 2009/06/10 00:33:03 mrubinsk Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

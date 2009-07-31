@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: ansel/group.php,v 1.23 2009/06/10 00:33:01 mrubinsk Exp $
- *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -11,8 +9,7 @@
  * @author Ben Chavet <ben@horde.org>
  */
 
-@define('ANSEL_BASE', dirname(__FILE__));
-require_once ANSEL_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 
 // check for grouping
 $groupby = basename(Horde_Util::getFormData('groupby', $prefs->getValue('groupby')));
@@ -71,7 +68,6 @@ default:
 }
 
 // Set up pager.
-require_once 'Horde/UI/Pager.php';
 $vars = Horde_Variables::getDefaultVariables();
 $group_pager = new Horde_UI_Pager('gbpage', $vars,
                                   array('num' => $num_groups,

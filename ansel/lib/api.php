@@ -2,17 +2,14 @@
 /**
  * Ansel external API interface.
  *
- * $Horde: ansel/lib/api.php,v 1.139 2009/07/28 20:16:50 jan Exp $
- *
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author Jan Schneider <jan@horde.org>
- * @author Chuck Hagenbuch <chuck@horde.org>
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- *
+ * @author  Jan Schneider <jan@horde.org>
+ * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
 

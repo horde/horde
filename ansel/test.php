@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: ansel/test.php,v 1.27 2009/07/13 20:39:08 mrubinsk Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -11,7 +9,8 @@
  */
 
 /* Include Horde's core.php file. */
-include_once '../lib/core.php';
+require_once dirname(__FILE__) . '/lib/base.load.php';
+include_once HORDE_BASE . '/lib/core.php';
 
 /* We should have loaded the String class, from the Horde_Util
  * package, in core.php. If Horde_String:: isn't defined, then we're not
@@ -22,16 +21,16 @@ if (!class_exists('Horde_String')) {
 }
 
 /* Initialize the Horde_Test:: class. */
-if (!is_readable('../lib/Test.php')) {
+if (!is_readable(HORDE_BASE . '/lib/Test.php')) {
     echo 'ERROR: You must install Horde before running this script.';
     exit;
 }
-require_once '../lib/Test.php';
+require_once HORDE_BASE . '/lib/Test.php';
 $horde_test = new Horde_Test;
 
 /* Ansel version. */
 $module = 'Ansel';
-require_once './lib/version.php';
+require_once ANSEL_BASE . '/lib/version.php';
 $module_version = ANSEL_VERSION;
 
 /* Ansel configuration files. */
@@ -46,8 +45,8 @@ require TEST_TEMPLATES . 'version.inc';
 /* Display versions of other Horde applications. */
 $app_list = array(
     'horde' => array(
-        'error' => 'Ansel requires at least Horde 3.2.2',
-        'version' => '3.2.2'
+        'error' => 'Ansel requires at least Horde 4.0',
+        'version' => '4.0'
     ),
     'agora' => array(
         'error' => 'Agora provides the ability for users to comment on images.',
@@ -75,7 +74,7 @@ $module_list = array(
     'zip' => array(
         'descrip' => 'Zip Support',
         'required' => false,
-        'error' => 'Ansel can make use of PHP\'s Zip extension for more efficiently processing uploaded ZIP files..'
+        'error' => 'Ansel can make use of PHP\'s Zip extension for more efficiently processing uploaded ZIP files.'
     ),
     'opencv' => array(
         'descrip' => 'OpenCV Library',

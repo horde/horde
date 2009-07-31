@@ -2,8 +2,6 @@
 /**
  * Report offensive content
  *
- * $Horde: ansel/report.php,v 1.7 2009/06/10 00:33:01 mrubinsk Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

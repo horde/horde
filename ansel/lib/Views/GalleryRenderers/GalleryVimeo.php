@@ -5,8 +5,6 @@
  * video service, and displays them as a gallery. The videos are viewed in a
  * redbox overlay when the thumbnails are clicked.
  *
- * $Horde: $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -33,7 +31,6 @@ class Ansel_View_GalleryRenderer_GalleryVimeo extends Ansel_View_GalleryRenderer
     {
         // Attach the script and CSS files here if we aren't being called via the api
         if (empty($this->view->_params['api'])) {
-            Horde::addScriptFile('prototype.js', 'horde', true);
             Horde::addScriptFile('effects.js', 'horde', true);
             Horde::addScriptFile('redbox.js', 'horde', true);
         }
@@ -167,7 +164,6 @@ class Ansel_View_GalleryRenderer_GalleryVimeo extends Ansel_View_GalleryRenderer
         if (!empty($this->view->_params['api'])) {
             $includes = new Horde_Script_Files();
             $includes->disableAutoloadHordeJS();
-            $includes->_add('prototype.js', 'horde', true, true);
             $includes->_add('redbox.js', 'horde', true, true);
             $includes->includeFiles();
         }

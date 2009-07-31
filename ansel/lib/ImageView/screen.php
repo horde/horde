@@ -2,8 +2,6 @@
 /**
  * ImageView to create the screen view - image sized for slideshow view.
  *
- * $Horde: ansel/lib/ImageView/screen.php,v 1.2 2007/11/13 06:24:11 mrubinsk Exp $
- *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */

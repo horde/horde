@@ -2,8 +2,6 @@
 /**
  * Report by letter api class
  *
- * $Horde: ansel/lib/Report/letter.php,v 1.5 2008/07/03 04:13:35 mrubinsk Exp $
- *
  * @author  Duck <duck@obala.net>
  * @package Ansel
  */

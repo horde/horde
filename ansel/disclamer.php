@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: ansel/disclamer.php,v 1.6 2009/06/10 00:33:01 mrubinsk Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -11,7 +9,6 @@
  */
 
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Form.php';
 
 $vars = Horde_Variables::getDefaultVariables();
 $gallery = $ansel_storage->getGallery($vars->get('gallery'));

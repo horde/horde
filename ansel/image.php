@@ -3,8 +3,6 @@
  * Responsible for making changes to image properties as well as making,
  * previewing and saving changes to the image.
  *
- * $Horde: ansel/image.php,v 1.176 2009/07/08 18:28:40 slusarz Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -14,8 +12,7 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
 
-@define('ANSEL_BASE', dirname(__FILE__));
-require_once ANSEL_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 require_once 'Horde/Form/Renderer.php';
 
 /* Get all the form data */
@@ -32,7 +29,7 @@ $date = Ansel::getDateParameter();
 /* Are we watermarking the image? */
 if ($watermark) {
     require_once 'Horde/Identity.php';
-    $identity = &Identity::singleton();
+    $identity = Identity::singleton();
     $name = $identity->getValue('fullname');
     if (empty($name)) {
         $name = Horde_Auth::getAuth();
@@ -213,7 +210,6 @@ case 'save':
         $image->caption = $vars->get('image_desc');
         $image->setTags(explode(',' , $vars->get('image_tags')));
 
-        require_once 'Horde/Date.php';
         $newDate = new Horde_Date($vars->get('image_originalDate'));
         $image->originalDate = (int)$newDate->timestamp();
 
@@ -319,7 +315,6 @@ case 'resizeedit':
         $y2 = $geometry['height'];
 
         /* js and css files */
-        Horde::addScriptFile('prototype.js');
         Horde::addScriptFile('builder.js');
         Horde::addScriptFile('effects.js', 'horde', true);
         Horde::addScriptFile('controls.js', 'horde', true);
@@ -330,7 +325,6 @@ case 'resizeedit':
         /* js and css files */
         // TODO: Combine these cases
         $geometry = $image->getDimensions('full');
-        Horde::addScriptFile('prototype.js');
         Horde::addScriptFile('builder.js');
         Horde::addScriptFile('effects.js', 'horde', true);
         Horde::addScriptFile('slider.js', 'horde', true);

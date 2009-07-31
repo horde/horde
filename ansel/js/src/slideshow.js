@@ -1,7 +1,5 @@
 /**
  * You can only have one SlideController on a page.
- *
- * $Horde: ansel/js/src/slideshow.js,v 1.30 2008/06/29 15:31:03 mrubinsk Exp $
  */
 var SlideController = {
 

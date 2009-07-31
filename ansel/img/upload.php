@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: ansel/img/upload.php,v 1.46 2009/07/27 14:52:52 mrubinsk Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -43,7 +41,6 @@ if ($form->validate($vars)) {
             filesize($info['file' . $i]['file'])) {
 
             /* Check for a compressed file. */
-            require_once 'Horde/Mime/Magic.php';
             if (in_array($info['file' . $i]['type'],
                          array('x-extension/zip',
                                'application/x-compressed',
@@ -112,7 +109,6 @@ if ($form->validate($vars)) {
                     $data = file_get_contents($info['file' . $i]['file']);
 
                     /* Get the list of files in the zipfile. */
-                    require_once 'Horde/Compress.php';
                     $zip = Horde_Compress::factory('zip');
                     $files = $zip->decompress($data, array('action' => Horde_Compress::ZIP_LIST));
 

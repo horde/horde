@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: ansel/view.php,v 1.111 2009/06/10 00:33:01 mrubinsk Exp $
- *
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -10,8 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-@define('ANSEL_BASE', dirname(__FILE__));
-require_once ANSEL_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 
 $viewname = basename(Horde_Util::getFormData('view', 'Gallery'));
 include_once ANSEL_BASE . '/lib/Views/' . $viewname . '.php';

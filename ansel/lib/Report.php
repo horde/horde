@@ -2,8 +2,6 @@
 /**
  * Reporting abstraction class
  *
- * $Horde: ansel/lib/Report.php,v 1.12 2009/07/14 00:25:28 mrubinsk Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -34,7 +32,6 @@ class Ansel_Report {
             $params = $GLOBALS['conf']['report_content'];
         }
 
-        require_once ANSEL_BASE . '/lib/Report/' . $driver  . '.php';
         $class_name = 'Ansel_Report_' . $driver;
         if (!class_exists($class_name)) {
             return PEAR::RaiseError(_("Report driver does not exist."));
@@ -61,7 +58,7 @@ class Ansel_Report {
         require_once 'Horde/Identity.php';
 
         // Get user email
-        $identity = &Identity::singleton('none', $user);
+        $identity = Identity::singleton('none', $user);
         return $identity->getValue('from_addr');
     }
 

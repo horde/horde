@@ -1,6 +1,7 @@
 <?php
 /**
- * $Horde: ansel/lib/GalleryMode/Date.php,v 1.29 2009/07/13 14:29:04 mrubinsk Exp $
+ * Ansel_GalleryMode_Date:: Class for encapsulating gallery methods that
+ * depend on the current display mode of the gallery being Date.
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -8,14 +9,6 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
- */
-
-/** Horde_Date **/
-require_once 'Horde/Date.php';
-
-/**
- * Ansel_GalleryMode_Date:: Class for encapsulating gallery methods that
- * depend on the current display mode of the gallery being Date.
  */
 class Ansel_GalleryMode_Date {
 
@@ -555,7 +548,6 @@ class Ansel_GalleryMode_Date {
 
         /* Clear the image's faces */
         if ($image->facesCount) {
-            require_once ANSEL_BASE . '/lib/Faces.php';
             Ansel_Faces::delete($image);
         }
 
@@ -715,7 +707,6 @@ class Ansel_Gallery_Date {
      */
     function _setModeHelper()
     {
-        require_once ANSEL_BASE . '/lib/GalleryMode/Date.php';
         $this->_modeHelper = new Ansel_GalleryMode_Date($this);
     }
 
@@ -788,7 +779,6 @@ class Ansel_Gallery_Date {
     function getTile($parent = null, $style = null, $mini = false,
                      $params = array())
     {
-        require_once ANSEL_BASE . '/lib/Tile/DateGallery.php';
         if (!is_null($parent) && is_null($style)) {
             $style = $parent->getStyle();
         } else {

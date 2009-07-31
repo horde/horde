@@ -41,7 +41,6 @@ class Ansel_Widget_Geodata extends Ansel_Widget_Base
     {
         global $ansel_storage;
 
-        Horde::addScriptFile('prototype.js', 'horde');
         Horde::addScriptFile('popup.js', 'horde');
 
         $geodata = $ansel_storage->getImagesGeodata($this->_params['images']);

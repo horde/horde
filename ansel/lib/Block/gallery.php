@@ -6,8 +6,6 @@ $block_name = _("Gallery");
  * This file provides a selected Ansel gallery through the Horde_Blocks, by
  * extending the Horde_Blocks class.
  *
- * $Horde: ansel/lib/Block/gallery.php,v 1.56 2009/07/30 18:02:14 mrubinsk Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

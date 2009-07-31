@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: ansel/edit_dates.php,v 1.8 2009/07/13 17:18:38 mrubinsk Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -10,8 +8,7 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
 
-@define('ANSEL_BASE', dirname(__FILE__));
-require_once ANSEL_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 
 $images = Horde_Util::getFormData('image', array());
 $actionID = Horde_Util::getFormData('actionID');
@@ -59,7 +56,6 @@ if ($actionID == 'edit_dates') {
                     continue;
                 }
             }
-            require_once 'Horde/Date.php';
             $newDate = new Horde_Date($vars->get('image_originalDate'));
             $image->originalDate = (int)$newDate->timestamp();
             $image->save();

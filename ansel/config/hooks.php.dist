@@ -5,15 +5,13 @@
  * THE HOOKS PROVIDED IN THIS FILE ARE EXAMPLES ONLY.  DO NOT ENABLE THEM
  * BLINDLY IF YOU DO NOT KNOW WHAT YOU ARE DOING.  YOU HAVE TO CUSTOMIZE THEM
  * TO MATCH YOUR SPECIFIC NEEDS AND SYSTEM ENVIRONMENT.
- *
- * $Horde: ansel/config/hooks.php.dist,v 1.8 2009/07/27 14:52:51 mrubinsk Exp $
  */
 
 class Ansel_Hooks
 {
     /**
      * Here is an example _ansel_hook_user_age(). is called to get the user age
-     * when he/she tries to view an age limited content. This function must 
+     * when he/she tries to view an age limited content. This function must
      * return an integer value of user age
      */
 //    function user_age()

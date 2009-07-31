@@ -2,17 +2,12 @@
 /**
  * The Ansel_View_Image:: class wraps display of individual images.
  *
- * $Horde: ansel/lib/Views/Image.php,v 1.86 2009/07/30 13:15:10 mrubinsk Exp $
- *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Ansel
  */
 
 /** Ansel_View_Abstract */
 require_once ANSEL_BASE . '/lib/Views/Abstract.php';
-
-/** Tags **/
-require_once ANSEL_BASE . '/lib/Tags.php';
 
 class Ansel_View_Image extends Ansel_View_Abstract {
 
@@ -108,7 +103,6 @@ class Ansel_View_Image extends Ansel_View_Abstract {
 
         /* Any script files we may need if not calling via the api */
         if (empty($view->_params['api'])) {
-            Horde::addScriptFile('prototype.js', 'horde', true);
             Horde::addScriptFile('effects.js', 'horde', true);
             Horde::addScriptFile('stripe.js', 'horde', true);
         }
@@ -341,8 +335,6 @@ class Ansel_View_Image extends Ansel_View_Abstract {
         /* These items currently don't work when viewing through the api */
         if (empty($this->_params['api'])) {
             /* Add the widgets */
-            require_once ANSEL_BASE . '/lib/Widget.php';
-
             // Tag widget
             $this->addWidget(Ansel_Widget::factory('Tags', array('view' => 'image')));
 

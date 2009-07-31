@@ -3,8 +3,6 @@
  *
  * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
- * $Horde: ansel/js/src/googlemap.js,v 1.36 2009/07/30 18:02:13 mrubinsk Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
@@ -321,7 +319,7 @@ Ansel_GMap.prototype = {
 
                 // Cache the location locally?
                 if (update) {
-                    new Ajax.Request(this.options['updateEndpoint'], 
+                    new Ajax.Request(this.options['updateEndpoint'],
                                     {
                                         method: 'post',
                                         parameters: {

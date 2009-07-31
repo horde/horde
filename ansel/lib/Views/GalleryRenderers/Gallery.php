@@ -3,8 +3,6 @@
  * Ansel_View_GalleryRenderer_Gallery:: Class wraps display of the traditional
  * Gallery View.
  *
- * $Horde: ansel/lib/Views/GalleryRenderers/Gallery.php,v 1.29 2009/07/08 18:28:45 slusarz Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

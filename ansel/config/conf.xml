@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-<!-- $Horde: ansel/config/conf.xml,v 1.60 2009/05/15 19:44:03 mrubinsk Exp $ -->
 <configuration>
 
  <configtab name="menu" desc="General Settings and Menu">

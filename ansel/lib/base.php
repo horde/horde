@@ -20,12 +20,20 @@ require_once dirname(__FILE__) . '/base.load.php';
 // Load the Horde Framework core, and set up inclusion paths.
 require_once HORDE_BASE . '/lib/core.php';
 
-// Registry
-$registry = Horde_Registry::singleton();
+// Registry.
+$s_ctrl = 0;
+switch (Horde_Util::nonInputVar('imp_session_control')) {
+case 'readonly':
+    $s_ctrl = Horde_Registry::SESSION_READONLY;
+    break;
+}
+$registry = Horde_Registry::singleton($s_ctrl);
+
+// Authentication
 try {
     $registry->pushApp('ansel', array('check_perms' => (Horde_Util::nonInputVar('ansel_authentication') != 'none'), 'logintasks' => true));
 } catch (Horde_Exception $e) {
-        Horde_Auth::authenticationFailureRedirect('ansel', $e);
+    Horde_Auth::authenticationFailureRedirect('ansel', $e);
 }
 $conf = $GLOBALS['conf'];
 define('ANSEL_TEMPLATES', $registry->get('templates'));
@@ -33,9 +41,6 @@ define('ANSEL_TEMPLATES', $registry->get('templates'));
 // Notification system.
 $GLOBALS['notification'] = Horde_Notification::singleton();
 $GLOBALS['notification']->attach('status');
-
-// Ansel base libraries.
-require_once ANSEL_BASE . '/lib/Ansel.php';
 
 // Create a cache object if we need it.
 if ($conf['ansel_cache']['usecache']) {

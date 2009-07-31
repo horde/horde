@@ -5,8 +5,6 @@
  * Works equally well with either the built in php exif functions (if PHP
  * compiled with exif support) or the (slower) bundled exif library.
  *
- * $Horde: ansel/lib/Exif.php,v 1.58 2009/07/13 14:29:04 mrubinsk Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>

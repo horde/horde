@@ -5,8 +5,6 @@ $block_name = _("Recently Added Photos");
 /**
  * Display most recently added images.
  *
- * $Horde: ansel/lib/Block/recently_added.php,v 1.43 2009/07/09 08:17:49 slusarz Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

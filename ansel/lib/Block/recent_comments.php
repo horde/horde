@@ -8,8 +8,6 @@ if ($GLOBALS['registry']->call('images/hasComments') &&
 /**
  * Display most recent image comments for galleries.
  *
- * $Horde: ansel/lib/Block/recent_comments.php,v 1.34 2009/07/09 08:17:49 slusarz Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

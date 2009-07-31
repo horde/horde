@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: ansel/img/prettythumb.php,v 1.16 2009/07/08 18:28:42 slusarz Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

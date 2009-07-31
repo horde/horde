@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: ansel/map_edit.php,v 1.30 2009/07/30 16:18:59 mrubinsk Exp $
- *
  * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -9,14 +7,13 @@
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
-@define('ANSEL_BASE', dirname(__FILE__));
-require_once ANSEL_BASE . '/lib/base.php';
+
+require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Script includes */
 Horde::addExternalScriptFile('http://maps.google.com/maps?file=api&v=2&sensor=false&key=' . $GLOBALS['conf']['api']['googlemaps'], 'ansel');
-Horde::addScriptFile('prototype.js', 'horde');
-Horde::addScriptFile('googlemap.js');
-Horde::addScriptFile('googlemap_edit.js');
+Horde::addScriptFile('googlemap.js', 'ansel');
+Horde::addScriptFile('googlemap_edit.js', 'ansel');
 
 $image_id = Horde_Util::getFormData('image');
 

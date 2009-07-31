@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: ansel/img/upload_preview.php,v 1.9 2009/07/13 17:18:39 mrubinsk Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -1,21 +1,10 @@
 <?php
 /**
  * @package Ansel
- *
- * $Horde: ansel/lib/Views/List.php,v 1.41 2009/07/08 18:28:45 slusarz Exp $
  */
 
 /** Ansel_View_Abstract */
 require_once ANSEL_BASE . '/lib/Views/Abstract.php';
-
-/** Tags **/
-require_once ANSEL_BASE . '/lib/Tags.php';
-
-/** Gallery Tiles **/
-require_once ANSEL_BASE . '/lib/Tile/Gallery.php';
-
-/** Horde_UI_Pager */
-require_once 'Horde/UI/Pager.php';
 
 /**
  * The Ansel_View_Gallery:: class wraps display of individual images.

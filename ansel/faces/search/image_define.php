@@ -2,8 +2,6 @@
 /**
  * Process an single image (to be called by ajax)
  *
- * $Horde: ansel/faces/search/image_define.php,v 1.8 2009/07/08 18:28:41 slusarz Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -48,7 +46,6 @@ if (count($faces) > 1) {
 $height = $x2 - $x1;
 $width = $y2 - $y1;
 
-Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('scriptaculous.js', 'horde', true);
 Horde::addScriptFile('builder.js', 'ansel', true);
 Horde::addScriptFile('cropper.js', 'ansel', true);

@@ -13,7 +13,6 @@ class Ansel_Ajax_Imple_ToggleOtherGalleries extends Horde_Ajax_Imple_Base
     public function attach()
     {
         // Include the js
-        Horde::addScriptFile('prototype.js', 'horde');
         Horde::addScriptFile('togglewidget.js');
 
         $url = $this->_getUrl('ToggleOtherGalleries', 'ansel', array('input' => 'pref_value', 'sessionWrite' => true));

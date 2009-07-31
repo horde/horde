@@ -2,8 +2,6 @@
 /**
  * Ansel_Widget_Actions:: class to wrap the display of gallery actions
  *
- * $Horde: ansel/lib/Widget/Actions.php,v 1.54 2009/07/27 17:07:34 mrubinsk Exp $
- *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */

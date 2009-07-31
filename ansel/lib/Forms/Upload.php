@@ -1,14 +1,5 @@
 <?php
 /**
- * $Horde: ansel/lib/Forms/Upload.php,v 1.12 2008/12/14 18:54:19 mrubinsk Exp $
- *
- * @package Ansel
- */
-
-/** Horde_Form */
-require_once 'Horde/Form.php';
-
-/**
  * Image uploader. Provides 3 different options - single images,
  * multiple images, and zip file.
  *

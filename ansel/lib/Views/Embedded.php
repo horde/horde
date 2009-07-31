@@ -7,8 +7,6 @@
  * EmbeddedRenderers/*.php files which are called from the Ajax_Imple_Embed
  * class when it handles the request.
  *
- * $Horde: ansel/lib/Views/Embedded.php,v 1.16 2009/07/30 18:02:14 mrubinsk Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

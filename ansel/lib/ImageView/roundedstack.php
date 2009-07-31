@@ -2,8 +2,6 @@
 /**
  * ImageView to create the gallery image stacks.
  *
- * $Horde: ansel/lib/ImageView/roundedstack.php,v 1.11 2009/05/27 18:07:28 mrubinsk Exp $
- *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  *

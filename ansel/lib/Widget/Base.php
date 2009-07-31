@@ -3,8 +3,6 @@
  * Ansel_Widget:: class wraps the display of widgets to be displayed in various
  * Ansel_Views.
  *
- * $Horde: ansel/lib/Widget.php,v 1.10 2009/06/19 22:32:18 mrubinsk Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

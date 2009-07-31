@@ -5,8 +5,6 @@ $block_name = _("Tag Cloud");
 /**
  * Display Tag Cloud
  *
- * $Horde: ansel/lib/Block/cloud.php,v 1.15 2009/01/06 17:48:52 jan Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -35,9 +33,7 @@ class Horde_Block_ansel_cloud extends Horde_Block {
 
     function _content()
     {
-        require_once 'Horde/UI/TagCloud.php';
         require_once dirname(__FILE__) . '/../base.php';
-        require_once ANSEL_BASE . '/lib/Tags.php';
 
         global $registry;
 

@@ -2,11 +2,8 @@
 /**
  * The Ansel_View_Slideshow:: class wraps display of the gallery slideshow.
  *
- * $Horde: ansel/lib/Views/Slideshow.php,v 1.16 2009/06/16 00:34:39 mrubinsk Exp $
- *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- *
  * @package Ansel
  */
 
@@ -97,7 +94,6 @@ class Ansel_View_Slideshow extends Ansel_View_Abstract {
         }
 
 
-        Horde::addScriptFile('prototype.js', 'horde', true);
         Horde::addScriptFile('effects.js', 'horde', true);
         Horde::addScriptFile('stripe.js', 'horde', true);
         Horde::addScriptFile('slideshow.js', 'ansel', true);

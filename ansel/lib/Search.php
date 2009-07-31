@@ -3,8 +3,6 @@
  * Ansel_Search:: Provides a generic interface for various types of image
  * searches that are to be displayed in a paged results view.
  *
- * $Horde: ansel/lib/Search.php,v 1.2 2009/01/06 17:48:51 jan Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

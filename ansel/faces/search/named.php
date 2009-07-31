@@ -2,8 +2,6 @@
 /**
  * Show all named faces.
  *
- * $Horde: ansel/faces/search/named.php,v 1.5 2009/06/10 00:33:02 mrubinsk Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

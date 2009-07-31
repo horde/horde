@@ -6,8 +6,6 @@ require_once ANSEL_BASE . '/lib/Views/Gallery.php';
 /**
  * Ansel_View_EmbeddedRenderer_Carousel
  *
- * $Horde: ansel/lib/Views/EmbeddedRenderers/Carousel.php,v 1.2 2009/01/06 17:48:54 jan Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

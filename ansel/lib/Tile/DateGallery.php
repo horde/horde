@@ -3,15 +3,9 @@
  * Ansel_Tile_DateGallery:: class wraps display of thumbnail tile for the
  * DateGallery psuedo gallery.
  *
- * $Horde: ansel/lib/Tile/DateGallery.php,v 1.15 2009/07/13 14:29:05 mrubinsk Exp $
- *
  * @author Michael Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-
-/** Horde_Date **/
-require_once 'Horde/Date.php';
-
 class Ansel_Tile_DateGallery {
 
     /**

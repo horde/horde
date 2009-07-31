@@ -5,8 +5,6 @@ $block_name = _("Recently Geotagged");
 /**
  * Display most recently geotagged images.
  *
- * $Horde: ansel/lib/Block/recently_added_geodata.php,v 1.4 2009/07/30 16:19:00 mrubinsk Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -54,7 +52,6 @@ class Horde_Block_ansel_recently_added_geodata extends Horde_Block {
     {
         require_once dirname(__FILE__) . '/../base.php';
 
-        Horde::addScriptFile('prototype.js', 'horde');
         Horde::addExternalScriptFile('http://maps.google.com/maps?file=api&v=2&sensor=false&key=' . $GLOBALS['conf']['api']['googlemaps'], 'ansel');
         Horde::addExternalScriptFile('http://gmaps-utility-library.googlecode.com/svn/trunk/markermanager/1.1/src/markermanager.js', 'ansel');
         Horde::addScriptFile('googlemap.js');

@@ -8,7 +8,6 @@ if ($browser->getPlatform() == 'win' && Horde::showService('help')) {
 }
 
 if (!empty($haveImages)) {
-    Horde::addScriptFile('prototype.js', 'horde', true);
     Horde::addScriptFile('effects.js', 'horde', true);
     Horde::addScriptFile('carousel.js', 'ansel', true);
 }

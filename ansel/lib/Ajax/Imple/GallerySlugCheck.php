@@ -13,7 +13,6 @@ class Ansel_Ajax_Imple_GallerySlugCheck extends Horde_Ajax_Imple_Base
     public function attach()
     {
         // Include the js
-        Horde::addScriptFile('prototype.js', 'horde');
         Horde::addScriptFile('slugcheck.js');
 
         $url = $this->_getUrl('GallerySlugCheck', 'ansel', array('input' => 'slug'));

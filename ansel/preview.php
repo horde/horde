@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: ansel/preview.php,v 1.20 2009/07/13 17:18:38 mrubinsk Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -10,8 +8,7 @@
  * @author Michael Rubinsky <mrubinsk@horde.org>
  */
 
-@define('ANSEL_BASE', dirname(__FILE__));
-require_once ANSEL_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 $imageId = Horde_Util::getFormData('image');
 $image = &$ansel_storage->getImage($imageId);
 if (is_a($image, 'PEAR_Error')) {

@@ -3,8 +3,6 @@
  * Ansel_Tile_Image:: class wraps display of thumbnails displayed
  * for a image on the Ansel_View_Gallery view.
  *
- * $Horde: ansel/lib/Tile/Image.php,v 1.55 2009/07/29 03:08:44 mrubinsk Exp $
- *
  * @author Michael Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */

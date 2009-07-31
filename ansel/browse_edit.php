@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: ansel/browse_edit.php,v 1.8 2009/06/10 00:33:01 mrubinsk Exp $
- *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -9,12 +7,10 @@
  */
 
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Block/Collection.php';
-require_once 'Horde/Block/Layout/Manager.php';
 
 // Instantiate the blocks objects.
-$blocks = &Horde_Block_Collection::singleton('myphotos', array('ansel'));
-$layout = &Horde_Block_Layout_Manager::singleton('myphotos', $blocks, @unserialize($prefs->getValue('myansel_layout')));
+$blocks = Horde_Block_Collection::singleton('myphotos', array('ansel'));
+$layout = Horde_Block_Layout_Manager::singleton('myphotos', $blocks, @unserialize($prefs->getValue('myansel_layout')));
 
 // Handle requested actions.
 $layout->handle(Horde_Util::getFormData('action'),

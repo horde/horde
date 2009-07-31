@@ -3,8 +3,6 @@
  * Ansel_Ajax_Imple_EditCaption:: class for performing Ajax setting of image
  * captions
  *
- * $Horde: ansel/lib/Ajax/Imple/EditCaption.php,v 1.2 2009/07/30 18:02:14 mrubinsk Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>

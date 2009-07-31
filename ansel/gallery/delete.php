@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: ansel/gallery/delete.php,v 1.23 2009/07/08 18:28:42 slusarz Exp $
- *
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -10,8 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-@define('ANSEL_BASE', dirname(__FILE__) . '/..');
-require_once ANSEL_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../lib/base.php';
 
 // Delete/empty the gallery if we're provided with a valid galleryId.
 $actionID = Horde_Util::getPost('action');

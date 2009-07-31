@@ -8,13 +8,10 @@
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
-@define('AUTH_HANDLER', true);
-@define('HORDE_BASE', dirname(__FILE__) . '/../../../');
-@define('ANSEL_BASE', HORDE_BASE . '/ansel');
 
 // Do CLI checks and environment setup first.
+require_once dirname(__FILE__) . '/../../lib/base.load.php';
 require_once HORDE_BASE . '/lib/core.php';
-require_once 'Horde/CLI.php';
 
 // Make sure no one runs this from the web.
 if (!Horde_CLI::runningFromCLI()) {
@@ -23,8 +20,9 @@ if (!Horde_CLI::runningFromCLI()) {
 
 // Load the CLI environment.
 Horde_CLI::init();
-$cli = &Horde_CLI::singleton();
+$cli = Horde_CLI::singleton();
 
+$ansel_authentication = 'none';
 require_once ANSEL_BASE . '/lib/base.php';
 
 // First update the tables

@@ -5,8 +5,6 @@ $block_name = _("My Galleries");
 /**
  * Display summary information on top level galleries.
  *
- * $Horde: ansel/lib/Block/my_galleries.php,v 1.28 2009/07/09 08:17:49 slusarz Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

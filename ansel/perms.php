@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: ansel/perms.php,v 1.27 2009/07/08 18:28:40 slusarz Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -10,16 +8,17 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-$fieldsList['show'] = 0;
-$fieldsList['read'] = 1;
-$fieldsList['edit'] = 2;
-$fieldsList['delete'] = 3;
+$fieldsList = array(
+    'show' => 0,
+    'read' => 1,
+    'edit' => 2,
+    'delete' => 3
+);
 
-define('ANSEL_BASE', dirname(__FILE__));
-require_once ANSEL_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 require_once 'Horde/Group.php';
 
-$groups = &Group::singleton();
+$groups = Group::singleton();
 $auth = Horde_Auth::singleton($conf['auth']['driver']);
 
 $form = null;

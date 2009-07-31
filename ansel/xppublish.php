@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: ansel/xppublish.php,v 1.50 2009/07/08 18:28:40 slusarz Exp $
- *
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -10,9 +8,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-@define('AUTH_HANDLER', true);
-@define('ANSEL_BASE', dirname(__FILE__));
-require_once ANSEL_BASE . '/lib/base.php';
+$ansel_authentication = 'none';
+require_once dirname(__FILE__) . '/lib/base.php';
 require_once ANSEL_BASE . '/lib/XPPublisher.php';
 
 $cmd = Horde_Util::getFormData('cmd');

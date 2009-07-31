@@ -2,8 +2,6 @@
 /**
  * Report using tickets
  *
- * $Horde: ansel/lib/Report/tickets.php,v 1.3 2008/05/07 01:45:56 chuck Exp $
- *
  * @author  Duck <duck@obala.net>
  * @package Ansel
  */

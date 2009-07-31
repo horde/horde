@@ -1,5 +1,3 @@
--- $Horde: ansel/scripts/sql/ansel.pgsql.sql,v 1.11 2009/07/06 19:55:20 mrubinsk Exp $
-
 CREATE TABLE ansel_images (
     image_id             INT NOT NULL,
     gallery_id           INT NOT NULL,

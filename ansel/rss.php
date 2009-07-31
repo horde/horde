@@ -4,15 +4,13 @@
  * and not a prettythumb since we have no way of knowing what the client
  * requesting this will be viewing the image on.
  *
- * $Horde: ansel/rss.php,v 1.55 2009/07/11 20:25:54 mrubinsk Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
 
-$session_control = 'readonly';
+$ansel_session_control = 'readonly';
 require_once dirname(__FILE__) . '/lib/base.php';
 require_once ANSEL_BASE . '/lib/version.php';
 
@@ -143,7 +141,7 @@ if (empty($rss)) {
             $images = $ansel_storage->getRecentImages($galleries);
             if (!is_a($images, 'PEAR_Error') && count($images)) {
                 require_once('Horde/Identity.php');
-                $owner = &Identity::singleton('none', $id);
+                $owner = Identity::singleton('none', $id);
                 $name = $owner->getValue('fullname');
                 $author = $owner->getValue('from_addr');
                 if (!$name) {
@@ -173,7 +171,6 @@ if (empty($rss)) {
         break;
 
     case 'tag':
-        require_once ANSEL_BASE . '/lib/Tags.php';
         $tag_id = array_values(Ansel_Tags::getTagIds(array($id)));
         $images = Ansel_Tags::searchTagsById($tag_id, 10, 0, 'images');
         $tag_id = array_pop($tag_id);

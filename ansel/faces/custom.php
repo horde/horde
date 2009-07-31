@@ -64,7 +64,6 @@ $width = $y2 - $y1;
 
 $title = _("Create a new face");
 
-Horde::addScriptFile('prototype.js', 'horde', true);
 Horde::addScriptFile('builder.js');
 Horde::addScriptFile('effects.js', 'horde', true);
 Horde::addScriptFile('controls.js', 'horde', true);

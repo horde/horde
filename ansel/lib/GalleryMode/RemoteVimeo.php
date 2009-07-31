@@ -3,8 +3,6 @@
  * Ansel_Gallery_Mode_Normal:: Class for encapsulating gallery methods that
  * depend on the current display mode of the gallery.
  *
- * $Horde: ansel/lib/GalleryMode/Normal.php,v 1.9 2009/01/06 17:48:53 jan Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

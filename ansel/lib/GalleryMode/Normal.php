@@ -3,8 +3,6 @@
  * Ansel_Gallery_Mode_Normal:: Class for encapsulating gallery methods that
  * depend on the current display mode of the gallery.
  *
- * $Horde: ansel/lib/GalleryMode/Normal.php,v 1.17 2009/07/17 17:26:40 mrubinsk Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -257,7 +255,6 @@ class Ansel_GalleryMode_Normal {
 
         /* Clear the image's faces */
         if ($image->facesCount) {
-            require_once ANSEL_BASE . '/lib/Faces.php';
             Ansel_Faces::delete($image);
         }
 

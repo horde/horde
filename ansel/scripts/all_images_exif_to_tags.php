@@ -1,8 +1,6 @@
 #!/usr/bin/env php
 <?php
 /**
-* $Horde: ansel/scripts/all_images_exif_to_tags.php,v 1.9 2009/07/08 18:28:47 slusarz Exp $
-*
 * Bare bones script to auto append an image's exif fields to it's tags.
 *
 * See the enclosed file COPYING for license information (GPL). If you
@@ -10,11 +8,9 @@
 *
 * @author Michael J. Rubinsky <mrubinsk@horde.org>
 */
-@define('AUTH_HANDLER', true);
-@define('HORDE_BASE', dirname(__FILE__) . '/../..');
-@define('ANSEL_BASE', HORDE_BASE . '/ansel');
 
 // Do CLI checks and environment setup first.
+require_once dirname(__FILE__) . '/../../lib/base.load.php';
 require_once HORDE_BASE . '/lib/core.php';
 
 // Make sure no one runs this from the web.
@@ -24,10 +20,9 @@ if (!Horde_Cli::runningFromCLI()) {
 
 // Load the CLI environment.
 Horde_Cli::init();
-$cli = &Horde_Cli::singleton();
+$cli = Horde_Cli::singleton();
 
 /* Command line options */
-require_once 'Console/Getopt.php';
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'hu:p:f:',
                               array('help', 'username=', 'password=', 'fields='));
 
@@ -67,6 +62,7 @@ foreach ($opts as $opt) {
     }
 }
 
+$ansel_authentication = 'none';
 require_once ANSEL_BASE . '/lib/base.php';
 
 // Login to horde if username & password are set.

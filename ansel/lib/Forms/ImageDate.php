@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: ansel/lib/Forms/ImageDate.php,v 1.3 2009/01/06 17:48:53 jan Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -9,10 +7,6 @@
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
-
-/** Horde_Form **/
-require_once 'Horde/Form.php';
-
 class ImageDateForm extends Horde_Form {
 
     var $_useFormToken = false;

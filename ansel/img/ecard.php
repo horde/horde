@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: ansel/img/ecard.php,v 1.20 2009/07/13 14:29:03 mrubinsk Exp $
- *
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -106,7 +104,6 @@ $form = new EcardForm($vars, $title);
 $renderer = new Horde_Form_Renderer();
 
 if ($browser->hasFeature('rte')) {
-    require_once 'Horde/Editor.php';
     $editor = Horde_Editor::factory('xinha', array('id' => 'ecard_comments'));
     $vars->set('rtemode', 1);
     $form->addHidden('', 'rtemode', 'text', false);

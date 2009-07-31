@@ -1,8 +1,6 @@
 #!/usr/bin/php
 <?php
 /**
- * $Horde: ansel/scripts/garbage_collection.php,v 1.8 2009/07/30 19:50:16 mrubinsk Exp $
- *
  * This script looks for images in the VFS that have no pointer in the
  * database. Any non-referenced images it finds get moved to a garbage
  * folder in Ansel's VFS directory.
@@ -10,10 +8,9 @@
  * Make sure to run this as a user who has full permissions on the VFS
  * directory.
  */
-@define('ANSEL_BASE', dirname(__FILE__) . '/..');
-@define('HORDE_BASE', ANSEL_BASE . '/..');
 
 // Do CLI checks and environment setup first.
+require_once dirname(__FILE__) . '/../../lib/base.load.php';
 require_once HORDE_BASE . '/lib/core.php';
 
 // Make sure no one runs this from the web.
@@ -27,8 +24,6 @@ Horde_Cli::init();
 
 $ansel_authentication = 'none';
 require_once ANSEL_BASE . '/lib/base.php';
-require_once 'VFS.php';
-require_once 'Console/Getopt.php';
 
 // Default arguments.
 $move = false;
@@ -55,7 +50,7 @@ foreach ($opts as $opt) {
     }
 }
 
-$vfs = &VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
+$vfs = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
 $vfspath = '.horde/ansel/';
 $garbagepath = $vfspath . 'garbage/';
 

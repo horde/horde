@@ -3,8 +3,6 @@
  *   Exifer
  *   Extracts EXIF information from digital photos.
  *
- *   $Horde: ansel/lib/Exif/panasonic.php,v 1.4 2008/12/30 18:30:25 mrubinsk Exp $
- *
  *   Copyright 2003 Jake Olefsky
  *   http://www.offsky.com/software/exif/index.php
  *   jake@olefsky.com

@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: ansel/protect.php,v 1.4 2009/06/10 05:24:00 slusarz Exp $
- *
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

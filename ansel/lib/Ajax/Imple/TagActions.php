@@ -13,7 +13,6 @@ class Ansel_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
     public function attach()
     {
         // Include the js
-        Horde::addScriptFile('prototype.js', 'horde');
         Horde::addScriptFile('tagactions.js');
 
         $url = $this->_getUrl('TagActions', 'ansel', array('input' => 'tags',

@@ -1,18 +1,10 @@
 <?php
 /**
  * @package Ansel
- *
- * $Horde: ansel/lib/Views/Gallery.php,v 1.130 2009/07/08 18:28:45 slusarz Exp $
  */
 
 /** Ansel_View_Abstract */
 require_once ANSEL_BASE . '/lib/Views/Abstract.php';
-
-/** Tags **/
-require_once ANSEL_BASE . '/lib/Tags.php';
-
-/** Horde_UI_Pager */
-require_once 'Horde/UI/Pager.php';
 
 /**
  * The Ansel_View_Gallery:: class wraps display of individual images.
@@ -167,7 +159,6 @@ class Ansel_View_Gallery extends Ansel_View_Abstract {
         }
         /* Load the helper */
         $classname = 'Ansel_View_GalleryRenderer_' . basename($renderer);
-        require_once dirname(__FILE__) . '/GalleryRenderers/' . basename($renderer) . '.php';
         $view->_renderer = new $classname($view);
         $view->_renderer->init();
 

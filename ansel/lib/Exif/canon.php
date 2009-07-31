@@ -3,8 +3,6 @@
  *   Exifer
  *   Extracts EXIF information from digital photos.
  *
- *   $Horde: ansel/lib/Exif/canon.php,v 1.11 2008/12/30 22:51:17 mrubinsk Exp $
- *
  *   Copyright 2003 Jake Olefsky
  *   http://www.offsky.com/software/exif/index.php
  *   jake@olefsky.com

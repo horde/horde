@@ -2,8 +2,6 @@
 /**
  * ImageView to create the gallery polaroid stacks.
  *
- * $Horde: ansel/lib/ImageView/polaroidstack.php,v 1.11 2009/05/27 18:07:28 mrubinsk Exp $
- *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */

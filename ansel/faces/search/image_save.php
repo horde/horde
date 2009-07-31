@@ -2,8 +2,6 @@
 /**
  * Process an single image
  *
- * $Horde: ansel/faces/search/image_save.php,v 1.12 2009/07/08 18:28:41 slusarz Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

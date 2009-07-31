@@ -6,15 +6,10 @@
  *
  * @author Michael J. Rubinsky (mrubinsk@horde.org)
  * @package Ansel
- *
- * $Horde: ansel/lib/Views/Results.php,v 1.40 2009/07/08 18:28:45 slusarz Exp $
  */
 
 /** Ansel_View_Abstract */
 require_once ANSEL_BASE . '/lib/Views/Abstract.php';
-
-/** Horde_UI_Pager */
-require_once 'Horde/UI/Pager.php';
 
 /**
  * The Ansel_View_Results:: class wraps display of images/galleries from
@@ -46,8 +41,6 @@ class Ansel_View_Results extends Ansel_View_Abstract {
      */
     function Ansel_View_Results()
     {
-        require_once ANSEL_BASE . '/lib/Tags.php';
-
         $this->_owner = Horde_Util::getFormData('owner', null);
         $this->_search = Ansel_Tags::getSearch(null, $this->_owner);
     }

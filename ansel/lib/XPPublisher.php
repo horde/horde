@@ -1,17 +1,10 @@
 <?php
 /**
  * XPPublisher Wizard
- *
- * $Horde: ansel/lib/XPPublisher.php,v 1.3 2009/01/14 19:22:06 mrubinsk Exp $
- *
- * @package Ansel
- */
-
-/**
  * Builds a "Publish this file/folder to the web" handler for Windows XP+.
  *
  * @package Ansel
- * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author  Chuck Hagenbuch <chuck@horde.org>
  */
 class Horde_XPPublisher {
 
@@ -39,7 +32,6 @@ class Horde_XPPublisher {
      */
     function sendRegFile($appKey, $displayName, $description, $href, $icon)
     {
-        require_once 'Horde/Browser.php';
         $browser = Horde_Browser::singleton();
         $browser->downloadHeaders('install_registry.reg', 'application/octet-stream');
 

@@ -6,8 +6,6 @@ $block_name = _("Random photo");
  * This file provides a random photo through the Horde_Blocks, by extending
  * the Horde_Blocks class.
  *
- * $Horde: ansel/lib/Block/random_photo.php,v 1.39 2009/07/22 21:08:09 mrubinsk Exp $
- *
  * Copyright 2003-2007 Duck <duck@obla.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you

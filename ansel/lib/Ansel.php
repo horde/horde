@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: ansel/lib/Ansel.php,v 1.628 2009/07/30 18:02:14 mrubinsk Exp $
- *
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -41,10 +39,9 @@ class Ansel {
      */
     function &getDb()
     {
-        require_once 'MDB2.php';
         $config = $GLOBALS['conf']['sql'];
         unset($config['charset']);
-        $mdb = &MDB2::singleton($config);
+        $mdb = MDB2::singleton($config);
         if (is_a($mdb, 'PEAR_Error')) {
             return $mdb;
         }
@@ -77,8 +74,7 @@ class Ansel {
                          __FILE__, __LINE__);
         }
         if ($v_params['type'] != 'none') {
-            require_once 'VFS.php';
-            $vfs = &VFS::singleton($v_params['type'], $v_params['params']);
+            $vfs = VFS::singleton($v_params['type'], $v_params['params']);
         }
         if (empty($vfs) || is_a($vfs, 'PEAR_ERROR')) {
             Horde::fatal(_("You must configure a VFS backend to use Ansel."),
@@ -113,7 +109,6 @@ class Ansel {
                              $ignore = null)
     {
         global $ansel_storage;
-        require_once 'Horde/Tree.php';
         $galleries = $ansel_storage->listGalleries($perm, $attributes, $parent,
                                                    $allLevels, $from, $count);
         $tree = Horde_Tree::factory('gallery_tree', 'select');
@@ -254,7 +249,6 @@ class Ansel {
                             !is_a($i, 'PEAR_Error') &&
                             $g->get('view_mode') == 'Date') {
 
-                            require_once 'Horde/Date.php';
                             $imgDate = new Horde_Date($i->originalDate);
                             $data['year'] = $imgDate->year;
                             $data['month'] = $imgDate->month;
@@ -521,7 +515,6 @@ class Ansel {
     function getImageObject($params = array())
     {
         global $conf;
-        require_once 'Horde/Image.php';
         $context = array('tmpdir' => Horde::getTempDir());
         if (!empty($conf['image']['convert'])) {
             $context['convert'] = $conf['image']['convert'];
@@ -551,7 +544,6 @@ class Ansel {
         global $conf;
 
         // Get the mime type of the file (and make sure it's an image).
-        require_once 'Horde/Mime/Magic.php';
         $mime_type = Horde_Mime_Magic::analyzeFile($file, isset($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null);
         if (strpos($mime_type, 'image') === false) {
             return PEAR::raiseError(sprintf(_("Can't get unknown file type \"%s\"."), $file));
@@ -715,13 +707,13 @@ class Ansel {
             if ($owner == Horde_Auth::getAuth()) {
                 $owner_title = _("My Galleries");
             } elseif (!empty($GLOBALS['conf']['gallery']['customlabel'])) {
-                $uprefs = &Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
-                                            'ansel',
-                                            $owner, '', null, false);
+                $uprefs = Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
+                                           'ansel',
+                                           $owner, '', null, false);
                 $fullname = $uprefs->getValue('grouptitle');
                 if (!$fullname) {
                     require_once 'Horde/Identity.php';
-                    $identity = &Identity::singleton('none', $owner);
+                    $identity = Identity::singleton('none', $owner);
                     $fullname = $identity->getValue('fullname');
                     if (!$fullname) {
                         $fullname = $owner;
@@ -1494,7 +1486,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical {
     function getOwner()
     {
         require_once 'Horde/Identity.php';
-        $identity = &Identity::singleton('none', $this->data['share_owner']);
+        $identity = Identity::singleton('none', $this->data['share_owner']);
         return $identity;
     }
 
@@ -1743,7 +1735,6 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical {
      * Returns this gallery's tags.
      */
     function getTags() {
-        require_once ANSEL_BASE . '/lib/Tags.php';
         if ($this->hasPermission(Horde_Auth::getAuth(), PERMS_READ)) {
             return Ansel_Tags::readTags($this->id, 'gallery');
         } else {
@@ -1758,7 +1749,6 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical {
      */
     function setTags($tags)
     {
-        require_once ANSEL_BASE . '/lib/Tags.php';
         if ($this->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
             return Ansel_Tags::writeTags($this->id, $tags, 'gallery');
         } else {
@@ -2156,7 +2146,6 @@ class Ansel_Image {
 
         if ($view == 'full' && $this->type) {
             $type = strpos($this->type, '/') === false ? 'image/' . $this->type : $this->type;
-            require_once 'Horde/Mime/Magic.php';
             if ($ext = Horde_Mime_Magic::mimeToExt($type)) {
                 $vfsname .= '.' . $ext;
             }
@@ -2535,8 +2524,6 @@ class Ansel_Image {
      */
     function _exifToTags($fields = array())
     {
-        require_once 'Horde/Date.php';
-
         $tags = array();
         foreach ($fields as $field) {
             if (!empty($this->_exif[$field])) {
@@ -2734,7 +2721,6 @@ class Ansel_Image {
 
         $filename = $this->filename;
         if ($view != 'full') {
-            require_once 'Horde/Mime/Magic.php';
             if ($ext = Horde_Mime_Magic::mimeToExt('image/' . $conf['image']['type'])) {
                 $filename .= '.' . $ext;
             }
@@ -2864,7 +2850,7 @@ class Ansel_Image {
 
         if (empty($watermark)) {
             require_once 'Horde/Identity.php';
-            $identity = &Identity::singleton();
+            $identity = Identity::singleton();
             $name = $identity->getValue('fullname');
             if (empty($name)) {
                 $name = Horde_Auth::getAuth();
@@ -2923,7 +2909,6 @@ class Ansel_Image {
         if (count($this->_tags)) {
             return $this->_tags;
         }
-        require_once ANSEL_BASE . '/lib/Tags.php';
         $gallery = $ansel_storage->getGallery($this->gallery);
         if (is_a($gallery, 'PEAR_Error')) {
             return $gallery;
@@ -2950,8 +2935,6 @@ class Ansel_Image {
     {
         global $ansel_storage;
 
-        require_once ANSEL_BASE . '/lib/Tags.php';
-
         $gallery = $ansel_storage->getGallery(abs($this->gallery));
         if ($gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
             // Clear the local cache.
@@ -2975,8 +2958,6 @@ class Ansel_Image {
     function getTile($parent = null, $style = null, $mini = false,
                      $params = array())
     {
-        require_once ANSEL_BASE . '/lib/Tile/Image.php';
-
         if (!is_null($parent) && is_null($style)) {
             $style = $parent->getStyle();
         } else {
@@ -3219,7 +3200,7 @@ class Ansel_Storage {
 
             if ($perms) {
                 require_once 'Horde/Group.php';
-                $groups = &Group::singleton();
+                $groups = Group::singleton();
                 $group_list = $groups->getGroupMemberships(Horde_Auth::getAuth());
                 if (!is_a($group_list, 'PEAR_Error') && count($group_list)) {
                     foreach ($group_list as $group_id => $group_name) {
@@ -3660,8 +3641,6 @@ class Ansel_Storage {
     */
     function listCategories($perm = PERMS_SHOW, $from = 0, $count = 0)
     {
-        require_once 'Horde/Array.php';
-
         $sql = 'SELECT DISTINCT attribute_category FROM '
                . $this->shares->_table;
         $results = $this->shares->_db->query($sql);
@@ -3840,7 +3819,6 @@ class Ansel_Storage {
         }
 
         if (count($json)) {
-            require_once 'Horde/Serialize.php';
             return Horde_Serialize::serialize($json, Horde_Serialize::JSON, Horde_Nls::getCharset());
         } else {
             return '';

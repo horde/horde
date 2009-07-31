@@ -2,8 +2,6 @@
 /**
  * Ansel_View_GalleryRenderer::  Base class for all gallery renderers.
  *
- * $Horde: ansel/lib/Views/GalleryRenderer.php,v 1.14 2009/07/13 14:29:05 mrubinsk Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -147,8 +145,6 @@ class Ansel_View_GalleryRenderer {
 
         /* Include any widgets */
         if (!empty($this->style['widgets'])) {
-            require_once ANSEL_BASE . '/lib/Widget.php';
-
             /* Special case widgets - these are built in */
             if (array_key_exists('Actions', $this->style['widgets'])) {
                 /* Don't show action widget if no actions */

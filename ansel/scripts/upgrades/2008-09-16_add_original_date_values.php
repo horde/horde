@@ -1,8 +1,6 @@
 #!/usr/bin/env php
 <?php
 /**
-* $Horde: ansel/scripts/upgrades/2008-09-16_add_original_date_values.php,v 1.3 2009/07/30 19:50:16 mrubinsk Exp $
-*
 * Bare bones script to populate the ansel_images.image_original_date field with
 * either the exif DateTimeOriginal field, or the
 * ansel_images.image_uploaded_date value if the exif field is not present.
@@ -12,10 +10,9 @@
 *
 * @author Michael J. Rubinsky <mrubinsk@horde.org>
 */
-@define('HORDE_BASE', dirname(__FILE__) . '/../../../');
-@define('ANSEL_BASE', HORDE_BASE . '/ansel');
 
 // Do CLI checks and environment setup first.
+require_once dirname(__FILE__) . '/../../lib/base.load.php';
 require_once HORDE_BASE . '/lib/core.php';
 
 // Make sure no one runs this from the web.
@@ -25,7 +22,7 @@ if (!Horde_Cli::runningFromCLI()) {
 
 // Load the CLI environment.
 Horde_Cli::init();
-$cli = &Horde_Cli::singleton();
+$cli  Horde_Cli::singleton();
 
 $ansel_authentication = 'none';
 require_once ANSEL_BASE . '/lib/base.php';

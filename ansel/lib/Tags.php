@@ -2,8 +2,6 @@
 /**
  * Classes for dealing with tags within Ansel
  *
- * $Horde: ansel/lib/Tags.php,v 1.96 2009/07/09 08:17:49 slusarz Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
