@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 
 $viewname = basename(Horde_Util::getFormData('view', 'Gallery'));
 $view = 'Ansel_View_' . $viewname;
-if (!$view || !class_exists($view)) {
+if (!class_exists($view)) {
     throw new Horde_Exception(sprintf("Could not load class definition of %s", $view));
 }
 

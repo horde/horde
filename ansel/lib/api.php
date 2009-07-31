@@ -1321,24 +1321,19 @@ function _ansel_renderView($params = array(), $app = null,
     $params['view'] = $view;
     $trail = array();
     $return = array();
-
-    if (is_callable(array($classname, 'makeView'))) {
-        $view = call_user_func_array(array($classname, 'makeView'), array($params));
-        if (is_a($view, 'PEAR_Error')) {
-            $return['html'] = $view->getMessage();
-            $return['crumbs'] = array();
-            return $return;
-        }
-
-        $return['html'] = $view->html();
-        if ($params['view'] == 'Gallery' || $params['view'] == 'Image') {
-            $trail = $view->getGalleryCrumbData();
-        }
-        $return['crumbs'] = $trail;
-
+    try {
+        $view = new $classname($params);
+    } catch (Horde_Exception $e) {
+        $return['html'] = $e->getMessage();
+        $return['crumbs'] = array();
         return $return;
-    } else {
-        return PEAR::raiseError(sprintf(
-            _("Unable to load the definition of %s."), $view));
     }
+    $return['html'] = $view->html();
+    if ($params['view'] == 'Gallery' || $params['view'] == 'Image') {
+        $trail = $view->getGalleryCrumbData();
+    }
+    $return['crumbs'] = $trail;
+
+    return $return;
+
 }

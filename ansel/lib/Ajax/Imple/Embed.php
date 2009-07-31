@@ -34,15 +34,11 @@ class Ansel_Ajax_Imple_Embed extends Horde_Ajax_Imple_Base
 
         /* First, determine the type of view we are asking for */
         $view = empty($args['gallery_view']) ? 'Mini' : $args['gallery_view'];
-
-        require_once ANSEL_BASE . '/lib/Views/EmbeddedRenderers/' . basename($view) . '.php';
         $class = 'Ansel_View_EmbeddedRenderer_' . basename($view);
         if (!class_exists($class)) {
-            return '';
+            throw new Horde_Exception(sprintf("Class definition for %s not found.", $class));
         }
-
-        $view = call_user_func(array($class, 'makeView'), $args);
-
+        $view = new $class($args);
         header('Content-Type: script/javascript');
         return $view->html();
     }
