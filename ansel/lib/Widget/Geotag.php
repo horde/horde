@@ -103,7 +103,7 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
             } elseif ($permsEdit) {
                 // Image view, but no geotags, provide ability to add it.
                 $addurl = Horde_Util::addParameter(Horde::applicationUrl('map_edit.php'), 'image', $this->_params['images'][0]);
-                $addLink = Horde::link($addurl, '', '', '', Horde::popupJs(Horde::applicationUrl('map_edit.php'), array('params' => array('image' => $this->_params['images'][0]), 'urlencode' => true)) . 'return false;');
+                $addLink = Horde::link($addurl, '', '', '', Horde::popupJs(Horde::applicationUrl('map_edit.php'), array('params' => array('image' => $this->_params['images'][0]), 'urlencode' => true, 'width' => '750', 'height' => '600')) . 'return false;');
                 $imgs = $ansel_storage->getRecentImagesGeodata(Horde_Auth::getAuth());
                     if (count($imgs) > 0) {
                         $imgsrc = '<div class="ansel_location_sameas">';
