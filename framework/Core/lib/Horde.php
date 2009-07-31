@@ -64,13 +64,6 @@ class Horde
     static protected $_inlineScript = array();
 
     /**
-     * Has popupJs been called?
-     *
-     * @var boolean
-     */
-    static protected $_popupjscalled = false;
-
-    /**
      * Logs a message to the global Horde log backend.
      *
      * @param mixed $message     Either a string or an object with a
@@ -2176,11 +2169,7 @@ HTML;
      */
     static public function popupJs($url, $options = array())
     {
-        if (!self::$_popupjscalled) {
-            Horde::addScriptFile('popup.js', 'horde', true);
-            Horde::addInlineScript('Horde.popup_block_text=' . Horde_Serialize::serialize(_("A popup window could not be opened. Your browser may be blocking popups."), Horde_Serialize::JSON), 'dom');
-            self::$_popupjscalled = true;
-        }
+        Horde::addScriptFile('popup.js', 'horde', true);
 
         $params = new stdClass;
         $pos = strpos($url, '?');

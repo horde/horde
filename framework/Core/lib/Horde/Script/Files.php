@@ -125,6 +125,11 @@ class Horde_Script_Files
             $this->add('prototype.js', 'horde', true);
         }
 
+        // Add localized string for popup.js
+        if (($file == 'popup.js') && ($app = 'horde')) {
+            Horde::addInlineScript('Horde.popup_block_text=' . Horde_Serialize::serialize(_("A popup window could not be opened. Your browser may be blocking popups."), Horde_Serialize::JSON), 'dom');
+        }
+
         // Explicitly check for a directly serve-able version of the script.
         $path = $registry->get('fileroot', $app);
         if (!$direct &&
