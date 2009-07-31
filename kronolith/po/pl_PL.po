@@ -267,13 +267,6 @@ msgstr "Kwiecieñ"
 msgid "At"
 msgstr "o"
 
-#: lib/Kronolith.php:1138
-msgid ""
-"Attached is an iCalendar file with more information about the event. If your "
-"mail client supports iTip requests you can use this file to easily update "
-"your local copy of the event."
-msgstr ""
-
 #: perms.php:45
 msgid "Attempt to edit a non-existent share."
 msgstr "Próba edycji nieistniej±cego udzia³u.."
@@ -439,10 +432,6 @@ msgstr "Potwierd¼ usuniêcie zdarzenia"
 #: lib/Kronolith.php:651
 msgid "Confirmed"
 msgstr "Potwierdzone"
-
-#: templates/calendars/calendars.inc:220
-msgid "Copy the URL below for use wherever you need your Free/Busy URL:"
-msgstr ""
 
 #: lib/Kronolith.php:168
 #, php-format
@@ -786,10 +775,6 @@ msgstr "Godzina(y)"
 msgid "How long should the time slots on the day and week views be?"
 msgstr "Jak du¿e przedzia³y czasowe pokazywaæ w widokach dnia i tygodnia?"
 
-#: config/prefs.php.dist:302
-msgid "How many days of free/busy information should we generate?"
-msgstr ""
-
 #: lib/Kronolith.php:1142
 #, php-format
 msgid ""
@@ -1069,12 +1054,6 @@ msgstr "Brak alarmu"
 msgid "No attendees"
 msgstr "¯adni uczestnicy"
 
-#: lib/api.php:762
-msgid ""
-"No attendees have been updated because none of the provided email addresses "
-"have been found in the event's attendees list."
-msgstr ""
-
 #: lib/Kronolith.php:1425
 msgid "No calendars are available to guests."
 msgstr "Nie ma dostêpnych kalendarzy dla go¶ci."
@@ -1153,10 +1132,6 @@ msgstr "Pa¼dziernik"
 msgid "On"
 msgstr "Na"
 
-#: config/prefs.php.dist:279 config/prefs.php.dist:292
-msgid "On all calendars I have read access to"
-msgstr ""
-
 #: config/prefs.php.dist:278 config/prefs.php.dist:291
 msgid "On all shown calendars"
 msgstr "We wszystkich widocznych kalendarzach"
@@ -1201,10 +1176,6 @@ msgstr "W³a¶ciciel:"
 #, php-format
 msgid "Owner: %s"
 msgstr "W³a¶ciciel: %s"
-
-#: templates/data/export.inc:114 templates/data/export.inc:194
-msgid "PM"
-msgstr ""
 
 #: lib/Block/prevmonthlist.php:3 lib/Block/prevmonthlist.php:42
 msgid "Past Events List"
@@ -1531,11 +1502,6 @@ msgstr "Ustaw datê koñca powtarzania"
 #: templates/edit/edit_timespan.inc:30
 msgid "Set start date"
 msgstr "Ustaw datê startu"
-
-#: config/prefs.php.dist:59
-msgid ""
-"Set your free/busy calendars and your own and other users' free/busy options."
-msgstr ""
 
 #: calendars.php:77
 #, php-format
@@ -1867,11 +1833,6 @@ msgstr "Niemo¿liwa zmiana nazwy \"%s\": %s"
 msgid "Unable to retrieve free/busy information for %s"
 msgstr "Niemo¿liwe uzyskanie wolny/zajêty informacji dla %s"
 
-#: templates/view/view.inc:15
-#: scripts/upgrades/2004-05-19_convert_categories_to_strings.php:53
-msgid "Unfiled"
-msgstr ""
-
 #: lib/api.php:388 lib/api.php:446 lib/api.php:507 lib/api.php:633
 #, php-format
 msgid "Unsupported Content-Type: %s"
@@ -1933,16 +1894,6 @@ msgstr "Tygodniowo"
 #: templates/view/view.inc:122 templates/edit/edit.inc:214
 msgid "Weekly: Recurs every"
 msgstr "Tygodniowo: powtarza siê co"
-
-#: config/prefs.php.dist:125
-msgid ""
-"What time should day and week views end, when there are no later events?"
-msgstr ""
-
-#: config/prefs.php.dist:116
-msgid ""
-"What time should day and week views start, when there are no earlier events?"
-msgstr ""
 
 #: attendees.php:113 lib/Kronolith.php:1407 lib/Block/tree_menu.php:22
 #: config/prefs.php.dist:85
@@ -2121,10 +2072,6 @@ msgstr "_Dzisiaj"
 #: templates/edit/edit.inc:142
 msgid "before the event starts"
 msgstr "przed zdarzeniem"
-
-#: templates/prefs/default_alarm_management.inc:31
-msgid "before the event starts. A value of \"0\" means no default alarms."
-msgstr ""
 
 #: config/prefs.php.dist:186
 msgid "day"

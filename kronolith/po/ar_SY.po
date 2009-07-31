@@ -261,8 +261,7 @@ msgid ""
 "Delete the current event only, this occurrence and all future occurences, or "
 "all occurences?"
 msgstr ""
-"ÍĞİ ÇáÍÏË ÇáÍÇáí  İŞØ ¡ åĞå ÇáãÑÉ æÇáãÑÇÊ ÇáŞÇÏãÉ Ãæ"
-"Ãæ ÌãíÚ ÇáãÑÇÊ ÇáÊÇáíÉ¿"
+"ÍĞİ ÇáÍÏË ÇáÍÇáí  İŞØ ¡ åĞå ÇáãÑÉ æÇáãÑÇÊ ÇáŞÇÏãÉ ÃæÃæ ÌãíÚ ÇáãÑÇÊ ÇáÊÇáíÉ¿"
 
 #: data.php:212
 msgid "Description"
@@ -356,8 +355,7 @@ msgstr "ÓÇÚÉ (ÓÇÚ"
 
 #: templates/data/import.inc:25
 msgid "If importing CSV data: does the first row contain the field names?"
-msgstr "İí ÍÇá ÇÓÊíÑÇÏ ãáİ CVS ¡ åá íÍÊæí ÇáÕİ ÇáÃæá Úáì "
-"ÊÓãíÇÊ ÇáÍŞæá¿"
+msgstr "İí ÍÇá ÇÓÊíÑÇÏ ãáİ CVS ¡ åá íÍÊæí ÇáÕİ ÇáÃæá Úáì ÊÓãíÇÊ ÇáÍŞæá¿"
 
 #: data.php:182
 msgid "Illegal or malformed form data."
@@ -495,8 +493,8 @@ msgid ""
 "Notice: Importing is not possible with this configuration due to a bug in "
 "the underlying calendar driver."
 msgstr ""
-"ãáÇÍÙÉ: ÇáÊÕÏíÑ ÛíÑ ããßä ÈÇáÅÚÏÇÏÇÊ ÇáÍÇáíÉ æĞáß ÈÓÈÈ ÎØÃ"
-"İí ÈÑäÇãÌ ŞíÇÏÉ ÇáÃÌäÏÉ"
+"ãáÇÍÙÉ: ÇáÊÕÏíÑ ÛíÑ ããßä ÈÇáÅÚÏÇÏÇÊ ÇáÍÇáíÉ æĞáß ÈÓÈÈ ÎØÃİí ÈÑäÇãÌ ŞíÇÏÉ "
+"ÇáÃÌäÏÉ"
 
 #: templates/javascript/goto.inc:81
 msgid "November"
@@ -592,13 +590,11 @@ msgstr "ŞæÇÚÏ ÇáÈíÇäÇÊ ÇáÖÑæÑíÉ ááÃÌäÏÉ ÛíÑ ãæÌæÏÉ İí ÇáÅÚÏÇÏÇÊ"
 
 #: lib/Driver/sql.php:399
 msgid "Required 'hostspec' not specified in calendar configuration."
-msgstr ""
-"ÇáãíÒÉ 'hotspec' ÛíÑ ãÚÑİÉ İí ÅÚÏÇÏÇÊ ÇáÃÌäÏÉ"
+msgstr "ÇáãíÒÉ 'hotspec' ÛíÑ ãÚÑİÉ İí ÅÚÏÇÏÇÊ ÇáÃÌäÏÉ"
 
 #: lib/Driver/sql.php:405
 msgid "Required 'password' not specified in calendar configuration."
-msgstr ""
-"ÇáÎÇÕÉ 'password' ÛíÑ ãÚÑİÉ İí ÅÚÏÇÏÇÊ ÇáÃÌäÏÉ"
+msgstr "ÇáÎÇÕÉ 'password' ÛíÑ ãÚÑİÉ İí ÅÚÏÇÏÇÊ ÇáÃÌäÏÉ"
 
 #: lib/Driver/sql.php:396
 msgid "Required 'phptype' not specified in calendar configuration."
@@ -632,8 +628,7 @@ msgstr "ÍİÙ ÇáÍÏË"
 msgid ""
 "Select confirmation options, how to display the different views and choose "
 "default view."
-msgstr ""
-"ÇÎÊÑ ÅÚÏÇÏÇÊ ÇáÊÃßíÏ ¡ ßíİ íÊã ÇáÅÙåÇÑ æÇÎÊÑ ÇáÅÙåÇÑ ÇáÇİÊÑÇÖí"
+msgstr "ÇÎÊÑ ÅÚÏÇÏÇÊ ÇáÊÃßíÏ ¡ ßíİ íÊã ÇáÅÙåÇÑ æÇÎÊÑ ÇáÅÙåÇÑ ÇáÇİÊÑÇÖí"
 
 #: config/prefs.php.dist:75
 msgid "Select how to display Dates:"
@@ -762,8 +757,7 @@ msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size."
 msgstr ""
-"ÍÕá ÎØÃ ÎáÇá ÊÍãíá Çáãáİ. ŞÏ íßæä Çáãáİ ÃßÈÑ"
-"ãä ÇáÍÌã ÇáÃÚÙãí ÇáãÓãæÍ Èå"
+"ÍÕá ÎØÃ ÎáÇá ÊÍãíá Çáãáİ. ŞÏ íßæä Çáãáİ ÃßÈÑãä ÇáÍÌã ÇáÃÚÙãí ÇáãÓãæÍ Èå"
 
 #: data.php:157
 msgid "There was an error importing the data."
@@ -786,24 +780,23 @@ msgid ""
 "This file controls the default preferences for Kronolith, and also controls "
 "which preferences users can alter."
 msgstr ""
-"íÍÊæí åĞÇ Çáãáİ Úáì ÇáÅÚÏÇÏÊ ÇáÇİÊÑÇÖíÉ ááãÓÊÎÏã"
-"æÅÚÏÇÏÇÊ ÇáãÓÊÎÏã ÇáÊí íÎÊÇÑåÇ ÈäİÓå İíãÇ ÈÚÏ"
+"íÍÊæí åĞÇ Çáãáİ Úáì ÇáÅÚÏÇÏÊ ÇáÇİÊÑÇÖíÉ ááãÓÊÎÏãæÅÚÏÇÏÇÊ ÇáãÓÊÎÏã ÇáÊí "
+"íÎÊÇÑåÇ ÈäİÓå İíãÇ ÈÚÏ"
 
 #: templates/index/notconfigured.inc:25
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"íÍÊæí åĞÇ Çáãáİ Úáì ÅÚÏÇÏÇÊ ÇáÃáæÇä æÇáÎØæØ "
-"ÅÖÇİÉ áÅÚÏÇÏÇÊ åæÑÏí Ãæ ÈÏáåÇ"
+"íÍÊæí åĞÇ Çáãáİ Úáì ÅÚÏÇÏÇÊ ÇáÃáæÇä æÇáÎØæØ ÅÖÇİÉ áÅÚÏÇÏÇÊ åæÑÏí Ãæ ÈÏáåÇ"
 
 #: templates/index/notconfigured.inc:18
 msgid ""
 "This is the main Kronolith configuration file. It contains paths and options "
 "for all Kronolith scripts."
 msgstr ""
-"åĞÇ ãáİ ÇáÅÚÏÇÏÇÊ ÇáÑÆíÓí ááßÑæäæáíË. æåæ íÍÊæí Úáì ÇáãÓÇÑÇÊ æÇáÎíÇÑÇÊ "
-"áÌãíÚ ÇáÈÑíãÌÇÊ"
+"åĞÇ ãáİ ÇáÅÚÏÇÏÇÊ ÇáÑÆíÓí ááßÑæäæáíË. æåæ íÍÊæí Úáì ÇáãÓÇÑÇÊ æÇáÎíÇÑÇÊ áÌãíÚ "
+"ÇáÈÑíãÌÇÊ"
 
 #: util/colorpicker.php:35
 msgid "This window must be called from an Options window"
@@ -902,15 +895,13 @@ msgstr "ÃÓÈæÚíÇğ: ÊßÑÇÑ ßá"
 msgid ""
 "What time should day and week views end, when there are no later events?"
 msgstr ""
-"ãÇåæ ÂÎÑ æŞÊ íÊã ÅÙåÇÑå Ííä áÇ ÊæÌÏ ÃÍÏÇË ÈÚÏå "
-"İí æÖÚ ÅÙåÇÑ Çáíæã æÇáÃÓÈæÚ¿"
+"ãÇåæ ÂÎÑ æŞÊ íÊã ÅÙåÇÑå Ííä áÇ ÊæÌÏ ÃÍÏÇË ÈÚÏå İí æÖÚ ÅÙåÇÑ Çáíæã æÇáÃÓÈæÚ¿"
 
 #: config/prefs.php.dist:163
 msgid ""
 "What time should day and week views start, when there are no earlier events?"
 msgstr ""
-"ãÇåæ Ãæá æŞÊ íÊã ÅÙåÇÑå Ííä áÇ ÊæÌÏ ÃÍÏÇË ŞÈáå"
-"İí æÖÚ ÅÙåÇÑ Çáíæã æÇáÃÓÈæÚ¿"
+"ãÇåæ Ãæá æŞÊ íÊã ÅÙåÇÑå Ííä áÇ ÊæÌÏ ÃÍÏÇË ŞÈáåİí æÖÚ ÅÙåÇÑ Çáíæã æÇáÃÓÈæÚ¿"
 
 #: config/prefs.php.dist:93
 msgid "Work Week"
@@ -932,8 +923,7 @@ msgstr "ÇáÈíÇäÇÊ ÇáÔÎÕíÉ"
 msgid ""
 "Your browser does not support this print option. Press Control/Option + P to "
 "print."
-msgstr "áÇ íÏÚã ãÊÕİÍßã ÊŞäíÉ ÇáØÈÇÚÉ åĞå. ÅÖÛØ (Control/Option +P)"
-"ááØÈÇÚÉ"
+msgstr "áÇ íÏÚã ãÊÕİÍßã ÊŞäíÉ ÇáØÈÇÚÉ åĞå. ÅÖÛØ (Control/Option +P)ááØÈÇÚÉ"
 
 #: config/prefs.php.dist:63
 msgid "Your current time zone:"

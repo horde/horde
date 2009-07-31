@@ -28,10 +28,6 @@ msgstr " 또는"
 msgid "Action for blacklisted addresses:"
 msgstr "수신거부 주소에 대한 명령"
 
-#: templates/script/activate.inc:10
-msgid "Activate Script"
-msgstr ""
-
 #: templates/filters/settings.inc:9
 msgid "Additional Settings"
 msgstr "추가적인 설정"
@@ -70,17 +66,9 @@ msgstr ""
 "#-#-#-#-#  ko_KR.po (IMP 4.0-cvs)  #-#-#-#-#\n"
 "이 메시지를 영원히 삭제하시겠습니까?"
 
-#: config/prefs.php.dist:33
-msgid "Automatically update the script after each change?"
-msgstr ""
-
 #: config/fields.php.dist:47
 msgid "Bcc"
 msgstr "숨은 참조"
-
-#: lib/Storage.php:349
-msgid "Begins with"
-msgstr ""
 
 #: filters.php:126 templates/blacklist/blacklist.inc:8
 msgid "Blacklist"
@@ -89,10 +77,6 @@ msgstr "수신거부"
 #: blacklist.php:100
 msgid "Blacklist Edit"
 msgstr "수신거부 목록 수정"
-
-#: blacklist.php:17
-msgid "Blacklist is not supported in the current filtering driver."
-msgstr ""
 
 #: lib/Script/procmail.php:209
 msgid "Blacklisted Address"
@@ -142,10 +126,6 @@ msgstr "사용안함"
 #: lib/Script/procmail.php:354
 msgid "DISABLED: "
 msgstr "사용안함:"
-
-#: templates/script/activate.inc:17
-msgid "Deactivate Script"
-msgstr ""
 
 #: filters.php:196 filters.php:197
 msgid "Delete %s"
@@ -197,30 +177,6 @@ msgstr "필터가 적용될 때 자세한 알림 메시지를 표시합니다."
 msgid "Do _not send responses to bulk or list messages"
 msgstr "_n벌크 혹은 리스트 메시지에 대해 응답을 보내지 않는다"
 
-#: templates/rule/footer.inc:10
-msgid "Do this:"
-msgstr ""
-
-#: lib/Storage.php:350
-msgid "Doesn't begin with"
-msgstr ""
-
-#: lib/Storage.php:346
-msgid "Doesn't contain"
-msgstr ""
-
-#: lib/Storage.php:352
-msgid "Doesn't end with"
-msgstr ""
-
-#: lib/Storage.php:354
-msgid "Doesn't exist"
-msgstr ""
-
-#: lib/Storage.php:357
-msgid "Doesn't match (with placeholders)"
-msgstr ""
-
 #: templates/filters/header.inc:20
 msgid "Edit"
 msgstr "수정"
@@ -241,10 +197,6 @@ msgstr "사용중"
 #, fuzzy
 msgid "Ends with"
 msgstr "수정"
-
-#: lib/Storage.php:362
-msgid "Equal to"
-msgstr ""
 
 #: templates/filters/header.inc:7
 msgid "Existing Rules"
@@ -287,60 +239,23 @@ msgstr "기타 설정"
 msgid "Filter _Rules"
 msgstr "_r필터 큐칙"
 
-#: lib/Script/imap.php:321
-#, php-format
-msgid "Filter activity: %s message(s) have been copied to the folder \"%s\"."
-msgstr ""
-
 #: lib/Script/imap.php:308
 #, fuzzy, php-format
 msgid "Filter activity: %s message(s) have been deleted."
 msgstr "%d개 메시지 지워짐. "
-
-#: lib/Script/imap.php:286
-#, php-format
-msgid "Filter activity: %s message(s) have been moved to the folder \"%s\"."
-msgstr ""
-
-#: lib/Script/imap.php:189
-#, php-format
-msgid "Filter activity: %s message(s) that matched the blacklist were deleted."
-msgstr ""
-
-#: lib/Script/imap.php:318
-#, php-format
-msgid ""
-"Filter activity: The message \"%s\" from \"%s\" has been copied to the "
-"folder \"%s\"."
-msgstr ""
 
 #: lib/Script/imap.php:303
 #, fuzzy, php-format
 msgid "Filter activity: The message \"%s\" from \"%s\" has been deleted."
 msgstr "메시지 지워짐"
 
-#: lib/Script/imap.php:280
-#, php-format
-msgid ""
-"Filter activity: The message \"%s\" from \"%s\" has been moved to the folder "
-"\"%s\"."
-msgstr ""
-
 #: rule.php:133
 msgid "Filter not found."
 msgstr "필터 찾지 못함"
 
-#: templates/rule/header.inc:48
-msgid "For an incoming message that matches:"
-msgstr ""
-
 #: filters.php:144 templates/forward/forward.inc:7
 msgid "Forward"
 msgstr "전달"
-
-#: forward.php:16
-msgid "Forward is not supported in the current filtering driver."
-msgstr ""
 
 #: lib/Script/procmail.php:296
 msgid "Forwards"
@@ -359,41 +274,9 @@ msgstr "위치"
 msgid "Greater than"
 msgstr "링크 만들기"
 
-#: lib/Storage.php:361
-msgid "Greater than or equal to"
-msgstr ""
-
 #: templates/rule/footer.inc:41
 msgid "Important"
 msgstr "중요한 메일"
-
-#: rule.php:26
-msgid "Individual rules are not supported in the current filtering driver."
-msgstr ""
-
-#: lib/Script/sieve.php:1783
-msgid "Inexistant mailbox specified for message delivery."
-msgstr ""
-
-#: lib/Storage.php:347
-msgid "Is"
-msgstr ""
-
-#: lib/Storage.php:348
-msgid "Isn't"
-msgstr ""
-
-#: lib/Storage.php:358
-msgid "Less than"
-msgstr ""
-
-#: lib/Storage.php:359
-msgid "Less than or equal to"
-msgstr ""
-
-#: config/fields.php.dist:59
-msgid "List-ID"
-msgstr ""
 
 #: templates/blacklist/blacklist.inc:22
 msgid "Mar_k message as deleted"
@@ -403,36 +286,6 @@ msgstr "_k지워진 메시지로 표시"
 #, fuzzy
 msgid "Mark message as:"
 msgstr "메시지 구분"
-
-#: lib/Storage.php:356
-msgid "Matches (with placeholders)"
-msgstr ""
-
-#: lib/Storage.php:487
-#, php-format
-msgid ""
-"Maximum number of blacklisted addresses exceeded (Total addresses: %s, "
-"Maximum addresses: %s).  Could not add new addresses to blacklist."
-msgstr ""
-
-#: lib/Storage.php:541
-#, php-format
-msgid ""
-"Maximum number of whitelisted addresses exceeded (Total addresses: %s, "
-"Maximum addresses: %s).  Could not add new addresses to whitelist."
-msgstr ""
-
-#: lib/Script/sieve.php:1646
-msgid "Missing address to redirect message to"
-msgstr ""
-
-#: lib/Script/sieve.php:1680
-msgid "Missing reason for reject"
-msgstr ""
-
-#: lib/Script/sieve.php:1850
-msgid "Missing reason in vacation."
-msgstr ""
 
 #: templates/filters/header.inc:23
 msgid "Move"
@@ -446,10 +299,6 @@ msgstr "아래로 이동"
 msgid "Move Rule Up"
 msgstr "위로 이동"
 
-#: templates/vacation/vacation.inc:46
-msgid "N_umber of days between vacation replies:"
-msgstr ""
-
 #: templates/filters/filter-none.inc:4 templates/filters/footer.inc:13
 #: lib/Storage.php:726
 msgid "New Rule"
@@ -459,14 +308,6 @@ msgstr "새로운 규칙"
 #, fuzzy, php-format
 msgid "No '%s' element found in backend configuration."
 msgstr "VFS 설정 정보에서 'port'이 없습니다."
-
-#: lib/Ingo.php:202
-msgid "No backend configured for this host"
-msgstr ""
-
-#: lib/Ingo.php:179
-msgid "No backends configured in backends.php"
-msgstr ""
 
 #: templates/filters/filter-none.inc:4
 msgid "No filters. Click '%s' to create a new filter."
@@ -556,10 +397,6 @@ msgstr ""
 "#-#-#-#-#  ko_KR.po (Horde 3.0-cvs)  #-#-#-#-#\n"
 "제목 없음"
 
-#: config/prefs.php.dist:19
-msgid "Options about script updating."
-msgstr ""
-
 #: config/prefs.php.dist:17
 msgid "Other Options"
 msgstr "기타 설정"
@@ -567,34 +404,6 @@ msgstr "기타 설정"
 #: templates/javascript/new_folder.js:6
 msgid "Please enter the name of the new folder:"
 msgstr "\\n새로운 폴더의 이름을 입력하세요:\\n"
-
-#: templates/vacation/vacation.inc:64
-msgid "R_eason"
-msgstr ""
-
-#: config/fields.php.dist:63
-msgid "Received"
-msgstr ""
-
-#: lib/Storage.php:306
-msgid "Redirect to"
-msgstr ""
-
-#: lib/Storage.php:355
-msgid "Regular expression"
-msgstr ""
-
-#: lib/Storage.php:321
-msgid "Reject with reason"
-msgstr ""
-
-#: config/fields.php.dist:55
-msgid "Resent To"
-msgstr ""
-
-#: config/fields.php.dist:51
-msgid "Resent-from"
-msgstr ""
 
 #: templates/rule/footer.inc:72
 msgid "Return to Filters List"
@@ -643,10 +452,6 @@ msgstr "설정 저장"
 #, fuzzy
 msgid "Script"
 msgstr "아래첨자"
-
-#: config/prefs.php.dist:18
-msgid "Script Updating"
-msgstr ""
 
 #: lib/Ingo.php:229
 #, fuzzy
@@ -863,21 +668,9 @@ msgstr "항목 선택"
 msgid "Select target folder"
 msgstr "폴더 선택"
 
-#: rule.php:184
-msgid "Self-Defined Header"
-msgstr ""
-
-#: config/fields.php.dist:35
-msgid "Sender"
-msgstr ""
-
 #: filters.php:78
 msgid "Settings successfully updated."
 msgstr "설정이 성공적으로 저장되었습니다."
-
-#: templates/script/activate.inc:24
-msgid "Show Active Script"
-msgstr ""
 
 #: templates/script/activate.inc:31
 #, fuzzy
@@ -888,21 +681,9 @@ msgstr "연락처 보기"
 msgid "Size"
 msgstr "크기"
 
-#: templates/rule/footer.inc:61
-msgid "Stop checking if this rule matches?"
-msgstr ""
-
-#: templates/vacation/vacation.inc:55
-msgid "Subje_ct of vacation message:"
-msgstr ""
-
 #: config/fields.php.dist:31
 msgid "Subject"
 msgstr "제목"
-
-#: lib/Ingo.php:131
-msgid "The driver said: "
-msgstr ""
 
 #: lib/Ingo.php:130
 #, fuzzy
@@ -958,10 +739,6 @@ msgstr "실행"
 msgid "Vacation Message"
 msgstr "메시지로 가기"
 
-#: vacation.php:16
-msgid "Vacation is not supported in the current filtering driver."
-msgstr ""
-
 #: templates/whitelist/whitelist.inc:18
 msgid "Wh_itelist addresses:"
 msgstr "_i수신승인 주소"
@@ -974,47 +751,13 @@ msgstr "수신승인"
 msgid "Whitelist Edit"
 msgstr "수신승인 목록 수정"
 
-#: whitelist.php:18
-msgid "Whitelist is not supported in the current filtering driver."
-msgstr ""
-
 #: lib/Script/procmail.php:240 lib/Script/sieve.php:299
 msgid "Whitelisted Addresses"
 msgstr "수신승인된 주소"
 
-#: config/fields.php.dist:79
-msgid "X-Priority"
-msgstr ""
-
-#: config/fields.php.dist:67
-msgid "X-Spam-Level"
-msgstr ""
-
-#: config/fields.php.dist:71
-msgid "X-Spam-Score"
-msgstr ""
-
-#: config/fields.php.dist:75
-msgid "X-Spam-Status"
-msgstr ""
-
-#: vacation.php:30
-msgid ""
-"You must specify at least one email address for which the vacation messages "
-"should be activated."
-msgstr ""
-
 #: lib/Script/imap.php:281 lib/Script/imap.php:304 lib/Script/imap.php:318
 msgid "[No Subject]"
 msgstr "[제목 없음]"
-
-#: templates/forward/forward.inc:27
-msgid "_Address(es) to forward to:"
-msgstr ""
-
-#: templates/vacation/vacation.inc:28
-msgid "_Addresses to not send responses to:"
-msgstr ""
 
 #: lib/Ingo.php:274
 msgid "_Blacklist"
@@ -1077,11 +820,3 @@ msgstr "찾는 문자열"
 #: templates/rule/filter.inc:4
 msgid "or"
 msgstr "또는"
-
-#: lib/Script/procmail.php:126
-msgid "procmail script generated by Ingo"
-msgstr ""
-
-#: lib/Script/sieve.php:111
-msgid "sieve filter generated by Ingo"
-msgstr ""

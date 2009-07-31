@@ -47,10 +47,6 @@ msgstr "'%s'는 리스트이므로 옮겨지지 않음"
 msgid "A browser that supports iFrames is required"
 msgstr "iFrame을 지원하는 브라우져가 필요합니다"
 
-#: config/prefs.php.dist:132
-msgid "Above search form"
-msgstr ""
-
 #: templates/browse/search.inc:65
 msgid "Ad_vanced Search"
 msgstr "_v고급 검색"
@@ -133,22 +129,9 @@ msgstr "_c기본 검색"
 msgid "Basic Search"
 msgstr "기본 검색"
 
-#: config/prefs.php.dist:131
-msgid "Below search form"
-msgstr ""
-
-#: lib/Driver/ldap.php:82 lib/Driver/ldap.php:85
-#, php-format
-msgid "Bind failed: (%s) %s"
-msgstr ""
-
 #: config/attributes.php.dist:178
 msgid "Birthday"
 msgstr "생일"
-
-#: config/attributes.php.dist:173
-msgid "Business Category"
-msgstr ""
 
 #: data.php:28
 msgid "CSV"
@@ -207,10 +190,6 @@ msgstr "연결 실패: %s"
 #: lib/Driver/ldap.php:63
 msgid "Connection failure"
 msgstr "연결 실패"
-
-#: browse.php:85
-msgid "Contact removed from list."
-msgstr ""
 
 #: browse.php:279
 msgid "Contacts in list: %s"
@@ -315,14 +294,6 @@ msgstr "내보내기"
 msgid "Export Address Book"
 msgstr "주소록 내보내기"
 
-#: templates/data/export.inc:26
-msgid "Export only the selected contacts."
-msgstr ""
-
-#: templates/data/export.inc:32
-msgid "Export the following address book completely."
-msgstr ""
-
 #: data.php:110 data.php:228 browse.php:62 browse.php:120 browse.php:135
 #: add.php:72 search.php:51
 msgid "Failed to access the address book: %s"
@@ -339,11 +310,6 @@ msgstr "리스트 탐색 실패"
 #: browse.php:315
 msgid "Failed to browse the directory"
 msgstr "디렉토리 검색실패"
-
-#: lib/Driver/ldap.php:312
-#, php-format
-msgid "Failed to change name: (%s) %s; Old DN = %s, New DN = %s, Root = %s"
-msgstr ""
 
 #: browse.php:140
 msgid "Failed to find object to be added: %s"
@@ -365,10 +331,6 @@ msgstr "찾기"
 msgid "First Name"
 msgstr "이름"
 
-#: config/attributes.php.dist:202
-msgid "Freebusy URL"
-msgstr ""
-
 #: templates/browse/search.inc:85
 msgid "From"
 msgstr "위치"
@@ -376,10 +338,6 @@ msgstr "위치"
 #: config/sources.php.dist:532
 msgid "Global Address Book"
 msgstr "전체 주소록"
-
-#: templates/browse/contactrow.inc:44
-msgid "Group"
-msgstr ""
 
 #: config/attributes.php.dist:82
 msgid "Home Address"
@@ -408,10 +366,6 @@ msgstr "시/도"
 #: config/attributes.php.dist:88
 msgid "Home Street Address"
 msgstr "집 주소"
-
-#: config/sources.php.dist:468
-msgid "IMSP"
-msgstr ""
 
 #: templates/data/import.inc:9
 msgid "Import Address Book, Step %d"
@@ -458,11 +412,6 @@ msgstr "잘못된 이름."
 msgid "Invalid objectId"
 msgstr "잘못된 객체 아이디"
 
-#: lib/Driver/ldap.php:38
-msgid ""
-"LDAP support is required but the LDAP module is not available or not loaded."
-msgstr ""
-
 #: lib/ObjectView.php:139
 msgid "Last Modified"
 msgstr "마지막 수정"
@@ -487,10 +436,6 @@ msgstr "최대 페이지수"
 msgid "Mini Search"
 msgstr "간단한 검색"
 
-#: lib/Driver/ldap.php:306
-msgid "Missing DN in LDAP source configuration."
-msgstr ""
-
 #: config/attributes.php.dist:162
 msgid "Mobile Phone"
 msgstr "핸드폰"
@@ -498,10 +443,6 @@ msgstr "핸드폰"
 #: lib/Driver/ldap.php:335 lib/Driver/ldap.php:352
 msgid "Modify failed: (%s) %s"
 msgstr "수정 실표: (%s) %s"
-
-#: lib/api.php:985
-msgid "More than 1 entry found"
-msgstr ""
 
 #: templates/browse/actions.inc:19
 msgid "Move"
@@ -536,10 +477,6 @@ msgstr "이름"
 msgid "Name Format"
 msgstr "이름 형식"
 
-#: config/sources.php.dist:78
-msgid "Netcenter Member Directory"
-msgstr ""
-
 #: add.php:45 add.php:112 lib/Block/minisearch.php:27
 msgid "New Contact"
 msgstr "새로운 연락처 추가"
@@ -555,11 +492,6 @@ msgstr "다음"
 #: config/attributes.php.dist:218
 msgid "Nickname"
 msgstr "별명"
-
-#: lib/api.php:987 lib/api.php:1036
-#, php-format
-msgid "No %s entry found for %s"
-msgstr ""
 
 #: lib/api.php:955
 msgid "No address books found."
@@ -589,17 +521,9 @@ msgstr "페이지당 결과 갯수"
 msgid "Object not found"
 msgstr "찾지 못함"
 
-#: config/attributes.php.dist:223
-msgid "Office"
-msgstr ""
-
 #: config/prefs.php.dist:34
 msgid "Other Options"
 msgstr "기타 설정"
-
-#: config/attributes.php.dist:190
-msgid "PGP Public Key"
-msgstr ""
 
 #: lib/api.php:322 lib/api.php:425 lib/api.php:514 lib/api.php:569
 #: lib/api.php:728 lib/api.php:889
@@ -634,11 +558,6 @@ msgstr "검색 실패: (%s) %s"
 msgid "Quick Search"
 msgstr "빨리 찾기"
 
-#: lib/Driver/ldap.php:190 lib/Driver/ldap.php:198 lib/Driver/ldap.php:432
-#, php-format
-msgid "Read failed: (%s) %s"
-msgstr ""
-
 #: templates/browse/footer.inc:6
 msgid "Records displayed:"
 msgstr "표시"
@@ -659,22 +578,9 @@ msgstr ""
 "가져온 것으로 기존 주소록을 바꿀까요? <b>주의: 이것은 현재 주소록의 모든 항목"
 "을 지웁니다.</b>"
 
-#: lib/Driver.php:344
-msgid "Requested object not found."
-msgstr ""
-
 #: add.php:46 templates/browse/search.inc:126
 msgid "Reset to Defaults"
 msgstr "초기화"
-
-#: config/attributes.php.dist:196
-msgid "S/MIME Public Certificate"
-msgstr ""
-
-#: lib/Driver/ldap.php:74
-#, php-format
-msgid "STARTTLS failed: (%s) %s"
-msgstr ""
 
 #: edit.php:57 add.php:46
 msgid "Save"
@@ -765,10 +671,6 @@ msgstr "공유 디렉토리"
 msgid "Sho_w All"
 msgstr "_w모두 보기"
 
-#: templates/browse/select.inc:11
-msgid "Show"
-msgstr ""
-
 #: templates/browse/actions.inc:53
 msgid "Show All"
 msgstr "모두 보기"
@@ -798,17 +700,9 @@ msgstr "정렬 방법"
 msgid "Sources"
 msgstr "소스"
 
-#: config/prefs.php.dist:130
-msgid "Specify where you want advanced search results to appear."
-msgstr ""
-
 #: browse.php:156
 msgid "Successfully added %s to %s"
 msgstr "%s가 %s에 성공적으로 추가됨"
-
-#: data.php:29
-msgid "TSV"
-msgstr ""
 
 #: templates/data/import.inc:19 templates/data/export.inc:18
 msgid "Tab separated values"
@@ -905,10 +799,6 @@ msgstr "가져올 수 있는 주소가 없습니다."
 msgid "This address book is read-only"
 msgstr "이 주소록은 읽기 전용입니다."
 
-#: data.php:211
-msgid "This file format is not supported."
-msgstr ""
-
 #: lib/api.php:914 lib/api.php:927
 msgid "This person already has a %s entry in the address book"
 msgstr "'%s'는 이미 주소록에 등록되어 있습니다."
@@ -925,10 +815,6 @@ msgstr "%s 정의를 읽을 수 없습니다."
 msgid "Undo Changes"
 msgstr "변경사항 되돌리기"
 
-#: lib/api.php:466
-msgid "Unsupported Content-Type."
-msgstr ""
-
 #: config/sources.php.dist:139
 msgid "Verisign Directory"
 msgstr "Verisign 디렉토리"
@@ -944,10 +830,6 @@ msgstr "연락처 보기"
 #: config/prefs.php.dist:98
 msgid "View to display by default:"
 msgstr "첫 기본 화면"
-
-#: config/attributes.php.dist:208
-msgid "Website URL"
-msgstr ""
 
 #: config/attributes.php.dist:113
 msgid "Work Address"
@@ -980,14 +862,6 @@ msgstr "직장 주소"
 #: templates/browse/javascript.inc:25
 msgid "You are creating a distribution list."
 msgstr "새로운 리스트를 만듭니다."
-
-#: edit.php:44 display.php:48
-msgid "You do not have permission to view this contact."
-msgstr ""
-
-#: vcard.php:40
-msgid "You do not have permission to view this object."
-msgstr ""
 
 #: templates/browse/javascript.inc:41
 msgid "You must select a target address book."
@@ -1032,18 +906,6 @@ msgstr "_R이 리스트에서 지우기"
 #: lib/Turba.php:276
 msgid "_Search"
 msgstr "_S검색"
-
-#: vcard.php:46
-msgid "contact.vcf"
-msgstr ""
-
-#: data.php:172 data.php:177 templates/data/export.inc:1
-msgid "contacts.csv"
-msgstr ""
-
-#: data.php:182
-msgid "contacts.tsv"
-msgstr ""
 
 #: templates/browse/actions.inc:22
 msgid "to Selected Address Book"

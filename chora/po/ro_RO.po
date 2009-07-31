@@ -3,7 +3,6 @@
 # Eugen Hoanca <eugenh@urban-grafx.ro>, 2003.
 # Marius Dragulescu <mariusd@urban-grafx.ro>, 2003.
 #
-
 msgid ""
 msgstr ""
 "Project-Id-Version: Chora 1.2\n"
@@ -324,16 +323,16 @@ msgid ""
 "This file controls the default preferences for Chora, and also controls "
 "which preferences users can alter."
 msgstr ""
-"Acest fisier controleaza preferintele implicite precum si alte preferinte" 
-"pentru Chora."
+"Acest fisier controleaza preferintele implicite precum si alte "
+"preferintepentru Chora."
 
 #: templates/index/notconfigured.inc:39
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"Acest fisier determina schema pentru culori si fonturi ce vor inlocui setarile "
-"implicite furnizate de Horde."
+"Acest fisier determina schema pentru culori si fonturi ce vor inlocui "
+"setarile implicite furnizate de Horde."
 
 #: templates/index/notconfigured.inc:25
 msgid ""

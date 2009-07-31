@@ -105,8 +105,7 @@ msgstr "ãÑÈÚ ÇÎÊíÇÑ"
 
 #: templates/prefs/columnselect.inc:229
 msgid "Choose the order of the columns to display in the address list."
-msgstr ""
-"ÇÎÊÑ ÊæÖÚ ÇáÃÚãÏÉ áÅÙåÇÑåÇ İí ŞÇÆãÉ ÇáÚäÇæíä"
+msgstr "ÇÎÊÑ ÊæÖÚ ÇáÃÚãÏÉ áÅÙåÇÑåÇ İí ŞÇÆãÉ ÇáÚäÇæíä"
 
 #: templates/search/head.inc:77 templates/advanced/results_head.inc:18
 #: templates/browse/actions.inc:46
@@ -255,8 +254,7 @@ msgstr "åÇÊİ ÇáãäÒá"
 
 #: templates/data/import.inc:28
 msgid "If importing CSV data: does the first row contain the field names?"
-msgstr ""
-"ÎáÇá ÇÓÊíÑÇÏ ãáİ 'CVS': åá íÍÊæí ÇáÓØÑ ÇáÃæá Úáì ÇÓãÇÁ ÇáÍŞæá¿"
+msgstr "ÎáÇá ÇÓÊíÑÇÏ ãáİ 'CVS': åá íÍÊæí ÇáÓØÑ ÇáÃæá Úáì ÇÓãÇÁ ÇáÍŞæá¿"
 
 #: data.php:157
 msgid "Illegal or malformed form data."
@@ -353,9 +351,8 @@ msgid ""
 "entries to them. If you believe this is an error, please contact your system "
 "administrator."
 msgstr ""
-"áÇíæÌÏ ÏİÊÑ ÚäÇæíä ãÚÏ áÅÏÎÇá "
-"ÈíÇäÇÊ ÌÏíÏÉ. ÅĞÇ ßäÊ ÊÚÊŞÏ Ãäå ÎØÃ ãÇ¡ ÇáÑÌÇÁ ÅÈáÇÛ "
-"ãÏíÑ ÇáäÙÇã."
+"áÇíæÌÏ ÏİÊÑ ÚäÇæíä ãÚÏ áÅÏÎÇá ÈíÇäÇÊ ÌÏíÏÉ. ÅĞÇ ßäÊ ÊÚÊŞÏ Ãäå ÎØÃ ãÇ¡ ÇáÑÌÇÁ "
+"ÅÈáÇÛ ãÏíÑ ÇáäÙÇã."
 
 #: config/attributes.php.dist:62
 msgid "Notes"
@@ -379,8 +376,7 @@ msgstr "Êã ÇÓÊíÑÇÏ ÏİÊÑ ÇáÚäÇæíä ÇáÕäæÈÑí ÈäÌÇÍ"
 
 #: templates/add/select.inc:6
 msgid "Please choose an address book to add a contact to."
-msgstr ""
-"ÇáÑÌÇÁ ÇÎÊíÇÑ ÏİÊÑ ÚäÇæíä áÅÖÇİÉ ÇÊÕÇá Åáíå."
+msgstr "ÇáÑÌÇÁ ÇÎÊíÇÑ ÏİÊÑ ÚäÇæíä áÅÖÇİÉ ÇÊÕÇá Åáíå."
 
 #: templates/browse/javascript.inc:18
 msgid "Please enter the name of the new list:"
@@ -548,16 +544,14 @@ msgid ""
 "There was a problem with the file upload. The file may have been larger than "
 "the maximum allowed size."
 msgstr ""
-"ÊæÌÏ ãÔßáÉ İí ÊÍãíá Çáãáİ. ŞÏ íßæä ÍÌã Çáãáİ ÃßÈÑ ãä "
-" ÇáÍÌã ÇáÃŞÕì ÇáãÓãæÍ Èå."
+"ÊæÌÏ ãÔßáÉ İí ÊÍãíá Çáãáİ. ŞÏ íßæä ÍÌã Çáãáİ ÃßÈÑ ãä  ÇáÍÌã ÇáÃŞÕì ÇáãÓãæÍ "
+"Èå."
 
 #: addobjectaction.php:42
 msgid ""
 "There was an error adding this object. Contact your system administrator for "
 "further help."
-msgstr ""
-"ÍÕá ÎØÃ ÎáÇá ÇáÅÖÇİÉ. ÇáÑÌÇÁ ÓÄÇá ãÏíÑ ÇáäÙÇã "
-"áØáÈ ÇáãÓÇÚÏÉ."
+msgstr "ÍÕá ÎØÃ ÎáÇá ÇáÅÖÇİÉ. ÇáÑÌÇÁ ÓÄÇá ãÏíÑ ÇáäÙÇã áØáÈ ÇáãÓÇÚÏÉ."
 
 #: browse.php:143
 msgid "There was an error creating a new list."
@@ -571,9 +565,7 @@ msgstr "ÍÕá ÎØÃ ÎáÇá ÇáÍĞİ."
 msgid ""
 "There was an error deleting this object. Contact your system administrator "
 "for further help."
-msgstr ""
-"ÍÕá ÎØÃ ÎáÇá ÇáÍĞİ. ÇáÑÌÇÁ ÓÄÇá ãÏíÑ ÇáäÙÇã "
-"áØáÈ ÇáãÓÇÚÏÉ."
+msgstr "ÍÕá ÎØÃ ÎáÇá ÇáÍĞİ. ÇáÑÌÇÁ ÓÄÇá ãÏíÑ ÇáäÙÇã áØáÈ ÇáãÓÇÚÏÉ."
 
 #: browse.php:220
 msgid "There was an error displaying the select List"
@@ -600,16 +592,16 @@ msgid ""
 "This file controls the default preferences for Turba, and also controls "
 "which preferences users can alter."
 msgstr ""
-"íÊÍßã åĞÇ Çáãáİ ÈÇáÅÚÏÇÏÇÊ ÇáÇİÊÑÇÖíÉ áÈÑíãÌÇÊ ÊæÑÈÇ¡ ßãÇ "
-"íÍÏÏ ÇáÅÚÏÇÏÇÊ ÇáÊí íãßä ááãÓÊÎÏã ÊÚÏíáåÇ."
+"íÊÍßã åĞÇ Çáãáİ ÈÇáÅÚÏÇÏÇÊ ÇáÇİÊÑÇÖíÉ áÈÑíãÌÇÊ ÊæÑÈÇ¡ ßãÇ íÍÏÏ ÇáÅÚÏÇÏÇÊ "
+"ÇáÊí íãßä ááãÓÊÎÏã ÊÚÏíáåÇ."
 
 #: templates/index/notconfigured.inc:25
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"íÊÍßã åĞÇ Çáãáİ ÈáæÇÆÍ ÇáÃáæÇä æÇáÎØæØ ÅÖÇİÉ "
-"Ãæ ÈÏáÇğ ãä ÅÚÏÇÏÇÊ åæÑÏí 'Horde'."
+"íÊÍßã åĞÇ Çáãáİ ÈáæÇÆÍ ÇáÃáæÇä æÇáÎØæØ ÅÖÇİÉ Ãæ ÈÏáÇğ ãä ÅÚÏÇÏÇÊ åæÑÏí "
+"'Horde'."
 
 #: templates/index/notconfigured.inc:46
 msgid ""
@@ -628,8 +620,7 @@ msgid ""
 "This is the main Turba configuration file. It contains paths and options for "
 "the Turba scripts."
 msgstr ""
-"åĞÇ ãáİ ÇáÅÚÏÇÏÇÊ ÇáÑÆíÓí áÊæÑÈÇ æíÍæí ãÓÇÑÇÊ æ "
-"ÎíÇÑÇÊ ÌãíÚ ÈíÑãÌÇÊ ÊæÑÈÇ"
+"åĞÇ ãáİ ÇáÅÚÏÇÏÇÊ ÇáÑÆíÓí áÊæÑÈÇ æíÍæí ãÓÇÑÇÊ æ ÎíÇÑÇÊ ÌãíÚ ÈíÑãÌÇÊ ÊæÑÈÇ"
 
 #: prefs.php:86
 msgid "This number must be at least one."
@@ -698,8 +689,8 @@ msgid ""
 "You didn't map any fields from the imported file to the corresponding fields "
 "in Turba."
 msgstr ""
-"áã íÊã ÊÍÏíÏ ÏáÇáÇÊ ÇáÍŞæá ãä Çáãáİ ÇáãÓÊæÑÏ áÊÏá Úáì ÇáÍŞæá ÇáãØÇÈŞÉ "
-"İí ÊæÑÈÇ."
+"áã íÊã ÊÍÏíÏ ÏáÇáÇÊ ÇáÍŞæá ãä Çáãáİ ÇáãÓÊæÑÏ áÊÏá Úáì ÇáÍŞæá ÇáãØÇÈŞÉ İí "
+"ÊæÑÈÇ."
 
 #: templates/browse/javascript.inc:33
 msgid "You must select at least one contact first."

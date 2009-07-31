@@ -17,16 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=CP1251\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Forms/EditContact.php:76
-#, php-format
-msgid "\"%s\" updated, but saving the uploaded file failed: %s"
-msgstr ""
-
-#: lib/Views/Browse.php:190
-#, php-format
-msgid "\"%s\" was not moved because it is a list."
-msgstr ""
-
 #: config/prefs.php.dist:118
 msgid "\"Firstname Lastname\"  (ie. John Doe)"
 msgstr "\"Имя Фамилия\" (Вася Пупкин)"
@@ -34,11 +24,6 @@ msgstr "\"Имя Фамилия\" (Вася Пупкин)"
 #: config/prefs.php.dist:117
 msgid "\"Lastname, Firstname\" (ie. Doe, John)"
 msgstr "\"Фамилия, Имя\" (Пупкин, Вася)"
-
-#: lib/Forms/AddContact.php:83
-#, php-format
-msgid "%s added."
-msgstr ""
 
 #: view.php:54
 #, php-format
@@ -123,18 +108,6 @@ msgstr "Псевдоним"
 msgid "All"
 msgstr "Все"
 
-#: lib/api.php:729
-msgid "Already Exists"
-msgstr ""
-
-#: config/attributes.php.dist:106
-msgid "Anniversaries"
-msgstr ""
-
-#: config/attributes.php.dist:102
-msgid "Anniversary"
-msgstr ""
-
 # fuzzy, php-format
 #: templates/browse/javascript.inc:85
 #, fuzzy, php-format
@@ -193,10 +166,6 @@ msgstr "Новая категория"
 #: data.php:60
 msgid "CSV"
 msgstr "CSV-файл"
-
-#: lib/Object/Group.php:68
-msgid "Can't add a group to itself."
-msgstr ""
 
 #: lib/Forms/DeleteAddressBook.php:45 lib/Forms/DeleteAddressBook.php:54
 msgid "Cancel"
@@ -415,35 +384,10 @@ msgstr "Адресные книги"
 msgid "Email"
 msgstr "E-mail"
 
-#: lib/Views/Browse.php:262 lib/Views/Browse.php:302
-#, php-format
-msgid "Error adding %d contact(s) to list."
-msgstr ""
-
-#: lib/Views/Browse.php:264 lib/Views/Browse.php:304
-#, php-format
-msgid "Error adding %d of %d requested contact(s) to list."
-msgstr ""
-
 #: lib/Views/Browse.php:134
 #, fuzzy, php-format
 msgid "Error deleting %d contact(s)."
 msgstr "Ошибка при импорте данных."
-
-#: lib/Views/Browse.php:136
-#, php-format
-msgid "Error deleting %d of %d requested contacts(s)."
-msgstr ""
-
-#: lib/Views/Browse.php:117
-#, php-format
-msgid "Error removing %d contact(s) from list."
-msgstr ""
-
-#: lib/Views/Browse.php:119
-#, php-format
-msgid "Error removing %d of %d requested contact(s) from list."
-msgstr ""
 
 #: lib/api.php:535
 #, fuzzy, php-format
@@ -463,15 +407,6 @@ msgstr "Экспорт адресной книги"
 #, fuzzy
 msgid "Export only the selected contacts."
 msgstr "Horde не правильно настроен"
-
-#: templates/data/export.inc:28
-msgid "Export the following address book completely."
-msgstr ""
-
-#: lib/Driver/ldap.php:318
-#, php-format
-msgid "Failed to change name: (%s) %s; Old DN = %s, New DN = %s, Root = %s"
-msgstr ""
 
 #: lib/Views/Browse.php:186
 #, fuzzy, php-format
@@ -517,10 +452,6 @@ msgstr "Найти"
 msgid "First Name"
 msgstr "Первая страница"
 
-#: config/attributes.php.dist:326
-msgid "Freebusy URL"
-msgstr ""
-
 #: templates/browse/search.inc:98
 msgid "From"
 msgstr "От"
@@ -532,10 +463,6 @@ msgstr "Домашний адрес"
 #: config/attributes.php.dist:249
 msgid "Home Phone"
 msgstr "Домашний телефон"
-
-#: config/sources.php.dist:653
-msgid "IMSP"
-msgstr ""
 
 # fuzzy, php-format
 #: templates/data/import.inc:7
@@ -591,16 +518,6 @@ msgstr "Некорректное имя."
 msgid "Job Title"
 msgstr "Заголовок"
 
-#: lib/Driver/kolab.php:855 lib/Driver/kolab.php:877
-#, php-format
-msgid "Key for saving must be a UID not %s!"
-msgstr ""
-
-#: lib/Driver/ldap.php:64
-msgid ""
-"LDAP support is required but the LDAP module is not available or not loaded."
-msgstr ""
-
 #: data.php:65 templates/data/import.inc:18 templates/data/export.inc:16
 msgid "LDIF Address Book"
 msgstr "Адресная книга LDIF"
@@ -608,10 +525,6 @@ msgstr "Адресная книга LDIF"
 #: config/attributes.php.dist:389
 msgid "Language"
 msgstr "Язык"
-
-#: config/attributes.php.dist:395
-msgid "Latitude"
-msgstr ""
 
 #: templates/browse/column_headers.inc:16
 msgid "List"
@@ -634,18 +547,10 @@ msgstr "Максимальное количество страниц"
 msgid "Maximum number of pages"
 msgstr "Максимальное количество страниц"
 
-#: lib/Block/tree_menu.php:3
-msgid "Menu List"
-msgstr ""
-
 #: config/attributes.php.dist:65
 #, fuzzy
 msgid "Middle Names"
 msgstr "Имя файла"
-
-#: lib/Driver/ldap.php:311
-msgid "Missing DN in LDAP source configuration."
-msgstr ""
 
 # fuzzy
 #: config/attributes.php.dist:259
@@ -661,10 +566,6 @@ msgstr "Ошибка при удалении"
 #, fuzzy
 msgid "More Options..."
 msgstr "Настройки пользователя"
-
-#: lib/api.php:1489
-msgid "More than 1 entry found"
-msgstr ""
 
 #: templates/browse/actions.inc:16
 msgid "Move"
@@ -686,12 +587,6 @@ msgstr "сместить вправо"
 #: data.php:63 templates/data/import.inc:16
 msgid "Mulberry Address Book"
 msgstr "Адресная книга Mulberry"
-
-#: lib/api.php:1405
-#, php-format
-msgid ""
-"Multiple persons with address [%s], but none with name [%s] already exist"
-msgstr ""
 
 # fuzzy
 # fuzzy
@@ -721,10 +616,6 @@ msgstr "Имена"
 msgid "Name Prefixes"
 msgstr "Клеточная радиосвязь"
 
-#: config/attributes.php.dist:77
-msgid "Name Suffixes"
-msgstr ""
-
 # fuzzy
 #: templates/browse/search_vbook.inc:6
 msgid "Name:"
@@ -744,24 +635,6 @@ msgstr "Далее"
 #, fuzzy
 msgid "Nickname"
 msgstr "Имя"
-
-#: lib/api.php:1492 lib/api.php:1543
-#, php-format
-msgid "No %s entry found for %s"
-msgstr ""
-
-#: data.php:52
-msgid ""
-"No Address Books are currently available. Import and Export is disabled."
-msgstr ""
-
-#: search.php:71
-msgid "No Address Books are currently available. Searching is disabled."
-msgstr ""
-
-#: lib/Driver/favourites.php:120
-msgid "No source for favourite recipients exists."
-msgstr ""
 
 #: config/attributes.php.dist:314
 msgid "Notes"
@@ -785,17 +658,6 @@ msgstr "Настройки"
 #, fuzzy
 msgid "Office"
 msgstr "Заголовок"
-
-#: templates/prefs/imsp_opt.inc:22
-msgid ""
-"Once you save this option page, the address book will be permanently "
-"deleted. If this is not what you want, then you must change your selection "
-"to \"None\"."
-msgstr ""
-
-#: config/sources.php.dist:232 config/sources.php.dist:909
-msgid "Other"
-msgstr ""
 
 #: config/attributes.php.dist:332
 msgid "PGP Public Key"
@@ -844,27 +706,10 @@ msgstr "Пожалуйста введите новое имя:"
 msgid "Previous"
 msgstr "Предыдущая страница"
 
-#: lib/Forms/DeleteAddressBook.php:43
-#, php-format
-msgid ""
-"Really delete the address book \"%s\"? This cannot be undone and all "
-"contacts in this address book will be permanently removed."
-msgstr ""
-
-#: templates/browse/footer.inc:2
-msgid "Records displayed:"
-msgstr ""
-
 # fuzzy
 #: templates/browse/actions.inc:3
 msgid "Remove from this list"
 msgstr "Удалить из группы"
-
-#: lib/Driver.php:1591
-msgid ""
-"Removing user data is not supported in the current address book storage "
-"driver."
-msgstr ""
 
 # fuzzy
 #: templates/data/import.inc:22
@@ -984,26 +829,14 @@ msgstr "Удалено %d контактов"
 msgid "Successfully removed %d contact(s) from list."
 msgstr "Удалено %d контактов из группы"
 
-#: data.php:61
-msgid "TSV"
-msgstr ""
-
 #: templates/data/import.inc:14 templates/data/export.inc:14
 msgid "Tab separated values"
 msgstr "TSV-файл (разделенный табуляцией)"
-
-#: view.php:17
-msgid "The VFS backend needs to be configured to enable attachment uploads."
-msgstr ""
 
 #: addressbooks.php:71
 #, php-format
 msgid "The address book \"%s\" was removed successfully."
 msgstr "Папка \"%s\" была успешно удалена."
-
-#: data.php:302
-msgid "The import can be finished despite the warnings."
-msgstr ""
 
 #: lib/Views/EditContact.php:43 lib/Views/Contact.php:59
 #: lib/Views/DeleteContact.php:36
@@ -1067,10 +900,6 @@ msgstr "Добавить новую запись"
 msgid "View to display by default:"
 msgstr "Режим по умолчанию:"
 
-#: config/attributes.php.dist:320
-msgid "Website URL"
-msgstr ""
-
 #: config/attributes.php.dist:173
 msgid "Work Address"
 msgstr "Рабочий адрес"
@@ -1078,29 +907,6 @@ msgstr "Рабочий адрес"
 #: config/attributes.php.dist:254
 msgid "Work Phone"
 msgstr "Рабочий телефон"
-
-#: edit.php:66 display.php:52 view.php:38 lib/Views/EditContact.php:49
-#: lib/Views/DeleteContact.php:42
-msgid "You do not have permission to view this contact."
-msgstr ""
-
-#: vcard.php:37
-msgid "You do not have permission to view this object."
-msgstr ""
-
-#: lib/Driver/ldap.php:705
-msgid ""
-"You must have the Net_LDAP PEAR library installed to use the schema check "
-"function."
-msgstr ""
-
-#: edit.php:70 lib/Views/EditContact.php:52 lib/Views/DeleteContact.php:45
-msgid "You only have permission to view this contact."
-msgstr ""
-
-#: lib/Views/Browse.php:357
-msgid "Your default address book is not browseable."
-msgstr ""
 
 #: templates/browse/contactrow.inc:12
 #, fuzzy
@@ -1181,18 +987,10 @@ msgstr "По возрастанию"
 msgid "contact"
 msgstr "Показать Контакты"
 
-#: data.php:208 data.php:213 templates/data/export.inc:1
-msgid "contacts.csv"
-msgstr ""
-
 #: data.php:233
 #, fuzzy
 msgid "contacts.ldif"
 msgstr "Показать Контакты"
-
-#: data.php:218
-msgid "contacts.tsv"
-msgstr ""
 
 #: lib/Block/tree_menu.php:37
 msgid "in %s"

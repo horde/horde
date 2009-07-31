@@ -554,8 +554,8 @@ msgid "Show due tasks in the calendar?"
 msgstr "Да се показват ли задачи в календара?"
 
 msgid "Show half hour slots in day and week views?"
-msgstr "Да се показват ли половин-часови интервали в дневният и седмичният "
-"изглед?"
+msgstr ""
+"Да се показват ли половин-часови интервали в дневният и седмичният изглед?"
 
 msgid "Show only events that have an alarm set?"
 msgstr "Да се показват ли само събитията, които имат настроена аларма?"

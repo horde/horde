@@ -9,7 +9,7 @@
 # Piotr Adamcio <adamcios@o2.pl>, 2007
 # Tadeusz Lesiecki <lesiecki@tmtsystem.pl>, 2007.
 # Piotr Tarnowski <drfugazi@drfugazi.eu.org>, 2007.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Ingo H3 (1.2-cvs)\n"

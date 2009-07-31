@@ -3,7 +3,6 @@
 # Eugen Hoanca <eugenh@urban-grafx.ro>, 2003.  
 # Marius Dragulescu<mariusd@urban-grafx.ro>, 2003.
 #
-
 msgid ""
 msgstr ""
 "Project-Id-Version: Kronolith 1.0\n"
@@ -104,9 +103,7 @@ msgstr "Categorie"
 msgid ""
 "Change the way dates and times are formatted and the timezone difference to "
 "the server."
-msgstr ""
-"Schimba formatul orei si datei si diferentele de fus orar "
-"in server."
+msgstr "Schimba formatul orei si datei si diferentele de fus orar in server."
 
 msgid "Change the way dates and times are formatted."
 msgstr "Schimba formatul datei si orei."
@@ -273,7 +270,6 @@ msgid "Select how to display the different views and choose default view."
 msgstr ""
 "Selecteaza modul de afisare al vizualizarilor si alege vizualizare implicita."
 
-
 msgid "Select the first weekday:"
 msgstr "Selecteaza prima zi din saptamana:"
 
@@ -327,15 +323,15 @@ msgid ""
 "This file controls the default preferences for Kronolith, and also controls "
 "which preferences users can alter."
 msgstr ""
-"Acest fisier seteaza preferintele implicite pentru Kronolith, precum si "
-"alte preferinte modficabile."
+"Acest fisier seteaza preferintele implicite pentru Kronolith, precum si alte "
+"preferinte modficabile."
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"Acest fisier controleaza schema de culori si fonturi diferita "
-"de aceea stabilita implicit de catre Horde."
+"Acest fisier controleaza schema de culori si fonturi diferita de aceea "
+"stabilita implicit de catre Horde."
 
 msgid ""
 "This is the main Kronolith configuration file. It contains paths and options "

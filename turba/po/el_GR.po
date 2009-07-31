@@ -968,7 +968,7 @@ msgstr "Παρουσιάστηκε σφάλμα κατά την δημιουργία της νέας λίστας."
 msgid "There was an error deleting %s from the source address book."
 msgstr "Πρόβλημα κατά τη διαγραφή %s από το Διευθυνσιογράφο."
 
-# 
+#
 #: delete.php:31
 msgid "There was an error deleting this contact: %s"
 msgstr "Πρόβλημα κατά τη διαγραφή αυτής της επαφής: %s."

@@ -1,6 +1,6 @@
 # Persian translations for Turba package.
 # This file is distributed under the same license as the Turba package.
-# 
+#
 # Copyright 2004 High Concil of Informatics (www.shci.ir)
 # Provided by  Amirkabir Metanetworking Ltd, 2004 <persian-horde@metanetworking.com>
 # Mohsen Nader-Badr       <naderi@metanetworking.com>
@@ -9,7 +9,7 @@
 # Hamed Gheybi            <gheybi@metanetworking.com>
 # Vahid Ghafarpour        <ghafarpour@metanetworking.com>
 # Zahra Ahmadi Firouzjaee <ahmadi@metanetworking.com>
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Turba 2 ALPHA\n"
@@ -31,7 +31,7 @@ msgstr "اضافه کردن یک کتابچهٔ آدرس IMSP"
 msgid " Delete IMSP Addressbook"
 msgstr "حذف کتابچهٔ آدرس IMSP"
 
-# 
+#
 #: data.php:299
 #, php-format
 msgid "\"%s\" already exists and was not imported."
@@ -45,33 +45,33 @@ msgstr "\"نام  نام خانوادگی\""
 msgid "\"Lastname, Firstname\" (ie. Doe, John)"
 msgstr "\"نام خانوادگی  نام\""
 
-# 
+#
 #: add.php:108
 #, php-format
 msgid "%s added."
 msgstr "%s اضافه شد"
 
-# 
+#
 #: data.php:312
 #, php-format
 msgid "%s file successfully imported"
 msgstr "پرونده %s با موفقیّت درون‌برد شد"
 
-# 
+#
 #: templates/browse/footer.inc:5
 #, php-format
 msgid "%s to %s of %s"
 msgstr "%s به %s از %s"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: browse.php:159
 #, php-format
 msgid "'%s' was not copied because it is a list."
 msgstr "به علّت فهرست بودن '%s' از آن رونوشت تهیّه نشد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: browse.php:157
 #, php-format
 msgid "'%s' was not moved because it is a list."
@@ -126,7 +126,7 @@ msgstr "کتابچه‌های آدرس "
 msgid "Address book entry"
 msgstr "ورودی کتابچهٔ آدرس"
 
-# 
+#
 #: data.php:281
 msgid "Address book successfully purged."
 msgstr "کتابچهٔ آدرس باموفقیّت خالی شد"
@@ -152,7 +152,7 @@ msgstr "همه"
 msgid "Already Exists"
 msgstr "از قبل موجود می‌باشد"
 
-# 
+#
 #: templates/browse/javascript.inc:90
 #, php-format
 msgid "Are you sure that you want to delete %s?"
@@ -174,7 +174,7 @@ msgstr "جستجوی ساده"
 msgid "Below search form"
 msgstr "زیر فرم جستجو"
 
-# 
+#
 #: lib/Driver/ldap.php:77 lib/Driver/ldap.php:80
 #, php-format
 msgid "Bind failed: (%s) %s"
@@ -275,7 +275,7 @@ msgstr "تماس به فهرست اضافه شد."
 msgid "Contact removed from list."
 msgstr "تماس از فهرست حذف شد."
 
-# 
+#
 #: browse.php:344
 #, php-format
 msgid "Contacts in list: %s"
@@ -310,7 +310,7 @@ msgstr "تأیید حذف"
 msgid "Delete button behaviour"
 msgstr "رفتار کلید حذف"
 
-# 
+#
 #: lib/Driver/ldap.php:270
 #, php-format
 msgid "Delete failed: (%s) %s"
@@ -358,13 +358,13 @@ msgstr "استقرار vCard"
 msgid "Edit"
 msgstr "ویرایش"
 
-# 
+#
 #: templates/browse/row.inc:25
 #, php-format
 msgid "Edit '%s'"
 msgstr "ویرایش '%s'"
 
-# 
+#
 #: edit.php:75 edit.php:151
 #, php-format
 msgid "Edit entry for %s"
@@ -379,7 +379,7 @@ msgstr "پست الکترونیک"
 msgid "Entry for %s updated, but saving the uploaded file failed: %s"
 msgstr "ورودی برای %s بروزرسانی شد اما حفظ پروندهٔ ارسال شده ناموفّق بود: %s"
 
-# 
+#
 #: edit.php:146 edit.php:149
 #, php-format
 msgid "Entry for %s updated."
@@ -405,14 +405,14 @@ msgstr "برون‌برد اطلاعات تماس انتخابی"
 msgid "Export the following address book completely."
 msgstr "برون‌برد کتابچهٔ آدرس زیر بطور کامل"
 
-# 
+#
 #: browse.php:67 browse.php:126 browse.php:148 data.php:110 data.php:204
 #: data.php:273 search.php:48 add.php:70
 #, php-format
 msgid "Failed to access the address book: %s"
 msgstr "دسترسی به کتابچهٔ آدرس ناموفّق بود: %s"
 
-# 
+#
 #: browse.php:167
 #, php-format
 msgid "Failed to add %s to %s: %s"
@@ -426,19 +426,19 @@ msgstr "مرور فهرست ناموفّق بود"
 msgid "Failed to browse the directory"
 msgstr "مرور شاخه ناموفّق بود"
 
-# 
+#
 #: lib/Driver/ldap.php:308
 #, php-format
 msgid "Failed to change name: (%s) %s; Old DN = %s, New DN = %s, Root = %s"
 msgstr "تغییر نام ناموفّق بود:  (%s) %s؛ DN قبلی= %s ، DN جدید= %s ، ریشه=  %s"
 
-# 
+#
 #: browse.php:153
 #, php-format
 msgid "Failed to find object to be added: %s"
 msgstr "پیدا کردن شیء اضافه‌ شده ناموفّق بود: %s"
 
-# 
+#
 #: data.php:125 search.php:85
 #, php-format
 msgid "Failed to search the directory: %s"
@@ -516,7 +516,7 @@ msgstr "IMSP"
 msgid "IMSP Addressbook Administration"
 msgstr "سرپرستی کتابچهٔ آدرس IMSP"
 
-# 
+#
 #: templates/data/import.inc:7
 #, php-format
 msgid "Import Address Book, Step %d"
@@ -602,7 +602,7 @@ msgstr "عدم وجود DN در پیکربندی LDAP"
 msgid "Mobile Phone"
 msgstr "تلفن همراه"
 
-# 
+#
 #: lib/Driver/ldap.php:331 lib/Driver/ldap.php:343
 #, php-format
 msgid "Modify failed: (%s) %s"
@@ -630,7 +630,7 @@ msgstr "انتقال به راست"
 msgid "Mulberry Address Book"
 msgstr "کتابچهٔ آدرس Mulberry "
 
-# 
+#
 #: lib/api.php:1050
 #, php-format
 msgid ""
@@ -668,7 +668,7 @@ msgstr "گام بعد"
 msgid "Nickname"
 msgstr "نام مستعار"
 
-# 
+#
 #: lib/api.php:1132 lib/api.php:1181
 #, php-format
 msgid "No %s entry found for %s"
@@ -743,7 +743,7 @@ msgstr "قبلی"
 msgid "Private Address Book"
 msgstr "کتابچهٔ آدرس خصوصی"
 
-# 
+#
 #: lib/Driver/ldap.php:147
 #, php-format
 msgid "Query failed: (%s) %s"
@@ -753,7 +753,7 @@ msgstr "پرس‌وجو ناموفّق بود: (%s) %s"
 msgid "Quick Search"
 msgstr "جستجوی سریع"
 
-# 
+#
 #: lib/Driver/ldap.php:191 lib/Driver/ldap.php:199 lib/Driver/ldap.php:424
 #, php-format
 msgid "Read failed: (%s) %s"
@@ -799,7 +799,7 @@ msgstr "بازنشانی پیش فرض‌ها"
 msgid "S/MIME Public Certificate"
 msgstr "گواهی عمومی S/MIME"
 
-# 
+#
 #: lib/Driver/ldap.php:69
 #, php-format
 msgid "STARTTLS failed: (%s) %s"
@@ -876,7 +876,7 @@ msgstr "انتخاب فیلدهایی که در فهرست آدرسها نمای
 msgid "Select which format to display names."
 msgstr "انتخاب قالب نمایش اسامی"
 
-# 
+#
 #: add.php:57
 #, php-format
 msgid "Selected address book '%s'."
@@ -916,14 +916,14 @@ msgstr "سرچشمه‌ها"
 msgid "Specify where you want advanced search results to appear."
 msgstr "مشخص کردن محل نمایش نتایج جستجوی پیشرفته"
 
-# 
+#
 #: browse.php:169
 #, php-format
 msgid "Successfully added %s to %s"
 msgstr "%s با موفقیّت به %s اضافه شد"
 
 # #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
-# 
+#
 #: browse.php:242
 #, php-format
 msgid "Successfully created the contact list \"%s\"."
@@ -994,13 +994,13 @@ msgstr "خطایی در اضافه کردن این شیء رخ داده است."
 msgid "There was an error creating a new list."
 msgstr "خطایی در ایجاد یک لیست جدید رخ داده است."
 
-# 
+#
 #: browse.php:175
 #, php-format
 msgid "There was an error deleting %s from the source address book."
 msgstr "خطایی در حذف %s از کتابچهٔ آدرس سرچشمه رخ داده است."
 
-# 
+#
 #: delete.php:45
 #, php-format
 msgid "There was an error deleting this contact: %s"
@@ -1014,7 +1014,7 @@ msgstr "خطایی در حذف این شیء رخ داده است."
 msgid "There was an error displaying the list"
 msgstr "خطایی در نمایش فهرست رخ داده است."
 
-# 
+#
 #: data.php:304
 #, php-format
 msgid "There was an error importing the data: %s"
@@ -1028,7 +1028,7 @@ msgstr "خطایی در درون‌برد دادهٔ iCalendar رخ داده ا�
 msgid "There was an error removing a contact from the list."
 msgstr "خطایی در حذف یک تماس از فهرست رخ داده است."
 
-# 
+#
 #: edit.php:155
 #, php-format
 msgid "There was an error updating this entry: %s"
@@ -1050,7 +1050,7 @@ msgstr "این ستونها با این ترتیب نمایش داده خواه�
 msgid "This file format is not supported."
 msgstr "قالب این پرونده پشتیبانی نمی‌شود."
 
-# 
+#
 #: lib/api.php:1059 lib/api.php:1072
 #, php-format
 msgid "This person already has a %s entry in the address book"
@@ -1078,7 +1078,7 @@ msgstr "نوع متن بدون پشتیبانی: %s"
 msgid "Verisign Directory"
 msgstr "شاخهٔ Verisign"
 
-# 
+#
 #: templates/browse/row.inc:19
 #, php-format
 msgid "View '%s'"

@@ -1404,12 +1404,6 @@ msgstr "Za ogled objekta nimaš dovoljenja."
 msgid "You do not have permissions to delete this source."
 msgstr "Nimaš pravice izbrsa tega vira."
 
-#: lib/Driver/ldap.php:705
-msgid ""
-"You must have the Net_LDAP PEAR library installed to use the schema check "
-"function."
-msgstr ""
-
 #: search.php:110
 msgid "You must provide a name for virtual address books."
 msgstr "Podati moraš ime za virtualni imenik."

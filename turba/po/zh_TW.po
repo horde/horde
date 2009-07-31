@@ -320,10 +320,6 @@ msgstr "通常所屬省份"
 msgid "Common Street"
 msgstr "通常住址"
 
-#: config/attributes.php.dist:445
-msgid "Common Video Call"
-msgstr ""
-
 #: config/sources.php.dist:243 config/sources.php.dist:922
 msgid "Communications"
 msgstr "通訊"
@@ -665,10 +661,6 @@ msgstr "住家所屬省份"
 msgid "Home Street Address"
 msgstr "住家住址"
 
-#: config/attributes.php.dist:455
-msgid "Home Video Call"
-msgstr ""
-
 #: config/attributes.php.dist:540
 msgid "Home Website URL"
 msgstr "住家網址"
@@ -1002,10 +994,6 @@ msgstr "其他"
 msgid "PGP Public Key"
 msgstr "PGP 公開金鑰"
 
-#: config/attributes.php.dist:471
-msgid "PTT"
-msgstr ""
-
 #: config/attributes.php.dist:269
 msgid "Pager"
 msgstr "呼叫器"
@@ -1092,10 +1080,6 @@ msgstr "重設回內定值"
 #: config/attributes.php.dist:338
 msgid "S/MIME Public Certificate"
 msgstr "S/MIME 公開憑證"
-
-#: config/attributes.php.dist:465
-msgid "SIP"
-msgstr ""
 
 #: lib/Driver/ldap.php:84
 #, php-format
@@ -1481,10 +1465,6 @@ msgstr "檢視連絡人"
 msgid "View to display by default:"
 msgstr "預設檢視:"
 
-#: config/attributes.php.dist:460
-msgid "VoIP"
-msgstr ""
-
 #: config/attributes.php.dist:320
 msgid "Website URL"
 msgstr "網址"
@@ -1544,10 +1524,6 @@ msgstr "辦公室所屬省份"
 #: config/attributes.php.dist:179
 msgid "Work Street Address"
 msgstr "辦公室住址"
-
-#: config/attributes.php.dist:450
-msgid "Work Video Call"
-msgstr ""
 
 #: config/attributes.php.dist:518
 msgid "Work Website URL"

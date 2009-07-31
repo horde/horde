@@ -2,7 +2,7 @@
 # Copyright 2002 Per-Stian Vatne
 # This file is distributed under the same license as the Kronolith package.
 # Per-Stian Vatne <psv@orsta.org>, 2002.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Kronolith 2.0-cvs\n"

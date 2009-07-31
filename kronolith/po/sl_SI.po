@@ -854,10 +854,6 @@ msgstr "Največje ptevilo dogodkov"
 msgid "May"
 msgstr "Maj"
 
-#: lib/Driver.php:1942
-msgid "Me"
-msgstr ""
-
 #: config/keywords.php.dist:17
 msgid "Meeting"
 msgstr "Sestanek"

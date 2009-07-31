@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the Kronolith package.
 # Mantas Smelevicius <mantas@lnk.lt>, 2002.
 # Vilius Sumkas <vilius@lnk.lt>, 2003, 2004, 2007.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Kronolith 2.2-cvs\n"

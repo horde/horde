@@ -8,7 +8,7 @@
 # Universidade de Santiago de Compostela
 #
 # Revisada y corregida por:
-# 
+#
 # Servicio de normalizacion linguistica <snlusc@usc.es>
 # Universidade de Santiago de Compostela
 #

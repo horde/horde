@@ -53,21 +53,9 @@ msgstr "爹"
 msgid "Author"
 msgstr ""
 
-#: templates/directory/back.inc:4
-msgid "Back"
-msgstr ""
-
-#: templates/log/rev.inc:23
-msgid "Branch Point for:"
-msgstr ""
-
 #: templates/log/rev.inc:16
 msgid "Branch:"
 msgstr "だ狵:"
-
-#: templates/history/branch_cell.inc:2
-msgid "Branching to"
-msgstr ""
 
 #: annotate.php:26
 #, php-format
@@ -317,33 +305,6 @@ msgstr "ちだ狵癘魁"
 msgid "Switch to Log View"
 msgstr "ちセ癘魁"
 
-#: templates/index/notconfigured.inc:46
-msgid ""
-"This file controls the default preferences for Chora, and also controls "
-"which preferences users can alter."
-msgstr ""
-
-#: templates/index/notconfigured.inc:39
-msgid ""
-"This file controls the stylesheet that is used to set colors and fonts in "
-"addition to or overriding Horde defaults."
-msgstr ""
-
-#: templates/index/notconfigured.inc:25
-msgid ""
-"This file defines all of the cvs repositories that you wish Chora to display."
-msgstr ""
-
-#: templates/index/notconfigured.inc:32
-msgid "This file defines any special MIME-type handling for Chora."
-msgstr ""
-
-#: templates/index/notconfigured.inc:18
-msgid ""
-"This is the main Chora configuration file. It contains paths and options for "
-"all Chora scripts."
-msgstr ""
-
 #: prefs.php:86
 msgid "This number must be at least one."
 msgstr "硂计璶单 1."
@@ -351,10 +312,6 @@ msgstr "硂计璶单 1."
 #: prefs.php:84
 msgid "This value must be a number."
 msgstr "叫恶计."
-
-#: templates/headerbar.inc:32
-msgid "Tracking Branch"
-msgstr ""
 
 #: templates/log/request.inc:23
 msgid "Type:"

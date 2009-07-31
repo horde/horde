@@ -345,11 +345,6 @@ msgstr "Poradie triedenia"
 msgid "Source Annotation of %s for version %s"
 msgstr "Komentár k zdroju %s pre verziu %s"
 
-#: history.php:160
-#, php-format
-msgid "Source Branching View for %s"
-msgstr ""
-
 #: browse.php:32
 #, php-format
 msgid "Source Directory of /%s"
@@ -391,10 +386,6 @@ msgstr ""
 "Tento formulár Vám umo¾ní zobrazi» rozdiely medzi µubovoµnými dvomi "
 "revíziami súboru. Mô¾ete si vybra» symbolické meno revízie pomocou "
 "výberového políèka, alebo mô¾ete zada» èíslo pomocou textového poµa."
-
-#: templates/headerbar.inc:16
-msgid "Tracking Branch"
-msgstr ""
 
 #: templates/log/request.inc:23
 msgid "Type:"

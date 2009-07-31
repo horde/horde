@@ -389,8 +389,8 @@ msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been copied to the "
 "folder \"%s\"."
 msgstr ""
-"Activité du filtre : le message « %s » de « %s » a été copié vers le dossier "
-"« %s ». "
+"Activité du filtre : le message « %s » de « %s » a été copié vers le dossier « %"
+"s ». "
 
 #: lib/Script/imap.php:329
 #, php-format
@@ -403,8 +403,8 @@ msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been moved to the folder "
 "\"%s\"."
 msgstr ""
-"Activité du filtre : le message « %s » de « %s » a été déplacé vers le "
-"dossier « %s ». "
+"Activité du filtre : le message « %s » de « %s » a été déplacé vers le dossier "
+"« %s ». "
 
 #: rule.php:188
 msgid "Filter not found."
@@ -426,10 +426,6 @@ msgstr "Pour les messages entrants qui correspondent:"
 #: lib/Block/overview.php:73
 msgid "Forward"
 msgstr "Transfert"
-
-#: lib/Script/sieve.php:222
-msgid "Forward Keep Action"
-msgstr ""
 
 #: forward.php:18
 msgid "Forward is not supported in the current filtering driver."

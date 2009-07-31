@@ -173,10 +173,6 @@ msgstr "Впевнені, що хочете витерти %s?"
 msgid "Are you sure that you want to delete the selected contacts?"
 msgstr "Ви впевнені, що хочете витерти вибрані контакти?"
 
-#: config/attributes.php.dist:424
-msgid "Assistant"
-msgstr ""
-
 #: search.php:181 templates/browse/search.inc:46
 msgid "Basic Search"
 msgstr "Простий пошук"
@@ -193,10 +189,6 @@ msgstr "День народження"
 #: config/attributes.php.dist:99
 msgid "Birthdays"
 msgstr "Дні народження"
-
-#: contact.php:128 templates/browse/row.inc:10
-msgid "Blank name"
-msgstr ""
 
 #: templates/browse/actions.inc:51
 msgid "Both"
@@ -265,12 +257,6 @@ msgstr "Вкажіть, які адресники показати і в якому порядку:"
 msgid "Choose which address books to use."
 msgstr "Виберіть, які адресники використовувати."
 
-#: templates/prefs/columnselect.inc:41
-msgid ""
-"Click an address book to sort its columns. Drag columns to re-arrange them. "
-"Check a column to enable it."
-msgstr ""
-
 #: templates/block/minisearch.inc:26
 msgid "Close"
 msgstr "Закрити"
@@ -290,42 +276,6 @@ msgstr "Розділені комою значення"
 #: templates/data/export.inc:13
 msgid "Comma separated values (Microsoft Outlook)"
 msgstr "Розділені комою значення (Microsoft Outlook)"
-
-#: config/attributes.php.dist:522
-msgid "Common Address Extended"
-msgstr ""
-
-#: config/attributes.php.dist:540
-msgid "Common City"
-msgstr ""
-
-#: config/attributes.php.dist:558
-msgid "Common Country"
-msgstr ""
-
-#: config/attributes.php.dist:466
-msgid "Common Phone"
-msgstr ""
-
-#: config/attributes.php.dist:534
-msgid "Common Post Office Box"
-msgstr ""
-
-#: config/attributes.php.dist:552
-msgid "Common Postal Code"
-msgstr ""
-
-#: config/attributes.php.dist:546
-msgid "Common State/Province"
-msgstr ""
-
-#: config/attributes.php.dist:528
-msgid "Common Street"
-msgstr ""
-
-#: config/attributes.php.dist:491
-msgid "Common Video Call"
-msgstr ""
 
 #: config/sources.php.dist:256 config/sources.php.dist:948
 msgid "Communications"
@@ -622,14 +572,6 @@ msgstr "Домашня адреса"
 msgid "Home Address Extended"
 msgstr "Домашня адреса Розширена"
 
-#: config/attributes.php.dist:153
-msgid "Home City"
-msgstr ""
-
-#: config/attributes.php.dist:171
-msgid "Home Country"
-msgstr ""
-
 #: config/attributes.php.dist:460
 msgid "Home Email"
 msgstr "Домашня е-пошта"
@@ -654,26 +596,6 @@ msgstr "Домашній Мобільний телефон"
 msgid "Home Phone"
 msgstr "Домашній телефон"
 
-#: config/attributes.php.dist:147
-msgid "Home Post Office Box"
-msgstr ""
-
-#: config/attributes.php.dist:165
-msgid "Home Postal Code"
-msgstr ""
-
-#: config/attributes.php.dist:159
-msgid "Home State/Province"
-msgstr ""
-
-#: config/attributes.php.dist:141
-msgid "Home Street Address"
-msgstr ""
-
-#: config/attributes.php.dist:501
-msgid "Home Video Call"
-msgstr ""
-
 #: config/attributes.php.dist:586
 msgid "Home Website URL"
 msgstr "URL домашнього вебсайту"
@@ -691,10 +613,6 @@ msgstr "Імпорт адресника, Крок %d"
 msgid "Import/Export Address Books"
 msgstr "Імпорт/Експорт адресників"
 
-#: config/attributes.php.dist:406
-msgid "Initials"
-msgstr ""
-
 #: config/attributes.php.dist:412
 msgid "Instant Messenger"
 msgstr "Онлайн мессенджер"
@@ -709,10 +627,6 @@ msgstr "Неправильний ID"
 #, php-format
 msgid "Invalid address book: %s"
 msgstr "Неправильний адресник: %s"
-
-#: lib/api.php:1198
-msgid "Invalid contact unique ID"
-msgstr ""
 
 #: lib/api.php:1778 lib/api.php:1864 lib/api.php:1925
 msgid "Invalid email"
@@ -730,24 +644,11 @@ msgstr "Вказано некоректний ключ."
 msgid "Invalid name"
 msgstr "Неправильне ім'я"
 
-#: config/attributes.php.dist:288
-msgid "Job Title"
-msgstr ""
-
-#: lib/Driver/kolab.php:1129 lib/Driver/kolab.php:1195
-#, php-format
-msgid "Key for saving must be a UID not %s!"
-msgstr ""
-
 #: lib/Driver/ldap.php:64
 msgid ""
 "LDAP support is required but the LDAP module is not available or not loaded."
 msgstr ""
 "Підтримка LDAP необхідна, але модуль LDAP не доступний або не завантажений."
-
-#: data.php:106 templates/data/import.inc:18 templates/data/export.inc:16
-msgid "LDIF Address Book"
-msgstr ""
 
 #: config/attributes.php.dist:436
 msgid "Language"
@@ -777,10 +678,6 @@ msgstr "Місце перебування"
 msgid "Logo"
 msgstr "Логотип"
 
-#: config/attributes.php.dist:330
-msgid "Logo MIME Type"
-msgstr ""
-
 #: config/attributes.php.dist:447
 msgid "Longitude"
 msgstr "Довгота"
@@ -801,10 +698,6 @@ msgstr "Менеджер"
 msgid "Mark this as your own contact"
 msgstr "Позначити це як власний контакт"
 
-#: templates/browse/search.inc:109
-msgid "Matching"
-msgstr ""
-
 #: lib/api.php:329
 msgid "Maximum Number of Contacts"
 msgstr "Максимальна кількість контактів"
@@ -820,10 +713,6 @@ msgstr "Список меню"
 #: config/attributes.php.dist:65
 msgid "Middle Names"
 msgstr "По-батькові"
-
-#: lib/Driver/ldap.php:347
-msgid "Missing DN in LDAP source configuration."
-msgstr ""
 
 #: config/attributes.php.dist:271
 msgid "Mobile Phone"
@@ -881,14 +770,6 @@ msgstr "Формат імені"
 msgid "Name Prefixes"
 msgstr "Приставка імені"
 
-#: config/attributes.php.dist:77
-msgid "Name Suffixes"
-msgstr ""
-
-#: templates/browse/search_vbook.inc:6
-msgid "Name:"
-msgstr ""
-
 #: add.php:70 lib/Block/tree_menu.php:28
 msgid "New Contact"
 msgstr "Новий контакт"
@@ -932,10 +813,6 @@ msgstr "Жоден контакт не відповідає поточному фільтру."
 #: lib/ListView.php:255
 msgid "No matching contacts"
 msgstr "Відповідних контактів не знайдено"
-
-#: lib/Driver/favourites.php:124
-msgid "No source for favourite recipients exists."
-msgstr ""
 
 #: lib/api.php:893 lib/api.php:1235
 msgid "No vCard data was found."
@@ -1004,10 +881,6 @@ msgstr "Інший"
 msgid "PGP Public Key"
 msgstr "Публічний ключ PGP"
 
-#: config/attributes.php.dist:517
-msgid "PTT"
-msgstr ""
-
 #: config/attributes.php.dist:281
 msgid "Pager"
 msgstr "Пейджер"
@@ -1028,10 +901,6 @@ msgstr "Приватні"
 #: config/attributes.php.dist:121
 msgid "Photo"
 msgstr "Фото"
-
-#: config/attributes.php.dist:127
-msgid "Photo MIME Type"
-msgstr ""
 
 #: data.php:105 templates/data/import.inc:17
 msgid "Pine Address Book"
@@ -1105,10 +974,6 @@ msgstr "Очистити до типових"
 msgid "S/MIME Public Certificate"
 msgstr "S/MIME Відкритий Сертифікат"
 
-#: config/attributes.php.dist:511
-msgid "SIP"
-msgstr ""
-
 #: lib/Driver/ldap.php:84
 #, php-format
 msgid "STARTTLS failed: (%s) %s"
@@ -1141,10 +1006,6 @@ msgstr "Пошук невдалий"
 msgid "Search failed: %s"
 msgstr "Пошук невдалий: %s"
 
-#: templates/block/minisearch.inc:23
-msgid "Search for: "
-msgstr ""
-
 #: lib/Driver.php:2090 lib/Driver/null.php:47
 msgid "Searching is not available."
 msgstr "Пошук не доступний."
@@ -1160,12 +1021,6 @@ msgstr "Вкажіть адресник, з якого експортувати:"
 #: templates/data/import.inc:27
 msgid "Select the address book to import to:"
 msgstr "Вкажіть адресник, в який імпортувати:"
-
-#: config/prefs.php.dist:61
-msgid ""
-"Select the address books that should be used for synchronization with "
-"external devices:"
-msgstr ""
 
 #: templates/data/import.inc:36
 msgid "Select the charset of the source file:"
@@ -1209,10 +1064,6 @@ msgstr "Вибрані Адресники \"%s\"."
 msgid "Show %s"
 msgstr "Показати %s"
 
-#: templates/browse/actions.inc:51
-msgid "Show Both"
-msgstr ""
-
 #: templates/browse/actions.inc:50
 msgid "Show Contacts"
 msgstr "Показати контакти"
@@ -1247,10 +1098,6 @@ msgstr "Джерело:"
 #: lib/api.php:322
 msgid "Sources"
 msgstr "Джерела"
-
-#: config/attributes.php.dist:109
-msgid "Spouse"
-msgstr ""
 
 #: lib/Views/Browse.php:268 lib/Views/Browse.php:308
 #, php-format
@@ -1293,10 +1140,6 @@ msgstr "Значення розділені табуляцією"
 #: templates/browse/actions.inc:20
 msgid "Target Address Book"
 msgstr "Адресник призначення"
-
-#: templates/browse/actions.inc:31
-msgid "Target Contact List"
-msgstr ""
 
 #: data.php:426
 #, php-format
@@ -1510,10 +1353,6 @@ msgstr "Проглянути контакт"
 msgid "View to display by default:"
 msgstr "Стандартний вигляд для відображення:"
 
-#: config/attributes.php.dist:506
-msgid "VoIP"
-msgstr ""
-
 #: config/attributes.php.dist:344
 msgid "Website URL"
 msgstr "URL вебсайту"
@@ -1542,14 +1381,6 @@ msgstr "Робоча е-пошта"
 msgid "Work Fax"
 msgstr "Робочий факс"
 
-#: config/attributes.php.dist:576
-msgid "Work Latitude"
-msgstr ""
-
-#: config/attributes.php.dist:581
-msgid "Work Longitude"
-msgstr ""
-
 #: config/attributes.php.dist:481
 msgid "Work Mobile Phone"
 msgstr "Робочий Мобільний телефон"
@@ -1573,10 +1404,6 @@ msgstr "Область або Регіон, де працюєте"
 #: config/attributes.php.dist:191
 msgid "Work Street Address"
 msgstr "Робоча адреса"
-
-#: config/attributes.php.dist:496
-msgid "Work Video Call"
-msgstr ""
 
 #: config/attributes.php.dist:564
 msgid "Work Website URL"
@@ -1635,12 +1462,6 @@ msgid ""
 msgstr ""
 "У Вас немає достатньо прав для читання адресника, що містить Ваш власний "
 "контакт."
-
-#: lib/Driver/ldap.php:741
-msgid ""
-"You must have the Net_LDAP PEAR library installed to use the schema check "
-"function."
-msgstr ""
 
 #: search.php:133
 msgid "You must provide a name for virtual address books."

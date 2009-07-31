@@ -563,10 +563,6 @@ msgstr "Província/estat natal"
 msgid "Home Street Address"
 msgstr "Adreça personal"
 
-#: config/sources.php.dist:513
-msgid "IMSP"
-msgstr ""
-
 #: config/prefs.php.dist:47
 msgid "IMSP Address Book Administration"
 msgstr "Administració de llibreta d'adreces IMSP "

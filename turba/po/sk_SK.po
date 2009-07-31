@@ -1401,14 +1401,6 @@ msgstr ""
 "®iaden z dostupných adresárov neumo¾òuje vkladanie nových polo¾iek. Ak "
 "predpokladáte, ¾e ide o chybu, kontaktujte prosím správcu Vá¹ho systému."
 
-#: lib/Views/Browse.php:349
-#, php-format
-msgid "There is %d contact in this list that is not viewable to you"
-msgid_plural "There are %d contacts in this list that are not viewable to you"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
 #: search.php:161
 #, php-format
 msgid "There was a problem creating the virtual address book: %s"

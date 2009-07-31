@@ -208,10 +208,6 @@ msgstr "Inte slutar med"
 msgid "Doesn't exist"
 msgstr "Finns inte"
 
-#: lib/Storage.php:357
-msgid "Doesn't match (with placeholders)"
-msgstr ""
-
 #: templates/filters/header.inc:18
 msgid "Edit"
 msgstr "Ändra"
@@ -395,10 +391,6 @@ msgstr "Mar_kera meddelande som raderat"
 #: templates/rule/footer.inc:24
 msgid "Mark message as:"
 msgstr "Markera meddelande som:"
-
-#: lib/Storage.php:356
-msgid "Matches (with placeholders)"
-msgstr ""
 
 #: lib/Storage.php:487
 #, php-format

@@ -411,15 +411,16 @@ msgstr "Subiect mesaj raspuns:"
 
 #: lib/Ingo.php:121
 msgid "There was an error activating this script. The driver said: %s"
-msgstr "S-a produs o eroare in activarea acestui script. Driverul raporteaza: %s"
+msgstr ""
+"S-a produs o eroare in activarea acestui script. Driverul raporteaza: %s"
 
 #: templates/index/notconfigured.inc:65
 msgid ""
 "This file contains all possible mail header tests that can be selected by "
 "the users."
 msgstr ""
-"Acest fisier contine toate testele posibile de headere de e-mail ce pot "
-"fi selectate de utilizatori."
+"Acest fisier contine toate testele posibile de headere de e-mail ce pot fi "
+"selectate de utilizatori."
 
 #: templates/index/notconfigured.inc:51
 msgid "This file contains preferences for Ingo."
@@ -434,8 +435,8 @@ msgid ""
 "This is the main Sieve configuration file. It contains options for all Ingo "
 "scripts."
 msgstr ""
-"Acesta este principalul fisier de configurare Sieve. Contine optiunile pentru "
-"toate scripturile Ingo."
+"Acesta este principalul fisier de configurare Sieve. Contine optiunile "
+"pentru toate scripturile Ingo."
 
 #: config/tests.php.dist:56
 msgid "To"
@@ -458,8 +459,8 @@ msgid ""
 "Vacation messages are automatic responses sent to people when they email "
 "you. They are normally used when you are away for a long period of time."
 msgstr ""
-"Mesajele de vacanta sunt raspunsuri automate catre cei care v-au trimis "
-"e-mail. Sunt folositoare atunci cand sunteti plecat mult timp."
+"Mesajele de vacanta sunt raspunsuri automate catre cei care v-au trimis e-"
+"mail. Sunt folositoare atunci cand sunteti plecat mult timp."
 
 #: templates/blacklist/blacklist.inc:27
 msgid "Wildcard addresses are okay but use carefully! (eg *@example.com)"

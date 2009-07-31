@@ -462,14 +462,6 @@ msgstr "現在のフィルタードライバーでは個別のルールはサポートしていません。"
 msgid "Inexistant mailbox specified for message delivery."
 msgstr "メッセージの配送先に存在しないメールボックスが指定されています。"
 
-#: lib/Storage.php:344
-msgid "Is"
-msgstr ""
-
-#: lib/Storage.php:345
-msgid "Isn't"
-msgstr ""
-
 #: forward.php:41
 msgid "Keep a copy of messages in this account?"
 msgstr "メッセージのコピーを保存しておきますか？"
@@ -500,10 +492,6 @@ msgstr "_K削除済みと印を付ける"
 #: templates/rule/footer.inc:25
 msgid "Mark message as:"
 msgstr "メールに印を付ける："
-
-#: templates/rule/filter.inc:23
-msgid "Match type"
-msgstr ""
 
 #: lib/Storage.php:353
 msgid "Matches (with placeholders)"
