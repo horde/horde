@@ -64,6 +64,13 @@ class Horde
     static protected $_inlineScript = array();
 
     /**
+     * Has popupJs been called?
+     *
+     * @var boolean
+     */
+    static protected $_popupjscalled = false;
+
+    /**
      * Logs a message to the global Horde log backend.
      *
      * @param mixed $message     Either a string or an object with a
@@ -497,9 +504,6 @@ HTML;
 
         switch ($type) {
         case 'help':
-            if ($GLOBALS['browser']->hasFeature('javascript')) {
-                self::addScriptFile('popup.js', 'horde', true);
-            }
             $url = self::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/help/', true);
             return Horde_Util::addParameter($url, array('module' => $app));
 
@@ -2065,7 +2069,7 @@ HTML;
      * @param string $onload   Load the script after the page has loaded?
      *                         Either 'dom' (on dom:loaded), 'load'.
      */
-    static public function addInlineScript($script, $onload = false)
+    static public function addInlineScript($script, $onload = null)
     {
         if (is_array($script)) {
             $script = implode(';', $script);
@@ -2151,6 +2155,57 @@ HTML;
         }
 
         return self::url($url);
+    }
+
+    /**
+     * Output the javascript needed to call the popup JS function.
+     *
+     * @param string $url      The page to load.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'height' - (integer) The height of the popup window.
+     *            DEFAULT: 650 px
+     * 'params' - (array) Additional parameters to pass to the URL.
+     *            DEFAULT: None
+     * 'urlencode' - (boolean) URL encode the json string
+     *               DEFAULT: No
+     * 'width' - (integer) The width of the popup window.
+     *           DEFAULT: 700 px
+     * </pre>
+     *
+     * @return string  The javascript needed to call the popup code.
+     */
+    static public function popupJs($url, $options = array())
+    {
+        if (!self::$_popupjscalled) {
+            Horde::addScriptFile('popup.js', 'horde', true);
+            Horde::addInlineScript('Horde.popup_block_text=' . Horde_Serialize::serialize(_("A popup window could not be opened. Your browser may be blocking popups."), Horde_Serialize::JSON), 'dom');
+            self::$_popupjscalled = true;
+        }
+
+        $params = new stdClass;
+        $pos = strpos($url, '?');
+        if ($pos === false) {
+            $params->url = $url;
+        } else {
+            $params->url = substr($url, 0, $pos);
+            parse_str(substr($url, $pos + 1), $parsed);
+            if (!isset($options['params'])) {
+                $options['params'] = array();
+            }
+            $options['params'] = array_merge($parsed, $options['params']);
+        }
+        if (!empty($options['height'])) {
+            $params->height = $options['height'];
+        }
+        if (!empty($options['width'])) {
+            $params->width = $options['width'];
+        }
+        if (!empty($options['params'])) {
+            $params->params = substr(Horde_Util::addParameter('', $options['params'], null, false), 1);
+        }
+
+        return 'Horde.popup(' . self::escapeJson($params, array('urlencode' => !empty($options['urlencode']))) . ');';
     }
 
 }
