@@ -7,11 +7,11 @@
  *
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
-class ImageForm extends Horde_Form {
+class Ansel_Form_Image extends Horde_Form
+{
+    protected $_useFormToken = false;
 
-    var $_useFormToken = false;
-
-    function ImageForm(&$vars, $title)
+    public function __construct(&$vars, $title)
     {
         global $gallery;
 
@@ -49,7 +49,7 @@ class ImageForm extends Horde_Form {
     /**
      * Format file size
      */
-    function _get_size($size)
+    protected function _get_size($size)
     {
         $bytes = array('B', 'KB', 'MB', 'GB', 'TB');
 

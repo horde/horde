@@ -7,11 +7,11 @@
  *
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
-class WatermarkForm extends Horde_Form {
+class Ansel_Form_Watermark extends Horde_Form
+{
+    protected $_useFormToken = false;
 
-    var $_useFormToken = false;
-
-    function WatermarkForm(&$vars, $title)
+    public function __construct(&$vars, $title)
     {
         global $gallery, $prefs;
 

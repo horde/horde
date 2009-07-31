@@ -7,7 +7,6 @@
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
-
 require_once dirname(__FILE__) . '/lib/base.php';
 
 $images = Horde_Util::getFormData('image', array());
@@ -35,13 +34,9 @@ if (!count($images)) {
     exit;
 }
 
-/* Includes */
-require_once ANSEL_BASE . '/lib/Forms/ImageDate.php';
-require_once 'Horde/Form/Renderer.php';
-
 /* Set up the form */
 $vars = Horde_Variables::getDefaultVariables();
-$form = new ImageDateForm($vars, _("Edit Dates"));
+$form = new Ansel_Form_ImageDate($vars, _("Edit Dates"));
 /* Are we doing the edit now? */
 if ($actionID == 'edit_dates') {
     $count = 0;

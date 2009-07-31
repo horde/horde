@@ -5,11 +5,11 @@
  * @package Ansel
  */
 
-class EcardForm extends Horde_Form {
+class Ansel_Form_Ecard extends Horde_Form {
 
-    var $_useFormToken = false;
+    protected $_useFormToken = false;
 
-    function EcardForm(&$vars, $title)
+    public function __construct(&$vars, $title)
     {
         parent::Horde_Form($vars, $title);
 

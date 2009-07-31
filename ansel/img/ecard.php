@@ -9,8 +9,6 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/base.php';
-require_once ANSEL_BASE . '/lib/Forms/Ecard.php';
-require_once 'Horde/Form/Renderer.php';
 
 /* Abort if ecard sending is disabled. */
 if (empty($conf['ecard']['enable'])) {
@@ -99,7 +97,7 @@ $title = sprintf(_("Send Ecard :: %s"), $image->filename);
 $vars = Horde_Variables::getDefaultVariables();
 $vars->set('actionID', 'send');
 $vars->set('image_desc', strlen($image->caption) ? $image->caption : $image->filename);
-$form = new EcardForm($vars, $title);
+$form = new Ansel_Form_Ecard($vars, $title);
 $renderer = new Horde_Form_Renderer();
 
 if ($browser->hasFeature('rte')) {

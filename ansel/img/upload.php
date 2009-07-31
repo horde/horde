@@ -9,8 +9,6 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/base.php';
-require_once ANSEL_BASE . '/lib/Forms/Upload.php';
-require_once 'Horde/Form/Renderer.php';
 
 $gallery_id = Horde_Util::getFormData('gallery');
 $gallery = &$ansel_storage->getGallery($gallery_id);
@@ -23,7 +21,7 @@ if (is_a($gallery, 'PEAR_Error')) {
 $page = Horde_Util::getFormData('page', 0);
 $vars = Horde_Variables::getDefaultVariables();
 
-$form = new UploadForm($vars, _("Upload photos"));
+$form = new Ansel_Form_Upload($vars, _("Upload photos"));
 if ($form->validate($vars)) {
     $valid = true;
     $uploaded = 0;

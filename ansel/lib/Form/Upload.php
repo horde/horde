@@ -5,11 +5,11 @@
  *
  * @package Ansel
  */
-class UploadForm extends Horde_Form {
+class Ansel_Form_Upload extends Horde_Form
+{
+    protected $_useFormToken = false;
 
-    var $_useFormToken = false;
-
-    function UploadForm(&$vars, $title)
+    public function __construct(&$vars, $title)
     {
         global $gallery, $conf;
 
@@ -75,7 +75,7 @@ class UploadForm extends Horde_Form {
     /**
      * Format file size
      */
-    function _get_size($size)
+    protected function _get_size($size)
     {
         $bytes = array('B', 'KB', 'MB', 'GB', 'TB');
 

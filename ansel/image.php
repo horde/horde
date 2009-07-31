@@ -13,7 +13,6 @@
  */
 
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Form/Renderer.php';
 
 /* Get all the form data */
 $actionID = Horde_Util::getFormData('actionID');
@@ -145,7 +144,7 @@ case 'modify':
     } else {
         $vars->set('actionID', 'savecloseimage');
     }
-    $form = new ImageForm($vars, $title);
+    $form = new Ansel_Form_Image($vars, $title);
     $renderer = new Horde_Form_Renderer();
 
     /* Set up the gallery attributes. */
@@ -185,7 +184,7 @@ case 'save':
     $vars = Horde_Variables::getDefaultVariables();
     $vars->set('actionID', 'save');
     $renderer = new Horde_Form_Renderer();
-    $form = new ImageForm($vars, _("Edit a photo"));
+    $form = new Ansel_Form_Image($vars, _("Edit a photo"));
 
     /* Update existing image. */
     if ($form->validate($vars)) {
@@ -463,7 +462,7 @@ case 'setwatermark':
     require_once ANSEL_BASE . '/lib/Forms/Watermark.php';
     $vars = Horde_Variables::getDefaultVariables();
     $vars->set('actionID', 'previewcustomwatermark');
-    $form = new WatermarkForm($vars, _("Watermark"));
+    $form = new Ansel_Form_Watermark($vars, _("Watermark"));
     $renderer = new Horde_Form_Renderer();
 
     require ANSEL_TEMPLATES . '/common-header.inc';

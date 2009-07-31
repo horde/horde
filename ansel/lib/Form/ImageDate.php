@@ -7,11 +7,11 @@
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
-class ImageDateForm extends Horde_Form {
+class Ansel_Form_ImageDate extends Horde_Form
+{
+    protected $_useFormToken = false;
 
-    var $_useFormToken = false;
-
-    function ImageDateForm(&$vars, $title)
+    public function __construct(&$vars, $title)
     {
         global $gallery;
 
