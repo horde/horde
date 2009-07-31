@@ -593,7 +593,7 @@ class IMP
             $js_params = array(
                 'dialog_load' => Horde::applicationUrl('ajax.php', true, -1) . '/FetchmailDialog'
             );
-            $menu->add('javascript:IMPDialog.display(\'' . Horde::escapeJson($js_params, array('urlencode' => true)) . '\')', _("Fetch Mail"), 'fetchmail.png');
+            $menu->add('javascript:IMPDialog.display(' . Horde::escapeJson($js_params, array('urlencode' => true)) . ')', _("Fetch Mail"), 'fetchmail.png');
         }
 
         if ($prefs->getValue('filter_menuitem')) {
