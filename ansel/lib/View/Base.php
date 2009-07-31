@@ -32,7 +32,7 @@ abstract class Ansel_View_Base
     protected $_widgets = array();
 
 
-    public function __construct($params)
+    public function __construct($params = array())
     {
         $this->_params = $params;
     }
