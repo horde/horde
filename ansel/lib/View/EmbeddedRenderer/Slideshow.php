@@ -21,12 +21,9 @@ class Ansel_View_EmbeddedRenderer_Slideshow extends Ansel_View_Gallery
      *
      * @return Ansel_View_EmbeddedRenderer  The renderer object.
      */
-    function makeView($params = array())
+    public function __construct($params = array())
     {
-        $view = new Ansel_View_EmbeddedRenderer_Carousel();
-        $view->_params = $params;
-
-        return $view;
+        parent::__construct($params);
     }
 
     /**
@@ -34,7 +31,7 @@ class Ansel_View_EmbeddedRenderer_Slideshow extends Ansel_View_Gallery
      *
      * @return string  A string containing valid javascript.
      */
-    function html()
+    public function html()
     {
 
     }

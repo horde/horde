@@ -24,28 +24,11 @@
 class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Gallery
 {
     /**
-     * Create a new renderer.
-     *
-     * @see Ansel_View_Embedded
-     *
-     * @param array $params
-     *
-     * @return Ansel_View_EmbeddedRenderer  The renderer object.
-     */
-    function makeView($params = array())
-    {
-        $view = new Ansel_View_EmbeddedRenderer_GalleryLink();
-        $view->_params = $params;
-
-        return $view;
-    }
-
-    /**
      * Build the javascript that will render the view.
      *
      * @return string  A string containing valid javascript.
      */
-    function html()
+    public function html()
     {
         /* Read in parameters and set defaults */
 
