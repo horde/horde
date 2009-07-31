@@ -346,7 +346,7 @@ if ($prefs->getValue('use_pgp')) {
         $t->set('no_source', !$GLOBALS['prefs']->getValue('add_source'));
         if (!$t->get('no_source')) {
             $cacheSess = Horde_SessionObjects::singleton();
-            $t->set('public_import_url', Horde_Util::addParameter(Horde_Util::addParameter($selfURL, 'actionID', 'import_public_key'), 'reload', $cacheSess->storeOid($selfURL, false)));
+            $t->set('public_import_url', Horde::popupJs($selfURL, array('params' => array('actionID' => 'import_public_key', 'reload' => $cacheSess->storeOid($selfURL, false)), 'height' => 275, 'width' => 750, 'urlencode' => true)));
             $t->set('import_pubkey-help', Horde_Help::link('imp', 'pgp-import-pubkey'));
         }
     }
@@ -377,7 +377,7 @@ if ($prefs->getValue('use_pgp')) {
             $t->set('personalkey-create-keylength-help', Horde_Help::link('imp', 'pgp-personalkey-create-keylength'));
             $t->set('personalkey-create-passphrase-help', Horde_Help::link('imp', 'pgp-personalkey-create-passphrase'));
             $t->set('keygen', addslashes(_("Key generation may take a long time to complete.  Continue with key generation?")));
-            $t->set('personal_import_url', Horde_Util::addParameter($selfURL, 'actionID', 'import_personal_public_key'));
+            $t->set('personal_import_url', Horde::popupJs($selfURL, array('params' => array('actionID' => 'import_personal_public_key'), 'height' => 275, 'width' => 750, 'urlencode' => true)));
             $t->set('personalkey-create-actions-help', Horde_Help::link('imp', 'pgp-personalkey-create-actions'));
         }
     }

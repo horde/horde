@@ -49,7 +49,7 @@
 <if:no_source>
  <br /><em><gettext>Key import is not available. You have no address book defined to add your contacts.</gettext></em><br />
 <else:no_source>
- <br /><input type="submit" name="save" class="button" onclick="IMP.popup('<tag:public_import_url />',750,275); return false;" value="<gettext>Import Public Key</gettext>" />
+ <br /><input type="submit" name="save" class="button" onclick="<tag:public_import_url />return false;" value="<gettext>Import Public Key</gettext>" />
  <tag:import_pubkey-help />
 </else:no_source></if:no_source></else:no_file_upload></if:no_file_upload>
 </div>
@@ -125,7 +125,7 @@
  <p>
   <input type="submit" name="save" class="button" onclick="if (confirm('<tag:keygen />')) { document.prefs.actionID.value='generate_key';return true; } else { return false; }" value="<gettext>Create Keys</gettext>" />
 <if:no_file_upload><else:no_file_upload>
-  <input type="submit" name="save" class="button" onclick="IMP.popup('<tag:personal_import_url />',750,275);return false;" value="<gettext>Import Keypair</gettext>" />
+  <input type="submit" name="save" class="button" onclick="<tag:personal_import_url />return false;" value="<gettext>Import Keypair</gettext>" />
 </else:no_file_upload></if:no_file_upload>
   <tag:personalkey-create-actions-help />
 </p>

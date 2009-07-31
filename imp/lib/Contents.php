@@ -642,7 +642,7 @@ class IMP_Contents
         if (($mask && self::SUMMARY_IMAGE_SAVE) &&
             $GLOBALS['registry']->hasMethod('images/selectGalleries') &&
             ($mime_part->getPrimaryType() == 'image')) {
-            $part['img_save'] = Horde::link('#', _("Save Image in Gallery"), 'saveImgAtc', null, IMP::popupIMPString('saveimage.php', array('index' => ($this->_index . IMP::IDX_SEP . $this->_mailbox), 'id' => $id), 450, 200) . "return false;") . '</a>';
+            $part['img_save'] = Horde::link('#', _("Save Image in Gallery"), 'saveImgAtc', null, Horde::popupJs(Horde::applicationUrl('saveimage.php'), array('params' => array('index' => ($this->_index . IMP::IDX_SEP . $this->_mailbox), 'id' => $id), 'height' => 200, 'width' => 450)) . 'return false;') . '</a>';
         }
 
         /* Strip Attachment? Allow stripping of base parts other than the
@@ -764,7 +764,7 @@ class IMP_Contents
             $options['jstext'] = sprintf(_("View %s"), $mime_part->getDescription(true));
         }
 
-        $url = IMP::popupIMPString('view.php', $this->_urlViewParams($mime_part, $actionID, isset($options['params']) ? $options['params'] : array())) . 'return false;';
+        $url = Horde::popupJs(Horde::applicationUrl('view.php'), array('params' => $this->_urlViewParams($mime_part, $actionID, isset($options['params']) ? $options['params'] : array()))) . 'return false;';
 
         return empty($options['widget'])
             ? Horde::link('#', $options['jstext'], empty($options['css']) ? null : $options['css'], null, $url) . $text . '</a>'

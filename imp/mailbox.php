@@ -395,8 +395,7 @@ if ($open_compose_window === false) {
     if (!isset($options)) {
         $options = array();
     }
-    Horde::addScriptFile('imp.js', 'imp', true);
-    $notification->push(IMP::popupIMPString('compose.php', array_merge(array('popup' => 1), $options, IMP::getComposeArgs())), 'javascript');
+    Horde::addInlineScript(Horde::popupJs(Horde::applicationUrl('compose.php'), array('params' => array_merge(array('popup' => 1), $options, IMP::getComposeArgs()))), 'dom');
 }
 
 if (!empty($newmsgs)) {
@@ -411,7 +410,7 @@ if (!empty($newmsgs)) {
         }
         /* Newmail alert. */
         if ($prefs->getValue('nav_popup')) {
-            $notification->push(IMP::getNewMessagePopup($newmsgs), 'javascript');
+            Horde::addInlineScript(IMP::getNewMessagePopup($newmsgs), 'dom');
         }
     }
 }

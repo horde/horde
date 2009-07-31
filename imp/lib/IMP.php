@@ -405,11 +405,10 @@ class IMP
         if (($view != 'mimp') &&
             $GLOBALS['prefs']->getValue('compose_popup') &&
             $GLOBALS['browser']->hasFeature('javascript')) {
-            Horde::addScriptFile('imp.js', 'imp', true);
             if (isset($args['to'])) {
                 $args['to'] = addcslashes($args['to'], '\\"');
             }
-            return "javascript:" . self::popupIMPString('compose.php', $args);
+            return "javascript:" . Horde::popupJs(Horde::applicationUrl('compose.php'), array('params' => $args, 'urlencode' => true));
         }
 
         return Horde_Util::addParameter(Horde::applicationUrl(($view == 'mimp') ? 'compose-mimp.php' : 'compose.php'), $args);
@@ -1184,22 +1183,6 @@ class IMP
 
         // Initialize IMP_Search object.
         $GLOBALS['imp_search'] = new IMP_Search(array('id' => (isset($_SESSION['imp']) && IMP_Search::isSearchMbox($GLOBALS['imp_mbox']['mailbox'])) ? $GLOBALS['imp_mbox']['mailbox'] : null));
-    }
-
-    /**
-     * Output the javascript needed to call the IMP popup JS function.
-     *
-     * @param string $url      The IMP page to load.
-     * @param array $params    An array of paramters to pass to the URL.
-     * @param integer $width   The width of the popup window.
-     * @param integer $height  The height of the popup window.
-     *
-     * @return string  The javascript needed to call the popup code.
-     */
-    static public function popupIMPString($url, $params = array(),
-                                          $width = 700, $height = 650)
-    {
-        return "IMP.popup('" . Horde::applicationUrl($url) . "'," . $width . "," . $height . ",'" . $GLOBALS['browser']->escapeJSCode(str_replace('+', '%20', substr(Horde_Util::addParameter('', $params, null, false), 1))) . "');";
     }
 
     /**

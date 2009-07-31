@@ -329,7 +329,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
             'uid' => $uid,
             'mime_id' => $id
         );
-        return IMP::popupIMPString('smime.php', $params, 450, 200);
+        return Horde::popupJs(Horde::applicationUrl('smime.php'), array('params' => $params, 'height' => 200, 'width' => 450));
     }
 
     /**

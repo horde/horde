@@ -470,7 +470,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             'uid' => $uid,
             'mime_id' => $id
         );
-        return IMP::popupIMPString('pgp.php', $params, 450, 200);
+        return Horde::popupJs(Horde::applicationUrl('pgp.php'), array('params' => $params, 'height' => 200, 'width' => 450));
     }
 
     /**

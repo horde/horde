@@ -266,7 +266,7 @@ if ($openssl_check && $prefs->getValue('use_smime')) {
         $t->set('no_source', !$GLOBALS['prefs']->getValue('add_source'));
         if (!$t->get('no_source')) {
             $cacheSess = Horde_SessionObjects::singleton();
-            $t->set('public_import_url', Horde_Util::addParameter(Horde_Util::addParameter($selfURL, 'actionID', 'import_public_key'), 'reload', $cacheSess->storeOid($selfURL, false)));
+            $t->set('public_import_url', Horde::popupJs($selfURL, array('params' => array('actionID' => 'import_public_key', 'reload' => $cacheSess->storeOid($selfURL, false)), 'height' => 275, 'width' => 750, 'urlencode' => true)));
             $t->set('import_pubkey-help', Horde_Help::link('imp', 'smime-import-pubkey'));
         }
     }
@@ -284,7 +284,7 @@ if ($openssl_check && $prefs->getValue('use_smime')) {
             $t->set('deletekeypair', addslashes(_("Are you sure you want to delete your keypair? (This is NOT recommended!)")));
             $t->set('personalkey-delete-help', Horde_Help::link('imp', 'smime-delete-personal-certs'));
         } else {
-            $t->set('personal_import_url', Horde_Util::addParameter($selfURL, 'actionID', 'import_personal_certs'));
+            $t->set('personal_import_url', Horde::popupJs($selfURL, array('params' => array('actionID' => 'import_personal_certs'), 'height' => 275, 'width' => 750, 'urlencode' => true)));
             $t->set('import-cert-help', Horde_Help::link('imp', 'smime-import-personal-certs'));
         }
     }
