@@ -628,11 +628,10 @@ HTML;
      */
     static public function escapeJson($data, $options = array())
     {
-        $json = Horde_Serialize::serialize($data, Horde_Serialize::JSON, empty($options['charset']) ? Horde_Nls::getCharset() : $options['charset']);
-        if (!empty($options['urlencode'])) {
-            $json = rawurlencode($json);
-        }
-        return '/*-secure-' . $json . '*/';
+        $json = '/*-secure-' . Horde_Serialize::serialize($data, Horde_Serialize::JSON, empty($options['charset']) ? Horde_Nls::getCharset() : $options['charset']) . '*/';
+        return empty($options['urlencode'])
+            ? $json
+            : '\'' . rawurlencode($json) . '\'';
     }
 
     /**
