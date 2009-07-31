@@ -413,92 +413,90 @@ Ansel_GMap.prototype = {
 
 }
 
-document.observe('dom:loaded', function() {
-    /**
-     * Define our custom GOverlay to display thumbnails of images on the map.
-     * Use an Image object to get the exact dimensions of the image. Need this
-     * wrapped in an onload handler to be sure GOverlay() is defined.
-     */
-    anselGOverlay = function(latlng, image_data) {
-        this.src_ = image_data.icon;
-        this.latlng_ = latlng;
-        var img = new Image();
-        img.src = image_data.icon;
-        this.width_ = img.width;
-        this.height_ = img.height;
-        var z = GOverlay.getZIndex(this.latlng_.lat());
-        this.div_ = new Element('div', {style: 'position:absolute;border:1px solid white;width:' + (this.width_ - 2) + 'px; height:' + (this.height_ - 2) + 'px;zIndex:' + z});
-        this.img_ = new Element('img', {src: this.src_, style: 'width:' + (this.width_ - 2) + 'px;height:' + (this.height_ - 2) + 'px'});
-        this.div_.appendChild(this.img_);
-        this.selected_ = false;
-        this.link = image_data.link;
-    
-        // Handlers to hightlight the node for this overlay on mouseover/out
-        GEvent.addDomListener(this.div_, 'mouseover', function() {
-            this.focus();
-        }.bind(this));
-        GEvent.addDomListener(this.div_, 'mouseout', function() {
-            this.focus();
-        }.bind(this));
-    
-        // Add a click handler to navigate to the image view for this image.
-        if (this.link) {
-            GEvent.addDomListener(this.div_, 'click', function() {
-                    var a = this.link;
-                    location.href = a;
-                }.bind(this));
-            }
-        };
-    
-        anselGOverlay.prototype = new GOverlay();
-        anselGOverlay.prototype.initialize =  function(map) {
-            map.getPane(G_MAP_MARKER_PANE).appendChild(this.div_);
-            this.map_ = map;
-        };
-    
-        //Remove the main DIV from the map pane
-        // TODO: We should unregister the event handlers adding in initialize()
-        anselGOverlay.prototype.remove = function() {
-          this.div_.parentNode.removeChild(this.div_);
-        };
-    
-        // Copy our data to a new GOverlay
-        anselGOverlay.prototype.copy = function() {
-          return new Ansel_GOverlay(this.latlng_, this.src_);
-        };
-    
-        anselGOverlay.prototype.redraw = function(force) {
-            // We only need to redraw if the coordinate system has changed
-        if (!force) return;
-        var coords = this.map_.fromLatLngToDivPixel(this.latlng_);
-        this.div_.style.left = coords.x + "px";
-        this.div_.style.top  = coords.y + "px";
-    };
-    
-    anselGOverlay.prototype.focus = function()
-    {
-        if (this.selected_ == false) {
-            this.div_.style.border = '1px solid red';
-            this.div_.style.left = (parseInt(this.div_.style.left) - 1) + "px";
-            this.div_.style.top = (parseInt(this.div_.style.top) - 1) + "px";
-            this.div_.style.zIndex = GOverlay.getZIndex(-90.0);
-            this.selected_ = true;
-        } else {
-            this.div_.style.border = '1px solid white';
-            this.div_.style.left = (parseInt(this.div_.style.left) + 1) + "px";
-            this.div_.style.top = (parseInt(this.div_.style.top) + 1) + "px";
-            this.div_.style.zIndex = GOverlay.getZIndex(this.latlng_.lat());
-            this.selected_ = false;
+/**
+ * Define our custom GOverlay to display thumbnails of images on the map.
+ * Use an Image object to get the exact dimensions of the image. Need this
+ * wrapped in an onload handler to be sure GOverlay() is defined.
+ */
+anselGOverlay = function(latlng, image_data) {
+    this.src_ = image_data.icon;
+    this.latlng_ = latlng;
+    var img = new Image();
+    img.src = image_data.icon;
+    this.width_ = img.width;
+    this.height_ = img.height;
+    var z = GOverlay.getZIndex(this.latlng_.lat());
+    this.div_ = new Element('div', {style: 'position:absolute;border:1px solid white;width:' + (this.width_ - 2) + 'px; height:' + (this.height_ - 2) + 'px;zIndex:' + z});
+    this.img_ = new Element('img', {src: this.src_, style: 'width:' + (this.width_ - 2) + 'px;height:' + (this.height_ - 2) + 'px'});
+    this.div_.appendChild(this.img_);
+    this.selected_ = false;
+    this.link = image_data.link;
+
+    // Handlers to hightlight the node for this overlay on mouseover/out
+    GEvent.addDomListener(this.div_, 'mouseover', function() {
+        this.focus();
+    }.bind(this));
+    GEvent.addDomListener(this.div_, 'mouseout', function() {
+        this.focus();
+    }.bind(this));
+
+    // Add a click handler to navigate to the image view for this image.
+    if (this.link) {
+        GEvent.addDomListener(this.div_, 'click', function() {
+                var a = this.link;
+                location.href = a;
+            }.bind(this));
         }
     };
-    
-    // MarkerManager seems to be incosistent with the methods it calls to get
-    // the GLatLng for each overlay. addMarkers() seems to need the deprecated
-    // getPoint() while addMarker() uses the newer getLatLng() mehtod.
-    anselGOverlay.prototype.getPoint = function() {
-        return this.latlng_;
+
+    anselGOverlay.prototype = new GOverlay();
+    anselGOverlay.prototype.initialize =  function(map) {
+        map.getPane(G_MAP_MARKER_PANE).appendChild(this.div_);
+        this.map_ = map;
+    };
+
+    //Remove the main DIV from the map pane
+    // TODO: We should unregister the event handlers adding in initialize()
+    anselGOverlay.prototype.remove = function() {
+      this.div_.parentNode.removeChild(this.div_);
+    };
+
+    // Copy our data to a new GOverlay
+    anselGOverlay.prototype.copy = function() {
+      return new Ansel_GOverlay(this.latlng_, this.src_);
+    };
+
+    anselGOverlay.prototype.redraw = function(force) {
+        // We only need to redraw if the coordinate system has changed
+    if (!force) return;
+    var coords = this.map_.fromLatLngToDivPixel(this.latlng_);
+    this.div_.style.left = coords.x + "px";
+    this.div_.style.top  = coords.y + "px";
+};
+
+anselGOverlay.prototype.focus = function()
+{
+    if (this.selected_ == false) {
+        this.div_.style.border = '1px solid red';
+        this.div_.style.left = (parseInt(this.div_.style.left) - 1) + "px";
+        this.div_.style.top = (parseInt(this.div_.style.top) - 1) + "px";
+        this.div_.style.zIndex = GOverlay.getZIndex(-90.0);
+        this.selected_ = true;
+    } else {
+        this.div_.style.border = '1px solid white';
+        this.div_.style.left = (parseInt(this.div_.style.left) + 1) + "px";
+        this.div_.style.top = (parseInt(this.div_.style.top) + 1) + "px";
+        this.div_.style.zIndex = GOverlay.getZIndex(this.latlng_.lat());
+        this.selected_ = false;
     }
-    anselGOverlay.prototype.getLatLng = function() {
-        return this.latlng_;
-    }
-});
+};
+
+// MarkerManager seems to be incosistent with the methods it calls to get
+// the GLatLng for each overlay. addMarkers() seems to need the deprecated
+// getPoint() while addMarker() uses the newer getLatLng() mehtod.
+anselGOverlay.prototype.getPoint = function() {
+    return this.latlng_;
+}
+anselGOverlay.prototype.getLatLng = function() {
+    return this.latlng_;
+}
