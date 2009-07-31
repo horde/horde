@@ -6,6 +6,12 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
+/** Horde_Share */
+require_once 'Horde/Share.php';
+
+/** Need to bring this in explicitly since we extend the object class */
+require_once 'Horde/Share/sql_hierarchical.php';
+
 /**
  * Ansel Base Class.
  *
@@ -706,6 +712,7 @@ class Ansel {
                                            $owner, '', null, false);
                 $fullname = $uprefs->getValue('grouptitle');
                 if (!$fullname) {
+                    require_once 'Horde/Identity.php';
                     $identity = Identity::singleton('none', $owner);
                     $fullname = $identity->getValue('fullname');
                     if (!$fullname) {
@@ -1147,6 +1154,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical {
     {
         $type = basename($type);
         $class = 'Ansel_GalleryMode_' . $type;
+        require_once dirname(__FILE__) . '/GalleryMode/' . $type . '.php';
         $this->_modeHelper = new $class($this);
         $this->_modeHelper->init();
     }
@@ -1477,6 +1485,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical {
      */
     function getOwner()
     {
+        require_once 'Horde/Identity.php';
         $identity = Identity::singleton('none', $this->data['share_owner']);
         return $identity;
     }
@@ -1493,6 +1502,8 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical {
     function getTile($parent = null, $style = null, $mini = false,
                      $params = array())
     {
+        require_once ANSEL_BASE . '/lib/Tile/Gallery.php';
+
         if (!is_null($parent) && is_null($style)) {
             $style = $parent->getStyle();
         } else {
@@ -1652,6 +1663,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical {
             }
 
             // Don't already have one, must generate it.
+            require_once dirname(__FILE__) . '/ImageView.php';
             $params = array('gallery' => $this, 'style' => $gal_style);
             $iview = Ansel_ImageView::factory(
                 $gal_style['default_galleryimage_type'], $params);
@@ -2279,6 +2291,8 @@ class Ansel_Image {
             return $result;
         }
         $styleDef = Ansel::getStyleDefinition($style);
+
+        require_once dirname(__FILE__) . '/ImageView.php';
         if ($view == 'prettythumb') {
             $viewType = $styleDef['thumbstyle'];
         } else {
@@ -2835,6 +2849,7 @@ class Ansel_Image {
         }
 
         if (empty($watermark)) {
+            require_once 'Horde/Identity.php';
             $identity = Identity::singleton();
             $name = $identity->getValue('fullname');
             if (empty($name)) {
@@ -3184,6 +3199,7 @@ class Ansel_Storage {
             }
 
             if ($perms) {
+                require_once 'Horde/Group.php';
                 $groups = Group::singleton();
                 $group_list = $groups->getGroupMemberships(Horde_Auth::getAuth());
                 if (!is_a($group_list, 'PEAR_Error') && count($group_list)) {

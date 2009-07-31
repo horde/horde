@@ -1177,6 +1177,7 @@ function _ansel_countGalleries($app = null, $perm = PERMS_SHOW, $attributes = nu
 function _ansel_listTagInfo($tags = null)
 {
     require_once dirname(__FILE__) . '/base.php';
+    require_once ANSEL_BASE . '/lib/Tags.php';
 
     return Ansel_Tags::listTagInfo($tags);
 }
@@ -1209,6 +1210,7 @@ function _ansel_searchTags($names, $max = 10, $from = 0,
                            $app = null)
 {
     require_once dirname(__FILE__) . '/base.php';
+    require_once ANSEL_BASE . '/lib/Tags.php';
 
     if (!is_null($app)) {
         $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
@@ -1312,6 +1314,8 @@ function _ansel_renderView($params = array(), $app = null,
     if (!is_null($app)) {
         $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
     }
+
+    require_once ANSEL_BASE . '/lib/Views/' . basename($view) . '.php';
     $classname = 'Ansel_View_' . basename($view);
     $params['api'] = true;
     $params['view'] = $view;

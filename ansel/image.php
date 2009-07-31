@@ -27,6 +27,7 @@ $date = Ansel::getDateParameter();
 
 /* Are we watermarking the image? */
 if ($watermark) {
+    require_once 'Horde/Identity.php';
     $identity = Identity::singleton();
     $name = $identity->getValue('fullname');
     if (empty($name)) {
@@ -136,6 +137,7 @@ case 'modify':
     $title = sprintf(_("Edit properties :: %s"), $image->filename);
 
     /* Set up the form object. */
+    require_once ANSEL_BASE . '/lib/Forms/Image.php';
     $vars = Horde_Variables::getDefaultVariables();
     if ($ret == 'gallery') {
         $vars->set('actionID', 'saveclose');
@@ -178,6 +180,7 @@ case 'save':
     }
 
     /* Validate the form object. */
+    require_once ANSEL_BASE . '/lib/Forms/Image.php';
     $vars = Horde_Variables::getDefaultVariables();
     $vars->set('actionID', 'save');
     $renderer = new Horde_Form_Renderer();
@@ -456,6 +459,7 @@ case 'setwatermark':
         exit;
     }
     /* Set up the form object. */
+    require_once ANSEL_BASE . '/lib/Forms/Watermark.php';
     $vars = Horde_Variables::getDefaultVariables();
     $vars->set('actionID', 'previewcustomwatermark');
     $form = new Ansel_Form_Watermark($vars, _("Watermark"));

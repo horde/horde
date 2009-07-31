@@ -10,10 +10,11 @@
 
 $ansel_authentication = 'none';
 require_once dirname(__FILE__) . '/lib/base.php';
+require_once ANSEL_BASE . '/lib/XPPublisher.php';
 
 $cmd = Horde_Util::getFormData('cmd');
 if (empty($cmd)) {
-    $publisher = new Ansel_XPPublisher();
+    $publisher = new Horde_XPPublisher();
     $publisher->sendRegFile(
         $registry->getApp() . '-' . $conf['server']['name'],
         $registry->get('name'),

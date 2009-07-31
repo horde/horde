@@ -6,8 +6,8 @@
  * @package Ansel
  * @author  Chuck Hagenbuch <chuck@horde.org>
  */
-class Ansel_XPPublisher
-{
+class Horde_XPPublisher {
+
     /**
      * Generates a Windows Registry file that a user can double-click
      * to add your provider to their list of Providers for the
@@ -30,7 +30,7 @@ class Ansel_XPPublisher
      * service. Usually displayed at 32x32, will be scaled if it's not
      * that size.
      */
-    public function sendRegFile($appKey, $displayName, $description, $href, $icon)
+    function sendRegFile($appKey, $displayName, $description, $href, $icon)
     {
         $browser = Horde_Browser::singleton();
         $browser->downloadHeaders('install_registry.reg', 'application/octet-stream');
