@@ -199,15 +199,15 @@ if (Horde_Util::extensionExists('openssl') && isset($GLOBALS['conf']['openssl'][
 
 $prefGroups['mimp'] = array(
     'column' => _("Other Options"),
-    'label' => _("MIMP Options"),
-    'desc' => _("Configure MIMP Options."),
+    'label' => _("Minimalist View Options"),
+    'desc' => _("Configure options for the minimalist view."),
     'members' => array('mimp_preview_msg')
 );
 
 $prefGroups['dimp'] = array(
     'column' => _("Other Options"),
-    'label' => _("DIMP Options"),
-    'desc' => _("Configure DIMP Options."),
+    'label' => _("Dynamic View Options"),
+    'desc' => _("Configure options for the dynamic view."),
     'members' => array('dimp_login_view')
 );
 
@@ -1673,7 +1673,7 @@ $_prefs['dimp_login_view'] = array(
         'portal' => _("Portal"),
         'inbox' => _("Inbox")
     ),
-    'desc' => _("The page to view immediately after login in DIMP.")
+    'desc' => _("The page to view immediately after login.")
 );
 
 // Other Implicit DIMP preferences
