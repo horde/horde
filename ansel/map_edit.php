@@ -11,10 +11,9 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Script includes */
-Horde::addExternalScriptFile('http://maps.google.com/maps?file=api&v=2&sensor=false&key=' . $GLOBALS['conf']['api']['googlemaps'], 'ansel');
 Horde::addScriptFile('googlemap.js', 'ansel');
 Horde::addScriptFile('googlemap_edit.js', 'ansel');
-Horde::addScriptFile('popup.js', 'horde', true);
+Horde::addExternalScriptFile('http://maps.google.com/maps?file=api&v=2&sensor=false&key=' . $GLOBALS['conf']['api']['googlemaps'], 'ansel');
 
 $image_id = Horde_Util::getFormData('image');
 
