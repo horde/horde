@@ -69,7 +69,7 @@ if ($form->validate()) {
 
     }
 
-    header('Location: ' . $faces->getLink($face));
+    header('Location: ' . Ansel_Faces::getLink($face));
     exit;
 }
 

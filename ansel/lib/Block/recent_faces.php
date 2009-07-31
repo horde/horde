@@ -38,7 +38,7 @@ class Horde_Block_ansel_recent_faces extends Horde_Block {
     {
         require_once dirname(__FILE__) . '/../base.php';
         require_once ANSEL_BASE . '/lib/Faces.php';
-        $faces = Ansel_Faces::singleton();
+        $faces = Ansel_Faces::factory();
 
         $results = $faces->allFaces(0, $this->_params['limit']);
         if (is_a($results, 'PEAR_Error')) {
@@ -48,7 +48,7 @@ class Horde_Block_ansel_recent_faces extends Horde_Block {
         $html = '';
         foreach ($results as $face_id => $face) {
             $facename = htmlspecialchars($face['face_name'], ENT_COMPAT, Horde_Nls::getCharset());
-            $html .= '<a href="' . $faces->getLink($face) . '" title="' . $facename . '">'
+            $html .= '<a href="' . Ansel_Faces::getLink($face) . '" title="' . $facename . '">'
                     . '<img src="' . $faces->getFaceUrl($face['image_id'], $face_id)
                     . '" style="padding-bottom: 5px; padding-left: 5px" alt="' . $facenane  . '" /></a>';
         }

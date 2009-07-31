@@ -14,7 +14,7 @@ if (empty($results)) {
     echo _("No faces found");
 } else {
     foreach ($results as $face_id => $face) {
-        echo '<a href="' . $faces->getLink($face) . '" title="' . $face['face_name'] . '">'
+        echo '<a href="' . Ansel_Faces::getLink($face) . '" title="' . $face['face_name'] . '">'
                 . '<img src="' . $faces->getFaceUrl($face['image_id'], $face_id, 'mini')
                 . '" style="padding: 5px;" alt="' . htmlspecialchars($face['face_name']) . '" /></a>';
     }

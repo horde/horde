@@ -16,7 +16,7 @@ require_once 'Horde/Image.php';
 
 /* Check if image exists. */
 $tmp = Horde::getTempDir();
-$path = $tmp . '/search_face_' . Horde_Auth::getAuth() . $faces->getExtension();
+$path = $tmp . '/search_face_' . Horde_Auth::getAuth() . Ansel_Faces::getExtension();
 
 if (!file_exists($path)) {
     $notification->push(_("You must upload the search photo first"));
@@ -59,7 +59,7 @@ if ($img->_width >= 50) {
 }
 
 /* Save image. */
-$path = $tmp . '/search_face_thumb_' . Horde_Auth::getAuth() . $faces->getExtension();
+$path = $tmp . '/search_face_thumb_' . Horde_Auth::getAuth() . Ansel_Faces::getExtension();
 if (!file_put_contents($path, $img->raw())) {
     $notification->push(_("Cannot store search photo"));
     header('Location: ' . Horde::applicationUrl('faces/search/image.php'));

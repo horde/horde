@@ -35,8 +35,8 @@ if ($conf['vfs']['src'] == 'sendfile') {
 
     // We definitely have an image for the face.
     $filename = $ansel_vfs->readFile(
-        $faces->getVFSPath($face['image_id']) . 'faces',
-        $face_id . $faces->getExtension());
+        Ansel_Faces::getVFSPath($face['image_id']) . 'faces',
+        $face_id . Ansel_Faces::getExtension());
     if (is_a($filename, 'PEAR_ERROR')) {
         Horde::logMessage($filename, __FILE__, __LINE__, PEAR_LOG_ERR);
         exit;

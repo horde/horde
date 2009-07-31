@@ -5,7 +5,7 @@
  * @author  Duck <duck@obala.net>
  * @package Ansel
  */
-class Ansel_Faces_facedetect extends Ansel_Faces
+class Ansel_Faces_facedetect extends Ansel_Faces_Base
 {
     /**
      * Where the face defintions are stored
@@ -18,6 +18,11 @@ class Ansel_Faces_facedetect extends Ansel_Faces
     public function __construct($params)
     {
         $this->_defs = $params['defs'];
+    }
+
+    public function canAutogenerate()
+    {
+        return true;
     }
 
     /**

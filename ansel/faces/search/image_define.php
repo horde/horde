@@ -15,7 +15,7 @@ require_once 'tabs.php';
 
 /* check if image exists */
 $tmp = Horde::getTempDir();
-$path = $tmp . '/search_face_' . Horde_Auth::getAuth() . $faces->getExtension();
+$path = $tmp . '/search_face_' . Horde_Auth::getAuth() . Ansel_Faces::getExtension();
 
 if (file_exists($path) !== true) {
     $notification->push(_("You must upload the search photo first"));

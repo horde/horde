@@ -14,9 +14,6 @@
  * @author Duck <duck@obala.net>
  */
 require_once dirname(__FILE__) . '/../lib/base.php';
-require_once ANSEL_BASE . '/lib/Faces.php';
-require_once 'Horde/Serialize.php';
-require_once 'Horde/UI/Pager.php';
 
 $gallery_id = (int)Horde_Util::getFormData('gallery');
 if (empty($gallery_id)) {
@@ -42,7 +39,8 @@ $images = $gallery->getImages($page * $perpage, $perpage);
 $reloadimage = $registry->getImageDir('horde') . '/reload.png';
 $customimage = $registry->getImageDir('horde') . '/layout.png';
 $customurl = Horde_Util::addParameter(Horde::applicationUrl('faces/custom.php'), 'page', $page);
-$autogenerate = Ansel_Faces::autogenerate();
+$face = Ansel_Faces::factory();
+$autogenerate = $face->canAutogenerate();
 
 $vars = Horde_Variables::getDefaultVariables();
 $pager = new Horde_UI_Pager(

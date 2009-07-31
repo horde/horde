@@ -27,7 +27,7 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
      */
     public function __construct($params)
     {
-        parent::Ansel_Widget($params);
+        parent::__construct($params);
         $this->_title = _("People in this photo");
     }
 

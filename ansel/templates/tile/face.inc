@@ -1,6 +1,6 @@
 <div class="face-tile">
 <?php
-$face_url = $faces->getLink($face);
+$face_url = Ansel_Faces::getLink($face);
 $facename = htmlspecialchars($face['face_name']);
 echo '<a href="' . $face_url . '" title="' . $facename . '">'
     . '<img src="' . $faces->getFaceUrl($face['image_id'], $face_id)

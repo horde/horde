@@ -60,7 +60,7 @@ class Ansel_Widget_OwnerFaces extends Ansel_Widget_Base
             . ';width:100%;max-height:300px;overflow:auto;" id="faces_widget_content" >';
         foreach ($results as $face_id => $face) {
             $facename = htmlspecialchars($face['face_name']);
-            $html .= '<a href="' . $this->_faces->getLink($face) . '" title="' . $facename . '">'
+            $html .= '<a href="' . Ansel_Faces::getLink($face) . '" title="' . $facename . '">'
                     . '<img src="' . $this->_faces->getFaceUrl($face['image_id'], $face_id, 'mini')
                     . '" style="padding-bottom: 5px; padding-left: 5px" alt="' . $facename . '" /></a>';
         }
