@@ -751,6 +751,14 @@ var DimpBase = {
             this.purgeDeleted();
             break;
 
+        case 'ctx_qsearchopts_basic':
+            alert('Placeholder for basic search');
+            break;
+
+        case 'ctx_qsearchopts_advanced':
+            alert('Placeholder for advanced search');
+            break;
+
         case 'ctx_qsearchopts_all':
         case 'ctx_qsearchopts_body':
         case 'ctx_qsearchopts_from':
