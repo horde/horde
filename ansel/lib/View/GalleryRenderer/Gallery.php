@@ -11,8 +11,6 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-require_once ANSEL_BASE . '/lib/Views/GalleryRenderer.php';
-
 class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer {
 
     /**
