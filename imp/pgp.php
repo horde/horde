@@ -63,10 +63,11 @@ function _textWindowOutput($filename, $msg)
 
 function _reloadWindow()
 {
-    $cacheSess = Horde_SessionObjects::singleton();
     $reload = Horde_Util::getFormData('reload');
-    $cacheSess->setPruneFlag($reload, true);
-    Horde_Util::closeWindowJS('opener.focus();opener.location.href="' . $cacheSess->query($reload) . '";');
+    $cacheSess = Horde_SessionObjects::singleton();
+    $href = $cacheSess->query($reload);
+    $cacheSess->prune($reload);
+    Horde_Util::closeWindowJS('opener.focus();opener.location.href="' . $href . '";');
 }
 
 require_once dirname(__FILE__) . '/lib/base.php';

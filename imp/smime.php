@@ -48,16 +48,18 @@ function _actionWindow()
 {
     $oid = Horde_Util::getFormData('passphrase_action');
     $cacheSess = Horde_SessionObjects::singleton();
-    $cacheSess->setPruneFlag($oid, true);
-    Horde_Util::closeWindowJS($cacheSess->query($oid));
+    $code = $cacheSess->query($oid);
+    $cacheSess->prune($oid);
+    Horde_Util::closeWindowJS($code);
 }
 
 function _reloadWindow()
 {
-    $cacheSess = Horde_SessionObjects::singleton();
     $reload = Horde_Util::getFormData('reload');
-    $cacheSess->setPruneFlag($reload, true);
-    Horde_Util::closeWindowJS('opener.focus();opener.location.href="' . $cacheSess->query($reload) . '";');
+    $cacheSess = Horde_SessionObjects::singleton();
+    $href = $cacheSess->query($reload);
+    $cacheSess->prune($reload);
+    Horde_Util::closeWindowJS('opener.focus();opener.location.href="' . $href . '";');
 }
 
 function _textWindowOutput($filename, $msg, $html = false)
