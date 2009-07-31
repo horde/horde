@@ -2,8 +2,6 @@
 /**
  * Process an single image (to be called via Ajax)
  *
- * $Horde: ansel/faces/image.php,v 1.10 2009/06/10 00:33:02 mrubinsk Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -12,12 +10,8 @@
  * @author Duck <duck@obala.net>
  */
 require_once dirname(__FILE__) . '/../lib/base.php';
-require_once ANSEL_BASE . '/lib/Faces.php';
 
 $faces = Ansel_Faces::factory();
-if (is_a($faces, 'PEAR_Error')) {
-    die($faces->getMessage());
-}
 
 $name = '';
 $autocreate = true;
@@ -29,19 +23,8 @@ $result = $faces->getImageFacesData($image_id);
 // or if we were asked to explicitly try again.
 if (($reload || empty($result))) {
     $image = &$ansel_storage->getImage($image_id);
-    if (is_a($image, 'PEAR_Error')) {
-        exit;
-    }
-
-    $result = $image->createView('screen');
-    if (is_a($result, 'PEAR_Error')) {
-        exit;
-    }
-
+    $image->createView('screen');
     $result = $faces->getFromPicture($image_id, $autocreate);
-    if (is_a($result, 'PEAR_Error')) {
-        exit;
-    }
 }
 
 if (!empty($result)) {

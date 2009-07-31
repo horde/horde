@@ -43,10 +43,6 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Ajax_Imple_Base
             }
 
             $faces = Ansel_Faces::factory();
-            if (is_a($faces, 'PEAR_Error')) {
-                die($faces->getMessage());
-            }
-
             switch($action) {
             case 'process':
                 // process - detects all faces in the image.
@@ -57,19 +53,8 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Ajax_Imple_Base
                 // or if we were asked to explicitly try again.
                 if (($reload || empty($result))) {
                     $image = &$GLOBALS['ansel_storage']->getImage($image_id);
-                    if (is_a($image, 'PEAR_Error')) {
-                        exit;
-                    }
-
-                    $result = $image->createView('screen');
-                    if (is_a($result, 'PEAR_Error')) {
-                        exit;
-                    }
-
+                    $image->createView('screen');
                     $result = $faces->getFromPicture($image_id, $autocreate);
-                    if (is_a($result, 'PEAR_Error')) {
-                        exit;
-                    }
                 }
                 if (!empty($result)) {
                     $imgdir = $GLOBALS['registry']->getImageDir('horde');
@@ -90,24 +75,13 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Ajax_Imple_Base
                 // delete - deletes a single face from an image.
                 $face_id = (int)Horde_Util::getPost('face');
                 $image = &$GLOBALS['ansel_storage']->getImage($image_id);
-                if (is_a($image, 'PEAR_Error')) {
-                    die($image->getMessage());
-                }
-
                 $gallery = &$GLOBALS['ansel_storage']->getGallery($image->gallery);
                 if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
-                    die(_("Access denied editing the photo."));
+                    throw new Horde_Exception('Access denied editing the photo.');
                 }
 
                 $faces = Ansel_Faces::factory();
-                if (is_a($faces, 'PEAR_Error')) {
-                    die($faces->getMessage());
-                }
-
-                $result = $faces->delete($image, $face_id);
-                if (is_a($result, 'PEAR_Error')) {
-                    die($result->getMessage());
-                }
+                $faces->delete($image, $face_id);
                 break;
 
             case 'setname':
@@ -119,25 +93,13 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Ajax_Imple_Base
 
                 $name = Horde_Util::getPost('facename');
                 $image = &$GLOBALS['ansel_storage']->getImage($image_id);
-                if (is_a($image, 'PEAR_Error')) {
-                    die($image->getMessage());
-                }
-
                 $gallery = &$GLOBALS['ansel_storage']->getGallery($image->gallery);
                 if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
-                    die(_("You are not allowed to edit this photo."));
+                    throw new Horde_Exception('You are not allowed to edit this photo');
                 }
 
                 $faces = Ansel_Faces::factory();
-                if (is_a($faces, 'PEAR_Error')) {
-                    die($faces->getMessage());
-                }
-
                 $result = $faces->setName($face_id, $name);
-                if (is_a($result, 'PEAR_Error')) {
-                    die($result->getDebugInfo());
-                }
-
                 return array('response' => 1,
                              'message' => Ansel_Faces::getFaceTile($face_id));
                 break;

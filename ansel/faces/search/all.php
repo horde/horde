@@ -12,7 +12,6 @@
  * @author Duck <duck@obala.net>
  */
 require_once 'tabs.php';
-require_once 'Horde/UI/Pager.php';
 
 $title = _("All faces");
 $page = Horde_Util::getFormData('page', 0);

@@ -4,10 +4,6 @@
  *
  * See horde/config/prefs.php for documentation on the structure of this file.
  */
-
-// Make sure that constants are defined.
-require_once dirname(__FILE__) . '/../lib/Ansel.php';
-
 $prefGroups['display'] = array(
     'column' => _("General Options"),
     'label' => _("Display Options"),

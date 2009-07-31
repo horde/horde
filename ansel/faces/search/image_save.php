@@ -12,7 +12,6 @@
  * @author Duck <duck@obala.net>
  */
 require_once 'tabs.php';
-require_once 'Horde/Image.php';
 
 /* Check if image exists. */
 $tmp = Horde::getTempDir();

@@ -2,8 +2,6 @@
 /**
  * Process an single photo (to be called by ajax)
  *
- * $Horde: ansel/faces/search/tabs.php,v 1.10 2009/07/22 21:08:09 mrubinsk Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -12,14 +10,8 @@
  * @author Duck <duck@obala.net>
  */
 require_once dirname(__FILE__) . '/../../lib/base.php';
-require_once ANSEL_BASE . '/lib/Faces.php';
-require_once 'Horde/UI/Tabs.php';
 
 $faces = Ansel_Faces::factory();
-if (is_a($faces, 'PEAR_Error')) {
-    die($faces->getMessage());
-}
-
 /* Face search is allowed only to authenticated users */
 if (!Horde_Auth::isauthenticated()) {
     Horde_Auth::authenticationFailureRedirect();

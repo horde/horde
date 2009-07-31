@@ -12,7 +12,6 @@
  * @author Duck <duck@obala.net>
  */
 require_once dirname(__FILE__) . '/../../lib/base.php';
-require_once ANSEL_BASE . '/lib/Faces.php';
 
 /* Face search is allowd only to  */
 if (!Horde_Auth::isauthenticated()) {

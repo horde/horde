@@ -4,8 +4,6 @@
  *
  * TODO: Turn this into an Ansel_View::
  *
- * $Horde: ansel/faces/gallery.php,v 1.16 2009/07/13 21:33:53 mrubinsk Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -41,7 +39,6 @@ $customimage = $registry->getImageDir('horde') . '/layout.png';
 $customurl = Horde_Util::addParameter(Horde::applicationUrl('faces/custom.php'), 'page', $page);
 $face = Ansel_Faces::factory();
 $autogenerate = $face->canAutogenerate();
-
 $vars = Horde_Variables::getDefaultVariables();
 $pager = new Horde_UI_Pager(
     'page', $vars,

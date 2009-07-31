@@ -2,8 +2,6 @@
 /**
  * Explicitly add/edit a face range to an image.
  *
- * $Horde: ansel/faces/custom.php,v 1.14 2009/07/08 18:28:41 slusarz Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -44,26 +42,19 @@ $y2 = $conf['screen']['width'];
 $name = Horde_Util::getFormData('name');
 
 if ($face_id) {
-    require_once ANSEL_BASE . '/lib/Faces.php';
     $faces = Ansel_Faces::factory();
-
-    if (is_a($faces, 'PEAR_Error')) {
-        $notification->push($faces);
-        header('Location: ' . $back_url);
-        exit;
+    try {
+        $face = $faces->getFaceById($face_id, true);
+    } catch (Horde_Exception $e) {
+        $notification->push($e->getMessage());
     }
 
-    $face = $faces->getFaceById($face_id, true);
-    if (is_a($face, 'PEAR_Error')) {
-        $notification->push($face);
-    } else {
-        $x1 = $face['face_x1'];
-        $y1 = $face['face_y1'];
-        $x2 = $face['face_x2'];
-        $y2 = $face['face_y2'];
-        if (!empty($face['face_name'])) {
-            $name = $face['face_name'];
-        }
+    $x1 = $face['face_x1'];
+    $y1 = $face['face_y1'];
+    $x2 = $face['face_x2'];
+    $y2 = $face['face_y2'];
+    if (!empty($face['face_name'])) {
+        $name = $face['face_name'];
     }
 
 }

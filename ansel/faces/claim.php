@@ -2,8 +2,6 @@
 /**
  * Identify a person in a photo
  *
- * $Horde: ansel/faces/claim.php,v 1.9 2009/06/10 00:33:02 mrubinsk Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -11,19 +9,14 @@
  *
  * @author Duck <duck@obala.net>
  */
-define('ANSEL_BASE', dirname(__FILE__) . '/../');
-require_once ANSEL_BASE . '/lib/base.php';
-require_once ANSEL_BASE . '/lib/Faces.php';
-
-require_once 'Horde/Form.php';
+require_once dirname(__FILE__) . '/../lib/base.php';
 
 $faces = Ansel_Faces::factory();
-
 $face_id = Horde_Util::getFormData('face');
-$face = $faces->getFaceById($face_id);
-
-if (is_a($face, 'PEAR_Error')) {
-    $notification->push($face->getMessage());
+try {
+    $face = $faces->getFaceById($face_id);
+} catch (Horde_Exception $e) {
+    $notification->push($e->getMessage());
     header('Location: ' . Horde::applicationUrl('faces/search/all.php'));
     exit;
 }

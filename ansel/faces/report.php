@@ -2,8 +2,6 @@
 /**
  * Process an single image (to be called by ajax)
  *
- * $Horde: ansel/faces/report.php,v 1.9 2009/06/10 00:33:02 mrubinsk Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -12,17 +10,14 @@
  * @author Duck <duck@obala.net>
  */
 require_once dirname(__FILE__) . '/../lib/base.php';
-require_once ANSEL_BASE . '/lib/Faces.php';
-
-require_once 'Horde/Form.php';
-
-$faces = Ansel_Faces::factory();
 
 $face_id = Horde_Util::getFormData('face');
-$face = $faces->getFaceById($face_id);
 
-if (is_a($face, 'PEAR_Error')) {
-    $notification->push($face->getMessage());
+$faces = Ansel_Faces::factory();
+try {
+    $face = $faces->getFaceById($face_id);
+} catch (Horde_Exception $e) {
+    $notification->push($e->getMessage());
     header('Location: ' . Horde::applicationUrl('faces/search/all.php'));
     exit;
 }
@@ -38,11 +33,8 @@ $form->setButtons($title);
 if ($form->validate()) {
 
     if (Horde_Util::getFormData('submitbutton') == _("Cancel")) {
-
         $notification->push(_("Action was cancelled."), 'horde.warning');
-
     } else {
-
         require ANSEL_BASE . '/lib/Report.php';
         $report = Ansel_Report::factory();
         $gallery = $ansel_storage->getGallery($face['gallery_id']);
@@ -59,14 +51,12 @@ if ($form->validate()) {
                 . _("Face") . ': ' . $face_link;
 
         $report->setTitle($title);
-        $result = $report->report($body, $gallery->get('owner'));
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push(_("Face name was not reported.") . ' ' .
-                                $result->getMessage(), 'horde.error');
-        } else {
-            $notification->push(_("The owner of the photo was notified."), 'horde.success');
+        try {
+            $result = $report->report($body, $gallery->get('owner'));
+        } catch (Horde_Exception $e) {
+            $notification->push(sprintf(_("Face name was not reported: %s"), $e->getMessage()), 'horde.error');
         }
-
+        $notification->push(_("The owner of the photo was notified."), 'horde.success');
     }
 
     header('Location: ' . Ansel_Faces::getLink($face));

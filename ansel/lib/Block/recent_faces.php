@@ -7,8 +7,6 @@ if (!empty($GLOBALS['conf']['faces']['driver'])) {
  * This file provides a recent faces through the Horde_Blocks, by extending
  * the Horde_Blocks class.
  *
- * $Horde: ansel/lib/Block/recent_faces.php,v 1.3 2009/07/13 17:18:39 mrubinsk Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -17,8 +15,8 @@ if (!empty($GLOBALS['conf']['faces']['driver'])) {
  * @author  Duck <Duck@obala.net>
  * @package Horde_Block
  */
-class Horde_Block_ansel_recent_faces extends Horde_Block {
-
+class Horde_Block_ansel_recent_faces extends Horde_Block
+{
     var $_app = 'ansel';
 
     function _params()
@@ -37,14 +35,8 @@ class Horde_Block_ansel_recent_faces extends Horde_Block {
     function _content()
     {
         require_once dirname(__FILE__) . '/../base.php';
-        require_once ANSEL_BASE . '/lib/Faces.php';
         $faces = Ansel_Faces::factory();
-
         $results = $faces->allFaces(0, $this->_params['limit']);
-        if (is_a($results, 'PEAR_Error')) {
-            return $results;
-        }
-
         $html = '';
         foreach ($results as $face_id => $face) {
             $facename = htmlspecialchars($face['face_name'], ENT_COMPAT, Horde_Nls::getCharset());
