@@ -398,7 +398,7 @@ Ansel_GMap.prototype = {
     _getRelocateLink: function(iid) {
         if (options.hasEdit) {
             var a = new Element('a', {href: this.options.relocateUrl + '?image=' + iid}).update(this.options.relocateText);
-            a.observe('click', function(e) { Horde.popup({ url: this.options.relocateUrl, params: 'image=' + iid, width: 600, height: 750 }); e.stop();}.bind(this));
+            a.observe('click', function(e) { Horde.popup({ url: this.options.relocateUrl, params: 'image=' + iid, width: 750, height: 600 }); e.stop();}.bind(this));
             return a;
         } else {
             return '';
