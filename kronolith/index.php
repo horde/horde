@@ -6,7 +6,7 @@
  * not receive such a file, see also http://www.fsf.org/copyleft/gpl.html.
  */
 
-require_once KRONOLITH_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Load traditional interface? */
 if (!$prefs->getValue('dynamic_view') || !$browser->hasFeature('xmlhttpreq')) {
