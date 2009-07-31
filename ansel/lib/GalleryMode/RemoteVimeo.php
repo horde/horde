@@ -30,8 +30,6 @@ class Ansel_GalleryMode_RemoteVimeo {
      */
     function Ansel_GalleryMode_RemoteVimeo($gallery)
     {
-        require_once 'Horde/Autoloader.php';
-
         // Build a Horde_Service_Vimeo object
         // It *requires* a http client object and can make use of a cache object,
         $params = array('http_client' => new Horde_Http_Client(),

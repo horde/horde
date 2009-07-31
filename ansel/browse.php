@@ -7,7 +7,6 @@
  */
 
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once ANSEL_BASE . '/lib/Tags.php';
 
 Horde::addScriptFile('prototype.js', 'horde', true);
 $layout = new Horde_Block_Layout_View(

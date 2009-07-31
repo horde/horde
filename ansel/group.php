@@ -42,7 +42,6 @@ case 'category':
     break;
 
 case 'owner':
-    require_once 'Horde/Identity.php';
     $num_groups = $ansel_storage->shares->countOwners(PERMS_SHOW, null,
                                                       false);
     if (is_a($num_groups, 'PEAR_Error')) {

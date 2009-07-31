@@ -6,19 +6,8 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-
-/** Ansel_View_Abstract */
-require_once ANSEL_BASE . '/lib/Views/Abstract.php';
-
-class Ansel_View_Slideshow extends Ansel_View_Abstract {
-
-    /**
-     * The Ansel_Image object representing the first image selected for view.
-     *
-     * @var Ansel_Image
-     */
-    var $image;
-
+class Ansel_View_Slideshow extends Ansel_View_Base
+{
     /**
      * @static
      *
@@ -27,37 +16,27 @@ class Ansel_View_Slideshow extends Ansel_View_Abstract {
      * @TODO use exceptions from the constructor instead of static
      * instance-getting.
      */
-    function makeView($params = array())
+    public function __construct($params = array())
     {
+        parent::__construct($params);
         if (empty($params['image_id'])) {
             $image_id = Horde_Util::getFormData('image');
         } else {
             $image_id = $params['image_id'];
         }
         $image = $GLOBALS['ansel_storage']->getImage($image_id);
-        if (is_a($image, 'PEAR_Error')) {
-            return $image;
-        }
-
-        $view = new Ansel_View_Slideshow();
-        if (count($params)) {
-            $view->_params = $params;
-        }
-        $view->gallery = $view->getGallery($image->gallery);
-        if (is_a($view->gallery, 'PEAR_Error')) {
-            return $view->gallery;
-        }
-        $view->image = $image;
+        $this->gallery = $this->getGallery($image->gallery);
+        $this->image = $image;
 
         // Check user age
-        if (!$view->gallery->isOldEnough()) {
+        if (!$this->gallery->isOldEnough()) {
            $date = Ansel::getDateParameter(
-                array('year' => isset($view->_params['year']) ? $view->_params['year'] : 0,
-                      'month' => isset($view->_params['month']) ? $view->_params['month'] : 0,
-                      'day' => isset($view->_params['day']) ? $view->_params['day'] : 0));
+                array('year' => !empty($this->_params['year']) ? $this->_params['year'] : 0,
+                      'month' => !empty($this->_params['month']) ? $this->_params['month'] : 0,
+                      'day' => !empty($this->_params['day']) ? $this->_params['day'] : 0));
 
                 $url = Ansel::getUrlFor('view', array_merge(
-                    array('gallery' => $view->gallery->id,
+                    array('gallery' => $this->gallery->id,
                           'slug' => empty($params['slug']) ? '' : $params['slug'],
                           'page' => empty($params['page']) ? 0 : $params['page'],
                           'view' => 'Slideshow',
@@ -65,21 +44,21 @@ class Ansel_View_Slideshow extends Ansel_View_Abstract {
                     $date),
                     true);
 
-            $params = array('gallery' => $view->gallery->id, 'url' => $url);
+            $params = array('gallery' => $this->gallery->id, 'url' => $url);
 
             header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('disclamer.php'), $params, null, false));
             exit;
         }
 
        // Check password
-        if ($view->gallery->hasPasswd()) {
+        if ($this->gallery->hasPasswd()) {
            $date = Ansel::getDateParameter(
-                array('year' => isset($view->_params['year']) ? $view->_params['year'] : 0,
-                      'month' => isset($view->_params['month']) ? $view->_params['month'] : 0,
-                      'day' => isset($view->_params['day']) ? $view->_params['day'] : 0));
+                array('year' => isset($this->_params['year']) ? $this->_params['year'] : 0,
+                      'month' => isset($this->_params['month']) ? $this->_params['month'] : 0,
+                      'day' => isset($this->_params['day']) ? $this->_params['day'] : 0));
 
                 $url = Ansel::getUrlFor('view', array_merge(
-                    array('gallery' => $view->gallery->id,
+                    array('gallery' => $this->gallery->id,
                           'slug' => empty($params['slug']) ? '' : $params['slug'],
                           'page' => empty($params['page']) ? 0 : $params['page'],
                           'view' => 'Slideshow',
@@ -87,7 +66,7 @@ class Ansel_View_Slideshow extends Ansel_View_Abstract {
                     $date),
                     true);
 
-            $params = array('gallery' => $view->gallery->id, 'url' => $url);
+            $params = array('gallery' => $this->gallery->id, 'url' => $url);
 
             header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('protect.php'), $params, null, false));
             exit;
@@ -97,8 +76,6 @@ class Ansel_View_Slideshow extends Ansel_View_Abstract {
         Horde::addScriptFile('effects.js', 'horde', true);
         Horde::addScriptFile('stripe.js', 'horde', true);
         Horde::addScriptFile('slideshow.js', 'ansel', true);
-
-        return $view;
     }
 
     /**
@@ -106,9 +83,9 @@ class Ansel_View_Slideshow extends Ansel_View_Abstract {
      *
      * @return string  The title.
      */
-    function getTitle()
+    public function getTitle()
     {
-        return $this->image->filename;
+        return $this->resource->filename;
     }
 
     /**
@@ -116,17 +93,13 @@ class Ansel_View_Slideshow extends Ansel_View_Abstract {
      *
      * @return string  The HTML.
      */
-    function html()
+    public function html()
     {
         global $browser, $conf, $prefs, $registry;
 
-        if (is_a($this->gallery, 'PEAR_Error')) {
-            echo htmlspecialchars($this->gallery->getMessage());
-            return;
-        }
         $page = Horde_Util::getFormData('page', 0);
         $galleryId = $this->gallery->id;
-        $imageId = $this->image->id;
+        $imageId = $this->resource->id;
         $galleryOwner = $this->gallery->get('owner');
         $style = $this->gallery->getStyle();
 
@@ -171,7 +144,7 @@ class Ansel_View_Slideshow extends Ansel_View_Abstract {
         return ob_get_clean();
     }
 
-    function viewType()
+    public function viewType()
     {
         return 'Slideshow';
     }

@@ -55,8 +55,6 @@ class Ansel_Report {
      */
     function _getUserEmail($user = null)
     {
-        require_once 'Horde/Identity.php';
-
         // Get user email
         $identity = Identity::singleton('none', $user);
         return $identity->getValue('from_addr');
