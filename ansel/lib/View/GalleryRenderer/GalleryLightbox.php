@@ -19,12 +19,12 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
      */
     protected function _init()
     {
-        if (empty($this->view->_params['image_onclick'])) {
-            $this->view->_params['image_onclick'] = 'return lb.start(%i);';
+        if (empty($this->view->image_onclick)) {
+            $this->view->image_onclick = 'return lb.start(%i);';
         }
 
         // Attach the script and CSS files here if we aren't being called via the api
-        if (empty($this->view->_params['api'])) {
+        if (empty($this->view->api)) {
             Ansel::attachStylesheet('lightbox.css');
             Horde::addScriptFile('effects.js', 'horde', true);
             Horde::addScriptFile('lightbox.js', 'ansel', true);
@@ -50,17 +50,17 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
         /* Get JSON data for view */
         // 0 == normal, 1 == by date
         if ($this->mode == 0) {
-            $json = $this->view->json(null, !empty($this->view->_params['api']));
+            $json = $this->view->json(null, !empty($this->view->api));
         } else {
             if (!empty($this->date['day']) && $this->numTiles) {
-                $json = $this->view->json(null, !empty($this->view->_params['api']));
+                $json = $this->view->json(null, !empty($this->view->api));
             } else {
                 $json = '[]';
             }
         }
 
         /* Don't bother if we are being called from the api */
-        if (empty($this->view->_params['api'])) {
+        if (empty($this->view->api)) {
             $option_edit = $this->view->gallery->hasPermission(Horde_Auth::getAuth(),
                                                          PERMS_EDIT);
             $option_select = $option_delete = $this->view->gallery->hasPermission(
@@ -75,19 +75,19 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
 
         /* Set up the pager */
         $date_params = Ansel::getDateParameter(
-            array('year' => isset($this->view->_params['year']) ? $this->view->_params['year'] : 0,
-                  'month' => isset($this->view->_params['month']) ? $this->view->_params['month'] : 0,
-                  'day' => isset($this->view->_params['day']) ? $this->view->_params['day'] : 0));
+            array('year' => !empty($this->view->year) ? $this->view->year : 0,
+                  'month' => !empty($this->view->month) ? $this->view->month : 0,
+                  'day' => !empty($this->view->day) ? $this->view->day : 0));
 
         $vars = Horde_Variables::getDefaultVariables();
-        if (!empty($this->view->_params['page'])) {
-            $vars->add('page', $this->view->_params['page']);
-            $page = $this->view->_params['page'];
+        if (!empty($this->view->page)) {
+            $vars->add('page', $this->view->page);
+            $page = $this->view->page;
         } else {
             $page = 0;
         }
-        if (!empty($this->view->_params['gallery_view_url'])) {
-            $pagerurl = str_replace(array('%g', '%s'), array($this->galleryId, $this->gallerySlug), urldecode($this->view->_params['gallery_view_url']));
+        if (!empty($this->view->gallery_view_url)) {
+            $pagerurl = str_replace(array('%g', '%s'), array($this->galleryId, $this->gallerySlug), urldecode($this->view->gallery_view_url));
             $pagerurl = Horde_Util::addParameter($pagerurl, $date_params, null, false);
         } else {
             /*
@@ -103,8 +103,8 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
             $pagerurl = Ansel::getUrlfor('view', $pager_params, true);
         }
 
-        if (!empty($this->view->_params['urlCallback'])) {
-            $callback = $this->view->_params['urlCallback'];
+        if (!empty($this->view->urlCallback)) {
+            $callback = $this->view->urlCallback;
         } else {
             $callback = null;
         }
@@ -131,7 +131,7 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
             $jsvars['gallery_url'] = $pagerurl . '&';
         }
         /* Output js/css here if we are calling via the api */
-        if (!empty($this->view->_params['api'])) {
+        if (!empty($this->view->api)) {
             Ansel::attachStylesheet('lightbox.css', true);
             $includes = new Horde_Script_Files();
             $includes->disableAutoloadHordeJS();

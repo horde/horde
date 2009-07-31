@@ -39,7 +39,7 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
         }
 
         /* Only need these if not being called via the api */
-        if (empty($this->view->_params['api'])) {
+        if (empty($this->view->api)) {
             $option_edit = $this->view->gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT);
             $option_select = $option_delete = $this->view->gallery->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE);
             $option_move = ($option_delete && $GLOBALS['ansel_storage']->countGalleries(PERMS_EDIT));
@@ -52,16 +52,16 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
 
         /* Set up the pager */
         $date_params = Ansel::getDateParameter(
-            array('year' => isset($this->view->_params['year']) ? $this->view->_params['year'] : 0,
-                  'month' => isset($this->view->_params['month']) ? $this->view->_params['month'] : 0,
-                  'day' => isset($this->view->_params['day']) ? $this->view->_params['day'] : 0));
+            array('year' => !empty($this->view->year) ? $this->view->year : 0,
+                  'month' => !empty($this->view->month) ? $this->view->month : 0,
+                  'day' => !empty($this->view->day) ? $this->view->day : 0));
 
         $vars = Horde_Variables::getDefaultVariables();
-        if (!empty($this->view->_params['page'])) {
-            $vars->add('page', $this->view->_params['page']);
+        if (!empty($this->view->page)) {
+            $vars->add('page', $this->view->page);
         }
-        if (!empty($this->view->_params['gallery_view_url'])) {
-            $pagerurl = str_replace(array('%g', '%s'), array($this->galleryId, $this->gallerySlug), urldecode($this->view->_params['gallery_view_url']));
+        if (!empty($this->view->gallery_view_url)) {
+            $pagerurl = str_replace(array('%g', '%s'), array($this->galleryId, $this->gallerySlug), urldecode($this->view->gallery_view_url));
             $pagerurl = Horde_Util::addParameter($pagerurl, $date_params);
         } else {
             /*
@@ -78,8 +78,8 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
         }
 
         /* See what callback to use to tweak the pager urls */
-        if (!empty($this->view->_params['urlCallback'])) {
-            $callback = $this->view->_params['urlCallback'];
+        if (!empty($this->view->urlCallback)) {
+            $callback = $this->view->urlCallback;
         } else {
             $callback = null;
         }
@@ -93,7 +93,7 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
         // Note that we can't use Horde_Util::bufferOutput() here since the include
         // file would be included inside that method's scope, and not this one.
         ob_start();
-        if (!empty($this->view->_params['api'])) {
+        if (!empty($this->view->api)) {
             $includes = new Horde_Script_Files();
             $includes->disableAutoloadHordeJS();
             $includes->_add('prototype.js', 'horde', true, true);

@@ -124,9 +124,7 @@ abstract class Ansel_View_GalleryRenderer_Base
 
         $this->galleryId = $this->view->gallery->id;
         $this->gallerySlug = $this->view->gallery->get('slug');
-        if (isset($this->view->_params['page'])) {
-            $this->page = $this->view->_params['page'];
-        }
+        $this->page = $this->view->page;
 
         /* Number perpage from prefs or config */
         $this->perpage = min($prefs->getValue('tilesperpage'),
@@ -136,11 +134,11 @@ abstract class Ansel_View_GalleryRenderer_Base
         $this->pagestart = ($this->page * $this->perpage) + 1;
 
         /* Fetch the children */
-        $this->fetchChildren($this->view->_params['force_grouping']);
+        $this->fetchChildren($this->view->force_grouping);
 
         /* Do we have an explicit style set? If not, use the gallery's */
-        if (!empty($this->view->_params['style'])) {
-            $this->style = Ansel::getStyleDefinition($this->view->_params['style']);
+        if (!empty($this->view->style)) {
+            $this->style = Ansel::getStyleDefinition($this->view->style);
         } else {
             $this->style = $this->view->gallery->getStyle();
         }
@@ -196,7 +194,7 @@ abstract class Ansel_View_GalleryRenderer_Base
             PERMS_SHOW,
             $this->page * $this->perpage,
             $this->perpage,
-            !empty($this->view->_params['force_grouping']));
+            !empty($this->view->force_grouping));
 
         /* The last tile number to display on the current page */
         $this->pageend = min($this->numTiles, $this->pagestart + $this->perpage - 1);
