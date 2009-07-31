@@ -12,7 +12,6 @@
  */
 
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Form.php';
 
 $title = _("Do you really want to report this gallery?");
 $gallery_id = (int)Horde_Util::getFormData('gallery');

@@ -9,7 +9,6 @@
  */
 
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Form.php';
 
 $vars = Horde_Variables::getDefaultVariables();
 $gallery = $ansel_storage->getGallery($vars->get('gallery'));

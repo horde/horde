@@ -1,65 +1,36 @@
 <?php
 /**
- * Ansel_View for displaying search / tag browsing results.
- *
- * Copyright 2006-2009 The Horde Project (http://www.horde.org/)
- *
- * @author Michael J. Rubinsky (mrubinsk@horde.org)
- * @package Ansel
- */
-
-/** Ansel_View_Abstract */
-require_once ANSEL_BASE . '/lib/Views/Abstract.php';
-
-/**
  * The Ansel_View_Results:: class wraps display of images/galleries from
  * multiple parent sources..
  *
  * @author  Michael Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_View_Results extends Ansel_View_Abstract {
-
+class Ansel_View_Results extends Ansel_View_Base
+{
     /**
      * Instance of our tag search
      *
      * @var Ansel_Tag_Search
      */
-    var $_search;
+    protected $_search;
 
     /**
      * Gallery owner id
      *
      * @var string
      */
-    var $_owner;
+    protected $_owner;
 
     /**
      * Contructor - just set some instance variables.
      *
      * @return Ansel_View_Results
      */
-    function Ansel_View_Results()
+    public function __construct()
     {
         $this->_owner = Horde_Util::getFormData('owner', null);
         $this->_search = Ansel_Tags::getSearch(null, $this->_owner);
-    }
-
-    /**
-     * @static
-     *
-     * @return Ansel_View_Results  The view object.
-     *
-     * @TODO use exceptions from the constructor instead of static
-     * instance-getting.
-     */
-    function makeView($params = array())
-    {
-        $view = new Ansel_View_Results();
-        if (count($params)) {
-            $view->_params = $params;
-        }
-        return $view;
     }
 
     /**
@@ -67,7 +38,7 @@ class Ansel_View_Results extends Ansel_View_Abstract {
      *
      * @return string The title for this view.
      */
-    function getTitle()
+    public function getTitle()
     {
         return (!empty($this->_owner))
                 ? sprintf(_("Searching %s's photos tagged: "), $this->_owner)
@@ -79,7 +50,7 @@ class Ansel_View_Results extends Ansel_View_Abstract {
      *
      * @return string  The HTML
      */
-    function html()
+    public function html()
     {
         global $conf, $prefs, $registry, $ansel_storage;
 
@@ -302,9 +273,14 @@ class Ansel_View_Results extends Ansel_View_Abstract {
         return ob_get_clean();
     }
 
-    function viewType()
+    public function viewType()
     {
         return 'Results';
+    }
+
+    public function getGalleryCrumbData()
+    {
+        return array();
     }
 
 }
