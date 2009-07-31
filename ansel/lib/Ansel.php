@@ -6,6 +6,12 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
+/** Horde_Share */
+require_once 'Horde/Share.php';
+
+/** Need to bring this in explicitly since we extend the object class */
+require_once 'Horde/Share/sql_hierarchical.php';
+
 /**
  * Ansel Base Class.
  *
@@ -1477,6 +1483,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical {
      */
     function getOwner()
     {
+        require_once 'Horde/Identity.php';
         $identity = Identity::singleton('none', $this->data['share_owner']);
         return $identity;
     }
@@ -2835,6 +2842,7 @@ class Ansel_Image {
         }
 
         if (empty($watermark)) {
+            require_once 'Horde/Identity.php';
             $identity = Identity::singleton();
             $name = $identity->getValue('fullname');
             if (empty($name)) {
