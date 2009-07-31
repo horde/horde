@@ -170,7 +170,6 @@ class Ansel_Widget_Geodata extends Ansel_Widget_Base
                          Horde_ToolTips.out();
                      }
                      if (transport.responseJSON.response == 1) {
-                     alert(transport.responseJSON.response);
                         w = new Element('div');
                         w.appendChild(new Element('div', {id: 'ansel_map'}));
                         ag = new Element('div', {'class': 'ansel_geolocation'});
