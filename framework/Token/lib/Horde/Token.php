@@ -140,10 +140,13 @@ class Horde_Token
     public function verify($token)
     {
         $this->purge();
+
         if ($this->exists($token)) {
             return false;
         }
-        return $this->add($token);
+
+        $this->add($token);
+        return true;
     }
 
     /**
