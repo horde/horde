@@ -142,7 +142,7 @@ class IMP_Views_ListMessages
         /* Check for mailbox existence now. If there are no messages, there
          * is a chance that the mailbox doesn't exist. If there is at least
          * 1 message, we don't need this check. */
-        if (empty($msgcount) && !$is_search) {
+        if (empty($msgcount) && !isset($md->search)) {
             $imp_folder = IMP_Folder::singleton();
             if (!$imp_folder->exists($mbox)) {
                 $GLOBALS['notification']->push(sprintf(_("Mailbox %s does not exist."), $label), 'horde.error');
@@ -260,6 +260,7 @@ class IMP_Views_ListMessages
         $overview = $imp_mailbox->getMailboxArray($msglist, array('headers' => array('list-post', 'x-priority'), 'structure' => $GLOBALS['prefs']->getValue('atc_flag')));
         $charset = Horde_Nls::getCharset();
         $imp_ui = new IMP_UI_Mailbox($folder);
+        $no_flags_hook = false;
 
         /* Display message information. */
         reset($overview['overview']);
@@ -272,9 +273,13 @@ class IMP_Views_ListMessages
             );
 
             /* Get all the flag information. */
-            try {
-                $ob['flags'] = array_merge($ob['flags'], Horde::callHook('msglist_flags', array($ob, 'dimp'), 'imp'));
-            } catch (Horde_Exception_HookNotSet $e) {}
+            if (!$no_flags_hook) {
+                try {
+                    $ob['flags'] = array_merge($ob['flags'], Horde::callHook('msglist_flags', array($ob, 'dimp'), 'imp'));
+                } catch (Horde_Exception_HookNotSet $e) {
+                    $no_flags_hook = true;
+                }
+            }
 
             $imp_flags = IMP_Imap_Flags::singleton();
             $flag_parse = $imp_flags->parse(array(
@@ -334,4 +339,5 @@ class IMP_Views_ListMessages
 
         return $msgs;
     }
+
 }
