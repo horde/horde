@@ -6,11 +6,11 @@
  * @author Duck <duck@obala.net>
  * @package Ansel
  */
-class Ansel_Widget_OwnerFaces extends Ansel_Widget {
-
-    var $_faces;
-    var $_count;
-    var $_owner;
+class Ansel_Widget_OwnerFaces extends Ansel_Widget_Base
+{
+    protected $_faces;
+    protected $_count;
+    protected $_owner;
 
     /**
      * Constructor
@@ -18,11 +18,9 @@ class Ansel_Widget_OwnerFaces extends Ansel_Widget {
      * @param array $params  Any parameters for this widget
      * @return Ansel_Widget_ImageFaces
      */
-    function Ansel_Widget_OwnerFaces($params)
+    function __construct($params)
     {
-        parent::Ansel_Widget($params);
-
-        require_once ANSEL_BASE . '/lib/Faces.php';
+        parent::__construct($params);
         $this->_faces = Ansel_Faces::factory();
     }
 
@@ -31,14 +29,17 @@ class Ansel_Widget_OwnerFaces extends Ansel_Widget {
      *
      * @return string  The HTML for this widget.
      */
-    function html()
+    public function html()
     {
         if (!$GLOBALS['conf']['faces']['driver']) {
             return '';
         }
 
         $this->_owner = $this->_view->gallery->get('owner');
-        $this->_count = $this->_faces->countOwnerFaces($this->_owner);
+        //@TODO: Remove the PEAR_Error check when Faces is refactored.
+        try {
+            $this->_count = $this->_faces->countOwnerFaces($this->_owner);
+        } catch (Horde_Exception $e) {}
         if (is_a($this->_count, 'PEAR_error')) {
             $this->_count = 0;
         }

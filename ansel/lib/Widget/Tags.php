@@ -1,22 +1,18 @@
 <?php
-require_once ANSEL_BASE . '/lib/Tags.php';
-
 /**
  * Ansel_Widget_Tags:: class to display a tags widget in the image and gallery
  * views.
  *
- * $Horde: ansel/lib/Widget/Tags.php,v 1.15 2009/07/28 15:15:04 mrubinsk Exp $
- *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_Widget_Tags extends Ansel_Widget {
+class Ansel_Widget_Tags extends Ansel_Widget_Base
+{
+    protected $_resourceType;
 
-    var $_resourceType;
-
-    function Ansel_Widget_Tags($params)
+    public function __construct($params)
     {
-        parent::Ansel_Widget($params);
+        parent::__construct($params);
         $this->_resourceType = $params['view'];
         $this->_title = _("Tags");
     }
@@ -26,7 +22,7 @@ class Ansel_Widget_Tags extends Ansel_Widget {
      *
      * @return string  The HTML representing this widget.
      */
-    function html()
+    public function html()
     {
         if ($this->_resourceType == 'image') {
             $image_id = $this->_view->resource->id;
@@ -39,7 +35,6 @@ class Ansel_Widget_Tags extends Ansel_Widget {
         $html .= '<div id="tags">' . $this->_getTagHTML() . '</div>';
         if ($this->_view->gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
             ob_start();
-
             /* Attach the Ajax action */
             $imple = Horde_Ajax_Imple::factory(array('ansel', 'TagActions'),
                                                array('bindTo' => array('add' => 'tagbutton'),
@@ -48,7 +43,6 @@ class Ansel_Widget_Tags extends Ansel_Widget {
             $imple->attach();
             $html .= ob_get_clean();
 
-            // JS fallback is getting refactoring into xrequest.php
             $actionUrl = Horde_Util::addParameter('image.php',
                                                   array('image' => $this->_view->resource->id,
                                                         'gallery' => $this->_view->gallery->id));
@@ -67,16 +61,15 @@ class Ansel_Widget_Tags extends Ansel_Widget {
      *
      * @return string  The HTML representing the tag list.
      */
-    function _getTagHTML()
+    protected function _getTagHTML()
     {
         global $registry;
 
-            /* Clear the tag cache? */
+        /* Clear the tag cache? */
         if (Horde_Util::getFormData('havesearch', 0) == 0) {
             Ansel_Tags::clearSearch();
         }
 
-        // TODO - Degrade the delete links to work without js
         $hasEdit = $this->_view->gallery->hasPermission(Horde_Auth::getAuth(),
                                                         PERMS_EDIT);
         $owner = $this->_view->gallery->get('owner');

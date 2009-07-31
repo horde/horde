@@ -2,8 +2,6 @@
 /**
  * Face recognition class
  *
- * $Horde: ansel/lib/Faces.php,v 1.29 2009/07/14 00:25:28 mrubinsk Exp $
- *
  * @author  Duck <duck@obala.net>
  * @package Ansel
  */

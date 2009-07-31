@@ -111,7 +111,7 @@ class Ansel_View_Abstract {
     {
         echo '<div class="anselWidgets">';
         foreach ($this->_widgets as $widget) {
-            if ($widget->_render == 'auto') {
+            if ($widget->autoRender) {
                 echo $widget->html();
                 echo '<br />';
             }

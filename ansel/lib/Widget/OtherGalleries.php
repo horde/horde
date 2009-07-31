@@ -9,15 +9,15 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_Widget_OtherGalleries extends Ansel_Widget {
-
+class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
+{
     /**
      * Override the parent class' attach method and set the owner in the
      * title string.
      *
      * @param Ansel_View $view  The view we are attaching to
      */
-    function attach($view)
+    public function attach($view)
     {
         parent::attach($view);
 
@@ -36,7 +36,7 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget {
      *
      * @return string  The HTML representing this widget.
      */
-    function html()
+    public function html()
     {
          if ($GLOBALS['conf']['ansel_cache']['usecache'] &&
              ($widget = $GLOBALS['cache']->get('Ansel_OtherGalleries' . $this->_view->gallery->get('owner'))) !== false) {
@@ -59,12 +59,8 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget {
      *
      * @return string  The HTML
      */
-    function _getOtherGalleries()
+    protected function _getOtherGalleries()
     {
-        require_once 'Horde/Tree.php';
-
-        global $prefs;
-
         $owner = $this->_view->gallery->get('owner');
 
         /* Set up the tree */
@@ -75,10 +71,12 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget {
                                                          'name', 0);
 
         $html = '<div style="display:'
-            . (($prefs->getValue('show_othergalleries')) ? 'block' : 'none')
+            . (($GLOBALS['prefs']->getValue('show_othergalleries')) ? 'block' : 'none')
             . ';background:' . $this->_style['background']
             . ';width:100%;max-height:300px;overflow:auto;" id="othergalleries" >';
 
+        //@TODO - for now, Horde_Share will still return PEAR_Error,
+        //        this will be fixed when Ansel_Gallery is refactored.
         foreach($gals as $gal) {
             if (is_a($gal, 'PEAR_Error')) {
                 Horde::logMessage($gal, __FILE__, __LINE__, PEAR_LOG_ERR);

@@ -2,22 +2,20 @@
 /**
  * Ansel_Widget_links:: class to wrap the display of various feed links etc...
  *
- * $Horde: ansel/lib/Widget/Links.php,v 1.16 2009/07/30 18:02:15 mrubinsk Exp $
- *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_Widget_Links extends Ansel_Widget {
+class Ansel_Widget_Links extends Ansel_Widget_Base
+{
+    protected $_supported_views = array('Gallery', 'Image');
 
-    var $_supported_views = array('Gallery', 'Image');
-
-    function Ansel_Widget_Links($params)
+    public function __construct($params)
     {
-        parent::Ansel_Widget($params);
+        parent::__construct($params);
         $this->_title = _("Links");
     }
 
-    function html()
+    public function html()
     {
         global $registry;
 
@@ -29,7 +27,6 @@ class Ansel_Widget_Links extends Ansel_Widget {
         $html .= '<br />' . Horde::link(Ansel::getUrlFor('rss_gallery', array('gallery' => $this->_view->gallery->id, 'slug' => $slug))) . ' ' .  Horde::img('feed.png', '', '', $registry->getImageDir('horde')) . ' ' . sprintf(_("Recent photos in %s"), htmlspecialchars($this->_view->gallery->get('name'), ENT_COMPAT, Horde_Nls::getCharset())) . '</a>';
 
         /* Embed html */
-
         if (empty($this->_view->_params['image_id'])) {
             /* Gallery view */
             $params = array('count' => 10);
@@ -47,13 +44,10 @@ class Ansel_Widget_Links extends Ansel_Widget {
         }
 
         $embed = htmlentities(Ansel::embedCode($params));
-
-        $html .= '<div class="embedInput">' . _("Embed: ") . '<br /><input type="text" readonly="readonly" value="' . $embed
-            . '" /></div>';
-
+        $html .= '<div class="embedInput">' . _("Embed: ") . '<br /><input type="text" readonly="readonly" value="' . $embed . '" /></div>';
         $html .= $this->_htmlEnd();
+
         return $html;
     }
 
 }
-?>

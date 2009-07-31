@@ -3,8 +3,6 @@
  * Horde_Widget_ImageFaces:: class to display a widget containing mini
  * thumbnails of faces in the image.
  *
- * $Horde: ansel/lib/Widget/ImageFaces.php,v 1.29 2009/07/30 13:15:10 mrubinsk Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * @author Duck <duck@obala.net>
@@ -12,14 +10,14 @@
  *
  * @package Ansel
  */
-class Ansel_Widget_ImageFaces extends Ansel_Widget {
-
+class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
+{
     /**
      * @TODO
      *
      * @var unknown_type
      */
-    var $_supported_views = array('Image');
+    private $_supported_views = array('Image');
 
     /**
      * Constructor
@@ -27,7 +25,7 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget {
      * @param array $params  Any parameters for this widget
      * @return Ansel_Widget_ImageFaces
      */
-    function Ansel_Widget_ImageFaces($params)
+    public function __construct($params)
     {
         parent::Ansel_Widget($params);
         $this->_title = _("People in this photo");
@@ -38,9 +36,8 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget {
      *
      * @return string  The HTML for this widget.
      */
-    function html()
+    public function html()
     {
-
         if ($GLOBALS['conf']['faces']['driver']) {
             $html = $this->_getFaceNames();
             return $this->_htmlBegin() . $html . $this->_htmlEnd();
@@ -54,20 +51,13 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget {
      *
      * @return string  The HTML
      */
-    function _getFaceNames()
+    protected function _getFaceNames()
     {
-        require_once ANSEL_BASE . '/lib/Faces.php';
         $faces = Ansel_Faces::factory();
-        if (is_a($faces, 'PEAR_Error')) {
-            return $faces->getMessage();
-        }
 
         // Check for existing faces for this image.
         $html = '';
         $images = $faces->getImageFacesData($this->_view->resource->id, true);
-        if (is_a($images, 'PEAR_Error')) {
-            return $images->getMessage();
-        }
 
         // Generate the top ajax action links and attach the edit actions. Falls
         // back on going to the find all faces in gallery page if no js...

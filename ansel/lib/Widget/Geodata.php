@@ -8,22 +8,25 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
+ * @TODO: Refactor the JS out to a seperate file, output needed values in the
+ *        GLOBAL Ansel javascript object.
+ *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_Widget_Geodata extends Ansel_Widget {
+class Ansel_Widget_Geodata extends Ansel_Widget_Base
+{
+    protected $_supported_views = array('Image', 'Gallery');
+    protected $_params = array('default_zoom' => 15,
+                               'max_auto_zoom' => 15);
 
-    var $_supported_views = array('Image', 'Gallery');
-    var $_params = array('default_zoom' => 15,
-                         'max_auto_zoom' => 15);
-
-    function Ansel_Widget_Geodata($params)
+    public function __construct($params)
     {
-        parent::Ansel_Widget($params);
+        parent::__construct($params);
         $this->_title = _("Location");
     }
 
-    function attach($view)
+    public function attach($view)
     {
          // Don't even try if we don't have an api key
         if (empty($GLOBALS['conf']['api']['googlemaps'])) {
@@ -34,7 +37,7 @@ class Ansel_Widget_Geodata extends Ansel_Widget {
         return true;
     }
 
-    function html()
+    public function html()
     {
         global $ansel_storage;
 
@@ -59,9 +62,6 @@ class Ansel_Widget_Geodata extends Ansel_Widget {
         }
 
         // Bring in googlemap.js now that we know we need it.
-//        $sfiles = &Ansel_Script_Files::singleton();
-//        $sfiles->addExternalScript('http://maps.google.com/maps?file=api&v=2&sensor=false&key=' . $GLOBALS['conf']['api']['googlemaps']);
-//        $sfiles->addExternalScript('http://gmaps-utility-library.googlecode.com/svn/trunk/markermanager/1.1/src/markermanager.js');
         Horde::addExternalScriptFile('http://maps.google.com/maps?file=api&v=2&sensor=false&key=' . $GLOBALS['conf']['api']['googlemaps'], 'ansel');
         Horde::addExternalScriptFile('http://gmaps-utility-library.googlecode.com/svn/trunk/markermanager/1.1/src/markermanager.js', 'ansel');
         Horde::addScriptFile('googlemap.js');
@@ -227,12 +227,12 @@ EOT;
         return $html;
     }
 
-    function _getGalleryImagesWithGeodata()
+    protected function _getGalleryImagesWithGeodata()
     {
         return $GLOBALS['ansel_storage']->getImagesGeodata(array(), $this->_view->gallery->id);
     }
 
-    function _point2Deg($value, $lat = false)
+    protected function _point2Deg($value, $lat = false)
     {
         $letter = $lat ? ($value > 0 ? "N" : "S") : ($value > 0 ? "E" : "W");
         $value = abs($value);

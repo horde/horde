@@ -15,7 +15,7 @@ class Ansel_Faces_opencv extends Ansel_Faces
     /**
      * Create instance
      */
-    function Ansel_Faces_opencv($params)
+    public function __construct($params)
     {
         $this->_defs = $params['defs'];
     }
@@ -25,13 +25,11 @@ class Ansel_Faces_opencv extends Ansel_Faces
      *
      * @param string $file Picture filename
      */
-    function _getFaces($file)
+    protected function _getFaces($file)
     {
         $result = Horde_Util::loadExtension('opencv');
         if (!$result) {
-            $err = PEAR::raiseError(_("You do not have the opencv extension enabled in PHP"));
-            Horde::logMessage($err, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $err;
+            throw new Horde_Exception('You do not have the opencv extension enabled in PHP');
         }
         $im = cv_image_load($file);
         $haar = cv_object_load($this->_defs);
@@ -59,7 +57,7 @@ class Ansel_Faces_opencv extends Ansel_Faces
      *
      * @param int Face ID containg passed face
      */
-    function _isInFace($face, $faces)
+    protected function _isInFace($face, $faces)
     {
         foreach ($faces as $id => $rect) {
             if ($face['x'] > $rect['x'] && $face['x'] + $face['width'] < $face['x'] + $rect['width']
@@ -71,7 +69,7 @@ class Ansel_Faces_opencv extends Ansel_Faces
         return false;
     }
 
-    function _getParamsArray($face_id, $image, $rect)
+    protected function _getParamsArray($face_id, $image, $rect)
     {
         $params = array($face_id,
                 $image->id,
@@ -83,7 +81,7 @@ class Ansel_Faces_opencv extends Ansel_Faces
        return $params;
     }
 
-    function _createView($face_id, $image, $rect)
+    protected function _createView($face_id, $image, $rect)
     {
         return $this->createView($face_id,
                                 $image,

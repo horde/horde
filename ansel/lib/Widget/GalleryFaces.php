@@ -3,8 +3,6 @@
  * Horde_Widget_GalleryFaces:: class to display a widget containing mini
  * thumbnails of faces in the gallery.
  *
- * $Horde: ansel/lib/Widget/GalleryFaces.php,v 1.6 2009/07/08 18:28:46 slusarz Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * @author Duck <duck@obala.net>
@@ -12,14 +10,14 @@
  *
  * @package Ansel
  */
-class Ansel_Widget_GalleryFaces extends Ansel_Widget {
-
+class Ansel_Widget_GalleryFaces extends Ansel_Widget_Base
+{
     /**
      * @TODO
      *
      * @var unknown_type
      */
-    var $_supported_views = array('Gallery');
+    protected $_supported_views = array('Gallery');
 
     /**
      * Constructor
@@ -27,9 +25,9 @@ class Ansel_Widget_GalleryFaces extends Ansel_Widget {
      * @param array $params  Any parameters for this widget
      * @return Ansel_Widget_ImageFaces
      */
-    function Ansel_Widget_GalleryFaces($params)
+    public function __construct($params)
     {
-        parent::Ansel_Widget($params);
+        parent::__construct($params);
         $this->_title = _("People in this gallery");
     }
 
@@ -38,8 +36,9 @@ class Ansel_Widget_GalleryFaces extends Ansel_Widget {
      *
      * @return string  The HTML for this widget.
      */
-    function html()
-    {   if ($GLOBALS['conf']['faces']['driver']) {
+    public function html()
+    {
+        if ($GLOBALS['conf']['faces']['driver']) {
             $html = $this->_getFaceNames();
             return $this->_htmlBegin() . $html . $this->_htmlEnd();
         } else {
@@ -52,18 +51,14 @@ class Ansel_Widget_GalleryFaces extends Ansel_Widget {
      *
      * @return string  The HTML
      */
-    function _getFaceNames()
+    protected function _getFaceNames()
     {
         if ($this->_view->resource->get('faces')) {
             return '<div id="faces_widget_content">'
                     . '<br /><em>' . _("No faces found") . '</em></div>';
         }
 
-        require_once ANSEL_BASE . '/lib/Faces.php';
         $faces = Ansel_Faces::factory();
-        if (is_a($faces, 'PEAR_Error')) {
-            return $faces->getMessage();
-        }
 
         // Check for existing faces for this gallery.
         $html = '<div style="display: block'
@@ -71,9 +66,7 @@ class Ansel_Widget_GalleryFaces extends Ansel_Widget {
             . ';width:100%;max-height:300px;overflow:auto;" id="faces_widget_content" >';
 
         $images = $faces->getGalleryFaces($this->_view->resource->id);
-        if (is_a($images, 'PEAR_Error')) {
-            return $images->getMessage();
-        }
+
 
         if ($this->_view->gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
             $link_text = (empty($images) ? _("Find faces") : _("Edit faces"));

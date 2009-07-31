@@ -7,28 +7,33 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_Widget_Actions extends Ansel_Widget {
+class Ansel_Widget_Actions extends Ansel_Widget_Base
+{
+    protected $_supported_views = array('Gallery');
 
-    var $_supported_views = array('Gallery');
-
-    function Ansel_Widget_Actions($params)
+    public function __construct($params)
     {
-        parent::Ansel_Widget($params);
         $this->_title = _("Gallery Actions");
+        parent::__construct($params);
     }
 
-    function html()
+    /**
+     * TODO
+     *
+     * @see ansel/lib/Widget/Ansel_Widget_Base#html()
+     */
+    public function html()
     {
-        global $registry;
         $html = $this->_htmlBegin();
         $id = $this->_view->gallery->id;
-        $galleryurl = Horde_Util::addParameter(Horde::applicationUrl('gallery.php'),
-                                                               'gallery', $id);
+        $galleryurl = Horde_Util::addParameter(Horde::applicationUrl('gallery.php'), 'gallery', $id);
 
         if ($this->_view->gallery->hasFeature('upload')) {
-            $uploadurl = Horde_Util::addParameter(Horde::applicationUrl('img/upload.php'),
-                                            array('gallery' => $id,
-                                                  'page' => !empty($this->_view->_params['page']) ? $this->_view->_params['page'] : 0));
+            $uploadurl = Horde_Util::addParameter(
+                Horde::applicationUrl('img/upload.php'),
+                array('gallery' => $id,
+                      'page' => !empty($this->_view->_params['page']) ? $this->_view->_params['page'] : 0)
+                );
         }
 
         $html .= '<ul style="list-style-type:none;">';
@@ -57,7 +62,7 @@ class Ansel_Widget_Actions extends Ansel_Widget {
 
             /* Subgalleries */
             if ($this->_view->gallery->hasFeature('subgalleries')) {
-                $html .= '<li>' . Horde::link(Horde_Util::addParameter($galleryurl, 'actionID', 'addchild'), '', 'widget') . Horde::img('add.png') . ' ' . _("Create a subgallery") . '</a></li>';
+                $html .= '<li>' . Horde::link(Horde_Util::addParameter($galleryurl, 'actionID', 'addchild'), '', 'widget') . Horde::img('add.png', '[icon]') . ' ' . _("Create a subgallery") . '</a></li>';
             }
         }
         $html .= '</ul>';
@@ -81,19 +86,19 @@ class Ansel_Widget_Actions extends Ansel_Widget {
     *
     * @return string  The HTML
     */
-    function _getGalleryActions()
+    protected function _getGalleryActions()
     {
-        global $registry, $prefs, $conf;
+        global $registry, $conf;
 
         $id = $this->_view->gallery->id;
         $galleryurl = Horde_Util::addParameter(Horde::applicationUrl('gallery.php'),
-                                                               'gallery', $id);
+                                               'gallery', $id);
 
         $selfurl = Horde::selfUrl(true, false, true);
         $count = $this->_view->gallery->countImages();
         $date = $this->_view->gallery->getDate();
 
-        $html = '<div style="display:' . (($prefs->getValue('show_actions')) ? 'block' : 'none') . ';" id="gallery-actions">';
+        $html = '<div style="display:' . (($GLOBALS['prefs']->getValue('show_actions')) ? 'block' : 'none') . ';" id="gallery-actions">';
 
         /* Attach the ajax action */
         ob_start();
@@ -119,10 +124,11 @@ class Ansel_Widget_Actions extends Ansel_Widget {
                 'url' => Ansel::getUrlFor('view', $view_params, true),
                 'title' => $this->_view->gallery->get('name'));
 
-            $url = $registry->call('bookmarks/getAddUrl', array($api_params));
-            if (!is_a($url, 'PEAR_Error')) {
-                $html .= '<li>' . Horde::link($url, '', 'widget') . Horde::img('trean.png', '', '', $registry->getImageDir('trean')) . ' ' . _("Add to bookmarks") . '</a></li>';
-            }
+            try {
+                $url = $registry->bookmarks->getAddUrl(array($api_params));
+            } catch (Horde_Exception $e) {}
+
+            $html .= '<li>' . Horde::link($url, '', 'widget') . Horde::img('trean.png', '', '', $registry->getImageDir('trean')) . ' ' . _("Add to bookmarks") . '</a></li>';
         }
 
         /* Download as ZIP link */
@@ -177,7 +183,7 @@ class Ansel_Widget_Actions extends Ansel_Widget {
                    $conf['report_content']['allow'] == 'all')) {
 
             $reporturl = Horde_Util::addParameter(Horde::applicationUrl('report.php'),
-                                            'gallery', $id);
+                                                  'gallery', $id);
             $html .= '<li>' . Horde::link($reporturl, '', 'widget') . ' ' . _("Report") . "</a></li>\n";
         }
 

@@ -6,14 +6,14 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_Widget_SimilarPhotos extends Ansel_Widget {
-
+class Ansel_Widget_SimilarPhotos extends Ansel_Widget_Base
+{
     /**
      * @TODO
      *
      * @var unknown_type
      */
-    var $_supported_views = array('Image');
+    protected $_supported_views = array('Image');
 
     /**
      * Constructor
@@ -21,9 +21,9 @@ class Ansel_Widget_SimilarPhotos extends Ansel_Widget {
      * @param array $params  Any parameters for this widget
      * @return Ansel_Widget_SimilarPhotos
      */
-    function Ansel_Widget_SimilarPhotos($params)
+    public function __construct($params)
     {
-        parent::Ansel_Widget($params);
+        parent::__construct($params);
         $this->_title = _("Similar Photos");
     }
 
@@ -32,11 +32,12 @@ class Ansel_Widget_SimilarPhotos extends Ansel_Widget {
      *
      * @return string  The HTML for this widget.
      */
-    function html()
+    public function html()
     {
         $html = $this->_htmlBegin();
         $html .= '<div id="similar">' . $this->_getRelatedImages() . '</div>';
         $html .= $this->_htmlEnd();
+
         return $html;
     }
 
@@ -49,9 +50,8 @@ class Ansel_Widget_SimilarPhotos extends Ansel_Widget {
      *
      * @return string  The HTML
      */
-    function _getRelatedImages()
+    public function _getRelatedImages()
     {
-        require_once ANSEL_BASE . '/lib/Tags.php';
         global $ansel_storage;
 
         $html = '';
@@ -92,6 +92,7 @@ class Ansel_Widget_SimilarPhotos extends Ansel_Widget {
                 }
             }
         }
+
         return $html;
     }
 }
