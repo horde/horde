@@ -124,6 +124,12 @@ $_services = array(
         'type' => 'boolean'
     ),
 
+    /* Indicate that mobile view is available. */
+    'mobileView' => array(
+        'args' => array(),
+        'type' => 'boolean'
+    ),
+
     /* Cache display method. */
     'cacheOutput' => array(
         'args' => array(
@@ -581,8 +587,20 @@ function _imp_cacheOutput($params)
     }
 }
 
-/*
- * TODO
+/**
+ * Indicate that IMP supports a mobile view.
+ *
+ * @return boolean  True.
+ */
+function _imp_mobileView()
+{
+    return true;
+}
+
+/**
+ * Return login parameters used on the login page.
+ *
+ * @return array  TODO
  */
 function _imp_authLoginParams()
 {
