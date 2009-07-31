@@ -117,7 +117,7 @@ class Horde_Script_Files
 
         // Always add prototype.js.
         if (empty($this->_files) && ($file != 'prototype.js')) {
-            $this->add('prototype.js', 'horde');
+            $this->add('prototype.js', 'horde', true);
         }
 
         // Explicitly check for a directly serve-able version of the script.
