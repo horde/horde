@@ -897,7 +897,7 @@ HTML;
             $mail_params['password'] = Horde_Auth::getCredential('password');
         }
 
-        return array($mail_driver, $mail_params);
+        return array('type' => $mail_driver, 'params' => $mail_params);
     }
 
     /**

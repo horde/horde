@@ -653,7 +653,7 @@ class Horde_Release
         $mail = new Horde_Mime_Mail();
         $mail->setBody($body, 'iso-8859-1', false);
         $mail->addHeaders($headers);
-        $result = $mail->send($this->_options['mailer']['type'], $this->_options['mailer']['params']);
+        $result = $mail->send(array('type' => $this->_options['mailer']['type'], 'params' => $this->_options['mailer']['params']));
         if (is_a($result, 'PEAR_Error')) {
             print $result->getMessage() . "\n";
         }

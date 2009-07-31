@@ -134,7 +134,7 @@ class Horde_Auth_Signup
                 $conf['signup']['email'],
                 $conf['signup']['email'],
                 Horde_Nls::getCharset());
-            $mail->send($conf['mailer']['type'], $conf['mailer']['params']);
+            $mail->send(Horde::getMailerConfig());
         }
     }
 

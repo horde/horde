@@ -407,16 +407,16 @@ class Horde_Mime_Mail
      * documentation.
      * @link http://pear.php.net/Mail
      *
-     * @param string $driver   The Mail driver to use.
-     * @param array $params    Any parameters necessary for the Mail driver.
+     * @param array $config    A hash with the Mail driver to use in 'type' and
+     *                         any parameters necessary for the Mail driver in
+     *                         'params'.
      * @param boolean $resend  If true, the message id and date are re-used;
      *                         If false, they will be updated.
      * @param boolean $flowed  Send message in flowed text format.
      *
      * @throws Horde_Mime_Exception
      */
-    public function send($driver = null, $params = array(), $resend = false,
-                         $flowed = true)
+    public function send($config, $resend = false, $flowed = true)
     {
         /* Add mandatory headers if missing. */
         if (!$resend || !$this->_headers->getValue('Message-ID')) {
@@ -470,11 +470,11 @@ class Horde_Mime_Mail
         }
 
         /* Check mailer configuration. */
-        if (!empty($driver)) {
-            $this->_mailer_driver = $driver;
+        if (!empty($config['type'])) {
+            $this->_mailer_driver = $config['type'];
         }
-        if (!empty($params)) {
-            $this->_mailer_params = $params;
+        if (!empty($config['params'])) {
+            $this->_mailer_params = $config['params'];
         }
 
         /* Send message. */
