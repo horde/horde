@@ -70,7 +70,7 @@ class Ansel_View_Gallery extends Ansel_View_Base
      *                         when clicking on breadcrumb links, for example.
      * </pre>
      */
-    public function makeView($params = array())
+    public function __construct($params = array())
     {
         parent::__construct($params);
 
@@ -166,9 +166,6 @@ class Ansel_View_Gallery extends Ansel_View_Base
      */
     public function getTitle()
     {
-        if (is_a($this->gallery, 'PEAR_Error')) {
-            return $this->gallery->getMessage();
-        }
         return $this->gallery->get('name');
     }
 
