@@ -1,10 +1,6 @@
 <?php
-
-/** Ansel_View_Gallery **/
-require_once ANSEL_BASE . '/lib/Views/Gallery.php';
-
 /**
- * Ansel_View_EmbeddedRenderer_Slideshow
+ * Ansel_View_EmbeddedRenderer_Carousel
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -14,8 +10,8 @@ require_once ANSEL_BASE . '/lib/Views/Gallery.php';
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_View_EmbeddedRenderer_Slideshow extends Ansel_View_Gallery {
-
+class Ansel_View_EmbeddedRenderer_Carousel extends Ansel_View_Gallery
+{
     /**
      * Create a new renderer.
      *

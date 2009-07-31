@@ -13,13 +13,6 @@
 class Ansel_View_Image extends Ansel_View_Base
 {
     /**
-     *  The image selected for this view.
-     *
-     * @var Ansel_Image
-     */
-    //public $image;
-
-    /**
      * Const'r
      *
      */
