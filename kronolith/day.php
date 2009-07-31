@@ -16,9 +16,6 @@ $title = $view->getTime($prefs->getValue('date_format'));
 $print_view = (bool)Horde_Util::getFormData('print');
 
 Horde::addScriptFile('tooltips.js', 'horde', true);
-if (!$print_view) {
-    Horde::addScriptFile('popup.js', 'horde', true);
-}
 require KRONOLITH_TEMPLATES . '/common-header.inc';
 
 if ($print_view) {

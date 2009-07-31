@@ -1893,14 +1893,11 @@ class Kronolith
 
         /* Print. */
         if ($conf['menu']['print'] && ($view = Horde_Util::nonInputVar('view'))) {
-            $menu->add(Horde_Util::addParameter($view->link(), 'print', 1), _("_Print"), 'print.png', $registry->getImageDir('horde'), '_blank', 'popup(kronolithPrintLink ? kronolithPrintLink : this.href); return false;', '__noselection');
+            Horde::addScriptFiles('popup.js', 'horde', true);
+            $menu->add(Horde_Util::addParameter($view->link(), 'print', 1), _("_Print"), 'print.png', $registry->getImageDir('horde'), '_blank', 'Horde.popup({ url: kronolithPrintLink ? kronolithPrintLink : this.href });return false;', '__noselection');
         }
 
-        if ($returnType == 'object') {
-            return $menu;
-        } else {
-            return $menu->render();
-        }
+        return ($returnType == 'object') ? $menu : $menu->render();
     }
 
     /**

@@ -29,7 +29,7 @@ case 'delete_all':
         $notification->push(_("Access denied deleting all accounts and postings."), 'horde.error');
     } else {
         $storage = &Fima_Driver::singleton($ledger);
-    
+
         /* Delete all. */
         $result = $storage->deleteAll();
         if (is_a($result, 'PEAR_Error')) {
@@ -60,13 +60,13 @@ foreach ($types as $typeId => $typeLabel) {
 $accountlist = Fima::listAccounts();
 foreach ($accountlist as $accountId => $account) {
     $accounts[$accountId] = $account;
-    
+
     $accounts[$accountId]['view_link'] = Horde_Util::addParameter($view_url, $account['type'] == FIMA_ACCOUNTTYPE_ASSET ? 'search_asset' : 'search_account', $account['account_id']);
     $account_url_account = Horde_Util::addParameter($account_url, 'account', $account['account_id']);
     $accounts[$accountId]['add_link'] = Horde_Util::addParameter($account_url_account, 'actionID', 'add_account');
     $accounts[$accountId]['edit_link'] = Horde_Util::addParameter($account_url_account, 'actionID', 'modify_account');
     $accounts[$accountId]['delete_link'] = Horde_Util::addParameter($account_url_account, 'actionID', 'delete_account');
-    
+
     if ($account['parent_id'] !== null && isset($accounts[$account['parent_id']])) {
         unset($accounts[$accountId]['add_link']);
     } else {
@@ -74,7 +74,7 @@ foreach ($accountlist as $accountId => $account) {
         $accounts[$accountId]['parent_number'] = '';
         $accounts[$accountId]['parent_name'] = '';
     }
-      
+
     $accounts[$accountId]['icon'] = $accounts[$accounts[$accountId]['parent_id']]['icon'];
     $accounts[$accountId]['closed'] = $account['closed'];
     $accounts[$accountId]['expanded'] = false;
@@ -83,7 +83,6 @@ foreach ($accountlist as $accountId => $account) {
 /* Print. */
 $print_view = (bool)Horde_Util::getFormData('print');
 if (!$print_view) {
-    Horde::addScriptFile('popup.js', 'horde', true);
     $print_link = Horde::applicationUrl(Horde_Util::addParameter('accounts.php', array('print' => 1)));
 }
 

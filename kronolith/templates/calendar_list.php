@@ -49,7 +49,7 @@
    <td><?php $url = $webdav ? $subscribe_url_base . $calendar->get('owner') . '/' . $calendar->getName() . '.ics' : Horde_Util::addParameter($subscribe_url_base, 'c', $calendar->getName(), false) ?><a href="<?php echo htmlspecialchars($url) ?>" title="<?php echo _("Click or copy this URL to display this calendar") ?>" target="_blank"><?php echo htmlspecialchars(shorten_url($url)) ?></a></td>
    <td><a href="<?php echo Horde_Util::addParameter($edit_url_base, 'c', $calendar->getName()) ?>" title="<?php echo _("Edit") ?>"><?php echo $edit_img ?></a></td>
 <?php if (empty($conf['share']['no_sharing'])): ?>
-   <td><a onclick="return !popup(this.href);" href="<?php echo Horde_Util::addParameter($perms_url_base, 'share', $calendar->getName()) ?>" target="_blank" title="<?php echo _("Change Permissions") ?>"><?php echo $perms_img ?></a></td>
+   <td><a onclick="<?php echo Horde::popupJs($perms_url_base, array('params' => array('share' => $calendar->getName()), 'urlencode' => true)) ?>return false" href="<?php echo Horde_Util::addParameter($perms_url_base, 'share', $calendar->getName()) ?>" target="_blank" title="<?php echo _("Change Permissions") ?>"><?php echo $perms_img ?></a></td>
 <?php endif; ?>
    <td><a href="<?php echo Horde_Util::addParameter($delete_url_base, 'c', $calendar->getName()) ?>" title="<?php echo _("Delete") ?>"><?php echo $delete_img ?></a></td>
 <?php endif; ?>

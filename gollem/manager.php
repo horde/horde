@@ -426,7 +426,7 @@ if (is_array($list) && $numitem && $read_perms) {
             // Edit link if possible.
             if (strpos($mime_type, 'text/') === 0) {
                 $url = Horde_Util::addParameter($edit_url, array('actionID' => 'edit_file', 'type' => $val['type'], 'file' => $val['name'], 'dir' => $currdir, 'driver' => $GLOBALS['gollem_be']['driver']));
-                $item['edit'] = Horde::link($url, '', '', '_blank', 'popup(this.href); return false;') . $edit_img . '</a>';
+                $item['edit'] = Horde::link('#', '', '', '_blank', Horde::popupJs($url) . 'return false;') . $edit_img . '</a>';
             }
 
             // We can always download files.
@@ -434,7 +434,7 @@ if (is_array($list) && $numitem && $read_perms) {
 
             // Try a view link.
             $url = Horde_Util::addParameter($view_url, array('actionID' => 'view_file', 'type' => $val['type'], 'file' => $val['name'], 'dir' => $currdir, 'driver' => $GLOBALS['gollem_be']['driver']));
-            $item['link'] = Horde::link($url, '', '', '_blank', 'popup(this.href); return false;') . $name . '</a>';
+            $item['link'] = Horde::link('#', '', '', '_blank', Horde::popupJs($url) . 'return false;') . $name . '</a>';
             break;
         }
 
@@ -556,7 +556,6 @@ $js_code = array(
 );
 
 Horde::addScriptFile('manager.js', 'gollem', true);
-Horde::addScriptFile('popup.js', 'gollem', true);
 Horde::addScriptFile('tables.js', 'horde', true);
 
 require GOLLEM_TEMPLATES . '/common-header.inc';

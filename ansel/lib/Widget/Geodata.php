@@ -41,8 +41,6 @@ class Ansel_Widget_Geodata extends Ansel_Widget_Base
     {
         global $ansel_storage;
 
-        Horde::addScriptFile('popup.js', 'horde');
-
         $geodata = $ansel_storage->getImagesGeodata($this->_params['images']);
         $url = Horde::applicationUrl('map_edit.php', true);
         $rtext = _("Relocate this image");
@@ -64,6 +62,7 @@ class Ansel_Widget_Geodata extends Ansel_Widget_Base
         Horde::addExternalScriptFile('http://maps.google.com/maps?file=api&v=2&sensor=false&key=' . $GLOBALS['conf']['api']['googlemaps'], 'ansel');
         Horde::addExternalScriptFile('http://gmaps-utility-library.googlecode.com/svn/trunk/markermanager/1.1/src/markermanager.js', 'ansel');
         Horde::addScriptFile('googlemap.js');
+        Horde::addScriptFile('popup.js', 'horde', true);
 
         $html = $this->_htmlBegin() . "\n";
         $content = '<div id="ansel_geo_widget">';
@@ -104,7 +103,7 @@ class Ansel_Widget_Geodata extends Ansel_Widget_Base
             } elseif ($permsEdit) {
                 // Image view, but no geotags, provide ability to add it.
                 $addurl = Horde_Util::addParameter(Horde::applicationUrl('map_edit.php'), 'image', $this->_params['images'][0]);
-                $addLink = Horde::link($addurl, '', '', '', 'popup(\'' . Horde_Util::addParameter(Horde::applicationUrl('map_edit.php'), 'image', $this->_params['images'][0]) . '\', 750, 600); return false;');
+                $addLink = Horde::link($addurl, '', '', '', Horde::popupJs(Horde::applicationUrl('map_edit.php'), array('params' => array('image' => $this->_params['images'][0]), 'urlencode' => true)) . 'return false;');
                 $imgs = $ansel_storage->getRecentImagesGeodata(Horde_Auth::getAuth());
                     if (count($imgs) > 0) {
                         $imgsrc = '<div class="ansel_location_sameas">';

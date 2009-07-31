@@ -169,14 +169,14 @@ Slide.prototype = {
         Element.setHref($('breadcrumb_gallery'), SlideController.baseUrl + '/view.php' + params + '&view=Gallery');
         if ($('image_properties_link')) {
             Element.setHref('image_properties_link', SlideController.baseUrl + '/image.php' + params + '&actionID=modify&share=' + SlideController.galleryShare);
-            Element.setOnClick('image_properties_link', function(){SlideController.pause();popup(this.href);return false;});
+            Element.setOnClick('image_properties_link', function(){SlideController.pause();Horde.popup({ url: this.href });return false;});
         }
         if ($('image_edit_link')) {
             Element.setHref('image_edit_link', SlideController.baseUrl + '/image.php' + params + '&actionID=editimage');
         }
         if ($('image_ecard_link')) {
             Element.setHref('image_ecard_link', SlideController.baseUrl + '/img/ecard.php?image=' + SlideController.photos[SlideController.photoId][3] + '&gallery=' + SlideController.galleryId);
-            Element.setOnClick('image_ecard_link', function(){SlideController.pause();popup(this.href);return false;});
+            Element.setOnClick('image_ecard_link', function(){SlideController.pause();Horde.popup({ url: this.href });return false;});
         }
         if ($('image_delete_link')) {
             //TODO : Guess we should have PHP save the localized text for this...

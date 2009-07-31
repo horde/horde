@@ -28,6 +28,7 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
             Ansel::attachStylesheet('lightbox.css');
             Horde::addScriptFile('effects.js', 'horde', true);
             Horde::addScriptFile('lightbox.js', 'ansel', true);
+            Horde::addScriptFile('popup.js', 'horde', true);
         }
     }
 

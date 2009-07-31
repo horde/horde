@@ -70,7 +70,7 @@ class Fima {
 
         return $accounts;
     }
-    
+
     function getAccount($account)
     {
         $ledger = Fima::getActiveLedger();
@@ -102,7 +102,7 @@ class Fima {
 
         /* Create a Fima storage instance. */
         $storage = &Fima_Driver::singleton($ledger);
-        $storage->retrievePostings($filters, 
+        $storage->retrievePostings($filters,
                                    array('posting_' . $prefs->getValue('sortby') . ' ' . ($prefs->getValue('sortdir') ? 'DESC' : 'ASC'),
                                          'posting_' . $prefs->getValue('altsortby')),
                                    $limit);
@@ -124,13 +124,13 @@ class Fima {
     function getPostingsCount()
     {
         $ledger = Fima::getActiveLedger();
-        
+
         /* Create a Fima storage instance. */
         $storage = &Fima_Driver::singleton($ledger);
         return $storage->_postingsCount;
     }
-    
-    
+
+
     /**
      * Get grouped results from storage.
      *
@@ -143,7 +143,7 @@ class Fima {
      */
     function getResults($groups = array(), $filters = array()) {
         $ledger = Fima::getActiveLedger();
-        
+
         /* Create a Fima storage instance. */
         $storage = &Fima_Driver::singleton($ledger);
         return $storage->getResults($groups, $filters);
@@ -160,7 +160,7 @@ class Fima {
     function getAssetResults($postingtype, $perdate = null)
     {
         $ledger = Fima::getActiveLedger();
-        
+
         /* Create a Fima storage instance. */
         $storage = &Fima_Driver::singleton($ledger);
         return $storage->getAssetResults($postingtype, $perdate);
@@ -174,7 +174,7 @@ class Fima {
     function getPostingsResult()
     {
         $ledger = Fima::getActiveLedger();
-        
+
         /* Create a Fima storage instance. */
         $storage = &Fima_Driver::singleton($ledger);
         return $storage->_postingsResult;
@@ -250,7 +250,7 @@ class Fima {
     function buildAccountWidget($name, $value = '', $params = null, $blank = false, $multiple = false, $filters = array(), $hideclosed = false)
     {
         $accounts = Fima::listAccounts($filters);
-        
+
         $html = '<select id="' . $name . '" name="' . $name . '"';
         if (!is_null($params)) {
             $html .= ' ' . $params;
@@ -262,7 +262,7 @@ class Fima {
         if ($blank !== false) {
             $html .= '<option value="">' . htmlspecialchars($blank) . '</option>';
         }
-        
+
         $accounts = Fima::listAccounts($filters);
         foreach ($accounts as $accountId => $account) {
             if ($hideclosed && $account['closed'] && $accountId != $value) {
@@ -276,7 +276,7 @@ class Fima {
             }
             $html .= htmlspecialchars($account['label']) . '</option>';
         }
-        
+
         return $html . "</select>\n";
     }
 
@@ -306,7 +306,7 @@ class Fima {
         if ($blank !== false) {
             $html .= '<option value="">' . htmlspecialchars($blank) . '</option>';
         }
-        
+
         foreach ($types as $typeValue => $typeLabel) {
             $html .= '<option value="' . $typeValue . '"';
             if ($multiple && is_array($value)) {
@@ -316,7 +316,7 @@ class Fima {
             }
             $html .= htmlspecialchars($typeLabel) . '</option>';
         }
-        
+
         return $html . "</select>\n";
     }
 
@@ -346,7 +346,7 @@ class Fima {
         if ($blank !== false) {
             $html .= '<option value="">' . htmlspecialchars($blank) . '</option>';
         }
-        
+
         foreach ($types as $typeValue => $typeLabel) {
             $html .= '<option value="' . $typeValue . '"';
             if ($multiple && is_array($value)) {
@@ -356,7 +356,7 @@ class Fima {
             }
             $html .= htmlspecialchars($typeLabel) . '</option>';
         }
-        
+
         return $html . "</select>\n";
     }
 
@@ -374,14 +374,14 @@ class Fima {
     function buildDateWidget($name, $value = 0, $params = null, $blank = false, $periodonly = false)
     {
         $value = ($value !== 0) ? explode('-', date('Y-n-j', $value)) : array(date('Y'), 0, 0);
-        
+
         /* Year. */
         $html = '<input id="' . $name . '[year]" name="' . $name . '[year]" type="text" value="' . $value[0] . '" onchange="updateWday(\'' . $name . '\');" size="4" maxlength="4"';
         if (!is_null($params)) {
             $html .= ' ' . $params;
         }
         $html .= ' />' . "\n";
-        
+
         /* Month. */
         $html .= '- <select id="' . $name . '[month]" name="' . $name . '[month]" onchange="updateWday(\'' . $name . '\');"';
         if (!is_null($params)) {
@@ -397,12 +397,12 @@ class Fima {
             $html .= htmlspecialchars(strftime('%b', mktime(0, 0, 0, $i, 1))) . '</option>';
         }
         $html .= '</select>' . "\n";
-         
+
         /* Period only? */
         if ($periodonly) {
             return $html;
         }
-        
+
         /* Day. */
         $html .= '- <select id="' . $name . '[day]" name="' . $name . '[day]" onchange="updateWday(\'' . $name . '\');"';
         if (!is_null($params)) {
@@ -432,10 +432,10 @@ class Fima {
             $html .= Horde::img('calendar.png', _("Set date"), 'align="top" id="' . $name . '_img"', $GLOBALS['registry']->getImageDir('horde'));
             $html .= '</a>' . "\n";
         }
-                 
+
         return $html;
     }
-    
+
     /**
      * Get account types.
      *
@@ -459,7 +459,7 @@ class Fima {
             return $types;
         }
     }
-    
+
     /**
      * Get posting types.
      *
@@ -483,7 +483,7 @@ class Fima {
             return $types;
         }
     }
-    
+
     /**
      * Convert an amount from the interface to a float value.
      *
@@ -494,11 +494,11 @@ class Fima {
     function convertAmountToValue($amount)
     {
         global $prefs;
-        
+
         $format = $prefs->getValue('amount_format');
         return (float)str_replace(array($format{0}, $format{1}), array('', '.'), $amount);
     }
-    
+
     /**
      * Convert a float number to an amount for the interface.
      *
@@ -509,11 +509,11 @@ class Fima {
     function convertValueToAmount($value)
     {
         global $prefs;
-        
+
         $format = $prefs->getValue('amount_format');
         return number_format($value, 2, $format{1}, $format{0});
     }
-    
+
     /*
      * Convert a formatted date to a unix timestamp.
      *
@@ -527,23 +527,23 @@ class Fima {
         if ($date == '') {
             return false;
         }
-        
+
         if (preg_match('/[^%a-zA-Z]/', $format, $seperator) === false) {
             return false;
         }
-        
+
         $formatparts = explode($seperator[0], $format);
         $dateparts = explode($seperator[0], $date);
-        
+
         foreach ($formatparts as $key => $fmt) {
             $dateparts[$fmt] = $dateparts[$key];
         }
-        
+
         $stamp = mktime(0, 0, 0, $dateparts['%m'], $dateparts['%d'], $dateparts['%Y']);
-        
+
         return $stamp;
     }
-    
+
     /**
      * Convert a date format to a format useable when entering postings.
      *
@@ -591,7 +591,7 @@ class Fima {
             $format = '%x';
             break;
         }
-    
+
         if ($format == '%x') {
             $fmts = array('%Y-%m-%d', '%d/%m/%Y', '%d.%m.%Y', '%m/%d/%Y');
             foreach ($fmts as $fmt) {
@@ -607,7 +607,7 @@ class Fima {
 
         return $format;
     }
-    
+
     /**
      * Convert a date format to a period format useable for reports.
      *
@@ -639,7 +639,7 @@ class Fima {
 
         return $format;
     }
-    
+
     /**
      * Convert wildcards in a text to SQL wildcards.
      *
@@ -650,7 +650,7 @@ class Fima {
     function convertWildcards($text)
     {
         global $prefs;
-        
+
         $wildcards = $prefs->getValue('wildcard_format');
         if ($wildcards == 'dos') {
             $text = str_replace(array('\\*', '\\?'), array(chr(0xe), chr(0xf)), $text);
@@ -663,7 +663,7 @@ class Fima {
         }
         return $text;
     }
-    
+
     /**
      * Initial app setup code.
      */
@@ -737,7 +737,7 @@ class Fima {
         }
 
         $GLOBALS['prefs']->setValue('display_ledgers', serialize($GLOBALS['display_ledgers']));
-        
+
         /* Update active ledger. */
         if (($changeledger = Horde_Util::getFormData('changeledger')) !== null) {
             $GLOBALS['prefs']->setValue('active_ledger', $changeledger);
@@ -750,28 +750,28 @@ class Fima {
     function getMenu($returnType = 'object')
     {
         global $conf, $registry, $browser, $print_link;
-        
+
         $actionID = Horde_Util::getFormData('actionID');
-        
+
         $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
         $menu->add(Horde::applicationUrl('postings.php'), _("_List Postings"), 'list.png', null, null, null, (basename($_SERVER['PHP_SELF']) == 'index.php' && basename(dirname($_SERVER['PHP_SELF'])) != 'ledgers') ? 'current' : ($actionID === null ? null : '__noselection'));
         $menu->add(Horde_Util::addParameter(Horde::applicationUrl('postings.php'), 'actionID', 'add_postings'), _("Add _Postings"), 'add.png', null, null, null, $actionID == 'add_postings' ? 'current' : '__noselection');
         $menu->add(Horde::applicationUrl('search.php'), _("Search"), 'search.png', $registry->getImageDir('horde'));
         $menu->add(Horde::applicationUrl('accounts.php'), _("_Accounts"), 'accounts.png');
-        
+
         if (Horde_Auth::getAuth()) {
             $menu->add(Horde::applicationUrl('ledgers/index.php'), _("_My Ledgers"), 'accounts.png');
         }
-        
+
         /* Reports. */
         $menu->add(Horde::applicationUrl('report.php'), _("_Reports"), 'report.png');
-        
+
         /* Import/Export. */
         $menu->add(Horde::applicationUrl('data.php'), _("_Import/Export"), 'data.png', $registry->getImageDir('horde'));
 
         /* Print. */
         if (isset($print_link)) {
-            $menu->add($print_link, _("_Print"), 'print.png', $registry->getImageDir('horde'), '_blank', 'popup(this.href); return false;', '__noselection');
+            $menu->add($print_link, _("_Print"), 'print.png', $registry->getImageDir('horde'), '_blank', Horde::popupJs($print_link, array('urlencode' => true)) . 'return false;', '__noselection');
         }
 
         if ($returnType == 'object') {

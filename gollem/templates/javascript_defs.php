@@ -10,9 +10,6 @@ $var = array(
 
 /* Gettext strings used in core javascript files. */
 $gettext = array_map('addslashes', array(
-    /* Strings used in popup.js */
-    'popup_block' => _("A popup window could not be opened. Perhaps you have set your browser to block popup windows?"),
-
     /* Strings used in login.js */
     'login_username' => _("Please provide your username."),
     'login_password' => _("Please provide your password."),

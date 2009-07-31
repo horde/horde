@@ -57,7 +57,7 @@ case News::LOCKED:
 <td>
 <?php
 $url = Horde_Util::addParameter($read_url, 'id', $row['id']);
-echo Horde::link('javascript:void(0)', $row['view_count'], '', '', "popup('$url')", $row['view_count']) . number_format($row['view_count']) . '</a>';
+echo Horde::link('#', $row['view_count'], '', '', Horde::popupJs($url, array('urlencode' => true)) . 'return false', $row['view_count']) . number_format($row['view_count']) . '</a>';
 ?>
 </td>
 <?php

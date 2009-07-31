@@ -889,11 +889,10 @@ EOT;
         }
 
         if ($GLOBALS['browser']->hasFeature('javascript')) {
-            Horde::addScriptFile('popup.js', 'horde', true);
             $imgId = $varname .'goto';
             $html .= '<div id="goto" class="headerbox"
                     style="position:absolute;visibility:hidden;padding:0"></div>';
-            $html .= Horde::link('#', _("Select an object"), '', '', 'obrowserWindow = popup(\'' . $GLOBALS['registry']->get('webroot', 'horde') . '/services/obrowser/' . '\'); obrowserWindowName = obrowserWindow.name; return false;') . Horde::img('tree/leaf.png', _("Object"), 'id="' . $imgId . '" align="middle"', $GLOBALS['registry']->getImageDir('horde')) . "</a>\n";
+            $html .= Horde::link('#', _("Select an object"), '', '', 'obrowserWindow = ' Horde::popupJs($GLOBALS['registry']->get('webroot', 'horde') . '/services/obrowser/') . 'obrowserWindowName = obrowserWindow.name; return false;') . Horde::img('tree/leaf.png', _("Object"), 'id="' . $imgId . '" align="middle"', $GLOBALS['registry']->getImageDir('horde')) . "</a>\n";
         }
 
         return $html;

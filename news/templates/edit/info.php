@@ -109,7 +109,7 @@ if (sizeof($versions)>0) {
         echo Horde::link(Horde_Util::addParameter($url,'version', $version['version']),_("Renew")) . _("Renew") . '</a> | ';
 
         $url = Horde_Util::addParameter(Horde::applicationUrl('diff.php'), array('id' => $id, 'version' => $version['version']));
-        echo Horde::link('#', _("Diff"), '', '', "popup('$url')") . _("Diff") . '</a> ';
+        echo Horde::link('#', _("Diff"), '', '', Horde::popupJs($url, array('urlencode' => true)) . 'return false;') . _("Diff") . '</a> ';
 
         echo ')<br />' . "\n";
     }

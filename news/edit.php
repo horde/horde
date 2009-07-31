@@ -193,7 +193,6 @@ $pager = News_Search::getPager($binds[1], $count, $browse_url);
 
 // Output
 Horde::addScriptFile('tables.js', 'horde', true);
-Horde::addScriptFile('popup.js', 'horde', true);
 
 require_once NEWS_TEMPLATES . '/common-header.inc';
 require_once NEWS_TEMPLATES . '/menu.inc';

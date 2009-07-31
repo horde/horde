@@ -608,12 +608,10 @@ class Turba {
 
         /* Print. */
         if (isset($GLOBALS['print_link'])) {
-            $menu->add($GLOBALS['print_link'], _("_Print"), 'print.png', $GLOBALS['registry']->getImageDir('horde'), '_blank', 'return !popup(this.href);', '__noselection');
+            $menu->add($GLOBALS['print_link'], _("_Print"), 'print.png', $GLOBALS['registry']->getImageDir('horde'), '_blank', Horde::popupJs($GLOBALS['print_link'], array('urlencode' => true)) . 'return false);', '__noselection');
         }
 
-        return ($returnType == 'object')
-            ? $menu
-            : $menu->render();
+        return ($returnType == 'object') ? $menu : $menu->render();
     }
 
 }

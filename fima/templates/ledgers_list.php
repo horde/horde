@@ -30,7 +30,7 @@
    <td><?php echo htmlspecialchars($ledger->get('name')) ?></td>
    <td><a href="<?php echo Horde_Util::addParameter($edit_url_base, 'l', $ledger->getName()) ?>" title="<?php echo _("Edit") ?>"><?php echo $edit_img ?></a></td>
 <?php if (empty($conf['share']['no_sharing'])): ?>
-   <td><a onclick="return !popup(this.href);" href="<?php echo Horde_Util::addParameter($perms_url_base, 'share', $ledger->getName()) ?>" target="_blank" title="<?php echo _("Change Permissions") ?>"><?php echo $perms_img ?></a></td>
+   <td><a onclick="<?php echo Horde::popupJs($perms_url_base, array('params' => array('share' => $ledger->getName()), 'urlencode' => true)) ?>return false;" href="<?php echo Horde_Util::addParameter($perms_url_base, 'share', $ledger->getName()) ?>" target="_blank" title="<?php echo _("Change Permissions") ?>"><?php echo $perms_img ?></a></td>
 <?php endif; ?>
    <td><a href="<?php echo Horde_Util::addParameter($delete_url_base, 'l', $ledger->getName()) ?>" title="<?php echo _("Delete") ?>"><?php echo $delete_img ?></a></td>
   </tr>

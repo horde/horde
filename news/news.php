@@ -47,7 +47,6 @@ $title = $row['title'];
 $template_path = News::getTemplatePath($row['category1'], 'news');
 $browse_url = Horde::applicationUrl('browse.php');
 
-Horde::addScriptFile('popup.js', 'horde', true);
 require_once NEWS_TEMPLATES . '/common-header.inc';
 require_once NEWS_TEMPLATES . '/menu.inc';
 

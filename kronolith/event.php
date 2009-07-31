@@ -45,9 +45,6 @@ case 'EditEvent':
 
 $title = $view->getTitle();
 $print_view = (bool)Horde_Util::getFormData('print');
-if (!$print_view) {
-    Horde::addScriptFile('popup.js', 'horde', true);
-}
 require KRONOLITH_TEMPLATES . '/common-header.inc';
 
 if ($print_view) {

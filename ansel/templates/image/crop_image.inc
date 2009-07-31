@@ -107,8 +107,7 @@ if (Ansel::isAvailable('grayscale')) {
     echo Horde::link(Horde_Util::addParameter($imageurl, 'actionID', 'previewgrayscale')) . Horde::img('image/grayscale.png', '', '', $registry->getImageDir('horde')) . ' ' . _("Grayscale") . '</a> ';
 }
 if (Ansel::isAvailable('text_watermark')) {
-    Horde::addScriptFile('popup.js', 'horde', true);
-    echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($imageurl, array('actionID' => 'setwatermark', 'share' => $gallery->getName()))), '', '', '_blank', 'return !popup(this.href, 450, 250);') . Horde::img('text.png') . ' ' . _("Watermark") . '</a> ';
+    echo Horde::link('#', '', '', '_blank', Horde::popupJs(Horde::applicationUrl($imageurl), array('params' => array('actionID' => 'setwatermark', 'share' => $gallery->getName()), 'width' => 450, 'height' => 250, 'urlencode' => true)) . 'return false;') . Horde::img('text.png') . ' ' . _("Watermark") . '</a> ';
 }
 $selfUrl = Horde::selfUrl(true);
 echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($selfUrl, array('actionID' => 'cropedit')))) . Horde::img('image/crop.png', '', '', $registry->getImageDir('horde')) . _("Crop") . '</a>';

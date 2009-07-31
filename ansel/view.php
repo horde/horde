@@ -45,7 +45,6 @@ try {
 
 $title = $view->getTitle();
 $view_html = $view->html();
-Horde::addScriptFile('popup.js', 'horde', true);
 require ANSEL_TEMPLATES . '/common-header.inc';
 require ANSEL_TEMPLATES . '/menu.inc';
 echo $view_html;

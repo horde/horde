@@ -185,14 +185,14 @@ case 'save_postings':
         $posting_eos = Horde_Util::getFormData('eo');
         $posting_amounts = Horde_Util::getFormData('amount');
         $posting_descs = Horde_Util::getFormData('desc');
-        
+
         $postings = array();
         $savecount = 0;
-       
+
         $storage = &Fima_Driver::singleton($ledger);
         foreach($postingset as $index => $posting_id) {
             $posting_valid = true;
-            
+
             if ($posting_dates[$index] !== '' || $posting_assets[$index] !== '' || $posting_accounts[$index] !== '' ||
                 $posting_amounts[$index] !== '' || $posting_descs[$index] !== '') {
 
@@ -209,14 +209,14 @@ case 'save_postings':
                 } elseif ($posting_date <= $closedperiod) {
                     $posting_valid = false;
                 }
-                
+
                 /* Check asset account and account. */
                 if ($posting_asset === '' || $posting_account === '') {
                     $posting_valid = false;
                 } elseif ($posting_asset === $posting_account) {
                     continue;
                 }
-                
+
                 /* Fix amount sign. */
                 if ($prefs->getValue('expenses_sign') == 0) {
                     $account = Fima::getAccount($posting_account);
@@ -226,7 +226,7 @@ case 'save_postings':
                         }
                     }
                 }
-                                
+
                 /* If $posting_id is set, we're modifying an existing account. Otherwise,
                  * we're adding a new posting with the provided attributes. */
                 if ($posting_valid) {
@@ -246,7 +246,7 @@ case 'save_postings':
                         $savecount++;
                     }
                 }
-                
+
                 /* Reload invalid or unsaved postings. */
                 if (!$posting_valid) {
                     $postings[] = array('posting_id' => $posting_id,
@@ -260,7 +260,7 @@ case 'save_postings':
                                         'desc' => $posting_desc);
                 }
             }
-        }    
+        }
 
         if ($savecount > 0) {
             $notification->push(sprintf(_("Saved %d postings."), $savecount), 'horde.success');
@@ -323,7 +323,7 @@ case 'update_postings':
         $posting_type = Horde_Util::getFormData('type');
         $posting_asset = Horde_Util::getFormData('asset');
         $posting_account = Horde_Util::getFormData('account');
-        
+
         if ($posting_type || $posting_asset || $posting_account) {
             $storage = &Fima_Driver::singleton($ledger);
             $shiftcount = 0;
@@ -347,7 +347,7 @@ case 'update_postings':
     header('Location: ' . Horde::applicationUrl('postings.php', true));
     exit;
     break;
-    
+
 case 'copymove_postings':
     $share = &$GLOBALS['fima_shares']->getShare($ledger);
     if (!$share->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
@@ -405,7 +405,7 @@ case 'copymove_postings':
         if ($summarize != 'none') {
             $accounts = Fima::listAccounts();
             $postingscopy = array();
-            
+
             foreach ($postings as $postingId => $posting) {
                 $asset = (isset($accounts[$posting['asset']]))
                          ? (($accounts[$posting['asset']]['parent_id'] !== null) ? $accounts[$posting['asset']]['parent_id'] : $accounts[$posting['asset']]['account_id'])
@@ -413,7 +413,7 @@ case 'copymove_postings':
                 $account = (isset($accounts[$posting['account']]))
                            ? (($accounts[$posting['account']]['parent_id'] !== null) ? $accounts[$posting['account']]['parent_id'] : $accounts[$posting['account']]['account_id'])
                            : $posting['account'];
-                
+
                 if ($summarize == 'combine') {
                     $copyId = $asset . '_' . $account . '_' . strftime('%Y%m', $posting['date']);
 
@@ -430,7 +430,7 @@ case 'copymove_postings':
                 } elseif ($summarize == 'post') {
                     $copyIdAsset = $asset . '_' . strftime('%Y%m', $posting['date']);
                     $copyIdAccount = $account . '_' . strftime('%Y%m', $posting['date']);
-                    
+
                     if (isset($postingscopy[$copyIdAsset])) {
                         $postingscopy[$copyIdAsset]['amount'] += $posting['amount'];
                     } else {
@@ -441,7 +441,7 @@ case 'copymove_postings':
                         $postingscopy[$copyIdAsset]['eo'] = 0;
                         $postingscopy[$copyIdAsset]['desc'] = _("Summarized");
                     }
-                    
+
                     if (isset($postingscopy[$copyIdAccount])) {
                         $postingscopy[$copyIdAccount]['amount'] += $posting['amount'];
                     } else {
@@ -476,7 +476,7 @@ case 'copymove_postings':
         if ($addcount > 0) {
             $notification->push(sprintf($summarize ? _("Summarized %d postings.") : _("Transfered %d postings."), $addcount), 'horde.success');
         }
-        
+
         /* Delete original postings. */
         if (!$keep) {
             $delcount = 0;
@@ -499,7 +499,7 @@ case 'copymove_postings':
     header('Location: ' . Horde::applicationUrl('postings.php', true));
     exit;
     break;
-    
+
 default:
     break;
 }
@@ -507,7 +507,6 @@ default:
 /* Print. */
 $print_view = (bool)Horde_Util::getFormData('print');
 if (!$print_view && $pageOb['mode'] == 'list') {
-    Horde::addScriptFile('popup.js', 'horde', true);
     $print_link = Horde_Util::addParameter(Horde::applicationUrl('postings.php'), array('print' => 1));
 }
 
@@ -530,7 +529,7 @@ if (isset($_SESSION['fima_search'])) {
         case 'amount_end':   $filters[] = array('amount', Fima::convertAmountToValue($search), '<='); break;
         case 'eo':           $filters[] = array('eo', (int)(bool)$search);
         default:             break;
-        }    
+        }
     }
 }
 
@@ -572,7 +571,7 @@ if ($pageOb['mode'] == 'list') {
     $flags = array();
     foreach ($postings as $postingId => $posting) {
         $postings[$postingId]['desc'] = htmlspecialchars($posting['desc']);
-        
+
         if (isset($accounts[$posting['asset']])) {
             $postings[$postingId]['asset_label'] = htmlspecialchars($accounts[$posting['asset']]['label']);
             $postings[$postingId]['asset_closed'] = $accounts[$posting['asset']]['closed'];
@@ -591,7 +590,7 @@ if ($pageOb['mode'] == 'list') {
             $postings[$postingId]['account_type_eo'] = '';
             $postings[$postingId]['account_closed'] = false;
         }
-    
+
         $flag = 0;
         $flagpos = 0;
         foreach ($accounttypes as $typeId => $typeLabel) {
@@ -616,7 +615,7 @@ if ($pageOb['mode'] == 'list') {
         $pageOb['postings_count'] = sprintf(_("%s to %s of %s Postings"),
                                             ($pageOb['page'] - 1) * $pageOb['postings_perpage'] + 1,
                                             min($pageOb['page'] * $pageOb['postings_perpage'], $pageOb['postings_total']),
-                                            $pageOb['postings_total']); 
+                                            $pageOb['postings_total']);
     }
 }
 
@@ -672,7 +671,7 @@ if ($pageOb['mode'] == 'edit') {
 
     /* Add current date in first field if no postings. */
     foreach ($postings as $key => $value) {
-        if ($value['date'] == '') { 
+        if ($value['date'] == '') {
             $notification->push('document.getElementById(\'date1\').value = \'' . strftime($datefmt) . '\';', 'javascript');
         }
         break;

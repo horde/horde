@@ -14,7 +14,7 @@ if ($option_select): ?>
  <div>
   <span class="light">
    <?php if ($option_edit): ?>
-    <?php echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($image_url, array('actionID' => 'modify'))), '', '', '_blank', 'popup(this.href); return false;') . _("Properties") ?></a>
+    <?php echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($image_url, array('actionID' => 'modify'))), '', '', '_blank', Horde::popupJs(Horde::applicationUrl($image_url), array('params' => array('actionID' => 'modify', 'urlencode' => true))) . 'return false;') . _("Properties") ?></a>
     | <?php echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($image_url, 'actionID', 'editimage'))) . _("Edit") ?></a>
    <?php endif; ?>
   </span>

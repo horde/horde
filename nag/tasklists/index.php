@@ -49,7 +49,6 @@ $edit_img = Horde::img('edit.png', _("Edit"), null, $registry->getImageDir('hord
 $perms_img = Horde::img('perms.png', _("Change Permissions"), null, $registry->getImageDir('horde'));
 $delete_img = Horde::img('delete.png', _("Delete"), null, $registry->getImageDir('horde'));
 
-Horde::addScriptFile('popup.js', 'horde', true);
 Horde::addScriptFile('tables.js', 'horde', true);
 $title = _("Manage Task Lists");
 require NAG_TEMPLATES . '/common-header.inc';

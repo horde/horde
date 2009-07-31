@@ -14,7 +14,7 @@ function stopSlideShow()
  <tr class="control">
   <td>
     <?php if ($this->gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)): ?>
-        <?php echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($imageActionUrl, array('actionID' => 'modify', 'share' => $this->gallery->getName(), 'ret' => 'image'))), '', '', '_blank', 'SlideController.pause();popup(this.href); return false;', '', '', array('id' => 'image_properties_link')) . _("Properties") ?></a>
+        <?php echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($imageActionUrl, array('actionID' => 'modify', 'share' => $this->gallery->getName(), 'ret' => 'image'))), '', '', '_blank', 'SlideController.pause();' . Horde::popupJs(Horde::applicationUrl($imageActionUrl), array('params' => array('actionID' => 'modify', 'share' => $this->gallery->getName(), 'ret' => 'image'), 'urlencode' => true)) . 'return false;', '', '', array('id' => 'image_properties_link')) . _("Properties") ?></a>
       | <?php echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($imageActionUrl, 'actionID', 'editimage')), '', '', '', '', '', '', array('id' => 'image_edit_link')) . _("Edit") ?></a>
     <?php endif; ?>
     <?php if ($this->gallery->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE)): ?>
@@ -24,7 +24,7 @@ function stopSlideShow()
   <td class="rightAlign">
 
 <?php if (!empty($conf['ecard']['enable'])): ?>
-    <?php echo Horde::link($ecardurl, '', '', '_blank', 'SlideController.pause();popup(this.href); return false;', '', '', array('id' => 'image_ecard_link')) . _("Send an Ecard") ?></a> |
+    <?php echo Horde::link($ecardurl, '', '', '_blank', 'SlideController.pause();' . Horde::popupJs($ecardurl, array('urlencode' => true)) . 'return false;', '', '', array('id' => 'image_ecard_link')) . _("Send an Ecard") ?></a> |
 <?php endif; ?>
     <?php echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter('img/download.php', 'image', $imageId)), '', '', '', 'SlideController.pause();', '', '', array('id' => 'image_download_link')) . _("Download Original Photo") ?></a>
   </td>

@@ -388,6 +388,7 @@ $imple = Horde_Ajax_Imple::factory(array('ansel', 'GallerySlugCheck'),
                                    array('slug' => $gallery_slug,
                                          'bindTo' => 'gallery_slug'));
 $imple->attach();
+Horde::addScriptFile('popup.js', 'horde', true);
 require ANSEL_TEMPLATES . '/menu.inc';
 require ANSEL_TEMPLATES . '/gallery/gallery.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

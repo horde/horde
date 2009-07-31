@@ -687,14 +687,10 @@ class Nag
 
         /* Print. */
         if ($conf['menu']['print'] && isset($print_link)) {
-            $menu->add($print_link, _("_Print"), 'print.png', $registry->getImageDir('horde'), '_blank', 'popup(this.href); return false;', '__noselection');
+            $menu->add($print_link, _("_Print"), 'print.png', $registry->getImageDir('horde'), '_blank', Horde::popupJs($print_link, array('urlencode' => true)) . 'return false;', '__noselection');
         }
 
-        if ($returnType == 'object') {
-            return $menu;
-        } else {
-            return $menu->render();
-        }
+        return ($returnType == 'object') $menu : $menu->render();
     }
 
     function status()

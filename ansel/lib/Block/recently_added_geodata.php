@@ -55,6 +55,7 @@ class Horde_Block_ansel_recently_added_geodata extends Horde_Block {
         Horde::addExternalScriptFile('http://maps.google.com/maps?file=api&v=2&sensor=false&key=' . $GLOBALS['conf']['api']['googlemaps'], 'ansel');
         Horde::addExternalScriptFile('http://gmaps-utility-library.googlecode.com/svn/trunk/markermanager/1.1/src/markermanager.js', 'ansel');
         Horde::addScriptFile('googlemap.js');
+        Horde::addScriptFile('popup.js', 'horde', true);
         if ($this->_params['gallery'] != 'all') {
             $gallery = $this->_getGallery();
             if (is_a($gallery, 'PEAR_Error')) {

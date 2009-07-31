@@ -86,7 +86,6 @@ default:
 
 $print_view = (bool)$vars->print;
 if (!$print_view) {
-    Horde::addScriptFile('popup.js', 'horde', true);
     Horde::addScriptFile('tooltips.js', 'horde', true);
     Horde::addScriptFile('effects.js', 'horde', true);
     Horde::addScriptFile('QuickFinder.js', 'horde', true);

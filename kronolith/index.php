@@ -23,7 +23,7 @@ if ($logout_link) {
 }
 $help_link = Horde::getServiceLink('help', 'kronolith');
 if ($help_link) {
-    $help_link = Horde::widget($help_link, _("Help"), 'helplink', 'help', 'popup(this.href); return false;');
+    $help_link = Horde::widget($help_link, _("Help"), 'helplink', 'help', Horde::popupJs($help_link, array('urlencode' => true)) . 'return false;');
 }
 $today = Kronolith::currentDate();
 $remote_calendars = @unserialize($prefs->getValue('remote_cals'));

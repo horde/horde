@@ -525,8 +525,7 @@ function _gollem_getViewLink($dir, $file, $backend = '')
 function _gollem_selectlistLink($link_text, $link_style, $formid,
                                 $icon = false, $selectid = '')
 {
-    Horde::addScriptFile('popup.js', 'gollem');
-    $link = Horde::link('#', $link_text, $link_style, '_blank', "popup_gollem('" . Horde::applicationUrl(Horde_Util::addParameter('selectlist.php', array('formid' => $formid, 'cacheid' => $selectid))) . "', 300, 500); return false;");
+    $link = Horde::link('#', $link_text, $link_style, '_blank', Horde::popupJs(Horde::applicationUrl('selectlist.php'), array('params' => array('formid' => $formid, 'cacheid' => $selectid), 'height' => 500, 'width' => 300, 'urlencode' => true)) . 'return false;');
     if ($icon) {
         $link_text = Horde::img('gollem.png', $link_text);
     }

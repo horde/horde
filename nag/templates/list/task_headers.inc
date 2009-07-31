@@ -66,7 +66,7 @@ function doPrefsUpdate(column, sortDown)
    if (Horde_Auth::getAuth() && (!$GLOBALS['prefs']->isLocked('categories') ||
                            !$GLOBALS['prefs']->isLocked('category_colors'))) {
        $categoryUrl = Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs.php'), array('app' => 'horde', 'group' => 'categories'));
-       echo ' ' . Horde::link($categoryUrl, _("Edit categories and colors"), '', '_blank', 'popup(this.href); return false;') . Horde::img('colorpicker.png', _("Edit categories and colors"), '', $GLOBALS['registry']->getImageDir('horde')) . '</a>';
+       echo ' ' . Horde::link($categoryUrl, _("Edit categories and colors"), '', '_blank', Horde::popupJs($categoryUrl, array('urlencode' => true)) . 'return false;') . Horde::img('colorpicker.png', _("Edit categories and colors"), '', $GLOBALS['registry']->getImageDir('horde')) . '</a>';
    }
    ?>
   </th>

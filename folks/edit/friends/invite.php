@@ -50,8 +50,6 @@ if ($form->validate()) {
     }
 }
 
-Horde::addScriptFile('popup.js', 'horde', true);
-
 require FOLKS_TEMPLATES . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';
 

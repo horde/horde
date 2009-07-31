@@ -651,7 +651,7 @@ class Ansel {
         if ($conf['menu']['print'] && ($pl = Horde_Util::nonInputVar('print_link'))) {
             $menu->add($pl, _("_Print"), 'print.png',
                        $registry->getImageDir('horde'), '_blank',
-                       'popup(this.href); return false;');
+                       Horde::popupJs($pl, array('urlencode' => true)) . 'return false;');
         }
 
         if ($returnType == 'object') {

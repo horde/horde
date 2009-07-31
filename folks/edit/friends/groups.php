@@ -118,8 +118,6 @@ $perms_img = Horde::img('perms.png', '', '', $registry->getImageDir('horde'));
 $members_url = Horde::applicationUrl('edit/friends/friends.php');
 $members_img = Horde::img('group.png', '', '', $registry->getImageDir('horde'));
 
-Horde::addScriptFile('popup.js', 'horde', true);
-
 require FOLKS_TEMPLATES . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';
 

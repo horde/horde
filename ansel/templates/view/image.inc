@@ -56,7 +56,7 @@ function arrowHandler(e)
         $actionHTML = '';
         if ($this->gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT) && empty($this->_params['api'])) {
             $needSeperator = true;
-            $actionHTML .= Horde::link(Horde::applicationUrl(Horde_Util::addParameter($imageActionUrl, array('actionID' => 'modify', 'ret' => 'image'))), '', '', '_blank', 'popup(this.href); return false;', '', '', array('id' => 'image_properties_link')) . _("Properties") . '</a>';
+            $actionHTML .= Horde::link('#', '', '', '_blank', Horde::popupJs(Horde::applicationUrl($imageActionUrl), array('params' => array('actionID' => 'modify', 'ret' => 'image'), 'urlencode' => true)) . 'return false;', '', '', array('id' => 'image_properties_link')) . _("Properties") . '</a>';
             $actionHTML .= ' | ' . Horde::link(Horde::applicationUrl(Horde_Util::addParameter($imageActionUrl, 'actionID', 'editimage')), '', '', '', '', '', '', array('id' => 'image_edit_link')) . _("Edit") . '</a>';
         }
         if ($this->gallery->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE) && empty($this->_params['api'])) {

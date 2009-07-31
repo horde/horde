@@ -96,7 +96,6 @@ $title = $task->name;
 $print_view = (bool)Horde_Util::getFormData('print');
 $links = array();
 if (!$print_view) {
-    Horde::addScriptFile('popup.js', 'horde', true);
     Horde::addScriptFile('stripe.js', 'horde', true);
 
     $taskurl = Horde_Util::addParameter('task.php',
