@@ -10,35 +10,35 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_View_GalleryRenderer {
-
+abstract class Ansel_View_GalleryRenderer_Base
+{
     /**
      * The Ansel_View_Gallery object that this Renderer belongs to.
      *
      * @var Ansel_View_Gallery
      */
-    var $view;
+    public $view;
 
     /**
      * The gallery id for this view's gallery
      *
      * @var integer
      */
-    var $galleryId;
+    public $galleryId;   // TODO: probably can remove this (get the id from the view's gallery)
 
     /**
      * Gallery slug for current gallery.
      *
      * @var string
      */
-    var $gallerySlug;
+    var $gallerySlug; // Ditto.
 
     /**
      * The current page we are viewing
-     *
+     * //TODO: use __get() for these type of things...
      * @var integer
      */
-    var $page = 0;
+    public $page = 0;
 
     /**
      * The display mode of the current gallery.
@@ -47,42 +47,42 @@ class Ansel_View_GalleryRenderer {
      *
      * @var integer
      */
-    var $mode;
+    public $mode;
 
     /**
      * The style definition array for this gallery.
      *
      * @var array
      */
-    var $style;
+    public $style;
 
     /**
      * Holds number of tiles to display per page
      *
      * @var integer
      */
-    var $perpage;
+    public $perpage;
 
     /**
      * The tile number we are starting with on the current page.
      *
      * @var integer
      */
-    var $pagestart;
+    public $pagestart;
 
     /**
      * The last tile number on the current page.
      *
      * @var integer
      */
-    var $pageend;
+    public $pageend;
 
     /**
      * The total number of tiles that this view contains
      *
      * @var integer
      */
-    var $numTiles;
+    public $numTiles;
 
     /**
      * The Ansel_Image or Ansel_DateGallery objects that appear on the current
@@ -90,14 +90,14 @@ class Ansel_View_GalleryRenderer {
      *
      * @var array of Ansel_Image or Ansel_DateGallery objects.
      */
-    var $children;
+    public $children;
 
     /**
      * If we are grouping by date, this holds the currently selected date parts.
      *
      * @var array containing sufficient date parts for the current depth.
      */
-    var $date = array();
+    public $date = array();
 
     /**
      * Constructor
@@ -106,7 +106,7 @@ class Ansel_View_GalleryRenderer {
      *
      * @return Ansel_View_Renderer_Gallery
      */
-    function Ansel_View_GalleryRenderer($view)
+    public function __construct($view)
     {
         $this->view = $view;
     }
@@ -115,8 +115,10 @@ class Ansel_View_GalleryRenderer {
      * Initialize the renderer. This *must* be called before any attempt is made
      * to display or otherwise interact with the renderer.
      *
+     * @TODO: Not sure why I didn't put this in the const'r - try moving it.
+     *
      */
-    function init()
+    public function init()
     {
         global $prefs, $conf;
 
@@ -184,7 +186,7 @@ class Ansel_View_GalleryRenderer {
      * Other view classes can override this if they need anything special.
      *
      */
-    function fetchChildren($noauto)
+    public function fetchChildren($noauto)
     {
         /* Total number of tiles for this gallery view */
         $this->numTiles = $this->view->gallery->countGalleryChildren(PERMS_SHOW, false, $noauto);
@@ -206,14 +208,6 @@ class Ansel_View_GalleryRenderer {
      *
      * @return string
      */
-    function html()
-    {
-        if (is_a($this->view->gallery, 'PEAR_Error')) {
-            echo htmlspecialchars($this->view->gallery->getMessage(), ENT_COMPAT, Horde_Nls::getCharset());
-            return;
-        }
-
-        return $this->_html();
-    }
-
+    abstract public function html();
+    abstract protected function _init();
 }

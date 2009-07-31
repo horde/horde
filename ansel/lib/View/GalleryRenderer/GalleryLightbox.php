@@ -11,13 +11,13 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRenderer {
-
+class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRenderer_Base
+{
     /**
      * Perform any tasks that should be performed before the view is rendered.
      *
      */
-    function _init()
+    protected function _init()
     {
         if (empty($this->view->_params['image_onclick'])) {
             $this->view->_params['image_onclick'] = 'return lb.start(%i);';
@@ -36,7 +36,7 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
      *
      * @return string The HTML
      */
-    function _html()
+    public function html()
     {
         global $conf, $prefs, $registry;
 

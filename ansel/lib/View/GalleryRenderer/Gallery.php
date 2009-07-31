@@ -11,13 +11,13 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer {
-
+class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
+{
     /**
      * Perform any tasks that should be performed before the view is rendered.
      *
      */
-    function _init()
+    protected function _init()
     {
     }
 
@@ -27,7 +27,7 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer {
      * @return string  The HTML.
      *
      */
-    function _html()
+    public function html()
     {
         global $conf, $prefs, $registry;
 
