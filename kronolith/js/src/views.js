@@ -28,7 +28,7 @@ var Views = {
 
 function ShowView(view, date, cache)
 {
-    if (Object.isUndefined(Ajax.Updater)) {
+    if (typeof Ajax.Updater == 'undefined') {
         return true;
     }
 
@@ -72,7 +72,7 @@ function _ShowView()
     if (Object.isFunction(stripeAllElements)) {
         stripeAllElements();
     }
-    if (!Object.isUndefined(Horde_ToolTips)) {
+    if (typeof Horde_ToolTips != 'undefined') {
         Horde_ToolTips.out();
         Horde_ToolTips.attachBehavior();
     }

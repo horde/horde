@@ -167,10 +167,11 @@ class Ansel_Widget_Geodata extends Ansel_Widget_Base
                 method: 'post',
                 parameters: params,
                 onComplete: function(transport) {
-                     if (!Object.isUndefined(ToolTips) ) {
-                         ToolTips.out();
+                     if (typeof Horde_ToolTips != 'undefined') {
+                         Horde_ToolTips.out();
                      }
                      if (transport.responseJSON.response == 1) {
+                     alert(transport.responseJSON.response);
                         w = new Element('div');
                         w.appendChild(new Element('div', {id: 'ansel_map'}));
                         ag = new Element('div', {'class': 'ansel_geolocation'});
@@ -210,7 +211,7 @@ class Ansel_Widget_Geodata extends Ansel_Widget_Base
             map = new Ansel_GMap(options);
             map.getLocationCallback_ = map.getLocationCallback;
             map.getLocationCallback = function(points, marker) {
-                map.getLocationCallback_(points, marker, Object.isUndefined(points.NoUpdate));
+                map.getLocationCallback_(points, marker, (typeof points.NoUpdate == 'undefined'));
             }.bind(map);
             map.addPoints(points);
             map.display();

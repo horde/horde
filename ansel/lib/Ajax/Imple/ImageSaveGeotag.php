@@ -89,4 +89,14 @@ class Ansel_Ajax_Imple_ImageSaveGeotag extends Horde_Ajax_Imple_Base
         }
     }
 
+    protected function _point2Deg($value, $lat = false)
+    {
+        $letter = $lat ? ($value > 0 ? "N" : "S") : ($value > 0 ? "E" : "W");
+        $value = abs($value);
+        $deg = floor($value);
+        $min = floor(($value - $deg) * 60);
+        $sec = ($value - $deg - $min / 60) * 3600;
+        return $deg . "&deg; " . $min . '\' ' . round($sec, 2) . '" ' . $letter;
+    }
+
 }
