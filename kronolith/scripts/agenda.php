@@ -147,15 +147,8 @@ function send_agendas()
                                          $email,
                                          $GLOBALS['conf']['reminder']['from_addr'],
                                          Horde_Nls::getCharset());
+        $mime_mail->addHeader('User-Agent', 'Kronolith ' . $registry->getVersion());
 
-        $mail_driver = $GLOBALS['conf']['mailer']['type'];
-        $mail_params = $GLOBALS['conf']['mailer']['params'];
-        if ($mail_driver == 'smtp' && $mail_params['auth'] &&
-            empty($mail_params['username'])) {
-            Horde::logMessage('Agenda Notifications don\'t work with user based SMTP authentication.',
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
-            return;
-        }
         $pad = max(Horde_String::length(_("All day")) + 2, $twentyFour ? 6 : 8);
 
         $message = sprintf(_("Your daily agenda for %s"),
@@ -177,7 +170,7 @@ function send_agendas()
         Horde::logMessage(sprintf('Sending daily agenda to %s', $email),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
         try {
-            $mime_mail->send($mail_driver, $mail_params, false, false);
+            $mime_mail->send(Horde::getMailerConfig(), false, false);
         } catch (Horde_Mime_Exception $e) {}
     }
 }

@@ -355,13 +355,16 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
 
                 $icon = Horde::img('alerts/success.png', _("Success"), null, $graphicsdir);
                 $sig_text = $sig_result->message;
+                $success = true;
             } catch (Horde_Exception $e) {
-                $icon = Horde::img('alerts/warning.png', _("Warning"), null, $graphicsdir);
+                $icon = Horde::img('alerts/error.png', _("Error"), null, $graphicsdir);
                 $sig_text = $e->getMessage();
+                $success = false;
             }
 
             $ret[$base_id]['status'][] = array(
                 'icon' => $icon,
+                'success' => $success,
                 'text' => array(
                     Horde_Text_Filter::filter($sig_text, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::NOHTML))
                 )

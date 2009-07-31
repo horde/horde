@@ -84,8 +84,7 @@ case 'send':
     $alt->setBasePart($alternative);
 
     /* Send. */
-    list($mail_driver, $mail_params) = Horde::getMailerConfig();
-    $result = $alt->send($mail_driver, $mail_params);
+    $result = $alt->send(Horde::getMailerConfig());
     if (is_a($result, 'PEAR_Error')) {
         $notification->push(sprintf(_("There was an error sending your message: %s"), $result->getMessage()), 'horde.error');
     } else {

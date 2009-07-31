@@ -1217,14 +1217,6 @@ class Kronolith
         $myemail = explode('@', $myemail);
         $from = Horde_Mime_Address::writeAddress($myemail[0], isset($myemail[1]) ? $myemail[1] : '', $ident->getValue('fullname'));
 
-        $mail_driver = $conf['mailer']['type'];
-        $mail_params = $conf['mailer']['params'];
-        if ($mail_driver == 'smtp' && $mail_params['auth'] &&
-            empty($mail_params['username'])) {
-            $mail_params['username'] = Horde_Auth::getAuth();
-            $mail_params['password'] = Horde_Auth::getCredential('password');
-        }
-
         $share = &$GLOBALS['kronolith_shares']->getShare($event->getCalendar());
 
         foreach ($attendees as $email => $status) {
@@ -1312,7 +1304,7 @@ class Kronolith
             $mail->addMimePart($ics);
 
             try {
-                $mail->send($mail_driver, $mail_params);
+                $mail->send(Horde::getMailerConfig());
                 $notification->push(
                     sprintf(_("The event notification to %s was successfully sent."), $recipient),
                     'horde.success'
@@ -1403,14 +1395,6 @@ class Kronolith
             return;
         }
 
-        $mail_driver = $conf['mailer']['type'];
-        $mail_params = $conf['mailer']['params'];
-        if ($mail_driver == 'smtp' && $mail_params['auth'] &&
-            empty($mail_params['username'])) {
-            $mail_params['username'] = Horde_Auth::getAuth();
-            $mail_params['password'] = Horde_Auth::getCredential('password');
-        }
-
         foreach ($addresses as $lang => $twentyFour) {
             Horde_Nls::setLang($lang);
 
@@ -1446,10 +1430,11 @@ class Kronolith
                                                      implode(',', $df_recipients),
                                                      $from,
                                                      Horde_Nls::getCharset());
+                    $mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
                     $mime_mail->setBody($message, Horde_Nls::getCharset(), true);
                     Horde::logMessage(sprintf('Sending event notifications for %s to %s', $event->title, implode(', ', $df_recipients)), __FILE__, __LINE__, PEAR_LOG_DEBUG);
                     try {
-                        $mime_mail->send($mail_driver, $mail_params, false, false);
+                        $mime_mail->send(Horde::getMailerConfig(), false, false);
                     } catch (Horde_Mime_Exception $e) {}
                 }
             }

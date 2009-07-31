@@ -815,7 +815,6 @@ class Nag
             return;
         }
 
-        list($mail_driver, $mail_params) = Horde::getMailerConfig();
         $mail = new Horde_Mime_Mail();
         $mail->addHeader('User-Agent', 'Nag ' . $GLOBALS['registry']->getVersion());
         $mail->addHeader('Precedence', 'bulk');
@@ -965,7 +964,7 @@ class Nag
                     Horde::logMessage(sprintf('Sending event notifications for %s to %s',
                                               $task->name, implode(', ', $df_recipients)),
                                       __FILE__, __LINE__, PEAR_LOG_INFO);
-                    $sent = $mail->send($mail_driver, $mail_params);
+                    $sent = $mail->send(Horde::getMailerConfig());
                     if (is_a($sent, 'PEAR_Error')) {
                         return $sent;
                     }
