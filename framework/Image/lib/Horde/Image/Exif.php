@@ -53,6 +53,7 @@ class Horde_Image_Exif
     {
         return array('Make' => array('description' => _("Camera Make"), 'type' => 'text'),
                      'Model' => array('description' => _("Camera Model"), 'type' => 'text'),
+                     'Software' => array('description' => _("Software Version"), 'type' => 'text'),
                      'ImageType' => array('description' => _("Photo Type"), 'type' => 'text'),
                      'ImageDescription' => array('description' => _("Photo Description"), 'type' => 'text'),
                      'FileSize' => array('description' => _("File Size"), 'type' => 'number'),
@@ -406,10 +407,10 @@ class Horde_Image_Exif
             //       here and let the calling code deal with it, or allow this
             //       method to take an optional charset to convert to (would
             //       introduce a dependency on Horde_String to do the conversion).
-            return substr($data, 7);
+            $data = trim(substr($data, 7));
 
         default:
-            return $data;
+            return !empty($data) ? $data : '---';
         }
     }
 
