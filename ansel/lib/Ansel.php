@@ -3012,6 +3012,39 @@ class Ansel_Image {
        return $view;
     }
 
+    /**
+     * Get the image attributes from the backend.
+     *
+     * @param Ansel_Image $image  The image to retrieve attributes for.
+     *                            attributes for.
+     * @param boolean $format     Format the EXIF data. If false, the raw data
+     *                            is returned.
+     *
+     * @return array  The EXIF data.
+     * @static
+     */
+    function getAttributes($format = false)
+    {
+        $attributes = $GLOBALS['ansel_storage']->getImageAttributes($this->id);
+        $fields = Horde_Image_Exif::getFields();
+        $output = array();
+
+        foreach ($fields as $field => $data) {
+            if (!isset($attributes[$field])) {
+                continue;
+            }
+            $value = Horde_Image_Exif::getHumanReadable($field, Horde_String::convertCharset($attributes[$field], $GLOBALS['conf']['sql']['charset']));
+            if (!$format) {
+                $output[$field] = $value;
+            } else {
+                $description = isset($data['description']) ? $data['description'] : $field;
+                $output[] = '<td><strong>' . $description . '</strong></td><td>' . htmlspecialchars($value, ENT_COMPAT, Horde_Nls::getCharset()) . '</td>';
+            }
+        }
+
+        return $output;
+    }
+
 }
 
 /**
@@ -3922,6 +3955,17 @@ class Ansel_Storage {
         }
 
         return $this->listImages(0, 0, 0, array('image_id as id', 'image_id', 'image_latitude', 'image_longitude', 'image_location'), $where);
+    }
+
+    /**
+     * Get image attribtues from ansel_image_attributes table
+     *
+     * @param $image_id
+     * @return unknown_type
+     */
+    function getImageAttributes($image_id)
+    {
+        return $GLOBALS['ansel_db']->queryAll('SELECT attr_name, attr_value FROM ansel_image_attributes WHERE image_id = ' . (int)$image_id, null, MDB2_FETCHMODE_ASSOC, true);
     }
 
     /**

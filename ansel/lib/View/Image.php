@@ -364,7 +364,7 @@ class Ansel_View_Image extends Ansel_View_Base
      */
     private function _getExifHtml()
     {
-        $data = Ansel_ImageData::getAttributes($this->resource, true);
+        $data = $this->resource->getAttributes(true);
 
         $html = '';
         if (count($data)) {
