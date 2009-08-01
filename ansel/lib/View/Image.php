@@ -303,7 +303,6 @@ class Ansel_View_Image extends Ansel_View_Base
         }
 
         if ($prefs->getValue('showexif')) {
-            require_once ANSEL_BASE . '/lib/Exif.php';
             $exifHtml = $this->_getExifHtml();
         } else {
             $exifHtml = '';
