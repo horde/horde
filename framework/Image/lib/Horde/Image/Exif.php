@@ -14,7 +14,17 @@ class Horde_Image_Exif
 {
     static public function factory($driver = null)
     {
-        return new Horde_Image_Exif_Php();
+        if (empty($driver) && function_exists('exif_read_data')) {
+            $driver = 'Php';
+        } elseif (empty($driver)) {
+            $driver = 'Bundled';
+        } else {
+            $driver = basename($driver);
+        }
+
+        $class = 'Horde_Image_Exif_' . $driver;
+
+        return new $class;
     }
 
     /**
@@ -24,7 +34,7 @@ class Horde_Image_Exif
      * @param $num
      * @return unknown_type
      */
-    static public function intel2Moto($num)
+    static public function intel2Moto($intel)
     {
         $len  = strlen($intel);
         $moto = '';
