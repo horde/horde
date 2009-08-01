@@ -45,6 +45,8 @@ abstract class Horde_Image_Exif_Base
                 $results[$field] = $value;
             }
         }
+
+        return $results;
     }
 
     /**
