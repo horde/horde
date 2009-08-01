@@ -303,70 +303,85 @@ HTML;
             return;
         }
 
+        if ($cache_type == 'horde_cache') {
+            $cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], self::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+        }
+
         /* Output prototype.js separately from the other files. */
-        $js_force[] = $s_list['horde'][0]['u'];
+        $js_force[] = array(
+            $s_list['horde'][0]['p'] . $s_list['horde'][0]['f'],
+            'mtime' => array(filemtime($s_list['horde'][0]['p'] . $s_list['horde'][0]['f']))
+        );
         unset($s_list['horde'][0]);
 
         foreach ($s_list as $app => $files) {
             foreach ($files as $file) {
                 if ($file['d'] && ($file['f'][0] != '/') && empty($file['e'])) {
                     $js_tocache[] = $file['p'] . $file['f'];
-                    $mtime[] = filemtime($file['p'] . $file['f']);
+                    $js_tocache['mtime'][] = filemtime($file['p'] . $file['f']);
                 } elseif (!empty($file['e'])) {
                     $js_external[] = $file['u'];
                 } else {
-                    $js_force[] = $file['u'];
+                    $js_force[] = array(
+                        $file['p'] . $file['f'],
+                        'mtime' => array(filemtime($file['p'] . $file['f']))
+                    );
                 }
             }
         }
 
-        sort($s_list);
-        $sig = hash('md5', serialize($s_list) . max($mtime));
+        foreach (array_merge($js_force, array($js_tocache)) as $files) {
+            $mtime = max($files['mtime']);
+            unset($files['mtime']);
 
-        switch ($cache_type) {
-        case 'filesystem':
-            $js_filename = '/static/' . $sig . '.js';
-            $js_path = $GLOBALS['registry']->get('fileroot', 'horde') . $js_filename;
-            $js_url = $GLOBALS['registry']->get('webroot', 'horde') . $js_filename;
-            $exists = file_exists($js_path);
-            break;
-
-        case 'horde_cache':
-            $cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], self::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
-
-            // Do lifetime checking here, not on cache display page.
-            $exists = $cache->exists($sig, empty($conf['cachejsparams']['lifetime']) ? 0 : $conf['cachejsparams']['lifetime']);
-            $js_url = self::getCacheUrl('js', array('cid' => $sig));
-            break;
-        }
-
-        if (!$exists) {
-            $out = '';
-            foreach ($js_tocache as $val) {
-                // Separate JS files with a newline since some compressors may
-                // strip trailing terminators.
-                $js_text = file_get_contents($val);
-                try {
-                    $out .= Horde_Text_Filter::filter($js_text, 'JavascriptMinify') . "\n";
-                } catch (Horde_Exception $e) {
-                    $out .= $js_text . "\n";
-                }
-            }
+            $sig_files = $files;
+            sort($sig_files);
+            $sig = hash('md5', serialize($sig_files) . $mtime);
 
             switch ($cache_type) {
             case 'filesystem':
-                if (!file_put_contents($js_path, $out)) {
-                    throw new Horde_Exception('Could not write cached JS file to disk.');
-                }
+                $js_filename = '/static/' . $sig . '.js';
+                $js_path = $GLOBALS['registry']->get('fileroot', 'horde') . $js_filename;
+                $js_url = $GLOBALS['registry']->get('webroot', 'horde') . $js_filename;
+                $exists = file_exists($js_path);
                 break;
 
-            case 'horde_cache':
-                $cache->set($sig, $out);
+                // Do lifetime checking here, not on cache display page.
+                $exists = $cache->exists($sig, empty($conf['cachejsparams']['lifetime']) ? 0 : $conf['cachejsparams']['lifetime']);
+                $js_url = self::getCacheUrl('js', array('cid' => $sig));
                 break;
             }
+
+            if (!$exists) {
+                $out = '';
+                foreach ($files as $val) {
+                    // Separate JS files with a newline since some compressors
+                    // may strip trailing terminators.
+                    $js_text = file_get_contents($val);
+                    try {
+                        $out .= Horde_Text_Filter::filter($js_text, 'JavascriptMinify') . "\n";
+                    } catch (Horde_Exception $e) {
+                        $out .= $js_text . "\n";
+                    }
+                }
+
+                switch ($cache_type) {
+                case 'filesystem':
+                    if (!file_put_contents($js_path, $out)) {
+                        throw new Horde_Exception('Could not write cached JS file to disk.');
+                    }
+                    break;
+
+                case 'horde_cache':
+                    $cache->set($sig, $out);
+                    break;
+                }
+            }
+
+            $hsf->outputTag($js_url);
         }
 
-        foreach (array_merge($js_force, array($js_url), $js_external) as $val) {
+        foreach ($js_external as $val) {
             $hsf->outputTag($val);
         }
     }
