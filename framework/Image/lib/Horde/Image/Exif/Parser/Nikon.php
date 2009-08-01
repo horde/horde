@@ -43,7 +43,7 @@ class Horde_Image_Exif_Parser_Nikon extends Horde_Image_Exif_Parser_Base
                 case "0008": $tag = "Focus";break;
                 case "0009": $tag = "Unknown2";break;
                 case "000a": $tag = "DigitalZoom";break;
-                case "000b": $tag = _("Converter");break;
+                case "000b": $tag = "Converter";break;
 
                 default: $tag = "unknown:".$tag;break;
             }
@@ -94,7 +94,9 @@ class Horde_Image_Exif_Parser_Nikon extends Horde_Image_Exif_Parser_Base
     static protected function _formatData($type,$tag,$intel,$model,$data)
     {
         if($type=="ASCII") {
-
+            var_dump($type);
+            var_dump($tag);
+            var_dump($data);
 
         } else if($type=="URATIONAL" || $type=="SRATIONAL") {
             $data = bin2hex($data);
