@@ -93,12 +93,7 @@ class Horde_Image_Exif_Parser_Nikon extends Horde_Image_Exif_Parser_Base
      */
     static protected function _formatData($type,$tag,$intel,$model,$data)
     {
-        if($type=="ASCII") {
-            var_dump($type);
-            var_dump($tag);
-            var_dump($data);
-
-        } else if($type=="URATIONAL" || $type=="SRATIONAL") {
+        if ($type != "ASCII" && ($type=="URATIONAL" || $type=="SRATIONAL")) {
             $data = bin2hex($data);
             if($intel==1) $data = Horde_Image_Exif::intel2Moto($data);
             $top = hexdec(substr($data,8,8));
