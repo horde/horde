@@ -2458,8 +2458,10 @@ class Ansel_Image {
         /* The EXIF functions require a stream, so we need to save before we read */
         $this->_writeData();
 
-        /* Get the EXIF data now that we have an id and a file in the VFS */
-        $needUpdate = $this->_getEXIF();
+        /* Get the EXIF data if we are not a gallery key image. */
+        if ($this->gallery > 0) {
+            $needUpdate = $this->_getEXIF();
+        }
 
         /* Create tags from exif data if desired */
         $fields = @unserialize($GLOBALS['prefs']->getValue('exif_tags'));
@@ -2478,7 +2480,7 @@ class Ansel_Image {
         }
 
         /* Save again if EXIF changed any values */
-        if ($needUpdate) {
+        if (!empty($needUpdate)) {
             $this->save();
         }
 
@@ -2540,13 +2542,17 @@ class Ansel_Image {
      */
     function _getEXIF()
     {
-        require_once ANSEL_BASE . '/lib/Exif.php';
-
         /* Clear the local copy */
         $this->_exif = array();
 
         /* Get the data */
-        $exif_fields = Ansel_ImageData::getExifData($this);
+        $imageFile = $GLOBALS['ansel_vfs']->readFile($this->getVFSPath('full'),
+                                                     $this->getVFSName('full'));
+        if (is_a($imageFile, 'PEAR_Error')) {
+            return $imageFile;
+        }
+        $exif = Horde_Image_Exif::factory();
+        $exif_fields = $exif->getData($imageFile);
 
         /* Flag to determine if we need to resave the image data */
         $needUpdate = false;
@@ -2577,7 +2583,7 @@ class Ansel_Image {
                     return $result;
                 }
                 /* Cache it locally */
-                $this->_exif[$name] = Ansel_ImageData::getHumanReadable($name, $value);
+                $this->_exif[$name] = Horde_Image_Exif::getHumanReadable($name, $value);
             }
             $insert->free();
         }
