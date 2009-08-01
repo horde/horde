@@ -399,6 +399,15 @@ class Horde_Image_Exif
         case 'DateTimeDigitized':
             return date('m/d/Y H:i:s O', $data);
 
+        case 'UserComment':
+            //@TODO: the first 8 bytes of this field contain the charset used
+            //       to encode the comment. Either ASCII, JIS, UNICODE, or
+            //       UNDEFINED. Should probably either convert to a known charset
+            //       here and let the calling code deal with it, or allow this
+            //       method to take an optional charset to convert to (would
+            //       introduce a dependency on Horde_String to do the conversion).
+            return substr($data, 7);
+
         default:
             return $data;
         }
