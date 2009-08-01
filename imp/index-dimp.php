@@ -36,11 +36,11 @@ if (is_readable(IMP_BASE . '/config/menu.php')) {
 /* Add the site specific javascript now. */
 if (!empty($site_menu)) {
     foreach ($site_menu as $key => $menu_item) {
-        if ($menu_item == 'separator') {
-            continue;
+        if ($menu_item != 'separator') {
+            foreach (array('menu', 'tab') as $val) {
+                $js_code[] = 'DimpCore.clickObserveHandler({ d: $(\'' . $val . $key . '\'), f: function() { ' . $menu_item['action'] . ' } })';
+            }
         }
-        $js_code[] = 'DimpCore.clickObserveHandler({ d: $(\'menu' . $key . '\'), f: function() { ' . $menu_item['action'] . ' } })';
-        $js_code[] = 'DimpCore.clickObserveHandler({ d: $(\'tab' . $key . '\'), f: function() { ' . $menu_item['action'] . ' } })';
     }
 }
 

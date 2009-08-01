@@ -15,8 +15,6 @@ if (!empty($refresh_time) && !empty($refresh_url)) {
 $imp_view = Horde_Util::nonInputVar('imp_view');
 switch ($imp_view) {
 case 'dimp':
-    include IMP_TEMPLATES . '/javascript_defs_dimp.php';
-
     $css = array();
     if (!empty($GLOBALS['conf']['dimp']['css_files'])) {
         foreach ($GLOBALS['conf']['css_files'] as $css_file) {
@@ -26,14 +24,14 @@ case 'dimp':
             );
         }
     }
-
     Horde::includeStylesheetFiles(array('additional' => $css, 'sub' => 'dimp'));
+    include IMP_TEMPLATES . '/javascript_defs_dimp.php';
     break;
 
 default:
-    include IMP_TEMPLATES . '/javascript_defs.php';
-    Horde::includeScriptFiles();
     Horde::includeStylesheetFiles();
+    Horde::includeScriptFiles();
+    include IMP_TEMPLATES . '/javascript_defs.php';
     break;
 }
 ?>
