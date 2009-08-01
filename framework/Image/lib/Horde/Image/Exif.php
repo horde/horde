@@ -407,7 +407,7 @@ class Horde_Image_Exif
             //       here and let the calling code deal with it, or allow this
             //       method to take an optional charset to convert to (would
             //       introduce a dependency on Horde_String to do the conversion).
-            $data = trim(substr($data, 7));
+            $data = trim(substr($data, 7))  ;
 
         default:
             return !empty($data) ? $data : '---';
