@@ -71,6 +71,21 @@ http://pear.php.net/dtd/package-2.0.xsd">
         <file name="UnsharpMask.php" role="php" />
        </dir> <!-- /Horde/Image/Effect/gd -->
       </dir> <!-- /Horde/Image/Effect -->
+      <dir name="Exif">
+        <dir name="Parser">
+          <file name="Base.php" role="php" />
+          <file name="Canon.php" role="php" />
+          <file name="Fujifilm.php" role="php" />
+          <file name="Gps.php" role="php" />
+          <file name="Nikon.php" role="php" />
+          <file name="Olympus.php" role="php" />
+          <file name="Panasonic.php" role="php" />
+          <file name="Sanyo.php" role="php" />
+        </dir> <!-- /Horde/Image/Exif/Parser -->
+        <file name="Base.php" role="php" />
+        <file name="Bundled.php" role="php" />
+        <file name="Php.php" role="php" />
+      </dir> <!-- /Horde/Image/Exif -->
       <file name="Effect.php" role="php" />
       <file name="Gd.php" role="php" />
       <file name="Im.php" role="php" />
@@ -80,6 +95,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="rgb.php" role="php" />
       <file name="Svg.php" role="php" />
       <file name="Swf.php" role="php" />
+      <file name="Exif.php" role="php" />
       <file name="Exception.php" role="php" />
      </dir> <!-- /Horde/Image -->
      <file name="Image.php" role="php" />
@@ -115,6 +131,18 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Image/Exif/Parser/Base.php" as="Horde/Image/Exif/Parser/Base.php" />
+   <install name="lib/Horde/Image/Exif/Parser/Canon.php" as="Horde/Image/Exif/Parser/Canon.php" />
+   <install name="lib/Horde/Image/Exif/Parser/Fujifilm.php" as="Horde/Image/Exif/Parser/Fujifilm.php" />
+   <install name="lib/Horde/Image/Exif/Parser/Gps.php" as="Horde/Image/Exif/Parser/Gps.php" />
+   <install name="lib/Horde/Image/Exif/Parser/Nikon.php" as="Horde/Image/Exif/Parser/Nikon.php" />
+   <install name="lib/Horde/Image/Exif/Parser/Olympus.php" as="Horde/Image/Exif/Parser/Olympus.php" />
+   <install name="lib/Horde/Image/Exif/Parser/Panasonic.php" as="Horde/Image/Exif/Parser/Panasonic.php" />
+   <install name="lib/Horde/Image/Exif/Parser/Sanyo.php" as="Horde/Image/Exif/Parser/Sanyo.php" />
+   <install name="lib/Horde/Image/Exif/Base.php" as="Horde/Image/Exif/Base.php" />
+   <install name="lib/Horde/Image/Exif/Bundled.php" as="Horde/Image/Exif/Bundled.php" />
+   <install name="lib/Horde/Image/Exif/Php.php" as="Horde/Image/Exif/Php.php" />
+   <install name="lib/Horde/Image/Exif.php" as="Horde/Image/Exif.php" />
    <install name="lib/Horde/Image/Effect/Border.php" as="Horde/Image/Effect/Border.php" />
    <install name="lib/Horde/Image/Effect/Im/DropShadow.php" as="Horde/Image/Effect/Im/DropShadow.php" />
    <install name="lib/Horde/Image/Effect/Im/RoundCorners.php" as="Horde/Image/Effect/Im/RoundCorners.php" />

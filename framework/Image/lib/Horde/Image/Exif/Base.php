@@ -8,51 +8,6 @@ abstract class Horde_Image_Exif_Base
 
     /**
      *
-     * @return unknown_type
-     */
-    static public function getFields()
-    {
-        return array('Make' => array('description' => _("Camera Make"), 'type' => 'text'),
-                     'Model' => array('description' => _("Camera Model"), 'type' => 'text'),
-                     'ImageType' => array('description' => _("Photo Type"), 'type' => 'text'),
-                     'ImageDescription' => array('description' => _("Photo Description"), 'type' => 'text'),
-                     'FileSize' => array('description' => _("File Size"), 'type' => 'number'),
-                     'DateTime' => array('description' => _("Date Photo Modified"), 'type' => 'date'),
-                     'DateTimeOriginal' => array('description' => _("Date Photo Taken"), 'type' => 'date'),
-                     'DateTimeDigitized' => array('description' => _("Date Photo Digitized"), 'type' => 'date'),
-                     'ExifImageWidth' => array('description' => _("Width"), 'type' => 'number'),
-                     'ExifImageLength' => array('description' => _("Height"), 'type' => 'number'),
-                     'XResolution' => array('description' => _("X Resolution"), 'type' => 'number'),
-                     'YResolution' => array('description' => _("Y Resolution"), 'type' => 'number'),
-                     'ResolutionUnit' => array('description' => _("Resolution Unit"), 'type' => 'text'),
-                     'ShutterSpeedValue' => array('description' => _("Shutter Speed"), 'type' => 'number'),
-                     'ExposureTime' => array('description' => _("Exposure"), 'type' => 'number'),
-                     'FocalLength' => array('description' => _("Focal Length"), 'type' => 'number'),
-                     'FocalLengthIn35mmFilm' => array('description' => _("Focal Length (35mm equiv)"), 'type' => 'number'),
-                     'ApertureValue' => array('description' => _("Aperture"), 'type' => 'number'),
-                     'FNumber' => array('description' => _("F-Number"), 'type' => 'number'),
-                     'ISOSpeedRatings' => array('description' => _("ISO Setting"), 'type' => 'number'),
-                     'ExposureBiasValue' => array('description' => _("Exposure Bias"), 'type' => 'number'),
-                     'ExposureMode' => array('description' => _("Exposure Mode"), 'type' => 'number'),
-                     'ExposureProgram' => array('description' => _("Exposure Program"), 'type' => 'number'),
-                     'MeteringMode' => array('description' => _("Metering Mode"), 'type' => 'number'),
-                     'Flash' => array('description' => _("Flash Setting"), 'type' => 'number'),
-                     'UserComment' => array('description' => _("User Comment"), 'type' => 'text'),
-                     'ColorSpace' => array('description' => _("Color Space"), 'type' => 'number'),
-                     'SensingMethod' => array('description' => _("Sensing Method"), 'type' => 'number'),
-                     'WhiteBalance' => array('description' => _("White Balance"), 'type' => 'number'),
-                     'Orientation' => array('description' => _("Camera Orientation"), 'type' => 'number'),
-                     'Copyright' => array('description' => _("Copyright"), 'type' => 'text'),
-                     'Artist' => array('description' => _("Artist"), 'type' => 'text'),
-                     'GPSLatitude' => array('description' => _("Latitude"), 'type' => 'gps'),
-                     'GPSLongitude' => array('description' => _("Longitude"), 'type' => 'gps'),
-                     'LightSource' => array('description' => _("Light source"), 'type' => 'number'),
-                     'FileSource' => array('description' => _("File source"), 'type' => 'number'),
-        );
-    }
-
-    /**
-     *
      * @param $exif
      * @return unknown_type
      */
@@ -60,7 +15,7 @@ abstract class Horde_Image_Exif_Base
     {
         $results = array();
         if ($exif) {
-            $fields = self::getFields();
+            $fields = Horde_Image_Exif::getFields();
 
             foreach ($fields as $field => $data) {
                 $value = isset($exif[$field]) ? $exif[$field] : '';
