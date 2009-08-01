@@ -233,7 +233,7 @@ class Horde_Image_Exif_Parser_Gps extends Horde_Image_Exif_Parser_Base
             if ($intel == 1) {
                 $tag = Horde_Image_Exif::intel2Moto($tag);
             }
-            $tag_name = self::_lookpTag($tag);
+            $tag_name = self::_lookupTag($tag);
 
             //2 byte datatype
             $type = bin2hex(substr($block, $place, 2));
