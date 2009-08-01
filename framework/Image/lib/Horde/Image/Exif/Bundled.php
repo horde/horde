@@ -455,8 +455,8 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
             case '8298': $tag = 'Copyright'; break;                // text string up to 999 bytes long
             case '8649': $tag = 'PhotoshopSettings'; break;        // ??
             case '8825': $tag = 'GPSInfoOffset'; break;
-            //case '9286': $tag = 'UserCommentOld'; break;           // ??
             case '8769': $tag = 'ExifOffset'; break;               // positive integer
+
             // used by Exif SubIFD 'Image Tags'
             case '829a': $tag = 'ExposureTime'; break;             // seconds or fraction of seconds 1/x
             case '829d': $tag = 'FNumber'; break;                  // positive rational number
@@ -660,6 +660,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
             if ($tag == '9000' || $tag == 'a000' || $tag == '0002') {
                 $data = sprintf(_("version %d"), $data / 100);
             }
+
         } else {
             $data = bin2hex($data);
             if ($intel == 1) $data = Horde_Image_Exif::intel2Moto($data);
@@ -674,7 +675,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
      * @param $size
      * @return unknown_type
      */
-    static protected function _lookupType(&$type,&$size) {
+    static protected function _lookupType(&$type, &$size) {
         switch ($type) {
             case '0001': $type = 'UBYTE'; $size=1; break;
             case '0002': $type = 'ASCII'; $size=1; break;
