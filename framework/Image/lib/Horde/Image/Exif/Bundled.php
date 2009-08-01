@@ -8,7 +8,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
 {
     public function getData($image)
     {
-        $raw = self::_exif_read_data($imageFile);
+        $raw = self::_exif_read_data($image);
         $exif = array();
         foreach ($raw as $key => $value) {
             if (($key == 'IFD0') || ($key == 'SubIFD')) {
