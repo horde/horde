@@ -113,6 +113,7 @@ $code['text'] = array(
     'of' => _("of"),
     'ok' => _("Ok"),
     'onlogout' => _("Logging Out..."),
+    'popup_block' => _("A popup window could not be opened. Your browser may be blocking popups."),
     'portal' => ("Portal"),
     'prefs' => _("User Options"),
     'rename_prompt' => _("Rename folder to:"),
