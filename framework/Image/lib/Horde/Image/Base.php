@@ -103,10 +103,11 @@ class Horde_Image_Base
      */
     protected function __construct($params, $context = array())
     {
-        //@TODO: This is a temporary BC hack until I update all new Horde_Image calls
+
         if (empty($context['tmpdir'])) {
             throw new InvalidArgumentException('A path to a temporary directory is required.');
         }
+
         $this->_tmpdir = $context['tmpdir'];
         if (isset($params['width'])) {
             $this->_width = $params['width'];
@@ -215,27 +216,6 @@ class Horde_Image_Base
     }
 
     /**
-     * Add an observer to this image. The observer will be notified
-     * when the image's changes.
-     */
-    public function addObserver($method, $object)
-    {
-        $this->_observers[] = array($method, $object);
-    }
-
-    /**
-     * Let observers know that something happened worth acting on.
-     */
-    public function notifyObservers()
-    {
-        for ($i = 0; $i < count($this->_observers); ++$i) {
-            $obj = $this->_observers[$i][1];
-            $method = $this->_observers[$i][0];
-            $obj->$method($this);
-        }
-    }
-
-    /**
      * Reset the image data to defaults.
      */
     public function reset()
@@ -292,18 +272,19 @@ class Horde_Image_Base
      *
      * @return mixed  True if successful or already loaded, PEAR Error if file
      *                does not exist or could not be loaded.
+     * @throws Horde_Image_Exception
      */
     public function loadFile($filename)
     {
         if ($filename != $this->_id) {
             $this->reset();
             if (!file_exists($filename)) {
-                return PEAR::raiseError('The image file ' . $filename . ' does not exist.');
+                throw new Horde_Image_Exception(sprintf("The image file, %s, does not exist.", $filename));
             }
             if ($this->_data = file_get_contents($filename)) {
                 $this->_id = $filename;
             } else {
-                return PEAR::raiseError('Could not load the image file ' . $filename);
+                throw new Horde_Image_Exception(sprintf("Could not load the image file %s", $filename));
             }
         }
 
@@ -365,9 +346,6 @@ class Horde_Image_Base
     {
         $class = str_replace('Horde_Image_', '', get_class($this));
         $effect = Horde_Image_Effect::factory($type, $class, $params);
-        if (is_a($effect, 'PEAR_Error')) {
-            return $effect;
-        }
         $effect->setImageObject($this);
         return $effect->apply();
     }

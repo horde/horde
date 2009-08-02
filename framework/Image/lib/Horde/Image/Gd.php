@@ -210,14 +210,7 @@ class Horde_Image_Gd extends Horde_Image_Base
      */
     public function loadFile($filename)
     {
-        if (is_a($result = $this->reset(), 'PEAR_Error')) {
-            return $result;
-        }
-
-        if (is_a($info = $this->call('getimagesize', array($filename)), 'PEAR_Error')) {
-            return $info;
-        }
-
+        $info = $this->call('getimagesize', array($filename));
         if (is_array($info)) {
             switch ($info[2]) {
             case 1:
@@ -242,18 +235,11 @@ class Horde_Image_Gd extends Horde_Image_Base
             }
         }
 
-        if (is_a($this->_im, 'PEAR_Error')) {
-            return $this->_im;
-        }
-
         if (is_resource($this->_im)) {
             return true;
         }
 
         $result = parent::loadFile($filename);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         return $this->_im = $this->call('imageCreateFromString', array($this->_data));
     }

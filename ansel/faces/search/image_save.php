@@ -34,9 +34,10 @@ if ($x2 - $x1 < 50 || $y2 - $y1 < 50) {
 /* Create Horde_Image driver. */
 $img = Ansel::getImageObject();
 $driver = empty($conf['image']['convert']) ? 'Gd' : 'Im';
-$result = $img->loadFile($path);
-if (is_a($result, 'PEAR_Error')) {
-    $notification->push($result->getMessage());
+try {
+    $result = $img->loadFile($path);
+} catch (Horde_Image_Exception $e) {
+    $notification->push($e->getMessage());
     header('Location: ' . Horde::applicationUrl('faces/search/image.php'));
     exit;
 }

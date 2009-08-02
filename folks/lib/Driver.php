@@ -98,12 +98,11 @@ class Folks_Driver {
         $img = Horde_Image::factory($driver,
                                     array('type' => $conf['images']['image_type'],
                                           'context' => $context));
-
-        $result = $img->loadFile($file);
-        if ($result instanceof PEAR_Error) {
-            return $result;
+        try {
+            $result = $img->loadFile($file);
+        } catch (Horde_Image_Exception $e) {
+            throw new Horde_Exception($e);
         }
-
         $dimensions = $img->getDimensions();
         if ($dimensions instanceof PEAR_Error) {
             return $dimensions;

@@ -24,9 +24,10 @@ if ($form->validate()) {
     $tmp = Horde::getTempDir();
     $driver = empty($conf['image']['convert']) ? 'gd' : 'im';
     $img = Ansel::getImageObject();
-    $result = $img->loadFile($info['image']['file']);
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result->getMessage());
+    try {
+        $result = $img->loadFile($info['image']['file']);
+    } catch (Horde_Image_Exception $e) {
+        $notification->push($e->getMessage());
         header('Location: ' . Horde::applicationUrl('faces/search/image.php'));
         exit;
     }
