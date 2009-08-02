@@ -355,11 +355,11 @@ class Horde_Image_Base
      */
     public function getLoadedEffects()
     {
-        if (empty($this->_loadedEffects)) {
+        if (!count($this->_loadedEffects)) {
             $class = str_replace('Horde_Image_', '', get_class($this));
-
+            $this->_loadedEffects = array();
             // First, load the driver-agnostic Effects.
-            $path = dirname(__FILE__) . '/Image/Effect/';
+            $path = dirname(__FILE__) . '/Effect/';
             if (is_dir($path)) {
                 if ($handle = opendir($path)) {
                     while (($file = readdir($handle)) !== false) {
