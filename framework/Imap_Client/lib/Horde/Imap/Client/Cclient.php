@@ -1100,7 +1100,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
                         if (!empty($val['stream'])) {
                             $ptr = fopen('php://temp', 'r+');
-                            fwrite($ptr, $ret[$id]['bodytext'][$val['id']);
+                            fwrite($ptr, $ret[$id]['bodytext'][$val['id']]);
                             $ret[$id]['bodytext'][$val['id']] = $ptr;
                         }
                     }
