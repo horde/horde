@@ -10,9 +10,12 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
     /* Constants. */
     const ORD_LF = 10;
     const ORD_SPACE = 32;
+    const ACTION_KEEP_A = 1;
+    const ACTION_DELETE_A = 2;
+    const ACTION_DELETE_A_B = 3;
 
     /* Member variables. */
-    protected $_a = '';
+    protected $_a = "\n";
     protected $_b = '';
     protected $_input;
     protected $_inputIndex = 0;
@@ -28,80 +31,50 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
 
     public function minify()
     {
-        $this->_a = "\n";
-        $this->_action(3);
+        $this->_action(self::ACTION_DELETE_A_B);
 
         while (!is_null($this->_a)) {
+            $cmd = self::ACTION_KEEP_A;
             switch ($this->_a) {
             case ' ':
-                $this->_action($this->_isAlphaNum($this->_b) ? 1 : 2);
+                if (!$this->_isAlphaNum($this->_b)) {
+                    $cmd = self::ACTION_DELETE_A;
+                }
                 break;
 
             case "\n":
-                switch ($this->_b) {
-                case '{':
-                case '[':
-                case '(':
-                case '+':
-                case '-':
-                    $this->_action(1);
-                    break;
-
-                case ' ':
-                    $this->_action(3);
-                    break;
-
-                default:
-                    $this->_action($this->_isAlphaNum($this->_b) ? 1 : 2);
-                    break;
+                if ($this->_b === ' ') {
+                    $cmd = self::ACTION_DELETE_A_B;
+                } elseif (!$this->_isAlphaNum($this->_b)) {
+                    $cmd = self::ACTION_DELETE_A;
                 }
                 break;
 
             default:
-                switch ($this->_b) {
-                case ' ':
-                    $this->_action($this->_isAlphaNum($this->_a) ? 1 : 3);
-                    break;
-
-                case "\n":
-                    switch ($this->_a) {
-                    case '}':
-                    case ']':
-                    case ')':
-                    case '+':
-                    case '-':
-                    case '"':
-                    case "'":
-                        $this->_action(1);
-                        break;
-
-                    default:
-                        $this->_action($this->_isAlphaNum($this->_a) ? 1 : 3);
-                        break;
-                    }
-                    break;
-
-                default:
-                    $this->_action(1);
-                    break;
+                if (!$this->_isAlphaNum($this->_a) &&
+                    (($this->_b === ' ') ||
+                     (($this->_b === "\n" && !strspn($this->_b, '}])+-"\''))))) {
+                    $cmd = self::ACTION_DELETE_A_B;
                 }
+                break;
             }
+            $this->_action($cmd);
         }
 
-        return $this->_output;
+        return trim($this->_output);
     }
 
     protected function _action($d)
     {
         switch($d) {
-        case 1:
+        case self::ACTION_KEEP_A:
             $this->_output .= $this->_a;
 
-        case 2:
+        case self::ACTION_DELETE_A:
             $this->_a = $this->_b;
 
             if ($this->_a === '\'' || $this->_a === '"') {
-                for (;;) {
+                while (true) {
                     $this->_output .= $this->_a;
                     $this->_a = $this->_get();
 
@@ -120,18 +93,20 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
                 }
             }
 
-        case 3:
+        case self::ACTION_DELETE_A_B:
             $this->_b = $this->_next();
 
             if ($this->_b === '/' && strspn($this->_a, '(,=:[!&|?')) {
                 $this->_output .= $this->_a . $this->_b;
 
-                for (;;) {
+                while (true) {
                     $this->_a = $this->_get();
 
                     if ($this->_a === '/') {
                         break;
-                    } elseif ($this->_a === '\\') {
+                    }
+
+                    if ($this->_a === '\\') {
                         $this->_output .= $this->_a;
                         $this->_a = $this->_get();
                     } elseif (ord($this->_a) <= self::ORD_LF) {
@@ -170,7 +145,7 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
 
     protected function _isAlphaNum($c)
     {
-        return (ord($c) > 126 || ($c === '\\') || (preg_match('/^[\w\$]$/', $c) === 1));
+        return (ord($c) > 126 || preg_match('/^[0-9a-zA-Z_\\$\\\\]$/', $c));
     }
 
     protected function _next()
@@ -183,7 +158,7 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
 
         switch ($this->_peek()) {
         case '/':
-            for (;;) {
+            while (true) {
                 $c = $this->_get();
                 if (ord($c) <= self::ORD_LF) {
                     return $c;
@@ -193,7 +168,7 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
         case '*':
             $this->_get();
 
-            for (;;) {
+            while (true) {
                 switch($this->_get()) {
                 case '*':
                     if ($this->_peek() === '/') {
