@@ -114,15 +114,16 @@ class IMP_Horde_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
             return false;
         }
 
-        $img = Horde_Image::factory('Im', array('context' => array('tmpdir' => Horde::getTempdir(),
-                                                                   'convert' => $GLOBALS['conf']['image']['convert'])));
-        if ($img instanceof PEAR_Error) {
+        try {
+            $img = Horde_Image::factory('Im', array('context' => array('tmpdir' => Horde::getTempdir(),
+                                                                       'convert'=> $GLOBALS['conf']['image']['convert'])));
+        } catch (Horde_Image_Exception $e) {
             return false;
         }
-
         if ($load) {
-            $ret = $img->loadString(1, $this->_mimepart->getContents());
-            if ($ret instanceof PEAR_Error) {
+            try {
+                $ret = $img->loadString(1, $this->_mimepart->getContents());
+            } catch (Horde_Image_Exception $e) {
                 return false;
             }
         }

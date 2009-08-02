@@ -253,20 +253,25 @@ EOD;
         $img = null;
         //@TODO: Pass in a Horde_Logger in $context if desired.
         $context = array('tmpdir' => Horde::getTempDir());
-        if (!empty($GLOBALS['conf']['image']['convert'])) {
-            $context['convert'] = $GLOBALS['conf']['image']['convert'];
-            $img = Horde_Image::factory('Im', array('context' => $context));
-        } elseif (Horde_Util::extensionExists('gd')) {
-            $img = Horde_Image::factory('Gd', array('context' => $context));
+        try {
+            if (!empty($GLOBALS['conf']['image']['convert'])) {
+                $context['convert'] = $GLOBALS['conf']['image']['convert'];
+                $img = Horde_Image::factory('Im', array('context' => $context));
+            } elseif (Horde_Util::extensionExists('gd')) {
+                $img = Horde_Image::factory('Gd', array('context' => $context));
+            }
+        } catch (Horde_Image_Exception $e) {
+            return false;
         }
 
-        if (!$img || ($img instanceof PEAR_Error)) {
+        if (!$img) {
             return false;
         }
 
         if ($load) {
-            $ret = $img->loadString(1, $this->_mimepart->getContents());
-            if ($ret instanceof PEAR_Error) {
+            try {
+                $ret = $img->loadString(1, $this->_mimepart->getContents());
+            } catch (Horde_Image_Exception $e) {
                 return false;
             }
         }

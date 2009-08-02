@@ -271,15 +271,7 @@ class News {
                         'context' => $context);
         $driver = empty($conf['image']['convert']) ? 'Gd' : 'Im';
         $img = Horde_Image::factory($driver, $params);
-
-        if ($img instanceof PEAR_Error) {
-            return $img;
-        }
-
         $result = $img->loadFile($file);
-        if ($result instanceof PEAR_Error) {
-            return $result;
-        }
 
         // Store big image for articles
         if ($type == 'news') {
