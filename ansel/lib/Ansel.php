@@ -522,6 +522,7 @@ class Ansel {
         $params = array_merge(array('type' => $conf['image']['type'],
                                     'context' => $context),
                               $params);
+        //@TODO: get around to updating horde/config/conf.xml to include the imagick driver
         $driver = empty($conf['image']['convert']) ? 'Gd' : 'Im';
         return Horde_Image::factory($driver, $params);
     }
@@ -2281,10 +2282,7 @@ class Ansel_Image {
             Horde::logMessage($data, __FILE__, __LINE__, PEAR_LOG_ERR);
             return $data;
         }
-
-        if (is_a($result = $this->_image->loadString($this->getVFSPath('full') . '/' . $this->id, $data), 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_image->loadString($this->getVFSPath('full') . '/' . $this->id, $data);
         $styleDef = Ansel::getStyleDefinition($style);
         if ($view == 'prettythumb') {
             $viewType = $styleDef['thumbstyle'];
@@ -2557,36 +2555,35 @@ class Ansel_Image {
         /* Flag to determine if we need to resave the image data */
         $needUpdate = false;
 
-        /* Populate any local properties that come from EXIF */
-        if (!is_a($exif_fields, 'PEAR_Error')) {
-            /* Save any geo data to a seperate table as well */
-            if (!empty($exif_fields['GPSLatitude'])) {
-                $this->lat = $exif_fields['GPSLatitude'];
-                $this->lng = $exif_fields['GPSLongitude'];
-                $this->geotag_timestamp = time();
-                $needUpdate = true;
-            }
-
-            if (!empty($exif_fields['DateTimeOriginal'])) {
-                $this->originalDate = $exif_fields['DateTimeOriginal'];
-                $needUpdate = true;
-            }
-
-            /* Attempt to autorotate based on Orientation field */
-            $this->_autoRotate();
-
-            /* Save attributes. */
-            $insert = $GLOBALS['ansel_db']->prepare('INSERT INTO ansel_image_attributes (image_id, attr_name, attr_value) VALUES (?, ?, ?)');
-            foreach ($exif_fields as $name => $value) {
-                $result = $insert->execute(array($this->id, $name, Horde_String::convertCharset($value, Horde_Nls::getCharset(), $GLOBALS['conf']['sql']['charset'])));
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
-                }
-                /* Cache it locally */
-                $this->_exif[$name] = Horde_Image_Exif::getHumanReadable($name, $value);
-            }
-            $insert->free();
+        /* Populate any local properties that come from EXIF
+         * Save any geo data to a seperate table as well */
+        if (!empty($exif_fields['GPSLatitude'])) {
+            $this->lat = $exif_fields['GPSLatitude'];
+            $this->lng = $exif_fields['GPSLongitude'];
+            $this->geotag_timestamp = time();
+            $needUpdate = true;
         }
+
+        if (!empty($exif_fields['DateTimeOriginal'])) {
+            $this->originalDate = $exif_fields['DateTimeOriginal'];
+            $needUpdate = true;
+        }
+
+        /* Attempt to autorotate based on Orientation field */
+        $this->_autoRotate();
+
+        /* Save attributes. */
+        $insert = $GLOBALS['ansel_db']->prepare('INSERT INTO ansel_image_attributes (image_id, attr_name, attr_value) VALUES (?, ?, ?)');
+        foreach ($exif_fields as $name => $value) {
+            $result = $insert->execute(array($this->id, $name, Horde_String::convertCharset($value, Horde_Nls::getCharset(), $GLOBALS['conf']['sql']['charset'])));
+            if (is_a($result, 'PEAR_Error')) {
+                return $result;
+            }
+            /* Cache it locally */
+            $this->_exif[$name] = Horde_Image_Exif::getHumanReadable($name, $value);
+        }
+        $insert->free();
+
 
         return $needUpdate;
     }
@@ -2762,7 +2759,7 @@ class Ansel_Image {
             return $result;
         }
 
-        return $this->_image->display();
+        $this->_image->display();
     }
 
     /**
@@ -2801,13 +2798,13 @@ class Ansel_Image {
     {
         $this->load($view);
         $this->_dirty = true;
-        return $this->_image->rotate($angle);
+        $this->_image->rotate($angle);
     }
 
     function crop($x1, $y1, $x2, $y2)
     {
         $this->_dirty = true;
-        return $this->_image->crop($x1, $y1, $x2, $y2);
+        $this->_image->crop($x1, $y1, $x2, $y2);
     }
 
     /**
@@ -2819,7 +2816,7 @@ class Ansel_Image {
     {
         $this->load($view);
         $this->_dirty = true;
-        return $this->_image->grayscale();
+        $this->_image->grayscale();
     }
 
     /**
@@ -2867,8 +2864,6 @@ class Ansel_Image {
             $params['font'] = $GLOBALS['conf']['image']['font'];
         }
         $this->_image->addEffect('TextWatermark', $params);
-
-        return true;
     }
 
     /**
@@ -2880,7 +2875,7 @@ class Ansel_Image {
     {
         $this->load($view);
         $this->_dirty = true;
-        return $this->_image->flip();
+        $this->_image->flip();
     }
 
     /**
@@ -2892,7 +2887,7 @@ class Ansel_Image {
     {
         $this->load($view);
         $this->_dirty = true;
-        return $this->_image->mirror();
+        $this->_image->mirror();
     }
 
     /**

@@ -61,10 +61,6 @@ class Ansel_ImageView {
     {
         if (!empty($this->_image)) {
             $this->_dimensions = $this->_image->_image->getDimensions();
-            if (is_a($this->_dimensions, 'PEAR_Error')) {
-                Horde::logMessage($this->_dimensions, __FILE__, __LINE__, PEAR_LOG_ERR);
-                return $this->_dimensions;
-            }
         }
         return $this->_create();
     }

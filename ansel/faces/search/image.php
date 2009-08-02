@@ -25,24 +25,25 @@ if ($form->validate()) {
     $driver = empty($conf['image']['convert']) ? 'gd' : 'im';
     $img = Ansel::getImageObject();
     try {
-        $result = $img->loadFile($info['image']['file']);
+        $img->loadFile($info['image']['file']);
+        $dimensions = $img->getDimensions();
     } catch (Horde_Image_Exception $e) {
         $notification->push($e->getMessage());
         header('Location: ' . Horde::applicationUrl('faces/search/image.php'));
         exit;
     }
 
-    $dimensions = $img->getDimensions();
     if ($dimensions['width'] < 50 || $dimensions['height'] < 50) {
         $notification->push(_("Photo is too small. Search photo must be at least 50x50 pixels."));
         header('Location: ' . Horde::applicationUrl('faces/search/image.php'));
         exit;
     }
 
-    $result = $img->resize(min($conf['screen']['width'], $dimensions['width']),
-                            min($conf['screen']['height'], $dimensions['height']));
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result->getMessage());
+    try {
+        $img->resize(min($conf['screen']['width'], $dimensions['width']),
+                     min($conf['screen']['height'], $dimensions['height']));
+    } catch (Horde_Image_Exception $e) {
+        $notification->push($e->getMessage());
         header('Location: ' . Horde::applicationUrl('faces/search/image.php'));
         exit;
     }

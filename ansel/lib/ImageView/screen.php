@@ -9,9 +9,11 @@ class Ansel_ImageView_screen extends Ansel_ImageView {
 
     function _create()
     {
-        return $this->_image->_image->resize(min($GLOBALS['conf']['screen']['width'], $this->_dimensions['width']),
-                                             min($GLOBALS['conf']['screen']['height'], $this->_dimensions['height']),
-                                             true);
+        $this->_image->_image->resize(min($GLOBALS['conf']['screen']['width'], $this->_dimensions['width']),
+                                      min($GLOBALS['conf']['screen']['height'], $this->_dimensions['height']),
+                                      true);
+
+        return true;
     }
 
 }

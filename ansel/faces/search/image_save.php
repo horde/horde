@@ -43,17 +43,23 @@ try {
 }
 
 /* Crop image. */
-$result = $img->crop($x1, $y1, $x2, $y2);
-if (is_a($result, 'PEAR_Error')) {
-    $notification->push($result->getMessage());
+try {
+    $result = $img->crop($x1, $y1, $x2, $y2);
+} catch (Horde_Image_Exception $e) {
+    $notification->push($e->getMessage());
     header('Location: ' . Horde::applicationUrl('faces/search/image.php'));
     exit;
 }
 
 /* Resize image. */
-$img->getDimensions();
-if ($img->_width >= 50) {
-    $img->resize(min(50, $img->_width), min(50, $img->_height), true);
+try {
+    $img->getDimensions();
+    if ($img->_width >= 50) {
+        $img->resize(min(50, $img->_width), min(50, $img->_height), true);
+    }
+} catch (Horde_Image_Exception $e) {
+    $notification->push($e->getMessage());
+    header('Location: ' . Horde::applicationUrl('faces/search/image.php'));
 }
 
 /* Save image. */
