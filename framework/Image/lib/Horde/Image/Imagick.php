@@ -27,8 +27,13 @@ class Horde_Image_Imagick extends Horde_Image_Base
             } else {
                 $this->_width = max(array($this->_width, 1));
                 $this->_height = max(array($this->_height, 1));
-                $this->_imagick->newImage($this->_width, $this->_height, $this->_background);
+                try {
+                    $this->_imagick->newImage($this->_width, $this->_height, $this->_background);
+                } catch (ImagickException $e) {
+                    throw new Horde_Image_Exception($e)
+                }
             }
+
             $this->_imagick->setImageFormat($this->_type);
         }
     }
@@ -47,7 +52,11 @@ class Horde_Image_Imagick extends Horde_Image_Base
     {
         parent::loadString($id, $image_data);
         $this->_imagick->clear();
-        $this->_imagick->readImageBlob($image_data);
+        try {
+            $this->_imagick->readImageBlob($image_data);
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
+        }
         $this->_imagick->setFormat($this->_type);
         $this->_imagick->setIteratorIndex(0);
     }
@@ -66,7 +75,11 @@ class Horde_Image_Imagick extends Horde_Image_Base
         // parent function loads image data into $this->_data
         parent::loadFile($filename);
         $this->_imagick->clear();
-        $this->_imagick->readImageBlob($this->_data);
+        try {
+            $this->_imagick->readImageBlob($this->_data);
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
+        }
         $this->_imagick->setFormat($this->_type);
         $this->_imagick->setIteratorIndex(0);
         unset($this->_data);
@@ -81,7 +94,11 @@ class Horde_Image_Imagick extends Horde_Image_Base
      */
     public function raw($convert = false)
     {
-        return $this->_imagick->getImageBlob();
+        try {
+            return $this->_imagick->getImageBlob();
+        } catch (ImagickException $e) {
+            throw Horde_Image_Exception($e);
+        }
     }
 
     public function reset()
@@ -99,10 +116,14 @@ class Horde_Image_Imagick extends Horde_Image_Base
      */
     public function resize($width, $height, $ratio = true, $keepProfile = false)
     {
-        if ($keepProfile) {
-            $this->_imagick->resizeImage($width, $height, $ratio);
-        } else {
-            $this->_imagick->thumbnailImage($width, $height, $ratio);
+        try {
+            if ($keepProfile) {
+                $this->_imagick->resizeImage($width, $height, $ratio);
+            } else {
+                $this->_imagick->thumbnailImage($width, $height, $ratio);
+            }
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
         }
         $this->clearGeometry();
     }
@@ -120,7 +141,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
             try {
                 $size = $this->_imagick->getImageGeometry();
             } catch (ImagickException $e) {
-                //@TODO - Rethrow as Horde_Image_Exception
+                throw new Horde_Image_Exception($e);
             }
 
             $this->_height = $size['height'];
@@ -142,8 +163,12 @@ class Horde_Image_Imagick extends Horde_Image_Base
      */
     public function crop($x1, $y1, $x2, $y2)
     {
-        $result = $this->_imagick->cropImage($x2 - $x1, $y2 - $y1, $x1, $y1);
-        $this->_imagick->setImagePage(0, 0, 0, 0);
+        try {
+            $result = $this->_imagick->cropImage($x2 - $x1, $y2 - $y1, $x1, $y1);
+            $this->_imagick->setImagePage(0, 0, 0, 0);
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
+        }
         $this->clearGeometry();
     }
 
@@ -156,7 +181,11 @@ class Horde_Image_Imagick extends Horde_Image_Base
      */
     public function rotate($angle, $background = 'white')
     {
-        $this->_imagick->rotateImage($background, $angle);
+        try {
+            $this->_imagick->rotateImage($background, $angle);
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
+        }
         $this->clearGeometry();
     }
 
@@ -165,7 +194,11 @@ class Horde_Image_Imagick extends Horde_Image_Base
      */
     public function flip()
     {
-        $this->_imagick->flipImage();
+        try {
+            $this->_imagick->flipImage();
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
+        }
     }
 
     /**
@@ -173,7 +206,11 @@ class Horde_Image_Imagick extends Horde_Image_Base
      */
     public function mirror()
     {
-        $this->_imagick->flopImage();
+        try {
+            $this->_imagick->flopImage();
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
+        }
     }
 
     /**
@@ -181,7 +218,11 @@ class Horde_Image_Imagick extends Horde_Image_Base
      */
     public function grayscale()
     {
-        $this->_imagick->setImageColorSpace(Imagick::COLORSPACE_GRAY);
+        try {
+            $this->_imagick->setImageColorSpace(Imagick::COLORSPACE_GRAY);
+        } catch (ImageException $e) {
+            throw new Horde_Image_Exception($e);
+        }
     }
 
     /**
@@ -191,7 +232,11 @@ class Horde_Image_Imagick extends Horde_Image_Base
      */
     public function sepia($threshold =  85)
     {
-        $this->_imagick->sepiaToneImage($threshold);
+        try {
+            $this->_imagick->sepiaToneImage($threshold);
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
+        }
     }
 
     /**
@@ -220,7 +265,11 @@ class Horde_Image_Imagick extends Horde_Image_Base
         }
         $draw->setFontSize($fontsize);
         $draw->setGravity(Imagick::GRAVITY_NORTHWEST);
-        $res = $this->_imagick->annotateImage($draw, $x, $y, $direction, $string);
+        try {
+            $res = $this->_imagick->annotateImage($draw, $x, $y, $direction, $string);
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
+        }
         $draw->destroy();
     }
 
@@ -239,7 +288,11 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $draw->setFillColor(new ImagickPixel($fill));
         $draw->setStrokeColor(new ImagickPixel($color));
         $draw->circle($x, $y, $r + $x, $y);
-        $res = $this->_imagick->drawImage($draw);
+        try {
+            $res = $this->_imagick->drawImage($draw);
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
+        }
         $draw->destroy();
     }
 
@@ -257,7 +310,11 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $draw->setFillColor(new ImagickPixel($fill));
         $draw->setStrokeColor(new ImagickPixel($color));
         $draw->polygon($verts);
-        $res = $this->_imagick->drawImage($draw);
+        try {
+            $res = $this->_imagick->drawImage($draw);
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
+        }
         $draw->destroy();
     }
 
@@ -277,7 +334,11 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $draw->setStrokeColor(new ImagickPixel($color));
         $draw->setFillColor(new ImagickPixel($fill));
         $draw->rectangle($x, $y, $x + $width, $y + $height);
-        $res = $this->_imagick->drawImage($draw);
+        try {
+            $res = $this->_imagick->drawImage($draw);
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
+        }
         $draw->destroy();
     }
 
@@ -298,7 +359,12 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $draw->setStrokeColor(new ImagickPixel($color));
         $draw->setFillColor(new ImagickPixel($fill));
         $draw->roundRectangle($x, $y, $x + $width, $y + $height, $round, $round);
-        $res = $this->_imagick->drawImage($draw);
+        try {
+            $res = $this->_imagick->drawImage($draw);
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
+        }
+        $draw->destroy();
     }
 
     /**
@@ -317,7 +383,11 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $draw->setStrokeColor(new ImagickPixel($color));
         $draw->setStrokeWidth($width);
         $draw->line($x0, $y0, $x1, $y1);
-        $res = $this->_imagick->drawImage($draw);
+        try {
+            $res = $this->_imagick->drawImage($draw);
+        } catch (ImagickException $e) {
+            throw Horde_Image_Exception($e);
+        }
         $draw->destroy();
     }
 
@@ -340,7 +410,11 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $draw->setStrokeWidth($width);
         $draw->setStrokeDashArray(array($dash_length, $dash_space));
         $draw->line($x0, $y0, $x1, $y1);
-        $res = $this->_imagick->drawImage($draw);
+        try {
+            $res = $this->_imagick->drawImage($draw);
+        } catch (ImageException $e) {
+            throw new Horde_Image_Exception($e);
+        }
         $draw->destroy();
     }
 
@@ -360,7 +434,11 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $draw->setStrokeWidth($width);
         $draw->setFillColor(new ImagickPixel('none'));
         $draw->polyline($verts);
-        $res = $this->_imagick->drawImage($draw);
+        try {
+            $res = $this->_imagick->drawImage($draw);
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
+        }
         $draw->destroy();
     }
 
@@ -408,13 +486,17 @@ class Horde_Image_Imagick extends Horde_Image_Base
      */
     static public function frameImage(&$image, $color, $width, $height)
     {
-         // Need to jump through these hoops in order to preserve any
+        // Need to jump through these hoops in order to preserve any
         // transparency.
-        $border = $image->clone();
-        $border->borderImage(new ImagickPixel($color), $width, $height);
-        $border->compositeImage($image, Imagick::COMPOSITE_COPY, $width, $height);
-        $image->clear();
-        $image->addImage($border);
+        try {
+            $border = $image->clone();
+            $border->borderImage(new ImagickPixel($color), $width, $height);
+            $border->compositeImage($image, Imagick::COMPOSITE_COPY, $width, $height);
+            $image->clear();
+            $image->addImage($border);
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
+        }
         $border->destroy();
     }
 
