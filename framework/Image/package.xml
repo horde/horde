@@ -89,7 +89,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Effect.php" role="php" />
       <file name="Gd.php" role="php" />
       <file name="Im.php" role="php" />
-      <file name="ImagickProxy.php" role="php" />
       <file name="Imagick.php" role="php" />
       <file name="Png.php" role="php" />
       <file name="rgb.php" role="php" />
@@ -165,7 +164,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Image/Effect.php" as="Horde/Image/Effect.php" />
    <install name="lib/Horde/Image/Gd.php" as="Horde/Image/Gd.php" />
    <install name="lib/Horde/Image/Im.php" as="Horde/Image/Im.php" />
-   <install name="lib/Horde/Image/ImagickProxy.php" as="Horde/Image/ImagickProxy.php" />
    <install name="lib/Horde/Image/Imagick.php" as="Horde/Image/Imagick.php" />
    <install name="lib/Horde/Image/Png.php" as="Horde/Image/Png.php" />
    <install name="lib/Horde/Image/rgb.php" as="Horde/Image/rgb.php" />
