@@ -57,7 +57,7 @@ class Nag_Driver_Kolab extends Nag_Driver
      *
      * @return boolean  True on success, PEAR_Error on failure.
      */
-    publi function initialize()
+    public function initialize()
     {
         return $this->_wrapper->connect();
     }
