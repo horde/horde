@@ -237,10 +237,10 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
 
                     $vEvent_reply = Horde_iCalendar::newComponent('vevent', $vCal);
                     $vEvent_reply->setAttribute('UID', $vEvent->getAttribute('UID'));
-                    if (!$vEvent->getAttribute('SUMMARY') instanceof PEAR_Error)) {
+                    if (!($vEvent->getAttribute('SUMMARY') instanceof PEAR_Error)) {
                         $vEvent_reply->setAttribute('SUMMARY', $vEvent->getAttribute('SUMMARY'));
                     }
-                    if (!$vEvent->getAttribute('DESCRIPTION') instanceof PEAR_Error) {
+                    if (!($vEvent->getAttribute('DESCRIPTION') instanceof PEAR_Error)) {
                         $vEvent_reply->setAttribute('DESCRIPTION', $vEvent->getAttribute('DESCRIPTION'));
                     }
                     $dtstart = $vEvent->getAttribute('DTSTART', true);
