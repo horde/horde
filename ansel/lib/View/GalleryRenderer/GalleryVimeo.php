@@ -182,7 +182,7 @@ class Ansel_View_GalleryRenderer_GalleryVimeo extends Ansel_View_GalleryRenderer
         $imgOnClick = 'return showVideo(' . $cnt . ');';
         $tile = '<div class="image-tile" id="imagetile_' . (int)$video->clip_id . '">'
             . Horde::link($video->url, $video->title, '', '', $imgOnClick, $video->title)
-            . '<img src="' Ansel::getImageUrl($image->id, 'prettythumb', true, $this->view->gallery->get('style')) . '" />' . '</a>';
+            . '<img src="' . Ansel::getImageUrl($image->id, 'prettythumb', true, $this->view->gallery->get('style')) . '" />' . '</a>';
         $tile .= '<div style="valign: bottom;">';
         $tile .= ' <div class="image-tile-caption" id="' . (int)$video->clip_id . 'caption">' . $video->caption  . '</div></div></div>';
 
