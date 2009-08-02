@@ -12,7 +12,7 @@
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @package Horde_Image
  */
-class Horde_Image_Png extends Horde_Image {
+class Horde_Image_Png extends Horde_Image_Base {
 
     /**
      * The array of pixel data.

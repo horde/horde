@@ -10,7 +10,7 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_Image
  */
-class Horde_Image_Imagick extends Horde_Image
+class Horde_Image_Imagick extends Horde_Image_Base
 {
     protected $_imagick;
 

@@ -96,6 +96,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Swf.php" role="php" />
       <file name="Exif.php" role="php" />
       <file name="Exception.php" role="php" />
+      <file name="Base.php" role="php" />
      </dir> <!-- /Horde/Image -->
      <file name="Image.php" role="php" />
     </dir> <!-- /Horde -->
@@ -170,6 +171,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Image/Svg.php" as="Horde/Image/Svg.php" />
    <install name="lib/Horde/Image/Swf.php" as="Horde/Image/Swf.php" />
    <install name="lib/Horde/Image/Exception.php" as="Horde/Image/Exception.php" />
+   <install name="lib/Horde/Image/Base.php" as="Horde/Image/Base.php" />
    <install name="lib/Horde/Image.php" as="Horde/Image.php" />
   </filelist>
  </phprelease>

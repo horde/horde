@@ -10,7 +10,7 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Image
  */
-class Horde_Image_Svg extends Horde_Image
+class Horde_Image_Svg extends Horde_Image_Base
 {
     protected $_svg;
 
@@ -308,18 +308,18 @@ class Horde_Image_Svg extends Horde_Image
             $path .= "M $x,$y ";
 
             // Draw out to ellipse edge.
-            list($arcX, $arcY) = $this->_circlePoint($start, $r * 2);
+            list($arcX, $arcY) = Horde_Image::circlePoint($start, $r * 2);
             $path .= 'L ' . round($x + $arcX) . ',' .
                 round($y + $arcY) . ' ';
         }
 
         // Draw arcs.
-        list($arcX, $arcY) = $this->_circlePoint($mid, $r * 2);
+        list($arcX, $arcY) = Horde_Image::circlePoint($mid, $r * 2);
         $path .= "A $r,$r 0 0 1 " .
             round($x + $arcX) . ',' .
             round($y + $arcY) . ' ';
 
-        list($arcX, $arcY) = $this->_circlePoint($end, $r * 2);
+        list($arcX, $arcY) = Horde_Image::circlePoint($end, $r * 2);
         $path .= "A $r,$r 0 0 1 " .
             round($x + $arcX) . ',' .
             round($y + $arcY) . ' ';

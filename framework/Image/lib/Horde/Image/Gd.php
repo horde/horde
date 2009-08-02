@@ -13,7 +13,7 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_Image
  */
-class Horde_Image_Gd extends Horde_Image
+class Horde_Image_Gd extends Horde_Image_Base
 {
 
     /**
@@ -712,20 +712,20 @@ class Horde_Image_Gd extends Horde_Image
         $r = $round * 2;
 
         // Calculate the upper left arc.
-        $p1 = self::_arcPoints($round, 180, 225);
-        $p2 = self::_arcPoints($round, 225, 270);
+        $p1 = Horde_Image::arcPoints($round, 180, 225);
+        $p2 = Horde_Image::arcPoints($round, 225, 270);
 
         // Calculate the upper right arc.
-        $p3 = self::_arcPoints($round, 270, 315);
-        $p4 = self::_arcPoints($round, 315, 360);
+        $p3 = Horde_Image::arcPoints($round, 270, 315);
+        $p4 = Horde_Image::arcPoints($round, 315, 360);
 
         // Calculate the lower right arc.
-        $p5 = self::_arcPoints($round, 0, 45);
-        $p6 = self::_arcPoints($round, 45, 90);
+        $p5 = Horde_Image::arcPoints($round, 0, 45);
+        $p6 = Horde_Image::arcPoints($round, 45, 90);
 
         // Calculate the lower left arc.
-        $p7 = self::_arcPoints($round, 90, 135);
-        $p8 = self::_arcPoints($round, 135, 180);
+        $p7 = Horde_Image::arcPoints($round, 90, 135);
+        $p8 = Horde_Image::arcPoints($round, 135, 180);
 
         // Draw the corners - upper left, upper right, lower right,
         // lower left.

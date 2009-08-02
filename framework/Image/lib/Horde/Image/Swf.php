@@ -11,7 +11,7 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Image
  */
-class Horde_Image_Swf extends Horde_Image {
+class Horde_Image_Swf extends Horde_Image_Base {
 
     /**
      * Capabilites of this driver.
@@ -275,8 +275,8 @@ class Horde_Image_Swf extends Horde_Image {
         $y4 = $y + $height - $round;
 
         // Start in the upper left.
-        $p1 = $this->_arcPoints($round, 180, 225);
-        $p2 = $this->_arcPoints($round, 225, 270);
+        $p1 = Horde_Image::arcPoints($round, 180, 225);
+        $p2 = Horde_Image::arcPoints($round, 225, 270);
 
         // Start at the lower left corner of the top left curve.
         $s->movePenTo($x1 + $p1['x1'], $y1 + $p1['y1']);
@@ -286,8 +286,8 @@ class Horde_Image_Swf extends Horde_Image {
         $s->drawCurveTo($x1 + $p2['x3'], $y1 + $p2['y3'], $x1 + $p2['x2'], $y1 + $p2['y2']);
 
         // Calculate the upper right points.
-        $p3 = $this->_arcPoints($round, 270, 315);
-        $p4 = $this->_arcPoints($round, 315, 360);
+        $p3 = Horde_Image::arcPoints($round, 270, 315);
+        $p4 = Horde_Image::arcPoints($round, 315, 360);
 
         // Connect the top left and right curves.
         $s->drawLineTo($x2 + $p3['x1'], $y2 + $p3['y1']);
@@ -297,8 +297,8 @@ class Horde_Image_Swf extends Horde_Image {
         $s->drawCurveTo($x2 + $p4['x3'], $y2 + $p4['y3'], $x2 + $p4['x2'], $y2 + $p4['y2']);
 
         // Calculate the lower right points.
-        $p5 = $this->_arcPoints($round, 0, 45);
-        $p6 = $this->_arcPoints($round, 45, 90);
+        $p5 = Horde_Image::arcPoints($round, 0, 45);
+        $p6 = Horde_Image::arcPoints($round, 45, 90);
 
         // Connect the top right and lower right curves.
         $s->drawLineTo($x3 + $p5['x1'], $y3 + $p5['y1']);
@@ -308,8 +308,8 @@ class Horde_Image_Swf extends Horde_Image {
         $s->drawCurveTo($x3 + $p6['x3'], $y3 + $p6['y3'], $x3 + $p6['x2'], $y3 + $p6['y2']);
 
         // Calculate the lower left points.
-        $p7 = $this->_arcPoints($round, 90, 135);
-        $p8 = $this->_arcPoints($round, 135, 180);
+        $p7 = Horde_Image::arcPoints($round, 90, 135);
+        $p8 = Horde_Image::arcPoints($round, 135, 180);
 
         // Connect the bottom right and bottom left curves.
         $s->drawLineTo($x4 + $p7['x1'], $y4 + $p7['y1']);
@@ -436,7 +436,7 @@ class Horde_Image_Swf extends Horde_Image {
         }
 
         if ($end - $start <= 45) {
-            $pts = $this->_arcPoints($r, $start, $end);
+            $pts = Horde_Image::arcPoints($r, $start, $end);
             $s->movePenTo($x, $y);
             $s->drawLineTo($pts['x1'] + $x, $pts['y1'] + $y);
             $s->drawCurveTo($pts['x3'] + $x, $pts['y3'] + $y, $pts['x2'] + $x, $pts['y2'] + $y);
@@ -444,7 +444,7 @@ class Horde_Image_Swf extends Horde_Image {
         } else {
             $sections = ceil(($end - $start) / 45);
             for ($i = 0; $i < $sections; $i++) {
-                $pts = $this->_arcPoints($r, $start + ($i * 45), ($start + (($i + 1) * 45) > $end)
+                $pts = Horde_Image::arcPoints($r, $start + ($i * 45), ($start + (($i + 1) * 45) > $end)
                                          ? $end
                                          : ($start + (($i + 1) * 45)));
 

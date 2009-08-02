@@ -12,7 +12,7 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_Image
  */
-class Horde_Image_Im extends Horde_Image
+class Horde_Image_Im extends Horde_Image_Base
 {
     /**
      * Capabilites of this driver.
@@ -405,9 +405,9 @@ class Horde_Image_Im extends Horde_Image
 
         // If filled, draw the outline.
         if (!empty($fill)) {
-            list($x1, $y1) = $this->_circlePoint($start, $r * 2);
-            list($x2, $y2) = $this->_circlePoint($mid, $r * 2);
-            list($x3, $y3) = $this->_circlePoint($end, $r * 2);
+            list($x1, $y1) = Horde_Image::circlePoint($start, $r * 2);
+            list($x2, $y2) = Horde_Image::circlePoint($mid, $r * 2);
+            list($x3, $y3) = Horde_Image::circlePoint($end, $r * 2);
 
             // This seems to result in slightly better placement of
             // pie slices.
