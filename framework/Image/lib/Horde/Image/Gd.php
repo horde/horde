@@ -51,12 +51,7 @@ class Horde_Image_Gd extends Horde_Image_Base
         parent::__construct($params, $context);
         if (!empty($params['width'])) {
             $this->_im = $this->create($this->_width, $this->_height);
-            if (is_a($this->_im, 'PEAR_Error')) {
-                return $this->_im;
-            }
-            if (is_resource($this->_im)) {
-                $this->call('imageFill', array($this->_im, 0, 0, $this->_allocateColor($this->_background)));
-            }
+            $this->_call('imageFill', array($this->_im, 0, 0, $this->_allocateColor($this->_background)));
         }
     }
 
@@ -75,7 +70,7 @@ class Horde_Image_Gd extends Horde_Image_Base
     {
         $this->headers();
 
-        return $this->call('image' . $this->_type, array($this->_im));
+        return $this->_call('image' . $this->_type, array($this->_im));
     }
 
     /**
@@ -101,7 +96,7 @@ class Horde_Image_Gd extends Horde_Image_Base
     {
         parent::reset();
         if (is_resource($this->_im)) {
-            return $this->call('imageDestroy', array($this->_im));
+            return $this->_call('imageDestroy', array($this->_im));
         }
 
         return true;
@@ -115,11 +110,9 @@ class Horde_Image_Gd extends Horde_Image_Base
      */
     public function getDimensions()
     {
-        if (is_a($this->_im, 'PEAR_Error')) {
-            return $this->_im;
-        } elseif (is_resource($this->_im) && $this->_width == 0 && $this->_height ==0) {
-            $this->_width = $this->call('imageSX', array($this->_im));
-            $this->_height = $this->call('imageSY', array($this->_im));
+        if (is_resource($this->_im) && $this->_width == 0 && $this->_height ==0) {
+            $this->_width = $this->_call('imageSX', array($this->_im));
+            $this->_height = $this->_call('imageSY', array($this->_im));
             return array('width' => $this->_width,
                          'height' => $this->_height);
         } else {
@@ -143,7 +136,7 @@ class Horde_Image_Gd extends Horde_Image_Base
 
         if (empty($colors[$name])) {
             list($r, $g, $b) = self::getRGB($name);
-            $colors[$name] = $this->call('imageColorAllocateAlpha', array($this->_im, $r, $g, $b, $alpha));
+            $colors[$name] = $this->_call('imageColorAllocateAlpha', array($this->_im, $r, $g, $b, $alpha));
         }
 
         return $colors[$name];
@@ -185,16 +178,8 @@ class Horde_Image_Gd extends Horde_Image_Base
     public function loadString($id, $image_data)
     {
         if ($id != $this->_id) {
-            if ($this->_im) {
-                if (is_a($result = $this->reset(), 'PEAR_Error')) {
-                    return $result;
-                }
-            }
-            $this->_im = $this->call('imageCreateFromString', array($image_data));
+            $this->_im = $this->_call('imageCreateFromString', array($image_data));
             $this->_id = $id;
-            if (is_a($this->_im, 'PEAR_Error')) {
-                return $this->_im;
-            }
         }
     }
 
@@ -210,27 +195,27 @@ class Horde_Image_Gd extends Horde_Image_Base
      */
     public function loadFile($filename)
     {
-        $info = $this->call('getimagesize', array($filename));
+        $info = $this->_call('getimagesize', array($filename));
         if (is_array($info)) {
             switch ($info[2]) {
             case 1:
                 if (function_exists('imagecreatefromgif')) {
-                    $this->_im = $this->call('imagecreatefromgif', array($filename));
+                    $this->_im = $this->_call('imagecreatefromgif', array($filename));
                 }
                 break;
             case 2:
-                $this->_im = $this->call('imagecreatefromjpeg', array($filename));
+                $this->_im = $this->_call('imagecreatefromjpeg', array($filename));
                 break;
             case 3:
-                $this->_im = $this->call('imagecreatefrompng', array($filename));
+                $this->_im = $this->_call('imagecreatefrompng', array($filename));
                 break;
             case 15:
                 if (function_exists('imagecreatefromgwbmp')) {
-                    $this->_im = $this->call('imagecreatefromgwbmp', array($filename));
+                    $this->_im = $this->_call('imagecreatefromgwbmp', array($filename));
                 }
                 break;
             case 16:
-                $this->_im = $this->call('imagecreatefromxbm', array($filename));
+                $this->_im = $this->_call('imagecreatefromxbm', array($filename));
                 break;
             }
         }
@@ -241,7 +226,7 @@ class Horde_Image_Gd extends Horde_Image_Base
 
         $result = parent::loadFile($filename);
 
-        return $this->_im = $this->call('imageCreateFromString', array($this->_data));
+        $this->_im = $this->_call('imageCreateFromString', array($this->_data));
     }
 
     /**
@@ -251,23 +236,22 @@ class Horde_Image_Gd extends Horde_Image_Base
      * @param integer $height     The new height.
      * @param boolean $ratio      Maintain original aspect ratio.
      *
-     * @return PEAR_Error on failure
+     * @return boolean
      */
     public function resize($width, $height, $ratio = true)
     {
         /* Abort if we're asked to divide by zero, truncate the image
          * completely in either direction, or there is no image data.
-         * @TODO: This should throw an exception
          */
         if (!$width || !$height || !is_resource($this->_im)) {
-            return;
+            throw new Horde_Image_Exception('Unable to resize image.');
         }
 
         if ($ratio) {
-            if ($width / $height > $this->call('imageSX', array($this->_im)) / $this->call('imageSY', array($this->_im))) {
-                $width = $height * $this->call('imageSX', array($this->_im)) / $this->call('imageSY', array($this->_im));
+            if ($width / $height > $this->_call('imageSX', array($this->_im)) / $this->_call('imageSY', array($this->_im))) {
+                $width = $height * $this->_call('imageSX', array($this->_im)) / $this->_call('imageSY', array($this->_im));
             } else {
-                $height = $width * $this->call('imageSY', array($this->_im)) / $this->call('imageSX', array($this->_im));
+                $height = $width * $this->_call('imageSY', array($this->_im)) / $this->_call('imageSX', array($this->_im));
             }
         }
 
@@ -278,14 +262,11 @@ class Horde_Image_Gd extends Horde_Image_Base
         $this->_width = 0;
         $this->_height = 0;
 
-        if (is_a($this->_im, 'PEAR_Error')) {
-            return $this->_im;
-        }
-        if (is_a($result = $this->call('imageFill', array($this->_im, 0, 0, $this->call('imageColorAllocate', array($this->_im, 255, 255, 255)))), 'PEAR_Error')) {
-            return $result;
-        }
-        if (is_a($this->call('imageCopyResampled', array($this->_im, $im, 0, 0, 0, 0, $width, $height, $this->call('imageSX', array($im)), $this->call('imageSY', array($im)))), 'PEAR_Error')) {
-            return $this->call('imageCopyResized', array($this->_im, $im, 0, 0, 0, 0, $width, $height, $this->call('imageSX', array($im)), $this->call('imageSY', array($im))));
+        $this->_call('imageFill', array($this->_im, 0, 0, $this->_call('imageColorAllocate', array($this->_im, 255, 255, 255))));
+        try {
+            $this->_call('imageCopyResampled', array($this->_im, $im, 0, 0, 0, 0, $width, $height, $this->_call('imageSX', array($im)), $this->_call('imageSY', array($im))));
+        } catch (Horde_Image_Exception $e) {
+            $this->_call('imageCopyResized', array($this->_im, $im, 0, 0, 0, 0, $width, $height, $this->_call('imageSX', array($im)), $this->_call('imageSY', array($im))));
         }
     }
 
@@ -301,12 +282,9 @@ class Horde_Image_Gd extends Horde_Image_Base
     {
         $im = $this->_im;
         $this->_im = $this->create($x2 - $x1, $y2 - $y1);
-        if (is_a($this->_im, 'PEAR_Error')) {
-            return $this->_im;
-        }
         $this->_width = 0;
         $this->_height = 0;
-        return $this->call('imageCopy', array($this->_im, $im, 0, 0, $x1, $y1, $x2 - $x1, $y2 - $y1));
+        $this->_call('imageCopy', array($this->_im, $im, 0, 0, $x1, $y1, $x2 - $x1, $y2 - $y1));
     }
 
     /**
@@ -319,53 +297,30 @@ class Horde_Image_Gd extends Horde_Image_Base
     public function rotate($angle, $background = 'white')
     {
         $background = $this->_allocateColor($background);
-        if (is_a($background, 'PEAR_Error')) {
-            return $background;
-        }
 
         $this->_width = 0;
         $this->_height = 0;
 
         switch ($angle) {
         case '90':
-            $x = $this->call('imageSX', array($this->_im));
-            $y = $this->call('imageSY', array($this->_im));
+            $x = $this->_call('imageSX', array($this->_im));
+            $y = $this->_call('imageSY', array($this->_im));
             $xymax = max($x, $y);
 
             $im = $this->create($xymax, $xymax);
-            if (is_a($im, 'PEAR_Error')) {
-                return $im;
-            }
-            if (is_a($result = $this->call('imageCopy', array($im, $this->_im, 0, 0, 0, 0, $x, $y)), 'PEAR_Error')) {
-                return $result;
-            }
-            $im = $this->call('imageRotate', array($im, 270, $background));
-            if (is_a($im, 'PEAR_Error')) {
-                return $im;
-            }
+            $im = $this->_call('imageRotate', array($im, 270, $background));
             $this->_im = $im;
             $im = $this->create($y, $x);
-            if (is_a($im, 'PEAR_Error')) {
-                return $im;
-            }
             if ($x < $y) {
-                if (is_a($result = $this->call('imageCopy', array($im, $this->_im, 0, 0, 0, 0, $xymax, $xymax)), 'PEAR_Error')) {
-                    return $result;
-                }
+                $this->_call('imageCopy', array($im, $this->_im, 0, 0, 0, 0, $xymax, $xymax));
             } elseif ($x > $y) {
-                if (is_a($result = $this->call('imageCopy', array($im, $this->_im, 0, 0, $xymax - $y, $xymax - $x, $xymax, $xymax)), 'PEAR_Error')) {
-                    return $result;
-                }
+                $this->_call('imageCopy', array($im, $this->_im, 0, 0, $xymax - $y, $xymax - $x, $xymax, $xymax));
             }
             $this->_im = $im;
             break;
 
         default:
-            $this->_im = $this->call('imageRotate', array($this->_im, 360 - $angle, $background));
-            if (is_a($this->_im, 'PEAR_Error')) {
-                return $this->_im;
-            }
-            break;
+            $this->_im = $this->_call('imageRotate', array($this->_im, 360 - $angle, $background));
         }
     }
 
@@ -374,17 +329,12 @@ class Horde_Image_Gd extends Horde_Image_Base
      */
     public function flip()
     {
-        $x = $this->call('imageSX', array($this->_im));
-        $y = $this->call('imageSY', array($this->_im));
+        $x = $this->_call('imageSX', array($this->_im));
+        $y = $this->_call('imageSY', array($this->_im));
 
         $im = $this->create($x, $y);
-        if (is_a($im, 'PEAR_Error')) {
-            return $im;
-        }
         for ($curY = 0; $curY < $y; $curY++) {
-            if (is_a($result = $this->call('imageCopy', array($im, $this->_im, 0, $y - ($curY + 1), 0, $curY, $x, 1)), 'PEAR_Error')) {
-                return $result;
-            }
+            $this->_call('imageCopy', array($im, $this->_im, 0, $y - ($curY + 1), 0, $curY, $x, 1));
         }
 
         $this->_im = $im;
@@ -395,17 +345,12 @@ class Horde_Image_Gd extends Horde_Image_Base
      */
     public function mirror()
     {
-        $x = $this->call('imageSX', array($this->_im));
-        $y = $this->call('imageSY', array($this->_im));
+        $x = $this->_call('imageSX', array($this->_im));
+        $y = $this->_call('imageSY', array($this->_im));
 
         $im = $this->create($x, $y);
-        if (is_a($im, 'PEAR_Error')) {
-            return $im;
-        }
         for ($curX = 0; $curX < $x; $curX++) {
-            if (is_a($result = $this->call('imageCopy', array($im, $this->_im, $x - ($curX + 1), 0, $curX, 0, 1, $y)), 'PEAR_Error')) {
-                return $result;
-            }
+            $this->_call('imageCopy', array($im, $this->_im, $x - ($curX + 1), 0, $curX, 0, 1, $y));
         }
 
         $this->_im = $im;
@@ -420,23 +365,14 @@ class Horde_Image_Gd extends Horde_Image_Base
         $rateG = .587;
         $rateB = .114;
         $whiteness = 3;
-
-        if ($this->call('imageIsTrueColor', array($this->_im)) === true) {
-            if (is_a($result = $this->call('imageTrueColorToPalette', array($this->_im, true, 256)), 'PEAR_Error')) {
-                return $result;
-            }
+        if ($this->_call('imageIsTrueColor', array($this->_im)) === true) {
+            $this->_call('imageTrueColorToPalette', array($this->_im, true, 256));
         }
-
-        $colors = min(256, $this->call('imageColorsTotal', array($this->_im)));
+        $colors = min(256, $this->_call('imageColorsTotal', array($this->_im)));
         for ($x = 0; $x < $colors; $x++) {
-            $src = $this->call('imageColorsForIndex', array($this->_im, $x));
-            if (is_a($src, 'PEAR_Error')) {
-                return $src;
-            }
+            $src = $this->_call('imageColorsForIndex', array($this->_im, $x));
             $new = min(255, abs($src['red'] * $rateR + $src['green'] * $rateG + $src['blue'] * $rateB) + $whiteness);
-            if (is_a($result = $this->call('imageColorSet', array($this->_im, $x, $new, $new, $new)), 'PEAR_Error')) {
-                return $result;
-            }
+            $this->_call('imageColorSet', array($this->_im, $x, $new, $new, $new));
         }
     }
 
@@ -459,25 +395,18 @@ class Horde_Image_Gd extends Horde_Image_Base
         $rateB = .114;
         $whiteness = 3;
 
-        if ($this->call('imageIsTrueColor', array($this->_im)) === true) {
-            if (is_a($result = $this->call('imageTrueColorToPalette', array($this->_im, true, 256)), 'PEAR_Error')) {
-                return $result;
-            }
+        if ($this->_call('imageIsTrueColor', array($this->_im)) === true) {
+            $this->_call('imageTrueColorToPalette', array($this->_im, true, 256));
         }
 
-        $colors = max(256, $this->call('imageColorsTotal', array($this->_im)));
+        $colors = max(256, $this->_call('imageColorsTotal', array($this->_im)));
         for ($x = 0; $x < $colors; $x++) {
-            $src = $this->call('imageColorsForIndex', array($this->_im, $x));
-            if (is_a($src, 'PEAR_Error')) {
-                return $src;
-            }
+            $src = $this->_call('imageColorsForIndex', array($this->_im, $x));
             $new = min(255, abs($src['red'] * $rateR + $src['green'] * $rateG + $src['blue'] * $rateB) + $whiteness);
             $r = min(255, $new + $tintR);
             $g = min(255, $new + $tintG);
             $b = min(255, $new + $tintB);
-            if (is_a($result = $this->call('imageColorSet', array($this->_im, $x, $r, $g, $b)), 'PEAR_Error')) {
-                return $result;
-            }
+            $this->_call('imageColorSet', array($this->_im, $x, $r, $g, $b));
         }
     }
 
@@ -492,24 +421,17 @@ class Horde_Image_Gd extends Horde_Image_Base
      */
     public function yellowize($intensityY = 50, $intensityB = 3)
     {
-        if ($this->call('imageIsTrueColor', array($this->_im)) === true) {
-            if (is_a($result = $this->call('imageTrueColorToPalette', array($this->_im, true, 256)), 'PEAR_Error')) {
-                return $result;
-            }
+        if ($this->_call('imageIsTrueColor', array($this->_im)) === true) {
+            $this->_call('imageTrueColorToPalette', array($this->_im, true, 256));
         }
 
-        $colors = max(256, $this->call('imageColorsTotal', array($this->_im)));
+        $colors = max(256, $this->_call('imageColorsTotal', array($this->_im)));
         for ($x = 0; $x < $colors; $x++) {
-            $src = $this->call('imageColorsForIndex', array($this->_im, $x));
-            if (is_a($src, 'PEAR_Error')) {
-                return $src;
-            }
+            $src = $this->_call('imageColorsForIndex', array($this->_im, $x));
             $r = min($src['red'] + $intensityY, 255);
             $g = min($src['green'] + $intensityY, 255);
             $b = max(($r + $g) / max($intensityB, 2), 0);
-            if (is_a($result = $this->call('imageColorSet', array($this->_im, $x, $r, $g, $b)), 'PEAR_Error')) {
-                return $result;
-            }
+            $this->_call('imageColorSet', array($this->_im, $x, $r, $g, $b));
         }
     }
 
@@ -535,19 +457,16 @@ class Horde_Image_Gd extends Horde_Image_Base
     public function text($string, $x, $y, $font = 'monospace', $color = 'black', $direction = 0, $fontsize = 'small')
     {
         $c = $this->_allocateColor($color);
-        if (is_a($c, 'PEAR_Error')) {
-            return $c;
-        }
         $f = $this->_getFont($fontsize);
         switch ($direction) {
         case -90:
         case 270:
-            $result = $this->call('imageStringUp', array($this->_im, $f, $x, $y, $string, $c));
+            $result = $this->_call('imageStringUp', array($this->_im, $f, $x, $y, $string, $c));
             break;
 
         case 0:
         default:
-            $result = $this->call('imageString', array($this->_im, $f, $x, $y, $string, $c));
+            $result = $this->_call('imageString', array($this->_im, $f, $x, $y, $string, $c));
         }
 
         return $result;
@@ -565,27 +484,16 @@ class Horde_Image_Gd extends Horde_Image_Base
     public function circle($x, $y, $r, $color, $fill = null)
     {
         $c = $this->_allocateColor($color);
-        if (is_a($c, 'PEAR_Error')) {
-            return $c;
-        }
         if (is_null($fill)) {
-            $result = $this->call('imageEllipse', array($this->_im, $x, $y, $r * 2, $r * 2, $c));
+            $result = $this->_call('imageEllipse', array($this->_im, $x, $y, $r * 2, $r * 2, $c));
         } else {
             if ($fill !== $color) {
                 $fillColor = $this->_allocateColor($fill);
-                if (is_a($fillColor, 'PEAR_Error')) {
-                    return $fillColor;
-                }
-                if (is_a($result = $this->call('imageFilledEllipse', array($this->_im, $x, $y, $r * 2, $r * 2, $fillColor)), 'PEAR_Error')) {
-                    return $result;
-                }
-                $result = $this->call('imageEllipse', array($this->_im, $x, $y, $r * 2, $r * 2, $c));
+                $this->_call('imageFilledEllipse', array($this->_im, $x, $y, $r * 2, $r * 2, $fillColor));
+                $this->_call('imageEllipse', array($this->_im, $x, $y, $r * 2, $r * 2, $c));
             } else {
-                $result = $this->call('imageFilledEllipse', array($this->_im, $x, $y, $r * 2, $r * 2, $c));
+                $this->_call('imageFilledEllipse', array($this->_im, $x, $y, $r * 2, $r * 2, $c));
             }
-        }
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
         }
     }
 
@@ -607,22 +515,12 @@ class Horde_Image_Gd extends Horde_Image_Base
 
         if ($fill != 'none') {
             $f = $this->_allocateColor($fill);
-            if (is_a($f, 'PEAR_Error')) {
-                return $f;
-            }
-            if (is_a($result = $this->call('imageFilledPolygon', array($this->_im, $vertices, count($verts), $f)), 'PEAR_Error')) {
-                return $result;
-            }
+            $this->_call('imageFilledPolygon', array($this->_im, $vertices, count($verts), $f));
         }
 
         if ($fill == 'none' || $fill != $color) {
             $c = $this->_allocateColor($color);
-            if (is_a($c, 'PEAR_Error')) {
-                return $c;
-            }
-            if (is_a($result = $this->call('imagePolygon', array($this->_im, $vertices, count($verts), $c)), 'PEAR_Error')) {
-                return $result;
-            }
+            $this->_call('imagePolygon', array($this->_im, $vertices, count($verts), $c));
         }
     }
 
@@ -640,22 +538,12 @@ class Horde_Image_Gd extends Horde_Image_Base
     {
         if ($fill != 'none') {
             $f = $this->_allocateColor($fill);
-            if (is_a($f, 'PEAR_Error')) {
-                return $f;
-            }
-            if (is_a($result = $this->call('imageFilledRectangle', array($this->_im, $x, $y, $x + $width, $y + $height, $f)), 'PEAR_Error')) {
-                return $result;
-            }
+            $this->_call('imageFilledRectangle', array($this->_im, $x, $y, $x + $width, $y + $height, $f));
         }
 
         if ($fill == 'none' || $fill != $color) {
             $c = $this->_allocateColor($color);
-            if (is_a($c, 'PEAR_Error')) {
-                return $c;
-            }
-            if (is_a($result = $this->call('imageRectangle', array($this->_im, $x, $y, $x + $width, $y + $height, $c)), 'PEAR_Error')) {
-                return $result;
-            }
+            $this->_call('imageRectangle', array($this->_im, $x, $y, $x + $width, $y + $height, $c));
         }
     }
 
@@ -678,9 +566,6 @@ class Horde_Image_Gd extends Horde_Image_Base
         }
 
         $c = $this->_allocateColor($color);
-        if (is_a($c, 'PEAR_Error')) {
-            return $c;
-        }
 
         // Set corner points to avoid lots of redundant math.
         $x1 = $x + $round;
@@ -715,41 +600,21 @@ class Horde_Image_Gd extends Horde_Image_Base
 
         // Draw the corners - upper left, upper right, lower right,
         // lower left.
-        if (is_a($result = $this->call('imageArc', array($this->_im, $x1, $y1, $r, $r, 180, 270, $c)), 'PEAR_Error')) {
-            return $result;
-        }
-        if (is_a($result = $this->call('imageArc', array($this->_im, $x2, $y2, $r, $r, 270, 360, $c)), 'PEAR_Error')) {
-            return $result;
-        }
-        if (is_a($result = $this->call('imageArc', array($this->_im, $x3, $y3, $r, $r, 0, 90, $c)), 'PEAR_Error')) {
-            return $result;
-        }
-        if (is_a($result = $this->call('imageArc', array($this->_im, $x4, $y4, $r, $r, 90, 180, $c)), 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_call('imageArc', array($this->_im, $x1, $y1, $r, $r, 180, 270, $c));
+        $this->_call('imageArc', array($this->_im, $x2, $y2, $r, $r, 270, 360, $c));
+        $this->_call('imageArc', array($this->_im, $x3, $y3, $r, $r, 0, 90, $c));
+        $this->_call('imageArc', array($this->_im, $x4, $y4, $r, $r, 90, 180, $c));
 
         // Draw the connecting sides - top, right, bottom, left.
-        if (is_a($result = $this->call('imageLine', array($this->_im, $x1 + $p2['x2'], $y1 + $p2['y2'], $x2 + $p3['x1'], $y2 + $p3['y1'], $c)), 'PEAR_Error')) {
-            return $result;
-        }
-        if (is_a($result = $this->call('imageLine', array($this->_im, $x2 + $p4['x2'], $y2 + $p4['y2'], $x3 + $p5['x1'], $y3 + $p5['y1'], $c)), 'PEAR_Error')) {
-            return $result;
-        }
-        if (is_a($result = $this->call('imageLine', array($this->_im, $x3 + $p6['x2'], $y3 + $p6['y2'], $x4 + $p7['x1'], $y4 + $p7['y1'], $c)), 'PEAR_Error')) {
-            return $result;
-        }
-        if (is_a($result = $this->call('imageLine', array($this->_im, $x4 + $p8['x2'], $y4 + $p8['y2'], $x1 + $p1['x1'], $y1 + $p1['y1'], $c)), 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_call('imageLine', array($this->_im, $x1 + $p2['x2'], $y1 + $p2['y2'], $x2 + $p3['x1'], $y2 + $p3['y1'], $c));
+        $this->_call('imageLine', array($this->_im, $x2 + $p4['x2'], $y2 + $p4['y2'], $x3 + $p5['x1'], $y3 + $p5['y1'], $c));
+        $this->_call('imageLine', array($this->_im, $x3 + $p6['x2'], $y3 + $p6['y2'], $x4 + $p7['x1'], $y4 + $p7['y1'], $c));
+        $this->_call('imageLine', array($this->_im, $x4 + $p8['x2'], $y4 + $p8['y2'], $x1 + $p1['x1'], $y1 + $p1['y1'], $c));
+
 
         if ($fill != 'none') {
             $f = $this->_allocateColor($fill);
-            if (is_a($f, 'PEAR_Error')) {
-                return $f;
-            }
-            if (is_a($result = $this->call('imageFillToBorder', array($this->_im, $x + ($width / 2), $y + ($height / 2), $c, $f)), 'PEAR_Error')) {
-                return $result;
-            }
+            $this->_call('imageFillToBorder', array($this->_im, $x + ($width / 2), $y + ($height / 2), $c, $f));
         }
     }
 
@@ -766,25 +631,22 @@ class Horde_Image_Gd extends Horde_Image_Base
     public function line($x1, $y1, $x2, $y2, $color = 'black', $width = 1)
     {
         $c = $this->_allocateColor($color);
-        if (is_a($c, 'PEAR_Error')) {
-            return $c;
-        }
 
         // Don't need to do anything special for single-width lines.
         if ($width == 1) {
-            $result = $this->call('imageLine', array($this->_im, $x1, $y1, $x2, $y2, $c));
+            $this->_call('imageLine', array($this->_im, $x1, $y1, $x2, $y2, $c));
         } elseif ($x1 == $x2) {
             // For vertical lines, we can just draw a vertical
             // rectangle.
             $left = $x1 - floor(($width - 1) / 2);
             $right = $x1 + floor($width / 2);
-            $result = $this->call('imageFilledRectangle', array($this->_im, $left, $y1, $right, $y2, $c));
+            $this->_call('imageFilledRectangle', array($this->_im, $left, $y1, $right, $y2, $c));
         } elseif ($y1 == $y2) {
             // For horizontal lines, we can just draw a horizontal
             // filled rectangle.
             $top = $y1 - floor($width / 2);
             $bottom = $y1 + floor(($width - 1) / 2);
-            $result = $this->call('imageFilledRectangle', array($this->_im, $x1, $top, $x2, $bottom, $c));
+            $this->_call('imageFilledRectangle', array($this->_im, $x1, $top, $x2, $bottom, $c));
         } else {
             // Angled lines.
 
@@ -795,10 +657,8 @@ class Horde_Image_Gd extends Horde_Image_Base
             $dy = (cos($a) * $width / 2);
 
             $verts = array($x2 + $dx, $y2 + $dy, $x2 - $dx, $y2 - $dy, $x1 - $dx, $y1 - $dy, $x1 + $dx, $y1 + $dy);
-            $result = $this->call('imageFilledPolygon', array($this->_im, $verts, count($verts) / 2, $c));
+            $this->_call('imageFilledPolygon', array($this->_im, $verts, count($verts) / 2, $c));
         }
-
-        return $result;
     }
 
     /**
@@ -816,13 +676,7 @@ class Horde_Image_Gd extends Horde_Image_Base
     public function dashedLine($x0, $y0, $x1, $y1, $color = 'black', $width = 1, $dash_length = 2, $dash_space = 2)
     {
         $c = $this->_allocateColor($color);
-        if (is_a($c, 'PEAR_Error')) {
-            return $c;
-        }
         $w = $this->_allocateColor('white');
-        if (is_a($w, 'PEAR_Error')) {
-            return $w;
-        }
 
         // Set up the style array according to the $dash_* parameters.
         $style = array();
@@ -833,13 +687,9 @@ class Horde_Image_Gd extends Horde_Image_Base
             $style[] = $w;
         }
 
-        if (is_a($result = $this->call('imageSetStyle', array($this->_im, $style)), 'PEAR_Error')) {
-            return $result;
-        }
-        if (is_a($result = $this->call('imageSetThickness', array($this->_im, $width)), 'PEAR_Error')) {
-            return $result;
-        }
-        return $this->call('imageLine', array($this->_im, $x0, $y0, $x1, $y1, IMG_COLOR_STYLED));
+        $this->_call('imageSetStyle', array($this->_im, $style));
+        $this->_call('imageSetThickness', array($this->_im, $width));
+        $this->_call('imageLine', array($this->_im, $x0, $y0, $x1, $y1, IMG_COLOR_STYLED));
     }
 
     /**
@@ -856,9 +706,7 @@ class Horde_Image_Gd extends Horde_Image_Base
         $first = true;
         foreach ($verts as $vert) {
             if (!$first) {
-                if (is_a($result = $this->line($lastX, $lastY, $vert['x'], $vert['y'], $color, $width), 'PEAR_Error')) {
-                    return $result;
-                }
+                $this->line($lastX, $lastY, $vert['x'], $vert['y'], $color, $width);
             } else {
                 $first = false;
             }
@@ -881,26 +729,17 @@ class Horde_Image_Gd extends Horde_Image_Base
     public function arc($x, $y, $r, $start, $end, $color = 'black', $fill = null)
     {
         $c = $this->_allocateColor($color);
-        if (is_a($c, 'PEAR_Error')) {
-            return $c;
-        }
         if (is_null($fill)) {
-            $result = $this->call('imageArc', array($this->_im, $x, $y, $r * 2, $r * 2, $start, $end, $c));
+            $this->_call('imageArc', array($this->_im, $x, $y, $r * 2, $r * 2, $start, $end, $c));
         } else {
             if ($fill !== $color) {
                 $f = $this->_allocateColor($fill);
-                if (is_a($f, 'PEAR_Error')) {
-                    return $f;
-                }
-                if (is_a($result = $this->call('imageFilledArc', array($this->_im, $x, $y, $r * 2, $r * 2, $start, $end, $f, IMG_ARC_PIE)), 'PEAR_Error')) {
-                    return $result;
-                }
-                $result = $this->call('imageFilledArc', array($this->_im, $x, $y, $r * 2, $r * 2, $start, $end, $c, IMG_ARC_EDGED | IMG_ARC_NOFILL));
+                $this->_call('imageFilledArc', array($this->_im, $x, $y, $r * 2, $r * 2, $start, $end, $f, IMG_ARC_PIE));
+                $this->_call('imageFilledArc', array($this->_im, $x, $y, $r * 2, $r * 2, $start, $end, $c, IMG_ARC_EDGED | IMG_ARC_NOFILL));
             } else {
-                $result = $this->call('imageFilledArc', array($this->_im, $x, $y, $r * 2, $r * 2, $start, $end, $c, IMG_ARC_PIE));
+                $this->_call('imageFilledArc', array($this->_im, $x, $y, $r * 2, $r * 2, $start, $end, $c, IMG_ARC_PIE));
             }
         }
-        return $result;
     }
 
     /**
@@ -910,15 +749,14 @@ class Horde_Image_Gd extends Horde_Image_Base
      * @param integer $width   The image width.
      * @param integer $height  The image height.
      *
-     * @return resource|object PEAR Error  The image handler or a PEAR_Error
-     *                                     on error.
+     * @return resource  The image handler.
+     * @throws Horde_Image_Exception
      */
-    public function create($width, $height)
+    protected function _create($width, $height)
     {
-        $result = $this->call('imageCreateTrueColor', array($width, $height));
+        $result = $this->_call('imageCreateTrueColor', array($width, $height));
         if (!is_resource($result)) {
-            // @TODO: Throw an exception here instead.
-            $result = PEAR::raiseError(_("Could not create image."));
+            throw new Horde_Image_Exception('Could not create image.');
         }
 
         return $result;
@@ -926,16 +764,14 @@ class Horde_Image_Gd extends Horde_Image_Base
 
     /**
      * Wraps a call to a function of the gd extension.
-     * If the call produces an error, a PEAR_Error is returned, the function
-     * result otherwise.
      *
      * @param string $function  The name of the function to wrap.
      * @param array $params     An array with all parameters for that function.
      *
-     * @return mixed  Either the function result or a PEAR_Error if an error
-     *                occured when executing the function.
+     * @return mixed  The result of the function call
+     * @throws Horde_Image_Exception
      */
-    public function call($function, $params = null)
+    protected function _call($function, $params = null)
     {
         unset($php_errormsg);
         $track = ini_set('track_errors', 1);
@@ -948,8 +784,7 @@ class Horde_Image_Gd extends Horde_Image_Base
         error_reporting($GLOBALS['conf']['debug_level']);
         if (!empty($php_errormsg)) {
             $error_msg = $php_errormsg;
-            require_once 'PEAR.php';
-            $result = PEAR::raiseError($function . ': ' . $error_msg);
+            throw new Horde_Image_Exception($error_msg)
         }
         return $result;
     }
