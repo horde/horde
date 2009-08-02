@@ -2,6 +2,15 @@
 class Text_Wiki_Render_Tiki_Image extends Text_Wiki_Render {
 
     /**
+     * Defines rule specific configuration
+     *
+     * @var array
+     */
+    var $conf = array(
+       'prefix' => 'img/wiki_up/' // path to the wiki image directory 
+    );
+
+    /**
     *
     * Renders a token into text matching the requested format.
     *
@@ -16,10 +25,14 @@ class Text_Wiki_Render_Tiki_Image extends Text_Wiki_Render {
 
     function token($options)
     {
-        $img = '{img src=' . $options['src'];
+        $img = '{img src="';
+        if (!empty($this->conf['prefix']))
+            $img .= $this->conf['prefix'];
+        $img .= $options['src'] . '"';
+
         if (is_array($options['attr'])) {
             foreach ($options['attr'] as $var => $val) {
-                $img .= ' '.$var.'='.$val;
+                $img .= ' '.$var.'="'.$val.'"';
             }
         }
         $img .= '}';

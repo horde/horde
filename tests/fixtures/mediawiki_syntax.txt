@@ -64,6 +64,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam commodo felis vit
 
 Pellentesque sed luctus metus. Morbi posuere euismod placerat. Aliquam erat volutpat. Phasellus elit quam, [[cursus]] nec fringilla nec, egestas a libero. Integer aliquet gravida sem. Donec sagittis turpis nec erat dictum a ultrices enim mollis.
 
+
+{| 
+| A || B
+|- 
+| C || D 
+|}
+
+
 <br />
 <br   />
 Horizontal line:

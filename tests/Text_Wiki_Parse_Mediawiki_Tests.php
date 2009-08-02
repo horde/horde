@@ -37,14 +37,14 @@ class Text_Wiki_Parse_Mediawiki_AllTests extends PHPUnit_Framework_TestSuite
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Heading_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Horiz_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_List_Test');
-        /*$suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Newline_Test');*/
+        //$suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Newline_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Preformatted_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Raw_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Redirect_Test');
         /*$suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Subscript_Test');
-        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Superscript_Test');
+        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Superscript_Test');*/
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Table_Test');
-        $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Tt_Test');*/
+        //$suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Tt_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Url_Test');
         $suite->addTestSuite('Text_Wiki_Parse_Mediawiki_Wikilink_Test');
         
@@ -555,6 +555,79 @@ class Text_Wiki_Parse_Mediawiki_Redirect_Test extends Text_Wiki_Parse_Mediawiki_
     }
     
 }
+
+class Text_Wiki_Parse_Mediawiki_Table_Test extends Text_Wiki_Parse_Mediawiki_SetUp_Tests
+{
+    
+    public function testMediawikiParseTableProcess()
+    {
+
+        $matches = array(
+            0 => '{| 
+| A || B
+|- 
+| C || D 
+|}',
+            1 => ' 
+',
+            2 => '',
+            3 => '| A || B
+|- 
+| C || D 
+'
+        );
+
+        $this->assertRegExp("/\d+?\d+?\d+? A \d+?\d+? B\d+?\d+?\d+?\d+? C \d+?\d+? D \d+?\d+?\d+?/", $this->t->process($matches));
+
+        $tokens = array(
+            487 => array(0 => 'Table', 1 => array('type' => 'cell_start', 'attr' => '', 'span' => 1, 'rowspan' => 1, 'order' => 0)),
+            488 => array(0 => 'Table', 1 => array('type' => 'cell_end', 'attr' => '', 'span' => 1, 'rowspan' => 1, 'order' => 0)),
+            489 => array(0 => 'Table', 1 => array('type' => 'cell_start', 'attr' => '', 'span' => 1, 'rowspan' => 1, 'order' => 1)),
+            490 => array(0 => 'Table', 1 => array('type' => 'cell_end', 'attr' => '', 'span' => 1, 'rowspan' => 1, 'order' => 1)),
+            491 => array(0 => 'Table', 1 => array('type' => 'row_start', 'order' => 0, 'cols' => 2)),
+            492 => array(0 => 'Table', 1 => array('type' => 'row_end', 'order' => 0, 'cols' => 2)),
+            493 => array(0 => 'Table', 1 => array('type' => 'cell_start', 'attr' => '', 'span' => 1, 'rowspan' => 1, 'order' => 0)),
+            494 => array(0 => 'Table', 1 => array('type' => 'cell_end', 'attr' => '', 'span' => 1, 'rowspan' => 1, 'order' => 0)),
+            495 => array(0 => 'Table', 1 => array('type' => 'cell_start', 'attr' => '', 'span' => 1, 'rowspan' => 1, 'order' => 1)),
+            496 => array(0 => 'Table', 1 => array('type' => 'cell_end', 'attr' => '', 'span' => 1, 'rowspan' => 1, 'order' => 1)),
+            497 => array(0 => 'Table', 1 => array('type' => 'row_start', 'order' => 1, 'cols' => 2)),
+            498 => array(0 => 'Table', 1 => array('type' => 'row_end', 'order' => 1, 'cols' => 2)),
+            499 => array(0 => 'Table', 1 => array('type' => 'table_start', 'level' => 0, 'rows' => 2, 'cols' => 2)),
+            500 => array(0 => 'Table', 1 => array('type' => 'table_end', 'level' => 0, 'rows' => 2, 'cols' => 2))
+        );
+
+        $this->assertEquals(array_values($tokens), array_values($this->t->wiki->tokens));
+    }
+    
+    public function testMediawikiParseTableRegex()
+    {
+
+        $expectedResult = array(
+            0 => array(
+                0 => "{| 
+| A || B
+|- 
+| C || D 
+|}",
+            ),
+            1 => array(0 => " \n"),
+            2 => array(0 => ''),
+            3 => array(
+                0 => "| A || B
+|- 
+| C || D 
+"
+            ),
+            4 => array(
+                0 => ''
+            )
+        );
+
+        $this->assertEquals($expectedResult, $this->matches);
+    }
+    
+}
+
 
 class Text_Wiki_Parse_Mediawiki_Wikilink_Test extends Text_Wiki_Parse_Mediawiki_SetUp_Tests
 {
