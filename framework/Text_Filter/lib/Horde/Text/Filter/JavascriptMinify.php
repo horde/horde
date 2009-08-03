@@ -1,41 +1,7 @@
 <?php
 /**
- * This filter cleans up javascript output by running it through a PHP-based
+ * This filter cleans up javascript output by running it through an
  * optimizer/compressor.
- *
- * License/copyright from original jsmin.php library:
- *
- * --
- * Copyright (c) 2002 Douglas Crockford  (www.crockford.com)
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all
- * copies or substantial portions of the Software.
- *
- * The Software shall be used for Good, not Evil.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE
- * SOFTWARE.
- *
- * Author: Ryan Grove <ryan@wonko.com>
- * (c) 2002 Douglas Crockford <douglas@crockford.com> (jsmin.c)
- * (c) 2008 Ryan Grove <ryan@wonko.com> (PHP port)
- * Version: 1.1.1 (2008-03-02)
- * URL: http://code.google.com/p/jsmin-php/
- * --
  *
  * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
@@ -43,10 +9,20 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Text
+ * @package Horde_Text_Filter
  */
 class Horde_Text_Filter_JavascriptMinify extends Horde_Text_Filter
 {
+    /**
+     * Filter parameters.
+     *
+     * @var array
+     */
+    protected $_params = array(
+        'java' => null,
+        'yui' => null
+    );
+
     /**
      * Executes any code necessary after applying the filter patterns.
      *
@@ -56,12 +32,55 @@ class Horde_Text_Filter_JavascriptMinify extends Horde_Text_Filter
      */
     public function postProcess($text)
     {
+        /* Are we using the YUI Compressor? */
+        if (!empty($this->_params['yui']) &&
+            !empty($this->_params['java'])) {
+            return $this->_runYuiCompressor($text);
+        }
+
+        /* Use PHP-based minifier. */
         $jsmin = new Horde_Text_Filter_JavascriptMinify_JsMin($text);
         try {
             return $jsmin->minify();
         } catch (Exception $e) {
             return $text;
         }
+    }
+
+    /**
+     * Passes javascript through YUI Compressor.
+     *
+     * @param string $text  The javascript text.
+     *
+     * @return string  The modified text.
+     */
+    protected function _runYuiCompressor($text)
+    {
+        if (!is_executable($this->_params['java']) ||
+            !file_exists($this->_params['yui'])) {
+            return $text;
+        }
+
+        $descspec = array(
+            0 => array('pipe', 'r'),
+            1 => array('pipe', 'w'),
+            2 => array('pipe', 'w')
+        );
+
+        $process = proc_open(escapeshellcmd($this->_params['java']) . ' -jar ' . escapeshellarg($this->_params['yui']) . ' --type js', $descspec, $pipes);
+
+        fwrite($pipes[0], $text);
+        fclose($pipes[0]);
+
+        $out = '';
+        while (!feof($pipes[1])) {
+            $out .= fread($pipes[1], 8192);
+        }
+        fclose($pipes[1]);
+        fclose($pipes[2]);
+        proc_close($process);
+
+        return $out;
     }
 
 }
