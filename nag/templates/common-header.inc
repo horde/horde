@@ -50,6 +50,6 @@ glow.ready(function() {
  <form method="post" action="quick.php">
   <p><?php echo _("Enter one task per line. Create child tasks by indenting them below their parent task. Include due dates like \"laundry tomorrow\" or \"get dry cleaning next Thursday\".") ?></p>
   <textarea name="quickText" id="quickText"></textarea>
-  <p><input type="submit" value="<?php echo _("Create") ?>"></p>
+  <p><input type="submit" value="<?php echo _("Create") ?>" /></p>
  </form>
 </div>
