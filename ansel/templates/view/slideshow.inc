@@ -5,7 +5,7 @@ SlideController.initialize(<?php echo $this->json() ?>, <?php echo $imageIndex ?
 
 function stopSlideShow()
 {
-    location.href = "<?php echo Horde::applicationUrl($galleryurl, true) ?>&image=" + SlideController.photos[SlideController.photoId][3] + "&view=Image&page=" + SlideController.photos[SlideController.photoId][4];
+    location.href = "<?php echo Horde::applicationUrl($this->_urls['gallery'], true) ?>?image=" + SlideController.photos[SlideController.photoId][3] + "&view=Image&page=" + SlideController.photos[SlideController.photoId][4];
 }
 </script>
 
@@ -14,23 +14,23 @@ function stopSlideShow()
  <tr class="control">
   <td>
     <?php if ($this->gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)): ?>
-        <?php echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($imageActionUrl, array('actionID' => 'modify', 'share' => $this->gallery->getName(), 'ret' => 'image'))), '', '', '_blank', 'SlideController.pause();' . Horde::popupJs(Horde::applicationUrl($imageActionUrl), array('params' => array('actionID' => 'modify', 'share' => $this->gallery->getName(), 'ret' => 'image'), 'urlencode' => true)) . 'return false;', '', '', array('id' => 'image_properties_link')) . _("Properties") ?></a>
-      | <?php echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($imageActionUrl, 'actionID', 'editimage')), '', '', '', '', '', '', array('id' => 'image_edit_link')) . _("Edit") ?></a>
+        <?php echo Horde::link('#', '', '', '_blank', 'SlideController.pause();' . $this->_urls['prop_popup'], '', '', array('id' => 'image_properties_link')) . _("Properties") ?></a>
+      | <?php echo Horde::link(Horde::applicationUrl($this->_urls['edit']), '', '', '', '', '', '', array('id' => 'image_edit_link')) . _("Edit") ?></a>
     <?php endif; ?>
     <?php if ($this->gallery->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE)): ?>
-      | <?php echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($imageActionUrl, 'actionID', 'delete')), '', '', '', 'return window.confirm(\'' . addslashes(sprintf(_("Do you want to permanently delete \"%s\"?"), $this->image->filename)) . '\');', '', '', array('id' => 'image_delete_link')) . _("Delete") ?></a>
+      | <?php echo Horde::link($this->_urls['delete'], '', '', '', 'return window.confirm(\'' . addslashes(sprintf(_("Do you want to permanently delete \"%s\"?"), $this->resource->filename)) . '\');', '', '', array('id' => 'image_delete_link')) . _("Delete") ?></a>
     <?php endif; ?>
   </td>
   <td class="rightAlign">
 
 <?php if (!empty($conf['ecard']['enable'])): ?>
-    <?php echo Horde::link($ecardurl, '', '', '_blank', 'SlideController.pause();' . Horde::popupJs($ecardurl, array('urlencode' => true)) . 'return false;', '', '', array('id' => 'image_ecard_link')) . _("Send an Ecard") ?></a> |
+    <?php echo Horde::link($this->_urls['ecard'], '', '', '_blank', 'SlideController.pause();' . Horde::popupJs($ecardurl, array('urlencode' => true)) . 'return false;', '', '', array('id' => 'image_ecard_link')) . _("Send an Ecard") ?></a> |
 <?php endif; ?>
-    <?php echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter('img/download.php', 'image', $imageId)), '', '', '', 'SlideController.pause();', '', '', array('id' => 'image_download_link')) . _("Download Original Photo") ?></a>
+    <?php echo Horde::link($this->_urls['download'], '', '', '', 'SlideController.pause();', '', '', array('id' => 'image_download_link')) . _("Download Original Photo") ?></a>
   </td>
  </tr>
 </table>
-<table width="100%" cellpadding="0" cellspacing="0" style="background-color:<?php echo $style['background']; ?>;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background-color:<?php echo $this->_style['background']; ?>;">
  <tr>
   <td>
     <div class="slideControls">
@@ -48,7 +48,7 @@ function stopSlideShow()
   <tr>
    <td style="margin:5px;height:<?php echo $GLOBALS['conf']['screen']['height'] ?>px;vertical-align:top;">
      <div id="Container">
-      <?php echo Horde::img('blank.gif', '', array('id' => 'Photo', 'style' => 'display:none;'), $registry->getImageDir('horde')) ?>
+      <?php echo Horde::img('blank.gif', '', array('id' => 'Photo', 'style' => 'display:none;', 'width' => $this->_geometry['width'], 'height' => $this->_geometry['height']), $registry->getImageDir('horde')) ?>
      </div>
    </td>
   </tr>
