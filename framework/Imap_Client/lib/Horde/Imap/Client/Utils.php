@@ -243,7 +243,18 @@ class Horde_Imap_Client_Utils
     }
 
     /**
-     * Parse a POP3 (RFC 2384) or IMAP (RFC 5092) URL.
+     * Parse a POP3 (RFC 2384) or IMAP (RFC 5092/5593) URL.
+     *
+     * Absolute IMAP URLs takes one of the following forms:
+     * imap://<iserver>[/]
+     * imap://<iserver>/<enc-mailbox>[<uidvalidity>][?<enc-search>]
+     * imap://<iserver>/<enc-mailbox>[<uidvalidity>]<iuid>
+     *  [<isection>][<ipartial>][<iurlauth>]
+     *
+     * POP URLs take one of the following forms:
+     * pop://<user>;auth=<auth>@<host>:<port>
+     *
+     * @todo Support relative URLs
      *
      * @param string $url  A URL string.
      *
@@ -251,58 +262,74 @@ class Horde_Imap_Client_Utils
      *                following fields:
      * <pre>
      * 'auth' - (string) The authentication method to use.
-     * 'hostspec' - (string) The remote server
-     * 'port' - (integer) The remote port
+     * 'hostspec' - (string) The remote server.
+     * 'mailbox' - (string) The IMAP mailbox.
+     * 'partial' - (string) A byte range for use with IMAP FETCH.
+     * 'port' - (integer) The remote port.
+     * 'search' - (string) A search query to be run with IMAP SEARCH.
+     * 'section' - (string) A MIME part ID.
      * 'type' - (string) Either 'imap' or 'pop'.
      * 'username' - (string) The username to use on the remote server.
+     * 'uid' - (string) The IMAP UID.
+     * 'uidvalidity' - (integer) The IMAP UIDVALIDITY for the given mailbox.
+     * 'urlauth' - (string) URLAUTH info (not parsed).
      * </pre>
      */
     public function parseUrl($url)
     {
-        $url = trim($url);
-
-        $prefix = strpos($url, '://');
-        $type = substr($url, 0, $prefix);
-
-        if ((strcasecmp($type, 'imap') !== 0) &&
-            (strcasecmp($type, 'pop') !== 0)) {
+        $data = parse_url(trim($url));
+        if (!isset($data['scheme'])) {
             return false;
         }
-        $url = substr($url, $prefix + 3);
 
-        /* At present, only support type://<iserver>[/] style URLs. */
-        if (($pos = strpos($url, '/')) !== false) {
-            $url = substr($url, 0, $pos);
+        $type = strtolower($data['scheme']);
+        if (!in_array($type, array('imap', 'pop'))) {
+            return false;
         }
 
-        $ret_array = array('type' => strtolower($type));
+        $ret_array = array(
+            'hostspec' => $data['host'],
+            'port' => isset($data['port']) ? $data['port'] : 143,
+            'type' => $type
+        );
 
         /* Check for username/auth information. */
-        if (($pos = strpos($url, '@')) !== false) {
-            if ((($apos = stripos($url, ';AUTH=')) !== false) &&
-                ($apos < $pos)) {
-                $auth = substr($url, $apos + 6, $pos - $apos - 6);
+        if (isset($data['user'])) {
+            if (($pos = stripos($url, ';AUTH=')) !== false) {
+                $auth = substr($data['user'], $pos + 6);
                 if ($auth != '*') {
                     $ret_array['auth'] = $auth;
                 }
-                if ($apos) {
-                    $ret_array['username'] = substr($url, 0, $apos);
-                }
+                $data['user'] = substr($data['user'], 0, $pos);
             }
-            $url = substr($url, $pos + 1);
+
+            $ret_array['username'] = $data['user'];
         }
 
-        /* Check for port information. */
-        if (($pos = strpos($url, ':')) !== false) {
-            $ret_array['port'] = substr($url, $pos + 1);
-            $url = substr($url, 0, $pos);
-        }
+        /* IMAP-only information. */
+        if ($type == 'imap') {
+            if (isset($data['path'])) {
+                $data['path'] = ltrim($data['path'], '/');
+                $parts = explode('/;', $data['path']);
 
-        if (strpos($url, ' ') !== false) {
-            return false;
-        }
+                $mbox = array_shift($parts);
+                if (($pos = stripos($mbox, ';UIDVALIDITY=')) !== false) {
+                    $ret_array['uidvalidity'] = substr($mbox, $pos + 13);
+                    $mbox = substr($mbox, 0, $pos);
+                }
+                $ret_array['mailbox'] = $mbox;
 
-        $ret_array['hostspec'] = $url;
+            }
+
+            if (count($parts)) {
+                foreach ($parts as $val) {
+                    list($k, $v) = explode('=', $val);
+                    $ret_array[strtolower($k)] = $v;
+                }
+            } elseif (isset($data['query'])) {
+                $ret_array['search'] = urldecode($data['query']);
+            }
+        }
 
         return $ret_array;
     }
