@@ -224,7 +224,7 @@ var ViewPort = Class.create({
             break;
 
         case 1:
-            s.moveScroll(Math.min(rownum, this.getMetaData('total_rows') - this.getPageSize() + 1));
+            s.moveScroll(Math.min(rownum - 1, this.getMetaData('total_rows') - this.getPageSize()));
             break;
         }
 
