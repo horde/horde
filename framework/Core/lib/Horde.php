@@ -1659,7 +1659,7 @@ HTML;
 
         $cache_type = empty($conf['cachecss'])
             ? 'none'
-            : $conf['cachecss'];
+            : $conf['cachecssparams']['driver'];
 
         if ($cache_type == 'none') {
             $css_out = $css;
