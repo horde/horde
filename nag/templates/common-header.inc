@@ -32,7 +32,7 @@ if ($prefs->getValue('show_panel')) {
 <link href="<?php echo Horde::applicationUrl('themes/categoryCSS.php') ?>" rel="stylesheet" type="text/css" />
 <script src="<?php echo $GLOBALS['registry']->get('jsuri', 'horde') ?>/glow/1.5.1/core/core.js" type="text/javascript"></script>
 <script src="<?php echo $GLOBALS['registry']->get('jsuri', 'horde') ?>/glow/1.5.1/widgets/widgets.js" type="text/javascript"></script>
-<link href="<?php echo $GLOBALS['registry']->get('jsuri', 'horde') ?>/glow/1.5.1/widgets/widgets.css" type="text/css" rel="stylesheet" /></head>
+<link href="<?php echo $GLOBALS['registry']->get('jsuri', 'horde') ?>/glow/1.5.1/widgets/widgets.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript">
 var Nag = {};
 
@@ -41,6 +41,7 @@ glow.ready(function() {
     Nag.quickAddPanel = new glow.widgets.InfoPanel('#quickAddInfoPanel', { context: '.quickAdd', pointerPosition: 't' });
 });
 </script>
+</head>
 
 <body<?php if ($bc) echo ' class="' . $bc . '"' ?><?php if ($bi = Horde_Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>
 
