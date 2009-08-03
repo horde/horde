@@ -1,10 +1,41 @@
 <?php
 /**
+ * Base class for Horde_Image_Exif drivers.
  *
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package Horde_Image
  */
 abstract class Horde_Image_Exif_Base
 {
-    abstract public function getData($image);
+    /**
+     * Instance parameters.
+     *
+     * @var array
+     */
+    protected $_params;
+
+    /**
+     * Optional Logger
+     */
+    protected $_logger;
+
+    /**
+     *
+     * @param $params
+     */
+    public function __construct($params = array())
+    {
+        if (!empty($params['logger'])) {
+            $this->_logger = $params['logger'];
+            unset($params['logger']);
+        }
+        $this->_params = $params;
+    }
 
     /**
      *
@@ -94,5 +125,22 @@ abstract class Horde_Image_Exif_Base
         $degs = (double)($degrees + ($minutes / 60) + ($seconds/3600));
         return round($degs, 6);
     }
+
+    protected function _logDebug($message)
+    {
+        if (!empty($this->_logger)) {
+            $this->_logger->debug($message);
+        }
+    }
+
+    protected function _logErr($message)
+    {
+        if (!empty($this->_logger)) {
+            $this->_logger->err($message);
+        }
+    }
+
+    abstract public function getData($image);
+
 
 }

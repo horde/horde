@@ -85,6 +85,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
         <file name="Base.php" role="php" />
         <file name="Bundled.php" role="php" />
         <file name="Php.php" role="php" />
+        <file name="Exiftool.php" role="php" />
       </dir> <!-- /Horde/Image/Exif -->
       <file name="Effect.php" role="php" />
       <file name="Gd.php" role="php" />
@@ -142,6 +143,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Image/Exif/Base.php" as="Horde/Image/Exif/Base.php" />
    <install name="lib/Horde/Image/Exif/Bundled.php" as="Horde/Image/Exif/Bundled.php" />
    <install name="lib/Horde/Image/Exif/Php.php" as="Horde/Image/Exif/Php.php" />
+   <install name="lib/Horde/Image/Exif/Exiftool.php" as="Horde/Image/Exif/Exiftool.php" />
    <install name="lib/Horde/Image/Exif.php" as="Horde/Image/Exif.php" />
    <install name="lib/Horde/Image/Effect/Border.php" as="Horde/Image/Effect/Border.php" />
    <install name="lib/Horde/Image/Effect/Im/DropShadow.php" as="Horde/Image/Effect/Im/DropShadow.php" />

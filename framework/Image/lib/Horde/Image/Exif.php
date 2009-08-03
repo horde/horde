@@ -3,7 +3,8 @@
  * General class for fetching and parsing EXIF information from images.
  *
  * Works equally well with either the built in php exif functions (if PHP
- * compiled with exif support) or the (slower) bundled exif library.
+ * compiled with exif support), the Exiftool package (more complete but slower),
+ * or the bundled exif library.
  *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
@@ -12,7 +13,15 @@
  */
 class Horde_Image_Exif
 {
-    static public function factory($driver = null)
+    /**
+     * Factory method for instantiating a Horde_Image_Exif object.
+     *
+     * @param string $driver
+     * @param array $params
+     *
+     * @return Horde_Image_Exif
+     */
+    static public function factory($driver = null, $params = array())
     {
         if (empty($driver) && function_exists('exif_read_data')) {
             $driver = 'Php';
@@ -24,15 +33,16 @@ class Horde_Image_Exif
 
         $class = 'Horde_Image_Exif_' . $driver;
 
-        return new $class;
+        return new $class($params);
     }
 
     /**
      * Converts from Intel to Motorola endien.  Just reverses the bytes
      * (assumes hex is passed in)
      *
-     * @param $num
-     * @return unknown_type
+     * @param $intel
+     *
+     * @return
      */
     static public function intel2Moto($intel)
     {
@@ -46,8 +56,11 @@ class Horde_Image_Exif
     }
 
     /**
+     * Obtain an array of supported meta data fields.
      *
-     * @return unknown_type
+     * @TODO: This should probably be extended by the subclass?
+     *
+     * @return array
      */
     static public function getFields()
     {
