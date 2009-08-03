@@ -36,7 +36,8 @@ class Horde_Image_Exif_Exiftool extends Horde_Image_Exif_Base
     public function getData($image)
     {
         // Request the full stream of meta data in JSON format.
-        $command = '-j -c "%.6f ' . $image;
+        // -j option outputs in JSON, -n = prevent screen formatting
+        $command = '-j -n ' . $image;
         $test = $this->_execute($command);
         $results = json_decode($this->_execute($command));
         if (is_array($results)) {
