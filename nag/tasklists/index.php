@@ -29,14 +29,17 @@ if (!Horde_Auth::getAuth()) {
     exit;
 }
 
-$webdav = is_callable(array('HTTP_WebDAV_Server_Horde', 'DELETE'));
 $edit_url_base = Horde::applicationUrl('tasklists/edit.php');
 $perms_url_base = Horde::url($registry->get('webroot', 'horde') . '/services/shares/edit.php?app=nag', true);
 $delete_url_base = Horde::applicationUrl('tasklists/delete.php');
 $display_url_base = Horde::applicationUrl('list.php', true, -1);
-$subscribe_url_base = $webdav
-    ? Horde::url($registry->get('webroot', 'horde') . '/rpc.php/nag/', true, -1)
-    : Horde::applicationUrl('ics.php', true, -1);
+$subscribe_url_base = $registry->get('webroot', 'horde');
+if (isset($conf['urls']['pretty']) && $conf['urls']['pretty'] == 'rewrite') {
+    $subscribe_url_base .= '/rpc/nag/';
+} else {
+    $subscribe_url_base .= '/rpc.php/nag/';
+}
+$subscribe_url_base = Horde::url($subscribe_url_base, true, -1);
 
 $tasklists = Nag::listTasklists(true);
 $sorted_tasklists = array();

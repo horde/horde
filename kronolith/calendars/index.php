@@ -29,20 +29,19 @@ if (!Horde_Auth::getAuth()) {
     exit;
 }
 
-$webdav = is_callable(array('HTTP_WebDAV_Server_Horde', 'DELETE'));
-$rewrite = isset($conf['urls']['pretty']) &&
-    $conf['urls']['pretty'] == 'rewrite';
 $edit_url_base = Horde::applicationUrl('calendars/edit.php');
 $remote_edit_url_base = Horde::applicationUrl('calendars/remote_edit.php');
 $delete_url_base = Horde::applicationUrl('calendars/delete.php');
 $remote_unsubscribe_url_base = Horde::applicationUrl('calendars/remote_unsubscribe.php');
 $perms_url_base = Horde::applicationUrl('perms.php', true);
 $display_url_base = Horde::applicationUrl('month.php', true, -1);
-$subscribe_url_base = $webdav ?
-    Horde::url($registry->get('webroot', 'horde')
-               . ($rewrite ? '/rpc/kronolith/' : '/rpc.php/kronolith/'),
-               true, -1) :
-    Horde_Util::addParameter(Horde::applicationUrl('ics.php', true, -1), 'c', '');
+$subscribe_url_base = $registry->get('webroot', 'horde');
+if (isset($conf['urls']['pretty']) && $conf['urls']['pretty'] == 'rewrite') {
+    $subscribe_url_base .= '/rpc/kronolith/';
+} else {
+    $subscribe_url_base .= '/rpc.php/kronolith/';
+}
+$subscribe_url_base = Horde::url($subscribe_url_base, true, -1);
 
 $calendars = array();
 $sorted_calendars = array();
