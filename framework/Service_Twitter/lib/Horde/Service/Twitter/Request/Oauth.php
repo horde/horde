@@ -27,7 +27,7 @@ class Horde_Service_Twitter_Request_Oauth extends Horde_Service_Twitter_Request
         if (!empty($cache) && $results = $cache->get($key, $this->_twitter->cacheLifetime)) {
             return $results;
         }
-        $request = new Horde_Oauth_Request($url, $params);
+        $request = new Horde_Oauth_Request($url, $params, 'GET');
         $request->sign($this->_twitter->auth->oauth->signatureMethod,
                        $this->_twitter->auth->oauth,
                        $this->_twitter->auth->getAccessToken());
