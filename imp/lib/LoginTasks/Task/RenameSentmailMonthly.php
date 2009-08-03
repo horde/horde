@@ -17,8 +17,6 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
      */
     public function __construct()
     {
-        IMP::initialize();
-
         $this->active = $GLOBALS['prefs']->getValue('rename_sentmail_monthly');
         if ($this->active &&
             $GLOBALS['prefs']->isLocked('rename_sentmail_monthly')) {
@@ -33,6 +31,8 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
      */
     public function execute()
     {
+        IMP::initialize();
+
         $success = true;
 
         $identity = Identity::singleton(array('imp', 'imp'));
@@ -66,6 +66,8 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
      */
     public function describe()
     {
+        IMP::initialize();
+
         $identity = Identity::singleton(array('imp', 'imp'));
 
         $new_folders = $old_folders = array();

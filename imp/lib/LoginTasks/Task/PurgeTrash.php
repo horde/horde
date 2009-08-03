@@ -17,8 +17,6 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
      */
     public function __construct()
     {
-        IMP::initialize();
-
         $this->active = $GLOBALS['prefs']->getValue('purge_trash');
         if ($this->active) {
             $this->interval = $GLOBALS['prefs']->getValue('purge_trash_interval');
@@ -35,6 +33,8 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
      */
     public function execute()
     {
+        IMP::initialize();
+
         /* If we aren't using a Trash folder or if there is no Trash
            folder set, just return. */
         $trash_folder = IMP::folderPref($GLOBALS['prefs']->getValue('trash_folder'), true);
@@ -79,6 +79,8 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
      */
     public function describe()
     {
+        IMP::initialize();
+
         return sprintf(_("All messages in your \"%s\" folder older than %s days will be permanently deleted."),
                        IMP::displayFolder(IMP::folderPref($GLOBALS['prefs']->getValue('trash_folder'), true)),
                        $GLOBALS['prefs']->getValue('purge_trash_keep'));
