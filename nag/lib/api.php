@@ -116,7 +116,7 @@ $_services['listTimeObjects'] = array(
     'type' => '{urn:horde}hashHash'
 );
 
-$_services['completeTask'] = array(
+$_services['toggleCompletion'] = array(
     'args' => array('task_id' => 'string', 'tasklist_id' => 'string'),
     'type' => 'boolean'
 );
@@ -1079,6 +1079,10 @@ function _nag_toggleCompletion($task_id, $tasklist_id)
     }
 
     $task = Nag::getTask($tasklist_id, $task_id);
+    if (is_a($task, 'PEAR_Error')) {
+        return $task;
+    }
+
     $task->completed = !$task->completed;
     if ($task->completed) {
         $task->completed_date = time();

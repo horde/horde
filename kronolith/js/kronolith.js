@@ -1458,12 +1458,12 @@ KronolithCore = {
      */
     _toggleCompletionClass: function(taskId)
     {
-        var row = $(taskId);
-        if (row.length == 0) {
+        var row = $$('tr[taskId=' + taskId + ']');
+        if (row.length != 1) {
             // FIXME: Show some error?
             return;
         }
-        var col = row.down('td.kronolithTaskCol', 0), div = col.down('div.kronolithTaskCheckbox', 0);
+        var col = row[0].down('td.kronolithTaskCol', 0), div = col.down('div.kronolithTaskCheckbox', 0);
 
         col.toggleClassName('kronolithTask');
         col.toggleClassName('kronolithTaskCompleted');
@@ -1943,7 +1943,7 @@ KronolithCore = {
                 e.stop();
                 return;
             } else if (elt.hasClassName('kronolithTaskCheckbox')) {
-                var taskId = elt.up('tr.kronolithTaskRow', 0).readAttribute('id'),
+                var taskId = elt.up('tr.kronolithTaskRow', 0).readAttribute('taskId'),
                     taskList = elt.up('tr.kronolithTaskRow', 0).readAttribute('tasklist');
                 this._toggleCompletionClass(taskId);
                 this.doAction('ToggleCompletion',
@@ -1981,7 +1981,7 @@ KronolithCore = {
                 if (calClass == 'remote' || calClass == 'external') {
                     if (calClass == 'external' && calendar.startsWith('tasks/')) {
                         var taskList = calendar.substr(6);
-                        if (typeof this.tcache.get(taskList) == 'undefined' &&
+                        if (Object.isUndefined(this.tcache.get(taskList)) &&
                             this.view == 'tasks') {
                             this._loadTasks(this.taskType,[taskList]);
                         } else {
