@@ -676,7 +676,7 @@ case 'ModifyPollFolder':
     if ($add) {
         $imptree->addPollList($mbox);
         if ($info = $imptree->getElementInfo($mbox)) {
-            $result->poll = array($mbox => $info['unseen']);
+            $result->poll = array($mbox => intval($info['unseen']));
         }
         $notification->push(sprintf(_("\"%s\" mailbox now polled for new mail."), $display_folder), 'horde.success');
     } else {

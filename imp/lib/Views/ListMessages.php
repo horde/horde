@@ -221,7 +221,7 @@ class IMP_Views_ListMessages
             $imptree = IMP_Imap_Tree::singleton();
             $info = $imptree->getElementInfo($mbox);
             if (!empty($info)) {
-                $md->unseen = $info['unseen'];
+                $md->unseen = intval($info['unseen']);
             }
 
             if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
