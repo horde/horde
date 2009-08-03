@@ -784,7 +784,7 @@ class Horde_Image_Gd extends Horde_Image_Base
         error_reporting($GLOBALS['conf']['debug_level']);
         if (!empty($php_errormsg)) {
             $error_msg = $php_errormsg;
-            throw new Horde_Image_Exception($error_msg)
+            throw new Horde_Image_Exception($error_msg);
         }
         return $result;
     }

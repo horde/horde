@@ -30,7 +30,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
                 try {
                     $this->_imagick->newImage($this->_width, $this->_height, $this->_background);
                 } catch (ImagickException $e) {
-                    throw new Horde_Image_Exception($e)
+                    throw new Horde_Image_Exception($e);
                 }
             }
 
