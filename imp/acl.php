@@ -172,10 +172,9 @@ $t->set('canedit', $canEdit);
 if (empty($_SESSION['imp']['admin'])) {
     $new_user_field = '<input id="new_user" type="text" name="new_user"/>';
 } else {
-    require_once IMP_BASE . '/lib/api.php';
     $current_users = array_keys($curr_acl);
     $new_user_field = '<select id="new_user" name="new_user">';
-    foreach (_imp_userList() as $user) {
+    foreach ($registry->callByPackage('userList', 'imp') as $user) {
         if (in_array($user, $current_users)) {
             continue;
         }

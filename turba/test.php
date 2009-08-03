@@ -32,8 +32,9 @@ $horde_test = new Horde_Test();
 
 /* Turba version. */
 $module = 'Turba';
-require_once TURBA_BASE . '/lib/version.php';
-$module_version = TURBA_VERSION;
+require_once dirname(__FILE__) . '/lib/Api.php';
+$api = new Turba_Api();
+$module_version = $api->version;
 
 require TEST_TEMPLATES . 'header.inc';
 require TEST_TEMPLATES . 'version.inc';

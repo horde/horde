@@ -33,8 +33,9 @@ $horde_test = new Horde_Test();
 
 /* Gollem version. */
 $module = 'Gollem';
-require_once GOLLEM_BASE . '/lib/version.php';
-$module_version = GOLLEM_VERSION;
+require_once dirname(__FILE__) . '/lib/Api.php';
+$api = new Gollem_Api();
+$module_version = $api->version;
 
 /* Gollem configuration files. */
 $file_list = array(

@@ -12,7 +12,6 @@
 
 $ansel_session_control = 'readonly';
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once ANSEL_BASE . '/lib/version.php';
 
 // Get form data
 $stream_type = Horde_Util::getFormData('stream_type', 'all');
@@ -266,7 +265,7 @@ if (empty($rss)) {
     $image_url = htmlspecialchars($params['image_url']);
     $image_link = htmlspecialchars($params['image_link']);
     $image_alt = htmlspecialchars($params['image_alt']);
-    $ansel = 'Ansel ' . ANSEL_VERSION . ' (http://www.horde.org/)';
+    $ansel = 'Ansel ' . $registry->getVersion('ansel') . ' (http://www.horde.org/)';
 
     if ($stream_type != 'all' && $type != 'rss2') {
         $getparams = array('stream_type' => $stream_type, 'type' => $type);

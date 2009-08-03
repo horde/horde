@@ -122,8 +122,9 @@ $horde_test = new Horde_Test;
 
 /* IMP version. */
 $module = 'IMP';
-require_once IMP_BASE .'/lib/version.php';
-$module_version = IMP_VERSION;
+require_once dirname(__FILE__) . '/lib/Api.php';
+$api = new IMP_Api();
+$module_version = $api->version;
 
 require TEST_TEMPLATES . 'header.inc';
 require TEST_TEMPLATES . 'version.inc';
