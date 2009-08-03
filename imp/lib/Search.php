@@ -74,7 +74,7 @@ class IMP_Search
      *
      * @var array
      */
-    static protected $_vfolder;
+    static protected $_vfolder = null;
 
     /**
      * Constructor.
@@ -280,7 +280,7 @@ class IMP_Search
      */
     protected function _getVFolderList()
     {
-        if (isset(self::$_vfolder)) {
+        if (!is_null(self::$_vfolder)) {
             return self::$_vfolder;
         }
 
@@ -306,7 +306,7 @@ class IMP_Search
     protected function _saveVFolderList($vfolder)
     {
         $GLOBALS['prefs']->setValue('vfolder', serialize($vfolder));
-        unset(self::$_vfolder);
+        self::$_vfolder = null;
     }
 
     /**
