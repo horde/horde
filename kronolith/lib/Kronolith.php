@@ -1893,7 +1893,7 @@ class Kronolith
 
         /* Print. */
         if ($conf['menu']['print'] && ($view = Horde_Util::nonInputVar('view'))) {
-            Horde::addScriptFiles('popup.js', 'horde', true);
+            Horde::addScriptFile('popup.js', 'horde', true);
             $menu->add(Horde_Util::addParameter($view->link(), 'print', 1), _("_Print"), 'print.png', $registry->getImageDir('horde'), '_blank', 'Horde.popup({ url: kronolithPrintLink ? kronolithPrintLink : this.href });return false;', '__noselection');
         }
 
