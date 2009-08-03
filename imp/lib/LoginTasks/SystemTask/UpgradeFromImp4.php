@@ -36,8 +36,8 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
         $update = false;
         $sortpref = @unserialize($GLOBALS['prefs']->getValue('sortpref'));
         foreach ($sortpref as $key => $val) {
-            if ($val > 10) {
-                $sortpref[$key] = Horde_Imap_Client::SORT_ARRIVAL;
+            if ($val['b'] > 10) {
+                $sortpref[$key]['b'] = Horde_Imap_Client::SORT_ARRIVAL;
                 $update = true;
             }
         }
