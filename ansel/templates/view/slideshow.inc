@@ -1,11 +1,11 @@
 <script type="text/javascript">
 //<![CDATA[
-SlideController.initialize(<?php echo $this->json() ?>, <?php echo $imageIndex ?>, "<?php echo $GLOBALS['registry']->get('webroot')?>", <?php echo $this->gallery->id ?>, "<?php echo $this->gallery->getName()?>");
+SlideController.initialize(<?php echo $this->json(array('view_links' => true)) ?>, <?php echo $imageIndex ?>, "<?php echo $GLOBALS['registry']->get('webroot')?>", <?php echo $this->gallery->id ?>, "<?php echo $this->gallery->getName()?>");
 //]]>
 
 function stopSlideShow()
 {
-    location.href = "<?php echo Horde::applicationUrl($this->_urls['gallery'], true) ?>?image=" + SlideController.photos[SlideController.photoId][3] + "&view=Image&page=" + SlideController.photos[SlideController.photoId][4];
+    location.href = SlideController.photos[SlideController.photoId][5];
 }
 </script>
 
@@ -48,7 +48,7 @@ function stopSlideShow()
   <tr>
    <td style="margin:5px;height:<?php echo $GLOBALS['conf']['screen']['height'] ?>px;vertical-align:top;">
      <div id="Container">
-      <?php echo Horde::img('blank.gif', '', array('id' => 'Photo', 'style' => 'display:none;', 'width' => $this->_geometry['width'], 'height' => $this->_geometry['height']), $registry->getImageDir('horde')) ?>
+      <?php echo Horde::img('blank.gif', '', array('id' => 'Photo', 'style' => 'display:none;'), $registry->getImageDir('horde')) ?>
      </div>
    </td>
   </tr>

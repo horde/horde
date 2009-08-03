@@ -65,8 +65,15 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Gallery
         }
 
         if (empty($images)) {
-            $json = $this->json(null, true, $start, $count, $thumbsize, true);
-            $json_full = $this->json(null, true, $start, $count, 'screen', true);
+            $json = $this->json(array('full' => true,
+                                      'from' => $start,
+                                      'count' => $count,
+                                      'image_view' => $thumbsize,
+                                      'view_links' => true));
+            $json_full = $this->json(array('full' => true,
+                                           'from' => $start,
+                                           'count' => $count,
+                                           'view_links' => true));
         } else {
             $json = $GLOBALS['ansel_storage']->getImageJson($images, null, true, $thumbsize, true);
             $json_full = $GLOBALS['ansel_storage']->getImageJson($images, null, true, 'screen', true);

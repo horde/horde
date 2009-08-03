@@ -138,26 +138,38 @@ abstract class Ansel_View_Base
    /**
      * JSON representation of this gallery's images.
      *
-     * @param array $images   An array of Ansel_Image objects. If this is null
-     *                        the images are fetched based on $from and $count.
-     *
-     * @param integer $from   Image to start at.
-     * @param integer $count  Number of images to get.
+     * @param array $params  An array of parameters for this method:
+     *   <pre>
+     *      images -     Array of Ansel_Images to generate JSON for [null]
+     *      full   -     Should a full URL be generated? [false]
+     *      from   -     Starting image count [0]
+     *      count  -     The number of images to include (starting at from) [0]
+     *      image_view - The type of ImageView to obtain the src url for. [screen]
+     *      view_links - Should the JSON include links to the Image and/or Gallery View? [false]
+     *      perpage    - Number of images per page [from user prefs]
+     *   </pre>
      *
      * @return string  A serialized JSON array.
      */
-    public function json($images = null, $full = false, $from = 0, $count = 0,
-                         $image_view = 'screen', $view_links = false)
+    public function json($params = array())
     {
         global $conf, $prefs;
 
+        $default = array('full' => false,
+                         'from' => 0,
+                         'count' => 0,
+                         'image_view' => 'screen',
+                         'view_links' => false,
+                         'perpage' => $prefs->getValue('tilesperpage', $conf['thumbnail']['perpage']));
+
+        $params = array_merge($default, $params);
+
         $json = array();
-        $perpage = $prefs->getValue('tilesperpage', $conf['thumbnail']['perpage']);
         $curimage = 0;
         $curpage =  0;
 
-        if (is_null($images)) {
-            $images = $this->gallery->getImages($from, $count);
+        if (empty($params['images'])) {
+            $images = $this->gallery->getImages($params['from'], $params['count']);
         }
 
         $style = $this->gallery->getStyle();
@@ -165,22 +177,23 @@ abstract class Ansel_View_Base
         foreach ($images as $image) {
             // Calculate the page this image will appear on in the
             // gallery view.
-            if (++$curimage > $perpage) {
+            if (++$curimage > $params['perpage']) {
                 ++$curpage;
                 $curimage = 0;
             }
 
-            $data = array(Ansel::getImageUrl($image->id, $image_view, $full, $style['name']),
+            $data = array(Ansel::getImageUrl($image->id, $params['image_view'], $params['full'], $style['name']),
                           htmlspecialchars($image->filename, ENT_COMPAT, Horde_Nls::getCharset()),
                           Horde_Text_Filter::filter($image->caption, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL)),
                           $image->id,
                           $curpage);
-            if ($view_links) {
+            if ($params['view_links']) {
                 $data[] = Ansel::getUrlFor('view',
                     array('gallery' => $this->gallery->id,
                           'slug' => $this->gallery->get('slug'),
                           'image' => $image->id,
-                          'view' => 'Image'),
+                          'view' => 'Image',
+                          'page' => $curpage),
                     true);
                 $data[] = Ansel::getUrlFor('view',
                     array('gallery' => $image->gallery,

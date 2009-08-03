@@ -52,6 +52,7 @@ var SlideController = {
     },
 
     /**
+     * 
      */
     play: function() {
         $('ssPlay').hide();
@@ -65,6 +66,7 @@ var SlideController = {
     },
 
     /**
+     * Leaving this in here, but currently we just redirect back to the Image view
      */
     pause: function() {
         $('ssPause').hide();
