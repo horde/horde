@@ -498,7 +498,7 @@ msgstr "Confermato"
 
 #: templates/prefs/fb_cals_select.inc:6
 msgid "Copy this URL for use wherever you need your Free/Busy URL:"
-msgstr "Compia l'URL seguente per ottenere le informazioni di Libero/Occupato:"
+msgstr "Copia l'URL seguente per ottenere le informazioni di Libero/Occupato:"
 
 #: lib/Kronolith.php:456
 #, php-format
@@ -542,6 +542,10 @@ msgstr "Giornaliero: Si ripete ogni"
 #: config/prefs.php.dist:90
 msgid "Day"
 msgstr "Giorno"
+
+#: config/prefs.php.dist:50
+msgid "Maintenance"
+msgstr "Manutenzione"
 
 #: templates/prefs/default_alarm_management.inc:28 templates/view/view.inc:56
 #: templates/edit/edit.inc:170
@@ -600,7 +604,7 @@ msgstr "Elimina %s"
 #: lib/Driver.php:1328
 #, php-format
 msgid "Delete exception on %s"
-msgstr "Eccezione Emininazione in %s"
+msgstr "Eliminazione eccezione in %s"
 
 #: templates/edit/edit.inc:180 templates/search/search_advanced.inc:101
 #: templates/search/search.inc:27
@@ -799,11 +803,11 @@ msgstr "Eventi da %s"
 
 #: lib/Driver.php:1060
 msgid "Events must have a start date."
-msgstr "Gli Eventi devono avere una data inizio."
+msgstr "Gli Eventi devono avere una data di inizio."
 
 #: lib/Driver.php:1022
 msgid "Events must have a title."
-msgstr "Gli Eventi devono avere una titolo."
+msgstr "Gli Eventi devono avere un titolo."
 
 #: templates/view/view.inc:130 templates/edit/edit.inc:323
 msgid "Exceptions"
@@ -1109,7 +1113,7 @@ msgstr "Sposta Su"
 
 #: lib/api.php:1063
 msgid "Multiple iCalendar components found; only one vEvent is supported."
-msgstr "Trovadi diversi compenenti icalendar; sol un vEvent è supportato."
+msgstr "Trovati diversi compenenti icalendar; solo un vEvent è supportato."
 
 #: templates/panel.inc:41
 msgid "My Calendars:"
@@ -1136,7 +1140,7 @@ msgid ""
 "s."
 msgstr ""
 "Il nuovo calendario è stato creato e automaticamente condiviso con i "
-"seguenti gruppo: %s."
+"seguenti gruppo/i: %s."
 
 #: templates/data/import.inc:33
 msgid "Next"
@@ -1278,6 +1282,10 @@ msgstr "Ottobre"
 msgid "On"
 msgstr "Su"
 
+#: config/prefs.php.dist:51
+msgid "Set options for deleting old events."
+msgstr "Imposta le opzioni che permettono di cancellare eventi scaduti."
+
 #: config/prefs.php.dist:339 config/prefs.php.dist:352
 #: config/prefs.php.dist:373
 msgid "On all calendars I have read access to"
@@ -1298,8 +1306,8 @@ msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
 msgstr ""
-"Solo il proprietario o l'aministrazione di sistema può cambiare la proprietà "
-"o i permessi del proprietario della condivisione"
+"Solo il proprietario o l'amministrazione di sistema possono cambiare la "
+"proprietà o i permessi del proprietario della condivisione"
 
 #: lib/Kronolith.php:1197
 msgid "Optional"
@@ -1411,6 +1419,18 @@ msgstr "Evento Riservato"
 #: templates/edit/edit.inc:120
 msgid "Private?"
 msgstr "Riservato?"
+
+#: config/prefs.php.dist:472
+msgid "Purge old events from your calender?"
+msgstr "Eliminare i vecchi eventi dal proprio calendario?"
+
+#: config/prefs.php.dist:481
+msgid "Purge old events how often:"
+msgstr "Frequenza con la quale eliminare i vecchi eventi:"
+
+#: config/prefs.php.dist:489
+msgid "Purge old events older than this amount of days."
+msgstr "Eliminare gli eventi più vecchi del seguente numero di giorni."
 
 #: templates/perms/perms.inc:52 templates/perms/perms.inc:82
 #: templates/perms/perms.inc:108 templates/perms/perms.inc:123
@@ -1526,7 +1546,9 @@ msgstr "Elimina sogente"
 msgid ""
 "Removing user data is not supported with the current calendar storage "
 "backend."
-msgstr "Impossibile eliminare i dati utente le calendario corrente."
+msgstr ""
+"Impossibile eliminare i dati utente con il backend usato dal calendario "
+"corrente."
 
 #: templates/data/import.inc:31
 msgid ""
@@ -1646,7 +1668,7 @@ msgstr "Seleziona una rubrica per aggiungere e cercare indirizzi."
 
 #: templates/prefs/sourceselect.inc:319
 msgid "Select all fields to search when expanding addresses."
-msgstr "Seleziona tuttu u campi di ricerca quando si espandono indirizzi."
+msgstr "Seleziona tutti i campi di ricerca quando si espandono indirizzi."
 
 #: config/prefs.php.dist:11
 msgid ""
@@ -1927,7 +1949,7 @@ msgstr "Il calendario non può essere svuotato: %s."
 
 #: templates/edit/javascript.inc:156
 msgid "The end date must be later than the start date."
-msgstr "La data di fine deve essere dopo la data di'inizio."
+msgstr "La data di fine deve essere dopo la data di inizio."
 
 #: lib/Kronolith.php:1596
 #, php-format
@@ -1951,16 +1973,16 @@ msgstr "L'evento %s è stato modificato nel calendario %s, il %s alle %s."
 #: lib/Kronolith.php:1486
 #, php-format
 msgid "The event notification to %s was successfully sent."
-msgstr "La notificazione del evento a %s è stata inviata con successo."
+msgstr "La notifica dell'evento è stata inviata con successo a %s."
 
 #: lib/Kronolith.php:1440
 msgid "The following is a more detailed description of the event:"
-msgstr "Il seguente è una decrizione più dettagliata del evento:"
+msgstr "La seguente è una descrizione più dettagliata dell'evento:"
 
 #: lib/FreeBusy.php:193
 #, php-format
 msgid "The free/busy url for %s cannot be retrieved."
-msgstr "Impossibile trovare l'URL libero occupato per %s."
+msgstr "Impossibile trovare l'URL libero occupato di %s."
 
 #: calendars/remote_unsubscribe.php:36 calendars/remote_edit.php:36
 msgid "The remote calendar was not found."

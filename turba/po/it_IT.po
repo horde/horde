@@ -1,9 +1,9 @@
 # Turba 0.0.3 Italian translation.
-# Copyright 2001 Paola Carpenter.
+# Copyright (C) 2001 Paola Carpenter.
 # Paola Carpenter <pcarpenter@infvic.it>; Giovanni Meneghetti <gmeneghetti@infvic.it>, 2001.
-# Copyright 2003 Sergio G. Caredda.
+# Copyright (c) 2003 Sergio G. Caredda.
 # Sergio G. Caredda <scaredda@tiscali.it>, 2003.
-# Copyright 2007 nethesis srl.
+# Copyright (c) 2007 nethesis srl.
 # Cristian Manoni, Alessio Fattorini, Davide marini 2007
 #
 msgid ""
@@ -383,7 +383,7 @@ msgstr "Crea Rubrica"
 
 #: templates/addressbook_list.php:8
 msgid "Create a new Address Book"
-msgstr "Crea una nuuova Rubrica"
+msgstr "Crea una nuova Rubrica"
 
 #: lib/ListView.php:447
 msgid "Create a new Contact List in:"
@@ -424,6 +424,10 @@ msgstr "Eliminazione Fallita"
 #: config/attributes.php.dist:300
 msgid "Department"
 msgstr "Dipartimento"
+
+#: contact.php:109
+msgid "Mark this as your own contact"
+msgstr "Seleziona come tua informazione personale"
 
 #: lib/Forms/EditAddressBook.php:44 lib/Forms/CreateAddressBook.php:37
 msgid "Description"
@@ -560,7 +564,7 @@ msgstr ""
 #: lib/Views/Browse.php:186
 #, php-format
 msgid "Failed to find object to be added: %s"
-msgstr "Ricerca di oggetti da aggiungere falita: %s"
+msgstr "Ricerca di oggetti da aggiungere fallita: %s"
 
 #: search.php:190
 msgid "Failed to search the address book"
@@ -569,7 +573,7 @@ msgstr "Ricerca nella rubrica fallita"
 #: data.php:157
 #, php-format
 msgid "Failed to search the directory: %s"
-msgstr "Ricerca nella directory falita: %s"
+msgstr "Ricerca nella directory fallita: %s"
 
 #: config/sources.php.dist:550
 msgid "Favourite Recipients"
@@ -897,8 +901,8 @@ msgstr "Nessun dato %s trovato per %s."
 msgid ""
 "No Address Books are currently available. Import and Export is disabled."
 msgstr ""
-"Nessuna rubrica è al momento disponibile. Impostazione/Esportazione è "
-"disattivato."
+"Nessuna rubrica è al momento disponibile. Importazione/Esportazione "
+"disattivata."
 
 #: search.php:107
 msgid "No Address Books are currently available. Searching is disabled."
@@ -923,7 +927,7 @@ msgstr "Nessun contatto corrispondente"
 
 #: lib/Driver/favourites.php:124
 msgid "No source for favourite recipients exists."
-msgstr "Non esiste nessun archivio per contatti favoriti."
+msgstr "Non esiste nessun archivio per contatti preferiti."
 
 #: lib/api.php:762 lib/api.php:1060
 msgid "No vCard data was found."
@@ -974,7 +978,7 @@ msgid ""
 "to \"None\"."
 msgstr ""
 "Una volta confermate queste opzioni, la rubrica verrà eliminata "
-"definitivamente. Se non è questo che si desidera modificare la selezione su "
+"definitivamente. Se non è questo che si desidera, modificare la selezione su "
 "\"Nessuna\""
 
 #: lib/api.php:1068
@@ -1047,9 +1051,9 @@ msgid ""
 "Really delete the address book \"%s\"? This cannot be undone and all "
 "contacts in this address book will be permanently removed."
 msgstr ""
-"Sei sicuro di eliminare la rubrica %s?. questa operazione non può essere "
+"Sei sicuro di eliminare la rubrica %s?. Questa operazione non può essere "
 "annullata e tutti i contatti di questa rubrica saranno eliminati "
-"permanentemente"
+"permanentemente."
 
 #: templates/prefs/addressbookselect.inc:175
 msgid "Remove address book"
@@ -1065,7 +1069,7 @@ msgid ""
 "driver."
 msgstr ""
 "L'attuale database delle rubriche non permette l'eliminazione delle "
-"informazioni dell'utnte "
+"informazioni dell'utente."
 
 #: templates/data/import.inc:22
 msgid ""
@@ -1315,7 +1319,12 @@ msgstr "la rubrica non può essere svuotata: %s"
 #: addressbooks/delete.php:50
 #, php-format
 msgid "The addressbook \"%s\" has been deleted."
-msgstr "la rubrica %s è stato eliminato"
+msgstr "la rubrica %s è stato eliminata"
+
+#: contact.php:57
+msgid "This contact has been marked as your own."
+msgstr ""
+"Questo contatto è stato selezionato come propria informazione personale."
 
 #: addressbooks/edit.php:44
 #, php-format
@@ -1355,9 +1364,9 @@ msgid ""
 "are configured to allow you to add new entries to them. If you believe this "
 "is an error, please contact your system administrator."
 msgstr ""
-"Nessuna delle rubriche disponibili è configurata in modo da consertirti "
-"diaggiungere nuove entrate. Se pensi sia un errore, per favore contatta il "
-"tuo amministratore di sistema."
+"Nessuna delle rubriche disponibili è configurata in modo da consertirti di "
+"aggiungere nuove entrate. Se pensi sia un errore, per favore contatta il tuo "
+"amministratore di sistema."
 
 #: lib/Views/Browse.php:349
 #, php-format
@@ -1575,7 +1584,7 @@ msgstr "Non sei abilitato a creare più di %d contatti in \"%s\"."
 
 #: addressbooks/delete.php:37
 msgid "You are not allowed to delete this addressbook."
-msgstr "Non seiautorizzato a eliminare questa rubrica."
+msgstr "Non sei autorizzato a eliminare questa rubrica."
 
 #: lib/api.php:198
 msgid "You are not allowed to remove user data."
@@ -1592,6 +1601,11 @@ msgstr "Non si possono inserire contatti in una Rubrica Virtuale."
 #: lib/Driver/vbook.php:129
 msgid "You cannot delete contacts from a virtual address book"
 msgstr "Non si possono eliminare contatti da una Rubrica Virtuale."
+
+#: lib/api.php:1056
+msgid "You didn't mark a contact as your own yet."
+msgstr ""
+"Non hai ancora selezionato un contatto come tua informazione personale."
 
 #: view.php:38 edit.php:66 lib/Views/EditContact.php:49
 #: lib/Views/DeleteContact.php:42
