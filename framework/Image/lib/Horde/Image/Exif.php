@@ -101,6 +101,7 @@ class Horde_Image_Exif
                      'GPSLongitude' => array('description' => _("Longitude"), 'type' => 'gps'),
                      'LightSource' => array('description' => _("Light source"), 'type' => 'number'),
                      'FileSource' => array('description' => _("File source"), 'type' => 'number'),
+                     'Keywords' => array('description' => _("Image keywords"), 'type' => 'array')
         );
     }
 
@@ -421,6 +422,7 @@ class Horde_Image_Exif
             //       method to take an optional charset to convert to (would
             //       introduce a dependency on Horde_String to do the conversion).
             $data = trim(substr($data, 7))  ;
+
 
         default:
             return !empty($data) ? $data : '---';

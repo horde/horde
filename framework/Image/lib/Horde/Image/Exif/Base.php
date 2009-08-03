@@ -57,8 +57,12 @@ abstract class Horde_Image_Exif_Base
 
                 /* Special handling of GPS data */
                 if ($data['type'] == 'gps') {
-                    $value = self::_parseGPSData($exif[$field]);
-                    if (!empty($exif[$field . 'Ref']) && ($exif[$field . 'Ref'] == 'S' || $exif[$field . 'Ref'] == 'W')) {
+                    $value = $this->_parseGPSData($exif[$field]);
+                    if (!empty($exif[$field . 'Ref']) && ($exif[$field . 'Ref'] == 'S' ||
+                                                          $exif[$field . 'Ref'] == 'South' ||
+                                                          $exif[$field . 'Ref'] == 'W' ||
+                                                          $exif[$field . 'Ref'] == 'West')) {
+
                         $value = '-' . $value;
                     }
                 }
@@ -93,6 +97,11 @@ abstract class Horde_Image_Exif_Base
     {
         // According to EXIF standard, GPS data can be in the form of
         // dd/1 mm/1 ss/1 or as a decimal reprentation.
+        if (!is_array($data)) {
+            // Assume a scalar is a decimeal representation - but strip it of
+            // any stray characters that may be there.
+            return (double)trim(str_replace(array('N', 'S', 'E', 'W', '"'), array('', '', '', '', ''), $data));
+        }
         if ($data[0] == 0) {
             return 0;
         }

@@ -36,15 +36,20 @@ class Horde_Image_Exif_Exiftool extends Horde_Image_Exif_Base
     public function getData($image)
     {
         // Request the full stream of meta data in JSON format.
-        $command = '-j ' . $image;
+        $command = '-j -c "%.6f ' . $image;
         $test = $this->_execute($command);
         $results = json_decode($this->_execute($command));
-        var_dump($results);
-        if ($results instanceof stdClass) {
-            return $results;
+        if (is_array($results)) {
+            $results = array_pop($results);
         }
 
-        throw new Horde_Image_Exception('Unknown error running exiftool command.');
+        // Return as an array since that's what all the other Exif classes do...
+        if ($results instanceof stdClass) {
+            return $this->_processData((array)$results);
+        }
+
+        throw new Horde_Image_Exception('Unknown error running exiftool command');
+
     }
 
     /**
