@@ -155,7 +155,7 @@ case 'import_mbox':
     $import_folder = Horde_Util::getFormData('import_folder');
     if (!empty($import_folder)) {
         $res = $browser->wasFileUploaded('mbox_upload', _("mailbox file"));
-        if (!$res instanceof PEAR_Error) {
+        if (!($res instanceof PEAR_Error)) {
             $res = $imp_folder->importMbox(Horde_String::convertCharset($import_folder, $charset, 'UTF7-IMAP'), $_FILES['mbox_upload']['tmp_name']);
             $mbox_name = basename(Horde_Util::dispelMagicQuotes($_FILES['mbox_upload']['name']));
             if ($res === false) {

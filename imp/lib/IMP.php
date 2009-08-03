@@ -152,7 +152,7 @@ class IMP
         $escapeName = htmlspecialchars($newName, ENT_COMPAT, Horde_Nls::getCharset());
         error_reporting($old_error);
 
-        return (!empty($contact_link) && !$contact_link instanceof PEAR_Error)
+        return (!empty($contact_link) && !($contact_link instanceof PEAR_Error))
             ? Horde::link(Horde::url($contact_link), sprintf(_("Go to address book entry of \"%s\""), $newName)) . $escapeName . '</a>'
             : $escapeName;
     }
