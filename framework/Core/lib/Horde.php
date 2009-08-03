@@ -285,7 +285,7 @@ HTML;
     {
         global $conf;
 
-        $driver = empty($conf['cachejs'])
+        $driver = empty($conf['cachejs']) || $conf['cachejs'] == 'none'
             ? 'none'
             : $conf['cachejsparams']['driver'];
         $hsf = Horde_Script_Files::singleton();
@@ -1657,7 +1657,7 @@ HTML;
             $css = array_merge($css, $options['additional']);
         }
 
-        $cache_type = empty($conf['cachecss'])
+        $cache_type = empty($conf['cachecss']) || $conf['cachecss'] == 'none'
             ? 'none'
             : $conf['cachecss'];
 
