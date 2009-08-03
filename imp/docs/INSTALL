@@ -436,13 +436,8 @@ javascript debugging.  It is highly recommended to use Mozilla Firefox with
 the `Firebug`_ extension installed in order to better track javascript
 errors - it is what the developers use and makes deciphering error codes and
 error line numbers much easier.  It is also recommended to set the ``debug``
-parameter in ``imp/conf/conf.php`` to ``true`` (no quotes).  Next you will
-want to turn off javascript caching, if on, in ``imp/conf/conf.php``.
-Finally, you need to change ``horde/conf/registry.php`` to serve the
-javascript files from the ``js/src/`` directory rather than the ``js/``
-directory (we compress javascript files to reduce network load, but this
-results in all javascript errors occurring on "line 1" which is not very
-useful to diagnose problems).
+parameter in ``imp/conf/conf.php`` to ``true`` (no quotes).  You will also
+want to turn off javascript caching, if on, in ``horde/conf/conf.php``.
 
 If you do find a javascript error, it would be great if you could fix the
 issue and provide a patch :)  Absent that, before reporting to the mailing
