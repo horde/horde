@@ -63,7 +63,7 @@ abstract class Horde_Image_Exif_Base
                                                           $exif[$field . 'Ref'] == 'W' ||
                                                           $exif[$field . 'Ref'] == 'West')) {
 
-                        $value = '-' . $value;
+                        $value = '-' . abs($value);
                     }
                 }
 
@@ -77,6 +77,9 @@ abstract class Horde_Image_Exif_Base
                     }
                 }
 
+                if ($data['type'] == 'array') {
+                    $value = implode(',', $value);
+                }
                 $results[$field] = $value;
             }
         }
