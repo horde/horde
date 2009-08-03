@@ -25,16 +25,17 @@ class Ansel_ImageView_shadowsharpthumb extends Ansel_ImageView {
                 $styleDef = Ansel::getStyleDefinition($this->_style);
             }
 
-            $res = $this->_image->_image->addEffect(
-                'border', array('bordercolor' => '#333'));
-
-            $this->_image->_image->addEffect('DropShadow',
-                                             array('background' => $styleDef['background'],
-                                                   'padding' => 5,
-                                                   'distance' => '8',
-                                                   'fade' => 2));
-
-            $this->_image->_image->applyEffects();
+            try {
+                $this->_image->_image->addEffect('border', array('bordercolor' => '#333'));
+                $this->_image->_image->addEffect('DropShadow',
+                                                 array('background' => $styleDef['background'],
+                                                       'padding' => 5,
+                                                       'distance' => '8',
+                                                       'fade' => 2));
+                $this->_image->_image->applyEffects();
+            } catch (Horde_Image_Exception $e) {
+                return false;
+            }
 
             return true;
         }

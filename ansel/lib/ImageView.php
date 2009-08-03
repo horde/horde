@@ -62,6 +62,7 @@ class Ansel_ImageView {
         if (!empty($this->_image)) {
             $this->_dimensions = $this->_image->_image->getDimensions();
         }
+
         return $this->_create();
     }
 

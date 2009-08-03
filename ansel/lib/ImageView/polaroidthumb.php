@@ -25,11 +25,15 @@ class Ansel_ImageView_polaroidthumb extends Ansel_ImageView {
             } else {
                 $styleDef = Ansel::getStyleDefinition($this->_style);
             }
-            $this->_image->_image->addEffect('PolaroidImage',
-                                              array('background' => $styleDef['background'],
-                                                    'padding' => 5));
+            try {
+                $this->_image->_image->addEffect('PolaroidImage',
+                                                  array('background' => $styleDef['background'],
+                                                        'padding' => 5));
 
-            $this->_image->_image->applyEffects();
+                $this->_image->_image->applyEffects();
+            } catch (Horde_Image_Exception $e) {
+                return false;
+            }
 
             return true;
         }

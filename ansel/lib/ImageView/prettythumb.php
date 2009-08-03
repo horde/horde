@@ -25,21 +25,17 @@ class Ansel_ImageView_prettythumb extends Ansel_ImageView {
                 $styleDef = Ansel::getStyleDefinition($this->_style);
             }
 
-            /* Apply the effects - continue on error, but be sure to log */
-            $res = $this->_image->_image->addEffect('RoundCorners',
-                                                    array('border' => 2,
-                                                          'bordercolor' => '#333'));
-            if (is_a($res, 'PEAR_Error')) {
-                Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
-            }
+            try {
+                /* Apply the effects - continue on error, but be sure to log */
+                $this->_image->_image->addEffect('RoundCorners', array('border' => 2,
+                                                                       'bordercolor' => '#333'));
 
-            $res = $this->_image->_image->addEffect('DropShadow',
-                                                    array('background' => $styleDef['background'],
-                                                          'padding' => 5,
-                                                          'distance' => 5,
-                                                          'fade' => 3));
-            if (is_a($res, 'PEAR_Error')) {
-                Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
+                $this->_image->_image->addEffect('DropShadow', array('background' => $styleDef['background'],
+                                                                     'padding' => 5,
+                                                                     'distance' => 5,
+                                                                     'fade' => 3));
+            } catch (Horde_Image_Exception $e) {
+                return false;
             }
 
             return $this->_image->_image->applyEffects();

@@ -27,21 +27,21 @@ class Ansel_ImageView_polaroidstack extends Ansel_ImageView {
                         'background' => $style['background']);
 
         $baseImg = Ansel::getImageObject($params);
-        $result = $baseImg->addEffect(
-            'PhotoStack',
-            array('images' => $imgobjs,
-                  'resize_height' => $GLOBALS['conf']['thumbnail']['height'],
-                  'padding' => 10,
-                  'background' => $style['background'],
-                  'type' => 'polaroid'));
+        try {
+            $baseImg->addEffect(
+                'PhotoStack',
+                array('images' => $imgobjs,
+                      'resize_height' => $GLOBALS['conf']['thumbnail']['height'],
+                      'padding' => 10,
+                      'background' => $style['background'],
+                      'type' => 'polaroid'));
+            $baseImg->applyEffects();
+            $baseImg->resize($GLOBALS['conf']['thumbnail']['width'],
+                             $GLOBALS['conf']['thumbnail']['height']);
 
-        $baseImg->applyEffects();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        } catch (Horde_Image_Exception $e) {
+            return false;
         }
-
-        $baseImg->resize($GLOBALS['conf']['thumbnail']['width'],
-                         $GLOBALS['conf']['thumbnail']['height']);
 
         return $baseImg;
 
