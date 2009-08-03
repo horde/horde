@@ -771,7 +771,7 @@ class Gollem
 
             if ($_SESSION['gollem']['backends'][$backend_key]['quota_val'] != -1) {
                 if ($GLOBALS['browser']->hasFeature('javascript')) {
-                    $quota_url = 'javascript:' . Horde::popupJs(Horde::applicationUrl('quota.php'), array('params' => ('backend' => $backend_key), 'height' => 300, 'width' => 300, 'urlencode' => true));
+                    $quota_url = 'javascript:' . Horde::popupJs(Horde::applicationUrl('quota.php'), array('params' => array('backend' => $backend_key), 'height' => 300, 'width' => 300, 'urlencode' => true));
                 } else {
                     $quota_url = Horde_Util::addParameter(Horde::applicationUrl('quota.php'), 'backend', $backend_key);
                 }
