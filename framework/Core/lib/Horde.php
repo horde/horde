@@ -285,12 +285,12 @@ HTML;
     {
         global $conf;
 
-        $cache_type = empty($conf['cachejs'])
+        $driver = empty($conf['cachejs'])
             ? 'none'
-            : $conf['cachejs'];
+            : $conf['cachejsparams']['driver'];
         $hsf = Horde_Script_Files::singleton();
 
-        if ($cache_type == 'none') {
+        if ($driver == 'none') {
             $hsf->includeFiles();
             return;
         }
@@ -303,8 +303,20 @@ HTML;
             return;
         }
 
-        if ($cache_type == 'horde_cache') {
+        if ($driver == 'horde_cache') {
             $cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], self::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+            $cache_lifetime = empty($conf['cachejsparams']['lifetime'])
+                ? 0
+                : $conf['cachejsparams']['lifetime'];
+        }
+
+        if ($conf['cachejsparams']['compress'] == 'yui') {
+            $jsmin_params = array(
+                'java' => $conf['cachejsparams']['javapath'],
+                'yui' => $conf['cachejsparams']['yuipath']
+            );
+        } else {
+            $jsmin_params = array();
         }
 
         /* Output prototype.js separately from the other files. */
@@ -338,7 +350,7 @@ HTML;
             sort($sig_files);
             $sig = hash('md5', serialize($sig_files) . $mtime);
 
-            switch ($cache_type) {
+            switch ($driver) {
             case 'filesystem':
                 $js_filename = '/static/' . $sig . '.js';
                 $js_path = $GLOBALS['registry']->get('fileroot', 'horde') . $js_filename;
@@ -346,8 +358,9 @@ HTML;
                 $exists = file_exists($js_path);
                 break;
 
+            case 'horde_cache':
                 // Do lifetime checking here, not on cache display page.
-                $exists = $cache->exists($sig, empty($conf['cachejsparams']['lifetime']) ? 0 : $conf['cachejsparams']['lifetime']);
+                $exists = $cache->exists($sig, $cache_lifetime);
                 $js_url = self::getCacheUrl('js', array('cid' => $sig));
                 break;
             }
@@ -355,17 +368,22 @@ HTML;
             if (!$exists) {
                 $out = '';
                 foreach ($files as $val) {
-                    // Separate JS files with a newline since some compressors
-                    // may strip trailing terminators.
                     $js_text = file_get_contents($val);
-                    try {
-                        $out .= Horde_Text_Filter::filter($js_text, 'JavascriptMinify') . "\n";
-                    } catch (Horde_Exception $e) {
+
+                    if ($conf['cachejsparams']['compress'] == 'none') {
                         $out .= $js_text . "\n";
+                    } else {
+                        /* Separate JS files with a newline since some
+                         * compressors may strip trailing terminators. */
+                        try {
+                            $out .= Horde_Text_Filter::filter($js_text, 'JavascriptMinify', $jsmin_params) . "\n";
+                        } catch (Horde_Exception $e) {
+                            $out .= $js_text . "\n";
+                        }
                     }
                 }
 
-                switch ($cache_type) {
+                switch ($driver) {
                 case 'filesystem':
                     if (!file_put_contents($js_path, $out)) {
                         throw new Horde_Exception('Could not write cached JS file to disk.');
