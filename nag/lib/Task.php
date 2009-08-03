@@ -667,7 +667,7 @@ class Nag_Task {
             //whitespace
             $json->sd = Horde_String::substr($this->desc, 0, 80);
         }
-        $json->cp = $this->completed;
+        $json->cp = (boolean)$this->completed;
         if ($this->due) {
             $date = new Horde_Date($this->due);
             $json->du = $date->toJson();
@@ -676,7 +676,7 @@ class Nag_Task {
             $date = new Horde_Date($this->start);
             $json->s = $date->toJson();
         }
-        $json->pr = $this->priority;
+        $json->pr = (int)$this->priority;
 
         if ($full) {
             // @todo: do we really need all this?
@@ -687,14 +687,17 @@ class Nag_Task {
             $json->o = $this->owner;
             $json->as = $this->assignee;
             $json->ct = $this->category;
-            $json->e =  $this->estimate;
+            if ($this->estimate) {
+                $date = new Horde_Date($this->estimate);
+                $json->e = $date->toJson();
+            }
             if ($this->completed_date) {
                 $date = new Horde_Date($this->completed_date);
                 $json->cd = $date->toJson();
             }
             $json->a = $this->alarm;
             $json->m = $this->methods;
-            $json->pv = $this->private;
+            $json->pv = (boolean)$this->private;
         }
 
         return $json;
