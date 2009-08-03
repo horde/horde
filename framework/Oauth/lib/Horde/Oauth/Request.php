@@ -22,8 +22,9 @@ class Horde_Oauth_Request
 
     protected $_params = array();
     protected $_url;
+    protected $_method;
 
-    function __construct($url, $params = array())
+    function __construct($url, $params = array(), $method = 'POST')
     {
         if (!isset($params['oauth_version'])) {
             $params['oauth_version'] = self::VERSION;
@@ -37,6 +38,7 @@ class Horde_Oauth_Request
 
         $this->_params = $params;
         $this->_url = $url;
+        $this->_method = $method;
     }
 
     /**
@@ -72,7 +74,7 @@ class Horde_Oauth_Request
     public function getSignatureBaseString()
     {
         $parts = array(
-            'POST',
+            $this->_method,
             $this->_url,
             $this->_getSignableParameters()
         );
