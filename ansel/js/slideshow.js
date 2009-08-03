@@ -54,8 +54,8 @@ var SlideController = {
     /**
      */
     play: function() {
-        Element.hide('ssPlay');
-        Element.show('ssPause');
+        $('ssPlay').hide();
+        $('ssPause').show();
         // This sets the first interval for the currently displayed image.
         if (SlideController.interval) {
             clearTimeout(SlideController.interval);
@@ -67,8 +67,8 @@ var SlideController = {
     /**
      */
     pause: function() {
-        Element.hide('ssPause');
-        Element.show('ssPlay');
+        $('ssPause').hide();
+        $('ssPlay').show();
         if (SlideController.interval) {
             clearTimeout(SlideController.interval);
         }
@@ -103,39 +103,9 @@ var SlideController = {
 // -----------------------------------------------------------------------------------
 // --- version date: 11/28/05 --------------------------------------------------------
 //
-// Various changes for properly updating image links, image comments etc...
+// Various changes for properly updating image links, image comments, get rid
+// of redundant functions that prototype can take care of etc...
 // added 4/07 by Michael Rubinsky <mrubinsk@horde.org>
-
-/**
- * Additional methods for Element added by SU, Couloir.
- */
-Object.extend(Element, {
-    getWidth: function(element) {
-        element = $(element);
-        return element.offsetWidth;
-    },
-    setWidth: function(element,w) {
-        element = $(element);
-        element.style.width = w + 'px';
-    },
-    setSrc: function(element,src) {
-        element = $(element);
-        element.src = src;
-    },
-    setHref: function(element,href) {
-        element = $(element);
-        element.href = href;
-    },
-    setInnerHTML: function(element,content) {
-        element = $(element);
-        element.innerHTML = content;
-    },
-    setOnClick: function(element,action) {
-        element = $(element);
-        element.onclick = action;
-    }
-});
-
 var Slide = Class.create();
 Slide.prototype = {
     initialize: function(photoId) {
@@ -146,10 +116,10 @@ Slide.prototype = {
     },
     setNewPhotoParams: function() {
         // Set source of new image.
-        Element.setSrc(this.photo, SlideController.photos[SlideController.photoId][0]);
+        $(this.photo).src = SlideController.photos[SlideController.photoId][0];
 
         // Add caption from gallery array.
-        Element.setInnerHTML(this.caption, SlideController.photos[SlideController.photoId][2]);
+        $(this.caption).update(SlideController.photos[SlideController.photoId][2]);
 
         try {
             document.title = document.title.replace(SlideController.photos[this.photoId][1],
@@ -160,36 +130,31 @@ Slide.prototype = {
         } catch (e) {}
     },
     updateLinks: function() {
-
         var params = '?gallery=' + SlideController.galleryId + '&image=' + SlideController.photos[SlideController.photoId][3] + '&page=' + SlideController.photos[SlideController.photoId][4];
-
-        Element.setInnerHTML('PhotoName', SlideController.photos[SlideController.photoId][1]);
-        Element.setInnerHTML('breadcrumb_image', SlideController.photos[SlideController.photoId][1]);
-        Element.setHref($('breadcrumb_image'), SlideController.baseUrl + '/view.php' + params + '&view=Image');
-        Element.setHref($('breadcrumb_gallery'), SlideController.baseUrl + '/view.php' + params + '&view=Gallery');
+        $('PhotoName').update(SlideController.photos[SlideController.photoId][1]);
         if ($('image_properties_link')) {
-            Element.setHref('image_properties_link', SlideController.baseUrl + '/image.php' + params + '&actionID=modify&share=' + SlideController.galleryShare);
-            Element.setOnClick('image_properties_link', function(){SlideController.pause();Horde.popup({ url: this.href });return false;});
+            $('image_properties_link').href = SlideController.baseUrl + '/image.php' + params + '&actionID=modify&share=' + SlideController.galleryShare;
+            $('image_properties_link').observe('click', function(){SlideController.pause();Horde.popup({ url: this.href });return false;});
         }
         if ($('image_edit_link')) {
-            Element.setHref('image_edit_link', SlideController.baseUrl + '/image.php' + params + '&actionID=editimage');
+            $('image_edit_link').href = SlideController.baseUrl + '/image.php' + params + '&actionID=editimage';
         }
         if ($('image_ecard_link')) {
-            Element.setHref('image_ecard_link', SlideController.baseUrl + '/img/ecard.php?image=' + SlideController.photos[SlideController.photoId][3] + '&gallery=' + SlideController.galleryId);
-            Element.setOnClick('image_ecard_link', function(){SlideController.pause();Horde.popup({ url: this.href });return false;});
+          $('image_ecard_link') = SlideController.baseUrl + '/img/ecard.php?image=' + SlideController.photos[SlideController.photoId][3] + '&gallery=' + SlideController.galleryId;
+          $('image_ecard_link').observe('click', function(){SlideController.pause();Horde.popup({ url: this.href });return false;});
         }
         if ($('image_delete_link')) {
             //TODO : Guess we should have PHP save the localized text for this...
             var deleteAction = function() {return window.confirm("Do you want to permanently delete " +  SlideController.photos[SlideController.photoId][1])};
-            Element.setHref($("image_delete_link"), SlideController.baseUrl + '/image.php' + params + '&actionID=delete');
-            Element.setOnClick('image_delete_link', deleteAction);
+            $('image_delete_link').href = SlideController.baseUrl + '/image.php' + params + '&actionID=delete';
+            $('image_delete_link').observe('click', deleteAction);
         }
-        Element.setHref('image_download_link', SlideController.baseUrl + '/img/download.php?image=' + SlideController.photos[SlideController.photoId][3]);
-        Element.setOnClick('image_download_link', function(){SlideController.pause();});
+        $('image_download_link').href = SlideController.baseUrl + '/img/download.php?image=' + SlideController.photos[SlideController.photoId][3];
+        $('image_download_link').observe('click', function() {SlideController.pause();});
     },
 
     showPhoto: function() {
-        new Effect.Appear(this.photo, { duration: 1.0, queue: 'end', afterFinish: (function() { Element.show(this.captionBox); this.updateLinks();}).bind(this) });
+        new Effect.Appear(this.photo, { duration: 1.0, queue: 'end', afterFinish: (function() { $(this.captionBox).show(); this.updateLinks();}).bind(this) });
 
         if (SlideController.playing) {
             if (SlideController.interval) {
