@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
+<!-- $Id$ -->
 <configuration>
-
  <configtab name="menu" desc="General Settings and Menu">
   <configheader>User Interface</configheader>
   <configsection name="gallery">
