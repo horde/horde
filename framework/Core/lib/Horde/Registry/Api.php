@@ -47,7 +47,8 @@
  * Prefs_UI::
  * ----------
  *   'prefsInit' => array(
- *       'args' => array()
+ *       'args' => array(),
+ *       'type' => '{urn:horde}hashHash'
  *   ),
  *   'prefsHandle' => array(
  *       'args' => array(
@@ -58,6 +59,13 @@
  *   ),
  *   'prefsCallback' => array(
  *       'args' => array()
+ *   ),
+ *   'prefsMenu' => array(
+ *      'args' => array(),
+ *      'type' => 'object'
+ *   ),
+ *   'prefsStatus' => array(
+ *      'args' => array()
  *   )
  *
  * TODO:
