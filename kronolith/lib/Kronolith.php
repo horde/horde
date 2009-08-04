@@ -1861,7 +1861,7 @@ class Kronolith
     /**
      * Builds Kronolith's list of menu items.
      */
-    public static function getMenu($returnType = 'object')
+    public static function getMenu()
     {
         global $conf, $registry, $browser, $prefs;
 
@@ -1897,7 +1897,7 @@ class Kronolith
             $menu->add(Horde_Util::addParameter($view->link(), 'print', 1), _("_Print"), 'print.png', $registry->getImageDir('horde'), '_blank', 'Horde.popup({ url: kronolithPrintLink ? kronolithPrintLink : this.href });return false;', '__noselection');
         }
 
-        return ($returnType == 'object') ? $menu : $menu->render();
+        return $menu;
     }
 
     /**

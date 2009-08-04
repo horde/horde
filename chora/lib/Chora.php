@@ -421,7 +421,7 @@ class Chora
     {
         $menu = new Horde_Menu();
         $menu->add(self::url('browsedir'), _("_Browse"), 'chora.png');
-        return $menu->render();
+        return $menu;
     }
 
     /**

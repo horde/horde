@@ -15,12 +15,12 @@ class Skeleton
     /**
      * Build Skeleton's list of menu items.
      */
-    static public function getMenu($returnType = 'object')
+    static public function getMenu()
     {
         $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
         $menu->add(Horde::applicationUrl('list.php'), _("List"), 'user.png', $GLOBALS['registry']->getImageDir('horde'));
 
-        return ($returnType == 'object') ? $menu : $menu->render();
+        return $menu;
     }
 
 }

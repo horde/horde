@@ -264,8 +264,6 @@ class Turba {
 
     /**
      * Returns the real name, if available, of a user.
-     *
-     * @since Turba 2.2
      */
     function getUserName($uid)
     {
@@ -286,8 +284,6 @@ class Turba {
 
     /**
      * Gets extended permissions on an address book.
-     *
-     * @since Turba 2.1
      *
      * @param Turba_Driver $addressBook The address book to get extended permissions for.
      * @param string $permission  What extended permission to get.
@@ -468,8 +464,6 @@ class Turba {
      * Retrieve a new source config entry based on a Turba share.
      *
      * @param Horde_Share object  The share to base config on.
-     *
-     * @since Turba 2.2
      */
     function getSourceFromShare(&$share)
     {
@@ -586,7 +580,7 @@ class Turba {
     /**
      * Build Turba's list of menu items.
      */
-    function getMenu($returnType = 'object')
+    function getMenu()
     {
         $menu = new Horde_Menu();
 
@@ -611,7 +605,7 @@ class Turba {
             $menu->add($GLOBALS['print_link'], _("_Print"), 'print.png', $GLOBALS['registry']->getImageDir('horde'), '_blank', Horde::popupJs($GLOBALS['print_link'], array('urlencode' => true)) . 'return false);', '__noselection');
         }
 
-        return ($returnType == 'object') ? $menu : $menu->render();
+        return $menu;
     }
 
 }

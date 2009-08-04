@@ -747,7 +747,7 @@ class Fima {
     /**
      * Build Fima's list of menu items.
      */
-    function getMenu($returnType = 'object')
+    function getMenu()
     {
         global $conf, $registry, $browser, $print_link;
 
@@ -774,11 +774,7 @@ class Fima {
             $menu->add($print_link, _("_Print"), 'print.png', $registry->getImageDir('horde'), '_blank', Horde::popupJs($print_link, array('urlencode' => true)) . 'return false;', '__noselection');
         }
 
-        if ($returnType == 'object') {
-            return $menu;
-        } else {
-            return $menu->render();
-        }
+        return $menu;
     }
 
 }

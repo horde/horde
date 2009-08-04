@@ -17,6 +17,11 @@ class Folks_Api extends Horde_Registry_Api
     public $version = 'H4 (0.1-git)';
 
     public $services = array(
+        'prefsMenu' => array(
+            'args' => array(),
+            'type' => 'object'
+        ),
+
         'commentCallback' => array(
             'args' => array('id' => 'string'),
             'type' => 'string'
@@ -148,6 +153,16 @@ class Folks_Api extends Horde_Registry_Api
         if (!Horde_Auth::isAdmin()) {
             unset($this->services['userList'], $this->services['removeUser']);
         }
+    }
+
+    /**
+     * Generate the menu to use on the prefs page.
+     *
+     * @return Horde_Menu  A Horde_Menu object.
+     */
+    public function prefsMenu()
+    {
+        return Folks::getMenu();
     }
 
     /**

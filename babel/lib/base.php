@@ -87,7 +87,7 @@ if (($lang = Horde_Util::getFormData('display_language')) !== null) {
 }
 
 /* Set up the template fields. */
-$template->set('menu', Babel::getMenu('string'));
+$template->set('menu', Babel::getMenu()->render());
 $template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
 $template->set('lang', Babel::displayLanguage());
 $fmenu = Babel::LanguageSelection();

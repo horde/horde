@@ -1,5 +1,5 @@
 <div id="menu">
- <?php echo Ansel::getMenu('string') ?>
+ <?php echo Ansel::getMenu()->render() ?>
 </div>
 
 <?php

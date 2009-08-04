@@ -9,7 +9,7 @@
  </div>
 <?php endif; ?>
  <div class="leftFloat">
-  <?php echo Turba::getMenu('string') ?>
+  <?php echo Turba::getMenu()->render() ?>
  </div>
 </div>
 </form>

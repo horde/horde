@@ -382,7 +382,7 @@ class Ingo
     /**
      * Build Ingo's list of menu items.
      */
-    static public function getMenu($returnType = 'object')
+    static public function getMenu()
     {
         $menu = new Horde_Menu();
         $menu->add(Horde::applicationUrl('filters.php'), _("Filter _Rules"), 'ingo.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
@@ -410,7 +410,7 @@ class Ingo
             $menu->add('#', _("_Permissions"), 'perms.png', $GLOBALS['registry']->getImageDir('horde'), '', Horde::popupJs(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/shares/edit.php', true), array('params' => array('app' => 'ingo', 'share' => $_SESSION['ingo']['backend']['id'] . ':' . Horde_Auth::getAuth()), 'urlencode' => true)) . 'return false;');
         }
 
-        return ($returnType == 'object') ? $menu : $menu->render();
+        return $menu;
     }
 
 }

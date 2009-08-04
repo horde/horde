@@ -10,6 +10,11 @@ class Fima_Api extends Horde_Regsitry_Api
                 'updated' => 'boolean'
             ),
             'type' => 'boolean'
+        ),
+
+        'prefsMenu' => array(
+            'args' => array(),
+            'type' => 'object'
         )
     );
 
@@ -43,6 +48,16 @@ class Fima_Api extends Horde_Regsitry_Api
         }
 
         return $updated;
+    }
+
+    /**
+     * Generate the menu to use on the prefs page.
+     *
+     * @return Horde_Menu  A Horde_Menu object.
+     */
+    public function prefsMenu()
+    {
+        return Fima::getMenu();
     }
 
 }

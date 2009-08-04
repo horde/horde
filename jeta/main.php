@@ -13,7 +13,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 $applet = Jeta_Applet::factory($prefs->getValue('sshdriver'));
 
 $template = new Horde_Template();
-$template->set('menu', Jeta::getMenu('string'));
+$template->set('menu', Jeta::getMenu()->render());
 $template->set('notification', $notification->notify(array('listeners' => 'status')));
 $template->set('applet', $applet->generateAppletCode());
 

@@ -16,6 +16,23 @@ class Chora_Api extends Horde_Registry_Api
      */
     public $version = 'H4 (3.0-git)';
 
+    /**
+     * The services provided by this application.
+     *
+     * @var array
+     */
+    public $services = array(
+        'perms' => array(
+            'args' => array(),
+            'type' => '{urn:horde}hashHash'
+        ),
+
+        'prefsMenu' => array(
+            'args' => array(),
+            'type' => 'object'
+        )
+    );
+
     public function perms()
     {
         static $perms = array();
@@ -36,6 +53,16 @@ class Chora_Api extends Horde_Registry_Api
         }
 
         return $perms;
+    }
+
+    /**
+     * Generate the menu to use on the prefs page.
+     *
+     * @return Horde_Menu  A Horde_Menu object.
+     */
+    public function prefsMenu()
+    {
+        return Chora::getMenu();
     }
 
 }

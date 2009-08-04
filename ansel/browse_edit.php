@@ -23,7 +23,7 @@ if ($layout->updated()) {
 
 $title = _("My Photos :: Add Content");
 require ANSEL_TEMPLATES . '/common-header.inc';
-echo '<div id="menu">' . Ansel::getMenu('string') . '</div>';
+echo '<div id="menu">' . Ansel::getMenu()->render() . '</div>';
 $notification->notify(array('listeners' => 'status'));
 require $registry->get('templates', 'horde') . '/portal/edit.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

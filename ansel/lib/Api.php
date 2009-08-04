@@ -30,6 +30,11 @@ class Ansel_Api extends Horde_Registry_Api
             'type' => 'boolean'
         ),
 
+        'prefsMenu' => array(
+            'args' => array(),
+            'type' => 'object'
+        ),
+
         'browse' => array(
             'args' => array('path' => 'string'),
             'type' => '{urn:horde}hashHash',
@@ -252,6 +257,16 @@ class Ansel_Api extends Horde_Registry_Api
         }
 
         return $updated;
+    }
+
+    /**
+     * Generate the menu to use on the prefs page.
+     *
+     * @return Horde_Menu  A Horde_Menu object.
+     */
+    public function prefsMenu()
+    {
+        return Ansel::getMenu();
     }
 
     /**

@@ -538,11 +538,9 @@ class IMP
     /**
      * Build IMP's list of menu items.
      *
-     * @param string $type  Return type: either 'object' or 'string'.
-     *
-     * @return mixed  Either a Horde_Menu object or the rendered menu text.
+     * @return Horde_Menu  A Horde_Menu object.
      */
-    static public function getMenu($type = 'object')
+    static public function getMenu()
     {
         global $conf, $prefs, $registry;
 
@@ -609,7 +607,7 @@ class IMP
             $menu->add(Horde::applicationUrl('filterprefs.php'), _("Fi_lters"), 'filters.png');
         }
 
-        return ($type == 'object') ? $menu : $menu->render();
+        return $menu;
     }
 
     /**
@@ -635,7 +633,7 @@ class IMP
             $t->set('flist', self::flistSelect(array('selected' => $GLOBALS['imp_mbox']['mailbox'], 'inc_vfolder' => true)));
             $t->set('flink', sprintf('%s%s<br />%s</a>', Horde::link('#'), ($menu_view != 'text') ? Horde::img('folders/open.png', _("Open Folder"), ($menu_view == 'icon') ? array('title' => _("Open Folder")) : array()) : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("Open Fo_lder"), $ak) : ''));
         }
-        $t->set('menu_string', self::getMenu('string'));
+        $t->set('menu_string', self::getMenu()->render());
 
         self::$_menuTemplate = $t;
     }

@@ -486,7 +486,7 @@ class Skoli {
     /**
      * Build Skoli's list of menu items.
      */
-    function getMenu($returnType = 'object')
+    function getMenu()
     {
         global $conf, $registry, $browser, $print_link;
 
@@ -513,11 +513,7 @@ class Skoli {
         }
         */
 
-        if ($returnType == 'object') {
-            return $menu;
-        } else {
-            return $menu->render();
-        }
+        return $menu;
     }
 
     /**

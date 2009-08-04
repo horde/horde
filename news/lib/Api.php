@@ -1,8 +1,6 @@
 <?php
 /**
- * News api
- *
- * $Id: api.php 1260 2009-02-01 23:15:50Z duck $
+ * News API.
  *
  * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
@@ -20,6 +18,11 @@ class News_Api extends Horde_Registry_Api
         'perms' => array(
             'args' => array(),
             'type' => '{urn:horde}hashHash'
+        ),
+
+        'prefsMenu' => array(
+            'args' => array(),
+            'type' => 'object'
         ),
 
         'commentCallback' => array(
@@ -69,6 +72,16 @@ class News_Api extends Horde_Registry_Api
         }
 
         return $perms;
+    }
+
+    /**
+     * Generate the menu to use on the prefs page.
+     *
+     * @return Horde_Menu  A Horde_Menu object.
+     */
+    public function prefsMenu()
+    {
+        return News::getMenu();
     }
 
     /**

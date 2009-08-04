@@ -16,22 +16,15 @@ class Kastalia {
     /**
      * Build Kastalia's list of menu items.
      */
-    function getMenu($returnType = 'object')
+    function getMenu()
     {
         global $conf, $registry, $browser, $print_link;
 
-        require_once 'Horde/Menu.php';
-
-        $menu = new Menu(HORDE_MENU_MASK_ALL);
+        $menu = new Horde_Menu(HORDE_MENU_MASK_ALL);
 
         $menu->add(Horde::applicationUrl('upload_menu.php'), _("Upload"), 'menu/upload.png', $registry->getImageDir('kastalia'));
 
-
-        if ($returnType == 'object') {
-            return $menu;
-        } else {
-            return $menu->render();
-        }
+        return $menu;
     }
 
     //diese Funktion entfernt aus einem String alle hier angegebenen Sonderzeichen

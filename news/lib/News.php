@@ -490,7 +490,7 @@ class News {
     /**
      * Build News's list of menu articles
      */
-    static public function getMenu($returnType = 'object')
+    static public function getMenu()
     {
         $menu = new Horde_Menu();
         $img_dir = $GLOBALS['registry']->getImageDir('horde');
@@ -511,11 +511,7 @@ class News {
             $menu->add(Horde::applicationUrl('admin/categories/index.php'), _("Administration"), 'administration.png', $img_dir);
         }
 
-        if ($returnType == 'object') {
-            return $menu;
-        } else {
-            return $menu->render();
-        }
+        return $menu;
     }
 
 }

@@ -598,7 +598,7 @@ class Ansel {
     /**
      * Build Ansel's list of menu items.
      */
-    function getMenu($returnType = 'object')
+    function getMenu()
     {
         global $conf, $registry;
 
@@ -655,11 +655,7 @@ class Ansel {
                        Horde::popupJs($pl, array('urlencode' => true)) . 'return false;');
         }
 
-        if ($returnType == 'object') {
-            return $menu;
-        } else {
-            return $menu->render();
-        }
+        return $menu;
     }
 
     /**

@@ -29,6 +29,11 @@ class Ingo_Api extends Horde_Registry_Api
             'type' => '{urn:horde}stringArray'
         ),
 
+        'prefsMenu' => array(
+            'args' => array(),
+            'type' => 'object'
+        ),
+
         'removeUserData' => array(
             'args' => array('user' => 'string'),
             'type' => 'boolean'
@@ -104,6 +109,16 @@ class Ingo_Api extends Horde_Registry_Api
                 'ingo:max_rules' => 'int'
             )
         );
+    }
+
+    /**
+     * Generate the menu to use on the prefs page.
+     *
+     * @return Horde_Menu  A Horde_Menu object.
+     */
+    public function prefsMenu()
+    {
+        return Ingo::getMenu();
     }
 
     /**

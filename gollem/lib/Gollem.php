@@ -754,11 +754,9 @@ class Gollem
     /**
      * Build Gollem's list of menu items.
      *
-     * @param string $returnType  Either 'object' or 'string'.
-     *
-     * @return mixed  Either a Horde_Menu object or the rendered menu text.
+     * @return Horde_Menu  A Horde_Menu object.
      */
-    static public function getMenu($returnType = 'object')
+    static public function getMenu()
     {
         $menu = new Horde_Menu();
         $menu->add(Horde_Util::addParameter(Horde::applicationUrl('manager.php'), 'dir', Gollem::getHome()), _("_My Home"), 'folder_home.png');
@@ -779,9 +777,7 @@ class Gollem
             }
         }
 
-        return ($returnType == 'object')
-            ? $menu
-            : $menu->render();
+        return $menu;
     }
 
     /**
@@ -799,7 +795,7 @@ class Gollem
             $link = Horde::link('#', _("Change Server"), '', '', 'serverSubmit(true);return false;');
             $t->set('slink', sprintf('<ul><li>%s%s<br />%s</a></li></ul>', $link, ($menu_view != 'text') ? Horde::img('gollem.png') : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("_Change Server"), $t->get('accesskey')) : ''));
         }
-        $t->set('menu_string', Gollem::getMenu('string'));
+        $t->set('menu_string', Gollem::getMenu()->render());
 
         echo $t->fetch(GOLLEM_TEMPLATES . '/menu.html');
     }

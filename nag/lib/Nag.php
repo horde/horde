@@ -661,7 +661,7 @@ class Nag
     /**
      * Build Nag's list of menu items.
      */
-    function getMenu($returnType = 'object')
+    function getMenu()
     {
         global $conf, $registry, $print_link;
 
@@ -690,7 +690,7 @@ class Nag
             $menu->add($print_link, _("_Print"), 'print.png', $registry->getImageDir('horde'), '_blank', Horde::popupJs($print_link, array('urlencode' => true)) . 'return false;', '__noselection');
         }
 
-        return ($returnType == 'object') ? $menu : $menu->render();
+        return $menu;
     }
 
     function status()

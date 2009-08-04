@@ -19,7 +19,7 @@ foreach ($ledgers as $ledgerId => $ledger) {
   <ul><li class="rightFloat"><a href="#" onclick="ledgerSubmit(true); return false;"><?php echo Horde::img('list.png', _("Open Ledger"), '') . '<br />' . _("Open Ledger") ?></a></li></ul>
  </div>
 
- <?php echo Fima::getMenu('string') ?>
+ <?php echo Fima::getMenu()->render() ?>
  <br class="clear" />
 
 </div>

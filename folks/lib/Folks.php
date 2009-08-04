@@ -290,7 +290,7 @@ class Folks {
     /**
      * Build Folks's list of menu items.
      */
-    static function getMenu($returnType = 'object')
+    static function getMenu()
     {
         $img = $GLOBALS['registry']->getImageDir('horde');
         $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
@@ -301,10 +301,6 @@ class Folks {
         $menu->add(Horde::applicationUrl('search.php'), _("Search"), 'search.png', $img);
         $menu->add(self::getUrlFor('list', 'online'), _("List"), 'group.png', $img);
 
-        if ($returnType == 'object') {
-            return $menu;
-        } else {
-            return $menu->render();
-        }
+        return $menu;
     }
 }

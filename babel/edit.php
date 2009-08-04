@@ -44,7 +44,7 @@ if ($app) {
 }
 
 /* Set up the template fields. */
-$template->set('menu', Babel::getMenu('string'));
+$template->set('menu', Babel::getMenu()->render());
 $template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
 
 /* Create upload form */

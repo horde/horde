@@ -34,6 +34,11 @@ class Kronolith_Api extends Horde_Registry_Api
             'args' => array()
         ),
 
+        'prefsMenu' => array(
+            'args' => array(),
+            'type' => 'object'
+        ),
+
         'show' => array(
             'link' => '%application%/event.php?calendar=|calendar|&eventID=|event|&uid=|uid|'
         ),
@@ -268,6 +273,16 @@ class Kronolith_Api extends Horde_Registry_Api
                 }
             }
         }
+    }
+
+    /**
+     * Generate the menu to use on the prefs page.
+     *
+     * @return Horde_Menu  A Horde_Menu object.
+     */
+    public function prefsMenu()
+    {
+        return Kronolith::getMenu();
     }
 
     /**

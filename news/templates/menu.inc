@@ -8,6 +8,6 @@
 </select>
 </form>
 </div>
-<?php echo News::getMenu('string') ?>
+<?php echo News::getMenu()->render() ?>
 </div>
 <?php $GLOBALS['notification']->notify(array('listeners' => 'status')) ?>

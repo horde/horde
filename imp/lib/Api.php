@@ -211,6 +211,15 @@ class IMP_Api extends Horde_Registry_Api
 
         'prefsCallback' => array(
             'args' => array()
+        ),
+
+        'prefsMenu' => array(
+            'args' => array(),
+            'type' => 'object'
+        ),
+
+        'prefsStatus' => array(
+            'args' => array()
         )
     );
 
@@ -459,6 +468,33 @@ class IMP_Api extends Horde_Registry_Api
                 'if (window.parent.frames.horde_menu) window.parent.frames.horde_menu.location.reload();'
             ));
         }
+    }
+
+    /**
+     * Generate the menu to use on the prefs page.
+     *
+     * @return Horde_Menu  A Horde_Menu object.
+     */
+    public function prefsMenu()
+    {
+        return IMP::getMenu();
+    }
+
+    /**
+     * Output notifications on the preferences page.
+     */
+    public function prefsStatus()
+    {
+        try {
+            $GLOBALS['imp_authentication'] = 'throw';
+            require_once dirname(__FILE__) . '/base.php';
+            if (IMP::getViewMode() == 'dimp') {
+                Horde::addInlineScript(array(DIMP::notify(true)), 'dom');
+                return;
+            }
+        } catch (Horde_Exception $e) {}
+
+        IMP::status();
     }
 
     /**
@@ -749,7 +785,9 @@ class IMP_Api extends Horde_Registry_Api
         ));
 
         if ($new_session) {
-            $_SESSION['imp']['cache']['select_view'] = empty($credentials['imp_select_view']) ? '' : $credentials['imp_select_view'];
+            $_SESSION['imp']['cache']['select_view'] = empty($credentials['imp_select_view'])
+                ? ''
+                : $credentials['imp_select_view'];
 
             /* Set the Horde ID, since it may have been altered by the 'realm'
              * setting. */
