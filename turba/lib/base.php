@@ -50,7 +50,7 @@ foreach ($cfgSources as $key => $cfg) {
 }
 if (!empty($_SESSION['turba']['has_share'])) {
     // Create a share instance.
-    $GLOBALS['turba_shares'] = &Horde_Share::singleton($registry->getApp());
+    $GLOBALS['turba_shares'] = Horde_Share::singleton($registry->getApp());
     $GLOBALS['cfgSources'] = Turba::getConfigFromShares($cfgSources);
 }
 $GLOBALS['cfgSources'] = Turba::permissionsFilter($GLOBALS['cfgSources']);
@@ -62,15 +62,15 @@ if (empty($default_source)) {
     $default_source = empty($_SESSION['turba']['source']) ? Turba::getDefaultAddressBook() : $_SESSION['turba']['source'];
     $default_source = Horde_Util::getFormData('source', $default_source);
 }
-$browse_source_options = '';
-$browse_source_count = 0;
+$GLOBALS['browse_source_options'] = '';
+$GLOBALS['browse_source_count'] = 0;
 foreach (Turba::getAddressBooks() as $key => $curSource) {
     if (!empty($curSource['browse'])) {
         $selected = ($key == $default_source) ? ' selected="selected"' : '';
         $browse_source_options .= '<option value="' . htmlspecialchars($key) . '" ' . $selected . '>' .
             htmlspecialchars($curSource['title']) . '</option>';
 
-        $browse_source_count++;
+        $GLOBALS['browse_source_count']++;
 
         if (empty($default_source)) {
             $default_source = $key;
