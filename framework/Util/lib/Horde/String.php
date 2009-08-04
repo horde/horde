@@ -599,7 +599,7 @@ class Horde_String
     static public function truncate($text, $length = 100)
     {
         return (self::length($text) > $length)
-            ? self::substr($text, 0, 100) . ' ...'
+            ? self::substr($text, 0, $length) . ' ...'
             : $text;
     }
 
