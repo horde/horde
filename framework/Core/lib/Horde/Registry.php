@@ -408,8 +408,11 @@ class Horde_Registry
         /* Can't autoload here, since the application may not have been
          * initialized yet. */
         $classname = Horde_String::ucfirst($app) . '_Api';
-        if (!@include_once $this->get('fileroot', $app) . '/lib/Api.php') {
-            throw new Horde_Exception('Application ' . $app . ' is missing its API file.');
+        $path = $this->get('fileroot', $app) . '/lib/Api.php';
+        if (file_exists($path)) {
+            include_once $path;
+        } else {
+            $classname = 'Horde_Registry_Api';
         }
 
         $this->_cache['apiob'][$app] = new $classname;
