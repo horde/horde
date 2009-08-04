@@ -2095,8 +2095,10 @@ HTML;
      *                         array also).
      * @param string $onload   Load the script after the page has loaded?
      *                         Either 'dom' (on dom:loaded), 'load'.
+     * @param boolean $top     Add script to top of stack?
      */
-    static public function addInlineScript($script, $onload = null)
+    static public function addInlineScript($script, $onload = null,
+                                           $top = false)
     {
         if (is_array($script)) {
             $script = implode(';', $script);
@@ -2117,7 +2119,11 @@ HTML;
             break;
         }
 
-        self::$_inlineScript[] = $script;
+        if ($top) {
+            array_unshift(self::$_inlineScript, $script);
+        } else {
+            self::$_inlineScript[] = $script;
+        }
 
         // If headers have already been sent, we need to output a
         // <script> tag directly.
