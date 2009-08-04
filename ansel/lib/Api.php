@@ -496,10 +496,10 @@ class Ansel_Api extends Horde_Registry_Api
         if (($GLOBALS['conf']['comments']['allow'] == 'all' ||
             ($GLOBALS['conf']['comments']['allow'] == 'authenticated' &&
             Horde_Auth::getAuth()))) {
-                return true;
-            } else {
-                return false;
-            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
