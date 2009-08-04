@@ -76,7 +76,7 @@ $authentication = Horde_Util::nonInputVar('imp_authentication');
 if ($authentication == 'horde') {
     // Autoloading for imp is not set until pushApp(), so need to add lib
     // path here explicitly.
-    Horde_Autoloader::addClassPattern('/^IMP_/i', IMP_BASE . '/lib');
+    Horde_Autoloader::addClassPattern('/^IMP(?:$|_)/i', IMP_BASE . '/lib');
     IMP_Auth::$authType = 'horde';
 }
 
