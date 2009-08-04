@@ -130,7 +130,7 @@ foreach ($loop_array as $mbox => $idxlist) {
         $curr_msg['link'] .= ' | ' . Horde::widget(Horde_Util::addParameter(IMP::generateIMPUrl('mailbox.php', $mbox), array('start' => $imp_mailbox->getArrayIndex($idx))), sprintf(_("Back to %s"), $page_label), 'widget', '', '', sprintf(_("Bac_k to %s"), $page_label));
 
         $curr_tree['class'] = (++$rowct % 2) ? 'text' : 'item0';
-        $curr_tree['subject'] = (($mode == 'thread') ? $threadtree[$idx] : null) . ' ' . Horde::link('#i' . $idx) . $subject_header . '</a> (' . $addr . ')';
+        $curr_tree['subject'] = (($mode == 'thread') ? $threadtree[$idx] : null) . ' ' . Horde::link('#i' . $idx) . Horde_String::truncate($subject_header, 60) . '</a> (' . $addr . ')';
 
         $msgs[] = $curr_msg;
         $tree[] = $curr_tree;
