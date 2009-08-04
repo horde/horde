@@ -407,7 +407,7 @@ class Horde_Registry
 
         /* Can't autoload here, since the application may not have been
          * initialized yet. */
-        $classname = $app . '_Api';
+        $classname = ucfirst($app) . '_Api';
         if (!@include_once $this->get('fileroot', $app) . '/lib/Api.php') {
             throw new Horde_Exception('Application ' . $app . ' is missing its API file.');
         }
