@@ -81,66 +81,36 @@ class Text_Wiki_Parse_Paragraph extends Text_Wiki_Parse {
     function process(&$matches)
     {
         $delim = $this->wiki->delim;
+        $skip = $this->getConf('skip', array());
         
         // was anything there?
         if (trim($matches[0]) == '') {
             return '';
         }
         
-        // does the match start with a delimiter?
-        if (substr($matches[0], 0, 1) != $delim) { 
-            // no.
-            
-            $start = $this->wiki->addToken(
-                $this->rule, array('type' => 'start')
-            );
-            
-            $end = $this->wiki->addToken(
-                $this->rule, array('type' => 'end')
-            );
-            
-            return $start . trim($matches[0]) . $end;
-        }
-        
-        // the line starts with a delimiter.  read in the delimited
-        // token number, check the token, and see if we should
-        // skip it.
-        
-        // loop starting at the second character (we already know
-        // the first is a delimiter) until we find another
-        // delimiter; the text between them is a token key number.
-        $key = '';
-        $len = strlen($matches[0]);
-        for ($i = 1; $i < $len; $i++) {
-            $char = $matches[0]{$i};
-            if ($char == $delim) {
-                break;
-            } else {
-                $key .= $char;
+        // does the match has tokens inside?
+        preg_match_all("/(?:$delim)(\d+?)(?:$delim)/", $matches[0], $delimiters, PREG_SET_ORDER);
+
+        // look each delimiter inside the match and see if it's skippable
+        // (if we skip, it will not be marked as a paragraph)
+        foreach ($delimiters as $d) {
+            $token_type = strtolower($this->wiki->tokens[$d[1]][0]);
+            if (in_array($token_type, $skip)) {
+                return $matches[0];
             }
         }
+
+        // if there is no skipable token inside the match
+        // add the Paragraph token and return
+        $start = $this->wiki->addToken(
+            $this->rule, array('type' => 'start')
+        );
         
-        // look at the token and see if it's skippable (if we skip,
-        // it will not be marked as a paragraph)
-        $token_type = strtolower($this->wiki->tokens[$key][0]);
-        $skip = $this->getConf('skip', array());
+        $end = $this->wiki->addToken(
+            $this->rule, array('type' => 'end')
+        );
         
-        if (in_array($token_type, $skip)) {
-            // this type of token should not have paragraphs applied to it.
-            // return the entire matched text.
-            return $matches[0];
-        } else {
-            
-            $start = $this->wiki->addToken(
-                $this->rule, array('type' => 'start')
-            );
-            
-            $end = $this->wiki->addToken(
-                $this->rule, array('type' => 'end')
-            );
-            
-            return $start . trim($matches[0]) . $end;
-        }
+        return $start . trim($matches[0]) . $end;
     }
 }
 ?>

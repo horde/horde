@@ -52,7 +52,7 @@ class Text_Wiki_Parse_Newline extends Text_Wiki_Parse {
     */
     function process(&$matches)
     {
-        return $matches[1] . ' ' . $matches[2];
+        return $matches[1] . $this->wiki->addToken($this->rule) . $matches[2];
     }
 }
 
