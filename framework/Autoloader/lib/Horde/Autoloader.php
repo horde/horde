@@ -57,7 +57,13 @@ class Horde_Autoloader
                     $err_mask = $err_mask ^ E_DEPRECATED;
                 }
                 $oldErrorReporting = error_reporting($err_mask);
-                $included = include $file_path . '.php';
+                //@TODO:  This may be a neccessary evil since any external
+                // library that triggers an Autoloader for a class that is named
+                // the same as any file that is currently in the include_path
+                // (which includes all lib/* files for applications currently on
+                // the stack) will cause  that file to possibly load that file
+                // more then once. This causes fatal Cannon redeclare class errors.
+                $included = include_once $file_path . '.php';
                 error_reporting($oldErrorReporting);
                 if ($included) {
                     return true;
