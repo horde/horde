@@ -363,14 +363,8 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function prefsInit($group)
     {
-        /* Make sure we are authenticated here. */
-        if (!Horde_Auth::isAuthenticated('imp')) {
-            // TODO: Handle this more gracefully?
-            throw new Horde_Exception(_("Not authenticated to imp"));
-        }
-
         /* Add necessary javascript files here (so they are added to the
-         * document HEAD. */
+         * document HEAD). */
         switch ($group) {
         case 'flags':
             Horde::addScriptFile('colorpicker.js', 'horde', true);
