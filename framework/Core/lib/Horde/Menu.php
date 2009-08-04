@@ -171,7 +171,8 @@ class Horde_Menu
 
         /* Add help link. */
         if ($this->_mask & self::MASK_HELP && $help_link = Horde::getServiceLink('help', $app)) {
-            $this->add($help_link, _("Help"), 'help_index.png', $graphics, 'help', 'popup(this.href); return false;', 'helplink');
+            Horde::
+            $this->add($help_link, _("Help"), 'help_index.png', $graphics, 'help', Horde::popupJs($help_link, array('urlencode' => true)) . 'return false;', 'helplink');
         }
 
         /* Login/Logout. */
