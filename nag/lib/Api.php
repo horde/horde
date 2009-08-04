@@ -27,6 +27,14 @@ class Nag_Api extends Horde_Registry_Api
             'type' => '{urn:horde}hashHash'
         ),
 
+        'prefsHandle' => array(
+            'args' => array(
+                'item' => 'string',
+                'updated' => 'boolean'
+            ),
+            'type' => 'boolean'
+        ),
+
         'removeUserData' => array(
             'args' => array('user' => 'string'),
             'type' => 'boolean'
@@ -199,6 +207,36 @@ class Nag_Api extends Horde_Registry_Api
         $perms['type']['nag:max_tasks'] = 'int';
 
         return $perms;
+    }
+
+    /**
+     * TODO
+     */
+    public function prefsHandle($item, $updated)
+    {
+        switch ($item) {
+        case 'tasklistselect':
+            $default_tasklist = Horde_Util::getFormData('default_tasklist');
+            if (!is_null($default_tasklist)) {
+                $tasklists = Nag::listTasklists();
+                if (is_array($tasklists) &&
+                    isset($tasklists[$default_tasklist])) {
+                    $GLOBALS['prefs']->setValue('default_tasklist', $default_tasklist);
+                    return true;
+                }
+            }
+            break;
+
+        case 'showsummaryselect':
+            $GLOBALS['prefs']->setValue('summary_categories', Horde_Util::getFormData('summary_categories'));
+            return true;
+
+        case 'defaultduetimeselect':
+            $GLOBALS['prefs']->setValue('default_due_time', Horde_Util::getFormData('default_due_time'));
+            return true;
+        }
+
+        return $updated;
     }
 
     /**

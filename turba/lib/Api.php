@@ -28,6 +28,19 @@ class Turba_Api extends Horde_Registry_Api
             'type' => '{urn:horde}hashHash'
         ),
 
+        'prefsInit' => array(
+            'args' => array(),
+            'type' => '{urn:horde}hashHash'
+        ),
+
+        'prefsHandle' => array(
+            'args' => array(
+                'item' => 'string',
+                'updated' => 'boolean'
+            ),
+            'type' => 'boolean'
+        ),
+
         'removeUserData' => array(
             'args' => array('user' => 'string'),
             'type' => 'boolean'
@@ -268,6 +281,95 @@ class Turba_Api extends Horde_Registry_Api
     );
 
     /**
+     * Returns a list of available permissions.
+     *
+     * @return array  An array describing all available permissions.
+     */
+    public function perms()
+    {
+        static $perms = array();
+        if (!empty($perms)) {
+            return $perms;
+        }
+
+        require_once dirname(__FILE__) . '/base.php';
+        require TURBA_BASE . '/config/sources.php';
+
+        $perms['tree']['turba']['sources'] = false;
+        $perms['title']['turba:sources'] = _("Sources");
+
+        // Run through every contact source.
+        foreach ($cfgSources as $source => $curSource) {
+            $perms['tree']['turba']['sources'][$source] = false;
+            $perms['title']['turba:sources:' . $source] = $curSource['title'];
+            $perms['tree']['turba']['sources'][$source]['max_contacts'] = false;
+            $perms['title']['turba:sources:' . $source . ':max_contacts'] = _("Maximum Number of Contacts");
+            $perms['type']['turba:sources:' . $source . ':max_contacts'] = 'int';
+        }
+
+        return $perms;
+    }
+
+    /**
+     * Code to run when viewing prefs for this application.
+     *
+     * @param string $group  The prefGroup name.
+     *
+     * @return array  A list of variables to export to the prefs display page.
+     */
+    public function prefsInit($group)
+    {
+        $out = array();
+
+        /* Assign variables for select lists. */
+        if (!$GLOBALS['prefs']->isLocked('default_dir')) {
+            require TURBA_BASE . '/config/sources.php';
+            $out['default_dir_options'] = array();
+            foreach ($cfgSources as $key => $info) {
+                $out['default_dir_options'][$key] = $info['title'];
+            }
+        }
+
+        foreach (Turba::getAddressBooks() as $key => $curSource) {
+            if (empty($curSource['map']['__uid'])) {
+                continue;
+            }
+            if (!empty($curSource['browse'])) {
+                $GLOBALS['_prefs']['sync_books']['enum'][$key] = $curSource['title'];
+            }
+            $sync_books = @unserialize($GLOBALS['prefs']->getValue('sync_books'));
+            if (empty($sync_books)) {
+                $GLOBALS['prefs']->setValue('sync_books', serialize(array(Turba::getDefaultAddressbook())));
+            }
+        }
+
+        return $out;
+    }
+
+    /**
+     * TODO
+     */
+    public function prefsHandle($item, $updated)
+    {
+        switch ($item) {
+        case 'columnselect':
+            $columns = Horde_Util::getFormData('columns');
+            if (!empty($columns)) {
+                $GLOBALS['prefs']->setValue('columns', $columns);
+                return true;
+            }
+            break;
+
+        case 'addressbookselect':
+            $addressbooks = Horde_Util::getFormData('addressbooks');
+            $GLOBALS['prefs']->setValue('addressbooks', str_replace("\r", '', $addressbooks));
+            return true;
+        }
+
+        return $updated;
+    }
+
+    /**
      * Removes user data.
      *
      * @param string $user  Name of user to remove data for.
@@ -378,36 +480,6 @@ class Turba_Api extends Horde_Registry_Api
     public function hasComments()
     {
         return $GLOBALS['conf']['comments']['allow'];
-    }
-
-    /**
-     * Returns a list of available permissions.
-     *
-     * @return array  An array describing all available permissions.
-     */
-    public function perms()
-    {
-        static $perms = array();
-        if (!empty($perms)) {
-            return $perms;
-        }
-
-        require_once dirname(__FILE__) . '/base.php';
-        require TURBA_BASE . '/config/sources.php';
-
-        $perms['tree']['turba']['sources'] = false;
-        $perms['title']['turba:sources'] = _("Sources");
-
-        // Run through every contact source.
-        foreach ($cfgSources as $source => $curSource) {
-            $perms['tree']['turba']['sources'][$source] = false;
-            $perms['title']['turba:sources:' . $source] = $curSource['title'];
-            $perms['tree']['turba']['sources'][$source]['max_contacts'] = false;
-            $perms['title']['turba:sources:' . $source . ':max_contacts'] = _("Maximum Number of Contacts");
-            $perms['type']['turba:sources:' . $source . ':max_contacts'] = 'int';
-        }
-
-        return $perms;
     }
 
     /**

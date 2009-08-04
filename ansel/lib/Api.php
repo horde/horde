@@ -22,6 +22,14 @@ class Ansel_Api extends Horde_Registry_Api
             'type' => '{urn:horde}stringArray'
         ),
 
+        'prefsHandle' => array(
+            'args' => array(
+                'item' => 'string',
+                'updated' => 'boolean'
+            ),
+            'type' => 'boolean'
+        ),
+
         'browse' => array(
             'args' => array('path' => 'string'),
             'type' => '{urn:horde}hashHash',
@@ -218,6 +226,32 @@ class Ansel_Api extends Horde_Registry_Api
         $perms['title']['ansel:admin'] = _("Administrators");
 
         return $perms;
+    }
+
+    /**
+     * TODO
+     */
+    public function prefsHandle($item, $updated)
+    {
+        switch ($item) {
+        case 'default_category_select':
+            $default_category = Horde_Util::getFormData('default_category_select');
+            if (!is_null($default_category)) {
+                $GLOBALS['prefs']->setValue('default_category', $default_category);
+                return true;
+            }
+            break;
+
+        case 'default_gallerystyle_select':
+            $default_style = Horde_Util::getFormData('default_gallerystyle_select');
+            if (!is_null($default_style)) {
+                $GLOBALS['prefs']->setValue('default_gallerystyle', $default_style);
+                return true;
+            }
+            break;
+        }
+
+        return $updated;
     }
 
     /**

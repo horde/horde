@@ -30,6 +30,14 @@ class Gollem_Api extends Horde_Registry_Api
             'type' => '{urn:horde}hashHash'
         ),
 
+        'prefsHandle' => array(
+            'args' => array(
+                'item' => 'string',
+                'updated' => 'boolean'
+            ),
+            'type' => 'boolean'
+        ),
+
         'browse' => array(
             'args' => array('path' => 'string'),
             'type' => '{urn:horde}hashHash',
@@ -103,6 +111,49 @@ class Gollem_Api extends Horde_Registry_Api
             'type' => 'string'
         )
     );
+
+    /**
+     * TODO
+     */
+    public function perms()
+    {
+        static $perms = array();
+        if (!empty($perms)) {
+            return $perms;
+        }
+
+        require_once dirname(__FILE__) . '/base.load.php';
+        require GOLLEM_BASE . '/config/backends.php';
+
+        $perms['tree']['gollem']['backends'] = false;
+        $perms['title']['gollem:backends'] = _("Backends");
+
+        // Run through every backend.
+        foreach ($backends as $backend => $curBackend) {
+            $perms['tree']['gollem']['backends'][$backend] = false;
+            $perms['title']['gollem:backends:' . $backend] = $curBackend['name'];
+        }
+
+        return $perms;
+    }
+
+    /**
+     * TODO
+     */
+    public function prefsHandle($item, $updated)
+    {
+        switch ($item) {
+        case 'columnselect':
+            $columns = Horde_Util::getFormData('columns');
+            if (!empty($columns)) {
+                $GLOBALS['prefs']->setValue('columns', $columns);
+                return true;
+            }
+            break;
+        }
+
+        return $updated;
+    }
 
     /**
      * Browses through the VFS tree.
@@ -489,28 +540,6 @@ class Gollem_Api extends Horde_Registry_Api
                 return Gollem::deleteFile($path, $name);
             }
         }
-    }
-
-    public function perms()
-    {
-        static $perms = array();
-        if (!empty($perms)) {
-            return $perms;
-        }
-
-        require_once dirname(__FILE__) . '/base.load.php';
-        require GOLLEM_BASE . '/config/backends.php';
-
-        $perms['tree']['gollem']['backends'] = false;
-        $perms['title']['gollem:backends'] = _("Backends");
-
-        // Run through every backend.
-        foreach ($backends as $backend => $curBackend) {
-            $perms['tree']['gollem']['backends'][$backend] = false;
-            $perms['title']['gollem:backends:' . $backend] = $curBackend['name'];
-        }
-
-        return $perms;
     }
 
     /**
