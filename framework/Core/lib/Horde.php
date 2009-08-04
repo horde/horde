@@ -1709,9 +1709,11 @@ HTML;
                 }
 
                 /* Use CSS tidy to clean up file. */
-                try {
-                    $out = Horde_Text_Filter::filter($out, 'csstidy');
-                } catch (Horde_Exception $e) {}
+                if ($conf['cachecssparams']['compress'] == 'php') {
+                    try {
+                        $out = Horde_Text_Filter::filter($out, 'csstidy');
+                    } catch (Horde_Exception $e) {}
+                }
 
                 switch ($cache_type) {
                 case 'filesystem':
