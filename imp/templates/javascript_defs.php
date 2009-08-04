@@ -75,4 +75,4 @@ $code = array(
 
 Horde::addInlineScript(array(
     'var IMP = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, Horde_Nls::getCharset())
-));
+), null, true);

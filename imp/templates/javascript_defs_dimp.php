@@ -160,4 +160,4 @@ if ($compose_mode) {
 
 Horde::addInlineScript(array(
     'var DIMP = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, Horde_Nls::getCharset())
-));
+), null, true);
