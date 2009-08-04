@@ -1,4 +1,10 @@
 --------
+v2.0-git
+--------
+[mjr] Exif code removed and placed in Horde_Image_Exif
+
+
+--------
 v1.1-cvs
 --------
 
