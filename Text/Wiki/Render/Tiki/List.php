@@ -24,24 +24,26 @@ class Text_Wiki_Render_Tiki_List extends Text_Wiki_Render {
         
         switch ($options['type']) {
         
-        case 'bullet_item_start':
-            return "\n".str_pad('', $options['level'], '*');
-            break;
-        case 'number_item_start':
-            return "\n".str_pad('', $options['level'], '#');
+        case 'bullet_list_start':
+        case 'number_list_start':
+            return '';
             break;
         case 'bullet_list_end':
         case 'number_list_end':
             if ($options['level'] == 0) {
-                return "\n\n";
+                return "\n";
             }
+            break;
+        case 'bullet_item_start':
+            return str_pad('', $options['level'], '*');
+            break;
+        case 'number_item_start':
+            return str_pad('', $options['level'], '#');
             break;
         case 'bullet_item_end':
         case 'number_item_end':
-        case 'bullet_list_start':
-        case 'number_list_start':
         default:
-            return '';
+            return "\n";
             break;
         }
     }
