@@ -821,6 +821,8 @@ class Horde_Registry
      *                 ONLY be disabled by system scripts (cron jobs, etc.)
      *                 and scripts that handle login.
      *                 DEFAULT: true
+     * 'load_base' - (boolean) Load the application's base.php file?
+     *               DEFAULT: false
      * 'logintasks' - (boolean) Perform login tasks? Only performed if
      *                'check_perms' is also true. System tasks are always
      *                peformed if the user is authorized.
@@ -913,6 +915,11 @@ class Horde_Registry
         if ($checkPerms) {
             $tasks = Horde_LoginTasks::singleton($app, Horde::selfUrl(true, true, true));
             $tasks->runTasks(array('runtasks' => !empty($options['logintasks'])));
+        }
+
+        /* Include base.php file. */
+        if (!empty($options['load_base'])) {
+            require_once $app_lib . '/base.php';
         }
 
         return true;
