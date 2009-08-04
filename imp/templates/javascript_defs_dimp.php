@@ -13,7 +13,7 @@ $horde_webroot = $GLOBALS['registry']->get('webroot', 'horde');
 
 $app_urls = $code = $flags = array();
 
-foreach (DIMP::menuList() as $app) {
+foreach (IMP_Dimp::menuList() as $app) {
     $app_urls[$app] = Horde::url($GLOBALS['registry']->getInitialPage($app), true);
 }
 

@@ -66,7 +66,7 @@ if (count($_POST)) {
     if ($action == 'add_attachment') {
         if ($_SESSION['imp']['file_upload'] &&
             $imp_compose->addFilesFromUpload('file_')) {
-            $info = DIMP::getAttachmentInfo($imp_compose);
+            $info = IMP_Dimp::getAttachmentInfo($imp_compose);
             $result->success = 1;
             $result->info = end($info);
             $result->imp_compose = $imp_compose->getCacheId();
@@ -182,12 +182,12 @@ if (count($_POST)) {
         if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
             $in_reply_to = $imp_compose->getMetadata('in_reply_to');
             if (!empty($in_reply_to) &&
-                ($tmp = DIMP::getMsgLogInfo($in_reply_to))) {
+                ($tmp = IMP_Dimp::getMsgLogInfo($in_reply_to))) {
                 $result->log = $tmp;
             }
         }
 
-        $res = DIMP::getFolderResponse($imptree);
+        $res = IMP_Dimp::getFolderResponse($imptree);
         if (!empty($res)) {
             $result->folder = $res['a'][0];
         }
@@ -325,7 +325,7 @@ Horde::addInlineScript($compose_result['js']);
 
 /* Some actions, like adding forwards, may return error messages so explicitly
  * display those messages now. */
-Horde::addInlineScript(array(DIMP::notify()), 'dom');
+Horde::addInlineScript(array(IMP_Dimp::notify()), 'dom');
 
 /* Javascript to be run on window load. */
 $compose_result['js_onload'][] = 'DimpCompose.fillForm(' . Horde_Serialize::serialize($msg, Horde_Serialize::JSON) . ', ' . Horde_Serialize::serialize($header, Horde_Serialize::JSON) . ', "' . (($type == 'new' || $type == 'forward') ? 'to' : 'message') . '", true)';
@@ -335,7 +335,7 @@ $scripts = array(
     array('compose-dimp.js', 'imp', true)
 );
 
-DIMP::header(_("Message Composition"), $scripts);
+IMP_Dimp::header(_("Message Composition"), $scripts);
 echo $t->fetch('compose.html');
 Horde::includeScriptFiles();
 Horde::outputInlineScript();

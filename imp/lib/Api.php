@@ -483,7 +483,7 @@ class IMP_Api extends Horde_Registry_Api
             $GLOBALS['imp_authentication'] = 'throw';
             require_once dirname(__FILE__) . '/base.php';
             if (IMP::getViewMode() == 'dimp') {
-                Horde::addInlineScript(array(DIMP::notify(true)), 'dom');
+                Horde::addInlineScript(array(IMP_Dimp::notify(true)), 'dom');
                 return;
             }
         } catch (Horde_Exception $e) {}

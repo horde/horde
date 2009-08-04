@@ -32,7 +32,7 @@ $show_msg = new IMP_Views_ShowMessage();
 $show_msg_result = $show_msg->showMessage($args);
 if (isset($show_msg_result['error'])) {
     echo Horde::wrapInlineScript(array(
-        DIMP::notify(),
+        IMP_Dimp::notify(),
         'parent.close()'
     ));
     exit;
@@ -78,9 +78,9 @@ if (!$disable_compose) {
 }
 
 Horde::addInlineScript($js_out);
-Horde::addInlineScript(array(DIMP::notify()), 'dom');
+Horde::addInlineScript(array(IMP_Dimp::notify()), 'dom');
 
-DIMP::header($show_msg_result['subject'], $scripts);
+IMP_Dimp::header($show_msg_result['subject'], $scripts);
 echo "<body>\n";
 require IMP_TEMPLATES . '/chunks/message.php';
 Horde::includeScriptFiles();

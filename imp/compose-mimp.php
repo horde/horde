@@ -255,7 +255,7 @@ foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
 
 $menu = new Horde_Mobile_card('o', _("Menu"));
 $mset = &$menu->add(new Horde_Mobile_linkset());
-MIMP::addMIMPMenu($mset, 'compose');
+IMP_Mimp::addMIMPMenu($mset, 'compose');
 
 if ($actionID == 'rc') {
     require IMP_TEMPLATES . '/compose/redirect-mimp.inc';

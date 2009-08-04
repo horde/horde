@@ -23,7 +23,7 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
     } else {
         $params['tooltip'] = $text;
     }
-    echo DIMP::actionButton($params);
+    echo IMP_Dimp::actionButton($params);
 }
 
 ?>

@@ -45,11 +45,11 @@ if (!empty($site_menu)) {
 }
 
 Horde::addInlineScript($js_code, true);
-DIMP::header('', $scripts);
+IMP_Dimp::header('', $scripts);
 
 /* Get application folders list. */
 $application_folders = array();
-foreach (DIMP::menuList() as $app) {
+foreach (IMP_Dimp::menuList() as $app) {
     if ($registry->get('status', $app) != 'inactive' &&
         $registry->hasPermission($app, PERMS_SHOW)) {
         $application_folders[] = array(

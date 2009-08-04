@@ -229,5 +229,5 @@ foreach ($nav as $n) {
     }
 }
 
-MIMP::addMIMPMenu($mset, 'mailbox');
+IMP_Mimp::addMIMPMenu($mset, 'mailbox');
 require IMP_TEMPLATES . '/mailbox/mailbox-mimp.inc';

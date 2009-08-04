@@ -32,7 +32,7 @@ $mset->add(new Horde_Mobile_link(_("Refresh"), $selfurl));
 if ($subscribe) {
     $mset->add(new Horde_Mobile_link($sub_text, $sub_link));
 }
-MIMP::addMIMPMenu($mset, 'folders');
+IMP_Mimp::addMIMPMenu($mset, 'folders');
 
 $mimp_render->add($menu);
 $mimp_render->display();

@@ -11,7 +11,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package IMP
  */
-class MIMP
+class IMP_Mimp
 {
     /**
      * Take a Horde_Mobile_card and add global menu items.

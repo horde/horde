@@ -28,7 +28,7 @@ function _createDAcompose($text, $image, $id)
     } else {
         $params['title'] = $text;
     }
-    echo DIMP::actionButton($params);
+    echo IMP_Dimp::actionButton($params);
 }
 
 ?>

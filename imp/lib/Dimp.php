@@ -10,7 +10,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package IMP
  */
-class DIMP
+class IMP_Dimp
 {
     /**
      * Output a dimp-style action (menubar) link.

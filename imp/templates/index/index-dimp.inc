@@ -30,7 +30,7 @@ function _createDA($text, $image, $id = null, $class = '', $show_text = true)
     } else {
         $params['tooltip'] = $text;
     }
-    echo DIMP::actionButton($params);
+    echo IMP_Dimp::actionButton($params);
 }
 
 function _simpleButton($id, $text, $image, $imagedir = null)

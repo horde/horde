@@ -1989,7 +1989,7 @@ var DimpBase = {
     },
 
     // Folder actions.
-    // For format of the ob object, see DIMP::_createFolderElt().
+    // For format of the ob object, see IMP_Dimp::_createFolderElt().
     createFolder: function(ob)
     {
         var div, f_node, ftype, li, ll, parent_e, tmp,

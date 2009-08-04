@@ -196,7 +196,7 @@ case 'CreateFolder':
         $new = $imptree->createMailboxName(Horde_Util::getPost('parent'), $new);
         $result = $imp_folder->create($new, $prefs->getValue('subscribe'));
         if ($result) {
-            $result = DIMP::getFolderResponse($imptree);
+            $result = IMP_Dimp::getFolderResponse($imptree);
         }
     } catch (Horde_Exception $e) {
         $notification->push($e, 'horde.error');
@@ -215,7 +215,7 @@ case 'DeleteFolder':
     $imp_folder = IMP_Folder::singleton();
     $result = $imp_folder->delete(array($mbox));
     if ($result) {
-        $result = DIMP::getFolderResponse($imptree);
+        $result = IMP_Dimp::getFolderResponse($imptree);
     }
     break;
 
@@ -239,7 +239,7 @@ case 'RenameFolder':
         if ($old != $new) {
             $result = $imp_folder->rename($old, $new);
             if ($result) {
-                $result = DIMP::getFolderResponse($imptree);
+                $result = IMP_Dimp::getFolderResponse($imptree);
             }
         }
     } catch (Horde_Exception $e) {
@@ -291,7 +291,7 @@ case 'ListFolders':
     if (Horde_Util::getPost('unsub')) {
         $mask |= IMP_Imap_Tree::FLIST_UNSUB;
     }
-    $result = DIMP::getFolderResponse($imptree, array('a' => $imptree->folderList($mask), 'c' => array(), 'd' => array()));
+    $result = IMP_Dimp::getFolderResponse($imptree, array('a' => $imptree->folderList($mask), 'c' => array(), 'd' => array()));
 
     $quota = _getQuota();
     if (!is_null($quota)) {
@@ -523,7 +523,7 @@ case 'GetForwardData':
     $result = new stdClass;
     // Can't open read-only since we need to store the message cache id.
     $result->imp_compose = $imp_compose->getCacheId();
-    $result->fwd_list = DIMP::getAttachmentInfo($imp_compose);
+    $result->fwd_list = IMP_Dimp::getAttachmentInfo($imp_compose);
     $result->body = $fwd_msg['body'];
     $result->header = $header;
     $result->format = $fwd_msg['format'];
