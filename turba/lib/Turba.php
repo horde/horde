@@ -329,6 +329,7 @@ class Turba {
         foreach ($in as $sourceId => $source) {
             $driver = Turba_Driver::singleton($sourceId);
             if (is_a($driver, 'PEAR_Error')) {
+                Horde::logMessage(sprintf("Could not instantiate the %s source: %s", $sourceId, $driver->getMessage()), __FILE__, __LINE__, PEAR_LOG_ERR);
                 continue;
             }
 
