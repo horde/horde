@@ -325,6 +325,8 @@ class Horde_Registry
 
     /**
      * Fills the registry's API cache with the available services and types.
+     *
+     * @throws Horde_Exception
      */
     protected function _loadApiCache()
     {
@@ -341,17 +343,38 @@ class Horde_Registry
             $status[] = 'admin';
         }
 
-        $this->_cache['api'] = $this->_cache['type'] = array();
+        $this->_cache['api'] = array();
+
+        /* Initialize complex types. */
+        $this->_cache['type'] = array(
+            'hash' => array(
+                array('item' => '{urn:horde}hashItem')
+            ),
+            'hashHash' => array(
+                array('item' => '{urn:horde}hashHashItem')
+            ),
+            'hashItem' => array(
+                'key' => 'string',
+                'value' => 'string'
+            ),
+            'hashHashItem' => array(
+                'key' => 'string',
+                'value' => '{urn:horde}hash'
+            ),
+            'stringArray' => array(
+                array('item' => 'string')
+            )
+        );
 
         foreach (array_keys($this->applications) as $app) {
-            $_services = $_types = null;
-            $api = $this->get('fileroot', $app) . '/lib/api.php';
-            if (is_readable($api)) {
-                include_once $api;
+            if (!in_array($this->applications[$app]['status'], $status)) {
+                continue;
             }
-            $this->_cache['api'][$app] = $_services;
-            if (!is_null($_types)) {
-                foreach ($_types as $type => $params) {
+
+            $api = $this->_getApiOb($app);
+            $this->_cache['api'][$app] = $api->services;
+            if (!empty($api->types)) {
+                foreach ($api->types as $type => $params) {
                     /* Prefix non-Horde types with the application name. */
                     $prefix = ($app == 'horde') ? '' : "${app}_";
                     $this->_cache['type'][$prefix . $type] = $params;
@@ -366,6 +389,32 @@ class Horde_Registry
             $this->_cache['type']
         );
         $this->_saveCacheVar('apicache');
+    }
+
+    /**
+     * Retrieve the API object for a given application.
+     *
+     * @param string $app  The application to load.
+     *
+     * @return Horde_Registry_Api  The API object.
+     * @throws Horde_Exception
+     */
+    protected function _getApiOb($app)
+    {
+        if (isset($this->_cache['apiob'][$app])) {
+            return $this->_cache['apiob'][$app];
+        }
+
+        /* Can't autoload here, since the application may not have been
+         * initialized yet. */
+        $classname = $app . '_Api';
+        if (!@include_once $this->get('fileroot', $app) . '/lib/Api.php') {
+            throw new Horde_Exception('Application ' . $app . ' is missing its API file.');
+        }
+
+        $this->_cache['apiob'][$app] = new $classname;
+
+        return $this->_cache['apiob'][$app];
     }
 
     /**
@@ -584,15 +633,11 @@ class Horde_Registry
         }
 
         /* Load the API now. */
-        $api = $this->get('fileroot', $app) . '/lib/api.php';
-        if (is_readable($api)) {
-            include_once $api;
-        }
+        $api = $this->_getApiOb($app);
 
         /* Make sure that the function actually exists. */
-        $function = '_' . $app . '_' . str_replace('/', '_', $call);
-        if (!function_exists($function)) {
-            throw new Horde_Exception('The function implementing ' . $call . ' (' . $function . ') is not defined in ' . $app . '\'s API.');
+        if (!method_exists($api, $call)) {
+            throw new Horde_Exception('The function implementing ' . $call . ' is not defined in ' . $app . '\'s API.');
         }
 
         $checkPerms = isset($this->_cache['api'][$app][$call]['checkperms'])
@@ -605,7 +650,7 @@ class Horde_Registry
         $pushed = $this->pushApp($app, array('check_perms' => $checkPerms));
 
         try {
-            $result = call_user_func_array($function, $args);
+            $result = call_user_func_array(array($api, $call), $args);
         } catch (Horde_Exception $e) {
             $result = $e;
         }
@@ -1039,13 +1084,37 @@ class Horde_Registry
      */
     public function getVersion($app = null)
     {
-        if (is_null($app)) {
+        if (empty($app)) {
             $app = $this->getApp();
         }
 
-        require_once $this->get('fileroot', $app) . '/lib/version.php';
+        try {
+            $api = $this->_getApiOb($app);
+            return $api->version;
+        } catch (Horde_Exception $e) {
+            return 'unknown';
+        }
+    }
 
-        return constant(strtoupper($app) . '_VERSION');
+    /**
+     * Does the given application have a mobile view?
+     *
+     * @param string $app  The application to check.
+     *
+     * @return boolean  Whether app has mobile view.
+     */
+    public function hasMobileView($app = null)
+    {
+        if (empty($app)) {
+            $app = $this->getApp();
+        }
+
+        try {
+            $api = $this->_getApiOb($app);
+            return $api->mobileView;
+        } catch (Horde_Exception $e) {
+            return false;
+        }
     }
 
     /**
