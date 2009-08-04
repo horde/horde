@@ -14,9 +14,6 @@ run-tests.log
 */config/*.local.php
 */lib/base.local.php
 
-# Don't store compressed JS files in git
-*/js/*.js
-
 # Application specific patterns
 chora/config/*.php
 framework/Rdo/examples/Horde/Rdo/conf.php
