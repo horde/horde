@@ -83,10 +83,9 @@ class IMP_Imap_Flags
         $this->_loadList();
 
         $def_color = $GLOBALS['prefs']->getValue('msgflags_color');
-        $ret = $this->_flags;
-        $avail_flags = array_keys($ret);
+        $avail_flags = array_keys($this->_flags);
 
-        $types = array();
+        $ret = $types = array();
         if (!empty($options['imap'])) {
             $types = array('imapp', 'imapu');
         }
@@ -103,6 +102,7 @@ class IMP_Imap_Flags
         }
 
         foreach ($avail_flags as $key) {
+            $ret[$key] = $this->_flags[$key];
             $ret[$key]['flag'] = $key;
 
             if (!empty($options['fgcolor'])) {
