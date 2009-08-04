@@ -31,8 +31,8 @@ $args = array(
 $show_msg = new IMP_Views_ShowMessage();
 $show_msg_result = $show_msg->showMessage($args);
 if (isset($show_msg_result['error'])) {
-    echo IMP::wrapInlineScript(array(
-        DIMP::notify(false, 'parent.opener.document', 'parent.opener.DimpCore'),
+    echo Horde::wrapInlineScript(array(
+        DIMP::notify(),
         'parent.close()'
     ));
     exit;
