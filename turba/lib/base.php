@@ -67,7 +67,7 @@ $GLOBALS['browse_source_count'] = 0;
 foreach (Turba::getAddressBooks() as $key => $curSource) {
     if (!empty($curSource['browse'])) {
         $selected = ($key == $default_source) ? ' selected="selected"' : '';
-        $browse_source_options .= '<option value="' . htmlspecialchars($key) . '" ' . $selected . '>' .
+        $GLOBALS['browse_source_options'] .= '<option value="' . htmlspecialchars($key) . '" ' . $selected . '>' .
             htmlspecialchars($curSource['title']) . '</option>';
 
         $GLOBALS['browse_source_count']++;
