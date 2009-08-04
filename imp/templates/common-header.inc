@@ -1,4 +1,19 @@
 <?php
+
+$imp_view = Horde_Util::nonInputVar('imp_view');
+
+/* Do this include here so that the generated script can be added with any
+ * other scripts already added. */
+switch ($imp_view) {
+case 'dimp':
+    include IMP_TEMPLATES . '/javascript_defs_dimp.php';
+    break;
+
+default:
+    include IMP_TEMPLATES . '/javascript_defs.php';
+    break;
+}
+
 if (isset($GLOBALS['language'])) {
     header('Content-type: text/html; charset=' . Horde_Nls::getCharset());
     header('Vary: Accept-Language');
@@ -7,12 +22,17 @@ if (isset($GLOBALS['language'])) {
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
 <?php
 echo (!empty($GLOBALS['language']) ? '<html lang="' . strtr($GLOBALS['language'], '_', '-') . '">' : '<html>') . '<head>';
+
 $page_title = $GLOBALS['registry']->get('name');
-if (!empty($title)) $page_title .= ' :: ' . $title;
+
+if (!empty($title)) {
+    $page_title .= ' :: ' . $title;
+}
+
 if (!empty($refresh_time) && !empty($refresh_url)) {
     echo "<meta http-equiv=\"refresh\" content=\"$refresh_time;url=$refresh_url\" />\n";
 }
-$imp_view = Horde_Util::nonInputVar('imp_view');
+
 switch ($imp_view) {
 case 'dimp':
     $css = array();
@@ -25,13 +45,11 @@ case 'dimp':
         }
     }
     Horde::includeStylesheetFiles(array('additional' => $css, 'sub' => 'dimp'));
-    include IMP_TEMPLATES . '/javascript_defs_dimp.php';
     break;
 
 default:
     Horde::includeStylesheetFiles();
     Horde::includeScriptFiles();
-    include IMP_TEMPLATES . '/javascript_defs.php';
     break;
 }
 ?>
