@@ -511,44 +511,62 @@ HTML;
     }
 
     /**
-     * Checks if link should be shown and return the necessary code.
+     * Checks if services link should be shown and returns the necessary code.
      *
-     * @param string  $type      Type of link to display
-     * @param string  $app       The name of the current Horde application.
+     * @param string $type       Type of link to display
+     * <pre>
+     * The following must be defined in Horde's menu config, or else $override
+     * must be true:
+     * 'help', 'problem', 'logout', 'login', 'options'
+     *
+     * The following are service links only and do not need to be defined
+     * in Horde's menu config.
+     * 'cache', 'download', 'go', 'prefsapi'
+     * </pre>
+     * @param string $app        The name of the current Horde application.
      * @param boolean $override  Override Horde settings?
-     * @param boolean $referrer  Include the current page as the referrer
-     *                           (url=)?
      *
      * @return string  The HTML to create the link.
      */
-    static public function getServiceLink($type, $app, $override = false,
-                                          $referrer = true)
+    static public function getServiceLink($type, $app, $override = false)
     {
-        if (!self::showService($type, $override)) {
+        if (!in_array($type, array('cache', 'download', 'go', 'prefsapi')) &&
+            !self::showService($type, $override)) {
             return false;
         }
 
+        $webroot = $GLOBALS['registry']->get('webroot', 'horde');
+
         switch ($type) {
         case 'help':
-            $url = self::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/help/', true);
-            return Horde_Util::addParameter($url, array('module' => $app));
+            return Horde_Util::addParameter(self::url($webroot . '/services/help/'), array('module' => $app));
 
         case 'problem':
-            $url = self::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/problem.php');
+            $url = self::url($webroot . '/services/problem.php');
             return Horde_Util::addParameter($url, array('return_url' => urlencode(self::selfUrl(true, true, true))));
 
         case 'logout':
             return Horde_Auth::getLogoutUrl(array('reason' => Horde_Auth::REASON_LOGOUT));
 
         case 'login':
-            return self::url($GLOBALS['registry']->get('webroot', 'horde') . '/login.php');
+            return self::url($webroot . '/login.php');
 
         case 'options':
+        case 'prefsapi':
             if (!in_array($GLOBALS['conf']['prefs']['driver'], array('', 'none'))) {
-                $url = self::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs.php');
+                $url = self::url($webroot . ($type == 'options' ? '/services/prefs.php' : '/services/prefs/'));
                 return Horde_Util::addParameter($url, array('app' => $app));
             }
             break;
+
+        case 'cache':
+            return self::url($webroot . '/services/cache.php', false, -1);
+
+        case 'download':
+            return Horde_Util::addParameter(self::url($webroot . '/services/download/', array('module' => $app)));
+
+        case 'go':
+            return self::url($webroot . '/services/go.php');
         }
 
         return false;
@@ -1128,8 +1146,7 @@ HTML;
             Horde_String::substr($url, 0, 7) == 'mailto:') {
             $ext = $url;
         } else {
-            $ext = self::url($GLOBALS['registry']->get('webroot', 'horde') .
-                              '/services/go.php', true, -1);
+            $ext = self::getServiceLink('go', 'horde');
 
             /* We must make sure there are no &amp's in the URL. */
             $url = preg_replace(array('/(=?.*?)&amp;(.*?=)/', '/(=?.*?)&amp;(.*?=)/'), '$1&$2', $url);
@@ -1151,18 +1168,19 @@ HTML;
      * @param array $params     Any additional parameters needed.
      * @param string $url       The URL to alter. If none passed in, will use
      *                          the file 'view.php' located in the current
-     *                          module's base directory.
+     *                          app's base directory.
      *
      * @return string  The download URL.
      */
-    static public function downloadUrl($filename, $params = array(), $url = null)
+    static public function downloadUrl($filename, $params = array(),
+                                       $url = null)
     {
         global $browser, $registry;
 
         $horde_url = false;
 
         if (is_null($url)) {
-            $url = Horde_Util::addParameter(self::url($registry->get('webroot', 'horde') . '/services/download/'), 'module', $registry->getApp());
+            $url = self::getServiceLink('download', $registry->getApp());
             $horde_url = true;
         }
 
@@ -2182,7 +2200,7 @@ HTML;
     static public function getCacheUrl($type, $params = array())
     {
         $registry = Horde_Registry::singleton();
-        $url = $GLOBALS['registry']->get('webroot', 'horde') . '/services/cache.php?cache=' . $type;
+        $url = Horde_Util::addParameter(self::getserviceLink('cache', 'horde'), array('cache' => $type));
         foreach ($params as $key => $val) {
             $url .= '/' . $key . '=' . rawurlencode(strval($val));
         }
