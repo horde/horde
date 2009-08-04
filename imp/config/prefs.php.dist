@@ -39,7 +39,7 @@ if (!empty($_SESSION['imp']['acl'])) {
 $prefGroups['logintasks'] = array(
     'column' => _("General Options"),
     'label' => _("Login Tasks"),
-    'desc' => sprintf(_("Customize tasks to run upon logon to %s."), $GLOBALS['registry']->get('name')),
+    'desc' => sprintf(_("Configure tasks to run upon logon to %s."), $GLOBALS['registry']->get('name')),
     'members' => array('delete_attachments_monthly',
                        'delete_attachments_monthly_keep')
 );
@@ -57,7 +57,7 @@ if (!$is_pop3) {
 $prefGroups['compose'] = array(
     'column' => _("Message Options"),
     'label' => _("Message Composition"),
-    'desc' => _("Customize how you send mail."),
+    'desc' => _("Configure how you send mail."),
     'members' => array('stationery_link', 'mailto_handler', 'compose_cc',
                        'compose_bcc', 'compose_spellcheck', 'compose_confirm',
                        'set_priority', 'compose_popup', 'compose_html',
@@ -73,7 +73,7 @@ if (!empty($GLOBALS['conf']['compose']['allow_receipts'])) {
 $prefGroups['reply_forward'] = array(
     'column' => _("Message Options"),
     'label' => _("Message Replies/Forwards"),
-    'desc' => _("Customize how you reply to or forward mail."),
+    'desc' => _("Configure how you reply to or forward mail."),
     'members' => array('reply_quote', 'reply_format', 'forward_bodytext',
                        'reply_headers', 'attrib_text')
 );
@@ -81,7 +81,7 @@ $prefGroups['reply_forward'] = array(
 $prefGroups['drafts'] = array(
     'column' => _("Message Options"),
     'label' => _("Message Drafts"),
-    'desc' => _("Customize how to deal with message drafts."),
+    'desc' => _("Configure how to deal with message drafts."),
     'members' => array('draftsselect', 'close_draft', 'unseen_drafts',
                        'auto_save_drafts', 'auto_delete_drafts')
 );
@@ -133,14 +133,14 @@ if (!$is_pop3) {
     $prefGroups['flags'] = array(
         'column' => _("Message Options"),
         'label' => _("Message Flags"),
-        'desc' => _("Customize flag highlighting."),
+        'desc' => _("Configure flag highlighting."),
         'members' => array('flagmanagement')
     );
 
     $prefGroups['fetchmail'] = array(
         'column' => _("Message Options"),
         'label' => _("Fetch Mail"),
-        'desc' => _("Customize accounts for fetching mail from other accounts."),
+        'desc' => _("Configure accounts for fetching mail from other accounts."),
         'members' => array('fetchmail_link', 'fetchmail_menu')
     );
 }
@@ -175,7 +175,7 @@ $prefGroups['addressbooks'] = array(
 $prefGroups['events'] = array(
     'column' => _("Other Options"),
     'label' => _("Event Requests"),
-    'desc' => _("Customize how should be dealt with event or meeting requests."),
+    'desc' => _("Configure event or meeting requests should be handled."),
     'members' => array('conflict_interval')
 );
 
