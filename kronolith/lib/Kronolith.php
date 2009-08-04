@@ -752,6 +752,7 @@ class Kronolith
                     try {
                         $categories = $GLOBALS['registry']->call($api . '/listTimeObjectCategories');
                     } catch (Horde_Exception $e) {
+                        Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_DEBUG);
                         continue;
                     }
 
