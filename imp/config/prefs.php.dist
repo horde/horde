@@ -1314,9 +1314,9 @@ $_prefs['sortby'] = array(
         Horde_Imap_Client::SORT_DATE => _("Message Date"),
         Horde_Imap_Client::SORT_FROM => _("From Address"),
         Horde_Imap_Client::SORT_TO => _("To Address"),
-        Horde_Imap_Client::SORT_SUBJECT => _("Subject Field"),
+        Horde_Imap_Client::SORT_SUBJECT => _("Subject"),
         Horde_Imap_Client::SORT_SIZE => _("Message Size"),
-        Horde_Imap_Client::SORT_THREAD => _("Thread View")
+        Horde_Imap_Client::SORT_THREAD => _("Thread")
     ),
     'desc' => _("Default sorting criteria:"));
 
