@@ -90,9 +90,7 @@ class IMP
         }
 
         $GLOBALS['notification'] = Horde_Notification::singleton();
-        $viewmode = isset($_SESSION['imp']['view'])
-            ? $_SESSION['imp']['view']
-            : 'imp';
+        $viewmode = self::getViewMode();
 
         if ($viewmode == 'mimp') {
             $GLOBALS['imp_notify'] = $GLOBALS['notification']->attach('status', null, 'Horde_Notification_Listener_Mobile');
@@ -108,6 +106,18 @@ class IMP
         IMP::setCurrentMailboxInfo();
 
         self::$_init = true;
+    }
+
+    /**
+     * Returns the current view mode for IMP.
+     *
+     * @return string  Either 'dimp', 'imp', or 'mimp'.
+     */
+    static public function getViewMode()
+    {
+        return isset($_SESSION['imp']['view'])
+            ? $_SESSION['imp']['view']
+            : 'imp';
     }
 
     /**
@@ -386,10 +396,7 @@ class IMP
         $args = self::composeLinkArgs($args, $extra);
 
         if (is_null($view)) {
-            /* Default to 'imp' if not currently logged-in. */
-            $view = empty($_SESSION['imp']['view'])
-                ? 'imp'
-                : $_SESSION['imp']['view'];
+            $view = self::getViewMode();
         }
 
         if ($view == 'dimp') {
