@@ -13,9 +13,7 @@ class Horde_Autoloader
      *
      * @var array
      */
-    protected static $_classPatterns = array(
-        array('/^Horde_/i', 'Horde/'),
-    );
+    protected static $_classPatterns = array();
 
     /**
      * The include path cache.
@@ -38,38 +36,44 @@ class Horde_Autoloader
      */
     public static function loadClass($class)
     {
+        /* Search in class patterns first. */
         foreach (self::$_classPatterns as $classPattern) {
             list($pattern, $replace) = $classPattern;
-            $file = $class;
 
             if (!is_null($replace) &&
-                preg_match($pattern, $file, $matches, PREG_OFFSET_CAPTURE)) {
-                $file_path = str_replace(array('::', '_'), '/', substr($file, 0, $matches[0][1])) .
-                    $replace .
-                    str_replace(array('::', '_'), '/', substr($file, $matches[0][1] + strlen($matches[0][0])));
-            } else {
-                $file_path = str_replace(array('::', '_'), '/', $file);
-            }
-
-            if (!is_null($replace) || preg_match($pattern, $file)) {
-                $err_mask = E_ALL ^ E_WARNING;
-                if (defined('E_DEPRECATED')) {
-                    $err_mask = $err_mask ^ E_DEPRECATED;
+                preg_match($pattern, $class, $matches, PREG_OFFSET_CAPTURE)) {
+                if (strcasecmp($matches[0][0], $class) === 0) {
+                    $file_path = $replace . '/' . $class;
+                } else {
+                    $file_path = str_replace(array('::', '_'), '/', substr($class, 0, $matches[0][1])) .
+                        $replace .
+                        str_replace(array('::', '_'), '/', substr($class, $matches[0][1] + strlen($matches[0][0])));
                 }
-                $oldErrorReporting = error_reporting($err_mask);
-                //@TODO:  This may be a neccessary evil since any external
-                // library that triggers an Autoloader for a class that is named
-                // the same as any file that is currently in the include_path
-                // (which includes all lib/* files for applications currently on
-                // the stack) will cause  that file to possibly load that file
-                // more then once. This causes fatal Cannon redeclare class errors.
-                $included = include_once $file_path . '.php';
-                error_reporting($oldErrorReporting);
-                if ($included) {
+
+                if (self::_loadClass($file_path)) {
                     return true;
                 }
             }
         }
+
+        /* Do a final search in the include path. */
+        $file_path = str_replace(array('::', '_'), '/', $class);
+        return self::_loadClass($file_path);
+    }
+
+    /**
+     * TODO
+     */
+    protected static function _loadClass($file_path)
+    {
+        $err_mask = E_ALL ^ E_WARNING;
+        if (defined('E_DEPRECATED')) {
+            $err_mask = $err_mask ^ E_DEPRECATED;
+        }
+        $oldErrorReporting = error_reporting($err_mask);
+        $included = include_once $file_path . '.php';
+        error_reporting($oldErrorReporting);
+        return $included;
     }
 
     /**
@@ -109,7 +113,13 @@ class Horde_Autoloader
      * Add a new class pattern.
      *
      * @param string $pattern  The class pattern to add.
-     * @param string $replace  The substitution pattern.
+     * @param string $replace  The substitution pattern. All '_' and '::'
+     *                         strings in a classname will be converted to
+     *                         directory separators.  If the entire pattern
+     *                         is matched, the matched text will be appended
+     *                         to the replacement string (allows for a single
+     *                         base class file to live within the include
+     *                         directory).
      */
     public static function addClassPattern($pattern, $replace = null)
     {

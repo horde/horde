@@ -874,8 +874,7 @@ class Horde_Registry
          * be done here because it is possible to try to load app-specific
          * libraries from other applications. */
         $app_lib = $this->get('fileroot', $app) . '/lib';
-        Horde_Autoloader::addClassPath($app_lib);
-        Horde_Autoloader::addClassPattern('/^' . $app . '_/i', $app_lib);
+        Horde_Autoloader::addClassPattern('/^' . $app . '(?:$|_)/i', $app_lib);
 
         /* Chicken and egg problem: the language environment has to be loaded
          * before loading the configuration file, because it might contain
