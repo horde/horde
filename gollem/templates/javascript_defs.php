@@ -5,7 +5,7 @@ $charset = Horde_Nls::getCharset();
 /* Variables used in core javascript files. */
 $var = array(
     'empty_input' => intval($GLOBALS['browser']->hasQuirk('empty_file_input_value')),
-    'prefs_api' => Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs/', true, -1)
+    'prefs_api' => Horde::getServiceLink('prefsapi', 'gollem')
 );
 
 /* Gettext strings used in core javascript files. */

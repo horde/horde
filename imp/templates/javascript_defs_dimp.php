@@ -43,14 +43,14 @@ foreach ($imp_flags->getList() as $val) {
 /* Variables used in core javascript files. */
 $code['conf'] = array_filter(array(
     // URL variables
-    'URI_AJAX' => Horde::applicationUrl('ajax.php', true, -1),
+    'URI_AJAX' => Horde::applicationUrl('ajax.php'),
     'URI_COMPOSE' => Horde::applicationUrl('compose-dimp.php'),
-    'URI_DIMP' => Horde::applicationUrl('index-dimp.php', true, -1),
+    'URI_DIMP' => Horde::applicationUrl('index-dimp.php'),
     'URI_MESSAGE' => Horde::applicationUrl('message-dimp.php'),
-    'URI_PREFS' => Horde::url($horde_webroot . '/services/prefs/', true, -1),
+    'URI_PREFS' => Horde::getServiceLink('prefsapi', 'imp'),
     'URI_PREFS_IMP' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'imp')),
     'URI_TIMEOUT' => Horde_Auth::getLogoutUrl(array('reason' => Horde_Auth::REASON_SESSION)),
-    'URI_VIEW' => Horde::applicationUrl('view.php', true, -1),
+    'URI_VIEW' => Horde::applicationUrl('view.php'),
 
     'SESSION_ID' => defined('SID') ? SID : '',
 

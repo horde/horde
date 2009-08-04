@@ -15,10 +15,10 @@ function table_sortCallback(tableId, column, sortDown)
 
 function doPrefsUpdate(column, sortDown)
 {
-    baseurl = '<?php echo Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs/', true, -1) ?>';
+    baseurl = '<?php echo Horde::getServiceLink('prefsui', 'nag') ?>';
     try {
-        new Ajax.Request(baseurl, { parameters: { app: 'nag', pref: 'sortby', value: encodeURIComponent(column.substring(1)) } });
-        new Ajax.Request(baseurl, { parameters: { app: 'nag', pref: 'sortdir', value: encodeURIComponent(sortDown) } });
+        new Ajax.Request(baseurl, { parameters: { pref: 'sortby', value: encodeURIComponent(column.substring(1)) } });
+        new Ajax.Request(baseurl, { parameters: { pref: 'sortdir', value: encodeURIComponent(sortDown) } });
     } catch (e) {}
 }
 
@@ -65,7 +65,7 @@ function doPrefsUpdate(column, sortDown)
    <?php
    if (Horde_Auth::getAuth() && (!$GLOBALS['prefs']->isLocked('categories') ||
                            !$GLOBALS['prefs']->isLocked('category_colors'))) {
-       $categoryUrl = Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs.php'), array('app' => 'horde', 'group' => 'categories'));
+       $categoryUrl = Horde_Util::addParameter(Horde::getServiceLink('options', 'horde'), array('group' => 'categories'));
        echo ' ' . Horde::link($categoryUrl, _("Edit categories and colors"), '', '_blank', Horde::popupJs($categoryUrl, array('urlencode' => true)) . 'return false;') . Horde::img('colorpicker.png', _("Edit categories and colors"), '', $GLOBALS['registry']->getImageDir('horde')) . '</a>';
    }
    ?>

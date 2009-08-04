@@ -16,18 +16,18 @@ function table_sortCallback(tableId, column, sortDown)
 
 function doPrefsUpdate(column, sortDown)
 {
-    baseurl = '<?php echo Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs/', true, -1) ?>';
+    baseurl = '<?php echo Horde::getServiceLink('prefsui', 'skoli') ?>';
     try {
         column = column.substring(1);
         prefscope = 'class';
         if (column == 'lastentry' || column == 'comment') {
             prefscope = 'student';
         }
-        new Ajax.Request(baseurl, { parameters: { app: 'skoli', pref: 'sortby_' + prefscope, value: encodeURIComponent(column) } });
-        new Ajax.Request(baseurl, { parameters: { app: 'skoli', pref: 'sortdir_' + prefscope, value: encodeURIComponent(sortDown) } });
+        new Ajax.Request(baseurl, { parameters: { pref: 'sortby_' + prefscope, value: encodeURIComponent(column) } });
+        new Ajax.Request(baseurl, { parameters: { pref: 'sortdir_' + prefscope, value: encodeURIComponent(sortDown) } });
         if (column == 'name') {
-            new Ajax.Request(baseurl, { parameters: { app: 'skoli', pref: 'sortby_student', value: encodeURIComponent(column) } });
-            new Ajax.Request(baseurl, { parameters: { app: 'skoli', pref: 'sortdir_student', value: encodeURIComponent(sortDown) } });
+            new Ajax.Request(baseurl, { parameters: { pref: 'sortby_student', value: encodeURIComponent(column) } });
+            new Ajax.Request(baseurl, { parameters: { pref: 'sortdir_student', value: encodeURIComponent(sortDown) } });
         }
     } catch (e) {}
 }
@@ -85,7 +85,7 @@ function doPrefsUpdate(column, sortDown)
    <?php
    if (Horde_Auth::getAuth() && (!$GLOBALS['prefs']->isLocked('categories') ||
                            !$GLOBALS['prefs']->isLocked('category_colors'))) {
-       $categoryUrl = Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs.php'), array('app' => 'horde', 'group' => 'categories'));
+       $categoryUrl = Horde_Util::addParameter(Horde::getServiceLink('options', 'horde'), array('group' => 'categories'));
        echo ' ' . Horde::link($categoryUrl, _("Edit categories and colors"), '', '_blank', Horde::popupJs($categoryUrl, array('urlencode' => true)) . 'return false;') . Horde::img('colorpicker.png', _("Edit categories and colors"), '', $GLOBALS['registry']->getImageDir('horde')) . '</a>';
    }
    ?>

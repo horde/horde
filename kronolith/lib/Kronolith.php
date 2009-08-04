@@ -128,7 +128,6 @@ class Kronolith
         /* Variables used in core javascript files. */
         $code['conf'] = array(
             'URI_AJAX' => Horde::url($kronolith_webroot . '/ajax.php', true, -1),
-            'URI_PREFS' => Horde::url($horde_webroot . '/services/prefs/', true, -1),
             'URI_IMG' => $registry->getImageDir() . '/',
             //'URI_VIEW' => Horde_Util::addParameter(Horde::url($imp_webroot . '/view.php', true, -1), array('actionID' => 'view_source', 'id' => 0), null, false),
             'SESSION_ID' => defined('SID') ? SID : '',
@@ -1211,7 +1210,7 @@ class Kronolith
 
         $myemail = $ident->getValue('from_addr');
         if (!$myemail) {
-            $notification->push(sprintf(_("You do not have an email address configured in your Personal Information Options. You must set one %shere%s before event notifications can be sent."), Horde::link(Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs.php'), array('app' => 'horde', 'group' => 'identities'))), '</a>'), 'horde.error', array('content.raw'));
+            $notification->push(sprintf(_("You do not have an email address configured in your Personal Information Options. You must set one %shere%s before event notifications can be sent."), Horde::link(Horde_Util::addParameter(Horde::getServiceLink('options', 'kronolith'), array('app' => 'horde', 'group' => 'identities'))), '</a>'), 'horde.error', array('content.raw'));
             return;
         }
 

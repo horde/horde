@@ -183,7 +183,7 @@ class IMP_Hooks
 //            return $GLOBALS['registry']->get('webroot', 'turba');
 //
 //        case 'prefs':
-//            return $GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs.php?app=horde';
+//            return Horde::getServiceLink('options', 'horde');
 //
 //        default:
 //            return '';

@@ -362,8 +362,8 @@ var Gollem = {
     doPrefsUpdate: function(column, sortDown)
     {
         try {
-            new Ajax.Request(GollemVar.prefs_api, { parameters: { app: 'gollem', pref: 'sortby', value: column.substring(1) } });
-            new Ajax.Request(GollemVar.prefs_api, { parameters: { app: 'gollem', pref: 'sortdir', value: sortDown } });
+            new Ajax.Request(GollemVar.prefs_api, { parameters: { pref: 'sortby', value: column.substring(1) } });
+            new Ajax.Request(GollemVar.prefs_api, { parameters: { pref: 'sortdir', value: sortDown } });
         } catch (e) {}
     }
 };

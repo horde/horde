@@ -15,10 +15,10 @@ function table_sortCallback(tableId, column, sortDown)
 
 function doPrefsUpdate(column, sortDown)
 {
-    baseurl = '<?php echo Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs/', true, -1) ?>';
+    baseurl = '<?php echo Horde::getServiceLink('prefsapi', 'skoli') ?>';
     try {
         column = column.substring(1);
-        new Ajax.Request(baseurl, { parameters: { app: 'skoli', pref: 'sortby', value: encodeURIComponent(column) } });
+        new Ajax.Request(baseurl, { parameters: { pref: 'sortby', value: encodeURIComponent(column) } });
     } catch (e) {}
 }
 
