@@ -1,15 +1,3 @@
-<script type="text/javascript">
-function moveFromTo(from, to, upurl, downurl)
-{
-    var steps = to - from;
-    if (steps < 0) {
-        window.location = upurl + '&steps=' + -steps;
-    } else if (steps > 0) {
-        window.location = downurl + '&steps=' + steps;
-    }
-    return true;
-}
-</script>
 <form method="post" name="filters" action="<?php echo Horde::applicationUrl('filters.php') ?>">
 <?php Horde_Util::pformInput() ?>
 <input type="hidden" name="actionID" value="" />

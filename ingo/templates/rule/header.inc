@@ -1,15 +1,3 @@
-<script type="text/javascript">
-<!--
-function delete_condition(num)
-{
-    document.rule.actionID.value = 'rule_delete';
-    document.rule.conditionnumber.value = num;
-    document.rule.submit();
-    return true;
-}
-//-->
-</script>
-
 <form method="post" name="rule" action="<?php echo Horde::applicationUrl('rule.php') ?>">
 <?php Horde_Util::pformInput() ?>
 <input type="hidden" name="actionID" value="rule_update" />

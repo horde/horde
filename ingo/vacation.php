@@ -149,6 +149,7 @@ $form_title .= ' ' . Horde_Help::link('ingo', 'vacation');
 $form->setTitle($form_title);
 
 $title = _("Vacation Edit");
+Ingo::prepareMenu();
 require INGO_TEMPLATES . '/common-header.inc';
 require INGO_TEMPLATES . '/menu.inc';
 $form->renderActive(new Horde_Form_Renderer(array('encode_title' => false)), $vars, 'vacation.php', 'post');

@@ -141,6 +141,8 @@ $filter_list = $filters->getFilterList();
 
 Horde::addScriptFile('tooltips.js', 'horde', true);
 Horde::addScriptFile('stripe.js', 'horde', true);
+Horde::addScriptFile('filters.js', 'ingo', true);
+Ingo::prepareMenu();
 $title = _("Filter Rules");
 require INGO_TEMPLATES . '/common-header.inc';
 require INGO_TEMPLATES . '/menu.inc';

@@ -146,11 +146,6 @@ if (!$form->isSubmitted()) {
     $vars->set('new_folder_name', '');
 }
 
-/* Include new folder JS if necessary. */
-if ($registry->hasMethod('mail/createFolder')) {
-    Horde::addScriptFile('new_folder.js');
-}
-
 /* Set form title. */
 $form_title = _("Spam Filtering");
 if (!empty($spam_rule['disable'])) {
@@ -160,6 +155,8 @@ $form_title .= ' ' . Horde_Help::link('ingo', 'spam');
 $form->setTitle($form_title);
 
 $title = _("Spam Filtering");
+Ingo::prepareMenu();
+Ingo::addNewFolderJs();
 require INGO_TEMPLATES . '/common-header.inc';
 require INGO_TEMPLATES . '/menu.inc';
 $form->renderActive($renderer, $vars, 'spam.php', 'post');

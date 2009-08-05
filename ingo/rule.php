@@ -189,11 +189,10 @@ if (!$rule) {
     exit;
 }
 
-if ($registry->hasMethod('mail/createFolder')) {
-    Horde::addScriptFile('new_folder.js');
-}
-
 $title = $rule['name'];
+Horde::addScriptFile('rule.js', 'ingo', true);
+Ingo::prepareMenu();
+Ingo::addNewFolderJs();
 require INGO_TEMPLATES . '/common-header.inc';
 require INGO_TEMPLATES . '/menu.inc';
 require INGO_TEMPLATES . '/rule/header.inc';

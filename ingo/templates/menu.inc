@@ -13,7 +13,7 @@
  </div>
 <?php endif; ?>
 
- <?php echo Ingo::getMenu()->render() ?>
+ <?php echo Ingo::prepareMenu() ?>
 </div>
 </form>
 

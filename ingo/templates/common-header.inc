@@ -14,10 +14,11 @@ if (!empty($title)) {
 <?php if (!empty($refresh_time) && !empty($refresh_url)): ?>
 <meta http-equiv="refresh" content="<?php echo $refresh_time ?>;url=<?php echo $refresh_url ?>">
 <?php endif; ?>
+<?php Horde::includeStylesheetFiles() ?>
 <?php Horde::includeScriptFiles(); ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
 <link href="<?php echo $GLOBALS['registry']->getImageDir()?>/favicon.ico" rel="SHORTCUT ICON" />
-<?php Horde::includeStylesheetFiles() ?>
+<?php Horde::outputInlineScript(); ?>
 </head>
 
 <body<?php if ($bc = Horde_Util::nonInputVar('bodyClass')) echo ' class="' . $bc . '"' ?><?php if ($bi = Horde_Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>

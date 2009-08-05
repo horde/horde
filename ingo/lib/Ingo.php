@@ -22,6 +22,9 @@ class Ingo
      */
     const USER_HEADER = '++USER_HEADER++';
 
+    /* getMenu() cache. */
+    static private $_menuCache = null;
+
     /**
      * Generates a folder widget.
      * If an application is available that provides a folderlist method
@@ -53,7 +56,7 @@ class Ingo
                         $text .= $onchange . ';';
                     }
                     if ($createfolder) {
-                        $text .= 'newFolderName(\'' . $form . '\', \'' .
+                        $text .= 'IngoNewFolder.newFolderName(\'' . $form . '\', \'' .
                             $tagname . '\');';
                     }
                     $text .= '"';
@@ -411,6 +414,33 @@ class Ingo
         }
 
         return $menu;
+    }
+
+    /**
+     * Prepares and caches Ingo's list of menu items.
+     *
+     * @return string  The menu text.
+     */
+    static public function prepareMenu()
+    {
+        if (!self::$_menuCache) {
+            self::$_menuCache = self::getMenu()->render();
+        }
+
+        return self::$_menuCache;
+    }
+
+    /**
+     * Add new_folder.js to the list of output javascript files.
+     */
+    static public function addNewFolderJs()
+    {
+        if ($GLOBALS['registry']->hasMethod('mail/createFolder')) {
+            Horde::addScriptFile('new_folder.js', 'ingo', true);
+            Horde::addInlineScript(array(
+                'IngoNewFolder.folderprompt = ' . Horde_Serialize::serialize(_("Please enter the name of the new folder:"), Horde_Serialize::JSON, Horde_Nls::getCharset())
+            ));
+        }
     }
 
 }

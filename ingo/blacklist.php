@@ -96,11 +96,8 @@ $folder_list = Ingo::flistSelect($blacklist_folder, 'filters', 'actionvalue',
 $filters = &$ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 $bl_rule = $filters->findRule(Ingo_Storage::ACTION_BLACKLIST);
 
-/* Include new folder JS if necessary. */
-if ($registry->hasMethod('mail/createFolder')) {
-    Horde::addScriptFile('new_folder.js');
-}
-
+Ingo::prepareMenu();
+Ingo::addNewFolderJs();
 $title = _("Blacklist Edit");
 require INGO_TEMPLATES . '/common-header.inc';
 require INGO_TEMPLATES . '/menu.inc';

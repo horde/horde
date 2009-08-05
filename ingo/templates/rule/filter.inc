@@ -30,7 +30,7 @@
   </td>
 <?php endif; ?>
 <?php if (!$lastfield): ?>
-  <td><?php echo Horde::link('javascript:delete_condition(' . (int)$cond_num . ');', _("Delete Condition")) . Horde::img('delete.png', _("Delete Condition"), null, $registry->getImageDir('horde')) ?></a></td>
+  <td><?php echo Horde::link('javascript:IngoRule.delete_condition(' . (int)$cond_num . ');', _("Delete Condition")) . Horde::img('delete.png', _("Delete Condition"), null, $registry->getImageDir('horde')) ?></a></td>
 <?php elseif ($cond_num != 0): ?>
   <td>&nbsp;</td>
 <?php endif; ?>
