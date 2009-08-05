@@ -15,16 +15,17 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 
 $scripts = array(
-    array('DimpBase.js', 'imp', true),
     array('ContextSensitive.js', 'imp', true),
-    array('ViewPort.js', 'imp', true),
-    array('dragdrop2.js', 'horde', true),
-    array('dhtmlHistory.js', 'horde', true),
-    array('redbox.js', 'horde', true),
-    array('mailbox-dimp.js', 'imp', true),
+    array('DimpBase.js', 'imp', true),
     array('DimpSlider.js', 'imp', true),
+    array('ViewPort.js', 'imp', true),
+    array('dhtmlHistory.js', 'horde', true),
+    array('dialog.js', 'imp', true),
+    array('dragdrop2.js', 'horde', true),
     array('imp.js', 'imp', true),
-    array('dialog.js', 'imp', true)
+    array('mailbox-dimp.js', 'imp', true),
+    array('popup.js', 'horde', true),
+    array('redbox.js', 'horde', true)
 );
 
 /* Get site specific menu items. */
