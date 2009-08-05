@@ -245,8 +245,7 @@ class IMP_Imap_Tree
                 : $ns;
         }
 
-        $imp_cache = IMP::getCache();
-        if ($imp_cache) {
+        if ($imp_cache = IMP::getCache()) {
             $_SESSION['imp']['cache']['tree'] = uniqid(mt_rand() . Horde_Auth::getAuth());
         }
 

@@ -1209,12 +1209,15 @@ class IMP
      * Returns a Horde_Cache object (if configured) and handles any errors
      * associated with creating the object.
      *
-     * @return Horde_Cache  A pointer to a Horde_Cache object.
+     * @return mixed  A Horde_Cache object or null.
      * @throws Horde_Exception
      */
     public static function getCache()
     {
-        return Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+        $cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+        return ($cache instanceof Horde_Cache_Null)
+            ? null
+            : $cache;
     }
 
     /**
