@@ -45,8 +45,6 @@ class IMP_Auth
      */
     static public function authenticate($credentials = array())
     {
-        $retval = false;
-
         // Do 'horde' authentication.
         if (self::$authType == 'horde') {
             if (Horde_Auth::getAuth()) {
@@ -70,17 +68,17 @@ class IMP_Auth
              * is no concern for an infinite loop here. */
             if (!isset($_SESSION['imp'])) {
                 self::_createSession($credentials);
-                $retval = true;
-            } elseif (!$GLOBALS['imp_imap']->createImapObject($credentials['userId'], $credentials['password'], $credentials['server'])) {
+                return true;
+            }
+
+            if (!$GLOBALS['imp_imap']->createImapObject($credentials['userId'], $credentials['password'], $credentials['server'])) {
                 self::logMessage('failed', __FILE__, __LINE__);
                 throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
             }
         }
 
         try {
-            if ($retval !== true) {
-                $GLOBALS['imp_imap']->ob->login();
-            }
+            $GLOBALS['imp_imap']->ob->login();
         } catch (Horde_Imap_Client_Exception $e) {
             self::logMessage($e->getMessage(), __FILE__, __LINE__);
             if ($e->getCode() == Horde_Imap_Client_Exception::SERVER_CONNECT) {
@@ -90,7 +88,7 @@ class IMP_Auth
             throw new Horde_Auth_Exception($e->getMessage());
         }
 
-        return $retval;
+        return false;
     }
 
     /**
