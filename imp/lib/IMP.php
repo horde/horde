@@ -93,7 +93,7 @@ class IMP
         $viewmode = self::getViewMode();
 
         if ($viewmode == 'mimp') {
-            $GLOBALS['imp_notify'] = $GLOBALS['notification']->attach('status', null, 'Horde_Notification_Listener_Mobile');
+            $GLOBALS['imp_notify'] = $GLOBALS['notification']->attach('status', null, 'IMP_Notification_Listener_StatusMobile');
         } else {
             $GLOBALS['imp_notify'] = $GLOBALS['notification']->attach('status', array('viewmode' => $viewmode), 'IMP_Notification_Listener_Status');
             if ($viewmode == 'imp') {
@@ -652,13 +652,7 @@ class IMP
      */
     static public function status()
     {
-        global $notification;
-
-        /* Display IMAP alerts. */
-        foreach ($GLOBALS['imp_imap']->ob->alerts() as $alert) {
-            $notification->push($alert, 'horde.warning');
-        }
-
+        $notification = Horde_Notification::singleton();
         $notification->notify(array('listeners' => array('status', 'audio')));
     }
 

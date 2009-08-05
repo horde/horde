@@ -76,6 +76,11 @@ class IMP_Notification_Listener_Status extends Horde_Notification_Listener_Statu
             $options['store'] = true;
         }
 
+        /* Display IMAP alerts. */
+        foreach ($GLOBALS['imp_imap']->ob->alerts() as $alert) {
+            $this->push($alert, 'horde.warning');
+        }
+
         parent::notify($messageStack, $options);
 
         /* Preferences display. */
