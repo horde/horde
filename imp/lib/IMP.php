@@ -469,7 +469,7 @@ class IMP
         foreach ($sub_array as $key => $val) {
             if (stripos($out, $key) === 0) {
                 $len = strlen($key);
-                if ((strlen($out) == $len) || ($out[$len + 1] == $delimiter)) {
+                if ((strlen($out) == $len) || ($out[$len] == $delimiter)) {
                     $out = substr_replace($out, Horde_String::convertCharset($val, Horde_Nls::getCharset(), 'UTF7-IMAP'), 0, $len);
                     break;
                 }

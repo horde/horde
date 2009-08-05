@@ -186,15 +186,27 @@ case 'create_folder':
 
 case 'rename_folder':
     // $old_names already in UTF7-IMAP
-    $old_names = explode("\n", Horde_Util::getFormData('old_names'));
-    $new_names = explode("\n", Horde_Util::getFormData('new_names'));
+    $old_names = array_map('trim', explode("\n", Horde_Util::getFormData('old_names')));
+    $new_names = array_map('trim', explode("\n", Horde_Util::getFormData('new_names')));
 
     $iMax = count($new_names);
     if (!empty($new_names) &&
         !empty($old_names) &&
         ($iMax == count($old_names))) {
         for ($i = 0; $i < $iMax; ++$i) {
-            $imp_folder->rename(trim($old_names[$i]), Horde_String::convertCharset(trim($new_names[$i]), $charset, 'UTF7-IMAP'));
+            $old_ns = $imp_imap->getNamespace($old_names[$i]);
+            $new = trim($new_names[$i], $old_ns['delimiter']);
+
+            /* If this is a personal namespace, then anything goes as far as
+             * the input. Just append the personal namespace to it. For
+             * others, add the  */
+            if (($old_ns['type'] == 'personal') ||
+                ($old_ns['name'] &&
+                 (stripos($new_names[$i], $old_ns['name']) !== 0))) {
+                $new = $old_ns['name'] . $new;
+            }
+
+            $imp_folder->rename($old_names[$i], Horde_String::convertCharset($new, $charset, 'UTF7-IMAP'));
         }
     }
     break;
