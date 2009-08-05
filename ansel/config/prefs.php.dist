@@ -257,11 +257,12 @@ $_prefs['group_permissions'] = array(
 );
 
 $_prefs['exif_tags'] = array(
-    'value' => 'a:0{}',
+    'value' => 'a:0:{}',
     'locked' => false,
     'shared' => false,
     'type' => 'multienum',
-    'desc' => _("Which EXIF fields should we automatically add as photo tags during upload?"),
-    'enum' => array('DateTimeOriginal' => _("Date Photo Taken"),
-                    'ExposureTime' => _("Exposure Time"))
+    'desc' => _("Which EXIF fields should we automatically add as image tags during upload?"),
+    'enum' => Horde_Image_Exif::getFields(array($GLOBALS['conf']['exif']['driver'],
+                                                !empty($GLOBALS['conf']['exif']['params']) ? $GLOBALS['conf']['exif']['params'] : array()),
+                                          true)
 );
