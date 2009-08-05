@@ -261,7 +261,7 @@ $_prefs['exif_tags'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'multienum',
-    'desc' => _("Which EXIF fields should we automatically add as image tags during upload?"),
+    'desc' => _("Which Metadata fields should we automatically add as image tags during upload?"),
     'enum' => Horde_Image_Exif::getFields(array($GLOBALS['conf']['exif']['driver'],
                                                 !empty($GLOBALS['conf']['exif']['params']) ? $GLOBALS['conf']['exif']['params'] : array()),
                                           true)
