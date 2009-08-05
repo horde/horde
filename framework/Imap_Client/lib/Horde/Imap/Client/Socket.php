@@ -241,7 +241,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     public function alerts()
     {
-        return empty($this->_temp['alerts']) ? array() : $this->_temp['alerts'];
+        $alerts = empty($this->_temp['alerts'])
+            ? array()
+            : $this->_temp['alerts'];
+        $this->_temp['alerts'] = array();
+        return $alerts;
     }
 
     /**
