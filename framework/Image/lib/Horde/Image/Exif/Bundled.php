@@ -34,11 +34,6 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
     }
 
 
-    public function supportedGroups()
-    {
-        return array('EXIF');
-    }
-
     /**
      *
      * @param $path

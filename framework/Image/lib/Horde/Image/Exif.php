@@ -13,62 +13,6 @@
  */
 class Horde_Image_Exif
 {
-    protected _$fields = array(
-            'IPTC' => array(
-                'Keywords' => array('description' => _("Image keywords"), 'type' => 'array'),
-                'ObjectName' => array('description' => _("Image Title"), 'type' => 'text'),
-                'By-line' => array('description' => _("By"), 'type' => 'text'),
-                'CopyrightNotice' => array('description' => _("Copyright"), 'type' => 'text'),
-            ),
-
-            'XMP' => array(
-                'Creator' => array('description' => _("Image Creator"), 'type' => 'text'),
-                'Rights' => array('description' => _("Rights"), 'type' => 'text'),
-                'UsageTerms' => array('description' => _("Usage Terms"), 'type' => 'type'),
-            ),
-
-            'EXIF' => array(
-                'DateTime' => array('description' => _("Date Photo Modified"), 'type' => 'date'),
-                'DateTimeOriginal' => array('description' => _("Date Photo Taken"), 'type' => 'date'),
-                'DateTimeDigitized' => array('description' => _("Date Photo Digitized"), 'type' => 'date'),
-                'GPSLatitude' => array('description' => _("Latitude"), 'type' => 'gps'),
-                'GPSLongitude' => array('description' => _("Longitude"), 'type' => 'gps'),
-                'Make' => array('description' => _("Camera Make"), 'type' => 'text'),
-                'Model' => array('description' => _("Camera Model"), 'type' => 'text'),
-                'Software' => array('description' => _("Software Version"), 'type' => 'text'),
-                'ImageType' => array('description' => _("Photo Type"), 'type' => 'text'),
-                'ImageDescription' => array('description' => _("Photo Description"), 'type' => 'text'),
-                'FileSize' => array('description' => _("File Size"), 'type' => 'number'),
-                'ExifImageWidth' => array('description' => _("Width"), 'type' => 'number'),
-                'ExifImageLength' => array('description' => _("Height"), 'type' => 'number'),
-                'XResolution' => array('description' => _("X Resolution"), 'type' => 'number'),
-                'YResolution' => array('description' => _("Y Resolution"), 'type' => 'number'),
-                'ResolutionUnit' => array('description' => _("Resolution Unit"), 'type' => 'text'),
-                'ShutterSpeedValue' => array('description' => _("Shutter Speed"), 'type' => 'number'),
-                'ExposureTime' => array('description' => _("Exposure"), 'type' => 'number'),
-                'FocalLength' => array('description' => _("Focal Length"), 'type' => 'number'),
-                'FocalLengthIn35mmFilm' => array('description' => _("Focal Length (35mm equiv)"), 'type' => 'number'),
-                'ApertureValue' => array('description' => _("Aperture"), 'type' => 'number'),
-                'FNumber' => array('description' => _("F-Number"), 'type' => 'number'),
-                'ISOSpeedRatings' => array('description' => _("ISO Setting"), 'type' => 'number'),
-                'ExposureBiasValue' => array('description' => _("Exposure Bias"), 'type' => 'number'),
-                'ExposureMode' => array('description' => _("Exposure Mode"), 'type' => 'number'),
-                'ExposureProgram' => array('description' => _("Exposure Program"), 'type' => 'number'),
-                'MeteringMode' => array('description' => _("Metering Mode"), 'type' => 'number'),
-                'Flash' => array('description' => _("Flash Setting"), 'type' => 'number'),
-                'UserComment' => array('description' => _("User Comment"), 'type' => 'text'),
-                'ColorSpace' => array('description' => _("Color Space"), 'type' => 'number'),
-                'SensingMethod' => array('description' => _("Sensing Method"), 'type' => 'number'),
-                'WhiteBalance' => array('description' => _("White Balance"), 'type' => 'number'),
-                'Orientation' => array('description' => _("Camera Orientation"), 'type' => 'number'),
-                'Copyright' => array('description' => _("Copyright"), 'type' => 'text'),
-                'Artist' => array('description' => _("Artist"), 'type' => 'text'),
-                'LightSource' => array('description' => _("Light source"), 'type' => 'number'),
-                'FileSource' => array('description' => _("File source"), 'type' => 'number'),
-                'ImageStabalization' => array('description' => _("Image Stabilization"), 'type' => 'text'),
-            ),
-        );
-
     /**
      * Factory method for instantiating a Horde_Image_Exif object.
      *
@@ -118,15 +62,47 @@ class Horde_Image_Exif
      *
      * @return array
      */
-    static public function getFields($driver)
+    static public function getFields()
     {
-        $groups = $driver->supportedGroups();
-        $return = array();
-        foreach ($groups as $group) {
-            $return[$group] = $this->_fields[$group];
-        }
-
-        return $return;
+        return array('Make' => array('description' => _("Camera Make"), 'type' => 'text'),
+                     'Model' => array('description' => _("Camera Model"), 'type' => 'text'),
+                     'Software' => array('description' => _("Software Version"), 'type' => 'text'),
+                     'ImageType' => array('description' => _("Photo Type"), 'type' => 'text'),
+                     'ImageDescription' => array('description' => _("Photo Description"), 'type' => 'text'),
+                     'FileSize' => array('description' => _("File Size"), 'type' => 'number'),
+                     'DateTime' => array('description' => _("Date Photo Modified"), 'type' => 'date'),
+                     'DateTimeOriginal' => array('description' => _("Date Photo Taken"), 'type' => 'date'),
+                     'DateTimeDigitized' => array('description' => _("Date Photo Digitized"), 'type' => 'date'),
+                     'ExifImageWidth' => array('description' => _("Width"), 'type' => 'number'),
+                     'ExifImageLength' => array('description' => _("Height"), 'type' => 'number'),
+                     'XResolution' => array('description' => _("X Resolution"), 'type' => 'number'),
+                     'YResolution' => array('description' => _("Y Resolution"), 'type' => 'number'),
+                     'ResolutionUnit' => array('description' => _("Resolution Unit"), 'type' => 'text'),
+                     'ShutterSpeedValue' => array('description' => _("Shutter Speed"), 'type' => 'number'),
+                     'ExposureTime' => array('description' => _("Exposure"), 'type' => 'number'),
+                     'FocalLength' => array('description' => _("Focal Length"), 'type' => 'number'),
+                     'FocalLengthIn35mmFilm' => array('description' => _("Focal Length (35mm equiv)"), 'type' => 'number'),
+                     'ApertureValue' => array('description' => _("Aperture"), 'type' => 'number'),
+                     'FNumber' => array('description' => _("F-Number"), 'type' => 'number'),
+                     'ISOSpeedRatings' => array('description' => _("ISO Setting"), 'type' => 'number'),
+                     'ExposureBiasValue' => array('description' => _("Exposure Bias"), 'type' => 'number'),
+                     'ExposureMode' => array('description' => _("Exposure Mode"), 'type' => 'number'),
+                     'ExposureProgram' => array('description' => _("Exposure Program"), 'type' => 'number'),
+                     'MeteringMode' => array('description' => _("Metering Mode"), 'type' => 'number'),
+                     'Flash' => array('description' => _("Flash Setting"), 'type' => 'number'),
+                     'UserComment' => array('description' => _("User Comment"), 'type' => 'text'),
+                     'ColorSpace' => array('description' => _("Color Space"), 'type' => 'number'),
+                     'SensingMethod' => array('description' => _("Sensing Method"), 'type' => 'number'),
+                     'WhiteBalance' => array('description' => _("White Balance"), 'type' => 'number'),
+                     'Orientation' => array('description' => _("Camera Orientation"), 'type' => 'number'),
+                     'Copyright' => array('description' => _("Copyright"), 'type' => 'text'),
+                     'Artist' => array('description' => _("Artist"), 'type' => 'text'),
+                     'GPSLatitude' => array('description' => _("Latitude"), 'type' => 'gps'),
+                     'GPSLongitude' => array('description' => _("Longitude"), 'type' => 'gps'),
+                     'LightSource' => array('description' => _("Light source"), 'type' => 'number'),
+                     'FileSource' => array('description' => _("File source"), 'type' => 'number'),
+                     'Keywords' => array('description' => _("Image keywords"), 'type' => 'array')
+        );
     }
 
     /**
@@ -410,9 +386,7 @@ class Horde_Image_Exif
            return round($data/pow(1024, $e), 2) . ' ' . $s[$e];
 
         case 'FileSource':
-            var_dump($data);
             $data = bin2hex($data);
-            var_dump($data);
             $data = str_replace('00', '', $data);
             $data = str_replace('03', _("Digital Still Camera"), $data);
             return $data;

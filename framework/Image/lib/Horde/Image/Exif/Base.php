@@ -46,11 +46,7 @@ abstract class Horde_Image_Exif_Base
     {
         $results = array();
         if ($exif) {
-            $groups = Horde_Image_Exif::getFields();
-            $fields = array();
-            foreach ($groups as $group) {
-                $fields = array_merge($fields, $group);
-            }
+            $fields = Horde_Image_Exif::getFields();
 
             foreach ($fields as $field => $data) {
                 $value = isset($exif[$field]) ? $exif[$field] : '';
@@ -159,7 +155,6 @@ abstract class Horde_Image_Exif_Base
     }
 
     abstract public function getData($image);
-    abstract public function supportedGroups();
 
 
 }

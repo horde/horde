@@ -73,9 +73,4 @@ class Horde_Image_Exif_Exiftool extends Horde_Image_Exif_Base
         return $output;
     }
 
-    public function supportedGroups()
-    {
-        return array('EXIF', 'XMP', 'IPTC');
-    }
-
 }

@@ -19,9 +19,4 @@ class Horde_Image_Exif_Php extends Horde_Image_Exif_Base
         return $this->_processData($exif);
     }
 
-    public function supportedGroups()
-    {
-        return array('EXIF');
-    }
-
 }
