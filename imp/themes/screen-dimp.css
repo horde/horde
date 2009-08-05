@@ -203,7 +203,7 @@ div.msgSize {
     text-indent: 1px;
 }
 .msglist div.vpRowSelected {
-    background: #ffc !important;
+    background: #ffa !important;
 }
 
 /* Rows: flags. */
@@ -309,7 +309,7 @@ div.vpRow.flagDeleted {
     padding: 1px 4px 0 0;
 }
 #sidebarPanel li.on {
-    background: #ffc;
+    background: #ffa;
 }
 #sidebarPanel li div {
     cursor: pointer;
@@ -762,7 +762,7 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     padding-left: 16px;
 }
 .contextSelected {
-    background: yellow;
+    background: #ffa;
 }
 
 /* Email Addresses. */
