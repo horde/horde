@@ -3,21 +3,6 @@ class Fima_Api extends Horde_Regsitry_Api
 {
     public $version = '1.0.1';
 
-    public $services = array(
-        'prefsHandle' => array(
-            'args' => array(
-                'item' => 'string',
-                'updated' => 'boolean'
-            ),
-            'type' => 'boolean'
-        ),
-
-        'prefsMenu' => array(
-            'args' => array(),
-            'type' => 'object'
-        )
-    );
-
     /**
      * TODO
      */
