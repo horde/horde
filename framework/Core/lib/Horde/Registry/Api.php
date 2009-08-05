@@ -2,81 +2,6 @@
 /**
  * Template class for application API files.
  *
- * Other Horde-defined API calls
- * =============================
- * Horde_Auth_Application::
- * ------------------------
- *   'authLoginParams' => array(
- *       'args' => array(),
- *       'checkperms' => false,
- *       'type' => '{urn:horde}hashHash'
- *   ),
- *   'authAuthenticate' => array(
- *       'args' => array(
- *           'userID' => 'string',
- *           'credentials' => '{urn:horde}hash',
- *           'params' => '{urn:horde}hash'
- *       ),
- *       'checkperms' => false,
- *       'type' => 'boolean'
- *   ),
- *   'authAuthenticateCallback' => array(
- *       'args' => array(),
- *       'checkperms' => false
- *   ),
- *   'authTransparent' => array(
- *       'args' => array(),
- *       'checkperms' => false,
- *       'type' => 'boolean'
- *   ),
- *   'authAddUser' => array(
- *       'args' => array(
- *           'userId' => 'string',
- *           'credentials' => '{urn:horde}stringArray'
- *       )
- *   ),
- *   'authRemoveUser' => array(
- *       'args' => array(
- *           'userId' => 'string'
- *       )
- *   ),
- *   'authUserList' => array(
- *       'type' => '{urn:horde}stringArray'
- *   )
- *
- * Prefs_UI::
- * ----------
- *   'prefsInit' => array(
- *       'args' => array(),
- *       'type' => '{urn:horde}hashHash'
- *   ),
- *   'prefsHandle' => array(
- *       'args' => array(
- *           'item' => 'string',
- *           'updated' => 'boolean'
- *       ),
- *       'type' => 'boolean'
- *   ),
- *   'prefsCallback' => array(
- *       'args' => array()
- *   ),
- *   'prefsMenu' => array(
- *      'args' => array(),
- *      'type' => 'object'
- *   ),
- *   'prefsStatus' => array(
- *      'args' => array()
- *   )
- *
- * TODO:
- * -----
- *   'cacheOutput' => array(
- *       'args' => array(
- *           '{urn:horde}hashHash'
- *       ),
- *       'type' => '{urn:horde}hashHash'
- *   )
- *
  * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -102,50 +27,29 @@ class Horde_Registry_Api
     public $version = 'unknown';
 
     /**
-     * The services provided by this application.
-     * TODO: Describe structure.
+     * Links.
      *
      * @var array
      */
-    public $services = array(
-        'perms' => array(
-            'args' => array(),
-            'type' => '{urn:horde}hashHash'
-        ),
-
-        'changeLanguage' => array(
-            'args' => array(),
-            'type' => 'boolean'
-        )
-    );
+    public $links = array();
 
     /**
-     * TODO
-     * TODO: Describe structure.
+     * The listing of API calls that do not require permissions checking.
      *
      * @var array
      */
-    public $types = array();
-
-    /* Reserved functions. */
+    public $noPerms = array();
 
     /**
-     * Returns a list of available permissions.
+     * The list of disabled API calls.
      *
-     * @return array  The permissions list.
-     *                TODO: Describe structure.
+     * @var array
      */
-    public function perms()
-    {
-        return array();
-    }
+    public $disabled = array();
 
-    /**
-     * Called when the language is changed.
-     */
-    public function changeLanguage()
-    {
-        return array();
-    }
+
+    /* API calls should be declared as public functions, with the function
+     * name corresponding to the API name. Create any internal helper
+     * functions as protected functions. */
 
 }
