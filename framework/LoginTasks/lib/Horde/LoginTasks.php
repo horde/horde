@@ -144,7 +144,7 @@ class Horde_LoginTasks
             array_unshift($app_list, 'horde');
         }
 
-        $tasks = array();
+        $systemtasks = $tasks = array();
 
         foreach ($app_list as $app) {
             $fileroot = $GLOBALS['registry']->get('fileroot', $app);
@@ -154,13 +154,21 @@ class Horde_LoginTasks
                         foreach (scandir($fileroot . '/lib/LoginTasks/' . $val) as $file) {
                             $classname = $app . '_LoginTasks_' . $val . '_' . basename($file, '.php');
                             if (class_exists($classname)) {
-                                $tasks[$classname] = $app;
+                                if ($val == 'SystemTask') {
+                                    $systemtasks[$classname] = $app;
+                                } else {
+                                    $tasks[$classname] = $app;
+                                }
                             }
                         }
                     }
                 }
             }
         }
+
+        /* Need to make sure all systemtasks are run before regular tasks
+         * are run. */
+        $tasks = array_merge($systemtasks, $tasks);
 
         if (empty($tasks)) {
             return;
