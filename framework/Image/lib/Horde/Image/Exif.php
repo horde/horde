@@ -435,9 +435,7 @@ class Horde_Image_Exif
            return round($data/pow(1024, $e), 2) . ' ' . $s[$e];
 
         case 'FileSource':
-            var_dump($data);
             $data = bin2hex($data);
-            var_dump($data);
             $data = str_replace('00', '', $data);
             $data = str_replace('03', _("Digital Still Camera"), $data);
             return $data;
