@@ -14,38 +14,6 @@ class News_Api extends Horde_Registry_Api
 {
     public $version = 'H4 (0.1-git)';
 
-    public $services = array(
-        'perms' => array(
-            'args' => array(),
-            'type' => '{urn:horde}hashHash'
-        ),
-
-        'prefsMenu' => array(
-            'args' => array(),
-            'type' => 'object'
-        ),
-
-        'commentCallback' => array(
-            'args' => array('id' => 'string'),
-            'type' => 'string'
-        ),
-
-        'hasComments' => array(
-            'args' => array(),
-            'type' => 'boolean'
-        ),
-
-        'listNews' => array(
-            'args' => array('perms' => 'string', 'criteria' => 'array', 'from' => 'int', 'count' => 'int'),
-            'type' => 'array'
-        ),
-
-        'countNews' => array(
-            'args' => array('perms' => 'string', 'criteria' => 'array'),
-            'type' => 'int'
-        )
-    );
-
     /**
      * Categories/Permissions
      */

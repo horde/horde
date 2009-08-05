@@ -16,142 +16,19 @@ class Folks_Api extends Horde_Registry_Api
 {
     public $version = 'H4 (0.1-git)';
 
-    public $services = array(
-        'prefsMenu' => array(
-            'args' => array(),
-            'type' => 'object'
-        ),
-
-        'commentCallback' => array(
-            'args' => array('id' => 'string'),
-            'type' => 'string'
-        ),
-
-        'removeUserData' => array(
-            'args' => array('user' => 'string'),
-            'type' => 'boolean'
-        ),
-
-        'hasComments' => array(
-            'args' => array(),
-            'type' => 'boolean'
-        ),
-
-        'getOnlineUsers' => array(
-            'args' => array(),
-            'type' => 'array'
-        ),
-
-        'getProfile' => array(
-            'args' => array(),
-            'type' => 'array'
-        ),
-
-        'getFriends' => array(
-            'args' => array('user' => 'string'),
-            'type' => 'array'
-        ),
-
-        'addFriend' => array(
-            'args' => array('friend' => 'string'),
-            'type' => 'boolean'
-        ),
-
-        'getBlacklist' => array(
-            'args' => array('user' => 'string'),
-            'type' => 'array'
-        ),
-
-        'addBlacklisted' => array(
-            'args' => array('user' => 'string'),
-            'type' => 'boolean'
-        ),
-
-        'removeBlacklisted' => array(
-            'args' => array('user' => 'string'),
-            'type' => 'boolean'
-        ),
-
-        'isBlacklisted' => array(
-            'args' => array('user' => 'string'),
-            'type' => 'boolean'
-        ),
-
-        'show' => array(
-            'link' => '%application%/user.php?user=|user|'
-        ),
-
-        'listTimeObjectCategories' => array(
-            'type' => '{urn:horde}stringArray'
-        ),
-
-        'listTimeObjects' => array(
-            'args' => array('start' => 'int', 'end' => 'int'),
-            'type' => '{urn:horde}hashHash'
-        ),
-
-        'logActivity' => array(
-            'args' => array('activity_message' => 'string',
-            'scope' => 'string',
-            'user' => 'string'),
-            'type' => 'boolean'
-        ),
-
-        'getActivity' => array(
-            'args' => array('user' => 'string'),
-            'type' => 'boolean'
-        ),
-
-        'setStatus' => array(
-            'args' => array('status' => 'boolean'),
-            'args' => array('user' => 'string'),
-            'type' => 'array'
-        ),
-
-        'getStatus' => array(
-            'args' => array('user' => 'string'),
-            'type' => 'array'
-        ),
-
-        'authenticate' => array(
-            'args' => array('userID'      => 'string',
-            'credentials' => '{urn:horde}hash',
-            'params'      => '{urn:horde}hash'),
-            'checkperms' => false,
-            'type' => 'boolean'
-        ),
-
-        'userExists' => array(
-            'args' => array('userId' => 'string'),
-            'type' => 'boolean'
-        ),
-
-        'addUser' => array(
-            'args' => array('userId' => 'string')
-        ),
-
-        'getImageUrl' => array(
-            'args' => array(
-                'user' => 'string',
-                'view' => 'string',
-                'full' => 'boolean'
-            ),
-            'type' => 'string'
-        ),
-
-        'userList' => array(
-            'type' => '{urn:horde}stringArray'
-        ),
-
-        'removeUser' => array(
-            'args' => array('userId' => 'string')
-        )
+    /**
+     * Links.
+     *
+     * @var array
+     */
+    public $links = array(
+        'show' => '%application%/user.php?user=|user|'
     );
 
     public function __construct()
     {
         if (!Horde_Auth::isAdmin()) {
-            unset($this->services['userList'], $this->services['removeUser']);
+            $this->disabled = array('removeUser', 'userList');
         }
     }
 

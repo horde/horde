@@ -18,72 +18,15 @@ class Ingo_Api extends Horde_Registry_Api
     public $version = 'H4 (2.0-git)';
 
     /**
-     * The services provided by this application.
-     * TODO: Describe structure.
+     * Links.
      *
      * @var array
      */
-    public $services = array(
-        'perms' => array(
-            'args' => array(),
-            'type' => '{urn:horde}stringArray'
-        ),
-
-        'prefsMenu' => array(
-            'args' => array(),
-            'type' => 'object'
-        ),
-
-        'removeUserData' => array(
-            'args' => array('user' => 'string'),
-            'type' => 'boolean'
-        ),
-
-        'blacklistFrom' => array(
-            'args' => array('addresses' => '{urn:horde}stringArray'),
-            'type' => 'boolean',
-        ),
-
-        'showBlacklist' => array(
-            'link' => '%application%/blacklist.php',
-        ),
-
-        'whitelistFrom' => array(
-            'args' => array('addresses' => '{urn:horde}stringArray'),
-            'type' => 'boolean',
-        ),
-
-        'showWhitelist' => array(
-            'link' => '%application%/whitelist.php',
-        ),
-
-        'canApplyFilters' => array(
-            'args' => array(),
-            'type' => 'boolean',
-        ),
-
-        'applyFilters' => array(
-            'args' => array('params' => '{urn:horde}stringArray'),
-            'type' => 'boolean',
-        ),
-
-        'showFilters' => array(
-            'link' => '%application%/filters.php',
-        ),
-
-        'showVacation' => array(
-            'link' => '%application%/vacation.php',
-        ),
-
-        'setVacation' => array(
-            'args' => array('info' => '{urn:horde}stringArray'),
-            'type' => 'boolean',
-        ),
-
-        'disableVacation' => array(
-            'args' => array(),
-            'type' => 'boolean',
-        ),
+    public $links = array(
+        'showBlacklist' => '%application%/blacklist.php',
+        'showWhitelist' => '%application%/whitelist.php',
+        'showFilters' => '%application%/filters.php',
+        'showVacation' => '%application%/vacation.php'
     );
 
     /**
