@@ -96,6 +96,7 @@ v5.0-git
 v4.3.5-cvs
 ----------
 
+[mms] Correctly handle NO untagged responses on login (Bug #8478).
 [mms] Correctly set charset of Bcc header in sent mail (Bug #8362).
 [mms] Fix spellcheck in text-mode for certain words in non-English locales
       (Bug #8330).
