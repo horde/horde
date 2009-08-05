@@ -144,7 +144,7 @@ class Horde_LoginTasks
             array_unshift($app_list, 'horde');
         }
 
-        $systemtasks = $tasks = array();
+        $tasks = array();
 
         foreach ($app_list as $app) {
             $fileroot = $GLOBALS['registry']->get('fileroot', $app);
@@ -154,21 +154,13 @@ class Horde_LoginTasks
                         foreach (scandir($fileroot . '/lib/LoginTasks/' . $val) as $file) {
                             $classname = $app . '_LoginTasks_' . $val . '_' . basename($file, '.php');
                             if (class_exists($classname)) {
-                                if ($val == 'SystemTask') {
-                                    $systemtasks[$classname] = $app;
-                                } else {
-                                    $tasks[$classname] = $app;
-                                }
+                                $tasks[$classname] = $app;
                             }
                         }
                     }
                 }
             }
         }
-
-        /* Need to make sure all systemtasks are run before regular tasks
-         * are run. */
-        $tasks = array_merge($systemtasks, $tasks);
 
         if (empty($tasks)) {
             return;
@@ -225,7 +217,11 @@ class Horde_LoginTasks
             }
 
             if ($addtask) {
-                $this->_tasklist->addTask($ob);
+                if ($ob instanceof Horde_LoginTasks_SystemTask) {
+                    $ob->execute();
+                } else {
+                    $this->_tasklist->addTask($ob);
+                }
             }
         }
     }
@@ -237,27 +233,19 @@ class Horde_LoginTasks
      * login and will redirect to the login tasks page if necessary.  This is
      * the function that should be called from the application upon login.
      *
-     * @param array $options  Options:
-     * <pre>
-     * 'confirmed' - (boolean) If true, indicates that any pending actions
-     *                         have been confirmed by the user.
-     * 'runtasks' - (boolean) If true, run all tasks. If false, only run
-     *                        system tasks.
-     * </pre>
+     * @param boolean $confirmed  If true, indicates that any pending actions
+     *                            have been confirmed by the user.
      */
-    public function runTasks($options = array())
+    public function runTasks($confirmed = false)
     {
         if (!isset($this->_tasklist) ||
             ($this->_tasklist === true)) {
             return;
         }
 
-        $options['advance'] = $this->_init || !empty($options['confirmed']);
-
         /* Perform ready tasks now. */
-        foreach ($this->_tasklist->ready($options) as $key => $val) {
-            if ($val instanceof Horde_LoginTasks_SystemTask ||
-                in_array($val->display, array(self::DISPLAY_AGREE, self::DISPLAY_NOTICE, self::DISPLAY_NONE)) ||
+        foreach ($this->_tasklist->ready($this->_init || $confirmed) as $key => $val) {
+            if (in_array($val->display, array(self::DISPLAY_AGREE, self::DISPLAY_NOTICE, self::DISPLAY_NONE)) ||
                 Horde_Util::getFormData('logintasks_confirm_' . $key)) {
                 $val->execute();
             }

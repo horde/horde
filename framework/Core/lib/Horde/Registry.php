@@ -916,7 +916,9 @@ class Horde_Registry
         /* Do login tasks. */
         if ($checkPerms) {
             $tasks = Horde_LoginTasks::singleton($app, Horde::selfUrl(true, true, true));
-            $tasks->runTasks(array('runtasks' => !empty($options['logintasks'])));
+            if (!empty($options['logintasks'])) {
+                $tasks->runTasks();
+            }
         }
 
         /* Include base.php file. */
