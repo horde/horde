@@ -506,9 +506,9 @@ class IMP_Api extends Horde_Registry_Api
         $sent_mail_default = $GLOBALS['prefs']->getValue('sent_mail_folder');
 
         if (empty($sent_mail_folder) && !empty($sent_mail_new)) {
-            $sent_mail_folder = IMP::appendNamespace($sent_mail_new);
+            $sent_mail_folder = $GLOBALS['imp_imap']->appendNamespace($sent_mail_new);
         } elseif (($sent_mail_folder == '-1') && !empty($sent_mail_default)) {
-            $sent_mail_folder = IMP::appendNamespace($sent_mail_default);
+            $sent_mail_folder = $GLOBALS['imp_imap']->appendNamespace($sent_mail_default);
         }
 
         if (!empty($sent_mail_folder)) {
@@ -538,7 +538,7 @@ class IMP_Api extends Horde_Registry_Api
                 $GLOBALS['prefs']->setValue($pref, '');
             } else {
                 if (empty($folder) && !empty($new)) {
-                    $folder = IMP::appendNamespace($new);
+                    $folder = $GLOBALS['imp_imap']->appendNamespace($new);
                     $imp_folder = IMP_Folder::singleton();
                     if (!$imp_folder->create($folder, $GLOBALS['prefs']->getValue('subscribe'))) {
                         $folder = null;
@@ -967,7 +967,7 @@ class IMP_Api extends Horde_Registry_Api
         }
 
         $imp_folder = IMP_Folder::singleton();
-        return $imp_folder->create(IMP::appendNamespace($folder), $GLOBALS['prefs']->getValue('subscribe'));
+        return $imp_folder->create($GLOBALS['imp_imap']->appendNamespace($folder), $GLOBALS['prefs']->getValue('subscribe'));
     }
 
     /**

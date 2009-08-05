@@ -884,23 +884,6 @@ class IMP
     }
 
     /**
-     * Make sure a user-entered mailbox contains namespace information.
-     *
-     * @param string $mbox  The user-entered mailbox string.
-     *
-     * @return string  The mailbox string with any necessary namespace info
-     *                 added.
-     */
-    static public function appendNamespace($mbox)
-    {
-        $ns_info = $GLOBALS['imp_imap']->getNamespace($mbox, false);
-        if (is_null($ns_info)) {
-            $ns_info = $GLOBALS['imp_imap']->defaultNamespace();
-        }
-        return $ns_info['name'] . $mbox;
-    }
-
-    /**
      * Generates a URL with necessary mailbox/UID information.
      *
      * @param string $page      Page name to link to.

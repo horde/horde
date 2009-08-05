@@ -388,4 +388,22 @@ class IMP_Imap
 
         return $this->_nsdefault;
     }
+
+    /**
+     * Make sure a user-entered mailbox contains namespace information.
+     *
+     * @param string $mbox  The user-entered mailbox string.
+     *
+     * @return string  The mailbox string with any necessary namespace info
+     *                 added.
+     */
+    static public function appendNamespace($mbox)
+    {
+        $ns_info = $this->getNamespace($mbox, false);
+        if (is_null($ns_info)) {
+            $ns_info = $this->defaultNamespace();
+        }
+        return $ns_info['name'] . $mbox;
+    }
+
 }

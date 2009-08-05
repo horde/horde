@@ -194,7 +194,7 @@ case 'rename_folder':
         !empty($old_names) &&
         ($iMax == count($old_names))) {
         for ($i = 0; $i < $iMax; ++$i) {
-            $imp_folder->rename(trim($old_names[$i], "\r\n"), Horde_String::convertCharset(IMP::appendNamespace(trim($new_names[$i], "\r\n")), $charset, 'UTF7-IMAP'));
+            $imp_folder->rename(trim($old_names[$i], "\r\n"), Horde_String::convertCharset($imp_imap->appendNamespace(trim($new_names[$i], "\r\n")), $charset, 'UTF7-IMAP'));
         }
     }
     break;

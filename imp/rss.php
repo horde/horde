@@ -32,7 +32,7 @@ if (!empty($request)) {
     $request_parts = explode('/-/', $request);
     if (!empty($request_parts[0])) {
         $ns_info = $imp_imap->getNamespace();
-        $mailbox = IMP::appendNamespace(preg_replace('/\//', $ns_info['delimiter'], trim($request_parts[0], '/')));
+        $mailbox = $imp_imap->appendNamespace(preg_replace('/\//', $ns_info['delimiter'], trim($request_parts[0], '/')));
 
         /* Make sure mailbox exists or else exit immediately. */
         $imp_folder = IMP_Folder::singleton();
