@@ -71,7 +71,7 @@ class Horde_Autoloader
             $err_mask = $err_mask ^ E_DEPRECATED;
         }
         $oldErrorReporting = error_reporting($err_mask);
-        $included = include_once $file_path . '.php';
+        $included = include $file_path . '.php';
         error_reporting($oldErrorReporting);
         return $included;
     }
