@@ -90,7 +90,7 @@ class Nag_Api extends Horde_Registry_Api
                 'sortdir' => 'int',
                 'altsortby' => 'string',
                 'tasklists' => '{urn:horde}stringArray',
-                'completed' => 'int',
+                'completed' => 'string',
                 'json' => 'boolean'
             ),
             'type' => '{urn:horde}stringArray',
@@ -348,24 +348,29 @@ class Nag_Api extends Horde_Registry_Api
      * @param string $sortby        The field by which to sort
      *                              (NAG_SORT_PRIORITY, NAG_SORT_NAME
      *                              NAG_SORT_DUE, NAG_SORT_COMPLETION).
-     * @param integer $sortdir      The direction by which to sort
+     * @param integer $sortdir      The direction by which to sort.
      * @param string $altsortby     The secondary sort field.
      * @param array $tasklists      An array of tasklist to display or
      *                              null/empty to display taskslists
      *                              $GLOBALS['display_tasklists'].
-     * @param integer $completed    Which tasks to retrieve (1 = all tasks,
-     *                              0 = incomplete tasks, 2 = complete tasks,
-     *                              3 = future tasks, 4 = future and incomplete
-     *                              tasks).
+     * @param string $completed     Which tasks to retrieve (all, incomplete,
+     *                              complete, future or future_incomplete).
      * @param boolean $json         Retrieve the results of the tasks in
-     *                              'json format'
+     *                              'json format'.
      *
      * @return Nag_Task  A list of the requested tasks.
      */
-    public function listTasks($sortby = null, $sortdir = null, $altsortby = null,
-        $tasklists = null, $completed = null, $json = false)
+    public function listTasks($sortby = null, $sortdir = null,
+                              $altsortby = null, $tasklists = null,
+                              $completed = null, $json = false)
     {
         require_once dirname(__FILE__) . '/base.php';
+
+        $completedArray = array('incomplete' => Nag::VIEW_INCOMPLETE,
+                                'all' => Nag::VIEW_ALL,
+                                'complete' => Nag::VIEW_COMPLETE,
+                                'future' => Nag::VIEW_FUTURE,
+                                'future_incomplete' => Nag::VIEW_FUTURE_INCOMPLETE);
 
         if (!isset($sortby)) {
             $sortby = $GLOBALS['prefs']->getValue('sortby');
@@ -379,8 +384,10 @@ class Nag_Api extends Horde_Registry_Api
         if (is_null($tasklists)) {
             $tasklists = $GLOBALS['display_tasklists'];
         }
-        if (is_null($completed)) {
+        if (is_null($completed) || !isset($completedArray[$completed]) {
             $completed = $GLOBALS['prefs']->getValue('show_completed');
+        } else {
+            $completed = $completedArray[$completed];
         }
 
         $tasks = Nag::listTasks($sortby, $sortdir, $altsortby, $tasklists);

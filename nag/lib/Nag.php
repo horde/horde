@@ -62,6 +62,31 @@ class Nag
      */
     const SORT_DESCEND = 1;
 
+    /**
+     * Incomplete tasks
+     */
+    const VIEW_INCOMPLETE = 0;
+
+    /**
+     * All tasks
+     */
+    const VIEW_ALL = 1;
+
+    /**
+     * Complete tasks
+     */
+    const VIEW_COMPLETE = 2;
+
+    /**
+     * Future tasks
+     */
+    const VIEW_FUTURE = 3;
+
+    /**
+     * Future and incompleted tasks
+     */
+    const VIEW_FUTURE_INCOMPLETE = 4;
+
     public static function secondsToString($seconds)
     {
         $hours = floor($seconds / 3600);

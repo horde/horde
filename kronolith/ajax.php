@@ -131,7 +131,7 @@ try {
         }
 
         $taskList = Horde_Util::getFormData('list');
-        $taskType = (int)Horde_Util::getFormData('taskType');
+        $taskType = Horde_Util::getFormData('taskType');
         $tasks = $registry->call('tasks/listTasks',
                                  array(null, null, null, $taskList, $taskType, true));
         if (is_a($tasks, 'PEAR_Error')) {
@@ -339,7 +339,7 @@ try {
             break;
         }
         $taskList = Horde_Util::getFormData('taskList');
-        $taskType = (int)Horde_Util::getFormData('taskType');
+        $taskType = Horde_Util::getFormData('taskType');
         $taskId = Horde_Util::getFormData('taskId');
         $saved = $registry->call('tasks/toggleCompletion',
                                  array($taskId, $taskList));

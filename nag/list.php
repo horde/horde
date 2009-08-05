@@ -103,10 +103,10 @@ if ($print_view) {
     if (!$prefs->isLocked('show_completed')) {
         $listurl = Horde::applicationUrl('list.php');
         $tabs = new Horde_UI_Tabs('show_completed', $vars);
-        $tabs->addTab(_("_All tasks"), $listurl, 1);
-        $tabs->addTab(_("Incom_plete tasks"), $listurl, 0);
-        $tabs->addTab(_("_Future tasks"), $listurl, 3);
-        $tabs->addTab(_("_Completed tasks"), $listurl, 2);
+        $tabs->addTab(_("_All tasks"), $listurl, Nag::VIEW_ALL);
+        $tabs->addTab(_("Incom_plete tasks"), $listurl, Nag::VIEW_INCOMPLETE);
+        $tabs->addTab(_("_Future tasks"), $listurl, Nag::VIEW_FUTURE);
+        $tabs->addTab(_("_Completed tasks"), $listurl, Nag::VIEW_COMPLETE);
         echo $tabs->render($vars->get('show_completed'));
     }
 }

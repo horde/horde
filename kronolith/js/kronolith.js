@@ -26,7 +26,7 @@ KronolithCore = {
     eventsLoading: $H(),
     loading: 0,
     date: new Date(),
-    taskType: 1, //Default to all tasks view
+    taskType: 'all',
 
     doActionOpts: {
         onException: function(r, e) { KronolitCore.debug('onException', e); },
@@ -1280,11 +1280,9 @@ KronolithCore = {
     /**
      * Loads tasks, either from cache or from the server.
      *
-     * @param integer taskType  The tasks type, (1 = all tasks,
-     *                          0 = incomplete tasks, 2 = complete tasks,
-     *                          3 = future tasks, 4 = future and incomplete
-     *                          tasks)
-     * @param Array tasksLists  The lists from where to obtain the tasks
+     * @param integer taskType  The tasks type (all, incomplete, complete,
+     *                          future or future_incomplete).
+     * @param Array tasksLists  The lists from where to obtain the tasks.
      */
     _loadTasks: function(taskType, taskLists)
     {
@@ -1338,11 +1336,9 @@ KronolithCore = {
     /**
      * Reads tasks from the cache and inserts them into the view.
      *
-     * @param integer taskType  The tasks type, (1 = all tasks,
-     *                          0 = incomplete tasks, 2 = complete tasks,
-     *                          3 = future tasks, 4 = future and incomplete
-     *                          tasks)
-     * @param string tasksList  The task list to be drawn
+     * @param integer taskType  The tasks type (all, incomplete, complete,
+     *                          future or future_incomplete).
+     * @param string tasksList  The task list to be drawn.
      */
     _insertTasks: function(taskType, taskList)
     {

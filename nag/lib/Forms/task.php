@@ -37,7 +37,7 @@ class Nag_TaskForm extends Horde_Form {
             reset($tasklists);
             $tasklist = key($tasklists);
         }
-        $tasks = Nag::listTasks(null, null, null, array($tasklist), 4);
+        $tasks = Nag::listTasks(null, null, null, array($tasklist), Nag::VIEW_FUTURE_INCOMPLETE);
         $task_enums = array('' => _("No parent task"));
         $tasks->reset();
         while ($task = $tasks->each()) {

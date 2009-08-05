@@ -375,25 +375,25 @@ class Nag_Driver_Sql extends Nag_Driver {
      *
      * @return mixed  True on success, PEAR_Error on failure.
      */
-    function retrieve($completed = 1)
+    function retrieve($completed = Nag::VIEW_ALL)
     {
         /* Build the SQL query. */
         $query = sprintf('SELECT * FROM %s WHERE task_owner = ?',
                          $this->_params['table']);
         $values = array($this->_tasklist);
         switch ($completed) {
-        case 0:
+        case Nag::VIEW_INCOMPLETE:
             $query .= ' AND task_completed = 0 AND (task_start IS NULL OR task_start = 0 OR task_start < ?)';
             $values[] = time();
             break;
-        case 2:
+        case Nag::VIEW_COMPLETE:
             $query .= ' AND task_completed = 1';
             break;
-        case 3:
+        case Nag::VIEW_FUTURE:
             $query .= ' AND task_completed = 0 AND task_start > ?';
             $values[] = time();
             break;
-        case 4:
+        case Nag::VIEW_FUTURE_INCOMPLETE:
             $query .= ' AND task_completed = 0';
             break;
         }

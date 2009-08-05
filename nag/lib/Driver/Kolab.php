@@ -533,7 +533,7 @@ class Nag_Driver_kolab_wrapper_old extends Nag_Driver_kolab_wrapper {
      *
      * @return mixed  True on success, PEAR_Error on failure.
      */
-    function retrieve($completed = 1)
+    function retrieve($completed = Nag::VIEW_ALL)
     {
         $tasks = array();
 
@@ -553,11 +553,11 @@ class Nag_Driver_kolab_wrapper_old extends Nag_Driver_kolab_wrapper {
             }
             $complete = Kolab::percentageToBoolean($this->_kolab->getVal('completed'));
             $start_date = Kolab::decodeDateOrDateTime($this->_kolab->getVal('start-date'));
-            if (($completed == 0 && ($complete || $start_date > time())) ||
-                ($completed == 2 && !$complete) ||
-                ($completed == 3 &&
+            if (($completed == Nag::VIEW_INCOMPLETE && ($complete || $start_date > time())) ||
+                ($completed == Nag::VIEW_COMPLETE && !$complete) ||
+                ($completed == Nag::VIEW_FUTURE &&
                  ($complete || $start_date == 0 || $start_date < time())) ||
-                ($completed == 4 && $complete)) {
+                ($completed == Nag::VIEW_FUTURE_INCOMPLETE && $complete)) {
                 continue;
             }
             $tasks[$this->_kolab->getUID()] = new Nag_Task($this->_buildTask());
@@ -969,11 +969,11 @@ class Nag_Driver_kolab_wrapper_new extends Nag_Driver_kolab_wrapper {
                 $start = $t->start;
             }
 
-            if (($completed == 0 && ($complete || $start > time())) ||
-                ($completed == 2 && !$complete) ||
-                ($completed == 3 &&
+            if (($completed == Nag::VIEW_INCOMPLETE && ($complete || $start > time())) ||
+                ($completed == Nag::VIEW_COMPLETE && !$complete) ||
+                ($completed == Nag::VIEW_FUTURE &&
                  ($complete || $start == 0 || $start < time())) ||
-                ($completed == 4 && $complete)) {
+                ($completed == Nag::VIEW_FUTURE_INCOMPLETE && $complete)) {
                 continue;
             }
             if (empty($t->parent_id)) {
