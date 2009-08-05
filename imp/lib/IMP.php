@@ -842,8 +842,6 @@ class IMP
     /**
      * Convert a preference value to/from the value stored in the preferences.
      *
-     * Preferences that need to call this function before storing/retrieving:
-     *   trash_folder, spam_folder, drafts_folder, sent_mail_folder
      * To allow folders from the personal namespace to be stored without this
      * prefix for portability, we strip the personal namespace. To tell apart
      * folders from the personal and any empty namespace, we prefix folders
@@ -1086,6 +1084,10 @@ class IMP
      */
     static public function threadSortAvailable($mbox)
     {
+        /* Thread sort is always available for IMAP servers, since
+         * Horde_Imap_Client_Socket has a built-in ORDEREDSUBJECT
+         * implementation. We will always prefer REFERENCES, but will fallback
+         * to ORDEREDSUBJECT if the server doesn't support THREAD sorting. */
         return ($_SESSION['imp']['protocol'] == 'imap') &&
                !$GLOBALS['imp_search']->isSearchMbox($mbox) &&
                (!$GLOBALS['prefs']->getValue('use_trash') ||
