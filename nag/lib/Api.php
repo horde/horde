@@ -384,7 +384,7 @@ class Nag_Api extends Horde_Registry_Api
         if (is_null($tasklists)) {
             $tasklists = $GLOBALS['display_tasklists'];
         }
-        if (is_null($completed) || !isset($completedArray[$completed]) {
+        if (is_null($completed) || !isset($completedArray[$completed])) {
             $completed = $GLOBALS['prefs']->getValue('show_completed');
         } else {
             $completed = $completedArray[$completed];
