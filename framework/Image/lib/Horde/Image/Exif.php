@@ -132,6 +132,7 @@ class Horde_Image_Exif
         if (!is_null($driver) && is_array($driver)) {
             $driver = self::factory($driver[0], $driver[1]);
         }
+
         if ($driver instanceof Horde_Image_Exif_Base) {
             $supported = $driver->supportedCategories();
         } else {
