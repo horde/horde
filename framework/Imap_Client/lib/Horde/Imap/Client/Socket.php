@@ -3561,7 +3561,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $end_pos = strpos($ob['line'], ']', 2);
         if ($pos > $end_pos) {
             $code = strtoupper(substr($ob['line'], 1, $end_pos - 1));
-            $data = null;
+            $data = trim(substr($ob['line'], $end_pos + 1));
         } else {
             $code = strtoupper(substr($ob['line'], 1, $pos - 1));
             $data = substr($ob['line'], $pos + 1, $end_pos - $pos - 1);
