@@ -323,8 +323,6 @@ $cfgSources['localsql'] = array(
 //         'port' => 389,
 //         'tls' => false,
 //         'root' => 'dc=example,dc=com',
-//         // For Active Directory usually domain name:
-//         // 'root' => 'example.com',
 //         'bind_dn' => 'cn=admin,ou=users,dc=example,dc=com',
 //         // For Active Directory:
 //         // 'bind_dn' => 'username@example.com',
