@@ -242,7 +242,7 @@ class Horde_Registry
     public function clearCache()
     {
         unset($_SESSION['_registry']);
-        $this->_saveCacheVar('api', true);
+        $this->_saveCacheVar('apicache', true);
         $this->_saveCacheVar('appcache', true);
     }
 
@@ -331,7 +331,9 @@ class Horde_Registry
     protected function _loadApiCache()
     {
         /* First, try to load from cache. */
-        if ($this->_loadCacheVar('api')) {
+        if ($this->_loadCacheVar('apicache')) {
+            $this->_cache['api'] = $this->_cache['apicache'][0];
+            $this->_cache['type'] = $this->_cache['apicache'][1];
             return;
         }
 
@@ -343,18 +345,50 @@ class Horde_Registry
 
         $this->_cache['api'] = array();
 
+        /* Initialize complex types. */
+        $this->_cache['type'] = array(
+            'hash' => array(
+                array('item' => '{urn:horde}hashItem')
+            ),
+            'hashHash' => array(
+                array('item' => '{urn:horde}hashHashItem')
+            ),
+            'hashItem' => array(
+                'key' => 'string',
+                'value' => 'string'
+            ),
+            'hashHashItem' => array(
+                'key' => 'string',
+                'value' => '{urn:horde}hash'
+            ),
+            'stringArray' => array(
+                array('item' => 'string')
+            )
+        );
+
         foreach (array_keys($this->applications) as $app) {
-            if (in_array($this->applications[$app]['status'], $status)) {
-                $api = $this->_getApiOb($app);
-                $this->_cache['api'][$app] = array(
-                    'api' => array_diff(get_class_methods($api), array('__construct'), $api->disabled),
-                    'links' => $api->links,
-                    'noperms' => $api->noPerms
-                );
+            if (!in_array($this->applications[$app]['status'], $status)) {
+                continue;
+            }
+
+            $api = $this->_getApiOb($app);
+            $this->_cache['api'][$app] = $api->services;
+            if (!empty($api->types)) {
+                foreach ($api->types as $type => $params) {
+                    /* Prefix non-Horde types with the application name. */
+                    $prefix = ($app == 'horde') ? '' : "${app}_";
+                    $this->_cache['type'][$prefix . $type] = $params;
+                }
             }
         }
 
-        $this->_saveCacheVar('api');
+        $this->_cache['apicache'] = array(
+            // Index 0
+            $this->_cache['api'],
+            // Index 1
+            $this->_cache['type']
+        );
+        $this->_saveCacheVar('apicache');
     }
 
     /**
@@ -461,7 +495,7 @@ class Horde_Registry
                         }
                     } elseif (is_null($api) || ($method == $api)) {
                         if (isset($this->_cache['api'][$app])) {
-                            foreach ($this->_cache['api'][$app]['api'] as $service) {
+                            foreach (array_keys($this->_cache['api'][$app]) as $service) {
                                 $methods[$method . '/' . $service] = true;
                             }
                         }
@@ -471,6 +505,44 @@ class Horde_Registry
         }
 
         return array_keys($methods);
+    }
+
+    /**
+     * Returns all of the available registry data types.
+     *
+     * @return array  The data type list.
+     */
+    public function listTypes()
+    {
+        $this->_loadApiCache();
+        return $this->_cache['type'];
+    }
+
+    /**
+     * Returns a method's signature.
+     *
+     * @param string $method  The full name of the method to check for.
+     *
+     * @return array  A two dimensional array. The first element contains an
+     *                array with the parameter names, the second one the return
+     *                type.
+     */
+    public function getSignature($method)
+    {
+        if (!($app = $this->hasMethod($method))) {
+            return false;
+        }
+
+        $this->_loadApiCache();
+
+        list(,$function) = explode('/', $method, 2);
+        if (!empty($function) &&
+            isset($this->_cache['api'][$app][$function]['type']) &&
+            isset($this->_cache['api'][$app][$function]['args'])) {
+            return array($this->_cache['api'][$app][$function]['args'], $this->_cache['api'][$app][$function]['type']);
+        }
+
+        return false;
     }
 
     /**
@@ -514,9 +586,7 @@ class Horde_Registry
 
         $this->_loadApiCache();
 
-        return in_array($call, $this->_cache['api'][$app]['api'])
-            ? $app
-            : false;
+        return empty($this->_cache['api'][$app][$call]) ? false : $app;
     }
 
     /**
@@ -573,10 +643,14 @@ class Horde_Registry
             throw new Horde_Exception('The function implementing ' . $call . ' is not defined in ' . $app . '\'s API.');
         }
 
+        $checkPerms = isset($this->_cache['api'][$app][$call]['checkperms'])
+            ? $this->_cache['api'][$app][$call]['checkperms']
+            : true;
+
         /* Switch application contexts now, if necessary, before
          * including any files which might do it for us. Return an
          * error immediately if pushApp() fails. */
-        $pushed = $this->pushApp($app, array('check_perms' => !in_array($call, $this->_cache['api'][$app]['noperms'])));
+        $pushed = $this->pushApp($app, array('check_perms' => $checkPerms));
 
         try {
             $result = call_user_func_array(array($api, $call), $args);
@@ -650,12 +724,12 @@ class Horde_Registry
 
         /* Make sure the link is defined. */
         $this->_loadApiCache();
-        if (empty($this->_cache['api'][$app]['links'][$call])) {
+        if (empty($this->_cache['api'][$app][$call]['link'])) {
             throw new Horde_Exception('The link ' . $call . ' is not defined in ' . $app . '\'s API.');
         }
 
         /* Initial link value. */
-        $link = $this->_cache['api'][$app]['links'][$call];
+        $link = $this->_cache['api'][$app][$call]['link'];
 
         /* Fill in html-encoded arguments. */
         foreach ($args as $key => $val) {
