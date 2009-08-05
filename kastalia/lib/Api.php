@@ -3,6 +3,13 @@ class Kastalia_Api extends Horde_Registry_Api
 {
     public $version = '1.0.1';
 
+    public $services = array(
+        'prefsMenu' => array(
+            'args' => array(),
+            'type' => 'object'
+        )
+    );
+
     /**
      * Generate the menu to use on the prefs page.
      *

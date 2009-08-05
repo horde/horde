@@ -5,15 +5,30 @@
 class Timeobjects_Api extends Horde_Registry_Api
 {
     /**
-     * Links.
+     * The services provided by this application.
      *
      * @var array
      */
-    public $links = array(
-        // @TODO: Probably implement a URL endpoint or something so we can
-        // link to the correct external site depending on what time object
-        // category we are referring to.
-        'show' => '#'
+    public $services = array(
+        'listTimeObjectCategories' => array(
+            'type' => '{urn:horde}stringArray'
+        ),
+
+        'listTimeObjects' => array(
+            'args' => array(
+                'categories' => '{urn:horde}stringArray',
+                'start' => 'integer',
+                'end' => 'integer'
+            ),
+            'type' => '{urn:horde}hashHash'
+        ),
+
+        // @TODO: Probably implement a URL endpoint or something so we can link
+        //        to the correct external site depending on what time object category
+        //        we are referring to.
+        'show' => array(
+            'link' => '#',
+        )
     );
 
     /**

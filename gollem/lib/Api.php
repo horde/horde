@@ -20,6 +20,104 @@ class Gollem_Api extends Horde_Registry_Api
     public $version = 'H4 (5.0-git)';
 
     /**
+     * The services provided by this application.
+     *
+     * @var array
+     */
+    public $services = array(
+        'perms' => array(
+            'args' => array(),
+            'type' => '{urn:horde}hashHash'
+        ),
+
+        'prefsHandle' => array(
+            'args' => array(
+                'item' => 'string',
+                'updated' => 'boolean'
+            ),
+            'type' => 'boolean'
+        ),
+
+        'prefsMenu' => array(
+            'args' => array(),
+            'type' => 'object'
+        ),
+
+        'browse' => array(
+            'args' => array('path' => 'string'),
+            'type' => '{urn:horde}hashHash',
+        ),
+
+        'put' => array(
+            'args' => array(
+                'path' => 'string',
+                'content' => 'string',
+                'content_type' => 'string'
+            ),
+            'type' => 'int',
+        ),
+
+        'mkcol' => array(
+            'args' => array('path' => 'string'),
+            'type' => 'int',
+        ),
+
+        'move' => array(
+            'args' => array(
+                'path' => 'string',
+                'dest' => 'string'
+            ),
+            'type' => 'int',
+        ),
+
+        'path_delete' => array(
+            'args' => array('path' => 'string'),
+            'type' => 'int',
+        ),
+
+        'selectlistLink' => array(
+            'args' => array(
+                'link_text' => 'string',
+                'link_style' => 'string',
+                'formid' => 'string',
+                'icon' => 'boolean',
+                'selectid' => 'string'
+            ),
+            'type' => 'string'
+        ),
+
+        'selectlistResults' => array(
+            'args' => array('selectid' => 'string'),
+            'type' => 'array'
+        ),
+
+        'returnFromSelectlist' => array(
+            'args' => array(
+                'selectid' => 'string',
+                'index' => 'string'
+            ),
+            'type' => 'string'
+        ),
+
+        'setSelectList' => array(
+            'args' => array(
+                'selectid' => 'string',
+                'files' => 'array'
+            ),
+            'type' => 'string'
+        ),
+
+        'getViewLink' => array(
+            'args' => array(
+                'dir' => 'string',
+                'file' => 'string',
+                'backend' => 'string'
+            ),
+            'type' => 'string'
+        )
+    );
+
+    /**
      * TODO
      */
     public function perms()

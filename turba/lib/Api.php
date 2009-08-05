@@ -17,21 +17,272 @@ class Turba_Api extends Horde_Registry_Api
     public $version = 'H3 (3.0-git)';
 
     /**
-     * Links.
+     * The services provided by this application.
+     * TODO: Describe structure.
      *
      * @var array
      */
-    public $links = array(
-        'show' => '%application%/contact.php?source=|source|&key=|key|&uid=|uid|'
-    );
+    public $services = array(
+        'perms' => array(
+            'args' => array(),
+            'type' => '{urn:horde}hashHash'
+        ),
 
-    /**
-     * The listing of API calls that do not require permissions checking.
-     *
-     * @var array
-     */
-    public $noPerms = array(
-        'getClientSource', 'getClient', 'getClients', 'searchClients'
+        'prefsInit' => array(
+            'args' => array(),
+            'type' => '{urn:horde}hashHash'
+        ),
+
+        'prefsHandle' => array(
+            'args' => array(
+                'item' => 'string',
+                'updated' => 'boolean'
+            ),
+            'type' => 'boolean'
+        ),
+
+        'prefsMenu' => array(
+            'args' => array(),
+            'type' => 'object'
+        ),
+
+        'removeUserData' => array(
+            'args' => array('user' => 'string'),
+            'type' => 'boolean'
+        ),
+
+        'show' => array(
+            'link' => '%application%/contact.php?source=|source|&key=|key|&uid=|uid|',
+        ),
+
+        'browse' => array(
+            'args' => array(
+                'path' => 'string',
+                'properties' => '{urn:horde}stringArray'
+            ),
+            'type' => '{urn:horde}hashHash',
+        ),
+
+        'path_delete' => array(
+            'args' => array('path' => 'string'),
+            'type' => 'boolean',
+        ),
+
+        'sources' => array(
+            'args' => array('writeable' => 'boolean'),
+            'type' => '{urn:horde}stringArray',
+        ),
+
+        'fields' => array(
+            'args' => array('source' => '{urn:horde}stringArray'),
+            'type' => '{urn:horde}stringArray',
+        ),
+
+        'list' => array(
+            'args' => array(),
+            'type' => '{urn:horde}stringArray',
+        ),
+
+        'listBy' => array(
+            'args' => array(
+                'action' => 'string',
+                'timestamp' => 'int'
+            ),
+            'type' => '{urn:horde}stringArray',
+        ),
+
+        'getActionTimestamp' => array(
+            'args' => array(
+                'uid' => 'string',
+                'action' => 'string',
+                'sources' => '{urn:horde}stringArray'
+            ),
+            'type' => 'int',
+        ),
+
+        'import' => array(
+            'args' => array(
+                'content' => 'string',
+                'contentType' => 'string',
+                'source' => 'string'
+            ),
+            'type' => 'string',
+        ),
+
+        'export' => array(
+            'args' => array(
+                'uid' => 'string',
+                'contentType' => 'string'
+            ),
+            'type' => 'string',
+        ),
+
+        'ownVCard' => array(
+            'args' => array(),
+            'type' => 'string',
+        ),
+
+        'ownContact' => array(
+            'args' => array(),
+            'type' => '{urn:horde}stringArray',
+        ),
+
+        'delete' => array(
+            'args' => array('uid' => 'string'),
+            'type' => 'boolean',
+        ),
+
+        'replace' => array(
+            'args' => array(
+                'uid' => 'string',
+                'content' => 'string',
+                'contentType' => 'string'
+            ),
+            'type' => 'boolean',
+        ),
+
+        'search' => array(
+            'args' => array(
+                'names' => '{urn:horde}stringArray',
+                'sources' => '{urn:horde}stringArray',
+                'fields' => '{urn:horde}stringArray',
+                'matchBegin' => 'boolean',
+                'forceSource' => 'boolean'
+            ),
+            'type' => '{urn:horde}stringArray',
+        ),
+
+        'getContact' => array(
+            'args' => array(
+                'source' => 'string',
+                'objectId' => 'string'
+            ),
+            'type' => '{urn:horde}stringArray',
+        ),
+
+        'getContacts' => array(
+            'args' => array(
+                'source' => 'string',
+                'objectIds' => '{urn:horde}stringArray'
+            ),
+            'type' => '{urn:horde}stringArray',
+        ),
+
+        'addField' => array(
+            'args' => array(
+                'address' => 'string',
+                'name' => 'string',
+                'field' => 'string',
+                'value' => 'string',
+                'source' => 'string'
+            ),
+            'type' => '{urn:horde}stringArray',
+        ),
+
+        'deleteField' => array(
+            'args' => array(
+                'address' => 'string',
+                'field' => 'string',
+                'sources' => '{urn:horde}stringArray'
+            ),
+            'type' => '{urn:horde}stringArray',
+        ),
+
+        'getField' => array(
+            'args' => array(
+                'address' => 'string',
+                'field' => 'string',
+                'sources' => '{urn:horde}stringArray',
+                'strict' => 'boolean',
+                'multiple' => 'boolean'
+            ),
+            'type' => '{urn:horde}stringArray',
+        ),
+
+        'getAllAttributeValues' => array(
+            'args' => array(
+                'field' => 'string',
+                'sources' => '{urn:horde}stringArray'
+            ),
+            'type' => '{urn:horde}stringArray',
+        ),
+
+        'listTimeObjectCategories' => array(
+            'type' => '{urn:horde}stringArray'
+        ),
+
+        'listTimeObjects' => array(
+            'args' => array(
+                'categories' => '{urn:horde}stringArray',
+                'start' => 'int',
+                'end' => 'int'
+            ),
+            'type' => '{urn:horde}hashHash'
+        ),
+
+        'getClientSource' => array(
+            'checkperms' => false,
+            'args' => array(),
+            'type' => 'string',
+        ),
+
+        'clientFields' => array(
+            'args' => array(),
+            'type' => '{urn:horde}stringArray',
+        ),
+
+        'getClient' => array(
+            'checkperms' => false,
+            'args' => array('objectId' => 'string'),
+            'type' => '{urn:horde}stringArray',
+        ),
+
+        'getClients' => array(
+            'checkperms' => false,
+            'args' => array('objectIds' => '{urn:horde}stringArray'),
+            'type' => '{urn:horde}stringArray',
+        ),
+
+        'addClient' => array(
+            'args' => array('attributes' => '{urn:horde}stringArray'),
+            'type' => 'string',
+        ),
+
+        'updateClient' => array(
+            'args' => array(
+                'objectId' => 'string',
+                'attributes' => '{urn:horde}stringArray'
+            ),
+            'type' => 'string',
+        ),
+
+        'deleteClient' => array(
+            'args' => array('objectId' => 'string'),
+            'type' => '{urn:horde}stringArray',
+        ),
+
+        'searchClients' => array(
+            'checkperms' => false,
+            'args' => array('names' => '{urn:horde}stringArray',
+            'fields' => '{urn:horde}stringArray',
+            'matchBegin' => 'boolean'),
+            'type' => '{urn:horde}stringArray',
+        ),
+
+        'commentCallback' => array(
+            'args' => array('id' => 'string'),
+            'type' => 'string'
+        ),
+
+        'hasComments' => array(
+            'args' => array(),
+            'type' => 'boolean'
+        ),
+
+        'getDefaultShare' => array(
+            'args' => array(),
+            'type' => 'string'
+        )
     );
 
     /**

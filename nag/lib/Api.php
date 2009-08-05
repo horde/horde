@@ -17,12 +17,186 @@ class Nag_Api extends Horde_Registry_Api
     public $version = 'H4 (3.0-git)';
 
     /**
-     * Links.
+     * The services provided by this application.
      *
      * @var array
      */
-    public $links = array(
-        'show' => '%application%/view.php?tasklist=|tasklist|&task=|task|&uid=|uid|'
+    public $services = array(
+        'perms' => array(
+            'args' => array(),
+            'type' => '{urn:horde}hashHash'
+        ),
+
+        'prefsHandle' => array(
+            'args' => array(
+                'item' => 'string',
+                'updated' => 'boolean'
+            ),
+            'type' => 'boolean'
+        ),
+
+        'prefsMenu' => array(
+            'args' => array(),
+            'type' => 'object'
+        ),
+
+        'removeUserData' => array(
+            'args' => array('user' => 'string'),
+            'type' => 'boolean'
+        ),
+
+        'show' => array(
+            'link' => '%application%/view.php?tasklist=|tasklist|&task=|task|&uid=|uid|',
+        ),
+
+        'browse' => array(
+            'args' => array('path' => 'string'),
+            'type' => '{urn:horde}hashHash',
+        ),
+
+        'put' => array(
+            'args' => array(
+                'path' => 'string',
+                'content' => 'string',
+                'content_type' => 'string'
+            ),
+            'type' => 'int',
+        ),
+
+        'path_delete' => array(
+            'args' => array('path' => 'string'),
+            'type' => 'boolean',
+        ),
+
+        'addTasklist' => array(
+            'args' => array(
+                'name' => 'string',
+                'description' => 'string'
+            ),
+            'type' => 'string',
+        ),
+
+        'listTasklists' => array(
+            'args' => array(
+                'owneronly' => 'boolean',
+                'permission' => 'int'
+            ),
+            'type' => '{urn:horde}stringArray',
+        ),
+
+        'listTasks' => array(
+            'args' => array(
+                'sortby' => 'string',
+                'sortdir' => 'int',
+                'altsortby' => 'string',
+                'tasklists' => '{urn:horde}stringArray',
+                'completed' => 'string',
+                'json' => 'boolean'
+            ),
+            'type' => '{urn:horde}stringArray',
+        ),
+
+        'listAlarms' => array(
+            'args' => array(
+                'time' => 'int',
+                'user' => 'string'
+            ),
+            'type' => '{urn:horde}hashHash'
+        ),
+
+        'list' => array(
+            'args' => array(),
+            'type' => '{urn:horde}stringArray',
+        ),
+
+        'listBy' => array(
+            'args' => array(
+                'action' => 'string',
+                'timestamp' => 'int'
+            ),
+            'type' => '{urn:horde}stringArray',
+        ),
+
+        'getActionTimestamp' => array(
+            'args' => array(
+                'uid' => 'string',
+                'action' => 'string',
+                'tasklist' => 'string'
+            ),
+            'type' => 'int',
+        ),
+
+        'import' => array(
+            'args' => array(
+                'content' => 'string',
+                'contentType' => 'string',
+                'tasklist' => 'string'
+            ),
+            'type' => 'string',
+        ),
+
+        'quickAdd' => array(
+            'args' => array(
+                'content' => 'string',
+                'tasklist' => 'string'
+            ),
+            'type' => '{urn:horde}stringArray',
+        ),
+
+        'export' => array(
+            'args' => array(
+                'uid' => 'string',
+                'contentType' => '{urn:horde}stringArray'
+            ),
+            'type' => 'string',
+        ),
+
+        'exportTasklist' => array(
+            'args' => array(
+                'tasklist' => 'string',
+                'contentType' => 'string'
+            ),
+            'type' => 'string'
+        ),
+
+        'delete' => array(
+            'args' => array('uid' => '{urn:horde}stringArray'),
+            'type' => 'boolean',
+        ),
+
+        'replace' => array(
+            'args' => array(
+                'uid' => 'string',
+                'content' => 'string',
+                'contentType' => 'string'
+            ),
+            'type' => 'boolean',
+        ),
+
+        'listCostObjects' => array(
+            'args' => array('criteria' => '{urn:horde}hash'),
+            'type' => '{urn:horde}stringArray'
+        ),
+
+        'listTimeObjectCategories' => array(
+            'type' => '{urn:horde}stringArray'
+        ),
+
+        'listTimeObjects' => array(
+            'args' => array(
+                'start' => 'int',
+                'end' => 'int'
+            ),
+            'type' => '{urn:horde}hashHash'
+        ),
+
+        'toggleCompletion' => array(
+            'args' => array(
+                'task_id' => 'string',
+                'tasklist_id' => 'string'
+            ),
+            'type' => 'boolean'
+        )
     );
 
     /**

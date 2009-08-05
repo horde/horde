@@ -27,13 +27,200 @@ class IMP_Api extends Horde_Registry_Api
     public $version = 'H4 (5.0-git)';
 
     /**
-     * The listing of API calls that do not require permissions checking.
+     * The services provided by this application.
      *
      * @var array
      */
-    public $noPerms = array(
-        'authLoginParams', 'authAuthenticate', 'authAuthenticateCallback',
-        'authTransparent'
+    public $services = array(
+        'perms' => array(
+            'args' => array(),
+            'type' => '{urn:horde}hashHash'
+        ),
+
+        'authCredentials' => array(
+            'args' => array(),
+            'type' => '{urn:horde}hashHash'
+        ),
+
+        'compose' => array(
+            'args' => array(
+                'args' => '{urn:horde}hash',
+                'extra' => '{urn:horde}hash'
+            ),
+            'type' => 'string'
+        ),
+
+        'batchCompose' => array(
+            'args' => array(
+                'args' => '{urn:horde}hash',
+                'extra' => '{urn:horde}hash'
+            ),
+            'type' => 'string'
+        ),
+
+        'folderlist' => array(
+            'args' => array(),
+            'type' => '{urn:horde}stringArray'
+        ),
+
+        'createFolder' => array(
+            'args' => array('folder' => 'string'),
+            'type' => 'string'
+        ),
+
+        'deleteMessages' => array(
+            'args' => array(
+                'mailbox' => 'string',
+                'indices' => '{urn:horde}integerArray'
+            ),
+            'type' => 'integer'
+        ),
+
+        'copyMessages' => array(
+            'args' => array(
+                'mailbox' => 'string',
+                'indices' => '{urn:horde}integerArray',
+                'target' => 'string'
+            ),
+            'type' => 'boolean'
+        ),
+
+        'moveMessages' => array(
+            'args' => array(
+                'mailbox' => 'string',
+                'indices' => '{urn:horde}integerArray',
+                'target' => 'string'
+            ),
+            'type' => 'boolean'
+        ),
+
+        'flagMessages' => array(
+            'args' => array(
+                'mailbox' => 'string',
+                'indices' => '{urn:horde}integerArray',
+                'flags' => '{urn:horde}stringArray',
+                'set' => 'boolean'
+            ),
+            'type' => 'boolean'
+        ),
+
+        'msgEnvelope' => array(
+            'args' => array(
+                'mailbox' => 'string',
+                'indices' => '{urn:horde}integerArray'
+            ),
+            'type' => '{urn:horde}hashHash'
+        ),
+
+        'searchMailbox' => array(
+            'args' => array(
+                'mailbox' => 'string',
+                'query' => 'object'
+            ),
+            'type' => '{urn:horde}integerArray'
+        ),
+
+        'mailboxCacheId' => array(
+            'args' => array(
+                'mailbox' => 'string'
+            ),
+            'type' => 'string'
+        ),
+
+        'server' => array(
+            'args' => array(),
+            'type' => '{urn:horde}hashHash'
+        ),
+
+        'favouriteRecipients' => array(
+            'args' => array(
+                'limit' => 'int'
+            ),
+            'type' => '{urn:horde}stringArray'
+        ),
+
+        'changeLanguage' => array(
+            'args' => array()
+        ),
+
+        /* Cache display method. */
+        'cacheOutput' => array(
+            'args' => array(
+                '{urn:horde}hashHash'
+            ),
+            'type' => '{urn:horde}hashHash'
+        ),
+
+        /* Horde_Auth_Application methods. */
+        'authLoginParams' => array(
+            'args' => array(),
+            'checkperms' => false,
+            'type' => '{urn:horde}hashHash'
+        ),
+
+        'authAuthenticate' => array(
+            'args' => array(
+                'userID' => 'string',
+                'credentials' => '{urn:horde}hash',
+                'params' => '{urn:horde}hash'
+            ),
+            'checkperms' => false,
+            'type' => 'boolean'
+        ),
+
+        'authAuthenticateCallback' => array(
+            'args' => array(),
+            'checkperms' => false
+        ),
+
+        'authTransparent' => array(
+            'args' => array(),
+            'checkperms' => false,
+            'type' => 'boolean'
+        ),
+
+        'authAddUser' => array(
+            'args' => array(
+                'userId' => 'string',
+                'credentials' => '{urn:horde}stringArray'
+            )
+        ),
+
+        'authRemoveUser' => array(
+            'args' => array(
+                'userId' => 'string'
+            )
+        ),
+
+        'authUserList' => array(
+            'type' => '{urn:horde}stringArray'
+        ),
+
+        /* Prefs_UI methods. */
+        'prefsInit' => array(
+            'args' => array()
+        ),
+
+        'prefsHandle' => array(
+            'args' => array(
+                'item' => 'string',
+                'updated' => 'boolean'
+            ),
+            'type' => 'boolean'
+        ),
+
+        'prefsCallback' => array(
+            'args' => array()
+        ),
+
+        'prefsMenu' => array(
+            'args' => array(),
+            'type' => 'object'
+        ),
+
+        'prefsStatus' => array(
+            'args' => array()
+        )
     );
 
     /**
@@ -43,7 +230,7 @@ class IMP_Api extends Horde_Registry_Api
     {
         /* Only available if admin config is set for this server/login. */
         if (empty($_SESSION['imp']['admin'])) {
-            $this->disabled = array('authAddUser', 'authRemoveUser', 'authUserList');
+            unset($this->services['authAddUser'], $this->services['authRemoveUser'], $this->services['authUserList']);
         }
     }
 
