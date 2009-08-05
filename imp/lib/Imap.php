@@ -28,13 +28,6 @@ class IMP_Imap
     protected $_readonly = array();
 
     /**
-     * Namespace cache.
-     *
-     * @var array
-     */
-    protected $_nscache = array();
-
-    /**
      * Default namespace.
      *
      * @var array
@@ -328,13 +321,11 @@ class IMP_Imap
      * @param string $mailbox  The folder path. If empty, will return info
      *                         on the default namespace (i.e. the first
      *                         personal namespace).
-     * @param boolean $empty   If true and no matching namespace is found,
-     *                         return the empty namespace, if it exists.
      *
      * @return mixed  The namespace info for the folder path or null if the
      *                path doesn't exist.
      */
-    public function getNamespace($mailbox = null, $empty = true)
+    public function getNamespace($mailbox = null)
     {
         if ($_SESSION['imp']['protocol'] == 'pop') {
             return null;
@@ -347,22 +338,14 @@ class IMP_Imap
             $mailbox = key($ns);
         }
 
-        $key = (int)$empty;
-        if (isset($this->_nscache[$key][$mailbox])) {
-            return $this->_nscache[$key][$mailbox];
-        }
-
         foreach ($ns as $key => $val) {
-            $mbx = $mailbox . $val['delimiter'];
-            if (!empty($key) && (strpos($mbx, $key) === 0)) {
-                $this->_nscache[$key][$mailbox] = $val;
+            $mbox = $mailbox . $val['delimiter'];
+            if (!empty($key) && (strpos($mbox, $key) === 0)) {
                 return $val;
             }
         }
 
-        $this->_nscache[$key][$mailbox] = ($empty && isset($ns[''])) ? $ns[''] : null;
-
-        return $this->_nscache[$key][$mailbox];
+        return isset($ns['']) ? $ns[''] : null;
     }
 
     /**

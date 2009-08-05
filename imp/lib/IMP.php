@@ -847,7 +847,7 @@ class IMP
      * folders from the personal and any empty namespace, we prefix folders
      * from the empty namespace with the delimiter.
      *
-     * @param string $mailbox  The folder path.
+     * @param string $folder   The folder path.
      * @param boolean $append  True - convert from preference value.
      *                         False - convert to preference value.
      *
@@ -864,7 +864,7 @@ class IMP
                 strpos($folder, $empty_ns['delimiter']) === 0) {
                 /* Prefixed with delimiter => from empty namespace. */
                 $folder = substr($folder, strlen($empty_ns['delimiter']));
-            } elseif (($ns = $GLOBALS['imp_imap']->getNamespace($folder, false)) == null) {
+            } elseif (($ns = $GLOBALS['imp_imap']->getNamespace($folder)) == null) {
                 /* No namespace prefix => from personal namespace. */
                 $folder = $def_ns['name'] . $folder;
             }
@@ -878,6 +878,7 @@ class IMP
                 $folder = $empty_ns['delimiter'] . $folder;
             }
         }
+
         return $folder;
     }
 
