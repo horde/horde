@@ -58,14 +58,14 @@
  *   dn:            Only applies to LDAP servers. Defines the list of LDAP
  *                  attributes that build a valid DN.
  *
- *   root:          Only applies to LDAP servers. Defines the base DN whree to
+ *   root:          Only applies to LDAP servers. Defines the base DN where to
  *                  start the search, i.e. dc=example,dc=com.
  *
  *   bind_dn:       Only applies to LDAP servers which do not allow anonymous
  *                  connections. Active Directory servers do not allow it by
  *                  default, so before using one as a Turba source, you must
  *                  create a "rightless" user, which is only allowed to connect
- *                  to the server and se the bind_dn parameter like
+ *                  to the server, and set the bind_dn parameter like
  *                  'rightless@example.com' (not cn=rightless,dc=example,dc=com)
  *
  *   bind_password: Only applies to LDAP servers which do not allow anonymous
@@ -74,8 +74,8 @@
  *
  *   referrals:     Only applies to LDAP servers. If set, should be 0 or 1.
  *                  See the LDAP documentation about the corresponding
- *                  parameter REFERRALS. Windows 2003 Server require to set
- *                  this parameter to 0.
+ *                  parameter REFERRALS. Windows 2003 Server requires that you
+ *                  set this parameter to 0.
  *
  *   sizelimit:     Only applies to LDAP servers. If set, limit the search to
  *                  the specified number of entries. Value 0 or no value means
