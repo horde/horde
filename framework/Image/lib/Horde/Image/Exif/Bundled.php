@@ -702,4 +702,9 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         return $type;
     }
 
+    public function supportedCategories()
+    {
+        return array('EXIF');
+    }
+
 }

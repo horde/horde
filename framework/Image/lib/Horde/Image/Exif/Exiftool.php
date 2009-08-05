@@ -38,7 +38,6 @@ class Horde_Image_Exif_Exiftool extends Horde_Image_Exif_Base
         // Request the full stream of meta data in JSON format.
         // -j option outputs in JSON, -n = prevent screen formatting
         $command = '-j -n ' . $image;
-        $test = $this->_execute($command);
         $results = json_decode($this->_execute($command));
         if (is_array($results)) {
             $results = array_pop($results);
@@ -51,6 +50,11 @@ class Horde_Image_Exif_Exiftool extends Horde_Image_Exif_Base
 
         throw new Horde_Image_Exception('Unknown error running exiftool command');
 
+    }
+
+    public function supportedCategories()
+    {
+        return array('EXIF', 'IPTC', 'XMP');
     }
 
     /**

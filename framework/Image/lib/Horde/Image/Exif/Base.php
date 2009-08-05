@@ -155,6 +155,7 @@ abstract class Horde_Image_Exif_Base
     }
 
     abstract public function getData($image);
+    abstract public function supportedCategories();
 
 
 }
