@@ -563,7 +563,7 @@ HTML;
             return self::url($webroot . '/services/cache.php', false, -1);
 
         case 'download':
-            return Horde_Util::addParameter(self::url($webroot . '/services/download/', array('module' => $app)));
+            return Horde_Util::addParameter(self::url($webroot . '/services/download/'), array('module' => $app));
 
         case 'go':
             return self::url($webroot . '/services/go.php');
