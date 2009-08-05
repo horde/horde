@@ -474,9 +474,11 @@ class IMP_Auth
                   $conf['cookie']['path'],
                   $conf['cookie']['domain']);
 
-        /* Suppress menus in options screen. */
+        /* Suppress menus in options screen, and indicate that it should
+         * use the IMP notification listener. */
         if ($sess['view'] == 'dimp') {
             $_SESSION['horde_prefs']['nomenu'] = true;
+            $_SESSION['horde_prefs']['status'] = 'imp';
         }
 
         /* Set up search information for the session. */

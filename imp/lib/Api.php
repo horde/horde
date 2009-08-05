@@ -475,20 +475,17 @@ class IMP_Api extends Horde_Registry_Api
     }
 
     /**
-     * Output notifications on the preferences page.
+     * Setup notifications handler for the preferences page. This will only
+     * be called if in dimp view mode.
      */
     public function prefsStatus()
     {
-        try {
-            $GLOBALS['imp_authentication'] = 'throw';
-            require_once dirname(__FILE__) . '/base.php';
-            if (IMP::getViewMode() == 'dimp') {
-                Horde::addInlineScript(array(IMP_Dimp::notify(true)), 'dom');
-                return;
-            }
-        } catch (Horde_Exception $e) {}
+        $GLOBALS['imp_authentication'] = 'none';
+        require_once dirname(__FILE__) . '/base.php';
 
-        IMP::status();
+        $notification = Horde_Notification::singleton();
+        $notification->detach('status');
+        $notification->attach('status', array('prefs' => true, 'viewmode' => 'dimp'), 'IMP_Notification_Listener_Status');
     }
 
     /**

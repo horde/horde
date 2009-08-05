@@ -97,17 +97,15 @@ class IMP_Dimp
     /**
      * Return the javascript code necessary to display notification popups.
      *
-     * @param boolean $parent  Send notifications to parent window?
-     *
      * @return string  The notification JS code.
      */
-    static public function notify($parent = false)
+    static public function notify()
     {
         $GLOBALS['notification']->notify(array('listeners' => 'status'));
         $msgs = $GLOBALS['imp_notify']->getStack();
 
         return count($msgs)
-            ? ($parent ? 'parent.' : '') . 'DimpCore.showNotifications(' . Horde_Serialize::serialize($msgs, Horde_Serialize::JSON) . ')'
+            ? 'DimpCore.showNotifications(' . Horde_Serialize::serialize($msgs, Horde_Serialize::JSON) . ')'
             : '';
     }
 

@@ -12,6 +12,13 @@
 class IMP_Notification_Listener_Status extends Horde_Notification_Listener_Status
 {
     /**
+     * Is this the prefs screen?
+     *
+     * @var boolean
+     */
+    protected $_isPrefs = false;
+
+    /**
      * The view mode.
      *
      * @var string
@@ -21,13 +28,16 @@ class IMP_Notification_Listener_Status extends Horde_Notification_Listener_Statu
     /**
      * Constructor.
      *
-     * @param array $options  One option required: 'viewmode'.
+     * @param array $options  Optional: 'prefs', 'viewmode'.
      */
-    public function __construct($options)
+    public function __construct($options = array())
     {
         parent::__construct();
 
-        $this->_viewmode = $options['viewmode'];
+        $this->_isPrefs = !empty($options['prefs']);
+        $this->_viewmode = empty($options['viewmode'])
+            ? IMP::getViewMode()
+            : $options['viewmode'];
 
         $image_dir = $GLOBALS['registry']->getImageDir();
 
@@ -65,7 +75,15 @@ class IMP_Notification_Listener_Status extends Horde_Notification_Listener_Statu
         if (($this->_viewmode == 'dimp') && Horde_Auth::getAuth()) {
             $options['store'] = true;
         }
+
         parent::notify($messageStack, $options);
+
+        /* Preferences display. */
+        if ($this->_isPrefs && ($msgs = $this->getStack())) {
+            Horde::addInlineScript(array(
+                'parent.DimpCore.showNotifications(' . Horde_Serialize::serialize($msgs, Horde_Serialize::JSON) . ')'
+            ), 'dom');
+        }
     }
 
 }
