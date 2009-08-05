@@ -58,16 +58,46 @@
  *   dn:            Only applies to LDAP servers. Defines the list of LDAP
  *                  attributes that build a valid DN.
  *
+ *   root:          Only applies to LDAP servers. Defines the base DN whree to
+ *                  start the search, i.e. dc=example,dc=com.
+ *
+ *   bind_dn:       Only applies to LDAP servers which do not allow anonymous
+ *                  connections. Active Directory servers do not allow it by
+ *                  default, so before using one as a Turba source, you must
+ *                  create a "rightless" user, which is only allowed to connect
+ *                  to the server and se the bind_dn parameter like
+ *                  'rightless@example.com' (not cn=rightless,dc=example,dc=com)
+ *
+ *   bind_password: Only applies to LDAP servers which do not allow anonymous
+ *                  connection. You should set this to the cleartext password
+ *                  for the user specified in 'bind_dn'.
+ *
+ *   referrals:     Only applies to LDAP servers. If set, should be 0 or 1.
+ *                  See the LDAP documentation about the corresponding
+ *                  parameter REFERRALS. Windows 2003 Server require to set
+ *                  this parameter to 0.
+ *
+ *   sizelimit:     Only applies to LDAP servers. If set, limit the search to
+ *                  the specified number of entries. Value 0 or no value means
+ *                  no limit. Keep in mind that servers can impose their own
+ *                  search limits.
+ *
  *   objectclass:   Only applies to LDAP servers. Defines a list of
- *                  objectclasses that contacts must belong to, and
- *                  that new objects will be created with.
+ *                  objectclasses that contacts must belong to, and that new
+ *                  objects will be created with.
  *
  *   filter:        Filter helps to filter your result based on certain
  *                  condition in SQL and LDAP backends. A filter can be
  *                  specified to avoid some unwanted data. For example, if the
  *                  source is an external sql database, to select records with
- *                  the delete flag = 0:
- *                  'filter' = 'deleted=0'
+ *                  the delete flag = 0: 'filter' => 'deleted=0'.
+ *                  Don't enclose filter in brackets - this will done
+ *                  automatically. Also keep in mind that a full filter line
+ *                  will be built from 'filter' and 'objectclass' parameters.
+ *
+ *   version:       Only applies to LDAP servers. If set, specify LDAP server
+ *                  version, can be 2 or 3. Active Directory servers
+ *                  require version 3.
  *
  * map:         This is a list of mappings from the Turba attribute names (on
  *              the left) to the attribute names by which they are known in
@@ -293,9 +323,15 @@ $cfgSources['localsql'] = array(
 //         'port' => 389,
 //         'tls' => false,
 //         'root' => 'dc=example,dc=com',
+//         // For Active Directory usually domain name:
+//         // 'root' => 'example.com',
 //         'bind_dn' => 'cn=admin,ou=users,dc=example,dc=com',
+//         // For Active Directory:
+//         // 'bind_dn' => 'username@example.com',
 //         'bind_password' => '********',
 //         'sizelimit' => 200,
+//         // For Active Directory:
+//         // 'sizelimit' => 0,
 //         'dn' => array('cn'),
 //         'objectclass' => array('top',
 //                                'person',
@@ -304,7 +340,14 @@ $cfgSources['localsql'] = array(
 //                                // Add 'turbaContact' to this array if using
 //                                // 'turbaType' attribute below, and 'calEntry'
 //                                // if using 'freebusyUrl'.
+//         // For Active Directory:
+//         // 'objectclass' => array('organizationalPerson',
+//         //                        'user',
+//         //                        'group',
+//         //                        'contact'),
 //         'scope' => 'one',
+//         // For Active Directory:
+//         // 'scope' => 'sub',
 //         'charset' => 'utf-8',
 //         // Consult the LDAP schema to verify that all required attributes for
 //         // an entry are set and add them if needed.
@@ -315,10 +358,18 @@ $cfgSources['localsql'] = array(
 //         // field is assumed to have postalAddress syntax; otherwise the schema
 //         // is consulted for the syntax to use.
 //         'checksyntax' => false,
-//         'version' => 3
+//         'version' => 3,
+//
+//         // For Active Directory you probably want to also set the following
+//         // parameters:
+//         // 'deref' => LDAP_DEREF_ALWAYS,
+//         // 'filter' => '&(SAMAccountName=*)(mail=*)',
+//         // 'referrals' => 0,
 //     ),
 //     'map' => array(
 //         '__key' => 'dn',
+//
+//         // Remove this mapping if using Active Directory server:
 //         '__uid' => 'uid',
 //
 //         // From horde.schema.  Make sure you have 'turbaContact' objectClass
@@ -335,6 +386,13 @@ $cfgSources['localsql'] = array(
 //
 //         // From rfc2739.schema:
 //         // 'freebusyUrl' => 'calFBURL',
+//
+//         // For Active Directory servers:
+//         // 'name' => 'displayname',
+//         // 'title' => 'title',
+//         // 'cellPhone' => 'mobile',
+//         // 'department' => 'department',
+//         // 'company' => 'company',
 //     ),
 //     'search' => array(
 //         'name',
@@ -350,6 +408,11 @@ $cfgSources['localsql'] = array(
 //     'approximate' => array(
 //         'cn',
 //     ),
+//     // For Active Directory servers:
+//     // 'approximate' => array(
+//     //     'displayname',
+//     //     'samaccountname',
+//     // ),
 //     'export' => true,
 //     'browse' => true,
 // );
