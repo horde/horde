@@ -399,7 +399,7 @@ class IMP_Imap
      */
     static public function appendNamespace($mbox)
     {
-        $ns_info = $this->getNamespace($mbox, false);
+        $ns_info = $this->getNamespace($mbox);
         if (is_null($ns_info)) {
             $ns_info = $this->defaultNamespace();
         }
