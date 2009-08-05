@@ -975,17 +975,18 @@ class Horde_Registry
      */
     public function hasPermission($app, $perms = PERMS_READ)
     {
-        // Admins always are authorized.
-        if (Horde_Auth::isAdmin()) { return true; }
-
-        // If there is no permission for $app, allow access for authenticated
-        // users.
-        if (!$GLOBALS['perms']->exists($app)) {
-            return Horde_Auth::isAuthenticated(array('app' => $app));
+        /* Always do isAuthenticated() check first. You can be an admin, but
+         * application auth != Horde admin auth. */
+        if (!Horde_Auth::isAuthenticated(array('app' => $app))) {
+            /* There can *never* be guest access to an application that
+             * requires authentication. */
+            return false;
         }
 
-        // Use the permission set for $app.
-        return $GLOBALS['perms']->hasPermission($app, Horde_Auth::getAuth(), $perms);
+        /* Admins always are authorized. */
+        return (!Horde_Auth::isAdmin() && $GLOBALS['perms']->exists($app))
+            ? $GLOBALS['perms']->hasPermission($app, Horde_Auth::getAuth(), $perms)
+            : true;
     }
 
     /**
