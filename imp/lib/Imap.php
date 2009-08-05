@@ -58,13 +58,23 @@ class IMP_Imap
      */
     public function __destruct()
     {
-        /* Only need to serialize object once a second. When we do serialize,
-         * make sure we login in order to ensure we have done the necessary
-         * initialization. */
+        /* Only need to serialize object once a session. When we do
+         * serialize, make sure we login in order to ensure we have done the
+         * necessary initialization. */
         if ($this->ob &&
             isset($_SESSION['imp']) &&
             !isset($_SESSION['imp']['imap_ob'])) {
             $this->ob->login();
+
+            /* First login may occur on a non-viewable page. However,
+             * any login alerts received should be displayed to the user at
+             * some point. We need to do an explicit grab of the alarms
+             * right now. */
+            $notification = Horde_Notification::singleton();
+            foreach ($GLOBALS['imp_imap']->ob->alerts() as $alert) {
+                $notification->push($alert, 'horde.warning');
+            }
+
             $_SESSION['imp']['imap_ob'] = serialize($this->ob);
         }
     }
