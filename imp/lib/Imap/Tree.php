@@ -1995,7 +1995,10 @@ class IMP_Imap_Tree
      */
     public function createMailboxName($parent, $new)
     {
-        $ns_info = (empty($parent)) ? $GLOBALS['imp_imap']->defaultNamespace() : $this->_getNamespace($parent);
+        $ns_info = empty($parent)
+            ? $GLOBALS['imp_imap']->defaultNamespace()
+            : $this->_getNamespace($parent);
+
         if (is_null($ns_info)) {
             if ($this->isNamespace($this->_tree[$parent])) {
                 $ns_info = $this->_getNamespace($new);
@@ -2013,4 +2016,5 @@ class IMP_Imap_Tree
         }
         return $mbox . $new;
     }
+
 }
