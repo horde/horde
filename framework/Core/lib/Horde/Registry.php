@@ -324,7 +324,7 @@ class Horde_Registry
     }
 
     /**
-     * Fills the registry's API cache with the available services and types.
+     * Fills the registry's API cache with the available external services.
      *
      * @throws Horde_Exception
      */
@@ -523,6 +523,19 @@ class Horde_Registry
     }
 
     /**
+     * Determine if an application method exists for a given application.
+     *
+     * @param string $app     The application name.
+     * @param string $method  The full name of the method to check for.
+     *
+     * @return boolean  Existence of the method.
+     */
+    public function hasAppMethod($app, $method)
+    {
+        return method_exists($this->_getOb($app, 'application'), $method);
+    }
+
+    /**
      * Return the hook corresponding to the default package that
      * provides the functionality requested by the $method
      * parameter. $method is a string consisting of
@@ -598,6 +611,55 @@ class Horde_Registry
         }
         if (is_a($result, 'PEAR_Error')) {
             throw new Horde_Exception($result);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Call a private Horde application method.
+     *
+     * @param string $app     The application name.
+     * @param string $call    The method to call.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'args' - (array) Additional parameters to pass to the method.
+     * 'noperms' - (boolean) If true, don't check the perms.
+     * </pre>
+     *
+     * @return mixed  Various. Returns null if the method doesn't exist.
+     * @throws Horde_Exception  Application methods should throw this if there
+     *                          is a fatal error.
+     */
+    public function callAppMethod($app, $call, $options = array())
+    {
+        /* Make sure that the method actually exists. */
+        if (!$this->hasAppMethod($app, $call)) {
+            return null;
+        }
+
+        /* Load the API now. */
+        $api = $this->_getOb($app, 'application');
+
+        /* Switch application contexts now, if necessary, before
+         * including any files which might do it for us. Return an
+         * error immediately if pushApp() fails. */
+        $pushed = $this->pushApp($app, array('check_perms' => empty($options['noperms'])));
+
+        try {
+            $result = call_user_func_array(array($api, $call), empty($options['args']) ? array() : $options['args']);
+        } catch (Horde_Exception $e) {
+            $result = $e;
+        }
+
+        /* If we changed application context in the course of this
+         * call, undo that change now. */
+        if ($pushed === true) {
+            $this->popApp();
+        }
+
+        if ($result instanceof Exception) {
+            throw $e;
         }
 
         return $result;
