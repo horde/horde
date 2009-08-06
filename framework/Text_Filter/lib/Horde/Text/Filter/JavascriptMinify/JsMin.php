@@ -79,7 +79,8 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
             case "\n":
                 if ($this->_b === ' ') {
                     $cmd = self::ACTION_DELETE_A_B;
-                } elseif (!$this->_isAlphaNum($this->_b)) {
+                } elseif (!strspn($this->_b, '{[(+-') &&
+                          !$this->_isAlphaNum($this->_b)) {
                     $cmd = self::ACTION_DELETE_A;
                 }
                 break;
@@ -87,7 +88,7 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
             default:
                 if (!$this->_isAlphaNum($this->_a) &&
                     (($this->_b === ' ') ||
-                     (($this->_b === "\n" && !strspn($this->_b, '}])+-"\''))))) {
+                     (($this->_b === "\n" && !strspn($this->_a, '}])+-"\''))))) {
                     $cmd = self::ACTION_DELETE_A_B;
                 }
                 break;
