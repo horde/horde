@@ -70,11 +70,7 @@ class IMP_Notification_Listener_Status extends Horde_Notification_Listener_Statu
      */
     public function notify(&$messageStack, $options = array())
     {
-        /* For dimp, don't capture notification messages if we are logging
-         * out. */
-        if (($this->_viewmode == 'dimp') && Horde_Auth::getAuth()) {
-            $options['store'] = true;
-        }
+        $options['store'] = true;
 
         /* Display IMAP alerts. */
         foreach ($GLOBALS['imp_imap']->ob->alerts() as $alert) {
