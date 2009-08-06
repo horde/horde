@@ -49,7 +49,6 @@ $code['conf'] = array_filter(array(
     'URI_MESSAGE' => Horde::applicationUrl('message-dimp.php'),
     'URI_PREFS' => Horde::getServiceLink('prefsapi', 'imp'),
     'URI_PREFS_IMP' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'imp')),
-    'URI_TIMEOUT' => Horde_Auth::getLogoutUrl(array('reason' => Horde_Auth::REASON_SESSION)),
     'URI_VIEW' => Horde::applicationUrl('view.php'),
 
     'SESSION_ID' => defined('SID') ? SID : '',

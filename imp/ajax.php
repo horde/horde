@@ -164,9 +164,21 @@ if (in_array($action, array('chunkContent', 'Html2Text', 'Text2Html', 'GetReplyD
     $imp_session_control = 'readonly';
 }
 
-$imp_dimp_logout = ($action == 'LogOut');
-$imp_session_timeout = 'json';
-require_once IMP_BASE . '/lib/base.php';
+$imp_authentication = 'throw';
+try {
+    require_once IMP_BASE . '/lib/base.php';
+} catch (Horde_Exception $e) {
+    /* Handle session timeouts when they come from an AJAX request. */
+    if ($e->getCode() == Horde_Registry::AUTH_FAILURE) {
+        $notification = Horde_Notification::singleton();
+        $imp_notify = $notification->attach('status', array('viewmode' => 'dimp'), 'IMP_Notification_Listener_Status');
+        $notification->push(str_replace('&amp;', '&', Horde_Auth::getLogoutUrl(array('reason' => Horde_Auth::REASON_SESSION))), 'dimp.timeout', array('content.raw'));
+        Horde::sendHTTPResponse(Horde::prepareResponse(null, $imp_notify), 'json');
+        exit;
+    }
+
+    Horde_Auth::authenticateFailure('imp', $e);
+}
 
 // Process common request variables.
 $mbox = Horde_Util::getPost('view');
@@ -181,6 +193,12 @@ $notify = true;
 $result = false;
 
 switch ($action) {
+case 'LogOut':
+    /* Handle logout requests. This needs to be done here because the logout
+     * tokens might expire otherwise. */
+    Horde::redirect(str_replace('&amp;', '&', Horde::getServiceLink('logout', 'imp')));
+    break;
+
 case 'CreateFolder':
     if (empty($mbox)) {
         break;

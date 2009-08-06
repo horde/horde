@@ -13,15 +13,12 @@
  *   [DEFAULT] - Authenticate to IMAP/POP server; on no auth redirect to login
  *               screen
  * $imp_compose_page - If true, we are on IMP's compose page
- * $imp_dimp_logout - Logout and redirect to the login page.
  * $imp_no_compress - Controls whether the page should be compressed
  * $imp_session_control - Sets special session control limitations:
  *   'netscape' - TODO; start read/write session
  *   'none' - Do not start a session
  *   'readonly' - Start session readonly
  *   [DEFAULT] - Start read/write session
- * $imp_session_timeout - Sets special handling for session timeouts:
- *   'json' - Send session logout request to browser.
  * </pre>
  *
  * Global variables defined:
@@ -63,16 +60,6 @@ case 'readonly':
 }
 $registry = Horde_Registry::singleton($s_ctrl);
 
-// Determine view mode.
-$viewmode = isset($_SESSION['imp']['view'])
-    ? $_SESSION['imp']['view']
-    : 'imp';
-
-// Handle dimp logout requests.
-if (($viewmode == 'dimp') && Horde_Util::nonInputVar('imp_dimp_logout')) {
-    Horde::redirect(str_replace('&amp;', '&', Horde::getServiceLink('logout', 'imp')));
-}
-
 // Determine imp authentication type.
 $authentication = Horde_Util::nonInputVar('imp_authentication');
 if ($authentication == 'horde') {
@@ -86,22 +73,13 @@ try {
     $registry->pushApp('imp', array('check_perms' => ($authentication != 'none'), 'logintasks' => true));
 } catch (Horde_Exception $e) {
     if ($e->getCode() == Horde_Registry::AUTH_FAILURE) {
-        if ($authentication == 'throw') {
-            throw $e;
-        }
-
-        // Handle session timeouts when they come from an AJAX request.
-        if (($viewmode == 'dimp') &&
-            (Horde_Util::nonInputVar('imp_session_timeout') == 'json')) {
-            $notification = Horde_Notification::singleton();
-            $notification->push(null, 'dimp.timeout');
-            Horde::sendHTTPResponse(Horde::prepareResponse(), 'json');
-            exit;
-        }
-
         if (Horde_Util::nonInputVar('imp_compose_page')) {
             $imp_compose = IMP_Compose::singleton();
             $imp_compose->sessionExpireDraft();
+        }
+
+        if ($authentication == 'throw') {
+            throw $e;
         }
     }
 

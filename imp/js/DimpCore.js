@@ -210,7 +210,7 @@ var DimpCore = {
 
             switch (m.type) {
             case 'dimp.timeout':
-                this.logout(DIMP.conf.URI_TIMEOUT);
+                this.logout(m.message);
                 return true;
 
             case 'horde.error':
