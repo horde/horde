@@ -29,11 +29,6 @@ class Horde_Auth_Application extends Horde_Auth_Base
     /**
      * Equivalent methods in application's API.
      *
-     * The 'authAuthenticate', 'authAuthenticateCallback', and
-     * 'authTransparent' methods must not have the check_perms flag set
-     * (however, for sanity reasons it is best to have a Horde_Auth::getAuth()
-     * check inside of the authAuthenticate function).
-     *
      * @var array
      */
     protected $_apiMethods = array(
@@ -77,7 +72,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
         if (!in_array($capability, $this->_loaded) &&
             isset($this->_apiMethods[$capability])) {
             $registry = Horde_Registry::singleton();
-            $this->_capabilities[$capability] = $registry->hasMethod($this->_apiMethods[$capability], $this->_app);
+            $this->_capabilities[$capability] = $registry->hasAppMethod($this->_app, $this->_apiMethods[$capability]);
             $this->_loaded[] = $capability;
         }
 
@@ -127,7 +122,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
         $credentials['auth_ob'] = $this;
 
         try {
-            $result = $registry->callByPackage($this->_app, $this->_apiMethods['authenticate'], array($userId, $credentials));
+            $result = $registry->callAppMethod($this->_app, $this->_apiMethods['authenticate'], array('args' => array($userId, $credentials), 'noperms' => true));
         } catch (Horde_Auth_Exception $e) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
@@ -143,7 +138,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
     {
         if ($this->hasCapability('list')) {
             $registry = Horde_Registry::singleton();
-            return $registry->callByPackage($this->_app, $this->_apiMethods['list']);
+            return $registry->callAppMethod($this->_app, $this->_apiMethods['list']);
         } else {
             return parent::listUsers();
         }
@@ -160,7 +155,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
     {
         if ($this->hasCapability('exists')) {
             $registry = Horde_Registry::singleton();
-            return $registry->callByPackage($this->_app, $this->_apiMethods['exists'], array($userId));
+            return $registry->callAppMethod($this->_app, $this->_apiMethods['exists'], array($userId));
         } else {
             return parent::exists($userId);
         }
@@ -178,7 +173,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
     {
         if ($this->hasCapability('add')) {
             $registry = Horde_Registry::singleton();
-            $registry->callByPackage($this->_app, $this->_apiMethods['exists'], array($userId, $credentials));
+            $registry->callAppMethod($this->_app, $this->_apiMethods['exists'], array($userId, $credentials));
         } else {
             parent::addUser($userId, $credentials);
         }
@@ -197,7 +192,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
     {
         if ($this->hasCapability('update')) {
             $registry = Horde_Registry::singleton();
-            $registry->callByPackage($this->_app, $this->_apiMethods['update'], array($oldID, $newID, $credentials));
+            $registry->callAppMethod($this->_app, $this->_apiMethods['update'], array($oldID, $newID, $credentials));
         } else {
             parent::updateUser($userId, $credentials);
         }
@@ -214,7 +209,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
     {
         if ($this->hasCapability('remove')) {
             $registry = Horde_Registry::singleton();
-            $registry->callByPackage($this->_app, $this->_apiMethods['remove'], array($userId));
+            $registry->callAppMethod($this->_app, $this->_apiMethods['remove'], array($userId));
             Horde_Auth::removeUserData($userId);
         } else {
             parent::removeUser($userId);
@@ -255,7 +250,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
         }
 
         $registry = Horde_Registry::singleton();
-        return $registry->callByPackage($this->_app, $this->_apiMethods['transparent']);
+        return $registry->callAppMethod($this->_app, $this->_apiMethods['transparent'], array('noperms' => true));
     }
 
     /**
@@ -274,7 +269,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
         }
 
         $registry = Horde_Registry::singleton();
-        return $registry->callByPackage($this->_app, $this->_apiMethods['loginparams']);
+        return $registry->callAppMethod($this->_app, $this->_apiMethods['loginparams'], array('noperms' => true));
     }
 
     /**
@@ -312,7 +307,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
     {
         if ($this->hasCapability('authenticatecallback')) {
             $registry = Horde_Registry::singleton();
-            $registry->callByPackage($this->_app, $this->_apiMethods['authenticatecallback']);
+            $registry->callAppMethod($this->_app, $this->_apiMethods['authenticatecallback'], array('noperms' => true));
         }
     }
 
