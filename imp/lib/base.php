@@ -20,6 +20,8 @@
  *   'none' - Do not start a session
  *   'readonly' - Start session readonly
  *   [DEFAULT] - Start read/write session
+ * $imp_session_timeout - Sets special handling for session timeouts:
+ *   'json' - Send session logout request to browser.
  * </pre>
  *
  * Global variables defined:
@@ -88,21 +90,13 @@ try {
             throw $e;
         }
 
-        if ($viewmode == 'dimp') {
-            // Handle session timeouts
-            switch (Horde_Util::nonInputVar('session_timeout')) {
-            case 'json':
-                $GLOBALS['notification']->push(null, 'dimp.timeout');
-                Horde::sendHTTPResponse(Horde::prepareResponse(), 'json');
-                exit;
-
-            case 'none':
-                exit;
-
-            default:
-                // TODO: Redirect to login screen
-                exit;
-            }
+        // Handle session timeouts when they come from an AJAX request.
+        if (($viewmode == 'dimp') &&
+            (Horde_Util::nonInputVar('imp_session_timeout') == 'json')) {
+            $notification = Horde_Notification::singleton();
+            $notification->push(null, 'dimp.timeout');
+            Horde::sendHTTPResponse(Horde::prepareResponse(), 'json');
+            exit;
         }
 
         if (Horde_Util::nonInputVar('imp_compose_page')) {

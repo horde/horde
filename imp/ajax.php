@@ -165,7 +165,7 @@ if (in_array($action, array('chunkContent', 'Html2Text', 'Text2Html', 'GetReplyD
 }
 
 $imp_dimp_logout = ($action == 'LogOut');
-$session_timeout = 'json';
+$imp_session_timeout = 'json';
 require_once IMP_BASE . '/lib/base.php';
 
 // Process common request variables.
