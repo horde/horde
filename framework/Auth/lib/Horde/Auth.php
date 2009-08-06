@@ -425,7 +425,8 @@ class Horde_Auth
     }
 
     /**
-     * Redirects to the Horde login page on authentication failure.
+     * Handle authentication failures, redirecting to the login page
+     * when appropriate.
      *
      * @param string $app         The app which failed authentication.
      * @param Horde_Exception $e  An exception thrown by
@@ -433,8 +434,7 @@ class Horde_Auth
      *
      * @throws Horde_Exception
      */
-    static public function authenticationFailureRedirect($app = 'horde',
-                                                         $e = null)
+    static public function authenticateFailure($app = 'horde', $e = null)
     {
         if (Horde_Cli::runningFromCLI()) {
             $cli = Horde_Cli::singleton();
