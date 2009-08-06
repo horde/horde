@@ -14,7 +14,7 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 
 if (!Horde_Auth::isAuthenticated()) {
-    Horde_Auth::authenticationFailureRedirect('news');
+    Horde_Auth::authenticateFailure('news');
 }
 
 $id = Horde_Util::getFormData('id', 0);

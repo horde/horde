@@ -24,7 +24,7 @@ $registry = Horde_Registry::singleton();
 try {
     $registry->pushApp('crumb', array('logintasks' => true));
 } catch (Horde_Exception $e) {
-    Horde_Auth::authenticationFailureRedirect('crumb', $e);
+    Horde_Auth::authenticateFailure('crumb', $e);
 }
 $conf = &$GLOBALS['conf'];
 @define('CRUMB_TEMPLATES', $registry->get('templates'));

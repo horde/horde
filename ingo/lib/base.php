@@ -31,7 +31,7 @@ $registry = Horde_Registry::singleton();
 try {
     $registry->pushApp('ingo', array('check_perms' => (Horde_Util::nonInputVar('ingo_authentication') != 'none'), 'logintasks' => true));
 } catch (Horde_Exception $e) {
-    Horde_Auth::authenticationFailureRedirect('ingo', $e);
+    Horde_Auth::authenticateFailure('ingo', $e);
 }
 $conf = &$GLOBALS['conf'];
 

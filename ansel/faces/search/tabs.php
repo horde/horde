@@ -14,7 +14,7 @@ require_once dirname(__FILE__) . '/../../lib/base.php';
 $faces = Ansel_Faces::factory();
 /* Face search is allowed only to authenticated users */
 if (!Horde_Auth::isauthenticated()) {
-    Horde_Auth::authenticationFailureRedirect();
+    Horde_Auth::authenticateFailure();
 }
 
 /* Show tabs */

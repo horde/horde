@@ -41,7 +41,7 @@ $registry = Horde_Registry::singleton($s_ctrl);
 try {
     $registry->pushApp('kronolith', array('check_perms' => (Horde_Util::nonInputVar('kronolith_authentication') != 'none'), 'logintasks' => true));
 } catch (Horde_Exception $e) {
-    Horde_Auth::authenticationFailureRedirect('kronolith', $e);
+    Horde_Auth::authenticateFailure('kronolith', $e);
 }
 $conf = &$GLOBALS['conf'];
 define('KRONOLITH_TEMPLATES', $registry->get('templates'));

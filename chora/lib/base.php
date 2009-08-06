@@ -34,7 +34,7 @@ $registry = Horde_Registry::singleton();
 try {
     $registry->pushApp('chora', array('logintasks' => true));
 } catch (Horde_Exception $e) {
-    Horde_Auth::authenticationFailureRedirect('chora', $e);
+    Horde_Auth::authenticateFailure('chora', $e);
 }
 $conf = &$GLOBALS['conf'];
 define('CHORA_TEMPLATES', $registry->get('templates'));

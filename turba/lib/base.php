@@ -24,7 +24,7 @@ $registry = Horde_Registry::singleton();
 try {
     $registry->pushApp('turba', array('check_perms' => (Horde_Util::nonInputVar('turba_authentication') != 'none'), 'logintasks' => true));
 } catch (Horde_Exception $e) {
-    Horde_Auth::authenticationFailureRedirect('turba', $e);
+    Horde_Auth::authenticateFailure('turba', $e);
 }
 $conf = $GLOBALS['conf'];
 define('TURBA_TEMPLATES', $registry->get('templates'));

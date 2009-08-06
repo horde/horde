@@ -33,7 +33,7 @@ $registry = Horde_Registry::singleton($s_ctrl);
 try {
     $registry->pushApp('ansel', array('check_perms' => (Horde_Util::nonInputVar('ansel_authentication') != 'none'), 'logintasks' => true));
 } catch (Horde_Exception $e) {
-    Horde_Auth::authenticationFailureRedirect('ansel', $e);
+    Horde_Auth::authenticateFailure('ansel', $e);
 }
 $conf = $GLOBALS['conf'];
 define('ANSEL_TEMPLATES', $registry->get('templates'));

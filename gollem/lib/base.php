@@ -34,7 +34,7 @@ if (Horde_Util::nonInputVar('gollem_session_control') == 'readonly') {
 try {
     $registry->pushApp('gollem', array('check_perms' => (Horde_Util::nonInputVar('gollem_authentication') != 'none'), 'logintasks' => true));
 } catch (Horde_Exception $e) {
-    Horde_Auth::authenticationFailureRedirect('gollem', $e);
+    Horde_Auth::authenticateFailure('gollem', $e);
 }
 $conf = &$GLOBALS['conf'];
 define('GOLLEM_TEMPLATES', $registry->get('templates'));

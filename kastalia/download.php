@@ -34,7 +34,7 @@ $registry = Horde_Registry::singleton();
 try {
     $registry->pushApp('kastalia', array('logintasks' => true));
 } catch (Horde_Exception $e) {
-    Horde_Auth::authenticationFailureRedirect('kastalia', $e);
+    Horde_Auth::authenticateFailure('kastalia', $e);
 }
 //################### </MANUELLER ANMELDE CHECK (WENN base.php NICHT INCLUDIERT WIRD)> ###################
 

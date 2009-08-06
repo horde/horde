@@ -30,7 +30,7 @@ if ($session_control == 'none') {
 try {
     $registry->pushApp('fima', array('logintasks' => true));
 } catch (Horde_Exception $e) {
-    Horde_Auth::authenticationFailureRedirect('fima', $e);
+    Horde_Auth::authenticateFailure('fima', $e);
 }
 $conf = &$GLOBALS['conf'];
 @define('FIMA_TEMPLATES', $registry->get('templates'));

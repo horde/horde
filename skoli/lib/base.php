@@ -22,7 +22,7 @@ $registry = Horde_Registry::singleton();
 try {
     $registry->pushApp('skoli', array('check_perms' => (Horde_Util::nonInputVar('skoli_authentication') != 'none'), 'logintasks' => true));
 } catch (Horde_Exception $e) {
-    Horde_Auth::authenticationFailureRedirect('skoli', $e);
+    Horde_Auth::authenticateFailure('skoli', $e);
 }
 $conf = &$GLOBALS['conf'];
 @define('SKOLI_TEMPLATES', $registry->get('templates'));

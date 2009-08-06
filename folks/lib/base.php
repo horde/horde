@@ -22,7 +22,7 @@ $registry = Horde_Registry::singleton();
 try {
     $registry->pushApp('folks', array('check_perms' => (Horde_Util::nonInputVar('folks_authentication') != 'none'), 'logintasks' => true));
 } catch (Horde_Exception $e) {
-    Horde_Auth::authenticationFailureRedirect('folks', $e);
+    Horde_Auth::authenticateFailure('folks', $e);
 }
 $conf = &$GLOBALS['conf'];
 define('FOLKS_TEMPLATES', $registry->get('templates'));

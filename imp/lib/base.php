@@ -111,7 +111,7 @@ try {
         }
     }
 
-    Horde_Auth::authenticationFailureRedirect('imp', $e);
+    Horde_Auth::authenticateFailure('imp', $e);
 }
 
 // All other initialization occurs in IMP::initialize().

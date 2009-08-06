@@ -12,7 +12,7 @@
  */
 
 if (!Horde_Auth::isAuthenticated()) {
-    Horde_Auth::authenticationFailureRedirect('folks');
+    Horde_Auth::authenticateFailure('folks');
 }
 
 $vars = Horde_Variables::getDefaultVariables();

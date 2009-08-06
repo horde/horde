@@ -33,7 +33,7 @@ if ($session_control == 'none') {
 try {
     $registry->pushApp('timeobjects', array('logintasks' => true));
 } catch (Horde_Exception $e) {
-    Horde_Auth::authenticationFailureRedirect('timeobjects', $e);
+    Horde_Auth::authenticateFailure('timeobjects', $e);
 }
 
 if (!defined('TIMEOBJECTS_BASE')) {

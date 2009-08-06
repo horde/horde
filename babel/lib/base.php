@@ -32,7 +32,7 @@ $registry = Horde_Registry::singleton();
 try {
     $registry->pushApp('babel', array('logintasks' => true));
 } catch (Horde_Exception $e) {
-    Horde_Auth::authenticationFailureRedirect('babel', $e);
+    Horde_Auth::authenticateFailure('babel', $e);
 }
 
 $conf = &$GLOBALS['conf'];
