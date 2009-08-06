@@ -1,6 +1,6 @@
 <?php
 /**
- * Default class for application defined API calls.
+ * Default class for the Horde Application API.
  *
  * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
@@ -10,21 +10,21 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Core
  */
-class Horde_Registry_Api
+class Horde_Registry_Application
 {
     /**
-     * Links.
+     * Does this application support a mobile view?
      *
-     * @var array
+     * @var boolean
      */
-    public $links = array();
+    public $mobileView = false;
 
     /**
-     * The listing of API calls that do not require permissions checking.
+     * The application's version.
      *
-     * @var array
+     * @var string
      */
-    public $noPerms = array();
+    public $version = 'unknown';
 
     /**
      * The list of disabled API calls.
@@ -32,10 +32,5 @@ class Horde_Registry_Api
      * @var array
      */
     public $disabled = array();
-
-
-    /* API calls should be declared as public functions, with the function
-     * name corresponding to the API name. Create any internal helper
-     * functions as protected functions. */
 
 }

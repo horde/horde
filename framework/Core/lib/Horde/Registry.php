@@ -345,7 +345,7 @@ class Horde_Registry
 
         foreach (array_keys($this->applications) as $app) {
             if (in_array($this->applications[$app]['status'], $status)) {
-                $api = $this->_getApiOb($app);
+                $api = $this->_getOb($app, 'api');
                 $this->_cache['api'][$app] = array(
                     'api' => array_diff(get_class_methods($api), array('__construct'), $api->disabled),
                     'links' => $api->links,
@@ -358,32 +358,35 @@ class Horde_Registry
     }
 
     /**
-     * Retrieve the API object for a given application.
+     * Retrieve an API object.
      *
-     * @param string $app  The application to load.
+     * @param string $app   The application to load.
+     * @param string $type  Either 'application' or 'api'.
      *
-     * @return Horde_Registry_Api  The API object.
+     * @return Horde_Registry_Api|Horde_Registry_Application  The API object.
      * @throws Horde_Exception
      */
-    protected function _getApiOb($app)
+    protected function _getOb($app, $type)
     {
-        if (isset($this->_cache['apiob'][$app])) {
-            return $this->_cache['apiob'][$app];
+        if (isset($this->_cache['ob'][$app][$type])) {
+            return $this->_cache['ob'][$app][$type];
         }
+
+        $cname = Horde_String::ucfirst($type);
 
         /* Can't autoload here, since the application may not have been
          * initialized yet. */
-        $classname = Horde_String::ucfirst($app) . '_Api';
-        $path = $this->get('fileroot', $app) . '/lib/Api.php';
+        $classname = Horde_String::ucfirst($app) . '_' . $cname;
+        $path = $this->get('fileroot', $app) . '/lib/' . $cname . '.php';
         if (file_exists($path)) {
             include_once $path;
         } else {
-            $classname = 'Horde_Registry_Api';
+            $classname = 'Horde_Registry_' . $cname;
         }
 
-        $this->_cache['apiob'][$app] = new $classname;
+        $this->_cache['ob'][$app][$type] = new $classname;
 
-        return $this->_cache['apiob'][$app];
+        return $this->_cache['ob'][$app][$type];
     }
 
     /**
@@ -566,7 +569,7 @@ class Horde_Registry
         }
 
         /* Load the API now. */
-        $api = $this->_getApiOb($app);
+        $api = $this->_getOb($app, 'api');
 
         /* Make sure that the function actually exists. */
         if (!method_exists($api, $call)) {
@@ -1027,7 +1030,7 @@ class Horde_Registry
         }
 
         try {
-            $api = $this->_getApiOb($app);
+            $api = $this->_getOb($app, 'application');
             return $api->version;
         } catch (Horde_Exception $e) {
             return 'unknown';
@@ -1048,7 +1051,7 @@ class Horde_Registry
         }
 
         try {
-            $api = $this->_getApiOb($app);
+            $api = $this->_getOb($app, 'application');
             return $api->mobileView;
         } catch (Horde_Exception $e) {
             return false;
