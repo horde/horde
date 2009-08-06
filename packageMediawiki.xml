@@ -1,55 +1,62 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<!-- $Id: packageMediawiki.xml,v 1.7 2006-12-20 22:29:59 toggg Exp $ -->
-<package version="1.0">
-    <name>Text_Wiki_Mediawiki</name>
-    <summary>Mediawiki parser for Text_Wiki</summary>
-    <description>Parses Mediawiki mark-up to tokenize the text for Text_Wiki renderings. You can see a reference for this syntax here: http://meta.wikimedia.org/wiki/Help:Editing#The_wiki_markup</description>
-    <maintainers>
-        <maintainer>
-            <user>ritzmo</user>
-            <name>Moritz Venn</name>
-            <email>moritz.venn@freaque.net</email>
-            <role>lead</role>
-        </maintainer>
-        <maintainer>
-            <user>toggg</user>
-            <name>bertrand Gugger</name>
-            <email>toggg at php dot net</email>
-            <role>lead</role>
-        </maintainer>
-     </maintainers>
-    <release>
-        <version>0.1.0</version>
-        <date>2006-04-10</date>
-        <license>LGPL</license>
-        <state>alpha</state>
-        <notes>
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.8.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Text_Wiki_Mediawiki</name>
+ <channel>pear.php.net</channel>
+ <summary>Mediawiki parser for Text_Wiki</summary>
+ <description>Parses Mediawiki mark-up to tokenize the text for Text_Wiki renderings. You can see a reference for this syntax here: http://meta.wikimedia.org/wiki/Help:Editing#The_wiki_markup
+ </description>
+ <lead>
+  <name>Moritz Venn</name>
+  <user>ritzmo</user>
+  <email>moritz.venn@freaque.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>bertrand Gugger</name>
+  <user>toggg</user>
+  <email>toggg at php dot net</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-08-06</date>
+ <time>11:09:03</time>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>
 Major release of Text_Wiki_Mediawiki : several rules have been added or revamped
 It also takes advantage of the new Text_Wiki-1.1.0 engine.
 
 * Add the Wikilink rule (#6623)
   Configuration:
-  - 'spaceUnderscore' : boolean (true) replace spaces in page name by underscores,
-  - 'project' : optional array of prefixes for the local project (array('demo', 'd')),
-  - 'url' : base url of the project for interlanguage ('http://example.com/en/page=%s'),
-  - 'langage' : language of the project, will be replaced case interlanguage ('en').
+  - &apos;spaceUnderscore&apos; : boolean (true) replace spaces in page name by underscores,
+  - &apos;project&apos; : optional array of prefixes for the local project (array(&apos;demo&apos;, &apos;d&apos;)),
+  - &apos;url&apos; : base url of the project for interlanguage (&apos;http://example.com/en/page=%s&apos;),
+  - &apos;langage&apos; : language of the project, will be replaced case interlanguage (&apos;en&apos;).
   
 * Unify all links parsing: Image and Interwiki are now done by the Wikilink rule
- These 2 rules don't exist anymore as independant classes
+ These 2 rules don&apos;t exist anymore as independant classes
  but are still configurable/switchable as normal rules
 
-* Interwiki's configuration for urls is now done parser side
+* Interwiki&apos;s configuration for urls is now done parser side
   Configuration:
-  - 'sites' : associative array of url patterns indexed by site prefixes,
-  - 'interlangage' : array of accepted interlanguages codes.
+  - &apos;sites&apos; : associative array of url patterns indexed by site prefixes,
+  - &apos;interlangage&apos; : array of accepted interlanguages codes.
 
 * Image corrected to be complient with Mediawiki syntax
   Take align attribute (left, center, or right) as piped after the | in image tag
   Configuration:
-  - 'prefix' : array of accepted image prefixes (array('Image', 'image')).
+  - &apos;prefix&apos; : array of accepted image prefixes (array(&apos;Image&apos;, &apos;image&apos;)).
 
-* List rule added , it's no more using the Text_Wiki default but a complient proper class
+* List rule added , it&apos;s no more using the Text_Wiki default but a complient proper class
 
 * Deflist rule added (definitions list)
 
@@ -60,32 +67,59 @@ It also takes advantage of the new Text_Wiki-1.1.0 engine.
 * Raw : &lt;nowiki&gt; ... &lt;/nowiki&gt; may be multiline
 
 * Overwrite of getTokens() removed, was not needed and even dangerous ...
-
-        </notes>
-	<filelist>
-	    <file role="php" name="Text/Wiki/Mediawiki.php" />
-	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Deflist.php" />
-	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Emphasis.php" />
-	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Heading.php" />
-	    <file role="php" name="Text/Wiki/Parse/Mediawiki/List.php" />
-	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Raw.php" />
-	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Table.php" />
-	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Url.php" />
-	    <file role="php" name="Text/Wiki/Parse/Mediawiki/Wikilink.php" />
-        </filelist>
-        <deps>
-            <dep type="pkg" rel="ge" version="1.1.0">Text_Wiki</dep>
-        </deps>
-    </release>
-  <changelog>
-    <release>
-        <version>0.0.1</version>
-        <date>2006-01-07</date>
-        <license>LGPL</license>
-        <state>alpha</state>
-        <notes>
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="Text">
+    <dir name="Wiki">
+     <dir name="Parse">
+      <dir name="Mediawiki">
+       <file name="Deflist.php" role="php" />
+       <file name="Emphasis.php" role="php" />
+       <file name="Heading.php" role="php" />
+       <file name="List.php" role="php" />
+       <file name="Raw.php" role="php" />
+       <file name="Table.php" role="php" />
+       <file name="Url.php" role="php" />
+       <file name="Wikilink.php" role="php" />
+      </dir> <!-- //Text/Wiki/Parse/Mediawiki -->
+     </dir> <!-- //Text/Wiki/Parse -->
+     <file name="Mediawiki.php" role="php" />
+    </dir> <!-- //Text/Wiki -->
+   </dir> <!-- //Text -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>Text_Wiki</name>
+    <channel>pear.php.net</channel>
+    <min>1.1.0</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-01-07</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
 First released version of Text_Wiki_Mediawiki.
-        </notes>
-    </release>
-  </changelog>
+   </notes>
+  </release>
+ </changelog>
 </package>
