@@ -14,6 +14,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>papercrane@reversefold.com</email>
   <active>yes</active>
  </lead>
+ <lead>
+  <name>Rodrigo Sampaio Primo</name>
+  <user>rodrigosprimo</user>
+  <email>rodrigo at utopia dot org dot br</email>
+  <active>yes</active>
+ </lead>
  <date>2009-08-06</date>
  <time>11:21:24</time>
  <version>
@@ -106,7 +112,9 @@ First released version of Text_Wiki_Tiki.
        <file name="Paragraph.php" role="php" />
        <file name="Phplookup.php" role="php" />
        <file name="Prefilter.php" role="php" />
+       <file name="Preformatted.php" role="php" />
        <file name="Raw.php" role="php" />
+       <file name="Redirect.php" role="php" />
        <file name="Revise.php" role="php" />
        <file name="Strong.php" role="php" />
        <file name="Subscript.php" role="php" />
