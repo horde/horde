@@ -23,6 +23,8 @@ v3.0-git
 v2.3.2-cvs
 ----------
 
+[jan] Add configuration whether to show user drop down list or text field in
+      permissions dialog (requires Horde 3.3.5).
 [jan] Propagate the 'modified' API method (Request #8274).
 [cjh] Fix the signature of the kronolith/import API method
       (rpolli@babel.it, Bug #8309).
