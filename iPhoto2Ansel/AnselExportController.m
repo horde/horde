@@ -713,9 +713,17 @@ NSString * const TURAnselServerPasswordKey = @"password";
     currentGallery = [[anselController getGalleryByIndex:row] retain];
     [currentGallery setDelegate: self];
     
-    // TODO: Figure out why these don't always properly size.
+    // Obtain and properly size the image for screen
     NSImage *theImage = [[NSImage alloc] initWithContentsOfURL: [currentGallery galleryDefaultImageURL]];
+    NSSize imageSize;
+    imageSize.width = [[theImage bestRepresentationForDevice:nil] pixelsWide];
+    imageSize.height = [[theImage bestRepresentationForDevice:nil] pixelsHigh];    
+    [theImage setScalesWhenResized:YES];
+    [theImage setSize:imageSize];
+    
+    // Show it
     [defaultImageView setImage: theImage];
+
     [theImage release];
     [self canExport];
     [viewGallery setEnabled: YES];
