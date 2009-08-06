@@ -13,13 +13,6 @@
 class Gollem_Api extends Horde_Registry_Api
 {
     /**
-     * The application's version.
-     *
-     * @var string
-     */
-    public $version = 'H4 (5.0-git)';
-
-    /**
      * TODO
      */
     public function perms()

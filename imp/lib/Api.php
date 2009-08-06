@@ -13,20 +13,6 @@
 class IMP_Api extends Horde_Registry_Api
 {
     /**
-     * Does this application support a mobile view?
-     *
-     * @var boolean
-     */
-    public $mobileView = true;
-
-    /**
-     * The application's version.
-     *
-     * @var string
-     */
-    public $version = 'H4 (5.0-git)';
-
-    /**
      * The listing of API calls that do not require permissions checking.
      *
      * @var array

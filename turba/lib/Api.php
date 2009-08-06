@@ -10,13 +10,6 @@
 class Turba_Api extends Horde_Registry_Api
 {
     /**
-     * The application's version.
-     *
-     * @var string
-     */
-    public $version = 'H3 (3.0-git)';
-
-    /**
      * Links.
      *
      * @var array

@@ -1,6 +1,6 @@
 <?php
 /**
- * News API.
+ * News external API.
  *
  * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
@@ -12,8 +12,6 @@
  */
 class News_Api extends Horde_Registry_Api
 {
-    public $version = 'H4 (0.1-git)';
-
     /**
      * Categories/Permissions
      */

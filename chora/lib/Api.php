@@ -9,13 +9,6 @@
  */
 class Chora_Api extends Horde_Registry_Api
 {
-    /**
-     * The application's version.
-     *
-     * @var string
-     */
-    public $version = 'H4 (3.0-git)';
-
     public function perms()
     {
         static $perms = array();

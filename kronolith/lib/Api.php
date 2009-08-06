@@ -9,8 +9,6 @@
  */
 class Kronolith_Api extends Horde_Registry_Api
 {
-    public $version = 'H3 (3.0-git)';
-
     /**
      * Links.
      *

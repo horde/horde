@@ -11,13 +11,6 @@
 class Ingo_Api extends Horde_Registry_Api
 {
     /**
-     * The application's version.
-     *
-     * @var string
-     */
-    public $version = 'H4 (2.0-git)';
-
-    /**
      * Links.
      *
      * @var array
