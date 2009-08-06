@@ -183,6 +183,15 @@ class Horde_Release
     protected $_latest = true;
 
     /**
+     * Populated when the RELEASE_NOTES file is included.
+     * Should probably be refactored to use a setter for each
+     * property the RELEASE_NOTES file sets...
+     *
+     * @var array
+     */
+    public $notes = array();
+
+    /**
      * Load the configuration
      */
     public function __construct($options = array())
@@ -197,6 +206,11 @@ class Horde_Release
             putenv('CVS_RSH=' . $this->_options['cvs']['cvs_rsh']);
         }
         print 'CVS_RSH ' . getenv('CVS_RSH') . "\n";
+    }
+
+    public function __get($property)
+    {
+        return $this->{'_' . $property};
     }
 
     /**
@@ -511,6 +525,8 @@ class Horde_Release
         return true;
     }
 
+
+
     /**
      * announce release to mailing lists and freshmeat.
      */
@@ -528,16 +544,6 @@ class Horde_Release
             print "Announcing release on freshmeat.net\n";
         }
 
-        if (empty($this->_options['nofreshmeat'])) {
-            $fm = Horde_RPC::request(
-                'xmlrpc',
-                'http://freshmeat.net/xmlrpc/',
-                'login',
-                array('username' => $this->_options['fm']['user'],
-                      'password' => $this->_options['fm']['password']));
-        } else {
-            $fm = array('SID' => null);
-        }
         if (empty($doc_dir)) {
             $doc_dir = $module . '/docs';
         }
@@ -546,31 +552,32 @@ class Horde_Release
             ? "http://cvs.horde.org/diff.php/$doc_dir/CHANGES?r1={$this->_oldChangelogVersion}&r2={$this->_changelogVersion}&ty=h"
             : '';
 
-        if (is_a($fm, 'PEAR_Error')) {
-            print $fm->getMessage() . "\n";
+
+        // Params to add new release on FM
+        $version = array('version' => $this->_sourceVersionString,
+                         'changelog' => htmlspecialchars($this->notes['fm']['changes']),
+                         'tag_list' => array('', ''));
+
+        // Params to update the various project links on FM
+        $links = array();
+        $links[] = array('label' => 'Tar/GZ',
+                         'location' => "ftp://ftp.horde.org/pub/$module/{$this->_tarballName}");
+        if (!empty($url_changlelog)) {
+            $links[] =  array('label' => 'Changelog',
+                              'location' => $url_changelog);
+        }
+
+        if (!empty($this->_options['noannounce']) ||
+            !empty($this->_options['nofreshmeat'])) {
+
+            print "Announcement data:\n";
+            print_r($version);
+            print_r($links);
         } else {
-            $announcement = array('SID' => $fm['SID'],
-                                  'project_name' => $this->notes['fm']['project'],
-                                  'branch_name' => $this->notes['fm']['branch'],
-                                  'version' => $this->_sourceVersionString,
-                                  'changes' => htmlspecialchars($this->notes['fm']['changes']),
-                                  'release_focus' => (int)$this->notes['fm']['focus'],
-                                  'url_changelog' => $url_changelog,
-                                  'url_tgz' => "ftp://ftp.horde.org/pub/$module/{$this->_tarballName}");
-            if ($this->_fmVerify($fm)) {
-                if (!empty($this->_options['noannounce']) ||
-                    !empty($this->_options['nofreshmeat'])) {
-                    print "Announcement data:\n";
-                    print_r($announcement);
-                } else {
-                    $fm = Horde_RPC::request(
-                        'xmlrpc',
-                        'http://freshmeat.net/xmlrpc/',
-                        'publish_release',
-                        $announcement);
-                    $this->_fmVerify($fm);
-                }
-            }
+            $fm = $this->_fmPublish($version);
+            $this->_fmVerify($fm);
+            $fm = $this->_fmUpdateLinks($links);
+            $this->_fmVerify($fm);
         }
 
         $ml = (!empty($this->notes['list'])) ? $this->notes['list'] : $module;
@@ -657,6 +664,93 @@ class Horde_Release
         if (is_a($result, 'PEAR_Error')) {
             print $result->getMessage() . "\n";
         }
+    }
+
+    /**
+     * Attempt to publish the new release to the fm restful api.
+     *
+     * @param array $params  The array of fm release parameters
+     *
+     * @return mixed Result of the attempt / PEAR_Error on failure
+     */
+    protected function _fmPublish($params)
+    {
+        $key =  $this->_options['fm']['user_token'];
+        $fm_params = array('auth_code' => $key,
+                           'release' => $params);
+        $http = new Horde_Http_Client();
+        try {
+            $response = $http->put('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/releases.json',
+                                   Horde_Serialize::serialize($params, Horde_Serialize::JSON),
+                                   array('Content-Type' => 'application/json'));
+        } catch (Horde_Http_Client_Exception $e) {
+            // For now, rethrow this as a PEAR_Error to be compatible with the
+            // rest of the error code in this class. This obviously needs to be
+            // refactored.
+            return PEAR::raiseError($e->getMessage());
+        }
+
+        // 201 Created
+        return $response->getBody();
+    }
+
+    /**
+     * Attempt to update FM project links
+     */
+    public function _fmUpdateLinks($links)
+    {
+        $key =  $this->_options['fm']['user_token'];
+        $fm_params = array('auth_code' => $key);
+
+        // Need to get the list of current URLs first, then find the one we want
+        // to update.
+        $http = new Horde_Http_Client();
+        try {
+            $response = $http->get('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/urls.json?auth_code=' . $fm_params['auth_code']);
+        } catch (Horde_Http_Client_Exception $e) {
+            // For now, rethrow this as a PEAR_Error to be compatible with the
+            // rest of the error code in this class. This obviously needs to be
+            // refactored.
+            var_dump($e->getMessage());
+            return PEAR::raiseError($e->getMessage());
+        }
+
+        $response = Horde_Serialize::unserialize($response->getBody(), Horde_Serialize::JSON);
+
+        // Should be an array of URL info in response...go through our requested
+        // updates and see if we can find the correct 'permalink' parameter.
+        foreach ($links as $link) {
+            $permalink = '';
+            foreach ($response as $url) {
+                // FM docs contradict this, but each url entry in the array is
+                // wrapped in a 'url' property.
+                $url = $url->url;
+                if ($link['label'] == $url->label) {
+                    $permalink = $url->permalink;
+                    break;
+                }
+            }
+            if (!empty($permalink)) {
+                echo 'found ' . $permalink . ' for ' . $link['label'];
+                // Found the link to update...update it.
+                $http = new Horde_Http_Client();
+                try {
+                    $response = $http->put('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/urls/' . $permalink . '.json',
+                                           Horde_Serialize::serialize($link, Horde_Serialize::JSON),
+                                   array('Content-Type' => 'application/json'));
+                } catch (Horde_Http_Client_Exception $e) {
+                    // For now, rethrow this as a PEAR_Error to be compatible with the
+                    // rest of the error code in this class. This obviously needs to be
+                    // refactored.
+                    return PEAR::raiseError($e->getMessage());
+                }
+
+                $response = $response->getBody();
+                // Status: 200???
+            }
+        }
+
+        return true;
     }
 
     /**
