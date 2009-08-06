@@ -20,6 +20,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>toggg at php dot net</email>
   <active>yes</active>
  </lead>
+ <lead>
+  <name>Rodrigo Sampaio Primo</name>
+  <user>rodrigosprimo</user>
+  <email>rodrigo at utopia dot org dot br</email>
+  <active>yes</active>
+ </lead>
  <date>2009-08-06</date>
  <time>11:09:03</time>
  <version>
@@ -74,12 +80,21 @@ It also takes advantage of the new Text_Wiki-1.1.0 engine.
     <dir name="Wiki">
      <dir name="Parse">
       <dir name="Mediawiki">
+       <file name="Break.php" role="php" />
+       <file name="Code.php" role="php" />
+       <file name="Comment.php" role="php" />
        <file name="Deflist.php" role="php" />
        <file name="Emphasis.php" role="php" />
        <file name="Heading.php" role="php" />
        <file name="List.php" role="php" />
+       <file name="Newline.php" role="php" />
+       <file name="Preformatted.php" role="php" />
        <file name="Raw.php" role="php" />
+       <file name="Redirect.php" role="php" />
+       <file name="Subscript.php" role="php" />
+       <file name="Superscript.php" role="php" />
        <file name="Table.php" role="php" />
+       <file name="Tt.php" role="php" />
        <file name="Url.php" role="php" />
        <file name="Wikilink.php" role="php" />
       </dir> <!-- //Text/Wiki/Parse/Mediawiki -->
