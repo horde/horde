@@ -12,7 +12,6 @@
  *             Horde_Exception
  *   [DEFAULT] - Authenticate to IMAP/POP server; on no auth redirect to login
  *               screen
- * $imp_compose_page - If true, we are on IMP's compose page
  * $imp_no_compress - Controls whether the page should be compressed
  * $imp_session_control - Sets special session control limitations:
  *   'netscape' - TODO; start read/write session
@@ -73,7 +72,7 @@ try {
     $registry->pushApp('imp', array('check_perms' => ($authentication != 'none'), 'logintasks' => true));
 } catch (Horde_Exception $e) {
     if ($e->getCode() == Horde_Registry::AUTH_FAILURE) {
-        if (Horde_Util::nonInputVar('imp_compose_page')) {
+        if (Horde_Util::getFormData('composeCache')) {
             $imp_compose = IMP_Compose::singleton();
             $imp_compose->sessionExpireDraft();
         }

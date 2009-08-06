@@ -56,7 +56,6 @@ function _getIMPContents($index, $mailbox)
 }
 
 
-$imp_compose_page = true;
 $imp_session_control = 'netscape';
 require_once dirname(__FILE__) . '/lib/base.php';
 
