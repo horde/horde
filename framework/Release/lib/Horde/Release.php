@@ -731,7 +731,6 @@ class Horde_Release
                 }
             }
             if (!empty($permalink)) {
-                echo 'found ' . $permalink . ' for ' . $link['label'];
                 // Found the link to update...update it.
                 $http = new Horde_Http_Client();
                 try {
