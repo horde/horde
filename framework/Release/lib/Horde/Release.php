@@ -28,6 +28,17 @@ class Horde_Release
         'nowhups' => false,
     );
 
+    /* Constants for the release foucs - these are used as tags when sending
+     * FM the new release announcement.*/
+    const FOCUS_INITIAL = 'Initial announcement';
+    const FOCUS_MINORFEATURE = 'minor feature enhancement';
+    const FOCUS_MAJORFEATURE = 'major feature enhancement';
+    const FOCUS_MINORBUG = 'minor bugfixes';
+    const FOCUS_MAJORBUG = 'major bugfixes';
+    const FOCUS_MINORSECURITY = 'minor security fixes';
+    const FOCUS_MAJORSECURITY = 'major security fixes';
+    const FOCUS_DOCS = 'documentation improvements';
+
     /**
      * Version number of release.
      *
@@ -535,11 +546,15 @@ class Horde_Release
             ? "http://cvs.horde.org/diff.php/$doc_dir/CHANGES?r1={$this->_oldChangelogVersion}&r2={$this->_changelogVersion}&ty=h"
             : '';
 
-
         // Params to add new release on FM
         $version = array('version' => $this->_sourceVersionString,
-                         'changelog' => htmlspecialchars($this->notes['fm']['changes']),
-                         'tag_list' => array('', ''));
+                         'changelog' => htmlspecialchars($this->notes['fm']['changes']));
+
+        if (is_array($this->notes['fm']['focus'])) {
+            $version['tag_list'] = $this->notes['fm']['focus'];
+        } else {
+            $version['tag_list'] = array($this->notes['fm']['focus']);
+        }
 
         // Params to update the various project links on FM
         $links = array();
@@ -667,7 +682,7 @@ class Horde_Release
         $http = new Horde_Http_Client();
         try {
             $response = $http->put('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/releases.json',
-                                   Horde_Serialize::serialize($params, Horde_Serialize::JSON),
+                                   Horde_Serialize::serialize($fm_params, Horde_Serialize::JSON),
                                    array('Content-Type' => 'application/json'));
         } catch (Horde_Http_Client_Exception $e) {
             throw new Horde_Exception($e);
