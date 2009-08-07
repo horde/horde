@@ -540,7 +540,7 @@ class Text_Wiki_Render_Tiki_Redirect_Test extends Text_Wiki_Render_Tiki_SetUp_Te
         $this->assertEquals('{REDIRECT(pageName="', $this->t->token($options));
 
         $options = array('type' => 'end');
-        $this->assertEquals('")}{REDIRECT}', $this->t->token($options));
+        $this->assertEquals('")/}', $this->t->token($options));
     }
     
 }
