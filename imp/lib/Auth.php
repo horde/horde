@@ -22,13 +22,6 @@ class IMP_Auth
     static public $prefServer = null;
 
     /**
-     * The auth type to use.
-     *
-     * @var string
-     */
-    static public $authType = null;
-
-    /**
      * Authenticate to the mail server.
      *
      * @param array $credentials  An array of login credentials. If empty,
@@ -46,7 +39,7 @@ class IMP_Auth
     static public function authenticate($credentials = array())
     {
         // Do 'horde' authentication.
-        if (self::$authType == 'horde') {
+        if (IMP_Application::$authType == 'horde') {
             if (Horde_Auth::getAuth()) {
                 return false;
             }

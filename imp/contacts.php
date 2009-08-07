@@ -10,8 +10,8 @@
  * @package IMP
  */
 
-$imp_authentication = 'horde';
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+new IMP_Application(array('init' => array('authentication' => 'horde')));
 
 /* Get the lists of address books through the API. */
 $source_list = $registry->call('contacts/sources');

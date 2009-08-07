@@ -56,8 +56,8 @@ function _getIMPContents($index, $mailbox)
 }
 
 
-$imp_session_control = 'netscape';
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+new IMP_Application(array('init' => array('session_control' => 'netscape')));
 
 /* The message headers and text. */
 $header = array();

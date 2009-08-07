@@ -13,25 +13,9 @@
  * @package IMP
  */
 
-<<<<<<< Updated upstream
-/**
- * Utility function to return a url for the various images.
- */
-function _image($name, $alt)
-{
-    static $cache = array();
-
-    $val = $name['value'];
-    if (!empty($cache[$val])) {
-        return $cache[$val];
-    }
-
-    $cache[$val] = Horde::img($name['icon'], $name['alt'], null, $name['icondir']);
-
-    return $cache[$val];
-}
-
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+new IMP_Application(array('init' => true));
+Horde::addScriptFile('folders.js', 'imp', true);
 
 /* Redirect back to the mailbox if folder use is not allowed. */
 if (!$conf['user']['allow_folders']) {

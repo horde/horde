@@ -100,8 +100,7 @@ function _errorMsg($e)
 
 
 /* Include Horde's core.php file. */
-require_once dirname(__FILE__) . '/lib/base.load.php';
-include_once HORDE_BASE . '/lib/core.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
 
 /* We should have loaded the Horde_String class, from the Horde_Util
  * package, in core.php. If Horde_String:: isn't defined, then we're not

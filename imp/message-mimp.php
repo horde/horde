@@ -18,7 +18,8 @@
  * @package IMP
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+new IMP_Application(array('init' => true));
 
 /* Make sure we have a valid index. */
 $imp_mailbox = IMP_Mailbox::singleton($imp_mbox['mailbox'], $imp_mbox['index']);

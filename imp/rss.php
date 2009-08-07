@@ -9,9 +9,9 @@
  * @package IMP
  */
 
-$imp_authentication = 'throw';
+require_once dirname(__FILE__) . '/lib/Application.php';
 try {
-    require_once dirname(__FILE__) . '/lib/base.php';
+    new IMP_Application(array('init' => array('authentication' => 'throw')));
 } catch (Horde_Exception $e) {
     //!$auth->authenticate($_SERVER['PHP_AUTH_USER'], array('password' => isset($_SERVER['PHP_AUTH_PW']) ? $_SERVER['PHP_AUTH_PW'] : null)))) {
     header('WWW-Authenticate: Basic realm="IMP RSS Interface"');

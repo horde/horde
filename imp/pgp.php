@@ -70,7 +70,8 @@ function _reloadWindow()
     Horde_Util::closeWindowJS('opener.focus();opener.location.href="' . $href . '";');
 }
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+new IMP_Application(array('init' => true));
 
 $imp_pgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
 $secure_check = Horde::isConnectionSecure();

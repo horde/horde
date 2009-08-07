@@ -10,7 +10,8 @@
  */
 
 // Will redirect to login page if not authenticated.
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+new IMP_Application(array('init' => true));
 
 // Load initial page as defined by view mode & preferences.
 require IMP_Auth::getInitialPage();

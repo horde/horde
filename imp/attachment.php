@@ -16,9 +16,8 @@
 
 // We do not need to be authenticated to get the file. Most users won't send
 // linked attachments just to other IMP users.
-$imp_authentication = 'none';
-$imp_session_control = 'none';
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+new IMP_Application(array('init' => array('authentication' => 'none', 'session_control' => 'none')));
 
 $self_url = Horde::selfUrl(false, true, true);
 

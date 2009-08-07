@@ -148,8 +148,7 @@ function _getQuota()
 }
 
 // Need to load Horde_Util:: to give us access to Horde_Util::getPathInfo().
-require_once dirname(__FILE__) . '/lib/base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
 $action = basename(Horde_Util::getPathInfo());
 if (empty($action)) {
     // This is the only case where we really don't return anything, since
@@ -160,13 +159,13 @@ if (empty($action)) {
 
 // The following actions do not need write access to the session and
 // should be opened read-only for performance reasons.
+$session_control = null;
 if (in_array($action, array('chunkContent', 'Html2Text', 'Text2Html', 'GetReplyData', 'FetchmailDialog'))) {
-    $imp_session_control = 'readonly';
+    $session_control = 'readonly';
 }
 
-$imp_authentication = 'throw';
 try {
-    require_once IMP_BASE . '/lib/base.php';
+    new IMP_Application(array('init' => array('authentication' => 'throw', 'session_control' => $session_control)));
 } catch (Horde_Exception $e) {
     /* Handle session timeouts when they come from an AJAX request. */
     if ($e->getCode() == Horde_Registry::AUTH_FAILURE) {

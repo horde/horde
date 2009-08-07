@@ -9,8 +9,8 @@
  * @package IMP
  */
 
-$imp_authentication = 'horde';
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+new IMP_Application(array('init' => array('authentication' => 'horde')));
 require_once 'Horde/Prefs/UI.php';
 
 $compose_url = Horde::getServiceLink('options', 'imp');

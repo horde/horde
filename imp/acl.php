@@ -12,7 +12,8 @@
  * @package IMP
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+new IMP_Application(array('init' => true));
 
 /* Redirect back to the options screen if ACL is not enabled. */
 $prefs_url = Horde::getServiceLink('options', 'imp');

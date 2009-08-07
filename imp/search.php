@@ -18,7 +18,8 @@
  * @package IMP
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+new IMP_Application(array('init' => true));
 
 /* Load mailbox page if searching is not allowed. */
 if ($_SESSION['imp']['protocol'] == 'pop') {

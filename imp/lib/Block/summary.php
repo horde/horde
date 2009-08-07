@@ -39,9 +39,9 @@ class Horde_Block_imp_summary extends Horde_Block
     {
         global $notification, $prefs, $registry;
 
-        $GLOBALS['imp_authentication'] = 'throw';
+        require_once dirname(__FILE__) . '/../Application.php';
         try {
-            require_once dirname(__FILE__) . '/../base.php';
+            new IMP_Application(array('init' => array('authentication' => 'throw')));
         } catch (Horde_Exception $e) {
             return;
         }

@@ -68,7 +68,7 @@ class IMP
         }
 
         // Start compression.
-        if (!Horde_Util::nonInputVar('imp_no_compress')) {
+        if (IMP_Application::$noCompress) {
             Horde::compressOutput();
         }
 

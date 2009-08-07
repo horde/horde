@@ -38,7 +38,8 @@ function _outputSummaries($msgs)
 }
 
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+new IMP_Application(array('init' => true));
 
 /* Call the mailbox redirection hook, if requested. */
 try {

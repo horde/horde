@@ -1,4 +1,26 @@
 <?php
+
+/* Determine the base directories. */
+$curr_dir = dirname(__FILE__);
+
+if (!defined('IMP_BASE')) {
+    define('IMP_BASE', $curr_dir . '/..');
+}
+
+if (!defined('HORDE_BASE')) {
+    /* If Horde does not live directly under the app directory, the HORDE_BASE
+     * constant should be defined in config/horde.local.php. */
+    if (file_exists(IMP_BASE . '/config/horde.local.php')) {
+        include IMP_BASE . '/config/horde.local.php';
+    } else {
+        define('HORDE_BASE', $curr_dir . '/../..');
+    }
+}
+
+/* Load the Horde Framework core (needed to autoload
+ * Horde_Registry_Application::). */
+require_once HORDE_BASE . '/lib/core.php';
+
 /**
  * IMP application API.
  *
@@ -27,14 +49,117 @@ class IMP_Application extends Horde_Registry_Application
     public $version = 'H4 (5.0-git)';
 
     /**
-     * Constructor.
+     * The auth type to use.
+     *
+     * @var string
      */
-    public function __construct()
+    static public $authType = null;
+
+    /**
+     * Disable compression of pages?
+     *
+     * @var boolean
+     */
+    static public $noCompress = false;
+
+    /**
+     * Constructor.
+     *
+     * @param array $args  The following entries:
+     * <pre>
+     * 'init' - (boolean|array) If true, perform application init. If an
+     *          array, perform application init and pass the array to init().
+     * </pre>
+     */
+    public function __construct($args = array())
     {
-        /* Only available if admin config is set for this server/login. */
-        if (empty($_SESSION['imp']['admin'])) {
-            $this->disabled = array('authAddUser', 'authRemoveUser', 'authUserList');
+        if (!empty($args['init'])) {
+            $this->init(is_array($args['init']) ? $args['init'] : array());
         }
+
+        /* Only available if admin config is set for this server/login. */
+        $this->disabled = array('init');
+        if (empty($_SESSION['imp']['admin'])) {
+            $this->disabled = array_merge($this->disabled, array('authAddUser', 'authRemoveUser', 'authUserList'));
+        }
+    }
+
+    /**
+     * IMP base initialization.
+     *
+     * Global variables defined:
+     *   $imp_imap    - An IMP_Imap object
+     *   $imp_mbox    - Current mailbox information
+     *   $imp_notify  - A Horde_Notification_Listener object
+     *   $imp_search  - An IMP_Search object
+     *
+     * @param array $args  Optional arguments:
+     * <pre>
+     * 'authentication' - (string) The type of authentication to use:
+     *   'horde' - Only use horde authentication
+     *   'none'  - Do not authenticate
+     *   'throw' - Authenticate to IMAP/POP server; on no auth, throw a
+     *             Horde_Exception
+     *   [DEFAULT] - Authenticate to IMAP/POP server; on no auth redirect to
+     *               login screen
+     * 'no_compress' - (boolean) Controls whether the page should be
+     *                 compressed.
+     * 'session_control' - (string) Sets special session control limitations:
+     *   'netscape' - TODO; start read/write session
+     *   'none' - Do not start a session
+     *   'readonly' - Start session readonly
+     *   [DEFAULT] - Start read/write session
+     * </pre>
+     */
+    public function init($args = array())
+    {
+        $args = array_merge(array(
+            'authentication' => null,
+            'nocompress' => false,
+            'session_control' => null
+        ), $args);
+
+        self::$authType = $args['authentication'];
+        self::$noCompress = $args['nocompress'];
+
+        // Registry.
+        $s_ctrl = 0;
+        switch ($args['session_control']) {
+        case 'netscape':
+            if ($GLOBALS['browser']->isBrowser('mozilla')) {
+                session_cache_limiter('private, must-revalidate');
+            }
+            break;
+
+        case 'none':
+            $s_ctrl = Horde_Registry::SESSION_NONE;
+            break;
+
+        case 'readonly':
+            $s_ctrl = Horde_Registry::SESSION_READONLY;
+            break;
+        }
+        $GLOBALS['registry'] = Horde_Registry::singleton($s_ctrl);
+
+        try {
+            $GLOBALS['registry']->pushApp('imp', array('check_perms' => ($args['authentication'] != 'none'), 'logintasks' => true));
+        } catch (Horde_Exception $e) {
+            if ($e->getCode() == Horde_Registry::AUTH_FAILURE) {
+                if (Horde_Util::getFormData('composeCache')) {
+                    $imp_compose = IMP_Compose::singleton();
+                    $imp_compose->sessionExpireDraft();
+                }
+
+                if ($args['authentication'] == 'throw') {
+                    throw $e;
+                }
+            }
+
+            Horde_Auth::authenticateFailure('imp', $e);
+        }
+
+        // All other initialization occurs in IMP::initialize().
+        IMP::initialize();
     }
 
     /**
@@ -120,8 +245,7 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function authAuthenticate($userId, $credentials)
     {
-        $GLOBALS['imp_authentication'] = 'none';
-        require_once dirname(__FILE__) . '/base.php';
+        $this->init(array('authentication' => 'none'));
 
         $new_session = IMP_Auth::authenticate(array(
             'password' => $credentials['password'],
@@ -149,13 +273,7 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function authTransparent()
     {
-        /* Transparent auth is a bit goofy - we most likely have reached this
-         * code from the pushApp() call in base.php already. As such, some of
-         * the IMP init has not yet been done, so we need to do the necessary
-         * init here or else things will fail in IMP_Auth. */
-        $GLOBALS['imp_authentication'] = 'none';
-        require_once dirname(__FILE__) . '/base.php';
-        IMP::initialize();
+        $this->init(array('authentication' => 'none'));
         return IMP_Auth::transparent();
     }
 
@@ -167,7 +285,7 @@ class IMP_Application extends Horde_Registry_Application
     public function authAuthenticateCallback()
     {
         if (Horde_Auth::getAuth()) {
-            require_once dirname(__FILE__) . '/base.php';
+            $this->init();
             IMP_Auth::authenticateCallback();
         }
     }

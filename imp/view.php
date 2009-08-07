@@ -45,17 +45,14 @@ function _fullMessageTextLength($ob)
     return $len;
 }
 
-require_once dirname(__FILE__) . '/lib/base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
 
 /* Don't compress if we are already sending in compressed format. */
 $actionID = Horde_Util::getFormData('actionID');
-if (($actionID == 'download_all') || Horde_Util::getFormData('zip')) {
-    $imp_no_compress = true;
-}
-
-$imp_session_control = 'readonly';
-require_once dirname(__FILE__) . '/lib/base.php';
+new IMP_Application(array('init' => array(
+    'session_control' => 'readonly',
+    'nocompress' => (($actionID == 'download_all') || Horde_Util::getFormData('zip'))
+)));
 
 $ctype = Horde_Util::getFormData('ctype');
 $id = Horde_Util::getFormData('id');

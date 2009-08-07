@@ -25,7 +25,8 @@ function _removeAutoSaveDraft($index)
     }
 }
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+new IMP_Application(array('init' => true));
 
 /* Determine if compose mode is disabled. */
 $compose_disable = !IMP::canCompose();

@@ -9,7 +9,8 @@
  * @package IMP
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+new IMP_Application(array('init' => true));
 
 $id = Horde_Util::getFormData('id');
 $index = Horde_Util::getFormData('index');

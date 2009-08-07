@@ -51,9 +51,9 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function changeLanguage()
     {
+        require_once dirname(__FILE__) . '/Application.php';
         try {
-            $GLOBALS['imp_authentication'] = 'throw';
-            require_once dirname(__FILE__) . '/base.php';
+            new IMP_Application(array('init' => array('authentication' => 'throw')));
         } catch (Horde_Exception $e) {
             return;
         }
@@ -113,9 +113,9 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function cacheOutput($params)
     {
+        require_once dirname(__FILE__) . '/Application.php';
         try {
-            $GLOBALS['imp_authentication'] = 'throw';
-            require_once dirname(__FILE__) . '/base.php';
+            new IMP_Application(array('init' => array('authentication' => 'throw')));
         } catch (Horde_Exception $e) {
             throw new Horde_Exception('No cache data available');
         }
@@ -258,8 +258,8 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function prefsStatus()
     {
-        $GLOBALS['imp_authentication'] = 'none';
-        require_once dirname(__FILE__) . '/base.php';
+        require_once dirname(__FILE__) . '/Application.php';
+        new IMP_Application(array('init' => array('authentication' => 'none')));
 
         $notification = Horde_Notification::singleton();
         $notification->detach('status');
@@ -495,8 +495,8 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function batchCompose($args = array(), $extra = array())
     {
-        $GLOBALS['imp_authentication'] = 'none';
-        require_once dirname(__FILE__) . '/base.php';
+        require_once dirname(__FILE__) . '/Application.php';
+        new IMP_Application(array('init' => array('authentication' => 'none')));
 
         $links = array();
         foreach ($args as $i => $arg) {
@@ -513,9 +513,9 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function folderlist()
     {
+        require_once dirname(__FILE__) . '/Application.php';
         try {
-            $GLOBALS['imp_authentication'] = 'throw';
-            require_once dirname(__FILE__) . '/base.php';
+            new IMP_Application(array('init' => array('authentication' => 'throw')));
         } catch (Horde_Exception $e) {
             return false;
         }
@@ -533,9 +533,9 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function createFolder($folder)
     {
+        require_once dirname(__FILE__) . '/Application.php';
         try {
-            $GLOBALS['imp_authentication'] = 'throw';
-            require_once dirname(__FILE__) . '/base.php';
+            new IMP_Application(array('init' => array('authentication' => 'throw')));
         } catch (Horde_Exception $e) {
             return false;
         }
@@ -555,9 +555,9 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function deleteMessages($mailbox, $indices)
     {
+        require_once dirname(__FILE__) . '/Application.php';
         try {
-            $GLOBALS['imp_authentication'] = 'throw';
-            require_once dirname(__FILE__) . '/base.php';
+            new IMP_Application(array('init' => array('authentication' => 'throw')));
         } catch (Horde_Exception $e) {
             return false;
         }
@@ -577,9 +577,9 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function copyMessages($mailbox, $indices, $target)
     {
+        require_once dirname(__FILE__) . '/Application.php';
         try {
-            $GLOBALS['imp_authentication'] = 'throw';
-            require_once dirname(__FILE__) . '/base.php';
+            new IMP_Application(array('init' => array('authentication' => 'throw')));
         } catch (Horde_Exception $e) {
             return false;
         }
@@ -599,9 +599,9 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function moveMessages($mailbox, $indices, $target)
     {
+        require_once dirname(__FILE__) . '/Application.php';
         try {
-            $GLOBALS['imp_authentication'] = 'throw';
-            require_once dirname(__FILE__) . '/base.php';
+            new IMP_Application(array('init' => array('authentication' => 'throw')));
         } catch (Horde_Exception $e) {
             return false;
         }
@@ -622,9 +622,9 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function flagMessages($mailbox, $indices, $flags, $set)
     {
+        require_once dirname(__FILE__) . '/Application.php';
         try {
-            $GLOBALS['imp_authentication'] = 'throw';
-            require_once dirname(__FILE__) . '/base.php';
+            new IMP_Application(array('init' => array('authentication' => 'throw')));
         } catch (Horde_Exception $e) {
             return false;
         }
@@ -643,9 +643,9 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function msgEnvelope($mailbox, $indices)
     {
+        require_once dirname(__FILE__) . '/Application.php';
         try {
-            $GLOBALS['imp_authentication'] = 'throw';
-            require_once dirname(__FILE__) . '/base.php';
+            new IMP_Application(array('init' => array('authentication' => 'throw')));
         } catch (Horde_Exception $e) {
             return false;
         }
@@ -664,9 +664,9 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function searchMailbox($mailbox, $query)
     {
+        require_once dirname(__FILE__) . '/Application.php';
         try {
-            $GLOBALS['imp_authentication'] = 'throw';
-            require_once dirname(__FILE__) . '/base.php';
+            new IMP_Application(array('init' => array('authentication' => 'throw')));
         } catch (Horde_Exception $e) {
             return false;
         }
@@ -684,9 +684,9 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function mailboxCacheId($mailbox)
     {
+        require_once dirname(__FILE__) . '/Application.php';
         try {
-            $GLOBALS['imp_authentication'] = 'throw';
-            require_once dirname(__FILE__) . '/base.php';
+            new IMP_Application(array('init' => array('authentication' => 'throw')));
         } catch (Horde_Exception $e) {
             return false;
         }
@@ -708,9 +708,9 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function server()
     {
+        require_once dirname(__FILE__) . '/Application.php';
         try {
-            $GLOBALS['imp_authentication'] = 'throw';
-            require_once dirname(__FILE__) . '/base.php';
+            new IMP_Application(array('init' => array('authentication' => 'throw')));
         } catch (Horde_Exception $e) {
             return null;
         }
@@ -736,8 +736,8 @@ class IMP_Api extends Horde_Registry_Api
     public function favouriteRecipients($limit,
                                         $filter = array('new', 'forward', 'reply', 'redirect'))
     {
-        $GLOBALS['imp_authentication'] = 'none';
-        require_once dirname(__FILE__) . '/base.php';
+        require_once dirname(__FILE__) . '/Application.php';
+        new IMP_Application(array('init' => array('authentication' => 'none')));
 
         if ($GLOBALS['conf']['sentmail']['driver'] != 'none') {
             $sentmail = IMP_Sentmail::factory();

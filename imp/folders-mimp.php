@@ -16,7 +16,8 @@
  * @package IMP
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+new IMP_Application(array('init' => true));
 
 /* Redirect back to the mailbox if folder use is not allowed. */
 if (empty($conf['user']['allow_folders'])) {
