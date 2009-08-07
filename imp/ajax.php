@@ -795,10 +795,8 @@ case 'FetchmailDialog':
 
 // Clear the output buffer that we started above, and log any unexpected
 // output at a DEBUG level.
-$errors = ob_get_clean();
-if ($errors) {
-    Horde::logMessage('DIMP: unexpected output: ' .
-                      $errors, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+if (ob_get_length()) {
+    Horde::logMessage('DIMP: unexpected output: ' . ob_get_clean(), __FILE__, __LINE__, PEAR_LOG_DEBUG);
 }
 
 // Send the final result.
