@@ -217,7 +217,7 @@ class IMP_Views_ListMessages
         $result->data = $this->_getOverviewData($imp_mailbox, $mbox, $data, isset($md->search));
 
         /* Get unseen/thread information. */
-        if (!$is_search) {
+        if (!$md->search) {
             $imptree = IMP_Imap_Tree::singleton();
             $info = $imptree->getElementInfo($mbox);
             if (!empty($info)) {
