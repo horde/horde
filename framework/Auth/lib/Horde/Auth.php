@@ -705,8 +705,15 @@ class Horde_Auth
             $resolver = new Net_DNS_Resolver();
             $resolver->retry = isset($GLOBALS['conf']['dns']['retry']) ? $GLOBALS['conf']['dns']['retry'] : 1;
             $resolver->retrans = isset($GLOBALS['conf']['dns']['retrans']) ? $GLOBALS['conf']['dns']['retrans'] : 1;
-            $response = $resolver->query($host, 'PTR');
-            $ptrdname = $response ? $response->answer[0]->ptrdname : $host;
+            $ptrdname = $host;
+            if ($response = $resolver->query($host, 'PTR')) {
+                foreach ($response->answer as $val) {
+                    if (isset($val->ptrdname)) {
+                        $ptrdname = $val->ptrdname;
+                        break;
+                    }
+                }
+            }
         } else {
             $ptrdname = @gethostbyaddr($host);
         }
