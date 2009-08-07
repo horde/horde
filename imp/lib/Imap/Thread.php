@@ -126,7 +126,7 @@ class IMP_Imap_Thread
         foreach ($this->getThreadTreeOb($indices, $sortdir) as $k => $v) {
             $tree[$k] = '';
             for ($i = 0, $length = strlen($v); $i < $length; ++$i) {
-                $tree[$k] .= '<span class="threadImg threadImg' . $v[$i] . '"></span>';
+                $tree[$k] .= '<span class="treeImg treeImg' . $v[$i] . '"></span>';
             }
         }
         return $tree;

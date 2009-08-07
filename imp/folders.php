@@ -16,22 +16,18 @@
 /**
  * Utility function to return a url for the various images.
  */
-function _image($name, $alt, $type)
+function _image($name, $alt)
 {
     static $cache = array();
 
-    $val = ($type == 'folder') ? $name['value'] : $name;
-    if (!empty($cache[$type][$val])) {
-        return $cache[$type][$val];
+    $val = $name['value'];
+    if (!empty($cache[$val])) {
+        return $cache[$val];
     }
 
-    if ($type == 'folder') {
-        $cache[$type][$val] = Horde::img($name['icon'], $name['alt'], null, $name['icondir']);
-    } else {
-        $cache[$type][$val] = Horde::img('tree/' . $name, $alt, null, $GLOBALS['registry']->getImageDir('horde'));
-    }
+    $cache[$val] = Horde::img($name['icon'], $name['alt'], null, $name['icondir']);
 
-    return $cache[$type][$val];
+    return $cache[$val];
 }
 
 require_once dirname(__FILE__) . '/lib/base.php';
@@ -467,45 +463,55 @@ foreach ($raw_rows as $val) {
         $dir = Horde_Util::addParameter($folders_url, 'folder', $val['value']);
         if ($imaptree->isOpen($val['base_elt'])) {
             $dir = Horde_Util::addParameter($dir, 'actionID', 'collapse_folder');
-            if ($val['value'] == 'INBOX') {
-                $minus_img = 'minustop.png';
+            $alt = _("Collapse Folder");
+            if (empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) {
+                $tree_img = ($val['value'] == 'INBOX')
+                    ? 9
+                    : ($val['peek'] ? 10 : 11);
             } else {
-                $minus_img = ($val['peek']) ? 'minus.png' : 'minusbottom.png';
+                $tree_img = ($val['value'] == 'INBOX')
+                    ? 12
+                    : ($val['peek'] ? 13 : 14);
             }
-            if (!empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) {
-                $minus_img = 'rev-' . $minus_img;
-            }
-            $dir = Horde::link($dir, _("Collapse Folder")) . _image($minus_img, _("Collapse"), 'tree') . "</a>$dir2";
         } else {
             $dir = Horde_Util::addParameter($dir, 'actionID', 'expand_folder');
-            if ($val['value'] == 'INBOX') {
-                $plus_img = 'plustop.png';
+            $alt = _("Expand Folder");
+            if (empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) {
+                $tree_img = ($val['value'] == 'INBOX')
+                    ? 15
+                    : ($val['peek'] ? 16 : 17);
             } else {
-                $plus_img = ($val['peek']) ? 'plus.png' : 'plusbottom.png';
+                $tree_img = ($val['value'] == 'INBOX')
+                    ? 18
+                    : ($val['peek'] ? 19 : 20);
             }
-            if (!empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) {
-                $plus_img = 'rev-' . $plus_img;
-            }
-            $dir = Horde::link($dir, _("Expand Folder")) . _image($plus_img, _("Expand"), 'tree') . "</a>$dir2";
         }
+        $dir = Horde::link($dir, $alt) . '<span class="treeImg treeImg' . $tree_img . '"></span></a>' . $dir2;
     } else {
-        if ($val['value'] == 'INBOX') {
-            $join_img = ($val['peek']) ? 'joinbottom-down.png' : 'blank.png';
+        if (($val['value'] == 'INBOX') && !$val['peek']) {
+            $dir = '<span class="treeImg"></span>' . $dir2;
         } else {
-            $join_img = ($val['peek']) ? 'join.png' : 'joinbottom.png';
+            if (empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) {
+                $tree_img = ($val['value'] == 'INBOX')
+                    ? 3
+                    : ($val['peek'] ? 2 : 4);
+            } else {
+                $tree_img = ($val['value'] == 'INBOX')
+                    ? 7
+                    : ($val['peek'] ? 6 : 8);
+            }
+            $dir = '<span class="treeImg treeImg' . $tree_img . '"></span>' . $dir2;
         }
-        if (!empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) {
-            $join_img = 'rev-' . $join_img;
-        }
-        $dir = _image($join_img, '', 'tree') . $dir2;
     }
 
     $line = '';
     $morembox[$val['level']] = $val['peek'];
     for ($i = 0; $i < $val['level']; $i++) {
-        $line .= _image(($morembox[$i]) ?
-            (empty($GLOBALS['nls']['rtl'][$GLOBALS['language']]) ? 'line.png' : 'rev-line.png') :
-            'blank.png', '', 'tree');
+        if ($morembox[$i]) {
+            $line .= '<span class="treeImg treeImg' . (empty($GLOBALS['nls']['rtl'][$GLOBALS['language']]) ? 1 : 5) . '"></span>';
+        } else {
+            $line .= '<span class="treeImg"></span>';
+        }
     }
     $val['line'] = $line . $dir;
     $rows[] = $val;
