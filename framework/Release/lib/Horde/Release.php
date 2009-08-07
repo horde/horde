@@ -511,23 +511,6 @@ class Horde_Release
     }
 
     /**
-     * check if freshmeat announcement was successful.
-     */
-    protected function _fmVerify($fm)
-    {
-        if (is_a($fm, 'PEAR_Error')) {
-            print $fm->getMessage() . "\n";
-            return false;
-        } elseif (!is_array($fm)) {
-            var_dump($fm);
-            return false;
-        }
-        return true;
-    }
-
-
-
-    /**
      * announce release to mailing lists and freshmeat.
      */
     public function announce($doc_dir = null)
@@ -574,10 +557,13 @@ class Horde_Release
             print_r($version);
             print_r($links);
         } else {
-            $fm = $this->_fmPublish($version);
-            $this->_fmVerify($fm);
-            $fm = $this->_fmUpdateLinks($links);
-            $this->_fmVerify($fm);
+            try {
+                $fm = $this->_fmPublish($version);
+                $fm = $this->_fmUpdateLinks($links);
+            } catch (Horde_Exception $e) {
+                print "Error publishing to FM:\n";
+                print $e->getMessage();
+            }
         }
 
         $ml = (!empty($this->notes['list'])) ? $this->notes['list'] : $module;
@@ -684,10 +670,7 @@ class Horde_Release
                                    Horde_Serialize::serialize($params, Horde_Serialize::JSON),
                                    array('Content-Type' => 'application/json'));
         } catch (Horde_Http_Client_Exception $e) {
-            // For now, rethrow this as a PEAR_Error to be compatible with the
-            // rest of the error code in this class. This obviously needs to be
-            // refactored.
-            return PEAR::raiseError($e->getMessage());
+            throw new Horde_Exception($e);
         }
 
         // 201 Created
@@ -708,11 +691,7 @@ class Horde_Release
         try {
             $response = $http->get('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/urls.json?auth_code=' . $fm_params['auth_code']);
         } catch (Horde_Http_Client_Exception $e) {
-            // For now, rethrow this as a PEAR_Error to be compatible with the
-            // rest of the error code in this class. This obviously needs to be
-            // refactored.
-            var_dump($e->getMessage());
-            return PEAR::raiseError($e->getMessage());
+            throw new Horde_Exception($e);
         }
 
         $response = Horde_Serialize::unserialize($response->getBody(), Horde_Serialize::JSON);
@@ -738,10 +717,7 @@ class Horde_Release
                                            Horde_Serialize::serialize($link, Horde_Serialize::JSON),
                                    array('Content-Type' => 'application/json'));
                 } catch (Horde_Http_Client_Exception $e) {
-                    // For now, rethrow this as a PEAR_Error to be compatible with the
-                    // rest of the error code in this class. This obviously needs to be
-                    // refactored.
-                    return PEAR::raiseError($e->getMessage());
+                    throw new Horde_Exception($e);
                 }
 
                 $response = $response->getBody();
