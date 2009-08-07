@@ -44,13 +44,6 @@ class IMP_Imap_Tree
      * mailboxes. */
     const BASE_ELT = '\0';
 
-    /* Defines used with the output from the build() function. */
-    const SPECIAL_INBOX = 1;
-    const SPECIAL_TRASH = 2;
-    const SPECIAL_DRAFT = 3;
-    const SPECIAL_SPAM = 4;
-    const SPECIAL_SENT = 5;
-
     /* Defines used with folderList(). */
     const FLIST_CONTAINER = 1;
     const FLIST_UNSUB = 2;
@@ -1806,11 +1799,13 @@ class IMP_Imap_Tree
      * <pre>
      * 'alt' - (string) The alt text for the icon.
      * 'base_elt' - (array) The return from get().
-     * 'children' - (children) Does the element have children?
+     * 'children' - (boolean) Does the element have children?
+     * 'class' - (string) The CSS class name.
      * 'container' - (boolean) Is this a container element?
      * 'editvfolder' - (boolean) Can this virtual folder be edited?
      * 'icon' - (string) The name of the icon graphic to use.
      * 'icondir' - (string) The path of the icon directory.
+     * 'iconopen' - ???
      * 'level' - (integer) The deepness level of this element.
      * 'mbox_val' - (string) A html-ized version of 'value'.
      * 'msgs' - (integer) The number of total messages in the element (if
@@ -1821,7 +1816,7 @@ class IMP_Imap_Tree
      * 'recent' - (integer) The number of new messages in the element (if
      *            polled).
      * 'sub' - (boolean) Is folder subscribed to?
-     * 'special' - (integer) A mask indicating if this is a "special" element.
+     * 'special' - (boolean) Is this is a "special" element?
      * 'specialvfolder' - (boolean) Is this a "special" virtual folder?
      * 'unseen' - (integer) The number of unseen messages in the element (if
      *            polled).
@@ -1855,7 +1850,7 @@ class IMP_Imap_Tree
             'parent' => $mailbox['p'],
             'polled' => false,
             'recent' => 0,
-            'special' => 0,
+            'special' => false,
             'specialvfolder' => false,
             'sub' => $this->isSubscribed($mailbox),
             'user_icon' => false,
@@ -1886,7 +1881,8 @@ class IMP_Imap_Tree
             case 'INBOX':
                 $row['icon'] = 'folders/inbox.png';
                 $row['alt'] = _("Inbox");
-                $row['special'] = self::SPECIAL_INBOX;
+                $row['class'] = 'inboxImg';
+                $row['special'] = true;
                 break;
 
             case $this->_eltCache['trash']:
@@ -1896,29 +1892,39 @@ class IMP_Imap_Tree
                 } else {
                     $row['icon'] = 'folders/trash.png';
                     $row['alt'] = _("Trash folder");
-                    $row['special'] = self::SPECIAL_TRASH;
+                    $row['class'] = 'trashImg';
+                    $row['special'] = true;
                 }
                 break;
 
             case $this->_eltCache['draft']:
                 $row['icon'] = 'folders/drafts.png';
                 $row['alt'] = _("Draft folder");
-                $row['special'] = self::SPECIAL_DRAFT;
+                $row['class'] = 'draftsImg';
+                $row['special'] = true;
                 break;
 
             case $this->_eltCache['spam']:
                 $row['icon'] = 'folders/spam.png';
                 $row['alt'] = _("Spam folder");
-                $row['special'] = self::SPECIAL_SPAM;
+                $row['class'] = 'spamImg';
+                $row['special'] = true;
                 break;
 
             default:
                 if (in_array($mailbox['v'], $this->_eltCache['sent'])) {
                     $row['icon'] = 'folders/sent.png';
                     $row['alt'] = _("Sent mail folder");
-                    $row['special'] = self::SPECIAL_SENT;
+                    $row['class'] = 'sentImg';
+                    $row['special'] = true;
                 } else {
-                    $row['icon'] = ($this->isOpen($mailbox)) ? 'folders/open.png' : 'folders/folder.png';
+                    if ($this->isOpen($mailbox)) {
+                        $row['icon'] = 'folders/open.png';
+                        $row['class'] = 'folderopenImg';
+                    } else {
+                        $row['icon'] = 'folders/folder.png';
+                        $row['class'] = 'folderImg';
+                    }
                     $row['alt'] = _("Mailbox");
                 }
                 break;
@@ -1932,10 +1938,12 @@ class IMP_Imap_Tree
                     $row['specialvfolder'] = true;
                     $row['icon'] = 'folders/trash.png';
                     $row['alt'] = _("Virtual Trash Folder");
+                    $row['class'] = 'trashImg';
                 } elseif ($GLOBALS['imp_search']->isVINBOXFolder($mailbox['v'])) {
                     $row['specialvfolder'] = true;
                     $row['icon'] = 'folders/inbox.png';
                     $row['alt'] = _("Virtual INBOX Folder");
+                    $row['class'] = 'inboxImg';
                 }
             }
         } else {
@@ -1944,10 +1952,12 @@ class IMP_Imap_Tree
             if ($this->_forceopen && $this->isOpen($mailbox)) {
                 $row['icon'] = 'folders/open.png';
                 $row['alt'] = _("Opened Folder");
+                $row['class'] = 'folderopenImg';
             } else {
                 $row['icon'] = 'folders/folder.png';
                 $row['iconopen'] = 'folders/open.png';
                 $row['alt'] = ($this->_forceopen) ? _("Closed Folder") : _("Folder");
+                $row['class'] = 'folderImg';
             }
             if ($this->isVFolder($mailbox)) {
                 $row['vfolder'] = true;

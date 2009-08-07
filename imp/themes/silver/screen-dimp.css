@@ -1,26 +1,11 @@
-#sidebarPanel div.base, #ctx_folder_sub span.contextImg, #ctx_folder_unsub span.contextImg, #ctx_folderopts_sub span.contextImg, #ctx_folderopts_unsub span.contextImg {
+#ctx_folder_sub span.contextImg, #ctx_folder_unsub span.contextImg, #ctx_folderopts_sub span.contextImg, #ctx_folderopts_unsub span.contextImg {
     background-image: url("graphics/folders/folder.png");
 }
-#sidebarPanel div.col, #ctx_folderopts_collapse span.contextImg {
+#sidebarPanel span.col, #ctx_folderopts_collapse span.contextImg {
     background-image: url("graphics/folders/minus.png");
 }
-#sidebarPanel div.exp, #ctx_folderopts_expand span.contextImg {
+#sidebarPanel span.exp, #ctx_folderopts_expand span.contextImg {
     background-image: url("graphics/folders/plus.png");
-}
-#sidebarPanel div.drafts {
-    background-image: url("graphics/folders/drafts.png");
-}
-#sidebarPanel div.inbox {
-    background-image: url("graphics/folders/inbox.png");
-}
-#sidebarPanel div.sent {
-    background-image: url("graphics/folders/sent.png");
-}
-#sidebarPanel div.spam {
-    background-image: url("graphics/folders/spam.png");
-}
-#sidebarPanel div.trash {
-    background-image: url("graphics/folders/trash.png");
 }
 
 #attach_list div, span.attachmentImg {

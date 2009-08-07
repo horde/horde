@@ -180,6 +180,27 @@ form#search div {
 #fmanager div.folderChoose {
     padding-left: 5px;
 }
+span.folderImg {
+    background-image: url("graphics/folders/folder.png");
+}
+span.folderopenImg {
+    background-image: url("graphics/folders/open.png");
+}
+span.draftsImg {
+    background-image: url("graphics/folders/drafts.png");
+}
+span.inboxImg {
+    background-image: url("graphics/folders/inbox.png");
+}
+span.sentImg {
+    background-image: url("graphics/folders/sent.png");
+}
+span.spamImg {
+    background-image: url("graphics/folders/spam.png");
+}
+span.trashImg {
+    background-image: url("graphics/folders/trash.png");
+}
 
 /* Style for div that fixes KHTML browsers. */
 .ohide {
@@ -616,7 +637,7 @@ td.addressTr span.loadingImg {
     white-space: nowrap;
 }
 
-.downloadAtc, .downloadZipAtc, .saveImgAtc, .stripAtc {
+.downloadAtc, .downloadZipAtc, .saveImgAtc, .stripAtc, .foldersImg {
     display: -moz-inline-stack;
     display: inline-block;
     height: 16px;

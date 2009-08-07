@@ -2022,7 +2022,7 @@ var DimpBase = {
             cname += ' unsubFolder';
         }
 
-        div = new Element('DIV', { className: 'iconDiv' });
+        div = new Element('SPAN', { className: 'iconSpan' });
         if (ob.i) {
             div.setStyle({ backgroundImage: 'url("' + ob.i + '")' });
         }
@@ -2038,7 +2038,7 @@ var DimpBase = {
                 div.addClassName('col');
             }
         } else {
-            div.addClassName(ob.ch ? 'exp' : (ob.cl || 'base'));
+            div.addClassName(ob.ch ? 'exp' : (ob.cl || 'folderImg'));
 
             if (ob.s) {
                 parent_e = $('specialfolders');
@@ -2046,7 +2046,7 @@ var DimpBase = {
                 /* Create a dummy container element in 'normalfolders'
                  * section. */
                 if (ob.ch) {
-                    div.removeClassName('exp').addClassName(ob.cl || 'base');
+                    div.removeClassName('exp').addClassName(ob.cl || 'folderImg');
 
                     tmp = Object.clone(ob);
                     tmp.co = true;

@@ -192,6 +192,7 @@ class IMP_Dimp
         if ($elt['children']) {
             $ob->ch = 1;
         }
+        $ob->cl = $elt['class'];
         $ob->m = $elt['value'];
         if ($ob->m != $elt['name']) {
             $ob->l = $elt['name'];
@@ -215,50 +216,17 @@ class IMP_Dimp
         }
 
         if ($elt['container']) {
-            $ob->co = 1;
             $ob->cl = 'exp';
+            $ob->co = 1;
         } else {
             if ($elt['polled']) {
                 $ob->u = intval($elt['unseen']);
             }
 
-            switch ($elt['special']) {
-            case IMP_Imap_Tree::SPECIAL_INBOX:
-                $ob->cl = 'inbox';
+            if ($elt['special']) {
                 $ob->s = 1;
-                break;
-
-            case IMP_Imap_Tree::SPECIAL_TRASH:
-                $ob->cl = 'trash';
-                $ob->s = 1;
-                break;
-
-            case IMP_Imap_Tree::SPECIAL_SPAM:
-                $ob->cl = 'spam';
-                $ob->s = 1;
-                break;
-
-            case IMP_Imap_Tree::SPECIAL_DRAFT:
-                $ob->cl = 'drafts';
-                $ob->s = 1;
-                break;
-
-            case IMP_Imap_Tree::SPECIAL_SENT:
-                $ob->cl = 'sent';
-                $ob->s = 1;
-                break;
-
-            default:
-                if ($elt['vfolder']) {
-                    if ($GLOBALS['imp_search']->isVTrashFolder($elt['value'])) {
-                        $ob->cl = 'trash';
-                    } elseif ($GLOBALS['imp_search']->isVINBOXFolder($elt['value'])) {
-                        $ob->cl = 'inbox';
-                    }
-                } elseif ($elt['children']) {
-                    $ob->cl = 'exp';
-                }
-                break;
+            } elseif (!$elt['vfolder'] && $elt['children']) {
+                $ob->cl = 'exp';
             }
         }
 

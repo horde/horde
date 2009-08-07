@@ -13,6 +13,7 @@
  * @package IMP
  */
 
+<<<<<<< Updated upstream
 /**
  * Utility function to return a url for the various images.
  */
@@ -31,7 +32,6 @@ function _image($name, $alt)
 }
 
 require_once dirname(__FILE__) . '/lib/base.php';
-Horde::addScriptFile('folders.js', 'imp', true);
 
 /* Redirect back to the mailbox if folder use is not allowed. */
 if (!$conf['user']['allow_folders']) {
@@ -341,6 +341,8 @@ $folders_token = Horde::getRequestToken('imp.folders');
 
 $folders_url = Horde_Util::addParameter($folders_url, 'folders_token', $folders_token);
 
+Horde::addScriptFile('folders.js', 'imp', true);
+
 if ($_SESSION['imp']['file_upload'] && ($actionID == 'import_mbox')) {
     $title = _("Folder Navigator");
     IMP::prepareMenu();
@@ -440,14 +442,14 @@ foreach ($raw_rows as $val) {
         $val['editvfolder'] = Horde::link($imp_search->editURL($val['value']), _("Edit Virtual Folder")) . _("Edit") . '</a>';
     }
 
-    $val['class'] = (++$rowct % 2) ? 'item0' : 'item1';
+    $val['cname'] = (++$rowct % 2) ? 'item0' : 'item1';
 
     /* Highlight line differently if folder/mailbox is unsubscribed. */
     if ($showAll &&
         $subscribe &&
         !$val['container'] &&
         !$imaptree->isSubscribed($val['base_elt'])) {
-        $val['class'] .= ' folderunsub';
+        $val['cname'] .= ' folderunsub';
     }
 
     if (!$val['container']) {
@@ -457,7 +459,9 @@ foreach ($raw_rows as $val) {
         $val['name'] = Horde::link(Horde_Util::addParameter($name_url, 'mailbox', $val['value']), sprintf(_("View messages in %s"), ($val['vfolder']) ? $val['base_elt']['l'] : $val['display'])) . $val['name'] . '</a>';
     }
 
-    $dir2 = _image($val, null, 'folder');
+    $dir2 = $val['user_icon']
+        ? Horde::img($val['icon'], $val['alt'], null, $val['icondir'])
+        : '<span class="foldersImg ' . $val['class'] . '"></span>';
 
     if ($val['children']) {
         $dir = Horde_Util::addParameter($folders_url, 'folder', $val['value']);

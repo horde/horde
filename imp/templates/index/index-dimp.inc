@@ -118,11 +118,11 @@ function _simpleButton($id, $text, $image, $imagedir = null)
     <div id="myfolders"><?php echo _("My Folders") ?></div>
     <ul class="folderlist" id="normalfolders">
      <li class="folder" id="folderopts">
-      <div class="iconDiv base"></div>
+      <span class="iconSpan folderImg"></span>
       <a title="<?php echo _("Folder Options") ?>"><?php echo _("Folder Options") ?></a>
      </li>
      <li class="folder" id="dropbase" style="display:none">
-      <div class="iconDiv base"></div>
+      <span class="iconSpan folderImg"></span>
       <a title="<?php echo _("Move to Base Level") ?>"><?php echo _("Move to Base Level") ?></a>
      </li>
     </ul>

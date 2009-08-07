@@ -57,3 +57,25 @@ div.msgflags.flagDeleted, span.contextImg.flagDeleted {
 div.msgflags.flagForwarded, span.contextImg.flagForwarded {
     background-image: url("graphics/mail_forwarded.png");
 }
+
+span.folderImg {
+    background-image: url("graphics/folders/folder.png");
+}
+span.folderopenImg {
+    background-image: url("graphics/folders/open.png");
+}
+span.draftsImg {
+    background-image: url("graphics/folders/drafts.png");
+}
+span.inboxImg {
+    background-image: url("graphics/folders/inbox.png");
+}
+span.sentImg {
+    background-image: url("graphics/folders/sent.png");
+}
+span.spamImg {
+    background-image: url("graphics/folders/spam.png");
+}
+span.trashImg {
+    background-image: url("graphics/folders/trash.png");
+}

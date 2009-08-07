@@ -311,7 +311,7 @@ div.vpRow.flagDeleted {
 #sidebarPanel li.on {
     background: #ffa;
 }
-#sidebarPanel li div {
+#sidebarPanel li span {
     cursor: pointer;
 }
 #sidebarPanel .folderlist li a {
@@ -331,36 +331,21 @@ div.vpRow.flagDeleted {
     border: 1px solid orange;
     padding: 1px 1px 1px 19px;
 }
-#sidebarPanel div.iconDiv {
+#sidebarPanel span.iconSpan {
     display: inline;
     float: left;
     width: 20px;
     height: 100%;
     background-repeat: no-repeat;
 }
-#sidebarPanel div.base, #ctx_folder_sub span.contextImg, #ctx_folder_unsub span.contextImg, #ctx_folderopts_sub span.contextImg, #ctx_folderopts_unsub span.contextImg {
+#ctx_folder_sub span.contextImg, #ctx_folder_unsub span.contextImg, #ctx_folderopts_sub span.contextImg, #ctx_folderopts_unsub span.contextImg {
     background-image: url("graphics/folders/folder.png");
 }
-#sidebarPanel div.col, #ctx_folderopts_collapse span.contextImg {
+#sidebarPanel span.col, #ctx_folderopts_collapse span.contextImg {
     background-image: url("graphics/folders/minus.png");
 }
-#sidebarPanel div.exp, #ctx_folderopts_expand span.contextImg {
+#sidebarPanel span.exp, #ctx_folderopts_expand span.contextImg {
     background-image: url("graphics/folders/plus.png");
-}
-#sidebarPanel div.drafts {
-    background-image: url("graphics/folders/drafts.png");
-}
-#sidebarPanel div.inbox {
-    background-image: url("graphics/folders/inbox.png");
-}
-#sidebarPanel div.sent {
-    background-image: url("graphics/folders/sent.png");
-}
-#sidebarPanel div.spam {
-    background-image: url("graphics/folders/spam.png");
-}
-#sidebarPanel div.trash {
-    background-image: url("graphics/folders/trash.png");
 }
 #normalfolders {
     overflow-x: hidden;
