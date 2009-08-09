@@ -1,18 +1,17 @@
 <?php
 /**
- * Release focus. Possible values:
- * 0 - N/A
- * 1 - Initial freshmeat announcement
- * 2 - Documentation
- * 3 - Code cleanup
- * 4 - Minor feature enhancements
- * 5 - Major feature enhancements
- * 6 - Minor bugfixes
- * 7 - Major bugfixes
- * 8 - Minor security fixes
- * 9 - Major security fixes
+ * Release focus. A Horde_Release::FOCUS_* constant or an array of them
+ *
+ *   self::FOCUS_INITIAL = 'Initial announcement';
+ *   self::FOCUS_MINORFEATURE = 'minor feature enhancement';
+ *   self::FOCUS_MAJORFEATURE = 'major feature enhancement';
+ *   self::FOCUS_MINORBUG = 'minor bugfixes';
+ *   self::FOCUS_MAJORBUG = 'major bugfixes';
+ *   self::FOCUS_MINORSECURITY = 'minor security fixes';
+ *   self::FOCUS_MAJORSECURITY = 'major security fixes';
+ *   self::FOCUS_DOCS = 'documentation improvements';
  */
-$this->notes['fm']['focus'] = 1;
+$this->notes['fm']['focus'] = array(self::FOCUS_MINORFEATURE, self::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
@@ -32,6 +31,4 @@ This is the first stable release.
 FM;
 
 $this->notes['name'] = 'Ansel';
-$this->notes['list'] = 'horde';
 $this->notes['fm']['project'] = 'horde-ansel';
-$this->notes['fm']['branch'] = 'Default';
