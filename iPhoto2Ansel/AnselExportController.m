@@ -546,8 +546,57 @@ NSString * const TURAnselServerPasswordKey = @"password";
                                              withObject: [NSNumber numberWithDouble: progressPercent]
                                           waitUntilDone: NO];
         
-        // Prepare the image data
+        /*** Pull out (and generate) all desired metadata before rescaling the image ***/
+        // The CGImageSource for getting the image INTO Quartz
+        CGImageSourceRef source;
+        
+        // Dictionary to hold all metadata
+        NSMutableDictionary *metadata;
+        
+        // Read the image data into Quartz
+        NSURL *url = [NSURL fileURLWithPath: [mExportMgr imagePathAtIndex:i]];
+		source = CGImageSourceCreateWithURL((CFURLRef)url, NULL);
+        
+        // Prepare to get the data OUT of Quartz
+        NSData *data = [NSMutableData data];
+        CGImageDestinationRef destination = CGImageDestinationCreateWithData((CFMutableDataRef)data, (CFStringRef)@"public.jpeg", 1, NULL);
+        
+        // Get the metadata dictionary, cast it to NSDictionary the get a mutable copy of it
+        CFDictionaryRef metadataRef = CGImageSourceCopyPropertiesAtIndex(source, 0, NULL);
+        NSDictionary *immutableMetadata = (NSDictionary *)metadataRef;
+        metadata = [immutableMetadata mutableCopy];
+        CFRelease(metadataRef);
+        
+        // Get a mutable copy of the IPTC Dictionary for the image...create a 
+        // new one if one doesn't exist in the image.
+        NSDictionary *iptcData = [metadata objectForKey:(NSString *)kCGImagePropertyIPTCDictionary];
+        NSMutableDictionary *iptcDict = [iptcData mutableCopy];
+        if (!iptcDict) {
+            iptcDict = [[NSMutableDictionary alloc] init];
+        }
+        
+        // Get the keywords from the image and put it into the dictionary...should we check for them first?
+        NSArray *keywords = [mExportMgr imageKeywordsAtIndex: i];
+        [iptcDict setObject:keywords  forKey:(NSString *)kCGImagePropertyIPTCKeywords];
+        
+        // Put the IPTC Dictionary (back?) into the metadata dictionary
+        [metadata setObject:iptcDict forKey:(NSString *)kCGImagePropertyIPTCDictionary];
+
+        // Get the data out of quartz (image data is in *data now.
+        CGImageDestinationAddImageFromSource(destination, source, 0, (CFDictionaryRef)metadata);
+        BOOL success = CGImageDestinationFinalize(destination);        
+        
+        CFRelease(source);
+        CFRelease(destination);
+        
+        if (!success) {
+           // ??
+        }
+        
+        /*** TODO: This is wasteful, but do it this way for now to just test if this works as expected ***/
+        // Need to resize the image, but all metadata is lost...ideally we should only read the image in once though...
         NSData *theImage = [[NSData alloc] initWithContentsOfFile: [mExportMgr imagePathAtIndex:i]];
+        //NSData *theImage = (NSData *)data;
         
         CGFloat imageSize;
         switch([mSizePopUp selectedTag])
@@ -571,20 +620,39 @@ NSString * const TURAnselServerPasswordKey = @"password";
         
         
         [self postProgressStatus: [NSString stringWithFormat: @"Resizing image %d out of %d", (i+1), count]];
-        NSData *scaledData = [ImageResizer getScaledImageFromData: theImage
-                                                           toSize: NSMakeSize(imageSize, imageSize)];
-
+        
+        // Don't resize if we want original image...it will lose some metadata needlessly.
+        NSData *scaledData;
+        if ([mSizePopUp selectedTag] != 3) {
+           scaledData = [ImageResizer getScaledImageFromData: theImage
+                                                      toSize: NSMakeSize(imageSize, imageSize)];
+        } else {
+            scaledData = theImage;
+        }
+        
+        // Now we have resized image data, put back the metadata...
+        source = CGImageSourceCreateWithData((CFDataRef)scaledData, NULL);
+        
+        // Should we release, or clear or use a new data object?
+        NSData *newData = [NSMutableData data];
+        destination = CGImageDestinationCreateWithData((CFMutableDataRef)newData, (CFStringRef)@"public.jpeg", 1, NULL);
+        
+        // Get the data out of quartz (image data is in the NSData *data object now.
+        CGImageDestinationAddImageFromSource(destination, source, 0, (CFDictionaryRef)metadata);
+        success = CGImageDestinationFinalize(destination); // write metadata into the data object
+        
         [self postProgressStatus: [NSString stringWithFormat: @"Encoding image %d out of %d", (i+1), count]];
-        NSString *base64ImageData = [NSString base64StringFromData: scaledData  
-                                                            length: [scaledData length]];
+//        NSString *base64ImageData = [NSString base64StringFromData: scaledData  
+//                                                            length: [scaledData length]];
+        NSString *base64ImageData = [NSString base64StringFromData: newData  
+                                                            length: [newData length]];
         
         // Get the filename/path for this image. This returns either the most
         // recent version of the image, the original, or (if RAW) the jpeg 
-        // version of the original. Still need to figure out how to modify
-        // the image size/quality etc... when not doing a file export.
+        // version of the original.
         NSString *filename = [mExportMgr imageFileNameAtIndex:i];
         NSString *imageDescription = [mExportMgr imageTitleAtIndex:i];
-        NSArray *keywords = [mExportMgr imageKeywordsAtIndex: i];
+       // NSArray *keywords = [mExportMgr imageKeywordsAtIndex: i];
         
         NSArray *keys = [[NSArray alloc] initWithObjects:
                          @"filename", @"description", @"data", @"type", @"tags", nil];
@@ -612,6 +680,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
         [values release];
         [imageData release];
         [params release];
+        [iptcDict release];
         [pool release];
         i++;
     }
