@@ -726,7 +726,7 @@ class IMP_Api extends Horde_Registry_Api
                 'type' => 'select',
                 'value' => array(
                     'imp' => array(
-                        'name' => _("Traditional"),
+                        'name' => _("Standard"),
                         'selected' => $view_cookie == 'imp'
                     ),
                     'dimp' => array(
