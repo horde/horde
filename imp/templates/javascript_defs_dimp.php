@@ -49,6 +49,7 @@ $code['conf'] = array_filter(array(
     'URI_MESSAGE' => Horde::applicationUrl('message-dimp.php'),
     'URI_PREFS' => Horde::getServiceLink('prefsapi', 'imp'),
     'URI_PREFS_IMP' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'imp')),
+    'URI_SEARCH_BASIC' => Horde::applicationUrl('search-basic.php'),
     'URI_VIEW' => Horde::applicationUrl('view.php'),
 
     'SESSION_ID' => defined('SID') ? SID : '',
@@ -73,6 +74,7 @@ $code['conf'] = array_filter(array(
     'qsearchid' => IMP_Search::MBOX_PREFIX . 'dimpqsearch',
     'qsearchfield' => $GLOBALS['prefs']->getValue('dimp_qsearch_field'),
     'refresh_time' => intval($GLOBALS['prefs']->getValue('refresh_time')),
+    'searchprefix' => IMP_Search::MBOX_PREFIX,
     'sortdate' => Horde_Imap_Client::SORT_DATE,
     'sortthread' => Horde_Imap_Client::SORT_THREAD,
     'spam_mbox' => IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true),

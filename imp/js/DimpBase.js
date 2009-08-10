@@ -393,7 +393,7 @@ var DimpBase = {
 
             // Callbacks
             onAjaxRequest: function(id) {
-                var p = this.isSearch(id)
+                var p = this.isSearch(id) && $('qsearch_input').visible()
                     ? $H({
                         qsearch: $F('qsearch_input'),
                         qsearchmbox: this.sfolder
@@ -762,7 +762,9 @@ var DimpBase = {
             break;
 
         case 'ctx_qsearchopts_basic':
-            alert('Placeholder for basic search');
+            RedBox.overlay = true;
+            RedBox.loading();
+            new Ajax.Request(DIMP.conf.URI_SEARCH_BASIC, { parameters: DimpCore.addRequestParams($H({ search_mailbox: this.folder })), onComplete: function(r) { RedBox.showHtml(r.responseText); } });
             break;
 
         case 'ctx_qsearchopts_advanced':
@@ -1301,7 +1303,8 @@ var DimpBase = {
     /* Search functions. */
     isSearch: function(id)
     {
-        return (id ? id : this.folder) == DIMP.conf.qsearchid;
+        id = id ? id : this.folder;
+        return id && id.startsWith(DIMP.conf.searchprefix);
     },
 
     _quicksearchOnBlur: function()
@@ -1326,16 +1329,19 @@ var DimpBase = {
     // 'noload' = (boolean) If true, don't load the mailbox
     quicksearchClear: function(noload)
     {
+        var f = this.folder;
+
         if (this.isSearch()) {
             $('qsearch_close').hide();
             if (!$('qsearch').hasClassName('qsearchFocus')) {
                 this._setFilterText(true);
             }
             this.resetSelected();
+            $('qsearch_input').show();
             if (!noload) {
                 this.loadMailbox(this.sfolder);
             }
-            this.viewport.deleteView(DIMP.conf.qsearchid);
+            this.viewport.deleteView(f);
         }
     },
 
@@ -1344,6 +1350,16 @@ var DimpBase = {
     {
         $('qsearch_input').setValue(d ? DIMP.text.search : '');
         [ $('qsearch') ].invoke(d ? 'removeClassName' : 'addClassName', 'qsearchActive');
+    },
+
+    _basicSearchCallback: function(r)
+    {
+        r = r.response;
+        RedBox.close();
+        this.sfolder = this.folder;
+        $('qsearch_close').show();
+        $('qsearch_input').hide();
+        this.go('folder:' + r.view);
     },
 
     /* Enable/Disable DIMP action buttons as needed. */
@@ -1731,6 +1747,15 @@ var DimpBase = {
                     return;
                 } else if (elt.hasClassName('RBFolderCancel')) {
                     this._closeRedBox();
+                    e.stop();
+                    return;
+                } else if (elt.hasClassName('basicSearchCancel')) {
+                    RedBox.close();
+                    e.stop();
+                    return;
+                } else if (elt.hasClassName('basicSearchSubmit')) {
+                    elt.disable();
+                    DimpCore.doAction('BasicSearch', { query: $('RB_window').down().serialize() }, null, this._basicSearchCallback.bind(this));
                     e.stop();
                     return;
                 }

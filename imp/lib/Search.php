@@ -32,22 +32,6 @@
  */
 class IMP_Search
 {
-    /* Defines used to determine what kind of field query we are dealing
-     * with. */
-    const HEADER = 1;
-    const BODY = 2;
-    const DATE = 3;
-    const TEXT = 4;
-    const SIZE = 5;
-
-    /* Defines used to identify the flag input. */
-    const FLAG_NOT = 0;
-    const FLAG_HAS = 1;
-
-    /* Defines used to identify whether to show unsubscribed folders. */
-    const SHOW_UNSUBSCRIBED = 0;
-    const SHOW_SUBSCRIBED_ONLY = 1;
-
     /* The mailbox search prefix. */
     const MBOX_PREFIX = 'impsearch\0';
 
@@ -533,37 +517,40 @@ class IMP_Search
             return $_SESSION['imp']['search'][$id]['label'];
         }
 
-        $flagfields = $this->flagFields();
-        $searchfields = $this->searchFields();
+        $imp_ui_search = new IMP_UI_Search();
+
+        $flagfields = $imp_ui_search->flagFields();
+        $searchfields = $imp_ui_search->searchFields();
         $text = '';
         $uiinfo = $this->retrieveUIQuery($id);
 
-        if (!empty($uiinfo['field'])) {
-            $text = _("Search") . ' ';
-            $text_array = array();
-            foreach ($uiinfo['field'] as $key2 => $val2) {
-                if (isset($flagfields[$val2])) {
-                    $text_array[] = $flagfields[$val2]['label'];
-                } else {
-                    switch ($searchfields[$val2]['type']) {
-                    case self::DATE:
-                        $text_array[] = sprintf("%s '%s'", $searchfields[$val2]['label'], strftime("%x", mktime(0, 0, 0, $uiinfo['date'][$key2]['month'], $uiinfo['date'][$key2]['day'], $uiinfo['date'][$key2]['year'])));
-                        break;
-
-                    case self::SIZE:
-                        $text_array[] = $searchfields[$val2]['label'] . ' ' . ($uiinfo['text'][$key2] / 1024);
-                        break;
-
-                    default:
-                        $text_array[] = sprintf("%s for '%s'", $searchfields[$val2]['label'], ((!empty($uiinfo['text_not'][$key2])) ? _("not") . ' ' : '') . $uiinfo['text'][$key2]);
-                        break;
-                    }
-                }
-            }
-            $text .= implode(' ' . (($uiinfo['match'] == 'and') ? _("and") : _("or")) . ' ', $text_array);
+        if (empty($uiinfo['field'])) {
+            return '';
         }
 
-        return $text . ' ' . _("in") . ' ' . implode(', ', $uiinfo['folders']);
+        $text = _("Search") . ' ';
+        $text_array = array();
+        foreach ($uiinfo['field'] as $key2 => $val2) {
+            if (isset($flagfields[$val2])) {
+                $text_array[] = $flagfields[$val2]['label'];
+            } else {
+                switch ($searchfields[$val2]['type']) {
+                case IMP_UI_Search::DATE:
+                    $text_array[] = sprintf("%s '%s'", $searchfields[$val2]['label'], strftime("%x", mktime(0, 0, 0, $uiinfo['date'][$key2]['month'], $uiinfo['date'][$key2]['day'], $uiinfo['date'][$key2]['year'])));
+                    break;
+
+                case IMP_UI_Search::SIZE:
+                    $text_array[] = $searchfields[$val2]['label'] . ' ' . ($uiinfo['text'][$key2] / 1024);
+                    break;
+
+                default:
+                    $text_array[] = sprintf("%s for '%s'", $searchfields[$val2]['label'], ((!empty($uiinfo['text_not'][$key2])) ? _("not") . ' ' : '') . $uiinfo['text'][$key2]);
+                    break;
+                }
+            }
+        }
+
+        $text .= implode(' ' . (($uiinfo['match'] == 'and') ? _("and") : _("or")) . ' ', $text_array) . ' ' . _("in") . ' ' . implode(', ', $uiinfo['folders']);
     }
 
     /**
@@ -668,195 +655,4 @@ class IMP_Search
         return self::MBOX_PREFIX . $this->_strip($id);
     }
 
-    /**
-     * Return the base search fields.
-     *
-     * @return array  The base search fields.
-     */
-    public function searchFields()
-    {
-        return array(
-            'from' => array(
-                'label' => _("From"),
-                'type' => self::HEADER,
-                'not' => true
-            ),
-            'to' => array(
-                'label' => _("To"),
-                'type' => self::HEADER,
-                'not' => true
-            ),
-            'cc' => array(
-                'label' => _("Cc"),
-                'type' => self::HEADER,
-                'not' => true
-            ),
-            'bcc' => array(
-                'label' => _("Bcc"),
-                'type' => self::HEADER,
-                'not' => true
-            ),
-            'subject' => array(
-                'label' => _("Subject"),
-                'type' => self::HEADER,
-                'not' => true
-            ),
-            'body' => array(
-               'label' => _("Body"),
-               'type' => self::BODY,
-                'not' => true
-            ),
-            'text' => array(
-               'label' => _("Entire Message"),
-               'type' => self::TEXT,
-                'not' => true
-            ),
-            'date_on' => array(
-                'label' => _("Date ="),
-                'type' => self::DATE,
-                'not' => true
-            ),
-            'date_until' => array(
-                'label' => _("Date <"),
-                'type' => self::DATE,
-                'not' => true
-            ),
-            'date_since' => array(
-                'label' => _("Date >="),
-                'type' => self::DATE,
-                'not' => true
-            ),
-            // Displayed in KB, but stored internally in bytes
-            'size_smaller' => array(
-                'label' => _("Size (KB) <"),
-                'type' => self::SIZE,
-                'not' => false
-            ),
-            // Displayed in KB, but stored internally in bytes
-            'size_larger' => array(
-                'label' => _("Size (KB) >"),
-                'type' => self::SIZE,
-                'not' => false
-            ),
-        );
-    }
-
-    /**
-     * Return the base flag fields.
-     *
-     * @return array  The base flag fields.
-     */
-    public function flagFields()
-    {
-        return array(
-            'seen' => array(
-                'flag' => '\\seen',
-                'label' => _("Seen messages"),
-                'type' => self::FLAG_HAS
-            ),
-            'unseen' => array(
-                'flag' => '\\seen',
-                'label' => _("Unseen messages"),
-                'type' => self::FLAG_NOT
-            ),
-            'answered' => array(
-                'flag' => '\\answered',
-                'label' => _("Answered messages"),
-                'type' => self::FLAG_HAS
-            ),
-            'unanswered' => array(
-                'flag' => '\\answered',
-                'label' => _("Unanswered messages"),
-                'type' => self::FLAG_NOT
-            ),
-            'flagged' => array(
-                'flag' => '\\flagged',
-                'label' => _("Flagged messages"),
-                'type' => self::FLAG_HAS
-            ),
-            'unflagged' => array(
-                'flag' => '\\flagged',
-                'label' => _("Unflagged messages"),
-                'type' => self::FLAG_NOT
-            ),
-            'deleted' => array(
-                'flag' => '\\deleted',
-                'label' => _("Deleted messages"),
-                'type' => self::FLAG_HAS
-            ),
-            'undeleted' => array(
-                'flag' => '\\deleted',
-                'label' => _("Undeleted messages"),
-                'type' => self::FLAG_NOT
-            ),
-        );
-    }
-
-    /**
-     * Creates a search query.
-     *
-     * @param array $uiinfo  A UI info array (see imp/search.php).
-     *
-     * @return object  A search object (Horde_Imap_Client_Search_Query).
-     */
-    public function createQuery($search)
-    {
-        $query = new Horde_Imap_Client_Search_Query();
-
-        $search_array = array();
-        $search_fields = $this->searchFields();
-        $flag_fields = $this->flagFields();
-
-        foreach ($search['field'] as $key => $val) {
-            $ob = new Horde_Imap_Client_Search_Query();
-
-            if (isset($flag_fields[$val])) {
-                $ob->flag($flag_fields[$val]['flag'], (bool)$flag_fields[$val]['type']);
-                $search_array[] = $ob;
-            } else {
-                switch ($search_fields[$val]['type']) {
-                case self::HEADER:
-                    if (!empty($search['text'][$key])) {
-                        $ob->headerText($val, $search['text'][$key], $search['text_not'][$key]);
-                        $search_array[] = $ob;
-                    }
-                    break;
-
-                case self::BODY:
-                case self::TEXT:
-                    if (!empty($search['text'][$key])) {
-                        $ob->text($search['text'][$key], $search_fields[$val]['type'] == self::BODY, $search['text_not'][$key]);
-                        $search_array[] = $ob;
-                    }
-                    break;
-
-                case self::DATE:
-                    if (!empty($search['date'][$key]['day']) &&
-                        !empty($search['date'][$key]['month']) &&
-                        !empty($search['date'][$key]['year'])) {
-                        $date = new Horde_Date($search['date']);
-                        $ob->dateSearch($date, ($val == 'date_on') ? Horde_Imap_Client_Search_Query::DATE_ON : (($val == 'date_until') ? Horde_Imap_Client_Search_Query::DATE_BEFORE : Horde_Imap_Client_Search_Query::DATE_SINCE));
-                        $search_array[] = $ob;
-                    }
-                    break;
-
-                case self::SIZE:
-                    if (!empty($search['text'][$key])) {
-                        $ob->size(intval($search['text'][$key]), $val == 'size_larger');
-                        $search_array[] = $ob;
-                    }
-                    break;
-                }
-            }
-        }
-
-        /* Search match. */
-        if ($search['match'] == 'and') {
-            $query->andSearch($search_array);
-        } elseif ($search['match'] == 'or') {
-            $query->orSearch($search_array);
-        }
-
-        return $query;
-    }
 }

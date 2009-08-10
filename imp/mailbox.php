@@ -370,12 +370,17 @@ if ($unread) {
 }
 
 if ($vfolder || $search_mbox) {
-    $query_text = htmlspecialchars(wordwrap($imp_search->searchQueryText($imp_search->searchMboxID())));
-    if ($vfolder) {
-        $pagetitle .= ' [' . Horde::linkTooltip('#', $query_text, '', '', '', $query_text) . _("Virtual Folder") . '</a>]';
-        $title .= ' [' . _("Virtual Folder") . ']';
+    $query_text = $imp_search->searchQueryText($imp_search->searchMboxID());
+    if ($query_text) {
+        $query_text = htmlspecialchars(wordwrap($query_text));
+        if ($vfolder) {
+            $pagetitle .= ' [' . Horde::linkTooltip('#', $query_text, '', '', '', $query_text) . _("Virtual Folder") . '</a>]';
+            $title .= ' [' . _("Virtual Folder") . ']';
+        } else {
+            $pagetitle = Horde::linkTooltip('#', $query_text, '', '', '', $query_text) . $pagetitle . '</a>';
+        }
     } else {
-        $pagetitle = Horde::linkTooltip('#', $query_text, '', '', '', $query_text) . $pagetitle . '</a>';
+        $pagetitle = htmlspecialchars($title);
     }
 } else {
     $pagetitle = $title = htmlspecialchars($title);
@@ -430,7 +435,7 @@ if (isset($filter_url)) {
 $hdr_template->set('search', false);
 if ($_SESSION['imp']['protocol'] != 'pop') {
     if (!$search_mbox) {
-        $hdr_template->set('search', Horde::link(Horde_Util::addParameter(Horde::applicationUrl('search.php'), 'search_mailbox', $imp_mbox['mailbox']), sprintf(_("Search %s"), $rawtitle)) . Horde::img('search.png', _("Search")) . '</a>');
+        $hdr_template->set('search', Horde::link(Horde_Util::addParameter(Horde::applicationUrl('search-basic.php'), 'search_mailbox', $imp_mbox['mailbox']), sprintf(_("Search %s"), $rawtitle)) . Horde::img('search.png', _("Search")) . '</a>');
         if (!$readonly) {
             $hdr_template->set('empty', Horde::link(Horde_Util::addParameter($mailbox_imp_url, array('actionID' => 'empty_mailbox', 'mailbox' => $imp_mbox['mailbox'], 'mailbox_token' => $mailbox_token)), _("Empty folder"), '', '', "ImpMailbox.confirmDialog(this.href, '" . addslashes(_("Are you sure you wish to delete all mail in this folder?")) . "'); return false;") . Horde::img('empty_spam.png', _("Empty folder")) . '</a>');
         }
@@ -438,11 +443,14 @@ if ($_SESSION['imp']['protocol'] != 'pop') {
         if ($imp_search->isEditableVFolder()) {
             $edit_search = sprintf(_("Edit Virtual Folder Definition for %s"), htmlspecialchars($rawtitle));
             $hdr_template->set('delete_vfolder', Horde::link($imp_search->deleteURL(), sprintf(_("Delete Virtual Folder Definition for %s"), htmlspecialchars($rawtitle)), null, null, "if (confirm('" . addslashes(_("Are you sure you want to delete this Virtual Folder Definition?")) . "')) { return true; } else { return false; }") . Horde::img('delete.png', sprintf(_("Delete Virtual Folder Definition for %s"), $rawtitle), '', $graphicsdir) . '</a>');
-        } else {
-            if (!$vfolder) {
-                $edit_search = _("Edit Search Query");
-            }
+        } elseif (!$query_text) {
+            /* Mini search results. */
+            reset($mbox_info['uids']);
+            $hdr_template->set('search', Horde::link(Horde_Util::addParameter(Horde::applicationUrl('search-basic.php'), 'search_mailbox', key($mbox_info['uids'])), sprintf(_("Search %s"), IMP::getLabel(key($mbox_info['uids'])))) . Horde::img('search.png', _("Search")) . '</a>');
+        } elseif (!$vfolder) {
+            $edit_search = _("Edit Search Query");
         }
+
         if (isset($edit_search)) {
             $hdr_template->set('search', Horde::link($imp_search->editURL(), $edit_search) . Horde::img('edit.png', $edit_search, '', $graphicsdir) . '</a>');
         }

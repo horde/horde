@@ -769,6 +769,13 @@ case 'SMIMEPersonal':
     }
 
     break;
+
+case 'BasicSearch':
+    $result = new stdClass;
+    $imp_ui_search = new IMP_UI_Search();
+    parse_str(Horde_Util::getPost('query'), $query);
+    $result->view = $imp_search->createSearchID($imp_ui_search->processBasicSearch($query['search_basic_mbox'], $query['search_criteria'], $query['search_criteria_text'], !empty($query['search_criteria_not']), $query['search_flags']));
+    break;
 }
 
 // Clear the output buffer that we started above, and log any unexpected
