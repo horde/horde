@@ -39,8 +39,8 @@ case 'dimp':
     if (!empty($GLOBALS['conf']['dimp']['css_files'])) {
         foreach ($GLOBALS['conf']['css_files'] as $css_file) {
             $css[] = array(
-                'u' => $themesuri . '/' . $css_file,
-                'f' => $themesfs .  '/' . $css_file
+                'u' => $GLOBALS['registry']->get('themesuri') . '/' . $css_file,
+                'f' => $GLOBALS['registry']->get('themesfs') .  '/' . $css_file
             );
         }
     }
