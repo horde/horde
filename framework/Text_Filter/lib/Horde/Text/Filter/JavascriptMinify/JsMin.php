@@ -185,6 +185,7 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
 
     protected function _next()
     {
+
         $c = $this->_get();
 
         if ($c !== '/') {
@@ -193,21 +194,37 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
 
         switch ($this->_peek()) {
         case '/':
+            $comment = '';
+
             while (true) {
                 $c = $this->_get();
+                $comment .= $c;
                 if (ord($c) <= self::ORD_LF) {
+                    // IE conditional comment
+                    if (preg_match('/^\\/@(?:cc_on|if|elif|else|end)\\b/', $comment)) {
+                        return '/' . $comment;
+                    }
+
                     return $c;
                 }
             }
 
         case '*':
+            $comment = '';
             $this->_get();
 
             while (true) {
-                switch($this->_get()) {
+                $get = $this->_get();
+                switch ($get) {
                 case '*':
                     if ($this->_peek() === '/') {
                         $this->_get();
+
+                        // IE conditional comment
+                        if (preg_match('/^@(?:cc_on|if|elif|else|end)\\b/', $comment)) {
+                            return '/*' . $comment . '*/';
+                        }
+
                         return ' ';
                     }
                     break;
@@ -215,6 +232,8 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
                 case null:
                     throw new Exception('Unterminated comment.');
                 }
+
+                $comment .= $get;
             }
         }
 
