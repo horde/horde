@@ -1817,11 +1817,7 @@ HTML;
             break;
 
         case 'mozilla':
-            if ($GLOBALS['browser']->getMajor() >= 5 &&
-                preg_match('/rv:(.*)\)/', $GLOBALS['browser']->getAgentString(), $revision) &&
-                $revision[1] <= 1.4) {
-                $css_list[] = 'moz14';
-            }
+            $css_list[] = 'mozilla';
             break;
 
         case 'webkit':
