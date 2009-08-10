@@ -638,7 +638,9 @@ class Ansel_Api extends Horde_Registry_Api
 
         // Call the postupload hook if needed
         if (!empty($GLOBALS['conf']['hooks']['postupload']) && !$skiphook) {
-            Horde::callHook('_ansel_hook_postupload', array(array($image_id)), 'ansel');
+            try {
+                Horde::callHook('postupload', array($image_id));
+            } catch (Horde_Exception_HookNotSet $e) {}
         }
 
         return array('image_id'   => (int)$image_id,

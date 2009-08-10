@@ -215,8 +215,6 @@ if ($form->validate($vars)) {
         // postupload hook if needed
         try {
             Horde::callHook('postupload', array($image_ids));
-        } catch (Horde_Exception $e) {
-            // Error from within the hook.
         } catch (Horde_Exception_HookNotSet $e) {}
         $notification->push(sprintf(ngettext("%d photo was uploaded.", "%d photos were uploaded.", $uploaded), $uploaded), 'horde.success');
     } elseif ($vars->get('submitbutton') != _("Cancel")) {
