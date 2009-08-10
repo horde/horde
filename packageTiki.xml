@@ -20,11 +20,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>rodrigo at utopia dot org dot br</email>
   <active>yes</active>
  </lead>
- <date>2009-08-06</date>
+ <date>2009-08-10</date>
  <time>11:21:24</time>
  <version>
-  <release>0.0.1</release>
-  <api>0.0.1</api>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -32,7 +32,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-First released version of Text_Wiki_Tiki.
+Release with some improvements to Tiki Render:
+
+* New supported render rules: Paragraph, Preformatted, Redirect
+* Fix bug #16322: properly URL rendering
+* Fix render for heading rule
+* Fix render for code rule
+* Fix render for definition list
+* Improvement to image render: can render images without additional params and has configuration option for the image path
+* Add PHPUnit tests for Tiki render
  </notes>
  <contents>
   <dir name="/">
@@ -150,4 +158,21 @@ First released version of Text_Wiki_Tiki.
   </required>
  </dependencies>
  <phprelease />
+ <changelog>
+  <release>
+   <date>2005-10-14</date>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+First released version of Text_Wiki_Tiki.
+   </notes>
+  </release> 
+ </changelog>
 </package>

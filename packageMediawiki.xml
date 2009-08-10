@@ -26,11 +26,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>rodrigo at utopia dot org dot br</email>
   <active>yes</active>
  </lead>
- <date>2009-08-06</date>
+ <date>2009-08-10</date>
  <time>11:09:03</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>0.2.0</release>
+  <api>0.2.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -38,41 +38,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-Major release of Text_Wiki_Mediawiki : several rules have been added or revamped
-It also takes advantage of the new Text_Wiki-1.1.0 engine.
+This release has the following improvements:
 
-* Add the Wikilink rule (#6623)
-  Configuration:
-  - &apos;spaceUnderscore&apos; : boolean (true) replace spaces in page name by underscores,
-  - &apos;project&apos; : optional array of prefixes for the local project (array(&apos;demo&apos;, &apos;d&apos;)),
-  - &apos;url&apos; : base url of the project for interlanguage (&apos;http://example.com/en/page=%s&apos;),
-  - &apos;langage&apos; : language of the project, will be replaced case interlanguage (&apos;en&apos;).
-  
-* Unify all links parsing: Image and Interwiki are now done by the Wikilink rule
- These 2 rules don&apos;t exist anymore as independant classes
- but are still configurable/switchable as normal rules
-
-* Interwiki&apos;s configuration for urls is now done parser side
-  Configuration:
-  - &apos;sites&apos; : associative array of url patterns indexed by site prefixes,
-  - &apos;interlangage&apos; : array of accepted interlanguages codes.
-
-* Image corrected to be complient with Mediawiki syntax
-  Take align attribute (left, center, or right) as piped after the | in image tag
-  Configuration:
-  - &apos;prefix&apos; : array of accepted image prefixes (array(&apos;Image&apos;, &apos;image&apos;)).
-
-* List rule added , it&apos;s no more using the Text_Wiki default but a complient proper class
-
-* Deflist rule added (definitions list)
-
-* Heading corrected : it does not more require extra spaces and line feed (#6623)
-
-* Emphasis corrected to produce also Strong and not Bold (Strong exists only by rendering)
-
-* Raw : &lt;nowiki&gt; ... &lt;/nowiki&gt; may be multiline
-
-* Overwrite of getTokens() removed, was not needed and even dangerous ...
+* PHPUnit tests for Mediawiki parser
+* Support for heading with only one level (ie: =heading=)
+* Add parse for redirect rule
+* Fix bug #16455: proper parsing of bold and italic
  </notes>
  <contents>
   <dir name="/">
@@ -121,6 +92,49 @@ It also takes advantage of the new Text_Wiki-1.1.0 engine.
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>0.1.0</version>
+   <date>2006-04-10</date>
+   <license>LGPL</license>
+   <state>alpha</state>
+   <notes>
+Major release of Text_Wiki_Mediawiki : several rules have been added or revamped
+It also takes advantage of the new Text_Wiki-1.1.0 engine.
+
+* Add the Wikilink rule (#6623)
+  Configuration:
+  - 'spaceUnderscore' : boolean (true) replace spaces in page name by underscores,
+  - 'project' : optional array of prefixes for the local project (array('demo', 'd')),
+  - 'url' : base url of the project for interlanguage ('http://example.com/en/page=%s'),
+  - 'langage' : language of the project, will be replaced case interlanguage ('en').
+  
+* Unify all links parsing: Image and Interwiki are now done by the Wikilink rule
+ These 2 rules don't exist anymore as independant classes
+ but are still configurable/switchable as normal rules
+
+* Interwiki's configuration for urls is now done parser side
+  Configuration:
+  - 'sites' : associative array of url patterns indexed by site prefixes,
+  - 'interlangage' : array of accepted interlanguages codes.
+
+* Image corrected to be complient with Mediawiki syntax
+  Take align attribute (left, center, or right) as piped after the | in image tag
+  Configuration:
+  - 'prefix' : array of accepted image prefixes (array('Image', 'image')).
+
+* List rule added , it's no more using the Text_Wiki default but a complient proper class
+
+* Deflist rule added (definitions list)
+
+* Heading corrected : it does not more require extra spaces and line feed (#6623)
+
+* Emphasis corrected to produce also Strong and not Bold (Strong exists only by rendering)
+
+* Raw : &lt;nowiki&gt; ... &lt;/nowiki&gt; may be multiline
+
+* Overwrite of getTokens() removed, was not needed and even dangerous ...
+   </notes>
+  </release>	 
   <release>
    <version>
     <release>0.0.1</release>
