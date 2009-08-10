@@ -174,6 +174,7 @@ class IMP_Dimp
      * 'i' (icon) = A user defined icon to use. [string] [DEFAULT: none]
      * 'l' (label) = The folder display label. [string] [DEFAULT: 'm' val]
      * 'm' (mbox) = The mailbox value. [string]
+     * 'n' (non-imap) = A non-IMAP element? [boolean] [DEFAULT: no]
      * 'pa' (parent) = The parent element. [string] [DEFAULT:
      *                 DIMP.conf.base_mbox]
      * 'po' (polled) = Is the element polled? [boolean] [DEFAULT: no]
@@ -218,6 +219,9 @@ class IMP_Dimp
         if ($elt['container']) {
             $ob->cl = 'exp';
             $ob->co = 1;
+            if ($elt['nonimap']) {
+                $ob->n = 1;
+            }
         } else {
             if ($elt['polled']) {
                 $ob->u = intval($elt['unseen']);

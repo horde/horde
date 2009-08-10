@@ -1811,6 +1811,7 @@ class IMP_Imap_Tree
      * 'msgs' - (integer) The number of total messages in the element (if
      *          polled).
      * 'name' - (string) A html-ized version of 'label'.
+     * 'nonimap' - (boolean) Is this a non-IMAP element?
      * 'parent' - (array) The parent element value.
      * 'polled' - (boolean) Show polled information?
      * 'recent' - (integer) The number of new messages in the element (if
@@ -1847,6 +1848,7 @@ class IMP_Imap_Tree
             'level' => $mailbox['c'],
             'mbox_val' => htmlspecialchars($mailbox['v']),
             'name' => htmlspecialchars($mailbox['l']),
+            'nonimap' => $this->_isNonIMAPElt($mailbox),
             'parent' => $mailbox['p'],
             'polled' => false,
             'recent' => 0,

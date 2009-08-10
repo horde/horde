@@ -1945,7 +1945,7 @@ var DimpBase = {
         } else {
             switch (li.readAttribute('ftype')) {
             case 'container':
-            case 'vcontainer':
+            case 'scontainer':
                 e.stop();
                 break;
 
@@ -2002,16 +2002,20 @@ var DimpBase = {
             title = ob.t || ob.m;
 
         if (ob.v) {
-            ftype = ob.co ? 'vcontainer' : 'virtual';
+            ftype = ob.co ? 'scontainer' : 'virtual';
             title = label;
         } else if (ob.co) {
-            ftype = 'container';
+            if (ob.n) {
+                ftype = 'scontainer';
+                title = label;
+            } else {
+                ftype = 'container';
+            }
 
             /* This is a dummy container element to display child elements of
              * a mailbox displayed in the 'specialfolders' section. */
-            if (ob.s) {
+            if (ob.dummy) {
                 fid += '_special';
-                ob.s = false;
                 cname += ' specialContainer';
             }
         } else {
@@ -2049,7 +2053,8 @@ var DimpBase = {
                     div.removeClassName('exp').addClassName(ob.cl || 'folderImg');
 
                     tmp = Object.clone(ob);
-                    tmp.co = true;
+                    tmp.co = tmp.dummy = true;
+                    tmp.s = false;
                     this.createFolder(tmp);
                 }
             } else {
