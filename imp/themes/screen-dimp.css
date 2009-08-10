@@ -198,6 +198,8 @@ div.msgSize {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
     height: 16px;
     margin-bottom: 1px;
     text-indent: 1px;
