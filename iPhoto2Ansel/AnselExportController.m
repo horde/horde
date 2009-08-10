@@ -548,24 +548,26 @@ NSString * const TURAnselServerPasswordKey = @"password";
         
         /*** Pull out (and generate) all desired metadata before rescaling the image ***/
         // The CGImageSource for getting the image INTO Quartz
+        // TODO: All the metadata stuff needs to be pulled out into it's own class
         CGImageSourceRef source;
         
         // Dictionary to hold all metadata
         NSMutableDictionary *metadata;
         
-        // Read the image data into Quartz
-        NSURL *url = [NSURL fileURLWithPath: [mExportMgr imagePathAtIndex:i]];
-		source = CGImageSourceCreateWithURL((CFURLRef)url, NULL);
-        
-        // Prepare to get the data OUT of Quartz
-        NSData *data = [NSMutableData data];
-        CGImageDestinationRef destination = CGImageDestinationCreateWithData((CFMutableDataRef)data, (CFStringRef)@"public.jpeg", 1, NULL);
+        // Read the image into ImageIO (the only API that supports more then just EXIF metadata)
+        // Read it into a NSData object first, since we'll need that later on anyway...
+        NSData *theImageData = [[NSData alloc] initWithContentsOfFile: [mExportMgr imagePathAtIndex:i]];
+        source = CGImageSourceCreateWithData((CFDataRef)theImageData, NULL);
         
         // Get the metadata dictionary, cast it to NSDictionary the get a mutable copy of it
         CFDictionaryRef metadataRef = CGImageSourceCopyPropertiesAtIndex(source, 0, NULL);
         NSDictionary *immutableMetadata = (NSDictionary *)metadataRef;
         metadata = [immutableMetadata mutableCopy];
+        
+        // Clean up some stuff we own that we don't need anymore
+        immutableMetadata = nil;
         CFRelease(metadataRef);
+        CFRelease(source);
         
         // Get a mutable copy of the IPTC Dictionary for the image...create a 
         // new one if one doesn't exist in the image.
@@ -574,31 +576,31 @@ NSString * const TURAnselServerPasswordKey = @"password";
         if (!iptcDict) {
             iptcDict = [[NSMutableDictionary alloc] init];
         }
+        iptcData = nil;
         
-        // Get the keywords from the image and put it into the dictionary...should we check for them first?
+        // Get the keywords from the image and put it into the dictionary...
+        // TODO: should we check for any existing keywords first?
         NSArray *keywords = [mExportMgr imageKeywordsAtIndex: i];
-        [iptcDict setObject:keywords  forKey:(NSString *)kCGImagePropertyIPTCKeywords];
+        if (keywords) {
+            [iptcDict setObject:keywords  forKey:(NSString *)kCGImagePropertyIPTCKeywords];
+        }    
         
-        // Put the IPTC Dictionary (back?) into the metadata dictionary
+        // Add the title to the ObjectName field
+        NSString *imageDescription = [mExportMgr imageTitleAtIndex:i];
+        [iptcDict setObject:imageDescription forKey:(NSString *)kCGImagePropertyIPTCObjectName];
+        
+        // Add any ratings...not sure what Ansel will do with them yet, but no harm in including them
+        // eh...seems like quartz mistakenly puts this value into the keywords field???
+        //NSNumber *imageRating = [NSNumber numberWithInt: [mExportMgr imageRatingAtIndex:i]];
+        //[iptcDict setObject:imageRating forKey:(NSString *)kCGImagePropertyIPTCStarRating];
+        
+        // Add the IPTC Dictionary back into the metadata dictionary....we use this
+        // after the image is scaled.
         [metadata setObject:iptcDict forKey:(NSString *)kCGImagePropertyIPTCDictionary];
-
-        // Get the data out of quartz (image data is in *data now.
-        CGImageDestinationAddImageFromSource(destination, source, 0, (CFDictionaryRef)metadata);
-        BOOL success = CGImageDestinationFinalize(destination);        
         
-        CFRelease(source);
-        CFRelease(destination);
         
-        if (!success) {
-           // ??
-        }
-        
-        /*** TODO: This is wasteful, but do it this way for now to just test if this works as expected ***/
-        // Need to resize the image, but all metadata is lost...ideally we should only read the image in once though...
-        NSData *theImage = [[NSData alloc] initWithContentsOfFile: [mExportMgr imagePathAtIndex:i]];
-        //NSData *theImage = (NSData *)data;
-        
-        CGFloat imageSize;
+        // Prepare to scale the image now that we have the metadata out of it
+        float imageSize;
         switch([mSizePopUp selectedTag])
         {
             case 0:
@@ -618,41 +620,82 @@ NSString * const TURAnselServerPasswordKey = @"password";
                 break;
         }
         
-        
         [self postProgressStatus: [NSString stringWithFormat: @"Resizing image %d out of %d", (i+1), count]];
         
-        // Don't resize if we want original image...it will lose some metadata needlessly.
+        // Don't even touch this code if we are uploading the original image
         NSData *scaledData;
         if ([mSizePopUp selectedTag] != 3) {
-           scaledData = [ImageResizer getScaledImageFromData: theImage
-                                                      toSize: NSMakeSize(imageSize, imageSize)];
+            
+            // Put the image data into CIImage
+            CIImage *im = [CIImage imageWithData: theImageData];
+            
+            // Calculate the scale factor and the actual dimensions.
+            float yscale;
+            if([im extent].size.height > [im extent].size.width) {
+                yscale = imageSize / [im extent].size.height;
+            }  else {
+                yscale = imageSize / [im extent].size.width;
+            }
+            float finalW = ceilf(yscale * [im extent].size.width);
+            float finalH = ceilf(yscale * [im extent].size.height);
+            
+            // Do an affine clamp (This essentially make the image extent
+            // infinite but removes problems with certain image sizes causing
+            // edge artifacts.
+            CIFilter *clamp = [CIFilter filterWithName:@"CIAffineClamp"];
+            [clamp setValue:[NSAffineTransform transform] forKey:@"inputTransform"];
+            [clamp setValue:im forKey:@"inputImage"];
+            im = [clamp valueForKey:@"outputImage"];
+            
+            // Now perform the scale
+            CIFilter *f = [CIFilter filterWithName: @"CILanczosScaleTransform"];
+            [f setDefaults];
+            [f setValue:[NSNumber numberWithFloat:yscale]
+                 forKey:@"inputScale"];
+            [f setValue:[NSNumber numberWithFloat:1.0]
+                 forKey:@"inputAspectRatio"];
+            [f setValue:im forKey:@"inputImage"];
+            im = [f valueForKey:@"outputImage"];
+            
+            // Crop back to finite dimensions
+            CIFilter *crop = [CIFilter filterWithName:@"CICrop"];
+            [crop setValue:[CIVector vectorWithX:0.0
+                                               Y:0.0                                               
+                                               Z: finalW
+                                               W: finalH]
+                    forKey:@"inputRectangle"];
+            
+            [crop setValue: im forKey:@"inputImage"];
+            im = [crop valueForKey:@"outputImage"];
+   
+            // Now get the image back out into a NSData object
+            NSBitmapImageRep *bitmap = [[NSBitmapImageRep alloc] initWithCIImage: im];
+            NSDictionary *properties = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat: 0.9], NSImageCompressionFactor,
+            [NSNumber numberWithInt: 0], NSImageCompressionMethod, nil];
+            scaledData = [bitmap representationUsingType:NSJPEG2000FileType properties:properties];	
+
         } else {
-            scaledData = theImage;
+            scaledData = theImageData;
         }
         
         // Now we have resized image data, put back the metadata...
         source = CGImageSourceCreateWithData((CFDataRef)scaledData, NULL);
+        NSData *newData = [[NSMutableData alloc] init];
+        CGImageDestinationRef destination = CGImageDestinationCreateWithData((CFMutableDataRef)newData, (CFStringRef)@"public.jpeg", 1, NULL);
         
-        // Should we release, or clear or use a new data object?
-        NSData *newData = [NSMutableData data];
-        destination = CGImageDestinationCreateWithData((CFMutableDataRef)newData, (CFStringRef)@"public.jpeg", 1, NULL);
-        
-        // Get the data out of quartz (image data is in the NSData *data object now.
-        CGImageDestinationAddImageFromSource(destination, source, 0, (CFDictionaryRef)metadata);
-        success = CGImageDestinationFinalize(destination); // write metadata into the data object
-        
+        // Get the data out of quartz (image data is in the NSData *newData object now.
+         CGImageDestinationAddImageFromSource(destination, source, 0, (CFDictionaryRef)metadata);
+         CGImageDestinationFinalize(destination);
         [self postProgressStatus: [NSString stringWithFormat: @"Encoding image %d out of %d", (i+1), count]];
-//        NSString *base64ImageData = [NSString base64StringFromData: scaledData  
-//                                                            length: [scaledData length]];
         NSString *base64ImageData = [NSString base64StringFromData: newData  
                                                             length: [newData length]];
+        [newData release];
+        [theImageData release];
         
         // Get the filename/path for this image. This returns either the most
         // recent version of the image, the original, or (if RAW) the jpeg 
         // version of the original.
         NSString *filename = [mExportMgr imageFileNameAtIndex:i];
-        NSString *imageDescription = [mExportMgr imageTitleAtIndex:i];
-       // NSArray *keywords = [mExportMgr imageKeywordsAtIndex: i];
         
         NSArray *keys = [[NSArray alloc] initWithObjects:
                          @"filename", @"description", @"data", @"type", @"tags", nil];
@@ -666,10 +709,10 @@ NSString * const TURAnselServerPasswordKey = @"password";
                            keywords,
                            nil];
         
-        NSDictionary *imageData = [[NSDictionary alloc] initWithObjects:values
-                                                                forKeys:keys];
+        NSDictionary *imageDataDict = [[NSDictionary alloc] initWithObjects:values
+                                                                    forKeys:keys];
         NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                imageData, @"data", 
+                                imageDataDict, @"data", 
                                 [NSNumber numberWithBool:NO], @"default",
                                 nil];
         
@@ -678,7 +721,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
         [currentGallery uploadImageObject: params];
         [keys release];
         [values release];
-        [imageData release];
+        [imageDataDict release];
         [params release];
         [iptcDict release];
         [pool release];
