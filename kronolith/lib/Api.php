@@ -434,7 +434,7 @@ class Kronolith_Api extends Horde_Registry_Api
         $result = Kronolith::getDriver()->removeUserData($user);
 
         /* Now delete history as well. */
-        $history = &Horde_History::singleton();
+        $history = Horde_History::singleton();
         if (method_exists($history, 'removeByParent')) {
             $histories = $history->removeByParent('kronolith:' . $user);
         } else {
@@ -810,7 +810,7 @@ class Kronolith_Api extends Horde_Registry_Api
                     if (!is_a($existing_event, 'PEAR_Error')) {
                         // Check if our event is newer then the existing - get the
                         // event's history.
-                        $history = &Horde_History::singleton();
+                        $history = Horde_History::singleton();
                         $created = $modified = null;
                         $log = $history->getHistory('kronolith:' . $calendar . ':'
                             . $uid);
@@ -951,8 +951,8 @@ class Kronolith_Api extends Horde_Registry_Api
         }
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, PERMS_READ))) {
-                return PEAR::raiseError(_("Permission Denied"));
-            }
+            return PEAR::raiseError(_("Permission Denied"));
+        }
 
         $driver = Kronolith::getDriver(null, $calendar);
         if (is_a($driver, 'PEAR_Error')) {
@@ -995,10 +995,10 @@ class Kronolith_Api extends Horde_Registry_Api
 
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, PERMS_READ))) {
-                return PEAR::raiseError(_("Permission Denied"));
-            }
+            return PEAR::raiseError(_("Permission Denied"));
+        }
 
-        $history = &Horde_History::singleton();
+        $history = Horde_History::singleton();
         $histories = $history->getByTimestamp('>', $timestamp, array(array('op' => '=', 'field' => 'action', 'value' => $action)), 'kronolith:' . $calendar);
         if (is_a($histories, 'PEAR_Error')) {
             return $histories;
@@ -1028,10 +1028,10 @@ class Kronolith_Api extends Horde_Registry_Api
 
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, PERMS_READ))) {
-                return PEAR::raiseError(_("Permission Denied"));
-            }
+            return PEAR::raiseError(_("Permission Denied"));
+        }
 
-        $history = &Horde_History::singleton();
+        $history = Horde_History::singleton();
         return $history->getActionTimestamp('kronolith:' . $calendar . ':' .
             $uid, $action);
     }
@@ -1059,8 +1059,8 @@ class Kronolith_Api extends Horde_Registry_Api
         }
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, PERMS_EDIT))) {
-                return PEAR::raiseError(_("Permission Denied"));
-            }
+            return PEAR::raiseError(_("Permission Denied"));
+        }
 
         switch ($contentType) {
         case 'text/calendar':
@@ -1160,13 +1160,13 @@ class Kronolith_Api extends Horde_Registry_Api
         case 'text/x-vcalendar':
             $version = '1.0';
         case 'text/calendar':
-            $share = &$kronolith_shares->getShare($event->getCalendar());
+            $share = $kronolith_shares->getShare($event->getCalendar());
 
             $iCal = new Horde_iCalendar($version);
             $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), Horde_Nls::getCharset(), 'utf-8'));
 
             // Create a new vEvent.
-            $vEvent = &$event->toiCalendar($iCal);
+            $vEvent = $event->toiCalendar($iCal);
             $iCal->addComponent($vEvent);
 
             return $iCal->exportvCalendar();
@@ -1199,8 +1199,8 @@ class Kronolith_Api extends Horde_Registry_Api
 
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, PERMS_READ))) {
-                return PEAR::raiseError(_("Permission Denied"));
-            }
+            return PEAR::raiseError(_("Permission Denied"));
+        }
 
         $kronolith_driver = Kronolith::getDriver(null, $calendar);
         $events = $kronolith_driver->listEvents();
@@ -1210,14 +1210,14 @@ class Kronolith_Api extends Horde_Registry_Api
         case 'text/x-vcalendar':
             $version = '1.0';
         case 'text/calendar':
-            $share = &$kronolith_shares->getShare($calendar);
+            $share = $kronolith_shares->getShare($calendar);
 
             $iCal = new Horde_iCalendar($version);
             $iCal->setAttribute('X-WR-CALNAME', Horde_String::convertCharset($share->get('name'), Horde_Nls::getCharset(), 'utf-8'));
 
             foreach ($events as $dayevents) {
                 foreach ($dayevents as $event) {
-                    $vEvent = &$event->toiCalendar($iCal);
+                    $vEvent = $event->toiCalendar($iCal);
                     $iCal->addComponent($vEvent);
                 }
             }
@@ -1321,8 +1321,8 @@ class Kronolith_Api extends Horde_Registry_Api
 
         if (!$event->hasPermission(PERMS_EDIT) ||
             ($event->isPrivate() && $event->getCreatorId() != Horde_Auth::getAuth())) {
-                return PEAR::raiseError(_("Permission Denied"));
-            }
+            return PEAR::raiseError(_("Permission Denied"));
+        }
 
         if (is_a($content, 'Horde_iCalendar_vevent')) {
             $component = $content;
@@ -1472,8 +1472,8 @@ class Kronolith_Api extends Horde_Registry_Api
 
         if (empty($event) ||
             ($event->isPrivate() && $event->getCreatorId() != Horde_Auth::getAuth())) {
-                return PEAR::raiseError(_("Permission Denied"));
-            }
+            return PEAR::raiseError(_("Permission Denied"));
+        }
 
         $atnames = $response->getAttribute('ATTENDEE');
         if (!is_array($atnames)) {
@@ -1567,7 +1567,7 @@ class Kronolith_Api extends Horde_Registry_Api
             return PEAR::raiseError(_("Permission Denied"));
         }
 
-        $group = &Group::singleton();
+        $group = Group::singleton();
         $alarm_list = array();
         $time = new Horde_Date($time);
         $calendars = is_null($user) ? array_keys($GLOBALS['kronolith_shares']->listAllShares()) : $GLOBALS['display_calendars'];
@@ -1597,9 +1597,9 @@ class Kronolith_Api extends Horde_Registry_Api
             foreach ($cal_alarms as $event) {
                 foreach ($users as $alarm_user) {
                     if ($alarm_user == $current_user) {
-                        $prefs = &$GLOBALS['prefs'];
+                        $prefs = $GLOBALS['prefs'];
                     } else {
-                        $prefs = &Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
+                        $prefs = Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
                             'kronolith', $alarm_user, null,
                             null, false);
                     }
@@ -1730,10 +1730,10 @@ class Kronolith_Api extends Horde_Registry_Api
 
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, PERMS_EDIT))) {
-                return PEAR::raiseError(_("Permission Denied"));
-            }
-        $share = &$GLOBALS['kronolith_shares']->getShare($calendar);
+            return PEAR::raiseError(_("Permission Denied"));
+        }
 
+        $share = $GLOBALS['kronolith_shares']->getShare($calendar);
         return $share->lock($calendar, $event);
     }
 
@@ -1750,10 +1750,10 @@ class Kronolith_Api extends Horde_Registry_Api
 
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, PERMS_EDIT))) {
-                return PEAR::raiseError(_("Permission Denied"));
-            }
-        $share = &$GLOBALS['kronolith_shares']->getShare($calendar);
+            return PEAR::raiseError(_("Permission Denied"));
+        }
 
+        $share = $GLOBALS['kronolith_shares']->getShare($calendar);
         return $share->unlock($lockid);
     }
 
@@ -1770,10 +1770,10 @@ class Kronolith_Api extends Horde_Registry_Api
 
         if (!array_key_exists($calendar,
             Kronolith::listCalendars(false, PERMS_READ))) {
-                return PEAR::raiseError(_("Permission Denied"));
-            }
-        $share = &$GLOBALS['kronolith_shares']->getShare($calendar);
+            return PEAR::raiseError(_("Permission Denied"));
+        }
 
+        $share = $GLOBALS['kronolith_shares']->getShare($calendar);
         return $share->checkLocks($event);
     }
 
