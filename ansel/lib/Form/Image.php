@@ -41,7 +41,7 @@ class Ansel_Form_Image extends Horde_Form
 
         $this->addHidden('', 'image0', 'text', false);
         $upload = &$this->addVariable(
-        _("Replace photo with this file"), 'file0', 'image', false, false,
+        _("Replace photo with this file"), 'file0', 'file', false, false,
         _("Maximum photo size:") . ' '  . $filesize, array(false));
         $upload->setHelp('upload');
     }

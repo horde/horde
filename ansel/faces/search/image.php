@@ -13,8 +13,8 @@ require_once 'tabs.php';
 
 /* Search from */
 $form = new Horde_Form($vars);
-$msg = _("Please upload photo with the face to search for. You can search only one face per time.");
-$form->addVariable(_("Face to search for"), 'image', 'image', true, false, $msg, array(false));
+$msg = _("Please upload photo with the face to search for. You can search only one face at a time.");
+$form->addVariable(_("Face to search for"), 'image', 'file', true, false, $msg, array(false));
 $form->setButtons(_("Upload"));
 
 if ($form->validate()) {

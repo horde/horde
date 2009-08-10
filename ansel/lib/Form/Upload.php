@@ -35,7 +35,7 @@ class Ansel_Form_Upload extends Horde_Form
         $this->addHidden('', 'image0', 'text', false);
         if (!strlen($vars->get('image0'))) {
             $upload = &$this->addVariable(
-                _("File to upload"), 'file0', 'image', false, false,
+                _("File to upload"), 'file0', 'file', false, false,
                 _("Maximum photo size:") . ' '  . $filesize, array(false));
             $upload->setHelp('upload');
         }
@@ -55,7 +55,7 @@ class Ansel_Form_Upload extends Horde_Form
         for ($i = 1; $i <= $conf['image']['num_uploads']; $i++) {
             $this->addHidden('', 'image' . $i, 'text', false);
             if (!strlen($vars->get('image' . $i))) {
-                $upload = &$this->addVariable(sprintf(_("File %s"), $i), 'file' . $i, 'image', false, false, null, array(false));
+                $upload = &$this->addVariable(sprintf(_("File %s"), $i), 'file' . $i, 'file', false, false, null, array(false));
                 $upload->setHelp('upload');
             }
         }
