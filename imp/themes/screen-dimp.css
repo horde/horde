@@ -984,7 +984,7 @@ div.vpRow div.msgSubject span.flagUser {
 }
 
 /* Thread images */
-span.threadImg {
+div.msgSubject span.treeImg {
     margin-top: -4px;
     margin-right: 1px;
 }
