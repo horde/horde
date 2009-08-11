@@ -29,42 +29,6 @@ class Ansel_Api extends Horde_Registry_Api
     }
 
     /**
-     * TODO
-     */
-    public function prefsHandle($item, $updated)
-    {
-        switch ($item) {
-        case 'default_category_select':
-            $default_category = Horde_Util::getFormData('default_category_select');
-            if (!is_null($default_category)) {
-                $GLOBALS['prefs']->setValue('default_category', $default_category);
-                return true;
-            }
-            break;
-
-        case 'default_gallerystyle_select':
-            $default_style = Horde_Util::getFormData('default_gallerystyle_select');
-            if (!is_null($default_style)) {
-                $GLOBALS['prefs']->setValue('default_gallerystyle', $default_style);
-                return true;
-            }
-            break;
-        }
-
-        return $updated;
-    }
-
-    /**
-     * Generate the menu to use on the prefs page.
-     *
-     * @return Horde_Menu  A Horde_Menu object.
-     */
-    public function prefsMenu()
-    {
-        return Ansel::getMenu();
-    }
-
-    /**
      * Browse through Ansel's gallery tree.
      *
      * @param string $path       The level of the tree to browse.

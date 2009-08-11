@@ -41,21 +41,11 @@ class News_Api extends Horde_Registry_Api
     }
 
     /**
-     * Generate the menu to use on the prefs page.
-     *
-     * @return Horde_Menu  A Horde_Menu object.
-     */
-    public function prefsMenu()
-    {
-        return News::getMenu();
-    }
-
-    /**
      * Callback for comment API
      *
-     * @param int $id                Internal data identifier
-     * @param string $type      Type of data to retreive (title, owner...)
-     * @param array $params Additional parameters
+     * @param int $id        Internal data identifier
+     * @param string $type   Type of data to retreive (title, owner...)
+     * @param array $params  Additional parameters
      */
     public function commentCallback($id, $type = 'title', $params = null)
     {

@@ -38,34 +38,6 @@ class Gollem_Api extends Horde_Registry_Api
     }
 
     /**
-     * TODO
-     */
-    public function prefsHandle($item, $updated)
-    {
-        switch ($item) {
-        case 'columnselect':
-            $columns = Horde_Util::getFormData('columns');
-            if (!empty($columns)) {
-                $GLOBALS['prefs']->setValue('columns', $columns);
-                return true;
-            }
-            break;
-        }
-
-        return $updated;
-    }
-
-    /**
-     * Generate the menu to use on the prefs page.
-     *
-     * @return Horde_Menu  A Horde_Menu object.
-     */
-    public function prefsMenu()
-    {
-        return Gollem::getMenu();
-    }
-
-    /**
      * Browses through the VFS tree.
      *
      * Each VFS backend is listed as a directory at the top level.  No modify
