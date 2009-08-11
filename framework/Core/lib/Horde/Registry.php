@@ -913,8 +913,11 @@ class Horde_Registry
         }
 
         /* Include base.php file. */
+        // TODO: Remove once there is no more base.php files
         if (!empty($options['load_base'])) {
-            require_once $app_lib . '/base.php';
+            if (file_exists($app_lib . '/base.php')) {
+                require_once $app_lib . '/base.php';
+            }
         }
 
         return true;
