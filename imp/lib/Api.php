@@ -103,37 +103,6 @@ class IMP_Api extends Horde_Registry_Api
         return $credentials;
     }
 
-    /**
-     * Application-specific cache output driver.
-     *
-     * @param array $params  A list of params needed (USED: 'id').
-     *
-     * @return array  See Horde::getCacheUrl().
-     * @throws Horde_Exception
-     */
-    public function cacheOutput($params)
-    {
-        require_once dirname(__FILE__) . '/Application.php';
-        try {
-            new IMP_Application(array('init' => array('authentication' => 'throw')));
-        } catch (Horde_Exception $e) {
-            throw new Horde_Exception('No cache data available');
-        }
-
-        switch ($params['id']) {
-        case 'fckeditor':
-            return array(
-                'data' =>
-                    'FCKConfig.ToolbarSets["ImpToolbar"] = ' . $GLOBALS['prefs']->getValue('fckeditor_buttons') . ";\n" .
-                    /* To more closely match "normal" textarea behavior, send
-                     * send <BR> on enter instead of <P>. */
-                    "FCKConfig.EnterMode = 'br';\n" .
-                    'FCKConfig.ShiftEnterMode = \'p\';',
-                'type' => 'text/javascript'
-            );
-        }
-    }
-
     /* IMP-specific functions. */
 
     /**
