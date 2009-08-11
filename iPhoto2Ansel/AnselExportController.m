@@ -493,13 +493,15 @@ NSString * const TURAnselServerPasswordKey = @"password";
                               toTarget: self 
                             withObject: nil];
     [p release];
-    [pool release];
+    [pool drain];
 }
 
 // Runs in a new thread.
 - (void)connect
 {
+    NSAutoreleasePool *threadPool = [[NSAutoreleasePool alloc] init];
     [anselController connect];
+    [threadPool drain];
 }
 
 // Update our progress controller. Always update on the main thread.
@@ -529,6 +531,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 // Runs the actual export (This is run in it's own thread)
 - (void) runExport
 {   
+    NSAutoreleasePool *threadPool = [[NSAutoreleasePool alloc] init];
     // Init the progress bar and image counts.
     int count = [mExportMgr imageCount];
     currentImageCount = 0;   
@@ -636,7 +639,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
             float finalW = ceilf(yscale * [im extent].size.width);
             float finalH = ceilf(yscale * [im extent].size.height);
             
-            // Do an affine clamp (This essentially make the image extent
+            // Do an affine clamp (This essentially makes the image extent
             // infinite but removes problems with certain image sizes causing
             // edge artifacts.
             CIFilter *clamp = [CIFilter filterWithName:@"CIAffineClamp"];
@@ -682,11 +685,13 @@ NSString * const TURAnselServerPasswordKey = @"password";
         CGImageDestinationSetProperties(destination, (CFDictionaryRef)destProps);
         
         // Get the data out of quartz (image data is in the NSData *newData object now.
-         CGImageDestinationAddImageFromSource(destination, source, 0, (CFDictionaryRef)metadata);
-         CGImageDestinationFinalize(destination);
+        CGImageDestinationAddImageFromSource(destination, source, 0, (CFDictionaryRef)metadata);
+        CGImageDestinationFinalize(destination);
+        CFRelease(source);
         [self postProgressStatus: [NSString stringWithFormat: @"Encoding image %d out of %d", (i+1), count]];
         NSString *base64ImageData = [NSString base64StringFromData: newData  
                                                             length: [newData length]];
+        CFRelease(destination);
         [newData release];
         [theImageData release];
         
@@ -720,9 +725,10 @@ NSString * const TURAnselServerPasswordKey = @"password";
         [keys release];
         [values release];
         [imageDataDict release];
+        [metadata release];
         [params release];
         [iptcDict release];
-        [pool release];
+        [pool drain];
         i++;
     }
     
@@ -744,6 +750,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [mServersPopUp selectItemAtIndex: 0];
     [self disconnect];
     [mExportMgr cancelExportBeforeBeginning];
+    [threadPool drain];
 }
 
 - (void)setStatusText: (NSString *)message withColor:(NSColor *)theColor
