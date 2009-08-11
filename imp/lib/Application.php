@@ -725,4 +725,25 @@ class IMP_Application extends Horde_Registry_Application
         }
     }
 
+    /* Language change callback. */
+
+    /**
+     * Performs tasks necessary when the language is changed during the
+     * session.
+     */
+    public function changeLanguage()
+    {
+        try {
+            $this->init(array('authentication' => 'throw'));
+        } catch (Horde_Exception $e) {
+            return;
+        }
+
+        $imp_folder = IMP_Folder::singleton();
+        $imp_folder->clearFlistCache();
+        $imaptree = IMP_Imap_Tree::singleton();
+        $imaptree->init();
+        $GLOBALS['imp_search']->initialize(true);
+    }
+
 }

@@ -46,26 +46,6 @@ class IMP_Api extends Horde_Registry_Api
     }
 
     /**
-     * Performs tasks necessary when the language is changed during the
-     * session.
-     */
-    public function changeLanguage()
-    {
-        require_once dirname(__FILE__) . '/Application.php';
-        try {
-            new IMP_Application(array('init' => array('authentication' => 'throw')));
-        } catch (Horde_Exception $e) {
-            return;
-        }
-
-        $imp_folder = IMP_Folder::singleton();
-        $imp_folder->clearFlistCache();
-        $imaptree = IMP_Imap_Tree::singleton();
-        $imaptree->init();
-        $GLOBALS['imp_search']->initialize(true);
-    }
-
-    /**
      * Returns a list of authentication credentials, i.e. server settings that
      * can be specified by the user on the login screen.
      *
