@@ -70,7 +70,9 @@ class IMP_Notification_Listener_Status extends Horde_Notification_Listener_Statu
      */
     public function notify(&$messageStack, $options = array())
     {
-        $options['store'] = true;
+        if ($this->_viewmode == 'dimp') {
+            $options['store'] = true;
+        }
 
         /* Display IMAP alerts. */
         foreach ($GLOBALS['imp_imap']->ob->alerts() as $alert) {
