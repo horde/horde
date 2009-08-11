@@ -746,4 +746,44 @@ class IMP_Application extends Horde_Registry_Application
         $GLOBALS['imp_search']->initialize(true);
     }
 
+    /* Horde_Prefs_Credentials:: methods. */
+
+    /**
+     * Returns a list of authentication credentials, i.e. server settings that
+     * can be specified by the user on the login screen.
+     *
+     * @return array  A hash with credentials, suited for the preferences
+     *                interface.
+     */
+    public function authCredentials()
+    {
+        $app_name = $GLOBALS['registry']->get('name');
+
+        $servers = IMP_Imap::loadServerConfig();
+        $server_list = array();
+        foreach ($servers as $key => $val) {
+            $server_list[$key] = $val['name'];
+        }
+        reset($server_list);
+
+        $credentials = array(
+            'username' => array(
+                'desc' => sprintf(_("%s for %s"), _("Username"), $app_name),
+                'type' => 'text'
+            ),
+            'password' => array(
+                'desc' => sprintf(_("%s for %s"), _("Password"), $app_name),
+                'type' => 'password'
+            ),
+            'server' => array(
+                'desc' => sprintf(_("%s for %s"), _("Server"), $app_name),
+                'type' => 'enum',
+                'enum' => $server_list,
+                'value' => key($server_list)
+            )
+        );
+
+        return $credentials;
+    }
+
 }
