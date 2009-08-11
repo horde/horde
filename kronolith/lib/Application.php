@@ -252,4 +252,68 @@ class Kronolith_Application extends Horde_Registry_Application
         $GLOBALS['prefs']->setValue('fb_cals', serialize($fb_calsFiltered));
     }
 
+    /**
+     * Removes user data.
+     *
+     * @param string $user  Name of user to remove data for.
+     *
+     * @return mixed  true on success | PEAR_Error on failure
+     */
+    public function removeUserData($user)
+    {
+        if (!Horde_Auth::isAdmin() && $user != Horde_Auth::getAuth()) {
+            return PEAR::raiseError(_("You are not allowed to remove user data."));
+        }
+
+        $no_maint = true;
+        require_once dirname(__FILE__) . '/base.php';
+
+        /* Remove all events owned by the user in all calendars. */
+        $result = Kronolith::getDriver()->removeUserData($user);
+
+        /* Now delete history as well. */
+        $history = Horde_History::singleton();
+        if (method_exists($history, 'removeByParent')) {
+            $histories = $history->removeByParent('kronolith:' . $user);
+        } else {
+            /* Remove entries 100 at a time. */
+            $all = $history->getByTimestamp('>', 0, array(), 'kronolith:' . $user);
+            if (is_a($all, 'PEAR_Error')) {
+                Horde::logMessage($all, __FILE__, __LINE__, PEAR_LOG_ERR);
+            } else {
+                $all = array_keys($all);
+                while (count($d = array_splice($all, 0, 100)) > 0) {
+                    $history->removebyNames($d);
+                }
+            }
+        }
+
+        if (is_a($result, 'PEAR_Error')) {
+            return $result;
+        }
+
+        /* Get the user's default share */
+        $share = $GLOBALS['kronolith_shares']->getShare($user);
+        if (is_a($share, 'PEAR_Error')) {
+            Horde::logMessage($share, __FILE__, __LINE__, PEAR_LOG_ERR);
+        } else {
+            $result = $GLOBALS['kronolith_shares']->removeShare($share);
+            if (is_a($result, 'PEAR_Error')) {
+                $hasError = true;
+                Horde::logMessage($result->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            }
+        }
+
+        /* Get a list of all shares this user has perms to and remove the perms */
+        $shares = $GLOBALS['kronolith_shares']->listShares($user);
+        if (is_a($shares, 'PEAR_Error')) {
+            Horde::logMessage($shares, __FILE__, __LINE__, PEAR_LOG_ERR);
+        }
+        foreach ($shares as $share) {
+            $share->removeUser($user);
+        }
+
+        return true;
+    }
+
 }

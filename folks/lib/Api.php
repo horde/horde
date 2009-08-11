@@ -366,16 +366,4 @@ class Folks_Api extends Horde_Registry_Api
         return $GLOBALS['folks_driver']->isOnline($user);
     }
 
-    /**
-     * Deletes a user and its data
-     *
-     * @param string $userId  The userId to delete.
-     *
-     * @return boolean  True on success or a PEAR_Error object on failure.
-     */
-    public function removeUserData($user = null)
-    {
-        return $this->removeUser($user);
-    }
-
 }

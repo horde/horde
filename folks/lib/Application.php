@@ -96,4 +96,17 @@ class Folks_Application extends Horde_Registry_Application
         return $GLOBALS['folks_driver']->deleteUser($userId);
     }
 
+
+    /**
+     * Deletes a user and its data
+     *
+     * @param string $userId  The userId to delete.
+     *
+     * @return boolean  True on success or a PEAR_Error object on failure.
+     */
+    public function removeUserData($user = null)
+    {
+        return $this->authRemoveUser($user);
+    }
+
 }
