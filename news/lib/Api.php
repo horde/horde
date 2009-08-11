@@ -13,34 +13,6 @@
 class News_Api extends Horde_Registry_Api
 {
     /**
-     * Categories/Permissions
-     */
-    public function perms()
-    {
-        static $perms = array();
-        if (!empty($perms)) {
-            return $perms;
-        }
-
-        $perms['tree']['news']['admin'] = true;
-        $perms['title']['news:admin'] = _("Admin");
-
-        $perms['tree']['news']['editors'] = true;
-        $perms['title']['news:editors'] = _("Editors");
-
-        require_once dirname(__FILE__) . '/base.php';
-        $tree = $GLOBALS['news_cat']->getEnum();
-
-        $perms['title']['news:categories'] = _("Categories");
-        foreach ($tree as $cat_id => $cat_name) {
-            $perms['tree']['news']['categories'][$cat_id] = false;
-            $perms['title']['news:categories:' . $cat_id] = $cat_name;
-        }
-
-        return $perms;
-    }
-
-    /**
      * Callback for comment API
      *
      * @param int $id        Internal data identifier

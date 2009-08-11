@@ -19,21 +19,6 @@ class Nag_Api extends Horde_Registry_Api
     );
 
     /**
-     * Returns a list of available permissions.
-     *
-     * @return array  An array describing all available permissions.
-     */
-    public function perms()
-    {
-        $perms = array();
-        $perms['tree']['nag']['max_tasks'] = false;
-        $perms['title']['nag:max_tasks'] = _("Maximum Number of Tasks");
-        $perms['type']['nag:max_tasks'] = 'int';
-
-        return $perms;
-    }
-
-    /**
      * Removes user data.
      *
      * @param string $user  Name of user to remove data for.

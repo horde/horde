@@ -20,6 +20,33 @@ class Gollem_Application extends Horde_Registry_Application
     public $version = 'H4 (2.0-git)';
 
     /**
+     * Returns a list of available permissions.
+     *
+     * @return array  An array describing all available permissions.
+     */
+    public function perms()
+    {
+        static $perms = array();
+        if (!empty($perms)) {
+            return $perms;
+        }
+
+        require_once dirname(__FILE__) . '/base.load.php';
+        require GOLLEM_BASE . '/config/backends.php';
+
+        $perms['tree']['gollem']['backends'] = false;
+        $perms['title']['gollem:backends'] = _("Backends");
+
+        // Run through every backend.
+        foreach ($backends as $backend => $curBackend) {
+            $perms['tree']['gollem']['backends'][$backend] = false;
+            $perms['title']['gollem:backends:' . $backend] = $curBackend['name'];
+        }
+
+        return $perms;
+    }
+
+    /**
      * Special preferences handling on update.
      *
      * @param string $item      The preference name.

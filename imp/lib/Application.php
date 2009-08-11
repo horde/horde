@@ -162,6 +162,39 @@ class IMP_Application extends Horde_Registry_Application
         IMP::initialize();
     }
 
+    /* Horde permissions. */
+
+    /**
+     * Returns a list of available permissions.
+     *
+     * @return array  An array describing all available permissions.
+     */
+    public function perms()
+    {
+        return array(
+            'tree' => array(
+                'imp' => array(
+                     'create_folders' => false,
+                     'max_folders' => false,
+                     'max_recipients' => false,
+                     'max_timelimit' => false,
+                 ),
+            ),
+            'title' => array(
+                'imp:create_folders' => _("Allow Folder Creation?"),
+                'imp:max_folders' => _("Maximum Number of Folders"),
+                'imp:max_recipients' => _("Maximum Number of Recipients per Message"),
+                'imp:max_timelimit' => _("Maximum Number of Recipients per Time Period"),
+            ),
+            'type' => array(
+                'imp:create_folders' => 'boolean',
+                'imp:max_folders' => 'int',
+                'imp:max_recipients' => 'int',
+                'imp:max_timelimit' => 'int',
+            )
+        );
+    }
+
     /* Horde_Auth_Application methods. */
 
     /**

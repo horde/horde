@@ -14,6 +14,36 @@ class Turba_Application extends Horde_Registry_Application
     public $version = 'H3 (3.0-git)';
 
     /**
+     * Returns a list of available permissions.
+     *
+     * @return array  An array describing all available permissions.
+     */
+    public function perms()
+    {
+        static $perms = array();
+        if (!empty($perms)) {
+            return $perms;
+        }
+
+        require_once dirname(__FILE__) . '/base.php';
+        require TURBA_BASE . '/config/sources.php';
+
+        $perms['tree']['turba']['sources'] = false;
+        $perms['title']['turba:sources'] = _("Sources");
+
+        // Run through every contact source.
+        foreach ($cfgSources as $source => $curSource) {
+            $perms['tree']['turba']['sources'][$source] = false;
+            $perms['title']['turba:sources:' . $source] = $curSource['title'];
+            $perms['tree']['turba']['sources'][$source]['max_contacts'] = false;
+            $perms['title']['turba:sources:' . $source . ':max_contacts'] = _("Maximum Number of Contacts");
+            $perms['type']['turba:sources:' . $source . ':max_contacts'] = 'int';
+        }
+
+        return $perms;
+    }
+
+    /**
      * Code to run when viewing prefs for this application.
      *
      * @param string $group  The prefGroup name.

@@ -9,6 +9,21 @@ class Kronolith_Application extends Horde_Registry_Application
     public $version = 'H3 (3.0-git)';
 
     /**
+     * Returns a list of available permissions.
+     *
+     * @return array  An array describing all available permissions.
+     */
+    public function perms()
+    {
+        $perms = array();
+        $perms['tree']['kronolith']['max_events'] = false;
+        $perms['title']['kronolith:max_events'] = _("Maximum Number of Events");
+        $perms['type']['kronolith:max_events'] = 'int';
+
+        return $perms;
+    }
+
+    /**
      * Code to run when viewing prefs for this application.
      *
      * @param string $group  The prefGroup name.

@@ -15,20 +15,6 @@
 class Ansel_Api extends Horde_Registry_Api
 {
     /**
-     * Returns a list of available permissions.
-     *
-     * @return array  An array describing all available permissions.
-     */
-    public function perms()
-    {
-        $perms = array();
-        $perms['tree']['ansel']['admin'] = false;
-        $perms['title']['ansel:admin'] = _("Administrators");
-
-        return $perms;
-    }
-
-    /**
      * Browse through Ansel's gallery tree.
      *
      * @param string $path       The level of the tree to browse.

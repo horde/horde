@@ -17,6 +17,20 @@ class Ansel_Application extends Horde_Registry_Application
     public $version = 'H4 (2.0-git)';
 
     /**
+     * Returns a list of available permissions.
+     *
+     * @return array  An array describing all available permissions.
+     */
+    public function perms()
+    {
+        $perms = array();
+        $perms['tree']['ansel']['admin'] = false;
+        $perms['title']['ansel:admin'] = _("Administrators");
+
+        return $perms;
+    }
+
+    /**
      * Special preferences handling on update.
      *
      * @param string $item      The preference name.

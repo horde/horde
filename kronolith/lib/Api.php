@@ -19,21 +19,6 @@ class Kronolith_Api extends Horde_Registry_Api
     );
 
     /**
-     * Returns a list of available permissions.
-     *
-     * @return array  An array describing all available permissions.
-     */
-    public function perms()
-    {
-        $perms = array();
-        $perms['tree']['kronolith']['max_events'] = false;
-        $perms['title']['kronolith:max_events'] = _("Maximum Number of Events");
-        $perms['type']['kronolith:max_events'] = 'int';
-
-        return $perms;
-    }
-
-    /**
      * Removes user data.
      *
      * @param string $user  Name of user to remove data for.

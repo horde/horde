@@ -23,31 +23,6 @@ class Ingo_Api extends Horde_Registry_Api
     );
 
     /**
-     * Returns a list of available permissions.
-     *
-     * @return array  An array describing all available permissions.
-     */
-    public function perms()
-    {
-        return array(
-            'title' => array(
-                'ingo:allow_rules' => _("Allow Rules"),
-                'ingo:max_rules' => _("Maximum Number of Rules")
-            ),
-            'tree' => array(
-                'ingo' => array(
-                    'allow_rules' => false,
-                    'max_rules' => false
-                )
-            ),
-            'type' => array(
-                'ingo:allow_rules' => 'boolean',
-                'ingo:max_rules' => 'int'
-            )
-        );
-    }
-
-    /**
      * Removes user data.
      *
      * @param string $user  Name of user to remove data for.

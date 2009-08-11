@@ -14,6 +14,21 @@ class Nag_Application extends Horde_Registry_Application
     public $version = 'H4 (3.0-git)';
 
     /**
+     * Returns a list of available permissions.
+     *
+     * @return array  An array describing all available permissions.
+     */
+    public function perms()
+    {
+        $perms = array();
+        $perms['tree']['nag']['max_tasks'] = false;
+        $perms['title']['nag:max_tasks'] = _("Maximum Number of Tasks");
+        $perms['type']['nag:max_tasks'] = 'int';
+
+        return $perms;
+    }
+
+    /**
      * Special preferences handling on update.
      *
      * @param string $item      The preference name.

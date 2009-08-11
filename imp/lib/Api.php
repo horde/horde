@@ -12,41 +12,6 @@
  */
 class IMP_Api extends Horde_Registry_Api
 {
-    /* Horde-defined functions. */
-
-    /**
-     * Returns a list of available permissions.
-     *
-     * @return array  The permissions list.
-     */
-    public function perms()
-    {
-        return array(
-            'tree' => array(
-                'imp' => array(
-                     'create_folders' => false,
-                     'max_folders' => false,
-                     'max_recipients' => false,
-                     'max_timelimit' => false,
-                 ),
-            ),
-            'title' => array(
-                'imp:create_folders' => _("Allow Folder Creation?"),
-                'imp:max_folders' => _("Maximum Number of Folders"),
-                'imp:max_recipients' => _("Maximum Number of Recipients per Message"),
-                'imp:max_timelimit' => _("Maximum Number of Recipients per Time Period"),
-            ),
-            'type' => array(
-                'imp:create_folders' => 'boolean',
-                'imp:max_folders' => 'int',
-                'imp:max_recipients' => 'int',
-                'imp:max_timelimit' => 'int',
-            )
-        );
-    }
-
-    /* IMP-specific functions. */
-
     /**
      * Returns a compose window link.
      *

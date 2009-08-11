@@ -13,31 +13,6 @@
 class Gollem_Api extends Horde_Registry_Api
 {
     /**
-     * TODO
-     */
-    public function perms()
-    {
-        static $perms = array();
-        if (!empty($perms)) {
-            return $perms;
-        }
-
-        require_once dirname(__FILE__) . '/base.load.php';
-        require GOLLEM_BASE . '/config/backends.php';
-
-        $perms['tree']['gollem']['backends'] = false;
-        $perms['title']['gollem:backends'] = _("Backends");
-
-        // Run through every backend.
-        foreach ($backends as $backend => $curBackend) {
-            $perms['tree']['gollem']['backends'][$backend] = false;
-            $perms['title']['gollem:backends:' . $backend] = $curBackend['name'];
-        }
-
-        return $perms;
-    }
-
-    /**
      * Browses through the VFS tree.
      *
      * Each VFS backend is listed as a directory at the top level.  No modify
