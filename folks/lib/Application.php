@@ -21,4 +21,79 @@ class Folks_Application extends Horde_Registry_Application
         return Folks::getMenu();
     }
 
+    /**
+     * Authenticate a givern user
+     *
+     * @param string $userID       Username
+     * @param array  $credentials  Array of criedentials (password requied)
+     * @param array  $params       Additional params
+     *
+     * @return boolean  Whether IMP authentication was successful.
+     */
+    public function authAuthenticate($userID, $credentials, $params)
+    {
+        require_once dirname(__FILE__) . '/base.php';
+
+        return $GLOBALS['folks_driver']->comparePassword($userID, $credentials['password']);
+    }
+
+    /**
+     * Check if a user exists
+     *
+     * @param string $userID       Username
+     *
+     * @return boolean  True if user exists
+     */
+    public function authUserExists($userId)
+    {
+        require_once dirname(__FILE__) . '/base.php';
+
+        return $GLOBALS['folks_driver']->userExists($userId);
+    }
+
+    /**
+     * Lists all users in the system.
+     *
+     * @return array  The array of userIds, or a PEAR_Error object on failure.
+     */
+    public function authUserList()
+    {
+        require_once dirname(__FILE__) . '/base.php';
+
+        $users = array();
+        foreach ($GLOBALS['folks_driver']->getUsers() as $user) {
+            $users[] = $user['user_uid'];
+        }
+
+        return $users;
+    }
+
+    /**
+     * Adds a set of authentication credentials.
+     *
+     * @param string $userId  The userId to add.
+     *
+     * @return boolean  True on success or a PEAR_Error object on failure.
+     */
+    public function authAddUser($userId)
+    {
+        require_once dirname(__FILE__) . '/base.php';
+
+        return $GLOBALS['folks_driver']->addUser($userId);
+    }
+
+    /**
+     * Deletes a set of authentication credentials.
+     *
+     * @param string $userId  The userId to delete.
+     *
+     * @return boolean  True on success or a PEAR_Error object on failure.
+     */
+    public function authRemoveUser($userId)
+    {
+        require_once dirname(__FILE__) . '/base.php';
+
+        return $GLOBALS['folks_driver']->deleteUser($userId);
+    }
+
 }
