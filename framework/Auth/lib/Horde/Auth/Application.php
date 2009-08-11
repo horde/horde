@@ -155,7 +155,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
     {
         if ($this->hasCapability('exists')) {
             $registry = Horde_Registry::singleton();
-            return $registry->callAppMethod($this->_app, $this->_apiMethods['exists'], array($userId));
+            return $registry->callAppMethod($this->_app, $this->_apiMethods['exists'], array('args' => array($userId)));
         } else {
             return parent::exists($userId);
         }
@@ -173,7 +173,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
     {
         if ($this->hasCapability('add')) {
             $registry = Horde_Registry::singleton();
-            $registry->callAppMethod($this->_app, $this->_apiMethods['exists'], array($userId, $credentials));
+            $registry->callAppMethod($this->_app, $this->_apiMethods['exists'], array('args' => array($userId, $credentials)));
         } else {
             parent::addUser($userId, $credentials);
         }
@@ -192,7 +192,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
     {
         if ($this->hasCapability('update')) {
             $registry = Horde_Registry::singleton();
-            $registry->callAppMethod($this->_app, $this->_apiMethods['update'], array($oldID, $newID, $credentials));
+            $registry->callAppMethod($this->_app, $this->_apiMethods['update'], array('args' => array($oldID, $newID, $credentials)));
         } else {
             parent::updateUser($userId, $credentials);
         }
@@ -209,7 +209,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
     {
         if ($this->hasCapability('remove')) {
             $registry = Horde_Registry::singleton();
-            $registry->callAppMethod($this->_app, $this->_apiMethods['remove'], array($userId));
+            $registry->callAppMethod($this->_app, $this->_apiMethods['remove'], array('args' => array($userId)));
             Horde_Auth::removeUserData($userId);
         } else {
             parent::removeUser($userId);
