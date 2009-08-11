@@ -154,6 +154,7 @@
         XMLRPCResponse *response = [[connection response] autorelease];
         [credentials release];
         [connection release];
+        [request release];
         return response;
     } else {
         state = TURAnselStateError;
@@ -163,6 +164,7 @@
         }
         [error autorelease];
         [connection release];
+        [request release];
         return nil;
     }
 

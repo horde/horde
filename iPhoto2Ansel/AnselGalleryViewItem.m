@@ -49,7 +49,7 @@
 
 - (id)imageRepresentation
 {
-    return image;
+    return [[image retain] autorelease];
 }
 
 #pragma mark

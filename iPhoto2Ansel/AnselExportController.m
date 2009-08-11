@@ -672,6 +672,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
             NSBitmapImageRep *bitmap = [[NSBitmapImageRep alloc] initWithCIImage: im];
             NSDictionary *properties = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat: 1.0], NSImageCompressionFactor, nil];
             scaledData = [bitmap representationUsingType:NSPNGFileType properties:properties];	
+            [bitmap release];
 
         } else {
             scaledData = theImageData;

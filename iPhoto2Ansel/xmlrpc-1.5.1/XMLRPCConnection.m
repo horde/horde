@@ -60,6 +60,7 @@ NSString *XMLRPCReceivedResponseNotification = @"XML-RPC Successfully Received R
 
 - (id)initWithXMLRPCRequest: (XMLRPCRequest *)request delegate: (id)delegate {
 	if (self = [super init]) {
+        [request retain];
 		incomingXMLData = [[NSMutableData alloc] init];
 		currentConnection = [[NSURLConnection alloc] initWithRequest: [request request] delegate: self];
 		
