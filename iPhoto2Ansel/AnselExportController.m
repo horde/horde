@@ -418,7 +418,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
     } else {
         [mNewGalleryButton setEnabled: NO];
         [mExportMgr disableControls];   
-        [galleryCombo setEnabled: YES];
+        [galleryCombo setEnabled: NO];
         [viewGallery setEnabled: NO];
     }
 }
