@@ -10,7 +10,6 @@
 #import "AnselExportController.h";
 #import "TURAnselGalleryPanelController.h";
 #import "FBProgressController.h";
-#import "ImageResizer.h";
 #import "AnselGalleryViewItem.h";
 
 @interface AnselExportController (PrivateAPI)
@@ -547,8 +546,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
                                           waitUntilDone: NO];
         
         /*** Pull out (and generate) all desired metadata before rescaling the image ***/
-        // The CGImageSource for getting the image INTO Quartz
-        // TODO: All the metadata stuff needs to be pulled out into it's own class
         CGImageSourceRef source;
         
         // Dictionary to hold all metadata
@@ -670,9 +667,8 @@ NSString * const TURAnselServerPasswordKey = @"password";
    
             // Now get the image back out into a NSData object
             NSBitmapImageRep *bitmap = [[NSBitmapImageRep alloc] initWithCIImage: im];
-            NSDictionary *properties = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat: 0.9], NSImageCompressionFactor,
-            [NSNumber numberWithInt: 0], NSImageCompressionMethod, nil];
-            scaledData = [bitmap representationUsingType:NSJPEG2000FileType properties:properties];	
+            NSDictionary *properties = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat: 1.0], NSImageCompressionFactor, nil];
+            scaledData = [bitmap representationUsingType:NSPNGFileType properties:properties];	
 
         } else {
             scaledData = theImageData;
@@ -682,6 +678,8 @@ NSString * const TURAnselServerPasswordKey = @"password";
         source = CGImageSourceCreateWithData((CFDataRef)scaledData, NULL);
         NSData *newData = [[NSMutableData alloc] init];
         CGImageDestinationRef destination = CGImageDestinationCreateWithData((CFMutableDataRef)newData, (CFStringRef)@"public.jpeg", 1, NULL);
+        NSDictionary *destProps = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat: 1.0], (NSString *)kCGImageDestinationLossyCompressionQuality, nil];
+        CGImageDestinationSetProperties(destination, (CFDictionaryRef)destProps);
         
         // Get the data out of quartz (image data is in the NSData *newData object now.
          CGImageDestinationAddImageFromSource(destination, source, 0, (CFDictionaryRef)metadata);
