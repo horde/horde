@@ -14,6 +14,7 @@
  *   'none' - Do not start a session
  *   'readonly' - Start session readonly
  *   [DEFAULT] - Start read-write session
+ * $no_compress - Controls whether the page should be compressed
  * </pre>
  *
  * @package Kronolith
@@ -51,7 +52,9 @@ $notification = Horde_Notification::singleton();
 $GLOBALS['kronolith_notify'] = $notification->attach('status', null, 'Kronolith_Notification_Listener_Status');
 
 /* Start compression. */
-Horde::compressOutput();
+if (!Util::nonInputVar('no_compress')) {
+    Horde::compressOutput();
+}
 
 /* Set the timezone variable, if available. */
 Horde_Nls::setTimeZone();

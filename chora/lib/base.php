@@ -4,6 +4,9 @@
  *
  * This file brings in all of the dependencies that every Chora script
  * will need, and sets up objects that all scripts use.
+ *
+ * The following global variables are used:
+ *   $no_compress  -  Controls whether the page should be compressed
  */
 
 $chora_dir = dirname(__FILE__);
@@ -47,4 +50,6 @@ $notification->attach('status');
 Chora::initialize();
 
 // Start compression.
-Horde::compressOutput();
+if (!Util::nonInputVar('no_compress')) {
+    Horde::compressOutput();
+}

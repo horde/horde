@@ -15,6 +15,7 @@
  * Global variables defined:
  *   $ingo_shared  - TODO
  *   $ingo_storage - The Ingo_Storage:: object to use for storing rules.
+ *   $no_compress  - Controls whether the page should be compressed
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -44,7 +45,9 @@ $notification = Horde_Notification::singleton();
 $notification->attach('status');
 
 // Start compression.
-Horde::compressOutput();
+if (!Util::nonInputVar('no_compress')) {
+    Horde::compressOutput();
+}
 
 // Load the Ingo_Storage driver. It appears in the global variable
 // $ingo_storage.

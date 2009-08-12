@@ -4,6 +4,9 @@
  *
  * This file brings in all of the dependencies that every Nag
  * script will need and sets up objects that all scripts use.
+ *
+ * The following global variables are used:
+ *   $no_compress  -  Controls whether the page should be compressed
  */
 
 // Determine BASE directories.
@@ -38,7 +41,9 @@ $notification = Horde_Notification::singleton();
 $notification->attach('status', null, 'Nag_Notification_Listener_Status');
 
 // Start compression.
-Horde::compressOutput();
+if (!Util::nonInputVar('no_compress')) {
+    Horde::compressOutput();
+}
 
 // Set the timezone variable.
 Horde_Nls::setTimeZone();

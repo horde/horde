@@ -10,6 +10,7 @@
  * $ingo_authentication - The type of authentication to use:
  *   'none'  - Do not authenticate
  *   [DEFAULT] - Authenticate; on failed auth redirect to login screen
+ * $no_compress - Controls whether the page should be compressed
  * </pre>
  */
 
@@ -97,4 +98,6 @@ foreach ($copymoveSources as $key => $curSource) {
 $GLOBALS['addSources'] = $addSources;
 
 // Start compression, if requested.
-Horde::compressOutput();
+if (!Util::nonInputVar('no_compress')) {
+    Horde::compressOutput();
+}
