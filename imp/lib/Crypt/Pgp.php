@@ -448,7 +448,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      *
      * @return string  A unique symmetric cache ID.
      */
-    public function getSymmetricID($mailbox, $uid, $id)
+    public function getSymmetricId($mailbox, $uid, $id)
     {
         return implode('|', array($mailbox, $uid, $id));
     }
@@ -462,7 +462,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      *
      * @return string  The URL for saving public keys.
      */
-    public function savePublicKeyURL($mailbox, $uid, $id)
+    public function savePublicKeyUrl($mailbox, $uid, $id)
     {
         $params = array(
             'actionID' => 'save_attachment_public_key',
@@ -528,9 +528,9 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      * @return Horde_Mime_Part  See Horde_Crypt_Pgp::signMIMEPart().
      * @throws Horde_Exception
      */
-    public function IMPsignMIMEPart($mime_part)
+    public function impSignMimePart($mime_part)
     {
-        return $this->signMIMEPart($mime_part, $this->_signParameters());
+        return $this->signMimePart($mime_part, $this->_signParameters());
     }
 
     /**
@@ -543,13 +543,13 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      *                                    use for encrypting. If null, uses
      *                                    the personal key.
      *
-     * @return Horde_Mime_Part  See Horde_Crypt_Pgp::encryptMIMEPart().
+     * @return Horde_Mime_Part  See Horde_Crypt_Pgp::encryptMimePart().
      * @throws Horde_Exception
      */
-    public function IMPencryptMIMEPart($mime_part, $addresses,
+    public function impEncryptMimePart($mime_part, $addresses,
                                        $symmetric = null)
     {
-        return $this->encryptMIMEPart($mime_part, $this->_encryptParameters($addresses, $symmetric));
+        return $this->encryptMimePart($mime_part, $this->_encryptParameters($addresses, $symmetric));
     }
 
     /**
@@ -563,24 +563,24 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      *                                    use for encrypting. If null, uses
      *                                    the personal key.
      *
-     * @return Horde_Mime_Part  See Horde_Crypt_Pgp::signAndencryptMIMEPart().
+     * @return Horde_Mime_Part  See Horde_Crypt_Pgp::signAndencryptMimePart().
      * @throws Horde_Exception
      */
-    public function IMPsignAndEncryptMIMEPart($mime_part, $addresses,
+    public function impSignAndEncryptMimePart($mime_part, $addresses,
                                               $symmetric = null)
     {
-        return $this->signAndEncryptMIMEPart($mime_part, $this->_signParameters(), $this->_encryptParameters($addresses, $symmetric));
+        return $this->signAndEncryptMimePart($mime_part, $this->_signParameters(), $this->_encryptParameters($addresses, $symmetric));
     }
 
     /**
      * Generate a Horde_Mime_Part object, in accordance with RFC 2015/3156,
      * that contains the user's public key.
      *
-     * @return Horde_Mime_Part  See Horde_Crypt_Pgp::publicKeyMIMEPart().
+     * @return Horde_Mime_Part  See Horde_Crypt_Pgp::publicKeyMimePart().
      */
-    public function publicKeyMIMEPart()
+    public function publicKeyMimePart()
     {
-        return parent::publicKeyMIMEPart($this->getPersonalPublicKey());
+        return parent::publicKeyMimePart($this->getPersonalPublicKey());
     }
 
 }
