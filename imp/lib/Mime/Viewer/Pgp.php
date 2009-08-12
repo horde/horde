@@ -266,6 +266,16 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
      */
     protected function _outputPGPKey()
     {
+        /* Is PGP active? */
+        if (empty($GLOBALS['conf']['gnupg']['path']) ||
+            !$GLOBALS['prefs']->getValue('use_pgp')) {
+            return array();
+        }
+
+        if (empty($this->_imppgp)) {
+            $this->_imppgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
+        }
+
         /* Initialize status message. */
         $status = array(
             'icon' => Horde::img('mime/encryption.png', 'PGP'),
