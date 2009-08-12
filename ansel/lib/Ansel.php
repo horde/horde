@@ -179,7 +179,7 @@ class Ansel
      *
      * @param string  The generated URL
      */
-    static public getUrlFor($controller, $data, $full = false, $append_session = 0)
+    static public function getUrlFor($controller, $data, $full = false, $append_session = 0)
     {
         global $prefs;
 
@@ -440,7 +440,7 @@ class Ansel
      *
      * @return string  The image path.
      */
-    static public getImageUrl($imageId, $view = 'screen', $full = false,
+    static public function getImageUrl($imageId, $view = 'screen', $full = false,
                          $style = null)
     {
         global $conf, $ansel_storage;
@@ -512,7 +512,7 @@ class Ansel
      *
      * @return Horde_Image object | PEAR_Error
      */
-    static public getImageObject($params = array())
+    static public function getImageObject($params = array())
     {
         global $conf;
         $context = array('tmpdir' => Horde::getTempDir());
@@ -535,7 +535,7 @@ class Ansel
      *
      * @return array  The image data of the file as an array or PEAR_Error
      */
-    static public getImageFromFile($file, $override = array())
+    static public function getImageFromFile($file, $override = array())
     {
         if (!file_exists($file)) {
             return PEAR::raiseError(sprintf(_("The file \"%s\" doesn't exist."),
@@ -573,7 +573,7 @@ class Ansel
      *
      * @return boolean  True if the function is available.
      */
-    static public isAvailable($feature)
+    static public function isAvailable($feature)
     {
         static $capabilities;
 
@@ -598,7 +598,7 @@ class Ansel
     /**
      * Build Ansel's list of menu items.
      */
-    static public getMenu()
+    static public function getMenu()
     {
         global $conf, $registry;
 
@@ -662,7 +662,7 @@ class Ansel
      * Generate a list of breadcrumbs showing where we are in the gallery
      * tree.
      */
-    static public getBreadCrumbs($separator = ' &raquo; ', $gallery = null)
+    static public function getBreadCrumbs($separator = ' &raquo; ', $gallery = null)
     {
         global $prefs, $ansel_storage;
 
@@ -794,7 +794,7 @@ class Ansel
      *
      * @return string  The HTML for the <select> element.
      */
-    static public getStyleSelect($element_name, $selected = '')
+    static public function getStyleSelect($element_name, $selected = '')
     {
         $styles = Horde::loadConfiguration('styles.php', 'styles', 'ansel');
 
@@ -831,7 +831,7 @@ class Ansel
     /**
      * Get an array of all currently viewable styles.
      */
-    static public getAvailableStyles()
+    static public function getAvailableStyles()
     {
         /* Brings in the $styles array in this scope only */
         $styles = Horde::loadConfiguration('styles.php', 'styles', 'ansel');
@@ -872,7 +872,7 @@ class Ansel
      * @return array  The definition of the requested style if it's available
      *                otherwise, the ansel_default style is returned.
      */
-    static public getStyleDefinition($style)
+    static public function getStyleDefinition($style)
     {
         if (isset($GLOBALS['ansel_styles'][$style])) {
             $style_def = $GLOBALS['ansel_styles'][$style];
@@ -903,7 +903,7 @@ class Ansel
      *                            to $themesfs
      * @param boolean $link       Immediately output the CSS link
      */
-    static public attachStylesheet($stylesheet, $link = false)
+    static public function attachStylesheet($stylesheet, $link = false)
     {
        $GLOBALS['ansel_stylesheets'][] = $stylesheet;
        if ($link) {
@@ -916,7 +916,7 @@ class Ansel
      *
      * @param boolean $custom_only  Don't include ansel's base CSS file
      */
-    static public stylesheetLinks($custom_only = false)
+    static public function stylesheetLinks($custom_only = false)
     {
         /* Custom CSS */
         $themesuri = $GLOBALS['registry']->get('themesuri', 'ansel');
@@ -951,7 +951,7 @@ class Ansel
      *
      * @return A trimmed down (if necessary) date parts array.
      */
-    static public getDateParameter($date = array())
+    static public function getDateParameter($date = array())
     {
         if (!count($date)) {
             $date = array(
@@ -974,7 +974,7 @@ class Ansel
      * @param array $gallery
      * @param array $images
      */
-    static public downloadImagesAsZip($gallery = null, $images = array())
+    static public function downloadImagesAsZip($gallery = null, $images = array())
     {
 
         if (empty($GLOBALS['conf']['gallery']['downloadzip'])) {
@@ -1058,7 +1058,7 @@ class Ansel
      *
      * @return string  The javascript
      */
-    static public embedCode($options)
+    static public function embedCode($options)
     {
         if (empty($options['container'])) {
             $domid = md5(uniqid());
