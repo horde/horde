@@ -1,9 +1,15 @@
 <?php
 /**
- * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
+ * Ansel Base Class.
+
+  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package Ansel
  */
 
 /** Horde_Share */
@@ -12,13 +18,6 @@ require_once 'Horde/Share.php';
 /** Need to bring this in explicitly since we extend the object class */
 require_once 'Horde/Share/sql_hierarchical.php';
 
-/**
- * Ansel Base Class.
- *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Ansel
- */
 class Ansel
 {
     /**
@@ -26,7 +25,7 @@ class Ansel
      *
      * @return string
      */
-    function initJSVars()
+    static public function initJSVars()
     {
         $code = array('Ansel = {ajax: {}, widgets: {}}');
         return $code;
@@ -37,7 +36,7 @@ class Ansel
      *
      * @return mixed MDB2 object || PEAR_Error
      */
-    function &getDb()
+    static public function &getDb()
     {
         $config = $GLOBALS['conf']['sql'];
         unset($config['charset']);
@@ -66,7 +65,7 @@ class Ansel
      *
      * @return VFS object or fatals on error.
      */
-    function &getVFS()
+    static public function &getVFS()
     {
         $v_params = Horde::getVFSConfig('images');
         if (is_a($v_params, 'PEAR_Error')) {
@@ -80,6 +79,7 @@ class Ansel
             Horde::fatal(_("You must configure a VFS backend to use Ansel."),
                          __FILE__, __LINE__);
         }
+
         return $vfs;
     }
 
@@ -103,7 +103,7 @@ class Ansel
      *
      * @return string  The <option> list.
      */
-    function selectGalleries($selected = null, $perm = PERMS_SHOW,
+    static public function selectGalleries($selected = null, $perm = PERMS_SHOW,
                              $attributes = null, $parent = null,
                              $allLevels = true, $from = 0, $count = 0,
                              $ignore = null)
@@ -162,7 +162,7 @@ class Ansel
      *
      * @return string  The image path.
      */
-    function getErrorImage($view = 'screen')
+    static public function getErrorImage($view = 'screen')
     {
         return $GLOBALS['registry']->getImageDir() . '/' . $view . '-error.png';
     }
@@ -179,7 +179,7 @@ class Ansel
      *
      * @param string  The generated URL
      */
-    function getUrlFor($controller, $data, $full = false, $append_session = 0)
+    static public getUrlFor($controller, $data, $full = false, $append_session = 0)
     {
         global $prefs;
 
@@ -440,7 +440,7 @@ class Ansel
      *
      * @return string  The image path.
      */
-    function getImageUrl($imageId, $view = 'screen', $full = false,
+    static public getImageUrl($imageId, $view = 'screen', $full = false,
                          $style = null)
     {
         global $conf, $ansel_storage;
@@ -512,7 +512,7 @@ class Ansel
      *
      * @return Horde_Image object | PEAR_Error
      */
-    function getImageObject($params = array())
+    static public getImageObject($params = array())
     {
         global $conf;
         $context = array('tmpdir' => Horde::getTempDir());
@@ -535,7 +535,7 @@ class Ansel
      *
      * @return array  The image data of the file as an array or PEAR_Error
      */
-    function getImageFromFile($file, $override = array())
+    static public getImageFromFile($file, $override = array())
     {
         if (!file_exists($file)) {
             return PEAR::raiseError(sprintf(_("The file \"%s\" doesn't exist."),
@@ -573,7 +573,7 @@ class Ansel
      *
      * @return boolean  True if the function is available.
      */
-    function isAvailable($feature)
+    static public isAvailable($feature)
     {
         static $capabilities;
 
@@ -598,7 +598,7 @@ class Ansel
     /**
      * Build Ansel's list of menu items.
      */
-    function getMenu()
+    static public getMenu()
     {
         global $conf, $registry;
 
@@ -662,7 +662,7 @@ class Ansel
      * Generate a list of breadcrumbs showing where we are in the gallery
      * tree.
      */
-    function getBreadCrumbs($separator = ' &raquo; ', $gallery = null)
+    static public getBreadCrumbs($separator = ' &raquo; ', $gallery = null)
     {
         global $prefs, $ansel_storage;
 
@@ -794,7 +794,7 @@ class Ansel
      *
      * @return string  The HTML for the <select> element.
      */
-    function getStyleSelect($element_name, $selected = '')
+    static public getStyleSelect($element_name, $selected = '')
     {
         $styles = Horde::loadConfiguration('styles.php', 'styles', 'ansel');
 
@@ -831,7 +831,7 @@ class Ansel
     /**
      * Get an array of all currently viewable styles.
      */
-    function getAvailableStyles()
+    static public getAvailableStyles()
     {
         /* Brings in the $styles array in this scope only */
         $styles = Horde::loadConfiguration('styles.php', 'styles', 'ansel');
@@ -872,7 +872,7 @@ class Ansel
      * @return array  The definition of the requested style if it's available
      *                otherwise, the ansel_default style is returned.
      */
-    function getStyleDefinition($style)
+    static public getStyleDefinition($style)
     {
         if (isset($GLOBALS['ansel_styles'][$style])) {
             $style_def = $GLOBALS['ansel_styles'][$style];
@@ -903,7 +903,7 @@ class Ansel
      *                            to $themesfs
      * @param boolean $link       Immediately output the CSS link
      */
-    function attachStylesheet($stylesheet, $link = false)
+    static public attachStylesheet($stylesheet, $link = false)
     {
        $GLOBALS['ansel_stylesheets'][] = $stylesheet;
        if ($link) {
@@ -916,7 +916,7 @@ class Ansel
      *
      * @param boolean $custom_only  Don't include ansel's base CSS file
      */
-    function stylesheetLinks($custom_only = false)
+    static public stylesheetLinks($custom_only = false)
     {
         /* Custom CSS */
         $themesuri = $GLOBALS['registry']->get('themesuri', 'ansel');
@@ -951,7 +951,7 @@ class Ansel
      *
      * @return A trimmed down (if necessary) date parts array.
      */
-    function getDateParameter($date = array())
+    static public getDateParameter($date = array())
     {
         if (!count($date)) {
             $date = array(
@@ -970,9 +970,11 @@ class Ansel
     /**
      * Downloads all requested images as a zip file.  Assumes all permissions
      * have been checked on the requested resource.
-     * @param unknown_type $images
+     *
+     * @param array $gallery
+     * @param array $images
      */
-    function downloadImagesAsZip($gallery = null, $images = array())
+    static public downloadImagesAsZip($gallery = null, $images = array())
     {
 
         if (empty($GLOBALS['conf']['gallery']['downloadzip'])) {
@@ -1048,7 +1050,15 @@ class Ansel
         exit;
     }
 
-    function embedCode($options)
+    /**
+     * Generate the JS necessary to embed a gallery / images into another
+     * external site.
+     *
+     * @param array $options  The options to build the view.
+     *
+     * @return string  The javascript
+     */
+    static public embedCode($options)
     {
         if (empty($options['container'])) {
             $domid = md5(uniqid());
