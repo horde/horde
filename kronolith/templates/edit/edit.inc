@@ -211,7 +211,7 @@ if ($event->alarm) {
 <tr>
  <td colspan="5" class="control toggle" onclick="KronolithEventForm.toggleSection('description')">
   <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_description'), $GLOBALS['registry']->getImageDir('horde')) . ' <strong>' . Horde::label('description', _("Descri_ption")) ?></strong>
-  <span class="extra" id="extra_description"><?php echo htmlspecialchars(substr(str_replace(array("\r", "\n"), '', $event->getDescription()), 0, 80)) ?></span>
+  <span class="extra" id="extra_description"><?php echo htmlspecialchars(substr(str_replace(array("\r", "\n"), '  ', $event->getDescription()), 0, 80)) ?></span>
 </td>
 </tr>
 <tr id="section_description">
