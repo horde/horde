@@ -25,6 +25,8 @@
  *               within this percentage of the end of the current cached
  *               viewport, send a background request to the server to retrieve
  *               the next slice.
+ * lookbehind: (integer) What percentage of the received buffer should be
+ *             used to download messages before the given row number?
  * page_size: (integer) Default page size to view on load.
  * show_split_pane: (boolean) Show the split pane on load?
  * split_bar: (Element/string) A DOM element/ID of the element used to display
@@ -102,7 +104,8 @@ var ViewPort = Class.create({
     {
         this.opts = Object.extend({
             buffer_pages: 5,
-            limit_factor: 35
+            limit_factor: 35,
+            lookbehind: 40
         }, opts);
 
         this.opts.content = $(opts.content);
@@ -512,7 +515,7 @@ var ViewPort = Class.create({
     _getSliceBounds: function(rownum, nearing)
     {
         var b_size = this.bufferSize(),
-            ob = {};
+            ob = {}, trows;
 
         switch (nearing) {
         case 'bottom':
@@ -526,8 +529,29 @@ var ViewPort = Class.create({
             break;
 
         default:
-            ob.start = Math.max(rownum - this._lookbehind(), 1);
-            ob.end = ob.start + b_size;
+            ob.start = rownum - this._lookbehind();
+
+            /* Adjust slice if it runs past edge of available rows. In this
+             * case, fetching a tiny buffer isn't as useful as switching
+             * the unused buffer space to the other endpoint. Always allow
+             * searching past the value of total_rows, since the size of the
+             * dataset may have increased. */
+            trows = this.getMetaData('total_rows');
+            if (trows) {
+                ob.end = ob.start + b_size;
+
+                if (ob.end > trows) {
+                    ob.start -= ob.end - trows;
+                }
+
+                if (ob.start < 1) {
+                    ob.end += 1 - ob.start;
+                    ob.start = 1;
+                }
+            } else {
+                ob.start = Math.max(ob.start, 1);
+                ob.end = ob.start + b_size;
+            }
             break;
         }
 
@@ -536,7 +560,7 @@ var ViewPort = Class.create({
 
     _lookbehind: function()
     {
-        return parseInt(0.4 * this.bufferSize(), 10);
+        return parseInt((this.opts.lookbehind * 0.01) * this.bufferSize(), 10);
     },
 
     // args = (object) The list of parameters.
