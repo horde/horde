@@ -2448,7 +2448,9 @@ abstract class Horde_Imap_Client_Base
      * @param string $mailbox  A mailbox. Either in UTF7-IMAP or UTF-8.
      *
      * @return string  The cache ID string, which will change when the
-     *                 composition of the mailbox changes.
+     *                 composition of the mailbox changes. The uidvalidity
+     *                 will always be the first element, and will be delimited
+     *                 by the '|' character.
      * @throws Horde_Imap_Client_Exception
      */
     public function getCacheId($mailbox)
@@ -2467,7 +2469,7 @@ abstract class Horde_Imap_Client_Base
         $status = $this->status($mailbox, $query);
 
         if ($condstore) {
-            return implode('|', array($status['highestmodseq'], $status['uidvalidity']));
+            return implode('|', array($status['uidvalidity'], $status['highestmodseq']));
         }
 
         if (empty($status['uidnext'])) {
