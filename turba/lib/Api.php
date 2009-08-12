@@ -574,6 +574,7 @@ class Turba_Api extends Horde_Registry_Api
             return PEAR::raiseError(_("No address book specified"), 'horde.error');
         }
 
+        $last = 0;
         foreach ($sources as $source) {
             if (empty($source) || !isset($cfgSources[$source])) {
                 return PEAR::raiseError(sprintf(_("Invalid address book: %s"), $source), 'horde.error', null, null, $source);
@@ -588,12 +589,12 @@ class Turba_Api extends Horde_Registry_Api
             $ts = $history->getActionTimestamp('turba:' . $driver->getName()
                 . ':' . $uid,
                 $action);
-            if (!empty($ts)) {
-                return $ts;
+            if (!empty($ts) && $ts > $last) {
+                $last = $ts;
             }
         }
 
-        return 0;
+        return $last;
     }
 
     /**
