@@ -283,29 +283,10 @@ class Ansel_GalleryMode_Normal {
      */
     function getImages($from = 0, $count = 0)
     {
-        $this->_gallery->_shareOb->_db->setLimit($count, $from);
-
-        $images = $this->_gallery->_shareOb->_db->query('SELECT image_id, gallery_id, image_filename, image_type, image_caption, image_uploaded_date, image_sort, image_latitude, image_longitude, image_location, image_geotag_date FROM ansel_images WHERE gallery_id = ' . $this->_gallery->id . ' ORDER BY image_sort');
-        if (is_a($images, 'PEAR_Error')) {
-            return $images;
-        }
-
-        $objects = array();
-        while ($image = $images->fetchRow(MDB2_FETCHMODE_ASSOC)) {
-            $image['image_filename'] = Horde_String::convertCharset($image['image_filename'], $GLOBALS['conf']['sql']['charset']);
-            $image['image_caption'] = Horde_String::convertCharset($image['image_caption'], $GLOBALS['conf']['sql']['charset']);
-            $objects[$image['image_id']] = new Ansel_Image($image);
-            $GLOBALS['ansel_storage']->images[(int)$image['image_id']] = &$objects[$image['image_id']];
-        }
-        $images->free();
-
-        $ccounts = $GLOBALS['ansel_storage']->_getImageCommentCounts(array_keys($objects));
-        if (!is_a($ccounts, 'PEAR_Error') && count($ccounts)) {
-            foreach ($objects as $key => $image) {
-                $objects[$key]->commentCount = (!empty($ccounts[$key]) ? $ccounts[$key] : 0);
-            }
-        }
-        return array_values($objects);
+        $images = $GLOBALS['ansel_storage']->getImages(array('gallery_id' => $this->_gallery->id,
+                                                             'count' => $count,
+                                                             'from' => $from));
+        return array_values($images);
     }
 
     /**

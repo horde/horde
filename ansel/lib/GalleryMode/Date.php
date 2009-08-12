@@ -305,7 +305,7 @@ class Ansel_GalleryMode_Date {
                 $where .= ' AND ' . $gallery_where;
             }
             $images= $ansel_storage->listImages($this->_gallery->id, $from, $to, 'image_id', $where, 'image_sort');
-            $results = $ansel_storage->getImages($images, true);
+            $results = $ansel_storage->getImages(array('ids' => $images, 'preserve' => true));
             if (!is_a($results, 'PEAR_Error')) {
                 if ($this->_gallery->get('has_subgalleries')) {
                     $images = array();
