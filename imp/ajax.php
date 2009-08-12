@@ -68,7 +68,7 @@ function _getListMessages($mbox, $change)
 {
     $args = array(
         'applyfilter' => Horde_Util::getPost('applyfilter'),
-        'cached' => Horde_Util::getPost('cached'),
+        'cache' => Horde_Util::getPost('cache'),
         'cacheid' => Horde_Util::getPost('cacheid'),
         'initial' => Horde_Util::getPost('initial'),
         'mbox' => $mbox,
@@ -81,8 +81,8 @@ function _getListMessages($mbox, $change)
 
     if (!empty($search) || $args['initial']) {
         $args += array(
-            'search_before' => intval(Horde_Util::getPost('search_before')),
-            'search_after' => intval(Horde_Util::getPost('search_after'))
+            'after' => intval(Horde_Util::getPost('after')),
+            'before' => intval(Horde_Util::getPost('before'))
         );
     }
 
@@ -109,9 +109,9 @@ function _getListMessages($mbox, $change)
         $res->update = 1;
     }
 
-    $req_id = Horde_Util::getPost('request_id');
+    $req_id = Horde_Util::getPost('requestid');
     if (!is_null($req_id)) {
-        $res->request_id = intval($req_id);
+        $res->requestid = intval($req_id);
     }
 
     return $res;

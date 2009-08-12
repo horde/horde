@@ -7,8 +7,9 @@
  *
  * Required options:
  * -----------------
- * ajax_url: (string) TODO
- *           Response: 'ViewPort'
+ * ajax_url: (string) The URL to send the viewport requests to.
+ *           This URL should return its response in an object named
+ *           'ViewPort' (other information can be returned in the response).
  * content: (Element/string) A DOM element/ID of the container to hold the
  *          viewport rows.
  * template: (string) TODO DIV with 'vpData'
@@ -16,7 +17,8 @@
  *
  * Optional options:
  * -----------------
- * ajax_opts: (object) TODO
+ * ajax_opts: (object) Any additional options to pass to the Ajax.Request
+ *            object when sending an AJAX message.
  * buffer_pages: (integer) The number of viewable pages to send to the browser
  *               per server access when listing rows.
  * empty_msg: (string) A string to display when the view is empty. Inserted in
@@ -54,37 +56,48 @@
  * onSplitBarChange
  * onWait
  *
- * Outgoing AJAX request has the following params (TODO):
- * ------------------------------------------------------
+ * Outgoing AJAX request has the following params:
+ * -----------------------------------------------
+ * For ALL requests:
+ *   cache: (string) The list of uids cached on the browser.
+ *   cacheid: (string) A unique string that changes whenever the viewport
+ *            list changes.
+ *   initial: (integer) TODO
+ *   requestid: (integer) A unique identifier for this AJAX request.
+ *   view: (string) The view of the request.
+ *
  * For a row request:
- *   request_id: (integer) TODO
- *   slice: (string)
+ *   slice: (string) The list of rows to retrieve from the server.
+ *          In the format: [first_row]:[last_row]
  *
  * For a search request:
- *   request_id: (integer) TODO
- *   search: (JSON object)
- *   search_after: (integer)
- *   search_before: (integer)
+ *   after: (integer) The number of rows to return after the selected row.
+ *   before: (integer) The number of rows to return before the selected row.
+ *   search: (JSON object) The search query.
  *
  * For a rangeslice request:
- *   rangeslice: (boolean)
- *   slice: (string)
+ *   rangeslice: (integer) If present, indicates that slice is a rangeslice
+ *               request.
+ *   slice: (string) The list of rows to retrieve from the server.
+ *          In the format: [first_row]:[last_row]
  *
- * Incoming AJAX response has the following params (TODO):
- * -------------------------------------------------------
- * cacheid
- * data
- * label
- * metadata (optional)
- * request_id
+ * Incoming AJAX response has the following params:
+ * ------------------------------------------------
+ * cacheid: (string) A unique string that changes whenever the viewport
+ *          list changes.
+ * data: (object) TODO
+ * label: (string) The label to use for the current view.
+ * metadata [optional]: (object) TODO
  * rangelist: TODO
- * reset (optional) - If set, purges all cached data
- * resetmd (optional) - If set, purges all user metadata
- * rowlist
- * rownum (optional)
- * totalrows
- * update (optional) - If set, update the rowlist instead of overwriting it.
- * view
+ * requestid: (string) The request ID sent in the outgoing AJAX request.
+ * reset [optional]: (integer) If set, purges all cached data.
+ * resetmd [optional]: (integer) If set, purges all user metadata.
+ * rowlist: TODO
+ * rownum [optional]: (integer) The row number to position screen on.
+ * totalrows: (integer) Total number of rows in the view.
+ * update [optional]: (integer) If set, update the rowlist instead of
+ *                    overwriting it.
+ * view: (string) The view ID of the request.
  *
  * Requires prototypejs 1.6+, DimpSlider.js, scriptaculous 1.8+ (effects.js
  * only), and Horde's dragdrop2.js.
@@ -435,7 +448,7 @@ var ViewPort = Class.create({
             params = $H(opts.params),
             r_id = this.request_num++;
 
-        params.update({ request_id: r_id });
+        params.update({ requestid: r_id });
 
         // Determine if we are querying via offset or a search query
         if (opts.search || opts.initial) {
@@ -451,8 +464,8 @@ var ViewPort = Class.create({
             tmp = this._lookbehind();
 
             params.update({
-                search_after: this.bufferSize() - tmp,
-                search_before: tmp
+                after: this.bufferSize() - tmp,
+                before: tmp
             });
         }
 
@@ -597,7 +610,7 @@ var ViewPort = Class.create({
         }
 
         if (cached.length) {
-            params.update({ cached: cached });
+            params.update({ cache: cached });
         }
 
         return params.merge(args);
@@ -660,7 +673,7 @@ var ViewPort = Class.create({
 
         buffer.update(Object.isArray(r.data) ? {} : r.data, Object.isArray(r.rowlist) ? {} : r.rowlist, r.metadata || {}, { reset: r.reset, resetmd: r.resetmd, update: r.update });
 
-        llist.unset(r.request_id);
+        llist.unset(r.requestid);
 
         buffer.setMetaData({
             cacheid: r.cacheid,
@@ -673,8 +686,8 @@ var ViewPort = Class.create({
             this.opts.onCacheUpdate(r.view);
         }
 
-        if (r.request_id &&
-            r.request_id == this.active_req) {
+        if (r.requestid &&
+            r.requestid == this.active_req) {
             this.active_req = null;
             offset = buffer.getMetaData('req_offset');
             buffer.setMetaData({ req_offset: undefined });

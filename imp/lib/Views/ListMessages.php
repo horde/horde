@@ -101,8 +101,8 @@ class IMP_Views_ListMessages
                 }
             }
 
-            $slice_start = $rownum - $args['search_before'];
-            $slice_end = $rownum + $args['search_after'];
+            $slice_start = $rownum - $args['before'];
+            $slice_end = $rownum + $args['after'];
             if ($slice_start < 1) {
                 $slice_end += abs($slice_start) + 1;
             } elseif ($slice_end > $msgcount) {
@@ -158,7 +158,7 @@ class IMP_Views_ListMessages
          * ViewPort). */
         if (!isset($md->search) &&
             !empty($args['cacheid']) &&
-            !empty($args['cached'])) {
+            !empty($args['cache'])) {
             $uid_expire = false;
             try {
                 $status = $GLOBALS['imp_imap']->ob->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
@@ -169,17 +169,17 @@ class IMP_Views_ListMessages
             }
 
             if ($uid_expire) {
-                $args['cached'] = array();
+                $args['cache'] = array();
                 $result->reset = $result->resetmd = 1;
             }
         }
 
         /* Get the cached list. */
-        if (empty($args['cached'])) {
+        if (empty($args['cache'])) {
             $cached = array();
         } else {
             if (isset($md->search)) {
-                $cached = Horde_Serialize::unserialize($args['cached'], Horde_Serialize::JSON);
+                $cached = Horde_Serialize::unserialize($args['cache'], Horde_Serialize::JSON);
             } else {
                 $cached = $GLOBALS['imp_imap']->ob->utils->fromSequenceString($args['cached']);
                 $cached = reset($cached);
