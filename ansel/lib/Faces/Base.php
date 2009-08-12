@@ -533,7 +533,7 @@ class Ansel_Faces_Base
         }
 
         // Clean up any existing faces we may have had in this image.
-        $result = $this->delete($image);
+        $result = Ansel_Faces::delete($image);
 
         // Process faces
         $fids = array();
