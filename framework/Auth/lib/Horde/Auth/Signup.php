@@ -76,7 +76,7 @@ class Horde_Auth_Signup
         // Attempt to add/update any extra data handed in.
         if (!empty($info['extra'])) {
             try {
-                Horde::callHook('signup_addextra', array($info['user_name'], $info['extra']));
+                Horde::callHook('signup_addextra', array($info['user_name'], $info['extra'], $info['password']));
             } catch (Horde_Exception_HookNotSet $e) {}
         }
     }
