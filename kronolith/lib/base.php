@@ -52,7 +52,7 @@ $notification = Horde_Notification::singleton();
 $GLOBALS['kronolith_notify'] = $notification->attach('status', null, 'Kronolith_Notification_Listener_Status');
 
 /* Start compression. */
-if (!Util::nonInputVar('no_compress')) {
+if (!Horde_Util::nonInputVar('no_compress')) {
     Horde::compressOutput();
 }
 

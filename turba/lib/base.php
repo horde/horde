@@ -98,6 +98,6 @@ foreach ($copymoveSources as $key => $curSource) {
 $GLOBALS['addSources'] = $addSources;
 
 // Start compression, if requested.
-if (!Util::nonInputVar('no_compress')) {
+if (!Horde_Util::nonInputVar('no_compress')) {
     Horde::compressOutput();
 }

@@ -50,6 +50,6 @@ $notification->attach('status');
 Chora::initialize();
 
 // Start compression.
-if (!Util::nonInputVar('no_compress')) {
+if (!Horde_Util::nonInputVar('no_compress')) {
     Horde::compressOutput();
 }

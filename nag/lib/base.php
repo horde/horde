@@ -41,7 +41,7 @@ $notification = Horde_Notification::singleton();
 $notification->attach('status', null, 'Nag_Notification_Listener_Status');
 
 // Start compression.
-if (!Util::nonInputVar('no_compress')) {
+if (!Horde_Util::nonInputVar('no_compress')) {
     Horde::compressOutput();
 }
 
