@@ -11,7 +11,7 @@ var DimpBase = {
     // Vars used and defaulting to null/false:
     //   cfolderaction, folder, folderswitch, offset, pollPE, pp, sfolder,
     //   showunsub, uid, viewport
-    // message_list_template set via templates/javascript/mailbox.js
+    // message_list_template set via js/mailbox-dimp.js
     bcache: $H(),
     cacheids: {},
     lastrow: -1,
