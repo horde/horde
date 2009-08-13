@@ -538,6 +538,8 @@ class Ansel_Image
                 if (substr($field, 0, 8) == 'DateTime') {
                     $d = new Horde_Date(strtotime($this->_exif[$field]));
                     $tags[] = $d->format("Y-m-d");
+                } elseif ($field == 'Keywords') {
+                    $tags = array_merge($tags, explode(',', $this->_exif[$field]));
                 } else {
                     $tags[] = $this->_exif[$field];
                 }
