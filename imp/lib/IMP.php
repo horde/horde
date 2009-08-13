@@ -899,7 +899,8 @@ class IMP
     {
         $params = array('mailbox' => $mailbox);
         if (!is_null($uid)) {
-            $params['index'] = $uid;
+            // TODO: Remove 'index' for 'uid' instead
+            $params['index'] = $params['uid'] = $uid;
             if ($mailbox != $tmailbox) {
                 $params['thismailbox'] = $tmailbox;
             }
