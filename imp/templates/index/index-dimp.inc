@@ -345,22 +345,28 @@ function _simpleButton($id, $text, $image, $imagedir = null)
  <a id="ctx_folder_sub"><span class="contextImg"></span><?php echo _("Subscribe") ?></a>
  <a id="ctx_folder_unsub"><span class="contextImg"></span><?php echo _("Unsubscribe") ?></a>
 <?php endif; ?>
+ <a id="ctx_folder_expand" style="display:none"><span class="contextImg"></span><?php echo _("Expand All") ?></a>
+ <a id="ctx_folder_collapse" style="display:none"><span class="contextImg"></span><?php echo _("Collapse All") ?></a>
 </div>
 
 <div class="context" id="ctx_container" style="display:none">
  <a id="ctx_container_create"><span class="contextImg"></span><?php echo _("Create subfolder") ?></a>
- <a id="ctx_container_rename"><span class="contextImg"></span><?php echo _("Rename Folder") ?></a>
+ <a id="ctx_container_rename" class="sep"><span class="contextImg"></span><?php echo _("Rename Folder") ?></a>
+ <a id="ctx_container_expand"><span class="contextImg"></span><?php echo _("Expand All") ?></a>
+ <a id="ctx_container_collapse"><span class="contextImg"></span><?php echo _("Collapse All") ?></a>
 </div>
 
+<?php if ($conf['user']['allow_folders']): ?>
 <div class="context" id="ctx_folderopts" style="display:none">
  <a id="ctx_folderopts_new"><span class="contextImg"></span><?php echo _("New Folder") ?></a>
-<?php if ($conf['user']['allow_folders'] && $use_sub): ?>
+<?php if ($use_sub): ?>
  <a id="ctx_folderopts_sub" style="display:none"><span class="contextImg"></span><?php echo _("Hide Unsubscribed") ?></a>
  <a id="ctx_folderopts_unsub"><span class="contextImg"></span><?php echo _("Show Unsubscribed") ?></a>
 <?php endif; ?>
  <a id="ctx_folderopts_expand"><span class="contextImg"></span><?php echo _("Expand All") ?></a>
  <a id="ctx_folderopts_collapse"><span class="contextImg"></span><?php echo _("Collapse All") ?></a>
 </div>
+<?php endif; ?>
 
 <div class="context" id="ctx_message" style="display:none">
  <a id="ctx_message_reply"><span class="contextImg"></span><?php echo _("Reply") ?></a>

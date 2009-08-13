@@ -639,7 +639,7 @@ var DimpBase = {
 
     contextOnClick: function(parentfunc, elt, baseelt, menu)
     {
-        var flag, id = elt.readAttribute('id');
+        var flag, id = elt.readAttribute('id'), tmp;
 
         switch (id) {
         case 'ctx_folder_create':
@@ -697,6 +697,16 @@ var DimpBase = {
         case 'ctx_folderopts_collapse':
             $('normalfolders').select('LI.folder').each(function(f) {
                 this._toggleSubFolder(f, id == 'ctx_folderopts_expand' ? 'exp' : 'col', true);
+            }.bind(this));
+            break;
+
+        case 'ctx_container_expand':
+        case 'ctx_container_collapse':
+        case 'ctx_folder_expand':
+        case 'ctx_folder_collapse':
+            tmp = baseelt.up('LI');
+            [ tmp, $(this.getSubFolderId(tmp.readAttribute('id'))).select('LI.folder') ].flatten().each(function(f) {
+                this._toggleSubFolder(f, (id == 'ctx_container_expand' || id == 'ctx_folder_expand') ? 'exp' : 'col', true);
             }.bind(this));
             break;
 
@@ -811,6 +821,10 @@ var DimpBase = {
             tmp = baseelt.hasAttribute('u');
             [ $('ctx_folder_poll') ].invoke(tmp ? 'hide' : 'show');
             [ $('ctx_folder_nopoll') ].invoke(tmp ? 'show' : 'hide');
+
+            tmp = $(this.getSubFolderId(baseelt.readAttribute('id')));
+            $('ctx_folder_collapse', 'ctx_folder_expand').invoke(tmp ? 'show' : 'hide');
+            [ $('ctx_folder_expand').previous() ].invoke(tmp ? 'addClassName' : 'removeClassName', 'sep');
             break;
 
         case 'ctx_reply':
