@@ -78,7 +78,9 @@ abstract class Horde_Image_Exif_Base
                 }
 
                 if ($data['type'] == 'array') {
-                    $value = implode(',', $value);
+                    if (is_array($value)) {
+                        $value = implode(',', $value);
+                    }
                 }
                 $results[$field] = $value;
             }
