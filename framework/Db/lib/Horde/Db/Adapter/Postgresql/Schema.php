@@ -658,7 +658,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Abstract_Schem
         try {
             $version = $this->selectValue('SELECT version()');
             if (preg_match('/PostgreSQL (\d+)\.(\d+)\.(\d+)/', $version, $matches))
-                return ($matches[1] * 10000) . ($matches[2] * 100) . $matches[3];
+                return ($matches[1] * 10000) + ($matches[2] * 100) + $matches[3];
         } catch (Exception $e) {}
 
         return 0;
