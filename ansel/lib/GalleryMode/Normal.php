@@ -188,8 +188,8 @@ class Ansel_GalleryMode_Normal {
             return $result;
         }
 
-        $this->_gallery->_updateImageCount(count($ids), false);
-        $this->_gallery->_updateImageCount(count($ids), true, $gallery->id);
+        $this->_gallery->updateImageCount(count($ids), false);
+        $this->_gallery->updateImageCount(count($ids), true, $gallery->id);
 
         /* Expire the cache since we have no reason to save() the gallery */
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
@@ -236,7 +236,7 @@ class Ansel_GalleryMode_Normal {
         $this->_gallery->_shareOb->_write_db->exec('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$image->id);
 
         if (!$isStack) {
-            $this->_gallery->_updateImageCount(1, false);
+            $this->_gallery->updateImageCount(1, false);
         }
 
         /* Remove any geolocation data */
@@ -279,13 +279,14 @@ class Ansel_GalleryMode_Normal {
      * @param integer $from  The image to start fetching.
      * @param integer $count The numer of images to return.
      *
-     * @param mixed An array of Ansel_Image objects | PEAR_Error
+     * @param mixed An array of Ansel_Image objects
      */
     function getImages($from = 0, $count = 0)
     {
         $images = $GLOBALS['ansel_storage']->getImages(array('gallery_id' => $this->_gallery->id,
                                                              'count' => $count,
                                                              'from' => $from));
+
         return array_values($images);
     }
 

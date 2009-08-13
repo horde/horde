@@ -441,7 +441,7 @@ class Ansel_GalleryMode_Date {
          */
         if ($this->_gallery->get('has_subgalleries')) {
             $gallery_ids = array();
-            $images = $GLOBALS['ansel_storage']->getImages($ids);
+            $images = $GLOBALS['ansel_storage']->getImages(array('ids' => $ids));
             foreach ($images as $image) {
                 if (empty($gallery_ids[$image->gallery])) {
                     $gallery_ids[$image->gallery] = 1;
@@ -460,12 +460,12 @@ class Ansel_GalleryMode_Date {
         /* Update the gallery counts for each affected gallery */
         if ($this->_gallery->get('has_subgalleries')) {
             foreach ($gallery_ids as $id => $count) {
-                $this->_gallery->_updateImageCount($count, false, $id);
+                $this->_gallery->updateImageCount($count, false, $id);
             }
         } else {
-            $this->_gallery->_updateImageCount(count($ids), false);
+            $this->_gallery->updateImageCount(count($ids), false);
         }
-        $this->_gallery->_updateImageCount(count($ids), true, $gallery->id);
+        $this->_gallery->updateImageCount(count($ids), true, $gallery->id);
 
         /* Expire the cache since we have no reason to save() the gallery */
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
@@ -532,7 +532,7 @@ class Ansel_GalleryMode_Date {
         $this->_gallery->_shareOb->_write_db->exec('DELETE FROM ansel_images_geolocation WHERE image_id = ' . (int)$image->id);
 
         if (!$isStack) {
-            $this->_gallery->_updateImageCount(1, false, $image_gallery);
+            $this->_gallery->updateImageCount(1, false, $image_gallery);
         }
 
         /* Update the modified flag if we are not a stack image */
@@ -625,7 +625,7 @@ class Ansel_GalleryMode_Date {
                 $ids = array_merge($ids, $child->_images);
             }
             $ids = $this->_getArraySlice($ids, $from, $count);
-            $images = $GLOBALS['ansel_storage']->getImages($ids);
+            $images = $GLOBALS['ansel_storage']->getImages(array('ids' => $ids));
         }
 
         return $images;
@@ -951,9 +951,9 @@ class Ansel_Gallery_Date {
      *
      * @return string  A md5 hash suitable for use as a key.
      */
-    function _getViewHash($view, $style = null)
+    function getViewHash($view, $style = null)
     {
-        return $this->_gallery->_getViewHash($view, $style);
+        return $this->_gallery->getViewHash($view, $style);
     }
 
     /**

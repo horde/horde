@@ -173,7 +173,7 @@ if (empty($rss)) {
         $tag_id = array_values(Ansel_Tags::getTagIds(array($id)));
         $images = Ansel_Tags::searchTagsById($tag_id, 10, 0, 'images');
         $tag_id = array_pop($tag_id);
-        $images = $ansel_storage->getImages($images['images']);
+        $images = $ansel_storage->getImages(array('ids' => $images['images']));
         if (!is_a($images, 'PEAR_Error') && count($images)) {
             $tag_id = $tag_id[0];
             $images = array_values($images);

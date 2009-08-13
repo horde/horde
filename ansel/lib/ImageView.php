@@ -66,6 +66,14 @@ class Ansel_ImageView {
         return $this->_create();
     }
 
+    /**
+     *
+     * @param string $type   The type of concrete instance to return.
+     * @param array $params  Additional parameters needed for the instance.
+     *
+     * @return Ansel_ImageView
+     * @throws Horde_Exception
+     */
     function factory($type, $params = array())
     {
         $type = basename($type);
@@ -79,16 +87,14 @@ class Ansel_ImageView {
             // requested effect.
             foreach ($view->need as $need) {
                 if (!Ansel::isAvailable($need)) {
-                    $err = PEAR::raiseError(_("This install does not support the %s feature. Please contact your administrator."), $need);
                     Horde::logMessage($err, __FILE__, __LINE__, PEAR_LOG_ERR);
-                    return $err;
+                    throw new Horde_Exception(_("This install does not support the %s feature. Please contact your administrator."), $need);
                 }
             }
             return $view;
         } else {
-            $err = PEAR::raiseError(sprintf(_("Unable to load the definition of %s."), $class));
             Horde::logMessage($err, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $err;
+            throw new Horde_Exception(sprintf(_("Unable to load the definition of %s."), $class));
         }
 
     }
@@ -118,6 +124,7 @@ class Ansel_ImageView {
                 return $result;
             }
         }
+
         return $parent;
     }
 
@@ -139,19 +146,19 @@ class Ansel_ImageView {
         $cnt = min(5, $gallery->countImages());
         $default = $gallery->get('default');
         if (!empty($default) && $default > 0) {
-            $img = &$gallery->getImage($default);
-            if (!is_a($img, 'PEAR_Error')) {
+            try {
+                $img = &$gallery->getImage($default);
                 $images[] = &$gallery->getImage($default);
                 $cnt--;
-            }
+            } catch (Horde_Exception $e) {}
         }
 
         for ($i = 0; $i < $cnt; $i++) {
             $rnd = mt_rand(0, $cnt);
-            $temp = $gallery->getImages($rnd, 1);
-            if (!is_a($temp, 'PEAR_Error') && count($temp)) {
-                $images[] = array_shift($temp);
-            }
+            try {
+                $temp = $gallery->getImages($rnd, 1);
+                 $images[] = array_shift($temp);
+            } catch (Horde_Exception $e) {}
         }
 
         // Reverse the array to ensure the requested default image

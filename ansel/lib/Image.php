@@ -140,7 +140,7 @@ class Ansel_Image
      */
     function getVFSPath($view = 'full', $style = null)
     {
-        $view = $this->_getViewHash($view, $style);
+        $view = $this->getViewHash($view, $style);
         return '.horde/ansel/'
                . substr(str_pad($this->id, 2, 0, STR_PAD_LEFT), -2)
                . '/' . $view;
@@ -188,7 +188,7 @@ class Ansel_Image
             return true;
         }
 
-        $viewHash = $this->_getViewHash($view, $style);
+        $viewHash = $this->getViewHash($view, $style);
         /* If we've already loaded the data, just return now. */
         if (!empty($this->_loaded[$viewHash])) {
             return true;
@@ -246,7 +246,7 @@ class Ansel_Image
         }
 
         /* Get the VFS path. */
-        $view = Ansel_Gallery::_getViewHash($view, $style);
+        $view = Ansel_Gallery::getViewHash($view, $style);
 
         /* Can't call the various vfs methods here, since this method needs
         to be called statically */
@@ -326,7 +326,7 @@ class Ansel_Image
             return $res;
         }
 
-        $view = $this->_getViewHash($view, $style);
+        $view = $this->getViewHash($view, $style);
 
         $this->_data[$view] = $this->_image->raw();
         $this->_image->loadString($vfspath . '/' . $this->id,
@@ -564,7 +564,7 @@ class Ansel_Image
         if (is_a($imageFile, 'PEAR_Error')) {
             return $imageFile;
         }
-        $exif = Horde_Image_Exif::factory($GLOBALS['conf']['exif'], $GLOBALS['conf']['exif']['params']);
+        $exif = Horde_Image_Exif::factory($GLOBALS['conf']['exif']['driver'], $GLOBALS['conf']['exif']['params']);
         $exif_fields = $exif->getData($imageFile);
 
         /* Flag to determine if we need to resave the image data */
@@ -998,7 +998,7 @@ class Ansel_Image
      *
      * @return string  A md5 hash suitable for use as a key.
      */
-    function _getViewHash($view, $style = null)
+    function getViewHash($view, $style = null)
     {
         global $ansel_storage;
 
@@ -1008,6 +1008,7 @@ class Ansel_Image
 
             return $view;
         }
+
         if (is_null($style)) {
             $gallery = $ansel_storage->getGallery(abs($this->gallery));
             if (is_a($gallery, 'PEAR_Error')) {
@@ -1017,8 +1018,8 @@ class Ansel_Image
         } else {
             $style = Ansel::getStyleDefinition($style);
         }
-
        $view = md5($style['thumbstyle'] . '.' . $style['background']);
+
        return $view;
     }
 

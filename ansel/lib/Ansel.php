@@ -480,7 +480,7 @@ class Ansel
             if (is_a($result = $image->createView($view, $style, false), 'PEAR_Error')) {
                 return Ansel::getErrorImage($view);
             }
-            $viewHash = $image->_getViewHash($view, $style) . '/'
+            $viewHash = $image->getViewHash($view, $style) . '/'
                 . $image->getVFSName($view);
         }
 
@@ -892,6 +892,27 @@ class Ansel
         }
 
         return $style_def;
+    }
+
+    /**
+     * Return a hash key for the given view and style.
+     *
+     * @param string $view   The view (thumb, prettythumb etc...)
+     * @param string $style  The named style.
+     *
+     * @return string  A md5 hash suitable for use as a key.
+     */
+    static public function getViewHash($view, $style)
+    {
+        $style = Ansel::getStyleDefinition($style);
+
+        if ($view != 'screen' && $view != 'thumb' && $view != 'mini' &&
+            $view != 'full') {
+
+            $view = md5($style['thumbstyle'] . '.' . $style['background']);
+        }
+
+        return $view;
     }
 
     /**
