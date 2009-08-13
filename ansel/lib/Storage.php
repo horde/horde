@@ -395,6 +395,7 @@ class Ansel_Storage
      */
     public function emptyGallery($gallery)
     {
+        $gallery->clearStacks();
         $images = $gallery->listImages();
         foreach ($images as $image) {
             // Pretend we are a stack so we don't update the images count
