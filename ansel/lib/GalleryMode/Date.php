@@ -528,9 +528,6 @@ class Ansel_GalleryMode_Date {
         /* Remove any attributes */
         $this->_gallery->_shareOb->_write_db->exec('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$image->id);
 
-        /* Remove any geolocation data */
-        $this->_gallery->_shareOb->_write_db->exec('DELETE FROM ansel_images_geolocation WHERE image_id = ' . (int)$image->id);
-
         if (!$isStack) {
             $this->_gallery->updateImageCount(1, false, $image_gallery);
         }

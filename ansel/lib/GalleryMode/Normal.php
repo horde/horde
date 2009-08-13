@@ -239,9 +239,6 @@ class Ansel_GalleryMode_Normal {
             $this->_gallery->updateImageCount(1, false);
         }
 
-        /* Remove any geolocation data */
-        $this->_gallery->_shareOb->_write_db->exec('DELETE FROM ansel_images_geolocation WHERE image_id = ' . (int)$image->id);
-
         /* Update the modified flag if we are not a stack image */
         if (!$isStack) {
             $this->_gallery->data['attribute_last_modified'] = time();
