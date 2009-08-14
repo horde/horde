@@ -145,7 +145,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                     // Try to update in calendar.
                     if ($registry->hasMethod('calendar/replace')) {
                         try {
-                            $registry->call('calendar/replace', array('uid' => $guid, 'content' => $components[$key], 'contentType' => $this->mime_part->getType()));
+                            $registry->call('calendar/replace', array('uid' => $guid, 'content' => $components[$key], 'contentType' => $this->_mimepart->getType()));
                             $handled = true;
                             $url = Horde::url($registry->link('calendar/show', array('uid' => $guid)));
                             $msgs[] = array('success', _("The event was updated in your calendar.") .
@@ -159,7 +159,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                         // Import into calendar.
                         $handled = true;
                         try {
-                            $guid = $registry->call('calendar/import', array('content' => $components[$key], 'contentType' => $this->mime_part->getType()));
+                            $guid = $registry->call('calendar/import', array('content' => $components[$key], 'contentType' => $this->_mimepart->getType()));
                             $url = Horde::url($registry->link('calendar/show', array('uid' => $guid)));
                             $msgs[] = array('success', _("The event was added to your calendar.") .
                                             '&nbsp;' . Horde::link($url, _("View event"), null, '_blank') . Horde::img('mime/icalendar.png', _("View event"), null, $registry->getImageDir('horde')) . '</a>');
@@ -190,7 +190,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                     // Import into Nag.
                     if ($registry->hasMethod('tasks/import')) {
                         try {
-                            $guid = $registry->call('tasks/import', array($components[$key], $this->mime_part->getType()));
+                            $guid = $registry->call('tasks/import', array($components[$key], $this->_mimepart->getType()));
                             $url = Horde::url($registry->link('tasks/show', array('uid' => $guid)));
                             $msgs[] = array('success', _("The task has been added to your tasklist.") .
                                                          '&nbsp;' . Horde::link($url, _("View task"), null, '_blank') . Horde::img('mime/icalendar.png', _("View task"), null, $registry->getImageDir('horde')) . '</a>');
