@@ -241,7 +241,7 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Abstract
      */
     protected function _lastInsertId($table, $sequenceName)
     {
-        return (int)$this->selectValue('SELECT currval('.$this->quoteColumnName($sequenceName).')');
+        return (int)$this->selectValue('SELECT currval('.$this->quoteSequenceName($sequenceName).')');
     }
 
 }

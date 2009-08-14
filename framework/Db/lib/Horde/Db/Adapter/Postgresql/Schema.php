@@ -42,6 +42,16 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Abstract_Schem
     {
         return '"' . str_replace('"', '""', $name) . '"';
     }
+    
+    /**
+     * Quotes sequence names for use in SQL queries.
+     *
+     * @return  string
+     */
+    public function quoteSequenceName($name)
+    {
+        return '\'' . str_replace('"', '""', $name) . '\'';
+    }
 
     /**
      * Quotes PostgreSQL-specific data types for SQL input.
@@ -356,11 +366,11 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Abstract_Schem
 
         if ($pk) {
             if ($sequence) {
-                $quotedSequence = $this->quoteColumnName($sequence);
+                $quotedSequence = $this->quoteSequenceName($sequence);
                 $quotedTable = $this->quoteTableName($table);
                 $quotedPk = $this->quoteColumnName($pk);
 
-                $sql = "SELECT setval('$quotedSequence', (SELECT COALESCE(MAX($quotedPk)+(SELECT increment_by FROM $quotedSequence), (SELECT min_value FROM $quotedSequence)) FROM $quotedTable), false)";
+                $sql = "SELECT setval($quotedSequence, (SELECT COALESCE(MAX($quotedPk)+(SELECT increment_by FROM $quotedSequence), (SELECT min_value FROM $quotedSequence)) FROM $quotedTable), false)";
                 $this->selectValue($sql, 'Reset sequence');
             } else {
                 /*@TODO logger.warn "$table has primary key $pk with no default sequence" if logger*/
