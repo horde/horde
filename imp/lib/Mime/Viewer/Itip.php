@@ -231,8 +231,9 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                     $organizerName = isset($organizer['cn']) ? $organizer['cn'] : '';
 
                     // Build the reply.
+                    $msg_headers = new Horde_Mime_Headers();
                     $vCal = new Horde_iCalendar();
-                    $vCal->setAttribute('PRODID', '-//The Horde Project//' . HORDE_AGENT_HEADER . '//EN');
+                    $vCal->setAttribute('PRODID', '-//The Horde Project//' . $msg_headers->getUserAgent() . '//EN');
                     $vCal->setAttribute('METHOD', 'REPLY');
 
                     $vEvent_reply = Horde_iCalendar::newComponent('vevent', $vCal);
@@ -320,7 +321,6 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                     $mime->addPart($ics);
 
                     // Build the reply headers.
-                    $msg_headers = new Horde_Mime_Headers();
                     $msg_headers->addReceivedHeader();
                     $msg_headers->addMessageIdHeader();
                     $msg_headers->addHeader('Date', date('r'));
@@ -400,8 +400,9 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                     $email = $identity->getFromAddress();
 
                     // Build the reply.
+                    $msg_headers = new Horde_Mime_Headers();
                     $vCal = new Horde_iCalendar();
-                    $vCal->setAttribute('PRODID', '-//The Horde Project//' . HORDE_AGENT_HEADER . '//EN');
+                    $vCal->setAttribute('PRODID', '-//The Horde Project//' . $msg_headers->getUserAgent() . '//EN');
                     $vCal->setAttribute('METHOD', 'REPLY');
                     $vCal->addComponent($vfb_reply);
 
@@ -420,7 +421,6 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                     $mime->addPart($ics);
 
                     // Build the reply headers.
-                    $msg_headers = new Horde_Mime_Headers();
                     $msg_headers->addReceivedHeader();
                     $msg_headers->addMessageIdHeader();
                     $msg_headers->addHeader('Date', date('r'));
