@@ -146,12 +146,8 @@ class Kronolith_FreeBusy {
         /* Check if we can retrieve a VFB from the Free/Busy URL, if one is
          * set. */
         $url = Kronolith_FreeBusy::getUrl($email);
-        if (is_a($url, 'PEAR_Error')) {
-            $url = null;
-        } else {
-            $url = trim($url);
-        }
         if ($url) {
+            $url = trim($url);
             $options['method'] = 'GET';
             $options['timeout'] = 5;
             $options['allowRedirects'] = true;
@@ -222,15 +218,18 @@ class Kronolith_FreeBusy {
      * @param string $email  The email address to look for.
      *
      * @return mixed  The url on success or false on failure.
-     * @throws Horde_Exception
      */
     function getUrl($email)
     {
         $sources = $GLOBALS['prefs']->getValue('search_sources');
         $sources = empty($sources) ? array() : explode("\t", $sources);
 
-        $result = $GLOBALS['registry']->call('contacts/getField',
-                                             array($email, 'freebusyUrl', $sources, true, true));
+        try {
+            $result = $GLOBALS['registry']->call('contacts/getField',
+                                                 array($email, 'freebusyUrl', $sources, true, true));
+        } catch (Horde_Exception $e) {
+            return false;
+        }
         if (is_array($result)) {
             return array_shift($result);
         }
