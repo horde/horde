@@ -151,10 +151,12 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
             return null;
         }
 
-        $raw_text = $this->_mimepart->replaceEOL($this->_params['contents']->getBodyPart($this->_mimepart->getMimeId(), array('mimeheaders' => true, 'stream' => true)), Horde_Mime_Part::RFC_EOL);
+        $raw_text = $this->_mimepart->getMimeId()
+            ? $this->_params['contents']->getBodyPart($this->_mimepart->getMimeId(), array('mimeheaders' => true, 'stream' => true))
+            : $this->_params['contents']->fullMessageText();
 
         try {
-            $decrypted_data = $this->_impsmime->decryptMessage($raw_text);
+            $decrypted_data = $this->_impsmime->decryptMessage($this->_mimepart->replaceEOL($raw_text, Horde_Mime_Part::RFC_EOL));
         } catch (Horde_Exception $e) {
             $status[] = $e->getMessage();
             return null;
@@ -174,11 +176,15 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
             return array();
         }
 
-        $raw_text = $this->_mimepart->replaceEOL($this->_params['contents']->getBodyPart($this->_mimepart->getMimeId(), array('mimeheaders' => true, 'stream' => true)), Horde_Mime_Part::RFC_EOL);
+        $raw_text = $this->_mimepart->getMimeId()
+            ? $this->_params['contents']->getBodyPart($this->_mimepart->getMimeId(), array('mimeheaders' => true, 'stream' => true))
+            : $this->_params['contents']->fullMessageText();
 
         try {
-            $sig_result = $this->_impsmime->verifySignature($raw_text);
-        } catch (Horde_Exception $e) {}
+            $sig_result = $this->_impsmime->verifySignature($this->_mimepart->replaceEOL($raw_text, Horde_Mime_Part::RFC_EOL));
+        } catch (Horde_Exception $e) {
+            return array();
+        }
 
         return array(
             $this->_mimepart->getMimeId() => array(
@@ -238,7 +244,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
 
         $stream = $base_id
             ? $this->_params['contents']->getBodyPart($base_id, array('mimeheaders' => true, 'stream' => true))
-            : $this->_params['contents']->fullMessageText(array('stream' => true));
+            : $this->_params['contents']->fullMessageText();
         $raw_text = $this->_mimepart->replaceEOL($stream, Horde_Mime_Part::RFC_EOL);
 
         $sig_result = null;
