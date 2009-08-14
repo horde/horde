@@ -181,6 +181,8 @@ class Horde_Cli
             $this->_blue_start   = '<span style="color:blue">';
             $this->_red_end = $this->_green_end = $this->_yellow_end = $this->_blue_end = '</span>';
         }
+
+        register_shutdown_function('session_destroy');
     }
 
     /**
