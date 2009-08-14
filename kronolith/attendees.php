@@ -253,6 +253,6 @@ $cac->attach();
 
 $title = _("Edit attendees");
 require KRONOLITH_TEMPLATES . '/common-header.inc';
-$notification->notify(array('status'));
+$notification->notify(array('listeners' => 'status'));
 require KRONOLITH_TEMPLATES . '/attendees/attendees.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';
