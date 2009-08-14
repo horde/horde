@@ -292,7 +292,7 @@ class Content_Tagger
             $sql = 'SELECT t.tag_id AS tag_id, tag_name, COUNT(*) AS count FROM ' . $this->_t('tagged') . ' AS tagged INNER JOIN ' . $this->_t('objects') . ' AS objects ON tagged.object_id = objects.object_id AND objects.type_id = ' . (int)$args['typeId'] . ' INNER JOIN ' . $this->_t('tags') . ' AS t ON tagged.tag_id = t.tag_id WHERE tagged.user_id = ' . (int)$args['user_id'] . ' GROUP BY t.tag_id';
         } elseif (isset($args['userId'])) {
             $args['userId'] = current($this->_userManager->ensureUsers($args['userId']));
-            $sql = 'SELECT t.tag_id AS tag_id, tag_name, count FROM ' . $this->_t('tagged') . ' AS tagged INNER JOIN ' . $this->_t('tags') . ' AS t ON tagged.tag_id = t.tag_id INNER JOIN ' . $this->_t('user_tag_stats') . ' AS uts ON t.tag_id = uts.tag_id AND uts.user_id = ' . (int)$args['userId'] . ' GROUP BY t.tag_id';
+            $sql = 'SELECT t.tag_id AS tag_id, tag_name, count FROM ' . $this->_t('tagged') . ' AS tagged INNER JOIN ' . $this->_t('tags') . ' AS t ON tagged.tag_id = t.tag_id INNER JOIN ' . $this->_t('user_tag_stats') . ' AS uts ON t.tag_id = uts.tag_id AND uts.user_id = ' . (int)$args['userId'] . ' GROUP BY t.tag_id, tag_name';
         } elseif (isset($args['typeId'])) {
             $args['typeId'] = current($this->_typeManager->ensureTypes($args['typeId']));
             // This doesn't use a stat table, so may be slow.
