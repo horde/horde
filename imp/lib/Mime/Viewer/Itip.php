@@ -115,7 +115,8 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                 // vEvent reply.
                 if ($registry->hasMethod('calendar/updateAttendee')) {
                     try {
-                        $event = $registry->call('calendar/updateAttendee', array('response' => $components[$key], 'sender' => $params[0]->getFromAddress()));
+                        $hdrs = $this->_params['contents']->getHeaderOb();
+                        $event = $registry->call('calendar/updateAttendee', array('response' => $components[$key], 'sender' => $hdrs->getValue('From')));
                         $msgs[] = array('success', _("Respondent Status Updated."));
                     } catch (Horde_Exception $e) {
                         $msgs[] = array('error', _("There was an error updating the event:") . ' ' . $e->getMessage());
