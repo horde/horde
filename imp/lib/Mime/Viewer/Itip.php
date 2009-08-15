@@ -151,9 +151,10 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                             $url = Horde::url($registry->link('calendar/show', array('uid' => $guid)));
                             $msgs[] = array('success', _("The event was updated in your calendar.") .
                                             '&nbsp;' . Horde::link($url, _("View event"), null, '_blank') . Horde::img('mime/icalendar.png', _("View event"), null, $registry->getImageDir('horde')) . '</a>');
-                        } catch (Horde_Exception $e) {}
-                        // Could be a missing permission.
-                        $msgs[] = array('warning', _("There was an error updating the event:") . ' ' . $e->getMessage() . '. ' . _("Trying to import the event instead."));
+                        } catch (Horde_Exception $e) {
+                            // Could be a missing permission.
+                            $msgs[] = array('warning', _("There was an error updating the event:") . ' ' . $e->getMessage() . '. ' . _("Trying to import the event instead."));
+                        }
                     }
 
                     if (!$handled && $registry->hasMethod('calendar/import')) {
