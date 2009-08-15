@@ -287,13 +287,11 @@ class IMP_Dimp
      */
     static public function menuList()
     {
-        if (isset($GLOBALS['conf']['dimp']['menu']['apps'])) {
-            $apps = $GLOBALS['conf']['dimp']['menu']['apps'];
-            if (is_array($apps) && count($apps)) {
-                return $apps;
-            }
-        }
-        return array();
+        return (isset($GLOBALS['conf']['menu']['apps']) &&
+                is_array($GLOBALS['conf']['menu']['apps']) &&
+                count($GLOBALS['conf']['menu']['apps']))
+            ? $GLOBALS['conf']['menu']['apps']
+            : array();
     }
 
     /**

@@ -297,16 +297,6 @@
     before displaying an informational message to users that the message list is
     still being built. Set to 0 to disable messages.">12</configinteger>
    </configsection>
-
-   <configsection name="menu" desc="Menu Settings">
-    <configheader>Menu Settings</configheader>
-    <configmultienum name="apps" desc="Select any applications that should be
-    linked in DIMP's menu">
-     <values>
-      <configspecial name="list-horde-apps" />
-     </values>
-    </configmultienum>
-   </configsection>
   </configsection>
  </configtab>
 
