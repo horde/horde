@@ -106,7 +106,7 @@ class Horde_Cache_Memcache extends Horde_Cache_Base
      */
     public function exists($key, $lifetime = 1)
     {
-        return ($this->_get($key, $lifetime) !== false);
+        return ($this->get($key, $lifetime) !== false);
     }
 
     /**
