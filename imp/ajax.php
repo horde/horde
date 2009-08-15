@@ -168,7 +168,8 @@ try {
     new IMP_Application(array('init' => array('authentication' => 'throw', 'session_control' => $session_control)));
 } catch (Horde_Exception $e) {
     /* Handle session timeouts when they come from an AJAX request. */
-    if ($e->getCode() == Horde_Registry::AUTH_FAILURE) {
+    if (($e->getCode() == Horde_Registry::AUTH_FAILURE) &&
+        ($action != 'LogOut')) {
         $notification = Horde_Notification::singleton();
         $imp_notify = $notification->attach('status', array('viewmode' => 'dimp'), 'IMP_Notification_Listener_Status');
         $notification->push(str_replace('&amp;', '&', Horde_Auth::getLogoutUrl(array('reason' => Horde_Auth::REASON_SESSION))), 'dimp.timeout', array('content.raw'));
@@ -193,10 +194,10 @@ $result = false;
 
 switch ($action) {
 case 'LogOut':
-    /* Handle logout requests. This needs to be done here because the logout
-     * tokens might expire otherwise. */
+    /* Handle logout requests. This needs to be done here, rather than on the
+     * browser, because the logout tokens might otherwise expire. */
     Horde::redirect(str_replace('&amp;', '&', Horde::getServiceLink('logout', 'imp')));
-    break;
+    exit;
 
 case 'CreateFolder':
     if (empty($mbox)) {
