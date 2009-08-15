@@ -532,7 +532,8 @@ class Horde_Registry
      */
     public function hasAppMethod($app, $method)
     {
-        return method_exists($this->_getOb($app, 'application'), $method);
+        $appob = $this->_getOb($app, 'application');
+        return (method_exists($appob, $method) && !in_array($method, $appob->disabled));
     }
 
     /**
