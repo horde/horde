@@ -296,9 +296,6 @@
     <configinteger name="viewport_wait" desc="How long, in seconds, to wait
     before displaying an informational message to users that the message list is
     still being built. Set to 0 to disable messages.">12</configinteger>
-    <configboolean name="background_inbox" required="false" desc="On initial
-    login to the portal page, load the INBOX in the
-    background?">true</configboolean>
    </configsection>
 
    <configsection name="menu" desc="Menu Settings">

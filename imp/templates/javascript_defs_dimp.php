@@ -55,7 +55,6 @@ $code['conf'] = array_filter(array(
 
     // Other variables
     'app_urls' => $app_urls,
-    'background_inbox' => intval(!empty($GLOBALS['conf']['dimp']['viewport']['background_inbox'])),
     'buffer_pages' => intval($GLOBALS['conf']['dimp']['viewport']['buffer_pages']),
     'debug' => intval(!empty($GLOBALS['conf']['dimp']['js']['debug'])),
     'disable_compose' => !IMP::canCompose(),

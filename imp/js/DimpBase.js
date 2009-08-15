@@ -2464,9 +2464,7 @@ var DimpBase = {
                 this.go('folder:INBOX');
             } else {
                 this.go('portal');
-                if (DIMP.conf.background_inbox) {
-                    this.loadMailbox('INBOX', { background: true });
-                }
+                this.loadMailbox('INBOX', { background: true });
             }
         }
 
