@@ -17,8 +17,6 @@ div.options, div.browsefileoptions {
 div.options span, div.browsefileoptions span {
     display: -moz-inline-stack;
     display: inline-block;
-    zoom: 1;
-    *display: inline;
     border: 1px solid #ccc;
     padding: 6px;
     background: #e9e9e9;
