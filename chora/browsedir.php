@@ -118,10 +118,7 @@ if ($fileList) {
         $url = Chora::url('browsefile', $fileName, array('onb' => $onb));
         $readableDate = Chora::readableTime($date);
         if ($log) {
-            $shortLog = str_replace("\n", ' ', trim(substr($log, 0, $conf['options']['shortLogLength'] - 1)));
-            if (strlen($log) > 80) {
-                $shortLog .= '...';
-            }
+            $shortLog = Horde_String::truncate(str_replace("\n", ' ', trim($log)), $conf['options']['shortLogLength']);
         }
         require CHORA_TEMPLATES . '/directory/file.inc';
     }
