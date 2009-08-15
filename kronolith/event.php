@@ -44,19 +44,11 @@ case 'EditEvent':
 }
 
 $title = $view->getTitle();
-$print_view = (bool)Horde_Util::getFormData('print');
 require KRONOLITH_TEMPLATES . '/common-header.inc';
-
-if ($print_view) {
-    require_once $registry->get('templates', 'horde') . '/javascript/print.js';
-} else {
-    require KRONOLITH_TEMPLATES . '/menu.inc';
-}
+require KRONOLITH_TEMPLATES . '/menu.inc';
 
 echo '<div id="page">';
-if (!$print_view) {
-    Kronolith::eventTabs($viewName, $view->event);
-}
+Kronolith::eventTabs($viewName, $view->event);
 $view->html();
 echo '</div>';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -1783,31 +1783,21 @@ class Kronolith
     }
 
     /**
-     * Should we show event location, based on the show_location
-     * preference and $print_view?
+     * Should we show event location, based on the show_location pref?
      */
     public static function viewShowLocation()
     {
         $show = @unserialize($GLOBALS['prefs']->getValue('show_location'));
-        if (!empty($GLOBALS['print_view'])) {
-            return @in_array('print', $show);
-        } else {
-            return @in_array('screen', $show);
-        }
+        return @in_array('screen', $show);
     }
 
     /**
-     * Should we show event time, based on the show_time preference
-     * and $print_view?
+     * Should we show event time, based on the show_time preference?
      */
     public static function viewShowTime()
     {
         $show = @unserialize($GLOBALS['prefs']->getValue('show_time'));
-        if (!empty($GLOBALS['print_view'])) {
-            return @in_array('print', $show);
-        } else {
-            return @in_array('screen', $show);
-        }
+        return @in_array('screen', $show);
     }
 
     /**
@@ -1889,12 +1879,6 @@ class Kronolith
         /* Import/Export. */
         if ($conf['menu']['import_export']) {
             $menu->add(Horde::applicationUrl('data.php'), _("_Import/Export"), 'data.png', $registry->getImageDir('horde'));
-        }
-
-        /* Print. */
-        if ($conf['menu']['print'] && ($view = Horde_Util::nonInputVar('view'))) {
-            Horde::addScriptFile('popup.js', 'horde', true);
-            $menu->add(Horde_Util::addParameter($view->link(), 'print', 1), _("_Print"), 'print.png', $registry->getImageDir('horde'), '_blank', 'Horde.popup({ url: kronolithPrintLink ? kronolithPrintLink : this.href });return false;', '__noselection');
         }
 
         return $menu;

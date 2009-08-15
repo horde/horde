@@ -92,7 +92,6 @@ function _ShowView()
     if (viewVars) {
         kronolithView = viewVars.readAttribute('view');
         kronolithDate = new Date(viewVars.readAttribute('date'));
-        kronolithPrintLink = viewVars.readAttribute('print');
     }
 }
 

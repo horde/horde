@@ -13,27 +13,16 @@ require_once dirname(__FILE__) . '/lib/base.php';
 
 $view = Kronolith::getView('Week');
 $title = sprintf(_("Week %d"), $view->week);
-$print_view = (bool)Horde_Util::getFormData('print');
 
 Horde::addScriptFile('tooltips.js', 'horde', true);
 require KRONOLITH_TEMPLATES . '/common-header.inc';
-
-if ($print_view) {
-    require $registry->get('templates', 'horde') . '/javascript/print.js';
-} else {
-    require KRONOLITH_TEMPLATES . '/menu.inc';
-}
+require KRONOLITH_TEMPLATES . '/menu.inc';
 
 echo '<div id="page">';
-if (!$print_view) {
-    Kronolith::tabs();
-}
+Kronolith::tabs();
 $view->html(KRONOLITH_TEMPLATES);
 echo '</div>';
 
-if ($print_view) {
-    require KRONOLITH_TEMPLATES . '/calendar_titles.inc';
-} else {
-    require KRONOLITH_TEMPLATES . '/panel.inc';
-}
+require KRONOLITH_TEMPLATES . '/calendar_titles.inc';
+require KRONOLITH_TEMPLATES . '/panel.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

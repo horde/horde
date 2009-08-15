@@ -40,7 +40,6 @@ $currentDate = Kronolith::currentDate();
 <script type="text/javascript">//<![CDATA[
 var kronolithView = '<?php if (isset($view) && is_object($view)) echo $view->getName() ?>';
 var kronolithDate = new Date(<?php printf('%d, %d, %d', $currentDate->year, $currentDate->month - 1, $currentDate->mday) ?>);
-var kronolithPrintLink = '';
 //]]></script>
 <title><?php echo htmlspecialchars($page_title) ?></title>
 <link href="<?php echo $GLOBALS['registry']->getImageDir()?>/favicon.ico" rel="SHORTCUT ICON" />
