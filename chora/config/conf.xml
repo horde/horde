@@ -4,8 +4,7 @@
 
  <configtab name="paths" desc="Paths and Locations">
   <configsection name="paths">
-   <configheader>Paths and Locations</configheader>
-   <configdescription>Paths for use with CVS</configdescription>
+   <configheader>Paths for use with CVS</configheader>
    <configstring name="ci" desc="ci">/usr/bin/ci</configstring>
    <configstring name="co" desc="co">/usr/bin/co</configstring>
    <configstring name="rcs" desc="rcs">/usr/bin/rcs</configstring>
@@ -24,7 +23,7 @@
    <configphp name="cvsgraph_conf" desc="CvsGraph configuration
    file">dirname(__FILE__) . '/cvsgraph.conf'</configphp>
 
-   <configdescription>Paths for use with Subversion</configdescription>
+   <configheader>Paths for use with Subversion</configheader>
    <configstring name="svn" desc="svn">/usr/bin/svn</configstring>
    <configstring name="diff" desc="diff">/usr/bin/diff</configstring>
    <configstring name="svn_home" required="false" desc="Home directory for
@@ -33,7 +32,7 @@
    If you leave this empty, the system's temporary directory will be used.">
    </configstring>
 
-   <configdescription>Paths for use with Git</configdescription>
+   <configheader>Paths for use with Git</configheader>
    <configstring name="git" desc="git">/usr/bin/git</configstring>
   </configsection>
  </configtab>
