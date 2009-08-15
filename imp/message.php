@@ -696,6 +696,7 @@ if (!empty($atc_parts) && ($show_parts != 'none')) {
     }
 
     $hdrs[] = array(
+        'class' => 'msgheaderParts',
         'name' => ($show_parts == 'all') ? _("Parts") : _("Attachments"),
         'val' => '<table>' . implode('', $tmp) . '</table>',
         'i' => (++$i % 2)

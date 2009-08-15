@@ -712,7 +712,7 @@ td.addressTr span.loadingImg {
         font-weight: bold;
     }
 
-    #msgHeadersColl, .context, .address img, .noprint, .mimeStatusMessage, .largeaddrlist, #msgAtc, table.msgActionTable, #messages h1.header, table.navbaractions {
+    #msgHeadersColl, .context, .address img, .noprint, .mimeStatusMessage, .largeaddrlist, #msgAtc, table.msgActionTable, #messages h1.header, table.navbaractions, td.msgheader img, tr.msgheaderParts {
         display: none !important;
     }
 
