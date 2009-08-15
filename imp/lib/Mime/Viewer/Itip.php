@@ -517,7 +517,8 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
             break;
 
         case 'REQUEST':
-            $sender = $this->_headers->getValue('From');
+            $hdrs = $this->_params['contents']->getHeaderOb();
+            $sender = $hdrs->getValue('From');
             $desc = _("%s requests your free/busy information.");
             break;
 
@@ -669,8 +670,9 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
             break;
 
         case 'REPLY':
+            $hdrs = $this->_params['contents']->getHeaderOb();
             $desc = _("%s has replied to the invitation to \"%s\".");
-            $sender = $this->_headers->getValue('From');
+            $sender = $hdrs->getValue('From');
             if ($registry->hasMethod('calendar/updateAttendee')) {
                 $options[] = '<option value="update">' . _("Update respondent status") . '</option>';
             }
