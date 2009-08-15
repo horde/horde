@@ -706,13 +706,6 @@ class Horde_Registry
      */
     public function linkByPackage($app, $call, $args = array(), $extra = '')
     {
-        /* Note: calling hasMethod makes sure that we've cached $app's
-         * services and included the API file, so we don't try to do
-         * it it again explicitly in this method. */
-        if (!$this->hasMethod($call, $app)) {
-            throw new Horde_Exception('The method "' . $call . '" is not defined in ' . $app . '\'s API.');
-        }
-
         /* Make sure the link is defined. */
         $this->_loadApiCache();
         if (empty($this->_cache['api'][$app]['links'][$call])) {
