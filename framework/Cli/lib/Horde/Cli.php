@@ -182,7 +182,7 @@ class Horde_Cli
             $this->_red_end = $this->_green_end = $this->_yellow_end = $this->_blue_end = '</span>';
         }
 
-        register_shutdown_function('session_destroy');
+        register_shutdown_function(array($this, '_shutdown'));
     }
 
     /**
