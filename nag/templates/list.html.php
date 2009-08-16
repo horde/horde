@@ -7,6 +7,9 @@ if ($tasks->hasTasks()) {
     $sortdir = $prefs->getValue('sortdir');
     $dateFormat = $prefs->getValue('date_format');
     $columns = @unserialize($prefs->getValue('tasklist_columns'));
+    if (empty($columns)) {
+        $columns = array();
+    }
     $dynamic_sort = true;
 
     $baseurl = 'list.php';
@@ -49,7 +52,7 @@ if ($tasks->hasTasks()) {
 
     require NAG_TEMPLATES . '/list/task_footers.inc';
 
-    if (!$print_view && $dynamic_sort) {
+    if ($dynamic_sort) {
         Horde::addScriptFile('tables.js', 'horde', true);
     }
 } else {

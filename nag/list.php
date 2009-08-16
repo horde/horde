@@ -84,36 +84,24 @@ default:
     break;
 }
 
-$print_view = (bool)$vars->print;
-if (!$print_view) {
-    Horde::addScriptFile('tooltips.js', 'horde', true);
-    Horde::addScriptFile('effects.js', 'horde', true);
-    Horde::addScriptFile('QuickFinder.js', 'horde', true);
-    $print_link = Horde::applicationUrl(Horde_Util::addParameter('list.php', array('print' => 1)));
-}
+Horde::addScriptFile('tooltips.js', 'horde', true);
+Horde::addScriptFile('effects.js', 'horde', true);
+Horde::addScriptFile('QuickFinder.js', 'horde', true);
 
 require NAG_TEMPLATES . '/common-header.inc';
+require NAG_TEMPLATES . '/menu.inc';
+echo '<div id="page">';
 
-if ($print_view) {
-    require_once $registry->get('templates', 'horde') . '/javascript/print.js';
-} else {
-    require NAG_TEMPLATES . '/menu.inc';
-    echo '<div id="page">';
-
-    if (!$prefs->isLocked('show_completed')) {
-        $listurl = Horde::applicationUrl('list.php');
-        $tabs = new Horde_UI_Tabs('show_completed', $vars);
-        $tabs->addTab(_("_All tasks"), $listurl, Nag::VIEW_ALL);
-        $tabs->addTab(_("Incom_plete tasks"), $listurl, Nag::VIEW_INCOMPLETE);
-        $tabs->addTab(_("_Future tasks"), $listurl, Nag::VIEW_FUTURE);
-        $tabs->addTab(_("_Completed tasks"), $listurl, Nag::VIEW_COMPLETE);
-        echo $tabs->render($vars->get('show_completed'));
-    }
+if (!$prefs->isLocked('show_completed')) {
+    $listurl = Horde::applicationUrl('list.php');
+    $tabs = new Horde_UI_Tabs('show_completed', $vars);
+    $tabs->addTab(_("_All tasks"), $listurl, Nag::VIEW_ALL);
+    $tabs->addTab(_("Incom_plete tasks"), $listurl, Nag::VIEW_INCOMPLETE);
+    $tabs->addTab(_("_Future tasks"), $listurl, Nag::VIEW_FUTURE);
+    $tabs->addTab(_("_Completed tasks"), $listurl, Nag::VIEW_COMPLETE);
+    echo $tabs->render($vars->get('show_completed'));
 }
 
 require NAG_TEMPLATES . '/list.html.php';
-
-if (!$print_view) {
-    require NAG_TEMPLATES . '/panel.inc';
-}
+require NAG_TEMPLATES . '/panel.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -42,7 +42,6 @@ if ($search_results->count() == 1) {
 
 $tasks = $search_results;
 $title = sprintf(_("Search: Results for \"%s\""), $search);
-$print_view = null;
 $actionID = null;
 
 Horde::addScriptFile('tooltips.js', 'horde', true);

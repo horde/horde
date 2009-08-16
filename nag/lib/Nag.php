@@ -688,7 +688,7 @@ class Nag
      */
     function getMenu()
     {
-        global $conf, $registry, $print_link;
+        global $conf, $registry;
 
         $menu = new Horde_Menu();
         $menu->add(Horde::applicationUrl('list.php'), _("_List Tasks"), 'nag.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
@@ -708,11 +708,6 @@ class Nag
         /* Import/Export. */
         if ($conf['menu']['import_export']) {
             $menu->add(Horde::applicationUrl('data.php'), _("_Import/Export"), 'data.png', $registry->getImageDir('horde'));
-        }
-
-        /* Print. */
-        if ($conf['menu']['print'] && isset($print_link)) {
-            $menu->add($print_link, _("_Print"), 'print.png', $registry->getImageDir('horde'), '_blank', Horde::popupJs($print_link, array('urlencode' => true)) . 'return false;', '__noselection');
         }
 
         return $menu;

@@ -93,42 +93,29 @@ if (!empty($task->uid)) {
 }
 
 $title = $task->name;
-$print_view = (bool)Horde_Util::getFormData('print');
 $links = array();
-if (!$print_view) {
-    Horde::addScriptFile('stripe.js', 'horde', true);
+Horde::addScriptFile('stripe.js', 'horde', true);
 
-    $taskurl = Horde_Util::addParameter('task.php',
-                                  array('task' => $task_id,
-                                        'tasklist' => $tasklist_id));
-    $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
+$taskurl = Horde_Util::addParameter('task.php',
+                              array('task' => $task_id,
+                                    'tasklist' => $tasklist_id));
+$share = $GLOBALS['nag_shares']->getShare($tasklist_id);
 
-    if (!is_a($share, 'PEAR_Error')) {
-        if ($share->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
-            if (!$task->completed) {
-                $links[] = Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($taskurl, 'actionID', 'complete_task')), _("Complete"), 'smallheader', '', '', _("_Complete"));
-            }
-            if (!$task->private || $task->owner == Horde_Auth::getAuth()) {
-                $links[] = Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($taskurl, 'actionID', 'modify_task')), _("Edit"), 'smallheader', '', '', _("_Edit"));
-            }
+if (!is_a($share, 'PEAR_Error')) {
+    if ($share->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+        if (!$task->completed) {
+            $links[] = Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($taskurl, 'actionID', 'complete_task')), _("Complete"), 'smallheader', '', '', _("_Complete"));
         }
-        if ($share->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE)) {
-            $links[] = Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($taskurl, 'actionID', 'delete_tasks')), _("Delete"), 'smallheader', '', $prefs->getValue('delete_opt') ? 'return window.confirm(\'' . addslashes(_("Really delete this task?")) . '\');' : '', _("_Delete"));
+        if (!$task->private || $task->owner == Horde_Auth::getAuth()) {
+            $links[] = Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($taskurl, 'actionID', 'modify_task')), _("Edit"), 'smallheader', '', '', _("_Edit"));
         }
+    }
+    if ($share->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE)) {
+        $links[] = Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($taskurl, 'actionID', 'delete_tasks')), _("Delete"), 'smallheader', '', $prefs->getValue('delete_opt') ? 'return window.confirm(\'' . addslashes(_("Really delete this task?")) . '\');' : '', _("_Delete"));
     }
 }
 require NAG_TEMPLATES . '/common-header.inc';
-
-if ($print_view) {
-    require_once $registry->get('templates', 'horde') . '/javascript/print.js';
-} else {
-    $print_link = Horde_Util::addParameter('view.php',
-                                     array('task' => $task_id,
-                                           'tasklist' => $tasklist_id,
-                                           'print' => 1));
-    $print_link = Horde::url($print_link);
-    require NAG_TEMPLATES . '/menu.inc';
-}
+require NAG_TEMPLATES . '/menu.inc';
 
 /* Set up alarm units and value. */
 $task_alarm = $task->alarm;

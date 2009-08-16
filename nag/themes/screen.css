@@ -252,3 +252,9 @@ table#tasklist-list th.sortdown {
 #RB_info input {
     margin: .2em;
 }
+
+@media print {
+    .header .smallheader, .tabset, .notices, #pageControls, #quicksearchL, #quicksearch {
+        display: none;
+    }
+}
