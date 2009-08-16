@@ -131,11 +131,6 @@ option {
     text-align: left;
 }
 
-/* Redbox styles. */
-#RB_window {
-    text-align: right;
-}
-
 /* Color picker styles. */
 #color-picker .north div {
     float: left;

@@ -324,25 +324,6 @@ table#calendar-list td {
     width: 1%;
 }
 
-#RB_confirm {
-    width: 20em;
-    padding: 1em;
-    border: 1px solid #ccc;
-    background: #ffc;
-}
-#RB_confirm input {
-    margin: .2em;
-}
-
-#RB_info {
-    width: 30em;
-    padding: 1em;
-    border: 1px solid #ccc;
-    background: #ccf;
-}
-#RB_info input {
-    margin: .2em;
-}
 
 /*****************
  * AJAX INTERFACE

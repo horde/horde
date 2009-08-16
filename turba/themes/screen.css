@@ -1,13 +1,3 @@
-/* Menu bottom margin, added for BC. */
-#menu {
-    margin-bottom: 8px;
-}
-
-/* Added for BC. */
-.hidden {
-    display: none;
-}
-
 .QuickFinderNoMatch {
     display: none;
 }
@@ -114,50 +104,4 @@ table#addressbook-list th.sortdown {
 #turba-prefs-cols-columns .checkbox {
     margin-right: 2px;
     cursor: default;
-}
-
-/* Redbox styles. */
-#RB_overlay {
-    position: absolute;
-    z-index: 100;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    min-height: 100%;
-    background-color: #000;
-    opacity: .6;
-    filter: alpha(opacity=60);
-}
-#RB_loading {
-    z-index: 101;
-    width: 66;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 200px;
-    padding-bottom: 66px;
-    text-align: center;
-    background: url("graphics/redbox_spinner.gif") no-repeat bottom center;
-}
-#RB_window {
-    z-index: 102;
-    background-color: #fff;
-    display: block;
-    text-align: left;
-    overflow: hidden;
-    margin: 20px auto 0 auto;
-    position: fixed;
-    position: absolute;
-}
-
-#RB_confirm {
-    width: 20em;
-    padding: 1em;
-    border: 1px solid #ccc;
-    background: #ffc;
-}
-#RB_confirm input {
-    margin: .2em;
 }

@@ -746,42 +746,6 @@ table.calendarPopup {
     display: none;
 }
 
-/* Redbox styles. */
-#RB_overlay {
-    position: absolute;
-    z-index: 100;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    min-height: 100%;
-    background-color: #000;
-    filter: alpha(opacity=60);
-    -moz-opacity: .6;
-    opacity: .6;
-}
-#RB_loading {
-    z-index: 101;
-    width: 66px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 200px;
-    padding-bottom: 66px;
-    text-align: center;
-    background: url("graphics/redbox_spinner.gif") no-repeat bottom center;
-}
-#RB_window {
-    z-index: 102;
-    background-color: #fff;
-    display: block;
-    text-align: left;
-    overflow: hidden;
-    margin: 20px auto 0 auto;
-    position: absolute;
-}
-
 /* Color picker styles. */
 #color-picker {
     color: #999;
