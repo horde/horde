@@ -520,7 +520,7 @@ class Horde_Registry
 
         $this->_loadApiCache();
 
-        return in_array($call, $this->_cache['api'][$app]['api'])
+        return (isset($this->_cache['api'][$app]) && in_array($call, $this->_cache['api'][$app]['api']))
             ? $app
             : false;
     }
