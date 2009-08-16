@@ -74,6 +74,12 @@ class Horde_Service_Twitter_Statuses
      *
      * http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-statuses-friends_timeline
      *
+     * NOTE: According to the API docs, this method is deprecated and will be
+     * going away in a future version of the API. This is to be replaced by
+     * home_timeline.
+     *
+     * http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-statuses-home_timeline
+     *
      * @param array $params  Parameters for the friends_timeline call
      *   <pre>
      *     since_id   - Only tweets more recent the indicated tweet id
@@ -81,12 +87,110 @@ class Horde_Service_Twitter_Statuses
      *     count      - Only return this many tweets (twitter limit = 200)
      *     page       - The page number to return (note there are pagination limits)
      *   </pre>
-     * @return unknown_type
+     *
+     * @return string
      */
     public function friendsTimeline($params = array())
     {
         $url = $this->_endpoint . 'friends_timeline.' . $this->_format;
         return $this->_twitter->request->get($url, $params);
+    }
+
+    /**
+     * Returns the 20 most recent statuses, including retweets, posted by the
+     * authenticating user and that user's friends. This is the equivalent of
+     * /timeline/home on the Web.
+     *
+     * http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-statuses-home_timeline
+     *
+     * @param array $params  Parameters for the friends_timeline call
+     *   <pre>
+     *     since_id   - Only tweets more recent the indicated tweet id
+     *     max_id     - Only tweets older then the indeicated tweet id
+     *     count      - Only return this many tweets (twitter limit = 200)
+     *     page       - The page number to return (note there are pagination limits)
+     *   </pre>
+     *
+     * @return string
+     */
+    public function homeTimeline($params = array())
+    {
+        $url = $this->_endpoint . 'home_timeline.' . $this->_format;
+        return $this->_twitter->request->get($url, $params);
+    }
+
+    /**
+     * Returns the 20 most recent retweets posted by the authenticating user.
+     *
+     * @param array $params  Parameters for the friends_timeline call
+     *   <pre>
+     *     since_id   - Only tweets more recent the indicated tweet id
+     *     max_id     - Only tweets older then the indeicated tweet id
+     *     count      - Only return this many tweets (twitter limit = 200)
+     *     page       - The page number to return (note there are pagination limits)
+     *   </pre>
+     *
+     * @return string
+     */
+    public function retweetedByMe($params = array())
+    {
+        $url = $this->_endpoint . 'retweeted_by_me.' . $this->_format;
+        return $this->_twitter->request->get($url, $params);
+    }
+
+    /**
+     * Returns the 20 most recent retweets posted by the authenticating user's
+     * friends.
+     *
+     * @param array $params  Parameters for the friends_timeline call
+     *   <pre>
+     *     since_id   - Only tweets more recent the indicated tweet id
+     *     max_id     - Only tweets older then the indeicated tweet id
+     *     count      - Only return this many tweets (twitter limit = 200)
+     *     page       - The page number to return (note there are pagination limits)
+     *   </pre>
+     *
+     * @return string
+     */
+    public function retweetedToMe($params = array())
+    {
+        $url = $this->_endpoint . 'retweetedToMe.' . $this->_format;
+        return $this->_twitter->request->get($url, $params);
+    }
+
+    /**
+     * Returns the 20 most recent tweets of the authenticated user that have
+     * been retweeted by others.
+     *
+     * @param array $params  Parameters for the friends_timeline call
+     *   <pre>
+     *     since_id   - Only tweets more recent the indicated tweet id
+     *     max_id     - Only tweets older then the indeicated tweet id
+     *     count      - Only return this many tweets (twitter limit = 200)
+     *     page       - The page number to return (note there are pagination limits)
+     *   </pre>
+     *
+     * @return string
+     */
+    public function retweetsOfMe($params = array())
+    {
+        $url = $this->_endpoint . 'retweets_of_me.' . $this->_format;
+        return $this->_twitter->request->get($url, $params);
+    }
+
+    /**
+     * Retweets a tweet. Requires the id parameter of the tweet you are
+     * retweeting. Request must be a POST or PUT.
+     * Returns the original tweet with retweet details embedded.
+     *
+     * @params string id  The id for the tweet that is being retweeted.
+     */
+    public function retweet($id)
+    {
+        $url = $this->_endpoint . 'retweet.' . $this->_format;
+        $params = array('id' => $id);
+
+        return $this->_twitter->request->post($url, $params);
     }
 
     /**
