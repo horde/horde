@@ -601,11 +601,6 @@ class Turba {
             $menu->add(Horde::applicationUrl('data.php'), _("_Import/Export"), 'data.png', $GLOBALS['registry']->getImageDir('horde'));
         }
 
-        /* Print. */
-        if (isset($GLOBALS['print_link'])) {
-            $menu->add($GLOBALS['print_link'], _("_Print"), 'print.png', $GLOBALS['registry']->getImageDir('horde'), '_blank', Horde::popupJs($GLOBALS['print_link'], array('urlencode' => true)) . 'return false);', '__noselection');
-        }
-
         return $menu;
     }
 

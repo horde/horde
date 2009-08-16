@@ -105,3 +105,9 @@ table#addressbook-list th.sortdown {
     margin-right: 2px;
     cursor: default;
 }
+
+@media print {
+    .tabset, #page h1.header span.smallheader {
+        display: none !important;
+    }
+}

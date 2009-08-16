@@ -16,24 +16,11 @@ class Turba_View_Contact {
     var $contact;
 
     /**
-     * @var boolean
-     */
-    var $print = false;
-
-    /**
      * @param Turba_Object &$contact
      */
-    public function __construct(&$contact, $print = null)
+    public function __construct(&$contact)
     {
         $this->contact = &$contact;
-        if (!is_null($print)) {
-            $this->print = $print;
-        }
-
-        /* Set print link. */
-        if (!$this->print) {
-            $GLOBALS['print_link'] = Horde_Util::addParameter($this->contact->url(), 'print', 1);
-        }
     }
 
     function getTitle()
@@ -104,7 +91,7 @@ class Turba_View_Contact {
         if (!empty($comments['threads'])) {
             echo '<br />' . $comments['threads'];
         }
-        if (!empty($comments['comments']) && !$this->print) {
+        if (!empty($comments['comments'])) {
             echo '<br />' . $comments['comments'];
         }
 

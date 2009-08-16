@@ -52,14 +52,11 @@ if ($vars->get('action') == 'mark_own') {
     $notification->push(_("This contact has been marked as your own."), 'horde.success');
 }
 
-// Are we printing?
-$print_view = (bool)Horde_Util::getFormData('print');
-
 // Get view.
 $viewName = Horde_Util::getFormData('view', 'Contact');
 switch ($viewName) {
 case 'Contact':
-    $view = new Turba_View_Contact($contact, $print_view);
+    $view = new Turba_View_Contact($contact);
     if (!$vars->get('url')) {
         $vars->set('url', $contact->url(null, true));
     }
@@ -104,15 +101,9 @@ if ($own_source == $source && $own_id == $contact->getValue('__key')) {
 $title = $view->getTitle();
 Horde::addScriptFile('contact_tabs.js', 'turba', true);
 require TURBA_TEMPLATES . '/common-header.inc';
-if ($print_view) {
-    require_once $registry->get('templates', 'horde') . '/javascript/print.js';
-} else {
-    require TURBA_TEMPLATES . '/menu.inc';
-}
+require TURBA_TEMPLATES . '/menu.inc';
 echo '<div id="page">';
-if (!$print_view) {
-    echo $tabs->render($viewName);
-}
+echo $tabs->render($viewName);
 echo '<h1 class="header">' . $own_link
     . ($contact->getValue('name')
        ? htmlspecialchars($contact->getValue('name'))
