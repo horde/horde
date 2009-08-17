@@ -432,18 +432,7 @@ span.spellcheckPopdownImg:hover {
     padding: 1px;
 }
 
-/* Audio selection */
-ul.nav-audio {
-    list-style: none;
-}
-.nav-audio li {
-    height: 24px;
-}
-.nav-audio embed {
-    vertical-align: middle;
-    height: 24px;
-}
-
+/* Large addresslist display. */
 .largeaddrlist {
     cursor: pointer;
     background: #aaa;
