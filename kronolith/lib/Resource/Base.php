@@ -3,12 +3,18 @@
  * Kronolith resources
  *
  */
-class Kronolith_Resource
+class Kronolith_Resource_Base
 {
     protected $_params = array();
+    protected $_uid = '';
 
     public function __construct($params = array())
     {
+        if (!empty($params['id'])) {
+            // Existing resource
+            $this->_uid = $params['id'];
+        }
+
         $this->_params = $params;
     }
 
@@ -30,29 +36,26 @@ class Kronolith_Resource
         return $this->_params[$property];
     }
 
-
     /**
+     * Should this take an event, or a time range?
      *
      * @param $startTime
      * @param $endTime
      * @return unknown_type
      */
-    public function isFree($startTime, $endTime)
-    {
-        //Should this take an event also, instead?
-    }
+    abstract public function isFree($startTime, $endTime);
 
     /**
      * Adds $event to this resource's calendar - thus blocking the time
-     * for any other event.
+     * for any other event. Also responsible for setting the attendence status
+     * for the resource in the event object. i.e. calling addResource() (just
+     * like updating an attendee is done by calling addAttendee on the same
+     * attendee again).
      *
      * @param $event
      * @return unknown_type
      */
-    public function attachToEvent($event)
-    {
-
-    }
+    abstract public function attachToEvent($event);
 
     /**
      * Remove this event from resource's calendar
@@ -60,30 +63,14 @@ class Kronolith_Resource
      * @param $event
      * @return unknown_type
      */
-    public function detachFromEvent($event)
-    {
-
-    }
+    abstract public function detachFromEvent($event);
 
     /**
-     *
+     * Obtain the freebusy information for this resource.  Takes into account
+     * if this is a group of resources or not. (Returns the cumulative FB info
+     * for all the resources in the group.
      * @return unknown_type
      */
-    static public function listResources($params)
-    {
-        // Query kronolith_resource table for all(?) available resources?
-        // maybe by 'type' or 'name'? type would be arbitrary?
-    }
-
-    /**
-     * Adds a new resource to storage
-     *
-     * @param $params
-     * @return unknown_type
-     */
-    static public function addResource($params)
-    {
-
-    }
+    abstract public function getFreeBusy();
 
 }
