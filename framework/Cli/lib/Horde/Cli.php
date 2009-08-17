@@ -182,6 +182,8 @@ class Horde_Cli
             $this->_red_end = $this->_green_end = $this->_yellow_end = $this->_blue_end = '</span>';
         }
 
+        // We really want to call this at the end of the script, not in the
+        // destructor.
         register_shutdown_function(array($this, '_shutdown'));
     }
 
