@@ -479,4 +479,12 @@ class Horde_Cli
                 empty($_SERVER['SERVER_NAME']));
     }
 
+    /**
+     * Destroys any session on script end.
+     */
+    private function _shutdown()
+    {
+        @session_destroy();
+    }
+
 }
