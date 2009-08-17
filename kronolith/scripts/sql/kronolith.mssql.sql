@@ -7,6 +7,7 @@ CREATE TABLE kronolith_events (
     event_location VARCHAR(MAX),
     event_status INT DEFAULT 0,
     event_attendees VARCHAR(MAX),
+    event_resources VARCHAR(MAX),
     event_exceptions VARCHAR(MAX),
     event_title VARCHAR(255),
     event_recurtype INT DEFAULT 0,
