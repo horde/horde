@@ -420,12 +420,7 @@ $_prefs['purge_events_interval'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'enum',
-    'enum' => array(
-        Horde_LoginTasks::YEARLY => _("Yearly"),
-        Horde_LoginTasks::MONTHLY => _("Monthly"),
-        Horde_LoginTasks::WEEKLY => _("Weekly"),
-        Horde_LoginTasks::DAILY => _("Daily"),
-        Horde_LoginTasks::EVERY => _("Every Login")),
+    'enum' => Horde_LoginTasks::getLabels(),
     'desc' => _("Purge old events how often:"),
 );
 

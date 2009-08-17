@@ -379,15 +379,6 @@ $_prefs['acl'] = array(
 
 // Login Tasks preferences
 
-// Listing of Horde_LoginTasks constants -> strings
-$logintasks_labels = array(
-    Horde_LoginTasks::YEARLY => _("Yearly"),
-    Horde_LoginTasks::MONTHLY => _("Monthly"),
-    Horde_LoginTasks::WEEKLY => _("Weekly"),
-    Horde_LoginTasks::DAILY => _("Daily"),
-    Horde_LoginTasks::EVERY => _("Every Login")
-);
-
 // select widget for the initial_page preference
 $_prefs['initialpageselect'] = array('type' => 'special');
 
@@ -441,7 +432,7 @@ $_prefs['purge_sentmail_interval'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'enum',
-    'enum' => $logintasks_labels,
+    'enum' => Horde_LoginTasks::getLabels(),
     'desc' => _("Purge sent-mail how often:"),
     'help' => 'prefs-purge_sentmail_interval');
 
@@ -487,7 +478,7 @@ $_prefs['purge_spam_interval'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'enum',
-    'enum' => $logintasks_labels,
+    'enum' => Horde_LoginTasks::getLabels(),
     'desc' => _("Purge Spam how often:"),
     'help' => 'prefs-purge_spam_interval');
 
@@ -515,7 +506,7 @@ $_prefs['purge_trash_interval'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'enum',
-    'enum' => $logintasks_labels,
+    'enum' => Horde_LoginTasks::getLabels(),
     'desc' => _("Purge Trash how often:"),
     'help' => 'prefs-purge_trash_interval');
 
