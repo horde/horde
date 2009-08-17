@@ -21,6 +21,13 @@ class Horde_LoginTasks_Tasklist
     public $target;
 
     /**
+     * Has this tasklist been processed yet?
+     *
+     * @var boolean
+     */
+    public $processed = false;
+
+    /**
      * The list of tasks to run during this login.
      *
      * KEY: Task name
@@ -46,16 +53,6 @@ class Horde_LoginTasks_Tasklist
      * @var integer
      */
     protected $_ptr = 0;
-
-    /**
-     * Constructor.
-     *
-     * @param string $url  The target URL to redirect to when finished.
-     */
-    public function __construct($url)
-    {
-        $this->target = $url;
-    }
 
     /**
      * Adds a task to the tasklist.

@@ -55,13 +55,6 @@ class Horde_LoginTasks
     protected $_tasklist;
 
     /**
-     * Was the tasklist init'd in this access?
-     *
-     * @var boolean
-     */
-    protected $_init = false;
-
-    /**
      * Attempts to return a reference to a concrete Horde_LoginTasks
      * instance based on $app. It will only create a new instance
      * if no instance with the same parameters currently exists.
@@ -70,14 +63,13 @@ class Horde_LoginTasks
      *   $var = Horde_LoginTasks::singleton($app[, $params]);
      *
      * @param string $app  See self::__construct().
-     * @param string $url  The URL to redirect to when finished.
      *
      * @return Horde_LoginTasks  The singleton instance.
      */
-    static public function singleton($app, $url = null)
+    static public function singleton($app)
     {
         if (empty(self::$_instances[$app])) {
-            self::$_instances[$app] = new Horde_LoginTasks($app, $url);
+            self::$_instances[$app] = new Horde_LoginTasks($app);
         }
 
         return self::$_instances[$app];
@@ -87,9 +79,8 @@ class Horde_LoginTasks
      * Constructor.
      *
      * @param string $app  The name of the Horde application.
-     * @param string $url  The URL to redirect to when finished.
      */
-    protected function __construct($app, $url)
+    protected function __construct($app)
     {
         $this->_app = $app;
 
@@ -103,8 +94,7 @@ class Horde_LoginTasks
         }
 
         if (empty($this->_tasklist)) {
-            $this->_createTaskList($url);
-            $this->_init = true;
+            $this->_createTaskList();
         }
     }
 
@@ -121,13 +111,11 @@ class Horde_LoginTasks
     /**
      * Creates the list of login tasks that are available for this session
      * (stored in a Horde_LoginTasks_Tasklist object).
-     *
-     * @param string $url  The URL to redirect to when finished.
      */
-    protected function _createTaskList($url)
+    protected function _createTaskList()
     {
         /* Create a new Horde_LoginTasks_Tasklist object. */
-        $this->_tasklist = new Horde_LoginTasks_Tasklist($url);
+        $this->_tasklist = new Horde_LoginTasks_Tasklist();
 
         /* Get last task run date(s). Array keys are app names, values are
          * last run timestamps. Special key '_once' contains list of
@@ -224,6 +212,11 @@ class Horde_LoginTasks
                 }
             }
         }
+
+        /* If tasklist is empty, we can simply set it to true now. */
+        if ($this->_tasklist->isDone()) {
+            $this->_tasklist = true;
+        }
     }
 
     /**
@@ -235,8 +228,9 @@ class Horde_LoginTasks
      *
      * @param boolean $confirmed  If true, indicates that any pending actions
      *                            have been confirmed by the user.
+     * @param string $url         The URL to redirect to when finished.
      */
-    public function runTasks($confirmed = false)
+    public function runTasks($confirmed = false, $url = null)
     {
         if (!isset($this->_tasklist) ||
             ($this->_tasklist === true)) {
@@ -244,7 +238,7 @@ class Horde_LoginTasks
         }
 
         /* Perform ready tasks now. */
-        foreach ($this->_tasklist->ready($this->_init || $confirmed) as $key => $val) {
+        foreach ($this->_tasklist->ready(!$this->_tasklist->processed || $confirmed) as $key => $val) {
             if (in_array($val->display, array(self::DISPLAY_AGREE, self::DISPLAY_NOTICE, self::DISPLAY_NONE)) ||
                 Horde_Util::getFormData('logintasks_confirm_' . $key)) {
                 $val->execute();
@@ -253,6 +247,8 @@ class Horde_LoginTasks
 
         $need_display = $this->_tasklist->needDisplay();
         $tasklist_target = $this->_tasklist->target;
+        $processed = $this->_tasklist->processed;
+        $this->_tasklist->processed = true;
 
         /* If we've successfully completed every task in the list (or skipped
          * it), record now as the last time login tasks was run. */
@@ -272,10 +268,11 @@ class Horde_LoginTasks
             $this->_tasklist = true;
         }
 
-        if ($this->_init && $need_display) {
+        if (!$processed && $need_display) {
+            $this->_tasklist->target = $url;
             header('Location: ' . $this->getLoginTasksUrl());
             exit;
-        } elseif (!$this->_init && !$need_display) {
+        } elseif ($processed && !$need_display) {
             header('Location: ' . $tasklist_target);
             exit;
         }
