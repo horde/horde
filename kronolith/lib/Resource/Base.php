@@ -47,10 +47,7 @@ class Kronolith_Resource_Base
 
     /**
      * Adds $event to this resource's calendar - thus blocking the time
-     * for any other event. Also responsible for setting the attendence status
-     * for the resource in the event object. i.e. calling addResource() (just
-     * like updating an attendee is done by calling addAttendee on the same
-     * attendee again).
+     * for any other event.
      *
      * @param $event
      * @return unknown_type

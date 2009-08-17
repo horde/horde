@@ -116,6 +116,9 @@ class Kronolith_Event_Sql extends Kronolith_Event
         if (isset($SQLEvent['event_attendees'])) {
             $this->attendees = array_change_key_case($driver->convertFromDriver(unserialize($SQLEvent['event_attendees'])));
         }
+        if (isset($SQLEvent['event_resources'])) {
+            $this->_resources = array_change_key_case($driver->convertFromDriver(unserialize($SQLEvent['event_resources'])));
+        }
         if (isset($SQLEvent['event_description'])) {
             $this->description = $driver->convertFromDriver($SQLEvent['event_description']);
         }
@@ -141,6 +144,7 @@ class Kronolith_Event_Sql extends Kronolith_Event
         $this->_properties['event_private'] = (int)$this->isPrivate();
         $this->_properties['event_status'] = $this->getStatus();
         $this->_properties['event_attendees'] = serialize($driver->convertToDriver($this->getAttendees()));
+        $this->_properties['event_resources'] = serialize($driver->convertToDriver($this->getResources()));
         $this->_properties['event_modified'] = $_SERVER['REQUEST_TIME'];
 
         if ($this->isAllDay()) {

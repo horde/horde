@@ -125,6 +125,18 @@ abstract class Kronolith_Event
     public $attendees = array();
 
     /**
+     * All resources of this event.
+     *
+     * This is an associative array where keys are resource uids values are
+     * associative arrays with keys attendance and response... actually, do we
+     * *need* an attendence setting for resources? Shouldn't they be required
+     * by definition?
+     *
+     * @var unknown_type
+     */
+    protected $_resources = array();
+
+    /**
      * The start time of the event.
      *
      * @var Horde_Date
@@ -1527,6 +1539,62 @@ abstract class Kronolith_Event
         if (isset($this->attendees[$email])) {
             unset($this->attendees[$email]);
         }
+    }
+
+    /**
+     * Adds a Kronolith_Resource to this event.
+     * No validation or acceptence/denial is done here...it should be done
+     * when saving the Event so we can capture any errors?
+     *
+     * @param Kronolith_Resource $resource  The resource to add
+     *
+     * @return void
+     */
+    public function addResource($resource, $response)
+    {
+        $this->_resources[$resource->uid] = array(
+            'attendance' => Kronolith::PART_REQUIRED,
+            'response' => $response,
+            'name' => $resource->name
+        );
+    }
+
+    /**
+     * Remove a Kronolith_Resource from this event
+     *
+     * @param Kronolith_Resource $resource  The resource to remove
+     *
+     * @return void
+     */
+    function removeResource($resource)
+    {
+        if (isset($this->_resources[$resource->uid])) {
+            unset ($this->_resources[$resource->uid]);
+        }
+    }
+
+    /**
+     * Returns the entire resources array.
+     *
+     * @return array  A copy of the attendees array.
+     */
+    public function getResources()
+    {
+        return $this->_resources;
+    }
+
+    /**
+     * Checks to see whether the specified resource is associated with this
+     * event.
+     *
+     * @param string $uid  The resource uid.
+     *
+     * @return boolean  True if the specified attendee is present for this
+     *                  event.
+     */
+    public function hasResource($uid)
+    {
+        return isset($this->_resources[$uid]);
     }
 
     public function isAllDay()
