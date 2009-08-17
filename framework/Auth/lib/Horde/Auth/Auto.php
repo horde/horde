@@ -72,14 +72,14 @@ class Horde_Auth_Auto extends Horde_Auth_Base
      */
     protected function _transparent()
     {
-        $username = (!empty($this->_params['requestuser']) && isset($_REQUEST['username']))
+        $this->_credentials['userId'] = (!empty($this->_params['requestuser']) && isset($_REQUEST['username']))
             ? $_REQUEST['username']
             : $this->_params['username'];
-
-        return Horde_Auth::setAuth($username, array(
-            'transparent' => 1,
+        $this->_credentials['credentials'] = array(
             'password' => isset($this->_params['password']) ? $this->_params['password'] : null
-        ));
+        );
+
+        return true;
     }
 
 }
