@@ -366,22 +366,22 @@ class Horde_Auth
      */
     static public function isAuthenticated($options = array())
     {
-        $driver = empty($options['app'])
-            ? $GLOBALS['conf']['auth']['driver']
-            : $options['app'];
-        $is_auth = self::getAuth();
-
         /* Check for cached authentication results. */
-        if ($is_auth &&
-            (($_SESSION['horde_auth']['driver'] == $driver) ||
-             isset($_SESSION['horde_auth']['app'][$driver]))) {
-            return self::checkExistingAuth();
+        if (self::getAuth()) {
+            $driver = (empty($options['app']) || ($options['app'] == 'horde'))
+                ? $GLOBALS['conf']['auth']['driver']
+                : $options['app'];
+
+            if (($_SESSION['horde_auth']['driver'] == $driver) ||
+                isset($_SESSION['horde_auth']['app'][$driver])) {
+                return self::checkExistingAuth();
+            }
         }
 
         /* Try transparent authentication. */
-        $auth = empty($options['app'])
-            ? self::singleton($driver)
-            : self::singleton('application', array('app' => $driver));
+        $auth = (empty($options['app']) || ($options['app'] == 'horde'))
+            ? self::singleton($GLOBALS['conf']['auth']['driver'])
+            : self::singleton('application', array('app' => $options['app']));
 
         return $auth->transparent();
     }
