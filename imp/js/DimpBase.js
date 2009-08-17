@@ -1224,6 +1224,9 @@ var DimpBase = {
 
     getSubFolderId: function(f)
     {
+        if (f.endsWith('_special')) {
+            f = f.slice(0, -8);
+        }
         return 'sub' + f;
     },
 
