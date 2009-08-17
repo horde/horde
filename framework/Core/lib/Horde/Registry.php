@@ -384,8 +384,11 @@ class Horde_Registry
             $classname = 'Horde_Registry_' . $cname;
         }
 
-        $this->_cache['ob'][$app][$type] = new $classname;
+        if (!class_exists($classname, false)) {
+            throw new Horde_Exception("$app does not have an API");
+        }
 
+        $this->_cache['ob'][$app][$type] = new $classname;
         return $this->_cache['ob'][$app][$type];
     }
 
