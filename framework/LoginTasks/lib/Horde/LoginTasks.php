@@ -304,4 +304,20 @@ class Horde_LoginTasks
         return Horde::url(Horde_Util::addParameter($GLOBALS['registry']->get('webroot', 'horde') . '/services/logintasks.php', array('app' => $this->_app)), true);
     }
 
+    /**
+     * Labels for the class constants.
+     *
+     * @return array  A mapping of constant to gettext string.
+     */
+    static public function getLabels()
+    {
+        return array(
+            self::YEARLY => _("Yearly"),
+            self::MONTHLY => _("Monthly"),
+            self::WEEKLY => _("Weekly"),
+            self::DAILY => _("Daily"),
+            self::EVERY => _("Every Login")
+        );
+    }
+
 }
