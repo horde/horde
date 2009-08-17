@@ -345,7 +345,7 @@ class Horde_Registry
 
         foreach (array_keys($this->applications) as $app) {
             if (in_array($this->applications[$app]['status'], $status)) {
-                $api = $this->_getOb($app, 'api');
+                $api = $this->_getApiInstance($app, 'api');
                 $this->_cache['api'][$app] = array(
                     'api' => array_diff(get_class_methods($api), array('__construct'), $api->disabled),
                     'links' => $api->links,
@@ -366,7 +366,7 @@ class Horde_Registry
      * @return Horde_Registry_Api|Horde_Registry_Application  The API object.
      * @throws Horde_Exception
      */
-    protected function _getOb($app, $type)
+    protected function _getApiInstance($app, $type)
     {
         if (isset($this->_cache['ob'][$app][$type])) {
             return $this->_cache['ob'][$app][$type];
@@ -535,7 +535,7 @@ class Horde_Registry
      */
     public function hasAppMethod($app, $method)
     {
-        $appob = $this->_getOb($app, 'application');
+        $appob = $this->_getApiInstance($app, 'application');
         return (method_exists($appob, $method) && !in_array($method, $appob->disabled));
     }
 
@@ -586,7 +586,7 @@ class Horde_Registry
         }
 
         /* Load the API now. */
-        $api = $this->_getOb($app, 'api');
+        $api = $this->_getApiInstance($app, 'api');
 
         /* Make sure that the function actually exists. */
         if (!method_exists($api, $call)) {
@@ -643,7 +643,7 @@ class Horde_Registry
         }
 
         /* Load the API now. */
-        $api = $this->_getOb($app, 'application');
+        $api = $this->_getApiInstance($app, 'application');
 
         /* Switch application contexts now, if necessary, before
          * including any files which might do it for us. Return an
@@ -1092,7 +1092,7 @@ class Horde_Registry
         }
 
         try {
-            $api = $this->_getOb($app, 'application');
+            $api = $this->_getApiInstance($app, 'application');
             return $api->version;
         } catch (Horde_Exception $e) {
             return 'unknown';
@@ -1113,7 +1113,7 @@ class Horde_Registry
         }
 
         try {
-            $api = $this->_getOb($app, 'application');
+            $api = $this->_getApiInstance($app, 'application');
             return $api->mobileView;
         } catch (Horde_Exception $e) {
             return false;
