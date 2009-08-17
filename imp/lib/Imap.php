@@ -91,6 +91,9 @@ class IMP_Imap
     {
         try {
             $servers = Horde::loadConfiguration('servers.php', 'servers', 'imp');
+            if ($servers === null) {
+                $servers = false;
+            }
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
             return false;
