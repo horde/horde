@@ -22,7 +22,12 @@ class Kronolith_Resource
      */
     static public function addResource($resource)
     {
+        // Create a new calendar id.
+        $calendar = hash('md5', microtime());
+        $resource->calendar_id = $calendar;
 
+        $driver = Kronolith::getDriver('Sql');
+        $driver->saveResource($resource);
     }
 
     /**

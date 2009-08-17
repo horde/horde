@@ -763,6 +763,15 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         return true;
     }
 
+    public function saveResource($resource)
+    {
+        $query = 'INSERT INTO kronolith_resources (resource_uid, resource_name, resource_calendar, resource_category)';
+        $cols_values = ' VALUES (?, ?, ?, ?, ?)';
+        $id = $this->_db->nextId('kronolity_resources');
+        $values = array($id, $resource->name, $resource->calendar_id, $resource->category);
+        $result = $this->_write_db->query($query, $values);
+    }
+
     /**
      * Attempts to open a connection to the SQL server.
      *
