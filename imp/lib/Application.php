@@ -406,6 +406,14 @@ class IMP_Application extends Horde_Registry_Application
         /* Add necessary javascript files here (so they are added to the
          * document HEAD). */
         switch ($group) {
+        case 'accounts':
+            Horde::addScriptFile('accountsmanagement.js', 'imp', true);
+
+            Horde::addInlineScript(array(
+                'ImpAccountsmanagement.confirm_delete = ' . Horde_Serialize::serialize(_("Are you sure you want to delete this account?"), Horde_Serialize::JSON, Horde_Nls::getCharset())
+            ));
+            break;
+
         case 'flags':
             Horde::addScriptFile('colorpicker.js', 'horde', true);
             Horde::addScriptFile('flagmanagement.js', 'imp', true);
@@ -461,6 +469,10 @@ class IMP_Application extends Horde_Registry_Application
 
         case 'flagmanagement':
             $this->_prefsFlagManagement();
+            return false;
+
+        case 'accountsmanagement':
+            $this->_prefsAccountsManagement();
             return false;
         }
     }
@@ -723,6 +735,47 @@ class IMP_Application extends Horde_Registry_Application
                 }
                 break;
             }
+        }
+    }
+
+    /**
+     * TODO
+     */
+    protected function _prefsAccountsManagement()
+    {
+        $vars = Horde_Variables::getDefaultVariables();
+
+        switch ($vars->accounts_action) {
+        case 'add':
+            if (!$vars->accounts_server ||
+                !$vars->accounts_username) {
+                    $GLOBALS['notification']->push(_("Missing required values."), 'horde.error');
+                } else {
+                    /* Port is not required. */
+                    $port = $vars->accounts_port;
+                    if (!$port) {
+                        $port = ($vars->accounts_type == 'imap') ? 143 : 110;
+                    }
+
+                    $imp_accounts = IMP_Accounts::singleton();
+                    $imp_accounts->addAccount(array(
+                        'port' => $port,
+                        'secure' => $vars->accounts_secure,
+                        'server' => $vars->accounts_server,
+                        'type' => $vars->accounts_type,
+                        'username' => $vars->accounts_username
+                    ));
+                    $GLOBALS['notification']->push(sprintf(_("Account \"%s\" added."), $vars->accounts_server), 'horde.success');
+                }
+            break;
+
+        case 'delete':
+            $imp_accounts = IMP_Accounts::singleton();
+            $tmp = $imp_accounts->getAccount($vars->accounts_data);
+            if ($imp_accounts->deleteAccount($vars->accounts_data)) {
+                $GLOBALS['notification']->push(sprintf(_("Account \"%s\" deleted."), $tmp['server']), 'horde.success');
+            }
+            break;
         }
     }
 

@@ -330,8 +330,11 @@ table.accountsmanagement thead td, table.flagmanagement thead td {
     font-weight: bold;
     text-decoration: underline;
 }
-table.accountsmanagement td.required {
+table.accountsmanagement td.required, .accountsNotSecure {
     color: red;
+}
+.accountsSecure {
+    color: green;
 }
 table.flagmanagement tbody td.flagicon {
     text-align: center;

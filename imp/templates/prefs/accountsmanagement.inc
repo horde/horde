@@ -53,8 +53,10 @@ $delete_img = Horde::img('delete.png');
 <table class="accountsmanagement">
  <thead>
   <tr>
-   <td>Server</td>
-   <td>Type</td>
+   <td><?php echo _("Server") ?></td>
+   <td><?php echo _("Type") ?></td>
+   <td><?php echo _("Port") ?></td>
+   <td><?php echo _("Secure") ?>?</td>
    <td></td>
   </tr>
  </thead>
@@ -68,6 +70,14 @@ $delete_img = Horde::img('delete.png');
   <tr id="accountsid_<?php echo $key ?>">
    <td><?php echo htmlspecialchars($val['server']) ?></td>
    <td><?php echo htmlspecialchars($val['type']) ?></td>
+   <td><?php echo htmlspecialchars($val['port']) ?></td>
+<?php if ($val['secure'] == 'auto'): ?>
+   <td><?php echo _("Auto") ?></td>
+<?php elseif ($val['secure'] == 'yes'): ?>
+   <td class="accountsSecure"><?php echo _("Yes") ?></td>
+<?php else: ?>
+   <td class="accountsNotSecure"><?php echo _("No") ?></td>
+<?php endif; ?>
    <td><a class="accountsdelete" href="#"><?php echo $delete_img ?></a></td>
   </tr>
 <?php endforeach; ?>
