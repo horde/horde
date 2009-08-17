@@ -184,7 +184,7 @@ class Horde_Cli
 
         // We really want to call this at the end of the script, not in the
         // destructor.
-        register_shutdown_function(array($this, '_shutdown'));
+        register_shutdown_function(array($this, 'shutdown'));
     }
 
     /**
@@ -484,7 +484,7 @@ class Horde_Cli
     /**
      * Destroys any session on script end.
      */
-    private function _shutdown()
+    public function shutdown()
     {
         @session_destroy();
     }
