@@ -63,6 +63,13 @@ class IMP_Application extends Horde_Registry_Application
     static public $noCompress = false;
 
     /**
+     * Cached data for prefs pages.
+     *
+     * @var array
+     */
+    static public $prefsCache = array();
+
+    /**
      * Constructor.
      *
      * @param array $args  The following entries:
@@ -416,6 +423,10 @@ class IMP_Application extends Horde_Registry_Application
             Horde::addInlineScript(array(
                 'ImpAccountsmanagement.confirm_delete = ' . Horde_Serialize::serialize(_("Are you sure you want to delete this account?"), Horde_Serialize::JSON, Horde_Nls::getCharset())
             ));
+            break;
+
+        case 'addressbooks':
+            $this->_prefsPrepareSourceselect();
             break;
 
         case 'flags':
@@ -781,6 +792,84 @@ class IMP_Application extends Horde_Registry_Application
             }
             break;
         }
+    }
+
+    /**
+     * TODO
+     */
+    protected function _prefsPrepareSourceselect()
+    {
+        self::$prefsCache['sourceselect'] = array();
+
+        $registry = Horde_Registry::singleton();
+        if (!$registry->hasMethod('contacts/sources') ||
+            $GLOBALS['prefs']->isLocked('search_sources')) {
+            return;
+        }
+
+        $readable = $search_fields = $prefSelect = $writeable = $writeSelect = array();
+
+        try {
+            $readable = $registry->call('contacts/sources');
+        } catch (Horde_Exception $e) {}
+
+        try {
+            $writeable = $registry->call('contacts/sources', true);
+        } catch (Horde_Exception $e) {}
+
+        $search = IMP_Compose::getAddressSearchParams();
+
+        if (count($readable) == 1) {
+            // Only one source, no need to display the selection widget
+            $search['sources'] = array_keys($readable);
+        }
+
+        foreach ($search['sources'] as $source) {
+            if (!empty($readable[$source])) {
+                $prefSelect[$source] = $readable[$source];
+            }
+        }
+
+        $readSelect = array_diff(array_keys($readable), $search['sources']);
+
+        if (!$GLOBALS['prefs']->isLocked('add_source')) {
+            foreach ($writeable as $source => $name) {
+                $writeSelect[] = array(
+                    'val' => $source,
+                    'sel' => ($GLOBALS['prefs']->getValue('add_source') == $source),
+                    'name' => $name
+                );
+            }
+        }
+
+        $source_count = 0;
+
+        foreach (array_keys($readable) as $source) {
+            $search_fields[$source_count][] = $source;
+
+            try {
+                foreach ($registry->call('contacts/fields', $source) as $field) {
+                    if ($field['search']) {
+                        $search_fields[$source_count][] = array($field['name'], $field['label'], isset($search['fields'][$source]) && in_array($field['name'], $search['fields'][$source]));
+                    }
+                }
+            } catch (Horde_Exception $e) {}
+
+            ++$source_count;
+        }
+
+        Horde::addScriptFile('addressbooksmanagement.js', 'imp', true);
+        Horde::addInlineScript(array(
+            'ImpAddressbooksmanagement.fields = ' . Horde_Serialize::serialize($search_fields, Horde_Serialize::JSON, Horde_Nls::getCharset())
+        ));
+        self::$prefsCache['sourceselect'] = array(
+            'prefSelect' => $prefSelect,
+            'readable' => $readable,
+            'readSelect' => $readSelect,
+            'search' => $search,
+            'writeable' => $writeable,
+            'writeSelect' => $writeSelect
+        );
     }
 
     /* horde/services/cache.php methods. */
