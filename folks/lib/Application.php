@@ -26,11 +26,10 @@ class Folks_Application extends Horde_Registry_Application
      *
      * @param string $userID       Username
      * @param array  $credentials  Array of criedentials (password requied)
-     * @param array  $params       Additional params
      *
      * @return boolean  Whether IMP authentication was successful.
      */
-    public function authAuthenticate($userID, $credentials, $params)
+    public function authAuthenticate($userID, $credentials)
     {
         require_once dirname(__FILE__) . '/base.php';
 
