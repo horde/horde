@@ -798,9 +798,12 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
     public function getResource($id)
     {
-        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_category FROM kronolith_resources WHERE resource_uid = ?';
+        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_category FROM kronolith_resources WHERE resource_id = ?';
 
         $results = $this->_db->getRow($query, array($id), DB_FETCHMODE_ASSOC);
+        if ($results instanceof PEAR_Error) {
+            throw new Horde_Exception($results->getMessage());
+        }
         $return = array();
         foreach ($results as $field => $value) {
             $return[str_replace('resource_', '', $field)] = $this->convertFromDriver($value);
