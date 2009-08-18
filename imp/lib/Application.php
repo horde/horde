@@ -438,6 +438,39 @@ class IMP_Application extends Horde_Registry_Application
                 'ImpFlagmanagement.confirm_delete = ' . Horde_Serialize::serialize(_("Are you sure you want to delete this flag?"), Horde_Serialize::JSON, Horde_Nls::getCharset())
             ));
             break;
+
+        case 'identities':
+            if (!$GLOBALS['prefs']->isLocked('sent_mail_folder')) {
+                Horde::addScriptFile('foldermanagement.js', 'imp', true);
+                Horde::addInlineScript(array(
+                    'ImpFoldermanagement.folders = ' . Horde_Serialize::serialize(array('sent_mail_folder', 'sent_mail_new', _("Enter the name for your new sent-mail folder"), _("Create a new sent-mail folder")), Horde_Serialize::JSON, Horde_Nls::getCharset())
+                ));
+            }
+            break;
+
+        case 'server':
+            $code = array();
+
+            if (!$GLOBALS['prefs']->isLocked('drafts_folder')) {
+                $code[] = array('drafts', 'drafts_new', _("Enter the name for your new drafts folder"), _("Create a new drafts folder"));
+            }
+
+            if (!$GLOBALS['prefs']->isLocked('spam_folder')) {
+                $code[] = array('spam', 'spam_new', _("Enter the name for your new spam folder"), _("Create a new spam folder"));
+            }
+
+            if (!$GLOBALS['prefs']->isLocked('trash_folder') &&
+                !$GLOBALS['prefs']->isLocked('use_vtrash')) {
+                $code[] = array('trash', 'trash_new', _("Enter the name for your new trash folder"), _("Create a new trash folder"));
+            }
+
+            if (!empty($code)) {
+                Horde::addScriptFile('foldermanagement.js', 'imp', true);
+                Horde::addInlineScript(array(
+                    'ImpFoldermanagement.folders = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, Horde_Nls::getCharset())
+                ));
+            }
+            break;
         }
     }
 
