@@ -541,8 +541,11 @@ class Turba_Driver_Ldap extends Turba_Driver
     function _emptyAttributeFilter($var)
     {
         if (!is_array($var)) {
-            return ($var != '');
+            return $var != '';
         } else {
+            if (!count($var)) {
+                return false;
+            }
             foreach ($var as $v) {
                 if ($v == '') {
                     return false;
