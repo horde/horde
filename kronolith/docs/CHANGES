@@ -23,6 +23,9 @@ v3.0-git
 v2.3.2-cvs
 ----------
 
+[jan] Export recurrence end dates as date-time values in iCalendar data to
+      improve compatibility with external clients (Bug #7846).
+[jan] Fix synchronization with output compression enabled (Bug #7769).
 [jan] Add configuration whether to show user drop down list or text field in
       permissions dialog (requires Horde 3.3.5).
 [jan] Propagate the 'modified' API method (Request #8274).
