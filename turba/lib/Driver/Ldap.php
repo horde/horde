@@ -76,6 +76,11 @@ class Turba_Driver_Ldap extends Turba_Driver
             @ldap_set_option($this->_ds, LDAP_OPT_DEREF, $this->_params['deref']);
         }
 
+        /* Set the LDAP referrals. */
+        if (!empty($this->_params['referrals'])) {
+            @ldap_set_option($this->_ds, LDAP_OPT_REFERRALS, $this->_params['referrals']);
+        }
+
         /* Start TLS if we're using it. */
         if (!empty($this->_params['tls'])) {
             if (!@ldap_start_tls($this->_ds)) {
