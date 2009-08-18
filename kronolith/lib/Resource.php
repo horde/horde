@@ -42,4 +42,11 @@ class Kronolith_Resource
 
     }
 
+    static public function getResource($id)
+    {
+        $driver = Kronolith::getDriver('Sql');
+
+        return new Kronolith_Resource_Single($driver->getResource($id));
+    }
+
 }

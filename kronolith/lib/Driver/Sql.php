@@ -773,14 +773,14 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     public function saveResource($resource)
     {
         if (!empty($resource->uid)) {
-            $query = 'UPDATE kronolith_resources SET resource_name = ?, resource_calendar = ?, resource_category = ? WHERE resource_uid = ?';
+            $query = 'UPDATE kronolith_resources SET resource_name = ?, resource_calendar = ?, resource_category = ? WHERE resource_id = ?';
             $values = array($resource->name, $resource->calendar_id, $resource->category, $resource->uid);
             $result = $this->_write_db->query($query, $values);
             if (!($result instanceof PEAR_Error)) {
                 throw new Horde_Exception($result->getMessage());
             }
         } else {
-            $query = 'INSERT INTO kronolith_resources (resource_uid, resource_name, resource_calendar, resource_category)';
+            $query = 'INSERT INTO kronolith_resources (resource_id, resource_name, resource_calendar, resource_category)';
             $cols_values = ' VALUES (?, ?, ?, ?)';
             $id = $this->_db->nextId('kronolity_resources');
             $values = array($id, $resource->name, $resource->calendar_id, $resource->category);
@@ -794,6 +794,19 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
 
         return $resource;
+    }
+
+    public function getResource($id)
+    {
+        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_category FROM kronolith_resources WHERE resource_uid = ?';
+
+        $results = $this->_db->getRow($query, array($id), DB_FETCHMODE_ASSOC);
+        $return = array();
+        foreach ($results as $field => $value) {
+            $return[str_replace('resource_', '', $field)] = $this->convertFromDriver($value);
+        }
+
+        return $return;
     }
 
     /**

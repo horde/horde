@@ -12,6 +12,9 @@ require KRONOLITH_TEMPLATES . '/common-header.inc';
 $new = array('name' => _("N329SP"),
              'category' => 'test');
 
-$resource = new Kronolith_Resource_Single($new);
-$results = Kronolith_Resource::addResource($resource);
-var_dump($results);
+//$resource = new Kronolith_Resource_Single($new);
+//$results = Kronolith_Resource::addResource($resource);
+//var_dump($results);
+
+/* Test adding resource to event */
+var_dump(Kronolith_Resource::getResource(5));

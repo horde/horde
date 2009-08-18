@@ -81,7 +81,7 @@ CREATE INDEX kronolith_shares_users_user_uid_idx ON kronolith_shares_users (user
 CREATE INDEX kronolith_shares_users_perm_idx ON kronolith_shares_users (perm);
 
 CREATE TABLE kronolith_resources {
-    resource_uid INT NOT NULL,
+    resource_id INT NOT NULL,
     resource_name VARCHAR(255),
     resource_calendar VARCHAR(255),
     resource_category VARCHAR(255),

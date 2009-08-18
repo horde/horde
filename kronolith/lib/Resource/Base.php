@@ -6,13 +6,13 @@
 abstract class Kronolith_Resource_Base
 {
     protected $_params = array();
-    protected $_uid = '';
+    protected $_id = '';
 
     public function __construct($params = array())
     {
         if (!empty($params['id'])) {
             // Existing resource
-            $this->_uid = $params['id'];
+            $this->_id = $params['id'];
         }
 
         $this->_params = $params;
@@ -33,8 +33,8 @@ abstract class Kronolith_Resource_Base
      */
     public function __get($property)
     {
-        if ($property == 'uid') {
-            return $this->_uid;
+        if ($property == 'id') {
+            return $this->_id;
         }
 
         if (isset($this->_params[$property])) {
@@ -85,6 +85,6 @@ abstract class Kronolith_Resource_Base
      *
      * @return unknown_type
      */
-    abstract public function setUid($id);
+    abstract public function setId($id);
 
 }
