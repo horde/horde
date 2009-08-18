@@ -159,14 +159,15 @@ class Horde_Notification
      */
     public function push($event, $type = null, $flags = array())
     {
-        if (!$event instanceof Horde_Notification_Event &&
-            !$event instanceof PEAR_Error) {
+        if (!($event instanceof Horde_Notification_Event) &&
+            !($event instanceof PEAR_Error) &&
+            !($event instanceof Exception)) {
             /* Transparently create a Horde_Notification_Event object and
              * set the message attribute. */
             $event = new Horde_Notification_Event($event);
         }
 
-        if ($event instanceof PEAR_Error) {
+        if ($event instanceof PEAR_Error || $event instanceof Exception) {
             if (is_null($type)) {
                 $type = 'horde.error';
             }
