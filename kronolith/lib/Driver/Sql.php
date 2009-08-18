@@ -804,7 +804,11 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         if ($results instanceof PEAR_Error) {
             throw new Horde_Exception($results->getMessage());
         }
+        if (empty($results)) {
+            throw new Horde_Exception('Resource not found');
+        }
         $return = array();
+        var_dump($results);
         foreach ($results as $field => $value) {
             $return[str_replace('resource_', '', $field)] = $this->convertFromDriver($value);
         }

@@ -17,4 +17,4 @@ $new = array('name' => _("N329SP"),
 //var_dump($results);
 
 /* Test adding resource to event */
-var_dump(Kronolith_Resource::getResource(5));
+var_dump(Kronolith_Resource::getResource(6));
