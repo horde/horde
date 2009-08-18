@@ -1231,7 +1231,7 @@ class IMP
             'cancel_text' => _("Cancel")
         );
 
-        return 'IMPDialog.display(\'' . Horde::escapeJson($js_params, array('urlencode' => true)) . '\')';
+        return 'IMPDialog.display(' . Horde::escapeJson($js_params, array('urlencode' => true)) . ')';
     }
 
     /**
