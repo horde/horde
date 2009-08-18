@@ -403,6 +403,10 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function prefsInit($group)
     {
+        /* TODO: Remove once Horde_Registry_Application calling is figured
+         * out and pushApp:load_base works again. */
+        IMP::initialize();
+
         /* Add necessary javascript files here (so they are added to the
          * document HEAD). */
         switch ($group) {
