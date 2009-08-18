@@ -51,6 +51,25 @@ class IMP_Hooks
 
 
     /**
+     * PREFERENCE HOOK: Dynamically set the search_sources preference.
+     *
+     * @param string $username  The username.
+     *
+     * @return string  The search_sources value.
+     */
+//    function prefs_hook_search_sources($username = null)
+//    {
+//        if (!$username) {
+//            return;
+//        }
+//
+//        if ($GLOBALS['registry']->hasMethod('contacts/sources')) {
+//            $sources = $GLOBALS['registry']->call('contacts/sources');
+//            return implode("\t", array_keys($sources));
+//        }
+//    }
+
+    /**
      * Perform an action after a message has been sent successfully.
      *
      * @param Horde_Mime_Part $message  The message content object.
