@@ -2,6 +2,13 @@
 /**
  * Kronolith_Resource implementation to represent a single resource.
  *
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package Kronolith
  */
 class Kronolith_Resource_Single extends Kronolith_Resource_Base
 {
@@ -12,36 +19,36 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
      * @param $endTime
      * @return unknown_type
      */
-    public function isFree($startTime, $endTime)
+    public function isFree($event)
     {
-
+        return true;
     }
 
     /**
-     * Adds $event to this resource's calendar - thus blocking the time
-     * for any other event.
+     * Adds $event to this resource's calendar or updates the current entry
+     * of the event in the calendar.
      *
      * @param $event
      *
-     * @return unknown_type
-     * @throws Horde_Exception
+     * @return void
      */
-    public function attachToEvent($event)
+    public function addEvent($event)
     {
         /* Get a driver for this resource's calendar */
-        $driver = Kronolith::getDriver(null, $this->calendar_id);
+        $driver = Kronolith::getDriver(null, $this->calendar);
         /* Make sure it's not already attached. */
         $uid = $event->getUID();
-        $existing = $driver->getByUID($uid, array($this->calendar_id));
+        $existing = $driver->getByUID($uid, array($this->calendar));
         if (!($existing instanceof PEAR_Error)) {
-            throw new Horde_Exception(_("Already Exists"));
+            $existing->fromiCalendar($event->toiCalendar(new Horde_iCalendar('2.0')));
+            $existing->save();
+        } else {
+            /* Create a new event */
+            $e = $driver->getEvent();
+            $e->setCalendar($this->calendar);
+            $e->fromiCalendar($event->toiCalendar(new Horde_iCalendar('2.0')));
+            $e->save();
         }
-
-        /* Create a new event */
-        $e = $driver->getEvent();
-        $e->setCalendar($this->calendar_id);
-        $e->fromiCalendar($event->toiCalendar($iCal = new Horde_iCalendar('2.0')));
-        $e->save();
     }
 
     /**
@@ -50,7 +57,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
      * @param $event
      * @return unknown_type
      */
-    public function detachFromEvent($event)
+    public function removeEvent($event)
     {
 
     }

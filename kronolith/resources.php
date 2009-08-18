@@ -8,7 +8,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 $title = _("Edit resources");
 require KRONOLITH_TEMPLATES . '/common-header.inc';
 
-/* Test some resource crap */
+/* Test creating a new resource */
 $new = array('name' => _("N329SP"),
              'category' => 'test');
 
@@ -17,4 +17,8 @@ $new = array('name' => _("N329SP"),
 //var_dump($results);
 
 /* Test adding resource to event */
-var_dump(Kronolith_Resource::getResource(6));
+$resource = Kronolith_Resource::getResource(6);
+$driver = Kronolith::getDriver('Sql');
+$event = $driver->getByUID('20090610181329.12687chinwtntsg8@localhost');
+$event->addResource($resource, Kronolith::RESPONSE_NONE);
+$event->save();

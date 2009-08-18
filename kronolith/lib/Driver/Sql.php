@@ -534,16 +534,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      */
     public function saveEvent($event)
     {
-        /* Deal with Kronolith_Resources before anything else is done */
-        foreach ($event->getResources() as $resource) {
-            if ($resource->isFree($this)) {
-                $resource->attachToEvent($this);
-                $event->addResource($resource, Kronolith::RESPONSE_ACCEPTED);
-            } else {
-                $event->addResource($resource, Kronolith::RESPONSE_DECLINED);
-            }
-        }
-
+        /* Check for acceptence/denial of resources */
+        $event->checkResources();
         if ($event->isStored() || $event->exists()) {
             $values = array();
 
@@ -808,7 +800,6 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             throw new Horde_Exception('Resource not found');
         }
         $return = array();
-        var_dump($results);
         foreach ($results as $field => $value) {
             $return[str_replace('resource_', '', $field)] = $this->convertFromDriver($value);
         }

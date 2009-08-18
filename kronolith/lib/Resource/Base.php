@@ -22,7 +22,7 @@ abstract class Kronolith_Resource_Base
      *
      *  Properties:
      * name        - Display name of resource.
-     * calendar_id - The calendar associated with this resource.
+     * calendar    - The calendar associated with this resource.
      * category    - The category of this resource...an arbitrary label used
      *               to group multiple resources for the resource_group implementation
      * properties  - any other properties this resource may have?
@@ -51,7 +51,7 @@ abstract class Kronolith_Resource_Base
      * @param $endTime
      * @return unknown_type
      */
-    abstract public function isFree($startTime, $endTime);
+    abstract public function isFree($event);
 
     /**
      * Adds $event to this resource's calendar - thus blocking the time
@@ -60,7 +60,7 @@ abstract class Kronolith_Resource_Base
      * @param $event
      * @return unknown_type
      */
-    abstract public function attachToEvent($event);
+    abstract public function addEvent($event);
 
     /**
      * Remove this event from resource's calendar
@@ -68,7 +68,7 @@ abstract class Kronolith_Resource_Base
      * @param $event
      * @return unknown_type
      */
-    abstract public function detachFromEvent($event);
+    abstract public function removeEvent($event);
 
     /**
      * Obtain the freebusy information for this resource.  Takes into account

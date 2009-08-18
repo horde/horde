@@ -207,4 +207,26 @@ class Kronolith_Event_Sql extends Kronolith_Event
         return $this->_properties;
     }
 
+    /**
+     * Function to check availability and auto accept/decline for each resource
+     * attached to this event. Needed here instead of in Kronolith_Driver::saveEvent
+     * since the _properties array is already built at that point.
+     *
+     * @return unknown_type
+     */
+    public function checkResources()
+    {
+        foreach ($this->_resources as $id => $resource) {
+            $r = Kronolith_Resource::getResource($id);
+            if ($r->isFree($this)) {
+                $r->addEvent($this);
+                $this->addResource($r, Kronolith::RESPONSE_ACCEPTED);
+            } else {
+                $this->addResource($r, Kronolith::RESPONSE_DECLINED);
+            }
+        }
+        $driver = $this->getDriver();
+        $this->_properties['event_resources'] = serialize($driver->convertToDriver($this->_resources));
+    }
+
 }
