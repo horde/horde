@@ -140,6 +140,10 @@ var ImpMessage = {
     {
         var id = e.element().readAttribute('id');
 
+        if (!id) {
+            return;
+        }
+
         if (id.startsWith('flag')) {
             this.flagMessage(id.substring(4));
         } else if (id.startsWith('target')) {
