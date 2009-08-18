@@ -1,3 +1,4 @@
+<?php $GLOBALS['prefsui_no_save'] = true; ?>
 <input type="hidden" name="accounts_action" id="accounts_action" />
 <input type="hidden" name="accounts_data" id="accounts_data" />
 
