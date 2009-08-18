@@ -5,7 +5,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-var ImpAddressbooksmanagement = {
+var ImpAddressbooksPrefs = {
     // Variables set by other code: fields
 
     deselectHeaders: function()
@@ -163,4 +163,4 @@ var ImpAddressbooksmanagement = {
 
 };
 
-document.observe('dom:loaded', ImpAddressbooksmanagement.onDomLoad.bind(ImpAddressbooksmanagement));
+document.observe('dom:loaded', ImpAddressbooksPrefs.onDomLoad.bind(ImpAddressbooksPrefs));

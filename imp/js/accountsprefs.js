@@ -5,7 +5,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-var ImpAccountsmanagement = {
+var ImpAccountsPrefs = {
     // Variables set by other code: confirm_delete
 
     _sendData: function(a, d)
@@ -53,6 +53,5 @@ var ImpAccountsmanagement = {
 };
 
 document.observe('dom:loaded', function() {
-    var am = ImpAccountsmanagement;
-    document.observe('click', am.clickHandler.bindAsEventListener(am));
+    document.observe('click', ImpAccountsPrefs.clickHandler.bindAsEventListener(ImpAccountsPrefs));
 });

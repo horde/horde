@@ -5,7 +5,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-var ImpFlagmanagement = {
+var ImpFlagPrefs = {
     // Variables set by other code: confirm_delete, new_prompt
 
     addFlag: function()
@@ -74,7 +74,7 @@ var ImpFlagmanagement = {
 };
 
 document.observe('dom:loaded', function() {
-    var fm = ImpFlagmanagement;
-    document.observe('click', fm.clickHandler.bindAsEventListener(fm));
-    $('prefs').observe('reset', function() { fm.resetHandler.defer(); });
+    var fp = ImpFlagPrefs;
+    document.observe('click', fp.clickHandler.bindAsEventListener(fp));
+    $('prefs').observe('reset', function() { fp.resetHandler.defer(); });
 });

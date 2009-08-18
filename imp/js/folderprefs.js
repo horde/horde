@@ -5,7 +5,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-var ImpFoldermanagement = {
+var ImpFolderPrefs = {
     // Variables defined by other code: folders
 
     newFolderName: function(f, fn, p1, p2)
@@ -25,9 +25,9 @@ var ImpFoldermanagement = {
 };
 
 document.observe('dom:loaded', function() {
-    var fm = ImpFoldermanagement;
-    fm.folders.each(function(f) {
-        $(f[0]).observe('change', fm.newFolderName.bind(fm, f[0], f[1], f[2], f[3]));
+    var fp = ImpFolderPrefs;
+    fp.folders.each(function(f) {
+        $(f[0]).observe('change', fp.newFolderName.bind(fp, f[0], f[1], f[2], f[3]));
     });
 });
 
