@@ -113,7 +113,7 @@
     Yhten&#xE4; toimintona voit valita viestin merkinn&#xE4;n, jolloin voit merkit&#xE4; viestin yhdell&#xE4; tai useammalla IMAP tilatiedolla. K&#xE4;ytett&#xE4;viss&#xE4; on tilatiedot: Vanha, T&#xE4;rke&#xE4;, Vastattu ja Poistettu.
     </para>
 </entry>
-  <entry id="rule-matches" state="uptodate" md5="517e24971f2c5443b2ed04e9c504e7eb">
+  <entry id="rule-matches" state="changed" md5="517e24971f2c5443b2ed04e9c504e7eb">
     <title>Suodatins&#xE4;&#xE4;nt&#xF6;: T&#xE4;sm&#xE4;ys</title>
     <para>
     Jokainen suodatins&#xE4;&#xE4;nt&#xF6; koostuu kolmesta komponentista. Ensimm&#xE4;inen on tutkittava kentt&#xE4;. Toinen on vertailutapa. Kolmas on arvo johon kent&#xE4;&#xE4; verrataan.
@@ -191,7 +191,85 @@
     <para>
     T&#xE4;m&#xE4; vertaa antaamasi lukua ja viestin otsakkeissa olevaa lukuarvoa numeerisesti kesken&#xE4;&#xE4;n.
     </para>
-</entry>
+<!-- English entry:
+<entry id="rule-matches">
+    <title>Filter Rule: Matches</title>
+    <para>There are 3 components to each condition in a rule. The first is the
+    field to examine. The second is the type of comparison to perform. The
+    third is the value to which the field should be compared. There are a few
+    different types of comparisons that can be performed. The comparisons
+    available for any given field will depend on both the type of the field and
+    what the underlying filtering software can handle. Thus, all potential
+    matching options listed below may not appear for a given field.</para>
+    <heading>Contains</heading>
+    <para>Will be considered to be true if the specified string is found
+    anywhere on the line. Example: user@example would match
+    joe_user@example.com</para>
+    <heading>Doesn't Contain</heading>
+    <para>Will be considered to be true if the specified string is not found
+    anywhere on the line. Example: user@example would not match
+    joe_user@example.com</para>
+    <heading>Is</heading>
+    <para>Will be considered to be true if the specified string matches the
+    line exactly. Example: user@example.com is user@example.com</para>
+    <heading>Isn't</heading>
+    <para>Will be considered to be true if the specified string does not match
+    the line exactly. Example: user@example is not user@example.com</para>
+    <heading>Begins with</heading>
+    <para>Will be considered to be true if the specified string matches the
+    beginning of the line. Example: user@example will match
+    user@example.com</para>
+    <heading>Doesn't begin with</heading>
+    <para>Will be considered to be true if the specified string does not match
+    the beginning of the line. Example: user@example.com will not match
+    user@example</para>
+    <heading>Ends with</heading>
+    <para>Will be considered to be true if the specified string matches the end
+    of the line. Example: example.com will match user@example.com</para>
+    <heading>Doesn't end with</heading>
+    <para>Will be considered to be true if the specified string does not match
+    the end of the line. Example: horde.org will not match
+    user@example.com</para>
+    <heading>Exists</heading>
+    <para>Will be considered to be true if the specified header exists in the
+    message, regardless of what its value is.</para>
+    <heading>Doesn't Exist</heading>
+    <para>Will be considered to be true if the specified header does not exist
+    in the message.</para>
+    <heading>Regex</heading>
+    <para>Regex allows you to use complex POSIX compatible regular expressions
+    to compare against message headers. Example: "Received from [*\.*\.*\.*] by
+    (hosta|hostb).example.com*" would match "Received from [172.16.100.1] by
+    hosta.example.com on Tuesday"</para>
+    <heading>Matches</heading>
+    <para>Matches is similar to contains, with the exception that you may use *
+    and ? as wildcards. An * will match any number of characters, and a ? will
+    match exactly one charater. Example: "*user?@example.com" will match both
+    "user1@example.com" and "otheruser2@example.com"</para>
+    <heading>Doesn't match</heading>
+    <para>Doesn't match is the same as matches except that it will evaluate to
+    false if the specified value matches the string in the message
+    header.</para>
+    <heading>Less than</heading>
+    <para>This is a relational test which will compare the value you specify
+    and the value in the message header numerically.</para>
+    <heading>Less than or equal to</heading>
+    <para>This is a relational test which will compare the value you specify
+    and the value in the message header numerically.</para>
+    <heading>Equal to</heading>
+    <para>This is a relational test which will compare the value you specify
+    and the value in the message header numerically.</para>
+    <heading>Greater than or equal to</heading>
+    <para>This is a relational test which will compare the value you specify
+    and the value in the message header numerically.</para>
+    <heading>Greater than</heading>
+    <para>This is a relational test which will compare the value you specify
+    and the value in the message header numerically.</para>
+    <heading>Limitation with Sieve filtering</heading>
+    <warn>The Sieve specification doesn't support comparions with negative
+    numbers. If you enter a negative value in one of the relational tests,
+    your rule won't work correctly.</warn>
+  </entry>--></entry>
   <entry id="rule-name" state="uptodate" md5="8faaf71e4bf2f91d943d77f803f9a2d5">
     <title>Suodatins&#xE4;&#xE4;nt&#xF6;: Nimi</title>
     <para>

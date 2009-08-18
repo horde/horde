@@ -131,7 +131,7 @@
     einer oder mehreren IMAP-Markierungen versehen wird. Die möglichen
     Markierungen sind Gelesen, Markiert zur Wiedervorlage, Beantwortet und Gelöscht.</para>
   </entry>
-  <entry id="rule-matches" md5="517e24971f2c5443b2ed04e9c504e7eb" state="uptodate">
+  <entry id="rule-matches" md5="d30d522bc0e6b34ab656e658dc5ecc9e" state="uptodate">
     <title>Filterregel: Bedingungen</title>
     <para>Jede Bedingung einer Filterregel besteht aus drei Komponenten. Die
     erste bestimmt das Feld der Nachricht, das überprüft werden soll.
@@ -209,6 +209,10 @@
     <heading>Größer als</heading>
     <para>Dies ist ein Vergleichstest, der den angegebenen Wert und den Wert im
     Nachrichtenfeld numerisch vergleicht.</para>
+    <heading>Einschränkung von Sieve-Filtern</heading>
+    <warn>Die Sieve-Spezifikation unterstützt keine Vergleichsoperationen mit
+    negativen Zahlen. Wenn Sie eine negative Zahl als Vergleichswert eingeben,
+    wird Ihre Regel nicht funktionieren.</warn>
   </entry>
   <entry id="rule-name" md5="8faaf71e4bf2f91d943d77f803f9a2d5" state="uptodate">
     <title>Filterregel: Regelname</title>

@@ -87,7 +87,7 @@
 			El mensaje original se eliminar&#xE1; y se enviar&#xE1; un mensaje nuevo al remitente con el texto que indique.
 		</para>
 	</entry>
-	<entry id="rule-combine" md5="29484c1ebdd7ce71edc34fc8100ef69c" state="uptodate">
+  <entry id="rule-combine" md5="29484c1ebdd7ce71edc34fc8100ef69c" state="uptodate">
 		<title>Regla de filtrado: Combinar opciones</title>
 		<para>
 			Puede definir varias condiciones en una misma regla. Puede agruparlas de forma l&#xF3;gica mediante "Y"/"O", No puede crear filtros complejos que contengan ambos tipos de condiciones.
@@ -101,13 +101,13 @@
 			Si seleccion O, las acciones indicadas se ejecutar&#xE1;n si se cumple al menso una de las condiciones.
 		</para>
 	</entry>
-	<entry id="rule-mark" md5="e8bdb30d1c1c1cdc5ec1e5e4804f9300" state="uptodate">
+  <entry id="rule-mark" md5="e8bdb30d1c1c1cdc5ec1e5e4804f9300" state="uptodate">
 		<title>Regla de filtrado: Se&#xF1;alar mensaje</title>
 		<para>
 			Como una de las acciones de una regla, puede indicar que se se&#xF1;ale un mensaje con uno o m&#xE1;s de los marcadores IMAP. Los valores posibles son Continuaci&#xF3;n, Respondido y Eliminado.
 		</para>
 	</entry>
-	<entry id="rule-matches" md5="517e24971f2c5443b2ed04e9c504e7eb" state="uptodate">
+  <entry id="rule-matches" md5="517e24971f2c5443b2ed04e9c504e7eb" state="changed">
 		<title>Regla de filtrado: Coincidencia</title>
 		<para>
 			En cada condici&#xF3;n de una regla hay tres componentes. El primero en el campo que hay que examinar. El segundo es el tipo de comparaci&#xF3;n a realizar. El tercero es el valor con el que hay que comparar el campo.
@@ -195,79 +195,157 @@
 		<para>
 			&#xC9;sta es una prueba relacional que compara num&#xE9;ricamente el valor indicado y el valor de la cabecera del mensaje.
 		</para>
-	</entry>
-	<entry id="rule-name" md5="8faaf71e4bf2f91d943d77f803f9a2d5" state="uptodate">
+	<!-- English entry:
+<entry id="rule-matches">
+    <title>Filter Rule: Matches</title>
+    <para>There are 3 components to each condition in a rule. The first is the
+    field to examine. The second is the type of comparison to perform. The
+    third is the value to which the field should be compared. There are a few
+    different types of comparisons that can be performed. The comparisons
+    available for any given field will depend on both the type of the field and
+    what the underlying filtering software can handle. Thus, all potential
+    matching options listed below may not appear for a given field.</para>
+    <heading>Contains</heading>
+    <para>Will be considered to be true if the specified string is found
+    anywhere on the line. Example: user@example would match
+    joe_user@example.com</para>
+    <heading>Doesn't Contain</heading>
+    <para>Will be considered to be true if the specified string is not found
+    anywhere on the line. Example: user@example would not match
+    joe_user@example.com</para>
+    <heading>Is</heading>
+    <para>Will be considered to be true if the specified string matches the
+    line exactly. Example: user@example.com is user@example.com</para>
+    <heading>Isn't</heading>
+    <para>Will be considered to be true if the specified string does not match
+    the line exactly. Example: user@example is not user@example.com</para>
+    <heading>Begins with</heading>
+    <para>Will be considered to be true if the specified string matches the
+    beginning of the line. Example: user@example will match
+    user@example.com</para>
+    <heading>Doesn't begin with</heading>
+    <para>Will be considered to be true if the specified string does not match
+    the beginning of the line. Example: user@example.com will not match
+    user@example</para>
+    <heading>Ends with</heading>
+    <para>Will be considered to be true if the specified string matches the end
+    of the line. Example: example.com will match user@example.com</para>
+    <heading>Doesn't end with</heading>
+    <para>Will be considered to be true if the specified string does not match
+    the end of the line. Example: horde.org will not match
+    user@example.com</para>
+    <heading>Exists</heading>
+    <para>Will be considered to be true if the specified header exists in the
+    message, regardless of what its value is.</para>
+    <heading>Doesn't Exist</heading>
+    <para>Will be considered to be true if the specified header does not exist
+    in the message.</para>
+    <heading>Regex</heading>
+    <para>Regex allows you to use complex POSIX compatible regular expressions
+    to compare against message headers. Example: "Received from [*\.*\.*\.*] by
+    (hosta|hostb).example.com*" would match "Received from [172.16.100.1] by
+    hosta.example.com on Tuesday"</para>
+    <heading>Matches</heading>
+    <para>Matches is similar to contains, with the exception that you may use *
+    and ? as wildcards. An * will match any number of characters, and a ? will
+    match exactly one charater. Example: "*user?@example.com" will match both
+    "user1@example.com" and "otheruser2@example.com"</para>
+    <heading>Doesn't match</heading>
+    <para>Doesn't match is the same as matches except that it will evaluate to
+    false if the specified value matches the string in the message
+    header.</para>
+    <heading>Less than</heading>
+    <para>This is a relational test which will compare the value you specify
+    and the value in the message header numerically.</para>
+    <heading>Less than or equal to</heading>
+    <para>This is a relational test which will compare the value you specify
+    and the value in the message header numerically.</para>
+    <heading>Equal to</heading>
+    <para>This is a relational test which will compare the value you specify
+    and the value in the message header numerically.</para>
+    <heading>Greater than or equal to</heading>
+    <para>This is a relational test which will compare the value you specify
+    and the value in the message header numerically.</para>
+    <heading>Greater than</heading>
+    <para>This is a relational test which will compare the value you specify
+    and the value in the message header numerically.</para>
+    <heading>Limitation with Sieve filtering</heading>
+    <warn>The Sieve specification doesn't support comparions with negative
+    numbers. If you enter a negative value in one of the relational tests,
+    your rule won't work correctly.</warn>
+  </entry>--></entry>
+  <entry id="rule-name" md5="8faaf71e4bf2f91d943d77f803f9a2d5" state="uptodate">
 		<title>Regla de filtrado: Nombre</title>
 		<para>
 			Se trata de un nombre descriptivo de una regla. Puede usarlo para identificar una regla determinada en su listado de filtros.
 		</para>
 	</entry>
-	<entry id="rule-stop" md5="677c920effca959123b7d539b3b0d864" state="uptodate">
+  <entry id="rule-stop" md5="677c920effca959123b7d539b3b0d864" state="uptodate">
 		<title>Regla de filtrado: Detener comprobaci&#xF3;n</title>
 		<para>
 			Si se activa esta opci&#xF3;n y un mensaje cumple la regla, el resto de los mensajes no se procesar&#xE1;n.
 		</para>
 	</entry>
-	<entry id="vacation" md5="2c9e12973d36fe94aeb73b32db9a64e6" state="uptodate">
+  <entry id="vacation" md5="2c9e12973d36fe94aeb73b32db9a64e6" state="uptodate">
 		<title>Ausencia</title>
 		<para>
 			Los mensajes de ausencia son respuestas autom&#xE1;ticas enviadas a la gente que le env&#xED;e correo. Normalmente se utilizan cuando va a estar ausente por un largo periodo de tiempo.
 		</para>
 	</entry>
-	<entry id="vacation-period" state="uptodate" md5="531accb93b707d39b2986a779b260dbf">
+  <entry id="vacation-period" state="uptodate" md5="531accb93b707d39b2986a779b260dbf">
 		<title>Vacation Period</title>
 		<para>Vacation messages will only be sent during the period of time that you are on vacation.</para>
 	</entry>
-	<entry id="vacation-bulk" md5="6f6e4178e80f46e7876c7ee5d0ac53b7" state="uptodate">
+  <entry id="vacation-bulk" md5="6f6e4178e80f46e7876c7ee5d0ac53b7" state="uptodate">
 		<title>Ausencia: No responder a granel</title>
 		<para>
 			Activando esta opci&#xF3;n las respuestas por ausencia no se enviar&#xE1;n con mensajes que parezcan proceder de listas de correo o que est&#xE9;n marcados como correo a granel.
 		</para>
 	</entry>
-	<entry id="vacation-days" md5="25ba74c0e79ce72237795eb809ee4585" state="uptodate">
+  <entry id="vacation-days" md5="25ba74c0e79ce72237795eb809ee4585" state="uptodate">
 		<title>Ausencia: Intervalo de respuesta</title>
 		<para>
 			Es el n&#xFA;mero de d&#xED;as a esperar antes de volver a enviar una respuesta autom&#xE1;tica a una direcci que ya haya recibido una.
 		</para>
 	</entry>
-	<entry id="vacation-myemail" md5="ef3fa70e940ed1472276c0fde5ae2aed" state="uptodate">
+  <entry id="vacation-myemail" md5="ef3fa70e940ed1472276c0fde5ae2aed" state="uptodate">
 		<title>Ausencia: Mis direcciones de correo</title>
 		<para>
 			Si tiene m&#xE1;s de una direcci&#xF3;n de correo asignadas a este buz&#xF3;n, ind&#xED;quelas aqu&#xED;.
 		</para>
 	</entry>
-	<entry id="vacation-noresponse" md5="2b72e12b6989c9ef1667a59040c70310" state="uptodate">
+  <entry id="vacation-noresponse" md5="2b72e12b6989c9ef1667a59040c70310" state="uptodate">
 		<title>Ausencia: Sin respuestas</title>
 		<para>
 			No enviar la notificaci&#xF3;n de ausencia a estos destinatarios. Cada direcci&#xF3;n debe estar en una l&#xED;nea distinta.
 		</para>
 	</entry>
-	<entry id="vacation-reason" md5="d4da2f3a0d357e00950ec57d984cbcee" state="uptodate">
+  <entry id="vacation-reason" md5="d4da2f3a0d357e00950ec57d984cbcee" state="uptodate">
 		<title>Ausencia: Motivo de la ausencia</title>
 		<para>
 			Es el texto que se enviar&#xE1; en sus notificaciones de ausencia.
 		</para>
 	</entry>
-	<entry id="vacation-subject" md5="ce16c7c6a08993821208cfbee0b188a0" state="uptodate">
+  <entry id="vacation-subject" md5="ce16c7c6a08993821208cfbee0b188a0" state="uptodate">
 		<title>Ausencia: Asunto de la ausencia</title>
 		<para>
 			Es el asunto que se utilizar&#xE1; en las notificaciones de ausencia.
 		</para>
 	</entry>
-	<entry id="whitelist" md5="ecbf7000f107832d68bd7ba8f5121909" state="uptodate">
+  <entry id="whitelist" md5="ecbf7000f107832d68bd7ba8f5121909" state="uptodate">
 		<title>Lista blanca</title>
 		<heading>Lista blanca</heading>
 		<para>
 			La lista blanca es un listado de direcciones (leg&#xED;timas) de las que siempre desea poder ver los mensajes en el buz&#xF3;n de Entrada. Cada direcci&#xF3;n debe incluirse en una l&#xED;nea distinta.
 		</para>
 	</entry>
-	<entry id="whitelist-addresses" md5="8fe054c1b55e6adc81d1d8525c131637" state="uptodate">
+  <entry id="whitelist-addresses" md5="8fe054c1b55e6adc81d1d8525c131637" state="uptodate">
 		<title>Lista blanca: Direcciones</title>
 		<para>
 			PENDIENTE. Cada direcci&#xF3;n debe incluirse en una l&#xED;nea distinta.
 		</para>
 	</entry>
-	<entry id="spam-level" state="uptodate" md5="6f00c30a45b0acaef4ae9dba56d58013">
+  <entry id="spam-level" state="uptodate" md5="6f00c30a45b0acaef4ae9dba56d58013">
 		<title>Filtrado de Spam: Nivel de Spam</title>
 		<para>
 			El sistema considerar&#xE1; como spam los mensajes con una puntuaci&#xF3;n de spam mayor o igual al n&#xFA;mero introducido aqu&#xED;.
@@ -276,7 +354,7 @@
 			N&#xFA;meros m&#xE1;s reducidos interceptar&#xE1;n m&#xE1;s mensajes con el inconveniente de que hay mayores posibilidades de interceptar mensajes reales. "5" es un valor t&#xED;pico si su sistema utiliza SpamAssassin.
 		</para>
 	</entry>
-	<entry id="spam-folder" state="uptodate" md5="1639e6d1cfcd6706f93920f2c63f4a00">
+  <entry id="spam-folder" state="uptodate" md5="1639e6d1cfcd6706f93920f2c63f4a00">
 		<title>Filtrado de Spam: Carpeta en la que almacenar el spam</title>
 		<para>
 			El sistema archivar&#xE1; los mensajes determinados como spam en esta carpeta.

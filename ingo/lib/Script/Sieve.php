@@ -1669,13 +1669,36 @@ class Sieve_Test_Relational extends Sieve_Test {
                     Ingo_Script_Sieve::escapeString($val) . '"';
             }
 
-            $code .= $headerstr . "] ";
+            $code .= $headerstr . '] ';
+            $headerstr = '[' . $headerstr . ']';
         } elseif ($header_count == 1) {
             $code .= '"' . Ingo_Script_Sieve::escapeString($headers[0]) . '" ';
+            $headerstr = Ingo_Script_Sieve::escapeString($headers[0]);
         }
 
-        return $code . '["' . $this->_vars['value'] . '"]';
-     }
+        $code .= '["' . $this->_vars['value'] . '"]';
+
+        // Add workarounds for negative numbers - works only if the comparison
+        // value is positive. Sieve doesn't support comparisons of negative
+        // numbers at all so this is the best we can do.
+        switch ($this->_vars['comparison']) {
+        case 'gt':
+        case 'ge':
+        case 'eq':
+            // Greater than, greater or equal, equal: number must be
+            // non-negative.
+            return 'allof ( not header :comparator "i;ascii-casemap" :contains "'
+                . $headerstr . '" "-", ' . $code . ' )';
+            break;
+        case 'lt':
+        case 'le':
+        case 'ne':
+            // Less than, less or equal, nonequal: also match negative numbers
+            return 'anyof ( header :comparator "i;ascii-casemap" :contains "'
+                . $headerstr . '" "-", ' . $code . ' )';
+            break;
+        }
+    }
 
     /**
      * Checks if the rule parameters are valid.

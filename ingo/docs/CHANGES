@@ -10,6 +10,8 @@ v2.0-git
 v1.2.2-cvs
 ----------
 
+[jan] Correctly match negative header values with numeric comparison in Sieve
+      driver (bb@apc.ag, Bug #7308).
 [jan] Implement removeUserData API (adrieder@sbox.tugraz.at, Request #8452).
 [jan] Take default settings for forwards, vacation and spam rules from
       config/prefs.php in the SQL storage driver.
