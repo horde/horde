@@ -78,7 +78,6 @@ class Kronolith_FreeBusy_View {
 
         // Required to attend.
         if (count($this->_requiredMembers) > 0) {
-            $template = new Horde_Template();
             $rows = '';
             foreach ($this->_requiredMembers as $member) {
                 $member->simplify();
@@ -100,7 +99,6 @@ class Kronolith_FreeBusy_View {
 
         // Optional to attend.
         if (count($this->_optionalMembers) > 0) {
-            $template = new Horde_Template();
             $rows = '';
             foreach ($this->_optionalMembers as $member) {
                 $member->simplify();
