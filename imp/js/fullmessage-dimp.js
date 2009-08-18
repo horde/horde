@@ -94,11 +94,13 @@ var DimpFullmessage = {
             case 'button_ham':
             case 'button_spam':
                 if (id == 'button_deleted') {
-                    DIMP.baseWindow.DimpBase.deleteMsg({ index: this.index, mailbox: this.mailbox });
-                } else {
-                    DIMP.baseWindow.DimpBase.reportSpam(id == 'button_spam', { index: this.index, mailbox: this.mailbox });
+                    if (DIMP.baseWindow && DIMP.baseWindow.DimpBase) {
+                        DIMP.baseWindow.DimpBase.deleteMsg({ index: this.index, mailbox: this.mailbox });
+                    } else {
+                        DIMP.baseWindow.DimpBase.reportSpam(id == 'button_spam', { index: this.index, mailbox: this.mailbox });
+                    }
+                    window.close();
                 }
-                window.close();
                 e.stop();
                 return;
 

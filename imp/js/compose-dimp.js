@@ -26,7 +26,8 @@ var DimpCompose = {
 
     updateDraftsMailbox: function()
     {
-        if (DIMP.baseWindow.DimpBase &&
+        if (DIMP.baseWindow &&
+            DIMP.baseWindow.DimpBase &&
             DIMP.baseWindow.DimpBase.folder == DIMP.conf_compose.drafts_mbox) {
             DIMP.baseWindow.DimpBase.poll();
         }
@@ -36,7 +37,8 @@ var DimpCompose = {
     {
         if (DIMP.conf_compose.qreply) {
             this.closeQReply();
-        } else if (DIMP.baseWindow.DimpBase || DIMP.conf_compose.popup) {
+        } else if ((DIMP.baseWindow && DIMP.baseWindow.DimpBase) ||
+                   DIMP.conf_compose.popup) {
             DimpCore.closePopup();
         } else {
             DimpCore.redirect(DIMP.conf.URI_DIMP);
@@ -202,7 +204,7 @@ var DimpCompose = {
             // Use an AJAX submit here so that we can do javascript-y stuff
             // before having to close the window on success.
             params = c.serialize(true);
-            if (!DIMP.baseWindow.DimpBase) {
+            if (!DIMP.baseWindow || !DIMP.baseWindow.DimpBase) {
                 params.nonotify = true;
             }
             DimpCore.doAction('*' + DIMP.conf.URI_COMPOSE, params, null, this.uniqueSubmitCallback.bind(this));
@@ -231,7 +233,9 @@ var DimpCompose = {
                 this.updateDraftsMailbox();
 
                 if (d.action == 'save_draft') {
-                    if (DIMP.baseWindow.DimpBase && !DIMP.conf_compose.qreply) {
+                    if (DIMP.baseWindow &&
+                        DIMP.baseWindow.DimpBase &&
+                        !DIMP.conf_compose.qreply) {
                         DIMP.baseWindow.DimpCore.showNotifications(r.msgs);
                     }
                     if (DIMP.conf_compose.close_draft) {
@@ -242,7 +246,7 @@ var DimpCompose = {
 
             case 'send_message':
                 this.button_pressed = false;
-                if (DIMP.baseWindow.DimpBase) {
+                if (DIMP.baseWindow && DIMP.baseWindow.DimpBase) {
                     if (d.reply_type) {
                         DIMP.baseWindow.DimpBase.flag(d.reply_type == 'reply' ? '\\answered' : '$forwarded', true, { index: d.index, mailbox: d.reply_folder, noserver: true });
                     }
