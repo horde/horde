@@ -27,7 +27,7 @@ class Kronolith_Resource
         $resource->calendar_id = $calendar;
 
         $driver = Kronolith::getDriver('Sql');
-        $driver->saveResource($resource);
+        return $driver->saveResource($resource);
     }
 
     /**

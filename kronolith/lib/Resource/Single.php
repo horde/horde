@@ -66,4 +66,13 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
 
     }
 
+    public function setUid($id)
+    {
+        if (!empty($this->_uid)) {
+            $this->_uid = $id;
+        } else {
+            throw new Horde_Exception(_("Resource already exists. Cannot change the id."));
+        }
+    }
+
 }

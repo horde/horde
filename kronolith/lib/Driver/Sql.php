@@ -763,13 +763,37 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         return true;
     }
 
+    /**
+     * Save or update a Kronolith_Resource
+     *
+     * @param $resource
+     *
+     * @return Kronolith_Resource object
+     */
     public function saveResource($resource)
     {
-        $query = 'INSERT INTO kronolith_resources (resource_uid, resource_name, resource_calendar, resource_category)';
-        $cols_values = ' VALUES (?, ?, ?, ?, ?)';
-        $id = $this->_db->nextId('kronolity_resources');
-        $values = array($id, $resource->name, $resource->calendar_id, $resource->category);
-        $result = $this->_write_db->query($query, $values);
+        if (!empty($resource->uid)) {
+            $query = 'UPDATE kronolith_resources SET resource_name = ?, resource_calendar = ?, resource_category = ? WHERE resource_uid = ?';
+            $values = array($resource->name, $resource->calendar_id, $resource->category, $resource->uid);
+            $result = $this->_write_db->query($query, $values);
+            if (!($result instanceof PEAR_Error)) {
+                throw new Horde_Exception($result->getMessage());
+            }
+        } else {
+            $query = 'INSERT INTO kronolith_resources (resource_uid, resource_name, resource_calendar, resource_category)';
+            $cols_values = ' VALUES (?, ?, ?, ?)';
+            $id = $this->_db->nextId('kronolity_resources');
+            $values = array($id, $resource->name, $resource->calendar_id, $resource->category);
+            $result = $this->_write_db->query($query . $cols_values, $values);
+            if (!($result instanceof PEAR_Error)) {
+                return true;
+            } else {
+                throw new Horde_Exception($result->getMessage());
+            }
+            $resource->setUid($id);
+        }
+
+        return $resource;
     }
 
     /**

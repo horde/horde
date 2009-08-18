@@ -3,7 +3,7 @@
  * Kronolith resources
  *
  */
-class Kronolith_Resource_Base
+abstract class Kronolith_Resource_Base
 {
     protected $_params = array();
     protected $_uid = '';
@@ -33,7 +33,15 @@ class Kronolith_Resource_Base
      */
     public function __get($property)
     {
-        return $this->_params[$property];
+        if ($property == 'uid') {
+            return $this->_uid;
+        }
+
+        if (isset($this->_params[$property])) {
+            return $this->_params[$property];
+        } else {
+            throw new Horde_Exception(sprintf(_("Invalid property, %s, requested in Kronolith_Resource"), $property));
+        }
     }
 
     /**
@@ -69,5 +77,14 @@ class Kronolith_Resource_Base
      * @return unknown_type
      */
     abstract public function getFreeBusy();
+
+    /**
+     * Sets the current resource's id. Must not be an existing resource.
+     *
+     * @param int $id  The id for this resource
+     *
+     * @return unknown_type
+     */
+    abstract public function setUid($id);
 
 }
