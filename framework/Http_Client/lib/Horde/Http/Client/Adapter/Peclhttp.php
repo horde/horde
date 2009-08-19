@@ -47,7 +47,7 @@ class Horde_Http_Client_Adapter_Peclhttp extends Horde_Http_Client_Adapter_Base
         if (is_array($data)) {
             $httpRequest->setPostFields($data);
         } else {
-            $httpRequest->setRawPostData($dat);
+            $httpRequest->setRawPostData($data);
         }
 
         try {
