@@ -33,7 +33,7 @@ new IMP_Application(array('init' => true));
  * select it on the IMAP server (saves some STATUS calls). Open R/W to clear
  * the RECENT flag. */
 if (!$imp_search->isSearchMbox($imp_mbox['mailbox'])) {
-    $imp_imap->ob->openMailbox($imp_mbox['mailbox'], Horde_Imap_Client::OPEN_READWRITE);
+    $imp_imap->ob()->openMailbox($imp_mbox['mailbox'], Horde_Imap_Client::OPEN_READWRITE);
 }
 
 /* Make sure we have a valid index. */
@@ -208,10 +208,10 @@ try {
 try {
     /* Need to fetch flags before HEADERTEXT, because SEEN flag might be set
      * before we can grab it. */
-    $flags_ret = $imp_imap->ob->fetch($mailbox_name, array(
+    $flags_ret = $imp_imap->ob()->fetch($mailbox_name, array(
         Horde_Imap_Client::FETCH_FLAGS => true,
     ), array('ids' => array($index)));
-    $fetch_ret = $imp_imap->ob->fetch($mailbox_name, array(
+    $fetch_ret = $imp_imap->ob()->fetch($mailbox_name, array(
         Horde_Imap_Client::FETCH_ENVELOPE => true,
         Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => $peek))
     ), array('ids' => array($index)));

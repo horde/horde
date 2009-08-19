@@ -288,7 +288,7 @@ class IMP_Imap_Tree
 
         foreach ($this->_namespaces as $key => $val) {
             try {
-                $names = array_merge($names, $GLOBALS['imp_imap']->ob->listMailboxes($key . '*', $showunsub ? Horde_Imap_Client::MBOX_ALL : Horde_Imap_Client::MBOX_SUBSCRIBED, array('flat' => true)));
+                $names = array_merge($names, $GLOBALS['imp_imap']->ob()->listMailboxes($key . '*', $showunsub ? Horde_Imap_Client::MBOX_ALL : Horde_Imap_Client::MBOX_SUBSCRIBED, array('flat' => true)));
                 if ($showunsub) {
                     $this->_fulllist = $names;
                 } else {
@@ -1382,7 +1382,7 @@ class IMP_Imap_Tree
     public function getElementInfo($name)
     {
         try {
-            return $GLOBALS['imp_imap']->ob->status($name, Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_RECENT | Horde_Imap_Client::STATUS_UNSEEN);
+            return $GLOBALS['imp_imap']->ob()->status($name, Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_RECENT | Horde_Imap_Client::STATUS_UNSEEN);
         } catch (Horde_Imap_Client_Exception $e) {
             return array();
         }

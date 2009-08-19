@@ -59,14 +59,14 @@ class IMP_Imap_Acl
             throw new Horde_Exception(_("ACL requires an IMAP server."));
         }
 
-        $capability = $GLOBALS['imp_imap']->ob->queryCapability('ACL');
+        $capability = $GLOBALS['imp_imap']->ob()->queryCapability('ACL');
         if (!$capability) {
             throw new Horde_Exception(_("IMAP server does not support ACLs."));
         }
 
-        $rfc4314 = $GLOBALS['imp_imap']->ob->queryCapability('RIGHTS');
+        $rfc4314 = $GLOBALS['imp_imap']->ob()->queryCapability('RIGHTS');
 
-        $this->_protected = array($GLOBALS['imp_imap']->ob->getParam('username'));
+        $this->_protected = array($GLOBALS['imp_imap']->ob()->getParam('username'));
 
         $this->_rightsList = array(
             'l' => array(
@@ -145,7 +145,7 @@ class IMP_Imap_Acl
     public function getACL($mbox)
     {
         try {
-            return $GLOBALS['imp_imap']->ob->getACL($mbox);
+            return $GLOBALS['imp_imap']->ob()->getACL($mbox);
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Exception(_("Could not retrieve ACL"));
         }
@@ -164,7 +164,7 @@ class IMP_Imap_Acl
     public function editACL($mbox, $user, $acl)
     {
         try {
-            $GLOBALS['imp_imap']->ob->setACL($mbox, $user, array('rights' => $acl));
+            $GLOBALS['imp_imap']->ob()->setACL($mbox, $user, array('rights' => $acl));
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Exception(sprintf(_("Couldn't give user \"%s\" the following rights for the folder \"%s\": %s"), $user, $mbox, implode('', $acl)));
         }
@@ -181,7 +181,7 @@ class IMP_Imap_Acl
     public function canEdit($mbox, $user)
     {
         try {
-            $rights = $GLOBALS['imp_imap']->ob->listACLRights($mbox, $user);
+            $rights = $GLOBALS['imp_imap']->ob()->listACLRights($mbox, $user);
             foreach ($rights as $val) {
                 if (strpos($val, 'a') !== false) {
                     return true;

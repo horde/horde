@@ -47,7 +47,7 @@ class IMP_Auth
         }
 
         // Check for valid IMAP Client object.
-        if (!$GLOBALS['imp_imap']->ob) {
+        if (!$GLOBALS['imp_imap']->ob()) {
             if (!isset($credentials['userId']) ||
                 !isset($credentials['password'])) {
                 throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
@@ -71,7 +71,7 @@ class IMP_Auth
         }
 
         try {
-            $GLOBALS['imp_imap']->ob->login();
+            $GLOBALS['imp_imap']->ob()->login();
         } catch (Horde_Imap_Client_Exception $e) {
             self::logMessage($e->getMessage(), __FILE__, __LINE__);
             if ($e->getCode() == Horde_Imap_Client_Exception::SERVER_CONNECT) {
@@ -131,15 +131,15 @@ class IMP_Auth
             break;
         }
 
-        $imp_imap = $GLOBALS['imp_imap']->ob;
+        $imap_ob = $GLOBALS['imp_imap']->ob();
 
         $msg = sprintf(
             $status_msg . ' for %s [%s]%s to {%s:%s [%s]}',
             empty($_SESSION['imp']['uniquser']) ? '' : $_SESSION['imp']['uniquser'],
             $_SERVER['REMOTE_ADDR'],
             empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? '' : ' (forwarded for [' . $_SERVER['HTTP_X_FORWARDED_FOR'] . '])',
-            $imp_imap ? $imp_imap->getParam('hostspec') : '',
-            $imp_imap ? $imp_imap->getParam('port') : '',
+            $imap_ob ? $imap_ob->getParam('hostspec') : '',
+            $imap_ob ? $imap_ob->getParam('port') : '',
             empty($_SESSION['imp']['protocol']) ? '' : $_SESSION['imp']['protocol']
         );
 

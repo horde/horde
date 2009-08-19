@@ -126,7 +126,7 @@ class IMP_Contents
 
             /* Get the Horde_Mime_Part object for the given index. */
             try {
-                $ret = $GLOBALS['imp_imap']->ob->fetch($this->_mailbox, array(
+                $ret = $GLOBALS['imp_imap']->ob()->fetch($this->_mailbox, array(
                     Horde_Imap_Client::FETCH_STRUCTURE => array('parse' => true)
                 ), array('ids' => array($this->_index)));
             } catch (Horde_Imap_Client_Exception $e) {
@@ -180,7 +180,7 @@ class IMP_Contents
         }
 
         try {
-            $res = $GLOBALS['imp_imap']->ob->fetch($this->_mailbox, array(
+            $res = $GLOBALS['imp_imap']->ob()->fetch($this->_mailbox, array(
                 Horde_Imap_Client::FETCH_BODYTEXT => array(array('peek' => true, 'stream' => !empty($options['stream'])))
             ), array('ids' => array($this->_index)));
             return $res[$this->_index]['bodytext'][0];
@@ -241,7 +241,7 @@ class IMP_Contents
         }
 
         try {
-            $res = $GLOBALS['imp_imap']->ob->fetch($this->_mailbox, $query, array('ids' => array($this->_index)));
+            $res = $GLOBALS['imp_imap']->ob()->fetch($this->_mailbox, $query, array('ids' => array($this->_index)));
             if (empty($options['mimeheaders'])) {
                 if (!empty($res[$this->_index]['bodypartdecode'][$id])) {
                     $this->lastBodyPartDecode = $res[$this->_index]['bodypartdecode'][$id];
@@ -277,7 +277,7 @@ class IMP_Contents
         }
 
         try {
-            $res = $GLOBALS['imp_imap']->ob->fetch($this->_mailbox, array(
+            $res = $GLOBALS['imp_imap']->ob()->fetch($this->_mailbox, array(
                 Horde_Imap_Client::FETCH_HEADERTEXT => array(array('peek' => true)),
                 Horde_Imap_Client::FETCH_BODYTEXT => array(array('peek' => true, 'stream' => !empty($options['stream'])))
             ), array('ids' => array($this->_index)));
@@ -303,7 +303,7 @@ class IMP_Contents
         }
 
         try {
-            $res = $GLOBALS['imp_imap']->ob->fetch($this->_mailbox, array(
+            $res = $GLOBALS['imp_imap']->ob()->fetch($this->_mailbox, array(
                 Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => true))
             ), array('ids' => array($this->_index)));
             return $res[$this->_index]['headertext'][0];

@@ -24,7 +24,7 @@ class IMP_Notification_Listener_StatusMobile extends Horde_Notification_Listener
     public function notify(&$messageStack, $options = array())
     {
         /* Display IMAP alerts. */
-        foreach ($GLOBALS['imp_imap']->ob->alerts() as $alert) {
+        foreach ($GLOBALS['imp_imap']->ob()->alerts() as $alert) {
             $GLOBALS['notification']->push($alert, 'horde.warning');
         }
 

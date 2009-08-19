@@ -226,13 +226,13 @@ class IMP_Mailbox
             $cache = null;
             $options['preview'] = 0;
         } else {
-            $cache = $GLOBALS['imp_imap']->ob->getCache();
+            $cache = $GLOBALS['imp_imap']->ob()->getCache();
         }
 
         /* Retrieve information from each mailbox. */
         foreach ($to_process as $mbox => $ids) {
             try {
-                $fetch_res = $GLOBALS['imp_imap']->ob->fetch($mbox, $fetch_criteria, array('ids' => array_keys($ids)));
+                $fetch_res = $GLOBALS['imp_imap']->ob()->fetch($mbox, $fetch_criteria, array('ids' => array_keys($ids)));
 
                 if ($options['preview']) {
                     $preview_info = $tostore = array();
@@ -278,7 +278,7 @@ class IMP_Mailbox
                 $uids[$mbox] = array_keys($fetch_res);
 
                 if (!is_null($cache) && !empty($tostore)) {
-                    $status = $GLOBALS['imp_imap']->ob->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
+                    $status = $GLOBALS['imp_imap']->ob()->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
                     $cache->set($mbox, $tostore, $status['uidvalidity']);
                 }
             } catch (Horde_Imap_Client_Exception $e) {}
@@ -338,7 +338,7 @@ class IMP_Mailbox
                     $query->flag('\\deleted', false);
                 }
                 try {
-                    $res = $GLOBALS['imp_imap']->ob->search($this->_mailbox, $query, array('sort' => array($sortpref['by']), 'reverse' => (bool)$sortpref['dir']));
+                    $res = $GLOBALS['imp_imap']->ob()->search($this->_mailbox, $query, array('sort' => array($sortpref['by']), 'reverse' => (bool)$sortpref['dir']));
                     $this->_sorted = $res['sort'];
                 } catch (Horde_Imap_Client_Exception $e) {
                     $this->_sorted = array();
@@ -401,7 +401,7 @@ class IMP_Mailbox
             $criteria->flag('\\deleted', false);
         } elseif ($count) {
             try {
-                $status_res = $GLOBALS['imp_imap']->ob->status($this->_mailbox, $type == 'recent' ? Horde_Imap_Client::STATUS_RECENT : Horde_Imap_Client::STATUS_UNSEEN);
+                $status_res = $GLOBALS['imp_imap']->ob()->status($this->_mailbox, $type == 'recent' ? Horde_Imap_Client::STATUS_RECENT : Horde_Imap_Client::STATUS_UNSEEN);
                 return $status_res[$type];
             } catch (Horde_Imap_Client_Exception $e) {
                 return 0;
@@ -415,7 +415,7 @@ class IMP_Mailbox
         }
 
         try {
-            $res = $GLOBALS['imp_imap']->ob->search($this->_mailbox, $criteria, array('results' => array($results), 'sequence' => true));
+            $res = $GLOBALS['imp_imap']->ob()->search($this->_mailbox, $criteria, array('results' => array($results), 'sequence' => true));
             return $count ? $res['count'] : $res;
         } catch (Horde_Imap_Client_Exception $e) {
             return $count ? 0 : array();
@@ -561,7 +561,7 @@ class IMP_Mailbox
         $ret['anymsg'] = true;
         if (!$ret['msgcount'] && !$this->_searchmbox) {
             try {
-                $status = $GLOBALS['imp_imap']->ob->status($this->_mailbox, Horde_Imap_Client::STATUS_MESSAGES);
+                $status = $GLOBALS['imp_imap']->ob()->status($this->_mailbox, Horde_Imap_Client::STATUS_MESSAGES);
                 $ret['anymsg'] = (bool)$status['messages'];
             } catch (Horde_Imap_Client_Exception $e) {
                 $ret['anymsg'] = false;
@@ -598,7 +598,7 @@ class IMP_Mailbox
              * information is returned via a SELECT/EXAMINE call. */
             if ($sortpref['by'] == Horde_Imap_Client::SORT_ARRIVAL) {
                 try {
-                    $res = $GLOBALS['imp_imap']->ob->status($this->_mailbox, Horde_Imap_Client::STATUS_FIRSTUNSEEN);
+                    $res = $GLOBALS['imp_imap']->ob()->status($this->_mailbox, Horde_Imap_Client::STATUS_FIRSTUNSEEN);
                     if (!is_null($res['firstunseen'])) {
                         return $res['firstunseen'];
                     }
@@ -662,7 +662,7 @@ class IMP_Mailbox
     {
         if (is_null($this->_threadob)) {
             try {
-                $this->_threadob = $GLOBALS['imp_imap']->ob->thread($this->_mailbox);
+                $this->_threadob = $GLOBALS['imp_imap']->ob()->thread($this->_mailbox);
                 $ref_errcode = null;
             } catch (Horde_Imap_Client_Exception $e) {
                 $ref_errcode = $e->getCode();
@@ -670,7 +670,7 @@ class IMP_Mailbox
 
             if ($ref_errcode == Horde_Imap_Client_Exception::NOSUPPORTIMAPEXT) {
                 try {
-                    $this->_threadob = $GLOBALS['imp_imap']->ob->thread($this->_mailbox, array('criteria' => Horde_Imap_Client::THREAD_ORDEREDSUBJECT));
+                    $this->_threadob = $GLOBALS['imp_imap']->ob()->thread($this->_mailbox, array('criteria' => Horde_Imap_Client::THREAD_ORDEREDSUBJECT));
                 } catch (Horde_Imap_Client_Exception $e) {
                     $GLOBALS['notification']->push(_("Server does not support thread sorting."), 'horde.error');
                     return new Horde_Imap_Client_Thread(array(), 'uid');
@@ -820,7 +820,7 @@ class IMP_Mailbox
         if (!$this->_searchmbox) {
             $sortpref = IMP::getSort($this->_mailbox);
             try {
-                $id = $GLOBALS['imp_imap']->ob->getCacheId($this->_mailbox);
+                $id = $GLOBALS['imp_imap']->ob()->getCacheId($this->_mailbox);
                 return $id . '|' . $sortpref['by'] . '|' . $sortpref['dir'];
             } catch (Horde_Imap_Client_Exception $e) {}
         }

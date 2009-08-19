@@ -94,7 +94,7 @@ class IMP_Imap_Flags
          * from the PERMANENTFLAGS IMAP response. */
         if (!empty($options['mailbox'])) {
             try {
-                $status = $GLOBALS['imp_imap']->ob->status($options['mailbox'], Horde_Imap_Client::STATUS_PERMFLAGS);
+                $status = $GLOBALS['imp_imap']->ob()->status($options['mailbox'], Horde_Imap_Client::STATUS_PERMFLAGS);
                 if (!in_array('\\*', $status['permflags'])) {
                     $avail_flags = array_intersect($avail_flags, $status['permflags']);
                 }

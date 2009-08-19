@@ -111,7 +111,7 @@ class Horde_Block_imp_summary extends Horde_Block
             /* Open the mailbox R/W to ensure the 'recent' flags are cleared
              * from the current mailbox. */
             foreach ($newmsgs as $mbox => $nm) {
-                $GLOBALS['imp_imap']->ob->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
+                $GLOBALS['imp_imap']->ob()->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
             }
 
             if ($prefs->getValue('nav_popup')) {

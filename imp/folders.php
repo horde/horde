@@ -403,7 +403,7 @@ if (!empty($newmsgs)) {
     /* Open the mailbox R/W so we ensure the 'recent' flags are cleared from
      * the current mailbox. */
     foreach ($newmsgs as $mbox => $nm) {
-        $imp_imap->ob->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
+        $imp_imap->ob()->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
     }
 
     if ($prefs->getValue('nav_popup')) {

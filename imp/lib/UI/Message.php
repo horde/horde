@@ -86,11 +86,11 @@ class IMP_UI_Message
         /* See if we have already processed this message. */
         /* 1st test: $MDNSent keyword (RFC 3503 [3.1]). */
         try {
-            $status = $GLOBALS['imp_imap']->ob->status($mailbox, Horde_Imap_Client::STATUS_PERMFLAGS);
+            $status = $GLOBALS['imp_imap']->ob()->status($mailbox, Horde_Imap_Client::STATUS_PERMFLAGS);
             if (in_array('\\*', $status['permflags']) ||
                 in_array('$mdnsent', $status['permflags'])) {
                 $mdn_flag = true;
-                $res = $GLOBALS['imp_imap']->ob->fetch($mailbox, array(
+                $res = $GLOBALS['imp_imap']->ob()->fetch($mailbox, array(
                         Horde_Imap_Client::FETCH_FLAGS => true
                     ), array('ids' => array($uid)));
                 $mdn_sent = in_array('$mdnsent', $res[$uid]['flags']);

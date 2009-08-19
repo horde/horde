@@ -28,7 +28,7 @@ if ($mode == 'thread') {
     }
 } else {
     /* MSGVIEW MODE: Make sure we have a valid list of messages. */
-    $msglist = $GLOBALS['imp_imap']->ob->utils->fromSequenceString(Horde_Util::getFormData('msglist'));
+    $msglist = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString(Horde_Util::getFormData('msglist'));
     if (empty($msglist)) {
         $error = true;
     }
@@ -80,7 +80,7 @@ $charset = Horde_Nls::getCharset();
 $imp_ui = new IMP_UI_Message();
 
 foreach ($loop_array as $mbox => $idxlist) {
-    $fetch_res = $GLOBALS['imp_imap']->ob->fetch($mbox, array(
+    $fetch_res = $GLOBALS['imp_imap']->ob()->fetch($mbox, array(
         Horde_Imap_Client::FETCH_ENVELOPE => true
     ), array('ids' => $idxlist));
 

@@ -17,7 +17,7 @@ function _generateDeleteResult($mbox, $indices, $change, $nothread = false)
 
     $result = new stdClass;
     $result->folder = $mbox;
-    $result->uids = $GLOBALS['imp_imap']->ob->utils->toSequenceString($indices, array('mailbox' => true));
+    $result->uids = $GLOBALS['imp_imap']->ob()->utils->toSequenceString($indices, array('mailbox' => true));
     $result->remove = intval($GLOBALS['prefs']->getValue('hide_deleted') ||
                              $GLOBALS['prefs']->getValue('use_trash'));
     $result->cacheid = $imp_mailbox->getCacheID($mbox);
@@ -50,7 +50,7 @@ function _changed($mbox, $compare, $rw = null)
      * the IMAP server (saves some STATUS calls). */
     if (!is_null($rw) && !$GLOBALS['imp_search']->isSearchMbox($mbox)) {
         try {
-            $GLOBALS['imp_imap']->ob->openMailbox($mbox, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
+            $GLOBALS['imp_imap']->ob()->openMailbox($mbox, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
         } catch (Horde_Imap_Client_Exception $e) {
             return false;
         }
@@ -182,7 +182,7 @@ try {
 
 // Process common request variables.
 $mbox = Horde_Util::getPost('view');
-$indices = $imp_imap->ob->utils->fromSequenceString(Horde_Util::getPost('uid'));
+$indices = $imp_imap->ob()->utils->fromSequenceString(Horde_Util::getPost('uid'));
 $cacheid = Horde_Util::getPost('cacheid');
 
 // Open an output buffer to ensure that we catch errors that might break JSON
@@ -508,7 +508,7 @@ case 'ShowPreview':
     /* We know we are going to be exclusively dealing with this mailbox, so
      * select it on the IMAP server (saves some STATUS calls). Open R/W to
      * clear the RECENT flag. */
-    $imp_imap->ob->openMailbox($ptr['key'], Horde_Imap_Client::OPEN_READWRITE);
+    $imp_imap->ob()->openMailbox($ptr['key'], Horde_Imap_Client::OPEN_READWRITE);
 
     $show_msg = new IMP_Views_ShowMessage();
     $result = (object)$show_msg->showMessage($args);
@@ -711,7 +711,7 @@ case 'SendMDN':
 
     /* Get the IMP_Headers:: object. */
     try {
-        $fetch_ret = $imp_imap->ob->fetch($mbox, array(
+        $fetch_ret = $imp_imap->ob()->fetch($mbox, array(
             Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => false))
         ), array('ids' => array($index)));
     } catch (Horde_Imap_Client_Exception $e) {

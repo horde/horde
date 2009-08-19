@@ -161,7 +161,7 @@ class IMP_Views_ListMessages
             !empty($args['cache'])) {
             $uid_expire = false;
             try {
-                $status = $GLOBALS['imp_imap']->ob->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
+                $status = $GLOBALS['imp_imap']->ob()->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
                 list($old_uidvalid,) = explode('|', $args['cacheid']);
                 $uid_expire = ($old_uidvalid != $status['uidvalidity']);
             } catch (Horde_Imap_Cache_Exception $e) {
@@ -181,7 +181,7 @@ class IMP_Views_ListMessages
             if (isset($md->search)) {
                 $cached = Horde_Serialize::unserialize($args['cache'], Horde_Serialize::JSON);
             } else {
-                $cached = $GLOBALS['imp_imap']->ob->utils->fromSequenceString($args['cached']);
+                $cached = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($args['cached']);
                 $cached = reset($cached);
             }
             $cached = array_flip($cached);

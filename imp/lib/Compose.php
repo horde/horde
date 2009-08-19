@@ -266,7 +266,7 @@ class IMP_Compose
 
         /* Add the message to the mailbox. */
         try {
-            $ids = $GLOBALS['imp_imap']->ob->append($drafts_mbox, array(array('data' => $data, 'flags' => $append_flags, 'messageid' => $headers->getValue('message-id'))));
+            $ids = $GLOBALS['imp_imap']->ob()->append($drafts_mbox, array(array('data' => $data, 'flags' => $append_flags, 'messageid' => $headers->getValue('message-id'))));
             $this->_metadata['draft_index'] = reset($ids);
             $this->_modified = true;
             return sprintf(_("The draft has been saved to the \"%s\" folder."), IMP::displayFolder($drafts_mbox));
@@ -605,7 +605,7 @@ class IMP_Compose
             }
 
             try {
-                $GLOBALS['imp_imap']->ob->append(Horde_String::convertCharset($opts['sent_folder'], Horde_Nls::getCharset(), 'UTF-8'), array(array('data' => $fcc, 'flags' => $flags)));
+                $GLOBALS['imp_imap']->ob()->append(Horde_String::convertCharset($opts['sent_folder'], Horde_Nls::getCharset(), 'UTF-8'), array(array('data' => $fcc, 'flags' => $flags)));
             } catch (Horde_Imap_Client_Exception $e) {
                 $notification->push(sprintf(_("Message sent successfully, but not saved to %s"), IMP::displayFolder($opts['sent_folder'])));
                 $sent_saved = false;
@@ -713,8 +713,8 @@ class IMP_Compose
          * current IMAP / POP3 connection are valid for SMTP authentication as
          * well. */
         if (!empty($params['auth']) && empty($params['username'])) {
-            $params['username'] = $GLOBALS['imp_imap']->ob->getParam('username');
-            $params['password'] = $GLOBALS['imp_imap']->ob->getParam('password');
+            $params['username'] = $GLOBALS['imp_imap']->ob()->getParam('username');
+            $params['password'] = $GLOBALS['imp_imap']->ob()->getParam('password');
         }
 
         return array('driver' => $GLOBALS['conf']['mailer']['type'], 'params' => $params);
@@ -1206,7 +1206,7 @@ class IMP_Compose
         $subject = $h->getValue('subject');
         $header['subject'] = empty($subject)
             ? 'Re: '
-            : 'Re: ' . $GLOBALS['imp_imap']->ob->utils->getBaseSubject($subject, array('keepblob' => true));
+            : 'Re: ' . $GLOBALS['imp_imap']->ob()->utils->getBaseSubject($subject, array('keepblob' => true));
 
         if (in_array($actionID, array('reply', '*'))) {
             ($header['to'] = $to) ||
@@ -1381,7 +1381,7 @@ class IMP_Compose
         $header['subject'] = $h->getValue('subject');
         if (!empty($header['subject'])) {
             $header['title'] = _("Forward") . ': ' . $header['subject'];
-            $header['subject'] = 'Fwd: ' . $GLOBALS['imp_imap']->ob->utils->getBaseSubject($header['subject'], array('keepblob' => true));
+            $header['subject'] = 'Fwd: ' . $GLOBALS['imp_imap']->ob()->utils->getBaseSubject($header['subject'], array('keepblob' => true));
         } else {
             $header['title'] = _("Forward");
             $header['subject'] = 'Fwd:';
@@ -1482,7 +1482,7 @@ class IMP_Compose
             } else {
                 $name = Horde_String::truncate($name, 80);
             }
-            return 'Fwd: ' . $GLOBALS['imp_imap']->ob->utils->getBaseSubject($name, array('keepblob' => true));
+            return 'Fwd: ' . $GLOBALS['imp_imap']->ob()->utils->getBaseSubject($name, array('keepblob' => true));
         } else {
             return 'Fwd: ' . sprintf(_("%u Forwarded Messages"), $attached);
         }

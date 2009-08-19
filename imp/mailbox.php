@@ -92,7 +92,7 @@ if ($actionID && ($actionID != 'message_missing')) {
  * select it on the IMAP server (saves some STATUS calls). Open R/W to clear
  * the RECENT flag. */
 if (!$search_mbox) {
-    $imp_imap->ob->openMailbox($imp_mbox['mailbox'], Horde_Imap_Client::OPEN_READWRITE);
+    $imp_imap->ob()->openMailbox($imp_mbox['mailbox'], Horde_Imap_Client::OPEN_READWRITE);
 }
 
 /* Determine if mailbox is readonly. */
@@ -197,7 +197,7 @@ case 'empty_mailbox':
     break;
 
 case 'view_messages':
-    $redirect = Horde_Util::addParameter(IMP::generateIMPUrl('thread.php', $imp_mbox['mailbox'], null, null, false), array('mode' => 'msgview', 'msglist' => $GLOBALS['imp_imap']->ob->utils->toSequenceString(IMP::parseIndicesList($indices), array('mailbox' => true))), null, false);
+    $redirect = Horde_Util::addParameter(IMP::generateIMPUrl('thread.php', $imp_mbox['mailbox'], null, null, false), array('mode' => 'msgview', 'msglist' => $GLOBALS['imp_imap']->ob()->utils->toSequenceString(IMP::parseIndicesList($indices), array('mailbox' => true))), null, false);
     header('Location: ' . $redirect);
     exit;
 }
@@ -396,7 +396,7 @@ if ($open_compose_window === false) {
 if (!empty($newmsgs)) {
     /* Open the mailbox R/W so we ensure the 'recent' flags are cleared from
      * the current mailbox. */
-    $imp_imap->ob->openMailbox($imp_mbox['mailbox'], Horde_Imap_Client::OPEN_READWRITE);
+    $imp_imap->ob()->openMailbox($imp_mbox['mailbox'], Horde_Imap_Client::OPEN_READWRITE);
 
     if (!Horde_Util::getFormData('no_newmail_popup')) {
         /* Newmail audio. */

@@ -201,7 +201,7 @@ class IMP_Api extends Horde_Registry_Api
             return false;
         }
 
-        return $GLOBALS['imp_imap']->ob->fetch($mailbox, array(Horde_Imap_Client::FETCH_ENVELOPE => true), array('ids' => $indices));
+        return $GLOBALS['imp_imap']->ob()->fetch($mailbox, array(Horde_Imap_Client::FETCH_ENVELOPE => true), array('ids' => $indices));
     }
 
     /**
@@ -242,7 +242,7 @@ class IMP_Api extends Horde_Registry_Api
             return false;
         }
 
-        return $GLOBALS['imp_imap']->ob->getCacheId($mailbox);
+        return $GLOBALS['imp_imap']->ob()->getCacheId($mailbox);
     }
 
     /**

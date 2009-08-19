@@ -18,7 +18,7 @@ class IMP_Imap
      *
      * @var Horde_Imap_Client
      */
-    public $ob = null;
+    protected $_ob = null;
 
     /**
      * Is connection read-only?
@@ -61,21 +61,21 @@ class IMP_Imap
         /* Only need to serialize object once a session. When we do
          * serialize, make sure we login in order to ensure we have done the
          * necessary initialization. */
-        if ($this->ob &&
+        if ($this->_ob &&
             isset($_SESSION['imp']) &&
             !isset($_SESSION['imp']['imap_ob'])) {
-            $this->ob->login();
+            $this->_ob->login();
 
             /* First login may occur on a non-viewable page. However,
              * any login alerts received should be displayed to the user at
              * some point. We need to do an explicit grab of the alarms
              * right now. */
             $notification = Horde_Notification::singleton();
-            foreach ($GLOBALS['imp_imap']->ob->alerts() as $alert) {
+            foreach ($this->_ob->alerts() as $alert) {
                 $notification->push($alert, 'horde.warning');
             }
 
-            $_SESSION['imp']['imap_ob'] = serialize($this->ob);
+            $_SESSION['imp']['imap_ob'] = serialize($this->_ob);
         }
     }
 
@@ -121,7 +121,7 @@ class IMP_Imap
      */
     protected function _loadImapObject()
     {
-        if (!is_null($this->ob)) {
+        if (!is_null($this->_ob)) {
             return true;
         }
 
@@ -132,10 +132,10 @@ class IMP_Imap
         Horde_Imap_Client::$encryptKey = Horde_Secret::getKey('imp');
 
         $old_error = error_reporting(0);
-        $this->ob = unserialize($_SESSION['imp']['imap_ob']);
+        $this->_ob = unserialize($_SESSION['imp']['imap_ob']);
         error_reporting($old_error);
 
-        if (empty($this->ob)) {
+        if (empty($this->_ob)) {
             // @todo How to handle bad unserialize?
             // @todo Log message
             return false;
@@ -160,7 +160,7 @@ class IMP_Imap
     public function createImapObject($username, $password, $key,
                                      $global = true)
     {
-        if ($global && !is_null($this->ob)) {
+        if ($global && !is_null($this->_ob)) {
             return $GLOBALS['imp_imap'];
         }
 
@@ -208,7 +208,7 @@ class IMP_Imap
         }
 
         if ($global) {
-            $this->ob = $ob;
+            $this->_ob = $ob;
             $this->_postcreate($protocol);
         }
 
@@ -261,7 +261,7 @@ class IMP_Imap
                 ($_SESSION['imp']['protocol'] == 'imap') &&
                 !$GLOBALS['imp_search']->isSearchMbox($mailbox)) {
                 try {
-                    $status = $this->ob->status($mailbox, Horde_Imap_Client::STATUS_UIDNOTSTICKY);
+                    $status = $this->_ob->status($mailbox, Horde_Imap_Client::STATUS_UIDNOTSTICKY);
                     $res = $status['uidnotsticky'];
                 } catch (Horde_Imap_Client_Exception $e) {}
             }
@@ -288,7 +288,7 @@ class IMP_Imap
         }
 
         if (!isset($this->_uidvalid[$mailbox])) {
-            $status = $this->ob->status($mailbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
+            $status = $this->_ob->status($mailbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
             $ptr = &$_SESSION['imp']['cache'];
             $val = isset($ptr['uidvalid'][$mailbox])
                 ? $ptr['uidvalid'][$mailbox]
@@ -321,7 +321,7 @@ class IMP_Imap
     public function getNamespaceList()
     {
         try {
-            return $GLOBALS['imp_imap']->ob->getNamespaces(!empty($_SESSION['imp']['imap_ext']['namespace']) ? $_SESSION['imp']['imap_ext']['namespace'] : array());
+            return $this->_ob->getNamespaces(!empty($_SESSION['imp']['imap_ext']['namespace']) ? $_SESSION['imp']['imap_ext']['namespace'] : array());
         } catch (Horde_Imap_Client_Exception $e) {
             // @todo Error handling
             return array();
@@ -400,6 +400,16 @@ class IMP_Imap
             $ns_info = $this->defaultNamespace();
         }
         return $ns_info['name'] . $mbox;
+    }
+
+    /**
+     * Return the Horde_Imap_Client object.
+     *
+     * @return Horde_Imap_Client  The imap object.
+     */
+    public function ob()
+    {
+        return $this->_ob;
     }
 
 }
