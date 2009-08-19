@@ -32,8 +32,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <dir name="Horde">
      <dir name="Http">
       <dir name="Client">
+       <dir name="Adapter">
+        <file name="Base.php" role="php" />
+        <file name="Curl.php" role="php" />
+        <file name="Fopen.php" role="php" />
+        <file name="Peclhttp.php" role="php" />
+       </dir>
        <file name="Exception.php" role="php" />
        <file name="Mock.php" role="php" />
+       <file name="Request.php" role="php" />
        <file name="Response.php" role="php" />
       </dir> <!-- /lib/Horde/Http/Client -->
       <file name="Client.php" role="php" />
@@ -54,8 +61,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Http/Client/Adapter/Base.php" as="Horde/Http/Client/Adapter/Base.php" />
+   <install name="lib/Horde/Http/Client/Adapter/Curl.php" as="Horde/Http/Client/Adapter/Curl.php" />
+   <install name="lib/Horde/Http/Client/Adapter/Fopen.php" as="Horde/Http/Client/Adapter/Fopen.php" />
+   <install name="lib/Horde/Http/Client/Adapter/Peclhttp.php" as="Horde/Http/Client/Adapter/Peclhttp.php" />
    <install name="lib/Horde/Http/Client/Exception.php" as="Horde/Http/Client/Exception.php" />
    <install name="lib/Horde/Http/Client/Mock.php" as="Horde/Http/Client/Mock.php" />
+   <install name="lib/Horde/Http/Client/Request.php" as="Horde/Http/Client/Request.php" />
    <install name="lib/Horde/Http/Client/Response.php" as="Horde/Http/Client/Response.php" />
    <install name="lib/Horde/Http/Client.php" as="Horde/Http/Client.php" />
   </filelist>

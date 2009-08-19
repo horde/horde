@@ -65,6 +65,10 @@ class Horde_Http_Client_Response
      */
     protected function _parseHeaders($headers)
     {
+        if (!is_array($headers)) {
+            $headers = explode("\n", $headers);
+        }
+
         $lastHeader = null;
         foreach ($headers as $headerLine) {
             // stream_get_meta returns all headers generated while processing a

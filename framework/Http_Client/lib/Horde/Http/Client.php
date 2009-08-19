@@ -6,8 +6,6 @@
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
  * @package  Horde_Http_Client
- *
- * @TODO - add support for http://pecl.php.net/package/pecl_http ?
  */
 
 /**
@@ -19,51 +17,20 @@
 class Horde_Http_Client
 {
     /**
-     * URI to make our next request to
-     * @var string
+     * HTTP Adapter to use for transport
+     * @var Horde_Http_Client_Adapter
      */
-    protected $_uri = null;
+    protected $_adapter;
 
     /**
-     * Request headers
-     * @var array
+     * The current HTTP request
+     * @var Horde_Http_Client_Request
      */
-    protected $_headers = array();
+    protected $_request;
 
     /**
-     * Proxy server
-     * @var string
-     */
-    protected $_proxyServer = null;
-
-    /**
-     * Proxy username
-     * @var string
-     */
-    protected $_proxyUser = null;
-
-    /**
-     * Proxy password
-     * @var string
-     */
-    protected $_proxyPass = null;
-
-    /**
-     * HTTP timeout
-     * @var fload
-     */
-    protected $_timeout = 5;
-
-    /**
-     * The most recent HTTP request
-     *
-     * An array with these values:
-     *   'uri'
-     *   'method'
-     *   'headers'
-     *   'data'
-     *
-     * @var array
+     * The previous HTTP request
+     * @var Horde_Http_Client_Request
      */
     protected $_lastRequest;
 
@@ -78,49 +45,39 @@ class Horde_Http_Client
      *
      * @param array $args Any Http_Client settings to initialize in the
      * constructor. Available settings are:
-     *     uri
-     *     headers
-     *     proxyServer
-     *     proxyUser
-     *     proxyPass
+     *     adapter
+     *     adapter.proxyServer
+     *     adapter.proxyUser
+     *     adapter.proxyPass
+     *     adapter.timeout
+     *     request
+     *     request.uri
+     *     request.headers
+     *     request.method
+     *     request.data
      */
     public function __construct($args = array())
     {
-        if (!ini_get('allow_url_fopen')) {
-            throw new Horde_Http_Client_Exception('allow_url_fopen must be enabled');
+        // Set or create adapter object
+        if (isset($args['adapter'])) {
+            $this->_adapter = $args['adapter'];
+            unset($args['adapter']);
+        } else {
+            $this->_adapter = $this->_createBestAvailableAdapter();
+        }
+
+        // Set or create request object
+        if (isset($args['request'])) {
+            $this->_request = $args['request'];
+            unset($args['request']);
+        } else {
+            $this->_request = new Horde_Http_Client_Request();
         }
 
         foreach ($args as $key => $val) {
-            $this->$key = $val;
+            list($object, $objectkey) = explode('.', $key, 2);
+            $this->$object->$objectkey = $val;
         }
-    }
-
-    /**
-     * Set one or more headers
-     *
-     * @param mixed $headers A hash of header + value pairs, or a single header name
-     * @param string $value  A header value
-     */
-    public function setHeaders($headers, $value = null)
-    {
-        if (!is_array($headers)) {
-            $headers = array($headers => $value);
-        }
-
-        foreach ($headers as $header => $value) {
-            $this->_headers[$header] = $value;
-        }
-    }
-
-    /**
-     * Get the current value of $header
-     *
-     * @param string $header Header name to get
-     * @return string $header's current value
-     */
-    public function getHeader($header)
-    {
-        return isset($this->_headers[$header]) ? $this->_headers[$header] : null;
     }
 
     /**
@@ -191,56 +148,21 @@ class Horde_Http_Client
      */
     public function request($method, $uri = null, $data = null, $headers = array())
     {
-        if (is_null($uri)) {
-            $uri = $this->uri;
+        if ($method !== null) {
+            $this->request->method = $method;
+        }
+        if ($uri !== null) {
+            $this->request->uri = $uri;
+        }
+        if ($data !== null) {
+            $this->request->data = $data;
+        }
+        if (count($headers)) {
+            $this->request->setHeaders($headers);
         }
 
-        if (is_array($data)) {
-            $data = http_build_query($data, '', '&');
-        }
-
-        $headers = array_merge($this->_headers, $headers);
-
-        // Store the last request for ease of debugging.
-        $this->_lastRequest = array(
-            'uri' => $uri,
-            'method' => $method,
-            'headers' => $headers,
-            'data' => $data,
-        );
-
-        $opts = array('http' => array());
-        // Proxy settings - check first, so we can include the correct headers
-        if ($this->proxyServer) {
-            $opts['http']['proxy'] = 'tcp://' . $this->proxyServer;
-            $opts['http']['request_fulluri'] = true;
-            if ($this->proxyUser && $this->proxyPass) {
-                $headers['Proxy-Authorization'] = 'Basic ' . base64_encode($this->proxyUser . ':' . $this->proxyPass);
-            }
-        }
-
-        // Concatenate the headers
-        $hdr = array();
-        foreach ($headers as $header => $value) {
-            $hdr[] = $header . ': ' . $value;
-        }
-
-        // Stream context config.
-        $opts['http']['method'] = $method;
-        $opts['http']['header'] = implode("\n", $hdr);
-        $opts['http']['content'] = $data;
-        $opts['http']['timeout'] = $this->_timeout;
-
-        $context = stream_context_create($opts);
-        $stream = @fopen($uri, 'rb', false, $context);
-        if (!$stream) {
-            throw new Horde_Http_Client_Exception('Problem with ' . $uri . ': ', error_get_last());
-        }
-
-        $meta = stream_get_meta_data($stream);
-        $headers = isset($meta['wrapper_data']) ? $meta['wrapper_data'] : array();
-
-        $this->_lastResponse = new Horde_Http_Client_Response($uri, $stream, $headers);
+        $this->_lastRequest = $this->_request;
+        $this->_lastResponse = $this->_adapter->send($this->_lastRequest);
         return $this->_lastResponse;
     }
 
@@ -263,13 +185,24 @@ class Horde_Http_Client
      */
     public function __set($name, $value)
     {
-        switch ($name) {
-        case 'headers':
-            $this->setHeaders($value);
-            break;
-        }
-
         $this->{'_' . $name} = $value;
     }
 
+    /**
+     * Find the best available adapter
+     *
+     * @return Horde_Http_Client_Adapter
+     */
+    public function _createBestAvailableAdapter()
+    {
+        /*if (class_exists('HttpRequest', false)) {
+            return new Horde_Http_Client_Adapter_Peclhttp();
+        } else*/if (extension_loaded('curl')) {
+            return new Horde_Http_Client_Adapter_Curl();
+        } elseif (ini_get('allow_url_fopen')) {
+            return new Horde_Http_Client_Adapter_Fopen();
+        } else {
+            throw new Horde_Http_Client_Exception('No HTTP adapters are available. You must install pecl_http, curl, or enable allow_url_fopen.');
+        }
+    }
 }
