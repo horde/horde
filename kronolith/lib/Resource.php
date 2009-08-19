@@ -18,14 +18,21 @@
  */
 class Kronolith_Resource
 {
+    static protected $_driver;
+
     /**
      *
      * @return unknown_type
      */
-    static public function listResources($params)
+    static public function listResources($params = array())
     {
         // Query kronolith_resource table for all(?) available resources?
         // maybe by 'type' or 'name'? type would be arbitrary?
+        if (empty(self::$_driver)) {
+            self::$_driver = Kronolith::getDriver('Sql');
+        }
+
+        self::$_driver->listResources($params);
     }
 
     /**
@@ -40,8 +47,11 @@ class Kronolith_Resource
         $calendar = hash('md5', microtime());
         $resource->calendar_id = $calendar;
 
-        $driver = Kronolith::getDriver('Sql');
-        return $driver->saveResource($resource);
+        if (empty(self::$_driver)) {
+            self::$_driver = Kronolith::getDriver('Sql');
+        }
+
+        return self::$_driver->saveResource($resource);
     }
 
     /**
@@ -64,8 +74,10 @@ class Kronolith_Resource
 
     static public function isResourceCalendar($calendar)
     {
-        $driver = Kronolith::getDriver('Sql');
-        $resource = $driver->getResourceIdByCalendar($calendar);
+        if (empty(self::$_driver)) {
+            self::$_driver = Kronolith::getDriver('Sql');
+        }
+        $resource = self::$_driver->getResourceIdByCalendar($calendar);
 
         return $resource > 0;
     }
