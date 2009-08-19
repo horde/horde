@@ -1222,7 +1222,7 @@ class IMP
         }
 
         $js_params = array(
-            'action' => $action ? 'function() {' . $action . '}' : '',
+            'action' => $action,
             'uri' => Horde::applicationUrl('ajax.php', true, -1) . '/' . $type,
             'params' => $params,
             'text' => $text,
