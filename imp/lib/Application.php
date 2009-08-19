@@ -426,7 +426,7 @@ class IMP_Application extends Horde_Registry_Application
             Horde::addScriptFile('accountsprefs.js', 'imp', true);
 
             Horde::addInlineScript(array(
-                'ImpAccountsmanagement.confirm_delete = ' . Horde_Serialize::serialize(_("Are you sure you want to delete this account?"), Horde_Serialize::JSON, Horde_Nls::getCharset())
+                'ImpAccountsPrefs.confirm_delete = ' . Horde_Serialize::serialize(_("Are you sure you want to delete this account?"), Horde_Serialize::JSON, Horde_Nls::getCharset())
             ));
             break;
 
@@ -439,8 +439,8 @@ class IMP_Application extends Horde_Registry_Application
             Horde::addScriptFile('flagprefs.js', 'imp', true);
 
             Horde::addInlineScript(array(
-                'ImpFlagmanagement.new_prompt = ' . Horde_Serialize::serialize(_("Please enter the label for the new flag:"), Horde_Serialize::JSON, Horde_Nls::getCharset()),
-                'ImpFlagmanagement.confirm_delete = ' . Horde_Serialize::serialize(_("Are you sure you want to delete this flag?"), Horde_Serialize::JSON, Horde_Nls::getCharset())
+                'ImpFlagPrefs.new_prompt = ' . Horde_Serialize::serialize(_("Please enter the label for the new flag:"), Horde_Serialize::JSON, Horde_Nls::getCharset()),
+                'ImpFlagPrefs.confirm_delete = ' . Horde_Serialize::serialize(_("Are you sure you want to delete this flag?"), Horde_Serialize::JSON, Horde_Nls::getCharset())
             ));
             break;
 
@@ -448,7 +448,7 @@ class IMP_Application extends Horde_Registry_Application
             if (!$GLOBALS['prefs']->isLocked('sent_mail_folder')) {
                 Horde::addScriptFile('folderprefs.js', 'imp', true);
                 Horde::addInlineScript(array(
-                    'ImpFoldermanagement.folders = ' . Horde_Serialize::serialize(array('sent_mail_folder', 'sent_mail_new', _("Enter the name for your new sent-mail folder"), _("Create a new sent-mail folder")), Horde_Serialize::JSON, Horde_Nls::getCharset())
+                    'ImpFolderPrefs.folders = ' . Horde_Serialize::serialize(array('sent_mail_folder', 'sent_mail_new', _("Enter the name for your new sent-mail folder"), _("Create a new sent-mail folder")), Horde_Serialize::JSON, Horde_Nls::getCharset())
                 ));
             }
             break;
@@ -472,7 +472,7 @@ class IMP_Application extends Horde_Registry_Application
             if (!empty($code)) {
                 Horde::addScriptFile('folderprefs.js', 'imp', true);
                 Horde::addInlineScript(array(
-                    'ImpFoldermanagement.folders = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, Horde_Nls::getCharset())
+                    'ImpFolderPrefs.folders = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, Horde_Nls::getCharset())
                 ));
             }
             break;
@@ -898,7 +898,7 @@ class IMP_Application extends Horde_Registry_Application
 
         Horde::addScriptFile('addressbooksprefs.js', 'imp', true);
         Horde::addInlineScript(array(
-            'ImpAddressbooksmanagement.fields = ' . Horde_Serialize::serialize($search_fields, Horde_Serialize::JSON, Horde_Nls::getCharset())
+            'ImpAddressbooksPrefs.fields = ' . Horde_Serialize::serialize($search_fields, Horde_Serialize::JSON, Horde_Nls::getCharset())
         ));
         self::$prefsCache['sourceselect'] = array(
             'prefSelect' => $prefSelect,
