@@ -68,9 +68,13 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
      * for all the resources in the group.
      * @return unknown_type
      */
-    public function getFreeBusy()
+    public function getFreeBusy($startstamp = null, $endstamp = null, $asObject = false)
     {
+        $vfb = Kronolith_Freebusy::generate($this->calendar, $startstamp, $endstamp, $asObject);
+        $vfb->removeAttribute('ORGANIZER');
+        $vfb->setAttribute('ORGANIZER', $this->name);
 
+        return $vfb;
     }
 
     public function setId($id)

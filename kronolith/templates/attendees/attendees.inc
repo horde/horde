@@ -76,6 +76,35 @@ function switchDateView(view, date)
  <?php $i++; ?>
 <?php endforeach; ?>
 <?php endif; ?>
+
+<!-- resource list header -->
+<tr class="item nowrap leftAlign">
+ <th width="2%">&nbsp;</th>
+ <th width="48%"><?php echo htmlspecialchars(_("Resource")) ?></th>
+ <th width="25%"><?php echo htmlspecialchars(_("Status")) ?></th>
+</tr>
+
+<!--  resources -->
+<?php $i = 0; if (empty($resources)): ?>
+ <tr><td colspan="4"><em><?php echo _("No attendees") ?></em></td></tr>
+<?php else: foreach ($resources as $id => $resource): ?>
+ <tr>
+  <td class="nowrap"><?php echo Horde::img('delete.png', '', null, $registry->getImageDir('horde')) . ' ' . Horde::img('edit.png', '', null, $registry->getImageDir('horde')) . ' ' ?></td>
+  <td><?php echo htmlspecialchars($resource['name']) ?></td>
+  <td>
+    <?php switch ($resource['response']) {
+        case Kronolith::RESPONSE_ACCEPTED:
+            echo _("Accepted");
+            break;
+        case Kronolith::RESPONSE_DECLINED:
+            echo _("Declined");
+            break;
+    } ?>
+  </td>
+ </tr>
+ <?php $i++; ?>
+<?php endforeach; ?>
+<?php endif; ?>
 </table>
 
 <br />

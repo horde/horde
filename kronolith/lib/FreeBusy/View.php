@@ -14,6 +14,7 @@ class Kronolith_FreeBusy_View {
 
     var $_requiredMembers = array();
     var $_optionalMembers = array();
+    var $_resourceMembers = array();
     var $_timeBlocks = array();
 
     var $_startHour;
@@ -30,6 +31,11 @@ class Kronolith_FreeBusy_View {
     function addOptionalMember($vFreebusy)
     {
         $this->_optionalMembers[] = clone $vFreebusy;
+    }
+
+    function addResourceMember($vFreebusy)
+    {
+        $this->_resourceMembers[] = clone $vFreebusy;
     }
 
     function render($day = null)
@@ -111,6 +117,27 @@ class Kronolith_FreeBusy_View {
 
             $template = new Horde_Template();
             $template->set('title', _("Optional Attendees"));
+            $template->set('rows', $rows);
+            $template->set('span', count($this->_timeBlocks));
+            $template->set('hours', $hours_html);
+            $template->set('legend', '');
+            $html .= $template->fetch(KRONOLITH_TEMPLATES . '/fbview/section.html');
+        }
+
+        // Resources
+        if (count($this->_resourceMembers) > 0) {
+            $template = new Horde_Template();
+            $rows = '';
+            foreach ($this->_resourceMembers as $member) {
+                $member->simplify();
+                $blocks = $this->_getBlocks($member, $member->getBusyPeriods(), 'busyblock.html', _("Busy"));
+                $template = new Horde_Template();
+                $template->set('blocks', $blocks);
+                $template->set('name', $member->getName());
+                $rows .= $template->fetch(KRONOLITH_TEMPLATES . '/fbview/row.html');
+            }
+            $template = new Horde_Template();
+            $template->set('title', _("Resources"));
             $template->set('rows', $rows);
             $template->set('span', count($this->_timeBlocks));
             $template->set('hours', $hours_html);

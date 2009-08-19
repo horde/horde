@@ -308,7 +308,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
-            ' event_exceptions, event_creator_id' .
+            ' event_exceptions, event_creator_id, event_resources' .
             ' FROM ' . $this->_params['table'] .
             ' WHERE calendar_id = ?';
         $values = array($this->_calendar);
@@ -419,7 +419,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
-            ' event_exceptions, event_creator_id' .
+            ' event_exceptions, event_creator_id, event_resources' .
             ' FROM ' . $this->_params['table'] . ' WHERE event_id = ? AND calendar_id = ?';
         $values = array($eventId, $this->_calendar);
 
@@ -460,7 +460,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
-            ' event_exceptions, event_creator_id' .
+            ' event_exceptions, event_creator_id, event_resources' .
             ' FROM ' . $this->_params['table'] . ' WHERE event_uid = ?';
         $values = array($uid);
 
@@ -805,6 +805,20 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
 
         return $return;
+    }
+
+    public function getResourceIdByCalendar($calendar)
+    {
+        $query = 'SELECT resource_id FROM kronolith_resources WHERE resource_calendar = ?';
+        $results = $this->_db->getOne($query, array($calendar));
+        if ($results instanceof PEAR_Error) {
+            throw new Horde_Exception($results->getMessage());
+        }
+        if (empty($results)) {
+            throw new Horde_Exception('Resource not found');
+        }
+
+        return $results;
     }
 
     /**

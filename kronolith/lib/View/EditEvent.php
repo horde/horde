@@ -51,7 +51,7 @@ class Kronolith_View_EditEvent {
             $calendar_id .= ':' . $share->get('owner');
         }
         $_SESSION['kronolith']['attendees'] = $this->event->getAttendees();
-
+        $_SESSION['kronolith']['resources'] = $this->event->getResources();
         if ($datetime = Horde_Util::getFormData('datetime')) {
             $datetime = new Horde_Date($datetime);
             $month = $datetime->month;

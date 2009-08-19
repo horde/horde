@@ -17,6 +17,12 @@ $attendees = (isset($_SESSION['kronolith']['attendees']) &&
     : array();
 $editAttendee = null;
 
+$resources = (isset($_SESSION['kronolith']['resources']) &&
+              is_array($_SESSION['kronolith']['resources']))
+    ? $_SESSION['kronolith']['resources']
+    : array();
+$editResource = null;
+
 // Get the action ID and value. This specifies what action the user initiated.
 $actionID = Horde_Util::getFormData('actionID');
 if (Horde_Util::getFormData('clearAll')) {
@@ -240,6 +246,13 @@ foreach ($attendees as $email => $status) {
                         $email, $vfb->getMessage()));
         }
     }
+}
+
+// Add Free/Busy for resources
+foreach ($resources as $r_id => $resource) {
+    $r = Kronolith_Resource::getResource($r_id);
+    $vfb = $r->getFreeBusy(null, null, true);
+    $attendee_view->addResourceMember($vfb);
 }
 
 $date = Horde_Util::getFormData('date', date('Ymd')) . '000000';

@@ -6,7 +6,6 @@
  * @package Kronolith
  */
 class Kronolith_FreeBusy {
-
     /**
      * Generates the free/busy text for $calendar. Cache it for at least an
      * hour, as well.
@@ -34,7 +33,15 @@ class Kronolith_FreeBusy {
         /* Fetch the appropriate share and check permissions. */
         $share = &$kronolith_shares->getShare($calendar[0]);
         if (is_a($share, 'PEAR_Error')) {
-            return $returnObj ? $share : '';
+            // Might be a Kronolith_Resource
+            try {
+                $resource = Kronolith_Resource::isResourceCalendar($calendar[0]);
+                $owner = $calendar[0];
+            } catch (Horde_Exception $e) {
+                return $returnObj ? $share : '';
+            }
+        } else {
+            $owner = $share->get('owner');
         }
 
         /* Default the start date to today. */
@@ -53,7 +60,7 @@ class Kronolith_FreeBusy {
 
         /* Get the Identity for the owner of the share. */
         $identity = &Identity::singleton('none',
-                                         $user ? $user : $share->get('owner'));
+                                         $user ? $user : $owner);
         $email = $identity->getValue('from_addr');
         $cn = $identity->getValue('fullname');
 
@@ -83,7 +90,7 @@ class Kronolith_FreeBusy {
         $vFb->setAttribute('DTSTAMP', $_SERVER['REQUEST_TIME']);
         $vFb->setAttribute('DTSTART', $startstamp);
         $vFb->setAttribute('DTEND', $endstamp);
-        $vFb->setAttribute('URL', Horde::applicationUrl('fb.php?u=' . $share->get('owner'), true, -1));
+        $vFb->setAttribute('URL', Horde::applicationUrl('fb.php?u=' . $owner, true, -1));
 
         /* Add all the busy periods. */
         foreach ($busy as $events) {

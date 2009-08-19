@@ -62,4 +62,12 @@ class Kronolith_Resource
         return new Kronolith_Resource_Single($driver->getResource($id));
     }
 
+    static public function isResourceCalendar($calendar)
+    {
+        $driver = Kronolith::getDriver('Sql');
+        $resource = $driver->getResourceIdByCalendar($calendar);
+
+        return $resource > 0;
+    }
+
 }

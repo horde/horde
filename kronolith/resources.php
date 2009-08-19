@@ -19,6 +19,8 @@ $new = array('name' => _("N329SP"),
 /* Test adding resource to event */
 $resource = Kronolith_Resource::getResource(6);
 $driver = Kronolith::getDriver('Sql');
-$event = $driver->getByUID('20090610181329.12687chinwtntsg8@localhost');
+$event = $driver->getByUID('20090817131028.10427ipjxgq69hk4@localhost');
 $event->addResource($resource, Kronolith::RESPONSE_NONE);
 $event->save();
+
+var_dump($resource->getFreeBusy(null, null, true));
