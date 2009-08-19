@@ -273,10 +273,10 @@ class Horde_Util
         foreach ($add as $parameter => $value) {
             if (is_array($value)) {
                 foreach ($value as $val) {
-                    $url_params[] = urlencode($parameter) . '[]=' . urlencode($val);
+                    $url_params[] = rawurlencode($parameter) . '[]=' . rawurlencode($val);
                 }
             } else {
-                $url_params[] = urlencode($parameter) . '=' . urlencode($value);
+                $url_params[] = rawurlencode($parameter) . '=' . rawurlencode($value);
             }
         }
 
