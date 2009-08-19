@@ -22,7 +22,7 @@ class Kronolith_Resource
 
     /**
      *
-     * @return unknown_type
+     * @return array of Kronolith_Resource objects
      */
     static public function listResources($params = array())
     {
@@ -32,7 +32,13 @@ class Kronolith_Resource
             self::$_driver = Kronolith::getDriver('Sql');
         }
 
-        self::$_driver->listResources($params);
+        $resources = self::$_driver->listResources($params);
+        $return = array();
+        foreach ($resources as $resource) {
+            $return[] = new Kronolith_Resource_Single($resource);
+        }
+
+        return $return;
     }
 
     /**

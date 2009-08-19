@@ -761,6 +761,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      * @param $resource
      *
      * @return Kronolith_Resource object
+     * @throws Horde_Exception
      */
     public function saveResource($resource)
     {
@@ -788,6 +789,14 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         return $resource;
     }
 
+    /**
+     * Obtain a Kronolith_Resource by the resource's id
+     *
+     * @param int $id  The key for the Kronolith_Resource
+     *
+     * @return array  A hash of resource object properties
+     * @throws Horde_Exception
+     */
     public function getResource($id)
     {
         $query = 'SELECT resource_id, resource_name, resource_calendar, resource_category FROM kronolith_resources WHERE resource_id = ?';
@@ -807,6 +816,14 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         return $return;
     }
 
+    /**
+     * Obtain the resource id associated with the given calendar uid.
+     *
+     * @param string $calendar  The calendar's uid
+     *
+     * @return int  The Kronolith_Resource id
+     * @throws Horde_Exception
+     */
     public function getResourceIdByCalendar($calendar)
     {
         $query = 'SELECT resource_id FROM kronolith_resources WHERE resource_calendar = ?';
@@ -816,6 +833,24 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
         if (empty($results)) {
             throw new Horde_Exception('Resource not found');
+        }
+
+        return $results;
+    }
+
+    /**
+     * Return a list of Kronolith_Resources
+     *
+     * This method will likely be a moving target as group resources are
+     * fleshed out.
+     *
+     */
+    function listResources($params = array())
+    {
+        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_category FROM kronolith_resources';
+        $results = $this->_db->getAll($query, null, DB_FETCHMODE_ASSOC);
+        if ($results instanceof PEAR_Error) {
+            throw new Horde_Exception($results->getMessage());
         }
 
         return $results;

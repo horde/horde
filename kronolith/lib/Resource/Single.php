@@ -63,9 +63,8 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
     }
 
     /**
-     * Obtain the freebusy information for this resource.  Takes into account
-     * if this is a group of resources or not. (Returns the cumulative FB info
-     * for all the resources in the group.
+     * Obtain the freebusy information for this resource.
+     *
      * @return unknown_type
      */
     public function getFreeBusy($startstamp = null, $endstamp = null, $asObject = false)

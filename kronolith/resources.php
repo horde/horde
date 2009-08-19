@@ -17,10 +17,13 @@ $new = array('name' => _("N329SP"),
 //var_dump($results);
 
 /* Test adding resource to event */
-$resource = Kronolith_Resource::getResource(6);
-$driver = Kronolith::getDriver('Sql');
-$event = $driver->getByUID('20090817131028.10427ipjxgq69hk4@localhost');
-$event->addResource($resource, Kronolith::RESPONSE_NONE);
-$event->save();
+//$resource = Kronolith_Resource::getResource(6);
+//$driver = Kronolith::getDriver('Sql');
+//$event = $driver->getByUID('20090730102515.90466g7f034lxucc@localhost');
+//$event->addResource($resource, Kronolith::RESPONSE_NONE);
+//$event->save();
+//
+//var_dump($resource->getFreeBusy(null, null, true));
 
-var_dump($resource->getFreeBusy(null, null, true));
+/* Test listing resources */
+var_dump(Kronolith_Resource::listResources());
