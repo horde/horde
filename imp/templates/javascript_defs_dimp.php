@@ -61,7 +61,7 @@ $code['conf'] = array_filter(array(
     'filter_any' => intval($GLOBALS['prefs']->getValue('filter_any_mailbox')),
     'fixed_folders' => empty($GLOBALS['conf']['server']['fixed_folders'])
         ? array()
-        : array_map(array('DIMP', '_appendedFolderPref'), $GLOBALS['conf']['server']['fixed_folders']),
+        : array_map(array('IMP_Dimp', 'appendedFolderPref'), $GLOBALS['conf']['server']['fixed_folders']),
     'flags' => $flags,
     'ham_spammbox' => intval(!empty($GLOBALS['conf']['notspam']['spamfolder'])),
     'limit_factor' => intval($GLOBALS['conf']['dimp']['viewport']['limit_factor']),

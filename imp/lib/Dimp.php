@@ -89,7 +89,7 @@ class IMP_Dimp
     /**
      * Return an appended IMP folder string
      */
-    static private function _appendedFolderPref($folder)
+    static public function appendedFolderPref($folder)
     {
         return IMP::folderPref($folder, true);
     }
