@@ -257,8 +257,28 @@ class Horde_Auth_Application extends Horde_Auth_Base
      * Returns information on what login parameters to display on the login
      * screen.
      *
-     * Is defined in an application's API in the function name identified by
-     * self::_apiMethods['loginparams'].
+     * @return array  An array with the following keys:
+     * <pre>
+     * 'js_code' - (array) A list of javascript statements to be included via
+     *             Horde::addInlineScript().
+     * 'js_files' - (array) A list of javascript files to be included via
+     *              Horde::addScriptFile().
+     * 'nosidebar' - (boolean) If true, never load the sidebar when
+     *               authenticating to this app.
+     * 'params' - (array) A list of parameters to display on the login screen.
+     *            Each entry is an array with the following entries:
+     *            'label' - (string) The label of the entry.
+     *            'type' - (string) 'select', 'text', or 'password'.
+     *            'value' - (mixed) If type is 'text' or 'password', the
+     *                      text to insert into the field by default. If type
+     *                      is 'select', an array with they keys as the
+     *                      option values and an array with the following keys:
+     *                      'hidden' - (boolean) If true, the option will be
+     *                                 hidden.
+     *                      'name' - (string) The option label.
+     *                      'selected' - (boolean) If true, will be selected
+     *                                   by default.
+     * </pre>
      *
      * @throws Horde_Exception
      */
