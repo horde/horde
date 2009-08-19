@@ -231,7 +231,11 @@ class IMP_Application extends Horde_Registry_Application
         }
 
         /* Show selection of alternate views. */
-        if (!empty($GLOBALS['conf']['user']['select_view'])) {
+        if (empty($GLOBALS['conf']['user']['select_view'])) {
+            $view_cookie = empty($conf['user']['force_view'])
+                ? 'imp'
+                : $conf['user']['force_view'];
+        } else {
             $views = array();
             if (!($view_cookie = Horde_Util::getFormData('imp_select_view'))) {
                 if (isset($_COOKIE['default_imp_view'])) {
@@ -271,6 +275,7 @@ class IMP_Application extends Horde_Registry_Application
             'js_files' => array(
                 array('login.js', 'imp')
             ),
+            'nosidebar' => ($view_cookie != 'imp'),
             'params' => $params
         );
     }
