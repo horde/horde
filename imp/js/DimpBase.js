@@ -1084,7 +1084,8 @@ var DimpBase = {
         var tmp;
 
         if (!opts ||
-            (this.pp.imapuid == opts.index &&
+            (this.pp &&
+             this.pp.imapuid == opts.index &&
              this.pp.view == opts.mailbox)) {
             $('msgLogInfo').show();
 
