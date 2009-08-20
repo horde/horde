@@ -765,9 +765,9 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      */
     public function saveResource($resource)
     {
-        if (!empty($resource->uid)) {
+        if (!empty($resource->id)) {
             $query = 'UPDATE kronolith_resources SET resource_name = ?, resource_calendar = ?, resource_category = ? WHERE resource_id = ?';
-            $values = array($resource->name, $resource->calendar_id, $resource->category, $resource->uid);
+            $values = array($resource->name, $resource->calendar, $resource->category, $resource->id);
             $result = $this->_write_db->query($query, $values);
             if (!($result instanceof PEAR_Error)) {
                 throw new Horde_Exception($result->getMessage());
@@ -776,7 +776,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             $query = 'INSERT INTO kronolith_resources (resource_id, resource_name, resource_calendar, resource_category)';
             $cols_values = ' VALUES (?, ?, ?, ?)';
             $id = $this->_db->nextId('kronolity_resources');
-            $values = array($id, $resource->name, $resource->calendar_id, $resource->category);
+            $values = array($id, $resource->name, $resource->calendar, $resource->category);
             $result = $this->_write_db->query($query . $cols_values, $values);
             if (!($result instanceof PEAR_Error)) {
                 return true;

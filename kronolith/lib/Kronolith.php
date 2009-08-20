@@ -740,6 +740,8 @@ class Kronolith
                     if (!in_array($calendarId, $GLOBALS['display_external_calendars'])) {
                         $GLOBALS['display_external_calendars'][] = $calendarId;
                     }
+                } elseif (strncmp($calendarId, 'resource_', 9) === 0) {
+                    $resource_cal = $calendarId;
                 } else {
                     if (!in_array($calendarId, $GLOBALS['display_calendars'])) {
                         $GLOBALS['display_calendars'][] = $calendarId;
@@ -787,6 +789,10 @@ class Kronolith
                 $GLOBALS['display_calendars'][] = $id;
             }
         }
+
+//        if (!empty($resource_cal)) {
+//            $GLOBALS['display_calendars'][] = $resource_cal;
+//        }
 
         /* Make sure all the remote calendars still exist. */
         $_temp = $GLOBALS['display_remote_calendars'];

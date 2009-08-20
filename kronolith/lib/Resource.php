@@ -50,8 +50,8 @@ class Kronolith_Resource
     static public function addResource($resource)
     {
         // Create a new calendar id.
-        $calendar = hash('md5', microtime());
-        $resource->calendar_id = $calendar;
+        $calendar = 'resource_' . hash('md5', microtime());
+        $resource->calendar = $calendar;
 
         if (empty(self::$_driver)) {
             self::$_driver = Kronolith::getDriver('Sql');
@@ -80,12 +80,9 @@ class Kronolith_Resource
 
     static public function isResourceCalendar($calendar)
     {
-        if (empty(self::$_driver)) {
-            self::$_driver = Kronolith::getDriver('Sql');
+        if (strncmp($calendar, 'resource_', 9) === 0) {
+            return true;
         }
-        $resource = self::$_driver->getResourceIdByCalendar($calendar);
-
-        return $resource > 0;
     }
 
 }

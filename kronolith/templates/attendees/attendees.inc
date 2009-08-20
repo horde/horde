@@ -81,7 +81,7 @@ function switchDateView(view, date)
 <tr class="item nowrap leftAlign">
  <th width="2%">&nbsp;</th>
  <th width="48%"><?php echo htmlspecialchars(_("Resource")) ?></th>
- <th width="25%"><?php echo htmlspecialchars(_("Status")) ?></th>
+ <th colspan="2" width="50%"><?php echo htmlspecialchars(_("Status")) ?></th>
 </tr>
 
 <!--  resources -->
@@ -91,7 +91,7 @@ function switchDateView(view, date)
  <tr>
   <td class="nowrap"><?php echo Horde::img('delete.png', '', null, $registry->getImageDir('horde')) . ' ' . Horde::img('edit.png', '', null, $registry->getImageDir('horde')) . ' ' ?></td>
   <td><?php echo htmlspecialchars($resource['name']) ?></td>
-  <td>
+  <td colspan="2">
     <?php switch ($resource['response']) {
         case Kronolith::RESPONSE_ACCEPTED:
             echo _("Accepted");
@@ -102,6 +102,7 @@ function switchDateView(view, date)
     } ?>
   </td>
  </tr>
+
  <?php $i++; ?>
 <?php endforeach; ?>
 <?php endif; ?>
@@ -110,6 +111,7 @@ function switchDateView(view, date)
 <br />
 
 <table width="100%" cellspacing="2" class="nowrap control">
+ <!-- Add Attendees -->
  <tr>
   <td class="rightAlign">&nbsp;<strong><?php $label = empty($editAttendee) ? _("Add attendees") : _("Edit attendee"); echo Horde::highlightAccessKey($label, $ak = Horde::getAccessKey($label)) ?></strong></td>
   <td>
@@ -122,6 +124,21 @@ function switchDateView(view, date)
   <td width="100%">&nbsp;</td>
 <?php endif; ?>
  </tr>
+
+ <!-- Add Resources -->
+  <tr>
+  <td class="rightAlign">&nbsp;<strong><?php $label = empty($editResource) ? _("Add resources") : _("Edit resources"); echo Horde::highlightAccessKey($label, $ak = Horde::getAccessKey($label)) ?></strong></td>
+  <td>
+   <input type="text" id="newResources" name="newResources" autocomplete="off" size="40" <?php if (!empty($ak)) echo 'accesskey="' . $ak . '" '; if (!empty($editResource)) echo 'value="' . htmlspecialchars($editResource) . '" '; ?>/>
+   <span id="newResources_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
+   <div id="newResources_results" class="autocomplete"></div>
+  </td>
+<?php if ($registry->hasMethod('contacts/search')): ?>
+  <td align="center"><?php echo 'link here to open new resource search window?' ?></td>
+  <td width="100%">&nbsp;</td>
+<?php endif; ?>
+ </tr>
+
 </table>
 
 <br />
