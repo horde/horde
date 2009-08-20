@@ -407,7 +407,9 @@ if (!empty($newmsgs)) {
     }
 
     if ($prefs->getValue('nav_popup')) {
-        $notification->push(IMP::getNewMessagePopup($newmsgs), 'javascript');
+        Horde::addInlineScript((
+            IMP::getNewMessagePopup($newmsgs)
+        ), 'dom');
     }
 
     if (($sound = $prefs->getValue('nav_audio'))) {

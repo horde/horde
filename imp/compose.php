@@ -712,12 +712,18 @@ if ($get_sig && isset($msg) && !empty($sig)) {
 /* Open the passphrase window here. */
 if ($pgp_passphrase_dialog || $pgp_symmetric_passphrase_dialog) {
     if ($pgp_passphrase_dialog) {
-        $notification->push(IMP::passphraseDialogJS('PGPPersonal', 'ImpCompose.uniqSubmit(\'send_message\')'), 'javascript');
+        Horde::addInlineScript(array(
+           IMP::passphraseDialogJS('PGPPersonal', 'ImpCompose.uniqSubmit(\'send_message\')')
+       ), 'dom');
     } else {
-        $notification->push(IMP::passphraseDialogJS('PGPSymmetric', 'ImpCompose.uniqSubmit(\'send_message\')', array('symmetricid' => 'imp_compose_' . $composeCacheID)), 'javascript');
+        Horde::addInlineScript(array(
+            IMP::passphraseDialogJS('PGPSymmetric', 'ImpCompose.uniqSubmit(\'send_message\')', array('symmetricid' => 'imp_compose_' . $composeCacheID))
+       ), 'dom');
     }
 } elseif ($smime_passphrase_dialog) {
-    $notification->push(IMP::passphraseDialogJS('SMIMEPersonal', 'ImpCompose.uniqSubmit(\'send_message\')'), 'javascript');
+    Horde::addInlineScript(array(
+        IMP::passphraseDialogJS('SMIMEPersonal', 'ImpCompose.uniqSubmit(\'send_message\')')
+    ), 'dom');
 }
 
 /* If PGP encryption is set by default, and we have a recipient list on first

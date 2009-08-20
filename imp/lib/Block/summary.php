@@ -115,12 +115,7 @@ class Horde_Block_imp_summary extends Horde_Block
             }
 
             if ($prefs->getValue('nav_popup')) {
-                $alert = IMP::getNewMessagePopup($newmsgs);
-                if (!Horde_Util::getFormData('httpclient')) {
-                    $alert = 'document.observe("dom:loaded", function() { ' . $alert . ' });';
-                }
-                $notification->push($alert, 'javascript');
-                $html .= Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'javascript'));
+                $html .= Horde_Util::bufferOutput(Horde::addInlineScript((IMP::getNewMessagePopup($newmsgs)), 'dom'));
             }
 
             if (($sound = $prefs->getValue('nav_audio'))) {
