@@ -14,6 +14,7 @@
  * http://pythonpaste.org/webob/
  * http://usrportage.de/archives/875-Dojo-and-the-Zend-Framework.html
  * http://framework.zend.com/manual/en/zend.filter.input.html
+ * http://www.lornajane.net/posts/2009/Adding-PUT-variables-to-Request-Object-in-Zend-Framework
  */
 
 /**
