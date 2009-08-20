@@ -122,6 +122,7 @@ class Horde
         $locale = setlocale(LC_TIME, 0);
         setlocale(LC_TIME, 'C');
         $tz = getenv('TZ');
+        @putenv('TZ');
 
         $logger->log($message, $priority);
 
