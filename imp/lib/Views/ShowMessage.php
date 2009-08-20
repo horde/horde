@@ -295,7 +295,7 @@ class IMP_Views_ShowMessage
                     $tmp_status[] = $imp_ui->formatStatusMsg($val);
                 }
 
-                $result['msgtext'] .= '<span class="mimePartInfo">' . implode(' ', $tmp_summary) . '</span>' . implode("\n", $tmp_status) . $info['data'];
+                $result['msgtext'] .= '<div><span class="mimePartInfo">' . implode(' ', $tmp_summary) . '</span></div>' . implode("\n", $tmp_status) . $info['data'];
             }
         }
 

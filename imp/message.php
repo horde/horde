@@ -649,7 +649,7 @@ foreach ($parts_list as $mime_id => $mime_type) {
             $tmp_status[] = $imp_ui->formatStatusMsg($val);
         }
 
-        $msgtext .= '<span class="mimePartInfo">' . implode(' ', $tmp_summary) . '</span>' .
+        $msgtext .= '<div><span class="mimePartInfo">' . implode(' ', $tmp_summary) . '</span></div>' .
             implode("\n", $tmp_status) .
             $info['data'];
     }
