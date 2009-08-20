@@ -1399,17 +1399,16 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function listTimeObjectCategories()
     {
-        include dirname(__FILE__) . '/../config/attributes.php';
-        include dirname(__FILE__) . '/../config/sources.php';
+        require_once dirname(__FILE__) . '/base.php';
+
         $categories = array();
-        foreach ($attributes as $key => $attribute) {
+        foreach ($GLOBALS['attributes'] as $key => $attribute) {
             if ($attribute['type'] == 'monthdayyear' &&
                 !empty($attribute['time_object_label'])) {
 
-                    foreach ($cfgSources as $source) {
+                    foreach ($GLOBALS['cfgSources'] as $srcKey => $source) {
                         if (!empty($source['map'][$key])) {
-                            $categories[$key] = $attribute['time_object_label'];
-                            break;
+                            $categories[$key . '::' . $srcKey] = $attribute['time_object_label'] . ' ' . sprintf(_("in %s"), $source['title']);
                         }
                     }
                 }
@@ -1443,30 +1442,18 @@ class Turba_Api extends Horde_Registry_Api
         }
 
         $objects = array();
-        foreach ($cfgSources as $name => $source) {
-            // Check if we even have to load the driver.
-            $check = array();
-            foreach ($time_categories as $category) {
-                if (!empty($source['map'][$category])) {
-                    $check[] = $category;
-                }
-            }
-            if (!count($check)) {
-                continue;
-            }
-            $driver = Turba_Driver::singleton($name);
+        foreach ($time_categories as $category) {
+            list($category, $source) = explode('::', $category);
+            $driver = Turba_Driver::singleton($source);
             if (is_a($driver, 'PEAR_Error')) {
                 return PEAR::raiseError(sprintf(_("Connection failed: %s"),
-                    $driver->getMessage()), 'horde.error',
-                    null, null, $name);
+                    $driver->getMessage()), 'horde.error', null, null, $name);
             }
-            foreach ($check as $category) {
-                $new_objects = $driver->listTimeObjects($start, $end, $category);
-                if (is_a($new_objects, 'PEAR_Error')) {
-                    return $new_objects;
-                }
-                $objects = array_merge($objects, $new_objects);
+            $new_objects = $driver->listTimeObjects($start, $end, $category);
+            if (is_a($new_objects, 'PEAR_Error')) {
+                return $new_objects;
             }
+            $objects = array_merge($objects, $new_objects);
         }
 
         return $objects;
