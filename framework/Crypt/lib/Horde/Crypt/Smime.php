@@ -254,7 +254,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $message = $this->encrypt($mime_part->toString(array('headers' => true, 'canonical' => true)), $params);
 
         /* Break the result into its components */
-        $mime_message = Horde_Mime_Part::parseMessage($message);
+        $mime_message = Horde_Mime_Part::parseMessage($message, array('forcemime' => true));
 
         $smime_sign = $mime_message->getPart('2');
         $smime_sign->setDescription(_("S/MIME Cryptographic Signature"));

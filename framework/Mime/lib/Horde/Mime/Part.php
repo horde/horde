@@ -1724,8 +1724,13 @@ class Horde_Mime_Part
      * @param string $text    The text of the MIME message.
      * @param array $options  Additional options:
      * <pre>
+     * 'forcemime' - (boolean) If true, the message data is assumed to be
+     *               MIME data. If not, a MIME-Version header must exist (RFC
+     *               2045 [4]) to be parsed as a MIME message.
+     *               DEFAULT: false
      * 'structure' - (boolean) If true, returns a structure object instead of
      *               a Horde_Mime_Part object.
+     *               Default: false
      * </pre>
      *
      * @return mixed  If 'structure' is true, a structure array. If 'structure'
@@ -1737,7 +1742,7 @@ class Horde_Mime_Part
         /* Find the header. */
         list($hdr_pos, $eol) = self::_findHeader($text);
 
-        $ob = self::_getStructure(substr($text, 0, $hdr_pos), substr($text, $hdr_pos + $eol));
+        $ob = self::_getStructure(substr($text, 0, $hdr_pos), substr($text, $hdr_pos + $eol), null, !empty($options['forcemime']));
 
         return empty($options['structure'])
             ? self::parseStructure($ob)
@@ -1754,12 +1759,31 @@ class Horde_Mime_Part
      * @return array  See Horde_Mime_Part::parseStructure().
      */
     static protected function _getStructure($header, $body,
-                                            $ctype = 'application/octet-stream')
+                                            $ctype = 'application/octet-stream',
+                                            $forcemime = false)
     {
-        $part = array('parts' => array());
-
         /* Parse headers text into a Horde_Mime_Headers object. */
         $hdrs = Horde_Mime_Headers::parseHeaders($header);
+
+        /* This is not a MIME message. */
+        if (!$forcemime && !$hdrs->getValue('mime-version')) {
+            $nonmime = array(
+                'dparameters' => array(),
+                'parameters' => array(),
+                'parts' => array(),
+                'type' => 'text',
+                'subtype' => 'plain'
+            );
+
+            if (!empty($body)) {
+                $nonmime['contents'] = $body;
+                $nonmime['size'] = strlen(str_replace(array("\r\n", "\n"), array("\n", "\r\n"), $body));
+            }
+
+            return $nonmime;
+        }
+
+        $part = array('parts' => array());
 
         /* Content type. */
         $tmp = $hdrs->getValue('content-type', Horde_Mime_Headers::VALUE_BASE);
@@ -1809,7 +1833,7 @@ class Horde_Mime_Part
         switch ($part['type']) {
         case 'message':
             if ($part['subtype'] == 'rfc822') {
-                $part['parts'][] = self::parseMessage($body, array('structure' => true));
+                $part['parts'][] = self::parseMessage($body, array('forcemime' => true, 'structure' => true));
             }
             break;
 
@@ -1834,7 +1858,9 @@ class Horde_Mime_Part
      * This function can be called statically via:
      *    $data = Horde_Mime_Part::getRawPartText();
      *
-     * @param string $text  The full text of the MIME message.
+     * @param string $text  The full text of the MIME message. The text is
+     *                      assumed to be MIME data (no MIME-Version checking
+     *                      is performed).
      * @param string $type  Either 'header' or 'body'.
      * @param string $id    The MIME ID.
      *
