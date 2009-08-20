@@ -3,6 +3,9 @@ v3.0-git
 --------
 
 [jan] Support X-ANNIVERSARY, X-CHILDREN, and X-SPOUSE vCard fields.
+[mjr] The listTimeObjects API now returns categories for each source
+      individually instead of returning only the categories available 
+      (Request #8504).
 
 
 ----------
