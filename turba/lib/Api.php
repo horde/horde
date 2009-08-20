@@ -1414,8 +1414,6 @@ class Turba_Api extends Horde_Registry_Api
                 }
         }
 
-
-
         return $categories;
     }
 
