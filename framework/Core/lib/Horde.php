@@ -118,14 +118,18 @@ class Horde
             : null;
         $message = '[' . ($app ? $app : 'horde') . '] ' . $message . ' [pid ' . getmypid() . ' on line ' . $line . ' of "' . $file . '"]';
 
-        /* Make sure to log in the system's locale. */
+        /* Make sure to log in the system's locale and timezone. */
         $locale = setlocale(LC_TIME, 0);
         setlocale(LC_TIME, 'C');
+        $tz = getenv('TZ');
 
         $logger->log($message, $priority);
 
-        /* Restore original locale. */
+        /* Restore original locale and timezone. */
         setlocale(LC_TIME, $locale);
+        if ($tz) {
+            @putenv('TZ=' . $tz);
+        }
 
         return true;
     }
