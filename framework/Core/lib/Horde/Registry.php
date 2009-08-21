@@ -345,12 +345,16 @@ class Horde_Registry
 
         foreach (array_keys($this->applications) as $app) {
             if (in_array($this->applications[$app]['status'], $status)) {
-                $api = $this->_getApiInstance($app, 'api');
-                $this->_cache['api'][$app] = array(
-                    'api' => array_diff(get_class_methods($api), array('__construct'), $api->disabled),
-                    'links' => $api->links,
-                    'noperms' => $api->noPerms
-                );
+                try {
+                    $api = $this->_getApiInstance($app, 'api');
+                    $this->_cache['api'][$app] = array(
+                        'api' => array_diff(get_class_methods($api), array('__construct'), $api->disabled),
+                        'links' => $api->links,
+                        'noperms' => $api->noPerms
+                    );
+                } catch (Horde_Exception $e) {
+                    Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                }
             }
         }
 
@@ -535,7 +539,11 @@ class Horde_Registry
      */
     public function hasAppMethod($app, $method)
     {
-        $appob = $this->_getApiInstance($app, 'application');
+        try {
+            $appob = $this->_getApiInstance($app, 'application');
+        } catch (Horde_Exception $e) {
+            return false;
+        }
         return (method_exists($appob, $method) && !in_array($method, $appob->disabled));
     }
 
