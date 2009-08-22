@@ -1,10 +1,8 @@
 <?php
 
 /* Determine the base directories. */
-$curr_dir = dirname(__FILE__);
-
 if (!defined('IMP_BASE')) {
-    define('IMP_BASE', $curr_dir . '/..');
+    define('IMP_BASE', dirname(__FILE__) . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -13,7 +11,7 @@ if (!defined('HORDE_BASE')) {
     if (file_exists(IMP_BASE . '/config/horde.local.php')) {
         include IMP_BASE . '/config/horde.local.php';
     } else {
-        define('HORDE_BASE', $curr_dir . '/../..');
+        define('HORDE_BASE', IMP_BASE . '/..');
     }
 }
 

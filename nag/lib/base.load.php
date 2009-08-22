@@ -10,19 +10,16 @@
  * @package Nag
  */
 
-$curr_dir = dirname(__FILE__);
-
-if (!defined('HORDE_BASE')) {
-    /* Temporary fix - if horde does not live directly under the app
-     * directory, the HORDE_BASE constant should be defined in
-     * lib/base.local.php. */
-    if (file_exists($curr_dir . '/base.local.php')) {
-        include $curr_dir . '/base.local.php';
-    } else {
-        define('HORDE_BASE', $curr_dir . '/../..');
-    }
+if (!defined('NAG_BASE')) {
+    define('NAG_BASE', dirname(__FILE__) . '/..');
 }
 
-if (!defined('NAG_BASE')) {
-    define('NAG_BASE', $curr_dir . '/..');
+if (!defined('HORDE_BASE')) {
+    /* If horde does not live directly under the app directory, the HORDE_BASE
+     * constant should be defined in config/horde.local.php. */
+    if (file_exists(NAG_BASE . '/config/horde.local.php')) {
+        include NAG_BASE . '/config/horde.local.php';
+    } else {
+        define('HORDE_BASE', NAG_BASE . '/..');
+    }
 }

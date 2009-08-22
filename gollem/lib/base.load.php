@@ -10,19 +10,16 @@
  * @package Gollem
  */
 
-$curr_dir = dirname(__FILE__);
-
-if (!defined('HORDE_BASE')) {
-    /* Temporary fix - if horde does not live directly under the app
-     * directory, the HORDE_BASE constant should be defined in
-     * lib/base.local.php. */
-    if (file_exists($curr_dir . '/base.local.php')) {
-        include $curr_dir . '/base.local.php';
-    } else {
-        define('HORDE_BASE', $curr_dir . '/../..');
-    }
+if (!defined('GOLLEM_BASE')) {
+    define('GOLLEM_BASE', dirname(__FILE__) . '/..');
 }
 
-if (!defined('GOLLEM_BASE')) {
-    define('GOLLEM_BASE', $curr_dir . '/..');
+if (!defined('HORDE_BASE')) {
+    /* If horde does not live directly under the app directory, the HORDE_BASE
+     * constant should be defined in lib/horde.local.php. */
+    if (file_exists(GOLLEM_BASE . '/config/horde.local.php')) {
+        include GOLLEM_BASE . '/config/horde.local.php';
+    } else {
+        define('HORDE_BASE', GOLLEM_BASE . '/..');
+    }
 }
