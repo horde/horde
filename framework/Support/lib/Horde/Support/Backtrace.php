@@ -17,7 +17,8 @@
 class Horde_Support_Backtrace
 {
     /**
-     * Backtrace
+     * Backtrace.
+     *
      * @var array
      */
     protected $_backtrace;
@@ -34,13 +35,16 @@ class Horde_Support_Backtrace
     }
 
     /**
-     * Wrap the result of debug_backtrace(). By specifying a non-zero
-     * $nestingLevel, levels of the backtrace can be ignored. For instance, when
-     * Horde_Support_Backtrace creates a backtrace for you, it ignores the
-     * Horde_Backtrace constructor in the wrapped trace.
+     * Wraps the result of debug_backtrace().
      *
-     * @param array $backtrace       The debug_backtrace() result
-     * @param integer $nestingLevel  The number of levels of the backtrace to ignore.
+     * By specifying a non-zero $nestingLevel, levels of the backtrace can be
+     * ignored. For instance, when Horde_Support_Backtrace creates a backtrace
+     * for you, it ignores the Horde_Backtrace constructor in the wrapped
+     * trace.
+     *
+     * @param array $backtrace       The debug_backtrace() result.
+     * @param integer $nestingLevel  The number of levels of the backtrace to
+     *                               ignore.
      */
     public function createFromDebugBacktrace($backtrace, $nestingLevel = 0)
     {
@@ -53,9 +57,9 @@ class Horde_Support_Backtrace
     }
 
     /**
-     * Wrap an Exception object's backtrace
+     * Wraps an Exception object's backtrace.
      *
-     * @param Exception $e  The exception to wrap
+     * @param Exception $e  The exception to wrap.
      */
     public function createFromException(Exception $e)
     {
@@ -63,9 +67,9 @@ class Horde_Support_Backtrace
     }
 
     /**
-     * Return the nesting level (number of calls deep) of the current context.
+     * Returns the nesting level (number of calls deep) of the current context.
      *
-     * @return integer  Nesting level
+     * @return integer  Nesting level.
      */
     public function getNestingLevel()
     {
@@ -73,11 +77,11 @@ class Horde_Support_Backtrace
     }
 
     /**
-     * Return the context at a specific nesting level.
+     * Returns the context at a specific nesting level.
      *
      * @param integer $nestingLevel  0 == current level, 1 == caller, and so on
      *
-     * @return array  The requested context
+     * @return array  The requested context.
      */
     public function getContext($nestingLevel)
     {
@@ -88,8 +92,7 @@ class Horde_Support_Backtrace
     }
 
     /**
-     * Return details about the caller of the routine where the exception
-     * occurred
+     * Returns details about the routine where the exception occurred.
      *
      * @return array $caller
      */
@@ -99,8 +102,8 @@ class Horde_Support_Backtrace
     }
 
     /**
-     * Return details about the caller of the routine where the exception
-     * occurred
+     * Returns details about the caller of the routine where the exception
+     * occurred.
      *
      * @return array $caller
      */
