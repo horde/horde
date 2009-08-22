@@ -9,27 +9,10 @@
  *   $no_compress  -  Controls whether the page should be compressed
  */
 
-$chora_dir = dirname(__FILE__);
+// Determine BASE directories.
+require_once dirname(__FILE__) . '/base.load.php';
 
-// Check for a prior definition of HORDE_BASE.
-if (!defined('HORDE_BASE')) {
-    /* Temporary fix - if horde does not live directly under the imp
-     * directory, the HORDE_BASE constant should be defined in
-     * imp/lib/base.local.php. */
-    if (file_exists($chora_dir . '/base.local.php')) {
-        include $chora_dir . '/base.local.php';
-    } else {
-        define('HORDE_BASE', $chora_dir . '/../..');
-    }
-}
-
-// Find the base file path of Chora.
-if (!defined('CHORA_BASE')) {
-    define('CHORA_BASE', $chora_dir . '/..');
-}
-
-// Load the Horde Framework core, and set up inclusion paths.
-// No inclusion paths currently needed for Chora
+// Load the Horde Framework core.
 require_once HORDE_BASE . '/lib/core.php';
 
 // Registry
