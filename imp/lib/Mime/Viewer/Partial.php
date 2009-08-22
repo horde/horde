@@ -76,7 +76,7 @@ class IMP_Horde_Mime_Viewer_Partial extends Horde_Mime_Viewer_Driver
         ksort($parts, SORT_NUMERIC);
 
         /* Combine the parts. */
-        $mime_part = Horde_Mime_Part::parseMessage(implode('', $parts));
+        $mime_part = Horde_Mime_Part::parseMessage(implode('', $parts), array('forcemime' => true));
         return ($mime_part === false)
             ? null
             : array($this->_mimepart->getMimeId() => $mime_part);
