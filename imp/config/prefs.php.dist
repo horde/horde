@@ -1188,7 +1188,7 @@ $_prefs['msgflags'] = array(
         ),
 
         // IMAP flags
-        // KEY: IMAP flag as it exsits on the IMAP server
+        // KEY: IMAP flag as it exists on the IMAP server
         // VALUES (additional to base values):
         //   'n' - (boolean) [NOT match] Don't match the flag.
         //         DEFAULT: false
@@ -1219,6 +1219,18 @@ $_prefs['msgflags'] = array(
             // automatically set/reset when a message is drafted/finished.
             't' => 'imap'
         ),
+
+        // Forwarded flag (RFC 4550 [2.8])
+        '$forwarded' => array(
+            'a' => 'F',
+            'b' => '#aadddd',
+            'c' => 'flagForwarded',
+            'l' => _("Forwarded"),
+            // Pursuant to RFC, this flag SHOULD NOT be changed by the user
+            't' => 'imap'
+        ),
+
+        // Continued: System IMAP flags (RFC 3501 [2.3.2])
         '\\flagged' => array(
             'a' => '*',
             'b' => '#ffcccc',
@@ -1233,16 +1245,6 @@ $_prefs['msgflags'] = array(
             'l' => _("Deleted"),
             't' => 'imapu'
         ),
-
-        // Forwarded flag (RFC 4550 [2.8])
-        '$forwarded' => array(
-            'a' => 'F',
-            'b' => '#aadddd',
-            'c' => 'flagForwarded',
-            'l' => _("Forwarded"),
-            // Pursuant to RFC, this flag SHOULD NOT be changed by the user
-            't' => 'imap'
-        )
     )),
     'locked' => false,
     'shared' => false,

@@ -48,14 +48,14 @@ div.msgflags.flagAnswered, span.contextImg.flagAnswered {
 div.msgflags.flagDraft, span.contextImg.flagDraft {
     background-image: url("graphics/mail_draft.png");
 }
+div.msgflags.flagForwarded, span.contextImg.flagForwarded {
+    background-image: url("graphics/mail_forwarded.png");
+}
 div.msgflags.flagFlagged, span.contextImg.flagFlagged {
     background-image: url("graphics/mail_flagged.png");
 }
 div.msgflags.flagDeleted, span.contextImg.flagDeleted {
     background-image: url("graphics/mail_deleted.png");
-}
-div.msgflags.flagForwarded, span.contextImg.flagForwarded {
-    background-image: url("graphics/mail_forwarded.png");
 }
 
 span.folderImg {
