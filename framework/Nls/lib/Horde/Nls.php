@@ -256,7 +256,7 @@ class Horde_Nls
                 ? 'ISO-8859-1'
                 : self::$config['charsets'][$GLOBALS['language']];
         } else {
-            $browser = Horde_Browser::singleton();
+            $browser = new Horde_Browser();
             if ($browser->hasFeature('utf') &&
                 (Horde_Util::extensionExists('iconv') ||
                  Horde_Util::extensionExists('mbstring'))) {
