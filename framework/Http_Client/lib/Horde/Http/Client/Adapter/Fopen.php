@@ -66,7 +66,13 @@ class Horde_Http_Client_Adapter_Fopen extends Horde_Http_Client_Adapter_Base
         $context = stream_context_create($opts);
         $stream = @fopen($uri, 'rb', false, $context);
         if (!$stream) {
-            throw new Horde_Http_Client_Exception('Problem with ' . $uri . ': ', error_get_last());
+            $error = error_get_last();
+            if (preg_match('/HTTP\/(\d+\.\d+) (\d{3}) (.*)$/', $error['message'], $matches)) {
+                // Create a Response for the HTTP error code
+                return new Horde_Http_Client_Response($uri, null, $matches[0]);
+            } else {
+                throw new Horde_Http_Client_Exception('Problem with ' . $uri . ': ', $error);
+            }
         }
 
         $meta = stream_get_meta_data($stream);
