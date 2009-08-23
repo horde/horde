@@ -401,8 +401,7 @@ class Horde_Auth
         }
 
         if (!empty($GLOBALS['conf']['auth']['checkbrowser'])) {
-            $browser = Horde_Browser::singleton();
-            if ($_SESSION['horde_auth']['browser'] != $browser->getAgentString()) {
+            if ($_SESSION['horde_auth']['browser'] != self::_browser()->getAgentString()) {
                 self::setAuthError(self::REASON_BROWSER);
                 return false;
             }
@@ -656,11 +655,9 @@ class Horde_Auth
         /* Clear any existing info. */
         self::clearAuth();
 
-        $browser = Horde_Browser::singleton();
-
         $_SESSION['horde_auth'] = array(
             'app' => $app_array,
-            'browser' => $browser->getAgentString(),
+            'browser' => self::_browser()->getAgentString(),
             'change' => !empty($options['change']),
             'credentials' => Horde_Secret::write(Horde_Secret::getKey('auth'), serialize($credentials)),
             'driver' => $GLOBALS['conf']['auth']['driver'],
@@ -942,6 +939,20 @@ class Horde_Auth
         return isset(self::$_reason['type'])
             ? ($msg ? self::$_reason['msg'] : self::$_reason['type'])
             : false;
+    }
+
+    /**
+     * Returns a cached Horde_Brower instance.
+     *
+     * @return Horde_Browser  A Horde_Browser instance.
+     */
+    static private function _browser()
+    {
+        static $browser;
+        if (!isset($browser)) {
+            $browser = new Horde_Browser();
+        }
+        return $browser;
     }
 
     /**
