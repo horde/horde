@@ -15,6 +15,6 @@ require 'Horde/Http/Client/Exception.php';
 require 'Horde/Http/Client/Response.php';
 
 $client = new Horde_Http_Client();
-$response = $client->GET('http://www.example.com/');
+$response = $client->get('http://www.example.com/');
 var_dump($response);
 echo $response->getBody();
