@@ -175,7 +175,7 @@ $prefGroups['addressbooks'] = array(
 $prefGroups['events'] = array(
     'column' => _("Other Options"),
     'label' => _("Event Requests"),
-    'desc' => _("Configure event or meeting requests should be handled."),
+    'desc' => _("Configure how event or meeting requests should be handled."),
     'members' => array('conflict_interval')
 );
 
