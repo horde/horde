@@ -849,7 +849,7 @@ HTML;
         // file exist.
         if (!$was_included) {
             self::logMessage(sprintf('Failed to import configuration file "%s".', $config_dir . $config_file), __FILE__, __LINE__, PEAR_LOG_DEBUG);
-            return;
+            return is_array($var_names) ? array() : null;
         }
 
         if (isset($output) && $show_output) {
