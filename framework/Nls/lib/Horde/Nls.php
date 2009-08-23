@@ -314,12 +314,12 @@ class Horde_Nls
      */
     static public function _cachedCharset($index, $charset = null)
     {
-        if ($charset == null) {
+        if (is_null($charset)) {
             return isset(self::$_cache['charset'][$index])
                 ? self::$_cache['charset'][$index]
                 : null;
         } else {
-            $cache[$index] = $charset;
+            self::$_cache['charset'][$index] = $charset;
         }
     }
 
