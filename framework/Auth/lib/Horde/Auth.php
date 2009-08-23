@@ -352,9 +352,9 @@ class Horde_Auth
     }
 
     /**
-     * Checks if there is a session with valid auth information. for the
-     * specified user. If there isn't, but the configured Auth driver supports
-     * transparent authentication, then we try that.
+     * Checks if there is a session with valid auth information. If there
+     * isn't, but the configured Auth driver supports transparent
+     * authentication, then we try that.
      *
      * @params array $options  Additional options:
      * <pre>
