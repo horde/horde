@@ -975,14 +975,12 @@ class Horde_Registry
     public function hasPermission($app, $perms = PERMS_READ)
     {
         /* Always do isAuthenticated() check first. You can be an admin, but
-         * application auth != Horde admin auth. */
-        if (!Horde_Auth::isAuthenticated(array('app' => $app))) {
-            /* There can *never* be non-SHOW access to an application that
-             * requires authentication. */
-            $app_auth = Horde_Auth::singleton('application', array('app' => $app));
-            if ($app_auth->requireAuth() && ($perms != PERMS_SHOW)) {
-                return false;
-            }
+         * application auth != Horde admin auth. And there can *never* be
+         * non-SHOW access to an application that requires authentication. */
+        if (!Horde_Auth::isAuthenticated(array('app' => $app)) &&
+            Horde_Auth::requireAuth($app) &&
+            ($perms != PERMS_SHOW)) {
+            return false;
         }
 
         /* Otherwise, allow access for admins, for apps that do not have any

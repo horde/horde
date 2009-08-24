@@ -370,6 +370,7 @@ class Horde_Auth
      * </pre>
      *
      * @return boolean  Whether or not the user is authenticated.
+     * @throws Horde_Auth_Exception
      */
     static public function isAuthenticated($options = array())
     {
@@ -391,6 +392,26 @@ class Horde_Auth
             : self::singleton('application', array('app' => $options['app']));
 
         return $auth->transparent();
+    }
+
+    /**
+     * Checks if an application requires additional authentication above and
+     * beyond Horde authentication.
+     *
+     * @params string $app  The application to check.
+     *
+     * @return boolean  Whether or not the application required additional
+     *                  authentication.
+     * @throws Horde_Auth_Exception
+     */
+    static public function requireAuth($app)
+    {
+        if ($app == 'horde') {
+            return false;
+        }
+
+        $app_auth = self::singleton('application', array('app' => $app));
+        return $app_auth->requireAuth();
     }
 
     /**
