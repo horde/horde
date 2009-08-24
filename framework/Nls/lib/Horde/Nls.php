@@ -590,6 +590,10 @@ class Horde_Nls
             self::$_cache['iso'] = $countries;
         }
 
+        if (empty($code)) {
+            return self::$_cache['iso'];
+        }
+
         $code = Horde_String::upper($code);
 
         return isset(self::$_cache['iso'][$code])
