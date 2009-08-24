@@ -552,27 +552,35 @@ class Horde_Vcs
 
     /**
      * TODO
+     *
+     * @param array $opts  Options:
+     * <pre>
+     * 'file' - (string) TODO
+     * 'range' - (array) TODO
+     * </pre>
+     *
+     * @return Horde_Vcs_Patchset  Patchset object.
      */
-    public function getPatchsetObject($filename, $opts = array())
+    public function getPatchsetObject($opts = array())
     {
         $class = 'Horde_Vcs_Patchset_' . $this->_driver;
 
         ksort($opts);
-        $cacheId = implode('|', array($class, $this->sourceroot(), $filename, serialize($opts), $this->_cacheVersion));
+        $cacheId = implode('|', array($class, $this->sourceroot(), serialize($opts), $this->_cacheVersion));
 
         if (!empty($this->_cache)) {
-            // TODO: Can't use filemtime() - Git bare repos contain no files
-            if (file_exists($filename)) {
-                $ctime = time() - filemtime($filename);
+            if (isset($opts['file']) && file_exists($opts['file'])) {
+                $ctime = time() - filemtime($opts['file']);
             } else {
                 $ctime = 60;
             }
+
             if ($this->_cache->exists($cacheId, $ctime)) {
                 return unserialize($this->_cache->get($cacheId, $ctime));
             }
         }
 
-        $ob = new $class($this, $filename, $opts);
+        $ob = new $class($this, $opts);
 
         if (!empty($this->_cache)) {
             $this->_cache->set($cacheId, serialize($ob));

@@ -775,23 +775,29 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset
      * Constructor
      *
      * @param Horde_Vcs $rep  A Horde_Vcs repository object.
-     * @param string $file    The filename to create patchsets for.
      * @param array $opts     Additional options.
      * <pre>
+     * 'file' - (string) The filename to produce patchsets for.
      * 'range' - (array) The patchsets to process.
      *           DEFAULT: None (all patchsets are processed).
      * </pre>
      */
-    public function __construct($rep, $file, $opts = array())
+    public function __construct($rep, $opts = array())
     {
-        $fileOb = $rep->getFileObject($file);
         $revs = array();
 
-        if (empty($opts['range'])) {
-            $revs = $fileOb->queryLogs();
-        } else {
+        if (isset($opts['file'])) {
+            $ob = $rep->getFileObject($file);
+            $revs = $ob->queryLogs();
+        } elseif (!empty($opts['range'])) {
             foreach ($opts['range'] as $val) {
-                $revs[$val] = $fileOb->queryLogs($val);
+                /* Grab a filename in the patchset to get log info. */
+                $cmd = $rep->getCommand() . ' diff-tree --name-only -r ' . escapeshellarg($val);
+                exec($cmd, $output);
+
+                /* The first line is the SHA1 hash. */
+                $ob = $rep->getFileObject($output[1]);
+                $revs[$val] = $ob->queryLogs($val);
             }
         }
 

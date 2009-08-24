@@ -694,15 +694,17 @@ class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset
      * @param string $file    The filename to create a patchset for.
      * @param array $opts     Additional options.
      * <pre>
+     * 'file' - (string) The filename to process.
+     *          REQUIRED for this driver.
      * 'range' - (array) The patchsets to process.
      *           DEFAULT: None (all patchsets are processed).
      * </pre>
      *
      * @throws Horde_Vcs_Exception
      */
-    public function __construct($rep, $file, $opts = array())
+    public function __construct($rep, $opts = array())
     {
-        $file = $rep->sourceroot() . '/' . $file;
+        $file = $rep->sourceroot() . '/' . $opts['file'];
 
         /* Check that we are actually in the filesystem. */
         if (!$rep->isFile($file)) {

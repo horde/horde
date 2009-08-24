@@ -414,9 +414,10 @@ class Horde_Vcs_Patchset_Svn extends Horde_Vcs_Patchset
      * @param Horde_Vcs $rep  A Horde_Vcs repository object.
      * @param string $file    The filename to create patchsets for.
      */
-    public function __construct($rep, $file)
+    public function __construct($rep, $opts = array())
     {
-        $fileOb = $rep->getFileObject($file);
+        // TODO: Allow access via 'range'
+        $fileOb = $rep->getFileObject($opts['file']);
 
         foreach ($fileOb->logs as $rev => $log) {
             $this->_patchsets[$rev] = array(

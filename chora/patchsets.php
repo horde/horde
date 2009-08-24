@@ -24,13 +24,18 @@ if (!$GLOBALS['VC']->hasFeature('patchsets')) {
 $ps_opts = array();
 if ($ps_id = Horde_Util::getFormData('ps')) {
     $ps_opts['range'] = array($ps_id);
-    $title = sprintf(_("Patchset (%s) for %s"), $ps_id, $where);
-} else {
-    $title = sprintf(_("Patchsets for %s"), $where);
+    $title = sprintf(_("Patchset %s"), $ps_id);
+}
+
+if ($where) {
+    $ps_opts['file'] = $where;
+    if (!isset($title)) {
+        $title = sprintf(_("Patchsets for %s"), $where);
+    }
 }
 
 try {
-    $ps = $VC->getPatchsetObject($where, $ps_opts);
+    $ps = $VC->getPatchsetObject($ps_opts);
     $patchsets = $ps->getPatchsets();
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
@@ -46,17 +51,18 @@ Horde::addScriptFile('tables.js', 'horde', true);
 
 // JS search not needed if showing a single patchset
 if ($ps_id) {
-    $full_ps_link = Horde::link(Chora::url('patchsets', $where)) . _("View All Patchsets for File") . '</a>';
-} else {
     Horde::addScriptFile('QuickFinder.js', 'horde', true);
 }
 
 require CHORA_TEMPLATES . '/common-header.inc';
 require CHORA_TEMPLATES . '/menu.inc';
-require CHORA_TEMPLATES . '/headerbar.inc';
-require CHORA_TEMPLATES . '/patchsets/header.inc';
 
-if (!$ps_id) {
+
+if ($ps_id) {
+    require CHORA_TEMPLATES . '/patchsets/header.inc';
+} else {
+    require CHORA_TEMPLATES . '/headerbar.inc';
+    require CHORA_TEMPLATES . '/patchsets/header.inc';
     require CHORA_TEMPLATES . '/patchsets/header_table.inc';
 }
 
