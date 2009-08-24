@@ -540,8 +540,9 @@ td.addressTr span.loadingImg {
     color: #000;
     background: #ffc;
     border: 1px solid #fff760;
-    width: 100%;
     margin-bottom: 3px;
+    display: -moz-inline-stack;
+    display: inline-block;
 }
 .mimeStatusIcon {
     width: 22px;
