@@ -193,9 +193,22 @@ var DimpSlider = Class.create({
         this.value = (type == 'val')
             ? Math.min(Math.max(0, data), this.options.totalsize - this.options.pagesize)
             : Math.max(0, Math.round(Math.min(data, this.handletop) / this.handletop * (this.options.totalsize - this.options.pagesize)));
-        this.handlevalue = (type == 'px')
-            ? data
-            : Math.round(this.getValue() / (this.options.totalsize - this.options.pagesize) * this.handletop);
+
+        if (type == 'px') {
+            this.handlevalue = data;
+        } else {
+            this.handlevalue = Math.round(this.value / (this.options.totalsize - this.options.pagesize) * this.handletop);
+
+            /* Always make sure there is at least 1 pixel if we are not at the
+             * absolute bottom or top. */
+            if (this.handlevalue == 0 && this.value != 0) {
+                this.handlevalue += 1;
+            } else if (this.handlevalue == this.handletop &&
+                       ((this.options.totalsize - this.options.pagesize) != this.value)) {
+                this.handlevalue -= 1;
+            }
+        }
+
         this.handle.setStyle({ top: this.handlevalue + 'px' });
     },
 
