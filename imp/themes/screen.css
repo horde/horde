@@ -552,6 +552,7 @@ td.addressTr span.loadingImg {
     background: #e81222;
     color: #fff;
     width: 100%;
+    padding: 1px;
 }
 .mimeHeaders {
     border: 1px solid #ccc;
