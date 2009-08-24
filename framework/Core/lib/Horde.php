@@ -1805,8 +1805,8 @@ HTML;
         switch ($GLOBALS['browser']->getBrowser()) {
         case 'msie':
             $ie_major = $GLOBALS['browser']->getMajor();
-            // TODO: IE8 specific styling
-            if ($ie_major >= 7) {
+            if ($ie_major == 8) {
+            } elseif ($ie_major == 7) {
                 $css_list[] = 'ie7';
             } elseif ($ie_major < 7) {
                 $css_list[] = 'ie6_or_less';
