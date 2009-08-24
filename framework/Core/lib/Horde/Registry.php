@@ -977,17 +977,20 @@ class Horde_Registry
         /* Always do isAuthenticated() check first. You can be an admin, but
          * application auth != Horde admin auth. */
         if (!Horde_Auth::isAuthenticated(array('app' => $app))) {
-            /* Allow SHOW access for admins, for apps that do not have any
-             * explicit permissions, or for apps that allow SHOW. */
-            return Horde_Auth::isAdmin() ||
-                !$GLOBALS['perms']->exists($app) ||
-                $GLOBALS['perms']->hasPermission($app, Horde_Auth::getAuth(), $perms);
+            /* There can *never* be non-SHOW access to an application that
+             * requires authentication. */
+            $app_auth = Horde_Auth::singleton('application', array('app' => $app));
+            if ($app_auth->requireAuth() && ($perms != PERMS_SHOW)) {
+                return false;
+            }
         }
 
-        /* Admins always are authorized. */
-        return (!Horde_Auth::isAdmin() && $GLOBALS['perms']->exists($app))
-            ? $GLOBALS['perms']->hasPermission($app, Horde_Auth::getAuth(), $perms)
-            : true;
+        /* Otherwise, allow access for admins, for apps that do not have any
+         * have any explicit permissions, or for apps that allow the given
+         * permission. */
+        return Horde_Auth::isAdmin() ||
+            !$GLOBALS['perms']->exists($app) ||
+            $GLOBALS['perms']->hasPermission($app, Horde_Auth::getAuth(), $perms);
     }
 
     /**

@@ -331,4 +331,14 @@ class Horde_Auth_Application extends Horde_Auth_Base
         }
     }
 
+    /**
+     * Indicate whether the application requires authentication.
+     *
+     * @return boolean  True if application requires authentication.
+     */
+    public function requireAuth()
+    {
+        return $this->hasCapability('authenticate') || $this->hasCapability('transparent');
+    }
+
 }
