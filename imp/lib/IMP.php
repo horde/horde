@@ -1221,6 +1221,11 @@ class IMP
             break;
         }
 
+        if (defined('SID')) {
+            parse_str(SID, $sid);
+            $params = array_merge($params, $sid);
+        }
+
         $js_params = array(
             'action' => $action,
             'uri' => Horde::applicationUrl('ajax.php', true, -1) . '/' . $type,
