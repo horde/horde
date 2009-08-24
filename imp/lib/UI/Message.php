@@ -423,7 +423,7 @@ class IMP_UI_Message
 
         $class = 'mimeStatusMessage';
 
-        $out = array('<table ' . (isset($data['id']) ? ('id="' . $data['id'] . '" ') : '') . 'class="' . $class . '">');
+        $out = array('<div><table ' . (isset($data['id']) ? ('id="' . $data['id'] . '" ') : '') . 'class="' . $class . '">');
 
         /* If no image, simply print out the message. */
         if (empty($data['icon'])) {
@@ -438,7 +438,7 @@ class IMP_UI_Message
             $out[] = '</table></td></tr>';
         }
 
-        return implode("\n", $out) . "\n</table>\n";
+        return implode("\n", $out) . "\n</table></div>\n";
     }
 
     /**
