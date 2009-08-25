@@ -201,7 +201,7 @@ foreach ($imp_search_fields as $key => $val) {
 foreach ($imp_ui_search->flagFields() as $key => $val) {
     $f_fields[$key] = array(
         'val' => $key,
-        'label' => $val['label'],
+        'label' => $val,
         'sel' => null
     );
 }

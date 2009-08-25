@@ -21,10 +21,6 @@ class IMP_UI_Search
     const TEXT = 4;
     const SIZE = 5;
 
-    /* Defines used to identify the flag input. */
-    const FLAG_NOT = 0;
-    const FLAG_HAS = 1;
-
     /**
      * Return the base search fields.
      *
@@ -105,48 +101,17 @@ class IMP_UI_Search
      */
     public function flagFields()
     {
-        return array(
-            'seen' => array(
-                'flag' => '\\seen',
-                'label' => _("Seen messages"),
-                'type' => self::FLAG_HAS
-            ),
-            'unseen' => array(
-                'flag' => '\\seen',
-                'label' => _("Unseen messages"),
-                'type' => self::FLAG_NOT
-            ),
-            'answered' => array(
-                'flag' => '\\answered',
-                'label' => _("Answered messages"),
-                'type' => self::FLAG_HAS
-            ),
-            'unanswered' => array(
-                'flag' => '\\answered',
-                'label' => _("Unanswered messages"),
-                'type' => self::FLAG_NOT
-            ),
-            'flagged' => array(
-                'flag' => '\\flagged',
-                'label' => _("Flagged messages"),
-                'type' => self::FLAG_HAS
-            ),
-            'unflagged' => array(
-                'flag' => '\\flagged',
-                'label' => _("Unflagged messages"),
-                'type' => self::FLAG_NOT
-            ),
-            'deleted' => array(
-                'flag' => '\\deleted',
-                'label' => _("Deleted messages"),
-                'type' => self::FLAG_HAS
-            ),
-            'undeleted' => array(
-                'flag' => '\\deleted',
-                'label' => _("Undeleted messages"),
-                'type' => self::FLAG_NOT
-            ),
-        );
+        $imp_flags = IMP_Imap_Flags::singleton();
+        $flist = $imp_flags->getFlagList(null);
+
+        $flags = array();
+
+        for ($i = 0, $cnt = count($flist['set']); $i < $cnt; ++$i) {
+            $flags[$flist['set'][$i]['f']] = $flist['set'][$i]['l'];
+            $flags[$flist['unset'][$i]['f']] = sprintf(_("Not %s"), $flist['unset'][$i]['l']);
+        }
+
+        return $flags;
     }
 
     /**
@@ -168,7 +133,12 @@ class IMP_UI_Search
             $ob = new Horde_Imap_Client_Search_Query();
 
             if (isset($flag_fields[$val])) {
-                $ob->flag($flag_fields[$val]['flag'], (bool)$flag_fields[$val]['type']);
+                if (strpos($val, '0\\') === 0) {
+                    $val = substr($val, 2);
+                    $ob->flag($val, false);
+                } else {
+                    $ob->flag($val, true);
+                }
                 $search_array[] = $ob;
             } else {
                 switch ($search_fields[$val]['type']) {

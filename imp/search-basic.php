@@ -41,7 +41,7 @@ $search_mailbox = Horde_Util::getFormData('search_mailbox');
 
 foreach ($imp_ui_search->searchFields() as $key => $val) {
     if ($val['type'] != IMP_UI_Search::DATE) {
-        $s_fields[$key] = array(
+        $s_fields[] = array(
             'val' => $key,
             'label' => $val['label']
         );
@@ -49,9 +49,9 @@ foreach ($imp_ui_search->searchFields() as $key => $val) {
 }
 
 foreach ($imp_ui_search->flagFields() as $key => $val) {
-    $f_fields[$key] = array(
+    $f_fields[] = array(
         'val' => $key,
-        'label' => $val['label']
+        'label' => $val
     );
 }
 
