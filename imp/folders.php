@@ -423,9 +423,9 @@ $rowct = 0;
 $morembox = $rows = array();
 foreach ($raw_rows as $val) {
     $val['nocheckbox'] = !empty($val['vfolder']);
-    if (!empty($val['vfolder']) && ($val['value'] != IMP_Imap_Tree::VFOLDER_KEY)) {
-        $val['delvfolder'] = Horde::link($imp_search->deleteURL($val['value']), _("Delete Virtual Folder")) . _("Delete") . '</a>';
-        $val['editvfolder'] = Horde::link($imp_search->editURL($val['value']), _("Edit Virtual Folder")) . _("Edit") . '</a>';
+    if (!empty($val['vfolder']) && $val['editvfolder']) {
+        $val['delvfolder'] = Horde::link($imp_search->deleteUrl($val['value']), _("Delete Virtual Folder")) . _("Delete") . '</a>';
+        $val['editvfolder'] = Horde::link($imp_search->editUrl($val['value']), _("Edit Virtual Folder")) . _("Edit") . '</a>';
     }
 
     $val['cname'] = (++$rowct % 2) ? 'item0' : 'item1';

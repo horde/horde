@@ -1,185 +1,108 @@
-<form method="post" id="search" action="<tag:action />">
-<input type="hidden" id="actionID" name="actionID" value="update_search" />
-<input type="hidden" id="delete_field_id" name="delete_field_id" value="" />
-<input type="hidden" id="edit_query" name="edit_query" value="" />
-<input type="hidden" name="edit_query_vfolder" value="<tag:edit_query_vfolder />" />
-<if:mbox>
-<input type="hidden" name="mbox" value="<tag:mbox />" />
-<input id="preselected_folders" type="hidden" name="search_folders[]" value="<tag:mbox />" />
-<else:mbox>
-<if:subscribe>
-<input type="hidden" id="show_subscribed_only" name="show_subscribed_only" value="<tag:shown />" />
-</if:subscribe>
-</else:mbox></if:mbox>
+<form id="search_form" action="<tag:action />" method="post">
+ <input class="hidden" name="criteria_form" id="criteria_form" value="" />
 
-<h1 class="header">
-<if:edit_query_vfolder>
- <strong><gettext>Edit Virtual Folder</gettext></strong>
-<else:edit_query_vfolder>
- <strong><tag:search_title /></strong>
-</else:edit_query_vfolder></if:edit_query_vfolder>
- <tag:search_help />
-</h1>
+ <h1 class="header">
+  <strong><if:edit_query_vfolder><gettext>Edit Virtual Folder</gettext><else:edit_query_vfolder><gettext>Search</gettext></else:edit_query_vfolder></if:edit_query_vfolder></strong>
+ </h1>
 
-<div>
- <input type="submit" class="button searchSubmit" value="<if:edit_query_vfolder><gettext>Save</gettext><else:edit_query_vfolder><gettext>Submit</gettext></else:edit_query_vfolder></if:edit_query_vfolder>" />
- <input type="button" class="button searchReset" value="<gettext>Reset</gettext>" />
-</div>
+ <div id="recent_searches_div" class="smallheader leftAlign" style="display:none">
+  <span class="searchuiImg arrowExpanded" style="display:none"></span>
+  <span class="searchuiImg arrowCollapsed"></span>
+  <gettext>Recent Searches</gettext>
+ </div>
 
-<if:saved_searches>
-<div class="smallheader leftAlign">
- <gettext>Recent Searches</gettext>
-</div>
+ <div class="item" style="display:none">
+  <label for="recent_searches" class="hidden"><gettext>Recent Searches:</gettext></label>
+  <select id="recent_searches">
+   <option value=""><gettext>Recent Searches:</gettext></option>
+  </select>
+ </div>
 
-<div class="item">
- <label for="save_cache" class="hidden"><gettext>Recent Searches:</gettext></label>
- <select id="save_cache" name="save_cache">
-  <option value=""><gettext>Recent Searches:</gettext></option>
-<loop:saved_searches>
-  <option value="<tag:saved_searches.val />"><tag:saved_searches.text /></option>
-</loop:saved_searches>
- </select>
-</div>
-</if:saved_searches>
-
-<div class="smallheader leftAlign">
+ <div class="smallheader leftAlign">
+  <span class="searchuiImg arrowExpanded"></span>
+  <span class="searchuiImg arrowCollapsed" style="display:none"></span>
  <gettext>Search Criteria</gettext>
-</div>
+ </div>
 
-<div class="item">
- <input type="radio" class="checkbox" name="search_match" id="search_match_or" value="or"<if:match_or> checked="checked"</if:match_or> />
- <em><tag:label_or /></em>
- <input type="radio" class="checkbox" name="search_match" id="search_match_and" value="and"<if:match_and> checked="checked"</if:match_and> />
- <em><tag:label_and /></em>
-
-<table class="item" cellspacing="0">
-<loop:fields>
- <tr>
-<if:fields.first>
-  <td>&nbsp;</td>
-<else:fields.first><if:fields.i>
-  <td><strong><if:match_and><gettext>AND</gettext><else:match_and><gettext>OR</gettext></else:match_and></if:match_and></strong></td>
-</if:fields.i>
-</else:fields.first></if:fields.first>
-  <td>
-   <label for="field_<tag:fields.i />" class="hidden"><gettext>Select a field</gettext></label>
-   <select name="field[<tag:fields.i />]" id="field_<tag:fields.i />">
-<if:fields.last>
-    <option value=""><gettext>Select a field</gettext></option>
+ <div class="item">
+  <div>
+   <select id="search_criteria">
+    <option value=""><gettext>Add search criteria:</gettext></option>
     <option value="" disabled="disabled">- - - - - - - - -</option>
-</if:fields.last>
-<loop:fields.s_fields>
-    <option value="<tag:fields.s_fields.val />"<if:fields.s_fields.sel> selected="selected"</if:fields.s_fields.sel>><tag:fields.s_fields.label /></option>
-</loop:fields.s_fields>
+<loop:s_fields>
+    <option value="<tag:s_fields.val />"><tag:s_fields.label /></option>
+</loop:s_fields>
     <option value="" disabled="disabled">- - - - - - - - -</option>
-<loop:fields.f_fields>
-    <option value="<tag:fields.f_fields.val />"<if:fields.f_fields.sel> selected="selected"</if:fields.f_fields.sel>><tag:fields.f_fields.label /></option>
-</loop:fields.f_fields>
+<loop:f_fields>
+    <option value="<tag:f_fields.val />"><tag:f_fields.label /></option>
+</loop:f_fields>
    </select>
-  </td>
-<if:fields.curr>
-<if:fields.search_text>
-  <td class="leftAlign">
-   <input type="text" id="search_text_<tag:fields.i />" name="search_text[<tag:fields.i />]" size="40" <if:fields.search_text_val>value="<tag:fields.search_text_val />" </if:fields.search_text_val>/>
-   <label for="search_text_<tag:fields.i />" class="hidden"><gettext>Search Text</gettext></label>
-<if:fields.show_not>
-   <input type="checkbox" class="checkbox" id="search_text_not_<tag:fields.i />" name="search_text_not[<tag:fields.i />]" <if:fields.search_text_not>checked="checked" </if:fields.search_text_not>/>
-   <label for="search_text_not_<tag:fields.i />"><em><gettext>Do NOT match</gettext></em></label>
-</if:fields.show_not>
-  </td>
-</if:fields.search_text>
-<if:fields.search_date>
-  <td class="leftAlign">
-   <label for="search_date_<tag:fields.i />_month" class="hidden"><gettext>Month</gettext></label>
-   <select id="search_date_<tag:fields.i />_month" name="search_date[<tag:fields.i />][month]">
-<loop:fields.month>
-    <option value="<tag:fields.month.val />" <if:fields.month.sel>selected="selected" </if:fields.month.sel>><tag:fields.month.label /></option>
-</loop:fields.month>
-   </select>
-   <label for="search_date_<tag:fields.i />_day" class="hidden"><gettext>Day</gettext></label>
-   <select id="search_date_<tag:fields.i />_day" name="search_date[<tag:fields.i />][day]">
-<loop:fields.day>
-    <option value="<tag:fields.day.val />" <if:fields.day.sel>selected="selected" </if:fields.day.sel>><tag:fields.day.val /></option>
-</loop:fields.day>
-   </select>
-   <label for="search_date_<tag:fields.i />_year" class="hidden"><gettext>Year</gettext></label>
-   <select id="search_date_<tag:fields.i />_year" name="search_date[<tag:fields.i />][year]">
-<loop:fields.year>
-    <option value="<tag:fields.year.val />" <if:fields.year.sel>selected="selected"</if:fields.year.sel>><tag:fields.year.val /></option>
-</loop:fields.year>
-   </select>
-<if:fields.js_calendar>
-<if:fields.js_calendar_first>
-   <div id="goto" style="position:absolute;visibility:hidden;padding:1px"></div>
-</if:fields.js_calendar_first>
-   <tag:fields.js_calendar /><tag:fields.js_calendar_img /></a>
-</if:fields.js_calendar>
-  </td>
-</if:fields.search_date>
-<else:fields.curr>
-  <td>&nbsp;</td>
-</else:fields.curr></if:fields.curr>
+  </div>
+ </div>
 
-<if:fields.last>
-<if:fields.i>
-  <td>&nbsp;</td>
-</if:fields.i>
-<else:fields.last>
-  <td><input type="image" class="image searchDelete" fid="<tag:fields.i />" src="<tag:delete_img />" value="<tag:remove />" /></td>
-</else:fields.last></if:fields.last>
- </tr>
-</loop:fields>
-</table>
-</div>
-
-<if:mbox><else:mbox>
-<div class="smallheader leftAlign">
- <gettext>Search Folders</gettext>
-</div>
-
-<div class="item">
- <a id="link_sel_all" href="#"><gettext>Select all</gettext></a> |
- <a id="link_sel_none" href="#"><gettext>Select none</gettext></a>
+ <div class="smallheader leftAlign" id="search_folders_hdr">
+  <span class="searchuiImg arrowExpanded" style="display:none"></span>
+  <span class="searchuiImg arrowCollapsed"></span>
+  <gettext>Search Folders</gettext>
+  <span class="item" style="display:none">
+   <a id="link_sel_all" href="#"><gettext>Select all</gettext></a> |
+   <a id="link_sel_none" href="#"><gettext>Select none</gettext></a>
 <if:subscribe>
- | <a id="link_sub" href="#"><if:inverse_subscribe><gettext>Show Only Subscribed Folders</gettext><else:inverse_subscribe><gettext>Show All Folders</gettext></else:inverse_subscribe></if:inverse_subscribe></a>
+| <a id="link_sub" href="#"><span><gettext>Show All</gettext></span><span style="display:none"><gettext>Show Subscribed Only</gettext></span></a>
 </if:subscribe>
-</div>
+  </span>
+ </div>
 
-<table width="100%" cellspacing="0">
- <tr>
-  <td class="item leftAlign" valign="top">
-<loop:mboxes>
-   <input id="folder<tag:mboxes.count />" type="checkbox" class="checkbox"<if:mboxes.val>name="search_folders[]" value="<tag:mboxes.val />"<if:mboxes.sel> checked="checked"</if:mboxes.sel><else:mboxes.val>disabled="disabled"</else:mboxes.val></if:mboxes.val> />
-   <tag:mboxes.label /><br />
-<if:mboxes.newcol>
-  </td>
-  <td class="item" valign="top">
-</if:mboxes.newcol>
-</loop:mboxes>
-  </td>
- </tr>
-</table>
-</else:mbox></if:mbox>
+ <div class="item" style="display:none">
+ </div>
 
 <if:virtualfolder>
-<div class="smallheader leftAlign">
- <gettext>Virtual Folders</gettext>
-</div>
+ <div class="smallheader leftAlign">
+  <span class="searchuiImg arrowExpanded" style="display:none"></span>
+  <span class="searchuiImg arrowCollapsed"></span>
+  <gettext>Virtual Folders</gettext>
+ </div>
 
+ <div style="display:none">
 <if:edit_query_vfolder>
-<input type="hidden" name="save_vfolder" value="1" />
+  <input type="hidden" name="edit_query_vfolder" value="" />
 <else:edit_query_vfolder>
-<div class="item">
- <label for="save_vfolder"><em><gettext>Save search as a virtual folder?</gettext></em></label> <input type="checkbox" class="checkbox" id="save_vfolder" name="save_vfolder" <if:save_vfolder>checked="checked" </if:save_vfolder>/>
-</div>
+  <div class="item">
+   <label for="vfolder_save"><gettext>Save search as a virtual folder?</gettext></label> <input type="checkbox" class="checkbox" id="vfolder_save" name="vfolder_save" />
+  </div>
 </else:edit_query_vfolder></if:edit_query_vfolder>
-<div class="item">
- <label for="vfolder_label"><em><gettext>Virtual folder label:</gettext></em></label> <input type="text" id="vfolder_label" name="vfolder_label" <if:vfolder_label>value="<tag:vfolder_label />" </if:vfolder_label>/>
-</div>
+  <div class="item">
+   <label for="vfolder_label"><gettext>Label:</gettext></label> <input type="text" name="vfolder_label" id="vfolder_label" />
+  </div>
+ </div>
 </if:virtualfolder>
 
-<div>
- <input type="submit" class="button searchSubmit" value="<if:edit_query_vfolder><gettext>Save</gettext><else:edit_query_vfolder><gettext>Submit</gettext></else:edit_query_vfolder></if:edit_query_vfolder>" />
- <input type="button" class="button searchReset" value="<gettext>Reset</gettext>" />
-</div>
+ <div>
+  <input type="button" id="search_submit" class="button" value="<if:edit_query_vfolder><gettext>Save</gettext><else:edit_query_vfolder><gettext>Submit</gettext></else:edit_query_vfolder></if:edit_query_vfolder>" />
+  <input type="button" id="search_reset" class="button" value="<gettext>Reset</gettext>" />
+ </div>
 </form>
+
+<span id="text_criteria" style="display:none">
+ <em></em>
+ <input type="text" size="25" />
+ <span><input type="checkbox" /><gettext>Do NOT Match</gettext></input></span>
+</span>
+
+<span id="flag_criteria" style="display:none">
+ <em><gettext>Flag</gettext>: </em>
+</span>
+
+<span id="date_criteria" style="display:none">
+ <em></em>
+ <span></span>
+ <a href="#" class="calendarPopup" title="<gettext>Date Selection</gettext>"><span class="searchuiImg searchuiCalendar"></span></a>
+</span>
+
+<span id="delete_criteria" style="display:none">
+ <a href="#" class="searchuiImg searchuiDelete"></a>
+</span>
+
+<div id="folder_row" style="display:none">
+ <input type="checkbox" class="checkbox" name="search_folders_form[]" />
+</div>

@@ -24,11 +24,10 @@ if ($_SESSION['imp']['protocol'] == 'pop') {
     exit;
 }
 
-$imp_ui_search = new IMP_UI_Search();
-
 /* If search_basic_mbox is set, we are processing the search query. */
 $search_mailbox = Horde_Util::getFormData('search_basic_mbox');
 if ($search_mailbox) {
+    $imp_ui_search = new IMP_UI_Search();
     $id = $imp_ui_search->processBasicSearch($search_mailbox, Horde_Util::getFormData('search_criteria'), Horde_Util::getFormData('search_criteria_text'), Horde_Util::getFormData('search_criteria_not'), Horde_Util::getFormData('search_flags'));
 
     /* Redirect to the mailbox screen. */
@@ -39,8 +38,8 @@ if ($search_mailbox) {
 $f_fields = $s_fields = array();
 $search_mailbox = Horde_Util::getFormData('search_mailbox');
 
-foreach ($imp_ui_search->searchFields() as $key => $val) {
-    if ($val['type'] != IMP_UI_Search::DATE) {
+foreach ($imp_search->searchFields() as $key => $val) {
+    if ($val['type'] != 'date') {
         $s_fields[] = array(
             'val' => $key,
             'label' => $val['label']
@@ -48,7 +47,7 @@ foreach ($imp_ui_search->searchFields() as $key => $val) {
     }
 }
 
-foreach ($imp_ui_search->flagFields() as $key => $val) {
+foreach ($imp_search->flagFields() as $key => $val) {
     $f_fields[] = array(
         'val' => $key,
         'label' => $val

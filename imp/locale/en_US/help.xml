@@ -205,29 +205,6 @@
     </para>
 </entry>
 
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Select whether you want to match <b>all</b> queries (an AND search) or match <b>any</b> query (an OR search).
-    </para>
-    <para>
-        Step 2: Choose the fields(s) to add to your search criteria and, if necessary, identify the search parameters for these fields.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click &quot;Search&quot;.
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the &quot;Search Results&quot; view.
-    </para>
-</entry>
-
 <entry id="folder-options">
     <title>Folders: Folder Actions</title>
     <para>

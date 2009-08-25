@@ -358,18 +358,14 @@ if ($unread) {
     $pagetitle = $title .= ' (' . $unread . ')';
 }
 
-if ($vfolder || $search_mbox) {
-    $query_text = $imp_search->searchQueryText($imp_search->searchMboxID());
-    if ($query_text) {
-        $query_text = htmlspecialchars(wordwrap($query_text));
-        if ($vfolder) {
-            $pagetitle .= ' [' . Horde::linkTooltip('#', $query_text, '', '', '', $query_text) . _("Virtual Folder") . '</a>]';
-            $title .= ' [' . _("Virtual Folder") . ']';
-        } else {
-            $pagetitle = Horde::linkTooltip('#', $query_text, '', '', '', $query_text) . $pagetitle . '</a>';
-        }
+if ($vfolder ||
+    ($search_mbox && ($imp_search->searchMboxID() != IMP_Search::BASIC_SEARCH))) {
+    $query_text = wordwrap($imp_search->searchQueryText($imp_search->searchMboxID()));
+    if ($vfolder) {
+        $pagetitle .= ' [' . Horde::linkTooltip('#', $query_text, '', '', '', $query_text) . _("Virtual Folder") . '</a>]';
+        $title .= ' [' . _("Virtual Folder") . ']';
     } else {
-        $pagetitle = htmlspecialchars($title);
+        $pagetitle = Horde::linkTooltip('#', $query_text, '', '', '', $query_text) . $pagetitle . '</a>';
     }
 } else {
     $pagetitle = $title = htmlspecialchars($title);
@@ -431,8 +427,8 @@ if ($_SESSION['imp']['protocol'] != 'pop') {
     } else {
         if ($imp_search->isEditableVFolder()) {
             $edit_search = sprintf(_("Edit Virtual Folder Definition for %s"), htmlspecialchars($rawtitle));
-            $hdr_template->set('delete_vfolder', Horde::link($imp_search->deleteURL(), sprintf(_("Delete Virtual Folder Definition for %s"), htmlspecialchars($rawtitle)), null, null, "if (confirm('" . addslashes(_("Are you sure you want to delete this Virtual Folder Definition?")) . "')) { return true; } else { return false; }") . Horde::img('delete.png', sprintf(_("Delete Virtual Folder Definition for %s"), $rawtitle), '', $graphicsdir) . '</a>');
-        } elseif (!$query_text) {
+            $hdr_template->set('delete_vfolder', Horde::link($imp_search->deleteUrl(), sprintf(_("Delete Virtual Folder Definition for %s"), htmlspecialchars($rawtitle)), null, null, "if (confirm('" . addslashes(_("Are you sure you want to delete this Virtual Folder Definition?")) . "')) { return true; } else { return false; }") . Horde::img('delete.png', sprintf(_("Delete Virtual Folder Definition for %s"), $rawtitle), '', $graphicsdir) . '</a>');
+        } elseif ($search_mbox && !isset($query_text)) {
             /* Mini search results. */
             $search_mailbox = reset($imp_search->getSearchFolders());
             $hdr_template->set('search', Horde::link(Horde_Util::addParameter(Horde::applicationUrl('search-basic.php'), array('search_mailbox' => $search_mailbox)), sprintf(_("Search %s"), IMP::getLabel($search_mailbox))) . Horde::img('search.png', _("Search")) . '</a>');
@@ -442,7 +438,7 @@ if ($_SESSION['imp']['protocol'] != 'pop') {
         }
 
         if (isset($edit_search)) {
-            $hdr_template->set('search', Horde::link($imp_search->editURL(), $edit_search) . Horde::img('edit.png', $edit_search, '', $graphicsdir) . '</a>');
+            $hdr_template->set('search', Horde::link($imp_search->editUrl(), $edit_search) . Horde::img('edit.png', $edit_search, '', $graphicsdir) . '</a>');
         }
     }
 }

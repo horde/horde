@@ -8,16 +8,12 @@
  *
  * $_SESSION['imp']['search'] = array(
  *     'id_1' => array(
- *         'query' => Horde_Imap_Client_Search_Query object (serialized),
- *         'folders' => array (List of folders to search),
- *         'uiinfo' => array (Info used by search.php to render page.
- *                            For virtual folders, this data is stored
- *                            in the preferences),
- *         'label' => string (Description of search),
- *         'vfolder' => boolean (True if this is a Virtual Folder)
- *     ),
- *     'id_2' => array(
- *         ....
+ *         'c' => (array) List of search criteria. For virtual folders, this
+ *                data is stored in the preferences,
+ *         'f' => (array) List of folders to search,
+ *         'l' => (string) Description of search,
+ *         'q' => (Horde_Imap_Client_Search_Query) [serialized],
+ *         'v' => (boolean) True if this is a Virtual Folder
  *     ),
  *     ....
  * );
@@ -35,9 +31,13 @@ class IMP_Search
     /* The mailbox search prefix. */
     const MBOX_PREFIX = 'impsearch\0';
 
+    /* The basic search mailbox name. */
+    const BASIC_SEARCH = 'impbsearch';
+
     /* Bitmask constants for listQueries(). */
     const LIST_SEARCH = 1;
     const LIST_VFOLDER = 2;
+    const NO_BASIC_SEARCH = 4;
 
     /**
      * The ID of the current search query in use.
@@ -76,7 +76,7 @@ class IMP_Search
     }
 
     /**
-     * Initialize the class.
+     * Initialize search data for a session.
      *
      * @param boolean $no_vf  Don't readd the Virtual Folders.
      */
@@ -85,16 +85,109 @@ class IMP_Search
         if (!$no_vf) {
             $imaptree = IMP_Imap_Tree::singleton();
             foreach ($this->_getVFolderList() as $key => $val) {
-                if (!empty($val['vfolder']) &&
+                if (!empty($val['v']) &&
                     !$this->isEditableVFolder($key)) {
-                    $imaptree->insertVFolders(array($key => $val['label']));
-                    unset($val['uiinfo']);
+                    $imaptree->insertVFolders(array($key => $val['l']));
+                    unset($val['c']);
                     $_SESSION['imp']['search'][$key] = $val;
                 }
             }
         }
         $this->createVINBOXFolder();
         $this->createVTrashFolder();
+    }
+
+    /**
+     * Return the base search fields.
+     *
+     * @return array  The base search fields.
+     */
+    public function searchFields()
+    {
+        return array(
+            'from' => array(
+                'label' => _("From"),
+                'type' => 'header',
+                'not' => true
+            ),
+            'to' => array(
+                'label' => _("To"),
+                'type' => 'header',
+                'not' => true
+            ),
+            'cc' => array(
+                'label' => _("Cc"),
+                'type' => 'header',
+                'not' => true
+            ),
+            'bcc' => array(
+                'label' => _("Bcc"),
+                'type' => 'header',
+                'not' => true
+            ),
+            'subject' => array(
+                'label' => _("Subject"),
+                'type' => 'header',
+                'not' => true
+            ),
+            'body' => array(
+               'label' => _("Body"),
+               'type' => 'body',
+                'not' => true
+            ),
+            'text' => array(
+               'label' => _("Entire Message"),
+               'type' => 'text',
+                'not' => true
+            ),
+            'date_on' => array(
+                'label' => _("Date ="),
+                'type' => 'date',
+                'not' => true
+            ),
+            'date_until' => array(
+                'label' => _("Date <"),
+                'type' => 'date',
+                'not' => true
+            ),
+            'date_since' => array(
+                'label' => _("Date >="),
+                'type' => 'date',
+                'not' => true
+            ),
+            // Displayed in KB, but stored internally in bytes
+            'size_smaller' => array(
+                'label' => _("Size (KB) <"),
+                'type' => 'size',
+                'not' => false
+            ),
+            // Displayed in KB, but stored internally in bytes
+            'size_larger' => array(
+                'label' => _("Size (KB) >"),
+                'type' => 'size',
+                'not' => false
+            ),
+        );
+    }
+
+    /**
+     * Return the base flag fields.
+     *
+     * @return array  The base flag fields.
+     */
+    public function flagFields()
+    {
+        $imp_flags = IMP_Imap_Flags::singleton();
+        $flist = $imp_flags->getFlagList(null);
+
+        $flags = array();
+
+        for ($i = 0, $cnt = count($flist['set']); $i < $cnt; ++$i) {
+            $flags[$flist['set'][$i]['f']] = $flist['set'][$i]['l'];
+            $flags[$flist['unset'][$i]['f']] = sprintf(_("Not %s"), $flist['unset'][$i]['l']);
+        }
+
+        return $flags;
     }
 
     /**
@@ -120,7 +213,7 @@ class IMP_Search
         $search = &$_SESSION['imp']['search'][$id];
 
         /* Prepare the search query. */
-        $query = unserialize($search['query']);
+        $query = unserialize($search['q']);
         if (!empty($ob)) {
             $query->andSearch(array($ob));
         }
@@ -131,7 +224,7 @@ class IMP_Search
             $sortpref['by'] = Horde_Imap_Client::SORT_DATE;
         }
 
-        foreach ($search['folders'] as $val) {
+        foreach ($search['f'] as $val) {
             $results = $GLOBALS['imp_imap']->ob()->search($val, $query, array('reverse' => $sortpref['dir'], 'sort' => array($sortpref['by'])));
             foreach ($results['sort'] as $val2) {
                 $sorted[] = $val2 . IMP::IDX_SEP . $val;
@@ -146,10 +239,11 @@ class IMP_Search
      * queries with custom sorts to be used without affecting cached
      * mailboxes.
      *
-     * @param object $query    The search query.
-     * @param string $mailbox  The mailbox to search.
-     * @param integer $sortby  The sort criteria.
-     * @param integer $sortdir The sort directory.
+     * @param object $query     The search query object
+     *                          (Horde_Imap_Client_Search_Query).
+     * @param string $mailbox   The mailbox to search.
+     * @param integer $sortby   The sort criteria.
+     * @param integer $sortdir  The sort directory.
      *
      * @return array  The sorted list.
      */
@@ -167,28 +261,29 @@ class IMP_Search
     /**
      * Creates the IMAP search query in the IMP session.
      *
-     * @param object $query   The search query object
-     *                        (Horde_Imap_Client_Search_Query).
-     * @param array $folders  The list of folders to search.
-     * @param array $search   The search array used to build the search UI
-     *                        screen.
-     * @param string $label   The label to use for the search results.
-     * @param string $id      The query id to use (or else one is
-     *                        automatically generated).
+     * @param object $query    The search query object
+     *                         (Horde_Imap_Client_Search_Query).
+     * @param array $folders   The list of folders to search.
+     * @param array $criteria  The search criteria array.
+     * @param string $label    The label to use for the search results.
+     * @param string $id       The query id to use (or else one is
+     *                         automatically generated).
      *
      * @return string  Returns the search query id.
      */
-    public function createSearchQuery($query, $folders, $search, $label,
+    public function createSearchQuery($query, $folders, $criteria, $label,
                                       $id = null)
     {
         $id = is_null($id) ? uniqid(mt_rand()) : $this->_strip($id);
+
         $_SESSION['imp']['search'][$id] = array(
-            'query' => serialize($query),
-            'folders' => $folders,
-            'uiinfo' => $search,
-            'label' => $label,
-            'vfolder' => false
+            'c' => $criteria,
+            'f' => $folders,
+            'l' => $label,
+            'q' => serialize($query),
+            'v' => false
         );
+
         return $id;
     }
 
@@ -204,13 +299,14 @@ class IMP_Search
     public function deleteSearchQuery($id = null, $no_delete = false)
     {
         $id = $this->_strip($id);
-        $is_vfolder = !empty($_SESSION['imp']['search'][$id]['vfolder']);
+        $is_vfolder = $this->isVFolder($id);
         unset($_SESSION['imp']['search'][$id]);
 
         if ($is_vfolder) {
             $vfolders = $this->_getVFolderList();
             unset($vfolders[$id]);
             $this->_saveVFolderList($vfolders);
+
             if (!$no_delete) {
                 $imaptree = IMP_Imap_Tree::singleton();
                 $imaptree->delete($id);
@@ -219,23 +315,23 @@ class IMP_Search
     }
 
     /**
-     * Retrieves the previously stored search UI information.
+     * Retrieves the previously stored search criteria information.
      *
      * @param string $id  The search query id to use (by default, will use
      *                    the current ID set in the object).
      *
      * @return array  The array necessary to rebuild the search UI page.
      */
-    public function retrieveUIQuery($id = null)
+    public function getCriteria($id = null)
     {
         $id = $this->_strip($id);
-        if (isset($_SESSION['imp']['search'][$id]['uiinfo'])) {
-            return $_SESSION['imp']['search'][$id]['uiinfo'];
+        if (isset($_SESSION['imp']['search'][$id]['c'])) {
+            return $_SESSION['imp']['search'][$id]['c'];
         }
 
         if ($this->isVFolder($id)) {
             $vlist = $this->_getVFolderList();
-            return $vlist[$id]['uiinfo'];
+            return $vlist[$id]['c'];
         }
 
         return array();
@@ -252,8 +348,8 @@ class IMP_Search
     public function getLabel($id = null)
     {
         $id = $this->_strip($id);
-        return isset($_SESSION['imp']['search'][$id]['label'])
-            ? $_SESSION['imp']['search'][$id]['label']
+        return isset($_SESSION['imp']['search'][$id]['l'])
+            ? $_SESSION['imp']['search'][$id]['l']
             : '';
     }
 
@@ -264,22 +360,18 @@ class IMP_Search
      */
     protected function _getVFolderList()
     {
-        if (!is_null(self::$_vfolder)) {
-            return self::$_vfolder;
+        if (is_null(self::$_vfolder)) {
+            self::$_vfolder = $GLOBALS['prefs']->getValue('vfolder');
+            if (!empty(self::$_vfolder)) {
+                self::$_vfolder = @unserialize(self::$_vfolder);
+            }
+
+            if (empty(self::$_vfolder) || !is_array(self::$_vfolder)) {
+                self::$_vfolder = array();
+            }
         }
 
-        $vfolder = $GLOBALS['prefs']->getValue('vfolder');
-        if (!empty($vfolder)) {
-            $vfolder = @unserialize($vfolder);
-        }
-
-        if (empty($vfolder) || !is_array($vfolder)) {
-            $vfolder = array();
-        }
-
-        self::$_vfolder = $vfolder;
-
-        return $vfolder;
+        return self::$_vfolder;
     }
 
     /**
@@ -290,26 +382,27 @@ class IMP_Search
     protected function _saveVFolderList($vfolder)
     {
         $GLOBALS['prefs']->setValue('vfolder', serialize($vfolder));
-        self::$_vfolder = null;
+        self::$_vfolder = $vfolder;
     }
 
     /**
      * Add a virtual folder for the current user.
      *
-     * @param object $query  The search query object
-     *                       (Horde_Imap_Client_Search_Query).
-     * @param array $folders The list of folders to search.
-     * @param array $search  The search array used to build the search UI
-     *                       screen.
-     * @param string $label  The label to use for the search results.
-     * @param string $id     The virtual folder id.
+     * @param object $query   The search query object
+     *                        (Horde_Imap_Client_Search_Query).
+     * @param array $folders  The list of folders to search.
+     * @param array $search   The search array used to build the search UI
+     *                        screen.
+     * @param string $label   The label to use for the search results.
+     * @param string $id      The virtual folder id.
      *
      * @return string  The virtual folder ID.
      */
     public function addVFolder($query, $folders, $search, $label, $id = null)
     {
         $id = $this->createSearchQuery($query, $folders, $search, $label, $id);
-        $_SESSION['imp']['search'][$id]['vfolder'] = true;
+        $_SESSION['imp']['search'][$id]['v'] = true;
+
         if ($this->_saveVFolder) {
             $vfolders = $this->_getVFolderList();
             $vfolders[$id] = $_SESSION['imp']['search'][$id];
@@ -439,15 +532,18 @@ class IMP_Search
     public function isEditableVFolder($id = null)
     {
         $id = $this->_strip($id);
-        return ($this->isVFolder($id) && !$this->isVTrashFolder($id) && !$this->isVINBOXFolder($id));
+        return ($this->isVFolder($id) &&
+                !$this->isVTrashFolder($id) &&
+                !$this->isVINBOXFolder($id));
     }
 
     /**
      * Return a list of queryies.
      *
      * @param integer $mask   A bitmask of the query types to return.
-     *                        IMP_Search::LIST_SEARCH and/or
-     *                        IMP_Search::LIST_VFOLDER.
+     *                        IMP_Search::LIST_SEARCH,
+     *                        IMP_Search::LIST_VFOLDER, and/or
+     *                        IMP_Search::NO_BASIC_SEARCH.
      * @param boolean $label  If true, returns the label. Otherwise, returns
      *                        a textual representation.
      *
@@ -467,9 +563,11 @@ class IMP_Search
         }
 
         foreach ($_SESSION['imp']['search'] as $key => $val) {
-            if ((($mask & self::LIST_VFOLDER) && !empty($val['vfolder'])) ||
-                (($mask & self::LIST_SEARCH) && empty($val['vfolder']))) {
-                $vfolders[$key] = $label
+            if ((($mask & self::LIST_VFOLDER) && !empty($val['v'])) ||
+                (($mask & self::LIST_SEARCH) && empty($val['v'])) &&
+                (!($mask & self::NO_BASIC_SEARCH) ||
+                 ($key != self::BASIC_SEARCH))) {
+                $folders[$key] = $label
                     ? $this->getLabel($key)
                     : $this->searchQueryText($key);
             }
@@ -494,8 +592,8 @@ class IMP_Search
     public function getSearchFolders($id = null)
     {
         $id = $this->_strip($id);
-        return isset($_SESSION['imp']['search'][$id]['folders'])
-            ? $_SESSION['imp']['search'][$id]['folders']
+        return isset($_SESSION['imp']['search'][$id]['f'])
+            ? $_SESSION['imp']['search'][$id]['f']
             : array();
     }
 
@@ -514,43 +612,39 @@ class IMP_Search
         if (empty($_SESSION['imp']['search'][$id])) {
             return '';
         } elseif ($this->isVINBOXFolder($id) || $this->isVTrashFolder($id)) {
-            return $_SESSION['imp']['search'][$id]['label'];
+            return $_SESSION['imp']['search'][$id]['l'];
         }
 
-        $imp_ui_search = new IMP_UI_Search();
-
-        $flagfields = $imp_ui_search->flagFields();
-        $searchfields = $imp_ui_search->searchFields();
+        $flagfields = $this->flagFields();
+        $searchfields = $this->searchFields();
         $text = '';
-        $uiinfo = $this->retrieveUIQuery($id);
-
-        if (empty($uiinfo['field'])) {
-            return '';
-        }
+        $criteria = $this->getCriteria($id);
 
         $text = _("Search") . ' ';
         $text_array = array();
-        foreach ($uiinfo['field'] as $key2 => $val2) {
-            if (isset($flagfields[$val2])) {
-                $text_array[] = $flagfields[$val2]['label'];
+        foreach ($criteria as $rule) {
+            $field = $rule->t;
+
+            if (isset($flagfields[$field])) {
+                $text_array[] = sprintf(_("flagged \"%s\""), $flagfields[$field]);
             } else {
-                switch ($searchfields[$val2]['type']) {
-                case IMP_UI_Search::DATE:
-                    $text_array[] = sprintf("%s '%s'", $searchfields[$val2]['label'], strftime("%x", mktime(0, 0, 0, $uiinfo['date'][$key2]['month'], $uiinfo['date'][$key2]['day'], $uiinfo['date'][$key2]['year'])));
+                switch ($searchfields[$field]['type']) {
+                case 'date':
+                    $text_array[] = sprintf("%s '%s'", $searchfields[$field]['label'], strftime("%x", mktime(0, 0, 0, $rule->v->m + 1, $rule->v->d, $rule->v->y)));
                     break;
 
-                case IMP_UI_Search::SIZE:
-                    $text_array[] = $searchfields[$val2]['label'] . ' ' . ($uiinfo['text'][$key2] / 1024);
+                case 'size':
+                    $text_array[] = $searchfields[$field]['label'] . ' ' . ($rule->v / 1024);
                     break;
 
                 default:
-                    $text_array[] = sprintf("%s for '%s'", $searchfields[$val2]['label'], ((!empty($uiinfo['text_not'][$key2])) ? _("not") . ' ' : '') . $uiinfo['text'][$key2]);
+                    $text_array[] = sprintf("%s for '%s'", $searchfields[$field]['label'], ((!empty($rule->n)) ? _("not") . ' ' : '') . $rule->v);
                     break;
                 }
             }
         }
 
-        $text .= implode(' ' . (($uiinfo['match'] == 'and') ? _("and") : _("or")) . ' ', $text_array) . ' ' . _("in") . ' ' . implode(', ', $uiinfo['folders']);
+        return $text . implode(' ' . _("and") . ' ', $text_array) . ' ' . _("in") . ' ' . implode(', ', $this->getSearchFolders($id));
     }
 
     /**
@@ -561,10 +655,9 @@ class IMP_Search
      *
      * @return string  The URL to the search page.
      */
-    public function editURL($id = null)
+    public function editUrl($id = null)
     {
-        $id = $this->_strip($id);
-        return Horde_Util::addParameter(Horde::applicationUrl('search.php'), array('edit_query' => $id));
+        return Horde_Util::addParameter(Horde::applicationUrl('search.php'), array('edit_query' => $this->createSearchID($this->_strip($id))));
     }
 
     /**
@@ -575,14 +668,13 @@ class IMP_Search
      *
      * @return string  The URL to allow deletion of the search query.
      */
-    public function deleteURL($id = null)
+    public function deleteUrl($id = null)
     {
-        $id = $this->_strip($id);
-        return Horde_Util::addParameter(Horde::applicationUrl('folders.php'),
-                                  array('actionID' => 'delete_search_query',
-                                        'folders_token' => Horde::getRequestToken('imp.folders'),
-                                        'queryid' => $id,
-                                  ));
+        return Horde_Util::addParameter(Horde::applicationUrl('folders.php'), array(
+            'actionID' => 'delete_search_query',
+            'folders_token' => Horde::getRequestToken('imp.folders'),
+            'queryid' => $this->createSearchID($this->_strip($id))
+        ));
     }
 
     /**
@@ -608,7 +700,7 @@ class IMP_Search
     public function isVFolder($id = null)
     {
         $id = $this->_strip($id);
-        return !empty($_SESSION['imp']['search'][$id]['vfolder']);
+        return !empty($_SESSION['imp']['search'][$id]['v']);
     }
 
     /**
@@ -629,8 +721,8 @@ class IMP_Search
      *
      * @param string $id  The mailbox query ID.
      *
-     * @return string  The virtual folder ID, with any IMP specific identifying
-     *                 information stripped off.
+     * @return string  The virtual folder ID, with any IMP specific
+     *                 identifying information stripped off.
      */
     protected function _strip($id)
     {

@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Improved advanced search query interface (Request #6875).
 [mms] More intelligent ordering of autocomplete search results.
 [mms] Add a mini search query interface (Request #6875).
 [mms] Make DIMP quicksearch field selection persist across sessions.

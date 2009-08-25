@@ -13,111 +13,10 @@
  */
 class IMP_UI_Search
 {
-    /* Defines used to determine what kind of field query we are dealing
-     * with. */
-    const HEADER = 1;
-    const BODY = 2;
-    const DATE = 3;
-    const TEXT = 4;
-    const SIZE = 5;
-
-    /**
-     * Return the base search fields.
-     *
-     * @return array  The base search fields.
-     */
-    public function searchFields()
-    {
-        return array(
-            'from' => array(
-                'label' => _("From"),
-                'type' => self::HEADER,
-                'not' => true
-            ),
-            'to' => array(
-                'label' => _("To"),
-                'type' => self::HEADER,
-                'not' => true
-            ),
-            'cc' => array(
-                'label' => _("Cc"),
-                'type' => self::HEADER,
-                'not' => true
-            ),
-            'bcc' => array(
-                'label' => _("Bcc"),
-                'type' => self::HEADER,
-                'not' => true
-            ),
-            'subject' => array(
-                'label' => _("Subject"),
-                'type' => self::HEADER,
-                'not' => true
-            ),
-            'body' => array(
-               'label' => _("Body"),
-               'type' => self::BODY,
-                'not' => true
-            ),
-            'text' => array(
-               'label' => _("Entire Message"),
-               'type' => self::TEXT,
-                'not' => true
-            ),
-            'date_on' => array(
-                'label' => _("Date ="),
-                'type' => self::DATE,
-                'not' => true
-            ),
-            'date_until' => array(
-                'label' => _("Date <"),
-                'type' => self::DATE,
-                'not' => true
-            ),
-            'date_since' => array(
-                'label' => _("Date >="),
-                'type' => self::DATE,
-                'not' => true
-            ),
-            // Displayed in KB, but stored internally in bytes
-            'size_smaller' => array(
-                'label' => _("Size (KB) <"),
-                'type' => self::SIZE,
-                'not' => false
-            ),
-            // Displayed in KB, but stored internally in bytes
-            'size_larger' => array(
-                'label' => _("Size (KB) >"),
-                'type' => self::SIZE,
-                'not' => false
-            ),
-        );
-    }
-
-    /**
-     * Return the base flag fields.
-     *
-     * @return array  The base flag fields.
-     */
-    public function flagFields()
-    {
-        $imp_flags = IMP_Imap_Flags::singleton();
-        $flist = $imp_flags->getFlagList(null);
-
-        $flags = array();
-
-        for ($i = 0, $cnt = count($flist['set']); $i < $cnt; ++$i) {
-            $flags[$flist['set'][$i]['f']] = $flist['set'][$i]['l'];
-            $flags[$flist['unset'][$i]['f']] = sprintf(_("Not %s"), $flist['unset'][$i]['l']);
-        }
-
-        return $flags;
-    }
-
     /**
      * Creates a search query.
      *
-     * @param array $uiinfo  A UI info array (see imp/search.php).
+     * @param array $search  The list of search criteria.
      *
      * @return object  A search object (Horde_Imap_Client_Search_Query).
      */
@@ -126,47 +25,46 @@ class IMP_UI_Search
         $query = new Horde_Imap_Client_Search_Query();
 
         $search_array = array();
-        $search_fields = $this->searchFields();
-        $flag_fields = $this->flagFields();
+        $search_fields = $GLOBALS['imp_search']->searchFields();
+        $flag_fields = $GLOBALS['imp_search']->flagFields();
         $imp_flags = IMP_Imap_Flags::singleton();
 
-        foreach ($search['field'] as $key => $val) {
+        foreach ($search as $rule) {
             $ob = new Horde_Imap_Client_Search_Query();
 
-            if (isset($flag_fields[$val])) {
-                $val = $imp_flags->parseFormId($val);
+            if (isset($flag_fields[$rule->t])) {
+                $val = $imp_flags->parseFormId($rule->t);
                 $ob->flag($val['flag'], $val['set']);
                 $search_array[] = $ob;
             } else {
-                switch ($search_fields[$val]['type']) {
-                case self::HEADER:
-                    if (!empty($search['text'][$key])) {
-                        $ob->headerText($val, $search['text'][$key], $search['text_not'][$key]);
+                /* Ignore unknown types. */
+                switch ($search_fields[$rule->t]['type']) {
+                case 'header':
+                    if (!empty($rule->v)) {
+                        $ob->headerText($rule->t, $rule->v, !empty($rule->n));
                         $search_array[] = $ob;
                     }
                     break;
 
-                case self::BODY:
-                case self::TEXT:
-                    if (!empty($search['text'][$key])) {
-                        $ob->text($search['text'][$key], $search_fields[$val]['type'] == self::BODY, $search['text_not'][$key]);
+                case 'body':
+                case 'text':
+                    if (!empty($rule->v)) {
+                        $ob->text($rule->c, $search_fields[$rule->t]['type'] == 'body', !empty($rule->n));
                         $search_array[] = $ob;
                     }
                     break;
 
-                case self::DATE:
-                    if (!empty($search['date'][$key]['day']) &&
-                        !empty($search['date'][$key]['month']) &&
-                        !empty($search['date'][$key]['year'])) {
-                        $date = new Horde_Date($search['date']);
-                        $ob->dateSearch($date, ($val == 'date_on') ? Horde_Imap_Client_Search_Query::DATE_ON : (($val == 'date_until') ? Horde_Imap_Client_Search_Query::DATE_BEFORE : Horde_Imap_Client_Search_Query::DATE_SINCE));
+                case 'date':
+                    if (!empty($rule->v)) {
+                        $date = new Horde_Date(array('year' => $rule->v->y, 'month' => $rule->v->m + 1, 'mday' => $rule->v->d));
+                        $ob->dateSearch($date, ($rule->t == 'date_on') ? Horde_Imap_Client_Search_Query::DATE_ON : (($rule->t == 'date_until') ? Horde_Imap_Client_Search_Query::DATE_BEFORE : Horde_Imap_Client_Search_Query::DATE_SINCE));
                         $search_array[] = $ob;
                     }
                     break;
 
-                case self::SIZE:
-                    if (!empty($search['text'][$key])) {
-                        $ob->size(intval($search['text'][$key]), $val == 'size_larger');
+                case 'size':
+                    if (!empty($rule->v)) {
+                        $ob->size(intval($rule->v), $rule->t == 'size_larger');
                         $search_array[] = $ob;
                     }
                     break;
@@ -174,41 +72,43 @@ class IMP_UI_Search
             }
         }
 
-        /* Search match. */
-        if ($search['match'] == 'and') {
-            $query->andSearch($search_array);
-        } elseif ($search['match'] == 'or') {
-            $query->orSearch($search_array);
-        }
+        $query->andSearch($search_array);
 
         return $query;
     }
 
     /**
+     * Create a search query from input gathered from the basic search script
+     * (imp/search-basic.php).
      *
+     * @param string $mbox      The mailbox to search.
+     * @param string $criteria  The criteria to search.
+     * @param string $text      The criteria text.
+     * @param boolean $not      Should the criteria search be a not search?
+     * @param string $flag      A flag to search for.
+     *
+     * @return string  The search query ID.
      */
     public function processBasicSearch($mbox, $criteria, $text, $not, $flag)
     {
-        $search_query = array(
-            'field' => array(),
-            'match' => 'and',
-            'text' => array(),
-            'text_not' => array()
-        );
+        $c_list = array();
 
         if ($criteria) {
-            $search_query['field'][] = $criteria;
-            $search_query['text'][] = $text;
-            $search_query['text_not'][] = $not;
+            $tmp = new stdClass;
+            $tmp->t = $criteria;
+            $tmp->v = $text;
+            $tmp->n = $not;
+            $c_list[] = $tmp;
         }
 
         if ($flag) {
-            $search_query['field'][] = $flag;
-            $search_query['text'][] = $search_query['text_not'][] = null;
+            $tmp = new stdClass;
+            $tmp->t = $flag;
+            $c_list[] = $tmp;
         }
 
         /* Set the search in the IMP session. */
-        return $GLOBALS['imp_search']->createSearchQuery($this->createQuery($search_query), array($mbox), array(), _("Search Results"));
+        return $GLOBALS['imp_search']->createSearchQuery($this->createQuery($c_list), array($mbox), $c_list, _("Search Results"), IMP_Search::MBOX_PREFIX . IMP_Search::BASIC_SEARCH);
     }
 
 }

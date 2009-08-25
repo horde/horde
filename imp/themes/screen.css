@@ -161,8 +161,8 @@ div.msgActions, #fmanager div.folderActions {
 }
 
 /* Search page styling. */
-form#search div {
-    padding: 1px;
+.searchuiCalendar {
+    background-image: url("graphics/calendar.png");
 }
 
 /* Folder view. */
@@ -513,6 +513,14 @@ span.treeImg20 {
     background-image: url("graphics/tree/rev-plusbottom.png");
 }
 
+/* Expand/Collapse graphic. */
+span.arrowCollapsed {
+    background-image: url("graphics/arrow_collapsed.png");
+}
+span.arrowExpanded {
+    background-image: url("graphics/arrow_expanded.png");
+}
+
 /* Loading graphic */
 span.loadingImg {
     z-index: 1000;
@@ -575,7 +583,7 @@ td.addressTr span.loadingImg {
     white-space: nowrap;
 }
 
-.downloadAtc, .downloadZipAtc, .saveImgAtc, .closeImg, .stripAtc, .foldersImg {
+.downloadAtc, .downloadZipAtc, .saveImgAtc, .closeImg, .stripAtc, .foldersImg, .searchuiImg {
     display: -moz-inline-stack;
     display: inline-block;
     height: 16px;
@@ -593,7 +601,7 @@ td.addressTr span.loadingImg {
 .saveImgAtc {
     background-image: url("graphics/gallery.png");
 }
-.stripAtc {
+.stripAtc, .searchuiDelete {
     background-image: url("graphics/delete.png");
 }
 .closeImg {

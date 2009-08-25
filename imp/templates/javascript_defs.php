@@ -54,9 +54,6 @@ $code = array(
         'folders_rename2' => _("Please enter the new name:"),
         'folders_no_rename' => _("This folder may not be renamed:"),
 
-        /* Strings used in search.js */
-        'search_select' => _("Please select at least one folder to search."),
-
         /* Strings used in imp.js */
         'popup_block' => _("A popup window could not be opened. Perhaps you have set your browser to block popup windows?"),
 
