@@ -38,11 +38,6 @@ class Horde_Rdo_Query
     public $relationships = array();
 
     /**
-     * @var array
-     */
-    protected $_sortby = array();
-
-    /**
      * @var integer
      */
     public $limit;
@@ -51,6 +46,16 @@ class Horde_Rdo_Query
      * @var integer
      */
     public $limitOffset = null;
+
+    /**
+     * @var array
+     */
+    protected $_sortby = array();
+
+    /**
+     * @var integer
+     */
+    protected $_alias = 0;
 
     /**
      * Turn any of the acceptable query shorthands into a full
@@ -327,16 +332,18 @@ class Horde_Rdo_Query
     {
         foreach ($this->relationships as $relationship) {
             $relsql = array();
+            $table = $relationship['table'];
+            $tableAlias = $this->_alias($table);
             foreach ($relationship['query'] as $key => $value) {
                 if ($value instanceof Horde_Rdo_Query_Literal) {
-                    $relsql[] = $key . ' = ' . (string)$value;
+                    $relsql[] = $key . ' = ' . str_replace("{$table}.", "{$tableAlias}.", (string)$value);
                 } else {
                     $relsql[] = $key . ' = ?';
                     $bindParams[] = $value;
                 }
             }
 
-            $sql .= ' ' . $relationship['join_type'] . ' ' . $relationship['table'] . ' ON ' . implode(' AND ', $relsql);
+            $sql .= ' ' . $relationship['join_type'] . ' ' . $relationship['table'] . ' AS ' . $tableAlias . ' ON ' . implode(' AND ', $relsql);
         }
     }
 
@@ -413,6 +420,14 @@ class Horde_Rdo_Query
     protected function _prefix(&$fieldName, $key, $prefix)
     {
         $fieldName = $prefix . $fieldName;
+    }
+
+    /**
+     * Get a unique table alias
+     */
+    protected function _alias($tableName)
+    {
+        return 't' . $this->_alias;
     }
 
     /**
