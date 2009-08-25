@@ -490,10 +490,9 @@ class Horde_Mime
 
             $ret['val'] = trim(substr($data, 0, $pos));
             $data = trim(substr($data, ++$pos));
+            $params = $tmp = array();
 
             if (strlen($data) > 0) {
-                $params = $tmp = array();
-
                 /* This splits on a semi-colon, if there's no preceeding
                  * backslash. */
                 preg_match_all($splitRegex, $data, $matches);
