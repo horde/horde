@@ -48,13 +48,16 @@ class Item extends Horde_Rdo_Base {
 class ItemMapper extends Clotho_Mapper {
 
     protected $_relationships = array(
-        'resources' => array('type' => Horde_Rdo::MANY_TO_MANY,
-                             'mapper' => 'ResourceMapper',
-                             'through' => 'clotho_wbs_resources'),
         'parent' => array('type' => Horde_Rdo::ONE_TO_ONE,
                           'foreignKey' => 'item_parent',
                           'mapper' => 'ItemMapper'),
-        );
+    );
+
+    protected $_lazyRelationships = array(
+        'resources' => array('type' => Horde_Rdo::MANY_TO_MANY,
+                             'mapper' => 'ResourceMapper',
+                             'through' => 'clotho_wbs_resources'),
+    );
 
     protected $_table = 'clotho_wbs_items';
 
@@ -101,7 +104,7 @@ class Resource extends Horde_Rdo_Base {
  */
 class ResourceMapper extends Clotho_Mapper {
 
-    protected $_relationships = array(
+    protected $_lazyRelationships = array(
         'availabilities' => array('type' => Horde_Rdo::ONE_TO_MANY,
                                   'foreignKey' => 'resource_id',
                                   'mapper' => 'ResourceAvailabilityMapper'),
