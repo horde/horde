@@ -239,12 +239,9 @@ $mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end'
 /* Determine sorting preferences. */
 $sortpref = IMP::getSort($imp_mbox['mailbox']);
 
-/* If search results are empty, return to the search page if this is
- * not a virtual folder. */
-if ($search_mbox && !$pageOb['msgcount'] && !$vfolder) {
+/* If search results are empty, inform the user. */
+if ($search_mbox && !$pageOb['msgcount']) {
     $notification->push(_("No messages matched your search."), 'horde.warning');
-    header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('search.php', true), array('no_match' => 1, 'mailbox' => $imp_mbox['mailbox']), null, false));
-    exit;
 }
 
 /* Cache this value since we use it alot on this page. */

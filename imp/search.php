@@ -48,11 +48,9 @@ $imp_search_fields = $imp_ui_search->searchFields();
 $charset = Horde_Nls::getCharset();
 
 /* Get URL parameter data. */
+$retrieve_search = false;
 $search = array();
-if (Horde_Util::getFormData('no_match')) {
-    $search = $imp_search->retrieveUIQuery();
-    $retrieve_search = true;
-} elseif (($edit_query !== null) && $imp_search->isSearchMbox($edit_query)) {
+if (!is_null($edit_query) && $imp_search->isSearchMbox($edit_query)) {
     if ($imp_search->isVFolder($edit_query)) {
         if (!$imp_search->isEditableVFolder($edit_query)) {
             $notification->push(_("Special Virtual Folders cannot be edited."), 'horde.error');
@@ -63,9 +61,8 @@ if (Horde_Util::getFormData('no_match')) {
     }
     $search = $imp_search->retrieveUIQuery($edit_query);
     $retrieve_search = true;
-} else {
-    $retrieve_search = false;
 }
+
 if (empty($search)) {
     $search['field'] = Horde_Util::getFormData('field', array('from', 'to', 'subject', 'body'));
     if (!empty($search['field']) && !end($search['field'])) {
