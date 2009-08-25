@@ -368,7 +368,7 @@ class IMP_Imap_Flags
             $act2 = ($act1 == 'set') ? 'unset' : 'set';
 
             $ret[$act1][] = $tmp;
-            $tmp['f'] = '0' . $val['flag'];
+            $tmp['f'] = '0\\' . $val['flag'];
             $ret[$act2][] = $tmp;
         }
 

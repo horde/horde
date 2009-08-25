@@ -168,8 +168,8 @@ case 'flag_messages':
     $flag = Horde_Util::getPost('flag');
     if ($flag && !empty($indices)) {
         $set = true;
-        if ($flag[0] == '0') {
-            $flag = substr($flag, 1);
+        if (strpos($flag, '0\\') === 0) {
+            $flag = substr($flag, 2);
             $set = false;
         }
         $imp_message = IMP_Message::singleton();

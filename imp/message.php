@@ -144,8 +144,8 @@ case 'flag_message':
     $flag = Horde_Util::getFormData('flag');
     if ($flag && !empty($indices_array)) {
         $peek = $set = true;
-        if ($flag[0] == '0') {
-            $flag = substr($flag, 1);
+        if (strpos($flag, '0\\') === 0) {
+            $flag = substr($flag, 2);
             $set = false;
         }
         $imp_message->flag(array($flag), $indices_array, $set);
