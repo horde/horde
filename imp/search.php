@@ -30,12 +30,20 @@ if ($_SESSION['imp']['protocol'] == 'pop') {
     exit;
 }
 
+/* Load basic search if javascript is not enabled. */
+if (!$browser->hasFeature('javascript')) {
+    require_once IMP_BASE . '/search-basic.php';
+    exit;
+}
+
+$imp_ui_search = new IMP_UI_Search();
+
 $actionID = Horde_Util::getFormData('actionID');
 $edit_query = Horde_Util::getFormData('edit_query');
 $edit_query_vfolder = Horde_Util::getFormData('edit_query_vfolder');
 $search_mailbox = Horde_Util::getFormData('search_mailbox');
 
-$imp_search_fields = $imp_search->searchFields();
+$imp_search_fields = $imp_ui_search->searchFields();
 
 $charset = Horde_Nls::getCharset();
 
@@ -81,13 +89,13 @@ case 'do_search':
     for ($i = 0; $i <= $search['field_end']; $i++) {
         if (isset($search['field'][$i]) &&
             isset($imp_search_fields[$search['field'][$i]]) &&
-            ($imp_search_fields[$search['field'][$i]]['type'] == IMP_Search::SIZE)) {
+            ($imp_search_fields[$search['field'][$i]]['type'] == IMP_UI_Search::SIZE)) {
             $search['text'][$i] *= 1024;
         }
     }
 
     /* Create the search query. */
-    $query = $imp_search->createQuery($search);
+    $query = $imp_ui_search->createQuery($search);
 
     /* Save the search as a virtual folder if requested. */
     if (!empty($search['save_vfolder'])) {
@@ -193,7 +201,7 @@ foreach ($imp_search_fields as $key => $val) {
         'sel' => null
     );
 }
-foreach ($imp_search->flagFields() as $key => $val) {
+foreach ($imp_ui_search->flagFields() as $key => $val) {
     $f_fields[$key] = array(
         'val' => $key,
         'label' => $val['label'],
@@ -220,18 +228,18 @@ for ($i = 0; $i <= $search['field_end']; $i++) {
             $fields[$i]['f_fields'][$curr]['sel'] = true;
         } else {
             $fields[$i]['s_fields'][$curr]['sel'] = true;
-            if (in_array($imp_search_fields[$curr]['type'], array(IMP_Search::HEADER, IMP_Search::BODY, IMP_Search::TEXT, IMP_Search::SIZE))) {
+            if (in_array($imp_search_fields[$curr]['type'], array(IMP_UI_Search::HEADER, IMP_UI_Search::BODY, IMP_UI_Search::TEXT, IMP_UI_Search::SIZE))) {
                 $fields[$i]['search_text'] = true;
                 $fields[$i]['search_text_val'] = (!empty($search['text'][$i])) ? @htmlspecialchars($search['text'][$i], ENT_COMPAT, $charset) : null;
                 if ($retrieve_search &&
-                    ($imp_search_fields[$curr]['type'] == IMP_Search::SIZE)) {
+                    ($imp_search_fields[$curr]['type'] == IMP_UI_Search::SIZE)) {
                     $fields[$i]['search_text_val'] /= 1024;
                 }
                 if ($imp_search_fields[$curr]['not']) {
                     $fields[$i]['show_not'] = true;
                     $fields[$i]['search_text_not'] = (!empty($search['text_not'][$i]));
                 }
-            } elseif ($imp_search_fields[$curr]['type'] == IMP_Search::DATE) {
+            } elseif ($imp_search_fields[$curr]['type'] == IMP_UI_Search::DATE) {
                 if (!isset($curr_date)) {
                     $curr_date = getdate();
                 }
@@ -293,7 +301,7 @@ $t->set('delete_img', $registry->getImageDir('horde') . '/delete.png');
 $t->set('remove', _("Remove Field From Search"));
 
 if ($subscribe) {
-    $t->set('inverse_subscribe', ($shown == IMP_Search::SHOW_UNSUBSCRIBED) ? IMP_Search::SHOW_SUBSCRIBED_ONLY : IMP_Search::SHOW_UNSUBSCRIBED);
+    $t->set('inverse_subscribe', !$shown);
 }
 
 $t->set('mbox', htmlspecialchars($search['mbox']));
