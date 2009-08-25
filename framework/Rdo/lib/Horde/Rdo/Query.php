@@ -55,7 +55,12 @@ class Horde_Rdo_Query
     /**
      * @var integer
      */
-    protected $_alias = 0;
+    protected $_aliasCount = 0;
+
+    /**
+     * @var array
+     */
+    protected $_aliases = array();
 
     /**
      * Turn any of the acceptable query shorthands into a full
@@ -130,7 +135,8 @@ class Horde_Rdo_Query
                 }
 
                 // Add the fields for this relationship to the query.
-                $this->addFields($m->fields, $m->table . '.@');
+                $m->tableAlias = $this->_alias($m->table);
+                $this->addFields($m->fields, $m->tableAlias . '.@');
 
                 switch ($rel['type']) {
                 case Horde_Rdo::ONE_TO_ONE:
@@ -213,6 +219,13 @@ class Horde_Rdo_Query
         }
         if (!isset($args['table'])) {
             $args['table'] = $args['mapper']->table;
+        }
+        if (!isset($args['tableAlias'])) {
+            if (isset($args['mapper']->tableAlias)) {
+                $args['tableAlias'] = $args['mapper']->tableAlias;
+            } else {
+                $args['tableAlias'] = $this->_alias($args['table']);
+            }
         }
         if (!isset($args['type'])) {
             $args['type'] = Horde_Rdo::MANY_TO_MANY;
@@ -316,7 +329,11 @@ class Horde_Rdo_Query
             if (count($parts) == 1) {
                 $fields[] = $field;
             } else {
-                $fields[] = str_replace('.@', '.', $field) . ' AS ' . $this->mapper->adapter->quoteColumnName($parts[0] . '@' . $parts[1]);
+                list($tableName, $columnName) = $parts;
+                if (isset($this->_aliases[$tableName])) {
+                    $tableName = $this->_aliases[$tableName];
+                }
+                $fields[] = str_replace('.@', '.', $field) . ' AS ' . $this->mapper->adapter->quoteColumnName($tableName . '@' . $columnName);
             }
         }
 
@@ -337,7 +354,7 @@ class Horde_Rdo_Query
         foreach ($this->relationships as $relationship) {
             $relsql = array();
             $table = $relationship['table'];
-            $tableAlias = $this->_alias($table);
+            $tableAlias = $relationship['tableAlias'];
             foreach ($relationship['query'] as $key => $value) {
                 if ($value instanceof Horde_Rdo_Query_Literal) {
                     $relsql[] = $key . ' = ' . str_replace("{$table}.", "{$tableAlias}.", (string)$value);
@@ -431,7 +448,9 @@ class Horde_Rdo_Query
      */
     protected function _alias($tableName)
     {
-        return 't' . $this->_alias;
+        $alias = 't' . ++$this->_aliasCount;
+        $this->_aliases[$alias] = $tableName;
+        return $alias;
     }
 
     /**
