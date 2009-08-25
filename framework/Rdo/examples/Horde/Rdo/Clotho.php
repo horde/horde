@@ -6,6 +6,11 @@
 
 require_once 'Horde/Autoloader.php';
 
+@include './conf.php';
+if (empty($conf['sql'])) {
+    die("No sql configuration found\n");
+}
+
 /* additional things to handle:
 -- clotho_resource_availability has a one to many from resources to availabilities
 -- clotho_resources.resource_base_calendar is a foreign key to clotho_calendars.calendar_id
@@ -26,7 +31,7 @@ class Clotho_Mapper extends Horde_Rdo_Mapper {
 
     public function getAdapter()
     {
-        return Horde_Rdo_Adapter::factory('pdo', $GLOBALS['conf']['sql']);
+        return Horde_Db_Adapter::factory($GLOBALS['conf']['sql']);
     }
 
 }
