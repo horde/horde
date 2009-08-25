@@ -11,7 +11,7 @@ require './Clotho.php';
 // one-to-one
 $im = new ItemMapper();
 
-$i = $im->find(3);
+$i = $im->findOne(3);
 echo "({$i->item_id}) {$i->item_name} has parent:\n";
 echo "  ({$i->parent->item_id}) {$i->parent->item_name}\n";
 
@@ -19,8 +19,8 @@ echo "  ({$i->parent->item_id}) {$i->parent->item_name}\n";
 // one-to-many
 $rm = new ResourceMapper();
 
-$r = $rm->find(1);
-echo "Resource ({$r->resource_id}) {$r->resource_name} has " . $r->availabilities->count() . " availabilities:\n";
+$r = $rm->findOne(1);
+echo "Resource ({$r->resource_id}) {$r->resource_name} has " . count($r->availabilities) . " availabilities:\n";
 foreach ($r->availabilities as $ra) {
     echo '  (' . $ra->availability_id . ') ' . $ra->resource->resource_name . " on " . strftime('%x %X', $ra->availability_date) . " (" . $ra->availability_hours . " hours)\n";
 }
@@ -29,7 +29,7 @@ foreach ($r->availabilities as $ra) {
 // many-to-one
 $ram = new ResourceAvailabilityMapper();
 
-$ra = $ram->find(1);
+$ra = $ram->findOne(1);
 echo "Resource Availability ({$ra->availability_id}) " . strftime('%x %X', $ra->availability_date) . " has resource:\n";
 echo "  ({$ra->resource->resource_id}) {$ra->resource->resource_name}\n";
 
@@ -37,7 +37,7 @@ echo "  ({$ra->resource->resource_id}) {$ra->resource->resource_name}\n";
 // many-to-many
 echo "Listing all Items and their Resources:\n\n";
 $im = new ItemMapper();
-foreach ($im->find(Horde_Rdo::FIND_ALL) as $i) {
+foreach ($im->find() as $i) {
     if (count($i->resources)) {
         echo " (" . $i->item_id . ") " . $i->item_name . " has resources:\n";
         foreach ($i->resources as $r) {
@@ -48,7 +48,7 @@ foreach ($im->find(Horde_Rdo::FIND_ALL) as $i) {
 
 echo "\n\nListing all Resources and their Items:\n\n";
 $rm = new ResourceMapper();
-foreach ($rm->find(Horde_Rdo::FIND_ALL) as $r) {
+foreach ($rm->find() as $r) {
     if (count($r->items)) {
         echo " (" . $r->resource_id . ") " . $r->resource_name . " has items:\n";
         foreach ($r->items as $i) {
