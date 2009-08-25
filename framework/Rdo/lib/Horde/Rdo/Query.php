@@ -144,6 +144,10 @@ class Horde_Rdo_Query
                                                                 'type' => $rel['type'],
                                                                 'query' => $query));
                     break;
+
+                case Horde_Rdo::ONE_TO_MANY:
+                case Horde_Rdo::MANY_TO_MANY:
+                    //@TODO
                 }
             }
         }
