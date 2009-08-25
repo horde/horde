@@ -66,7 +66,7 @@ $t->set('search_title', sprintf(_("Search %s"), htmlspecialchars(IMP::displayFol
 $t->set('s_fields', $s_fields);
 $t->set('f_fields', $f_fields);
 
-if ($browser->hasFeature('javascript')) {
+if ($browser->hasFeature('javascript') && !$t->get('dimpview')) {
     $t->set('advsearch', Horde::link(Horde_Util::addParameter(Horde::applicationUrl('search.php'), array('search_mailbox' => $search_mailbox))));
 }
 
