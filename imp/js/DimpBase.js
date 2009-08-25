@@ -225,7 +225,7 @@ var DimpBase = {
                     $('dimpmain_folder').show();
                 }
                 // This catches the refresh case - no need to re-add to history
-                if (!Object.isUndefined(this.folder)) {
+                if (!Object.isUndefined(this.folder) && !this.sfolder) {
                     this._addHistory(loc);
                 }
             }
@@ -1342,6 +1342,7 @@ var DimpBase = {
                 this.loadMailbox(this.sfolder);
             }
             this.viewport.deleteView(f);
+            this.sfolder = null;
         }
     },
 
