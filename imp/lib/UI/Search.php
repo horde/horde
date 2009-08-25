@@ -128,17 +128,14 @@ class IMP_UI_Search
         $search_array = array();
         $search_fields = $this->searchFields();
         $flag_fields = $this->flagFields();
+        $imp_flags = IMP_Imap_Flags::singleton();
 
         foreach ($search['field'] as $key => $val) {
             $ob = new Horde_Imap_Client_Search_Query();
 
             if (isset($flag_fields[$val])) {
-                if (strpos($val, '0\\') === 0) {
-                    $val = substr($val, 2);
-                    $ob->flag($val, false);
-                } else {
-                    $ob->flag($val, true);
-                }
+                $val = $imp_flags->parseFormId($val);
+                $ob->flag($val['flag'], $val['set']);
                 $search_array[] = $ob;
             } else {
                 switch ($search_fields[$val]['type']) {

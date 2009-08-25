@@ -76,6 +76,7 @@ if (!is_array(($indices = Horde_Util::getFormData('indices')))) {
 Horde_Nls::setTimeZone();
 
 $do_filter = false;
+$imp_flags = IMP_Imap_Flags::singleton();
 $open_compose_window = null;
 
 /* Run through the action handlers */
@@ -167,13 +168,9 @@ case 'copy_messages':
 case 'flag_messages':
     $flag = Horde_Util::getPost('flag');
     if ($flag && !empty($indices)) {
-        $set = true;
-        if (strpos($flag, '0\\') === 0) {
-            $flag = substr($flag, 2);
-            $set = false;
-        }
+        $flag = $imp_imap_flags->parseFormId($flag);
         $imp_message = IMP_Message::singleton();
-        $imp_message->flag(array($flag), $indices, $set);
+        $imp_message->flag(array($flag['flag']), $indices, $flag['set']);
     }
     break;
 
@@ -479,8 +476,6 @@ if (empty($pageOb['end'])) {
     require $registry->get('templates', 'horde') . '/common-footer.inc';
     exit;
 }
-
-$imp_flags = IMP_Imap_Flags::singleton();
 
 /* Display the navbar and actions if there is at least 1 message in mailbox. */
 if ($pageOb['msgcount']) {

@@ -388,4 +388,23 @@ class IMP_Imap_Flags
         return '<div class="msgflags ' . $c . '" title="' . htmlspecialchars($l) . '"></div>';
     }
 
+    /**
+     * Process a flag ID formatted for use in form data.
+     *
+     * @param string $id  The ID from form data.
+     *
+     * @return array  Two element array:
+     * <pre>
+     * 'flag' - (string) The flag name.
+     * 'set' - (boolean) Whether the flag should be set or not.
+     * </pre>
+     */
+    public function parseFormId($id)
+    {
+        if (strpos($id, '0\\') === 0) {
+            return array('flag' => substr($id, 2), 'set' => false);
+        }
+        return array('flag' => $id, 'set' => true);
+    }
+
 }

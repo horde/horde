@@ -77,6 +77,8 @@ $index = $index_array['index'];
 $mailbox_name = $index_array['mailbox'];
 $indices_array = array($mailbox_name => array($index));
 
+$imp_flags = IMP_Imap_Flags::singleton();
+
 switch ($actionID) {
 case 'blacklist':
 case 'whitelist':
@@ -143,12 +145,9 @@ case 'notspam_report':
 case 'flag_message':
     $flag = Horde_Util::getFormData('flag');
     if ($flag && !empty($indices_array)) {
-        $peek = $set = true;
-        if (strpos($flag, '0\\') === 0) {
-            $flag = substr($flag, 2);
-            $set = false;
-        }
-        $imp_message->flag(array($flag), $indices_array, $set);
+        $peek = true;
+        $flag = $imp_flags->parseFormId($flag);
+        $imp_message->flag(array($flag['flag']), $indices_array, $flag['set']);
         if ($prefs->getValue('mailbox_return')) {
             _returnToMailbox($imp_mailbox->getMessageIndex());
             require IMP_BASE . '/mailbox.php';
@@ -378,8 +377,6 @@ $mailbox_url = Horde_Util::addParameter(IMP::generateIMPUrl('mailbox.php', $imp_
 
 /* Generate the view link. */
 $view_link = IMP::generateIMPUrl('view.php', $imp_mbox['mailbox'], $index, $mailbox_name);
-
-$imp_flags = IMP_Imap_Flags::singleton();
 
 /* Everything below here is related to preparing the output. */
 
