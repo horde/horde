@@ -130,11 +130,10 @@ abstract class Horde_Rdo_Base implements IteratorAggregate {
             $key = $mapper->primaryKey;
             $query = new Horde_Rdo_Query();
             $on = isset($rel['on']) ? $rel['on'] : $m->primaryKey;
-            var_dump($key, array($on => new Horde_Rdo_Query_Literal($on), $key => $this->$key));
             $query->addRelationship($field, array('mapper' => $mapper,
                                                   'table' => $rel['through'],
                                                   'type' => Horde_Rdo::MANY_TO_MANY,
-                                                  'query' => array($on => new Horde_Rdo_Query_Literal($on), $key => $this->$key)));
+                                                  'query' => array("$m->table.$on" => new Horde_Rdo_Query_Literal($rel['through'] . '.' . $on), $key => $this->$key)));
             $this->_fields[$field] = $m->find($query);
             break;
         }
