@@ -70,7 +70,7 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Driver
         }
 
         $text = '<strong>' . htmlspecialchars(sprintf(_("Contents of \"%s\""), $name)) . ":</strong>\n" .
-            '<table><tr><td align="left"><tt><span class="fixed">' .
+            '<table><tr><td align="left"><span class="fixed">' .
             Horde_Text_Filter::filter(_("Archive Name") . ':  ' . $name, 'space2html', array('charset' => $charset, 'encode' => true, 'encode_all' => true)) . "\n" .
             Horde_Text_Filter::filter(_("Archive File Size") . ': ' . strlen($contents) . ' bytes', 'space2html', array('charset' => $charset, 'encode' => true, 'encode_all' => true)) . "\n" .
             Horde_Text_Filter::filter(sprintf(ngettext("File Count: %d file", "File Count: %d files", $fileCount), $fileCount), 'space2html', array('charset' => $charset, 'encode' => true, 'encode_all' => true)) .
@@ -98,7 +98,7 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Driver
 
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => nl2br($text . str_repeat('-', 106) . "\n</span></tt></td></tr></table>"),
+                'data' => nl2br($text . str_repeat('-', 106) . "\n</span></td></tr></table>"),
                 'status' => array(),
                 'type' => 'text/html; charset=' . $charset
             )
