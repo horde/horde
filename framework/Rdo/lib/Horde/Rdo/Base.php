@@ -52,7 +52,7 @@ abstract class Horde_Rdo_Base implements IteratorAggregate {
     public function __clone()
     {
         // @TODO Support composite primary keys
-        unset($this->{$this->getMapper()->model->key});
+        unset($this->{$this->getMapper()->primaryKey});
 
         // @TODO What about associated objects?
     }
@@ -89,7 +89,7 @@ abstract class Horde_Rdo_Base implements IteratorAggregate {
             // @TODO Support composite primary keys
             $query = new Horde_Rdo_Query($mapper);
             $query->setFields($field)
-                  ->addTest($mapper->model->key, '=', $this->{$mapper->model->key});
+                  ->addTest($mapper->primaryKey, '=', $this->{$mapper->primaryKey});
             $this->_fields[$field] = $mapper->adapter->queryOne($query);
             return $this->_fields[$field];
         } elseif (isset($mapper->lazyRelationships[$field])) {
@@ -127,9 +127,10 @@ abstract class Horde_Rdo_Base implements IteratorAggregate {
             break;
 
         case Horde_Rdo::MANY_TO_MANY:
-            $key = $mapper->model->key;
+            $key = $mapper->primaryKey;
             $query = new Horde_Rdo_Query();
-            $on = isset($rel['on']) ? $rel['on'] : $m->model->key;
+            $on = isset($rel['on']) ? $rel['on'] : $m->primaryKey;
+            var_dump($key, array($on => new Horde_Rdo_Query_Literal($on), $key => $this->$key));
             $query->addRelationship($field, array('mapper' => $mapper,
                                                   'table' => $rel['through'],
                                                   'type' => Horde_Rdo::MANY_TO_MANY,
