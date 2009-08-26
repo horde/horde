@@ -469,9 +469,9 @@ class Horde_Rdo_Query
         foreach (array_keys($query) as $field) {
             $value = $query[$field];
             if (preg_match('/^@(.*)@$/', $value, $matches)) {
-                $q[$m1->table . '.' . $field] = new Horde_Rdo_Query_Literal($m2->table . '.' . $matches[1]);
+                $q[$m1->tableAlias . '.' . $field] = new Horde_Rdo_Query_Literal($m2->table . '.' . $matches[1]);
             } else {
-                $q[$m1->table . '.' . $field] = $value;
+                $q[$m1->tableAlias . '.' . $field] = $value;
             }
         }
 
