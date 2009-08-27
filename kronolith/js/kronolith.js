@@ -659,7 +659,8 @@ KronolithCore = {
             if (day.getDay() == Kronolith.conf.week_start) {
                 tr = new Element('tr');
                 tbody.insert(tr);
-                td = new Element('td', { 'class': 'kronolithMinicalWeek', 'weekdate': day.dateString() }).innerHTML = day.getWeek();
+                td = new Element('td', { 'class': 'kronolithMinicalWeek', 'weekdate': day.dateString() });
+                td.innerHTML = day.getWeek();
                 tr.insert(td);
                 weekStart = day.clone();
                 weekEnd = day.clone();
@@ -1891,6 +1892,7 @@ KronolithCore = {
             // Caution, this only works if the element has definitely only a
             // single CSS class.
             switch (elt.className) {
+            case 'kronolithDateChoice':
             case 'kronolithGotoToday':
                 this.go(this.view + ':' + new Date().dateString());
                 e.stop();
