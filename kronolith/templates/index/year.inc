@@ -26,7 +26,7 @@
 
 <table id="kronolithYearTemplate" style="display:none" cellspacing="1" cellpadding="0" border="0">
   <caption>
-    <span class="kronolithMinicalDate"></span>
+    <span class="kronolithMinicalDate">&nbsp;</span>
   </caption>
   <thead><tr>
     <th class="kronolithMinicalEmpty">&nbsp;</th>
@@ -34,8 +34,7 @@
     <th title="<?php echo Horde_Nls::getLangInfo(constant('DAY_' . ($i % 7 + 1))) ?>"><?php echo substr(Horde_Nls::getLangInfo(constant('DAY_' . ($i % 7 + 1))), 0, 1) ?></th>
     <?php endfor; ?>
   </tr></thead>
-  <tbody>
-  </tbody>
+  <tbody><tr><td></td></tr></tbody>
 </table>
 
 </div>

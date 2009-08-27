@@ -10,7 +10,7 @@
 </div>
 <table class="kronolithView kronolithViewDay">
   <caption>
-    <span></span>
+    <span>&nbsp;</span>
     <span class="kronolithNavigation">
       <a class="kronolithGotoToday" title="<?php echo _("Today") ?>"><?php echo _("Today") ?></a>
       <a class="kronolithPrev" title="<?php echo _("Previous") ?>">&lt;</a>
@@ -19,13 +19,13 @@
   </caption>
   <thead id="kronolithViewWeekHead" class="kronolithViewHead"><tr>
     <td class="kronolithFirstCol"><div id="kronolithLoadingweek" class="kronolithLoading"></div></td>
-    <td class="kronolithCol kronolithWeekDay"><span></span></td>
-    <td class="kronolithCol kronolithWeekDay"><span></span></td>
-    <td class="kronolithCol kronolithWeekDay"><span></span></td>
-    <td class="kronolithCol kronolithWeekDay"><span></span></td>
-    <td class="kronolithCol kronolithWeekDay"><span></span></td>
-    <td class="kronolithCol kronolithWeekDay"><span></span></td>
-    <td class="kronolithCol kronolithWeekDay"><span></span></td>
+    <td class="kronolithCol kronolithWeekDay"><span>&nbsp;</span></td>
+    <td class="kronolithCol kronolithWeekDay"><span>&nbsp;</span></td>
+    <td class="kronolithCol kronolithWeekDay"><span>&nbsp;</span></td>
+    <td class="kronolithCol kronolithWeekDay"><span>&nbsp;</span></td>
+    <td class="kronolithCol kronolithWeekDay"><span>&nbsp;</span></td>
+    <td class="kronolithCol kronolithWeekDay"><span>&nbsp;</span></td>
+    <td class="kronolithCol kronolithWeekDay"><span>&nbsp;</span></td>
   </tr></thead>
   <tbody id="kronolithViewWeekBody" class="kronolithViewBody">
     <tr class="kronolithRow kronolithAllDay">

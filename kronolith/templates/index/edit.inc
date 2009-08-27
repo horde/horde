@@ -1,5 +1,5 @@
 <div id="kronolithEventDialog" style="display:none">
-<form id="kronolithEventForm">
+<form id="kronolithEventForm" action="">
 <input id="kronolithEventCalendar" type="hidden" name="cal" />
 <input id="kronolithEventId" type="hidden" name="id" />
 

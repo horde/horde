@@ -84,8 +84,7 @@
       </tr>
     </thead>
 
-    <tbody>
-    </tbody>
+    <tbody><tr><td></td></tr></tbody>
     </table>
   </div>
 
@@ -94,7 +93,7 @@
     <span><?php echo _("Search") ?></span>
   </h3>
 
-  <form id="kronolithSearchForm">
+  <form id="kronolithSearchForm" action="">
     <input type="text" id="kronolithSearchTerm" class="kronolithLongField" /><br />
     <select id="kronolithSearchContext">
       <option value="Events"><?php echo _("Events") ?></option>
