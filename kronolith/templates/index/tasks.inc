@@ -1,7 +1,7 @@
 <div id="kronolithViewTasks" class="kronolithView kronolithViewTasks" style="display:none">
 <table class="kronolithView kronolithViewTasks">
   <caption>
-    <div id="kronolithLoadingtasks" class="kronolithLoading"></div>
+    <span id="kronolithLoadingtasks" class="kronolithLoading"></span>
     <span><?php echo _("Tasks") ?></span>
   </caption>
   <tbody id="kronolithViewTasksBody" class="kronolithViewBody">

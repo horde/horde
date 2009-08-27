@@ -397,9 +397,9 @@ KronolithCore = {
             break;
 
         case 'year':
-            var viewBody = $('kronolithViewYear'), month;
+            var month;
 
-            viewBody.down('caption span').innerHTML = this.setTitle(date.toString('yyyy'));
+            $('kronolithYearDate').innerHTML = this.setTitle(date.toString('yyyy'));
 
             // Build new calendar view.
             for (month = 0; month < 12; month++) {
@@ -415,7 +415,7 @@ KronolithCore = {
             if (view == 'agenda') {
                 var dates = this.viewDates(date, view),
                     day = dates[0].clone();
-                $('kronolithViewAgenda').down('caption span').innerHTML = this.setTitle(Kronolith.text.agenda + ' ' + dates[0].toString('d') + ' - ' + dates[1].toString('d'));
+                $('kronolithAgendaDate').innerHTML = this.setTitle(Kronolith.text.agenda + ' ' + dates[0].toString('d') + ' - ' + dates[1].toString('d'));
             } else {
                 $('kronolithViewAgenda').down('caption span').update(this.setTitle(Kronolith.text.searching.interpolate({ 'term': data })));
             }

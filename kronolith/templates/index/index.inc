@@ -4,8 +4,8 @@
 
   <!-- ini user zone -->
   <div id="kronolithUser">
-   <?php echo $identity->getName(); if ($logout_link) echo ' <span class="kronolithSeparator">&middot;</span> ' . $logout_link ?><br />
-   <a href="#"><?php echo _("Options") ?></a><?php if ($help_link) echo ' <span class="kronolithSeparator">&middot;</span> ' . $help_link ?><br />
+   <a href="#"><?php echo _("Options") ?></a><?php if ($help_link) echo ' <span class="kronolithSeparator">&middot;</span> ' . $help_link; if ($logout_link) echo ' <span class="kronolithSeparator">&middot;</span> ' . $logout_link ?><br />
+   <span class="kronolithUserName"><?php echo $identity->getName(); ?></span><br />
   </div>
   <!-- end user zone -->
 </div>
@@ -13,17 +13,9 @@
 
 <!-- ini bar -->
 <div id="kronolithBar">
-  <form>
-    <div class="kronolithDateChoice">
-      <div id="kronolithDateChoiceDay"><?php echo $today->format('l, j') ?></div>
+    <div class="kronolithDateChoice" title="<?php echo _("Today") ?>">
+      <div><?php echo $today->format('l, j F Y') ?></div>
     </div>
-    <div class="kronolithDateChoice">
-      <div id="kronolithDateChoiceMonth"><?php echo $today->format('F') ?></div>
-    </div>
-    <div class="kronolithDateChoice">
-      <div id="kronolithDateChoiceYear"><?php echo $today->format('Y') ?></div>
-    </div>
-  </form>
 
   <div id="kronolithNav">
     <a id="kronolithNavDay"><?php echo _("Day") ?></a>
@@ -98,7 +90,7 @@
   </div>
 
   <h3 class="search">
-    <a href="#" class="kronolithAdd"><?php echo _("Advanced") ?></a>
+    <a href="#" title="<?php echo _("Advanced") ?>" class="kronolithAdd">+</a>
     <span><?php echo _("Search") ?></span>
   </h3>
 

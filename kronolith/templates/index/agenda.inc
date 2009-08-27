@@ -1,8 +1,8 @@
 <div id="kronolithViewAgenda" class="kronolithView" style="display:none">
 <table class="kronolithView">
   <caption>
-    <div id="kronolithLoadingagenda" class="kronolithLoading"></div>
-    <span></span>
+    <span id="kronolithLoadingagenda" class="kronolithLoading"></span>
+    <span id="kronolithAgendaDate"></span>
     <span class="kronolithNavigation">
       <a class="kronolithGotoToday"><?php echo _("Today") ?></a>
       <a title="<?php echo _("Previous") ?>" class="kronolithPrev">&lt;</a>

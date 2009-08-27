@@ -10,6 +10,12 @@
       <a class="kronolithNext" title="<?php echo _("Next") ?>">&gt;</a>
     </span>
   </caption>
+  <thead class="kronolithViewHead">
+    <tr>
+      <td class="kronolithFirstCol">&nbsp;</td>
+      <td class="kronolithCol"><span><?php echo _("Events for this day") ?></span></td>
+    </tr>
+  </thead>
   <tbody id="kronolithViewDayBody" class="kronolithViewBody">
     <tr class="kronolithRow kronolithAllDay">
       <td class="kronolithFirstCol"><?php echo _("All day") ?></td>
