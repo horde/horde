@@ -1609,7 +1609,7 @@ KronolithCore = {
             return;
         }
         this.ecache.get(calendar[0]).get(calendar[1]).each(function(day) {
-            delete day.value[event];
+            day.value.unset(event);
         });
     },
 
