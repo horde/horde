@@ -379,7 +379,7 @@ class Horde_Rdo_Query
                 if (!isset($this->relationships[$rel])) {
                     continue;
                 }
-                $clause = $this->relationships[$rel]['table'] . '.' . $field . ' ' . $test['test'];
+                $clause = $this->relationships[$rel]['tableAlias'] . '.' . $field . ' ' . $test['test'];
             } else {
                 $clause = $this->mapper->table . '.' . $this->mapper->adapter->quoteColumnName($test['field']) . ' ' . $test['test'];
             }
@@ -414,7 +414,7 @@ class Horde_Rdo_Query
                     if (!isset($this->relationships[$rel])) {
                         continue;
                     }
-                    $sql .= ' ' . $this->relationships[$rel]['table'] . '.' . $field . ',';
+                    $sql .= ' ' . $this->relationships[$rel]['tableAlias'] . '.' . $field . ',';
                 } else {
                     $sql .= " $sort,";
                 }
