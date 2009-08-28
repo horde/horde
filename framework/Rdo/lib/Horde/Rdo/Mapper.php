@@ -356,33 +356,33 @@ abstract class Horde_Rdo_Mapper implements Countable
 
         $id = $this->adapter->insert($sql, $bindParams);
 
-        return $this->map(array_merge(array($this->primaryKey => $id),
-                                      $fields));
+        return $this->map(array_merge($fields, array($this->primaryKey => $id)));
     }
 
     /**
-     * Updates a record in the backend. $object can be either a
-     * primary key or an Rdo object. If $object is an Rdo instance
-     * then $fields will be ignored as values will be pulled from the
-     * object.
+     * Updates a record in the backend.
      *
-     * @param string|Rdo $object The Rdo instance or unique id to update.
-     * @param array $fields If passing a unique id, the array of field properties
-     *                      to set for $object.
+     * $object can be either a primary key or an Rdo object. If $object is an
+     * Rdo instance then $fields will be ignored as values will be pulled from
+     * the object.
      *
-     * @return integer Number of objects updated.
+     * @param string|Rdo $object  The Rdo instance or unique id to update.
+     * @param array $fields       If passing a unique id, the array of field
+     *                            properties to set for $object.
+     *
+     * @return boolean|integer  Primary key if the object was created, whether
+     *                          the updated succeeded otherwise.
      */
     public function update($object, $fields = null)
     {
         if ($object instanceof Horde_Rdo_Base) {
-            $key = $this->primaryKey;
-            $id = $object->$key;
+            $id = $object->{$this->primaryKey};
             $fields = iterator_to_array($object);
 
             if (!$id) {
                 // Object doesn't exist yet; create it instead.
                 $object = $this->create($fields);
-                return 1;
+                return $object->{$this->primaryKey};
             }
         } else {
             $id = $object;
@@ -410,7 +410,7 @@ abstract class Horde_Rdo_Mapper implements Countable
         $sql = substr($sql, 0, -1) . ' WHERE ' . $this->primaryKey . ' = ?';
         $bindParams[] = $id;
 
-        return $this->adapter->update($sql, $bindParams);
+        return (bool)$this->adapter->update($sql, $bindParams);
     }
 
     /**

@@ -250,13 +250,14 @@ abstract class Horde_Rdo_Base implements IteratorAggregate {
     }
 
     /**
-     * Save any changes to the backend.
+     * Saves any changes to the backend.
      *
-     * @return boolean Success.
+     * @return boolean|integer  Primary key if the object was created, whether
+     *                          the updated succeeded otherwise.
      */
     public function save()
     {
-        return $this->getMapper()->update($this) == 1;
+        return $this->getMapper()->update($this);
     }
 
     /**
