@@ -12,9 +12,6 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 
-/** We need the DOM library for XML access. */
-require_once 'Horde/DOM.php';
-
 /**
  * Kolab XML to array hash converter.
  *
@@ -427,8 +424,8 @@ class Horde_Kolab_Format_XML
     public function load(&$xmltext)
     {
         try {
-            $noderoot = $this->_parseXml($xmltext);
-        } catch (Horde_Exception $e) {
+            $this->_parseXml($xmltext);
+        } catch (DOMException $e) {
             /**
              * If the first call does not return successfully this might mean we
              * got an attachment with broken encoding. There are some Kolab
@@ -440,26 +437,24 @@ class Horde_Kolab_Format_XML
                                               'UTF-8, ISO-8859-1'), 'UTF-8') !== 0) {
                 $xmltext = mb_convert_encoding($xmltext, 'UTF-8', 'ISO-8859-1');
             }
-            $noderoot = $this->_parseXml($xmltext);
+            $this->_parseXml($xmltext);
         }
-        if (empty($noderoot)) {
+        if (empty($this->_xmldoc)) {
             return false;
         }
 
-        if (!$noderoot->has_child_nodes()) {
+        if (!$this->_xmldoc->hasChildNodes()) {
             throw new Horde_Exception(_("No or unreadable content in Kolab XML object"));
         }
-
-        $children = $noderoot->child_nodes();
 
         // fresh object data
         $object = array();
 
-        $result = $this->_loadArray($children, $this->_fields_basic);
+        $result = $this->_loadArray($this->_xmldoc->childNodes, $this->_fields_basic);
         $object = array_merge($object, $result);
         $this->_loadMultipleCategories($object);
 
-        $result = $this->_load($children);
+        $result = $this->_load($this->_xmldoc->childNodes);
         $object = array_merge($object, $result);
 
         // uid is vital
@@ -517,9 +512,9 @@ class Horde_Kolab_Format_XML
      * Get the text content of the named data node among the specified
      * children.
      *
-     * @param array  $children     The children to search.
-     * @param string $name         The name of the node to return.
-     * @param array  $params       Parameters for the data conversion.
+     * @param array  &$children The children to search.
+     * @param string $name      The name of the node to return.
+     * @param array  $params    Parameters for the data conversion.
      *
      * @return string The content of the specified node or an empty
      *                string.
@@ -528,8 +523,20 @@ class Horde_Kolab_Format_XML
      *
      * @todo Make protected (fix the XmlTest for that)
      */
-    public function _getXmlData($children, $name, $params)
+    public function _getXmlData(&$children, $name, $params)
     {
+        if ($params['type'] == self::TYPE_MULTIPLE) {
+            $result = array();
+            foreach($children as $child) {
+                if ($child->nodeType == XML_ELEMENT_NODE && $child->tagName == $name) {
+                    $value = $this->_getXmlData(array($child), $name,
+                                                $params['array']);
+                    $result[] = $value;
+                }
+            }
+            return $result;
+        }
+
         $value   = null;
         $missing = false;
 
@@ -563,17 +570,7 @@ class Horde_Kolab_Format_XML
                                                   $params['load']));
             }
         } elseif ($params['type'] == self::TYPE_COMPOSITE) {
-            return $this->_loadArray($child->child_nodes(), $params['array']);
-        } elseif ($params['type'] == self::TYPE_MULTIPLE) {
-            $result = array();
-            foreach($children as $child) {
-                if ($child->type == XML_ELEMENT_NODE && $child->tagname == $name) {
-                    $value    = $this->_getXmlData(array($child), $name,
-						   $params['array']);
-                    $result[] = $value;
-                }
-            }
-            return $result;
+            return $this->_loadArray($child->childNodes, $params['array']);
         } else {
             return $this->_loadDefault($child, $params);
         }
@@ -587,7 +584,7 @@ class Horde_Kolab_Format_XML
      *
      * @param string $xmltext The XML of the message as string.
      *
-     * @return Horde_DOM_Node The root node of the document.
+     * @return NULL
      *
      * @throws Horde_Exception If parsing the XML data failed.
      *
@@ -595,17 +592,10 @@ class Horde_Kolab_Format_XML
      */
     public function _parseXml(&$xmltext)
     {
-        $params = array(
-            'xml' => $xmltext,
-            'options' => HORDE_DOM_LOAD_REMOVE_BLANKS,
-        );
-
-        $result = Horde_DOM_Document::factory($params);
-        if (is_a($result, 'PEAR_Error')) {
-            throw new Horde_Exception($result);
-        }
-        $this->_xmldoc = $result;
-        return $this->_xmldoc->document_element();
+        $this->_xmldoc = new DOMDocument();
+        $this->_xmldoc->preserveWhiteSpace = false;
+        $this->_xmldoc->formatOutput = true;
+        $this->_xmldoc->loadXML($xmltext);
     }
 
     /**
@@ -625,20 +615,20 @@ class Horde_Kolab_Format_XML
         $this->_saveArray($root, $object, $this->_fields_basic);
         $this->_save($root, $object);
 
-        return $this->_xmldoc->dump_mem(true);
+        return $this->_xmldoc->saveXML();
     }
 
     /**
      * Save the specific XML values.
      *
-     * @param array $root     The XML document root.
+     * @param array &$root    The XML document root.
      * @param array $object   The resulting data array.
      *
      * @return boolean True on success.
      *
      * @throws Horde_Exception If converting the data to XML failed.
      */
-    protected function _save($root, $object)
+    protected function _save(&$root, $object)
     {
         if (!empty($this->_fields_specific)) {
             $this->_saveArray($root, $object, $this->_fields_specific);
@@ -655,19 +645,18 @@ class Horde_Kolab_Format_XML
      *
      * @todo Make protected (fix the XmlTest for that)
      */
-    public function _prepareSave()
+    public function &_prepareSave()
     {
-        if ($this->_xmldoc != null) {
-            $root = $this->_xmldoc->document_element();
-        } else {
+        if (empty($this->_xmldoc)) {
             // create new XML
-            $this->_xmldoc = Horde_DOM_Document::factory();
-            $root          = $this->_xmldoc->create_element($this->_root_name);
-            $root          = $this->_xmldoc->append_child($root);
-            $root->set_attribute("version", $this->_root_version);
+            $this->_xmldoc = new DOMDocument();
+            $this->_xmldoc->preserveWhiteSpace = false;
+            $this->_xmldoc->formatOutput = true;
+            $root = $this->_xmldoc->createElement($this->_root_name);
+            $root = $this->_xmldoc->appendChild($root);
+            $root->setAttribute('version', $this->_root_version);
         }
-
-        return $root;
+        return $this->_xmldoc;
     }
 
     /**
@@ -755,8 +744,8 @@ class Horde_Kolab_Format_XML
             }
 
             // Create a new complex node
-            $composite_node = $this->_xmldoc->create_element($name);
-            $composite_node = $parent_node->append_child($composite_node);
+            $composite_node = $this->_xmldoc->createElement($name);
+            $composite_node = $parent_node->appendChild($composite_node);
             return $this->_saveArray($composite_node, $value, $params['array']);
         } elseif ($params['type'] == self::TYPE_MULTIPLE) {
             // Remove the old nodes first
@@ -789,13 +778,13 @@ class Horde_Kolab_Format_XML
     {
         $value = Horde_String::convertCharset($value, Horde_Nls::getCharset(), 'utf-8');
 
-        $node = $this->_xmldoc->create_element($name);
+        $node = $this->_xmldoc->createElement($name);
 
-        $node = $parent->append_child($node);
+        $node = $parent->appendChild($node);
 
         // content
-        $text = $this->_xmldoc->create_text_node($value);
-        $text = $node->append_child($text);
+        $text = $this->_xmldoc->createTextNode($value);
+        $text = $node->appendChild($text);
 
         return $node;
     }
@@ -803,15 +792,15 @@ class Horde_Kolab_Format_XML
     /**
      * Return the named node among a list of nodes.
      *
-     * @param array  $nodes  The list of nodes.
+     * @param array  %$nodes The list of nodes.
      * @param string $name   The name of the node to return.
      *
      * @return mixed The named Horde_DOM_Node or false if no node was found.
      */
-    protected function _findNode($nodes, $name)
+    protected function _findNode(&$nodes, $name)
     {
         foreach($nodes as $node) {
-            if ($node->type == XML_ELEMENT_NODE && $node->tagname == $name) {
+            if ($node->nodeType == XML_ELEMENT_NODE && $node->tagName == $name) {
                 return $node;
             }
         }
@@ -834,12 +823,12 @@ class Horde_Kolab_Format_XML
     {
         foreach($nodes as $node)
         {
-            if ($node->type == XML_ELEMENT_NODE && $node->tagname == $parent_name) {
-                $children = $node->child_nodes();
+            if ($node->nodeType == XML_ELEMENT_NODE && $node->tagName == $parent_name) {
+                $children = $node->childNodes;
                 foreach ($children as $child)
-                    if ($child->type == XML_ELEMENT_NODE
-                        && $child->tagname == $child_name
-                        && $child->get_content() == $value) {
+                    if ($child->nodeType == XML_ELEMENT_NODE
+                        && $child->tagName == $child_name
+                        && $child->textContent == $value) {
                         return $node;
                     }
             }
@@ -857,7 +846,7 @@ class Horde_Kolab_Format_XML
      */
     protected function _getNodeContent($node)
     {
-        return Horde_String::convertCharset($node->get_content(), 'utf-8');
+        return Horde_String::convertCharset($node->textContent, 'utf-8');
     }
 
 
@@ -885,8 +874,8 @@ class Horde_Kolab_Format_XML
      */
     protected function _removeNodes($parent_node, $name)
     {
-        while ($old_node = $this->_findNode($parent_node->child_nodes(), $name)) {
-            $parent_node->remove_child($old_node);
+        while ($old_node = $this->_findNode($parent_node->childNodes, $name)) {
+            $parent_node->removeChild($old_node);
         }
     }
 
@@ -1253,7 +1242,7 @@ class Horde_Kolab_Format_XML
 
         // Range is special
         foreach($children as $child) {
-            if ($child->tagname == "range") {
+            if ($child->tagname == 'range') {
                 $recurrence['range-type'] = $child->get_attribute('type');
             }
         }
@@ -1409,21 +1398,21 @@ class Horde_Kolab_Format_XML
             $value['range'] = Horde_Kolab_Format_Date::encodeDate($value['range']);
         }
 
-        $r_node = $this->_xmldoc->create_element($name);
-        $r_node = $parent_node->append_child($r_node);
+        $r_node = $this->_xmldoc->createElement($name);
+        $r_node = $parent_node->appendChild($r_node);
 
         // Save normal fields
         $this->_saveArray($r_node, $value, $this->_fields_recurrence);
 
         // Add attributes
-        $r_node->set_attribute("cycle", $value['cycle']);
+        $r_node->setAttribute('cycle', $value['cycle']);
         if (isset($value['type'])) {
-            $r_node->set_attribute("type", $value['type']);
+            $r_node->setAttribute('type', $value['type']);
         }
 
-        $child = $this->_findNode($r_node->child_nodes(), "range");
+        $child = $this->_findNode($r_node->childNodes, 'range');
         if ($child) {
-            $child->set_attribute("type", $value['range-type']);
+            $child->setAttribute('type', $value['range-type']);
         }
 
         return $r_node;
