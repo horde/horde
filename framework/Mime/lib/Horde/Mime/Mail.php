@@ -419,13 +419,21 @@ class Horde_Mime_Mail
     public function send($config, $resend = false, $flowed = true)
     {
         /* Add mandatory headers if missing. */
-        if (!$resend || !$this->_headers->getValue('Message-ID')) {
+        $has_header = $this->_headers->getValue('Message-ID');
+        if (!$resend || !$has_header) {
+            if ($has_header) {
+                $this->_headers->removeHeader('Message-ID');
+            }
             $this->_headers->addMessageIdHeader();
         }
         if (!$this->_headers->getValue('User-Agent')) {
             $this->_headers->addUserAgentHeader();
         }
-        if (!$resend || !$this->_headers->getValue('Date')) {
+        $has_header = $this->_headers->getValue('Date');
+        if (!$resend || !$has_header) {
+            if ($has_header) {
+                $this->_headers->removeHeader('Date');
+            }
             $this->_headers->addHeader('Date', date('r'));
         }
 
