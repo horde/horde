@@ -12,7 +12,7 @@
  * @category Horde
  * @package  Horde_Rdo
  */
-class Horde_Rdo_List implements Iterator, Countable
+class Horde_Rdo_List implements Iterator
 {
     /**
      * Rdo Mapper
@@ -188,19 +188,6 @@ class Horde_Rdo_List implements Iterator, Countable
             $this->rewind();
         }
         return !$this->_eof;
-    }
-
-    /**
-     * Returns the number of objects.
-     *
-     * @return integer
-     */
-    public function count()
-    {
-        if (is_null($this->_result)) {
-            $this->rewind();
-        }
-        return $this->_mapper->adapter->count();
     }
 
 }
