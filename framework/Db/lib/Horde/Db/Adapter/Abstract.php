@@ -21,7 +21,7 @@
  * @package    Horde_Db
  * @subpackage Adapter
  */
-abstract class Horde_Db_Adapter_Abstract implements Countable
+abstract class Horde_Db_Adapter_Abstract
 {
     /**
      * Config options
@@ -468,16 +468,6 @@ abstract class Horde_Db_Adapter_Abstract implements Countable
     public function delete($sql, $arg1 = null, $arg2 = null)
     {
         $this->execute($sql, $arg1, $arg2);
-        return $this->_rowCount;
-    }
-
-    /**
-     * Returns the number of affected or returned rows of the last query.
-     *
-     * @return integer
-     */
-    public function count()
-    {
         return $this->_rowCount;
     }
 
