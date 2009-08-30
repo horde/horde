@@ -939,20 +939,14 @@ class Horde_Date_Recurrence
             break;
 
         case self::RECUR_MONTHLY_WEEKDAY:
-            $next_week = new Horde_Date($this->start);
-            $next_week->mday += 7;
-
-            if ($this->start->month != $next_week->month) {
-                $p = 5;
-            } else {
-                $p = (int)($this->start->mday / 7);
-                if (($this->start->mday % 7) > 0) {
-                    $p++;
-                }
+            $nth_weekday = (int)($this->start->mday / 7);
+            if (($this->start->mday % 7) > 0) {
+                $nth_weekday++;
             }
 
             $vcaldays = array('SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA');
-            $rrule = 'MP' . $this->recurInterval . ' ' . $p . '+ ' . $vcaldays[$this->start->dayOfWeek()];
+            $rrule = 'MP' . $this->recurInterval . ' ' . $nth_weekday . '+ ' . $vcaldays[$this->start->dayOfWeek()];
+
             break;
 
         case self::RECUR_YEARLY_DATE:
@@ -1115,19 +1109,13 @@ class Horde_Date_Recurrence
             break;
 
         case self::RECUR_MONTHLY_WEEKDAY:
-            $next_week = new Horde_Date($this->start);
-            $next_week->mday += 7;
-            if ($this->start->month != $next_week->month) {
-                $p = 5;
-            } else {
-                $p = (int)($this->start->mday / 7);
-                if (($this->start->mday % 7) > 0) {
-                    $p++;
-                }
+            $nth_weekday = (int)($this->start->mday / 7);
+            if (($this->start->mday % 7) > 0) {
+                $nth_weekday++;
             }
             $vcaldays = array('SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA');
             $rrule = 'FREQ=MONTHLY;INTERVAL=' . $this->recurInterval
-                . ';BYDAY=' . $p . $vcaldays[$this->start->dayOfWeek()];
+                . ';BYDAY=' . $nth_weekday . $vcaldays[$this->start->dayOfWeek()];
             break;
 
         case self::RECUR_YEARLY_DATE:
@@ -1140,13 +1128,14 @@ class Horde_Date_Recurrence
             break;
 
         case self::RECUR_YEARLY_WEEKDAY:
+            $nth_weekday = (int)($this->start->mday / 7);
+            if (($this->start->mday % 7) > 0) {
+                $nth_weekday++;
+            }
             $vcaldays = array('SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA');
-            $weekday = new Horde_Date(array('month' => $this->start->month,
-                                            'mday' => 1,
-                                            'year' => $this->start->year));
             $rrule = 'FREQ=YEARLY;INTERVAL=' . $this->recurInterval
                 . ';BYDAY='
-                . ($this->start->weekOfYear() - $weekday->weekOfYear() + 1)
+                . $nth_weekday
                 . $vcaldays[$this->start->dayOfWeek()]
                 . ';BYMONTH=' . $this->start->month;
             break;
