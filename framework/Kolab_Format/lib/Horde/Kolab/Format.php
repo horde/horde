@@ -54,7 +54,7 @@ abstract class Horde_Kolab_Format
     static public function &factory($format_type = '', $object_type = '',
                                     $params = null)
     {
-        $class = 'Horde_Kolab_Format_' . $format_type;
+        $class = 'Horde_Kolab_Format_' . ucfirst(strtolower($format_type));
         if (class_exists($class)) {
             $driver = call_user_func(array($class, 'factory'), $object_type,
                                      $params);

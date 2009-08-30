@@ -34,7 +34,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </lead>
  <date>2009-04-02</date>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -43,14 +43,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
  <notes>
-   * Handle parsing errors within the DOM XML extension correctly
-     kolab/issue3520 (calendar with certain entries does not display in web client)
-     https://www.intevation.de/roundup/kolab/issue3520
-     kolab/issue3525 (free/busy regeneration aborts for unparsable events)
-     https://www.intevation.de/roundup/kolab/issue3525
-   * Accept ISO-8859-1 encoding even if advertised as UTF-8
-     kolab/issue3528 (Events with broken encoding should work)
-     https://www.intevation.de/roundup/kolab/issue3528
+   * Converted to Horde4/PHP5
+   * Removed Horde_DOM dependency.
  </notes>
  <contents>
   <dir name="/">
@@ -80,8 +74,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Format.php" role="php" />
       <dir name="Format">
        <file name="Date.php" role="php" />
-       <file name="XML.php" role="php" />
-       <dir name="XML">
+       <file name="Xml.php" role="php" />
+       <dir name="Xml">
         <file name="Annotation.php" role="php" />
         <file name="Contact.php" role="php" />
         <file name="Distributionlist.php" role="php" />
@@ -89,7 +83,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
         <file name="Hprefs.php" role="php" />
         <file name="Note.php" role="php" />
         <file name="Task.php" role="php" />
-       </dir> <!-- /lib/Horde/Kolab/Format/XML -->
+       </dir> <!-- /lib/Horde/Kolab/Format/Xml -->
       </dir> <!-- /lib/Horde/Kolab/Format -->
      </dir> <!-- /lib/Horde/Kolab -->
     </dir> <!-- /lib/Horde -->
@@ -127,12 +121,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.4.0b1</min>
    </pearinstaller>
    <package>
-    <name>Horde_DOM</name>
-    <channel>pear.horde.org</channel>
-    <min>0.1.0</min>
-   </package>
-   <package>
-    <name>Horde_NLS</name>
+    <name>Nls</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -146,7 +135,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Horde_Date</name>
+    <name>Date</name>
     <channel>pear.horde.org</channel>
    </package>
   </optional>
@@ -158,14 +147,14 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="examples/Horde/Kolab/Format/new_type.php" as="Horde/Kolab/Format/new_type.php" />
    <install name="lib/Horde/Kolab/Format.php" as="Horde/Kolab/Format.php" />
    <install name="lib/Horde/Kolab/Format/Date.php" as="Horde/Kolab/Format/Date.php" />
-   <install name="lib/Horde/Kolab/Format/XML.php" as="Horde/Kolab/Format/XML.php" />
-   <install name="lib/Horde/Kolab/Format/XML/Annotation.php" as="Horde/Kolab/Format/XML/Annotation.php" />
-   <install name="lib/Horde/Kolab/Format/XML/Contact.php" as="Horde/Kolab/Format/XML/Contact.php" />
-   <install name="lib/Horde/Kolab/Format/XML/Distributionlist.php" as="Horde/Kolab/Format/XML/Distributionlist.php" />
-   <install name="lib/Horde/Kolab/Format/XML/Event.php" as="Horde/Kolab/Format/XML/Event.php" />
-   <install name="lib/Horde/Kolab/Format/XML/Hprefs.php" as="Horde/Kolab/Format/XML/Hprefs.php" />
-   <install name="lib/Horde/Kolab/Format/XML/Note.php" as="Horde/Kolab/Format/XML/Note.php" />
-   <install name="lib/Horde/Kolab/Format/XML/Task.php" as="Horde/Kolab/Format/XML/Task.php" />
+   <install name="lib/Horde/Kolab/Format/Xml.php" as="Horde/Kolab/Format/Xml.php" />
+   <install name="lib/Horde/Kolab/Format/Xml/Annotation.php" as="Horde/Kolab/Format/Xml/Annotation.php" />
+   <install name="lib/Horde/Kolab/Format/Xml/Contact.php" as="Horde/Kolab/Format/Xml/Contact.php" />
+   <install name="lib/Horde/Kolab/Format/Xml/Distributionlist.php" as="Horde/Kolab/Format/Xml/Distributionlist.php" />
+   <install name="lib/Horde/Kolab/Format/Xml/Event.php" as="Horde/Kolab/Format/Xml/Event.php" />
+   <install name="lib/Horde/Kolab/Format/Xml/Hprefs.php" as="Horde/Kolab/Format/Xml/Hprefs.php" />
+   <install name="lib/Horde/Kolab/Format/Xml/Note.php" as="Horde/Kolab/Format/Xml/Note.php" />
+   <install name="lib/Horde/Kolab/Format/Xml/Task.php" as="Horde/Kolab/Format/Xml/Task.php" />
    <install name="test/Horde/Kolab/Format/AllTests.php" as="Horde/Kolab/Format/AllTests.php" />
    <install name="test/Horde/Kolab/Format/ContactTest.php" as="Horde/Kolab/Format/ContactTest.php" />
    <install name="test/Horde/Kolab/Format/PreferencesTest.php" as="Horde/Kolab/Format/PreferencesTest.php" />
@@ -181,6 +170,28 @@ http://pear.php.net/dtd/package-2.0.xsd">
   </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <date>2009-04-02</date>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <notes>
+     * Handle parsing errors within the DOM XML extension correctly
+       kolab/issue3520 (calendar with certain entries does not display in web client)
+       https://www.intevation.de/roundup/kolab/issue3520
+       kolab/issue3525 (free/busy regeneration aborts for unparsable events)
+       https://www.intevation.de/roundup/kolab/issue3525
+     * Accept ISO-8859-1 encoding even if advertised as UTF-8
+       kolab/issue3528 (Events with broken encoding should work)
+       https://www.intevation.de/roundup/kolab/issue3528
+   </notes>
+  </release>
   <release>
    <date>2008-12-12</date>
    <version>

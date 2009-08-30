@@ -1,6 +1,6 @@
 <?php
 /**
- * Implementation for notes in the Kolab XML format.
+ * Implementation for distributionlists in the Kolab XML format.
  *
  * PHP version 5
  *
@@ -13,7 +13,7 @@
  */
 
 /**
- * Kolab XML handler for note groupware objects.
+ * Kolab XML handler for distributionlist groupware objects
  *
  * Copyright 2007-2009 Klarälvdalens Datakonsult AB
  *
@@ -28,12 +28,12 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  * @since    Horde 3.2
  */
-class Horde_Kolab_Format_XML_Note extends Horde_Kolab_Format_XML
+class Horde_Kolab_Format_Xml_Distributionlist extends Horde_Kolab_Format_Xml
 {
     /**
-     * Specific data fields for the note object
+     * Specific data fields for the contact object
      *
-     * @var Kolab
+     * @var array
      */
     protected $_fields_specific;
 
@@ -42,27 +42,21 @@ class Horde_Kolab_Format_XML_Note extends Horde_Kolab_Format_XML
      */
     public function __construct()
     {
-        $this->_root_name = 'note';
+        $this->_root_name = "distribution-list";
 
-        /** Specific note fields, in kolab format specification order
+        /** Specific task fields, in kolab format specification order
          */
         $this->_fields_specific = array(
-            'summary' => array(
-                'type'    => self::TYPE_STRING,
-                'value'   => self::VALUE_DEFAULT,
-                'default' => '',
-            ),
-            'background-color' => array(
-                'type'    => self::TYPE_COLOR,
-                'value'   => self::VALUE_DEFAULT,
-                'default' => '#000000',
-            ),
-            'foreground-color' => array(
-                'type'    => self::TYPE_COLOR,
-                'value'   => self::VALUE_DEFAULT,
-                'default' => '#ffff00',
-            ),
-        );
+                'display-name' => array(
+                    'type'    => self::TYPE_STRING,
+                    'value'   => self::VALUE_NOT_EMPTY
+                ),
+                'member' => array(
+                    'type'    => self::TYPE_MULTIPLE,
+                    'value'   => self::VALUE_MAYBE_MISSING,
+                    'array'   => $this->_fields_simple_person,
+                )
+            );
 
         parent::__construct();
     }
@@ -72,7 +66,7 @@ class Horde_Kolab_Format_XML_Note extends Horde_Kolab_Format_XML
      *
      * @param array &$children An array of XML nodes.
      *
-     * @return array Array with the object data
+     * @return array Array with data.
      *
      * @throws Horde_Exception If parsing the XML data failed.
      */
@@ -80,14 +74,24 @@ class Horde_Kolab_Format_XML_Note extends Horde_Kolab_Format_XML
     {
         $object = $this->_loadArray($children, $this->_fields_specific);
 
-        $object['desc'] = $object['summary'];
-        unset($object['summary']);
+        // Map the display-name of a kolab dist list to horde's lastname attribute
+        if (isset($object['display-name'])) {
+            $object['last-name'] = $object['display-name'];
+            unset($object['display-name']);
+        }
 
+        /**
+         * The mapping from $object['member'] as stored in XML back to
+         * Turba_Objects (contacts) must be performed in the
+         * Kolab_IMAP storage driver as we need access to the search
+         * facilities of the kolab storage driver.
+         */
+        $object['__type'] = 'Group';
         return $object;
     }
 
     /**
-     * Save the specific XML values.
+     * Save the  specifc XML values.
      *
      * @param array $root   The XML document root.
      * @param array $object The resulting data array.
@@ -98,8 +102,11 @@ class Horde_Kolab_Format_XML_Note extends Horde_Kolab_Format_XML
      */
     protected function _save($root, $object)
     {
-        $object['summary'] = $object['desc'];
-        unset($object['desc']);
+        // Map the display-name of a kolab dist list to horde's lastname attribute
+        if (isset($object['last-name'])) {
+            $object['display-name'] = $object['last-name'];
+            unset($object['last-name']);
+        }
 
         return $this->_saveArray($root, $object, $this->_fields_specific);
     }

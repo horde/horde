@@ -28,7 +28,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  * @since    Horde 3.2
  */
-class Horde_Kolab_Format_XML_Contact extends Horde_Kolab_Format_XML
+class Horde_Kolab_Format_Xml_Contact extends Horde_Kolab_Format_Xml
 {
     /**
      * Specific data fields for the contact object

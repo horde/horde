@@ -15,12 +15,9 @@
  */
 
 /**
- *  We need the unit test framework 
+ * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'PHPUnit/Framework.php';
-
-require_once 'Horde/Nls.php';
-require_once 'Horde/Kolab/Format.php';
+require_once 'Horde/Autoloader.php';
 
 /**
  * Test Kolab Format MIME attributes

@@ -8,17 +8,13 @@
  */
 
 /**
- *  We need the unit test framework 
+ * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'PHPUnit/Framework.php';
-
-require_once 'Horde/Nls.php';
-require_once 'Horde/Kolab/Format.php';
-require_once 'Horde/Kolab/Format/XML.php';
-require_once 'Horde/Kolab/Format/XML/Hprefs.php';
+require_once 'Horde/Autoloader.php';
 
 
-class Horde_Kolab_Format_XML_hprefs_dummy extends Horde_Kolab_Format_XML_hprefs
+
+class Horde_Kolab_Format_Xml_Hprefs_dummy extends Horde_Kolab_Format_Xml_Hprefs
 {
     function _saveCreationDate($parent_node, $name, $value, $missing)
     {
@@ -71,7 +67,7 @@ class Horde_Kolab_Format_PreferencesTest extends PHPUnit_Framework_TestCase
      */
     public function testConversionFromOld()
     {
-        $preferences = &new Horde_Kolab_Format_XML_hprefs_dummy();
+        $preferences = &new Horde_Kolab_Format_Xml_hprefs_dummy();
 
         $xml = file_get_contents(dirname(__FILE__) . '/fixtures/preferences_read_old.xml');
         $object = $preferences->load($xml);

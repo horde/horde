@@ -8,14 +8,10 @@
  */
 
 /**
- *  We need the unit test framework 
+ * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'PHPUnit/Framework.php';
+require_once 'Horde/Autoloader.php';
 
-require_once 'Horde/Nls.php';
-require_once 'Horde/Kolab/Format.php';
-require_once 'Horde/Kolab/Format/XML.php';
-require_once 'Horde/Kolab/Format/XML/Contact.php';
 
 class DummyRegistry {
     function get()
@@ -24,7 +20,7 @@ class DummyRegistry {
     }
 }
 
-class Horde_Kolab_Format_XML_contact_dummy extends Horde_Kolab_Format_XML_contact
+class Horde_Kolab_Format_Xml_Contact_dummy extends Horde_Kolab_Format_Xml_Contact
 {
     function _saveCreationDate($parent_node, $name, $value, $missing)
     {
@@ -77,7 +73,7 @@ class Horde_Kolab_Format_ContactTest extends PHPUnit_Framework_TestCase
      */
     public function testSingleEmail()
     {
-        $contact = &new Horde_Kolab_Format_XML_contact_dummy();
+        $contact = &new Horde_Kolab_Format_Xml_contact_dummy();
         $object = array('uid' => '1',
                         'full-name' => 'User Name',
                         'email' => 'user@example.org');
@@ -91,7 +87,7 @@ class Horde_Kolab_Format_ContactTest extends PHPUnit_Framework_TestCase
      */
     public function testPGP()
     {
-        $contact = &new Horde_Kolab_Format_XML_contact_dummy();
+        $contact = &new Horde_Kolab_Format_Xml_contact_dummy();
         $object = array('uid' => '1',
                         'full-name' => 'User Name',
                         'pgp-publickey' => 'PGP Test Key',
@@ -108,7 +104,7 @@ class Horde_Kolab_Format_ContactTest extends PHPUnit_Framework_TestCase
     {
         global $prefs;
 
-        $contact = &new Horde_Kolab_Format_XML_contact();
+        $contact = &new Horde_Kolab_Format_Xml_contact();
         $xml = file_get_contents(dirname(__FILE__) . '/fixtures/contact_category.xml');
         $object = $contact->load($xml);
         $this->assertContains('Test', $object['categories']);
@@ -134,7 +130,7 @@ class Horde_Kolab_Format_ContactTest extends PHPUnit_Framework_TestCase
             /* Monkey patch to allw the value to be set. */
             $prefs->_prefs['categories'] = array('v' => '');
             
-            $contact = &new Horde_Kolab_Format_XML_contact();
+            $contact = &new Horde_Kolab_Format_Xml_contact();
             $xml = file_get_contents(dirname(__FILE__) . '/fixtures/contact_category.xml');
 
             $object = $contact->load($xml);

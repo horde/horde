@@ -31,7 +31,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  * @since    Horde 3.2
  */
-class Horde_Kolab_Format_XML
+class Horde_Kolab_Format_Xml
 {
 
     /**
@@ -352,14 +352,14 @@ class Horde_Kolab_Format_XML
     }
 
     /**
-     * Attempts to return a concrete Horde_Kolab_Format_XML instance.
+     * Attempts to return a concrete Horde_Kolab_Format_Xml instance.
      * based on $object_type.
      *
      * @param string    $object_type The object type that should be handled.
      * @param array     $params      Any additional parameters.
      *
-     * @return Horde_Kolab_Format_XML The newly created concrete
-     *                                Horde_Kolab_Format_XML instance.
+     * @return Horde_Kolab_Format_Xml The newly created concrete
+     *                                Horde_Kolab_Format_Xml instance.
      *
      * @throws Horde_Exception If the class for the object type could
      *                         not be loaded.
@@ -367,7 +367,7 @@ class Horde_Kolab_Format_XML
     public function &factory($object_type = '', $params = null)
     {
         $object_type = ucfirst(str_replace('-', '', $object_type));
-        $class       = 'Horde_Kolab_Format_XML_' . $object_type;
+        $class       = 'Horde_Kolab_Format_Xml_' . $object_type;
 
         if (class_exists($class)) {
             $driver = &new $class($params);
@@ -443,18 +443,18 @@ class Horde_Kolab_Format_XML
             return false;
         }
 
-        if (!$this->_xmldoc->hasChildNodes()) {
+        if (!$this->_xmldoc->documentElement->hasChildNodes()) {
             throw new Horde_Exception(_("No or unreadable content in Kolab XML object"));
         }
 
         // fresh object data
         $object = array();
 
-        $result = $this->_loadArray($this->_xmldoc->childNodes, $this->_fields_basic);
+        $result = $this->_loadArray($this->_xmldoc->documentElement->childNodes, $this->_fields_basic);
         $object = array_merge($object, $result);
         $this->_loadMultipleCategories($object);
 
-        $result = $this->_load($this->_xmldoc->childNodes);
+        $result = $this->_load($this->_xmldoc->documentElement->childNodes);
         $object = array_merge($object, $result);
 
         // uid is vital
@@ -529,7 +529,8 @@ class Horde_Kolab_Format_XML
             $result = array();
             foreach($children as $child) {
                 if ($child->nodeType == XML_ELEMENT_NODE && $child->tagName == $name) {
-                    $value = $this->_getXmlData(array($child), $name,
+                    $child_a = array($child);
+                    $value = $this->_getXmlData($child_a, $name,
                                                 $params['array']);
                     $result[] = $value;
                 }
@@ -653,10 +654,10 @@ class Horde_Kolab_Format_XML
             $this->_xmldoc->preserveWhiteSpace = false;
             $this->_xmldoc->formatOutput = true;
             $root = $this->_xmldoc->createElement($this->_root_name);
-            $root = $this->_xmldoc->appendChild($root);
+            $this->_xmldoc->appendChild($root);
             $root->setAttribute('version', $this->_root_version);
         }
-        return $this->_xmldoc;
+        return $root;
     }
 
     /**
@@ -1205,14 +1206,14 @@ class Horde_Kolab_Format_XML
         }
 
         // Collect all child nodes
-        $children = $node->child_nodes();
+        $children = $node->childNodes;
 
         $recurrence = $this->_loadArray($children, $this->_fields_recurrence);
 
         // Get the cycle type (must be present)
-        $recurrence['cycle'] = $node->get_attribute('cycle');
+        $recurrence['cycle'] = $node->getAttribute('cycle');
         // Get the sub type (may be present)
-        $recurrence['type'] = $node->get_attribute('type');
+        $recurrence['type'] = $node->getAttribute('type');
 
         // Exclusions.
         if (isset($recurrence['exclusion'])) {

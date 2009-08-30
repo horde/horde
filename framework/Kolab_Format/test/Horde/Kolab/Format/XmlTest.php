@@ -8,13 +8,9 @@
  */
 
 /**
- *  We need the unit test framework 
+ * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'PHPUnit/Framework.php';
-
-require_once 'Horde/Nls.php';
-require_once 'Horde/Kolab/Format.php';
-require_once 'Horde/Kolab/Format/XML.php';
+require_once 'Horde/Autoloader.php';
 
 /**
  * Test the XML format.
@@ -71,8 +67,7 @@ class Horde_Kolab_Format_XmlTest extends PHPUnit_Framework_TestCase
     public function testAdd()
     {
         $xml = &new Horde_Kolab_Format_XML();
-        $xml->_prepareSave();
-        $root = $xml->_xmldoc;
+        $root = $xml->_prepareSave();
         $base = $xml->_xmldoc->saveXML();
 
         // A missing attribute should cause no change if it
@@ -120,9 +115,8 @@ class Horde_Kolab_Format_XmlTest extends PHPUnit_Framework_TestCase
      */
     public function testNodeOps()
     {
-        $dxml = new Horde_Kolab_Format_XML_dummy();
-        $dxml->_prepareSave();
-        $droot = $dxml->_xmldoc;
+        $dxml = new Horde_Kolab_Format_Xml_dummy();
+        $droot = $dxml->_prepareSave();
 
         // Test calculated nodes
         $dxml->_updateNode($droot,
@@ -137,9 +131,8 @@ class Horde_Kolab_Format_XmlTest extends PHPUnit_Framework_TestCase
                                 'save' => 'Value', 'type' => 0));
         $this->assertEquals("<?xml version=\"1.0\"?>\n<kolab version=\"1.0\">\n  <empty2>empty2: , missing</empty2>\n  <present1>present1: present1</present1>\n</kolab>\n",  $dxml->_xmldoc->saveXML());
 
-        $xml = &new Horde_Kolab_Format_XML();
-        $xml->_prepareSave();
-        $root = $xml->_xmldoc;
+        $xml = &new Horde_Kolab_Format_Xml();
+        $root = $xml->_prepareSave();
         $xml->_updateNode($root,
                          array(),
                          'empty1',
@@ -229,7 +222,7 @@ class Horde_Kolab_Format_XmlTest extends PHPUnit_Framework_TestCase
     public function testReleod()
     {
         // Save an object and reload it
-        $xml = new Horde_Kolab_Format_XML();
+        $xml = new Horde_Kolab_Format_Xml();
         $result = $xml->save(array('uid'=>'test',
                                    'body' => 'body',
                                    'dummy' => 'hello',
@@ -251,9 +244,8 @@ class Horde_Kolab_Format_XmlTest extends PHPUnit_Framework_TestCase
     public function testComplex()
     {
         // Continue with complex values
-        $xml = new Horde_Kolab_Format_XML();
-        $xml->_prepareSave();
-        $root = $xml->_xmldoc;
+        $xml = new Horde_Kolab_Format_Xml();
+        $root = $xml->_prepareSave();
 
         // Test saving a composite value
         $xml->_updateNode($root,
@@ -267,7 +259,7 @@ class Horde_Kolab_Format_XmlTest extends PHPUnit_Framework_TestCase
                          'attendee1', $xml->_fields_attendee);
         $this->assertEquals("<?xml version=\"1.0\"?>\n<kolab version=\"1.0\">\n  <composite1>\n    <display-name>test</display-name>\n    <smtp-address>test@example.com</smtp-address>\n    <uid></uid>\n  </composite1>\n  <attendee1>\n    <display-name>test</display-name>\n    <smtp-address></smtp-address>\n    <status>none</status>\n    <request-response>true</request-response>\n    <role>required</role>\n  </attendee1>\n  <attendee1>\n    <display-name></display-name>\n    <smtp-address>test@example.com</smtp-address>\n    <status>none</status>\n    <request-response>true</request-response>\n    <role>required</role>\n  </attendee1>\n</kolab>\n",  $xml->_xmldoc->saveXML());
 
-        $children = $root->child_nodes();
+        $children = $root->childNodes;
 
         // Load a composite value
         $data = $xml->_getXmlData($children,
@@ -301,7 +293,7 @@ class Horde_Kolab_Format_XmlTest extends PHPUnit_Framework_TestCase
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @package Kolab_Format
  */
-class Horde_Kolab_Format_XML_dummy extends Horde_Kolab_Format_XML
+class Horde_Kolab_Format_Xml_dummy extends Horde_Kolab_Format_Xml
 {
     function _saveValue($node, $name, $value, $missing)
     {
