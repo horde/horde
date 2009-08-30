@@ -141,7 +141,7 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('2008-01-01 04:00:00', (string)$d->add(14400));
 
         $span = new Horde_Date_Span('2006-01-01 00:00:00', '2006-08-16 00:00:00');
-        $this->assertEquals('2006-04-24 12:30:00', (string)$span->begin->add($span->width() / 2));
+        $this->assertEquals('2006-04-24 11:30:00', (string)$span->begin->add($span->width() / 2));
     }
 
     public function testSetNthWeekday()
