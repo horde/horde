@@ -21,22 +21,28 @@ class Horde_Date_Span
     public $end;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param mixed $begin  Horde_Date or other format accepted by the Horde_Date constructor
-     * @param mixed $end    Horde_Date or other format accepted by the Horde_Date constructor
+     * @param mixed $begin  Horde_Date or other format accepted by the
+     *                      Horde_Date constructor.
+     * @param mixed $end    Horde_Date or other format accepted by the
+     *                      Horde_Date constructor.
      */
     public function __construct($begin, $end)
     {
-        if (! $begin instanceof Horde_Date) { $begin = new Horde_Date($begin); }
-        if (! $end instanceof Horde_Date) { $end = new Horde_Date($end); }
+        if (!($begin instanceof Horde_Date)) {
+            $begin = new Horde_Date($begin);
+        }
+        if (!($end instanceof Horde_Date)) {
+            $end = new Horde_Date($end);
+        }
 
         $this->begin = $begin;
         $this->end = $end;
     }
 
     /**
-     * Return the width of this span in seconds
+     * Returns the width of this span in seconds.
      */
     public function width()
     {
