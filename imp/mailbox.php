@@ -168,7 +168,7 @@ case 'copy_messages':
 case 'flag_messages':
     $flag = Horde_Util::getPost('flag');
     if ($flag && !empty($indices)) {
-        $flag = $imp_imap_flags->parseFormId($flag);
+        $flag = $imp_flags->parseFormId($flag);
         $imp_message = IMP_Message::singleton();
         $imp_message->flag(array($flag['flag']), $indices, $flag['set']);
     }
