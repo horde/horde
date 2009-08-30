@@ -16,6 +16,7 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
     {
         $recurrences = array();
         $protect = 0;
+        // This is a Thursday
         $next = new Horde_Date('2007-03-01 00:00:00');
         while ($next = $r->nextRecurrence($next)) {
             if (++$protect > 10) {
@@ -259,6 +260,11 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
                                   '2009-03-05 10:00:00',
                                   '2010-03-04 10:00:00'),
                             $this->_getRecurrences($r));
+
+        $r = new Horde_Date_Recurrence('2009-03-27 10:00:00');
+        $r->setRecurType(Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY);
+        $r->setRecurCount(1);
+        $this->assertEquals('FREQ=YEARLY;INTERVAL=1;BYDAY=4FR;BYMONTH=3;COUNT=1', $r->toRRule20($this->ical));
     }
 
     public function testParseDaily()
