@@ -54,16 +54,16 @@ abstract class Horde_View_Helper_Base
     }
 
     /**
-     * Call chaining so other helpers can be called transparently.
+     * Call chaining so members of the view can be called (including other helpers)
      *
-     * @param string $method The helper method.
-     * @param array $args The parameters for the helper.
+     * @param string $method The method.
+     * @param array $args The parameters for the method.
      *
-     * @return string The result of the helper method.
+     * @return mixed The result of the method.
      */
     public function __call($method, $args)
     {
-        return $this->_view->__call($method, $args);
+        return call_user_func_array(array($this->_view, $method), $args);
     }
 
 }
