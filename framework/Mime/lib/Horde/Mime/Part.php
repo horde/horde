@@ -1752,9 +1752,12 @@ class Horde_Mime_Part
     /**
      * Creates a structure object from the text of one part of a MIME message.
      *
-     * @param string $header  The header text.
-     * @param string $body    The body text.
-     * @param string $ctype   The default content-type.
+     * @param string $header      The header text.
+     * @param string $body        The body text.
+     * @param string $ctype       The default content-type.
+     * @param boolean $forcemime  If true, the message data is assumed to be
+     *                            MIME data. If not, a MIME-Version header
+     *                            must exist to be parsed as a MIME message.
      *
      * @return array  See Horde_Mime_Part::parseStructure().
      */
@@ -1844,7 +1847,7 @@ class Horde_Mime_Part
                 foreach ($b_find as $val) {
                     $subpart = substr($body, $val['start'], $val['length']);
                     list($hdr_pos, $eol) = self::_findHeader($subpart);
-                    $part['parts'][] = self::_getStructure(substr($subpart, 0, $hdr_pos), substr($subpart, $hdr_pos + $eol), ($part['subtype'] == 'digest') ? 'message/rfc822' : 'text/plain');
+                    $part['parts'][] = self::_getStructure(substr($subpart, 0, $hdr_pos), substr($subpart, $hdr_pos + $eol), ($part['subtype'] == 'digest') ? 'message/rfc822' : 'text/plain', true);
                 }
             }
             break;
