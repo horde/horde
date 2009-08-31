@@ -23,6 +23,11 @@ iPhoto2Ansel/iPhoto2Ansel.xcodeproj/*.pbxuser
 !iPhoto2Ansel/iPhoto2Ansel.xcodeproj/default.pbxuser
 iPhoto2Ansel/iPhoto2Ansel.xcodeproj/*.perspectivev3
 iPhoto2Ansel/*.pbxproject
+ApertureToAnselExportPlugin/build/
+ApertureToAnselExportPlugin/ApertureToAnselExportPlugin.xcodeproj/*.pbxuser
+!ApertureToAnselExportPlugin/ApertureToAnselExportPlugin.xcodeproj/default.pbxuser
+ApertureToAnselExportPlugin/ApertureToAnselExportPlugin.xcodeproj/*.perspectivev3
+ApertureToAnselExportPlugin/*.pbxproject
 imp/config/*.php
 imp/config/*.txt
 ingo/config/*.php
