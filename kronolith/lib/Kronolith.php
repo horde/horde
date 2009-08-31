@@ -618,6 +618,46 @@ class Kronolith
     }
 
     /**
+     * Imports an event parsed from a string.
+     *
+     * @param string $text      The text to parse into an event
+     * @param string $calendar  The calendar into which the event will be
+     *                          imported.  If 'null', the user's default
+     *                          calendar will be used.
+     *
+     * @return array  The UID of all events that were added.
+     */
+    public function quickAdd($text, $calendar = null)
+    {
+        $text = trim($text);
+        list($title, $description) = explode($text, "\n", 2);
+        $title = trim($title);
+        $description = trim($description);
+
+        $dateParser = Horde_Date_Parser::factory();
+        $r = $dateParser->parse($title, array('return' => 'result'));
+        if (!($d = $r->guess())) {
+            throw new Horde_Exception(_("Cannot parse event description."));
+        }
+
+        $title = $r->untaggedText();
+        $start = $d->timestamp();
+
+        $kronolith_driver = Kronolith::getDriver(null, $calendar);
+        $event = $kronolith_driver->getEvent();
+        $event->setTitle($title);
+        $event->setDescription($description);
+        $event->start = $d;
+        $event->end = $d->add(array('hour' => 1));
+
+        $eventId = $event->save();
+        if (is_a($eventId, 'PEAR_Error')) {
+            return $eventId;
+        }
+        return $event->getUID();
+    }
+
+    /**
      * Initial app setup code.
      */
     public static function initialize()

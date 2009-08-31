@@ -690,32 +690,7 @@ class Kronolith_Api extends Horde_Registry_Api
             return PEAR::raiseError(_("Permission Denied"));
         }
 
-        $text = trim($text);
-        list($title, $description) = explode($text, "\n", 2);
-        $title = trim($title);
-        $description = trim($description);
-
-        $dateParser = Horde_Date_Parser::factory();
-        $r = $dateParser->parse($title, array('return' => 'result'));
-        if (! ($d = $r->guess())) {
-            throw new Horde_Exception(json_encode(array('name' => $title, 'description' => $description)));
-        }
-
-        $title = $r->untaggedText();
-        $start = $d->timestamp();
-
-        $kronolith_driver = Kronolith::getDriver(null, $calendar);
-        $event = $kronolith_driver->getEvent();
-        $event->setTitle($title);
-        $event->setDescription($description);
-        $event->start = $d;
-        $event->end = $d->add(array('hour' => 1));
-
-        $eventId = $event->save();
-        if (is_a($eventId, 'PEAR_Error')) {
-            return $eventId;
-        }
-        return $event->getUID();
+        return Kronolith::quickAdd($text, $calendar);
     }
 
     /**
