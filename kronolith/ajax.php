@@ -100,7 +100,6 @@ $cacheid = Horde_Util::getPost('cacheid');
 ob_start();
 
 try {
-    $notify = true;
     $result = false;
 
     switch ($action) {
@@ -380,4 +379,4 @@ if ($errors) {
 }
 
 // Send the final result.
-Horde::sendHTTPResponse(Horde::prepareResponse($result, $notify ? $GLOBALS['kronolith_notify'] : null), 'json');
+Horde::sendHTTPResponse(Horde::prepareResponse($result, $GLOBALS['kronolith_notify']), 'json');
