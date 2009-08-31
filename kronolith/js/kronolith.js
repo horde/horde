@@ -29,7 +29,7 @@ KronolithCore = {
     taskType: 'all',
 
     doActionOpts: {
-        onException: function(r, e) { KronolitCore.debug('onException', e); },
+        onException: function(r, e) { KronolithCore.debug('onException', e); },
         onFailure: function(t, o) { KronolithCore.debug('onFailure', t); },
         evalJS: false,
         evalJSON: true
