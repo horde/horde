@@ -1393,7 +1393,7 @@ HTML;
 
         if ($script_params) {
             if ($pathInfo = Horde_Util::getPathInfo()) {
-                $url .= $pathInfo;
+                $url .= '/' . $pathInfo;
             }
             if (!empty($_SERVER['QUERY_STRING'])) {
                 $url .= '?' . $_SERVER['QUERY_STRING'];
