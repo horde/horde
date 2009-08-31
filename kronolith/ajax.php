@@ -196,10 +196,8 @@ try {
         break;
 
     case 'QuickSaveEvent':
-        if (!($kronolith_driver = getDriver(Horde_Util::getFormData('cal')))) {
-            break;
-        }
-        $uids = $registry->calendar->quickAdd(Horde_Util::getFormData('text'), Horde_Util::getFormData('cal'));
+        $kronolith_driver = Kronolith::getDriver();
+        $uids = Kronolith::quickAdd(Horde_Util::getFormData('text'), Kronolith::getDefaultCalendar(PERMS_EDIT));
         if (!count($uids)) {
             break;
         }
