@@ -63,7 +63,7 @@ function saveEvent($event)
     $end->min = $end->sec = 59;
     Kronolith::addEvents($events, $event, $start, $end, true, true);
     $result = new stdClass;
-    $result->cal = Horde_Util::getFormData('cal');
+    $result->cal = $event->getCalendar();
     $result->view = Horde_Util::getFormData('view');
     $result->sig = $start->dateString() . $end->dateString();
     if (count($events)) {
