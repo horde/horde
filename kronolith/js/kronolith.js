@@ -1757,6 +1757,16 @@ KronolithCore = {
                 e.stop();
                 return;
 
+            case 'kronolithQuickEvent':
+                $('kronolithQuickinsert').appear({
+                    duration: 0.3,
+                    afterFinish: function() {
+                        $('kronolithQuickinsertQ').focus();
+                    }
+                });
+                e.stop();
+                return;
+
             case 'kronolithQuickinsertSave':
                 $('kronolithQuickinsert').fade();
                 this.quickSaveEvent();
