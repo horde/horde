@@ -1,0 +1,95 @@
+//
+//	ApertureToAnselExportPlugin.h
+//	ApertureToAnselExportPlugin
+//
+//	Created by Michael Rubinsky on 8/29/09.
+//	Copyright __MyCompanyName__ 2009. All rights reserved.
+//
+
+#import <Cocoa/Cocoa.h>
+#import <Quartz/Quartz.h>
+#import <Foundation/Foundation.h>
+#import "ApertureExportManager.h"
+#import "ApertureExportPlugIn.h"
+
+@class TURAnsel, TURAnselGallery;
+@interface ApertureToAnselExportPlugin : NSObject <ApertureExportPlugIn>
+{
+	// The cached API Manager object, as passed to the -initWithAPIManager: method.
+	id _apiManager; 
+	
+	// The cached Aperture Export Manager object - you should fetch this from the API Manager during -initWithAPIManager:
+	NSObject<ApertureExportManager, PROAPIObject> *_exportManager; 
+	
+	// The lock used to protect all access to the ApertureExportProgress structure
+	NSLock *_progressLock;
+	
+	// Top-level objects in the nib are automatically retained - this array
+	// tracks those, and releases them
+	NSArray *_topLevelNibObjects;
+	
+	// The structure used to pass all progress information back to Aperture
+	ApertureExportProgress exportProgress;
+
+	// Outlets to your plug-ins user interface
+	IBOutlet NSView *settingsView;
+	IBOutlet NSView *firstView;
+	IBOutlet NSView *lastView;
+    
+    IBOutlet NSComboBox *galleryCombo;
+    IBOutlet NSTextField *statusLabel;
+    IBOutlet NSProgressIndicator *spinner;
+    IBOutlet NSImageView *defaultImageView;
+    IBOutlet NSButton *mNewGalleryButton;
+    IBOutlet NSPopUpButton *mServersPopUp;
+    IBOutlet NSButton *mCancelConnect;
+    IBOutlet NSTextField *mImageCountLabel;
+    
+    // New Server sheet
+    IBOutlet NSWindow *newServerSheet;
+    IBOutlet NSTextField *mServerSheetHostURL;
+    IBOutlet NSTextField *mServerSheetUsername;    
+    IBOutlet NSSecureTextField *mServerSheetPassword;
+    IBOutlet NSTextField *mServerSheetServerNickName;
+    IBOutlet NSButton *mMakeNewServerDefault;
+    
+    // Server list
+    IBOutlet NSPanel *serverListPanel;
+    IBOutlet NSTableView *serverTable;
+
+    // Currently selected server data
+    NSMutableArray *_anselServers;
+    NSDictionary *_currentServer;
+
+    // Gallery View
+    IBOutlet NSButton *viewGallery;
+    IBOutlet NSWindow *mviewGallerySheet;
+    IBOutlet NSButton *closeGalleryView;
+    IBOutlet IKImageBrowserView *browserView;
+    
+    BOOL cancelExport;
+    TURAnselGallery *_currentGallery;
+    int _currentImageCount;
+    TURAnsel *_anselController;
+    NSMutableArray *_browserData;
+    
+    // Remembers the selected server before it changes. Used to reselect the
+    // proper server if necessary when server panels are closed.
+    int mIndexOfPreviouslySelectedServer;
+}
+
+- (IBAction) showNewGallery: (id)sender;
+- (IBAction) doAddServer: (id)sender;
+- (IBAction) doCancelAddServer: (id)sender;
+- (IBAction) clickServer: (id)sender;
+- (IBAction) clickCancelConnect: (id)sender;
+
+- (IBAction) clickViewGallery: (id)sender;
+- (IBAction) closeGalleryView: (id)sender;
+
+// Server List
+- (IBAction) closeServerList: (id)sender;
+- (IBAction) removeServer: (id)sender;
+
+- (NSWindow *)window;
+@end
