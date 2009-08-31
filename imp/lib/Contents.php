@@ -49,6 +49,14 @@ class IMP_Contents
     static protected $_instances = array();
 
     /**
+     * Internal counter for ensuring Horde_Mime_Part objects passed to
+     * singleton() are given unique objects.
+     *
+     * @var integer
+     */
+    static protected $_mimepartid = 1;
+
+    /**
      * The IMAP index of the message.
      *
      * @var integer
@@ -92,7 +100,7 @@ class IMP_Contents
     static public function singleton($in)
     {
         $sig = ($in instanceof Horde_Mime_Part)
-            ? hash('md5', serialize($in))
+            ? 'horde_mime_part_' . self::$_mimepartid++
             : $in;
 
         if (empty(self::$_instances[$sig])) {
@@ -358,7 +366,9 @@ class IMP_Contents
      * @param array $options   Additional options:
      * <pre>
      * 'mime_part' - (Horde_Mime_Part) The MIME part to render.
-     * 'params' - (array) Additional params to set.
+     * 'params' - (array) Additional params to set. Special params:
+     *            'raw' - The calling code wants display of the raw data,
+     *            without any additional formatting.
      * 'type' - (string) Use this MIME type instead of the MIME type
      *          identified in the MIME part.
      * </pre>

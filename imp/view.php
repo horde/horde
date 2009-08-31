@@ -67,12 +67,11 @@ if ($actionID == 'compose_attach_preview') {
     /* Initialize the IMP_Compose:: object. */
     $imp_compose = IMP_Compose::singleton(Horde_Util::getFormData('composeCache'));
     $mime = $imp_compose->buildAttachment($id);
+    $mime->setMimeId($id);
 
     /* Create a dummy IMP_Contents() object so we can use the view code below.
      * Then use the 'view_attach' handler to output. */
     $contents = IMP_Contents::singleton($mime);
-    $actionID = 'view_attach';
-    $id = $mime->getMimeId();
 } else {
     $uid = Horde_Util::getFormData('uid');
     $mailbox = Horde_Util::getFormData('mailbox');
@@ -158,8 +157,9 @@ case 'download_render':
     }
     exit;
 
+case 'compose_attach_preview':
 case 'view_attach':
-    $render = $contents->renderMIMEPart($id, Horde_Util::getFormData('mode', IMP_Contents::RENDER_FULL), array('type' => $ctype));
+    $render = $contents->renderMIMEPart($id, Horde_Util::getFormData('mode', IMP_Contents::RENDER_FULL), array('params' => array('raw' => ($actionID == 'compose_attach_preview'), 'type' => $ctype)));
     if (!empty($render)) {
         reset($render);
         $key = key($render);
