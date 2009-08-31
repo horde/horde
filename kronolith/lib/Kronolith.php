@@ -654,7 +654,7 @@ class Kronolith
         if (is_a($eventId, 'PEAR_Error')) {
             return $eventId;
         }
-        return $event->getUID();
+        return $event;
     }
 
     /**

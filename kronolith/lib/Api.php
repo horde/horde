@@ -690,7 +690,12 @@ class Kronolith_Api extends Horde_Registry_Api
             return PEAR::raiseError(_("Permission Denied"));
         }
 
-        return Kronolith::quickAdd($text, $calendar);
+        $event = Kronolith::quickAdd($text, $calendar);
+        if (is_a($event, 'PEAR_Error')) {
+            return $event;
+        }
+
+        return $event->getUID();
     }
 
     /**

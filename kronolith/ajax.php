@@ -197,11 +197,12 @@ try {
 
     case 'QuickSaveEvent':
         $kronolith_driver = Kronolith::getDriver();
-        $uids = Kronolith::quickAdd(Horde_Util::getFormData('text'), Kronolith::getDefaultCalendar(PERMS_EDIT));
-        if (!count($uids)) {
+        $event = Kronolith::quickAdd(Horde_Util::getFormData('text'), Kronolith::getDefaultCalendar(PERMS_EDIT));
+        if (is_a($event, 'PEAR_Error')) {
+            $notification->push($event, 'horde.error');
+            $result = true;
             break;
         }
-        $event = $kronolith_driver->getByUid($uids[0]);
         $result = saveEvent($event);
         break;
 
