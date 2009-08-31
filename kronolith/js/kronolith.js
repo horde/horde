@@ -1704,7 +1704,16 @@ KronolithCore = {
                     break;
                 }
                 break;
+
+            case Event.KEY_ESC:
+                switch (form.identify()) {
+                case 'kronolithQuickinsertForm':
+                    $('kronolithQuickinsert').fade();
+                    break;
+                }
+                break;
             }
+
             return;
         }
 
