@@ -234,7 +234,7 @@ abstract class Kronolith_Event
             $backgroundColor = $share->get('color');
             if (!empty($backgroundColor)) {
                 $this->_backgroundColor = $backgroundColor;
-                $this->_foregroundColor = Horde_Image::brightness($this->_backgroundColor) < 128 ? '#f6f6f6' : '#000';
+                $this->_foregroundColor = Horde_Image::brightness($this->_backgroundColor) < 128 ? '#fff' : '#000';
             }
         }
 
