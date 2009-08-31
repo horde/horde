@@ -77,14 +77,6 @@ class IMP_Contents
     protected $_build = false;
 
     /**
-     * The status cache.
-     * NOT CURRENTLY USED
-     *
-     * @var array
-     */
-    protected $_statuscache = array();
-
-    /**
      * Attempts to return a reference to a concrete IMP_Contents instance.
      * If an IMP_Contents object is currently stored in the local cache,
      * recreate that object.  Else, create a new instance.
@@ -432,10 +424,6 @@ class IMP_Contents
 
         if (!empty($ret[$mime_id]) && !isset($ret[$mime_id]['name'])) {
             $ret[$mime_id]['name'] = $mime_part->getName(true);
-        }
-
-        if (isset($this->_statuscache[$mime_id])) {
-            $ret[$mime_id]['status'] = array_merge($this->_statuscache[$mime_id], $ret[$mime_id]['status']);
         }
 
         /* If this is a text/* part, AND the browser does not support UTF-8,
@@ -909,18 +897,6 @@ class IMP_Contents
     {
         $this->_buildMessage();
         return $this->_message->contentTypeMap();
-    }
-
-    /**
-     * Sets additional status information for a part.
-     * NOT CURRENTLY USED
-     *
-     * @param string $id    The MIME ID
-     * @param array $entry  The status entry.
-     */
-    public function setStatusCache($id, $entry)
-    {
-        $this->_statuscache[$id][] = $entry;
     }
 
     /**
