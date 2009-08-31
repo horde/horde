@@ -2,8 +2,6 @@
 /**
  * Test Kolab Format MIME attributes
  *
- * $Horde: framework/Kolab_Format/test/Horde/Kolab/Format/MimeAttrTest.php,v 1.2 2009/01/06 17:49:23 jan Exp $
- *
  * PHP version 5
  *
  * @category   Kolab
@@ -21,8 +19,6 @@ require_once 'Horde/Autoloader.php';
 
 /**
  * Test Kolab Format MIME attributes
- *
- * $Horde: framework/Kolab_Format/test/Horde/Kolab/Format/MimeAttrTest.php,v 1.2 2009/01/06 17:49:23 jan Exp $
  *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *

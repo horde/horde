@@ -74,6 +74,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Format.php" role="php" />
       <dir name="Format">
        <file name="Date.php" role="php" />
+       <file name="Exception.php" role="php" />
        <file name="Xml.php" role="php" />
        <dir name="Xml">
         <file name="Annotation.php" role="php" />
@@ -121,6 +122,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.4.0b1</min>
    </pearinstaller>
    <package>
+    <name>Exception</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Nls</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -147,6 +152,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="examples/Horde/Kolab/Format/new_type.php" as="Horde/Kolab/Format/new_type.php" />
    <install name="lib/Horde/Kolab/Format.php" as="Horde/Kolab/Format.php" />
    <install name="lib/Horde/Kolab/Format/Date.php" as="Horde/Kolab/Format/Date.php" />
+   <install name="lib/Horde/Kolab/Format/Exception.php" as="Horde/Kolab/Format/Exception.php" />
    <install name="lib/Horde/Kolab/Format/Xml.php" as="Horde/Kolab/Format/Xml.php" />
    <install name="lib/Horde/Kolab/Format/Xml/Annotation.php" as="Horde/Kolab/Format/Xml/Annotation.php" />
    <install name="lib/Horde/Kolab/Format/Xml/Contact.php" as="Horde/Kolab/Format/Xml/Contact.php" />

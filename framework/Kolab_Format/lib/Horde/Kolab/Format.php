@@ -22,8 +22,9 @@ require_once 'Horde/Autoloader.php';
  *
  * Copyright 2007-2009 Klarälvdalens Datakonsult AB
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * See the enclosed file COPYING for license information (LGPL). If you did not
+ * receive this file, see
+ * http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
  *
  * @category Kolab
  * @package  Kolab_Format

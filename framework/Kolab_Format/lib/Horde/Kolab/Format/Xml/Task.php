@@ -17,8 +17,9 @@
  *
  * Copyright 2007-2009 Klarälvdalens Datakonsult AB
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * See the enclosed file COPYING for license information (LGPL). If you did not
+ * receive this file, see
+ * http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
  *
  * @category Kolab
  * @package  Kolab_Format
@@ -162,7 +163,8 @@ class Horde_Kolab_Format_Xml_Task extends Horde_Kolab_Format_Xml
 
         $object['completed'] = (bool) Kolab::percentageToBoolean($object['completed']);
 
-        if (isset($object['organizer']) && isset($object['organizer']['smtp-address'])) {
+        if (isset($object['organizer'])
+            && isset($object['organizer']['smtp-address'])) {
             $object['assignee'] = $object['organizer']['smtp-address'];
         }
 

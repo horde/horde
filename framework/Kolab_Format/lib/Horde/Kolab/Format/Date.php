@@ -17,8 +17,9 @@
  *
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * See the enclosed file COPYING for license information (LGPL). If you did not
+ * receive this file, see
+ * http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
  *
  * @category Kolab
  * @package  Kolab_Format

@@ -2,31 +2,36 @@
 /**
  * An example of defining a new Kolab format type
  *
- * $Horde: framework/Kolab_Format/examples/Horde/Kolab/Format/new_type.php,v 1.4 2009/01/06 17:49:22 jan Exp $
+ * PHP version 5
  *
- * @package Kolab_Format
+ * @category Kolab
+ * @package  Kolab_Format
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 
-/** We need the Horde_Kolab_Format package */
-require_once 'Horde/Kolab/Format.php';
-
-/** And we need the XML definition */
-require_once 'Horde/Kolab/Format/XML.php';
+/**
+ * The Autoloader allows us to omit "require/include" statements.
+ */
+require_once 'Horde/Autoloader.php';
 
 /**
  * Kolab XML handler for a string value
- *
- * $Horde: framework/Kolab_Format/examples/Horde/Kolab/Format/new_type.php,v 1.4 2009/01/06 17:49:22 jan Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @package Kolab_Format
+ * @category Kolab
+ * @package  Kolab_Format
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Format_XML_string extends Horde_Kolab_Format_XML {
+class Horde_Kolab_Format_Xml_String extends Horde_Kolab_Format_Xml
+{
 
     /**
      * Specific data fields for the prefs object
@@ -38,7 +43,7 @@ class Horde_Kolab_Format_XML_string extends Horde_Kolab_Format_XML {
     /**
      * Constructor
      */
-    function Horde_Kolab_Format_XML_string()
+    function __construct()
     {
         $this->_root_name = 'string';
 
@@ -46,17 +51,19 @@ class Horde_Kolab_Format_XML_string extends Horde_Kolab_Format_XML {
          */
         $this->_fields_specific = array(
             'string' => array(
-                'type' => HORDE_KOLAB_XML_TYPE_STRING,
-                'value' => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                'type' => self::TYPE_STRING,
+                'value' => self::VALUE_MAYBE_MISSING,
             ),
         );
 
-        parent::Horde_Kolab_Format_XML();
+        parent::__construct();
     }
 }
 
+Horde_Nls::setCharset('utf-8');
+
 /** Generate the format handler */
-$format = Horde_Kolab_Format::factory('XML', 'string');
+$format = Horde_Kolab_Format::factory('Xml', 'String');
 
 /** Prepare a test object */
 $object = array(

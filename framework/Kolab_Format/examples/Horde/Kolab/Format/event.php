@@ -2,16 +2,24 @@
 /**
  * A sample script for reading/writing an event.
  *
- * $Horde: framework/Kolab_Format/examples/Horde/Kolab/Format/event.php,v 1.3 2008/08/01 07:04:52 wrobel Exp $
+ * PHP version 5
  *
- * @package Kolab_Format
+ * @category Kolab
+ * @package  Kolab_Format
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 
-/** We need the Horde_Kolab_Format package */
-require_once 'Horde/Kolab/Format.php';
+/**
+ * The Autoloader allows us to omit "require/include" statements.
+ */
+require_once 'Horde/Autoloader.php';
+
+Horde_Nls::setCharset('utf-8');
 
 /** Generate the format handler */
-$format = Horde_Kolab_Format::factory('XML', 'event');
+$format = Horde_Kolab_Format::factory('Xml', 'Event');
 
 /** Prepare a test object */
 $object = array(

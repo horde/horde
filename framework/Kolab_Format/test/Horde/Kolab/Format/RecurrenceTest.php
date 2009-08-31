@@ -2,9 +2,13 @@
 /**
  * Test recurrence handling within the Kolab format implementation.
  *
- * $Horde: framework/Kolab_Format/test/Horde/Kolab/Format/RecurrenceTest.php,v 1.10 2009/01/19 18:10:00 mrubinsk Exp $
+ * PHP version 5
  *
- * @package Kolab_Format
+ * @category Kolab
+ * @package  Kolab_Format
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 
 /**
@@ -15,30 +19,31 @@ require_once 'Horde/Autoloader.php';
 /**
  * Test recurrence handling
  *
- * $Horde: framework/Kolab_Format/test/Horde/Kolab/Format/RecurrenceTest.php,v 1.10 2009/01/19 18:10:00 mrubinsk Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @package Kolab_Format
+ * @category Kolab
+ * @package  Kolab_Format
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 class Horde_Kolab_Format_RecurrenceTest extends PHPUnit_Framework_TestCase
 {
 
     /**
      * Set up testing.
+     *
+     * @return NULL
      */
     protected function setUp()
     {
         @include_once 'Horde/Date/Recurrence.php';
 
         if (!class_exists('Horde_Date_Recurrence')) {
-            $this->markTestSkipped(
-              'The Horde_Date_Recurrence class is missing.'
-            );
+            $this->markTestSkipped('The Horde_Date_Recurrence class is missing.');
         }
 
         Horde_Nls::setCharset('utf-8');
@@ -47,6 +52,8 @@ class Horde_Kolab_Format_RecurrenceTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test for http://bugs.horde.org/ticket/?id=6388
+     *
+     * @return NULL
      */
     public function testBug6388()
     {
@@ -56,7 +63,7 @@ class Horde_Kolab_Format_RecurrenceTest extends PHPUnit_Framework_TestCase
         $recur = file_get_contents(dirname(__FILE__) . '/fixtures/recur.xml');
 
         // Load XML
-        $xml = &Horde_Kolab_Format::factory('XML', 'event');
+        $xml   = &Horde_Kolab_Format::factory('XML', 'event');
         $recur = file_get_contents(dirname(__FILE__) . '/fixtures/recur_fail.xml');
 
         // Check that the xml fails because of a missing interval value
@@ -64,13 +71,15 @@ class Horde_Kolab_Format_RecurrenceTest extends PHPUnit_Framework_TestCase
             $xml->load($recur);
             $this->assertTrue(false);
         } catch (Exception $e) {
-            $this->assertTrue(is_a($e, 'Horde_Exception'));
+            $this->assertTrue($e instanceOf Horde_Exception);
         }
     }
 
 
     /**
      * Test exception handling.
+     *
+     * @return NULL
      */
     public function testExceptions()
     {
@@ -81,34 +90,35 @@ class Horde_Kolab_Format_RecurrenceTest extends PHPUnit_Framework_TestCase
 
         $object = $xml->load($recur);
 
-        $r = &new Horde_Date_Recurrence($object['start-date']);
+        $r = new Horde_Date_Recurrence($object['start-date']);
         $r->fromHash($object['recurrence']);
 
         $this->assertTrue($r->hasRecurEnd());
-        $this->assertTrue($r->hasException(2006,  8, 16));
+        $this->assertTrue($r->hasException(2006, 8, 16));
         $this->assertTrue($r->hasException(2006, 10, 18));
 
         $object['recurrence'] = $r->toHash();
-        $recur = $xml->save($object);
+        $recur                = $xml->save($object);
+        $object               = $xml->load($recur);
 
-        $object = $xml->load($recur);
-
-        $s = &new Horde_Date_Recurrence($object['start-date']);
+        $s = new Horde_Date_Recurrence($object['start-date']);
         $s->fromHash($object['recurrence']);
 
         $this->assertTrue($s->hasRecurEnd());
-        $this->assertTrue($s->hasException(2006,  8, 16));
+        $this->assertTrue($s->hasException(2006, 8, 16));
         $this->assertTrue($s->hasException(2006, 10, 18));
     }
 
     /**
      * Test completion handling.
+     *
+     * @return NULL
      */
     public function testCompletions()
     {
         $xml = Horde_Kolab_Format::factory('XML', 'event');
 
-        $r = &new Horde_Date_Recurrence(0);
+        $r = new Horde_Date_Recurrence(0);
         $r->setRecurType(Horde_Date_Recurrence::RECUR_DAILY);
         $r->addException(1970, 1, 1);
         $r->addCompletion(1970, 1, 2);
@@ -116,19 +126,20 @@ class Horde_Kolab_Format_RecurrenceTest extends PHPUnit_Framework_TestCase
         $r->addCompletion(1970, 1, 4);
         $r->setRecurEnd(new Horde_Date(86400*3));
 
-        $object = array('uid' => 0, 'start-date' => 0, 'end-date' => 60);
+        $object               = array('uid' => 0, 'start-date' => 0,
+                                      'end-date' => 60);
         $object['recurrence'] = $r->toHash();
-        $recur = $xml->save($object);
-        $object = $xml->load($recur);
+        $recur                = $xml->save($object);
+        $object               = $xml->load($recur);
 
-        $s = &new Horde_Date_Recurrence(0);
+        $s = new Horde_Date_Recurrence(0);
         $s->fromHash($object['recurrence']);
 
         $this->assertTrue($s->hasRecurEnd());
-        $this->assertTrue($s->hasException(1970,  1, 1));
-        $this->assertTrue($s->hasCompletion(1970,  1, 2));
-        $this->assertTrue($s->hasException(1970,  1, 3));
-        $this->assertTrue($s->hasCompletion(1970,  1, 4));
+        $this->assertTrue($s->hasException(1970, 1, 1));
+        $this->assertTrue($s->hasCompletion(1970, 1, 2));
+        $this->assertTrue($s->hasException(1970, 1, 3));
+        $this->assertTrue($s->hasCompletion(1970, 1, 4));
         $this->assertEquals(2, count($s->getCompletions()));
         $this->assertEquals(2, count($s->getExceptions()));
         $this->assertFalse($s->hasActiveRecurrence());

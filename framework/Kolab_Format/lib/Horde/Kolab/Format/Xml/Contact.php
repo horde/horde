@@ -17,8 +17,9 @@
  *
  * Copyright 2007-2009 Klarälvdalens Datakonsult AB
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * See the enclosed file COPYING for license information (LGPL). If you did not
+ * receive this file, see
+ * http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
  *
  * @category Kolab
  * @package  Kolab_Format
@@ -411,7 +412,7 @@ class Horde_Kolab_Format_Xml_Contact extends Horde_Kolab_Format_Xml
             $emails = explode(',', $object['emails']);
         }
 
-        if (isset($object['email']) && 
+        if (isset($object['email']) &&
             !in_array($object['email'], $emails)) {
             $emails[] = $object['email'];
         }

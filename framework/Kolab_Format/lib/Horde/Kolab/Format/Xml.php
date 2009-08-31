@@ -20,8 +20,9 @@
  *
  * Copyright 2007-2009 Klarälvdalens Datakonsult AB
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * See the enclosed file COPYING for license information (LGPL). If you did not
+ * receive this file, see
+ * http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
  *
  * @category Kolab
  * @package  Kolab_Format
@@ -121,7 +122,7 @@ class Horde_Kolab_Format_Xml
     /**
      * The XML document this driver works with.
      *
-     * @var Horde_DOM_Document
+     * @var DOMDocument
      *
      * @todo Make protected (fix the XmlTest for that)
      */
@@ -355,16 +356,16 @@ class Horde_Kolab_Format_Xml
      * Attempts to return a concrete Horde_Kolab_Format_Xml instance.
      * based on $object_type.
      *
-     * @param string    $object_type The object type that should be handled.
-     * @param array     $params      Any additional parameters.
+     * @param string $object_type The object type that should be handled.
+     * @param array  $params      Any additional parameters.
      *
      * @return Horde_Kolab_Format_Xml The newly created concrete
      *                                Horde_Kolab_Format_Xml instance.
      *
-     * @throws Horde_Exception If the class for the object type could
+     * @throws Horde_Kolab_Format_Exception If the class for the object type could
      *                         not be loaded.
      */
-    public function &factory($object_type = '', $params = null)
+    static public function &factory($object_type = '', $params = null)
     {
         $object_type = ucfirst(str_replace('-', '', $object_type));
         $class       = 'Horde_Kolab_Format_Xml_' . $object_type;
@@ -372,7 +373,7 @@ class Horde_Kolab_Format_Xml
         if (class_exists($class)) {
             $driver = &new $class($params);
         } else {
-            throw new Horde_Exception(sprintf(_("Failed to load Kolab XML driver %s"),
+            throw new Horde_Kolab_Format_Exception(sprintf(_("Failed to load Kolab XML driver %s"),
                                               $object_type));
         }
 
@@ -412,20 +413,20 @@ class Horde_Kolab_Format_Xml
     /**
      * Load an object based on the given XML string.
      *
-     * @todo Check encoding of the returned array. It seems to be ISO-8859-1 at
-     * the moment and UTF-8 would seem more appropriate.
-     *
-     * @param string $xmltext The XML of the message as string.
+     * @param string &$xmltext The XML of the message as string.
      *
      * @return array The data array representing the object.
      *
-     * @throws Horde_Exception If parsing the XML data failed.
+     * @throws Horde_Kolab_Format_Exception If parsing the XML data failed.
+     *
+     * @todo Check encoding of the returned array. It seems to be ISO-8859-1 at
+     * the moment and UTF-8 would seem more appropriate.
      */
     public function load(&$xmltext)
     {
         try {
             $this->_parseXml($xmltext);
-        } catch (DOMException $e) {
+        } catch (Horde_Kolab_Format_Exception $e) {
             /**
              * If the first call does not return successfully this might mean we
              * got an attachment with broken encoding. There are some Kolab
@@ -439,12 +440,8 @@ class Horde_Kolab_Format_Xml
             }
             $this->_parseXml($xmltext);
         }
-        if (empty($this->_xmldoc)) {
-            return false;
-        }
-
         if (!$this->_xmldoc->documentElement->hasChildNodes()) {
-            throw new Horde_Exception(_("No or unreadable content in Kolab XML object"));
+            throw new Horde_Kolab_Format_Exception(_("No or unreadable content in Kolab XML object"));
         }
 
         // fresh object data
@@ -459,7 +456,7 @@ class Horde_Kolab_Format_Xml
 
         // uid is vital
         if (!isset($object['uid'])) {
-            throw new Horde_Exception(_("UID not found in Kolab XML object"));
+            throw new Horde_Kolab_Format_Exception(_("UID not found in Kolab XML object"));
         }
 
         return $object;
@@ -468,11 +465,11 @@ class Horde_Kolab_Format_Xml
     /**
      * Load the groupware object based on the specifc XML values.
      *
-     * @param array $children An array of XML nodes.
+     * @param array &$children An array of XML nodes.
      *
      * @return array The data array representing the object.
      *
-     * @throws Horde_Exception If parsing the XML data failed.
+     * @throws Horde_Kolab_Format_Exception If parsing the XML data failed.
      */
     protected function _load(&$children)
     {
@@ -486,20 +483,19 @@ class Horde_Kolab_Format_Xml
     /**
      * Load an array with data from the XML nodes.
      *
-     * @param array $object   The resulting data array.
-     * @param array $children An array of XML nodes.
-     * @param array $fields   The fields to populate in the object array.
+     * @param array &$children An array of XML nodes.
+     * @param array $fields    The fields to populate in the object array.
      *
      * @return boolean True on success.
      *
-     * @throws Horde_Exception If parsing the XML data failed.
+     * @throws Horde_Kolab_Format_Exception If parsing the XML data failed.
      */
     protected function _loadArray(&$children, $fields)
     {
         $object = array();
 
         // basic fields below the root node
-        foreach($fields as $field => $params) {
+        foreach ($fields as $field => $params) {
             $result = $this->_getXmlData($children, $field, $params);
             if (isset($result)) {
                 $object[$field] = $result;
@@ -519,7 +515,7 @@ class Horde_Kolab_Format_Xml
      * @return string The content of the specified node or an empty
      *                string.
      *
-     * @throws Horde_Exception If parsing the XML data failed.
+     * @throws Horde_Kolab_Format_Exception If parsing the XML data failed.
      *
      * @todo Make protected (fix the XmlTest for that)
      */
@@ -527,11 +523,11 @@ class Horde_Kolab_Format_Xml
     {
         if ($params['type'] == self::TYPE_MULTIPLE) {
             $result = array();
-            foreach($children as $child) {
+            foreach ($children as $child) {
                 if ($child->nodeType == XML_ELEMENT_NODE && $child->tagName == $name) {
-                    $child_a = array($child);
-                    $value = $this->_getXmlData($child_a, $name,
-                                                $params['array']);
+                    $child_a  = array($child);
+                    $value    = $this->_getXmlData($child_a, $name,
+                                                   $params['array']);
                     $result[] = $value;
                 }
             }
@@ -551,7 +547,7 @@ class Horde_Kolab_Format_Xml
                 return null;
             } elseif ($params['value'] == self::VALUE_NOT_EMPTY) {
                 // May not be empty. Return an error
-                throw new Horde_Exception(sprintf(_("Data value for %s is empty in Kolab XML object!"),
+                throw new Horde_Kolab_Format_Exception(sprintf(_("Data value for %s is empty in Kolab XML object!"),
                                                   $name));
             } elseif ($params['value'] == self::VALUE_DEFAULT) {
                 // Return the default
@@ -567,8 +563,8 @@ class Horde_Kolab_Format_Xml
                 $value = call_user_func(array($this, '_load' . $params['load']),
                                         $child, $missing);
             } else {
-                throw new Horde_Exception(sprintf("Kolab XML: Missing function %s!",
-                                                  $params['load']));
+                throw new Horde_Kolab_Format_Exception(sprintf("Kolab XML: Missing function %s!",
+                                                               $params['load']));
             }
         } elseif ($params['type'] == self::TYPE_COMPOSITE) {
             return $this->_loadArray($child->childNodes, $params['array']);
@@ -583,30 +579,36 @@ class Horde_Kolab_Format_Xml
     /**
      * Parse the XML string. The root node is returned on success.
      *
-     * @param string $xmltext The XML of the message as string.
+     * @param string &$xmltext The XML of the message as string.
      *
      * @return NULL
      *
-     * @throws Horde_Exception If parsing the XML data failed.
+     * @throws Horde_Kolab_Format_Exception If parsing the XML data failed.
      *
      * @todo Make protected (fix the XmlTest for that)
      */
     public function _parseXml(&$xmltext)
     {
         $this->_xmldoc = new DOMDocument();
+
         $this->_xmldoc->preserveWhiteSpace = false;
-        $this->_xmldoc->formatOutput = true;
-        $this->_xmldoc->loadXML($xmltext);
+        $this->_xmldoc->formatOutput       = true;
+
+        @$this->_xmldoc->loadXML($xmltext);
+        if (empty($this->_xmldoc->documentElement)) {
+            throw new Horde_Kolab_Format_Exception(_("No or unreadable content in Kolab XML object"));
+        }
+
     }
 
     /**
      * Convert the data to a XML string.
      *
-     * @param array $attributes  The data array representing the note.
+     * @param array $object The data array representing the note.
      *
      * @return string The data as XML string.
      *
-     * @throws Horde_Exception If converting the data to XML failed.
+     * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
     public function save($object)
     {
@@ -622,12 +624,12 @@ class Horde_Kolab_Format_Xml
     /**
      * Save the specific XML values.
      *
-     * @param array &$root    The XML document root.
-     * @param array $object   The resulting data array.
+     * @param array &$root  The XML document root.
+     * @param array $object The resulting data array.
      *
      * @return boolean True on success.
      *
-     * @throws Horde_Exception If converting the data to XML failed.
+     * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
     protected function _save(&$root, $object)
     {
@@ -640,42 +642,39 @@ class Horde_Kolab_Format_Xml
     /**
      * Creates a new XML document if necessary.
      *
-     * @param string $xmltext  The XML of the message as string.
-     *
-     * @return Horde_DOM_Node The root node of the document.
+     * @return DOMNode The root node of the document.
      *
      * @todo Make protected (fix the XmlTest for that)
      */
     public function &_prepareSave()
     {
-        if (empty($this->_xmldoc)) {
-            // create new XML
-            $this->_xmldoc = new DOMDocument();
-            $this->_xmldoc->preserveWhiteSpace = false;
-            $this->_xmldoc->formatOutput = true;
-            $root = $this->_xmldoc->createElement($this->_root_name);
-            $this->_xmldoc->appendChild($root);
-            $root->setAttribute('version', $this->_root_version);
-        }
+        $this->_xmldoc = new DOMDocument();
+
+        $this->_xmldoc->preserveWhiteSpace = false;
+        $this->_xmldoc->formatOutput       = true;
+
+        $root = $this->_xmldoc->createElement($this->_root_name);
+        $this->_xmldoc->appendChild($root);
+        $root->setAttribute('version', $this->_root_version);
         return $root;
     }
 
     /**
      * Save a data array to XML nodes.
      *
-     * @param array   $root     The XML document root.
-     * @param array   $object   The data array.
-     * @param array   $fields   The fields to write into the XML object.
-     * @param boolean $append   Should the nodes be appended?
+     * @param array   $root   The XML document root.
+     * @param array   $object The data array.
+     * @param array   $fields The fields to write into the XML object.
+     * @param boolean $append Should the nodes be appended?
      *
      * @return boolean True on success.
      *
-     * @throws Horde_Exception If converting the data to XML failed.
+     * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
     protected function _saveArray($root, $object, $fields, $append = false)
     {
         // basic fields below the root node
-        foreach($fields as $field => $params) {
+        foreach ($fields as $field => $params) {
             $this->_updateNode($root, $object, $field, $params, $append);
         }
         return true;
@@ -684,23 +683,23 @@ class Horde_Kolab_Format_Xml
     /**
      * Update the specified node.
      *
-     * @param Horde_DOM_Node $parent_node  The parent node of the node that
-     *                                     should be updated.
-     * @param array          $attributes   The data array that holds all
-     *                                     attribute values.
-     * @param string         $name         The name of the the attribute
-     *                                     to be updated.
-     * @param array          $params       Parameters for saving the node
-     * @param boolean        $append       Should the node be appended?
+     * @param DOMNode $parent_node The parent node of the node that
+     *                             should be updated.
+     * @param array   $attributes  The data array that holds all
+     *                             attribute values.
+     * @param string  $name        The name of the the attribute
+     *                             to be updated.
+     * @param array   $params      Parameters for saving the node
+     * @param boolean $append      Should the node be appended?
      *
-     * @return Horde_DOM_Node The new/updated child node.
+     * @return DOMNode The new/updated child node.
      *
-     * @throws Horde_Exception If converting the data to XML failed.
+     * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      *
      * @todo Make protected (fix the XmlTest for that)
      */
     public function _updateNode($parent_node, $attributes, $name, $params,
-                                   $append = false)
+                                $append = false)
     {
         $value   = null;
         $missing = false;
@@ -713,7 +712,7 @@ class Horde_Kolab_Format_Xml
                 $value = $params['default'];
             } elseif ($params['value'] == self::VALUE_NOT_EMPTY) {
                 // May not be empty. Return an error
-                throw new Horde_Exception(sprintf(_("Data value for %s is empty in Kolab XML object!"),
+                throw new Horde_Kolab_Format_Exception(sprintf(_("Data value for %s is empty in Kolab XML object!"),
                                                   $name));
             } elseif ($params['value'] == self::VALUE_MAYBE_MISSING) {
                 /**
@@ -735,7 +734,7 @@ class Horde_Kolab_Format_Xml
                 return call_user_func(array($this, '_save' . $params['save']),
                                       $parent_node, $name, $value, $missing);
             } else {
-                throw new Horde_Exception(sprintf("Kolab XML: Missing function %s!",
+                throw new Horde_Kolab_Format_Exception(sprintf("Kolab XML: Missing function %s!",
                                                   $params['save']));
             }
         } elseif ($params['type'] == self::TYPE_COMPOSITE) {
@@ -753,7 +752,7 @@ class Horde_Kolab_Format_Xml
             $this->_removeNodes($parent_node, $name);
 
             // Add the new nodes
-            foreach($value as $add_node) {
+            foreach ($value as $add_node) {
                 $this->_saveArray($parent_node,
                                   array($name => $add_node),
                                   array($name => $params['array']),
@@ -769,15 +768,16 @@ class Horde_Kolab_Format_Xml
     /**
      * Create a text node.
      *
-     * @param Horde_DOM_Node  $parent   The parent of the new node.
-     * @param string          $name     The name of the child node to create.
-     * @param string          $value    The value of the child node to create.
+     * @param DOMNode $parent The parent of the new node.
+     * @param string  $name   The name of the child node to create.
+     * @param string  $value  The value of the child node to create.
      *
-     * @return Horde_DOM_Node The new node.
+     * @return DOMNode The new node.
      */
     protected function _createTextNode($parent, $name, $value)
     {
-        $value = Horde_String::convertCharset($value, Horde_Nls::getCharset(), 'utf-8');
+        $value = Horde_String::convertCharset($value, Horde_Nls::getCharset(),
+                                              'utf-8');
 
         $node = $this->_xmldoc->createElement($name);
 
@@ -793,14 +793,14 @@ class Horde_Kolab_Format_Xml
     /**
      * Return the named node among a list of nodes.
      *
-     * @param array  %$nodes The list of nodes.
+     * @param array  &$nodes The list of nodes.
      * @param string $name   The name of the node to return.
      *
-     * @return mixed The named Horde_DOM_Node or false if no node was found.
+     * @return mixed The named DOMNode or false if no node was found.
      */
     protected function _findNode(&$nodes, $name)
     {
-        foreach($nodes as $node) {
+        foreach ($nodes as $node) {
             if ($node->nodeType == XML_ELEMENT_NODE && $node->tagName == $name) {
                 return $node;
             }
@@ -817,21 +817,22 @@ class Horde_Kolab_Format_Xml
      * @param string $child_name  The name of the child node.
      * @param string $value       The value of the child node
      *
-     * @return mixed The specified Horde_DOM_Node or false if no node was found.
+     * @return mixed The specified DOMNode or false if no node was found.
      */
     protected function _findNodeByChildData($nodes, $parent_name, $child_name,
                                             $value)
     {
-        foreach($nodes as $node)
-        {
-            if ($node->nodeType == XML_ELEMENT_NODE && $node->tagName == $parent_name) {
+        foreach ($nodes as $node) {
+            if ($node->nodeType == XML_ELEMENT_NODE
+                && $node->tagName == $parent_name) {
                 $children = $node->childNodes;
-                foreach ($children as $child)
+                foreach ($children as $child) {
                     if ($child->nodeType == XML_ELEMENT_NODE
                         && $child->tagName == $child_name
                         && $child->textContent == $value) {
                         return $node;
                     }
+                }
             }
         }
 
@@ -839,9 +840,9 @@ class Horde_Kolab_Format_Xml
     }
 
     /**
-     * Retrieve the content of a Horde_DOM_Node.
+     * Retrieve the content of a DOMNode.
      *
-     * @param Horde_DOM_Node  $nodes  The node that should be read.
+     * @param DOMNode $node The node that should be read.
      *
      * @return string The content of the node.
      */
@@ -854,10 +855,10 @@ class Horde_Kolab_Format_Xml
     /**
      * Create a new named node on a parent node.
      *
-     * @param Horde_DOM_Node $parent  The parent node.
-     * @param string         $name    The name of the new child node.
+     * @param DOMNode $parent The parent node.
+     * @param string  $name   The name of the new child node.
      *
-     * @return Horde_DOM_Node The new child node.
+     * @return DOMNode The new child node.
      */
     protected function _createChildNode($parent, $name)
     {
@@ -870,8 +871,10 @@ class Horde_Kolab_Format_Xml
     /**
      * Remove named nodes from a parent node.
      *
-     * @param Horde_DOM_Node $parent  The parent node.
-     * @param string         $name    The name of the children to be removed.
+     * @param DOMNode $parent_node The parent node.
+     * @param string  $name        The name of the children to be removed.
+     *
+     * @return NULL
      */
     protected function _removeNodes($parent_node, $name)
     {
@@ -884,12 +887,12 @@ class Horde_Kolab_Format_Xml
      * Create a new named node on a parent node if it is not already
      * present in the given children.
      *
-     * @param Horde_DOM_Node $parent    The parent node.
-     * @param array          $children  The children that might already
-     *                                  contain the node.
-     * @param string         $name      The name of the new child node.
+     * @param DOMNode $parent   The parent node.
+     * @param array   $children The children that might already
+     *                          contain the node.
+     * @param string  $name     The name of the new child node.
      *
-     * @return Horde_DOM_Node The new or already existing child node.
+     * @return DOMNode The new or already existing child node.
      */
     protected function _createOrFindChildNode($parent, $children, $name)
     {
@@ -906,12 +909,12 @@ class Horde_Kolab_Format_Xml
     /**
      * Load the different XML types.
      *
-     * @param string $node    The node to load the data from
-     * @param array  $params  Parameters for loading the value
+     * @param string $node   The node to load the data from
+     * @param array  $params Parameters for loading the value
      *
      * @return string The loaded value.
      *
-     * @throws Horde_Exception If converting the data from XML failed.
+     * @throws Horde_Kolab_Format_Exception If converting the data from XML failed.
      */
     protected function _loadDefault($node, $params)
     {
@@ -942,16 +945,16 @@ class Horde_Kolab_Format_Xml
     /**
      * Save a data array as a XML node attached to the given parent node.
      *
-     * @param Horde_DOM_Node $parent_node The parent node to attach
-     *                                    the child to
-     * @param string         $name        The name of the node
-     * @param mixed          $value       The value to store
-     * @param boolean        $missing     Has the value been missing?
-     * @param boolean        $append      Should the node be appended?
+     * @param DOMNode $parent_node The parent node to attach
+     *                             the child to
+     * @param string  $name        The name of the node
+     * @param mixed   $value       The value to store
+     * @param array   $params      Field parameters
+     * @param boolean $append      Should the node be appended?
      *
-     * @return Horde_DOM_Node The new child node.
+     * @return DOMNode The new child node.
      *
-     * @throws Horde_Exception If converting the data to XML failed.
+     * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
     protected function _saveDefault($parent_node, $name, $value, $params,
                                     $append = false)
@@ -992,7 +995,7 @@ class Horde_Kolab_Format_Xml
      * Handle loading of categories. Preserve multiple categories in a hidden
      * object field. Optionally creates categories unknown to the Horde user.
      *
-     * @param array $object Array of strings, containing the 'categories' field.
+     * @param array &$object Array of strings, containing the 'categories' field.
      *
      * @return NULL
      */
@@ -1016,14 +1019,14 @@ class Horde_Kolab_Format_Xml
             $horde_categories = null;
         }
 
-        $kolab_categories = explode (',', $object['categories']);
+        $kolab_categories = explode(',', $object['categories']);
 
         $primary_category = '';
         foreach ($kolab_categories as $kolab_category) {
             $kolab_category = trim($kolab_category);
 
             $valid_category = true;
-            if ($cManager && 
+            if ($cManager &&
                 array_search($kolab_category, $horde_categories) === false) {
                 // Unknown category -> Add
                 if ($cManager->add($kolab_category) === false) {
@@ -1051,7 +1054,7 @@ class Horde_Kolab_Format_Xml
      * Preserve multiple categories on save if "categories" didn't change.
      * The name "categories" currently refers to one primary category.
      *
-     * @param array  $object Array of strings, containing the 'categories' field.
+     * @param array &$object Array of strings, containing the 'categories' field.
      *
      * @return NULL
      */
@@ -1060,8 +1063,7 @@ class Horde_Kolab_Format_Xml
         // Check for multiple categories.
         if (!isset($object['_categories_all'])
             || !isset($object['_categories_primary'])
-            || !isset($object['categories']))
-        {
+            || !isset($object['categories'])) {
             return;
         }
 
@@ -1074,12 +1076,12 @@ class Horde_Kolab_Format_Xml
     /**
      * Load the object creation date.
      *
-     * @param Horde_DOM_Node  $node    The original node if set.
-     * @param boolean         $missing Has the node been missing?
+     * @param DOMNode $node    The original node if set.
+     * @param boolean $missing Has the node been missing?
      *
      * @return string The creation date.
      *
-     * @throws Horde_Exception If converting the data from XML failed.
+     * @throws Horde_Kolab_Format_Exception If converting the data from XML failed.
      */
     protected function _loadCreationDate($node, $missing)
     {
@@ -1094,13 +1096,13 @@ class Horde_Kolab_Format_Xml
     /**
      * Save the object creation date.
      *
-     * @param Horde_DOM_Node $parent_node The parent node to attach the child
-     *                                    to.
-     * @param string         $name        The name of the node.
-     * @param mixed          $value       The value to store.
-     * @param boolean        $missing     Has the value been missing?
+     * @param DOMNode $parent_node The parent node to attach the child
+     *                             to.
+     * @param string  $name        The name of the node.
+     * @param mixed   $value       The value to store.
+     * @param boolean $missing     Has the value been missing?
      *
-     * @return Horde_DOM_Node The new child node.
+     * @return DOMNode The new child node.
      */
     protected function _saveCreationDate($parent_node, $name, $value, $missing)
     {
@@ -1117,8 +1119,8 @@ class Horde_Kolab_Format_Xml
     /**
      * Load the object modification date.
      *
-     * @param Horde_DOM_Node  $node    The original node if set.
-     * @param boolean         $missing Has the node been missing?
+     * @param DOMNode $node    The original node if set.
+     * @param boolean $missing Has the node been missing?
      *
      * @return string The last modification date.
      */
@@ -1135,13 +1137,13 @@ class Horde_Kolab_Format_Xml
     /**
      * Save the object modification date.
      *
-     * @param Horde_DOM_Node $parent_node The parent node to attach
-     *                                    the child to.
-     * @param string         $name        The name of the node.
-     * @param mixed          $value       The value to store.
-     * @param boolean        $missing     Has the value been missing?
+     * @param DOMNode $parent_node The parent node to attach
+     *                             the child to.
+     * @param string  $name        The name of the node.
+     * @param mixed   $value       The value to store.
+     * @param boolean $missing     Has the value been missing?
      *
-     * @return Horde_DOM_Node The new child node.
+     * @return DOMNode The new child node.
      */
     protected function _saveModificationDate($parent_node, $name, $value, $missing)
     {
@@ -1155,8 +1157,8 @@ class Horde_Kolab_Format_Xml
     /**
      * Load the name of the last client that modified this object
      *
-     * @param Horde_DOM_Node  $node    The original node if set.
-     * @param boolean         $missing Has the node been missing?
+     * @param DOMNode $node    The original node if set.
+     * @param boolean $missing Has the node been missing?
      *
      * @return string The last modification date.
      */
@@ -1172,13 +1174,13 @@ class Horde_Kolab_Format_Xml
     /**
      * Save the name of the last client that modified this object.
      *
-     * @param Horde_DOM_Node $parent_node The parent node to attach
-     *                                    the child to.
-     * @param string         $name        The name of the node.
-     * @param mixed          $value       The value to store.
-     * @param boolean        $missing     Has the value been missing?
+     * @param DOMNode $parent_node The parent node to attach
+     *                             the child to.
+     * @param string  $name        The name of the node.
+     * @param mixed   $value       The value to store.
+     * @param boolean $missing     Has the value been missing?
      *
-     * @return Horde_DOM_Node The new child node.
+     * @return DOMNode The new child node.
      */
     protected function _saveProductId($parent_node, $name, $value, $missing)
     {
@@ -1192,12 +1194,12 @@ class Horde_Kolab_Format_Xml
     /**
      * Load recurrence information.
      *
-     * @param Horde_DOM_Node  $node    The original node if set.
-     * @param boolean         $missing Has the node been missing?
+     * @param DOMNode $node    The original node if set.
+     * @param boolean $missing Has the node been missing?
      *
      * @return array The recurrence information.
      *
-     * @throws Horde_Exception If converting the data from XML failed.
+     * @throws Horde_Kolab_Format_Exception If converting the data from XML failed.
      */
     protected function _loadRecurrence($node, $missing)
     {
@@ -1218,7 +1220,7 @@ class Horde_Kolab_Format_Xml
         // Exclusions.
         if (isset($recurrence['exclusion'])) {
             $exceptions = array();
-            foreach($recurrence['exclusion'] as $exclusion) {
+            foreach ($recurrence['exclusion'] as $exclusion) {
                 if (!empty($exclusion)) {
                     list($year, $month, $mday) = sscanf($exclusion, '%04d-%02d-%02d');
 
@@ -1231,7 +1233,7 @@ class Horde_Kolab_Format_Xml
         // Completed dates.
         if (isset($recurrence['complete'])) {
             $completions = array();
-            foreach($recurrence['complete'] as $complete) {
+            foreach ($recurrence['complete'] as $complete) {
                 if (!empty($complete)) {
                     list($year, $month, $mday) = sscanf($complete, '%04d-%02d-%02d');
 
@@ -1242,9 +1244,9 @@ class Horde_Kolab_Format_Xml
         }
 
         // Range is special
-        foreach($children as $child) {
-            if ($child->tagname == 'range') {
-                $recurrence['range-type'] = $child->get_attribute('type');
+        foreach ($children as $child) {
+            if ($child->tagName == 'range') {
+                $recurrence['range-type'] = $child->getAttribute('type');
             }
         }
 
@@ -1262,88 +1264,88 @@ class Horde_Kolab_Format_Xml
     /**
      * Validate recurrence hash information.
      *
-     * @param array  $recurrence  Recurrence hash loaded from XML.
+     * @param array &$recurrence Recurrence hash loaded from XML.
      *
      * @return boolean True on success.
      *
-     * @throws Horde_Exception If the recurrence data is invalid.
+     * @throws Horde_Kolab_Format_Exception If the recurrence data is invalid.
      */
     protected function _validateRecurrence(&$recurrence)
     {
         if (!isset($recurrence['cycle'])) {
-              throw new Horde_Exception('recurrence tag error: cycle attribute missing');
+              throw new Horde_Kolab_Format_Exception('recurrence tag error: cycle attribute missing');
         }
 
         if (!isset($recurrence['interval'])) {
-              throw new Horde_Exception('recurrence tag error: interval tag missing');
+              throw new Horde_Kolab_Format_Exception('recurrence tag error: interval tag missing');
         }
         $interval = $recurrence['interval'];
         if ($interval < 0) {
-            throw new Horde_Exception('recurrence tag error: interval cannot be below zero: '
+            throw new Horde_Kolab_Format_Exception('recurrence tag error: interval cannot be below zero: '
                                       . $interval);
         }
 
         if ($recurrence['cycle'] == 'weekly') {
             // Check for <day>
             if (!isset($recurrence['day']) || count($recurrence['day']) == 0) {
-                throw new Horde_Exception('recurrence tag error: day tag missing for weekly recurrence');
+                throw new Horde_Kolab_Format_Exception('recurrence tag error: day tag missing for weekly recurrence');
             }
         }
 
         // The code below is only for monthly or yearly recurrences
         if ($recurrence['cycle'] != 'monthly'
-            && $recurrence['cycle'] != 'yearly')
+            && $recurrence['cycle'] != 'yearly') {
             return true;
+        }
 
         if (!isset($recurrence['type'])) {
-            throw new Horde_Exception('recurrence tag error: type attribute missing');
+            throw new Horde_Kolab_Format_Exception('recurrence tag error: type attribute missing');
         }
 
         if (!isset($recurrence['daynumber'])) {
-            throw new Horde_Exception('recurrence tag error: daynumber tag missing');
+            throw new Horde_Kolab_Format_Exception('recurrence tag error: daynumber tag missing');
         }
         $daynumber = $recurrence['daynumber'];
         if ($daynumber < 0) {
-            throw new Horde_Exception('recurrence tag error: daynumber cannot be below zero: '
+            throw new Horde_Kolab_Format_Exception('recurrence tag error: daynumber cannot be below zero: '
                                       . $daynumber);
         }
 
         if ($recurrence['type'] == 'daynumber') {
             if ($recurrence['cycle'] == 'yearly' && $daynumber > 366) {
-                throw new Horde_Exception('recurrence tag error: daynumber cannot be larger than 366 for yearly recurrences: ' . $daynumber);
+                throw new Horde_Kolab_Format_Exception('recurrence tag error: daynumber cannot be larger than 366 for yearly recurrences: ' . $daynumber);
             } else if ($recurrence['cycle'] == 'monthly' && $daynumber > 31) {
-                throw new Horde_Exception('recurrence tag error: daynumber cannot be larger than 31 for monthly recurrences: ' . $daynumber);
+                throw new Horde_Kolab_Format_Exception('recurrence tag error: daynumber cannot be larger than 31 for monthly recurrences: ' . $daynumber);
             }
         } else if ($recurrence['type'] == 'weekday') {
             // daynumber is the week of the month
             if ($daynumber > 5) {
-                throw new Horde_Exception('recurrence tag error: daynumber cannot be larger than 5 for type weekday: ' . $daynumber);
+                throw new Horde_Kolab_Format_Exception('recurrence tag error: daynumber cannot be larger than 5 for type weekday: ' . $daynumber);
             }
 
             // Check for <day>
             if (!isset($recurrence['day']) || count($recurrence['day']) == 0) {
-                throw new Horde_Exception('recurrence tag error: day tag missing for type weekday');
+                throw new Horde_Kolab_Format_Exception('recurrence tag error: day tag missing for type weekday');
             }
         }
 
         if (($recurrence['type'] == 'monthday' || $recurrence['type'] == 'yearday')
-            && $recurrence['cycle'] == 'monthly')
-        {
-            throw new Horde_Exception('recurrence tag error: type monthday/yearday is only allowed for yearly recurrences');
+            && $recurrence['cycle'] == 'monthly') {
+            throw new Horde_Kolab_Format_Exception('recurrence tag error: type monthday/yearday is only allowed for yearly recurrences');
         }
 
         if ($recurrence['cycle'] == 'yearly') {
             if ($recurrence['type'] == 'monthday') {
                 // daynumber and month
                 if (!isset($recurrence['month'])) {
-                    throw new Horde_Exception('recurrence tag error: month tag missing for type monthday');
+                    throw new Horde_Kolab_Format_Exception('recurrence tag error: month tag missing for type monthday');
                 }
                 if ($daynumber > 31) {
-                    throw new Horde_Exception('recurrence tag error: daynumber cannot be larger than 31 for type monthday: ' . $daynumber);
+                    throw new Horde_Kolab_Format_Exception('recurrence tag error: daynumber cannot be larger than 31 for type monthday: ' . $daynumber);
                 }
             } else if ($recurrence['type'] == 'yearday') {
                 if ($daynumber > 366) {
-                    throw new Horde_Exception('recurrence tag error: daynumber cannot be larger than 366 for type yearday: ' . $daynumber);
+                    throw new Horde_Kolab_Format_Exception('recurrence tag error: daynumber cannot be larger than 366 for type yearday: ' . $daynumber);
                 }
             }
         }
@@ -1354,13 +1356,13 @@ class Horde_Kolab_Format_Xml
     /**
      * Save recurrence information.
      *
-     * @param Horde_DOM_Node $parent_node The parent node to attach
-     *                                    the child to.
-     * @param string         $name        The name of the node.
-     * @param mixed          $value       The value to store.
-     * @param boolean        $missing     Has the value been missing?
+     * @param DOMNode $parent_node The parent node to attach
+     *                             the child to.
+     * @param string  $name        The name of the node.
+     * @param mixed   $value       The value to store.
+     * @param boolean $missing     Has the value been missing?
      *
-     * @return Horde_DOM_Node The new child node.
+     * @return DOMNode The new child node.
      */
     protected function _saveRecurrence($parent_node, $name, $value, $missing)
     {
@@ -1373,7 +1375,7 @@ class Horde_Kolab_Format_Xml
         // Exclusions.
         if (isset($value['exceptions'])) {
             $exclusions = array();
-            foreach($value['exceptions'] as $exclusion) {
+            foreach ($value['exceptions'] as $exclusion) {
                 if (!empty($exclusion)) {
                     list($year, $month, $mday) = sscanf($exclusion, '%04d%02d%02d');
                     $exclusions[]              = "$year-$month-$mday";
@@ -1385,7 +1387,7 @@ class Horde_Kolab_Format_Xml
         // Completed dates.
         if (isset($value['completions'])) {
             $completions = array();
-            foreach($value['completions'] as $complete) {
+            foreach ($value['completions'] as $complete) {
                 if (!empty($complete)) {
                     list($year, $month, $mday) = sscanf($complete, '%04d%02d%02d');
                     $completions[]             = "$year-$month-$mday";

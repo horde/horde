@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<contact version="1.0">
+<h-prefs version="1.0">
   <uid>1</uid>
   <body></body>
   <categories></categories>
@@ -9,4 +9,4 @@
   <product-id>Horde::Kolab</product-id>
   <application>Test</application>
   <pref>test</pref>
-</contact>
+</h-prefs>

@@ -33,15 +33,15 @@ The API provided by the package is very simple. It only provides a
 In order to have access to these methods it is necessary to create the
 "Horde_Kolab_Format" object. The call looks like this:
 
- $format = Horde_Kolab_Format::factory('XML', 'event');
+ $format = Horde_Kolab_Format::factory('Xml', 'Event');
 
 The function takes three arguments:
 
-# "Format type": Currently only "XML" is supported here.
+# "Format type": Currently only "Xml" is supported here.
 
 # "Object type": The type of object you want to read/write. The
-  package currently implements "contact", "distributionslist",
-  "event", "note", "task" and "hprefs"
+  package currently implements "Contact", "Distributionslist",
+  "Event", "Note", "Task" and "Hprefs"
 
 The <tt>$format</tt> variable created above now provides the means to
 save and load events in Kolab XML format. In order to save an event we
@@ -152,20 +152,21 @@ are available within that array.
 Creating your own Kolab XML format
 ==================================
 
-Currently the "Horde_Kolab_Format" implements the object types
-"contact", "distributionslist", "event", "note", "task" as they are
-defined within the Kolab Format specification. In addition the
-Horde specific "hprefs" type is available. It is used for storing
-Horde user preferences in the IMAP store provided by the Kolab server.
+Currently the "Horde_Kolab_Format" package provides handlers for the
+object types "Contact", "Distributionslist", "Event", "Note", and
+"Task" as they are defined within the Kolab Format specification. In
+addition the Horde specific "Hprefs" type is available. It is used for
+storing Horde user preferences in the IMAP store provided by the Kolab
+server.
 
 Depending on the web application you might wish to connect with the
 Kolab server these object types may not be enough. Do not hesitate to
-define your own new type in that case. If you want it to find wider
-distribution you should of course discuss it on the Kolab Format
+define your own new type in that case. If you want it to be adopted by
+more Kolab clients you should of course discuss it on the Kolab Format
 mailing list (http://kolab.org/pipermail/kolab-format/) to get some
 feedback on the new type.
 
-The "Horde_Kolab_Format" packages makes the definition of a new object
+The "Horde_Kolab_Format" package makes the definition of a new object
 type rather straight forward. The following will explain the creation
 of a very simple new object that only saves a single string value.
 
@@ -173,16 +174,16 @@ This time it will be necessary to load the XML format definition,
 too. Any new object type will extend this XML definition:
 
  require_once 'Horde/Kolab/Format.php';
- require_once 'Horde/Kolab/Format/XML.php';
+ require_once 'Horde/Kolab/Format/Xml.php';
 
 A new object type is represented by a class that extends
-"Horde_Kolab_Format_XML":
+"Horde_Kolab_Format_Xml":
 
- class Horde_Kolab_Format_XML_string extends Horde_Kolab_Format_XML {
+ class Horde_Kolab_Format_Xml_String extends Horde_Kolab_Format_Xml {
 
-     var $_fields_specific;
+     protected $_fields_specific;
 
-     function Horde_Kolab_Format_XML_string()
+     public function __construct()
      {
          $this->_root_name = 'string';
 
@@ -190,12 +191,12 @@ A new object type is represented by a class that extends
           */
          $this->_fields_specific = array(
              'string' => array(
-                 'type' => HORDE_KOLAB_XML_TYPE_STRING,
-                 'value' => HORDE_KOLAB_XML_VALUE_MAYBE_MISSING,
+                 'type' => self::TYPE_STRING,
+                 'value' => self::VALUE_MAYBE_MISSING,
              ),
          );
 
-         parent::Horde_Kolab_Format_XML();
+         parent::__construct();
      }
  }
 
@@ -207,8 +208,8 @@ type has attributes beyond the basic set required for any Kolab
 object. So this part may not be missing for a declaration of a new
 type.
 
-The function creating the class ("Horde_Kolab_Format_XML_string()")
-needs to do three things:
+The function creating the class ("__construct()") needs to do three
+things:
 
 * Declaring the XML root name which will be "string" here. It should
   always match the type name.
@@ -219,12 +220,12 @@ needs to do three things:
   further below.
 
 * Calling the parent constructor using
-  "parent::Horde_Kolab_Format_XML()".
+  "parent::__construct()".
 
 The new format can now be used as demonstrated in the initial event
 example:
 
- $format = Horde_Kolab_Format::factory('XML', 'string');
+ $format = Horde_Kolab_Format::factory('Xml', 'String');
  $object = array(
      'uid' => 1,
      'string' => 'test string',
@@ -279,53 +280,53 @@ attributes a new object type may contain.
 Each entry in the field list will look like this
 
  'attribute_name' => array(
-     'type' => HORDE_KOLAB_XML_TYPE_*,
-     'value' => HORDE_KOLAB_XML_VALUE_*,
+     'type' => self::TYPE_*,
+     'value' => self::VALUE_*,
  ),
 
 "attribute_name" should be a short name describing the value that
 should be stored. "type" must be set to one of the following
-"HORDE_KOLAB_XML_TYPE_*" type values:
+"self::TYPE_*" type values:
 
-* "HORDE_KOLAB_XML_TYPE_STRING": A string.
+* "self::TYPE_STRING": A string.
 
-* "HORDE_KOLAB_XML_TYPE_INTEGER": A number
+* "self::TYPE_INTEGER": A number
 
-* "HORDE_KOLAB_XML_TYPE_BOOLEAN": True or false.
+* "self::TYPE_BOOLEAN": True or false.
 
-* "HORDE_KOLAB_XML_TYPE_DATE": A date (e.g. 2008/08/08)
+* "self::TYPE_DATE": A date (e.g. 2008/08/08)
 
-* "HORDE_KOLAB_XML_TYPE_DATETIME": A time and a date.
+* "self::TYPE_DATETIME": A time and a date.
 
-* "HORDE_KOLAB_XML_TYPE_DATE_OR_DATETIME": A date or a time and a
+* "self::TYPE_DATE_OR_DATETIME": A date or a time and a
   date.
 
-* "HORDE_KOLAB_XML_TYPE_COLOR": A color (#00BBFF).
+* "self::TYPE_COLOR": A color (#00BBFF).
 
-* "HORDE_KOLAB_XML_TYPE_COMPOSITE": A composite element that combines
+* "self::TYPE_COMPOSITE": A composite element that combines
   several attributes.
 
-* "HORDE_KOLAB_XML_TYPE_MULTIPLE": Wrapper for an element that may
+* "self::TYPE_MULTIPLE": Wrapper for an element that may
   occur several times.
 
-Examples for "HORDE_KOLAB_XML_TYPE_COMPOSITE" and
-"HORDE_KOLAB_XML_TYPE_MULTIPLE" can be found in the definitions
+Examples for "self::TYPE_COMPOSITE" and
+"self::TYPE_MULTIPLE" can be found in the definitions
 currently provided by the "Horde_Kolab_Format" package.
 
 The following "value" settings are allowed:
 
-* "HORDE_KOLAB_XML_VALUE_DEFAULT": An attribute with a default value.
+* "self::VALUE_DEFAULT": An attribute with a default value.
 
-* "HORDE_KOLAB_XML_VALUE_MAYBE_MISSING": An attribute that may be left
+* "self::VALUE_MAYBE_MISSING": An attribute that may be left
   undefined.
 
-* "HORDE_KOLAB_XML_VALUE_NOT_EMPTY": An attribute that will cause an
+* "self::VALUE_NOT_EMPTY": An attribute that will cause an
   error if it is left undefined.
 
-* "HORDE_KOLAB_XML_VALUE_CALCULATE": A complex attribute that gets its
+* "self::VALUE_CALCULATE": A complex attribute that gets its
   own function for calculating the correct value.
 
-Examples for "HORDE_KOLAB_XML_VALUE_CALCULATE" can again be found in
+Examples for "self::VALUE_CALCULATE" can again be found in
 the current object types implemented in "Horde_Kolab_Format".
 
 
