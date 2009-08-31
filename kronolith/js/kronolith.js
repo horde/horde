@@ -2090,24 +2090,19 @@ KronolithCore = {
 
     quickSaveEvent: function()
     {
-        var cal = $F('kronolithEventCalendar'),
-            text = $F('kronolithQuickinsertQ'),
+        var text = $F('kronolithQuickinsertQ'),
             viewDates = this.viewDates(this.date, this.view),
             start = viewDates[0].dateString(),
             end = viewDates[1].dateString();
 
-        this.startLoading(cal, start, end);
+        this.startLoading(null, start, end);
         this.doAction('QuickSaveEvent',
-                      $H({ text: text })
-                          .merge({
-                              'view': this.view,
-                              'view_start': start,
-                              'view_end': end
-                          }),
+                      $H({ 'text': text,
+                           'view': this.view,
+                           'view_start': start,
+                           'view_end': end
+                      }),
                       function(r) {
-                          if (r.response.events && eventid) {
-                              this._removeEvent(eventid, cal);
-                          }
                           this._loadEventsCallback(r);
                           this._closeRedBox();
                       }.bind(this));
