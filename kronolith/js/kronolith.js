@@ -1773,6 +1773,12 @@ KronolithCore = {
                 e.stop();
                 return;
 
+            case 'kronolithQuickinsertCancel':
+                $('kronolithQuickinsert').fade();
+                $('kronolithQuickinsertQ').value = '';
+                e.stop();
+                return;
+
             case 'kronolithEventDelete':
                 var cal = $F('kronolithEventCalendar'),
                     eventid = $F('kronolithEventId');

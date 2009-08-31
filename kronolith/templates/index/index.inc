@@ -130,7 +130,8 @@ require dirname(__FILE__) . '/agenda.inc';
 <div id="kronolithQuickinsert" style="display:none">
   <form action="#" method="post">
     <input type="text" id="kronolithQuickinsertQ" value="" />
-    <input type="submit" id="kronolithQuickinsertSave" value="<?php echo _("Add") ?>" class="button ok" /><br />
+    <input type="submit" id="kronolithQuickinsertSave" value="<?php echo _("Add") ?>" class="button ok" />
+    <input type="submit" id="kronolithQuickinsertCancel" value="x" class="button cancel" /><br />
     <?php echo _("I.e. Dinner with John tomorrow 10am") ?><br />
   </form>
 </div>

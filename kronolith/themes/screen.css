@@ -512,6 +512,9 @@ span#kronolithQuickEvent {
     padding:  5px;
     margin: 5px 5px 5px 15px;
 }
+#kronolithQuickinsertQ {
+    width: 150px;
+}
 
 /* Navigation bar */
 #kronolithBar {
