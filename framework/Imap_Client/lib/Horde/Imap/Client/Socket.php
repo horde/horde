@@ -2388,10 +2388,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                         if (!strlen($tag)) {
                             // BODY[] request
-                            $tmp['fullmsg'] = $data[++$i];
+                            $tmp['fullmsg'] = ($data[++$i] == 'NIL')
+                                ? null
+                                : $data[$i];
                         } elseif (is_numeric(substr($tag, -1))) {
                             // BODY[MIMEID] request
-                            $tmp['bodypart'][$tag] = $data[++$i];
+                            $tmp['bodypart'][$tag] = ($data[++$i] == 'NIL')
+                                ? null
+                                : $data[$i];
                         } else {
                             // BODY[HEADER|TEXT|MIME] request
                             if (($last_dot = strrpos($tag, '.')) === false) {
@@ -2406,7 +2410,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                             if (!isset($tmp[$label])) {
                                 $tmp[$label] = array();
                             }
-                            $tmp[$label][$mime_id] = $data[++$i];
+                            $tmp[$label][$mime_id] = ($data[++$i] == 'NIL')
+                                ? null
+                                : $data[$i];
                         }
                     }
                 } elseif (strpos($tag, 'BINARY[') === 0) {
