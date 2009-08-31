@@ -546,7 +546,7 @@ class Horde_Auth
             }
         }
 
-        return Horde_Util::addParameter($registry->get('webroot', 'horde') . '/login.php', $params, null, false);
+        return Horde_Util::addParameter(Horde::url($registry->get('webroot', 'horde') . '/login.php', true), $params, null, false);
     }
 
     /**
