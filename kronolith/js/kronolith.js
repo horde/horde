@@ -1702,6 +1702,11 @@ KronolithCore = {
                     this.go('search:' + $F('kronolithSearchContext') + ':' + $F('kronolithSearchTerm'))
                     e.stop();
                     break;
+
+                case 'kronolithQuickinsertForm':
+                    $('kronolithQuickinsert').fade();
+                    this.quickSaveEvent();
+                    break;
                 }
                 break;
 
