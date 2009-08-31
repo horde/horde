@@ -196,6 +196,18 @@ try {
         $result = saveEvent($event);
         break;
 
+    case 'QuickSaveEvent':
+        if (!($kronolith_driver = getDriver(Horde_Util::getFormData('cal')))) {
+            break;
+        }
+        $uids = $registry->calendar->quickAdd(Horde_Util::getFormData('text'), Horde_Util::getFormData('cal'));
+        if (!count($uids)) {
+            break;
+        }
+        $event = $kronolith_driver->getByUid($uids[0]);
+        $result = saveEvent($event);
+        break;
+
     case 'UpdateEvent':
         if (!($kronolith_driver = getDriver(Horde_Util::getFormData('cal')))) {
             break;

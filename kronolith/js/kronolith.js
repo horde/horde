@@ -1757,6 +1757,12 @@ KronolithCore = {
                 e.stop();
                 return;
 
+            case 'kronolithQuickinsertSave':
+                $('kronolithQuickinsert').fade();
+                this.quickSaveEvent();
+                e.stop();
+                return;
+
             case 'kronolithEventDelete':
                 var cal = $F('kronolithEventCalendar'),
                     eventid = $F('kronolithEventId');
@@ -2058,6 +2064,31 @@ KronolithCore = {
         this.startLoading(cal, start, end);
         this.doAction('SaveEvent',
                       $H($('kronolithEventForm').serialize({ 'hash': true }))
+                          .merge({
+                              'view': this.view,
+                              'view_start': start,
+                              'view_end': end
+                          }),
+                      function(r) {
+                          if (r.response.events && eventid) {
+                              this._removeEvent(eventid, cal);
+                          }
+                          this._loadEventsCallback(r);
+                          this._closeRedBox();
+                      }.bind(this));
+    },
+
+    quickSaveEvent: function()
+    {
+        var cal = $F('kronolithEventCalendar'),
+            text = $F('kronolithQuickinsertQ'),
+            viewDates = this.viewDates(this.date, this.view),
+            start = viewDates[0].dateString(),
+            end = viewDates[1].dateString();
+
+        this.startLoading(cal, start, end);
+        this.doAction('QuickSaveEvent',
+                      $H({ text: text })
                           .merge({
                               'view': this.view,
                               'view_start': start,

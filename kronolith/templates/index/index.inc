@@ -35,7 +35,7 @@
 <div id="kronolithMenu">
   <div id="kronolithAddEvents">
     <span id="kronolithNewEvent"><?php echo _("New event") ?></span>
-    <span id="kronolithQuickEvent" onclick="$('kronolithQuickinsert').appear()">+</span>
+    <span id="kronolithQuickEvent" onclick="$('kronolithQuickinsert').appear({duration: 0.3, afterFinish: function() { $('kronolithQuickinsertQ').focus(); }})">+</span>
   </div>
 
   <div id="kronolithMenuCalendars">
@@ -129,7 +129,8 @@ require dirname(__FILE__) . '/agenda.inc';
 
 <div id="kronolithQuickinsert" style="display:none">
   <form action="#" method="post">
-    <input type="text" name="q" value="" /> <input type="button" value="ok" class="button ok" onclick="$('kronolithQuickinsert').fade()" /><br />
+    <input type="text" name="q" id="kronolithQuickinsertQ" value="" />
+    <input type="submit" id="kronolithQuickinsertSave" value="ok" class="button ok" /><br />
     <?php echo _("I.e. Dinner with John tomorrow 10am") ?><br />
   </form>
 </div>
