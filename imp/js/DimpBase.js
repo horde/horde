@@ -1773,7 +1773,7 @@ var DimpBase = {
         if (DragDrop.Drags.drag) {
             var elt = e.element();
             if (elt.hasClassName('exp')) {
-                this._toggleSubFolder(elt.up(), 'exp');
+                this._toggleSubFolder(elt.up(), 'tog');
             }
         }
     },
