@@ -630,14 +630,19 @@ class Kronolith
     public function quickAdd($text, $calendar = null)
     {
         $text = trim($text);
-        list($title, $description) = explode($text, "\n", 2);
+        if (strpos($text, "\n") !== false) {
+            list($title, $description) = explode($text, "\n", 2);
+        } else {
+            $title = $text;
+            $description = '';
+        }
         $title = trim($title);
         $description = trim($description);
 
         $dateParser = Horde_Date_Parser::factory();
         $r = $dateParser->parse($title, array('return' => 'result'));
         if (!($d = $r->guess())) {
-            throw new Horde_Exception(_("Cannot parse event description."));
+            throw new Horde_Exception(sprintf(_("Cannot parse event description \"%s\""), Horde_String::truncate($text)));
         }
 
         $title = $r->untaggedText();
@@ -645,6 +650,7 @@ class Kronolith
 
         $kronolith_driver = Kronolith::getDriver(null, $calendar);
         $event = $kronolith_driver->getEvent();
+        $event->initialized = true;
         $event->setTitle($title);
         $event->setDescription($description);
         $event->start = $d;
