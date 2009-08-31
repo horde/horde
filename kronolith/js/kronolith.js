@@ -2112,6 +2112,8 @@ KronolithCore = {
                           this._loadEventsCallback(r);
                           this._closeRedBox();
                       }.bind(this));
+
+        $('kronolithQuickinsertQ').value = '';
     },
 
     _topTags: function(r)
