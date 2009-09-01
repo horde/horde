@@ -9,6 +9,8 @@
 #import "ApertureToAnselExportPlugin.h"
 #import "TURAnsel.h"
 #import "TURAnselGallery.h"
+#import "TURAnselGalleryPanelController.h"
+#import "AnselGalleryViewItem.h"
 
 @interface ApertureToAnselExportPlugin (PrivateAPI)
 - (void)showNewServerSheet;
@@ -479,10 +481,12 @@ NSString * const TURAnselServerPasswordKey = @"password";
         }
     }
 }
+
+#pragma mark -
+#pragma mark Actions
 // Server setup sheet
 -(IBAction)doAddServer: (id)sender
 {
-    // TODO: Sanity checks
     NSDictionary *newServer = [[NSDictionary alloc] initWithObjectsAndKeys:
                                [mServerSheetServerNickName stringValue], TURAnselServerNickKey,
                                [mServerSheetHostURL stringValue], TURAnselServerEndpointKey,
@@ -534,6 +538,103 @@ NSString * const TURAnselServerPasswordKey = @"password";
         }
         _currentServer = [[mServersPopUp selectedItem] representedObject];
         [self doConnect];
+    }
+}
+
+// Show the gallery's image browser
+- (IBAction)clickViewGallery: (id)sender
+{
+    [spinner startAnimation: self];
+    [self setStatusText: @"Getting image list..."];
+    NSMutableArray *images = [_currentGallery listImages];
+    if ([images count] == 0) {
+        [spinner stopAnimation: self];
+        [self setStatusText: @"Connected" withColor: [NSColor greenColor]];
+        return;
+    }
+    
+    for (NSDictionary *image in images) {
+        NSString *caption = [image objectForKey:@"caption"];
+        if (caption == nil) {
+            caption = [image objectForKey:@"filename"];
+        }
+        
+        NSDate *theDate = [NSDate dateWithTimeIntervalSince1970: [[image objectForKey:@"original_date"] doubleValue]];
+        AnselGalleryViewItem *item = [[AnselGalleryViewItem alloc] initWithURL: [NSURL URLWithString: [image objectForKey:@"url"]]
+                                                                     withTitle: caption
+                                                                      withDate: theDate];
+        [_browserData addObject: item];
+    }
+    
+    [NSApp beginSheet: mviewGallerySheet
+       modalForWindow: [self window]
+        modalDelegate: nil
+       didEndSelector: nil
+          contextInfo: nil];
+    
+    [spinner stopAnimation: self];
+    [self setStatusText: @"Connected" withColor: [NSColor greenColor]];
+    
+    [browserView reloadData];
+    
+}
+
+- (IBAction) closeGalleryView: (id)sender
+{
+    [NSApp endSheet: mviewGallerySheet];
+    [mviewGallerySheet orderOut: nil];
+    [_browserData removeAllObjects];
+    [browserView reloadData];
+}
+
+- (IBAction) closeServerList: (id)sender
+{
+    [serverTable setDelegate: nil];
+    [NSApp endSheet: serverListPanel];
+    [serverListPanel orderOut: nil];
+}
+
+// Remove the selected server from the saved list.
+- (IBAction)removeServer: (id)sender
+{
+    NSTableColumn *theCol = [serverTable tableColumnWithIdentifier:@"nickname"];
+    
+    // We are deleting the entry for the currently selected server - make sure 
+    // we disconnect.
+    if ([_currentServer objectForKey:TURAnselServerNickKey] == [[theCol dataCell] stringValue]) {
+        [self disconnect];
+    }
+    
+    NSUserDefaults *userPrefs = [NSUserDefaults standardUserDefaults]; 
+    
+    // See if the removed server is the current default.
+    if ([[userPrefs objectForKey:TURAnselDefaultServerKey] objectForKey: TURAnselServerNickKey] == [[theCol dataCell] stringValue]) {
+        [userPrefs setObject: nil forKey:TURAnselDefaultServerKey];
+    }
+    
+    // Remove it from the servers dictionary
+    [_anselServers removeObjectAtIndex: [serverTable selectedRow]];
+    [userPrefs setObject:_anselServers forKey:TURAnselServersKey];
+    
+    [userPrefs synchronize];
+    [serverTable reloadData];
+    [self updateServersPopupMenu];
+}
+
+// Put up the newGallerySheet NSPanel
+- (IBAction)showNewGallery: (id)sender
+{
+    TURAnselGalleryPanelController *newGalleryController;
+    //NSString *albumName;
+    
+    // Make sure we're not doing this for nothing
+    if ([_anselController state] == TURAnselStateConnected) {
+        
+        //albumName = [mExportMgr albumNameAtIndex: 0];
+        newGalleryController = [[TURAnselGalleryPanelController alloc] initWithController: _anselController
+                                                                          withGalleryName: nil];
+        [newGalleryController setDelegate: self];
+        [newGalleryController showSheetForWindow: [self window]];
     }
 }
 
@@ -674,5 +775,17 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [_anselController release];
     _anselController = nil;
     [self setStatusText:@"Not logged in" withColor: [NSColor redColor]];
+}
+
+#pragma mark -
+#pragma mark IKImageBrowserView Datasource methods
+- (NSUInteger)numberOfItemsInImageBrowser:(IKImageBrowserView *) aBrowser
+{	
+	return [_browserData count];
+}
+
+- (id)imageBrowser:(IKImageBrowserView *) aBrowser itemAtIndex:(NSUInteger)index
+{
+	return [_browserData objectAtIndex:index];
 }
 @end

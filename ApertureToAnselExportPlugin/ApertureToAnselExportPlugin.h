@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <Quartz/Quartz.h>
-#import <Foundation/Foundation.h>
+
 #import "ApertureExportManager.h"
 #import "ApertureExportPlugIn.h"
 
@@ -31,6 +31,10 @@
 	// The structure used to pass all progress information back to Aperture
 	ApertureExportProgress exportProgress;
 
+    // TURAnsel objects
+    TURAnselGallery *_currentGallery;
+    TURAnsel *_anselController;
+    
 	// Outlets to your plug-ins user interface
 	IBOutlet NSView *settingsView;
 	IBOutlet NSView *firstView;
@@ -64,12 +68,11 @@
     IBOutlet NSWindow *mviewGallerySheet;
     IBOutlet NSButton *closeGalleryView;
     IBOutlet IKImageBrowserView *browserView;
-    
-    BOOL cancelExport;
-    TURAnselGallery *_currentGallery;
-    int _currentImageCount;
-    TURAnsel *_anselController;
     NSMutableArray *_browserData;
+    
+    // Flags, counters etc...
+    BOOL cancelExport;
+    int _currentImageCount;
     
     BOOL isExporting;
 }

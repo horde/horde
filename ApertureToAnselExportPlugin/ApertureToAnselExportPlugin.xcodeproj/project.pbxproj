@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 42;
+	objectVersion = 45;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -45,6 +45,8 @@
 		B0D312691049AD7F006B06C6 /* README in Resources */ = {isa = PBXBuildFile; fileRef = B0D312171049A977006B06C6 /* README */; };
 		B0D3126A1049AD9A006B06C6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B0D312141049A977006B06C6 /* Localizable.strings */; };
 		B0D312A01049B26B006B06C6 /* XMLRPC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B0D312941049B24A006B06C6 /* XMLRPC.framework */; };
+		B0DEA058104D7012001D1509 /* AnselGalleryViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DEA057104D7012001D1509 /* AnselGalleryViewItem.m */; };
+		B0DEA1CE104D7DE2001D1509 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DEA1CD104D7DE2001D1509 /* Quartz.framework */; };
 		D118EA660AC08CCB006DD2FE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D118EA640AC08CCB006DD2FE /* Localizable.strings */; };
 		D15DEA4A0ABF639500CBE3A5 /* PluginManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D15DEA490ABF639500CBE3A5 /* PluginManager.framework */; };
 		D15DEA4F0ABF63C600CBE3A5 /* ApertureToAnselExportPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = D15DEA4D0ABF63C600CBE3A5 /* ApertureToAnselExportPlugin.m */; };
@@ -116,6 +118,9 @@
 		B0D312311049A9F2006B06C6 /* XMLRPC-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "XMLRPC-Info.plist"; sourceTree = "<group>"; };
 		B0D312391049AACC006B06C6 /* XMLRPC-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "XMLRPC-Info.plist"; sourceTree = "<group>"; };
 		B0D312941049B24A006B06C6 /* XMLRPC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = XMLRPC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0DEA056104D7012001D1509 /* AnselGalleryViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnselGalleryViewItem.h; sourceTree = "<group>"; };
+		B0DEA057104D7012001D1509 /* AnselGalleryViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnselGalleryViewItem.m; sourceTree = "<group>"; };
+		B0DEA1CD104D7DE2001D1509 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
 		D118EA650AC08CCB006DD2FE /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D118EB0F0AC08EAE006DD2FE /* ApertureToAnselExportPlugin.ApertureExport */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApertureToAnselExportPlugin.ApertureExport; sourceTree = BUILT_PRODUCTS_DIR; };
 		D15DEA490ABF639500CBE3A5 /* PluginManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PluginManager.framework; path = /Library/Frameworks/PluginManager.framework; sourceTree = "<absolute>"; };
@@ -132,6 +137,7 @@
 			files = (
 				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
 				D15DEA4A0ABF639500CBE3A5 /* PluginManager.framework in Frameworks */,
+				B0DEA1CE104D7DE2001D1509 /* Quartz.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,6 +192,8 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				B0DEA056104D7012001D1509 /* AnselGalleryViewItem.h */,
+				B0DEA057104D7012001D1509 /* AnselGalleryViewItem.m */,
 				D15DEA4E0ABF63C600CBE3A5 /* ApertureToAnselExportPlugin.h */,
 				D15DEA4D0ABF63C600CBE3A5 /* ApertureToAnselExportPlugin.m */,
 			);
@@ -195,6 +203,7 @@
 		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B0DEA1CD104D7DE2001D1509 /* Quartz.framework */,
 				D15DEA490ABF639500CBE3A5 /* PluginManager.framework */,
 				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
 			);
@@ -361,7 +370,7 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "ApertureToAnselExportPlugin" */;
-			compatibilityVersion = "Xcode 2.4";
+			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
 			mainGroup = 089C166AFE841209C02AAC07 /* MyApertureExportPlugIn */;
 			productRefGroup = 089C166AFE841209C02AAC07 /* MyApertureExportPlugIn */;
@@ -420,6 +429,7 @@
 				B0D3122D1049A977006B06C6 /* XMLRPCRequest.m in Sources */,
 				B0D3122E1049A977006B06C6 /* XMLRPCResponse.m in Sources */,
 				B0AE23391049F7770096565B /* TURAnselGalleryPanelController.m in Sources */,
+				B0DEA058104D7012001D1509 /* AnselGalleryViewItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,7 +524,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "/Users/mrubinsk/Library/Application Support/Aperture/Plug-Ins";
 				PRODUCT_NAME = ApertureToAnselExportPlugin;
-				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT = macosx10.5;
 				WRAPPER_EXTENSION = ApertureExport;
 				ZERO_LINK = YES;
 			};
@@ -546,7 +556,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = macosx10.4;
 			};
 			name = Debug;
 		};
@@ -561,7 +571,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = macosx10.4;
 			};
 			name = Release;
 		};
