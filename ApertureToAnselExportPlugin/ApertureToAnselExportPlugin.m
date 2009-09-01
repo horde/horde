@@ -86,6 +86,11 @@ NSString * const TURAnselServerPasswordKey = @"password";
         
         // Holds gallery's images info for the gallery preview 
         _browserData = [[NSMutableArray alloc] init];
+        
+        [self lockProgress];
+        exportProgress.currentValue = 0;
+        exportProgress.totalValue = 0;
+        [self unlockProgress];
 	}
 
 	NSLog(@"initWithAPIManager completed");
@@ -204,6 +209,10 @@ NSString * const TURAnselServerPasswordKey = @"password";
 - (void)exportManagerShouldBeginExport
 {	// You must call [_exportManager shouldBeginExport] here or elsewhere before Aperture will begin the export process
     NSLog(@"exportManagerShouldBeginExport");
+    [self lockProgress];
+    exportProgress.totalValue = [_exportManager imageCount];
+    exportProgress.currentValue = 0;
+    [self unlockProgress];
     [_exportManager shouldBeginExport];
 }
 
@@ -221,6 +230,13 @@ NSString * const TURAnselServerPasswordKey = @"password";
 
 - (BOOL)exportManagerShouldWriteImageData:(NSData *)imageData toRelativePath:(NSString *)path forImageAtIndex:(unsigned)index
 {
+    [self lockProgress];
+    [exportProgress.message autorelease];
+    exportProgress.message = [[NSString stringWithFormat:@"Uploading picture %d / %d",
+                               index + 1, [_exportManager imageCount]] retain];
+    exportProgress.currentValue++;
+    
+    [self unlockProgress];
     NSString *base64ImageData = [NSString base64StringFromData: imageData  
                                                         length: [imageData length]];
     NSDictionary *properties = [_exportManager propertiesWithoutThumbnailForImageAtIndex: index];
@@ -268,6 +284,9 @@ NSString * const TURAnselServerPasswordKey = @"password";
 	// You must call [_exportManager shouldFinishExport] before Aperture will put away the progress window and complete the export.
 	// NOTE: You should assume that your plug-in will be deallocated immediately following this call. Be sure you have cleaned up
 	// any callbacks or running threads before calling.
+    [[NSNotificationCenter defaultCenter] removeObserver: self
+                                                   name: NSWindowWillCloseNotification
+                                                 object: nil];
     [[NSNotificationCenter defaultCenter] removeObserver: self 
                                                     name: @"NSPopUpButtonWillPopUpNotification"
                                                   object: nil];
@@ -280,6 +299,9 @@ NSString * const TURAnselServerPasswordKey = @"password";
 	// You must call [_exportManager shouldCancelExport] here or elsewhere before Aperture will cancel the export process
 	// NOTE: You should assume that your plug-in will be deallocated immediately following this call. Be sure you have cleaned up
 	// any callbacks or running threads before calling.
+    [[NSNotificationCenter defaultCenter] removeObserver: self
+                                                    name: NSWindowWillCloseNotification
+                                                  object: nil];
     [[NSNotificationCenter defaultCenter] removeObserver: self 
                                                     name: @"NSPopUpButtonWillPopUpNotification"
                                                   object: nil];
@@ -340,7 +362,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [mServersPopUp setEnabled: true];
 }
 
-
+//@TODO - need to add a flag to indicate if we have a UI or not
 - (void)TURAnselHadError: (NSError *)error
 {
     NSLog(@"TURAnselHadError");
