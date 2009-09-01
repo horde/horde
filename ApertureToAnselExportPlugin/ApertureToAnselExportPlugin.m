@@ -357,8 +357,8 @@ NSString * const TURAnselServerPasswordKey = @"password";
 // and update the UI.
 - (void)TURAnselDidInitialize
 {   
+    // Release now that the callback has completed.
     [self release];
-    NSLog(@"TURAnselDidInitialize");
     [galleryCombo reloadData];
     [galleryCombo setEnabled: true];
     [mNewGalleryButton setEnabled: true];
@@ -638,11 +638,10 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [galleryCombo setDataSource:_anselController];
     [galleryCombo setDelegate:self];
     [spinner startAnimation:self];
-     [_anselController connect];
     // Detach to a new thread and do the actual login/retrieval of gallery list
-//    [NSApplication detachDrawingThread: @selector(connect)
-//                              toTarget: self 
-//                            withObject: nil];
+    [NSApplication detachDrawingThread: @selector(connect)
+                              toTarget: self 
+                            withObject: nil];
     [p release];
     [pool drain];
 }
