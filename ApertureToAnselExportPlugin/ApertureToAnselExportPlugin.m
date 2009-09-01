@@ -113,7 +113,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
 }
 
 #pragma mark -
-// UI Methods
 #pragma mark UI Methods
 
 - (NSView *)settingsView
@@ -147,16 +146,15 @@ NSString * const TURAnselServerPasswordKey = @"password";
 
 - (void)willBeActivated
 {
-    NSLog(@"willBeActivated");
+    // noop
 }
 
 - (void)willBeDeactivated
 {
-    NSLog(@"willBeDeactivated");
+    // noop
 }
 
 #pragma mark
-// Aperture UI Controls
 #pragma mark Aperture UI Controls
 
 - (BOOL)allowsOnlyPlugInPresets
@@ -179,11 +177,13 @@ NSString * const TURAnselServerPasswordKey = @"password";
 	return NO;	
 }
 
-- (void)exportManagerExportTypeDidChange{}
+- (void)exportManagerExportTypeDidChange
+{
+    // noop
+}
 
 
 #pragma mark -
-// Save Path Methods
 #pragma mark Save/Path Methods
 
 - (BOOL)wantsDestinationPathPrompt
@@ -193,7 +193,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 
 - (NSString *)destinationPath
 {
-	return @"/tmp";
+	return nil;
 }
 
 - (NSString *)defaultDirectory
@@ -203,11 +203,10 @@ NSString * const TURAnselServerPasswordKey = @"password";
 
 
 #pragma mark -
-// Export Process Methods
 #pragma mark Export Process Methods
 
 - (void)exportManagerShouldBeginExport
-{	// You must call [_exportManager shouldBeginExport] here or elsewhere before Aperture will begin the export process
+{	
     NSLog(@"exportManagerShouldBeginExport: %@", _currentGallery);
     if (_currentGallery == nil) {
         NSLog(@"No gallery selected.");
@@ -223,8 +222,12 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [_exportManager shouldBeginExport];
 }
 
-- (void)exportManagerWillBeginExportToPath:(NSString *)path {}
+- (void)exportManagerWillBeginExportToPath:(NSString *)path 
+{
+    // noop
+}
 
+// No restrictions, always return YES
 - (BOOL)exportManagerShouldExportImageAtIndex:(unsigned)index
 {
 	return YES;
@@ -232,9 +235,10 @@ NSString * const TURAnselServerPasswordKey = @"password";
 
 - (void)exportManagerWillExportImageAtIndex:(unsigned)index
 {
-	
+    // noop
 }
 
+// Actually perform the upload.
 - (BOOL)exportManagerShouldWriteImageData:(NSData *)imageData toRelativePath:(NSString *)path forImageAtIndex:(unsigned)index
 {
     [self lockProgress];
@@ -253,10 +257,10 @@ NSString * const TURAnselServerPasswordKey = @"password";
     NSString *fileType = @"jpeg"; //@TODO
     NSArray *values = [[NSArray alloc] initWithObjects:
                        path,
-                       [properties objectForKey: kExportKeyVersionName], //imagedescription
+                       [properties objectForKey: kExportKeyVersionName],
                        base64ImageData,
                        fileType,
-                       [properties objectForKey:kExportKeyKeywords], //keywords
+                       [properties objectForKey:kExportKeyKeywords],
                        nil];
     
     
@@ -278,12 +282,16 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [values release];
     [imageDataDict release];
     [params release];
+    
+    // Returning NO informs Aperture that the plugin is handling the export,
+    // and NOT Aperture.
 	return NO;	
 }
 
+// Basically just a success callback
 - (void)exportManagerDidWriteImageDataToRelativePath:(NSString *)relativePath forImageAtIndex:(unsigned)index
 {
-	NSLog(@"exportManagerDidWriteImageDataToRelativePath %d", index);
+	NSLog(@"exportManagerDidWriteImageDataToRelativePath %@", relativePath);
 }
 
 - (void)exportManagerDidFinishExport
@@ -317,7 +325,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
 
 
 #pragma mark -
-	// Progress Methods
 #pragma mark Progress Methods
 
 - (ApertureExportProgress *)progress
@@ -341,14 +348,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
 - (NSWindow *)window
 {
     return [_exportManager window];
-}
-
-#pragma mark NSPopUpButton Notification Handlers
-- (void) NSPopUpWillPopUp:(id)theButton
-{
-    // Remember the previous selection before it changes.
-    // The 'clickServer' action will handle what to do with the selection.
-    mIndexOfPreviouslySelectedServer = [mServersPopUp indexOfSelectedItem];
 }
 
 #pragma mark -
@@ -455,11 +454,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
     
     [self updateServersPopupMenu];
     
-    // Register for notifications
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(NSPopUpWillPopUp:)
-                                                 name:@"NSPopUpButtonWillPopUpNotification"
-                                               object: nil];
     if ([_anselServers count] == 0) {
         [self showNewServerSheet];
     } else {
