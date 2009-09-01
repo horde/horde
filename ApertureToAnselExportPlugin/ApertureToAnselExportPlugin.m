@@ -260,17 +260,17 @@ NSString * const TURAnselServerPasswordKey = @"password";
                             imageDataDict, @"data", 
                             [NSNumber numberWithBool:NO], @"default",
                             nil];
-//    
+    
     //Start upload with current gallery.
     NSLog(@"Uploading photo %d out of %d", index, [_exportManager imageCount]);
+    
+    // Make sure we are around for all callbacks to return even if Aperture cancelled.
+    [self retain];
     [_currentGallery uploadImageObject: params];
     [keys release];
     [values release];
     [imageDataDict release];
-    //[metadata release];
     [params release];
-    //[iptcDict release];
-
 	return NO;	
 }
 
@@ -352,6 +352,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 // and update the UI.
 - (void)TURAnselDidInitialize
 {   
+    [self release];
     NSLog(@"TURAnselDidInitialize");
     [galleryCombo reloadData];
     [galleryCombo setEnabled: true];
@@ -365,6 +366,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 //@TODO - need to add a flag to indicate if we have a UI or not
 - (void)TURAnselHadError: (NSError *)error
 {
+    [self release];
     NSLog(@"TURAnselHadError");
     // Stop the spinner
     [spinner stopAnimation: self];
@@ -614,6 +616,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 // Start the connection process.
 -(void)doConnect
 {
+    [self retain];
     [galleryCombo deselectItemAtIndex: [galleryCombo indexOfSelectedItem]];
     [mServersPopUp setEnabled: NO];
     [mNewGalleryButton setEnabled: NO];
