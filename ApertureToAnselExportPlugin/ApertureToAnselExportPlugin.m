@@ -208,7 +208,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 
 - (void)exportManagerShouldBeginExport
 {	// You must call [_exportManager shouldBeginExport] here or elsewhere before Aperture will begin the export process
-    NSLog(@"exportManagerShouldBeginExport");
+    NSLog(@"exportManagerShouldBeginExport: %@", _currentGallery);
     if (_currentGallery == nil) {
         NSLog(@"No gallery selected.");
         NSBeginAlertSheet(@"Export failed", nil, nil, nil,
@@ -663,7 +663,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 // Make sure we clean up from any previous connection
 -(void)disconnect
 {
-    [galleryCombo deselectItemAtIndex: [galleryCombo indexOfSelectedItem]];
+    //[galleryCombo deselectItemAtIndex: [galleryCombo indexOfSelectedItem]];
     [galleryCombo setDelegate: nil];
     [galleryCombo setDataSource: nil];
     [galleryCombo reloadData];
@@ -673,6 +673,10 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [defaultImageView setImage: nil];
     [_currentServer release];
     _currentServer = nil;
+    [_currentGallery setDelegate: nil];
+    [_currentGallery release];
+    _currentGallery = nil;
+    [_anselController setDelegate: nil];
     [_anselController release];
     _anselController = nil;
     [self setStatusText:@"Not logged in" withColor: [NSColor redColor]];
