@@ -60,10 +60,6 @@
 				<string>NSComboBox</string>
 				<key>lastView</key>
 				<string>NSView</string>
-				<key>mCancelConnect</key>
-				<string>NSButton</string>
-				<key>mImageCountLabel</key>
-				<string>NSTextField</string>
 				<key>mMakeNewServerDefault</key>
 				<string>NSButton</string>
 				<key>mNewGalleryButton</key>

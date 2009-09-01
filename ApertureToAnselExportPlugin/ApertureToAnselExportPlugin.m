@@ -320,6 +320,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [[NSNotificationCenter defaultCenter] removeObserver: self 
                                                     name: @"NSPopUpButtonWillPopUpNotification"
                                                   object: nil];
+    [_anselController cancel];
     [_exportManager shouldCancelExport];
 }
 

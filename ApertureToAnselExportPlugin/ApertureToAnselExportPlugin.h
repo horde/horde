@@ -42,8 +42,6 @@
     IBOutlet NSImageView *defaultImageView;
     IBOutlet NSButton *mNewGalleryButton;
     IBOutlet NSPopUpButton *mServersPopUp;
-    IBOutlet NSButton *mCancelConnect;
-    IBOutlet NSTextField *mImageCountLabel;
     
     // New Server sheet
     IBOutlet NSWindow *newServerSheet;
@@ -73,17 +71,13 @@
     TURAnsel *_anselController;
     NSMutableArray *_browserData;
     
-    // Remembers the selected server before it changes. Used to reselect the
-    // proper server if necessary when server panels are closed.
-    int mIndexOfPreviouslySelectedServer;
+    BOOL isExporting;
 }
 
 - (IBAction) showNewGallery: (id)sender;
 - (IBAction) doAddServer: (id)sender;
 - (IBAction) doCancelAddServer: (id)sender;
 - (IBAction) clickServer: (id)sender;
-- (IBAction) clickCancelConnect: (id)sender;
-
 - (IBAction) clickViewGallery: (id)sender;
 - (IBAction) closeGalleryView: (id)sender;
 
