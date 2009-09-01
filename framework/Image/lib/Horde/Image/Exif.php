@@ -70,6 +70,7 @@ class Horde_Image_Exif
                 'ObjectName' => array('description' => _("Image Title"), 'type' => 'text'),
                 'By-line' => array('description' => _("By"), 'type' => 'text'),
                 'CopyrightNotice' => array('description' => _("Copyright"), 'type' => 'text'),
+                'Caption-Abstract' => array('description' => _("Caption"), 'type' => 'text'),
             ),
 
             'XMP' => array(

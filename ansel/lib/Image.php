@@ -586,6 +586,13 @@ class Ansel_Image
             $needUpdate = true;
         }
 
+        /* Overwrite any existing value for caption with exif data */
+        $exif_title = $GLOBALS['prefs']->getValue('exif_title');
+        if (!empty($exif_fields[$exif_title])) {
+            $this->caption = $exif_fields[$exif_title];
+            $needUpdate = true;
+        }
+
         /* Attempt to autorotate based on Orientation field */
         $this->_autoRotate();
 
