@@ -209,6 +209,13 @@ NSString * const TURAnselServerPasswordKey = @"password";
 - (void)exportManagerShouldBeginExport
 {	// You must call [_exportManager shouldBeginExport] here or elsewhere before Aperture will begin the export process
     NSLog(@"exportManagerShouldBeginExport");
+    if (_currentGallery == nil) {
+        NSLog(@"No gallery selected.");
+        NSBeginAlertSheet(@"Export failed", nil, nil, nil,
+                          [_exportManager window], nil, nil,
+                          nil, nil, @"No gallery selected");
+        return;
+    }
     [self lockProgress];
     exportProgress.totalValue = [_exportManager imageCount];
     exportProgress.currentValue = 0;
@@ -341,7 +348,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
 {
     // Remember the previous selection before it changes.
     // The 'clickServer' action will handle what to do with the selection.
-    NSLog(@"test");
     mIndexOfPreviouslySelectedServer = [mServersPopUp indexOfSelectedItem];
 }
 
@@ -638,10 +644,11 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [galleryCombo setDataSource:_anselController];
     [galleryCombo setDelegate:self];
     [spinner startAnimation:self];
+     [_anselController connect];
     // Detach to a new thread and do the actual login/retrieval of gallery list
-    [NSApplication detachDrawingThread: @selector(connect)
-                              toTarget: self 
-                            withObject: nil];
+//    [NSApplication detachDrawingThread: @selector(connect)
+//                              toTarget: self 
+//                            withObject: nil];
     [p release];
     [pool drain];
 }
