@@ -595,7 +595,7 @@ HTML;
         $response = new stdClass();
         $response->response = $data;
         if ($listener) {
-            $GLOBALS['notification']->notify(array('listeners' => 'status'));
+            $GLOBALS['notification']->notify(array('listeners' => 'status', 'store' => true));
             $stack = $listener->getStack();
             if (!empty($stack)) {
                 $response->msgs = $stack;
