@@ -727,9 +727,6 @@ class Kronolith
                     }
                 }
             } else {
-                /* Specifying a single calendar is always to make sure
-                 * that it's shown. Use the "toggle_calendar" argument
-                 * to toggle the state of a single calendar. */
                 if (strncmp($calendarId, 'remote_', 7) === 0) {
                     $calendarId = substr($calendarId, 7);
                     if (!in_array($calendarId, $GLOBALS['display_remote_calendars'])) {
