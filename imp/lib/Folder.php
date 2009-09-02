@@ -63,9 +63,9 @@ class IMP_Folder
     /**
      * Lists folders.
      *
-     * @param boolean $sub   Should we list only subscribed folders?
      * @param array $filter  An list of mailboxes that should be left out of
      *                       the list (UTF7-IMAP).
+     * @param boolean $sub   Should we list only subscribed folders?
      *
      * @return array  An array of folders, where each array element is an
      *                associative array containing three values:
