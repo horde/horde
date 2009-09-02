@@ -220,7 +220,7 @@ body.rightPanel #page {
 body #pageControlsInner {
     display: none;
 }
-body #sbarShow, body #sbarHide {
+body #sbarShow, body #sbarHide, body #sbarClose {
     padding-left: 18px;
     white-space: nowrap;
     font-weight: bold;
