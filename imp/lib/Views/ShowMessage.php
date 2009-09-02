@@ -303,7 +303,8 @@ class IMP_Views_ShowMessage
             $result['msgtext'] = $imp_ui->formatStatusMsg(array('text' => array(_("There are no parts that can be shown inline."))));
         }
 
-        if (count($atc_parts) || (count($display_ids) > 2)) {
+        if (count($atc_parts) ||
+            (($show_parts == 'all') && count($display_ids) > 2)) {
             $result['atc_label'] = ($show_parts == 'all')
                 ? _("Parts")
                 : sprintf(ngettext("%d Attachment", "%d Attachments", count($atc_parts)), count($atc_parts));
@@ -313,7 +314,7 @@ class IMP_Views_ShowMessage
         }
 
         /* Show attachment information in headers? */
-        if (!empty($atc_parts) && ($show_parts != 'none')) {
+        if (!empty($atc_parts)) {
             $tmp = '';
 
             if ($show_parts == 'all') {

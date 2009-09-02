@@ -672,7 +672,7 @@ if (count($display_ids) > 2) {
 }
 
 /* Show attachment information in headers? */
-if (!empty($atc_parts) && ($show_parts != 'none')) {
+if (!empty($atc_parts)) {
     $tmp = array();
 
     if ($show_parts == 'all') {

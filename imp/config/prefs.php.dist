@@ -909,7 +909,7 @@ $_prefs['emoticons'] = array(
     'type' => 'checkbox',
     'desc' => _("Convert textual emoticons into graphical ones?"));
 
-// how do we display message parts?
+// how do we display message parts in the summary?
 $_prefs['parts_display'] = array(
     'value' => 'atc',
     'locked' => false,
@@ -917,10 +917,9 @@ $_prefs['parts_display'] = array(
     'type' => 'enum',
     'enum' => array(
         'all' => _("Show all parts"),
-        'atc' => _("Show attachments only"),
-        'none' => _("Don't show any parts")
+        'atc' => _("Show attachments only")
     ),
-    'desc' => _("How do you want to display the parts of a message by default?"));
+    'desc' => _("Which message parts do you want to display in the summary?"));
 
 // Display custom headers (configured via the identity screen) when viewing
 // messages?
