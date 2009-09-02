@@ -247,7 +247,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [exportProgress.message autorelease];
     exportProgress.message = [[NSString stringWithFormat:@"Uploading picture %d / %d",
                                index + 1, [_exportManager imageCount]] retain];
-    exportProgress.currentValue++;
     
     [self unlockProgress];
     NSString *base64ImageData = [NSString base64StringFromData: imageData  
@@ -255,8 +254,29 @@ NSString * const TURAnselServerPasswordKey = @"password";
     NSDictionary *properties = [_exportManager propertiesWithoutThumbnailForImageAtIndex: index];
     NSArray *keys = [[NSArray alloc] initWithObjects:
                      @"filename", @"description", @"data", @"type", @"tags", nil];
+
+    /* Determine the correct filetype */
+    NSDictionary *preset = [_exportManager selectedExportPresetDictionary];
+    NSLog(@"Preset selected: %@",[_exportManager selectedExportPresetDictionary]);
+    NSString *fileType;
+    NSString *format = [preset objectForKey: @"ImageFormat"];
+    if ([format isEqual: [NSNumber numberWithInt: kApertureImageFormatJPG]]) {
+        fileType = @"image/jpg";
+    } else if ([format isEqual: [NSNumber numberWithInt: kApertureImageFormatPNG]]) {
+        fileType = @"image/png";
+    } else if ([format isEqual: [NSNumber numberWithInt: kApertureImageFormatTIFF8]] ||
+              [format isEqual: [NSNumber numberWithInt: kApertureImageFormatTIFF16]]) {
+        
+        // Ansel can handle converting the tiff - it is obviously unable to display the original TIFF file.
+        fileType = @"image/tiff";
+    } else {
+        // Not supported.
+        // @TODO: Need to notify user of failure of this image.
+        fileType = nil;
+    }
+
+    NSLog(@"Image Type: %@", fileType);
     
-    NSString *fileType = @"jpeg"; //@TODO
     NSArray *values = [[NSArray alloc] initWithObjects:
                        path,
                        [properties objectForKey: kExportKeyVersionName],
@@ -294,6 +314,9 @@ NSString * const TURAnselServerPasswordKey = @"password";
 - (void)exportManagerDidWriteImageDataToRelativePath:(NSString *)relativePath forImageAtIndex:(unsigned)index
 {
 	NSLog(@"exportManagerDidWriteImageDataToRelativePath %@", relativePath);
+    [self lockProgress];
+    exportProgress.currentValue++;
+    [self unlockProgress];
 }
 
 - (void)exportManagerDidFinishExport
@@ -631,8 +654,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
     if ([_anselController state] == TURAnselStateConnected) {
         
         //albumName = [mExportMgr albumNameAtIndex: 0];
-        newGalleryController = [[TURAnselGalleryPanelController alloc] initWithController: _anselController
-                                                                          withGalleryName: nil];
+        newGalleryController = [[TURAnselGalleryPanelController alloc] initWithController: _anselController];
         [newGalleryController setDelegate: self];
         [newGalleryController showSheetForWindow: [self window]];
     }
@@ -788,4 +810,17 @@ NSString * const TURAnselServerPasswordKey = @"password";
 {
 	return [_browserData objectAtIndex:index];
 }
+#pragma mark NSTableView Datasource
+- (int)numberOfRowsInTableView:(NSTableView *)aTableView
+{
+    return [_anselServers count];
+}
+
+- (id)tableView:(NSTableView *)aTableView
+objectValueForTableColumn:(NSTableColumn *)aTableColumn
+            row:(int)rowIndex
+{
+    return [[_anselServers objectAtIndex: rowIndex] objectForKey: [aTableColumn identifier]];
+}
+
 @end

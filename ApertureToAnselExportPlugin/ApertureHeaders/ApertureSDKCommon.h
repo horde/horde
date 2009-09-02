@@ -135,3 +135,17 @@ typedef enum
 	kExportThumbnailSizeMini,
 	kExportThumbnailSizeTiny
 } ApertureExportThumbnailSize;
+
+/*
+ * Add the image type constants
+ */
+ typedef enum
+ {    
+ kApertureImageFormatJPG = 0,
+ kApertureImageFormatPNG = 1,
+ kApertureImageFormatTIFF8 = 2,
+ kApertureImageFormatTIFF16 = 3,
+ kApertureImageFormatPSD16 = 4,
+ kApertureImageFormatPSD8 = 5,
+ } ApertureImageFormat;
+ 
