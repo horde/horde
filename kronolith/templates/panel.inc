@@ -1,8 +1,3 @@
-<?php if (!empty($_SESSION['kronolith']['display_cal'])): ?>
-<div id="pageControls">
- <a id="sbarClose" href="<?php echo Horde_Util::addParameter(Horde::selfUrl(true), 'display_cal', '') ?>"><?php echo _("Return to my calendars")?></a>
-</div>
-<?php else: ?>
 <script type="text/javascript">
 function toggleTags(domid)
 {
