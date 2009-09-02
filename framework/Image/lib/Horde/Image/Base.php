@@ -225,7 +225,6 @@ class Horde_Image_Base
         $this->_width = null;
         $this->_height = null;
         $this->_background = 'white';
-        $this->_type = 'png';
     }
 
     /**
