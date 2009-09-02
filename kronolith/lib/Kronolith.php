@@ -674,8 +674,8 @@ class Kronolith
         }
 
         /* Initialize Kronolith session if we don't have one */
-        if (!isset($_SESSION['kronolith_session'])) {
-            $_SESSION['kronolith_session'] = array();
+        if (!isset($_SESSION['kronolith'])) {
+            $_SESSION['kronolith'] = array();
         }
 
         /* Fetch display preferences. */
