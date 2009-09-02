@@ -695,11 +695,20 @@ class Kronolith
 
         /* Update preferences for which calendars to display. If the
          * user doesn't have any selected calendars to view then fall
-         * back to an available calendar. */
+         * back to an available calendar. An empty string passed in this
+         * parameter will clear any existing session value.*/
         if (($calendarId = Horde_Util::getFormData('display_cal')) !== null) {
+            $_SESSION['kronolith']['display_cal'] = $calendarId;
+        }
+        if (!empty($_SESSION['kronolith']['display_cal'])) {
+            /* Specifying a value for display_cal is always to make sure
+             * that only the specified calendars are shown. Use the
+             * "toggle_calendar" argument  to toggle the state of a single
+             * calendar. */
             $GLOBALS['display_calendars'] = array();
             $GLOBALS['display_remote_calendars'] = array();
             $GLOBALS['display_external_calendars'] = array();
+            $calendarId = $_SESSION['kronolith']['display_cal'];
             if (is_array($calendarId)) {
                 $calendars = $calendarId;
                 foreach ($calendars as $calendarId) {
