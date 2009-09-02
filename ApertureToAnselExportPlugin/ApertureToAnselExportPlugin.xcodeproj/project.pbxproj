@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
-		B0AE230C1049F19D0096565B /* Panel.nib in Resources */ = {isa = PBXBuildFile; fileRef = B0AE230A1049F19D0096565B /* Panel.nib */; };
 		B0AE23391049F7770096565B /* TURAnselGalleryPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AE23361049F7770096565B /* TURAnselGalleryPanelController.m */; };
 		B0AE23411049F7A20096565B /* AnselGalleryPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = B0AE233D1049F7A20096565B /* AnselGalleryPanel.nib */; };
 		B0D311D01049A7DE006B06C6 /* TURAnsel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D311CB1049A7DE006B06C6 /* TURAnsel.m */; };
@@ -86,7 +85,6 @@
 		287924B90DAEB2A20074992A /* ApertureSDKCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApertureSDKCommon.h; sourceTree = "<group>"; };
 		32DBCF630370AF2F00C91783 /* ApertureToAnselExportPlugin_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApertureToAnselExportPlugin_Prefix.pch; sourceTree = "<group>"; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B0AE230B1049F19D0096565B /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/Panel.nib; sourceTree = "<group>"; };
 		B0AE23351049F7770096565B /* TURAnselGalleryPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TURAnselGalleryPanelController.h; sourceTree = "<group>"; };
 		B0AE23361049F7770096565B /* TURAnselGalleryPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TURAnselGalleryPanelController.m; sourceTree = "<group>"; };
 		B0AE233E1049F7A20096565B /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/AnselGalleryPanel.nib; sourceTree = "<group>"; };
@@ -180,7 +178,6 @@
 			isa = PBXGroup;
 			children = (
 				B0AE233D1049F7A20096565B /* AnselGalleryPanel.nib */,
-				B0AE230A1049F19D0096565B /* Panel.nib */,
 				D15DEA500ABF641300CBE3A5 /* ApertureToAnselExportPlugin.nib */,
 				8D5B49B7048680CD000E48DA /* Info.plist */,
 				D118EA640AC08CCB006DD2FE /* Localizable.strings */,
@@ -395,7 +392,6 @@
 				B0D312281049A977006B06C6 /* LICENSE in Resources */,
 				B0D312291049A977006B06C6 /* README in Resources */,
 				B0D312321049A9F2006B06C6 /* XMLRPC-Info.plist in Resources */,
-				B0AE230C1049F19D0096565B /* Panel.nib in Resources */,
 				B0AE23411049F7A20096565B /* AnselGalleryPanel.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -464,14 +460,6 @@
 				089C167EFE841241C02AAC07 /* English */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		B0AE230A1049F19D0096565B /* Panel.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B0AE230B1049F19D0096565B /* English */,
-			);
-			name = Panel.nib;
 			sourceTree = "<group>";
 		};
 		B0AE233D1049F7A20096565B /* AnselGalleryPanel.nib */ = {
