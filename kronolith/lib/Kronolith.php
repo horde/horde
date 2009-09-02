@@ -760,6 +760,8 @@ class Kronolith
                     $GLOBALS['display_calendars'][] = $calendarId;
                 }
             }
+
+            $GLOBALS['prefs']->setValue('display_cals', serialize($GLOBALS['display_calendars']));
         }
 
         /* Make sure all shares exists now to save on checking later. */
@@ -875,9 +877,9 @@ class Kronolith
                     $GLOBALS['notification']->push(sprintf(_("New calendar created and automatically shared with the following group(s): %s."), implode(', ', $group_list)), 'horde.success');
                 }
             }
-        }
 
-        $GLOBALS['prefs']->setValue('display_cals', serialize($GLOBALS['display_calendars']));
+            $GLOBALS['prefs']->setValue('display_cals', serialize($GLOBALS['display_calendars']));
+        }
 
     }
 
