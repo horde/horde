@@ -697,10 +697,11 @@ class Kronolith
          * user doesn't have any selected calendars to view then fall
          * back to an available calendar. */
         if (($calendarId = Horde_Util::getFormData('display_cal')) !== null) {
+            $GLOBALS['display_calendars'] = array();
+            $GLOBALS['display_remote_calendars'] = array();
+            $GLOBALS['display_external_calendars'] = array();
             if (is_array($calendarId)) {
                 $calendars = $calendarId;
-                $GLOBALS['display_calendars'] = array();
-                $GLOBALS['display_remote_calendars'] = array();
                 foreach ($calendars as $calendarId) {
                     if (strncmp($calendarId, 'remote_', 7) === 0) {
                         $calendarId = substr($calendarId, 7);
