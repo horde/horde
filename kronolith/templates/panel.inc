@@ -1,8 +1,3 @@
-<?php if (!empty($_SESSION['kronolith']['display_cal'])): ?>
-<div id="pageControls">
- <a id="sbarClose" href="<?php echo Horde_Util::addParameter(Horde::selfUrl(true), 'display_cal', '') ?>"><?php echo _("Return to my calendars")?></a>
-</div>
-<?php else: ?>
 <script type="text/javascript">
 function toggleTags(domid)
 {
@@ -31,13 +26,19 @@ foreach (Kronolith::listCalendars() as $id => $cal) {
 
 $tagger = Kronolith::getTagger();
 ?>
-
 <div id="pageControls">
-
-<a id="sbarShow" href="#" onclick="sbarToggle(); return false;"><?php echo _("Calendars") ?></a>
-<a id="sbarHide" href="#" onclick="sbarToggle(); return false;"><?php echo _("Calendars") ?></a>
-
+ <a id="sbarShow" href="#" onclick="sbarToggle(); return false;"><?php echo _("Calendars") ?></a>
+ <a id="sbarHide" href="#" onclick="sbarToggle(); return false;"><?php echo _("Calendars") ?></a>
+ <?php if (!empty($_SESSION['kronolith']['display_cal'])): ?>
+   <a id="sbarClose" href="<?php echo Horde_Util::addParameter(Horde::selfUrl(true), 'display_cal', '') ?>"><?php echo sprintf(_("Return to %s calendars"), Horde_Auth::getAuth() ? _("my") : '') ?></a>
+ <?php endif; ?>
 <div id="pageControlsInner">
+<?php if (!empty($_SESSION['kronolith']['display_cal'])): ?>
+  <h4><?php echo ngettext("Showing calendar:", "Showing Calendars", count($calendar_names)) ?></h4>
+  <?php foreach ($calendar_names as $name): ?>
+   <h4><?php echo $name ?></h4>
+  <?php endforeach; ?>
+<?php else: ?>
 <form action="<?php echo Horde::selfUrl() ?>" method="post">
 <?php echo Horde_Util::formInput() ?>
  <h4><?php echo _("Search for Calendars:") ?></h4>

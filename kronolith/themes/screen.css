@@ -220,11 +220,12 @@ body.rightPanel #page {
 body #pageControlsInner {
     display: none;
 }
-body #sbarShow, body #sbarHide, body #sbarClose {
+body #sbarShow, body #sbarHide {
     padding-left: 18px;
     white-space: nowrap;
     font-weight: bold;
 }
+
 body #sbarShow {
     display: block;
     background: transparent url("graphics/plus.png") center left no-repeat;
@@ -233,6 +234,12 @@ body #sbarHide {
     display: none;
     background: transparent url("graphics/minus.png") center left no-repeat;
 }
+
+body #sbarClose {
+	white-space: nowrap;
+	padding-left: 18px;
+}
+
 body.rightPanel #pageControlsInner {
     display: block;
 }
