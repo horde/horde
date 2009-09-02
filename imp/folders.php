@@ -442,7 +442,7 @@ foreach ($raw_rows as $val) {
         if (!empty($val['unseen'])) {
             $val['name'] = '<strong>' . $val['name'] . '</strong>';
         }
-        $val['name'] = Horde::link(Horde_Util::addParameter($name_url, 'mailbox', $val['value']), sprintf(_("View messages in %s"), ($val['vfolder']) ? $val['base_elt']['l'] : $val['display'])) . $val['name'] . '</a>';
+        $val['name'] = Horde::link(Horde_Util::addParameter($name_url, 'mailbox', $val['value']), $val['vfolder'] ? $val['base_elt']['l'] : $val['display']) . $val['name'] . '</a>';
     }
 
     $dir2 = $val['user_icon']
