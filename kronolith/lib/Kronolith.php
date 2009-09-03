@@ -2031,12 +2031,6 @@ class Kronolith
         return $driver->listResources($params);
     }
 
-//    static public function getResource($id)
-//    {
-//        $driver = Kronolith::getDriver('Resource');
-//        return new Kronolith_Resource_Single($driver->getResource($id));
-//    }
-
     static public function isResourceCalendar($calendar)
     {
         if (strncmp($calendar, 'resource_', 9) === 0) {
