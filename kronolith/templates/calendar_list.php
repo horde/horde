@@ -58,4 +58,23 @@
  </tbody>
 </table>
 
+<?php if (count($resources)): ?>
+<h1 class="smallheader">Resources</div>
+<table summary="<?php echo _("Resource Calendars") ?>" cellspacing="0"  class="striped sortable">
+ <thead>
+   <th class="sortdown"><?php echo _("Resource Name") ?></th>
+   <th class="calendar-list-url nosort"><?php echo _("Display URL") ?></th>
+   <th class="calendar-list-icon nosort" colspan="<?php echo empty($conf['share']['no_sharing']) ? 3 : 2 ?>">&nbsp;</th>
+  </thead>
+<?php foreach ($resources as $resource): ?>
+<?php var_dump($resource);?>
+  <tr>
+   <td><?php echo $resource->name ?></td>
+   <td><?php //echo $resource->url ?></td>
+   <td><?php echo Horde::link(Horde_Util::addParameter($edit_url_base, 'c', $resource->get('calendar')), _("Edit")) . $edit_img . '</a>' ?></td>
+  </tr>
+<?php endforeach; ?>
+</table>
+<?php endif; ?>
+
 </div>

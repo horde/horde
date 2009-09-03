@@ -383,6 +383,16 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
         return $resource;
     }
 
+    public function deleteEvent($event, $silent = false)
+    {
+        parent::deleteEvent($event, $silent);
+
+        /* @TODO: Since this is being removed from a resource calendar, need to
+         * make sure we remove any acceptance status from the event it's
+         * attached to.
+         */
+    }
+
     /**
      * Obtain a Kronolith_Resource by the resource's id
      *
@@ -402,12 +412,8 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
         if (empty($results)) {
             throw new Horde_Exception('Resource not found');
         }
-        $return = array();
-        foreach ($results as $field => $value) {
-            $return[str_replace('resource_', '', $field)] = $this->convertFromDriver($value);
-        }
 
-        return $return;
+        return new Kronolith_Resource_Single($this->_fromDriver($results));
     }
 
     /**
@@ -439,7 +445,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      * fleshed out.
      *
      */
-    function listResources($params = array())
+    public function listResources($params = array())
     {
         $query = 'SELECT resource_id, resource_name, resource_calendar, resource_category FROM kronolith_resources';
         $results = $this->_db->getAll($query, null, DB_FETCHMODE_ASSOC);
@@ -447,7 +453,22 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
             throw new Horde_Exception($results->getMessage());
         }
 
-        return $results;
+        $return = array();
+        foreach ($results as $result) {
+            $return[] = new Kronolith_Resource_Single($this->_fromDriver($result));
+        }
+
+        return $return;
+    }
+
+    protected function _fromDriver($params)
+    {
+        $return = array();
+        foreach ($params as $field => $value) {
+            $return[str_replace('resource_', '', $field)] = $this->convertFromDriver($value);
+        }
+
+        return $return;
     }
 
     /**

@@ -11,7 +11,13 @@
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-$kronolith_driver = Kronolith::getDriver(null, Horde_Util::getFormData('calendar'));
+if (Kronolith::isResourceCalendar($c = Horde_Util::getFormData('calendar'))) {
+    $driver = 'Resource';
+} else {
+    $driver = null;
+}
+
+$kronolith_driver = Kronolith::getDriver($driver, $c);
 if ($eventID = Horde_Util::getFormData('eventID')) {
     $event = $kronolith_driver->getEvent($eventID);
     if (is_a($event, 'PEAR_Error')) {
@@ -21,10 +27,22 @@ if ($eventID = Horde_Util::getFormData('eventID')) {
         header('Location: ' . $url);
         exit;
     }
-    $share = &$kronolith_shares->getShare($event->getCalendar());
-    if (!$share->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE, $event->getCreatorID())) {
-        $notification->push(_("You do not have permission to delete this event."), 'horde.warning');
+    if ($driver != 'Resource') {
+        $share = &$kronolith_shares->getShare($event->getCalendar());
+        if (!$share->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE, $event->getCreatorID())) {
+            $notification->push(_("You do not have permission to delete this event."), 'horde.warning');
+        } else {
+            $have_perms = true;
+        }
     } else {
+        if (!Horde_Auth::isAdmin()) {
+            $notification->push(_("You do not have permission to delete this event."), 'horde.warning');
+        } else {
+            $have_perms = true;
+        }
+    }
+
+    if (!empty($have_perms)) {
         $notification_type = Kronolith::ITIP_CANCEL;
         $instance = null;
         if (Horde_Util::getFormData('future')) {

@@ -735,6 +735,15 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             $history->log('kronolith:' . $this->_calendar . ':' . $event->getUID(), array('action' => 'delete'), true);
         }
 
+        /* Remove the event from any resources that are attached to it */
+        if (count($resources = $event->getResources())) {
+            $rd = Kronolith::getDriver('Resource');
+            foreach (array_keys($resources) as $uid) {
+                $r = $rd->getResource($uid);
+                $r->removeEvent($event);
+            }
+        }
+
         /* Remove any pending alarms. */
         if (@include_once 'Horde/Alarm.php') {
             $alarm = Horde_Alarm::factory();

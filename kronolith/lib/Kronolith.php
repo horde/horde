@@ -1825,6 +1825,8 @@ class Kronolith
             if (Horde_Util::getFormData('calendar') == '**remote') {
                 $event = self::getDriver('Ical', Horde_Util::getFormData('remoteCal'))
                     ->getEvent(Horde_Util::getFormData('eventID'));
+            } elseif (strncmp(Horde_Util::getFormData('calendar'), 'resource_', 9) === 0) {
+                $event = self::getDriver('Resource', Horde_Util::getFormData('calendar'))->getEvent(Horde_Util::getFormData('eventID'));
             } else {
                 $event = self::getDriver(null, Horde_Util::getFormData('calendar'))
                     ->getEvent(Horde_Util::getFormData('eventID'));
@@ -1837,8 +1839,12 @@ class Kronolith
             return new Kronolith_View_EditEvent($event);
 
         case 'DeleteEvent':
-            $event = self::getDriver(null, Horde_Util::getFormData('calendar'))
-                ->getEvent(Horde_Util::getFormData('eventID'));
+            if (strncmp(Horde_Util::getFormData('calendar'), 'resource_', 9) === 0) {
+                $event = self::getDriver('Resource', Horde_Util::getFormData('calendar'))->getEvent(Horde_Util::getFormData('eventID'));
+            } else {
+                $event = self::getDriver(null, Horde_Util::getFormData('calendar'))
+                    ->getEvent(Horde_Util::getFormData('eventID'));
+            }
             if (!is_a($event, 'PEAR_Error') &&
                 !$event->hasPermission(PERMS_DELETE)) {
                 $event = PEAR::raiseError(_("Permission Denied"));
@@ -2007,28 +2013,29 @@ class Kronolith
     }
 
     /**
+     * Return a list of resources that the current user has access to administer.
      *
      * @return array of Kronolith_Resource objects
      */
     static public function listResources($params = array())
     {
+        // For now, keep this check here. Maybe move this to the resource
+        // driver object?
+        if (!Horde_Auth::isAdmin()) {
+            return array();
+        }
+
         // Query kronolith_resource table for all(?) available resources?
         // maybe by 'type' or 'name'? type would be arbitrary?
         $driver = Kronolith::getDriver('Resource');
-        $resources = $driver->listResources($params);
-        $return = array();
-        foreach ($resources as $resource) {
-            $return[] = new Kronolith_Resource_Single($resource);
-        }
-
-        return $return;
+        return $driver->listResources($params);
     }
 
-    static public function getResource($id)
-    {
-        $driver = Kronolith::getDriver('Resource');
-        return new Kronolith_Resource_Single($driver->getResource($id));
-    }
+//    static public function getResource($id)
+//    {
+//        $driver = Kronolith::getDriver('Resource');
+//        return new Kronolith_Resource_Single($driver->getResource($id));
+//    }
 
     static public function isResourceCalendar($calendar)
     {

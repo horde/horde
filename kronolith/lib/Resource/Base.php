@@ -37,6 +37,7 @@ abstract class Kronolith_Resource_Base
             return $this->_id;
         }
 
+        $property = str_replace('resource_', '', $property);
         if (isset($this->_params[$property])) {
             return $this->_params[$property];
         } else {
