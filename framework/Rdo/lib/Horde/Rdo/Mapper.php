@@ -292,7 +292,7 @@ abstract class Horde_Rdo_Mapper implements Countable
      *
      * @return integer All objects matching $query.
      */
-    public function count($query)
+    public function count($query = null)
     {
         $query = Horde_Rdo_Query::create($query, $this);
         $query->setFields('COUNT(*)')
