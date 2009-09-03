@@ -1544,7 +1544,7 @@ abstract class Kronolith_Event
     /**
      * Adds a Kronolith_Resource to this event.
      * No validation or acceptence/denial is done here...it should be done
-     * when saving the Event so we can capture any errors?
+     * when saving the Event.
      *
      * @param Kronolith_Resource $resource  The resource to add
      *

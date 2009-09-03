@@ -13,11 +13,12 @@
 class Kronolith_Resource_Single extends Kronolith_Resource_Base
 {
     /**
-     * Should this take an event, or a time range?
+     * Determine if the resource is free during the time period for the
+     * supplied event.
      *
-     * @param $startTime
-     * @param $endTime
-     * @return unknown_type
+     * @param Kronolith_Event $event
+     *
+     * @return boolean
      */
     public function isFree($event)
     {

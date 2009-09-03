@@ -35,7 +35,7 @@ class Kronolith_FreeBusy {
         if (is_a($share, 'PEAR_Error')) {
             // Might be a Kronolith_Resource
             try {
-                $resource = Kronolith_Resource::isResourceCalendar($calendar[0]);
+                $resource = Kronolith::isResourceCalendar($calendar[0]);
                 $owner = $calendar[0];
             } catch (Horde_Exception $e) {
                 return $returnObj ? $share : '';

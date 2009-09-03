@@ -20,7 +20,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      *
      * @var DB
      */
-    private $_db;
+    protected $_db;
 
     /**
      * Handle for the current database connection, used for writing. Defaults
@@ -28,7 +28,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      *
      * @var DB
      */
-    private $_write_db;
+    protected $_write_db;
 
     /**
      * Cache events as we fetch them to avoid fetching the same event from the
@@ -36,7 +36,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      *
      * @var array
      */
-    private $_cache = array();
+    protected $_cache = array();
 
     public function listAlarms($date, $fullevent = false)
     {
@@ -753,107 +753,6 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             }
         }
         return true;
-    }
-
-    /**
-     * Save or update a Kronolith_Resource
-     *
-     * @param $resource
-     *
-     * @return Kronolith_Resource object
-     * @throws Horde_Exception
-     */
-    public function saveResource($resource)
-    {
-        if (!empty($resource->id)) {
-            $query = 'UPDATE kronolith_resources SET resource_name = ?, resource_calendar = ?, resource_category = ? WHERE resource_id = ?';
-            $values = array($resource->name, $resource->calendar, $resource->category, $resource->id);
-            $result = $this->_write_db->query($query, $values);
-            if (!($result instanceof PEAR_Error)) {
-                throw new Horde_Exception($result->getMessage());
-            }
-        } else {
-            $query = 'INSERT INTO kronolith_resources (resource_id, resource_name, resource_calendar, resource_category)';
-            $cols_values = ' VALUES (?, ?, ?, ?)';
-            $id = $this->_db->nextId('kronolity_resources');
-            $values = array($id, $resource->name, $resource->calendar, $resource->category);
-            $result = $this->_write_db->query($query . $cols_values, $values);
-            if (!($result instanceof PEAR_Error)) {
-                return true;
-            } else {
-                throw new Horde_Exception($result->getMessage());
-            }
-            $resource->setUid($id);
-        }
-
-        return $resource;
-    }
-
-    /**
-     * Obtain a Kronolith_Resource by the resource's id
-     *
-     * @param int $id  The key for the Kronolith_Resource
-     *
-     * @return array  A hash of resource object properties
-     * @throws Horde_Exception
-     */
-    public function getResource($id)
-    {
-        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_category FROM kronolith_resources WHERE resource_id = ?';
-
-        $results = $this->_db->getRow($query, array($id), DB_FETCHMODE_ASSOC);
-        if ($results instanceof PEAR_Error) {
-            throw new Horde_Exception($results->getMessage());
-        }
-        if (empty($results)) {
-            throw new Horde_Exception('Resource not found');
-        }
-        $return = array();
-        foreach ($results as $field => $value) {
-            $return[str_replace('resource_', '', $field)] = $this->convertFromDriver($value);
-        }
-
-        return $return;
-    }
-
-    /**
-     * Obtain the resource id associated with the given calendar uid.
-     *
-     * @param string $calendar  The calendar's uid
-     *
-     * @return int  The Kronolith_Resource id
-     * @throws Horde_Exception
-     */
-    public function getResourceIdByCalendar($calendar)
-    {
-        $query = 'SELECT resource_id FROM kronolith_resources WHERE resource_calendar = ?';
-        $results = $this->_db->getOne($query, array($calendar));
-        if ($results instanceof PEAR_Error) {
-            throw new Horde_Exception($results->getMessage());
-        }
-        if (empty($results)) {
-            throw new Horde_Exception('Resource not found');
-        }
-
-        return $results;
-    }
-
-    /**
-     * Return a list of Kronolith_Resources
-     *
-     * This method will likely be a moving target as group resources are
-     * fleshed out.
-     *
-     */
-    function listResources($params = array())
-    {
-        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_category FROM kronolith_resources';
-        $results = $this->_db->getAll($query, null, DB_FETCHMODE_ASSOC);
-        if ($results instanceof PEAR_Error) {
-            throw new Horde_Exception($results->getMessage());
-        }
-
-        return $results;
     }
 
     /**

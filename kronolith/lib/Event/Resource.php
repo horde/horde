@@ -8,43 +8,23 @@
  * @author  Luc Saillard <luc.saillard@fr.alcove.com>
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jan Schneider <jan@horde.org>
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ *
  * @package Kronolith
  */
-class Kronolith_Event_Sql extends Kronolith_Event
+class Kronolith_Event_Resource extends Kronolith_Event
 {
     /**
      * The type of the calender this event exists on.
      *
      * @var string
      */
-    protected $_calendarType = 'internal';
+    protected $_calendarType = 'resource';
 
     /**
      * @var array
      */
     private $_properties = array();
-
-    /**
-     * Const'r
-     *
-     * @param Kronolith_Driver $driver  The backend driver that this event is
-     *                                  stored in.
-     * @param mixed $eventObject        Backend specific event object
-     *                                  that this will represent.
-     */
-    public function __construct($driver, $eventObject = null)
-    {
-        static $alarm;
-
-        /* Set default alarm value. */
-        if (!isset($alarm) && isset($GLOBALS['prefs'])) {
-            $alarm = $GLOBALS['prefs']->getValue('default_alarm');
-        }
-
-        $this->alarm = $alarm;
-
-        parent::__construct($driver, $eventObject);
-    }
 
     public function fromDriver($SQLEvent)
     {
@@ -208,25 +188,32 @@ class Kronolith_Event_Sql extends Kronolith_Event
     }
 
     /**
-     * Function to check availability and auto accept/decline for each resource
-     * attached to this event. Needed here instead of in Kronolith_Driver::saveEvent
-     * since the _properties array is already built at that point.
+     * Returns a reference to a driver that's valid for this event.
      *
-     * @return unknown_type
+     * @return Kronolith_Driver  A driver that this event can use to save
+     *                           itself, etc.
      */
-    public function checkResources()
+    public function getDriver()
     {
-        foreach ($this->_resources as $id => $resource) {
-            $r = Kronolith::getResource($id);
-            if ($r->isFree($this)) {
-                $r->addEvent($this);
-                $this->addResource($r, Kronolith::RESPONSE_ACCEPTED);
-            } else {
-                $this->addResource($r, Kronolith::RESPONSE_DECLINED);
-            }
+        return Kronolith::getDriver('Resource', $this->_calendar);
+    }
+
+    /**
+     * Encapsulates permissions checking. For now, admins, and ONLY admins have
+     * any permissions to a resource's events.
+     *
+     * @param integer $permission  The permission to check for.
+     * @param string $user         The user to check permissions for.
+     *
+     * @return boolean
+     */
+    public function hasPermission($permission, $user = null)
+    {
+        if (Horde_Auth::isAdmin()) {
+            return true;
         }
-        $driver = $this->getDriver();
-        $this->_properties['event_resources'] = serialize($driver->convertToDriver($this->_resources));
+
+        return false;
     }
 
 }

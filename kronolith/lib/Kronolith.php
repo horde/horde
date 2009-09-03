@@ -315,6 +315,21 @@ class Kronolith
             }
         }
 
+        /* Resource calendars (this would only be populated if explicitly
+         * requested in the request, so include them if this is set regardless
+         * of $calendars value).
+         */
+        if (!empty($GLOBALS['display_resource_calendars'])) {
+            $driver = self::getDriver('Resource');
+            foreach ($GLOBALS['display_resource_calendars'] as $calendar) {
+                $driver->open($calendar);
+                $events = $driver->listEvents($startDate, $endDate, true);
+                if (!is_a($events, 'PEAR_Error')) {
+                    self::mergeEvents($results, $events);
+                }
+            }
+        }
+
         if ($showRemote) {
             /* Horde applications providing listTimeObjects. */
             $driver = self::getDriver('Horde');
@@ -738,7 +753,7 @@ class Kronolith
                         $GLOBALS['display_external_calendars'][] = $calendarId;
                     }
                 } elseif (strncmp($calendarId, 'resource_', 9) === 0) {
-                    $resource_cal = $calendarId;
+                    $GLOBALS['display_resource_calendars'] = array($calendarId);
                 } else {
                     if (!in_array($calendarId, $GLOBALS['display_calendars'])) {
                         $GLOBALS['display_calendars'][] = $calendarId;
@@ -786,10 +801,6 @@ class Kronolith
                 $GLOBALS['display_calendars'][] = $id;
             }
         }
-
-//        if (!empty($resource_cal)) {
-//            $GLOBALS['display_calendars'][] = $resource_cal;
-//        }
 
         /* Make sure all the remote calendars still exist. */
         $_temp = $GLOBALS['display_remote_calendars'];
@@ -1707,6 +1718,7 @@ class Kronolith
             $params = array();
             switch ($driver) {
             case 'Sql':
+            case 'Resource':
                 $params = Horde::getDriverConfig('calendar', 'sql');
                 break;
 
@@ -1793,6 +1805,8 @@ class Kronolith
             if (Horde_Util::getFormData('calendar') == '**remote') {
                 $event = self::getDriver('Ical', Horde_Util::getFormData('remoteCal'))
                     ->getEvent(Horde_Util::getFormData('eventID'));
+            } elseif (strncmp(Horde_Util::getFormData('calendar'), 'resource_', 9) === 0) {
+                $event = self::getDriver('Resource', Horde_Util::getFormData('calendar'))->getEvent(Horde_Util::getFormData('eventID'));
             } elseif ($uid = Horde_Util::getFormData('uid')) {
                 $event = self::getDriver()->getByUID($uid);
             } else {
@@ -1801,6 +1815,7 @@ class Kronolith
             }
             if (!is_a($event, 'PEAR_Error') &&
                 !$event->hasPermission(PERMS_READ)) {
+                    var_dump($event);
                 $event = PEAR::raiseError(_("Permission Denied"));
             }
 
@@ -1972,6 +1987,56 @@ class Kronolith
         }
 
         return self::$_tagger;
+    }
+
+    /**
+     * Adds a new resource to storage
+     *
+     * @param Kronolith_Resource $resource
+     *
+     * @return unknown_type
+     */
+    static public function addResource($resource)
+    {
+        // Create a new calendar id.
+        $calendar = 'resource_' . hash('md5', microtime());
+        $resource->calendar = $calendar;
+        $driver = Kronolith::getDriver('Resource');
+
+        return $driver->save($resource);
+    }
+
+    /**
+     *
+     * @return array of Kronolith_Resource objects
+     */
+    static public function listResources($params = array())
+    {
+        // Query kronolith_resource table for all(?) available resources?
+        // maybe by 'type' or 'name'? type would be arbitrary?
+        $driver = Kronolith::getDriver('Resource');
+        $resources = $driver->listResources($params);
+        $return = array();
+        foreach ($resources as $resource) {
+            $return[] = new Kronolith_Resource_Single($resource);
+        }
+
+        return $return;
+    }
+
+    static public function getResource($id)
+    {
+        $driver = Kronolith::getDriver('Resource');
+        return new Kronolith_Resource_Single($driver->getResource($id));
+    }
+
+    static public function isResourceCalendar($calendar)
+    {
+        if (strncmp($calendar, 'resource_', 9) === 0) {
+            return true;
+        }
+
+        return false;
     }
 
 }

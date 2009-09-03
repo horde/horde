@@ -3,6 +3,12 @@ $calendar_names = array();
 foreach ($GLOBALS['display_calendars'] as $calendarId) {
     $calendar_names[] = htmlspecialchars($GLOBALS['all_calendars'][$calendarId]->get('name'));
 }
+if (!empty($GLOBALS['display_resource_calendars'])) {
+    foreach ($GLOBALS['display_resource_calendars'] as $c) {
+        $rc = Kronolith::getResource(Kronolith::getDriver('Resource')->getResourceIdByCalendar($c));
+        $calendar_names[] = htmlspecialchars($rc->name);
+    }
+}
 ?>
 <div id="calendarPrint">
  <br />
