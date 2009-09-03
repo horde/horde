@@ -46,7 +46,10 @@ if ($userTwo) {
     echo "Found Alice: id $userTwo->id\n";
 } else {
     echo "No Alice found, creating:\n";
-    $userOne = $um->create(array('name' => 'Alice', 'phone' => '212-555-6565'));
+    // $userOne = $um->create(array('name' => 'Alice', 'phone' => '212-555-6565'));
+    $userOne = new User(array('name' => 'Alice', 'phone' => '212-555-6565'));
+    $userOne->setMapper($um);
+    $userOne->save();
     $userOneId = $userOne->id;
     echo "Created new user with id: $userOneId\n";
 }
