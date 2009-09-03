@@ -202,6 +202,26 @@ abstract class Horde_Rdo_Mapper implements Countable
             $this->_classname = $this->mapperToEntity();
         }
 
+        $o = new $this->_classname();
+        $o->setMapper($this);
+
+        $this->mapFields($o, $fields);
+
+        if (is_callable(array($o, 'afterMap'))) {
+            $o->afterMap();
+        }
+
+        return $o;
+    }
+
+    /**
+     * Update an instance of $this->_classname from a set of data.
+     *
+     * @param Horde_Rdo_Base $object The object to update
+     * @param array $fields Field names/default values for the object
+     */
+    public function mapFields($object, $fields = array())
+    {
         $relationships = array();
         foreach ($fields as $fieldName => &$fieldValue) {
             if (strpos($fieldName, '@') !== false) {
@@ -218,8 +238,7 @@ abstract class Horde_Rdo_Mapper implements Countable
             }
         }
 
-        $o = new $this->_classname($fields);
-        $o->setMapper($this);
+        $object->setFields($fields);
 
         if (count($relationships)) {
             foreach ($this->relationships as $relationship => $rel) {
@@ -238,12 +257,6 @@ abstract class Horde_Rdo_Mapper implements Countable
                 }
             }
         }
-
-        if (is_callable(array($o, 'afterMap'))) {
-            $o->afterMap();
-        }
-
-        return $o;
     }
 
     /**
@@ -356,8 +369,7 @@ abstract class Horde_Rdo_Mapper implements Countable
 
         $id = $this->adapter->insert($sql, $bindParams);
 
-        return $this->map(array_merge(array($this->primaryKey => $id),
-                                      $fields));
+        return $this->map(array_merge($fields, array($this->primaryKey => $id)));
     }
 
     /**
@@ -381,7 +393,8 @@ abstract class Horde_Rdo_Mapper implements Countable
 
             if (!$id) {
                 // Object doesn't exist yet; create it instead.
-                $object = $this->create($fields);
+                $o = $this->create($fields);
+                $this->mapFields($object, iterator_to_array($o));
                 return 1;
             }
         } else {

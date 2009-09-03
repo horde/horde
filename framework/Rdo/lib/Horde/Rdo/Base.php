@@ -40,7 +40,7 @@ abstract class Horde_Rdo_Base implements IteratorAggregate {
      */
     public function __construct($fields = array())
     {
-        $this->_fields = $fields;
+        $this->setFields($fields);
     }
 
     /**
@@ -188,6 +188,18 @@ abstract class Horde_Rdo_Base implements IteratorAggregate {
         // @TODO Should unsetting a MANY_TO_MANY relationship remove
         // the relationship?
         unset($this->_fields[$field]);
+    }
+
+    /**
+     * Set field values for the object
+     *
+     * @param array $fields Initial values for the new object.
+     *
+     * @see Horde_Rdo_Mapper::map()
+     */
+    public function setFields($fields = array())
+    {
+        $this->_fields = $fields;
     }
 
     /**
