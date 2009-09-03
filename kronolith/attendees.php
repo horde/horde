@@ -250,7 +250,7 @@ foreach ($attendees as $email => $status) {
 
 // Add Free/Busy for resources
 foreach ($resources as $r_id => $resource) {
-    $r = Kronolith_Resource::getResource($r_id);
+    $r = Kronolith::getResource($r_id);
     $vfb = $r->getFreeBusy(null, null, true);
     $attendee_view->addResourceMember($vfb);
 }
