@@ -1,5 +1,5 @@
 <?php
-class Skeleton_Api extends Horde_Registry_Api
+class Skeleton_Application extends Horde_Registry_Application
 {
     public $version = 'H4 (0.1-git)';
 
