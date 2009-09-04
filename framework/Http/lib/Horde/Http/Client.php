@@ -5,38 +5,32 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Http_Client
+ * @package  Horde_Http
  */
 
 /**
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Http_Client
+ * @package  Horde_Http
  */
 class Horde_Http_Client
 {
     /**
-     * HTTP Adapter to use for transport
-     * @var Horde_Http_Client_Adapter
-     */
-    protected $_adapter;
-
-    /**
      * The current HTTP request
-     * @var Horde_Http_Client_Request
+     * @var Horde_Http_Request_Base
      */
     protected $_request;
 
     /**
      * The previous HTTP request
-     * @var Horde_Http_Client_Request
+     * @var Horde_Http_Request_Base
      */
     protected $_lastRequest;
 
     /**
      * The most recent HTTP response
-     * @var Horde_Http_Client_Response
+     * @var Horde_Http_Response_Base
      */
     protected $_lastResponse;
 
@@ -45,11 +39,10 @@ class Horde_Http_Client
      *
      * @param array $args Any Http_Client settings to initialize in the
      * constructor. Available settings are:
-     *     adapter
-     *     adapter.proxyServer
-     *     adapter.proxyUser
-     *     adapter.proxyPass
-     *     adapter.timeout
+     *     client.proxyServer
+     *     client.proxyUser
+     *     client.proxyPass
+     *     client.timeout
      *     request
      *     request.uri
      *     request.headers
@@ -58,20 +51,12 @@ class Horde_Http_Client
      */
     public function __construct($args = array())
     {
-        // Set or create adapter object
-        if (isset($args['adapter'])) {
-            $this->_adapter = $args['adapter'];
-            unset($args['adapter']);
-        } else {
-            $this->_adapter = $this->_createBestAvailableAdapter();
-        }
-
         // Set or create request object
         if (isset($args['request'])) {
             $this->_request = $args['request'];
             unset($args['request']);
         } else {
-            $this->_request = new Horde_Http_Client_Request();
+            $this->_request = $this->_createBestAvailableRequest();
         }
 
         foreach ($args as $key => $val) {
@@ -83,7 +68,7 @@ class Horde_Http_Client
     /**
      * Send a GET request
      *
-     * @return Horde_Http_Client_Response
+     * @return Horde_Http_Response_Base
      */
     public function get($uri = null, $headers = array())
     {
@@ -93,7 +78,7 @@ class Horde_Http_Client
     /**
      * Send a POST request
      *
-     * @return Horde_Http_Client_Response
+     * @return Horde_Http_Response_Base
      */
     public function post($uri = null, $data = null, $headers = array())
     {
@@ -103,7 +88,7 @@ class Horde_Http_Client
     /**
      * Send a PUT request
      *
-     * @return Horde_Http_Client_Response
+     * @return Horde_Http_Response_Base
      */
     public function put($uri = null, $data = null, $headers = array())
     {
@@ -114,7 +99,7 @@ class Horde_Http_Client
     /**
      * Send a DELETE request
      *
-     * @return Horde_Http_Client_Response
+     * @return Horde_Http_Response_Base
      */
     public function delete($uri = null, $headers = array())
     {
@@ -144,7 +129,7 @@ class Horde_Http_Client
      *                       be combined with $this->_headers, and override
      *                       headers of the same name for this request only.
      *
-     * @return Horde_Http_Client_Response
+     * @return Horde_Http_Response_Base
      */
     public function request($method, $uri = null, $data = null, $headers = array())
     {
@@ -189,20 +174,20 @@ class Horde_Http_Client
     }
 
     /**
-     * Find the best available adapter
+     * Find the best available request backend
      *
-     * @return Horde_Http_Client_Adapter
+     * @return Horde_Http_Request_Base
      */
-    public function _createBestAvailableAdapter()
+    public function _createBestAvailableRequest()
     {
-        /*if (class_exists('HttpRequest', false)) {
-            return new Horde_Http_Client_Adapter_Peclhttp();
-        } else*/if (extension_loaded('curl')) {
-            return new Horde_Http_Client_Adapter_Curl();
+        if (class_exists('HttpRequest', false)) {
+            return new Horde_Http_Request_Peclhttp();
+        } elseif (extension_loaded('curl')) {
+            return new Horde_Http_Request_Curl();
         } elseif (ini_get('allow_url_fopen')) {
-            return new Horde_Http_Client_Adapter_Fopen();
+            return new Horde_Http_Request_Fopen();
         } else {
-            throw new Horde_Http_Client_Exception('No HTTP adapters are available. You must install pecl_http, curl, or enable allow_url_fopen.');
+            throw new Horde_Http_Exception('No HTTP request backends are available. You must install pecl_http, curl, or enable allow_url_fopen.');
         }
     }
 }

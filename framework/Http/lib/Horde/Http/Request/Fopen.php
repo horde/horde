@@ -5,37 +5,35 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Http_Client
+ * @package  Horde_Http
  */
 
 /**
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Http_Client
+ * @package  Horde_Http
  */
-class Horde_Http_Client_Adapter_Fopen extends Horde_Http_Client_Adapter_Base
+class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
 {
     public function __construct()
     {
         if (!ini_get('allow_url_fopen')) {
-            throw new Horde_Http_Client_Exception('allow_url_fopen must be enabled');
+            throw new Horde_Http_Exception('allow_url_fopen must be enabled');
         }
     }
 
     /**
-     * Send an HTTP request
+     * Send this HTTP request
      *
-     * @param Horde_Http_Client_Request  HTTP Request object
-     *
-     * @return Horde_Http_Client_Response
+     * @return Horde_Http_Response_Base
      */
-    public function send($request)
+    public function send()
     {
-        $method = $request->method;
-        $uri = $request->uri;
-        $headers = $request->headers;
-        $data = $request->data;
+        $method = $this->method;
+        $uri = $this->uri;
+        $headers = $this->headers;
+        $data = $this->data;
         if (is_array($data)) {
             $data = http_build_query($data, '', '&');
         }
@@ -69,16 +67,16 @@ class Horde_Http_Client_Adapter_Fopen extends Horde_Http_Client_Adapter_Base
             $error = error_get_last();
             if (preg_match('/HTTP\/(\d+\.\d+) (\d{3}) (.*)$/', $error['message'], $matches)) {
                 // Create a Response for the HTTP error code
-                return new Horde_Http_Client_Response($uri, null, $matches[0]);
+                return new Horde_Http_Response_Fopen($uri, null, $matches[0]);
             } else {
-                throw new Horde_Http_Client_Exception('Problem with ' . $uri . ': ', $error);
+                throw new Horde_Http_Exception('Problem with ' . $uri . ': ', $error);
             }
         }
 
         $meta = stream_get_meta_data($stream);
         $headers = isset($meta['wrapper_data']) ? $meta['wrapper_data'] : array();
 
-        return new Horde_Http_Client_Response($uri, $stream, $headers);
+        return new Horde_Http_Response_Fopen($uri, $stream, $headers);
     }
 
 }

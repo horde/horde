@@ -7,12 +7,10 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Http_Client
+ * @package  Horde_Http
  */
 
-require 'Horde/Http/Client.php';
-require 'Horde/Http/Client/Exception.php';
-require 'Horde/Http/Client/Response.php';
+require 'Horde/Autoloader.php';
 
 $client = new Horde_Http_Client();
 $response = $client->get('http://www.example.com/');

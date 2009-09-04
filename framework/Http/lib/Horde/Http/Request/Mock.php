@@ -5,16 +5,16 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Http_Client
+ * @package  Horde_Http
  */
 
 /**
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Http_Client
+ * @package  Horde_Http
  */
-class Horde_Http_Client_Mock extends Horde_Http_Client
+class Horde_Http_Request_Mock extends Horde_Http_Request_Base
 {
     /**
      * Array of mock responses
@@ -29,21 +29,13 @@ class Horde_Http_Client_Mock extends Horde_Http_Client
     protected $_responseIndex = 0;
 
     /**
-     * Send an HTTP request
+     * Send this HTTP request
      *
-     * @param string $method HTTP request method (GET, PUT, etc.)
-     * @param string $uri URI to request, if different from $this->uri
-     * @param mixed $data Request data. Can be an array of form data that will be
-     *                    encoded automatically, or a raw string.
-     * @param array $headers Any headers specific to this request. They will
-     *                       be combined with $this->_headers, and override
-     *                       headers of the same name for this request only.
+     * @return Horde_Http_Response_Base
      *
-     * @return Horde_Http_Client_Response
-     *
-     * @TODO make lastRequest work somehow.
+     * @TODO make lastRequest work somehow - not sure if this is still an issue.
      */
-    public function request($method, $uri = null, $data = null, $headers = array())
+    public function send()
     {
         if ($this->_responseIndex >= count($this->_responses)) {
             $this->_responseIndex = 0;
@@ -54,7 +46,7 @@ class Horde_Http_Client_Mock extends Horde_Http_Client
     /**
      * Set the HTTP response(s) to be returned by this adapter
      *
-     * @param Horde_Http_Client_Response $response
+     * @param Horde_Http_Response_Base $response
      */
     public function setResponse($response)
     {

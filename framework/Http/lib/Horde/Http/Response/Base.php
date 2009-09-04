@@ -5,16 +5,16 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Http_Client
+ * @package  Horde_Http
  */
 
 /**
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Http_Client
+ * @package  Horde_Http
  */
-class Horde_Http_Client_Response
+class Horde_Http_Response_Base
 {
     /**
      * Fetched URI
@@ -121,7 +121,7 @@ class Horde_Http_Client_Response
     {
         $content = @stream_get_contents($this->_stream);
         if ($content === false) {
-            throw new Horde_Http_Client_Exception('Problem reading data from ' . $this->uri . ': ' . $php_errormsg);
+            throw new Horde_Http_Exception('Problem reading data from ' . $this->uri . ': ' . $php_errormsg);
         }
         return $content;
     }

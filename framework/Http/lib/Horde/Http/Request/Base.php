@@ -5,16 +5,16 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Http_Client
+ * @package  Horde_Http
  */
 
 /**
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Http_Client
+ * @package  Horde_Http
  */
-class Horde_Http_Client_Request
+abstract class Horde_Http_Request_Base
 {
     /**
      * URI
@@ -42,6 +42,30 @@ class Horde_Http_Client_Request
     protected $_data;
 
     /**
+     * Proxy server
+     * @var string
+     */
+    protected $_proxyServer = null;
+
+    /**
+     * Proxy username
+     * @var string
+     */
+    protected $_proxyUser = null;
+
+    /**
+     * Proxy password
+     * @var string
+     */
+    protected $_proxyPass = null;
+
+    /**
+     * HTTP timeout
+     * @var float
+     */
+    protected $_timeout = 5;
+
+    /**
      * Constructor
      */
     public function __construct($args = array())
@@ -52,7 +76,7 @@ class Horde_Http_Client_Request
     }
 
     /**
-     * Get a request parameter
+     * Get an adapter parameter
      *
      * @param string $name  The parameter to get.
      * @return mixed        Parameter value.

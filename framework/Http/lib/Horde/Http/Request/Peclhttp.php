@@ -5,16 +5,16 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Http_Client
+ * @package  Horde_Http
  */
 
 /**
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Http_Client
+ * @package  Horde_Http
  */
-class Horde_Http_Client_Adapter_Peclhttp extends Horde_Http_Client_Adapter_Base
+class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
 {
     public static $methods = array(
         'GET' => HTTP_METH_GET,
@@ -27,23 +27,21 @@ class Horde_Http_Client_Adapter_Peclhttp extends Horde_Http_Client_Adapter_Base
     public function __construct()
     {
         if (!class_exists('HttpRequest', false)) {
-            throw new Horde_Http_Client_Exception('The pecl_http extension is not installed. See http://php.net/http.install');
+            throw new Horde_Http_Exception('The pecl_http extension is not installed. See http://php.net/http.install');
         }
     }
 
     /**
-     * Send an HTTP request
+     * Send this HTTP request
      *
-     * @param Horde_Http_Client_Request  HTTP Request object
-     *
-     * @return Horde_Http_Client_Response
+     * @return Horde_Http_Response_Base
      */
-    public function send($request)
+    public function send()
     {
-        $httpRequest = new HttpRequest($request->uri, self::$methods[$request->method]);
-        $httpRequest->setHeaders($request->headers);
+        $httpRequest = new HttpRequest($this->uri, self::$methods[$this->method]);
+        $httpRequest->setHeaders($this->headers);
 
-        $data = $request->data;
+        $data = $this->data;
         if (is_array($data)) {
             $httpRequest->setPostFields($data);
         } else {
@@ -53,10 +51,9 @@ class Horde_Http_Client_Adapter_Peclhttp extends Horde_Http_Client_Adapter_Base
         try {
             $httpResponse = $httpRequest->send();
         } catch (HttpException $e) {
-            throw new Horde_Http_Client_Exception($e->getMessage(), $e->getCode(), $e);
+            throw new Horde_Http_Exception($e->getMessage(), $e->getCode(), $e);
         }
 
-        /*@TODO build Horde_Http_Client_Response from $httpResponse */
-        return $httpResponse;
+        return new Horde_Http_Response_Peclhttp($httpResponse);
     }
 }
