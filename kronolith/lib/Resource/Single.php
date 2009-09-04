@@ -36,7 +36,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
     public function addEvent($event)
     {
         /* Get a driver for this resource's calendar */
-        $driver = Kronolith::getDriver(null, $this->calendar);
+        $driver = Kronolith::getDriver('Resource', $this->calendar);
         /* Make sure it's not already attached. */
         $uid = $event->getUID();
         $existing = $driver->getByUID($uid, array($this->calendar));
@@ -60,7 +60,9 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
      */
     public function removeEvent($event)
     {
-
+        $driver = Kronolith::getDriver('Resource', $this->calendar);
+        $re = $driver->getByUID($event->getUID(), array($this->calendar));
+        $driver->deleteEvent($re->getId());
     }
 
     /**

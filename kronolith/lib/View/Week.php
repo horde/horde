@@ -69,7 +69,7 @@ class Kronolith_View_Week {
             $day->mday++;
         }
         $endDate = new Horde_Date($day);
-        $allevents = Kronolith::listEvents($this->startDate, $endDate, $GLOBALS['display_calendars']);
+        $allevents = Kronolith::listEvents($this->startDate, $endDate);
         if (is_a($allevents, 'PEAR_Error')) {
             $GLOBALS['notification']->push($allevents, 'horde.error');
             $allevents = array();

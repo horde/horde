@@ -217,7 +217,7 @@ class Kronolith_Event_Sql extends Kronolith_Event
     public function checkResources()
     {
         foreach ($this->_resources as $id => $resource) {
-            $r = $this->getDriver()->getResource($id);
+            $r = Kronolith::getDriver('Resource')->getResource($id);
             if ($r->isFree($this)) {
                 $r->addEvent($this);
                 $this->addResource($r, Kronolith::RESPONSE_ACCEPTED);

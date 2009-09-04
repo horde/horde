@@ -318,6 +318,9 @@ class Kronolith
         /* Resource calendars (this would only be populated if explicitly
          * requested in the request, so include them if this is set regardless
          * of $calendars value).
+         *
+         * @TODO: Should we disallow even *viewing* these if the user is not an
+         *        admin?
          */
         if (!empty($GLOBALS['display_resource_calendars'])) {
             $driver = self::getDriver('Resource');

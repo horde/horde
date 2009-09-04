@@ -383,14 +383,36 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
         return $resource;
     }
 
+    /**
+     * Delete an event.
+     *
+     * Since this is the Kronolith_Resource's version of the event, if we
+     * delete it, we must also make sure to remove it from the event that
+     * it is attached to. Not sure if there is a better way to do this...
+     *
+     * @see lib/Driver/Kronolith_Driver_Sql#deleteEvent($eventId, $silent)
+     */
     public function deleteEvent($event, $silent = false)
     {
-        parent::deleteEvent($event, $silent);
-
-        /* @TODO: Since this is being removed from a resource calendar, need to
-         * make sure we remove any acceptance status from the event it's
-         * attached to.
+        /* Since this is the Kronolith_Resource's version of the event, if we
+         * delete it, we must also make sure to remove it from the event that
+         * it is attached to. Not sure if there is a better way to do this...
          */
+        $delete_event = $this->getEvent($event);
+        $uid = $delete_event->getUID();
+        $driver = Kronolith::getDriver();
+        $events = $driver->getByUID($uid, null, true);
+        foreach ($events as $e) {
+            $resources = $e->getResources();
+            if (count($resources)) {
+                // found the right entry
+                $r = $this->getResource($this->getResourceIdByCalendar($delete_event->getCalendar()));
+                $e->removeResource($r);
+                $e->save();
+            }
+        }
+
+        parent::deleteEvent($event, $silent);
     }
 
     /**

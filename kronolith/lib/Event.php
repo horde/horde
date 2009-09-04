@@ -1568,8 +1568,8 @@ abstract class Kronolith_Event
      */
     function removeResource($resource)
     {
-        if (isset($this->_resources[$resource->uid])) {
-            unset ($this->_resources[$resource->uid]);
+        if (isset($this->_resources[$resource->id])) {
+            unset ($this->_resources[$resource->id]);
         }
     }
 
