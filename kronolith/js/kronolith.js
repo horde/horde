@@ -105,6 +105,7 @@ KronolithCore = {
 
     setTitle: function(title)
     {
+        title = title.escapeHTML();
         document.title = Kronolith.conf.name + ' :: ' + title;
         return title;
     },
@@ -703,7 +704,7 @@ KronolithCore = {
             }
             div.insert(new Element('DIV', { 'calendar': cal.key, 'calendarclass': 'internal', 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' })
                        .setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg })
-                       .update(cal.value.name));
+                       .update(cal.value.name.escapeHTML()));
         });
         if (my) {
             $('kronolithMyCalendars').show();
@@ -729,13 +730,13 @@ KronolithCore = {
                 .insert(new Element('H3')
                         .insert(new Element('A', { 'class': 'kronolithAdd'  })
                                 .update('+'))
-                        .insert({ bottom: extNames[api.key] }))
+                        .insert({ bottom: extNames[api.key].escapeHTML() }))
                 .insert(new Element('DIV', { 'id': 'kronolithExternalCalendar' + api.key, 'class': 'kronolithCalendars' }));
             $H(api.value).each(function(cal) {
                 $('kronolithExternalCalendar' + api.key)
                     .insert(new Element('DIV', { 'calendar': api.key + '/' + cal.key, 'calendarclass': 'external', 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' })
                             .setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg })
-                            .update(cal.value.name));
+                            .update(cal.value.name.escapeHTML()));
             });
         });
 
@@ -744,7 +745,7 @@ KronolithCore = {
             $('kronolithRemoteCalendars')
                 .insert(new Element('DIV', { 'calendar': cal.key, 'calendarclass': 'remote', 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' })
                         .setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg })
-                        .update(cal.value.name));
+                        .update(cal.value.name.escapeHTML()));
         });
         if (remote.size()) {
             $('kronolithRemoteCalendars').show();
@@ -1060,7 +1061,7 @@ KronolithCore = {
                                 'height': height + 'px'
                             });
                             this[0]._calculateEventDates(event.value, storage, step, offset, height);
-                            innerDiv.update('(' + event.value.start.toString(Kronolith.conf.time_format) + ' - ' + event.value.end.toString(Kronolith.conf.time_format) + ') ' + event.value.t);
+                            innerDiv.update('(' + event.value.start.toString(Kronolith.conf.time_format) + ' - ' + event.value.end.toString(Kronolith.conf.time_format) + ') ' + event.value.t.escapeHTML());
                         }.bind([this, div])
                     };
 
@@ -1111,7 +1112,7 @@ KronolithCore = {
                         } else {
                             this[0]._calculateEventDates(event.value, storage, step, d.ghost.offsetTop - minTop, divHeight);
                         }
-                        d.innerDiv.update('(' + event.value.start.toString(Kronolith.conf.time_format) + ' - ' + event.value.end.toString(Kronolith.conf.time_format) + ') ' + event.value.t);
+                        d.innerDiv.update('(' + event.value.start.toString(Kronolith.conf.time_format) + ' - ' + event.value.end.toString(Kronolith.conf.time_format) + ') ' + event.value.t.escapeHTML());
                         this[1].clonePosition(d.ghost);
                     }.bind([this, div]),
                     'onEnd': function(d, e) {
@@ -1208,7 +1209,7 @@ KronolithCore = {
         if (event.ic) {
             div.insert(new Element('IMG', { 'src': event.ic }));
         }
-        div.insert(event.t);
+        div.insert(event.t.escapeHTML());
         if (event.a) {
             div.insert(' ')
                 .insert(new Element('IMG', { 'src': Kronolith.conf.URI_IMG + 'alarm-' + event.fg.substr(1) + '.png', 'title': Kronolith.text.alarm + ' ' + event.a }));
@@ -1367,7 +1368,7 @@ KronolithCore = {
         row.writeAttribute('taskList', task.value.l);
         row.writeAttribute('taskId', task.key);
         col.addClassName('kronolithTask' + (task.value.cp != 0 ? 'Completed' : ''));
-        col.insert(task.value.n);
+        col.insert(task.value.n.escapeHTML());
         if (!Object.isUndefined(task.value.du)) {
             var date = Date.parse(task.value.du),
                 now = new Date();
@@ -2138,7 +2139,7 @@ KronolithCore = {
         }
         t = new Element('div', {});
         r.response.tags.each(function(tag) {
-            t.insert(new Element('span', { 'class': 'kronolithEventTag' }).update(tag));
+            t.insert(new Element('span', { 'class': 'kronolithEventTag' }).update(tag.escapeHTML()));
         });
         $('kronolithEventTopTags').update(t);
         return;
