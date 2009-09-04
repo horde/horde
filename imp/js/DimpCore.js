@@ -10,7 +10,7 @@
 /* DimpCore object. */
 var DimpCore = {
     // Vars used and defaulting to null/false:
-    //   DMenu, Growler, inAjaxCallback, is_init, is_logout,
+    //   DMenu, Growler, inAjaxCallback, is_init, is_logout, is_redirect,
     //   onDoActionComplete
     growler_log: true,
     is_ie6: false /*@cc_on || @_jscript_version < 5.7 @*/,
@@ -273,10 +273,13 @@ var DimpCore = {
 
     redirect: function(url, force)
     {
-        var ptr = parent.frames.horde_main ? parent : window;
-        ptr.location = this.addURLParam(url);
-        if (force) {
-            setTimeout(function() { ptr.location.reload() }, 300);
+        if (!this.is_redirect) {
+            var ptr = parent.frames.horde_main ? parent : window;
+            this.is_redirect = true;
+            ptr.location = this.addURLParam(url);
+            if (force) {
+                setTimeout(function() { ptr.location.reload() }, 300);
+            }
         }
     },
 
