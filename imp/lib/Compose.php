@@ -2223,13 +2223,12 @@ class IMP_Compose
             $type = 'text/plain';
         }
 
-        if ($type == 'text/plain') {
-            /* For replies, remove all leading/trailing whitespace.  This
-             * doesn't add anything to reply data. */
-            if ($options['type'] == 'reply') {
-                $msg = trim($msg);
-            }
+        /* Always remove leading/trailing whitespace. The data in the
+         * message body is not intended to be the exact representation of the
+         * original message (use forward as message/rfc822 part for that). */
+        $msg = trim($msg);
 
+        if ($type == 'text/plain') {
             if ($part->getContentTypeParameter('format') == 'flowed') {
                 $flowed = new Horde_Text_Flowed($msg);
                 if (Horde_String::lower($part->getContentTypeParameter('delsp')) == 'yes') {
