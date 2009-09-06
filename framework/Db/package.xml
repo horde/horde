@@ -57,7 +57,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
         <file name="Result.php" role="php" />
        </dir> <!-- /lib/Horde/Db/Adapter/Mysqli -->
        <dir name="Pdo">
-        <file name="Abstract.php" role="php" />
+        <file name="Base.php" role="php" />
         <file name="Mysql.php" role="php" />
         <file name="Oci.php" role="php" />
         <file name="Pgsql.php" role="php" />
@@ -74,7 +74,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
         <file name="Column.php" role="php" />
         <file name="Schema.php" role="php" />
        </dir> <!-- /lib/Horde/Db/Adapter/Sqlite -->
-       <file name="Abstract.php" role="php" />
+       <file name="Base.php" role="php" />
        <file name="Oci8.php" role="php" />
        <file name="Mysqli.php" role="php" />
       </dir> <!-- /lib/Horde/Db/Adapter -->
@@ -105,7 +105,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Db/Adapter/Abstract/Schema.php" as="Horde/Db/Adapter/Abstract/Schema.php" />
    <install name="lib/Horde/Db/Adapter/Abstract/Table.php" as="Horde/Db/Adapter/Abstract/Table.php" />
    <install name="lib/Horde/Db/Adapter/Abstract/TableDefinition.php" as="Horde/Db/Adapter/Abstract/TableDefinition.php" />
-   <install name="lib/Horde/Db/Adapter/Abstract.php" as="Horde/Db/Adapter/Abstract.php" />
+   <install name="lib/Horde/Db/Adapter/Base.php" as="Horde/Db/Adapter/Base.php" />
 
    <install name="lib/Horde/Db/Adapter/Mssql/Schema.php" as="Horde/Db/Adapter/Mssql/Schema.php" />
 
@@ -119,7 +119,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
 
    <install name="lib/Horde/Db/Adapter/Oracle/Schema.php" as="Horde/Db/Adapter/Oracle/Schema.php" />
 
-   <install name="lib/Horde/Db/Adapter/Pdo/Abstract.php" as="Horde/Db/Adapter/Pdo/Abstract.php" />
+   <install name="lib/Horde/Db/Adapter/Pdo/Base.php" as="Horde/Db/Adapter/Pdo/Base.php" />
    <install name="lib/Horde/Db/Adapter/Pdo/Mysql.php" as="Horde/Db/Adapter/Pdo/Mysql.php" />
    <install name="lib/Horde/Db/Adapter/Pdo/Oci.php" as="Horde/Db/Adapter/Pdo/Oci.php" />
    <install name="lib/Horde/Db/Adapter/Pdo/Pgsql.php" as="Horde/Db/Adapter/Pdo/Pgsql.php" />
