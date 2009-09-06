@@ -69,7 +69,7 @@ every row returned J
  * @package    Horde_Db
  * @subpackage Adapter
  */
-class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Abstract
+class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
 {
     /**
      * @var string

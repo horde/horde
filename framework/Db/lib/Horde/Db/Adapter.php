@@ -13,8 +13,6 @@
  */
 
 /**
- * Abstract parent class for Db Adapters.
- *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>

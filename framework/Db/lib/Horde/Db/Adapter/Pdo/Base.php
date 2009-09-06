@@ -21,7 +21,7 @@
  * @package    Horde_Db
  * @subpackage Adapter
  */
-abstract class Horde_Db_Adapter_Pdo_Abstract extends Horde_Db_Adapter_Abstract
+abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
 {
     /*##########################################################################
     # Connection Management
