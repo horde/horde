@@ -235,7 +235,7 @@ class Folks {
      */
     static public function sendMail($to, $subject, $body, $attaches = array())
     {
-        $mail = new Horde_Mime_Mail($subject, $body, $to, $GLOBALS['conf']['support'], Horde_Nls::getCharset());
+        $mail = new Horde_Mime_Mail(array('subject' => $subject, 'body' => $body, 'to' => $to, 'from' => $GLOBALS['conf']['support'], 'charset' => Horde_Nls::getCharset()));
 
         $mail->addHeader('User-Agent', 'Folks ' . $GLOBALS['registry']->getVersion());
         $mail->addHeader('X-Originating-IP', $_SERVER['REMOTE_ADDR']);

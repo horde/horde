@@ -78,7 +78,7 @@ case 'send':
     $alternative->addPart($related);
 
     /* Add them to the mail message */
-    $alt = new Horde_Mime_Mail(_("Ecard - ") . Horde_Util::getFormData('image_desc'), null, $to, $from, $charset);
+    $alt = new Horde_Mime_Mail(array('subject' => _("Ecard - ") . Horde_Util::getFormData('image_desc'), 'to' => $to, 'from' => $from, 'charset' => $charset));
     $alt->setBasePart($alternative);
 
     /* Send. */

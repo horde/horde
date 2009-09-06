@@ -1357,7 +1357,11 @@ class Kronolith
             $ics->setCharset(Horde_Nls::getCharset());
 
             $recipient = empty($status['name']) ? $email : Horde_Mime_Address::trimAddress($status['name'] . ' <' . $email . '>');
-            $mail = new Horde_Mime_Mail($subject, $message, $recipient, $from, Horde_Nls::getCharset());
+            $mail = new Horde_Mime_Mail(array('subject' => $subject,
+                                              'body' => $message,
+                                              'to' => $recipient,
+                                              'from' => $from,
+                                              'charset' => Horde_Nls::getCharset()));
             $mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
             $mail->addMimePart($ics);
 
@@ -1483,11 +1487,10 @@ class Kronolith
                                   $event->start->strftime($tf ? '%R' : '%I:%M%p'))
                         . "\n\n" . $event->getDescription();
 
-                    $mime_mail = new Horde_Mime_Mail($subject . ' ' . $event->title,
-                                                     null,
-                                                     implode(',', $df_recipients),
-                                                     $from,
-                                                     Horde_Nls::getCharset());
+                    $mime_mail = new Horde_Mime_Mail(array('subject' => $subject . ' ' . $event->title,
+                                                           'to' => implode(',', $df_recipients),
+                                                           'from' => $from,
+                                                           'charset' => Horde_Nls::getCharset()));
                     $mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
                     $mime_mail->setBody($message, Horde_Nls::getCharset(), true);
                     Horde::logMessage(sprintf('Sending event notifications for %s to %s', $event->title, implode(', ', $df_recipients)), __FILE__, __LINE__, PEAR_LOG_DEBUG);
