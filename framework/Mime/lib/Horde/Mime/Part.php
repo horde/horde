@@ -1371,6 +1371,9 @@ class Horde_Mime_Part
     public function send($email, $headers, $driver, $params = array())
     {
         $mailer = Mail::factory($driver, $params);
+        if ($mailer instanceof PEAR_Error) {
+            throw new Horde_Mime_Exception($mailer);
+        }
 
         $old_basepart = $this->_basepart;
         $this->_basepart = true;
