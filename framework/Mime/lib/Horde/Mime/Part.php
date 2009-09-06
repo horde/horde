@@ -1420,7 +1420,7 @@ class Horde_Mime_Part
             }
         }
 
-        $result = $mailer->send(Horde_Mime::encodeAddress($email), $headers->toArray(array('charset' => $this->getCharset())), $msg);
+        $result = $mailer->send(Horde_Mime::encodeAddress($email, $this->getCharset()), $headers->toArray(array('charset' => $this->getCharset())), $msg);
 
         $this->_basepart = $old_basepart;
 
