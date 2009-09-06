@@ -16,7 +16,7 @@ $mail->addHeader('Bcc', 'invisible@example.com');
 $mail->addHeader('From', 'sender@example.com');
 $mail->removeHeader('Cc');
 
-echo $mail->send('dummy');
+echo $mail->send(array('type' => 'dummy'));
 
 ?>
 --EXPECTF--

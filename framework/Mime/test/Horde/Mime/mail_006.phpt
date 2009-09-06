@@ -13,7 +13,7 @@ $mail = new Horde_Mime_Mail('My Subject', "This is\nthe body",
 $mail->addAttachment(dirname(__FILE__) . '/fixtures/attachment.bin');
 $mail->addAttachment(dirname(__FILE__) . '/mail_dummy.inc', 'my_name.html', 'text/html', 'iso-8859-15');
 
-echo $mail->send('dummy');
+echo $mail->send(array('type' => 'dummy'));
 
 ?>
 --EXPECTF--
@@ -44,7 +44,6 @@ Content-Transfer-Encoding: base64
 
 WnfDtmxmIEJveGvDpG1wZmVyIGphZ2VuIFZpa3RvciBxdWVyIMO8YmVyIGRlbiBncm/Dn2VuIFN5
 bHRlciBEZWljaC4K
-
 --=_%s
 Content-Type: text/html; charset=iso-8859-15; name=my_name.html
 Content-Disposition: attachment; filename=my_name.html

@@ -12,7 +12,7 @@ $mail = new Horde_Mime_Mail('Schöner Betreff', "Hübsche Umlaute \n und Leerzeich
                             'Empfänger <recipient@example.com>',
                             'sender@example.com', 'iso-8859-1');
 $mail->addHeader('Cc', 'Der schöne Peter <peter@example.com>', 'iso-8859-15');
-echo $mail->send('dummy');
+echo $mail->send(array('type' => 'dummy'));
 
 ?>
 --EXPECTF--
@@ -28,5 +28,4 @@ MIME-Version: 1.0
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-H=FCbsche Umlaute
-  und Leerzeichen.
+H=FCbsche Umlaute=0A  und Leerzeichen.=0A

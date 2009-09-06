@@ -15,7 +15,7 @@ $mail->addPart('application/octet-stream',
                file_get_contents(dirname(__FILE__) . '/fixtures/attachment.bin'),
                null, 'attachment');
 
-echo $mail->send('dummy');
+echo $mail->send(array('type' => 'dummy'));
 
 ?>
 --EXPECTF--
@@ -52,5 +52,4 @@ Content-Transfer-Encoding: base64
 
 WnfDtmxmIEJveGvDpG1wZmVyIGphZ2VuIFZpa3RvciBxdWVyIMO8YmVyIGRlbiBncm/Dn2VuIFN5
 bHRlciBEZWljaC4K
-
 --=_%s--
