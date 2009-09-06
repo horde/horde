@@ -9,23 +9,26 @@ require_once 'Horde/Text/Filter.php';
 require_once 'Horde/Text/Filter/Html2text.php';
 require_once 'Horde/Util.php';
 
-$mail = new Horde_Mime_Mail('My Subject', null, 'recipient@example.com',
-                            'sender@example.com');
+$mail = new Horde_Mime_Mail(array('subject' => 'My Subject',
+                                  'to' => 'recipient@example.com',
+                                  'from' => 'sender@example.com'));
 $mail->setBody("This is\nthe plain text body.");
 echo $mail->send(array('type' => 'dummy'));
 
 echo "====================================================================\n";
 
-$mail = new Horde_Mime_Mail('My Subject', null, 'recipient@example.com',
-                            'sender@example.com');
+$mail = new Horde_Mime_Mail(array('subject' => 'My Subject',
+                                  'to' => 'recipient@example.com',
+                                  'from' => 'sender@example.com'));
 $mail->setHTMLBody("<h1>Header Title</h1>\n<p>This is<br />the html text body.</p>",
                    'iso-8859-1', false);
 echo $mail->send(array('type' => 'dummy'));
 
 echo "====================================================================\n";
 
-$mail = new Horde_Mime_Mail('My Subject', null, 'recipient@example.com',
-                            'sender@example.com');
+$mail = new Horde_Mime_Mail(array('subject' => 'My Subject',
+                                  'to' => 'recipient@example.com',
+                                  'from' => 'sender@example.com'));
 $mail->setHTMLBody("<h1>Header Title</h1>\n<p>This is<br />the html text body.</p>");
 echo $mail->send(array('type' => 'dummy'));
 

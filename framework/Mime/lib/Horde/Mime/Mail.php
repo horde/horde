@@ -81,39 +81,37 @@ class Horde_Mime_Mail
     /**
      * Constructor.
      *
-     * @param string $subject  The message subject.
-     * @param string $body     The message body.
-     * @param string $to       The message recipient(s).
-     * @param string $from     The message sender.
-     * @param string $charset  The character set of the message.
+     * @param array $params  A hash with basic message information. The
+     *                       following values are supported:
+     *                       - subject: The message subject.
+     *                       - body:    The message body.
+     *                       - to:      The message recipient(s).
+     *                       - from:    The message sender.
+     *                       - charset: The character set of the message.
      *
      * @throws Horde_Mime_Exception
      */
-    public function __construct($subject = null, $body = null, $to = null,
-                                $from = null, $charset = null)
+    public function __construct($params = array())
     {
         /* Set SERVER_NAME. */
         if (!isset($_SERVER['SERVER_NAME'])) {
             $_SERVER['SERVER_NAME'] = php_uname('n');
         }
-        if (!$charset) {
-            $charset = 'iso-8859-1';
-        }
 
         $this->_headers = new Horde_Mime_Headers();
-        $this->_charset = $charset;
+        $this->_charset = isset($params['charset']) ? $params['charset'] : 'iso-8859-1';
 
-        if ($subject) {
-            $this->addHeader('Subject', $subject, $charset);
+        if (isset($params['subject'])) {
+            $this->addHeader('Subject', $params['subject'], $this->_charset);
         }
-        if ($to) {
-            $this->addHeader('To', $to, $charset);
+        if (isset($params['to'])) {
+            $this->addHeader('To', $params['to'], $this->_charset);
         }
-        if ($from) {
-            $this->addHeader('From', $from, $charset);
+        if (isset($params['from'])) {
+            $this->addHeader('From', $params['from'], $this->_charset);
         }
-        if ($body) {
-            $this->setBody($body, $charset);
+        if (isset($params['body'])) {
+            $this->setBody($params['body'], $this->_charset);
         }
     }
 

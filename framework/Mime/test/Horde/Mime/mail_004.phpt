@@ -7,9 +7,11 @@ require dirname(__FILE__) . '/mail_dummy.inc';
 require_once 'Horde/String.php';
 require_once 'Horde/Util.php';
 
-$mail = new Horde_Mime_Mail('My Subject', "This is\nthe body",
-                            'recipient@example.com', 'sender@example.com',
-                            'iso-8859-15');
+$mail = new Horde_Mime_Mail(array('subject' => 'My Subject',
+                                  'body' => "This is\nthe body",
+                                  'to' => 'recipient@example.com',
+                                  'from' => 'sender@example.com',
+                                  'charset' => 'iso-8859-15'));
 $mail->addPart('text/plain', 'This is a plain text', 'iso-8859-1', 'inline');
 $mail->addPart('application/octet-stream',
                file_get_contents(dirname(__FILE__) . '/fixtures/attachment.bin'),

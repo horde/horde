@@ -8,9 +8,11 @@ require_once 'Horde/String.php';
 require 'Horde/Nls.php';
 require_once 'Horde/Util.php';
 
-$mail = new Horde_Mime_Mail('Schöner Betreff', "Hübsche Umlaute \n und Leerzeichen.",
-                            'Empfänger <recipient@example.com>',
-                            'sender@example.com', 'iso-8859-1');
+$mail = new Horde_Mime_Mail(array('subject' => 'Schöner Betreff',
+                                  'body' => "Hübsche Umlaute \n und Leerzeichen.",
+                                  'to' => 'Empfänger <recipient@example.com>',
+                                  'from' => 'sender@example.com',
+                                  'charset' => 'iso-8859-1'));
 $mail->addHeader('Cc', 'Der schöne Peter <peter@example.com>', 'iso-8859-15');
 echo $mail->send(array('type' => 'dummy'));
 

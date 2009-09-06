@@ -128,12 +128,12 @@ class Horde_Auth_Signup
                 . "\n" . Horde_Util::addParameter($link, 'a', 'approve') . "\n"
                 . _("Deny the account:")
                 . "\n" . Horde_Util::addParameter($link, 'a', 'deny');
-            $mail = new Horde_Mime_Mail(
-                sprintf(_("Account signup request for \"%s\""), $signup->name),
-                $message,
-                $conf['signup']['email'],
-                $conf['signup']['email'],
-                Horde_Nls::getCharset());
+            $mail = new Horde_Mime_Mail(array(
+                'subject' => sprintf(_("Account signup request for \"%s\""), $signup->name),
+                'body' => $message,
+                'to' => $conf['signup']['email'],
+                'from' => $conf['signup']['email'],
+                'subject' => Horde_Nls::getCharset()));
             $mail->send(Horde::getMailerConfig());
         }
     }
