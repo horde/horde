@@ -5,16 +5,14 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Db
+ * @package  Horde_Rdo
  */
 
 /**
- * Horde_Db namespace - holds constants and global Db functions.
- *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Db
+ * @package  Horde_Rdo
  */
 class Horde_Rdo
 {
