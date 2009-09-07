@@ -1184,6 +1184,37 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         throw new Horde_Imap_Client_Exception('IMAP ACLs not supported on POP3 servers.', Horde_Imap_Client_Exception::POP3_NOTSUPPORTED);
     }
 
+    /**
+     * Get metadata for a given mailbox.
+     *
+     * @param string $mailbox  A mailbox (UTF7-IMAP).
+     * @param array $entries   The entries to fetch.
+     * @param array $options   Additional options.
+     *
+     * @return array  An array with identifiers as the keys and the
+     *                metadata as the values.
+     * @throws Horde_Imap_Client_Exception
+     */
+     protected function _getMetadata($mailbox, $entries, $options)
+     {
+        throw new Horde_Imap_Client_Exception('IMAP metadata not supported on POP3 servers.', Horde_Imap_Client_Exception::POP3_NOTSUPPORTED);
+     }
+
+    /**
+     * Set metadata for a given mailbox/identifier.
+     *
+     * @param string $mailbox  A mailbox (UTF7-IMAP).
+     * @param array $data      A set of data values. The metadata values
+     *                         corresponding to the keys of the array will
+     *                         be set to the values in the array.
+     *
+     * @throws Horde_Imap_Client_Exception
+     */
+    protected function _setMetadata($mailbox, $data)
+    {
+        throw new Horde_Imap_Client_Exception('IMAP metadata not supported on POP3 servers.', Horde_Imap_Client_Exception::POP3_NOTSUPPORTED);
+    }
+
     /* Internal functions. */
 
     /**

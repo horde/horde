@@ -760,10 +760,7 @@ try {
 
 print "\nSet METADATA on " . $test_mbox . ".\n";
 try {
-    $imap_client->setMetadata($test_mbox,
-                              array('/shared/comment' => 'test'),
-                              array('annotatemore' => true,
-                                    'nocapability' => true));
+    $imap_client->setMetadata($test_mbox, array('/shared/comment' => 'test'));
     print "Set Metadata: OK\n";
 } catch (Horde_Imap_Client_Exception $e) {
     print 'ERROR: ' . $e->getMessage() . "\n";
@@ -772,10 +769,7 @@ try {
 
 print "\nGet METADATA from " . $test_mbox . ".\n";
 try {
-    print_r($imap_client->getMetadata($test_mbox,
-                                      '/shared/comment',
-                                      array('annotatemore' => true,
-                                            'nocapability' => true)));
+    print_r($imap_client->getMetadata($test_mbox, '/shared/comment'));
     print "Get Metadata: OK\n";
 } catch (Horde_Imap_Client_Exception $e) {
     print 'ERROR: ' . $e->getMessage() . "\n";

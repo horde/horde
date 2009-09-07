@@ -830,9 +830,9 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
     /**
      * Get metadata for a given mailbox.
      *
-     * @param string $mailbox A mailbox (UTF7-IMAP).
-     * @param array  $entries The entries to fetch.
-     * @param array  $options Additional options.
+     * @param string $mailbox  A mailbox (UTF7-IMAP).
+     * @param array $entries   The entries to fetch.
+     * @param array $options   Additional options.
      *
      * @return array  An array with identifiers as the keys and the
      *                metadata as the values.
@@ -840,19 +840,20 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
      */
     protected function _getMetadata($mailbox, $entries, $options)
     {
-        $folder   = $this->_getMailbox($mailbox);
+        $folder = $this->_getMailbox($mailbox);
         $metadata = array();
+
         foreach ($entries as $entry) {
             $result = false;
             if (isset(self::$storage[$folder]['annotations'])) {
-                $ref  = &self::$storage[$folder]['annotations'];
+                $ref = &self::$storage[$folder]['annotations'];
                 $path = split('/', $entry);
                 foreach ($path as $element) {
                     if (!isset($ref[$element])) {
                         $result = false;
                         break;
                     } else {
-                        $ref    = &$ref[$element];
+                        $ref = &$ref[$element];
                         $result = true;
                     }
                 }
@@ -862,35 +863,36 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
             }
             $metadata[$entry] = $result;
         }
+
         return $metadata;
     }
 
     /**
      * Set metadata for a given mailbox/identifier.
      *
-     * @param string $mailbox A mailbox (UTF7-IMAP).
-     * @param array  $data    A set of data values. The metadata values
-     *                        corresponding to the keys of the array will
-     *                        be set to the values in the array.
-     * @param array  $options Additional options.
+     * @param string $mailbox  A mailbox (UTF7-IMAP).
+     * @param array $data      A set of data values. The metadata values
+     *                         corresponding to the keys of the array will
+     *                         be set to the values in the array.
      *
      * @throws Horde_Imap_Client_Exception
      */
-    protected function _setMetadata($mailbox, $data, $options)
+    protected function _setMetadata($mailbox, $data)
     {
         $folder = $this->_getMailbox($mailbox);
+
         foreach ($data as $key => $value) {
             $path = split('/', $key);
             $ref  = &self::$storage[$folder]['annotations'];
             foreach ($path as $element) {
                 if (!isset($ref[$element])) {
                     $ref[$element] = array();
-
                     $ref = &$ref[$element];
                 }
             }
             $ref['/'] = $value;
         }
+
         return true;
     }
 }
