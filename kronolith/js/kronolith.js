@@ -809,7 +809,12 @@ KronolithCore = {
                 calendar = cal.join('|');
             this.startLoading(calendar, start, end);
             this._storeCache($H(), calendar);
-            this.doAction('ListEvents', { start: start, end: end, cal: calendar, view: view }, this._loadEventsCallback.bind(this));
+            this.doAction('ListEvents',
+                          { start: start,
+                            end: end,
+                            cal: calendar,
+                            view: view },
+                          this._loadEventsCallback.bind(this));
         }, this);
     },
 
@@ -824,6 +829,10 @@ KronolithCore = {
         this.loading--;
         if (!this.loading) {
             $('kronolithLoading').hide();
+        }
+
+        if (typeof r.response.sig == 'undefined') {
+            return;
         }
 
         var start = this.parseDate(r.response.sig.substr(0, 8)),
@@ -1308,7 +1317,10 @@ KronolithCore = {
 
             this.startLoading('tasks:' + taskList, taskType, '');
             this._storeTasksCache($H(), taskList);
-            this.doAction('ListTasks', { 'taskType': taskType, 'list': taskList }, this._loadTasksCallback.bind(this));
+            this.doAction('ListTasks',
+                          { 'taskType': taskType,
+                            'list': taskList },
+                          this._loadTasksCallback.bind(this));
         }, this);
     },
 
