@@ -202,7 +202,7 @@ class IMP_Views_ShowMessage
             if (empty($minidate)) {
                 $minidate = _("Unknown Date");
             }
-            $result['minidate'] = htmlspecialchars($minidate);
+            $result['localdate'] = $result['minidate'] = htmlspecialchars($minidate);
         } else {
             /* Display the user-specified headers for the current identity. */
             $user_hdrs = $imp_ui->getUserHeaders();
