@@ -1687,9 +1687,9 @@ KronolithCore = {
     /* Keydown event handler */
     keydownHandler: function(e)
     {
-        var kc = e.keyCode || e.charCode;
+        var kc = e.keyCode || e.charCode,
+            form = e.findElement('FORM');
 
-        form = e.findElement('FORM');
         if (form) {
             switch (kc) {
             case Event.KEY_RETURN:
@@ -1702,11 +1702,6 @@ KronolithCore = {
                 case 'kronolithSearchForm':
                     this.go('search:' + $F('kronolithSearchContext') + ':' + $F('kronolithSearchTerm'))
                     e.stop();
-                    break;
-
-                case 'kronolithQuickinsertForm':
-                    $('kronolithQuickinsert').fade();
-                    this.quickSaveEvent();
                     break;
                 }
                 break;
@@ -1783,7 +1778,6 @@ KronolithCore = {
                 return;
 
             case 'kronolithQuickinsertSave':
-                $('kronolithQuickinsert').fade();
                 this.quickSaveEvent();
                 e.stop();
                 return;
@@ -2116,6 +2110,7 @@ KronolithCore = {
             start = viewDates[0].dateString(),
             end = viewDates[1].dateString();
 
+        $('kronolithQuickinsert').fade();
         this.startLoading(null, start, end);
         this.doAction('QuickSaveEvent',
                       $H({ 'text': text,
@@ -2125,10 +2120,8 @@ KronolithCore = {
                       }),
                       function(r) {
                           this._loadEventsCallback(r);
-                          this._closeRedBox();
+                          $('kronolithQuickinsertQ').value = '';
                       }.bind(this));
-
-        $('kronolithQuickinsertQ').value = '';
     },
 
     _topTags: function(r)
