@@ -197,14 +197,19 @@ try {
 
     case 'QuickSaveEvent':
         $kronolith_driver = Kronolith::getDriver();
-        $event = Kronolith::quickAdd(Horde_Util::getFormData('text'),
-                                     Kronolith::getDefaultCalendar(PERMS_EDIT));
-        if (is_a($event, 'PEAR_Error')) {
-            $notification->push($event, 'horde.error');
+        try {
+            $event = Kronolith::quickAdd(Horde_Util::getFormData('text'),
+                                         Kronolith::getDefaultCalendar(PERMS_EDIT));
+            if (is_a($event, 'PEAR_Error')) {
+                $notification->push($event, 'horde.error');
+                $result = true;
+                break;
+            }
+            $result = saveEvent($event);
+        } catch (Horde_Exception $e) {
+            $notification->push($e);
             $result = true;
-            break;
         }
-        $result = saveEvent($event);
         break;
 
     case 'UpdateEvent':
