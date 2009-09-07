@@ -6,3 +6,7 @@
     color: #000;
     background: #fff;
 }
+
+.closeImg {
+    background-image: url("graphics/close.png");
+}

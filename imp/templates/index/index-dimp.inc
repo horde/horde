@@ -177,9 +177,8 @@ function _simpleButton($id, $text, $image, $imagedir = null)
        <form action="#" method="post">
         <input autocomplete="off" id="qsearch_input" type="text" size="25" />
        </form>
-       <span class="qsearchClose">
-        <?php echo Horde::img('close.png', '', array('id' => 'qsearch_close', 'style' => 'display:none', 'title' => _("Clear Search")), $hordeimg) ?>
-       </span>
+       <span class="closeImg" id="qsearch_close" style="display:none" title="<?php echo _("Clear Search") ?>"></span>
+      </span>
       </div>
 <?php endif; ?>
       <span>

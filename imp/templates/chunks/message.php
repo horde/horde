@@ -6,12 +6,8 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-$horde_img = $registry->getImageDir('horde');
-
-$close_img = Horde::img('close.png', 'X', array(), $horde_img);
 $menu_view = $prefs->getValue('menu_view');
 $show_text = ($menu_view == 'text' || $menu_view == 'both');
-
 
 // Small utility function to simplify creating dimpactions buttons.
 // As of right now, we don't show text only links.
@@ -30,7 +26,7 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
 <div id="pageContainer">
  <div id="msgData">
   <div class="dimpActions dimpActionsMsg noprint">
-   <div class="headercloseimg" id="windowclose"><?php echo $close_img ?></div>
+   <div class="headercloseimg" id="windowclose"><span class="closeImg" title="X"></span></div>
    <span>
     <?php _createDAfmsg(_("Reply"), 'Reply', 'reply_link', 'hasmenu', $show_text) ?>
    </span>
@@ -58,7 +54,7 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
    <div class="msgHeaders">
     <div id="msgHeaders">
      <div class="dimpOptions noprint">
-      <div id="msg_print"><?php echo Horde::img('print.png', '', '', $horde_img) ?><a><?php echo _("Print") ?></a></div>
+      <div id="msg_print"><?php echo Horde::img('print.png', '', '', $registry->getImageDir('horde') ?><a><?php echo _("Print") ?></a></div>
 <?php if (!empty($conf['user']['allow_view_source'])): ?>
       <div id="msg_view_source"><span class="iconImg"></span><a><?php echo _("View Source") ?></a></div>
 <?php endif; ?>

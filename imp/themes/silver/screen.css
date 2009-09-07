@@ -79,3 +79,7 @@ span.spamImg {
 span.trashImg {
     background-image: url("graphics/folders/trash.png");
 }
+
+.closeImg {
+    background-image: url("graphics/close.png");
+}

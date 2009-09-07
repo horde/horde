@@ -801,12 +801,6 @@ a.address:hover img {
 #qsearch form {
     display: inline;
 }
-.qsearchClose {
-    display: -moz-inline-stack;
-    display: inline-block;
-    margin-left: -2px;
-    width: 17px;
-}
 #qsearch_icon {
     height: 16px;
     width: 16px;
@@ -822,7 +816,7 @@ a.address:hover img {
     padding: 0;
 }
 #qsearch_close {
-    margin-top: -1px;
+    padding: 0;
 }
 .qsearchFocus, .qsearchFocus #qsearch_icon {
     background-color: #fff !important;

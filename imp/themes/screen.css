@@ -575,7 +575,7 @@ td.addressTr span.loadingImg {
     white-space: nowrap;
 }
 
-.downloadAtc, .downloadZipAtc, .saveImgAtc, .stripAtc, .foldersImg {
+.downloadAtc, .downloadZipAtc, .saveImgAtc, .closeImg, .stripAtc, .foldersImg {
     display: -moz-inline-stack;
     display: inline-block;
     height: 16px;
@@ -595,6 +595,9 @@ td.addressTr span.loadingImg {
 }
 .stripAtc {
     background-image: url("graphics/delete.png");
+}
+.closeImg {
+    background-image: url("graphics/close.png");
 }
 
 #itipconflicts tr.itipcollision {
