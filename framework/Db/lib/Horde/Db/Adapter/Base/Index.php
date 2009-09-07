@@ -21,7 +21,7 @@
  * @package    Horde_Db
  * @subpackage Adapter
  */
-class Horde_Db_Adapter_Abstract_Index
+class Horde_Db_Adapter_Base_Index
 {
     public $table;
     public $name;

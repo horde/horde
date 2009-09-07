@@ -21,7 +21,7 @@
  * @package    Horde_Db
  * @subpackage Adapter
  */
-class Horde_Db_Adapter_Abstract_ColumnDefinition
+class Horde_Db_Adapter_Base_ColumnDefinition
 {
     protected $_base      = null;
     protected $_name      = null;

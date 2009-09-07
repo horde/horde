@@ -23,7 +23,7 @@
  * @package    Horde_Db
  * @subpackage Adapter
  */
-class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Abstract
+class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
 {
     /**
      * Mysqli database connection object.

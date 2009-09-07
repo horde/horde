@@ -38,14 +38,14 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <dir name="Horde">
      <dir name="Db">
       <dir name="Adapter">
-       <dir name="Abstract">
+       <dir name="Base">
         <file name="Column.php" role="php" />
         <file name="ColumnDefinition.php" role="php" />
         <file name="Index.php" role="php" />
         <file name="Schema.php" role="php" />
         <file name="Table.php" role="php" />
         <file name="TableDefinition.php" role="php" />
-       </dir> <!-- /lib/Horde/Db/Adapter/Abstract -->
+       </dir> <!-- /lib/Horde/Db/Adapter/Base -->
        <dir name="Mssql">
         <file name="Schema.php" role="php" />
        </dir> <!-- /lib/Horde/Db/Adapter/Mssql -->
@@ -99,12 +99,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Db/Adapter/Abstract/Column.php" as="Horde/Db/Adapter/Abstract/Column.php" />
-   <install name="lib/Horde/Db/Adapter/Abstract/ColumnDefinition.php" as="Horde/Db/Adapter/Abstract/ColumnDefinition.php" />
-   <install name="lib/Horde/Db/Adapter/Abstract/Index.php" as="Horde/Db/Adapter/Abstract/Index.php" />
-   <install name="lib/Horde/Db/Adapter/Abstract/Schema.php" as="Horde/Db/Adapter/Abstract/Schema.php" />
-   <install name="lib/Horde/Db/Adapter/Abstract/Table.php" as="Horde/Db/Adapter/Abstract/Table.php" />
-   <install name="lib/Horde/Db/Adapter/Abstract/TableDefinition.php" as="Horde/Db/Adapter/Abstract/TableDefinition.php" />
+   <install name="lib/Horde/Db/Adapter/Base/Column.php" as="Horde/Db/Adapter/Base/Column.php" />
+   <install name="lib/Horde/Db/Adapter/Base/ColumnDefinition.php" as="Horde/Db/Adapter/Base/ColumnDefinition.php" />
+   <install name="lib/Horde/Db/Adapter/Base/Index.php" as="Horde/Db/Adapter/Base/Index.php" />
+   <install name="lib/Horde/Db/Adapter/Base/Schema.php" as="Horde/Db/Adapter/Base/Schema.php" />
+   <install name="lib/Horde/Db/Adapter/Base/Table.php" as="Horde/Db/Adapter/Base/Table.php" />
+   <install name="lib/Horde/Db/Adapter/Base/TableDefinition.php" as="Horde/Db/Adapter/Base/TableDefinition.php" />
    <install name="lib/Horde/Db/Adapter/Base.php" as="Horde/Db/Adapter/Base.php" />
 
    <install name="lib/Horde/Db/Adapter/Mssql/Schema.php" as="Horde/Db/Adapter/Mssql/Schema.php" />

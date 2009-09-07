@@ -65,7 +65,7 @@ abstract class Horde_Db_Adapter_Base
     protected $_logger = null;
 
     /**
-     * @var Horde_Db_Adapter_Abstract_Schema
+     * @var Horde_Db_Adapter_Base_Schema
      */
     protected $_schema = null;
 
@@ -154,7 +154,7 @@ abstract class Horde_Db_Adapter_Base
         if (class_exists($class)) {
             $class = new ReflectionClass($class);
         } else {
-            $class = new ReflectionClass('Horde_Db_Adapter_Abstract_' . $component);
+            $class = new ReflectionClass('Horde_Db_Adapter_Base_' . $component);
         }
 
         return $class->newInstanceArgs($args);
@@ -193,7 +193,7 @@ abstract class Horde_Db_Adapter_Base
      */
     public function adapterName()
     {
-        return 'Abstract';
+        return 'Base';
     }
 
     /**

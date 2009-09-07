@@ -21,7 +21,7 @@
  * @package    Horde_Db
  * @subpackage Adapter
  */
-class Horde_Db_Adapter_Postgresql_Column extends Horde_Db_Adapter_Abstract_Column
+class Horde_Db_Adapter_Postgresql_Column extends Horde_Db_Adapter_Base_Column
 {
     /*##########################################################################
     # Constants

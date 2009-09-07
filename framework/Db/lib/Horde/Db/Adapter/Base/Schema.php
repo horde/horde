@@ -21,7 +21,7 @@
  * @package    Horde_Db
  * @subpackage Adapter
  */
-abstract class Horde_Db_Adapter_Abstract_Schema
+abstract class Horde_Db_Adapter_Base_Schema
 {
     /**
      * @var Cache object
@@ -34,7 +34,7 @@ abstract class Horde_Db_Adapter_Abstract_Schema
     protected $_logger = null;
 
     /**
-     * @var Horde_Db_Adapter_Abstract
+     * @var Horde_Db_Adapter_Base
      */
     protected $_adapter = null;
 
@@ -49,7 +49,7 @@ abstract class Horde_Db_Adapter_Abstract_Schema
     ##########################################################################*/
 
     /**
-     * @param Horde_Db_Adapter_Abstract $adapter
+     * @param Horde_Db_Adapter_Base $adapter
      * @param array $config
      */
     public function __construct($adapter, $config = array())
@@ -249,12 +249,12 @@ abstract class Horde_Db_Adapter_Abstract_Schema
     abstract public function tables($name = null);
 
     /**
-     * Get a Horde_Db_Adapter_Abstract_Table object for the table.
+     * Get a Horde_Db_Adapter_Base_Table object for the table.
      *
      * @param  string  $tableName
      * @param  string  $name
      *
-     * @return Horde_Db_Adapter_Abstract_Table
+     * @return Horde_Db_Adapter_Base_Table
      */
     public function table($tableName, $name = null)
     {
@@ -281,7 +281,7 @@ abstract class Horde_Db_Adapter_Abstract_Schema
     abstract public function indexes($tableName, $name = null);
 
     /**
-     * Returns an array of Horde_Db_Adapter_Abstract_Column objects for the
+     * Returns an array of Horde_Db_Adapter_Base_Column objects for the
      * table specified by +table_name+.  See the concrete implementation for
      * details on the expected parameter values.
      *
@@ -375,7 +375,7 @@ abstract class Horde_Db_Adapter_Abstract_Schema
      */
     public function endTable($name, $options=array())
     {
-        if ($name instanceof Horde_Db_Adapter_Abstract_TableDefinition) {
+        if ($name instanceof Horde_Db_Adapter_Base_TableDefinition) {
             $tableDefinition = $name;
             $options = array_merge($tableDefinition->getOptions(), $options);
         } else {

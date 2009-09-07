@@ -21,7 +21,7 @@
  * @package    Horde_Db
  * @subpackage Adapter
  */
-class Horde_Db_Adapter_Abstract_Table
+class Horde_Db_Adapter_Base_Table
 {
     protected $_name;
     protected $_primaryKey;
@@ -76,7 +76,7 @@ class Horde_Db_Adapter_Abstract_Table
     }
 
     /**
-     * @return  Horde_Db_Adapter_Abstract_Column
+     * @return  Horde_Db_Adapter_Base_Column
      */
     public function getColumn($column)
     {

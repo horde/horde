@@ -21,7 +21,7 @@
  * @package    Horde_Db
  * @subpackage Adapter
  */
-class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Abstract_Schema
+class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
 {
     /*##########################################################################
     # Quoting

@@ -21,7 +21,7 @@
  * @package    Horde_Db
  * @subpackage Adapter
  */
-class Horde_Db_Adapter_Abstract_TableDefinition implements ArrayAccess
+class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess
 {
     protected $_name    = null;
     protected $_base    = null;
@@ -32,7 +32,7 @@ class Horde_Db_Adapter_Abstract_TableDefinition implements ArrayAccess
      * Class Constructor
      *
      * @param  string  $name
-     * @param  Horde_Db_Adapter_Abstract_Schema  $base
+     * @param  Horde_Db_Adapter_Base_Schema  $base
      * @param  array   $options
      */
     public function __construct($name, $base, $options=array())
@@ -175,7 +175,7 @@ class Horde_Db_Adapter_Abstract_TableDefinition implements ArrayAccess
      * ArrayAccess: Return the value for the given offset.
      *
      * @param   int     $offset
-     * @return  object  {@link {@Horde_Db_Adapter_Abstract_ColumnDefinition}
+     * @return  object  {@link {@Horde_Db_Adapter_Base_ColumnDefinition}
      */
     public function offsetGet($offset)
     {
