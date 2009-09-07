@@ -63,7 +63,7 @@ function saveEvent($event)
     $end->min = $end->sec = 59;
     Kronolith::addEvents($events, $event, $start, $end, true, true);
     $result = new stdClass;
-    $result->cal = $event->getCalendar();
+    $result->cal = $event->getCalendarType() . '|' . $event->getCalendar();
     $result->view = Horde_Util::getFormData('view');
     $result->sig = $start->dateString() . $end->dateString();
     if (count($events)) {
@@ -197,7 +197,8 @@ try {
 
     case 'QuickSaveEvent':
         $kronolith_driver = Kronolith::getDriver();
-        $event = Kronolith::quickAdd(Horde_Util::getFormData('text'), Kronolith::getDefaultCalendar(PERMS_EDIT));
+        $event = Kronolith::quickAdd(Horde_Util::getFormData('text'),
+                                     Kronolith::getDefaultCalendar(PERMS_EDIT));
         if (is_a($event, 'PEAR_Error')) {
             $notification->push($event, 'horde.error');
             $result = true;

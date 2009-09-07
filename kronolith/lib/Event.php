@@ -1232,6 +1232,11 @@ abstract class Kronolith_Event
         $this->_calendar = $calendar;
     }
 
+    public function getCalendarType()
+    {
+        return $this->_calendarType;
+    }
+
     public function isRemote()
     {
         return (bool)$this->remoteCal;
