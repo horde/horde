@@ -2,31 +2,33 @@
 /**
  * Test the Kolab permission handler.
  *
- * $Horde: framework/Kolab_Storage/test/Horde/Kolab/Storage/PermsTest.php,v 1.4 2009/01/06 17:49:28 jan Exp $
+ * PHP version 5
  *
- * @package Kolab_Storage
+ * @category Kolab
+ * @package  Kolab_Storage
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
 /**
- *  We need the unit test framework 
+ * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'PHPUnit/Framework.php';
-
-require_once 'Horde.php';
-require_once 'Horde/Kolab/Storage/Perms.php';
+require_once 'Horde/Autoloader.php';
 
 /**
  * Test the Kolab permission handler.
- *
- * $Horde: framework/Kolab_Storage/test/Horde/Kolab/Storage/PermsTest.php,v 1.4 2009/01/06 17:49:28 jan Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @package Kolab_Storage
+ * @category Kolab
+ * @package  Kolab_Storage
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_PermsTest extends PHPUnit_Framework_TestCase
 {
@@ -37,14 +39,18 @@ class Horde_Kolab_Storage_PermsTest extends PHPUnit_Framework_TestCase
     public function testConstruct()
     {
         $folder = &new DummyFolder(null);
-        $perms = &new Horde_Permission_Kolab($folder);
-        $this->assertEquals('DummyFolder', get_class($perms->_folder));
-        $this->assertEquals(array(), $perms->data);
-        $perms = &new Horde_Permission_Kolab($folder, array('users' => array(
-                                               'wrobel' => PERMS_SHOW | PERMS_READ |
-                                               PERMS_EDIT | PERMS_DELETE)
-                                  ));
-        $this->assertTrue(is_array($perms->data));
+        $perms = &new Horde_Kolab_Storage_Permission($folder);
+        $this->assertEquals(array(), $perms->get('perm'));
+        $permissions =  array('users' =>
+                              array(
+                                  'wrobel' =>
+                                  PERMS_SHOW |
+                                  PERMS_READ |
+                                  PERMS_EDIT |
+                                  PERMS_DELETE
+                              ));
+        $perms = &new Horde_Kolab_Storage_Permission($folder, $permissions);
+        $this->assertTrue(is_array($perms->get('perm')));
     }
 
     /**
@@ -66,13 +72,14 @@ class Horde_Kolab_Storage_PermsTest extends PHPUnit_Framework_TestCase
                 'group:editors' => 'lre'
             )
         );
-        $perms = &new Horde_Permission_Kolab($folder);
-        $this->assertContains('users', array_keys($perms->data));
-        $this->assertContains('wrobel', array_keys($perms->data['users']));
-        $this->assertContains('reader', array_keys($perms->data['users']));
-        $this->assertContains('groups', array_keys($perms->data));
-        $this->assertContains('default', array_keys($perms->data));
-        $this->assertContains('guest', array_keys($perms->data));
+        $perms = &new Horde_Kolab_Storage_Permission($folder);
+	$data = $perms->getData();
+        $this->assertContains('users', array_keys($data));
+        $this->assertContains('wrobel', array_keys($data['users']));
+        $this->assertContains('reader', array_keys($data['users']));
+        $this->assertContains('groups', array_keys($data));
+        $this->assertContains('default', array_keys($data));
+        $this->assertContains('guest', array_keys($data));
     }
 
     /**
@@ -95,13 +102,15 @@ class Horde_Kolab_Storage_PermsTest extends PHPUnit_Framework_TestCase
             ),
             'wrobel'
         );
-        $perms = &new Horde_Permission_Kolab($folder);
-        unset($perms->data['guest']);
-        unset($perms->data['default']);
-        unset($perms->data['users']['viewer']);
-        $perms->data['users']['editor'] = PERMS_SHOW | PERMS_READ | PERMS_EDIT | PERMS_DELETE;
-        $perms->data['users']['test'] = PERMS_SHOW | PERMS_READ;
-        $perms->data['groups']['group'] = PERMS_SHOW | PERMS_READ;
+        $perms = &new Horde_Kolab_Storage_Permission($folder);
+	$data = $perms->getData();
+        unset($data['guest']);
+        unset($data['default']);
+        unset($data['users']['viewer']);
+        $data['users']['editor'] = PERMS_SHOW | PERMS_READ | PERMS_EDIT | PERMS_DELETE;
+        $data['users']['test'] = PERMS_SHOW | PERMS_READ;
+        $data['groups']['group'] = PERMS_SHOW | PERMS_READ;
+        $perms->setData($data);
         $perms->save();
         $this->assertNotContains('anyone', array_keys($folder->acl));
         $this->assertNotContains('anonymous', array_keys($folder->acl));
@@ -121,7 +130,7 @@ class Horde_Kolab_Storage_PermsTest extends PHPUnit_Framework_TestCase
         $folder = &new DummyFolder(array(), 'wrobel');
         $hperms = &new Horde_Permission('test');
         $hperms->addUserPermission('wrobel', PERMS_SHOW, false);
-        $perms = &new Horde_Permission_Kolab($folder, $hperms->data);
+        $perms = &new Horde_Kolab_Storage_Permission($folder, $hperms->data);
         $perms->save();
         $this->assertEquals('al', $folder->acl['wrobel']);
     }
@@ -130,17 +139,18 @@ class Horde_Kolab_Storage_PermsTest extends PHPUnit_Framework_TestCase
 /**
  * A dummy folder representation to test the Kolab permission handler.
  *
- * $Horde: framework/Kolab_Storage/test/Horde/Kolab/Storage/PermsTest.php,v 1.4 2009/01/06 17:49:28 jan Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @package Kolab_Storage
+ * @category Kolab
+ * @package  Kolab_Storage
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class DummyFolder
+class DummyFolder extends Horde_Kolab_Storage_Folder
 {
     var $acl;
     var $_owner;

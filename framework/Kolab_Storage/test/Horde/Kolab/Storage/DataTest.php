@@ -2,33 +2,33 @@
 /**
  * Test the Kolab data handler.
  *
- * $Horde: framework/Kolab_Storage/test/Horde/Kolab/Storage/DataTest.php,v 1.10 2009/01/14 23:39:14 wrobel Exp $
+ * PHP version 5
  *
- * @package Kolab_Storage
+ * @category Kolab
+ * @package  Kolab_Storage
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
 /**
- *  We need the base class
+ * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'Horde/Kolab/Test/Storage.php';
-
-require_once 'Horde.php';
-require_once 'Horde/Kolab/Storage/Data.php';
-require_once 'Horde/Kolab/IMAP.php';
-require_once 'Horde/Kolab/IMAP/test.php';
+require_once 'Horde/Autoloader.php';
 
 /**
  * Test the Kolab data handler.
- *
- * $Horde: framework/Kolab_Storage/test/Horde/Kolab/Storage/DataTest.php,v 1.10 2009/01/14 23:39:14 wrobel Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @package Kolab_Storage
+ * @category Kolab
+ * @package  Kolab_Storage
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Test_Storage
 {
@@ -40,20 +40,21 @@ class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Test_Storage
     {
         $world = $this->prepareBasicSetup();
 
-        $this->assertTrue($world['auth']->authenticate('wrobel@example.org',
-                                                        array('password' => 'none')));
+        $this->storage = $this->authenticate($world['auth'],
+					     'wrobel@example.org',
+					     'none');
 
-        $this->prepareNewFolder($world['storage'], 'Contacts', 'contact', true);
-        $this->prepareNewFolder($world['storage'], 'NewContacts', 'contact');
+        $this->folder = $this->prepareNewFolder($this->storage, 'Contacts', 'contact', true);
+        $this->prepareNewFolder($this->storage, 'NewContacts', 'contact');
     }
 
     /**
-     * Test class constructor.
+     * Test destruction.
      */
-    public function testConstruct()
+    public function tearDown()
     {
-        $data = &new Kolab_Data('test');
-        $this->assertEquals('test', $data->_object_type);
+        Horde_Imap_Client_Mock::clean();
+        $this->storage->clean();
     }
 
     /**
@@ -61,16 +62,11 @@ class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Test_Storage
      */
     public function testGetCacheKey()
     {
-        $data = &new Kolab_Data('test');
-        $this->assertTrue($data->_cache_cyrus_optimize);
-        $session = &Horde_Kolab_Session::singleton();
-        $imap = &$session->getImap();
-        $this->assertEquals('Horde_Kolab_IMAP_test', get_class($imap));
-        
-        $folder = &new Kolab_Folder('INBOX/Test');
+        $data = &new Horde_Kolab_Storage_Data('test');
+
+        $folder = &new Horde_Kolab_Storage_Folder('INBOX/Test');
         $data->setFolder($folder);
-        $this->assertEquals('INBOX/Test', $data->_folder->name);
-        $this->assertEquals('user/wrobel/Test', $data->_getCacheKey());
+        $this->assertEquals('user/wrobel/Test', $data->getCacheKey());
     }
 
     /**
@@ -78,22 +74,18 @@ class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Test_Storage
      */
     public function testDelete()
     {
-        $data = &new Kolab_Data('contact');
-        $folder = &new Kolab_Folder('INBOX/Contacts');
-        $data->setFolder($folder);
+        $data = &new Horde_Kolab_Storage_Data('contact');
+        $data->setFolder($this->folder);
 
-        /** 
+        /**
          * During testing we want to ensure that we do not access any
          * old, cached data. The cache gets loaded when calling
          * getObjectIds and is manually expired afterwards.
          */
         $result = $data->getObjectIds();
-        $data->_cache->expire();
+        $data->expireCache();
 
         $result = $data->delete('1');
-        if (is_a($result, 'PEAR_Error')) {
-            $this->assertEquals('', $result->message);
-        }
         $this->assertFalse($result);
         $object = array(
             'uid' => '1',
@@ -102,22 +94,14 @@ class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Test_Storage
             'email' => 'p@rdus.de'
         );
         $result = $data->save($object);
-        if (is_a($result, 'PEAR_Error')) {
-            $this->assertEquals('', $result->message);
-        }
-        if (is_a($result, 'PEAR_Error')) {
-            $this->assertEquals('', $result->message);
-        }
-        $this->assertTrue($result);
-        $result = $data->delete('1');
-        if (is_a($result, 'PEAR_Error')) {
-            $this->assertEquals('', $result->message);
-        }
         $this->assertTrue($result);
         $ids = $data->getObjectIds();
-        if (is_a($ids, 'PEAR_Error')) {
-            $this->assertEquals('', $ids->message);
+        foreach ($ids as $id) {
+            $uid = $data->getStorageId($id);
+            $result = $data->delete($uid);
+            $this->assertTrue($result);
         }
+        $ids = $data->getObjectIds();
         $this->assertTrue(empty($ids));
     }
 
@@ -126,37 +110,29 @@ class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Test_Storage
      */
     public function testMove()
     {
-        $list = &new Kolab_List();
-        $list->_imap = &new Horde_Kolab_IMAP_test('', 0);
-
-        $data = &new Kolab_Data('contact');
-        $folder = &new Kolab_Folder('INBOX/Contacts');
-        $folder->setList($list);
+        $data = &new Horde_Kolab_Storage_Data('contact');
+        $folder = $this->storage->getFolder('INBOX/Contacts');
         $data->setFolder($folder);
-        /** 
+        /**
          * During testing we want to ensure that we do not access any
          * old, cached data. The cache gets loaded when calling
          * getObjectIds and is manually expired afterwards.
          */
         $result = $data->getObjectIds();
-        $data->_cache->expire();
+        $data->expireCache();
 
-        $data2 = &new Kolab_Data('contact');
-        $folder2 = &new Kolab_Folder('INBOX/NewContacts');
-        $folder2->setList($list);
+        $data2 = &new Horde_Kolab_Storage_Data('contact');
+        $folder2 = $this->storage->getFolder('INBOX/NewContacts');
         $data2->setFolder($folder2);
-        /** 
+        /**
          * During testing we want to ensure that we do not access any
          * old, cached data. The cache gets loaded when calling
          * getObjectIds and is manually expired afterwards.
          */
         $result = $data2->getObjectIds();
-        $data2->_cache->expire();
+        $data2->expireCache();
 
         $result = $data->move('1', 'INBOX%20NewContacts');
-        if (is_a($result, 'PEAR_Error')) {
-            $this->assertEquals('', $result->message);
-        }
         $this->assertFalse($result);
         $object = array(
             'uid' => '1',
@@ -165,37 +141,19 @@ class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Test_Storage
             'email' => 'p@rdus.de'
         );
         $result = $data->save($object);
-        if (is_a($result, 'PEAR_Error')) {
-            $this->assertEquals('', $result->message);
-        }
-        if (is_a($result, 'PEAR_Error')) {
-            $this->assertEquals('', $result->message);
-        }
         $this->assertTrue($result);
 
         $result = $data->move('1', rawurlencode('INBOX/NewContacts'));
-        if (is_a($result, 'PEAR_Error')) {
-            $this->assertEquals('', $result->message);
-        }
         $this->assertTrue($result);
 
         $ids = $data->getObjectIds();
-        if (is_a($ids, 'PEAR_Error')) {
-            $this->assertEquals('', $ids->message);
-        }
         $this->assertTrue(empty($ids));
 
         $data2->synchronize();
         $ids = $data2->getObjectIds();
-        if (is_a($ids, 'PEAR_Error')) {
-            $this->assertEquals('', $ids->message);
-        }
         $this->assertEquals(1, count($ids));
 
         $result = $data2->delete('1');
-        if (is_a($result, 'PEAR_Error')) {
-            $this->assertEquals('', $result->message);
-        }
         $this->assertTrue($result);
     }
 
@@ -204,16 +162,15 @@ class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Test_Storage
      */
     public function testSave()
     {
-        $data = &new Kolab_Data('contact');
-        $folder = &new Kolab_Folder('INBOX/Contacts');
-        $data->setFolder($folder);
-        /** 
+        $data = &new Horde_Kolab_Storage_Data('contact');
+        $data->setFolder($this->folder);
+        /**
          * During testing we want to ensure that we do not access any
          * old, cached data. The cache gets loaded when calling
          * getObjectIds and is manually expired afterwards.
          */
         $result = $data->getObjectIds();
-        $data->_cache->expire();
+        $data->expireCache();
         $object = array(
             'uid' => '1',
             'given-name' => 'Gunnar',
@@ -221,26 +178,22 @@ class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Test_Storage
             'email' => 'p@rdus.de'
         );
 
-        $result = $data->save($object, '1000');
-        $this->assertEquals("Old object 1000 does not exist.", $result->message);
-
-        $result = $data->save($object);
-        if (is_a($result, 'PEAR_Error')) {
-            $this->assertEquals('', $result->message);
+        try {
+            $result = $data->save($object, '1000');
+        } catch (Exception $e) {
+            $this->assertEquals("Old object 1000 does not exist.", $e->getMessage());
         }
+        $result = $data->save($object);
         $this->assertTrue($result);
 
-        $id = $data->_getStorageId('1');
-        $this->assertTrue($data->_storageIdExists($id));
+        $id = $data->getStorageId('1');
+        $this->assertTrue($data->storageIdExists($id));
         $this->assertTrue($data->objectUidExists('1'));
 
         $object = $data->getObject('1');
         $this->assertEquals('Gunnar', $object['given-name']);
 
         $objects = $data->getObjects();
-        if (is_a($objects, 'PEAR_Error')) {
-            $this->assertEquals('', $objects->message);
-        }
         $this->assertEquals(1, count($objects));
 
         $object = array(
@@ -251,27 +204,21 @@ class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Test_Storage
         );
 
         $result = $data->save($object, '1');
-        if (is_a($result, 'PEAR_Error')) {
-            $this->assertEquals('', $result->message);
-        }
         $this->assertTrue($result);
-        $this->assertNotEquals($id, $data->_getStorageId('1'));
+        $this->assertNotEquals($id, $data->getStorageId('1'));
         $result = $data->delete('1');
-        if (is_a($result, 'PEAR_Error')) {
-            $this->assertEquals('', $result->message);
-        }
         $this->assertTrue($result);
-        $this->assertFalse($data->_getStorageId('1'));
-        $this->assertFalse($data->_storageIdExists($id));
+        $this->assertFalse($data->getStorageId('1'));
+        $this->assertFalse($data->storageIdExists($id));
         $this->assertFalse($data->objectUidExists('1'));
 
+        try {
         $object = $data->getObject('1');
-        $this->assertEquals("Kolab cache: Object uid 1 does not exist in the cache!", $object->message);
+        } catch (Exception $e) {
+            $this->assertEquals("Kolab cache: Object uid 1 does not exist in the cache!", $e->getMessage());
+        }
 
         $objects = $data->getObjects();
-        if (is_a($objects, 'PEAR_Error')) {
-            $this->assertEquals('', $objects->message);
-        }
         $this->assertEquals(0, count($objects));
     }
 
@@ -280,16 +227,15 @@ class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Test_Storage
      */
     public function testObjectDeleteAll()
     {
-        $data = &new Kolab_Data('contact');
-        $folder = &new Kolab_Folder('INBOX/Contacts');
-        $data->setFolder($folder);
-        /** 
+        $data = &new Horde_Kolab_Storage_Data('contact');
+        $data->setFolder($this->folder);
+        /**
          * During testing we want to ensure that we do not access any
          * old, cached data. The cache gets loaded when calling
          * getObjectIds and is manually expired afterwards.
          */
         $result = $data->getObjectIds();
-        $data->_cache->expire();
+        $data->expireCache();
         $result = $data->deleteAll();
         $this->assertTrue($result);
 
@@ -300,24 +246,12 @@ class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Test_Storage
             'email' => 'p@rdus.de'
         );
         $result = $data->save($object);
-        if (is_a($result, 'PEAR_Error')) {
-            $this->assertEquals('', $result->message);
-        }
-        if (is_a($result, 'PEAR_Error')) {
-            $this->assertEquals('', $result->message);
-        }
         $this->assertTrue($result);
 
         $result = $data->deleteAll();
-        if (is_a($result, 'PEAR_Error')) {
-            $this->assertEquals('', $result->message);
-        }
         $this->assertTrue($result);
 
         $ids = $data->getObjectIds();
-        if (is_a($ids, 'PEAR_Error')) {
-            $this->assertEquals('', $ids->message);
-        }
         $this->assertTrue(empty($ids));
     }
 

@@ -14,14 +14,9 @@
  */
 
 /**
- *  We need the unit test framework
+ * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'Horde/Kolab/Test/Server.php';
-
-/**
- *  We need the classes to be tested
- */
-require_once 'Horde/Kolab/Storage/List.php';
+require_once 'Horde/Autoloader.php';
 
 /**
  * Base for PHPUnit scenarios.
@@ -99,8 +94,6 @@ class Horde_Kolab_Test_Storage extends Horde_Kolab_Test_Server
             $folder->setACL($arguments[0], 'alrid');
             break;
         case 'retrieving the list of shares for the application':
-            require_once 'Horde/Share.php';
-
             $shares = Horde_Share::singleton($arguments[0], 'kolab');
 
             $world['list'] = $shares->listShares(Auth::getAuth());
@@ -155,15 +148,17 @@ class Horde_Kolab_Test_Storage extends Horde_Kolab_Test_Server
     /**
      * Prepare an empty Kolab storage.
      *
-     * @return Kolab_List The empty storage.
+     * @return Horde_Kolab_Storage_List The empty storage.
      */
-    public function &prepareEmptyKolabStorage()
+    public function &prepareEmptyKolabStorage($params = null)
     {
-        /** Ensure that IMAP runs in testing mode and is empty */
-        $GLOBALS['KOLAB_TESTING'] = array();
-
         /** Prepare a Kolab test storage */
-        $storage = Kolab_List::singleton(true);
+        if(empty($params)) {
+            $params = array('driver'   => 'Mock',
+                            'username' => 'test',
+                            'password' => 'test');
+        }
+        $storage = Horde_Kolab_Storage::singleton('imap', $params);
         return $storage;
     }
 
@@ -175,7 +170,6 @@ class Horde_Kolab_Test_Storage extends Horde_Kolab_Test_Server
     public function prepareBrowser()
     {
         /** Provide a browser setup */
-        include_once 'Horde/Browser.php';
         $GLOBALS['browser'] = new Horde_Browser();
     }
 
@@ -204,7 +198,7 @@ class Horde_Kolab_Test_Storage extends Horde_Kolab_Test_Server
 \$conf['cookie']['path'] = '/';
 \$conf['cookie']['domain'] = \$_SERVER['SERVER_NAME'];
 \$conf['use_ssl'] = false;
-\$conf['session']['cache_limiter'] = 'nocache';
+\$conf['session']['cache_limiter'] = null;
 \$conf['session']['name'] = 'Horde';
 \$conf['log']['enabled'] = false;
 \$conf['prefs']['driver'] = 'session';
@@ -285,12 +279,22 @@ EOD;
      *
      * @return NULL
      */
-    public function &prepareKolabSetup()
+    public function &prepareKolabSetup($username = 'test', $password = 'test')
     {
+        /**
+         * Ensure we have a session array. Otherwise the Auth handler will try
+         * to unset the session and issue a notice.
+         */
+        $_SESSION = array();
+
         $world = array();
 
+        $params = array('driver'   => 'Mock',
+                        'username' => $username,
+                        'password' => $password);
+
         $world['server']  = &$this->prepareEmptyKolabServer();
-        $world['storage'] = &$this->prepareEmptyKolabStorage();
+        $world['storage'] = &$this->prepareEmptyKolabStorage($params);
         $world['auth']    = &$this->prepareKolabAuthDriver();
 
         $this->prepareBasicConfiguration();
@@ -303,18 +307,21 @@ EOD;
             $result = mkdir(HORDE_BASE . '/config', 0755, true);
         }
 
+        /* Ensure that we send no heders when the session is started */
+        ini_set('session.use_cookies', 0);
+        ini_set('session.use_only_cookies', 0);
+
         $this->prepareConfiguration();
         $this->prepareRegistry();
         $this->prepareNotification();
 
         if (!isset($GLOBALS['perms'])) {
+            include_once 'Horde/Perms.php';
             $GLOBALS['perms'] = &Perms::singleton();
         }
 
         /** Provide the horde registry */
-        include_once 'Horde/Registry.php';
-
-        $GLOBALS['registry'] = &Registry::singleton();
+        $GLOBALS['registry'] = &Horde_Registry::singleton();
         $GLOBALS['notification'] = &Horde_Notification::singleton();
 
         $this->prepareFixedConfiguration();
@@ -375,5 +382,17 @@ EOD;
 
     function provideHordeBase() {
         return Horde::getTempDir() . '/test_config';
+    }
+
+    public function &authenticate(Horde_Auth_Base $auth, $username = 'test', $password = 'test')
+    {
+        $this->assertTrue($auth->authenticate($username,
+                                              array('password' => $password)));
+
+        $params = array('driver'   => 'Mock',
+                        'username' => $username,
+                        'password' => $password);
+
+        return $this->prepareEmptyKolabStorage($params);
     }
 }

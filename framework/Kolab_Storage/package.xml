@@ -73,14 +73,17 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Kolab">
-      <file name="Deprecated.php" role="php" />
       <file name="Storage.php" role="php" />
       <dir name="Storage">
        <file name="Cache.php" role="php" />
        <file name="Data.php" role="php" />
+       <file name="Driver.php" role="php" />
+       <dir name="Driver">
+	 <file name="Imap.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/Storage/Driver -->
+       <file name="Exception.php" role="php" />
        <file name="Folder.php" role="php" />
-       <file name="List.php" role="php" />
-       <file name="Perms.php" role="php" />
+       <file name="Permission.php" role="php" />
       </dir> <!-- /lib/Horde/Kolab/Storage -->
       <dir name="Test">
        <file name="Storage.php" role="php" />
@@ -97,7 +100,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="DataTest.php" role="test" />
        <file name="FolderTest.php" role="test" />
        <file name="ListTest.php" role="test" />
-       <file name="PermsTest.php" role="test" />
+       <file name="PermissionTest.php" role="test" />
       </dir> <!-- /test/Horde/Kolab/Storage -->
      </dir> <!-- /test/Horde/Kolab -->
     </dir> <!-- /test/Horde -->
@@ -181,20 +184,21 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <filelist>
    <install name="doc/Horde/Kolab/Storage/usage.txt" as="Horde/Kolab/Storage/usage.txt" />
    <install name="examples/Horde/Kolab/Storage/list.php" as="Horde/Kolab/Storage/list.php" />
-   <install name="lib/Horde/Kolab/Deprecated.php" as="Horde/Kolab/Deprecated.php" />
    <install name="lib/Horde/Kolab/Storage.php" as="Horde/Kolab/Storage.php" />
    <install name="lib/Horde/Kolab/Storage/Cache.php" as="Horde/Kolab/Storage/Cache.php" />
    <install name="lib/Horde/Kolab/Storage/Data.php" as="Horde/Kolab/Storage/Data.php" />
+   <install name="lib/Horde/Kolab/Storage/Driver.php" as="Horde/Kolab/Storage/Driver.php" />
+   <install name="lib/Horde/Kolab/Storage/Driver/Imap.php" as="Horde/Kolab/Storage/Driver/Imap.php" />
+   <install name="lib/Horde/Kolab/Storage/Exception.php" as="Horde/Kolab/Storage/Exception.php" />
    <install name="lib/Horde/Kolab/Storage/Folder.php" as="Horde/Kolab/Storage/Folder.php" />
-   <install name="lib/Horde/Kolab/Storage/List.php" as="Horde/Kolab/Storage/List.php" />
-   <install name="lib/Horde/Kolab/Storage/Perms.php" as="Horde/Kolab/Storage/Perms.php" />
+   <install name="lib/Horde/Kolab/Storage/Permission.php" as="Horde/Kolab/Storage/Permission.php" />
    <install name="lib/Horde/Kolab/Test/Storage.php" as="Horde/Kolab/Test/Storage.php" />
    <install name="test/Horde/Kolab/Storage/AllTests.php" as="Horde/Kolab/Storage/AllTests.php" />
    <install name="test/Horde/Kolab/Storage/CacheTest.php" as="Horde/Kolab/Storage/CacheTest.php" />
    <install name="test/Horde/Kolab/Storage/DataTest.php" as="Horde/Kolab/Storage/DataTest.php" />
    <install name="test/Horde/Kolab/Storage/FolderTest.php" as="Horde/Kolab/Storage/FolderTest.php" />
    <install name="test/Horde/Kolab/Storage/ListTest.php" as="Horde/Kolab/Storage/ListTest.php" />
-   <install name="test/Horde/Kolab/Storage/PermsTest.php" as="Horde/Kolab/Storage/PermsTest.php" />
+   <install name="test/Horde/Kolab/Storage/PermissionTest.php" as="Horde/Kolab/Storage/PermissionTest.php" />
   </filelist>
  </phprelease>
  <changelog>

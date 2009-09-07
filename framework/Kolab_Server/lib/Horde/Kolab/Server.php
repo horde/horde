@@ -17,6 +17,11 @@
 require_once 'Horde/Autoloader.php';
 
 /**
+ * We need Log.php for the Log constants
+ */
+require_once 'Log.php';
+
+/**
  * This class provides methods to deal with Kolab objects stored in
  * the Kolab object db.
  *
@@ -149,8 +154,9 @@ abstract class Horde_Kolab_Server
 
         static $instances = array();
 
-        $sparam = $params;
-        $sparam['pass'] = isset($sparam['pass']) ? hash('sha256', $sparam['pass']) : '';
+        $sparam         = $params;
+        $sparam['pass'] = isset($sparam['pass'])
+            ? hash('sha256', $sparam['pass']) : '';
         ksort($sparam);
         $signature = serialize($sparam);
 
@@ -226,7 +232,7 @@ abstract class Horde_Kolab_Server
             || $this->params['host_master'] == $this->params['host']) {
             return $this;
         }
-        $params = $this->params;
+        $params          = $this->params;
         $params['write'] = true;
         return Horde_Kolab_Server::singleton($params);
     }
@@ -423,7 +429,7 @@ abstract class Horde_Kolab_Server
 
         if (!isset($this->attributes)) {
             if (!empty($GLOBALS['conf']['kolab']['server']['cache']['driver'])
-		&& class_exists('Horde_Cache')) {
+                && class_exists('Horde_Cache')) {
                 $params = isset($GLOBALS['conf']['kolab']['server']['cache']['params'])
                     ? $GLOBALS['conf']['kolab']['server']['cache']['params'] : null;
                 $cache  = Horde_Cache::singleton($GLOBALS['conf']['kolab']['server']['cache']['driver'],

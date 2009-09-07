@@ -5,53 +5,10 @@
  * $Horde: framework/Kolab_Storage/lib/Horde/Kolab/Storage/Folder.php,v 1.30 2009/06/09 23:23:39 slusarz Exp $
  */
 
-/** We need the current user session. */
-require_once 'Horde/Kolab/Session.php';
-
-/** Data handling for Kolab **/
-require_once 'Horde/Kolab/Storage/Data.php';
-
-/** Permission library for Kolab **/
-require_once 'Horde/Kolab/Storage/Perms.php';
-
-/** We need the Kolab XML library for xml handling. */
-require_once 'Horde/Kolab/Format.php';
-
-/** We need the Horde History System for logging */
-require_once 'Horde/History.php';
-
-/** We need the Horde Mime library to deal with Mime messages. */
-require_once 'Horde/Mime.php';
-require_once 'Horde/Mime/Part.php';
-require_once 'Horde/Mime/Address.php';
-require_once 'Horde/Mime/Headers.php';
-
-/** We need the String & NLS libraries for character set conversions, etc. */
-require_once 'Horde/NLS.php';
-
 /**
- * The root of the Kolab annotation hierarchy, used on the various IMAP folder
- * that are used by Kolab clients.
+ * The Autoloader allows us to omit "require/include" statements.
  */
-define('KOLAB_ANNOT_ROOT', '/vendor/kolab/');
-
-/**
- * The annotation, as defined by the Kolab format spec, that is used to store
- * information about what groupware format the folder contains.
- */
-define('KOLAB_ANNOT_FOLDER_TYPE', KOLAB_ANNOT_ROOT . 'folder-type');
-
-/**
- * Kolab specific free/busy relevance
- */
-define('KOLAB_FBRELEVANCE_ADMINS',  0);
-define('KOLAB_FBRELEVANCE_READERS', 1);
-define('KOLAB_FBRELEVANCE_NOBODY',  2);
- 
-/**
- * Horde-specific annotations on the imap folder have this prefix.
- */
-define('HORDE_ANNOT_SHARE_ATTR', '/vendor/horde/share-');
+require_once 'Horde/Autoloader.php';
 
 /**
  * The Kolab_Folder class represents an IMAP folder on the Kolab
@@ -69,7 +26,39 @@ define('HORDE_ANNOT_SHARE_ATTR', '/vendor/horde/share-');
  * @author  Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @package Kolab_Storage
  */
-class Kolab_Folder {
+class Horde_Kolab_Storage_Folder
+{
+
+    /**
+     * The root of the Kolab annotation hierarchy, used on the various IMAP
+     * folder that are used by Kolab clients.
+     */
+    const ANNOT_ROOT = '/vendor/kolab/';
+
+    /**
+     * The annotation, as defined by the Kolab format spec, that is used to store
+     * information about what groupware format the folder contains.
+     */
+    const ANNOT_FOLDER_TYPE = '/vendor/kolab/folder-type';
+
+    /**
+     * Horde-specific annotations on the imap folder have this prefix.
+     */
+    const ANNOT_SHARE_ATTR = '/vendor/horde/share-';
+
+    /**
+     * Kolab specific free/busy relevance
+     */
+    const FBRELEVANCE_ADMINS  = 0;
+    const FBRELEVANCE_READERS = 1;
+    const FBRELEVANCE_NOBODY  = 2;
+ 
+    /**
+     * The connection specific for this folder.
+     *
+     * @var Horde_Kolab_Storage_Driver
+     */
+    private $_connection;
 
     /**
      * The folder name.
@@ -89,9 +78,9 @@ class Kolab_Folder {
     /**
      * The handler for the list of Kolab folders.
      *
-     * @var Kolab_List
+     * @var Kolab_storage
      */
-    var $_list;
+    var $_storage;
 
     /**
      * The type of this folder.
@@ -181,11 +170,11 @@ class Kolab_Folder {
     /**
      * Creates a Kolab Folder representation.
      *
-     * @param string     $name  Name of the folder
+     * @param string $name  Name of the folder
      */
-    function Kolab_Folder($name = null)
+    function __construct($name = null)
     {
-        $this->name  = $name;
+        $this->name = $name;
         $this->__wakeup();
     }
 
@@ -215,19 +204,24 @@ class Kolab_Folder {
     function __sleep()
     {
         $properties = get_object_vars($this);
-        unset($properties['_list']);
+        unset($properties['_storage']);
+        unset($properties['connection']);
         $properties = array_keys($properties);
         return $properties;
     }
 
     /**
-     * Set the list handler.
+     * Restore the object after a deserialization.
      *
-     * @param Kolab_List $list  The handler for the list of folders.
+     * @param Horde_Kolab_Storage        $storage    The handler for the list of
+     *                                               folders.
+     * @param Horde_Kolab_Storage_Driver $connection The storage connection.
      */
-    function setList(&$list)
+    function restore(Horde_Kolab_Storage &$storage,
+                     Horde_Kolab_Storage_Driver &$connection)
     {
-        $this->_list = &$list;
+        $this->_storage    = $storage;
+        $this->_connection = $connection;
     }
 
     /**
@@ -242,7 +236,7 @@ class Kolab_Folder {
         if (substr($name, 0, 5) != 'user/' && substr($name, 0, 7) != 'shared.') {
             $name = 'INBOX/' . $name;
         }
-        $this->new_name = Horde_String::convertCharset($name, NLS::getCharset(), 'UTF7-IMAP');
+        $this->new_name = Horde_String::convertCharset($name, Horde_Nls::getCharset(), 'UTF7-IMAP');
     }
 
     /**
@@ -263,7 +257,7 @@ class Kolab_Folder {
      */
     function getShareId()
     {
-        $current_user = Auth::getAuth();
+        $current_user = Horde_Auth::getAuth();
         if ($this->isDefault() && $this->getOwner() == $current_user) {
             return $current_user;
         }
@@ -285,7 +279,8 @@ class Kolab_Folder {
         if (!isset($this->name)) {
             /* A new folder needs to be created */
             if (!isset($this->new_name)) {
-                return PEAR::raiseError(_("Cannot create this folder! The name has not yet been set."));
+                throw new Horde_Kolab_Storage_Exception('Cannot create this folder! The name has not yet been set.',
+                                                        Horde_Kolab_Storage_Exception::FOLDER_NAME_UNSET);
             }
 
             if (isset($attributes['type'])) {
@@ -302,10 +297,15 @@ class Kolab_Folder {
                 $this->_default = false;
             }
 
-            $result = $this->_list->create($this);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
+            $result = $this->_connection->exists($this->new_name);
+            if ($result) {
+                throw new Horde_Kolab_Storage_Exception(sprintf("Unable to add %s: destination folder already exists",
+                                                                $this->new_name),
+                                                        Horde_Kolab_Storage_Exception::FOLDER_EXISTS);
             }
+
+            $this->_connection->create($this->new_name);
+
             $this->name = $this->new_name;
             $this->new_name = null;
 
@@ -313,7 +313,6 @@ class Kolab_Folder {
             if (empty($this->_perms)) {
                 $this->getPermission();
             }
-
         } else {
 
             $type = $this->getType();
@@ -337,39 +336,29 @@ class Kolab_Folder {
             if (isset($this->new_name)
                 && $this->new_name != $this->name) {
                 /** The folder needs to be renamed */
-                $result = $this->_list->rename($this);
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
+                $result = $this->_connection->exists($this->new_name);
+                if ($result) {
+                    throw new Horde_Kolab_Storage_Exception(sprintf(_("Unable to rename %s to %s: destination folder already exists"),
+                                                                    $name, $new_name));
                 }
+
+                $result = $this->_connection->rename($this->name, $this->new_name);
+                $this->_storage->removeFromCache($this);
 
                 /**
                  * Trigger the old folder on an empty IMAP folder.
                  */
-                $session = &Horde_Kolab_Session::singleton();
-                $imap = &$session->getImap();
-                if (!is_a($imap, 'PEAR_Error')) {
-                    $result = $imap->create($this->name);
-                    if (is_a($result, 'PEAR_Error')) {
-                        Horde::logMessage(sprintf('Failed creating dummy folder: %s!',
-                                                  $result->getMessage()),
-                                          __FILE__, __LINE__, PEAR_LOG_ERR);
-                    }
-                    $imap->setAnnotation(KOLAB_ANNOT_FOLDER_TYPE, 
-                                         array('value.shared' => $this->_type),
-                                         $this->name);
-
-                    $result = $this->trigger($this->name);
-                    if (is_a($result, 'PEAR_Error')) {
-                        Horde::logMessage(sprintf('Failed triggering dummy folder: %s!',
-                                                  $result->getMessage()),
-                                          __FILE__, __LINE__, PEAR_LOG_ERR);
-                    }
-                    $result = $imap->delete($this->name);
-                    if (is_a($result, 'PEAR_Error')) {
-                        Horde::logMessage(sprintf('Failed deleting dummy folder: %s!',
-                                                  $result->getMessage()),
-                                          __FILE__, __LINE__, PEAR_LOG_ERR);
-                    }
+                try {
+                    $this->_connection->create($this->name);
+                    $this->_connection->setAnnotation(self::ANNOT_FOLDER_TYPE, 
+                                                      array('value.shared' => $this->_type),
+                                                      $this->name);
+                    $this->trigger($this->name);
+                    $this->_connection->delete($this->name);
+                } catch (Exception $e) {
+                    Horde::logMessage(sprintf('Failed handling the dummy folder: %s!',
+                                              $e->getMessage()),
+                                      __FILE__, __LINE__, PEAR_LOG_ERR);
                 }
 
                 $this->name     = $this->new_name;
@@ -391,12 +380,13 @@ class Kolab_Folder {
         /** Handle the folder type */
         $folder_type = $this->_type . ($this->_default ? '.default' : '');
         if ($this->_type_annotation != $folder_type) {
-            $result = $this->_setAnnotation(KOLAB_ANNOT_FOLDER_TYPE, $folder_type);
-            if (is_a($result, 'PEAR_Error')) {
+            try {
+                $result = $this->_setAnnotation(self::ANNOT_FOLDER_TYPE, $folder_type);
+            } catch (Exception $e) {
                 $this->_type = null;
                 $this->_default = false;
                 $this->_type_annotation = null;
-                return $result;
+                throw $e;
             }
         }
 
@@ -426,7 +416,7 @@ class Kolab_Folder {
                 if ($key == 'desc') {
                     $entry = '/comment';
                 } else {
-                    $entry = HORDE_ANNOT_SHARE_ATTR . $key;
+                    $entry = self::ANNOT_SHARE_ATTR . $key;
                 }
                 $result = $this->_setAnnotation($entry, $store);
                 if (is_a($result, 'PEAR_Error')) {
@@ -438,16 +428,16 @@ class Kolab_Folder {
 
         /** Now save the folder permissions */
         if (isset($this->_perms)) {
-            $result = $this->_perms->save();
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $this->_perms->save();
         }
 
-        $result = $this->trigger();
-        if (is_a($result, 'PEAR_Error')) {
+        $this->_storage->addToCache($this);
+
+        try {
+            $this->trigger();
+        } catch (Horde_Kolab_Storage_Exception $e) {
             Horde::logMessage(sprintf('Failed triggering folder %s! Error was: %s',
-                                      $this->name, $result->getMessage()),
+                                      $this->name, $e->getMessage()),
                               __FILE__, __LINE__, PEAR_LOG_ERR);
         }
 
@@ -461,11 +451,8 @@ class Kolab_Folder {
      */
     function delete()
     {
-        $result = $this->_list->remove($this);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
+        $this->_connection->delete($this->name);
+        $this->_storage->removeFromCache($this);
         return true;
     }
 
@@ -490,9 +477,9 @@ class Kolab_Folder {
             $this->_subpath = $matches[3];
 
             if (substr($matches[1], 0, 6) == 'INBOX/') {
-                $this->_owner = Auth::getAuth();
+                $this->_owner = Horde_Auth::getAuth();
             } elseif (substr($matches[1], 0, 5) == 'user/') {
-                $domain = strstr(Auth::getAuth(), '@');
+                $domain = strstr(Horde_Auth::getAuth(), '@');
                 $user_domain = isset($matches[4]) ? $matches[4] : $domain;
                 $this->_owner = $matches[2] . $user_domain;
             } elseif ($matches[1] == 'shared.') {
@@ -556,12 +543,14 @@ class Kolab_Folder {
     function getType()
     {
         if (!isset($this->_type)) {
-            $type_annotation = $this->_getAnnotation(KOLAB_ANNOT_FOLDER_TYPE,
-                                                     $this->name);
-            if (is_a($type_annotation, 'PEAR_Error')) {
+            try {
+                $type_annotation = $this->_getAnnotation(self::ANNOT_FOLDER_TYPE,
+                                                         $this->name);
+            } catch (Exception $e) {
                 $this->_default = false;
-                return $type_annotation;
-            } else if (empty($type_annotation)) {
+                throw $e;
+            }
+            if (empty($type_annotation)) {
                 $this->_default = false;
                 $this->_type = '';
             } else {
@@ -652,17 +641,11 @@ class Kolab_Folder {
      */
     function exists()
     {
-        $session = &Horde_Kolab_Session::singleton();
-        $imap = &$session->getImap();
-        if (is_a($imap, 'PEAR_Error')) {
-            return $imap;
-        }
-
-        $result = $imap->exists($this->name);
-        if (is_a($result, 'PEAR_Error')) {
+        try {
+            return $this->_connection->exists($this->name);
+        } catch (Horde_Imap_Client_Exception $e) {
             return false;
         }
-        return $result;
     }
 
     /**
@@ -672,17 +655,11 @@ class Kolab_Folder {
      */
     function accessible()
     {
-        $session = &Horde_Kolab_Session::singleton();
-        $imap = &$session->getImap();
-        if (is_a($imap, 'PEAR_Error')) {
-            return $imap;
-        }
-
-        $result = $imap->select($this->name);
-        if (is_a($result, 'PEAR_Error')) {
+        try {
+            return $this->_connection->select($this->name);
+        } catch (Horde_Imap_Client_Exception $e) {
             return false;
         }
-        return $result;
     }
 
     /**
@@ -733,31 +710,14 @@ class Kolab_Folder {
      */
     function deleteMessage($id, $trigger = true)
     {
-        $session = &Horde_Kolab_Session::singleton();
-        $imap = &$session->getImap();
-        if (is_a($imap, 'PEAR_Error')) {
-            return $imap;
-        }
-
         // Select folder
-        $result = $imap->select($this->name);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        $result = $imap->deleteMessages($id);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        $result = $imap->expunge();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_connection->deleteMessages($this->name, $id);
+        $this->_connection->expunge($this->name);
 
         if ($trigger) {
-            $result = $this->trigger();
-            if (is_a($result, 'PEAR_Error')) {
+            try {
+                $result = $this->trigger();
+            } catch (Horde_Kolab_Storage_Exception $e) {
                 Horde::logMessage(sprintf('Failed triggering folder %s! Error was: %s',
                                           $this->name, $result->getMessage()),
                                   __FILE__, __LINE__, PEAR_LOG_ERR);
@@ -777,24 +737,18 @@ class Kolab_Folder {
      */
     function moveMessage($id, $folder)
     {
-        $session = &Horde_Kolab_Session::singleton();
-        $imap = &$session->getImap();
-        if (is_a($imap, 'PEAR_Error')) {
-            return $imap;
-        }
-
         // Select folder
-        $result = $imap->select($this->name);
+        $result = $this->_connection->select($this->name);
         if (is_a($result, 'PEAR_Error')) {
             return $result;
         }
 
-        $result = $imap->moveMessage($id, $folder);
+        $result = $this->_connection->moveMessage($this->name, $id, $folder);
         if (is_a($result, 'PEAR_Error')) {
             return $result;
         }
 
-        $result = $imap->expunge();
+        $result = $this->_connection->expunge($this->name);
         if (is_a($result, 'PEAR_Error')) {
             return $result;
         }
@@ -819,7 +773,7 @@ class Kolab_Folder {
      */
     function moveMessageToShare($id, $share)
     {
-        $folder = $this->_list->getByShare($share, $this->getType());
+        $folder = $this->_storage->getByShare($share, $this->getType());
         if (is_a($folder, 'PEAR_Error')) {
             return $folder;
         }
@@ -862,30 +816,21 @@ class Kolab_Folder {
     /**
      * Save an object in this folder.
      *
-     * @param array  $object        The array that holds the data of the object.
-     * @param int    $data_version  The format handler version.
-     * @param string $object_type   The type of the kolab object.
-     * @param string $id            The IMAP id of the old object if it
-     *                              existed before
-     * @param array  $old_object    The array that holds the current data of the
-     *                              object.
+     * @param array  $object       The array that holds the data of the object.
+     * @param int    $data_version The format handler version.
+     * @param string $object_type  The type of the kolab object.
+     * @param string $id           The IMAP id of the old object if it
+     *                             existed before
+     * @param array  $old_object   The array that holds the current data of the
+     *                             object.
      *
-     * @return boolean|PEAR_Error  True on success.
+     * @return boolean True on success.
      */
     function saveObject(&$object, $data_version, $object_type, $id = null,
                         &$old_object = null)
     {
-        $session = &Horde_Kolab_Session::singleton();
-        $imap = &$session->getImap();
-        if (is_a($imap, 'PEAR_Error')) {
-            return $imap;
-        }
-
         // Select folder
-        $result = $imap->select($this->name);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_connection->select($this->name);
 
         $new_headers = new Horde_Mime_Headers();
         $new_headers->setEOL("\r\n");
@@ -909,13 +854,7 @@ class Kolab_Folder {
 
         if ($id != null) {
             /** Update an existing kolab object */
-            $session = &Horde_Kolab_Session::singleton();
-            $imap = &$session->getImap();
-            if (is_a($imap, 'PEAR_Error')) {
-                return $imap;
-            }
-
-            if (!in_array($id, $imap->getUids())) {
+            if (!in_array($id, $this->_connection->getUids($this->name))) {
                 return PEAR::raiseError(sprintf(_("The message with ID %s does not exist. This probably means that the Kolab object has been modified by somebody else while you were editing it. Your edits have been lost."),
                                                 $id));
             }
@@ -989,7 +928,7 @@ class Kolab_Folder {
                 $part = new Horde_Mime_Part();
                 $part->setType(isset($data['type']) ? $data['type'] : null);
                 $part->setContents(isset($data['content']) ? $data['content'] : file_get_contents($data['path']));
-                $part->setCharset(NLS::getCharset());
+                $part->setCharset(Horde_Nls::getCharset());
                 $part->setTransferEncoding('quoted-printable');
                 $part->setDisposition('attachment');
                 $part->setName($attachment);
@@ -1012,7 +951,7 @@ class Kolab_Folder {
             $part = new Horde_Mime_Part();
             $part->setType($handlers[$type]->getMimeType());
             $part->setContents($new_content);
-            $part->setCharset(NLS::getCharset());
+            $part->setCharset(Horde_Nls::getCharset());
             $part->setTransferEncoding('quoted-printable');
             $part->setDisposition($handlers[$type]->getDisposition());
             $part->setDispositionParameter('x-kolab-type', $type);
@@ -1034,40 +973,34 @@ class Kolab_Folder {
         $new_headers->addHeader('X-Kolab-Type', $handlers['XML']->getMimeType());
         $new_headers->addHeader('Subject', $object['uid']);
         $new_headers->addHeader('User-Agent', 'Horde::Kolab::Storage v0.2');
-        $mime_message->addMimeHeaders($new_headers);
+        $new_headers->addHeader('MIME-Version', '1.0');
+        $mime_message->addMimeHeaders(array('headers' => $new_headers));
 
-        $msg = $new_headers->toString() . $mime_message->toCanonicalString(false);
+        $msg = $new_headers->toString() . $mime_message->toString(array('canonical' => true,
+                                                                        'headers' => false));
 
         // delete old email?
         if ($id != null) {
-            $result = $imap->deleteMessages($id);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $this->_connection->deleteMessages($this->name, $id);
         }
 
         // store new email
-        $result = $imap->appendMessage($msg);
-        if (is_a($result, 'PEAR_Error')) {
+        try {
+            $result = $this->_connection->appendMessage($this->name, $msg);
+        } catch (Horde_Kolab_Storage_Exception $e) {
             if ($id != null) {
-                $result = $imap->undeleteMessages($id);
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
-                }
+                $this->_connection->undeleteMessages($id);
             }
-            return $result;
         }
 
         // remove deleted object
         if ($id != null) {
-            $result = $imap->expunge();
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $this->_connection->expunge($this->name);
         }
 
-        $result = $this->trigger();
-        if (is_a($result, 'PEAR_Error')) {
+        try {
+            $this->trigger();
+        } catch (Horde_Kolab_Storage_Exception $e) {
             Horde::logMessage(sprintf('Failed triggering folder %s! Error was: %s',
                                       $this->name, $result->getMessage()),
                               __FILE__, __LINE__, PEAR_LOG_ERR);
@@ -1093,25 +1026,20 @@ class Kolab_Folder {
     function parseMessage($id, $mime_type, $parse_headers = true,
                           $formats = array('XML'))
     {
-        $session = &Horde_Kolab_Session::singleton();
-        $imap = &$session->getImap();
-        if (is_a($imap, 'PEAR_Error')) {
-            return $imap;
-        }
-
-        $raw_headers = $imap->getMessageHeader($id);
+        $raw_headers = $this->_connection->getMessageHeader($this->name, $id);
         if (is_a($raw_headers, 'PEAR_Error')) {
             return PEAR::raiseError(sprintf(_("Failed retrieving the message with ID %s. Original error: %s."),
                                             $id, $raw_headers->getMessage()));
         }
 
-        $body = $imap->getMessageBody($id);
+        $body = $this->_connection->getMessageBody($this->name, $id);
         if (is_a($body, 'PEAR_Error')) {
             return PEAR::raiseError(sprintf(_("Failed retrieving the message with ID %s. Original error: %s."),
                                             $id, $body->getMessage()));
         }
 
-        $mime_message = Horde_Mime_Part::parseMessage($raw_headers . $body);
+        //@todo: not setting "forcemime" means the subparts get checked too. Seems incorrect.
+        $mime_message = Horde_Mime_Part::parseMessage($raw_headers . "\r" . $body, array('forcemime' => true));
         $parts = $mime_message->contentTypeMap();
 
         $mime_headers = false;
@@ -1126,7 +1054,8 @@ class Kolab_Folder {
             }
 
             $part = $mime_message->getPart($part_ids['XML']);
-            $part->transferDecodeContents();
+            //@todo: Check what happened to this call
+            //$part->transferDecodeContents();
             $xml = $part->getContents();
         }
 
@@ -1165,8 +1094,8 @@ class Kolab_Folder {
         $part = new Horde_Mime_Part();
         $part->setType('text/plain');
         $part->setName('Kolab Groupware Information');
-        $part->setContents(Horde_String::wrap($kolab_text, 76, "\r\n", NLS::getCharset()));
-        $part->setCharset(NLS::getCharset());
+        $part->setContents(Horde_String::wrap($kolab_text, 76, "\r\n", Horde_Nls::getCharset()));
+        $part->setCharset(Horde_Nls::getCharset());
 
         $part->setTransferEncoding('quoted-printable');
         $mime_message->addPart($part);
@@ -1181,27 +1110,11 @@ class Kolab_Folder {
      */
     function getStatus()
     {
-        $session = &Horde_Kolab_Session::singleton();
-        $imap = &$session->getImap();
-        if (is_a($imap, 'PEAR_Error')) {
-            return $imap;
-        }
-
         // Select the folder to update uidnext
-        $result = $imap->select($this->name);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_connection->select($this->name);
 
-        $status = $imap->status();
-        if (is_a($status, 'PEAR_Error')) {
-            return $status;
-        }
-
-        $uids = $imap->getUids();
-        if (is_a($uids, 'PEAR_Error')) {
-            return $uids;
-        }
+        $status = $this->_connection->status($this->name);
+        $uids   = $this->_connection->getUids($this->name);
         return array($status['uidvalidity'], $status['uidnext'], $uids);
     }
 
@@ -1274,7 +1187,7 @@ class Kolab_Folder {
 
         require_once 'HTTP/Request.php';
         $http = new HTTP_Request($url, $options);
-        $http->setBasicAuth(Auth::getAuth(), Auth::getCredential('password'));
+        $http->setBasicAuth(Horde_Auth::getAuth(), Horde_Auth::getCredential('password'));
         @$http->sendRequest();
         if ($http->getResponseCode() != 200) {
             return PEAR::raiseError(sprintf(_("Unable to trigger URL %s. Response: %s"),
@@ -1320,10 +1233,10 @@ class Kolab_Folder {
             } else {
                 $perms = array(
                     'users' => array(
-                        Auth::getAuth() => PERMS_SHOW | PERMS_READ |
+                        Horde_Auth::getAuth() => PERMS_SHOW | PERMS_READ |
                         PERMS_EDIT | PERMS_DELETE));
             }
-            $this->_perms = &new Horde_Permission_Kolab($this, $perms);
+            $this->_perms = &new Horde_Kolab_Storage_Permission($this, $perms);
         }
         return $this->_perms;
     }
@@ -1364,41 +1277,27 @@ class Kolab_Folder {
      */
     function getACL()
     {
-        global $conf;
-
-        $session = &Horde_Kolab_Session::singleton();
-        $imap = &$session->getImap();
-        if (is_a($imap, 'PEAR_Error')) {
-            return $imap;
-        }
-
-        if (!empty($conf['kolab']['imap']['no_acl'])) {
-            $acl = array();
-            $acl[Auth::getAuth()] = 'lrid';
-            return $acl;
-        }
-
-        $acl = $imap->getACL($this->name);
+        $acl = $this->_connection->getACL($this->name);
 
         /*
          * Check if the getPerm comes from the owner in this case we
          * can use getACL to have all the right of the share Otherwise
          * we just ask for the right of the current user for a folder
          */
-        if ($this->getOwner() == Auth::getAuth()) {
+        if ($this->getOwner() == Horde_Auth::getAuth()) {
             return $acl;
         } else {
             if (!is_a($acl, 'PEAR_Error')) {
                 return $acl;
             }
 
-            $my_rights = $imap->getMyrights($this->name);
+            $my_rights = $this->_connection->getMyrights($this->name);
             if (is_a($my_rights, 'PEAR_Error')) {
                 return $my_rights;
             }
 
             $acl = array();
-            $acl[Auth::getAuth()] = $my_rights;
+            $acl[Horde_Auth::getAuth()] = $my_rights;
             return $acl;
         }
     }
@@ -1413,22 +1312,7 @@ class Kolab_Folder {
      */
     function setACL($user, $acl)
     {
-        global $conf;
-
-        $session = &Horde_Kolab_Session::singleton();
-        $imap = &$session->getImap();
-        if (is_a($imap, 'PEAR_Error')) {
-            return $imap;
-        }
-
-        if (!empty($conf['kolab']['imap']['no_acl'])) {
-            return true;
-        }
-
-        $iresult = $imap->setACL($this->name, $user, $acl);
-        if (is_a($iresult, 'PEAR_Error')) {
-            return $iresult;
-        }
+        $this->_connection->setACL($this->name, $user, $acl);
 
         if (!empty($this->_perms)) {
             /** Refresh the cache after changing the permissions */
@@ -1442,7 +1326,7 @@ class Kolab_Folder {
                               __FILE__, __LINE__, PEAR_LOG_ERR);
         }
 
-        return $iresult;
+        return $result;
     }
 
     /**
@@ -1456,20 +1340,11 @@ class Kolab_Folder {
     {
         global $conf;
 
-        $session = &Horde_Kolab_Session::singleton();
-        $imap = &$session->getImap();
-        if (is_a($imap, 'PEAR_Error')) {
-            return $imap;
-        }
-
         if (!empty($conf['kolab']['imap']['no_acl'])) {
             return true;
         }
 
-        $iresult = $imap->deleteACL($this->name, $user);
-        if (is_a($iresult, 'PEAR_Error')) {
-            return $iresult;
-        }
+        $this->_connection->deleteACL($this->name, $user);
 
         $result = $this->trigger();
         if (is_a($result, 'PEAR_Error')) {
@@ -1506,13 +1381,7 @@ class Kolab_Folder {
         global $conf;
 
         if (empty($conf['kolab']['imap']['no_annotations'])) {
-            $session = &Horde_Kolab_Session::singleton();
-            $imap = &$session->getImap();
-            if (is_a($imap, 'PEAR_Error')) {
-                return $imap;
-            }
-            return $imap->getAnnotation($key, 'value.shared',
-                                               $this->name);
+            return $this->_connection->getAnnotation($key, $this->name);
         }
 
         if (!isset($this->_annotation_data)) {
@@ -1543,14 +1412,7 @@ class Kolab_Folder {
     function _setAnnotation($key, $value)
     {
         if (empty($conf['kolab']['imap']['no_annotations'])) {
-            $session = &Horde_Kolab_Session::singleton();
-            $imap = &$session->getImap();
-            if (is_a($imap, 'PEAR_Error')) {
-                return $imap;
-            }
-            return $imap->setAnnotation($key,
-                                        array('value.shared' => $value),
-                                        $this->name);
+            return $this->_connection->setAnnotation($key, $value, $this->name);
         }
 
         if (!isset($this->_annotation_data)) {

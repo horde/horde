@@ -1,72 +1,83 @@
 <?php
 /**
- * @package Kolab_Storage
+ * Handles data objects in a Kolab storage folder.
  *
- * $Horde: framework/Kolab_Storage/lib/Horde/Kolab/Storage/Data.php,v 1.9 2009/01/14 23:39:12 wrobel Exp $
+ * PHP version 5
+ *
+ * @category Kolab
+ * @package  Kolab_Storage
+ * @author   Stuart Binge <omicron@mighty.co.za>
+ * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
-/** Data caching for Kolab **/
-require_once 'Horde/Kolab/Storage/Cache.php';
+/**
+ * The Autoloader allows us to omit "require/include" statements.
+ */
+require_once 'Horde/Autoloader.php';
 
 /**
- * The Kolab_Data class represents a data type in an IMAP folder on the Kolab
- * server.
+ * The Kolab_Data class represents a data type in a Kolab storage
+ * folder on the Kolab server.
  *
- * $Horde: framework/Kolab_Storage/lib/Horde/Kolab/Storage/Data.php,v 1.9 2009/01/14 23:39:12 wrobel Exp $
- *
- * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Stuart Binge <omicron@mighty.co.za>
- * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @author  Thomas Jarosch <thomas.jarosch@intra2net.com>
- * @package Kolab_Storage
+ * @category Kolab
+ * @package  Kolab_Storage
+ * @author   Stuart Binge <omicron@mighty.co.za>
+ * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Kolab_Data {
-
+class Horde_Kolab_Storage_Data
+{
     /**
-     * The link to the folder object.
+     * The link to the parent folder object.
      *
      * @var Kolab_Folder
      */
-    var $_folder;
+    private $_folder;
 
     /**
      * The folder type.
      *
      * @var string
      */
-    var $_type;
+    private $_type;
 
     /**
      * The object type of the data.
      *
      * @var string
      */
-    var $_object_type;
+    private $_object_type;
 
     /**
      * The version of the data.
      *
      * @var int
      */
-    var $_data_version;
+    private $_data_version;
 
     /**
      * The data cache.
      *
      * @var Kolab_Cache
      */
-    var $_cache;
+    private $_cache;
 
     /**
      * The Id of this data object in the cache.
      *
      * @var string
      */
-    var $_cache_key;
+    private $_cache_key;
 
     /**
      * An addition to the cache key in case we are operating on
@@ -74,29 +85,29 @@ class Kolab_Data {
      *
      * @var string
      */
-    var $_type_key;
+    private $_type_key;
 
     /**
      * Do we optimize for cyrus IMAPD?
      *
      * @var boolean
      */
-    var $_cache_cyrus_optimize = true;
+    private $_cache_cyrus_optimize = true;
 
     /**
      * Creates a Kolab Folder Data representation.
      *
-     * @param string  $type         Type of the folder.
-     * @param string  $object_type  Type of the objects we want to read.
-     * @param int     $data_version Format version of the object data.
+     * @param string $type         Type of the folder.
+     * @param string $object_type  Type of the objects we want to read.
+     * @param int    $data_version Format version of the object data.
      */
-    function Kolab_Data($type, $object_type = null, $data_version = 1)
+    public function __construct($type, $object_type = null, $data_version = 1)
     {
         $this->_type = $type;
         if (!empty($object_type)) {
-            $this->_object_type  = $object_type;
+            $this->_object_type = $object_type;
         } else {
-            $this->_object_type  = $type;
+            $this->_object_type = $type;
         }
         $this->_data_version = $data_version;
 
@@ -110,18 +121,20 @@ class Kolab_Data {
 
     /**
      * Initializes the object.
+     *
+     * @return NULL
      */
-    function __wakeup()
+    public function __wakeup()
     {
-        $this->_cache = &Kolab_Cache::singleton();
+        $this->_cache = &Horde_Kolab_Storage_Cache::singleton();
     }
 
     /**
      * Returns the properties that need to be serialized.
      *
-     * @return array  List of serializable properties.
+     * @return array List of serializable properties.
      */
-    function __sleep()
+    public function __sleep()
     {
         $properties = get_object_vars($this);
         unset($properties['_cache'], $properties['_folder']);
@@ -130,14 +143,27 @@ class Kolab_Data {
     }
 
     /**
-     * Set the folder handler.
+     * Set the folder handler for this data instance.
      *
-     * @param Kolab_Folder $folder  The handler for the folder of folders.
+     * @param Kolab_Folder &$folder The handler for the folder.
+     *
+     * @return NULL
      */
-    function setFolder(&$folder)
+    public function setFolder(&$folder)
     {
-        $this->_folder = &$folder;
-        $this->_cache_key = $this->_getCacheKey();
+        $this->_folder    = &$folder;
+        $this->_cache_key = $this->getCacheKey();
+    }
+
+    /**
+     * Expire the cache.
+     *
+     * @return NULL
+     */
+    public function expireCache()
+    {
+        $this->_cache->load($this->_cache_key, $this->_data_version);
+        $this->_cache->expire();
     }
 
     /**
@@ -145,14 +171,14 @@ class Kolab_Data {
      *
      * @return string A key that represents the current folder.
      */
-    function _getCacheKey()
+    public function getCacheKey()
     {
         if ($this->_cache_cyrus_optimize) {
             $search_prefix = 'INBOX/';
 
             $pos = strpos($this->_folder->name, $search_prefix);
             if ($pos !== false && $pos == 0) {
-                $key = 'user/' . Auth::getBareAuth() . '/'
+                $key = 'user/' . Horde_Auth::getBareAuth() . '/'
                            . substr($this->_folder->name,
                                     strlen($search_prefix))
                            . $this->_type_key;
@@ -168,19 +194,19 @@ class Kolab_Data {
     /**
      * Delete the specified message from this folder.
      *
-     * @param  string $object_uid Id of the message to be deleted.
+     * @param string $object_uid Id of the message to be deleted.
      *
      * @return boolean|PEAR_Error True is successful, false if the
      *                            message does not exist.
      */
-    function delete($object_uid)
+    public function delete($object_uid)
     {
         if (!$this->objectUidExists($object_uid)) {
             return false;
         }
 
         // Find the storage ID
-        $id = $this->_getStorageId($object_uid);
+        $id = $this->getStorageId($object_uid);
         if ($id === false) {
             return false;
         }
@@ -189,8 +215,6 @@ class Kolab_Data {
         if (is_a($result, 'PEAR_Error')) {
             return $result;
         }
-
-        $this->_cache->load($this->_cache_key, $this->_data_version);
 
         unset($this->_cache->objects[$object_uid]);
         unset($this->_cache->uids[$id]);
@@ -203,18 +227,15 @@ class Kolab_Data {
      *
      * @return boolean|PEAR_Error True if successful.
      */
-    function deleteAll()
+    public function deleteAll()
     {
+        $this->_cache->load($this->_cache_key, $this->_data_version);
+
         if (empty($this->_cache->uids)) {
             return true;
         }
         foreach ($this->_cache->uids as $id => $object_uid) {
-            $result = $this->_folder->deleteMessage($id, false);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-
-            $this->_cache->load($this->_cache_key, $this->_data_version);
+            $this->_folder->deleteMessage($id, false);
 
             unset($this->_cache->objects[$object_uid]);
             unset($this->_cache->uids[$id]);
@@ -235,30 +256,25 @@ class Kolab_Data {
      * Move the specified message from the current folder into a new
      * folder.
      *
-     * @param  string $object_uid  ID of the message to be deleted.
-     * @param  string $new_share   ID of the target share.
+     * @param string $object_uid ID of the message to be deleted.
+     * @param string $new_share  ID of the target share.
      *
      * @return boolean|PEAR_Error True is successful, false if the
      *                            object does not exist.
      */
-    function move($object_uid, $new_share)
+    public function move($object_uid, $new_share)
     {
         if (!$this->objectUidExists($object_uid)) {
             return false;
         }
 
         // Find the storage ID
-        $id = $this->_getStorageId($object_uid);
+        $id = $this->getStorageId($object_uid);
         if ($id === false) {
             return false;
         }
 
         $result = $this->_folder->moveMessageToShare($id, $new_share);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        $this->_cache->load($this->_cache_key, $this->_data_version);
 
         unset($this->_cache->objects[$object_uid]);
         unset($this->_cache->uids[$id]);
@@ -269,44 +285,42 @@ class Kolab_Data {
     /**
      * Save an object.
      *
-     * @param array  $object         The array that holds the data object.
-     * @param string $old_object_id  The id of the object if it existed before.
+     * @param array  $object        The array that holds the data object.
+     * @param string $old_object_id The id of the object if it existed before.
      *
-     * @return boolean|PEAR_Error    True on success.
+     * @return boolean True on success.
+     *
+     * @throws Horde_Kolab_Storage_Exception In case the given old object id
+     *                                       is invalid or an error occured
+     *                                       while saving the data.
      */
-    function save($object, $old_object_id = null)
+    public function save($object, $old_object_id = null)
     {
         // update existing kolab object
         if ($old_object_id != null) {
             // check if object really exists
             if (!$this->objectUidExists($old_object_id)) {
-                return PEAR::raiseError(sprintf(_("Old object %s does not exist."),
-                                                $old_object_id));
+                throw new Horde_Kolab_Storage_Exception(sprintf(_("Old object %s does not exist."),
+                                                                $old_object_id));
             }
 
             // get the storage ID
-            $id = $this->_getStorageId($old_object_id);
+            $id = $this->getStorageId($old_object_id);
             if ($id === false) {
-                return PEAR::raiseError(sprintf(_("Old object %s does not map to a uid."),
-                                                $old_object_id));
+                throw new Horde_Kolab_Storage_Exception(sprintf(_("Old object %s does not map to a uid."),
+                                                                $old_object_id));
             }
 
             $old_object = $this->getObject($old_object_id);
         } else {
-            $id = null;
+            $id         = null;
             $old_object = null;
         }
 
-        $result = $this->_folder->saveObject($object, $this->_data_version,
-                                             $this->_object_type, $id, $old_object);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_folder->saveObject($object, $this->_data_version,
+                                   $this->_object_type, $id, $old_object);
 
-        $result = $this->synchronize($old_object_id);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->synchronize($old_object_id);
         return true;
     }
 
@@ -315,19 +329,19 @@ class Kolab_Data {
      *
      * @param string $history_ignore Object uid that should not be
      *                               updated in the History
+     *
+     * @return NULL
      */
-    function synchronize($history_ignore = null)
+    public function synchronize($history_ignore = null)
     {
         $this->_cache->load($this->_cache_key, $this->_data_version);
 
         $result = $this->_folder->getStatus();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         list($validity, $nextid, $ids) = $result;
 
-        $changes = $this->_folderChanged($validity, $nextid, array_keys($this->_cache->uids), $ids);
+        $changes = $this->_folderChanged($validity, $nextid,
+                                         array_keys($this->_cache->uids), $ids);
         if ($changes) {
             $modified = array();
 
@@ -335,10 +349,8 @@ class Kolab_Data {
 
             $formats = $this->_folder->getFormats();
 
-            $handler = Horde_Kolab_Format::factory('XML', $this->_object_type, $this->_data_version);
-            if (is_a($handler, 'PEAR_Error')) {
-                return $handler;
-            }
+            $handler = Horde_Kolab_Format::factory('Xml', $this->_object_type,
+                                                   $this->_data_version);
 
             $count = 0;
             foreach ($recent_uids as $id) {
@@ -347,12 +359,14 @@ class Kolab_Data {
                     continue;
                 }
 
-                $mime = $this->_folder->parseMessage($id, $handler->getMimeType(), false);
-                if (is_a($mime, 'PEAR_Error')) {
+                try {
+                    $mime = $this->_folder->parseMessage($id,
+                                                         $handler->getMimeType(),
+                                                         false);
+                    $text = $mime[0];
+                } catch (Horde_Kolab_Storage_Exception $e) {
                     Horde::logMessage($mime, __FILE__, __LINE__, PEAR_LOG_WARNING);
                     $text = false;
-                } else {
-                    $text = $mime[0];
                 }
 
                 if ($text) {
@@ -360,7 +374,8 @@ class Kolab_Data {
                     if (is_a($object, 'PEAR_Error')) {
                         $this->_cache->ignore($id);
                         $object->addUserInfo('STORAGE ID: ' . $id);
-                        Horde::logMessage($object, __FILE__, __LINE__, PEAR_LOG_WARNING);
+                        Horde::logMessage($object, __FILE__, __LINE__,
+                                          PEAR_LOG_WARNING);
                         continue;
                     }
                 } else {
@@ -368,7 +383,7 @@ class Kolab_Data {
                 }
 
                 if ($object !== false) {
-                    $message = &$mime[2];
+                    $message      = &$mime[2];
                     $handler_type = $handler->getMimeType();
                     foreach ($message->getParts() as $part) {
                         $name = $part->getName();
@@ -377,13 +392,15 @@ class Kolab_Data {
                         if (!empty($name) && $type != $handler_type
                             || (!empty($dp) && in_array($dp, $formats))) {
                             $object['_attachments'][$name]['type'] = $type;
-                            $object['_attachments'][$name]['key'] = $this->_cache_key . '/' . $object['uid'] . ':' . $name;
-                            $part->transferDecodeContents();
+                            $object['_attachments'][$name]['key']  = $this->_cache_key . '/' . $object['uid'] . ':' . $name;
+                            //@todo: Check what to do with this call
+                            //$part->transferDecodeContents();
                             $result = $this->_cache->storeAttachment($object['_attachments'][$name]['key'],
                                                                      $part->getContents());
                             if (is_a($result, 'PEAR_Error')) {
                                 Horde::logMessage(sprintf('Failed storing attachment of object %s: %s',
-                                                          $id, $result->getMessage()),
+                                                          $id,
+                                                          $result->getMessage()),
                                                   __FILE__, __LINE__, PEAR_LOG_ERR);
                                 $object = false;
                                 break;
@@ -435,8 +452,10 @@ class Kolab_Data {
      * @param string $object_uid Object uid that should be updated.
      * @param int    $mod_ts     Timestamp of the modification.
      * @param string $action     The action that was performed.
+     *
+     * @return NULL
      */
-    function _updateHistory($object_uid, $mod_ts, $action)
+    private function _updateHistory($object_uid, $mod_ts, $action)
     {
         global $registry;
 
@@ -453,28 +472,33 @@ class Kolab_Data {
             return $app;
         }
 
+        if (!class_exists('Horde_History')) {
+            return;
+        }
+
         /* Log the action on this item in the history log. */
         $history = &Horde_History::singleton();
 
         $history_id = $app . ':' . $this->_folder->getShareId() . ':' . $object_uid;
-        $history->log($history_id, array('action' => $action, 'ts' => $mod_ts), true);
+        $history->log($history_id, array('action' => $action, 'ts' => $mod_ts),
+                      true);
     }
 
 
     /**
      * Check if the folder has changed and the cache needs to be updated.
      *
-     * @param string $validity    ID validity of the folder.
-     * @param string $nextid      next ID for the folder.
-     * @param array  $old_ids     Old list of IDs in the folder.
-     * @param array  $new_ids     New list of IDs in the folder.
+     * @param string $validity ID validity of the folder.
+     * @param string $nextid   next ID for the folder.
+     * @param array  &$old_ids Old list of IDs in the folder.
+     * @param array  &$new_ids New list of IDs in the folder.
      *
      * @return mixed True or an array of deleted IDs if the
      *               folder changed and false otherwise.
      */
-    function _folderChanged($validity, $nextid, &$old_ids, &$new_ids)
+    private function _folderChanged($validity, $nextid, &$old_ids, &$new_ids)
     {
-        $changed = false;
+        $changed    = false;
         $reset_done = false;
 
         // uidvalidity changed?
@@ -489,7 +513,7 @@ class Kolab_Data {
         }
 
         $this->_cache->validity = $validity;
-        $this->_cache->nextid = $nextid;
+        $this->_cache->nextid   = $nextid;
 
         if ($reset_done) {
             return true;
@@ -497,9 +521,9 @@ class Kolab_Data {
 
         // Speed optimization: if nextid and validity didn't change
         // and count(old_ids) == count(new_ids), the folder didn't change.
-        if ($changed || count($old_ids) != count ($new_ids)) {
+        if ($changed || count($old_ids) != count($new_ids)) {
             // remove deleted messages from cache
-            $delete_ids = array_diff($old_ids, $new_ids);
+            $delete_ids   = array_diff($old_ids, $new_ids);
             $deleted_oids = array();
             foreach ($delete_ids as $delete_id) {
                 $object_id = $this->_cache->uids[$delete_id];
@@ -521,11 +545,11 @@ class Kolab_Data {
     /**
      * Return the IMAP ID for the given object ID.
      *
-     * @param string   $object_id      The object ID.
+     * @param string $object_uid The object ID.
      *
-     * @return int  The IMAP ID.
+     * @return int The IMAP ID.
      */
-    function _getStorageId($object_uid)
+    public function getStorageId($object_uid)
     {
         $this->_cache->load($this->_cache_key, $this->_data_version);
 
@@ -540,11 +564,11 @@ class Kolab_Data {
     /**
      * Test if the storage ID exists.
      *
-     * @param int   $uid      The storage ID.
+     * @param int $uid The storage ID.
      *
-     * @return boolean  True if the ID exists.
+     * @return boolean True if the ID exists.
      */
-    function _storageIdExists($uid)
+    public function storageIdExists($uid)
     {
         $this->_cache->load($this->_cache_key, $this->_data_version);
 
@@ -556,11 +580,11 @@ class Kolab_Data {
      *
      * @return string  The unique id.
      */
-    function generateUID()
+    public function generateUID()
     {
         do {
             $key = md5(uniqid(mt_rand(), true));
-        } while($this->objectUidExists($key));
+        } while ($this->objectUidExists($key));
 
         return $key;
     }
@@ -568,11 +592,11 @@ class Kolab_Data {
     /**
      * Check if the given id exists.
      *
-     * @param string $uid  The object id.
+     * @param string $uid The object id.
      *
-     * @return boolean  True if the id was found, false otherwise.
+     * @return boolean True if the id was found, false otherwise.
      */
-    function objectUidExists($uid)
+    public function objectUidExists($uid)
     {
         $this->_cache->load($this->_cache_key, $this->_data_version);
 
@@ -582,16 +606,16 @@ class Kolab_Data {
     /**
      * Return the specified object.
      *
-     * @param string     $object_id       The object id.
+     * @param string $object_id The object id.
      *
-     * @return array|PEAR_Error  The object data as an array.
+     * @return array|PEAR_Error The object data as an array.
      */
-    function getObject($object_id)
+    public function getObject($object_id)
     {
         $this->_cache->load($this->_cache_key, $this->_data_version);
 
-        if (!$this->objectUidExists($object_id)) {
-            return PEAR::raiseError(sprintf(_("Kolab cache: Object uid %s does not exist in the cache!"), $object_id));
+        if (!isset($this->_cache->objects[$object_id])) {
+            throw new Horde_Kolab_Storage_Exception(sprintf(_("Kolab cache: Object uid %s does not exist in the cache!"), $object_id));
         }
         return $this->_cache->objects[$object_id];
     }
@@ -599,12 +623,14 @@ class Kolab_Data {
     /**
      * Return the specified attachment.
      *
-     * @param string     $attachment_id       The attachment id.
+     * @param string $attachment_id The attachment id.
      *
      * @return string|PEAR_Error  The attachment data as a string.
      */
-    function getAttachment($attachment_id)
+    public function getAttachment($attachment_id)
     {
+        $this->_cache->load($this->_cache_key, $this->_data_version);
+
         return $this->_cache->loadAttachment($attachment_id);
     }
 
@@ -613,7 +639,7 @@ class Kolab_Data {
      *
      * @return array  The object ids.
      */
-    function getObjectIds()
+    public function getObjectIds()
     {
         $this->_cache->load($this->_cache_key, $this->_data_version);
 
@@ -625,7 +651,7 @@ class Kolab_Data {
      *
      * @return array  All object data arrays.
      */
-    function getObjects()
+    public function getObjects()
     {
         $this->_cache->load($this->_cache_key, $this->_data_version);
 
@@ -637,7 +663,7 @@ class Kolab_Data {
      *
      * @return array  The object data array.
      */
-    function getObjectArray()
+    public function getObjectArray()
     {
         $this->_cache->load($this->_cache_key, $this->_data_version);
 

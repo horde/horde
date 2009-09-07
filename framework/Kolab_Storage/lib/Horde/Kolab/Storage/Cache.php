@@ -1,36 +1,60 @@
 <?php
 /**
- * @package Kolab_Storage
+ * A cache for Kolab storage.
  *
- * $Horde: framework/Kolab_Storage/lib/Horde/Kolab/Storage/Cache.php,v 1.5 2009/01/06 17:49:27 jan Exp $
+ * PHP version 5
+ *
+ * @category Kolab
+ * @package  Kolab_Storage
+ * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
-/** We need the Horde Cache system for caching */
-require_once 'Horde/Cache.php';
+/**
+ * The Autoloader allows us to omit "require/include" statements.
+ */
+require_once 'Horde/Autoloader.php';
 
 /**
- * The Kolab_Cache class provides a cache for the Kolab
- * storage for groupware objects
+ * The Kolab_Cache class provides a cache for Kolab groupware objects.
  *
- * $Horde: framework/Kolab_Storage/lib/Horde/Kolab/Storage/Cache.php,v 1.5 2009/01/06 17:49:27 jan Exp $
+ * The Horde_Kolab_Storage_Cache singleton instance provides caching for all
+ * storage folders. So before operating on the cache data it is necessary to
+ * load the desired folder data. Before switching the folder the cache data
+ * should be saved.
+ *
+ * This class does not offer a lot of safeties and is primarily intended to be
+ * used within the Horde_Kolab_Storage_Data class.
  *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @author  Thomas Jarosch <thomas.jarosch@intra2net.com>
- * @package Kolab_Storage
+ * @category Kolab
+ * @package  Kolab_Storage
+ * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Kolab_Cache {
+class Horde_Kolab_Storage_Cache
+{
+    /**
+     * Singleton instance.
+     *
+     * @var array
+     */
+    static protected $instance;
 
     /**
      * The version of the cache we loaded.
      *
      * @var int
      */
-    var $_version;
+    protected $version;
 
     /**
      * The internal version of the cache format represented by the
@@ -38,21 +62,21 @@ class Kolab_Cache {
      *
      * @var int
      */
-    var $_base_version = 1;
+    protected $base_version = 1;
 
     /**
      * The version of the data format provided by the storage handler.
      *
      * @var int
      */
-    var $_data_version;
+    protected $data_version;
 
     /**
      * The version of the cache format that includes the data version.
      *
      * @var int
      */
-    var $_cache_version = -1;
+    protected $cache_version = -1;
 
     /**
      * A validity marker for a share in the cache. This allows the
@@ -60,7 +84,7 @@ class Kolab_Cache {
      *
      * @var int
      */
-    var $validity;
+    public $validity;
 
     /**
      * A nextid marker for a share in the cache. This allows the
@@ -68,7 +92,7 @@ class Kolab_Cache {
      *
      * @var int
      */
-    var $nextid;
+    public $nextid;
 
     /**
      * The objects of the current share.
@@ -80,7 +104,7 @@ class Kolab_Cache {
      *
      * @var array
      */
-    var $objects;
+    public $objects;
 
     /**
      * The uid<->object mapping of the current share.
@@ -91,57 +115,65 @@ class Kolab_Cache {
      *
      * @var array
      */
-    var $uids;
+    public $uids;
 
     /**
      * The unique key for the currently loaded data.
      *
      * @var string
      */
-    var $_key;
+    protected $key;
 
     /**
      * The link to the horde cache.
      *
      * @var Horde_Cache
      */
-    var $_horde_cache;
+    protected $horde_cache;
 
     /**
      * Constructor.
+     *
+     * @todo Improve the cache setup and allow different cache types.
+     *
+     * @throws Horde_Exception
      */
-    function Kolab_Cache()
+    public function __construct()
     {
-        /**
-         * We explicitly select the file based cache to ensure
-         * that different users have access to the same cache
-         * data. I am not certain this is guaranteed for the other
-         * possible cache drivers.
-         */
-        $this->_horde_cache = &Horde_Cache::singleton('file',
-                                                      array('prefix' => 'kolab_cache',
-                                                            'dir' => Horde::getTempDir()));
+        if (!isset($GLOBALS['conf']['kolab']['storage']['cache']['data']['driver'])) {
+            $driver = 'file';
+            $params = array('prefix' => 'kolab_cache', 'dir' => Horde::getTempDir());
+        } else {
+            $driver = $GLOBALS['conf']['kolab']['storage']['cache']['data']['driver'];
+            if (!isset($GLOBALS['conf']['kolab']['storage']['cache']['data']['params'])) {
+
+                $params = array();
+            } else {
+                $params = $GLOBALS['conf']['kolab']['storage']['cache']['data']['params'];
+            }
+        }
+        $this->horde_cache = &Horde_Cache::singleton($driver, $params);
     }
 
     /**
-     * Attempts to return a reference to a concrete
-     * Kolab_Cache instance.  It will only create a new
-     * instance if no Kolab_Cache instance currently exists.
+     * Attempts to return a reference to a concrete Horde_Kolab_Storage_Cache
+     * instance.  It will only create a new instance if no
+     * Horde_Kolab_Storage_Cache instance currently exists.
      *
-     * This method must be invoked as: $var = &Kolab_Cache::singleton()
+     * This method must be invoked as:
      *
-     * @return Kolab_Cache The concrete Kolab_Cache
-     *                     reference, or false on error.
+     *   $var = &Horde_Kolab_Storage_Cache::singleton()
+     *
+     * @return Horde_Kolab_Storage_Cache The concrete Horde_Kolab_Storage_Cache
+     *                                   reference, or false on error.
      */
-    function &singleton()
+    static public function &singleton()
     {
-        static $kolab_cache;
-
-        if (!isset($kolab_cache)) {
-            $kolab_cache = new Kolab_Cache();
+        if (!isset(self::$instance)) {
+            self::$instance = new Horde_Kolab_Storage_Cache();
         }
 
-        return $kolab_cache;
+        return self::$instance;
     }
 
     /**
@@ -151,21 +183,23 @@ class Kolab_Cache {
      * @param int    $data_version A version identifier provided by
      *                             the storage manager.
      * @param bool   $force        Force loading the cache.
+     *
+     * @return NULL
      */
-    function load($key, $data_version, $force = false)
+    public function load($key, $data_version, $force = false)
     {
-        if (!$force && $this->_key == $key
-            && $this->_data_version == $data_version) {
+        if (!$force && $this->key == $key
+            && $this->data_version == $data_version) {
             return;
         }
 
-        $this->_key = $key;
-        $this->_data_version = $data_version;
-        $this->_cache_version = ($data_version << 8) | $this->_base_version;
+        $this->key           = $key;
+        $this->data_version  = $data_version;
+        $this->cache_version = ($data_version << 8) | $this->base_version;
 
         $this->reset();
 
-        $cache = $this->_horde_cache->get($this->_key, 0);
+        $cache = $this->horde_cache->get($this->key, 0);
 
         if (!$cache) {
             return;
@@ -174,28 +208,28 @@ class Kolab_Cache {
         $data = unserialize($cache);
 
         // Delete disc cache if it's from an old version
-        if ($data['version'] != $this->_cache_version) {
-            $this->_horde_cache->expire($this->_key);
+        if ($data['version'] != $this->cache_version) {
+            $this->horde_cache->expire($this->key);
             $this->reset();
         } else {
-            $this->_version = $data['version'];
+            $this->version  = $data['version'];
             $this->validity = $data['uidvalidity'];
-            $this->nextid = $data['uidnext'];
-            $this->objects = $data['objects'];
-            $this->uids = $data['uids'];
+            $this->nextid   = $data['uidnext'];
+            $this->objects  = $data['objects'];
+            $this->uids     = $data['uids'];
         }
     }
 
     /**
      * Load a cached attachment.
      *
-     * @param string $key          Access key to the cached data.
+     * @param string $key Access key to the cached data.
      *
      * @return mixed The data of the object.
      */
-    function loadAttachment($key)
+    public function loadAttachment($key)
     {
-        return $this->_horde_cache->get($key, 0);
+        return $this->horde_cache->get($key, 0);
     }
 
     /**
@@ -206,21 +240,23 @@ class Kolab_Cache {
      *
      * @return boolean True if successfull.
      */
-    function storeAttachment($key, $data)
+    public function storeAttachment($key, $data)
     {
-        return $this->_horde_cache->set($key, $data);
+        return $this->horde_cache->set($key, $data);
     }
 
     /**
      * Initialize the cache structure.
+     *
+     * @return NULL
      */
-    function reset()
+    public function reset()
     {
-        $this->_version = $this->_cache_version;
+        $this->version  = $this->cache_version;
         $this->validity = -1;
-        $this->nextid = -1;
-        $this->objects = array();
-        $this->uids = array();
+        $this->nextid   = -1;
+        $this->objects  = array();
+        $this->uids     = array();
     }
 
     /**
@@ -228,59 +264,54 @@ class Kolab_Cache {
      *
      * @return boolean True on success.
      */
-    function save()
+    public function save()
     {
-        if (!isset($this->_key)) {
-            return PEAR::raiseError('The cache has not been loaded yet!');
-        }
-
-        $data = array('version' => $this->_version,
+        $data = array('version' => $this->version,
                       'uidvalidity' =>  $this->validity,
                       'uidnext' =>  $this->nextid,
                       'objects' =>  $this->objects,
                       'uids' =>  $this->uids);
 
-        return $this->_horde_cache->set($this->_key,
-                                        serialize($data));
+        return $this->horde_cache->set($this->key,
+                                       serialize($data));
     }
 
     /**
      * Store an object in the cache.
      *
-     * @param int     $id             The storage ID.
-     * @param string  $object_id      The object ID.
-     * @param array   $object         The object data.
+     * @param int    $id        The storage ID.
+     * @param string $object_id The object ID.
+     * @param array  &$object   The object data.
+     *
+     * @return NULL
      */
-    function store($id, $object_id, &$object)
+    public function store($id, $object_id, &$object)
     {
-        $this->uids[$id] = $object_id;
+        $this->uids[$id]           = $object_id;
         $this->objects[$object_id] = $object;
     }
 
     /**
      * Mark the ID as invalid (cannot be correctly parsed).
      *
-     * @param int     $id       The ID of the storage item to ignore.
+     * @param int $id The ID of the storage item to ignore.
+     *
+     * @return NULL
      */
-    function ignore($id)
+    public function ignore($id)
     {
         $this->uids[$id] = false;
     }
 
     /**
      * Deliberately expire a cache.
+     *
+     * @return NULL
      */
-    function expire()
+    public function expire()
     {
-        if (!isset($this->_key)) {
-            return PEAR::raiseError('The cache has not been loaded yet!');
-        }
-
-        $this->_version = -1;
+        $this->version = -1;
         $this->save();
-        $this->load($this->_key, $this->_data_version, true);
+        $this->load($this->key, $this->data_version, true);
     }
-
 }
-
-

@@ -8,12 +8,9 @@
  */
 
 /**
- *  We need the base class
+ * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'Horde/Kolab/Test/Storage.php';
-
-require_once 'Horde.php';
-require_once 'Horde/Kolab/Storage/List.php';
+require_once 'Horde/Autoloader.php';
 
 /**
  * Test the Kolab list handler.
@@ -38,21 +35,42 @@ class Horde_Kolab_Storage_ListTest extends Horde_Kolab_Test_Storage
     {
         $world = $this->prepareBasicSetup();
 
-        $this->assertTrue($world['auth']->authenticate('wrobel@example.org',
-                                                        array('password' => 'none')));
+        /** Prepare a Kolab test storage */
+        $params = array('driver'   => 'Mock',
+                        'username' => 'wrobel@example.org',
+                        'password' => 'none');
+        $storage1 = Horde_Kolab_Storage::singleton('imap', $params);
 
-        $this->prepareNewFolder($world['storage'], 'Contacts', 'contact', true);
-        $this->prepareNewFolder($world['storage'], 'Calendar', 'event', true);
+        $folder = $this->prepareNewFolder($storage1, 'Contacts', 'contact', true);
+	$perms = $folder->getPermission();
+	$perms->addUserPermission('test@example.org', PERMS_SHOW);
+	$perms->save();
 
-        $this->assertTrue($world['auth']->authenticate('test@example.org',
-                                                        array('password' => 'test')));
+        $folder = $this->prepareNewFolder($storage1, 'Calendar', 'event', true);
+	$perms = $folder->getPermission();
+	$perms->addUserPermission('test@example.org', PERMS_SHOW);
+	$perms->save();
 
-        $this->prepareNewFolder($world['storage'], 'Contacts', 'contact', true);
-        $this->prepareNewFolder($world['storage'], 'TestContacts', 'contact');
-        $this->prepareNewFolder($world['storage'], 'Calendar', 'event', true);
-        $this->prepareNewFolder($world['storage'], 'TestCalendar', 'event');
+        /** Prepare a Kolab test storage */
+        $storage2 = $this->authenticate($world['auth'],
+                                        'test@example.org',
+                                        'test');
 
-        $this->list = &new Kolab_List();
+        $this->prepareNewFolder($storage2, 'Contacts', 'contact', true);
+        $this->prepareNewFolder($storage2, 'TestContacts', 'contact');
+        $this->prepareNewFolder($storage2, 'Calendar', 'event', true);
+        $this->prepareNewFolder($storage2, 'TestCalendar', 'event');
+
+        $this->list = &$storage2;
+    }
+
+    /**
+     * Test destruction.
+     */
+    public function tearDown()
+    {
+        Horde_Imap_Client_Mock::clean();
+        $this->list->clean();
     }
 
     /**
@@ -60,11 +78,7 @@ class Horde_Kolab_Storage_ListTest extends Horde_Kolab_Test_Storage
      */
     public function testConstruct()
     {
-        $this->assertEquals(0, $this->list->validity);
-        $this->assertTrue(is_array($this->list->_folders));
-        $this->assertTrue(empty($this->list->_folders));
-        $this->assertTrue(empty($this->list->_defaults));
-        $this->assertTrue(empty($this->list->_types));
+        $this->assertTrue($this->list instanceOf Horde_Kolab_Storage);
     }
 
     /**
@@ -73,7 +87,6 @@ class Horde_Kolab_Storage_ListTest extends Horde_Kolab_Test_Storage
     public function testListFolders()
     {
         $folders = $this->list->listFolders();
-        $this->assertFalse(is_a($folders, 'PEAR_Error'));
         $this->assertContains('INBOX/Contacts', $folders);
     }
 
@@ -84,7 +97,11 @@ class Horde_Kolab_Storage_ListTest extends Horde_Kolab_Test_Storage
     {
         $folders = $this->list->getFolders();
         $this->assertEquals(6, count($folders));
-        $this->assertContains('INBOX/Contacts', array_keys($this->list->_folders));
+        $folder_names = array();
+        foreach ($folders as $folder) {
+            $folder_names[] = $folder->name;
+        }
+        $this->assertContains('INBOX/Contacts', $folder_names);
     }
 
     /**
@@ -93,9 +110,6 @@ class Horde_Kolab_Storage_ListTest extends Horde_Kolab_Test_Storage
     public function testGetByShare()
     {
         $folder = $this->list->getByShare('test@example.org', 'event');
-        if (is_a($folder, 'PEAR_Error')) {
-            $this->assertEquals('', $folder->message);
-        }
         $this->assertEquals('INBOX/Calendar', $folder->name);
     }
 
@@ -152,34 +166,50 @@ class Horde_Kolab_Storage_ListTest extends Horde_Kolab_Test_Storage
      */
     public function testCreate()
     {
-        $folder = &new Kolab_Folder(null);
-        $folder->setList($this->list);
+        $folder = $this->list->getNewFolder();
         $folder->setName('Notes');
         $folder->save(array());
-        $this->assertContains('INBOX/Notes', array_keys($this->list->_folders));
-        $this->assertEquals(1, $this->list->validity);
+        $result = $this->list->getFolder('INBOX/Notes');
+        $this->assertTrue($result instanceOf Horde_Kolab_Storage_Folder);
     }
 
     /**
      * Test cache update.
      */
-    public function testCacheUpdate()
+    public function testCacheAdd()
     {
-        $this->list = $this->getMock('Kolab_List', array('updateCache'));
-        $this->list->expects($this->once())
-            ->method('updateCache');
+        $params = array('driver'   => 'Mock',
+                        'username' => 'cacheadd@example.org',
+                        'password' => 'none');
+        $storage4 = $this->getMock('Horde_Kolab_Storage',
+                                   array('addToCache', 'removeFromCache'),
+                                   array('imap', $params));
+        $storage4->expects($this->once())
+            ->method('addToCache');
 
-        $folder = &new Kolab_Folder(null);
-        $folder->setList($this->list);
+        $folder = $storage4->getNewFolder();
         $folder->setName('Notes');
-        $this->assertEquals('INBOX/Notes', $folder->new_name);
         $folder->save(array());
-        $type = $folder->getType();
-        if (is_a($type, 'PEAR_Error')) {
-            $this->assertEquals('', $type->getMessage());
-        }
-        $this->assertEquals('mail', $type);
-        $this->assertEquals('INBOX/Notes', $folder->name);
+    }
+        
+    /**
+     * Test cache update.
+     */
+    public function testCacheDelete()
+    {
+        $params = array('driver'   => 'Mock',
+                        'username' => 'cachedel@example.org',
+                        'password' => 'none');
+        $storage4 = $this->getMock('Horde_Kolab_Storage',
+                                   array('addToCache', 'removeFromCache'),
+                                   array('imap', $params));
+        $storage4->expects($this->once())
+            ->method('removeFromCache');
+
+        $folder = $storage4->getNewFolder();
+        $folder->setName('Notes');
+        $folder->save(array());
+        $folder->delete();
     }
         
 
@@ -188,13 +218,11 @@ class Horde_Kolab_Storage_ListTest extends Horde_Kolab_Test_Storage
      */
     public function testRename()
     {
-        $folder = &new Kolab_Folder('INBOX/TestContacts');
-        $folder->setList($this->list);
+        $folder = &$this->list->getFolder('INBOX/TestContacts');
         $folder->setName('TestNotes');
         $folder->save(array());
-        $this->assertNotContains('INBOX/TestContacts', array_keys($this->list->_folders));
-        $this->assertContains('INBOX/TestNotes', array_keys($this->list->_folders));
-        $this->assertEquals(1, $this->list->validity);
+        $this->assertNotContains('INBOX/TestContacts', $this->list->listFolders());
+        $this->assertContains('INBOX/TestNotes', $this->list->listFolders());
     }
 
     /**
@@ -202,13 +230,11 @@ class Horde_Kolab_Storage_ListTest extends Horde_Kolab_Test_Storage
      */
     public function testRemove()
     {
-        $folder = &new Kolab_Folder('INBOX/Calendar');
-        $folder->setList($this->list);
+        $folder = &$this->list->getFolder('INBOX/Calendar');
         $this->assertTrue($folder->exists());
         $this->assertTrue($folder->isDefault());
         $folder->delete();
-        $this->assertNotContains('INBOX/Calendar', array_keys($this->list->_folders));
-        $this->assertEquals(1, $this->list->validity);
+        $this->assertNotContains('INBOX/Calendar', $this->list->listFolders());
     }
 
     /**
@@ -216,57 +242,60 @@ class Horde_Kolab_Storage_ListTest extends Horde_Kolab_Test_Storage
      */
     public function testCaching()
     {
-        $GLOBALS['KOLAB_TESTING'] = array();
-        $this->list = &new Kolab_List();
-        $folders = $this->list->getFolders();
+        $params = array('driver'   => 'Mock',
+                        'username' => 'cache@example.org',
+                        'password' => 'none');
+        $storage3 = Horde_Kolab_Storage::singleton('imap', $params);
+        $folders = $storage3->getFolders();
+        $this->assertTrue(count($folders) == 1);
+        $folders = $storage3->getByType('event');
         $this->assertTrue(empty($folders));
-        $folders = $this->list->getByType('event');
-        $this->assertTrue(empty($folders));
-        $default = $this->list->getDefault('event');
+        $default = $storage3->getDefault('event');
         $this->assertTrue(empty($default));
-        $addfolder = &new Kolab_Folder(null);
+        $connection = $storage3->getConnection();
+        $addfolder = new Horde_Kolab_Storage_Folder(null);
+        $addfolder->restore($storage3, $connection->connection);
         $addfolder->setName('TestFolder');
-        $addfolder->setList($this->list);
         $addfolder->save(array('type' => 'event', 'default' => true));
-        $this->assertContains('INBOX/TestFolder', array_keys($this->list->_folders));
+        $this->assertContains('INBOX/TestFolder', $storage3->listFolders());
         $this->assertEquals('test@example.org', $addfolder->getOwner());
-        $folders = $this->list->getFolders();
+        $folders = $storage3->getFolders();
         $names = array();
         foreach ($folders as $folder) {
             $names[] = $folder->name;
         }
         $this->assertContains('INBOX/TestFolder', $names);
-        $folders = $this->list->getByType('event');
+        $folders = $storage3->getByType('event');
         $names = array();
         foreach ($folders as $folder) {
             $names[] = $folder->name;
         }
         $this->assertContains('INBOX/TestFolder', $names);
-        $default = $this->list->getDefault('event');
+        $default = $storage3->getDefault('event');
         $this->assertTrue($default !== false);
         $this->assertEquals('INBOX/TestFolder', $default->name);
         $addfolder->setName('NewCal');
         $addfolder->save();
-        $folders = $this->list->getFolders();
+        $folders = $storage3->getFolders();
         $names = array();
         foreach ($folders as $folder) {
             $names[] = $folder->name;
         }
         $this->assertContains('INBOX/NewCal', $names);
-        $folders = $this->list->getByType('event');
+        $folders = $storage3->getByType('event');
         $names = array();
         foreach ($folders as $folder) {
             $names[] = $folder->name;
         }
         $this->assertContains('INBOX/NewCal', $names);
-        $default = $this->list->getDefault('event');
+        $default = $storage3->getDefault('event');
         $this->assertEquals('INBOX/NewCal', $default->name);
         $addfolder->delete();
-        $folders = $this->list->getFolders();
+        $folders = $storage3->getFolders();
+        $this->assertTrue(count($folders) == 1);
+        $folders = $storage3->getByType('event');
         $this->assertTrue(empty($folders));
-        $folders = $this->list->getByType('event');
-        $this->assertTrue(empty($folders));
-        $default = $this->list->getDefault('event');
+        $default = $storage3->getDefault('event');
         $this->assertTrue(empty($default));
     }
 }
