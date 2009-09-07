@@ -66,20 +66,20 @@ $t->set('search_title', sprintf(_("Search %s"), htmlspecialchars(IMP::displayFol
 $t->set('s_fields', $s_fields);
 $t->set('f_fields', $f_fields);
 
-if ($browser->hasFeature('javascript') && !$t->get('dimpview')) {
-    $t->set('advsearch', Horde::link(Horde_Util::addParameter(Horde::applicationUrl('search.php'), array('search_mailbox' => $search_mailbox))));
-}
-
-$title = _("Search");
-if ($_SESSION['imp']['view'] == 'imp') {
+if (!$t->get('dimpview')) {
+    $title = _("Search");
     IMP::prepareMenu();
     require IMP_TEMPLATES . '/common-header.inc';
     IMP::menu();
     IMP::status();
+
+    if ($browser->hasFeature('javascript')) {
+        $t->set('advsearch', Horde::link(Horde_Util::addParameter(Horde::applicationUrl('search.php'), array('search_mailbox' => $search_mailbox))));
+    }
 }
 
 echo $t->fetch(IMP_TEMPLATES . '/search/search-basic.html');
 
-if ($_SESSION['imp']['view'] == 'imp') {
+if (!$t->get('dimpview')) {
     require $registry->get('templates', 'horde') . '/common-footer.inc';
 }
