@@ -236,11 +236,6 @@ $mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end'
 /* Determine sorting preferences. */
 $sortpref = IMP::getSort($imp_mbox['mailbox']);
 
-/* If search results are empty, inform the user. */
-if ($search_mbox && !$pageOb['msgcount']) {
-    $notification->push(_("No messages matched your search."), 'horde.warning');
-}
-
 /* Cache this value since we use it alot on this page. */
 $graphicsdir = $registry->getImageDir('horde');
 
@@ -472,6 +467,7 @@ if (empty($pageOb['end'])) {
 
     $empty_template = new Horde_Template();
     $empty_template->setOption('gettext', true);
+    $empty_template->set('search_mbox', $search_mbox);
     echo $empty_template->fetch(IMP_TEMPLATES . '/mailbox/empty_mailbox.html');
     require $registry->get('templates', 'horde') . '/common-footer.inc';
     exit;
