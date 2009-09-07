@@ -436,6 +436,7 @@ if ($_SESSION['imp']['protocol'] != 'pop') {
             /* Mini search results. */
             $search_mailbox = reset($imp_search->getSearchFolders());
             $hdr_template->set('search', Horde::link(Horde_Util::addParameter(Horde::applicationUrl('search-basic.php'), array('search_mailbox' => $search_mailbox)), sprintf(_("Search %s"), IMP::getLabel($search_mailbox))) . Horde::img('search.png', _("Search")) . '</a>');
+            $hdr_template->set('searchclose', Horde::link(IMP::generateIMPUrl('mailbox.php', $search_mailbox), _("Exit Search")));
         } elseif (!$vfolder) {
             $edit_search = _("Edit Search Query");
         }
