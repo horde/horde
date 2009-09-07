@@ -55,6 +55,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Cclient.php" role="php" />
        <file name="DateTime.php" role="php" />
        <file name="Exception.php" role="php" />
+       <file name="Mock.php" role="php" />
        <file name="Socket.php" role="php" />
        <file name="Sort.php" role="php" />
        <file name="Thread.php" role="php" />
@@ -116,6 +117,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Imap/Client/Cclient.php" as="Horde/Imap/Client/Cclient.php" />
    <install name="lib/Horde/Imap/Client/DateTime.php" as="Horde/Imap/Client/DateTime.php" />
    <install name="lib/Horde/Imap/Client/Exception.php" as="Horde/Imap/Client/Exception.php" />
+   <install name="lib/Horde/Imap/Client/Mock.php" as="Horde/Imap/Client/Mock.php" />
    <install name="lib/Horde/Imap/Client/Search/Query.php" as="Horde/Imap/Client/Search/Query.php" />
    <install name="lib/Horde/Imap/Client/Socket.php" as="Horde/Imap/Client/Socket.php" />
    <install name="lib/Horde/Imap/Client/Socket/Pop3.php" as="Horde/Imap/Client/Socket/Pop3.php" />

@@ -1621,6 +1621,76 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         return $this->_getSocket()->getMyACLRights($mailbox);
     }
 
+    /**
+     * Get metadata for a given mailbox.
+     *
+     * @param string $mailbox A mailbox (UTF7-IMAP).
+     * @param array  $entries The entries to fetch.
+     * @param array  $options Additional options.
+     *
+     * @return array An array with identifiers as the keys and the
+     *               metadata as the values.
+     * @throws Horde_Imap_Client_Exception
+     */
+    protected function _getMetadata($mailbox, $entries, $options)
+    {
+        if (!empty($options['annotatemore'])
+            && function_exists('imap_getannotation')) {
+            $result = array();
+            foreach ($entries as $md_entry) {
+                list($entry, $type) = $this->_getAnnotateMoreEntry($md_entry);
+                $old_error = error_reporting(0);
+                $res = imap_getannotation($this->_stream, $mailbox, $entry, $type);
+                error_reporting($old_error);
+                if (!$res) {
+                    throw new Horde_Imap_Client_Exception('Error when fetching METADATA: ' . imap_last_error());
+                }
+                foreach ($res as $key => $value) {
+                    switch ($type) {
+                    case 'value.priv':
+                        $result[$mailbox]['/private' . $entry] = $value;
+                        break;
+                    case 'value.shared':
+                        $result[$mailbox]['/shared' . $entry] = $value;
+                        break;
+                    }
+                }
+            }
+            return $result;
+        } else {
+            return $this->_getSocket()->getMetadata($mailbox, $entry, $options);
+        }
+    }
+
+    /**
+     * Set metadata for a given mailbox/identifier.
+     *
+     * @param string $mailbox A mailbox (UTF7-IMAP).
+     * @param array  $data    A set of data values. The metadata values
+     *                        corresponding to the keys of the array will
+     *                        be set to the values in the array.
+     * @param array  $options Additional options.
+     *
+     * @throws Horde_Imap_Client_Exception
+     */
+    protected function _setMetadata($mailbox, $data, $options)
+    {
+        if (!empty($options['annotatemore'])
+            && function_exists('imap_setannotation')) {
+            foreach ($data as $key => $value) {
+                list($entry, $type) = $this->_getAnnotateMoreEntry($key);
+                $old_error = error_reporting(0);
+                $res = imap_setannotation($this->_stream, $mailbox, $entry, $type, $value);
+                error_reporting($old_error);
+                if (!$res) {
+                    throw new Horde_Imap_Client_Exception('Error when setting METADATA: ' . imap_last_error());
+                }
+            }
+        } else {
+            return $this->_getSocket()->setMetadata($mailbox, $data, $options);
+        }
+    }
+
     /* Internal functions */
 
     /**

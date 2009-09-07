@@ -32,6 +32,7 @@
  *   RFC 5255 - LANGUAGE/I18NLEVEL
  *   RFC 5256 - THREAD/SORT
  *   RFC 5267 - ESORT
+ *   RFC 5464 - METADATA
  *
  *   [NO RFC] - XIMAPPROXY
  *       + Requires imapproxy v1.2.7-rc1 or later
@@ -3005,6 +3006,152 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $this->_temp['myrights'] = $data[1];
     }
 
+    /**
+     * Get metadata for a given mailbox.
+     *
+     * @param string $mailbox A mailbox (UTF7-IMAP).
+     * @param array  $entries The entries to fetch.
+     * @param array  $options Additional options.
+     *
+     * @return array  An array with identifiers as the keys and the
+     *                metadata as the values.
+     * @throws Horde_Imap_Client_Exception
+     */
+    protected function _getMetadata($mailbox, $entries, $options)
+    {
+        $this->login();
+
+        $this->_temp['metadata'] = array();
+
+        $cmd_options = array();
+        $single_type = '';
+
+        if (!empty($options['annotatemore'])) {
+            if (!empty($options['maxsize']) || !empty($options['depth'])) {
+                throw new Horde_Imap_Client_Exception('ANNOTATEMORE does not support the "depth" and "maxsize" option.');
+            }
+            $cmd = 'GETANNOTATION ';
+
+            $result = array();
+            foreach ($entries as $md_entry) {
+                list($entry, $type) = $this->_getAnnotateMoreEntry($md_entry);
+                if (empty($single_type)) {
+                    $single_type = $type;
+                } else if ($single_type != $type) {
+                    throw new Horde_Imap_Client_Exception('Multiple value types may not be retrieved in one call when using ANNOTATEMORE.');
+                }
+                $result[] = $entry;
+            }
+            $entries = $result;
+        } else {
+            $cmd = 'GETMETADATA ';
+
+            if (!empty($options['maxsize'])) {
+                $cmd_options[] = '(MAXSIZE ' . $options['maxsize'] . ')';
+            }
+            if (!empty($options['depth'])) {
+                $cmd_options[] = '(DEPTH ' . $options['depth'] . ')';
+            }
+        }
+
+        if (count($entries) == 1) {
+            $entry_string = $this->utils->escape($entries[0]) . ' ' . $this->utils->escape($single_type);
+        } else {
+            $entry_string = '(' . join(' ', $entries) . ') ' . $single_type;
+        }
+
+        if (count($cmd_options) == 0) {
+            $option_string = ' ';
+        } else if (count($cmd_options) == 1) {
+            $option_string = ' ' . $cmd_options[0] . ' ';
+        } else {
+            $option_string = ' (' . join(' ', $cmd_options) . ') ';
+        }
+
+        $this->_sendLine($cmd . $this->utils->escape($mailbox) . $option_string . $entry_string);
+        return $this->_temp['metadata'];
+    }
+
+    /**
+     * Set metadata for a given mailbox/identifier.
+     *
+     * @param string $mailbox A mailbox (UTF7-IMAP).
+     * @param array  $data    A set of data values. The metadata values
+     *                        corresponding to the keys of the array will
+     *                        be set to the values in the array.
+     * @param array  $options Additional options.
+     *
+     * @throws Horde_Imap_Client_Exception
+     */
+    protected function _setMetadata($mailbox, $data, $options)
+    {
+        if (!empty($options['annotatemore'])) {
+            $cmd = 'SETANNOTATION ';
+
+            $data_elements = array();
+            foreach ($data as $md_entry => $value) {
+                list($entry, $type) = $this->_getAnnotateMoreEntry($md_entry);
+                $i_value = ($value === null) ? 'NIL' : $this->utils->escape($value);
+                $data_elements[] = $this->utils->escape($entry) . ' (' . $this->utils->escape($type) . ' ' . $i_value . ')';
+            }
+        } else {
+            $cmd = 'SETMETADATA ';
+
+            foreach ($data as $key => $value) {
+                $i_value = ($value === null) ? 'NIL' : $this->utils->escape($value);
+                $data_elements[] = $this->utils->escape($key) . ' ' . $i_value;
+            }
+        }
+
+        if (count($data_elements) == 1) {
+            $data_string = $data_elements[0];
+        } else {
+            $data_string = '(' . join(' ', $data_elements) . ')';
+        }
+
+        /**
+         * Disallow multi-line data for now.
+         * @todo: Support this with sending literal data.
+         */
+        $data_string = str_replace("\n", '', $data_string);
+
+        $this->_sendLine($cmd . $this->utils->escape($mailbox) . ' ' . $data_string);
+    }
+
+    /**
+     * Parse a METADATA response (RFC 5464 [4.4]).
+     *
+     * @param array $data  The server response.
+     */
+    protected function _parseMetadata($data)
+    {
+        switch ($data[0]) {
+        case 'ANNOTATION':
+            $values = $data[3];
+            while (!empty($values)) {
+                $type = array_shift($values);
+                switch ($type) {
+                case 'value.priv':
+                    $this->_temp['metadata'][$data[1]]['/private' . $data[2]] = array_shift($values);
+                    break;
+                case 'value.shared':
+                    $this->_temp['metadata'][$data[1]]['/shared' . $data[2]] = array_shift($values);
+                    break;
+                default:
+                    throw new Horde_Imap_Client_Exception('Invalid METADATA value type ' . $type);
+                }
+            }
+            break;
+        case 'METADATA':
+            $values = $data[2];
+            while (!empty($values)) {
+                $entry = array_shift($values);
+                $this->_temp['metadata'][$data[1]][$entry] = array_shift($values);
+            }
+            break;
+        }
+    }
+
     /* Internal functions. */
 
     /**
@@ -3524,6 +3671,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             case 'VANISHED':
                 // QRESYNC extension (RFC 5162 [3.6])
                 $this->_parseVanished(array_slice($ob['token'], 1));
+                break;
+
+            case 'ANNOTATION':
+            case 'METADATA':
+                // Parse a ANNOTATEMORE/METADATA response (RFC 5464).
+                $this->_parseMetadata($ob['token']);
                 break;
 
             default:

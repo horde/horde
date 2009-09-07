@@ -2440,6 +2440,160 @@ abstract class Horde_Imap_Client_Base
      */
     abstract protected function _getMyACLRights($mailbox);
 
+    /**
+     * Get metadata for a given mailbox. The server must support the
+     * IMAP METADATA extension (RFC 5464).
+     *
+     * @param string $mailbox A mailbox. Either in UTF7-IMAP or UTF-8.
+     * @param array  $entries The entries to fetch.
+     * @param array  $options Additional options:
+     * <pre>
+     * 'maxsize'      - (int) The maximal size the returned values may have.
+     *                  This option is only available if 'annotatemore' has
+     *                  not been set.
+     *                  DEFAULT: No maximal size.
+     * 'depth'        - (string) Either "0", "1" or "infinity". Returns only
+     *                  the given value ("0"), only values one level below
+     *                  the specified value ("1") or all entries below the
+     *                  specified value ("infinity").
+     *                  This option is only available if 'annotatemore' has
+     *                  not been set.
+     *                  DEFAULT: Unset which is equivalent to "0".
+     * 'nocapability' - (boolean) Do not check for the METADATA capability of
+     *                  the server ("true"). Otherwise the call will fail if
+     *                  the server does not announce the METADATA capability
+     *                  ("false").
+     *                  DEFAULT: false - Check the capability.
+     * 'annotatemore' - (boolean) Use the ANNOTATION command rather than the 
+     *                  METADATA command ("true"). This corresponds to
+     *                  an old version of the RFC 5464 that is available for
+     *                  some servers (cyrus, dovecot).
+     *                  DEFAULT: Use the newer METADATA command.
+     * </pre>
+     *
+     * @return array 
+     * @throws Horde_Imap_Client_Exception
+     */
+    public function getMetadata($mailbox, $entries, $options = array())
+    {
+        if (empty($options['nocapability'])) {
+            if (empty($options['annotatemore'])) {
+                $capability = 'METADATA';
+            } else {
+                $capability = 'ANNOTATEMORE';
+            }
+            if (!$this->queryCapability($capability)) {
+                throw new Horde_Imap_Client_Exception('Server does not support the METADATA extension.',
+                                                      Horde_Imap_Client_Exception::NOSUPPORTIMAPEXT);
+            }
+        }
+
+        if (!is_array($entries)) {
+            $entries = array($entries);
+        }
+
+        $entries_utf7 = array();
+        foreach ($entries as $entry) {
+            $entries_utf7[] = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($entry);
+        }
+
+        return $this->_getMetadata(Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($mailbox),
+                                   $entries_utf7,
+                                   $options);
+    }
+
+    /**
+     * Get metadata for a given mailbox.
+     *
+     * @param string $mailbox A mailbox (UTF7-IMAP).
+     * @param array  $entries The entries to fetch.
+     * @param array  $options Additional options.
+     *
+     * @return array  An array with metadata names as the keys and
+     *                metadata values as the values.
+     * @throws Horde_Imap_Client_Exception
+     */
+    abstract protected function _getMetadata($mailbox, $entries, $options);
+
+    /**
+     * Set metadata for a given mailbox/identifier.
+     *
+     * @param string $mailbox A mailbox. Either in UTF7-IMAP or UTF-8.
+     * @param array  $data    A set of data values. The metadata values
+     *                        corresponding to the keys of the array will
+     *                        be set to the values in the array.
+     * @param array  $options Additional options:
+     * <pre>
+     * 'nocapability' - (boolean) Do not check for the METADATA capability of
+     *                  the server ("true"). Otherwise the call will fail if
+     *                  the server does not announce the METADATA capability
+     *                  ("false").
+     *                  DEFAULT: false - Check the capability.
+     * 'annotatemore' - (boolean) Use the ANNOTATION command rather than the 
+     *                  METADATA command ("true"). This corresponds to
+     *                  an older draft version of the RFC 5464 that has been
+     *                  implemented in some servers (cyrus, dovecot).
+     *                  http://ietfreport.isoc.org/idref/draft-daboo-imap-annotatemore/
+     *                  DEFAULT: Use the newer METADATA command.
+     * </pre>
+     *
+     *
+     * @throws Horde_Imap_Client_Exception
+     */
+    public function setMetadata($mailbox, $data, $options = array())
+    {
+        if (empty($options['nocapability'])) {
+            if (empty($options['annotatemore'])) {
+                $capability = 'METADATA';
+            } else {
+                $capability = 'ANNOTATEMORE';
+            }
+            if (!$this->queryCapability($capability)) {
+                throw new Horde_Imap_Client_Exception('Server does not support the METADATA extension.',
+                                                      Horde_Imap_Client_Exception::NOSUPPORTIMAPEXT);
+            }
+        }
+
+        return $this->_setMetadata(Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($mailbox), $data, $options);
+    }
+
+    /**
+     * Set metadata for a given mailbox/identifier.
+     *
+     * @param string $mailbox A mailbox (UTF7-IMAP).
+     * @param array  $data    A set of data values. The metadata values
+     *                        corresponding to the keys of the array will
+     *                        be set to the values in the array.
+     * @param array  $options Additional options.
+     *
+     * @throws Horde_Imap_Client_Exception
+     */
+    abstract protected function _setMetadata($mailbox, $data, $options);
+
+    /**
+     * Split a name for the METADATA extension into the correct syntax for the
+     * older ANNOTATEMORE version (it is a predecessor of RFC 5464.
+     *
+     * @param string $name A name for a metadata entry.
+     *
+     * @return array A list of two elements: The entry name and the value type.
+     *
+     * @throws Horde_Imap_Client_Exception
+     */
+    protected function _getAnnotateMoreEntry($name)
+    {
+        if (substr($name, 0, 7) == '/shared') {
+            $entry = substr($name, 7);
+            $type  = 'value.shared';
+        } else if (substr($name, 0, 8) == '/private') {
+            $entry = substr($name, 8);
+            $type  = 'value.priv';
+        } else {
+            throw new Horde_Imap_Client_Exception('Invalid METADATA entry: ' . $name);
+        }
+        return array($entry, $type);
+    }
+
     /* Utility functions. */
 
     /**

@@ -758,6 +758,30 @@ try {
     print "Fetch: FAILED\n";
 }
 
+print "\nSet METADATA on " . $test_mbox . ".\n";
+try {
+    $imap_client->setMetadata($test_mbox,
+                              array('/shared/comment' => 'test'),
+                              array('annotatemore' => true,
+                                    'nocapability' => true));
+    print "Set Metadata: OK\n";
+} catch (Horde_Imap_Client_Exception $e) {
+    print 'ERROR: ' . $e->getMessage() . "\n";
+    print "Set Metadata: FAILED\n";
+}
+
+print "\nGet METADATA from " . $test_mbox . ".\n";
+try {
+    print_r($imap_client->getMetadata($test_mbox,
+                                      '/shared/comment',
+                                      array('annotatemore' => true,
+                                            'nocapability' => true)));
+    print "Get Metadata: OK\n";
+} catch (Horde_Imap_Client_Exception $e) {
+    print 'ERROR: ' . $e->getMessage() . "\n";
+    print "Get Metadata: FAILED\n";
+}
+
 print "\nRe-open " . $test_mbox . " READ-WRITE.\n";
 try {
     $imap_client->openMailbox($test_mbox, Horde_Imap_Client::OPEN_READWRITE);
