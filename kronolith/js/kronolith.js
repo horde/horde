@@ -2132,7 +2132,9 @@ KronolithCore = {
                       }),
                       function(r) {
                           this._loadEventsCallback(r);
-                          $('kronolithQuickinsertQ').value = '';
+                          if (Object.isUndefined(r.msgs)) {
+                              $('kronolithQuickinsertQ').value = '';
+                          }
                       }.bind(this));
     },
 
