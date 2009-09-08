@@ -121,24 +121,9 @@ function switchDateView(view, date)
   </td>
 <?php if ($registry->hasMethod('contacts/search')): ?>
   <td align="center"><?php echo Horde::link('#', '', 'widget', null, 'window.open(\'' . Horde::applicationUrl('contacts.php') . '\', \'contacts\', \'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=270,left=100,top=100\'); return false;') . Horde::img('addressbook_browse.png') . '<br />' . _("Address Book") . '</a>' ?></td>
-  <td width="100%">&nbsp;</td>
+  <td width="100%"><?php echo _("resources link") ?></td>
 <?php endif; ?>
  </tr>
-
- <!-- Add Resources -->
-  <tr>
-  <td class="rightAlign">&nbsp;<strong><?php $label = empty($editResource) ? _("Add resources") : _("Edit resources"); echo Horde::highlightAccessKey($label, $ak = Horde::getAccessKey($label)) ?></strong></td>
-  <td>
-   <input type="text" id="newResources" name="newResources" autocomplete="off" size="40" <?php if (!empty($ak)) echo 'accesskey="' . $ak . '" '; if (!empty($editResource)) echo 'value="' . htmlspecialchars($editResource) . '" '; ?>/>
-   <span id="newResources_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
-   <div id="newResources_results" class="autocomplete"></div>
-  </td>
-<?php if ($registry->hasMethod('contacts/search')): ?>
-  <td align="center"><?php echo 'link here to open new resource search window?' ?></td>
-  <td width="100%">&nbsp;</td>
-<?php endif; ?>
- </tr>
-
 </table>
 
 <br />
