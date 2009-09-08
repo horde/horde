@@ -257,7 +257,7 @@ if (count($resources)) {
         $attendee_view->addResourceMember($vfb);
     }
 }
-$date = Horde_Util::getFormData('date', date('Ymd')) . '000000';
+$date = sprintf("%02d%02d%02d000000", Horde_Util::getFormData('year'), Horde_Util::getFormData('month'), Horde_Util::getFormData('mday'));
 $date = new Horde_Date($date);
 $vfb_html = $attendee_view->render($date);
 
