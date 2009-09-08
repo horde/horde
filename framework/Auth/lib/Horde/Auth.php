@@ -274,7 +274,7 @@ class Horde_Auth
         case 'crypt-des':
             return $seed
                 ? substr(preg_replace('|^{crypt}|i', '', $seed), 0, 2)
-                : substr(hash('md5', mt_rand()), 0, 2);
+                : substr(base64_encode(hash('md5', mt_rand(), true)), 0, 2);
 
         case 'crypt-md5':
             return $seed
@@ -284,7 +284,7 @@ class Horde_Auth
         case 'crypt-blowfish':
             return $seed
                 ? substr(preg_replace('|^{crypt}|i', '', $seed), 0, 16)
-                : '$2$' . substr(hash('md5', mt_rand()), 0, 12) . '$';
+                : '$2$' . base64_encode(hash('md5', sprintf('%08X%08X%08X', mt_rand(), mt_rand(), mt_rand()), true)) . '$';
 
         case 'ssha':
             return $seed
