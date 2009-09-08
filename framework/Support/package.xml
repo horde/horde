@@ -50,6 +50,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Array.php" role="php" />
       <file name="Backtrace.php" role="php" />
       <file name="ConsistentHash.php" role="php" />
+      <file name="Guid.php" role="php" />
       <file name="Inflector.php" role="php" />
       <file name="Numerizer.php" role="php" />
       <file name="Stack.php" role="php" />
@@ -76,6 +77,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Support/Array.php" as="Horde/Support/Array.php" />
    <install name="lib/Horde/Support/Backtrace.php" as="Horde/Support/Backtrace.php" />
    <install name="lib/Horde/Support/ConsistentHash.php" as="Horde/Support/ConsistentHash.php" />
+   <install name="lib/Horde/Support/Guid.php" as="Horde/Support/Guid.php" />
    <install name="lib/Horde/Support/Inflector.php" as="Horde/Support/Inflector.php" />
    <install name="lib/Horde/Support/Numerizer/Locale/Base.php" as="Horde/Support/Numerizer/Locale/Base.php" />
    <install name="lib/Horde/Support/Numerizer/Locale/De.php" as="Horde/Support/Numerizer/Locale/De.php" />
