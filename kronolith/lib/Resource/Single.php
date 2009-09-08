@@ -22,6 +22,30 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
      */
     public function isFree($event)
     {
+        // Need to make sure to remove the $event's fb info from this calendar
+        // before checking...otherwise, if it's an update the time will block.
+        $old_status = $event->status;
+        $event->setStatus(Kronolith::STATUS_FREE);
+
+        /* Fetch events. */
+        $busy = Kronolith::listEvents($event->start, $event->end, $this->calendar);
+        if (is_a($busy, 'PEAR_Error')) {
+            return $busy;
+        }
+
+        if (!count($busy)) {
+            return true;
+        }
+
+        foreach ($busy as $e) {
+            if (!($e->hasStatus(Kronolith::STATUS_CANCELLED) ||
+                  $e->hasStatus(Kronolith::STATUS_FREE))) {
+
+                return false;
+            }
+        }
+
+        $event->setStatus($old_status);
         return true;
     }
 
@@ -41,7 +65,9 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         $uid = $event->getUID();
         $existing = $driver->getByUID($uid, array($this->calendar));
         if (!($existing instanceof PEAR_Error)) {
+            /* Already attached, just update */
             $existing->fromiCalendar($event->toiCalendar(new Horde_iCalendar('2.0')));
+            $existing->status = $event->status;
             $existing->save();
         } else {
             /* Create a new event */

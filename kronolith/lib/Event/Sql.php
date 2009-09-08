@@ -210,7 +210,7 @@ class Kronolith_Event_Sql extends Kronolith_Event
     /**
      * Function to check availability and auto accept/decline for each resource
      * attached to this event. Needed here instead of in Kronolith_Driver::saveEvent
-     * since the _properties array is already built at that point.
+     * since self::_properties is already built at that point.
      *
      * @return unknown_type
      */
