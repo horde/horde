@@ -361,7 +361,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             /* If the event did not have a UID before, we need to give
              * it one. */
             if (empty($row['event_uid'])) {
-                $row['event_uid'] = $this->generateUID();
+                $row['event_uid'] = (string)new Horde_Support_Guid;
 
                 /* Save the new UID for data integrity. */
                 $query = 'UPDATE ' . $this->_params['table'] . ' SET event_uid = ? WHERE event_id = ?';
@@ -597,7 +597,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             if ($event->getUID()) {
                 $uid = $event->getUID();
             } else {
-                $uid = $this->generateUID();
+                $uid = (string)new Horde_Support_Guid;
                 $event->setUID($uid);
             }
 
