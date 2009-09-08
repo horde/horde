@@ -23,6 +23,10 @@ v3.0-git
 v2.3.2-cvs
 ----------
 
+[jan] Allow to add address lists as attendees through the address book popup
+      (Bug #7834).
+[jan] Fix exporting certain weekday recurrence rules to iCalendar
+      (lst_hoe02@kwsoft.de, Bug #8501).
 [jan] Export recurrence end dates as date-time values in iCalendar data to
       improve compatibility with external clients (Bug #7846).
 [jan] Fix synchronization with output compression enabled (Bug #7769).

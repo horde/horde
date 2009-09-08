@@ -93,15 +93,16 @@ function updateMessage()
             var address = list.options[i].text;
             var fullname = decodeURIComponent(list.options[i].value);
         }
-        if (address.indexOf(':') != -1) {
-            continue;
+        if (address.indexOf(':') == -1) {
+            fullname = fullname.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+            address = '"' + fullname + '" <' + address + '>';
         }
 
-        fullname = fullname.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
-        address = '"' + fullname + '" <' + address + '>';
-
         if (field.value) {
-            field.value = field.value + ', ' + address;
+            if (!field.value.match(/;\s*$/)) {
+                field.value = field.value + ',';
+            }
+            field.value = field.value + ' ' + address;
         } else {
             field.value = address;
         }
