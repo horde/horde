@@ -243,7 +243,16 @@ foreach ($attendees as $email => $status) {
     }
 }
 
-$date = Horde_Util::getFormData('date', date('Ymd')) . '000000';
+// Add Free/Busy for resources
+if (count($resources)) {
+    $driver = Kronolith::getDriver('Resource');
+    foreach ($resources as $r_id => $resource) {
+        $r = $driver->getResource($r_id);
+        $vfb = $r->getFreeBusy(null, null, true);
+        $attendee_view->addResourceMember($vfb);
+    }
+}
+$date = sprintf("%02d%02d%02d000000", Horde_Util::getFormData('year'), Horde_Util::getFormData('month'), Horde_Util::getFormData('mday'));
 $date = new Horde_Date($date);
 $vfb_html = $attendee_view->render($date);
 
