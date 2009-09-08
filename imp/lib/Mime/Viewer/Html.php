@@ -16,6 +16,19 @@
 class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 {
     /**
+     * Can this driver render various views?
+     *
+     * @var boolean
+     */
+    protected $_capability = array(
+        'embedded' => false,
+        'forceinline' => false,
+        'full' => true,
+        'info' => true,
+        'inline' => true
+    );
+
+    /**
      * Cached block image.
      *
      * @var string
@@ -69,15 +82,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
      */
     protected function _render()
     {
-        $render = $this->_IMPrender(false);
-
-        return array(
-            $this->_mimepart->getMimeId() => array(
-                'data' => $render['html'],
-                'status' => $render['status'],
-                'type' => $this->_mimepart->getType(true)
-            )
-        );
+        return $this->_IMPrender(false);
     }
 
     /**
@@ -87,15 +92,39 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
      */
     protected function _renderInline()
     {
-        $render = $this->_IMPrender(true);
+        return $this->_IMPrender(true);
+    }
+
+    /**
+     * Return the rendered information about the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _renderInfo()
+    {
+        if ($this->canRender('inline')) {
+            return array();
+        }
+
+        $status = array(
+            _("This message part contains HTML data, but inline HTML display is disabled."),
+            $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', _("View HTML data in new window.")),
+            $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', _("Convert HTML data to plain text and view in new window."), array('params' => array('convert_text' => 1)))
+        );
 
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => $render['html'],
-                'status' => $render['status'],
+                'data' => '',
+                'status' => array(
+                    array(
+                        'icon' => Horde::img('mime/html.png', _("HTML data")),
+                        'text' => $status
+                    )
+                ),
                 'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             )
         );
+
     }
 
     /**
@@ -120,12 +149,20 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         $cleanhtml = $this->_cleanHTML($data, $inline, $msg_charset);
         $data = $cleanhtml['html'];
 
-        /* We are done processing if in mimp mode. */
-        if ($_SESSION['imp']['view'] == 'mimp') {
+        /* We are done processing if in mimp mode, or we are converting to
+         * text. */
+        if (($_SESSION['imp']['view'] == 'mimp') ||
+            (!$inline && Horde_Util::getFormData('convert_text'))) {
             $data = Horde_Text_Filter::filter($data, 'html2text');
 
             // Filter bad language.
-            return array('html' => IMP::filterText($data), 'status' => array());
+            return array(
+                $this->_mimepart->getMimeId() => array(
+                    'data' => IMP::filterText($data),
+                    'status' => array(),
+                    'type' => 'text/plain; charset=' . Horde_Nls::getCharset()
+                )
+            );
         }
 
         /* Reset absolutely positioned elements. */
@@ -219,8 +256,11 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         }
 
         return array(
-            'html' => $data,
-            'status' => $cleanhtml['status']
+            $this->_mimepart->getMimeId() => array(
+                'data' => $data,
+                'status' => $cleanhtml['status'],
+                'type' => ($inline ? 'text/html; charset=' . Horde_Nls::getCharset() : $this->_mimepart->getType(true))
+            )
         );
     }
 

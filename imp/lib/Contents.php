@@ -717,7 +717,7 @@ class IMP_Contents
      * 'dload' - (boolean) Should we generate a download link?
      * 'jstext' - (string) The JS text to use.
      * 'params' - (array) A list of any additional parameters that need to be
-     *              passed to view.php.
+     *            passed to view.php.
      * </pre>
      *
      * @return string  A HTML href link to view.php.
