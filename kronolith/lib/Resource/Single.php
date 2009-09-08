@@ -29,7 +29,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
 
         /* Fetch events. */
         $busy = Kronolith::listEvents($event->start, $event->end, array($this->calendar));
-        if ($busy instanceof 'PEAR_Error')) {
+        if ($busy instanceof PEAR_Error) {
             throw new Horde_Exception($busy->getMessage());
         }
 
