@@ -28,9 +28,9 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         $event->setStatus(Kronolith::STATUS_FREE);
 
         /* Fetch events. */
-        $busy = Kronolith::listEvents($event->start, $event->end, $this->calendar);
-        if (is_a($busy, 'PEAR_Error')) {
-            return $busy;
+        $busy = Kronolith::listEvents($event->start, $event->end, array($this->calendar));
+        if ($busy instanceof 'PEAR_Error')) {
+            throw new Horde_Exception($busy->getMessage());
         }
 
         if (!count($busy)) {
@@ -41,11 +41,13 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
             if (!($e->hasStatus(Kronolith::STATUS_CANCELLED) ||
                   $e->hasStatus(Kronolith::STATUS_FREE))) {
 
+                $event-SetStatus($old_status);
                 return false;
             }
         }
 
         $event->setStatus($old_status);
+
         return true;
     }
 
@@ -61,6 +63,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
     {
         /* Get a driver for this resource's calendar */
         $driver = Kronolith::getDriver('Resource', $this->calendar);
+
         /* Make sure it's not already attached. */
         $uid = $event->getUID();
         $existing = $driver->getByUID($uid, array($this->calendar));
@@ -88,6 +91,10 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
     {
         $driver = Kronolith::getDriver('Resource', $this->calendar);
         $re = $driver->getByUID($event->getUID(), array($this->calendar));
+        if ($re instanceof PEAR_Error) {
+            throw new Horde_Exception ($re->getMessage());
+        }
+
         $driver->deleteEvent($re->getId());
     }
 
