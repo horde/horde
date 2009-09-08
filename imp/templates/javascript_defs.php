@@ -11,7 +11,6 @@
 $code = array(
 /* Variables used in core javascript files. */
     'conf' => array(
-        'isIE' => intval($GLOBALS['browser']->isBrowser('msie')),
         'pop3' => intval((isset($_SESSION['imp']) && ($_SESSION['imp']['protocol'] == 'pop'))),
         'fixed_folders' => empty($GLOBALS['conf']['server']['fixed_folders'])
             ? array()
