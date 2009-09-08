@@ -173,7 +173,7 @@ class Horde_Rpc
      */
     public static function request($driver, $url, $method, $params = null, $options = array())
     {
-        $driver = basename($driver);
+        $driver = Horde_String::ucfirst(basename($driver));
         $class = 'Horde_Rpc_' . $driver;
         if (class_exists($class)) {
             return call_user_func(array($class, 'request'), $url, $method, $params, $options);
