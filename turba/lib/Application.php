@@ -11,7 +11,7 @@ class Turba_Application extends Horde_Registry_Application
      *
      * @var string
      */
-    public $version = 'H3 (3.0-git)';
+    public $version = 'H4 (3.0-git)';
 
     /**
      * Returns a list of available permissions.
