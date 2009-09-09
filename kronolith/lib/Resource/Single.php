@@ -141,9 +141,26 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         }
     }
 
+<<<<<<< HEAD
     public function getResponseType()
     {
         return $this->get('response_type');
+=======
+    /**
+     * @TODO: need to fine tune this
+     * @param $user
+     * @param $permission
+     * @param $restrict
+     * @return unknown_type
+     */
+    public function hasPermission($user, $permission = PERMS_READ, $restrict = null)
+    {
+        if (Horde_Auth::isAdmin()) {
+            return true;
+        }
+
+        return false;
+>>>>>>> listEvents:: isn't detailed enough for this...manually compare
     }
 
 }
