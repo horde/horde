@@ -22,31 +22,30 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
      */
     public function isFree($event)
     {
-        // Need to make sure to remove the $event's fb info from this calendar
-        // before checking...otherwise, if it's an update the time will block.
-        $old_status = $event->status;
-        $event->setStatus(Kronolith::STATUS_FREE);
-
         /* Fetch events. */
         $busy = Kronolith::listEvents($event->start, $event->end, array($this->calendar));
         if ($busy instanceof PEAR_Error) {
             throw new Horde_Exception($busy->getMessage());
         }
 
+        /* No events at all during time period for requested event */
         if (!count($busy)) {
             return true;
         }
 
-        foreach ($busy as $e) {
-            if (!($e->hasStatus(Kronolith::STATUS_CANCELLED) ||
-                  $e->hasStatus(Kronolith::STATUS_FREE))) {
+        /* Check for conflicts, ignoring the conflict if it's for the
+         * same event that is passed. */
+        $uid = $event->getUID();
+        foreach ($busy as $events) {
+            foreach ($events as $e) {
+                if (!($e->hasStatus(Kronolith::STATUS_CANCELLED) ||
+                      $e->hasStatus(Kronolith::STATUS_FREE)) &&
+                     $e->getUID() !== $uid) {
 
-                $event-SetStatus($old_status);
-                return false;
+                    return false;
+                }
             }
         }
-
-        $event->setStatus($old_status);
 
         return true;
     }
