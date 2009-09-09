@@ -10,6 +10,7 @@ v2.0-git
 v1.2.2-cvs
 ----------
 
+[mms] Upgrade prototype.js to v1.6.1.
 [jan] Correctly match negative header values with numeric comparison in Sieve
       driver (bb@apc.ag, Bug #7308).
 [jan] Implement removeUserData API (adrieder@sbox.tugraz.at, Request #8452).

@@ -97,6 +97,7 @@ v5.0-git
 v4.3.5-cvs
 ----------
 
+[mms] Upgrade prototype.js to v1.6.1.
 [jan] Add example hook for the search_sources preference (dom.lalot@gmail.com,
       Request #7796).
 [mms] Fix renaming shared folders contained in empty namespaces (Bug #8468).

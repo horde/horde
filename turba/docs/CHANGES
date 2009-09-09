@@ -4,7 +4,7 @@ v3.0-git
 
 [jan] Support X-ANNIVERSARY, X-CHILDREN, and X-SPOUSE vCard fields.
 [mjr] The listTimeObjects API now returns categories for each source
-      individually instead of returning only the categories available 
+      individually instead of returning only the categories available
       (Request #8504).
 
 
@@ -12,6 +12,7 @@ v3.0-git
 v2.3.2-cvs
 ----------
 
+[mms] Upgrade prototype.js to v1.6.1.
 [mjr] Fix contacts being deleted during sync when moved from one address book
       to another (ryu@ryux.org, Bug #8487).
 [mjr] Add new API method for retrieving the default share for a source.
