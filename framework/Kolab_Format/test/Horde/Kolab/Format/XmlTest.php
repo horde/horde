@@ -8,7 +8,7 @@
  * @package  Kolab_Format
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://pear.horde.org/index.php?package=Kolab_Format
  */
 
 /**
@@ -28,7 +28,7 @@ require_once 'Horde/Autoloader.php';
  * @package  Kolab_Format
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://pear.horde.org/index.php?package=Kolab_Format
  */
 class Horde_Kolab_Format_XmlTest extends PHPUnit_Framework_TestCase
 {
@@ -321,7 +321,7 @@ class Horde_Kolab_Format_XmlTest extends PHPUnit_Framework_TestCase
  * @package  Kolab_Format
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://pear.horde.org/index.php?package=Kolab_Format
  */
 class Horde_Kolab_Format_Xml_Dummy extends Horde_Kolab_Format_Xml
 {
