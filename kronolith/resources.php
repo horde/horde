@@ -72,10 +72,10 @@ var_dump($resources);
 $resource = Kronolith::getDriver('Resource')->getResource(9);
 
 /* Any driver/event */
-//$driver = Kronolith::getDriver('Sql');
-//$event = $driver->getByUID('20090904121938.17551lvwtt52y728@localhost');
-//$event->addResource($resource, Kronolith::RESPONSE_NONE);
-//$event->save();
+$driver = Kronolith::getDriver('Sql');
+$event = $driver->getByUID('20090909152832.6360407aq83e5nsw@localhost');
+$event->addResource($resource, Kronolith::RESPONSE_NONE);
+$event->save();
 
 
 //

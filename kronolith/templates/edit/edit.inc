@@ -1,4 +1,5 @@
-<?php $showCalSelect = (!$GLOBALS['prefs']->isLocked('default_share') && count($calendars) > 1); ?>
+<?php $showCalSelect = (!$GLOBALS['prefs']->isLocked('default_share') && count($calendars) > 1 && empty($GLOBALS['show_resource_calendars'])); ?>
+
 <form action="<?php echo ($event->isInitialized() && !$event->isRemote() ? 'edit.php' : 'add.php') ?>" method="post" name="eventform" id="eventform">
 <?php Horde_Util::pformInput() ?>
 <input type="hidden" name="year" value="<?php if (isset($year)) echo htmlspecialchars($year) ?>" />
@@ -68,19 +69,28 @@
     <select id="targetcalendar" name="targetcalendar">
     <?php
     $creator = $event->getCreatorId();
-    foreach ($calendars as $id => $cal) {
-        $delegates = array();
-        if ($cal->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT, $creator)) {
-            $delegates[$id] = htmlspecialchars($cal->get('name'));
-        } else {
-            $delegates[$id . ':' . $cal->get('owner')] = htmlspecialchars($cal->get('name'). ' (' . sprintf(_("as %s"), Kronolith::getUserName($cal->get('owner'))) . ')');
-        }
-        foreach ($delegates as $delegate_id => $cal_name) {
-            $sel = ($delegate_id == $calendar_id) ? ' selected="selected"' : '';
+    if (!empty($GLOBALS['display_resource_calendars'])) {
+        foreach ($GLOBALS['display_resource_calendars'] as $cal) {
+            echo $cal;
             printf('<option value="%s"%s>%s</option>',
-                   htmlspecialchars($delegate_id), $sel, $cal_name) . "\n";
+                    htmlspecialchars($cal), '', $cal) . "\n";
         }
-    } ?>
+    } else {
+
+        foreach ($calendars as $id => $cal) {
+            $delegates = array();
+            if ($cal->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT, $creator)) {
+                $delegates[$id] = htmlspecialchars($cal->get('name'));
+            } else {
+                $delegates[$id . ':' . $cal->get('owner')] = htmlspecialchars($cal->get('name'). ' (' . sprintf(_("as %s"), Kronolith::getUserName($cal->get('owner'))) . ')');
+            }
+            foreach ($delegates as $delegate_id => $cal_name) {
+                $sel = ($delegate_id == $calendar_id) ? ' selected="selected"' : '';
+                printf('<option value="%s"%s>%s</option>',
+                       htmlspecialchars($delegate_id), $sel, $cal_name) . "\n";
+            }
+        }
+    }?>
     </select>
 
  </td>

@@ -46,6 +46,38 @@ abstract class Kronolith_Resource_Base
     }
 
     /**
+     * @TODO: need to fine tune this
+     *
+     *
+     *
+     * @param $user
+     * @param $permission
+     * @param $restrict
+     * @return unknown_type
+     */
+    public function hasPermission($user, $permission = PERMS_READ, $restrict = null)
+    {
+        if (Horde_Auth::isAdmin()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Implemented to stand in as a share object.
+     *
+     * @param $property
+     * @return unknown_type
+     */
+    public function get($property)
+    {
+       return $this->{$property};
+    }
+
+
+
+    /**
      * Should this take an event, or a time range?
      *
      * @param $startTime
