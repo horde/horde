@@ -36,8 +36,12 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $this->uri);
         curl_setopt($curl, CURLOPT_FILE, $body);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $this->data);
         curl_setopt($curl, CURLOPT_WRITEHEADER, $headers);
+
+        // If we don't set POSTFIELDS to a string, and the first value begins
+        // with @, it will be treated as a filename, and the proper POST data
+        // isn't passed.
+        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($this->data));
 
         $result = curl_exec($curl);
 
