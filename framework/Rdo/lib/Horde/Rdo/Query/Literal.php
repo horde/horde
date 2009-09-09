@@ -29,21 +29,14 @@ class Horde_Rdo_Query_Literal
     protected $_string;
 
     /**
-     * @var Horde_Rdo_Mapper
-     */
-    public $mapper;
-
-    /**
      * Instantiate a literal, which is just a string stored as
      * an instance member variable.
      *
      * @param string $string The string containing an SQL literal.
-     * @param Horde_Rdo_Mapper $mapper The Mapper object governing this query.
      */
-    public function __construct($string, $mapper = null)
+    public function __construct($string)
     {
         $this->_string = (string)$string;
-        $this->setMapper($mapper);
     }
 
     /**
@@ -53,15 +46,4 @@ class Horde_Rdo_Query_Literal
     {
         return $this->_string;
     }
-
-    /**
-     * @param Horde_Rdo_Mapper $mapper Rdo mapper base class
-     */
-    public function setMapper($mapper)
-    {
-        if ($mapper !== $this->mapper) {
-            $this->mapper = $mapper;
-        }
-    }
-
 }
