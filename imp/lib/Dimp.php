@@ -101,7 +101,7 @@ class IMP_Dimp
      */
     static public function notify()
     {
-        $GLOBALS['notification']->notify(array('listeners' => 'status'));
+        $GLOBALS['notification']->notify(array('listeners' => 'status', 'store' => true));
         $msgs = $GLOBALS['imp_notify']->getStack();
 
         return count($msgs)
