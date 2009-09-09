@@ -1241,20 +1241,32 @@ class Kronolith
     }
 
     /**
-     * Returns a comma separated list of attendees.
+     * Returns a comma separated list of attendees and resources
      *
-     * @return string  Attendee list.
+     * @return string  Attendee/Resource list.
      */
     public static function attendeeList()
     {
-        if (!isset($_SESSION['kronolith']['attendees']) ||
-            !is_array($_SESSION['kronolith']['attendees'])) {
-            return '';
+        $attendees = array();
+
+        /* Attendees */
+        if (isset($_SESSION['kronolith']['attendees']) ||
+            is_array($_SESSION['kronolith']['attendees'])) {
+
+            $attendees = array();
+            foreach ($_SESSION['kronolith']['attendees'] as $email => $attendee) {
+                $attendees[] = empty($attendee['name']) ? $email : Horde_Mime_Address::trimAddress($attendee['name'] . (strpos($email, '@') === false ? '' : ' <' . $email . '>'));
+            }
+
         }
 
-        $attendees = array();
-        foreach ($_SESSION['kronolith']['attendees'] as $email => $attendee) {
-            $attendees[] = empty($attendee['name']) ? $email : Horde_Mime_Address::trimAddress($attendee['name'] . (strpos($email, '@') === false ? '' : ' <' . $email . '>'));
+        /* Resources */
+        if (isset($_SESSION['kronolith']['resources']) ||
+            is_array($_SESSION['kronolith']['resources'])) {
+
+            foreach ($_SESSION['kronolith']['resources'] as $resource) {
+                $attendees[] = $resource['name'];
+            }
         }
 
         return implode(', ', $attendees);
