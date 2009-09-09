@@ -265,10 +265,6 @@ $vfb_html = $attendee_view->render($date);
 $cac = Horde_Ajax_Imple::factory(array('kronolith', 'ContactAutoCompleter'), array('triggerId' => 'newAttendees'));
 $cac->attach();
 
-// TODO - actually implement this part
-$rac = Horde_Ajax_Imple::factory(array('kronolith', 'ContactAutoCompleter'), array('triggerId' => 'newResources'));
-$rac->attach();
-
 $title = _("Edit attendees");
 require KRONOLITH_TEMPLATES . '/common-header.inc';
 $notification->notify(array('listeners' => 'status'));
