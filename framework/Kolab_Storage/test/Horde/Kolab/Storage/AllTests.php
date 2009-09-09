@@ -2,8 +2,6 @@
 /**
  * All tests for the Kolab_Storage:: package.
  *
- * $Horde: framework/Kolab_Storage/test/Horde/Kolab/Storage/AllTests.php,v 1.4 2009/01/06 17:49:28 jan Exp $
- *
  * PHP version 5
  *
  * @category   Kolab
@@ -21,13 +19,13 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
     define('PHPUnit_MAIN_METHOD', 'Horde_Kolab_Storage_AllTests::main');
 }
 
-require_once 'PHPUnit/Framework/TestSuite.php';
-require_once 'PHPUnit/TextUI/TestRunner.php';
+/**
+ * The Autoloader allows us to omit "require/include" statements.
+ */
+require_once 'Horde/Autoloader.php';
 
 /**
  * Combine the tests for this package.
- *
- * $Horde: framework/Kolab_Storage/test/Horde/Kolab/Storage/AllTests.php,v 1.4 2009/01/06 17:49:28 jan Exp $
  *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
@@ -41,18 +39,35 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_AllTests {
+class Horde_Kolab_Storage_AllTests
+{
 
+    /**
+     * Main entry point for running the suite.
+     *
+     * @return NULL
+     */
     public static function main()
     {
         PHPUnit_TextUI_TestRunner::run(self::suite());
     }
 
+    /**
+     * Collect the unit tests of this directory into a new suite.
+     *
+     * @return PHPUnit_Framework_TestSuite The test suite.
+     */
     public static function suite()
     {
+        // Catch strict standards
+        // FIXME: This does not work yet, as we still have a number of
+        //        static methods in basic Horde libraries that are not
+        //        declared as such.
+        //error_reporting(E_ALL | E_STRICT);
+
         $suite = new PHPUnit_Framework_TestSuite('Horde Framework - Horde_Kolab_Storage');
 
-        $basedir = dirname(__FILE__);
+        $basedir    = dirname(__FILE__);
         $baseregexp = preg_quote($basedir . DIRECTORY_SEPARATOR, '/');
 
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($basedir)) as $file) {
