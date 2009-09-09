@@ -2,7 +2,7 @@
 /**
  * Test the Kolab free/busy system.
  *
- * $Horde: framework/Kolab_FreeBusy/test/Horde/Kolab/FreeBusy/FreeBusyTest.php,v 1.13 2009/06/09 23:23:38 slusarz Exp $
+ * PHP version 5
  *
  * @category Kolab
  * @package  Kolab_FreeBusy
@@ -12,16 +12,12 @@
  */
 
 /**
- *  We need the base class
+ * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'Horde/Kolab/Test/Storage.php';
-
-require_once 'Horde/Kolab/FreeBusy.php';
+require_once 'Horde/Autoloader.php';
 
 /**
  * Test the Kolab free/busy system.
- *
- * $Horde: framework/Kolab_FreeBusy/test/Horde/Kolab/FreeBusy/FreeBusyTest.php,v 1.13 2009/06/09 23:23:38 slusarz Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -71,8 +67,8 @@ class Horde_Kolab_FreeBusy_FreeBusyTest extends Horde_Kolab_Test_FreeBusy
     {
         include_once 'Horde/Kolab/Storage.php';
 
-        $folder = Kolab_Storage::getShare('INBOX/Calendar', 'event');
-        $data   = Kolab_Storage::getData($folder, 'event', 1);
+        $folder = Horde_Kolab_Storage::getShare('INBOX/Calendar', 'event');
+        $data   = Horde_Kolab_Storage::getData($folder, 'event', 1);
         $object = array(
             'uid' => 1,
             'summary' => 'test',
@@ -100,7 +96,7 @@ class Horde_Kolab_FreeBusy_FreeBusyTest extends Horde_Kolab_Test_FreeBusy
 
         $_GET['folder'] = 'wrobel@example.org/Calendar';
 
-        $fb = &new Horde_Kolab_FreeBusy();
+        $fb = new Horde_Kolab_FreeBusy();
 
         /** Trigger the free/busy cache update */
         $view = $fb->trigger();
@@ -125,7 +121,7 @@ class Horde_Kolab_FreeBusy_FreeBusyTest extends Horde_Kolab_Test_FreeBusy
         $_GET['extended'] = '1';
 
         $req_folder = Horde_Util::getFormData('folder', '');
-        $access = &new Horde_Kolab_FreeBusy_Access();
+        $access = new Horde_Kolab_FreeBusy_Access();
         $result = $access->parseFolder($req_folder);
         $this->assertEquals('wrobel@example.org', $access->owner);
 
@@ -135,14 +131,14 @@ class Horde_Kolab_FreeBusy_FreeBusyTest extends Horde_Kolab_Test_FreeBusy
         $result = $this->server->fetch($result, 'Horde_Kolab_Server_Object_Kolab_User');
         $this->assertNoError($result);
 
-        $fb = &new Horde_Kolab_FreeBusy();
+        $fb = new Horde_Kolab_FreeBusy();
         $view = $fb->trigger();
         $this->assertEquals('Horde_Kolab_FreeBusy_View_vfb', get_class($view));
 
         /** Test triggering an invalid folder */
         $_GET['folder'] = '';
 
-        $fb = &new Horde_Kolab_FreeBusy();
+        $fb = new Horde_Kolab_FreeBusy();
 
         /** Trigger the free/busy cache update */
         $view = $fb->trigger();
@@ -167,7 +163,7 @@ class Horde_Kolab_FreeBusy_FreeBusyTest extends Horde_Kolab_Test_FreeBusy
         $_GET['folder'] = 'wrobel@example.org/Calendar';
         $_GET['extended'] = '1';
 
-        $fb = &new Horde_Kolab_FreeBusy();
+        $fb = new Horde_Kolab_FreeBusy();
         $view = $fb->trigger();
         $this->assertEquals('Horde_Kolab_FreeBusy_View_vfb', get_class($view));
 

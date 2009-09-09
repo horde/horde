@@ -45,48 +45,8 @@ class Horde_Kolab_Test_FreeBusy extends Horde_Kolab_Test_Storage
     public function prepareConfiguration()
     {
         $fh = fopen(HORDE_BASE . '/config/conf.php', 'w');
-        $data = <<<EOD
-\$conf['use_ssl'] = 2;
-\$conf['server']['name'] = \$_SERVER['SERVER_NAME'];
-\$conf['server']['port'] = \$_SERVER['SERVER_PORT'];
-\$conf['debug_level'] = E_ALL;
-\$conf['umask'] = 077;
-\$conf['compress_pages'] = true;
-\$conf['menu']['always'] = false;
-\$conf['portal']['fixed_blocks'] = array();
-\$conf['imsp']['enabled'] = false;
-
-/** Additional config variables required for a clean Horde setup */
-\$conf['session']['use_only_cookies'] = false;
-\$conf['session']['timeout'] = 0;
-\$conf['cookie']['path'] = '/';
-\$conf['cookie']['domain'] = \$_SERVER['SERVER_NAME'];
-\$conf['use_ssl'] = false;
-\$conf['session']['cache_limiter'] = 'nocache';
-\$conf['session']['name'] = 'Horde';
-\$conf['log']['enabled'] = false;
-\$conf['prefs']['driver'] = 'session';
-\$conf['auth']['driver'] = 'kolab';
-\$conf['share']['driver'] = 'kolab';
-\$conf['debug_level'] = E_ALL;
-
-/** Make the share driver happy */
-\$conf['kolab']['enabled'] = true;
-
-/** Ensure we still use the LDAP test driver */
-\$conf['kolab']['server']['driver'] = 'test';
-
-/** Ensure that we do not trigger on folder update */
-\$conf['kolab']['no_triggering'] = true;
-
-/** Storage location for the free/busy system */
-\$conf['fb']['cache_dir']             = '/tmp';
-\$conf['kolab']['freebusy']['server'] = 'https://fb.example.org/freebusy';
-
-/** Setup the virtual file system for Kolab */
-\$conf['vfs']['params']['all_folders'] = true;
-\$conf['vfs']['type'] = 'kolab';
-
+        $data = $this->getConfiguration();
+        $data .= <<<EOD
 \$conf['kolab']['ldap']['phpdn'] = null;
 \$conf['fb']['use_acls'] = true;
 EOD;
@@ -168,7 +128,7 @@ EOD;
             $_GET['folder']   = $arguments[0];
             $_GET['extended'] = '1';
 
-            $fb = &new Horde_Kolab_FreeBusy();
+            $fb = new Horde_Kolab_FreeBusy();
 
             $world['result']['trigger'] = $fb->trigger();
 
@@ -179,7 +139,7 @@ EOD;
             $_GET['uid']   = $arguments[0];
             $_GET['extended'] = '1';
 
-            $fb = &new Horde_Kolab_FreeBusy();
+            $fb = new Horde_Kolab_FreeBusy();
 
             $world['result']['fetch'] = $fb->fetch();
 

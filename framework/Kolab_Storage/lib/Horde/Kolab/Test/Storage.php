@@ -173,14 +173,8 @@ class Horde_Kolab_Test_Storage extends Horde_Kolab_Test_Server
         $GLOBALS['browser'] = new Horde_Browser();
     }
 
-    /**
-     * Prepare the configuration.
-     *
-     * @return NULL
-     */
-    public function prepareConfiguration()
+    protected function getConfiguration()
     {
-        $fh = fopen(HORDE_BASE . '/config/conf.php', 'w');
         $data = <<<EOD
 \$conf['use_ssl'] = 2;
 \$conf['server']['name'] = \$_SERVER['SERVER_NAME'];
@@ -224,6 +218,18 @@ class Horde_Kolab_Test_Storage extends Horde_Kolab_Test_Server
 \$conf['vfs']['params']['all_folders'] = true;
 \$conf['vfs']['type'] = 'kolab';
 EOD;
+        return $data;
+    }
+
+    /**
+     * Prepare the configuration.
+     *
+     * @return NULL
+     */
+    public function prepareConfiguration()
+    {
+        $fh = fopen(HORDE_BASE . '/config/conf.php', 'w');
+        $data = $this->getConfiguration();
         fwrite($fh, "<?php\n" . $data);
         fclose($fh);
     }
