@@ -1011,7 +1011,7 @@ class Horde_Kolab_Format_Xml
         @include_once 'Horde/Prefs/CategoryManager.php';
         if ($this->_create_categories
             && class_exists('Prefs_CategoryManager')
-            && isset($prefs) && is_a($prefs, 'Prefs')) {
+            && isset($prefs) && $prefs instanceOf Prefs) {
             $cManager         = new Prefs_CategoryManager();
             $horde_categories = $cManager->get();
         } else {
