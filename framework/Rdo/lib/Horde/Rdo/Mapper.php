@@ -253,7 +253,7 @@ abstract class Horde_Rdo_Mapper implements Countable
                 }
 
                 if (isset($relationships[$m->table])) {
-                    $o->$relationship = $m->map($relationships[$m->table]);
+                    $object->$relationship = $m->map($relationships[$m->table]);
                 }
             }
         }
