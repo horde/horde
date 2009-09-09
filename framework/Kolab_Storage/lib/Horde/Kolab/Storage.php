@@ -304,7 +304,7 @@ class Horde_Kolab_Storage
      */
     public function &listFolders()
     {
-        $this->initiateCache();
+        $this->_initiateCache();
         $result = array_keys($this->_list);
         return $result;
     }
@@ -317,7 +317,7 @@ class Horde_Kolab_Storage
      *
      * @return array An array of Horde_Kolab_Storage_Folder objects.
      */
-    function getFolders($folders = null)
+    public function getFolders($folders = null)
     {
         if (!isset($folders)) {
             $folders = $this->listFolders();
@@ -337,7 +337,7 @@ class Horde_Kolab_Storage
      *
      * @return Horde_Kolab_Storage_Folder The Kolab folder object.
      */
-    function &getFolder($folder)
+    public function &getFolder($folder)
     {
         if (!isset($this->_folders[$folder])) {
             $result = $this->getConnection($folder);
@@ -356,7 +356,7 @@ class Horde_Kolab_Storage
      *
      * @return Horde_Kolab_Storage_Folder The new Kolab folder object.
      */
-    function getNewFolder($connection = null)
+    public function getNewFolder($connection = null)
     {
         if (empty($connection) || !isset($this->connections[$connection])) {
             $connection = &$this->connections['BASE'];
@@ -376,9 +376,9 @@ class Horde_Kolab_Storage
      *
      * @return Horde_Kolab_Storage_Folder The Kolab folder object.
      */
-    function getByShare($share, $type)
+    public function getByShare($share, $type)
     {
-        $folder = $this->parseShare($share, $type);
+        $folder = $this->_parseShare($share, $type);
         return $this->getFolder($folder);
     }
 
@@ -389,9 +389,9 @@ class Horde_Kolab_Storage
      *
      * @return Horde_Kolab_Storage_Folder The list of Kolab folder objects.
      */
-    function getByType($type)
+    public function getByType($type)
     {
-        $this->initiateCache();
+        $this->_initiateCache();
         if (isset($this->_types[$type])) {
             return $this->getFolders($this->_types[$type]);
         } else {
@@ -406,9 +406,9 @@ class Horde_Kolab_Storage
      *
      * @return mixed The default folder, false if there is no default.
      */
-    function getDefault($type)
+    public function getDefault($type)
     {
-        $this->initiateCache();
+        $this->_initiateCache();
         if (isset($this->_defaults[$this->_owner][$type])) {
             return $this->getFolder($this->_defaults[$this->_owner][$type]);
         } else {
@@ -424,9 +424,9 @@ class Horde_Kolab_Storage
      *
      * @return mixed The default folder, false if there is no default.
      */
-    function getForeignDefault($owner, $type)
+    public function getForeignDefault($owner, $type)
     {
-        $this->initiateCache();
+        $this->_initiateCache();
         if (isset($this->_defaults[$owner][$type])) {
             return $this->getFolder($this->_defaults[$owner][$type]);
         } else {
@@ -442,7 +442,7 @@ class Horde_Kolab_Storage
      *
      * @return string The corrected folder name.
      */
-    function parseShare($share, $type)
+    private function _parseShare($share, $type)
     {
         // Handle default shares
         if (class_exists('Horde_Auth')
@@ -460,7 +460,7 @@ class Horde_Kolab_Storage
      *
      * @return NULL
      */
-    function initiateCache()
+    private function _initiateCache()
     {
         if (isset($this->_list) && isset($this->_types) && isset($this->_defaults)) {
             return;
@@ -506,9 +506,9 @@ class Horde_Kolab_Storage
      *
      * @return NULL
      */
-    function addToCache(&$folder)
+    public function addToCache(&$folder)
     {
-        $this->initiateCache();
+        $this->_initiateCache();
 
         try {
             $type    = $folder->getType();
@@ -536,9 +536,9 @@ class Horde_Kolab_Storage
      *
      * @return NULL
      */
-    function removeFromCache(&$folder)
+    public function removeFromCache(&$folder)
     {
-        $this->initiateCache();
+        $this->_initiateCache();
 
         unset($this->_folders[$folder->name]);
         if (isset($this->_list)) {
