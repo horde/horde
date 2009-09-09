@@ -2,9 +2,13 @@
 /**
  * All tests for the Kolab_FreeBusy:: package.
  *
- * $Horde: framework/Kolab_FreeBusy/test/Horde/Kolab/FreeBusy/AllTests.php,v 1.2 2009/01/06 17:49:24 jan Exp $
+ * PHP version 5
  *
- * @package Kolab_FreeBusy
+ * @category Kolab
+ * @package  Kolab_FreeBusy
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
 
 /**
@@ -20,27 +24,46 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
 /**
  * Combine the tests for this package.
  *
- * $Horde: framework/Kolab_FreeBusy/test/Horde/Kolab/FreeBusy/AllTests.php,v 1.2 2009/01/06 17:49:24 jan Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @package Kolab_FreeBusy
+ * @category Kolab
+ * @package  Kolab_FreeBusy
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
-class Horde_Kolab_FreeBusy_AllTests {
+class Horde_Kolab_FreeBusy_AllTests
+{
 
+    /**
+     * Main entry point for running the suite.
+     *
+     * @return NULL
+     */
     public static function main()
     {
         PHPUnit_TextUI_TestRunner::run(self::suite());
     }
 
+    /**
+     * Collect the unit tests of this directory into a new suite.
+     *
+     * @return PHPUnit_Framework_TestSuite The test suite.
+     */
     public static function suite()
     {
+        // Catch strict standards
+        // FIXME: This does not work yet, as we still have a number of
+        //        static methods in basic Horde libraries that are not
+        //        declared as such.
+        //error_reporting(E_ALL | E_STRICT);
+
         $suite = new PHPUnit_Framework_TestSuite('Horde Framework - Horde_Kolab_FreeBusy');
 
-        $basedir = dirname(__FILE__);
+        $basedir    = dirname(__FILE__);
         $baseregexp = preg_quote($basedir . DIRECTORY_SEPARATOR, '/');
 
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($basedir)) as $file) {
