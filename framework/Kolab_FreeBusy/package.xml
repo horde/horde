@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Kolab_FreeBusy</name>
+ <channel>pear.horde.org</channel>
+ <summary>A package for providing free/busy information.</summary>
+ <description>This package provides free/busy information for the
+ users of a Kolab server. A Kolab client changing calendar data in an
+ IMAP folder is required to call the triggering script provided within
+ this package via HTTP. This will refresh the cache maintained by this
+ package with partial free/busy data. This partial data sets are
+ finally combined to the complete free/busy information once a client
+ requests this data for a particular user.
+ </description>
+ <lead>
+  <name>Gunnar Wrobel</name>
+  <user>wrobel</user>
+  <email>p@rdus.de</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Thomas Jarosch</name>
+  <user>jarosch</user>
+  <email>thomas.jarosch@intra2net.com</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-04-25</date>
+ <version>
+  <release>0.1.5</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+ <notes>
+  * Adapted the package to the changes in Kolab_Server.
+  * kolab/issue3537 (Allowing xfb access to groups does not work)
+  * Improved handling of dba access.
+  * Extended support for more complex scenario testing.
+ </notes>
+ <contents>
+  <dir name="/">
+   <file name="COPYING" role="doc" />
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Kolab">
+      <file name="FreeBusy.php" role="php" />
+      <dir name="FreeBusy">
+       <file name="Access.php" role="php" />
+       <file name="Cache.php" role="php" />
+       <file name="Imap.php" role="php" />
+       <file name="Report.php" role="php" />
+       <file name="View.php" role="php" />
+      </dir> <!-- /lib/Horde/Kolab/FreeBusy -->
+      <dir name="Test">
+       <file name="FreeBusy.php" role="php" />
+      </dir> <!-- /lib/Horde/Kolab/Test -->
+     </dir> <!-- /lib/Horde/Kolab -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Kolab">
+      <dir name="FreeBusy">
+       <file name="AllTests.php" role="test" />
+       <file name="FreeBusyTest.php" role="test" />
+       <file name="FreeBusyScenarioTest.php" role="test" />
+      </dir> <!-- /test/Horde/Kolab/FreeBusy -->
+     </dir> <!-- /test/Horde/Kolab -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+   <dir name="www">
+    <dir name="Horde">
+     <dir name="Kolab">
+      <dir name="FreeBusy">
+       <file name="config.php" role="www" />
+       <file name="freebusy.php" role="www" />
+       <file name="pfb.php" role="www" />
+       <file name="regenerate.php" role="www" />
+      </dir> <!-- /www/Horde/Kolab/FreeBusy -->
+     </dir> <!-- /www/Horde/Kolab -->
+    </dir> <!-- /www/Horde -->
+   </dir> <!-- /www -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>Kolab_Format</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.1</min>
+   </package>
+   <package>
+    <name>Kolab_Server</name>
+    <channel>pear.horde.org</channel>
+    <min>0.5.0</min>
+   </package>
+   <package>
+    <name>Kolab_Storage</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Horde_iCalendar</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Horde_Date</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Kolab/FreeBusy.php" as="Horde/Kolab/FreeBusy.php" />
+   <install name="lib/Horde/Kolab/FreeBusy/Access.php" as="Horde/Kolab/FreeBusy/Access.php" />
+   <install name="lib/Horde/Kolab/FreeBusy/Cache.php" as="Horde/Kolab/FreeBusy/Cache.php" />
+   <install name="lib/Horde/Kolab/FreeBusy/Imap.php" as="Horde/Kolab/FreeBusy/Imap.php" />
+   <install name="lib/Horde/Kolab/FreeBusy/Report.php" as="Horde/Kolab/FreeBusy/Report.php" />
+   <install name="lib/Horde/Kolab/FreeBusy/View.php" as="Horde/Kolab/FreeBusy/View.php" />
+   <install name="lib/Horde/Kolab/Test/FreeBusy.php" as="Horde/Kolab/Test/FreeBusy.php" />
+   <install name="test/Horde/Kolab/FreeBusy/AllTests.php" as="Horde/Kolab/FreeBusy/AllTests.php" />
+   <install name="test/Horde/Kolab/FreeBusy/FreeBusyTest.php" as="Horde/Kolab/FreeBusy/FreeBusyTest.php" />
+   <install name="test/Horde/Kolab/FreeBusy/FreeBusyScenarioTest.php" as="Horde/Kolab/FreeBusy/FreeBusyScenarioTest.php" />
+   <install name="www/Horde/Kolab/FreeBusy/config.php" as="config.php" />
+   <install name="www/Horde/Kolab/FreeBusy/freebusy.php" as="freebusy.php" />
+   <install name="www/Horde/Kolab/FreeBusy/pfb.php" as="pfb.php" />
+   <install name="www/Horde/Kolab/FreeBusy/regenerate.php" as="regenerate.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <date>2009-04-02</date>
+   <version>
+    <release>0.1.4</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <notes>
+    * kolab/issue3450 (freebusy/user@example.com.ifb returns extended
+      free/busy information)
+    * kolab/issue3527 (no immediately printing of folders during
+      freebusy cache regeneration)
+   </notes>
+  </release>
+  <release>
+   <date>2009-03-06</date>
+   <version>
+    <release>0.1.3</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <notes>
+     * SERVER_NAME undefined in freebusy/regenerate.php (kolab/issue3446,
+       https://www.intevation.de/roundup/kolab/issue3446)
+     * freebusy cache regeneration on the command line looks confusing
+       (kolab/issue3415, https://www.intevation.de/roundup/kolab/issue3415)
+     * kolabFreeBusyPast is not used (kolab/issue3438,
+       https://www.intevation.de/roundup/kolab/issue3438)
+     * Fixed manager access in the regeneration script
+       kolab/issue3313 (free/busy regeneration as manager broken in 2.2.1-beta1)
+   </notes>
+  </release>
+  <release>
+   <date>2008-12-12</date>
+   <version>
+    <release>0.1.2</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <notes>
+     * Fixed copyright information.
+   </notes>
+  </release>
+  <release>
+   <date>2008-12-05</date>
+   <version>
+    <release>0.1.1</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+    * Fixed handling of extended free/busy information.
+    * Fixed storing acl values when the folder is triggered by a foreign user 
+      kolab/issue3208 (Free/Busy list is always empty)
+    * Fixed identification of the corresponding free/busy server.
+    * Implemented extended free/busy access concept.
+    * kolab/issue3256 (resmgr responses should reflect server revision in PRODID)
+   </notes>
+  </release>
+  <release>
+   <date>2008-10-29</date>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+     * Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>
