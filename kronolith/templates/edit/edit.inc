@@ -232,7 +232,7 @@ if ($event->alarm) {
 <tr>
  <td></td>
  <td colspan="4">
-  <?php echo Horde::link(Horde::applicationUrl('attendees.php'), '', 'button', '_blank', 'date = $H({ year: $F(\'start_year\'), month: $F(\'start_month\'), mday: $F(\'start_day\') }); this.href += (this.href.indexOf(\'?\') == -1 ? \'?\' : \'&\') + date.toQueryString();Horde.popup({ url: this.href });return false;') . _("Edit Attendees") . '</a>' ?>
+  <?php echo Horde::link(Horde::applicationUrl('attendees.php'), '', 'button', '_blank', 'date = $F(\'start_year\') + (\'000\' + $F(\'start_month\')).slice(-2) + (\'000\' + $F(\'start_day\')).slice(-2); this.href += (this.href.indexOf(\'?\') == -1 ? \'?\' : \'&\') + \'date=\' + date;Horde.popup({ url: this.href });return false;') . _("Edit Attendees") . '</a>' ?>
  </td>
 </tr>
 </tbody>
