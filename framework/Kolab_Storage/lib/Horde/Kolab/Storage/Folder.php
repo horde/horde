@@ -667,7 +667,7 @@ class Horde_Kolab_Storage_Folder
      *
      * @param Kolab_List $list  The handler for the list of folders.
      *
-     * @return Kolab_Data|PEAR_Error  The data handler.
+     * @return Horde_Kolab_Storage_Data The data handler.
      */
     function &getData($object_type = null, $data_version = 1)
     {
@@ -692,7 +692,7 @@ class Horde_Kolab_Storage_Folder
             } else {
                 $type = 'annotation';
             }
-            $data = new Kolab_Data($type, $object_type, $data_version);
+            $data = new Horde_Kolab_Storage_Data($type, $object_type, $data_version);
             $data->setFolder($this);
             $data->synchronize();
             $this->_data[$key] = &$data;

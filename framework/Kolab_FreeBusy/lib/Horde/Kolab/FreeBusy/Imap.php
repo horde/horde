@@ -2,19 +2,21 @@
 /**
  * IMAP access for Kolab free/busy.
  *
- * $Horde: framework/Kolab_FreeBusy/lib/Horde/Kolab/FreeBusy/Imap.php,v 1.10 2009/07/14 00:28:33 mrubinsk Exp $
+ * PHP version 5
  *
- * @package Kolab_FreeBusy
+ * @category Kolab
+ * @package  Kolab_FreeBusy
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
 
-/** We need the Kolab Stores library for connecting to the IMAP storage. */
-require_once 'Horde/Kolab/Storage/List.php';
-
-/** We need the Date library for event handling. */
-require_once 'Horde/Date.php';
-
-/** We need the Recurrence library for recurrence handling. */
-require_once 'Horde/Date/Recurrence.php';
+/**
+ * The Autoloader allows us to omit "require/include" statements.
+ */
+require_once 'Horde/Autoloader.php';
 
 /** Event status - Taken from Kronolith*/
 define('KRONOLITH_STATUS_NONE', 0);
@@ -30,18 +32,19 @@ define('KRONOLITH_STATUS_FREE', 4);
  * This class is a merged result from the Kolab free/busy package and
  * the Horde::Kronolith free/busy driver.
  *
- * $Horde: framework/Kolab_FreeBusy/lib/Horde/Kolab/FreeBusy/Imap.php,v 1.10 2009/07/14 00:28:33 mrubinsk Exp $
- *
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
  *
- * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
- * @package Kolab_FreeBusy
+ * @category Kolab
+ * @package  Kolab_FreeBusy
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
 class Horde_Kolab_FreeBusy_Imap {
 
@@ -90,9 +93,15 @@ class Horde_Kolab_FreeBusy_Imap {
     /**
      * Initialize the free/busy IMAP handler.
      */
-    function Horde_Kolab_FreeBusy_Imap()
+    public function __construct()
     {
-        $this->_kolab = &Kolab_List::singleton();
+        //@todo: Make Kolab_FreeBusy session-less again and ensure we get the
+        //driver information as well as the login credentials here.
+        $params = array('driver'   => 'Mock',
+                        'username' => $username,
+                        'password' => $password);
+
+        $this->_kolab = &Horde_Kolab_Storage::singleton('Imap', $params);
     }
 
     /**

@@ -46,14 +46,11 @@ class Horde_Kolab_FreeBusy_FreeBusyTest extends Horde_Kolab_Test_FreeBusy
         $conf['kolab']['freebusy']['server'] = 'https://fb.example.org/freebusy';
         $conf['fb']['use_acls'] = true;
 
-        $this->assertTrue($world['auth']->authenticate('wrobel@example.org',
-                                                        array('password' => 'none')));
+        $this->storage = $this->authenticate($world['auth'],
+					     'wrobel@example.org',
+					     'none');
 
-        $folder = $world['storage']->getNewFolder();
-        $folder->setName('Calendar');
-        $this->assertNoError($folder->save(array('type' => 'event',
-                                                 'default' => true)));
-
+        $this->folder = $this->prepareNewFolder($this->storage, 'Calendar', 'event', true);
         $this->server = $world['server'];
         $this->auth = $world['auth'];
     }
@@ -65,10 +62,8 @@ class Horde_Kolab_FreeBusy_FreeBusyTest extends Horde_Kolab_Test_FreeBusy
      */
     public function _addEvent($start)
     {
-        include_once 'Horde/Kolab/Storage.php';
-
-        $folder = Horde_Kolab_Storage::getShare('INBOX/Calendar', 'event');
-        $data   = Horde_Kolab_Storage::getData($folder, 'event', 1);
+        $folder = $this->storage->getShare('INBOX/Calendar', 'event');
+        $data   = $this->storage->getData($folder, 'event', 1);
         $object = array(
             'uid' => 1,
             'summary' => 'test',
@@ -78,9 +73,6 @@ class Horde_Kolab_FreeBusy_FreeBusyTest extends Horde_Kolab_Test_FreeBusy
 
         /* Add the event */
         $result = $data->save($object);
-        if (is_a($result, 'PEAR_Error')) {
-            $this->assertEquals('', $result->getMessage());
-        }
     }
 
     /**
