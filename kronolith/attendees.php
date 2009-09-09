@@ -158,10 +158,8 @@ case 'dismiss':
     if (!empty($url)) {
         $location = Horde::applicationUrl($url, true);
     } else {
-        $date = Horde_Util::getFormData('date');
-        $date = new Horde_Date($date);
-        $url = Horde_Util::addParameter($prefs->getValue('defaultview') . '.php', 'month', $date->month);
-        $url = Horde_Util::addParameter($url, 'year', $date->year);
+        $date = new Horde_Date(Horde_Util::getFormData('date'));
+        $url = Horde_Util::addParameter($prefs->getValue('defaultview') . '.php', 'date',  $date->dateString());
         $location = Horde::applicationUrl($url, true);
     }
 
