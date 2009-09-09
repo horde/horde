@@ -99,7 +99,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="CacheTest.php" role="test" />
        <file name="DataTest.php" role="test" />
        <file name="FolderTest.php" role="test" />
-       <file name="ListTest.php" role="test" />
+       <file name="StorageTest.php" role="test" />
        <file name="PermissionTest.php" role="test" />
       </dir> <!-- /test/Horde/Kolab/Storage -->
      </dir> <!-- /test/Horde/Kolab -->
@@ -197,7 +197,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="test/Horde/Kolab/Storage/CacheTest.php" as="Horde/Kolab/Storage/CacheTest.php" />
    <install name="test/Horde/Kolab/Storage/DataTest.php" as="Horde/Kolab/Storage/DataTest.php" />
    <install name="test/Horde/Kolab/Storage/FolderTest.php" as="Horde/Kolab/Storage/FolderTest.php" />
-   <install name="test/Horde/Kolab/Storage/ListTest.php" as="Horde/Kolab/Storage/ListTest.php" />
+   <install name="test/Horde/Kolab/Storage/StorageTest.php" as="Horde/Kolab/Storage/StorageTest.php" />
    <install name="test/Horde/Kolab/Storage/PermissionTest.php" as="Horde/Kolab/Storage/PermissionTest.php" />
   </filelist>
  </phprelease>
