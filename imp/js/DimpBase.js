@@ -652,7 +652,7 @@ var DimpBase = {
             break;
 
         case 'ctx_folder_empty':
-            mbox = baseelt.up('LI').readAttribute('mbox');
+            mbox = baseelt.up('LI').retrieve('mbox');
             if (window.confirm(DIMP.text.empty_folder.replace(/%s/, mbox))) {
                 DimpCore.doAction('EmptyFolder', { view: mbox }, null, this._emptyFolderCallback.bind(this));
             }
@@ -667,17 +667,17 @@ var DimpBase = {
 
         case 'ctx_folder_seen':
         case 'ctx_folder_unseen':
-            this.flagAll('\\seen', id == 'ctx_folder_seen', baseelt.up('LI').readAttribute('mbox'));
+            this.flagAll('\\seen', id == 'ctx_folder_seen', baseelt.up('LI').retrieve('mbox'));
             break;
 
         case 'ctx_folder_poll':
         case 'ctx_folder_nopoll':
-            this.modifyPoll(baseelt.up('LI').readAttribute('mbox'), id == 'ctx_folder_poll');
+            this.modifyPoll(baseelt.up('LI').retrieve('mbox'), id == 'ctx_folder_poll');
             break;
 
         case 'ctx_folder_sub':
         case 'ctx_folder_unsub':
-            this.subscribeFolder(baseelt.up('LI').readAttribute('mbox'), id == 'ctx_folder_sub');
+            this.subscribeFolder(baseelt.up('LI').retrieve('mbox'), id == 'ctx_folder_sub');
             break;
 
         case 'ctx_container_create':
@@ -799,7 +799,7 @@ var DimpBase = {
             elts = $('ctx_folder_create', 'ctx_folder_rename', 'ctx_folder_delete');
             baseelt = baseelt.up('LI');
 
-            if (baseelt.readAttribute('mbox') == 'INBOX') {
+            if (baseelt.retrieve('mbox') == 'INBOX') {
                 elts.invoke('hide');
                 if ($('ctx_folder_sub')) {
                     $('ctx_folder_sub', 'ctx_folder_unsub').invoke('hide');
@@ -812,7 +812,7 @@ var DimpBase = {
                 }
 
                 if (DIMP.conf.fixed_folders &&
-                    DIMP.conf.fixed_folders.indexOf(baseelt.readAttribute('mbox')) != -1) {
+                    DIMP.conf.fixed_folders.indexOf(baseelt.retrieve('mbox')) != -1) {
                     elts.shift();
                     elts.invoke('hide');
                 } else {
@@ -820,9 +820,9 @@ var DimpBase = {
                 }
             }
 
-            tmp = baseelt.hasAttribute('u');
-            [ $('ctx_folder_poll') ].invoke(tmp ? 'hide' : 'show');
-            [ $('ctx_folder_nopoll') ].invoke(tmp ? 'show' : 'hide');
+            tmp = Object.isUndefined(baseelt.retrieve('u'));
+            [ $('ctx_folder_poll') ].invoke(tmp ? 'show' : 'hide');
+            [ $('ctx_folder_nopoll') ].invoke(tmp ? 'hide' : 'show');
 
             tmp = $(this.getSubFolderId(baseelt.readAttribute('id')));
             $('ctx_folder_collapse', 'ctx_folder_expand').invoke(tmp ? 'show' : 'hide');
@@ -868,7 +868,7 @@ var DimpBase = {
         } else {
             elt = $(this.getFolderId(this.folder));
             if (elt) {
-                unseen = elt.readAttribute('u');
+                unseen = elt.retrieve('u');
                 if (unseen > 0) {
                     label += ' (' + unseen + ')';
                 }
@@ -1163,7 +1163,7 @@ var DimpBase = {
         }
 
         sel = this.viewport.createSelection('dataob', r);
-        unseen = Number($(this.getFolderId(r.view)).readAttribute('u'));
+        unseen = Number($(this.getFolderId(r.view)).retrieve('u'));
 
         unseen += setflag ? -1 : 1;
         this.updateFlag(sel, '\\seen', setflag);
@@ -1203,21 +1203,21 @@ var DimpBase = {
             elt = $(fid);
 
         if (!elt ||
-            !elt.hasAttribute('u') ||
-            elt.readAttribute('u') == unseen) {
+            Object.isUndefined(elt.retrieve('u')) ||
+            elt.retrieve('u') == unseen) {
             return;
         }
 
         unseen = Number(unseen);
-        elt.writeAttribute('u', unseen);
+        elt.store('u', unseen);
 
         if (f == 'INBOX' && window.fluid) {
             window.fluid.setDockBadge(unseen ? unseen : '');
         }
 
-        $(fid).down('A').update((unseen > 0) ?
-            new Element('STRONG').insert(elt.readAttribute('l')).insert('&nbsp;').insert(new Element('SPAN', { className: 'count', dir: 'ltr' }).insert('(' + unseen + ')')) :
-            elt.readAttribute('l'));
+        elt.down('A').update((unseen > 0) ?
+            new Element('STRONG').insert(elt.retrieve('l')).insert('&nbsp;').insert(new Element('SPAN', { className: 'count', dir: 'ltr' }).insert('(' + unseen + ')')) :
+            elt.retrieve('l'));
     },
 
     getFolderId: function(f)
@@ -1271,7 +1271,7 @@ var DimpBase = {
     {
         var q = $('quota').cleanWhitespace();
         q.setText(r.m);
-        q.down('SPAN.used IMG').writeAttribute({ width: 99 - r.p });
+        q.down('SPAN.used IMG').writeAttribute('width', 99 - r.p);
     },
 
     setPoll: function()
@@ -1377,14 +1377,14 @@ var DimpBase = {
     _folderDropHandler: function(drop, drag, e)
     {
         var dropbase, sel, uids,
-            foldername = drop.readAttribute('mbox'),
-            ftype = drop.readAttribute('ftype');
+            foldername = drop.retrieve('mbox'),
+            ftype = drop.retrieve('ftype');
 
         if (drag.hasClassName('folder')) {
             dropbase = (drop == $('dropbase'));
             if (dropbase ||
                 (ftype != 'special' && !this.isSubfolder(drag, drop))) {
-                DimpCore.doAction('RenameFolder', { old_name: drag.readAttribute('mbox'), new_parent: dropbase ? '' : foldername, new_name: drag.readAttribute('l') }, null, this.bcache.get('folderC') || this.bcache.set('folderC', this._folderCallback.bind(this)));
+                DimpCore.doAction('RenameFolder', { old_name: drag.retrieve('mbox'), new_parent: dropbase ? '' : foldername, new_name: drag.retrieve('l') }, null, this.bcache.get('folderC') || this.bcache.set('folderC', this._folderCallback.bind(this)));
             }
         } else if (ftype != 'container') {
             sel = this.viewport.getSelected();
@@ -1392,7 +1392,7 @@ var DimpBase = {
             if (sel.size()) {
                 // Dragging multiple selected messages.
                 uids = sel;
-            } else if (drag.readAttribute('mbox') != foldername) {
+            } else if (drag.retrieve('mbox') != foldername) {
                 // Dragging a single unselected message.
                 uids = this.viewport.createSelection('domid', drag.id);
             }
@@ -1787,7 +1787,7 @@ var DimpBase = {
 
         folder = $(folder);
         var n = this._createFolderForm(this._folderAction.bindAsEventListener(this, folder, 'rename'), DIMP.text.rename_prompt);
-        n.down('input').setValue(folder.readAttribute('l'));
+        n.down('input').setValue(folder.retrieve('l'));
     },
 
     /* Handle insert folder actions. */
@@ -1834,10 +1834,10 @@ var DimpBase = {
             switch (mode) {
             case 'rename':
                 folder = folder.up('LI');
-                if (folder.readAttribute('l') != val) {
+                if (folder.retrieve('l') != val) {
                     action = 'RenameFolder';
-                    params = { old_name: folder.readAttribute('mbox'),
-                               new_parent: folder.up().hasClassName('folderlist') ? '' : folder.up(1).previous().readAttribute('mbox'),
+                    params = { old_name: folder.retrieve('mbox'),
+                               new_parent: folder.up().hasClassName('folderlist') ? '' : folder.up(1).previous().retrieve('mbox'),
                                new_name: val };
                 }
                 break;
@@ -1847,7 +1847,7 @@ var DimpBase = {
                 action = 'CreateFolder';
                 params = { view: val };
                 if (mode == 'createsub') {
-                    params.parent = folder.up('LI').readAttribute('mbox');
+                    params.parent = folder.up('LI').retrieve('mbox');
                 }
                 break;
             }
@@ -1982,7 +1982,7 @@ var DimpBase = {
         if (elt.hasClassName('exp') || elt.hasClassName('col')) {
             this._toggleSubFolder(li, 'tog');
         } else {
-            switch (li.readAttribute('ftype')) {
+            switch (li.retrieve('ftype')) {
             case 'container':
             case 'scontainer':
                 e.stop();
@@ -1992,7 +1992,7 @@ var DimpBase = {
             case 'special':
             case 'virtual':
                 e.stop();
-                return this.go('folder:' + li.readAttribute('mbox'));
+                return this.go('folder:' + li.retrieve('mbox'));
             }
         }
     },
@@ -2070,7 +2070,7 @@ var DimpBase = {
             div.setStyle({ backgroundImage: 'url("' + ob.i + '")' });
         }
 
-        li = new Element('LI', { className: cname, id: fid, l: label, mbox: mbox, title: title }).insert(div).insert(new Element('A').insert(label));
+        li = new Element('LI', { className: cname, id: fid, title: title }).store('l', label).store('mbox', mbox).insert(div).insert(new Element('A').insert(label));
 
         // Now walk through the parent <ul> to find the right place to
         // insert the new folder.
@@ -2106,7 +2106,7 @@ var DimpBase = {
             if (!ob.v) {
                 ll = mbox.toLowerCase();
                 f_node = parent_e.childElements().find(function(node) {
-                    var nodembox = node.readAttribute('mbox');
+                    var nodembox = node.retrieve('mbox');
                     return nodembox &&
                            (!ob.s || nodembox != 'INBOX') &&
                            (ll < nodembox.toLowerCase());
@@ -2125,7 +2125,7 @@ var DimpBase = {
             }
         }
 
-        li.writeAttribute('ftype', ftype);
+        li.store('ftype', ftype);
 
         // Make the new folder a drop target.
         if (!ob.v) {
@@ -2134,7 +2134,7 @@ var DimpBase = {
 
         // Check for unseen messages
         if (ob.po) {
-            li.writeAttribute('u', '');
+            li.store('u', '');
             this.setFolderLabel(mbox, ob.u);
         }
 
@@ -2418,7 +2418,7 @@ var DimpBase = {
 
         if (r.add) {
             p.response.poll[f] = r.poll.u;
-            fid.writeAttribute('u', 0);
+            fid.store('u', 0);
         } else {
             p.response.poll[f] = 0;
         }
@@ -2426,7 +2426,7 @@ var DimpBase = {
         this._pollCallback(p);
 
         if (!r.add) {
-            fid.removeAttribute('u');
+            fid.store('u', null);
         }
     },
 
@@ -2642,9 +2642,9 @@ DimpBase._folderDragConfig = {
 DimpBase._folderDropConfig = {
     caption: function(drop, drag, e) {
         var m,
-            d = drag.readAttribute('l'),
-            ftype = drop.readAttribute('ftype'),
-            l = drop.readAttribute('l');
+            d = drag.retrieve('l'),
+            ftype = drop.retrieve('ftype'),
+            l = drop.retrieve('l');
 
         if (drop == $('dropbase')) {
             return DIMP.text.moveto.replace(/%s/, d).replace(/%s/, DIMP.text.baselevel);
