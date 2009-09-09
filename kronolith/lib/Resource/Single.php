@@ -42,7 +42,12 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
                       $e->hasStatus(Kronolith::STATUS_FREE)) &&
                      $e->getUID() !== $uid) {
 
-                    return false;
+                     if (!($e->start->compareDateTime($event->end) >= 1 ||
+                         $e->end->compareDateTime($event->start) <= -1)) {
+                        // $e starts after $event ends  OR $e ends before $event->start
+
+                         return false;
+                     }
                 }
             }
         }
@@ -118,6 +123,22 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         } else {
             throw new Horde_Exception(_("Resource already exists. Cannot change the id."));
         }
+    }
+
+    /**
+     * @TODO: need to fine tune this
+     * @param $user
+     * @param $permission
+     * @param $restrict
+     * @return unknown_type
+     */
+    public function hasPermission($user, $permission = PERMS_READ, $restrict = null)
+    {
+        if (Horde_Auth::isAdmin()) {
+            return true;
+        }
+
+        return false;
     }
 
 }
