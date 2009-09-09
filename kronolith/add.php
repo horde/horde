@@ -16,7 +16,7 @@ if (!Horde_Util::getFormData('cancel')) {
         $calendar_id = $targetcalendar;
         $user = Horde_Auth::getAuth();
     }
-    $share = &$kronolith_shares->getShare($calendar_id);
+    $share = Kronolith::getInternalCalendar($calendar_id);
     if (is_a($share, 'PEAR_Error')) {
         $notification->push(sprintf(_("There was an error accessing the calendar: %s"), $share->getMessage()), 'horde.error');
     } elseif ($user != Horde_Auth::getAuth() &&
