@@ -43,7 +43,8 @@ $kronolith_driver = Kronolith::getDriver();
 
 if ($exception = Horde_Util::getFormData('del_exception')) {
     $calendar = Horde_Util::getFormData('calendar');
-    $share = &$kronolith_shares->getShare($calendar);
+    //$share = &$kronolith_shares->getShare($calendar);
+    $share = Kronolith::getInternalCalendar($calendar);
     if (is_a($share, 'PEAR_Error')) {
         $notification->push(sprintf(_("There was an error accessing the calendar: %s"), $share->getMessage()), 'horde.error');
     } else {
@@ -64,8 +65,8 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
         $target = $targetcalendar;
         $user = Horde_Auth::getAuth();
     }
-    $share = &$kronolith_shares->getShare($target);
-
+    //$share = &$kronolith_shares->getShare($target);
+    $share = Kronolith::getInternalCalendar($target);
     if (is_a($share, 'PEAR_Error')) {
         $notification->push(sprintf(_("There was an error accessing the calendar: %s"), $share->getMessage()), 'horde.error');
     } else {
