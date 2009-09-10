@@ -12,11 +12,11 @@ abstract class Horde_Icalendar_Base implements Iterator
      */
     protected $_properties = array();
 
-    protected $_params;
-
-    public function __construct($params)
+    public function __construct($properties = array())
     {
-        $this->_params = $params;
+        foreach ($properties as $property => $value) {
+            $this->addProperty($property, $value);
+        }
     }
 
     /**
@@ -74,8 +74,8 @@ abstract class Horde_Icalendar_Base implements Iterator
      */
     public function setProperty($property, $value, $params = array())
     {
-        $this->$name = $value;
-        $this->_properties[$property]['params'] = array($params);
+        $this->$property = $value;
+        $this->_properties[$property]['params'] = $params;
     }
 
     /**
@@ -93,7 +93,7 @@ abstract class Horde_Icalendar_Base implements Iterator
     {
         $this->_validate($property, $value);
         if (!$this->_properties[$property]['multiple'] &&
-            !isset($this->_properties[$property]['value'])) {
+            isset($this->_properties[$property]['value'])) {
             throw new Horde_Icalendar_Exception($property . ' properties must not occur more than once.');
         }
         if (isset($this->_properties[$property]['value'])) {
@@ -177,8 +177,8 @@ abstract class Horde_Icalendar_Base implements Iterator
                     break;
                 default:
                     // @todo Use LSB (static::__CLASS__) once we require PHP 5.3
-                    $component = Horde_String::upper(str_replace('Horde_Icalendar_Component_', '', get_class($this)));
-                    throw new Horde_Icalendar_Exception($component . ' components must have a ' . $name . ' property set');
+                    $component = Horde_String::upper(str_replace('Horde_Icalendar_', '', get_class($this)));
+                    throw new Horde_Icalendar_Exception('This ' . $component . ' component must have a ' . $name . ' property set');
                 }
             }
         }
@@ -217,7 +217,7 @@ abstract class Horde_Icalendar_Base implements Iterator
         $this->validate();
         $writer = Horde_Icalendar_Writer::factory(
             str_replace('Horde_Icalendar_', '', get_class($this)),
-            str_replace('.', '', $this->_params['version']));
+            str_replace('.', '', $this->version));
         return $writer->export($this);
     }
 

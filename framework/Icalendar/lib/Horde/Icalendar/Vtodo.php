@@ -5,7 +5,7 @@ class Horde_Icalendar_Vtodo extends Horde_Icalendar_Base
     /**
      * Constructor.
      */
-    public function __construct()
+    public function __construct($properties = array())
     {
         $this->_properties += array(
             'uid' => array('required' => true,
@@ -26,6 +26,7 @@ class Horde_Icalendar_Vtodo extends Horde_Icalendar_Base
             'description' => array('required' => false,
                                    'multiple' => false,
                                    'type' => 'string'));
+        parent::__construct($properties);
     }
 
 }

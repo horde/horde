@@ -5,7 +5,7 @@ class Horde_Icalendar_Vfreebusy extends Horde_Icalendar_Base
     /**
      * Constructor.
      */
-    public function __construct()
+    public function __construct($properties = array())
     {
         $this->_properties += array(
             'uid' => array('required' => true,
@@ -18,6 +18,7 @@ class Horde_Icalendar_Vfreebusy extends Horde_Icalendar_Base
                              'multiple' => false,
                              'class' => 'Horde_Date'),
         );
+        parent::__construct($properties);
     }
 
     /**

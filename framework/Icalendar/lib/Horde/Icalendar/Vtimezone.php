@@ -5,7 +5,7 @@ class Horde_Icalendar_Vtimezone extends Horde_Icalendar_Base
     /**
      * Constructor.
      */
-    public function __construct()
+    public function __construct($properties = array())
     {
         $this->_properties += array(
             /*
@@ -19,6 +19,7 @@ class Horde_Icalendar_Vtimezone extends Horde_Icalendar_Base
                              'multiple' => false,
                              'class' => 'Horde_Date'),
         );
+        parent::__construct($properties);
     }
 
 }
