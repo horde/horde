@@ -89,7 +89,7 @@ function switchDateView(view, date)
  <tr><td colspan="4"><em><?php echo _("No attendees") ?></em></td></tr>
 <?php else: foreach ($resources as $id => $resource): ?>
  <tr>
-  <td class="nowrap"><?php echo Horde::img('delete.png', '', null, $registry->getImageDir('horde')) . ' ' . Horde::img('edit.png', '', null, $registry->getImageDir('horde')) . ' ' ?></td>
+  <td class="nowrap"><?php echo Horde::link('#', sprintf(_("Remove %s"), $resource['name']), '', '', "performAction('removeResource', " . $id . "); return false;") . Horde::img('delete.png', '', null, $registry->getImageDir('horde')) ?></a></td>
   <td><?php echo htmlspecialchars($resource['name']) ?></td>
   <td colspan="2">
     <?php switch ($resource['response']) {
@@ -99,6 +99,8 @@ function switchDateView(view, date)
         case Kronolith::RESPONSE_DECLINED:
             echo _("Declined");
             break;
+        default:
+            echo _("Pending");
     } ?>
   </td>
  </tr>
@@ -121,8 +123,18 @@ function switchDateView(view, date)
   </td>
 <?php if ($registry->hasMethod('contacts/search')): ?>
   <td align="center"><?php echo Horde::link('#', '', 'widget', null, 'window.open(\'' . Horde::applicationUrl('contacts.php') . '\', \'contacts\', \'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=270,left=100,top=100\'); return false;') . Horde::img('addressbook_browse.png') . '<br />' . _("Address Book") . '</a>' ?></td>
-  <td width="100%"><?php echo _("resources link") ?></td>
 <?php endif; ?>
+ </tr>
+ <tr>
+  <td class="rightAlign"><strong><?php echo _("Add resource")?></strong></td>
+  <td width="100%">
+    <select id="resourceselect" name="resourceselect">
+     <option value="0"><?php echo _("Select resource")?></option>
+    <?php foreach ($allResources as $resource):?>
+        <?php printf('<option value="%s">%s</option>', $resource->id, $resource->name) ?>
+    <?php endforeach;?>
+    </select>
+  </td>
  </tr>
 </table>
 
