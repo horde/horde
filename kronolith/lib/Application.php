@@ -237,7 +237,7 @@ class Kronolith_Application extends Horde_Registry_Application
     /**
      * TODO
      */
-    protected function _prefsHandleFbCalsSelect()
+    protected function _prefsFbCalsSelect()
     {
         $fb_calsSelected = Horde_Util::getFormData('fb_cals');
         $fb_cals = Kronolith::listCalendars();
