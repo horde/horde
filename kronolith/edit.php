@@ -43,7 +43,6 @@ $kronolith_driver = Kronolith::getDriver();
 
 if ($exception = Horde_Util::getFormData('del_exception')) {
     $calendar = Horde_Util::getFormData('calendar');
-    //$share = &$kronolith_shares->getShare($calendar);
     $share = Kronolith::getInternalCalendar($calendar);
     if (is_a($share, 'PEAR_Error')) {
         $notification->push(sprintf(_("There was an error accessing the calendar: %s"), $share->getMessage()), 'horde.error');
@@ -65,7 +64,6 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
         $target = $targetcalendar;
         $user = Horde_Auth::getAuth();
     }
-    //$share = &$kronolith_shares->getShare($target);
     $share = Kronolith::getInternalCalendar($target);
     if (is_a($share, 'PEAR_Error')) {
         $notification->push(sprintf(_("There was an error accessing the calendar: %s"), $share->getMessage()), 'horde.error');
@@ -133,7 +131,7 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
             if ($target != $source) {
                 // Only delete the event from the source calendar if this user
                 // has permissions to do so.
-                $sourceShare = &$kronolith_shares->getShare($source);
+                $sourceShare = Kronolith::getInternalCalendar($source);
                 if (!is_a($share, 'PEAR_Error') &&
                     !is_a($sourceShare, 'PEAR_Error') &&
                     $sourceShare->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE) &&
