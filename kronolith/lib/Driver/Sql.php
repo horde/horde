@@ -739,9 +739,11 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $resources = $event->getResources();
         if (count($resources)) {
             $rd = Kronolith::getDriver('Resource');
-            foreach (array_keys($resources) as $uid) {
-                $r = $rd->getResource($uid);
-                $r->removeEvent($event);
+            foreach ($resources as $uid => $resource) {
+                if ($resource['response'] !== Kronolith::RESPONSE_DECLINED) {
+                    $r = $rd->getResource($uid);
+                    $r->removeEvent($event);
+                }
             }
         }
 

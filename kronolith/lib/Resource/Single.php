@@ -44,8 +44,6 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
 
                      if (!($e->start->compareDateTime($event->end) >= 1 ||
                          $e->end->compareDateTime($event->start) <= -1)) {
-                        // $e starts after $event ends  OR $e ends before $event->start
-
                          return false;
                      }
                 }
@@ -95,11 +93,11 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
     {
         $driver = Kronolith::getDriver('Resource', $this->calendar);
         $re = $driver->getByUID($event->getUID(), array($this->calendar));
-        if ($re instanceof PEAR_Error) {
-            throw new Horde_Exception ($re->getMessage());
+        // Event will only be in the calendar if it's been accepted. This error
+        // should never happen, but put it here as a safeguard for now.
+        if (!($re instanceof PEAR_Error)) {
+            $driver->deleteEvent($re->getId());
         }
-
-        $driver->deleteEvent($re->getId());
     }
 
     /**
@@ -124,4 +122,5 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
             throw new Horde_Exception(_("Resource already exists. Cannot change the id."));
         }
     }
+
 }
