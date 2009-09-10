@@ -101,7 +101,6 @@ case 'add':
 
     // Any new resources?
     if (!empty($newResource)) {
-
         /* Get the requested resource */
         $resource = Kronolith::getDriver('Resource')->getResource($newResource);
 
