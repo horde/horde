@@ -2028,15 +2028,15 @@ class Kronolith
     }
 
     /**
-     * Return a list of resources that the current user has access to administer.
+     * Return a list of resources that the current user has access to at the
+     * specified permission level. Right now, all users have PERMS_READ, but
+     * only system admins have PERMS_EDIT | PERMS_DELETE
      *
      * @return array of Kronolith_Resource objects
      */
-    static public function listResources($params = array())
+    static public function listResources($perms = PERMS_READ, $params = array())
     {
-        // For now, keep this check here. Maybe move this to the resource
-        // driver object?
-        if (!Horde_Auth::isAdmin()) {
+        if (($perms & (PERMS_EDIT | PERMS_DELETE)) && !Horde_Auth::isAdmin()) {
             return array();
         }
 
