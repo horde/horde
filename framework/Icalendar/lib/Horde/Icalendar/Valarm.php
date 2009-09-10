@@ -1,6 +1,6 @@
 <?php
 
-class Horde_Icalendar_Component_Valarm extends Horde_Icalendar_Component_Base
+class Horde_Icalendar_Valarm extends Horde_Icalendar_Base
 {
     /**
      * Constructor.

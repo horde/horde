@@ -20,9 +20,9 @@ class Horde_Icalendar_WriterTest extends Horde_Test_Case
 
     public function testEscapes()
     {
-        $ical = new Horde_Icalendar_Icalendar(array('version' => '2.0'));
-        $event1 = new Horde_Icalendar_Component_Vevent();
-        $event2 = new Horde_Icalendar_Component_Vevent();
+        $ical = new Horde_Icalendar_Vcalendar(array('version' => '2.0'));
+        $event1 = new Horde_Icalendar_Vevent();
+        $event2 = new Horde_Icalendar_Vevent();
 
         $event1->uid = '20041120-8550-innerjoin-org';
         $event1->startDate = new Horde_Date(array('year' => 2005, 'month' => 5, 'mday' => 3));
@@ -36,8 +36,8 @@ class Horde_Icalendar_WriterTest extends Horde_Test_Case
         $event2->summary = 'Dash (rather than Comma) in the Description Field';
         $event2->description = 'There are important words after this dash - see anything here or have the words gone?';
 
-        $ical->addComponent($event1);
-        $ical->addComponent($event2);
+        $ical->components[] = $event1;
+        $ical->components[] = $event2;
 
         $this->assertEquals('BEGIN:VCALENDAR
 VERSION:2.0
@@ -60,7 +60,7 @@ DESCRIPTION:There are important words after this dash - see anything here
   or have the words gone?
 END:VEVENT
 END:VCALENDAR',
-        $ical->export());
+                            $ical->export());
     }
 
 }

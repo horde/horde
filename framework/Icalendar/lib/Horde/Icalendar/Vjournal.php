@@ -1,6 +1,6 @@
 <?php
 
-class Horde_Icalendar_Component_Vtodo extends Horde_Icalendar_Component_Base
+class Horde_Icalendar_Vjournal extends Horde_Icalendar_Base
 {
     /**
      * Constructor.
@@ -11,12 +11,6 @@ class Horde_Icalendar_Component_Vtodo extends Horde_Icalendar_Component_Base
             'uid' => array('required' => true,
                            'multiple' => false,
                            'type' => 'string'),
-            'start' => array('required' => false,
-                             'multiple' => false,
-                             'class' => 'Horde_Date'),
-            'startDate' => array('required' => false,
-                                 'multiple' => false,
-                                 'class' => 'Horde_Date'),
             'stamp' => array('required' => true,
                              'multiple' => false,
                              'class' => 'Horde_Date'),

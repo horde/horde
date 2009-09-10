@@ -1,6 +1,6 @@
 <?php
 
-class Horde_Icalendar_Component_Vtimezone extends Horde_Icalendar_Component_Base
+class Horde_Icalendar_Vtimezone extends Horde_Icalendar_Base
 {
     /**
      * Constructor.
