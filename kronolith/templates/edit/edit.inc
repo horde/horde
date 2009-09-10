@@ -70,13 +70,15 @@
     <?php
     $creator = $event->getCreatorId();
     if (!empty($GLOBALS['display_resource_calendars'])) {
+        // We are editing/viewing resource calendars
         foreach ($GLOBALS['display_resource_calendars'] as $cal) {
-            echo $cal;
+            $rd = Kronolith::getDriver('Resource');
+            $rc = $rd->getResource($rd->getResourceIdByCalendar($cal));
             printf('<option value="%s"%s>%s</option>',
-                    htmlspecialchars($cal), '', $cal) . "\n";
+                    htmlspecialchars($cal), '', $rc->name) . "\n";
         }
     } else {
-
+        // Normal view
         foreach ($calendars as $id => $cal) {
             $delegates = array();
             if ($cal->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT, $creator)) {
