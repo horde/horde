@@ -1542,7 +1542,7 @@ abstract class Kronolith_Event
     }
 
     /**
-     * Adds a Kronolith_Resource to this event.
+     * Adds a single Kronolith_Resource to this event.
      * No validation or acceptence/denial is done here...it should be done
      * when saving the Event.
      *
@@ -1557,6 +1557,18 @@ abstract class Kronolith_Event
             'response' => $response,
             'name' => $resource->name
         );
+    }
+
+    /**
+     * Directly set/replace the _resources array. Called from Event::readForm
+     * to bulk load the resources from $_SESSION
+     *
+     * @param $resources
+     * @return unknown_type
+     */
+    public function setResources($resources)
+    {
+        $this->_resources = $resources;
     }
 
     /**
@@ -1643,6 +1655,11 @@ abstract class Kronolith_Event
         // Attendees.
         if (isset($_SESSION['kronolith']['attendees']) && is_array($_SESSION['kronolith']['attendees'])) {
             $this->setAttendees($_SESSION['kronolith']['attendees']);
+        }
+
+        // Resources
+        if (isset($_SESSION['kronolith']['resources']) && is_array($_SESSION['kronolith']['resources'])) {
+            $this->setResources($_SESSION['kronolith']['resources']);
         }
 
         // strptime() is locale dependent, i.e. %p is not always matching
