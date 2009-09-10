@@ -2064,16 +2064,4 @@ class Kronolith
         }
     }
 
-
-    static public function getInternalCalendar($target)
-    {
-        if (self::isResourceCalendar($target)) {
-            $driver = self::getDriver('Resource');
-            $id = $driver->getResourceIdByCalendar($target);
-            return $driver->getResource($id);
-        } else {
-            return $GLOBALS['kronolith_shares']->getShare($target);
-        }
-    }
-
 }
