@@ -19,6 +19,7 @@ function _save(&$event)
     } elseif (Horde_Util::getFormData('sendupdates', false)) {
         Kronolith::sendITipNotifications($event, $GLOBALS['notification'], Kronolith::ITIP_REQUEST);
     }
+    Kronolith::notifyOfResoruceRejection($event);
 }
 
 function _check_max()
@@ -73,6 +74,7 @@ if ($exception = Horde_Util::getFormData('del_exception')) {
         if (($edit_recur = Horde_Util::getFormData('edit_recur')) &&
             $edit_recur != 'all' && $edit_recur != 'copy' &&
             _check_max()) {
+
             /* Get event details. */
             $kronolith_driver->open($source);
             $event = &$kronolith_driver->getEvent(Horde_Util::getFormData('eventID'));

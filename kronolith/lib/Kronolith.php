@@ -1538,6 +1538,29 @@ class Kronolith
     }
 
     /**
+     * Check for resource declines and push notice to stack if found.
+     *
+     * @param Kronolith_Event #
+     */
+    public static function notifyOfResoruceRejection($event)
+    {
+        $declined = array();
+        foreach ($event->getResources() as $id => $resource) {
+            if ($resource['response'] == Kronolith::RESPONSE_DECLINED) {
+                $r = Kronolith::getDriver('Resource')->getResource($id);
+                $declined[] = $r->name;
+            }
+        }
+        if (count($declined)) {
+            $GLOBALS['notification']->push(sprintf(ngettext("The following resource has declined your request: %s",
+                                                            "The following resources have declined your request: %s",
+                                                            count($declined)),
+                                                    implode(", ", $declined)),
+                                           'horde.error');
+        }
+    }
+
+    /**
      * Returns whether a user wants email notifications for a calendar.
      *
      * @access private

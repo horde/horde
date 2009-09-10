@@ -39,6 +39,7 @@ if (!Horde_Util::getFormData('cancel')) {
 
             $notification->push(sprintf(_("There was an error adding the event: %s"), $message), 'horde.error');
         } else {
+            Kronolith::notifyOfResoruceRejection($event);
             if (Horde_Util::getFormData('sendupdates', false)) {
                 $event = Kronolith::getDriver()->getEvent($result);
                 if (is_a($event, 'PEAR_Error')) {
