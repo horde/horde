@@ -8,9 +8,8 @@ require_once dirname(__FILE__) . '/lib/base.php';
 $title = _("Edit resources");
 
 $resources = array();
-$resources = Kronolith::listResources();
+$resources = Kronolith::listResources((PERMS_DELETE));
 $display_url_base = Horde::applicationUrl('month.php', true, -1);
-
 
 require KRONOLITH_TEMPLATES . '/common-header.inc';
 require KRONOLITH_TEMPLATES . '/menu.inc';
@@ -59,7 +58,6 @@ function shorten_url($url, $separator = '...', $first_chunk_length = 35, $last_c
 
     return $url;
 }
-var_dump($resources);
 /* Test creating a new resource */
 //$new = array('name' => _("Another Big Meeting Room"),
 //             'category' => 'conference rooms');
@@ -67,21 +65,5 @@ var_dump($resources);
 //$resource = new Kronolith_Resource_Single($new);
 //$results = Kronolith::addResource($resource);
 //var_dump($results);
-
-/* Test adding resource to event */
-$resource = Kronolith::getDriver('Resource')->getResource(9);
-
-/* Any driver/event */
-$driver = Kronolith::getDriver('Sql');
-$event = $driver->getByUID('20090909152832.6360407aq83e5nsw@localhost');
-$event->addResource($resource, Kronolith::RESPONSE_NONE);
-$event->save();
-
-
-//
-////var_dump($resource->getFreeBusy(null, null, true));
-//
-/* Test listing resources */
-//var_dump(Kronolith::listResources());
 ?>
 </div>
