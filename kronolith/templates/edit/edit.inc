@@ -232,10 +232,10 @@ if ($event->alarm) {
  </td>
 </tr>
 
-<!-- attendees -->
+<!-- attendees/resources -->
 <tr>
  <td colspan="5" class="control toggle" onclick="KronolithEventForm.toggleSection('attendees')">
-  <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_attendees'), $GLOBALS['registry']->getImageDir('horde')) . ' <strong>' . _("Attendees") ?></strong>
+  <?php echo Horde::img('tree/blank.png', '', array('id' => 'toggle_attendees'), $GLOBALS['registry']->getImageDir('horde')) . ' <strong>' . _("Attendees and Resources") ?></strong>
   <span class="extra"><?php echo htmlspecialchars(Kronolith::attendeeList()) ?></span>
  </td>
 </tr>
