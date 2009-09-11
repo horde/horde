@@ -1,24 +1,30 @@
 <?php
 /**
- * A script for fetching the Kolab Free/Busy information.
- *
- * $Horde: framework/Kolab_FreeBusy/www/Horde/Kolab/FreeBusy/freebusy.php,v 1.6 2009/07/14 00:28:33 mrubinsk Exp $
+ * The web entry point for the Kolab free/busy system.
  *
  * Copyright 2004-2009 Klarälvdalens Datakonsult AB
  *
- * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
- * @author  Gunnar Wrobel <p@rdus.de>
- * @author  Thomas Arendsen Hein <thomas@intevation.de>
- * @package Kolab_FreeBusy
+ * See the enclosed file COPYING for license information (LGPL). If you did not
+ * receive this file, see
+ * http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ *
+ * PHP version 5
+ *
+ * @category Kolab
+ * @package  Kolab_FreeBusy
+ * @author   Thomas Arendsen Hein <thomas@intevation.de>
+ * @author   Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
 
-/** Load the required free/busy library */
-require_once 'Horde/Kolab/FreeBusy.php';
+/**
+ * The Autoloader allows us to omit "require/include" statements.
+ */
+require_once 'Horde/Autoloader.php';
 
-/** Load the configuration */
-require_once 'config.php';
-
-$fb = new Horde_Kolab_FreeBusy();
-$view = $fb->fetch();
-$view->render();
-
+/** Dispatch the request. */
+$params = array('config' => array('dir' => dirname(__FILE__) . '/config'));
+$application = Horde_Kolab_FreeBusy::singleton($params);
+$application->dispatch();

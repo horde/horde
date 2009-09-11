@@ -1,340 +1,320 @@
 <?php
 /**
- * The Kolab implementation of free/busy.
+ * The Kolab implementation of the free/busy system.
  *
- * $Horde: framework/Kolab_FreeBusy/lib/Horde/Kolab/FreeBusy.php,v 1.14 2009/07/14 00:28:33 mrubinsk Exp $
+ * PHP version 5
  *
- * @package Kolab_FreeBusy
+ * @category Kolab
+ * @package  Kolab_FreeBusy
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
-
-/** PEAR for raising errors */
-require_once 'PEAR.php';
-
-/** View classes for the result */
-require_once 'Horde/Kolab/FreeBusy/View.php';
-
-/** A class that handles access restrictions */
-require_once 'Horde/Kolab/FreeBusy/Access.php';
 
 /**
- * How to use this class
+ * The Horde_Kolab_FreeBusy class serves as Registry aka ServiceLocator for the
+ * Free/Busy application. It also provides the entry point into the the Horde
+ * MVC system and allows to dispatch a request.
  *
- * require_once 'config.php';
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
- * $fb = new Kolab_Freebusy();
+ * See the enclosed file COPYING for license information (LGPL). If you did not
+ * receive this file, see
+ * http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
  *
- * $fb->trigger();
- *
- * OR
- *
- * $fb->fetch();
- *
- * $Horde: framework/Kolab_FreeBusy/lib/Horde/Kolab/FreeBusy.php,v 1.14 2009/07/14 00:28:33 mrubinsk Exp $
- *
- * Copyright 2004-2008 Klarälvdalens Datakonsult AB
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
- *
- * @since   Horde 3.2
- * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
- * @author  Gunnar Wrobel <wrobel@pardus.de>
- * @author  Thomas Arendsen Hein <thomas@intevation.de>
- * @package Kolab_FreeBusy
+ * @category Kolab
+ * @package  Kolab_FreeBusy
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
+ * @since    Horde 3.2
  */
-class Horde_Kolab_FreeBusy {
-
+class Horde_Kolab_FreeBusy
+{
     /**
-     * Parameters provided to this class.
+     * Singleton value.
      *
-     * @var array
+     * @var Horde_Kolab_FreeBusy
      */
-    var $_params;
+    static protected $instance;
 
     /**
-     * Link to the cache.
+     * The object representing the request.
      *
-     * @var Horde_Kolab_FreeBusy_Cache
+     * @var Horde_Controller_Request_Base
      */
-    var $_cache;
+    private $_request;
 
     /**
-     * Setup the cache.
+     * The object representing the request<->controller mapping.
+     *
+     * @var Horde_Routes_Mapper
      */
-    function _initCache()
+    private $_mapper;
+
+    /**
+     * The request dispatcher.
+     *
+     * @var Horde_Controller_Dispatcher
+     */
+    private $_dispatcher;
+
+    /**
+     * Constructor.
+     *
+     * @param array $params The parameters required to initialize the
+     *                      application.
+     */
+    public function __construct($params = array())
     {
-        global $conf;
+        $this->_params = $params;
+    }
 
-        /* Load the cache class now */
-        require_once 'Horde/Kolab/FreeBusy/Cache.php';
+    /**
+     * Returns a reference to the global Horde_Kolab_FreeBusy object,
+     * only creating it if it doesn't already exist.
+     *
+     * This method must be invoked as:
+     *   $registry = Horde_Kolab_FreeBusy::singleton()
+     *
+     * We expect this method to be invoked *once* on application startup. At
+     * that point the parameters need to be set to correctly initialize the
+     * system.
+     *
+     * The singleton should then later be only used by the Controllers to access
+     * different system components (by using the MVC system we loose connection
+     * to this class within the controllers so we need global state here).
+     *
+     * @param array $params The parameters required to initialize the
+     *                      application.
+     * <pre>
+     * 'script'  - (string) Script name in relation to the document root.
+     *                      [optional]
+     *
+     * 'config'  - (array)  Indicates where to find configuration options.
+     *                      [optional]
+     *
+     *     'dir'      - (string) Configuration files can be found in this
+     *                           directory.
+     *
+     * 'request' - (array)  Options for the request object. [optional]
+     *
+     *     'class'    - (string) The class of request object to use (should
+     *                           obviously match the request type).
+     *     'params'   - (array)  Additional parameters to use on request
+     *                           object construction.
+     *
+     * 'mapper'  - (array)  Options for the mapper object. [optional]
+     *
+     *     'params'   - (array)  Additional parameters to use on mapper
+     *                           object construction.
+     *
+     * 'dispatch'- (array)  Options for the dispatcher object. [optional]
+     *
+     *     'controllerDir' - (string) The directory holding controllers.
+     *     'viewsDir'      - (string) The directory holding views.
+     *
+     * </pre>
+     *
+     * @return Horde_Kolab_FreeBusy  The Horde_Registry instance.
+     */
+    static public function singleton($params = array())
+    {
+        if (!isset(self::$instance)) {
+            self::$instance = new Horde_Kolab_FreeBusy($params);
+        }
 
-        /* Where is the cache data stored? */
-        if (!empty($conf['fb']['cache_dir'])) {
-            $cache_dir = $conf['fb']['cache_dir'];
-        } else {
-            if (class_exists('Horde')) {
-                $cache_dir = Horde::getTempDir();
+        return self::$instance;
+    }
+
+    /**
+     * Destroy the application context.
+     *
+     * @return NULL
+     */
+    static public function destroy()
+    {
+        self::$instance = null;
+    }
+
+    /**
+     * Inject the request object into the application context.
+     *
+     * @param Horde_Controller_Request_Base $request The object that should
+     *                                               represent the current
+     *                                               request.
+     *
+     * @return NULL
+     */
+    public function setRequest(Horde_Controller_Request_Base $request)
+    {
+        $this->_request = $request;
+    }
+
+    /**
+     * Return the object representing the current request.
+     *
+     * @return Horde_Controller_Request_Base The current request.
+     *
+     * @throws Horde_Exception
+     */
+    public function getRequest()
+    {
+        if (!isset($this->_request)) {
+            if (!empty($this->_params['request']['class'])) {
+                $request_class = $this->_params['request']['class'];
             } else {
-                $cache_dir = '/tmp';
+                $request_class = 'Horde_Controller_Request_Http';
             }
-        }
-
-        $this->_cache = new Horde_Kolab_FreeBusy_Cache($cache_dir);
-    }
-
-    /**
-     * Trigger regeneration of free/busy data in a calender.
-     */
-    function &trigger()
-    {
-        global $conf;
-
-        /* Get the folder name */
-        $req_folder = Horde_Util::getFormData('folder', '');
-
-        Horde::logMessage(sprintf("Starting generation of partial free/busy data for folder %s",
-                                  $req_folder), __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        /* Validate folder access */
-        $access = new Horde_Kolab_FreeBusy_Access();
-        $result = $access->parseFolder($req_folder);
-        if (is_a($result, 'PEAR_Error')) {
-            $error = array('type' => FREEBUSY_ERROR_NOTFOUND,
-                           'error' => $result);
-            $view = new Horde_Kolab_FreeBusy_View_error($error);
-            return $view;
-        }
-
-        Horde::logMessage(sprintf("Partial free/busy data of owner %s on server %s requested by user %s.",
-                                  $access->owner, $access->freebusyserver, $access->user),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        /* Get the cache request variables */
-        $req_cache    = Horde_Util::getFormData('cache', false);
-        $req_extended = Horde_Util::getFormData('extended', false);
-
-        /* Try to fetch the data if it is stored on a remote server */
-        $result = $access->fetchRemote(true, $req_extended);
-        if (is_a($result, 'PEAR_Error')) {
-            $error = array('type' => FREEBUSY_ERROR_UNAUTHORIZED,
-                           'error' => $result);
-            $view = new Horde_Kolab_FreeBusy_View_error($error);
-            return $view;
-        }
-
-        $this->_initCache();
-
-        if (!$req_cache) {
-            /* User wants to regenerate the cache */
-
-            /* Here we really need an authenticated IMAP user */
-            $result = $access->authenticated();
-            if (is_a($result, 'PEAR_Error')) {
-                $error = array('type' => FREEBUSY_ERROR_UNAUTHORIZED,
-                               'error' => $result);
-                $view = new Horde_Kolab_FreeBusy_View_error($error);
-                return $view;
+            if (!empty($this->_params['request']['params'])) {
+                $params = $this->_params['request']['params'];
+            } else {
+                $params = array();
             }
-
-            if (empty($access->owner)) {
-                $message = sprintf(_("No such account %s!"),
-                                   htmlentities($access->req_owner));
-                $error = array('type' => FREEBUSY_ERROR_NOTFOUND,
-                               'error' => PEAR::raiseError($message));
-                $view = new Horde_Kolab_FreeBusy_View_error($error);
-                return $view;
-            }
-
-            /* Update the cache */
-            $result = $this->_cache->store($access);
-            if (is_a($result, 'PEAR_Error')) {
-                $error = array('type' => FREEBUSY_ERROR_NOTFOUND,
-                               'error' => $result);
-                $view = new Horde_Kolab_FreeBusy_View_error($error);
-                return $view;
-            }
-        }
-
-        /* Load the cache data */
-        $vfb = $this->_cache->loadPartial($access, $req_extended);
-        if (is_a($vfb, 'PEAR_Error')) {
-            $error = array('type' => FREEBUSY_ERROR_NOTFOUND,
-                           'error' => $vfb);
-            $view = new Horde_Kolab_FreeBusy_View_error($error);
-            return $view;
-        }
-
-        Horde::logMessage("Delivering partial free/busy data.", __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        /* Generate the renderer */
-        $data = array('fb' => $vfb, 'name' => $access->owner . '.ifb');
-        $view = new Horde_Kolab_FreeBusy_View_vfb($data);
-
-        /* Finish up */
-        Horde::logMessage("Free/busy generation complete.", __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        return $view;
-    }
-
-    /**
-     * Fetch the free/busy data for a user.
-     */
-    function &fetch()
-    {
-        global $conf;
-
-        /* Get the user requsted */
-        $req_owner = Horde_Util::getFormData('uid');
-
-        Horde::logMessage(sprintf("Starting generation of free/busy data for user %s",
-                                  $req_owner), __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        /* Validate folder access */
-        $access = new Horde_Kolab_FreeBusy_Access();
-        $result = $access->parseOwner($req_owner);
-        if (is_a($result, 'PEAR_Error')) {
-            $error = array('type' => FREEBUSY_ERROR_NOTFOUND, 'error' => $result);
-            $view = new Horde_Kolab_FreeBusy_View_error($error);
-            return $view;
-        }
-
-        Horde::logMessage(sprintf("Free/busy data of owner %s on server %s requested by user %s.",
-                                  $access->owner, $access->freebusyserver, $access->user),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        $req_extended = Horde_Util::getFormData('extended', false);
-
-        /* Try to fetch the data if it is stored on a remote server */
-        $result = $access->fetchRemote(false, $req_extended);
-        if (is_a($result, 'PEAR_Error')) {
-            $error = array('type' => FREEBUSY_ERROR_UNAUTHORIZED, 'error' => $result);
-            $view = new Horde_Kolab_FreeBusy_View_error($error);
-            return $view;
-        }
-
-        $this->_initCache();
-
-        $result = $this->_cache->load($access, $req_extended);
-        if (is_a($result, 'PEAR_Error')) {
-            $error = array('type' => FREEBUSY_ERROR_NOTFOUND, 'error' => $result);
-            $view = new Horde_Kolab_FreeBusy_View_error($error);
-            return $view;
-        }
-
-        Horde::logMessage("Delivering complete free/busy data.", __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        /* Generate the renderer */
-        $data = array('fb' => $result, 'name' => $access->owner . '.vfb');
-        $view = new Horde_Kolab_FreeBusy_View_vfb($data);
-
-        /* Finish up */
-        Horde::logMessage("Free/busy generation complete.", __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        return $view;
-    }
-
-    /**
-     * Regenerate the free/busy cache.
-     */
-    function &regenerate($reporter)
-    {
-        $access = new Horde_Kolab_FreeBusy_Access();
-        $result = $access->authenticated();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result->getMessage();
-        }
-
-        /* Load the required Kolab libraries */
-        require_once "Horde/Kolab/Storage/List.php";
-
-        $list = &Kolab_List::singleton();
-        $calendars = $list->getByType('event');
-        if (is_a($calendars, 'PEAR_Error')) {
-            return $calendars->getMessage();
-        }
-
-        $this->_initCache();
-
-        $lines = array();
-
-        foreach ($calendars as $calendar) {
+            // Set up our request and routing objects
+            $this->_request = new $request_class($params);
             /**
-             * We are using imap folders for our calendar list but
-             * the library expects us to follow the trigger format
-             * used by pfb.php
+             * The HTTP request object would hide errors. Display them.
              */
-            $req_domain = explode('@', $calendar->name);
-            if (isset($req_domain[1])) {
-                $domain = $req_domain[1];
-            } else {
-                $domain = null;
+            if (isset($this->request->_exception)) {
+                throw $this->request->_exception;
             }
-            $req_folder = explode('/', $req_domain[0]);
-            if ($req_folder[0] == 'user') {
-                unset($req_folder[0]);
-                $owner = $req_folder[1];
-                unset($req_folder[1]);
-            } else if ($req_folder[0] == 'INBOX') {
-                $owner = $access->user;
-                unset($req_folder[0]);
-            }
-
-            $trigger = $owner . ($domain ? '@' . $domain : '') . '/' . join('/', $req_folder);
-            $trigger = Horde_String::convertCharset($trigger, 'UTF7-IMAP', 'UTF-8');
-
-            /* Validate folder access */
-            $result = $access->parseFolder($trigger);
-            if (is_a($result, 'PEAR_Error')) {
-                $reporter->failure($calendar->name, $result->getMessage());
-                continue;
-            }
-
-            /* Hack for allowing manager access */
-            if ($access->user == 'manager') {
-                $imapc = &Horde_Kolab_IMAP::singleton($GLOBALS['conf']['kolab']['imap']['server'],
-                                                      $GLOBALS['conf']['kolab']['imap']['port']);
-                $result = $imapc->connect($access->user, Horde_Auth::getCredential('password'));
-                if (is_a($result, 'PEAR_Error')) {
-                    $reporter->failure($calendar->name, $result->getMessage());
-                    continue;
-                }
-                $acl = $imapc->getACL($calendar->name);
-                if (is_a($acl, 'PEAR_Error')) {
-                    $reporter->failure($calendar->name, $result->getMessage());
-                    continue;
-                }
-                $oldacl = '';
-                if (isset($acl['manager'])) {
-                    $oldacl = $acl['manager'];
-                }
-                $result = $imapc->setACL($calendar->name, 'manager', 'lrs');
-                if (is_a($result, 'PEAR_Error')) {
-                    $reporter->failure($calendar->name, $result->getMessage());
-                    continue;
-                }
-            }
-
-            /* Update the cache */
-            $result = $this->_cache->store($access);
-            if (is_a($result, 'PEAR_Error')) {
-                $reporter->failure($calendar->name, $result->getMessage());
-                continue;
-            }
-
-            /* Revert the acl  */
-            if ($access->user == 'manager' && $oldacl) {
-                $result = $imapc->setACL($calendar->name, 'manager', $oldacl);
-                if (is_a($result, 'PEAR_Error')) {
-                    $reporter->failure($calendar->name, $result->getMessage());
-                    continue;
-                }
-            }
-
-            $reporter->success($calendar->name);
-
         }
-        return $lines;
+
+        return $this->_request;
+    }
+
+    /**
+     * Inject the mapper object into the application context.
+     *
+     * @param Horde_Route_Mapper $mapper The object that handles mapping.
+     *
+     * @return NULL
+     */
+    public function setMapper(Horde_Route_Mapper $mapper)
+    {
+        $this->_mapper = $mapper;
+    }
+
+    /**
+     * Return the mapper.
+     *
+     * @return Horde_Route_Mapper The mapper.
+     *
+     * @throws Horde_Exception
+     */
+    public function getMapper()
+    {
+        if (!isset($this->_mapper)) {
+            if (!empty($this->_params['mapper']['params'])) {
+                $params = $this->_params['mapper']['params'];
+            } else {
+                $params = array();
+            }
+            $this->_mapper = new Horde_Routes_Mapper($params);
+
+            /**
+             * Application routes are relative only to the application. Let the
+             * mapper know where they start.
+             */
+            if (!empty($this->_params['script'])) {
+                $this->_mapper->prefix = dirname($this->_params['script']);
+            } else {
+                $this->_mapper->prefix = dirname($_SERVER['PHP_SELF']);
+            }
+
+            // Check for route definitions.
+            if (!empty($this->_params['config']['dir'])) {
+                $routeFile = $this->_params['config']['dir'] . '/routes.php';
+            }
+            if (empty($this->_params['config']['dir'])
+                || !file_exists($routeFile)) {
+                $this->_mapper->connect('*(id).:(type)',
+                                        array('controller'   => 'freebusy',
+                                              'action'       => 'fetch',
+                                              'requirements' => array('type' => '(i|x|v|p|px)fb')
+                                        ));
+
+                $this->_mapper->connect('trigger/:id/:folder',
+                                        array('controller' => 'freebusy',
+                                              'action'     => 'trigger'));
+
+                $this->_mapper->connect('delete/:id',
+                                        array('controller' => 'freebusy',
+                                              'action'     => 'delete'));
+
+                $this->_mapper->connect('regenerate/:id',
+                                        array('controller' => 'freebusy',
+                                              'action'     => 'delete'));
+            } else {
+                // Load application routes.
+                include $routeFile;
+            }
+        }
+
+        return $this->_mapper;
+    }
+
+    /**
+     * Inject the dispatcher object into the application context.
+     *
+     * @param Horde_Controller_Dispatcher $dispatcher The object that handles
+     *                                                dispatching.
+     *
+     * @return NULL
+     */
+    public function setDispatcher(Horde_Controller_Dispatcher $dispatcher)
+    {
+        $this->_dispatcher = $dispatcher;
+    }
+
+    /**
+     * Return the dispatcher.
+     *
+     * @return Horde_Controller_Dispatcher The dispatcher.
+     *
+     * @throws Horde_Exception
+     */
+    public function getDispatcher()
+    {
+        if (!isset($this->_dispatcher)) {
+            if (empty($this->_params['dispatch']['controllerDir'])) {
+                $controllerDir = dirname(__FILE__) . '/FreeBusy/Controller';
+            } else {
+                $controllerDir = $this->_params['dispatch']['controllerDir'];
+            }
+
+            if (empty($this->_params['dispatch']['viewsDir'])) {
+                $viewsDir = dirname(__FILE__) . '/FreeBusy/View';
+            } else {
+                $viewsDir = $this->_params['dispatch']['viewsDir'];
+            }
+
+            $context = array(
+                'mapper' => $this->getMapper(),
+                'controllerDir' => $controllerDir,
+                'viewsDir' => $viewsDir,
+                // 'logger' => '',
+            );
+
+            $this->_dispatcher = Horde_Controller_Dispatcher::singleton($context);
+        }
+
+        return $this->_dispatcher;
+    }
+
+    /**
+     * Handle the current request.
+     *
+     * @return NULL
+     */
+    public function dispatch()
+    {
+        try {
+            $this->getDispatcher()->dispatch($this->getRequest());
+        } catch (Exception $e) {
+            //@todo: Error view
+            throw $e;
+        }
     }
 }
-
-
