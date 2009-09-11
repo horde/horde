@@ -52,6 +52,8 @@ case 'editform':
         if ($old_owner !== $new_owner && !empty($new_owner)) {
             if ($old_owner != Horde_Auth::getAuth() && !Horde_Auth::isAdmin()) {
                 $notification->push(_("Only the owner or system administrator may change ownership or owner permissions for a share"), 'horde.error');
+            } elseif ($auth->hasCapability('list') && !$auth->exists($new_owner)) {
+                $notification->push(sprintf(_("The user \"%s\" does not exist."), Auth::removeHook($new_owner)), 'horde.error');
             } else {
                 $share->set('owner', $new_owner);
                 $share->save();
@@ -153,6 +155,10 @@ case 'editform':
             // If the user is empty, or we've already set permissions
             // via the owner_ options, don't do anything here.
             if (empty($user) || $user == $new_owner) {
+                continue;
+            }
+            if ($auth->hasCapability('list') && !$auth->exists($user)) {
+                $notification->push(sprintf(_("The user \"%s\" does not exist."), Auth::removeHook($user)), 'horde.error');
                 continue;
             }
 
