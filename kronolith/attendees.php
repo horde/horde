@@ -108,7 +108,7 @@ case 'add':
         $resources[$newResource] = array(
             'attendance' => Kronolith::PART_IGNORE,
             'response'   => Kronolith::RESPONSE_NONE,
-            'name'       => $resource->name,
+            'name'       => $resource->get('name'),
         );
 
         $_SESSION['kronolith']['resources'] = $resources;

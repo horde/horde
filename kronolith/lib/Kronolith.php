@@ -1548,7 +1548,7 @@ class Kronolith
         foreach ($event->getResources() as $id => $resource) {
             if ($resource['response'] == Kronolith::RESPONSE_DECLINED) {
                 $r = Kronolith::getDriver('Resource')->getResource($id);
-                $declined[] = $r->name;
+                $declined[] = $r->get('name');
             }
         }
         if (count($declined)) {
@@ -2008,9 +2008,6 @@ class Kronolith
             $menu->add(Horde::applicationUrl('data.php'), _("_Import/Export"), 'data.png', $registry->getImageDir('horde'));
         }
 
-        /* Resources */
-        $menu->add(Horde::applicationUrl('resources.php'), _("Resources"), 'resource.png');
-
         return $menu;
     }
 
@@ -2047,7 +2044,7 @@ class Kronolith
     {
         // Create a new calendar id.
         $calendar = 'resource_' . hash('md5', microtime());
-        $resource->calendar = $calendar;
+        $resource->set('calendar', $calendar);
         $driver = Kronolith::getDriver('Resource');
 
         return $driver->save($resource);

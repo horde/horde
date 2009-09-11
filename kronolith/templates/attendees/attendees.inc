@@ -131,7 +131,7 @@ function switchDateView(view, date)
     <select id="resourceselect" name="resourceselect">
      <option value="0"><?php echo _("Select resource")?></option>
     <?php foreach ($allResources as $resource):?>
-        <?php printf('<option value="%s">%s</option>', $resource->id, $resource->name) ?>
+        <?php printf('<option value="%s">%s</option>', $resource->getId(), $resource->get('name')) ?>
     <?php endforeach;?>
     </select>
   </td>
@@ -142,7 +142,7 @@ function switchDateView(view, date)
 <div>
  <input type="submit" class="button" name="addNew" value="<?php echo htmlspecialchars(_("Save")) ?>" />
  <input type="submit" class="button" name="addNewClose" value="<?php echo htmlspecialchars(_("Save and Finish")) ?>" />
- <?php if (!empty($attendees)): ?><input type="submit" class="button" name="clearAll" value="<?php echo htmlspecialchars(_("Clear all attendees")) ?>" /><?php endif; ?>
+ <?php if (!empty($attendees)): ?><input type="submit" class="button" name="clearAll" value="<?php echo htmlspecialchars(_("Clear all")) ?>" /><?php endif; ?>
 </div>
 
 <br />

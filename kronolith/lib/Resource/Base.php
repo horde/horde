@@ -1,13 +1,39 @@
 <?php
 /**
- * Kronolith resources
+ * Base class for Kronolith resources. Partially presents a Horde_Share_Object
+ * interface.
+ *
  *
  */
 abstract class Kronolith_Resource_Base
 {
+    /**
+     * Instance copy of parameters
+     *
+     *   name        - Display name of resource.
+     *   calendar    - The calendar associated with this resource.
+     *   category    - The category of this resource...an arbitrary label used
+     *                 to group multiple resources for the resource_group implementation
+     *   description -
+     *
+     * @var array
+     */
     protected $_params = array();
+
+    /**
+     * Resource's internal id
+     *
+     * @var integer
+     */
     protected $_id = '';
 
+    /**
+     * Const'r
+     *
+     * @param array $params
+     *
+     * @return Kronolith_Resource object
+     */
     public function __construct($params = array())
     {
         if (!empty($params['id'])) {
@@ -15,40 +41,38 @@ abstract class Kronolith_Resource_Base
             $this->_id = $params['id'];
         }
 
+        array_merge($params, array('description' => '',
+                                   'category' => ''));
         $this->_params = $params;
     }
 
     /**
+     * Obtain the resource's internal id.
      *
-     *  Properties:
-     * name        - Display name of resource.
-     * calendar    - The calendar associated with this resource.
-     * category    - The category of this resource...an arbitrary label used
-     *               to group multiple resources for the resource_group implementation
-     * properties  - any other properties this resource may have?
-     *               (max capacity of room, size of TV, whatever...)
-     *               probably just for display, not sure how this would work
-     *               if we wanted to be able to search since we are implementing these generically.
-     *               Don't think we want a datatree-style attirbutes table for this.
+     * @return integer  The id.
      */
-    public function __get($property)
+    public function getId()
     {
-        if ($property == 'id') {
-            return $this->_id;
-        }
+        return $this->_id;
+    }
 
-        $property = str_replace('resource_', '', $property);
-        if (isset($this->_params[$property])) {
-            return $this->_params[$property];
-        } else {
-            throw new Horde_Exception(sprintf(_("Invalid property, %s, requested in Kronolith_Resource"), $property));
+    /**
+     * Allow setting of the name and category properties.
+     *
+     * @param string $property  The property to set
+     * @param mixed $value      The value to set to
+     *
+     * @return void
+     */
+    public function set($property, $value)
+    {
+        if (in_array($property, array('name', 'category', 'calendar'))) {
+            $this->_params[$property] = $value;
         }
     }
 
     /**
      * @TODO: need to fine tune this
-     *
-     *
      *
      * @param $user
      * @param $permission
@@ -72,13 +96,36 @@ abstract class Kronolith_Resource_Base
      */
     public function get($property)
     {
-       return $this->{$property};
+       $property = str_replace('resource_', '', $property);
+       return !empty($this->_params[$property]) ? $this->_params[$property] : false;
     }
 
-
+    /**
+     * Save resource to storage.
+     */
+    public function save()
+    {
+        $d = $this->getDriver();
+        return $d->save($this);
+    }
 
     /**
-     * Should this take an event, or a time range?
+     * Get a storage driver instance for the resource. For now, just instantiate
+     * it here, in future, probably inject it in the const'r.
+     *
+     * @return Kronolith_Driver_Resource
+     */
+    public function getDriver()
+    {
+        if (!$this->get('calendar')) {
+            return Kronolith::getDriver('Resource');
+        } else {
+            return Kronolith::getDriver('Resource', $this->get('calendar'));
+        }
+    }
+
+    /**
+     * Determine if event is free for specified time
      *
      * @param $startTime
      * @param $endTime

@@ -23,7 +23,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
     public function isFree($event)
     {
         /* Fetch events. */
-        $busy = Kronolith::listEvents($event->start, $event->end, array($this->calendar));
+        $busy = Kronolith::listEvents($event->start, $event->end, array($this->get('calendar')));
         if ($busy instanceof PEAR_Error) {
             throw new Horde_Exception($busy->getMessage());
         }
@@ -64,11 +64,11 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
     public function addEvent($event)
     {
         /* Get a driver for this resource's calendar */
-        $driver = Kronolith::getDriver('Resource', $this->calendar);
+        $driver = Kronolith::getDriver('Resource', $this->get('calendar'));
 
         /* Make sure it's not already attached. */
         $uid = $event->getUID();
-        $existing = $driver->getByUID($uid, array($this->calendar));
+        $existing = $driver->getByUID($uid, array($this->get('calendar')));
         if (!($existing instanceof PEAR_Error)) {
             /* Already attached, just update */
             $existing->fromiCalendar($event->toiCalendar(new Horde_iCalendar('2.0')));
@@ -77,7 +77,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         } else {
             /* Create a new event */
             $e = $driver->getEvent();
-            $e->setCalendar($this->calendar);
+            $e->setCalendar($this->get('calendar'));
             $e->fromiCalendar($event->toiCalendar(new Horde_iCalendar('2.0')));
             $e->save();
         }
@@ -91,8 +91,8 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
      */
     public function removeEvent($event)
     {
-        $driver = Kronolith::getDriver('Resource', $this->calendar);
-        $re = $driver->getByUID($event->getUID(), array($this->calendar));
+        $driver = Kronolith::getDriver('Resource', $this->get('calendar'));
+        $re = $driver->getByUID($event->getUID(), array($this->get('calendar')));
         // Event will only be in the calendar if it's been accepted. This error
         // should never happen, but put it here as a safeguard for now.
         if (!($re instanceof PEAR_Error)) {
@@ -107,9 +107,9 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
      */
     public function getFreeBusy($startstamp = null, $endstamp = null, $asObject = false)
     {
-        $vfb = Kronolith_Freebusy::generate($this->calendar, $startstamp, $endstamp, $asObject);
+        $vfb = Kronolith_Freebusy::generate($this->get('calendar'), $startstamp, $endstamp, $asObject);
         $vfb->removeAttribute('ORGANIZER');
-        $vfb->setAttribute('ORGANIZER', $this->name);
+        $vfb->setAttribute('ORGANIZER', $this->get('name'));
 
         return $vfb;
     }

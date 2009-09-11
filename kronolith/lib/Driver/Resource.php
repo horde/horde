@@ -359,9 +359,9 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      */
     public function save($resource)
     {
-        if ($resource->id) {
+        if ($resource->getId()) {
             $query = 'UPDATE kronolith_resources SET resource_name = ?, resource_calendar = ?, resource_category = ? WHERE resource_id = ?';
-            $values = array($resource->name, $resource->calendar, $resource->category, $resource->id);
+            $values = array($resource->get('name'), $resource->get('calendar'), $resource->get('category'), $resource->getId());
             $result = $this->_write_db->query($query, $values);
             if ($result instanceof PEAR_Error) {
                 throw new Horde_Exception($result->getMessage());
@@ -370,7 +370,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
             $query = 'INSERT INTO kronolith_resources (resource_id, resource_name, resource_calendar, resource_category)';
             $cols_values = ' VALUES (?, ?, ?, ?)';
             $id = $this->_db->nextId('kronolity_resources');
-            $values = array($id, $resource->name, $resource->calendar, $resource->category);
+            $values = array($id, $resource->get('name'), $resource->get('calendar'), $resource->get('category'));
             $result = $this->_write_db->query($query . $cols_values, $values);
             if (!($result instanceof PEAR_Error)) {
                 return true;
@@ -391,18 +391,18 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      */
     public function delete($resource)
     {
-        if (!$resource->calendar || !$resource->id) {
+        if (!$resource->get('calendar') || !$resource->getId()) {
             var_dump($resource);
             throw new Horde_Exception(_("Resource not valid."));
         }
 
         $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE calendar_id = ?';
-        $result = $this->_write_db->query($query, array($resource->calendar));
+        $result = $this->_write_db->query($query, array($resource->get('calendar')));
         if ($result instanceof PEAR_Error) {
             throw new Horde_Exception($result->getMessage());
         }
         $query = 'DELETE FROM kronolith_resources WHERE resource_id = ?';
-        $result = $this->_write_db->query($query, array($resource->id));
+        $result = $this->_write_db->query($query, array($resource->getId()));
         if ($result instanceof PEAR_Error) {
             throw new Horde_Exception($result->getMessage());
         }

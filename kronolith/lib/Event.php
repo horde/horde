@@ -1552,10 +1552,10 @@ abstract class Kronolith_Event
      */
     public function addResource($resource, $response)
     {
-        $this->_resources[$resource->id] = array(
+        $this->_resources[$resource->getId()] = array(
             'attendance' => Kronolith::PART_REQUIRED,
             'response' => $response,
-            'name' => $resource->name
+            'name' => $resource->get('name')
         );
     }
 

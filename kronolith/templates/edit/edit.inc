@@ -75,7 +75,7 @@
             $rd = Kronolith::getDriver('Resource');
             $rc = $rd->getResource($rd->getResourceIdByCalendar($cal));
             printf('<option value="%s"%s>%s</option>',
-                    htmlspecialchars($cal), '', $rc->name) . "\n";
+                    htmlspecialchars($cal), '', $rc->get('name')) . "\n";
         }
     } else {
         // Normal view
