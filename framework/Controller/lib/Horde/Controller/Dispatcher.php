@@ -218,7 +218,7 @@ class Horde_Controller_Dispatcher
         $uri    = $request->getUri();
         $method = $request->getMethod();
 
-        $paramStr = 'PARAMS=' . $this->_formatLogParams($request->getAllParams());
+        $paramStr = 'PARAMS=' . $this->_formatLogParams($request->getParameters());
 
         $msg = "$method $uri $totalTime ms (DB=$queryTime [$queryCount] PHP=$phpTime) $paramStr";
         $msg = wordwrap($msg, 80, "\n\t  ", 1);
