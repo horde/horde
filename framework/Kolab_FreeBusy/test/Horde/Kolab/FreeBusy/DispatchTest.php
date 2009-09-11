@@ -60,20 +60,28 @@ class Horde_Kolab_FreeBusy_DispatchTest extends Horde_Kolab_Test_FreeBusy
      *
      * @return NULL
      */
-    public function testFetch()
+    public function testDispatching()
     {
         $urls = array(
-            '/freebusy/test@example.com.ifb' => array(
-                'ifb', 'test@example.com'),
-            '/freebusy/test@example.com.vfb' => array(
-                'vfb', 'test@example.com'),
-            '/freebusy/test@example.com.xfb' => array(
-                'xfb', 'test@example.com'),
-            '/freebusy/test@example.com.pfb' => array(
-                'pfb', 'test@example.com'),
-            '/freebusy/test@example.com.pxfb' => array(
-                'pxfb', 'test@example.com'),
+            '/freebusy/test@example.com.ifb' => 'fetched "ifb" data for user "test@example.com"',
+            '/freebusy/test@example.com.vfb' => 'fetched "vfb" data for user "test@example.com"',
+            '/freebusy/test@example.com.xfb' => 'fetched "xfb" data for user "test@example.com"',
             '/freebusy/test@example.com.zfb' => false,
+            '/freebusy/delete/test@example.com' => 'deleted data for user "test@example.com"',
+            '/freebusy/delete' => false,
+            '/freebusy/delete/' => false,
+            '/freebusy/delete/i' => 'deleted data for user "i"',
+            '/freebusy/delete/i/j' => false,
+            '/freebusy/regenerate' => 'regenerated',
+            '/freebusy/regenerate/' => 'regenerated',
+            '/freebusy/regenerate/j' => false,
+            '/freebusy/trigger/test@example.com/Kalender.pfb' => 'triggered folder "test@example.com/Kalender"',
+            '/freebusy/trigger/test@example.com/Kalender.xfb' => false,
+            '/freebusy/trigger' => false,
+            '/freebusy/test@example.com/Kalender.pfb' => 'triggered folder "test@example.com/Kalender" and retrieved data of type "pfb"',
+            '/freebusy/test@example.com/Kalender.pxfb' => 'triggered folder "test@example.com/Kalender" and retrieved data of type "pxfb"',
+            '/freebusy/test@example.com/Kalender.ifb' => false,
+            '/freebusy' => false,
         );
 
         foreach ($urls as $key => $result) {
@@ -91,47 +99,27 @@ class Horde_Kolab_FreeBusy_DispatchTest extends Horde_Kolab_Test_FreeBusy
                 )
             );
             $application = Horde_Kolab_FreeBusy::singleton($params);
+
+            $output = '';
+
             if (empty($result)) {
                 try {
+                    ob_start();
                     $application->dispatch();
+                    $output = ob_get_contents();
+                    ob_end_clean();
                 } catch (Horde_Controller_Exception $e) {
-                    $this->assertEquals('No routes match the path: "' . substr($key, 1) . '"', $e->getMessage());
+                    $this->assertEquals('No routes match the path: "' . trim($key, '/') . '"', $e->getMessage());
                 }
+                $this->assertEquals('', $output);
             } else {
                 ob_start();
                 $application->dispatch();
                 $output = ob_get_contents();
                 ob_end_clean();
-                $this->assertEquals('fetched "' . $result[0] . '" data for user "' . $result[1] . '"', $output);
+                $this->assertEquals($result, $output);
             }
             Horde_Kolab_FreeBusy::destroy();
         }
-    }
-
-    /**
-     * Test dispatching a "trigger" call.
-     *
-     * @return NULL
-     */
-    public function testTrigger()
-    {
-    }
-
-    /**
-     * Test dispatching a "regenerate" call.
-     *
-     * @return NULL
-     */
-    public function testRegenerate()
-    {
-    }
-
-    /**
-     * Test dispatching a "delete" call.
-     *
-     * @return NULL
-     */
-    public function testDelete()
-    {
     }
 }

@@ -229,23 +229,34 @@ class Horde_Kolab_FreeBusy
             }
             if (empty($this->_params['config']['dir'])
                 || !file_exists($routeFile)) {
-                $this->_mapper->connect('*(id).:(type)',
+                $this->_mapper->connect(':(mail).:(type)',
                                         array('controller'   => 'freebusy',
                                               'action'       => 'fetch',
-                                              'requirements' => array('type' => '(i|x|v|p|px)fb')
+                                              'requirements' => array('type' => '(i|x|v)fb',
+                                                                      'mail'   => '[^/]+'),
                                         ));
 
-                $this->_mapper->connect('trigger/:id/:folder',
-                                        array('controller' => 'freebusy',
-                                              'action'     => 'trigger'));
+                $this->_mapper->connect('trigger/*(folder).pfb',
+                                        array('controller'   => 'freebusy',
+                                              'action'       => 'trigger'
+                                        ));
 
-                $this->_mapper->connect('delete/:id',
-                                        array('controller' => 'freebusy',
-                                              'action'     => 'delete'));
+                $this->_mapper->connect('*(folder).:(type)',
+                                        array('controller'   => 'freebusy',
+                                              'action'       => 'trigger',
+                                              'requirements' => array('type' => '(p|px)fb'),
+                                        ));
 
-                $this->_mapper->connect('regenerate/:id',
-                                        array('controller' => 'freebusy',
-                                              'action'     => 'delete'));
+                $this->_mapper->connect('delete/:(mail)',
+                                        array('controller'   => 'freebusy',
+                                              'action'       => 'delete',
+                                              'requirements' => array('mail' => '[^/]+'),
+                                        ));
+
+                $this->_mapper->connect('regenerate',
+                                        array('controller'   => 'freebusy',
+                                              'action'       => 'regenerate',
+                                        ));
             } else {
                 // Load application routes.
                 include $routeFile;

@@ -41,7 +41,8 @@ class FreeBusyController extends Horde_Controller_Base
      */
     public function trigger()
     {
-        $this->renderText('triggered');
+        $type = isset($this->params->type) ? ' and retrieved data of type "' . $this->params->type . '"' : '';
+        $this->renderText('triggered folder "' . $this->params->folder . '"' . $type);
     }
 
     /**
@@ -51,7 +52,7 @@ class FreeBusyController extends Horde_Controller_Base
      */
     public function fetch()
     {
-        $this->renderText('fetched "' . $this->params->type . '" data for user "' . $this->params->id . '"');
+        $this->renderText('fetched "' . $this->params->type . '" data for user "' . $this->params->mail . '"');
     }
 
     /**
@@ -71,6 +72,6 @@ class FreeBusyController extends Horde_Controller_Base
      */
     public function delete()
     {
-        $this->renderText('deleted');
+        $this->renderText('deleted data for user "' . $this->params->mail . '"');
     }
 }
