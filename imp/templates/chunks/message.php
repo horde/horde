@@ -54,7 +54,7 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
    <div class="msgHeaders">
     <div id="msgHeaders">
      <div class="dimpOptions noprint">
-      <div id="msg_print"><?php echo Horde::img('print.png', '', '', $registry->getImageDir('horde') ?><a><?php echo _("Print") ?></a></div>
+      <div id="msg_print"><?php echo Horde::img('print.png', '', '', $registry->getImageDir('horde')) ?><a><?php echo _("Print") ?></a></div>
 <?php if (!empty($conf['user']['allow_view_source'])): ?>
       <div id="msg_view_source"><span class="iconImg"></span><a><?php echo _("View Source") ?></a></div>
 <?php endif; ?>
