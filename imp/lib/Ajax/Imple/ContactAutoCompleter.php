@@ -126,7 +126,7 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_Base
             return array();
         }
 
-        return array_map('htmlspecialchars', IMP_Compose::expandAddresses($input));
+        return array_map('htmlspecialchars', IMP_Compose::expandAddresses($input, array('levenshtein' => true)));
     }
 
 }

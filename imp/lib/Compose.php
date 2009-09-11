@@ -2459,14 +2459,34 @@ class IMP_Compose
      * will not search if the address string is empty.
      *
      * @param string $addrString  The name(s) or address(es) to expand.
+     * @param array $options      Additional options:
+     * <pre>
+     * 'levenshtein' - (boolean) If true, will sort the results using the
+     *                 PHP levenshtein() scoring function.
+     * </pre>
      *
      * @return array  All matching addresses.
      */
-    static public function expandAddresses($addrString)
+    static public function expandAddresses($addrString, $options = array())
     {
-        return preg_match('|[^\s]|', $addrString)
-            ? self::getAddressList(reset(array_filter(array_map('trim', Horde_Mime_Address::explode($addrString, ',;')))))
-            : '';
+        if (!preg_match('|[^\s]|', $addrString)) {
+            return array();
+        }
+
+        $addrString = reset(array_filter(array_map('trim', Horde_Mime_Address::explode($addrString, ',;'))));
+        $addr_list = self::getAddressList($addrString);
+
+        if (empty($options['levenshtein'])) {
+            return $addr_list;
+        }
+
+        $sort_list = array();
+        foreach ($addr_list as $val) {
+            $sort_list[$val] = levenshtein($addrString, $val);
+        }
+        asort($sort_list, SORT_NUMERIC);
+
+        return array_keys($sort_list);
     }
 
     /**
@@ -2481,7 +2501,7 @@ class IMP_Compose
     {
         $sparams = self::getAddressSearchParams();
         try {
-            $res = $GLOBALS['registry']->call('contacts/search', array($search, $sparams['sources'], $sparams['fields'], true));
+            $res = $GLOBALS['registry']->call('contacts/search', array($search, $sparams['sources'], $sparams['fields'], false));
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
             return array();
