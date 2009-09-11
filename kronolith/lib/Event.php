@@ -316,6 +316,8 @@ abstract class Kronolith_Event
             return PEAR::raiseError('Event not yet initialized');
         }
 
+        // TODO: Should this go here?
+        Kronolith::checkResources($this);
         $this->toDriver();
         $result = $this->getDriver()->saveEvent($this);
         if (!is_a($result, 'PEAR_Error') &&

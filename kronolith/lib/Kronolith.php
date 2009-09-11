@@ -2078,6 +2078,24 @@ class Kronolith
         return false;
     }
 
+    /**
+     * Function to check availability and auto accept/decline for each resource
+     * attached to the event.
+     *
+     * @return unknown_type
+     */
+    static public function checkResources($event)
+    {
+        foreach ($event->getResources() as $id => $resource) {
+            $r = Kronolith::getDriver('Resource')->getResource($id);
+            if ($r->isFree($event)) {
+                $r->addEvent($event);
+                $event->addResource($r, Kronolith::RESPONSE_ACCEPTED);
+            } else {
+                $event->addResource($r, Kronolith::RESPONSE_DECLINED);
+            }
+        }
+    }
 
     static public function getInternalCalendar($target)
     {
