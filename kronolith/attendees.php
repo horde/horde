@@ -193,9 +193,11 @@ case 'dismiss':
     exit;
 
 case 'clear':
-    // Remove all the attendees.
+    // Remove all the attendees and resources.
     $attendees = array();
+    $resources = array();
     $_SESSION['kronolith']['attendees'] = $attendees;
+    $_SESSION['kronolith']['resources'] = $resources;
     break;
 }
 
