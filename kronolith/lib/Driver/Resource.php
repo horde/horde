@@ -352,18 +352,18 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     /**
      * Save or update a Kronolith_Resource
      *
-     * @param $resource
+     * @param Kronolith_Resource $resource
      *
      * @return Kronolith_Resource object
      * @throws Horde_Exception
      */
     public function save($resource)
     {
-        if (!empty($resource->id)) {
+        if ($resource->id) {
             $query = 'UPDATE kronolith_resources SET resource_name = ?, resource_calendar = ?, resource_category = ? WHERE resource_id = ?';
             $values = array($resource->name, $resource->calendar, $resource->category, $resource->id);
             $result = $this->_write_db->query($query, $values);
-            if (!($result instanceof PEAR_Error)) {
+            if ($result instanceof PEAR_Error) {
                 throw new Horde_Exception($result->getMessage());
             }
         } else {
@@ -381,6 +381,33 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
         }
 
         return $resource;
+    }
+
+    /**
+     * Removes a resource from storage, along with any events in the resource's
+     * calendar.
+     *
+     * @param Kronolith_Resource $resource  The kronolith resource to remove
+     */
+    public function delete($resource)
+    {
+        if (!$resource->calendar || !$resource->id) {
+            var_dump($resource);
+            throw new Horde_Exception(_("Resource not valid."));
+        }
+
+        $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE calendar_id = ?';
+        $result = $this->_write_db->query($query, array($resource->calendar));
+        if ($result instanceof PEAR_Error) {
+            throw new Horde_Exception($result->getMessage());
+        }
+        $query = 'DELETE FROM kronolith_resources WHERE resource_id = ?';
+        $result = $this->_write_db->query($query, array($resource->id));
+        if ($result instanceof PEAR_Error) {
+            throw new Horde_Exception($result->getMessage());
+        }
+
+        return true;
     }
 
     /**
