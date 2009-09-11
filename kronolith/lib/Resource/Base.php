@@ -12,10 +12,16 @@ abstract class Kronolith_Resource_Base
      *
      *   name        - Display name of resource.
      *   calendar    - The calendar associated with this resource.
+<<<<<<< HEAD
      *
      *   description -
      *   email       -
      *   response_type - a RESPONSETYPE_* constant
+=======
+     *   category    - The category of this resource...an arbitrary label used
+     *                 to group multiple resources for the resource_group implementation
+     *   description -
+>>>>>>> Lots of stuff:
      *
      * @var array
      */
@@ -48,9 +54,15 @@ abstract class Kronolith_Resource_Base
     }
 
     /**
+<<<<<<< HEAD
      * Obtain the resource's internal identifier.
      *
      * @return mixed The id.
+=======
+     * Obtain the resource's internal id.
+     *
+     * @return integer  The id.
+>>>>>>> Lots of stuff:
      */
     public function getId()
     {

@@ -141,11 +141,9 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         }
     }
 
-<<<<<<< HEAD
     public function getResponseType()
     {
         return $this->get('response_type');
     }
-=======
->>>>>>> Only attempt to remove resources from the event if they have actually
+
 }

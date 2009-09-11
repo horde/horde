@@ -17,10 +17,11 @@ if (!Horde_Auth::getAuth()) {
 }
 $edit_url_base = Horde::applicationUrl('resources/edit.php');
 $edit_img = Horde::img('edit.png', _("Edit"), null, $registry->getImageDir('horde'));
-$resources = Kronolith::getDriver('Resource')->listResources(PERMS_READ, array('type' => 'Single'));
+$resources = Kronolith::listResources();
 $display_url_base = Horde::applicationUrl('month.php', true, -1);
 $delete_url_base = Horde::applicationUrl('resources/delete.php');
 $delete_img = Horde::img('delete.png', _("Delete"), null, $registry->getImageDir('horde'));
+
 ?>
 <script type="text/javascript">
 function performAction(action, rid)
@@ -41,7 +42,6 @@ function performAction(action, rid)
  <form method="get" action="create.php">
   <?php echo Horde_Util::formInput() ?>
   <input type="submit" class="button" value="<?php echo _("Create a new Resource") ?>" />
-  <a class="button" href="<?php echo Horde::applicationUrl('resources/groups') ?>"><?php echo _("Manage Resource Groups")?> </a>
  </form>
 <?php endif ?>
 <table summary="<?php echo _("Resource List") ?>" cellspacing="0" id="calendar-list" class="striped sortable">
@@ -63,7 +63,7 @@ function performAction(action, rid)
   <td>&nbsp;</td>
   <?php endif;?>
   <td><?php echo htmlspecialchars($resource->get('name')) ?></td>
-  <td><?php $url = Horde_Util::addParameter($display_url_base, 'display_cal', $resource->get('calendar'), false); echo Horde::link($url, _("Click or copy this URL to display this calendar")) . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
+  <td><?php $url = Horde_Util::addParameter($display_url_base, 'display_cal', $resource->get('calendar'), false); echo Horde::link($url, _("Click or copy this URL to display this calendar"), '', '_blank') . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
  </tr>
 <?php endforeach; ?>
 </tbody>
@@ -84,5 +84,12 @@ function shorten_url($url, $separator = '...', $first_chunk_length = 35, $last_c
 
     return $url;
 }
+/* Test creating a new resource */
+//$new = array('name' => _("Another Big Meeting Room"),
+//             'category' => 'conference rooms');
+//
+//$resource = new Kronolith_Resource_Single($new);
+//$results = Kronolith::addResource($resource);
+//var_dump($results);
 ?>
 </div>

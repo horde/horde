@@ -2018,9 +2018,6 @@ class Kronolith
             $menu->add(Horde::applicationUrl('data.php'), _("_Import/Export"), 'data.png', $registry->getImageDir('horde'));
         }
 
-        /* Resources */
-        $menu->add(Horde::applicationUrl('resources.php'), _("Resources"), 'resource.png');
-
         return $menu;
     }
 
