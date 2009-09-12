@@ -110,7 +110,6 @@ case 'add':
         $date = new Horde_Date(Horde_Util::getFormData('date'));
         $end = new Horde_Date(Horde_Util::getFormData('enddate'));
         $response = $resource->getResponse(array('start' => $date, 'end' => $end));
-
         $resources[$resource->getId()] = array(
             'attendance' => Kronolith::PART_REQUIRED,
             'response'   => $response,
