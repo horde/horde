@@ -80,9 +80,9 @@ class Ansel_Ajax_Imple_ImageSaveGeotag extends Horde_Ajax_Imple_Base
                     $imgsrc .= Horde::link($addurl, $title, '', '', "setLocation('" . $data['image_latitude'] . "', '" . $data['image_longitude'] . "');return false") . '<img src="' . Ansel::getImageUrl($id, 'mini', true) . '" alt="[image]" /></a>';
                 }
                 $imgsrc .= '</div>';
-                $content = sprintf(_("No location data present. Place using %s map %s or click on image to place at the same location."), $addLink, '</a>') . $imgsrc;
+                $content = sprintf(_("No location data present. Place using %smap%s or click on image to place at the same location."), $addLink, '</a>') . $imgsrc;
             } else {
-                $content = _("No location data present. You may add some ") . $addLink . _("here") . '</a>';
+                $content = sprintf(_("No location data present. You may add some %s."), $addLink . _("here") . '</a>');
             }
 
             return array('response' => 1, 'message' => $content);
