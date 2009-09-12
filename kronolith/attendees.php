@@ -21,7 +21,7 @@ $resources = (isset($_SESSION['kronolith']['resources']) &&
               is_array($_SESSION['kronolith']['resources']))
     ? $_SESSION['kronolith']['resources']
     : array();
-$allResources = Kronolith::listResources();
+$allResources = Kronolith_Resource::listResources();
 
 // Get the action ID and value. This specifies what action the user initiated.
 $actionID = Horde_Util::getFormData('actionID');

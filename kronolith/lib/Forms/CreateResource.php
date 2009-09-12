@@ -50,7 +50,7 @@ class Kronolith_CreateResourceForm extends Horde_Form {
                      'max_reservations' => $this->_vars->get('max_reservations'));
 
         $resource = new Kronolith_Resource_Single($new);
-        return $results = Kronolith::addResource($resource);
+        return $results = Kronolith_Resource::addResource($resource);
     }
 
 }

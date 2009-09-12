@@ -2034,95 +2034,13 @@ class Kronolith
     }
 
     /**
-     * Adds a new resource to storage
+     * Obtain an internal calendar. Use this where we don't know if we will
+     * have a Horde_Share or a Kronolith_Resource based calendar.
      *
-     * @param Kronolith_Resource $resource
+     * @param string $target  The calendar id to retrieve.
      *
-     * @return unknown_type
+     * @return mixed  Kronolith_Resource or Horde_Share_Object
      */
-    static public function addResource($resource)
-    {
-        // Create a new calendar id.
-        $calendar = 'resource_' . hash('md5', microtime());
-        $resource->set('calendar', $calendar);
-        $driver = Kronolith::getDriver('Resource');
-
-        return $driver->save($resource);
-    }
-
-    /**
-     * Return a list of resources that the current user has access to at the
-     * specified permission level. Right now, all users have PERMS_READ, but
-     * only system admins have PERMS_EDIT | PERMS_DELETE
-     *
-     * @return array of Kronolith_Resource objects
-     */
-    static public function listResources($perms = PERMS_READ, $params = array())
-    {
-        if (($perms & (PERMS_EDIT | PERMS_DELETE)) && !Horde_Auth::isAdmin()) {
-            return array();
-        }
-
-        // Query kronolith_resource table for all(?) available resources?
-        // maybe by 'type' or 'name'? type would be arbitrary?
-        $driver = Kronolith::getDriver('Resource');
-        return $driver->listResources($params);
-    }
-
-    static public function isResourceCalendar($calendar)
-    {
-        if (strncmp($calendar, 'resource_', 9) === 0) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Function to check availability and auto accept/decline for each resource
-     * attached to the event.
-     *
-     * @return unknown_type
-     */
-    static public function checkResources($event)
-    {
-        foreach ($event->getResources() as $id => $resource) {
-
-            /* Get the resource */
-            $r = Kronolith::getDriver('Resource')->getResource($id);
-
-            /* Determine if we have to calculate, or just auto-reply */
-            $type = $r->getResponseType();
-            switch($type) {
-            case Kronolith_Resource::RESPONSETYPE_ALWAYS_ACCEPT:
-                $r->addEvent($event);
-                $event->addResource($r, Kronolith::RESPONSE_ACCEPTED);
-                break;
-            case Kronolith_Resource::RESPONSETYPE_AUTO:
-                if ($r->isFree($event)) {
-                    $r->addEvent($event);
-                    $event->addResource($r, Kronolith::RESPONSE_ACCEPTED);
-                } else {
-                   $event->addResource($r, Kronolith::RESPONSE_DECLINED);
-                }
-                break;
-
-            case Kronolith_Resource::RESPONSETYPE_ALWAYS_DECLINE:
-                $event->addResource($r, Kronolith::RESPONSE_DECLINED);
-                break;
-
-            case Kronolith_Resource::RESPONSETYPE_NONE:
-                $event->addResource($r, Kronolith::RESPONSE_NONE);
-                break;
-
-            case Kronolith_Resource::RESPONSETYPE_MANUAL:
-                //???
-                break;
-            }
-
-        }
-    }
-
     static public function getInternalCalendar($target)
     {
         if (self::isResourceCalendar($target)) {

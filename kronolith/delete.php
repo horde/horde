@@ -11,7 +11,7 @@
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-if (Kronolith::isResourceCalendar($c = Horde_Util::getFormData('calendar'))) {
+if (Kronolith_Resource::isResourceCalendar($c = Horde_Util::getFormData('calendar'))) {
     $driver = 'Resource';
 } else {
     $driver = null;

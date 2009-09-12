@@ -317,7 +317,7 @@ abstract class Kronolith_Event
         }
 
         // TODO: Should this go here?
-        Kronolith::checkResources($this);
+        Kronolith_Resource::checkResources($this);
         $this->toDriver();
         $result = $this->getDriver()->saveEvent($this);
         if (!is_a($result, 'PEAR_Error') &&
