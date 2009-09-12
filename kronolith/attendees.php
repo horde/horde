@@ -21,7 +21,6 @@ $resources = (isset($_SESSION['kronolith']['resources']) &&
               is_array($_SESSION['kronolith']['resources']))
     ? $_SESSION['kronolith']['resources']
     : array();
-$allResources = Kronolith_Resource::listResources();
 
 // Get the action ID and value. This specifies what action the user initiated.
 $actionID = Horde_Util::getFormData('actionID');
@@ -226,6 +225,12 @@ case 'clear':
     $_SESSION['kronolith']['attendees'] = $attendees;
     $_SESSION['kronolith']['resources'] = $resources;
     break;
+}
+
+/* Get list of resources for select list, and remove those we already added */
+$allResources = Kronolith_Resource::listResources();
+foreach (array_keys($resources) as $id) {
+    unset($allResources[$id]);
 }
 
 // Get the current Free/Busy view; default to the 'day' view if none specified.

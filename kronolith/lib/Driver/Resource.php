@@ -497,14 +497,14 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     public function listResources($params = array())
     {
         $query = 'SELECT resource_id, resource_name, resource_calendar, resource_category, resource_description, resource_response_type, resource_max_reservations FROM kronolith_resources';
-        $results = $this->_db->getAll($query, null, DB_FETCHMODE_ASSOC);
+        $results = $this->_db->getAssoc($query, true, array(), DB_FETCHMODE_ASSOC, false);
         if ($results instanceof PEAR_Error) {
             throw new Horde_Exception($results->getMessage());
         }
 
         $return = array();
-        foreach ($results as $result) {
-            $return[] = new Kronolith_Resource_Single($this->_fromDriver($result));
+        foreach ($results as $key => $result) {
+            $return[$key] = new Kronolith_Resource_Single($this->_fromDriver(array_merge(array('resource_id' => $key), $result)));
         }
 
         return $return;

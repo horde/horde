@@ -135,7 +135,7 @@ function switchDateView(view, date)
   <td width="100%">
     <select id="resourceselect" name="resourceselect">
      <option value="0"><?php echo _("Select resource")?></option>
-    <?php foreach ($allResources as $resource):?>
+    <?php foreach ($allResources as $id => $resource):?>
         <?php printf('<option value="%s">%s</option>', $resource->getId(), $resource->get('name')) ?>
     <?php endforeach;?>
     </select>
