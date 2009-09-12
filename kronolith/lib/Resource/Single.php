@@ -46,17 +46,13 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
                      if (!($e->start->compareDateTime($event->end) >= 1 ||
                          $e->end->compareDateTime($event->start) <= -1)) {
 
-                         /* Conflict, but check to see if we are allowed mulitiple */
-                         if (++$conflicts >= $this->get('max_reservations')) {
-                            return false;
-                         }
-
+                         $conflicts++;
                      }
                 }
             }
         }
 
-        return true;
+        return ($conflicts < $this->get('max_reservations'));
     }
 
     /**
