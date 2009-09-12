@@ -1545,11 +1545,17 @@ class Kronolith
     public static function notifyOfResoruceRejection($event)
     {
         $declined = array();
+        $accepted = array();
         foreach ($event->getResources() as $id => $resource) {
             if ($resource['response'] == Kronolith::RESPONSE_DECLINED) {
                 $r = Kronolith::getDriver('Resource')->getResource($id);
                 $declined[] = $r->get('name');
+            } elseif ($resource['response'] == Kronolith::RESPONSE_ACCEPTED) {
+                $r = Kronolith::getDriver('Resource')->getResource($id);
+                $accepted[] = $r->get('name');
             }
+
+
         }
         if (count($declined)) {
             $GLOBALS['notification']->push(sprintf(ngettext("The following resource has declined your request: %s",
@@ -1557,6 +1563,13 @@ class Kronolith
                                                             count($declined)),
                                                     implode(", ", $declined)),
                                            'horde.error');
+        }
+        if (count($accepted)) {
+             $GLOBALS['notification']->push(sprintf(ngettext("The following resource has accepted your request: %s",
+                                                            "The following resources have accepted your request: %s",
+                                                            count($accepted)),
+                                                    implode(", ", $accepted)),
+                                           'horde.success');
         }
     }
 
@@ -2043,7 +2056,7 @@ class Kronolith
      */
     static public function getInternalCalendar($target)
     {
-        if (self::isResourceCalendar($target)) {
+        if (Kronolith_Resource::isResourceCalendar($target)) {
             $driver = self::getDriver('Resource');
             $id = $driver->getResourceIdByCalendar($target);
             return $driver->getResource($id);
