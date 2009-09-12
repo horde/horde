@@ -82,7 +82,7 @@ function switchDateView(view, date)
  <th width="2%">&nbsp;</th>
  <th width="48%"><?php echo htmlspecialchars(_("Resource")) ?></th>
  <th wiidth="25%"><?php echo _("Attendance") ?></th>
- <th width="25%"><?php echo _("Status") ?></th>
+ <th width="25%"><?php echo _("Response") ?></th>
 </tr>
 
 <!--  resources -->

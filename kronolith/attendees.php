@@ -105,7 +105,6 @@ case 'add':
         $resource = Kronolith::getDriver('Resource')->getResource($newResource);
 
         /* If we know we always accept/deny mark it that way now. */
-        /* @TODO: Should we attempt to get the proposed event time from the event form and pass it here? */
         $type = $resource->getResponseType();
         if ($type == Kronolith_Resource::RESPONSETYPE_ALWAYS_ACCEPT) {
             $response = Kronolith::RESPONSE_ACCEPTED;
