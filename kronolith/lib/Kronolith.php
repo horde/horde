@@ -1554,6 +1554,8 @@ class Kronolith
                 $r = Kronolith::getDriver('Resource')->getResource($id);
                 $accepted[] = $r->get('name');
             }
+
+
         }
         if (count($declined)) {
             $GLOBALS['notification']->push(sprintf(ngettext("The following resource has declined your request: %s",
