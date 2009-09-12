@@ -29,7 +29,6 @@ if (Horde_Util::getFormData('clearAll')) {
     $actionID =  'clear';
 }
 $actionValue = Horde_Util::getFormData('actionValue');
-
 // Perform the specified action, if there is one.
 switch ($actionID) {
 case 'add':
@@ -105,9 +104,20 @@ case 'add':
     if (!empty($newResource)) {
         $resource = Kronolith::getDriver('Resource')->getResource($newResource);
 
+        /* If we know we always accept/deny mark it that way now. */
+        /* @TODO: Should we attempt to get the proposed event time from the event form and pass it here? */
+        $type = $resource->getResponseType();
+        if ($type == Kronolith_Resource::RESPONSETYPE_ALWAYS_ACCEPT) {
+            $response = Kronolith::RESPONSE_ACCEPTED;
+        } elseif ($type == Kronolith_Resource::RESPONSETYPE_ALWAYS_DECLINE) {
+            $response = Kronolith::RESPONSE_DECLINED;
+        } else {
+            $response = Kronolith::RESPONSE_NONE;
+        }
+
         $resources[$newResource] = array(
-            'attendance' => Kronolith::PART_IGNORE,
-            'response'   => Kronolith::RESPONSE_NONE,
+            'attendance' => Kronolith::PART_REQUIRED,
+            'response'   => $response,
             'name'       => $resource->get('name'),
         );
 
@@ -153,12 +163,30 @@ case 'removeResource':
     }
     break;
 
+case 'changeResourceResp':
+    //@TODO: What else to do here? Dissallow if responsetype is auto?
+    list($partval, $partname) = explode(' ', $actionValue, 2);
+    if (isset($resources[$partname])) {
+        $resources[$partname]['response'] = $partval;
+        $_SESSION['kronolith']['resources'] = $resources;
+    }
+    break;
+
 case 'changeatt':
     // Change the attendance status of an attendee
     list($partval, $partname) = explode(' ', $actionValue, 2);
     if (isset($attendees[$partname])) {
         $attendees[$partname]['attendance'] = $partval;
         $_SESSION['kronolith']['attendees'] = $attendees;
+    }
+    break;
+
+case 'changeResourceAtt':
+    // Change attendance status of a resource
+    list($partval, $partname) = explode(' ', $actionValue, 2);
+    if (isset($resources[$partname])) {
+        $resources[$partname]['attendance'] = $partval;
+        $_SESSION['kronolith']['resources'] = $resources;
     }
     break;
 
@@ -272,9 +300,19 @@ foreach ($attendees as $email => $status) {
 if (count($resources)) {
     $driver = Kronolith::getDriver('Resource');
     foreach ($resources as $r_id => $resource) {
-        $r = $driver->getResource($r_id);
-        $vfb = $r->getFreeBusy(null, null, true);
-        $attendee_view->addResourceMember($vfb);
+        try {
+            $r = $driver->getResource($r_id);
+            $vfb = $r->getFreeBusy(null, null, true);
+            if ($resource['attendance'] == Kronolith::PART_REQUIRED) {
+                $attendee_view->addRequiredResourceMember($vfb);
+            } else {
+                $attendee_view->addOptionalResourceMember($vfb);
+            }
+        } catch (Horde_Exception $e) {
+            $notification->push(
+                sprintf(_("Error retrieving free/busy information for %s: %s"),
+                    $r_id, $e->getMessage()));
+        }
     }
 }
 $date = sprintf("%02d%02d%02d000000", Horde_Util::getFormData('year'), Horde_Util::getFormData('month'), Horde_Util::getFormData('mday'));

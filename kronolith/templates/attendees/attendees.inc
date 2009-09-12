@@ -81,7 +81,8 @@ function switchDateView(view, date)
 <tr class="item nowrap leftAlign">
  <th width="2%">&nbsp;</th>
  <th width="48%"><?php echo htmlspecialchars(_("Resource")) ?></th>
- <th colspan="2" width="50%"><?php echo htmlspecialchars(_("Status")) ?></th>
+ <th wiidth="25%"><?php echo _("Attendance") ?></th>
+ <th width="25%"><?php echo _("Status") ?></th>
 </tr>
 
 <!--  resources -->
@@ -91,17 +92,21 @@ function switchDateView(view, date)
  <tr>
   <td class="nowrap"><?php echo Horde::link('#', sprintf(_("Remove %s"), $resource['name']), '', '', "performAction('removeResource', " . $id . "); return false;") . Horde::img('delete.png', '', null, $registry->getImageDir('horde')) ?></a></td>
   <td><?php echo htmlspecialchars($resource['name']) ?></td>
+  <td>
+  <label for="<?php echo "resourceattendance_$i" ?>" class="hidden"><?php echo _("Attendance") ?></label>
+   <select id="<?php echo "resourceattendance_$i" ?>" name="<?php echo "resourceattendance_$i" ?>" onchange="performAction('changeResourceAtt', document.attendeesForm.<?php echo "resourceattendance_$i" ?>.value + ' ' + decodeURIComponent('<?php echo rawurlencode($id) ?>'));">
+    <option value="<?php echo Kronolith::PART_REQUIRED ?>"<?php if ($resource['attendance'] == Kronolith::PART_REQUIRED)  echo ' selected="selected"' ?>><?php echo Kronolith::partToString(Kronolith::PART_REQUIRED) ?></option>
+    <option value="<?php echo Kronolith::PART_OPTIONAL ?>"<?php if ($resource['attendance'] == Kronolith::PART_OPTIONAL)  echo ' selected="selected"' ?>><?php echo Kronolith::partToString(Kronolith::PART_OPTIONAL) ?></option>
+    <option value="<?php echo Kronolith::PART_NONE ?>"<?php if ($resource['attendance'] == Kronolith::PART_NONE)  echo ' selected="selected"' ?>><?php echo Kronolith::partToString(Kronolith::PART_NONE) ?></option>
+   </select>
+ </td>
   <td colspan="2">
-    <?php switch ($resource['response']) {
-        case Kronolith::RESPONSE_ACCEPTED:
-            echo _("Accepted");
-            break;
-        case Kronolith::RESPONSE_DECLINED:
-            echo _("Declined");
-            break;
-        default:
-            echo _("Pending");
-    } ?>
+    <select name="<?php echo "resourceresponse_$i" ?>" onchange="performAction('changeResourceResp', document.attendeesForm.<?php echo "resourceresponse_$i" ?>.value + ' ' + decodeURIComponent('<?php echo rawurlencode($id) ?>'));">
+    <option value="<?php echo Kronolith::RESPONSE_ACCEPTED ?>"<?php if ($resource['response'] == Kronolith::RESPONSE_ACCEPTED)  echo ' selected="selected"' ?>><?php echo Kronolith::responseToString(Kronolith::RESPONSE_ACCEPTED) ?></option>
+    <option value="<?php echo Kronolith::RESPONSE_DECLINED ?>"<?php if ($resource['response'] == Kronolith::RESPONSE_DECLINED)  echo ' selected="selected"' ?>><?php echo Kronolith::responseToString(Kronolith::RESPONSE_DECLINED) ?></option>
+    <option value="<?php echo Kronolith::RESPONSE_TENTATIVE ?>"<?php if ($resource['response'] == Kronolith::RESPONSE_TENTATIVE)  echo ' selected="selected"' ?>><?php echo Kronolith::responseToString(Kronolith::RESPONSE_TENTATIVE) ?></option>
+    <option value="<?php echo Kronolith::RESPONSE_NONE ?>"<?php if ($resource['response'] == Kronolith::RESPONSE_NONE)  echo ' selected="selected"' ?>><?php echo Kronolith::responsetoString(Kronolith::RESPONSE_NONE) ?></option>
+   </select>
   </td>
  </tr>
 

@@ -15,6 +15,9 @@ abstract class Kronolith_Resource_Base
      *   category    - The category of this resource...an arbitrary label used
      *                 to group multiple resources for the resource_group implementation
      *   description -
+     *   email       -
+     *   response_type - a RESPONSETYE_* constant
+     *   max_reservations
      *
      * @var array
      */
@@ -47,9 +50,9 @@ abstract class Kronolith_Resource_Base
     }
 
     /**
-     * Obtain the resource's internal id.
+     * Obtain the resource's internal identifier.
      *
-     * @return integer  The id.
+     * @return mixed The id.
      */
     public function getId()
     {
@@ -57,7 +60,7 @@ abstract class Kronolith_Resource_Base
     }
 
     /**
-     * Allow setting of the name and category properties.
+     * Allow setting of properties
      *
      * @param string $property  The property to set
      * @param mixed $value      The value to set to
@@ -66,9 +69,9 @@ abstract class Kronolith_Resource_Base
      */
     public function set($property, $value)
     {
-        if (in_array($property, array('name', 'category', 'calendar'))) {
+        //if (in_array($property, array('name', 'category', 'calendar', 'description'))) {
             $this->_params[$property] = $value;
-        }
+        //}
     }
 
     /**
@@ -166,5 +169,11 @@ abstract class Kronolith_Resource_Base
      * @return unknown_type
      */
     abstract public function setId($id);
+
+    /**
+     * Get ResponseType for this resource.
+     * @return unknown_type
+     */
+    abstract public function getResponseType();
 
 }

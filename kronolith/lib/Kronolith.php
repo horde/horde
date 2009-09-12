@@ -2087,13 +2087,39 @@ class Kronolith
     static public function checkResources($event)
     {
         foreach ($event->getResources() as $id => $resource) {
+
+            /* Get the resource */
             $r = Kronolith::getDriver('Resource')->getResource($id);
-            if ($r->isFree($event)) {
+
+            /* Determine if we have to calculate, or just auto-reply */
+            $type = $r->getResponseType();
+            switch($type) {
+            case Kronolith_Resource::RESPONSETYPE_ALWAYS_ACCEPT:
                 $r->addEvent($event);
                 $event->addResource($r, Kronolith::RESPONSE_ACCEPTED);
-            } else {
+                break;
+            case Kronolith_Resource::RESPONSETYPE_AUTO:
+                if ($r->isFree($event)) {
+                    $r->addEvent($event);
+                    $event->addResource($r, Kronolith::RESPONSE_ACCEPTED);
+                } else {
+                   $event->addResource($r, Kronolith::RESPONSE_DECLINED);
+                }
+                break;
+
+            case Kronolith_Resource::RESPONSETYPE_ALWAYS_DECLINE:
                 $event->addResource($r, Kronolith::RESPONSE_DECLINED);
+                break;
+
+            case Kronolith_Resource::RESPONSETYPE_NONE:
+                $event->addResource($r, Kronolith::RESPONSE_NONE);
+                break;
+
+            case Kronolith_Resource::RESPONSETYPE_MANUAL:
+                //???
+                break;
             }
+
         }
     }
 

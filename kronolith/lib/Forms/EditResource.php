@@ -32,10 +32,16 @@ class Kronolith_EditResourceForm extends Horde_Form {
     {
         $this->_resource = &$resource;
         parent::Horde_Form($vars, sprintf(_("Edit %s"), $resource->get('name')));
-
+        $responses =  array(Kronolith_Resource::RESPONSETYPE_ALWAYS_ACCEPT => _("Always Accept"),
+                            Kronolith_Resource::RESPONSETYPE_ALWAYS_DECLINE => _("Always Decline"),
+                            Kronolith_Resource::RESPONSETYPE_AUTO => _("Automatically"),
+                            Kronolith_Resource::RESPONSETYPE_MANUAL => _("Manual"),
+                            Kronolith_Resource::RESPONSETYPE_NONE => _("None"));
         $this->addHidden('', 'c', 'text', true);
         $this->addVariable(_("Name"), 'name', 'text', true);
         $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));
+        $this->addVariable(_("Response type"), 'responsetype', 'enum', true, false, null, array('enum' => $responses));
+        $this->addVariable(_("Maximum number of overlapping reservations"), 'maxreservations', 'number', true);
         $this->addVariable(_("Category"), 'category', 'text', false);
         $this->setButtons(array(_("Save")));
     }
@@ -47,6 +53,8 @@ class Kronolith_EditResourceForm extends Horde_Form {
         $this->_resource->set('name', $new_name);
         $this->_resource->set('description', $this->_vars->get('description'));
         $this->_resource->set('category', $this->_vars->get('category'));
+        $this->_resource->set('response_type', $this->_vars->get('responsetype'));
+        $this->_resource->set('max_reservations', $this->_vars->get('maxreservations'));
         if ($original_name != $new_name) {
             $result = Kronolith::getDriver()->rename($original_name, $new_name);
             if (is_a($result, 'PEAR_Error')) {

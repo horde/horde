@@ -735,6 +735,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
 
         /* Remove the event from any resources that are attached to it */
+        //@TODO: Not sure this belongs _here_, but not sure about having to
+        //       call this _everywhere_ we delete an event?
         $resources = $event->getResources();
         if (count($resources)) {
             $rd = Kronolith::getDriver('Resource');

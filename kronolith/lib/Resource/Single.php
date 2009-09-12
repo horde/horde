@@ -36,6 +36,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         /* Check for conflicts, ignoring the conflict if it's for the
          * same event that is passed. */
         $uid = $event->getUID();
+        $conflicts = 0;
         foreach ($busy as $events) {
             foreach ($events as $e) {
                 if (!($e->hasStatus(Kronolith::STATUS_CANCELLED) ||
@@ -44,7 +45,12 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
 
                      if (!($e->start->compareDateTime($event->end) >= 1 ||
                          $e->end->compareDateTime($event->start) <= -1)) {
-                         return false;
+
+                         /* Conflict, but check to see if we are allowed mulitiple */
+                         if (++$conflicts >= $this->get('max_reservations')) {
+                            return false;
+                         }
+
                      }
                 }
             }
@@ -64,7 +70,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
     public function addEvent($event)
     {
         /* Get a driver for this resource's calendar */
-        $driver = Kronolith::getDriver('Resource', $this->get('calendar'));
+        $driver = $this->getDriver();
 
         /* Make sure it's not already attached. */
         $uid = $event->getUID();
@@ -121,6 +127,11 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         } else {
             throw new Horde_Exception(_("Resource already exists. Cannot change the id."));
         }
+    }
+
+    public function getResponseType()
+    {
+        return $this->get('response_type');
     }
 
 }
