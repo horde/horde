@@ -602,7 +602,7 @@ class Horde_Release
         if ($this->_latest) {
             $subject .= ' (final)';
         }
-        if (in_array($version['tag_list'], FOCUS_MAJORSECURITY)) {
+        if (in_array(self::FOCUS_MAJORSECURITY, $version['tag_list'])) {
             $subject = '[SECURITY] ' . $subject;
         }
         $headers = array('From' => $this->_options['ml']['from'],
