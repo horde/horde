@@ -711,8 +711,8 @@ class Horde_Release
         }
 
         $url_response = Horde_Serialize::unserialize($response->getBody(), Horde_Serialize::JSON);
-        if (!is_array($response)) {
-            $response = array();
+        if (!is_array($url_response)) {
+            $url_response = array();
         }
 
         // Should be an array of URL info in response...go through our requested
