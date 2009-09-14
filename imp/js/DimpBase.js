@@ -1778,6 +1778,17 @@ var DimpBase = {
         }
     },
 
+    changeHandler: function(e)
+    {
+        var elt = e.element();
+
+        if (elt.readAttribute('name') == 'search_criteria' &&
+            elt.descendantOf('RB_window')) {
+            elt.up().nextSiblings().invoke($F(elt) ? 'show' : 'hide');
+            RedBox.setWindowPosition();
+        }
+    },
+
     /* Handle rename folder actions. */
     renameFolder: function(folder)
     {
@@ -2467,6 +2478,7 @@ var DimpBase = {
 
         /* Register global handlers now. */
         document.observe('keydown', this.keydownHandler.bindAsEventListener(this));
+        document.observe('change', this.changeHandler.bindAsEventListener(this));
 
         /* Limit to folders sidebar only. */
         $('foldersSidebar').observe('mouseover', this.mouseoverHandler.bindAsEventListener(this));

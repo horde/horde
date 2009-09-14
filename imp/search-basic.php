@@ -66,7 +66,9 @@ $t->set('search_title', sprintf(_("Search %s"), htmlspecialchars(IMP::displayFol
 $t->set('s_fields', $s_fields);
 $t->set('f_fields', $f_fields);
 
-if (!$t->get('dimpview')) {
+if ($t->get('dimpview')) {
+    $t->set('hide_criteria', true);
+} else {
     $title = _("Search");
     IMP::prepareMenu();
     require IMP_TEMPLATES . '/common-header.inc';
