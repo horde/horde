@@ -31,13 +31,13 @@ class Horde_Release
     /* Constants for the release foucs - these are used as tags when sending
      * FM the new release announcement.*/
     const FOCUS_INITIAL = 'Initial announcement';
-    const FOCUS_MINORFEATURE = 'minor feature enhancement';
-    const FOCUS_MAJORFEATURE = 'major feature enhancement';
-    const FOCUS_MINORBUG = 'minor bugfixes';
-    const FOCUS_MAJORBUG = 'major bugfixes';
-    const FOCUS_MINORSECURITY = 'minor security fixes';
-    const FOCUS_MAJORSECURITY = 'major security fixes';
-    const FOCUS_DOCS = 'documentation improvements';
+    const FOCUS_MINORFEATURE = 'Minor feature enhancement';
+    const FOCUS_MAJORFEATURE = 'Major feature enhancement';
+    const FOCUS_MINORBUG = 'Minor bugfixes';
+    const FOCUS_MAJORBUG = 'Major bugfixes';
+    const FOCUS_MINORSECURITY = 'Minor security fixes';
+    const FOCUS_MAJORSECURITY = 'Major security fixes';
+    const FOCUS_DOCS = 'Documentation improvements';
 
     /**
      * Version number of release.
@@ -602,7 +602,7 @@ class Horde_Release
         if ($this->_latest) {
             $subject .= ' (final)';
         }
-        if ($this->notes['fm']['focus'] == 9) {
+        if (in_array($version['tag_list'], FOCUS_MAJORSECURITY)) {
             $subject = '[SECURITY] ' . $subject;
         }
         $headers = array('From' => $this->_options['ml']['from'],
