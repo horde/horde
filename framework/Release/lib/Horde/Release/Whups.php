@@ -47,10 +47,6 @@ class Horde_Release_Whups
      */
     public function addNewVersion($module, $version, $desc = '')
     {
-        if ($module == 'horde') {
-            $module = 'horde base';
-        }
-
         $id = $this->getQueueId($module);
         if ($id === false) {
             throw new Horde_Exception('Unable to locate requested queue');
@@ -76,6 +72,10 @@ class Horde_Release_Whups
      */
     function getQueueId($module)
     {
+        if ($module == 'horde') {
+            $module = 'horde base';
+        }
+
         $queues = $this->_listQueues();
 
         foreach ($queues as $id => $queue) {
