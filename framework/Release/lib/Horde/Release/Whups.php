@@ -13,9 +13,9 @@
 class Horde_Release_Whups
 {
     /**
-     * Instance of XML_RPC_Client object
+     * Instance of Horde_Rpc client object.
      *
-     * @var XML_RPC_CLient
+     * @var Horde_Rpc
      */
     protected $_client;
 
@@ -61,7 +61,7 @@ class Horde_Release_Whups
         $options = array('user' => $this->_params['user'],
                          'pass' => $this->_params['pass']);
 
-        $res = Horde_RPC::request('jsonrpc', $this->_params['url'], $method, $params, $options);
+        $res = Horde_Rpc::request('jsonrpc', $this->_params['url'], $method, $params, $options);
         if ($res instanceof PEAR_Error) {
             throw new Horde_Exception($res);
         }
@@ -96,7 +96,7 @@ class Horde_Release_Whups
     protected function _listQueues()
     {
         $method = 'tickets.listQueues';
-        $result = Horde_RPC::request('jsonrpc', $this->_params['url'], $method,
+        $result = Horde_Rpc::request('jsonrpc', $this->_params['url'], $method,
                                      null, array('user' => $this->_params['user'],
                                                  'pass' => $this->_params['pass']));
         if ($result instanceof PEAR_Error) {
