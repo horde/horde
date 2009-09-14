@@ -711,6 +711,9 @@ class Horde_Release
         }
 
         $response = Horde_Serialize::unserialize($response->getBody(), Horde_Serialize::JSON);
+        if (!is_array($response)) {
+            $response = array();
+        }
 
         // Should be an array of URL info in response...go through our requested
         // updates and see if we can find the correct 'permalink' parameter.
@@ -734,8 +737,13 @@ class Horde_Release
                     $response = $http->post('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/urls.json',
                                             Horde_Serialize::serialize($link, Horde_Serialize::JSON),
                                             array('Content-Type' => 'application/json'));
+                    $response = $response->getBody();
                 } catch (Horde_Http_Client_Exception $e) {
-                    throw new Horde_Exception($e);
+                    if (strpos($e->getMessage(), '201 Created') === false) {
+                        throw new Horde_Exception($e);
+                    } else {
+                        $response = '';
+                    }
                 }
             } else {
                 // Found the link to update...update it.
@@ -743,12 +751,12 @@ class Horde_Release
                     $response = $http->put('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/urls/' . $permalink . '.json',
                                            Horde_Serialize::serialize($link, Horde_Serialize::JSON),
                                            array('Content-Type' => 'application/json'));
+                    $response = $response->getBody();
+                    // Status: 200???
                 } catch (Horde_Http_Client_Exception $e) {
                     throw new Horde_Exception($e);
                 }
             }
-            $response = $response->getBody();
-            // Status: 200???
         }
 
         return true;
