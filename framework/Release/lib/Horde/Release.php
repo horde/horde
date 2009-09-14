@@ -676,7 +676,7 @@ class Horde_Release
      */
     protected function _fmPublish($params)
     {
-        $key =  $this->_options['fm']['user_token'];
+        $key = $this->_options['fm']['user_token'];
         $fm_params = array('auth_code' => $key,
                            'release' => $params);
         $http = new Horde_Http_Client();
@@ -701,14 +701,11 @@ class Horde_Release
      */
     public function _fmUpdateLinks($links)
     {
-        $key =  $this->_options['fm']['user_token'];
-        $fm_params = array('auth_code' => $key);
-
         // Need to get the list of current URLs first, then find the one we want
         // to update.
         $http = new Horde_Http_Client();
         try {
-            $response = $http->get('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/urls.json?auth_code=' . $fm_params['auth_code']);
+            $response = $http->get('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/urls.json?auth_code=' . $this->_options['fm']['user_token']);
         } catch (Horde_Http_Client_Exception $e) {
             throw new Horde_Exception($e);
         }
@@ -728,20 +725,30 @@ class Horde_Release
                     break;
                 }
             }
-            if (!empty($permalink)) {
-                // Found the link to update...update it.
-                $http = new Horde_Http_Client();
+            $link = array('auth_code' => $this->_options['fm']['user_token'],
+                          'url' => $link);
+            $http = new Horde_Http_Client();
+            if (empty($permalink)) {
+                // No link found to update...create it.
                 try {
-                    $response = $http->put('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/urls/' . $permalink . '.json',
-                                           Horde_Serialize::serialize($link, Horde_Serialize::JSON),
-                                   array('Content-Type' => 'application/json'));
+                    $response = $http->post('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/urls.json',
+                                            Horde_Serialize::serialize($link, Horde_Serialize::JSON),
+                                            array('Content-Type' => 'application/json'));
                 } catch (Horde_Http_Client_Exception $e) {
                     throw new Horde_Exception($e);
                 }
-
-                $response = $response->getBody();
-                // Status: 200???
+            } else {
+                // Found the link to update...update it.
+                try {
+                    $response = $http->put('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/urls/' . $permalink . '.json',
+                                           Horde_Serialize::serialize($link, Horde_Serialize::JSON),
+                                           array('Content-Type' => 'application/json'));
+                } catch (Horde_Http_Client_Exception $e) {
+                    throw new Horde_Exception($e);
+                }
             }
+            $response = $response->getBody();
+            // Status: 200???
         }
 
         return true;
