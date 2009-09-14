@@ -101,10 +101,14 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_Base
                 Horde::addInlineScript('if (!IMP) { var IMP = {}; } IMP.ac_list = '. Horde_Serialize::serialize(array_map('htmlspecialchars', $addrlist), Horde_Serialize::JSON, Horde_Nls::getCharset()));
                 self::$_listOutput = true;
             }
+
+            Horde::addScriptFile('liquidmetal.js', 'horde', true);
+
             $func = 'Autocompleter.Local';
             $params[] = 'IMP.ac_list';
             $js_params[] = 'partialSearch: true';
             $js_params[] = 'fullSearch: true';
+            $js_params[] = 'score: true';
         }
 
         $params[] = '{' . implode(',', $js_params) . '}';
