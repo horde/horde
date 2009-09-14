@@ -9,8 +9,15 @@ v3.0-git
 
 
 ----------
-v2.3.2-cvs
+v2.3.3-cvs
 ----------
+
+
+
+
+------
+v2.3.2
+------
 
 [mms] Upgrade prototype.js to v1.6.1.
 [mjr] Fix contacts being deleted during sync when moved from one address book

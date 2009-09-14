@@ -95,8 +95,15 @@ v5.0-git
 
 
 ----------
-v4.3.5-cvs
+v4.3.6-cvs
 ----------
+
+
+
+
+------
+v4.3.5
+------
 
 [mms] Upgrade prototype.js to v1.6.1.
 [jan] Add example hook for the search_sources preference (dom.lalot@gmail.com,

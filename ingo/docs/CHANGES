@@ -7,8 +7,15 @@ v2.0-git
 
 
 ----------
-v1.2.2-cvs
+v1.2.3-cvs
 ----------
+
+
+
+
+------
+v1.2.2
+------
 
 [mms] Upgrade prototype.js to v1.6.1.
 [jan] Correctly match negative header values with numeric comparison in Sieve
