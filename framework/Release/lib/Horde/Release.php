@@ -687,6 +687,8 @@ class Horde_Release
         } catch (Horde_Http_Client_Exception $e) {
             if (strpos($e->getMessage(), '201 Created') === false) {
                 throw new Horde_Exception($e);
+            } else {
+                return '';
             }
         }
 
