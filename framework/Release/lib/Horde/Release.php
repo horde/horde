@@ -31,8 +31,8 @@ class Horde_Release
     /* Constants for the release foucs - these are used as tags when sending
      * FM the new release announcement.*/
     const FOCUS_INITIAL = 'Initial announcement';
-    const FOCUS_MINORFEATURE = 'Minor feature enhancement';
-    const FOCUS_MAJORFEATURE = 'Major feature enhancement';
+    const FOCUS_MINORFEATURE = 'Minor feature enhancements';
+    const FOCUS_MAJORFEATURE = 'Major feature enhancements';
     const FOCUS_MINORBUG = 'Minor bugfixes';
     const FOCUS_MAJORBUG = 'Major bugfixes';
     const FOCUS_MINORSECURITY = 'Minor security fixes';
