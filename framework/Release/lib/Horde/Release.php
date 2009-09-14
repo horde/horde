@@ -710,7 +710,7 @@ class Horde_Release
             throw new Horde_Exception($e);
         }
 
-        $response = Horde_Serialize::unserialize($response->getBody(), Horde_Serialize::JSON);
+        $url_response = Horde_Serialize::unserialize($response->getBody(), Horde_Serialize::JSON);
         if (!is_array($response)) {
             $response = array();
         }
@@ -719,7 +719,7 @@ class Horde_Release
         // updates and see if we can find the correct 'permalink' parameter.
         foreach ($links as $link) {
             $permalink = '';
-            foreach ($response as $url) {
+            foreach ($url_response as $url) {
                 // FM docs contradict this, but each url entry in the array is
                 // wrapped in a 'url' property.
                 $url = $url->url;
