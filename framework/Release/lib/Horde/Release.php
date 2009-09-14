@@ -681,9 +681,9 @@ class Horde_Release
                            'release' => $params);
         $http = new Horde_Http_Client();
         try {
-            $response = $http->put('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/releases.json',
-                                   Horde_Serialize::serialize($fm_params, Horde_Serialize::JSON),
-                                   array('Content-Type' => 'application/json'));
+            $response = $http->post('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/releases.json',
+                                    Horde_Serialize::serialize($fm_params, Horde_Serialize::JSON),
+                                    array('Content-Type' => 'application/json'));
         } catch (Horde_Http_Client_Exception $e) {
             throw new Horde_Exception($e);
         }
