@@ -560,7 +560,7 @@ class Horde_Release
         $links = array();
         $links[] = array('label' => 'Tar/GZ',
                          'location' => "ftp://ftp.horde.org/pub/$module/{$this->_tarballName}");
-        if (!empty($url_changlelog)) {
+        if (!empty($url_changelog)) {
             $links[] =  array('label' => 'Changelog',
                               'location' => $url_changelog);
         }
