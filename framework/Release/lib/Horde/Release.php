@@ -685,7 +685,9 @@ class Horde_Release
                                     Horde_Serialize::serialize($fm_params, Horde_Serialize::JSON),
                                     array('Content-Type' => 'application/json'));
         } catch (Horde_Http_Client_Exception $e) {
-            throw new Horde_Exception($e);
+            if (strpos($e->getMessage(), '201 Created') === false) {
+                throw new Horde_Exception($e);
+            }
         }
 
         // 201 Created
