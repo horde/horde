@@ -5,16 +5,16 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Http_Client
+ * @package  Horde_Http
  */
 
 /**
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Http_Client
+ * @package  Horde_Http
  */
-class Horde_Http_Client_Exception extends Exception
+class Horde_Http_Exception extends Exception
 {
     /**
      * Constructor

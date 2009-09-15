@@ -5,16 +5,16 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Http_Client
+ * @package  Horde_Http
  */
 
 /**
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
- * @package  Horde_Http_Client
+ * @package  Horde_Http
  */
-class Horde_Http_Client_Response
+abstract class Horde_Http_Response_Base
 {
     /**
      * Fetched URI
@@ -41,22 +41,6 @@ class Horde_Http_Client_Response
     public $headers;
 
     /**
-     * Response body
-     * @var stream
-     */
-    protected $_stream;
-
-    /**
-     * Constructor
-     */
-    public function __construct($uri, $stream, $headers = array())
-    {
-        $this->uri = $uri;
-        $this->_stream = $stream;
-        $this->_parseHeaders($headers);
-    }
-
-    /**
      * Parse an array of response headers, mindful of line
      * continuations, etc.
      *
@@ -65,6 +49,12 @@ class Horde_Http_Client_Response
      */
     protected function _parseHeaders($headers)
     {
+        if (!is_array($headers)) {
+            $headers = preg_split("/\r?\n/", $headers);
+        }
+
+        $this->headers = array();
+
         $lastHeader = null;
         foreach ($headers as $headerLine) {
             // stream_get_meta returns all headers generated while processing a
@@ -113,14 +103,7 @@ class Horde_Http_Client_Response
      *
      * @return string HTTP response body.
      */
-    public function getBody()
-    {
-        $content = @stream_get_contents($this->_stream);
-        if ($content === false) {
-            throw new Horde_Http_Client_Exception('Problem reading data from ' . $this->uri . ': ' . $php_errormsg);
-        }
-        return $content;
-    }
+    abstract public function getBody();
 
     /**
      * Return a stream pointing to the response body that can be used
@@ -128,7 +111,8 @@ class Horde_Http_Client_Response
      */
     public function getStream()
     {
-        return $this->_stream;
+        $body = new Horde_Support_StringStream($this->getBody());
+        return $body->fopen();
     }
 
     /**
