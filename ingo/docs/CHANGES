@@ -10,7 +10,7 @@ v2.0-git
 v1.2.3-cvs
 ----------
 
-
+[jan] Prevent deadlock with vacation rule in maildrop driver (Bug #8577).
 
 
 ------
