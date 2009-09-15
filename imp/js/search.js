@@ -7,7 +7,8 @@
 
 var ImpSearch = {
     // The following variables are defined in search.php:
-    //   loading, months, need_criteria, need_folder, types
+    //   loading, months, need_criteria, need_folder, need_vfolder_label,
+    //   types
     criteria: {},
     saved_searches: {},
     show_unsub: false,
@@ -20,7 +21,9 @@ var ImpSearch = {
     selectFolders: function(checked)
     {
         this._getAll().each(function(e) {
-            e.checked = checked;
+            if (!e.disabled) {
+                e.checked = Boolean(checked);
+            }
         });
     },
 
@@ -94,7 +97,7 @@ var ImpSearch = {
 
     resetCriteria: function()
     {
-        $('search_criteria').siblings().invoke('remove');
+        $('search_criteria_table').childElements().invoke('remove');
     },
 
     changeHandler: function(e)
@@ -138,45 +141,51 @@ var ImpSearch = {
         return $('search_criteria').down('[value=' + id + ']').getText() + ': ';
     },
 
-    insertCriteria: function(elt)
+    insertCriteria: function(tds)
     {
-        var div = new Element('DIV').insert(elt.writeAttribute('id', null).show()).insert($($('delete_criteria').cloneNode(true)).writeAttribute('id', null).show());
-        $('search_criteria').insert({ before: div }).setValue('');
-        return div.identify();
+        var tr = new Element('TR');
+        tds.each(function(td) {
+            tr.insert(new Element('TD').insert(td));
+        });
+        tr.childElements().last().insert(new Element('A', { href: '#', className: 'searchuiImg searchuiDelete' }));
+        $('search_criteria').setValue('');
+        $('search_criteria_table').insert(tr);
+        return tr.identify();
     },
 
     insertText: function(id, text, not)
     {
-        var tmp = $($('text_criteria').cloneNode(true));
-        tmp.down('EM').insert(this.getLabel(id));
-        tmp.down('INPUT').setValue(text);
-        if (not) {
-            tmp.down('INPUT', 1).writeAttribute('checked', true);
-        }
+        var tmp = [
+            new Element('EM').insert(this.getLabel(id)),
+            new Element('INPUT', { type: 'text', size: 25 }),
+            new Element('SPAN').insert(new Element('INPUT', { checked: Boolean(not), className: 'checkbox', type: 'checkbox' })).insert(this.not_match)
+        ];
         this.criteria[this.insertCriteria(tmp)] = { t: id };
     },
 
     insertSize: function(id, size)
     {
-        var tmp = $($('text_criteria').cloneNode(true));
-        tmp.down('EM').insert(this.getLabel(id));
-        // Convert from bytes to KB
-        tmp.down('INPUT').writeAttribute('size', 10).setValue(Object.isNumber(size) ? Math.round(size / 1024) : '');
-        tmp.down('SPAN').hide();
+        var tmp = [
+            new Element('EM').insert(this.getLabel(id)),
+            // Convert from bytes to KB
+            new Element('INPUT', { type: 'text', size: 10 }).setValue(Object.isNumber(size) ? Math.round(size / 1024) : '')
+        ];
         this.criteria[this.insertCriteria(tmp)] = { t: id };
     },
 
     insertDate: function(id, data)
     {
         var d = (data ? new Date(data.y, data.m, data.d) : new Date()),
-            tmp = $($('date_criteria').cloneNode(true));
-        tmp.down('EM').insert(this.getLabel(id));
+            tmp = [
+                new Element('EM').insert(this.getLabel(id)),
+                new Element('SPAN').insert(new Element('SPAN')).insert(new Element('A', { href: '#', className: 'calendarPopup', title: this.dateselection }).insert(new Element('SPAN', { className: 'searchuiImg searchuiCalendar' })))
+            ];
         this.replaceDate(this.insertCriteria(tmp), id, { y: d.getFullYear(), m: d.getMonth(), d: d.getDate() });
     },
 
     replaceDate: function(id, type, data)
     {
-        $(id).down('SPAN', 1).update(this.months[data.m] + ' ' + data.d + ', ' + data.y);
+        $(id).down('TD SPAN SPAN').update(this.months[data.m] + ' ' + data.d + ', ' + data.y);
         // Need to store date information at all times in criteria, since we
         // have no other way to track this information (there is not form
         // field for this type).
@@ -185,7 +194,10 @@ var ImpSearch = {
 
     insertFlag: function(id)
     {
-        var tmp = $($('flag_criteria').cloneNode(true)).insert({ bottom: this.getLabel(id) } );
+        var tmp = [
+            new Element('EM').insert(this.flag),
+            this.getLabel(id).slice(0, -2)
+        ];
         this.criteria[this.insertCriteria(tmp)] = { t: id };
     },
 
@@ -196,7 +208,7 @@ var ImpSearch = {
         if (!this._getAll().findAll(function(i) { return i.checked; }).size()) {
             alert(this.need_folder);
         } else {
-            tmp = $('search_criteria').siblings().pluck('id');
+            tmp = $('search_criteria_table').childElements().pluck('id');
             if (tmp.size()) {
                 tmp.each(function(c) {
                     var tmp2;
@@ -282,17 +294,17 @@ var ImpSearch = {
                     elt.hasClassName('arrowCollapsed')) {
                     elt.up().down().toggle().next().toggle().up().next().toggle();
                     if (elt.descendantOf('search_folders_hdr')) {
-                        elt.next('SPAN.item').toggle();
+                        elt.next('SPAN.searchFoldersActions').toggle();
                     }
                 } else if (elt.hasClassName('searchuiDelete')) {
-                    tmp = elt.up('DIV');
+                    tmp = elt.up('TR');
                     delete this.criteria[tmp.identify()];
                     tmp.remove();
                     e.stop();
                     return;
                 } else if (elt.hasClassName('searchuiCalendar')) {
-                    tmp = this.criteria[elt.up('DIV').identify()];
-                    Horde_Calendar.open(elt.identify(), { y: tmp.v.y, m: tmp.v.m + 1, d: tmp.v.d }, this.replaceDate.bind(this, elt.up('DIV').identify(), tmp.t));
+                    tmp = this.criteria[elt.up('TR').identify()];
+                    Horde_Calendar.open(elt.identify(), { y: tmp.v.y, m: tmp.v.m + 1, d: tmp.v.d }, this.replaceDate.bind(this, elt.up('TR').identify(), tmp.t));
                     e.stop();
                     return;
                 }

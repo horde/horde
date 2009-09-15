@@ -164,6 +164,10 @@ div.msgActions, #fmanager div.folderActions {
 .searchuiCalendar {
     background-image: url("graphics/calendar.png");
 }
+.searchFoldersActions {
+    margin-left: 20px;
+    font-size: 90%;
+}
 
 /* Folder view. */
 #fmanager div, #fmanager div input {

@@ -130,15 +130,20 @@ class IMP_Search
                 'type' => 'header',
                 'not' => true
             ),
+            'custom' => array(
+                'label' => _("Custom Header"),
+                'type' => 'customhdr',
+                'not' => true
+            ),
             'body' => array(
                'label' => _("Body"),
                'type' => 'body',
-                'not' => true
+               'not' => true
             ),
             'text' => array(
                'label' => _("Entire Message"),
                'type' => 'text',
-                'not' => true
+               'not' => true
             ),
             'date_on' => array(
                 'label' => _("Date ="),

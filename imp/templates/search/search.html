@@ -25,6 +25,7 @@
  </div>
 
  <div class="item">
+  <table id="search_criteria_table"></table>
   <div>
    <select id="search_criteria">
     <option value=""><gettext>Add search criteria:</gettext></option>
@@ -44,7 +45,7 @@
   <span class="searchuiImg arrowExpanded" style="display:none"></span>
   <span class="searchuiImg arrowCollapsed"></span>
   <gettext>Search Folders</gettext>
-  <span class="item" style="display:none">
+  <span class="searchFoldersActions" style="display:none">
    <a id="link_sel_all" href="#"><gettext>Select all</gettext></a> |
    <a id="link_sel_none" href="#"><gettext>Select none</gettext></a>
 <if:subscribe>
@@ -82,26 +83,6 @@
   <input type="button" id="search_reset" class="button" value="<gettext>Reset</gettext>" />
  </div>
 </form>
-
-<span id="text_criteria" style="display:none">
- <em></em>
- <input type="text" size="25" />
- <span><input type="checkbox" /><gettext>Do NOT Match</gettext></input></span>
-</span>
-
-<span id="flag_criteria" style="display:none">
- <em><gettext>Flag</gettext>: </em>
-</span>
-
-<span id="date_criteria" style="display:none">
- <em></em>
- <span></span>
- <a href="#" class="calendarPopup" title="<gettext>Date Selection</gettext>"><span class="searchuiImg searchuiCalendar"></span></a>
-</span>
-
-<span id="delete_criteria" style="display:none">
- <a href="#" class="searchuiImg searchuiDelete"></a>
-</span>
 
 <div id="folder_row" style="display:none">
  <input type="checkbox" class="checkbox" name="search_folders_form[]" />

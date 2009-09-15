@@ -8,15 +8,14 @@
  * ---------------
  * 'criteria_form' - (string) JSON representation of the search query.
  * 'edit_query' - (string) The search query to edit.
+ * 'edit_query_vfolder' - (string) The name of the vfolder being edited.
+ * 'search_folders_form' - (array) The list of folders to add to the query.
  * 'search_mailbox' - (string) Use this mailbox as the default value.
  *                    DEFAULT: INBOX
- *
- * TODO:
- * 'edit_query_vfolder'
- * 'search_folders_form[]'
- * 'show_unsub'
- * 'vfolder_label'
- * 'vfolder_save'
+ * 'show_unsub' - (integer) If set, return a JSON object with folder
+ *                information used to create the folder list.
+ * 'vfolder_label' - (string) The label to use when saving as a virtual folder.
+ * 'vfolder_save' - (boolean) If set, save search as a virtual folder.
  *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
@@ -41,8 +40,7 @@ if (!$browser->hasFeature('javascript') ||
 
 $charset = Horde_Nls::getCharset();
 $criteria = Horde_Util::getFormData('criteria_form');
-$edit_query = Horde_Util::getFormData('edit_query');
-$imp_search_fields = $imp_search->searchFields();
+$search_fields = $imp_search->searchFields();
 
 /* Generate the search query if 'criteria_form' is present in the form
  * data. */
@@ -114,8 +112,10 @@ $t = new Horde_Template();
 $t->setOption('gettext', true);
 $t->set('action', Horde::applicationUrl('search.php'));
 $t->set('subscribe', $subscribe);
+$t->set('virtualfolder', $_SESSION['imp']['protocol'] != 'pop');
 
 /* Determine if we are editing a current search folder. */
+$edit_query = Horde_Util::getFormData('edit_query');
 if (!is_null($edit_query) && $imp_search->isSearchMbox($edit_query)) {
     if ($imp_search->isVFolder($edit_query)) {
         if (!$imp_search->isEditableVFolder($edit_query)) {
@@ -131,7 +131,7 @@ if (!is_null($edit_query) && $imp_search->isSearchMbox($edit_query)) {
 $f_fields = $s_fields = $types = array();
 
 /* Process the list of fields. */
-foreach ($imp_search_fields as $key => $val) {
+foreach ($search_fields as $key => $val) {
     $s_fields[] = array(
         'val' => $key,
         'label' => $val['label']
@@ -149,16 +149,17 @@ foreach ($imp_search->flagFields() as $key => $val) {
 }
 $t->set('f_fields', $f_fields);
 
-$t->set('virtualfolder', $_SESSION['imp']['protocol'] != 'pop');
-
 Horde_UI_JsCalendar::init();
 
 Horde::addInlineScript(array(
+    'ImpSearch.dateselection = ' . Horde_Serialize::serialize(_("Date Selection"), Horde_Serialize::JSON, $charset),
+    'ImpSearch.flag = ' . Horde_Serialize::serialize(_("Flag:"), Horde_Serialize::JSON, $charset),
     'ImpSearch.loading = ' . Horde_Serialize::serialize(_("Loading..."), Horde_Serialize::JSON, $charset),
     'ImpSearch.months = ' . Horde_Serialize::serialize(Horde_UI_JsCalendar::months(), Horde_Serialize::JSON, $charset),
     'ImpSearch.need_criteria = ' . Horde_Serialize::serialize(_("Please select at least one search criteria."), Horde_Serialize::JSON, $charset),
     'ImpSearch.need_folder = ' . Horde_Serialize::serialize(_("Please select at least one folder to search."), Horde_Serialize::JSON, $charset),
     'ImpSearch.need_vfolder_label = ' . Horde_Serialize::serialize(_("Virtual Folders require a label."), Horde_Serialize::JSON, $charset),
+    'ImpSearch.not_match = ' . Horde_Serialize::serialize(_("Do NOT Match"), Horde_Serialize::JSON, $charset),
     'ImpSearch.types = ' . Horde_Serialize::serialize($types, Horde_Serialize::JSON, $charset)
 ));
 Horde::addInlineScript($on_domload, 'dom');

@@ -39,7 +39,7 @@ $f_fields = $s_fields = array();
 $search_mailbox = Horde_Util::getFormData('search_mailbox');
 
 foreach ($imp_search->searchFields() as $key => $val) {
-    if ($val['type'] != 'date') {
+    if (!in_array($val['type'], array('customhdr', 'date'))) {
         $s_fields[] = array(
             'val' => $key,
             'label' => $val['label']

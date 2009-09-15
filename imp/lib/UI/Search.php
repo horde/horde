@@ -94,10 +94,15 @@ class IMP_UI_Search
         $c_list = array();
 
         if ($criteria) {
+            $search_fields = $GLOBALS['imp_search']->searchFields();
             $tmp = new stdClass;
             $tmp->t = $criteria;
-            $tmp->v = $text;
-            $tmp->n = $not;
+            $tmp->v = ($search_fields[$criteria]['type'] == 'size')
+                ? floatval($text) * 1024
+                : $text;
+            if ($search_fields[$criteria]['not']) {
+                $tmp->n = (bool)$not;
+            }
             $c_list[] = $tmp;
         }
 
