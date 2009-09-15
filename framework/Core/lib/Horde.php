@@ -580,7 +580,7 @@ HTML;
     /**
      * Returns a stdClass response object with added notification information.
      *
-     * @param string $data                     The 'response' data.
+     * @param mixed $data                      The 'response' data.
      * @param Notification_Listener $listener  If set, adds notification
      *                                         information to object.
      * @param boolean $auto                    If true, the ajax application
