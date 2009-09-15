@@ -76,6 +76,13 @@ abstract class Horde_Http_Request_Base
     }
 
     /**
+     * Send this HTTP request
+     *
+     * @return Horde_Http_Response_Base
+     */
+    abstract public function send();
+
+    /**
      * Get an adapter parameter
      *
      * @param string $name  The parameter to get.
