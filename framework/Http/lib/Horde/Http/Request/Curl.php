@@ -16,11 +16,13 @@
  */
 class Horde_Http_Request_Curl extends Horde_Http_Request_Base
 {
-    public function __construct()
+    public function __construct($args = array())
     {
         if (!extension_loaded('curl')) {
             throw new Horde_Http_Exception('The curl extension is not installed. See http://php.net/curl.installation');
         }
+
+        parent::__construct($args);
     }
 
     /**
@@ -30,24 +32,25 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
      */
     public function send()
     {
-        $body = tmpfile();
-        $headers = tmpfile();
-
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $this->uri);
-        curl_setopt($curl, CURLOPT_FILE, $body);
-        curl_setopt($curl, CURLOPT_WRITEHEADER, $headers);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HEADER, true);
 
-        // If we don't set POSTFIELDS to a string, and the first value begins
-        // with @, it will be treated as a filename, and the proper POST data
-        // isn't passed.
-        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($this->data));
+        $data = $this->data;
+        if (is_array($data)) {
+            // If we don't set POSTFIELDS to a string, and the first value
+            // begins with @, it will be treated as a filename, and the proper
+            // POST data isn't passed.
+            $data = http_build_query($data);
+        }
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $this->data);
 
         $result = curl_exec($curl);
-
-        rewind($body);
-        rewind($headers);
-
-        return new Horde_Http_Response_Curl($this->uri, $body, stream_get_contents($headers));
+        if ($result === false) {
+            throw new Horde_Http_Exception(curl_error($curl), curl_errno($curl));
+        }
+        $info = curl_getinfo($curl);
+        return new Horde_Http_Response_Curl($result, $info);
     }
 }
