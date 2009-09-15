@@ -40,6 +40,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Peclhttp.php" role="php" />
       </dir> <!-- /lib/Horde/Http/Request -->
       <dir name="Response">
+       <file name="Base.php" role="php" />
+       <file name="Curl.php" role="php" />
+       <file name="Fopen.php" role="php" />
+       <file name="Mock.php" role="php" />
+       <file name="Peclhttp.php" role="php" />
+      </dir> <!-- /lib/Horde/Http/Response -->
+      <dir name="Response">
       </dir> <!-- /lib/Horde/Http/Response -->
      </dir> <!-- /lib/Horde/Http -->
     </dir> <!-- /lib/Horde -->
@@ -65,6 +72,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Http/Request/Fopen.php" as="Horde/Http/Request/Fopen.php" />
    <install name="lib/Horde/Http/Request/Mock.php" as="Horde/Http/Request/Mock.php" />
    <install name="lib/Horde/Http/Request/Peclhttp.php" as="Horde/Http/Request/Peclhttp.php" />
+   <install name="lib/Horde/Http/Response/Base.php" as="Horde/Http/Response/Base.php" />
+   <install name="lib/Horde/Http/Response/Curl.php" as="Horde/Http/Response/Curl.php" />
+   <install name="lib/Horde/Http/Response/Fopen.php" as="Horde/Http/Response/Fopen.php" />
+   <install name="lib/Horde/Http/Response/Mock.php" as="Horde/Http/Response/Mock.php" />
+   <install name="lib/Horde/Http/Response/Peclhttp.php" as="Horde/Http/Response/Peclhttp.php" />
   </filelist>
  </phprelease>
 </package>

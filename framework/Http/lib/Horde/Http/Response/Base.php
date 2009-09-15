@@ -14,7 +14,7 @@
  * @category Horde
  * @package  Horde_Http
  */
-class Horde_Http_Response_Base
+abstract class Horde_Http_Response_Base
 {
     /**
      * Fetched URI
@@ -53,7 +53,7 @@ class Horde_Http_Response_Base
     {
         $this->uri = $uri;
         $this->_stream = $stream;
-        $this->_parseHeaders($headers);
+        $this->headers = $this->_parseHeaders($headers);
     }
 
     /**
@@ -69,6 +69,8 @@ class Horde_Http_Response_Base
             $headers = explode("\n", $headers);
         }
 
+        $parsedHeaders = array();
+
         $lastHeader = null;
         foreach ($headers as $headerLine) {
             // stream_get_meta returns all headers generated while processing a
@@ -78,7 +80,7 @@ class Horde_Http_Response_Base
             if (preg_match('/^HTTP\/(\d.\d) (\d{3})/', $headerLine, $httpMatches)) {
                 $this->httpVersion = $httpMatches[1];
                 $this->code = (int)$httpMatches[2];
-                $this->headers = array();
+                $parsedHeaders = array();
                 $lastHeader = null;
             }
 
@@ -91,25 +93,27 @@ class Horde_Http_Response_Base
                 $headerName = strtolower($m[1]);
                 $headerValue = $m[2];
 
-                if (isset($this->headers[$headerName])) {
-                    if (!is_array($this->headers[$headerName])) {
-                        $this->headers[$headerName] = array($this->headers[$headerName]);
+                if (isset($parsedHeaders[$headerName])) {
+                    if (!is_array($parsedHeaders[$headerName])) {
+                        $parsedHeaders[$headerName] = array($parsedHeaders[$headerName]);
                     }
 
-                    $this->headers[$headerName][] = $headerValue;
+                    $parsedHeaders[$headerName][] = $headerValue;
                 } else {
-                    $this->headers[$headerName] = $headerValue;
+                    $parsedHeaders[$headerName] = $headerValue;
                 }
                 $lastHeader = $headerName;
             } elseif (preg_match("|^\s+(.+)$|", $headerLine, $m) && !is_null($lastHeader)) {
-                if (is_array($this->headers[$lastHeader])) {
-                    end($this->headers[$lastHeader]);
-                    $this->headers[$lastHeader][key($this->headers[$lastHeader])] .= $m[1];
+                if (is_array($parsedHeaders[$lastHeader])) {
+                    end($parsedHeaders[$lastHeader]);
+                    $parsedHeaders[$lastHeader][key($parsedHeaders[$lastHeader])] .= $m[1];
                 } else {
-                    $this->headers[$lastHeader] .= $m[1];
+                    $parsedHeaders[$lastHeader] .= $m[1];
                 }
             }
         }
+
+        return $parsedHeaders;
     }
 
     /**
