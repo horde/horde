@@ -147,7 +147,7 @@ class Horde_Http_Client
         }
 
         $this->_lastRequest = $this->_request;
-        $this->_lastResponse = $this->_adapter->send($this->_lastRequest);
+        $this->_lastResponse = $this->_request->send();
         return $this->_lastResponse;
     }
 
