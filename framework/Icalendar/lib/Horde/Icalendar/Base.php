@@ -53,13 +53,7 @@ abstract class Horde_Icalendar_Base implements Iterator
     public function __set($property, $value)
     {
         $this->_validate($property, $value);
-        if ($this->_properties[$property]['multiple']) {
-            $this->_properties[$property]['value'] = array($value);
-            $this->_properties[$property]['params'] = array();
-        } else {
-            $this->_properties[$property]['value'] = $value;
-            $this->_properties[$property]['params'] = null;
-        }
+        $this->_setProperty($property, $value);
     }
 
     /**
@@ -74,8 +68,8 @@ abstract class Horde_Icalendar_Base implements Iterator
      */
     public function setProperty($property, $value, $params = array())
     {
-        $this->$property = $value;
-        $this->_properties[$property]['params'] = $params;
+        $this->_validate($property, $value);
+        $this->_setProperty($property, $value, $params);
     }
 
     /**
@@ -93,14 +87,35 @@ abstract class Horde_Icalendar_Base implements Iterator
     {
         $this->_validate($property, $value);
         if (!$this->_properties[$property]['multiple'] &&
-            isset($this->_properties[$property]['value'])) {
+            !empty($this->_properties[$property]['values'])) {
             throw new Horde_Icalendar_Exception($property . ' properties must not occur more than once.');
         }
-        if (isset($this->_properties[$property]['value'])) {
-            $this->_properties[$property]['value'][] = $value;
+        $this->_setProperty($property, $value, $params, true);
+    }
+
+    /**
+     * Sets the value of a property.
+     *
+     * @param string $property  The name of the property.
+     * @param string $value     The value of the property.
+     * @param array $params     Array containing any addition parameters for
+     *                          this property.
+     * @param boolean $add      Whether to add (instead of replace) the value.
+     *
+     * @throws InvalidArgumentException
+     */
+    protected function _setProperty($property, $value, $params = array(), $add = false)
+    {
+        if ($add) {
+            if (!isset($this->_properties[$property]['values'])) {
+                $this->_properties[$property]['values'] = array();
+                $this->_properties[$property]['params'] = array();
+            }
+            $this->_properties[$property]['values'][] = $value;
             $this->_properties[$property]['params'][] = $params;
         } else {
-            $this->setProperty($property, $value, $params);
+            $this->_properties[$property]['values'] = array($value);
+            $this->_properties[$property]['params'] = $params;
         }
     }
 
@@ -114,8 +129,10 @@ abstract class Horde_Icalendar_Base implements Iterator
         if (!isset($this->_properties[$property])) {
             throw new InvalidArgumentException($property . ' is not a valid property');
         }
-        return isset ($this->_properties[$property]['value'])
-            ? $this->_properties[$property]['value']
+        return isset($this->_properties[$property]['values'])
+            ? ($this->_properties[$property]['multiple']
+               ? $this->_properties[$property]['values']
+               : $this->_properties[$property]['values'][0])
             : null;
     }
 
@@ -167,7 +184,7 @@ abstract class Horde_Icalendar_Base implements Iterator
     public function validate()
     {
         foreach ($this->_properties as $name => $property) {
-            if (!empty($property['required']) && !isset($property['value'])) {
+            if (!empty($property['required']) && !isset($property['values'])) {
                 switch ($name) {
                 case 'uid':
                     $this->uid = (string)new Horde_Support_Guid;

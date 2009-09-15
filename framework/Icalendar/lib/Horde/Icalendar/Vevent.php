@@ -11,7 +11,7 @@ class Horde_Icalendar_Vevent extends Horde_Icalendar_Base
             'uid' => array('required' => true,
                            'multiple' => false,
                            'type' => 'string'),
-            'start' => array('required' => false,
+            'start' => array('required' => true,
                              'multiple' => false,
                              'class' => 'Horde_Date'),
             'startDate' => array('required' => false,
@@ -29,13 +29,25 @@ class Horde_Icalendar_Vevent extends Horde_Icalendar_Base
         parent::__construct($properties);
     }
 
-    public function validate()
+    /**
+     * Sets the value of a property.
+     *
+     * @param string $property  The name of the property.
+     * @param string $value     The value of the property.
+     * @param array $params     Array containing any addition parameters for
+     *                          this property.
+     * @param boolean $add      Whether to add (instead of replace) the value.
+     *
+     * @throws InvalidArgumentException
+     */
+    protected function _setProperty($property, $value, $params = array(), $add = false)
     {
-        parent::validate();
-        if (!isset($this->_properties['start']['value']) &&
-            !isset($this->_properties['startDate']['value'])) {
-            throw new Horde_Icalendar_Exception('VEVENT components must have a start property set');
+        if ($property == 'startDate') {
+            $this->_validate('start', $value);
+            $property = 'start';
+            $params['value'] = 'date';
         }
+        parent::_setProperty($property, $value, $params, $add);
     }
 
 }

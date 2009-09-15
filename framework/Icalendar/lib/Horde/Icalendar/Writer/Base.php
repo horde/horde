@@ -2,6 +2,7 @@
 
 abstract class Horde_Icalendar_Writer_Base
 {
+    protected $_propertyMap = array();
 
     protected $_output = '';
 
@@ -28,8 +29,13 @@ abstract class Horde_Icalendar_Writer_Base
 
     protected function _exportProperty($name, $property)
     {
-        if (isset($property['value'])) {
-            $this->_output .= Horde_String::upper($name) . ':' . $property['value'] . "\n";
+        if (isset($property['values'])) {
+            if (isset($this->_propertyMap[$name])) {
+                $name = $this->_propertyMap[$name];
+            }
+            foreach ($property['values'] as $value) {
+                $this->_output .= Horde_String::upper($name) . ':' . $value . "\n";
+            }
         }
     }
 
