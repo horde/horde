@@ -1784,7 +1784,7 @@ var DimpBase = {
 
         if (elt.readAttribute('name') == 'search_criteria' &&
             elt.descendantOf('RB_window')) {
-            elt.up().nextSiblings().invoke($F(elt) ? 'show' : 'hide');
+            elt.next().invoke($F(elt) ? 'show' : 'hide');
             RedBox.setWindowPosition();
         }
     },
