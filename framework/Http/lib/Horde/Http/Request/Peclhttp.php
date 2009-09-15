@@ -54,6 +54,6 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
             throw new Horde_Http_Exception($e->getMessage(), $e->getCode(), $e);
         }
 
-        return new Horde_Http_Response_Peclhttp($httpResponse);
+        return new Horde_Http_Response_Peclhttp($this->uri, $httpResponse);
     }
 }

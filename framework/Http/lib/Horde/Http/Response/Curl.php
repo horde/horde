@@ -17,25 +17,29 @@
 class Horde_Http_Response_Curl extends Horde_Http_Response_Base
 {
     /**
-     * Info on the request
+     * Info on the request obtained from curl_getinfo()
      * @var array
      */
-    protected $_curlinfo = array();
+    protected $_info = array();
 
     /**
+     * Response body
+     * @var string
      */
-    public function __construct($curlresult, $curlinfo)
-    {
-        echo $curlresult;
-        $this->parseResponse($curlresult, $curlinfo);
-    }
+    protected $_body;
 
     /**
+     * Constructor
      *
+     * @param string $uri
+     * @param string $curlresult
+     * @param array $curlinfo
      */
-    public function parseResponse($curlresult, $curlinfo)
+    public function __construct($uri, $curlresult, $curlinfo)
     {
-        $this->_curlinfo = $curlinfo;
+        $this->uri = $uri;
+        $this->_parseInfo($curlinfo);
+        $this->_parseResult($curlresult);
     }
 
     /**
@@ -46,5 +50,32 @@ class Horde_Http_Response_Curl extends Horde_Http_Response_Base
     public function getBody()
     {
         return $this->_body;
+    }
+
+    /**
+     * Parse the combined header/body result from cURL.
+     *
+     * @param string $curlresult
+     */
+    protected function _parseResult($curlresult)
+    {
+        $endOfHeaders = strpos($curlresult, "\r\n\r\n");
+
+        $headers = substr($curlresult, 0, $endOfHeaders);
+        $this->_parseHeaders($headers);
+
+        $this->_body = substr($curlresult, $endOfHeaders + 4);
+    }
+
+    /**
+     * Process the results of curl_getinfo
+     *
+     * @param array $curlinfo
+     */
+    protected function _parseInfo($curlinfo)
+    {
+        $this->uri = $curlinfo['url'];
+
+        $this->_info = $curlinfo;
     }
 }

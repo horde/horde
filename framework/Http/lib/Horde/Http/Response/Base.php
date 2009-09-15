@@ -41,22 +41,6 @@ abstract class Horde_Http_Response_Base
     public $headers;
 
     /**
-     * Response body
-     * @var stream
-     */
-    protected $_stream;
-
-    /**
-     * Constructor
-     */
-    public function __construct($uri, $stream, $headers = array())
-    {
-        $this->uri = $uri;
-        $this->_stream = $stream;
-        $this->headers = $this->_parseHeaders($headers);
-    }
-
-    /**
      * Parse an array of response headers, mindful of line
      * continuations, etc.
      *
@@ -66,10 +50,10 @@ abstract class Horde_Http_Response_Base
     protected function _parseHeaders($headers)
     {
         if (!is_array($headers)) {
-            $headers = explode("\n", $headers);
+            $headers = preg_split("/\r?\n/", $headers);
         }
 
-        $parsedHeaders = array();
+        $this->headers = array();
 
         $lastHeader = null;
         foreach ($headers as $headerLine) {
@@ -80,7 +64,7 @@ abstract class Horde_Http_Response_Base
             if (preg_match('/^HTTP\/(\d.\d) (\d{3})/', $headerLine, $httpMatches)) {
                 $this->httpVersion = $httpMatches[1];
                 $this->code = (int)$httpMatches[2];
-                $parsedHeaders = array();
+                $this->headers = array();
                 $lastHeader = null;
             }
 
@@ -93,27 +77,25 @@ abstract class Horde_Http_Response_Base
                 $headerName = strtolower($m[1]);
                 $headerValue = $m[2];
 
-                if (isset($parsedHeaders[$headerName])) {
-                    if (!is_array($parsedHeaders[$headerName])) {
-                        $parsedHeaders[$headerName] = array($parsedHeaders[$headerName]);
+                if (isset($this->headers[$headerName])) {
+                    if (!is_array($this->headers[$headerName])) {
+                        $this->headers[$headerName] = array($this->headers[$headerName]);
                     }
 
-                    $parsedHeaders[$headerName][] = $headerValue;
+                    $this->headers[$headerName][] = $headerValue;
                 } else {
-                    $parsedHeaders[$headerName] = $headerValue;
+                    $this->headers[$headerName] = $headerValue;
                 }
                 $lastHeader = $headerName;
             } elseif (preg_match("|^\s+(.+)$|", $headerLine, $m) && !is_null($lastHeader)) {
-                if (is_array($parsedHeaders[$lastHeader])) {
-                    end($parsedHeaders[$lastHeader]);
-                    $parsedHeaders[$lastHeader][key($parsedHeaders[$lastHeader])] .= $m[1];
+                if (is_array($this->headers[$lastHeader])) {
+                    end($this->headers[$lastHeader]);
+                    $this->headers[$lastHeader][key($this->headers[$lastHeader])] .= $m[1];
                 } else {
-                    $parsedHeaders[$lastHeader] .= $m[1];
+                    $this->headers[$lastHeader] .= $m[1];
                 }
             }
         }
-
-        return $parsedHeaders;
     }
 
     /**
@@ -121,14 +103,7 @@ abstract class Horde_Http_Response_Base
      *
      * @return string HTTP response body.
      */
-    public function getBody()
-    {
-        $content = @stream_get_contents($this->_stream);
-        if ($content === false) {
-            throw new Horde_Http_Exception('Problem reading data from ' . $this->uri . ': ' . $php_errormsg);
-        }
-        return $content;
-    }
+    abstract public function getBody();
 
     /**
      * Return a stream pointing to the response body that can be used
@@ -136,7 +111,8 @@ abstract class Horde_Http_Response_Base
      */
     public function getStream()
     {
-        return $this->_stream;
+        $body = new Horde_Support_StringStream($this->getBody());
+        return $body->fopen();
     }
 
     /**

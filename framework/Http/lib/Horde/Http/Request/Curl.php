@@ -51,6 +51,6 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
             throw new Horde_Http_Exception(curl_error($curl), curl_errno($curl));
         }
         $info = curl_getinfo($curl);
-        return new Horde_Http_Response_Curl($result, $info);
+        return new Horde_Http_Response_Curl($this->uri, $result, $info);
     }
 }
