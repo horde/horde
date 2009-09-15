@@ -291,7 +291,7 @@ class IMP_Imap_Flags
 
         if (!empty($options['atc'])) {
             $imp_mbox_ui = new IMP_UI_Mailbox();
-            if ($type = $imp_mbox_ui->getAttachmentType($ob['structure']->getType())) {
+            if ($type = $imp_mbox_ui->getAttachmentType($options['atc']->getType())) {
                 $process[$type] = $f[$type];
             }
         }
