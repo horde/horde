@@ -80,6 +80,9 @@ class Horde_String
         }
 
         /* If the from and to character sets are identical, return now. */
+        if ($from == $to) {
+            return $input;
+        }
         $from = self::lower($from);
         $to = self::lower($to);
         if ($from == $to) {
@@ -505,9 +508,9 @@ class Horde_String
             $string = self::substr($string, self::length($line, 'utf-8'), null, 'utf-8');
 
             // Make sure didn't cut a word, unless we want hard breaks anyway.
-            if (!$cut && preg_match('/^(.+?)(\s|\r?\n)/u', $string, $match)) {
+            if (!$cut && preg_match('/^(.+?)((\s|\r?\n).*)/us', $string, $match)) {
                 $line .= $match[1];
-                $string = self::substr($string, self::length($match[1], 'utf-8'), null, 'utf-8');
+                $string = $match[2];
             }
 
             // Wrap at existing line breaks.
@@ -539,8 +542,7 @@ class Horde_String
 
             // Hard wrap if necessary.
             if ($cut) {
-                $wrapped .= self::substr($line, 0, $width, 'utf-8') . $break;
-                $string = self::substr($line, $width, null, 'utf-8') . $string;
+                $wrapped .= $line . $break;
                 continue;
             }
 
