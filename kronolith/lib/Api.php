@@ -71,10 +71,8 @@ class Kronolith_Api extends Horde_Registry_Api
         $parts = explode('/', $path);
 
         if (empty($path)) {
-            //
-            // This request is for a list of all users who have calendars visible
-            // to the requesting user.
-            //
+            // This request is for a list of all users who have calendars
+            // visible to the requesting user.
             $calendars = Kronolith::listCalendars(false, PERMS_READ);
             $owners = array();
             foreach ($calendars as $calendar) {
@@ -118,18 +116,17 @@ class Kronolith_Api extends Horde_Registry_Api
                 }
 
                 if (in_array($caldavns . ':calendar-user-address-set', $properties)) {
-                    // FIXME: Add the calendar owner's email address from their Horde Identity
+                    // FIXME: Add the calendar owner's email address from
+                    // their Horde Identity
                 }
             }
             return $results;
 
         } elseif (count($parts) == 1) {
-            //
             // This request is for all calendars owned by the requested user
-            //
             $calendars = $GLOBALS['kronolith_shares']->listShares(Horde_Auth::getAuth(),
-                PERMS_SHOW,
-                $parts[0]);
+                                                                  PERMS_SHOW,
+                                                                  $parts[0]);
             $results = array();
             foreach ($calendars as $calendarId => $calendar) {
                 $retpath = 'kronolith/' . $parts[0] . '/' . $calendarId;
@@ -155,12 +152,12 @@ class Kronolith_Api extends Horde_Registry_Api
                 }
                 if (in_array('contentlength', $properties)) {
                     $results[$retpath]['contentlength'] = 0;
-                    // FIXME:  This is a hack.  If the content length is longer
-                    // than the actual data then some WebDAV clients will report
-                    // an error when the file EOF is received.  Ideally we should
-                    // determine the actual size of the .ics and report it here, but
-                    // the performance hit may be prohibitive.  This requires
-                    // further investigation.
+                    // FIXME: This is a hack.  If the content length is longer
+                    // than the actual data then some WebDAV clients will
+                    // report an error when the file EOF is received.  Ideally
+                    // we should determine the actual size of the .ics and
+                    // report it here, but the performance hit may be
+                    // prohibitive.  This requires further investigation.
                     $results[$retpath . '.ics']['contentlength'] = 1;
                 }
                 if (in_array('modified', $properties)) {
@@ -175,99 +172,87 @@ class Kronolith_Api extends Horde_Registry_Api
             return $results;
 
         } elseif (count($parts) == 2 &&
-            array_key_exists($parts[1],
-                Kronolith::listCalendars(false, PERMS_READ))) {
-                    //
-                    // This request is browsing into a specific calendar.  Generate the list
-                    // of items and represent them as files within the directory.
-                    //
-                    $kronolith_driver = Kronolith::getDriver(null, $parts[1]);
-                    $events = $kronolith_driver->listEvents();
-                    if (is_a($events, 'PEAR_Error')) {
-                        return $events;
+                  array_key_exists($parts[1], Kronolith::listCalendars(false, PERMS_READ))) {
+            // This request is browsing into a specific calendar.  Generate
+            // the list of items and represent them as files within the
+            // directory.
+            $kronolith_driver = Kronolith::getDriver(null, $parts[1]);
+            $events = $kronolith_driver->listEvents();
+            if (is_a($events, 'PEAR_Error')) {
+                return $events;
+            }
+
+            $icon = $registry->getImageDir('horde') . '/mime/icalendar.png';
+            $results = array();
+            foreach ($events as $dayevents) {
+                foreach ($dayevents as $event) {
+                    $key = 'kronolith/' . $path . '/' . $event->getId();
+                    if (in_array('name', $properties)) {
+                        $results[$key]['name'] = $event->getTitle();
                     }
-
-                    $icon = $registry->getImageDir('horde') . '/mime/icalendar.png';
-                    $results = array();
-                    foreach ($events as $dayevents) {
-                        foreach ($dayevents as $event) {
-                            $key = 'kronolith/' . $path . '/' . $event->getId();
-                            if (in_array('name', $properties)) {
-                                $results[$key]['name'] = $event->getTitle();
-                            }
-                            if (in_array('icon', $properties)) {
-                                $results[$key]['icon'] = $icon;
-                            }
-                            if (in_array('browseable', $properties)) {
-                                $results[$key]['browseable'] = false;
-                            }
-                            if (in_array('contenttype', $properties)) {
-                                $results[$key]['contenttype'] = 'text/calendar';
-                            }
-                            if (in_array('contentlength', $properties)) {
-                                // FIXME:  This is a hack.  If the content length is longer
-                                // than the actual data then some WebDAV clients will report
-                                // an error when the file EOF is received.  Ideally we should
-                                // determine the actual size of the data and report it here, but
-                                // the performance hit may be prohibitive.  This requires
-                                // further investigation.
-                                $results[$key]['contentlength'] = 1;
-                            }
-                            if (in_array('modified', $properties)) {
-                                $results[$key]['modified'] = $this->modified($event->getUID());
-                            }
-                            if (in_array('created', $properties)) {
-                                $results[$key]['created'] = $this->getActionTimestamp($event->getUID(), 'add');
-                            }
-                        }
+                    if (in_array('icon', $properties)) {
+                        $results[$key]['icon'] = $icon;
                     }
-                    return $results;
-                } else {
-                    //
-                    // The only valid request left is for either a specific event
-                    // or for the entire calendar.
-                    //
-                    if (count($parts) == 3 &&
-                        array_key_exists($parts[1],
-                            Kronolith::listCalendars(false, PERMS_READ))) {
-                                //
-                                // This request is for a specific item within a given calendar.
-                                //
-                                $event = Kronolith::getCalendar(null, $parts[1])->getEvent($parts[2]);
-                                if (is_a($event, 'PEAR_Error')) {
-                                    return $event;
-                                }
-
-                                $result = array(
-                                    'data' => $this->export($event->getUID(), 'text/calendar'),
-                                    'mimetype' => 'text/calendar');
-                                $modified = $this->modified($event->getUID());
-                                if (!empty($modified)) {
-                                    $result['mtime'] = $modified;
-                                }
-                                return $result;
-                            } elseif (count($parts) == 2 &&
-                                substr($parts[1], -4, 4) == '.ics' &&
-                                array_key_exists(
-                                    substr($parts[1], 0, -4),
-                                    Kronolith::listCalendars(false, PERMS_READ))) {
-                                        //
-                                        // This request is for an entire calendar (calendar.ics).
-                                        //
-                                        $ical_data = $this->exportCalendar(substr($parts[1], 0, -4), 'text/calendar');
-                                        $result = array('data'          => $ical_data,
-                                            'mimetype'      => 'text/calendar',
-                                            'contentlength' => strlen($ical_data),
-                                            'mtime'         => $_SERVER['REQUEST_TIME']);
-
-                                        return $result;
-                                    } else {
-                                        //
-                                        // All other requests are a 404: Not Found
-                                        //
-                                        return false;
-                                    }
+                    if (in_array('browseable', $properties)) {
+                        $results[$key]['browseable'] = false;
+                    }
+                    if (in_array('contenttype', $properties)) {
+                        $results[$key]['contenttype'] = 'text/calendar';
+                    }
+                    if (in_array('contentlength', $properties)) {
+                        // FIXME: This is a hack.  If the content length is
+                        // longer than the actual data then some WebDAV
+                        // clients will report an error when the file EOF is
+                        // received.  Ideally we should determine the actual
+                        // size of the data and report it here, but the
+                        // performance hit may be prohibitive.  This requires
+                        // further investigation.
+                        $results[$key]['contentlength'] = 1;
+                    }
+                    if (in_array('modified', $properties)) {
+                        $results[$key]['modified'] = $this->modified($event->getUID());
+                    }
+                    if (in_array('created', $properties)) {
+                        $results[$key]['created'] = $this->getActionTimestamp($event->getUID(), 'add');
+                    }
                 }
+            }
+            return $results;
+        } else {
+            // The only valid request left is for either a specific event or
+            // for the entire calendar.
+            if (count($parts) == 3 &&
+                array_key_exists($parts[1], Kronolith::listCalendars(false, PERMS_READ))) {
+                // This request is for a specific item within a given calendar.
+                $event = Kronolith::getCalendar(null, $parts[1])->getEvent($parts[2]);
+                if (is_a($event, 'PEAR_Error')) {
+                    return $event;
+                }
+
+                $result = array(
+                    'data' => $this->export($event->getUID(), 'text/calendar'),
+                    'mimetype' => 'text/calendar');
+                $modified = $this->modified($event->getUID());
+                if (!empty($modified)) {
+                    $result['mtime'] = $modified;
+                }
+                return $result;
+            } elseif (count($parts) == 2 &&
+                      substr($parts[1], -4, 4) == '.ics' &&
+                      array_key_exists(substr($parts[1], 0, -4), Kronolith::listCalendars(false, PERMS_READ))) {
+                // This request is for an entire calendar (calendar.ics).
+                $ical_data = $this->exportCalendar(substr($parts[1], 0, -4), 'text/calendar');
+                $result = array('data'          => $ical_data,
+                                'mimetype'      => 'text/calendar',
+                                'contentlength' => strlen($ical_data),
+                                'mtime'         => $_SERVER['REQUEST_TIME']);
+
+                return $result;
+            } else {
+                // All other requests are a 404: Not Found
+                return false;
+            }
+        }
     }
 
     /**
@@ -290,30 +275,28 @@ class Kronolith_Api extends Horde_Registry_Api
         $path = trim($path, '/');
         $parts = explode('/', $path);
 
-        if (count($parts) == 2 &&
-            substr($parts[1], -4) == '.ics') {
-
-                // Workaround for WebDAV clients that are not smart enough to send
-                // the right content type.  Assume text/calendar.
-                if ($content_type == 'application/octet-stream') {
-                    $content_type = 'text/calendar';
-                }
-                $calendar = substr($parts[1], 0, -4);
-            } elseif (count($parts) == 3) {
-                $calendar = $parts[1];
-
-                // Workaround for WebDAV clients that are not smart enough to send
-                // the right content type.  Assume text/calendar.
-                if ($content_type == 'application/octet-stream') {
-                    $content_type = 'text/calendar';
-                }
-            } else {
-                return PEAR::raiseError("Invalid calendar data supplied.");
+        if (count($parts) == 2 && substr($parts[1], -4) == '.ics') {
+            // Workaround for WebDAV clients that are not smart enough to send
+            // the right content type.  Assume text/calendar.
+            if ($content_type == 'application/octet-stream') {
+                $content_type = 'text/calendar';
             }
+            $calendar = substr($parts[1], 0, -4);
+        } elseif (count($parts) == 3) {
+            $calendar = $parts[1];
+            // Workaround for WebDAV clients that are not smart enough to send
+            // the right content type.  Assume text/calendar.
+            if ($content_type == 'application/octet-stream') {
+                $content_type = 'text/calendar';
+            }
+        } else {
+            return PEAR::raiseError("Invalid calendar data supplied.");
+        }
 
         if (!array_key_exists($calendar, Kronolith::listCalendars(false, PERMS_EDIT))) {
-            // FIXME: Should we attempt to create a calendar based on the filename
-            // in the case that the requested calendar does not exist?
+            // FIXME: Should we attempt to create a calendar based on the
+            // filename in the case that the requested calendar does not
+            // exist?
             return PEAR::raiseError("Calendar does not exist or no permission to edit");
         }
 
@@ -341,15 +324,15 @@ class Kronolith_Api extends Horde_Registry_Api
                     $event->fromiCalendar($content);
                     $event->setCalendar($calendar);
                     $uid = $event->getUID();
-                    // Remove from uids_remove list so we won't delete in
-                    // the end.
+                    // Remove from uids_remove list so we won't delete in the
+                    // end.
                     if (isset($uids_remove[$uid])) {
                         unset($uids_remove[$uid]);
                     }
                     $existing_event = $kronolith_driver->getByUID($uid, array($calendar));
                     if (!is_a($existing_event, 'PEAR_Error')) {
-                        // Check if our event is newer then the existing - get the
-                        // event's history.
+                        // Check if our event is newer then the existing - get
+                        // the event's history.
                         $history = Horde_History::singleton();
                         $created = $modified = null;
                         $log = $history->getHistory('kronolith:' . $calendar . ':'
@@ -372,8 +355,8 @@ class Kronolith_Api extends Horde_Registry_Api
                         }
                         if (!empty($modified) &&
                             $modified >= $content->getAttribute('LAST-MODIFIED')) {
-                                // LAST-MODIFIED timestamp of existing entry is newer:
-                                // don't replace it.
+                                // LAST-MODIFIED timestamp of existing entry
+                                // is newer: don't replace it.
                                 continue;
                             }
 
