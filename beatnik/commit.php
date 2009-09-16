@@ -1,0 +1,54 @@
+<?php
+/**
+ * $Horde: beatnik/commit.php,v 1.11 2009/07/03 10:05:29 duck Exp $
+ *
+ * Copyright 2006-2007 Ben Klang <ben@alkaloid.net>
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ */
+
+define('BEATNIK_BASE', dirname(__FILE__));
+require_once BEATNIK_BASE . '/lib/base.php';
+require_once BEATNIK_BASE . '/lib/Forms/EditRecord.php';
+
+$domains = array();
+if (Horde_Util::getGet('domain') == 'current') {
+    $url = Horde::applicationUrl('viewzone.php');
+    $domains[] = $_SESSION['beatnik']['curdomain'];
+} elseif (Horde_Util::getGet('domain') == 'all') {
+    $url = Horde::applicationUrl('listzones.php');
+    foreach (Beatnik::needCommit() as $domain) {
+        $domains[] = $beatnik_driver->getDomain($domain);
+    }
+}
+
+foreach ($domains as $domain) {
+    $_SESSION['beatnik']['curdomain'] = $domain;
+    $vars = new Horde_Variables;
+
+    $vars->set('rectype', 'soa');
+    foreach ($domain as $field => $value) {
+        $vars->set($field, $value);
+    }
+    $vars->set('serial', Beatnik::incrementSerial($domain['serial']));
+
+    $form = new EditRecord($vars);
+    $form->useToken(false);
+    $form->setSubmitted(true);
+    if ($form->validate($vars)) {
+        $form->getInfo($vars, $info);
+        $result = $beatnik_driver->saveRecord($info);
+
+        if (is_a($result, 'PEAR_Error')) {
+            $notification->push($result->getMessage() . ': ' . $result->getDebugInfo(), 'horde.error');
+        } else {
+            $notification->push(sprintf(_('Zone serial for %s incremented.'), $domain['zonename']), 'horde.success');
+        }
+    } else {
+        $notification->push(sprintf(_("Unable to construct valid SOA for %s.  Not incrementing serial."), $domain['zonename']), 'horde.error');
+    }
+}
+
+header('Location: ' . $url);
+exit;

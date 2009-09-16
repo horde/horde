@@ -1,0 +1,45 @@
+<?php
+/**
+ * $Horde: beatnik/config/prefs.php.dist,v 1.5 2008/03/07 17:53:34 bklang Exp $
+ *
+ * See horde/config/prefs.php for documentation on the structure of this file.
+ */
+
+$prefGroups['display'] = array(
+    'column' => _("Options"),
+    'label' => _("Display Preferences"),
+    'desc' => _("Set default display parameters."),
+    'members' => array('domain_groups', 'domains_perpage')
+);
+
+$prefGroups['defaults'] = array(
+    'column' => _("Options"),
+    'label' => _("Record Defaults"),
+    'desc' => _("Set default record parameters."),
+    'members' => array('default_ttl')
+);
+
+// user domain groups
+$_prefs['domain_groups'] = array(
+    'value' => '',
+    'locked' => false,
+    'shared' => false,
+    'type' => 'implicit'
+);
+
+// listing
+$_prefs['domains_perpage'] = array(
+    'value' => 20,
+    'locked' => false,
+    'shared' => false,
+    'type' => 'number',
+    'desc' => _("How many domain to display per page.")
+);
+
+$_prefs['default_ttl'] = array(
+    'value' => '86400',
+    'locked' => false,
+    'shared' => false,
+    'type' => 'number',
+    'desc' => _("Default Time-To-Live for new records.")
+);

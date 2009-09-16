@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!-- $Horde: beatnik/config/conf.xml,v 1.5 2008/05/15 04:20:53 bklang Exp $ -->
+<configuration>
+ <configsection name="storage">
+  <configheader>Beatnik Storage</configheader>
+  <configswitch name="driver" desc="What backend should we use for storing DNS
+  records?">
+   <case name="pdnsgsql" desc="PowerDNS Generic SQL">
+    <configsection name="params">
+     <configsql switchname="driverconfig">
+      <configstring name="domains_table" desc="Table that holds the list of domains. [domains]" required="false" />
+      <configstring name="records_table" desc="Table that holds the list of domains. [records]" required="false" />
+     </configsql>
+    </configsection>
+   </case>
+   <case name="ldap2dns" desc="ldap2dns (LDAP)">
+    <configsection name="params">
+     <configstring name="hostspec" desc="The hostname of the LDAP
+     server">localhost</configstring>
+     <configstring name="basedn" desc="The base DN for the LDAP server"/>
+     <configstring name="binddn" required="false" desc="The DN used to bind to
+     the LDAP server"/>
+     <configstring name="password" required="false" desc="The password used to
+     bind to the LDAP server"/>
+     <configenum name="version" desc="LDAP Protocol Version">3 
+      <values>3 
+       <value desc="LDAPv2 (Deprecated)">2</value>
+       <value desc="LDAPv3">3</value>
+      </values>
+     </configenum>
+     <configstring name="dn" desc="The object search key"/>
+     <configswitch name="filter_type" desc="How to specify a filter for the
+     zone lists">objectclass 
+      <case name="objectclass" desc="One or more objectclass filters">
+       <configlist name="objectclass" desc="The objectclass filter used to
+       search for zones. Can be a single objectclass or a list."/>dnszone
+      </case>
+      <case name="free" desc="A complete LDAP filter expression">
+       <configstring name="filter" desc="The LDAP RFC formatted filter used to
+       search for users."/>
+      </case>
+     </configswitch>
+    </configsection>
+   </case>
+   <case name="sql" desc="SQL">
+    <configsection name="params">
+     <configsql switchname="driverconfig">
+     </configsql>
+    </configsection>
+   </case>
+  </configswitch>
+ </configsection>
+ <configsection name="menu">
+   <configheader>Menu Settings</configheader>
+   <configmultienum name="apps" desc="Select any applications that should be
+                    linked in Beatnik's menu">
+     <values>
+       <configspecial name="list-horde-apps" />
+     </values>
+   </configmultienum>
+ </configsection>
+</configuration>

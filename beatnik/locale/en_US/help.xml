@@ -1,0 +1,40 @@
+<?xml version='1.0'?>
+<!-- $Horde: beatnik/locale/en_US/help.xml,v 1.2 2006/07/02 03:25:06 bklang Exp $ -->
+<help>
+
+<entry id="beatnik-overview">
+    <title>Beatnik Overview</title>
+
+    <heading>What is Beatnik?</heading>
+    <para>Beatnik manages DNS records in a convenient web interface.</para>
+</entry>
+
+<entry id="record-types">
+    <title>Record Types</title>
+</entry>
+
+<entry id="record-fields">
+    <title>Record Fields</title>
+
+    <heading>Timestamp</heading>
+    <para>This field is available only with the "ldap2dns" backend.</para>
+
+    <para>The Timestamp field provides tell the DNS server "Do Not Issue Before"
+        or "Do Not Issue After" a particular time.  If the "ttl" field is
+        nonzero or omitted, "timestamp" indicates a starting time for the record
+        to be valid.  If "ttl" is 0 the timestamp is an ending time, after which
+        the record will no longer be served.  <a href="http://cr.yp.to">tinydns
+        </a> will automatically adjust the ttl so that the record should not be
+        cached for more than a few seconds beyond the expiry.
+    </para>
+
+    <para>The format of the record is the number of seconds since midnight of
+        January 1st, 1970 expressed in TAI64, a 16 character hexadecimal string.
+        See
+        <a href="http://cr.yp.to/libtai/tai64.html#tai64">
+            http://cr.yp.to/libtai/tai64.html#tai64
+        </a> for more information on TAI64.
+    </para>
+</entry>
+
+</help>
