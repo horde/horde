@@ -224,9 +224,14 @@ var DimpBase = {
                     $('dimpmain_portal').hide();
                     $('dimpmain_folder').show();
                 }
+
                 // This catches the refresh case - no need to re-add to history
                 if (!Object.isUndefined(this.folder) && !this.sfolder) {
                     this._addHistory(loc);
+                }
+
+                if (this.isSearch(f) && !this.sfolder) {
+                    this._quicksearchDeactivate();
                 }
             }
             this.loadMailbox(f);
@@ -401,7 +406,7 @@ var DimpBase = {
 
             // Callbacks
             onAjaxRequest: function(id) {
-                var p = this.isSearch(id) && $('qsearch_input').visible()
+                var p = this.isSearch(id, true) && $('qsearch_input').visible()
                     ? $H({
                         qsearch: $F('qsearch_input'),
                         qsearchmbox: this.sfolder
@@ -489,7 +494,7 @@ var DimpBase = {
                 }
 
                 // Check for search strings
-                if (this.isSearch()) {
+                if (this.isSearch(null, true)) {
                     re = new RegExp("(" + $F('qsearch_input') + ")", "i");
                     [ 'from', 'subject' ].each(function(h) {
                         row[h] = row[h].gsub(re, '<span class="qsearchMatch">#{1}</span>');
@@ -536,7 +541,7 @@ var DimpBase = {
                 // retrieving data from the server.
                 l = this.viewport.getMetaData('label');
                 if (l) {
-                    if (this.isSearch()) {
+                    if (this.isSearch(null, true)) {
                         l += ' (' + this.sfolder + ')';
                     }
                     $('folderName').update(l);
@@ -871,7 +876,7 @@ var DimpBase = {
         var elt, unseen,
             label = this.viewport.getMetaData('label');
 
-        if (this.isSearch() && this.sfolder) {
+        if (this.isSearch(null, true)) {
             label += ' (' + this.sfolder + ')';
         } else {
             elt = $(this.getFolderId(this.folder));
@@ -1309,10 +1314,10 @@ var DimpBase = {
     },
 
     /* Search functions. */
-    isSearch: function(id)
+    isSearch: function(id, qsearch)
     {
         id = id ? id : this.folder;
-        return id && id.startsWith(DIMP.conf.searchprefix);
+        return id && id.startsWith(DIMP.conf.searchprefix) && (!qsearch || this.sfolder);
     },
 
     _quicksearchOnBlur: function()
@@ -1341,13 +1346,14 @@ var DimpBase = {
 
         if (this.isSearch()) {
             $('qsearch_close').hide();
+            DimpCore.DMenu.disable('qsearch_icon', true, false);
             if (!$('qsearch').hasClassName('qsearchFocus')) {
                 this._setFilterText(true);
             }
             this.resetSelected();
             $('qsearch_input').show();
             if (!noload) {
-                this.loadMailbox(this.sfolder);
+                this.loadMailbox(this.sfolder || 'INBOX');
             }
             this.viewport.deleteView(f);
             this.sfolder = null;
@@ -1366,9 +1372,15 @@ var DimpBase = {
         r = r.response;
         RedBox.close();
         this.sfolder = this.folder;
+        this._searchDeactivate();
+        this.go('folder:' + r.view);
+    },
+
+    _quicksearchDeactivate: function()
+    {
         $('qsearch_close').show();
         $('qsearch_input').hide();
-        this.go('folder:' + r.view);
+        DimpCore.DMenu.disable('qsearch_icon', true, true);
     },
 
     /* Enable/Disable DIMP action buttons as needed. */
@@ -1730,11 +1742,6 @@ var DimpBase = {
                     return;
                 }
                 break;
-
-            case 'qsearch_icon':
-                DimpCore.DMenu.trigger($('qsearch_icon'), true);
-                e.stop();
-                return;
 
             case 'qsearch':
                 elt.addClassName('qsearchFocus');
@@ -2501,6 +2508,13 @@ var DimpBase = {
          * via the return from this call. */
         DimpCore.doAction('ListFolders', {}, null, this._folderLoadCallback.bind(this));
 
+        /* Init quicksearch. These needs to occur before loading the message
+         * list since it may be disabled if we are in a search mailbox. */
+        if ($('qsearch')) {
+            $('qsearch_input').observe('blur', this._quicksearchOnBlur.bind(this));
+            this._addMouseEvents({ id: 'qsearch_icon', left: true, offset: 'qsearch', type: 'qsearchopts' });
+        }
+
         /* Start message list loading as soon as possible. */
         if (Horde.dhtmlHistory.initialize()) {
             Horde.dhtmlHistory.addListener(this.go.bind(this));
@@ -2554,12 +2568,6 @@ var DimpBase = {
 
         /* Check for new mail. */
         this.setPoll();
-
-        /* Init quicksearch. */
-        if ($('qsearch')) {
-            $('qsearch_input').observe('blur', this._quicksearchOnBlur.bind(this));
-            this._addMouseEvents({ id: 'qsearch_icon', left: true, offset: 'qsearch', type: 'qsearchopts' });
-        }
 
         if (DimpCore.is_ie6) {
             /* Disable text selection in preview pane for IE 6. */
