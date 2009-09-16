@@ -1484,20 +1484,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _search($query, $options)
     {
-        // Check for IMAP extensions needed
-        foreach ($query->extensionsNeeded() as $val) {
-            if (!$this->queryCapability($val)) {
-                throw new Horde_Imap_Client_Exception('IMAP Server does not support sorting extension ' . $val . '.', Horde_Imap_Client_Exception::NOSUPPORTIMAPEXT);
-            }
-
-            /* RFC 4551 [3.1] - trying to do a MODSEQ SEARCH on a mailbox that
-             * doesn't support it will return BAD. Catch that here and thrown
-             * an exception. */
-            if (($val == 'CONDSTORE') &&
-                empty($this->_temp['mailbox']['highestmodseq']) &&
-                (strpos($options['_query']['query'], 'MODSEQ ') !== false)) {
-                throw new Horde_Imap_Client_Exception('Mailbox does not support mod-sequences.', Horde_Imap_Client_Exception::MBOXNOMODSEQ);
-            }
+        /* RFC 4551 [3.1] - trying to do a MODSEQ SEARCH on a mailbox that
+         * doesn't support it will return BAD. Catch that here and thrown
+         * an exception. */
+        if (in_array('CONDSTORE', $options['_query']['exts']) &&
+            empty($this->_temp['mailbox']['highestmodseq']) &&
+            (strpos($options['_query']['query'], 'MODSEQ ') !== false)) {
+            throw new Horde_Imap_Client_Exception('Mailbox does not support mod-sequences.', Horde_Imap_Client_Exception::MBOXNOMODSEQ);
         }
 
         $cmd = '';

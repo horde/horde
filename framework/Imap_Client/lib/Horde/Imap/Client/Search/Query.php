@@ -59,13 +59,6 @@ class Horde_Imap_Client_Search_Query
     protected $_search = array();
 
     /**
-     * List of extensions needed for advanced queries.
-     *
-     * @var array
-     */
-    protected $_exts = array();
-
-    /**
      * The Horde_Imap_Client_Utils object
      *
      * @var Horde_Imap_Client_Utils
@@ -109,17 +102,25 @@ class Horde_Imap_Client_Search_Query
     /**
      * Builds an IMAP4rev1 compliant search string.
      *
+     * @param array $exts  The list of extensions supported by the server.
+     *                     This determines whether certain criteria can be
+     *                     used, and determines whether workarounds are used
+     *                     for other criteria. In the format returned by
+     *                     Horde_Imap_Client_Base::capability().
+     *
      * @return array  An array with 3 elements:
      * <pre>
      * 'charset' - (string) The charset of the search string.
+     * 'exts' - (array) The list of IMAP extensions used to create the string.
      * 'imap4' - (boolean) True if the search uses IMAP4 criteria (as opposed
      *           to IMAP2 search criteria)
      * 'query' - (string) The IMAP search string
      * </pre>
+     * @throws Horde_Imap_Client_Exception
      */
-    public function build()
+    public function build($exts = array())
     {
-        $cmds = array();
+        $cmds = $exts_used = array();
         $imap4 = false;
         $ptr = &$this->_search;
 
@@ -221,17 +222,39 @@ class Horde_Imap_Client_Search_Query
         }
 
         if (!empty($ptr['within'])) {
-            $imap4 = true;
-            $this->_exts['WITHIN'] = true;
+            if (isset($exts['WITHIN'])) {
+                foreach ($ptr['within'] as $key => $val) {
+                    $cmds[] = ($val['not'] ? 'NOT ' : '') . $key . ' ' . $val['interval'];
+                }
+                $exts_used[] = 'WITHIN';
+                $imap4 = true;
+            } else {
+                // This workaround is only accurate to within 1 day, due to
+                // limitations with the IMAP4rev1 search commands.
+                foreach ($ptr['within'] as $key => $val) {
+                    $tmp = '';
+                    if ($val['not']) {
+                        $tmp = 'NOT ';
+                        // NOT searches were not in IMAP2
+                        $imap4 = true;
+                    }
 
-            foreach ($ptr['within'] as $key => $val) {
-                $cmds[] = ($val['not'] ? 'NOT ' : '') . $key . ' ' . $val['interval'];
+                    $date = new DateTime('now -' . $val['interval'] . ' seconds');
+                    $cmds[] = $tmp .
+                        (($key == self::INTERVAL_OLDER) ? self::DATE_BEFORE : self::DATE_SINCE) .
+                        ' ' . $date->format('d-M-Y');
+                }
             }
         }
 
         if (!empty($ptr['modseq'])) {
+            if (!isset($exts['CONDSTORE'])) {
+                throw new Horde_Imap_Client_Exception('IMAP Server does not support CONDSTORE.', Horde_Imap_Client_Exception::NOSUPPORTIMAPEXT);
+            }
+
+            $exts_used[] = 'CONDSTORE';
             $imap4 = true;
-            $this->_exts['CONDSTORE'] = true;
+
             $cmds[] = ($ptr['modseq']['not'] ? 'NOT ' : '') .
                 'MODSEQ ' .
                 (is_null($ptr['modseq']['name'])
@@ -241,8 +264,13 @@ class Horde_Imap_Client_Search_Query
         }
 
         if (isset($ptr['prevsearch'])) {
+            if (!isset($exts['SEARCHRES'])) {
+                throw new Horde_Imap_Client_Exception('IMAP Server does not support SEARCHRES.', Horde_Imap_Client_Exception::NOSUPPORTIMAPEXT);
+            }
+
+            $exts_used[] = 'SEARCHRES';
             $imap4 = true;
-            $this->_exts['SEARCHRES'] = true;
+
             $cmds[] = ($ptr['prevsearch'] ? '' : 'NOT ') . '$';
         }
 
@@ -280,20 +308,10 @@ class Horde_Imap_Client_Search_Query
 
         return array(
             'charset' => $this->_charset,
+            'exts' => $exts_used,
             'imap4' => $imap4,
             'query' => trim($query)
         );
-    }
-
-    /**
-     * Return the list of any IMAP extensions needed to perform the query.
-     *
-     * @return array  The list of extensions (CAPABILITY responses) needed to
-     *                perform the query.
-     */
-    public function extensionsNeeded()
-    {
-        return $this->_exts;
     }
 
     /**
@@ -426,8 +444,8 @@ class Horde_Imap_Client_Search_Query
      * Search for messages within a date range. Only one internal date and
      * one RFC 2822 date can be specified per query.
      *
-     * @param DateTime $date   DateTime or Horde_Date object.
-     * @param string   $range  Either:
+     * @param mixed $date    DateTime or Horde_Date object.
+     * @param string $range  Either:
      * <pre>
      * Horde_Imap_Client_Search_Query::DATE_BEFORE,
      * Horde_Imap_Client_Search_Query::DATE_ON, or
@@ -453,8 +471,10 @@ class Horde_Imap_Client_Search_Query
 
     /**
      * Search for messages within a given interval. Only one interval of each
-     * type can be specified per search query. The IMAP server must support
-     * the WITHIN extension (RFC 5032) for this query to be used.
+     * type can be specified per search query. If the IMAP server supports
+     * the WITHIN extension (RFC 5032), it will be used.  Otherwise, the
+     * search query will be dynamically created using IMAP4rev1 search
+     * terms.
      *
      * @param integer $interval  Seconds from the present.
      * @param string $range      Either:
@@ -540,7 +560,7 @@ class Horde_Imap_Client_Search_Query
 
     /**
      * Use the results from the previous SEARCH command. The IMAP server must
-     * support the SEARCHRES extension (RFC 5032) for this query to be used.
+     * support the SEARCHRES extension (RFC 5182) for this query to be used.
      *
      * @param boolean $not  If true, don't match the previous query.
      */

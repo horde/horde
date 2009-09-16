@@ -1310,7 +1310,7 @@ abstract class Horde_Imap_Client_Base
             $query = new Horde_Imap_Client_Search_Query();
         }
 
-        $options['_query'] = $query->build();
+        $options['_query'] = $query->build($this->capability());
 
         /* Optimization - if query is just for a count of either RECENT or
          * ALL messages, we can send status information instead. Can't
