@@ -39,6 +39,20 @@ require_once 'Horde/Autoloader.php';
 class FreeBusyController extends Horde_Controller_Base
 {
     /**
+     * A reference to the application class.
+     *
+     * @var Horde_Kolab_FreeBusy
+     */
+    protected $app;
+
+    /**
+     * A reference to the logger.
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $logger;
+
+    /**
      * Parameters provided to this class.
      *
      * @var array
@@ -53,27 +67,43 @@ class FreeBusyController extends Horde_Controller_Base
     var $_cache;
 
     /**
-     * Setup the cache.
+     * Constructor.
      */
-    function _initCache()
+    public function __construct()
     {
-        global $conf;
+        /**
+         * The dispatcher does not know how to construct this class so we are
+         * left to fetching our dependencies ourselves. The application class is
+         * used as a service locator here.
+         */
+        $this->app    = Horde_Kolab_FreeBusy::singleton();
+        $this->logger = $this->app->logger;
+    }
 
-        /* Load the cache class now */
-        require_once 'Horde/Kolab/FreeBusy/Cache.php';
+    /**
+     * Fetch the free/busy data for a user.
+     *
+     * @return NULL
+     */
+    public function fetch()
+    {
+        $this->logger->debug(sprintf("Starting generation of free/busy data for user %s",
+                                     $this->params->callee));
 
-        /* Where is the cache data stored? */
-        if (!empty($conf['fb']['cache_dir'])) {
-            $cache_dir = $conf['fb']['cache_dir'];
-        } else {
-            if (class_exists('Horde')) {
-                $cache_dir = Horde::getTempDir();
-            } else {
-                $cache_dir = '/tmp';
-            }
-        }
+        $params = array('extended' => $this->params->type == 'xfb');
 
-        $this->_cache = new Horde_Kolab_FreeBusy_Cache($cache_dir);
+	// @todo: Reconsider this. We have been decoupled from the
+	// global context here but reinjecting this value seems
+	// extremely weird. Are there any other options?
+	$this->app->callee = $this->params->callee;
+        $this->data = $this->app->driver->fetch($this->params);
+
+        $this->logger->debug('Delivering complete free/busy data.');
+
+        /* Display the result to the user */
+        $this->render();
+
+        $this->logger->debug('Free/busy generation complete.');
     }
 
     /**
@@ -83,153 +113,26 @@ class FreeBusyController extends Horde_Controller_Base
      */
     function &trigger()
     {
-        global $conf;
+        $this->logger->debug(sprintf("Starting generation of partial free/busy data for folder %s",
+                                      $this->params->part));
 
-        /* Get the folder name */
-        $req_folder = Horde_Util::getFormData('folder', '');
+        $params = array('extended' => $this->params->type == 'pxfb',
+                        'cached' => $this->params->cache);
 
-        Horde::logMessage(sprintf("Starting generation of partial free/busy data for folder %s",
-                                  $req_folder), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+	// @todo: Reconsider this. We have been decoupled from the
+	// global context here but reinjecting this value seems
+	// extremely weird. Are there any other options?
+	$this->app->callee_part = $this->params->part;
+        $this->data = $this->app->driver->trigger($this->params);
 
-        /* Validate folder access */
-        $access = new Horde_Kolab_FreeBusy_Access();
-        $result = $access->parseFolder($req_folder);
-        if (is_a($result, 'PEAR_Error')) {
-            $error = array('type' => FREEBUSY_ERROR_NOTFOUND,
-                           'error' => $result);
-            $view = new Horde_Kolab_FreeBusy_View_error($error);
-            return $view;
-        }
+        $this->logger->debug("Delivering partial free/busy data.");
 
-        Horde::logMessage(sprintf("Partial free/busy data of owner %s on server %s requested by user %s.",
-                                  $access->owner, $access->freebusyserver, $access->user),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        /* Display the result to the user */
+        $this->render();
 
-        /* Get the cache request variables */
-        $req_cache    = Horde_Util::getFormData('cache', false);
-        $req_extended = Horde_Util::getFormData('extended', false);
-
-        /* Try to fetch the data if it is stored on a remote server */
-        $result = $access->fetchRemote(true, $req_extended);
-        if (is_a($result, 'PEAR_Error')) {
-            $error = array('type' => FREEBUSY_ERROR_UNAUTHORIZED,
-                           'error' => $result);
-            $view = new Horde_Kolab_FreeBusy_View_error($error);
-            return $view;
-        }
-
-        $this->_initCache();
-
-        if (!$req_cache) {
-            /* User wants to regenerate the cache */
-
-            /* Here we really need an authenticated IMAP user */
-            $result = $access->authenticated();
-            if (is_a($result, 'PEAR_Error')) {
-                $error = array('type' => FREEBUSY_ERROR_UNAUTHORIZED,
-                               'error' => $result);
-                $view = new Horde_Kolab_FreeBusy_View_error($error);
-                return $view;
-            }
-
-            if (empty($access->owner)) {
-                $message = sprintf(_("No such account %s!"),
-                                   htmlentities($access->req_owner));
-                $error = array('type' => FREEBUSY_ERROR_NOTFOUND,
-                               'error' => PEAR::raiseError($message));
-                $view = new Horde_Kolab_FreeBusy_View_error($error);
-                return $view;
-            }
-
-            /* Update the cache */
-            $result = $this->_cache->store($access);
-            if (is_a($result, 'PEAR_Error')) {
-                $error = array('type' => FREEBUSY_ERROR_NOTFOUND,
-                               'error' => $result);
-                $view = new Horde_Kolab_FreeBusy_View_error($error);
-                return $view;
-            }
-        }
-
-        /* Load the cache data */
-        $vfb = $this->_cache->loadPartial($access, $req_extended);
-        if (is_a($vfb, 'PEAR_Error')) {
-            $error = array('type' => FREEBUSY_ERROR_NOTFOUND,
-                           'error' => $vfb);
-            $view = new Horde_Kolab_FreeBusy_View_error($error);
-            return $view;
-        }
-
-        Horde::logMessage("Delivering partial free/busy data.", __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        /* Generate the renderer */
-        $data = array('fb' => $vfb, 'name' => $access->owner . '.ifb');
-        $view = new Horde_Kolab_FreeBusy_View_vfb($data);
-
-        /* Finish up */
-        Horde::logMessage("Free/busy generation complete.", __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        return $view;
+        $this->logger->debug("Free/busy generation complete.");
     }
 
-    /**
-     * Fetch the free/busy data for a user.
-     *
-     * @return NULL
-     */
-    function &fetch()
-    {
-        global $conf;
-
-        /* Get the user requsted */
-        $req_owner = Horde_Util::getFormData('uid');
-
-        Horde::logMessage(sprintf("Starting generation of free/busy data for user %s",
-                                  $req_owner), __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        /* Validate folder access */
-        $access = new Horde_Kolab_FreeBusy_Access();
-        $result = $access->parseOwner($req_owner);
-        if (is_a($result, 'PEAR_Error')) {
-            $error = array('type' => FREEBUSY_ERROR_NOTFOUND, 'error' => $result);
-            $view = new Horde_Kolab_FreeBusy_View_error($error);
-            return $view;
-        }
-
-        Horde::logMessage(sprintf("Free/busy data of owner %s on server %s requested by user %s.",
-                                  $access->owner, $access->freebusyserver, $access->user),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        $req_extended = Horde_Util::getFormData('extended', false);
-
-        /* Try to fetch the data if it is stored on a remote server */
-        $result = $access->fetchRemote(false, $req_extended);
-        if (is_a($result, 'PEAR_Error')) {
-            $error = array('type' => FREEBUSY_ERROR_UNAUTHORIZED, 'error' => $result);
-            $view = new Horde_Kolab_FreeBusy_View_error($error);
-            return $view;
-        }
-
-        $this->_initCache();
-
-        $result = $this->_cache->load($access, $req_extended);
-        if (is_a($result, 'PEAR_Error')) {
-            $error = array('type' => FREEBUSY_ERROR_NOTFOUND, 'error' => $result);
-            $view = new Horde_Kolab_FreeBusy_View_error($error);
-            return $view;
-        }
-
-        Horde::logMessage("Delivering complete free/busy data.", __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        /* Generate the renderer */
-        $data = array('fb' => $result, 'name' => $access->owner . '.vfb');
-        $view = new Horde_Kolab_FreeBusy_View_vfb($data);
-
-        /* Finish up */
-        Horde::logMessage("Free/busy generation complete.", __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        return $view;
-    }
 
     /**
      * Regenerate the free/busy cache data.

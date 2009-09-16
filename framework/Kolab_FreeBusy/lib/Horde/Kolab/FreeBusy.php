@@ -12,7 +12,7 @@
  */
 
 /**
- * The Horde_Kolab_FreeBusy class serves as Registry aka ServiceLocator for the
+ * The Horde_Kolab_FreeBusy class holds the Registry aka ServiceLocator for the
  * Free/Busy application. It also provides the entry point into the the Horde
  * MVC system and allows to dispatch a request.
  *
@@ -39,25 +39,11 @@ class Horde_Kolab_FreeBusy
     static protected $instance;
 
     /**
-     * The object representing the request.
+     * The provider for dependency injection
      *
-     * @var Horde_Controller_Request_Base
+     * @var Horde_Provider_Base
      */
-    private $_request;
-
-    /**
-     * The object representing the request<->controller mapping.
-     *
-     * @var Horde_Routes_Mapper
-     */
-    private $_mapper;
-
-    /**
-     * The request dispatcher.
-     *
-     * @var Horde_Controller_Dispatcher
-     */
-    private $_dispatcher;
+    protected $provider;
 
     /**
      * Constructor.
@@ -67,7 +53,38 @@ class Horde_Kolab_FreeBusy
      */
     public function __construct($params = array())
     {
-        $this->_params = $params;
+        $this->provider             = new Horde_Provider_Base();
+        $this->provider->params     = $params;
+        $this->provider->request    = new Horde_Provider_Injection_Factory(array('Horde_Kolab_FreeBusy_Factory', 'getRequest'));
+        $this->provider->mapper     = new Horde_Provider_Injection_Factory(array('Horde_Kolab_FreeBusy_Factory', 'getMapper'));
+        $this->provider->dispatcher = new Horde_Provider_Injection_Factory(array('Horde_Kolab_FreeBusy_Factory', 'getDispatcher'));
+        $this->provider->logger     = new Horde_Provider_Injection_Factory(array('Horde_Kolab_FreeBusy_Factory', 'getLogger'));
+        $this->provider->driver     = new Horde_Provider_Injection_Factory(array('Horde_Kolab_FreeBusy_Driver_Base', 'factory'));
+    }
+
+    /**
+     * Get an element.
+     *
+     * @param string $key The key of the element to retrieve.
+     *
+     * @return mixed The element.
+     */
+    public function __get($key)
+    {
+        return $this->provider->{$key};
+    }
+
+    /**
+     * Set an element to the given value.
+     *
+     * @param string $key   The key of the element to set.
+     * @param mixed  $value The value to set the element to.
+     *
+     * @return NULL
+     */
+    public function __set($key, $value)
+    {
+        $this->provider->{$key} = $value;
     }
 
     /**
@@ -114,6 +131,14 @@ class Horde_Kolab_FreeBusy
      *     'controllerDir' - (string) The directory holding controllers.
      *     'viewsDir'      - (string) The directory holding views.
      *
+     * 'logger'  - (array)  The keys of the array are log handler class names
+     *                      (e.g. Horde_Log_Handler_Stream) while the
+     *                      corresponding values are arrays. Each such array
+     *                      may contain a key 'params' that holds parameters
+     *                      passed to the constructor of the log handler. It
+     *                      may also hold a second key 'options' with options
+     *                      passed to the instantiated log handler. [optional]
+     *
      * </pre>
      *
      * @return Horde_Kolab_FreeBusy  The Horde_Registry instance.
@@ -138,183 +163,6 @@ class Horde_Kolab_FreeBusy
     }
 
     /**
-     * Inject the request object into the application context.
-     *
-     * @param Horde_Controller_Request_Base $request The object that should
-     *                                               represent the current
-     *                                               request.
-     *
-     * @return NULL
-     */
-    public function setRequest(Horde_Controller_Request_Base $request)
-    {
-        $this->_request = $request;
-    }
-
-    /**
-     * Return the object representing the current request.
-     *
-     * @return Horde_Controller_Request_Base The current request.
-     *
-     * @throws Horde_Exception
-     */
-    public function getRequest()
-    {
-        if (!isset($this->_request)) {
-            if (!empty($this->_params['request']['class'])) {
-                $request_class = $this->_params['request']['class'];
-            } else {
-                $request_class = 'Horde_Controller_Request_Http';
-            }
-            if (!empty($this->_params['request']['params'])) {
-                $params = $this->_params['request']['params'];
-            } else {
-                $params = array();
-            }
-            // Set up our request and routing objects
-            $this->_request = new $request_class($params);
-            /**
-             * The HTTP request object would hide errors. Display them.
-             */
-            if (isset($this->request->_exception)) {
-                throw $this->request->_exception;
-            }
-        }
-
-        return $this->_request;
-    }
-
-    /**
-     * Inject the mapper object into the application context.
-     *
-     * @param Horde_Route_Mapper $mapper The object that handles mapping.
-     *
-     * @return NULL
-     */
-    public function setMapper(Horde_Route_Mapper $mapper)
-    {
-        $this->_mapper = $mapper;
-    }
-
-    /**
-     * Return the mapper.
-     *
-     * @return Horde_Route_Mapper The mapper.
-     *
-     * @throws Horde_Exception
-     */
-    public function getMapper()
-    {
-        if (!isset($this->_mapper)) {
-            if (!empty($this->_params['mapper']['params'])) {
-                $params = $this->_params['mapper']['params'];
-            } else {
-                $params = array();
-            }
-            $this->_mapper = new Horde_Routes_Mapper($params);
-
-            /**
-             * Application routes are relative only to the application. Let the
-             * mapper know where they start.
-             */
-            if (!empty($this->_params['script'])) {
-                $this->_mapper->prefix = dirname($this->_params['script']);
-            } else {
-                $this->_mapper->prefix = dirname($_SERVER['PHP_SELF']);
-            }
-
-            // Check for route definitions.
-            if (!empty($this->_params['config']['dir'])) {
-                $routeFile = $this->_params['config']['dir'] . '/routes.php';
-            }
-            if (empty($this->_params['config']['dir'])
-                || !file_exists($routeFile)) {
-                $this->_mapper->connect(':(mail).:(type)',
-                                        array('controller'   => 'freebusy',
-                                              'action'       => 'fetch',
-                                              'requirements' => array('type' => '(i|x|v)fb',
-                                                                      'mail'   => '[^/]+'),
-                                        ));
-
-                $this->_mapper->connect('trigger/*(folder).pfb',
-                                        array('controller'   => 'freebusy',
-                                              'action'       => 'trigger'
-                                        ));
-
-                $this->_mapper->connect('*(folder).:(type)',
-                                        array('controller'   => 'freebusy',
-                                              'action'       => 'trigger',
-                                              'requirements' => array('type' => '(p|px)fb'),
-                                        ));
-
-                $this->_mapper->connect('delete/:(mail)',
-                                        array('controller'   => 'freebusy',
-                                              'action'       => 'delete',
-                                              'requirements' => array('mail' => '[^/]+'),
-                                        ));
-
-                $this->_mapper->connect('regenerate',
-                                        array('controller'   => 'freebusy',
-                                              'action'       => 'regenerate',
-                                        ));
-            } else {
-                // Load application routes.
-                include $routeFile;
-            }
-        }
-
-        return $this->_mapper;
-    }
-
-    /**
-     * Inject the dispatcher object into the application context.
-     *
-     * @param Horde_Controller_Dispatcher $dispatcher The object that handles
-     *                                                dispatching.
-     *
-     * @return NULL
-     */
-    public function setDispatcher(Horde_Controller_Dispatcher $dispatcher)
-    {
-        $this->_dispatcher = $dispatcher;
-    }
-
-    /**
-     * Return the dispatcher.
-     *
-     * @return Horde_Controller_Dispatcher The dispatcher.
-     *
-     * @throws Horde_Exception
-     */
-    public function getDispatcher()
-    {
-        if (!isset($this->_dispatcher)) {
-            if (empty($this->_params['dispatch']['controllerDir'])) {
-                $controllerDir = dirname(__FILE__) . '/FreeBusy/Controller';
-            } else {
-                $controllerDir = $this->_params['dispatch']['controllerDir'];
-            }
-
-            if (empty($this->_params['dispatch']['viewsDir'])) {
-                $viewsDir = dirname(__FILE__) . '/FreeBusy/View';
-            } else {
-                $viewsDir = $this->_params['dispatch']['viewsDir'];
-            }
-
-            $context = array(
-                'mapper' => $this->getMapper(),
-                'controllerDir' => $controllerDir,
-                'viewsDir' => $viewsDir,
-                // 'logger' => '',
-            );
-
-            $this->_dispatcher = Horde_Controller_Dispatcher::singleton($context);
-        }
-
-        return $this->_dispatcher;
-    }
-
-    /**
      * Handle the current request.
      *
      * @return NULL
@@ -322,7 +170,7 @@ class Horde_Kolab_FreeBusy
     public function dispatch()
     {
         try {
-            $this->getDispatcher()->dispatch($this->getRequest());
+            $this->provider->dispatcher->dispatch($this->provider->request);
         } catch (Exception $e) {
             //@todo: Error view
             throw $e;

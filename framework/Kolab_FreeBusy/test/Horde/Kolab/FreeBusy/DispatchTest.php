@@ -35,6 +35,8 @@ class Horde_Kolab_FreeBusy_DispatchTest extends Horde_Kolab_Test_FreeBusy
 
     /**
      * Test setup.
+     *
+     * @return NULL
      */
     public function setUp()
     {
@@ -49,6 +51,8 @@ class Horde_Kolab_FreeBusy_DispatchTest extends Horde_Kolab_Test_FreeBusy
 
     /**
      * Test destruction.
+     *
+     * @return NULL
      */
     public function tearDown()
     {
@@ -96,8 +100,12 @@ class Horde_Kolab_FreeBusy_DispatchTest extends Horde_Kolab_Test_FreeBusy
                 ),
                 'dispatch' => array(
                     'controllerDir' => dirname(__FILE__) . '/Mock/Controller',
+                ),
+                'logger' => array(
+                    'Horde_Log_Handler_Null' => array(),
                 )
             );
+
             $application = Horde_Kolab_FreeBusy::singleton($params);
 
             $output = '';

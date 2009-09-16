@@ -67,6 +67,14 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <dir name="Controller">
         <file name="FreebusyController.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/FreeBusy/Controller -->
+       <dir name="Driver">
+        <file name="Base.php" role="php" />
+        <dir name="Freebusy">
+         <file name="Base.php" role="php" />
+         <file name="Kolab.php" role="php" />
+        </dir> <!-- /lib/Horde/Kolab/FreeBusy/Driver/Freebusy -->
+       </dir> <!-- /lib/Horde/Kolab/FreeBusy/Driver -->
+       <file name="Factory.php" role="php" />
        <file name="Imap.php" role="php" />
        <file name="Report.php" role="php" />
        <file name="View.php" role="php" />
@@ -146,6 +154,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Kolab/FreeBusy/Access.php" as="Horde/Kolab/FreeBusy/Access.php" />
    <install name="lib/Horde/Kolab/FreeBusy/Cache.php" as="Horde/Kolab/FreeBusy/Cache.php" />
    <install name="lib/Horde/Kolab/FreeBusy/Controller/FreebusyController.php" as="Horde/Kolab/FreeBusy/Controller/FreebusyController.php" />
+   <install name="lib/Horde/Kolab/FreeBusy/Driver/Base.php" as="Horde/Kolab/FreeBusy/Driver/Base.php" />
+   <install name="lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php" as="Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php" />
+   <install name="lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php" as="Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php" />
+   <install name="lib/Horde/Kolab/FreeBusy/Factory.php" as="Horde/Kolab/FreeBusy/Factory.php" />
    <install name="lib/Horde/Kolab/FreeBusy/Imap.php" as="Horde/Kolab/FreeBusy/Imap.php" />
    <install name="lib/Horde/Kolab/FreeBusy/Report.php" as="Horde/Kolab/FreeBusy/Report.php" />
    <install name="lib/Horde/Kolab/FreeBusy/View.php" as="Horde/Kolab/FreeBusy/View.php" />

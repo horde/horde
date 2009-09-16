@@ -52,7 +52,7 @@ class FreeBusyController extends Horde_Controller_Base
      */
     public function fetch()
     {
-        $this->renderText('fetched "' . $this->params->type . '" data for user "' . $this->params->mail . '"');
+        $this->renderText('fetched "' . $this->params->type . '" data for user "' . $this->params->callee . '"');
     }
 
     /**
@@ -72,6 +72,6 @@ class FreeBusyController extends Horde_Controller_Base
      */
     public function delete()
     {
-        $this->renderText('deleted data for user "' . $this->params->mail . '"');
+        $this->renderText('deleted data for user "' . $this->params->callee . '"');
     }
 }

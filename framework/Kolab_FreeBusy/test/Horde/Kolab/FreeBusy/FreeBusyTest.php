@@ -35,6 +35,8 @@ class Horde_Kolab_FreeBusy_FreeBusyTest extends Horde_Kolab_Test_FreeBusy
 
     /**
      * Test setup.
+     *
+     * @return NULL
      */
     public function setUp()
     {
