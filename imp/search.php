@@ -40,6 +40,7 @@ if (!$browser->hasFeature('javascript') ||
 
 $charset = Horde_Nls::getCharset();
 $criteria = Horde_Util::getFormData('criteria_form');
+$dimp_view = ($_SESSION['imp']['view'] == 'dimp');
 $search_fields = $imp_search->searchFields();
 
 /* Generate the search query if 'criteria_form' is present in the form
@@ -64,7 +65,16 @@ if (!empty($criteria)) {
     }
 
     /* Redirect to the mailbox page. */
-    header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('mailbox.php', true), array('mailbox' => $GLOBALS['imp_search']->createSearchID($id)), null, false));
+    $id = $GLOBALS['imp_search']->createSearchID($id);
+    if ($dimp_view) {
+        /* Output javascript code to close the IFRAME and load the search
+         * mailbox in DIMP. */
+        print '<html><head>' .
+            Horde::wrapInlineScript(array('window.parent.DimpBase.go(' . Horde_Serialize::serialize('folder:' . $id, Horde_Serialize::JSON, $charset) . ')')) .
+            '</head></html>';
+    } else {
+        header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('mailbox.php', true), array('mailbox' => $$id), null, false));
+    }
     exit;
 }
 
@@ -174,9 +184,13 @@ Horde::addInlineScript($on_domload, 'dom');
 $title = _("Search");
 Horde::addScriptFile('horde.js', 'horde', true);
 Horde::addScriptFile('search.js', 'imp', true);
-IMP::prepareMenu();
+if (!$dimp_view) {
+    IMP::prepareMenu();
+}
 require IMP_TEMPLATES . '/common-header.inc';
-IMP::menu();
+if (!$dimp_view) {
+    IMP::menu();
+}
 IMP::status();
 
 echo $t->fetch(IMP_TEMPLATES . '/search/search.html');

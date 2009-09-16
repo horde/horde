@@ -50,6 +50,7 @@ $code['conf'] = array_filter(array(
     'URI_PREFS' => Horde::getServiceLink('prefsapi', 'imp'),
     'URI_PREFS_IMP' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'imp')),
     'URI_SEARCH_BASIC' => Horde::applicationUrl('search-basic.php'),
+    'URI_SEARCH' => Horde::applicationUrl('search.php'),
     'URI_VIEW' => Horde::applicationUrl('view.php'),
 
     'SESSION_ID' => defined('SID') ? SID : '',

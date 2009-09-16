@@ -254,6 +254,12 @@ var DimpBase = {
         }
 
         switch (loc) {
+        case 'search':
+            this.highlightSidebar();
+            DimpCore.setTitle(DIMP.text.search);
+            this.iframeContent(loc, DimpCore.addURLParam(DIMP.conf.URI_SEARCH, { search_mailbox: this.folder }));
+            break;
+
         case 'portal':
             this.highlightSidebar('appportal');
             this._addHistory(loc);
@@ -288,11 +294,11 @@ var DimpBase = {
         var curr = $('sidebarPanel').down('.on'),
             elt = $(id);
 
-        if (!elt || curr == elt) {
+        if (curr == elt) {
             return;
         }
 
-        if (!elt.match('LI')) {
+        if (elt && !elt.match('LI')) {
             elt = elt.up();
             if (!elt) {
                 return;
@@ -302,9 +308,11 @@ var DimpBase = {
         if (curr) {
             curr.removeClassName('on');
         }
-        elt.addClassName('on');
 
-        this._toggleSubFolder(elt, 'exp');
+        if (elt) {
+            elt.addClassName('on');
+            this._toggleSubFolder(elt, 'exp');
+        }
     },
 
     iframeContent: function(name, loc)
@@ -768,7 +776,7 @@ var DimpBase = {
             break;
 
         case 'ctx_qsearchopts_advanced':
-            alert('Placeholder for advanced search');
+            this.go('search');
             break;
 
         case 'ctx_qsearchopts_all':
@@ -863,7 +871,7 @@ var DimpBase = {
         var elt, unseen,
             label = this.viewport.getMetaData('label');
 
-        if (this.isSearch()) {
+        if (this.isSearch() && this.sfolder) {
             label += ' (' + this.sfolder + ')';
         } else {
             elt = $(this.getFolderId(this.folder));
