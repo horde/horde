@@ -79,6 +79,10 @@ var ImpSearch = {
                 this.insertDate(c.t, c.v);
                 break;
 
+            case 'within':
+                this.insertWithin(c.t, c.v);
+                break;
+
             case 'flag':
                 this.insertFlag(c.v);
                 break;
@@ -131,6 +135,10 @@ var ImpSearch = {
 
             case 'date':
                 this.insertDate(val);
+                break;
+
+            case 'within':
+                this.insertWithin(val);
                 break;
 
             case 'flag':
@@ -212,6 +220,18 @@ var ImpSearch = {
         this.criteria[id] = { t: type, v: data };
     },
 
+    insertWithin: function(id, data)
+    {
+        data = data || { l: '', v: '' };
+
+        var tmp = [
+            new Element('EM').insert(this.getLabel(id)),
+            new Element('INPUT', { type: 'text', size: 8 }).setValue(data.v),
+            $($('within_criteria').cloneNode(true)).writeAttribute({ id: null }).show().setValue(data.l)
+        ];
+        this.criteria[this.insertCriteria(tmp)] = { t: id };
+    },
+
     insertFlag: function(id)
     {
         var tmp = [
@@ -259,6 +279,11 @@ var ImpSearch = {
                         break;
 
                     case 'date':
+                        data.push(this.criteria[c]);
+                        break;
+
+                    case 'within':
+                        this.criteria[c].v = { l: $F($(c).down('SELECT')), v: parseInt($F($(c).down('INPUT')), 10) };
                         data.push(this.criteria[c]);
                         break;
 

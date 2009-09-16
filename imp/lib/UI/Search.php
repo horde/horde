@@ -75,6 +75,27 @@ class IMP_UI_Search
                 }
                 break;
 
+            case 'within':
+                /* Limited to day granularity because that is the technical
+                 * limit for IMAP servers without 'WITHIN' extension. */
+                if (!empty($rule->v)) {
+                    $secs = $rule->v->v * 60 * 60 * 24;
+
+                    switch ($rule->v->l) {
+                    case 'y':
+                        $secs *= 365;
+                        break;
+
+                    case 'm':
+                        $secs *= 30;
+                        break;
+                    }
+
+                    $ob->intervalSearch($secs, $rule->t == 'older' ? Horde_Imap_Client_Search_Query::INTERVAL_OLDER : Horde_Imap_Client_Search_Query::INTERVAL_YOUNGER);
+                    $search_array[] = $ob;
+                }
+                break;
+
             case 'size':
                 if (!empty($rule->v)) {
                     $ob->size(intval($rule->v), $rule->t == 'size_larger');

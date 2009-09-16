@@ -24,7 +24,8 @@
  * array(
  *     stdClass object {
  *         't' => (string) 'Type' - The criteria type
- *                Values: header, customhdr, body, text, date, size, flag
+ *                Values: header, customhdr, body, text, date, within, size,
+ *                        flag
  *         'v' => (mixed) 'Value' - The data used to build the search
  *                'header' - (string) The value to search for in the header
  *                'customhdr' - (stdClass object) Contains 2 elements:
@@ -38,6 +39,10 @@
  *                         'm' - (integer) The search month (is 1 less than
  *                               the actual month)
  *                         'd' - (integer) The search day
+ *                'within' - (stdClass object) Contains 2 elements:
+ *                           'l' - (string) The length of time. Either 'y'
+ *                                 (years), 'm' (months), or 'd' (days)
+ *                           'v' - (integer) The length of time
  *                'size' - (integer) The search size in bytes
  *                'flag' - (string) The flag to search for
  *         'n' => (boolean) 'Not' - Should we do a not search?
@@ -188,6 +193,16 @@ class IMP_Search
             'date_since' => array(
                 'label' => _("Date >="),
                 'type' => 'date',
+                'not' => true
+            ),
+            'older' => array(
+                'label' => _("Older Than"),
+                'type' => 'within',
+                'not' => true
+            ),
+            'younger' => array(
+                'label' => _("Younger Than"),
+                'type' => 'within',
                 'not' => true
             ),
             // Displayed in KB, but stored internally in bytes
@@ -670,16 +685,20 @@ class IMP_Search
                 }
                 break;
 
+            case 'customhdr':
+                $text_array[] = sprintf("%s for '%s'", $rule->v->h, ((!empty($rule->n)) ? _("not") . ' ' : '') . $rule->v->s);
+                break;
+
             case 'date':
                 $text_array[] = sprintf("%s '%s'", $searchfields[$field]['label'], strftime("%x", mktime(0, 0, 0, $rule->v->m + 1, $rule->v->d, $rule->v->y)));
                 break;
 
-            case 'size':
-                $text_array[] = $searchfields[$field]['label'] . ' ' . ($rule->v / 1024);
+            case 'within':
+                $text_array[] = sprintf("%s %u %s", $searchfields[$field]['label'], $rule->v->v, $rule->v->l == 'y' ? _("years") : ($rule->v->l == 'm' ? _("months") : _("days")));
                 break;
 
-            case 'customhdr':
-                $text_array[] = sprintf("%s for '%s'", $rule->v->h, ((!empty($rule->n)) ? _("not") . ' ' : '') . $rule->v->s);
+            case 'size':
+                $text_array[] = $searchfields[$field]['label'] . ' ' . ($rule->v / 1024);
                 break;
 
             default:
