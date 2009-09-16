@@ -26,7 +26,15 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
     {
         IMP::initialize();
 
-        /* Check for old, non-existent sort values. See Bug #7296. */
+        $this->_upgradeSortPrefs();
+        $this->_upgradeVirtualFolders();
+    }
+
+    /**
+     * Check for old, non-existent sort values. See Bug #7296.
+     */
+    protected function _upgradeSortPrefs()
+    {
         $sortby = $GLOBALS['prefs']->getValue('sortby');
         if ($sortby > 10) {
             $GLOBALS['prefs']->setValue('sortby', Horde_Imap_Client::SORT_ARRIVAL);
@@ -43,8 +51,112 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
         if ($update) {
             $GLOBALS['prefs']->setValue('sortpref', serialize($sortpref));
         }
+    }
 
-        /* Upgrade old virtual folders. */
+    /**
+     * Upgrade IMP 4 style virtual folders.
+     */
+    protected function _upgradeVirtualFolders()
+    {
+        $vfolders = $GLOBALS['prefs']->getValue('vfolder');
+        if (!empty($vfolders)) {
+            $vfolders = @unserialize($vfolders);
+        }
+
+        if (empty($vfolders) || !is_array($vfolders)) {
+            return;
+        }
+
+        $imp_ui_search = new IMP_UI_Search();
+
+        foreach ($vfolders as $id => $vfolder) {
+            /* If this is already a stdClass object, we have already
+             * upgraded. */
+            if (is_object($vfolder)) {
+                return;
+            }
+
+            $ui = $vfolder['uiinfo'];
+
+            // TODO: match == 'or' ($ob['match']
+            if ($ui['match'] == 'or') {
+                $GLOBALS['imp_search']->deleteSearchQuery($id);
+                continue;
+            }
+
+            /* BC: Convert old (IMP < 4.2.1) style w/separate flag entry to
+             * new style where flags are part of the fields to query. */
+            if (!empty($ui['flag'])) {
+                $lookup = array(
+                    1 => 'seen',
+                    2 => 'answered',
+                    3 => 'flagged',
+                    4 => 'deleted'
+                );
+
+                foreach ($ui['flag'] as $key => $val) {
+                    if (($val == 0) || ($val == 1)) {
+                        $ui['field'][] = (($val == 1) ? 'un' : '') . $lookup[$key];
+                    }
+                }
+            }
+
+            $rules = array();
+
+            foreach ($ui['field'] as $key => $val) {
+                $tmp = new stdClass;
+
+                switch ($val) {
+                case 'from':
+                case 'to':
+                case 'cc':
+                case 'bcc':
+                case 'subject':
+                case 'body':
+                case 'text':
+                    $tmp->t = $val;
+                    $tmp->v = $ob['text'][$key];
+                    $tmp->n = !empty($ob['text_not'][$key]);
+                    break;
+
+                case 'date_on':
+                case 'date_until':
+                case 'date_since':
+                    $tmp->t = $val;
+                    $tmp->v = new stdClass;
+                    $tmp->v->y = $ob['date'][$key]['year'];
+                    $tmp->v->m = $ob['date'][$key]['month'] - 1;
+                    $tmp->v->d = $ob['date'][$key]['day'];
+                    break;
+
+                case 'size_smaller':
+                case 'size_larger':
+                    $tmp->t = $val;
+                    $tmp->v = $ob['text'][$key];
+                    break;
+
+                case 'seen':
+                case 'unseen':
+                case 'answered':
+                case 'unanswered':
+                case 'flagged':
+                case 'unflagged':
+                case 'deleted':
+                case 'undeleted':
+                    $tmp->t = 'flag';
+                    $tmp->v = (strpos($val, 'un') === false)
+                        ? '\\' . $val
+                        : '0\\\\' . substr($val, 2);
+                    break;
+                }
+
+                $rules[] = $tmp;
+            }
+
+            /* This will overwrite the existing entry. */
+            $query = $imp_ui_search->createQuery($rules);
+            $GLOBALS['imp_search']->addVFolder($query, $ui['folders'], $rules, $ui['vfolder_label'], $id);
+        }
     }
 
 }

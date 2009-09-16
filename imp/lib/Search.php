@@ -24,8 +24,7 @@
  * array(
  *     stdClass object {
  *         't' => (string) 'Type' - The criteria type
- *                Values: header, customhdr, body, text, date, within, size,
- *                        flag
+ *                Values: Keys from self::searchFields() and 'flag'.
  *         'v' => (mixed) 'Value' - The data used to build the search
  *                'header' - (string) The value to search for in the header
  *                'customhdr' - (stdClass object) Contains 2 elements:
