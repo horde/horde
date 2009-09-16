@@ -1,0 +1,37 @@
+<div id="menu">
+ <tag:menu />
+</div>
+
+<tag:notify />
+
+<p class="item">
+ <a href="<tag:actions.new_url />"><tag:actions.new_text /></a>
+</p>
+
+<if:domains>
+<table width="100%" cellspacing="1" class="linedRow">
+ <tr class="item">
+  <th>&nbsp;</th>
+  <th>
+   <gettext>Domain</gettext>
+  </th>
+  <th>
+   <gettext>Max Users</gettext>
+  </th>
+ </tr>
+ <loop:domains>
+ <tr>
+  <td>
+   <a href="<tag:domains.edit_url />"><tag:images.edit /></a>
+   <a href="<tag:domains.del_url />"><tag:images.delete /></a>
+  </td>
+  <td>
+   <a href="<tag:domains.view_url />"><tag:domains.domain_name /></a>
+  </td>
+  <td class="rightAlign">
+   <tag:domains.domain_max_users />
+  </td>
+ </tr>
+ </loop:domains>
+</table>
+</if:domains>
