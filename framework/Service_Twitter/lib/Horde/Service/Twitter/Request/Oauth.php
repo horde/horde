@@ -35,13 +35,13 @@ class Horde_Service_Twitter_Request_Oauth extends Horde_Service_Twitter_Request
         try {
             $response = $client->get($url, array('Authorization' => $request->buildAuthorizationHeader('Twitter API')));
         } catch (Horde_Http_Client_Exception $e) {
-            // Currently we can't obtain any information regarding the resposne
-            // when a 4xx/5xx response is rec'd due to fopen() failing.
-            // For now, fake it and return the error from the exception.
-            return '{"request":"' . $url . '", "error:", "' . $e->getMessage() . '"}';
+            throw new Horde_Service_Twitter_Exception($e);
         }
 
         $body = $response->getBody();
+        if ($response->code >= 400 && $response->code <= 500) {
+            throw new Horde_Service_Twitter_Exception($body);
+        }
         if (!empty($cache)) {
             $cache->set($key, $body);
         }
@@ -65,12 +65,12 @@ class Horde_Service_Twitter_Request_Oauth extends Horde_Service_Twitter_Request
         try {
             $response = $client->post($url, $params, array('Authorization' => $request->buildAuthorizationHeader('Twitter API')));
         } catch (Horde_Http_Client_Exception $e) {
-            // Currently we can't obtain any information regarding the resposne
-            // when a 4xx/5xx response is rec'd due to fopen() failing.
-            // For now, fake it and return the error from the exception.
-            return '{"request":"' . $url . '", "error:", "' . $e->getMessage() . '"}';
+            throw new Horde_Service_Twitter_Exception($e);
         }
 
+        if ($response->code >= 400 && $response->code <= 500) {
+            throw new Horde_Service_Twitter_Exception($body);
+        }
         return $response->getBody();
     }
 
