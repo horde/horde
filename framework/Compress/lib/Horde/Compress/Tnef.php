@@ -22,18 +22,13 @@ class Horde_Compress_Tnef extends Horde_Compress
     const LVL_MESSAGE = 0x01;
     const LVL_ATTACHMENT = 0x02;
 
-    const STRING = 0x00010000;
-    const BYTE = 0x00060000;
-    const WORD = 0x00070000;
-    const DWORD = 0x00080000;
-
-    const ASUBJECT = self::DWORD | 0x8004;
-    const AMCLASS = self::WORD | 0x8008;
-    const ATTACHDATA = self::BYTE | 0x800f;
-    const AFILENAME = self::STRING | 0x8010;
-    const ARENDDATA = self::BYTE | 0x9002;
-    const AMAPIATTRS = self::BYTE | 0x9005;
-    const AVERSION = self::DWORD | 0x9006;
+    const ASUBJECT = 0x88004;
+    const AMCLASS = 0x78008;
+    const ATTACHDATA = 0x6800f;
+    const AFILENAME = 0x18010;
+    const ARENDDATA = 0x69002;
+    const AMAPIATTRS = 0x69005;
+    const AVERSION = 0x89006;
 
     const MAPI_NULL = 0x0001;
     const MAPI_SHORT = 0x0002;
