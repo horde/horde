@@ -142,9 +142,9 @@ class IMP_Hooks
 //        // the same domain.
 //        $flags = array();
 //
-//        $from_ob = Horde_Mime_Address::getAddressesFromObject($ob['envelope']['from']);
+//        $from_ob = Horde_Mime_Address::getAddressesFromObject($data['envelope']['from']);
 //        if (!empty($from_ob) &&
-//            (strcasecmp($from_ob[0]['hostname'], 'example.com') === 0)) {
+//            (strcasecmp($from_ob[0]['host'], 'example.com') === 0)) {
 //            /* The '$indomain' flag in this example must have already been
 //             * created in the 'msgflags' preference. */
 //            $flags = array('$indomain');
