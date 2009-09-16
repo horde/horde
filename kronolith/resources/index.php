@@ -63,7 +63,7 @@ function performAction(action, rid)
   <td>&nbsp;</td>
   <?php endif;?>
   <td><?php echo htmlspecialchars($resource->get('name')) ?></td>
-  <td><?php $url = Horde_Util::addParameter($display_url_base, 'display_cal', $resource->get('calendar'), false); echo Horde::link($url, _("Click or copy this URL to display this calendar"), '', '_blank') . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
+  <td><?php $url = Horde_Util::addParameter($display_url_base, 'display_cal', $resource->get('calendar'), false); echo Horde::link($url, _("Click or copy this URL to display this calendar")) . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
  </tr>
 <?php endforeach; ?>
 </tbody>
