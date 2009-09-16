@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Add ability to search by a custom defined header (Request #6875).
 [mms] Improved advanced search query interface (Request #6875).
 [mms] More intelligent ordering of autocomplete search results.
 [mms] Add a mini search query interface (Request #6875).

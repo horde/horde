@@ -151,15 +151,22 @@ $t->set('f_fields', $f_fields);
 
 Horde_UI_JsCalendar::init();
 
+/* Gettext strings for this page. */
+$gettext_strings = array(
+    'customhdr' => _("Custom Header:"),
+    'dateselection' => _("Date Selection"),
+    'flag' => _("Flag:"),
+    'loading' => _("Loading..."),
+    'need_criteria' => _("Please select at least one search criteria."),
+    'need_folder' => _("Please select at least one folder to search."),
+    'need_vfolder_label' => _("Virtual Folders require a label."),
+    'not_match' => _("Do NOT Match"),
+    'search_term' => _("Search Term:")
+);
+
 Horde::addInlineScript(array(
-    'ImpSearch.dateselection = ' . Horde_Serialize::serialize(_("Date Selection"), Horde_Serialize::JSON, $charset),
-    'ImpSearch.flag = ' . Horde_Serialize::serialize(_("Flag:"), Horde_Serialize::JSON, $charset),
-    'ImpSearch.loading = ' . Horde_Serialize::serialize(_("Loading..."), Horde_Serialize::JSON, $charset),
     'ImpSearch.months = ' . Horde_Serialize::serialize(Horde_UI_JsCalendar::months(), Horde_Serialize::JSON, $charset),
-    'ImpSearch.need_criteria = ' . Horde_Serialize::serialize(_("Please select at least one search criteria."), Horde_Serialize::JSON, $charset),
-    'ImpSearch.need_folder = ' . Horde_Serialize::serialize(_("Please select at least one folder to search."), Horde_Serialize::JSON, $charset),
-    'ImpSearch.need_vfolder_label = ' . Horde_Serialize::serialize(_("Virtual Folders require a label."), Horde_Serialize::JSON, $charset),
-    'ImpSearch.not_match = ' . Horde_Serialize::serialize(_("Do NOT Match"), Horde_Serialize::JSON, $charset),
+    'ImpSearch.text = ' . Horde_Serialize::serialize($gettext_strings, Horde_Serialize::JSON, $charset),
     'ImpSearch.types = ' . Horde_Serialize::serialize($types, Horde_Serialize::JSON, $charset)
 ));
 Horde::addInlineScript($on_domload, 'dom');

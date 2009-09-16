@@ -7,8 +7,7 @@
 
 var ImpSearch = {
     // The following variables are defined in search.php:
-    //   loading, months, need_criteria, need_folder, need_vfolder_label,
-    //   types
+    //   months, text, types
     criteria: {},
     saved_searches: {},
     show_unsub: false,
@@ -68,6 +67,10 @@ var ImpSearch = {
                 this.insertText(c.t, c.v, c.n);
                 break;
 
+            case 'customhdr':
+                this.insertCustomHdr(c.v, c.n);
+                break;
+
             case 'size':
                 this.insertSize(c.t, c.v);
                 break;
@@ -77,7 +80,7 @@ var ImpSearch = {
                 break;
 
             case 'flag':
-                this.insertFlag(c.t);
+                this.insertFlag(c.v);
                 break;
             }
         }, this);
@@ -116,6 +119,10 @@ var ImpSearch = {
             case 'body':
             case 'text':
                 this.insertText(val);
+                break;
+
+            case 'customhdr':
+                this.insertCustomHdr();
                 break;
 
             case 'size':
@@ -158,9 +165,22 @@ var ImpSearch = {
         var tmp = [
             new Element('EM').insert(this.getLabel(id)),
             new Element('INPUT', { type: 'text', size: 25 }),
-            new Element('SPAN').insert(new Element('INPUT', { checked: Boolean(not), className: 'checkbox', type: 'checkbox' })).insert(this.not_match)
+            new Element('SPAN').insert(new Element('INPUT', { checked: Boolean(not), className: 'checkbox', type: 'checkbox' })).insert(this.text.not_match)
         ];
         this.criteria[this.insertCriteria(tmp)] = { t: id };
+    },
+
+    insertCustomHdr: function(text, not)
+    {
+        text = text || { h: '', s: '' };
+
+        var tmp = [
+            new Element('EM').insert(this.text.customhdr),
+            new Element('INPUT', { type: 'text', size: 25 }).setValue(text.h),
+            new Element('SPAN').insert(new Element('EM').insert(this.text.search_term + ' ')).insert(new Element('INPUT', { type: 'text', size: 25 }).setValue(text.s)),
+            new Element('SPAN').insert(new Element('INPUT', { checked: Boolean(not), className: 'checkbox', type: 'checkbox' })).insert(this.text.not_match)
+        ];
+        this.criteria[this.insertCriteria(tmp)] = { t: 'customhdr' };
     },
 
     insertSize: function(id, size)
@@ -178,7 +198,7 @@ var ImpSearch = {
         var d = (data ? new Date(data.y, data.m, data.d) : new Date()),
             tmp = [
                 new Element('EM').insert(this.getLabel(id)),
-                new Element('SPAN').insert(new Element('SPAN')).insert(new Element('A', { href: '#', className: 'calendarPopup', title: this.dateselection }).insert(new Element('SPAN', { className: 'searchuiImg searchuiCalendar' })))
+                new Element('SPAN').insert(new Element('SPAN')).insert(new Element('A', { href: '#', className: 'calendarPopup', title: this.text.dateselection }).insert(new Element('SPAN', { className: 'searchuiImg searchuiCalendar' })))
             ];
         this.replaceDate(this.insertCriteria(tmp), id, { y: d.getFullYear(), m: d.getMonth(), d: d.getDate() });
     },
@@ -195,7 +215,7 @@ var ImpSearch = {
     insertFlag: function(id)
     {
         var tmp = [
-            new Element('EM').insert(this.flag),
+            new Element('EM').insert(this.text.flag),
             this.getLabel(id).slice(0, -2)
         ];
         this.criteria[this.insertCriteria(tmp)] = { t: id };
@@ -206,7 +226,9 @@ var ImpSearch = {
         var data = [], tmp;
 
         if (!this._getAll().findAll(function(i) { return i.checked; }).size()) {
-            alert(this.need_folder);
+            alert(this.text.need_folder);
+        } else if ($F('vfolder_save') && $F('vfolder_label').empty()) {
+            alert(this.text.need_vfolder_label);
         } else {
             tmp = $('search_criteria_table').childElements().pluck('id');
             if (tmp.size()) {
@@ -219,6 +241,11 @@ var ImpSearch = {
                     case 'text':
                         this.criteria[c].n = Number(Boolean($F($(c).down('INPUT[type=checkbox]'))));
                         this.criteria[c].v = $F($(c).down('INPUT[type=text]'));
+                        data.push(this.criteria[c]);
+                        break;
+
+                    case 'customhdr':
+                        this.criteria[c].v = { h: $F($(c).down('INPUT')), s: $F($(c).down('INPUT', 1)) };
                         data.push(this.criteria[c]);
                         break;
 
@@ -243,7 +270,7 @@ var ImpSearch = {
                 $('criteria_form').setValue(data.toJSON());
                 $('search_form').submit();
             } else {
-                alert(this.need_criteria);
+                alert(this.text.need_criteria);
             }
         }
     },
@@ -280,7 +307,7 @@ var ImpSearch = {
             case 'link_sub':
                 tmp = this._getAll();
                 this.show_unsub = !this.show_unsub;
-                $('search_folders_hdr').next('DIV').update(this.loading);
+                $('search_folders_hdr').next('DIV').update(this.text.loading);
                 new Ajax.Request($('search_form').readAttribute('action'), {
                     parameters: { show_unsub: Number(this.show_unsub) },
                     onComplete: this._showFoldersCallback.bind(this, tmp)

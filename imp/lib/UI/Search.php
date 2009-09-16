@@ -32,43 +32,55 @@ class IMP_UI_Search
         foreach ($search as $rule) {
             $ob = new Horde_Imap_Client_Search_Query();
 
-            if (isset($flag_fields[$rule->t])) {
-                $val = $imp_flags->parseFormId($rule->t);
-                $ob->flag($val['flag'], $val['set']);
-                $search_array[] = $ob;
-            } else {
-                /* Ignore unknown types. */
-                switch ($search_fields[$rule->t]['type']) {
-                case 'header':
-                    if (!empty($rule->v)) {
-                        $ob->headerText($rule->t, $rule->v, !empty($rule->n));
-                        $search_array[] = $ob;
-                    }
-                    break;
+            $type = isset($search_fields[$rule->t]['type'])
+                ? $search_fields[$rule->t]['type']
+                : $rule->t;
 
-                case 'body':
-                case 'text':
-                    if (!empty($rule->v)) {
-                        $ob->text($rule->c, $search_fields[$rule->t]['type'] == 'body', !empty($rule->n));
-                        $search_array[] = $ob;
-                    }
-                    break;
-
-                case 'date':
-                    if (!empty($rule->v)) {
-                        $date = new Horde_Date(array('year' => $rule->v->y, 'month' => $rule->v->m + 1, 'mday' => $rule->v->d));
-                        $ob->dateSearch($date, ($rule->t == 'date_on') ? Horde_Imap_Client_Search_Query::DATE_ON : (($rule->t == 'date_until') ? Horde_Imap_Client_Search_Query::DATE_BEFORE : Horde_Imap_Client_Search_Query::DATE_SINCE));
-                        $search_array[] = $ob;
-                    }
-                    break;
-
-                case 'size':
-                    if (!empty($rule->v)) {
-                        $ob->size(intval($rule->v), $rule->t == 'size_larger');
-                        $search_array[] = $ob;
-                    }
-                    break;
+            switch ($type) {
+            case 'flag':
+                if (isset($flag_fields[$rule->v])) {
+                    $val = $imp_flags->parseFormId($rule->t);
+                    $ob->flag($val['flag'], $val['set']);
+                    $search_array[] = $ob;
                 }
+                break;
+
+            case 'header':
+                if (!empty($rule->v)) {
+                    $ob->headerText($rule->t, $rule->v, !empty($rule->n));
+                    $search_array[] = $ob;
+                }
+                break;
+
+            case 'customhdr':
+                if (!empty($rule->v)) {
+                    $ob->headerText($rule->v->h, $rule->v->s, !empty($rule->n));
+                    $search_array[] = $ob;
+                }
+                break;
+
+            case 'body':
+            case 'text':
+                if (!empty($rule->v)) {
+                    $ob->text($rule->c, $search_fields[$rule->t]['type'] == 'body', !empty($rule->n));
+                    $search_array[] = $ob;
+                }
+                break;
+
+            case 'date':
+                if (!empty($rule->v)) {
+                    $date = new Horde_Date(array('year' => $rule->v->y, 'month' => $rule->v->m + 1, 'mday' => $rule->v->d));
+                    $ob->dateSearch($date, ($rule->t == 'date_on') ? Horde_Imap_Client_Search_Query::DATE_ON : (($rule->t == 'date_until') ? Horde_Imap_Client_Search_Query::DATE_BEFORE : Horde_Imap_Client_Search_Query::DATE_SINCE));
+                    $search_array[] = $ob;
+                }
+                break;
+
+            case 'size':
+                if (!empty($rule->v)) {
+                    $ob->size(intval($rule->v), $rule->t == 'size_larger');
+                    $search_array[] = $ob;
+                }
+                break;
             }
         }
 
@@ -108,7 +120,8 @@ class IMP_UI_Search
 
         if ($flag) {
             $tmp = new stdClass;
-            $tmp->t = $flag;
+            $tmp->t = 'flag';
+            $tmp->v = $flag;
             $c_list[] = $tmp;
         }
 

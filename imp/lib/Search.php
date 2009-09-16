@@ -8,15 +8,44 @@
  *
  * $_SESSION['imp']['search'] = array(
  *     'id_1' => array(
- *         'c' => (array) List of search criteria. For virtual folders, this
- *                data is stored in the preferences,
+ *         'c' => (array) List of search criteria (the IMP-specific data
+ *                structure that allows recreation of the search query on the
+ *                search page). For virtual folders, this data is stored in
+ *                the preferences,
  *         'f' => (array) List of folders to search,
- *         'l' => (string) Description of search,
+ *         'l' => (string) Description (label) of search,
  *         'q' => (Horde_Imap_Client_Search_Query) [serialized],
  *         'v' => (boolean) True if this is a Virtual Folder
  *     ),
  *     ....
  * );
+ *
+ * The format of the 'c' (search criteria) array is as folows:
+ * array(
+ *     stdClass object {
+ *         't' => (string) 'Type' - The criteria type
+ *                Values: header, customhdr, body, text, date, size, flag
+ *         'v' => (mixed) 'Value' - The data used to build the search
+ *                'header' - (string) The value to search for in the header
+ *                'customhdr' - (stdClass object) Contains 2 elements:
+ *                         'h' - (string) The header name
+ *                         's' - (string) The search string
+ *                'body' - (string) The value to search for in the body
+ *                'text' - (string) The value to search for in the entire
+ *                         message
+ *                'date' - (stdClass object) Contains 3 elements:
+ *                         'y' - (integer) The search year
+ *                         'm' - (integer) The search month (is 1 less than
+ *                               the actual month)
+ *                         'd' - (integer) The search day
+ *                'size' - (integer) The search size in bytes
+ *                'flag' - (string) The flag to search for
+ *         'n' => (boolean) 'Not' - Should we do a not search?
+ *                Only used for the following types: header, customhdr, body,
+ *                text
+ *     },
+ *     ...
+ * )
  *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
@@ -31,8 +60,9 @@ class IMP_Search
     /* The mailbox search prefix. */
     const MBOX_PREFIX = 'impsearch\0';
 
-    /* The basic search mailbox name. */
+    /* The special search mailbox names. */
     const BASIC_SEARCH = 'impbsearch';
+    const DIMP_QUICKSEARCH = 'dimpqsearch';
 
     /* Bitmask constants for listQueries(). */
     const LIST_SEARCH = 1;
@@ -130,7 +160,7 @@ class IMP_Search
                 'type' => 'header',
                 'not' => true
             ),
-            'custom' => array(
+            'customhdr' => array(
                 'label' => _("Custom Header"),
                 'type' => 'customhdr',
                 'not' => true
@@ -629,23 +659,32 @@ class IMP_Search
         $text_array = array();
         foreach ($criteria as $rule) {
             $field = $rule->t;
+            $type = isset($searchfields[$field]['type'])
+                ? $searchfields[$field]['type']
+                : $field;
 
-            if (isset($flagfields[$field])) {
-                $text_array[] = sprintf(_("flagged \"%s\""), $flagfields[$field]);
-            } else {
-                switch ($searchfields[$field]['type']) {
-                case 'date':
-                    $text_array[] = sprintf("%s '%s'", $searchfields[$field]['label'], strftime("%x", mktime(0, 0, 0, $rule->v->m + 1, $rule->v->d, $rule->v->y)));
-                    break;
-
-                case 'size':
-                    $text_array[] = $searchfields[$field]['label'] . ' ' . ($rule->v / 1024);
-                    break;
-
-                default:
-                    $text_array[] = sprintf("%s for '%s'", $searchfields[$field]['label'], ((!empty($rule->n)) ? _("not") . ' ' : '') . $rule->v);
-                    break;
+            switch ($searchfields[$field]['type']) {
+            case 'flag':
+                if (isset($flagfields[$rule->v])) {
+                    $text_array[] = sprintf(_("flagged \"%s\""), $flagfields[$field]);
                 }
+                break;
+
+            case 'date':
+                $text_array[] = sprintf("%s '%s'", $searchfields[$field]['label'], strftime("%x", mktime(0, 0, 0, $rule->v->m + 1, $rule->v->d, $rule->v->y)));
+                break;
+
+            case 'size':
+                $text_array[] = $searchfields[$field]['label'] . ' ' . ($rule->v / 1024);
+                break;
+
+            case 'customhdr':
+                $text_array[] = sprintf("%s for '%s'", $rule->v->h, ((!empty($rule->n)) ? _("not") . ' ' : '') . $rule->v->s);
+                break;
+
+            default:
+                $text_array[] = sprintf("%s for '%s'", $searchfields[$field]['label'], ((!empty($rule->n)) ? _("not") . ' ' : '') . $rule->v);
+                break;
             }
         }
 
