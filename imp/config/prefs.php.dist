@@ -1219,7 +1219,7 @@ $_prefs['msgflags'] = array(
             't' => 'imap'
         ),
 
-        // Forwarded flag (RFC 4550 [2.8])
+        // Forwarded flag (RFC 5550 [5.9])
         '$forwarded' => array(
             'a' => 'F',
             'b' => '#aadddd',

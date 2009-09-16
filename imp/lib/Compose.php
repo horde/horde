@@ -547,7 +547,7 @@ class IMP_Compose
 
             case 'forward':
                 /* Set the '$Forwarded' flag, if possible, in the mailbox.
-                 * See RFC 4550 [2.8] */
+                 * See RFC 5550 [5.9] */
                 $imp_message->flag(array('$Forwarded'), $reply_index);
                 break;
             }
