@@ -61,7 +61,25 @@ class Horde_Provider_ProviderTest extends Horde_Provider_ProviderScenario
         $this->given('a provider')
             ->given('a registered element', 'key', 'value')
             ->when('retrieving the element', 'key')
+            ->then('the element exists', 'key')
             ->then('the result is', 'value');
+    }
+
+    /**
+     * Test deleting a simple element.
+     *
+     * @scenario
+     *
+     * @return NULL
+     */
+    public function deletingASimpleElement()
+    {
+        $this->given('a provider')
+            ->given('a registered element', 'key', 'value')
+            ->when('deleting the element', 'key')
+            ->when('retrieving the element', 'key')
+            ->then('the result is an error with the message',
+                   'No such element: key');
     }
 
     /**

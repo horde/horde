@@ -76,6 +76,13 @@ class Horde_Provider_ProviderScenario extends PHPUnit_Extensions_Story_TestCase
                 $world['result'] = $e;
             }
             break;
+        case 'deleting the element':
+            try {
+                unset($world['provider']->{$arguments[0]});
+            } catch (Exception $e) {
+                $world['result'] = $e;
+            }
+            break;
         default:
             return $this->notImplemented($action);
         }
@@ -102,6 +109,9 @@ class Horde_Provider_ProviderScenario extends PHPUnit_Extensions_Story_TestCase
         case 'the result is an error with the message':
             $this->assertTrue($world['result'] instanceOf Exception);
             $this->assertEquals($arguments[0], $world['result']->getMessage());
+            break;
+        case 'the element exists':
+            $this->assertTrue(isset($world['provider']->{$arguments[0]}));
             break;
         default:
             return $this->notImplemented($action);

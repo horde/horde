@@ -74,4 +74,30 @@ class Horde_Provider_Base
             throw new Horde_Provider_Exception(sprintf("No such element: %s", $k));
         }
     }
+
+    /**
+     * Test if the element is available.
+     *
+     * @param string $k The key of the element to test for.
+     *
+     * @return boolean True if the element is sset, false otherwise.
+     */
+    public function __isset($k)
+    {
+        return isset($this->elements[$k]);
+    }
+
+    /**
+     * Delete the element.
+     *
+     * @param string $k The key of the element to delete.
+     *
+     * @return NULL
+     */
+    public function __unset($k)
+    {
+        if (isset($this->elements[$k])) {
+            unset($this->elements[$k]);
+        }
+    }
 }
