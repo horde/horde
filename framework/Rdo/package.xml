@@ -32,11 +32,24 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Rdo">
+      <dir name="Form">
+       <dir name="Renderer">
+        <file name="Helper.php" role="php" />
+       </dir> <!-- /lib/Horde/Rdo/Form/Renderer -->
+       <file name="Helper.php" role="php" />
+      </dir> <!-- /lib/Horde/Rdo/Form -->
       <dir name="Query">
        <file name="Literal.php" role="php" />
       </dir> <!-- /lib/Horde/Rdo/Query -->
+      <dir name="Table">
+       <dir name="Helper">
+        <file name="Lens.php" role="php" />
+       </dir> <!-- /lib/Horde/Rdo/Table/Helper -->
+       <file name="Helper.php" role="php" />
+      </dir> <!-- /lib/Horde/Rdo/Table -->
       <file name="Base.php" role="php" />
       <file name="Iterator.php" role="php" />
+      <file name="Lens.php" role="php" />
       <file name="List.php" role="php" />
       <file name="Mapper.php" role="php" />
       <file name="Query.php" role="php" />
@@ -58,9 +71,14 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Rdo/Form/Renderer/Helper.php" as="Horde/Rdo/Form/Renderer/Helper.php" />
+   <install name="lib/Horde/Rdo/Form/Helper.php" as="Horde/Rdo/Form/Helper.php" />
    <install name="lib/Horde/Rdo/Query/Literal.php" as="Horde/Rdo/Query/Literal.php" />
+   <install name="lib/Horde/Rdo/Table/Helper/Lens.php" as="Horde/Rdo/Table/Helper/Lens.php" />
+   <install name="lib/Horde/Rdo/Table/Helper.php" as="Horde/Rdo/Table/Helper.php" />
    <install name="lib/Horde/Rdo/Base.php" as="Horde/Rdo/Base.php" />
    <install name="lib/Horde/Rdo/Iterator.php" as="Horde/Rdo/Iterator.php" />
+   <install name="lib/Horde/Rdo/Lens.php" as="Horde/Rdo/Lens.php" />
    <install name="lib/Horde/Rdo/List.php" as="Horde/Rdo/List.php" />
    <install name="lib/Horde/Rdo/Mapper.php" as="Horde/Rdo/Mapper.php" />
    <install name="lib/Horde/Rdo/Query.php" as="Horde/Rdo/Query.php" />
