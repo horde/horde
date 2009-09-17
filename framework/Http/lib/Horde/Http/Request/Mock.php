@@ -17,30 +17,21 @@
 class Horde_Http_Request_Mock extends Horde_Http_Request_Base
 {
     /**
-     * Array of mock responses
-     * @var array
+     * Mock response to return
+     * @var Horde_Http_Request_Mock
      */
-    protected $_responses = array();
-
-    /**
-     * Current mock response
-     * @var integer
-     */
-    protected $_responseIndex = 0;
+    protected $_response;
 
     /**
      * Send this HTTP request
      *
-     * @return Horde_Http_Response_Base
+     * @return Horde_Http_Response_Mock
      *
      * @TODO make lastRequest work somehow - not sure if this is still an issue.
      */
     public function send()
     {
-        if ($this->_responseIndex >= count($this->_responses)) {
-            $this->_responseIndex = 0;
-        }
-        return $this->_responses[$this->_responseIndex++];
+        return $this->_response;
     }
 
     /**
@@ -48,34 +39,8 @@ class Horde_Http_Request_Mock extends Horde_Http_Request_Base
      *
      * @param Horde_Http_Response_Base $response
      */
-    public function setResponse($response)
+    public function setResponse(Horde_Http_Response_Base $response)
     {
-        $this->_responses = array($response);
-        $this->_responseIndex = 0;
+        $this->_response = $response;
     }
-
-    /**
-     * Add another response to the response buffer.
-     *
-     * @param string $response
-     */
-    public function addResponse($response)
-    {
-        $this->_responses[] = $response;
-    }
-
-    /**
-     * Sets the position of the response buffer.  Selects which
-     * response will be returned on the next call to read().
-     *
-     * @param integer $index
-     */
-    public function setResponseIndex($index)
-    {
-        if ($index < 0 || $index >= count($this->_responses)) {
-            throw new OutOfBoundsException;
-        }
-        $this->_responseIndex = $index;
-    }
-
 }
