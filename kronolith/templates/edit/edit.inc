@@ -244,7 +244,7 @@ if ($event->alarm) {
 <tr>
  <td></td>
  <td colspan="4">
-  <?php echo Horde::link(Horde::applicationUrl('attendees.php'), '', 'button', '_blank', 'var date = (\'000\' + $F(\'start_year\')).slice(-4) + (\'0\' + $F(\'start_month\')).slice(-2) + (\'0\' + $F(\'start_day\')).slice(-2); this.href += (this.href.indexOf(\'?\') == -1 ? \'?\' : \'&\') + \'date=\' + date;Horde.popup({ url: this.href });return false;') . _("Edit Attendees and Resources") . '</a>' ?>
+  <?php echo Horde::link(Horde::applicationUrl('attendees.php'), '', 'button', '_blank', 'var date = (\'000\' + $F(\'start_year\')).slice(-4) + (\'0\' + $F(\'start_month\')).slice(-2) + (\'0\' + $F(\'start_day\')).slice(-2) + (\'0\' + $(\'start_hour\').value).slice(-2) + (\'0\' + $(\'start_min\').value).slice(-2) + \'00\';var enddate = (\'000\' + $F(\'end_year\')).slice(-4) + (\'0\' + $F(\'end_month\')).slice(-2) + (\'0\' + $F(\'end_day\')).slice(-2) + (\'0\' + $(\'end_hour\').value).slice(-2) + (\'0\' + $(\'end_min\').value).slice(-2) + \'00\'; this.href += (this.href.indexOf(\'?\') == -1 ? \'?\' : \'&\') + \'date=\' + date + \'&enddate=\' + enddate;Horde.popup({ url: this.href });return false;') . _("Edit Attendees and Resources") . '</a>' ?>
  </td>
 </tr>
 </tbody>

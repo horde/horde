@@ -109,6 +109,15 @@ case 'add':
             $response = Kronolith::RESPONSE_ACCEPTED;
         } elseif ($type == Kronolith_Resource::RESPONSETYPE_ALWAYS_DECLINE) {
             $response = Kronolith::RESPONSE_DECLINED;
+        } elseif ($type == Kronolith_Resource::RESPONSETYPE_AUTO) {
+            // Try to figure out the expected response
+            $date = new Horde_Date(Horde_Util::getFormData('date'));
+            $end = new Horde_Date(Horde_Util::getFormData('enddate'));
+            if ($resource->isFree(array('start' => $date, 'end' => $end))) {
+                $response = Kronolith::RESPONSE_ACCEPTED;
+            } else {
+                $response = Kronolith::RESPONSE_DECLINED;
+            }
         } else {
             $response = Kronolith::RESPONSE_NONE;
         }

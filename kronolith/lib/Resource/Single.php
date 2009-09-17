@@ -16,14 +16,24 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
      * Determine if the resource is free during the time period for the
      * supplied event.
      *
-     * @param Kronolith_Event $event
+     * @param mixed $event  Either a Kronolith_Event object or an array
+     *                      containing start and end times.
+     *
      *
      * @return boolean
      */
     public function isFree($event)
     {
+        if (is_array($event)) {
+            $start = $event['start'];
+            $end = $event['end'];
+        } else {
+            $start = $event->start;
+            $end = $event->end;
+        }
+
         /* Fetch events. */
-        $busy = Kronolith::listEvents($event->start, $event->end, array($this->get('calendar')));
+        $busy = Kronolith::listEvents($start, $end, array($this->get('calendar')));
         if ($busy instanceof PEAR_Error) {
             throw new Horde_Exception($busy->getMessage());
         }
@@ -35,7 +45,11 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
 
         /* Check for conflicts, ignoring the conflict if it's for the
          * same event that is passed. */
-        $uid = $event->getUID();
+        if (!is_array($event)) {
+            $uid = $event->getUID();
+        } else {
+            $uid = 0;
+        }
         $conflicts = 0;
         foreach ($busy as $events) {
             foreach ($events as $e) {
@@ -43,8 +57,8 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
                       $e->hasStatus(Kronolith::STATUS_FREE)) &&
                      $e->getUID() !== $uid) {
 
-                     if (!($e->start->compareDateTime($event->end) >= 1 ||
-                         $e->end->compareDateTime($event->start) <= -1)) {
+                     if (!($e->start->compareDateTime($end) >= 1 ||
+                         $e->end->compareDateTime($start) <= -1)) {
 
                          $conflicts++;
                      }

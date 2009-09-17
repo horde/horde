@@ -35,7 +35,8 @@ function switchDateView(view, date)
 <input type="hidden" name="actionID" value="add" />
 <input type="hidden" name="actionValue" value="" />
 <input type="hidden" name="view" value="<?php echo htmlspecialchars($view) ?>" />
-<input type="hidden" name="date" value="<?php echo $date->dateString() ?>" />
+<input type="hidden" name="date" value="<?php echo $date->dateString() . sprintf("%02d%02d00", $date->hour, $date->min) ?>" />
+<input type="hidden" name="enddate" value=<?php echo $end->dateString() . sprintf("%02d%02d00", $end->hour, $end->min) ?>" />
 
 <h1 class="header"><?php echo htmlspecialchars($title) ?></h1>
 
