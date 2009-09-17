@@ -148,6 +148,7 @@ div.msgDate {
 div.msgSize {
     float: left;
     width: 6%;
+    margin-right: -4px;
 }
 
 /* Message List Header and Column Header */
@@ -171,6 +172,9 @@ div.msgSize {
 }
 #msglistHeader div.sortup a, #msglistHeader div.sortdown a {
     padding-left: 14px;
+}
+#msglistHeader div.sep {
+    border-left: 1px solid #ddd;
 }
 #msglistHeader a small {
     padding-left: 2px;
@@ -201,11 +205,14 @@ div.msgSize {
     -o-text-overflow: ellipsis;
     -ms-text-overflow: ellipsis;
     height: 16px;
-    margin-bottom: 1px;
+    border-bottom: 1px;
     text-indent: 1px;
 }
 .msglist div.vpRowSelected {
     background: #ffa !important;
+}
+.msglist div.vpRow div.sep {
+    border-right: 1px solid #ddd;
 }
 
 /* Rows: flags. */
