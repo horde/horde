@@ -1,6 +1,15 @@
 <?php
 /**
+ * Utility class for dealing with Kronolith_Resource objects
  *
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ *
+ * @package Kronolith
  */
 class Kronolith_Resource
 {
@@ -9,23 +18,15 @@ class Kronolith_Resource
     const RESPONSETYPE_AUTO = 1;
     const RESPONSETYPE_ALWAYS_ACCEPT = 2;
     const RESPONSETYPE_ALWAYS_DECLINE = 3;
-    const RESPONSETYPE_MANUAL = 4; // Send iTip - not sure how that would work without a user account for the resource.
-
-    /**
-     *
-     */
-    static public function factory($driver, $params)
-    {
-
-    }
+    const RESPONSETYPE_MANUAL = 4;
 
    /**
-     * Adds a new resource to storage
-     *
-     * @param Kronolith_Resource $resource
-     *
-     * @return unknown_type
-     */
+    * Adds a new resource to storage
+    *
+    * @param Kronolith_Resource $resource
+    *
+    * @return unknown_type
+    */
     static public function addResource($resource)
     {
         // Create a new calendar id.
@@ -58,8 +59,9 @@ class Kronolith_Resource
     /**
      * Determine if the provided calendar id represents a resource's calendar.
      *
-     * @param $calendar
-     * @return unknown_type
+     * @param string $calendar  The calendar identifier to check.
+     *
+     * @return boolean
      */
     static public function isResourceCalendar($calendar)
     {
@@ -73,6 +75,8 @@ class Kronolith_Resource
     /**
      * Function to check availability and set response status for each resource
      * attached to the event.
+     *
+     * @param Kronolith_Event $event  The event object to check the resources of
      *
      * @return void
      */
