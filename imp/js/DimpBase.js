@@ -1744,11 +1744,13 @@ var DimpBase = {
                 break;
 
             case 'qsearch':
-                elt.addClassName('qsearchFocus');
-                if (!elt.hasClassName('qsearchActive')) {
-                    this._setFilterText(false);
+                if (e.element().readAttribute('id') != 'qsearch_icon') {
+                    elt.addClassName('qsearchFocus');
+                    if (!elt.hasClassName('qsearchActive')) {
+                        this._setFilterText(false);
+                    }
+                    $('qsearch_input').focus();
                 }
-                $('qsearch_input').focus();
                 break;
 
             case 'qsearch_close':
