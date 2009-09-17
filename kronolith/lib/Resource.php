@@ -54,12 +54,12 @@ class Kronolith_Resource
     }
 
    /**
-     * Adds a new resource to storage
-     *
-     * @param Kronolith_Resource $resource
-     *
-     * @return unknown_type
-     */
+    * Adds a new resource to storage
+    *
+    * @param Kronolith_Resource $resource
+    *
+    * @return unknown_type
+    */
     static public function addResource($resource)
     {
         // Create a new calendar id.
@@ -92,8 +92,9 @@ class Kronolith_Resource
     /**
      * Determine if the provided calendar id represents a resource's calendar.
      *
-     * @param $calendar
-     * @return unknown_type
+     * @param string $calendar  The calendar identifier to check.
+     *
+     * @return boolean
      */
     static public function isResourceCalendar($calendar)
     {
@@ -107,6 +108,8 @@ class Kronolith_Resource
     /**
      * Function to check availability and set response status for each resource
      * attached to the event.
+     *
+     * @param Kronolith_Event $event  The event object to check the resources of
      *
      * @return void
      */
