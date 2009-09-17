@@ -113,7 +113,7 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
 <?php if (!$disable_compose): ?>
  <div id="qreply" style="display:none">
   <div class="header">
-   <div class="headercloseimg"><?php echo $close_img ?></div>
+   <div class="headercloseimg"></div>
    <div><?php echo _("Message:") . ' ' . $show_msg_result['subject'] ?></div>
   </div>
   <?php echo $compose_result['html']; ?>
