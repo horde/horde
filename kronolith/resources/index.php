@@ -21,7 +21,6 @@ $resources = Kronolith_Resource::listResources();
 $display_url_base = Horde::applicationUrl('month.php', true, -1);
 $delete_url_base = Horde::applicationUrl('resources/delete.php');
 $delete_img = Horde::img('delete.png', _("Delete"), null, $registry->getImageDir('horde'));
-
 ?>
 <script type="text/javascript">
 function performAction(action, rid)
@@ -84,12 +83,5 @@ function shorten_url($url, $separator = '...', $first_chunk_length = 35, $last_c
 
     return $url;
 }
-/* Test creating a new resource */
-//$new = array('name' => _("Another Big Meeting Room"),
-//             'category' => 'conference rooms');
-//
-//$resource = new Kronolith_Resource_Single($new);
-//$results = Kronolith_Resource::addResource($resource);
-//var_dump($results);
 ?>
 </div>
