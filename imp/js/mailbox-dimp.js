@@ -18,12 +18,12 @@
 
 DimpBase.message_list_template =
 '<div #{vpData} style="#{style}">' +
- '<div class="msgStatus">' +
+ '<div class="msgStatus sep">' +
   '<div class="msCheck"></div>' +
   '#{status}' +
  '</div>' +
- '<div class="msgFrom">#{from}</div>' +
- '<div class="msgSubject" title="#{subjecttitle}">#{subjectdata}#{subject}</div>' +
- '<div class="msgDate">#{date}</div>' +
+ '<div class="msgFrom sep">#{from}</div>' +
+ '<div class="msgSubject sep" title="#{subjecttitle}">#{subjectdata}#{subject}</div>' +
+ '<div class="msgDate sep">#{date}</div>' +
  '<div class="msgSize">#{size}</div>' +
 '</div>';
