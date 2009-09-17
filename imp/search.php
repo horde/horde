@@ -42,6 +42,7 @@ $charset = Horde_Nls::getCharset();
 $criteria = Horde_Util::getFormData('criteria_form');
 $dimp_view = ($_SESSION['imp']['view'] == 'dimp');
 $search_fields = $imp_search->searchFields();
+$search_mailbox = Horde_Util::getFormData('search_mailbox', 'INBOX');
 
 /* Generate the search query if 'criteria_form' is present in the form
  * data. */
@@ -115,7 +116,7 @@ if (!empty($saved_searches)) {
 }
 
 /* Preselect mailboxes. */
-$on_domload[] = 'ImpSearch.updateSelectedFolders(' . Horde_Serialize::serialize(array(Horde_Util::getFormData('search_mailbox', 'INBOX')), Horde_Serialize::JSON, $charset) . ')';
+$on_domload[] = 'ImpSearch.updateSelectedFolders(' . Horde_Serialize::serialize(array($search_mailbox), Horde_Serialize::JSON, $charset) . ')';
 
 /* Prepare the search template. */
 $t = new Horde_Template();
@@ -174,17 +175,26 @@ $gettext_strings = array(
     'search_term' => _("Search Term:")
 );
 
+/* Javascript data for this page. */
+$js_data = array(
+    'months' => Horde_UI_JsCalendar::months(),
+    'searchmbox' => $search_mailbox,
+    'types' => $types
+);
+
 Horde::addInlineScript(array(
-    'ImpSearch.months = ' . Horde_Serialize::serialize(Horde_UI_JsCalendar::months(), Horde_Serialize::JSON, $charset),
-    'ImpSearch.text = ' . Horde_Serialize::serialize($gettext_strings, Horde_Serialize::JSON, $charset),
-    'ImpSearch.types = ' . Horde_Serialize::serialize($types, Horde_Serialize::JSON, $charset)
+    'ImpSearch.data = ' . Horde_Serialize::serialize($js_data, Horde_Serialize::JSON, $charset),
+    'ImpSearch.text = ' . Horde_Serialize::serialize($gettext_strings, Horde_Serialize::JSON, $charset)
 ));
 Horde::addInlineScript($on_domload, 'dom');
 
 $title = _("Search");
 Horde::addScriptFile('horde.js', 'horde', true);
 Horde::addScriptFile('search.js', 'imp', true);
-if (!$dimp_view) {
+
+if ($dimp_view) {
+    $t->set('return_mailbox_text', htmlspecialchars($search_mailbox));
+} else {
     IMP::prepareMenu();
 }
 require IMP_TEMPLATES . '/common-header.inc';

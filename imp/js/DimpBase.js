@@ -238,6 +238,7 @@ var DimpBase = {
             return;
         }
 
+        f = this.folder;
         this.folder = null;
         $('dimpmain_folder').hide();
         $('dimpmain_portal').update(DIMP.text.loading).show();
@@ -262,7 +263,7 @@ var DimpBase = {
         case 'search':
             this.highlightSidebar();
             DimpCore.setTitle(DIMP.text.search);
-            this.iframeContent(loc, DimpCore.addURLParam(DIMP.conf.URI_SEARCH, { search_mailbox: this.folder }));
+            this.iframeContent(loc, DimpCore.addURLParam(DIMP.conf.URI_SEARCH, { search_mailbox: f }));
             break;
 
         case 'portal':

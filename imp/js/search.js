@@ -7,7 +7,7 @@
 
 var ImpSearch = {
     // The following variables are defined in search.php:
-    //   months, text, types
+    //   data, text
     criteria: {},
     saved_searches: {},
     show_unsub: false,
@@ -60,7 +60,7 @@ var ImpSearch = {
         this.resetCriteria();
 
         criteria.each(function(c) {
-            switch (this.types[c.t]) {
+            switch (this.data.types[c.t]) {
             case 'header':
             case 'body':
             case 'text':
@@ -118,7 +118,7 @@ var ImpSearch = {
             break;
 
         case 'search_criteria':
-            switch (this.types[val]) {
+            switch (this.data.types[val]) {
             case 'header':
             case 'body':
             case 'text':
@@ -213,7 +213,7 @@ var ImpSearch = {
 
     replaceDate: function(id, type, data)
     {
-        $(id).down('TD SPAN SPAN').update(this.months[data.m] + ' ' + data.d + ', ' + data.y);
+        $(id).down('TD SPAN SPAN').update(this.data.months[data.m] + ' ' + data.d + ', ' + data.y);
         // Need to store date information at all times in criteria, since we
         // have no other way to track this information (there is not form
         // field for this type).
@@ -255,7 +255,7 @@ var ImpSearch = {
                 tmp.each(function(c) {
                     var tmp2;
 
-                    switch (this.types[this.criteria[c].t]) {
+                    switch (this.data.types[this.criteria[c].t]) {
                     case 'header':
                     case 'body':
                     case 'text':
@@ -321,6 +321,11 @@ var ImpSearch = {
             case 'search_reset':
                 this.resetCriteria();
                 this.selectFolders(false);
+                return;
+
+            case 'search_dimp_return':
+                e.stop();
+                window.parent.DimpBase.go('folder:' + this.data.searchmbox);
                 return;
 
             case 'link_sel_all':
