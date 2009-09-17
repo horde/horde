@@ -26,7 +26,9 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
 <div id="pageContainer">
  <div id="msgData">
   <div class="dimpActions dimpActionsMsg noprint">
-   <div class="headercloseimg" id="windowclose"><span class="closeImg" title="X"></span></div>
+   <div class="headercloseimg" id="windowclose">
+    <span class="closeImg" title="X"></span>
+   </div>
    <span>
     <?php _createDAfmsg(_("Reply"), 'Reply', 'reply_link', 'hasmenu', $show_text) ?>
    </span>
@@ -113,7 +115,9 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
 <?php if (!$disable_compose): ?>
  <div id="qreply" style="display:none">
   <div class="header">
-   <div class="headercloseimg"></div>
+   <div class="headercloseimg" id="compose_close">
+    <span class="closeImg" title="X"></span>
+   </div>
    <div><?php echo _("Message:") . ' ' . $show_msg_result['subject'] ?></div>
   </div>
   <?php echo $compose_result['html']; ?>
