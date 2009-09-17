@@ -300,7 +300,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
             if ($event->getUID()) {
                 $uid = $event->getUID();
             } else {
-                $uid = $this->generateUID();
+                $uid = (string)new Horde_Support_Guid;
                 $event->setUID($uid);
             }
 
