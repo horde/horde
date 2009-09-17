@@ -54,7 +54,7 @@ class Horde_Rdo_Table_Helper extends Horde_Template
 
         $this->_params = array_merge($defaults, $params);
 
-        parent::Horde_Template();
+        parent::__construct();
         $this->setOption('gettext', true);
     }
 
