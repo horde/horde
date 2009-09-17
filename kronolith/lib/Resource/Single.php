@@ -50,7 +50,6 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         } else {
             $uid = 0;
         }
-
         foreach ($busy as $events) {
             foreach ($events as $e) {
                 if (!($e->hasStatus(Kronolith::STATUS_CANCELLED) ||
@@ -61,7 +60,6 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
                      // the previous event ends.
                      if (!($e->start->compareDateTime($end) >= 0) &&
                          !($e->end->compareDateTime($start) <= 0)) {
-
                         return false;
                      }
                 }
