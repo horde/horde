@@ -50,7 +50,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         } else {
             $uid = 0;
         }
-        $conflicts = 0;
+
         foreach ($busy as $events) {
             foreach ($events as $e) {
                 if (!($e->hasStatus(Kronolith::STATUS_CANCELLED) ||
@@ -60,13 +60,13 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
                      if (!($e->start->compareDateTime($end) >= 1 ||
                          $e->end->compareDateTime($start) <= -1)) {
 
-                         $conflicts++;
+                        return false;
                      }
                 }
             }
         }
 
-        return ($conflicts < $this->get('max_reservations'));
+        return true;
     }
 
     /**

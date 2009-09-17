@@ -53,7 +53,6 @@ if ($form->validate($vars)) {
 $vars->set('name', $resource->get('name'));
 $vars->set('description', $resource->get('description'));
 $vars->set('category', $resource->get('category'));
-$vars->set('maxreservations', $resource->get('max_reservations'));
 $vars->set('responsetype', $resource->get('response_type'));
 
 $title = $form->getTitle();

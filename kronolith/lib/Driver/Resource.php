@@ -361,17 +361,17 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     public function save($resource)
     {
         if ($resource->getId()) {
-            $query = 'UPDATE kronolith_resources SET resource_name = ?, resource_calendar = ?, resource_category = ? , resource_description = ?, resource_response_type = ?, resource_max_reservations = ? WHERE resource_id = ?';
-            $values = array($resource->get('name'), $resource->get('calendar'), $resource->get('category'), $resource->get('description'), $resource->get('response_type'), $resource->get('max_reservations'), $resource->getId());
+            $query = 'UPDATE kronolith_resources SET resource_name = ?, resource_calendar = ?, resource_category = ? , resource_description = ?, resource_response_type = ? WHERE resource_id = ?';
+            $values = array($resource->get('name'), $resource->get('calendar'), $resource->get('category'), $resource->get('description'), $resource->get('response_type'), $resource->getId());
             $result = $this->_write_db->query($query, $values);
             if ($result instanceof PEAR_Error) {
                 throw new Horde_Exception($result->getMessage());
             }
         } else {
-            $query = 'INSERT INTO kronolith_resources (resource_id, resource_name, resource_calendar, resource_category, resource_description, resource_response_type, resource_max_reservations)';
-            $cols_values = ' VALUES (?, ?, ?, ?, ?, ?, ?)';
+            $query = 'INSERT INTO kronolith_resources (resource_id, resource_name, resource_calendar, resource_category, resource_description, resource_response_type)';
+            $cols_values = ' VALUES (?, ?, ?, ?, ?, ?)';
             $id = $this->_db->nextId('kronolith_resources');
-            $values = array($id, $resource->get('name'), $resource->get('calendar'), $resource->get('category'), $resource->get('description'), $resource->get('response_type'), $resource->get('max_reservations'));
+            $values = array($id, $resource->get('name'), $resource->get('calendar'), $resource->get('category'), $resource->get('description'), $resource->get('response_type'));
             $result = $this->_write_db->query($query . $cols_values, $values);
             if (!($result instanceof PEAR_Error)) {
                 return true;
@@ -452,7 +452,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      */
     public function getResource($id)
     {
-        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_category, resource_description, resource_response_type, resource_max_reservations FROM kronolith_resources WHERE resource_id = ?';
+        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_category, resource_description, resource_response_type FROM kronolith_resources WHERE resource_id = ?';
 
         $results = $this->_db->getRow($query, array($id), DB_FETCHMODE_ASSOC);
         if ($results instanceof PEAR_Error) {
@@ -493,11 +493,22 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      * This method will likely be a moving target as group resources are
      * fleshed out.
      *
+     * @param array $filter  A hash of field/values to filter on.
      */
-    public function listResources($params = array())
+    public function listResources($filter = array())
     {
-        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_category, resource_description, resource_response_type, resource_max_reservations FROM kronolith_resources';
-        $results = $this->_db->getAssoc($query, true, array(), DB_FETCHMODE_ASSOC, false);
+        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_category, resource_description, resource_response_type FROM kronolith_resources';
+        if (count($filter)) {
+            $clause = ' WHERE ';
+            $i = 0;
+            $c = count($filter);
+            foreach ($filter as $field => $value) {
+                $clause .= 'resource_' . $field . ' = ?' . (($i++ < ($c - 1)) ? ' AND ' : '');
+            }
+            $query .= $clause;
+        }
+
+        $results = $this->_db->getAssoc($query, true, $filter, DB_FETCHMODE_ASSOC, false);
         if ($results instanceof PEAR_Error) {
             throw new Horde_Exception($results->getMessage());
         }
@@ -510,6 +521,11 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
         return $return;
     }
 
+    /**
+     *
+     * @param $params
+     * @return unknown_type
+     */
     protected function _fromDriver($params)
     {
         $return = array();

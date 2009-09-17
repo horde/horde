@@ -36,7 +36,6 @@ class Kronolith_CreateResourceForm extends Horde_Form {
         $this->addVariable(_("Name"), 'name', 'text', true);
         $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));
         $this->addVariable(_("Response type"), 'responsetype', 'enum', true, false, null, array('enum' => $responses));
-        $this->addVariable(_("Maximum number of overlapping reservations"), 'maxreservations', 'number', true);
         $this->addVariable(_("Category"), 'category', 'text', false);
         $this->setButtons(array(_("Create")));
     }
@@ -46,8 +45,7 @@ class Kronolith_CreateResourceForm extends Horde_Form {
         $new = array('name' => $this->_vars->get('name'),
                      'category' => $this->_vars->get('category'),
                      'description' => $this->_vars->get('description'),
-                     'response_type' => $this->_vars->get('response_type'),
-                     'max_reservations' => $this->_vars->get('max_reservations'));
+                     'response_type' => $this->_vars->get('response_type'));
 
         $resource = new Kronolith_Resource_Single($new);
         return $results = Kronolith_Resource::addResource($resource);
