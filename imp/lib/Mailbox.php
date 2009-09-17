@@ -584,6 +584,10 @@ class IMP_Mailbox
      */
     public function mailboxStart($total)
     {
+        if ($this->_searchmbox) {
+            return 1;
+        }
+
         switch ($GLOBALS['prefs']->getValue('mailbox_start')) {
         case IMP::MAILBOX_START_FIRSTPAGE:
             return 1;
