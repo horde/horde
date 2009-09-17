@@ -5,9 +5,8 @@ CREATE TABLE kronolith_resources (
     resource_name VARCHAR(255),
     resource_calendar VARCHAR(255),
     resource_description TEXT,
-    resource_category VARCHAR(255),
+    resource_category VARCHAR(255) DEFAULT '',
     resource_response_type INT DEFAULT 0,
-    resource_max_reservations INT DEFAULT 1,
     
     PRIMARY KEY (resource_id)
 );

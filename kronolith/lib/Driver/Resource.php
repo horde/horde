@@ -455,7 +455,6 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     public function getResource($id)
     {
         $query = 'SELECT resource_id, resource_name, resource_calendar, resource_category, resource_description, resource_response_type, resource_type, resource_members FROM kronolith_resources WHERE resource_id = ?';
-
         $results = $this->_db->getRow($query, array($id), DB_FETCHMODE_ASSOC);
         if ($results instanceof PEAR_Error) {
             throw new Horde_Exception($results->getMessage());

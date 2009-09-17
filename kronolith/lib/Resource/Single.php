@@ -66,7 +66,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
             }
         }
 
-        return ($conflicts < $this->get('max_reservations'));
+        return true;
     }
 
     /**
