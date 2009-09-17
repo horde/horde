@@ -788,6 +788,7 @@ var DimpBase = {
         case 'ctx_qsearchopts_all':
         case 'ctx_qsearchopts_body':
         case 'ctx_qsearchopts_from':
+        case 'ctx_qsearchopts_to':
         case 'ctx_qsearchopts_subject':
             DIMP.conf.qsearchfield = id.substring(16);
             this._updatePrefs('dimp_qsearch_field', DIMP.conf.qsearchfield);

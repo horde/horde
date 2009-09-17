@@ -451,6 +451,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
  <a id="ctx_qsearchopts_all"><?php echo _("Entire Message") ?></a>
  <a id="ctx_qsearchopts_body"><?php echo _("Body") ?></a>
  <a id="ctx_qsearchopts_from"><?php echo _("From") ?></a>
+ <a id="ctx_qsearchopts_to"><?php echo _("To") ?></a>
  <a id="ctx_qsearchopts_subject"><?php echo _("Subject") ?></a>
 </div>
 <?php endif; ?>

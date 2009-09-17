@@ -32,17 +32,26 @@ class IMP_Views_ListMessages
             /* Create the search query. */
             $query = new Horde_Imap_Client_Search_Query();
 
-            switch ($GLOBALS['prefs']->getValue('dimp_qsearch_field')) {
+            $field = $GLOBALS['prefs']->getValue('dimp_qsearch_field');
+            switch ($field) {
             case 'body':
                 $query->text($args['qsearch'], true);
                 break;
 
             case 'from':
-                $query->headerText('From', $args['qsearch']);
+            case 'subject':
+                $query->headerText($field, $args['qsearch']);
                 break;
 
-            case 'subject':
-                $query->headerText('Subject', $args['qsearch']);
+            case 'to':
+                $query2 = new Horde_Imap_Client_Search_Query();
+                $query2->headerText('cc', $args['qsearch']);
+
+                $query3 = new Horde_Imap_Client_Search_Query();
+                $query3->headerText('bcc', $args['qsearch']);
+
+                $query->headerText('to', $args['qsearch']);
+                $query->orSearch(array($query2, $query3));
                 break;
 
             case 'all':
