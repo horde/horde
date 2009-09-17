@@ -282,10 +282,6 @@ class Horde_Imap_Client_Search_Query
                 // OR queries were not in IMAP 2
                 $imap4 = true;
 
-                if ($key == 0) {
-                    $query = '(' . $query . ')';
-                }
-
                 $ret = $val->build();
                 $query = 'OR (' . $ret['query'] . ') ' . $query;
             }
