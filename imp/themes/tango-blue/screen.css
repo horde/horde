@@ -7,7 +7,7 @@
     background: #fff;
 }
 
-.closeImg {
+.closeImg, .searchuiDelete {
     background-image: url("graphics/close.png");
 }
 .searchuiCalendar {

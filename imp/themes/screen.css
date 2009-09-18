@@ -608,10 +608,10 @@ td.addressTr span.loadingImg {
 .saveImgAtc {
     background-image: url("graphics/gallery.png");
 }
-.stripAtc, .searchuiDelete {
+.stripAtc {
     background-image: url("graphics/delete.png");
 }
-.closeImg {
+.closeImg, .searchuiDelete {
     background-image: url("graphics/close.png");
 }
 
