@@ -534,7 +534,6 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      */
     public function saveEvent($event)
     {
-        /* Check for acceptence/denial of resources */
         if ($event->isStored() || $event->exists()) {
             $values = array();
 
