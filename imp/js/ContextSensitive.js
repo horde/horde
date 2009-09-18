@@ -254,7 +254,9 @@ var ContextSensitive = Class.create({
             y = v.height - size.height - 10;
         }
         if ((x + size.width) > v.width) {
-            x = v.width - size.width - 10;
+            x = this.current.size()
+                ? ($(this.current.last()).viewportOffset()[0] - size.width)
+                : (v.width - size.width - 10);
         }
 
         if (this.opts.onShow) {
