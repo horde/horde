@@ -511,10 +511,6 @@ class IMP_Application extends Horde_Registry_Application
             $this->_prefsEncryptSelect();
             return true;
 
-        case 'defaultsearchselect':
-            $this->_prefsDefaultSearchSelect();
-            return true;
-
         case 'soundselect':
             return $GLOBALS['prefs']->setValue('nav_audio', Horde_Util::getFormData('nav_audio'));
 
@@ -731,15 +727,6 @@ class IMP_Application extends Horde_Registry_Application
     {
         $default_encrypt = Horde_Util::getFormData('default_encrypt');
         $GLOBALS['prefs']->setValue('default_encrypt', $default_encrypt);
-    }
-
-    /**
-     * TODO
-     */
-    protected function _prefsDefaultSearchSelect()
-    {
-        $default_search = Horde_Util::getFormData('default_search');
-        $GLOBALS['prefs']->setValue('default_search', $default_search);
     }
 
     /**
