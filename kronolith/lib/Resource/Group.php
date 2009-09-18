@@ -39,7 +39,6 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
     public function __construct($params)
     {
         $params['resource_type'] = 'Group';
-
         parent::__construct($params);
         $this->_driver = $this->getDriver();
     }

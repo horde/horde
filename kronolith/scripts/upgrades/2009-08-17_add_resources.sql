@@ -7,6 +7,8 @@ CREATE TABLE kronolith_resources (
     resource_description TEXT,
     resource_category VARCHAR(255) DEFAULT '',
     resource_response_type INT DEFAULT 0,
+    resource_type VARCHAR(255) NOT NULL,
+    resource_members BLOB,
     
     PRIMARY KEY (resource_id)
 );
