@@ -101,26 +101,16 @@ case 'add':
 
     // Any new resources?
     if (!empty($newResource)) {
+
+        /* Get the requested resource */
         $resource = Kronolith::getDriver('Resource')->getResource($newResource);
 
-        /* If we know we always accept/deny mark it that way now. */
-        $type = $resource->getResponseType();
-        if ($type == Kronolith_Resource::RESPONSETYPE_ALWAYS_ACCEPT) {
-            $response = Kronolith::RESPONSE_ACCEPTED;
-        } elseif ($type == Kronolith_Resource::RESPONSETYPE_ALWAYS_DECLINE) {
-            $response = Kronolith::RESPONSE_DECLINED;
-        } elseif ($type == Kronolith_Resource::RESPONSETYPE_AUTO) {
-            // Try to figure out the expected response
-            $date = new Horde_Date(Horde_Util::getFormData('date'));
-            $end = new Horde_Date(Horde_Util::getFormData('enddate'));
-            if ($resource->isFree(array('start' => $date, 'end' => $end))) {
-                $response = Kronolith::RESPONSE_ACCEPTED;
-            } else {
-                $response = Kronolith::RESPONSE_DECLINED;
-            }
-        } else {
-            $response = Kronolith::RESPONSE_NONE;
-        }
+        /* Do our best to see what the response will be. Note that this response
+         * is only guarenteed once the event is saved.
+         */
+        $date = new Horde_Date(Horde_Util::getFormData('date'));
+        $end = new Horde_Date(Horde_Util::getFormData('enddate'));
+        $response = $resource->getResponse(array('start' => $date, 'end' => $end));
 
         $resources[$newResource] = array(
             'attendance' => Kronolith::PART_REQUIRED,

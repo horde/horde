@@ -316,8 +316,21 @@ abstract class Kronolith_Event
             return PEAR::raiseError('Event not yet initialized');
         }
 
-        // TODO: Should this go here?
-        Kronolith_Resource::checkResources($this);
+        /* Check for acceptance/denial of this event's resources.
+         *
+         * @TODO: Need to look at how to lock the resource to avoid two events
+         * inadvertantly getting accepted. (Two simultaneous requests, both
+         * return RESPONSE_ACCEPTED from getResponse()) Maybe Horde_Lock?
+         */
+        foreach ($this->getResources() as $id => $resourceData) {
+            $resource = Kronolith::getDriver('Resource')->getResource($id);
+            $response = $resource->getResponse($this);
+            if ($response == Kronolith::RESPONSE_ACCEPTED) {
+                $resource->addEvent($this);
+            }
+            $this->addResource($resource, $response);
+        }
+
         $this->toDriver();
         $result = $this->getDriver()->saveEvent($this);
         if (!is_a($result, 'PEAR_Error') &&
