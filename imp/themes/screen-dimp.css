@@ -752,7 +752,7 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     border-bottom: 1px #d4d4d4 solid;
 }
 .contextSubmenu {
-    background: url("graphics/popright.png") 95% 50% no-repeat;
+    background: url("graphics/popright.png") 100% 50% no-repeat;
     padding-left: 16px;
 }
 .contextSelected {
