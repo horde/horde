@@ -117,7 +117,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
     }
 
     /**
-     * Check avilability and return an appropriate Kronolith response code.
+     * Check availability and return an appropriate Kronolith response code.
      *
      * @param Kronolith_Event $event  The event to check on
      *
