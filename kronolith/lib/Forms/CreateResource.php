@@ -45,7 +45,7 @@ class Kronolith_CreateResourceForm extends Horde_Form {
         $new = array('name' => $this->_vars->get('name'),
                      'category' => $this->_vars->get('category'),
                      'description' => $this->_vars->get('description'),
-                     'response_type' => $this->_vars->get('response_type'));
+                     'response_type' => $this->_vars->get('responsetype'));
 
         $resource = new Kronolith_Resource_Single($new);
         return $results = Kronolith_Resource::addResource($resource);
