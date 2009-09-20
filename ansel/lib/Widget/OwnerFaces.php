@@ -13,18 +13,6 @@ class Ansel_Widget_OwnerFaces extends Ansel_Widget_Base
     protected $_owner;
 
     /**
-     * Constructor
-     *
-     * @param array $params  Any parameters for this widget
-     * @return Ansel_Widget_ImageFaces
-     */
-    function __construct($params)
-    {
-        parent::__construct($params);
-        $this->_faces = Ansel_Faces::factory();
-    }
-
-    /**
      * Return the HTML representing this widget.
      *
      * @return string  The HTML for this widget.
@@ -35,6 +23,7 @@ class Ansel_Widget_OwnerFaces extends Ansel_Widget_Base
             return '';
         }
 
+        $this->_faces = Ansel_Faces::factory();
         $this->_owner = $this->_view->gallery->get('owner');
         //@TODO: Remove the PEAR_Error check when Faces is refactored.
         try {
