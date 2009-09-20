@@ -44,13 +44,21 @@ abstract class Horde_Kolab_Server_Structure
     /**
      * Construct a new Horde_Kolab_Server_Structure object.
      *
-     * @param Horde_Kolab_Server &$server A link to the server handler.
      * @param array              $params  Parameter array.
      */
-    public function __construct(&$server, $params = array())
+    public function __construct($params = array())
     {
-        $this->server = &$server;
         $this->params = $params;
+    }
+
+    /**
+     * Set the server reference for this object.
+     *
+     * @param Horde_Kolab_Server &$server A link to the server handler.
+     */
+    public function setServer($server)
+    {
+        $this->server = $server;
     }
 
     /**
@@ -70,18 +78,17 @@ abstract class Horde_Kolab_Server_Structure
      * @throws Horde_Kolab_Server_Exception If the requested Horde_Kolab_Server_Structure
      *                                      subclass could not be found.
      */
-    static public function &factory($driver, &$server, $params = array())
+    static public function &factory($driver, $params = array())
     {
         if (class_exists($driver)) {
             $class = $driver;
         } else {
             $class = 'Horde_Kolab_Server_Structure_' . ucfirst(basename($driver));
             if (!class_exists($class)) {
-                throw new Horde_Kolab_Server_Exception(
-                    'Structure type definition "' . $class . '" missing.');
+                throw new Horde_Kolab_Server_Exception('Structure type definition "' . $class . '" missing.');
             }
         }
-        $structure = new $class($server, $params);
+        $structure = new $class($params);
         return $structure;
     }
 

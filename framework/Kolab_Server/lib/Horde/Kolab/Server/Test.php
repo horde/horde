@@ -89,7 +89,10 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
      *
      * @param array $params Parameter array.
      */
-    public function __construct($params = array())
+    public function __construct(Horde_Kolab_Server_Structure $structure,
+                                Horde_Cache $cache = null,
+                                Horde_Log_Logger $logger = null,
+                                $params = array())
     {
         $this->load();
         if (isset($params['data'])) {
@@ -100,7 +103,7 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
             }
         }
 
-        parent::__construct($params);
+        parent::__construct($structure, $cache, $logger, $params);
 
         if (isset($this->params['admin'])
             && isset($this->params['admin']['type'])) {
@@ -593,11 +596,12 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
             }
         }
 
-
-        Horde::logMessage(sprintf('The object \"%s\" has been successfully saved!',
-                                  $uid),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
         $this->store();
+
+        if (!empty($this->logger)) {
+            $logger->debug(sprintf('The object \"%s\" has been successfully saved!',
+                                   $uid));
+        }
     }
 
     /**
@@ -639,9 +643,10 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
                                                                         $uid));
         }
         $this->store();
-        Horde::logMessage(sprintf('The object \"%s\" has been successfully deleted!',
-                                  $uid),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        if (!empty($this->logger)) {
+            $logger->debug(sprintf('The object \"%s\" has been successfully deleted!',
+                                   $uid));
+        }
         return true;
     }
 
@@ -662,9 +667,10 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
             unset($this->data[$uid]);
         }
         $this->store();
-        Horde::logMessage(sprintf('The object \"%s\" has been successfully renamed to \"%s\"!',
-                                  $uid, $new),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        if (!empty($this->logger)) {
+            $logger->debug(sprintf('The object \"%s\" has been successfully renamed to \"%s\"!',
+                                   $uid, $new));
+        }
         return true;
     }
 

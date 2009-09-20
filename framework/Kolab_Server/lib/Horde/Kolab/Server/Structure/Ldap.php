@@ -51,6 +51,9 @@ class Horde_Kolab_Server_Structure_Ldap extends Horde_Kolab_Server_Structure
      */
     public function determineType($uid)
     {
+        if (empty($this->server)) {
+            throw new Horde_Kolab_Server_Exception('The server reference is missing!');
+        }
         $ocs = $this->server->getObjectClasses($uid);
         $ocs = array_reverse($ocs);
         foreach ($ocs as $oc) {
@@ -81,6 +84,9 @@ class Horde_Kolab_Server_Structure_Ldap extends Horde_Kolab_Server_Structure
      */
     public function generateServerUid($type, $id, $info)
     {
+        if (empty($this->server)) {
+            throw new Horde_Kolab_Server_Exception('The server reference is missing!');
+        }
         return sprintf('%s,%s', $id, $this->server->getBaseUid());
     }
 
@@ -93,8 +99,6 @@ class Horde_Kolab_Server_Structure_Ldap extends Horde_Kolab_Server_Structure
      */
     public function quoteForUid($id)
     {
-        require_once 'Net/LDAP2/Util.php';
-
         $id = Net_LDAP2_Util::escape_dn_value($id);
         return $id[0];
     }
@@ -108,8 +112,6 @@ class Horde_Kolab_Server_Structure_Ldap extends Horde_Kolab_Server_Structure
      */
     public function quoteForFilter($part)
     {
-        require_once 'Net/LDAP2/Util.php';
-
         $part = Net_LDAP2_Util::escape_filter_value($part);
         return $part[0];
     }

@@ -77,25 +77,42 @@ abstract class Horde_Kolab_Server
     protected $attributes;
 
     /**
+     * The data cache.
+     *
+     * @var Horde_Cache
+     */
+    protected $cache;
+
+    /**
+     * The log handler.
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $logger;
+
+    /**
      * Construct a new Horde_Kolab_Server object.
      *
      * @param array $params Parameter array.
      */
-    public function __construct($params = array())
+    public function __construct(Horde_Kolab_Server_Structure $structure,
+                                Horde_Cache $cache = null,
+                                Horde_Log_Logger $logger = null,
+                                $params = array())
     {
-        $this->params = $params;
+        $structure->setServer($this);
+        $this->structure = $structure;
+        $this->cache     = $cache;
+        $this->logger    = $logger;
+        $this->params    = $params;
+
+        if (!isset($this->params['cache_lifetime'])) {
+            $this->params['cache_lifetime'] = 300;
+        }
+
         if (isset($params['uid'])) {
             $this->uid = $params['uid'];
         }
-
-        $structure        = isset($params['structure']['driver'])
-            ? $params['structure']['driver'] : 'kolab';
-        $structure_params = isset($params['structure']['params'])
-            ? $params['structure']['params'] : array();
-
-        $this->structure = &Horde_Kolab_Server_Structure::factory($structure,
-                                                                  $this,
-                                                                  $structure_params);
 
         // Initialize the search operations supported by this server.
         $this->searches = $this->getSearchOperations();
@@ -117,12 +134,15 @@ abstract class Horde_Kolab_Server
      * @throws Horde_Kolab_Server_Exception If the requested Horde_Kolab_Server
      *                                      subclass could not be found.
      */
-    static public function &factory($driver, $params = array())
+    static public function &factory($provider)
     {
-        $class = 'Horde_Kolab_Server_' . ucfirst(basename($driver));
+        $class = 'Horde_Kolab_Server_' . ucfirst(basename($provider->kolab_server_driver));
         if (class_exists($class)) {
-            $db = new $class($params);
-            return $db;
+            $server = new $class($provider->kolab_server_structure,
+                                 isset($provider->cache) ? $provider->cache : null,
+                                 isset($provider->logger) ? $provider->logger : null,
+                                 $provider->kolab_server_params);
+            return $server;
         }
         throw new Horde_Kolab_Server_Exception(
             'Server type definition "' . $class . '" missing.');
@@ -154,6 +174,8 @@ abstract class Horde_Kolab_Server
 
         static $instances = array();
 
+        $provider = new stdClass;
+
         $sparam         = $params;
         $sparam['pass'] = isset($sparam['pass'])
             ? hash('sha256', $sparam['pass']) : '';
@@ -165,10 +187,10 @@ abstract class Horde_Kolab_Server
             $user_pass = '';
 
             if (!empty($params['driver'])) {
-                $driver = $params['driver'];
+                $provider->kolab_server_driver = $params['driver'];
                 unset($params['driver']);
             } else if (isset($conf['kolab']['server']['driver'])) {
-                $driver = $conf['kolab']['server']['driver'];
+                $provider->kolab_server_driver = $conf['kolab']['server']['driver'];
                 if (isset($conf['kolab']['server']['params'])) {
                     if (!is_array($params)) {
                         $params = $conf['kolab']['server']['params'];
@@ -186,9 +208,27 @@ abstract class Horde_Kolab_Server
                     'The configuration for the Kolab server driver is missing!');
             }
 
+            /* Provide caching */
+            if (!empty($params['cache']['driver']) && class_exists('Horde_Cache')) {
+                $provider->cache  = Horde_Cache::singleton($params['cache']['driver'],
+                                                           isset($params['cache']['params'])
+                                                           ? $params['cache']['params'] : null);
+            }
+
+            /* Provide the structure */
+            $structure        = isset($params['structure']['driver'])
+                ? $params['structure']['driver'] : 'kolab';
+            $structure_params = isset($params['structure']['params'])
+                ? $params['structure']['params'] : array();
+
+            $provider->kolab_server_structure = &Horde_Kolab_Server_Structure::factory($structure,
+                                                                                       $structure_params);
+
             if (isset($params['user'])) {
 
-                $tmp_server = &Horde_Kolab_Server::factory($driver, $params);
+                $provider->kolab_server_params = $params;
+
+                $tmp_server = &Horde_Kolab_Server::factory($provider);
 
                 try {
                     $uid = $tmp_server->uidForIdOrMail($params['user']);
@@ -212,8 +252,9 @@ abstract class Horde_Kolab_Server
                 $params['host'] = $params['host_master'];
             }
 
-            $instances[$signature] = &Horde_Kolab_Server::factory($driver,
-                                                                  $params);
+            $provider->kolab_server_params = $params;
+
+            $instances[$signature] = &Horde_Kolab_Server::factory($provider);
         }
 
         return $instances[$signature];
@@ -245,14 +286,9 @@ abstract class Horde_Kolab_Server
     function shutdown()
     {
         if (isset($this->attributes)) {
-            if (!empty($GLOBALS['conf']['kolab']['server']['cache']['driver'])
-		&& class_exists('Horde_Cache')) {
-                $params = isset($GLOBALS['conf']['kolab']['server']['cache']['params'])
-                    ? $GLOBALS['conf']['kolab']['server']['cache']['params'] : null;
-                $cache  = Horde_Cache::singleton($GLOBALS['conf']['kolab']['server']['cache']['driver'],
-                                                 $params);
+            if (!empty($this->cache)) {
                 foreach ($this->attributes as $key => $value) {
-                    $cache->set('attributes_' . $key, @serialize($value));
+                    $this->cache->set('attributes_' . $key, @serialize($value));
                 }
             }
         }
@@ -424,25 +460,16 @@ abstract class Horde_Kolab_Server
      */
     public function &getAttributes($class)
     {
-        static $cache = null;
-        static $lifetime;
-
         if (!isset($this->attributes)) {
-            if (!empty($GLOBALS['conf']['kolab']['server']['cache']['driver'])
-                && class_exists('Horde_Cache')) {
-                $params = isset($GLOBALS['conf']['kolab']['server']['cache']['params'])
-                    ? $GLOBALS['conf']['kolab']['server']['cache']['params'] : null;
-                $cache  = Horde_Cache::singleton($GLOBALS['conf']['kolab']['server']['cache']['driver'],
-                                                 $params);
+            if (!empty($this->cache)) {
                 register_shutdown_function(array($this, 'shutdown'));
-                $lifetime = isset($GLOBALS['conf']['kolab']['server']['cache']['lifetime'])
-                    ? $GLOBALS['conf']['kolab']['server']['cache']['lifetime'] : 300;
             }
         }
         if (empty($this->attributes[$class])) {
 
-            if (!empty($cache)) {
-                $this->attributes[$class] = @unserialize($cache->get('attributes_' . $class, $lifetime));
+            if (!empty($this->cache)) {
+                $this->attributes[$class] = @unserialize($cache->get('attributes_' . $class,
+                                                                     $this->params['cache_lifetime']));
             }
 
             if (empty($this->attributes[$class])) {
@@ -461,9 +488,10 @@ abstract class Horde_Kolab_Server
                 $classes[] = $childclass;
 
                 if ($level == self::MAX_HIERARCHY) {
-                    Horde::logMessage(sprintf('The maximal level of the object hierarchy has been exceeded for class \"%s\"!',
-                                              $class),
-                                      __FILE__, __LINE__, PEAR_LOG_ERROR);
+                    if (!empty($this->logger)) {
+                        $logger->err(sprintf('The maximal level of the object hierarchy has been exceeded for class \"%s\"!',
+                                             $class));
+                    }
                 }
 
                 /**

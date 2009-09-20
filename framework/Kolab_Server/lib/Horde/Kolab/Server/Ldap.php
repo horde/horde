@@ -70,7 +70,10 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
      *
      * @param array $params Parameter array.
      */
-    public function __construct($params = array())
+    public function __construct(Horde_Kolab_Server_Structure $structure,
+                                Horde_Cache $cache = null,
+                                Horde_Log_Logger $logger = null,
+                                $params = array())
     {
         if (!isset($params['charset'])) {
             $params['charset'] = 'UTF-8';
@@ -98,7 +101,7 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
 
         $this->connect();
 
-        parent::__construct($params);
+        parent::__construct($structure, $cache, $logger, $params);
     }
 
     
@@ -261,9 +264,10 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
                                                        Horde_Kolab_Server_Exception::SYSTEM);
             }
         }
-        Horde::logMessage(sprintf('The object \"%s\" has been successfully saved!',
-                                  $uid),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        if (!empty($this->logger)) {
+            $this->logger->debug(sprintf('The object \"%s\" has been successfully saved!',
+                                         $uid));
+        }
         return true;
     }
 
@@ -283,9 +287,10 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
             throw new Horde_Kolab_Server_Exception($result,
                                                    Horde_Kolab_Server_Exception::SYSTEM);
         }
-        Horde::logMessage(sprintf('The object \"%s\" has been successfully deleted!',
-                                  $uid),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        if (!empty($this->logger)) {
+            $this->logger(sprintf('The object \"%s\" has been successfully deleted!',
+                                  $uid));
+        }
         return true;
     }
 
@@ -308,9 +313,10 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
             throw new Horde_Kolab_Server_Exception($result,
                                                    Horde_Kolab_Server_Exception::SYSTEM);
         }
-        Horde::logMessage(sprintf('The object \"%s\" has been successfully renamed to \"%s\"!',
-                                  $uid, $new),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        if (!empty($this->logger)) {
+            $this->logger->debug(sprintf('The object \"%s\" has been successfully renamed to \"%s\"!',
+                                         $uid, $new));
+        }
         return true;
     }
 

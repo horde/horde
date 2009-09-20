@@ -68,6 +68,9 @@ class Horde_Kolab_Server_Structure_Kolab extends Horde_Kolab_Server_Structure_Ld
      */
     public function determineType($uid)
     {
+        if (empty($this->server)) {
+            throw new Horde_Kolab_Server_Exception('The server reference is missing!');
+        }
         $oc = $this->server->getObjectClasses($uid);
         // Not a user type?
         if (!in_array('kolabinetorgperson', $oc)) {

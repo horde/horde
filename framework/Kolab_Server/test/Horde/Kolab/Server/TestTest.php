@@ -440,7 +440,11 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
      */
     public function testFilterParse()
     {
-        $db = &Horde_Kolab_Server::factory('test', array());
+        $provider = new stdClass;
+        $provider->kolab_server_driver = 'test';
+        $provider->kolab_server_params = array();
+        $provider->kolab_server_structure = new Horde_Kolab_Server_Structure_Ldap();
+        $db = &Horde_Kolab_Server::factory($provider);
 
         $a = $db->parse('(a=b)');
         $this->assertNoError($a);
@@ -494,44 +498,46 @@ class Horde_Kolab_Server_testTest extends Horde_Kolab_Test_Server
      */
     public function testSearch()
     {
-        $db = &Horde_Kolab_Server::factory('test',
-                                           array('data' =>
-                                                 array(
-                                                     'cn=a' => array(
-                                                         'dn' => 'cn=a',
-                                                         'data' => array(
-                                                             'a' => '1',
-                                                             'b' => '1',
-                                                             'c' => '1',
-                                                         )
-                                                     ),
-                                                     'cn=b' => array(
-                                                         'dn' => 'cn=b',
-                                                         'data' => array(
-                                                             'a' => '1',
-                                                             'b' => '2',
-                                                             'c' => '2',
-                                                         )
-                                                     ),
-                                                     'cn=c' => array(
-                                                         'dn' => 'cn=c',
-                                                         'data' => array(
-                                                             'a' => '1',
-                                                             'b' => '2',
-                                                             'c' => '3',
-                                                         )
-                                                     ),
-                                                     'cn=d' => array(
-                                                         'dn' => 'cn=d',
-                                                         'data' => array(
-                                                             'a' => '2',
-                                                             'b' => '2',
-                                                             'c' => '1',
-                                                         )
-                                                     ),
-                                                 )
-                                           )
+        $provider = new stdClass;
+        $provider->kolab_server_driver = 'test';
+        $provider->kolab_server_structure = new Horde_Kolab_Server_Structure_Ldap();
+        $provider->kolab_server_params = array('data' =>
+                                               array(
+                                                   'cn=a' => array(
+                                                       'dn' => 'cn=a',
+                                                       'data' => array(
+                                                           'a' => '1',
+                                                           'b' => '1',
+                                                           'c' => '1',
+                                                       )
+                                                   ),
+                                                   'cn=b' => array(
+                                                       'dn' => 'cn=b',
+                                                       'data' => array(
+                                                           'a' => '1',
+                                                           'b' => '2',
+                                                           'c' => '2',
+                                                       )
+                                                   ),
+                                                   'cn=c' => array(
+                                                       'dn' => 'cn=c',
+                                                       'data' => array(
+                                                           'a' => '1',
+                                                           'b' => '2',
+                                                           'c' => '3',
+                                                       )
+                                                   ),
+                                                   'cn=d' => array(
+                                                       'dn' => 'cn=d',
+                                                       'data' => array(
+                                                           'a' => '2',
+                                                           'b' => '2',
+                                                           'c' => '1',
+                                                       )
+                                                   ),
+                                               )
         );
+        $db = &Horde_Kolab_Server::factory($provider);
 
         $a = $db->search('(c=1)');
         $this->assertNoError($a);
