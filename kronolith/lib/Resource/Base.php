@@ -16,7 +16,7 @@ abstract class Kronolith_Resource_Base
      *                 to group multiple resources for the resource_group implementation
      *   description -
      *   email       -
-     *   response_type - a RESPONSETYE_* constant
+     *   response_type - a RESPONSETYPE_* constant
      *   max_reservations
      *
      * @var array
