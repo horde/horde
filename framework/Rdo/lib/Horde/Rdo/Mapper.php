@@ -178,11 +178,7 @@ abstract class Horde_Rdo_Mapper implements Countable
      */
     public function getAdapter()
     {
-        $adapter = Horde_Db::getAdapter();
-        if ($adapter) {
-            return $adapter;
-        }
-        throw new Horde_Rdo_Exception('You must override getAdapter(), assign a Horde_Db_Adapter by calling setAdapter(), or set a global adapter by calling Horde_Db::setAdapter().');
+        throw new Horde_Rdo_Exception('You must override getAdapter() or assign a Horde_Db_Adapter by calling setAdapter().');
     }
 
     /**
