@@ -325,6 +325,11 @@ abstract class Kronolith_Event
         $add_events = array();
         foreach ($this->getResources() as $id => $resourceData) {
             $resource = Kronolith::getDriver('Resource')->getResource($id);
+            // Protect against infinite recursion if someone tries to add a
+            // resource to it's own event.
+            if ($resource->get('calendar') == $this->getCalendar()) {
+                continue;
+            }
             $response = $resource->getResponse($this);
             if ($response == Kronolith::RESPONSE_ACCEPTED) {
                 $add_events[] = $resource;
