@@ -2685,7 +2685,7 @@ msgstr "Verschlüsselte Nachricht"
 
 #: lib/UI/Mailbox.php:152
 msgid "Message is signed"
-msgstr "Unterschriebene Nachricht"
+msgstr "Signierte Nachricht"
 
 #: compose.php:397 compose.php:404
 msgid "Message redirected successfully."
@@ -3799,7 +3799,7 @@ msgid ""
 "be displayed."
 msgstr ""
 "Die S/MIME-Unterstützung ist zur Zeit deaktiviert, so dass der Inhalt dieser "
-"unterschriebenen Nachricht nicht angezeigt werden kann."
+"signierten Nachricht nicht angezeigt werden kann."
 
 #: lib/MIME/Viewer/pkcs7.php:177
 msgid ""
@@ -3807,7 +3807,7 @@ msgid ""
 "verified."
 msgstr ""
 "Die S/MIME-Unterstützung ist zur Zeit deaktiviert, so dass die digitale "
-"Unterschrift nicht überprüft werden kann."
+"Signatur nicht überprüft werden kann."
 
 #: lib/MIME/Viewer/pkcs7.php:134
 msgid "S/MIME support is not enabled."
@@ -4107,14 +4107,14 @@ msgstr "Gemeinsame Ordner"
 #: templates/pgp/pgp.html:15
 msgid "Should PGP signed messages automatically be verified when viewed?"
 msgstr ""
-"Sollen mit PGP unterschriebene Nachrichten beim Anzeigen automatisch "
-"überprüft werden?"
+"Sollen mit PGP signierte Nachrichten beim Anzeigen automatisch überprüft "
+"werden?"
 
 #: templates/smime/smime.html:7
 msgid "Should S/MIME signed messages automatically be verified when viewed?"
 msgstr ""
-"Sollen mit S/MIME unterschriebene Nachrichten beim Anzeigen automatisch "
-"überprüft werden?"
+"Sollen mit S/MIME signierte Nachrichten beim Anzeigen automatisch überprüft "
+"werden?"
 
 #: config/prefs.php.dist:913
 msgid ""
@@ -4665,25 +4665,24 @@ msgid ""
 "The message below has been digitally signed and encrypted with PGP, but the "
 "signature cannot be verified."
 msgstr ""
-"Die Nachricht unten wurde mit PGP digital unterschrieben und verschlüsselt, "
-"aber die Unterschrift kann nicht überprüft werden."
+"Die Nachricht unten wurde mit PGP digital signiert und verschlüsselt, aber "
+"die Signatur kann nicht überprüft werden."
 
 #: lib/MIME/Viewer/pgp.php:207
 msgid "The message below has been digitally signed and encrypted with PGP."
-msgstr ""
-"Die Nachricht unten wurde mit PGP digital unterschrieben und verschlüsselt."
+msgstr "Die Nachricht unten wurde mit PGP digital signiert und verschlüsselt."
 
 #: lib/MIME/Viewer/pgp.php:203
 msgid ""
 "The message below has been digitally signed with PGP, but the signature "
 "cannot be verified."
 msgstr ""
-"Die Nachricht unten wurde mit PGP digital unterschrieben, aber die "
-"Unterschrift kann nicht überprüft werden."
+"Die Nachricht unten wurde mit PGP digital signiert, aber die Signatur kann "
+"nicht überprüft werden."
 
 #: lib/MIME/Viewer/pgp.php:209
 msgid "The message below has been digitally signed with PGP."
-msgstr "Die Nachricht unten wurde mit PGP digital unterschrieben."
+msgstr "Die Nachricht unten wurde mit PGP digital signiert."
 
 #: lib/MIME/Viewer/pgp.php:313
 msgid ""
@@ -4730,8 +4729,7 @@ msgstr "Die Nachricht unten wurde überprüft und bestätigt."
 #: lib/Crypt/PGP.php:380
 msgid "The message below has not been digitally signed or encrypted with PGP."
 msgstr ""
-"Die Nachricht unten wurde nicht mit PGP digital unterschrieben und "
-"verschlüsselt."
+"Die Nachricht unten wurde nicht mit PGP digital signiert und verschlüsselt."
 
 #: templates/javascript_defs.php:39
 msgid "The message does not have a Subject entered."
@@ -5000,8 +4998,7 @@ msgid ""
 "This message contains an attachment that has been digitally signed via S/"
 "MIME."
 msgstr ""
-"Diese Nachricht enthält einen Anhang, der mit S/MIME digital unterschrieben "
-"wurde."
+"Diese Nachricht enthält einen Anhang, der mit S/MIME digital signiert wurde."
 
 #: lib/MIME/Viewer/pkcs7.php:480
 msgid "This message contains an attachment that has been encrypted via S/MIME."
@@ -5022,7 +5019,7 @@ msgstr "Diese Nachricht scheint nicht im korrekten S/MIME-Format zu sein."
 
 #: lib/MIME/Viewer/pkcs7.php:174
 msgid "This message has been digitally signed via S/MIME."
-msgstr "Diese Nachricht wurde mit S/MIME digital unterschrieben."
+msgstr "Diese Nachricht wurde mit S/MIME digital signiert."
 
 #: lib/MIME/Viewer/pkcs7.php:170 lib/MIME/Viewer/pkcs7.php:294
 msgid "This message has been encrypted via S/MIME."
