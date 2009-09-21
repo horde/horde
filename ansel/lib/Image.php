@@ -566,7 +566,7 @@ class Ansel_Image
         if (is_a($imageFile, 'PEAR_Error')) {
             return $imageFile;
         }
-        $exif = Horde_Image_Exif::factory($GLOBALS['conf']['exif']['driver'], $GLOBALS['conf']['exif']['params']);
+        $exif = Horde_Image_Exif::factory($GLOBALS['conf']['exif']['driver'], !empty($GLOBALS['conf']['exif']['params']) ? $GLOBALS['conf']['exif']['params'] : array());
         $exif_fields = $exif->getData($imageFile);
 
         /* Flag to determine if we need to resave the image data */
