@@ -1697,6 +1697,8 @@ abstract class Kronolith_Event
             }
         }
 
+        $this->allday = false;
+
         setlocale(LC_TIME, $old_locale);
 
         // Alarm.
