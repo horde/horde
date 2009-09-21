@@ -322,19 +322,33 @@ abstract class Kronolith_Event
          * inadvertantly getting accepted. (Two simultaneous requests, both
          * return RESPONSE_ACCEPTED from getResponse()) Maybe Horde_Lock?
          */
+        $add_events = array();
         foreach ($this->getResources() as $id => $resourceData) {
             $resource = Kronolith::getDriver('Resource')->getResource($id);
             $response = $resource->getResponse($this);
             if ($response == Kronolith::RESPONSE_ACCEPTED) {
-                $resource->addEvent($this);
+                $add_events[] = $resource;
             }
             $this->addResource($resource, $response);
         }
-
         $this->toDriver();
         $result = $this->getDriver()->saveEvent($this);
-        if (!is_a($result, 'PEAR_Error') &&
-            !empty($GLOBALS['conf']['alarms']['driver'])) {
+        if (is_a($result, 'PEAR_Error')) {
+            return $result;
+        }
+
+        /* Now that the event is definitely commited to storage, we can add the
+         * event to each resource that has accepted. Not very efficient, but
+         * this also solves the problem of not having a GUID for the event until
+         * after it's saved. If we add the event to the resources calendar
+         * before it is saved, they will have different GUIDs, and hence no
+         * longer refer to the same event.
+         */
+        foreach ($add_events as $resource) {
+            $resource->addEvent($this);
+        }
+
+        if (!empty($GLOBALS['conf']['alarms']['driver'])) {
             $alarm = $this->toAlarm(new Horde_Date($_SERVER['REQUEST_TIME']));
             if ($alarm) {
                 $alarm['start'] = new Horde_Date($alarm['start']);
