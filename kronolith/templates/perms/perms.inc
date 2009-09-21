@@ -23,23 +23,21 @@
   </td>
 </tr>
 <tr>
-<?php if ($auth->hasCapability('list')): ?>
   <td class="light" colspan="7">
-    <label for="owner" class="hidden"><?php echo _("Owner:") ?></label>
-    <select id="owner" name="owner">
+<?php if ($auth->hasCapability('list') && ($GLOBALS['conf']['auth']['list_users'] == 'list' || $GLOBALS['conf']['auth']['list_users'] == 'both')): ?>
+    <label for="owner_select" class="hidden"><?php echo _("Owner:") ?></label>
+    <select id="owner_select" name="owner_select">
       <option value=""><?php echo _("Select a new owner:") ?></option>
       <option value="<?php echo htmlspecialchars(Horde_Auth::removeHook($owner)) ?>" selected="selected"><?php echo htmlspecialchars(Horde_Auth::removeHook($owner)) ?></option>
 <?php foreach ($userList as $user) { if ($user != Horde_Auth::removeHook($owner)) { ?>
       <option value="<?php echo htmlspecialchars($user) ?>"><?php echo htmlspecialchars($user) ?></option>
 <?php } } ?>
     </select>
-  </td>
 <?php else: ?>
-  <td class="light">
-    <label for="owner" class="hidden"><?php echo _("Owner:") ?></label>
-    <input type="text" id="owner" name="owner" value="<?php echo htmlspecialchars(Horde_Auth::removeHook($owner)) ?>" />
-  </td>
+    <label for="owner_input" class="hidden"><?php echo _("Owner:") ?></label>
+    <input type="text" id="owner_input" name="owner_input" value="<?php echo htmlspecialchars(Horde_Auth::removeHook($owner)) ?>" />
 <?php endif; ?>
+  </td>
 </tr>
 
 <!-- Spacer -->
@@ -215,8 +213,8 @@ foreach ($userperms as $user => $uperm) {
 <?php if ($auth->hasCapability('list') && (!isset($GLOBALS['conf']['auth']['list_users']) || $GLOBALS['conf']['auth']['list_users'] == 'list' || $GLOBALS['conf']['auth']['list_users'] == 'both')): ?>
 <tr>
   <td class="light">
-    <label for="u_names_new" class="hidden"><?php echo _("Select a user to add:") ?></label>
-    <select id="u_names_new" name="u_names[||new_select]">
+    <label for="u_names_new_select" class="hidden"><?php echo _("Select a user to add:") ?></label>
+    <select id="u_names_new_select" name="u_names[||new_select]">
       <option value=""><?php echo _("Select a user to add:") ?></option>
 <?php
 foreach ($userList as $user) {
@@ -228,24 +226,24 @@ foreach ($userList as $user) {
     </select>
   </td>
   <td align="center">
-    <input type="checkbox" id="u_show_new" name="u_show[||new_select]" />
-    <label for="u_show_new" class="hidden"><?php echo _("Show") ?></label>
+    <input type="checkbox" id="u_show_new_select" name="u_show[||new_select]" />
+    <label for="u_show_new_select" class="hidden"><?php echo _("Show") ?></label>
   </td>
   <td align="center">
-    <input type="checkbox" id="u_read_new" name="u_read[||new_select]" />
-    <label for="u_read_new" class="hidden"><?php echo _("Read") ?></label>
+    <input type="checkbox" id="u_read_new_select" name="u_read[||new_select]" />
+    <label for="u_read_new_select" class="hidden"><?php echo _("Read") ?></label>
   </td>
   <td align="center">
-    <input type="checkbox" id="u_edit_new" name="u_edit[||new_select]" />
-    <label for="u_edit_new" class="hidden"><?php echo _("Edit") ?></label>
+    <input type="checkbox" id="u_edit_new_select" name="u_edit[||new_select]" />
+    <label for="u_edit_new_select" class="hidden"><?php echo _("Edit") ?></label>
   </td>
   <td align="center">
-    <input type="checkbox" id="u_delete_new" name="u_delete[||new_select]" />
-    <label for="u_delete_new" class="hidden"><?php echo _("Delete") ?></label>
+    <input type="checkbox" id="u_delete_new_select" name="u_delete[||new_select]" />
+    <label for="u_delete_new_select" class="hidden"><?php echo _("Delete") ?></label>
   </td>
   <td align="center">
-    <input type="checkbox" id="u_delegate_new" name="u_delegate[||new_select]" />
-    <label for="u_delegate_new" class="hidden"><?php echo _("Delegate") ?></label>
+    <input type="checkbox" id="u_delegate_new_select" name="u_delegate[||new_select]" />
+    <label for="u_delegate_new_select" class="hidden"><?php echo _("Delegate") ?></label>
   </td>
 </tr>
 <?php endif; ?>
@@ -255,28 +253,28 @@ foreach ($userList as $user) {
 <?php if ($auth->hasCapability('list') && isset($GLOBALS['conf']['auth']['list_users']) && $GLOBALS['conf']['auth']['list_users'] == 'both'): ?>
     <?php echo _("Or enter a user name:") ?>
 <?php endif; ?>
-    <label for="u_names_new" class="hidden"><?php echo _("User to add:") ?></label>
-    <input type="text" id="u_names_new" name="u_names[||new_input]" />
+    <label for="u_names_new_input" class="hidden"><?php echo _("User to add:") ?></label>
+    <input type="text" id="u_names_new_input" name="u_names[||new_input]" />
   </td>
   <td align="center">
-    <input type="checkbox" id="u_show_new" name="u_show[||new_input]" />
-    <label for="u_show_new" class="hidden"><?php echo _("Show") ?></label>
+    <input type="checkbox" id="u_show_new_input" name="u_show[||new_input]" />
+    <label for="u_show_new_input" class="hidden"><?php echo _("Show") ?></label>
   </td>
   <td align="center">
-    <input type="checkbox" id="u_read_new" name="u_read[||new_input]" />
-    <label for="u_read_new" class="hidden"><?php echo _("Read") ?></label>
+    <input type="checkbox" id="u_read_new_input" name="u_read[||new_input]" />
+    <label for="u_read_new_input" class="hidden"><?php echo _("Read") ?></label>
   </td>
   <td align="center">
-    <input type="checkbox" id="u_edit_new" name="u_edit[||new_input]" />
-    <label for="u_edit_new" class="hidden"><?php echo _("Edit") ?></label>
+    <input type="checkbox" id="u_edit_new_input" name="u_edit[||new_input]" />
+    <label for="u_edit_new_input" class="hidden"><?php echo _("Edit") ?></label>
   </td>
   <td align="center">
-    <input type="checkbox" id="u_delete_new" name="u_delete[||new_input]" />
-    <label for="u_delete_new" class="hidden"><?php echo _("Delete") ?></label>
+    <input type="checkbox" id="u_delete_new_input" name="u_delete[||new_input]" />
+    <label for="u_delete_new_input" class="hidden"><?php echo _("Delete") ?></label>
   </td>
   <td align="center">
-    <input type="checkbox" id="u_delegate_new" name="u_delegate[||new_input]" />
-    <label for="u_delegate_new" class="hidden"><?php echo _("Delegate") ?></label>
+    <input type="checkbox" id="u_delegate_new_input" name="u_delegate[||new_input]" />
+    <label for="u_delegate_new_input" class="hidden"><?php echo _("Delegate") ?></label>
   </td>
   <td>&nbsp;</td>
 </tr>
