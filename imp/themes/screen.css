@@ -171,6 +171,9 @@ div.msgActions, #fmanager div.folderActions {
 .searchuiButtons {
     padding-top: 5px;
 }
+.signedinvalid td .signature {
+    color: #999;
+}
 
 /* Folder view. */
 #fmanager div, #fmanager div input {
