@@ -1002,8 +1002,8 @@ KronolithCore = {
                 draggerBottom = new Element('DIV', { 'id': event.value.nodeId + 'bottom', 'class': 'kronolithDragger kronolithDraggerBottom' }).setStyle(style);
 
             div.setStyle({
-                'top': ((midnight.getElapsed(event.value.start) / 60000 | 0) * this[storage].height / 60 + this[storage].offset | 0) + 'px',
-                'height': ((event.value.start.getElapsed(event.value.end) / 60000 | 0) * this[storage].height / 60 - this[storage].spacing | 0) + 'px',
+                'top': (Math.round(midnight.getElapsed(event.value.start) / 60000) * this[storage].height / 60 + this[storage].offset | 0) + 'px',
+                'height': (Math.round(event.value.start.getElapsed(event.value.end) / 60000) * this[storage].height / 60 - this[storage].spacing | 0) + 'px',
                 'width': '100%'
             })
                 .insert(innerDiv.setStyle(style))
