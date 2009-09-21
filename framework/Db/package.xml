@@ -82,7 +82,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Exception.php" role="php" />
       <file name="StatementParser.php" role="php" />
      </dir> <!-- /lib/Horde/Db -->
-     <file name="Db.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
   </dir> <!-- / -->
@@ -134,8 +133,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Db/Adapter.php" as="Horde/Db/Adapter.php" />
    <install name="lib/Horde/Db/Exception.php" as="Horde/Db/Exception.php" />
    <install name="lib/Horde/Db/StatementParser.php" as="Horde/Db/StatementParser.php" />
-
-   <install name="lib/Horde/Db.php" as="Horde/Db.php" />
   </filelist>
  </phprelease>
 </package>
