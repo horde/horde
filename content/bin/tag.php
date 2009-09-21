@@ -1,7 +1,6 @@
 <?php
 
-define('AUTH_HANDLER', true);
-require $CONTENT_DIR . 'lib/Tags/Tagger.php';
+require $CONTENT_DIR . 'lib/Tagger.php';
 
 $options = array(
     new Horde_Argv_Option('-u', '--user-id', array('type' => 'int')),
@@ -16,6 +15,7 @@ if (!count($tags)) {
     throw new InvalidArgumentException('List at least one tag to add.');
 }
 
-$tagger = new Content_Tagger(array('dbAdapter' => Horde_Db::getAdapter()));
+/* @TODO Switch to using the TagController */
+$tagger = new Content_Tagger();
 $tagger->tag($opts->user_id, $opts->object_id, $tags);
 exit(0);
