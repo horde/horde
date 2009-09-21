@@ -23,7 +23,8 @@ v3.0-git
 v2.3.3-cvs
 ----------
 
-
+[mjr] Fix issue that caused the default alarm time to be applied to 
+      listTimeObjects events (Bug #8588).
 
 
 ------
