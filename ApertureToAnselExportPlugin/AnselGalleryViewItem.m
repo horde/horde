@@ -49,18 +49,20 @@
 
 - (id)imageRepresentation
 {
-    return [[image retain] autorelease];
+    return image;
 }
 
 #pragma mark
 #pragma mark Optional methods.
 - (NSString *)imageTitle
 {
+    NSLog(@"imageTitle: %@", imageTitle);
     return imageTitle;
 }
 
 - (NSString *)imageSubtitle
 {
+    NSLog(@"imageSubtitle: %@", [imageDate description]);
     return [imageDate description];
 }
 

@@ -6,7 +6,7 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 #import <Cocoa/Cocoa.h>
-@class TURAnselGallery, XMLRPCResponse;
+@class TURAnselGallery;
 
 typedef enum {
     PERMS_SHOW = 2,
@@ -19,9 +19,9 @@ typedef enum {
     TURAnselStateDisconnected = 0,
     TURAnselStateConnected,
     TURAnselStateError,
-    TURAnselStateCancelled
+    TURAnselStateCancelled,
+    TURAnselStateWaiting
 } TURAnselState;
-
 
 @interface NSObject (TURAnselDelegate)
 - (void)TURAnselDidInitialize;
@@ -47,7 +47,7 @@ typedef enum {
 - (void)connect;
 - (TURAnselGallery *)getGalleryById: (NSString *)galleryId;
 - (TURAnselGallery *)getGalleryByIndex: (NSInteger)index;
-- (XMLRPCResponse *)callRPCMethod: (NSString *)methodName withParams: (NSArray *)params;
+- (NSDictionary *)callRPCMethod: (NSString *)methodName withParams: (NSArray *)params withOrder: (NSArray *)order;
 - (NSDictionary *)createNewGallery: (NSDictionary *)params;
 - (void)cancel;
 
@@ -55,5 +55,5 @@ typedef enum {
 - (void) setState: (TURAnselState)state;
 - (TURAnselState)state;
 - (id)delegate;
-- (void)setDelegate:(id)newDelegate;
+- (void)setDelegate: (id)newDelegate;
 @end

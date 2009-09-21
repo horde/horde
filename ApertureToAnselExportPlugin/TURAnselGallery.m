@@ -6,8 +6,6 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 #import <Foundation/Foundation.h>
-#import "XMLRPC/XMLRPC.h"
-#import "TURXMLConnection.h"
 #import "TURAnsel.h"
 #import "TURAnselGallery.h"
 
@@ -20,9 +18,10 @@
 @synthesize galleryDescription;
 @synthesize galleryName;
 @synthesize galleryImageCount;
-@synthesize galleryDefaultImage;
+@synthesize galleryKeyImage;
 
-#pragma mark Instance Methods --------------------------------------------------
+#pragma mark -
+#pragma mark init
 
 /**
  * Init a gallery object
@@ -39,37 +38,65 @@
     [self setValue: [galleryData valueForKey:@"attribute_images"]
             forKey:@"galleryImageCount"];    
     [self setValue: [galleryData valueForKey:@"attribute_default"]
-            forKey:@"galleryDefaultImage"];
+            forKey:@"galleryKeyImage"];
     [self setAnselController: controller];
     return self;
 }
 
+- (void)dealloc
+{
+    NSLog(@"TURAnselGallery dealloc called on Gallery %@", self);
+    [anselController release];
+    anselController = nil;
+    
+    [galleryKeyImageURL release];
+    galleryKeyImageURL = nil;
+    
+    [imageList release];
+    imageList = nil;
+    
+    [super dealloc];
+}
+- (id)description 
+{
+    NSString *text = [NSString stringWithFormat:@"Description: %@ Id: %d has: %d images", galleryName, _galleryId, galleryImageCount];
+    return text;
+}
+
+#pragma mark -
+#pragma mark Actions
 /**
- * Requests the gallery's default image url to be fetched from the server
+ * Requests the gallery's key image url to be fetched from the server
  * (This information is not present in the gallery definition array returned
  *  from the images.listGalleries call). 
  */
-- (NSURL *)galleryDefaultImageURL
+- (NSURL *)galleryKeyImageURL
 {
-    if (!galleryDefaultImageURL) {
-
+    if (galleryKeyImageURL) {
+        return galleryKeyImageURL;
+    } else {
         NSArray *params = [[NSArray alloc] initWithObjects:
                            @"ansel",                                         // Scope
-                           [NSNumber numberWithInt: galleryDefaultImage],    // Image Id
+                           [NSNumber numberWithInt: galleryKeyImage],        // Image Id
                            @"thumb",                                         // Thumbnail type
                            [NSNumber numberWithBool:YES],                    // Full path
                            nil];
-        
-        [self setState:TURAnselGalleryStateBusy];
-        XMLRPCResponse *response = [anselController callRPCMethod: @"images.getImageUrl"
-                                                       withParams: params];
+        NSArray *order = [NSArray arrayWithObjects: @"scope", @"image_id", @"thumbnail", @"path", nil];
+        NSDictionary *response = [anselController callRPCMethod: @"images.getImageUrl"
+                                                       withParams: params
+                                                        withOrder: order];
         
         if (response) {
-            galleryDefaultImageURL = [[NSURL URLWithString: [NSString stringWithFormat:@"%@", response]] retain];
-        }
+            NSDictionary *url = [response objectForKey:(id)kWSMethodInvocationResult];
+            [galleryKeyImageURL autorelease];
+            galleryKeyImageURL = [[NSURL URLWithString: [NSString stringWithFormat: @"%@", url]] retain];
+            NSLog(@"galleryKeyImageURL: %@", galleryKeyImageURL);
+            return galleryKeyImageURL;
+        } 
+        
+        return nil;
     }
-    
-    return galleryDefaultImageURL;
+
 }
 
 /**
@@ -81,49 +108,45 @@
         
         NSArray *params = [[NSArray alloc] initWithObjects:
                            @"ansel",                                //Scope
-                           [NSNumber numberWithInt: galleryId],     //Gallery Id
+                           [NSNumber numberWithInt: _galleryId],    //Gallery Id
                            [NSNumber numberWithInt: 2],             //PERMS_SHOW
                            @"thumb",                                // Thumbnail
                            [NSNumber numberWithBool:YES],           // Full path
                            nil];
-        
-        [self setState:TURAnselGalleryStateBusy];
-        XMLRPCResponse *response = [anselController callRPCMethod: @"images.listImages"
-                                                       withParams: params];
-    
+        NSArray *order = [NSArray arrayWithObjects: @"scope", @"gallery_id", @"perms", @"thumnail", @"path", nil];
+        NSDictionary *response = [anselController callRPCMethod: @"images.listImages"
+                                                     withParams: params
+                                                      withOrder: order];
         if (response) {
-            imageList = [response retain];
+            [imageList autorelease];
+            imageList = [[response objectForKey: (id)kWSMethodInvocationResult] retain];
+            
+            NSLog(@"listImages: %@", imageList);
+            
+            return imageList;
         }
     }
     
-    return imageList;
+    return nil;
 }
     
 /**
  * Upload the provided image to this gallery.
  */
 - (void)uploadImageObject: (NSDictionary *)imageParameters
-{    
+{
     [self doUpload: imageParameters];
 }
 
-- (bool) isBusy
-{
-    if (state == TURAnselGalleryStateReady) {
-        return NO;
-    } else {
-        return YES;
-    }
-}
-
-#pragma mark Getter/Setter------------------------------------------------------
+#pragma mark -
+#pragma mark Getter/Setter
 - (int)galleryId
 {
-    return galleryId;
+    return _galleryId;
 }
 - (void)setGalleryId:(int)id
 {
-    galleryId = id;
+    _galleryId = id;
 }
 
 - (id)delegate
@@ -155,50 +178,32 @@
     return anselController;
 }
 
-#pragma mark Overrides----------------------------------------------------------
-- (void)dealloc
-{
-    NSLog(@"TURAnselGallery dealloc called on Gallery %@", self);
-    [anselController release];
-    [galleryDefaultImageURL release];
-    [imageList release];
-    [super dealloc];
-}
-
-- (id)init
-{
-    [super init];
-    [self setState:TURAnselGalleryStateReady];
-    return self;
-}
-
-- (id)description 
-{
-    NSString *text = [NSString stringWithFormat:@"Description: %@ Id: %d has: %d images", galleryName, galleryId, galleryImageCount];
-    return text;
-}
-
+#pragma mark -
 #pragma mark PrivateAPI
 - (void)doUpload:(NSDictionary *)imageParameters
 {
-        // Need to build the XMLRPC params array now.
+        // Need to build the params array now.
         NSArray *params = [[NSArray alloc] initWithObjects:
-                           @"ansel",                                 // app
-                           [NSNumber numberWithInt: galleryId],      // gallery_id
-                           [imageParameters valueForKey: @"data"],   // image data array   
+                           @"ansel",                                  // app
+                           [NSNumber numberWithInt: _galleryId],      // gallery_id
+                           [imageParameters valueForKey: @"data"],    // image data array   
                            [imageParameters valueForKey: @"default"], // set as default?
-                           @"",                                      // Additional gallery data to set?      
-                           @"base64",                                // Image data encoding      
+                           @"",                                       // Additional gallery data to set?      
+                           @"base64",                                 // Image data encoding      
                            nil];
+        NSArray *order = [NSArray arrayWithObjects: @"scope", @"gallery_id", @"data", @"default", @"additional_data", @"encoding", nil];
         
         // Send the request up to the controller
-         [anselController callRPCMethod: @"images.saveImage"
-                           withParams: params];
+        NSDictionary *result = [anselController callRPCMethod: @"images.saveImage"
+                                                   withParams: params
+                                                    withOrder: order];
     
-        if ([delegate respondsToSelector:@selector(TURAnselGalleryDidUploadImage:)]) {
-            [delegate performSelectorOnMainThread: @selector(TURAnselGalleryDidUploadImage:)
-                                       withObject: self 
-                                    waitUntilDone: NO];
+        if (result) {
+            if ([delegate respondsToSelector:@selector(TURAnselGalleryDidUploadImage:)]) {
+                [delegate performSelectorOnMainThread: @selector(TURAnselGalleryDidUploadImage:)
+                                           withObject: self 
+                                        waitUntilDone: NO];
+            }
         }
     
         [params release];
