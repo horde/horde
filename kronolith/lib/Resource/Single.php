@@ -57,8 +57,10 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
                       $e->hasStatus(Kronolith::STATUS_FREE)) &&
                      $e->getUID() !== $uid) {
 
-                     if (!($e->start->compareDateTime($end) >= 1 ||
-                         $e->end->compareDateTime($start) <= -1)) {
+                     // Comparing to zero allows the events to start at the same
+                     // the previous event ends.
+                     if (!($e->start->compareDateTime($end) >= 0) &&
+                         !($e->end->compareDateTime($start) <= 0)) {
 
                         return false;
                      }
