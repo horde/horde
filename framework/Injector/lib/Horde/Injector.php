@@ -67,7 +67,7 @@ class Horde_Injector implements Horde_Injector_Scope
         $interface = array_shift($args);
 
         if (!$interface) {
-            throw new BadMethodCallException('First paremeter for "bind' . $type .
+            throw new BadMethodCallException('First parameter for "bind' . $type .
                 '" must be the name of an interface or class');
         }
 
