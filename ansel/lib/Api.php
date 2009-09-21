@@ -425,8 +425,8 @@ class Ansel_Api extends Horde_Registry_Api
             return PEAR::raiseError(_("Access denied deleting galleries."));
         }
 
-    /* If no app is given use Ansel's own gallery which is initialized in
-    base.php */
+        /* If no app is given use Ansel's own gallery which is initialized in
+        base.php */
         if (!is_null($app)) {
             $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
         }
@@ -505,8 +505,8 @@ class Ansel_Api extends Horde_Registry_Api
             return PEAR::raiseError(_("Access denied deleting galleries."));
         }
 
-    /* If no app is given use Ansel's own gallery which is initialized in
-    base.php */
+        /* If no app is given use Ansel's own gallery which is initialized in
+        base.php */
         if (!is_null($app)) {
             $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
         }
@@ -549,8 +549,8 @@ class Ansel_Api extends Horde_Registry_Api
     {
         require_once dirname(__FILE__) . '/base.php';
 
-    /* If no app is given use Ansel's own gallery which is initialized in
-    base.php */
+        /* If no app is given use Ansel's own gallery which is initialized in
+        base.php */
         if (!is_null($app)) {
             $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
         }
@@ -583,8 +583,8 @@ class Ansel_Api extends Horde_Registry_Api
     {
         require_once dirname(__FILE__) . '/base.php';
 
-    /* If no app is given use Ansel's own gallery which is initialized in
-    base.php */
+        /* If no app is given use Ansel's own gallery which is initialized in
+        base.php */
         if (!is_null($app)) {
             $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
         }
@@ -618,8 +618,8 @@ class Ansel_Api extends Horde_Registry_Api
     {
         require_once dirname(__FILE__) . '/base.php';
 
-    /* If no app is given use Ansel's own gallery which is initialized in
-    base.php */
+        /* If no app is given use Ansel's own gallery which is initialized in
+        base.php */
         if (!is_null($app)) {
             $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
         }
@@ -646,8 +646,8 @@ class Ansel_Api extends Horde_Registry_Api
     {
         require_once dirname(__FILE__) . '/base.php';
 
-    /* If no app is given use Ansel's own gallery which is initialized in
-    base.php */
+        /* If no app is given use Ansel's own gallery which is initialized in
+        base.php */
         if (!is_null($app)) {
             $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
         }
@@ -719,8 +719,8 @@ class Ansel_Api extends Horde_Registry_Api
     {
         require_once dirname(__FILE__) . '/base.php';
 
-    /* If no app is given use Ansel's own gallery which is initialized in
-    base.php */
+        /* If no app is given use Ansel's own gallery which is initialized in
+        base.php */
         if (!is_null($app)) {
             $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
         }
@@ -768,8 +768,8 @@ class Ansel_Api extends Horde_Registry_Api
             return $results;
         }
 
-    /* We can't just return the results of the getGalleries call - we need to
-    ensure the caller has at least PERMS_READ on the galleries. */
+        /* We can't just return the results of the getGalleries call - we need to
+        ensure the caller has at least PERMS_READ on the galleries. */
         $galleries = array();
         foreach ($results as $gallery) {
             if ($gallery->hasPermission(Horde_Auth::getAuth(), PERMS_READ)) {
@@ -801,8 +801,8 @@ class Ansel_Api extends Horde_Registry_Api
     {
         require_once dirname(__FILE__) . '/base.php';
 
-    /* If no app is given use Ansel's own gallery which is initialized in
-    base.php */
+        /* If no app is given use Ansel's own gallery which is initialized in
+        base.php */
         if (!is_null($app)) {
             $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
         }
@@ -837,14 +837,14 @@ class Ansel_Api extends Horde_Registry_Api
     {
         require_once dirname(__FILE__) . '/base.php';
 
-    /* If no app is given use Ansel's own gallery which is initialized in
-    base.php */
+        /* If no app is given use Ansel's own gallery which is initialized in
+        base.php */
         if (!is_null($app)) {
             $GLOBALS['ansel_storage'] = new Ansel_Storage($app);
         }
 
-    /* Determine the default gallery when none is given. The first gallery in
-    the list is the default gallery. */
+        /* Determine the default gallery when none is given. The first gallery in
+        the list is the default gallery. */
         if (is_null($gallery_id) && empty($slug)) {
             $galleries = $GLOBALS['ansel_storage']->listGalleries($perm);
             if (!count($galleries)) {
