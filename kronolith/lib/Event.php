@@ -218,14 +218,6 @@ abstract class Kronolith_Event
      */
     public function __construct($driver, $eventObject = null)
     {
-        static $alarm;
-
-        /* Set default alarm value. */
-        if (!isset($alarm) && isset($GLOBALS['prefs'])) {
-            $alarm = $GLOBALS['prefs']->getValue('default_alarm');
-        }
-        $this->alarm = $alarm;
-
         $this->_calendar = $driver->getCalendar();
         // FIXME: Move color definitions anywhere else.
         if (!empty($this->_calendar) &&
