@@ -37,34 +37,34 @@ class Kronolith_Tagger
      */
     public function __construct()
     {
-        if (is_null(self::$_tagger)) {
-            // Set up the context for the tagger and related content classes
-            $GLOBALS['conf']['sql']['adapter'] = $GLOBALS['conf']['sql']['phptype'] == 'mysqli' ?
-                             'mysqli' :
-                             'pdo_' . $GLOBALS['conf']['sql']['phptype'];
-
-            Horde_Db::setAdapter(Horde_Db_Adapter::factory($GLOBALS['conf']['sql']));
-
-            $context = array('dbAdapter' => Horde_Db::getAdapter());
-            $user_mgr = new Content_Users_Manager($context);
-            $type_mgr = new Content_Types_Manager($context);
-
-            // Objects_Manager requires a Types_Manager
-            $context['typeManager'] = $type_mgr;
-            $object_mgr = new Content_Objects_Manager($context);
-
-            // Create the Content_Tagger
-            $context['userManager'] = $user_mgr;
-            $context['objectManager'] = $object_mgr;
-
-            // Cache the object statically
-            self::$_tagger = new Content_Tagger($context);
-            $types = $type_mgr->ensureTypes(array('calendar', 'event'));
-
-            // Remember the types to avoid having Content query them again.
-            self::$_type_ids = array('calendar' => (int)$types[0],
-                                     'event' => (int)$types[1]);
+        if (self::$_tagger) {
+            return;
         }
+
+        // Set up the context for the tagger and related content classes
+        $GLOBALS['conf']['sql']['adapter'] = $GLOBALS['conf']['sql']['phptype'] == 'mysqli'
+            ? 'mysqli'
+            : 'pdo_' . $GLOBALS['conf']['sql']['phptype'];
+
+        $context = array('dbAdapter' => Horde_Db_Adapter::factory($GLOBALS['conf']['sql']));
+        $user_mgr = new Content_Users_Manager($context);
+        $type_mgr = new Content_Types_Manager($context);
+
+        // Objects_Manager requires a Types_Manager
+        $context['typeManager'] = $type_mgr;
+        $object_mgr = new Content_Objects_Manager($context);
+
+        // Create the Content_Tagger
+        $context['userManager'] = $user_mgr;
+        $context['objectManager'] = $object_mgr;
+
+        // Cache the object statically
+        self::$_tagger = new Content_Tagger($context);
+        $types = $type_mgr->ensureTypes(array('calendar', 'event'));
+
+        // Remember the types to avoid having Content query them again.
+        self::$_type_ids = array('calendar' => (int)$types[0],
+                                 'event' => (int)$types[1]);
     }
 
     /**
