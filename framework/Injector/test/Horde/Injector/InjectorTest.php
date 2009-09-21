@@ -128,7 +128,7 @@ class Horde_Injector_InjectorTest extends PHPUnit_Framework_TestCase
         $childInjector->addBinder('FooBarInterface', new Horde_Injector_Binder_Implementation('StdClass'));
 
         $this->assertSame($returnedObject, $childInjector->getInstance('FooBarInterface'),
-            "Child should have returned object refernce from parent because added binder was identical to the parent binder");
+            "Child should have returned object reference from parent because added binder was identical to the parent binder");
     }
 
     /**
