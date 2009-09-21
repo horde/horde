@@ -108,9 +108,12 @@ class Horde
                 }
                 $message .= ': ' . $userinfo;
             }
-        } elseif (is_object($message) &&
-                  is_callable(array($message, 'getMessage'))) {
-            $message = $message->getMessage();
+        } elseif (is_object($message)) {
+            if (is_callable(array($message, 'toString'))) {
+                $message = $message->toString();
+            } elseif (is_callable(array($message, 'getMessage'))) {
+                $message = $message->getMessage();
+            }
         }
 
         $app = isset($GLOBALS['registry'])
