@@ -60,6 +60,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
                      // the previous event ends.
                      if (!($e->start->compareDateTime($end) >= 0) &&
                          !($e->end->compareDateTime($start) <= 0)) {
+
                         return false;
                      }
                 }
