@@ -1866,7 +1866,6 @@ class Kronolith
             }
             if (!is_a($event, 'PEAR_Error') &&
                 !$event->hasPermission(PERMS_READ)) {
-                    var_dump($event);
                 $event = PEAR::raiseError(_("Permission Denied"));
             }
 
