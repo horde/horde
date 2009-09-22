@@ -72,7 +72,7 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
         $contents = $this->_mimepart->getContents();
 
         $zip = Horde_Compress::factory('zip');
-        $zipInfo = $zip->decompress($contents, array('action' => HORDE_COMPRESS_ZIP_LIST));
+        $zipInfo = $zip->decompress($contents, array('action' => Horde_Compress_Zip::ZIP_LIST));
 
         $fileCount = count($zipInfo);
 
@@ -121,7 +121,11 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
             $val['crc']    = Horde_String::pad($val['crc'], 10, ' ', STR_PAD_LEFT);
             $val['ratio']  = Horde_String::pad(sprintf("%1.1f%%", $ratio), 10, ' ', STR_PAD_LEFT);
 
-            $val = array_map(array('Text', 'htmlAllSpaces'), $val);
+            reset($val);
+            while (list($k, $v) = each($val)) {
+                $val[$k] = Horde_Text_Filter::filter($v, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true, 'encode_all' => true));
+            }
+
             if (!is_null($this->_callback)) {
                 $val = call_user_func($this->_callback, $key, $val);
             }
