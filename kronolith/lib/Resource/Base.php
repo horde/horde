@@ -154,6 +154,32 @@ abstract class Kronolith_Resource_Base
     }
 
     /**
+     * Check availability and return an appropriate Kronolith response code.
+     *
+     * @param Kronolith_Event $event  The event to check on
+     *
+     * @return integer Kronolith::RESPONSE* constant
+     */
+    public function getResponse($event)
+    {
+        switch($this->getResponseType()) {
+        case Kronolith_Resource::RESPONSETYPE_ALWAYS_ACCEPT:
+            return Kronolith::RESPONSE_ACCEPTED;
+        case Kronolith_Resource::RESPONSETYPE_AUTO:
+            if ($this->isFree($event)) {
+                return Kronolith::RESPONSE_ACCEPTED;
+            } else {
+                return Kronolith::RESPONSE_DECLINED;
+            }
+        case Kronolith_Resource::RESPONSETYPE_ALWAYS_DECLINE:
+            return Kronolith::RESPONSE_DECLINED;
+        case Kronolith_Resource::RESPONSETYPE_NONE:
+        case Kronolith_Resource::RESPONSETYPE_MANUAL:
+            return Kronolith::RESPONSE_NONE;
+        }
+    }
+
+    /**
      * Determine if event is free for specified time
      *
      * @param $startTime
