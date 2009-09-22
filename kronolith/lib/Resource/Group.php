@@ -56,7 +56,16 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
         if (empty($this->_selectedResource)) {
             return parent::get($property);
         } else {
-            return $this->_selectedResoruce->get($property);
+            return $this->_selectedResource->get($property);
+        }
+    }
+
+    public function getId()
+    {
+        if (!empty($this->_selectedResource)) {
+            return $this->_selectedResource->getId();
+        } else {
+            return parent::getId();
         }
     }
 
@@ -84,8 +93,8 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
         $resources = unserialize($this->get('members'));
 
         /* Iterate over all resources until one with no conflicts is found */
-        $conflict = false;
         foreach ($resources as $resource_id) {
+            $conflict = false;
             $resource = $this->_driver->getResource($resource_id);
             $busy = Kronolith::listEvents($start, $end, array($resource->get('calendar')));
             if ($busy instanceof PEAR_Error) {
@@ -112,8 +121,8 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
                           $e->hasStatus(Kronolith::STATUS_FREE)) &&
                          $e->getUID() !== $uid) {
 
-                         if (!($e->start->compareDateTime($end) >= 1 ||
-                             $e->end->compareDateTime($start) <= -1)) {
+                         if (!($e->start->compareDateTime($end) >= 0) &&
+                             !($e->end->compareDateTime($start) <= 0)) {
 
                             // Not free, continue to the next resource
                             $conflict = true;
@@ -143,24 +152,7 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
      */
     public function addEvent($event)
     {
-        if (empty($this->_selectedResource)) {
-            $this->isFree($event);
-        }
-//        /* Make sure it's not already attached. */
-//        $uid = $event->getUID();
-//        $existing = $driver->getByUID($uid, array($this->get('calendar')));
-//        if (!($existing instanceof PEAR_Error)) {
-//            /* Already attached, just update */
-//            $existing->fromiCalendar($event->toiCalendar(new Horde_iCalendar('2.0')));
-//            $existing->status = $event->status;
-//            $existing->save();
-//        } else {
-//            /* Create a new event */
-//            $e = $driver->getEvent();
-//            $e->setCalendar($this->get('calendar'));
-//            $e->fromiCalendar($event->toiCalendar(new Horde_iCalendar('2.0')));
-//            $e->save();
-//        }
+        throw new Horde_Exception(_("Events should be added to the Single resource object, not directly to the Group object."));
     }
 
     /**

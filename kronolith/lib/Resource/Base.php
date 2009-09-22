@@ -69,9 +69,7 @@ abstract class Kronolith_Resource_Base
      */
     public function set($property, $value)
     {
-        //if (in_array($property, array('name', 'category', 'calendar', 'description'))) {
-            $this->_params[$property] = $value;
-        //}
+        $this->_params[$property] = $value;
     }
 
     /**
@@ -99,8 +97,12 @@ abstract class Kronolith_Resource_Base
      */
     public function get($property)
     {
-       $property = str_replace('resource_', '', $property);
-       return !empty($this->_params[$property]) ? $this->_params[$property] : false;
+        $property = str_replace('resource_', '', $property);
+        if ($property == 'type' && empty($this->_params['type'])) {
+            return (self instanceof Kronolith_Resource_Single) ? 'Single' : 'Group';
+        }
+
+        return !empty($this->_params[$property]) ? $this->_params[$property] : false;
     }
 
     /**

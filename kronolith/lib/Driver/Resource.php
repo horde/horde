@@ -361,8 +361,8 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     public function save($resource)
     {
         if ($resource->getId()) {
-            $query = 'UPDATE kronolith_resources SET resource_name = ?, resource_calendar = ?, resource_category = ? , resource_description = ?, resource_response_type = ? WHERE resource_id = ?';
-            $values = array($resource->get('name'), $resource->get('calendar'), $resource->get('category'), $resource->get('description'), $resource->get('response_type'), $resource->getId());
+            $query = 'UPDATE kronolith_resources SET resource_name = ?, resource_calendar = ?, resource_category = ? , resource_description = ?, resource_response_type = ?, resource_type = ?, resource_members = ? WHERE resource_id = ?';
+            $values = array($resource->get('name'), $resource->get('calendar'), $resource->get('category'), $resource->get('description'), $resource->get('response_type'), $resource->get('type'), $resource->get('members'), $resource->getId());
             $result = $this->_write_db->query($query, $values);
             if ($result instanceof PEAR_Error) {
                 throw new Horde_Exception($result->getMessage());
@@ -447,12 +447,12 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      *
      * @param int $id  The key for the Kronolith_Resource
      *
-     * @return array  A hash of resource object properties
+     * @return Kronolith_Resource_Single || Kronolith_Resource_Group
      * @throws Horde_Exception
      */
     public function getResource($id)
     {
-        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_category, resource_description, resource_response_type FROM kronolith_resources WHERE resource_id = ?';
+        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_category, resource_description, resource_response_type, resource_type, resource_members FROM kronolith_resources WHERE resource_id = ?';
 
         $results = $this->_db->getRow($query, array($id), DB_FETCHMODE_ASSOC);
         if ($results instanceof PEAR_Error) {
@@ -462,7 +462,12 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
             throw new Horde_Exception('Resource not found');
         }
 
-        return new Kronolith_Resource_Single($this->_fromDriver($results));
+        $class = 'Kronolith_Resource_' . $results['resource_type'];
+        if (!class_exists($class)) {
+            throw new Horde_Exception(sprintf(_("Could not load the class definition for %s"), $class));
+        }
+
+        return new $class($this->_fromDriver($results));
     }
 
     /**
@@ -497,7 +502,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      */
     public function listResources($filter = array())
     {
-        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_category, resource_description, resource_response_type FROM kronolith_resources';
+        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_category, resource_description, resource_response_type, resource_type, resource_members FROM kronolith_resources';
         if (count($filter)) {
             $clause = ' WHERE ';
             $i = 0;
@@ -515,7 +520,8 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
 
         $return = array();
         foreach ($results as $key => $result) {
-            $return[$key] = new Kronolith_Resource_Single($this->_fromDriver(array_merge(array('resource_id' => $key), $result)));
+            $class = 'Kronolith_Resource_' . $result['resource_type'];
+            $return[$key] = new $class($this->_fromDriver(array_merge(array('resource_id' => $key), $result)));
         }
 
         return $return;
