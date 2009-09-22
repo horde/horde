@@ -28,16 +28,7 @@ document.observe('dom:loaded', function() {
     {
         var elt = e.element().up('TABLE.mimeStatusMessage');
 
-        elt.up().next('.htmlMessage').select('[blocked]').each(function(b) {
-            var src = decodeURIComponent(b.readAttribute('blocked'));
-            if (b.hasAttribute('src')) {
-                b.writeAttribute('src', src);
-            } else if (b.hasAttribute('background')) {
-                b.writeAttribute('background', src);
-            } else if (b.style.backgroundImage) {
-                b.setStyle({ backgroundImage: 'url(' + src + ')' });
-            }
-        });
+        elt.up().next('.htmlMessage').writeAttribute('src', e.element().readAttribute('href'));
 
         Effect.Fade(elt, {
             afterFinish: function() { elt.remove(); },

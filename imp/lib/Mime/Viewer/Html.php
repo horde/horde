@@ -57,20 +57,20 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         \s*
         # opening quotes, parenthesis; match 4
         ("|\')?
-        # the image url; match 5
-        ((?(2)
+        # the image url
+        (?(2)
             # matched a "style" attribute
             (?(4)[^"\')>]*|[^\s)>]*)
             # did not match a "style" attribute
             |(?(4)[^"\'>]*|[^\s>]*)
-        ))
+        )
         # closing quotes
         (?(4)\\4)
         # matched a "style" attribute?
         (?(2)
             # closing parenthesis
             \s*\)
-            # remainder of the "style" attribute; match 6
+            # remainder of the "style" attribute; match 5
             ((?(3)[^"\'>]*|[^\s>]*))
         )
         /isx';
@@ -82,17 +82,65 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
      */
     protected function _render()
     {
-        return $this->_IMPrender(false);
+        return array(
+            $this->_mimepart->getMimeId() => $this->_IMPrender(false)
+        );
     }
 
     /**
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
+     * URL parameters used by this function:
+     * <pre>
+     * 'html_iframe_data' - (boolean) If true, output the iframe content only.
+     * 'html_view_images' - (boolean) If true, force display of images.
+     * </pre>
+     *
      * @return array  See Horde_Mime_Viewer_Driver::render().
      */
     protected function _renderInline()
     {
-        return $this->_IMPrender(true);
+        if (Horde_Util::getFormData('html_iframe_data')) {
+            $html = $this->_IMPrender(true);
+        } else {
+            $data = '';
+            $view_part = isset($this->_params['related_id'])
+                ? $this->_params['contents']->getMIMEPart($this->_params['related_id'])
+                : $this->_mimepart;
+
+            $src = $this->_params['contents']->urlView($view_part, 'view_attach', array('params' => array('html_iframe_data' => 1, 'mode' => IMP_Contents::RENDER_INLINE)));
+
+            /* Check for phishing exploits. */
+            $contents = $this->_mimepart->getContents();
+            $this->_phishingCheck($contents, true);
+            $status = $this->_phishingStatus();
+
+            /* Only display images if specifically allowed by user. */
+            if ($GLOBALS['prefs']->getValue('html_image_replacement') &&
+                preg_match($this->_img_regex, $contents)) {
+                // Unblock javascript code in js/imp.js
+                $data = Horde_Util::bufferOutput(array('Horde', 'addScriptFile'), 'imp.js', 'imp', true);
+
+                $status[] = array(
+                    'icon' => Horde::img('mime/image.png'),
+                    'text' => array(
+                        _("Images have been blocked to protect your privacy."),
+                        Horde::link(Horde_Util::addParameter($src, 'html_view_images', 1), '', 'unblockImageLink') . _("Show Images?") . '</a>'
+                    )
+                );
+            }
+
+            $html = array(
+                // TODO: Why do we need extra 10 pixels, at least on FF 3.1?
+                'data' => '<IFRAME class="htmlMessage" src="' . $src . '" onload="this.setStyle({ height: this.contentWindow.document.height + 10 + \'px\' })" frameborder="0"></iframe>' . $data,
+                'status' => $status,
+                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
+            );
+        }
+
+        return array(
+            $this->_mimepart->getMimeId() => $html
+        );
     }
 
     /**
@@ -124,7 +172,6 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             )
         );
-
     }
 
     /**
@@ -140,14 +187,8 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         $charset = Horde_Nls::getCharset();
         $msg_charset = $this->_mimepart->getCharset();
 
-        if ($inline) {
-            $data = Horde_String::convertCharset($data, $msg_charset);
-            $msg_charset = $charset;
-        }
-
         /* Sanitize the HTML. */
-        $cleanhtml = $this->_cleanHTML($data, $inline, $msg_charset);
-        $data = $cleanhtml['html'];
+        $data = $this->_cleanHTML($data, array('charset' => $msg_charset));
 
         /* We are done processing if in mimp mode, or we are converting to
          * text. */
@@ -157,17 +198,10 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
             // Filter bad language.
             return array(
-                $this->_mimepart->getMimeId() => array(
-                    'data' => IMP::filterText($data),
-                    'status' => array(),
-                    'type' => 'text/plain; charset=' . Horde_Nls::getCharset()
-                )
+                'data' => IMP::filterText($data),
+                'status' => array(),
+                'type' => 'text/plain; charset=' . $charset
             );
-        }
-
-        /* Reset absolutely positioned elements. */
-        if ($inline) {
-            $data = preg_replace('/(style\s*=\s*)(["\'])?([^>"\']*)position\s*:\s*absolute([^>"\']*)\2/i', '$1"$3$4"', $data);
         }
 
         /* Search for inlined links that we can display (multipart/related
@@ -218,37 +252,14 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         /* Filter bad language. */
         $data = IMP::filterText($data);
 
-        if ($inline) {
-            /* Put div around message. */
-            $data = '<div class="htmlMessage">' . $data . '</div>';
-        }
-
-        /* Only display images if specifically allowed by user. */
+        /* Image filtering. */
         if ($inline &&
+            !Horde_Util::getFormData('html_view_images') &&
             $GLOBALS['prefs']->getValue('html_image_replacement') &&
-            preg_match($this->_img_regex, $data)) {
-            /* Make sure the URL parameters are correct for the current
-             * message. */
-            $url = Horde_Util::removeParameter(IMP::selfUrl(), array('actionID', 'index'));
-            $url = Horde_Util::addParameter($url, 'index', $this->_params['contents']->getIndex());
-
-            $view_img = Horde_Util::getFormData('view_html_images');
-            $addr_check = ($GLOBALS['prefs']->getValue('html_image_addrbook') && $this->_inAddressBook());
-
-            if (!$view_img && !$addr_check) {
-                $data .= Horde_Util::bufferOutput(array('Horde', 'addScriptFile'), 'imp.js', 'imp', true);
-
-                // Unblock javascript code in js/src/imp.js
-                $cleanhtml['status'][] = array(
-                    'icon' => Horde::img('mime/image.png'),
-                    'text' => array(
-                        Horde_String::convertCharset(_("Images have been blocked to protect your privacy."), $charset, $msg_charset),
-                        Horde::link(Horde_Util::addParameter($url, 'view_html_images', 1), '', 'unblockImageLink') . Horde_String::convertCharset(_("Show Images?"), $charset, $msg_charset) . '</a>'
-                    )
-                );
-
-                $data = preg_replace_callback($this->_img_regex, array($this, '_blockImages'), $data);
-            }
+            preg_match($this->_img_regex, $this->_mimepart->getContents()) &&
+            (!$GLOBALS['prefs']->getValue('html_image_addrbook') ||
+             !$this->_inAddressBook())) {
+            $data = preg_replace_callback($this->_img_regex, array($this, '_blockImages'), $data);
         }
 
         if ($GLOBALS['prefs']->getValue('emoticons')) {
@@ -256,11 +267,9 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         }
 
         return array(
-            $this->_mimepart->getMimeId() => array(
-                'data' => $data,
-                'status' => $cleanhtml['status'],
-                'type' => ($inline ? 'text/html; charset=' . Horde_Nls::getCharset() : $this->_mimepart->getType(true))
-            )
+            'data' => $data,
+            'status' => array(),
+            'type' => $this->_mimepart->getType(true)
         );
     }
 
@@ -286,8 +295,8 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         }
 
         return empty($matches[2])
-            ? $matches[1] . '"' . $this->_blockimg . '" blocked="' . rawurlencode(str_replace('&amp;', '&', trim($matches[5], '\'" '))) . '"'
-            : $matches[1] . "'" . $this->_blockimg . '\')' . $matches[6] . '" blocked="' . rawurlencode(str_replace('&amp;', '&', trim($matches[5], '\'" ')));
+            ? $matches[1] . '"' . $this->_blockimg . '"'
+            : $matches[1] . "'" . $this->_blockimg . '\')' . $matches[5] . '"';
     }
 
     /**
@@ -313,4 +322,5 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             return false;
         }
     }
+
 }

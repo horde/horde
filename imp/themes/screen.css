@@ -209,33 +209,12 @@ span.trashImg {
     overflow: hidden;
 }
 
-/* Based on the Mozilla default definitions */
-.htmlMessage td {
-    padding: 0;
-}
-.htmlMessage ul {
-    display: block;
-    list-style-type: disc;
-    margin: 1em 0;
-    -moz-padding-start: 40px;
-}
-.htmlMessage ol {
-    display: block;
-    list-style-type: decimal;
-    margin: 1em 0;
-    -moz-padding-start: 40px;
-}
-.htmlMessage p {
-    display: block;
-    margin: 1em 0;
-}
-.htmlMessage blockquote {
-    margin: 1em 40px;
-}
-.htmlMessage blockquote[type="cite"] {
-    margin-left: 0;
-    margin-right: 0;
-    padding-left: 1em;
+/* Style for HTML data iframe. */
+.htmlMessage {
+    margin: 5px 0;
+    border: 0;
+    width: 100%;
+    overflow: hidden;
 }
 
 /* Compose view */
