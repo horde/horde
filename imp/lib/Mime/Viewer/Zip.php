@@ -37,11 +37,11 @@ class IMP_Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Zip
         $data = $this->_mimepart->getContents();
         $zip = Horde_Compress::factory('zip');
         $fileKey = Horde_Util::getFormData('zip_attachment') - 1;
-        $zipInfo = $zip->decompress($data, array('action' => Horde_Compress::ZIP_LIST));
+        $zipInfo = $zip->decompress($data, array('action' => Horde_Compress_Zip::ZIP_LIST));
 
         /* Verify that the requested file exists. */
         if (isset($zipInfo[$fileKey])) {
-            $text = $zip->decompress($data, array('action' => Horde_Compress::ZIP_DATA, 'info' => $zipInfo, 'key' => $fileKey));
+            $text = $zip->decompress($data, array('action' => Horde_Compress_Zip::ZIP_DATA, 'info' => $zipInfo, 'key' => $fileKey));
             if (!empty($text)) {
                 return array(
                     $this->_mimepart->getMimeId() => array(
