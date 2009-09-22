@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		B070DA551069387B00C0E3FC /* TURAnselConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = B070DA541069387B00C0E3FC /* TURAnselConstants.m */; };
 		B0AE23391049F7770096565B /* TURAnselGalleryPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AE23361049F7770096565B /* TURAnselGalleryPanelController.m */; };
 		B0AE23411049F7A20096565B /* AnselGalleryPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = B0AE233D1049F7A20096565B /* AnselGalleryPanel.nib */; };
 		B0D311D01049A7DE006B06C6 /* TURAnsel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D311CB1049A7DE006B06C6 /* TURAnsel.m */; };
@@ -45,6 +46,9 @@
 		287924B90DAEB2A20074992A /* ApertureSDKCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApertureSDKCommon.h; sourceTree = "<group>"; };
 		32DBCF630370AF2F00C91783 /* ApertureToAnselExportPlugin_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApertureToAnselExportPlugin_Prefix.pch; sourceTree = "<group>"; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B070DA531069387B00C0E3FC /* TURAnselConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TURAnselConstants.h; sourceTree = "<group>"; };
+		B070DA541069387B00C0E3FC /* TURAnselConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TURAnselConstants.m; sourceTree = "<group>"; };
+		B070DA5A1069391F00C0E3FC /* TURAnselKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TURAnselKit.h; sourceTree = "<group>"; };
 		B0AE23351049F7770096565B /* TURAnselGalleryPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TURAnselGalleryPanelController.h; sourceTree = "<group>"; };
 		B0AE23361049F7770096565B /* TURAnselGalleryPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TURAnselGalleryPanelController.m; sourceTree = "<group>"; };
 		B0AE233E1049F7A20096565B /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/AnselGalleryPanel.nib; sourceTree = "<group>"; };
@@ -187,6 +191,9 @@
 				B0D311CA1049A7DE006B06C6 /* TURAnsel.h */,
 				B0D311CC1049A7DE006B06C6 /* TURAnselGallery.h */,
 				B0D311CD1049A7DE006B06C6 /* TURAnselGallery.m */,
+				B070DA531069387B00C0E3FC /* TURAnselConstants.h */,
+				B070DA541069387B00C0E3FC /* TURAnselConstants.m */,
+				B070DA5A1069391F00C0E3FC /* TURAnselKit.h */,
 			);
 			name = AnselToolkit;
 			sourceTree = "<group>";
@@ -265,6 +272,7 @@
 				B0DEA058104D7012001D1509 /* AnselGalleryViewItem.m in Sources */,
 				B0DD64D2106738DB00085661 /* NSStringAdditions.m in Sources */,
 				B0DD64E31067391E00085661 /* NSDataAdditions.m in Sources */,
+				B070DA551069387B00C0E3FC /* TURAnselConstants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

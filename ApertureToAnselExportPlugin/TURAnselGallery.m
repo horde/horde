@@ -1,13 +1,13 @@
-//
-//  TURAnselGallery.m
-// Class wraps an Ansel Gallery
-//
-//  Created by Michael Rubinsky on 10/21/08.
-//  Copyright 2008 __MyCompanyName__. All rights reserved.
-//
+/**
+ * TURAnselGallery.m
+ *
+ * Copyright 2009 The Horde Project (http://www.horde.org)
+ * 
+ * @license http://opensource.org/licenses/bsd-license.php
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ */
 #import <Foundation/Foundation.h>
-#import "TURAnsel.h"
-#import "TURAnselGallery.h"
+#import "TURAnselKit.h"
 
 @interface TURAnselGallery (PrivateAPI)
 - (void)doUpload: (NSDictionary *)imageParams;
@@ -21,28 +21,26 @@
 @synthesize galleryKeyImage;
 
 #pragma mark -
-#pragma mark init
-
+#pragma mark init/dealloc
 /**
  * Init a gallery object
  */
 - (id)initWithObject:(id)galleryData controller:(TURAnsel *)controller
 {
     [super init];
-    [self setValue: [galleryData valueForKey:@"share_id"]
+    [self setValue: [galleryData valueForKey: kTURAnselGalleryKeyId]
             forKey: @"galleryId"];
-    [self setValue:[galleryData valueForKey:@"attribute_desc"]
+    [self setValue:[galleryData valueForKey: kTURAnselGalleryKeyDescription]
             forKey:@"galleryDescription"];
-    [self setValue:[galleryData valueForKey:@"attribute_name"]
+    [self setValue:[galleryData valueForKey: kTURAnselGalleryKeyName]
             forKey:@"galleryName"];
-    [self setValue: [galleryData valueForKey:@"attribute_images"]
+    [self setValue: [galleryData valueForKey: kTURAnselGalleryKeyImages]
             forKey:@"galleryImageCount"];    
-    [self setValue: [galleryData valueForKey:@"attribute_default"]
+    [self setValue: [galleryData valueForKey: kTURAnselGalleryKeyDefaultImage]
             forKey:@"galleryKeyImage"];
     [self setAnselController: controller];
     return self;
 }
-
 - (void)dealloc
 {
     NSLog(@"TURAnselGallery dealloc called on Gallery %@", self);
@@ -81,7 +79,12 @@
                            @"thumb",                                         // Thumbnail type
                            [NSNumber numberWithBool:YES],                    // Full path
                            nil];
-        NSArray *order = [NSArray arrayWithObjects: @"scope", @"image_id", @"thumbnail", @"path", nil];
+
+        NSArray *order = [NSArray arrayWithObjects: kTURAnselAPIParamScope,
+                                                    kTURAnselAPIParamImageId,
+                                                    kTURAnselAPIParamThumbnailStyle,
+                                                    kTURAnselAPIParamFullPath, nil];
+        
         NSDictionary *response = [anselController callRPCMethod: @"images.getImageUrl"
                                                        withParams: params
                                                         withOrder: order];
@@ -96,7 +99,6 @@
         
         return nil;
     }
-
 }
 
 /**
@@ -113,7 +115,12 @@
                            @"thumb",                                // Thumbnail
                            [NSNumber numberWithBool:YES],           // Full path
                            nil];
-        NSArray *order = [NSArray arrayWithObjects: @"scope", @"gallery_id", @"perms", @"thumnail", @"path", nil];
+        NSArray *order = [NSArray arrayWithObjects: kTURAnselAPIParamScope,
+                                                    kTURAnselAPIParamGalleryId,
+                                                    kTURAnselAPIParamPerms,
+                                                    kTURAnselAPIParamThumbnailStyle,
+                                                    kTURAnselAPIParamFullPath, nil];
+        
         NSDictionary *response = [anselController callRPCMethod: @"images.listImages"
                                                      withParams: params
                                                       withOrder: order];
@@ -144,6 +151,7 @@
 {
     return _galleryId;
 }
+
 - (void)setGalleryId:(int)id
 {
     _galleryId = id;
@@ -153,18 +161,10 @@
 {
     return delegate;
 }
+
 - (void)setDelegate: (id)newDelegate
 {
     delegate = newDelegate;
-}
-
-- (TURAnselGalleryState)state
-{
-    return state;
-}
-- (void)setState: (TURAnselGalleryState)theState 
-{
-    state = theState;
 }
 
 - (void)setAnselController: (TURAnsel *)newController
@@ -191,7 +191,12 @@
                            @"",                                       // Additional gallery data to set?      
                            @"base64",                                 // Image data encoding      
                            nil];
-        NSArray *order = [NSArray arrayWithObjects: @"scope", @"gallery_id", @"data", @"default", @"additional_data", @"encoding", nil];
+        NSArray *order = [NSArray arrayWithObjects: kTURAnselAPIParamScope,
+                                                    kTURAnselAPIParamGalleryId,
+                                                    kTURAnselAPIParamImageData,
+                                                    kTURAnselAPIParamSetAsDefault,
+                                                    kTURAnselAPIParamAdditionalData,
+                                                    kTURAnselAPIParamEncoding, nil];
         
         // Send the request up to the controller
         NSDictionary *result = [anselController callRPCMethod: @"images.saveImage"

@@ -1,10 +1,12 @@
-//
-//  AnselGalleryViewItem.h
-//  iPhoto2Ansel
-//
-//  Created by Michael Rubinsky on 5/7/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
-//
+/**
+ * AnselGalleryViewItem
+ *
+ * Copyright 2009 The Horde Project (http://www.horde.org)
+ * 
+ * @implements IKImageBrowserItem
+ * @license http://opensource.org/licenses/bsd-license.php
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ */
 #import <Cocoa/Cocoa.h>
 #import <Quartz/Quartz.h>
 
@@ -31,4 +33,3 @@
 - (NSString *)imageSubtitle;
 
 @end
-

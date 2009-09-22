@@ -1,19 +1,13 @@
-//
-//  TURAnselGallery.h
-//  
-// Class to wrap Ansel Gallery.
-//
-//  Created by Michael Rubinsky on 10/21/08.
-//  Copyright 2008 __MyCompanyName__. All rights reserved.
-//
-
+/**
+ * TURAnselGallery
+ *
+ * Copyright 2009 The Horde Project (http://www.horde.org)
+ * 
+ * @license http://opensource.org/licenses/bsd-license.php
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ */
 #import <Cocoa/Cocoa.h>
-@class TURAnsel, NSURL, XMLRPCResponse;
-
-typedef enum {
-    TURAnselGalleryStateReady = 0,
-    TURAnselGalleryStateBusy
-} TURAnselGalleryState; 
+@class TURAnsel, NSURL;
 
 @interface NSObject (TURAnselGalleryDelegate)
 - (void)TURAnselGalleryDidUploadImage: (id *)gallery;
@@ -28,7 +22,6 @@ typedef enum {
     NSString *galleryName;
     NSString *galleryDescription;
     TURAnsel *anselController;
-    TURAnselGalleryState state;
     id delegate;
 }
 @property (readonly) NSString *galleryName;
@@ -45,7 +38,5 @@ typedef enum {
 - (NSURL *)galleryKeyImageURL;
 - (id)listImages;
 - (int)galleryId;
-- (TURAnselGalleryState) state;
-- (void)setState: (TURAnselGalleryState)theState;
 - (void)setAnselController:(TURAnsel *)newController;
 @end

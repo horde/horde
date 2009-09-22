@@ -13,6 +13,7 @@
 #import "ApertureExportPlugIn.h"
 
 @class TURAnsel, TURAnselGallery;
+
 @interface ApertureToAnselExportPlugin : NSObject <ApertureExportPlugIn>
 {
 	// The cached API Manager object, as passed to the -initWithAPIManager: method.

@@ -1,10 +1,11 @@
-//
-//  TURAnsel.h
-//  myXMLTest
-//
-//  Created by Michael Rubinsky on 10/31/08.
-//  Copyright 2008 __MyCompanyName__. All rights reserved.
-//
+/**
+ * TURAnsel
+ *
+ * Copyright 2009 The Horde Project (http://www.horde.org)
+ * 
+ * @license http://opensource.org/licenses/bsd-license.php
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ */
 #import <Cocoa/Cocoa.h>
 @class TURAnselGallery;
 

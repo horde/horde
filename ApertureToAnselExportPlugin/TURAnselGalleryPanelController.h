@@ -1,13 +1,13 @@
-//
-//  TURAnselGalleryPanelController.h
-//  iPhoto2Ansel
-//
-//  Created by Michael Rubinsky on 12/7/08.
-//  Copyright 2008 __MyCompanyName__. All rights reserved.
-//
-
+/**
+ * TURAnselGalleryPanelController
+ *
+ * Copyright 2009 The Horde Project (http://www.horde.org)
+ * 
+ * @license http://opensource.org/licenses/bsd-license.php
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ */
 #import <Cocoa/Cocoa.h>
-#import "TURAnsel.h"
+#import "TURAnselKit.h"
 
 @interface NSObject (TURAnselGalleryPaneControllerDelegate)
 -(void)TURAnselGalleryPanelDidAddGallery;
@@ -20,9 +20,10 @@
     IBOutlet NSTextField *galleryDescTextField;
     IBOutlet NSPanel *newGallerySheet;
     
-    TURAnsel *anselController;
-    NSWindow *controllerWindow;
-    id delegate;
+    // Instance members
+    TURAnsel *_anselController;
+    NSWindow *_controllerWindow;
+    id _delegate;
 }
 
 // Actions

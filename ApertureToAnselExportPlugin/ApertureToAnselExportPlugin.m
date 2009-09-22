@@ -414,7 +414,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 //@TODO - need to add a flag to indicate if we have a UI or not
 - (void)TURAnselHadError: (NSError *)error
 {
-    NSLog(@"TURAnselHadError");
+    NSLog(@"TURAnselHadError: %@", error);
     // Stop the spinner
     [spinner stopAnimation: self];
     [mServersPopUp setEnabled: true];

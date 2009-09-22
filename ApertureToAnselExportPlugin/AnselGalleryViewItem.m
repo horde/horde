@@ -1,13 +1,15 @@
-//
-//  AnselGalleryViewItem.m
-//  iPhoto2Ansel
-//
-//  Implementation of the IKImageBrowserItem protocol
-
-//  Created by Michael Rubinsky on 5/7/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
-//
-
+/**
+ * AnselGalleryViewItem.m
+ *
+ * Implements the IKImageBrowserItem protocol for displaying images from a
+ * remote Ansel gallery in an IKImageBrowser.
+ *
+ * Copyright 2009 The Horde Project (http://www.horde.org)
+ * 
+ * @implements IKImageBrowserItem
+ * @license http://opensource.org/licenses/bsd-license.php
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ */
 #import "AnselGalleryViewItem.h"
 
 @implementation AnselGalleryViewItem
@@ -25,7 +27,6 @@
     imageDate =  [theDate retain];
     return self; 
 }
-
 - (void)dealloc
 {
     [image release];
@@ -59,7 +60,6 @@
     NSLog(@"imageTitle: %@", imageTitle);
     return imageTitle;
 }
-
 - (NSString *)imageSubtitle
 {
     NSLog(@"imageSubtitle: %@", [imageDate description]);

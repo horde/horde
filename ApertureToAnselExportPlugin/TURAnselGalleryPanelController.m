@@ -1,15 +1,49 @@
-//
-//  TURAnselGalleryPanelController.m
-//  iPhoto2Ansel
-//
-//  Created by Michael Rubinsky on 12/7/08.
-//  Copyright 2008 __MyCompanyName__. All rights reserved.
-//
-
+/**
+ * TURAnselGalleryPanelController.m
+ *
+ * Controller for handling the form that creates new remote Ansel galleries.
+ *
+ * Copyright 2009 The Horde Project (http://www.horde.org)
+ * 
+ * @license http://opensource.org/licenses/bsd-license.php
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ */
 #import "TURAnselGalleryPanelController.h"
 
 @implementation TURAnselGalleryPanelController
 
+#pragma mark -
+#pragma mark init/dealloc
+-(id)initWithController: (TURAnsel *)theController
+{
+    [super init];
+    _anselController = [theController retain];
+    [NSBundle loadNibNamed: @"AnselGalleryPanel"
+                     owner: self];
+    
+    return self;
+}
+- (id)initWithController: (TURAnsel *)theController
+         withGalleryName: (NSString *)galleryName 
+{
+    
+    [super init];
+    _anselController = [theController retain];
+    [NSBundle loadNibNamed: @"AnselGalleryPanel"
+                     owner: self];
+    
+    [galleryNameTextField setStringValue: galleryName];
+    
+    return self;      
+}
+- (void)dealloc 
+{
+    [_anselController release];
+    [_controllerWindow release];
+    [super dealloc];
+}
+
+#pragma mark -
 #pragma mark IBActions
 - (IBAction)cancelNewGallery: (id)sender
 {
@@ -32,7 +66,7 @@
         NSAlert *alert = [[NSAlert alloc] init];
         [alert setMessageText:@"Gallery names cannot be empty"];
         [alert setAlertStyle: NSCriticalAlertStyle];
-        [alert beginSheetModalForWindow: controllerWindow
+        [alert beginSheetModalForWindow: _controllerWindow
                           modalDelegate: nil 
                          didEndSelector: nil
                             contextInfo: nil];
@@ -44,75 +78,43 @@
                             gallerySlug, @"slug",
                             galleryDescription, @"desc", nil];
     
-    NSDictionary *results = [[anselController createNewGallery: params] retain];
+    NSDictionary *results = [[_anselController createNewGallery: params] retain];
     
     [NSApp endSheet: newGallerySheet];
     [newGallerySheet orderOut: nil];
     
-    if ([anselController state] != TURAnselStateError) {
+    if ([_anselController state] != TURAnselStateError) {
         NSAlert *alert = [[NSAlert alloc] init];
         [alert setMessageText: @"Gallery successfully created."];
-        [alert beginSheetModalForWindow: controllerWindow
+        [alert beginSheetModalForWindow: _controllerWindow
                           modalDelegate: nil
                          didEndSelector: nil
                             contextInfo: nil];
         [alert release];
-        if ([delegate respondsToSelector:@selector(TURAnselGalleryPanelDidAddGallery)]) {
-            [delegate TURAnselGalleryPanelDidAddGallery];
+        if ([_delegate respondsToSelector:@selector(TURAnselGalleryPanelDidAddGallery)]) {
+            [_delegate TURAnselGalleryPanelDidAddGallery];
         }
     }
     
     [results release];
 }
 
--(id)initWithController: (TURAnsel *)theController
-{
-    [super init];
-    anselController = [theController retain];
-    [NSBundle loadNibNamed: @"AnselGalleryPanel"
-                     owner: self];
-    
-    return self;
-}
-
-- (id)initWithController: (TURAnsel *)theController
-       withGalleryName: (NSString *)galleryName 
-{
-    
-    [super init];
-    anselController = [theController retain];
-    [NSBundle loadNibNamed: @"AnselGalleryPanel"
-                     owner: self];
-    
-    [galleryNameTextField setStringValue: galleryName];
-    
-    return self;  
-    
-    
-}
 
 - (void)setDelegate: (id)theDelegate
 {
-    delegate = theDelegate; // weak
+    _delegate = theDelegate; // weak
 }
 
 
 - (void)showSheetForWindow: (NSWindow *)theWindow
 {
-    [controllerWindow release];
-    controllerWindow = [theWindow retain];
+    [_controllerWindow release];
+    _controllerWindow = [theWindow retain];
     [NSApp beginSheet: newGallerySheet
        modalForWindow: theWindow
         modalDelegate: nil
        didEndSelector: nil
           contextInfo: nil];
-}
-
-- (void)dealloc 
-{
-    [anselController release];
-    [controllerWindow release];
-    [super dealloc];
 }
 
 @end
