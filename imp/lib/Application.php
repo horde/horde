@@ -837,7 +837,7 @@ class IMP_Application extends Horde_Registry_Application
         } catch (Horde_Exception $e) {}
 
         try {
-            $writeable = $registry->call('contacts/sources', true);
+            $writeable = $registry->call('contacts/sources', array(true));
         } catch (Horde_Exception $e) {}
 
         $search = IMP_Compose::getAddressSearchParams();
@@ -871,7 +871,7 @@ class IMP_Application extends Horde_Registry_Application
             $search_fields[$source_count][] = $source;
 
             try {
-                foreach ($registry->call('contacts/fields', $source) as $field) {
+                foreach ($registry->call('contacts/fields', array($source)) as $field) {
                     if ($field['search']) {
                         $search_fields[$source_count][] = array($field['name'], $field['label'], isset($search['fields'][$source]) && in_array($field['name'], $search['fields'][$source]));
                     }
