@@ -389,10 +389,13 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      * calendar.
      *
      * @param Kronolith_Resource $resource  The kronolith resource to remove
+     *
+     * @return boolean
+     * @throws Horde_Exception
      */
     public function delete($resource)
     {
-        if (!$resource->get('calendar') || !$resource->getId()) {
+        if (!($resource instanceof Kronolith_Resource_Base) || !$resource->getId()) {
             throw new Horde_Exception(_("Resource not valid."));
         }
 
