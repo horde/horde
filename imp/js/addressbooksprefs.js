@@ -10,7 +10,7 @@ var ImpAddressbooksPrefs = {
 
     deselectHeaders: function()
     {
-        $F('unselected_search_sources').selectedIndex = $F('selected_search_sources').selectedIndex = -1;
+        $('unselected_search_sources').selectedIndex = $('selected_search_sources').selectedIndex = -1;
     },
 
     resetHidden: function()
@@ -34,7 +34,7 @@ var ImpAddressbooksPrefs = {
 
         $A(from.options).slice(1).each(function(s) {
             if (s.selected) {
-                to[i] = s.cloneNode(false);
+                to.appendChild(s.cloneNode(true));
                 s.remove();
             }
             ++i;
@@ -88,7 +88,6 @@ var ImpAddressbooksPrefs = {
             sf = $('search_fields');
 
         sf.update('');
-
         this.fields.each(function(f) {
             if (f[0] == sv) {
                 f.slice(1).each(function(o) {
@@ -107,9 +106,14 @@ var ImpAddressbooksPrefs = {
     _getSelectedValue: function(index)
     {
         var sss = $('selected_search_sources');
-
         if (sss) {
-            return index ? sss.selectedIndex : sss.options[sss.selectedIndex].value;
+            if (index) {
+                return sss.selectedIndex;
+            }
+            if (sss.selectedIndex >= 0) {
+                return sss.options[sss.selectedIndex].value;
+            }
+            return '';
         } else {
             return index ? 0 : this.fields[0][0];
         }
@@ -123,7 +127,7 @@ var ImpAddressbooksPrefs = {
             sv = this._getSelectedValue(true);
 
         $A(sf.options).each(function(o) {
-            this.fields[sv][i + 1][2] = o.selected;
+            this.fields[sv][i][2] = o.selected;
             ++i;
         }.bind(this));
 
@@ -136,7 +140,6 @@ var ImpAddressbooksPrefs = {
             });
             data.push(tmp.join("\t"));
         });
-
         $('search_fields_string').setValue(data.join("\n"));
     },
 
@@ -149,9 +152,9 @@ var ImpAddressbooksPrefs = {
         }
 
         if ($('unselected_search_sources')) {
-            $('unselected_search_sources').observe('change', this.deselectHeaders.bind(this));
+            //$('unselected_search_sources').observe('change', this.deselectHeaders.bind(this));
             $('selected_search_sources').observe('change', function() {
-                this.deselectHeaders();
+                //this.deselectHeaders();
                 this.updateSearchFields();
             }.bind(this));
             $('addsource').observe('click', this.addSource.bind(this));

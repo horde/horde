@@ -12,7 +12,7 @@ $imagedir = $registry->getImageDir('horde');
  <tr>
   <td>
    <label for="unselected_search_sources" class="hidden"><?php echo _("Available Address books:") ?></label>
-   <select id="unselected_search_sources" name="unselected_search_sources" multiple="multiple" size="5" style="width:20em">
+   <select id="unselected_search_sources" name="unselected_search_sources" id="unselected_search_sources" multiple="multiple" size="5" style="width:20em">
     <option value=""><?php echo _("Available Address books:") ?></option>
 <?php foreach ($cache['readSelect'] as $val): ?>
     <option value="<?php echo $val ?>"><?php echo $cache['readable'][$val] ?></option>
@@ -26,7 +26,7 @@ $imagedir = $registry->getImageDir('horde');
   </td>
   <td>
    <label for="selected_search_sources" class="hidden"><?php echo _("Selected Address books:") ?></label>
-   <select name="selected_search_sources" multiple="multiple" size="5" style="width:20em">
+   <select name="selected_search_sources" multiple="multiple" size="5" style="width:20em" id="selected_search_sources">
     <option value=""><?php echo _("Selected Address books:") ?></option>
 <?php foreach ($cache['prefSelect'] as $key => $val): ?>
     <option value="<?php echo $key ?>"><?php echo $val ?></option>
