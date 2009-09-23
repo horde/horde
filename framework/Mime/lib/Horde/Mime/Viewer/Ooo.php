@@ -51,12 +51,12 @@ class Horde_Mime_Viewer_Ooo extends Horde_Mime_Viewer_Driver
         );
 
         $zip = Horde_Compress::factory('zip');
-        $list = $zip->decompress($this->_mimepart->getContents(), array('action' => HORDE_COMPRESS_ZIP_LIST));
+        $list = $zip->decompress($this->_mimepart->getContents(), array('action' => Horde_Compress_Zip::ZIP_LIST));
 
         foreach ($list as $key => $file) {
             if (in_array($file['name'], $fnames)) {
                 $content = $zip->decompress($this->_mimepart->getContents(), array(
-                    'action' => HORDE_COMPRESS_ZIP_DATA,
+                    'action' => Horde_Compress_Zip::ZIP_DATA,
                     'info' => $list,
                     'key' => $key
                 ));
