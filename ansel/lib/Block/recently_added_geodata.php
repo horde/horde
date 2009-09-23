@@ -100,10 +100,11 @@ class Horde_Block_ansel_recently_added_geodata extends Horde_Block {
             return $images->getMessage();
         }
         $images = array_reverse($images);
-        foreach ($images as $id => $image) {
+        foreach ($images as $key => $image) {
             if (is_a($image, 'PEAR_Error')) {
                 continue;
             }
+            $id = $image['image_id'];
             $gallery = $GLOBALS['ansel_storage']->getGallery($image['gallery_id']);
 
             /* Don't show locked galleries in the block. */
@@ -120,8 +121,8 @@ class Horde_Block_ansel_recently_added_geodata extends Horde_Block {
                       'gallery' => $gallery->id,
                       'image' => $id,
                       'gallery_view' => $style['gallery_view']), true);
-            $images[$id]['icon'] = Ansel::getImageUrl($images[$id]['image_id'], 'mini', true);
-            $images[$id]['link'] = $url;
+            $images[$key]['icon'] = Ansel::getImageUrl($images[$key]['image_id'], 'mini', true);
+            $images[$key]['link'] = $url;
         }
 
         $json = Horde_Serialize::serialize(array_values($images), Horde_Serialize::JSON);
