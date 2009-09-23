@@ -108,7 +108,7 @@ if ($form->validate($vars)) {
 
                     /* Get the list of files in the zipfile. */
                     $zip = Horde_Compress::factory('zip');
-                    $files = $zip->decompress($data, array('action' => Horde_Compress::ZIP_LIST));
+                    $files = $zip->decompress($data, array('action' => Horde_Compress_Zip::ZIP_LIST));
 
                     if (is_a($files, 'PEAR_Error')) {
                         $notification->push(sprintf(_("There was an error processing the uploaded archive: %s"), $files->getMessage()), 'horde.error');
@@ -134,7 +134,7 @@ if ($form->validate($vars)) {
                             continue;
                         }
 
-                        $zdata = $zip->decompress($data, array('action' => Horde_Compress::ZIP_DATA,
+                        $zdata = $zip->decompress($data, array('action' => Horde_Compress_Zip::ZIP_DATA,
                                                                'info' => $files,
                                                                'key' => $key));
                         if (is_a($zdata, 'PEAR_Error')) {
