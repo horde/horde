@@ -29,6 +29,13 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
     );
 
     /**
+     * Phishing status of last call to _phishingCheck().
+     *
+     * @var boolean
+     */
+    protected $_phishWarn = false;
+
+    /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
@@ -71,18 +78,20 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
      * @todo Use IP checks from
      * http://lxr.mozilla.org/mailnews/source/mail/base/content/phishingDetector.js.
      *
-     * @param string $data     The HTML data.
-     * @param boolean $inline  Are we viewing inline?
-     * @param string $charset  The charset of $data (if different than the
-     *                         base part charset).
+     * @param string $data    The HTML data.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'charset' => (string) The charset of $data (if different than the base
+     *              part charset).
+     * 'inline' => (boolean) Are we viewing inline?
+     *             DEFAULT: false
+     * </pre>
      *
-     * @return array  Two elements: 'html' and 'status'.
+     * @return string  The cleaned HTML string.
      */
-    protected function _cleanHTML($data, $inline, $charset = null)
+    protected function _cleanHTML($data, $options = array())
     {
         global $browser;
-
-        $phish_warn = false;
 
         /* Deal with <base> tags in the HTML, since they will screw up our own
          * relative paths. */
@@ -94,7 +103,7 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
 
             /* Recursively call _cleanHTML() to prevent clever fiends from
              * sneaking nasty things into the page via $base. */
-            $base = $this->_cleanHTML($base, $inline);
+            $base = $this->_cleanHTML($base, $options);
 
             /* Attempt to fix paths that were relying on a <base> tag. */
             if (!empty($base)) {
@@ -113,82 +122,28 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
         $strip_style_attributes = (($browser->isBrowser('mozilla') &&
                                     $browser->getMajor() == 4) ||
                                    $browser->isBrowser('msie'));
-        $strip_styles = $inline || $strip_style_attributes;
+        $strip_styles = !empty($options['inline']) || $strip_style_attributes;
 
         $data = Horde_Text_Filter::filter($data, array('cleanhtml', 'xss'), array(
             array(
-                'charset' => is_null($charset) ? $this->_mimepart->getCharset() : $charset
+                'charset' => isset($options['charset']) ? $options['charset'] : $this->_mimepart->getCharset()
             ),
             array(
-                'body_only' => $inline,
+                'body_only' => !empty($options['inline']),
                 'strip_styles' => $strip_styles,
                 'strip_style_attributes' => $strip_style_attributes
             )
         ));
 
         /* Check for phishing exploits. */
-        if ($this->getConfigParam('phishing_check')) {
-            if (preg_match('/href\s*=\s*["\']?\s*(http|https|ftp):\/\/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(?:[^>]*>\s*(?:\\1:\/\/)?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})[^<]*<\/a)?/i', $data, $m)) {
-                /* Check 1: Check for IP address links, but ignore if the link
-                 * text has the same IP address. */
-                if (!isset($m[3]) || ($m[2] != $m[3])) {
-                    if (isset($m[3])) {
-                        $data = preg_replace('/href\s*=\s*["\']?\s*(http|https|ftp):\/\/' . preg_quote($m[2], '/') . '(?:[^>]*>\s*(?:$1:\/\/)?' . preg_quote($m[3], '/') . '[^<]*<\/a)?/i', 'class="mimeStatusWarning" $0', $data);
-                    }
-                    $phish_warn = true;
-                }
-            } elseif (preg_match_all('/href\s*=\s*["\']?\s*(?:http|https|ftp):\/\/([^\s"\'>]+)["\']?[^>]*>\s*(?:(?:http|https|ftp):\/\/)?(.*?)<\/a/is', $data, $m)) {
-                /* $m[1] = Link; $m[2] = Target
-                 * Check 2: Check for links that point to a different host than
-                 * the target url; if target looks like a domain name, check it
-                 * against the link. */
-                for ($i = 0, $links = count($m[0]); $i < $links; ++$i) {
-                    $link = strtolower(urldecode($m[1][$i]));
-                    $target = strtolower(preg_replace('/^(http|https|ftp):\/\//', '', strip_tags($m[2][$i])));
-                    if (preg_match('/^[-._\da-z]+\.[a-z]{2,}/i', $target) &&
-                        (strpos($link, $target) !== 0) &&
-                        (strpos($target, $link) !== 0)) {
-                        /* Don't consider the link a phishing link if the
-                         * domain is the same on both links (e.g.
-                         * adtracking.example.com & www.example.com). */
-                        preg_match('/\.?([^\.\/]+\.[^\.\/]+)[\/?]/', $link, $host1);
-                        preg_match('/\.?([^\.\/]+\.[^\.\/ ]+)([\/ ].*)?$/s', $target, $host2);
-                        if (!(count($host1) && count($host2)) ||
-                            (strcasecmp($host1[1], $host2[1]) !== 0)) {
-                            $data = preg_replace('/href\s*=\s*["\']?\s*(?:http|https|ftp):\/\/' . preg_quote($m[1][$i], '/') . '["\']?[^>]*>\s*(?:(?:http|https|ftp):\/\/)?' . preg_quote($m[2][$i], '/') . '<\/a/is', 'class="mimeStatusWarning" $0', $data);
-                            $phish_warn = true;
-                        }
-                    }
-                }
-            }
+        if (!empty($options['inline'])) {
+            $data = $this->_phishingCheck($data);
         }
 
         /* Try to derefer all external references. */
         $data = preg_replace_callback('/href\s*=\s*(["\'])?((?(1)[^\1]*?|[^\s>]+))(?(1)\1|)/i', array($this, '_dereferCallback'), $data);
 
-        /* Get phishing warning. */
-        $status = array();
-        if ($inline && $phish_warn) {
-            $warning = array(
-                sprintf(_("%s: This message may not be from whom it claims to be. Beware of following any links in it or of providing the sender with any personal information."), _("Warning")),
-                _("The links that caused this warning have this background color:") . ' <span class="mimeStatusWarning">' . _("EXAMPLE") . '.</span>'
-            );
-
-            if (!$inline) {
-                $temp = array();
-                foreach ($phish_warning as $val) {
-                    $temp[] = Horde_String::convertCharset($val, Horde_Nls::getCharset(), $this->_mimepart->getCharset());
-                }
-                $warning = $temp;
-            }
-
-            $status[] = array(
-                'class' => 'mimestatuswarning',
-                'text' => $warning
-            );
-        }
-
-        return array('html' => $data, 'status' => $status);
+        return $data;
     }
 
     /**
@@ -202,4 +157,80 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
     {
         return 'href="' . Horde::externalUrl($m[2]) . '"';
     }
+
+    /**
+     * Check for phishing exploits.
+     *
+     * @param string $data       The html data.
+     * @param boolean $scanonly  Only scan data; don't replace anything.
+     *
+     * @return string  The string, with phishing links highlighted.
+     */
+    protected function _phishingCheck($data, $scanonly = false)
+    {
+        $this->_phishWarn = false;
+
+        if (!$this->getConfigParam('phishing_check')) {
+            return $data;
+        }
+
+        if (preg_match('/href\s*=\s*["\']?\s*(http|https|ftp):\/\/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(?:[^>]*>\s*(?:\\1:\/\/)?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})[^<]*<\/a)?/i', $data, $m)) {
+            /* Check 1: Check for IP address links, but ignore if the link
+             * text has the same IP address. */
+            if (!isset($m[3]) || ($m[2] != $m[3])) {
+                if (isset($m[3]) && !$scanonly) {
+                    $data = preg_replace('/href\s*=\s*["\']?\s*(http|https|ftp):\/\/' . preg_quote($m[2], '/') . '(?:[^>]*>\s*(?:$1:\/\/)?' . preg_quote($m[3], '/') . '[^<]*<\/a)?/i', 'class="mimeStatusWarning" $0', $data);
+                }
+                $this->_phishWarn = true;
+            }
+        } elseif (preg_match_all('/href\s*=\s*["\']?\s*(?:http|https|ftp):\/\/([^\s"\'>]+)["\']?[^>]*>\s*(?:(?:http|https|ftp):\/\/)?(.*?)<\/a/is', $data, $m)) {
+            /* $m[1] = Link; $m[2] = Target
+             * Check 2: Check for links that point to a different host than
+             * the target url; if target looks like a domain name, check it
+             * against the link. */
+            for ($i = 0, $links = count($m[0]); $i < $links; ++$i) {
+                $link = strtolower(urldecode($m[1][$i]));
+                $target = strtolower(preg_replace('/^(http|https|ftp):\/\//', '', strip_tags($m[2][$i])));
+                if (preg_match('/^[-._\da-z]+\.[a-z]{2,}/i', $target) &&
+                    (strpos($link, $target) !== 0) &&
+                    (strpos($target, $link) !== 0)) {
+                    /* Don't consider the link a phishing link if the domain
+                     * is the same on both links (e.g. adtracking.example.com
+                     * & www.example.com). */
+                    preg_match('/\.?([^\.\/]+\.[^\.\/]+)[\/?]/', $link, $host1);
+                    preg_match('/\.?([^\.\/]+\.[^\.\/ ]+)([\/ ].*)?$/s', $target, $host2);
+                    if (!(count($host1) && count($host2)) ||
+                        (strcasecmp($host1[1], $host2[1]) !== 0)) {
+                        if (!$scanonly) {
+                            $data = preg_replace('/href\s*=\s*["\']?\s*(?:http|https|ftp):\/\/' . preg_quote($m[1][$i], '/') . '["\']?[^>]*>\s*(?:(?:http|https|ftp):\/\/)?' . preg_quote($m[2][$i], '/') . '<\/a/is', 'class="mimeStatusWarning" $0', $data);
+                        }
+                        $this->_phishWarn = true;
+                    }
+                }
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * Returns any phishing warnings that should be shown to the user.
+     *
+     * @return array  The status array.
+     */
+    protected function _phishingStatus()
+    {
+        if (!$this->_phishWarn) {
+            return array();
+        }
+
+        return array(
+            'class' => 'mimestatuswarning',
+            'text' => array(
+                sprintf(_("%s: This message may not be from whom it claims to be. Beware of following any links in it or of providing the sender with any personal information."), _("Warning")),
+            _("The links that caused this warning have this background color:") . ' <span class="mimeStatusWarning">' . _("EXAMPLE") . '.</span>'
+            )
+        );
+    }
+
 }
