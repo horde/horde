@@ -700,14 +700,14 @@ if (!empty($atc_parts)) {
     );
 }
 
-//if (!empty($conf['print']['add_printedby'])) {
+if (!empty($conf['print']['add_printedby'])) {
     $hdrs[] = array(
         'class' => 'printedby',
         'name' => _("Printed By"),
         'val' => $user_identity->getFullname() ? $user_identity->getFullname() : Horde_Auth::getAuth(),
         'i' => (++$i % 2)
     );
-//}
+}
 
 $m_template->set('headers', $hdrs);
 $m_template->set('msgtext', $msgtext);
