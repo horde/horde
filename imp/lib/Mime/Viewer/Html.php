@@ -113,7 +113,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             /* Check for phishing exploits. */
             $contents = $this->_mimepart->getContents();
             $this->_phishingCheck($contents, true);
-            $status = $this->_phishingStatus();
+            $status = array($this->_phishingStatus());
 
             /* Only display images if specifically allowed by user. */
             if ($GLOBALS['prefs']->getValue('html_image_replacement') &&
