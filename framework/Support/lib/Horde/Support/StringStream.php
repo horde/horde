@@ -44,6 +44,17 @@ class Horde_Support_StringStream
     }
 
     /**
+     * Return an SplFileObject representing this string stream
+     *
+     * @return SplFileObject
+     */
+    public function getFileObject()
+    {
+        $context = stream_context_create(array('horde-string' => array('string' => $this)));
+        return new SplFileObject('horde-string://' . spl_object_hash($this), 'rb', false, $context);
+    }
+
+    /**
      * Install the horde-string stream wrapper if it isn't already registered.
      */
     public function installWrapper()
