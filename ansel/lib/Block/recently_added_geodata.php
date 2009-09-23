@@ -99,7 +99,7 @@ class Horde_Block_ansel_recently_added_geodata extends Horde_Block {
         if (is_a($images, 'PEAR_Error')) {
             return $images->getMessage();
         }
-
+        $images = array_reverse($images);
         foreach ($images as $id => $image) {
             if (is_a($image, 'PEAR_Error')) {
                 continue;
