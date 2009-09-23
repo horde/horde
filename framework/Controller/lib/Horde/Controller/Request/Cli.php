@@ -56,6 +56,16 @@ class Horde_Controller_Request_Cli extends Horde_Controller_Request_Base
         return $this->getPath();
     }
 
+    public function getMethod()
+    {
+        return 'CLI';
+    }
+
+    public function setArgv($args)
+    {
+        $this->_argv = $args;
+    }
+
     public function getPath()
     {
         return $this->_path;

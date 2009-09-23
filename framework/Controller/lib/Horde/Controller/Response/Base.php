@@ -36,5 +36,4 @@ class Horde_Controller_Response_Base
     {
         $this->_body = $body;
     }
-
 }

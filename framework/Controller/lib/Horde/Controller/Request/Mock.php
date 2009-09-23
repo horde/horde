@@ -23,4 +23,7 @@
  */
 class Horde_Controller_Request_Mock extends Horde_Controller_Request_Base
 {
+    public function getPath()
+    {
+    }
 }

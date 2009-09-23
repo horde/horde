@@ -220,5 +220,4 @@ class Horde_Controller_Response_Http extends Horde_Controller_Response_Base
     {
         header('HTTP/1.0 ' . $code);
     }
-
 }

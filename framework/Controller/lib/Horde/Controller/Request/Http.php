@@ -403,6 +403,7 @@ class Horde_Controller_Request_Http extends Horde_Controller_Request_Base
         return $this->_sessionId;
     }
 
+
     /*##########################################################################
     # Modifiers
     ##########################################################################*/
@@ -480,7 +481,7 @@ class Horde_Controller_Request_Http extends Horde_Controller_Request_Base
         }
         $_FILES = array_map(array($this, '_fixNestedFiles'), $_FILES);
 
-        // create FileUpload object of of the file options
+        // create FileUpload object of the file options
         foreach ((array)$_FILES as $name => $options) {
             if (isset($options['tmp_name'])) {
                 $this->_files[$name] = new Horde_Controller_FileUpload($options);
