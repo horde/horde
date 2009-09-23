@@ -105,9 +105,7 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
     </div>
    </div>
    <div class="msgBody">
-    <table width="100%" cellspacing="0">
-     <?php echo $show_msg_result['msgtext'] ?>
-    </table>
+    <?php echo $show_msg_result['msgtext'] ?>
    </div>
   </div>
  </div>
