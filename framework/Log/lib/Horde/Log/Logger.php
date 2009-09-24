@@ -140,6 +140,17 @@ class Horde_Log_Logger
     }
 
     /**
+     * Does this logger have the level $name already?
+     *
+     * @param string   $name   The level name to check for
+     * @return boolean Whether the logger already has the specific level name
+     */
+    public function hasLevel($name)
+    {
+        return array_search($name, $this->_levels);
+    }
+
+    /**
      * Add a custom log level
      *
      * @param  string  $name    Name of level
