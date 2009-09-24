@@ -30,6 +30,17 @@ class Horde_Injector_InjectorTest extends PHPUnit_Framework_TestCase
         $this->assertType('Horde_Injector_Binder_Mock', $injector->bindMock('BOUND_INTERFACE'));
         $this->assertType('Horde_Injector_Binder_Mock', $injector->getBinder('BOUND_INTERFACE'));
     }
+    
+    public function testShouldProvideMagicFactoryMethodForBinderAdditionWhereBinderHasDependencies()
+    {
+        $injector = new Horde_Injector(new Horde_Injector_TopLevel());
+
+        // binds a Horde_Injector_Binder_Mock object
+        $this->assertType('Horde_Injector_Binder_MockWithDependencies', 
+            $injector->bindMockWithDependencies('BOUND_INTERFACE', 'PARAMETER1'));
+        $this->assertType('Horde_Injector_Binder_MockWithDependencies', 
+            $injector->getBinder('BOUND_INTERFACE'));
+    }
 
     /**
      * @expectedException BadMethodCallException
@@ -231,6 +242,23 @@ class Horde_Injector_InjectorTest extends PHPUnit_Framework_TestCase
 class Horde_Injector_Binder_Mock implements Horde_Injector_Binder
 {
     private $_interface;
+    public function create(Horde_Injector $injector)
+    {
+        return $injector;
+    }
+
+    public function equals(Horde_Injector_Binder $otherBinder)
+    {
+        return $otherBinder === $this;
+    }
+}
+
+class Horde_Injector_Binder_MockWithDependencies implements Horde_Injector_Binder
+{
+    private $_interface;
+    
+    public function __construct($parameter1) {}
+    
     public function create(Horde_Injector $injector)
     {
         return $injector;

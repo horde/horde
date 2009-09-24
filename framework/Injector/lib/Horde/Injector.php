@@ -75,8 +75,9 @@ class Horde_Injector implements Horde_Injector_Scope
 
         if ($reflectionClass->getConstructor()) {
             $this->_addBinder($interface, $reflectionClass->newInstanceArgs($args));
+        } else {
+            $this->_addBinder($interface, $reflectionClass->newInstance());
         }
-        $this->_addBinder($interface, $reflectionClass->newInstance());
 
         return $this->_getBinder($interface);
     }
