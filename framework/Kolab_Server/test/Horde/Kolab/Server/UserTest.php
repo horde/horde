@@ -30,7 +30,7 @@ require_once 'Horde/Autoloader.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_UserTest extends Horde_Kolab_Test_Server
+class Horde_Kolab_Server_UserTest extends Horde_Kolab_Server_Scenario
 {
 
     /**
@@ -40,7 +40,7 @@ class Horde_Kolab_Server_UserTest extends Horde_Kolab_Test_Server
      */
     protected function setUp()
     {
-        $this->server = $this->prepareEmptyKolabServer();
+        $this->server = $this->getKolabMockServer();
         $users        = $this->validUsers();
         foreach ($users as $user) {
             $result = $this->server->add($user[0]);

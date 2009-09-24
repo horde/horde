@@ -30,7 +30,7 @@ require_once 'Horde/Autoloader.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
+class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Server_Scenario
 {
 
     /**
@@ -42,7 +42,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function listingUsersOnEmptyServer()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('listing all users')
             ->then('the list is an empty array');
     }
@@ -59,7 +59,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function listingUsersAfterAddingUsers($user_list)
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding an object list', $user_list)
             ->and('listing all users')
             ->then('the list has a number of entries equal to', count($user_list));
@@ -77,7 +77,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function listingUserCount($user_list)
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding an object list', $user_list)
             ->and('retriving the result count')
             ->then('the count equals to', count($user_list));
@@ -95,7 +95,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function listingUsersHasAttributeId($user_list)
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user list', $user_list)
             ->then('the user list contains the unique ID for each user')
             ->and('the user list contains the user type for each user');
@@ -113,7 +113,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function listingUsersHasAttributeType($user_list)
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user list', $user_list)
             ->then('the user list contains the user type for each user');
     }
@@ -130,7 +130,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function listingUsersHasAttributeFullName($user_list)
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user list', $user_list)
             ->then('the user list contains the full name for each user');
     }
@@ -147,7 +147,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function listingUsersHasAttributeEmail($user_list)
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user list', $user_list)
             ->then('the user list contains the email for each user');
     }
@@ -164,7 +164,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function listingUsersHasAttributeUid($user_list)
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user list', $user_list)
             ->then('the list contains the uid for each user');
     }
@@ -175,7 +175,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function listingUsersCanBeRestrictedByStartLetterOfTheLastName($letter, $count)
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding user list', $this->largeList())
             ->and('retrieving the result count of a list restricted by the start letter of the last name', $letter)
             ->then('the list contains a correct amount of results', $count);
@@ -187,7 +187,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function countingUsersCanBeRestrictedByStartLetterOfTheLastName($letter, $count)
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding user list', $this->largeList())
             ->and('retrieving the result count of a list restricted by the start letter of the last name', $letter)
             ->then('the count contains a correct number', $count);
@@ -199,7 +199,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function countingUsersCanBeRestrictedByContentsInAnAttribute($attribute, $content, $count)
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding user list', $this->largeList())
             ->and('retrieving the result count of a list restricted by content in an attribute', $attribute, $content)
             ->then('the count contains a correct number', $count);
@@ -210,7 +210,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function creatingUserWithoutTypeCreatesStandardUser()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user without user type')
             ->then('a standard user has been created');
     }
@@ -220,7 +220,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function creatingUserWithoutInvitationPolicySetsManualPolicy()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user without an invitation policy')
             ->then('the added user has a manual policy');
     }
@@ -230,7 +230,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function creatingUserWithoutHomeServerFails()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user without a home server')
             ->then('the result should indicate an error with', 'The user cannot be added: The home Kolab server (or network) has not been specified!');
     }
@@ -240,7 +240,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function creatingUserForDistributedKolabWithoutImapServerFails()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->and('distributed Kolab')
             ->when('adding a user without an imap server')
             ->then('the result should indicate an error with', 'The user cannot be added: The home imap server has not been specified!');
@@ -251,7 +251,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function creatingUserWithImapServerFailsOnNonDistributedKolab()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->and('monolithic Kolab')
             ->when('adding a user with an imap server')
             ->then('the result should indicate an error with', 'The user cannot be added: A home imap server is only supported with a distributed Kolab setup!');
@@ -262,7 +262,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function creatingUserWithFreeBusyServerFailsOnNonDistributedKolab()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->and('monolithic Kolab')
             ->when('adding a user with a free/busy server')
             ->then('the result should indicate an error with', 'The user cannot be added: A seperate free/busy server is only supported with a distributed Kolab setup!');
@@ -273,7 +273,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function modifyingUserMailAddressIsNotAllowed()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user with the mail address "test@example.org"')
             ->and('modifying the mail address to "new@example.org"')
             ->then('the result should indicate an error with', 'The user cannot be modified: Changing the mail address from "test@example.org" to "new@example.org" is not allowed!');
@@ -284,7 +284,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function modifyingUserHomeServerIsNotAllowd()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user with the home server "test.example.org"')
             ->and('modifying the home server to "new.example.org"')
             ->then('the result should indicate an error with', 'The user cannot be modified: Changing the home server from "test.example.org" to "new.example.org" is not allowed!');
@@ -295,7 +295,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function modifyingUserImapServerIsNotAllowd()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->and('distributed Kolab')
             ->when('adding a user with the imap server "test.example.org"')
             ->and('modifying the imap server to "new.example.org"')
@@ -307,7 +307,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function conflictBetweenMailAndMailIsNotAllowed()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user "Test Test" with the mail address "test@example.org"')
             ->and('adding a user "Test2 Test2" with the mail address "test@example.org"')
             ->then('the result should indicate an error with', 'The user cannot be added: Mail address "test@example.org" is already the mail address of user "Test Test"!');
@@ -318,7 +318,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function conflictBetweenMailAndAliasIsNotAllowed()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user "Test Test" with the mail address "test@example.org"')
             ->and('adding a user with the alias address "test@example.org"')
             ->then('the result should indicate an error with', 'The user cannot be added: Alias address "test@example.org" is already the mail address of user "Test Test"!');
@@ -329,7 +329,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function conflictBetweenAliasAndAliasIsNotAllowed()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user "Test Test" with the alias address "test@example.org"')
             ->and('adding a user with the alias address "test@example.org"')
             ->then('the result should indicate an error with', 'The user cannot be added: Alias address "test@example.org" is already the alias address of user "Test Test"!');
@@ -340,7 +340,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function conflictBetweenMailAndUidIsNotAllowed()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user "Test Test" with the mail address "test@example.org"')
             ->and('adding a user with the uid "test@example.org"')
             ->then('the result should indicate an error with', 'The user cannot be added: Uid "test@example.org" is already the mail address of user "Test Test"!');
@@ -351,7 +351,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function conflictBetweenUidAndUidIsNotAllowed()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user "Test Test" with the uid "test"')
             ->and('adding a user with the uid "test"')
             ->then('the result should indicate an error with', 'The user cannot be added: Uid "test" is already the uid of user "Test Test"!');
@@ -362,7 +362,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function nonExistingDelegateIsNotAllowed()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user with the delegate address "test@example.org"')
             ->then('the result should indicate an error with', 'The user cannot be added: Delegate address "test@example.org" does not exist!');
     }
@@ -372,7 +372,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function addingUserInUndefinedDomainIsNotAllowed()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->and('the only served mail domain is "example.org"')
             ->when('adding a user with the mail address "test@doesnotexist.org"')
             ->then('the result should indicate an error with', 'The user cannot be added: Domain "doesnotexist.org" is not being handled by this server!');
@@ -385,7 +385,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function addingUserWithDelegateInUndefinedDomainIsNotAllowed()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->and('the only served mail domain is "example.org"')
             ->when('adding a user with the delegate mail address "test@doesnotexist.org"')
             ->then('the result should indicate an error with', 'The user cannot be added: Domain "doesnotexist.org" is not being handled by this server!');
@@ -399,7 +399,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function disallowInvalidMailAddresses($address)
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user with an invalid mail address', $address)
             ->then('the result should indicate an error with', "The user cannot be added: Address \"$address\" is not a valid mail address!");
     }
@@ -409,7 +409,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function addingUserOnUndefinedHomeServer()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->and('the only home server in the network is "example.org"')
             ->when('adding a user with the home server "doesnotexist.org"')
             ->then('the result should indicate an error with', 'The user cannot be added: Host "doesnotexist.org" is not part of the Kolab network!');
@@ -420,7 +420,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function addingUserOnUndefinedImapServer()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->and('distributed Kolab')
             ->and('the only imap server in the network is "example.org"')
             ->when('adding a user with the imap server "doesnotexist.org"')
@@ -432,7 +432,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function userAttributesCanBeExtended()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->and('an extended attribute "test" has been defined')
             ->when('adding a user with the attribute "test" set to "FIND ME"')
             ->then('the result indicates success')
@@ -444,7 +444,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function extendedObjectAttributeDescriptionsCanBeRetrieved()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->and('an extended attribute "test" has been defined')
             ->when('retrieving the supported attributes by the object type "user"')
             ->then('the result is an array of Horde attribute descriptions')
@@ -456,7 +456,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function removingUserFailsIfUserDoesNotExist()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user with the ID "cn=Test Test"')
             ->and('deleting the user with the ID "cn=Dummy Dummy"')
             ->then('the result should indicate an error with', 'The user cannot be deleted: User "cn=Dummy Dummy" does not exist!');
@@ -467,7 +467,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function removingUserByMailSucceeds()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user with the mail address "test@example.org"')
             ->and('deleting the user with mail address "test@example.org"')
             ->then('the result indicates success')
@@ -479,7 +479,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function removingUserByIdSucceeds()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user with the ID "cn=Test Test"')
             ->and('deleting the user with the ID "cn=Test Test"')
             ->then('the result indicates success')
@@ -491,7 +491,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function addedUserCanLogin()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->and('Horde uses the Kolab auth driver')
             ->when('adding a user with the mail address "test@example.org" and password "test"')
             ->and('trying to login to Horde with "test@example.org" and passowrd "test"')
@@ -504,7 +504,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function allowUserWithExtendedObjectClasses()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->and('an extended set of objectclasses')
             ->when('adding a user with the mail address "test@example.org"')
             ->and('fetching user "test@example.org"')
@@ -516,7 +516,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function allowToCheckUserPasswords()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->and('password check enabled')
             ->when('adding a user with the mail address "test@example.org" and password "tosimple"')
             ->then('the result should indicate an error with', 'The user cannot be added: The chosen password is not complex enough!');
@@ -527,7 +527,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function allowToSetAttributeDefaults()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->and('an extended attribute "test" with the default value "test" has been defined')
             ->when('adding a user with the mail address "test@example.org" and an empty attribute "test"')
             ->and('fetching user "test@example.org"')
@@ -541,7 +541,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function allowToSetDomainSpecificAttributeDefaults()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->and('domain "example.org" is served by the Kolab server')
             ->and('domain "example2.org" is served by the Kolab server')
             ->and('an extended attribute "test" with the default value "test" has been defined')
@@ -561,7 +561,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function addedUserHasPreferencesInitialized()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->and('Horde uses the Kolab auth driver')
             ->when('adding a user', $user)
             ->and('trying to login to Horde with "test@example.org" and passowrd "test"')
@@ -575,7 +575,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function userUidsShouldNotResembleTheLocalPartOfMailAddresses()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user "cn=Test Test" with the mail address "test@example.org"')
             ->and('adding a user with the uid "test"')
             ->then('the result should indicate an error with', 'The user cannot be added: The uid "test" matches the local part of the mail address "test@example.org" assigned to user "cn=Test Test"!');
@@ -588,7 +588,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function allowToSetTheMiddleName()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->and('an extended attribute "middleName" has been defined')
             ->when('adding a user with the mail address "test@example.org" and the middle name "Middle"')
             ->and('fetching user "test@example.org"')
@@ -602,7 +602,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function correctlyEscapeApostrophesInNames()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user with the mail address "test@example.org" and the last name "O\'Donnell"')
             ->and('fetching user "test@example.org"')
             ->then('the user name has the attribute "sn" set to "O\'Donnell"');
@@ -615,7 +615,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function allowUserToUseExternalAddressAsSender()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user with the mail address "test@example.org" and the external address "other@doesnotexist.org"')
             ->and('fetching user "test@example.org"')
             ->then('the user has the attribute external address "other@doesnotexist.org"');
@@ -628,7 +628,7 @@ class Horde_Kolab_Server_UserHandlingTest extends Horde_Kolab_Test_Server
      */
     public function allowCustomFullnameHandling()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->and('an extended attribute "middleName" has been defined')
             ->and('custom full name handling has been set to "lastname, firstname middlename"')
             ->when('adding a user with the mail address "test@example.org", the last name "Test", the first name "Test", and the middle name "Middle"')

@@ -30,7 +30,7 @@ require_once 'Horde/Autoloader.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_AddingObjectsTest extends Horde_Kolab_Test_Server
+class Horde_Kolab_Server_AddingObjectsTest extends Horde_Kolab_Server_Scenario
 {
     /**
      * Test adding valid users.
@@ -44,8 +44,11 @@ class Horde_Kolab_Server_AddingObjectsTest extends Horde_Kolab_Test_Server
      */
     public function addingValidUser($user)
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a Kolab server object', $user)
-            ->then('the result should be an object of type', 'Horde_Kolab_Server_Object_Kolab_User');
+            ->then(
+                'the result should be an object of type',
+                'Horde_Kolab_Server_Object_Kolab_User'
+            );
     }
 }

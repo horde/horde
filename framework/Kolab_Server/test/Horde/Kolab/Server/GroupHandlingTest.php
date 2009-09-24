@@ -12,11 +12,9 @@
  */
 
 /**
- *  We need the base class
+ * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'Horde/Kolab/Test/Server.php';
-
-require_once 'Horde/Kolab/Server.php';
+require_once 'Horde/Autoloader.php';
 
 /**
  * Handling groups.
@@ -32,7 +30,7 @@ require_once 'Horde/Kolab/Server.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
+class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Server_Scenario
 {
     /**
      * Test listing groups if there are no groups.
@@ -43,9 +41,11 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function listingGroupsOnEmptyServer()
     {
-        $this->given('an empty Kolab server')
-            ->when('retrieving a hash list with all objects of type',
-                   'Horde_Kolab_Server_Object_Kolabgroupofnames')
+        $this->given('several Kolab servers')
+            ->when(
+                'retrieving a hash list with all objects of type',
+                'Horde_Kolab_Server_Object_Kolabgroupofnames'
+            )
             ->then('the list is an empty array');
     }
 
@@ -61,13 +61,17 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function listingGroups($group_list)
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding an object list', $group_list)
-            ->and('retrieving a hash list with all objects of type',
-                  'Horde_Kolab_Server_Object_Kolabgroupofnames')
+            ->and(
+                'retrieving a hash list with all objects of type',
+                'Horde_Kolab_Server_Object_Kolabgroupofnames'
+            )
             ->then('the result indicates success.')
-            ->and('the list has a number of entries equal to',
-                  count($group_list));
+            ->and(
+                'the list has a number of entries equal to',
+                count($group_list)
+            );
     }
 
     /**
@@ -82,12 +86,16 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function listingGroupsHasAttributeId($group_list)
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding an object list', $group_list)
-            ->and('retrieving a hash list with all objects of type',
-                  'Horde_Kolab_Server_Object_Kolabgroupofnames')
-            ->then('the provided list and the result list match with regard to these attributes',
-                   'mail', 'cn', $group_list);
+            ->and(
+                'retrieving a hash list with all objects of type',
+                'Horde_Kolab_Server_Object_Kolabgroupofnames'
+            )
+            ->then(
+                'the provided list and the result list match with regard to these attributes',
+                'mail', 'cn', $group_list
+            );
     }
 
     /**
@@ -102,12 +110,16 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function listingGroupsHasAttributeMail($group_list)
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding an object list', $group_list)
-            ->and('retrieving a hash list with all objects of type',
-                  'Horde_Kolab_Server_Object_Kolabgroupofnames')
-            ->then('the provided list and the result list match with regard to these attributes',
-                   'mail', 'mail', $group_list);
+            ->and(
+                'retrieving a hash list with all objects of type',
+                'Horde_Kolab_Server_Object_Kolabgroupofnames'
+            )
+            ->then(
+                'the provided list and the result list match with regard to these attributes',
+                'mail', 'mail', $group_list
+            );
     }
 
     /**
@@ -122,12 +134,16 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function listingGroupsHasAttributeVisibility($group_list)
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding an object list', $group_list)
-            ->and('retrieving a hash list with all objects of type',
-                  'Horde_Kolab_Server_Object_Kolabgroupofnames')
-            ->then('each element in the result list has an attribute',
-                   'visible');
+            ->and(
+                'retrieving a hash list with all objects of type',
+                'Horde_Kolab_Server_Object_Kolabgroupofnames'
+            )
+            ->then(
+                'each element in the result list has an attribute',
+                'visible'
+            );
     }
 
     /**
@@ -139,10 +155,12 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function creatingGroupsWithoutMailAddressFails()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a group without a mail address')
-            ->then('the result should indicate an error with',
-                   'Adding object failed: The value for "mail" is missing!');
+            ->then(
+                'the result should indicate an error with',
+                'Adding object failed: The value for "mail" is missing!'
+            );
     }
 
     /**
@@ -154,12 +172,16 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function creatingGroupWithoutVisibilityCreatesVisibleGroup()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding an object', $this->provideGroupWithoutMembers())
-            ->and('retrieving a hash list with all objects of type',
-                  'Horde_Kolab_Server_Object_Kolabgroupofnames')
-            ->then('each element in the result list has an attribute set to a given value',
-                   'visible', true);
+            ->and(
+                'retrieving a hash list with all objects of type',
+                'Horde_Kolab_Server_Object_Kolabgroupofnames'
+            )
+            ->then(
+                'each element in the result list has an attribute set to a given value',
+                'visible', true
+            );
     }
 
     /**
@@ -171,11 +193,13 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function modifyingGroupMailAddressIsNotAllowed()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a group with the mail address "test@example.org"')
             ->and('modifying the mail address to "new@example.org"')
-            ->then('the result should indicate an error with',
-                   'The group cannot be modified: Changing the mail address from "test@example.org" to "new@example.org" is not allowed!');
+            ->then(
+                'the result should indicate an error with',
+                'The group cannot be modified: Changing the mail address from "test@example.org" to "new@example.org" is not allowed!'
+            );
     }
 
     /**
@@ -187,25 +211,30 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function conflictBetweenGroupMailAndUserMailIsNotAllowed()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a group with the mail address "test@example.org"')
             ->and('adding a user "Test Test" with the mail address "test@example.org"')
-            ->then('the result should indicate an error with',
-                   'The user cannot be added: Mail address "test@example.org" is already the mail address for the group "test@example.org"!');
+            ->then(
+                'the result should indicate an error with',
+                'The user cannot be added: Mail address "test@example.org" is already the mail address for the group "test@example.org"!'
+            );
     }
 
     /**
+     *
      * @scenario
      *
      * @return NULL
      */
     public function conflictBetweenUserMailAndGroupMailIsNotAllowed()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user "Test Test" with the mail address "test@example.org"')
             ->and('adding a group with the mail address "test@example.org"')
-            ->then('the result should indicate an error with',
-                   'The group cannot be added: Mail address "test@example.org" is already the mail address of the user "Test Test"!');
+            ->then(
+                'the result should indicate an error with',
+                'The group cannot be added: Mail address "test@example.org" is already the mail address of the user "Test Test"!'
+            );
     }
 
     /**
@@ -213,11 +242,13 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function conflictBetweenGroupMailAndUserAliasIsNotAllowed()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a group with the mail address "test@example.org"')
             ->and('adding a user with the alias address "test@example.org"')
-            ->then('the result should indicate an error with',
-                   'The user cannot be added: Alias address "test@example.org" is already the mail address of the group "test@example.org"!');
+            ->then(
+                'the result should indicate an error with',
+                'The user cannot be added: Alias address "test@example.org" is already the mail address of the group "test@example.org"!'
+            );
     }
 
     /**
@@ -225,11 +256,13 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function conflictBetweenUserAliasAndGroupMailIsNotAllowed()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user "Test Test" with the alias address "test@example.org"')
             ->and('adding a group with the mail address "test@example.org"')
-            ->then('the result should indicate an error with',
-                   'The group cannot be added: Mail address "test@example.org" is already the alias address of the user "Test Test"!');
+            ->then(
+                'the result should indicate an error with',
+                'The group cannot be added: Mail address "test@example.org" is already the alias address of the user "Test Test"!'
+            );
     }
 
     /**
@@ -239,7 +272,7 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function showGroupsWhenFetchingTheUser()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user "cn=Test Test" with the mail address "test@example.org"')
             ->and('adding a group with the mail address "testgroup@example.org" and the member "cn=Test Test"')
             ->and('fetching the user "test@example.org"')
@@ -252,7 +285,7 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function allowAddingUserToGroup()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a group with the mail address "testgroup@example.org"')
             ->and('adding a user "cn=Test Test" with the mail address "test@example.org"')
             ->and('modifying group with the mail address "testgroup@example.org" to contain the member "cn=Test Test".')
@@ -266,7 +299,7 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function allowAddingUserToGroupWhenCreatingUser()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a group with the mail address "testgroup@example.org"')
             ->and('adding a user "cn=Test Test" with the mail address "test@example.org" and member of "testgroup@example.org"')
             ->and('fetching the groups "group@example.org"')
@@ -279,7 +312,7 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function allowRemovingUserFromGroup()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user "cn=Test Test" with the mail address "test@example.org"')
             ->and('adding a group with the mail address "testgroup@example.org" and the member "cn=Test Test"')
             ->and('modifying group with the mail address "testgroup@example.org" to contain no members.')
@@ -293,7 +326,7 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function deletingUserRemovesUserFromAllDistributionLists()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user "cn=Test Test" with the mail address "test@example.org"')
             ->and('adding a group with the mail address "testgroup@example.org" and the member "cn=Test Test"')
             ->and('adding a group with the mail address "testgroup2@example.org" and the member "cn=Test Test"')
@@ -309,7 +342,7 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function modifyingUserIDDoesNotChangeGroupMembership()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a user "cn=Test Test" with the mail address "test@example.org"')
             ->and('adding a group with the mail address "testgroup@example.org" and the member "cn=Test Test"')
             ->and('modifying user "cn=Test Test" to ID "cn=Test2 Test"')
@@ -322,10 +355,13 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function addingGroupInUndefinedDomainIsNotAllowed()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->and('the only served mail domain is "example.org"')
             ->when('adding a group with the mail address "test@doesnotexist.org"')
-            ->then('the result should indicate an error with', 'The group cannot be added: Domain "doesnotexist.org" is not being handled by this server!');
+            ->then(
+                'the result should indicate an error with',
+                'The group cannot be added: Domain "doesnotexist.org" is not being handled by this server!'
+            );
     }
 
     /**
@@ -336,9 +372,12 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function disallowInvalidMailAddresses($address)
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a group with an invalid mail address', $address)
-            ->then('the result should indicate an error with', "The group cannot be added: Address \"$address\" is not a valid mail address!");
+            ->then(
+                'the result should indicate an error with',
+                "The group cannot be added: Address \"$address\" is not a valid mail address!"
+            );
     }
 
     /**
@@ -346,7 +385,7 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function objectAttributeDescriptionsCanBeRetrieved()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('retrieving the supported attributes by the object type "group"')
             ->then('the result is an array of Horde attribute descriptions')
             ->and('contains the description of "members"');
@@ -357,10 +396,13 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function removingGroupFailsIfGroupDoesNotExist()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a group with the mail address "group@example.org"')
             ->and('deleting the group with the mail address "group@example.org"')
-            ->then('the result should indicate an error with', 'The group cannot be deleted: Group "group@example.org" does not exist!');
+            ->then(
+                'the result should indicate an error with',
+                'The group cannot be deleted: Group "group@example.org" does not exist!'
+            );
     }
 
     /**
@@ -368,7 +410,7 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function removingGroupByMailSucceeds()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a group with the mail address "test@example.org"')
             ->and('deleting the group with mail address "test@example.org"')
             ->then('the result indicates success')
@@ -382,10 +424,13 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function userUidsShouldNotResembleTheLocalPartOfMailAddresses()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a group with the mail address "test@example.org"')
             ->and('adding a user with the uid "test"')
-            ->then('the result should indicate an error with', 'The user cannot be added: The uid "test" matches the local part of the mail address "test@example.org" assigned to group "test@example.org"!');
+            ->then(
+                'the result should indicate an error with',
+                'The user cannot be added: The uid "test" matches the local part of the mail address "test@example.org" assigned to group "test@example.org"!'
+            );
     }
 
     /**
@@ -395,7 +440,7 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function addedUserCanLoginIfInAllowedGroup()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->and('Horde uses the Kolab auth driver')
             ->and('only members of group "testgroup@example.org" are allowed')
             ->when('adding a user "cn=Test Test" with the mail address "test@example.org" and password "test"')
@@ -412,7 +457,7 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function addedUserCannotLoginIfInNotInAllowedGroup()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->and('Horde uses the Kolab auth driver')
             ->and('only members of group "testgroup@example.org" are allowed')
             ->when('adding a user "cn=Test Test" with the mail address "test@example.org" and password "test"')
@@ -428,7 +473,7 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function addedUserCanLoginIfInNotInDisallowedGroup()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->and('Horde uses the Kolab auth driver')
             ->and('members of group "testgroup@example.org" may not login')
             ->when('adding a user "cn=Test Test" with the mail address "test@example.org" and password "test"')
@@ -445,7 +490,7 @@ class Horde_Kolab_Server_GroupHandlingTest extends Horde_Kolab_Test_Server
      */
     public function addedUserCannotLoginIfInDisallowedGroup()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->and('Horde uses the Kolab auth driver')
             ->and('members of group "testgroup@example.org" may not login')
             ->when('adding a user "cn=Test Test" with the mail address "test@example.org" and password "test"')

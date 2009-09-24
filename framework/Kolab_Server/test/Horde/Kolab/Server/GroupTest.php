@@ -30,7 +30,7 @@ require_once 'Horde/Autoloader.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_GroupTest extends Horde_Kolab_Test_Server
+class Horde_Kolab_Server_GroupTest extends Horde_Kolab_Server_Scenario
 {
 
     /**
@@ -40,7 +40,7 @@ class Horde_Kolab_Server_GroupTest extends Horde_Kolab_Test_Server
      */
     protected function setUp()
     {
-        $this->ldap = $this->prepareEmptyKolabServer();
+        $this->ldap = $this->getKolabMockServer();
     }
 
     /**
@@ -65,9 +65,14 @@ class Horde_Kolab_Server_GroupTest extends Horde_Kolab_Test_Server
     public function testGenerateId()
     {
         $groups = $this->validGroups();
-        $user = new Horde_Kolab_Server_Object_Kolabgroupofnames($this->ldap, null, $groups[0][0]);
+        $user = new Horde_Kolab_Server_Object_Kolabgroupofnames($this->ldap,
+                                                                null,
+                                                                $groups[0][0]);
         $this->assertNoError($user);
-        $this->assertEquals('cn=empty.group@example.org,dc=example,dc=org', $user->get(Horde_Kolab_Server_Object::ATTRIBUTE_UID));
+        $this->assertEquals(
+            'cn=empty.group@example.org,dc=example,dc=org',
+            $user->get(Horde_Kolab_Server_Object::ATTRIBUTE_UID)
+        );
     }
 
     /**
@@ -81,7 +86,10 @@ class Horde_Kolab_Server_GroupTest extends Horde_Kolab_Test_Server
 
         $group = $this->ldap->fetch('cn=empty.group@example.org,dc=example,dc=org');
         $this->assertNoError($group);
-        $this->assertEquals('Horde_Kolab_Server_Object_Kolabgroupofnames', get_class($group));
+        $this->assertEquals(
+            'Horde_Kolab_Server_Object_Kolabgroupofnames',
+            get_class($group)
+        );
     }
 
     /**
@@ -115,20 +123,26 @@ class Horde_Kolab_Server_GroupTest extends Horde_Kolab_Test_Server
     {
         $this->assertEquals(0, count($GLOBALS['KOLAB_SERVER_TEST_DATA']));
 
-        $result = $this->ldap->search('(&(!(cn=domains))(objectClass=kolabGroupOfNames))',
-                                      array(),
-                                      $this->ldap->getBaseUid());
+        $result = $this->ldap->search(
+            '(&(!(cn=domains))(objectClass=kolabGroupOfNames))',
+            array(),
+            $this->ldap->getBaseUid()
+        );
         $this->assertEquals(0, count($result));
 
         $this->_addValidGroups();
 
         $this->assertEquals(3, count($GLOBALS['KOLAB_SERVER_TEST_DATA']));
-        $result = $this->ldap->search('(&(!(cn=domains))(objectClass=kolabGroupOfNames))',
-                                      array(),
-                                      $this->ldap->getBaseUid());
+        $result = $this->ldap->search(
+            '(&(!(cn=domains))(objectClass=kolabGroupOfNames))',
+            array(),
+            $this->ldap->getBaseUid()
+        );
         $this->assertEquals(3, count($result));
 
-        $list = $this->ldap->listObjects('Horde_Kolab_Server_Object_Kolabgroupofnames');
+        $list = $this->ldap->listObjects(
+            'Horde_Kolab_Server_Object_Kolabgroupofnames'
+        );
         $this->assertNoError($list);
         $this->assertEquals(3, count($list));
     }

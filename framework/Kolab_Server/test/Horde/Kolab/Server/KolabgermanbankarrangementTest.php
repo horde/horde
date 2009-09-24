@@ -30,7 +30,7 @@ require_once 'Horde/Autoloader.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_KolabgermanbankarrangementTest extends Horde_Kolab_Test_Server
+class Horde_Kolab_Server_KolabgermanbankarrangementTest extends Horde_Kolab_Server_Scenario
 {
     /**
      * Objects used within this test
@@ -54,132 +54,121 @@ class Horde_Kolab_Server_KolabgermanbankarrangementTest extends Horde_Kolab_Test
     );
 
     /**
-     * Provide different server types.
+     * Set up testing.
      *
-     * @return array The different server types.
+     * @return NULL
      */
-    public function &provideServers()
+    protected function setUp()
     {
-        $servers = array();
-        /**
-         * We always use the test server
-         */
-        $servers[] = array($this->prepareEmptyKolabServer());
-        if (false) {
-            $real = $this->prepareLdapKolabServer();
-            if (!empty($real)) {
-                $servers[] = array($real);
-            }
-        }
-        return $servers;
+        $this->initializeEnvironments();
+        $this->servers = $this->getKolabServers();
     }
 
     /**
      * Test ID generation for a person.
      *
-     * @dataProvider provideServers
-     *
      * @return NULL
      */
-    public function testGenerateId($server)
+    public function testGenerateId()
     {
-        $person = $this->assertAdd($server, $this->objects[0],
-                                   array(Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_SID => ''));
-        $account_data = $this->objects[1];
-        $account_data[Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_OWNERUID] = $person->getUid();
-        $a = new Horde_Kolab_Server_Object_Kolabgermanbankarrangement($server, null, $account_data);
-        $this->assertContains(Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_NUMBER . '=' . $this->objects[1][Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_NUMBER],
-                              $a->get(Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_UID));
+        foreach ($this->servers as $server) {
+            $person = $this->assertAdd($server, $this->objects[0],
+                                       array(Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_SID => ''));
+            $account_data = $this->objects[1];
+            $account_data[Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_OWNERUID] = $person->getUid();
+            $a = new Horde_Kolab_Server_Object_Kolabgermanbankarrangement($server, null, $account_data);
+            $this->assertContains(Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_NUMBER . '=' . $this->objects[1][Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_NUMBER],
+                                  $a->get(Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_UID));
+        }
     }
 
     /**
      * Test adding an invalid Account.
      *
-     * @dataProvider provideServers
      * @expectedException Horde_Kolab_Server_Exception
      *
      * @return NULL
      */
-    public function testAddInvalidAccount($server)
+    public function testAddInvalidAccount()
     {
-        $result = $server->add($this->objects[1]);
+        $this->addToServers($this->objects[1]);
     }
 
     /**
      * Test handling easy attributes.
      *
-     * @dataProvider provideServers
-     *
      * @return NULL
      */
-    public function testEasyAttributes($server)
+    public function testEasyAttributes()
     {
-        $person = $this->assertAdd($server, $this->objects[0],
-                                   array(Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_SID => ''));
-        $account_data = $this->objects[1];
-        $account_data[Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_OWNERUID] = $person->getUid();
-        $account = $this->assertAdd($server, $account_data,
-                                    array(Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_OWNERUID => $person->getUid()));
-        $this->assertEasyAttributes($account, $server,
-                                    array(
-                                        Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_HOLDER => array(
-                                            'something',
-                                            'somewhere',
-                                            null,
-                                            array('a', 'b'),
-                                            '',
-                                        ),
-                                        Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_BANKNAME => array(
-                                            'something',
-                                            'somewhere',
-                                            null,
-                                            array('a', 'b'),
-                                            '',
-                                        ),
-                                        Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_INFO => array(
-                                            'something',
-                                            'somewhere',
-                                            null,
-                                            array('a', 'b'),
-                                            '',
-                                        ),
-                                    )
-        );
+        foreach ($this->servers as $server) {
+            $person = $this->assertAdd($server, $this->objects[0],
+                                       array(Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_SID => ''));
+            $account_data = $this->objects[1];
+            $account_data[Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_OWNERUID] = $person->getUid();
+            $account = $this->assertAdd($server, $account_data,
+                                        array(Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_OWNERUID => $person->getUid()));
+            $this->assertEasyAttributes($account, $server,
+                                        array(
+                                            Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_HOLDER => array(
+                                                'something',
+                                                'somewhere',
+                                                null,
+                                                array('a', 'b'),
+                                                '',
+                                            ),
+                                            Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_BANKNAME => array(
+                                                'something',
+                                                'somewhere',
+                                                null,
+                                                array('a', 'b'),
+                                                '',
+                                            ),
+                                            Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_INFO => array(
+                                                'something',
+                                                'somewhere',
+                                                null,
+                                                array('a', 'b'),
+                                                '',
+                                            ),
+                                        )
+            );
+        }
     }
 
     /**
      * Test modifying the account number of an account. This should have an
      * effect on the UID of the object and needs to rename the object.
      *
-     * @dataProvider provideServers
-     *
      * @return NULL
      */
-    public function testModifyAccountNumber($server)
+    public function testModifyAccountNumber()
     {
-        $person = $this->assertAdd($server, $this->objects[0],
-                                   array(Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_SID => ''));
-        $account_data = $this->objects[1];
-        $account_data[Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_OWNERUID] = $person->getUid();
-        $account = $server->add($account_data);
-        $this->assertNoError($account);
+        foreach ($this->servers as $server) {
+            $person = $this->assertAdd($server, $this->objects[0],
+                                       array(Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_SID => ''));
+            $account_data = $this->objects[1];
+            $account_data[Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_OWNERUID] = $person->getUid();
+            $account = $server->add($account_data);
+            $this->assertNoError($account);
 
-        $account = $server->fetch($account->getUid());
-        $this->assertNoError($account);
+            $account = $server->fetch($account->getUid());
+            $this->assertNoError($account);
 
-        $this->assertEquals($this->objects[1][Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_NUMBER],
-                            $account->get(Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_NUMBER));
+            $this->assertEquals($this->objects[1][Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_NUMBER],
+                                $account->get(Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_NUMBER));
 
-        $result = $account->save(array(Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_NUMBER => '66666666'));
-        $this->assertNoError($result);
+            $result = $account->save(array(Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_NUMBER => '66666666'));
+            $this->assertNoError($result);
 
-        $account = $server->fetch($account->getUid());
-        $this->assertNoError($account);
+            $account = $server->fetch($account->getUid());
+            $this->assertNoError($account);
 
-        $this->assertEquals($account->get(Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_NUMBER),
-                            '66666666');
+            $this->assertEquals($account->get(Horde_Kolab_Server_Object_Kolabgermanbankarrangement::ATTRIBUTE_NUMBER),
+                                '66666666');
 
-        $result = $server->delete($account->getUid());
-        $this->assertNoError($result);
+            $result = $server->delete($account->getUid());
+            $this->assertNoError($result);
+        }
     }
 }

@@ -30,7 +30,7 @@ require_once 'Horde/Autoloader.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_AdminTest extends Horde_Kolab_Test_Server
+class Horde_Kolab_Server_AdminTest extends Horde_Kolab_Server_Scenario
 {
 
     /**
@@ -40,7 +40,7 @@ class Horde_Kolab_Server_AdminTest extends Horde_Kolab_Test_Server
      */
     protected function setUp()
     {
-        $this->ldap = $this->prepareEmptyKolabServer();
+        $this->server = $this->getKolabMockServer();
     }
 
     /**
@@ -50,9 +50,7 @@ class Horde_Kolab_Server_AdminTest extends Horde_Kolab_Test_Server
      */
     private function _addValidAdmin()
     {
-        $admin  = $this->provideBasicAdmin();
-        $result = $this->ldap->add($admin);
-        $this->assertNoError($result);
+        $this->addToServers($this->provideBasicAdmin());
     }
 
     /**
@@ -63,10 +61,12 @@ class Horde_Kolab_Server_AdminTest extends Horde_Kolab_Test_Server
     public function testGenerateId()
     {
         $admin = $this->provideBasicAdmin();
-        $this->assertNoError($admin);
-        $user = new Horde_Kolab_Server_Object_Kolab_Administrator($this->ldap, null, $admin);
-        $this->assertNoError($user);
-        $this->assertEquals('cn=The Administrator,dc=example,dc=org', $user->get(Horde_Kolab_Server_Object::ATTRIBUTE_UID));
+        $user  = new Horde_Kolab_Server_Object_Kolab_Administrator($this->server,
+                                                                   null, $admin);
+        $this->assertEquals(
+            'cn=The Administrator,dc=example,dc=org',
+            $user->get(Horde_Kolab_Server_Object::ATTRIBUTE_UID)
+        );
     }
 
     /**
@@ -79,20 +79,25 @@ class Horde_Kolab_Server_AdminTest extends Horde_Kolab_Test_Server
         $this->_addValidAdmin();
 
         $this->assertEquals(2, count($GLOBALS['KOLAB_SERVER_TEST_DATA']));
-        $this->assertContains('cn=admin,cn=internal,dc=example,dc=org',
-                              array_keys($GLOBALS['KOLAB_SERVER_TEST_DATA']));
+        $this->assertContains(
+            'cn=admin,cn=internal,dc=example,dc=org',
+            array_keys($GLOBALS['KOLAB_SERVER_TEST_DATA'])
+        );
 
-        $administrators = $this->ldap->getGroups('cn=The Administrator,dc=example,dc=org');
-        $this->assertNoError($administrators);
+        $administrators = $this->server->getGroups(
+            'cn=The Administrator,dc=example,dc=org'
+        );
+        $admin_group    = $this->server->fetch(
+            'cn=admin,cn=internal,dc=example,dc=org'
+        );
 
-        $admin_group = $this->ldap->fetch('cn=admin,cn=internal,dc=example,dc=org');
-        $this->assertNoError($admin_group);
         $this->assertTrue($admin_group->exists());
 
-        $admin = $this->ldap->fetch('cn=The Administrator,dc=example,dc=org');
-        $this->assertNoError($admin);
-        $this->assertEquals('Horde_Kolab_Server_Object_Kolab_Administrator',
-                            get_class($admin));
+        $admin = $this->server->fetch('cn=The Administrator,dc=example,dc=org');
+        $this->assertEquals(
+            'Horde_Kolab_Server_Object_Kolab_Administrator',
+            get_class($admin)
+        );
     }
 
     /**
@@ -104,11 +109,9 @@ class Horde_Kolab_Server_AdminTest extends Horde_Kolab_Test_Server
     {
         $this->_addValidAdmin();
 
-        $admin = $this->ldap->fetch('cn=The Administrator,dc=example,dc=org');
-        $this->assertNoError($admin);
-
-        $hash = $admin->toHash();
-        $this->assertNoError($hash);
+        $hash = $this->server->fetch(
+            'cn=The Administrator,dc=example,dc=org'
+        )->toHash();
         $this->assertContains('uid', array_keys($hash));
         $this->assertContains('lnfn', array_keys($hash));
         $this->assertEquals('admin', $hash['uid']);
@@ -123,12 +126,14 @@ class Horde_Kolab_Server_AdminTest extends Horde_Kolab_Test_Server
     {
         $this->_addValidAdmin();
 
-        $entries = $this->ldap->search('(&(cn=*)(objectClass=inetOrgPerson)(!(uid=manager))(sn=*))');
-        $this->assertNoError($entries);
+        $entries = $this->server->search(
+            '(&(cn=*)(objectClass=inetOrgPerson)(!(uid=manager))(sn=*))'
+        );
         $this->assertEquals(1, count($entries));
 
-        $list = $this->ldap->listObjects('Horde_Kolab_Server_Object_Kolab_Administrator');
-        $this->assertNoError($list);
+        $list = $this->server->listObjects(
+            'Horde_Kolab_Server_Object_Kolab_Administrator'
+        );
         $this->assertEquals(1, count($list));
     }
 

@@ -30,7 +30,7 @@ require_once 'Horde/Autoloader.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_OrgPersonTest extends Horde_Kolab_Test_Server
+class Horde_Kolab_Server_OrgPersonTest extends Horde_Kolab_Server_Scenario
 {
     /**
      * Objects used within this test
@@ -54,137 +54,126 @@ class Horde_Kolab_Server_OrgPersonTest extends Horde_Kolab_Test_Server
     );
 
     /**
-     * Provide different server types.
+     * Set up testing.
      *
-     * @return array The different server types.
+     * @return NULL
      */
-    public function &provideServers()
+    protected function setUp()
     {
-        $servers = array();
-        /**
-         * We always use the test server
-         */
-        $servers[] = array($this->prepareEmptyKolabServer());
-        if (false) {
-            $real = $this->prepareLdapKolabServer();
-            if (!empty($real)) {
-                $servers[] = array($real);
-            }
-        }
-        return $servers;
+        $this->initializeEnvironments();
+        $this->servers = $this->getKolabServers();
     }
 
     /**
      * Test ID generation for a person.
      *
-     * @dataProvider provideServers
-     *
      * @return NULL
      */
-    public function testGenerateId($server)
+    public function testGenerateId()
     {
-        $a = new Horde_Kolab_Server_Object_Organizationalperson($server, null, $this->objects[0]);
-        $this->assertContains(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN . '=' . $this->objects[0][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN],
-                              $a->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_UID));
+        foreach ($this->servers as $server) {
+            $a = new Horde_Kolab_Server_Object_Organizationalperson($server, null, $this->objects[0]);
+            $this->assertContains(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN . '=' . $this->objects[0][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN],
+                                  $a->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_UID));
+        }
     }
 
     /**
      * Test adding an invalid person.
      *
-     * @dataProvider provideServers
      * @expectedException Horde_Kolab_Server_Exception
      *
      * @return NULL
      */
-    public function testAddInvalidPerson($server)
+    public function testAddInvalidPerson()
     {
-        $result = $server->add($this->objects[1]);
+        $this->addToServers($this->objects[1]);
     }
 
     /**
      * Test handling simple attributes.
      *
-     * @dataProvider provideServers
-     *
      * @return NULL
      */
-    public function testSimpleAttributes($server)
+    public function testSimpleAttributes()
     {
-        $person = $this->assertAdd($server, $this->objects[0],
-                                   array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_JOBTITLE => ''));
-        $this->assertSimpleAttributes($person, $server,
-                                      array(
-                                      ));
+        foreach ($this->servers as $server) {
+            $person = $this->assertAdd($server, $this->objects[0],
+                                       array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_JOBTITLE => ''));
+            $this->assertSimpleAttributes($person, $server,
+                                          array(
+                                          ));
+        }
     }
 
     /**
      * Test handling the postal address.
      *
-     * @dataProvider provideServers
-     *
      * @return NULL
      */
-    public function testHandlingAPostalAddress($server)
+    public function testHandlingAPostalAddress()
     {
-        $person = $this->assertAdd($server, $this->objects[0],
-                                   array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => 'Kolab_Server_OrgPersonTest_123$$ '));
+        foreach ($this->servers as $server) {
+            $person = $this->assertAdd($server, $this->objects[0],
+                                       array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => 'Kolab_Server_OrgPersonTest_123$$ '));
 
-        $this->assertStoreFetch($person, $server,
-                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_SN => 'Kolab_Server_OrgPersonTest_456'),
-                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => array('Kolab_Server_OrgPersonTest_456$$ ')));
+            $this->assertStoreFetch($person, $server,
+                                    array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_SN => 'Kolab_Server_OrgPersonTest_456'),
+                                    array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => array('Kolab_Server_OrgPersonTest_456$$ ')));
 
-        $this->assertStoreFetch($person, $server,
-                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_SN => 'Kolab_Server_OrgPersonTest_123',
-                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_STREET => 'Street 1',
-                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALCODE => '12345',
-                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_CITY => 'Nowhere'),
-                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => array('Kolab_Server_OrgPersonTest_123$Street 1$12345 Nowhere')));
-        $this->assertStoreFetch($person, $server,
-                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTOFFICEBOX => 'öäü/)(="§%$&§§$\'*',
-                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_STREET => null),
-                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => array('Kolab_Server_OrgPersonTest_123$öäü/)(="§%\24&§§\24\'*$12345 Nowhere')));
+            $this->assertStoreFetch($person, $server,
+                                    array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_SN => 'Kolab_Server_OrgPersonTest_123',
+                                          Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_STREET => 'Street 1',
+                                          Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALCODE => '12345',
+                                          Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_CITY => 'Nowhere'),
+                                    array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => array('Kolab_Server_OrgPersonTest_123$Street 1$12345 Nowhere')));
+            $this->assertStoreFetch($person, $server,
+                                    array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTOFFICEBOX => 'öäü/)(="§%$&§§$\'*',
+                                          Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_STREET => null),
+                                    array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => array('Kolab_Server_OrgPersonTest_123$öäü/)(="§%\24&§§\24\'*$12345 Nowhere')));
 
-        $this->assertStoreFetch($person, $server,
-                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_STREET => null,
-                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALCODE => null,
-                                      //FIXME: Why does this need a string?
-                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => '',
-                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTOFFICEBOX => null,
-                                      Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_CITY => null),
-                                array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => array('Kolab_Server_OrgPersonTest_123$$ ')));
+            $this->assertStoreFetch($person, $server,
+                                    array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_STREET => null,
+                                          Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALCODE => null,
+                                          //FIXME: Why does this need a string?
+                                          Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => '',
+                                          Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTOFFICEBOX => null,
+                                          Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_CITY => null),
+                                    array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => array('Kolab_Server_OrgPersonTest_123$$ ')));
+        }
     }
 
 
     /**
      * Test handling easy attributes.
      *
-     * @dataProvider provideServers
-     *
      * @return NULL
      */
-    public function testEasyAttributes($server)
+    public function testEasyAttributes()
     {
-        $person = $this->assertAdd($server, $this->objects[0],
-                                   array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_JOBTITLE => ''));
-        $this->assertEasyAttributes($person, $server,
-                                    array(
-                                        Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_JOBTITLE => array(
-                                            'Teacher',
-                                            '0',
-                                            'Something',
-                                            null,
-                                            '',
-                                            array('This', 'That'),
-                                        ),
-                                        Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_FAX => array(
-                                            '123456789',
-                                            '+1234567890',
-                                            array('1', '2'),
-                                            '0',
-                                            //FIXME: How to delete?
-                                            //null
+        foreach ($this->servers as $server) {
+            $person = $this->assertAdd($server, $this->objects[0],
+                                       array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_JOBTITLE => ''));
+            $this->assertEasyAttributes($person, $server,
+                                        array(
+                                            Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_JOBTITLE => array(
+                                                'Teacher',
+                                                '0',
+                                                'Something',
+                                                null,
+                                                '',
+                                                array('This', 'That'),
+                                            ),
+                                            Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_FAX => array(
+                                                '123456789',
+                                                '+1234567890',
+                                                array('1', '2'),
+                                                '0',
+                                                //FIXME: How to delete?
+                                                //null
+                                            )
                                         )
-                                    )
-        );
+            );
+        }
     }
 }

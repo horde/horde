@@ -30,7 +30,7 @@ require_once 'Horde/Autoloader.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_ObjectTest extends Horde_Kolab_Test_Server
+class Horde_Kolab_Server_ObjectTest extends Horde_Kolab_Server_Scenario
 {
 
     /**

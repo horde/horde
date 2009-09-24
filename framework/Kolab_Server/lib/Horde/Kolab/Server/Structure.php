@@ -62,37 +62,6 @@ abstract class Horde_Kolab_Server_Structure
     }
 
     /**
-     * Attempts to return a concrete Horde_Kolab_Server_Structure instance based
-     * on $driver.
-     *
-     * @param mixed              $driver  The type of concrete Horde_Kolab_Server
-     *                                    subclass to return.
-     * @param Horde_Kolab_Server &$server A link to the server handler .
-     * @param array              $params  A hash containing any additional
-     *                                    configuration or connection
-     *                                    parameters a subclass might need.
-     *
-     * @return Horde_Kolab_Server_Structure The newly created concrete
-     *                            Horde_Kolab_Server_Structure instance.
-     *
-     * @throws Horde_Kolab_Server_Exception If the requested Horde_Kolab_Server_Structure
-     *                                      subclass could not be found.
-     */
-    static public function &factory($driver, $params = array())
-    {
-        if (class_exists($driver)) {
-            $class = $driver;
-        } else {
-            $class = 'Horde_Kolab_Server_Structure_' . ucfirst(basename($driver));
-            if (!class_exists($class)) {
-                throw new Horde_Kolab_Server_Exception('Structure type definition "' . $class . '" missing.');
-            }
-        }
-        $structure = new $class($params);
-        return $structure;
-    }
-
-    /**
      * Returns the set of objects supported by this structure.
      *
      * @return array An array of supported objects.

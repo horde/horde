@@ -30,7 +30,7 @@ require_once 'Horde/Autoloader.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_KolabinetorgpersonTest extends Horde_Kolab_Test_Server
+class Horde_Kolab_Server_KolabinetorgpersonTest extends Horde_Kolab_Server_Scenario
 {
     /**
      * Objects used within this test
@@ -54,251 +54,240 @@ class Horde_Kolab_Server_KolabinetorgpersonTest extends Horde_Kolab_Test_Server
     );
 
     /**
-     * Provide different server types.
+     * Set up testing.
      *
-     * @return array The different server types.
+     * @return NULL
      */
-    public function &provideServers()
+    protected function setUp()
     {
-        $servers = array();
-        /**
-         * We always use the test server
-         */
-        $servers[] = array($this->prepareEmptyKolabServer());
-        if (false) {
-            $real = $this->prepareLdapKolabServer();
-            if (!empty($real)) {
-                $servers[] = array($real);
-            }
-        }
-        return $servers;
+        $this->initializeEnvironments();
+        $this->servers = $this->getKolabServers();
     }
 
     /**
      * Test ID generation for a person.
      *
-     * @dataProvider provideServers
-     *
      * @return NULL
      */
-    public function testGenerateId($server)
+    public function testGenerateId()
     {
-        $a = new Horde_Kolab_Server_Object_Kolabinetorgperson($server, null, $this->objects[0]);
-        $this->assertContains('Frank Mustermann',
-                              $a->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_UID));
+        foreach ($this->servers as $server) {
+            $a = new Horde_Kolab_Server_Object_Kolabinetorgperson($server, null, $this->objects[0]);
+            $this->assertContains('Frank Mustermann',
+                                  $a->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_UID));
+        }
     }
 
     /**
      * Test adding an invalid person.
      *
-     * @dataProvider provideServers
      * @expectedException Horde_Kolab_Server_Exception
      *
      * @return NULL
      */
-    public function testAddInvalidPerson($server)
+    public function testAddInvalidPerson()
     {
-        $result = $server->add($this->objects[1]);
+        $this->addToServers($this->objects[1]);
     }
 
     /**
      * Test handling easy attributes.
      *
-     * @dataProvider provideServers
-     *
      * @return NULL
      */
-    public function testEasyAttributes($server)
+    public function testEasyAttributes()
     {
-        $person = $this->assertAdd($server, $this->objects[0],
-                                   array(Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_SID => ''));
-        $this->assertEasyAttributes($person, $server,
-                                    array(
-                                        Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_GERMANTAXID => array(
-                                            '01234567890123456789',
-                                            '0',
-                                            '101',
-                                            null,
-                                            'DE',
-                                            array('101', '202'),
-                                        ),
-                                        Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_HOMESERVER => array(
-                                            'a.b.c',
-                                            '',
-                                            'jodeldodel',
-                                            null,
-                                            array('a.example.com', 'b.example.com'),
-                                        ),
-                                        Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_QUOTA => array(
-                                            '100',
-                                            null,
-                                            array('0', '1000'),
-                                        ),
-                                        Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_ALLOWEDRECIPIENTS => array(
-                                            '-a@example.com', 
-                                            '',
-                                            array('a', 'b'),
-                                            null,
-                                            '0'
-                                        ),
-                                        Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_ALLOWEDFROM => array(
-                                            '-a@example.com', 
-                                            '',
-                                            array('a', 'b'),
-                                            null,
-                                            '0'
-                                        ),
-                                        Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_SALUTATION => array(
-                                            'Herr', 
-                                            'Mrs.',
-                                            null,
-                                            array('Herr', 'Mrs.'),
-                                            '0'
-                                        ),
-                                        Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_GENDER => array(
-                                            '1',
-                                            null,
-                                            '0',
-                                            '2',
-                                        ),
-                                        Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_BIRTHNAME => array(
-                                            'Adam',
-                                            null,
-                                            '',
-                                            '0',
-                                        ),
-                                        Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_PLACEOFBIRTH => array(
-                                            'Jotwede',
-                                            null,
-                                            '',
-                                        ),
-                                        Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_COUNTRY => array(
-                                            'DE',
-                                            'SE',
-                                            null,
-                                            'DE',
-                                        ),
-                                        Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_COUNTRYCITIZENSHIP => array(
-                                            'DE',
-                                            'SE',
-                                            //FIXME: "null" does not work. Why?
-                                            //null,
-                                            'DE',
-                                        ),
-                                        Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_LEGALFORM => array(
-                                            'GmbH',
-                                            'Freelancer',
-                                            null,
-                                            'Freelancer',
-                                        ),
-// FIXME: Undefined in object class
-/*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_REGISTEREDCAPITAL => array( */
-/*                                             '1212121211', */
-/*                                             '0', */
-/*                                             null, */
-/*                                             '' */
-/*                                         ), */
+        foreach ($this->servers as $server) {
+            $person = $this->assertAdd($server, $this->objects[0],
+                                       array(Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_SID => ''));
+            $this->assertEasyAttributes($person, $server,
+                                        array(
+                                            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_GERMANTAXID => array(
+                                                '01234567890123456789',
+                                                '0',
+                                                '101',
+                                                null,
+                                                'DE',
+                                                array('101', '202'),
+                                            ),
+                                            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_HOMESERVER => array(
+                                                'a.b.c',
+                                                '',
+                                                'jodeldodel',
+                                                null,
+                                                array('a.example.com', 'b.example.com'),
+                                            ),
+                                            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_QUOTA => array(
+                                                '100',
+                                                null,
+                                                array('0', '1000'),
+                                            ),
+                                            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_ALLOWEDRECIPIENTS => array(
+                                                '-a@example.com', 
+                                                '',
+                                                array('a', 'b'),
+                                                null,
+                                                '0'
+                                            ),
+                                            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_ALLOWEDFROM => array(
+                                                '-a@example.com', 
+                                                '',
+                                                array('a', 'b'),
+                                                null,
+                                                '0'
+                                            ),
+                                            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_SALUTATION => array(
+                                                'Herr', 
+                                                'Mrs.',
+                                                null,
+                                                array('Herr', 'Mrs.'),
+                                                '0'
+                                            ),
+                                            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_GENDER => array(
+                                                '1',
+                                                null,
+                                                '0',
+                                                '2',
+                                            ),
+                                            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_BIRTHNAME => array(
+                                                'Adam',
+                                                null,
+                                                '',
+                                                '0',
+                                            ),
+                                            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_PLACEOFBIRTH => array(
+                                                'Jotwede',
+                                                null,
+                                                '',
+                                            ),
+                                            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_COUNTRY => array(
+                                                'DE',
+                                                'SE',
+                                                null,
+                                                'DE',
+                                            ),
+                                            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_COUNTRYCITIZENSHIP => array(
+                                                'DE',
+                                                'SE',
+                                                //FIXME: "null" does not work. Why?
+                                                //null,
+                                                'DE',
+                                            ),
+                                            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_LEGALFORM => array(
+                                                'GmbH',
+                                                'Freelancer',
+                                                null,
+                                                'Freelancer',
+                                            ),
+                                            // FIXME: Undefined in object class
+                                            /*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_REGISTEREDCAPITAL => array( */
+                                            /*                                             '1212121211', */
+                                            /*                                             '0', */
+                                            /*                                             null, */
+                                            /*                                             '' */
+                                            /*                                         ), */
 
-// FIXME: Undefined in object class
-/*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_BYLAWURI => array( */
-/*                                             'something', */
-/*                                             'somewhere', */
-/*                                             null, */
-/*                                             array('a', 'b'), */
-/*                                             '', */
-/*                                         ), */
+                                            // FIXME: Undefined in object class
+                                            /*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_BYLAWURI => array( */
+                                            /*                                             'something', */
+                                            /*                                             'somewhere', */
+                                            /*                                             null, */
+                                            /*                                             array('a', 'b'), */
+                                            /*                                             '', */
+                                            /*                                         ), */
 
-//FIXME: Alias support
-/*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_DATEOFINCORPORATION => array( */
-/*                                             '199911220707Z', */
-/*                                         ), */
+                                            //FIXME: Alias support
+                                            /*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_DATEOFINCORPORATION => array( */
+                                            /*                                             '199911220707Z', */
+                                            /*                                         ), */
 
-// FIXME: Undefined in object class
-/*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_LEGALREPRESENTATIONPOLICY => array( */
-/*                                             'something', */
-/*                                             'somewhere', */
-/*                                             null, */
-/*                                             array('a', 'b'), */
-/*                                             '', */
-/*                                         ), */
+                                            // FIXME: Undefined in object class
+                                            /*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_LEGALREPRESENTATIONPOLICY => array( */
+                                            /*                                             'something', */
+                                            /*                                             'somewhere', */
+                                            /*                                             null, */
+                                            /*                                             array('a', 'b'), */
+                                            /*                                             '', */
+                                            /*                                         ), */
 
-                                        Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_VATNUMBER => array(
-                                            'something',
-                                            'somewhere',
-                                            null,
-                                            array('a', 'b'),
-                                        ),
+                                            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_VATNUMBER => array(
+                                                'something',
+                                                'somewhere',
+                                                null,
+                                                array('a', 'b'),
+                                            ),
 
-//FIXME: Undefined
-/*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_OTHERLEGAL => array( */
-/*                                             'something', */
-/*                                             'somewhere', */
-/*                                             null, */
-/*                                             array('a', 'b'), */
-/*                                         ), */
+                                            //FIXME: Undefined
+                                            /*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_OTHERLEGAL => array( */
+                                            /*                                             'something', */
+                                            /*                                             'somewhere', */
+                                            /*                                             null, */
+                                            /*                                             array('a', 'b'), */
+                                            /*                                         ), */
 
-// FIXME: Undefined in object class
-/*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_INLIQUIDATION => array( */
-/*                                             'TRUE', */
-/*                                             'FALSE', */
-/*                                             null, */
-/*                                             array('TRUE', 'FALSE'), */
-/*                                         ), */
+                                            // FIXME: Undefined in object class
+                                            /*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_INLIQUIDATION => array( */
+                                            /*                                             'TRUE', */
+                                            /*                                             'FALSE', */
+                                            /*                                             null, */
+                                            /*                                             array('TRUE', 'FALSE'), */
+                                            /*                                         ), */
 
-// FIXME: Undefined in object class
-/*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_TRTYPE => array( */
-/*                                             'something', */
-/*                                             'somewhere', */
-/*                                             null, */
-/*                                             array('a', 'b'), */
-/*                                         ), */
+                                            // FIXME: Undefined in object class
+                                            /*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_TRTYPE => array( */
+                                            /*                                             'something', */
+                                            /*                                             'somewhere', */
+                                            /*                                             null, */
+                                            /*                                             array('a', 'b'), */
+                                            /*                                         ), */
 
-                                        Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_TRLOCATION => array(
-                                            'something',
-                                            'somewhere',
-                                            null,
-                                            'somewhere',
-                                        ),
+                                            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_TRLOCATION => array(
+                                                'something',
+                                                'somewhere',
+                                                null,
+                                                'somewhere',
+                                            ),
 
-                                        Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_TRIDENTIFIER => array(
-                                            'something',
-                                            'somewhere',
-                                            null,
-                                            'somewhere',
-                                        ),
+                                            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_TRIDENTIFIER => array(
+                                                'something',
+                                                'somewhere',
+                                                null,
+                                                'somewhere',
+                                            ),
 
-// FIXME: Undefined in object class
-/*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_TRURI => array( */
-/*                                             'something', */
-/*                                             'somewhere', */
-/*                                             null, */
-/*                                             array('a', 'b'), */
-/*                                         ), */
+                                            // FIXME: Undefined in object class
+                                            /*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_TRURI => array( */
+                                            /*                                             'something', */
+                                            /*                                             'somewhere', */
+                                            /*                                             null, */
+                                            /*                                             array('a', 'b'), */
+                                            /*                                         ), */
 
-// FIXME: Undefined in object class
-/*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_TRLASTCHANGED => array( */
-/*                                             'something', */
-/*                                             'somewhere', */
-/*                                             null, */
-/*                                             array('a', 'b'), */
-/*                                         ), */
+                                            // FIXME: Undefined in object class
+                                            /*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_TRLASTCHANGED => array( */
+                                            /*                                             'something', */
+                                            /*                                             'somewhere', */
+                                            /*                                             null, */
+                                            /*                                             array('a', 'b'), */
+                                            /*                                         ), */
 
-// FIXME: Undefined in object class
-/*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_DC => array( */
-/*                                             'something', */
-/*                                             'somewhere', */
-/*                                             null, */
-/*                                             array('a', 'b'), */
-/*                                         ), */
+                                            // FIXME: Undefined in object class
+                                            /*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_DC => array( */
+                                            /*                                             'something', */
+                                            /*                                             'somewhere', */
+                                            /*                                             null, */
+                                            /*                                             array('a', 'b'), */
+                                            /*                                         ), */
 
-                                        Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_ALIAS => array(
-                                            'something',
-                                            'somewhere',
-                                            null,
-                                            array('a', 'b'),
-                                        ),
+                                            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_ALIAS => array(
+                                                'something',
+                                                'somewhere',
+                                                null,
+                                                array('a', 'b'),
+                                            ),
 
-                                    )
-        );
+                                        )
+            );
+        }
     }
 }

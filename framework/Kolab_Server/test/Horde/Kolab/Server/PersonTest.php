@@ -30,7 +30,7 @@ require_once 'Horde/Autoloader.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_PersonTest extends Horde_Kolab_Test_Server
+class Horde_Kolab_Server_PersonTest extends Horde_Kolab_Server_Scenario
 {
 
     public $cn = 'Kolab_Server_PersonTest';
@@ -108,181 +108,170 @@ class Horde_Kolab_Server_PersonTest extends Horde_Kolab_Test_Server
     );
 
     /**
-     * Provide different server types.
+     * Set up testing.
      *
-     * @return array The different server types.
+     * @return NULL
      */
-    public function &provideServers()
+    protected function setUp()
     {
-        $servers = array();
-        /**
-         * We always use the test server
-         */
-        $servers[] = array($this->prepareEmptyKolabServer());
-        if (false) {
-            $real = $this->prepareLdapKolabServer();
-            if (!empty($real)) {
-                $servers[] = array($real);
-            }
-        }
-        return $servers;
+        $this->initializeEnvironments();
+        $this->servers = $this->getKolabServers();
     }
 
     /**
      * Test ID generation for a person.
      *
-     * @dataProvider provideServers
-     *
      * @return NULL
      */
-    public function testGenerateId($server)
+    public function testGenerateId()
     {
-        $a = new Horde_Kolab_Server_Object_Person($server, null, $this->objects[0]);
-        $this->assertContains(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN . '=' . $this->objects[0][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN],
-                              $a->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_UID));
+        foreach ($this->servers as $server) {
+            $a = new Horde_Kolab_Server_Object_Person($server, null, $this->objects[0]);
+            $this->assertContains(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN . '=' . $this->objects[0][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN],
+                                  $a->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_UID));
+        }
     }
 
     /**
      * Test adding an invalid person.
      *
-     * @dataProvider provideServers
      * @expectedException Horde_Kolab_Server_Exception
      *
      * @return NULL
      */
-    public function testAddInvalidPerson($server)
+    public function testAddInvalidPerson()
     {
-        $result = $server->add($this->objects[1]);
+        $this->addToServers($this->objects[1]);
     }
 
     /**
      * Test adding a person.
      *
-     * @dataProvider provideServers
-     *
      * @return NULL
      */
-    public function testAddPerson($server)
+    public function testAddPerson()
     {
-        $adds = array(0, 2, 3, 4);
-        foreach ($adds as $add) {
-            $result = $server->add($this->objects[$add]);
-            $this->assertNoError($result);
-            $cn_result = $server->uidForCn($this->objects[$add][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]);
-            $this->assertNoError($cn_result);
-            $dn_parts = Net_LDAP2_Util::ldap_explode_dn($cn_result, array('casefold' => 'lower'));
-            $dnpart = Net_LDAP2_Util::unescape_dn_value($dn_parts[0]);
-            /**
-             * FIXME: I currently do not really understand why the forward slash
-             * is not correctly converted back but I lack the time to analyse it
-             * in detail. The server entry looks okay.
-            */
-            $dnpart = str_replace('\/', '/', $dnpart);
-            $this->assertContains(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN . '=' . $this->objects[$add][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN],
-                                  $dnpart[0]);
-            $result = $server->delete($cn_result);
-            $this->assertNoError($result);
-            $cn_result = $server->uidForCn($this->objects[$add][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]);
-            $this->assertNoError($cn_result);
-            $this->assertFalse($server->uidForCn($this->objects[$add][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]));
+        foreach ($this->servers as $server) {
+            $adds = array(0, 2, 3, 4);
+            foreach ($adds as $add) {
+                $result = $server->add($this->objects[$add]);
+                $this->assertNoError($result);
+                $cn_result = $server->uidForCn($this->objects[$add][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]);
+                $this->assertNoError($cn_result);
+                $dn_parts = Net_LDAP2_Util::ldap_explode_dn($cn_result, array('casefold' => 'lower'));
+                $dnpart = Net_LDAP2_Util::unescape_dn_value($dn_parts[0]);
+                /**
+                 * FIXME: I currently do not really understand why the forward slash
+                 * is not correctly converted back but I lack the time to analyse it
+                 * in detail. The server entry looks okay.
+                 */
+                $dnpart = str_replace('\/', '/', $dnpart);
+                $this->assertContains(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN . '=' . $this->objects[$add][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN],
+                                      $dnpart[0]);
+                $result = $server->delete($cn_result);
+                $this->assertNoError($result);
+                $cn_result = $server->uidForCn($this->objects[$add][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]);
+                $this->assertNoError($cn_result);
+                $this->assertFalse($server->uidForCn($this->objects[$add][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]));
+            }
         }
     }
 
     /**
      * Test modifying the surname of a person.
      *
-     * @dataProvider provideServers
-     *
      * @return NULL
      */
-    public function testModifyPersonSn($server)
+    public function testModifyPersonSn()
     {
-        $person = $this->assertAdd($server, $this->objects[2],
-                                   array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN => $this->objects[2][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]));
-        $this->assertSimpleSequence($person, $server,
-                                    Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN,
-                                    array('modified', 'modified_again'), true);
+        foreach ($this->servers as $server) {
+            $person = $this->assertAdd($server, $this->objects[2],
+                                       array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN => $this->objects[2][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN]));
+            $this->assertSimpleSequence($person, $server,
+                                        Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN,
+                                        array('modified', 'modified_again'), true);
+        }
     }
 
     /**
      * Test modifying the cn of a person. This should have an effect on the UID
      * of the object and needs to rename the object.
      *
-     * @dataProvider provideServers
-     *
      * @return NULL
      */
-    public function testModifyPersonCn($server)
+    public function testModifyPersonCn()
     {
-        $person = $server->add($this->objects[2]);
-        $this->assertNoError($person);
+        foreach ($this->servers as $server) {
+            $person = $server->add($this->objects[2]);
+            $this->assertNoError($person);
 
-        $person = $server->fetch($person->getUid());
+            $person = $server->fetch($person->getUid());
 
-        $this->assertEquals($this->objects[2][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN],
-                            $person->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN));
+            $this->assertEquals($this->objects[2][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN],
+                                $person->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN));
 
-        $result = $person->save(array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN => 'Kolab_Server_PersonTest_äö'));
-        $cn_result = $server->uidForCn('Kolab_Server_PersonTest_äö');
-        $person = $server->fetch($cn_result);
-        $this->assertEquals($person->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN),
-                            'Kolab_Server_PersonTest_äö');
-        $result = $server->delete($cn_result);
-        $this->assertNoError($result);
-        $cn_result = $server->uidForCn('Kolab_Server_PersonTest_äö');
-        $this->assertNoError($cn_result);
-        $this->assertFalse($cn_result);
+            $result = $person->save(array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN => 'Kolab_Server_PersonTest_äö'));
+            $cn_result = $server->uidForCn('Kolab_Server_PersonTest_äö');
+            $person = $server->fetch($cn_result);
+            $this->assertEquals($person->get(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN),
+                                'Kolab_Server_PersonTest_äö');
+            $result = $server->delete($cn_result);
+            $this->assertNoError($result);
+            $cn_result = $server->uidForCn('Kolab_Server_PersonTest_äö');
+            $this->assertNoError($cn_result);
+            $this->assertFalse($cn_result);
+        }
     }
 
     /**
      * Test adding a person with two common names.
      *
-     * @dataProvider provideServers
-     *
      * @return NULL
      */
-    public function testAddDoubleCnPerson($server)
+    public function testAddDoubleCnPerson()
     {
-        $person = $this->assertAdd($server, $this->objects[5],
-                                   array());
+        foreach ($this->servers as $server) {
+            $person = $this->assertAdd($server, $this->objects[5],
+                                       array());
 
-        $cn_result = $server->uidForCn($this->objects[5][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN][0]);
-        $this->assertNoError($cn_result);
-        $dn_parts = Net_LDAP2_Util::ldap_explode_dn($cn_result, array('casefold' => 'lower'));
-        $dnpart = Net_LDAP2_Util::unescape_dn_value($dn_parts[0]);
-        $this->assertContains(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN . '=' . $this->objects[5][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN][0],
-                              $dnpart[0]);
+            $cn_result = $server->uidForCn($this->objects[5][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN][0]);
+            $this->assertNoError($cn_result);
+            $dn_parts = Net_LDAP2_Util::ldap_explode_dn($cn_result, array('casefold' => 'lower'));
+            $dnpart = Net_LDAP2_Util::unescape_dn_value($dn_parts[0]);
+            $this->assertContains(Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN . '=' . $this->objects[5][Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN][0],
+                                  $dnpart[0]);
+        }
     }
 
     /**
      * Test handling a phone number.
      *
-     * @dataProvider provideServers
-     *
      * @return NULL
      */
-    public function testHandlingAPhoneNumaber($server)
+    public function testHandlingAPhoneNumaber()
     {
-        $person = $this->assertAdd($server, $this->objects[7],
-                                   array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_TELNO => ''));
-        $this->assertSimpleSequence($person, $server,
-                                    Horde_Kolab_Server_Object_Person::ATTRIBUTE_TELNO,
-                                    array('123456789', '+1234567890', array('1', '2'), null, '0'), true);
+        foreach ($this->servers as $server) {
+            $person = $this->assertAdd($server, $this->objects[7],
+                                       array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_TELNO => ''));
+            $this->assertSimpleSequence($person, $server,
+                                        Horde_Kolab_Server_Object_Person::ATTRIBUTE_TELNO,
+                                        array('123456789', '+1234567890', array('1', '2'), null, '0'), true);
+        }
     }
 
     /**
      * Test retrrieving a date.
      *
-     * @dataProvider provideServers
-     *
      * @return NULL
      */
-    public function testGetDate($server)
+    public function testGetDate()
     {
-        $person = $this->assertAdd($server, $this->objects[8],
-                                   array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_TELNO => ''));
-	$cdate = $person->get(Horde_Kolab_Server_Object_Person::ATTRDATE_CREATIONDATE);
-	$this->assertEquals('Horde_Date', get_class($cdate));
-	$this->assertEquals('1910-08-03 01:00:00', (string) $cdate);
+        foreach ($this->servers as $server) {
+            $person = $this->assertAdd($server, $this->objects[8],
+                                       array(Horde_Kolab_Server_Object_Person::ATTRIBUTE_TELNO => ''));
+            $cdate = $person->get(Horde_Kolab_Server_Object_Person::ATTRDATE_CREATIONDATE);
+            $this->assertEquals('Horde_Date', get_class($cdate));
+            $this->assertEquals('1910-08-03 01:00:00', (string) $cdate);
+        }
     }
 }

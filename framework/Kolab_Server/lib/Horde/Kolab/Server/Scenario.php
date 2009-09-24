@@ -2,7 +2,6 @@
 /**
  * Base for PHPUnit scenarios.
  *
- *
  * PHP version 5
  *
  * @category Kolab
@@ -20,7 +19,6 @@ require_once 'Horde/Autoloader.php';
 /**
  * Base for PHPUnit scenarios.
  *
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -32,8 +30,21 @@ require_once 'Horde/Autoloader.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Share
  */
-class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
+class Horde_Kolab_Server_Scenario extends PHPUnit_Extensions_Story_TestCase
 {
+    /** The mock environment */
+    const ENVIRONMENT_MOCK = 'mock';
+
+    /** The real server environment */
+    const ENVIRONMENT_REAL = 'real';
+
+    /**
+     * The environments we provide to the test.
+     *
+     * @var array
+     */
+    protected $_environments;
+
     /**
      * Uid of added objects. Should be removed on tearDown.
      *
@@ -53,17 +64,26 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     public function runGiven(&$world, $action, $arguments)
     {
         switch($action) {
+        case 'several injectors':
+            foreach ($this->getEnvironments() as $environment) {
+                $this->prepareInjector($environment);
+            }
+            break;
+        case 'several Kolab servers':
+            foreach ($this->getEnvironments() as $environment) {
+                $this->prepareInjector($environment);
+                $this->prepareKolabServerConfiguration($environment);
+                $this->prepareKolabServer($environment);
+            }
+            break;
+        case 'the test environments':
+            $this->initializeEnvironments();
+            break;
         case 'an empty Kolab server':
-            $world['server'] = &$this->prepareEmptyKolabServer();
+            $world['server'] = $this->prepareKolabServer(self::ENVIRONMENT_MOCK);
             break;
         case 'a basic Kolab server':
-            $world['server'] = &$this->prepareBasicKolabServer();
-            break;
-        case 'the Kolab auth driver has been selected':
-            $world['auth'] = &$this->prepareKolabAuthDriver();
-            break;
-        case 'the current Kolab server':
-            $world['server'] = &$this->prepareCurrentKolabServer();
+            $world['server'] = &$this->prepareBasicKolabServer($world);
             break;
         default:
             return $this->notImplemented($action);
@@ -82,18 +102,12 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     public function runWhen(&$world, $action, $arguments)
     {
         switch($action) {
-        case 'logging in as a user with a password':
-            $world['login'] = $world['auth']->authenticate($arguments[0],
-                                                           array('password' => $arguments[1]));
-            break;
         case 'adding a Kolab server object':
-            $result = $world['server']->add($arguments[0]);
-            $world['result']['add'] = $result;
+            $world['result']['add'] = $this->addToServers($arguments[0]);
             break;
         case 'adding an invalid Kolab server object':
             try {
-                $result = $world['server']->add($arguments[0]);
-                $world['result']['add'] = $result;
+                $world['result']['add'] = $this->addToServers($arguments[0]);
             } catch (Horde_Kolab_Server_Exception $e) {
                 $world['result']['add'] = $e;
             }
@@ -101,7 +115,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
         case 'adding an object list':
             foreach ($arguments[0] as $object) {
                 try {
-                    $result = $world['server']->add($object);
+                    $world['result']['add'][] = $this->addToServers($object);
                 } catch (Horde_Kolab_Server_Exception $e) {
                     $world['result']['add'] = $e;
                     return;
@@ -110,19 +124,23 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
             $world['result']['add'] = true;
             break;
         case 'adding a distribution list':
-            $world['result']['add'] = $world['server']->add($this->provideDistributionList());
+            $world['result']['add'] = $this->addToServers($this->provideDistributionList());
             break;
         case 'listing all users':
-            $world['list'] = $world['server']->listObjects('Horde_Kolab_Server_Object_Kolab_User');
+            $world['list'] = $this->listObjectsOnServer('Horde_Kolab_Server_Object_Kolab_User');
             break;
         case 'listing all groups':
-            $world['list'] = $world['server']->listObjects('Horde_Kolab_Server_Object_Kolabgroupofnames');
+            $world['list'] = $this->listObjectsOnServer('Horde_Kolab_Server_Object_Kolabgroupofnames');
             break;
         case 'listing all objects of type':
-            $world['list'] = $world['server']->listObjects($arguments[0]);
+            $world['list'] = $this->listObjectsOnServer($arguments[0]);
             break;
         case 'retrieving a hash list with all objects of type':
-            $world['list'] = $world['server']->listHash($arguments[0]);
+            $world['list'] = array();
+            foreach ($this->world['injector'] as $injector) {
+                $server = $injector->getInstance('Horde_Kolab_Server');
+                $world['list'][] = $server->listHash($arguments[0]);
+            }
             break;
         default:
             return $this->notImplemented($action);
@@ -145,13 +163,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
             if (!isset($world['result'])) {
                 $this->fail('Did not receive a result!');
             }
-            foreach ($world['result'] as $result) {
-                if ($result instanceOf Horde_Kolab_Server_Exception) {
-                    $this->assertEquals('', $result->getMessage());
-                } else {
-                    $this->assertEquals($arguments[0], get_class($result));
-                }
-            }
+            $this->assertRecursiveType($world['result'], $arguments[0]);
             break;
         case 'the result indicates success.':
             if (!isset($world['result'])) {
@@ -182,7 +194,7 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
             if ($world['list'] instanceOf Horde_Kolab_Server_Exception) {
                 $this->assertEquals('', $world['list']->getMessage());
             } else {
-                $this->assertEquals(array(), $world['list']);
+                $this->assertEquals(array(array()), $world['list']);
             }
             break;
         case 'the list is an empty array':
@@ -207,17 +219,19 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
                     }
                 }
                 $result_vals = array();
-                foreach ($world['list'] as $result_element) {
-                    if (isset($result_element[$arguments[1]])) {
-                        $result_vals[] = $result_element[$arguments[1]];
-                    } else {
-                        $this->fail(sprintf('The result element %s does have no value for %s.',
-                                            print_r($result_element, true),
-                                            print_r($arguments[1])));
+                foreach ($world['list'] as $result_set) {
+                    foreach ($result_set as $result_element) {
+                        if (isset($result_element[$arguments[1]])) {
+                            $result_vals[] = $result_element[$arguments[1]];
+                        } else {
+                            $this->fail(sprintf('The result element %s does have no value for %s.',
+                                                print_r($result_element, true),
+                                                print_r($arguments[1])));
+                        }
                     }
+                    $this->assertEquals(array(),
+                                        array_diff($provided_vals, $result_vals));
                 }
-                $this->assertEquals(array(),
-                                    array_diff($provided_vals, $result_vals));
             }
             break;
         case 'each element in the result list has an attribute':
@@ -225,11 +239,13 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
                 $this->assertEquals('', $world['list']->getMessage());
             } else {
                 $result_vals = array();
-                foreach ($world['list'] as $result_element) {
-                    if (!isset($result_element[$arguments[0]])) {
-                        $this->fail(sprintf('The result element %s does have no value for %s.',
-                                            print_r($result_element, true),
-                                            print_r($arguments[0])));
+                foreach ($world['list'] as $result_set) {
+                    foreach ($result_set as $result_element) {
+                        if (!isset($result_element[$arguments[0]])) {
+                            $this->fail(sprintf('The result element %s does have no value for %s.',
+                                                print_r($result_element, true),
+                                                print_r($arguments[0], true)));
+                        }
                     }
                 }
             }
@@ -239,17 +255,19 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
                 $this->assertEquals('', $world['list']->getMessage());
             } else {
                 $result_vals = array();
-                foreach ($world['list'] as $result_element) {
-                    if (!isset($result_element[$arguments[0]])) {
-                        $this->fail(sprintf('The result element %s does have no value for %s.',
-                                            print_r($result_element, true),
-                                            print_r($arguments[0], true)));
-                    }
-                    if ($result_element[$arguments[0]] != $arguments[1]) {
-                        $this->fail(sprintf('The result element %s has an unexpected value %s for %s.',
-                                            print_r($result_element, true),
-                                            print_r($result_element[$arguments[0]], true),
-                                            print_r($arguments[0], true)));
+                foreach ($world['list'] as $result_set) {
+                    foreach ($result_set as $result_element) {
+                        if (!isset($result_element[$arguments[0]])) {
+                            $this->fail(sprintf('The result element %s does have no value for %s.',
+                                                print_r($result_element, true),
+                                                print_r($arguments[0], true)));
+                        }
+                        if ($result_element[$arguments[0]] != $arguments[1]) {
+                            $this->fail(sprintf('The result element %s has an unexpected value %s for %s.',
+                                                print_r($result_element, true),
+                                                print_r($result_element[$arguments[0]], true),
+                                                print_r($arguments[0], true)));
+                        }
                     }
                 }
             }
@@ -266,105 +284,185 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
         }
     }
 
-  
     /**
-     * Prepare an empty Kolab server.
+     * Identify the environments we want to run our tests in.
      *
-     * @return Horde_Kolab_Server The empty server.
+     * @return array The selected environments.
      */
-    public function &prepareEmptyKolabServer($type = 'Test')
+    public function getEnvironments()
     {
-        global $conf;
-
-        /** Prepare a Kolab test server */
-        $conf['kolab']['server']['driver']             = $type;
-        $conf['kolab']['server']['params']['basedn']   = 'dc=example,dc=org';
-        $conf['kolab']['server']['params']['hashtype'] = 'plain';
-
-        if ($type == 'file') {
-            $conf['kolab']['server']['params']['file'] = Horde::getTempFile('fileTest');
-        }
-
-        $server = Horde_Kolab_Server::singleton();
-
-        /** Ensure we don't use a connection from older tests */
-        $server->clean();
-
-        return $server;
-    }
-
-    /**
-     * Prepare a connection to a real LDAP server.
-     *
-     * @return Horde_Kolab_Server The LDAP server connection.
-     */
-    public function &prepareLdapKolabServer()
-    {
-        $base = getenv('HORDE_BASE');
-        if (!empty($base)) {
-            $config = $base . '/config/kolab.php';
-            if (file_exists($config)) {
-                @include $config; 
-                if (!empty($conf['kolab']['server']['params'])) {
-                    $params = $conf['kolab']['server']['params'];
-                    $params['driver'] = 'ldap';
-                    return Horde_Kolab_Server::singleton($params);
-                }
+        if (empty($this->_environments)) {
+            /** The mock environment provides our basic test scenario */
+            $this->_environments = array(self::ENVIRONMENT_MOCK);
+            $testing = getenv('KOLAB_TEST');
+            if (!empty($testing)) {
+                $this->_environments[] = array(self::ENVIRONMENT_REAL);
             }
         }
-        return false;
+        return $this->_environments;
     }
 
     /**
-     * Provide different server types.
+     * Specifically set the environments we whish to support.
      *
-     * @return array The different server types.
+     * @param array $environments The selected environments.
+     *
+     * @return NULL
      */
-    public function &provideServers()
+    public function setEnvironments($environments)
+    {
+        $this->_environments = $environments;
+    }
+
+    /**
+     * Initialize an environment for 
+     *
+     * @param string $environment The name of the environment.
+     *
+     * @return NULL
+     */
+    public function initializeEnvironments()
+    {
+        foreach ($this->getEnvironments() as $environment) {
+            $this->initializeEnvironment($environment);
+        }
+    }
+
+    /**
+     * Prepare an injector for the given environment.
+     *
+     * @param string $environment The name of the environment.
+     *
+     * @return NULL
+     */
+    public function prepareInjector($environment)
+    {
+        if (!isset($this->world['injector'][$environment])) {
+            $this->world['injector'][$environment] = new Horde_Injector(new Horde_Injector_TopLevel());
+        }
+    }
+
+    /**
+     * Prepare the server configuration for the given environment.
+     *
+     * @param string $environment The name of the environment.
+     *
+     * @return NULL
+     */
+    public function prepareKolabServerConfiguration($environment)
+    {
+        switch ($environment) {
+        case self::ENVIRONMENT_MOCK:
+            /** Prepare a Kolab test server */
+            $config = new stdClass;
+            $config->driver = 'test';
+            $config->params = array(
+                'basedn'   => 'dc=example,dc=org',
+                'hashtype' => 'plain'
+            );
+            $this->world['injector'][$environment]->setInstance('Horde_Kolab_Server_Config', $config);
+            break;
+        default:
+            throw new Horde_Exception('Not implemented!');
+        }
+    }
+
+    /**
+     * Prepare the server for the given environment.
+     *
+     * @param string $environment The name of the environment.
+     *
+     * @return NULL
+     */
+    public function prepareKolabServer($environment)
+    {
+        $this->world['injector'][$environment]->bindFactory('Horde_Kolab_Server_Structure',
+                                                            'Horde_Kolab_Server_Factory',
+                                                            'getStructure');
+        $this->world['injector'][$environment]->bindFactory('Horde_Kolab_Server',
+                                                            'Horde_Kolab_Server_Factory',
+                                                            'getServer');
+    }
+
+    /**
+     * Get a server from a specific environment.
+     *
+     * @param string $environment The name of the environment.
+     *
+     * @return Horde_Kolab_Server The server.
+     */
+    public function getKolabServer($environment)
+    {
+        return $this->world['injector'][$environment]->getInstance('Horde_Kolab_Server');
+    }
+
+    /**
+     * Initialize the given environment.
+     *
+     * @param string $environment The name of the environment.
+     *
+     * @return NULL
+     */
+    public function initializeEnvironment($environment)
+    {
+        $this->prepareInjector($environment);
+        $this->prepareKolabServerConfiguration($environment);
+        $this->prepareKolabServer($environment);
+    }
+
+    /**
+     * Shortcut to get a Kolab mock server.
+     *
+     * @return Horde_Kolab_Server The server.
+     */
+    public function getKolabMockServer()
+    {
+        $this->initializeEnvironment(self::ENVIRONMENT_MOCK);
+        return $this->getKolabServer(self::ENVIRONMENT_MOCK);
+    }
+
+    /**
+     * Retrieves the available servers. This assumes all environments have been
+     * initialied.
+     *
+     * @return array The list of test servers.
+     */
+    public function getKolabServers()
     {
         $servers = array();
-        /**
-         * We always use the test server
-         */
-        $servers[] = array($this->prepareEmptyKolabServer());
-        $real = $this->prepareLdapKolabServer();
-        if (!empty($real)) {
-            $servers[] = array($real);
+        foreach ($this->getEnvironments() as $environment) {
+            $servers[] = $this->getKolabServer($environment);
         }
         return $servers;
     }
 
     /**
-     * Prepare the currently configured Kolab server.
+     * Add an object to the registered servers.
      *
-     * @return Horde_Kolab_Server The current server.
-     */
-    public function &prepareCurrentKolabServer()
-    {
-        $server = Horde_Kolab_Server::singleton();
-        return $server;
-    }
-
-    /**
-     * Prepare a Kolab server with some basic entries.
+     * @param array $object The object data to store.
      *
-     * @return Horde_Kolab_Server The empty server.
+     * @return array An array of objects.
      */
-    public function &prepareBasicServer($type = 'Test')
+    public function addToServers($object)
     {
-        $server = $this->prepareEmptyKolabServer($type);
-        $this->prepareUsers($server);
-        return $server;
+        $result = array();
+        foreach ($this->world['injector'] as $injector) {
+            $server = $injector->getInstance('Horde_Kolab_Server');
+            $object = $server->add($object);
+            $result[] = $object;
+            $this->added[] = array($server, $object->getUid());
+        }
+        return $result;
     }
 
     /**
      * Fill a Kolab Server with test users.
      *
-     * @param Kolab_Server &$server The server to populate.
+     * @param Horde_Kolab_Server &$server The server to fill.
      *
-     * @return Horde_Kolab_Server The empty server.
+     * @return NULL
      */
-    public function prepareUsers(&$server)
+    public function addBasicUsersToServer(&$server)
     {
         $result = $server->add($this->provideBasicUserOne());
         $this->assertNoError($result);
@@ -387,16 +485,21 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
     }
 
     /**
-     * Prepare a Kolab Auth Driver.
+     * List objects on the registered servers.
      *
-     * @return Auth The auth driver.
+     * @param array $type The type of objects to list.
+     *
+     * @return array An array of objects.
      */
-    public function &prepareKolabAuthDriver()
+    public function listObjectsOnServer($type)
     {
-        include_once 'Horde/Auth.php';
-
-        $auth = Horde_Auth::singleton('kolab');
-        return $auth;
+        $result = array();
+        foreach ($this->world['injector'] as $injector) {
+            $server = $injector->getInstance('Horde_Kolab_Server');
+            $objects = $server->listObjects($type);
+            $result[] = $objects;
+        }
+        return $result;
     }
 
     /**
@@ -652,11 +755,6 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
         );
     }
 
-    public function provideServerTypes()
-    {
-        return array(array('test'), array('file'));
-    }
-
     /** FIXME: Prefix the stuff bewlow with provide...() */
 
     public function validUsers()
@@ -753,6 +851,17 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
         );
     }
 
+    protected function fetchByCn($server, $cn)
+    {
+        $cn_result = $server->uidForCn($cn);
+        $this->assertNoError($cn_result);
+
+        $object = $server->fetch($cn_result);
+        $this->assertNoError($object);
+
+        return $object;
+    }
+
     /**
      * Ensure that the variable contains no Horde_Kolab_Server_Exception and
      * fail if it does.
@@ -796,17 +905,6 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
                 $this->assertEquals($msg, $var->getMessage());
             }
         }
-    }
-
-    protected function fetchByCn($server, $cn)
-    {
-        $cn_result = $server->uidForCn($cn);
-        $this->assertNoError($cn_result);
-
-        $object = $server->fetch($cn_result);
-        $this->assertNoError($object);
-
-        return $object;
     }
 
     /**
@@ -920,6 +1018,21 @@ class Horde_Kolab_Test_Server extends PHPUnit_Extensions_Story_TestCase
             }
             $this->assertEquals($expect,
                                 $actual);
+        }
+    }
+
+    public function assertRecursiveType($results, $type)
+    {
+        if (is_array($results)) {
+            foreach ($results as $result) {
+                $this->assertRecursiveType($result, $type);
+            }
+        } else {
+            if ($results instanceOf Exception) {
+                $this->assertEquals('', $results->getMessage());
+            } else {
+                $this->assertType($type, $results);
+            }
         }
     }
 

@@ -30,7 +30,7 @@ require_once 'Horde/Autoloader.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Kolabpop3accountTest extends Horde_Kolab_Test_Server
+class Horde_Kolab_Server_Kolabpop3accountTest extends Horde_Kolab_Server_Scenario
 {
     /**
      * Objects used within this test
@@ -56,165 +56,154 @@ class Horde_Kolab_Server_Kolabpop3accountTest extends Horde_Kolab_Test_Server
     );
 
     /**
-     * Provide different server types.
+     * Set up testing.
      *
-     * @return array The different server types.
+     * @return NULL
      */
-    public function &provideServers()
+    protected function setUp()
     {
-        $servers = array();
-        /**
-         * We always use the test server
-         */
-        $servers[] = array($this->prepareEmptyKolabServer());
-        if (false) {
-            $real = $this->prepareLdapKolabServer();
-            if (!empty($real)) {
-                $servers[] = array($real);
-            }
-        }
-        return $servers;
+        $this->initializeEnvironments();
+        $this->servers = $this->getKolabServers();
     }
 
     /**
      * Test ID generation for a person.
      *
-     * @dataProvider provideServers
-     *
      * @return NULL
      */
-    public function testGenerateId($server)
+    public function testGenerateId()
     {
-        $person = $this->assertAdd($server, $this->objects[0],
-                                   array(Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_SID => ''));
-        $account_data = $this->objects[1];
-        $account_data[Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_OWNERUID] = $person->getUid();
-        $a = new Horde_Kolab_Server_Object_Kolabpop3account($server, null, $account_data);
-        $this->assertContains(Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_MAIL . '=' . $this->objects[1][Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_MAIL],
-                              $a->get(Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_UID));
+        foreach ($this->servers as $server) {
+            $person = $this->assertAdd($server, $this->objects[0],
+                                       array(Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_SID => ''));
+            $account_data = $this->objects[1];
+            $account_data[Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_OWNERUID] = $person->getUid();
+            $a = new Horde_Kolab_Server_Object_Kolabpop3account($server, null, $account_data);
+            $this->assertContains(Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_MAIL . '=' . $this->objects[1][Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_MAIL],
+                                  $a->get(Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_UID));
+        }
     }
 
     /**
      * Test adding an invalid Account.
      *
-     * @dataProvider provideServers
      * @expectedException Horde_Kolab_Server_Exception
      *
      * @return NULL
      */
-    public function testAddInvalidAccount($server)
+    public function testAddInvalidAccount()
     {
-        $result = $server->add($this->objects[1]);
+        $this->addToServers($this->objects[1]);
     }
 
     /**
      * Test handling easy attributes.
      *
-     * @dataProvider provideServers
-     *
      * @return NULL
      */
-    public function testEasyAttributes($server)
+    public function testEasyAttributes()
     {
-        $person = $this->assertAdd($server, $this->objects[0],
-                                   array(Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_SID => ''));
-        $account_data = $this->objects[1];
-        $account_data[Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_OWNERUID] = $person->getUid();
-        $account = $this->assertAdd($server, $account_data,
-                                    array(Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_OWNERUID => $person->getUid()));
-        $this->assertEasyAttributes($account, $server,
-                                    array(
-                                        Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_PASSWORD => array(
-                                            'something',
-                                            'somewhere',
-                                        ),
-                                        Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_DESCRIPTION => array(
-                                            'something',
-                                            'somewhere',
-                                            null,
-                                            '',
-                                        ),
-                                        Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_SERVER => array(
-                                            'something',
-                                            'somewhere',
-                                            array('a', 'b'),
-                                        ),
-                                        Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_PORT => array(
-                                            '110',
-                                            '111',
-                                            null,
-                                            '',
-                                        ),
-                                        Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_USESSL => array(
-                                            'TRUE',
-                                            'FALSE',
-                                            null,
-                                            '',
-                                        ),
-                                        Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_USETLS => array(
-                                            'TRUE',
-                                            'FALSE',
-                                            null,
-                                            '',
-                                        ),
-                                        Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_LOGINMETHOD => array(
-                                            'something',
-                                            'somewhere',
-                                            null,
-                                            array('a', 'b'),
-                                            '',
-                                        ),
-                                        Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_CHECKCERTIFICATE => array(
-                                            'TRUE',
-                                            'FALSE',
-                                            null,
-                                            '',
-                                        ),
-                                        Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_KEEPMAILONSERVER => array(
-                                            'TRUE',
-                                            'FALSE',
-                                            null,
-                                            '',
-                                        ),
-                                    )
-        );
+        foreach ($this->servers as $server) {
+            $person = $this->assertAdd($server, $this->objects[0],
+                                       array(Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_SID => ''));
+            $account_data = $this->objects[1];
+            $account_data[Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_OWNERUID] = $person->getUid();
+            $account = $this->assertAdd($server, $account_data,
+                                        array(Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_OWNERUID => $person->getUid()));
+            $this->assertEasyAttributes($account, $server,
+                                        array(
+                                            Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_PASSWORD => array(
+                                                'something',
+                                                'somewhere',
+                                            ),
+                                            Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_DESCRIPTION => array(
+                                                'something',
+                                                'somewhere',
+                                                null,
+                                                '',
+                                            ),
+                                            Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_SERVER => array(
+                                                'something',
+                                                'somewhere',
+                                                array('a', 'b'),
+                                            ),
+                                            Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_PORT => array(
+                                                '110',
+                                                '111',
+                                                null,
+                                                '',
+                                            ),
+                                            Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_USESSL => array(
+                                                'TRUE',
+                                                'FALSE',
+                                                null,
+                                                '',
+                                            ),
+                                            Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_USETLS => array(
+                                                'TRUE',
+                                                'FALSE',
+                                                null,
+                                                '',
+                                            ),
+                                            Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_LOGINMETHOD => array(
+                                                'something',
+                                                'somewhere',
+                                                null,
+                                                array('a', 'b'),
+                                                '',
+                                            ),
+                                            Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_CHECKCERTIFICATE => array(
+                                                'TRUE',
+                                                'FALSE',
+                                                null,
+                                                '',
+                                            ),
+                                            Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_KEEPMAILONSERVER => array(
+                                                'TRUE',
+                                                'FALSE',
+                                                null,
+                                                '',
+                                            ),
+                                        )
+            );
+        }
     }
 
     /**
      * Test modifying the attributes required for the UID of the account. This
      * should lead to renaming object.
      *
-     * @dataProvider provideServers
-     *
      * @return NULL
      */
-    public function testModifyUidElements($server)
+    public function testModifyUidElements()
     {
-        $person = $this->assertAdd($server, $this->objects[0],
-                                   array(Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_SID => ''));
-        $account_data = $this->objects[1];
-        $account_data[Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_OWNERUID] = $person->getUid();
-        $account = $server->add($account_data);
-        $this->assertNoError($account);
+        foreach ($this->servers as $server) {
+            $person = $this->assertAdd($server, $this->objects[0],
+                                       array(Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_SID => ''));
+            $account_data = $this->objects[1];
+            $account_data[Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_OWNERUID] = $person->getUid();
+            $account = $server->add($account_data);
+            $this->assertNoError($account);
 
-        $account = $server->fetch($account->getUid());
-        $this->assertNoError($account);
+            $account = $server->fetch($account->getUid());
+            $this->assertNoError($account);
 
-        $this->assertEquals($this->objects[1][Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_SERVER],
-                            $account->get(Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_SERVER));
+            $this->assertEquals($this->objects[1][Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_SERVER],
+                                $account->get(Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_SERVER));
 
-        $result = $account->save(array(Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_SERVER => 'pop3s.example.com'));
-        $this->assertNoError($result);
+            $result = $account->save(array(Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_SERVER => 'pop3s.example.com'));
+            $this->assertNoError($result);
 
-        $account = $server->fetch($account->getUid());
-        $this->assertNoError($account);
+            $account = $server->fetch($account->getUid());
+            $this->assertNoError($account);
 
-        $this->assertEquals($account->get(Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_SERVER),
-                            'pop3s.example.com');
+            $this->assertEquals($account->get(Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_SERVER),
+                                'pop3s.example.com');
 
-        $this->assertContains('frank@example.com', $account->getUid());
+            $this->assertContains('frank@example.com', $account->getUid());
 
-        $result = $server->delete($account->getUid());
-        $this->assertNoError($result);
+            $result = $server->delete($account->getUid());
+            $this->assertNoError($result);
+        }
     }
 }

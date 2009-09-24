@@ -33,16 +33,33 @@ require_once 'Horde/Autoloader.php';
 class Horde_Kolab_Server_ServerTest extends PHPUnit_Framework_TestCase
 {
     /**
+     * Provide a mock server.
+     *
+     * @return Horde_Kolab_Server The mock server.
+     */
+    protected function getMockServer()
+    {
+        $injector = new Horde_Injector(new Horde_Injector_TopLevel());
+        $config = new stdClass;
+        $config->driver = 'none';
+        $injector->setInstance('Horde_Kolab_Server_Config', $config);
+        $injector->bindFactory('Horde_Kolab_Server_Structure',
+                               'Horde_Kolab_Server_Factory',
+                               'getStructure');
+        $injector->bindFactory('Horde_Kolab_Server',
+                               'Horde_Kolab_Server_Factory',
+                               'getServer');
+        return $injector->getInstance('Horde_Kolab_Server');
+    }
+
+    /**
      * The generating a uid for an object.
      *
      * @return NULL
      */
     public function testGenerateUid()
     {
-        $provider = new stdClass;
-        $provider->kolab_server_driver = 'none';
-        $provider->kolab_server_structure = new Horde_Kolab_Server_Structure_Ldap();
-        $ks   = &Horde_Kolab_Server::factory($provider);
+        $ks   = $this->getMockServer();
         $user = new Horde_Kolab_Server_Object($ks, null, null);
         $this->assertEquals(preg_replace('/[0-9a-f]*/', '', $user->get(Horde_Kolab_Server_Object::ATTRIBUTE_UID)), '');
     }
@@ -55,10 +72,17 @@ class Horde_Kolab_Server_ServerTest extends PHPUnit_Framework_TestCase
     public function testCreation()
     {
         try {
-            $provider = new stdClass;
-            $provider->kolab_server_driver = 'dummy';
-            $provider->kolab_server_structure = new Horde_Kolab_Server_Structure_Ldap();
-            Horde_Kolab_Server::factory($provider);
+            $injector = new Horde_Injector(new Horde_Injector_TopLevel());
+            $config = new stdClass;
+            $config->driver = 'dummy';
+            $injector->setInstance('Horde_Kolab_Server_Config', $config);
+            $injector->bindFactory('Horde_Kolab_Server_Structure',
+                                   'Horde_Kolab_Server_Factory',
+                                   'getStructure');
+            $injector->bindFactory('Horde_Kolab_Server',
+                                   'Horde_Kolab_Server_Factory',
+                                   'getServer');
+            Horde_Kolab_Server_Factory::getServer($injector);
             $this->assertFail('No error!');
         } catch (Horde_Kolab_Server_Exception $e) {
             $this->assertEquals('Server type definition "Horde_Kolab_Server_Dummy" missing.',
@@ -75,17 +99,11 @@ class Horde_Kolab_Server_ServerTest extends PHPUnit_Framework_TestCase
      */
     public function testFetch()
     {
-        $provider = new stdClass;
-        $provider->kolab_server_driver = 'none';
-        $provider->kolab_server_structure = new Horde_Kolab_Server_Structure_Ldap();
-        $ks   = &Horde_Kolab_Server::factory($provider);
+        $ks   = $this->getMockServer();
         $user = $ks->fetch('test');
         $this->assertEquals('Horde_Kolab_Server_Object_Kolab_User', get_class($user));
 
-        $provider = new stdClass;
-        $provider->kolab_server_driver = 'none';
-        $provider->kolab_server_structure = new Horde_Kolab_Server_Structure_Ldap();
-        $ks   = &Horde_Kolab_Server::factory($provider);
+        $ks   = $this->getMockServer();
         $user = $ks->fetch();
         $this->assertEquals('Horde_Kolab_Server_Object_Kolab_User', get_class($user));
     }
@@ -97,18 +115,11 @@ class Horde_Kolab_Server_ServerTest extends PHPUnit_Framework_TestCase
      */
     public function testList()
     {
-        $provider = new stdClass;
-        $provider->kolab_server_driver = 'none';
-        $provider->kolab_server_structure = new Horde_Kolab_Server_Structure_Ldap();
-        $ks   = &Horde_Kolab_Server::factory($provider);
+        $ks   = $this->getMockServer();
         $hash = $ks->listHash('Horde_Kolab_Server_Object');
         $this->assertEquals($hash, array());
 
-        $provider = new stdClass;
-        $provider->kolab_server_driver = 'none';
-        $provider->kolab_server_params = array('whatever');
-        $provider->kolab_server_structure = new Horde_Kolab_Server_Structure_Ldap();
-        $ks   = &Horde_Kolab_Server::factory($provider);
+        $ks   = $this->getMockServer();
         $hash = $ks->listHash('Horde_Kolab_Server_Object');
         $this->assertEquals($hash, array());
     }

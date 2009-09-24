@@ -12,11 +12,9 @@
  */
 
 /**
- *  We need the base class
+ * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'Horde/Kolab/Test/Server.php';
-
-require_once 'Horde/Kolab/Server.php';
+require_once 'Horde/Autoloader.php';
 
 /**
  * Handling distribution lists.
@@ -32,7 +30,7 @@ require_once 'Horde/Kolab/Server.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_DistListHandlingTest extends Horde_Kolab_Test_Server
+class Horde_Kolab_Server_DistListHandlingTest extends Horde_Kolab_Server_Scenario
 {
 
     /**
@@ -44,10 +42,12 @@ class Horde_Kolab_Server_DistListHandlingTest extends Horde_Kolab_Test_Server
      */
     public function creatingDistributionList()
     {
-        $this->given('an empty Kolab server')
+        $this->given('several Kolab servers')
             ->when('adding a distribution list')
-            ->then('the result should be an object of type',
-                   'Horde_Kolab_Server_Object_Kolab_Distlist');
+            ->then(
+                'the result should be an object of type',
+                'Horde_Kolab_Server_Object_Kolab_Distlist'
+            );
     }
 
 }

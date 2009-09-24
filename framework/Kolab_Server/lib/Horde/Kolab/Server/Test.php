@@ -90,8 +90,6 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
      * @param array $params Parameter array.
      */
     public function __construct(Horde_Kolab_Server_Structure $structure,
-                                Horde_Cache $cache = null,
-                                Horde_Log_Logger $logger = null,
                                 $params = array())
     {
         $this->load();
@@ -103,7 +101,7 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
             }
         }
 
-        parent::__construct($structure, $cache, $logger, $params);
+        parent::__construct($structure, $params);
 
         if (isset($this->params['admin'])
             && isset($this->params['admin']['type'])) {
@@ -598,7 +596,7 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
 
         $this->store();
 
-        if (!empty($this->logger)) {
+        if (isset($this->logger)) {
             $logger->debug(sprintf('The object \"%s\" has been successfully saved!',
                                    $uid));
         }
@@ -643,7 +641,7 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
                                                                         $uid));
         }
         $this->store();
-        if (!empty($this->logger)) {
+        if (isset($this->logger)) {
             $logger->debug(sprintf('The object \"%s\" has been successfully deleted!',
                                    $uid));
         }
@@ -667,7 +665,7 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
             unset($this->data[$uid]);
         }
         $this->store();
-        if (!empty($this->logger)) {
+        if (isset($this->logger)) {
             $logger->debug(sprintf('The object \"%s\" has been successfully renamed to \"%s\"!',
                                    $uid, $new));
         }
