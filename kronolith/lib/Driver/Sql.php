@@ -163,9 +163,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
 
         $eventIds = $this->_listEventsConditional($query->start,
-                                                  empty($query->end)
-                                                      ? new Horde_Date(array('mday' => 31, 'month' => 12, 'year' => 9999))
-                                                      : $query->end,
+                                                  $query->end,
                                                   $cond,
                                                   $values);
         if (is_a($eventIds, 'PEAR_Error')) {
@@ -263,22 +261,15 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                                $showRecurrence = false, $hasAlarm = false,
                                $json = false)
     {
-        if (is_null($startDate)) {
-            $startDate = new Horde_Date(array('mday' => 1,
-                                              'month' => 1,
-                                              'year' => 0000));
+        if (!is_null($startDate)) {
+            $startDate = clone $startDate;
+            $startDate->hour = $startDate->min = $startDate->sec = 0;
         }
-        if (is_null($endDate)) {
-            $endDate = new Horde_Date(array('mday' => 31,
-                                            'month' => 12,
-                                            'year' => 9999));
+        if (!is_null($endDate)) {
+            $endDate = clone $endDate;
+            $endDate->hour = 23;
+            $endDate->min = $endDate->sec = 59;
         }
-
-        $startDate = clone $startDate;
-        $startDate->hour = $startDate->min = $startDate->sec = 0;
-        $endDate = clone $endDate;
-        $endDate->hour = 23;
-        $endDate->min = $endDate->sec = 59;
 
         $events = $this->_listEventsConditional($startDate, $endDate,
                                                 $hasAlarm ? 'event_alarm > ?' : '',
@@ -307,7 +298,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      * @return array  Events in the given time range satisfying the given
      *                conditions.
      */
-    private function _listEventsConditional($startInterval, $endInterval,
+    private function _listEventsConditional($startInterval = null,
+                                            $endInterval = null,
                                             $conditions = '', $vals = array())
     {
         $q = 'SELECT event_id, event_uid, event_description, event_location,' .
@@ -318,30 +310,27 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             ' event_alarm, event_alarm_methods, event_modified,' .
             ' event_exceptions, event_creator_id' .
             ' FROM ' . $this->_params['table'] .
-            ' WHERE calendar_id = ? AND ((';
+            ' WHERE calendar_id = ?';
         $values = array($this->_calendar);
 
         if ($conditions) {
-            $q .= $conditions . ')) AND ((';
+            $q .= ' AND ' . $conditions;
             $values = array_merge($values, $vals);
         }
 
-        $etime = $endInterval->format('Y-m-d H:i:s');
-        $stime = null;
-        if (isset($startInterval)) {
+        if (!is_null($startInterval) && !is_null($endInterval)) {
+            $etime = $endInterval->format('Y-m-d H:i:s');
             $stime = $startInterval->format('Y-m-d H:i:s');
-            $q .= 'event_end >= ? AND ';
-            $values[] = $stime;
+            $q .= ' AND ((event_end >= ? AND event_start <= ?) OR (event_recurenddate >= ? AND event_start <= ? AND event_recurtype <> ?))';
+            array_push($values, $stime, $etime, $stime, $etime, Horde_Date_Recurrence::RECUR_NONE);
+        } elseif (!is_null($startInterval)) {
+            $stime = $startInterval->format('Y-m-d H:i:s');
+            $q .= ' AND ((event_end >= ?) OR (event_recurenddate >= ? AND event_recurtype <> ?))';
+            array_push($values, $stime, $stime, Horde_Date_Recurrence::RECUR_NONE);
+        } elseif (!is_null($endInterval)) {
+            $q .= ' AND (event_start <= ?)';
+            $values[] = $endInterval->format('Y-m-d H:i:s');
         }
-        $q .= 'event_start <= ?) OR (';
-        $values[] = $etime;
-        if (isset($stime)) {
-            $q .= 'event_recurenddate >= ? AND ';
-            $values[] = $stime;
-        }
-        $q .= 'event_start <= ?' .
-            ' AND event_recurtype <> ?))';
-        array_push($values, $etime, Horde_Date_Recurrence::RECUR_NONE);
 
         /* Log the query at a DEBUG log level. */
         Horde::logMessage(sprintf('Kronolith_Driver_Sql::_listEventsConditional(): user = "%s"; query = "%s"; values = "%s"',
