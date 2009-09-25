@@ -1,16 +1,16 @@
-//
-//  AnselExportController.m
-//  iPhoto2Ansel
-//
-//  Created by Michael Rubinsky on 10/23/08.
-//  Copyright 2008 __MyCompanyName__. All rights reserved.
-//
-#import "TURAnsel.h";
-#import "TURAnselGallery.h";
+/**
+ * AnselExportController.m
+ *
+ * Copyright 2008 The Horde Project (http://www.horde.org)
+ * 
+ * @license http://opensource.org/licenses/bsd-license.php
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ */
+#import "TURAnselKit.h"
 #import "AnselExportController.h";
-#import "TURAnselGalleryPanelController.h";
 #import "FBProgressController.h";
-#import "AnselGalleryViewItem.h";
+#import "NSStringAdditions.h";
+#import "NSDataAdditions.h";
 
 @interface AnselExportController (PrivateAPI)
 - (void)showNewServerSheet;
@@ -42,7 +42,8 @@ NSString * const TURAnselServerPasswordKey = @"password";
 
 @synthesize currentGallery;
 
-#pragma mark Overrides
+#pragma mark -
+#pragma mark init/dealloc
 /**
  * Set up UI defaults
  */
@@ -88,18 +89,18 @@ NSString * const TURAnselServerPasswordKey = @"password";
 -(void)dealloc
 {
     //anselController is released from the AnselController delegate method.
+    NSLog(@"dealloc");
     [progressController release];
     [anselServers release];
     [currentServer release];
     [browserData release];
     [super dealloc];
 }
-
-#pragma mark Getter Setters
 - (NSWindow *)window {
     return [mExportMgr window];
 }
 
+#pragma mark -
 #pragma mark Actions
 - (IBAction)clickViewGallery: (id)sender
 {
@@ -107,9 +108,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [self setStatusText: @"Getting image list..."];
     NSMutableArray *images = [currentGallery listImages];
     if ([images count] == 0) {
-        //TODO: Show a panel showing there are no images? Or just disable the
-        //      view gallery button?
-
         [spinner stopAnimation: self];
         [self setStatusText: @"Connected" withColor: [NSColor greenColor]];
         return;
@@ -117,7 +115,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 
     for (NSDictionary *image in images) {
         NSString *caption = [image objectForKey:@"caption"];
-        if (caption == nil) {
+        if (caption == (NSString *)[NSNull null] || [caption length] == 0) {
             caption = [image objectForKey:@"filename"];
         }
 
@@ -196,6 +194,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 // Action sent by the server pop up menu
 - (IBAction)clickServer: (id)sender
 {
+    NSLog(@"clickServer");
     // Are we set to "none" now?
     if ([mServersPopUp indexOfSelectedItem] == 0) {
         [self disconnect];
@@ -214,6 +213,38 @@ NSString * const TURAnselServerPasswordKey = @"password";
         [self doConnect];
     }
 }
+- (void)clickGallery
+{
+    [self setStatusText: @"Loading gallery data..."];
+    [[self window] flushWindow];
+    
+    [spinner startAnimation: self];
+    int row = [galleryCombo indexOfSelectedItem];
+    [currentGallery setDelegate:nil];
+    [currentGallery autorelease];
+    currentGallery = [[anselController getGalleryByIndex:row] retain];
+    [currentGallery setDelegate: self];
+    [mImageCountLabel setStringValue:[NSString stringWithFormat: @"Image Count: %d", [currentGallery galleryImageCount]]];
+    
+    // Obtain and properly size the image for screen
+    NSImage *theImage = [[NSImage alloc] initWithContentsOfURL: [currentGallery galleryKeyImageURL]];
+    NSSize imageSize;
+    imageSize.width = [[theImage bestRepresentationForDevice:nil] pixelsWide];
+    imageSize.height = [[theImage bestRepresentationForDevice:nil] pixelsHigh];    
+    [theImage setScalesWhenResized:YES];
+    [theImage setSize:imageSize];
+    [self doSwapImage: theImage];
+    [theImage autorelease];
+}
+
+- (void)doSwapImage: (id)theImage
+{
+    [self setStatusText: @"Connected" withColor: [NSColor greenColor]];  
+    [defaultImageView setImage: theImage];
+    [self canExport];
+    [viewGallery setEnabled: YES];
+    [spinner stopAnimation: self];
+}
 
 - (IBAction) closeServerList: (id)sender
 {
@@ -225,7 +256,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
 // Server setup sheet
 -(IBAction)doAddServer: (id)sender
 {
-    // TODO: Sanity checks
     NSDictionary *newServer = [[NSDictionary alloc] initWithObjectsAndKeys:
                                [mServerSheetServerNickName stringValue], TURAnselServerNickKey,
                                [mServerSheetHostURL stringValue], TURAnselServerEndpointKey,
@@ -260,11 +290,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [newServerSheet orderOut: nil];
 }
 
-- (IBAction) clickCancelConnect: (id)sender
-{
-    [anselController cancel];
-}
-
+#pragma mark -
 #pragma mark ExportPluginProtocol
 // Initialize
 - (id)initWithExportImageObj:(id <ExportImageProtocol>)obj
@@ -341,7 +367,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
 {
 }
 
-
 // Export was clicked in the UI
 // Do any preperations/validations and call our own privatePerformExport
 // (We don't want the iPhoto progress controller).
@@ -355,6 +380,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 {
 }
 
+#pragma mark -
 #pragma mark Progress (We don't use these)
 - (ExportPluginProgress *)progress
 {
@@ -379,6 +405,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
     return @"iPhoto2Ansel Export Plugin v1.0";
 }
 
+#pragma mark -
 #pragma mark PrivateAPI
 - (void) showNewServerSheet
 {
@@ -425,6 +452,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 
 - (void)updateServersPopupMenu
 {
+    NSLog(@"updateServersPopupMenu");
     [mServersPopUp removeAllItems];
     [mServersPopUp addItemWithTitle:@"(None)"];
     for (NSDictionary *server in anselServers) {
@@ -449,8 +477,12 @@ NSString * const TURAnselServerPasswordKey = @"password";
 // Make sure we clean up from any previous connection
 -(void)disconnect
 {
-    [galleryCombo deselectItemAtIndex: [galleryCombo indexOfSelectedItem]];
+    NSLog(@"Disconnect");
+    NSLog(@"%d", [galleryCombo indexOfSelectedItem]);
     [galleryCombo setDelegate: nil];
+    if ([galleryCombo indexOfSelectedItem] >= 0) {
+        [galleryCombo deselectItemAtIndex: [galleryCombo indexOfSelectedItem]];
+    }
     [galleryCombo setDataSource: nil];
     [galleryCombo reloadData];
     [galleryCombo setEnabled: NO];
@@ -765,6 +797,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [statusLabel setTextColor: [NSColor blackColor]];
 }
 
+#pragma mark -
 #pragma mark TURAnselDelegate
 
 // The ansel controller is initialized, populate the gallery data
@@ -783,6 +816,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 - (void)TURAnselHadError: (NSError *)error
 {
     // Stop the spinner
+    NSLog(@"TURAnselHadError");
     [spinner stopAnimation: self];
     [self disconnect];
     [mServersPopUp setEnabled: true];
@@ -809,8 +843,9 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [alert release];
 }
 
+#pragma mark -
 #pragma mark TURAnselGalleryDelegate
-- (void)TURAnselGalleryDidUploadImage: (TURAnselGallery *)gallery {
+- (void)TURAnselGalleryDidUploadImage: (id *)gallery {
     if (++currentImageCount == [mExportMgr imageCount] || cancelExport == YES) {
         [currentGallery setDelegate:nil];
         [currentGallery release];
@@ -818,37 +853,17 @@ NSString * const TURAnselServerPasswordKey = @"password";
         [anselController release];
         [galleryCombo setDelegate:nil];
     }
-}
+} 
 
+#pragma mark -
 #pragma mark comboBoxDelegate
 - (void)comboBoxSelectionDidChange:(NSNotification *)notification
-{    
-    [spinner startAnimation: self];
-    [self setStatusText: @"Loading gallery data..."];
-    int row = [galleryCombo indexOfSelectedItem];
-    [currentGallery setDelegate:nil];
-    [currentGallery autorelease];
-    currentGallery = [[anselController getGalleryByIndex:row] retain];
-    [currentGallery setDelegate: self];
-    
-    // Obtain and properly size the image for screen
-    NSImage *theImage = [[NSImage alloc] initWithContentsOfURL: [currentGallery galleryDefaultImageURL]];
-    NSSize imageSize;
-    imageSize.width = [[theImage bestRepresentationForDevice:nil] pixelsWide];
-    imageSize.height = [[theImage bestRepresentationForDevice:nil] pixelsHigh];    
-    [theImage setScalesWhenResized:YES];
-    [theImage setSize:imageSize];
-    
-    // Show it
-    [defaultImageView setImage: theImage];
-
-    [theImage release];
-    [self canExport];
-    [viewGallery setEnabled: YES];
-    [spinner stopAnimation: self];
-    [self setStatusText: @"Connected" withColor: [NSColor greenColor]];
+{   
+    NSLog(@"comboBoxSelectionDidChange");
+    [self clickGallery];    
 }
 
+#pragma mark -
 #pragma mark TURAnselGalleryPanel Notifications
 - (void)TURAnselGalleryPanelDidAddGallery
 {
@@ -857,19 +872,20 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [galleryCombo selectItemAtIndex: [galleryCombo numberOfItems] - 1];
 }
 
-#pragma mark export notifications
+#pragma mark -
+#pragma mark ExportController notifications
 - (void)exportWindowWillClose: (NSNotification *)notification
 {
-    [mServersPopUp selectItemAtIndex: 0];
+    NSLog(@"exportWindowWIllClose");
     [self disconnect];
+    [mServersPopUp selectItemAtIndex: 0];
     [[NSNotificationCenter defaultCenter] removeObserver: self
                                                     name: NSWindowWillCloseNotification
                                                   object: nil];
 }
-
 - (void)exportWindowDidBecomeKey: (NSNotification *)notification
 {
-    
+    NSLog(@"exportWindowDidBecomeKey");
     // Register for the close notification
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(exportWindowWillClose:)
@@ -883,11 +899,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
 
     [self updateServersPopupMenu];
 
-    // Register for notifications
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(NSPopUpWillPopUp:)
-                                                 name:@"NSPopUpButtonWillPopUpNotification"
-                                               object: nil];
     if ([anselServers count] == 0) {
         [self showNewServerSheet];
     } else {
@@ -912,7 +923,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
         }
     }
 }
-
 - (void)sizeChoiceWillChange: (NSNotification *)notification
 {
     NSInteger newSize = [mSizePopUp selectedTag];
@@ -921,35 +931,12 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [userPrefs synchronize];
 }
 
-#pragma mark NSPopUpButton Notification Handlers
-- (void) NSPopUpWillPopUp:(id)theButton
-{
-    // Remember the previous selection before it changes.
-    // The 'clickServer' action will handle what to do with the selection.
-    mIndexOfPreviouslySelectedServer = [mServersPopUp indexOfSelectedItem];
-}
-
-
-#pragma mark NSTableView Datasource
-- (int)numberOfRowsInTableView:(NSTableView *)aTableView
-{
-    return [anselServers count];
-}
-
-- (id)tableView:(NSTableView *)aTableView
-objectValueForTableColumn:(NSTableColumn *)aTableColumn
-            row:(int)rowIndex
-{
-    return [[anselServers objectAtIndex: rowIndex] objectForKey: [aTableColumn identifier]];
-}
-
-#pragma mark
+#pragma mark -
 #pragma mark IKImageBrowserView Datasource methods
 - (NSUInteger)numberOfItemsInImageBrowser:(IKImageBrowserView *) aBrowser
 {	
 	return [browserData count];
 }
-
 - (id)imageBrowser:(IKImageBrowserView *) aBrowser itemAtIndex:(NSUInteger)index
 {
 	return [browserData objectAtIndex:index];

@@ -14,17 +14,6 @@
 @class FBProgressController;
 @class TURNewGalleryController;
 
-// User defaults keys
-extern NSString * const TURAnselServersKey;
-extern NSString * const TURAnselExportSize;
-extern NSString * const TURAnselDefaultServerKey;
-
-// Server property keys
-extern NSString * const TURAnselServerNickKey;
-extern NSString * const TURAnselServerEndpointKey;
-extern NSString * const TURAnselServerUsernameKey;
-extern NSString * const TURAnselServerPasswordKey;
-
 @interface AnselExportController : NSObject <ExportPluginProtocol> {
 
     // Export manager passed in from iPhoto
@@ -42,7 +31,6 @@ extern NSString * const TURAnselServerPasswordKey;
     IBOutlet NSImageView *defaultImageView;
     IBOutlet NSButton *mNewGalleryButton;
     IBOutlet NSPopUpButton *mServersPopUp;
-    IBOutlet NSButton *mCancelConnect;
     IBOutlet NSTextField *mImageCountLabel;
     
     // Gallery View
@@ -52,7 +40,6 @@ extern NSString * const TURAnselServerPasswordKey;
     IBOutlet IKImageBrowserView *browserView;
     NSMutableArray *browserData;
     
-    
     // New Server sheet
     IBOutlet NSWindow *newServerSheet;
     IBOutlet NSTextField *mServerSheetHostURL;
@@ -60,7 +47,6 @@ extern NSString * const TURAnselServerPasswordKey;
     IBOutlet NSSecureTextField *mServerSheetPassword;
     IBOutlet NSTextField *mServerSheetServerNickName;
     IBOutlet NSButton *mMakeNewServerDefault;
-
     
     // Server list
     IBOutlet NSPanel *serverListPanel;
@@ -84,11 +70,6 @@ extern NSString * const TURAnselServerPasswordKey;
     TURAnsel *anselController;
     TURAnselGallery *currentGallery;
     int currentImageCount;
-    
-    // Remembers the selected server before it changes. Used to reselect the
-    // proper server if necessary when server panels are closed.
-    int mIndexOfPreviouslySelectedServer;
-    
 }
 
 @property (readwrite, retain) TURAnselGallery *currentGallery;
@@ -101,8 +82,7 @@ extern NSString * const TURAnselServerPasswordKey;
 - (IBAction) doAddServer: (id)sender;
 - (IBAction) doCancelAddServer: (id)sender;
 - (IBAction) clickServer: (id)sender;
-- (IBAction) clickCancelConnect: (id)sender;
-
+- (void)     doSwapImage: (id)theImage;
 - (IBAction) clickViewGallery: (id)sender;
 - (IBAction) closeGalleryView: (id)sender;
 

@@ -6,10 +6,8 @@
 	<string>English</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleIconFile</key>
-	<string></string>
 	<key>CFBundleIdentifier</key>
-	<string>com.theupstairsroom.iphoto2ansel</string>
+	<string>org.horde.export.iphoto2ansel</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -24,5 +22,9 @@
 	<string>Panel</string>
 	<key>NSPrincipalClass</key>
 	<string>AnselExportController</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>2008 - 2009 The Horde Project (http://www.horde.org)</string>
+	<key>CFBundleIconFile</key>
+	<string>iPhoto2Ansel</string>
 </dict>
 </plist>
