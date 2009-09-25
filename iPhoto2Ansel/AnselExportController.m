@@ -863,6 +863,19 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [self clickGallery];    
 }
 
+#pragma mark NSTableView Datasource
+- (int)numberOfRowsInTableView:(NSTableView *)aTableView
+{
+    return [anselServers count];
+}
+
+- (id)tableView:(NSTableView *)aTableView
+    objectValueForTableColumn:(NSTableColumn *)aTableColumn
+                          row:(int)rowIndex
+{
+    return [[anselServers objectAtIndex: rowIndex] objectForKey: [aTableColumn identifier]];
+}
+
 #pragma mark -
 #pragma mark TURAnselGalleryPanel Notifications
 - (void)TURAnselGalleryPanelDidAddGallery
