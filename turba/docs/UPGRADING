@@ -10,6 +10,21 @@ your existing data before running any of the steps described below. You can't
 use the updated data with your old Turba version anymore.
 
 
+Upgrading Turba from 2.3.x to 2.3.3
+===================================
+
+
+Share Table Updates
+-------------------
+
+The SQL script for PostgreSQL used a wrong column type for the share
+tables. If you have many users or shares, this could cause an overrun at some
+point. Execute the provided SQL script to update your database if you are
+using the native SQL share driver on PostgresSQL::
+
+   psql <db name> < scripts/upgrades/2.3_to_2.3.3.pgsql.sql
+
+
 Upgrading Turba from 2.2.1 to 2.3
 =================================
 
@@ -19,7 +34,7 @@ Share Table Updates
 
 Some fields in the SQL share driver tables have been changed. Execute the
 provided SQL script to update your database if you are using the native SQL
-share driver.
+share driver::
 
    mysql --user=root --password=<MySQL-root-password>  <db name> < scripts/upgrades/2.2.1_to_2.3.sql
 
