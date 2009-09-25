@@ -166,34 +166,45 @@
             CFRelease(request);
             // Check out the results
             if (WSMethodResultIsFault((CFDictionaryRef) result)) {
-                
                 NSError *error;
-                
                 CFHTTPMessageRef response = (CFHTTPMessageRef)[result objectForKey:(id)kWSHTTPResponseMessage];
-                int resStatusCode = CFHTTPMessageGetResponseStatusCode(response);
-                NSString *resStatusLine = (NSString *)CFHTTPMessageCopyResponseStatusLine(response);
-                if (resStatusCode == 401) {
-                    error = [NSError errorWithDomain: @"TURAnsel"
-                                                code: resStatusCode
-                                            userInfo: [NSDictionary dictionaryWithObjectsAndKeys: resStatusLine, @"NSLocalizedDescriptionKey", nil]];
+                // We might not have a response at all (server might be unreachable)
+                if (response) {
+                    int resStatusCode = CFHTTPMessageGetResponseStatusCode(response);
+                    NSString *resStatusLine = (NSString *)CFHTTPMessageCopyResponseStatusLine(response);
+                    if (resStatusCode == 401) {
+                        error = [NSError errorWithDomain: @"TURAnsel"
+                                                    code: resStatusCode
+                                                userInfo: [NSDictionary dictionaryWithObjectsAndKeys: resStatusLine, @"NSLocalizedDescriptionKey", nil]];
+                    } else {
+                        NSNumber *faultCode = [result objectForKey: (NSString *)kWSFaultCode];
+                        NSString *faultString = [result objectForKey: (NSString *)kWSFaultString];
+                        NSLog(@"faultCode: %@ faultString: %@", faultCode, faultString);
+                        error = [NSError errorWithDomain: @"TURAnsel"
+                                                    code: [faultCode intValue]
+                                                userInfo: [NSDictionary dictionaryWithObjectsAndKeys: [NSString stringWithFormat: @"There was an error contacting the Ansel server: %@, %@", resStatusLine, faultString], @"NSLocalizedDescriptionKey", nil]];
+                        
+                        
+                    } 
+                    [resStatusLine release];
                 } else {
+                    // No response
                     NSNumber *faultCode = [result objectForKey: (NSString *)kWSFaultCode];
                     NSString *faultString = [result objectForKey: (NSString *)kWSFaultString];
                     NSLog(@"faultCode: %@ faultString: %@", faultCode, faultString);
                     error = [NSError errorWithDomain: @"TURAnsel"
                                                 code: [faultCode intValue]
-                                            userInfo: [NSDictionary dictionaryWithObjectsAndKeys: [NSString stringWithFormat: @"%@, %@", resStatusLine, faultString], @"NSLocalizedDescriptionKey", nil]];
-                    
-                    
-                }    
+                                            userInfo: [NSDictionary dictionaryWithObjectsAndKeys: [NSString stringWithFormat: @"There was an error contacting the Ansel server: %@", faultString], @"NSLocalizedDescriptionKey", nil]];
+
+                }
+                
                 if ([[self delegate] respondsToSelector: @selector(TURAnselHadError:)]) {
                     [[self delegate] TURAnselHadError: error];
                 }
-                [resStatusLine release];
                 [result autorelease];
                 return nil;
+                
             }
-            
             CFHTTPMessageRef response = (CFHTTPMessageRef)[result objectForKey:(id)kWSHTTPResponseMessage];
             int resStatusCode = CFHTTPMessageGetResponseStatusCode(response);
             NSLog(@"ResponseCode: %d", resStatusCode);
