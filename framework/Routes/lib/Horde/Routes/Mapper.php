@@ -140,6 +140,18 @@ class Horde_Routes_Mapper
     public $utils;
 
     /**
+     * Cache
+     * @var Horde_Cache_Base
+     */
+    public $cache;
+
+    /**
+     * Cache lifetime for the same value of $this->matchList
+     * @var integer
+     */
+    public $cacheLifetime = 86400;
+
+    /**
      * Have regular expressions been created for all connected routes?
      * @var boolean
      */
@@ -302,12 +314,33 @@ class Horde_Routes_Mapper
     }
 
     /**
+     * Set an optional Horde_Cache_Base object for the created rules.
+     *
+     * @param Horde_Cache_Base $cache Cache object
+     */
+    public function setCache(Horde_Cache_Base $cache)
+    {
+        $this->cache = $cache;
+    }
+
+    /**
      * Create the generation hashes (arrays) for route lookups
      *
      * @return void
      */
     protected function _createGens()
     {
+        // Checked for a cached generator dictionary for $this->matchList
+        if ($this->cache) {
+            $cacheKey = 'horde.routes.' . sha1(serialize($this->matchList));
+            $cachedDict = $cache->get($cacheKey, $this->cacheLifetime);
+            if ($gendict = @unserialize($cachedDict)) {
+                $this->_gendict = $gendict;
+                $this->_createdGens = true;
+                return;
+            }
+        }
+
         // Use keys temporarily to assemble the list to avoid excessive
         // list iteration testing with foreach.  We include the '*' in the
         // case that a generate contains a controller/action that has no
@@ -367,6 +400,12 @@ class Horde_Routes_Mapper
         if (!isset($gendict['*'])) {
             $gendict['*'] = array();
         }
+
+        // Write to the cache
+        if ($this->cache) {
+            $this->cache->set($cacheKey, serialize($gendict), $this->cacheLifetime);
+        }
+
         $this->_gendict = $gendict;
         $this->_createdGens = true;
     }
