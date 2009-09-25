@@ -23,6 +23,8 @@ v3.0-git
 v2.3.3-cvs
 ----------
 
+[jan] Simplify and improve portability of listing events without date limits
+      in the SQL driver (Bug #8590).
 [mjr] Fix issue that caused the default alarm time to be applied to 
       listTimeObjects events (Bug #8588).
 
