@@ -483,7 +483,8 @@ class Turba_Driver_Ldap extends Turba_Driver
      */
     function _getResults($fields, $res)
     {
-        if (!($entries = @ldap_get_entries($this->_ds, $res))) {
+        $entries = @ldap_get_entries($this->_ds, $res);
+        if ($entries === false) {
             return PEAR::raiseError(sprintf(_("Read failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
         }
 

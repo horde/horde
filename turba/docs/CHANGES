@@ -12,7 +12,8 @@ v3.0-git
 v2.3.3-cvs
 ----------
 
-
+[jan] Don't return an error on empty LDAP search results (Bug #8595).
+[jan] Replace PHP5-only code from the LDIF exporter (Bug #8586).
 
 
 ------
