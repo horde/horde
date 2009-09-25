@@ -11,15 +11,16 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
     define('PHPUnit_MAIN_METHOD', 'Horde_Stream_Filter_AllTests::main');
 }
 
-require_once 'PHPUnit/Framework/TestSuite.php';
-require_once 'PHPUnit/TextUI/TestRunner.php';
+if (!spl_autoload_functions()) {
+    spl_autoload_register(create_function('$class', '$filename = str_replace(array(\'::\', \'_\'), \'/\', $class); @include_once "$filename.php";'));
+}
 
 /**
  * @package    Horde_Stream_Filter
  * @subpackage UnitTests
  */
-class Horde_Stream_Filter_AllTests {
-
+class Horde_Stream_Filter_AllTests
+{
     public static function main()
     {
         PHPUnit_TextUI_TestRunner::run(self::suite());
@@ -54,7 +55,6 @@ class Horde_Stream_Filter_AllTests {
 
         return $suite;
     }
-
 }
 
 if (PHPUnit_MAIN_METHOD == 'Horde_Stream_Filter_AllTests::main') {
