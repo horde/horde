@@ -54,7 +54,7 @@ CREATE INDEX turba_firstname_idx ON turba_objects (object_firstname);
 CREATE INDEX turba_lastname_idx ON turba_objects (object_lastname);
 
 CREATE TABLE turba_shares (
-    share_id SMALLINT NOT NULL,
+    share_id INT NOT NULL,
     share_name VARCHAR(255) NOT NULL,
     share_owner VARCHAR(255) NOT NULL,
     share_flags SMALLINT NOT NULL DEFAULT 0,
@@ -74,7 +74,7 @@ CREATE INDEX turba_shares_perm_default_idx ON turba_shares (perm_default);
 CREATE INDEX turba_shares_perm_guest_idx ON turba_shares (perm_guest);
 
 CREATE TABLE turba_shares_groups (
-    share_id SMALLINT NOT NULL,
+    share_id INT NOT NULL,
     group_uid VARCHAR(255) NOT NULL,
     perm SMALLINT NOT NULL
 );
@@ -84,7 +84,7 @@ CREATE INDEX turba_shares_groups_group_uid_idx ON turba_shares_groups (group_uid
 CREATE INDEX turba_shares_groups_perm_idx ON turba_shares_groups (perm);
 
 CREATE TABLE turba_shares_users (
-    share_id SMALLINT NOT NULL,
+    share_id INT NOT NULL,
     user_uid VARCHAR(255) NOT NULL,
     perm SMALLINT NOT NULL
 );
