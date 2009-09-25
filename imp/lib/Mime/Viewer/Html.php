@@ -185,10 +185,9 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     {
         $data = $this->_mimepart->getContents();
         $charset = Horde_Nls::getCharset();
-        $msg_charset = $this->_mimepart->getCharset();
 
         /* Sanitize the HTML. */
-        $data = $this->_cleanHTML($data, array('charset' => $msg_charset));
+        $data = $this->_cleanHTML($data, array('phishing' => $inline));
 
         /* We are done processing if in mimp mode, or we are converting to
          * text. */
