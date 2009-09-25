@@ -589,6 +589,12 @@ NSString * const TURAnselServerPasswordKey = @"password";
         // Read the image into ImageIO (the only API that supports more then just EXIF metadata)
         // Read it into a NSData object first, since we'll need that later on anyway...
         NSData *theImageData = [[NSData alloc] initWithContentsOfFile: [mExportMgr imagePathAtIndex:i]];
+        
+        if (!theImageData) {
+            i++;
+            [theImageData release];
+            continue;
+        }
         source = CGImageSourceCreateWithData((CFDataRef)theImageData, NULL);
         
         // Get the metadata dictionary, cast it to NSDictionary the get a mutable copy of it
@@ -864,14 +870,14 @@ NSString * const TURAnselServerPasswordKey = @"password";
 }
 
 #pragma mark NSTableView Datasource
-- (int)numberOfRowsInTableView:(NSTableView *)aTableView
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView
 {
     return [anselServers count];
 }
 
 - (id)tableView:(NSTableView *)aTableView
     objectValueForTableColumn:(NSTableColumn *)aTableColumn
-                          row:(int)rowIndex
+                          row:(NSInteger)rowIndex
 {
     return [[anselServers objectAtIndex: rowIndex] objectForKey: [aTableColumn identifier]];
 }
