@@ -490,7 +490,11 @@ class Kronolith
                 /* Work out what day it ends on. */
                 if ($event->end->compareDateTime($endDate) > 0) {
                     /* Ends after the end of the period. */
-                    $eventEnd = clone $endDate;
+                    if (is_object($endDate)) {
+                        $eventEnd = clone $endDate;
+                    } else {
+                        $eventEnd = $endDate;
+                    }
                 } else {
                     /* If the event doesn't end at 12am set the end date to the
                      * current end date. If it ends at 12am and does not end at
