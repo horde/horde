@@ -242,7 +242,7 @@ class Horde_SessionHandler_Pgsql extends Horde_SessionHandler
     public function getSessionIDs()
     {
         /* Make sure we have a valid database connection. */
-        $this->_open();
+        $this->open();
 
         /* Build the SQL query. */
         $query = sprintf('SELECT session_id FROM %s ' .

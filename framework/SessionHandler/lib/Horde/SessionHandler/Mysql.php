@@ -256,7 +256,7 @@ class Horde_SessionHandler_Mysql extends Horde_SessionHandler
     public function getSessionIDs()
     {
         /* Make sure we have a valid database connection. */
-        $this->_open();
+        $this->open();
 
         $query = sprintf('SELECT session_id FROM %s' .
                          ' WHERE session_lastmodified >= %s',
