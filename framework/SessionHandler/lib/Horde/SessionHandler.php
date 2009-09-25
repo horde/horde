@@ -161,7 +161,7 @@ class Horde_SessionHandler
      *
      * @return boolean  True on success, false otherwise.
      */
-    public function open($save_path, $session_name)
+    public function open($save_path = null, $session_name = null)
     {
         if (!$this->_connected) {
             try {
