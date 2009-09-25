@@ -3,8 +3,10 @@ Horde_Text_Filter_Text2html tests
 --FILE--
 <?php
 
-require dirname(__FILE__) . '/../../../lib/Horde/Text/Filter.php';
-require dirname(__FILE__) . '/../../../lib/Horde/Text/Filter/Text2html.php';
+require_once 'Horde/String.php';
+require_once 'Horde/Util.php';
+require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter.php';
+require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Text2html.php';
 
 $_COOKIE[session_name()] = true;
 $text = file_get_contents(dirname(__FILE__) . '/fixtures/text2html.txt');

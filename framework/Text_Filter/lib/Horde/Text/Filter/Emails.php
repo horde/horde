@@ -77,7 +77,7 @@ EOR;
             $registry = Horde_Registry::singleton();
         }
 
-        if ($registry &&
+        if (isset($registry) &&
             $registry->hasMethod('mail/compose') &&
             !$this->_params['always_mailto']) {
             /* If we have a mail/compose registry method, use it. */

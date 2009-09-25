@@ -3,8 +3,8 @@ Horde_Text_Filter_Space2html tests
 --FILE--
 <?php
 
-require dirname(__FILE__) . '/../../../lib/Horde/Text/Filter.php';
-require dirname(__FILE__) . '/../../../lib/Horde/Text/Filter/space2html.php';
+require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter.php';
+require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Space2html.php';
 
 $spaces = array('x x', 'x  x', 'x   x', 'x	x', 'x		x');
 foreach ($spaces as $space) {

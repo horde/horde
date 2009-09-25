@@ -3,8 +3,8 @@ Horde_Text_Filter_Email tests
 --FILE--
 <?php
 
-require dirname(__FILE__) . '/../../../lib/Horde/Text/Filter.php';
-require dirname(__FILE__) . '/../../../lib/Horde/Text/Filter/emails.php';
+require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter.php';
+require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Emails.php';
 
 $emails = <<<EOT
 Inline address test@example.com test.

@@ -3,8 +3,10 @@ Horde_Text_Filter_Html2text tests
 --FILE--
 <?php
 
-require dirname(__FILE__) . '/../../../lib/Horde/Text/Filter.php';
-require dirname(__FILE__) . '/../../../lib/Horde/Text/Filter/Html2text.php';
+require_once 'Horde/String.php';
+require_once 'Horde/Util.php';
+require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter.php';
+require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Html2text.php';
 $html = file_get_contents(dirname(__FILE__) . '/fixtures/html2text.html');
 echo Horde_Text_Filter::filter($html, 'html2text', array('charset' => 'UTF-8'));
 
@@ -133,10 +135,11 @@ Zitat von Jane Doe <jane.doe@example.com>:
 > >
 > >
 > > They aren't displayed by default, or do you mean you don't want
-> > them to appear in the top right calendar panel?
+> them
+> > to appear in the top right calendar panel?
 >
->  Yes I don't want them to appear in the top right calendar panel
-> but I want user can create their external_cal
+>  Yes I don't want them to appear in the top right calendar panel but
+> I want user can create their external_cal
 
 Jan.
 
