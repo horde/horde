@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>ApertureToAnselExportPlugin</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.export.ApertureToAnselExportPlugin</string>
+	<string>org.horde.export.ApertureToAnselExportPlugin</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -69,5 +69,7 @@
 			</array>
 		</dict>
 	</array>
+	<key>NSHumanReadableCopyright</key>
+	<string>2008-2009 The Horde Project (http://www.horde.org)</string>
 </dict>
 </plist>
