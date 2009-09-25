@@ -381,8 +381,10 @@
 		1DEB913C08733D840010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/iPhoto2Ansel-1.0/Library/Application Support/iPhoto/Plugins";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_LOCATION = NO;
+				DSTROOT = /;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/XMLRPC\"",
 					"$(inherited)",
@@ -393,8 +395,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iPhoto2Ansel_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Library/Application Support/iPhoto/Plugins";
+				INSTALL_PATH = "Library/Application Support/iPhoto/Plugins";
 				PRODUCT_NAME = iPhoto2Ansel;
+				SKIP_INSTALL = NO;
 				VALID_ARCHS = "i386 x86_64 ppc64 ppc";
 				WRAPPER_EXTENSION = iPhotoExporter;
 			};
