@@ -147,7 +147,7 @@ class Horde_Log_Logger
      */
     public function hasLevel($name)
     {
-        return array_search($name, $this->_levels);
+        return (boolean)array_search($name, $this->_levels);
     }
 
     /**
@@ -162,8 +162,7 @@ class Horde_Log_Logger
         // Log level names must be uppercase for predictability.
         $name = strtoupper($name);
 
-        if (isset($this->_levels[$level])
-            || array_search($name, $this->_levels)) {
+        if (isset($this->_levels[$level]) || $this->hasLevel($name)) {
             throw new Horde_Log_Exception('Existing log levels cannot be overwritten');
         }
 
