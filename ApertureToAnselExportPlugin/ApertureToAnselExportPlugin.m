@@ -7,10 +7,7 @@
 //
 
 #import "ApertureToAnselExportPlugin.h"
-#import "TURAnsel.h"
-#import "TURAnselGallery.h"
-#import "TURAnselGalleryPanelController.h"
-#import "AnselGalleryViewItem.h"
+#import "TURAnselKit.h"
 #import "NSStringAdditions.h"
 
 @interface ApertureToAnselExportPlugin (PrivateAPI)
@@ -515,6 +512,20 @@ NSString * const TURAnselServerPasswordKey = @"password";
         }
     }
 }
+#pragma mark -
+#pragma mark NSTableView Datasource
+- (int)numberOfRowsInTableView:(NSTableView *)aTableView
+{
+    return [_anselServers count];
+}
+
+- (id)tableView:(NSTableView *)aTableView
+objectValueForTableColumn:(NSTableColumn *)aTableColumn
+            row:(int)rowIndex
+{
+    return [[_anselServers objectAtIndex: rowIndex] objectForKey: [aTableColumn identifier]];
+}
+
 
 #pragma mark -
 #pragma mark Actions
@@ -806,6 +817,9 @@ NSString * const TURAnselServerPasswordKey = @"password";
 {
     NSLog(@"disconnect");
     [galleryCombo setDelegate: nil];
+    if ([galleryCombo indexOfSelectedItem] >= 0) {
+        [galleryCombo deselectItemAtIndex: [galleryCombo indexOfSelectedItem]];
+    }
     [galleryCombo setDataSource: nil];
     [galleryCombo reloadData];
     [galleryCombo setEnabled: NO];
@@ -837,17 +851,4 @@ NSString * const TURAnselServerPasswordKey = @"password";
     NSLog(@"imageBrowser:itemAtIndex: %@", [_browserData objectAtIndex:index]);
 	return [_browserData objectAtIndex:index];
 }
-#pragma mark NSTableView Datasource
-- (int)numberOfRowsInTableView:(NSTableView *)aTableView
-{
-    return [_anselServers count];
-}
-
-- (id)tableView:(NSTableView *)aTableView
-objectValueForTableColumn:(NSTableColumn *)aTableColumn
-            row:(int)rowIndex
-{
-    return [[_anselServers objectAtIndex: rowIndex] objectForKey: [aTableColumn identifier]];
-}
-
 @end
