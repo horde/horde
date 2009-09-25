@@ -279,7 +279,7 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler
 
         /* Build the SQL query. */
         $query = 'SELECT session_id FROM ' . $this->_params['table'] .
-                 ' WHERE session_lastmodified => ?';
+                 ' WHERE session_lastmodified >= ?';
         $values = array(time() - ini_get('session.gc_maxlifetime'));
 
         /* Log the query at a DEBUG log level. */
