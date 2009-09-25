@@ -29,6 +29,13 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
     );
 
     /**
+     * The CSS used to display the phishing warning.
+     *
+     * @var string
+     */
+    protected $_phishCss = 'padding: 1px;margin-bottom: 3px;font-size: 90%;border: 1px solid #800;background: #e81222;color: #fff;width: 100%;';
+
+    /**
      * Phishing status of last call to _phishingCheck().
      *
      * @var boolean
@@ -81,10 +88,13 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
      * @param string $data    The HTML data.
      * @param array $options  Additional options:
      * <pre>
-     * 'charset' => (string) The charset of $data (if different than the base
-     *              part charset).
+     * 'charset' => (string) The charset of $data.
+     *              DEFAULT: The base part charset.
      * 'inline' => (boolean) Are we viewing inline?
      *             DEFAULT: false
+     * 'phishing' => (boolean) Do phishing highlighting even if not viewing
+     *               inline.
+     *               DEFAULT: false.
      * </pre>
      *
      * @return string  The cleaned HTML string.
@@ -136,7 +146,7 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
         ));
 
         /* Check for phishing exploits. */
-        if (!empty($options['inline'])) {
+        if (!empty($options['inline']) || !empty($options['phishing'])) {
             $data = $this->_phishingCheck($data);
         }
 
@@ -179,7 +189,7 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
              * text has the same IP address. */
             if (!isset($m[3]) || ($m[2] != $m[3])) {
                 if (isset($m[3]) && !$scanonly) {
-                    $data = preg_replace('/href\s*=\s*["\']?\s*(http|https|ftp):\/\/' . preg_quote($m[2], '/') . '(?:[^>]*>\s*(?:$1:\/\/)?' . preg_quote($m[3], '/') . '[^<]*<\/a)?/i', 'class="mimeStatusWarning" $0', $data);
+                    $data = preg_replace('/href\s*=\s*["\']?\s*(http|https|ftp):\/\/' . preg_quote($m[2], '/') . '(?:[^>]*>\s*(?:$1:\/\/)?' . preg_quote($m[3], '/') . '[^<]*<\/a)?/i', 'style="' . $this->_phishCss . '" $0', $data);
                 }
                 $this->_phishWarn = true;
             }
@@ -202,7 +212,7 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
                     if (!(count($host1) && count($host2)) ||
                         (strcasecmp($host1[1], $host2[1]) !== 0)) {
                         if (!$scanonly) {
-                            $data = preg_replace('/href\s*=\s*["\']?\s*(?:http|https|ftp):\/\/' . preg_quote($m[1][$i], '/') . '["\']?[^>]*>\s*(?:(?:http|https|ftp):\/\/)?' . preg_quote($m[2][$i], '/') . '<\/a/is', 'class="mimeStatusWarning" $0', $data);
+                            $data = preg_replace('/href\s*=\s*["\']?\s*(?:http|https|ftp):\/\/' . preg_quote($m[1][$i], '/') . '["\']?[^>]*>\s*(?:(?:http|https|ftp):\/\/)?' . preg_quote($m[2][$i], '/') . '<\/a/is', 'style="' . $this->_phishCss . '" $0', $data);
                         }
                         $this->_phishWarn = true;
                     }
@@ -228,7 +238,7 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
             'class' => 'mimestatuswarning',
             'text' => array(
                 sprintf(_("%s: This message may not be from whom it claims to be. Beware of following any links in it or of providing the sender with any personal information."), _("Warning")),
-            _("The links that caused this warning have this background color:") . ' <span class="mimeStatusWarning">' . _("EXAMPLE") . '.</span>'
+            _("The links that caused this warning have this background color:") . ' <span style="' . $this->_phishCss . '">' . _("EXAMPLE") . '.</span>'
             )
         );
     }
