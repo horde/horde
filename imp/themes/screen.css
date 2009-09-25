@@ -526,7 +526,7 @@ td.addressTr span.loadingImg {
 }
 
 /* MIME styles. */
-.mimeStatusMessage, .mimeStatusWarning, .mimeHeaders, .mimePartInfo {
+.mimeStatusMessage, .mimeHeaders, .mimePartInfo {
     padding: 4px;
     margin-bottom: 3px;
     font-size: 90%;
@@ -541,13 +541,6 @@ td.addressTr span.loadingImg {
 }
 .mimeStatusIcon {
     width: 22px;
-}
-.mimeStatusWarning {
-    border: 1px solid #800;
-    background: #e81222;
-    color: #fff;
-    width: 100%;
-    padding: 1px;
 }
 .mimeHeaders {
     border: 1px solid #ccc;
@@ -564,10 +557,10 @@ td.addressTr span.loadingImg {
     vertical-align: bottom;
 }
 
-.mimeStatusMessage td, .mimeStatusWarning td, .mimePartInfo td {
+.mimeStatusMessage td, .mimePartInfo td {
     padding: 0;
 }
-.mimeStatusMessage td table td, .mimeStatusWarning td table td, .mimePartInfo td table td {
+.mimeStatusMessage td table td, .mimePartInfo td table td {
     padding-right: 2px;
     white-space: nowrap;
 }
