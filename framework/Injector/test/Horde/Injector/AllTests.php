@@ -9,11 +9,11 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 }
 
 if (!spl_autoload_functions()) {
-    spl_autoload_register(create_function('$class', '$filename = str_replace(array(\'::\', \'_\'), \'/\', $class); @include "$filename.php";'));
+    spl_autoload_register(create_function('$class', '$filename = str_replace(array(\'::\', \'_\'), \'/\', $class); @include_once "$filename.php";'));
 }
 
-class Horde_Injector_AllTests {
-
+class Horde_Injector_AllTests
+{
     public static function main()
     {
         PHPUnit_TextUI_TestRunner::run(self::suite());
@@ -40,7 +40,6 @@ class Horde_Injector_AllTests {
 
         return $suite;
     }
-
 }
 
 if (PHPUnit_MAIN_METHOD == 'Horde_Injector_AllTests::main') {
