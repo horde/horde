@@ -594,9 +594,13 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 // Show the gallery's image browser
 - (IBAction)clickViewGallery: (id)sender
 {
+    NSLog(@"clickViewGallery");
+    [_browserData removeAllObjects];
+    [browserView reloadData];
     [spinner startAnimation: self];
     [self setStatusText: @"Getting image list..."];
     NSMutableArray *images = [_currentGallery listImages];
+    NSLog(@"Image Count: %d", [images count]);
     if ([images count] == 0) {
         [spinner stopAnimation: self];
         [self setStatusText: @"Connected" withColor: [NSColor greenColor]];
@@ -639,8 +643,6 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
     NSLog(@"closeGalleryView");
     [NSApp endSheet: mviewGallerySheet];
     [mviewGallerySheet orderOut: nil];
-    [_browserData removeAllObjects];
-    [browserView reloadData];
 }
 
 - (IBAction) closeServerList: (id)sender

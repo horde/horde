@@ -104,10 +104,9 @@
 /**
  * Get the complete list of image ids and URLs
  */
-- (id)listImages
+- (NSMutableArray *)listImages
 {
-    if (!imageList) {
-        
+    if (![imageList count]) {
         NSArray *params = [[NSArray alloc] initWithObjects:
                            @"ansel",                                //Scope
                            [NSNumber numberWithInt: _galleryId],    //Gallery Id
@@ -129,12 +128,10 @@
             imageList = [[response objectForKey: (id)kWSMethodInvocationResult] retain];
             
             NSLog(@"listImages: %@", imageList);
-            
-            return imageList;
         }
     }
     
-    return nil;
+    return imageList;;
 }
     
 /**

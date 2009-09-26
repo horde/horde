@@ -36,7 +36,7 @@
 - (void)setDelegate: (id)newDelegate;
 - (id)delegate;
 - (NSURL *)galleryKeyImageURL;
-- (id)listImages;
+- (NSMutableArray *)listImages;
 - (int)galleryId;
 - (void)setAnselController:(TURAnsel *)newController;
 @end
