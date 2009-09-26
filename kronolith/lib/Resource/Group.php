@@ -38,6 +38,8 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
      */
     public function __construct($params)
     {
+        $params['resource_type'] = 'Group';
+
         parent::__construct($params);
         $this->_driver = $this->getDriver();
     }
@@ -178,7 +180,11 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
 
     public function setId($id)
     {
-        throw new Horde_Exception('Unsupported');
+        if (empty($this->_id)) {
+            $this->_id = $id;
+        } else {
+            throw new Horde_Exception(_("Resource already exists. Cannot change the id."));
+        }
     }
 
     /**

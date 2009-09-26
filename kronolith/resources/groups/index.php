@@ -3,9 +3,9 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../../lib/base.php';
 
-$title = _("Edit resources");
+$title = _("Resource Groups");
 
 require KRONOLITH_TEMPLATES . '/common-header.inc';
 require KRONOLITH_TEMPLATES . '/menu.inc';
@@ -15,11 +15,12 @@ if (!Horde_Auth::getAuth()) {
     header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php'));
     exit;
 }
-$edit_url_base = Horde::applicationUrl('resources/edit.php');
+$edit_url_base = Horde::applicationUrl('resources/groups/edit.php');
 $edit_img = Horde::img('edit.png', _("Edit"), null, $registry->getImageDir('horde'));
-$resources = Kronolith_Resource::listResources(PERMS_READ, array('type' => 'Single'));
-$display_url_base = Horde::applicationUrl('month.php', true, -1);
-$delete_url_base = Horde::applicationUrl('resources/delete.php');
+
+$resources = Kronolith_Resource::listResources(PERMS_EDIT, array('type' => 'Group'));
+//$display_url_base = Horde::applicationUrl('month.php', true, -1);
+$delete_url_base = Horde::applicationUrl('resources/groups/delete.php');
 $delete_img = Horde::img('delete.png', _("Delete"), null, $registry->getImageDir('horde'));
 ?>
 <script type="text/javascript">
@@ -40,16 +41,16 @@ function performAction(action, rid)
 <?php if ($isAdmin = Horde_Auth::isAdmin()): ?>
  <form method="get" action="create.php">
   <?php echo Horde_Util::formInput() ?>
-  <input type="submit" class="button" value="<?php echo _("Create a new Resource") ?>" />
-  <a class="button" href="<?php echo Horde::applicationUrl('resources/groups') ?>"><?php echo _("Manage Resource Groups")?> </a>
+  <input type="submit" class="button" value="<?php echo _("Create a new Resource Group") ?>" />
+  <a class="button" href="<?php echo Horde::applicationUrl('resources')?>"><?php echo _("Return to Single Resources")?></a>
  </form>
 <?php endif ?>
-<table summary="<?php echo _("Resource List") ?>" cellspacing="0" id="calendar-list" class="striped sortable">
+<table summary="<?php echo _("Resource Group List") ?>" cellspacing="0" id="calendar-list" class="striped sortable">
  <thead>
   <tr>
    <th>&nbsp;</th>
    <th class="sortdown"><?php echo _("Name") ?></th>
-   <th class="calendar-list-url nosort"><?php echo _("Display URL") ?></th>
+   <th><?php echo _("Description") ?></th>
   </tr>
  </thead>
  <tbody>
@@ -63,7 +64,7 @@ function performAction(action, rid)
   <td>&nbsp;</td>
   <?php endif;?>
   <td><?php echo htmlspecialchars($resource->get('name')) ?></td>
-  <td><?php $url = Horde_Util::addParameter($display_url_base, 'display_cal', $resource->get('calendar'), false); echo Horde::link($url, _("Click or copy this URL to display this calendar")) . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
+  <td><?php echo htmlspecialchars($resource->get('description')) ?></td>
  </tr>
 <?php endforeach; ?>
 </tbody>

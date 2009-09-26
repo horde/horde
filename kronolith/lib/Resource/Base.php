@@ -12,12 +12,10 @@ abstract class Kronolith_Resource_Base
      *
      *   name        - Display name of resource.
      *   calendar    - The calendar associated with this resource.
-     *   category    - The category of this resource...an arbitrary label used
-     *                 to group multiple resources for the resource_group implementation
+     *
      *   description -
      *   email       -
      *   response_type - a RESPONSETYPE_* constant
-     *   max_reservations
      *
      * @var array
      */
@@ -99,7 +97,7 @@ abstract class Kronolith_Resource_Base
     {
         $property = str_replace('resource_', '', $property);
         if ($property == 'type' && empty($this->_params['type'])) {
-            return (self instanceof Kronolith_Resource_Single) ? 'Single' : 'Group';
+            return ($this instanceof Kronolith_Resource_Single) ? 'Single' : 'Group';
         }
 
         return !empty($this->_params[$property]) ? $this->_params[$property] : false;

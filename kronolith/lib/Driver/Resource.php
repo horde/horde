@@ -368,17 +368,16 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
                 throw new Horde_Exception($result->getMessage());
             }
         } else {
-            $query = 'INSERT INTO kronolith_resources (resource_id, resource_name, resource_calendar, resource_category, resource_description, resource_response_type)';
-            $cols_values = ' VALUES (?, ?, ?, ?, ?, ?)';
+            $query = 'INSERT INTO kronolith_resources (resource_id, resource_name, resource_calendar, resource_category, resource_description, resource_response_type, resource_type, resource_members)';
+            $cols_values = ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
             $id = $this->_db->nextId('kronolith_resources');
-            $values = array($id, $resource->get('name'), $resource->get('calendar'), $resource->get('category'), $resource->get('description'), $resource->get('response_type'));
+            $values = array($id, $resource->get('name'), $resource->get('calendar'), $resource->get('category'), $resource->get('description'), $resource->get('response_type'), $resource->get('type'), $resource->get('members'));
             $result = $this->_write_db->query($query . $cols_values, $values);
-            if (!($result instanceof PEAR_Error)) {
-                return true;
-            } else {
+            if ($result instanceof PEAR_Error) {
                 throw new Horde_Exception($result->getMessage());
             }
-            $resource->setUid($id);
+
+            $resource->setId($id);
         }
 
         return $resource;

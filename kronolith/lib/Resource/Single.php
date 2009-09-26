@@ -134,7 +134,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
 
     public function setId($id)
     {
-        if (!empty($this->_id)) {
+        if (empty($this->_id)) {
             $this->_id = $id;
         } else {
             throw new Horde_Exception(_("Resource already exists. Cannot change the id."));
