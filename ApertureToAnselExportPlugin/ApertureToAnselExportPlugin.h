@@ -13,8 +13,11 @@
 #import "ApertureExportPlugIn.h"
 
 @class TURAnsel, TURAnselGallery;
-
+#if  MAC_OS_X_VERSION_10_6
+@interface ApertureToAnselExportPlugin : NSObject <ApertureExportPlugIn, NSComboBoxDelegate>
+#else
 @interface ApertureToAnselExportPlugin : NSObject <ApertureExportPlugIn>
+#endif
 {
 	// The cached API Manager object, as passed to the -initWithAPIManager: method.
 	id _apiManager; 
@@ -88,6 +91,5 @@
 // Server List
 - (IBAction) closeServerList: (id)sender;
 - (IBAction) removeServer: (id)sender;
-
 - (NSWindow *)window;
 @end

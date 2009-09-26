@@ -229,8 +229,13 @@ NSString * const TURAnselServerPasswordKey = @"password";
     // Obtain and properly size the image for screen
     NSImage *theImage = [[NSImage alloc] initWithContentsOfURL: [currentGallery galleryKeyImageURL]];
     NSSize imageSize;
+#if MAC_OS_X_VERSION_MIN_REQUIRED > MAC_OS_X_VERSION_10_5
+    imageSize.width = [[theImage bestRepresentationForRect:[defaultImageView bounds] context:nil hints:nil] pixelsWide];
+    imageSize.height = [[theImage bestRepresentationForRect:[defaultImageView bounds] context:nil hints:nil] pixelsHigh];
+#else
     imageSize.width = [[theImage bestRepresentationForDevice:nil] pixelsWide];
-    imageSize.height = [[theImage bestRepresentationForDevice:nil] pixelsHigh];    
+    imageSize.height = [[theImage bestRepresentationForDevice:nil] pixelsHigh];
+#endif
     [theImage setScalesWhenResized:YES];
     [theImage setSize:imageSize];
     [self doSwapImage: theImage];
@@ -429,8 +434,6 @@ NSString * const TURAnselServerPasswordKey = @"password";
         modalDelegate: nil
        didEndSelector: nil
           contextInfo: nil];
-    
-    [serverTable setDelegate: self];
 }
 
 // See if we have everything we need to export...

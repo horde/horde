@@ -396,6 +396,7 @@
 				GCC_PREFIX_HEADER = iPhoto2Ansel_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "Library/Application Support/iPhoto/Plugins";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PRODUCT_NAME = iPhoto2Ansel;
 				SKIP_INSTALL = NO;
 				VALID_ARCHS = "i386 x86_64 ppc64 ppc";
@@ -406,6 +407,7 @@
 		1DEB913F08733D840010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ONLY_ACTIVE_ARCH_PRE_XCODE_3_1)";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = NO;
 				DSTROOT = "/tmp/$(PROJECT_NAME).dst";
@@ -413,10 +415,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "";
-				ONLY_ACTIVE_ARCH = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				ONLY_ACTIVE_ARCH_PRE_XCODE_3_1 = "$(NATIVE_ARCH_ACTUAL)";
 				PREBINDING = NO;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
-				VALID_ARCHS = "i386 x86_64";
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+				VALID_ARCHS = "ppc64 ppc i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -431,9 +434,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PREBINDING = NO;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
-				VALID_ARCHS = "i386 x86_64";
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+				VALID_ARCHS = "ppc64 ppc i386 x86_64";
 			};
 			name = Release;
 		};

@@ -14,8 +14,11 @@
 @class FBProgressController;
 @class TURNewGalleryController;
 
+#if MAC_OS_X_VERSION_10_6
+@interface AnselExportController : NSObject <ExportPluginProtocol, NSComboBoxDelegate> {
+#else
 @interface AnselExportController : NSObject <ExportPluginProtocol> {
-
+#endif
     // Export manager passed in from iPhoto
     id <ExportImageProtocol> mExportMgr;
     

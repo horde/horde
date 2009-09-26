@@ -29,7 +29,12 @@ typedef enum {
 - (void)TURAnselHadError: (NSError *)error;
 @end
 
-@interface TURAnsel : NSObject {
+#if MAC_OS_X_VERSION_10_6
+@interface TURAnsel : NSObject <NSComboBoxDataSource>
+#else
+@interface TURAnsel : NSObject
+#endif         
+{
     NSString *userAgent;
     NSString *rpcEndPoint;
     NSString *username;
@@ -57,4 +62,7 @@ typedef enum {
 - (TURAnselState)state;
 - (id)delegate;
 - (void)setDelegate: (id)newDelegate;
+
+- (NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox;
+- (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index;
 @end

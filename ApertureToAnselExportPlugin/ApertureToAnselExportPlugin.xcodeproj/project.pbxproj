@@ -317,6 +317,7 @@
 		1DEB913B08733D840010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /;
@@ -328,8 +329,9 @@
 				GCC_PREFIX_HEADER = ApertureToAnselExportPlugin_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "/Users/mrubinsk/Library/Application Support/Aperture/Plug-Ins";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PRODUCT_NAME = ApertureToAnselExportPlugin;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx10.6;
 				WRAPPER_EXTENSION = ApertureExport;
 				ZERO_LINK = YES;
 			};
@@ -339,6 +341,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/ApertureToAnselExportPlugin-1.0/Library/Application Support/Aperture/Plugins/Export";
 				DSTROOT = /;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
@@ -346,8 +349,9 @@
 				GCC_PREFIX_HEADER = ApertureToAnselExportPlugin_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Application Support/Aperture/Plug-Ins/Export/";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PRODUCT_NAME = ApertureToAnselExportPlugin;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx10.6;
 				VALID_ARCHS = "ppc64 i386_64 i386 ppc";
 				WRAPPER_EXTENSION = ApertureExport;
 			};
@@ -356,13 +360,15 @@
 		1DEB913F08733D840010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				FRAMEWORK_SEARCH_PATHS = "/Library/Frameworks//**";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx10.6;
 				VALID_ARCHS = i386;
 			};
 			name = Debug;
@@ -375,9 +381,10 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PREBINDING = NO;
-				SDKROOT = macosx10.5;
-				VALID_ARCHS = "i386_64 ppc64 i386 ppc";
+				SDKROOT = macosx10.6;
+				VALID_ARCHS = "ppc64 x386_64 i386 ppc";
 			};
 			name = Release;
 		};
