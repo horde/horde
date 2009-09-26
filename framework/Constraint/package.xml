@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Constraint</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Constraint library</summary>
+ <description>This package provides a programmatic way of building constraints that evaluate to true or false
+ </description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>James Pepin</name>
+  <user>james</user>
+  <email>james@jamespepin</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-09-25</date>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <notes>* Initial release.
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Constraint">
+      <file name="AlwaysFalse.php" role="php" />
+      <file name="AlwaysTrue.php" role="php" />
+      <file name="And.php" role="php" />
+      <file name="Compound.php" role="php" />
+      <file name="IsEqual.php" role="php" />
+      <file name="IsInstanceOf.php" role="php" />
+      <file name="Not.php" role="php" />
+      <file name="Null.php" role="php" />
+      <file name="Or.php" role="php" />
+      <file name="PregMatch.php" role="php" />
+     </dir> <!-- /lib/Horde/Constraint -->
+     <file name="Constraint.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Constraint/AlwaysFalse.php" as="Horde/Constraint/AlwaysFalse.php" />
+   <install name="lib/Horde/Constraint/AlwaysTrue.php" as="Horde/Constraint/AlwaysTrue.php" />
+   <install name="lib/Horde/Constraint/And.php" as="Horde/Constraint/And.php" />
+   <install name="lib/Horde/Constraint/Compound.php" as="Horde/Constraint/Compound.php" />
+   <install name="lib/Horde/Constraint/IsEqual.php" as="Horde/Constraint/IsEqual.php" />
+   <install name="lib/Horde/Constraint/IsInstanceOf.php" as="Horde/Constraint/IsInstanceOf.php" />
+   <install name="lib/Horde/Constraint/Not.php" as="Horde/Constraint/Not.php" />
+   <install name="lib/Horde/Constraint/Null.php" as="Horde/Constraint/Null.php" />
+   <install name="lib/Horde/Constraint/Or.php" as="Horde/Constraint/Or.php" />
+   <install name="lib/Horde/Constraint/PregMatch.php" as="Horde/Constraint/PregMatch.php" />
+   <install name="lib/Horde/Constraint.php" as="Horde/Constraint.php" />
+  </filelist>
+ </phprelease>
+</package>
