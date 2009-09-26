@@ -102,29 +102,23 @@ NSString * const TURAnselServerPasswordKey = @"password";
     NSLog(@"ApertureToAnselExportPlugin: dealloc called");
     [_anselServers release];
     _anselServers = nil;
-    NSLog(@"_anselServers released");
     
     [_anselController setDelegate:nil];
     [_anselController release];
     _anselController = nil;
-    NSLog(@"_anselController released");
     
     [_browserData release];
     _browserData = nil;
-    NSLog(@"_browserData released");
     
 	// Release the top-level objects from the nib.
 	[_topLevelNibObjects makeObjectsPerformSelector:@selector(release)];
 	[_topLevelNibObjects release];
-    NSLog(@"topLevelNibs released");
     
 	[_progressLock release];
     _progressLock = nil;
-    NSLog(@"_progressLock released");
     
 	[_exportManager release];
 	_exportManager = nil;
-    NSLog(@"exportManager released");
     
     [super dealloc];
 }
@@ -464,6 +458,9 @@ NSString * const TURAnselServerPasswordKey = @"password";
     // Obtain and properly size the image for screen
     NSImage *theImage = [[NSImage alloc] initWithContentsOfURL: [_currentGallery galleryKeyImageURL]];
     NSSize imageSize;
+    
+    // [NSImage bestRepresentationForDevice] is deprecated in 10.6, use bestRepresentationForRect:context:hints: instead if
+    // we are compiling for a TARGET of 10.6
 #if MAC_OS_X_VERSION_MIN_REQUIRED > MAC_OS_X_VERSION_10_5
     imageSize.width = [[theImage bestRepresentationForRect:[defaultImageView bounds] context:nil hints:nil] pixelsWide];
     imageSize.height = [[theImage bestRepresentationForRect:[defaultImageView bounds] context:nil hints:nil] pixelsHigh];
@@ -846,13 +843,11 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 #pragma mark IKImageBrowserView Datasource methods
 - (NSUInteger)numberOfItemsInImageBrowser:(IKImageBrowserView *) aBrowser
 {	
-    NSLog(@"numberOfItemsInImageBrowser: %u", [_browserData count]);
 	return [_browserData count];
 }
 
 - (id)imageBrowser:(IKImageBrowserView *) aBrowser itemAtIndex:(NSUInteger)index
 {
-    NSLog(@"imageBrowser:itemAtIndex: %@", [_browserData objectAtIndex:index]);
 	return [_browserData objectAtIndex:index];
 }
 @end
