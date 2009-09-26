@@ -20,10 +20,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2009-02-09</date>
- <time>23:26:00</time>
+ <date>2009-09-25</date>
+ <time>23:00:00</time>
  <version>
-  <release>0.2.0</release>
+  <release>0.3.0</release>
   <api>0.2.0</api>
  </version>
  <stability>
@@ -31,7 +31,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
- <notes>* Added Horde_Log_Filter_Suppress.
+ <notes>* Added Horde_Log_Filter_Constraint, for flexible filtering per-field by the Horde_Constraint package
  </notes>
  <contents>
   <dir name="/">
@@ -39,6 +39,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <dir name="Horde">
      <dir name="Log">
       <dir name="Filter">
+       <file name="Constraint.php" role="php" />
        <file name="Interface.php" role="php" />
        <file name="Level.php" role="php" />
        <file name="Message.php" role="php" />
@@ -72,13 +73,18 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>5.2</min>
    </php>
    <pearinstaller>
-    <min>1.5.0</min>
+    <min>1.7.0</min>
    </pearinstaller>
+   <package>
+    <name>Constraint</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
  </dependencies>
  <phprelease>
   <filelist>
    <install name="lib/Horde/Log/Exception.php" as="Horde/Log/Exception.php" />
+   <install name="lib/Horde/Log/Filter/Constraint.php" as="Horde/Log/Filter/Constraint.php" />
    <install name="lib/Horde/Log/Filter/Interface.php" as="Horde/Log/Filter/Interface.php" />
    <install name="lib/Horde/Log/Filter/Level.php" as="Horde/Log/Filter/Level.php" />
    <install name="lib/Horde/Log/Filter/Message.php" as="Horde/Log/Filter/Message.php" />
