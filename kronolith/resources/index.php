@@ -17,7 +17,7 @@ if (!Horde_Auth::getAuth()) {
 }
 $edit_url_base = Horde::applicationUrl('resources/edit.php');
 $edit_img = Horde::img('edit.png', _("Edit"), null, $registry->getImageDir('horde'));
-$resources = Kronolith_Resource::listResources();
+$resources = Kronolith_Resource::listResources(PERMS_READ, array('type' => 'Single'));
 $display_url_base = Horde::applicationUrl('month.php', true, -1);
 $delete_url_base = Horde::applicationUrl('resources/delete.php');
 $delete_img = Horde::img('delete.png', _("Delete"), null, $registry->getImageDir('horde'));
@@ -41,6 +41,7 @@ function performAction(action, rid)
  <form method="get" action="create.php">
   <?php echo Horde_Util::formInput() ?>
   <input type="submit" class="button" value="<?php echo _("Create a new Resource") ?>" />
+  <a class="button" href="<?php echo Horde::applicationUrl('resources/groups') ?>"><?php echo _("Manage Resource Groups")?> </a>
  </form>
 <?php endif ?>
 <table summary="<?php echo _("Resource List") ?>" cellspacing="0" id="calendar-list" class="striped sortable">
