@@ -35,6 +35,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <dir name="Request">
        <file name="Base.php" role="php" />
        <file name="Curl.php" role="php" />
+       <file name="Factory.php" role="php" />
        <file name="Fopen.php" role="php" />
        <file name="Mock.php" role="php" />
        <file name="Peclhttp.php" role="php" />
@@ -73,6 +74,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Http/Exception.php" as="Horde/Http/Exception.php" />
    <install name="lib/Horde/Http/Request/Base.php" as="Horde/Http/Request/Base.php" />
    <install name="lib/Horde/Http/Request/Curl.php" as="Horde/Http/Request/Curl.php" />
+   <install name="lib/Horde/Http/Request/Factory.php" as="Horde/Http/Request/Factory.php" />
    <install name="lib/Horde/Http/Request/Fopen.php" as="Horde/Http/Request/Fopen.php" />
    <install name="lib/Horde/Http/Request/Mock.php" as="Horde/Http/Request/Mock.php" />
    <install name="lib/Horde/Http/Request/Peclhttp.php" as="Horde/Http/Request/Peclhttp.php" />

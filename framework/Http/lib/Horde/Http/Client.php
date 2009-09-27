@@ -56,7 +56,8 @@ class Horde_Http_Client
             $this->_request = $args['request'];
             unset($args['request']);
         } else {
-            $this->_request = $this->_createBestAvailableRequest();
+            $requestFactory = new Horde_Http_Request_Factory();
+            $this->_request = $requestFactory->create();
         }
 
         foreach ($args as $key => $val) {
@@ -171,23 +172,5 @@ class Horde_Http_Client
     public function __set($name, $value)
     {
         $this->{'_' . $name} = $value;
-    }
-
-    /**
-     * Find the best available request backend
-     *
-     * @return Horde_Http_Request_Base
-     */
-    public function _createBestAvailableRequest()
-    {
-        if (class_exists('HttpRequest', false)) {
-            return new Horde_Http_Request_Peclhttp();
-        } elseif (extension_loaded('curl')) {
-            return new Horde_Http_Request_Curl();
-        } elseif (ini_get('allow_url_fopen')) {
-            return new Horde_Http_Request_Fopen();
-        } else {
-            throw new Horde_Http_Exception('No HTTP request backends are available. You must install pecl_http, curl, or enable allow_url_fopen.');
-        }
     }
 }
