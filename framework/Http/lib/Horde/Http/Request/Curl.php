@@ -47,6 +47,13 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
         }
         if ($data) { curl_setopt($curl, CURLOPT_POSTFIELDS, $data); }
 
+        // Concatenate the headers
+        $hdr = array();
+        foreach ($this->headers as $header => $value) {
+            $hdr[] = $header . ': ' . $value;
+        }
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $hdr);
+
         $result = curl_exec($curl);
         if ($result === false) {
             throw new Horde_Http_Exception(curl_error($curl), curl_errno($curl));
