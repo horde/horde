@@ -36,6 +36,7 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
         curl_setopt($curl, CURLOPT_URL, $this->uri);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HEADER, true);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $this->method);
 
         $data = $this->data;
         if (is_array($data)) {
@@ -44,7 +45,7 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
             // POST data isn't passed.
             $data = http_build_query($data);
         }
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $this->data);
+        if ($data) { curl_setopt($curl, CURLOPT_POSTFIELDS, $data); }
 
         $result = curl_exec($curl);
         if ($result === false) {
