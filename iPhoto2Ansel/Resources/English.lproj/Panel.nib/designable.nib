@@ -22,7 +22,6 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="137"/>
-			<integer value="577"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -600,7 +599,7 @@
 			<object class="NSWindowTemplate" id="240545061">
 				<int key="NSWindowStyleMask">23</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{196, 183}, {480, 327}}</string>
+				<string key="NSWindowRect">{{196, 97}, {480, 413}}</string>
 				<int key="NSWTFlags">-1543503872</int>
 				<string key="NSWindowTitle">Window</string>
 				<string key="NSWindowClass">NSPanel</string>
@@ -616,6 +615,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{370, 12}, {96, 32}}</string>
 							<reference key="NSSuperview" ref="573233790"/>
+							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="569706565">
 								<int key="NSCellFlags">67239424</int>
@@ -801,8 +801,9 @@
 													<string>NeXT TIFF v4.0 pasteboard type</string>
 												</object>
 											</object>
-											<string key="NSFrameSize">{423, 251}</string>
+											<string key="NSFrameSize">{423, 337}</string>
 											<reference key="NSSuperview" ref="896759949"/>
+											<reference key="NSWindow"/>
 											<bool key="constrainsToOriginalSize">NO</bool>
 											<bool key="cellsHaveSubtitle">YES</bool>
 											<bool key="cellsHaveTitle">YES</bool>
@@ -817,8 +818,9 @@
 											<reference key="delegate"/>
 										</object>
 									</object>
-									<string key="NSFrame">{{1, 1}, {423, 251}}</string>
+									<string key="NSFrame">{{1, 1}, {423, 337}}</string>
 									<reference key="NSSuperview" ref="445821140"/>
+									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="798730592"/>
 									<reference key="NSDocView" ref="798730592"/>
 									<reference key="NSBGColor" ref="258809705"/>
@@ -827,8 +829,9 @@
 								<object class="NSScroller" id="34214668">
 									<reference key="NSNextResponder" ref="445821140"/>
 									<int key="NSvFlags">256</int>
-									<string key="NSFrame">{{424, 1}, {15, 251}}</string>
+									<string key="NSFrame">{{424, 1}, {15, 337}}</string>
 									<reference key="NSSuperview" ref="445821140"/>
+									<reference key="NSWindow"/>
 									<reference key="NSTarget" ref="445821140"/>
 									<string key="NSAction">_doScroller:</string>
 									<double key="NSCurValue">1</double>
@@ -837,16 +840,18 @@
 								<object class="NSScroller" id="355872151">
 									<reference key="NSNextResponder" ref="445821140"/>
 									<int key="NSvFlags">256</int>
-									<string key="NSFrame">{{1, 252}, {423, 15}}</string>
+									<string key="NSFrame">{{1, 338}, {423, 15}}</string>
 									<reference key="NSSuperview" ref="445821140"/>
+									<reference key="NSWindow"/>
 									<int key="NSsFlags">1</int>
 									<reference key="NSTarget" ref="445821140"/>
 									<string key="NSAction">_doScroller:</string>
 									<double key="NSPercent">0.50602409999999998</double>
 								</object>
 							</object>
-							<string key="NSFrame">{{20, 60}, {440, 268}}</string>
+							<string key="NSFrame">{{20, 60}, {440, 354}}</string>
 							<reference key="NSSuperview" ref="573233790"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="896759949"/>
 							<int key="NSsFlags">50</int>
 							<reference key="NSVScroller" ref="34214668"/>
@@ -855,8 +860,9 @@
 							<bytes key="NSScrollAmts">QSAAAEEgAABCzQAAQvAAAA</bytes>
 						</object>
 					</object>
-					<string key="NSFrameSize">{480, 327}</string>
+					<string key="NSFrameSize">{480, 413}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
@@ -2069,8 +2075,8 @@
 						<reference key="object" ref="573233790"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="300259137"/>
 							<reference ref="445821140"/>
+							<reference ref="300259137"/>
 						</object>
 						<reference key="parent" ref="240545061"/>
 					</object>
@@ -2676,9 +2682,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{33, 581}, {480, 327}}</string>
+					<string>{{530, 715}, {480, 413}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{33, 581}, {480, 327}}</string>
+					<string>{{530, 715}, {480, 413}}</string>
 					<integer value="0"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2722,31 +2728,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">AnselExportController</string>
 					<string key="superclassName">NSObject</string>
-					<object class="NSMutableDictionary" key="actions">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>clickServer:</string>
-							<string>clickViewGallery:</string>
-							<string>closeGalleryView:</string>
-							<string>closeServerList:</string>
-							<string>doAddServer:</string>
-							<string>doCancelAddServer:</string>
-							<string>removeServer:</string>
-							<string>showNewGallery:</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-						</object>
-					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
@@ -2756,7 +2737,6 @@
 							<string>defaultImageView</string>
 							<string>firstView</string>
 							<string>galleryCombo</string>
-							<string>mExportMgr</string>
 							<string>mImageCountLabel</string>
 							<string>mMakeNewServerDefault</string>
 							<string>mNewGalleryButton</string>
@@ -2782,7 +2762,6 @@
 							<string>NSImageView</string>
 							<string>NSControl</string>
 							<string>NSComboBox</string>
-							<string>id</string>
 							<string>NSTextField</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
@@ -3132,7 +3111,7 @@
 		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
-			<integer value="1050" key="NS.object.0"/>
+			<integer value="1060" key="NS.object.0"/>
 		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.InterfaceBuilder3</string>
