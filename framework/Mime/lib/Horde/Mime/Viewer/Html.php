@@ -129,8 +129,9 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
             }
         }
 
-        $strip_style_attributes = (($browser->isBrowser('mozilla') &&
-                                    $browser->getMajor() == 4) ||
+        $strip_style_attributes = !empty($options['inline']) &&
+                                 (($browser->isBrowser('mozilla') &&
+                                   $browser->getMajor() == 4) ||
                                    $browser->isBrowser('msie'));
         $strip_styles = !empty($options['inline']) || $strip_style_attributes;
 
