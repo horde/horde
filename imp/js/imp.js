@@ -10,6 +10,8 @@ document.observe('dom:loaded', function() {
         window.IMP = {};
     }
 
+    IMP.imgs = {};
+
     IMP.menuFolderSubmit = function(clear)
     {
         var mf = $('menuform');
@@ -26,9 +28,18 @@ document.observe('dom:loaded', function() {
      */
     IMP.unblockImages = function(e)
     {
-        var elt = e.element().up('TABLE.mimeStatusMessage'),
+        var callback, imgs,
+            elt = e.element().up('TABLE.mimeStatusMessage'),
             iframe = elt.up().next('.htmlMsgData'),
+            iframeid = iframe.readAttribute('id'),
             s = new Selector('[htmlimgblocked]');
+
+        e.stop();
+
+        Effect.Fade(elt, {
+            afterFinish: function() { elt.remove(); },
+            duration: 0.6
+        });
 
         // Need to use non-prototypejs methods to work with data inside of
         // the IFRAME. Prototypejs's Selector works, but only if we use
@@ -39,14 +50,19 @@ document.observe('dom:loaded', function() {
             s.compileMatcher();
         }
 
-        s.findElements(iframe.contentWindow.document).each(function(b) {
-            var src = decodeURIComponent(b.getAttribute('htmlimgblocked'));
-            if (b.getAttribute('src')) {
-                b.setAttribute('src', src);
-            } else if (b.getAttribute('background')) {
-                b.setAttribute('background', src);
-            } else if (b.style.backgroundImage) {
-                b.style.setProperty('background-image', 'url(' + src + ')', '');
+        callback = this.imgOnload.bind(this, iframeid);
+        imgs = s.findElements(iframe.contentWindow.document);
+        IMP.imgs[iframeid] = imgs.size();
+
+        imgs.each(function(img) {
+            img.onload = callback;
+            var src = decodeURIComponent(img.getAttribute('htmlimgblocked'));
+            if (img.getAttribute('src')) {
+                img.setAttribute('src', src);
+            } else if (img.getAttribute('background')) {
+                img.setAttribute('background', src);
+            } else if (img.style.backgroundImage) {
+                img.style.setProperty('background-image', 'url(' + src + ')', '');
             }
         });
 
@@ -54,15 +70,13 @@ document.observe('dom:loaded', function() {
         // on the page uses the same expression, it will break the next time
         // it is used.
         delete Selector._cache['[htmlimgblocked]'];
+    };
 
-        Effect.Fade(elt, {
-            afterFinish: function() { elt.remove(); },
-            duration: 0.6
-        });
-
-        e.stop();
-
-        this.iframeResize.bind(this, iframe.readAttribute('id')).defer();
+    IMP.imgOnload = function(id)
+    {
+        if (!(--IMP.imgs[id])) {
+            this.iframeResize(id);
+        }
     };
 
     IMP.iframeInject = function(id, data)
