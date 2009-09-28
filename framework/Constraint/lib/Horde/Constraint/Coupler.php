@@ -1,10 +1,10 @@
 <?php
 /**
- * Interface for compound constraints.
+ * Interface for grouped (compound, coupled) constraints.
  *
  * @author James Pepin <james@jamespepin.com>
  */
-abstract class Horde_Constraint_Compound implements Horde_Constraint
+abstract class Horde_Constraint_Coupler implements Horde_Constraint
 {
     protected $_constraints = array();
 

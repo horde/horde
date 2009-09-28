@@ -5,7 +5,7 @@
  * @author James Pepin <james@jamespepin.com>
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
-class Horde_Constraint_Or extends Horde_Constraint_Compound
+class Horde_Constraint_Or extends Horde_Constraint_Coupler
 {
     public function evaluate($value)
     {

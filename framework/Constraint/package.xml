@@ -40,7 +40,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="AlwaysFalse.php" role="php" />
       <file name="AlwaysTrue.php" role="php" />
       <file name="And.php" role="php" />
-      <file name="Compound.php" role="php" />
+      <file name="Coupler.php" role="php" />
       <file name="IsEqual.php" role="php" />
       <file name="IsInstanceOf.php" role="php" />
       <file name="Not.php" role="php" />
@@ -68,7 +68,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Constraint/AlwaysFalse.php" as="Horde/Constraint/AlwaysFalse.php" />
    <install name="lib/Horde/Constraint/AlwaysTrue.php" as="Horde/Constraint/AlwaysTrue.php" />
    <install name="lib/Horde/Constraint/And.php" as="Horde/Constraint/And.php" />
-   <install name="lib/Horde/Constraint/Compound.php" as="Horde/Constraint/Compound.php" />
+   <install name="lib/Horde/Constraint/Coupler.php" as="Horde/Constraint/Coupler.php" />
    <install name="lib/Horde/Constraint/IsEqual.php" as="Horde/Constraint/IsEqual.php" />
    <install name="lib/Horde/Constraint/IsInstanceOf.php" as="Horde/Constraint/IsInstanceOf.php" />
    <install name="lib/Horde/Constraint/Not.php" as="Horde/Constraint/Not.php" />

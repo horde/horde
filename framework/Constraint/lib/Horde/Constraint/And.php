@@ -7,7 +7,7 @@
  *
  * @author James Pepin <james@jamespepin.com>
  */
-class Horde_Constraint_And extends Horde_Constraint_Compound
+class Horde_Constraint_And extends Horde_Constraint_Coupler
 {
     public function evaluate($value)
     {
