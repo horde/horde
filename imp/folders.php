@@ -417,11 +417,16 @@ if (!empty($newmsgs)) {
     }
 }
 
+/* Get the tree images. */
+$imp_ui_folder = new IMP_UI_Folder();
+$tree_imgs = $imp_ui_folder->getTreeImages($raw_rows, array('expand_url' => $folders_url));
+
 /* Add some further information to the $raw_rows array. */
+$rows = array();
 $name_url = Horde_Util::addParameter(Horde::applicationUrl('mailbox.php'), 'no_newmail_popup', 1);
 $rowct = 0;
-$morembox = $rows = array();
-foreach ($raw_rows as $val) {
+
+foreach ($raw_rows as $key => $val) {
     $val['nocheckbox'] = !empty($val['vfolder']);
     if (!empty($val['vfolder']) && $val['editvfolder']) {
         $val['delvfolder'] = Horde::link($imp_search->deleteUrl($val['value']), _("Delete Virtual Folder")) . _("Delete") . '</a>';
@@ -445,65 +450,8 @@ foreach ($raw_rows as $val) {
         $val['name'] = Horde::link(Horde_Util::addParameter($name_url, 'mailbox', $val['value']), $val['vfolder'] ? $val['base_elt']['l'] : $val['display']) . $val['name'] . '</a>';
     }
 
-    $dir2 = $val['user_icon']
-        ? Horde::img($val['icon'], $val['alt'], null, $val['icondir'])
-        : '<span class="foldersImg ' . $val['class'] . '"></span>';
+    $val['line'] = $tree_imgs[$key];
 
-    if ($val['children']) {
-        $dir = Horde_Util::addParameter($folders_url, 'folder', $val['value']);
-        if ($imaptree->isOpen($val['base_elt'])) {
-            $dir = Horde_Util::addParameter($dir, 'actionID', 'collapse_folder');
-            $alt = _("Collapse Folder");
-            if (empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) {
-                $tree_img = ($val['value'] == 'INBOX')
-                    ? 9
-                    : ($val['peek'] ? 10 : 11);
-            } else {
-                $tree_img = ($val['value'] == 'INBOX')
-                    ? 12
-                    : ($val['peek'] ? 13 : 14);
-            }
-        } else {
-            $dir = Horde_Util::addParameter($dir, 'actionID', 'expand_folder');
-            $alt = _("Expand Folder");
-            if (empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) {
-                $tree_img = ($val['value'] == 'INBOX')
-                    ? 15
-                    : ($val['peek'] ? 16 : 17);
-            } else {
-                $tree_img = ($val['value'] == 'INBOX')
-                    ? 18
-                    : ($val['peek'] ? 19 : 20);
-            }
-        }
-        $dir = Horde::link($dir, $alt) . '<span class="treeImg treeImg' . $tree_img . '"></span></a>' . $dir2;
-    } else {
-        if (($val['value'] == 'INBOX') && !$val['peek']) {
-            $dir = '<span class="treeImg"></span>' . $dir2;
-        } else {
-            if (empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) {
-                $tree_img = ($val['value'] == 'INBOX')
-                    ? 3
-                    : ($val['peek'] ? 2 : 4);
-            } else {
-                $tree_img = ($val['value'] == 'INBOX')
-                    ? 7
-                    : ($val['peek'] ? 6 : 8);
-            }
-            $dir = '<span class="treeImg treeImg' . $tree_img . '"></span>' . $dir2;
-        }
-    }
-
-    $line = '';
-    $morembox[$val['level']] = $val['peek'];
-    for ($i = 0; $i < $val['level']; $i++) {
-        if ($morembox[$i]) {
-            $line .= '<span class="treeImg treeImg' . (empty($GLOBALS['nls']['rtl'][$GLOBALS['language']]) ? 1 : 5) . '"></span>';
-        } else {
-            $line .= '<span class="treeImg"></span>';
-        }
-    }
-    $val['line'] = $line . $dir;
     $rows[] = $val;
 }
 

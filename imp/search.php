@@ -80,17 +80,25 @@ if (!empty($criteria)) {
 }
 
 /* Generate master folder list. */
-$show_unsub = ($subscribe = $prefs->getValue('subscribe'))
-    ? Horde_Util::getFormData('show_unsub', false)
-    : false;
+$imp_imap_tree = IMP_Imap_Tree::singleton();
+$mask = IMP_Imap_Tree::NEXT_SHOWCLOSED;
+$subscribe = $prefs->getValue('subscribe');
+if ($subscribe || !Horde_Util::getFormData('show_unsub')) {
+    $mask |= IMP_Imap_Tree::NEXT_SHOWSUB;
+}
 
-$imp_folder = IMP_Folder::singleton();
+list($raw_rows,) = $imp_imap_tree->build($mask);
+
+$imp_ui_folder = new IMP_UI_Folder();
+$tree_imgs = $imp_ui_folder->getTreeImages($raw_rows);
+
 $folders = array();
-foreach ($imp_folder->flist(array(), $subscribe && !$show_unsub) as $val) {
-    $folders[] = array_filter(array(
-        'l' => Horde_Text_Filter::filter($val['label'], 'space2html', array('charset' => $charset, 'encode' => true)),
-        'v' => $val['val']
-    ));
+foreach ($raw_rows as $key => $val) {
+    $folders[] = array(
+        'c' => intval($val['container']),
+        'l' => $tree_imgs[$key] . ' ' . $val['name'],
+        'v' => $val['value']
+    );
 }
 
 if (Horde_Util::getFormData('show_unsub') !== null) {
@@ -190,6 +198,7 @@ Horde::addInlineScript($on_domload, 'dom');
 
 $title = _("Search");
 Horde::addScriptFile('horde.js', 'horde', true);
+Horde::addScriptFile('stripe.js', 'horde', true);
 Horde::addScriptFile('search.js', 'imp', true);
 
 if ($dimp_view) {

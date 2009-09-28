@@ -176,7 +176,7 @@ div.msgActions, #fmanager div.folderActions {
 }
 
 /* Folder view. */
-#fmanager div, #fmanager div input {
+#checkAll0, #checkAll1 {
     vertical-align: middle;
 }
 #fmanager div.folderChoose {
@@ -438,7 +438,7 @@ span.treeImg {
     width: 20px;
     display: -moz-inline-stack;
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: bottom;
 }
 
 span.treeImg1 {

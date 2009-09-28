@@ -33,11 +33,13 @@ var ImpSearch = {
 
         folders.each(function(f) {
             var n = $(node.cloneNode(true));
-            n.down().writeAttribute({ disabled: !Boolean(f.v), value: (f.v ? f.v.escapeHTML() : null) }).insert({ after: f.l });
+            n.down().writeAttribute({ disabled: Boolean(f.c), value: (f.co ? null : f.v.escapeHTML()) }).insert({ after: f.l });
             fragment.appendChild(n);
         });
 
         $('search_folders_hdr').next('DIV').update('').appendChild(fragment);
+
+        stripeAllElements();
     },
 
     updateSavedSearches: function(searches)
@@ -351,7 +353,7 @@ var ImpSearch = {
                     elt.hasClassName('arrowCollapsed')) {
                     elt.up().down().toggle().next().toggle().up().next().toggle();
                     if (elt.descendantOf('search_folders_hdr')) {
-                        elt.next('SPAN.searchFoldersActions').toggle();
+                        elt.next('SPAN.searchuiFoldersActions').toggle();
                     }
                 } else if (elt.hasClassName('searchuiDelete')) {
                     tmp = elt.up('TR');
