@@ -36,6 +36,4 @@ abstract class Horde_Constraint_Compound implements Horde_Constraint
     {
         return $this->_constraints;
     }
-
-    abstract public function evaluate($value);
 }
