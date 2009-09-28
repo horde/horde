@@ -38,25 +38,6 @@ class Kronolith_Resource
     }
 
     /**
-     * Return a list of resources that the current user has access to at the
-     * specified permission level. Right now, all users have PERMS_READ, but
-     * only system admins have PERMS_EDIT | PERMS_DELETE
-     *
-     * @return array of Kronolith_Resource objects
-     */
-    static public function listResources($perms = PERMS_READ, $params = array())
-    {
-        if (($perms & (PERMS_EDIT | PERMS_DELETE)) && !Horde_Auth::isAdmin()) {
-            return array();
-        }
-
-        // Query kronolith_resource table for all(?) available resources?
-        // maybe by 'type' or 'name'? type would be arbitrary?
-        $driver = Kronolith::getDriver('Resource');
-        return $driver->listResources($params);
-    }
-
-    /**
      * Determine if the provided calendar id represents a resource's calendar.
      *
      * @param string $calendar  The calendar identifier to check.

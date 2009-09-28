@@ -497,13 +497,18 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     /**
      * Return a list of Kronolith_Resources
      *
-     * This method will likely be a moving target as group resources are
-     * fleshed out.
+     * Right now, all users have PERMS_READ, but only system admins have
+     * PERMS_EDIT | PERMS_DELETE
      *
+     * @param int $perms     A PERMS_* constant.
      * @param array $filter  A hash of field/values to filter on.
      */
-    public function listResources($filter = array())
+    public function listResources($perms = PERMS_READ, $filter = array())
     {
+        if (($perms & (PERMS_EDIT | PERMS_DELETE)) && !Horde_Auth::isAdmin()) {
+            return array();
+        }
+
         $query = 'SELECT resource_id, resource_name, resource_calendar, resource_category, resource_description, resource_response_type, resource_type, resource_members FROM kronolith_resources';
         if (count($filter)) {
             $clause = ' WHERE ';

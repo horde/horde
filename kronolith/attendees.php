@@ -227,7 +227,7 @@ case 'clear':
 }
 
 /* Get list of resources for select list, and remove those we already added */
-$allResources = Kronolith_Resource::listResources();
+$allResources = Kronolith::getDriver('Resource')->listResources();
 foreach (array_keys($resources) as $id) {
     unset($allResources[$id]);
 }

@@ -28,7 +28,7 @@ class Kronolith_CreateResourceGroupForm extends Horde_Form {
     {
         parent::Horde_Form($vars, _("Create Resource"));
 
-        $resources = Kronolith_Resource::listResources(PERMS_READ, array('type' => 'Single'));
+        $resources = Kronolith::getDriver('Resource')->listResources(PERMS_READ, array('type' => 'Single'));
         $enum = array();
         foreach ($resources as $resource) {
             $enum[$resource->getId()] = htmlspecialchars($resource->get('name'));
