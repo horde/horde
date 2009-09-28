@@ -161,6 +161,13 @@ div.msgActions, #fmanager div.folderActions {
 }
 
 /* Search page styling. */
+#search_form DIV.item {
+    padding: 1px 0 1px 0;
+}
+#search_form .checkbox {
+    vertical-align: middle;
+}
+
 .searchuiCalendar {
     background-image: url("graphics/calendar.png");
 }

@@ -10,12 +10,13 @@
  * 'edit_query' - (string) The search query to edit.
  * 'edit_query_vfolder' - (string) The name of the vfolder being edited.
  * 'search_folders_form' - (array) The list of folders to add to the query.
+ * 'search_label' - (string) The label to use when saving the search.
  * 'search_mailbox' - (string) Use this mailbox as the default value.
  *                    DEFAULT: INBOX
+ * 'search_save' - (boolean) If set, save search.
+ * 'search_type' - (string) The type of saved search ('vfolder').
  * 'show_unsub' - (integer) If set, return a JSON object with folder
  *                information used to create the folder list.
- * 'vfolder_label' - (string) The label to use when saving as a virtual folder.
- * 'vfolder_save' - (boolean) If set, save search as a virtual folder.
  *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
@@ -54,12 +55,17 @@ if (!empty($criteria)) {
     $imp_ui_search = new IMP_UI_Search();
     $query = $imp_ui_search->createQuery($criteria);
 
-    /* Save the search as a virtual folder if requested. */
-    if (Horde_Util::getFormData('vfolder_save')) {
-        $edit_query_vfolder = Horde_Util::getFormData('edit_query_vfolder');
-        $vfolder_label = Horde_Util::getFormData('vfolder_label');
-        $id = $imp_search->addVFolder($query, $folders, $criteria, $vfolder_label, empty($edit_query_vfolder) ? null : $edit_query_vfolder);
-        $notification->push(sprintf(_("Virtual Folder \"%s\" created succesfully."), $vfolder_label), 'horde.success');
+    /* Save the search if requested. */
+    if (Horde_Util::getFormData('search_save')) {
+        $search_label = Horde_Util::getFormData('search_label');
+
+        switch (Horde_Util::getFormData('search_type')) {
+        case 'vfolder':
+            $edit_query_vfolder = Horde_Util::getFormData('edit_query_vfolder');
+            $id = $imp_search->addVFolder($query, $folders, $criteria, $search_label, empty($edit_query_vfolder) ? null : $edit_query_vfolder);
+            $notification->push(sprintf(_("Virtual Folder \"%s\" created succesfully."), $search_label), 'horde.success');
+            break;
+        }
     } else {
         /* Set the search in the session. */
         $id = $imp_search->createSearchQuery($query, $folders, $criteria, _("Search Results"));
@@ -178,7 +184,7 @@ $gettext_strings = array(
     'loading' => _("Loading..."),
     'need_criteria' => _("Please select at least one search criteria."),
     'need_folder' => _("Please select at least one folder to search."),
-    'need_vfolder_label' => _("Virtual Folders require a label."),
+    'need_label' => _("Saved searches require a label."),
     'not_match' => _("Do NOT Match"),
     'search_term' => _("Search Term:")
 );

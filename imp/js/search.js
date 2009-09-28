@@ -249,8 +249,8 @@ var ImpSearch = {
 
         if (!this._getAll().findAll(function(i) { return i.checked; }).size()) {
             alert(this.text.need_folder);
-        } else if ($F('vfolder_save') && $F('vfolder_label').empty()) {
-            alert(this.text.need_vfolder_label);
+        } else if ($F('search_save') && $F('search_label').empty()) {
+            alert(this.text.need_label);
         } else {
             tmp = $('search_criteria_table').childElements().pluck('id');
             if (tmp.size()) {

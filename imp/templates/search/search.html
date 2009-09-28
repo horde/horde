@@ -61,7 +61,7 @@
  <div class="smallheader leftAlign">
   <span class="searchuiImg arrowExpanded" style="display:none"></span>
   <span class="searchuiImg arrowCollapsed"></span>
-  <gettext>Virtual Folders</gettext>
+  <gettext>Saved Searches</gettext>
  </div>
 
  <div style="display:none">
@@ -69,11 +69,17 @@
   <input type="hidden" name="edit_query_vfolder" value="" />
 <else:edit_query_vfolder>
   <div class="item">
-   <label for="vfolder_save"><gettext>Save search as a virtual folder?</gettext></label> <input type="checkbox" class="checkbox" id="vfolder_save" name="vfolder_save" />
+   <input type="checkbox" class="checkbox" id="search_save" name="search_save" /> <label for="search_save"><gettext>Save search?</gettext></label>
+  </div>
+  <div class="item">
+   <label for="search_type"><gettext>Type:</gettext></label>
+   <select id="search_type">
+    <option value="vfolder"><gettext>Virtual Folder</gettext></option>
+   </select>
   </div>
 </else:edit_query_vfolder></if:edit_query_vfolder>
   <div class="item">
-   <label for="vfolder_label"><gettext>Label:</gettext></label> <input type="text" name="vfolder_label" id="vfolder_label" />
+   <label for="search_label"><gettext>Label:</gettext></label> <input type="text" name="search_label" id="search_label" />
   </div>
  </div>
 </if:virtualfolder>
