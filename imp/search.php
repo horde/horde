@@ -178,6 +178,7 @@ Horde_UI_JsCalendar::init();
 
 /* Gettext strings for this page. */
 $gettext_strings = array(
+    'and' => _("AND"),
     'customhdr' => _("Custom Header:"),
     'dateselection' => _("Date Selection"),
     'flag' => _("Flag:"),

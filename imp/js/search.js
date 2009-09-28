@@ -160,10 +160,19 @@ var ImpSearch = {
 
     insertCriteria: function(tds)
     {
-        var tr = new Element('TR');
-        tds.each(function(td) {
-            tr.insert(new Element('TD').insert(td));
+        var tr = new Element('TR'),
+            td = new Element('TD');
+
+        if ($('search_criteria_table').childElements().size()) {
+            tds.unshift(new Element('EM', { className: 'join' }).insert(this.text.and));
+        } else {
+            tds.unshift('');
+        }
+
+        tds.each(function(node) {
+            tr.insert(td.cloneNode(false).insert(node));
         });
+
         tr.childElements().last().insert(new Element('A', { href: '#', className: 'searchuiImg searchuiDelete' }));
         $('search_criteria').setValue('');
         $('search_criteria_table').insert(tr);
@@ -359,6 +368,9 @@ var ImpSearch = {
                     tmp = elt.up('TR');
                     delete this.criteria[tmp.identify()];
                     tmp.remove();
+                    if ($('search_criteria_table').childElements().size()) {
+                        $('search_criteria_table').down('TR TD').update('');
+                    }
                     e.stop();
                     return;
                 } else if (elt.hasClassName('searchuiCalendar')) {

@@ -166,6 +166,11 @@ div.msgActions, #fmanager div.folderActions {
 }
 #search_form .checkbox {
     vertical-align: middle;
+    margin-right: 2px;
+}
+#search_form EM.join {
+    font-style: normal;
+    font-weight: bold;
 }
 
 .searchuiCalendar {
