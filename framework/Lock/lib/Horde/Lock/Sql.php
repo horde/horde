@@ -240,14 +240,14 @@ class Horde_Lock_Sql extends Horde_Lock
      * @see Horde_Lock::setLock
      */
     public function setLock($requestor, $scope, $principal,
-                     $lifetime = 1, $type = HORDE_LOCK_TYPE_SHARED)
+                     $lifetime = 1, $type = self::TYPE_SHARED)
     {
        if (is_a(($result = $this->_connect()), 'PEAR_Error')) {
             Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
             throw new Horde_Lock_Exception(_("Internal database error.  Details have been logged for the administrator."));
         }
 
-        $oldlocks = $this->getLocks($scope, $principal,  HORDE_LOCK_TYPE_EXCLUSIVE);
+        $oldlocks = $this->getLocks($scope, $principal,  self::TYPE_EXCLUSIVE);
         if (is_a($oldlocks, 'PEAR_Error')) {
             throw new Horde_Lock_Exception($oldlocks->getMessage());
         }

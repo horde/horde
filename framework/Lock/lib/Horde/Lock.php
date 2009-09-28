@@ -103,8 +103,8 @@ class Horde_Lock
      *                           to be in URI form.
      * @param int $lifetime      Time (in seconds) for which the lock will be
      *                           considered valid.
-     * @param string exclusive   One of HORDE_LOCK_TYPE_SHARED or
-     *                           HORDE_LOCK_TYPE_EXCLUSIVE.
+     * @param string exclusive   One of self::TYPE_SHARED or
+     *                           self::TYPE_EXCLUSIVE.
      *                           - An exclusive lock will be enforced strictly
      *                             and must be interpreted to mean that the
      *                             resource can not be modified.  Only one
@@ -123,7 +123,7 @@ class Horde_Lock
      * @throws Horde_Log_Exception
      */
     public function setLock($requestor, $scope, $principal,
-                     $lifetime = 1, $exclusive = HORDE_LOCK_TYPE_SHARED)
+                     $lifetime = 1, $exclusive = self::TYPE_SHARED)
     {
         throw new Horde_Log_Exception(_("No lock driver configured!"));
     }
