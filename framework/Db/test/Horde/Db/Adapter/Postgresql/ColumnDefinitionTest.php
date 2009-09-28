@@ -38,7 +38,7 @@ class Horde_Db_Adapter_Postgresql_ColumnDefinitionTest extends PHPUnit_Framework
 
     public function testConstruct()
     {
-        $col = new Horde_Db_Adapter_Abstract_ColumnDefinition(
+        $col = new Horde_Db_Adapter_Base_ColumnDefinition(
             $this->_conn, 'col_name', 'string'
         );
         $this->assertEquals('col_name', $col->getName());
@@ -47,7 +47,7 @@ class Horde_Db_Adapter_Postgresql_ColumnDefinitionTest extends PHPUnit_Framework
 
     public function testToSql()
     {
-        $col = new Horde_Db_Adapter_Abstract_ColumnDefinition(
+        $col = new Horde_Db_Adapter_Base_ColumnDefinition(
             $this->_conn, 'col_name', 'string'
         );
         $this->assertEquals('"col_name" character varying(255)', $col->toSql());
@@ -55,13 +55,13 @@ class Horde_Db_Adapter_Postgresql_ColumnDefinitionTest extends PHPUnit_Framework
 
     public function testToSqlLimit()
     {
-        $col = new Horde_Db_Adapter_Abstract_ColumnDefinition(
+        $col = new Horde_Db_Adapter_Base_ColumnDefinition(
             $this->_conn, 'col_name', 'string', 40
         );
         $this->assertEquals('"col_name" character varying(40)', $col->toSql());
 
         // set attribute instead
-        $col = new Horde_Db_Adapter_Abstract_ColumnDefinition(
+        $col = new Horde_Db_Adapter_Base_ColumnDefinition(
             $this->_conn, 'col_name', 'string'
         );
         $col->setLimit(40);
@@ -70,13 +70,13 @@ class Horde_Db_Adapter_Postgresql_ColumnDefinitionTest extends PHPUnit_Framework
 
     public function testToSqlPrecisionScale()
     {
-        $col = new Horde_Db_Adapter_Abstract_ColumnDefinition(
+        $col = new Horde_Db_Adapter_Base_ColumnDefinition(
             $this->_conn, 'col_name', 'decimal', null, 5, 2
         );
         $this->assertEquals('"col_name" decimal(5, 2)', $col->toSql());
 
         // set attribute instead
-        $col = new Horde_Db_Adapter_Abstract_ColumnDefinition(
+        $col = new Horde_Db_Adapter_Base_ColumnDefinition(
             $this->_conn, 'col_name', 'decimal'
         );
         $col->setPrecision(5);
@@ -86,13 +86,13 @@ class Horde_Db_Adapter_Postgresql_ColumnDefinitionTest extends PHPUnit_Framework
 
     public function testToSqlNotNull()
     {
-        $col = new Horde_Db_Adapter_Abstract_ColumnDefinition(
+        $col = new Horde_Db_Adapter_Base_ColumnDefinition(
             $this->_conn, 'col_name', 'string', null, null, null, null, false
         );
         $this->assertEquals('"col_name" character varying(255) NOT NULL', $col->toSql());
 
         // set attribute instead
-        $col = new Horde_Db_Adapter_Abstract_ColumnDefinition(
+        $col = new Horde_Db_Adapter_Base_ColumnDefinition(
             $this->_conn, 'col_name', 'string'
         );
         $col->setNull(false);
@@ -101,13 +101,13 @@ class Horde_Db_Adapter_Postgresql_ColumnDefinitionTest extends PHPUnit_Framework
 
     public function testToSqlDefault()
     {
-        $col = new Horde_Db_Adapter_Abstract_ColumnDefinition(
+        $col = new Horde_Db_Adapter_Base_ColumnDefinition(
             $this->_conn, 'col_name', 'string', null, null, null, 'test', null
         );
         $this->assertEquals('"col_name" character varying(255) DEFAULT \'test\'', $col->toSql());
 
         // set attribute instead
-        $col = new Horde_Db_Adapter_Abstract_ColumnDefinition(
+        $col = new Horde_Db_Adapter_Base_ColumnDefinition(
             $this->_conn, 'col_name', 'string'
         );
         $col->setDefault('test');
