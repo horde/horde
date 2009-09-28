@@ -76,6 +76,8 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
         // range.
         $forecast_start = new Horde_Date(time());
         $forecast_end = new Horde_Date($forecast_start);
+        $end = new Horde_Date($end);
+
         // Today is day 1, so subtract a day
         $forecast_end->mday += $this->_params['days'] - 1;
         if ($end->compareDate($forecast_start) <= -1 ||
