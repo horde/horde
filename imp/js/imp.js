@@ -80,7 +80,7 @@ document.observe('dom:loaded', function() {
     IMP.iframeResize = function(id)
     {
         id = $(id);
-        id.setStyle({ height: id.contentWindow.document.body.scrollHeight + 'px' });
+        id.setStyle({ height: id.contentWindow.document.lastChild.scrollHeight + 'px' });
     };
 
     // If menu is present, attach event handlers to folder switcher.
