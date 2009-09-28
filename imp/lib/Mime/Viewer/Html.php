@@ -134,7 +134,8 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
      */
     protected function _renderInfo()
     {
-        if ($this->canRender('inline')) {
+        if ($this->canRender('inline') ||
+            ($this->_mimepart->getDisposition() == 'attachment')) {
             return array();
         }
 
