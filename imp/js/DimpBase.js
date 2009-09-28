@@ -2003,7 +2003,7 @@ var DimpBase = {
     _handleFolderMouseClick: function(e)
     {
         var elt = e.element(),
-            li = elt.up();
+            li = elt.up('LI');
 
         if (!li) {
             return;
