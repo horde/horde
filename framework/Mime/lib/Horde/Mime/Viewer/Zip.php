@@ -89,7 +89,7 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
         }
 
         $text = '<strong>' . htmlspecialchars(sprintf(_("Contents of \"%s\""), $name)) . ":</strong>\n" .
-            '<table><tr><td align="left"><span class="fixed">' .
+            '<table><tr><td align="left"><span style="font-family:monospace">' .
             Horde_Text_Filter::filter(
                 _("Archive Name") . ': ' . $name . "\n" .
                 _("Archive File Size") . ': ' . strlen($contents) .
@@ -101,12 +101,11 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
                 Horde_String::pad(_("Size"), 10, ' ', STR_PAD_LEFT) .
                 Horde_String::pad(_("Modified Date"), 19, ' ', STR_PAD_LEFT) .
                 Horde_String::pad(_("Method"), 10, ' ', STR_PAD_LEFT) .
-                Horde_String::pad(_("CRC"), 10, ' ', STR_PAD_LEFT) .
                 Horde_String::pad(_("Ratio"), 10, ' ', STR_PAD_LEFT) .
                 "\n",
                 'space2html',
                 array('charset' => Horde_Nls::getCharset(), 'encode' => true, 'encode_all' => true)
-            ) . str_repeat('-', 69 + $maxlen) . "\n";
+            ) . str_repeat('-', 59 + $maxlen) . "\n";
 
         foreach ($zipInfo as $key => $val) {
             $ratio = (empty($val['size']))
@@ -118,7 +117,6 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
             $val['size']   = Horde_String::pad($val['size'], 10, ' ', STR_PAD_LEFT);
             $val['date']   = Horde_String::pad(strftime("%d-%b-%Y %H:%M", $val['date']), 19, ' ', STR_PAD_LEFT);
             $val['method'] = Horde_String::pad($val['method'], 10, ' ', STR_PAD_LEFT);
-            $val['crc']    = Horde_String::pad($val['crc'], 10, ' ', STR_PAD_LEFT);
             $val['ratio']  = Horde_String::pad(sprintf("%1.1f%%", $ratio), 10, ' ', STR_PAD_LEFT);
 
             reset($val);
@@ -131,13 +129,13 @@ class Horde_Mime_Viewer_Zip extends Horde_Mime_Viewer_Driver
             }
 
             $text .= $val['name'] . $val['attr'] . $val['size'] .
-                $val['date'] . $val['method'] . $val['crc'] . $val['ratio'] .
+                $val['date'] . $val['method'] . $val['ratio'] .
                 "\n";
         }
 
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => nl2br($text . str_repeat('-', 69 + $maxlen) . "\n</span></td></tr></table>"),
+                'data' => nl2br($text . str_repeat('-', 59 + $maxlen) . "\n</span></td></tr></table>"),
                 'status' => array(),
                 'type' => 'text/html; charset=' . Horde_Nls::getCharset()
             )
