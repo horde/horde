@@ -2180,10 +2180,7 @@ abstract class Kronolith_Event
             }
 
             if (!empty($this->attendees)) {
-                $title = count($this->attendees) == 1
-                    ? _("1 attendee")
-                    : sprintf(_("%s attendees"), count($this->attendees));
-                $status .= Horde::fullSrcImg('attendees.png', array('attr' => array('alt' => $title, 'title' => $title, 'class' => 'iconPeople')));
+                $status .= Horde::fullSrcImg('attendees.png', array('attr' => array('alt' => _("Meeting"), 'title' => _("Meeting"), 'class' => 'iconPeople')));
             }
 
             if (!empty($this->external) && !empty($this->external_icon)) {
