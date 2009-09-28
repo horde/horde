@@ -48,11 +48,6 @@ form#compose {
     text-decoration: underline;
 }
 
-/* Fixes li & ol list numbering issues in HTML messages. */
-.htmlMessage ul li , .htmlMessage ol li {
-    margin-left: 2em;
-}
-
 /* Fixes broken inline-block. */
 div.msgStatus div, #msgHeadersContent .subject span, span.iconImg, span.contextImg, span.spellcheckPopdownImg, #quicksearch span  {
     zoom: 1;

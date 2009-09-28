@@ -2,11 +2,6 @@
  * CSS corrections for IE 7.
  */
 
-/* Fixes li & ol list numbering issues in HTML messages. */
-.htmlMessage ul li, .htmlMessage ol li {
-    margin-left: 2em;
-}
-
 /* Fixes broken inline-block. */
 div.msgflags, span.spellcheckPopdownImg, span.treeImg, .downloadAtc, .downloadZipAtc, .saveImgAtc, .stripAtc, span.mimePartInfo, .mimeStatusMessage {
     zoom: 1;

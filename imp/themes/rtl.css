@@ -30,12 +30,6 @@
     clear: right;
 }
 
-/* Based on the Mozilla default defintions */
-.htmlMessage blockquote[type="cite"] {
-    padding-left: 0;
-    padding-right: 1em;
-}
-
 /* Pad the addressbook icon in header compose links. */
 .msgheader img {
     padding: 1px 2px 1px 1px;
