@@ -737,9 +737,10 @@ class Horde_Rpc_Webdav extends Horde_Rpc
             $timeout = 600;
         }
 
-        $locks = Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
-        if (is_a($locks, 'PEAR_Error')) {
-            Horde::logMessage($locks, __FILE__, __LINE__, PEAR_LOG_ERR);
+        try {
+            $locks = Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
+        } catch (Horde_Lock_Exception $e) {
+            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
             return 500;
         }
 
@@ -748,13 +749,14 @@ class Horde_Rpc_Webdav extends Horde_Rpc
             $locktype = Horde_Lock::TYPE_EXCLUSIVE;
         }
 
-        $lockid = $locks->setLock(Horde_Auth::getAuth(), 'webdav', $params['path'],
-                                  $timeout, $locktype);
-
-        if (is_a($lockid, 'PEAR_Error')) {
-            Horde::logMessage($lockid, __FILE__, __LINE__, PEAR_LOG_ERR);
+        try {
+            $lockid = $locks->setLock(Horde_Auth::getAuth(), 'webdav', $params['path'],
+                                      $timeout, $locktype);
+        } catch (Horde_Lock_Exception $e) {
+            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
             return 500;
-        } elseif ($lockid === false) {
+        }
+        if ($lockid === false) {
             // Resource is already locked.
             return 423;
         }
@@ -782,17 +784,20 @@ class Horde_Rpc_Webdav extends Horde_Rpc
             return 500;
         }
 
-        $locks = Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
-        if (is_a($locks, 'PEAR_Error')) {
-            Horde::logMessage($locks, __FILE__, __LINE__, PEAR_LOG_ERR);
+        try {
+            $locks = Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
+        } catch (Horde_Lock_Exception $e) {
+            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
             return 500;
         }
 
-        $res = $locks->clearLock($params['token']);
-        if (is_a($res, 'PEAR_Error')) {
-            Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
+        try {
+            $res = $locks->clearLock($params['token']);
+        } catch (Horde_Lock_Exception $e) {
+            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
             return 500;
-        } elseif ($res === false) {
+        }
+        if ($res === false) {
             Horde::logMessage('clearLock() returned false', __FILE__, __LINE__, PEAR_LOG_ERR);
             // Something else has failed:  424 (Method Failure)
             return 424;
@@ -811,15 +816,17 @@ class Horde_Rpc_Webdav extends Horde_Rpc
             return false;
         }
 
-        $locks = Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
-        if (is_a($locks, 'PEAR_Error')) {
-            Horde::logMessage($locks, __FILE__, __LINE__, PEAR_LOG_ERR);
+        try {
+            $locks = Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
+        } catch (Horde_Lock_Exception $e) {
+            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
             return false;
         }
 
-        $res =  $locks->getLocks('webdav', $resource);
-        if (is_a($res, 'PEAR_Error')) {
-            Horde::logMessage($res, __FILE__, __LINE__, PEAR_LOG_ERR);
+        try {
+            $res =  $locks->getLocks('webdav', $resource);
+        } catch (Horde_Lock_Exception $e) {
+            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
             return false;
         }
 
