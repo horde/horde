@@ -15,6 +15,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 }
 
 require 'Horde/Autoloader.php';
+Horde_Autoloader::addClassPath(dirname(dirname(dirname(__FILE__))) . '/lib');
 
 /**
  * @category Horde
