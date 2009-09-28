@@ -13,9 +13,9 @@
  */
 
 /**
- * The Autoloader allows us to omit "require/include" statements.
+ * Prepare the test setup.
  */
-require_once 'Horde/Autoloader.php';
+require_once 'Autoload.php';
 
 /**
  * Test the LDAP backend.

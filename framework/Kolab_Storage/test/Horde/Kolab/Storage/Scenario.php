@@ -14,11 +14,6 @@
  */
 
 /**
- * The Autoloader allows us to omit "require/include" statements.
- */
-require_once 'Horde/Autoloader.php';
-
-/**
  * Base for PHPUnit scenarios.
  *
  * $Horde: framework/Kolab_Storage/lib/Horde/Kolab/Test/Storage.php,v 1.9 2009/06/24 23:39:23 slusarz Exp $
@@ -34,7 +29,7 @@ require_once 'Horde/Autoloader.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Test_Storage extends Horde_Kolab_Test_Server
+class Horde_Kolab_Storage_Scenario extends Horde_Kolab_Server_Scenario
 {
     /**
      * Handle a "given" step.
@@ -141,7 +136,7 @@ class Horde_Kolab_Test_Storage extends Horde_Kolab_Test_Server
     public function &prepareBasicSetup()
     {
         $world = &$this->prepareKolabSetup();
-        $this->prepareUsers($world['server']);
+        $this->addBasicUsersToServer($world['server']);
         return $world;
     }
 
@@ -299,9 +294,9 @@ EOD;
                         'username' => $username,
                         'password' => $password);
 
-        $world['server']  = &$this->prepareEmptyKolabServer();
+        $world['server']  = &$this->getKolabMockServer();
         $world['storage'] = &$this->prepareEmptyKolabStorage($params);
-        $world['auth']    = &$this->prepareKolabAuthDriver();
+        //$world['auth']    = &$this->prepareKolabAuthDriver();
 
         $this->prepareBasicConfiguration();
 

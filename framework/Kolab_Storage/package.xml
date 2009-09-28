@@ -85,9 +85,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Folder.php" role="php" />
        <file name="Permission.php" role="php" />
       </dir> <!-- /lib/Horde/Kolab/Storage -->
-      <dir name="Test">
-       <file name="Storage.php" role="php" />
-      </dir> <!-- /lib/Horde/Kolab/Test -->
      </dir> <!-- /lib/Horde/Kolab -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
@@ -96,9 +93,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <dir name="Kolab">
       <dir name="Storage">
        <file name="AllTests.php" role="test" />
+       <file name="Autoload.php" role="php" />
        <file name="CacheTest.php" role="test" />
        <file name="DataTest.php" role="test" />
        <file name="FolderTest.php" role="test" />
+       <file name="Scenario.php" role="php" />
        <file name="StorageTest.php" role="test" />
        <file name="PermissionTest.php" role="test" />
       </dir> <!-- /test/Horde/Kolab/Storage -->
@@ -192,11 +191,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Kolab/Storage/Exception.php" as="Horde/Kolab/Storage/Exception.php" />
    <install name="lib/Horde/Kolab/Storage/Folder.php" as="Horde/Kolab/Storage/Folder.php" />
    <install name="lib/Horde/Kolab/Storage/Permission.php" as="Horde/Kolab/Storage/Permission.php" />
-   <install name="lib/Horde/Kolab/Test/Storage.php" as="Horde/Kolab/Test/Storage.php" />
    <install name="test/Horde/Kolab/Storage/AllTests.php" as="Horde/Kolab/Storage/AllTests.php" />
+   <install name="test/Horde/Kolab/Storage/Autoload.php" as="Horde/Kolab/Storage/Autoload.php" />
    <install name="test/Horde/Kolab/Storage/CacheTest.php" as="Horde/Kolab/Storage/CacheTest.php" />
    <install name="test/Horde/Kolab/Storage/DataTest.php" as="Horde/Kolab/Storage/DataTest.php" />
    <install name="test/Horde/Kolab/Storage/FolderTest.php" as="Horde/Kolab/Storage/FolderTest.php" />
+   <install name="test/Horde/Kolab/Storage/Scenario.php" as="Horde/Kolab/Storage/Scenario.php" />
    <install name="test/Horde/Kolab/Storage/StorageTest.php" as="Horde/Kolab/Storage/StorageTest.php" />
    <install name="test/Horde/Kolab/Storage/PermissionTest.php" as="Horde/Kolab/Storage/PermissionTest.php" />
   </filelist>

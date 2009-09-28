@@ -12,9 +12,9 @@
  */
 
 /**
- * The Autoloader allows us to omit "require/include" statements.
+ * Prepare the test setup.
  */
-require_once 'Horde/Autoloader.php';
+require_once 'Autoload.php';
 
 /**
  * Test the Kolab folder handler.
@@ -30,7 +30,7 @@ require_once 'Horde/Autoloader.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_FolderTest extends Horde_Kolab_Test_Storage
+class Horde_Kolab_Storage_FolderTest extends Horde_Kolab_Storage_Scenario
 {
 
     /**

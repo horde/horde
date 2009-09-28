@@ -15,9 +15,9 @@
  */
 
 /**
- *  We need the base class
+ * Prepare the test setup.
  */
-require_once 'Horde/Kolab/Test/Storage.php';
+require_once 'Autoload.php';
 
 /**
  * Kolab authentication scenarios.
@@ -35,7 +35,8 @@ require_once 'Horde/Kolab/Test/Storage.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Auth_KolabScenarioTest extends Horde_Kolab_Test_Storage
+
+class Horde_Auth_Kolab_KolabScenarioTest extends Horde_Kolab_Server_Scenario
 {
     /**
      * Test loggin in after a user has been added.

@@ -12,11 +12,9 @@
  */
 
 /**
- * The Autoloader allows us to omit "require/include" statements.
+ * Prepare the test setup.
  */
-require_once 'Horde/Autoloader.php';
-
-require_once 'Horde/Util.php';
+require_once 'Autoload.php';
 
 /**
  * Test the Kolab session handler.
@@ -32,7 +30,7 @@ require_once 'Horde/Util.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_SessionTest extends Horde_Kolab_Test_Server
+class Horde_Kolab_Session_SessionTest extends Horde_Kolab_Server_Scenario
 {
     /**
      * Test class construction.

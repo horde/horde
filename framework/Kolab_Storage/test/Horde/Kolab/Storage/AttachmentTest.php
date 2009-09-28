@@ -15,14 +15,9 @@
  */
 
 /**
- *  We need the base class
+ * Prepare the test setup.
  */
-require_once 'Horde/Kolab/Test/Storage.php';
-
-require_once 'Horde.php';
-require_once 'Horde/Kolab/Storage/Data.php';
-require_once 'Horde/Kolab/IMAP.php';
-require_once 'Horde/Kolab/IMAP/test.php';
+require_once 'Autoload.php';
 
 /**
  * Test the handling of attachments.
@@ -41,7 +36,7 @@ require_once 'Horde/Kolab/IMAP/test.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_AttachmentTest extends Horde_Kolab_Test_Storage
+class Horde_Kolab_Storage_AttachmentTest extends Horde_Kolab_Storage_Scenario
 {
 
     /**

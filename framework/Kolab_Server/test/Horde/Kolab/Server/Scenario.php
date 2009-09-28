@@ -12,11 +12,6 @@
  */
 
 /**
- * The Autoloader allows us to omit "require/include" statements.
- */
-require_once 'Horde/Autoloader.php';
-
-/**
  * Base for PHPUnit scenarios.
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
@@ -303,7 +298,7 @@ class Horde_Kolab_Server_Scenario extends PHPUnit_Extensions_Story_TestCase
     }
 
     /**
-     * Specifically set the environments we whish to support.
+     * Specifically set the environments we wish to support.
      *
      * @param array $environments The selected environments.
      *
@@ -315,7 +310,7 @@ class Horde_Kolab_Server_Scenario extends PHPUnit_Extensions_Story_TestCase
     }
 
     /**
-     * Initialize an environment for 
+     * Initialize the environments.
      *
      * @param string $environment The name of the environment.
      *
@@ -437,20 +432,33 @@ class Horde_Kolab_Server_Scenario extends PHPUnit_Extensions_Story_TestCase
     }
 
     /**
+     * Add an object to a server and remember it for the tear down method.
+     *
+     * @param Horde_Kolab_Server &$server The server to add the object to.
+     * @param array              $object  The object data to store.
+     *
+     * @return Horde_Kolab_Server_Object The resulting object.
+     */
+    public function &addToServer(Horde_Kolab_Server &$server, array $object)
+    {
+        $object = $server->add($object);
+        $this->added[] = array($server, $object->getUid());
+        return $object;
+    }
+
+    /**
      * Add an object to the registered servers.
      *
      * @param array $object The object data to store.
      *
      * @return array An array of objects.
      */
-    public function addToServers($object)
+    public function addToServers(array $object)
     {
         $result = array();
         foreach ($this->world['injector'] as $injector) {
             $server = $injector->getInstance('Horde_Kolab_Server');
-            $object = $server->add($object);
-            $result[] = $object;
-            $this->added[] = array($server, $object->getUid());
+            $result[] = $this->addToServer($server, $object);
         }
         return $result;
     }
@@ -464,23 +472,23 @@ class Horde_Kolab_Server_Scenario extends PHPUnit_Extensions_Story_TestCase
      */
     public function addBasicUsersToServer(&$server)
     {
-        $result = $server->add($this->provideBasicUserOne());
+        $result = $this->addToServer($server, $this->provideBasicUserOne());
         $this->assertNoError($result);
-        $result = $server->add($this->provideBasicUserTwo());
+        $result = $this->addToServer($server, $this->provideBasicUserTwo());
         $this->assertNoError($result);
-        $result = $server->add($this->provideBasicAddress());
+        $result = $this->addToServer($server, $this->provideBasicAddress());
         $this->assertNoError($result);
-        $result = $server->add($this->provideBasicAdmin());
+        $result = $this->addToServer($server, $this->provideBasicAdmin());
         $this->assertNoError($result);
-        $result = $server->add($this->provideBasicDomainMaintainer());
+        $result = $this->addToServer($server, $this->provideBasicDomainMaintainer());
         $this->assertNoError($result);
-        $result = $server->add($this->provideGroupWithoutMembers());
+        $result = $this->addToServer($server, $this->provideGroupWithoutMembers());
         $this->assertNoError($result);
-        $result = $server->add($this->provideBasicGroupOne());
+        $result = $this->addToServer($server, $this->provideBasicGroupOne());
         $this->assertNoError($result);
-        $result = $server->add($this->provideBasicMaintainer());
+        $result = $this->addToServer($server, $this->provideBasicMaintainer());
         $this->assertNoError($result);
-        $result = $server->add($this->provideBasicSharedFolder());
+        $result = $this->addToServer($server, $this->provideBasicSharedFolder());
         $this->assertNoError($result);
     }
 

@@ -88,7 +88,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
          <file name="User.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Server/Object/Kolab -->
        </dir> <!-- /lib/Horde/Kolab/Server/Object -->
-       <file name="Scenario.php" role="php" />
        <file name="Structure.php" role="php" />
        <dir name="Structure">
         <file name="Kolab.php" role="php" />
@@ -105,6 +104,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="AddingObjectsTest.php" role="test" />
        <file name="AdminTest.php" role="test" />
        <file name="AllTests.php" role="test" />
+       <file name="Autoload.php" role="test" />
        <file name="DistListHandlingTest.php" role="test" />
        <file name="GroupHandlingTest.php" role="test" />
        <file name="GroupTest.php" role="test" />
@@ -116,6 +116,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="ObjectTest.php" role="test" />
        <file name="OrgPersonTest.php" role="test" />
        <file name="PersonTest.php" role="test" />
+       <file name="Scenario.php" role="test" />
        <file name="ServerTest.php" role="test" />
        <file name="TestTest.php" role="test" />
        <file name="UserHandlingTest.php" role="test" />
@@ -195,7 +196,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Kolab/Server/Object/Kolab/User.php" as="Horde/Kolab/Server/Object/Kolab/User.php" />
    <install name="lib/Horde/Kolab/Server/Object/Organizationalperson.php" as="Horde/Kolab/Server/Object/Organizationalperson.php" />
    <install name="lib/Horde/Kolab/Server/Object/Person.php" as="Horde/Kolab/Server/Object/Person.php" />
-   <install name="lib/Horde/Kolab/Server/Scenario.php" as="Horde/Kolab/Server/Scenario.php" />
    <install name="lib/Horde/Kolab/Server/Structure.php" as="Horde/Kolab/Server/Structure.php" />
    <install name="lib/Horde/Kolab/Server/Structure/Kolab.php" as="Horde/Kolab/Server/Structure/Kolab.php" />
    <install name="lib/Horde/Kolab/Server/Structure/Ldap.php" as="Horde/Kolab/Server/Structure/Ldap.php" />
@@ -203,6 +203,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="test/Horde/Kolab/Server/AddingObjectsTest.php" as="Horde/Kolab/Server/AddingObjectsTest.php" />
    <install name="test/Horde/Kolab/Server/AdminTest.php" as="Horde/Kolab/Server/AdminTest.php" />
    <install name="test/Horde/Kolab/Server/AllTests.php" as="Horde/Kolab/Server/AllTests.php" />
+   <install name="test/Horde/Kolab/Server/Autoload.php" as="Horde/Kolab/Server/Autoload.php" />
    <install name="test/Horde/Kolab/Server/DistListHandlingTest.php" as="Horde/Kolab/Server/DistListHandlingTest.php" />
    <install name="test/Horde/Kolab/Server/GroupHandlingTest.php" as="Horde/Kolab/Server/GroupHandlingTest.php" />
    <install name="test/Horde/Kolab/Server/GroupTest.php" as="Horde/Kolab/Server/GroupTest.php" />
@@ -214,6 +215,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="test/Horde/Kolab/Server/ObjectTest.php" as="Horde/Kolab/Server/ObjectTest.php" />
    <install name="test/Horde/Kolab/Server/OrgPersonTest.php" as="Horde/Kolab/Server/OrgPersonTest.php" />
    <install name="test/Horde/Kolab/Server/PersonTest.php" as="Horde/Kolab/Server/PersonTest.php" />
+   <install name="test/Horde/Kolab/Server/Scenario.php" as="Horde/Kolab/Server/Scenario.php" />
    <install name="test/Horde/Kolab/Server/ServerTest.php" as="Horde/Kolab/Server/ServerTest.php" />
    <install name="test/Horde/Kolab/Server/TestTest.php" as="Horde/Kolab/Server/TestTest.php" />
    <install name="test/Horde/Kolab/Server/UserHandlingTest.php" as="Horde/Kolab/Server/UserHandlingTest.php" />
