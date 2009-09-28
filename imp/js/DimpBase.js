@@ -1332,7 +1332,7 @@ var DimpBase = {
     {
         $('qsearch').removeClassName('qsearchFocus');
         if (!$F('qsearch_input')) {
-            this._setFilterText(true);
+            this._setQsearchText(true);
         }
     },
 
@@ -1356,7 +1356,7 @@ var DimpBase = {
             $('qsearch_close').hide();
             DimpCore.DMenu.disable('qsearch_icon', true, false);
             if (!$('qsearch').hasClassName('qsearchFocus')) {
-                this._setFilterText(true);
+                this._setQsearchText(true);
             }
             this.resetSelected();
             $('qsearch_input').show();
@@ -1368,8 +1368,8 @@ var DimpBase = {
         }
     },
 
-    // d = (boolean) Deactivate filter input?
-    _setFilterText: function(d)
+    // d = (boolean) Deactivate quicksearch input?
+    _setQsearchText: function(d)
     {
         $('qsearch_input').setValue(d ? DIMP.text.search : '');
         [ $('qsearch') ].invoke(d ? 'removeClassName' : 'addClassName', 'qsearchActive');
@@ -1755,7 +1755,7 @@ var DimpBase = {
                 if (e.element().readAttribute('id') != 'qsearch_icon') {
                     elt.addClassName('qsearchFocus');
                     if (!elt.hasClassName('qsearchActive')) {
-                        this._setFilterText(false);
+                        this._setQsearchText(false);
                     }
                     $('qsearch_input').focus();
                 }
@@ -2543,7 +2543,7 @@ var DimpBase = {
             }
         }
 
-        this._setFilterText(true);
+        this._setQsearchText(true);
 
         /* Add popdown menus. Check for disabled compose at the same time. */
         this._addMouseEvents({ id: 'button_other', type: 'otheractions' }, $('button_other'));
