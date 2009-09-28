@@ -66,37 +66,38 @@ class Horde_Date_Utils
      * Returns a relative, natural language representation of a timestamp
      * TODO: Wider range of values ... maybe future time as well?
      *
-     * @param integer $timestamp  The timestamp
-     * @param string $format      Format to display time if timestamp is more
-     *                            then 1 day old.
+     * @param integer $timestamp   The timestamp.
+     * @param string $date_format  Format to display date if timestamp is more
+     *                             then 1 day old.
+     * @param string $time_format  Format to display time if timestamp is 1 day
+     *                             old.
      *
      * @return string  The relative time (i.e. 2 minutes ago)
      */
-    public static function relativeDateTime($timestamp, $format = '%x')
+    public static function relativeDateTime($timestamp, $date_format = '%x', $time_format = '%X')
     {
         $delta = time() - $timestamp;
         if ($delta < 60) {
-            return sprintf("%d %s", $delta, ngettext("second ago", "seconds ago", $delta));
+            return sprintf(ngettext("%d second ago", "%d seconds ago", $delta), $delta);
         }
         $delta = round($delta / 60);
         if ($delta < 60) {
-            return sprintf("%d %s", $delta, ngettext("minute ago", "minutes ago", $delta));
+            return sprintf(ngettext("%d minute ago", "%d minutes ago", $delta), $delta);
         }
 
         $delta = round($delta / 60);
         if ($delta < 24) {
-            return sprintf("%d %s", $delta, ngettext("hour ago", "hours ago", $delta));
+            return sprintf(ngettext("%d hour ago", "%d hours ago", $delta), $delta);
         }
 
         if ($delta > 24 && $delta < 48) {
             $date = new Horde_Date($timestamp);
-            return sprintf(_("yesterday at %s"), $date->strftime("%l:%M %p"));
+            return sprintf(_("yesterday at %s"), $date->strftime($time_format));
         }
 
         // Default to the user specified date format.
         $date = new Horde_Date($timestamp);
-
-        return $date->strftime($GLOBALS['prefs']->getValue('date_format'));
+        return $date->strftime($date_format);
     }
 
 }
