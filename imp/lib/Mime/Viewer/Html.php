@@ -284,7 +284,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         return empty($matches[2])
             ? $matches[1] . '"' . $this->_blockimg . '" htmlimgblocked="' . rawurlencode(str_replace('&amp;', '&', trim($matches[5], '\'" '))) . '"'
-            : $matches[1] . "'" . $this->_blockimg . '\')' . $matches[6] . '" htmlimgblocked="' . rawurlencode(str_replace('&amp;', '&', trim($matches[5], '\'" ')));
+            : $matches[1] . "'" . $this->_blockimg . '\')' . $matches[6] . '" htmlimgblocked="' . rawurlencode(str_replace('&amp;', '&', trim($matches[5], '\'" '))) . '"';
     }
 
     /**
