@@ -613,6 +613,12 @@ var DimpBase = {
             onSplitBarChange: function() {
                 this._updatePrefs('dimp_splitbar', this.viewport.getPageSize());
             }.bind(this),
+            onSplitBarEnd: function() {
+                $('msgBodyCover').hide();
+            },
+            onSplitBarStart: function() {
+                $('msgBodyCover').clonePosition('msgBody').show();
+            },
             onWait: function() {
                 if ($('dimpmain_folder').visible()) {
                     DimpCore.showNotifications([ { type: 'horde.warning', message: DIMP.text.listmsg_wait } ]);
@@ -2644,11 +2650,15 @@ DimpBase._msgDragConfig = {
         } else {
             DimpBase.msgSelect(id, args);
         }
+
+        $('msgBodyCover').clonePosition('msgBody').show();
     },
     onEnd: function(d, e) {
         if (d.selectIfNoDrag && !d.wasDragged) {
             DimpBase.msgSelect(d.element.id, { right: e.isRightClick() });
         }
+
+        $('msgBodyCover').hide();
     }
 };
 
@@ -2657,6 +2667,9 @@ DimpBase._folderDragConfig = {
     offset: { x: 15, y: 0 },
     scroll: 'normalfolders',
     threshold: 5,
+    onStart: function(d, e) {
+        $('msgBodyCover').clonePosition('msgBody').show();
+    },
     onDrag: function(d, e) {
         if (!d.wasDragged) {
             $('folderopts').hide();
@@ -2669,6 +2682,7 @@ DimpBase._folderDragConfig = {
             $('folderopts').show();
             $('dropbase').hide();
         }
+        $('msgBodyCover').hide();
     }
 };
 

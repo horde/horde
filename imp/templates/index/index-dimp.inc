@@ -474,3 +474,5 @@ function _simpleButton($id, $text, $image, $imagedir = null)
   <input type="button" class="button RBFolderCancel" value="<?php echo _("Cancel") ?>" />
  </form>
 </div>
+
+<div id="msgBodyCover" style="display:none"></div>

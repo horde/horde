@@ -54,6 +54,8 @@
  * onSelect
  * onSlide
  * onSplitBarChange
+ * onSplitBarEnd
+ * onSplitBarStart
  * onWait
  *
  * Outgoing AJAX request has the following params:
@@ -916,6 +918,9 @@ var ViewPort = Class.create({
                     orig: this.page_size,
                     pos: $(this.opts.content).positionedOffset()[1]
                 };
+                if (this.opts.onSplitBarStart) {
+                    this.opts.onSplitBarStart();
+                }
             }.bind(this),
             snap: function(x, y, elt) {
                 var l = parseInt((y - this.sp.pos) / this.sp.lh);
@@ -933,6 +938,9 @@ var ViewPort = Class.create({
                 if (this.opts.onSplitBarChange &&
                     this.sp.orig != this.sp.lines) {
                     this.opts.onSplitBarChange();
+                }
+                if (this.opts.onSplitBarEnd) {
+                    this.opts.onSplitBarEnd();
                 }
             }.bind(this)
         });
