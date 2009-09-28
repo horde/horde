@@ -42,14 +42,14 @@ class Horde_Support_BacktraceTest extends PHPUnit_Framework_TestCase
     public function testCreateFromException()
     {
         try {
-            $this->throwException();
+            $this->generateUncaughtException();
         } catch (Exception $e) {
         }
 
         $trace = new Horde_Support_Backtrace($e);
 
         $caller = $trace->getCurrentContext();
-        $this->assertEquals('throwException', $caller['function']);
+        $this->assertEquals('generateUncaughtException', $caller['function']);
 
         $caller = $trace->getCallingContext();
         $this->assertEquals(__FUNCTION__, $caller['function']);
@@ -75,7 +75,7 @@ class Horde_Support_BacktraceTest extends PHPUnit_Framework_TestCase
         return debug_backtrace();
     }
 
-    public function throwException()
+    public function generateUncaughtException()
     {
         throw new Exception();
     }
