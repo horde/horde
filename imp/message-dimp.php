@@ -41,8 +41,7 @@ if (isset($show_msg_result['error'])) {
 
 $scripts = array(
     array('ContextSensitive.js', 'imp', true),
-    array('fullmessage-dimp.js', 'imp', true),
-    array('imp.js', 'imp', true)
+    array('fullmessage-dimp.js', 'imp', true)
 );
 
 $js_out = array();
@@ -78,8 +77,13 @@ if (!$disable_compose) {
     Horde::addInlineScript($compose_result['jsonload'], 'load');
 }
 
+$js_onload = array(IMP_Dimp::notify());
+if (isset($show_msg_result['js'])) {
+    $js_onload = array_merge($js_onload, $show_msg_result['js']);
+}
+
 Horde::addInlineScript($js_out);
-Horde::addInlineScript(array(IMP_Dimp::notify()), 'dom');
+Horde::addInlineScript($js_onload, 'dom');
 
 IMP_Dimp::header($show_msg_result['subject'], $scripts);
 echo "<body>\n";

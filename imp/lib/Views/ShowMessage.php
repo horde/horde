@@ -68,6 +68,7 @@ class IMP_Views_ShowMessage
      * 'errortype' - Contains the error type (only on error)
      * 'from' - The From addresses
      * 'index' - The IMAP UID
+     * 'js' - Javascript code to run on display
      * 'log' - Log information
      * 'mailbox' - The IMAP mailbox
      * 'msgtext' - The text of the message
@@ -75,8 +76,6 @@ class IMP_Views_ShowMessage
      *
      * FOR PREVIEW MODE:
      * 'fulldate' - The fully formatted date
-     * 'js' - Javascript code to run on display (only if the previewview
-     *        hook is active)
      * 'minidate' - A miniature date
      *
      * FOR NON-PREVIEW MODE:
@@ -98,6 +97,7 @@ class IMP_Views_ShowMessage
 
         $result = array(
             'index' => $index,
+            'js' => array(),
             'mailbox' => $mailbox
         );
 
@@ -296,6 +296,10 @@ class IMP_Views_ShowMessage
                 }
 
                 $result['msgtext'] .= '<div><span class="mimePartInfo">' . implode(' ', $tmp_summary) . '</span></div>' . implode("\n", $tmp_status) . $info['data'];
+
+                if (isset($info['js'])) {
+                    $result['js'] = array_merge($result['js'], $info['js']);
+                }
             }
         }
 
@@ -338,7 +342,7 @@ class IMP_Views_ShowMessage
                 $res = Horde::callHook('dimp_previewview', array($result), 'imp');
                 if (!empty($res)) {
                     $result = $res[0];
-                    $result['js'] = $res[1];
+                    $result['js'] = array_merge($result['js'], $res[1]);
                 }
             } catch (Horde_Exception_HookNotSet $e) {}
         } elseif (!$preview) {
@@ -350,6 +354,10 @@ class IMP_Views_ShowMessage
         if (!$preview) {
             $result['list_info'] = $imp_ui->getListInformation($mime_headers);
             $result['save_as'] = Horde::downloadUrl(htmlspecialchars_decode($result['subject']), array_merge(array('actionID' => 'save_message'), IMP::getIMPMboxParameters($mailbox, $index, $mailbox)));
+        }
+
+        if (empty($result['js'])) {
+            unset($result['js']);
         }
 
         return $result;

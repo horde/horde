@@ -579,6 +579,7 @@ $part_info_action = array('download', 'download_zip', 'img_save', 'strip');
 $parts_list = $imp_contents->getContentTypeMap();
 $strip_atc = $prefs->getValue('strip_attachments');
 $atc_parts = $display_ids = array();
+$js_onload = array();
 $msgtext = '';
 
 /* Do MDN processing now. */
@@ -649,6 +650,10 @@ foreach ($parts_list as $mime_id => $mime_type) {
         $msgtext .= '<div><span class="mimePartInfo">' . implode(' ', $tmp_summary) . '</span></div>' .
             implode("\n", $tmp_status) .
             $info['data'];
+
+        if (isset($info['js'])) {
+            $js_onload = array_merge($js_onload, $info['js']);
+        }
     }
 }
 
@@ -713,6 +718,7 @@ $m_template->set('headers', $hdrs);
 $m_template->set('msgtext', $msgtext);
 
 /* Output message page now. */
+Horde::addInlineScript($js_onload, 'dom');
 Horde::addScriptFile('effects.js', 'horde', true);
 Horde::addScriptFile('imp.js', 'imp', true);
 Horde::addScriptFile('message.js', 'imp', true);

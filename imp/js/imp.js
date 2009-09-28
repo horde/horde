@@ -26,9 +26,34 @@ document.observe('dom:loaded', function() {
      */
     IMP.unblockImages = function(e)
     {
-        var elt = e.element().up('TABLE.mimeStatusMessage');
+        var elt = e.element().up('TABLE.mimeStatusMessage'),
+            iframe = elt.up().next('.htmlMsgData'),
+            s = new Selector('[htmlimgblocked]');
 
-        elt.up().next('.htmlMessage').writeAttribute('src', e.element().readAttribute('href'));
+        // Need to use non-prototypejs methods to work with data inside of
+        // the IFRAME. Prototypejs's Selector works, but only if we use
+        // the pure javascript method.
+        if (s.mode != 'normal') {
+            delete Selector._cache['[htmlimgblocked]'];
+            s.mode = 'normal';
+            s.compileMatcher();
+        }
+
+        s.findElements(iframe.contentWindow.document).each(function(b) {
+            var src = decodeURIComponent(b.getAttribute('htmlimgblocked'));
+            if (b.getAttribute('src')) {
+                b.setAttribute('src', src);
+            } else if (b.getAttribute('background')) {
+                b.setAttribute('background', src);
+            } else if (b.style.backgroundImage) {
+                b.style.setProperty('background-image', 'url(' + src + ')', '');
+            }
+        });
+
+        // Delete this entry, because in the rare case that another selector
+        // on the page uses the same expression, it will break the next time
+        // it is used.
+        delete Selector._cache['[htmlimgblocked]'];
 
         Effect.Fade(elt, {
             afterFinish: function() { elt.remove(); },
@@ -36,6 +61,24 @@ document.observe('dom:loaded', function() {
         });
 
         e.stop();
+    };
+
+    IMP.iframeInject = function(id, data)
+    {
+        id = $(id);
+        var d = id.contentWindow.document;
+
+        d.open();
+        d.write(data);
+        d.close();
+
+        this.iframeResize(id);
+    };
+
+    IMP.iframeResize = function(id)
+    {
+        id = $(id);
+        id.setStyle({ height: id.contentWindow.document.height + 'px' });
     };
 
     // If menu is present, attach event handlers to folder switcher.

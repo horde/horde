@@ -373,9 +373,11 @@ class IMP_Contents
      *          identified in the MIME part.
      * </pre>
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render(). Additionally,
-     *                a entry in the base array labeled 'name' will be present
-     *                which contains the MIME name information.
+     * @return array  See Horde_Mime_Viewer_Driver::render(). The following
+     *                fields may also be present:
+     *                'js' - (array) A list of javascript commands to run
+     *                       after the content is displayed on screen.
+     *                'name' - (string) Contains the MIME name information.
      */
     public function renderMIMEPart($mime_id, $mode, $options = array())
     {
