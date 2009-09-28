@@ -15,14 +15,26 @@ abstract class Horde_Constraint_Compound implements Horde_Constraint
             if (! $c instanceof Horde_Constraint) {
                 throw new IllegalArgumentException("$c does not implement Horde_Constraint");
             }
+            $this->addConstraint($c);
         }
-        $this->_constraints = $constraints;
     }
 
     public function addConstraint(Horde_Constraint $constraint)
     {
-        $this->_constraints[] = $constraint;
+        $kind = get_class($this);
+        if ($constrainst instanceof $kind) {
+            foreach ($constrainst->getConstraints() as $c) {
+                $this->addConstraint($c);
+            }
+        } else {
+            $this->_constraints[] = $constraint;
+        }
         return $this;
+    }
+
+    public function getConstraints()
+    {
+        return $this->_constraints;
     }
 
     abstract public function evaluate($value);
