@@ -22,20 +22,7 @@
  */
 class Horde_Log_Filter_Constraint implements Horde_Log_Filter_Interface
 {
-    protected $_constraints = array();
-    protected $_coupler;
-
-    /**
-     * create a new Constraint based filter
-     *
-     * @param Horde_Constraint_Coupler $coupler The default constraint coupler. Use an And coupler 
-     * to make addConstraint create And constraints when a second constraint is added for a field, 
-     * and use and Or coupler to make Or the default coupling of constraints
-     */
-    public function __construct(Horde_Constraint_Coupler $coupler)
-    {
-        $this->_coupler = $coupler;
-    }
+    private $_constraints = array();
 
     /**
      * Add a constraint to the filter
@@ -47,12 +34,11 @@ class Horde_Log_Filter_Constraint implements Horde_Log_Filter_Interface
      */
     public function addConstraint($field, Horde_Constraint $constraint)
     {
-        if(isset($this->_constraints[$field])) {
-            $this->_constraints[$field] = $this->_coupler->couple($this->_constraints[$field], $constraint);
+        if ($this->_constraints[$field] instanceof Horde_Constraint) {
+            $this->_constraints[$field] = new Horde_Constraint_And($this->_constraints[$field], $constraint);
         } else {
             $this->_constraints[$field] = $constraint;
         }
-
         return $this;
     }
 
