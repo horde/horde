@@ -65,7 +65,7 @@ if ($app) {
     $lockscope = sprintf("babel-%s-%s", $app, $lang);
 
     // Initialize Horde_Lock class
-    $locks = &Horde_Lock::singleton('sql');
+    $locks = &Horde_Lock::singleton('Sql');
 
 //    $curlocks = $locks->getLocks($lockscope);
 //    var_dump($curlocks);
