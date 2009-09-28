@@ -743,9 +743,9 @@ class Horde_Rpc_Webdav extends Horde_Rpc
             return 500;
         }
 
-        $locktype = HORDE_LOCK_TYPE_SHARED;
+        $locktype = Horde_Lock::TYPE_SHARED;
         if ($params['scope'] == 'exclusive') {
-            $locktype = HORDE_LOCK_TYPE_EXCLUSIVE;
+            $locktype = Horde_Lock::TYPE_EXCLUSIVE;
         }
 
         $lockid = $locks->setLock(Horde_Auth::getAuth(), 'webdav', $params['path'],
@@ -833,7 +833,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
 
         // Format the array keys for HTTP_WebDAV_Server
         $ret = array();
-        if ($lock['lock_type'] == HORDE_LOCK_TYPE_EXCLUSIVE) {
+        if ($lock['lock_type'] == Horde_Lock::TYPE_EXCLUSIVE) {
             $ret['scope'] = 'exclusive';
         } else {
             $ret['scope'] = 'shared';
