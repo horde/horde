@@ -2003,7 +2003,7 @@ var DimpBase = {
     _handleFolderMouseClick: function(e)
     {
         var elt = e.element(),
-            li = elt.up('.folder') || elt.up('.custom');
+            li = elt.up();
 
         if (!li) {
             return;
@@ -2062,7 +2062,7 @@ var DimpBase = {
     createFolder: function(ob)
     {
         var div, f_node, ftype, li, ll, parent_e, tmp,
-            cname = 'folder',
+            cname = 'container';
             fid = this.getFolderId(ob.m),
             label = ob.l || ob.m,
             mbox = ob.m,
@@ -2088,6 +2088,7 @@ var DimpBase = {
                 cname += ' specialContainer';
             }
         } else {
+            cname = 'folder';
             ftype = ob.s ? 'special' : 'folder';
         }
 

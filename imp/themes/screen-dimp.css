@@ -292,7 +292,7 @@ div.vpRow.flagDeleted {
     padding-top: 1px;
     white-space: nowrap;
 }
-#sidebarPanel li.folder, #sidebarPanel li.custom, #sidebarPanel li.servicelink {
+#sidebarPanel li.folder, #sidebarPanel li.container, #sidebarPanel li.custom, #sidebarPanel li.servicelink {
     width: 100%;
     text-decoration: none;
 }
@@ -358,7 +358,7 @@ div.vpRow.flagDeleted {
 #myfolders {
     display: none;
 }
-#sidebarPanel .over a, #sidebarPanel li.folder[ftype=folder]:hover, #sidebarPanel li.folder[ftype=special]:hover, #sidebarPanel li.custom:hover, #sidebarPanel li.servicelink:hover {
+#sidebarPanel .over a, #sidebarPanel li.folder:hover, #sidebarPanel li.custom:hover, #sidebarPanel li.servicelink:hover {
     font-weight: bold;
     text-decoration: underline;
 }
