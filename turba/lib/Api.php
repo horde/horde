@@ -1068,18 +1068,19 @@ class Turba_Api extends Horde_Registry_Api
     /**
      * Returns a contact search result.
      *
-     * @param array $names          The search filter values
-     * @param array $sources        The sources to serach in
-     * @param array $fields         The fields to serach on
-     * @param boolean $matchBegin   Match word boundaries only
-     * @param boolean $forceSource  Whether to use the specified sources, even if
-     *                              they have been disabled in the preferences.
+     * @param array $names          The search filter values.
+     * @param array $sources        The sources to search in.
+     * @param array $fields         The fields to search on.
+     * @param boolean $matchBegin   Match word boundaries only?
+     * @param boolean $forceSource  Whether to use the specified sources, even
+     *                              if they have been disabled in the
+     *                              preferences?
      *
      * @return array  Hash containing the search results.
      */
     public function search($names = array(), $sources = array(),
-                           $fields = array(),
-        $matchBegin = false, $forceSource = false)
+                           $fields = array(), $matchBegin = false,
+                           $forceSource = false)
     {
         require_once dirname(__FILE__) . '/base.php';
         global $cfgSources, $attributes, $prefs;
@@ -1162,17 +1163,17 @@ class Turba_Api extends Horde_Registry_Api
                                 !isset($attributes[$key]) ||
                                 $attributes[$key]['type'] != 'email') {
                                     continue;
-                                }
+                            }
                             $email_val = $ob->getValue($key);
 
                             // Multiple addresses support
                             if (isset($attributes[$key]['params'])
                                 && is_array($attributes[$key]['params'])
                                 && !empty($attributes[$key]['params']['allow_multi'])) {
-                                    $addrs = Horde_Mime_Address::explode($email_val);
-                                } else {
-                                    $addrs = array($email_val);
-                                }
+                                $addrs = Horde_Mime_Address::explode($email_val);
+                            } else {
+                                $addrs = array($email_val);
+                            }
 
                             foreach ($addrs as $addr) {
                                 $email[] = trim($addr);
@@ -1181,10 +1182,10 @@ class Turba_Api extends Horde_Registry_Api
 
                         if ($ob->hasValue('name') ||
                             !isset($ob->driver->alternativeName)) {
-                                $display_name = Turba::formatName($ob);
-                            } else {
-                                $display_name = $ob->getValue($ob->driver->alternativeName);
-                            }
+                            $display_name = Turba::formatName($ob);
+                        } else {
+                            $display_name = $ob->getValue($ob->driver->alternativeName);
+                        }
                         if (count($email)) {
                             for ($i = 0; $i < count($email); $i++) {
                                 $seen_key = trim(Horde_String::lower($display_name)) . '/' . trim(Horde_String::lower($email[$i]));
