@@ -61,6 +61,8 @@ document.observe('dom:loaded', function() {
         });
 
         e.stop();
+
+        this.iframeResize.bind(this, iframe.readAttribute('id')).defer();
     };
 
     IMP.iframeInject = function(id, data)
@@ -78,7 +80,7 @@ document.observe('dom:loaded', function() {
     IMP.iframeResize = function(id)
     {
         id = $(id);
-        id.setStyle({ height: id.contentWindow.document.height + 'px' });
+        id.setStyle({ height: id.contentWindow.document.body.scrollHeight + 'px' });
     };
 
     // If menu is present, attach event handlers to folder switcher.
