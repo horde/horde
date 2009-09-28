@@ -78,7 +78,10 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter
         /* Get all attribute="javascript:foo()" tags. This is essentially the
          * regex /(=|url\()("?)[^>]*script:/ but expanded to catch camouflage
          * with spaces and entities. */
-        $preg = '/((=|&#0*61;?|&#x0*3D;?)|' .
+        // The first portion should ensure that CSS data contained within a
+        // 'CDATA' section is not matched.
+        $preg = '/<\s*[^!][^>]*' .
+                '((=|&#0*61;?|&#x0*3D;?)|' .
                 '((u|&#0*85;?|&#x0*55;?|&#0*117;?|&#x0*75;?|\\\\0*75)\s*' .
                 '(r|&#0*82;?|&#x0*52;?|&#0*114;?|&#x0*72;?|\\\\0*72)\s*' .
                 '(l|&#0*76;?|&#x0*4c;?|&#0*108;?|&#x0*6c;?|\\\\0*6c)\s*' .
