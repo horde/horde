@@ -49,8 +49,8 @@ class Horde_Kolab_Storage_AttachmentTest extends Horde_Kolab_Storage_Scenario
         $world = $this->prepareBasicSetup();
 
         $this->storage = $this->authenticate($world['auth'],
-					     'wrobel@example.org',
-					     'none');
+                         'wrobel@example.org',
+                         'none');
 
         $this->folder = $this->prepareNewFolder($this->storage, 'Contacts', 'contact', true);
     }
@@ -71,7 +71,7 @@ class Horde_Kolab_Storage_AttachmentTest extends Horde_Kolab_Storage_Scenario
      */
     public function testCacheAttachmentInFile()
     {
-        $data = &new Horde_Kolab_Storage_Data('contact');
+        $data = new Horde_Kolab_Storage_Data('contact');
         $data->setFolder($this->folder);
 
         $atc1 = Horde_Util::getTempFile();
@@ -103,7 +103,7 @@ class Horde_Kolab_Storage_AttachmentTest extends Horde_Kolab_Storage_Scenario
      */
     public function testCacheAttachmentAsContent()
     {
-        $data = &new Horde_Kolab_Storage_Data('contact');
+        $data = new Horde_Kolab_Storage_Data('contact');
         $data->setFolder($this->folder);
 
         $object = array('uid' => '1',

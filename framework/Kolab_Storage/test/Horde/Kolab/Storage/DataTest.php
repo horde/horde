@@ -41,8 +41,8 @@ class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Storage_Scenario
         $world = $this->prepareBasicSetup();
 
         $this->storage = $this->authenticate($world['auth'],
-					     'wrobel@example.org',
-					     'none');
+                         'wrobel@example.org',
+                         'none');
 
         $this->folder = $this->prepareNewFolder($this->storage, 'Contacts', 'contact', true);
         $this->prepareNewFolder($this->storage, 'NewContacts', 'contact');
@@ -62,9 +62,9 @@ class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Storage_Scenario
      */
     public function testGetCacheKey()
     {
-        $data = &new Horde_Kolab_Storage_Data('test');
+        $data = new Horde_Kolab_Storage_Data('test');
 
-        $folder = &new Horde_Kolab_Storage_Folder('INBOX/Test');
+        $folder = new Horde_Kolab_Storage_Folder('INBOX/Test');
         $data->setFolder($folder);
         $this->assertEquals('user/wrobel/Test', $data->getCacheKey());
     }
@@ -74,7 +74,7 @@ class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Storage_Scenario
      */
     public function testDelete()
     {
-        $data = &new Horde_Kolab_Storage_Data('contact');
+        $data = new Horde_Kolab_Storage_Data('contact');
         $data->setFolder($this->folder);
 
         /**
@@ -110,7 +110,7 @@ class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Storage_Scenario
      */
     public function testMove()
     {
-        $data = &new Horde_Kolab_Storage_Data('contact');
+        $data = new Horde_Kolab_Storage_Data('contact');
         $folder = $this->storage->getFolder('INBOX/Contacts');
         $data->setFolder($folder);
         /**
@@ -121,7 +121,7 @@ class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Storage_Scenario
         $result = $data->getObjectIds();
         $data->expireCache();
 
-        $data2 = &new Horde_Kolab_Storage_Data('contact');
+        $data2 = new Horde_Kolab_Storage_Data('contact');
         $folder2 = $this->storage->getFolder('INBOX/NewContacts');
         $data2->setFolder($folder2);
         /**
@@ -162,7 +162,7 @@ class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Storage_Scenario
      */
     public function testSave()
     {
-        $data = &new Horde_Kolab_Storage_Data('contact');
+        $data = new Horde_Kolab_Storage_Data('contact');
         $data->setFolder($this->folder);
         /**
          * During testing we want to ensure that we do not access any
@@ -227,7 +227,7 @@ class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Storage_Scenario
      */
     public function testObjectDeleteAll()
     {
-        $data = &new Horde_Kolab_Storage_Data('contact');
+        $data = new Horde_Kolab_Storage_Data('contact');
         $data->setFolder($this->folder);
         /**
          * During testing we want to ensure that we do not access any
