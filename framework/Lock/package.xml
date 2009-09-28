@@ -33,6 +33,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <dir name="Horde">
      <dir name="Lock">
       <file name="Sql.php" role="php" />
+      <file name="Exception.php" role="php" />
      </dir> <!-- /lib/Horde/Lock -->
      <file name="Lock.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -73,6 +74,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease>
   <filelist>
    <install name="lib/Horde/Lock/Sql.php" as="Horde/Lock/Sql.php" />
+   <install name="lib/Horde/Lock/Exception.php" as="Horde/Lock/Exception.php" />
    <install name="lib/Horde/Lock.php" as="Horde/Lock.php" />
   </filelist>
  </phprelease>
