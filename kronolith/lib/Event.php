@@ -317,25 +317,45 @@ abstract class Kronolith_Event
         }
 
         /* Check for acceptance/denial of this event's resources.
-         *
-         * @TODO: Need to look at how to lock the resource to avoid two events
-         * inadvertantly getting accepted. (Two simultaneous requests, both
-         * return RESPONSE_ACCEPTED from getResponse()) Maybe Horde_Lock?
          */
         $add_events = array();
+        $locks = Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
+        $lock = array();
+        $failed_resources = array();
         foreach ($this->getResources() as $id => $resourceData) {
+
+            /* Get the resource and protect against infinite recursion in case
+             * someone is silly enough to add a resource to it's own event.*/
             $resource = Kronolith::getDriver('Resource')->getResource($id);
-            // Protect against infinite recursion if someone tries to add a
-            // resource to it's own event.
-            if ($resource->get('calendar') == $this->getCalendar()) {
+            if ($rcal = $resource->get('calendar') == $this->getCalendar()) {
                 continue;
             }
-            $response = $resource->getResponse($this);
+
+            /* Lock the resource and get the response */
+            $principle = 'calendar/' . $rcal;
+            $lock[$resource->getId()] = $locks->setLock(Horde_Auth::getAuth(), 'kronolith', $principle, 5, Horde_Lock::TYPE_EXCLUSIVE);
+            if (!$lock[$resource->getId()]) {
+                // Already locked
+                // For now, just fail. Not sure how else to capture the locked
+                // resources and notify the user.
+                return PEAR::raiseError(sprintf(_("The resource \"%s\" was locked. Please try again."), $resource->get('name')));
+            } else {
+                $response = $resource->getResponse($this);
+            }
+
+            /* Remember accepted resources so we can add the event to their
+             * calendars. Otherwise, clear the lock. */
             if ($response == Kronolith::RESPONSE_ACCEPTED) {
                 $add_events[] = $resource;
+            } else {
+                $locks->clearLock($lock[$resource->getId()]);
             }
+
+            /* Add the resource to the event */
             $this->addResource($resource, $response);
         }
+
+        /* Save */
         $this->toDriver();
         $result = $this->getDriver()->saveEvent($this);
         if (is_a($result, 'PEAR_Error')) {
@@ -351,6 +371,9 @@ abstract class Kronolith_Event
          */
         foreach ($add_events as $resource) {
             $resource->addEvent($this);
+            if ($resource->get('response_type') == Kronolith_Resource::RESPONSETYPE_AUTO) {
+                $locks->clearLock($lock[$resource->getId()]);
+            }
         }
 
         if (!empty($GLOBALS['conf']['alarms']['driver'])) {
