@@ -165,5 +165,21 @@ if ($this->event->isInitialized() && $this->event->alarm > 0):
   <td><?php echo Kronolith::responseToString($status['response']) ?></td>
  </tr>
  <?php endforeach; ?>
+ <!-- Resources -->
+ <tr>
+  <td colspan="3" class="control"><strong><?php echo _("Resources") ?></strong></td>
+ </tr>
+ <tr class="item leftAlign">
+  <th width="50%"><?php echo _("Resource") ?></th>
+  <th width="25%"><?php echo _("Attendance") ?></th>
+  <th width="25%"><?php echo _("Response") ?></th>
+ </tr>
+<?php foreach ($resources as $id => $resource):?>
+<tr>
+ <td class="nowrap"><?php echo htmlspecialchars($resource['name'])?></td>
+ <td><?php echo Kronolith::partToString($resource['attendance']) ?></td>
+ <td><?php echo Kronolith::responseToString($resource['response']) ?></td>
+</tr>
+<?php endforeach;?>
 </table>
 <?php endif; ?>

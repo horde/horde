@@ -79,7 +79,7 @@ class Kronolith_View_Event {
         $owner = Kronolith::getUserName($creatorId);
         $status = Kronolith::statusToString($this->event->getStatus());
         $attendees = $this->event->getAttendees();
-
+        $resources = $this->event->getResources();
         if ($datetime = Horde_Util::getFormData('datetime')) {
             $datetime = new Horde_Date($datetime);
             $month = $datetime->month;
