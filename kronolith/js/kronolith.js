@@ -1013,25 +1013,36 @@ KronolithCore = {
 
             if (event.value.pe) {
                 div.addClassName('kronolithEditable').setStyle({ 'cursor': 'move' });
+                    // Top-most position (minimum y) of top dragger
                 var minTop = this[storage].allDay + this[storage].spacing,
+                    // Number of pixels that cover 10 minutes.
                     step = this[storage].height / 6,
-                    dragTop = draggerTop.cumulativeOffset()[1],
-                    dragBottom = draggerBottom.cumulativeOffset()[1],
+                    // Top position of top dragger
+                    dragTop = draggerTop.cumulativeOffset().top,
+                    // Top position of bottom dragger
+                    dragBottom = draggerBottom.cumulativeOffset().top,
+                    // Height of bottom dragger
                     dragBottomHeight = draggerBottom.getHeight(),
-                    eventTop = div.cumulativeOffset()[1],
+                    // Top position of the whole event div
+                    eventTop = div.cumulativeOffset().top,
+                    // Bottom-most position (maximum y) of top dragger
                     maxTop = div.offsetTop + draggerBottom.offsetTop
                         - this[storage].allDay - this[storage].spacing
                         - draggerTop.getHeight()
                         - parseInt(innerDiv.getStyle('lineHeight')),
+                    // Top-most position (minimum y) of bottom dragger (upper edge)
                     minBottom = div.offsetTop
                         - this[storage].allDay - this[storage].spacing
                         + draggerTop.getHeight() - dragBottomHeight
                         + parseInt(innerDiv.getStyle('lineHeight')),
-                    maxBottom = 24 * KronolithCore[storage].height
+                    // Bottom-most position (maximum y) of bottom dragger (upper edge)
+                    maxBottom = 24 * this[storage].height
                         + this[storage].allDay
                         - dragBottomHeight - minTop,
+                    // Height of the whole event div
                     divHeight = div.getHeight(),
-                    maxDiv = 24 * KronolithCore[storage].height
+                    // Maximum height of the whole event div
+                    maxDiv = 24 * this[storage].height
                         + this[storage].allDay
                         - divHeight - minTop,
                     opts = {
@@ -1049,24 +1060,25 @@ KronolithCore = {
                             this[0]._onDragEnd(d, this[1], innerDiv, event, midnight, view);
                         }.bind([this, div]),
                         'onDrag': function(d, e) {
-                            var top = d.ghost.cumulativeOffset()[1],
+                            var div = this[1],
+                                top = d.ghost.cumulativeOffset().top,
                                 draggingTop = d.ghost.hasClassName('kronolithDraggerTop'),
                                 offset, height, dates;
                             if (draggingTop) {
                                 offset = top - dragTop;
-                                height = this[1].offsetHeight - offset;
-                                this[1].setStyle({
-                                    'top': (this[1].offsetTop + offset) + 'px',
+                                height = div.offsetHeight - offset;
+                                div.setStyle({
+                                    'top': (div.offsetTop + offset) + 'px',
                                 });
                                 offset = d.ghost.offsetTop - minTop;
                                 dragTop = top;
                             } else {
                                 offset = top - dragBottom;
-                                height = this[1].offsetHeight + offset;
-                                offset = this[1].offsetTop - this[0][storage].allDay - this[0][storage].spacing;
+                                height = div.offsetHeight + offset;
+                                offset = div.offsetTop - minTop;
                                 dragBottom = top;
                             }
-                            this[1].setStyle({
+                            div.setStyle({
                                 'height': height + 'px'
                             });
                             this[0]._calculateEventDates(event.value, storage, step, offset, height);
