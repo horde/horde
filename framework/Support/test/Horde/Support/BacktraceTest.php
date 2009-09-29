@@ -23,9 +23,6 @@ class Horde_Support_BacktraceTest extends PHPUnit_Framework_TestCase
 
         $caller = $trace->getCurrentContext();
         $this->assertEquals(__FUNCTION__, $caller['function']);
-
-        $caller = $trace->getCallingContext();
-        $this->assertEquals('invoke', $caller['function']);
     }
 
     public function testCreateFromGeneratedBacktrace()
