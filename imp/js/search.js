@@ -173,6 +173,8 @@ var ImpSearch = {
             tr.insert(td.cloneNode(false).insert(node));
         });
 
+        tds.shift();
+
         tr.childElements().last().insert(new Element('A', { href: '#', className: 'searchuiImg searchuiDelete' }));
         $('search_criteria').setValue('');
         $('search_criteria_table').insert(tr);
@@ -187,6 +189,7 @@ var ImpSearch = {
             new Element('SPAN').insert(new Element('INPUT', { checked: Boolean(not), className: 'checkbox', type: 'checkbox' })).insert(this.text.not_match)
         ];
         this.criteria[this.insertCriteria(tmp)] = { t: id };
+        tmp[1].activate();
     },
 
     insertCustomHdr: function(text, not)
@@ -200,6 +203,7 @@ var ImpSearch = {
             new Element('SPAN').insert(new Element('INPUT', { checked: Boolean(not), className: 'checkbox', type: 'checkbox' })).insert(this.text.not_match)
         ];
         this.criteria[this.insertCriteria(tmp)] = { t: 'customhdr' };
+        tmp[1].activate();
     },
 
     insertSize: function(id, size)
@@ -210,6 +214,7 @@ var ImpSearch = {
             new Element('INPUT', { type: 'text', size: 10 }).setValue(Object.isNumber(size) ? Math.round(size / 1024) : '')
         ];
         this.criteria[this.insertCriteria(tmp)] = { t: id };
+        tmp[1].activate();
     },
 
     insertDate: function(id, data)
@@ -241,6 +246,7 @@ var ImpSearch = {
             $($('within_criteria').cloneNode(true)).writeAttribute({ id: null }).show().setValue(data.l)
         ];
         this.criteria[this.insertCriteria(tmp)] = { t: id };
+        tmp[1].activate();
     },
 
     insertFlag: function(id)
@@ -258,7 +264,7 @@ var ImpSearch = {
 
         if (!this._getAll().findAll(function(i) { return i.checked; }).size()) {
             alert(this.text.need_folder);
-        } else if ($F('search_save') && $F('search_label').empty()) {
+        } else if ($F('search_save') && !$('search_label').present()) {
             alert(this.text.need_label);
         } else {
             tmp = $('search_criteria_table').childElements().pluck('id');
