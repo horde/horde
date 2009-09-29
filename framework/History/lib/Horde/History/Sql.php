@@ -224,40 +224,6 @@ class Horde_History_Sql extends Horde_History
     }
 
     /**
-     * Gets the timestamp of the most recent change to $guid.
-     *
-     * @param string $guid   The name of the history entry to retrieve.
-     * @param string $action An action: 'add', 'modify', 'delete', etc.
-     *
-     * @return integer  The timestamp, or 0 if no matching entry is found.
-     *
-     * @throws Horde_Exception
-     */
-    public function getActionTimestamp($guid, $action)
-    {
-        /* This implementation still works, but we should be able to
-         * get much faster now with a SELECT MAX(history_ts)
-         * ... query. */
-        try {
-            $history = $this->getHistory($guid);
-        } catch (Horde_Exception $e) {
-            return 0;
-        }
-
-        $last = 0;
-
-        if (is_array($history->data)) {
-            foreach ($history->data as $entry) {
-                if (($entry['action'] == $action) && ($entry['ts'] > $last)) {
-                    $last = $entry['ts'];
-                }
-            }
-        }
-
-        return (int)$last;
-    }
-
-    /**
      * Remove one or more history entries by name.
      *
      * @param array $names The history entries to remove.
