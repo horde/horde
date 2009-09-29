@@ -12,7 +12,6 @@
  */
 class Kronolith_Resource_Group extends Kronolith_Resource_Base
 {
-
     /**
      *
      * @var Kronolith_Driver_Resource

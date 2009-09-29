@@ -17,6 +17,7 @@ abstract class Kronolith_Resource_Base
      *   response_type - a RESPONSETYPE_* constant
      *   category    - The category of this resource...an arbitrary label used
      *                 to group multiple resources for the resource_group implementation
+     *
      * @var array
      */
     protected $_params = array();
@@ -124,32 +125,6 @@ abstract class Kronolith_Resource_Base
             return Kronolith::getDriver('Resource');
         } else {
             return Kronolith::getDriver('Resource', $this->get('calendar'));
-        }
-    }
-
-    /**
-     * Check availability and return an appropriate Kronolith response code.
-     *
-     * @param Kronolith_Event $event  The event to check on
-     *
-     * @return integer Kronolith::RESPONSE* constant
-     */
-    public function getResponse($event)
-    {
-        switch($this->getResponseType()) {
-        case Kronolith_Resource::RESPONSETYPE_ALWAYS_ACCEPT:
-            return Kronolith::RESPONSE_ACCEPTED;
-        case Kronolith_Resource::RESPONSETYPE_AUTO:
-            if ($this->isFree($event)) {
-                return Kronolith::RESPONSE_ACCEPTED;
-            } else {
-                return Kronolith::RESPONSE_DECLINED;
-            }
-        case Kronolith_Resource::RESPONSETYPE_ALWAYS_DECLINE:
-            return Kronolith::RESPONSE_DECLINED;
-        case Kronolith_Resource::RESPONSETYPE_NONE:
-        case Kronolith_Resource::RESPONSETYPE_MANUAL:
-            return Kronolith::RESPONSE_NONE;
         }
     }
 
