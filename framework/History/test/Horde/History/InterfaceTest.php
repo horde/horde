@@ -68,7 +68,8 @@ class Horde_History_InterfaceTest extends PHPUnit_Framework_TestCase
              */
             $this->_environments = array(
                 self::ENVIRONMENT_MOCK,
-                self::ENVIRONMENT_DB,
+                /** Uncomment if you want to run a sqlity based test */
+                //self::ENVIRONMENT_DB,
             );
         }
         return $this->_environments;
@@ -379,6 +380,9 @@ EOL;
 
     public function testMethodGetactiontimestampHasResultIntegerZeroIfGethistoryReturnsAnError()
     {
+        if (!in_array(self::ENVIRONMENT_DB, $this->getEnvironments())) {
+            return;
+        }
         $injector = $this->initializeEnvironment(self::ENVIRONMENT_DB);
         $mock = new Dummy_Db();
         $injector->setInstance('DB_common_write', $mock);
@@ -496,6 +500,9 @@ EOL;
 
     public function testHordehistorysqlConvertsPearErrorToHordeexceptions()
     {
+        if (!in_array(self::ENVIRONMENT_DB, $this->getEnvironments())) {
+            return;
+        }
         $injector = $this->initializeEnvironment(self::ENVIRONMENT_DB);
         $mock = new Dummy_Db();
         $injector->setInstance('DB_common_write', $mock);
