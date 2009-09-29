@@ -580,7 +580,7 @@ class Horde_Mime
      */
     static public function generateMessageId()
     {
-        return '<' . date('YmdHis') . '.' . self::generateRandomId() . '@' . $_SERVER['SERVER_NAME'] . '>';
+        return '<' . date('YmdHis') . '.Horde.' . self::generateRandomId() . '@' . $_SERVER['SERVER_NAME'] . '>';
     }
 
     /**
