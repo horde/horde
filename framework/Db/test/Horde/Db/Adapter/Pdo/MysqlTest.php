@@ -381,9 +381,9 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('id',      $col->getName());
         $this->assertEquals('integer', $col->getType());
         $this->assertEquals(false,     $col->isNull());
-        $this->assertEquals(11,        $col->getLimit());
+        $this->assertEquals(10,        $col->getLimit());
         $this->assertEquals('',        $col->getDefault());
-        $this->assertEquals('int(11)', $col->getSqlType());
+        $this->assertEquals('int(10) unsigned', $col->getSqlType());
         $this->assertEquals(false,     $col->isText());
         $this->assertEquals(true,      $col->isNumber());
     }
@@ -673,7 +673,7 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
         $structure = $this->_conn->structureDump('sports');
 
         $expected = "CREATE TABLE `sports` (\n".
-        "  `id` int(11) NOT NULL AUTO_INCREMENT,\n".
+        "  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,\n".
         "  `name` varchar(255) DEFAULT NULL,\n".
         "  `is_college` tinyint(1) DEFAULT NULL,\n".
         "  PRIMARY KEY (`id`)\n".
@@ -706,7 +706,7 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
     public function testTypeToSqlTypePrimaryKey()
     {
         $result = $this->_conn->typeToSql('primaryKey');
-        $this->assertEquals('int(11) DEFAULT NULL auto_increment PRIMARY KEY', $result);
+        $this->assertEquals('int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY', $result);
     }
 
     public function testTypeToSqlTypeString()
