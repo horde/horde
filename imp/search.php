@@ -115,18 +115,18 @@ $js_load = array(
     'ImpSearch.updateFolderList(' . Horde_Serialize::serialize($folders, Horde_Serialize::JSON, $charset) . ')'
 );
 
-/* Process list of saved searches. */
-$saved_searches = $imp_search->listQueries(IMP_Search::LIST_SEARCH | IMP_Search::NO_BASIC_SEARCH, false);
-if (!empty($saved_searches)) {
-    $ss = array();
-    foreach ($saved_searches as $key => $val) {
-        $ss[$key] = array(
+/* Process list of recent searches. */
+$recent_searches = $imp_search->listQueries(IMP_Search::LIST_SEARCH | IMP_Search::NO_BASIC_SEARCH, false);
+if (!empty($recent_searches)) {
+    $rs = array();
+    foreach ($recent_searches as $key => $val) {
+        $rs[$key] = array(
             'c' => $imp_search->getCriteria($key),
             'l' => Horde_String::truncate($val),
             'v' => $key
         );
     }
-    $js_load[] = 'ImpSearch.updateSavedSearches(' . Horde_Serialize::serialize($ss, Horde_Serialize::JSON, $charset) . ')';
+    $js_load[] = 'ImpSearch.updateRecentSearches(' . Horde_Serialize::serialize($rs, Horde_Serialize::JSON, $charset) . ')';
 }
 
 /* Preselect mailboxes. */

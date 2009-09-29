@@ -42,7 +42,7 @@ var ImpSearch = {
         stripeAllElements();
     },
 
-    updateSavedSearches: function(searches)
+    updateRecentSearches: function(searches)
     {
         var fragment = document.createDocumentFragment(),
             node = new Element('OPTION');
