@@ -2,6 +2,7 @@
 v3.0-git
 --------
 
+[mjr] Add support for resource scheduling.
 [jan] Integrate tasks into Ajax interface (Gonçalo Queirós
       <mail@goncaloqueiros.net>).
 [mjr] Extend listTimeObjects API to include optional links and icons.
