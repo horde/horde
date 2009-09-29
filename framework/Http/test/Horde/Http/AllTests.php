@@ -11,11 +11,11 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
     define('PHPUnit_MAIN_METHOD', 'Horde_Http_AllTests::main');
 }
 
-require_once 'PHPUnit/Framework/TestSuite.php';
+require_once 'PHPUnit/Framework.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
-class Horde_Http_AllTests {
-
+class Horde_Http_AllTests
+{
     public static function main()
     {
         PHPUnit_TextUI_TestRunner::run(self::suite());
