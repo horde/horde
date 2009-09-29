@@ -8,10 +8,7 @@
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-license.php.
  *
- * $Horde: framework/Lock/Lock.php,v 1.12 2009/03/05 04:20:32 slusarz Exp $
- *
  * @author  Ben Klang <ben@alkaloid.net>
- * @since   Horde 3.2
  * @package Horde_Lock
  */
 class Horde_Lock
