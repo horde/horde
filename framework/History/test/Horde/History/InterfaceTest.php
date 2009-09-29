@@ -34,21 +34,19 @@ require_once 'Horde/Autoloader.php';
 class Horde_History_InterfaceTest extends PHPUnit_Framework_TestCase
 {
     /** The basic mock environment */
-    const ENVIRONMENT_MOCK = 'mock';
+    const ENVIRONMENT_MOCK = 'Mock';
 
     /** The environment using a database */
-    const ENVIRONMENT_DB = 'db';
+    const ENVIRONMENT_DB = 'Sql';
 
     /**
      * Path to the temporary sqlite db used for testing the db environment.
      */
     private $_db_file;
 
-
-    public function setUp()
-    {
-    }
-
+    /**
+     * Test cleanup.
+     */
     public function tearDown()
     {
         if (!empty($this->_db_file)) {
@@ -64,8 +62,15 @@ class Horde_History_InterfaceTest extends PHPUnit_Framework_TestCase
     public function getEnvironments()
     {
         if (empty($this->_environments)) {
-            /** The db environment provides our only test scenario before refactoring */
-            $this->_environments = array(self::ENVIRONMENT_DB);
+            /**
+             * The db environment provides our only test scenario before
+             * refactoring.
+             */
+            $this->_environments = array(
+                self::ENVIRONMENT_MOCK,
+                /** Uncomment if you want to run a sqlity based test */
+                //self::ENVIRONMENT_DB,
+            );
         }
         return $this->_environments;
     }
@@ -83,22 +88,21 @@ class Horde_History_InterfaceTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Return the history handler for the specified environment.
+     * Initialize the given environment.
      *
      * @param string $environment The selected environment.
      *
-     * @return History The history.
+     * @return Horde_Injector The environment.
      */
-    public function &getHistory($environment)
+    public function initializeEnvironment($environment)
     {
-        if (!isset($this->_histories[$environment])) {
-            switch ($environment) {
-            case self::ENVIRONMENT_DB:
-                global $conf;
+        switch ($environment) {
+        case self::ENVIRONMENT_DB:
+            global $conf;
 
-                $this->_db_file = Horde::getTempFile('Horde_Test', false);
-                $this->_db = sqlite_open($this->_db_file, '0640');
-                $table = <<<EOL
+            $this->_db_file = Horde::getTempFile('Horde_Test', false);
+            $this->_db = sqlite_open($this->_db_file, '0640');
+            $table = <<<EOL
 CREATE TABLE horde_histories (
     history_id       INT UNSIGNED NOT NULL,
     object_uid       VARCHAR(255) NOT NULL,
@@ -112,51 +116,80 @@ CREATE TABLE horde_histories (
 );
 EOL;
 
-                sqlite_exec($this->_db, $table);
-                sqlite_exec($this->_db, 'CREATE INDEX history_action_idx ON horde_histories (history_action);');
-                sqlite_exec($this->_db, 'CREATE INDEX history_ts_idx ON horde_histories (history_ts);');
-                sqlite_exec($this->_db, 'CREATE INDEX history_uid_idx ON horde_histories (object_uid);');
-                sqlite_close($this->_db);
+            sqlite_exec($this->_db, $table);
+            sqlite_exec($this->_db, 'CREATE INDEX history_action_idx ON horde_histories (history_action);');
+            sqlite_exec($this->_db, 'CREATE INDEX history_ts_idx ON horde_histories (history_ts);');
+            sqlite_exec($this->_db, 'CREATE INDEX history_uid_idx ON horde_histories (object_uid);');
+            sqlite_close($this->_db);
 
-                $conf['sql']['database'] =  $this->_db_file;
-                $conf['sql']['mode'] = '0640';
-                $conf['sql']['charset'] = 'utf-8';
-                $conf['sql']['phptype'] = 'sqlite';
+            $conf['sql']['database'] =  $this->_db_file;
+            $conf['sql']['mode'] = '0640';
+            $conf['sql']['charset'] = 'utf-8';
+            $conf['sql']['phptype'] = 'sqlite';
 
-                $history = new Horde_History();
-                break;
-            }
+            $injector = new Horde_Injector(new Horde_Injector_TopLevel());
+            $injector->bindFactory(
+                'Horde_History',
+                'Horde_History_Factory',
+                'getHistory'
+            );
+
+            $config = new stdClass;
+            $config->driver = 'Sql';
+            $config->params = $conf['sql'];
+            $injector->setInstance('Horde_History_Config', $config);
+            break;
+        case self::ENVIRONMENT_MOCK:
+            $injector = new Horde_Injector(new Horde_Injector_TopLevel());
+            $injector->bindImplementation(
+                'Horde_History',
+                'Horde_History_Mock'
+            );
         }
-        $this->_histories[$environment] = &$history;
+        return $injector;
+    }
+
+    /**
+     * Return the history handler for the specified environment.
+     *
+     * @param string $environment The selected environment.
+     *
+     * @return Horde_History The history.
+     */
+    public function getHistory($environment)
+    {
+        if (!isset($this->_histories[$environment])) {
+            $injector = $this->initializeEnvironment($environment);
+            $this->_histories[$environment] = $injector->getInstance('Horde_History');
+        }
         return $this->_histories[$environment];
     }
 
     public function testMethodSingletonHasResultHordehistoryWhichIsAlwaysTheSame()
     {
-        //TODO: More complex
         foreach ($this->getEnvironments() as $environment) {
             $history = $this->getHistory($environment);
-            $history1 = Horde_History::singleton();
-            $history2 = Horde_History::singleton();
+            $history1 = Horde_History::singleton($environment);
+            $this->assertType('Horde_History', $history1);
+            $history2 = Horde_History::singleton($environment);
+            $this->assertType('Horde_History', $history2);
             $this->assertSame($history1, $history2);
         }
     }
 
     public function testMethodLogHasPostConditionThatTimestampAndActorAreAlwaysRecorded()
     {
-        //TODO: More complex
         foreach ($this->getEnvironments() as $environment) {
             $history = $this->getHistory($environment);
             $history->log('test', array('action' => 'test'));
             $this->assertTrue($history->getActionTimestamp('test', 'test') > 0);
-	    $data = $history->getHistory('test')->getData();
+            $data = $history->getHistory('test')->getData();
             $this->assertTrue(isset($data[0]['who']));
         }
     }
 
     public function testMethodLogHasPostConditionThatTheGivenEventHasBeenRecorded()
     {
-        //TODO: More complex
         foreach ($this->getEnvironments() as $environment) {
             $history = $this->getHistory($environment);
             $history->log('test', array('who' => 'me', 'ts' => 1000, 'action' => 'test'));
@@ -166,12 +199,14 @@ EOL;
 
     public function testMethodLogHasParameterStringGuid()
     {
-        //@todo: Add a check for the type.
-    }
-
-    public function testMethodLogHasArrayParameterAttributes()
-    {
-        //@todo: type hint the array
+        foreach ($this->getEnvironments() as $environment) {
+            $history = $this->getHistory($environment);
+            try {
+                $history->log(array());
+                $this->fail('No exception!');
+            } catch (InvalidArgumentException $e) {
+            }
+        }
     }
 
     public function testMethodLogHasArrayParameterBooleanReplaceaction()
@@ -212,7 +247,14 @@ EOL;
 
     public function testMethodGethistoryHasParameterStringGuid()
     {
-        //@todo: Add a check for the type.
+        foreach ($this->getEnvironments() as $environment) {
+            $history = $this->getHistory($environment);
+            try {
+                $history->getHistory(array());
+                $this->fail('No exception!');
+            } catch (InvalidArgumentException $e) {
+            }
+        }
     }
 
     public function testMethodGethistoryHasResultHordehistoryobjectRepresentingTheHistoryLogMatchingTheGivenGuid()
@@ -236,7 +278,7 @@ EOL;
                     'who'    => 'you',
                     'id'     => 2,
                     'ts'     => 2000,
-		    'extra'  => array('a' => 'a'),
+                    'extra'  => array('a' => 'a'),
                 ),
             );
             $this->assertEquals($expect, $data);
@@ -245,10 +287,26 @@ EOL;
 
     public function testMethodGetbytimestampHasParameterStringCmp()
     {
+        foreach ($this->getEnvironments() as $environment) {
+            $history = $this->getHistory($environment);
+            try {
+                $history->getByTimestamp(array(), 1);
+                $this->fail('No exception!');
+            } catch (InvalidArgumentException $e) {
+            }
+        }
     }
 
     public function testMethodGetbytimestampHasParameterIntegerTs()
     {
+        foreach ($this->getEnvironments() as $environment) {
+            $history = $this->getHistory($environment);
+            try {
+                $history->getByTimestamp('>', 'hello');
+                $this->fail('No exception!');
+            } catch (InvalidArgumentException $e) {
+            }
+        }
     }
 
     public function testMethodGetbytimestampHasParameterArrayFilters()
@@ -257,7 +315,7 @@ EOL;
             $history = $this->getHistory($environment);
             $history->log('test', array('who' => 'me', 'ts' => 1000, 'action' => 'test'));
             $history->log('test', array('who' => 'you', 'ts' => 2000, 'action' => 'yours', 'extra' => array('a' => 'a')));
-	    $result = $history->getByTimestamp('>', 1, array(array('field' => 'who', 'op' => '=', 'value' => 'you')));
+            $result = $history->getByTimestamp('>', 1, array(array('field' => 'who', 'op' => '=', 'value' => 'you')));
             $this->assertEquals(array('test' => 2), $result);
         }
     }
@@ -269,36 +327,67 @@ EOL;
             $history->log('test:a', array('who' => 'me', 'ts' => 1000, 'action' => 'test'));
             $history->log('test:b', array('who' => 'you', 'ts' => 2000, 'action' => 'yours'));
             $history->log('yours', array('who' => 'you', 'ts' => 3000, 'action' => 'yours'));
-	    $result = $history->getByTimestamp('>', 1, array(), 'test');
+            $result = $history->getByTimestamp('>', 1, array(), 'test');
             $this->assertEquals(array('test:a' => 1, 'test:b' => 2), $result);
         }
     }
 
     public function testMethodGetbytimestampHasResultArrayContainingTheMatchingEventIds()
     {
-        //TODO: More complex
         foreach ($this->getEnvironments() as $environment) {
             $history = $this->getHistory($environment);
             $history->log('test', array('who' => 'me', 'ts' => 1000, 'action' => 'test'));
+            $history->log('test', array('who' => 'me', 'ts' => 1000, 'action' => 'test'));
             $history->log('test', array('who' => 'you', 'ts' => 2000, 'action' => 'yours', 'extra' => array('a' => 'a')));
-	    $result = $history->getByTimestamp('<', 1001);
-            $this->assertEquals(array('test' => 1), $result);
+            $result = $history->getByTimestamp('<=', 1000);
+            $this->assertEquals(array('test' => 2), $result);
+            $result = $history->getByTimestamp('<', 1001);
+            $this->assertEquals(array('test' => 2), $result);
+            $result = $history->getByTimestamp('>', 1001);
+            $this->assertEquals(array('test' => 3), $result);
+            $result = $history->getByTimestamp('>=', 2000);
+            $this->assertEquals(array('test' => 3), $result);
+            $result = $history->getByTimestamp('=', 2000);
+            $this->assertEquals(array('test' => 3), $result);
+            $result = $history->getByTimestamp('>', 2000);
+            $this->assertEquals(array(), $result);
         }
     }
 
     public function testMethodGetactiontimestampHasParameterStringGuid()
     {
-        //@todo: Add a check for the type.
+        foreach ($this->getEnvironments() as $environment) {
+            $history = $this->getHistory($environment);
+            try {
+                $history->getActionTimestamp(array(), 'test');
+                $this->fail('No exception!');
+            } catch (InvalidArgumentException $e) {
+            }
+        }
     }
 
     public function testMethodGetactiontimestampHasParameterStringAction()
     {
-        //@todo: Add a check for the type.
+        foreach ($this->getEnvironments() as $environment) {
+            $history = $this->getHistory($environment);
+            try {
+                $history->getActionTimestamp('test', array());
+                $this->fail('No exception!');
+            } catch (InvalidArgumentException $e) {
+            }
+        }
     }
 
     public function testMethodGetactiontimestampHasResultIntegerZeroIfGethistoryReturnsAnError()
     {
-        //@todo: test
+        if (!in_array(self::ENVIRONMENT_DB, $this->getEnvironments())) {
+            return;
+        }
+        $injector = $this->initializeEnvironment(self::ENVIRONMENT_DB);
+        $mock = new Dummy_Db();
+        $injector->setInstance('DB_common_write', $mock);
+        $history = $injector->getInstance('Horde_History');
+        $this->assertEquals(0, $history->getActionTimestamp('test', 'test'));
     }
 
     public function testMethodGetactiontimestampHasResultIntegerZeroIfThereIsNoMatchingRecord()
@@ -377,4 +466,109 @@ EOL;
         }
     }
 
+    public function testBaseHordehistoryClassProvidesIncompleteImplementation()
+    {
+        global $conf;
+
+        try {
+            $history = new Horde_History();
+            $history->getHistory('');
+            $this->fail('No exception was thrown!');
+        } catch (Horde_Exception $e) {
+        }
+        try {
+            $history = new Horde_History();
+            $history->getByTimestamp('=', 1);
+            $this->fail('No exception was thrown!');
+        } catch (Horde_Exception $e) {
+        }
+        try {
+            $history = new Horde_History();
+            $history->removeByNames(array());
+            $this->fail('No exception was thrown!');
+        } catch (Horde_Exception $e) {
+        }
+
+        unset($conf['sql']);
+
+        try {
+            $history = Horde_History::singleton();
+            $this->fail('No exception was thrown!');
+        } catch (Horde_Exception $e) {
+        }
+    }
+
+    public function testHordehistorysqlConvertsPearErrorToHordeexceptions()
+    {
+        if (!in_array(self::ENVIRONMENT_DB, $this->getEnvironments())) {
+            return;
+        }
+        $injector = $this->initializeEnvironment(self::ENVIRONMENT_DB);
+        $mock = new Dummy_Db();
+        $injector->setInstance('DB_common_write', $mock);
+        $history = $injector->getInstance('Horde_History');
+
+        try {
+            $history->log('test', array('who' => 'me', 'ts' => 1000, 'action' => 'test'));
+            $this->fail('No exception was thrown!');
+        } catch (Horde_Exception $e) {
+        }
+        
+        try {
+            $history->getHistory('test');
+            $this->fail('No exception was thrown!');
+        } catch (Horde_Exception $e) {
+        }
+
+        try {
+            $history->getByTimestamp('>', 1, array(array('field' => 'who', 'op' => '=', 'value' => 'you')));
+            $this->fail('No exception was thrown!');
+        } catch (Horde_Exception $e) {
+        }
+
+        try {
+            $history->removeByNames(array('test'));
+            $this->fail('No exception was thrown!');
+        } catch (Horde_Exception $e) {
+        }
+    }
+}
+
+/**
+ * A dummy database connection producing nothing bot errors.
+ *
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @category Horde
+ * @package  History
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=History
+ */
+class Dummy_Db extends DB_common
+{
+    public function &query($query, $params = array())
+    {
+        return new PEAR_Error('Error');
+    }
+
+    public function nextId($seq_name, $ondemand = true)
+    {
+        return new PEAR_Error('Error');
+    }
+
+    public function &getAll($query, $params = array(),
+                            $fetchmode = DB_FETCHMODE_DEFAULT)
+    {
+        return new PEAR_Error('Error');
+    }
+
+    public function &getAssoc($query, $force_array = false, $params = array(),
+                              $fetchmode = DB_FETCHMODE_DEFAULT, $group = false)
+    {
+        return new PEAR_Error('Error');
+    }
 }

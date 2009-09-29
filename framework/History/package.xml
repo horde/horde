@@ -32,6 +32,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <dir name="Horde">
      <file name="History.php" role="php" />
      <file name="HistoryObject.php" role="php" />
+     <dir name="History">
+      <file name="Factory.php" role="php" />
+      <file name="Mock.php" role="php" />
+      <file name="Sql.php" role="php" />
+    </dir> <!-- /lib/Horde/History -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="test">
@@ -62,6 +67,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <filelist>
    <install name="lib/Horde/History.php" as="Horde/History.php" />
    <install name="lib/Horde/HistoryObject.php" as="Horde/HistoryObject.php" />
+   <install name="lib/Horde/History/Factory.php" as="Horde/History/Factory.php" />
+   <install name="lib/Horde/History/Mock.php" as="Horde/History/Mock.php" />
+   <install name="lib/Horde/History/Sql.php" as="Horde/History/Sql.php" />
    <install name="test/Horde/History/AllTests.php" as="Horde/History/AllTests.php" />
    <install name="test/Horde/History/InterfaceTest.php" as="Horde/History/InterfaceTest.php" />
   </filelist>

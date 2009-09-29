@@ -31,7 +31,7 @@ class Horde_HistoryObject
     {
         $this->uid = $uid;
 
-        if (!$data || ($data instanceof PEAR_Error)) {
+        if (!$data) {
             return;
         }
 
