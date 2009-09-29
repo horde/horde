@@ -20,7 +20,7 @@ if (!function_exists('_')) {
     }
 }
 
-require_once 'PHPUnit/Framework/TestSuite.php';
+require_once 'PHPUnit/Framework.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
 /**

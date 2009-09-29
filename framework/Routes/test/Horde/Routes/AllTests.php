@@ -24,7 +24,7 @@ require_once "$lib/Mapper.php";
 require_once "$lib/Route.php";
 require_once "$lib/Exception.php";
 
-require_once 'PHPUnit/Framework/TestSuite.php';
+require_once 'PHPUnit/Framework.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
 /**
@@ -44,7 +44,7 @@ class Horde_Routes_AllTests
         $basedir = dirname(__FILE__);
         $baseregexp = preg_quote($basedir . DIRECTORY_SEPARATOR, '/');
 
-        foreach(new RecursiveIteratorIterator(
+        foreach (new RecursiveIteratorIterator(
                  new RecursiveDirectoryIterator($basedir)) as $file) {
             if ($file->isFile() && preg_match('/Test.php$/', $file->getFilename())) {
                 $pathname = $file->getPathname();

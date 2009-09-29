@@ -16,4 +16,8 @@
  */
 class Horde_Http_Response_Mock extends Horde_Http_Response_Base
 {
+    public function getBody()
+    {
+        return $this->body;
+    }
 }

@@ -15,13 +15,13 @@
  */
 
 /**
- * Define the main method 
+ * Define the main method
  */
 if (!defined('PHPUnit_MAIN_METHOD')) {
     define('PHPUnit_MAIN_METHOD', 'Horde_Auth_AllTests::main');
 }
 
-require_once 'PHPUnit/Framework/TestSuite.php';
+require_once 'PHPUnit/Framework.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
 /**
@@ -43,7 +43,6 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
  */
 class Horde_Auth_AllTests
 {
-
     /**
      * Main entry point for running the suite.
      *
@@ -80,7 +79,6 @@ class Horde_Auth_AllTests
 
         return $suite;
     }
-
 }
 
 if (PHPUnit_MAIN_METHOD == 'Horde_Auth_AllTests::main') {
