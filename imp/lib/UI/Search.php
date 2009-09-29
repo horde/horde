@@ -28,6 +28,7 @@ class IMP_UI_Search
         $search_fields = $GLOBALS['imp_search']->searchFields();
         $flag_fields = $GLOBALS['imp_search']->flagFields();
         $imp_flags = IMP_Imap_Flags::singleton();
+        $or_search = false;
 
         foreach ($search as $rule) {
             $ob = new Horde_Imap_Client_Search_Query();
@@ -37,6 +38,12 @@ class IMP_UI_Search
                 : $rule->t;
 
             switch ($type) {
+            case 'or':
+                $query->orSearch($search_array);
+                $search_array = array();
+                $or_search = true;
+                break;
+
             case 'flag':
                 if (isset($flag_fields[$rule->v])) {
                     $val = $imp_flags->parseFormId($rule->t);
@@ -105,7 +112,11 @@ class IMP_UI_Search
             }
         }
 
-        $query->andSearch($search_array);
+        if ($or_search) {
+            $query->orSearch($search_array);
+        } else {
+            $query->andSearch($search_array);
+        }
 
         return $query;
     }

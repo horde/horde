@@ -78,11 +78,7 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
 
             $ui = $vfolder['uiinfo'];
 
-            // TODO: match == 'or' ($ob['match']
-            if ($ui['match'] == 'or') {
-                $GLOBALS['imp_search']->deleteSearchQuery($id);
-                continue;
-            }
+            $or_match = ($ui['match'] == 'or');
 
             /* BC: Convert old (IMP < 4.2.1) style w/separate flag entry to
              * new style where flags are part of the fields to query. */
@@ -151,6 +147,12 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
                 }
 
                 $rules[] = $tmp;
+
+                if ($or_match) {
+                    $tmp = new stdClass;
+                    $tmp->t = 'or';
+                    $rules[] = $tmp;
+                }
             }
 
             /* This will overwrite the existing entry. */

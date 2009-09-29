@@ -24,7 +24,7 @@
  * array(
  *     stdClass object {
  *         't' => (string) 'Type' - The criteria type
- *                Values: Keys from self::searchFields() and 'flag'.
+ *                Values: Keys from self::searchFields(), 'flag', and 'or'.
  *         'v' => (mixed) 'Value' - The data used to build the search
  *                'header' - (string) The value to search for in the header
  *                'customhdr' - (stdClass object) Contains 2 elements:
@@ -676,6 +676,12 @@ class IMP_Search
             $type = isset($searchfields[$field]['type'])
                 ? $searchfields[$field]['type']
                 : $field;
+
+            if ($field == 'or') {
+                $text .= implode(' ' . _("and") . ' ', $text_array) . ' ' . _("OR") . ' ';
+                $text_array = array();
+                continue;
+            }
 
             switch ($searchfields[$field]['type']) {
             case 'flag':

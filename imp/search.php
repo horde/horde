@@ -179,7 +179,7 @@ Horde_UI_JsCalendar::init();
 
 /* Gettext strings for this page. */
 $gettext_strings = array(
-    'and' => _("AND"),
+    'and' => _("and"),
     'customhdr' => _("Custom Header:"),
     'dateselection' => _("Date Selection"),
     'flag' => _("Flag:"),
@@ -188,6 +188,7 @@ $gettext_strings = array(
     'need_folder' => _("Please select at least one folder to search."),
     'need_label' => _("Saved searches require a label."),
     'not_match' => _("Do NOT Match"),
+    'or' => _("OR"),
     'search_term' => _("Search Term:")
 );
 

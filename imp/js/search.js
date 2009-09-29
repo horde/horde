@@ -62,6 +62,11 @@ var ImpSearch = {
         this.resetCriteria();
 
         criteria.each(function(c) {
+            if (c.t == 'or') {
+                this.insertOr();
+                return;
+            }
+
             switch (this.data.types[c.t]) {
             case 'header':
             case 'body':
@@ -110,11 +115,6 @@ var ImpSearch = {
         // TODO: type
     },
 
-    resetCriteria: function()
-    {
-        $('search_criteria_table').childElements().invoke('remove');
-    },
-
     changeHandler: function(e)
     {
         var elt = e.element(), val = $F(elt);
@@ -126,6 +126,11 @@ var ImpSearch = {
             break;
 
         case 'search_criteria':
+            if (val == 'or') {
+                this.insertOr();
+                break;
+            }
+
             switch (this.data.types[val]) {
             case 'header':
             case 'body':
@@ -164,15 +169,36 @@ var ImpSearch = {
         return $('search_criteria').down('[value=' + id + ']').getText() + ': ';
     },
 
-    insertCriteria: function(tds)
+    deleteCriteria: function(tr)
+    {
+        delete this.criteria[tr.identify()];
+        tr.remove();
+        if ($('search_criteria_table').childElements().size()) {
+            $('search_criteria_table').down('TR TD').update('');
+        } else {
+            $('search_criteria').down('[value="or"]').hide().next().hide();
+        }
+    },
+
+    resetCriteria: function()
+    {
+        $('search_criteria_table').childElements().each(this.deleteCriteria.bind(this));
+    },
+
+    insertCriteria: function(tds, or)
     {
         var tr = new Element('TR'),
             td = new Element('TD');
 
-        if ($('search_criteria_table').childElements().size()) {
+        if (!or &&
+            $('search_criteria_table').childElements().size() &&
+            this.criteria[$('search_criteria_table').childElements().last().readAttribute('id')].t != 'or') {
             tds.unshift(new Element('EM', { className: 'join' }).insert(this.text.and));
         } else {
             tds.unshift('');
+            if (!or) {
+                $('search_criteria').down('[value="or"]').show().next().show();
+            }
         }
 
         tds.each(function(node) {
@@ -185,6 +211,11 @@ var ImpSearch = {
         $('search_criteria').setValue('');
         $('search_criteria_table').insert(tr);
         return tr.identify();
+    },
+
+    insertOr: function()
+    {
+        this.criteria[this.insertCriteria([ new Element('EM', { className: 'join' }).insert(this.text.or + ' ') ], true)] = { t: 'or' };
     },
 
     insertText: function(id, text, not)
@@ -277,6 +308,11 @@ var ImpSearch = {
             if (tmp.size()) {
                 tmp.each(function(c) {
                     var tmp2;
+
+                    if (this.criteria[c].t == 'or') {
+                        data.push(this.criteria[c]);
+                        return;
+                    }
 
                     switch (this.data.types[this.criteria[c].t]) {
                     case 'header':
@@ -377,12 +413,7 @@ var ImpSearch = {
                         elt.next('SPAN.searchuiFoldersActions').toggle();
                     }
                 } else if (elt.hasClassName('searchuiDelete')) {
-                    tmp = elt.up('TR');
-                    delete this.criteria[tmp.identify()];
-                    tmp.remove();
-                    if ($('search_criteria_table').childElements().size()) {
-                        $('search_criteria_table').down('TR TD').update('');
-                    }
+                    this.deleteCriteria(elt.up('TR'));
                     e.stop();
                     return;
                 } else if (elt.hasClassName('searchuiCalendar')) {
