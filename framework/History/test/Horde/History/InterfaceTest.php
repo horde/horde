@@ -550,22 +550,24 @@ EOL;
  */
 class Dummy_Db extends DB_common
 {
-    public function query($sql, $values = null)
+    public function &query($query, $params = array())
     {
         return new PEAR_Error('Error');
     }
 
-    public function nextId($table)
+    public function nextId($seq_name, $ondemand = true)
     {
         return new PEAR_Error('Error');
     }
 
-    public function getAll($sql)
+    public function &getAll($query, $params = array(),
+                            $fetchmode = DB_FETCHMODE_DEFAULT)
     {
         return new PEAR_Error('Error');
     }
 
-    public function getAssoc($sql)
+    public function &getAssoc($query, $force_array = false, $params = array(),
+                              $fetchmode = DB_FETCHMODE_DEFAULT, $group = false)
     {
         return new PEAR_Error('Error');
     }
