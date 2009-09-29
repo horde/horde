@@ -34,6 +34,14 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <file name="HistoryObject.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="History">
+      <file name="AllTests.php" role="test" />
+      <file name="InterfaceTest.php" role="test" />
+     </dir> <!-- /test/Horde/History -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test/ -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -54,6 +62,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <filelist>
    <install name="lib/Horde/History.php" as="Horde/History.php" />
    <install name="lib/Horde/HistoryObject.php" as="Horde/HistoryObject.php" />
+   <install name="test/Horde/History/AllTests.php" as="Horde/History/AllTests.php" />
+   <install name="test/Horde/History/InterfaceTest.php" as="Horde/History/InterfaceTest.php" />
   </filelist>
  </phprelease>
  <changelog>
