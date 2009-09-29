@@ -59,7 +59,7 @@ class Horde_Db_Adapter_Pdo_PgsqlSuite extends PHPUnit_Framework_TestSuite
 
     public function getConnection()
     {
-        if (!class_exists('CacheMock')) eval('class CacheMock { function get($key) { return $this->$key; } function set($key, $val) { $this->$key = $val; } } ?>');
+        if (!class_exists('CacheMock', false)) eval('class CacheMock { function get($key) { return $this->$key; } function set($key, $val) { $this->$key = $val; } } ?>');
         $cache = new CacheMock;
 
         $config = array(
