@@ -802,6 +802,10 @@ class IMP_Imap_Tree
             $parent = $this->_tree[$id]['p'];
             unset($this->_tree[$id]);
 
+            if (!is_null($this->_eltdiff)) {
+                $this->_eltdiff['d'][$id] = 1;
+            }
+
             /* Delete the entry from the parent tree. */
             $key = array_search($id, $this->_parent[$parent]);
             unset($this->_parent[$parent][$key]);
