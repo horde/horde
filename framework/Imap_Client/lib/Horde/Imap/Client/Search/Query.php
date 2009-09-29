@@ -276,22 +276,26 @@ class Horde_Imap_Client_Search_Query
 
         $query = '';
 
+        // Add AND'ed queries
+        if (!empty($ptr['and'])) {
+            foreach ($ptr['and'] as $val) {
+                $ret = $val->build();
+                $query .= ' ' . $ret['query'];
+            }
+        }
+
         // Add OR'ed queries
         if (!empty($ptr['or'])) {
-            foreach ($ptr['or'] as $key => $val) {
+            foreach ($ptr['or'] as $val) {
                 // OR queries were not in IMAP 2
                 $imap4 = true;
 
                 $ret = $val->build();
-                $query = 'OR (' . $ret['query'] . ') ' . $query;
-            }
-        }
 
-        // Add AND'ed queries
-        if (!empty($ptr['and'])) {
-            foreach ($ptr['and'] as $key => $val) {
-                $ret = $val->build();
-                $query .= ' ' . $ret['query'];
+                // First OR'd query
+                $query = (empty($query) && empty($cmds))
+                    ? trim($ret['query']) . ' '
+                    : 'OR (' . trim($ret['query']) . ') ' . $query;
             }
         }
 
