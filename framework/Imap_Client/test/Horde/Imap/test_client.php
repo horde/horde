@@ -835,10 +835,12 @@ $query2 = new Horde_Imap_Client_Search_Query();
 $query2->text('Test3', false, true);
 $query3 = new Horde_Imap_Client_Search_Query();
 $query3->newMsgs(false);
-$query3->intervalSearch(100000, Horde_Imap_Client_Search_Query::INTERVAL_YOUNGER);
-$query3->modseq(1234, '/flags/\deleted', 'all');
+$query3->intervalSearch(1000000, Horde_Imap_Client_Search_Query::INTERVAL_YOUNGER);
+if ($imap_client->queryCapability('CONDSTORE')) {
+    $query3->modseq(1234, '/flags/\deleted', 'all');
+}
 $query->orSearch(array($query2, $query3));
-print_r($query->build());
+print_r($query->build($imap_client->capability()));
 
 print "\nTesting mailbox sorting:\n";
 $test_sort = array(
