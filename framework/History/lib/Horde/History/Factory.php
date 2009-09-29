@@ -148,8 +148,6 @@ class Horde_History_Factory
                 $portability |= DB_PORTABILITY_RTRIM;
             }
             $db->setOption('portability', $portability);
-        } else if ($db instanceOf PEAR_Error) {
-            throw new Horde_Exception($db->getMessage());
         }
         return $db;
     }

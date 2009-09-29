@@ -147,6 +147,7 @@ EOL;
         }
         return $injector;
     }
+
     /**
      * Return the history handler for the specified environment.
      *
@@ -177,7 +178,6 @@ EOL;
 
     public function testMethodLogHasPostConditionThatTimestampAndActorAreAlwaysRecorded()
     {
-        //@todo: More complex
         foreach ($this->getEnvironments() as $environment) {
             $history = $this->getHistory($environment);
             $history->log('test', array('action' => 'test'));
@@ -189,7 +189,6 @@ EOL;
 
     public function testMethodLogHasPostConditionThatTheGivenEventHasBeenRecorded()
     {
-        //@todo: More complex
         foreach ($this->getEnvironments() as $environment) {
             $history = $this->getHistory($environment);
             $history->log('test', array('who' => 'me', 'ts' => 1000, 'action' => 'test'));
@@ -199,12 +198,14 @@ EOL;
 
     public function testMethodLogHasParameterStringGuid()
     {
-        //@todo: Add a check for the type.
-    }
-
-    public function testMethodLogHasArrayParameterAttributes()
-    {
-        //@todo: type hint the array
+        foreach ($this->getEnvironments() as $environment) {
+            $history = $this->getHistory($environment);
+            try {
+                $history->log(array());
+                $this->fail('No exception!');
+            } catch (InvalidArgumentException $e) {
+            }
+        }
     }
 
     public function testMethodLogHasArrayParameterBooleanReplaceaction()
@@ -245,7 +246,14 @@ EOL;
 
     public function testMethodGethistoryHasParameterStringGuid()
     {
-        //@todo: Add a check for the type.
+        foreach ($this->getEnvironments() as $environment) {
+            $history = $this->getHistory($environment);
+            try {
+                $history->getHistory(array());
+                $this->fail('No exception!');
+            } catch (InvalidArgumentException $e) {
+            }
+        }
     }
 
     public function testMethodGethistoryHasResultHordehistoryobjectRepresentingTheHistoryLogMatchingTheGivenGuid()
@@ -278,10 +286,26 @@ EOL;
 
     public function testMethodGetbytimestampHasParameterStringCmp()
     {
+        foreach ($this->getEnvironments() as $environment) {
+            $history = $this->getHistory($environment);
+            try {
+                $history->getByTimestamp(array(), 1);
+                $this->fail('No exception!');
+            } catch (InvalidArgumentException $e) {
+            }
+        }
     }
 
     public function testMethodGetbytimestampHasParameterIntegerTs()
     {
+        foreach ($this->getEnvironments() as $environment) {
+            $history = $this->getHistory($environment);
+            try {
+                $history->getByTimestamp('>', 'hello');
+                $this->fail('No exception!');
+            } catch (InvalidArgumentException $e) {
+            }
+        }
     }
 
     public function testMethodGetbytimestampHasParameterArrayFilters()
@@ -309,30 +333,57 @@ EOL;
 
     public function testMethodGetbytimestampHasResultArrayContainingTheMatchingEventIds()
     {
-        //@todo: More complex
         foreach ($this->getEnvironments() as $environment) {
             $history = $this->getHistory($environment);
             $history->log('test', array('who' => 'me', 'ts' => 1000, 'action' => 'test'));
             $history->log('test', array('who' => 'me', 'ts' => 1000, 'action' => 'test'));
             $history->log('test', array('who' => 'you', 'ts' => 2000, 'action' => 'yours', 'extra' => array('a' => 'a')));
+            $result = $history->getByTimestamp('<=', 1000);
+            $this->assertEquals(array('test' => 2), $result);
             $result = $history->getByTimestamp('<', 1001);
             $this->assertEquals(array('test' => 2), $result);
+            $result = $history->getByTimestamp('>', 1001);
+            $this->assertEquals(array('test' => 3), $result);
+            $result = $history->getByTimestamp('>=', 2000);
+            $this->assertEquals(array('test' => 3), $result);
+            $result = $history->getByTimestamp('=', 2000);
+            $this->assertEquals(array('test' => 3), $result);
+            $result = $history->getByTimestamp('>', 2000);
+            $this->assertEquals(array(), $result);
         }
     }
 
     public function testMethodGetactiontimestampHasParameterStringGuid()
     {
-        //@todo: Add a check for the type.
+        foreach ($this->getEnvironments() as $environment) {
+            $history = $this->getHistory($environment);
+            try {
+                $history->getActionTimestamp(array(), 'test');
+                $this->fail('No exception!');
+            } catch (InvalidArgumentException $e) {
+            }
+        }
     }
 
     public function testMethodGetactiontimestampHasParameterStringAction()
     {
-        //@todo: Add a check for the type.
+        foreach ($this->getEnvironments() as $environment) {
+            $history = $this->getHistory($environment);
+            try {
+                $history->getActionTimestamp('test', array());
+                $this->fail('No exception!');
+            } catch (InvalidArgumentException $e) {
+            }
+        }
     }
 
     public function testMethodGetactiontimestampHasResultIntegerZeroIfGethistoryReturnsAnError()
     {
-        //@todo: test
+        $injector = $this->initializeEnvironment(self::ENVIRONMENT_DB);
+        $mock = new Dummy_Db();
+        $injector->setInstance('DB_common_write', $mock);
+        $history = $injector->getInstance('Horde_History');
+        $this->assertEquals(0, $history->getActionTimestamp('test', 'test'));
     }
 
     public function testMethodGetactiontimestampHasResultIntegerZeroIfThereIsNoMatchingRecord()

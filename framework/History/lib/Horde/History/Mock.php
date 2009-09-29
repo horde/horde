@@ -110,7 +110,7 @@ class Horde_History_Mock extends Horde_History
      *
      * @return Horde_HistoryObject  A Horde_HistoryObject
      */
-    public function getHistory($guid)
+    public function _getHistory($guid)
     {
         $result= array();
         foreach ($this->_data as $id => $element) {
@@ -146,8 +146,8 @@ class Horde_History_Mock extends Horde_History
      *
      * @throws Horde_Exception
      */
-    public function getByTimestamp($cmp, $ts, $filters = array(),
-                                   $parent = null)
+    public function _getByTimestamp($cmp, $ts, $filters = array(),
+                                    $parent = null)
     {
         $result = array();
 

@@ -135,6 +135,10 @@ class Horde_History
     public function log($guid, array $attributes = array(),
                         $replaceAction = false)
     {
+        if (!is_string($guid)) {
+            throw new InvalidArgumentException('The guid needs to be a string!');
+        }
+
         $history = $this->getHistory($guid);
 
         if (!isset($attributes['who'])) {
@@ -181,6 +185,24 @@ class Horde_History
      */
     public function getHistory($guid)
     {
+        if (!is_string($guid)) {
+            throw new InvalidArgumentException('The guid needs to be a string!');
+        }
+        return $this->_getHistory($guid);
+    }
+
+    /**
+     * Returns a Horde_HistoryObject corresponding to the named history
+     * entry, with the data retrieved appropriately.
+     *
+     * @param string $guid The name of the history entry to retrieve.
+     *
+     * @return Horde_HistoryObject A Horde_HistoryObject
+     *
+     * @throws Horde_Exception
+     */
+    public function _getHistory($guid)
+    {
         throw new Horde_Exception('Not implemented!');
     }
 
@@ -211,6 +233,42 @@ class Horde_History
     public function getByTimestamp($cmp, $ts, array $filters = array(),
                                    $parent = null)
     {
+        if (!is_string($cmp)) {
+            throw new InvalidArgumentException('The comparison operator needs to be a string!');
+        }
+        if (!is_integer($ts)) {
+            throw new InvalidArgumentException('The timestamp needs to be an integer!');
+        }
+        return $this->_getByTimestamp($cmp, $ts, $filters, $parent);
+    }
+
+    /**
+     * Finds history objects by timestamp, and optionally filter on other
+     * fields as well.
+     *
+     * @param string  $cmp     The comparison operator (<, >, <=, >=, or =) to
+     *                         check the timestamps with.
+     * @param integer $ts      The timestamp to compare against.
+     * @param array   $filters An array of additional (ANDed) criteria.
+     *                         Each array value should be an array with 3
+     *                         entries:
+     * <pre>
+     * 'field' - the history field being compared (i.e. 'action').
+     * 'op'    - the operator to compare this field with.
+     * 'value' - the value to check for (i.e. 'add').
+     * </pre>
+     * @param string  $parent  The parent history to start searching at. If
+     *                         non-empty, will be searched for with a LIKE
+     *                         '$parent:%' clause.
+     *
+     * @return array  An array of history object ids, or an empty array if
+     *                none matched the criteria.
+     *
+     * @throws Horde_Exception
+     */
+    public function _getByTimestamp($cmp, $ts, array $filters = array(),
+                                    $parent = null)
+    {
         throw new Horde_Exception('Not implemented!');
     }
 
@@ -222,10 +280,16 @@ class Horde_History
      *
      * @return integer  The timestamp, or 0 if no matching entry is found.
      *
+     * @throws InvalidArgumentException If the input parameters are not of
+     *                                  type string.
      * @throws Horde_Exception
      */
     public function getActionTimestamp($guid, $action)
     {
+        if (!is_string($guid) || !is_string($action)) {
+            throw new InvalidArgumentException('$guid and $action need to be strings!');
+        }
+
         /* This implementation still works, but we should be able to
          * get much faster now with a SELECT MAX(history_ts)
          * ... query. */

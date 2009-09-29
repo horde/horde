@@ -167,7 +167,7 @@ class Horde_History_Sql extends Horde_History
      *
      * @return Horde_HistoryObject  A Horde_HistoryObject
      */
-    public function getHistory($guid)
+    public function _getHistory($guid)
     {
         $rows = $this->_db->getAll('SELECT * FROM horde_histories WHERE object_uid = ?', array($guid), DB_FETCHMODE_ASSOC);
         $this->handleError($rows);
@@ -198,8 +198,8 @@ class Horde_History_Sql extends Horde_History
      *
      * @throws Horde_Exception
      */
-    public function getByTimestamp($cmp, $ts, $filters = array(),
-                                   $parent = null)
+    public function _getByTimestamp($cmp, $ts, $filters = array(),
+                                    $parent = null)
     {
         /* Build the timestamp test. */
         $where = array("history_ts $cmp $ts");
