@@ -61,8 +61,9 @@ class Horde_History_Factory
         case 'Sql':
             return Horde_History_Factory::getHistorySql($injector, $config->params);
         case 'Mock':
-        default:
             return Horde_History_Factory::getHistoryMock($config->params);
+        default:
+            throw new Horde_Exception(sprintf("Driver %s not supported!", $config->driver));
         }
     }
 
@@ -106,6 +107,24 @@ class Horde_History_Factory
             }
         }
         return $history;
+    }
+
+    /**
+     * Create a concrete Horde_History_Mock instance.
+     *
+     * @param Horde_Injector $injector The environment for creating the instance.
+     * @param array          $params   The db connection parameters if the
+     *                                 environment does not already provide a 
+     *                                 connection.
+     *
+     * @return Horde_History_Mock The new Horde_History_Mock instance.
+     *
+     * @throws Horde_Exception If the injector provides no configuration or
+     *                         creating the database connection failed.
+     */
+    static protected function getHistoryMock(array $params)
+    {
+        return new Horde_History_Mock();
     }
 
     /**

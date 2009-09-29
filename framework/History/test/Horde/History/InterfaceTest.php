@@ -34,10 +34,10 @@ require_once 'Horde/Autoloader.php';
 class Horde_History_InterfaceTest extends PHPUnit_Framework_TestCase
 {
     /** The basic mock environment */
-    const ENVIRONMENT_MOCK = 'mock';
+    const ENVIRONMENT_MOCK = 'Mock';
 
     /** The environment using a database */
-    const ENVIRONMENT_DB = 'db';
+    const ENVIRONMENT_DB = 'Sql';
 
     /**
      * Path to the temporary sqlite db used for testing the db environment.
@@ -66,7 +66,10 @@ class Horde_History_InterfaceTest extends PHPUnit_Framework_TestCase
              * The db environment provides our only test scenario before
              * refactoring.
              */
-            $this->_environments = array(self::ENVIRONMENT_DB);
+            $this->_environments = array(
+                self::ENVIRONMENT_MOCK,
+                self::ENVIRONMENT_DB,
+            );
         }
         return $this->_environments;
     }
@@ -135,6 +138,12 @@ EOL;
             $config->params = $conf['sql'];
             $injector->setInstance('Horde_History_Config', $config);
             break;
+        case self::ENVIRONMENT_MOCK:
+            $injector = new Horde_Injector(new Horde_Injector_TopLevel());
+            $injector->bindImplementation(
+                'Horde_History',
+                'Horde_History_Mock'
+            );
         }
         return $injector;
     }
@@ -156,12 +165,11 @@ EOL;
 
     public function testMethodSingletonHasResultHordehistoryWhichIsAlwaysTheSame()
     {
-        //TODO: More complex
         foreach ($this->getEnvironments() as $environment) {
             $history = $this->getHistory($environment);
-            $history1 = Horde_History::singleton();
+            $history1 = Horde_History::singleton($environment);
             $this->assertType('Horde_History', $history1);
-            $history2 = Horde_History::singleton();
+            $history2 = Horde_History::singleton($environment);
             $this->assertType('Horde_History', $history2);
             $this->assertSame($history1, $history2);
         }
@@ -169,7 +177,7 @@ EOL;
 
     public function testMethodLogHasPostConditionThatTimestampAndActorAreAlwaysRecorded()
     {
-        //TODO: More complex
+        //@todo: More complex
         foreach ($this->getEnvironments() as $environment) {
             $history = $this->getHistory($environment);
             $history->log('test', array('action' => 'test'));
@@ -181,7 +189,7 @@ EOL;
 
     public function testMethodLogHasPostConditionThatTheGivenEventHasBeenRecorded()
     {
-        //TODO: More complex
+        //@todo: More complex
         foreach ($this->getEnvironments() as $environment) {
             $history = $this->getHistory($environment);
             $history->log('test', array('who' => 'me', 'ts' => 1000, 'action' => 'test'));
@@ -301,13 +309,14 @@ EOL;
 
     public function testMethodGetbytimestampHasResultArrayContainingTheMatchingEventIds()
     {
-        //TODO: More complex
+        //@todo: More complex
         foreach ($this->getEnvironments() as $environment) {
             $history = $this->getHistory($environment);
             $history->log('test', array('who' => 'me', 'ts' => 1000, 'action' => 'test'));
+            $history->log('test', array('who' => 'me', 'ts' => 1000, 'action' => 'test'));
             $history->log('test', array('who' => 'you', 'ts' => 2000, 'action' => 'yours', 'extra' => array('a' => 'a')));
             $result = $history->getByTimestamp('<', 1001);
-            $this->assertEquals(array('test' => 1), $result);
+            $this->assertEquals(array('test' => 2), $result);
         }
     }
 
@@ -485,21 +494,21 @@ class Dummy_Db extends DB_common
 {
     public function query($sql, $values = null)
     {
-        return PEAR::raiseError('Error');
+        return new PEAR_Error('Error');
     }
 
     public function nextId($table)
     {
-        return PEAR::raiseError('Error');
+        return new PEAR_Error('Error');
     }
 
     public function getAll($sql)
     {
-        return PEAR::raiseError('Error');
+        return new PEAR_Error('Error');
     }
 
     public function getAssoc($sql)
     {
-        return PEAR::raiseError('Error');
+        return new PEAR_Error('Error');
     }
 }
