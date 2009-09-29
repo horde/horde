@@ -50,6 +50,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
         <file name="ContentFor.php" role="php" />
        </dir> <!-- /lib/Horde/View/Helper/Capture -->
        <file name="Capture.php" role="php" />
+       <file name="Date.php" role="php" />
        <file name="Debug.php" role="php" />
        <dir name="Form">
         <file name="Builder.php" role="php" />
@@ -98,6 +99,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/View/Helper/Capture/Base.php" as="Horde/View/Helper/Capture/Base.php" />
    <install name="lib/Horde/View/Helper/Capture/ContentFor.php" as="Horde/View/Helper/Capture/ContentFor.php" />
    <install name="lib/Horde/View/Helper/Capture.php" as="Horde/View/Helper/Capture.php" />
+   <install name="lib/Horde/View/Helper/Date.php" as="Horde/View/Helper/Date.php" />
    <install name="lib/Horde/View/Helper/Debug.php" as="Horde/View/Helper/Debug.php" />
    <install name="lib/Horde/View/Helper/Form/Builder.php" as="Horde/View/Helper/Form/Builder.php" />
    <install name="lib/Horde/View/Helper/Form/InstanceTag/Base.php" as="Horde/View/Helper/Form/InstanceTag/Base.php" />
