@@ -79,3 +79,16 @@ CREATE TABLE kronolith_shares_users (
 CREATE INDEX kronolith_shares_users_share_id_idx ON kronolith_shares_users (share_id);
 CREATE INDEX kronolith_shares_users_user_uid_idx ON kronolith_shares_users (user_uid);
 CREATE INDEX kronolith_shares_users_perm_idx ON kronolith_shares_users (perm);
+
+CREATE TABLE kronolith_resources (
+    resource_id INT NOT NULL,
+    resource_name VARCHAR(255),
+    resource_calendar VARCHAR(255),
+    resource_description CLOB,
+    resource_category VARCHAR(255) DEFAULT '',
+    resource_response_type INT DEFAULT 0,
+    resource_type VARCHAR(255) NOT NULL,
+    resource_members CLOB,
+    
+    PRIMARY KEY (resource_id)
+);
