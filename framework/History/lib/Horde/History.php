@@ -43,6 +43,13 @@ class Horde_History
     static protected $_instances;
 
     /**
+     * Our log handler.
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
+
+    /**
      * Attempts to return a reference to a concrete History instance.
      * It will only create a new instance if no History instance
      * currently exists.
@@ -87,6 +94,18 @@ class Horde_History
         }
 
         return self::$_instances[$driver];
+    }
+
+    /**
+     * Set the log handler.
+     *
+     * @param Horde_Log_Logger $logger The log handler.
+     *
+     * @return NULL
+     */
+    public function setLogger(Horde_Log_Logger $logger)
+    {
+        $this->_logger = $logger;
     }
 
     /**

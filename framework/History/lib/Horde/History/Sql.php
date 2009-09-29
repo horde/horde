@@ -31,7 +31,7 @@ class Horde_History_Sql extends Horde_History
     /**
      * Pointer to a DB instance to manage the history.
      *
-     * @var DB
+     * @var DB_common
      */
     protected $_db;
 
@@ -39,7 +39,7 @@ class Horde_History_Sql extends Horde_History
      * Handle for the current database connection, used for writing. Defaults
      * to the same handle as $_db if a separate write database is not required.
      *
-     * @var DB
+     * @var DB_common
      */
     protected $_write_db;
 
@@ -47,9 +47,12 @@ class Horde_History_Sql extends Horde_History
      * Constructor.
      *
      * @param DB_common $db The database connection.
+     *
+     * @throws Horde_Exception
      */
     public function __construct(DB_common $db)
     {
+        $this->handleError($db);
         $this->_write_db = $db;
         $this->_db       = $db;
     }
@@ -61,9 +64,12 @@ class Horde_History_Sql extends Horde_History
      * @param DB_common $db The database connection.
      *
      * @return NULL
+     *
+     * @throws Horde_Exception
      */
     public function setReadDb(DB_common $db)
     {
+        $this->handleError($db);
         $this->_db = $db;
     }
 
@@ -101,8 +107,7 @@ class Horde_History_Sql extends Horde_History
                         isset($attributes['desc']) ? $attributes['desc'] : null
                     );
 
-                    unset($attributes['ts'], $attributes['who'],
-                          $attributes['desc'], $attributes['action']);
+                    unset($attributes['ts'], $attributes['who'], $attributes['desc'], $attributes['action']);
 
                     $values[] = $attributes
                         ? serialize($attributes)
@@ -116,10 +121,7 @@ class Horde_History_Sql extends Horde_History
                         ' history_extra = ? WHERE history_id = ?', $values
                     );
 
-                    if ($r instanceof PEAR_Error) {
-                        Horde::logMessage($r, __FILE__, __LINE__, PEAR_LOG_ERR);
-                        throw new Horde_Exception($r->getMessage());
-                    }
+                    $this->handleError($r);
                     $done = true;
                     break;
                 }
@@ -130,10 +132,7 @@ class Horde_History_Sql extends Horde_History
          * replace, insert a new row. */
         if (!$done) {
             $history_id = $this->_write_db->nextId('horde_histories');
-            if ($history_id instanceof PEAR_Error) {
-                Horde::logMessage($history_id, __FILE__, __LINE__, PEAR_LOG_ERR);
-                throw new Horde_Exception($history_id->getMessage());
-            }
+            $this->handleError($history_id);
 
             $values = array(
                 $history_id,
@@ -144,8 +143,7 @@ class Horde_History_Sql extends Horde_History
                 isset($attributes['action']) ? $attributes['action'] : null
             );
 
-            unset($attributes['ts'], $attributes['who'],
-                  $attributes['desc'], $attributes['action']);
+            unset($attributes['ts'], $attributes['who'], $attributes['desc'], $attributes['action']);
 
             $values[] = $attributes
                 ? serialize($attributes)
@@ -155,11 +153,7 @@ class Horde_History_Sql extends Horde_History
                 'INSERT INTO horde_histories (history_id, object_uid, history_ts, history_who, history_desc, history_action, history_extra)' .
                 ' VALUES (?, ?, ?, ?, ?, ?, ?)', $values
             );
-
-            if ($r instanceof PEAR_Error) {
-                Horde::logMessage($r, __FILE__, __LINE__, PEAR_LOG_ERR);
-                throw new Horde_Exception($r->getMessage());
-            }
+            $this->handleError($r);
         }
 
         return true;
@@ -176,6 +170,7 @@ class Horde_History_Sql extends Horde_History
     public function getHistory($guid)
     {
         $rows = $this->_db->getAll('SELECT * FROM horde_histories WHERE object_uid = ?', array($guid), DB_FETCHMODE_ASSOC);
+        $this->handleError($rows);
         return new Horde_HistoryObject($guid, $rows);
     }
 
@@ -220,7 +215,9 @@ class Horde_History_Sql extends Horde_History
             $where[] = 'object_uid LIKE ' . $this->_db->quote($parent . ':%');
         }
 
-        return $this->_db->getAssoc('SELECT DISTINCT object_uid, history_id FROM horde_histories WHERE ' . implode(' AND ', $where));
+        $result = $this->_db->getAssoc('SELECT DISTINCT object_uid, history_id FROM horde_histories WHERE ' . implode(' AND ', $where));
+        $this->handleError($result);
+        return $result;
     }
 
     /**
@@ -243,7 +240,30 @@ class Horde_History_Sql extends Horde_History
             $ids[] = $this->_write_db->quote($name);
         }
 
-        return $this->_write_db->query('DELETE FROM horde_histories WHERE object_uid IN (' . implode(',', $ids) . ')');
+        $result = $this->_write_db->query('DELETE FROM horde_histories WHERE object_uid IN (' . implode(',', $ids) . ')');
+        $this->handleError($result);
+        return $result;
     }
 
+    /**
+     * Determine if the given result is a PEAR error. If it is, log the event
+     * and throw an exception.
+     *
+     * @param mixed $result The result to check.
+     *
+     * @return NULL
+     *
+     * @throws Horde_Exception
+     */
+    protected function handleError($result)
+    {
+        if ($result instanceof PEAR_Error) {
+            if (!empty($this->_logger)) {
+                $this->_logger->error($result->getMessage());
+            } else {
+                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            }
+            throw new Horde_Exception($result->getMessage());
+        }
+    }
 }

@@ -84,22 +84,21 @@ class Horde_History_InterfaceTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Return the history handler for the specified environment.
+     * Initialize the given environment.
      *
      * @param string $environment The selected environment.
      *
-     * @return History The history.
+     * @return Horde_Injector The environment.
      */
-    public function &getHistory($environment)
+    public function initializeEnvironment($environment)
     {
-        if (!isset($this->_histories[$environment])) {
-            switch ($environment) {
-            case self::ENVIRONMENT_DB:
-                global $conf;
+        switch ($environment) {
+        case self::ENVIRONMENT_DB:
+            global $conf;
 
-                $this->_db_file = Horde::getTempFile('Horde_Test', false);
-                $this->_db = sqlite_open($this->_db_file, '0640');
-                $table = <<<EOL
+            $this->_db_file = Horde::getTempFile('Horde_Test', false);
+            $this->_db = sqlite_open($this->_db_file, '0640');
+            $table = <<<EOL
 CREATE TABLE horde_histories (
     history_id       INT UNSIGNED NOT NULL,
     object_uid       VARCHAR(255) NOT NULL,
@@ -113,34 +112,45 @@ CREATE TABLE horde_histories (
 );
 EOL;
 
-                sqlite_exec($this->_db, $table);
-                sqlite_exec($this->_db, 'CREATE INDEX history_action_idx ON horde_histories (history_action);');
-                sqlite_exec($this->_db, 'CREATE INDEX history_ts_idx ON horde_histories (history_ts);');
-                sqlite_exec($this->_db, 'CREATE INDEX history_uid_idx ON horde_histories (object_uid);');
-                sqlite_close($this->_db);
+            sqlite_exec($this->_db, $table);
+            sqlite_exec($this->_db, 'CREATE INDEX history_action_idx ON horde_histories (history_action);');
+            sqlite_exec($this->_db, 'CREATE INDEX history_ts_idx ON horde_histories (history_ts);');
+            sqlite_exec($this->_db, 'CREATE INDEX history_uid_idx ON horde_histories (object_uid);');
+            sqlite_close($this->_db);
 
-                $conf['sql']['database'] =  $this->_db_file;
-                $conf['sql']['mode'] = '0640';
-                $conf['sql']['charset'] = 'utf-8';
-                $conf['sql']['phptype'] = 'sqlite';
+            $conf['sql']['database'] =  $this->_db_file;
+            $conf['sql']['mode'] = '0640';
+            $conf['sql']['charset'] = 'utf-8';
+            $conf['sql']['phptype'] = 'sqlite';
 
-                $injector = new Horde_Injector(new Horde_Injector_TopLevel());
-                $injector->bindFactory(
-                    'Horde_History',
-                    'Horde_History_Factory',
-                    'getHistory'
-                );
+            $injector = new Horde_Injector(new Horde_Injector_TopLevel());
+            $injector->bindFactory(
+                'Horde_History',
+                'Horde_History_Factory',
+                'getHistory'
+            );
 
-                $config = new stdClass;
-                $config->driver = 'Sql';
-                $config->params = $conf['sql'];
-                $injector->setInstance('Horde_History_Config', $config);
-
-                $history = $injector->getInstance('Horde_History');
-                break;
-            }
+            $config = new stdClass;
+            $config->driver = 'Sql';
+            $config->params = $conf['sql'];
+            $injector->setInstance('Horde_History_Config', $config);
+            break;
         }
-        $this->_histories[$environment] = &$history;
+        return $injector;
+    }
+    /**
+     * Return the history handler for the specified environment.
+     *
+     * @param string $environment The selected environment.
+     *
+     * @return Horde_History The history.
+     */
+    public function getHistory($environment)
+    {
+        if (!isset($this->_histories[$environment])) {
+            $injector = $this->initializeEnvironment($environment);
+            $this->_histories[$environment] = $injector->getInstance('Horde_History');
+        }
         return $this->_histories[$environment];
     }
 
@@ -392,4 +402,104 @@ EOL;
         }
     }
 
+    public function testBaseHordehistoryClassProvidesIncompleteImplementation()
+    {
+        global $conf;
+
+        try {
+            $history = new Horde_History();
+            $history->getHistory('');
+            $this->fail('No exception was thrown!');
+        } catch (Horde_Exception $e) {
+        }
+        try {
+            $history = new Horde_History();
+            $history->getByTimestamp('=', 1);
+            $this->fail('No exception was thrown!');
+        } catch (Horde_Exception $e) {
+        }
+        try {
+            $history = new Horde_History();
+            $history->removeByNames(array());
+            $this->fail('No exception was thrown!');
+        } catch (Horde_Exception $e) {
+        }
+
+        unset($conf['sql']);
+
+        try {
+            $history = Horde_History::singleton();
+            $this->fail('No exception was thrown!');
+        } catch (Horde_Exception $e) {
+        }
+    }
+
+    public function testHordehistorysqlConvertsPearErrorToHordeexceptions()
+    {
+        $injector = $this->initializeEnvironment(self::ENVIRONMENT_DB);
+        $mock = new Dummy_Db();
+        $injector->setInstance('DB_common_write', $mock);
+        $history = $injector->getInstance('Horde_History');
+
+        try {
+            $history->log('test', array('who' => 'me', 'ts' => 1000, 'action' => 'test'));
+            $this->fail('No exception was thrown!');
+        } catch (Horde_Exception $e) {
+        }
+        
+        try {
+            $history->getHistory('test');
+            $this->fail('No exception was thrown!');
+        } catch (Horde_Exception $e) {
+        }
+
+        try {
+            $history->getByTimestamp('>', 1, array(array('field' => 'who', 'op' => '=', 'value' => 'you')));
+            $this->fail('No exception was thrown!');
+        } catch (Horde_Exception $e) {
+        }
+
+        try {
+            $history->removeByNames(array('test'));
+            $this->fail('No exception was thrown!');
+        } catch (Horde_Exception $e) {
+        }
+    }
+}
+
+/**
+ * A dummy database connection producing nothing bot errors.
+ *
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @category Horde
+ * @package  History
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @link     http://pear.horde.org/index.php?package=History
+ */
+class Dummy_Db extends DB_common
+{
+    public function query($sql, $values = null)
+    {
+        return PEAR::raiseError('Error');
+    }
+
+    public function nextId($table)
+    {
+        return PEAR::raiseError('Error');
+    }
+
+    public function getAll($sql)
+    {
+        return PEAR::raiseError('Error');
+    }
+
+    public function getAssoc($sql)
+    {
+        return PEAR::raiseError('Error');
+    }
 }
