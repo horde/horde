@@ -44,11 +44,9 @@ class Horde_History_InterfaceTest extends PHPUnit_Framework_TestCase
      */
     private $_db_file;
 
-
-    public function setUp()
-    {
-    }
-
+    /**
+     * Test cleanup.
+     */
     public function tearDown()
     {
         if (!empty($this->_db_file)) {
@@ -64,7 +62,10 @@ class Horde_History_InterfaceTest extends PHPUnit_Framework_TestCase
     public function getEnvironments()
     {
         if (empty($this->_environments)) {
-            /** The db environment provides our only test scenario before refactoring */
+            /**
+             * The db environment provides our only test scenario before
+             * refactoring.
+             */
             $this->_environments = array(self::ENVIRONMENT_DB);
         }
         return $this->_environments;
@@ -123,7 +124,19 @@ EOL;
                 $conf['sql']['charset'] = 'utf-8';
                 $conf['sql']['phptype'] = 'sqlite';
 
-                $history = new Horde_History();
+                $injector = new Horde_Injector(new Horde_Injector_TopLevel());
+                $injector->bindFactory(
+                    'Horde_History',
+                    'Horde_History_Factory',
+                    'getHistory'
+                );
+
+                $config = new stdClass;
+                $config->driver = 'Sql';
+                $config->params = $conf['sql'];
+                $injector->setInstance('Horde_History_Config', $config);
+
+                $history = $injector->getInstance('Horde_History');
                 break;
             }
         }
@@ -137,7 +150,9 @@ EOL;
         foreach ($this->getEnvironments() as $environment) {
             $history = $this->getHistory($environment);
             $history1 = Horde_History::singleton();
+            $this->assertType('Horde_History', $history1);
             $history2 = Horde_History::singleton();
+            $this->assertType('Horde_History', $history2);
             $this->assertSame($history1, $history2);
         }
     }
@@ -149,7 +164,7 @@ EOL;
             $history = $this->getHistory($environment);
             $history->log('test', array('action' => 'test'));
             $this->assertTrue($history->getActionTimestamp('test', 'test') > 0);
-	    $data = $history->getHistory('test')->getData();
+            $data = $history->getHistory('test')->getData();
             $this->assertTrue(isset($data[0]['who']));
         }
     }
@@ -236,7 +251,7 @@ EOL;
                     'who'    => 'you',
                     'id'     => 2,
                     'ts'     => 2000,
-		    'extra'  => array('a' => 'a'),
+                    'extra'  => array('a' => 'a'),
                 ),
             );
             $this->assertEquals($expect, $data);
@@ -257,7 +272,7 @@ EOL;
             $history = $this->getHistory($environment);
             $history->log('test', array('who' => 'me', 'ts' => 1000, 'action' => 'test'));
             $history->log('test', array('who' => 'you', 'ts' => 2000, 'action' => 'yours', 'extra' => array('a' => 'a')));
-	    $result = $history->getByTimestamp('>', 1, array(array('field' => 'who', 'op' => '=', 'value' => 'you')));
+            $result = $history->getByTimestamp('>', 1, array(array('field' => 'who', 'op' => '=', 'value' => 'you')));
             $this->assertEquals(array('test' => 2), $result);
         }
     }
@@ -269,7 +284,7 @@ EOL;
             $history->log('test:a', array('who' => 'me', 'ts' => 1000, 'action' => 'test'));
             $history->log('test:b', array('who' => 'you', 'ts' => 2000, 'action' => 'yours'));
             $history->log('yours', array('who' => 'you', 'ts' => 3000, 'action' => 'yours'));
-	    $result = $history->getByTimestamp('>', 1, array(), 'test');
+            $result = $history->getByTimestamp('>', 1, array(), 'test');
             $this->assertEquals(array('test:a' => 1, 'test:b' => 2), $result);
         }
     }
@@ -281,7 +296,7 @@ EOL;
             $history = $this->getHistory($environment);
             $history->log('test', array('who' => 'me', 'ts' => 1000, 'action' => 'test'));
             $history->log('test', array('who' => 'you', 'ts' => 2000, 'action' => 'yours', 'extra' => array('a' => 'a')));
-	    $result = $history->getByTimestamp('<', 1001);
+            $result = $history->getByTimestamp('<', 1001);
             $this->assertEquals(array('test' => 1), $result);
         }
     }
