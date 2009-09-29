@@ -230,8 +230,15 @@ case 'DeleteFolder':
     $imptree = IMP_Imap_Tree::singleton();
     $imptree->eltDiffStart();
 
-    $imp_folder = IMP_Folder::singleton();
-    $result = $imp_folder->delete(array($mbox));
+    if ($imp_search->isEditableVFolder($mbox)) {
+        $notification->push(sprintf(_("Deleted Virtual Folder \"%s\"."), $imp_search->getLabel($mbox)), 'horde.success');
+        $imp_search->deleteSearchQuery($mbox);
+        $result = true;
+    } else {
+        $imp_folder = IMP_Folder::singleton();
+        $result = $imp_folder->delete(array($mbox));
+    }
+
     if ($result) {
         $result = IMP_Dimp::getFolderResponse($imptree);
     }

@@ -261,9 +261,14 @@ var DimpBase = {
 
         switch (loc) {
         case 'search':
+            // data: 'edit_query' = folder to edit; otherwise, loads search
+            //       screen with current mailbox as default search mailbox
+            if (!data) {
+                data = { search_mailbox: f };
+            }
             this.highlightSidebar();
             DimpCore.setTitle(DIMP.text.search);
-            this.iframeContent(loc, DimpCore.addURLParam(DIMP.conf.URI_SEARCH, { search_mailbox: f }));
+            this.iframeContent(loc, DimpCore.addURLParam(DIMP.conf.URI_SEARCH, data));
             break;
 
         case 'portal':
@@ -672,16 +677,17 @@ var DimpBase = {
             break;
 
         case 'ctx_folder_empty':
-            mbox = baseelt.up('LI').retrieve('mbox');
-            if (window.confirm(DIMP.text.empty_folder.replace(/%s/, mbox))) {
-                DimpCore.doAction('EmptyFolder', { view: mbox }, null, this._emptyFolderCallback.bind(this));
+            tmp = baseelt.up('LI');
+            if (window.confirm(DIMP.text.empty_folder.replace(/%s/, tmp.readAttribute('title')))) {
+                DimpCore.doAction('EmptyFolder', { view: tmp.retrieve('mbox') }, null, this._emptyFolderCallback.bind(this));
             }
             break;
 
         case 'ctx_folder_delete':
-            mbox = baseelt.up('LI').readAttribute('title');
-            if (window.confirm(DIMP.text.delete_folder.replace(/%s/, mbox))) {
-                DimpCore.doAction('DeleteFolder', { view: mbox }, null, this.bcache.get('folderC') || this.bcache.set('folderC', this._folderCallback.bind(this)));
+        case 'ctx_vfolder_delete':
+            tmp = baseelt.up('LI');
+            if (window.confirm(DIMP.text.delete_folder.replace(/%s/, tmp.readAttribute('title')))) {
+                DimpCore.doAction('DeleteFolder', { view: tmp.retrieve('mbox') }, null, this.bcache.get('folderC') || this.bcache.set('folderC', this._folderCallback.bind(this)));
             }
             break;
 
@@ -787,8 +793,12 @@ var DimpBase = {
             new Ajax.Request(DIMP.conf.URI_SEARCH_BASIC, { parameters: DimpCore.addRequestParams($H({ search_mailbox: this.folder })), onComplete: function(r) { RedBox.showHtml(r.responseText); } });
             break;
 
+        case 'ctx_vfolder_edit':
+            tmp = { edit_query: baseelt.up('LI').retrieve('mbox') };
+            // Fall through
+
         case 'ctx_qsearchopts_advanced':
-            this.go('search');
+            this.go('search', tmp);
             break;
 
         case 'ctx_qsearchopts_all':
@@ -2186,6 +2196,11 @@ var DimpBase = {
         case 'folder':
             new Drag(li, this._folderDragConfig);
             this._addMouseEvents({ id: fid, type: ftype });
+            break;
+
+        case 'scontainer':
+        case 'virtual':
+            this._addMouseEvents({ id: fid, type: (ob.v == 2) ? 'vfolder' : 'noactions' });
             break;
         }
     },

@@ -111,7 +111,7 @@ if (Horde_Util::getFormData('show_unsub') !== null) {
     Horde::sendHTTPResponse($folders, 'json');
 }
 
-$on_domload = array(
+$js_load = array(
     'ImpSearch.updateFolderList(' . Horde_Serialize::serialize($folders, Horde_Serialize::JSON, $charset) . ')'
 );
 
@@ -126,11 +126,11 @@ if (!empty($saved_searches)) {
             'v' => $key
         );
     }
-    $on_domload[] = 'ImpSearch.updateSavedSearches(' . Horde_Serialize::serialize($ss, Horde_Serialize::JSON, $charset) . ')';
+    $js_load[] = 'ImpSearch.updateSavedSearches(' . Horde_Serialize::serialize($ss, Horde_Serialize::JSON, $charset) . ')';
 }
 
 /* Preselect mailboxes. */
-$on_domload[] = 'ImpSearch.updateSelectedFolders(' . Horde_Serialize::serialize(array($search_mailbox), Horde_Serialize::JSON, $charset) . ')';
+$js_load[] = 'ImpSearch.updateSelectedFolders(' . Horde_Serialize::serialize(array($search_mailbox), Horde_Serialize::JSON, $charset) . ')';
 
 /* Prepare the search template. */
 $t = new Horde_Template();
@@ -150,7 +150,8 @@ if (!is_null($edit_query) && $imp_search->isSearchMbox($edit_query)) {
         }
         $t->set('edit_query_vfolder', htmlspecialchars($edit_query));
     }
-    $on_domload[] = 'ImpSearch.updateSearchCriteria(' . Horde_Serialize::serialize($imp_search->getCriteria($edit_query), Horde_Serialize::JSON, $charset) . ')';
+    $js_load[] = 'ImpSearch.updateSearchCriteria(' . Horde_Serialize::serialize($imp_search->getCriteria($edit_query), Horde_Serialize::JSON, $charset) . ')';
+    $js_load[] = 'ImpSearch.updateSavedSearches(' . Horde_Serialize::serialize($imp_search->getLabel($edit_query), Horde_Serialize::JSON, $charset) . ')';
 }
 
 $f_fields = $s_fields = $types = array();
@@ -201,7 +202,7 @@ Horde::addInlineScript(array(
     'ImpSearch.data = ' . Horde_Serialize::serialize($js_data, Horde_Serialize::JSON, $charset),
     'ImpSearch.text = ' . Horde_Serialize::serialize($gettext_strings, Horde_Serialize::JSON, $charset)
 ));
-Horde::addInlineScript($on_domload, 'dom');
+Horde::addInlineScript($js_load, 'dom');
 
 $title = _("Search");
 Horde::addScriptFile('horde.js', 'horde', true);

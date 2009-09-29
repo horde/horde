@@ -367,6 +367,15 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 </div>
 <?php endif; ?>
 
+<div class="context" id="ctx_noactions" style="display:none">
+ <span>No actions available</span>
+</div>
+
+<div class="context" id="ctx_vfolder" style="display:none">
+ <a id="ctx_vfolder_edit"><span class="contextImg"></span><?php echo _("Edit Virtual Folder") ?></a>
+ <a id="ctx_vfolder_delete"><span class="contextImg"></span><?php echo _("Delete Virtual Folder") ?></a>
+</div>
+
 <div class="context" id="ctx_message" style="display:none">
  <a id="ctx_message_reply"><span class="contextImg"></span><?php echo _("Reply") ?></a>
  <a id="ctx_message_forward" class="sep"><span class="contextImg"></span><?php echo _("Forward") ?></a>

@@ -104,6 +104,12 @@ var ImpSearch = {
         });
     },
 
+    updateSavedSearches: function(label, type)
+    {
+        $('search_label').setValue(label);
+        // TODO: type
+    },
+
     resetCriteria: function()
     {
         $('search_criteria_table').childElements().invoke('remove');

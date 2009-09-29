@@ -100,6 +100,7 @@ case 'delete_folder':
 case 'delete_search_query':
     $queryid = Horde_Util::getFormData('queryid');
     if (!empty($queryid)) {
+        $notification->push(sprintf(_("Deleted Virtual Folder \"%s\"."), $imp_search->getLabel($queryid)), 'horde.success');
         $imp_search->deleteSearchQuery($queryid);
     }
     break;

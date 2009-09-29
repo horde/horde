@@ -153,7 +153,7 @@ class IMP_Dimp
         }
 
         if (!empty($changes['d'])) {
-            $result['d'] = array_map('rawurlencode', array_reverse($changes['d']));
+            $result['d'] = array_reverse($changes['d']);
         }
 
         return $result;
@@ -183,7 +183,8 @@ class IMP_Dimp
      * 'u' (unseen) = The number of unseen messages. [integer]
      * 'un' (unsubscribed) = Is this folder unsubscribed? [boolean]
      *                       [DEFAULT: no]
-     * 'v' (virtual) = Is this a virtual folder? [boolean] [DEFAULT: no]
+     * 'v' (virtual) = Virtual folder? 0 = not vfolder, 1 = system vfolder,
+     *                 2 = user vfolder [integer] [DEFAULT: 0]
      * </pre>
      */
     static private function _createFolderElt($elt)
@@ -205,7 +206,7 @@ class IMP_Dimp
             $ob->po = 1;
         }
         if ($elt['vfolder']) {
-            $ob->v = 1;
+            $ob->v = $GLOBALS['imp_search']->isEditableVFolder($elt['value']) ? 2 : 1;
         }
         if (!$elt['sub']) {
             $ob->un = 1;
