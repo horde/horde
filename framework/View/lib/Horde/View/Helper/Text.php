@@ -13,7 +13,7 @@
  */
 
 /**
- * View helpers for URLs
+ * View helpers for text
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -234,4 +234,68 @@ class Horde_View_Helper_Text extends Horde_View_Helper_Base
         );
     }
 
+    /**
+     * Remove smart quotes
+     *
+     * http://shiflett.org/blog/2005/oct/convert-smart-quotes-with-php
+     */
+    public function cleanSmartQuotes($str)
+    {
+        $search = array(
+            '/\x96/',
+            '/\xE2\x80\x93/',
+            '/\x97/',
+            '/\xE2\x80\x94/',
+            '/\x91/',
+            '/\xE2\x80\x98/',
+            '/\x92/',
+            '/\xE2\x80\x99/',
+            '/\x93/',
+            '/\xE2\x80\x9C/',
+            '/\x94/',
+            '/\xE2\x80\x9D/',
+            '/\x85/',
+            '/\xE2\x80\xA6/',
+            '/\x95/',
+            '/\xE2\x80\xA2/',
+            '/\x09/',
+
+            // The order of these is very important.
+            '/\xC2\xBC/',
+            '/\xBC/',
+            '/\xC2\xBD/',
+            '/\xBD/',
+            '/\xC2\xBE/',
+            '/\xBE/',
+        );
+
+        $replace = array(
+            '-',
+            '-',
+            '--',
+            '--',
+            "'",
+            "'",
+            "'",
+            "'",
+            '"',
+            '"',
+            '"',
+            '"',
+            '...',
+            '...',
+            '*',
+            '*',
+            ' ',
+
+            '1/4',
+            '1/4',
+            '1/2',
+            '1/2',
+            '3/4',
+            '3/4',
+        );
+
+        return preg_replace($search, $replace, $str);
+    }
 }
