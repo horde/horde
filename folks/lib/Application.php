@@ -27,13 +27,16 @@ class Folks_Application extends Horde_Registry_Application
      * @param string $userID       Username
      * @param array  $credentials  Array of criedentials (password requied)
      *
-     * @return boolean  Whether IMP authentication was successful.
+     * @return boolean  Whether Folks authentication was successful.
      */
     public function authAuthenticate($userID, $credentials)
     {
         require_once dirname(__FILE__) . '/base.php';
 
-        return $GLOBALS['folks_driver']->comparePassword($userID, $credentials['password']);
+        $result = $GLOBALS['folks_driver']->comparePassword($userID, $credentials['password']);
+        if ($result !== true) {
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
+        }
     }
 
     /**
