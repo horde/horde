@@ -190,7 +190,7 @@ $cacheid = Horde_Util::getPost('cacheid');
 ob_start();
 
 $notify = true;
-$result = false;
+$check_uidvalidity = $result = false;
 
 switch ($action) {
 case 'LogOut':
@@ -410,6 +410,8 @@ case 'CopyMessage':
             }
             $result->poll = array_merge($result->poll, $poll);
         }
+    } else {
+        $check_uidvalidity = true;
     }
     break;
 
@@ -439,6 +441,8 @@ case 'FlagMessage':
 
     if ($result) {
         $result = new stdClass;
+    } else {
+        $check_uidvalidity = true;
     }
     break;
 
@@ -449,9 +453,11 @@ case 'DeleteMessage':
 
     $imp_message = IMP_Message::singleton();
     $change = _changed($mbox, $cacheid, true);
-    $result = $imp_message->delete($indices);
-    if ($result) {
+
+    if ($imp_message->delete($indices)) {
         $result = _generateDeleteResult($mbox, $indices, $change, !$prefs->getValue('hide_deleted') && !$prefs->getValue('use_trash'));
+    } else {
+        $check_uidvalidity = true;
     }
     break;
 
@@ -475,12 +481,14 @@ case 'AddContact':
 
 case 'ReportSpam':
     $change = _changed($mbox, $cacheid, false);
-    $spam_result = IMP_Spam::reportSpam($indices, Horde_Util::getPost('spam') ? 'spam' : 'notspam');
-    if ($spam_result) {
+
+    if (IMP_Spam::reportSpam($indices, Horde_Util::getPost('spam') ? 'spam' : 'notspam')) {
         $result = _generateDeleteResult($mbox, $indices, $change);
-        // If $spam_result is non-zero, then we know the message has been
-        // removed from the current mailbox.
+        // If result is non-zero, then we know the message has been removed
+        // from the current mailbox.
         $result->remove = 1;
+    } else {
+        $check_uidvalidity = true;
     }
     break;
 
@@ -492,11 +500,19 @@ case 'Blacklist':
     $imp_filter = new IMP_Filter();
     if (Horde_Util::getPost('blacklist')) {
         $change = _changed($mbox, $cacheid, false);
-        if ($imp_filter->blacklistMessage($indices, false)) {
-            $result = _generateDeleteResult($mbox, $indices, $change);
+        try {
+            if ($imp_filter->blacklistMessage($indices, false)) {
+                $result = _generateDeleteResult($mbox, $indices, $change);
+            }
+        } catch (Horde_Exception $e) {
+            $check_uidvalidity = true;
         }
     } else {
-        $imp_filter->whitelistMessage($indices, false);
+        try {
+            $imp_filter->whitelistMessage($indices, false);
+        } catch (Horde_Exception $e) {
+            $check_uidvalidity = true;
+        }
     }
     break;
 
@@ -519,6 +535,9 @@ case 'ShowPreview':
 
     $show_msg = new IMP_Views_ShowMessage();
     $result = (object)$show_msg->showMessage($args);
+    if (isset($result->error)) {
+        $check_uidvalidity = true;
+    }
     break;
 
 case 'Html2Text':
@@ -538,35 +557,45 @@ case 'GetForwardData':
     $msg = $header = null;
     $idx_string = _getIdxString($indices);
 
-    $imp_compose = IMP_Compose::singleton(Horde_Util::getPost('imp_compose'));
-    $imp_contents = IMP_Contents::singleton($idx_string);
-    $imp_ui = new IMP_UI_Compose();
-    $fwd_msg = $imp_ui->getForwardData($imp_compose, $imp_contents, $idx_string);
-    $header = $fwd_msg['headers'];
-    $header['replytype'] = 'forward';
+    try {
+        $imp_contents = IMP_Contents::singleton($idx_string);
+        $imp_compose = IMP_Compose::singleton(Horde_Util::getPost('imp_compose'));
+        $imp_ui = new IMP_UI_Compose();
+        $fwd_msg = $imp_ui->getForwardData($imp_compose, $imp_contents, $idx_string);
+        $header = $fwd_msg['headers'];
+        $header['replytype'] = 'forward';
 
-    $result = new stdClass;
-    // Can't open read-only since we need to store the message cache id.
-    $result->imp_compose = $imp_compose->getCacheId();
-    $result->fwd_list = IMP_Dimp::getAttachmentInfo($imp_compose);
-    $result->body = $fwd_msg['body'];
-    $result->header = $header;
-    $result->format = $fwd_msg['format'];
-    $result->identity = $fwd_msg['identity'];
+        $result = new stdClass;
+        // Can't open read-only since we need to store the message cache id.
+        $result->imp_compose = $imp_compose->getCacheId();
+        $result->fwd_list = IMP_Dimp::getAttachmentInfo($imp_compose);
+        $result->body = $fwd_msg['body'];
+        $result->header = $header;
+        $result->format = $fwd_msg['format'];
+        $result->identity = $fwd_msg['identity'];
+    } catch (Horde_Exception $e) {
+        $notification->push($e, 'horde.error');
+        $check_uidvalidity = true;
+    }
     break;
 
 case 'GetReplyData':
-    $imp_compose = IMP_Compose::singleton(Horde_Util::getPost('imp_compose'));
-    $imp_contents = IMP_Contents::singleton(_getIdxString($indices));
-    $reply_msg = $imp_compose->replyMessage(Horde_Util::getPost('type'), $imp_contents);
-    $header = $reply_msg['headers'];
-    $header['replytype'] = 'reply';
+    try {
+        $imp_contents = IMP_Contents::singleton(_getIdxString($indices));
+        $imp_compose = IMP_Compose::singleton(Horde_Util::getPost('imp_compose'));
+        $reply_msg = $imp_compose->replyMessage(Horde_Util::getPost('type'), $imp_contents);
+        $header = $reply_msg['headers'];
+        $header['replytype'] = 'reply';
 
-    $result = new stdClass;
-    $result->format = $reply_msg['format'];
-    $result->body = $reply_msg['body'];
-    $result->header = $header;
-    $result->identity = $reply_msg['identity'];
+        $result = new stdClass;
+        $result->format = $reply_msg['format'];
+        $result->body = $reply_msg['body'];
+        $result->header = $header;
+        $result->identity = $reply_msg['identity'];
+    } catch (Horde_Exception $e) {
+        $notification->push($e, 'horde.error');
+        $check_uidvalidity = true;
+    }
     break;
 
 case 'CancelCompose':
@@ -781,10 +810,21 @@ case 'BasicSearch':
     $result = new stdClass;
     $imp_ui_search = new IMP_UI_Search();
     parse_str(Horde_Util::getPost('query'), $query);
-    /* parse_str() silently adds slashe escaping to variables in $query. */
+    /* parse_str() silently adds slash escaping to variables in $query. */
     $query = array_map('stripslashes', $query);
     $result->view = $imp_search->createSearchID($imp_ui_search->processBasicSearch($query['search_basic_mbox'], $query['search_criteria'], $query['search_criteria_text'], !empty($query['search_criteria_not']), $query['search_flags']));
     break;
+}
+
+if ($check_uidvalidity) {
+    try {
+        $imp_imap->checkUidvalidity($mbox);
+    } catch (Horde_Exception $e) {
+        if (!is_object($result)) {
+            $result = new stdClass;
+        }
+        $result->ViewPort = _getListMessages($mbox, true);
+    }
 }
 
 // Clear the output buffer that we started above, and log any unexpected
