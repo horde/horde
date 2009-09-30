@@ -29,7 +29,8 @@ var ImpSearch = {
     updateFolderList: function(folders)
     {
         var fragment = document.createDocumentFragment(),
-            node = $($('folder_row').cloneNode(true)).writeAttribute('id', false).show();
+            node = $($('folder_row').cloneNode(true)).writeAttribute('id', false).show(),
+            div = $('search_folders_hdr').next('DIV');
 
         folders.each(function(f) {
             var n = $(node.cloneNode(true));
@@ -37,9 +38,8 @@ var ImpSearch = {
             fragment.appendChild(n);
         });
 
-        $('search_folders_hdr').next('DIV').update('').appendChild(fragment);
-
-        stripeAllElements();
+        div.update('').appendChild(fragment);
+        Horde.stripeElement(div);
     },
 
     updateRecentSearches: function(searches)

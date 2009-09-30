@@ -69,8 +69,8 @@ function ShowView(view, date, cache)
 
 function _ShowView()
 {
-    if (Object.isFunction(stripeAllElements)) {
-        stripeAllElements();
+    if (Horde && Horde.stripeAllElements) {
+        Horde.stripeAllElements();
     }
     if (typeof Horde_ToolTips != 'undefined') {
         Horde_ToolTips.out();
