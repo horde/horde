@@ -19,6 +19,11 @@
 abstract class Horde_Feed_Entry_Base extends Horde_Xml_Element
 {
     /**
+     * @var Horde_Http_Client
+     */
+    protected $_httpClient;
+
+    /**
      * Handle null or array values for $this->_element by initializing
      * with $this->_emptyXml, and importing the array with
      * Horde_Xml_Element::fromArray() if necessary.
@@ -26,9 +31,14 @@ abstract class Horde_Feed_Entry_Base extends Horde_Xml_Element
      * @see Horde_Xml_Element::__wakeup
      * @see Horde_Xml_Element::fromArray
      */
-    public function __construct($element = null)
+    public function __construct($element = null, Horde_Http_Client $httpClient = null)
     {
         $this->_element = $element;
+
+        if (is_null($httpClient)) {
+            $httpClient = new Horde_Http_Client();
+        }
+        $this->_httpClient = $httpClient;
 
         // If we've been passed an array, we'll store it for importing
         // after initializing with the default "empty" feed XML.
@@ -46,5 +56,4 @@ abstract class Horde_Feed_Entry_Base extends Horde_Xml_Element
             $this->fromArray($importArray);
         }
     }
-
 }

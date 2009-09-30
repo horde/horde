@@ -6,17 +6,17 @@
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * @category Horde
- * @package Horde_Feed
+ * @package  Horde_Feed
  */
 
 /**
  * Concrete class for working with Atom entries.
  *
  * @category Horde
- * @package Horde_Feed
+ * @package  Horde_Feed
  */
-class Horde_Feed_Entry_Atom extends Horde_Feed_Entry_Base {
-
+class Horde_Feed_Entry_Atom extends Horde_Feed_Entry_Base
+{
     /**
      * The XML string for an "empty" Atom entry.
      *
@@ -55,15 +55,8 @@ class Horde_Feed_Entry_Atom extends Horde_Feed_Entry_Base {
         }
 
         // DELETE
-        $client = Horde_Feed::getHttpClient();
         do {
-            $client->setUri($deleteUri);
-            if (Horde_Feed::getHttpMethodOverride()) {
-                $client->setHeader('X-HTTP-Method-Override', 'DELETE');
-                $response = $client->post();
-            } else {
-                $response = $client->delete();
-            }
+            $response = $this->_httpClient->delete($deleteUri);
             switch ((int)$response->code / 100) {
             // Success
             case 2:
@@ -103,8 +96,7 @@ class Horde_Feed_Entry_Atom extends Horde_Feed_Entry_Base {
      */
     public function save($postUri = null)
     {
-        $client = Horde_Feed::getHttpClient();
-        $client->setHeaders('Content-Type', 'application/atom+xml');
+        $headers = array('Content-Type' => 'application/atom+xml');
 
         if ($this->id()) {
             // If id is set, look for link rel="edit" in the
@@ -114,13 +106,7 @@ class Horde_Feed_Entry_Atom extends Horde_Feed_Entry_Base {
                 throw new Horde_Feed_Exception('Cannot edit entry; no link rel="edit" is present.');
             }
 
-            $client->uri = $editUri;
-            if (Horde_Feed::getHttpMethodOverride()) {
-                $client->setHeaders('X-HTTP-Method-Override', 'PUT');
-                $response = $client->post($this->saveXml());
-            } else {
-                $response = $client->put($this->saveXml());
-            }
+            $response = $this->_httpClient->put($editUri, $this->saveXml(), $headers);
             if ($response->code !== 200) {
                 throw new Horde_Feed_Exception('Expected response code 200, got ' . $response->code);
             }
@@ -128,8 +114,7 @@ class Horde_Feed_Entry_Atom extends Horde_Feed_Entry_Base {
             if ($postUri === null) {
                 throw new Horde_Feed_Exception('PostURI must be specified to save new entries.');
             }
-            $client->uri = $postUri;
-            $response = $client->post($this->saveXml());
+            $response = $this->_httpClient->post($postUri, $this->saveXml(), $headers);
             if ($response->code !== 201) {
                 throw new Horde_Feed_Exception('Expected response code 201, got ' . $response->code);
             }
@@ -204,5 +189,4 @@ class Horde_Feed_Entry_Atom extends Horde_Feed_Entry_Base {
 
         return null;
     }
-
 }

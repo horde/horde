@@ -104,5 +104,4 @@ class Horde_Feed_Atom extends Horde_Feed_Base
 
         return null;
     }
-
 }

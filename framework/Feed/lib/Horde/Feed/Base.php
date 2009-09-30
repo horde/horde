@@ -30,6 +30,11 @@ abstract class Horde_Feed_Base extends Horde_Xml_Element_List
     protected $_uri;
 
     /**
+     * @var Horde_Http_Client
+     */
+    protected $_httpClient;
+
+    /**
      * Feed constructor
      *
      * The Horde_Feed_Base constructor takes the URI of a feed or a
@@ -40,9 +45,14 @@ abstract class Horde_Feed_Base extends Horde_Xml_Element_List
      * @param mixed $xml The feed as a string, a DOMElement, or null.
      * @param string $uri The full URI of the feed, or null if unknown.
      */
-    public function __construct($xml = null, $uri = null)
+    public function __construct($xml = null, $uri = null, Horde_Http_Client $httpClient = null)
     {
         $this->_uri = $uri;
+
+        if (is_null($httpClient)) {
+            $httpClient = new Horde_Http_Client();
+        }
+        $this->_httpClient = $httpClient;
 
         try {
             parent::__construct($xml);
@@ -78,4 +88,16 @@ abstract class Horde_Feed_Base extends Horde_Xml_Element_List
         }
     }
 
+    /**
+     * Required by the Iterator interface.
+     *
+     * @internal
+     *
+     * @return mixed The current row, or null if no rows.
+     */
+    public function current()
+    {
+        return new $this->_listItemClassName(
+            $this->_listItems[$this->_listItemIndex], $this->_httpClient);
+    }
 }

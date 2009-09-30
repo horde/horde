@@ -20,71 +20,6 @@
 class Horde_Feed
 {
     /**
-     * HTTP client object to use for accessing feeds
-     * @var Horde_Http_Client
-     */
-    protected static $_httpClient = null;
-
-    /**
-     * Override HTTP PUT and DELETE request methods?
-     * @var boolean
-     */
-    protected static $_httpMethodOverride = false;
-
-    /**
-     * Set the HTTP client instance
-     *
-     * Sets the HTTP client object to use for retrieving the feeds. If none
-     * is set, the default Horde_Http_Client will be used.
-     *
-     * @param Horde_Http_Client $httpClient
-     */
-    public static function setHttpClient($httpClient)
-    {
-        self::$_httpClient = $httpClient;
-    }
-
-    /**
-     * Gets the HTTP client object.
-     *
-     * @return Horde_Http_Client
-     */
-    public static function getHttpClient()
-    {
-        if (!self::$_httpClient) {
-            self::$_httpClient = new Horde_Http_Client;
-        }
-
-        return self::$_httpClient;
-    }
-
-    /**
-     * Toggle using POST instead of PUT and DELETE HTTP methods.
-     *
-     * Some feed implementations do not accept PUT and DELETE HTTP methods, or
-     * they can't be used because of proxies or other measures. This allows
-     * turning on using POST where PUT and DELETE would normally be used; in
-     * addition, an X-Method-Override header will be sent with a value of PUT or
-     * DELETE as appropriate.
-     *
-     * @param boolean $override  Whether to override PUT and DELETE.
-     */
-    public static function setHttpMethodOverride($override = true)
-    {
-        self::$_httpMethodOverride = $override;
-    }
-
-    /**
-     * Get the HTTP override state
-     *
-     * @return boolean
-     */
-    public static function getHttpMethodOverride()
-    {
-        return self::$_httpMethodOverride;
-    }
-
-    /**
      * Create a Feed object based on a DOMDocument.
      *
      * @param DOMDocument $doc The DOMDocument object to import.
@@ -159,17 +94,21 @@ class Horde_Feed
      * Read a feed located at $uri
      *
      * @param string $uri The URI to fetch the feed from.
+     * @param Horde_Http_Client $httpclient The HTTP client to use.
      *
      * @throws Horde_Feed_Exception
      *
      * @return Horde_Feed_Base
      */
-    public static function readUri($uri)
+    public static function readUri($uri, Horde_Http_Client $httpclient = null)
     {
-        $client = self::getHttpClient();
+        if (is_null($httpclient)) {
+            $httpclient = new Horde_Http_Client();
+        }
+
         try {
-            $response = $client->get($uri);
-        } catch (Horde_Http_Client_Exception $e) {
+            $response = $httpclient->get($uri);
+        } catch (Horde_Http_Exception $e) {
             throw new Horde_Feed_Exception('Error reading feed: ' . $e->getMessage());
         }
         if ($response->code != 200) {
@@ -204,5 +143,4 @@ class Horde_Feed
 
         return self::create($doc);
     }
-
 }
