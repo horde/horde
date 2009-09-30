@@ -8,11 +8,11 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
     define('PHPUnit_MAIN_METHOD', 'Horde_Feed_AllTests::main');
 }
 
-require_once 'PHPUnit/Framework/TestSuite.php';
+require_once 'PHPUnit/Framework.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
-class Horde_Feed_AllTests {
-
+class Horde_Feed_AllTests
+{
     public static function main()
     {
         PHPUnit_TextUI_TestRunner::run(self::suite());
@@ -20,6 +20,10 @@ class Horde_Feed_AllTests {
 
     public static function suite()
     {
+        if (!spl_autoload_functions()) {
+            spl_autoload_register(create_function('$class', '$filename = str_replace(array(\'::\', \'_\'), \'/\', $class); include "$filename.php";'));
+        }
+
         $suite = new PHPUnit_Framework_TestSuite('Horde Framework - Horde_Feed');
 
         $basedir = dirname(__FILE__);
