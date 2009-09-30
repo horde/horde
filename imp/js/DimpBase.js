@@ -808,6 +808,9 @@ var DimpBase = {
         case 'ctx_qsearchopts_subject':
             DIMP.conf.qsearchfield = id.substring(16);
             this._updatePrefs('dimp_qsearch_field', DIMP.conf.qsearchfield);
+            if (!$('qsearch').hasClassName('qsearchActive')) {
+                this._setQsearchText(true);
+            }
             break;
 
         default:
@@ -1381,7 +1384,7 @@ var DimpBase = {
     // d = (boolean) Deactivate quicksearch input?
     _setQsearchText: function(d)
     {
-        $('qsearch_input').setValue(d ? DIMP.text.search : '');
+        $('qsearch_input').setValue(d ? DIMP.text.search + ' (' + $('ctx_qsearchopts_' + DIMP.conf.qsearchfield).getText() + ')' : '');
         [ $('qsearch') ].invoke(d ? 'removeClassName' : 'addClassName', 'qsearchActive');
     },
 
