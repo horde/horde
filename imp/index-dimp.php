@@ -26,7 +26,8 @@ $scripts = array(
     array('imp.js', 'imp', true),
     array('mailbox-dimp.js', 'imp', true),
     array('popup.js', 'horde', true),
-    array('redbox.js', 'horde', true)
+    array('redbox.js', 'horde', true),
+    array('stripe.js', 'horde', true)
 );
 
 /* Get site specific menu items. */

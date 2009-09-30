@@ -241,7 +241,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
     </div>
 
     <div id="msgSplitPane">
-     <div id="msgList" class="msglist noprint">&nbsp;</div>
+     <div id="msgList" class="msglist noprint striped">&nbsp;</div>
      <div id="splitBar" style="display:none" class="splitBar noprint"></div>
      <div id="previewPane" style="display:none">
       <span id="msgLoading" class="loadingImg" style="display:none"></span>
