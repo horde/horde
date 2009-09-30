@@ -252,8 +252,12 @@ if (Horde_Auth::isAdmin('news:admin')) {
     }
 
     // Show from
-    $available = $GLOBALS['registry']->callByPackage('ulaform', 'getForms');
-    if (!($available instanceof PEAR_Error)) {
+    if ($registry->hasMethod('forms/getForms')) {
+        $available = $registry->call('forms/getForms');
+        if ($available instanceof PEAR_Error) {
+            $notification->push($available, 'horde.warning');
+            $available = array();
+        }
         $forms = array();
         foreach ($available as $f) {
             $forms[$f['form_id']] = $f['form_name'];
