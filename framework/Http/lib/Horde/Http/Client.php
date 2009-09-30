@@ -35,10 +35,19 @@ class Horde_Http_Client
     protected $_lastResponse;
 
     /**
+     * Use POST instead of PUT and DELETE, sending X-HTTP-Method-Override with
+     * the intended method name instead.
+     *
+     * @var boolean
+     */
+    protected $_httpMethodOverride = false;
+
+    /**
      * Horde_Http_Client constructor.
      *
      * @param array $args Any Http_Client settings to initialize in the
      * constructor. Available settings are:
+     *     client.httpMethodOverride
      *     client.proxyServer
      *     client.proxyUser
      *     client.proxyPass
@@ -62,7 +71,12 @@ class Horde_Http_Client
 
         foreach ($args as $key => $val) {
             list($object, $objectkey) = explode('.', $key, 2);
-            $this->$object->$objectkey = $val;
+            if ($object == 'request') {
+                $this->$object->$objectkey = $val;
+            } elseif ($object == 'client') {
+                $objectKey = '_' . $objectKey;
+                $this->$objectKey = $val;
+            }
         }
     }
 
@@ -93,7 +107,11 @@ class Horde_Http_Client
      */
     public function put($uri = null, $data = null, $headers = array())
     {
-        /* @TODO suport method override (X-Method-Override: PUT). */
+        if ($this->_httpMethodOverride) {
+            $headers = array_merge(array('X-HTTP-Method-Override' => 'PUT'), $headers);
+            return $this->post($uri, $data, $headers);
+        }
+
         return $this->request('PUT', $uri, $data, $headers);
     }
 
@@ -104,7 +122,11 @@ class Horde_Http_Client
      */
     public function delete($uri = null, $headers = array())
     {
-        /* @TODO suport method override (X-Method-Override: DELETE). */
+        if ($this->_httpMethodOverride) {
+            $headers = array_merge(array('X-HTTP-Method-Override' => 'DELETE'), $headers);
+            return $this->post($uri, null, $headers);
+        }
+
         return $this->request('DELETE', $uri, null, $headers);
     }
 
