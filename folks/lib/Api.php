@@ -175,7 +175,7 @@ class Folks_Api extends Horde_Registry_Api
      *
      * @return array of users
      */
-    public function _getBlacklist($user = null)
+    public function getBlacklist($user = null)
     {
         require_once dirname(__FILE__) . '/Friends.php';
 
