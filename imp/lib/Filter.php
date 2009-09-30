@@ -112,6 +112,8 @@ class IMP_Filter
         /* Get the list of from addresses. */
         $addr = array();
         foreach ($msgList as $mbox => $msgIndices) {
+            $GLOBALS['imp_imap']->checkUidvalidity($mbox);
+
             foreach ($msgIndices as $idx) {
                 $contents = IMP_Contents::singleton($idx . IMP::IDX_SEP . $mbox);
                 $hdr = $contents->getHeaderOb();

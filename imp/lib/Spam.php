@@ -17,8 +17,8 @@ class IMP_Spam
      * Reports a list of messages as spam, based on the local configuration
      * parameters.
      *
-     * @param mixed $indices   See IMP::parseIndicesList().
-     * @param string $action   Either 'spam' or 'notspam'.
+     * @param mixed $indices  See IMP::parseIndicesList().
+     * @param string $action  Either 'spam' or 'notspam'.
      *
      * @return integer  1 if messages have been deleted, 2 if messages have
      *                  been moved.
@@ -37,6 +37,12 @@ class IMP_Spam
         $report_count = 0;
 
         foreach ($msgList as $mbox => $msgIndices) {
+            try {
+                $GLOBALS['imp_imap']->checkUidvalidity($mbox);
+            } catch (Horde_Exception $e) {
+                continue;
+            }
+
             foreach ($msgIndices as $idx) {
                 /* Fetch the raw message contents (headers and complete
                  * body). */
@@ -208,4 +214,5 @@ class IMP_Spam
 
         return $delete_spam;
     }
+
 }
