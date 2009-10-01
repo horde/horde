@@ -22,8 +22,8 @@ abstract class Horde_Constraint_Coupler implements Horde_Constraint
     public function addConstraint(Horde_Constraint $constraint)
     {
         $kind = get_class($this);
-        if ($constrainst instanceof $kind) {
-            foreach ($constrainst->getConstraints() as $c) {
+        if ($constraint instanceof $kind) {
+            foreach ($constraint->getConstraints() as $c) {
                 $this->addConstraint($c);
             }
         } else {
