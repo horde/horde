@@ -961,6 +961,18 @@ class Horde_Browser
     }
 
     /**
+     * Returns the IP address of the client.
+     *
+     * @return string  The client IP address.
+     */
+    public function getIPAddress()
+    {
+        return empty($_SERVER['HTTP_X_FORWARDED_FOR'])
+            ? $_SERVER['REMOTE_ADDR']
+            : $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }
+
+    /**
      * Determines if files can be uploaded to the system.
      *
      * @return integer  If uploads allowed, returns the maximum size of the
