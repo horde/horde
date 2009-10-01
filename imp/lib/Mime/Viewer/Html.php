@@ -120,7 +120,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         $data['js'] = array('IMP.iframeInject("' . $uid . '", ' . Horde_Serialize::serialize($data['data'], Horde_Serialize::JSON, $this->_mimepart->getCharset()) . ')');
         $data['data'] = '<IFRAME class="htmlMsgData" id="' . $uid . '" src="javascript:false" frameborder="0"></IFRAME>' .
             Horde_Util::bufferOutput(array('Horde', 'addScriptFile'), 'imp.js', 'imp', true);
-        $data['type'] = 'text/html; charset=' . Horde_Nls::getCharset();
+        $data['type'] = 'text/html; charset=UTF-8';
 
         return array(
             $this->_mimepart->getMimeId() => $data
