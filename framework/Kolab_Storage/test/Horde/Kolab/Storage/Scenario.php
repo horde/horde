@@ -294,8 +294,8 @@ EOD;
                         'username' => $username,
                         'password' => $password);
 
-        $world['server']  = &$this->getKolabMockServer();
-        $world['storage'] = &$this->prepareEmptyKolabStorage($params);
+        $world['server']  = $this->getKolabMockServer();
+        $world['storage'] = $this->prepareEmptyKolabStorage($params);
         //$world['auth']    = &$this->prepareKolabAuthDriver();
 
         $this->prepareBasicConfiguration();
