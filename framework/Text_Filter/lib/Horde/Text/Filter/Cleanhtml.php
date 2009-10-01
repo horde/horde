@@ -55,6 +55,7 @@ class Horde_Text_Filter_Cleanhtml extends Horde_Text_Filter
             'indent-spaces' => 4,
             'numeric-entities' => true,
             'output-xhtml' => true,
+            'preserve-entities' => true,
             'show-body-only' => !empty($this->_params['body_only']),
             'tab-size' => 4,
             'wrap' => 0
