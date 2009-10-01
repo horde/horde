@@ -18,39 +18,34 @@ $title = _("Renew account");
 $code = Horde_Util::getGet('code');
 if (empty($code)) {
     $notification->push(_("You must supply a confirmation code."));
-    header('Location: ' . Horde_Auth::getLoginScreen('folks', Horde::applicationUrl('edit/edit.php')));
-    exit;
+    Horde_Auth::authenticateFailure('folks');
 }
 
 // Get supplied username
 $user = Horde_Util::getGet('user');
 if (empty($code)) {
     $notification->push(_("You must supply a username."));
-    header('Location: ' . Horde_Auth::getLoginScreen('folks', Horde::applicationUrl('edit/edit.php')));
-    exit;
+    Horde_Auth::authenticateFailure('folks');
 }
 
 // Get user profile
 $profile = $folks_driver->getProfile($user);
 if ($profile instanceof PEAR_Error) {
     $notification->push($profile);
-    header('Location: ' . Horde_Auth::getLoginScreen('folks', Horde::applicationUrl('edit/edit.php')));
-    exit;
+    Horde_Auth::authenticateFailure('folks');
 }
 
 // This pages is only to activate users
 if ($profile['user_status'] != 'deleted') {
     $notification->push(_("User \"%s\" is not market to be in the removal process."));
-    header('Location: ' . Horde_Auth::getLoginScreen('folks', Horde::applicationUrl('edit/edit.php')));
-    exit;
+    Horde_Auth::authenticateFailure('folks');
 }
-        
+
 // Get internal confirmation code
 $internal_code = $folks_driver->getConfirmationCode($user, 'renew');
 if ($internal_code instanceof PEAR_Error) {
     $notification->push($internal_code);
-    header('Location: ' . Horde_Auth::getLoginScreen('folks', Horde::applicationUrl('edit/edit.php')));
-    exit;
+    Horde_Auth::authenticateFailure('folks');
 }
 
 // Check code
@@ -65,5 +60,4 @@ if ($internal_code == $code) {
     $notification->push(_("The code is not right. If you copy and paste the link from your email, please check if you copied the whole string."), 'horde.warning');
 }
 
-header('Location: ' . Horde_Auth::getLoginScreen('folks', Horde::applicationUrl('edit/edit.php')));
-exit;
+Horde_Auth::authenticateFailure('folks');

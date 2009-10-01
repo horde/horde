@@ -18,8 +18,7 @@ require_once 'tabs.php';
 $auth = Horde_Auth::singleton($conf['auth']['driver']);
 if (!$auth->hasCapability('resetpassword')) {
     $notification->push(_("Cannot update password, contact your administrator."), 'horde.error');
-    header('Location: ' . Horde_Auth::getLoginScreen('', Horde_Util::getFormData('url')));
-    exit;
+    Horde_Auth::authenticateFailure('folks');
 }
 
 $title = _("Change Your Password");

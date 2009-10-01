@@ -5,7 +5,7 @@
 <?php
 echo '<li><img src="' . $registry->getImageDir('horde') . '/alerts/success.png">'
                 . _("Click here to login.")
-                . ' <a href="' . Horde_Auth::getLoginScreen('letter', Horde_Util::addParameter(Horde::applicationUrl('user.php'), 'user', $user))  . '">' . _("Click here to login.") . '</a>'
+                . ' <a href="' . Hode::getServiceLink('login', 'folks')  . '">' . _("Click here to login.") . '</a>'
                     . '</li>';
 ?>
 </ul>

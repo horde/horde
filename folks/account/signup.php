@@ -19,8 +19,7 @@ $auth = Horde_Auth::singleton($conf['auth']['driver']);
 if ($conf['signup']['allow'] !== true ||
     !$auth->hasCapability('add')) {
     $notification->push(_("User Registration has been disabled for this site."), 'horde.error');
-    header('Location: ' . Horde_Auth::getLoginScreen());
-    exit;
+    Horde_Auth::authenticateFailure('folks');
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -28,7 +27,7 @@ $form = new HordeSignupForm($vars);
 if ($form->validate()) {
     $form->getInfo(null, $info);
 
-    $signup = new Auth_Signup();
+    $signup = new Horde_Auth_Signup();
     $success_message = null;
 
     if (!$conf['signup']['approve']) {
@@ -52,9 +51,7 @@ if ($form->validate()) {
         $notification->push(sprintf(_("There was a problem adding \"%s\" to the system: %s"), $info['user_name'], $success->getMessage()), 'horde.error');
     } else {
         $notification->push($success_message, 'horde.success');
-        $url = Horde_Auth::getLoginScreen('', $info['url']);
-        header('Location: ' . $url);
-        exit;
+        Horde_Auth::authenticateFailure('folks');
     }
 }
 

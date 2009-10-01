@@ -41,8 +41,7 @@ if ($form->validate()) {
         Folks::sendMail($info['email'], _("Your username was requested"), $body);
 
         $notification->push(sprintf(_("Your username was sent, check your email (%s)."), $users['user_email']), 'horde.success');
-        header('Location: ' . Horde_Auth::getLoginScreen('', $info['url']));
-        exit;
+        Horde_Auth::authenticateFailure('folks');
     }
 }
 
