@@ -474,10 +474,15 @@ class Ansel
             ($viewHash = Ansel_Image::viewExists($imageId, $view, $style)) === false) {
             // We have to make sure the image exists first, since we won't
             // be going through img/*.php to auto-create it.
-            if (is_a($image = $ansel_storage->getImage($imageId), 'PEAR_Error')) {
+            try {
+                $image = $ansel_storage->getImage($imageId);
+            } catch (Horde_Exception $e) {
+                Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
                 return Ansel::getErrorImage($view);
             }
-            if (is_a($result = $image->createView($view, $style, false), 'PEAR_Error')) {
+            try {
+                $image->createView($view, $style, false);
+            } catch (Horde_Exception $e) {
                 return Ansel::getErrorImage($view);
             }
             $viewHash = $image->getViewHash($view, $style) . '/'

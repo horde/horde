@@ -23,8 +23,13 @@ $result = $faces->getImageFacesData($image_id);
 // or if we were asked to explicitly try again.
 if (($reload || empty($result))) {
     $image = &$ansel_storage->getImage($image_id);
-    $image->createView('screen');
-    $result = $faces->getFromPicture($image_id, $autocreate);
+    try {
+        $image->createView('screen');
+        $result = $faces->getFromPicture($image_id, $autocreate);
+    } catch (Horde_Exception $e) {
+        Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+        $result = null;
+    }
 }
 
 if (!empty($result)) {

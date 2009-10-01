@@ -17,9 +17,6 @@ class Ansel_ImageView_roundedstack extends Ansel_ImageView {
         $style = $this->_params['style'];
         foreach ($images as $image) {
             $result = $image->load('screen');
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
             $imgobjs[] = $image->_image;
         }
 

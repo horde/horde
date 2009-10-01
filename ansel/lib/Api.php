@@ -680,9 +680,6 @@ class Ansel_Api extends Horde_Registry_Api
         } else {
             // Load View
             $result = $image->load($view, $style);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
 
             // Return image content
             $data = $image->_image->raw();

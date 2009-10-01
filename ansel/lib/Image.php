@@ -175,7 +175,8 @@ class Ansel_Image
      * @param string $view   Which view to load.
      * @param string $style  The named gallery style.
      *
-     * @return mixed  True || PEAR_Error
+     * @return boolean
+     * @throws Horde_Exception
      */
     function load($view = 'full', $style = null)
     {
@@ -193,11 +194,7 @@ class Ansel_Image
         if (!empty($this->_loaded[$viewHash])) {
             return true;
         }
-
-        $result = $this->createView($view, $style);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->createView($view, $style);
 
         /* If createView() had to resize the full image, we've already
          * loaded the data, so return now. */
@@ -210,15 +207,12 @@ class Ansel_Image
 
         /* Get the VFS info. */
         $vfspath = $this->getVFSPath($view, $style);
-        if (is_a($vfspath, 'PEAR_Error')) {
-            return $vfspath;
-        }
 
         /* Read in the requested view. */
         $data = $GLOBALS['ansel_vfs']->read($vfspath, $this->getVFSName($view));
         if (is_a($data, 'PEAR_Error')) {
             Horde::logMessage($date, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $data;
+            throw new Horde_Exception($data->getMessage());
         }
 
         $this->_data[$viewHash] = $data;
@@ -272,6 +266,9 @@ class Ansel_Image
      *
      * @param string $view  Which view to create.
      * @param string $style  A named gallery style
+     *
+     * @return boolean
+     * @throws Horde_Exception
      */
     function createView($view, $style = null)
     {
@@ -295,7 +292,7 @@ class Ansel_Image
                                             $this->getVFSName('full'));
         if (is_a($data, 'PEAR_Error')) {
             Horde::logMessage($data, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $data;
+            throw new Horde_Exception($data->getMessage());
         }
         $this->_image->loadString($this->getVFSPath('full') . '/' . $this->id, $data);
         $styleDef = Ansel::getStyleDefinition($style);
@@ -328,7 +325,11 @@ class Ansel_Image
 
         $view = $this->getViewHash($view, $style);
 
-        $this->_data[$view] = $this->_image->raw();
+        try {
+            $this->_data[$view] = $this->_image->raw();
+        } catch (Horde_Image_Exception $e) {
+            throw new Horde_Exception($e);
+        }
         $this->_image->loadString($vfspath . '/' . $this->id,
                                   $this->_data[$view]);
         $this->_loaded[$view] = true;
@@ -777,13 +778,12 @@ class Ansel_Image
             echo $data;
             return;
         }
-
-        if (is_a($result = $this->load($view, $style), 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $result;
+        try {
+            $this->load($view, $style);
+            $this->_image->display();
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
         }
-
-        $this->_image->display();
     }
 
     /**
@@ -793,10 +793,12 @@ class Ansel_Image
      */
     function toFile($view = 'full')
     {
-        if (is_a(($result = $this->load($view)), 'PEAR_Error')) {
-            return $result;
+        try {
+            $this->load($view);
+            return $this->_image->toFile($this->_dirty ? false : $this->_data[$view]);
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
         }
-        return $this->_image->toFile($this->_dirty ? false : $this->_data[$view]);
     }
 
     /**
@@ -806,10 +808,12 @@ class Ansel_Image
      */
     function getDimensions($view = 'full')
     {
-        if (is_a(($result = $this->load($view)), 'PEAR_Error')) {
-            return $result;
+        try {
+            $this->load($view);
+            return $this->_image->getDimensions();
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e->getMessage(), __FILE__, __LINE__);
         }
-        return $this->_image->getDimensions();
     }
 
     /**

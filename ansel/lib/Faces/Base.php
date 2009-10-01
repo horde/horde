@@ -340,7 +340,7 @@ class Ansel_Faces_Base
             $image = &$GLOBALS['ansel_storage']->getImage($image_id);
 
             // Actually create the image.
-            $result = $this->createView(
+            $this->createView(
                 $face_id,
                 $image,
                 $data['face_x1'],
@@ -449,7 +449,7 @@ class Ansel_Faces_Base
         $image->load('screen');
 
         // Process the image
-        $result = $this->createView($face_id,
+        $this->createView($face_id,
                                     $image,
                                     $x1,
                                     $y1,

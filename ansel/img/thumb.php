@@ -26,8 +26,9 @@ if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_READ)) {
 /* Sendfile support. Lighttpd < 1.5 only understands the X-LIGHTTPD-send-file header */
 if ($conf['vfs']['src'] == 'sendfile') {
     /* Need to ensure the file exists */
-    $result = $image->createView('thumb', 'ansel_default');
-    if (is_a($result, 'PEAR_Error')) {
+    try {
+        $image->createView('thumb', 'ansel_default');
+    } catch (Horde_Exception $e) {
         Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
         exit;
     }
