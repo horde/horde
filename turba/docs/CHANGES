@@ -10,6 +10,8 @@ v3.0-git
 v2.3.3-cvs
 ----------
 
+[jan] Update deleted attributes during synchronization (lst_hoe02@kwsoft.de,
+      Request #6658).
 [jan] Support X-ANNIVERSARY, X-CHILDREN, and X-SPOUSE vCard fields
       (Request #8074).
 [jan] Fix copying and moving of image fields (Ryu <ryu@ryux.org>, Bug #8523).
