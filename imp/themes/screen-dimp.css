@@ -164,7 +164,7 @@ div.msgSize {
 #msglistHeader div {
     padding-top: 1px;
     height: 15px;
-    text-indent: 2px;
+    text-indent: 1px;
 }
 #msglistHeader div.sortup, #msglistHeader div.sortdown {
     padding-left: 0;
@@ -187,7 +187,6 @@ div.msgSize {
     overflow: hidden;
     border-bottom: 1px silver solid;
     float: left;
-    background-color: #fff;
 }
 .msglist span.vpEmpty, .msglist span.vpError {
     font-weight: bold;
@@ -207,7 +206,7 @@ div.msgSize {
     -ms-text-overflow: ellipsis;
     height: 16px;
     border-bottom: 1px;
-    text-indent: 2px;
+    text-indent: 1px;
 }
 .msglist div.vpRowSelected {
     background: #ffa !important;

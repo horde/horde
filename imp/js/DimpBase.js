@@ -520,8 +520,6 @@ var DimpBase = {
                 var row, ssc, tmp,
                     l = this.viewport.getMetaData('label');
 
-                Horde.stripeElement('msgList');
-
                 this.setMessageListTitle();
                 if (!this.isSearch()) {
                     this.setFolderLabel(this.folder, this.viewport.getMetaData('unseen') || 0);
