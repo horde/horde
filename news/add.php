@@ -595,8 +595,7 @@ if ($form->validate()) {
         }
     }
 
-    $form->_submit = _("Update");
-    $form->_reset = _("Reset");
+    $form->setButtons(_("Update"), _("Reset"));
 }
 
 // Add editor now to avoud JS error notifications no redirect
