@@ -16,11 +16,13 @@
  */
 class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
 {
-    public function __construct()
+    public function __construct($args = array())
     {
         if (!ini_get('allow_url_fopen')) {
             throw new Horde_Http_Exception('allow_url_fopen must be enabled');
         }
+
+        parent::__construct($args);
     }
 
     /**
@@ -40,7 +42,7 @@ class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
 
         $opts = array('http' => array());
 
-        // Proxy settings - check first, so we can include the correct headers
+        // Proxy settings
         if ($this->proxyServer) {
             $opts['http']['proxy'] = 'tcp://' . $this->proxyServer;
             $opts['http']['request_fulluri'] = true;
@@ -50,7 +52,7 @@ class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
             }
         }
 
-        // Set authentication data
+        // Authentication settings
         if ($this->username) {
             switch ($this->authenticationScheme) {
             case Horde_Http::AUTH_BASIC:

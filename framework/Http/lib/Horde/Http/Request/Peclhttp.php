@@ -16,7 +16,11 @@
  */
 class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
 {
-    public static $methods = array(
+    /**
+     * Map of HTTP methods to HTTP_METH_* constants
+     * @var array
+     */
+    protected $_httpMethods = array(
         'GET' => HTTP_METH_GET,
         'HEAD' => HTTP_METH_HEAD,
         'POST' => HTTP_METH_POST,
@@ -24,11 +28,30 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
         'DELETE' => HTTP_METH_DELETE,
     );
 
-    public function __construct()
+    /**
+     * Map of HTTP authentication schemes from Horde_Http constants to HTTP_AUTH constants.
+     * @var array
+     */
+    protected $_httpAuthSchemes = array(
+        Horde_Http::AUTH_ANY => HTTP_AUTH_ANY,
+        Horde_Http::AUTH_BASIC => HTTP_AUTH_BASIC,
+        Horde_Http::AUTH_DIGEST => HTTP_AUTH_DIGEST,
+        Horde_Http::AUTH_GSSNEGOTIATE => HTTP_AUTH_GSSNEG,
+        Horde_Http::AUTH_NTLM => HTTP_AUTH_NTLM,
+    );
+
+    /**
+     * Constructor
+     *
+     * @throws Horde_Http_Exception
+     */
+    public function __construct($args = array())
     {
         if (!class_exists('HttpRequest', false)) {
             throw new Horde_Http_Exception('The pecl_http extension is not installed. See http://php.net/http.install');
         }
+
+        parent::__construct($args);
     }
 
     /**
@@ -38,7 +61,7 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
      */
     public function send()
     {
-        $httpRequest = new HttpRequest($this->uri, self::$methods[$this->method]);
+        $httpRequest = new HttpRequest($this->uri, $this->_httpMethods[$this->method]);
         $httpRequest->setHeaders($this->headers);
 
         $data = $this->data;
@@ -50,35 +73,19 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
 
         $httpOptions = array();
 
-        // Proxy
+        // Proxy settings
+        if ($this->proxyServer) {
+            $httpOptions['proxyhost'] = $this->proxyServer;
+            if ($this->proxyUsername && $this->proxyPassword) {
+                $httpOptions['proxyauth'] = $this->proxyUsername . ':' . $this->proxyPassword;
+                $httpOptions['proxyauthtype'] = $this->_httpAuthScheme($this->proxyAuthenticationScheme);
+            }
+        }
 
-        // Set authentication data
+        // Authentication settings
         if ($this->username) {
             $httpOptions['httpauth'] = $this->username . ':' . $this->password;
-            switch ($this->authenticationScheme) {
-            case Horde_Http::AUTH_ANY:
-                $httpOptions['httpauthtype'] = HTTP_AUTH_ANY;
-                break;
-
-            case Horde_Http::AUTH_BASIC:
-                $httpOptions['httpauthtype'] = HTTP_AUTH_BASIC;
-                break;
-
-            case Horde_Http::AUTH_DIGEST:
-                $httpOptions['httpauthtype'] = HTTP_AUTH_DIGEST;
-                break;
-
-            case Horde_Http::AUTH_GSSNEGOTIATE:
-                $httpOptions['httpauthtype'] = HTTP_AUTH_GSSNEG;
-                break;
-
-            case Horde_Http::AUTH_NTLM:
-                $httpOptions['httpauthtype'] = HTTP_AUTH_NTLM;
-                break;
-
-            default:
-                throw new Horde_Http_Exception('Unsupported authentication scheme (' . $this->authenticationScheme . ')');
-            }
+            $httpOptions['httpauthtype'] = $this->_httpAuthScheme($this->authenticationScheme);
         }
 
         // Set options
@@ -91,5 +98,19 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
         }
 
         return new Horde_Http_Response_Peclhttp($this->uri, $httpResponse);
+    }
+
+    /**
+     * Translate a Horde_Http::AUTH_* constant to HTTP_AUTH_*
+     *
+     * @param const
+     * @return const
+     */
+    protected function _httpAuthScheme($httpAuthScheme)
+    {
+        if (!isset($this->_httpAuthSchemes[$httpAuthScheme])) {
+            throw new Horde_Http_Exception('Unsupported authentication scheme (' . $httpAuthScheme . ')');
+        }
+        return $this->_httpAuthSchemes[$httpAuthScheme];
     }
 }

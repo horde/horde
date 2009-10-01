@@ -16,6 +16,21 @@
  */
 class Horde_Http_Request_Curl extends Horde_Http_Request_Base
 {
+    /**
+     * Map of HTTP authentication schemes from Horde_Http constants to HTTP_AUTH constants.
+     * @var array
+     */
+    protected $_httpAuthSchemes = array(
+        Horde_Http::AUTH_ANY => CURLAUTH_ANY,
+        Horde_Http::AUTH_BASIC => CURLAUTH_BASIC,
+        Horde_Http::AUTH_DIGEST => CURLAUTH_DIGEST,
+        Horde_Http::AUTH_GSSNEGOTIATE => CURLAUTH_GSSNEGOTIATE,
+        Horde_Http::AUTH_NTLM => CURLAUTH_NTLM,
+    );
+
+    /**
+     * Constructor
+     */
     public function __construct($args = array())
     {
         if (!extension_loaded('curl')) {
@@ -47,35 +62,19 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
         }
         if ($data) { curl_setopt($curl, CURLOPT_POSTFIELDS, $data); }
 
-        // Proxy
+        // Proxy settings
+        if ($this->proxyServer) {
+            curl_setopt($curl, CURLOPT_PROXY, $this->proxyServer);
+            if ($this->proxyUsername && $this->proxyPassword) {
+                curl_setopt($curl, CURLOPT_PROXYUSERPWD, $this->proxyUsername . ':' . $this->proxyPassword);
+                curl_setopt($curl, CURLOPT_PROXYAUTH, $this->_httpAuthScheme($this->proxyAuthenticationScheme));
+            }
+        }
 
-        // Set authentication data
+        // Authentication settings
         if ($this->username) {
             curl_setopt($curl, CURLOPT_USERPWD, $this->username . ':' . $this->password);
-            switch ($this->authenticationScheme) {
-            case Horde_Http::AUTH_ANY:
-                curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
-                break;
-
-            case Horde_Http::AUTH_BASIC:
-                curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-                break;
-
-            case Horde_Http::AUTH_DIGEST:
-                curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_DIGEST);
-                break;
-
-            case Horde_Http::AUTH_GSSNEGOTIATE:
-                curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_GSSNEGOTIATE);
-                break;
-
-            case Horde_Http::AUTH_NTLM:
-                curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_NTLM);
-                break;
-
-            default:
-                throw new Horde_Http_Exception('Unsupported authentication scheme (' . $this->authenticationScheme . ')');
-            }
+            curl_setopt($curl, CURLOPT_HTTPAUTH, $this->_httpAuthScheme($this->authenticationScheme));
         }
 
         // Concatenate the headers
@@ -91,5 +90,19 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
         }
         $info = curl_getinfo($curl);
         return new Horde_Http_Response_Curl($this->uri, $result, $info);
+    }
+
+    /**
+     * Translate a Horde_Http::AUTH_* constant to CURLAUTH_*
+     *
+     * @param const
+     * @return const
+     */
+    protected function _httpAuthScheme($httpAuthScheme)
+    {
+        if (!isset($this->_httpAuthSchemes[$httpAuthScheme])) {
+            throw new Horde_Http_Exception('Unsupported authentication scheme (' . $httpAuthScheme . ')');
+        }
+        return $this->_httpAuthSchemes[$httpAuthScheme];
     }
 }
