@@ -193,8 +193,9 @@ class Turba_View_Browse {
                             isset($targetDriver->map[$info_key]['attribute'])) {
                             $objectValue = $object->getValue($info_key);
                             
-                            // get 'data' value if object type is image. Get the direct value in other case.
-                            $objAttributes[$info_key] = ($GLOBALS['attributes'][$info_key]['type'] == 'image') ? $objectValue['load']['data'] : $objectValue;
+                            // Get 'data' value if object type is image, the
+                            // direct value in other case.
+                            $objAttributes[$info_key] = isset($GLOBALS['attributes'][$info_key]) && $GLOBALS['attributes'][$info_key]['type'] == 'image' ? $objectValue['load']['data'] : $objectValue;
                         }
                     }
                     unset($objAttributes['__owner']);
