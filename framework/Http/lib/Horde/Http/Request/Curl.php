@@ -47,6 +47,37 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
         }
         if ($data) { curl_setopt($curl, CURLOPT_POSTFIELDS, $data); }
 
+        // Proxy
+
+        // Set authentication data
+        if ($this->username) {
+            curl_setopt($curl, CURLOPT_USERPWD, $this->username . ':' . $this->password);
+            switch ($this->authenticationScheme) {
+            case Horde_Http::AUTH_ANY:
+                curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+                break;
+
+            case Horde_Http::AUTH_BASIC:
+                curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+                break;
+
+            case Horde_Http::AUTH_DIGEST:
+                curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_DIGEST);
+                break;
+
+            case Horde_Http::AUTH_GSSNEGOTIATE:
+                curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_GSSNEGOTIATE);
+                break;
+
+            case Horde_Http::AUTH_NTLM:
+                curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_NTLM);
+                break;
+
+            default:
+                throw new Horde_Http_Exception('Unsupported authentication scheme (' . $this->authenticationScheme . ')');
+            }
+        }
+
         // Concatenate the headers
         $hdr = array();
         foreach ($this->headers as $header => $value) {

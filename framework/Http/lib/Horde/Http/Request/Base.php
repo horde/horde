@@ -35,11 +35,36 @@ abstract class Horde_Http_Request_Base
     protected $_headers = array();
 
     /**
+     * Authentication data
+     * @var array
+     * @see getAuth()
+     */
+    protected $_auth;
+
+    /**
      * Request data. Can be an array of form data that will be encoded
      * automatically, or a raw string
      * @var mixed
      */
     protected $_data;
+
+    /**
+     * Authentication username
+     * @var string
+     */
+    protected $_username = '';
+
+    /**
+     * Authentication password
+     * @var string
+     */
+    protected $_password = '';
+
+    /**
+     * Authentication scheme
+     * @var const Horde_Http::AUTH_*
+     */
+    protected $_authenticationScheme = Horde_Http::AUTH_BASIC;
 
     /**
      * Proxy server
@@ -51,13 +76,19 @@ abstract class Horde_Http_Request_Base
      * Proxy username
      * @var string
      */
-    protected $_proxyUser = null;
+    protected $_proxyUsername = null;
 
     /**
      * Proxy password
      * @var string
      */
-    protected $_proxyPass = null;
+    protected $_proxyPassword = null;
+
+    /**
+     * Proxy authentication schem
+     * @var const Horde_Http::AUTH_*
+     */
+    protected $_proxyAuthenticationScheme = Horde_Http::AUTH_BASIC;
 
     /**
      * HTTP timeout

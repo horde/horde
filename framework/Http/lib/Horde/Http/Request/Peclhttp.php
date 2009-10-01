@@ -48,6 +48,42 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
             $httpRequest->setRawPostData($data);
         }
 
+        $httpOptions = array();
+
+        // Proxy
+
+        // Set authentication data
+        if ($this->username) {
+            $httpOptions['httpauth'] = $this->username . ':' . $this->password;
+            switch ($this->authenticationScheme) {
+            case Horde_Http::AUTH_ANY:
+                $httpOptions['httpauthtype'] = HTTP_AUTH_ANY;
+                break;
+
+            case Horde_Http::AUTH_BASIC:
+                $httpOptions['httpauthtype'] = HTTP_AUTH_BASIC;
+                break;
+
+            case Horde_Http::AUTH_DIGEST:
+                $httpOptions['httpauthtype'] = HTTP_AUTH_DIGEST;
+                break;
+
+            case Horde_Http::AUTH_GSSNEGOTIATE:
+                $httpOptions['httpauthtype'] = HTTP_AUTH_GSSNEG;
+                break;
+
+            case Horde_Http::AUTH_NTLM:
+                $httpOptions['httpauthtype'] = HTTP_AUTH_NTLM;
+                break;
+
+            default:
+                throw new Horde_Http_Exception('Unsupported authentication scheme (' . $this->authenticationScheme . ')');
+            }
+        }
+
+        // Set options
+        $httpRequest->setOptions($httpOptions);
+
         try {
             $httpResponse = $httpRequest->send();
         } catch (HttpException $e) {

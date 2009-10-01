@@ -44,8 +44,21 @@ class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
         if ($this->proxyServer) {
             $opts['http']['proxy'] = 'tcp://' . $this->proxyServer;
             $opts['http']['request_fulluri'] = true;
-            if ($this->proxyUser && $this->proxyPass) {
-                $headers['Proxy-Authorization'] = 'Basic ' . base64_encode($this->proxyUser . ':' . $this->proxyPass);
+            if ($this->proxyUsername && $this->proxyPassword) {
+                // @TODO check $this->proxyAuthenticationScheme
+                $headers['Proxy-Authorization'] = 'Basic ' . base64_encode($this->proxyUsername . ':' . $this->proxyPassword);
+            }
+        }
+
+        // Set authentication data
+        if ($this->username) {
+            switch ($this->authenticationScheme) {
+            case Horde_Http::AUTH_BASIC:
+                $headers['Authorization'] = 'Basic ' . base64_encode($this->username . ':' . $this->password);
+                break;
+
+            default:
+                throw new Horde_Http_Exception('Unsupported authentication scheme (' . $this->authenticationScheme . ')');
             }
         }
 
