@@ -117,7 +117,8 @@ class Horde_Log_Filter_Constraint implements Horde_Log_Filter_Interface
     public function accept($event)
     {
         foreach ($this->_constraints as $field => $constraint) {
-            if (!$constraint->evaluate($event[$field])) {
+            $value = isset($event[$field]) ? $event[$field] : null;
+            if (!$constraint->evaluate($value)) {
                 return false;
             }
         }
