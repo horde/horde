@@ -352,7 +352,7 @@ class Horde_Kolab_Server_Ldap extends Horde_Kolab_Server
         if (isset($params['attributes'])) {
             $options['attributes'] = $params['attributes'];
         } else {
-            $options['attributes'] = $vars['_supported_attributes'];
+            $options['attributes'] = $this->getAttributes($type);
         }
 
         $data = $this->search($filter, $options, $base);

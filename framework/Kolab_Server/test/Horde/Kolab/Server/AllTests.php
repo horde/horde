@@ -61,7 +61,7 @@ class Horde_Kolab_Server_AllTests
         // FIXME: This does not work yet, as we still have a number of
         //        static methods in basic Horde libraries that are not
         //        declared as such.
-        //error_reporting(E_ALL | E_STRICT);
+        error_reporting(E_ALL | E_STRICT);
 
         $suite = new PHPUnit_Framework_TestSuite('Horde Framework - Kolab_Server');
 

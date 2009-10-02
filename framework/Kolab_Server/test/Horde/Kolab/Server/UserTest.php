@@ -102,9 +102,6 @@ class Horde_Kolab_Server_UserTest extends Horde_Kolab_Server_Scenario
 
         $user = $this->server->fetch('cn=Gunnar Wrobel,dc=example,dc=org');
         $attr = $user->get(Horde_Kolab_Server_Object_Kolab_User::ATTRIBUTE_FREEBUSYHOST);
-        if (is_a($attr, 'PEAR_Error')) {
-            $this->assertEquals('', $attr->getMessage());
-        }
         $this->assertEquals('https://fb.example.org/freebusy', $attr);
 
         $imap = $user->getServer('freebusy');

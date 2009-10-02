@@ -385,7 +385,9 @@ class Horde_Kolab_Server_Object
     protected function _get($attr, $single = true)
     {
         if (isset($this->_cache[$attr])) {
-            if ($single && is_array($this->_cache[$attr])) {
+            if (empty($this->_cache[$attr])) {
+                return false;
+            } else if ($single && is_array($this->_cache[$attr])) {
                 return $this->_cache[$attr][0];
             } else {
                 return $this->_cache[$attr];

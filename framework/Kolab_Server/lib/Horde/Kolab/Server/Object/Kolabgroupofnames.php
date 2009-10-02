@@ -91,7 +91,7 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
         case self::ATTRIBUTE_VISIBILITY:
             //FIXME: This needs structural knowledge and should be in a
             //structural class.
-            return strpos($this->_uid, 'cn=internal') === false;
+            return strpos($this->uid, 'cn=internal') === false;
         default:
             return parent::derive($attr);
         }
