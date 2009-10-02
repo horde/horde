@@ -923,6 +923,7 @@ class Horde_Kolab_Server_Object
             }
         }
 
+        $changes = array();
         if (!$this->exists()) {
             $changes['add'] = $info;
         } else {
