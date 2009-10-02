@@ -14,12 +14,14 @@ define('FOLKS_BASE', dirname(__FILE__) . '/..');
 require_once FOLKS_BASE . '/lib/base.php';
 require_once 'tabs.php';
 
+/*
 // Make sure auth backend allows passwords to be updated.
 $auth = Horde_Auth::singleton($conf['auth']['driver']);
 if (!$auth->hasCapability('resetpassword')) {
     $notification->push(_("Cannot update password, contact your administrator."), 'horde.error');
     Horde_Auth::authenticateFailure('folks');
 }
+*/
 
 $title = _("Change Your Password");
 $vars = Horde_Variables::getDefaultVariables();
