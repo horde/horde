@@ -42,10 +42,11 @@ class Horde_Kolab_Storage_Scenario extends Horde_Kolab_Server_Scenario
      */
     public function runGiven(&$world, $action, $arguments)
     {
-        switch($action) {
+        switch ($action) {
         case 'an empty Kolab storage':
-            $world['storage'] = &$this->prepareEmptyKolabStorage();
+            $world['storage'] = $this->prepareEmptyKolabStorage();
             break;
+
         case 'a Kolab setup':
             $result = $this->prepareKolabSetup();
 
@@ -53,6 +54,7 @@ class Horde_Kolab_Storage_Scenario extends Horde_Kolab_Server_Scenario
             $world['storage'] = &$result['storage'];
             $world['auth']    = &$result['auth'];
             break;
+
         case 'a populated Kolab setup':
             $result = $this->prepareBasicSetup();
 
@@ -60,6 +62,7 @@ class Horde_Kolab_Storage_Scenario extends Horde_Kolab_Server_Scenario
             $world['storage'] = &$result['storage'];
             $world['auth']    = &$result['auth'];
             break;
+
         default:
             return parent::runGiven($world, $action, $arguments);
         }
@@ -96,7 +99,7 @@ class Horde_Kolab_Storage_Scenario extends Horde_Kolab_Server_Scenario
         case 'logging in as a user with a password':
             $world['login'] = $world['auth']->authenticate($arguments[0],
                                                            array('password' => $arguments[1]));
-            $world['storage'] = &$this->prepareEmptyKolabStorage();
+            $world['storage'] = $this->prepareEmptyKolabStorage();
             return parent::runWhen($world, $action, $arguments);
         default:
             return parent::runWhen($world, $action, $arguments);
@@ -145,10 +148,10 @@ class Horde_Kolab_Storage_Scenario extends Horde_Kolab_Server_Scenario
      *
      * @return Horde_Kolab_Storage_List The empty storage.
      */
-    public function &prepareEmptyKolabStorage($params = null)
+    public function prepareEmptyKolabStorage($params = null)
     {
         /** Prepare a Kolab test storage */
-        if(empty($params)) {
+        if (empty($params)) {
             $params = array('driver'   => 'Mock',
                             'username' => 'test',
                             'password' => 'test');
@@ -282,10 +285,8 @@ EOD;
      */
     public function &prepareKolabSetup($username = 'test', $password = 'test')
     {
-        /**
-         * Ensure we have a session array. Otherwise the Auth handler will try
-         * to unset the session and issue a notice.
-         */
+        // Ensure we have a session array. Otherwise the Auth handler will try
+        // to unset the session and issue a notice.
         $_SESSION = array();
 
         $world = array();
@@ -296,7 +297,7 @@ EOD;
 
         $world['server']  = $this->getKolabMockServer();
         $world['storage'] = $this->prepareEmptyKolabStorage($params);
-        //$world['auth']    = &$this->prepareKolabAuthDriver();
+        //$world['auth']    = $this->prepareKolabAuthDriver();
 
         $this->prepareBasicConfiguration();
 
@@ -318,12 +319,12 @@ EOD;
 
         if (!isset($GLOBALS['perms'])) {
             include_once 'Horde/Perms.php';
-            $GLOBALS['perms'] = &Perms::singleton();
+            $GLOBALS['perms'] = Perms::singleton();
         }
 
         /** Provide the horde registry */
-        $GLOBALS['registry'] = &Horde_Registry::singleton();
-        $GLOBALS['notification'] = &Horde_Notification::singleton();
+        $GLOBALS['registry'] = Horde_Registry::singleton();
+        $GLOBALS['notification'] = Horde_Notification::singleton();
 
         $this->prepareFixedConfiguration();
 
@@ -368,7 +369,7 @@ EOD;
      *
      * @return Kolab_Folder The new folder.
      */
-    public function &prepareNewFolder(&$storage, $name, $type, $default = false)
+    public function prepareNewFolder(&$storage, $name, $type, $default = false)
     {
         $folder = $storage->getNewFolder();
         $folder->setName($name);
@@ -385,7 +386,7 @@ EOD;
         return Horde::getTempDir() . '/test_config';
     }
 
-    public function &authenticate(Horde_Auth_Base $auth, $username = 'test', $password = 'test')
+    public function authenticate(Horde_Auth_Base $auth, $username = 'test', $password = 'test')
     {
         $this->assertTrue($auth->authenticate($username,
                                               array('password' => $password)));
