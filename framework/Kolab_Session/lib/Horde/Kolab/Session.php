@@ -314,7 +314,7 @@ class Horde_Kolab_Session
      *
      * @return Horde_Kolab_Session  The concrete Session reference.
      */
-    function &singleton($user = null, $credentials = null, $destruct = false)
+    static public function &singleton($user = null, $credentials = null, $destruct = false)
     {
         static $session;
 
