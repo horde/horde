@@ -34,7 +34,6 @@ require_once 'Autoload.php';
  */
 class Horde_Kolab_Storage_StorageTest extends Horde_Kolab_Storage_Scenario
 {
-
     /**
      * Test setup.
      *
@@ -222,7 +221,7 @@ class Horde_Kolab_Storage_StorageTest extends Horde_Kolab_Storage_Scenario
         $folder->setName('Notes');
         $folder->save(array());
     }
-        
+
     /**
      * Test cache update.
      *
@@ -244,7 +243,7 @@ class Horde_Kolab_Storage_StorageTest extends Horde_Kolab_Storage_Scenario
         $folder->save(array());
         $folder->delete();
     }
-        
+
 
     /**
      * Test renaming folders.
