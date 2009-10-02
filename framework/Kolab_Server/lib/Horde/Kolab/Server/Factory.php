@@ -111,11 +111,12 @@ class Horde_Kolab_Server_Factory
         } catch (ReflectionException $e) {
         }
 
-        $class = 'Horde_Kolab_Server_Structure_' . ucfirst(basename($driver));
-        if (!class_exists($class)) {
-            throw new Horde_Kolab_Server_Exception('Structure type definition "' . $class . '" missing.');
+        //@todo: either we use driver names or real class names.
+        //$class = 'Horde_Kolab_Server_Structure_' . ucfirst(basename($driver));
+        if (!class_exists($driver)) {
+            throw new Horde_Kolab_Server_Exception('Structure type definition "' . $driver . '" missing.');
         }
-        $structure = new $class($params);
+        $structure = new $driver($params);
         return $structure;
     }
 }
