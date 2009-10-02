@@ -87,11 +87,12 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
             $httpOptions['httpauthtype'] = $this->_httpAuthScheme($this->authenticationScheme);
         }
 
+        // Headers
+        $httpOptions['headers'] = $this->headers;
+
         // Set options
         $httpRequest->setOptions($httpOptions);
 
-        // Concatenate the headers
-        $httpRequest->addHeaders($this->headers);
         try {
             $httpResponse = $httpRequest->send();
         } catch (HttpException $e) {
