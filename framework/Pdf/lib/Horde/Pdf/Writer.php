@@ -2317,9 +2317,11 @@ class Horde_Pdf_Writer
                 }
                 $type = substr($file, $pos + 1);
             }
-            $type = strtolower($type);
+
             $mqr = get_magic_quotes_runtime();
-            set_magic_quotes_runtime(0);
+            if ($mqr) { set_magic_quotes_runtime(0); }
+
+            $type = strtolower($type);
             if ($type == 'jpg' || $type == 'jpeg') {
                 $info = $this->_parseJPG($file);
             } elseif ($type == 'png') {
@@ -2327,7 +2329,9 @@ class Horde_Pdf_Writer
             } else {
                 throw new Horde_Pdf_Exception(sprintf('Unsupported image file type: %s', $type));
             }
-            set_magic_quotes_runtime($mqr);
+
+            if ($mqr) { set_magic_quotes_runtime($mqr); }
+
             $info['i'] = count($this->_images) + 1;
             $this->_images[$file] = $info;
         } else {
@@ -2705,8 +2709,10 @@ class Horde_Pdf_Writer
             $this->_out('<</Type /Encoding /BaseEncoding /WinAnsiEncoding /Differences [' . $diff . ']>>');
             $this->_out('endobj');
         }
+
         $mqr = get_magic_quotes_runtime();
-        set_magic_quotes_runtime(0);
+        if ($mqr) { set_magic_quotes_runtime(0); }
+
         foreach ($this->_font_files as $file => $info) {
             // Font file embedding.
             $this->_newobj();
@@ -2729,7 +2735,9 @@ class Horde_Pdf_Writer
             fclose($f);
             $this->_out('endobj');
         }
-        set_magic_quotes_runtime($mqr);
+
+        if ($mqr) { set_magic_quotes_runtime($mqr); }
+
         foreach ($this->_fonts as $k => $font) {
             // Font objects
             $this->_newobj();
