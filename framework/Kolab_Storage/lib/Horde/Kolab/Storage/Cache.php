@@ -152,7 +152,7 @@ class Horde_Kolab_Storage_Cache
                 $params = $GLOBALS['conf']['kolab']['storage']['cache']['data']['params'];
             }
         }
-        $this->horde_cache = &Horde_Cache::singleton($driver, $params);
+        $this->horde_cache = Horde_Cache::singleton($driver, $params);
     }
 
     /**
@@ -160,14 +160,10 @@ class Horde_Kolab_Storage_Cache
      * instance.  It will only create a new instance if no
      * Horde_Kolab_Storage_Cache instance currently exists.
      *
-     * This method must be invoked as:
-     *
-     *   $var = &Horde_Kolab_Storage_Cache::singleton()
-     *
      * @return Horde_Kolab_Storage_Cache The concrete Horde_Kolab_Storage_Cache
      *                                   reference, or false on error.
      */
-    static public function &singleton()
+    static public function singleton()
     {
         if (!isset(self::$instance)) {
             self::$instance = new Horde_Kolab_Storage_Cache();
