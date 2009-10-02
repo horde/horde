@@ -10,12 +10,17 @@
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'horde_test_runner::main');
-}
-
+require_once 'PHPUnit/Util/Filter.php';
+require_once 'PHPUnit/TextUI/Command.php';
 require 'Horde/Autoloader.php';
 Horde_Autoloader::addClassPath(dirname(dirname(dirname(__FILE__))) . '/lib');
+
+PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
+
+$_SERVER['argv'][] = 'horde_test_runner';
+$_SERVER['argv'][] = __FILE__;
+define('PHPUnit_MAIN_METHOD', 'PHPUnit_TextUI_Command::main');
+PHPUnit_TextUI_Command::main();
 
 /**
  * @category Horde
@@ -26,11 +31,6 @@ Horde_Autoloader::addClassPath(dirname(dirname(dirname(__FILE__))) . '/lib');
  */
 class horde_test_runner
 {
-    public static function main()
-    {
-        PHPUnit_TextUI_TestRunner::run(self::suite());
-    }
-
     public static function suite()
     {
         $suite = new PHPUnit_Framework_TestSuite('Horde Test Runner');
@@ -78,9 +78,4 @@ class horde_test_runner
 
         return $suite;
     }
-
-}
-
-if (PHPUnit_MAIN_METHOD == 'horde_test_runner::main') {
-    horde_test_runner::main();
 }
