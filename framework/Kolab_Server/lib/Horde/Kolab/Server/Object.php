@@ -874,7 +874,7 @@ class Horde_Kolab_Server_Object
             if ($new_id !== false) {
                 $new_uid = $this->server->generateServerUid(get_class($this),
                                                             $new_id,
-                                                            $new_info);
+                                                            $info);
                 if ($new_uid != $this->uid) {
                     $this->server->rename($this->uid, $new_uid);
                     $this->uid = $new_uid;
