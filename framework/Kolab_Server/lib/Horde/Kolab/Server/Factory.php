@@ -60,13 +60,9 @@ class Horde_Kolab_Server_Factory
         } catch (ReflectionException $e) {
         }
 
-        if (class_exists($driver)) {
-            $class = $driver;
-        } else {
-            $class = 'Horde_Kolab_Server_' . ucfirst(basename($driver));
-            if (!class_exists($class)) {
-                throw new Horde_Kolab_Server_Exception('Server type definition "' . $class . '" missing.');
-            }
+        $class = 'Horde_Kolab_Server_' . ucfirst(basename($driver));
+        if (!class_exists($class)) {
+            throw new Horde_Kolab_Server_Exception('Server type definition "' . $class . '" missing.');
         }
 
         $server = new $class($injector->getInstance('Horde_Kolab_Server_Structure'),
@@ -115,13 +111,9 @@ class Horde_Kolab_Server_Factory
         } catch (ReflectionException $e) {
         }
 
-        if (class_exists($driver)) {
-            $class = $driver;
-        } else {
-            $class = 'Horde_Kolab_Server_Structure_' . ucfirst(basename($driver));
-            if (!class_exists($class)) {
-                throw new Horde_Kolab_Server_Exception('Structure type definition "' . $class . '" missing.');
-            }
+        $class = 'Horde_Kolab_Server_Structure_' . ucfirst(basename($driver));
+        if (!class_exists($class)) {
+            throw new Horde_Kolab_Server_Exception('Structure type definition "' . $class . '" missing.');
         }
         $structure = new $class($params);
         return $structure;
