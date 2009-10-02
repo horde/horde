@@ -132,7 +132,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
     function _parseFolder($folder)
     {
         if (substr($folder, 0, 5) == 'INBOX') {
-            $user = split('@', $this->_user);
+            $user = explode('@', $this->_user);
             return 'user/' . $user[0] . substr($folder, 5);
         }
         return $folder;
@@ -389,7 +389,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
     protected function _listMailboxes($pattern, $mode, $options)
     {
         $mboxes  = array_keys(self::$storage);
-        $user    = split('@', $this->_user);
+        $user    = explode('@', $this->_user);
         $pattern = '#^user/' . $user[0] . '#';
         $result  = array();
         foreach ($mboxes as $mbox) {
@@ -847,7 +847,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
             $result = false;
             if (isset(self::$storage[$folder]['annotations'])) {
                 $ref = &self::$storage[$folder]['annotations'];
-                $path = split('/', $entry);
+                $path = explode('/', $entry);
                 foreach ($path as $element) {
                     if (!isset($ref[$element])) {
                         $result = false;
@@ -882,7 +882,7 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
         $folder = $this->_getMailbox($mailbox);
 
         foreach ($data as $key => $value) {
-            $path = split('/', $key);
+            $path = explode('/', $key);
             $ref  = &self::$storage[$folder]['annotations'];
             foreach ($path as $element) {
                 if (!isset($ref[$element])) {
