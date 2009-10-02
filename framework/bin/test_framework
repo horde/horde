@@ -17,8 +17,8 @@ Horde_Autoloader::addClassPath(dirname(dirname(dirname(__FILE__))) . '/lib');
 
 PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
 
-$_SERVER['argv'][1] = 'horde_test_runner';
-$_SERVER['argv'][2] = __FILE__;
+$_SERVER['argv'][] = 'horde_test_runner';
+$_SERVER['argv'][] = __FILE__;
 define('PHPUnit_MAIN_METHOD', 'PHPUnit_TextUI_Command::main');
 PHPUnit_TextUI_Command::main();
 
