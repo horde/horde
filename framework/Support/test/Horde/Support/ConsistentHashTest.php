@@ -183,7 +183,8 @@ class Horde_Support_ConsistentHashTest extends PHPUnit_Framework_TestCase
         // Remove the fixed test value.
         $nodes = array_values($nodes);
         $testindex = array_search('key', $nodes);
-        $testvalue = array_shift(array_splice($nodes, $testindex, 1));
+        $tmp = array_splice($nodes, $testindex, 1);
+        $testvalue = array_shift($tmp);
 
         foreach ($nodes as $node) {
             $h->add($node);
@@ -216,7 +217,8 @@ class Horde_Support_ConsistentHashTest extends PHPUnit_Framework_TestCase
         // Remove the fixed test value.
         $nodes = array_values($nodes);
         $testindex = array_search('key', $nodes);
-        $testvalue = array_shift(array_splice($nodes, $testindex, 1));
+        $tmp = array_splice($nodes, $testindex, 1);
+        $testvalue = array_shift($tmp);
 
         foreach ($nodes as $node) {
             $h->add($node);
