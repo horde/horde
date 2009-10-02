@@ -92,7 +92,7 @@ class Horde_Kolab_Server_Object_Kolabgermanbankarrangement extends Horde_Kolab_S
     /**
      * Generates an ID for the given information.
      *
-     * @param array $info The data of the object.
+     * @param array &$info The data of the object.
      *
      * @static
      *

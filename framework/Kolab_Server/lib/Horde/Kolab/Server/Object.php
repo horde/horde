@@ -699,11 +699,11 @@ class Horde_Kolab_Server_Object
     /**
      * Generates an ID for the given information.
      *
-     * @param array $info The data of the object.
+     * @param array &$info The data of the object.
      *
      * @return string The ID.
      */
-    public function generateId($info)
+    public function generateId(&$info)
     {
         if (!empty($info[self::ATTRIBUTE_ID])) {
             if (is_array($info[self::ATTRIBUTE_ID])) {

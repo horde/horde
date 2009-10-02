@@ -386,14 +386,14 @@ class Horde_Kolab_Format_Xml_Contact extends Horde_Kolab_Format_Xml
     /**
      * Save the  specifc XML values.
      *
-     * @param array $root   The XML document root.
+     * @param array &$root   The XML document root.
      * @param array $object The resulting data array.
      *
      * @return boolean True on success.
      *
      * @throws Horde_Exception If converting the data to XML failed.
      */
-    protected function _save($root, $object)
+    protected function _save(&$root, $object)
     {
         // Handle name fields
         $name = array();

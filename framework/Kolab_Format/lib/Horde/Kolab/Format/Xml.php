@@ -365,13 +365,13 @@ class Horde_Kolab_Format_Xml
      * @throws Horde_Kolab_Format_Exception If the class for the object type could
      *                         not be loaded.
      */
-    static public function &factory($object_type = '', $params = null)
+    static public function factory($object_type = '', $params = null)
     {
         $object_type = ucfirst(str_replace('-', '', $object_type));
         $class       = 'Horde_Kolab_Format_Xml_' . $object_type;
 
         if (class_exists($class)) {
-            $driver = &new $class($params);
+            $driver = new $class($params);
         } else {
             throw new Horde_Kolab_Format_Exception(sprintf(_("Failed to load Kolab XML driver %s"),
                                               $object_type));

@@ -80,13 +80,13 @@ class Horde_Kolab_Server_Object_Kolab extends Horde_Kolab_Server_Object_Groupofn
     /**
      * Generates an ID for the given information.
      *
-     * @param array $info The data of the object.
+     * @param array &$info The data of the object.
      *
      * @static
      *
      * @return string|PEAR_Error The ID.
      */
-    public function generateId($info)
+    public function generateId(&$info)
     {
         return self::ATTRIBUTE_K . '=kolab';
     }

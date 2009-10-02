@@ -73,13 +73,13 @@ class Horde_Kolab_Server_Object_Groupofnames extends Horde_Kolab_Server_Object
     /**
      * Generates an ID for the given information.
      *
-     * @param array $info The data of the object.
+     * @param array &$info The data of the object.
      *
      * @static
      *
      * @return string|PEAR_Error The ID.
      */
-    public function generateId($info)
+    public function generateId(&$info)
     {
         $id = $info[self::ATTRIBUTE_CN];
         if (is_array($id)) {

@@ -1236,7 +1236,7 @@ class Horde_Kolab_Storage_Folder
                         Horde_Auth::getAuth() => PERMS_SHOW | PERMS_READ |
                         PERMS_EDIT | PERMS_DELETE));
             }
-            $this->_perms = &new Horde_Kolab_Storage_Permission($this, $perms);
+            $this->_perms = new Horde_Kolab_Storage_Permission($this, $perms);
         }
         return $this->_perms;
     }
@@ -1257,9 +1257,9 @@ class Horde_Kolab_Storage_Folder
         }
 
         if (!is_a($perms, 'Horde_Permission_Kolab')) {
-            $this->_perms = &new Horde_Permission_Kolab($this, $perms->data);
+            $this->_perms = new Horde_Permission_Kolab($this, $perms->data);
         } else {
-            $this->_perms = &$perms;
+            $this->_perms = $perms;
             $this->_perms->setFolder($this);
         }
 
