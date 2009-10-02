@@ -265,7 +265,6 @@ EOD;
      */
     public function prepareNotification()
     {
-
         $fh = fopen(HORDE_BASE . '/config/nls.php', 'w');
         $data = <<<EOD
 \$nls['defaults']['language'] = '';
