@@ -17,7 +17,7 @@ class Folks_Hooks
 // registry calls and one much faster with direct DB access but requres your
 // monitorig for application structure changes.
 
-    function countService($service, $user)
+    public function countService($service, $user)
     {
         switch ($service) {
 
@@ -48,11 +48,10 @@ class Folks_Hooks
         }
 
     }
-}
 
 // DB optimized version
 //
-//     function countService($service, $user)
+//     public function countService($service, $user)
 //     {
 //         switch ($service) {
 //
@@ -104,13 +103,12 @@ class Folks_Hooks
 //         }
 //
 //     }
-// }
 
 // Example get data hook function. Thera are two examples. One as
 // registry calls and one much faster with direct DB access but requres your
 // monitorig for application structure changes.
 
-    function getService($service, $user)
+    public function getService($service, $user)
     {
         switch ($service) {
 
@@ -139,11 +137,10 @@ class Folks_Hooks
             return array();
         }
     }
-}
 
 // DB optimized version
 //
-//     function getService($service, $user)
+//     public function getService($service, $user)
 //     {
 //         switch ($service) {
 //
@@ -201,7 +198,6 @@ class Folks_Hooks
 //
 //         return $data;
 //     }
-// }
 
 // This hook is called when a user tries to login
 // Perorm some actions before redirecting to various services
@@ -209,7 +205,7 @@ class Folks_Hooks
 // paid service and perform autologin or redirect to a wikipage with
 // additional information
 
-    function prelogin($app)
+    public function prelogin($app)
     {
         require_once 'Horde/Group.php';
         $group = Group::singleton();
@@ -256,15 +252,13 @@ class Folks_Hooks
             break;
         }
     }
-}
-
 
 // This hook is called when a user submits a signup request.  It allows
 // a chance to alter or validate the data submitted by a user before any
 // attempts are made to add them to the system. Here we lowecase the useranme
 // and check if username or email is already taken
 
-    function signup_preprocess($info)
+    public function signup_preprocess($info)
     {
         if (isset($info['extra']['username'])) {
             $info['extra']['username'] = Horde_String::lower($info['extra']['username']);
@@ -295,14 +289,13 @@ class Folks_Hooks
 
         return $info;
     }
-}
 
 // Following on from the example in the above function, this is how a sample
 // _horde_hook_signup_addextra function would look like.
 // Here we connect to the database and update folks user table
 // with additional user data and send confirmation code to check his email
 
-     function signup_addextra($userID, $extra)
+     public function signup_addextra($userID, $extra)
      {
         global $conf;
 
@@ -348,14 +341,13 @@ class Folks_Hooks
 
         return $result;
      }
-}
 
 // This is an example of a post-push hook; it is called right after an
 // application is pushed successfully onto the app stack. Here we check
 // If the user has a authentication cookie code. Compara it with one in DB
 // and autologin the user.
 
-    function pushapp()
+    public function pushapp()
     {
         if ($app != 'horde' ||
             !isset($_COOKIE['folks_login_code']) ||
