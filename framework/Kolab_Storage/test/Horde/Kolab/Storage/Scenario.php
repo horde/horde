@@ -377,11 +377,13 @@ EOD;
         return $folder;
     }
 
-    function provideServerName() {
+    function provideServerName()
+    {
         return 'localhost';
     }
 
-    function provideHordeBase() {
+    function provideHordeBase()
+    {
         return Horde::getTempDir() . '/test_config';
     }
 
@@ -396,4 +398,29 @@ EOD;
 
         return $this->prepareEmptyKolabStorage($params);
     }
+}
+
+/* Stand-in functions if gettext is not available. */
+if (!function_exists('_')) {
+    function _($string)
+    {
+        return $string;
+    }
+}
+
+if (!function_exists('ngettext')) {
+    function ngettext($msgid1, $msgid2, $n)
+    {
+        return $n > 1 ? $msgid2 : $msgid1;
+    }
+}
+
+if (!function_exists('bindtextdomain')) {
+    function bindtextdomain()
+    {}
+}
+
+if (!function_exists('textdomain')) {
+    function textdomain()
+    {}
 }
