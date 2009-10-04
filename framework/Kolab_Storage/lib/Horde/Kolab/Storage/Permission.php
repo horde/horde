@@ -17,11 +17,10 @@
 require_once 'Horde/Autoloader.php';
 
 /**
- * The Horde_Perms package does not work with Horde_Autoloader yet.
- *
- * @todo Fix once Horde_Perms has been converted to H4
+ * Packages that aren't autoloadable yet
  */
 require_once 'Horde/Perms.php';
+require_once 'Horde/Group.php';
 
 /**
  * The Horde_Kolab_Storage_Permission provides a bridge between Horde Permission
@@ -38,8 +37,8 @@ require_once 'Horde/Perms.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Permission extends Horde_Permission {
-
+class Horde_Kolab_Storage_Permission extends Horde_Permission
+{
     /**
      * The folder name.
      *
@@ -70,7 +69,7 @@ class Horde_Kolab_Storage_Permission extends Horde_Permission {
      * @param array                      $perms  A set of initial
      *                                           permissions.
      */
-    public function __construct(&$folder, $perms = null)
+    public function __construct($folder, $perms = null)
     {
         $this->setFolder($folder);
         if (!isset($perms)) {
@@ -104,7 +103,7 @@ class Horde_Kolab_Storage_Permission extends Horde_Permission {
      *
      * @param Horde_Kolab_Storage_Folder $folder Kolab Folder object.
      */
-    public function setFolder(Horde_Kolab_Storage_Folder &$folder)
+    public function setFolder(Horde_Kolab_Storage_Folder $folder)
     {
         $this->_folder = $folder;
     }
@@ -192,8 +191,7 @@ class Horde_Kolab_Storage_Permission extends Horde_Permission {
             // Is it a group?
             if (substr($user, 0, 6) == 'group:') {
                 if (!isset($groups)) {
-                    require_once 'Horde/Group.php';
-                    $groups = &Group::singleton();
+                    $groups = Group::singleton();
                 }
                 $group_id = $groups->getGroupId(substr($user, 6));
                 if (!is_a($group_id, 'PEAR_Error')) {
@@ -233,8 +231,7 @@ class Horde_Kolab_Storage_Permission extends Horde_Permission {
                 foreach ($user_perms as $userentry => $perms) {
                     if ($user == 'groups') {
                         if (!isset($groups)) {
-                            require_once 'Horde/Group.php';
-                            $groups = &Group::singleton();
+                            $groups = Group::singleton();
                         }
                         // Convert group id back to name
                         $group_name = $groups->getGroupName($userentry);
@@ -266,8 +263,7 @@ class Horde_Kolab_Storage_Permission extends Horde_Permission {
                 foreach ($user_perms as $userentry => $perms) {
                     if ($user == 'groups') {
                         if (!isset($groups)) {
-                            require_once 'Horde/Group.php';
-                            $groups = &Group::singleton();
+                            $groups = Group::singleton();
                         }
                         // Convert group id back to name
                         $group_name = $groups->getGroupName($userentry);
@@ -359,8 +355,7 @@ class Horde_Kolab_Storage_Permission extends Horde_Permission {
         // If no user permissions are found, try group permissions.
         $groupperms = $this->getGroupPermissions();
         if (!empty($groupperms)) {
-            require_once 'Horde/Group.php';
-            $groups = &Group::singleton();
+            $groups = Group::singleton();
 
             $composite_perm = null;
             foreach ($this->data['groups'] as $group => $perm) {
