@@ -78,7 +78,7 @@ class Horde_Kolab_Server_Scenario extends PHPUnit_Extensions_Story_TestCase
             $world['server'] = $this->prepareKolabServer(self::ENVIRONMENT_MOCK);
             break;
         case 'a basic Kolab server':
-            $world['server'] = &$this->prepareBasicKolabServer($world);
+            $world['server'] = $this->prepareBasicKolabServer($world);
             break;
         default:
             return $this->notImplemented($action);
@@ -434,12 +434,12 @@ class Horde_Kolab_Server_Scenario extends PHPUnit_Extensions_Story_TestCase
     /**
      * Add an object to a server and remember it for the tear down method.
      *
-     * @param Horde_Kolab_Server &$server The server to add the object to.
+     * @param Horde_Kolab_Server $server The server to add the object to.
      * @param array              $object  The object data to store.
      *
      * @return Horde_Kolab_Server_Object The resulting object.
      */
-    public function &addToServer(Horde_Kolab_Server &$server, array $object)
+    public function addToServer(Horde_Kolab_Server $server, array $object)
     {
         $object = $server->add($object);
         $this->added[] = array($server, $object->getUid());
@@ -466,11 +466,11 @@ class Horde_Kolab_Server_Scenario extends PHPUnit_Extensions_Story_TestCase
     /**
      * Fill a Kolab Server with test users.
      *
-     * @param Horde_Kolab_Server &$server The server to fill.
+     * @param Horde_Kolab_Server $server The server to fill.
      *
      * @return NULL
      */
-    public function addBasicUsersToServer(&$server)
+    public function addBasicUsersToServer($server)
     {
         $result = $this->addToServer($server, $this->provideBasicUserOne());
         $this->assertNoError($result);
@@ -763,7 +763,7 @@ class Horde_Kolab_Server_Scenario extends PHPUnit_Extensions_Story_TestCase
         );
     }
 
-    /** FIXME: Prefix the stuff bewlow with provide...() */
+    /** FIXME: Prefix the stuff below with provide...() */
 
     public function validUsers()
     {
@@ -925,13 +925,13 @@ class Horde_Kolab_Server_Scenario extends PHPUnit_Extensions_Story_TestCase
      *
      * @return NULL.
      */
-    protected function assertAdd(Horde_Kolab_Server &$server,
+    protected function assertAdd(Horde_Kolab_Server $server,
                                  array $store, array $fetch)
     {
         $object = $server->add($store);
         $this->assertNoError($object);
 
-        $this->added[] = array(&$server, $object->getUid());
+        $this->added[] = array($server, $object->getUid());
         $object = $server->fetch($object->getUid());
 
         foreach ($fetch as $attribute => $expect) {
@@ -986,8 +986,8 @@ class Horde_Kolab_Server_Scenario extends PHPUnit_Extensions_Story_TestCase
      *
      * @return NULL.
      */
-    protected function assertSimpleSequence(Horde_Kolab_Server_Object &$object,
-                                            Horde_Kolab_Server &$server,
+    protected function assertSimpleSequence(Horde_Kolab_Server_Object $object,
+                                            Horde_Kolab_Server $server,
                                             $attribute, array $sequence,
                                             $pop_arrays = false)
     {
@@ -1009,8 +1009,8 @@ class Horde_Kolab_Server_Scenario extends PHPUnit_Extensions_Story_TestCase
      *
      * @return NULL.
      */
-    protected function assertStoreFetch(Horde_Kolab_Server_Object &$object,
-                                        Horde_Kolab_Server &$server,
+    protected function assertStoreFetch(Horde_Kolab_Server_Object $object,
+                                        Horde_Kolab_Server $server,
                                         array $store, array $fetch,
                                         $pop_arrays = false)
     {

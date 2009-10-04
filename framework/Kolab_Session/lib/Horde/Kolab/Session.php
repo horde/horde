@@ -40,7 +40,6 @@ require_once 'Horde/Auth.php';
  */
 class Horde_Kolab_Session
 {
-
     /**
      * User ID.
      *
@@ -105,7 +104,7 @@ class Horde_Kolab_Session
      * @param array  $credentials An array of login credentials. For Kolab,
      *                            this must contain a "password" entry.
      */
-    function Horde_Kolab_Session($user = null, $credentials = null)
+    public function __construct($user = null, $credentials = null)
     {
         global $conf;
 
@@ -152,8 +151,8 @@ class Horde_Kolab_Session
                 }
             }
 
-	    $this->auth = true;
-                
+        $this->auth = true;
+
             $result = $user_object->get(Horde_Kolab_Server_Object_Kolab_User::ATTRIBUTE_MAIL);
             if (!empty($result) && !is_a($result, 'PEAR_Error')) {
                 $this->user_mail = $result;
@@ -232,11 +231,8 @@ class Horde_Kolab_Session
      *
      * @return Horde_Kolab_Server|PEAR_Error The Kolab Server connection.
      */
-    function &getServer($user = null, $credentials = null)
+    function getServer($user = null, $credentials = null)
     {
-        /** We need the Kolab Server access. */
-        require_once 'Horde/Kolab/Server.php';
-
         $params = array();
         if ($this->user_uid) {
             $params['uid']  = $this->user_uid;
@@ -257,7 +253,7 @@ class Horde_Kolab_Session
      *
      * @return array|PEAR_Error The IMAP connection parameters.
      */
-    function &getImapParams()
+    function getImapParams()
     {
         return $this->_imap_params;
     }
@@ -267,20 +263,16 @@ class Horde_Kolab_Session
      *
      * @return Horde_Kolab_IMAP|PEAR_Error The IMAP connection.
      */
-    function &getImap()
+    function getImap()
     {
         if (!isset($this->_imap)) {
-
             $params = $this->getImapParams();
             if (is_a($params, 'PEAR_Error')) {
                 return $params;
             }
 
-            /** We need the Kolab IMAP library now. */
-            require_once 'Horde/Kolab/IMAP.php';
-
-            $imap = &Horde_Kolab_IMAP::singleton($params['hostspec'],
-                                                 $params['port'], true, false);
+            $imap = Horde_Kolab_IMAP::singleton($params['hostspec'],
+                                                $params['port'], true, false);
             if (is_a($imap, 'PEAR_Error')) {
                 return $imap;
             }
@@ -290,7 +282,7 @@ class Horde_Kolab_Session
             if (is_a($result, 'PEAR_Error')) {
                 return $result;
             }
-            $this->_imap = &$imap;
+            $this->_imap = $imap;
         }
         return $this->_imap;
     }
@@ -302,9 +294,6 @@ class Horde_Kolab_Session
      * currently exists or if a user ID has been specified that does not match the
      * user ID/user mail of the current session.
      *
-     * This method must be invoked as:
-     *   <code>$var = &Horde_Kolab_Session::singleton();</code>
-     *
      * @param string $user        The session will be setup for the user with
      *                            this ID.
      * @param array  $credentials An array of login credentials. For Kolab,
@@ -314,19 +303,16 @@ class Horde_Kolab_Session
      *
      * @return Horde_Kolab_Session  The concrete Session reference.
      */
-    static public function &singleton($user = null, $credentials = null, $destruct = false)
+    static public function singleton($user = null, $credentials = null, $destruct = false)
     {
         static $session;
 
         if (!isset($session)) {
-            /**
-             * Horde_Kolab_Server currently has no caching so we mainly
+            /* Horde_Kolab_Server currently has no caching so we mainly
              * cache some user information here as reading this data
              * may be expensive when running in a multi-host
-             * environment.
-             */
-            require_once 'Horde/SessionObjects.php';
-            $hs      = &Horde_SessionObjects::singleton();
+             * environment. */
+            $hs      = Horde_SessionObjects::singleton();
             $session = $hs->query('kolab_session');
         }
 
@@ -351,9 +337,7 @@ class Horde_Kolab_Session
      */
     function shutdown()
     {
-        require_once 'Horde/SessionObjects.php';
-        $session = &Horde_SessionObjects::singleton();
+        $session = Horde_SessionObjects::singleton();
         $session->overwrite('kolab_session', $this, false);
     }
-
 }
