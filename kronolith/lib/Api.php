@@ -224,7 +224,7 @@ class Kronolith_Api extends Horde_Registry_Api
             if (count($parts) == 3 &&
                 array_key_exists($parts[1], Kronolith::listCalendars(false, PERMS_READ))) {
                 // This request is for a specific item within a given calendar.
-                $event = Kronolith::getCalendar(null, $parts[1])->getEvent($parts[2]);
+                $event = Kronolith::getDriver(null, $parts[1])->getEvent($parts[2]);
                 if (is_a($event, 'PEAR_Error')) {
                     return $event;
                 }
