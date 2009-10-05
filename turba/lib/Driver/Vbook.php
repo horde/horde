@@ -140,10 +140,7 @@ class Turba_Driver_Vbook extends Turba_Driver
      */
     function hasPermission($perm)
     {
-        if ($this->_share->hasPermission(Horde_Auth::getAuth(), $perm)) {
-            return $perm & (PERMS_SHOW | PERMS_READ);
-        }
-        return false;
+        return $this->_driver->hasPermission($perm);
     }
 
 }
