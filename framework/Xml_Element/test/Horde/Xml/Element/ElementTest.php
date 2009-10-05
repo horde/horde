@@ -28,8 +28,8 @@ class Horde_Xml_Element_ElementTest extends PHPUnit_Framework_TestCase
     public function testXml()
     {
         $el = new Horde_Xml_Element('<root href="#">Root</root>');
-        $this->assertEquals((string)$el, 'Root');
-        $this->assertEquals($el['href'], '#');
+        $this->assertEquals('Root', (string)$el);
+        $this->assertEquals('#', $el['href']);
     }
 
     public function testInvalidXml()
@@ -46,25 +46,10 @@ class Horde_Xml_Element_ElementTest extends PHPUnit_Framework_TestCase
     public function testSerialization()
     {
         $elt = new Horde_Xml_Element('<entry><title>Test</title></entry>');
-        $this->assertEquals($elt->title(), 'Test', 'Value before serialization/unserialization');
+        $this->assertEquals('Test', $elt->title(), 'Value before serialization/unserialization');
         $serialized = serialize($elt);
         $unserialized = unserialize($serialized);
-        $this->assertEquals($unserialized->title(), 'Test', 'Value after serialization/unserialization');
-    }
-
-    public function testExists()
-    {
-        $this->assertFalse(isset($this->element[-1]), 'Negative array access should fail');
-        $this->assertTrue(isset($this->element['version']), 'Version should be set');
-
-        $this->assertFalse(isset($this->namespacedElement[-1]), 'Negative array access should fail');
-        $this->assertTrue(isset($this->namespacedElement['version']), 'Version should be set');
-    }
-
-    public function testGet()
-    {
-        $this->assertEquals($this->element['version'], '1.0', 'Version should be 1.0');
-        $this->assertEquals($this->namespacedElement['version'], '1.0', 'Version should be 1.0');
+        $this->assertEquals('Test', $unserialized->title(), 'Test', 'Value after serialization/unserialization');
     }
 
     public function testArrayGet()
@@ -81,15 +66,32 @@ class Horde_Xml_Element_ElementTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testSet()
+    public function testOffsetExists()
+    {
+        $this->assertFalse(isset($this->element[-1]), 'Negative array access should fail');
+        $this->assertTrue(isset($this->element['version']), 'Version should be set');
+
+        $this->assertFalse(isset($this->namespacedElement[-1]), 'Negative array access should fail');
+        $this->assertTrue(isset($this->namespacedElement['version']), 'Version should be set');
+    }
+
+    public function testOffsetGet()
+    {
+        $this->assertEquals('1.0', $this->element['version'], '1.0', 'Version should be 1.0');
+        $this->assertEquals('1.0', $this->namespacedElement['version'], 'Version should be 1.0');
+    }
+
+    public function testOffsetSet()
     {
         $this->element['category'] = 'tests';
         $this->assertTrue(isset($this->element['category']), 'Category should be set');
-        $this->assertEquals($this->element['category'], 'tests', 'Category should be tests');
+        $this->assertEquals('tests', $this->element['category'], 'Category should be tests');
 
         $this->namespacedElement['atom:category'] = 'tests';
-        $this->assertTrue(isset($this->namespacedElement['atom:category']), 'Category should be set');
-        $this->assertEquals($this->namespacedElement['atom:category'], 'tests', 'Category should be tests');
+        $this->assertTrue(isset($this->namespacedElement['atom:category']), 'Namespaced category should be set');
+        $this->assertEquals('tests', $this->namespacedElement['atom:category'], 'Namespaced category should be tests');
+
+        $this->namespacedElement['xmldata:dt'] = 'dateTime.rfc1123';
 
         // Changing an existing index.
         $oldEntry = $this->element['version'];
@@ -111,6 +113,21 @@ class Horde_Xml_Element_ElementTest extends PHPUnit_Framework_TestCase
         unset($namespacedElement['version']);
         $this->assertFalse(isset($namespacedElement['version']), 'Version should be unset');
         $this->assertEquals('', $namespacedElement['version'], 'Version should be equal to the empty string');
+    }
+
+    public function testGet()
+    {
+        $this->assertEquals('Atom Example', (string)$this->element->title);
+        $this->assertEquals('Atom Example', (string)$this->namespacedElement->title);
+        $this->assertEquals('4', (string)$this->element->totalResults);
+        $this->assertEquals('4', (string)$this->namespacedElement->totalResults);
+    }
+
+    public function testSet()
+    {
+        $this->element->category = 'tests';
+        $this->assertTrue(isset($this->element->category), 'Category should be set');
+        $this->assertEquals('tests', (string)$this->element->category, 'Category should be tests');
     }
 
     public function testUnset()
@@ -179,8 +196,7 @@ class Horde_Xml_Element_ElementTest extends PHPUnit_Framework_TestCase
         $e2 = new Horde_Xml_Element('<child />');
 
         $e->appendChild($e2);
-        $this->assertEquals($e->saveXmlFragment(),
-                            '<element><child/></element>');
+        $this->assertEquals('<element><child/></element>', $e->saveXmlFragment());
     }
 
     public function testFromArray()
@@ -192,14 +208,14 @@ class Horde_Xml_Element_ElementTest extends PHPUnit_Framework_TestCase
                             'child#href' => 'http://www.example.com/',
                             '#title' => 'Test Element'));
 
-        $this->assertEquals($e->saveXmlFragment(),
-                            '<element title="Test Element"><user>Joe Schmoe</user><atom:title xmlns:atom="http://www.w3.org/2005/Atom">Test Title</atom:title><child href="http://www.example.com/"/></element>');
+        $this->assertEquals('<element title="Test Element"><user>Joe Schmoe</user><atom:title xmlns:atom="http://www.w3.org/2005/Atom">Test Title</atom:title><child href="http://www.example.com/"/></element>',
+                            $e->saveXmlFragment());
 
         $e = new Horde_Xml_Element('<element />');
         $e->fromArray(array('author' => array('name' => 'Joe', 'email' => 'joe@example.com')));
 
-        $this->assertEquals($e->saveXmlFragment(),
-                            '<element><author><name>Joe</name><email>joe@example.com</email></author></element>');
+        $this->assertEquals('<element><author><name>Joe</name><email>joe@example.com</email></author></element>',
+                            $e->saveXmlFragment());
     }
 
     public function testIllegalFromArray()
