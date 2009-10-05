@@ -524,43 +524,16 @@ class Horde_Rpc_Webdav extends Horde_Rpc
             $list[] = array('path' => $path,
                             'props' => $this->_getProps($options['props'], $root));
 
-            // See if we should continue traversing down the tree
-            if ($depth == 0) { return $list; }
-
             $apps = $registry->listApps(null, false, PERMS_READ);
             if (is_a($apps, 'PEAR_Error')) {
                 Horde::logMessage($apps, __FILE__, __LINE__, PEAR_LOG_ERR);
                 return $apps;
             }
             foreach ($apps as $app) {
-                // Call each application's browse method to get
-                // their collections
+                // Only include apps that have browse() methods.
                 if ($registry->hasMethod('browse', $app)) {
-                    $origdepth = $options['depth'];
-                    if ($options['depth'] == 1) {
-                        // Make sure the applications each only return one level
-                        $options['depth'] = 0;
-                    }
-
-                    try {
-                        $results = $registry->callByPackage($app, 'browse', array('path' => '/', 'depth' => $options['depth']));
-                    } catch (Horde_Exception $e) {
-                        continue;
-                    }
-
-                    $options['depth'] = $origdepth;
-
-                    foreach ($results as $itemPath => $item) {
-                        if (($item !== false) && !is_a($item, 'PEAR_Error')) {
-                            // A false return is "file not found"
-                            // A PEAR_Error return is an error.  Silently ignore
-                            // those errors from the applications.  Errors will
-                            // will nevertheless be logged.
-                            $list[] =
-                                array('path' => $this->path . '/' . $itemPath,
-                                      'props' => $this->_getProps($options['props'], $item));
-                        }
-                    }
+                    $list[] = array('path' => '/' . $app,
+                                    'props' => $this->_getProps($options['props'], array_merge($root, array('name' => $registry->get('name', $app)))));
                 }
             }
             return $list;
@@ -585,8 +558,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
             }
             if (!is_array(reset($items))) {
                 /* A one-dimensional array means we have an actual object with
-                 * data to return to the client.
-                 */
+                 * data to return to the client. */
                 $props = $this->_getProps($options['props'], $items);
                 $items = array(array('path' => $this->path,
                                      'props' => $props));
@@ -1369,12 +1341,11 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         }
 
         $this->_xml = new Horde_Xml_Element('<D:multistatus xmlns:D="DAV:"/>');
+        $this->_xml->registerNamespace('D', "DAV:");
+        $this->_xml->registerNamespace('caldav', self::CALDAVNS);
         // Microsoft Clients need this special namespace for date and
         // time values
-        // FIXME: Unless we use this XMLNS on an attribute H_X_E will not send
-        // it with the output.
-        $this->_xml->registerNamespace('xmldata', "urn:uuid:c2f41010-65b3-11d1-a29f-00aa00c14882/");
-        $this->_xml->registerNamespace('caldav', self::CALDAVNS);
+        //$this->_xml->registerNamespace('xmldata', "urn:uuid:c2f41010-65b3-11d1-a29f-00aa00c14882/");
 
         // now we loop over all returned file entries
         foreach ($files["files"] as $filekey => $file) {
@@ -1525,20 +1496,23 @@ class Horde_Rpc_Webdav extends Horde_Rpc
                             $propstats[$i]['D:prop'][$this->ns_hash[$prop["ns"]].':'.$prop['name']] = '';
                             #echo "     <".$this->ns_hash[$prop["ns"]].":$prop[name]/>\n";
                         } else {
-                            $propstats[$i]['D:prop'][$prop['name'] . '#xmlns=""'] = '';
+                            $propstats[$i]['D:prop'][$prop['name']] = '';
+                            $propstats[$i]['D:prop'][$prop['name'] . '#xmlns'] = '';
                             #echo "     <$prop[name] xmlns=\"\"/>";
                         }
                     } else if ($prop["ns"] == "DAV:") {
                         // some WebDAV properties need special treatment
                         switch ($prop["name"]) {
                         case "creationdate":
-                            $propstats[$i]['D:prop']['D:creationdate#xmldata:dt="dateTime.tz"'] = gmdate("Y-m-d\\TH:i:s\\Z", $prop['val']);
+                            $propstats[$i]['D:prop']['D:creationdate'] = gmdate("Y-m-d\\TH:i:s\\Z", $prop['val']);
+                            $propstats[$i]['D:prop']['D:creationdate#xmldata:dt'] = 'dateTime.tz';
                             #echo "     <D:creationdate ns0:dt=\"dateTime.tz\">"
                             #    . gmdate("Y-m-d\\TH:i:s\\Z", $prop['val'])
                             #    . "</D:creationdate>\n";
                             break;
                         case "getlastmodified":
-                            $propstats[$i]['D:prop']['D:getlastmodified#xmldata:dt="dateTime.rfc1123"'] = gmdate("D, d M Y H:i:s ", $prop['val']);
+                            $propstats[$i]['D:prop']['D:getlastmodified'] = gmdate("D, d M Y H:i:s ", $prop['val']);
+                            $propstats[$i]['D:prop']['D:getlastmodified#xmldata:dt'] = 'dateTime.rfc1123';
                             #echo "     <D:getlastmodified ns0:dt=\"dateTime.rfc1123\">"
                             #    . gmdate("D, d M Y H:i:s ", $prop['val'])
                             #    . "GMT</D:getlastmodified>\n";
@@ -1559,7 +1533,8 @@ class Horde_Rpc_Webdav extends Horde_Rpc
                             break;
                         // the following are non-standard Microsoft extensions to the DAV namespace
                         case "lastaccessed":
-                            $propstats[$i]['D:prop']['D:lastaccessed#xmldata:dt="dateTime.rfc1123"'] = gmdate("D, d M Y H:i:s ", $prop['val']);
+                            $propstats[$i]['D:prop']['D:lastaccessed'] = gmdate("D, d M Y H:i:s ", $prop['val']);
+                            $propstats[$i]['D:prop']['D:lastaccessed#xmldata:dt'] = 'dateTime.rfc1123';
                             #echo "     <D:lastaccessed ns0:dt=\"dateTime.rfc1123\">"
                             #    . gmdate("D, d M Y H:i:s ", $prop['val'])
                             #    . "GMT</D:lastaccessed>\n";
@@ -1603,7 +1578,8 @@ class Horde_Rpc_Webdav extends Horde_Rpc
                         $propstats[$i]['D:prop']['D:' . $prop['name']] = '';
                         #echo "     <D:$prop[name]/>\n";
                     } else if ($prop["ns"] == "") {
-                        $propstats[$i]['D:prop'][$prop['name'] . '#xmlns=""'] = '';
+                        $propstats[$i]['D:prop'][$prop['name']] = '';
+                        $propstats[$i]['D:prop'][$prop['name'] . '#xmlns'] = '';
                         #echo "     <$prop[name] xmlns=\"\"/>\n";
                     } else {
                         $propstats[$i]['D:prop'][$this->ns_hash[$prop['ns']] . ':' . $prop['name']] = '';
@@ -1619,6 +1595,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
 
             $xmldata['D:response']['D:propstat'] = $propstats;
             #echo " </D:response>\n";
+            $this->_xml->fromArray($xmldata);
         }
 
         #echo "</D:multistatus>\n";
@@ -2417,9 +2394,13 @@ class Horde_Rpc_Webdav extends Horde_Rpc
     {
         $args = func_get_args();
         if (count($args) == 3) {
-            return array($args[0] . ':' . $args[1] => $args[2]);
+            return array("ns"   => $args[0], 
+                         "name" => $args[1],
+                         "val"  => $args[2]);
         } else {
-            return array("D:" . $args[0] => $args[1]);
+            return array("ns"   => "DAV:", 
+                         "name" => $args[0],
+                         "val"  => $args[1]);
         }
     }
 
@@ -2879,7 +2860,6 @@ class Horde_Rpc_Webdav extends Horde_Rpc
 
     function _prop2xml($prop)
     {
-Horde::logMessage(print_r($prop, true), __FILE__, __LINE__, PEAR_LOG_ERR);
         $res = array();
 
         // properties from namespaces != "DAV:" or without any namespace
