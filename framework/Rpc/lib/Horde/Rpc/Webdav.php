@@ -278,7 +278,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         } else {
             // Ensure we only retrieve the exact item
             $options['depth'] = 0;
-            $result = $this->_list($options);
+            $result = $this->_list($options, false);
             if (is_a($result, 'PEAR_Error') && $result->getCode()) {
                 // Allow called applications to set the result code
                 return $this->_checkHTTPCode($result->getCode())
@@ -385,7 +385,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
      */
     function PROPFIND($options, &$files)
     {
-        $list = $this->_list($options);
+        $list = $this->_list($options, true);
         if ($list === false || is_a($list, 'PEAR_Error')) {
             // Always return '404 File Not Found';
             // Work around HTTP_WebDAV_Server behavior.
@@ -474,14 +474,16 @@ class Horde_Rpc_Webdav extends Horde_Rpc
     /**
      * Generates a response to a GET or PROPFIND request.
      *
-     * @param array $options     Array of WebDAV options
+     * @param array $options        Array of WebDAV options
+     * @param boolean $propperties  Whether to only return properties or actual
+     *                              data.
      *
      * @return mixed  Array of objects with properties if the request is a dir,
      *                array of file metadata + data if request is a file,
      *                false if the object is not found.
      * @throws Horde_Exception
      */
-    function _list($options)
+    function _list($options, $properties)
     {
         global $registry;
 
@@ -490,23 +492,6 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         // request from the client.
         $path = $options['path'];
         $depth = $options['depth'];
-
-        // Collect the requested properties
-        if (!isset($options['props']) || empty($options['props'])) {
-            Horde::logMessage(('Invalid or missing properties requested by WebDAV client.  Using a default list of properties.'), __FILE__, __LINE__, PEAR_LOG_INFO);
-            $properties = array('name', 'browseable', 'contenttype', 'contentlength', 'created', 'modified');
-        } else {
-            // Construct an array of properties including the XML namespace
-            // if not part of the basic DAV namespace.
-            $properties = array();
-            foreach ($options['props'] as $prop) {
-                if ($prop['xmlns'] == 'DAV:') {
-                    $properties[] = $prop['name'];
-                } else {
-                    $properties[] = $prop['xmlns'] . ':' . $prop['name'];
-                }
-            }
-        }
 
         // $list will contain the data to return to the client
         $list = array();
@@ -542,7 +527,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
             $pieces = explode('/', $path);
 
             try {
-                $items = $registry->callByPackage($pieces[0], 'browse', array('path' => $path, 'depth' => $options['depth']));
+                $items = $registry->callByPackage($pieces[0], 'browse', array('path' => $path, 'properties' => array('name', 'browseable', 'contenttype', 'contentlength', 'created', 'modified')));
             } catch (Horde_Exception $e) {
                 Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
                 return $e;
@@ -559,9 +544,11 @@ class Horde_Rpc_Webdav extends Horde_Rpc
             if (!is_array(reset($items))) {
                 /* A one-dimensional array means we have an actual object with
                  * data to return to the client. */
-                $props = $this->_getProps($options['props'], $items);
-                $items = array(array('path' => $this->path,
-                                     'props' => $props));
+                if ($properties) {
+                    $props = $this->_getProps($options['props'], $items);
+                    $items = array(array('path' => $this->path,
+                                         'props' => $props));
+                }
                 return $items;
             }
 
