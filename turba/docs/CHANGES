@@ -10,6 +10,7 @@ v3.0-git
 v2.3.3-cvs
 ----------
 
+[mjr] Fix permission checking for virtual address books. 
 [jan] Update deleted attributes during synchronization (lst_hoe02@kwsoft.de,
       Request #6658).
 [jan] Support X-ANNIVERSARY, X-CHILDREN, and X-SPOUSE vCard fields
