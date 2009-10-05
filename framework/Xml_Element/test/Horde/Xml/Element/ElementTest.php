@@ -113,6 +113,12 @@ class Horde_Xml_Element_ElementTest extends PHPUnit_Framework_TestCase
         unset($namespacedElement['version']);
         $this->assertFalse(isset($namespacedElement['version']), 'Version should be unset');
         $this->assertEquals('', $namespacedElement['version'], 'Version should be equal to the empty string');
+
+        $namespacedElement['atom:category'] = 'tests';
+        $this->assertTrue(isset($namespacedElement['atom:category']), 'Namespaced Category should be set');
+        unset($namespacedElement['atom:category']);
+        $this->assertFalse(isset($namespacedElement['atom:category']), 'Category should be unset');
+        $this->assertEquals('', $namespacedElement['atom:category'], 'Category should be equal to the empty string');
     }
 
     public function testGet()
