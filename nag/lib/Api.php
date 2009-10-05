@@ -144,20 +144,6 @@ class Nag_Api extends Horde_Registry_Api
         require_once dirname(__FILE__) . '/base.php';
         global $registry;
 
-        function _getTasklistSize($tasklistID)
-        {
-            // This ugly and performance-heavy hack is required to set the content
-            // length.  Some clients (at least OS X) respect the content-length
-            // header a little too exactly.  If we send a content-length that is
-            // longer than the actual data it will complain that the connection
-            // broke.  If we specify one that is too short it will truncate the
-            // downlaoded file.  To make matters worse it seems to respect the
-            // content-length from the PROPFIND request used to enumerate objects
-            // rather than the actual content-length sent at the time the file is
-            // downloaded.  Way to go, Apple.
-            return strlen($thisd->exportTasklist($tasklistID, 'text/calendar'));
-        }
-
         // Default properties.
         if (!$properties) {
             $properties = array('name', 'icon', 'browseable');
@@ -244,7 +230,7 @@ class Nag_Api extends Horde_Registry_Api
                 }
                 if (in_array('contentlength', $properties)) {
                     $results[$retpath]['contentlength'] = 0;
-                    $results[$retpath . '.ics']['contentlength'] = _getTasklistSize($tasklistId);
+                    $results[$retpath . '.ics']['contentlength'] = strlen($this->exportTasklist($tasklistId, 'text/calendar'));
                 }
                 if (in_array('modified', $properties)) {
                     // @TODO Find a way to get the actual modification times
