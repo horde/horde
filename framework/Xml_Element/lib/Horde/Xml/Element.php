@@ -177,8 +177,8 @@ class Horde_Xml_Element implements ArrayAccess
                         $firstKey = key($value);
                         if ($firstKey === 0) {
                             if (strpos($element, ':') !== false) {
-                                list($ns, $elt) = explode(':', $element, 2);
-                                $baseNode = $this->_element->ownerDocument->createElementNS(Horde_Xml_Element::lookupNamespace($ns), $elt);
+                                list($ns) = explode(':', $element, 2);
+                                $baseNode = $this->_element->ownerDocument->createElementNS(Horde_Xml_Element::lookupNamespace($ns), $element);
                             } else {
                                 $baseNode = $this->_element->ownerDocument->createElement($element);
                             }
@@ -359,7 +359,7 @@ class Horde_Xml_Element implements ArrayAccess
         $nodes = $this->_children($var);
         if (!$nodes) {
             if (strpos($var, ':') !== false) {
-                list($ns, $elt) = explode(':', $var, 2);
+                list($ns) = explode(':', $var, 2);
                 $node = $this->_element->ownerDocument->createElementNS(Horde_Xml_Element::lookupNamespace($ns), $var, $val);
                 $this->_element->appendChild($node);
             } else {
@@ -576,8 +576,8 @@ class Horde_Xml_Element implements ArrayAccess
         $this->_ensureAppended();
 
         if (strpos($offset, ':') !== false) {
-            list($ns, $attr) = explode(':', $offset, 2);
-            $result = $this->_element->setAttributeNS(Horde_Xml_Element::lookupNamespace($ns), $attr, $value);
+            list($ns) = explode(':', $offset, 2);
+            $result = $this->_element->setAttributeNS(Horde_Xml_Element::lookupNamespace($ns), $offset, $value);
         } else {
             $result = $this->_element->setAttribute($offset, $value);
         }
