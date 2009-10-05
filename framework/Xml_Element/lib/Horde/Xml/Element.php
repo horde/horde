@@ -177,7 +177,7 @@ class Horde_Xml_Element implements ArrayAccess
                         $firstKey = key($value);
                         if ($firstKey === 0) {
                             if (strpos($element, ':') !== false) {
-                                list($ns, $elt) = explode(':', $var, 2);
+                                list($ns, $elt) = explode(':', $element, 2);
                                 $baseNode = $this->_element->ownerDocument->createElementNS(Horde_Xml_Element::lookupNamespace($ns), $elt);
                             } else {
                                 $baseNode = $this->_element->ownerDocument->createElement($element);
@@ -480,8 +480,9 @@ class Horde_Xml_Element implements ArrayAccess
      */
     protected function _children($var)
     {
-        if (is_null($this->_children))
+        if (is_null($this->_children)) {
             $this->_cacheChildren();
+        }
 
         // Honor any explicit getters. Because Horde_Xml_Element has a __call()
         // method, is_callable returns true on every method name. Use
