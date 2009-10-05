@@ -132,7 +132,6 @@ class Turba_Driver_Vbook extends Turba_Driver
 
     /**
      * Check to see if the currently logged in user has requested permissions.
-     * Note that virtual address books are always readonly
      *
      * @param integer $perm  The permissions to check against.
      *
