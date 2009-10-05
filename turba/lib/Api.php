@@ -150,6 +150,15 @@ class Turba_Api extends Horde_Registry_Api
         return $prefs->getValue('default_dir');
     }
 
+    private function _modified($uid)
+    {
+        $modified = $this->getActionTimestamp($uid, 'modify');
+        if (empty($modified)) {
+            $modified = $this->getActionTimestamp($uid, 'add');
+        }
+        return $modified;
+    }
+
     /**
      * Browses through Turba's object tree.
      *
@@ -161,15 +170,6 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function browse($path = '', $properties = array())
     {
-        function _modified($uid)
-        {
-            $modified = $this->getActionTimestamp($uid, 'modify');
-            if (empty($modified)) {
-                $modified = $this->getActionTimestamp($uid, 'add');
-            }
-            return $modified;
-        }
-
         require_once dirname(__FILE__) . '/base.php';
         global $registry, $cfgSources;
 
@@ -344,7 +344,7 @@ class Turba_Api extends Horde_Registry_Api
                     $results[$key]['contentlength'] = strlen($data);
                 }
                 if (in_array('modified', $properties)) {
-                    $results[$key]['modified'] = _modified($contact->getValue('__uid'));
+                    $results[$key]['modified'] = $this->_modified($contact->getValue('__uid'));
                 }
                 if (in_array('created', $properties)) {
                     $results[$key]['created'] = $this->getActionTimestamp($contact->getValue('__uid'), 'add');
@@ -376,7 +376,7 @@ class Turba_Api extends Horde_Registry_Api
 
             $result = array('data' => $this->export($contact->getValue('__uid'), 'text/x-vcard', $contact->getSource()),
                 'mimetype' => 'text/x-vcard');
-            $modified = _modified($contact->getValue('__uid'));
+            $modified = $this->_modified($contact->getValue('__uid'));
             if (!empty($modified)) {
                 $result['mtime'] = $modified;
             }
