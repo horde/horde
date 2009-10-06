@@ -28,14 +28,18 @@ class Horde_Editor_Fckeditor extends Horde_Editor
     public function __construct($params = array())
     {
         $fck_path = $GLOBALS['registry']->get('webroot', 'horde') . '/services/editor/fckeditor/';
-        $js = "var oFCKeditor = new FCKeditor('" . $params['id'] . "'); oFCKeditor.BasePath = '" . $fck_path . "';";
+        $js = array(
+            'var oFCKeditor = new FCKeditor("' . $params['id'] . '")',
+            'oFCKeditor.BasePath = "' . $fck_path . '"'
+        );
 
         if (!empty($params['no_notify'])) {
-            $this->_js = '<script type="text/javascript" src="' . $fck_path . 'fckeditor.js"></script><script type="text/javascript">' . $js . '</script>';
+            $this->_js = '<script type="text/javascript" src="' . $fck_path . 'fckeditor.js"></script><script type="text/javascript">' . implode(';', $js) . '</script>';
         } else {
-            Horde::addScriptFile('prototype.js', 'horde', true);
-            $GLOBALS['notification']->push('Event.observe(window, \'load\', function() {' . $js . ' oFCKeditor.ReplaceTextarea();});', 'javascript');
-            $GLOBALS['notification']->push($fck_path . 'fckeditor.js', 'javascript-file');
+            Horde::addScriptFile('prototype.js', 'horde');
+            Horde::addScriptFile($fck_path . 'fckeditor.js', null, array('external' => true));
+            $js[] = 'oFCKeditor.ReplaceTextarea()';
+            Horde::addInlineScript($js, 'load');
         }
     }
 

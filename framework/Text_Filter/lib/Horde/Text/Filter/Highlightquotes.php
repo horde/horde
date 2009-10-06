@@ -156,7 +156,7 @@ class Horde_Text_Filter_Highlightquotes extends Horde_Text_Filter
 
         if ($qcount > 8) {
             if ($this->_params['outputJS']) {
-                Horde::addScriptFile('prototype.js', 'horde', true);
+                Horde::addScriptFile('prototype.js', 'horde');
             }
 
             $out .= (($this->_params['citeblock']) ? '<br />' : '') .

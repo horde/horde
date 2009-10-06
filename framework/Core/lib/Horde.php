@@ -267,20 +267,31 @@ HTML;
      * Adds the javascript code to the output (if output has already started)
      * or to the list of script files to include via includeScriptFiles().
      *
-     * @param string $file     The full javascript file name.
-     * @param string $app      The application name. Defaults to the current
-     *                         application.
-     * @param boolean $direct  Include the file directly without passing it
-     *                         through javascript.php
-     * @param boolean $full    Output a full URL
+     * @param string $file    The full javascript file name.
+     * @param string $app     The application name. Defaults to the current
+     *                        application.
+     * @param array $options  Additional options:
+     * <pre>
+     * 'direct' - (boolean) Include the file directly without passing it
+     *            through javascript.php.
+     *            DEFAULT: true
+     * 'external' - (boolean) Treat $file as an external URL.
+     *              DEFAULT: $file is located in the app's js/ directory.
+     * 'full' - (boolean) Output a full URL
+     *          DEFAULT: false
+     * </pre>
      *
      * @throws Horde_Exception
      */
-    static public function addScriptFile($file, $app = null, $direct = false,
-                                         $full = false)
+    static public function addScriptFile($file, $app = null,
+                                         $options = array())
     {
         $hsf = Horde_Script_Files::singleton();
-        $hsf->add($file, $app, $direct, $full);
+        if (empty($options['external'])) {
+            $hsf->add($file, $app, isset($options['direct']) ? $options['direct'] : true, !empty($options['full']));
+        } else {
+            $hsf->addExternal($file, $app);
+        }
     }
 
     /**
@@ -410,18 +421,6 @@ HTML;
         foreach ($js_external as $val) {
             $hsf->outputTag($val);
         }
-    }
-
-    /**
-     * Inlude script files from external sources.
-     *
-     * @param string $url  The url to the external script file.
-     * @param string $app  The app scope
-     */
-    static public function addExternalScriptFile($url, $app = null)
-    {
-         $hsf = Horde_Script_Files::singleton();
-         $hsf->addExternal($url, $app);
     }
 
     /**
@@ -2229,7 +2228,7 @@ HTML;
      */
     static public function popupJs($url, $options = array())
     {
-        Horde::addScriptFile('popup.js', 'horde', true);
+        Horde::addScriptFile('popup.js', 'horde');
 
         $params = new stdClass;
         $pos = strpos($url, '?');

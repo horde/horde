@@ -139,15 +139,16 @@ class Horde_Editor_xinha extends Horde_Editor
                'Xinha.startEditors(_editors); };';
 
         if (empty($params['no_autoload'])) {
-            Horde::addScriptFile('prototype.js', 'horde', true);
-            $js .= 'Event.observe(window, \'load\', xinha_init);';
+            Horde::addScriptFile('prototype.js', 'horde');
         }
 
         if (!empty($params['no_notify'])) {
+            $js .= 'Event.observe(window, \'load\', xinha_init);';
             $this->_js = '<script type="text/javascript">' . $js . '</script><script type="text/javascript" src="' . $xinha_path . 'XinhaCore.js"></script>';
         } else {
-            $GLOBALS['notification']->push($js, 'javascript');
-            $GLOBALS['notification']->push($xinha_path . 'XinhaCore.js', 'javascript-file');
+            Horde::addScriptFile($xinha_path . 'XinhaCore.js', null, array('external' => true));
+            Horde::addInlineScript($js);
+            Horde::addInlineScript('xinha_init()', 'load');
         }
     }
 

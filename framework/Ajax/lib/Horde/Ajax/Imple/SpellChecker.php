@@ -56,10 +56,10 @@ class Horde_Ajax_Imple_SpellChecker extends Horde_Ajax_Imple_Base
      */
     public function attach()
     {
-        Horde::addScriptFile('prototype.js', 'horde', true);
-        Horde::addScriptFile('effects.js', 'horde', true);
-        Horde::addScriptFile('KeyNavList.js', 'horde', true);
-        Horde::addScriptFile('SpellChecker.js', 'horde', true);
+        Horde::addScriptFile('prototype.js', 'horde');
+        Horde::addScriptFile('effects.js', 'horde');
+        Horde::addScriptFile('KeyNavList.js', 'horde');
+        Horde::addScriptFile('SpellChecker.js', 'horde');
 
         $url = $this->_getUrl('SpellChecker', 'horde', array('input' => $this->_params['targetId']));
 
