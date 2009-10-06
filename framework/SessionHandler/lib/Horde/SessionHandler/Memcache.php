@@ -234,14 +234,13 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
         $result = $this->_memcache->delete($id);
         $this->_memcache->unlock($id);
 
-        if ($result !== false &&
-            isset($this->_persistent)) {
-            $result = $this->_persistent->destroy($id);
-        }
-
-        if ($result !== false) {
+        if ($result === false) {
             Horde::logMessage('Failed to delete session (id = ' . $id . ')', __FILE__, __LINE__, PEAR_LOG_DEBUG);
             return false;
+        }
+
+        if (isset($this->_persistent)) {
+            $result = $this->_persistent->destroy($id);
         }
 
         if (!empty($this->_params['track'])) {
