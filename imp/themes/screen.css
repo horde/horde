@@ -231,6 +231,10 @@ span.trashImg {
     width: 100%;
     overflow: hidden;
 }
+.htmlMsgData IFRAME {
+    width: 100%;
+    height: 100%;
+}
 
 /* Compose view */
 .composebody {

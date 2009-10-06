@@ -30,7 +30,7 @@ document.observe('dom:loaded', function() {
     {
         var callback, imgs,
             elt = e.element().up('TABLE.mimeStatusMessage'),
-            iframe = elt.up().next('.htmlMsgData'),
+            iframe = elt.up().next('.htmlMsgData').down('IFRAME'),
             iframeid = iframe.readAttribute('id'),
             s = new Selector('[htmlimgblocked]');
 
@@ -91,10 +91,14 @@ document.observe('dom:loaded', function() {
         this.iframeResize(id);
     };
 
-    IMP.iframeResize = function(id)
+    IMP.iframeResize = function(id, defer)
     {
         id = $(id);
-        id.setStyle({ height: id.contentWindow.document.lastChild.scrollHeight + 'px' });
+        if (!defer && Prototype.Browser.IE) {
+            this.iframeResize.bind(this, id, true).defer();
+        } else {
+            id.up().setStyle({ height: Math.max(id.contentWindow.document.body.scrollHeight, id.contentWindow.document.lastChild.scrollHeight) + 'px' });
+        }
     };
 
     // If menu is present, attach event handlers to folder switcher.
