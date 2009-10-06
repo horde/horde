@@ -2338,6 +2338,12 @@ OLD DIMP CHANGELOG
 ==================
 
 ------
+v1.1.4
+------
+[mms] Fix sizing fckeditor compose editor frame in IE (Bug #8616).
+
+
+------
 v1.1.3
 ------
 

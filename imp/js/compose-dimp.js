@@ -379,6 +379,10 @@ var DimpCompose = {
 
     getMsgAreaHeight: function()
     {
+        if (!this.mp_padding) {
+            this.mp_padding = $('messageParent').getHeight() - $('message').getHeight();
+        }
+
         return document.viewport.getHeight() - $('messageParent').cumulativeOffset()[1] - this.mp_padding;
     },
 
@@ -567,8 +571,6 @@ var DimpCompose = {
             }
             return;
         }
-
-        this.mp_padding = $('messageParent').getHeight() - msg.getHeight();
 
         if (!this.row_height) {
             // Change the ID and name to not conflict with msg node.
