@@ -24,9 +24,9 @@ class Ansel_Ajax_Imple_EditCaption extends Horde_Ajax_Imple_Base
 
     public function attach()
     {
-        Horde::addScriptFile('effects.js', 'horde', true);
-        Horde::addScriptFile('controls.js', 'horde', true);
-        Horde::addScriptFile('editcaption.js', 'ansel', true);
+        Horde::addScriptFile('effects.js', 'horde');
+        Horde::addScriptFile('controls.js', 'horde');
+        Horde::addScriptFile('editcaption.js', 'ansel');
 
         $params = array('input' => 'value',
                         'id' => $this->_params['id']);

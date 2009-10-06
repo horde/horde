@@ -611,7 +611,7 @@ class IMP
         $t->set('forminput', Horde_Util::formInput());
         $t->set('use_folders', ($_SESSION['imp']['protocol'] != 'pop') && $GLOBALS['conf']['user']['allow_folders'], true);
         if ($t->get('use_folders')) {
-            Horde::addScriptFile('imp.js', 'imp', true);
+            Horde::addScriptFile('imp.js', 'imp');
             $menu_view = $GLOBALS['prefs']->getValue('menu_view');
             $ak = $GLOBALS['prefs']->getValue('widget_accesskey')
                 ? Horde::getAccessKey(_("Open Fo_lder"))
@@ -762,8 +762,8 @@ class IMP
         }
         $t_html = str_replace("\n", ' ', $t->fetch(IMP_TEMPLATES . '/newmsg/alert.html'));
 
-        Horde::addScriptFile('effects.js', 'horde', true);
-        Horde::addScriptFile('redbox.js', 'horde', true);
+        Horde::addScriptFile('effects.js', 'horde');
+        Horde::addScriptFile('redbox.js', 'horde');
         return 'RedBox.overlay = false; RedBox.showHtml(\'' . addcslashes($t_html, "'/") . '\');';
     }
 
@@ -1203,9 +1203,9 @@ class IMP
     static public function passphraseDialogJS($type, $action = null,
                                               $params = array())
     {
-        Horde::addScriptFile('effects.js', 'horde', true);
-        Horde::addScriptFile('redbox.js', 'horde', true);
-        Horde::addScriptFile('dialog.js', 'imp', true);
+        Horde::addScriptFile('effects.js', 'horde');
+        Horde::addScriptFile('redbox.js', 'horde');
+        Horde::addScriptFile('dialog.js', 'imp');
 
         switch ($type) {
         case 'PGPPersonal':

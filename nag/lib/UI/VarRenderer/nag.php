@@ -111,7 +111,7 @@ class Horde_UI_VarRenderer_nag extends Horde_UI_VarRenderer_html {
 <label for="start_year" class="hidden"><?php echo _("Year") ?></label>
 <?php echo $this->buildDayWidget('start[day]', $start_date['mday'], $javascript_start) . ' ' . $this->buildMonthWidget('start[month]', $start_date['mon'], $javascript_start) . ' ' . $this->buildYearWidget('start[year]', 3, $start_date['year'], $javascript_start) ?>
 <?php if ($GLOBALS['browser']->hasFeature('javascript')) {
-Horde::addScriptFile('open_calendar.js', 'horde');
+Horde::addScriptFile('open_calendar.js', 'horde', array('direct' => false));
 echo '<div id="goto" class="control" style="position:absolute;visibility:hidden;padding:1px"></div>';
 echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'startimg\', \'start\', \'document.' . $form->getName() . '.start_date[1].checked = true;\'); return false;') . Horde::img('calendar.png', _("Calendar"), 'align="top" id="startimg"', $GLOBALS['registry']->getImageDir('horde')) . '</a>';
 } ?>

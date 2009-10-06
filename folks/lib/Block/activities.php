@@ -64,7 +64,7 @@ class Horde_Block_Folks_activities extends Horde_Block {
         krsort($list);
         $list = array_slice($list, 0, $this->_params['limit']);
 
-        Horde::addScriptFile('stripe.js', 'horde', true);
+        Horde::addScriptFile('stripe.js', 'horde');
 
         ob_start();
         require FOLKS_TEMPLATES . '/block/activities.php';

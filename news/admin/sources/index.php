@@ -41,7 +41,7 @@ $view = new News_View();
 $view->sources = $sources;
 $view->add_url = Horde::link($edit_url, _("Add New")) . _("Add New") . '</a>';
 
-Horde::addScriptFile('tables.js', 'horde', true);
+Horde::addScriptFile('tables.js', 'horde');
 require NEWS_BASE . '/templates/common-header.inc';
 require NEWS_BASE . '/templates/menu.inc';
 echo $tabs->render('sources');

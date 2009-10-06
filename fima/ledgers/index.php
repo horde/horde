@@ -35,7 +35,7 @@ $edit_img = Horde::img('edit.png', _("Edit"), null, $registry->getImageDir('hord
 $perms_img = Horde::img('perms.png', _("Change Permissions"), null, $registry->getImageDir('horde'));
 $delete_img = Horde::img('delete.png', _("Delete"), null, $registry->getImageDir('horde'));
 
-Horde::addScriptFile('tables.js', 'turba', true);
+Horde::addScriptFile('tables.js', 'turba');
 $title = _("Manage Ledgers");
 require FIMA_TEMPLATES . '/common-header.inc';
 require FIMA_TEMPLATES . '/menu.inc';

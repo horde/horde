@@ -14,7 +14,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 $view = Kronolith::getView('Year');
 $title = $view->year;
 
-Horde::addScriptFile('tooltips.js', 'horde', true);
+Horde::addScriptFile('tooltips.js', 'horde');
 require KRONOLITH_TEMPLATES . '/common-header.inc';
 require KRONOLITH_TEMPLATES . '/menu.inc';
 

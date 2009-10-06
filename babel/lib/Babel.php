@@ -265,8 +265,8 @@ class Babel {
 
 
     function RB_init() {
-	Horde::addScriptFile('effects.js', 'horde', true);
-	Horde::addScriptFile('redbox.js', 'horde', true);
+	Horde::addScriptFile('effects.js', 'horde');
+	Horde::addScriptFile('redbox.js', 'horde');
     }
 
     function RB_start($secs = 30) {

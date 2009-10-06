@@ -15,7 +15,7 @@ class Ansel_View_Slideshow extends Ansel_View_Image
     public function __construct($params = array())
     {
         parent::__construct($params);
-        Horde::addScriptFile('slideshow.js', 'ansel', true);
+        Horde::addScriptFile('slideshow.js', 'ansel');
     }
 
     protected function _html()

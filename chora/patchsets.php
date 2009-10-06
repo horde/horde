@@ -47,11 +47,11 @@ if (empty($patchsets)) {
 
 $extraLink = Chora::getFileViews($where, 'patchsets');
 
-Horde::addScriptFile('tables.js', 'horde', true);
+Horde::addScriptFile('tables.js', 'horde');
 
 // JS search not needed if showing a single patchset
 if ($ps_id) {
-    Horde::addScriptFile('QuickFinder.js', 'horde', true);
+    Horde::addScriptFile('QuickFinder.js', 'horde');
 }
 
 require CHORA_TEMPLATES . '/common-header.inc';

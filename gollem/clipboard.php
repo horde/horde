@@ -16,7 +16,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 $dir = Horde_Util::getFormData('dir');
 
 $title = _("Clipboard");
-Horde::addScriptFile('tables.js', 'horde', true);
+Horde::addScriptFile('tables.js', 'horde');
 require GOLLEM_TEMPLATES . '/common-header.inc';
 Gollem::menu();
 Gollem::status();

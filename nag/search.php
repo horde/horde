@@ -10,7 +10,7 @@ require_once dirname(__FILE__) . '/lib/base.php';
 
 $title = _("Search");
 $notification->push('document.search.search_pattern.focus()', 'javascript');
-Horde::addScriptFile('prototype.js', 'horde', true);
+Horde::addScriptFile('prototype.js', 'horde');
 require NAG_TEMPLATES . '/common-header.inc';
 require NAG_TEMPLATES . '/menu.inc';
 require NAG_TEMPLATES . '/search/search.inc';

@@ -44,7 +44,7 @@ if (!is_null($search)) {
     }
 }
 
-Horde::addScriptFile('prototype.js', 'horde', true);
+Horde::addScriptFile('prototype.js', 'horde');
 $bodyClass = 'summary';
 require TURBA_TEMPLATES . '/common-header.inc';
 

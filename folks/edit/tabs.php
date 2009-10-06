@@ -35,4 +35,4 @@ if ($conf['facebook']['enabled']) {
 }
 
 
-Horde::addScriptFile('tables.js', 'horde', true);
+Horde::addScriptFile('tables.js', 'horde');

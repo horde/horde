@@ -323,7 +323,7 @@ $sort_url = Horde_Util::addParameter($mailbox_imp_url, 'sortdir', ($sortpref['di
 /* Determine if we are showing previews. */
 $preview_tooltip = ($show_preview) ? $prefs->getValue('preview_show_tooltip') : false;
 if ($preview_tooltip) {
-    Horde::addScriptFile('tooltips.js', 'horde', true);
+    Horde::addScriptFile('tooltips.js', 'horde');
 } else {
     $strip_preview = $prefs->getValue('preview_strip_nl');
 }
@@ -371,9 +371,9 @@ if ($vfolder ||
     $pagetitle = $title = htmlspecialchars($title);
 }
 
-Horde::addScriptFile('effects.js', 'horde', true);
-Horde::addScriptFile('redbox.js', 'horde', true);
-Horde::addScriptFile('mailbox.js', 'imp', true);
+Horde::addScriptFile('effects.js', 'horde');
+Horde::addScriptFile('redbox.js', 'horde');
+Horde::addScriptFile('mailbox.js', 'imp');
 
 /* Handle compose_popup. */
 if ($open_compose_window === false) {

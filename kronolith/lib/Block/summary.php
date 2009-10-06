@@ -86,7 +86,7 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
         $no_maint = true;
         require_once dirname(__FILE__) . '/../base.php';
 
-        Horde::addScriptFile('tooltips.js', 'horde', true);
+        Horde::addScriptFile('tooltips.js', 'horde');
 
         $now = new Horde_Date($_SERVER['REQUEST_TIME']);
         $today = date('j');

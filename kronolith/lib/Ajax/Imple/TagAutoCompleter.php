@@ -39,13 +39,13 @@ class Kronolith_Ajax_Imple_TagAutoCompleter extends Horde_Ajax_Imple_Base
      */
     public function attach()
     {
-        Horde::addScriptFile('effects.js', 'horde', true);
-        Horde::addScriptFile('autocomplete.js', 'horde', true);
+        Horde::addScriptFile('effects.js', 'horde');
+        Horde::addScriptFile('autocomplete.js', 'horde');
 
         $registry = Horde_Registry::singleton();
 
         if ($pretty = !empty($this->_params['pretty'])) {
-            Horde::addScriptFile('prettyautocomplete.js', 'horde', true);
+            Horde::addScriptFile('prettyautocomplete.js', 'horde');
             $this->_params['uri'] = $this->_getUrl('TagAutoCompleter', 'kronolith');
         } else {
             $this->_params['uri'] = $this->_getUrl('TagAutoCompleter', 'kronolith', array('input' => $this->_params['triggerId']));

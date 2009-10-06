@@ -86,7 +86,7 @@ if (!$print_view) {
     $print_link = Horde::applicationUrl(Horde_Util::addParameter('accounts.php', array('print' => 1)));
 }
 
-Horde::addScriptFile('tables.js', 'horde', true);
+Horde::addScriptFile('tables.js', 'horde');
 $title = _("My Accounts");
 require FIMA_TEMPLATES . '/common-header.inc';
 

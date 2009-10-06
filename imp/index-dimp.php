@@ -16,17 +16,17 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 new IMP_Application(array('init' => true));
 
 $scripts = array(
-    array('ContextSensitive.js', 'imp', true),
-    array('DimpBase.js', 'imp', true),
-    array('DimpSlider.js', 'imp', true),
-    array('ViewPort.js', 'imp', true),
-    array('dhtmlHistory.js', 'horde', true),
-    array('dialog.js', 'imp', true),
-    array('dragdrop2.js', 'horde', true),
-    array('imp.js', 'imp', true),
-    array('mailbox-dimp.js', 'imp', true),
-    array('popup.js', 'horde', true),
-    array('redbox.js', 'horde', true)
+    array('ContextSensitive.js', 'imp'),
+    array('DimpBase.js', 'imp'),
+    array('DimpSlider.js', 'imp'),
+    array('ViewPort.js', 'imp'),
+    array('dhtmlHistory.js', 'horde'),
+    array('dialog.js', 'imp'),
+    array('dragdrop2.js', 'horde'),
+    array('imp.js', 'imp'),
+    array('mailbox-dimp.js', 'imp'),
+    array('popup.js', 'horde'),
+    array('redbox.js', 'horde')
 );
 
 /* Get site specific menu items. */
@@ -46,7 +46,7 @@ if (!empty($site_menu)) {
     }
 }
 
-Horde::addInlineScript($js_code, true);
+Horde::addInlineScript($js_code, 'load');
 IMP_Dimp::header('', $scripts);
 
 /* Get application folders list. */

@@ -306,7 +306,7 @@ Prefs_UI::generateHeader('pgp', $chunk);
 $t = new Horde_Template();
 $t->setOption('gettext', true);
 if ($prefs->getValue('use_pgp')) {
-    Horde::addScriptFile('imp.js', 'imp', true);
+    Horde::addScriptFile('imp.js', 'imp');
     $t->set('pgpactive', true);
     $t->set('overview-help', Horde_Help::link('imp', 'pgp-overview'));
     $t->set('attach_pubkey_notlocked', !$prefs->isLocked('pgp_attach_pubkey'));

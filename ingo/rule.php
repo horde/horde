@@ -190,7 +190,7 @@ if (!$rule) {
 }
 
 $title = $rule['name'];
-Horde::addScriptFile('rule.js', 'ingo', true);
+Horde::addScriptFile('rule.js', 'ingo');
 Ingo::prepareMenu();
 Ingo::addNewFolderJs();
 require INGO_TEMPLATES . '/common-header.inc';

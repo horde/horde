@@ -90,7 +90,7 @@ if ($search_mode == 'basic') {
 }
 
 $title = _("Search");
-Horde::addScriptFile('tooltips.js', 'horde', true);
+Horde::addScriptFile('tooltips.js', 'horde');
 require KRONOLITH_TEMPLATES . '/common-header.inc';
 require KRONOLITH_TEMPLATES . '/menu.inc';
 

@@ -1,8 +1,8 @@
 <?php
 
-Horde::addScriptFile('effects.js', 'horde', true);
-Horde::addScriptFile('views.js', 'kronolith', true);
-Horde::addScriptFile('stripe.js', 'horde', true);
+Horde::addScriptFile('effects.js', 'horde');
+Horde::addScriptFile('views.js', 'kronolith');
+Horde::addScriptFile('stripe.js', 'horde');
 
 if (isset($language)) {
     header('Content-type: text/html; charset=' . Horde_Nls::getCharset());

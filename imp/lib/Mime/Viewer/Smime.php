@@ -71,7 +71,7 @@ class IMP_Horde_Mime_Viewer_Smime extends Horde_Mime_Viewer_Driver
         } else {
             /* We need to insert JavaScript code now if S/MIME support is
              * active. */
-            Horde::addScriptFile('imp.js', 'imp', true);
+            Horde::addScriptFile('imp.js', 'imp');
         }
 
         switch ($this->_mimepart->getType()) {

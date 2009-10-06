@@ -44,9 +44,9 @@ $tasks = $search_results;
 $title = sprintf(_("Search: Results for \"%s\""), $search);
 $actionID = null;
 
-Horde::addScriptFile('tooltips.js', 'horde', true);
-Horde::addScriptFile('effects.js', 'horde', true);
-Horde::addScriptFile('QuickFinder.js', 'horde', true);
+Horde::addScriptFile('tooltips.js', 'horde');
+Horde::addScriptFile('effects.js', 'horde');
+Horde::addScriptFile('QuickFinder.js', 'horde');
 
 require NAG_TEMPLATES . '/common-header.inc';
 require NAG_TEMPLATES . '/menu.inc';

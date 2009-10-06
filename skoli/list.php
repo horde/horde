@@ -100,9 +100,9 @@ default:
     break;
 }
 
-Horde::addScriptFile('tooltips.js', 'horde', true);
-Horde::addScriptFile('effects.js', 'horde', true);
-Horde::addScriptFile('QuickFinder.js', 'horde', true);
+Horde::addScriptFile('tooltips.js', 'horde');
+Horde::addScriptFile('effects.js', 'horde');
+Horde::addScriptFile('QuickFinder.js', 'horde');
 
 require SKOLI_TEMPLATES . '/common-header.inc';
 require SKOLI_TEMPLATES . '/menu.inc';
@@ -152,7 +152,7 @@ if (count($list) > 0) {
     require SKOLI_TEMPLATES . '/list/footers.inc';
 
     if ($dynamic_sort) {
-        Horde::addScriptFile('tables.js', 'horde', true);
+        Horde::addScriptFile('tables.js', 'horde');
     }
 } else {
     require SKOLI_TEMPLATES . '/list/empty.inc';

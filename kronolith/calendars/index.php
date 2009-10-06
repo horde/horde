@@ -61,7 +61,7 @@ $edit_img = Horde::img('edit.png', _("Edit"), null, $registry->getImageDir('hord
 $perms_img = Horde::img('perms.png', _("Change Permissions"), null, $registry->getImageDir('horde'));
 $delete_img = Horde::img('delete.png', _("Delete"), null, $registry->getImageDir('horde'));
 
-Horde::addScriptFile('tables.js', 'horde', true);
+Horde::addScriptFile('tables.js', 'horde');
 $title = _("Manage Calendars");
 require KRONOLITH_TEMPLATES . '/common-header.inc';
 require KRONOLITH_TEMPLATES . '/menu.inc';

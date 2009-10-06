@@ -80,7 +80,7 @@ class Horde_Block_Kronolith_month extends Horde_Block {
             }
         }
 
-        Horde::addScriptFile('tooltips.js', 'horde', true);
+        Horde::addScriptFile('tooltips.js', 'horde');
 
         $year = date('Y');
         $month = date('m');

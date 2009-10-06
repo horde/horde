@@ -423,7 +423,7 @@ class Fima {
         if ($GLOBALS['browser']->hasFeature('dom')) {
             $html .= '<span id="' . $name . '_wday" ></span><script type="text/javascript">updateWday(\'' . $name . '\');</script>' . "\n";
             $html .= '</td><td>';
-            $html .= Horde::addScriptFile('open_calendar.js', 'horde');
+            $html .= Horde::addScriptFile('open_calendar.js', 'horde', array('direct' => false));
             if (!isset($GLOBALS['fima_gotocontrol'])) {
                 $GLOBALS['fima_gotocontrol'] = true;
                 $html .= '<div id="goto" class="control" style="position:absolute;visibility:hidden;padding:1px"></div>' . "\n";

@@ -312,9 +312,9 @@ case 'resizeedit':
 
         /* js and css files */
         Horde::addScriptFile('builder.js');
-        Horde::addScriptFile('effects.js', 'horde', true);
-        Horde::addScriptFile('controls.js', 'horde', true);
-        Horde::addScriptFile('dragdrop.js', 'horde', true);
+        Horde::addScriptFile('effects.js', 'horde');
+        Horde::addScriptFile('controls.js', 'horde');
+        Horde::addScriptFile('dragdrop.js', 'horde');
         Horde::addScriptFile('cropper.js');
         Ansel::attachStylesheet('cropper.css');
     } elseif ($actionID == 'resizeedit') {
@@ -322,9 +322,9 @@ case 'resizeedit':
         // TODO: Combine these cases
         $geometry = $image->getDimensions('full');
         Horde::addScriptFile('builder.js');
-        Horde::addScriptFile('effects.js', 'horde', true);
-        Horde::addScriptFile('slider.js', 'horde', true);
-        Horde::addScriptFile('dragdrop.js', 'horde', true);
+        Horde::addScriptFile('effects.js', 'horde');
+        Horde::addScriptFile('slider.js', 'horde');
+        Horde::addScriptFile('dragdrop.js', 'horde');
    }
 
     require ANSEL_TEMPLATES . '/common-header.inc';

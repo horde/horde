@@ -380,7 +380,7 @@ default:
     exit;
 }
 
-Horde::addScriptFile('stripe.js', 'horde', true);
+Horde::addScriptFile('stripe.js', 'horde');
 require ANSEL_TEMPLATES . '/common-header.inc';
 
 /* Attach the slug check action to the form */
@@ -388,7 +388,7 @@ $imple = Horde_Ajax_Imple::factory(array('ansel', 'GallerySlugCheck'),
                                    array('slug' => $gallery_slug,
                                          'bindTo' => 'gallery_slug'));
 $imple->attach();
-Horde::addScriptFile('popup.js', 'horde', true);
+Horde::addScriptFile('popup.js', 'horde');
 require ANSEL_TEMPLATES . '/menu.inc';
 require ANSEL_TEMPLATES . '/gallery/gallery.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

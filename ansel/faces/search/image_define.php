@@ -46,10 +46,10 @@ if (count($faces) > 1) {
 $height = $x2 - $x1;
 $width = $y2 - $y1;
 
-Horde::addScriptFile('scriptaculous.js', 'horde', true);
-Horde::addScriptFile('builder.js', 'ansel', true);
-Horde::addScriptFile('cropper.js', 'ansel', true);
-Horde::addScriptFile('stripe.js', 'horde', true);
+Horde::addScriptFile('scriptaculous.js', 'horde');
+Horde::addScriptFile('builder.js', 'ansel');
+Horde::addScriptFile('cropper.js', 'ansel');
+Horde::addScriptFile('stripe.js', 'horde');
 
 require ANSEL_TEMPLATES . '/common-header.inc';
 require ANSEL_TEMPLATES . '/menu.inc';

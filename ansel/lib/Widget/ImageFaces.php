@@ -119,7 +119,7 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
         $html .= $faces_html . '</div></div>';
 
         // Include the needed javascript
-        Horde::addScriptFile('imagefaces.js', 'ansel', true);
+        Horde::addScriptFile('imagefaces.js', 'ansel');
 
         return $html;
     }

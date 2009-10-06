@@ -40,8 +40,8 @@ if (isset($show_msg_result['error'])) {
 }
 
 $scripts = array(
-    array('ContextSensitive.js', 'imp', true),
-    array('fullmessage-dimp.js', 'imp', true)
+    array('ContextSensitive.js', 'imp'),
+    array('fullmessage-dimp.js', 'imp')
 );
 
 $js_out = array();
@@ -72,7 +72,7 @@ if (!$disable_compose) {
     $imp_ui->attachSpellChecker('dimp');
 
     $js_out = array_merge($js_out, $compose_result['js']);
-    $scripts[] = array('compose-dimp.js', 'imp', true);
+    $scripts[] = array('compose-dimp.js', 'imp');
 
     Horde::addInlineScript($compose_result['jsonload'], 'load');
 }

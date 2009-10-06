@@ -206,9 +206,9 @@ Horde::addInlineScript(array(
 Horde::addInlineScript($js_load, 'dom');
 
 $title = _("Search");
-Horde::addScriptFile('horde.js', 'horde', true);
-Horde::addScriptFile('stripe.js', 'horde', true);
-Horde::addScriptFile('search.js', 'imp', true);
+Horde::addScriptFile('horde.js', 'horde');
+Horde::addScriptFile('stripe.js', 'horde');
+Horde::addScriptFile('search.js', 'imp');
 
 if ($dimp_view) {
     $t->set('return_mailbox_text', htmlspecialchars($search_mailbox));

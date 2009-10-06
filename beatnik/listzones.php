@@ -51,7 +51,7 @@ foreach ($fields as $field_id => $field) {
 
 // Add javascript navigation and striping
 Horde::addScriptFile('beatnik.js');
-Horde::addScriptFile('stripe.js', 'horde', true);
+Horde::addScriptFile('stripe.js', 'horde');
 
 // Initialization complete.  Render the page.
 require BEATNIK_TEMPLATES . '/common-header.inc';

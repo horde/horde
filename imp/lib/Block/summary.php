@@ -103,8 +103,8 @@ class Horde_Block_imp_summary extends Horde_Block
         if ($prefs->getValue('nav_popup')) {
             // Always include these scripts so they'll be there if
             // there's new mail in later dynamic updates.
-            Horde::addScriptFile('effects.js', 'horde', true);
-            Horde::addScriptFile('redbox.js', 'horde', true);
+            Horde::addScriptFile('effects.js', 'horde');
+            Horde::addScriptFile('redbox.js', 'horde');
         }
 
         if (!empty($newmsgs)) {

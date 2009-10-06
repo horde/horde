@@ -85,7 +85,7 @@ $js_code = array(
     'var formid = \'' . $formid . '\'',
 );
 
-Horde::addScriptFile('selectlist.js', 'gollem', true);
+Horde::addScriptFile('selectlist.js', 'gollem');
 require GOLLEM_TEMPLATES . '/common-header.inc';
 Horde::addInlineScript(implode(';', $js_code));
 Gollem::status();

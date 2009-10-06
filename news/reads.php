@@ -35,7 +35,7 @@ if ($result instanceof PEAR_Error) {
     exit;
 }
 
-Horde::addScriptFile('tables.js', 'horde', true);
+Horde::addScriptFile('tables.js', 'horde');
 Horde::includeScriptFiles();
 Horde::includeStylesheetFiles();
 

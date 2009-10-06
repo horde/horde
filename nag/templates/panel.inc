@@ -1,6 +1,6 @@
 <?php
 
-Horde::addScriptFile('redbox.js', 'horde', true);
+Horde::addScriptFile('redbox.js', 'horde');
 
 $info_img = Horde::img('info_icon.png', _("Task List Information"), array('class' => 'tasklist-info'), $registry->getImageDir('horde'));
 

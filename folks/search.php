@@ -81,10 +81,10 @@ if (Horde_Auth::isAuthenticated()) {
     }
 }
 
-Horde::addScriptFile('stripe.js', 'horde', true);
-Horde::addScriptFile('effects.js', 'horde', true);
-Horde::addScriptFile('redbox.js', 'horde', true);
-Horde::addScriptFile('search.js', 'folks', true);
+Horde::addScriptFile('stripe.js', 'horde');
+Horde::addScriptFile('effects.js', 'horde');
+Horde::addScriptFile('redbox.js', 'horde');
+Horde::addScriptFile('search.js', 'folks');
 
 require FOLKS_TEMPLATES . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';

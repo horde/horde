@@ -343,7 +343,7 @@ if ($event->alarm) {
  </td>
  <td>
 <?php
-    Horde::addScriptFile('open_calendar.js', 'horde');
+    Horde::addScriptFile('open_calendar.js', 'horde', array('direct' => false));
     echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'recur_enddateimg\', \'recur_enddate\', \'' . addslashes($event->js('recur_enddate')) . '\'); return false;') . Horde::img('calendar.png', _("Set recurrence end date"), 'id="recur_enddateimg"', $GLOBALS['registry']->getImageDir('horde')) . '</a>';
 endif;
 ?>

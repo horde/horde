@@ -64,7 +64,7 @@ class Horde_Block_Folks_new extends Horde_Block {
                                 'name' => _("Send message"));
         }
 
-        Horde::addScriptFile('stripe.js', 'horde', true);
+        Horde::addScriptFile('stripe.js', 'horde');
 
         ob_start();
         require FOLKS_TEMPLATES . '/block/users.php';

@@ -15,7 +15,7 @@
 
 require_once dirname(__FILE__) . '/lib/Application.php';
 new IMP_Application(array('init' => true));
-Horde::addScriptFile('folders.js', 'imp', true);
+Horde::addScriptFile('folders.js', 'imp');
 
 /* Redirect back to the mailbox if folder use is not allowed. */
 if (!$conf['user']['allow_folders']) {
@@ -282,7 +282,7 @@ case 'folders_empty_mailbox_confirm':
 
 case 'mbox_size':
     if (!empty($folder_list)) {
-        Horde::addScriptFile('tables.js', 'horde', true);
+        Horde::addScriptFile('tables.js', 'horde');
 
         $title = _("Folder Sizes");
         IMP::prepareMenu();
@@ -325,8 +325,6 @@ case 'mbox_size':
 $folders_token = Horde::getRequestToken('imp.folders');
 
 $folders_url = Horde_Util::addParameter($folders_url, 'folders_token', $folders_token);
-
-Horde::addScriptFile('folders.js', 'imp', true);
 
 if ($_SESSION['imp']['file_upload'] && ($actionID == 'import_mbox')) {
     $title = _("Folder Navigator");

@@ -69,11 +69,11 @@ class Kronolith
     public static function header($title, $scripts = array())
     {
         // Need to include script files before we start output
-        Horde::addScriptFile('effects.js', 'horde', true);
-        Horde::addScriptFile('horde.js', 'horde', true);
-        Horde::addScriptFile('dragdrop2.js', 'horde', true);
-        Horde::addScriptFile('Growler.js', 'horde', true);
-        Horde::addScriptFile('kronolith.js', 'kronolith', true);
+        Horde::addScriptFile('effects.js', 'horde');
+        Horde::addScriptFile('horde.js', 'horde');
+        Horde::addScriptFile('dragdrop2.js', 'horde');
+        Horde::addScriptFile('Growler.js', 'horde');
+        Horde::addScriptFile('kronolith.js', 'kronolith');
 
         // Add other scripts now
         foreach ($scripts as $val) {
@@ -2010,7 +2010,7 @@ class Kronolith
             $menu->add(Horde_Util::addParameter(Horde::applicationUrl('new.php'), 'url', Horde::selfUrl(true, false, true)), _("_New Event"), 'new.png');
         }
         if ($browser->hasFeature('dom')) {
-            Horde::addScriptFile('goto.js', 'kronolith');
+            Horde::addScriptFile('goto.js', 'kronolith', array('direct' => false));
             $menu->add('#', _("_Goto"), 'goto.png', null, '', 'openKGoto(kronolithDate, event); return false;');
         }
         $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', $registry->getImageDir('horde'));

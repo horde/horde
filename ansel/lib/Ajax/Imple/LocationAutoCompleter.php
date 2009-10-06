@@ -25,8 +25,8 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Ajax_Imple_Base
 
     public function attach()
     {
-        Horde::addScriptFile('autocomplete.js', 'horde', true);
-        Horde::addScriptFile('effects.js', 'horde', true);
+        Horde::addScriptFile('autocomplete.js', 'horde');
+        Horde::addScriptFile('effects.js', 'horde');
 
         $url = $this->_getUrl('LocationAutoCompleter', 'ansel', array('input' => $this->_params['triggerId']));
 

@@ -7,9 +7,9 @@ function toggleTags(domid)
 }
 </script>
 <?php
-Horde::addScriptFile('QuickFinder.js', 'horde', true);
-Horde::addScriptFile('redbox.js', 'horde', true);
-Horde::addScriptFile('calendar-panel.js', 'kronolith', true);
+Horde::addScriptFile('QuickFinder.js', 'horde');
+Horde::addScriptFile('redbox.js', 'horde');
+Horde::addScriptFile('calendar-panel.js', 'kronolith');
 
 $info_img = Horde::img('info_icon.png', _("Calendar Information"), array('class' => 'calendar-info'), $registry->getImageDir('horde'));
 

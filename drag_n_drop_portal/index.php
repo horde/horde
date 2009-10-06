@@ -29,8 +29,8 @@ $layout_html = $view->toHtml();
 
 $title = _("Edit yout profile page");
 
-Horde::addScriptFile('effects.js', 'horde', true);
-Horde::addScriptFile('redbox.js', 'horde', true);
+Horde::addScriptFile('effects.js', 'horde');
+Horde::addScriptFile('redbox.js', 'horde');
 require HORDE_TEMPLATES . '/common-header.inc';
 require HORDE_TEMPLATES . '/menu/menu.inc';
 ?>

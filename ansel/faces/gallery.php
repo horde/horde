@@ -48,8 +48,8 @@ $pager = new Horde_UI_Pager(
 $pager->preserve('gallery',  $gallery_id);
 
 $title = sprintf(_("Searching for faces in %s"), Horde::link(Ansel::getUrlFor('view', array('gallery' => $gallery_id, 'view' => 'Gallery'))) . $gallery->get('name') . '</a>');
-Horde::addScriptFile('stripe.js', 'horde', true);
-Horde::addScriptFile('popup.js', 'horde', true);
+Horde::addScriptFile('stripe.js', 'horde');
+Horde::addScriptFile('popup.js', 'horde');
 require ANSEL_TEMPLATES . '/common-header.inc';
 require ANSEL_TEMPLATES . '/menu.inc';
 require ANSEL_TEMPLATES . '/faces/gallery.inc';

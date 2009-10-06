@@ -53,7 +53,7 @@ if ($tasks->hasTasks()) {
     require NAG_TEMPLATES . '/list/task_footers.inc';
 
     if ($dynamic_sort) {
-        Horde::addScriptFile('tables.js', 'horde', true);
+        Horde::addScriptFile('tables.js', 'horde');
     }
 } else {
     require NAG_TEMPLATES . '/list/empty.inc';

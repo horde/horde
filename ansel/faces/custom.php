@@ -65,11 +65,11 @@ $width = $y2 - $y1;
 $title = _("Create a new face");
 
 Horde::addScriptFile('builder.js');
-Horde::addScriptFile('effects.js', 'horde', true);
-Horde::addScriptFile('controls.js', 'horde', true);
-Horde::addScriptFile('dragdrop.js', 'horde', true);
+Horde::addScriptFile('effects.js', 'horde');
+Horde::addScriptFile('controls.js', 'horde');
+Horde::addScriptFile('dragdrop.js', 'horde');
 Horde::addScriptFile('cropper.js');
-Horde::addScriptFile('stripe.js', 'horde', true);
+Horde::addScriptFile('stripe.js', 'horde');
 
 require ANSEL_TEMPLATES . '/common-header.inc';
 require ANSEL_TEMPLATES . '/menu.inc';

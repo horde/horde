@@ -15,7 +15,7 @@ class Horde_Form_Renderer_Xhtml extends Horde_Form_Renderer {
         $open_section = $form->getOpenSection();
 
         /* Add the javascript for the toggling the sections. */
-        Horde::addScriptFile('form_sections.js', 'horde', true);
+        Horde::addScriptFile('form_sections.js', 'horde');
         echo '<script type="text/javascript">' . "\n" .
             sprintf('var sections_%1$s = new Horde_Form_Sections(\'%1$s\', \'%2$s\');',
                     $form->getName(),
@@ -63,7 +63,7 @@ if (document.getElementById(%1$s)){
     {
         // Stripe alternate rows if that option is turned on.
         if ($this->_stripedRows) {
-            Horde::addScriptFile('stripe.js', 'horde', true);
+            Horde::addScriptFile('stripe.js', 'horde');
             $class = 'striped';
         } else {
             $class = '';

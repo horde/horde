@@ -94,7 +94,7 @@ if (!empty($task->uid)) {
 
 $title = $task->name;
 $links = array();
-Horde::addScriptFile('stripe.js', 'horde', true);
+Horde::addScriptFile('stripe.js', 'horde');
 
 $taskurl = Horde_Util::addParameter('task.php',
                               array('task' => $task_id,

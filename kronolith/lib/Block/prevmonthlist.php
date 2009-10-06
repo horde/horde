@@ -63,7 +63,7 @@ class Horde_Block_Kronolith_prevmonthlist extends Horde_Block {
 
         $GLOBALS['from_block'] = true;
 
-        Horde::addScriptFile('tooltips.js', 'horde', true);
+        Horde::addScriptFile('tooltips.js', 'horde');
 
         $startDate = new Horde_Date(array('year' => date('Y'), 'month' => date('n') - $this->_params['months'], 'mday' => date('j')));
         $endDate = new Horde_Date(array('year' => date('Y'), 'month' => date('n'), 'mday' => date('j') - 1));

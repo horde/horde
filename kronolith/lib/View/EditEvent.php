@@ -105,7 +105,7 @@ class Kronolith_View_EditEvent {
         $tags = implode(',', array_values($tags));
 
         echo '<div id="EditEvent"' . ($active ? '' : ' style="display:none"') . '>';
-        Horde::addScriptFile('popup.js', 'horde', true);
+        Horde::addScriptFile('popup.js', 'horde');
         require KRONOLITH_TEMPLATES . '/edit/javascript.inc';
         require KRONOLITH_TEMPLATES . '/edit/edit.inc';
         echo '</div>';

@@ -622,7 +622,7 @@ if ($has_js) {
                 Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
             }
         }
-        Horde::addScriptFile('ieEscGuard.js', 'horde', true);
+        Horde::addScriptFile('ieEscGuard.js', 'horde');
     }
 }
 
@@ -1226,7 +1226,7 @@ if ($redirect) {
 if ($showmenu) {
     IMP::prepareMenu();
 }
-Horde::addScriptFile('compose.js', 'imp', true);
+Horde::addScriptFile('compose.js', 'imp');
 require IMP_TEMPLATES . '/common-header.inc';
 Horde::addInlineScript($js_code);
 if ($showmenu) {

@@ -63,10 +63,10 @@ class IMP_Dimp
     {
         // Need to include script files before we start output
         $core_scripts = array(
-            array('effects.js', 'horde', true),
-            array('horde.js', 'horde', true),
-            array('DimpCore.js', 'imp', true),
-            array('Growler.js', 'horde', true)
+            array('effects.js', 'horde'),
+            array('horde.js', 'horde'),
+            array('DimpCore.js', 'imp'),
+            array('Growler.js', 'horde')
         );
         foreach (array_merge($core_scripts, $scripts) as $val) {
             call_user_func_array(array('Horde', 'addScriptFile'), $val);

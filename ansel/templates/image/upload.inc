@@ -8,8 +8,8 @@ if ($browser->getPlatform() == 'win' && Horde::showService('help')) {
 }
 
 if (!empty($haveImages)) {
-    Horde::addScriptFile('effects.js', 'horde', true);
-    Horde::addScriptFile('carousel.js', 'ansel', true);
+    Horde::addScriptFile('effects.js', 'horde');
+    Horde::addScriptFile('carousel.js', 'ansel');
 }
 
 $graphic_dir = Horde::applicationUrl($GLOBALS['registry']->getImageDir(), true);

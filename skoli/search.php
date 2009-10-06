@@ -122,9 +122,9 @@ if ($conf['objects']['allow_absences']) {
 $title = _("Search");
 $notification->push('document.skoli_searchform.stext.focus();', 'javascript');
 
-Horde::addScriptFile('QuickFinder.js', 'horde', true);
-Horde::addScriptFile('effects.js', 'horde', true);
-Horde::addScriptFile('redbox.js', 'horde', true);
+Horde::addScriptFile('QuickFinder.js', 'horde');
+Horde::addScriptFile('effects.js', 'horde');
+Horde::addScriptFile('redbox.js', 'horde');
 require SKOLI_TEMPLATES . '/common-header.inc';
 require SKOLI_TEMPLATES . '/menu.inc';
 reset($classes);
@@ -176,7 +176,7 @@ if ($actionID == 'search') {
         require SKOLI_TEMPLATES . '/search/footers.inc';
 
         if ($dynamic_sort) {
-            Horde::addScriptFile('tables.js', 'horde', true);
+            Horde::addScriptFile('tables.js', 'horde');
         }
     } else {
         require SKOLI_TEMPLATES . '/search/empty.inc';

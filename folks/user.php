@@ -61,7 +61,7 @@ if ($user == Horde_Auth::getAuth()) {
     }
 }
 
-Horde::addScriptFile('stripe.js', 'horde', true);
+Horde::addScriptFile('stripe.js', 'horde');
 
 $title = sprintf(_("%s's profile"), $user);
 require FOLKS_TEMPLATES . '/common-header.inc';

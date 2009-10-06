@@ -332,7 +332,7 @@ $compose_result['js_onload'][] = 'DimpCompose.fillForm(' . Horde_Serialize::seri
 Horde::addInlineScript($compose_result['js_onload'], 'load');
 
 $scripts = array(
-    array('compose-dimp.js', 'imp', true)
+    array('compose-dimp.js', 'imp')
 );
 
 IMP_Dimp::header(_("Message Composition"), $scripts);

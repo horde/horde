@@ -1,7 +1,7 @@
 <?php if (!$prefs->isLocked('columns')):
 
-Horde::addScriptFile('effects.js', 'horde', true);
-Horde::addScriptFile('dragdrop.js', 'horde', true);
+Horde::addScriptFile('effects.js', 'horde');
+Horde::addScriptFile('dragdrop.js', 'horde');
 
 global $cfgSources, $attributes;
 $sources = Turba::getColumns();

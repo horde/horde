@@ -55,8 +55,8 @@ case 'Sort':
     exit;
 }
 
-Horde::addScriptFile('effects.js', 'horde', true);
-Horde::addScriptFile('dragdrop.js', 'horde', true);
+Horde::addScriptFile('effects.js', 'horde');
+Horde::addScriptFile('dragdrop.js', 'horde');
 $title = sprintf(_("%s :: Sort"), $gallery->get('name'));
 require ANSEL_TEMPLATES . '/common-header.inc';
 require ANSEL_TEMPLATES . '/menu.inc';

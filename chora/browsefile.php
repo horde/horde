@@ -46,9 +46,9 @@ if ($VC->hasFeature('branches')) {
     }
 }
 
-Horde::addScriptFile('tables.js', 'horde', true);
-Horde::addScriptFile('QuickFinder.js', 'horde', true);
-Horde::addScriptFile('revlog.js', 'chora', true);
+Horde::addScriptFile('tables.js', 'horde');
+Horde::addScriptFile('QuickFinder.js', 'horde');
+Horde::addScriptFile('revlog.js', 'chora');
 require CHORA_TEMPLATES . '/common-header.inc';
 require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';

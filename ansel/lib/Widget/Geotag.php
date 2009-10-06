@@ -59,10 +59,10 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
         }
 
         // Bring in googlemap.js now that we know we need it.
-        Horde::addExternalScriptFile('http://maps.google.com/maps?file=api&v=2&sensor=false&key=' . $GLOBALS['conf']['api']['googlemaps'], 'ansel');
-        Horde::addExternalScriptFile('http://gmaps-utility-library.googlecode.com/svn/trunk/markermanager/1.1/src/markermanager.js', 'ansel');
+        Horde::addScriptFile('http://maps.google.com/maps?file=api&v=2&sensor=false&key=' . $GLOBALS['conf']['api']['googlemaps'], 'ansel', array('external' => true));
+        Horde::addScriptFile('http://gmaps-utility-library.googlecode.com/svn/trunk/markermanager/1.1/src/markermanager.js', 'ansel', array('external' => true));
         Horde::addScriptFile('googlemap.js');
-        Horde::addScriptFile('popup.js', 'horde', true);
+        Horde::addScriptFile('popup.js', 'horde');
 
         $html = $this->_htmlBegin() . "\n";
         $content = '<div id="ansel_geo_widget">';

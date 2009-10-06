@@ -92,8 +92,8 @@ class Ansel_View_Image extends Ansel_View_Base
 
         /* Any script files we may need if not calling via the api */
         if (empty($this->_params['api'])) {
-            Horde::addScriptFile('effects.js', 'horde', true);
-            Horde::addScriptFile('stripe.js', 'horde', true);
+            Horde::addScriptFile('effects.js', 'horde');
+            Horde::addScriptFile('stripe.js', 'horde');
         }
 
     }

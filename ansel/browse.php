@@ -8,7 +8,7 @@
 
 require_once dirname(__FILE__) . '/lib/base.php';
 
-Horde::addScriptFile('prototype.js', 'horde', true);
+Horde::addScriptFile('prototype.js', 'horde');
 $layout = new Horde_Block_Layout_View(
     @unserialize($prefs->getValue('myansel_layout')),
     Horde::applicationUrl('browse_edit.php'),

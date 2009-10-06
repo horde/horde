@@ -52,8 +52,8 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_Base
      */
     public function attach()
     {
-        Horde::addScriptFile('effects.js', 'horde', true);
-        Horde::addScriptFile('autocomplete.js', 'horde', true);
+        Horde::addScriptFile('effects.js', 'horde');
+        Horde::addScriptFile('autocomplete.js', 'horde');
 
         $params = array(
             '"' . $this->_params['triggerId'] . '"',
@@ -102,7 +102,7 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_Base
                 self::$_listOutput = true;
             }
 
-            Horde::addScriptFile('liquidmetal.js', 'horde', true);
+            Horde::addScriptFile('liquidmetal.js', 'horde');
 
             $func = 'Autocompleter.Local';
             $params[] = 'IMP.ac_list';

@@ -20,7 +20,7 @@ if (is_a($zonedata, 'PEAR_Error')) {
 }
 
 $title = $_SESSION['beatnik']['curdomain']['zonename'];
-Horde::addScriptFile('stripe.js', 'horde', true);
+Horde::addScriptFile('stripe.js', 'horde');
 require BEATNIK_TEMPLATES . '/common-header.inc';
 require BEATNIK_TEMPLATES . '/menu.inc';
 

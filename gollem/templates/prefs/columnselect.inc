@@ -25,7 +25,7 @@ if (!$prefs->isLocked('columns')) {
         ++$source_count;
     }
 
-    Horde::addScriptFile('columnselect.js', 'gollem', true);
+    Horde::addScriptFile('columnselect.js', 'gollem');
     Horde::addInlineScript($js_columns);
 
     $t = new Horde_Template();

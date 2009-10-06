@@ -161,7 +161,7 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer {
 
         if ($var->type->hasHelper() && $browser->hasFeature('javascript')) {
             $html .= '<div class="form-html-helper">';
-            Horde::addScriptFile('open_html_helper.js', 'horde');
+            Horde::addScriptFile('open_html_helper.js', 'horde', array('direct' => false));
             $imgId = $var->getVarName() . 'ehelper';
             if ($var->type->hasHelper('emoticons')) {
                 $html .= Horde::link('#', _("Emoticons"), '', '', 'openHtmlHelper(\'emoticons\', \'' . $var->getVarName() . '\'); return false;')
@@ -342,7 +342,7 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer {
         }
 
         if ($var->type->picker && $GLOBALS['browser']->hasFeature('javascript')) {
-            Horde::addScriptFile('open_calendar.js', 'horde');
+            Horde::addScriptFile('open_calendar.js', 'horde', array('direct' => false));
             $imgId = $var->getVarName() .'goto';
             $html .= '<div id="goto"></div>';
             $html .= Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'' . $imgId . '\', \'' . $var->getVarName() . '\'); return false;')
@@ -367,7 +367,7 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer {
             . '" value="' . $var->getValue($vars) . '" />';
 
         if ($GLOBALS['browser']->hasFeature('javascript')) {
-            Horde::addScriptFile('open_colorpicker.js', 'horde', true);
+            Horde::addScriptFile('open_colorpicker.js', 'horde');
             $html .= Horde::img('blank.gif', '', array('class' => 'form-colorpicker-preview',
                                                        'id' => 'colordemo_' . $var->getVarName(),
                                                        'style' => 'background:' . $var->getValue($vars)), $GLOBALS['registry']->getImageDir('horde'))
@@ -386,7 +386,7 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer {
         $varname = $var->getVarName();
         $instance = $var->type->instance;
 
-        Horde::addScriptFile('sorter.js', 'horde', true);
+        Horde::addScriptFile('sorter.js', 'horde');
 
         return '    <input type="hidden" name="'. $varname
             . '[array]" value="" id="'. $varname .'-array-" />'."\n"
@@ -411,7 +411,7 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer {
     {
         global $registry;
 
-        Horde::addScriptFile('form_assign.js', 'horde', true);
+        Horde::addScriptFile('form_assign.js', 'horde');
 
         $name = $var->getVarName();
         $fname = $form->getName() . '.' . $name;

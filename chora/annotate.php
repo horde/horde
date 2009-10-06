@@ -46,7 +46,7 @@ $extraLink = sprintf('<a href="%s">%s</a> | <a href="%s">%s</a>',
                      Chora::url('co', $where, array('r' => $rev)), _("View"),
                      Chora::url('co', $where, array('r' => $rev, 'p' => 1)), _("Download"));
 
-Horde::addScriptFile('annotate.js', 'chora', true);
+Horde::addScriptFile('annotate.js', 'chora');
 
 $js_vars = array(
     'ANNOTATE_URL' => Horde_Util::addParameter(Horde::applicationUrl('annotate.php'), array('actionID' => 'log', 'f' => $where, 'rev' => ''), null, false),
