@@ -365,7 +365,8 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
             $values = array($resource->get('name'), $resource->get('calendar'), $resource->get('category'), $resource->get('description'), $resource->get('response_type'), $resource->get('type'), $resource->get('members'), $resource->getId());
             $result = $this->_write_db->query($query, $values);
             if ($result instanceof PEAR_Error) {
-                throw new Horde_Exception($result->getMessage());
+                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                throw new Horde_Exception($result);
             }
         } else {
             $query = 'INSERT INTO kronolith_resources (resource_id, resource_name, resource_calendar, resource_category, resource_description, resource_response_type, resource_type, resource_members)';
@@ -374,7 +375,8 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
             $values = array($id, $resource->get('name'), $resource->get('calendar'), $resource->get('category'), $resource->get('description'), $resource->get('response_type'), $resource->get('type'), $resource->get('members'));
             $result = $this->_write_db->query($query . $cols_values, $values);
             if ($result instanceof PEAR_Error) {
-                throw new Horde_Exception($result->getMessage());
+                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                throw new Horde_Exception($result);
             }
 
             $resource->setId($id);
@@ -401,12 +403,14 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
         $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE calendar_id = ?';
         $result = $this->_write_db->query($query, array($resource->get('calendar')));
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result->getMessage());
+            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Horde_Exception($result);
         }
         $query = 'DELETE FROM kronolith_resources WHERE resource_id = ?';
         $result = $this->_write_db->query($query, array($resource->getId()));
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result->getMessage());
+            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Horde_Exception($result);
         }
 
         return true;
@@ -457,7 +461,8 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
         $query = 'SELECT resource_id, resource_name, resource_calendar, resource_category, resource_description, resource_response_type, resource_type, resource_members FROM kronolith_resources WHERE resource_id = ?';
         $results = $this->_db->getRow($query, array($id), DB_FETCHMODE_ASSOC);
         if ($results instanceof PEAR_Error) {
-            throw new Horde_Exception($results->getMessage());
+            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Horde_Exception($results);
         }
         if (empty($results)) {
             throw new Horde_Exception('Resource not found');
@@ -484,7 +489,8 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
         $query = 'SELECT resource_id FROM kronolith_resources WHERE resource_calendar = ?';
         $results = $this->_db->getOne($query, array($calendar));
         if ($results instanceof PEAR_Error) {
-            throw new Horde_Exception($results->getMessage());
+            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Horde_Exception($results);
         }
         if (empty($results)) {
             throw new Horde_Exception('Resource not found');
@@ -521,7 +527,8 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
 
         $results = $this->_db->getAssoc($query, true, $filter, DB_FETCHMODE_ASSOC, false);
         if ($results instanceof PEAR_Error) {
-            throw new Horde_Exception($results->getMessage());
+            Horde::logMessage($results, __FILE__, __LINE__, PEAR_LOG_ERR);
+            throw new Horde_Exception($results);
         }
 
         $return = array();
