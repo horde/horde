@@ -831,7 +831,7 @@ a.address:hover img {
 #qsearch_close {
     padding: 0;
 }
-.qsearchFocus, .qsearchFocus #qsearch_icon {
+.qsearchFocus, .qsearchFocus #qsearch_icon, .qsearchFocus #qsearch_input {
     background-color: #fff !important;
 }
 .qsearchFocus #qsearch_input {
