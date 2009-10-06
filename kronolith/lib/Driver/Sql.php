@@ -38,6 +38,15 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      */
     protected $_cache = array();
 
+    /**
+     * The class name of the event object to instantiate.
+     *
+     * Can be overwritten by sub-classes.
+     *
+     * @var string
+     */
+    protected $_eventClass = 'Kronolith_Event_Sql';
+
     public function listAlarms($date, $fullevent = false)
     {
         $allevents = $this->listEvents($date, null, false, true);
@@ -369,7 +378,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
             /* We have all the information we need to create an event object
              * for this event, so go ahead and cache it. */
-            $this->_cache[$this->_calendar][$row['event_id']] = new Kronolith_Event_Sql($this, $row);
+            $this->_cache[$this->_calendar][$row['event_id']] = new $this->_eventClass($this, $row);
             if ($row['event_recurtype'] == Horde_Date_Recurrence::RECUR_NONE) {
                 $events[$row['event_uid']] = $row['event_id'];
             } else {
@@ -406,7 +415,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     public function getEvent($eventId = null)
     {
         if (!strlen($eventId)) {
-            return new Kronolith_Event_Sql($this);
+            return new $this->_eventClass($this);
         }
 
         if (isset($this->_cache[$this->_calendar][$eventId])) {
@@ -435,7 +444,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
 
         if ($event) {
-            $this->_cache[$this->_calendar][$eventId] = new Kronolith_Event_Sql($this, $event);
+            $this->_cache[$this->_calendar][$eventId] = new $this->_eventClass($this, $event);
             return $this->_cache[$this->_calendar][$eventId];
         } else {
             return PEAR::raiseError(_("Event not found"));
@@ -490,7 +499,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $eventArray = array();
         foreach ($events as $event) {
             $this->open($event['calendar_id']);
-            $this->_cache[$this->_calendar][$event['event_id']] = new Kronolith_Event_Sql($this, $event);
+            $this->_cache[$this->_calendar][$event['event_id']] = new $this->_eventClass($this, $event);
             $eventArray[] = $this->_cache[$this->_calendar][$event['event_id']];
         }
 
