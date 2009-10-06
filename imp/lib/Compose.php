@@ -986,7 +986,7 @@ class IMP_Compose
             $htmlBody->setCharset($charset);
             $htmlBody->setDisposition('inline');
             $htmlBody->setDescription(Horde_String::convertCharset(_("HTML Version of Message"), $nls_charset, $charset));
-            $htmlBody->setContents(Horde_Text_Filter::filter($msg, 'cleanhtml', array('charset' => $charset)));
+            $htmlBody->setContents(Horde_Text_Filter::filter($body_html, 'cleanhtml', array('charset' => $charset)));
 
             $textBody->setDescription(Horde_String::convertCharset(_("Plaintext Version of Message"), $nls_charset, $charset));
 
