@@ -569,7 +569,8 @@ td.addressTr span.loadingImg {
 .mimePartInfo {
     border: 1px solid #ccc;
     background: #efefef;
-    display: -moz-inline-stack;
+    /* For FF2 */
+    display: table-cell;
     display: inline-block;
 }
 .mimePartInfo img {

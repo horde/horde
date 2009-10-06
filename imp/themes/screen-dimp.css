@@ -316,6 +316,7 @@ div.vpRow.flagDeleted {
 #sidebarPanel li.custom img, #sidebarPanel li.servicelink img {
     float: left;
     padding: 1px 4px 0 0;
+    margin-bottom: -1px;
 }
 #sidebarPanel li.on {
     background: #ffa;
@@ -808,8 +809,8 @@ a.address:hover img {
     border: 1px solid #999;
     cursor: default;
     background-color: #f3f3f3;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
 }
 #qsearch form {
     display: inline;
@@ -820,7 +821,8 @@ a.address:hover img {
     display: -moz-inline-stack;
     display: inline-block;
     background: #f3f3f3 url("graphics/search.png") center no-repeat;
-    vertical-align: middle;
+    vertical-align: top;
+    padding-top: 2px;
 }
 #qsearch_input {
     border: none;
