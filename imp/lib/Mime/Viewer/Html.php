@@ -214,7 +214,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                   '/<a\s/i',
                   '/<area\b([^>]*\s+href=["\']?(#|mailto:))/i',
                   '/<area\b([^>]*)\s+target=["\']?[^>"\'\s]*["\']?/i',
-                  '/<area\b/i',
+                  '/<area\s/i',
                   "/\x01/",
                   "/\x02/"),
             array("<\x01\\1",
@@ -228,8 +228,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             $data);
 
         /* If displaying inline (in IFRAME), tables with 100% height seems to
-         * confuse many browsers re: the iframe internal height. Replace this
-         * with 'auto' instead. */
+         * confuse many browsers re: the iframe internal height. */
         if ($inline) {
             $data = preg_replace('/<table\b([^>]*)\s+height=["\']?100\%["\']?/i', '<table \\1', $data);
         }
