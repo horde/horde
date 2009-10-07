@@ -125,11 +125,7 @@ div.msgStatus {
     text-indent: 0 !important;
 }
 div.msgStatus div, #msgHeadersContent .subject span {
-    display: -moz-inline-stack;
-    display: inline-block;
     padding-right: 2px;
-    width: 16px;
-    height: 16px;
     background-repeat: no-repeat;
     vertical-align: inherit;
 }
@@ -592,7 +588,6 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 .msgBody {
     background: #fff url("graphics/backhead_shadow.png") top repeat-x;
     padding: 7px 5px 5px;
-    overflow-x: auto;
 }
 .msgBody table td {
     padding: 0;
@@ -815,22 +810,17 @@ a.address:hover img {
 #qsearch form {
     display: inline;
 }
+#qsearch_icon, #qsearch_close {
+    padding: 2px 0 0;
+}
 #qsearch_icon {
-    height: 16px;
-    width: 16px;
-    display: -moz-inline-stack;
-    display: inline-block;
     background: #f3f3f3 url("graphics/search.png") center no-repeat;
-    vertical-align: top;
     padding-top: 2px;
 }
 #qsearch_input {
     border: none;
     color: #a0a0a0;
     margin-bottom: 1px;
-    padding: 0;
-}
-#qsearch_close {
     padding: 0;
 }
 .qsearchFocus, .qsearchFocus #qsearch_icon, .qsearchFocus #qsearch_input {
@@ -877,13 +867,16 @@ a.address:hover img {
 }
 
 /* Images */
-span.iconImg, span.contextImg, span.spellcheckPopdownImg {
+div.msgStatus div, #msgHeadersContent .subject span, span.iconImg, span.contextImg, span.spellcheckPopdownImg, #qsearch_icon, #qsearch_close {
     display: -moz-inline-stack;
     display: inline-block;
     height: 16px;
     width: 16px;
-    margin-right: 4px;
     vertical-align: top;
+}
+
+span.iconImg, span.contextImg, span.spellcheckPopdownImg {
+    margin-right: 4px;
 }
 
 span.dimpactionReply {
