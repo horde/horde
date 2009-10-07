@@ -14,3 +14,7 @@
 #dimpmain_portal {
     background-color: #c9daed;
 }
+
+#ctx_folderopts_reload span.contextImg {
+    background-image: url("graphics/reload.png");
+}

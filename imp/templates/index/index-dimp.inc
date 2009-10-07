@@ -365,7 +365,8 @@ function _simpleButton($id, $text, $image, $imagedir = null)
  <a id="ctx_folderopts_unsub"><span class="contextImg"></span><?php echo _("Show Unsubscribed") ?></a>
 <?php endif; ?>
  <a id="ctx_folderopts_expand"><span class="contextImg"></span><?php echo _("Expand All") ?></a>
- <a id="ctx_folderopts_collapse"><span class="contextImg"></span><?php echo _("Collapse All") ?></a>
+ <a id="ctx_folderopts_collapse" class="sep"><span class="contextImg"></span><?php echo _("Collapse All") ?></a>
+ <a id="ctx_folderopts_reload"><span class="contextImg"></span><?php echo _("Rebuild Folder List") ?></a>
 </div>
 <?php endif; ?>
 

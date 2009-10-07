@@ -981,6 +981,9 @@ span.dimpactionDrafts {
 #ctx_contacts_add span.contextImg {
     background-image: url("graphics/add_contact.png");
 }
+#ctx_folderopts_reload span.contextImg {
+    background-image: url("graphics/reload.png");
+}
 #ctx_flag span.contextImg.flagUser {
     border: 1px black solid;
     height: 15px;

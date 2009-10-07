@@ -10,7 +10,7 @@
 var DimpBase = {
     // Vars used and defaulting to null/false:
     //   cfolderaction, folder, folderswitch, offset, pollPE, pp, sfolder,
-    //   showunsub, uid, viewport
+    //   uid, viewport
     // message_list_template set via js/mailbox-dimp.js
     bcache: $H(),
     cacheids: {},
@@ -18,6 +18,7 @@ var DimpBase = {
     pivotrow: -1,
     ppcache: {},
     ppfifo: [],
+    showunsub: 0,
     tcache: {},
 
     // Preview pane cache size is 20 entries. Given that a reasonable guess
@@ -724,6 +725,10 @@ var DimpBase = {
             $('normalfolders').select('LI.folder').each(function(f) {
                 this._toggleSubFolder(f, id == 'ctx_folderopts_expand' ? 'exp' : 'col', true);
             }.bind(this));
+            break;
+
+        case 'ctx_folderopts_reload':
+            this._reloadFolders();
             break;
 
         case 'ctx_container_expand':
@@ -2261,11 +2266,15 @@ var DimpBase = {
     toggleSubscribed: function()
     {
         this.showunsub = !this.showunsub;
+        $('ctx_folderopts_sub', 'ctx_folderopts_unsub').invoke('toggle');
+        this._reloadFolders();
+    },
+
+    _reloadFolders: function()
+    {
         $('foldersLoading').show();
         $('foldersSidebar').hide();
-        $('ctx_folderopts_sub', 'ctx_folderopts_unsub').invoke('toggle');
 
-        // TODO - Only do for unsub -> sub switch
         [ $('specialfolders').childElements(), $('dropbase').nextSiblings() ].flatten().each(function(elt) {
             this.deleteFolderElt(elt.readAttribute('id'), true);
         }, this);

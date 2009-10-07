@@ -124,6 +124,9 @@ span.dimpactionDrafts {
 #ctx_contacts_add span.contextImg {
     background-image: url("graphics/add_contact.png");
 }
+#ctx_folderopts_reload span.contextImg {
+    background-image: url("graphics/reload.png");
+}
 
 /* Other images */
 #msg_newwin span.iconImg, #msg_newwin_options span.iconImg {
