@@ -646,20 +646,18 @@ class Horde_Crypt_Smime extends Horde_Crypt
      *
      * @param string $cert  PEM format certificate
      *
-     * @return array  Array containing all extractable information about
-     *                the certificate.
+     * @return mixed  Array containing all extractable information about
+     *                the certificate. Returns false on error.
      */
     public function parseCert($cert)
     {
         $cert_split = preg_split('/(-----((BEGIN)|(END)) CERTIFICATE-----)/', $cert);
-        if (!isset($cert_split[1])) {
-            $raw_cert = base64_decode($cert);
-        } else {
-            $raw_cert = base64_decode($cert_split[1]);
-        }
+        $raw_cert = base64_decode(isset($cert_split[1]) ? $cert_split[1] : $cert);
 
         $cert_data = $this->_parseASN($raw_cert);
-        if (!is_array($cert_data) || ($cert_data[0] == 'UNKNOWN')) {
+        if (!is_array($cert_data) ||
+            ($cert_data[0] == 'UNKNOWN') ||
+            ($cert_data[1][0] == 'UNKNOWN')) {
             return false;
         }
 
