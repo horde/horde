@@ -45,11 +45,11 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         # match 1
         (
             # <img> tags
-            <img[^>]+?src=
+            <img\b[^>]+?src=
             # <input> tags
-            |<input[^>]+?src=
+            |<input\b[^>]+?src=
             # "background" attributes
-            |<body[^>]+?background=|<td[^>]*background=|<table[^>]*background=
+            |<body\b[^>]+?background=|<td[^>]*background=|<table[^>]*background=
             # "style" attributes; match 2; quotes: match 3
             |(style=\s*("|\')?[^>]*?background(?:-image)?:(?(3)[^"\']|[^>])*?url\s*\()
         )
@@ -207,24 +207,32 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         /* Convert links to open in new windows. First we hide all
          * mailto: links, links that have an "#xyz" anchor and ignore
          * all links that already have a target. */
+        $target = 'target_' . uniqid(mt_rand());
         $data = preg_replace(
-            array('/<a\s([^>]*\s+href=["\']?(#|mailto:))/i',
-                  '/<a\s([^>]*)\s+target=["\']?[^>"\'\s]*["\']?/i',
+            array('/<a\b([^>]*\s+href=["\']?(#|mailto:))/i',
+                  '/<a\b([^>]*)\s+target=["\']?[^>"\'\s]*["\']?/i',
                   '/<a\s/i',
-                  '/<area\s([^>]*\s+href=["\']?(#|mailto:))/i',
-                  '/<area\s([^>]*)\s+target=["\']?[^>"\'\s]*["\']?/i',
-                  '/<area\s/i',
+                  '/<area\b([^>]*\s+href=["\']?(#|mailto:))/i',
+                  '/<area\b([^>]*)\s+target=["\']?[^>"\'\s]*["\']?/i',
+                  '/<area\b/i',
                   "/\x01/",
                   "/\x02/"),
             array("<\x01\\1",
-                  "<\x01 \\1 target=\"_blank\"",
-                  '<a target="_blank" ',
+                  "<\x01 \\1 target=\"" . $target . "\"",
+                  '<a target="' . $target . '" ',
                   "<\x02\\1",
-                  "<\x02 \\1 target=\"_blank\"",
-                  '<area target="_blank" ',
+                  "<\x02 \\1 target=\"" . $target . "\"",
+                  '<area target="' . $target . '" ',
                   'a ',
                   'area '),
             $data);
+
+        /* If displaying inline (in IFRAME), tables with 100% height seems to
+         * confuse many browsers re: the iframe internal height. Replace this
+         * with 'auto' instead. */
+        if ($inline) {
+            $data = preg_replace('/<table\b([^>]*)\s+height=["\']?100\%["\']?/i', '<table \\1', $data);
+        }
 
         /* Turn mailto: links into our own compose links. */
         if ($inline && $GLOBALS['registry']->hasMethod('mail/compose')) {
