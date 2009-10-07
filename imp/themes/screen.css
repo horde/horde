@@ -273,7 +273,7 @@ div.msgflags {
     width: 16px;
     height: 16px;
     background-repeat: no-repeat;
-    vertical-align: inherit;
+    vertical-align: middle;
 }
 .mboxheader div.msgflags {
     vertical-align: sub;
