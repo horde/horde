@@ -77,18 +77,6 @@
   </configsection>
  </configtab>
 
- <configtab name="mailbox" desc="Mailbox">
-  <configsection name="mailbox">
-   <configheader>Mailbox Settings</configheader>
-   <configboolean name="show_preview" desc="Should we allow users to display
-   message previews in the mailbox index? This is disabled by default
-   as it can be performance intensive, especially without mailbox
-   caching. Note that this option only determines whether or not users
-   are allowed to show previews - each user can still turn previews on
-   or off in their preferences.">false</configboolean>
-  </configsection>
- </configtab>
-
  <configtab name="msgsettings" desc="Message and Spam">
   <configheader>Message Settings</configheader>
   <configsection name="msgsettings">

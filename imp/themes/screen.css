@@ -349,6 +349,11 @@ table.accountsmanagement td.noneconfigured {
     font-style: italic;
 }
 
+/* PGP & S/MIME prefs styles. */
+.redText {
+    color: red;
+}
+
 .folderunsub {
     background: #bbb;
     font-style: italic;
@@ -585,7 +590,7 @@ td.addressTr span.loadingImg {
     white-space: nowrap;
 }
 
-.downloadAtc, .downloadZipAtc, .saveImgAtc, .closeImg, .stripAtc, .foldersImg, .searchuiImg {
+.downloadAtc, .downloadZipAtc, .saveImgAtc, .closeImg, .deleteImg, .foldersImg, .searchuiImg {
     display: -moz-inline-stack;
     display: inline-block;
     height: 16px;
@@ -603,7 +608,7 @@ td.addressTr span.loadingImg {
 .saveImgAtc {
     background-image: url("graphics/gallery.png");
 }
-.stripAtc {
+.deleteImg {
     background-image: url("graphics/delete.png");
 }
 .closeImg, .searchuiDelete {

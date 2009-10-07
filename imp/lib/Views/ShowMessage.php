@@ -243,7 +243,7 @@ class IMP_Views_ShowMessage
             IMP_Contents::SUMMARY_DOWNLOAD_ZIP;
 
         $part_info = $part_info_display = array('icon', 'description', 'type', 'size', 'download', 'download_zip');
-        if ($show_parts != 'all') {
+        if ($show_parts == 'atc') {
             array_unshift($part_info, 'id');
         }
 
@@ -260,7 +260,8 @@ class IMP_Views_ShowMessage
             }
 
             if (!($render_mode = $imp_contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE | IMP_Contents::RENDER_INFO))) {
-                if (($show_parts == 'atc') && $imp_contents->isAttachment($mime_type)) {
+                if (($show_parts == 'atc') &&
+                    $imp_contents->isAttachment($mime_type)) {
                     $atc_parts[] = $mime_id;
                 }
                 continue;

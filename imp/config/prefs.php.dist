@@ -127,15 +127,6 @@ $prefGroups['newmail'] = array(
     'members' => array('refresh_time', 'nav_poll_all', 'nav_popup', 'soundselect')
 );
 
-if (!empty($GLOBALS['conf']['mailbox']['show_preview'])) {
-    $prefGroups['mailpreview'] = array(
-        'column' => _("Message Options"),
-        'label' => _("Mail Previews"),
-        'desc' => _("Configure mail preview options."),
-        'members' => array('preview_enabled', 'preview_maxlen', 'preview_strip_nl', 'preview_show_unread', 'preview_show_tooltip')
-    );
-}
-
 if (!$is_pop3) {
     $prefGroups['flags'] = array(
         'column' => _("Message Options"),
@@ -202,6 +193,13 @@ $prefGroups['mimp'] = array(
     'label' => _("Minimalist View Options"),
     'desc' => _("Configure options for the minimalist view."),
     'members' => array('mimp_preview_msg')
+);
+
+$prefGroups['standard'] = array(
+    'column' => _("Other Options"),
+    'label' => _("Standard View Options"),
+    'desc' => _("Configure options for the standard view."),
+    'members' => array('preview_enabled', 'preview_maxlen', 'preview_strip_nl', 'preview_show_unread', 'preview_show_tooltip')
 );
 
 $prefGroups['dimp'] = array(
@@ -809,7 +807,7 @@ $_prefs['auto_delete_drafts'] = array(
 // filter message content?
 $_prefs['filtering'] = array(
     'value' => 0,
-    'locked' => false,
+    'locked' => true,
     'shared' => false,
     'type' => 'checkbox',
     'desc' => _("Filter message content for profanity?"));
@@ -932,7 +930,7 @@ $_prefs['mail_hdr'] = array(
     'locked' => false,
     'shared' => false,
     'type' => 'textarea',
-    'desc' => _("Additional headers to display when viewing: <em>(optional, enter each header on a new line)</em>"));
+    'desc' => _("Additional headers to display when viewing: <em>(enter each header on a new line)</em>"));
 
 // default message character set
 $_prefs['default_msg_charset'] = array(
@@ -1062,57 +1060,6 @@ $_prefs['nav_audio'] = array(
 $_prefs['soundselect'] = array('type' => 'special');
 
 // End New Mail preferences
-
-
-// Message Preview Preferences
-
-$_prefs['preview_enabled'] = array(
-    'value' => '0',
-    'locked' => false,
-    'shared' => false,
-    'type' => 'checkbox',
-    'desc' => _("Enable message previews?")
-);
-
-$_prefs['preview_maxlen'] = array(
-    'value' => 250,
-    'locked' => false,
-    'shared' => false,
-    'type' => 'enum',
-    'enum' => array(
-        100 => _("100 characters"),
-        250 => _("250 characters"),
-        500 => _("500 characters"),
-        1000 => _("1000 characters")
-    ),
-    'desc' => _("Characters to display:")
-);
-
-$_prefs['preview_strip_nl'] = array(
-    'value' => 1,
-    'locked' => false,
-    'shared' => false,
-    'type' => 'checkbox',
-    'desc' => _("Strip linebreaks?")
-);
-
-$_prefs['preview_show_unread'] = array(
-    'value' => 1,
-    'locked' => false,
-    'shared' => false,
-    'type' => 'checkbox',
-    'desc' => _("Show previews for unread messages only?")
-);
-
-$_prefs['preview_show_tooltip'] = array(
-    'value' => 0,
-    'locked' => false,
-    'shared' => false,
-    'type' => 'checkbox',
-    'desc' => _("Show previews in tooltips?")
-);
-
-// End Message Preview
 
 
 // IMAP Flag preferences
@@ -1623,7 +1570,7 @@ $_prefs['smime_additional_cert'] = array(
 
 // End S/MIME Options
 
-// MIMP Options
+// Minimalist View Options
 
 // display only the first 250 characters of a message on first message view?
 $_prefs['mimp_preview_msg'] = array(
@@ -1634,9 +1581,66 @@ $_prefs['mimp_preview_msg'] = array(
     'desc' => _("Display only the first 250 characters of a message initially?")
 );
 
-// End MIMP Options
+// End Minimalist View Options
 
-// DIMP Options
+// Standard View Options
+
+// Previews are disabled by default as it can be performance intensive,
+// especially without caching.
+$_prefs['preview_enabled'] = array(
+    // Disabled and locked by default
+    'value' => 0,
+    'locked' => true,
+    'shared' => false,
+    'type' => 'checkbox',
+    'desc' => _("Enable message previews?")
+);
+
+$_prefs['preview_maxlen'] = array(
+    'value' => 250,
+    // Locked by default
+    'locked' => true,
+    'shared' => false,
+    'type' => 'enum',
+    'enum' => array(
+        100 => _("100 characters"),
+        250 => _("250 characters"),
+        500 => _("500 characters"),
+        1000 => _("1000 characters")
+    ),
+    'desc' => _("Characters to display:")
+);
+
+$_prefs['preview_strip_nl'] = array(
+    'value' => 1,
+    // Locked by default
+    'locked' => true,
+    'shared' => false,
+    'type' => 'checkbox',
+    'desc' => _("Strip linebreaks?")
+);
+
+$_prefs['preview_show_unread'] = array(
+    'value' => 1,
+    // Locked by default
+    'locked' => true,
+    'shared' => false,
+    'type' => 'checkbox',
+    'desc' => _("Show previews for unread messages only?")
+);
+
+$_prefs['preview_show_tooltip'] = array(
+    'value' => 0,
+    // Locked by default
+    'locked' => true,
+    'shared' => false,
+    'type' => 'checkbox',
+    'desc' => _("Show previews in tooltips?")
+);
+
+// End Standard View Options
+
+// Dynamic View Options
 
 // Login preferences (dimp)
 $_prefs['dimp_login_view'] = array(
@@ -1651,7 +1655,7 @@ $_prefs['dimp_login_view'] = array(
     'desc' => _("The page to view immediately after login.")
 );
 
-// Other Implicit DIMP preferences
+// Other implicit dynamic view preferences
 $_prefs['dimp_qsearch_field'] = array(
     'value' => 'all',
     'locked' => false,
@@ -1676,7 +1680,7 @@ $_prefs['dimp_toggle_headers'] = array(
     'shared' => false,
     'type' => 'implicit');
 
-// End DIMP Options
+// End Dynamic View Options
 
 // Other entries (used internally in IMP)
 

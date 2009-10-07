@@ -1,7 +1,7 @@
 <if:pgpactive>
  <input type="checkbox" id="use_pgp" name="use_pgp" checked="checked" /> <label for="use_pgp"><gettext>Enable PGP functionality?</gettext></label>&nbsp;<tag:overview-help />
  <br />
- <em style="color:red"><gettext>NOTE:</gettext></em> <gettext>PGP support requires popup windows to be used.  If your browser is currently set to disable popup windows, you must change this setting or else the PGP features will not work correctly.</gettext>
+ <em class="redText"><gettext>NOTE:</gettext></em> <gettext>PGP support requires popup windows to be used.  If your browser is currently set to disable popup windows, you must change this setting or else the PGP features will not work correctly.</gettext>
  <br />
 <if:attach_pubkey_notlocked>
  <input type="checkbox" id="pgp_attach_pubkey" name="pgp_attach_pubkey"<if:attach_pubkey> checked="checked"</if:attach_pubkey> /> <label for="pgp_attach_pubkey"><gettext>Should your PGP public key to be attached to your messages by default?</gettext></label>&nbsp;<tag:attach_pubkey-help />
@@ -44,7 +44,7 @@
 </else:empty_pubkey_list></if:empty_pubkey_list>
 
 <if:no_file_upload>
- <br /><span style="color:red"><gettext>Key import is not available. File upload is not enabled on this server.</gettext></span><br />
+ <br /><span class="redText"><gettext>Key import is not available. File upload is not enabled on this server.</gettext></span><br />
 <else:no_file_upload>
 <if:no_source>
  <br /><em><gettext>Key import is not available. You have no address book defined to add your contacts.</gettext></em><br />

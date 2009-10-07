@@ -23,6 +23,7 @@ supported.
 
 TODO
 ----
+* removed show_preview config (enabled via show_preview pref)
 * servers.php has changed
 * hooks.php has changed
 * imp_hook_vinfo has been removed - use preauth hook instead

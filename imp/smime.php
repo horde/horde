@@ -144,6 +144,7 @@ case 'info_public_key':
 case 'view_personal_public_key':
     _textWindowOutput('S/MIME Personal Public Key', $imp_smime->getPersonalPublicKey());
     exit;
+
 case 'info_personal_public_key':
     _printKeyInfo($imp_smime->getPersonalPublicKey());
     exit;

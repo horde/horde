@@ -1,7 +1,7 @@
 <if:smimeactive>
  <input type="checkbox" id="use_smime" name="use_smime" checked="checked" /> <label for="use_smime"><gettext>Enable S/MIME functionality?</gettext></label>&nbsp;<tag:use_smime_help />
  <br />
- <em style="color:red"><gettext>NOTE:</gettext></em> <gettext>S/MIME support requires popup windows to be used.  If your browser is currently set to disable popup windows, you must change this setting or else the S/MIME features will not work correctly.</gettext>
+ <em class="redText"><gettext>NOTE:</gettext></em> <gettext>S/MIME support requires popup windows to be used.  If your browser is currently set to disable popup windows, you must change this setting or else the S/MIME features will not work correctly.</gettext>
  <br />
 <if:verify_notlocked>
  <input type="checkbox" id="smime_verify" name="smime_verify"<if:smime_verify> checked="checked"</if:smime_verify> /> <label for="smime_verify"><gettext>Should S/MIME signed messages automatically be verified when viewed?</gettext></label>&nbsp;<tag:smime_verify-help />
@@ -36,7 +36,7 @@
 </else:empty_pubkey_list></if:empty_pubkey_list>
 
 <if:no_file_upload>
- <em style="color:red"><gettext>Key import is not available. File upload is not enabled on this server.</gettext></em>
+ <em class="redText"><gettext>Key import is not available. File upload is not enabled on this server.</gettext></em>
 <else:no_file_upload>
 <if:no_source>
  <em><gettext>Key import is not available. You have no address book defined to add your contacts.</gettext></em>
@@ -50,7 +50,7 @@
 
 <div class="header">
  <ul><li><tag:personalkey-help /></li></ul>
- <gettext>Your S/MIME Public/Private Certificates</gettext>
+ <gettext>Your S/MIME Public/Private Certificate</gettext>
 </div>
 
 <div class="prefsContainer item">
@@ -73,8 +73,9 @@
  <tag:personalkey-delete-help /></p>
 <else:has_key>
 <if:no_file_upload>
- <em style="color:red"><gettext>Certificate import is not available. File upload is not enabled on this server.</gettext></em>
+ <em class="redText"><gettext>Certificate import is not available. File upload is not enabled on this server.</gettext></em>
 <else:no_file_upload>
+ <em class="redText"><gettext>No certificate available.</gettext></em>
  <p><input type="submit" name="save" class="button" onclick="<tag:personal_import_url />return false;" value="<gettext>Import Keypair</gettext>" /> <tag:import-cert-help /></p>
 </else:no_file_upload></if:no_file_upload>
 </else:has_key></if:has_key></else:secure_check></if:secure_check>

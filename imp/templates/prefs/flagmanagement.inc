@@ -5,7 +5,6 @@ $flaglist = $imp_flags->getList(array('div' => true, 'fgcolor' => true));
 
 /* Get the graphics. */
 $picker_img = Horde::img('colorpicker.png', _("Color Picker"), '', $registry->getImageDir('horde'));
-$delete_img = Horde::img('delete.png');
 
 ?>
 <input type="hidden" name="flag_action" id="flag_action" />
@@ -46,7 +45,7 @@ $delete_img = Horde::img('delete.png');
     <input size="7" style="<?php echo $bgstyle ?>;color:<?php echo $fgcolor ?>" id="<?php echo $bgid ?>" name="<?php echo $bgid ?>" value="<?php echo $color ?>" />
     <a class="flagcolorpicker" href="#"><?php echo $picker_img ?></a>
 <?php if (!empty($val['d'])): ?>
-    <a class="flagdelete" href="#"><?php echo $delete_img ?></a>
+    <a class="flagdelete" href="#"><span class="deleteImg"></span></a>
 <?php endif; ?>
    </td>
   </tr>

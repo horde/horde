@@ -663,10 +663,10 @@ if (!strlen($msgtext)) {
 
 /* Build the Attachments menu. */
 $a_template->set('atc', Horde::widget('#', _("Attachments"), 'widget hasmenu', '', '', _("Attachments"), true));
-if ($show_parts != 'all') {
+if ($show_parts == 'atc') {
     $a_template->set('show_parts_all', Horde::widget(Horde_Util::addParameter($headersURL, array('show_parts' => 'all')), _("Show All Message Parts"), 'widget', '', '', _("Show All Message Parts"), true));
 }
-if ($show_parts != 'atc') {
+if ($show_parts == 'all') {
     $a_template->set('show_parts_atc', Horde::widget(Horde_Util::addParameter($headersURL, array('show_parts' => 'atc')), _("Show Attachments Only"), 'widget', '', '', _("Show Attachments Only"), true));
 }
 if (count($display_ids) > 2) {

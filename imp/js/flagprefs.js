@@ -37,7 +37,9 @@ var ImpFlagPrefs = {
                 id = elt2.readAttribute('id');
                 new ColorPicker({
                     color: $F(elt2),
+                    draggable: true,
                     offsetParent: elt,
+                    resizable: true,
                     update: [[ id, 'value' ], [ id, 'background' ]]
                 });
                 e.stop();

@@ -228,7 +228,7 @@ if ($conf['user']['allow_folders']) {
 /* Build the list of messages in the mailbox. */
 $imp_mailbox = IMP_Mailbox::singleton($imp_mbox['mailbox']);
 $pageOb = $imp_mailbox->buildMailboxPage(Horde_Util::getFormData('page'), $start);
-$show_preview = ($conf['mailbox']['show_preview'] && $prefs->getValue('preview_enabled'));
+$show_preview = $prefs->getValue('preview_enabled');
 
 $overview_headers = array('x-priority');
 $mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end']), array('preview' => $show_preview, 'headers' => $overview_headers, 'structure' => $prefs->getValue('atc_flag')));
@@ -321,7 +321,9 @@ if (isset($filter_url)) {
 $sort_url = Horde_Util::addParameter($mailbox_imp_url, 'sortdir', ($sortpref['dir']) ? 0 : 1);
 
 /* Determine if we are showing previews. */
-$preview_tooltip = ($show_preview) ? $prefs->getValue('preview_show_tooltip') : false;
+$preview_tooltip = $show_preview
+    ? $prefs->getValue('preview_show_tooltip')
+    : false;
 if ($preview_tooltip) {
     Horde::addScriptFile('tooltips.js', 'horde');
 } else {

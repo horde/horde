@@ -86,3 +86,6 @@ span.trashImg {
 .searchuiCalendar {
     background-image: url("graphics/calendar.png");
 }
+.deleteImg {
+    background-image: url("graphics/delete.png");
+}
