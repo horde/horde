@@ -1450,9 +1450,11 @@ class Horde_Mime_Part
      */
     public function findBody($subtype = null)
     {
+        $initial_id = $this->getMimeId();
+
         foreach ($this->contentTypeMap() as $mime_id => $mime_type) {
             if ((strpos($mime_type, 'text/') === 0) &&
-                (intval($mime_id) == 1) &&
+                (!$initial_id || (intval($mime_id) == 1)) &&
                 (is_null($subtype) || (substr($mime_type, 5) == $subtype))) {
                 return $mime_id;
             }
