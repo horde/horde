@@ -29,10 +29,11 @@ foreach ($dimp_block_list as $block) {
 
 /* Generate flag array. */
 $imp_flags = IMP_Imap_Flags::singleton();
-foreach ($imp_flags->getList() as $val) {
+foreach ($imp_flags->getList(array('fgcolor' => true)) as $val) {
     $flags[$val['flag']] = array_filter(array(
         'b' => isset($val['b']) ? $val['b'] : null,
         'c' => $val['c'],
+        'f' => $val['f'],
         'l' => $val['l'],
         'n' => isset($val['n']) ? $val['n'] : null,
         // Indicate if this is a user *P*ref flag

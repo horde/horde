@@ -477,7 +477,7 @@ var DimpBase = {
                                 /* Until text-overflow is supported on all
                                  * browsers, need to truncate label text
                                  * ourselves. */
-                                ptr.elt = '<span class="' + ptr.c + '" title="' + ptr.l + '" style="background:' + ptr.b + '">' + ptr.l.truncate(10) + '</span>';
+                                ptr.elt = '<span class="' + ptr.c + '" title="' + ptr.l + '" style="background:' + ptr.b + ';color:' + ptr.f + '">' + ptr.l.truncate(10) + '</span>';
                             }
                             row.subjectdata += ptr.elt;
                         } else {
