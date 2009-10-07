@@ -303,6 +303,11 @@ class Turba_Driver_Sql extends Turba_Driver
         return true;
     }
 
+    function canAdd()
+    {
+        return true;
+    }
+
     /**
      * Deletes the specified object from the SQL database.
      */

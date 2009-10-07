@@ -309,6 +309,11 @@ class Turba_Driver_Imsp extends Turba_Driver
         return $this->_imsp->addEntry($this->_bookName, $attributes);
     }
 
+    function _canAdd()
+    {
+        return true;
+    }
+
     /**
      * Deletes the specified object from the IMSP server.
      */

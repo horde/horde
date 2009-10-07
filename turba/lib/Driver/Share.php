@@ -127,6 +127,11 @@ class Turba_Driver_Share extends Turba_Driver
         return $this->_driver->_add($attributes, $blob_fields);
     }
 
+    function _canAdd()
+    {
+        return $this->_driver->canAdd();
+    }
+
     /**
      * Deletes the specified object from the SQL database.
      */

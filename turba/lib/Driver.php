@@ -793,6 +793,21 @@ class Turba_Driver
     }
 
     /**
+     * Returns ability of the backend to add new contacts.
+     *
+     * @return boolean
+     */
+    function canAdd()
+    {
+        return $this->_canAdd();
+    }
+
+    function _canAdd()
+    {
+        return false;
+    }
+
+    /**
      * Deletes the specified entry from the contact source.
      *
      * @param string $object_id  The ID of the object to delete.

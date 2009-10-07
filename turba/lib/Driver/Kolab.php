@@ -92,6 +92,11 @@ class Turba_Driver_Kolab extends Turba_Driver
         return $this->_wrapper->_add($attributes);
     }
 
+    function _canAdd()
+    {
+        return true;
+    }
+
     /**
      * Removes the specified object from the Kolab message store.
      */

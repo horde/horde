@@ -67,6 +67,11 @@ class Turba_Driver_Prefs extends Turba_Driver
         return true;
     }
 
+    public function _canAdd()
+    {
+        return true;
+    }
+
     /**
      * Deletes the specified object from the preferences.
      */

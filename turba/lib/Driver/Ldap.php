@@ -311,6 +311,11 @@ class Turba_Driver_Ldap extends Turba_Driver
         }
     }
 
+    function _canAdd()
+    {
+        return true;
+    }
+
     /**
      * Deletes the specified entry from the LDAP directory.
      */
