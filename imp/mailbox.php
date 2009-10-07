@@ -415,7 +415,7 @@ $hdr_template->set('pagetitle', $pagetitle);
 if ($readonly) {
     $hdr_template->set('readonly', Horde::img('locked.png', _("Read-Only")));
 }
-$hdr_template->set('refresh', Horde::link($refresh_url, $refresh_title, '', '', '', '', $refresh_ak) . Horde::img('reload.png', _("Reload"), '', $graphicsdir) . '</a>');
+$hdr_template->set('refresh', Horde::link($refresh_url, $refresh_title, '', '', '', '', $refresh_ak));
 if (isset($filter_url)) {
     $hdr_template->set('filter', Horde::link($filter_url, sprintf(_("Apply Filters to %s"), $rawtitle)) . Horde::img('filters.png', _("Apply Filters")) . '</a>');
 }

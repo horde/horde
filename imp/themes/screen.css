@@ -590,7 +590,7 @@ td.addressTr span.loadingImg {
     white-space: nowrap;
 }
 
-.downloadAtc, .downloadZipAtc, .saveImgAtc, .closeImg, .deleteImg, .foldersImg, .searchuiImg {
+.downloadAtc, .downloadZipAtc, .saveImgAtc, .closeImg, .deleteImg, .foldersImg, .searchuiImg, .reloadImg {
     display: -moz-inline-stack;
     display: inline-block;
     height: 16px;
@@ -613,6 +613,9 @@ td.addressTr span.loadingImg {
 }
 .closeImg, .searchuiDelete {
     background-image: url("graphics/close.png");
+}
+.reloadImg {
+    background-image: url("graphics/reload.png");
 }
 
 #itipconflicts tr.itipcollision {

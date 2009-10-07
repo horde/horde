@@ -89,3 +89,6 @@ span.trashImg {
 .deleteImg {
     background-image: url("graphics/delete.png");
 }
+.reloadImg {
+    background-image: url("graphics/reload.png");
+}
