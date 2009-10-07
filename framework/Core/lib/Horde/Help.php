@@ -183,7 +183,7 @@ class Horde_Help
 
         $url = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/help/', true);
         $url = Horde_Util::addParameter($url, array('module' => $module,
-                                                    'topic' => $topic));
+                                                    'topic' => $topic), null, false);
 
         return Horde::link($url, _("Help"), 'helplink', 'hordehelpwin', Horde::popupJs($url, array('urlencode' => true)) . 'return false;') .
             Horde::img('help.png', _("Help"), 'width="16" height="16"', $GLOBALS['registry']->getImageDir('horde')) . '</a>';
