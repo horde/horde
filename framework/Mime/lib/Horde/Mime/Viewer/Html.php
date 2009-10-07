@@ -106,7 +106,7 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Driver
         /* Deal with <base> tags in the HTML, since they will screw up our own
          * relative paths. */
         if (!empty($options['inline']) &&
-            preg_match('/<base href="?([^"> ]*)"? ?\/?>/i', $data, $matches)) {
+            preg_match('/<base\s+href="?([^"> ]*)"? ?\/?>/i', $data, $matches)) {
             $base = $matches[1];
             if (substr($base, -1) != '/') {
                 $base .= '/';
