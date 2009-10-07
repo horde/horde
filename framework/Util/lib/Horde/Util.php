@@ -209,7 +209,7 @@ class Horde_Util
     {
         return (isset($_GET[$varname]) || isset($_POST[$varname]) || isset($_COOKIE[$varname]))
             ? $default
-            : isset($GLOBALS[$varname]) ? $GLOBALS[$varname] : $default;
+            : (isset($GLOBALS[$varname]) ? $GLOBALS[$varname] : $default);
     }
 
     /**
