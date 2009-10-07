@@ -28,10 +28,11 @@ document.observe('dom:loaded', function() {
      */
     IMP.unblockImages = function(e)
     {
-        var callback, imgs,
+        var callback,
             elt = e.element().up('TABLE.mimeStatusMessage'),
-            iframe = elt.up().next('.htmlMsgData').down('IFRAME'),
+            iframe = elt.up().next('.htmlMsgData'),
             iframeid = iframe.readAttribute('id'),
+            imgload = false,
             s = new Selector('[htmlimgblocked]');
 
         e.stop();
@@ -51,14 +52,14 @@ document.observe('dom:loaded', function() {
         }
 
         callback = this.imgOnload.bind(this, iframeid);
-        imgs = s.findElements(iframe.contentWindow.document);
-        IMP.imgs[iframeid] = imgs.size();
 
-        imgs.each(function(img) {
-            img.onload = callback;
+        s.findElements(iframe.contentWindow.document).each(function(img) {
             var src = decodeURIComponent(img.getAttribute('htmlimgblocked'));
             if (img.getAttribute('src')) {
+                img.onload = callback;
+                ++IMP.imgs[iframeid];
                 img.setAttribute('src', src);
+                imgload = true;
             } else if (img.getAttribute('background')) {
                 img.setAttribute('background', src);
             } else if (img.style.backgroundImage) {
@@ -70,6 +71,10 @@ document.observe('dom:loaded', function() {
         // on the page uses the same expression, it will break the next time
         // it is used.
         delete Selector._cache['[htmlimgblocked]'];
+
+        if (!imgload) {
+            this.iframeResize(iframeid);
+        }
     };
 
     IMP.imgOnload = function(id)
@@ -97,7 +102,7 @@ document.observe('dom:loaded', function() {
         if (!defer && Prototype.Browser.IE) {
             this.iframeResize.bind(this, id, true).defer();
         } else {
-            id.up().setStyle({ height: Math.max(id.contentWindow.document.body.scrollHeight, id.contentWindow.document.lastChild.scrollHeight) + 'px' });
+            id.setStyle({ height: Math.max(id.contentWindow.document.body.offsetHeight, id.contentWindow.document.lastChild.offsetHeight) + 'px' });
         }
     };
 
