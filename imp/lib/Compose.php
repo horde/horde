@@ -1325,6 +1325,7 @@ class IMP_Compose
                    (($msg_text['mode'] == 'text') ? $this->text2html($msg_text['text']) : $msg_text['text']) .
                    '</blockquote>' .
                    ($msg_post ? $this->text2html($msg_post) : '');
+            $msg_text['mode'] = 'html';
         } else {
             $msg = empty($msg_text['text'])
                 ? '[' . _("No message body text") . ']'
