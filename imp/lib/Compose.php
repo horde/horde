@@ -1406,7 +1406,7 @@ class IMP_Compose
             if (!empty($msg_text) &&
                 ($compose_html || ($msg_text['mode'] == 'html'))) {
                 $msg = $this->text2html($msg_pre) .
-                    (($msg_text['mode'] == 'text') ? $this->text2html($msg_text['text']) : $msg_text) .
+                    (($msg_text['mode'] == 'text') ? $this->text2html($msg_text['text']) : $msg_text['text']) .
                     $this->text2html($msg_post);
                 $format = 'html';
             } else {
