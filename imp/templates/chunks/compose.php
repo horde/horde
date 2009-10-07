@@ -128,8 +128,8 @@ function _createDAcompose($text, $image, $id)
   </table>
  </div>
 
- <div id="messageParent">
-  <textarea name="message" rows="20" id="message" class="fixed"></textarea>
+ <div id="composeMessageParent">
+  <textarea name="message" rows="20" id="composeMessage" class="fixed"></textarea>
  </div>
 </div>
 </form>

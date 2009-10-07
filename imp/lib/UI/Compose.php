@@ -112,7 +112,7 @@ class IMP_UI_Compose
         $spell_img = Horde::img('spellcheck.png');
         $args = array(
             'id' => ($mode == 'dimp' ? 'DIMP.' : 'IMP.') . 'SpellCheckerObject',
-            'targetId' => 'message',
+            'targetId' => 'composeMessage',
             'triggerId' => 'spellcheck',
             'states' => array(
                 'CheckSpelling' => $spell_img . ($show_text ? $br . _("Check Spelling") : ''),
@@ -172,7 +172,7 @@ class IMP_UI_Compose
      */
     public function initRTE($mode = 'imp', $editoronly = false)
     {
-        $editor = Horde_Editor::singleton('Fckeditor', array('id' => 'message', 'no_notify' => true));
+        $editor = Horde_Editor::singleton('Fckeditor', array('id' => 'composeMessage', 'no_notify' => true));
         if ($editoronly) {
             return $editor;
         }
@@ -186,7 +186,7 @@ class IMP_UI_Compose
                 'oFCKeditor.ToolbarSet = "ImpToolbar"'
             );
             if ($mode == 'imp') {
-                $js_onload[] = 'oFCKeditor.Height = $(\'message\').getHeight()';
+                $js_onload[] = 'oFCKeditor.Height = $(\'composeMessage\').getHeight()';
                 $js_onload[] = 'oFCKeditor.ReplaceTextarea()';
             }
             Horde::addInlineScript($js_onload, 'load');

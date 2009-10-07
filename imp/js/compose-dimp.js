@@ -73,7 +73,7 @@ var DimpCompose = {
         var lastSignature, msg, nextSignature, pos,
             id = $F('identity'),
             last = this.get_identity($F('last_identity')),
-            msgval = $('message'),
+            msgval = $('composeMessage'),
             next = this.get_identity(id),
             ssm = $('save_sent_mail');
 
@@ -85,7 +85,7 @@ var DimpCompose = {
 
         // Finally try and replace the signature.
         if (this.editor_on) {
-            msg = FCKeditorAPI.GetInstance('message').GetHTML().replace(/\r\n/g, '\n');
+            msg = FCKeditorAPI.GetInstance('composeMessage').GetHTML().replace(/\r\n/g, '\n');
             lastSignature = '<p><!--begin_signature--><!--end_signature--></p>';
             nextSignature = '<p><!--begin_signature-->' + next.sig.replace(/^ ?<br \/>\n/, '').replace(/ +/g, ' ') + '<!--end_signature--></p>';
 
@@ -113,7 +113,7 @@ var DimpCompose = {
 
             msg = msg.replace(/\r\n/g, '\n').replace(/\n/g, '\r\n');
             if (this.editor_on) {
-                FCKeditorAPI.GetInstance('message').SetHTML(msg);
+                FCKeditorAPI.GetInstance('composeMessage').SetHTML(msg);
             } else {
                 msgval.setValue(msg);
             }
@@ -198,7 +198,7 @@ var DimpCompose = {
         } else {
             // Move HTML text to textarea field for submission.
             if (this.editor_on) {
-                FCKeditorAPI.GetInstance('message').UpdateLinkedField();
+                FCKeditorAPI.GetInstance('composeMessage').UpdateLinkedField();
             }
 
             // Use an AJAX submit here so that we can do javascript-y stuff
@@ -331,23 +331,23 @@ var DimpCompose = {
         if (this.editor_on) {
             this.editor_on = false;
 
-            text = FCKeditorAPI.GetInstance('message').GetHTML();
-            $('messageParent').childElements().invoke('hide');
-            $('message').show();
+            text = FCKeditorAPI.GetInstance('composeMessage').GetHTML();
+            $('composeMessageParent').childElements().invoke('hide');
+            $('composeMessage').show();
 
             DimpCore.doAction('Html2Text', { text: text }, null, this.setMessageText.bind(this), { asynchronous: false });
         } else {
             this.editor_on = true;
             if (!noupdate) {
-                DimpCore.doAction('Text2Html', { text: $F('message') }, null, this.setMessageText.bind(this), { asynchronous: false });
+                DimpCore.doAction('Text2Html', { text: $F('composeMessage') }, null, this.setMessageText.bind(this), { asynchronous: false });
             }
 
             oFCKeditor.Height = this.getMsgAreaHeight();
             // Try to reuse the old fckeditor instance.
             try {
-                FCKeditorAPI.GetInstance('message').SetHTML($F('message'));
-                $('messageParent').childElements().invoke('show');
-                $('message').hide();
+                FCKeditorAPI.GetInstance('composeMessage').SetHTML($F('composeMessage'));
+                $('composeMessageParent').childElements().invoke('show');
+                $('composeMessage').hide();
             } catch (e) {
                 this.RTELoading('show');
                 FCKeditor_OnComplete = this.RTELoading.curry('hide');
@@ -362,7 +362,7 @@ var DimpCompose = {
     {
         var o, r;
         if (!$('rteloading')) {
-            r = new Element('DIV', { id: 'rteloading' }).clonePosition($('messageParent'));
+            r = new Element('DIV', { id: 'rteloading' }).clonePosition($('composeMessageParent'));
             $(document.body).insert(r);
             o = r.viewportOffset();
             $(document.body).insert(new Element('SPAN', { id: 'rteloadingtxt' }).setStyle({ top: (o.top + 15) + 'px', left: (o.left + 15) + 'px' }).insert(DIMP.text.loading));
@@ -380,10 +380,10 @@ var DimpCompose = {
     getMsgAreaHeight: function()
     {
         if (!this.mp_padding) {
-            this.mp_padding = $('messageParent').getHeight() - $('message').getHeight();
+            this.mp_padding = $('composeMessageParent').getHeight() - $('composeMessage').getHeight();
         }
 
-        return document.viewport.getHeight() - $('messageParent').cumulativeOffset()[1] - this.mp_padding;
+        return document.viewport.getHeight() - $('composeMessageParent').cumulativeOffset()[1] - this.mp_padding;
     },
 
     initializeSpellChecker: function()
@@ -403,9 +403,9 @@ var DimpCompose = {
             if (!this.editor_on) {
                 return;
             }
-            DIMP.SpellCheckerObject.htmlAreaParent = 'messageParent';
-            DIMP.SpellCheckerObject.htmlArea = $('message').adjacent('iframe[id*=message]').first();
-            $('message').setValue(FCKeditorAPI.GetInstance('message').GetHTML());
+            DIMP.SpellCheckerObject.htmlAreaParent = 'composeMessageParent';
+            DIMP.SpellCheckerObject.htmlArea = $('composeMessage').adjacent('iframe[id*=message]').first();
+            $('composeMessage').setValue(FCKeditorAPI.GetInstance('composeMessage').GetHTML());
             this.textarea_ready = false;
         }.bind(this);
         DIMP.SpellCheckerObject.onAfterSpellCheck = function() {
@@ -413,17 +413,17 @@ var DimpCompose = {
                 return;
             }
             DIMP.SpellCheckerObject.htmlArea = DIMP.SpellCheckerObject.htmlAreaParent = null;
-            var ed = FCKeditorAPI.GetInstance('message');
-            ed.SetHTML($F('message'));
+            var ed = FCKeditorAPI.GetInstance('composeMessage');
+            ed.SetHTML($F('composeMessage'));
             ed.Events.AttachEvent('OnAfterSetHTML', function() { this.textarea_ready = true; }.bind(this));
         }.bind(this);
     },
 
     setMessageText: function(r)
     {
-        var ta = $('message');
+        var ta = $('composeMessage');
         if (!ta) {
-            $('messageParent').insert(new Element('TEXTAREA', { id: 'message', name: 'message', style: 'width:100%;' }).insert(r.response.text));
+            $('composeMessageParent').insert(new Element('TEXTAREA', { id: 'composeMessage', name: 'message', style: 'width:100%;' }).insert(r.response.text));
         } else {
             ta.setValue(r.response.text);
         }
@@ -444,7 +444,7 @@ var DimpCompose = {
 
         var bcc_add, fo,
             identity = this.get_identity($F('last_identity')),
-            msgval = $('message');
+            msgval = $('composeMessage');
 
         if (!this.last_msg.empty() &&
             this.last_msg != $F(msgval).replace(/\r/g, '') &&
@@ -457,7 +457,7 @@ var DimpCompose = {
             !this.auto_save_interval) {
             this.auto_save_interval = new PeriodicalExecuter(function() {
                 var cur_msg = this.editor_on
-                    ? FCKeditorAPI.GetInstance('message').GetHTML()
+                    ? FCKeditorAPI.GetInstance('composeMessage').GetHTML()
                     : $F(msgval);
                 cur_msg = cur_msg.replace(/\r/g, '');
                 if (!cur_msg.empty() && this.last_msg != cur_msg) {
@@ -468,7 +468,7 @@ var DimpCompose = {
         }
 
         if (this.editor_on) {
-            fo = FCKeditorAPI.GetInstance('message');
+            fo = FCKeditorAPI.GetInstance('composeMessage');
             fo.SetHTML(msg);
             this.last_msg = fo.GetHTML().replace(/\r/g, '');
         } else {
@@ -509,7 +509,7 @@ var DimpCompose = {
             if (!this.editor_on) {
                 this.toggleHtmlEditor(noupdate || false);
             }
-            if (focus == 'message') {
+            if (focus == 'composeMessage') {
                 this.focusEditor();
             }
         }
@@ -518,7 +518,7 @@ var DimpCompose = {
     focusEditor: function()
     {
         try {
-            FCKeditorAPI.GetInstance('message').Focus();
+            FCKeditorAPI.GetInstance('composeMessage').Focus();
         } catch (e) {
             this.focusEditor.bind(this).defer();
         }
@@ -555,7 +555,7 @@ var DimpCompose = {
     {
         var m, rows,
             de = document.documentElement,
-            msg = $('message');
+            msg = $('composeMessage');
 
         if (!document.loaded) {
             this.resizeMsgArea.bind(this).defer();
@@ -563,7 +563,7 @@ var DimpCompose = {
         }
 
         if (this.editor_on) {
-            m = $('messageParent').select('iframe').last();
+            m = $('composeMessageParent').select('iframe').last();
             if (m) {
                 m.setStyle({ height: this.getMsgAreaHeight() + 'px' });
             } else {
@@ -623,15 +623,15 @@ var DimpCompose = {
         switch (DIMP.conf_compose.compose_cursor) {
         case 'top':
             pos = 0;
-            $('message').setValue('\n' + $F('message'));
+            $('composeMessage').setValue('\n' + $F('message'));
             break;
 
         case 'bottom':
-            pos = $F('message').length;
+            pos = $F('composeMessage').length;
             break;
 
         case 'sig':
-            pos = $F('message').replace(/\r\n/g, '\n').lastIndexOf(this.get_identity($F('last_identity')).sig) - 1;
+            pos = $F('composeMessage').replace(/\r\n/g, '\n').lastIndexOf(this.get_identity($F('last_identity')).sig) - 1;
             break;
 
         default:

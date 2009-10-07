@@ -662,18 +662,18 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     display: block;
 }
 
-#messageParent {
+#composeMessageParent {
     background: #fff url("graphics/backhead_shadow.png") top repeat-x;
     border-left: 1px silver solid;
     border-right: 1px silver solid;
     border-bottom: 1px silver solid;
     padding: 1%;
 }
-#messageParent .htmlarea {
+#composeMessageParent .htmlarea {
     width: 98% !important;
     border: none;
 }
-#message {
+#composeMessage {
     border: none;
     margin: 0;
     padding: 0;

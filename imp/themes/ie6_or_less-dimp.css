@@ -42,7 +42,7 @@ form#compose {
 #to, #cc, #bcc {
     overflow: auto;
 }
-#messageParent {
+#composeMessageParent {
     width: 96% !important;
 }
 

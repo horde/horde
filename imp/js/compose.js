@@ -64,7 +64,7 @@ var ImpCompose = {
         // If the rich text editor is on, we'll use a regexp to find the
         // signature comment and replace its contents.
         if (this.rtemode) {
-            ed = FCKeditorAPI.GetInstance('message');
+            ed = FCKeditorAPI.GetInstance('composeMessage');
 
             msg = ed.GetHTML.replace(/\r\n/g, '\n');
 
@@ -75,7 +75,7 @@ var ImpCompose = {
             // http://simonwillison.net/2004/Sep/20/newlines/
             msg = msg.replace(/<p class="imp-signature">\s*<!--begin_signature-->[\s\S]*?<!--end_signature-->\s*<\/p>/, lastSignature);
         } else {
-            msg = $F('message').replace(/\r\n/g, '\n');
+            msg = $F('composeMessage').replace(/\r\n/g, '\n');
 
             lastSignature = last[0].replace(/^\n/, '');
             nextSignature = next[0].replace(/^\n/, '');
@@ -102,7 +102,7 @@ var ImpCompose = {
         if (this.rtemode) {
             ed.SetHTML(msg);
         } else {
-            $('message').setValue(msg);
+            $('composeMessage').setValue(msg);
         }
 
 
@@ -276,17 +276,17 @@ var ImpCompose = {
 
     _beforeSpellCheck: function()
     {
-        IMP.SpellCheckerObject.htmlAreaParent = 'messageParent';
-        IMP.SpellCheckerObject.htmlArea = $('message').adjacent('iframe[id*=message]').first();
-        $('message').setValue(FCKeditorAPI.GetInstance('message').GetHTML());
+        IMP.SpellCheckerObject.htmlAreaParent = 'composeMessageParent';
+        IMP.SpellCheckerObject.htmlArea = $('composeMessage').adjacent('iframe[id*=message]').first();
+        $('composeMessage').setValue(FCKeditorAPI.GetInstance('composeMessage').GetHTML());
         this.textarea_ready = false;
     },
 
     _afterSpellCheck: function()
     {
         IMP.SpellCheckerObject.htmlArea = IMP.SpellCheckerObject.htmlAreaParent = null;
-        var ed = FCKeditorAPI.GetInstance('message');
-        ed.SetHTML($('message').value);
+        var ed = FCKeditorAPI.GetInstance('composeMessage');
+        ed.SetHTML($('composeMessage').value);
         ed.Events.AttachEvent('OnAfterSetHTML', this._afterSetHTML.bind(this));
     },
 
@@ -366,8 +366,8 @@ var ImpCompose = {
             }
         });
 
-        if (this.cursor_pos !== null && $('message')) {
-            this.setCursorPosition($('message'), this.cursor_pos);
+        if (this.cursor_pos !== null && $('composeMessage')) {
+            this.setCursorPosition($('composeMessage'), this.cursor_pos);
         }
 
         if (this.redirect) {
@@ -377,7 +377,7 @@ var ImpCompose = {
                 $('subject').observe('keydown', function(e) {
                     if (e.keyCode == Event.KEY_TAB && !e.shiftKey) {
                         e.stop();
-                        $('message').focus();
+                        $('composeMessage').focus();
                     }
                 });
             }
@@ -392,7 +392,7 @@ var ImpCompose = {
                 if (this.rtemode) {
                     $('subject').focus();
                 } else {
-                    $('message').focus();
+                    $('composeMessage').focus();
                 }
             }
         }
