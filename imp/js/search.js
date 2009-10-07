@@ -279,8 +279,7 @@ var ImpSearch = {
 
         var tmp = [
             new Element('EM').insert(this.getLabel(id)),
-            new Element('INPUT', { type: 'text', size: 8 }).setValue(data.v),
-            $($('within_criteria').cloneNode(true)).writeAttribute({ id: null }).show().setValue(data.l)
+            new Element('SPAN').insert(new Element('INPUT', { type: 'text', size: 8 }).setValue(data.v)).insert(' ').insert($($('within_criteria').cloneNode(true)).writeAttribute({ id: null }).show().setValue(data.l))
         ];
         this.criteria[this.insertCriteria(tmp)] = { t: id };
         tmp[1].activate();
