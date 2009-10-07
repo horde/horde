@@ -82,8 +82,11 @@ class Turba_Driver_Prefs extends Turba_Driver
     /**
      * Saves the specified object in the preferences.
      */
-    function _save($object_key, $object_id, $attributes)
+    function _save($object)
     {
+        list($object_key, $object_id) = each($this->toDriverKeys(array('__key' => $object->getValue('__key'))));
+        $attributes = $this->toDriverKeys($object->getAttributes());
+
         $book = $this->_getAddressBook();
         $book[$object_id] = $attributes;
         $this->_setAddressBook($book);

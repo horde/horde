@@ -115,8 +115,11 @@ class Turba_Driver_Kolab extends Turba_Driver
      *
      * @return string  The object id, possibly updated.
      */
-    function _save($object_key, $object_id, $attributes)
+    function _save($object)
     {
+        list($object_key, $object_id) = each($this->toDriverKeys(array('__key' => $object->getValue('__key'))));
+        $attributes = $this->toDriverKeys($object->getAttributes());
+
         return $this->_wrapper->_save($object_key, $object_id, $attributes);
     }
 
@@ -1011,7 +1014,7 @@ class Turba_Driver_Kolab_Wrapper_New extends Turba_Driver_Kolab_Wrapper {
         foreach ($ids as $id) {
             if (in_array($id, array_keys($this->_contacts_cache))) {
                 $object = $this->_contacts_cache[$id];
-                
+
                 $object_type = $this->_contacts_cache[$id]['__type'];
                 if (!isset($object['__type']) || $object['__type'] == 'Object') {
                     if ($count) {
@@ -1180,7 +1183,7 @@ class Turba_Driver_Kolab_Wrapper_New extends Turba_Driver_Kolab_Wrapper {
             unset($attributes['__members']);
         }
     }
-    
+
 
     /**
      * Removes the specified object from the Kolab message store.
@@ -1201,7 +1204,7 @@ class Turba_Driver_Kolab_Wrapper_New extends Turba_Driver_Kolab_Wrapper {
         }
 
         $group = false;
-        if (isset($this->_contacts_cache[$object_id]['__type']) 
+        if (isset($this->_contacts_cache[$object_id]['__type'])
             && $this->_contacts_cache[$object_id]['__type'] == 'Group') {
             $group = true;
         }
@@ -1242,7 +1245,7 @@ class Turba_Driver_Kolab_Wrapper_New extends Turba_Driver_Kolab_Wrapper {
         if (is_a($result, 'PEAR_Error')) {
             return $result;
         }
-        
+
         /* Delete groups */
         $result = $this->_store->setObjectType('distribution-list');
         if (is_a($result, 'PEAR_Error')) {

@@ -859,11 +859,7 @@ class Turba_Driver
      */
     function save($object)
     {
-        list($object_key, $object_id) = each($this->toDriverKeys(array('__key' => $object->getValue('__key'))));
-
-        $object_id = $this->_save($object_key, $object_id,
-                                  $this->toDriverKeys($object->getAttributes()),
-                                  $this->toDriverKeys($this->getBlobs()));
+        $object_id = $this->_save($object);
         if (is_a($object_id, 'PEAR_Error')) {
             return $object_id;
         }
@@ -2135,7 +2131,7 @@ class Turba_Driver
      *
      * @return string  The object id, possibly updated.
      */
-    function _save($object_key, $object_id, $attributes)
+    function _save($object)
     {
         return PEAR::raiseError(_("Saving contacts is not available."));
     }

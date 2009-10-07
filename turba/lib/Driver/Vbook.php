@@ -125,9 +125,9 @@ class Turba_Driver_Vbook extends Turba_Driver
     /**
      * Not supported for virtual address books.
      */
-    function _save($object_key, $object_id, $attributes)
+    function _save($object)
     {
-        return PEAR::raiseError(_("You cannot add an entry to a virtual address book."));
+        return $this->_driver->save($object);
     }
 
     /**

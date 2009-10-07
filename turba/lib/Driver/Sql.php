@@ -356,8 +356,12 @@ class Turba_Driver_Sql extends Turba_Driver
      *
      * @return string  The object id, possibly updated.
      */
-    function _save($object_key, $object_id, $attributes, $blob_fields = array())
+    function _save($object)
     {
+        list($object_key, $object_id) = each($this->toDriverKeys(array('__key' => $object->getValue('__key'))));
+        $attributes = $this->toDriverKeys($object->getAttributes());
+        $blob_fields = $this->toDriverKeys($this->getBlobs());
+
         $where = $object_key . ' = ?';
         unset($attributes[$object_key]);
 

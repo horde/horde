@@ -331,15 +331,15 @@ class Turba_Driver_Imsp extends Turba_Driver
     /**
      * Saves the specified object to the IMSP server.
      *
-     * @param string $object_key  (Ignored) name of the field
-     *                            in $attributes[] to treat as key.
-     * @param string $object_id   The value of the key field.
-     * @param array  $attributes  Contains the field names and values of the entry.
+     * @param Turba_Object $object  The object to save/update.
      *
      * @return string  The object id, possibly updated.
      */
-    function _save($object_key, $object_id, $attributes)
+    function _save($object)
     {
+        list($object_key, $object_id) = each($this->toDriverKeys(array('__key' => $object->getValue('__key'))));
+        $attributes = $this->toDriverKeys($object->getAttributes());
+
         /* Check if the key changed, because IMSP will just write out
          * a new entry without removing the previous one. */
         if ($attributes['name'] != $this->_makeKey($attributes)) {

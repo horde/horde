@@ -332,8 +332,11 @@ class Turba_Driver_Ldap extends Turba_Driver
      *
      * @return string  The object id, possibly updated.
      */
-    function _save($object_key, $object_id, $attributes)
+    function _save($object)
     {
+        list($object_key, $object_id) = each($this->toDriverKeys(array('__key' => $object->getValue('__key'))));
+        $attributes = $this->toDriverKeys($object->getAttributes());
+
         /* Get the old entry so that we can access the old
          * values. These are needed so that we can delete any
          * attributes that have been removed by using ldap_mod_del. */

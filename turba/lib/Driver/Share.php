@@ -153,9 +153,9 @@ class Turba_Driver_Share extends Turba_Driver
      *
      * @return string  The object id, possibly updated.
      */
-    function _save($object_key, $object_id, $attributes, $blob_fields = array())
+    function _save($object)
     {
-        return $this->_driver->_save($object_key, $object_id, $attributes, $blob_fields);
+        return $this->_driver->_save($object);
     }
 
     /**
