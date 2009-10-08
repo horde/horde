@@ -29,6 +29,13 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter
     );
 
     /**
+     * Stored CDATA information.
+     *
+     * @var string
+     */
+    protected $_cdata = null;
+
+    /**
      * Returns a hash with replace patterns.
      *
      * @return array  Patterns hash.
@@ -78,10 +85,7 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter
         /* Get all attribute="javascript:foo()" tags. This is essentially the
          * regex /(=|url\()("?)[^>]*script:/ but expanded to catch camouflage
          * with spaces and entities. */
-        // The first portion should ensure that CSS data contained within a
-        // 'CDATA' section is not matched.
-        $preg = '/<\s*[^!][^>]*' .
-                '((=|&#0*61;?|&#x0*3D;?)|' .
+        $preg = '/((=|&#0*61;?|&#x0*3D;?)|' .
                 '((u|&#0*85;?|&#x0*55;?|&#0*117;?|&#x0*75;?|\\\\0*75)\s*' .
                 '(r|&#0*82;?|&#x0*52;?|&#0*114;?|&#x0*72;?|\\\\0*72)\s*' .
                 '(l|&#0*76;?|&#x0*4c;?|&#0*108;?|&#x0*6c;?|\\\\0*6c)\s*' .
@@ -224,7 +228,23 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter
             ini_set('pcre.backtrack_limit', 5000000);
         }
 
+        // Remove and store CDATA data.
+        preg_replace_callback('/<!\[CDATA\[.*?\]\]>/is', array($this, '_preProcessCallback'), $text);
+
         return $text;
+    }
+
+    /**
+     * Preg callback for preProcess().
+     *
+     * @param array $matches  The list of matches.
+     *
+     * @return string  The replacement text.
+     */
+    protected function _preProcessCallback($matches)
+    {
+        $this->_cdata = $matches[0];
+        return '<HORDE_CDATA />';
     }
 
     /**
@@ -237,6 +257,13 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter
     public function postProcess($text)
     {
         ini_restore('pcre.backtrack_limit');
+
+        // Restore CDATA data
+        if (!is_null($this->_cdata)) {
+            $text = str_replace('<HORDE_CDATA />', $this->_cdata, $text);
+            $this->_cdata = null;
+        }
+
         return $text;
     }
 
