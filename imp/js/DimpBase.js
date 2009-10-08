@@ -1360,7 +1360,6 @@ var DimpBase = {
             this.viewport.reload();
         } else {
             this.sfolder = this.folder;
-            $('qsearch_close').show();
             this.loadMailbox(DIMP.conf.qsearchid);
         }
     },
@@ -1370,12 +1369,13 @@ var DimpBase = {
     {
         var f = this.folder;
 
+        $('qsearch_close').hide();
+        if (!$('qsearch').hasClassName('qsearchFocus')) {
+            this._setQsearchText(true);
+        }
+
         if (this.isSearch()) {
-            $('qsearch_close').hide();
             DimpCore.DMenu.disable('qsearch_icon', true, false);
-            if (!$('qsearch').hasClassName('qsearchFocus')) {
-                this._setQsearchText(true);
-            }
             this.resetSelected();
             $('qsearch_input').show();
             if (!noload) {
@@ -1391,6 +1391,7 @@ var DimpBase = {
     {
         $('qsearch_input').setValue(d ? DIMP.text.search + ' (' + $('ctx_qsearchopts_' + DIMP.conf.qsearchfield).getText() + ')' : '');
         [ $('qsearch') ].invoke(d ? 'removeClassName' : 'addClassName', 'qsearchActive');
+        $('qsearch_close').hide();
     },
 
     _basicSearchCallback: function(r)
@@ -1502,6 +1503,12 @@ var DimpBase = {
                         this.quicksearchClear();
                     }
                     e.stop();
+                }
+                break;
+
+            default:
+                if (elt.readAttribute('id') == 'qsearch_input') {
+                    $('qsearch_close').show();
                 }
                 break;
             }
