@@ -22,7 +22,8 @@ $flag_list = $imp_flags->getList(array('imap' => true));
 
 // Small utility functions to simplify creating dimpactions buttons.
 // As of right now, we don't show text only links.
-function _createDA($text, $image, $id = null, $class = '', $show_text = true)
+function _createDA($text, $image, $id = null, $class = '', $show_text = true,
+                   $div_text = '')
 {
     $params = array('icon' => $image, 'id' => $id, 'class' => $class);
     if ($show_text) {
@@ -30,7 +31,7 @@ function _createDA($text, $image, $id = null, $class = '', $show_text = true)
     } else {
         $params['tooltip'] = $text;
     }
-    echo IMP_Dimp::actionButton($params);
+    echo '<div' . $div_text . '>' . IMP_Dimp::actionButton($params) . '</div>';
 }
 
 function _simpleButton($id, $text, $image, $imagedir = null)
@@ -181,34 +182,18 @@ function _simpleButton($id, $text, $image, $imagedir = null)
       </span>
       </div>
 <?php endif; ?>
-      <span>
-       <?php _createDA(_("Reply"), 'Reply', 'button_reply', 'noselectDisable', $show_text) ?>
-      </span>
-      <span>
-       <?php _createDA(_("Forward"), 'Forward', 'button_forward', 'noselectDisable', $show_text) ?>
-      </span>
+      <?php _createDA(_("Reply"), 'Reply', 'button_reply', 'noselectDisable', $show_text) ?>
+      <?php _createDA(_("Forward"), 'Forward', 'button_forward', 'noselectDisable', $show_text) ?>
 <?php if (!empty($conf['spam']['reporting'])): ?>
-      <span>
-       <?php _createDA(_("Spam"), 'Spam', 'button_spam', 'noselectDisable', $show_text) ?>
-      </span>
+      <?php _createDA(_("Spam"), 'Spam', 'button_spam', 'noselectDisable', $show_text) ?>
 <?php endif; ?>
 <?php if (!empty($conf['notspam']['reporting'])): ?>
-      <span style="display:none">
-       <?php _createDA(_("Innocent"), 'Ham', 'button_ham', 'noselectDisable', $show_text) ?>
-      </span>
+      <?php _createDA(_("Innocent"), 'Ham', 'button_ham', 'noselectDisable', $show_text, ' style="display:none"') ?>
 <?php endif; ?>
-      <span>
-       <?php _createDA(_("Delete"), 'Delete', 'button_deleted', 'noselectDisable', $show_text) ?>
-      </span>
-      <span id="button_compose">
-       <?php _createDA(_("Compose"), 'Compose', '', '', $show_text) ?>
-      </span>
-      <span id="button_checkmail">
-       <?php _createDA(_("Get Mail"), 'Checkmail', '', '', $show_text) ?>
-      </span>
-      <span>
-       <?php _createDA(_("Other Actions"), 'Other', 'button_other', '', $show_text) ?>
-      </span>
+      <?php _createDA(_("Delete"), 'Delete', 'button_deleted', 'noselectDisable', $show_text) ?>
+      <?php _createDA(_("Compose"), 'Compose', '', '', $show_text, ' id="button_compose"') ?>
+      <?php _createDA(_("Get Mail"), 'Checkmail', '', '', $show_text, ' id="button_checkmail"') ?>
+      <?php _createDA(_("Other Actions"), 'Other', 'button_other', '', $show_text) ?>
      </div>
 
      <div id="msglistHeader" class="item">

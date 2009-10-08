@@ -400,13 +400,16 @@ div.vpRow.flagDeleted {
 /* Actions */
 .dimpActions {
     background: #efefef;
-    padding: 4px 2px 7px;
+    padding: 4px 2px;
     border: 1px silver solid;
     border-bottom: 0;
     background: transparent url("graphics/backhead_s2.png") repeat-x;
+    height: 16px;
 }
-.dimpActions span {
+.dimpActions div {
     cursor: pointer;
+    float: left;
+    padding-right: 6px;
 }
 .dimpActions a, .dimpActions a:visited, .dimpActions label {
     color: #000;
@@ -416,39 +419,29 @@ div.vpRow.flagDeleted {
     padding: 2px 4px 4px 4px;
 }
 .dimpActions a img {
+    margin-right: 4px;
     vertical-align: top;
-    padding-right: 3px;
 }
-.dimpActions a:hover {
+.dimpActions a:hover, .dimpActions span.popdown:hover, .dimpActions span.spellcheckPopdownImg:hover {
+    background-color: #e3e3e3;
     text-decoration: none;
-    border-left: 1px solid #fff;
-    border-top: 1px solid #fff;
-    border-right: 1px solid #000;
-    border-bottom: 1px solid #000;
-    padding: 1px 3px 3px 3px;
-    cursor: pointer;
+}
+.dimpActions span.spellcheckPopdownImg:hover {
+    border: 0;
+    margin: 0;
+}
+.dimpActions .disabled a:hover {
+    background-color: transparent;
 }
 .dimpActions .disabled a, .dimpActions .disabled a:visited, .dimpActions .disabled a:active, .dimpActions .disabled a:hover {
     cursor: default;
     text-decoration: none;
     color: silver;
 }
-.dimpActions .disabled a:hover {
-    border: 0;
-    padding-left: 4px;
-    padding-right: 4px;
-}
 .dimpActions .disabled span.iconImg, .dimpActions .disabled span.spellcheckPopdownImg {
     filter: alpha(opacity=25);
     -moz-opacity: .25;
     opacity: .25;
-}
-.dimpActions span.popdown:hover, .dimpActions span.spellcheckPopdownImg:hover {
-    border-left: 1px solid #fff;
-    border-top: 1px solid #fff;
-    border-right: 1px solid #000;
-    border-bottom: 1px solid #000;
-    margin: -1px;
 }
 .dimpActions .disabled span.popdown:hover, .dimpActions .disabled span.spellcheckPopdownImg {
     border: 0;
@@ -799,11 +792,13 @@ a.address:hover img {
 
 /* Search-related styles */
 #qsearch {
-    padding-left: 1px;
-    float: right;
+    background-color: #f3f3f3;
     border: 1px solid #999;
     cursor: default;
-    background-color: #f3f3f3;
+    float: right;
+    margin-top: -2px;
+    padding-left: 1px;
+    padding-right: 1px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
 }
@@ -811,6 +806,7 @@ a.address:hover img {
     display: inline;
 }
 #qsearch_icon, #qsearch_close {
+    cursor: pointer;
     padding: 2px 0 0;
 }
 #qsearch_icon {
@@ -846,7 +842,7 @@ a.address:hover img {
 
 /* Popup message styling. */
 .headercloseimg {
-    float: right;
+    float: right !important;
     padding-right: 2px;
     cursor: pointer;
 }

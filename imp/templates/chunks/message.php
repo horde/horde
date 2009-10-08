@@ -19,7 +19,7 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
     } else {
         $params['tooltip'] = $text;
     }
-    echo IMP_Dimp::actionButton($params);
+    echo '<div>' . IMP_Dimp::actionButton($params) . '</div>';
 }
 
 ?>
@@ -29,26 +29,16 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
    <div class="headercloseimg" id="windowclose">
     <span class="closeImg" title="X"></span>
    </div>
-   <span>
-    <?php _createDAfmsg(_("Reply"), 'Reply', 'reply_link', 'hasmenu', $show_text) ?>
-   </span>
-   <span>
-    <?php _createDAfmsg(_("Forward"), 'Forward', 'forward_link', '', $show_text) ?>
-   </span>
+   <?php _createDAfmsg(_("Reply"), 'Reply', 'reply_link', 'hasmenu', $show_text) ?>
+   <?php _createDAfmsg(_("Forward"), 'Forward', 'forward_link', '', $show_text) ?>
 <?php if (!empty($conf['spam']['reporting']) && (!$conf['spam']['spamfolder'] || ($folder != IMP::folderPref($prefs->getValue('spam_folder'), true)))): ?>
-   <span>
-    <?php _createDAfmsg(_("Report Spam"), 'Spam', 'button_spam', '', $show_text) ?>
-   </span>
+   <?php _createDAfmsg(_("Report Spam"), 'Spam', 'button_spam', '', $show_text) ?>
 <?php endif; ?>
 <?php if (!empty($conf['notspam']['reporting']) && (!$conf['notspam']['spamfolder'] || ($folder == IMP::folderPref($prefs->getValue('spam_folder'), true)))): ?>
-   <span>
-    <?php _createDAfmsg(_("Report Innocent"), 'Ham', 'button_ham', '', $show_text) ?>
-   </span>
+   <?php _createDAfmsg(_("Report Innocent"), 'Ham', 'button_ham', '', $show_text) ?>
 <?php endif; ?>
 <?php if (!$readonly): ?>
-   <span>
-    <?php _createDAfmsg(_("Delete"), 'Delete', 'button_deleted', '', $show_text) ?>
-   </span>
+   <?php _createDAfmsg(_("Delete"), 'Delete', 'button_deleted', '', $show_text) ?>
 <?php endif; ?>
   </div>
 

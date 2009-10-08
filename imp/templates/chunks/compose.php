@@ -28,7 +28,7 @@ function _createDAcompose($text, $image, $id)
     } else {
         $params['title'] = $text;
     }
-    echo IMP_Dimp::actionButton($params);
+    echo '<div>' . IMP_Dimp::actionButton($params) . '</div>';
 }
 
 ?>
@@ -42,16 +42,10 @@ function _createDAcompose($text, $image, $id)
 
 <div class="dimpActions dimpActionsCompose">
 <?php if (!$compose_disable): ?>
- <span>
-  <?php _createDAcompose(_("Send"), 'Forward', 'send_button') ?>
- </span>
+ <?php _createDAcompose(_("Send"), 'Forward', 'send_button') ?>
 <?php endif; ?>
- <span>
-  <?php _createDAcompose(_("Check Spelling"), 'Spellcheck', 'spellcheck') ?>
- </span>
- <span>
-  <?php _createDAcompose(_("Save as Draft"), 'Drafts', 'draft_button') ?>
- </span>
+ <?php _createDAcompose(_("Check Spelling"), 'Spellcheck', 'spellcheck') ?>
+ <?php _createDAcompose(_("Save as Draft"), 'Drafts', 'draft_button') ?>
 </div>
 
 <div id="writemsg" class="noprint">
