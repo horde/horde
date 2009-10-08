@@ -151,6 +151,11 @@ class Horde_SessionHandler
             $_SESSION['sessionhandler'] = $curr_time + (ini_get('session.gc_maxlifetime') / 2);
             $this->_force = true;
         }
+
+        /* This is necessary as of PHP 5.0.5 because objects are not available
+         * when the write() handler is called at the end of a session
+         * access. */
+        session_write_close();
     }
 
     /**
