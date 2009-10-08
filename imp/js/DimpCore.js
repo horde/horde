@@ -26,9 +26,9 @@ var DimpCore = {
     debug: function(label, e)
     {
         if (!this.is_logout && DIMP.conf.debug) {
-            if (console && console.error) {
+            if (window.console && window.console.error) {
                 // Firebug error reporting.
-                console.error(label, e);
+                window.console.error(label, e);
             } else {
                 alert(label + ': ' + ((e instanceof Error && e.name && e.message) ? e.name + '-' + e.message : Object.inspect(e)) + (e.lineNumber ? ' (Line #' + e.lineNumber + ')' : ''));
             }
