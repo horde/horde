@@ -243,6 +243,7 @@ class IMP_Imap_Tree
         }
 
         $this->init();
+        $this->__wakeup();
     }
 
     /**
@@ -255,9 +256,17 @@ class IMP_Imap_Tree
     }
 
     /**
+     * Tasks to do on wakeup.
+     */
+    public function __wakeup()
+    {
+        register_shutdown_function(array($this, 'shutdown'));
+    }
+
+    /**
      * Store a serialized version of ourself in the current session.
      */
-    public function __destruct()
+    public function shutdown()
     {
         /* We only need to store the object if using Horde_Cache and the tree
          * has changed. */

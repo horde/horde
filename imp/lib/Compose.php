@@ -119,13 +119,14 @@ class IMP_Compose
     protected function __construct($cacheid)
     {
         $this->_cacheid = $cacheid;
+        register_shutdown_function(array($this, 'shutdown'));
     }
 
     /**
      * Store a serialized version of ourself in the current session on
      * shutdown.
      */
-    public function __destruct()
+    public function shutdown()
     {
         if ($this->_modified) {
             $this->_modified = false;

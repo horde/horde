@@ -20,6 +20,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
     public function __construct($params = array())
     {
         $this->_params = $params;
+        parent::__construct();
     }
 
     /**

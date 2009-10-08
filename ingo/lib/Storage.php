@@ -96,9 +96,17 @@ class Ingo_Storage
     }
 
     /**
-     * Destructor.
+     * Constructor.
      */
-    public function __destruct()
+    public function __construct()
+    {
+        register_shutdown_function(array($this, 'shutdown'));
+    }
+
+    /**
+     * Shutdown function.
+     */
+    public function shutdown()
     {
         $cache = Horde_SessionObjects::singleton();
 

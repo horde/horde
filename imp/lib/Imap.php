@@ -51,12 +51,14 @@ class IMP_Imap
 
         /* Rebuild the Horde_Imap_Client object. */
         $this->_loadImapObject();
+
+        register_shutdown_function(array($this, 'shutdown'));
     }
 
     /**
      * Save the Horde_Imap_Client object on session shutdown.
      */
-    public function __destruct()
+    public function shutdown()
     {
         /* Only need to serialize object once a session. When we do
          * serialize, make sure we login in order to ensure we have done the

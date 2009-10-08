@@ -107,6 +107,8 @@ class IMP_Mailbox
             }
             $this->setIndex($uid);
         }
+
+        register_shutdown_function(array($this, 'shutdown'));
     }
 
     /**
@@ -115,7 +117,7 @@ class IMP_Mailbox
      * list, and to ensure messages aren't marked as missing in search
      * mailboxes (e.g. if search is dependent on unseen flag).
      */
-    public function __destruct()
+    public function shutdown()
     {
         if (!is_null($this->_arrayIndex)) {
             /* Casting $_sorted to integers saves a significant amount of

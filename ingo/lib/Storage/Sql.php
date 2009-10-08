@@ -119,6 +119,8 @@ class Ingo_Storage_Sql extends Ingo_Storage
             /* Default to the same DB handle for the writer too. */
             $this->_db =& $this->_write_db;
         }
+
+        parent::__construct();
     }
 
     /**
