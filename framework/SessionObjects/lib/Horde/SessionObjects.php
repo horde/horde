@@ -90,12 +90,14 @@ class Horde_SessionObjects
         if (isset($params['size']) && is_int($params['size'])) {
             $this->_size = $params['size'];
         }
+
+        register_shutdown_function(array($this, 'shutdown'));
     }
 
     /**
-     * Destructor.
+     * Tasks to run on shutdown.
      */
-    public function __destruct()
+    public function shutdown()
     {
         /* Prune old entries. */
         if (isset($_SESSION[$this->_name]['__prune']) &&

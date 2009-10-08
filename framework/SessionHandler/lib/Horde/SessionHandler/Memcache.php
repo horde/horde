@@ -89,18 +89,10 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
         if (empty($this->_params['track_lifetime'])) {
             $this->_params['track_lifetime'] = ini_get('session.gc_maxlifetime');
         }
-    }
 
-    /**
-     * Destructor.
-     */
-    public function __destruct()
-    {
         if (!empty($this->_params['track']) && (rand(0, 999) == 0)) {
-            $this->_trackGC();
+            register_shutdown_function(array($this, 'trackGC'));
         }
-
-        parent::__destruct();
     }
 
     /**
@@ -301,7 +293,7 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
             throw $e;
         }
 
-        $this->_trackGC();
+        $this->trackGC();
 
         $ids = $this->_memcache->get($this->_trackID);
         return ($ids === false) ? array() : array_keys($ids);
@@ -325,7 +317,7 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
     /**
      * Do garbage collection for session tracking information.
      */
-    protected function _trackGC()
+    public function trackGC()
     {
         $this->_memcache->lock($this->_trackID);
         $ids = $this->_memcache->get($this->_trackID);

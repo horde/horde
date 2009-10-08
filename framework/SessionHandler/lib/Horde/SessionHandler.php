@@ -128,10 +128,11 @@ class Horde_SessionHandler
     protected function __construct($params = array())
     {
         $this->_params = $params;
+        register_shutdown_function(array($this, 'shutdown'));
     }
 
     /**
-     * Destructor.
+     * Shutdown function.
      *
      * Used to determine if we need to write the session to avoid a session
      * timeout, even though the session is unchanged.
@@ -142,7 +143,7 @@ class Horde_SessionHandler
      * server via a periodic mechanism (think folder refreshing in IMP) that
      * we will catch this refresh.
      */
-    public function __destruct()
+    public function shutdown()
     {
         $curr_time = time();
 

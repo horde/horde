@@ -96,12 +96,14 @@ class Horde_LoginTasks
         if (empty($this->_tasklist)) {
             $this->_createTaskList();
         }
+
+        register_shutdown_function(array($this, 'shutdown'));
     }
 
     /**
-     * Destructor.
+     * Tasks to run on session shutdown.
      */
-    public function __destruct()
+    public function shutdown()
     {
         if (isset($this->_tasklist)) {
             $_SESSION['horde_logintasks'][$this->_app] = serialize($this->_tasklist);
