@@ -460,7 +460,7 @@ class Horde_Mime_Part
 
         case 'quoted-printable':
             /* Quoted-Printable Encoding: See RFC 2045, section 6.7 */
-            return $this->_writeStream($fp, array('filter' => 'convert.quoted-printable-encode', 'params' => array('line-break-chars' => $this->getEOL())));
+            return $this->_writeStream($fp, array('filter' => 'convert.quoted-printable-encode', 'params' => array('line-length' => 76, 'line-break-chars' => $this->getEOL())));
 
         default:
             $this->_temp['transferEncodeClose'] = false;
