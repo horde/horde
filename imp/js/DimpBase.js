@@ -1369,7 +1369,6 @@ var DimpBase = {
     {
         var f = this.folder;
 
-        $('qsearch_close').hide();
         if (!$('qsearch').hasClassName('qsearchFocus')) {
             this._setQsearchText(true);
         }
