@@ -21,22 +21,56 @@ HTML GUI editor
 IMP only supports the FCKeditor javscript HTML GUI editor.  Xinha is no longer
 supported.
 
-TODO
-----
-* removed show_preview config (enabled via show_preview pref)
-* servers.php has changed
+
+Configuration Options
+---------------------
+
+Configuration relating to displaying the terms of agreement, GnuPg, OpenSSL,
+spellchecking, and login redirection have been moved to Horde.
+
+The 'show_preview' option has been removed; enabling previews is now handled
+by the 'show_preview' preference.
+
+
+Preferences
+-----------
+
+The following preferences are no longer used and may be safely removed from
+your ``config/prefs.php`` file and your preferences backend::
+
+   'alternative_display'
+   'attachment_display'
+   'forward_default'
+
+
+Hooks
+-----
+
 * hooks.php has changed
-* imp_hook_vinfo has been removed - use preauth hook instead
-* alternative_display, attachment_display, forward_default pref is gone.
 * Hook: spam_bounce -> spam_email
+* imp_hook_vinfo has been removed - use preauth hook instead
 * msglist_format hook has been removed - instead:
 *  x-priority now handled in the core code
 *  old attachment icon handling see atc_flag pref
 *  msglist_flags hook now used to dynamically set flags on messages
-* maintenance tasks
-* tos_agreement, gnupg, openssl, spellchecking (moved to Horde)
-* conf: alternate_login, redirect_on_logout moved to Horde.
-* fetchmail removed
+
+
+Fetchmail
+---------
+
+All code relating to fetchmail has been removed (TODO: prefs/config?).
+
+
+Server configuration
+--------------------
+
+The format of servers.php has changed.
+
+
+Maintenance Tasks
+-----------------
+
+TODO
 
 
 Upgrading IMP From 4.1.x To 4.2.x
