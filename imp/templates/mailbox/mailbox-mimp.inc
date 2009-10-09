@@ -19,7 +19,8 @@ $imp_notify->setMobileObject($c);
 $notification->notify(array('listeners' => 'status'));
 
 if (!empty($pageOb['end'])) {
-    $t = &$c->add(new Horde_Mobile_table());
+    $elts = null;
+    $t = &$c->add(new Horde_Mobile_table($elts));
     $t->set('border', 0);
     $t->set('padding', 1);
     $t->set('spacing', 1);

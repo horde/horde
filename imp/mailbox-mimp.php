@@ -80,6 +80,9 @@ $mailbox_url = IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox']);
 $imp_mailbox = IMP_Mailbox::singleton($imp_mbox['mailbox']);
 $pageOb = $imp_mailbox->buildMailboxPage(Horde_Util::getFormData('p'), Horde_Util::getFormData('s'));
 
+/* Need Horde_Mobile init here for autoloading purposes. */
+$mimp_render = new Horde_Mobile();
+
 /* Generate page links. */
 $pages_first = $pages_prev = $pages_last = $pages_next = null;
 if ($pageOb['page'] != 1) {
@@ -93,7 +96,6 @@ if ($pageOb['page'] != $pageOb['pagecount']) {
 
 /* Generate mailbox summary string. */
 $title = IMP::getLabel($imp_mbox['mailbox']);
-$mimp_render = new Horde_Mobile();
 $mimp_render->set('title', $title);
 if ($pageOb['msgcount']) {
     $msgcount = $pageOb['msgcount'];
@@ -111,11 +113,14 @@ $imp_ui = new IMP_UI_Mailbox($imp_mbox['mailbox']);
 $mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end']), array('headers' => array('x-priority')));
 
 /* Get thread information. */
-$threadob = ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD)
-    ? $imp_mailbox->getThreadOb()
-    : null;
+if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
+    $imp_thread = new IMP_Imap_Thread($imp_mailbox->getThreadOb());
+    $threadtree = $imp_thread->getThreadTextTree(reset($mbox_info['uids']), $sortpref['dir']);
+} else {
+    $imp_thread = null;
+    $threadtree = array();
+}
 
-reset($mbox_info);
 while (list(,$ob) = each($mbox_info['overview'])) {
     /* Initialize the header fields. */
     $msg = array(
@@ -151,8 +156,8 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         }
     }
 
-    if ($threadob && $threadob->getThreadIndent($ob['uid'])) {
-        $msg['subject'] = '>> ' . ltrim($msg['subject']);
+    if (!empty($threadtree[$ob['uid']])) {
+        $msg['subject'] = $threadtree[$ob['uid']] . trim($msg['subject']);
     }
 
     if (Horde_String::length($msg['subject']) > $conf['mimp']['mailbox']['max_subj_chars']) {
@@ -194,7 +199,7 @@ foreach ($sort_list as $key => $val) {
         if (($key == Horde_Imap_Client::SORT_SUBJECT) &&
             IMP::threadSortAvailable($mailbox) &&
             !$search_mbox) {
-            if (is_null($threadob)) {
+            if (is_null($imp_thread)) {
                 $items[Horde_Util::addParameter($mailbox, array('a' => 'c', 'sb' => Horde_Imap_Client::SORT_THREAD, 'sd' => $sortdir))] = _("Sort by Thread");
             } else {
                 $sortkey = Horde_Imap_Client::SORT_THREAD;
