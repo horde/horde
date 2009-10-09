@@ -162,6 +162,14 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function getPublicKey($address)
     {
+        try {
+            $key = Horde::callHook('smime_key', array($address), 'imp');
+            if ($key) {
+                return $key;
+            }
+        } catch (Horde_Exception_HookNotSet $e) {
+        }
+
         $params = IMP_Compose::getAddressSearchParams();
 
         try {

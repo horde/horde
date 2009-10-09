@@ -460,6 +460,90 @@ class IMP_Hooks
 //        return array($quota[1] * 1024, $quota[2] * 1024);
 //    }
 
+    /**
+     * Retrieves public S/MIME keys of message recipients.
+     *
+     * The hook will be called first when searching for the keys, and further
+     * lookup techniques will only be used if the hook throws an excpetion or
+     * returns an empty result.
+     *
+     * @param string $address  The email address of the recipient.
+     *
+     * @return string  The base64-encoded public S/MIME key that matches the
+     *                 email address.
+     */
+//    public function smime_key($address)
+//    {
+//        $ldapServer = 'localhost';
+//        $ldapPort = 389;
+//        $searchBase = 'ou=users,dc=example,dc=com';
+//        $binddn = 'uid=admin,dc=example,dc=com';
+//        $bindpw = 'secret';
+//        $attribute = 'simepublickey';
+//
+//        if (!@ldap_connect($ldapServer, $ldapPort)) {
+//            return;
+//        }
+//        if (!@ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3)) {
+//            return;
+//        }
+//        if (!@ldap_bind($ds, $binddn, $bindpw)) {
+//            return;
+//        }
+//
+//        $searchResult = @ldap_search($ds, $searchBase, 'mail=' . $address);
+//        $information = @ldap_get_entries($ds, $searchResult);
+//        ldap_close($ds);
+//
+//        if ($information === false || $information['count'] == 0) {
+//            return;
+//        }
+//
+//        return $information[0][$attribute][0];
+//    }
+
+    /**
+     * Retrieves public PGP keys of message recipients.
+     *
+     * The hook will be called first when searching for the keys, and further
+     * lookup techniques will only be used if the hook throws an excpetion or
+     * returns an empty result.
+     *
+     * @param string $address  The email address of the recipient.
+     * @param string $keyid    The PGP key id of the recipient.
+     *
+     * @return string  The base64-encoded public PGP key that matches either
+     *                 the email address or the fingerprint.
+     */
+//    public function pgp_key($address, $keyid)
+//    {
+//        $ldapServer = 'localhost';
+//        $ldapPort = 389;
+//        $searchBase = 'ou=users,dc=example,dc=com';
+//        $binddn = 'uid=admin,dc=example,dc=com';
+//        $bindpw = 'secret';
+//        $attribute = 'pgppublickey';
+//
+//        if (!@ldap_connect($ldapServer, $ldapPort)) {
+//            return;
+//        }
+//        if (!@ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3)) {
+//            return;
+//        }
+//        if (!@ldap_bind($ds, $binddn, $bindpw)) {
+//            return;
+//        }
+//
+//        $searchResult = @ldap_search($ds, $searchBase, 'mail=' . $address);
+//        $information = @ldap_get_entries($ds, $searchResult);
+//        ldap_close($ds);
+//
+//        if ($information === false || $information['count'] == 0) {
+//            return;
+//        }
+//
+//        return $information[0][$attribute][0];
+//    }
 
     /**
      * DIMP: Allow additional information to be added to the array that is

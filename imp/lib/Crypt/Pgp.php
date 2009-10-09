@@ -179,6 +179,14 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             }
         }
 
+        try {
+            $key = Horde::callHook('pgp_key', array($address, $keyid), 'imp');
+            if ($key) {
+                return $key;
+            }
+        } catch (Horde_Exception_HookNotSet $e) {
+        }
+
         /* Try retrieving by e-mail only first. */
         $params = IMP_Compose::getAddressSearchParams();
         try {
