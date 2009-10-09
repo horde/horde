@@ -94,17 +94,16 @@ class Horde_Image_Im extends Horde_Image_Base
      */
     public function raw($convert = false)
     {
-        if (!empty($this->_data)) {
+        if (empty($this->_data) ||
             // If there are no operations, and we already have data, don't
             // bother writing out files, just return the current data.
-            if (!$convert &&
-                !count($this->_operations) &&
-                !count($this->_postSrcOperations)) {
-                return $this->_data;
-            }
-
-            $tmpin = $this->toFile($this->_data);
+            (!$convert &&
+             !count($this->_operations) &&
+             !count($this->_postSrcOperations))) {
+            return $this->_data;
         }
+
+        $tmpin = $this->toFile($this->_data);
 
         // Perform convert command if needed
         if (count($this->_operations) || count($this->_postSrcOperations) || $convert) {
@@ -116,7 +115,7 @@ class Horde_Image_Im extends Horde_Image_Base
             $this->_logDebug(sprintf("convert command executed by Horde_Image_im::raw(): %s", $command));
             exec($command, $output, $retval);
             if ($retval) {
-                $this->_logErr(sprintf("Error running command: %s"), $command . "\n" . implode("\n", $output));
+                $this->_logErr(sprintf("Error running command: %s", $command . "\n" . implode("\n", $output)));
             }
 
             /* Empty the operations queue */
