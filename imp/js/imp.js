@@ -99,10 +99,12 @@ document.observe('dom:loaded', function() {
     IMP.iframeResize = function(id, defer)
     {
         id = $(id);
-        if (!defer && Prototype.Browser.IE) {
+        id.setStyle({ height: Math.max(id.contentWindow.document.body.scrollHeight, id.contentWindow.document.lastChild.scrollHeight) + 'px' });
+        if (!defer) {
+            // For whatever reason, browsers will report different heights
+            // after the initial height setting. Deferring a second height
+            // setting seems to work most of the time to fix this.
             this.iframeResize.bind(this, id, true).defer();
-        } else {
-            id.setStyle({ height: Math.max(id.contentWindow.document.body.offsetHeight, id.contentWindow.document.lastChild.offsetHeight) + 'px' });
         }
     };
 
