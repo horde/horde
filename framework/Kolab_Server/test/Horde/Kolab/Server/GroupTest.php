@@ -40,6 +40,8 @@ class Horde_Kolab_Server_GroupTest extends Horde_Kolab_Server_Scenario
      */
     protected function setUp()
     {
+        parent::setUp();
+
         $this->ldap = $this->getKolabMockServer();
     }
 
@@ -121,8 +123,6 @@ class Horde_Kolab_Server_GroupTest extends Horde_Kolab_Server_Scenario
      */
     public function testListingGroups()
     {
-        $this->assertEquals(0, count($GLOBALS['KOLAB_SERVER_TEST_DATA']));
-
         $result = $this->ldap->search(
             '(&(!(cn=domains))(objectClass=kolabGroupOfNames))',
             array(),

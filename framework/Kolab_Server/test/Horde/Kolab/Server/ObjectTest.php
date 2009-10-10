@@ -42,6 +42,8 @@ class Horde_Kolab_Server_ObjectTest extends Horde_Kolab_Server_Scenario
      */
     protected function setUp()
     {
+        parent::setUp();
+
         $this->_dummydb = new DummyDB();
     }
 

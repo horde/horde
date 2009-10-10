@@ -62,6 +62,8 @@ class Horde_Kolab_Server_Kolabpop3accountTest extends Horde_Kolab_Server_Scenari
      */
     protected function setUp()
     {
+        parent::setUp();
+
         $this->initializeEnvironments();
         $this->servers = $this->getKolabServers();
     }
@@ -183,27 +185,23 @@ class Horde_Kolab_Server_Kolabpop3accountTest extends Horde_Kolab_Server_Scenari
             $account_data = $this->objects[1];
             $account_data[Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_OWNERUID] = $person->getUid();
             $account = $server->add($account_data);
-            $this->assertNoError($account);
-
             $account = $server->fetch($account->getUid());
-            $this->assertNoError($account);
 
             $this->assertEquals($this->objects[1][Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_SERVER],
                                 $account->get(Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_SERVER));
 
             $result = $account->save(array(Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_SERVER => 'pop3s.example.com'));
-            $this->assertNoError($result);
 
             $account = $server->fetch($account->getUid());
-            $this->assertNoError($account);
 
-            $this->assertEquals($account->get(Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_SERVER),
-                                'pop3s.example.com');
+            $this->assertContains(
+                'pop3s.example.com',
+                $account->get(Horde_Kolab_Server_Object_Kolabpop3account::ATTRIBUTE_SERVER, false)
+            );
 
             $this->assertContains('frank@example.com', $account->getUid());
 
             $result = $server->delete($account->getUid());
-            $this->assertNoError($result);
         }
     }
 }

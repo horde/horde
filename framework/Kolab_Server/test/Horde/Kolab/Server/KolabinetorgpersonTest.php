@@ -60,6 +60,8 @@ class Horde_Kolab_Server_KolabinetorgpersonTest extends Horde_Kolab_Server_Scena
      */
     protected function setUp()
     {
+        parent::setUp();
+
         $this->initializeEnvironments();
         $this->servers = $this->getKolabServers();
     }

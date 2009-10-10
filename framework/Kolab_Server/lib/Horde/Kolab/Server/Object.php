@@ -916,6 +916,8 @@ class Horde_Kolab_Server_Object
      */
     public function prepareChanges($info)
     {
+        $changes = array();
+
         if (!empty($this->attributes)) {
             foreach ($info as $key => $value) {
                 if (!in_array($key, array_keys($this->attributes))) {
@@ -1020,7 +1022,7 @@ class Horde_Kolab_Server_Object
      *                                      meet the expectations.
      */
     static protected function uidFromResult($result,
-                                            $restrict = Horde_Kolab_Server::RESULT_SINGLE)
+                                            $restrict = Horde_Kolab_Server_Object::RESULT_SINGLE)
     {
         if (empty($result)) {
             return false;
@@ -1053,7 +1055,7 @@ class Horde_Kolab_Server_Object
      *                                      meet the expectations.
      */
     static protected function attrsFromResult($result, $attrs,
-                                              $restrict = Horde_Kolab_Server::RESULT_SINGLE)
+                                              $restrict = Horde_Kolab_Server_Object::RESULT_SINGLE)
     {
         switch ($restrict) {
         case self::RESULT_STRICT:
@@ -1101,7 +1103,7 @@ class Horde_Kolab_Server_Object
      * @throws Horde_Kolab_Server_Exception
      */
     static public function basicUidForSearch($server, $criteria,
-                                             $restrict = Horde_Kolab_Server::RESULT_SINGLE)
+                                             $restrict = Horde_Kolab_Server_Object::RESULT_SINGLE)
     {
         $params = array('attributes' => self::ATTRIBUTE_UID);
         $filter = $server->searchQuery($criteria);
@@ -1123,7 +1125,7 @@ class Horde_Kolab_Server_Object
      * @throws Horde_Kolab_Server_Exception
      */
     static public function attrsForSearch($server, $criteria, $attrs,
-                                          $restrict = Horde_Kolab_Server::RESULT_SINGLE)
+                                          $restrict = Horde_Kolab_Server_Object::RESULT_SINGLE)
     {
         $params = array('attributes' => $attrs);
         $filter = $server->searchQuery($criteria);

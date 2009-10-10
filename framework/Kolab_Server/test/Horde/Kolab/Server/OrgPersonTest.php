@@ -60,6 +60,8 @@ class Horde_Kolab_Server_OrgPersonTest extends Horde_Kolab_Server_Scenario
      */
     protected function setUp()
     {
+        parent::setUp();
+
         $this->initializeEnvironments();
         $this->servers = $this->getKolabServers();
     }

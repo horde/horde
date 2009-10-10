@@ -11,23 +11,24 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 
-if (!defined('HORE_KOLAB_SERVER_TESTS')) {
-    /**
-     * The Autoloader allows us to omit "require/include" statements.
-     */
-    require_once 'Horde/Autoloader.php';
+/**
+ * The Autoloader allows us to omit "require/include" statements.
+ */
+require_once 'Horde/Autoloader.php';
+
+if (!defined('HORDE_KOLAB_SERVER_TESTS')) {
 
     $test_dir = '@test_dir@/Kolab_Server';
 
-    if (substr($test_dir, 0, 1) == '@') {
+    if (strpos($test_dir, '@test_dir') === 0) {
         /**
          * Assume we are working in development mode and this package resides in
          * 'framework'.
          */
-        define('HORE_KOLAB_SERVER_TESTS', dirname(__FILE__) . '/../../..');
+        define('HORDE_KOLAB_SERVER_TESTS', dirname(__FILE__) . '/../../..');
     } else {
-        define('HORE_KOLAB_SERVER_TESTS', $test_dir);
+        define('HORDE_KOLAB_SERVER_TESTS', $test_dir);
     }
 
-    Horde_Autoloader::addClassPath(HORE_KOLAB_SERVER_TESTS);
+    Horde_Autoloader::addClassPath(HORDE_KOLAB_SERVER_TESTS);
 }

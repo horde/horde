@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Structure_Ldap extends Horde_Kolab_Server_Structure
+class Horde_Kolab_Server_Structure_Ldap extends Horde_Kolab_Server_Structure_Base
 {
     /**
      * Returns the set of objects supported by this structure.
@@ -90,29 +90,4 @@ class Horde_Kolab_Server_Structure_Ldap extends Horde_Kolab_Server_Structure
         return sprintf('%s,%s', $id, $this->server->getBaseUid());
     }
 
-    /**
-     * Quote an UID part.
-     *
-     * @param string $id   The UID part.
-     *
-     * @return string The UID part.
-     */
-    public function quoteForUid($id)
-    {
-        $id = Net_LDAP2_Util::escape_dn_value($id);
-        return $id[0];
-    }
-
-    /**
-     * Quote an filter part.
-     *
-     * @param string $part   The filter part.
-     *
-     * @return string The quoted part.
-     */
-    public function quoteForFilter($part)
-    {
-        $part = Net_LDAP2_Util::escape_filter_value($part);
-        return $part[0];
-    }
 }

@@ -37,21 +37,33 @@ class Horde_Kolab_Server_File extends Horde_Kolab_Server_Test
     private $_file;
 
     /**
-     * Construct a new Horde_Kolab_Server object.
+     * Set configuration parameters.
      *
-     * @param array $params Parameter array.
+     * @param array $params The parameters.
+     *
+     * @return NULL
      */
-    public function __construct(Horde_Kolab_Server_Structure $structure,
-                                $params = array())
+    public function setParams(array $params)
     {
         if (isset($params['file'])) {
             $this->_file = $params['file'];
-        } else {
-            throw new Horde_Kolab_Server_Exception('The file based driver requires a \'file\' parameter.');
         }
-        parent::__construct($structure, $params);
+
+        parent::setParams($params);
     }
 
+    /**
+     * Get the file parameter.
+     *
+     * @return NULL
+     */
+    private function _getFile()
+    {
+        if (empty($this->_file)) {
+            throw new Horde_Kolab_Server_Exception('The file based driver requires a \'file\' parameter.');
+        }
+        return $this->_file;
+    }
     
     /**
      * Load the current state of the database.
@@ -60,7 +72,7 @@ class Horde_Kolab_Server_File extends Horde_Kolab_Server_Test
      */
     protected function load()
     {
-        $raw_data = file_get_contents($this->_file);
+        $raw_data = file_get_contents($this->_getFile());
         if (!$raw_data === false) {
             $data = @unserialize($raw_data);
             if ($data !== false) {
@@ -69,7 +81,7 @@ class Horde_Kolab_Server_File extends Horde_Kolab_Server_Test
                 $error = error_get_last();
                 if (isset($this->logger)) {
                     $this->logger->warn(sprintf('Horde_Kolab_Server_file failed to read the database from %s. Error was: %s',
-                                                $this->_file, $error['message']));
+                                                $this->_getFile(), $error['message']));
                 }
                 $this->data = array();
             }
@@ -84,12 +96,12 @@ class Horde_Kolab_Server_File extends Horde_Kolab_Server_Test
     protected function store()
     {
         $raw_data = serialize($this->data);
-        $result = @file_put_contents($this->_file, $raw_data);
+        $result = @file_put_contents($this->_getFile(), $raw_data);
         if ($result === false) {
             $error = error_get_last();
             if (isset($this->logger)) {
                 $this->logger->warn(sprintf('Horde_Kolab_Server_file failed to store the database in %s. Error was: %s',
-                                            $this->_file,  $error['message']));
+                                            $this->_getFile(),  $error['message']));
             }
         }
     }
@@ -101,7 +113,7 @@ class Horde_Kolab_Server_File extends Horde_Kolab_Server_Test
      */
     public function clean()
     {
-        unlink($this->_file);
+        unlink($this->_getFile());
         $this->data = array();
         $this->store();
     }
@@ -111,8 +123,8 @@ class Horde_Kolab_Server_File extends Horde_Kolab_Server_Test
      *
      * @return string The path to the database.
      */
-    public function getStoragePAth()
+    public function getStoragePath()
     {
-        return $this->_file;
+        return $this->_getFile();
     }
 }

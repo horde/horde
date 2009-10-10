@@ -40,6 +40,8 @@ class Horde_Kolab_Server_UserTest extends Horde_Kolab_Server_Scenario
      */
     protected function setUp()
     {
+        parent::setUp();
+
         $this->server = $this->getKolabMockServer();
         $users        = $this->validUsers();
         foreach ($users as $user) {

@@ -68,6 +68,8 @@ class Horde_Kolab_Server_InetorgpersonTest extends Horde_Kolab_Server_Scenario
      */
     protected function setUp()
     {
+        parent::setUp();
+
         $this->initializeEnvironments();
         $this->servers = $this->getKolabServers();
     }

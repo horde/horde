@@ -65,12 +65,6 @@ class Horde_Kolab_Server_Scenario extends PHPUnit_Extensions_Story_TestCase
             }
             break;
         case 'several Kolab servers':
-            foreach ($this->getEnvironments() as $environment) {
-                $this->prepareInjector($environment);
-                $this->prepareKolabServerConfiguration($environment);
-                $this->prepareKolabServer($environment);
-            }
-            break;
         case 'the test environments':
             $this->initializeEnvironments();
             break;
@@ -338,6 +332,23 @@ class Horde_Kolab_Server_Scenario extends PHPUnit_Extensions_Story_TestCase
     }
 
     /**
+     * Prepare the log handler for the given environment.
+     *
+     * @param string $environment The name of the environment.
+     *
+     * @return NULL
+     */
+    public function prepareLogger($environment)
+    {
+        $logger  = new Horde_Log_Logger();
+        $handler = new Horde_Log_Handler_Mock();
+        $logger->addHandler($handler);
+
+        $this->world['injector'][$environment]->setInstance('Horde_Log_Logger',
+                                                            $logger);
+    }
+
+    /**
      * Prepare the server configuration for the given environment.
      *
      * @param string $environment The name of the environment.
@@ -401,6 +412,7 @@ class Horde_Kolab_Server_Scenario extends PHPUnit_Extensions_Story_TestCase
     public function initializeEnvironment($environment)
     {
         $this->prepareInjector($environment);
+        $this->prepareLogger($environment);
         $this->prepareKolabServerConfiguration($environment);
         $this->prepareKolabServer($environment);
     }
@@ -1045,11 +1057,21 @@ class Horde_Kolab_Server_Scenario extends PHPUnit_Extensions_Story_TestCase
     }
 
     /**
+     * Setup function.
+     *
+     * @return NULL.
+     */
+    protected function setUp()
+    {
+        $this->added = array();
+    }
+
+    /**
      * Cleanup function.
      *
      * @return NULL.
      */
-    public function tearDown()
+    protected function tearDown()
     {
         if (isset($this->added)) {
             $added = array_reverse($this->added);

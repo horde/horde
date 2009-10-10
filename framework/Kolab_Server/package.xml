@@ -61,11 +61,17 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <dir name="Kolab">
       <file name="Server.php" role="php" />
       <dir name="Server">
+       <file name="Base.php" role="php" />
+       <file name="Connection.php" role="php" />
+       <dir name="Connection">
+        <file name="Simpleldap.php" role="php" />
+        <file name="Splittedldap.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/Server/Connection -->
        <file name="Exception.php" role="php" />
        <file name="Factory.php" role="php" />
        <file name="File.php" role="php" />
        <file name="Ldap.php" role="php" />
-       <file name="MissingObjectException.php" role="php" />
+       <file name="Logged.php" role="php" />
        <file name="Object.php" role="php" />
        <dir name="Object">
         <file name="Groupofnames.php" role="php" />
@@ -88,8 +94,45 @@ http://pear.php.net/dtd/package-2.0.xsd">
          <file name="User.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Server/Object/Kolab -->
        </dir> <!-- /lib/Horde/Kolab/Server/Object -->
+       <file name="Objects.php" role="php" />
+       <dir name="Objects">
+        <file name="Base.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/Server/Objects -->
+       <file name="Query.php" role="php" />
+       <dir name="Query">
+        <file name="Element.php" role="php" />
+        <dir name="Element">
+         <file name="And.php" role="php" />
+         <file name="Approx.php" role="php" />
+         <file name="Begins.php" role="php" />
+         <file name="Contains.php" role="php" />
+         <file name="Ends.php" role="php" />
+         <file name="Equals.php" role="php" />
+         <file name="Greater.php" role="php" />
+         <file name="Group.php" role="php" />
+         <file name="Less.php" role="php" />
+         <file name="Mapped.php" role="php" />
+         <file name="Not.php" role="php" />
+         <file name="Or.php" role="php" />
+         <file name="Single.php" role="php" />
+        </dir> <!-- /lib/Horde/Kolab/Server/Element -->
+        <file name="Ldap.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/Server/Query -->
+       <file name="Result.php" role="php" />
+       <dir name="Result">
+        <file name="Ldap.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/Server/Result -->
+       <file name="Schema.php" role="php" />
+       <dir name="Schema">
+        <file name="Base.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/Server/Schema -->
+       <file name="Search.php" role="php" />
+       <dir name="Search">
+        <file name="Base.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/Server/Search -->
        <file name="Structure.php" role="php" />
        <dir name="Structure">
+        <file name="Base.php" role="php" />
         <file name="Kolab.php" role="php" />
         <file name="Ldap.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Server/Structure -->
@@ -104,7 +147,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="AddingObjectsTest.php" role="test" />
        <file name="AdminTest.php" role="test" />
        <file name="AllTests.php" role="test" />
-       <file name="Autoload.php" role="test" />
+       <file name="Autoload.php" role="test">
+        <replace from="@test_dir@" to="test_dir" type="pear-config"/>
+       </file>
+       <dir name="Connection">
+        <file name="SimpleldapTest.php" role="php" />
+        <file name="SplittedldapTest.php" role="php" />
+       </dir> <!-- /test/Horde/Kolab/Server/Connection -->
        <file name="DistListHandlingTest.php" role="test" />
        <file name="GroupHandlingTest.php" role="test" />
        <file name="GroupTest.php" role="test" />
@@ -118,6 +167,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="PersonTest.php" role="test" />
        <file name="Scenario.php" role="test" />
        <file name="ServerTest.php" role="test" />
+       <dir name="Server">
+        <file name="FactoryTest.php" role="test" />
+       </dir> <!-- /test/Horde/Kolab/Server/Server -->
        <file name="TestTest.php" role="test" />
        <file name="UserHandlingTest.php" role="test" />
        <file name="UserTest.php" role="test" />
@@ -136,34 +188,18 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.4.0b1</min>
    </pearinstaller>
    <package>
-    <name>Net_LDAP2</name>
-    <channel>pear.php.net</channel>
-   </package>
-   <package>
-    <name>Autoloader</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Horde_Framework</name>
+    <name>Exception</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>
   <optional>
    <package>
-    <name>Horde_LDAP</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Horde_Cache</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
     <name>Date</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>PHPUnit</name>
-    <channel>pear.phpunit.de</channel>
+    <name>Net_LDAP2</name>
+    <channel>pear.php.net</channel>
    </package>
    <extension>
     <name>ldap</name>
@@ -173,11 +209,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease>
   <filelist>
    <install name="lib/Horde/Kolab/Server.php" as="Horde/Kolab/Server.php" />
+   <install name="lib/Horde/Kolab/Server/Base.php" as="Horde/Kolab/Server/Base.php" />
+   <install name="lib/Horde/Kolab/Server/Connection.php" as="Horde/Kolab/Server/Connection.php" />
+   <install name="lib/Horde/Kolab/Server/Connection/Simpleldap.php" as="Horde/Kolab/Server/Connection/Simpleldap.php" />
+   <install name="lib/Horde/Kolab/Server/Connection/Splittedldap.php" as="Horde/Kolab/Server/Connection/Splittedldap.php" />
    <install name="lib/Horde/Kolab/Server/Exception.php" as="Horde/Kolab/Server/Exception.php" />
    <install name="lib/Horde/Kolab/Server/Factory.php" as="Horde/Kolab/Server/Factory.php" />
    <install name="lib/Horde/Kolab/Server/File.php" as="Horde/Kolab/Server/File.php" />
    <install name="lib/Horde/Kolab/Server/Ldap.php" as="Horde/Kolab/Server/Ldap.php" />
-   <install name="lib/Horde/Kolab/Server/MissingObjectException.php" as="Horde/Kolab/Server/MissingObjectException.php" />
+   <install name="lib/Horde/Kolab/Server/Logged.php" as="Horde/Kolab/Server/Logged.php" />
    <install name="lib/Horde/Kolab/Server/Object.php" as="Horde/Kolab/Server/Object.php" />
    <install name="lib/Horde/Kolab/Server/Object/Groupofnames.php" as="Horde/Kolab/Server/Object/Groupofnames.php" />
    <install name="lib/Horde/Kolab/Server/Object/Inetorgperson.php" as="Horde/Kolab/Server/Object/Inetorgperson.php" />
@@ -196,7 +236,32 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Kolab/Server/Object/Kolab/User.php" as="Horde/Kolab/Server/Object/Kolab/User.php" />
    <install name="lib/Horde/Kolab/Server/Object/Organizationalperson.php" as="Horde/Kolab/Server/Object/Organizationalperson.php" />
    <install name="lib/Horde/Kolab/Server/Object/Person.php" as="Horde/Kolab/Server/Object/Person.php" />
+   <install name="lib/Horde/Kolab/Server/Objects.php" as="Horde/Kolab/Server/Objects.php" />
+   <install name="lib/Horde/Kolab/Server/Objects/Base.php" as="Horde/Kolab/Server/Objects/Base.php" />
+   <install name="lib/Horde/Kolab/Server/Query.php" as="Horde/Kolab/Server/Query.php" />
+   <install name="lib/Horde/Kolab/Server/Query/Element.php" as="Horde/Kolab/Server/Query/Element.php" />
+   <install name="lib/Horde/Kolab/Server/Query/Element/And.php" as="Horde/Kolab/Server/Query/Element/And.php" />
+   <install name="lib/Horde/Kolab/Server/Query/Element/Approx.php" as="Horde/Kolab/Server/Query/Element/Approx.php" />
+   <install name="lib/Horde/Kolab/Server/Query/Element/Begins.php" as="Horde/Kolab/Server/Query/Element/Begins.php" />
+   <install name="lib/Horde/Kolab/Server/Query/Element/Contains.php" as="Horde/Kolab/Server/Query/Element/Contains.php" />
+   <install name="lib/Horde/Kolab/Server/Query/Element/Ends.php" as="Horde/Kolab/Server/Query/Element/Ends.php" />
+   <install name="lib/Horde/Kolab/Server/Query/Element/Equals.php" as="Horde/Kolab/Server/Query/Element/Equals.php" />
+   <install name="lib/Horde/Kolab/Server/Query/Element/Greater.php" as="Horde/Kolab/Server/Query/Element/Greater.php" />
+   <install name="lib/Horde/Kolab/Server/Query/Element/Group.php" as="Horde/Kolab/Server/Query/Element/Group.php" />
+   <install name="lib/Horde/Kolab/Server/Query/Element/Less.php" as="Horde/Kolab/Server/Query/Element/Less.php" />
+   <install name="lib/Horde/Kolab/Server/Query/Element/Mapped.php" as="Horde/Kolab/Server/Query/Element/Mapped.php" />
+   <install name="lib/Horde/Kolab/Server/Query/Element/Not.php" as="Horde/Kolab/Server/Query/Element/Not.php" />
+   <install name="lib/Horde/Kolab/Server/Query/Element/Or.php" as="Horde/Kolab/Server/Query/Element/Or.php" />
+   <install name="lib/Horde/Kolab/Server/Query/Element/Single.php" as="Horde/Kolab/Server/Query/Element/Single.php" />
+   <install name="lib/Horde/Kolab/Server/Query/Ldap.php" as="Horde/Kolab/Server/Query/Ldap.php" />
+   <install name="lib/Horde/Kolab/Server/Result.php" as="Horde/Kolab/Server/Result.php" />
+   <install name="lib/Horde/Kolab/Server/Result/Ldap.php" as="Horde/Kolab/Server/Result/Ldap.php" />
+   <install name="lib/Horde/Kolab/Server/Schema.php" as="Horde/Kolab/Server/Schema.php" />
+   <install name="lib/Horde/Kolab/Server/Schema/Base.php" as="Horde/Kolab/Server/Schema/Base.php" />
+   <install name="lib/Horde/Kolab/Server/Search.php" as="Horde/Kolab/Server/Search.php" />
+   <install name="lib/Horde/Kolab/Server/Search/Base.php" as="Horde/Kolab/Server/Search/Base.php" />
    <install name="lib/Horde/Kolab/Server/Structure.php" as="Horde/Kolab/Server/Structure.php" />
+   <install name="lib/Horde/Kolab/Server/Structure/Base.php" as="Horde/Kolab/Server/Structure/Base.php" />
    <install name="lib/Horde/Kolab/Server/Structure/Kolab.php" as="Horde/Kolab/Server/Structure/Kolab.php" />
    <install name="lib/Horde/Kolab/Server/Structure/Ldap.php" as="Horde/Kolab/Server/Structure/Ldap.php" />
    <install name="lib/Horde/Kolab/Server/Test.php" as="Horde/Kolab/Server/Test.php" />
@@ -204,6 +269,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="test/Horde/Kolab/Server/AdminTest.php" as="Horde/Kolab/Server/AdminTest.php" />
    <install name="test/Horde/Kolab/Server/AllTests.php" as="Horde/Kolab/Server/AllTests.php" />
    <install name="test/Horde/Kolab/Server/Autoload.php" as="Horde/Kolab/Server/Autoload.php" />
+   <install name="test/Horde/Kolab/Server/Connection/SimpleldapTest.php" as="Horde/Kolab/Server/Connection/SimpleldapTest.php" />
+   <install name="test/Horde/Kolab/Server/Connection/SplittedldapTest.php" as="Horde/Kolab/Server/Connection/SplittedldapTest.php" />
    <install name="test/Horde/Kolab/Server/DistListHandlingTest.php" as="Horde/Kolab/Server/DistListHandlingTest.php" />
    <install name="test/Horde/Kolab/Server/GroupHandlingTest.php" as="Horde/Kolab/Server/GroupHandlingTest.php" />
    <install name="test/Horde/Kolab/Server/GroupTest.php" as="Horde/Kolab/Server/GroupTest.php" />
@@ -217,6 +284,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="test/Horde/Kolab/Server/PersonTest.php" as="Horde/Kolab/Server/PersonTest.php" />
    <install name="test/Horde/Kolab/Server/Scenario.php" as="Horde/Kolab/Server/Scenario.php" />
    <install name="test/Horde/Kolab/Server/ServerTest.php" as="Horde/Kolab/Server/ServerTest.php" />
+   <install name="test/Horde/Kolab/Server/Server/FactoryTest.php" as="Horde/Kolab/Server/Server/FactoryTest.php" />
    <install name="test/Horde/Kolab/Server/TestTest.php" as="Horde/Kolab/Server/TestTest.php" />
    <install name="test/Horde/Kolab/Server/UserHandlingTest.php" as="Horde/Kolab/Server/UserHandlingTest.php" />
    <install name="test/Horde/Kolab/Server/UserTest.php" as="Horde/Kolab/Server/UserTest.php" />

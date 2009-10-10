@@ -85,14 +85,17 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
     private $_current_index;
 
     /**
-     * Construct a new Horde_Kolab_Server object.
+     * Set configuration parameters.
      *
-     * @param array $params Parameter array.
+     * @param array $params The parameters.
+     *
+     * @return NULL
      */
-    public function __construct(Horde_Kolab_Server_Structure $structure,
-                                $params = array())
+    public function setParams(array $params)
     {
-        $this->load();
+        //@todo Load when connecting
+        //$this->load();
+
         if (isset($params['data'])) {
             $this->data = $params['data'];
         } else {
@@ -100,8 +103,6 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
                $this->data  = array();
             }
         }
-
-        parent::__construct($structure, $params);
 
         if (isset($this->params['admin'])
             && isset($this->params['admin']['type'])) {
@@ -114,18 +115,25 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
             }
         }
 
-        $this->store();
+        //@todo Load when connecting
+        //$this->store();
+
+        parent::setParams($params);
     }
 
     /**
-     * Connect to the server.
+     * Connect to the LDAP server.
+     *
+     * @param string $uid  The unique id of the user.
+     * @param string $pass The password.
      *
      * @return NULL.
      *
      * @throws Horde_Kolab_Server_Exception If the connection failed.
      */
-    protected function connect()
+    protected function _connectUid($uid = null, $pass = null)
     {
+        //@todo
     }
 
     /**
@@ -135,6 +143,7 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
      */
     protected function load()
     {
+        //@todo: remove the global
         if (isset($GLOBALS['KOLAB_SERVER_TEST_DATA'])) {
             $this->data = $GLOBALS['KOLAB_SERVER_TEST_DATA'];
         } else {
@@ -483,7 +492,7 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
      *
      * @throws Horde_Kolab_Server_Exception If the object does not exist.
      */
-    public function read($dn, $attrs = null)
+    public function read($uid, array $attrs = array())
     {
         if (!$this->bound) {
             $result = $this->bind();
@@ -522,9 +531,9 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
      * @param array   $data    The attributes of the object to be added/replaced.
      * @param boolean $exists  Does the object already exist on the server?
      *
-     * @return boolean  True if saving succeeded.
+     * @return NULL
      */
-    public function save($uid, $data, $exists = false)
+    public function save($uid, array $data, $exists = false)
     {
         if (!$this->bound) {
             $result = $this->bind();
@@ -597,8 +606,8 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
         $this->store();
 
         if (isset($this->logger)) {
-            $logger->debug(sprintf('The object \"%s\" has been successfully saved!',
-                                   $uid));
+            $this->logger->debug(sprintf('The object \"%s\" has been successfully saved!',
+                                         $uid));
         }
     }
 
@@ -628,7 +637,7 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
      *
      * @param string $uid The UID of the object to be deleted.
      *
-     * @return boolean True if saving succeeded.
+     * @return NULL
      *
      * @throws Horde_Kolab_Server_Exception
      */
@@ -642,10 +651,9 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
         }
         $this->store();
         if (isset($this->logger)) {
-            $logger->debug(sprintf('The object \"%s\" has been successfully deleted!',
-                                   $uid));
+            $this->logger->debug(sprintf('The object \"%s\" has been successfully deleted!',
+                                         $uid));
         }
-        return true;
     }
 
     /**
@@ -654,7 +662,7 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
      * @param string $uid The UID of the object to be renamed.
      * @param string $new The new UID of the object.
      *
-     * @return boolean True if renaming succeeded.
+     * @return NULL
      *
      * @throws Horde_Kolab_Server_Exception
      */
@@ -666,10 +674,9 @@ class Horde_Kolab_Server_Test extends Horde_Kolab_Server_Ldap
         }
         $this->store();
         if (isset($this->logger)) {
-            $logger->debug(sprintf('The object \"%s\" has been successfully renamed to \"%s\"!',
-                                   $uid, $new));
+            $this->logger->debug(sprintf('The object \"%s\" has been successfully renamed to \"%s\"!',
+                                         $uid, $new));
         }
-        return true;
     }
 
     /**

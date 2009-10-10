@@ -60,6 +60,8 @@ class Horde_Kolab_Server_KolabgermanbankarrangementTest extends Horde_Kolab_Serv
      */
     protected function setUp()
     {
+        parent::setUp();
+
         $this->initializeEnvironments();
         $this->servers = $this->getKolabServers();
     }
