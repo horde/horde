@@ -61,6 +61,11 @@
    </field>
 
    <field>
+    <name>event_resources</name>
+    <type>clob</type>
+   </field>
+   
+   <field>
     <name>event_exceptions</name>
     <type>clob</type>
    </field>
@@ -469,4 +474,72 @@
 
  </table>
 
+ <table>
+ 
+  <name>kronolith_resources</name>
+  
+  <declaration>
+  
+   <field>
+    <name>resource_id</name>
+    <type>integer</type>
+    <default></default>
+    <notnull>true</notnull>
+    <length>4</length>
+   </field>
+   
+   <field>
+    <name>resource_name</name>
+    <type>text</type>
+    <default></default>
+    <notnull>false</notnull>
+    <length>255</length>
+   </field>
+    
+   <field>
+    <name>resource_calendar</name>
+    <type>text</type>
+    <default></default>
+    <notnull>false</notnull>
+    <length>255</length>
+   </field>
+   
+   <field>
+    <name>resource_description</name>
+    <type>clob</type>
+   </field>
+   
+   <field>
+    <name>resource_category</name>
+    <type>text</type>
+    <default></default>
+    <notnull>false</notnull>
+    <length>255</length>
+   </field>
+   
+   <field>
+    <name>resource_response_type</name>
+    <type>integer</type>
+    <default>0</default>
+    <notnull>true</notnull>
+    <length>4</length>
+   </field>
+   
+   <field>
+    <name>resource_type</name>
+    <type>text</type>
+    <default></default>
+    <notnull>true</notnull>
+    <length>255</length>
+   </field>
+
+   <field>
+    <name>resource_members</name>
+    <type>clob</type>
+   </field>
+   
+  </declaration>
+  
+ </table>
+ 
 </database>
