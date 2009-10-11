@@ -2505,7 +2505,7 @@ var DimpBase = {
         var c;
 
         if (show) {
-            $(id + 'Loading').clonePosition(id == 'viewport' ? 'msgList' : 'splitBar', { setHeight: false, setWidth: false }).show();
+            $(id + 'Loading').clonePosition(id == 'viewport' ? 'msgList' : 'splitBar', { setLeft: false, setTop: true, setHeight: false, setWidth: false }).show();
             c = 'progress';
         } else {
             Effect.Fade(id + 'Loading', { duration: 0.2 });
