@@ -44,7 +44,7 @@ $scripts = array(
     array('fullmessage-dimp.js', 'imp')
 );
 
-$js_out = array();
+$js_onload = $js_out = array();
 foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'index', 'mailbox') as $val) {
     if (!empty($show_msg_result[$val])) {
         $js_out[] = 'DimpFullmessage.' . $val . ' = ' . Horde_Serialize::serialize($show_msg_result[$val], Horde_Serialize::JSON);
@@ -74,16 +74,16 @@ if (!$disable_compose) {
     $js_out = array_merge($js_out, $compose_result['js']);
     $scripts[] = array('compose-dimp.js', 'imp');
 
-    Horde::addInlineScript($compose_result['jsonload'], 'load');
+    $js_onload = $compose_result['jsonload'];
 }
 
-$js_onload = array(IMP_Dimp::notify());
+$js_onload[] = IMP_Dimp::notify();
 if (isset($show_msg_result['js'])) {
     $js_onload = array_merge($js_onload, $show_msg_result['js']);
 }
 
 Horde::addInlineScript($js_out);
-Horde::addInlineScript($js_onload, 'dom');
+Horde::addInlineScript(array_filter($js_onload), 'load');
 
 IMP_Dimp::header($show_msg_result['subject'], $scripts);
 echo "<body>\n";
