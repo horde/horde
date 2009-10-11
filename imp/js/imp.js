@@ -93,6 +93,7 @@ document.observe('dom:loaded', function() {
         d.write(data);
         d.close();
 
+        id.show().previous().remove();
         this.iframeResize(id);
     };
 
