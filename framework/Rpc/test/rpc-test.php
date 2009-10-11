@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 /**
- * $Horde: framework/RPC/tests/rpc-test.php,v 1.8 2006/06/15 22:53:21 chuck Exp $
+ * $Horde: framework/RPC/tests/rpc-test.php,v 1.5.10.3 2007/12/20 13:49:28 jan Exp $
  *
  * @package Horde_RPC
  */
@@ -35,7 +35,7 @@ case 1:
 
 case 2:
     $response = Horde_RPC::request('xmlrpc', Horde::url('rpc.php', true, -1),
-                                   'tasks.list', array(0),
+                                   'tasks.list', array(),
                                    array('user' => $user, 'pass' => $pass));
     break;
 
@@ -68,7 +68,7 @@ case 5:
 
 case 6:
     $response = Horde_RPC::request('soap', Horde::url('rpc.php', true, -1),
-                                   'tasks.list', array(0, 0),
+                                   'tasks.list', array(),
                                    array('namespace' => 'urn:horde',
                                          'user' => $user,
                                          'pass' => $pass));
