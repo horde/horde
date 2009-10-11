@@ -1581,6 +1581,22 @@ $_prefs['mimp_preview_msg'] = array(
     'desc' => _("Display only the first 250 characters of a message initially?")
 );
 
+$_prefs['mimp_max_from_chars'] = array(
+    'value' => 10,
+    'locked' => true,
+    'shared' => false,
+    'type' => 'number',
+    'desc' => _("In the mailbox view, how many characters of From: addresses should we show before truncating?")
+);
+
+$_prefs['mimp_max_subj_chars'] = array(
+    'value' => 20,
+    'locked' => true,
+    'shared' => false,
+    'type' => 'number',
+    'desc' => _("In the mailbox view, how many characters of Subject: lines should we show before truncating?")
+);
+
 // End Minimalist View Options
 
 // Standard View Options

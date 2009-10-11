@@ -246,20 +246,6 @@
   </configsection>
  </configtab>
 
- <configtab name="mimp" desc="Mobile View (mimp) Options">
-  <configsection name="mimp">
-   <configsection name="mailbox">
-    <configheader>Mailbox Settings</configheader>
-    <configinteger name="max_from_chars" desc="In the mailbox view, how many
-    characters of From: addresses should we show before truncating
-    them?">10</configinteger>
-    <configinteger name="max_subj_chars" desc="In the mailbox view, how many
-    characters of Subject: lines should we show before truncating
-    them?">20</configinteger>
-   </configsection>
-  </configsection>
- </configtab>
-
  <configtab name="dimp" desc="Dynamic View (dimp) Options">
   <configsection name="dimp">
    <configlist name="css_files" required="false" desc="A list of additional CSS

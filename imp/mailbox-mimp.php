@@ -131,8 +131,8 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     /* Format the from header. */
     $getfrom = $imp_ui->getFrom($ob['envelope']);
     $msg['from'] = $getfrom['from'];
-    if (Horde_String::length($msg['from']) > $conf['mimp']['mailbox']['max_from_chars']) {
-        $msg['from'] = Horde_String::substr($msg['from'], 0, $conf['mimp']['mailbox']['max_from_chars']) . '...';
+    if (Horde_String::length($msg['from']) > $prefs->getValue('mimp_max_from_chars')) {
+        $msg['from'] = Horde_String::substr($msg['from'], 0, $prefs->getValue('mimp_max_from_chars')) . '...';
     }
 
     /* Get flag information. */
@@ -160,8 +160,8 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         $msg['subject'] = $threadtree[$ob['uid']] . trim($msg['subject']);
     }
 
-    if (Horde_String::length($msg['subject']) > $conf['mimp']['mailbox']['max_subj_chars']) {
-        $msg['subject'] = Horde_String::substr($msg['subject'], 0, $conf['mimp']['mailbox']['max_subj_chars']) . '...';
+    if (Horde_String::length($msg['subject']) > $prefs->getValue('mimp_max_subj_chars')) {
+        $msg['subject'] = Horde_String::substr($msg['subject'], 0, $prefs->getValue('mimp_max_subj_chars')) . '...';
     }
 
     /* Generate the target link. */

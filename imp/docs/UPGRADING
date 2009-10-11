@@ -31,6 +31,10 @@ spellchecking, and login redirection have been moved to Horde.
 The 'show_preview' option has been removed; enabling previews is now handled
 by the 'show_preview' preference.
 
+The 'max_from_chars' and 'max_subj_chars' configuration options for the
+minimal (mimp) display have been moved to preferences ('mimp_max_from_chars'
+and 'mimp_max_subj_chars').
+
 
 Preferences
 -----------
