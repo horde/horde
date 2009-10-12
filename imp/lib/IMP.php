@@ -430,17 +430,18 @@ class IMP
      * strip that prefix out. Additionally, translate prefix text if this
      * is one of the folders with special meaning.
      *
-     * @param string $folder  The folder name to display (UTF7-IMAP).
+     * @param string $folder        The folder name to display (UTF7-IMAP).
+     * @param boolean $notranslate  Do not translate the folder prefix.
      *
      * @return string  The folder, with any prefix gone/translated.
      */
-    static public function displayFolder($folder)
+    static public function displayFolder($folder, $notranslate = false)
     {
         global $prefs;
 
         $cache = &self::$_displaycache;
 
-        if (isset($cache[$folder])) {
+        if (!$notranslate && isset($cache[$folder])) {
             return $cache[$folder];
         }
 
@@ -465,6 +466,10 @@ class IMP
         } else {
             $out = $folder;
         };
+
+        if ($notranslate) {
+            return $out;
+        }
 
         foreach ($sub_array as $key => $val) {
             if (stripos($out, $key) === 0) {

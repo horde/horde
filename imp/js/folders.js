@@ -136,7 +136,7 @@ var ImpFolders = {
                 if (IMP.conf.fixed_folders.indexOf(this.displayNames[j]) != -1) {
                     window.alert(IMP.text.folders_no_rename + ' ' + this.displayNames[j]);
                 } else {
-                    var tmp = window.prompt(IMP.text.folders_rename1 + ' ' + this.displayNames[j] + "\n" + IMP.text.folders_rename2, this.displayNames[j]);
+                    var tmp = window.prompt(IMP.text.folders_rename1 + ' ' + this.displayNames[j] + "\n" + IMP.text.folders_rename2, this.fullNames[j] ? this.fullNames[j] : this.displayNames[j]);
                     if (tmp) {
                         newnames += tmp + "\n";
                         oldnames += f.value + "\n";

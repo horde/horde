@@ -351,11 +351,19 @@ list($raw_rows, $newmsgs) = $imaptree->build();
 
 /* Build the list of display names. */
 reset($raw_rows);
-while (list(,$r) = each($raw_rows)) {
+$displayNames = $fullNames = array();
+while (list($k, $r) = each($raw_rows)) {
     $displayNames[] = $r['display'];
+
+    $tmp = IMP::displayFolder($r['value'], true);
+    if ($tmp != $r['display']) {
+        $fullNames[$k] = $tmp;
+    }
 }
+
 Horde::addInlineScript(array(
-    'ImpFolders.displayNames = ' . Horde_Serialize::serialize($displayNames, Horde_Serialize::JSON, $charset)
+    'ImpFolders.displayNames = ' . Horde_Serialize::serialize($displayNames, Horde_Serialize::JSON, $charset),
+    'ImpFolders.fullNames = ' . Horde_Serialize::serialize($fullNames, Horde_Serialize::JSON, $charset)
 ));
 
 /* Prepare the header template. */

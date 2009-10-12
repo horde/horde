@@ -104,6 +104,7 @@ v5.0-git
 v4.3.6-cvs
 ----------
 
+[mms] Don't use translated folder prefixes in rename dialog (Bug #8554).
 [jan] Add hook to retrieve public S/MIME and PGP keys.
 
 
