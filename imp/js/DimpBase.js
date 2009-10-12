@@ -212,7 +212,7 @@ var DimpBase = {
         if (loc.startsWith('msg:')) {
             separator = loc.indexOf(':', 4);
             f = loc.substring(4, separator);
-            this.uid = loc.substring(separator + 1);
+            this.uid = parseInt(loc.substring(separator + 1), 10);
             loc = 'folder:' + f;
             // Now fall through to the 'folder:' check below.
         }
@@ -281,7 +281,6 @@ var DimpBase = {
 
         case 'options':
             this.highlightSidebar('appoptions');
-            this._addHistory(loc);
             DimpCore.setTitle(DIMP.text.prefs);
             this.iframeContent(loc, DIMP.conf.URI_PREFS_IMP);
             break;
@@ -378,14 +377,12 @@ var DimpBase = {
             this.resetSelected();
             this.quicksearchClear(true);
 
-            if (this.folder == f) {
-                return;
+            if (this.folder != f) {
+                $('folderName').update(DIMP.text.loading);
+                $('msgHeader').update();
+                this.folderswitch = true;
+                this.folder = f;
             }
-
-            $('folderName').update(DIMP.text.loading);
-            $('msgHeader').update();
-            this.folderswitch = true;
-            this.folder = f;
         }
 
         this.viewport.loadView(f, this.uid ? { imapuid: Number(this.uid), view: f } : null, opts.background);
