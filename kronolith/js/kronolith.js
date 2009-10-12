@@ -1760,6 +1760,10 @@ KronolithCore = {
                 case 'kronolithQuickinsertForm':
                     $('kronolithQuickinsert').fade();
                     break;
+                case 'kronolithEventForm':
+                    this._closeRedBox();
+                    window.history.back();
+                    break;
                 }
                 break;
             }
@@ -1851,11 +1855,13 @@ KronolithCore = {
                               }.bind(this));
                 $('kronolithBody').select('div[calendar=' + cal + '][eventid=' + eventid + ']').invoke('hide');
                 this._closeRedBox();
+                window.history.back();
                 e.stop();
                 return;
 
             case 'kronolithEventCancel':
                 this._closeRedBox();
+                window.history.back();
                 e.stop();
                 return;
 
@@ -2149,6 +2155,7 @@ KronolithCore = {
                           }
                           this._loadEventsCallback(r);
                           this._closeRedBox();
+                          window.history.back();
                       }.bind(this));
     },
 
@@ -2198,6 +2205,7 @@ KronolithCore = {
     {
         if (!r.response.event) {
             RedBox.close();
+            window.history.back();
             return;
         }
 
