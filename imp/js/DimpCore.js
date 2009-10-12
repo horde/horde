@@ -271,13 +271,20 @@ var DimpCore = {
         this.redirect(url || (DIMP.conf.URI_AJAX + '/LogOut'));
     },
 
-    redirect: function(url)
+    redirect: function(url, force)
     {
         var ptr = parent.frames.horde_main ? parent : window;
+
+        if (Horde.dhtmlHistory) {
+            Horde.dhtmlHistory.stop();
+        }
+
         ptr.location.assign(this.addURLParam(url));
 
         // Catch browsers that don't redirect on assign().
-        (function() { ptr.location.reload(true); }).delay(0.5);
+        if (force && !Prototype.Browser.WebKit) {
+            (function() { ptr.location.reload(); }).delay(0.4);
+        }
     },
 
     /* Add dropdown menus to addresses. */
