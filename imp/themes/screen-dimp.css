@@ -842,12 +842,11 @@ a.address:hover img {
 
 /* Popup message styling. */
 .headercloseimg {
-    float: right !important;
-    padding-right: 2px;
+    float: right;
     cursor: pointer;
 }
-.headertitle {
-    border-bottom: none;
+#compose_close {
+    margin-top: 1px;
 }
 
 /* Keyboard key style */

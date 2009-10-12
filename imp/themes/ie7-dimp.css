@@ -21,9 +21,6 @@ div.msgSize {
     overflow: hidden;
 }
 
-form#compose {
-    margin-top: -13px;
-}
 #to, #cc, #bcc {
     overflow: auto;
 }

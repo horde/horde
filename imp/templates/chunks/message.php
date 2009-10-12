@@ -26,9 +26,7 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
 <div id="pageContainer">
  <div id="msgData">
   <div class="dimpActions dimpActionsMsg noprint">
-   <div class="headercloseimg" id="windowclose">
-    <span class="closeImg" title="X"></span>
-   </div>
+   <div class="headercloseimg closeImg" id="windowclose" title="X"></div>
    <?php _createDAfmsg(_("Reply"), 'Reply', 'reply_link', 'hasmenu', $show_text) ?>
    <?php _createDAfmsg(_("Forward"), 'Forward', 'forward_link', '', $show_text) ?>
 <?php if (!empty($conf['spam']['reporting']) && (!$conf['spam']['spamfolder'] || ($folder != IMP::folderPref($prefs->getValue('spam_folder'), true)))): ?>
