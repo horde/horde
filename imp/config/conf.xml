@@ -262,7 +262,7 @@
    <configsection name="viewport">
     <configinteger name="buffer_pages" desc="The number of viewable pages to
     send to the browser per server access when listing
-    messages.">5</configinteger>
+    messages.">8</configinteger>
     <configinteger name="limit_factor" desc="When browsing through a message
     list, if a user comes within this percentage of the end of the current
     cached viewport, the browser will send a background request to the server
