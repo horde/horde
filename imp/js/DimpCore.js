@@ -10,7 +10,7 @@
 /* DimpCore object. */
 var DimpCore = {
     // Vars used and defaulting to null/false:
-    //   DMenu, Growler, inAjaxCallback, is_init, is_logout, is_redirect,
+    //   DMenu, Growler, inAjaxCallback, is_init, is_logout
     //   onDoActionComplete
     growler_log: true,
     is_ie6: Prototype.Browser.IE && !window.XMLHttpRequest,
@@ -271,15 +271,13 @@ var DimpCore = {
         this.redirect(url || (DIMP.conf.URI_AJAX + '/LogOut'));
     },
 
-    redirect: function(url, force)
+    redirect: function(url)
     {
-        if (!this.is_redirect) {
-            var ptr = parent.frames.horde_main ? parent : window;
-            this.is_redirect = true;
-            ptr.location = this.addURLParam(url);
-            if (force) {
-                setTimeout(function() { ptr.location.reload() }, 300);
-            }
+        var ptr = parent.frames.horde_main ? parent : window;
+        ptr.location.assign(this.addURLParam(url));
+        // IE doesn't automatically reload on a hash difference
+        if (Prototype.Browser.IE) {
+            ptr.location.reload();
         }
     },
 
