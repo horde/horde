@@ -32,8 +32,8 @@ form#compose {
     border-width: 2px;
 }
 
-#sidebarPanel li.custom img, #sidebarPanel li.servicelink img {
-    padding-top: 1px;
+#sidebarPanel li.custom, #sidebarPanel li.servicelink {
+    padding-bottom: 1px;
 }
 
 #sidebarPanel li.folder a:hover, #sidebarPanel li.custom a:hover, #sidebarPanel li.servicelink a:hover {
@@ -46,6 +46,10 @@ form#compose {
 }
 .dimpOptions div a:hover {
     text-decoration: underline;
+}
+
+.htmlMsgData {
+    width: 98%;
 }
 
 /* Fixes broken inline-block. */
