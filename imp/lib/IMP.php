@@ -445,7 +445,7 @@ class IMP
         }
 
         $ns_info = $GLOBALS['imp_imap']->getNamespace($folder);
-        $delimiter = is_null($ns_info) ? $ns_info['delimiter'] : '';
+        $delimiter = is_null($ns_info) ? '' : $ns_info['delimiter'];
 
         /* Substitute any translated prefix text. */
         $sub_array = array(
