@@ -465,7 +465,7 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     background: #fff;
 }
 #previewInfo {
-    background: transparent url(graphics/ico_message_off.png) no-repeat scroll 10px 15px;
+    background: transparent url("graphics/ico_message_off.png") no-repeat scroll 10px 15px;
     line-height: 18px;
     text-align: left;
     padding: 15px 80px 10px 35px;

@@ -589,7 +589,9 @@ td.addressTr span.loadingImg {
     display: inline-block;
     height: 16px;
     width: 16px;
-    background: transparent center right no-repeat;
+    background-color: transparent;
+    background-position: center right;
+    background-repeat: no-repeat;
     padding: 0 1px;
     vertical-align: bottom;
 }
