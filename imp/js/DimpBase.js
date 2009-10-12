@@ -202,6 +202,8 @@ var DimpBase = {
             loc != 'options' &&
             $('appoptions') &&
             $('appoptions').hasClassName('on')) {
+            $('dimpPage').hide();
+            $('dimpLoading').show();
             return DimpCore.redirect(DIMP.conf.URI_DIMP + '#' + loc);
         }
 

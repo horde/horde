@@ -275,10 +275,9 @@ var DimpCore = {
     {
         var ptr = parent.frames.horde_main ? parent : window;
         ptr.location.assign(this.addURLParam(url));
-        // IE doesn't automatically reload on a hash difference
-        if (Prototype.Browser.IE) {
-            ptr.location.reload();
-        }
+
+        // Catch browsers that don't redirect on assign().
+        (function() { ptr.location.reload(true); }).delay(0.5);
     },
 
     /* Add dropdown menus to addresses. */
