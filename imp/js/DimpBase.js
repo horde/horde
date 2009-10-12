@@ -1268,7 +1268,7 @@ var DimpBase = {
         if (f.endsWith('_special')) {
             f = f.slice(0, -8);
         }
-        return 'sub' + f;
+        return 'sub_' + f;
     },
 
     /* Folder list updates. */
@@ -2228,9 +2228,21 @@ var DimpBase = {
 
     changeFolder: function(ob)
     {
-        var fid = this.getFolderId(ob.m),
-            fdiv = $(fid).down('DIV'),
-            oldexpand = fdiv && fdiv.hasClassName('col');
+        var fdiv, oldexpand,
+            fid = this.getFolderId(ob.m);
+
+        if ($(fid + '_special')) {
+            // The case of children being added to a special folder is
+            // handled by createFolder().
+            if (!ob.ch) {
+                this.deleteFolderElt(fid + '_special', true);
+            }
+            return;
+        }
+
+        fdiv = $(fid).down('DIV');
+        oldexpand = fdiv && fdiv.hasClassName('col');
+
         this.deleteFolderElt(fid, !ob.ch);
         if (ob.co && this.folder == ob.m) {
             this.go('folder:INBOX');
