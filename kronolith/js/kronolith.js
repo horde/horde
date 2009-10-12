@@ -218,7 +218,14 @@ KronolithCore = {
                 this._loadEvents(dates[0], dates[1], loc);
                 if ($('kronolithView' + locCap)) {
                     this.viewLoading = true;
-                    $('kronolithView' + locCap).appear({ 'queue': 'end', 'afterFinish': function() { this.viewLoading = false; }.bind(this) });
+                    $('kronolithView' + locCap).appear({
+                            'queue': 'end',
+                            'afterFinish': function() {
+                                if (loc == 'week' || loc == 'day') {
+                                    this._calculateRowSizes(loc + 'Sizes', 'kronolithView' + locCap);
+                                }
+                                this.viewLoading = false; }.bind(this)
+                    });
                 }
                 $('kronolithLoading' + loc).insert($('kronolithLoading').remove());
                 this.updateMinical(date, loc);
@@ -605,18 +612,30 @@ KronolithCore = {
 
         this[storage] = {};
         var trA = $(view).down('.kronolithAllDay'),
-            tdA = trA.down('td'),
+            divA = trA.down('.kronolithAllDayContainer'),
+            divATop = divA.cumulativeOffset().top,
+            divAHeight = divA.getHeight(),
             tr = trA.next('tr'),
-            td = tr.down('td'), height;
-        this[storage].offset = tr.offsetTop - trA.offsetTop;
-        this[storage].height = tr.next('tr').offsetTop - tr.offsetTop;
-        this[storage].spacing = this[storage].height - tr.getHeight()
-            + parseInt(td.getStyle('borderTopWidth'))
-            + parseInt(td.getStyle('borderBottomWidth'));
-        this[storage].allDay = tr.offsetTop - trA.offsetTop;
-        this[storage].allDay -= this[storage].allDay - trA.getHeight()
-            + parseInt(td.getStyle('borderTopWidth'))
-            + parseInt(tdA.getStyle('borderBottomWidth'));
+            td = tr.down('td').next('td'), tdTop, tdHeight,
+            tdAlign = td.getStyle('verticalAlign'),
+            tr2 = tr.next('tr'),
+            td2 = tr2.down('td').next('td'), td2Top,
+            div = new Element('DIV').setStyle({ 'backgroundColor': 'red', 'width': '1px', 'height': '1px' });
+
+        td.insert({ 'top': div });
+        tdTop = div.cumulativeOffset().top;
+        td.setStyle({ 'verticalAlign': 'bottom' });
+        td.insert({ 'bottom': div });
+        tdHeight = div.cumulativeOffset().top + parseInt(td.getStyle('lineHeight')) - tdTop;
+        td.setStyle({ 'verticalAlign': tdAlign });
+        td2.insert({ 'top': div });
+        td2Top = div.cumulativeOffset().top;
+        div.remove();
+
+        this[storage].offset = tdTop - divATop;
+        this[storage].height = td2Top - tdTop;
+        this[storage].spacing = this[storage].height - parseInt(td.getStyle('height'));
+        this[storage].allDay = divAHeight;
     },
 
     /**
@@ -985,11 +1004,9 @@ KronolithCore = {
                 style = { 'backgroundColor': event.value.bg,
                           'color': event.value.fg };
 
-            this._calculateRowSizes(storage, view == 'day' ? 'kronolithViewDay' : 'kronolithViewWeek');
-
             if (event.value.al) {
                 if (view == 'day') {
-                    $('kronolithViewDayBody').down('td').next('td').insert(div.setStyle(style));
+                    $('kronolithViewDayBody').down('.kronolithAllDayContainer').insert(div.setStyle(style));
                 } else {
                     $('kronolithAllDay' + date).insert(div.setStyle(style));
                 }
@@ -1027,18 +1044,16 @@ KronolithCore = {
                     eventTop = div.cumulativeOffset().top,
                     // Bottom-most position (maximum y) of top dragger
                     maxTop = div.offsetTop + draggerBottom.offsetTop
-                        - this[storage].allDay - this[storage].spacing
-                        - draggerTop.getHeight()
+                        - minTop - draggerTop.getHeight()
                         - parseInt(innerDiv.getStyle('lineHeight')),
-                    // Top-most position (minimum y) of bottom dragger (upper edge)
-                    minBottom = div.offsetTop
-                        - this[storage].allDay - this[storage].spacing
-                        + draggerTop.getHeight() - dragBottomHeight
+                    // Top-most position (minimum y) of bottom dragger (upper
+                    // edge)
+                    minBottom = div.offsetTop - minTop + draggerTop.getHeight()
                         + parseInt(innerDiv.getStyle('lineHeight')),
-                    // Bottom-most position (maximum y) of bottom dragger (upper edge)
+                    // Bottom-most position (maximum y) of bottom dragger
+                    // (upper edge)
                     maxBottom = 24 * this[storage].height
-                        + this[storage].allDay
-                        - dragBottomHeight - minTop,
+                        + this[storage].allDay - dragBottomHeight,
                     // Height of the whole event div
                     divHeight = div.getHeight(),
                     // Maximum height of the whole event div
@@ -1093,7 +1108,7 @@ KronolithCore = {
                 new Drag(event.value.nodeId + 'top', opts);
 
                 opts.snap = function(x, y, elm) {
-                    y = Math.min(maxBottom, step * (Math.max(minBottom, y - minTop - dragBottomHeight) / step | 0) + dragBottomHeight) + minTop;
+                    y = Math.min(maxBottom - minTop + dragBottomHeight + KronolithCore[storage].spacing, step * ((Math.max(minBottom, y - minTop) + dragBottomHeight + KronolithCore[storage].spacing) / step | 0)) + minTop - dragBottomHeight - KronolithCore[storage].spacing;
                     return [0, y];
                 }
                 new Drag(event.value.nodeId + 'bottom', opts);
@@ -1262,9 +1277,18 @@ KronolithCore = {
             hour: offset / this[storage].height | 0,
             minute: Math.round(offset % this[storage].height / step * 10)
         });
+        var hour = (offset + height + this[storage].spacing) / this[storage].height | 0,
+            minute = Math.round((offset + height + this[storage].spacing) % this[storage].height / step * 10),
+            second = 0;
+        if (hour == 24) {
+            hour = 23;
+            minute = 59;
+            second = 59;
+        }
         event.end.set({
-            hour: (offset + height + this[storage].spacing) / this[storage].height | 0,
-            minute: Math.round((offset + height + this[storage].spacing) % this[storage].height / step * 10)
+            hour: hour,
+            minute: minute,
+            second: second
         });
     },
 

@@ -251,6 +251,12 @@ try {
 
             case 'end':
                 $event->end = new Horde_Date($value);
+                if ($event->end->hour == 23 &&
+                    $event->end->min == 59 &&
+                    $event->end->sec == 59) {
+                    $event->end->mday++;
+                    $event->end->hour = $event->end->min = $event->end->sec = 0;
+                }
                 break;
             }
         }

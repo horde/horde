@@ -19,7 +19,8 @@
   <tbody id="kronolithViewDayBody" class="kronolithViewBody">
     <tr class="kronolithRow kronolithAllDay">
       <td class="kronolithFirstCol"><?php echo _("All day") ?></td>
-      <td class="kronolithCol"></td>
+      <td class="kronolithCol"><div class="kronolithAllDayContainer">
+      </div></td>
     </tr>
     <?php for ($i = 0; $i < 24; $i++): ?>
     <tr class="kronolithRow<?php if ($i < 9 || $i > 19) echo ' kronolithNight' ?>">
