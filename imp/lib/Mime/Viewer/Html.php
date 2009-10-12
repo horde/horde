@@ -115,12 +115,16 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         }
 
         $data = $this->_IMPrender(true);
-        $uid = 'htmldata_' . uniqid(mt_rand());
 
-        $data['js'] = array('IMP.iframeInject("' . $uid . '", ' . Horde_Serialize::serialize($data['data'], Horde_Serialize::JSON, $this->_mimepart->getCharset()) . ')');
-        $data['data'] = '<DIV>' . _("Loading...") . '</DIV><IFRAME class="htmlMsgData" id="' . $uid . '" src="javascript:false" frameborder="0" style="display:none"></IFRAME>' .
-            Horde_Util::bufferOutput(array('Horde', 'addScriptFile'), 'imp.js', 'imp');
-        $data['type'] = 'text/html; charset=UTF-8';
+        /* Catch case where using mimp on a javascript browser. */
+        if ($_SESSION['imp']['view'] != 'mimp') {
+            $uid = 'htmldata_' . uniqid(mt_rand());
+
+            $data['js'] = array('IMP.iframeInject("' . $uid . '", ' . Horde_Serialize::serialize($data['data'], Horde_Serialize::JSON, $this->_mimepart->getCharset()) . ')');
+            $data['data'] = '<DIV>' . _("Loading...") . '</DIV><IFRAME class="htmlMsgData" id="' . $uid . '" src="javascript:false" frameborder="0" style="display:none"></IFRAME>' .
+                Horde_Util::bufferOutput(array('Horde', 'addScriptFile'), 'imp.js', 'imp');
+            $data['type'] = 'text/html; charset=UTF-8';
+        }
 
         return array(
             $this->_mimepart->getMimeId() => $data
