@@ -740,8 +740,6 @@ div#kronolithEventTopTags span:hover {
     bottom: 10px;
     overflow: auto;
 }
-.kronolithView {
-}
 div.kronolithView div.kronolithRow div {
     width: 13%;
 }
@@ -1021,14 +1019,6 @@ div.kronolithView div.kronolithViewBody div.kronolithRow div.kronolithFirstCol {
 div.kronolithView div.kronolithViewBody div.kronolithRow div.kronolithFirstCol:hover {
     cursor: pointer;
 }
-div.kronolithView div.kronolithViewBody div.kronolithRow div .kronolithCorner {
-    float: left;
-    margin: 0 2px 2px 0;
-    padding: 0;
-    width: auto;
-    height: auto;
-    border: none;
-}
 div.kronolithView div.kronolithViewBody div.kronolithRow div.kronolithOtherMonth {
     background: #f7f7f7;
 }
@@ -1169,9 +1159,6 @@ div.kronolithView div.kronolithViewBody div.kronolithRow div .kronolithEvent.kro
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
 }
-div.kronolithViewWeek .kronolithEvents .kronolithEvent {
-    width: 11%;
-}
 .kronolithEvent .kronolithDragger {
     position: absolute;
     left: 0;
@@ -1219,34 +1206,6 @@ div.kronolithViewWeek .kronolithEvents .kronolithEvent {
 #kronolithViewMonth .kronolithEvent.kronolithSelected, #kronolithViewDay .kronolithAllDay .kronolithEvent.kronolithSelected, #kronolithViewWeek .kronolithAllDay .kronolithEvent.kronolithSelected {
     height: auto;
 }
-
-/* To be removed */
-.kronolithEvents .kronolithEvent.width50 { width: 5% !important; }
-
-.kronolithEvents .kronolithEvent.col1 { left: 30px; }
-.kronolithEvents .kronolithEvent.col2 { left: 15.5%; }
-.kronolithEvents .kronolithEvent.col3 { left: 28.5%; }
-.kronolithEvents .kronolithEvent.col4 { left: 41.5%; }
-.kronolithEvents .kronolithEvent.col5 { left: 54.5%; }
-.kronolithEvents .kronolithEvent.col6 { left: 67.5%; }
-.kronolithEvents .kronolithEvent.col7 { left: 80.5%; }
-/* done */
-
-.kronolithEvents .kronolithEvent.hour0 { top: 50px; }
-.kronolithEvents .kronolithEvent.hour1 { top: 95px; }
-.kronolithEvents .kronolithEvent.hour2 { top: 140px; }
-.kronolithEvents .kronolithEvent.hour3 { top: 185px; }
-.kronolithEvents .kronolithEvent.hour4 { top: 230px; }
-/* till 23 */
-
-.kronolithEvents .kronolithEvent.length1 { height: 35px; }
-.kronolithEvents .kronolithEvent.length2 { height: 75px; }
-.kronolithEvents .kronolithEvent.length3 { height: 120px; }
-.kronolithEvents .kronolithEvent.length4 { height: 165px; }
-.kronolithEvents .kronolithEvent.length5 { height: 210px; }
-.kronolithEvents .kronolithEvent.length6 { height: 255px; }
-/* till 23 */
-
 /* end tables */
 
 /* tags */
