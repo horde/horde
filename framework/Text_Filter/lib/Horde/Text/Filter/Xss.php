@@ -229,7 +229,7 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter
         }
 
         // Remove and store CDATA data.
-        preg_replace_callback('/<!\[CDATA\[.*?\]\]>/is', array($this, '_preProcessCallback'), $text);
+        $text = preg_replace_callback('/<!\[CDATA\[.*\]\]>/is', array($this, '_preProcessCallback'), $text);
 
         return $text;
     }
