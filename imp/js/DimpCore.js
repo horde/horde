@@ -297,7 +297,7 @@ var DimpCore = {
             tmp = $('largeaddrspan').cloneNode(true).writeAttribute('id', 'largeaddrspan_active');
             elt.insert(tmp);
             base = tmp.down('.dispaddrlist');
-            tmp = tmp.down(1);
+            tmp = tmp.down('.largeaddrlist');
             tmp.setText(tmp.getText().replace('%d', cnt));
         } else {
             base = elt;
