@@ -894,7 +894,7 @@ $_prefs['show_quoteblocks'] = array(
 
 // should we dim signatures?
 $_prefs['dim_signature'] = array(
-    'value' => 1,
+    'value' => 0,
     // Locked by default
     'locked' => true,
     'shared' => false,
