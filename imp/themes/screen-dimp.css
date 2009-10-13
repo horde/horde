@@ -842,7 +842,7 @@ a.address:hover img {
 
 /* Popup message styling. */
 .headercloseimg {
-    float: right;
+    float: right !important;
     cursor: pointer;
 }
 #compose_close {
