@@ -18,8 +18,11 @@ class Content_ApplicationController extends Horde_Controller_Base
 
         $GLOBALS['conf']['sql']['adapter'] = $GLOBALS['conf']['sql']['phptype'] == 'mysqli' ? 'mysqli' : 'pdo_' . $GLOBALS['conf']['sql']['phptype'];
 
-        $db = Horde_Db_Adapter::factory($GLOBALS['conf']['sql']);
-        $context = array('dbAdapter' => $db);
+        // @TODO use this
+        // $injector = new Horde_Injector();
+
+        $this->db = Horde_Db_Adapter::factory($GLOBALS['conf']['sql']);
+        $context = array('dbAdapter' => $this->db);
 
         $this->typeManager = new Content_Types_Manager($context);
         $context['typeManager'] = $this->typeManager;
