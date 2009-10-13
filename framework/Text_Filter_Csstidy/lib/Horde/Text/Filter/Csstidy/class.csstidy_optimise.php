@@ -398,7 +398,10 @@ class csstidy_optimise
 
             if (floatval($temp[$l]) == 0)
             {
-                $temp[$l] = '0';
+                /* Deal with values that begin with '-'. */
+                if (is_numeric($temp[$l])) {
+                    $temp[$l] = '0';
+                }
             }
             else
             {
