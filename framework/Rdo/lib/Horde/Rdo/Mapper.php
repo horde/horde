@@ -196,6 +196,9 @@ abstract class Horde_Rdo_Mapper implements Countable
         // Guess a classname if one isn't explicitly set.
         if (!$this->_classname) {
             $this->_classname = $this->mapperToEntity();
+            if (!$this->_classname) {
+                throw new Horde_Rdo_Exception('Unable to find an entity class (extending Horde_Rdo_Base) for ' . get_class($this));
+            }
         }
 
         $o = new $this->_classname();

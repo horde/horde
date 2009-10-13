@@ -11,8 +11,8 @@
  * @category Horde
  * @package Horde_Rdo
  */
-abstract class Horde_Rdo_Base implements IteratorAggregate {
-
+abstract class Horde_Rdo_Base implements IteratorAggregate
+{
     /**
      * The Horde_Rdo_Mapper instance associated with this Rdo object. The
      * Mapper takes care of all backend access.

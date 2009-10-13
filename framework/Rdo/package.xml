@@ -36,6 +36,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Literal.php" role="php" />
       </dir> <!-- /lib/Horde/Rdo/Query -->
       <file name="Base.php" role="php" />
+      <file name="Exception.php" role="php" />
       <file name="Iterator.php" role="php" />
       <file name="List.php" role="php" />
       <file name="Mapper.php" role="php" />
@@ -60,6 +61,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <filelist>
    <install name="lib/Horde/Rdo/Query/Literal.php" as="Horde/Rdo/Query/Literal.php" />
    <install name="lib/Horde/Rdo/Base.php" as="Horde/Rdo/Base.php" />
+   <install name="lib/Horde/Rdo/Exception.php" as="Horde/Rdo/Exception.php" />
    <install name="lib/Horde/Rdo/Iterator.php" as="Horde/Rdo/Iterator.php" />
    <install name="lib/Horde/Rdo/List.php" as="Horde/Rdo/List.php" />
    <install name="lib/Horde/Rdo/Mapper.php" as="Horde/Rdo/Mapper.php" />
