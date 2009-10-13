@@ -68,7 +68,6 @@ class csstidy_print
     function csstidy_print(&$css)
     {
         $this->parser    =& $css;
-        $this->css       =& $css->css;
         $this->template  =& $css->template;
         $this->tokens    =& $css->tokens;
         $this->charset   =& $css->charset;
@@ -245,22 +244,28 @@ class csstidy_print
     {
         $this->tokens = array();
 
-        foreach ($this->css as $medium => $val)
-        {
-            if ($this->parser->get_cfg('sort_selectors')) ksort($val);
+        reset($this->parser->css);
+        while (list($medium, $val) = each($this->parser->css)) {
+            if ($this->parser->get_cfg('sort_selectors')) {
+                ksort($val);
+            }
+
             if ($medium != DEFAULT_AT) {
                 $this->parser->_add_token(AT_START, $medium, true);
             }
 
-            foreach ($val as $selector => $vali)
-            {
-                if ($this->parser->get_cfg('sort_properties')) ksort($vali);
+            foreach ($val as $selector => $vali) {
+                if ($this->parser->get_cfg('sort_properties')) {
+                    ksort($vali);
+                }
+
                 $this->parser->_add_token(SEL_START, $selector, true);
 
-                foreach ($vali as $property => $valj)
-                {
-                    $this->parser->_add_token(PROPERTY, $property, true);
-                    $this->parser->_add_token(VALUE, $valj, true);
+                foreach ($vali as $property => $valj) {
+                    foreach ($valj['p'] as $valk) {
+                        $this->parser->_add_token(PROPERTY, $property, true);
+                        $this->parser->_add_token(VALUE, $valk, true);
+                    }
                 }
 
                 $this->parser->_add_token(SEL_END, $selector, true);
@@ -346,4 +351,3 @@ class csstidy_print
         }
     }
 }
-?>
