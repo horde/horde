@@ -700,13 +700,13 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 #attach_list span.remove:hover {
     text-decoration: underline;
 }
-#attach_list div, span.attachmentImg {
-    background-image: url("graphics/attachment.png");
-}
 #attach_list div {
     background: transparent left 2px no-repeat;
     height: 20px;
     padding-left: 20px;
+}
+#attach_list div, span.attachmentImg {
+    background-image: url("graphics/attachment.png");
 }
 #attach_list span.attachName {
     color: blue;
