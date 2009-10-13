@@ -156,7 +156,7 @@ class Horde_Controller_Dispatcher
         // try to load the class
         $controllerName = $hash[':controller'];
         if (!class_exists($controllerName, false)) {
-            $path = $this->_controllerDir . $controllerName . '.php';
+            $path = $this->_controllerDir . str_replace('_', '/', $controllerName) . '.php';
             if (file_exists($path)) {
                 require $path;
             } else {
@@ -189,10 +189,17 @@ class Horde_Controller_Dispatcher
                 $ret[':controller'] = $this->_inflector->camelize($val) . 'Controller';
             } elseif ($key == 'action') {
                 $ret[':action'] = $this->_inflector->camelize($val, 'lower');
+            } elseif ($key == 'module') {
+                $ret[':module'] = $this->_inflector->camelize($val);
             }
 
             $ret[$key] = $val;
         }
+
+        if (!empty($ret[':module'])) {
+            $ret[':controller'] = $ret[':module'] . '_' . $ret[':controller'];
+        }
+
         return !empty($ret) && isset($ret['controller']) ? $ret : false;
     }
 
