@@ -1635,7 +1635,7 @@ var DimpBase = {
 
     clickHandler: function(parentfunc, e)
     {
-        if (e.isRightClick()) {
+        if (e.isRightClick() || DimpCore.DMenu.operaCheck(e)) {
             return;
         }
 
@@ -2681,7 +2681,11 @@ DimpBase._msgDragConfig = {
         d.selectIfNoDrag = false;
 
         // Handle selection first.
-        if (!args.right && (e.ctrlKey || e.metaKey)) {
+        if (DimpCore.DMenu.operaCheck(e)) {
+            if (!DimpBase.isSelected('domid', id)) {
+                DimpBase.msgSelect(id, { right: true });
+            }
+        } else if (!args.right && (e.ctrlKey || e.metaKey)) {
             DimpBase.msgSelect(id, $H({ ctrl: true }).merge(args).toObject());
         } else if (e.shiftKey) {
             DimpBase.msgSelect(id, $H({ shift: true }).merge(args).toObject());
@@ -2712,21 +2716,28 @@ DimpBase._folderDragConfig = {
     scroll: 'normalfolders',
     threshold: 5,
     onStart: function(d, e) {
-        $('msgBodyCover').clonePosition('msgBody').show();
+        if (DimpCore.DMenu.operaCheck(e)) {
+            d.opera = true;
+        } else {
+            d.opera = false;
+            $('msgBodyCover').clonePosition('msgBody').show();
+        }
     },
     onDrag: function(d, e) {
-        if (!d.wasDragged) {
+        if (!d.opera && !d.wasDragged) {
             $('folderopts').hide();
             $('dropbase').show();
             d.ghost.removeClassName('on');
         }
     },
     onEnd: function(d, e) {
-        if (d.wasDragged) {
-            $('folderopts').show();
-            $('dropbase').hide();
+        if (!d.opera) {
+            if (d.wasDragged) {
+                $('folderopts').show();
+                $('dropbase').hide();
+            }
+            $('msgBodyCover').hide();
         }
-        $('msgBodyCover').hide();
     }
 };
 

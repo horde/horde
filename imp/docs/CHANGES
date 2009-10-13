@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Added contextmenu support in DIMP for Opera.
 [mms] Display HTML parts inline by using IFRAMEs (based on code by
       rui.carneiro@portugalmail.net; Request #8592).
 [mms] Add ability to search by relative date intervals (Request #3438).

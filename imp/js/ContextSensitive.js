@@ -4,6 +4,9 @@
  * document, and works only where these are possible to override.  It allows
  * contextmenus to be created via both a left and right mouse click.
  *
+ * On Opera, the context menu is triggered by a left click + SHIFT + CTRL
+ * combination.
+ *
  * Requires prototypejs 1.6+ and scriptaculous 1.8+ (effects.js only).
  *
  * Original code by Havard Eide (http://eide.org/) released under the MIT
@@ -39,7 +42,9 @@ var ContextSensitive = Class.create({
         this.submenus = $H();
         this.triggers = [];
 
-        document.observe('contextmenu', this._rightClickHandler.bindAsEventListener(this));
+        if (!Prototype.Browser.Opera) {
+            document.observe('contextmenu', this._rightClickHandler.bindAsEventListener(this));
+        }
         document.observe('click', this._leftClickHandler.bindAsEventListener(this));
         document.observe(Prototype.Browser.Gecko ? 'DOMMouseScroll' : 'mousescroll', this.close.bind(this));
     },
@@ -134,6 +139,12 @@ var ContextSensitive = Class.create({
     {
         var base, elt, elt_up, trigger;
 
+        if (this.operaCheck(e)) {
+            this._rightClickHandler(e, false);
+            e.stop();
+            return;
+        }
+
         // Check for a right click. FF on Linux triggers an onclick event even
         // w/a right click, so disregard.
         if (e.isRightClick()) {
@@ -172,6 +183,14 @@ var ContextSensitive = Class.create({
 
         // Check if the mouseclick is registered to an element now.
         this._rightClickHandler(e, true);
+    },
+
+    /**
+     * Checks if the Opera right-click emulation is present.
+     */
+    operaCheck: function(e)
+    {
+        return Prototype.Browser.Opera && e.shiftKey && e.ctrlKey;
     },
 
     /**

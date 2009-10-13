@@ -231,7 +231,14 @@ function _simpleButton($id, $text, $image, $imagedir = null)
      <div id="previewPane" style="display:none">
       <span id="msgLoading" class="loadingImg" style="display:none"></span>
       <div id="previewInfo" style="display:none">
-       <?php echo _("To preview a message, select it from the list above. A right-click on the messages will display available actions.") ?><br />
+       <?php echo _("To preview a message, select it from the list above.") ?>
+       <br />
+<?php if ($browser->isBrowser('opera')): ?>
+       <?php echo _("A left click") ?> + <span class="kbd"><?php echo _("Shift") ?></span> + <span class="kbd"><?php echo _("Ctrl") ?></span> <?php echo _("will display available actions.") ?>
+<?php else: ?>
+       <?php echo _("A right-click on a message or a folder will display available actions.") ?>
+<?php endif; ?>
+       <br />
        <?php printf(_("Click on a message while holding down the %s key to select multiple messages.  To select a range of messages, click the first message of the range, navigate to the last message of the range, and then click on the last message while holding down the %s key."), '<span class="kbd">' . _("Ctrl") . '</span>', '<span class="kbd">' . _("Shift") . '</span>') ?><br /><br />
        <?php echo _("The following keyboard shortcuts are available:") ?><br />
        <span class="iconImg keyupImg"></span> / <span class="iconImg keydownImg"></span> : <?php echo _("Move up/down through the message list.") ?><br />
