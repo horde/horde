@@ -22,12 +22,14 @@ class Horde_Text_Filter_Dimsignature extends Horde_Text_Filter
      */
     public function postProcess($text)
     {
-        $parts = preg_split('|(\n--\s*(?:<br />)?\r?\n)|', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
-        $num_parts = count($parts);
-        if ($num_parts > 2) {
-            return implode('', array_slice($parts, 0, -2))
-                . '<span class="signature">' . $parts[$num_parts - 2]
-                . $parts[$num_parts - 1] . '</span>';
+        $parts = preg_split('/(\n--\s*(?:<br \/>)?\r?\n.*?)(?=<\/?(?:div|span)|$\s)/is', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
+        $text = '';
+
+        while (count($parts)) {
+            $text .= array_shift($parts);
+            if (count($parts)) {
+                $text .= '<span class="signature">' . array_shift($parts) . '</span>';
+            }
         }
 
         return $text;

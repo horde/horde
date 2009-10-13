@@ -37,7 +37,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Added javscript minify filter.
+ <notes>* Fix dimming signatures when mixed with quoted text (Bug #4299).
+ * Added javscript minify filter.
  * Add support for using the tidy extension when filtering HTML data.
  * Initial Horde 4 package.
  </notes>
