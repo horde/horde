@@ -1409,7 +1409,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
 
             if (!empty($expunged)) {
-                $this->_cache->deleteMsgs($mailbox, $expunged);
+                if ($use_cache) {
+                    $this->_cache->deleteMsgs($mailbox, $expunged);
+                }
                 $tmp['mailbox']['messages'] -= $i;
 
                 /* Update MODSEQ if active for mailbox. */
@@ -1460,6 +1462,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          * the tagged response. */
         if (is_array($data[0])) {
             if (strtoupper(reset($data[0])) == 'EARLIER') {
+                /* Caching is guaranteed to be active if we are using
+                 * QRESYNC. */
                 $this->_cache->deleteMsgs($this->_temp['mailbox']['name'], $this->utils->fromSequenceString($data[1]));
             }
         } else {
@@ -2726,6 +2730,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             /* Get the list of flags from the cache. */
             if (empty($options['replace'])) {
+                /* Caching is guaranteed to be active if CONDSTORE is
+                 * active. */
                 $data = $this->_cache->get($this->_selected, array_keys($uids), array('HICflags'), $this->_temp['mailbox']['uidvalidity']);
 
                 foreach ($uids as $uid => $modseq) {
