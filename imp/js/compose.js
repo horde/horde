@@ -39,6 +39,9 @@ var ImpCompose = {
             /* This works in Mozilla */
             Field.focus(input);
             input.setSelectionRange(position, position);
+            if (position) {
+                (function() { input.scrollTop = input.scrollHeight - input.offsetHeight; }).defer();
+            }
         } else if (input.createTextRange) {
             /* This works in IE */
             var range = input.createTextRange();

@@ -642,6 +642,9 @@ var DimpCompose = {
             /* This works in Mozilla */
             Field.focus(input);
             input.setSelectionRange(pos, pos);
+            if (pos) {
+                (function() { input.scrollTop = input.scrollHeight - input.offsetHeight; }).defer();
+            }
         } else if (input.createTextRange) {
             /* This works in IE */
             range = input.createTextRange();
