@@ -70,7 +70,7 @@ class Kronolith_DeleteCalendarForm extends Horde_Form {
                 $identity = &Identity::singleton();
                 $name = $identity->getValue('fullname');
                 if (trim($name) == '') {
-                    $name = Horde_Auth::removeHook(Horde_Auth::getAuth());
+                    $name = Horde_Auth::getOriginalAuth();
                 }
                 $calendar = &$GLOBALS['kronolith_shares']->newShare(Horde_Auth::getAuth());
                 if (is_a($calendar, 'PEAR_Error')) {

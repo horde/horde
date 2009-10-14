@@ -48,7 +48,7 @@ case 'editform':
 
         // Process owner and owner permissions.
         $old_owner = $share->get('owner');
-        $new_owner = Horde_Auth::addHook(Horde_Util::getFormData('owner', $old_owner));
+        $new_owner = Horde_Auth::convertUsername(Horde_Util::getFormData('owner', $old_owner), true);
         if ($old_owner !== $new_owner && !empty($new_owner)) {
             if ($old_owner != Horde_Auth::getAuth() && !Horde_Auth::isAdmin()) {
                 $notification->push(_("Only the owner or system administrator may change ownership or owner permissions for a share"), 'horde.error');
@@ -133,7 +133,7 @@ case 'editform':
 
         foreach ($u_names as $key => $user) {
             // Apply backend hooks
-            $user = Horde_Auth::addHook($user);
+            $user = Horde_Auth::convertUsername($user, true);
             // If the user is empty, or we've already set permissions
             // via the owner_ options, don't do anything here.
             if (empty($user) || $user == $new_owner) {

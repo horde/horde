@@ -151,7 +151,7 @@ class Kronolith
         foreach ($GLOBALS['all_calendars'] as $id => $calendar) {
             $owner = $calendar->get('owner') == Horde_Auth::getAuth();
             $code['conf']['calendars']['internal'][$id] = array(
-                'name' => ($owner ? '' : '[' . Horde_Auth::removeHook($calendar->get('owner')) . '] ')
+                'name' => ($owner ? '' : '[' . Horde_Auth::convertUsername($calendar->get('owner'), false) . '] ')
                     . $calendar->get('name'),
                 'owner' => $owner,
                 'fg' => self::foregroundColor($calendar),
@@ -868,7 +868,7 @@ class Kronolith
             $identity = &Identity::singleton();
             $name = $identity->getValue('fullname');
             if (trim($name) == '') {
-                $name = Horde_Auth::removeHook(Horde_Auth::getAuth());
+                $name = Horde_Auth::getOriginalAuth();
             }
             $share = &$GLOBALS['kronolith_shares']->newShare(Horde_Auth::getAuth());
             $share->set('name', sprintf(_("%s's Calendar"), $name));

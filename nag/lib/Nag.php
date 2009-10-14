@@ -666,7 +666,7 @@ class Nag
                     $identity = Identity::singleton();
                     $name = $identity->getValue('fullname');
                     if (trim($name) == '') {
-                        $name = Horde_Auth::removeHook(Horde_Auth::getAuth());
+                        $name = Horde_Auth::getOriginalAuth();
                     }
                     $share = $GLOBALS['nag_shares']->newShare(Horde_Auth::getAuth());
                     $share->set('name', sprintf(_("%s's Task List"), $name));

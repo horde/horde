@@ -200,7 +200,7 @@ class IMP_Auth
 
         /* Determine the unique user name. */
         if (Horde_Auth::getAuth()) {
-            $_SESSION['imp']['uniquser'] = Horde_Auth::removeHook(Horde_Auth::getAuth());
+            $_SESSION['imp']['uniquser'] = Horde_Auth::getOriginalAuth();
         } else {
             $_SESSION['imp']['uniquser'] = $credentials['userId'];
             if (!empty($ptr['realm'])) {

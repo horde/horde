@@ -28,14 +28,14 @@
     <label for="owner_select" class="hidden"><?php echo _("Owner:") ?></label>
     <select id="owner_select" name="owner_select">
       <option value=""><?php echo _("Select a new owner:") ?></option>
-      <option value="<?php echo htmlspecialchars(Horde_Auth::removeHook($owner)) ?>" selected="selected"><?php echo htmlspecialchars(Horde_Auth::removeHook($owner)) ?></option>
-<?php foreach ($userList as $user) { if ($user != Horde_Auth::removeHook($owner)) { ?>
+      <option value="<?php echo htmlspecialchars(Horde_Auth::convertUsername($owner, false)) ?>" selected="selected"><?php echo htmlspecialchars(Horde_Auth::convertUsername($owner, false)) ?></option>
+<?php foreach ($userList as $user) { if ($user != Horde_Auth::convertUsername($owner, false)) { ?>
       <option value="<?php echo htmlspecialchars($user) ?>"><?php echo htmlspecialchars($user) ?></option>
 <?php } } ?>
     </select>
 <?php else: ?>
     <label for="owner_input" class="hidden"><?php echo _("Owner:") ?></label>
-    <input type="text" id="owner_input" name="owner_input" value="<?php echo htmlspecialchars(Horde_Auth::removeHook($owner)) ?>" />
+    <input type="text" id="owner_input" name="owner_input" value="<?php echo htmlspecialchars(Horde_Auth::convertUsername($owner, false)) ?>" />
 <?php endif; ?>
   </td>
 </tr>
@@ -181,7 +181,7 @@
 <?php
 foreach ($userperms as $user => $uperm) {
     if ($user != $owner) {
-        $user = Horde_Auth::removeHook($user);
+        $user = Horde_Auth::convertUsername($user, false);
 ?>
 <tr>
   <td class="light"><?php echo htmlspecialchars($user) ?><input type="hidden" name="u_names[<?php echo htmlspecialchars($user) ?>]" value="<?php echo htmlspecialchars($user) ?>" /></td>
@@ -218,8 +218,8 @@ foreach ($userperms as $user => $uperm) {
       <option value=""><?php echo _("Select a user to add:") ?></option>
 <?php
 foreach ($userList as $user) {
-    if (!isset($userperms[Horde_Auth::addHook($user)]) &&
-        $user != Horde_Auth::removeHook($owner)) {
+    if (!isset($userperms[Horde_Auth::convertUsername($user, true)]) &&
+        $user != Horde_Auth::convertUsername($owner, false)) {
 ?>
       <option value="<?php echo htmlspecialchars($user) ?>"><?php echo htmlspecialchars($user) ?></option>
 <?php } } ?>

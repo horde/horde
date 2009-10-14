@@ -71,7 +71,7 @@ if ($driver->supportShares()) {
         $identity = &Identity::singleton();
         $name = $identity->getValue('fullname');
         if (trim($name) == '') {
-            $name = Horde_Auth::removeHook(Horde_Auth::getAuth());
+            $name = Horde_Auth::getOriginalAuth();
         }
         $share = &$GLOBALS['ingo_shares']->newShare($signature);
         $share->set('name', $name);

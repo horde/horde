@@ -530,7 +530,7 @@ class Turba {
             $identity = Identity::singleton();
             $name = $identity->getValue('fullname');
             if (trim($name) == '') {
-                $name = Horde_Auth::removeHook(Horde_Auth::getAuth());
+                $name = Horde_Auth::getOriginalAuth();
             }
             $name = sprintf(_("%s's Address Book"), $name);
         } else {

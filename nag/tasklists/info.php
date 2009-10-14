@@ -25,7 +25,7 @@ $subscribe_url = Horde::url($registry->get('webroot', 'horde') . '/rpc.php/nag/'
 $identity = Identity::singleton('none', $tasklist->get('owner'));
 $owner_name = $identity->getValue('fullname');
 if (trim($owner_name) == '') {
-    $owner_name = Horde_Auth::removeHook(Horde_Auth::getAuth());
+    $owner_name = Horde_Auth::getOriginalAuth();
 }
 
 

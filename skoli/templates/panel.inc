@@ -62,7 +62,7 @@ function sbarToggle()
  <h4><?php echo _("Shared Classes:") ?></h4>
  <ul id="sharedclasses">
 <?php foreach ($shared_classes as $id => $cl): ?>
-  <li><label><input type="checkbox" class="checkbox" name="display_class[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_classes) ? ' checked="checked"' : '') . ' /> [' . htmlspecialchars(Horde_Auth::removeHook($cl->get('owner'))) . '] ' . htmlspecialchars($cl->get('name')) ?></label></li>
+  <li><label><input type="checkbox" class="checkbox" name="display_class[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_classes) ? ' checked="checked"' : '') . ' /> [' . htmlspecialchars(Horde_Auth::convertUsername($cl->get('owner'), false)) . '] ' . htmlspecialchars($cl->get('name')) ?></label></li>
 <?php endforeach; ?>
  </ul>
 <?php endif; ?>
