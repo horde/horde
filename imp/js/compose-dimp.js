@@ -623,7 +623,7 @@ var DimpCompose = {
         switch (DIMP.conf_compose.compose_cursor) {
         case 'top':
             pos = 0;
-            $('composeMessage').setValue('\n' + $F('message'));
+            $('composeMessage').setValue('\n' + $F('composeMessage'));
             break;
 
         case 'bottom':
