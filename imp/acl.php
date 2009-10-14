@@ -124,7 +124,7 @@ if (empty($folder)) {
 }
 
 $curr_acl = $ACLDriver->getACL($folder);
-$canEdit = $ACLDriver->canEdit($folder, $_SESSION['imp']['uniquser']);
+$canEdit = $ACLDriver->canEdit($folder, Horde_Auth::getAuth());
 
 require_once 'Horde/Prefs/UI.php';
 

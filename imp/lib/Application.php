@@ -302,10 +302,6 @@ class IMP_Application extends Horde_Registry_Application
             $_SESSION['imp']['cache']['select_view'] = empty($credentials['imp_select_view'])
                 ? ''
                 : $credentials['imp_select_view'];
-
-            /* Set the Horde ID, since it may have been altered by the 'realm'
-             * setting. */
-            $credentials['auth_ob']->setCredential('userId', $_SESSION['imp']['uniquser']);
         }
     }
 

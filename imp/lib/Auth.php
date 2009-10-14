@@ -131,11 +131,12 @@ class IMP_Auth
             break;
         }
 
+        $auth_id = Horde_Auth::getAuth();
         $imap_ob = $GLOBALS['imp_imap']->ob();
 
         $msg = sprintf(
-            $status_msg . ' for %s [%s]%s to {%s:%s [%s]}',
-            empty($_SESSION['imp']['uniquser']) ? '' : $_SESSION['imp']['uniquser'],
+            $status_msg . '%s [%s]%s to {%s:%s [%s]}',
+            $auth_id ? '' : ' for ' . $auth_id,
             $_SERVER['REMOTE_ADDR'],
             empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? '' : ' (forwarded for [' . $_SERVER['HTTP_X_FORWARDED_FOR'] . '])',
             $imap_ob ? $imap_ob->getParam('hostspec') : '',
@@ -168,7 +169,6 @@ class IMP_Auth
      * 'smtp'          -- SMTP options ('host' and 'port')
      * 'showunsub'     -- Show unsusubscribed mailboxes on the folders screen.
      * 'tasklistavail' -- Is listing of tasklists available?
-     * 'uniquser'      -- The unique user name.
      * 'view'          -- The imp view mode (currently dimp, imp, or mimp)
      *
      * @param array $credentials  An array of login credentials.
@@ -196,16 +196,6 @@ class IMP_Auth
         $ptr = $GLOBALS['imp_imap']->loadServerConfig($credentials['server']);
         if ($ptr === false) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
-        }
-
-        /* Determine the unique user name. */
-        if (Horde_Auth::getAuth()) {
-            $_SESSION['imp']['uniquser'] = Horde_Auth::getOriginalAuth();
-        } else {
-            $_SESSION['imp']['uniquser'] = $credentials['userId'];
-            if (!empty($ptr['realm'])) {
-                $_SESSION['imp']['uniquser'] .= '@' . $ptr['realm'];
-            }
         }
 
         /* Try authentication. */

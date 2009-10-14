@@ -136,7 +136,7 @@ class IMP_Spam
                     if (!is_null($from_line)) {
                         $spam_headers->addHeader('From', $from_line);
                     }
-                    $spam_headers->addHeader('Subject', sprintf(_("%s report from %s"), $action, $_SESSION['imp']['uniquser']));
+                    $spam_headers->addHeader('Subject', sprintf(_("%s report from %s"), $action, Horde_Auth::getAuth()));
 
                     /* Send the message. */
                     try {

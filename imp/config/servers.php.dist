@@ -187,22 +187,6 @@
  *       have an effect. By default, IMAP messages are output in the IMAP
  *       server default language. (IMAP only)
  *
- * realm: (string) ONLY USE REALM IF YOU ARE USING IMP FOR HORDE
- *        AUTHENTICATION, YOU HAVE MULTIPLE SERVERS, AND USERNAMES OVERLAP
- *        BETWEEN THOSE SERVERS.
- *
- *        If you only have one server, or have multiple servers with no
- *        username clashes, or have full user@example.com usernames, you DO
- *        NOT need a realm setting. If realm is set, a '@' symbol plus the
- *        realm value will be appended to the username that users login to
- *        IMP with to create the username that Horde treats the user as.
- *
- *        Example: with a realm of 'example.com', the username 'jane' would
- *        be treated by Horde (NOT your IMAP/POP server) as 'jane@example.com',
- *        and the username 'jane@example.com' would be treated as
- *        'jane@example.com@example.com' - an occasion where you probably
- *        don't need a realm setting.
- *
  * preferred: (string) Only useful if you want to use the same servers.php file
  *            for different machines: if the hostname of the IMP machine is
  *            identical to one of those in the preferred list, then the

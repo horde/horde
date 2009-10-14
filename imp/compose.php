@@ -880,7 +880,7 @@ if ($redirect) {
 
     $hidden = array(
         'actionID' => '',
-        'user' => $_SESSION['imp']['uniquser'],
+        'user' => Horde_Auth::getAuth(),
         'compose_requestToken' => Horde::getRequestToken('imp.compose'),
         'compose_formToken' => Horde_Token::generateId('compose'),
         'composeCache' => $composeCacheID,

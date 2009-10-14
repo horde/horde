@@ -22,6 +22,14 @@ IMP only supports the FCKeditor javscript HTML GUI editor.  Xinha is no longer
 supported.
 
 
+Server Options
+--------------
+
+The 'realm' option has been removed.  Altering usernames at runtime should
+instead by accomplished by using Horde's authusername() and/or IMP's
+preauthenticate() hooks.
+
+
 Configuration Options
 ---------------------
 

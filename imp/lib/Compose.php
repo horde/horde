@@ -554,7 +554,7 @@ class IMP_Compose
             }
         }
 
-        $entry = sprintf("%s Message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $_SESSION['imp']['uniquser']);
+        $entry = sprintf("%s Message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, Horde_Auth::getAuth());
         Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_INFO);
 
         /* Should we save this message in the sent mail folder? */
@@ -2423,7 +2423,7 @@ class IMP_Compose
             return;
         }
 
-        $filename = hash('md5', $_SESSION['imp']['uniquser']);
+        $filename = hash('md5', Horde_Auth::getAuth());
         $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
         if ($vfs->exists(self::VFS_DRAFTS_PATH, $filename)) {
             $data = $vfs->read(self::VFS_DRAFTS_PATH, $filename);
