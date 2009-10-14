@@ -782,6 +782,7 @@ var DimpBase = {
         case 'ctx_message_undeleted':
         case 'oa_undeleted':
             this.flag('\\deleted', false);
+            break;
 
         case 'oa_selectall':
             this.selectAll();
