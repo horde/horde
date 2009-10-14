@@ -119,6 +119,14 @@ class IMP_Compose
     protected function __construct($cacheid)
     {
         $this->_cacheid = $cacheid;
+        $this->__wakeup();
+    }
+
+    /**
+     * Code to run on unserialize().
+     */
+    public function __wakeup()
+    {
         register_shutdown_function(array($this, 'shutdown'));
     }
 
