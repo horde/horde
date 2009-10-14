@@ -789,11 +789,11 @@ class Nag_Task {
         }
 
         if (!empty($this->name)) {
-            $vTodo->setAttribute('SUMMARY', $this->name);
+            $vTodo->setAttribute('SUMMARY', $v1 ? $this->name : String::convertCharset($this->name, NLS::getCharset(), 'utf-8'));
         }
 
         if (!empty($this->desc)) {
-            $vTodo->setAttribute('DESCRIPTION', $this->desc);
+            $vTodo->setAttribute('DESCRIPTION', $v1 ? $this->desc : String::convertCharset($this->desc, NLS::getCharset(), 'utf-8'));
         }
 
         if (isset($this->priority)) {
@@ -839,7 +839,7 @@ class Nag_Task {
         }
 
         if (!empty($this->category)) {
-            $vTodo->setAttribute('CATEGORIES', $this->category);
+            $vTodo->setAttribute('CATEGORIES', $v1 ? $this->category : String::convertCharset($this->category, NLS::getCharset(), 'utf-8'));
         }
 
         /* Get the task's history. */
