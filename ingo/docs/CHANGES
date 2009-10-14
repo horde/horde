@@ -10,6 +10,7 @@ v2.0-git
 v1.2.3-cvs
 ----------
 
+[jan] Add Croatian translation (Matej Vela <matej.vela@carnet.hr>).
 [jan] Add PostgreSQL-specific upgrade script (Request #8630).
 [jan] Fix procmail vacation rule (micha@kovoks.nl, Bug #7052).
 [jan] Prevent deadlock with vacation rule in maildrop driver (Bug #8577).

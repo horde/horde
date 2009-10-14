@@ -10,6 +10,8 @@ v3.0-git
 v2.3.3-cvs
 ----------
 
+[jan] Add Croatian translation (Matej Vela <matej.vela@carnet.hr>,
+      Iva Rumora <iva.rumora@zg.t-com.hr>).
 [mjr] Fix permission checking for virtual address books. 
 [jan] Update deleted attributes during synchronization (lst_hoe02@kwsoft.de,
       Request #6658).
@@ -25,8 +27,9 @@ v2.3.2
 ------
 
 [mms] Upgrade prototype.js to v1.6.1.
-[mjr] Fix contacts being deleted during sync when moved from one address book
-      to another (ryu@ryux.org, Bug #8487).
+[jan] Fix synchronization with output compression enabled (Bug #7769).
+[mjr] Fix contacts being deleted during synchronization when moved from one
+      address book to another (ryu@ryux.org, Bug #8487).
 [mjr] Add new API method for retrieving the default share for a source.
 [jan] Don't overwrite the compositing fields, when importing composite fields.
 [cjh] Fix searches for multiple strict fields and at least one non-strict field

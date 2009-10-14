@@ -9,6 +9,7 @@ v2.0-git
 v1.1.1-cvs
 ----------
 
+[jan] Add Croatian translation (Valentin Vidic <valentin.vidic@carnet.hr>).
 [mms] Upgrade prototype.js to v1.6.1.
 [jan] Don't redirect to browse view if viewing a file fails.
 
