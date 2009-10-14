@@ -19,12 +19,6 @@ function _returnToMailbox($startIndex = null, $actID = null)
     $GLOBALS['start'] = $startIndex;
 }
 
-function _moveAfterAction()
-{
-    return (($_SESSION['imp']['protocol'] != 'pop') &&
-            !IMP::hideDeletedMsgs($GLOBALS['imp_mbox']['mailbox']) &&
-            !$GLOBALS['prefs']->getValue('use_trash'));
-}
 
 require_once dirname(__FILE__) . '/lib/Application.php';
 new IMP_Application(array('init' => true));
@@ -78,6 +72,7 @@ $mailbox_name = $index_array['mailbox'];
 $indices_array = array($mailbox_name => array($index));
 
 $imp_flags = IMP_Imap_Flags::singleton();
+$imp_ui = new IMP_UI_Message();
 
 switch ($actionID) {
 case 'blacklist':
@@ -101,7 +96,7 @@ case 'undelete_message':
             require IMP_BASE . '/mailbox.php';
             exit;
         }
-        if (_moveAfterAction()) {
+        if ($imp_ui->moveAfterAction()) {
             $imp_mailbox->setIndex(1, 'offset');
         }
     }
@@ -130,7 +125,7 @@ case 'notspam_report':
     $action = str_replace('_report', '', $actionID);
     switch (IMP_Spam::reportSpam($indices_array, $action)) {
     case 1:
-        if (_moveAfterAction()) {
+        if ($imp_ui->moveAfterAction()) {
             $imp_mailbox->setIndex(1, 'offset');
         }
         break;
@@ -231,9 +226,6 @@ $page_label = IMP::getLabel($imp_mbox['mailbox']);
 $msgindex = $imp_mailbox->getMessageIndex();
 $message_url = Horde::applicationUrl('message.php');
 $self_link = Horde_Util::addParameter(IMP::generateIMPUrl('message.php', $imp_mbox['mailbox'], $index, $mailbox_name), array('start' => $msgindex, 'message_token' => $message_token));
-
-/* Create the IMP_UI_Message:: object. */
-$imp_ui = new IMP_UI_Message();
 
 /* Develop the list of headers to display. */
 $basic_headers = $imp_ui->basicHeaders();

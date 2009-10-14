@@ -453,4 +453,16 @@ class IMP_UI_Message
         return Horde_Text_Filter::filter(IMP::filterText($subject), 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'class' => null, 'callback' => null));
     }
 
+    /**
+     * Redirect to mailbox after deleting a message?
+     *
+     * @return boolean  Return to mailbox?
+     */
+    public function moveAfterAction()
+    {
+        return (($_SESSION['imp']['protocol'] != 'pop') &&
+                !IMP::hideDeletedMsgs($GLOBALS['imp_mbox']['mailbox']) &&
+                !$GLOBALS['prefs']->getValue('use_trash'));
+    }
+
 }
