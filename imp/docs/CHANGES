@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Add ability to save drafts in MIMP.
 [mms] Add spam reporting in MIMP.
 [mms] Added contextmenu support in DIMP for Opera.
 [mms] Display HTML parts inline by using IFRAMEs (based on code by

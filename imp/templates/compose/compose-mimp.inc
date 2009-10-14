@@ -35,6 +35,10 @@ $f->add(new Horde_Mobile_textarea('message', $msg, _("Message: "), 10, 80));
 if (!$compose_disable) {
     $f->add(new Horde_Mobile_submit(_("Send"), 'a'));
 }
+if ($conf['user']['allow_folders'] && !$readonly_drafts) {
+    $f->add(new Horde_Mobile_submit(_("Save Draft"), 'a'));
+}
+
 $f->add(new Horde_Mobile_submit(_("Expand Names"), 'a'));
 
 $mimp_render->add($menu);
