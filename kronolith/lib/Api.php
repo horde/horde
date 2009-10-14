@@ -1131,6 +1131,9 @@ class Kronolith_Api extends Horde_Registry_Api
             return $alarms;
         }
         foreach ($alarms as $calendar => $cal_alarms) {
+            if (!$cal_alarms) {
+                continue;
+            }
             $share = $GLOBALS['kronolith_shares']->getShare($calendar);
             if (is_a($share, 'PEAR_Error')) {
                 continue;
