@@ -28,8 +28,8 @@ if (!$imp_mailbox->isValidIndex(false)) {
     exit;
 }
 
-/* Initialize IMP_Message object. */
 $imp_message = IMP_Message::singleton();
+$imp_ui = new IMP_UI_Message();
 
 /* Determine if mailbox is readonly. */
 $readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);
@@ -39,6 +39,7 @@ Horde_Nls::setTimeZone();
 
 /* Run through action handlers */
 $actionID = Horde_Util::getFormData('a');
+$msg_delete = false;
 switch ($actionID) {
 // 'd' = delete message
 // 'u' = undelete message
@@ -58,18 +59,20 @@ case 'u':
         try {
             Horde::checkRequestToken('imp.message-mimp', Horde_Util::getFormData('mt'));
             $imp_message->delete($indices_array);
-            if ($prefs->getValue('mailbox_return')) {
-                header('Location: ' . Horde_Util::addParameter(IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox']), array('s' => $imp_mailbox->getMessageIndex()), null, false));
-                exit;
-            }
-            if (($_SESSION['imp']['protocol'] != 'pop') &&
-                !IMP::hideDeletedMsgs($imp_mbox['mailbox']) &&
-                !$GLOBALS['prefs']->getValue('use_trash')) {
-                $imp_mailbox->setIndex(1, 'offset');
-            }
+            $msg_delete = false;
         } catch (Horde_Exception $e) {
             $notification->push($e);
         }
+    }
+    break;
+
+// 'rs' = report spam
+// 'ri' = report innocent
+case 'rs':
+case 'ri':
+    if (IMP_Spam::reportSpam(array($index_array['mailbox'] => array($index_array['index'])), $actionID == 'rs' ? 'spam' : 'innocent') === 1) {
+        $delete_msg = true;
+        break;
     }
     break;
 
@@ -77,10 +80,15 @@ case 'u':
 // Need to build message information, so don't do action until below.
 }
 
+if ($imp_ui->moveAfterAction()) {
+    $imp_mailbox->setIndex(1, 'offset');
+}
+
 /* We may have done processing that has taken us past the end of the
  * message array, so we will return to mailbox.php if that is the
  * case. */
-if (!$imp_mailbox->isValidIndex()) {
+if (!$imp_mailbox->isValidIndex() ||
+    ($delete_msg && $prefs->getValue('mailbox_return'))) {
     header('Location: ' . Horde_Util::addParameter(IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox']), array('s' => $imp_mailbox->getMessageIndex()), null, false));
     exit;
 }
@@ -152,9 +160,6 @@ if (($actionID == 'c') && !is_null($atc_id)) {
     $mimp_render->display();
     exit;
 }
-
-/* Create the IMP_UI_Message:: object. */
-$imp_ui = new IMP_UI_Message();
 
 /* Create the Identity object. */
 $user_identity = Identity::singleton(array('imp', 'imp'));
@@ -344,6 +349,18 @@ if (isset($prev_link)) {
 }
 
 $mset->add(new Horde_Mobile_link(sprintf(_("To %s"), IMP::getLabel($imp_mbox['mailbox'])), $mailbox_link));
+
+if ($conf['spam']['reporting'] &&
+    ($conf['spam']['spamfolder'] ||
+     ($mailbox_name != IMP::folderPref($prefs->getValue('spam_folder'), true)))) {
+    $mset->add(new Horde_Mobile_link(_("Report as Spam"), Horde_Util::addParameter($self_link, array('a' => 'rs', 'mt' => Horde::getRequestToken('imp.message-mimp')))));
+}
+
+if ($conf['notspam']['reporting'] &&
+    (!$conf['notspam']['spamfolder'] ||
+     ($mailbox_name == IMP::folderPref($prefs->getValue('spam_folder'), true)))) {
+    $mset->add(new Horde_Mobile_link(_("Report as Innocent"), Horde_Util::addParameter($self_link, array('a' => 'ri', 'mt' => Horde::getRequestToken('imp.message-mimp')))));
+}
 
 IMP_Mimp::addMIMPMenu($mset, 'message');
 
