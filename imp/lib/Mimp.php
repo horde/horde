@@ -19,7 +19,8 @@ class IMP_Mimp
      * @param Horde_Mobile_linkset $menu  The menu linkset, with page-specific
      *                                    options already filled in.
      * @param string $page                The current page ('compose',
-     *                                    'folders', 'mailbox', 'message').
+     *                                    'folders', 'mailbox', 'message',
+     *                                    'search').
      */
     public function addMIMPMenu($menu, $page)
     {
@@ -30,11 +31,11 @@ class IMP_Mimp
             $items[IMP::generateIMPUrl('mailbox-mimp.php', 'INBOX')] = _("Inbox");
         }
 
-        if (($page != 'compose') && IMP::canCompose()) {
+        if (!in_array($page, array('compose', 'search')) && IMP::canCompose()) {
             $items[Horde_Util::addParameter(Horde::applicationUrl('compose-mimp.php'), 'u', uniqid(mt_rand()))] = _("New Message");
         }
 
-        if ($page != 'folders') {
+        if (!in_array($page, array('folders', 'search'))) {
             $items[Horde::applicationUrl('folders-mimp.php')] = _("Folders");
         }
 

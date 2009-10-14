@@ -29,6 +29,13 @@ $readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);
 /* Set the current time zone. */
 Horde_Nls::setTimeZone();
 
+/* Need Horde_Mobile init here for autoloading purposes. */
+$mimp_render = new Horde_Mobile();
+
+/* Create mailbox menu. */
+$menu = new Horde_Mobile_card('o', _("Menu"));
+$mset = &$menu->add(new Horde_Mobile_linkset());
+
 /* Run through the action handlers */
 $actionID = Horde_Util::getFormData('a');
 switch ($actionID) {
@@ -52,6 +59,7 @@ case 'c':
 
 // 's' = search
 case 's':
+    IMP_Mimp::addMIMPMenu($mset, 'search');
     require IMP_TEMPLATES . '/mailbox/search-mimp.inc';
     exit;
 
@@ -79,9 +87,6 @@ $mailbox_url = IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox']);
 /* Build the list of messages in the mailbox. */
 $imp_mailbox = IMP_Mailbox::singleton($imp_mbox['mailbox']);
 $pageOb = $imp_mailbox->buildMailboxPage(Horde_Util::getFormData('p'), Horde_Util::getFormData('s'));
-
-/* Need Horde_Mobile init here for autoloading purposes. */
-$mimp_render = new Horde_Mobile();
 
 /* Generate page links. */
 $pages_first = $pages_prev = $pages_last = $pages_next = null;
@@ -219,10 +224,6 @@ if (!$search_mbox &&
     ($_SESSION['imp']['protocol'] == 'imap')) {
     $items[Horde_Util::addParameter($mailbox_url, array('a' => 's'))] = _("Search");
 }
-
-/* Create mailbox menu. */
-$menu = new Horde_Mobile_card('o', _("Menu"));
-$mset = &$menu->add(new Horde_Mobile_linkset());
 
 foreach ($items as $link => $label) {
     $mset->add(new Horde_Mobile_link($label, $link));
