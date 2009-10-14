@@ -30,7 +30,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
- <notes>* Split Horde_Auth:: into Horde_Auth:: and Horde_Auth_Base:: components.
+ <notes>* Replaced Horde_Auth::addHook() and Horde_Auth::removeHook() with
+ Horde_Auth::convertUsername().
+ * Add ability to retrieve app-specific credentials via
+ Horde_Auth::getCredential().
+ * Add Horde_Auth::getOriginalAuth().
+ * Split Horde_Auth:: into Horde_Auth:: and Horde_Auth_Base:: components.
  * Initial Horde 4 package.
  </notes>
  <contents>

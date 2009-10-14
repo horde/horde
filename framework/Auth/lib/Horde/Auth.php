@@ -7,14 +7,17 @@
  * array key.  That key has the following structure:
  * <pre>
  * 'app' - (array) Application-specific authentication. Keys are the
- *         app names, values are an array of credentials.
+ *         app names, values are an array containing credentials. If true,
+ *         application does not require any specific credentials.
+ * 'authId' - (string) The username used during the original authentication.
  * 'browser' - (string) The remote browser string.
  * 'change' - (boolean) Is a password change requested?
- * 'credentials' - (array) The credentials needed for this driver.
+ * 'credentials' - (string) The 'app' entry that contains the Horde
+ *                 credentials.
  * 'driver' - (string) The driver used for base horde auth.
  * 'remoteAddr' - (string) The remote IP address of the user.
  * 'timestamp' - (integer) The login time.
- * 'userId' - (username) The horde username.
+ * 'userId' - (string) The unique Horde username.
  * </pre>
  *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
@@ -439,7 +442,10 @@ class Horde_Auth
     }
 
     /**
-     * Returns the currently logged in user, if there is one.
+     * Returns the currently logged in user, if there is one. This is the
+     * unique Horde ID.
+     *
+     * @see self::getOriginalAuth()
      *
      * @return mixed  The userId of the current user, or false if no user is
      *                logged in.
@@ -449,6 +455,22 @@ class Horde_Auth
         return empty($_SESSION['horde_auth']['userId'])
             ? false
             : $_SESSION['horde_auth']['userId'];
+    }
+
+    /**
+     * Get the authentication username.  This is the username used to
+     * originally login to Horde.
+     *
+     * @see self::getAuth()
+     *
+     * @return mixed  The authentication backend's user name, or false if no
+     *                user is logged in.
+     */
+    static public function getOriginalAuth()
+    {
+        return empty($_SESSION['horde_auth']['authId'])
+            ? false
+            : $_SESSION['horde_auth']['authId'];
     }
 
     /**
@@ -561,7 +583,7 @@ class Horde_Auth
 
     /**
      * Returns the curently logged-in user without any domain information
-     * (e.g., bob@example.com would be returned as 'bob').
+     * (e.g., foo@example.com would be returned as 'foo').
      *
      * @return mixed  The user ID of the current user, or false if no user
      *                is logged in.
@@ -575,7 +597,7 @@ class Horde_Auth
     }
 
     /**
-     * Returns the domain of currently logged-in user (e.g., bob@example.com
+     * Returns the domain of currently logged-in user (e.g., foo@example.com
      * would be returned as 'example.com').
      *
      * @return mixed  The domain suffix of the current user, or false.
@@ -593,18 +615,18 @@ class Horde_Auth
      * present.
      *
      * @param string $credential  The credential to retrieve.
+     * @param string $app         The app to query. Defaults to Horde.
      *
      * @return mixed  The requested credential, all credentials if $credential
      *                is null, or false if no user is logged in.
      */
-    static public function getCredential($credential = null)
+    static public function getCredential($credential = null, $app = null)
     {
         if (!self::getAuth()) {
             return false;
         }
 
-        $credentials = Horde_Secret::read(Horde_Secret::getKey('auth'), $_SESSION['horde_auth']['credentials']);
-        $credentials = @unserialize($credentials);
+        $credentials = self::_getCredentials($app);
 
         return is_null($credential)
             ? $credentials
@@ -618,18 +640,41 @@ class Horde_Auth
      *
      * @param string $credential  The credential to set.
      * @param string $value       The value to set the credential to.
+     * @param string $app         The app to update. Defaults to Horde.
      */
-    static public function setCredential($credential, $value)
+    static public function setCredential($credential, $value, $app = null)
     {
         if (self::getAuth()) {
-            $credentials = @unserialize(Horde_Secret::read(Horde_Secret::getKey('auth'), $_SESSION['horde_auth']['credentials']));
-            if (is_array($credentials)) {
-                $credentials[$credential] = $value;
-            } else {
-                $credentials = array($credential => $value);
+            $credentials = self::_getCredentials($app);
+
+            if ($credentials !== false) {
+                if (is_array($credentials)) {
+                    $credentials[$credential] = $value;
+                } else {
+                    $credentials = array($credential => $value);
+                }
+
+                $_SESSION['horde_auth']['app'][$app] = Horde_Secret::write(Horde_Secret::getKey('auth'), serialize($credentials));
             }
-            $_SESSION['horde_auth']['credentials'] = Horde_Secret::write(Horde_Secret::getKey('auth'), serialize($credentials));
         }
+    }
+
+    /**
+     * Get the list of credentials for a given app.
+     *
+     * @param string $app  The application name.
+     *
+     * @return mixed  True, false, or the credential list.
+     */
+    static protected function _getCredentials($app)
+    {
+        if (is_null($app)) {
+            $app = $_SESSION['horde_auth']['credentials'];
+        }
+
+        return isset($_SESSION['horde_auth']['app'])
+            ? @unserialize(Horde_Secret::read(Horde_Secret::getKey('auth'), $_SESSION['horde_auth']['app']))
+            : false;
     }
 
     /**
@@ -639,7 +684,7 @@ class Horde_Auth
      * If a user name hook was defined in the configuration, it gets applied
      * to the $userId at this point.
      *
-     * @param string $userId      The userId who has been authorized.
+     * @param string $authId      The userId that has been authorized.
      * @param array $credentials  The credentials of the user.
      * @param array $options      Additional options:
      * <pre>
@@ -654,29 +699,29 @@ class Horde_Auth
      *
      * @return boolean  Whether authentication was successful.
      */
-    static public function setAuth($userId, $credentials, $options = array())
+    static public function setAuth($authId, $credentials, $options = array())
     {
         $app = empty($options['app']) ? 'horde' : $options['app'];
-        $userId = self::addHook(trim($userId));
+        $authId = $userId = trim($authId);
+        $is_auth = self::getAuth();
 
         try {
-            list($userId, $credentials) = self::runHook($userId, $credentials, $app, 'postauthenticate');
+            if (!$is_auth) {
+                $userId = self::convertUserName($userId, true);
+            }
+            list(,$credentials) = self::runHook($userId, $credentials, $app, 'postauthenticate');
         } catch (Horde_Auth_Exception $e) {
             return false;
         }
 
-        $app_array = array();
-        if ($app != 'horde') {
-            if (empty($_SESSION['horde_auth'])) {
-                $app_array = array($app => true);
-            } else {
-                $_SESSION['horde_auth']['app'][$app] = true;
-            }
-        }
+        $app_array = $is_auth
+            ? $_SESSION['horde_auth']['app']
+            : array();
+        $app_array[$app] = Horde_Secret::write(Horde_Secret::getKey('auth'), serialize($credentials));
 
-        /* If we're already set with this userId, don't continue. */
-        if (self::getAuth() &&
-            ($_SESSION['horde_auth']['userId'] == $userId)) {
+        if ($is_auth) {
+            /* Store app credentials. */
+            $_SESSION['horde_auth']['app'] = $app_array;
             return true;
         }
 
@@ -685,9 +730,10 @@ class Horde_Auth
 
         $_SESSION['horde_auth'] = array(
             'app' => $app_array,
+            'authId' => $authId,
             'browser' => self::_getBrowser()->getAgentString(),
             'change' => !empty($options['change']),
-            'credentials' => Horde_Secret::write(Horde_Secret::getKey('auth'), serialize($credentials)),
+            'credentials' => $app,
             'driver' => $GLOBALS['conf']['auth']['driver'],
             'remoteAddr' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null,
             'timestamp' => time(),
@@ -762,6 +808,25 @@ class Horde_Auth
     }
 
     /**
+     * Converts an authentication username to a unique Horde username.
+     *
+     * @param string $username  The username to convert.
+     * @param boolean $toHorde  If true, convert to a Horde username. If
+     *                          false, convert to the auth username.
+     *
+     * @return string  The converted username.
+     * @throws Horde_Exception
+     */
+    static public function convertUsername($userId, $toHorde)
+    {
+        try {
+            return Horde::callHook('authusername', array($userId, $toHorde));
+        } catch (Horde_Exception_HookNotSet $e) {
+            return $userId;
+        }
+    }
+
+    /**
      * Is the current user an administrator?
      *
      * @param string $permission  Allow users with this permission admin access
@@ -798,50 +863,6 @@ class Horde_Auth
     }
 
     /**
-     * Applies the username_frombackend hook to the given user name.
-     *
-     * This method should be called if a authentication backend's user name
-     * needs to be converted to a (unique) Horde user name. The backend's user
-     * name is what the user sees and uses, but internally we use the Horde
-     * user name.
-     *
-     * @param string $userId  The authentication backend's user name.
-     *
-     * @return string  The internal Horde user name.
-     * @throws Horde_Exception
-     */
-    static public function addHook($userId)
-    {
-        try {
-            return Horde::callHook('username_frombackend', array($userId));
-        } catch (Horde_Exception_HookNotSet $e) {
-            return $userId;
-        }
-    }
-
-    /**
-     * Applies the username_tobackend hook to the given user name.
-     *
-     * This method should be called if a Horde user name needs to be converted
-     * to an authentication backend's user name or displayed to the user. The
-     * backend's user name is what the user sees and uses, but internally we
-     * use the Horde user name.
-     *
-     * @param string $userId  The internal Horde user name.
-     *
-     * @return string  The authentication backend's user name.
-     * @throws Horde_Exception
-     */
-    static public function removeHook($userId)
-    {
-        try {
-            return Horde::callHook('username_tobackend', array($userId));
-        } catch (Horde_Exception_HookNotSet $e) {
-            return $userId;
-        }
-    }
-
-    /**
      * Runs the pre/post-authenticate hook and parses the result.
      *
      * @param string $userId      The userId who has been authorized.
@@ -873,12 +894,16 @@ class Horde_Auth
         }
 
         if (is_array($result)) {
-            if (isset($result['userId'])) {
-                $ret_array[0] = $result['userId'];
-            }
+            if ($type == 'postauthenticate') {
+                $ret_array[1] = $result;
+            } else {
+                if (isset($result['userId'])) {
+                    $ret_array[0] = $result['userId'];
+                }
 
-            if (isset($result['credentials'])) {
-                $ret_array[1] = $result['credentials'];
+                if (isset($result['credentials'])) {
+                    $ret_array[1] = $result['credentials'];
+                }
             }
         }
 
