@@ -337,10 +337,10 @@ foreach ($items as $link => $label) {
 }
 
 if (isset($next_link)) {
-    $mset->add(new Horde_Mobile_link(_("Next"), $next_link));
+    $mset->add(new Horde_Mobile_link(_("Next Message"), $next_link));
 }
 if (isset($prev_link)) {
-    $mset->add(new Horde_Mobile_link(_("Prev"), $prev_link));
+    $mset->add(new Horde_Mobile_link(_("Previous Message"), $prev_link));
 }
 
 $mset->add(new Horde_Mobile_link(sprintf(_("To %s"), IMP::getLabel($imp_mbox['mailbox'])), $mailbox_link));
