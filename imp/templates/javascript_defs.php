@@ -39,7 +39,7 @@ $code = array(
 
         /* Strings used in contacts.js */
         'contacts_select' => _("You must select an address first."),
-        'contacts_closed' => _("The message being composed has been closed. Exiting."),
+        'contacts_closed' => _("The message being composed has been closed."),
         'contacts_called' => _("This window must be called from a compose window."),
 
         /* Strings used in folders.js */

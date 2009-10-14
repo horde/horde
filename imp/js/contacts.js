@@ -62,7 +62,7 @@ var ImpContacts = {
 
     updateMessage: function()
     {
-        if (parent.opener.closed) {
+        if (!parent.opener) {
             alert(IMP.text.contacts_closed);
             window.close();
             return;
@@ -122,6 +122,9 @@ var ImpContacts = {
 
     onDomLoad: function()
     {
+        if ($('search').present()) {
+            $('btn_clear').show();
+        }
         $('contacts').observe('submit', this._passAddresses.bind(this));
         document.observe('change', this._changeHandler.bindAsEventListener(this));
         document.observe('click', this._clickHandler.bindAsEventListener(this));
@@ -151,6 +154,10 @@ var ImpContacts = {
             id = elt.readAttribute('id');
 
             switch (id) {
+            case 'btn_clear':
+                $('search').setValue('');
+                break;
+
             case 'btn_add_to':
             case 'btn_add_cc':
             case 'btn_add_bcc':
