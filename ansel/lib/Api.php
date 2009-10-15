@@ -238,6 +238,8 @@ class Ansel_Api extends Horde_Registry_Api
      */
     public function hasComments()
     {
+        require_once dirname(__FILE__) . '/base.php';
+
         if (($GLOBALS['conf']['comments']['allow'] == 'all' ||
             ($GLOBALS['conf']['comments']['allow'] == 'authenticated' &&
             Horde_Auth::getAuth()))) {
