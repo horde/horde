@@ -23,6 +23,11 @@
  */
 class Horde_View_Helper_Form_InstanceTag_Form extends Horde_View_Helper_Form_InstanceTag_Base
 {
+    public function toLabelTag($text, $options = array())
+    {
+        return $this->contentTag('label', $text, $options);
+    }
+
     public function toInputFieldTag($fieldType, $options = array())
     {
         if (! isset($options['size'])) {
