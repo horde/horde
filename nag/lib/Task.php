@@ -925,8 +925,12 @@ class Nag_Task {
         }
 
         $due = $vTodo->getAttribute('DUE');
-        if (!is_array($due) && !is_a($due, 'PEAR_Error') && !empty($due)) {
-            $this->due = $due;
+        if (!is_a($due, 'PEAR_Error')) {
+            if (is_array($due)) {
+                $this->due = mktime(0, 0, 0, (int)$due['month'], (int)$due['mday'], (int)$due['year']);
+            } elseif (!empty($due)) {
+                $this->due = $due;
+            }
         }
 
         // vCalendar 1.0 alarms
