@@ -33,7 +33,14 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter
      *
      * @var string
      */
-    protected $_cdata = null;
+    protected $_cdata = array();
+
+    /**
+     * CDATA count.
+     *
+     * @var integer
+     */
+    protected $_cdatacount = 0;
 
     /**
      * Returns a hash with replace patterns.
@@ -243,8 +250,8 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter
      */
     protected function _preProcessCallback($matches)
     {
-        $this->_cdata = $matches[0];
-        return '<HORDE_CDATA />';
+        $this->_cdata[] = $matches[0];
+        return '<HORDE_CDATA' . $this->_cdatacount++ . ' />';
     }
 
     /**
@@ -259,12 +266,25 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter
         ini_restore('pcre.backtrack_limit');
 
         // Restore CDATA data
-        if (!is_null($this->_cdata)) {
-            $text = str_replace('<HORDE_CDATA />', $this->_cdata, $text);
-            $this->_cdata = null;
+        if ($this->_cdatacount) {
+            $text = preg_replace_callback('/<HORDE_CDATA(\d+) \/>/', array($this, '_postProcessCallback'), $text);
+            $this->_cdata = array();
+            $this->_cdatacount = 0;
         }
 
         return $text;
+    }
+
+    /**
+     * Preg callback for preProcess().
+     *
+     * @param array $matches  The list of matches.
+     *
+     * @return string  The replacement text.
+     */
+    protected function _postProcessCallback($matches)
+    {
+        return $this->_cdata[$matches[1]];
     }
 
 }
