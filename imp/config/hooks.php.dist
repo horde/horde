@@ -14,6 +14,38 @@
 class IMP_Hooks
 {
     /**
+     * AUTHENTICATION HOOK: pre-authentication actions.
+     *
+     * See horde/config/hooks.php.dist for more information.
+     *
+     * IMP uses the following credentials:
+     *   'password' - (string) The password for mail server authentication.
+     *   'server' - (string) [optional] Use this server key (see
+     *              config/servers.php).
+     *   'transparent' - (boolean) If $credentials['authMethod'] is
+     *                   'transparent', and you would like IMP to use
+     *                   the userId/credentials generated in the
+     *                   preauthentication hook, this must be true. If false,
+     *                   IMP will try to authenticate using hordeauth.
+     */
+//     function preauthenticate($userId, $credentials)
+//     {
+//         return true;
+//     }
+
+
+    /**
+     * AUTHENTICATION HOOK: post-authentication actions.
+     *
+     * See horde/config/hooks.php.dist for more information.
+     */
+     function postauthenticate($userId, $credentials)
+//     {
+//         return true;
+//     }
+
+
+    /**
      * PREFERENCE HOOK: Dynamically set the signature preference.
      *
      * @param string $username  The username.
