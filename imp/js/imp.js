@@ -37,7 +37,7 @@ document.observe('dom:loaded', function() {
 
         e.stop();
 
-        Effect.Fade(elt, {
+        elt.fade({
             afterFinish: function() { elt.remove(); },
             duration: 0.6
         });

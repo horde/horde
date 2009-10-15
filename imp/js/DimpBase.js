@@ -2520,7 +2520,7 @@ var DimpBase = {
             $(id + 'Loading').clonePosition(id == 'viewport' ? 'msgList' : 'splitBar', { setLeft: false, setTop: true, setHeight: false, setWidth: false }).show();
             c = 'progress';
         } else {
-            Effect.Fade(id + 'Loading', { duration: 0.2 });
+            $(id + 'Loading').fade({ duration: 0.2 });
             c = 'default';
         }
         $(document.body).setStyle({ cursor: c });

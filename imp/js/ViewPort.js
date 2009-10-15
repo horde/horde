@@ -297,7 +297,7 @@ var ViewPort = Class.create({
         // If we have visible elements to remove, only call refresh after
         // the last effect has finished.
         if (vsize) {
-            // Set 'to' to a value slightly above 0 to prevent Effect.Fade
+            // Set 'to' to a value slightly above 0 to prevent fade()
             // from auto hiding.  Hiding is unnecessary, since we will be
             // removing from the document shortly.
             args = { duration: 0.25, to: 0.01 };
@@ -305,7 +305,7 @@ var ViewPort = Class.create({
                 if (++i == vsize) {
                     args.afterFinish = this._removeids.bind(this, vs, opts);
                 }
-                Effect.Fade(v, args);
+                v.fade(args);
             }, this);
         } else {
             this._removeids(vs, opts);

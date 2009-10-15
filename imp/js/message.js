@@ -176,10 +176,10 @@ var ImpMessage = {
                 IMP.unblockImages(e);
             } else if (elt.match('SPAN.toggleQuoteShow')) {
                 [ elt, elt.next() ].invoke('toggle');
-                Effect.BlindDown(elt.next(1), { duration: 0.2, queue: { position: 'end', scope: 'showquote', limit: 2 } });
+                elt.next(1).blindDown({ duration: 0.2, queue: { position: 'end', scope: 'showquote', limit: 2 } });
             } else if (elt.match('SPAN.toggleQuoteHide')) {
                 [ elt, elt.previous() ].invoke('toggle');
-                Effect.BlindUp(elt.next(), { duration: 0.2, queue: { position: 'end', scope: 'showquote', limit: 2 } });
+                elt.next().blindUp({ duration: 0.2, queue: { position: 'end', scope: 'showquote', limit: 2 } });
             }
 
             elt = elt.up();

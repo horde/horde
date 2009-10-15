@@ -86,7 +86,7 @@ var ContextSensitive = Class.create({
             this.current.splice(idx, this.current.size() - idx).each(function(s) {
                 // Fade-out on final display.
                 if (!immediate && idx == 0) {
-                    Effect.Fade(s, { duration: 0.15 });
+                    s.fade({ duration: 0.15 });
                 } else {
                     $(s).hide();
                 }
@@ -288,7 +288,7 @@ var ContextSensitive = Class.create({
             elt.show();
         } else {
             // Fade-in on initial display.
-            Effect.Appear(elt, { duration: 0.15 });
+            elt.appear({ duration: 0.15 });
         }
 
         this.current.push(id);

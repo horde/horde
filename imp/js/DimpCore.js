@@ -401,10 +401,10 @@ var DimpCore = {
                     IMP.unblockImages(e);
                 } else if (elt.hasClassName('toggleQuoteShow')) {
                     [ elt, elt.next() ].invoke('toggle');
-                    Effect.BlindDown(elt.next(1), { duration: 0.2, queue: { position: 'end', scope: 'showquote', limit: 2 } });
+                    elt.next(1).blindDown({ duration: 0.2, queue: { position: 'end', scope: 'showquote', limit: 2 } });
                 } else if (elt.hasClassName('toggleQuoteHide')) {
                     [ elt, elt.previous() ].invoke('toggle');
-                    Effect.BlindUp(elt.next(), { duration: 0.2, queue: { position: 'end', scope: 'showquote', limit: 2 } });
+                    elt.next().blindUp({ duration: 0.2, queue: { position: 'end', scope: 'showquote', limit: 2 } });
                 } else if (elt.hasClassName('pgpVerifyMsg')) {
                     elt.replace(DIMP.text.verify);
                     DimpCore.reloadMessage({ pgp_verify_msg: 1 });
