@@ -234,7 +234,8 @@ class Horde_Auth_Application extends Horde_Auth_Base
     }
 
     /**
-     * Attempt transparent authentication.
+     * Attempt transparent authentication. The application method is passed a
+     * single parameter: the current class instance.
      *
      * @return boolean  Whether transparent login is supported.
      * @throws Horde_Auth_Exception
@@ -250,7 +251,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
         }
 
         $registry = Horde_Registry::singleton();
-        return $registry->callAppMethod($this->_app, $this->_apiMethods['transparent'], array('noperms' => true));
+        return $registry->callAppMethod($this->_app, $this->_apiMethods['transparent'], array('args' => array($this), 'noperms' => true));
     }
 
     /**
@@ -290,6 +291,28 @@ class Horde_Auth_Application extends Horde_Auth_Base
 
         $registry = Horde_Registry::singleton();
         return $registry->callAppMethod($this->_app, $this->_apiMethods['loginparams'], array('noperms' => true));
+    }
+
+    /**
+     * Provide method to get internal credential values. Necessary as the
+     * application API does not have direct access to the protected member
+     * variables of this class.
+     *
+     * @param mixed $name  The credential name to get. If null, will return
+     *                     the entire credential list.
+     *
+     * @return mixed  Return the credential information, or null if the.
+     *                credential doesn't exist.
+     */
+    public function getCredential($name = null)
+    {
+        if (is_null($name)) {
+            return $this->_credentials;
+        }
+
+        return isset($this->_credentials[$name])
+            ? $this->_credentials[$name]
+            : null;
     }
 
     /**
