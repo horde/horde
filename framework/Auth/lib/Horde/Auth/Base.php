@@ -84,7 +84,7 @@ abstract class Horde_Auth_Base
         $userId = trim($userId);
 
         try {
-            list($userId, $credentials) = Horde_Auth::runHook($userId, $credentials, $this->_app, 'preauthenticate');
+            list($userId, $credentials) = Horde_Auth::runHook($userId, $credentials, $this->_app, 'preauthenticate', 'authenticate');
          } catch (Horde_Auth_Exception $e) {
             return false;
         }
@@ -214,7 +214,7 @@ abstract class Horde_Auth_Base
             ? Horde_Auth::getCredential()
             : $this->_credentials['credentials'];
 
-        list($this->_credentials['userId'], $this->_credentials['credentials']) = Horde_Auth::runHook($userId, $credentials, $this->_app, 'preauthenticate');
+        list($this->_credentials['userId'], $this->_credentials['credentials']) = Horde_Auth::runHook($userId, $credentials, $this->_app, 'preauthenticate', 'transparent');
         $this->_credentials['params']['app'] = $this->_app;
 
         if ($this->_transparent()) {

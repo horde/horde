@@ -325,7 +325,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
         /* Connect to the LDAP server. */
         $this->_connect();
 
-        list($userId, $credentials) = Horde_Auth::runHook($userId, $credentials, $this->_app, 'preauthenticate');
+        list($userId, $credentials) = Horde_Auth::runHook($userId, $credentials, $this->_app, 'preauthenticate', 'admin');
         if (isset($credentials['ldap'])) {
             $entry = $credentials['ldap'];
             $dn = $entry['dn'];
@@ -380,7 +380,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
         /* Connect to the LDAP server. */
         $this->_connect();
 
-        list($userId, $credentials) = Horde_Auth::runHook($userId, array(), $this->_app, 'preauthenticate');
+        list($userId, $credentials) = Horde_Auth::runHook($userId, array(), $this->_app, 'preauthenticate', 'admin');
         if (isset($credentials['ldap'])) {
             $dn = $credentials['ldap']['dn'];
         } else {
@@ -416,10 +416,10 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
         /* Connect to the LDAP server. */
         $this->_connect();
 
-        list($oldID, $old_credentials) = Horde_Auth::runHook($oldID, $credentials, $this->_app, 'preauthenticate');
+        list($oldID, $old_credentials) = Horde_Auth::runHook($oldID, $credentials, $this->_app, 'preauthenticate', 'admin');
         if (isset($old_credentials['ldap'])) {
             $olddn = $old_credentials['ldap']['dn'];
-            list($newID, $new_credentials) = Horde_Auth::runHook($newID, $credentials, $this->_app, 'preauthenticate');
+            list($newID, $new_credentials) = Horde_Auth::runHook($newID, $credentials, $this->_app, 'preauthenticate', 'admin');
             $newdn = $new_credentials['ldap']['dn'];
             unset($new_credentials['ldap']['dn']);
         } else {

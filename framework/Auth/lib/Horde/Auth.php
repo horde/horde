@@ -870,13 +870,21 @@ class Horde_Auth
      * @param string $app         The app currently being authenticated.
      * @param string $type        Either 'preauthenticate' or
      *                            'postauthenticate'.
+     * @param string $method      The triggering method (preauthenticate only).
+     *                            Either 'authenticate', 'transparent', or
+     *                            'admin'
      *
      * @return array  Two element array, $userId and $credentials.
      * @throws Horde_Auth_Exception
      */
-    static public function runHook($userId, $credentials, $app, $type)
+    static public function runHook($userId, $credentials, $app, $type,
+                                   $method = null)
     {
         $ret_array = array($userId, $credentials);
+
+        if ($type == 'preauthenticate') {
+            $credentials['authMethod'] = $method;
+        }
 
         try {
             $result = Horde::callHook($type, array($userId, $credentials), $app);
@@ -885,6 +893,8 @@ class Horde_Auth
         } catch (Horde_Exception_HookNotSet $e) {
             return $ret_array;
         }
+
+        unset($credentials['authMethod']);
 
         if ($result === false) {
             if (self::getAuthError() != self::REASON_MESSAGE) {

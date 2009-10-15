@@ -76,7 +76,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         /* Connect to the MSAD server. */
         $this->_connect();
 
-        list($accountName, $credentials) = Horde_Auth::runHook($accountName, $credentials, $this->_app, 'preauthenticate');
+        list($accountName, $credentials) = Horde_Auth::runHook($accountName, $credentials, $this->_app, 'preauthenticate', 'admin');
         if (isset($credentials['ldap'])) {
             $dn = $credentials['ldap']['dn'];
         } else {
@@ -132,7 +132,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         /* Connect to the MSAD server. */
         $this->_connect();
 
-        list($accountName, $credentials) = Horde_Auth::runHook($accountName, $credentials, $this->_app, 'preauthenticate');
+        list($accountName, $credentials) = Horde_Auth::runHook($accountName, $credentials, $this->_app, 'preauthenticate', 'admin');
         if (isset($credentials['ldap'])) {
             $dn = $credentials['ldap']['dn'];
         } else {
@@ -163,7 +163,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         /* Connect to the MSAD server. */
         $this->_connect();
 
-        list($oldId, $credentials) = Horde_Auth::runHook($oldId, $credentials, $this->_app, 'preauthenticate');
+        list($oldId, $credentials) = Horde_Auth::runHook($oldId, $credentials, $this->_app, 'preauthenticate', 'admin');
         if (isset($credentials['ldap'])) {
             $olddn = $credentials['ldap']['dn'];
         } else {
