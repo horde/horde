@@ -114,6 +114,9 @@ default:
 /* @TODO - Better error handling */
 $error = false;
 foreach ($queries as $query) {
+    if ($config['phptype'] == 'oci8') {
+        $query = str_replace('ADD COLUMN', 'ADD', $query);
+    }
     if ($for_real) {
         $results = $db->query($query);
         if (is_a($results, 'PEAR_Error')) {
