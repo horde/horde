@@ -309,13 +309,15 @@ class IMP_Application extends Horde_Registry_Application
      * Tries to transparently authenticate with the mail server and create a
      * mail session.
      *
+     * @param Horde_Auth_Application $auth_ob  The authentication object.
+     *
      * @return boolean  Whether transparent login is supported.
      * @throws Horde_Auth_Exception
      */
-    public function authTransparent()
+    public function authTransparent($auth_ob)
     {
         $this->init(array('authentication' => 'none'));
-        return IMP_Auth::transparent();
+        return IMP_Auth::transparent($auth_ob);
     }
 
     /**
