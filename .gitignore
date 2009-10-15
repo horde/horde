@@ -16,9 +16,19 @@ run-tests.log
 */lib/base.local.php
 
 # Application specific patterns
+ansel/config/*.php
 chora/config/*.php
-framework/Rdo/examples/Horde/Rdo/conf.php
 gollem/config/*.php
+imp/config/*.php
+imp/config/*.txt
+ingo/config/*.php
+jeta/config/*.php
+kronolith/config/*.php
+nag/config/*.php
+turba/config/*.php
+vilma/config/*.php
+
+framework/Rdo/examples/Horde/Rdo/conf.php
 iPhoto2Ansel/build/
 iPhoto2Ansel/iPhoto2Ansel.xcodeproj/*.pbxuser
 !iPhoto2Ansel/iPhoto2Ansel.xcodeproj/default.pbxuser
@@ -31,11 +41,3 @@ ApertureToAnselExportPlugin/ApertureToAnselExportPlugin.xcodeproj/*.pbxuser
 ApertureToAnselExportPlugin/ApertureToAnselExportPlugin.xcodeproj/*.perspectivev3
 ApertureToAnselExportPlugin/*.pbxproject
 ApertureToAnselExportPlugin/Installer/*.pkg
-imp/config/*.php
-imp/config/*.txt
-ingo/config/*.php
-jeta/config/*.php
-kronolith/config/*.php
-nag/config/*.php
-turba/config/*.php
-ansel/config/*.php
