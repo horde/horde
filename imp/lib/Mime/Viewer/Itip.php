@@ -495,7 +495,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
         }
 
         return array(
-            $mime_id = array(
+            $mime_id => array(
                 'data' => $html,
                 'status' => array(),
                 'type' => 'text/html; charset=' . $charset
