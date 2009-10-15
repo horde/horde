@@ -2,8 +2,8 @@
  Upgrading Kronolith
 =====================
 
-:Last update:   $Date: 2008/10/22 22:41:27 $
-:Revision:      $Revision: 1.18 $
+:Last update:   $Date: 2009/10/15 09:35:57 $
+:Revision:      $Revision: 1.1 $
 :Contact:       kronolith@lists.horde.org
 
 
@@ -12,21 +12,10 @@ backup your existing data before running any of the steps described below. You
 can't use the updated data with your old Kronolith version anymore.
 
 
-Upgrading Kronolith from 2.3 to 3.x
+Upgrading Kronolith from 2.3.x to 3.x
 =====================================
 
 * Removed prefs: last_kronolith_maintenance
-
-
-Upgrading Kronolith from 2.3 to 2.3.x
-=====================================
-
-If you want to use the holidays feature, at least version 0.21.0 of
-Date_Holidays is required now.
-
-
-Upgrading Kronolith from 2.3.x to 3.0.x
-=======================================
 
 
 SQL Backends
@@ -66,7 +55,7 @@ all users. It should be run once a day. This replaces the
 care yourself now that the script isn't run more than once per day.
 
 
-Upgrading Kronolith from 2.3 to 2.3.1
+Upgrading Kronolith from 2.3 to 2.3.x
 =====================================
 
 Kronolith requires at least version 0.21.0 of Date_Holidays now, which has
