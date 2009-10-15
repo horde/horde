@@ -3,9 +3,14 @@ Horde_Text_Filter_Text2html tests
 --FILE--
 <?php
 
+require_once 'Horde.php';
+require_once 'Horde/Exception.php';
 require_once 'Horde/String.php';
 require_once 'Horde/Util.php';
 require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter.php';
+require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Emails.php';
+require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Linkurls.php';
+require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Space2html.php';
 require dirname(__FILE__) . '/../../../../lib/Horde/Text/Filter/Text2html.php';
 
 $_COOKIE[session_name()] = true;
