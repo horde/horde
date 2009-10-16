@@ -1406,13 +1406,12 @@ class Turba_Api extends Horde_Registry_Api
         foreach ($GLOBALS['attributes'] as $key => $attribute) {
             if ($attribute['type'] == 'monthdayyear' &&
                 !empty($attribute['time_object_label'])) {
-
-                    foreach ($GLOBALS['cfgSources'] as $srcKey => $source) {
-                        if (!empty($source['map'][$key])) {
-                            $categories[$key . '::' . $srcKey] = $attribute['time_object_label'] . ' ' . sprintf(_("in %s"), $source['title']);
-                        }
+                foreach ($GLOBALS['cfgSources'] as $srcKey => $source) {
+                    if (!empty($source['map'][$key])) {
+                        $categories[$key . '::'. $srcKey] = sprintf(_("%s in %s"), $attribute['time_object_label'], $source['title']);
                     }
                 }
+            }
         }
 
         return $categories;
