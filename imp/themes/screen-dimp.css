@@ -781,7 +781,7 @@ a.address:hover img {
 .drag, .dragdrop {
     background: #eee;
     border: 1px solid #ccc;
-    font: 12px Geneva,Arial,Helvetica,sans-serif;
+    font-size: 12px;
     padding: 2px;
     overflow: hidden;
     z-index: 999;
