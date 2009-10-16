@@ -673,7 +673,7 @@ class Horde_Auth
         }
 
         return isset($_SESSION['horde_auth']['app'])
-            ? @unserialize(Horde_Secret::read(Horde_Secret::getKey('auth'), $_SESSION['horde_auth']['app']))
+            ? @unserialize(Horde_Secret::read(Horde_Secret::getKey('auth'), $_SESSION['horde_auth']['app'][$app]))
             : false;
     }
 
