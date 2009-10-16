@@ -671,6 +671,7 @@ class IMP_Mailbox
                 $this->_threadob = $GLOBALS['imp_imap']->ob()->thread($this->_mailbox);
                 $ref_errcode = null;
             } catch (Horde_Imap_Client_Exception $e) {
+                $error = $e;
                 $ref_errcode = $e->getCode();
             }
 
@@ -681,6 +682,9 @@ class IMP_Mailbox
                     $GLOBALS['notification']->push(_("Server does not support thread sorting."), 'horde.error');
                     return new Horde_Imap_Client_Thread(array(), 'uid');
                 }
+            } elseif (!is_null($ref_errcode)) {
+                $GLOBALS['notification']->push($error, 'horde.error');
+                return new Horde_Imap_Client_Thread(array(), 'uid');
             }
         }
 

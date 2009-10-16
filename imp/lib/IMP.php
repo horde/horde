@@ -1042,7 +1042,8 @@ class IMP
             !empty($GLOBALS['conf']['server']['sort_limit'])) {
             try {
                 $status = $GLOBALS['imp_imap']->ob()->status($mbox, Horde_Imap_Client::STATUS_MESSAGES);
-                if ($status['messages'] > $GLOBALS['conf']['server']['sort_limit']) {
+                if (isset($status['messages']) &&
+                    ($status['messages'] > $GLOBALS['conf']['server']['sort_limit'])) {
                     $ob['limit'] = true;
                     $ob['by'] = Horde_Imap_Client::SORT_ARRIVAL;
                 }

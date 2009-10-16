@@ -52,7 +52,8 @@ function _changed($mbox, $compare, $rw = null)
         try {
             $GLOBALS['imp_imap']->ob()->openMailbox($mbox, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
         } catch (Horde_Imap_Client_Exception $e) {
-            return false;
+            $GLOBALS['notification']->push($e, 'horde.error');
+            return null;
         }
     }
 
@@ -336,13 +337,19 @@ case 'Poll':
         }
     }
 
-    if (!empty($mbox) && _changed($mbox, $cacheid)) {
-        $result->ViewPort = _getListMessages($mbox, true);
+    $changed = false;
+    if (!empty($mbox)) {
+        $changed =_changed($mbox, $cacheid);
+        if ($changed) {
+            $result->ViewPort = _getListMessages($mbox, true);
+        }
     }
 
-    $quota = _getQuota();
-    if (!is_null($quota)) {
-        $result->quota = $quota;
+    if (!is_null($changed)) {
+        $quota = _getQuota();
+        if (!is_null($quota)) {
+            $result->quota = $quota;
+        }
     }
     break;
 
@@ -367,12 +374,12 @@ case 'ViewPort':
         IMP::setSort($sortby, $sortdir, $mbox);
     }
 
-    $result = new stdClass;
     $changed = _changed($mbox, $cacheid, false);
 
-    if (Horde_Util::getPost('rangeslice') ||
-        !Horde_Util::getPost('checkcache') ||
-        $changed) {
+    if ($changed ||
+        Horde_Util::getPost('rangeslice') ||
+        !Horde_Util::getPost('checkcache')) {
+        $result = new stdClass;
         $result->ViewPort = _getListMessages($mbox, $changed);
     }
     break;
@@ -384,34 +391,36 @@ case 'CopyMessage':
         break;
     }
 
-    if ($action == 'MoveMessage') {
-        $change = _changed($mbox, $cacheid, true);
-    }
+    $change = ($action == 'MoveMessage')
+        ? _changed($mbox, $cacheid, true)
+        : false;
 
-    $imp_message = IMP_Message::singleton();
+    if (!is_null($change)) {
+        $imp_message = IMP_Message::singleton();
 
-    $result = $imp_message->copy($to, ($action == 'MoveMessage') ? 'move' : 'copy', $indices);
+        $result = $imp_message->copy($to, ($action == 'MoveMessage') ? 'move' : 'copy', $indices);
 
-    if ($result) {
-        if ($action == 'MoveMessage') {
-            $result = _generateDeleteResult($mbox, $indices, $change);
-            // Need to manually set remove to true since we want to remove
-            // message from the list no matter the current pref settings.
-            $result->remove = 1;
-        }
-
-        // Update poll information for destination folder if necessary.
-        // Poll information for current folder will be added by
-        // _generateDeleteResult() call above.
-        $poll = _getPollInformation($to);
-        if (!empty($poll)) {
-            if (!isset($result->poll)) {
-                $result->poll = array();
+        if ($result) {
+            if ($action == 'MoveMessage') {
+                $result = _generateDeleteResult($mbox, $indices, $change);
+                // Need to manually set remove to true since we want to remove
+                // message from the list no matter the current pref settings.
+                $result->remove = 1;
             }
-            $result->poll = array_merge($result->poll, $poll);
+
+            // Update poll information for destination folder if necessary.
+            // Poll information for current folder will be added by
+            // _generateDeleteResult() call above.
+            $poll = _getPollInformation($to);
+            if (!empty($poll)) {
+                if (!isset($result->poll)) {
+                    $result->poll = array();
+                }
+                $result->poll = array_merge($result->poll, $poll);
+            }
+        } else {
+            $check_uidvalidity = true;
         }
-    } else {
-        $check_uidvalidity = true;
     }
     break;
 
@@ -456,7 +465,7 @@ case 'DeleteMessage':
 
     if ($imp_message->delete($indices)) {
         $result = _generateDeleteResult($mbox, $indices, $change, !$prefs->getValue('hide_deleted') && !$prefs->getValue('use_trash'));
-    } else {
+    } elseif (!is_null($change)) {
         $check_uidvalidity = true;
     }
     break;
@@ -487,7 +496,7 @@ case 'ReportSpam':
         // If result is non-zero, then we know the message has been removed
         // from the current mailbox.
         $result->remove = 1;
-    } else {
+    } elseif (!is_null($change)) {
         $check_uidvalidity = true;
     }
     break;
@@ -500,12 +509,14 @@ case 'Blacklist':
     $imp_filter = new IMP_Filter();
     if (Horde_Util::getPost('blacklist')) {
         $change = _changed($mbox, $cacheid, false);
-        try {
-            if ($imp_filter->blacklistMessage($indices, false)) {
-                $result = _generateDeleteResult($mbox, $indices, $change);
+        if (!is_null($change)) {
+            try {
+                if ($imp_filter->blacklistMessage($indices, false)) {
+                    $result = _generateDeleteResult($mbox, $indices, $change);
+                }
+            } catch (Horde_Exception $e) {
+                $check_uidvalidity = true;
             }
-        } catch (Horde_Exception $e) {
-            $check_uidvalidity = true;
         }
     } else {
         try {
@@ -692,24 +703,26 @@ case 'chunkContent':
 
 case 'PurgeDeleted':
     $change = _changed($mbox, $cacheid, $indices);
-    if (!$change) {
-        $sort = IMP::getSort($mbox);
-        $change = ($sort['by'] == Horde_Imap_Client::SORT_THREAD);
-    }
-    $imp_message = IMP_Message::singleton();
-    $expunged = $imp_message->expungeMailbox(array($mbox => 1), array('list' => true));
-    if (!empty($expunged[$mbox])) {
-        $expunge_count = count($expunged[$mbox]);
-        $display_folder = IMP::displayFolder($mbox);
-        if ($expunge_count == 1) {
-            $notification->push(sprintf(_("1 message was purged from \"%s\"."), $display_folder), 'horde.success');
-        } else {
-            $notification->push(sprintf(_("%s messages were purged from \"%s\"."), $expunge_count, $display_folder), 'horde.success');
+    if (!is_null($change)) {
+        if (!$change) {
+            $sort = IMP::getSort($mbox);
+            $change = ($sort['by'] == Horde_Imap_Client::SORT_THREAD);
         }
-        $result = _generateDeleteResult($mbox, $expunged, $change);
-        // Need to manually set remove to true since we want to remove
-        // message from the list no matter the current pref settings.
-        $result->remove = 1;
+        $imp_message = IMP_Message::singleton();
+        $expunged = $imp_message->expungeMailbox(array($mbox => 1), array('list' => true));
+        if (!empty($expunged[$mbox])) {
+            $expunge_count = count($expunged[$mbox]);
+            $display_folder = IMP::displayFolder($mbox);
+            if ($expunge_count == 1) {
+                $notification->push(sprintf(_("1 message was purged from \"%s\"."), $display_folder), 'horde.success');
+            } else {
+                $notification->push(sprintf(_("%s messages were purged from \"%s\"."), $expunge_count, $display_folder), 'horde.success');
+            }
+            $result = _generateDeleteResult($mbox, $expunged, $change);
+            // Need to manually set remove to true since we want to remove
+            // message from the list no matter the current pref settings.
+            $result->remove = 1;
+        }
     }
     break;
 
