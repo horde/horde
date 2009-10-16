@@ -176,12 +176,12 @@ class Kronolith
                 'bg' => self::backgroundColor($calendar),
                 'show' => in_array($calendar['url'], $GLOBALS['display_remote_calendars']));
         }
-        if (!empty($GLOBALS['conf']['holidays']['enable'])) {
-            foreach (unserialize($GLOBALS['prefs']->getValue('holiday_drivers')) as $holiday) {
-                $code['conf']['calendars']['holiday'][$holiday] = array(
-                    'name' => $holiday,
-                    'show' => true);
-            }
+        foreach ($GLOBALS['all_holidays'] as $holiday) {
+            $code['conf']['calendars']['holiday'][$holiday['id']] = array(
+                'name' => $holiday['title'],
+                'fg' => self::foregroundColor($holiday),
+                'bg' => self::backgroundColor($holiday),
+                'show' => in_array($holiday['id'], $GLOBALS['display_holidays']));
         }
 
         /* Gettext strings used in core javascript files. */
@@ -259,10 +259,8 @@ class Kronolith
             $calendars = array(
                 Horde_String::ucfirst($GLOBALS['conf']['calendar']['driver']) => $GLOBALS['display_calendars'],
                 'Horde' => $GLOBALS['display_external_calendars'],
-                'Ical' => $GLOBALS['display_remote_calendars']);
-            if (!empty($GLOBALS['conf']['holidays']['enable'])) {
-                $calendars['Holidays'] = unserialize($GLOBALS['prefs']->getValue('holiday_drivers'));
-            }
+                'Ical' => $GLOBALS['display_remote_calendars'],
+                'Holidays' => $GLOBALS['display_holidays']);
         }
 
         $events = array();
@@ -356,12 +354,10 @@ class Kronolith
                     self::mergeEvents($results, $events);
                 }
             }
-        }
 
-        /* Holidays. */
-        if (!empty($GLOBALS['conf']['holidays']['enable'])) {
+            /* Holidays. */
             $driver = self::getDriver('Holidays');
-            foreach (unserialize($GLOBALS['prefs']->getValue('holiday_drivers')) as $holiday) {
+            foreach ($GLOBALS['display_holidays'] as $holiday) {
                 $driver->open($holiday);
                 $events = $driver->listEvents($startDate, $endDate, true);
                 if (!is_a($events, 'PEAR_Error')) {
@@ -704,6 +700,7 @@ class Kronolith
         $GLOBALS['display_calendars'] = @unserialize($GLOBALS['prefs']->getValue('display_cals'));
         $GLOBALS['display_remote_calendars'] = @unserialize($GLOBALS['prefs']->getValue('display_remote_cals'));
         $GLOBALS['display_external_calendars'] = @unserialize($GLOBALS['prefs']->getValue('display_external_cals'));
+        $GLOBALS['display_holidays'] = @unserialize($GLOBALS['prefs']->getValue('holiday_drivers'));
 
         if (!is_array($GLOBALS['display_calendars'])) {
             $GLOBALS['display_calendars'] = array();
@@ -713,6 +710,10 @@ class Kronolith
         }
         if (!is_array($GLOBALS['display_external_calendars'])) {
             $GLOBALS['display_external_calendars'] = array();
+        }
+        if (!is_array($GLOBALS['display_holidays']) ||
+            empty($GLOBALS['conf']['holidays']['enable'])) {
+            $GLOBALS['display_holidays'] = array();
         }
 
         /* Update preferences for which calendars to display. If the
@@ -731,6 +732,7 @@ class Kronolith
             $GLOBALS['display_remote_calendars'] = array();
             $GLOBALS['display_external_calendars'] = array();
             $GLOBALS['display_resource_calendars'] = array();
+            $GLOBALS['display_holidays'] = array();
             $calendars = $_SESSION['kronolith']['display_cal'];
             if (!is_array($calendars)) {
                 $calendars = array($calendars);
@@ -749,6 +751,11 @@ class Kronolith
                 } elseif (strncmp($calendarId, 'resource_', 9) === 0) {
                     if (!in_array($calendarId, $GLOBALS['display_resource_calendars'])) {
                         $GLOBALS['display_resource_calendars'][] = $calendarId;
+                    }
+                } elseif (strncmp($calendarId, 'holidays_', 9) === 0) {
+                    $calendarId = substr($calendarId, 9);
+                    if (!in_array($calendarId, $GLOBALS['display_holidays'])) {
+                        $GLOBALS['display_holidays'][] = $calendarId;
                     }
                 } else {
                     if (!in_array($calendarId, $GLOBALS['display_calendars'])) {
@@ -775,6 +782,14 @@ class Kronolith
                     unset($GLOBALS['display_external_calendars'][$key]);
                 } else {
                     $GLOBALS['display_external_calendars'][] = $calendarId;
+                }
+            } elseif (strncmp($calendarId, 'holidays_', 9) === 0) {
+                $calendarId = substr($calendarId, 9);
+                if (in_array($calendarId, $GLOBALS['display_holidays'])) {
+                    $key = array_search($calendarId, $GLOBALS['display_holidays']);
+                    unset($GLOBALS['display_holidays'][$key]);
+                } else {
+                    $GLOBALS['display_holidays'][] = $calendarId;
                 }
             } else {
                 if (in_array($calendarId, $GLOBALS['display_calendars'])) {
@@ -811,6 +826,28 @@ class Kronolith
             }
         }
         $GLOBALS['prefs']->setValue('display_remote_cals', serialize($GLOBALS['display_remote_calendars']));
+
+        /* Make sure all the holiday drivers still exist. */
+        $GLOBALS['all_holidays'] = array();
+        if (!empty($GLOBALS['conf']['holidays']['enable'])) {
+            if (class_exists('Date_Holidays')) {
+                foreach (Date_Holidays::getInstalledDrivers() as $driver) {
+                    if ($driver['id'] == 'Composite') {
+                        continue;
+                    }
+                    $GLOBALS['all_holidays'][] = $driver;
+                }
+                asort($GLOBALS['all_holidays']);
+            }
+        }
+        $_temp = $GLOBALS['display_holidays'];
+        $GLOBALS['display_holidays'] = array();
+        foreach ($GLOBALS['all_holidays'] as $holiday) {
+            if (in_array($holiday['id'], $_temp)) {
+                $GLOBALS['display_holidays'][] = $holiday['id'];
+            }
+        }
+        $GLOBALS['prefs']->setValue('holiday_drivers', serialize($GLOBALS['display_holidays']));
 
         /* Get a list of external calendars. */
         if (isset($_SESSION['all_external_calendars'])) {

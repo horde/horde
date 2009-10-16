@@ -711,7 +711,7 @@ KronolithCore = {
     updateCalendarList: function()
     {
         var my = 0, shared = 0, ext = {}, extNames = {},
-            remote, api, div;
+            remote, holidays, api, div;
 
         $H(Kronolith.conf.calendars.internal).each(function(cal) {
             if (cal.value.owner) {
@@ -770,6 +770,19 @@ KronolithCore = {
             $('kronolithRemoteCalendars').show();
         } else {
             $('kronolithRemoteCalendars').hide();
+        }
+
+        holidays = $H(Kronolith.conf.calendars.holiday);
+        holidays.each(function(cal) {
+            $('kronolithHolidayCalendars')
+                .insert(new Element('DIV', { 'calendar': cal.key, 'calendarclass': 'holiday', 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' })
+                        .setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg })
+                        .update(cal.value.name.escapeHTML()));
+        });
+        if (holidays.size()) {
+            $('kronolithHolidayCalendars').show();
+        } else {
+            $('kronolithHolidayCalendars').hide();
         }
     },
 

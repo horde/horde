@@ -2,6 +2,7 @@
 v3.0-git
 --------
 
+[jan] Manage holidays like any other calendar driver.
 [mjr] Add support for resource scheduling.
 [jan] Integrate tasks into Ajax interface (Gonçalo Queirós
       <mail@goncaloqueiros.net>).

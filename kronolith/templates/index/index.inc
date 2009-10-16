@@ -64,6 +64,13 @@
 
   <div id="kronolithRemoteCalendars" class="kronolithCalendars" style="display:none">
   </div>
+
+  <h3>
+    <span><?php echo _("Holidays") ?></span>
+  </h3>
+
+  <div id="kronolithHolidayCalendars" class="kronolithCalendars" style="display:none">
+  </div>
   </div>
 
   <div id="kronolithMenuBottom">

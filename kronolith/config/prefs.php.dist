@@ -24,15 +24,6 @@ $prefGroups['share'] = array(
     'members' => array('shareselect'),
 );
 
-if (!empty($GLOBALS['conf']['holidays']['enable'])) {
-    $prefGroups['holidays'] = array(
-        'column' => _("Calendars"),
-        'label' => _("Holidays"),
-        'desc' => _("Choose which holidays to display"),
-        'members' => array('holiday_drivers'),
-    );
-}
-
 $prefGroups['event_options'] = array(
     'column' => _("Events"),
     'label' => _("Event Defaults"),
@@ -243,8 +234,7 @@ $_prefs['holiday_drivers'] = array(
     'value' => 'a:0:{}',
     'locked' => false,
     'shared' => false,
-    'type' => 'multienum',
-    'desc' => _("Which kind of holidays do you want to get displayed?"),
+    'type' => 'implicit',
 );
 
 // store the calendars to diplay

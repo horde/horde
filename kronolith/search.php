@@ -82,10 +82,8 @@ if ($search_mode == 'basic') {
     foreach ($GLOBALS['all_remote_calendars'] as $cal) {
         $calendars[_("Remote Calendars:")]['Ical|' . $cal['url']] = $cal['name'];
     }
-    if (!empty($GLOBALS['conf']['holidays']['enable'])) {
-        foreach (unserialize($GLOBALS['prefs']->getValue('holiday_drivers')) as $holiday) {
-            $calendars[_("Holidays:")]['Holidays|' . $holiday] = $holiday;
-        }
+    foreach ($GLOBALS['all_holidays'] as $holiday) {
+        $calendars[_("Holidays:")]['Holidays|' . $holiday['id']] = $holiday['title'];
     }
 }
 

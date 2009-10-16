@@ -43,20 +43,6 @@ class Kronolith_Application extends Horde_Registry_Application
             $out['day_hour_end_options'] = $out['day_hour_start_options'];
         }
 
-        if (!empty($GLOBALS['conf']['holidays']['enable'])) {
-            if (class_exists('Date_Holidays')) {
-                foreach (Date_Holidays::getInstalledDrivers() as $driver) {
-                    if ($driver['id'] == 'Composite') {
-                        continue;
-                    }
-                    $_prefs['holiday_drivers']['enum'][$driver['id']] = $driver['title'];
-                }
-                asort($_prefs['holiday_drivers']['enum']);
-            } else {
-                $GLOBALS['notification']->push(_("Holidays support is not available on this server."), 'horde.error');
-            }
-        }
-
         return $out;
     }
 
@@ -76,10 +62,6 @@ class Kronolith_Application extends Horde_Registry_Application
 
         case 'shareselect':
             return $this->_prefsShareSelect($updated);
-
-        case 'holiday_drivers':
-            $this->_prefsHolidayDrivers($updated);
-            return true;
 
         case 'sourceselect':
             return $this->_prefsSourceSelect($updated);
@@ -195,23 +177,6 @@ class Kronolith_Application extends Horde_Registry_Application
         }
 
         return $updated;
-    }
-
-    /**
-     * TODO
-     */
-    protected function _prefsHolidayDrivers()
-    {
-        $holiday_driversSelected = Horde_Util::getFormData('holiday_drivers');
-        $holiday_driversFiltered = array();
-
-        if (is_array($holiday_driversSelected)) {
-            foreach ($holiday_driversSelected as $holiday_driver) {
-                $holiday_driversFiltered[] = $holiday_driver;
-            }
-        }
-
-        $GLOBALS['prefs']->setValue('holiday_drivers', serialize($holiday_driversFiltered));
     }
 
     /**
