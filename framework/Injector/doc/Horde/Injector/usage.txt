@@ -133,7 +133,7 @@ Default Binders
 ===============
 
 Horde_Injector comes with two default Binder implementations so that
-you don't have to define you own binders.
+you don't have to define your own binders.
 
 Lets look at the factory binder first:
 
@@ -166,7 +166,7 @@ Lets look at the factory binder first:
  Hello Bob
 
 This time the Factory in the example above really pulls a dependency:
-A person. We explicitly registered the string "Bob" with the injector
+a person. We explicitly registered the string "Bob" with the injector
 and associated it with the interface name "Person".
 
 The Horde_Injector_Binder_Factory binder can be registered with the
