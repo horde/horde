@@ -730,21 +730,12 @@ class Kronolith
             $GLOBALS['display_calendars'] = array();
             $GLOBALS['display_remote_calendars'] = array();
             $GLOBALS['display_external_calendars'] = array();
-            $calendarId = $_SESSION['kronolith']['display_cal'];
-            if (is_array($calendarId)) {
-                $calendars = $calendarId;
-                foreach ($calendars as $calendarId) {
-                    if (strncmp($calendarId, 'remote_', 7) === 0) {
-                        $calendarId = substr($calendarId, 7);
-                        $GLOBALS['display_remote_calendars'][] = $calendarId;
-                    } elseif (strncmp($calendarId, 'external_', 9) === 0) {
-                        $calendarId = substr($calendarId, 9);
-                        $GLOBALS['display_external_calendars'][] = $calendarId;
-                    } else {
-                        $GLOBALS['display_calendars'][] = $calendarId;
-                    }
-                }
-            } else {
+            $GLOBALS['display_resource_calendars'] = array();
+            $calendars = $_SESSION['kronolith']['display_cal'];
+            if (!is_array($calendars)) {
+                $calendars = array($calendars);
+            }
+            foreach ($calendars as $calendarId) {
                 if (strncmp($calendarId, 'remote_', 7) === 0) {
                     $calendarId = substr($calendarId, 7);
                     if (!in_array($calendarId, $GLOBALS['display_remote_calendars'])) {
@@ -756,7 +747,9 @@ class Kronolith
                         $GLOBALS['display_external_calendars'][] = $calendarId;
                     }
                 } elseif (strncmp($calendarId, 'resource_', 9) === 0) {
-                    $GLOBALS['display_resource_calendars'] = array($calendarId);
+                    if (!in_array($calendarId, $GLOBALS['display_resource_calendars'])) {
+                        $GLOBALS['display_resource_calendars'][] = $calendarId;
+                    }
                 } else {
                     if (!in_array($calendarId, $GLOBALS['display_calendars'])) {
                         $GLOBALS['display_calendars'][] = $calendarId;
