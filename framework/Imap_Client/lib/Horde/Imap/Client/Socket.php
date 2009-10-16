@@ -605,7 +605,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 } catch (Horde_Imap_Client_Exception $e) {}
             }
             unset($this->_temp['logout']);
-            fclose($this->_stream);
+            @fclose($this->_stream);
             $this->_stream = null;
         }
     }
