@@ -115,6 +115,9 @@ class Horde_Autoloader
      */
     public static function addClassPath($path, $prepend = true)
     {
+        if ($path == '.') {
+            throw new Exception('"." is not allowed in the include_path. Use an absolute path instead.');
+        }
         $path = realpath($path);
 
         if (is_null(self::$_includeCache)) {
@@ -162,6 +165,7 @@ class Horde_Autoloader
     {
         self::$_includeCache = array();
         foreach (explode(PATH_SEPARATOR, get_include_path()) as $path) {
+            if ($path == '.') { continue; }
             $path = realpath($path);
             if ($path) {
                 self::$_includeCache[] = $path;
