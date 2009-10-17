@@ -258,6 +258,13 @@ span.trashImg {
     background: #fff;
 }
 
+.addressTr {
+    width: 580px;
+}
+.addressTr span {
+    vertical-align: top;
+}
+
 /* Message flags definitions.
  * For background color, see config/prefs.php [msgflags preference]. */
 div.msgflags {
@@ -372,34 +379,6 @@ table.multipleMsgs td.msgheader {
 .msgheader img {
     vertical-align: middle;
     padding: 1px 1px 1px 2px;
-}
-
-/* Autocomplete styles. */
-.autocomplete {
-    background: #f4f4f4;
-    border: 1px solid #d4d4d4;
-    position: absolute;
-    padding: 2px;
-}
-.autocomplete ul {
-    margin: 1px;
-    padding: 1px;
-    list-style-type: none;
-}
-.autocomplete ul li {
-    padding: 3px 4px 4px;
-    cursor: pointer;
-    color: #000;
-}
-.autocomplete ul .selected {
-    background: gray;
-    color: #fff;
-}
-.addressTr {
-    width: 580px;
-}
-.addressTr span {
-    vertical-align: top;
 }
 
 /* Contacts styles. */

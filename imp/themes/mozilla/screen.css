@@ -12,13 +12,3 @@
 #messageBody {
     padding: 2px;
 }
-
-/* Autocomplete styles. */
-.autocomplete ul li {
-    text-decoration: none;
-}
-.autocomplete ul .selected {
-    color: #000;
-    background-color: #e8f1ff;
-    text-decoration: underline;
-}
