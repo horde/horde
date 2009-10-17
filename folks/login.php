@@ -89,7 +89,7 @@ if ($conf['login']['prelogin'] &&
  * Login parameters
  */
 $url_param = Horde_Util::getFormData('url');
-$login_url = Util::addParameter(Horde::getServiceLink('login', 'folks'), 'url', $url_param);
+$login_url = Horde_Util::addParameter(Horde::getServiceLink('login', 'folks'), 'url', $url_param);
 
 /*
  * We are already logged in?
@@ -115,6 +115,7 @@ if (isset($_COOKIE['folks_login_code']) &&
     if (empty($url_param)) {
         $url_param = Folks::getUrlFor('user', $_COOKIE['folks_login_user']);
     }
+
     header('Location: ' . $url_param);
     exit;
 }
@@ -129,7 +130,7 @@ $form = new Folks_Login_Form($vars, $title, 'folks_login');
 /*
  * Check time between one login and anther
  */
-$username = strtolower(trim(Horde_Util::getPost('username')));
+$username = Horde_String::lower(trim(Horde_Util::getPost('username')));
 if ($username && $conf['login']['diff']) {
     $last_try = $cache->get('login_last_try_' . $username, $conf['cache']['default_lifetime']);
     if ($last_try && $_SERVER['REQUEST_TIME'] - $last_try <= $conf['login']['diff']) {

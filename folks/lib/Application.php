@@ -40,6 +40,30 @@ class Folks_Application extends Horde_Registry_Application
     }
 
     /**
+     * Tries to transparently authenticate
+     *
+     * @param Horde_Auth_Application $auth_ob  The authentication object.
+     *
+     * @return boolean  Whether transparent login is supported.
+     * @throws Horde_Auth_Exception
+     */
+    public function authTransparent($auth_ob)
+    {
+        if (empty($_COOKIE['folks_login_code']) ||
+            empty($_COOKIE['folks_login_user'])) {
+            return false;
+        }
+
+        require_once dirname(__FILE__) . '/base.php';
+        $GLOBALS['folks_driver'] = Folks_Driver::factory();
+        if ($_COOKIE['folks_login_code'] == $GLOBALS['folks_driver']->getCookie($_COOKIE['folks_login_user'])) {
+            return Horde_Auth::setAuth($_COOKIE['folks_login_user'], array('transparent' => 1));
+        }  else {
+            return false;
+        }
+    }
+
+    /**
      * Check if a user exists
      *
      * @param string $userID       Username
