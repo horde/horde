@@ -182,22 +182,8 @@ Ansel_GMap.prototype = {
             }
         } else {
             // Not a Gallery View...
-            this.mainMap.setCenter(this.points[0].getLatLng(), Math.min(this.mainMap.getBoundsZoomLevel(this.bounds) - 1, this.maxZoom));
-            // Can't instantiate a manager until after the GMap2 has had
-            // setCenter() called, so we can't do this in the const'r
-            if (this.options.useManager && this.manager == null) {
-                this.manager = new MarkerManager(this.mainMap);
-            }
-            if (this.options.useManager) {
-                if (minZoom == null) {
-                    minZoom = 0;
-                }
-                this.manager.addMarkers(this.points, minZoom);
-                this.manager.refresh();
-            }
-            if (this.options.smallMap) {
-                this.smallMap.setCenter(this.mainMap.getCenter(), 1);
-            }
+            this._mapSetCenter(Math.min(this.mainMap.getBoundsZoomLevel(this.bounds) - 1, this.maxZoom), this.points[0].getLatLng());
+            this._managerSetup(minZoom);
         }
     },
 
@@ -209,8 +195,11 @@ Ansel_GMap.prototype = {
      * @param integer mz  The minimum zoom level needed to display the currently
      *                    added points if using the MarkerManager.
      */
-    _mapSetCenter: function(zl, mz) {
-        this.mainMap.setCenter(this.bounds.getCenter(), zl);
+    _mapSetCenter: function(zl, mz, ctr) {
+        if (!ctr) {
+            ctr = this.bounds.getCenter();
+        }
+        this.mainMap.setCenter(ctr, zl);
         if (this.options.smallMap) {
             this.smallMap.setCenter(this.mainMap.getCenter(), 1);
         }
@@ -418,85 +407,87 @@ Ansel_GMap.prototype = {
  * Use an Image object to get the exact dimensions of the image. Need this
  * wrapped in an onload handler to be sure GOverlay() is defined.
  */
-anselGOverlay = function(latlng, image_data) {
-    this.src_ = image_data.icon;
-    this.latlng_ = latlng;
-    var img = new Image();
-    img.src = image_data.icon;
-    this.width_ = img.width;
-    this.height_ = img.height;
-    var z = GOverlay.getZIndex(this.latlng_.lat());
-    this.div_ = new Element('div', {style: 'position:absolute;border:1px solid white;width:' + (this.width_ - 2) + 'px; height:' + (this.height_ - 2) + 'px;zIndex:' + z});
-    this.img_ = new Element('img', {src: this.src_, style: 'width:' + (this.width_ - 2) + 'px;height:' + (this.height_ - 2) + 'px'});
-    this.div_.appendChild(this.img_);
-    this.selected_ = false;
-    this.link = image_data.link;
-
-    // Handlers to hightlight the node for this overlay on mouseover/out
-    GEvent.addDomListener(this.div_, 'mouseover', function() {
-        this.focus();
-    }.bind(this));
-    GEvent.addDomListener(this.div_, 'mouseout', function() {
-        this.focus();
-    }.bind(this));
-
-    // Add a click handler to navigate to the image view for this image.
-    if (this.link) {
-        GEvent.addDomListener(this.div_, 'click', function() {
-                var a = this.link;
-                location.href = a;
-            }.bind(this));
+document.observe('dom:loaded', function () {
+    anselGOverlay = function(latlng, image_data) {
+        this.src_ = image_data.icon;
+        this.latlng_ = latlng;
+        var img = new Image();
+        img.src = image_data.icon;
+        this.width_ = img.width;
+        this.height_ = img.height;
+        var z = GOverlay.getZIndex(this.latlng_.lat());
+        this.div_ = new Element('div', {style: 'position:absolute;border:1px solid white;width:' + (this.width_ - 2) + 'px; height:' + (this.height_ - 2) + 'px;zIndex:' + z});
+        this.img_ = new Element('img', {src: this.src_, style: 'width:' + (this.width_ - 2) + 'px;height:' + (this.height_ - 2) + 'px'});
+        this.div_.appendChild(this.img_);
+        this.selected_ = false;
+        this.link = image_data.link;
+    
+        // Handlers to hightlight the node for this overlay on mouseover/out
+        GEvent.addDomListener(this.div_, 'mouseover', function() {
+            this.focus();
+        }.bind(this));
+        GEvent.addDomListener(this.div_, 'mouseout', function() {
+            this.focus();
+        }.bind(this));
+    
+        // Add a click handler to navigate to the image view for this image.
+        if (this.link) {
+            GEvent.addDomListener(this.div_, 'click', function() {
+                    var a = this.link;
+                    location.href = a;
+                }.bind(this));
+            }
+        };
+    
+        anselGOverlay.prototype = new GOverlay();
+        anselGOverlay.prototype.initialize =  function(map) {
+            map.getPane(G_MAP_MARKER_PANE).appendChild(this.div_);
+            this.map_ = map;
+        };
+    
+        //Remove the main DIV from the map pane
+        // TODO: We should unregister the event handlers adding in initialize()
+        anselGOverlay.prototype.remove = function() {
+          this.div_.parentNode.removeChild(this.div_);
+        };
+    
+        // Copy our data to a new GOverlay
+        anselGOverlay.prototype.copy = function() {
+          return new Ansel_GOverlay(this.latlng_, this.src_);
+        };
+    
+        anselGOverlay.prototype.redraw = function(force) {
+            // We only need to redraw if the coordinate system has changed
+        if (!force) return;
+        var coords = this.map_.fromLatLngToDivPixel(this.latlng_);
+        this.div_.style.left = coords.x + "px";
+        this.div_.style.top  = coords.y + "px";
+    };
+    
+    anselGOverlay.prototype.focus = function()
+    {
+        if (this.selected_ == false) {
+            this.div_.style.border = '1px solid red';
+            this.div_.style.left = (parseInt(this.div_.style.left) - 1) + "px";
+            this.div_.style.top = (parseInt(this.div_.style.top) - 1) + "px";
+            this.div_.style.zIndex = GOverlay.getZIndex(-90.0);
+            this.selected_ = true;
+        } else {
+            this.div_.style.border = '1px solid white';
+            this.div_.style.left = (parseInt(this.div_.style.left) + 1) + "px";
+            this.div_.style.top = (parseInt(this.div_.style.top) + 1) + "px";
+            this.div_.style.zIndex = GOverlay.getZIndex(this.latlng_.lat());
+            this.selected_ = false;
         }
     };
-
-    anselGOverlay.prototype = new GOverlay();
-    anselGOverlay.prototype.initialize =  function(map) {
-        map.getPane(G_MAP_MARKER_PANE).appendChild(this.div_);
-        this.map_ = map;
-    };
-
-    //Remove the main DIV from the map pane
-    // TODO: We should unregister the event handlers adding in initialize()
-    anselGOverlay.prototype.remove = function() {
-      this.div_.parentNode.removeChild(this.div_);
-    };
-
-    // Copy our data to a new GOverlay
-    anselGOverlay.prototype.copy = function() {
-      return new Ansel_GOverlay(this.latlng_, this.src_);
-    };
-
-    anselGOverlay.prototype.redraw = function(force) {
-        // We only need to redraw if the coordinate system has changed
-    if (!force) return;
-    var coords = this.map_.fromLatLngToDivPixel(this.latlng_);
-    this.div_.style.left = coords.x + "px";
-    this.div_.style.top  = coords.y + "px";
-};
-
-anselGOverlay.prototype.focus = function()
-{
-    if (this.selected_ == false) {
-        this.div_.style.border = '1px solid red';
-        this.div_.style.left = (parseInt(this.div_.style.left) - 1) + "px";
-        this.div_.style.top = (parseInt(this.div_.style.top) - 1) + "px";
-        this.div_.style.zIndex = GOverlay.getZIndex(-90.0);
-        this.selected_ = true;
-    } else {
-        this.div_.style.border = '1px solid white';
-        this.div_.style.left = (parseInt(this.div_.style.left) + 1) + "px";
-        this.div_.style.top = (parseInt(this.div_.style.top) + 1) + "px";
-        this.div_.style.zIndex = GOverlay.getZIndex(this.latlng_.lat());
-        this.selected_ = false;
+    
+    // MarkerManager seems to be incosistent with the methods it calls to get
+    // the GLatLng for each overlay. addMarkers() seems to need the deprecated
+    // getPoint() while addMarker() uses the newer getLatLng() mehtod.
+    anselGOverlay.prototype.getPoint = function() {
+        return this.latlng_;
     }
-};
-
-// MarkerManager seems to be incosistent with the methods it calls to get
-// the GLatLng for each overlay. addMarkers() seems to need the deprecated
-// getPoint() while addMarker() uses the newer getLatLng() mehtod.
-anselGOverlay.prototype.getPoint = function() {
-    return this.latlng_;
-}
-anselGOverlay.prototype.getLatLng = function() {
-    return this.latlng_;
-}
+    anselGOverlay.prototype.getLatLng = function() {
+        return this.latlng_;
+    }
+});
