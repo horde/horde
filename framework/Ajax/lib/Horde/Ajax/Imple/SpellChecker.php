@@ -41,12 +41,14 @@ class Horde_Ajax_Imple_SpellChecker extends Horde_Ajax_Imple_Base
             $params['states'] = Horde_Serialize::serialize($params['states'], Horde_Serialize::JSON, Horde_Nls::getCharset());
         }
         if (empty($params['locales'])) {
+            $key_list = array_keys(Horde_Nls::$config['spelling']);
+            asort($key_list, SORT_LOCALE_STRING);
             $params['locales'] = array();
-            foreach (array_keys(Horde_Nls::$config['spelling']) as $lcode) {
-                $params['locales'][$lcode] = Horde_Nls::$config['languages'][$lcode];
+
+            foreach ($key_list as $lcode) {
+                $params['locales'][] = array('l' => Horde_Nls::$config['languages'][$lcode], 'v' => $lcode);
             }
         }
-        asort($params['locales'], SORT_LOCALE_STRING);
         $params['locales'] = Horde_Serialize::serialize($params['locales'], Horde_Serialize::JSON, Horde_Nls::getCharset());
 
         parent::__construct($params);
