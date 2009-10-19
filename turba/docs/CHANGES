@@ -10,6 +10,7 @@ v3.0-git
 v2.3.3-cvs
 ----------
 
+[jan] Add Oracle-specific upgrade script.
 [jan] Add Croatian translation (Matej Vela <matej.vela@carnet.hr>,
       Iva Rumora <iva.rumora@zg.t-com.hr>).
 [mjr] Fix permission checking for virtual address books. 

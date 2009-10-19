@@ -107,6 +107,7 @@ v5.0-git
 v4.3.6-cvs
 ----------
 
+[jan] Add Oracle-specific SQL script.
 [jan] Add Croatian translation (Matej Vela <matej.vela@carnet.hr>,
       Iva Rumora <iva.rumora@zg.t-com.hr>).
 [mms] Don't use translated folder prefixes in rename dialog (Bug #8554).
