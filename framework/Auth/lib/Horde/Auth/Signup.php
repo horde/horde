@@ -43,7 +43,7 @@ class Horde_Auth_Signup
             $params = Horde::getDriverConfig('signup', $driver);
         }
 
-        $class = 'Auth_Signup_' . $driver;
+        $class = 'Horde_Auth_Signup_' . $driver;
         if (!class_exists($class)) {
             include dirname(__FILE__) . '/Signup/' . $driver . '.php';
         }
