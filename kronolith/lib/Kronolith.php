@@ -1800,8 +1800,6 @@ class Kronolith
             switch ($driver) {
             case 'Sql':
             case 'Resource':
-            case 'Geo_Mysql':
-            case 'Geo_Sql':
                 $params = Horde::getDriverConfig('calendar', 'sql');
                 break;
 
