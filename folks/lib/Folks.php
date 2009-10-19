@@ -247,9 +247,7 @@ class Folks {
             }
         }
 
-        list($mail_driver, $mail_params) = Horde::getMailerConfig();
-
-        return $mail->send($mail_driver, $mail_params);
+        return $mail->send(Horde::getMailerConfig());
     }
 
     /**
