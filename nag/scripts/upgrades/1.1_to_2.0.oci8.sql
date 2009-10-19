@@ -6,10 +6,10 @@ ALTER TABLE nag_tasks DROP COLUMN task_category;
 ALTER TABLE nag_tasks RENAME COLUMN task_category_new TO task_category;
 
 ALTER TABLE nag_tasks MODIFY task_name VARCHAR2(255);
-ALTER TABLE nag_tasks MODIFY task_private INT DEFAULT 0;
+ALTER TABLE nag_tasks MODIFY task_private NUMBER(16) DEFAULT 0;
 
 ALTER TABLE nag_tasks ADD task_uid VARCHAR2(255);
-ALTER TABLE nag_tasks ADD task_alarm INT DEFAULT 0 NOT NULL;
+ALTER TABLE nag_tasks ADD task_alarm NUMBER(16) DEFAULT 0 NOT NULL;
 
 CREATE INDEX nag_tasklist_idx ON nag_tasks (task_owner);
 CREATE INDEX nag_uid_idx ON nag_tasks (task_uid);

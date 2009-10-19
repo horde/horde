@@ -1,14 +1,14 @@
-ALTER TABLE kronolith_events ADD event_private INT DEFAULT 0 NOT NULL;
-ALTER TABLE kronolith_events ADD event_recurcount INT;
+ALTER TABLE kronolith_events ADD event_private NUMBER(1) DEFAULT 0 NOT NULL;
+ALTER TABLE kronolith_events ADD event_recurcount NUMBER(8);
 
 CREATE TABLE kronolith_shares (
-    share_id INT NOT NULL,
+    share_id NUMBER(16) NOT NULL,
     share_name VARCHAR2(255) NOT NULL,
     share_owner VARCHAR2(255) NOT NULL,
-    share_flags SMALLINT NOT NULL DEFAULT 0,
-    perm_creator SMALLINT NOT NULL DEFAULT 0,
-    perm_default SMALLINT NOT NULL DEFAULT 0,
-    perm_guest SMALLINT NOT NULL DEFAULT 0,
+    share_flags NUMBER(8) NOT NULL DEFAULT 0,
+    perm_creator NUMBER(8) NOT NULL DEFAULT 0,
+    perm_default NUMBER(8) NOT NULL DEFAULT 0,
+    perm_guest NUMBER(8) NOT NULL DEFAULT 0,
     attribute_name VARCHAR2(255) NOT NULL,
     attribute_desc VARCHAR2(255),
     PRIMARY KEY (share_id)
@@ -21,9 +21,9 @@ CREATE INDEX kronolith_shares_perm_default_idx ON kronolith_shares (perm_default
 CREATE INDEX kronolith_shares_perm_guest_idx ON kronolith_shares (perm_guest);
 
 CREATE TABLE kronolith_shares_groups (
-    share_id INT NOT NULL,
-    group_uid INT NOT NULL,
-    perm SMALLINT NOT NULL
+    share_id NUMBER(16) NOT NULL,
+    group_uid NUMBER(16) NOT NULL,
+    perm NUMBER(8) NOT NULL
 );
 
 CREATE INDEX kronolith_shares_groups_share_id_idx ON kronolith_shares_groups (share_id);
@@ -31,9 +31,9 @@ CREATE INDEX kronolith_shares_groups_group_uid_idx ON kronolith_shares_groups (g
 CREATE INDEX kronolith_shares_groups_perm_idx ON kronolith_shares_groups (perm);
 
 CREATE TABLE kronolith_shares_users (
-    share_id INT NOT NULL,
+    share_id NUMBER(16) NOT NULL,
     user_uid VARCHAR2(32) NOT NULL,
-    perm SMALLINT NOT NULL
+    perm NUMBER(8) NOT NULL
 );
 
 CREATE INDEX kronolith_shares_users_share_id_idx ON kronolith_shares_users (share_id);
