@@ -789,11 +789,11 @@ class Nag_Task {
         }
 
         if (!empty($this->name)) {
-            $vTodo->setAttribute('SUMMARY', $v1 ? $this->name : String::convertCharset($this->name, NLS::getCharset(), 'utf-8'));
+            $vTodo->setAttribute('SUMMARY', $v1 ? $this->name : Horde_String::convertCharset($this->name, Horde_Nls::getCharset(), 'utf-8'));
         }
 
         if (!empty($this->desc)) {
-            $vTodo->setAttribute('DESCRIPTION', $v1 ? $this->desc : String::convertCharset($this->desc, NLS::getCharset(), 'utf-8'));
+            $vTodo->setAttribute('DESCRIPTION', $v1 ? $this->desc : Horde_String::convertCharset($this->desc, Horde_Nls::getCharset(), 'utf-8'));
         }
 
         if (isset($this->priority)) {
@@ -839,7 +839,7 @@ class Nag_Task {
         }
 
         if (!empty($this->category)) {
-            $vTodo->setAttribute('CATEGORIES', $v1 ? $this->category : String::convertCharset($this->category, NLS::getCharset(), 'utf-8'));
+            $vTodo->setAttribute('CATEGORIES', $v1 ? $this->category : Horde_String::convertCharset($this->category, Horde_Nls::getCharset(), 'utf-8'));
         }
 
         /* Get the task's history. */
