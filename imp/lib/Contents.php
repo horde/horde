@@ -678,7 +678,7 @@ class IMP_Contents
         $params = $this->_urlViewParams($mime_part, $actionID, isset($options['params']) ? $options['params'] : array());
 
         return empty($options['dload'])
-            ? Horde_Util::addParameter(Horde::applicationUrl('view.php'), $params)
+            ? Horde_Util::addParameter(Horde::applicationUrl('view.php', true), $params)
             : Horde::downloadUrl($mime_part->getName(true), $params);
     }
 
