@@ -157,15 +157,15 @@ class Horde_Lock
      * @return Horde_Lock    The newly created concrete Lock instance.
      * @throws Horde_Log_Exception
      */
-    public function factory($driver, $params = null)
+    public static function factory($driver, $params = null)
     {
         if (is_array($driver)) {
             $app = $driver[0];
             $driver = $driver[1];
         }
 
-        $driver = basename($driver);
-        if (empty($driver) || ($driver == 'none')) {
+        $driver = ucfirst(basename($driver));
+        if (empty($driver) || ($driver == 'None')) {
             return new Horde_Lock();
         }
 
@@ -205,8 +205,6 @@ class Horde_Lock
      * This should be used if multiple authentication sources (and, thus,
      * multiple Horde_Lock instances) are required.
      *
-     * This method must be invoked as: $var = &Horde_Lock::singleton()
-     *
      * @param string $driver  The type of concrete Horde_Lock subclass to
      *                        return.
      *                        This is based on the storage driver ($driver).
@@ -217,7 +215,7 @@ class Horde_Lock
      * @return Horde_Lock     The concrete Horde_Lock reference
      * @throws Horde_Log_Exception
      */
-    public function &singleton($driver, $params = null)
+    public static function singleton($driver, $params = null)
     {
         static $instances = array();
 
@@ -228,7 +226,7 @@ class Horde_Lock
 
         $signature = serialize(array($driver, $params));
         if (empty($instances[$signature])) {
-            $instances[$signature] = Horde_Lock::factory($driver, $params);
+            $instances[$signature] = self::factory($driver, $params);
         }
 
         return $instances[$signature];
