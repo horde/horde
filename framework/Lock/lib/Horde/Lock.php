@@ -164,7 +164,7 @@ class Horde_Lock
             $driver = $driver[1];
         }
 
-        $driver = ucfirst(basename($driver));
+        $driver = Horde_String::ucfirst(basename($driver));
         if (empty($driver) || ($driver == 'None')) {
             return new Horde_Lock();
         }
