@@ -7,7 +7,7 @@ if ($registry->hasMethod('contacts/sources')) {
         $readable = null;
     }
     try {
-        $writeable = $registry->call('contacts/sources', true);
+        $writeable = $registry->call('contacts/sources', array(true));
     } catch (Horde_Exception $e) {
         $writeable = null;
     }
@@ -69,7 +69,7 @@ if ($registry->hasMethod('contacts/sources')) {
     if (is_array($readable)) {
         foreach (array_keys($readable) as $source) {
             try {
-                $search_fields[$source] = $registry->call('contacts/fields', $source);
+                $search_fields[$source] = $registry->call('contacts/fields', array($source));
             } catch (Horde_Exception $e) {}
         }
     }
