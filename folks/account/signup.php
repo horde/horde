@@ -11,7 +11,6 @@
  */
 
 require_once dirname(__FILE__) . '/tabs.php';
-require_once 'Horde/Auth/Signup.php';
 
 $auth = Horde_Auth::singleton($conf['auth']['driver']);
 
@@ -22,36 +21,31 @@ if ($conf['signup']['allow'] !== true ||
     Horde_Auth::authenticateFailure('folks');
 }
 
+$signup = Horde_Auth_Signup::factory();
+if ($signup instanceof PEAR_Error) {
+    $notification->push($signup, 'horde.error');
+    Horde_Auth::authenticateFailure('folks');
+}
+
 $vars = Horde_Variables::getDefaultVariables();
 $form = new HordeSignupForm($vars);
 if ($form->validate()) {
     $form->getInfo(null, $info);
-
-    $signup = new Horde_Auth_Signup();
-    $success_message = null;
-
-    if (!$conf['signup']['approve']) {
-        /* User can sign up directly, no intervention necessary. */
-        $success = $signup->addSignup($info);
-        if (!($success instanceof PEAR_Error)) {
+    try {
+        if ($conf['signup']['approve']) {
+            /* Insert this user into a queue for admin approval. */
+            $success = $signup->queueSignup($info);
+            $success_message = sprintf(_("Submitted request to add \"%s\" to the system. You cannot log in until your request has been approved."), $info['user_name']);
+            $notification->push($success_message, 'horde.success');
+        } else {
+            /* User can sign up directly, no intervention necessary. */
+            $success = $signup->addSignup($info);
             $success_message = sprintf(_("Added \"%s\" to the system. You can log in now."), $info['user_name']);
         }
-    } elseif ($conf['signup']['approve']) {
-        /* Insert this user into a queue for admin approval. */
-        $success = $signup->queueSignup($info);
-        if (!($success instanceof PEAR_Error)) {
-            $success_message = sprintf(_("Submitted request to add \"%s\" to the system. You cannot log in until your request has been approved."), $info['user_name']);
-        }
-    }
-
-    if ($info instanceof PEAR_Error) {
-        $username = $vars->get('user_name') ? $vars->get('user_name') : $vars->get('extra[user_name]');
-        $notification->push(sprintf(_("There was a problem adding \"%s\" to the system: %s"), $username, $info->getMessage()), 'horde.error');
-    } elseif ($success instanceof PEAR_Error) {
-        $notification->push(sprintf(_("There was a problem adding \"%s\" to the system: %s"), $info['user_name'], $success->getMessage()), 'horde.error');
-    } else {
         $notification->push($success_message, 'horde.success');
         Horde_Auth::authenticateFailure('folks');
+    } catch (Horde_Exception $e) {
+        $notification->push(sprintf(_("There was a problem adding \"%s\" to the system: %s"), $info['user_name'], $e->getMessage()), 'horde.error');
     }
 }
 
