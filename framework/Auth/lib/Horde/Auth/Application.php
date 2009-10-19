@@ -173,7 +173,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
     {
         if ($this->hasCapability('add')) {
             $registry = Horde_Registry::singleton();
-            $registry->callAppMethod($this->_app, $this->_apiMethods['exists'], array('args' => array($userId, $credentials)));
+            $registry->callAppMethod($this->_app, $this->_apiMethods['add'], array('args' => array($userId, $credentials)));
         } else {
             parent::addUser($userId, $credentials);
         }
