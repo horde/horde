@@ -408,15 +408,20 @@ class Folks_Driver_sql extends Folks_Driver {
     }
 
     /**
-     * Add dummy user data
+     * Adds a set of authentication credentials.
+     *
+     * @param string $userId  The userId to add.
+     * @param array $credentials  The credentials to use.
+     *
+     * @return boolean true|PEAR_Error
      */
-    public function addUser($user)
+    public function addUser($user, $credentials)
     {
         // password and mail will be added later with the addextra hook
         $query = 'INSERT INTO ' . $this->_params['table']
                     . ' (user_uid, user_status, user_password, user_email, signup_at, signup_by) '
                     . ' VALUES (?, ?, ?, ?, NOW(), ?)';
-        $params = array($user, 'inactive', rand(),
+        $params = array($user, 'inactive', $credentials['password'],
                         rand() . '@' . $_SERVER['REMOTE_ADDR'],
                         $_SERVER['REMOTE_ADDR']);
 

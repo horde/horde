@@ -98,14 +98,18 @@ class Folks_Application extends Horde_Registry_Application
      * Adds a set of authentication credentials.
      *
      * @param string $userId  The userId to add.
+     * @param array $credentials  The credentials to use.
      *
-     * @return boolean  True on success or a PEAR_Error object on failure.
+     * @throws Horde_Exception
      */
-    public function authAddUser($userId)
+    public function authAddUser($userId, $credentials)
     {
         require_once dirname(__FILE__) . '/base.php';
 
-        return $GLOBALS['folks_driver']->addUser($userId);
+        $result = $GLOBALS['folks_driver']->addUser($userId, $credentials);
+        if ($result instanceof PEAR_Error) {
+            throw new Horde_Exception($result);
+        }
     }
 
     /**
@@ -121,7 +125,6 @@ class Folks_Application extends Horde_Registry_Application
 
         return $GLOBALS['folks_driver']->deleteUser($userId);
     }
-
 
     /**
      * Deletes a user and its data
