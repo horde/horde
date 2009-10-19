@@ -66,7 +66,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     {
         if ($resource->getId()) {
             $query = 'UPDATE kronolith_resources SET resource_name = ?, resource_calendar = ?, resource_category = ? , resource_description = ?, resource_response_type = ?, resource_type = ?, resource_members = ? WHERE resource_id = ?';
-            $values = array($resource->get('name'), $resource->get('calendar'), $resource->get('category'), $resource->get('description'), $resource->get('response_type'), $resource->get('type'), $resource->get('members'), $resource->getId());
+            $values = array($this->convertToDriver($resource->get('name')), $resource->get('calendar'), $resource->get('category'), $this->convertToDriver($resource->get('description')), $resource->get('response_type'), $resource->get('type'), $resource->get('members'), $resource->getId());
             $result = $this->_write_db->query($query, $values);
             if ($result instanceof PEAR_Error) {
                 Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
@@ -76,7 +76,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
             $query = 'INSERT INTO kronolith_resources (resource_id, resource_name, resource_calendar, resource_category, resource_description, resource_response_type, resource_type, resource_members)';
             $cols_values = ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
             $id = $this->_db->nextId('kronolith_resources');
-            $values = array($id, $resource->get('name'), $resource->get('calendar'), $resource->get('category'), $resource->get('description'), $resource->get('response_type'), $resource->get('type'), $resource->get('members'));
+            $values = array($id, $this->convertToDriver($resource->get('name')), $resource->get('calendar'), $resource->get('category'), $this->convertToDriver($resource->get('description')), $resource->get('response_type'), $resource->get('type'), $resource->get('members'));
             $result = $this->_write_db->query($query . $cols_values, $values);
             if ($result instanceof PEAR_Error) {
                 Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
@@ -221,7 +221,11 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     {
         $return = array();
         foreach ($params as $field => $value) {
-            $return[str_replace('resource_', '', $field)] = $this->convertFromDriver($value);
+            if ($field == 'resource_name' || $field == 'resource_description') {
+                $return[str_replace('resource_', '', $field)] = $this->convertFromDriver($value);
+            } else {
+                $return[str_replace('resource_', '', $field)] = $value;
+            }
         }
 
         return $return;
