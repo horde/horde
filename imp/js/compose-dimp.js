@@ -370,13 +370,6 @@ var DimpCompose = {
         $('rteloading', 'rteloadingtxt').invoke(cmd);
     },
 
-    toggleHtmlCheckbox: function()
-    {
-        if (!this.editor_on || window.confirm(DIMP.text_compose.toggle_html)) {
-            this.toggleHtmlEditor();
-        }
-    },
-
     getMsgAreaHeight: function()
     {
         if (!this.mp_padding) {
@@ -692,7 +685,11 @@ var DimpCompose = {
                 break;
 
             case 'htmlcheckbox':
-                this.toggleHtmlCheckbox();
+                if (!this.editor_on || window.confirm(DIMP.text_compose.toggle_html)) {
+                    this.toggleHtmlEditor();
+                } else {
+                    $('htmlcheckbox').checked = true;
+                }
                 break;
 
             case 'sendcc':
