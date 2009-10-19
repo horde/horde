@@ -2127,20 +2127,16 @@ HTML;
             return;
         }
 
-        switch ($onload) {
-        case 'dom':
-            $script = 'document.observe("dom:loaded", function() {' . $script . '});';
-            break;
-
-        case 'load':
-            $script = 'Event.observe(window, "load", function() {' . $script . '});';
-            break;
+        if (is_null($onload)) {
+            $onload = 'none';
         }
 
-        if ($top) {
-            array_unshift(self::$_inlineScript, $script);
+        $script = trim($script, ';') . ';';
+
+        if ($top && isset(self::$_inlineScript[$onload])) {
+            array_unshift(self::$_inlineScript[$onload], $script);
         } else {
-            self::$_inlineScript[] = $script;
+            self::$_inlineScript[$onload][] = $script;
         }
 
         // If headers have already been sent, we need to output a
@@ -2155,9 +2151,29 @@ HTML;
      */
     static public function outputInlineScript()
     {
-        if (!empty(self::$_inlineScript)) {
-            echo self::wrapInlineScript(self::$_inlineScript);
+        if (empty(self::$_inlineScript)) {
+            return;
         }
+
+        $script = array();
+
+        foreach (self::$_inlineScript as $key => $val) {
+            $val = implode('', $val);
+
+            switch ($key) {
+            case 'dom':
+                $val = 'document.observe("dom:loaded", function() {' . $val . '});';
+                break;
+
+            case 'load':
+                $val = 'Event.observe(window, "load", function() {' . $val . '});';
+                break;
+            }
+
+            $script[] = $val;
+        }
+
+        echo self::wrapInlineScript($script);
 
         self::$_inlineScript = array();
     }
@@ -2173,7 +2189,7 @@ HTML;
      */
     static public function wrapInlineScript($script)
     {
-        return '<script type="text/javascript">//<![CDATA[' . "\n" . implode("\n", $script) . "\n//]]></script>\n";
+        return '<script type="text/javascript">//<![CDATA[' . "\n" . implode('', $script) . "\n//]]></script>\n";
     }
 
     /**
