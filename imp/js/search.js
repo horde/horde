@@ -166,7 +166,7 @@ var ImpSearch = {
 
     getLabel: function(id)
     {
-        return $('search_criteria').down('[value=' + id + ']').getText() + ': ';
+        return $('search_criteria').down('[value="' + RegExp.escape(id) + '"]').getText() + ': ';
     },
 
     deleteCriteria: function(tr)
