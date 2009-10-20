@@ -1,11 +1,8 @@
 <?php
-// Generate various dimp graphics used in multiple locations
-$hordeimg = $registry->getImageDir('horde');
 
 $usetrash = $prefs->getValue('use_trash');
 $show_text = in_array($prefs->getValue('menu_view'), array('both', 'text'));
 $use_sub = $prefs->getValue('subscribe');
-$loading_text = _("Loading...");
 
 $has_blacklist = $registry->hasMethod('mail/blacklistFrom');
 $has_whitelist = $registry->hasMethod('mail/whitelistFrom');
@@ -31,52 +28,52 @@ function _createDA($text, $image, $id = null, $class = '', $show_text = true,
     echo '<div' . $div_text . '>' . IMP_Dimp::actionButton($params) . '</div>';
 }
 
-function _simpleButton($id, $text, $image, $imagedir = null)
+function _simpleButton($id, $text, $image)
 {
     $ak = Horde::getAccessKey($text, true);
-    return '<li class="servicelink"'
-        . (strlen($id) ? ' id="' . $id . '"' : '')
-        . (strlen($ak) ? ' accesskey="' . $ak . '"' : '') . '>'
-        . ($imagedir
-            ? Horde::img($image, Horde::stripAccessKey($text), '', $imagedir)
-            : Horde::img($image, Horde::stripAccessKey($text)))
-        . '<a>'
-        . Horde::highlightAccessKey($text, $ak) . '</a></li>';
+    return '<li class="servicelink"' .
+        (strlen($id) ? ' id="' . $id . '"' : '') .
+        (strlen($ak) ? ' accesskey="' . $ak . '"' : '') . '>' .
+        '<span class="iconSpan ' . $image . '"></span>' .
+        '<a>' . Horde::highlightAccessKey($text, $ak) . '</a></li>';
 }
 ?>
 <div id="dimpLoading">
- <?php echo $loading_text ?>
+ <?php echo _("Loading...") ?>
  <noscript>
   <div class="nojserror"><?php echo _("Error! This application requires javascript to be available and enabled in your browser.") ?></div>
  </noscript>
 </div>
+
 <div id="dimpPage" style="display:none">
  <div id="header"></div>
  <div id="pageContainer">
   <div id="sidebarPanel" class="noprint">
-   <div id="logo"><h1><a id="logolink"><?php echo _("Horde") ?></a></h1></div>
+   <div id="logo">
+    <a id="logolink"><?php echo _("Horde") ?></a>
+   </div>
    <ul id="dimpbarActions">
-    <?php echo _simpleButton('composelink', _("_New Message"), 'compose.png') ?>
-    <?php echo _simpleButton('checkmaillink', _("_Get Mail"), 'checkmail.png') ?>
-    <?php echo _simpleButton('alertsloglink', _("Alerts _Log"), 'info_icon.png', $hordeimg) ?>
+    <?php echo _simpleButton('composelink', _("_New Message"), 'dimpactionCompose') ?>
+    <?php echo _simpleButton('checkmaillink', _("_Get Mail"), 'dimpactionCheckmail') ?>
+    <?php echo _simpleButton('alertsloglink', _("Alerts _Log"), 'infoIcon') ?>
 <?php if (!empty($_SESSION['imp']['filteravail'])): ?>
-    <?php echo _simpleButton('applyfilterlink', _("Apply Filter"), 'filters.png') ?>
+    <?php echo _simpleButton('applyfilterlink', _("Apply Filter"), 'filtersIcon') ?>
 <?php endif; ?>
    </ul>
    <div class="sepfull"></div>
    <ul id="serviceActions">
-<?php if ($registry->get('status', 'horde') != 'hidden' && $registry->get('status', 'horde') != 'notoolbar'): ?>
-    <?php echo _simpleButton('appportal', _("_Portal"), 'horde.png', $hordeimg) ?>
+<?php if (($registry->get('status', 'horde') != 'hidden') && ($registry->get('status', 'horde') != 'notoolbar')): ?>
+    <?php echo _simpleButton('appportal', _("_Portal"), 'hordeIcon') ?>
 <?php endif; ?>
 <?php if (Horde::showService('options')): ?>
-    <?php echo _simpleButton('appoptions', _("_Options"), 'prefs.png', $hordeimg) ?>
+    <?php echo _simpleButton('appoptions', _("_Options"), 'prefsIcon') ?>
 <?php endif; ?>
 <?php if (Horde::showService('logout')): ?>
-    <?php echo _simpleButton('applogout', _("_Log Out"), 'logout.png', $hordeimg) ?>
+    <?php echo _simpleButton('applogout', _("_Log Out"), 'logoutIcon') ?>
 <?php endif; ?>
    </ul>
    <div class="sepfull"></div>
-   <div id="foldersLoading"><?php echo $loading_text ?></div>
+   <div id="foldersLoading"><?php echo _("Loading...") ?></div>
    <div id="foldersSidebar" style="display:none">
     <ul class="folderlist" id="specialfolders"></ul>
 <?php if (!empty($application_folders)): ?>
@@ -110,7 +107,6 @@ function _simpleButton($id, $text, $image, $imagedir = null)
     </div>
 <?php endif; ?>
     <div class="sepfull"></div>
-    <div id="myfolders"><?php echo _("My Folders") ?></div>
     <ul class="folderlist" id="normalfolders">
      <li class="folder" id="folderopts">
       <span class="iconSpan folderImg"></span>
@@ -125,7 +121,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
   </div>
 
   <div id="dimpmain">
-   <div id="dimpmain_portal"><?php echo $loading_text ?></div>
+   <div id="dimpmain_portal"><?php echo _("Loading...") ?></div>
    <div id="dimpmain_folder" style="display:none">
     <div id="dimpmain_folder_top" class="noprint">
      <div id="tabbar">
@@ -158,7 +154,6 @@ function _simpleButton($id, $text, $image, $imagedir = null)
       </div>
 <?php endif; ?>
      </div>
-     <br class="clear" />
      <div class="header mboxheader">
       <div>
        <span class="rightFloat" id="msgHeader"></span>
@@ -194,7 +189,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
      </div>
 
      <div id="msglistHeader" class="item">
-      <div class="msgStatus">&nbsp;</div>
+      <div class="msgStatus"></div>
       <div class="msgFrom sep">
        <a class="widget" sortby="<?php echo Horde_Imap_Client::SORT_FROM ?>"><?php echo _("From") ?></a>
        <a class="widget" style="display:none" sortby="<?php echo Horde_Imap_Client::SORT_TO ?>"><?php echo _("To") ?></a>
@@ -219,12 +214,11 @@ function _simpleButton($id, $text, $image, $imagedir = null)
        <a class="widget" sortby="<?php echo Horde_Imap_Client::SORT_SIZE ?>"><?php echo _("Size") ?></a>
       </div>
      </div>
-     <div class="clear" id="mlistHeaderClear">&nbsp;</div>
     </div>
 
     <div id="msgSplitPane">
-     <div id="msgList" class="msglist noprint">&nbsp;</div>
-     <div id="splitBar" style="display:none" class="splitBar noprint"></div>
+     <div id="msgList" class="noprint msglist"></div>
+     <div id="splitBar" style="display:none" class="noprint"></div>
      <div id="previewPane" style="display:none">
       <span id="msgLoading" class="loadingImg" style="display:none"></span>
       <div id="previewInfo" style="display:none">
@@ -261,7 +255,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
         <div id="msgHeaders" style="display:none">
          <div class="dimpOptions noprint">
           <div id="msg_newwin_options"><span class="iconImg"></span><a><?php echo _("Open in new window") ?></a></div>
-          <div id="msg_print"><?php echo Horde::img('print.png', '', '', $hordeimg) ?><a><?php echo _("Print") ?></a></div>
+          <div id="msg_print"><span class="iconImg"></span><a><?php echo _("Print") ?></a></div>
 <?php if (!empty($conf['user']['allow_view_source'])): ?>
           <div id="msg_view_source"><span class="iconImg"></span><a><?php echo _("View Source") ?></a></div>
 <?php endif; ?>
@@ -299,7 +293,9 @@ function _simpleButton($id, $text, $image, $imagedir = null)
              </td>
             </tr>
             <tr id="msgLogInfo" style="display:none">
-             <td class="label"><a id="msgloglist_toggle"><span class="iconImg" id="msgloglist_col"></span><span class="iconImg" id="msgloglist_exp" style="display:none"></span></a></td>
+             <td class="label">
+              <a id="msgloglist_toggle"><span class="iconImg" id="msgloglist_col"></span><span class="iconImg" id="msgloglist_exp" style="display:none"></span></a>
+             </td>
              <td>
               <div><span class="msgLogLabel"><?php echo _("Message Log") ?></span></div>
               <div id="msgloglist" style="display:none">
@@ -315,7 +311,6 @@ function _simpleButton($id, $text, $image, $imagedir = null)
        <div id="msgBody" class="msgBody"></div>
       </div>
      </div>
-     <div style="clear:left" />
     </div>
    </div>
   </div>

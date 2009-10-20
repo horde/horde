@@ -53,9 +53,6 @@ form#compose {
 #msglistHeader {
     height: 15px;
 }
-#mlistHeaderClear {
-    display: none;
-}
 
 /* IE 6 doesn't support DOM.class1.class2 - treats this as DOM.class2. So
  * flag icons will appear as background for row. This works around this. */

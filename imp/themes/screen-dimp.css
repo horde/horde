@@ -19,6 +19,7 @@ input {
 #quota {
     float: right;
     font-weight: normal;
+    padding-bottom: 3px;
 }
 #quota .used {
     float: left;
@@ -35,9 +36,6 @@ input {
     padding: 0;
     border-left: 1px #000 solid;
     height: 14px;
-}
-div#quota {
-    padding-bottom: 3px;
 }
 
 #logo {
@@ -73,18 +71,15 @@ div#quota {
 #spellcheck {
     color: #000;
 }
-.spellcheckChecking {
-    color: red;
-}
-.spellcheckIncorrect {
-    text-decoration: underline;
-    cursor: pointer;
+.spellcheckChecking, .spellcheckIncorrect {
     color: red;
 }
 .spellcheckCorrected {
+    color: #090;
+}
+.spellcheckIncorrect, .spellcheckCorrected {
     text-decoration: underline;
     cursor: pointer;
-    color: #090;
 }
 
 /* SplitPane styles. */
@@ -96,7 +91,7 @@ div#quota {
 #msgSplitPane div.drag {
     padding: 0;
 }
-.splitBar {
+#splitBar {
     background: #e9e9e9 url("graphics/dragHandle.png") no-repeat scroll center top !important;
     border: 1px solid;
     border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;
@@ -107,6 +102,9 @@ div#quota {
 }
 
 /* Message List */
+.mboxheader {
+    clear: left;
+}
 #msgLoading, #viewportLoading {
     position: absolute;
     margin: 10px 0 0 10px;
@@ -177,10 +175,10 @@ div.msgSize {
 
 /* Message ViewPort */
 .msglist {
-    width: 100%;
-    overflow: hidden;
     border-bottom: 1px silver solid;
     float: left;
+    overflow: hidden;
+    width: 100%;
 }
 .msglist span.vpEmpty, .msglist span.vpError {
     font-weight: bold;
@@ -286,18 +284,12 @@ div.vpRow.flagDeleted {
 }
 #sidebarPanel li {
     list-style: none;
-    width: 100%;
     height: 16px;
     line-height: 16px;
     padding-top: 1px;
     white-space: nowrap;
 }
-#sidebarPanel li.folder, #sidebarPanel li.container, #sidebarPanel li.custom, #sidebarPanel li.servicelink {
-    width: 100%;
-    text-decoration: none;
-}
-#sidebarPanel li a {
-    width: 130px;
+#sidebarPanel li a, #sidebarPanel li.folder, #sidebarPanel li.container, #sidebarPanel li.custom, #sidebarPanel li.servicelink {
     text-decoration: none;
 }
 #sidebarPanel li.servicelink a {
@@ -306,7 +298,7 @@ div.vpRow.flagDeleted {
 #sidebarPanel li.custom {
     background: transparent none;
 }
-#sidebarPanel li.custom img, #sidebarPanel li.servicelink img {
+#sidebarPanel li.custom img {
     float: left;
     padding: 1px 4px 0 0;
     margin-bottom: -1px;
@@ -330,10 +322,6 @@ div.vpRow.flagDeleted {
 #sidebarPanel li.subfolders ul {
     padding-left: 10px;
 }
-#sidebarPanel li a.drop {
-    border: 1px solid orange;
-    padding: 1px 1px 1px 19px;
-}
 #sidebarPanel span.iconSpan {
     display: inline;
     float: left;
@@ -356,21 +344,14 @@ div.vpRow.flagDeleted {
 #normalfolders li.unsubFolder {
     font-style: italic;
 }
-#myfolders {
-    display: none;
-}
 #sidebarPanel .over a, #sidebarPanel li.folder:hover, #sidebarPanel li.custom:hover, #sidebarPanel li.servicelink:hover {
     font-weight: bold;
     text-decoration: underline;
 }
 
-#foldersSidebar {
-    overflow: hidden;
-}
-
 #folderopts a {
     display: inline !important;
-    padding-right: 2px;
+    padding-right: 1px;
 }
 
 /* Options */
@@ -455,11 +436,8 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 
 /* Preview pane styles. */
 #previewPane {
-    overflow: auto;
-    height: 250px;
-    border: none;
-    border-top: 1px silver solid;
     background: #fff;
+    overflow: auto;
 }
 #previewInfo {
     background: transparent url("graphics/ico_message_off.png") no-repeat scroll 10px 15px;
@@ -875,6 +853,24 @@ span.iconImg, span.contextImg, span.spellcheckPopdownImg {
     margin-right: 4px;
 }
 
+/* Sidebar images. */
+span.infoIcon {
+    background-image: url("graphics/info_icon.png");
+}
+span.filtersIcon {
+    background-image: url("graphics/filters.png");
+}
+span.hordeIcon {
+    background-image: url("graphics/horde.png");
+}
+span.prefsIcon {
+    background-image: url("graphics/prefs.png");
+}
+span.logoutIcon {
+    background-image: url("graphics/logout.png");
+}
+
+/* Dimp action images. */
 span.dimpactionReply {
     background-image: url("graphics/reply.png");
 }
@@ -998,6 +994,9 @@ div.msgSubject span.treeImg {
     float: right;
     margin-left: 4px;
     margin-right: 0;
+}
+#msg_print span.iconImg {
+    background-image: url("graphics/print.png");
 }
 #quota span.iconImg {
     background-image: url("graphics/quotauncover.gif");
