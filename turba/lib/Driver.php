@@ -218,7 +218,7 @@ class Turba_Driver
                             $fieldarray[] = '';
                         }
                     }
-                    $fields[$this->map[$key]['attribute']] = trim(vsprintf($this->map[$key]['format'], $fieldarray), " \t\n\r\0\x0B,");
+                    $fields[$this->map[$key]['attribute']] = preg_replace('/\s+/', ' ', trim(vsprintf($this->map[$key]['format'], $fieldarray), " \t\n\r\0\x0B,"));
                 } else {
                     // If 'parse' is not specified, use 'format' and 'fields'.
                     if (!isset($this->map[$key]['parse'])) {
