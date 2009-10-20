@@ -443,7 +443,6 @@ function _simpleButton($id, $text, $image)
 <?php if ($_SESSION['imp']['protocol'] != 'pop'): ?>
 <div class="context" id="ctx_qsearchopts" style="display:none">
  <a id="ctx_qsearchopts_by" class="sep"><?php echo _("Search By") ?></a>
- <a id="ctx_qsearchopts_basic"><?php echo _("Basic Search...") ?></a>
  <a id="ctx_qsearchopts_advanced"><?php echo _("Advanced Search...") ?></a>
 </div>
 

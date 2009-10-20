@@ -826,15 +826,6 @@ case 'SMIMEPersonal':
     }
 
     break;
-
-case 'BasicSearch':
-    $result = new stdClass;
-    $imp_ui_search = new IMP_UI_Search();
-    parse_str(Horde_Util::getPost('query'), $query);
-    /* parse_str() silently adds slash escaping to variables in $query. */
-    $query = array_map('stripslashes', $query);
-    $result->view = $imp_search->createSearchID($imp_ui_search->processBasicSearch($query['search_basic_mbox'], $query['search_criteria'], $query['search_criteria_text'], !empty($query['search_criteria_not']), $query['search_flags']));
-    break;
 }
 
 if ($check_uidvalidity) {
