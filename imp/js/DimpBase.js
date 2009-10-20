@@ -2557,6 +2557,11 @@ var DimpBase = {
         /* Limit to msgList only. */
         $('msgList').observe('dblclick', this.dblclickHandler.bindAsEventListener(this));
 
+        /* Set sidebar width. */
+        $('sidebarPanel').setStyle({ width: DIMP.conf.sidebar_width });
+        $('dimpmain').setStyle({ left: DIMP.conf.sidebar_width });
+
+        /* Show page now. */
         $('dimpLoading').hide();
         $('dimpPage').show();
 

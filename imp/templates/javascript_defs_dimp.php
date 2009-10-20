@@ -77,6 +77,7 @@ $code['conf'] = array_filter(array(
     'qsearchfield' => $GLOBALS['prefs']->getValue('dimp_qsearch_field'),
     'refresh_time' => intval($GLOBALS['prefs']->getValue('refresh_time')),
     'searchprefix' => IMP_Search::MBOX_PREFIX,
+    'sidebar_width' => max((int)$GLOBALS['prefs']->getValue('sidebar_width') - 50, 150) . 'px',
     'sortdate' => Horde_Imap_Client::SORT_DATE,
     'sortthread' => Horde_Imap_Client::SORT_THREAD,
     'spam_mbox' => IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true),

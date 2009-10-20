@@ -10,9 +10,6 @@ $loading_text = _("Loading...");
 $has_blacklist = $registry->hasMethod('mail/blacklistFrom');
 $has_whitelist = $registry->hasMethod('mail/whitelistFrom');
 
-// Sidebar width
-$sidebar_width = max((int)$prefs->getValue('sidebar_width') - 50, 150) . 'px';
-
 // Quota information
 $show_quota = (isset($_SESSION['imp']['quota']) && is_array($_SESSION['imp']['quota']));
 
@@ -56,7 +53,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 <div id="dimpPage" style="display:none">
  <div id="header"></div>
  <div id="pageContainer">
-  <div id="sidebarPanel" class="noprint" style="width:<?php echo $sidebar_width ?>">
+  <div id="sidebarPanel" class="noprint">
    <div id="logo"><h1><a id="logolink"><?php echo _("Horde") ?></a></h1></div>
    <ul id="dimpbarActions">
     <?php echo _simpleButton('composelink', _("_New Message"), 'compose.png') ?>
@@ -66,7 +63,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
     <?php echo _simpleButton('applyfilterlink', _("Apply Filter"), 'filters.png') ?>
 <?php endif; ?>
    </ul>
-   <div class="sepfull" style="width:<?php echo $sidebar_width ?>"></div>
+   <div class="sepfull"></div>
    <ul id="serviceActions">
 <?php if ($registry->get('status', 'horde') != 'hidden' && $registry->get('status', 'horde') != 'notoolbar'): ?>
     <?php echo _simpleButton('appportal', _("_Portal"), 'horde.png', $hordeimg) ?>
@@ -78,12 +75,12 @@ function _simpleButton($id, $text, $image, $imagedir = null)
     <?php echo _simpleButton('applogout', _("_Log Out"), 'logout.png', $hordeimg) ?>
 <?php endif; ?>
    </ul>
-   <div class="sepfull" style="width:<?php echo $sidebar_width ?>"></div>
+   <div class="sepfull"></div>
    <div id="foldersLoading"><?php echo $loading_text ?></div>
    <div id="foldersSidebar" style="display:none">
     <ul class="folderlist" id="specialfolders"></ul>
 <?php if (!empty($application_folders)): ?>
-    <div class="sepfull" style="width:<?php echo $sidebar_width ?>"></div>
+    <div class="sepfull"></div>
     <ul id="applicationfolders">
 <?php foreach ($application_folders as $val): ?>
      <li class="custom">
@@ -95,12 +92,12 @@ function _simpleButton($id, $text, $image, $imagedir = null)
 <?php endif; ?>
 <?php if (!empty($site_menu)): ?>
     <div id="sitemenu">
-     <div class="sepfull" style="width:<?php echo $sidebar_width ?>"></div>
+     <div class="sepfull"></div>
      <ul>
 <?php foreach ($site_menu as $key => $menu_item): ?>
 <?php if ($menu_item == 'separator'): ?>
      </ul>
-     <div class="sepfull" style="width:<?php echo $sidebar_width ?>"></div>
+     <div class="sepfull"></div>
      <ul>
 <?php else: ?>
       <li class="custom">
@@ -112,7 +109,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
      </ul>
     </div>
 <?php endif; ?>
-    <div class="sepfull" style="width:<?php echo $sidebar_width ?>"></div>
+    <div class="sepfull"></div>
     <div id="myfolders"><?php echo _("My Folders") ?></div>
     <ul class="folderlist" id="normalfolders">
      <li class="folder" id="folderopts">
@@ -127,7 +124,7 @@ function _simpleButton($id, $text, $image, $imagedir = null)
    </div>
   </div>
 
-  <div id="dimpmain" style="left:<?php echo $sidebar_width ?>">
+  <div id="dimpmain">
    <div id="dimpmain_portal"><?php echo $loading_text ?></div>
    <div id="dimpmain_folder" style="display:none">
     <div id="dimpmain_folder_top" class="noprint">

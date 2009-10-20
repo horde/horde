@@ -51,7 +51,6 @@ div#quota {
     top: 0;
     left: 0;
     padding: 7px 0 0 7px;
-    width: 150px;
     bottom: 0;
     z-index: 1;
     white-space: normal;
@@ -62,7 +61,6 @@ div#quota {
 #dimpmain {
     position: absolute;
     margin-left: 13px;
-    left: 150px;
     top: 4px;
     bottom: 0;
     right: 4px;
@@ -281,7 +279,6 @@ div.vpRow.flagDeleted {
     height: 1px !important;
     margin: 5px 0;
     overflow: hidden;
-    width: 150px;
     background: silver;
 }
 #sidebarPanel .count {
