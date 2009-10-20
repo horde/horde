@@ -130,7 +130,7 @@ class IMP_Folder
                 continue;
             }
 
-            $abbrev = $label = str_repeat(' ', 4 * $ob['c']) . $ob['l'];
+            $abbrev = $label = str_repeat(' ', 2 * $ob['c']) . $ob['l'];
             if (strlen($abbrev) > 26) {
                 $abbrev = Horde_String::substr($abbrev, 0, 10) . '...' . Horde_String::substr($abbrev, -13, 13);
             }
