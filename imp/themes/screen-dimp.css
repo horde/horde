@@ -540,17 +540,6 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     max-width: 50%;
     overflow: hidden;
 }
-#msgHeadersColl span.from a:hover {
-    border: none;
-    background: none;
-    padding: 2px;
-    text-decoration: underline;
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
-}
-#msgHeadersColl span.from a:hover img {
-    display: none;
-}
 /* end msg small header */
 
 .msgBody {
@@ -735,9 +724,10 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 
 /* Email Addresses. */
 a.address {
+    cursor: pointer;
     left: -2px;
-    position: static;
     padding: 2px;
+    position: static;
     text-decoration: underline;
     white-space: nowrap;
 }
@@ -746,10 +736,10 @@ a.address img {
     vertical-align: top;
 }
 a.address:hover {
-    text-decoration: none;
-    padding: 2px 1px;
-    border: 1px silver solid;
     background: #fff;
+    border: 1px silver solid;
+    padding: 2px 1px;
+    text-decoration: none;
 }
 a.address:hover img {
     display: inline;
@@ -991,6 +981,7 @@ div.msgSubject span.treeImg {
     background-image: url("graphics/newwin.png");
 }
 #msg_newwin span.iconImg {
+    cursor: pointer;
     float: right;
     margin-left: 4px;
     margin-right: 0;
@@ -1005,9 +996,11 @@ div.msgSubject span.treeImg {
 }
 #th_expand span.iconImg, #partlist_col, #msgloglist_col {
     background-image: url("graphics/arrow_collapsed.png");
+    cursor: pointer;
 }
 #th_collapse span.iconImg, #partlist_exp, #msgloglist_exp {
     background-image: url("graphics/arrow_expanded.png");
+    cursor: pointer;
 }
 #msg_view_source span.iconImg {
     background-image: url("graphics/message_source.png");
