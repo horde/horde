@@ -452,17 +452,6 @@ var DimpCore = {
             });
         }
 
-        /* Don't do additional onload stuff if we are in a popup. We need a
-         * try/catch block here since, if the page was loaded by an opener
-         * out of this current domain, this will throw an exception. */
-        try {
-            if (parent.opener &&
-                parent.opener.location.host == window.location.host &&
-                parent.opener.DimpCore) {
-                DIMP.baseWindow = parent.opener.DIMP.baseWindow || parent.opener;
-            }
-        } catch (e) {}
-
         /* Add Growler notification handler. */
         this.Growler = new Growler({
             location: 'br',
@@ -472,6 +461,17 @@ var DimpCore = {
 
         /* Add click handler. */
         document.observe('click', DimpCore.clickHandler.bindAsEventListener(DimpCore));
+
+        /* Determine base window. Need a try/catch block here since, if the
+         * page was loaded by an opener out of this current domain, this will
+         * throw an exception. */
+        try {
+            if (parent.opener &&
+                parent.opener.location.host == window.location.host &&
+                parent.opener.DimpCore) {
+                DIMP.baseWindow = parent.opener.DIMP.baseWindow || parent.opener;
+            }
+        } catch (e) {}
     }
 
 };
