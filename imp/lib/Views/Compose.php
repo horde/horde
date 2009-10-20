@@ -39,10 +39,6 @@ class IMP_Views_Compose
         /* Load Identity. */
         $identity = Identity::singleton(array('imp', 'imp'));
         $selected_identity = $identity->getDefault();
-        $sent_mail_folder = $identity->getValue('sent_mail_folder');
-        if (!empty($sent_mail_folder)) {
-            $sent_mail_folder = htmlspecialchars('"' . IMP::displayFolder($sent_mail_folder) . '"');
-        }
 
         /* Get user identities. */
         $all_sigs = $identity->getAllSignatures();
@@ -93,6 +89,17 @@ class IMP_Views_Compose
 
             $imp_ui = new IMP_UI_Compose();
             $result['jsappend'] .= $imp_ui->initRTE('dimp');
+        }
+
+        /* Create list for sent-mail selection. */
+        if (!empty($GLOBALS['conf']['user']['select_sentmail_folder']) &&
+            !$GLOBALS['prefs']->isLocked('sent_mail_folder')) {
+            $imp_folder = IMP_Folder::singleton();
+            $flist = array();
+            foreach ($imp_folder->flist() as $val) {
+                $flist[] = array('l' => $val['abbrev'], 'v' => $val['val']);
+            }
+            $result['js'][] = 'DIMP.conf_compose.flist = ' . Horde_Serialize::serialize($flist, Horde_Serialize::JSON);
         }
 
         // Buffer output so that we can return a string from this function

@@ -688,6 +688,10 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     left: 0;
 }
 
+#compose_flist_popdown {
+    margin-top: -1px;
+}
+
 /* attachment file list */
 #attach_list {
     padding-top: 5px;
@@ -862,7 +866,7 @@ a.address:hover img {
 }
 
 /* Images */
-div.msgStatus div, #msgHeadersContent .subject span, span.iconImg, span.contextImg, span.spellcheckPopdownImg, #qsearch_icon, #qsearch_close {
+div.msgStatus div, #msgHeadersContent .subject span, span.iconImg, span.contextImg, span.spellcheckPopdownImg, #qsearch_icon, #qsearch_close, #compose_flist_popdown {
     display: -moz-inline-stack;
     display: inline-block;
     height: 16px;

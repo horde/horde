@@ -4,7 +4,7 @@
  *
  * Variables passed in from calling code:
  *   $compose_html, $from, $id, $identity, $composeCache, $rte,
- *   $selected_identity, $sent_mail_folder
+ *   $selected_identity
  *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
@@ -60,7 +60,7 @@ function _createDAcompose($text, $image, $id)
    <label><input name="request_read_receipt" type="checkbox" class="checkbox"<?php if ($d_read != 'ask') echo ' checked="checked"' ?> /> <?php echo _("Read Receipt") ?></label>
 <?php endif; ?>
 <?php if ($GLOBALS['conf']['user']['allow_folders'] && !$GLOBALS['prefs']->isLocked('save_sent_mail')): ?>
-   <label><input id="save_sent_mail" name="save_sent_mail" type="checkbox" class="checkbox"<?php if ($identity->saveSentmail()) echo ' checked="checked"' ?> /> <?php echo _("Save in ") ?><span id="sent_mail_folder_label"><?php echo $sent_mail_folder ?></span></label>
+   <label><input id="save_sent_mail" name="save_sent_mail" type="checkbox" class="checkbox"<?php if ($identity->saveSentmail()) echo ' checked="checked"' ?> /> <?php echo _("Save in ") ?><span id="sent_mail_folder_label"></span></label>
 <?php endif; ?>
   </div>
   <table cellspacing="0">

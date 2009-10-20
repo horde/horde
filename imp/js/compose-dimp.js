@@ -10,8 +10,8 @@
 var DimpCompose = {
     // Variables defaulting to empty/false:
     //   auto_save_interval, button_pressed, compose_cursor, dbtext,
-    //   drafts_mbox, editor_on, mp_padding, resizebcc, resizecc, resizeto,
-    //   row_height, sbtext, skip_spellcheck, spellcheck, uploading
+    //   drafts_mbox, editor_on, knl, mp_padding, resizebcc, resizecc,
+    //   resizeto, row_height, sbtext, skip_spellcheck, spellcheck, uploading
     last_msg: '',
     textarea_ready: true,
 
@@ -77,7 +77,7 @@ var DimpCompose = {
             next = this.get_identity(id),
             ssm = $('save_sent_mail');
 
-        $('sent_mail_folder_label').setText(next.id[5]);
+        this.setSentMailLabel(next.id[5]);
         $('bcc').setValue(next.id[6]);
         if (ssm) {
             ssm.writeAttribute('checked', next.id[4]);
@@ -118,6 +118,14 @@ var DimpCompose = {
                 msgval.setValue(msg);
             }
             $('last_identity').setValue(id);
+        }
+    },
+
+    setSentMailLabel: function(s)
+    {
+        var label = $('sent_mail_folder_label');
+        if (label) {
+            $('sent_mail_folder_label').writeAttribute('title', s.escapeHTML()).setText('"' + s.truncate(15) + '"');
         }
     },
 
@@ -428,7 +436,7 @@ var DimpCompose = {
 
     fillForm: function(msg, header, focus, noupdate)
     {
-        // On IE, this can get loaded before DOM;loaded. Check for an init
+        // On IE, this can get loaded before DOM:loaded. Check for an init
         // value and don't load until it is available.
         if (!this.resizeto) {
             this.fillForm.bind(this, msg, header, focus, noupdate).defer();
@@ -479,6 +487,7 @@ var DimpCompose = {
         if (DIMP.conf_compose.cc) {
             this.toggleCC('cc');
         }
+        this.setSentMailLabel(identity.id[5]);
         if (header.bcc) {
             $('bcc').setValue(header.bcc);
             this.resizebcc.resizeNeeded();
@@ -765,6 +774,16 @@ var DimpCompose = {
             $('sendto', 'sendcc', 'sendbcc').each(function(a) {
                 a.down('TD.label SPAN').addClassName('composeAddrbook');
             });
+        }
+
+        /* Create folderlist. */
+        if (DIMP.conf_compose.flist) {
+            this.knl = new KeyNavList('save_sent_mail', {
+                esc: true,
+                list: DIMP.conf_compose.flist,
+                onChoose: this.setSentMailLabel.bind(this)
+            });
+            $('sent_mail_folder_label').insert({ after: new Element('SPAN', { className: 'popdownImg', id: 'compose_flist_popdown' }).observe('click', function(e) { this.knl.show(); e.stop(); }.bindAsEventListener(this)) });
         }
     }
 
