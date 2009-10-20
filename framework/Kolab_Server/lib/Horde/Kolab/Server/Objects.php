@@ -28,6 +28,14 @@
 interface Horde_Kolab_Server_Objects
 {
     /**
+     * Set the composite server reference for this object.
+     *
+     * @param Horde_Kolab_Server_Composite $composite A link to the composite
+     *                                                server handler.
+     */
+    public function setComposite(Horde_Kolab_Server_Composite $composite);
+
+    /**
      * Add a Kolab object.
      *
      * @param array $info The object to store.

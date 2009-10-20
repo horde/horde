@@ -60,51 +60,49 @@ class Horde_Kolab_Server_Structure_Kolab extends Horde_Kolab_Server_Structure_Ld
      * Determine the type of an object by its tree position and other
      * parameters.
      *
-     * @param string $uid The UID of the object to examine.
+     * @param string $guid The GUID of the object to examine.
+     * @param array  $ocs  The object classes of the object to examine.
      *
      * @return string The class name of the corresponding object type.
      *
      * @throws Horde_Kolab_Server_Exception If the object type is unknown.
      */
-    public function determineType($uid)
+    protected function _determineType($guid, array $ocs)
     {
-        if (empty($this->server)) {
-            throw new Horde_Kolab_Server_Exception('The server reference is missing!');
-        }
-        $oc = $this->server->getObjectClasses($uid);
         // Not a user type?
-        if (!in_array('kolabinetorgperson', $oc)) {
+        if (!in_array('kolabinetorgperson', $ocs)) {
             // Is it a group?
-            if (in_array('kolabgroupofnames', $oc)) {
+            if (in_array('kolabgroupofnames', $ocs)) {
                 return 'Horde_Kolab_Server_Object_Kolabgroupofnames';
             }
             // Is it an external pop3 account?
-            if (in_array('kolabexternalpop3account', $oc)) {
+            if (in_array('kolabexternalpop3account', $ocs)) {
                 return 'Horde_Kolab_Server_Object_Kolabpop3account';
             }
             // Is it a shared Folder?
-            if (in_array('kolabsharedfolder', $oc)) {
+            if (in_array('kolabsharedfolder', $ocs)) {
                 return 'Horde_Kolab_Server_Object_Kolabsharedfolder';
             }
-            return parent::determineType($uid);
+            return parent::_determineType($guid, $ocs);
         }
 
-        $groups = $this->server->getGroups($uid);
+        $groups = $this->composite->search->getGroups($guid);
         if (!empty($groups)) {
-            if (in_array('cn=admin,cn=internal,' . $this->server->getBaseUid(), $groups)) {
+            $base = $this->composite->server->getBaseGuid();
+            if (in_array('cn=admin,cn=internal,' . $base, $groups)) {
                 return 'Horde_Kolab_Server_Object_Kolab_Administrator';
             }
-            if (in_array('cn=maintainer,cn=internal,' . $this->server->getBaseUid(),
+            if (in_array('cn=maintainer,cn=internal,' . $base,
                          $groups)) {
                 return 'Horde_Kolab_Server_Object_Kolab_Maintainer';
             }
-            if (in_array('cn=domain-maintainer,cn=internal,' . $this->server->getBaseUid(),
+            if (in_array('cn=domain-maintainer,cn=internal,' . $base,
                          $groups)) {
                 return 'Horde_Kolab_Server_Object_Kolab_Domainmaintainer';
             }
         }
 
-        if (strpos($uid, 'cn=external') !== false) {
+        if (strpos($guid, 'cn=external') !== false) {
             return 'Horde_Kolab_Server_Object_Kolab_Address';
         }
 
@@ -122,46 +120,46 @@ class Horde_Kolab_Server_Structure_Kolab extends Horde_Kolab_Server_Structure_Ld
      *
      * @throws Horde_Kolab_Server_Exception If the given type is unknown.
      */
-    public function generateServerUid($type, $id, $info)
+    public function generateServerGuid($type, $id, array $info)
     {
         switch ($type) {
         case 'Horde_Kolab_Server_Object_Kolab_User':
             if (empty($info['user_type'])) {
-                return parent::generateServerUid($type, $id, $info);
+                return parent::generateServerGuid($type, $id, $info);
             } else if ($info['user_type'] == Horde_Kolab_Server_Object_Kolab_User::USERTYPE_INTERNAL) {
-                return parent::generateServerUid($type,
-                                                 sprintf('%s,cn=internal', $id),
-                                                 $info);
+                return parent::generateServerGuid($type,
+                                                  sprintf('%s,cn=internal', $id),
+                                                  $info);
             } else if ($info['user_type'] == Horde_Kolab_Server_Object_Kolab_User::USERTYPE_GROUP) {
-                return parent::generateServerUid($type,
-                                                 sprintf('%s,cn=groups', $id),
-                                                 $info);
+                return parent::generateServerGuid($type,
+                                                  sprintf('%s,cn=groups', $id),
+                                                  $info);
             } else if ($info['user_type'] == Horde_Kolab_Server_Object_Kolab_User::USERTYPE_RESOURCE) {
-                return parent::generateServerUid($type,
-                                                 sprintf('%s,cn=resources', $id),
-                                                 $info);
+                return parent::generateServerGuid($type,
+                                                  sprintf('%s,cn=resources', $id),
+                                                  $info);
             } else {
-                return parent::generateServerUid($type, $id, $info);
+                return parent::generateServerGuid($type, $id, $info);
             }
         case 'Horde_Kolab_Server_Object_Kolab_Address':
-            return parent::generateServerUid($type,
-                                             sprintf('%s,cn=external', $id),
-                                             $info);
+            return parent::generateServerGuid($type,
+                                              sprintf('%s,cn=external', $id),
+                                              $info);
         case 'Horde_Kolab_Server_Object_Kolabgroupofnames':
         case 'Horde_Kolab_Server_Object_Kolab_Distlist':
             if (!isset($info['visible']) || !empty($info['visible'])) {
-                return parent::generateServerUid($type, $id, $info);
+                return parent::generateServerGuid($type, $id, $info);
             } else {
-                return parent::generateServerUid($type,
-                                                 sprintf('%s,cn=internal', $id),
-                                                 $info);
+                return parent::generateServerGuid($type,
+                                                  sprintf('%s,cn=internal', $id),
+                                                  $info);
             }
         case 'Horde_Kolab_Server_Object_Kolabsharedfolder':
         case 'Horde_Kolab_Server_Object_Kolab_Administrator':
         case 'Horde_Kolab_Server_Object_Kolab_Maintainer':
         case 'Horde_Kolab_Server_Object_Kolab_Domainmaintainer':
         default:
-            return parent::generateServerUid($type, $id, $info);
+            return parent::generateServerGuid($type, $id, $info);
         }
     }
 }

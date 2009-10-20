@@ -71,7 +71,7 @@ class Horde_Kolab_Server_Server_LoggedTest extends Horde_Kolab_Server_LdapBase
     public function testMethodFindDelegatesToServer()
     {
         $query = $this->getMock(
-            'Horde_Kolab_Server_Query', array(), array(), '', false
+            'Horde_Kolab_Server_Query_Element', array(), array(), '', false
         );
         $this->server->expects($this->exactly(1))
             ->method('find')
@@ -82,7 +82,7 @@ class Horde_Kolab_Server_Server_LoggedTest extends Horde_Kolab_Server_LdapBase
     public function testMethodFindbelowDelegatesToServer()
     {
         $query = $this->getMock(
-            'Horde_Kolab_Server_Query', array(), array(), '', false
+            'Horde_Kolab_Server_Query_Element', array(), array(), '', false
         );
         $this->server->expects($this->exactly(1))
             ->method('findBelow')
@@ -92,18 +92,24 @@ class Horde_Kolab_Server_Server_LoggedTest extends Horde_Kolab_Server_LdapBase
 
     public function testMethodSaveDelegatesToServer()
     {
+        $object = $this->getMock(
+            'Horde_Kolab_Server_Object', array(), array(), '', false
+        );
         $this->server->expects($this->exactly(1))
             ->method('save')
-            ->with('a', array('a' => 'a'));
-        $this->logged->save('a', array('a' => 'a'));
+            ->with($object, array('a' => 'a'));
+        $this->logged->save($object, array('a' => 'a'));
     }
 
     public function testMethodAddDelegatesToServer()
     {
+        $object = $this->getMock(
+            'Horde_Kolab_Server_Object', array(), array(), '', false
+        );
         $this->server->expects($this->exactly(1))
             ->method('add')
-            ->with('a', array('a' => 'a'));
-        $this->logged->add('a', array('a' => 'a'));
+            ->with($object, array('a' => 'a'));
+        $this->logged->add($object, array('a' => 'a'));
     }
 
     public function testMethodDeleteDelegatesToServer()
@@ -131,7 +137,13 @@ class Horde_Kolab_Server_Server_LoggedTest extends Horde_Kolab_Server_LdapBase
 
     public function testMethodSaveHasPostconditionThatTheEventWasLogged()
     {
-        $this->logged->save('a', array('a' => 'a'));
+        $object = $this->getMock(
+            'Horde_Kolab_Server_Object', array(), array(), '', false
+        );
+        $object->expects($this->once())
+            ->method('getGuid')
+            ->will($this->returnValue('a'));
+        $this->logged->save($object, array('a' => 'a'));
         $this->assertEquals(
             $this->logger->events[0]['message'],
             'The object "a" has been successfully saved!'
@@ -140,7 +152,13 @@ class Horde_Kolab_Server_Server_LoggedTest extends Horde_Kolab_Server_LdapBase
 
     public function testMethodAddHasPostconditionThatTheEventWasLogged()
     {
-        $this->logged->add('a', array('a' => 'a'));
+        $object = $this->getMock(
+            'Horde_Kolab_Server_Object', array(), array(), '', false
+        );
+        $object->expects($this->once())
+            ->method('getGuid')
+            ->will($this->returnValue('a'));
+        $this->logged->add($object, array('a' => 'a'));
         $this->assertEquals(
             $this->logger->events[0]['message'],
             'The object "a" has been successfully added!'

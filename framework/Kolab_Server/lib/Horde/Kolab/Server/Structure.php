@@ -29,6 +29,16 @@
 interface Horde_Kolab_Server_Structure
 {
     /**
+     * Set the composite server reference for this object.
+     *
+     * @param Horde_Kolab_Server_Composite $composite A link to the composite
+     *                                                server handler.
+     *
+     * @return NULL
+     */
+    public function setComposite(Horde_Kolab_Server_Composite $composite);
+
+    /**
      * Returns the set of objects supported by this structure.
      *
      * @return array An array of supported objects.
@@ -39,13 +49,13 @@ interface Horde_Kolab_Server_Structure
      * Determine the type of an object by its tree position and other
      * parameters.
      *
-     * @param string $uid The UID of the object to examine.
+     * @param string $guid The GUID of the object to examine.
      *
      * @return string The class name of the corresponding object type.
      *
      * @throws Horde_Kolab_Server_Exception If the object type is unknown.
      */
-    public function determineType($uid);
+    public function determineType($guid);
 
     /**
      * Generates a UID for the given information.
@@ -54,9 +64,9 @@ interface Horde_Kolab_Server_Structure
      * @param string $id   The id of the object.
      * @param array  $info Any additional information about the object to create.
      *
-     * @return string The UID.
+     * @return string The GUID.
      *
      * @throws Horde_Kolab_Server_Exception If the given type is unknown.
      */
-    public function generateServerUid($type, $id, $info);
+    public function generateServerGuid($type, $id, array $info);
 }

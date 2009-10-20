@@ -188,33 +188,6 @@ class Horde_Kolab_Server_Factory
         $injector->setInstance('Horde_Kolab_Server_Logger', $instance);
     }
 
-        if (empty($this->_ldap_read)) {
-            $this->handleError(
-                Net_LDAP2::checkLDAPExtension(),
-                Horde_Kolab_Server_Exception::MISSING_LDAP_EXTENSION
-            );
-
-            $this->_ldap_read = new Net_LDAP2($this->params);
-
-            if (isset($this->params['host_master'])
-                && $this->params['host_master'] == $this->params['host']
-            ) {
-
-                $params         = $this->params;
-                $params['host'] = $this->params['host_master'];
-
-                $this->_ldap_write = new Net_LDAP2($params);
-            } else {
-                $this->_ldap_write = $this->_ldap_read;
-            }
-        }
-
-        if ($write) {
-            return $this->_ldap_write;
-        } else {
-            return $this->_ldap_read;
-        }
-
     /**
      * Setup the machinery to create a Horde_Kolab_Server.
      *
@@ -318,6 +291,33 @@ class Horde_Kolab_Server_Factory
                 'Horde_Kolab_Server'
             );
         }
+
+/*         if (empty($this->_ldap_read)) { */
+/*             $this->handleError( */
+/*                 Net_LDAP2::checkLDAPExtension(), */
+/*                 Horde_Kolab_Server_Exception::MISSING_LDAP_EXTENSION */
+/*             ); */
+
+/*             $this->_ldap_read = new Net_LDAP2($this->params); */
+
+/*             if (isset($this->params['host_master']) */
+/*                 && $this->params['host_master'] == $this->params['host'] */
+/*             ) { */
+
+/*                 $params         = $this->params; */
+/*                 $params['host'] = $this->params['host_master']; */
+
+/*                 $this->_ldap_write = new Net_LDAP2($params); */
+/*             } else { */
+/*                 $this->_ldap_write = $this->_ldap_read; */
+/*             } */
+/*         } */
+
+/*         if ($write) { */
+/*             return $this->_ldap_write; */
+/*         } else { */
+/*             return $this->_ldap_read; */
+/*         } */
 
         return self::$_instances[$signature];
     }

@@ -29,32 +29,33 @@
 class Horde_Kolab_Server_Search_Base implements Horde_Kolab_Server_Search
 {
     /**
-     * A link to the server handler.
+     * A link to the composite server handler.
      *
-     * @var Horde_Kolab_Server
+     * @var Horde_Kolab_Server_Composite
      */
-    protected $server;
-
-    /**
-     * Set the server reference for this object.
-     *
-     * @param Horde_Kolab_Server &$server A link to the server handler.
-     */
-    public function setServer($server)
-    {
-        $this->server = $server;
-    }
+    private $_composite;
 
     /**
      * The search methods offered by the object defined for this server.
      *
      * @var array
      */
-    protected $searches;
+    private $_searches;
+
+    /**
+     * Set the composite server reference for this object.
+     *
+     * @param Horde_Kolab_Server_Composite $composite A link to the composite
+     *                                                server handler.
+     */
+    public function setComposite(Horde_Kolab_Server_Composite $composite)
+    {
+        $this->_composite = $composite;
+        $this->_searches = $this->getSearchOperations();
+    }
 
     /*__construct
         /** Initialize the search operations supported by this server. *
-        $this->searches = $this->getSearchOperations();
         */
 
     /**
@@ -65,7 +66,7 @@ class Horde_Kolab_Server_Search_Base implements Horde_Kolab_Server_Search
     public function getSearchOperations()
     {
         $server_searches = array();
-        foreach ($this->getSupportedObjects() as $sobj) {
+        foreach ($this->_composite->structure->getSupportedObjects() as $sobj) {
             if (in_array('getSearchOperations', get_class_methods($sobj))) {
                 $searches = call_user_func(array($sobj, 'getSearchOperations'));
                 foreach ($searches as $search) {
@@ -96,8 +97,13 @@ class Horde_Kolab_Server_Search_Base implements Horde_Kolab_Server_Search
             }
         }
         throw new Horde_Kolab_Server_Exception(
-            sprintf("The server type \"%s\" does not support method \"%s\"!",
-                    get_class($this), $method));
+            sprintf(
+                "The server type \"%s\" with structure \"%s\" does not support method \"%s\"!",
+                get_class($this->_composite->server),
+                get_class($this->_composite->structure),
+                $method
+            )
+        );
     }
 
 }

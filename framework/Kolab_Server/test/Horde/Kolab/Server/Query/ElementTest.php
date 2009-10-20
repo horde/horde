@@ -89,8 +89,8 @@ class Horde_Kolab_Server_Query_ElementTest extends PHPUnit_Framework_TestCase
         $this->writer->expects($this->exactly(1))
             ->method('convertEquals')
             ->will($this->returnValue('converted'));
-        $Equals = new Horde_Kolab_Server_Query_Element_Equals('', '');
-        $this->assertEquals('converted', $Equals->convert($this->writer));
+        $equals = new Horde_Kolab_Server_Query_Element_Equals('', '');
+        $this->assertEquals('converted', $equals->convert($this->writer));
     }
 
     public function testClassGreaterMethodConvertHasResultMixedTheConvertedElement()
@@ -98,8 +98,8 @@ class Horde_Kolab_Server_Query_ElementTest extends PHPUnit_Framework_TestCase
         $this->writer->expects($this->exactly(1))
             ->method('convertGreater')
             ->will($this->returnValue('converted'));
-        $Greater = new Horde_Kolab_Server_Query_Element_Greater('', '');
-        $this->assertEquals('converted', $Greater->convert($this->writer));
+        $greater = new Horde_Kolab_Server_Query_Element_Greater('', '');
+        $this->assertEquals('converted', $greater->convert($this->writer));
     }
 
     public function testClassLessMethodConvertHasResultMixedTheConvertedElement()

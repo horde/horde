@@ -171,11 +171,19 @@ class Horde_Kolab_Server_Query_LdapTest extends Horde_Kolab_Server_LdapBase
         $equals = new Horde_Kolab_Server_Query_Element_Equals('equals', 'equals');
         $or = new Horde_Kolab_Server_Query_Element_Or(array($equals));
         $query = new Horde_Kolab_Server_Query_Ldap($or);
+
+        /** Hide strict errors from the Net_LDAP2 library */
+        $error_reporting = error_reporting();
+        error_reporting($error_reporting ^ E_STRICT);
+
         try {
             $query->convertOr($or)->asString();
             $this->fail('No exception!');
         } catch (Horde_Kolab_Server_Exception $e) {
             $this->assertEquals(Horde_Kolab_Server_Exception::INVALID_QUERY, $e->getCode());
         }
+
+        /** Reactivate original error reporting */
+        error_reporting($error_reporting);
     }
 }

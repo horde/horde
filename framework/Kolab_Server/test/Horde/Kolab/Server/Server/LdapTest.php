@@ -36,35 +36,77 @@ class Horde_Kolab_Server_Server_LdapTest extends Horde_Kolab_Server_LdapBase
     {
         parent::setUp();
 
-        $this->logger = new Horde_Log_Handler_Mock();
-
-        $injector = new Horde_Injector(new Horde_Injector_TopLevel());
-        Horde_Kolab_Server_Factory::setup(
-            array('logger' => new Horde_Log_Logger($this->logger)), $injector
+        $this->ldap_read  = $this->getMock('Net_LDAP2');
+        $this->ldap_write = $this->getMock('Net_LDAP2');
+        $connection = new Horde_Kolab_Server_Connection_Splittedldap(
+            $this->ldap_read,
+            $this->ldap_write
         );
-        $this->server = $injector->getInstance('Horde_Kolab_Server');
+
+        $this->server = new Horde_Kolab_Server_Ldap_Standard(
+            $connection,
+            'base'
+        );
     }
 
-    public function testMethodConnectuidHasPostconditionThatTheUidIsSetIfTheConnectionWasSuccessful()
+    private function getSearchResultMock()
     {
-        $ldap = $this->getMock('Net_LDAP2', array('bind'));
-        $ldap->expects($this->exactly(1))
+        $result = $this->getMock(
+            'Net_LDAP2_Search', array('as_struct', 'count'), array(), '', false
+        );
+        $result->expects($this->any())
+            ->method('as_struct')
+            ->will($this->returnValue(array(array('dn' => 'test'))));
+        $result->expects($this->any())
+            ->method('count')
+            ->will($this->returnValue(1));
+        return $result;
+    }
+
+    public function testMethodConnectguidHasStringParameterGuid()
+    {
+        $this->server->connectGuid('guid', '');
+    }
+
+    public function testMethodConnectguidHasStringParameterPass()
+    {
+        $this->server->connectGuid('', 'pass');
+    }
+
+    public function testMethodConnectguidHasPostconditionThatTheGuidIsSetIfTheConnectionWasSuccessful()
+    {
+        $this->ldap_read->expects($this->exactly(1))
             ->method('bind')
             ->will($this->returnValue(true));
-        $this->server->setLdap($ldap);
-        $this->server->connectUid('test', 'test');
-        $this->assertEquals('test', $this->server->uid);
+        $this->server->connectGuid('test', 'test');
+        $this->assertEquals('test', $this->server->getGuid());
     }
 
-    public function testMethodConnectuidThrowsExceptionIfTheConnectionFailed()
+    public function testMethodConnectguidDoesNotCallBindAgainIfAlreadyConnectedWithThisGuid()
     {
-        $ldap = $this->getMock('Net_LDAP2', array('bind'));
-        $ldap->expects($this->exactly(1))
+        $this->ldap_read->expects($this->exactly(1))
             ->method('bind')
-            ->will($this->returnValue(PEAR::raiseError('Bind failed!')));
-        $this->server->setLdap($ldap);
+            ->will($this->returnValue(true));
+        $this->server->connectGuid('test', 'test');
+        $this->server->connectGuid('test', 'test');
+    }
+
+    public function testMethodConnectguidDoesNotCallBindAgainIfAlreadyConnectedWithThisGuidEvenIfTheGuidIsEmpty()
+    {
+        $this->ldap_read->expects($this->exactly(1))
+            ->method('bind')
+            ->will($this->returnValue(true));
+        $this->server->connectGuid('', '');
+        $this->server->connectGuid('', '');
+    }
+
+    public function testMethodConnectguidThrowsExceptionIfTheConnectionFailed()
+    {
+        $this->ldap_read->expects($this->exactly(1))
+            ->method('bind')
+            ->will($this->returnValue(new PEAR_Error('Bind failed!')));
         try {
-            $this->server->connectUid('test', 'test');
+            $this->server->connectGuid('test', 'test');
             $this->fail('No exception!');
         } catch (Exception $e) {
             $this->assertEquals('Bind failed!', $e->getMessage());
@@ -72,79 +114,48 @@ class Horde_Kolab_Server_Server_LdapTest extends Horde_Kolab_Server_LdapBase
         }
     }
 
-    public function testMethodSearchHasPostconditionThatItIsPossibleToTestTheLastResultForAnExceededSearchSizeLimit()
+    public function testMethodGetguidHasResultBooleanFalseIfNotConnected()
     {
-        $ldap = $this->getMock('Net_LDAP2', array('search'));
-        $ldap->expects($this->exactly(1))
-            ->method('search')
-            ->will($this->returnValue(new Search_Mock(array(array('dn' => 'test')), true)));
-        $this->server->setLdap($ldap);
-        $this->server->search('filter');
-        $this->assertTrue($this->server->sizeLimitExceeded());
+        $this->assertSame(false, $this->server->getGuid());
     }
 
-    public function testMethodSearchReturnsArraySearchResult()
+    public function testMethodGetguidHasResultStringGuidIfNotConnected()
     {
-        $ldap = $this->getMock('Net_LDAP2', array('search'));
-        $ldap->expects($this->exactly(1))
-            ->method('search')
-            ->will($this->returnValue(new Search_Mock(array(array('dn' => 'test')))));
-        $this->server->setLdap($ldap);
-        $this->assertEquals(array(array('dn' => 'test')), $this->server->search('filter'));
+        $this->server->connectGuid('guid', '');
+        $this->assertEquals('guid', $this->server->getGuid());
     }
 
-    public function testMethodSearchReturnsArrayMappedSearchResultIfMappingIsActivated()
+    public function testMethodReadHasParameterStringGuid()
     {
-        $ldap = $this->getMock('Net_LDAP2', array('search'));
-        $ldap->expects($this->exactly(1))
+        $this->ldap_read->expects($this->exactly(1))
             ->method('search')
-            ->will($this->returnValue(new Search_Mock(array(array('dn2' => 'test')))));
-        $this->server->setLdap($ldap);
-        $this->server->setParams(array('map' => array('dn' => 'dn2')));
-        $this->assertEquals(
-            array(array('dn' => 'test')),
-            $this->server->search(
-                'filter',
-                array('attributes' => array('dn'))
-            )
-        );
-    }
-
-    public function testMethodSearchThrowsExceptionIfTheSearchFailed()
-    {
-        $ldap = $this->getMock('Net_LDAP2', array('search'));
-        $ldap->expects($this->exactly(1))
-            ->method('search')
-            ->will($this->returnValue(PEAR::raiseError('Search failed!')));
-        $this->server->setLdap($ldap);
-        try {
-            $this->assertEquals(array('dn' => 'test'), $this->server->search('filter'));
-            $this->fail('No exception!');
-        } catch (Exception $e) {
-            $this->assertEquals('Search failed!', $e->getMessage());
-            $this->assertEquals(Horde_Kolab_Server_Exception::SYSTEM, $e->getCode());
-        }
+            ->with('test', null, array('scope' => 'base'))
+            ->will($this->returnValue($this->getSearchResultMock()));
+        $this->server->read('test');
     }
 
     public function testMethodReadReturnsArrayReadResult()
     {
-        $ldap = $this->getMock('Net_LDAP2', array('search'));
-        $ldap->expects($this->exactly(1))
+        $this->ldap_read->expects($this->exactly(1))
             ->method('search')
-            ->will($this->returnValue(new Search_Mock(array(array('dn' => 'test')))));
-        $this->server->setLdap($ldap);
+            ->with('test', null, array('scope' => 'base'))
+            ->will($this->returnValue($this->getSearchResultMock()));
         $this->assertEquals(array('dn' => 'test'), $this->server->read('test'));
     }
 
     public function testMethodReadThrowsExceptionIfTheObjectWasNotFound()
     {
-        $ldap = $this->getMock('Net_LDAP2', array('search'));
-        $ldap->expects($this->exactly(1))
+        $result = $this->getMock(
+            'Net_LDAP2_Search', array('as_struct', 'count'), array(), '', false
+        );
+        $result->expects($this->exactly(1))
+            ->method('count')
+            ->will($this->returnValue(0));
+        $this->ldap_read->expects($this->exactly(1))
             ->method('search')
-            ->will($this->returnValue(new Search_Mock(array())));
-        $this->server->setLdap($ldap);
+            ->will($this->returnValue($result));
         try {
-            $this->assertEquals(array(), $this->server->read('test', array('dn')));
+            $this->assertEquals(array(), $this->server->read('test'));
             $this->fail('No exception!');
         } catch (Exception $e) {
             $this->assertEquals('Empty result!', $e->getMessage());
@@ -152,39 +163,175 @@ class Horde_Kolab_Server_Server_LdapTest extends Horde_Kolab_Server_LdapBase
         }
     }
 
-    public function testMethodSaveHasPostconditionThatTheEntryWasSaved()
+    public function testMethodReadAttributesHasParameterStringGuid()
     {
-        $ldap = $this->getMock('Net_LDAP2', array('add'));
-        $ldap->expects($this->exactly(1))
-            ->method('add')
-            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Net_LDAP2_Entry'));
-        $this->server->setLdap($ldap);
-        $this->server->save('test', array('add' => array('dn' => 'test')));
+        $this->ldap_read->expects($this->exactly(1))
+            ->method('search')
+            ->with('guid', null, array('scope' => 'base', 'attributes' => array()))
+            ->will($this->returnValue($this->getSearchResultMock()));
+        $this->server->readAttributes('guid', array());
     }
 
-    public function testMethodSaveThrowsExceptionIfDataToSaveIsNoArray()
+    public function testMethodReadAttributesHasParameterArrayAttributes()
     {
-        $ldap = $this->getMock('Net_LDAP2', array('add'));
-        $this->server->setLdap($ldap);
+        $this->ldap_read->expects($this->exactly(1))
+            ->method('search')
+            ->with('', null, array('scope' => 'base', 'attributes' => array('a')))
+            ->will($this->returnValue($this->getSearchResultMock()));
+        $this->server->readAttributes('', array('a'));
+    }
+
+    public function testMethodReadAttributesReturnsArrayReadResult()
+    {
+        $this->ldap_read->expects($this->exactly(1))
+            ->method('search')
+            ->with('test', null, array('scope' => 'base', 'attributes' => array('a')))
+            ->will($this->returnValue($this->getSearchResultMock()));
+        $this->assertEquals(array('dn' => 'test'), $this->server->readAttributes('test', array('a')));
+    }
+
+    public function testMethodReadAttributesThrowsExceptionIfTheObjectWasNotFound()
+    {
+        $result = $this->getMock(
+            'Net_LDAP2_Search', array('as_struct', 'count'), array(), '', false
+        );
+        $result->expects($this->exactly(1))
+            ->method('count')
+            ->will($this->returnValue(0));
+        $this->ldap_read->expects($this->exactly(1))
+            ->method('search')
+            ->with('test', null, array('scope' => 'base', 'attributes' => array('a')))
+            ->will($this->returnValue($result));
         try {
-            $this->server->save('test', array('add' => 'hello'));
+            $this->assertEquals(array(), $this->server->readAttributes('test', array('a')));
             $this->fail('No exception!');
         } catch (Exception $e) {
-            $this->assertEquals('Unable to create fresh entry: Parameter $attrs needs to be an array!', $e->getMessage());
+            $this->assertEquals('Empty result!', $e->getMessage());
+            $this->assertEquals(Horde_Kolab_Server_Exception::EMPTY_RESULT, $e->getCode());
+        }
+    }
+
+    public function testMethodFindHasParameterQueryelementTheSearchCriteria()
+    {
+        $this->ldap_read->expects($this->exactly(1))
+            ->method('search')
+            ->with('base', '(equals=equals)', array())
+            ->will($this->returnValue($this->getSearchResultMock()));
+        $equals = new Horde_Kolab_Server_Query_Element_Equals('equals', 'equals');
+        $this->server->find($equals);
+    }
+
+    public function testMethodFindHasParameterArrayAdditionalParameters()
+    {
+        $this->ldap_read->expects($this->exactly(1))
+            ->method('search')
+            ->with('base', '(equals=equals)', array())
+            ->will($this->returnValue($this->getSearchResultMock()));
+        $equals = new Horde_Kolab_Server_Query_Element_Equals('equals', 'equals');
+        $this->server->find($equals, array());
+    }
+
+    public function testMethodFindReturnsArraySearchResult()
+    {
+        $this->ldap_read->expects($this->exactly(1))
+            ->method('search')
+            ->with('base', '(equals=equals)', array())
+            ->will($this->returnValue($this->getSearchResultMock()));
+        $equals = new Horde_Kolab_Server_Query_Element_Equals('equals', 'equals');
+        $this->assertEquals(
+            array(array('dn' => 'test')),
+            $this->server->find($equals)->asArray()
+        );
+    }
+
+    public function testMethodFindThrowsExceptionIfTheSearchFailed()
+    {
+        $this->ldap_read->expects($this->exactly(1))
+            ->method('search')
+            ->will($this->returnValue(new PEAR_Error('Search failed!')));
+        try {
+            $equals = new Horde_Kolab_Server_Query_Element_Equals('equals', 'equals');
+            $this->assertEquals(array('dn' => 'test'), $this->server->find($equals));
+            $this->fail('No exception!');
+        } catch (Exception $e) {
+            $this->assertEquals('Search failed!', $e->getMessage());
             $this->assertEquals(Horde_Kolab_Server_Exception::SYSTEM, $e->getCode());
         }
+    }
 
+    public function testMethodSaveHasParameterObjectTheObjectToModifyOnTheServer()
+    {
+        $entry = $this->getMock(
+            'Net_LDAP2_Entry', array(), array(), '', false
+        );
+        $object = $this->getMock(
+            'Horde_Kolab_Server_Object', array(), array(), '', false
+        );
+        $this->ldap_write->expects($this->exactly(1))
+            ->method('getEntry')
+            ->will($this->returnValue($entry));
+        $this->ldap_write->expects($this->exactly(1))
+            ->method('modify')
+            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Net_LDAP2_Entry'));
+        $object->expects($this->exactly(1))
+            ->method('readInternal')
+            ->will($this->returnValue(array()));
+        $this->server->save($object, array('attributes' => array('dn')));
+    }
+
+    public function testMethodSaveHasParameterArrayData()
+    {
+        $entry = $this->getMock(
+            'Net_LDAP2_Entry', array(), array(), '', false
+        );
+        $object = $this->getMock(
+            'Horde_Kolab_Server_Object', array(), array(), '', false
+        );
+        $this->ldap_write->expects($this->exactly(1))
+            ->method('getEntry')
+            ->will($this->returnValue($entry));
+        $this->ldap_write->expects($this->exactly(1))
+            ->method('modify')
+            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Net_LDAP2_Entry'));
+        $object->expects($this->exactly(1))
+            ->method('readInternal')
+            ->will($this->returnValue(array()));
+        $this->server->save($object, array('dn' => 'test'));
+    }
+
+    public function testMethodSaveHasPostconditionThatTheEntryWasModified()
+    {
+        $entry = $this->getMock(
+            'Net_LDAP2_Entry', array(), array(), '', false
+        );
+        $object = $this->getMock(
+            'Horde_Kolab_Server_Object', array(), array(), '', false
+        );
+        $this->ldap_write->expects($this->exactly(1))
+            ->method('getEntry')
+            ->will($this->returnValue($entry));
+        $this->ldap_write->expects($this->exactly(1))
+            ->method('modify')
+            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Net_LDAP2_Entry'));
+        $object->expects($this->exactly(1))
+            ->method('readInternal')
+            ->will($this->returnValue(array()));
+        $this->server->save($object, array('dn' => 'test'));
     }
 
     public function testMethodSaveThrowsExceptionIfSavingDataFailed()
     {
-        $ldap = $this->getMock('Net_LDAP2', array('add'));
-        $ldap->expects($this->exactly(1))
-            ->method('add')
-            ->will($this->returnValue(PEAR::raiseError('Saving failed!')));
-        $this->server->setLdap($ldap);
+        $object = $this->getMock(
+            'Horde_Kolab_Server_Object', array(), array(), '', false
+        );
+        $this->ldap_write->expects($this->exactly(1))
+            ->method('modify')
+            ->will($this->returnValue(new PEAR_Error('Saving failed!')));
+        $object->expects($this->exactly(1))
+            ->method('readInternal')
+            ->will($this->returnValue(array()));
         try {
-            $this->server->save('test', array('add' => array('dn' => 'test')));
+            $this->server->save($object, array('dn' => 'test'));
             $this->fail('No exception!');
         } catch (Exception $e) {
             $this->assertEquals('Saving failed!', $e->getMessage());
@@ -192,23 +339,77 @@ class Horde_Kolab_Server_Server_LdapTest extends Horde_Kolab_Server_LdapBase
         }
     }
 
+    public function testMethodAddHasParameterObjectTheObjectToAddToTheServer()
+    {
+        $object = $this->getMock(
+            'Horde_Kolab_Server_Object', array(), array(), '', false
+        );
+        $this->ldap_write->expects($this->exactly(1))
+            ->method('add')
+            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Net_LDAP2_Entry'));
+        $this->server->add($object, array('attributes' => array('dn')));
+    }
+
+    public function testMethodAddHasParameterArrayData()
+    {
+        $object = $this->getMock(
+            'Horde_Kolab_Server_Object', array(), array(), '', false
+        );
+        $this->ldap_write->expects($this->exactly(1))
+            ->method('add')
+            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Net_LDAP2_Entry'));
+        $this->server->add($object, array('dn' => 'test'));
+    }
+
+    public function testMethodAddHasPostconditionThatTheEntryWasModified()
+    {
+        $object = $this->getMock(
+            'Horde_Kolab_Server_Object', array(), array(), '', false
+        );
+        $this->ldap_write->expects($this->exactly(1))
+            ->method('add')
+            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Net_LDAP2_Entry'));
+        $this->server->add($object, array('dn' => 'test'));
+    }
+
+    public function testMethodAddThrowsExceptionIfSavingDataFailed()
+    {
+        $object = $this->getMock(
+            'Horde_Kolab_Server_Object', array(), array(), '', false
+        );
+        $this->ldap_write->expects($this->exactly(1))
+            ->method('add')
+            ->will($this->returnValue(new PEAR_Error('Saving failed!')));
+        try {
+            $this->server->add($object, array('add' => array('dn' => 'test')));
+            $this->fail('No exception!');
+        } catch (Exception $e) {
+            $this->assertEquals('Saving failed!', $e->getMessage());
+            $this->assertEquals(Horde_Kolab_Server_Exception::SYSTEM, $e->getCode());
+        }
+    }
+
+    public function testMethodDeleteHasParameterStringGuid()
+    {
+        $this->ldap_write->expects($this->exactly(1))
+            ->method('delete')
+            ->with('guid');
+        $this->server->delete('guid');
+    }
+
     public function testMethodDeleteHasPostconditionThatTheEntryWasDeleted()
     {
-        $ldap = $this->getMock('Net_LDAP2', array('delete'));
-        $ldap->expects($this->exactly(1))
+        $this->ldap_write->expects($this->exactly(1))
             ->method('delete')
             ->with('test');
-        $this->server->setLdap($ldap);
         $this->server->delete('test');
     }
 
     public function testMethodDeleteThrowsExceptionIfDeletingDataFailed()
     {
-        $ldap = $this->getMock('Net_LDAP2', array('delete'));
-        $ldap->expects($this->exactly(1))
+        $this->ldap_write->expects($this->exactly(1))
             ->method('delete')
-            ->will($this->returnValue(PEAR::raiseError('Deleting failed!')));
-        $this->server->setLdap($ldap);
+            ->will($this->returnValue(new PEAR_Error('Deleting failed!')));
         try {
             $this->server->delete('test');
             $this->fail('No exception!');
@@ -218,23 +419,35 @@ class Horde_Kolab_Server_Server_LdapTest extends Horde_Kolab_Server_LdapBase
         }
     }
 
+    public function testMethodRenameHasParameterStringOldGuid()
+    {
+        $this->ldap_write->expects($this->exactly(1))
+            ->method('move')
+            ->with('oldguid', '');
+        $this->server->rename('oldguid', '');
+    }
+
+    public function testMethodRenameHasParameterStringNewGuid()
+    {
+        $this->ldap_write->expects($this->exactly(1))
+            ->method('move')
+            ->with('', 'newguid');
+        $this->server->rename('', 'newguid');
+    }
+
     public function testMethodRenameHasPostconditionThatTheEntryWasRenamed()
     {
-        $ldap = $this->getMock('Net_LDAP2', array('move'));
-        $ldap->expects($this->exactly(1))
+        $this->ldap_write->expects($this->exactly(1))
             ->method('move')
             ->with('test', 'new');
-        $this->server->setLdap($ldap);
         $this->server->rename('test', 'new');
     }
 
     public function testMethodRenameThrowsExceptionIfRenamingDataFailed()
     {
-        $ldap = $this->getMock('Net_LDAP2', array('move'));
-        $ldap->expects($this->exactly(1))
+        $this->ldap_write->expects($this->exactly(1))
             ->method('move')
-            ->will($this->returnValue(PEAR::raiseError('Renaming failed!')));
-        $this->server->setLdap($ldap);
+            ->will($this->returnValue(new PEAR_Error('Renaming failed!')));
         try {
             $this->server->rename('test', 'new');
             $this->fail('No exception!');
@@ -244,42 +457,11 @@ class Horde_Kolab_Server_Server_LdapTest extends Horde_Kolab_Server_LdapBase
         }
     }
 
-    public function testMethodGetobjectclassesHasResultArrayWithLowerCaseObjectclassNames()
-    {
-        $ldap = $this->getMock('Net_LDAP2', array('search'));
-        $ldap->expects($this->exactly(1))
-            ->method('search')
-            ->will($this->returnValue(new Search_Mock(array(array(Horde_Kolab_Server_Object::ATTRIBUTE_OC => array('test', 'PERSON', 'Last'))))));
-        $this->server->setLdap($ldap);
-        $this->assertEquals(
-            array('test', 'person', 'last'),
-            $this->server->getObjectClasses('test')
-        );
-    }
-
-    public function testMethodGetobjectclassesThrowsExceptionIfTheObjectHasNoAttributeObjectclass()
-    {
-        $ldap = $this->getMock('Net_LDAP2', array('search'));
-        $ldap->expects($this->exactly(1))
-            ->method('search')
-            ->will($this->returnValue(new Search_Mock(array(array('dummy' => array('test', 'PERSON', 'Last'))))));
-        $this->server->setLdap($ldap);
-        try {
-            $this->server->getObjectClasses('test');
-            $this->fail('No exception!');
-        } catch (Exception $e) {
-            $this->assertEquals('The object test has no objectClass attribute!', $e->getMessage());
-            $this->assertEquals(Horde_Kolab_Server_Exception::SYSTEM, $e->getCode());
-        }
-    }
-
     public function testMethodGetschemaReturnsArrayWithADescriptionOfAllObjectClasses()
     {
-        $ldap = $this->getMock('Net_LDAP2', array('schema'));
-        $ldap->expects($this->exactly(1))
+        $this->ldap_read->expects($this->exactly(1))
             ->method('schema')
             ->will($this->returnValue(array('schema' => 'dummy')));
-        $this->server->setLdap($ldap);
         $this->assertEquals(
             array('schema' => 'dummy'),
             $this->server->getSchema()
@@ -288,11 +470,9 @@ class Horde_Kolab_Server_Server_LdapTest extends Horde_Kolab_Server_LdapBase
 
     public function testMethodGetschemaThrowsExceptionIfTheSchemaRetrievalFailed()
     {
-        $ldap = $this->getMock('Net_LDAP2', array('schema'));
-        $ldap->expects($this->exactly(1))
+        $this->ldap_read->expects($this->exactly(1))
             ->method('schema')
-            ->will($this->returnValue(PEAR::raiseError('Schema failed!')));
-        $this->server->setLdap($ldap);
+            ->will($this->returnValue(new PEAR_Error('Schema failed!')));
         try {
             $this->server->getSchema();
             $this->fail('No exception!');
@@ -302,62 +482,21 @@ class Horde_Kolab_Server_Server_LdapTest extends Horde_Kolab_Server_LdapBase
         }
     }
 
-    /**
-     * Test handling of object classes.
-     *
-     * @return NULL
-     */
-/*     public function testGetObjectClasses() */
+/*     public function testMethodSearchReturnsArrayMappedSearchResultIfMappingIsActivated() */
 /*     { */
-/*       $ldap = $this->getMock('Horde_Kolab_Server_ldap', array('read')); */
-/*         $ldap->expects($this->any()) */
-/*             ->method('read') */
-/*             ->will($this->returnValue(array ( */
-/*                                           'objectClass' => */
-/*                                           array ( */
-/*                                               'count' => 4, */
-/*                                               0 => 'top', */
-/*                                               1 => 'inetOrgPerson', */
-/*                                               2 => 'kolabInetOrgPerson', */
-/*                                               3 => 'hordePerson', */
-/*                                           ), */
-/*                                           0 => 'objectClass', */
-/*                                           'count' => 1))); */
-
-/*         $classes = $ldap->getObjectClasses('cn=Gunnar Wrobel,dc=example,dc=org'); */
-/*         if ($classes instanceOf PEAR_Error) { */
-/*             $this->assertEquals('', $classes->getMessage()); */
-/*         } */
-/*         $this->assertContains('top', $classes); */
-/*         $this->assertContains('kolabinetorgperson', $classes); */
-/*         $this->assertContains('hordeperson', $classes); */
-
-/*         $ldap = $this->getMock('Horde_Kolab_Server_ldap', array('read')); */
-/*         $ldap->expects($this->any()) */
-/*              ->method('read') */
-/*              ->will($this->returnValue(PEAR::raiseError('LDAP Error: No such object: cn=DOES NOT EXIST,dc=example,dc=org: No such object'))); */
-
-/*         $classes = $ldap->getObjectClasses('cn=DOES NOT EXIST,dc=example,dc=org'); */
-/*         $this->assertEquals('LDAP Error: No such object: cn=DOES NOT EXIST,dc=example,dc=org: No such object', */
-/*                             $classes->message); */
+/*         $ldap = $this->getMock('Net_LDAP2', array('search')); */
+/*         $ldap->expects($this->exactly(1)) */
+/*             ->method('search') */
+/*             ->will($this->returnValue(new Search_Mock(array(array('dn2' => 'test'))))); */
+/*         $this->server->setLdap($ldap); */
+/*         $this->server->setParams(array('map' => array('dn' => 'dn2'))); */
+/*         $this->assertEquals( */
+/*             array(array('dn' => 'test')), */
+/*             $this->server->search( */
+/*                 'filter', */
+/*                 array('attributes' => array('dn')) */
+/*             ) */
+/*         ); */
 /*     } */
 
-}
-
-
-class Search_Mock
-{
-    public function __construct($result, $limit = false)
-    {
-        $this->result = $result;
-        $this->limit  = $limit;
-    }
-    public function as_struct()
-    {
-        return $this->result;
-    }
-    public function sizeLimitExceeded()
-    {
-        return $this->limit;
-    }
 }

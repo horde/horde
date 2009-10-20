@@ -86,6 +86,26 @@ class Horde_Kolab_Server_Mapped implements Horde_Kolab_Server
     }
 
     /**
+     * Get the current GUID
+     *
+     * @return string The GUID of the connected user.
+     */
+    public function getGuid()
+    {
+        $this->_server->getGuid();
+    }
+
+    /**
+     * Get the base GUID of this server
+     *
+     * @return string The base GUID of this server.
+     */
+    public function getBaseGuid()
+    {
+        $this->_server->getBaseGuid();
+    }
+
+    /**
      * Low level access to reading object data.
      *
      * @param string $guid  The object to retrieve.

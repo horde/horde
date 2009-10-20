@@ -28,6 +28,14 @@
 interface Horde_Kolab_Server_Search
 {
     /**
+     * Set the composite server reference for this object.
+     *
+     * @param Horde_Kolab_Server_Composite $composite A link to the composite
+     *                                                server handler.
+     */
+    public function setComposite(Horde_Kolab_Server_Composite $composite);
+
+    /**
      * Returns the set of search operations supported by this server type.
      *
      * @return array An array of supported search operations.

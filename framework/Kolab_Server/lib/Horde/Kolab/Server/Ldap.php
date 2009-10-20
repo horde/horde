@@ -31,9 +31,9 @@ abstract class Horde_Kolab_Server_Ldap implements Horde_Kolab_Server
     /**
      * The GUID of the current user.
      *
-     * @var string
+     * @var string|boolean
      */
-    private $_guid;
+    private $_guid = false;
 
     /**
      * LDAP connection handle.
@@ -76,18 +76,36 @@ abstract class Horde_Kolab_Server_Ldap implements Horde_Kolab_Server
      *
      * @throws Horde_Kolab_Server_Exception If the connection failed.
      */
-    public function connectGuid($guid = null, $pass = null)
+    public function connectGuid($guid = '', $pass = '')
     {
         /** Do we need to switch the user? */
-        if ((empty($guid) && empty($this->_guid))
-            || $guid !== $this->_guid
-        ) {
+        if ($guid !== $this->_guid) {
             $this->_handleError(
                 $this->_conn->getRead()->bind($guid, $pass),
                 Horde_Kolab_Server_Exception::BIND_FAILED
             );
             $this->_guid = $guid;
         }
+    }
+
+    /**
+     * Get the current GUID
+     *
+     * @return string The GUID of the connected user.
+     */
+    public function getGuid()
+    {
+        return $this->_guid;
+    }
+
+    /**
+     * Get the base GUID of this server
+     *
+     * @return string The base GUID of this server.
+     */
+    public function getBaseGuid()
+    {
+        return $this->_base_dn;
     }
 
     /**
@@ -103,14 +121,15 @@ abstract class Horde_Kolab_Server_Ldap implements Horde_Kolab_Server
     public function read($guid)
     {
         $params = array('scope' => 'base');
-        $data = $this->_search(null, $params, $guid)->asArray();
+        $data = $this->_search(null, $params, $guid);
         if ($data->count() == 0) {
             throw new Horde_Kolab_Server_Exception(
                 'Empty result!',
                 Horde_Kolab_Server_Exception::EMPTY_RESULT
             );
-        }            
-        return array_pop($data->asArray());
+        }
+        $result = $data->asArray();
+        return array_pop($result);
     }
 
     /**
@@ -136,59 +155,48 @@ abstract class Horde_Kolab_Server_Ldap implements Horde_Kolab_Server
                 'Empty result!',
                 Horde_Kolab_Server_Exception::EMPTY_RESULT
             );
-        }            
-        return array_pop($data->asArray());
+        }
+        $result = $data->asArray();
+        return array_pop($result);
     }
 
     /**
      * Finds object data matching a given set of criteria.
      *
-     * @param Horde_Kolab_Server_Query $query  The criteria for the search.
-     * @param array                    $params Additional search parameters.
+     * @param Horde_Kolab_Server_Query_Element $criteria The criteria for the search.
+     * @param array                            $params   Additional search parameters.
      *
      * @return Horde_Kolab_Server_Result The result object.
      *
      * @throws Horde_Kolab_Server_Exception
      */
     public function find(
-        Horde_Kolab_Server_Query $query,
+        Horde_Kolab_Server_Query_Element $criteria,
         array $params = array()
     ) {
-        $this->findBelow($query, $this->_base_dn, $params);
+        return $this->findBelow($criteria, $this->_base_dn, $params);
     }
-
-    /**
-     * Finds all object data below a parent matching a given set of criteria.
-     *
-     * @param Horde_Kolab_Server_Query $query  The criteria for the search.
-     * @param string                   $parent The parent to search below.
-     * @param array                    $params Additional search parameters.
-     *
-     * @return Horde_Kolab_Server_Result The result object.
-     *
-     * @throws Horde_Kolab_Server_Exception
-     */
-    abstract public function findBelow(
-        Horde_Kolab_Server_Query $query,
-        $parent,
-        array $params = array()
-    );
 
     /**
      * Modify existing object data.
      *
-     * @param string $guid The GUID of the object to be added.
-     * @param array  $data The attributes of the object to be stored.
+     * @param Horde_Kolab_Server_Object $object The object to be modified.
+     * @param array                     $data   The attributes of the object
+     *                                          to be stored.
      *
      * @return NULL
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    public function save($guid, array $data)
+    public function save(Horde_Kolab_Server_Object $object, array $data)
     {
-        $entry  = $this->_conn->getWrite()->getEntry($guid, $data['attributes']);
+        $entry  = $this->_conn->getWrite()->getEntry(
+            $object->getGuid(), array_keys($data)
+        );
+        $this->_handleError($entry, Horde_Kolab_Server_Exception::SYSTEM);
+        $changes = new Horde_Kolab_Server_Ldap_Changes($object, $data);
         $this->_handleError(
-            $this->_conn->getWrite()->modify($entry, $data),
+            $this->_conn->getWrite()->modify($entry, $changes->getChangeset()),
             Horde_Kolab_Server_Exception::SYSTEM
         );
     }
@@ -196,16 +204,17 @@ abstract class Horde_Kolab_Server_Ldap implements Horde_Kolab_Server
     /**
      * Add new object data.
      *
-     * @param string $guid The GUID of the object to be added.
-     * @param array  $data The attributes of the object to be added.
+     * @param Horde_Kolab_Server_Object $object The object to be added.
+     * @param array                     $data   The attributes of the object
+     *                                          to be added.
      *
      * @return NULL
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    public function add($guid, array $data)
+    public function add(Horde_Kolab_Server_Object $object, array $data)
     {
-        $entry  = Net_LDAP2_Entry::createFresh($guid, $data);
+        $entry  = Net_LDAP2_Entry::createFresh($object->getGuid(), $data);
         $this->_handleError($entry, Horde_Kolab_Server_Exception::SYSTEM);
         $this->_handleError(
             $this->_conn->getWrite()->add($entry),
@@ -243,7 +252,7 @@ abstract class Horde_Kolab_Server_Ldap implements Horde_Kolab_Server
     public function rename($guid, $new)
     {
         $this->_handleError(
-            $this->_conn->getWrite()->move($old, $new),
+            $this->_conn->getWrite()->move($guid, $new),
             Horde_Kolab_Server_Exception::SYSTEM
         );
     }
@@ -263,6 +272,32 @@ abstract class Horde_Kolab_Server_Ldap implements Horde_Kolab_Server
     }
 
     /**
+     * Get the parent GUID of this object.
+     *
+     * @param string $guid The GUID of the child.
+     *
+     * @return string the parent GUID of this object.
+     */
+    public function getParentGuid($guid)
+    {
+        $base = Net_LDAP2_Util::ldap_explode_dn(
+            $guid,
+            array(
+                'casefold' => 'none',
+                'reverse' => false,
+                'onlyvalues' => false
+            )
+        );
+        $this->_handleError($base);
+        $id = array_shift($base);
+        $parent = Net_LDAP2_Util::canonical_dn(
+            $base, array('casefold' => 'none')
+        );
+        $this->_handleError($parent);
+        return $parent;
+    }
+
+    /**
      * Check for a PEAR Error and convert it to an exception if necessary.
      *
      * @param mixed $result The result to be tested.
@@ -276,7 +311,7 @@ abstract class Horde_Kolab_Server_Ldap implements Horde_Kolab_Server
         $result,
         $code = Horde_Kolab_Server_Exception::SYSTEM
     ) {
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceOf PEAR_Error) {
             throw new Horde_Kolab_Server_Exception($result, $code);
         }
     }
@@ -293,14 +328,10 @@ abstract class Horde_Kolab_Server_Ldap implements Horde_Kolab_Server
      * @throws Horde_Kolab_Server_Exception If the search operation encountered
      *                                      a problem.
      */
-    private function _search($filter, array $params, $base)
+    protected function _search($filter, array $params, $base)
     {
-        $this->_lastSearch = &$this->_conn->getRead()->search(
-            $base, $filter, $params
-        );
-        $this->_handleError(
-            $this->_lastSearch, Horde_Kolab_Server_Exception::SYSTEM
-        );
-        return new Horde_Kolab_Server_Result_Ldap($this->_lastSearch);
+        $search = $this->_conn->getRead()->search($base, $filter, $params);
+        $this->_handleError($search, Horde_Kolab_Server_Exception::SYSTEM);
+        return new Horde_Kolab_Server_Result_Ldap($search);
     }
 }

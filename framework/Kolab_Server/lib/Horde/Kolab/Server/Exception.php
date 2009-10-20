@@ -32,18 +32,22 @@ class Horde_Kolab_Server_Exception extends Horde_Exception
      */
 
     /** Unknown error type */
-    const SYSTEM                    = 1;
+    const SYSTEM                     = 1;
 
     /** The LDAP extension is missing */
-    const MISSING_LDAP_EXTENSION    = 2;
+    const MISSING_LDAP_EXTENSION     = 2;
 
     /** Binding to the LDAP server failed */
-    const BIND_FAILED               = 3;
+    const BIND_FAILED                = 3;
 
-    const EMPTY_RESULT              = 4;
+    /** The resultset was empty */
+    const EMPTY_RESULT               = 4;
 
-    const INVALID_INFORMATION       = 5;
+    const INVALID_INFORMATION        = 5;
 
-    const INVALID_QUERY             = 6;
+    /** The query was invalid */
+    const INVALID_QUERY              = 6;
 
+    /** The search yielded too many results */
+    const SEARCH_CONSTRAINT_TOO_MANY = 7;
 }

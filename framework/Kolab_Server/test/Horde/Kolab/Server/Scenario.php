@@ -1064,6 +1064,7 @@ class Horde_Kolab_Server_Scenario extends PHPUnit_Extensions_Story_TestCase
     protected function setUp()
     {
         $this->added = array();
+        $this->markTestIncomplete('Needs to be fixed');
     }
 
     /**

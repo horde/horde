@@ -260,7 +260,7 @@ class Horde_Kolab_Server_Query_Ldap implements Horde_Kolab_Server_Query
         $result,
         $code = Horde_Kolab_Server_Exception::INVALID_QUERY
     ) {
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceOf PEAR_Error) {
             throw new Horde_Kolab_Server_Exception($result, $code);
         }
     }

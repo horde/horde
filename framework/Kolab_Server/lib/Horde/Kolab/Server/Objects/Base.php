@@ -109,7 +109,7 @@ class Horde_Kolab_Server_Objects_Base implements Horde_Kolab_Server_Objects
         $object = &Horde_Kolab_Server_Object::factory($type, null, $this, $info);
         if ($object->exists()) {
             throw new Horde_Kolab_Server_Exception(
-                sprintf(_("The object with the uid \"%s\" does already exist!"),
+                sprintf("The object with the uid \"%s\" does already exist!",
                         $object->get(Horde_Kolab_Server_Object::ATTRIBUTE_UID)));
         }
         $object->save();

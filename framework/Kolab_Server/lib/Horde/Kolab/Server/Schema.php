@@ -28,6 +28,14 @@
 interface Horde_Kolab_Server_Schema
 {
     /**
+     * Set the composite server reference for this object.
+     *
+     * @param Horde_Kolab_Server_Composite $composite A link to the composite
+     *                                                server handler.
+     */
+    public function setComposite(Horde_Kolab_Server_Composite $composite);
+
+    /**
      * Return the schema for the given objectClass.
      *
      * @param string $objectclass Fetch the schema for this objectClass.
@@ -50,13 +58,26 @@ interface Horde_Kolab_Server_Schema
     public function getAttributeSchema($attribute);
 
     /**
-     * Return the attributes supported by the given object class.
+     * Return the external attributes supported by the given object class.
      *
-     * @param string $class Determine the attributes for this class.
+     * @param Horde_Kolab_Server_Object $object Determine the external
+     *                                          attributes for this class.
      *
      * @return array The supported attributes.
      *
      * @throws Horde_Kolab_Server_Exception If the schema analysis fails.
      */
-    public function &getAttributes($class);
+    public function getExternalAttributes($object);
+
+    /**
+     * Return the internal attributes supported by the given object class.
+     *
+     * @param Horde_Kolab_Server_Object $object Determine the internal
+     *                                          attributes for this class.
+     *
+     * @return array The supported attributes.
+     *
+     * @throws Horde_Kolab_Server_Exception If the schema analysis fails.
+     */
+    public function getInternalAttributes($object);
 }

@@ -67,7 +67,27 @@ class Horde_Kolab_Server_Logged implements Horde_Kolab_Server
      */
     public function connectGuid($guid = null, $pass = null)
     {
-         $this->_server->connectGuid($guid, $pass);
+        $this->_server->connectGuid($guid, $pass);
+    }
+
+    /**
+     * Get the current GUID
+     *
+     * @return string The GUID of the connected user.
+     */
+    public function getGuid()
+    {
+        $this->_server->getGuid();
+    }
+
+    /**
+     * Get the base GUID of this server
+     *
+     * @return string The base GUID of this server.
+     */
+    public function getBaseGuid()
+    {
+        $this->_server->getBaseGuid();
     }
 
     /**
@@ -106,72 +126,80 @@ class Horde_Kolab_Server_Logged implements Horde_Kolab_Server
     /**
      * Finds object data matching a given set of criteria.
      *
-     * @param Horde_Kolab_Server_Query $query  The criteria for the search.
-     * @param array                    $params Additional search parameters.
+     * @param Horde_Kolab_Server_Query_Element $criteria The criteria for the search.
+     * @param array                            $params   Additional search parameters.
      *
      * @return Horde_Kolab_Server_Result The result object.
      *
      * @throws Horde_Kolab_Server_Exception
      */
     public function find(
-        Horde_Kolab_Server_Query $query,
+        Horde_Kolab_Server_Query_Element $criteria,
         array $params = array()
     ) {
-        return $this->_server->find($query, $params);
+        return $this->_server->find($criteria, $params);
     }
 
     /**
      * Finds all object data below a parent matching a given set of criteria.
      *
-     * @param Horde_Kolab_Server_Query $query  The criteria for the search.
-     * @param string                   $parent The parent to search below.
-     * @param array                    $params Additional search parameters.
+     * @param Horde_Kolab_Server_Query_Element $criteria The criteria for the search.
+     * @param string                           $parent   The parent to search below.
+     * @param array                            $params   Additional search parameters.
      *
      * @return Horde_Kolab_Server_Result The result object.
      *
      * @throws Horde_Kolab_Server_Exception
      */
     public function findBelow(
-        Horde_Kolab_Server_Query $query,
+        Horde_Kolab_Server_Query_Element $criteria,
         $parent,
         array $params = array()
     ) {
-        return $this->_server->findBelow($query, $parent, $params);
+        return $this->_server->findBelow($criteria, $parent, $params);
     }
 
     /**
      * Modify existing object data.
      *
-     * @param string $guid The GUID of the object to be added.
-     * @param array  $data The attributes of the object to be added.
+     * @param Horde_Kolab_Server_Object $object The object to be modified.
+     * @param array                     $data   The attributes of the object
+     *                                          to be stored.
      *
      * @return NULL
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    public function save($guid, array $data)
+    public function save(Horde_Kolab_Server_Object $object, array $data)
     {
-        $this->_server->save($guid, $data);
+        $this->_server->save($object, $data);
         $this->_logger->info(
-            sprintf("The object \"%s\" has been successfully saved!", $guid)
+            sprintf(
+                "The object \"%s\" has been successfully saved!",
+                $object->getGuid()
+            )
         );
     }
 
     /**
      * Add new object data.
      *
-     * @param string $guid The GUID of the object to be added.
-     * @param array  $data The attributes of the object to be added.
+     * @param Horde_Kolab_Server_Object $object The object to be added.
+     * @param array                     $data   The attributes of the object
+     *                                          to be added.
      *
      * @return NULL
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    public function add($guid, array $data)
+    public function add(Horde_Kolab_Server_Object $object, array $data)
     {
-        $this->_server->add($guid, $data);
+        $this->_server->add($object, $data);
         $this->_logger->info(
-            sprintf("The object \"%s\" has been successfully added!", $guid)
+            sprintf(
+                "The object \"%s\" has been successfully added!",
+                $object->getGuid()
+            )
         );
     }
 
@@ -223,5 +251,17 @@ class Horde_Kolab_Server_Logged implements Horde_Kolab_Server
     public function getSchema()
     {
         return $this->_server->getSchema();
+    }
+
+    /**
+     * Get the parent GUID of this object.
+     *
+     * @param string $guid The GUID of the child.
+     *
+     * @return string the parent GUID of this object.
+     */
+    public function getParentGuid($guid)
+    {
+        return $this->_server->getParentGuid($guid);
     }
 }

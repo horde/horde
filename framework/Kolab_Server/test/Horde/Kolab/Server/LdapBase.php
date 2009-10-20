@@ -38,8 +38,15 @@ class Horde_Kolab_Server_LdapBase extends PHPUnit_Framework_TestCase
             $this->markTestSuiteSkipped('Ldap extension is missing!');
         };
 
+        /** Hide strict errors from the Net_LDAP2 library */
+        $error_reporting = error_reporting();
+        error_reporting($error_reporting ^ E_STRICT);
+
         if (!class_exists('Net_LDAP2')) {
             $this->markTestSuiteSkipped('PEAR package Net_LDAP2 is not installed!');
         }
+
+        /** Reactivate original error reporting */
+        error_reporting($error_reporting);
     }
 }
