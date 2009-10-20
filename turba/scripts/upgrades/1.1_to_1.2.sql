@@ -15,7 +15,7 @@ ALTER TABLE turba_objects CHANGE object_workPhone object_workphone VARCHAR(25);
 ALTER TABLE turba_objects CHANGE object_cellPhone object_cellphone VARCHAR(25);
 ALTER TABLE turba_objects MODIFY object_title VARCHAR(255);
 ALTER TABLE turba_objects MODIFY object_company VARCHAR(255);
-ALTER TABLE turba_objects ADD object_type VARCHAR(255) NOT NULL DEFAULT 'Object';
+ALTER TABLE turba_objects ADD object_type VARCHAR(255) DEFAULT 'Object' NOT NULL;
 ALTER TABLE turba_objects ADD object_members BLOB;
 CREATE INDEX turba_owner_idx ON turba_objects (owner_id);
 
