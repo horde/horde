@@ -60,7 +60,11 @@ function _createDAcompose($text, $image, $id)
    <label><input name="request_read_receipt" type="checkbox" class="checkbox"<?php if ($d_read != 'ask') echo ' checked="checked"' ?> /> <?php echo _("Read Receipt") ?></label>
 <?php endif; ?>
 <?php if ($GLOBALS['conf']['user']['allow_folders'] && !$GLOBALS['prefs']->isLocked('save_sent_mail')): ?>
-   <label><input id="save_sent_mail" name="save_sent_mail" type="checkbox" class="checkbox"<?php if ($identity->saveSentmail()) echo ' checked="checked"' ?> /> <?php echo _("Save in ") ?><span id="sent_mail_folder_label"></span></label>
+   <label>
+    <input id="save_sent_mail" name="save_sent_mail" type="checkbox" class="checkbox"<?php if ($identity->saveSentmail()) echo ' checked="checked"' ?> /> <?php echo _("Save in") ?>
+    <span id="sent_mail_folder_label"></span>
+   </label>
+   <input id="save_sent_mail_folder" name="save_sent_mail_folder" type="hidden" />
 <?php endif; ?>
   </div>
   <table cellspacing="0">

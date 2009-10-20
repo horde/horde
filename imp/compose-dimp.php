@@ -157,7 +157,9 @@ if (count($_POST)) {
             'save_sent' => (($prefs->isLocked('save_sent_mail'))
                             ? $identity->getValue('save_sent_mail')
                             : (bool)Horde_Util::getFormData('save_sent_mail')),
-            'sent_folder' => $identity->getValue('sent_mail_folder'),
+            'sent_folder' => (($prefs->isLocked('save_sent_mail'))
+                              ? $identity->getValue('sent_mail_folder')
+                              : Horde_Util::getFormData('save_sent_mail_folder', $identity->getValue('sent_mail_folder')))
         );
 
         try {

@@ -97,7 +97,12 @@ class IMP_Views_Compose
             $imp_folder = IMP_Folder::singleton();
             $flist = array();
             foreach ($imp_folder->flist() as $val) {
-                $flist[] = array('l' => $val['abbrev'], 'v' => $val['val']);
+                $tmp = array('l' => $val['abbrev'], 'v' => $val['val']);
+                $tmp2 = IMP::displayFolder($val['val']);
+                if ($val['val'] != $tmp2) {
+                    $tmp['f'] = $tmp2;
+                }
+                $flist[] = $tmp;
             }
             $result['js'][] = 'DIMP.conf_compose.flist = ' . Horde_Serialize::serialize($flist, Horde_Serialize::JSON);
         }
