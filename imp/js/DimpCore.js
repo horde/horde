@@ -392,7 +392,10 @@ var DimpCore = {
 
             case 'largeaddrspan_active':
                 tmp = elt.down();
-                [ tmp.down(), tmp.down(1), tmp.next() ].invoke('toggle');
+                if (!tmp.next().visible() ||
+                    e.element().hasClassName('largeaddrlist')) {
+                    [ tmp.down(), tmp.down(1), tmp.next() ].invoke('toggle');
+                }
                 break;
 
             default:
