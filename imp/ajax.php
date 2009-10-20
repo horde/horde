@@ -542,13 +542,21 @@ case 'ShowPreview':
     /* We know we are going to be exclusively dealing with this mailbox, so
      * select it on the IMAP server (saves some STATUS calls). Open R/W to
      * clear the RECENT flag. */
-    $imp_imap->ob()->openMailbox($ptr['key'], Horde_Imap_Client::OPEN_READWRITE);
-
-    $show_msg = new IMP_Views_ShowMessage();
-    $result = (object)$show_msg->showMessage($args);
-    if (isset($result->error)) {
-        $check_uidvalidity = true;
+    try {
+        $imp_imap->ob()->openMailbox($ptr['key'], Horde_Imap_Client::OPEN_READWRITE);
+        $show_msg = new IMP_Views_ShowMessage();
+        $result = (object)$show_msg->showMessage($args);
+        if (isset($result->error)) {
+            $check_uidvalidity = true;
+        }
+    } catch (Horde_Imap_Client_Exception $e) {
+        $result = new stdClass;
+        $result->error = $e->getMessage();
+        $result->errortype = 'horde.error';
+        $result->index = $args['index'];
+        $result->mailbox = $args['mailbox'];
     }
+
     break;
 
 case 'Html2Text':
