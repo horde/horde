@@ -442,13 +442,17 @@ function _simpleButton($id, $text, $image)
 
 <?php if ($_SESSION['imp']['protocol'] != 'pop'): ?>
 <div class="context" id="ctx_qsearchopts" style="display:none">
+ <a id="ctx_qsearchopts_by" class="sep"><?php echo _("Search By") ?></a>
  <a id="ctx_qsearchopts_basic"><?php echo _("Basic Search...") ?></a>
- <a id="ctx_qsearchopts_advanced" class="sep"><?php echo _("Advanced Search...") ?></a>
- <a id="ctx_qsearchopts_all"><?php echo _("Entire Message") ?></a>
- <a id="ctx_qsearchopts_body"><?php echo _("Body") ?></a>
- <a id="ctx_qsearchopts_from"><?php echo _("From") ?></a>
- <a id="ctx_qsearchopts_to"><?php echo _("To") ?></a>
- <a id="ctx_qsearchopts_subject"><?php echo _("Subject") ?></a>
+ <a id="ctx_qsearchopts_advanced"><?php echo _("Advanced Search...") ?></a>
+</div>
+
+<div class="context" id="ctx_qsearchby" style="display:none">
+ <a id="ctx_qsearchby_all"><?php echo _("Entire Message") ?></a>
+ <a id="ctx_qsearchby_body"><?php echo _("Body") ?></a>
+ <a id="ctx_qsearchby_from"><?php echo _("From") ?></a>
+ <a id="ctx_qsearchby_to"><?php echo _("To") ?></a>
+ <a id="ctx_qsearchby_subject"><?php echo _("Subject") ?></a>
 </div>
 <?php endif; ?>
 

@@ -806,12 +806,12 @@ var DimpBase = {
             this.go('search', tmp);
             break;
 
-        case 'ctx_qsearchopts_all':
-        case 'ctx_qsearchopts_body':
-        case 'ctx_qsearchopts_from':
-        case 'ctx_qsearchopts_to':
-        case 'ctx_qsearchopts_subject':
-            DIMP.conf.qsearchfield = id.substring(16);
+        case 'ctx_qsearchby_all':
+        case 'ctx_qsearchby_body':
+        case 'ctx_qsearchby_from':
+        case 'ctx_qsearchby_to':
+        case 'ctx_qsearchby_subject':
+            DIMP.conf.qsearchfield = id.substring(14);
             this._updatePrefs('dimp_qsearch_field', DIMP.conf.qsearchfield);
             if (!$('qsearch').hasClassName('qsearchActive')) {
                 this._setQsearchText(true);
@@ -886,7 +886,7 @@ var DimpBase = {
             tmp.compact().invoke(this.viewport.getSelected().size() ? 'show' : 'hide');
             break;
 
-        case 'ctx_qsearchopts':
+        case 'ctx_qsearchby':
             $(ctx_id).descendants().invoke('removeClassName', 'contextSelected');
             $(ctx_id + '_' + DIMP.conf.qsearchfield).addClassName('contextSelected');
             break;
@@ -1388,7 +1388,7 @@ var DimpBase = {
     // d = (boolean) Deactivate quicksearch input?
     _setQsearchText: function(d)
     {
-        $('qsearch_input').setValue(d ? DIMP.text.search + ' (' + $('ctx_qsearchopts_' + DIMP.conf.qsearchfield).getText() + ')' : '');
+        $('qsearch_input').setValue(d ? DIMP.text.search + ' (' + $('ctx_qsearchby_' + DIMP.conf.qsearchfield).getText() + ')' : '');
         [ $('qsearch') ].invoke(d ? 'removeClassName' : 'addClassName', 'qsearchActive');
         $('qsearch_close').hide();
     },
@@ -2574,6 +2574,7 @@ var DimpBase = {
         if ($('qsearch')) {
             $('qsearch_input').observe('blur', this._quicksearchOnBlur.bind(this));
             this._addMouseEvents({ id: 'qsearch_icon', left: true, offset: 'qsearch', type: 'qsearchopts' });
+            DM.addSubMenu('ctx_qsearchopts_by', 'ctx_qsearchby');
         }
 
         /* Start message list loading as soon as possible. */
