@@ -72,11 +72,11 @@ CREATE TABLE ingo_shares (
     PRIMARY KEY (share_id)
 );
 
-CREATE INDEX ingo_shares_share_name_idx ON ingo_shares (share_name);
-CREATE INDEX ingo_shares_share_owner_idx ON ingo_shares (share_owner);
-CREATE INDEX ingo_shares_perm_creator_idx ON ingo_shares (perm_creator);
-CREATE INDEX ingo_shares_perm_default_idx ON ingo_shares (perm_default);
-CREATE INDEX ingo_shares_perm_guest_idx ON ingo_shares (perm_guest);
+CREATE INDEX ingo_shares_name_idx ON ingo_shares (share_name);
+CREATE INDEX ingo_shares_owner_idx ON ingo_shares (share_owner);
+CREATE INDEX ingo_shares_creator_idx ON ingo_shares (perm_creator);
+CREATE INDEX ingo_shares_default_idx ON ingo_shares (perm_default);
+CREATE INDEX ingo_shares_guest_idx ON ingo_shares (perm_guest);
 
 CREATE TABLE ingo_shares_groups (
     share_id NUMBER(16) NOT NULL,
@@ -84,9 +84,9 @@ CREATE TABLE ingo_shares_groups (
     perm NUMBER(8) NOT NULL
 );
 
-CREATE INDEX ingo_shares_groups_share_id_idx ON ingo_shares_groups (share_id);
-CREATE INDEX ingo_shares_groups_group_uid_idx ON ingo_shares_groups (group_uid);
-CREATE INDEX ingo_shares_groups_perm_idx ON ingo_shares_groups (perm);
+CREATE INDEX ingo_groups_share_id_idx ON ingo_shares_groups (share_id);
+CREATE INDEX ingo_groups_group_uid_idx ON ingo_shares_groups (group_uid);
+CREATE INDEX ingo_groups_perm_idx ON ingo_shares_groups (perm);
 
 CREATE TABLE ingo_shares_users (
     share_id NUMBER(16) NOT NULL,
@@ -94,6 +94,6 @@ CREATE TABLE ingo_shares_users (
     perm NUMBER(8) NOT NULL
 );
 
-CREATE INDEX ingo_shares_users_share_id_idx ON ingo_shares_users (share_id);
-CREATE INDEX ingo_shares_users_user_uid_idx ON ingo_shares_users (user_uid);
-CREATE INDEX ingo_shares_users_perm_idx ON ingo_shares_users (perm);
+CREATE INDEX ingo_users_share_id_idx ON ingo_shares_users (share_id);
+CREATE INDEX ingo_users_user_uid_idx ON ingo_shares_users (user_uid);
+CREATE INDEX ingo_users_perm_idx ON ingo_shares_users (perm);

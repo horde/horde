@@ -407,7 +407,7 @@
    </field>
 
    <index>
-    <name>turba_shares_share_name</name>
+    <name>turba_shares_name</name>
     <field>
      <name>share_name</name>
      <sorting>ascending</sorting>
@@ -415,7 +415,7 @@
    </index>
 
    <index>
-    <name>turba_shares_share_owner</name>
+    <name>turba_shares_owner</name>
     <field>
      <name>share_owner</name>
      <sorting>ascending</sorting>
@@ -423,7 +423,7 @@
    </index>
 
    <index>
-    <name>turba_shares_perm_creator</name>
+    <name>turba_shares_creator</name>
     <field>
      <name>perm_creator</name>
      <sorting>ascending</sorting>
@@ -431,7 +431,7 @@
    </index>
 
    <index>
-    <name>turba_shares_perm_default</name>
+    <name>turba_shares_default</name>
     <field>
      <name>perm_default</name>
      <sorting>ascending</sorting>
@@ -439,7 +439,7 @@
    </index>
 
    <index>
-    <name>turba_shares_perm_guest</name>
+    <name>turba_shares_guest</name>
     <field>
      <name>perm_guest</name>
      <sorting>ascending</sorting>
@@ -490,7 +490,7 @@
    </field>
 
    <index>
-    <name>turba_shares_groups_share_id</name>
+    <name>turba_groups_share_id</name>
     <field>
      <name>share_id</name>
      <sorting>ascending</sorting>
@@ -498,7 +498,7 @@
    </index>
 
    <index>
-    <name>turba_shares_groups_group_uid</name>
+    <name>turba_groups_group_uid</name>
     <field>
      <name>group_uid</name>
      <sorting>ascending</sorting>
@@ -506,7 +506,7 @@
    </index>
 
    <index>
-    <name>turba_shares_groups_perm</name>
+    <name>turba_groups_perm</name>
     <field>
      <name>perm</name>
      <sorting>ascending</sorting>
@@ -548,7 +548,7 @@
    </field>
 
    <index>
-    <name>turba_shares_users_share_id</name>
+    <name>turba_users_share_id</name>
     <field>
      <name>share_id</name>
      <sorting>ascending</sorting>
@@ -556,7 +556,7 @@
    </index>
 
    <index>
-    <name>turba_shares_users_user_uid</name>
+    <name>turba_users_user_uid</name>
     <field>
      <name>user_uid</name>
      <sorting>ascending</sorting>
@@ -564,7 +564,7 @@
    </index>
 
    <index>
-    <name>turba_shares_users_perm</name>
+    <name>turba_users_perm</name>
     <field>
      <name>perm</name>
      <sorting>ascending</sorting>
