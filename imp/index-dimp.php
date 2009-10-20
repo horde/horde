@@ -66,5 +66,4 @@ echo "<body>\n";
 require IMP_TEMPLATES . '/index/index-dimp.inc';
 Horde::includeScriptFiles();
 Horde::outputInlineScript();
-$notification->notify(array('listeners' => array('javascript')));
 echo "</body>\n</html>";

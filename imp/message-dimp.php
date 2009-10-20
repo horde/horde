@@ -93,5 +93,4 @@ Horde::outputInlineScript();
 if (!$disable_compose) {
     echo $compose_result['jsappend'];
 }
-$notification->notify(array('listeners' => array('javascript')));
 echo "</body>\n</html>";
