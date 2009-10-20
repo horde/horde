@@ -1398,7 +1398,7 @@ var DimpBase = {
         r = r.response;
         RedBox.close();
         this.sfolder = this.folder;
-        this._searchDeactivate();
+        this._quicksearchDeactivate();
         this.go('folder:' + r.view);
     },
 
