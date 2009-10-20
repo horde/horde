@@ -30,45 +30,24 @@ class Horde_Kolab_Server_Exception extends Horde_Exception
     /**
      * Constants to define the error type.
      */
-    const SYSTEM              = 1;
-    const EMPTY_RESULT        = 2;
-    const INVALID_INFORMATION = 3;
 
-    /**
-     * The array of available error messages. These are connected to the error
-     * codes used above and might be used to differentiate between what we show
-     * the user in the frontend and what we actually log in the backend.
-     *
-     * @var array
-     */
-    protected $messages;
+    /** Unknown error type */
+    const SYSTEM                     = 1;
 
-    /**
-     * Exception constructor
-     *
-     * @param mixed $message The exception message, a PEAR_Error object, or an
-     *                       Exception object.
-     * @param mixed $code    A numeric error code, or
-     *                       an array from error_get_last().
-     */
-    public function __construct($message = null, $code = null)
-    {
-        $this->setMessages();
+    /** The LDAP extension is missing */
+    const MISSING_LDAP_EXTENSION     = 2;
 
-        parent::__construct($message, $code);
-    }
+    /** Binding to the LDAP server failed */
+    const BIND_FAILED                = 3;
 
-    /**
-     * Initialize the messages handled by this exception.
-     *
-     * @return NULL
-     */
-    protected function setMessages()
-    {
-        $this->messages = array(
-            self::SYSTEM              => _("An internal error occured."),
-            self::EMPTY_RESULT        => _("No result was found."),
-            self::INVALID_INFORMATION => _("The information provided is invalid."),
-        );
-    }
+    /** The resultset was empty */
+    const EMPTY_RESULT               = 4;
+
+    const INVALID_INFORMATION        = 5;
+
+    /** The query was invalid */
+    const INVALID_QUERY              = 6;
+
+    /** The search yielded too many results */
+    const SEARCH_CONSTRAINT_TOO_MANY = 7;
 }

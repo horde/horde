@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_Groupofnames extends Horde_Kolab_Server_Object
+class Horde_Kolab_Server_Object_Groupofnames extends Horde_Kolab_Server_Object_Top
 {
     /** Define attributes specific to this object type */
 
@@ -79,7 +79,7 @@ class Horde_Kolab_Server_Object_Groupofnames extends Horde_Kolab_Server_Object
      *
      * @return string|PEAR_Error The ID.
      */
-    public function generateId(&$info)
+    public function generateId(array &$info)
     {
         $id = $info[self::ATTRIBUTE_CN];
         if (is_array($id)) {
@@ -110,7 +110,7 @@ class Horde_Kolab_Server_Object_Groupofnames extends Horde_Kolab_Server_Object
         if (!in_array($member, $this->getMembers())) {
             $this->_cache[self::ATTRIBUTE_MEMBER][] = $member;
         } else {
-            throw new Horde_Kolab_Server_Exception(_("The UID %s is already a member of the group %s!"),
+            throw new Horde_Kolab_Server_Exception("The UID %s is already a member of the group %s!",
                                                    $member, $this->_uid);
         }
         return $this->save($this->_cache);
@@ -132,7 +132,7 @@ class Horde_Kolab_Server_Object_Groupofnames extends Horde_Kolab_Server_Object
                 array_diff($this->_cache[self::ATTRIBUTE_MEMBER],
                            array($member));
         } else {
-            throw new Horde_Kolab_Server_Exception(_("The UID %s is no member of the group %s!"),
+            throw new Horde_Kolab_Server_Exception("The UID %s is no member of the group %s!",
                                                    $member, $this->_uid);
 
         }

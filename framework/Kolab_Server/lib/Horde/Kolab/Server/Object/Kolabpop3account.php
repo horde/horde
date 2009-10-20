@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_Kolabpop3account extends Horde_Kolab_Server_Object
+class Horde_Kolab_Server_Object_Kolabpop3account extends Horde_Kolab_Server_Object_Top
 {
     /** Define attributes specific to this object type */
 
@@ -118,12 +118,12 @@ class Horde_Kolab_Server_Object_Kolabpop3account extends Horde_Kolab_Server_Obje
      *
      * @return string|PEAR_Error The ID.
      */
-    public function generateId(&$info)
+    public function generateId(array &$info)
     {
         if (!isset($info[self::ATTRIBUTE_OWNERUID])) {
             $uid = $this->get(self::ATTRIBUTE_OWNERUID);
             if (empty($uid)) {
-                throw new Horde_Kolab_Server_Exception(_("No parent object provided!"),
+                throw new Horde_Kolab_Server_Exception("No parent object provided!",
                                                        Horde_Kolab_Server_Exception::INVALID_INFORMATION);
             }
         } else {
@@ -136,7 +136,7 @@ class Horde_Kolab_Server_Object_Kolabpop3account extends Horde_Kolab_Server_Obje
 
         $object = $this->server->fetch($uid);
         if (!$object->exists()) {
-            throw new Horde_Kolab_Server_Exception(sprintf(_("The parent object %s does not exist!"),
+            throw new Horde_Kolab_Server_Exception(sprintf("The parent object %s does not exist!",
                                                            $uid),
                                                    Horde_Kolab_Server_Exception::INVALID_INFORMATION);
         }
@@ -144,7 +144,7 @@ class Horde_Kolab_Server_Object_Kolabpop3account extends Horde_Kolab_Server_Obje
         if (!isset($info[self::ATTRIBUTE_MAIL])) {
             $mail = $this->get(self::ATTRIBUTE_MAIL);
             if (empty($mail)) {
-                throw new Horde_Kolab_Server_Exception(_("No mail given!"),
+                throw new Horde_Kolab_Server_Exception("No mail given!",
                                                        Horde_Kolab_Server_Exception::INVALID_INFORMATION);
             }
         } else {

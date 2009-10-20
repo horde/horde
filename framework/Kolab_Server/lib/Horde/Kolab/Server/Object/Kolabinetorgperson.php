@@ -230,7 +230,7 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
      *
      * @return string|PEAR_Error The ID.
      */
-    public function generateId(&$info)
+    public function generateId(array &$info)
     {
         /**
          * Never rename the object, even if the components of the CN attribute
@@ -292,12 +292,12 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
      *
      * @throws Horde_Kolab_Server_Exception If the given information contains errors.
      */
-    public function prepareObjectInformation(&$info)
+    public function prepareObjectInformation(array &$info)
     {
         if (!$this->exists()) {
             if (!isset($info[self::ATTRIBUTE_CN])) {
                 if (!isset($info[self::ATTRIBUTE_SN]) || !isset($info[self::ATTRIBUTE_GIVENNAME])) {
-                    throw new Horde_Kolab_Server_Exception(_("Either the last name or the given name is missing!"));
+                    throw new Horde_Kolab_Server_Exception("Either the last name or the given name is missing!");
                 } else {
                     $info[self::ATTRIBUTE_CN] = $this->generateCn($info);
                 }

@@ -12,7 +12,8 @@
  */
 
 /**
- * An abstract class definiing methods to deal with an object tree structure.
+ * The interface definition for the handlers dealing with the Kolab Server
+ * object tree structure.
  *
  * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
@@ -25,60 +26,36 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-abstract class Horde_Kolab_Server_Structure
+interface Horde_Kolab_Server_Structure
 {
     /**
-     * A link to the server handler.
+     * Set the composite server reference for this object.
      *
-     * @var Horde_Kolab_Server
-     */
-    protected $server;
-
-    /**
-     * Structure parameters.
+     * @param Horde_Kolab_Server_Composite $composite A link to the composite
+     *                                                server handler.
      *
-     * @var array
+     * @return NULL
      */
-    protected $params = array();
-
-    /**
-     * Construct a new Horde_Kolab_Server_Structure object.
-     *
-     * @param array              $params  Parameter array.
-     */
-    public function __construct($params = array())
-    {
-        $this->params = $params;
-    }
-
-    /**
-     * Set the server reference for this object.
-     *
-     * @param Horde_Kolab_Server &$server A link to the server handler.
-     */
-    public function setServer($server)
-    {
-        $this->server = $server;
-    }
+    public function setComposite(Horde_Kolab_Server_Composite $composite);
 
     /**
      * Returns the set of objects supported by this structure.
      *
      * @return array An array of supported objects.
      */
-    abstract public function getSupportedObjects();
+    public function getSupportedObjects();
 
     /**
      * Determine the type of an object by its tree position and other
      * parameters.
      *
-     * @param string $uid The UID of the object to examine.
+     * @param string $guid The GUID of the object to examine.
      *
      * @return string The class name of the corresponding object type.
      *
      * @throws Horde_Kolab_Server_Exception If the object type is unknown.
      */
-    abstract public function determineType($uid);
+    public function determineType($guid);
 
     /**
      * Generates a UID for the given information.
@@ -87,27 +64,9 @@ abstract class Horde_Kolab_Server_Structure
      * @param string $id   The id of the object.
      * @param array  $info Any additional information about the object to create.
      *
-     * @return string The UID.
+     * @return string The GUID.
      *
      * @throws Horde_Kolab_Server_Exception If the given type is unknown.
      */
-    abstract public function generateServerUid($type, $id, $info);
-
-    /**
-     * Quote an UID part.
-     *
-     * @param string $id   The UID part.
-     *
-     * @return string The quoted part.
-     */
-    abstract public function quoteForUid($id);
-
-    /**
-     * Quote an filter part.
-     *
-     * @param string $part   The filter part.
-     *
-     * @return string The quoted part.
-     */
-    abstract public function quoteForFilter($part);
+    public function generateServerGuid($type, $id, array $info);
 }

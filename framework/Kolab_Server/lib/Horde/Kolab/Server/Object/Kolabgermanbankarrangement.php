@@ -26,7 +26,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_Kolabgermanbankarrangement extends Horde_Kolab_Server_Object
+class Horde_Kolab_Server_Object_Kolabgermanbankarrangement extends Horde_Kolab_Server_Object_Top
 {
     /** Define attributes specific to this object type */
 
@@ -98,12 +98,12 @@ class Horde_Kolab_Server_Object_Kolabgermanbankarrangement extends Horde_Kolab_S
      *
      * @return string|PEAR_Error The ID.
      */
-    public function generateId(&$info)
+    public function generateId(array &$info)
     {
         if (!isset($info[self::ATTRIBUTE_OWNERUID])) {
             $uid = $this->get(self::ATTRIBUTE_OWNERUID);
             if (empty($uid)) {
-                throw new Horde_Kolab_Server_Exception(_("No parent object provided!"),
+                throw new Horde_Kolab_Server_Exception("No parent object provided!",
                                                        Horde_Kolab_Server_Exception::INVALID_INFORMATION);
             }
         } else {
@@ -116,7 +116,7 @@ class Horde_Kolab_Server_Object_Kolabgermanbankarrangement extends Horde_Kolab_S
 
         $object = $this->server->fetch($uid);
         if (!$object->exists()) {
-            throw new Horde_Kolab_Server_Exception(sprintf(_("The parent object %s does not exist!"),
+            throw new Horde_Kolab_Server_Exception(sprintf("The parent object %s does not exist!",
                                                            $uid),
                                                    Horde_Kolab_Server_Exception::INVALID_INFORMATION);
         }
@@ -124,7 +124,7 @@ class Horde_Kolab_Server_Object_Kolabgermanbankarrangement extends Horde_Kolab_S
         if (!isset($info[self::ATTRIBUTE_NUMBER])) {
             $number = $this->get(self::ATTRIBUTE_NUMBER);
             if (empty($number)) {
-                throw new Horde_Kolab_Server_Exception(_("No account number given!"),
+                throw new Horde_Kolab_Server_Exception("No account number given!",
                                                        Horde_Kolab_Server_Exception::INVALID_INFORMATION);
             }
         } else {
@@ -138,7 +138,7 @@ class Horde_Kolab_Server_Object_Kolabgermanbankarrangement extends Horde_Kolab_S
         if (!isset($info[self::ATTRIBUTE_BANKCODE])) {
             $bankcode = $this->get(self::ATTRIBUTE_BANKCODE);
             if (empty($bankcode)) {
-                throw new Horde_Kolab_Server_Exception(_("No bankcode given!"),
+                throw new Horde_Kolab_Server_Exception("No bankcode given!",
                                                        Horde_Kolab_Server_Exception::INVALID_INFORMATION);
             }
         } else {

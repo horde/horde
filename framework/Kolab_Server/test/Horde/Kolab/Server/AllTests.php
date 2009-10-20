@@ -19,9 +19,9 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 }
 
 /**
- * The Autoloader allows us to omit "require/include" statements.
+ * Prepare the test setup.
  */
-require_once 'Horde/Autoloader.php';
+require_once dirname(__FILE__) . '/Autoload.php';
 
 /**
  * Combine the tests for this package.
@@ -58,9 +58,6 @@ class Horde_Kolab_Server_AllTests
     public static function suite()
     {
         // Catch strict standards
-        // FIXME: This does not work yet, as we still have a number of
-        //        static methods in basic Horde libraries that are not
-        //        declared as such.
         error_reporting(E_ALL | E_STRICT);
 
         $suite = new PHPUnit_Framework_TestSuite('Horde Framework - Kolab_Server');

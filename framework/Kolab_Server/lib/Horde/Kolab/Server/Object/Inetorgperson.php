@@ -299,7 +299,7 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
         foreach ($addresses as $address) {
             list($name_segment, $street_segment,
                  $postal_address, $postal_code, $city) = sscanf('%s$%s$%s$%s %s', $address);
-            if ($name_segment == _("Post office box")) {
+            if ($name_segment == "Post office box") {
                 $result[] = array(
                     self::ATTRIBUTE_POSTOFFICEBOX => $street_segment,
                     self::ATTRIBUTE_POSTALADDRESS => $postal_address,
@@ -374,7 +374,7 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
                 $postal_data['name_segment']   = $db_postal_data[self::ATTRIBUTE_GIVENNAME] . ' ' . $db_postal_data[self::ATTRIBUTE_SN];
             } else {
                 $postal_data['street_segment'] = $postal_data[self::ATTRIBUTE_POSTOFFICEBOX];
-                $postal_data['name_segment']   = _("Post office box");
+                $postal_data['name_segment']   = "Post office box";
             }
             $result[] = sprintf('%s$%s$%s$%s %s',
                                 $postal_data['name_segment'],
@@ -396,7 +396,7 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
      *
      * @return string|PEAR_Error The ID.
      */
-    public function generateId(&$info)
+    public function generateId(array &$info)
     {
         if ($this->exists()) {
             if (!isset($info[self::ATTRIBUTE_GIVENNAME])

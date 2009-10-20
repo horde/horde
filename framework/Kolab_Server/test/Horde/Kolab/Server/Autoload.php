@@ -11,23 +11,17 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 
-if (!defined('HORE_KOLAB_SERVER_TESTS')) {
-    /**
-     * The Autoloader allows us to omit "require/include" statements.
-     */
-    require_once 'Horde/Autoloader.php';
-
-    $test_dir = '@test_dir@/Kolab_Server';
-
-    if (substr($test_dir, 0, 1) == '@') {
-        /**
-         * Assume we are working in development mode and this package resides in
-         * 'framework'.
-         */
-        define('HORE_KOLAB_SERVER_TESTS', dirname(__FILE__) . '/../../..');
-    } else {
-        define('HORE_KOLAB_SERVER_TESTS', $test_dir);
-    }
-
-    Horde_Autoloader::addClassPath(HORE_KOLAB_SERVER_TESTS);
+if (!spl_autoload_functions()) {
+    spl_autoload_register(
+        create_function(
+            '$class', 
+            '$filename = str_replace(array(\'::\', \'_\'), \'/\', $class);'
+            . '$err_mask = E_ALL ^ E_WARNING;'
+            . '$oldErrorReporting = error_reporting($err_mask);'
+            . '$included = include "$filename.php";'
+            . 'error_reporting($oldErrorReporting);'
+        )
+    );
 }
+
+require_once dirname(__FILE__) . '/Scenario.php';

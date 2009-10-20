@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
+class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object_Top
 {
     /** Define attributes specific to this object type */
 
@@ -182,7 +182,7 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
      *
      * @return string The ID.
      */
-    public function generateId(&$info)
+    public function generateId(array &$info)
     {
         if ($this->exists()) {
             if (!isset($info[self::ATTRIBUTE_CN])
@@ -217,7 +217,7 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object
      *
      * @throws Horde_Kolab_Server_Exception If the given information contains errors.
      */
-    public function prepareObjectInformation(&$info)
+    public function prepareObjectInformation(array &$info)
     {
         if (!$this->exists()
             && empty($info[self::ATTRIBUTE_CN])

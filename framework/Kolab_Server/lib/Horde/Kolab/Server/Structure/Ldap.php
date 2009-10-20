@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Structure_Ldap extends Horde_Kolab_Server_Structure
+class Horde_Kolab_Server_Structure_Ldap extends Horde_Kolab_Server_Structure_Base
 {
     /**
      * Returns the set of objects supported by this structure.
@@ -43,18 +43,31 @@ class Horde_Kolab_Server_Structure_Ldap extends Horde_Kolab_Server_Structure
      * Determine the type of an object by its tree position and other
      * parameters.
      *
-     * @param string $uid The UID of the object to examine.
+     * @param string $guid The GUID of the object to examine.
      *
      * @return string The class name of the corresponding object type.
      *
      * @throws Horde_Kolab_Server_Exception If the object type is unknown.
      */
-    public function determineType($uid)
+    public function determineType($guid)
     {
-        if (empty($this->server)) {
-            throw new Horde_Kolab_Server_Exception('The server reference is missing!');
-        }
-        $ocs = $this->server->getObjectClasses($uid);
+        $ocs = $this->getObjectClasses($guid);
+        return $this->_determineType($guid, $ocs);
+    }
+
+    /**
+     * Determine the type of an object by its tree position and other
+     * parameters.
+     *
+     * @param string $guid The GUID of the object to examine.
+     * @param array  $ocs  The object classes of the object to examine.
+     *
+     * @return string The class name of the corresponding object type.
+     *
+     * @throws Horde_Kolab_Server_Exception If the object type is unknown.
+     */
+    protected function _determineType($guid, array $ocs)
+    {
         $ocs = array_reverse($ocs);
         foreach ($ocs as $oc) {
             try {
@@ -67,52 +80,57 @@ class Horde_Kolab_Server_Structure_Ldap extends Horde_Kolab_Server_Structure
         if ($oc == 'top') {
             return 'Horde_Kolab_Server_Object';
         }
-        throw new Horde_Kolab_Server_Exception(sprintf(_("Unkown object type for UID %s."),
-                                                       $uid));
+        throw new Horde_Kolab_Server_Exception(
+            sprintf("Unknown object type for GUID %s.", $guid),
+            Horde_Kolab_Server_Exception::SYSTEM
+        );
     }
 
     /**
-     * Generates a UID for the given information.
+     * Generates a GUID for the given information.
      *
      * @param string $type The class name of the object to create.
      * @param string $id   The id of the object.
      * @param array  $info Any additional information about the object to create.
      *
-     * @return string The UID.
-     *
-     * @throws Horde_Kolab_Server_Exception If the given type is unknown.
+     * @return string The GUID.
      */
-    public function generateServerUid($type, $id, $info)
+    public function generateServerGuid($type, $id, array $info)
     {
-        if (empty($this->server)) {
-            throw new Horde_Kolab_Server_Exception('The server reference is missing!');
+        return sprintf('%s,%s', $id, $this->composite->server->getBaseGuid());
+    }
+
+    /**
+     * Get the LDAP object classes for the given GUID.
+     *
+     * This is meant to be a shortcut for the structure handler. It should be
+     * used when determining the object type.
+     *
+     * @param string $guid GUID of the object.
+     *
+     * @return array An array of object classes.
+     *
+     * @throws Horde_Kolab_Server_Exception If the object has no
+     *                                      object classes.
+     */
+    protected function getObjectClasses($guid)
+    {
+        $object = $this->composite->server->read(
+            $guid, array('objectClass')
+        );
+        if (!isset($object['objectClass'])) {
+            throw new Horde_Kolab_Server_Exception(
+                sprintf(
+                    "The object %s has no %s attribute!",
+                    $guid, 'objectClass'
+                ),
+                Horde_Kolab_Server_Exception::SYSTEM
+            );
         }
-        return sprintf('%s,%s', $id, $this->server->getBaseUid());
-    }
-
-    /**
-     * Quote an UID part.
-     *
-     * @param string $id   The UID part.
-     *
-     * @return string The UID part.
-     */
-    public function quoteForUid($id)
-    {
-        $id = Net_LDAP2_Util::escape_dn_value($id);
-        return $id[0];
-    }
-
-    /**
-     * Quote an filter part.
-     *
-     * @param string $part   The filter part.
-     *
-     * @return string The quoted part.
-     */
-    public function quoteForFilter($part)
-    {
-        $part = Net_LDAP2_Util::escape_filter_value($part);
-        return $part[0];
+        $result = array_map(
+            'strtolower',
+            $object['objectClass']
+        );
+        return $result;
     }
 }
