@@ -52,7 +52,7 @@ if ($form->validate($vars)) {
 
 $vars->set('name', $resource->get('name'));
 $vars->set('description', $resource->get('description'));
-$vars->set('category', $resource->get('category'));
+$vars->set('category', Kronolith::getDriver('Resource')->getGroupMemberships($resource->getId()));
 $vars->set('responsetype', $resource->get('response_type'));
 
 $title = $form->getTitle();

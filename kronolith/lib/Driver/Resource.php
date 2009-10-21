@@ -65,18 +65,18 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     public function save($resource)
     {
         if ($resource->getId()) {
-            $query = 'UPDATE kronolith_resources SET resource_name = ?, resource_calendar = ?, resource_category = ? , resource_description = ?, resource_response_type = ?, resource_type = ?, resource_members = ? WHERE resource_id = ?';
-            $values = array($this->convertToDriver($resource->get('name')), $resource->get('calendar'), $resource->get('category'), $this->convertToDriver($resource->get('description')), $resource->get('response_type'), $resource->get('type'), $resource->get('members'), $resource->getId());
+            $query = 'UPDATE kronolith_resources SET resource_name = ?, resource_calendar = ? , resource_description = ?, resource_response_type = ?, resource_type = ?, resource_members = ? WHERE resource_id = ?';
+            $values = array($this->convertToDriver($resource->get('name')), $resource->get('calendar'), $this->convertToDriver($resource->get('description')), $resource->get('response_type'), $resource->get('type'), serialize($resource->get('members')), $resource->getId());
             $result = $this->_write_db->query($query, $values);
             if ($result instanceof PEAR_Error) {
                 Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
                 throw new Horde_Exception($result);
             }
         } else {
-            $query = 'INSERT INTO kronolith_resources (resource_id, resource_name, resource_calendar, resource_category, resource_description, resource_response_type, resource_type, resource_members)';
-            $cols_values = ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+            $query = 'INSERT INTO kronolith_resources (resource_id, resource_name, resource_calendar, resource_description, resource_response_type, resource_type, resource_members)';
+            $cols_values = ' VALUES (?, ?, ?, ?, ?, ?, ?)';
             $id = $this->_db->nextId('kronolith_resources');
-            $values = array($id, $this->convertToDriver($resource->get('name')), $resource->get('calendar'), $resource->get('category'), $this->convertToDriver($resource->get('description')), $resource->get('response_type'), $resource->get('type'), $resource->get('members'));
+            $values = array($id, $this->convertToDriver($resource->get('name')), $resource->get('calendar'), $this->convertToDriver($resource->get('description')), $resource->get('response_type'), $resource->get('type'), serialize($resource->get('members')));
             $result = $this->_write_db->query($query . $cols_values, $values);
             if ($result instanceof PEAR_Error) {
                 Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
@@ -130,7 +130,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      */
     public function getResource($id)
     {
-        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_category, resource_description, resource_response_type, resource_type, resource_members FROM kronolith_resources WHERE resource_id = ?';
+        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_description, resource_response_type, resource_type, resource_members FROM kronolith_resources WHERE resource_id = ?';
         $results = $this->_db->getRow($query, array($id), DB_FETCHMODE_ASSOC);
         if ($results instanceof PEAR_Error) {
             Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
@@ -186,7 +186,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
             return array();
         }
 
-        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_category, resource_description, resource_response_type, resource_type, resource_members FROM kronolith_resources';
+        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_description, resource_response_type, resource_type, resource_members FROM kronolith_resources';
         if (count($filter)) {
             $clause = ' WHERE ';
             $i = 0;
@@ -213,6 +213,27 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     }
 
     /**
+     * Obtain the group id for each group the speciied resource is a member of.
+     *
+     * @param integer $resource_id  The resource id to check for.
+     *
+     * @return array of group ids.
+     */
+    public function getGroupMemberships($resource_id)
+    {
+        $groups = $this->listResources(PERMS_READ, array('type' => Kronolith_Resource::TYPE_GROUP));
+        $in = array();
+        foreach ($groups as $group) {
+            $members = $group->get('members');
+            if (array_search($resource_id, $members) !== false) {
+                $in[] = $group->getId();
+            }
+        }
+
+        return $in;
+    }
+
+    /**
      *
      * @param $params
      * @return unknown_type
@@ -222,10 +243,12 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
         $return = array();
         foreach ($params as $field => $value) {
             if ($field == 'resource_name' || $field == 'resource_description') {
-                $return[str_replace('resource_', '', $field)] = $this->convertFromDriver($value);
-            } else {
-                $return[str_replace('resource_', '', $field)] = $value;
+               $value = $this->convertFromDriver($value);
+            } elseif ($field == 'resource_members') {
+                $value = @unserialize($value);
             }
+
+            $return[str_replace('resource_', '', $field)] = $value;
         }
 
         return $return;

@@ -52,7 +52,7 @@ if ($form->validate($vars)) {
 
 $vars->set('name', $group->get('name'));
 $vars->set('description', $group->get('description'));
-$vars->set('members', unserialize($group->get('members')));
+$vars->set('members', $group->get('members'));
 
 $title = $form->getTitle();
 require KRONOLITH_TEMPLATES . '/common-header.inc';

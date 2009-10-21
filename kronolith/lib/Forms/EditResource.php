@@ -37,11 +37,20 @@ class Kronolith_EditResourceForm extends Horde_Form {
                             Kronolith_Resource::RESPONSETYPE_AUTO => _("Automatically"),
                             Kronolith_Resource::RESPONSETYPE_MANUAL => _("Manual"),
                             Kronolith_Resource::RESPONSETYPE_NONE => _("None"));
+
+        /* Get a list of available resource groups */
+        $driver = Kronolith::getDriver('Resource');
+        $groups = $driver->listResources(PERMS_READ, array('type' => Kronolith_Resource::TYPE_GROUP));
+        $enum = array();
+        foreach ($groups as $id => $group) {
+            $enum[$id] = $group->get('name');
+        }
+
         $this->addHidden('', 'c', 'text', true);
         $this->addVariable(_("Name"), 'name', 'text', true);
         $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));
         $this->addVariable(_("Response type"), 'responsetype', 'enum', true, false, null, array('enum' => $responses));
-        $this->addVariable(_("Category"), 'category', 'text', false);
+        $this->addVariable(_("Groups"), 'category', 'multienum', false, false, null, array('enum' => $enum));
         $this->setButtons(array(_("Save")));
     }
 
@@ -51,7 +60,6 @@ class Kronolith_EditResourceForm extends Horde_Form {
         $new_name = $this->_vars->get('name');
         $this->_resource->set('name', $new_name);
         $this->_resource->set('description', $this->_vars->get('description'));
-        $this->_resource->set('category', $this->_vars->get('category'));
         $this->_resource->set('response_type', $this->_vars->get('responsetype'));
         if ($original_name != $new_name) {
             $result = Kronolith::getDriver()->rename($original_name, $new_name);
@@ -59,6 +67,41 @@ class Kronolith_EditResourceForm extends Horde_Form {
                 return PEAR::raiseError(sprintf(_("Unable to rename \"%s\": %s"), $original_name, $result->getMessage()));
             }
         }
+
+        /* Update group memberships */
+        $driver = Kronolith::getDriver('Resource');
+        $existing_groups = $driver->getGroupMemberships($this->_resource->getId());
+        $new_groups = $this->_vars->get('category');
+        $new_groups = (is_null($new_groups) ? array() : $new_groups);
+        foreach ($existing_groups as $gid) {
+             $i = array_search($gid, $new_groups);
+             if ($i === false) {
+                 // No longer in this group
+                 $group = $driver->getResource($gid);
+                 $members = $group->get('members');
+                 $idx = array_search($this->_resource->getId(), $members);
+                 if ($idx !== false) {
+                     unset($members[$idx]);
+                     reset($members);
+                     $group->set('members', $members);
+                     $group->save();
+                 }
+             } else {
+                 // We know it's already in the group, remove it so we don't
+                 // have to check/add it again later.
+                 unset($new_groups[$i]);
+             }
+        }
+
+        reset($new_groups);
+        foreach ($new_groups as $gid) {
+            $group = $driver->getResource($gid);
+            $members = $group->get('members');
+            $members[] = $this->_resource->getId();
+            $group->set('members', $members);
+            $group->save();
+        }
+
 
         $result = $this->_resource->save();
         if (is_a($result, 'PEAR_Error')) {

@@ -90,7 +90,7 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
         }
 
         /* Get all resources that are included in this category */
-        $resources = unserialize($this->get('members'));
+        $resources = $this->get('members');
 
         /* Iterate over all resources until one with no conflicts is found */
         foreach ($resources as $resource_id) {

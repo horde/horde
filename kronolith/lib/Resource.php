@@ -20,6 +20,10 @@ class Kronolith_Resource
     const RESPONSETYPE_ALWAYS_DECLINE = 3;
     const RESPONSETYPE_MANUAL = 4;
 
+    /* Resource Type constants */
+    const TYPE_SINGLE = 'Single';
+    const TYPE_GROUP = 'Group';
+
    /**
     * Adds a new resource to storage
     *
