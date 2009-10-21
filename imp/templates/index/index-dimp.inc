@@ -466,6 +466,9 @@ function _simpleButton($id, $text, $image)
 <div class="context" id="ctx_qsearchopts" style="display:none">
  <a id="ctx_qsearchopts_by"><?php echo _("Search By") ?></a>
  <div class="sep"></div>
+ <a id="ctx_qsearchopts_filter"><?php echo _("Filter By") ?></a>
+ <a id="ctx_qsearchopts_filternot"><?php echo _("Filter By (NOT)") ?></a>
+ <div class="sep"></div>
  <a id="ctx_qsearchopts_advanced"><?php echo _("Advanced Search...") ?></a>
 </div>
 

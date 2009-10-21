@@ -9,7 +9,7 @@
 
 var DimpBase = {
     // Vars used and defaulting to null/false:
-    //   cfolderaction, folder, folderswitch, offset, pollPE, pp, sfolder,
+    //   cfolderaction, folder, folderswitch, offset, pollPE, pp, search,
     //   uid, viewport
     // message_list_template set via js/mailbox-dimp.js
     bcache: $H(),
@@ -229,14 +229,12 @@ var DimpBase = {
                 }
 
                 // This catches the refresh case - no need to re-add to history
-                if (!Object.isUndefined(this.folder) && !this.sfolder) {
+                if (!Object.isUndefined(this.folder) && !this.search) {
                     this._addHistory(loc);
                 }
 
-                if (this.isSearch(f) && !this.sfolder) {
-                    this._quicksearchDeactivate();
-                }
             }
+
             this.loadMailbox(f);
             return;
         }
@@ -384,6 +382,11 @@ var DimpBase = {
                 $('msgHeader').update();
                 this.folderswitch = true;
                 this.folder = f;
+
+                if (this.isSearch(f) &&
+                    (!this.search || this.search.flag)) {
+                    this._quicksearchDeactivate(!this.search);
+                }
             }
         }
 
@@ -412,12 +415,15 @@ var DimpBase = {
 
             // Callbacks
             onAjaxRequest: function(id) {
-                var p = this.isSearch(id, true) && $('qsearch_input').visible()
-                    ? $H({
-                        qsearch: $F('qsearch_input'),
-                        qsearchmbox: this.sfolder
-                    })
-                    : $H();
+                var p = $H();
+                if (this.isSearch(id, true) && $('qsearch_input').visible()) {
+                    p.set('qsearchmbox', this.search.mbox);
+                    if (this.search.flag) {
+                        p.update({ qsearchflag: this.search.flag, qsearchflagnot: Number(this.search.not) });
+                    } else {
+                        p.set('qsearch', $F('qsearch_input'));
+                    }
+                }
                 return DimpCore.addRequestParams(p);
             }.bind(this),
             onAjaxResponse: DimpCore.doActionComplete.bind(DimpCore),
@@ -548,7 +554,7 @@ var DimpBase = {
                 l = this.viewport.getMetaData('label');
                 if (l) {
                     if (this.isSearch(null, true)) {
-                        l += ' (' + this.sfolder + ')';
+                        l += ' (' + this.search.mbox + ')';
                     }
                     $('folderName').update(l);
                 }
@@ -816,6 +822,13 @@ var DimpBase = {
             if (menu.endsWith('_setflag') || menu.endsWith('_unsetflag')) {
                 flag = elt.readAttribute('flag');
                 this.flag(flag, this.convertFlag(flag, menu.endsWith('_setflag')));
+            } else if (menu.endsWith('_filter') || menu.endsWith('_filternot')) {
+                this.search = {
+                    flag: elt.readAttribute('flag'),
+                    mbox: this.folder,
+                    not: menu.endsWith('_filternot')
+                };
+                this.loadMailbox(DIMP.conf.fsearchid);
             } else {
                 parentfunc(elt, baseelt, menu);
             }
@@ -903,7 +916,7 @@ var DimpBase = {
             label = this.viewport.getMetaData('label');
 
         if (this.isSearch(null, true)) {
-            label += ' (' + this.sfolder + ')';
+            label += ' (' + this.search.mbox + ')';
         } else {
             elt = $(this.getFolderId(this.folder));
             if (elt) {
@@ -1343,7 +1356,7 @@ var DimpBase = {
     isSearch: function(id, qsearch)
     {
         id = id ? id : this.folder;
-        return id && id.startsWith(DIMP.conf.searchprefix) && (!qsearch || this.sfolder);
+        return id && id.startsWith(DIMP.conf.searchprefix) && (!qsearch || this.search);
     },
 
     _quicksearchOnBlur: function()
@@ -1359,7 +1372,7 @@ var DimpBase = {
         if (this.isSearch()) {
             this.viewport.reload();
         } else {
-            this.sfolder = this.folder;
+            this.search = { mbox: this.folder };
             this.loadMailbox(DIMP.conf.qsearchid);
         }
     },
@@ -1376,12 +1389,12 @@ var DimpBase = {
         if (this.isSearch()) {
             DimpCore.DMenu.disable('qsearch_icon', true, false);
             this.resetSelected();
-            $('qsearch_input').show();
+            $('qsearch', 'qsearch_input').invoke('show');
             if (!noload) {
-                this.loadMailbox(this.sfolder || 'INBOX');
+                this.loadMailbox(this.search ? this.search.mbox : 'INBOX');
             }
             this.viewport.deleteView(f);
-            this.sfolder = null;
+            this.search = null;
         }
     },
 
@@ -1390,13 +1403,20 @@ var DimpBase = {
     {
         $('qsearch_input').setValue(d ? DIMP.text.search + ' (' + $('ctx_qsearchby_' + DIMP.conf.qsearchfield).getText() + ')' : '');
         [ $('qsearch') ].invoke(d ? 'removeClassName' : 'addClassName', 'qsearchActive');
-        $('qsearch_close').hide();
+        if ($('qsearch_input').visible()) {
+            $('qsearch_close').hide();
+        }
     },
 
-    _quicksearchDeactivate: function()
+    // hideall = (boolean) Hide entire searchbox?
+    _quicksearchDeactivate: function(hideall)
     {
-        $('qsearch_close').show();
-        $('qsearch_input').hide();
+        if (hideall) {
+            $('qsearch').hide();
+        } else {
+            $('qsearch_close').show();
+            $('qsearch_input').hide();
+        }
         DimpCore.DMenu.disable('qsearch_icon', true, true);
     },
 
@@ -2557,6 +2577,8 @@ var DimpBase = {
             $('qsearch_input').observe('blur', this._quicksearchOnBlur.bind(this));
             this._addMouseEvents({ id: 'qsearch_icon', left: true, offset: 'qsearch', type: 'qsearchopts' });
             DM.addSubMenu('ctx_qsearchopts_by', 'ctx_qsearchby');
+            DM.addSubMenu('ctx_qsearchopts_filter', 'ctx_flag');
+            DM.addSubMenu('ctx_qsearchopts_filternot', 'ctx_flag');
         }
 
         /* Start message list loading as soon as possible. */

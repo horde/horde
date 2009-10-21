@@ -58,11 +58,7 @@ function _changed($mbox, $compare, $rw = null)
     }
 
     $imp_mailbox = IMP_Mailbox::singleton($mbox);
-    if ($imp_mailbox->getCacheID($mbox) != $compare) {
-        return true;
-    }
-
-    return false;
+    return ($imp_mailbox->getCacheID($mbox) != $compare);
 }
 
 function _getListMessages($mbox, $change)
@@ -75,7 +71,9 @@ function _getListMessages($mbox, $change)
         'mbox' => $mbox,
         'rangeslice' => Horde_Util::getPost('rangeslice'),
         'qsearch' => Horde_Util::getPost('qsearch'),
+        'qsearchflag' => Horde_Util::getPost('qsearchflag'),
         'qsearchmbox' => Horde_Util::getPost('qsearchmbox'),
+        'qsearchflagnot' => Horde_Util::getPost('qsearchflagnot')
     );
 
     $search = Horde_Util::getPost('search');

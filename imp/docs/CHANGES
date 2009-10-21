@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Add ability to quickly filter by flags in DIMP.
 [mms] Add ability to select sent-mail mailbox when composing in DIMP.
 [mms] Add ability to save drafts in MIMP.
 [mms] Add spam reporting in MIMP.
@@ -13,7 +14,7 @@ v5.0-git
 [mms] Add ability to search by a custom defined header (Request #6875).
 [mms] Improved advanced search query interface (Request #6875).
 [mms] More intelligent ordering of autocomplete search results.
-[mms] Add a mini search query interface (Request #6875).
+[mms] Add a mini search query interface to IMP (Request #6875).
 [mms] Make DIMP quicksearch field selection persist across sessions.
 [mms] Move JS/CSS caching to Horde framework.
 [mms] Add simple search function to MIMP.

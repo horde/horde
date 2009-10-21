@@ -66,6 +66,7 @@ class IMP_Search
 
     /* The special search mailbox names. */
     const BASIC_SEARCH = 'impbsearch';
+    const DIMP_FILTERSEARCH = 'dimpfsearch';
     const DIMP_QUICKSEARCH = 'dimpqsearch';
 
     /* Bitmask constants for listQueries(). */

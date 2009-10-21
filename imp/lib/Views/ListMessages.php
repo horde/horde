@@ -27,42 +27,49 @@ class IMP_Views_ListMessages
         $sortpref = IMP::getSort($mbox);
 
         /* Check for quicksearch request. */
-        if (strlen($args['qsearch']) &&
-            strlen($args['qsearchmbox'])) {
+        if (strlen($args['qsearchmbox'])) {
             /* Create the search query. */
             $query = new Horde_Imap_Client_Search_Query();
 
-            $field = $GLOBALS['prefs']->getValue('dimp_qsearch_field');
-            switch ($field) {
-            case 'body':
-                $query->text($args['qsearch'], true);
-                break;
+            if (strlen($args['qsearchflag'])) {
+                $query->flag($args['qsearchflag'], empty($args['qsearchflagnot']));
+                $is_search = true;
+            } elseif (strlen($args['qsearch'])) {
+                $field = $GLOBALS['prefs']->getValue('dimp_qsearch_field');
+                switch ($field) {
+                case 'body':
+                    $query->text($args['qsearch'], true);
+                    break;
 
-            case 'from':
-            case 'subject':
-                $query->headerText($field, $args['qsearch']);
-                break;
+                case 'from':
+                case 'subject':
+                    $query->headerText($field, $args['qsearch']);
+                    break;
 
-            case 'to':
-                $query2 = new Horde_Imap_Client_Search_Query();
-                $query2->headerText('cc', $args['qsearch']);
+                case 'to':
+                    $query2 = new Horde_Imap_Client_Search_Query();
+                    $query2->headerText('cc', $args['qsearch']);
 
-                $query3 = new Horde_Imap_Client_Search_Query();
-                $query3->headerText('bcc', $args['qsearch']);
+                    $query3 = new Horde_Imap_Client_Search_Query();
+                    $query3->headerText('bcc', $args['qsearch']);
 
-                $query->headerText('to', $args['qsearch']);
-                $query->orSearch(array($query2, $query3));
-                break;
+                    $query->headerText('to', $args['qsearch']);
+                    $query->orSearch(array($query2, $query3));
+                    break;
 
-            case 'all':
-            default:
-                $query->text($args['qsearch'], false);
-                break;
+                case 'all':
+                default:
+                    $query->text($args['qsearch'], false);
+                    break;
+                }
+
+                $is_search = true;
             }
 
             /* Set the search in the IMP session. */
-            $GLOBALS['imp_search']->createSearchQuery($query, array($args['qsearchmbox']), array(), _("Search Results"), $mbox);
-            $is_search = true;
+            if ($is_search) {
+                $GLOBALS['imp_search']->createSearchQuery($query, array($args['qsearchmbox']), array(), _("Search Results"), $mbox);
+            }
         }
 
         $label = IMP::getLabel($mbox);
@@ -71,7 +78,8 @@ class IMP_Views_ListMessages
         Horde_Nls::setTimeZone();
 
         /* Run filters now. */
-        if (!empty($_SESSION['imp']['filteravail']) &&
+        if (!$is_search &&
+            !empty($_SESSION['imp']['filteravail']) &&
             !empty($args['applyfilter']) ||
             (($mbox == 'INBOX') &&
              $GLOBALS['prefs']->getValue('filter_on_display'))) {

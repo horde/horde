@@ -66,6 +66,7 @@ $code['conf'] = array_filter(array(
         ? array()
         : array_map(array('IMP_Dimp', 'appendedFolderPref'), $GLOBALS['conf']['server']['fixed_folders']),
     'flags' => $flags,
+    'fsearchid' => IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_FILTERSEARCH,
     'ham_spammbox' => intval(!empty($GLOBALS['conf']['notspam']['spamfolder'])),
     'limit_factor' => intval($GLOBALS['conf']['dimp']['viewport']['limit_factor']),
     'login_view' => $GLOBALS['prefs']->getValue('dimp_login_view'),
