@@ -3485,7 +3485,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 rewind($data);
             }
 
-            fwrite($this->_debug, 'S (' . microtime(true) . '): ' . ($binary ? '[BINARY DATA - ' . $len . ' bytes]' : ($stream ? stream_get_contents($data): $data)));
+            fwrite($this->_debug, 'S (' . microtime(true) . '): ' . ($binary ? '[BINARY DATA - ' . $len . ' bytes]' : rtrim($stream ? stream_get_contents($data): $data)) . "\n");
         }
 
         return is_null($len) ? rtrim($data) : $data;
