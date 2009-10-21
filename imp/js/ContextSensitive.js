@@ -161,9 +161,9 @@ var ContextSensitive = Class.create({
                     return;
                 }
             }
-            elt_up = elt.up();
+            elt_up = elt.up('.contextMenu');
 
-            if (elt_up && elt_up.hasClassName('contextMenu')) {
+            if (elt_up) {
                 e.stop();
 
                 if (elt.hasClassName('contextSubmenu') &&
@@ -320,11 +320,11 @@ var ContextSensitive = Class.create({
 
         var cm = this.currentmenu(),
             elt = e.element(),
-            elt_up = elt.up(),
+            elt_up = elt.up('.contextMenu'),
             id = elt.readAttribute('id'),
             id_div, offsets, sub, voffsets, x, y;
 
-        if (elt_up == document) {
+        if (!elt_up) {
             return;
         }
 
@@ -346,7 +346,6 @@ var ContextSensitive = Class.create({
                 elt.addClassName('contextHover');
             }
         } else if ((this.current.size() > 1) &&
-                   elt_up.hasClassName('contextMenu') &&
                    id_div != cm) {
             this._closeMenu(this.current.indexOf(id));
         }
