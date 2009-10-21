@@ -87,20 +87,20 @@ class Horde_Notification
      * Registers a listener with the notification object and includes
      * the necessary library file dynamically.
      *
-     * @param string $listener The name of the listener to attach. These names
-     *                         must be unique; further listeners with the same
-     *                         name will be ignored.
-     * @param array $params    A hash containing any additional configuration or
-     *                         connection parameters a listener driver might
-     *                         need.
-     * @param string $class    The class name from which the driver was
-     *                         instantiated if not the default one. If given
-     *                         you have to include the library file containing
-     *                         this class yourself. This is useful if you want
-     *                         the listener driver to be overriden by an
-     *                         application's implementation.
+     * @param string $listener  The name of the listener to attach. These
+     *                          names must be unique; further listeners with
+     *                          the same name will be ignored.
+     * @param array $params     A hash containing any additional configuration
+     *                          or connection parameters a listener driver
+     *                          might need.
+     * @param string $class     The class name from which the driver was
+     *                          instantiated if not the default one. If given
+     *                          you have to include the library file
+     *                          containing this class yourself. This is useful
+     *                          if you want the listener driver to be
+     *                          overriden by an application's implementation.
      *
-     * @return TODO
+     * @return Horde_Notification_Listener  The listener object.
      * @throws Horde_Exception
      */
     public function attach($listener, $params = array(), $class = null)
@@ -126,7 +126,8 @@ class Horde_Notification
     }
 
     /**
-     * Remove a listener from the notification list.
+     * Remove a listener from the notification list. This will discard any
+     * notifications in this listeners stack.
      *
      * @param string $listner  The name of the listener to detach.
      *
@@ -141,6 +142,25 @@ class Horde_Notification
 
         $list = $this->_listeners[$listener];
         unset($this->_listeners[$listener], $_SESSION[$this->_stack][$list->getName()]);
+    }
+
+    /**
+     * Replaces a listener in the notification list. This preserves all
+     * notifications in this listeners stack. If the listener does not exist,
+     * the new listener will be added automatically.
+     *
+     * @param string $listener  See attach().
+     * @param array $params     See attach().
+     * @param string $class     See attach().
+     *
+     * @return Horde_Notification_Listener  See attach()
+     * @throws Horde_Exception
+     */
+    public function replace($listener, $params = array(), $class = null)
+    {
+        $listener = strtolower(basename($listener));
+        unset($this->_listeners[$listener]);
+        return $this->attach($listener, $params, $class);
     }
 
     /**
