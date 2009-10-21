@@ -351,25 +351,26 @@ div.vpRow.flagDeleted {
     padding-right: 1px;
 }
 
-/* Options */
+/* Message options. */
 .dimpOptions {
     float: right;
 }
 .dimpOptions div {
-    cursor: pointer;
     line-height: 16px;
-    padding-top: 1px;
+    padding-bottom: 2px;
 }
-.dimpOptions div a, .dimpOptions div a:visited {
+.dimpOptions span {
+    cursor: pointer;
+}
+.dimpOptions .iconImg {
+    margin-right: 0;
+}
+.dimpOptions a, .dimpOptions a:visited {
     text-decoration: none;
     color: #000;
 }
-.dimpOptions div a:hover {
+.dimpOptions a:hover {
     text-decoration: underline;
-}
-.dimpOptions div img {
-    float: left;
-    padding: 1px 4px 0 0;
 }
 
 /* Actions */

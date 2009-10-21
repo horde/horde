@@ -254,10 +254,25 @@ function _simpleButton($id, $text, $image)
         </div>
         <div id="msgHeaders" style="display:none">
          <div class="dimpOptions noprint">
-          <div id="msg_newwin_options"><span class="iconImg"></span><a><?php echo _("Open in new window") ?></a></div>
-          <div id="msg_print"><span class="iconImg"></span><a><?php echo _("Print") ?></a></div>
+          <div>
+           <span id="msg_newwin_options">
+            <span class="iconImg"></span>
+            <a><?php echo _("Open in new window") ?></a>
+           </span>
+          </div>
+          <div>
+           <span id="msg_print">
+            <span class="iconImg"></span>
+            <a><?php echo _("Print") ?></a>
+           </span>
+          </div>
 <?php if (!empty($conf['user']['allow_view_source'])): ?>
-          <div id="msg_view_source"><span class="iconImg"></span><a><?php echo _("View Source") ?></a></div>
+          <div>
+           <span id="msg_view_source">
+            <span class="iconImg"></span>
+            <a><?php echo _("View Source") ?></a>
+           </span>
+          </div>
 <?php endif; ?>
          </div>
          <div id="msgHeadersContent">
