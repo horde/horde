@@ -416,7 +416,7 @@ var DimpBase = {
             // Callbacks
             onAjaxRequest: function(id) {
                 var p = $H();
-                if (this.isSearch(id, true) && $('qsearch_input').visible()) {
+                if (this.folderswitch && this.isSearch(id, true)) {
                     p.set('qsearchmbox', this.search.mbox);
                     if (this.search.flag) {
                         p.update({ qsearchflag: this.search.flag, qsearchflagnot: Number(this.search.not) });
