@@ -77,7 +77,7 @@ var DimpCompose = {
             next = this.get_identity(id),
             ssm = $('save_sent_mail');
 
-        this.setSentMailLabel(next.id[3], next.id[5]);
+        this.setSentMailLabel(next.id[3], next.id[5], true);
         $('bcc').setValue(next.id[6]);
         if (ssm) {
             ssm.writeAttribute('checked', next.id[4]);
@@ -121,7 +121,7 @@ var DimpCompose = {
         }
     },
 
-    setSentMailLabel: function(s, l)
+    setSentMailLabel: function(s, l, sel)
     {
         var label = $('sent_mail_folder_label');
         if (label) {
@@ -133,6 +133,9 @@ var DimpCompose = {
             }
             $('save_sent_mail_folder').setValue(s);
             $('sent_mail_folder_label').writeAttribute('title', l.escapeHTML()).setText('"' + l.truncate(15) + '"');
+        }
+        if (sel) {
+            this.knl.setSelected(s);
         }
     },
 
@@ -494,7 +497,7 @@ var DimpCompose = {
         if (DIMP.conf_compose.cc) {
             this.toggleCC('cc');
         }
-        this.setSentMailLabel(identity.id[3], identity.id[5]);
+        this.setSentMailLabel(identity.id[3], identity.id[5], true);
         if (header.bcc) {
             $('bcc').setValue(header.bcc);
             this.resizebcc.resizeNeeded();
@@ -790,6 +793,7 @@ var DimpCompose = {
                 list: DIMP.conf_compose.flist,
                 onChoose: this.setSentMailLabel.bind(this)
             });
+            this.knl.setSelected(this.get_identity($F('identity'))[3]);
             $('sent_mail_folder_label').insert({ after: new Element('SPAN', { className: 'popdownImg', id: 'compose_flist_popdown' }).observe('click', function(e) { this.knl.show(); e.stop(); }.bindAsEventListener(this)) });
         }
     }
