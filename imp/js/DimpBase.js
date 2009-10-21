@@ -2559,13 +2559,11 @@ var DimpBase = {
         /* Limit to msgList only. */
         $('msgList').observe('dblclick', this.dblclickHandler.bindAsEventListener(this));
 
-        /* Set sidebar width. */
-        $('sidebarPanel').setStyle({ width: DIMP.conf.sidebar_width });
-        $('dimpmain').setStyle({ left: DIMP.conf.sidebar_width });
-
         /* Show page now. */
+        $('sidebarPanel').setStyle({ width: DIMP.conf.sidebar_width });
         $('dimpLoading').hide();
         $('dimpPage').show();
+        $('dimpmain').setStyle({ left: $('sidebarPanel').getWidth() + 'px' });
 
         /* Create the folder list. Any pending notifications will be caught
          * via the return from this call. */

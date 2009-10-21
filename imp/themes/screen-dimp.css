@@ -15,6 +15,28 @@ input {
     color: red;
 }
 
+/* Main container styles. */
+#sidebarPanel {
+    bottom: 0;
+    border-bottom: 0;
+    cursor: default;
+    left: 0;
+    position: absolute;
+    top: 0;
+    padding: 5px 0 0 5px;
+    white-space: normal;
+    z-index: 1;
+    -moz-border-radius-bottomright: 0;
+    -webkit-border-bottom-right-radius: 0;
+}
+#dimpmain {
+    bottom: 0;
+    margin-left: 5px;
+    position: absolute;
+    right: 4px;
+    top: 4px;
+}
+
 /* ini header */
 #quota {
     float: right;
@@ -43,26 +65,7 @@ input {
 }
 /* end header */
 
-#sidebarPanel {
-    position: absolute;
-    cursor: default;
-    top: 0;
-    left: 0;
-    padding: 7px 0 0 7px;
-    bottom: 0;
-    z-index: 1;
-    white-space: normal;
-    -moz-border-radius-bottomright: 0;
-    -webkit-border-bottom-right-radius: 0;
-    border-bottom: 0;
-}
-#dimpmain {
-    position: absolute;
-    margin-left: 13px;
-    top: 4px;
-    bottom: 0;
-    right: 4px;
-}
+/* Portal styles. */
 #dimpmain_portal h1.header a {
     cursor: pointer;
 }
