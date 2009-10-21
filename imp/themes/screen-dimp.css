@@ -712,6 +712,7 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 .context div.sep {
     background: silver;
     height: 1px !important;
+    margin: 1px 0;
     padding: 0;
 }
 .contextSubmenu {
