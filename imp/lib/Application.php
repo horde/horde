@@ -586,8 +586,7 @@ class IMP_Application extends Horde_Registry_Application
         new IMP_Application(array('init' => array('authentication' => 'none')));
 
         $notification = Horde_Notification::singleton();
-        $notification->detach('status');
-        $notification->attach('status', array('prefs' => true, 'viewmode' => 'dimp'), 'IMP_Notification_Listener_Status');
+        $notification->replace('status', array('prefs' => true, 'viewmode' => 'dimp'), 'IMP_Notification_Listener_Status');
     }
 
     /**
