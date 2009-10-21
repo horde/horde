@@ -1,5 +1,7 @@
 <?php
 /**
+ * PGP preferences handling.
+ *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -22,6 +24,11 @@ function _printKeyInfo($key = '')
 
 function _importKeyDialog($target)
 {
+    /* Need to handle notifications inline, and need to set explicitly since
+     * the popup window is not part of the preferences framework. */
+    $notification = Horde_Notification::singleton();
+    $notification->replace('status', array('prefs' => true, 'viewmode' => 'imp'), 'IMP_Notification_Listener_Status');
+
     $title = _("Import PGP Key");
     require IMP_TEMPLATES . '/common-header.inc';
     IMP::status();
