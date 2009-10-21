@@ -858,8 +858,7 @@ var DimpBase = {
             [ $('ctx_folder_nopoll') ].invoke(tmp ? 'hide' : 'show');
 
             tmp = $(this.getSubFolderId(baseelt.readAttribute('id')));
-            $('ctx_folder_collapse', 'ctx_folder_expand').invoke(tmp ? 'show' : 'hide');
-            [ $('ctx_folder_expand').previous() ].invoke(tmp ? 'addClassName' : 'removeClassName', 'sep');
+            [ $('ctx_folder_expand').up() ].invoke(tmp ? 'show' : 'hide');
             break;
 
         case 'ctx_reply':
@@ -871,11 +870,18 @@ var DimpBase = {
             break;
 
         case 'ctx_otheractions':
-            tmp = $('oa_blacklist', 'oa_whitelist', 'oa_undeleted');
-            if (this.viewport.getMetaData('readonly')) {
-                $('oa_setflag', 'oa_unsetflag').invoke('hide');
-            } else {
-                tmp = tmp.concat($('oa_setflag', 'oa_unsetflag'));
+            tmp = [ $('oa_undeleted') ];
+            $('oa_blacklist', 'oa_whitelist').each(function(o) {
+                if (o) {
+                    tmp.push(o.up());
+                }
+            });
+            if ($('oa_setflag')) {
+                if (this.viewport.getMetaData('readonly')) {
+                    $('oa_setflag').up().hide();
+                } else {
+                    tmp.push($('oa_setflag').up());
+                }
             }
             tmp.compact().invoke(this.viewport.getSelected().size() ? 'show' : 'hide');
             break;
