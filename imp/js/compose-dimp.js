@@ -10,8 +10,9 @@
 var DimpCompose = {
     // Variables defaulting to empty/false:
     //   auto_save_interval, button_pressed, compose_cursor, dbtext,
-    //   drafts_mbox, editor_on, knl, mp_padding, resizebcc, resizecc,
-    //   resizeto, row_height, sbtext, skip_spellcheck, spellcheck, uploading
+    //   drafts_mbox, editor_on, is_popup, knl, mp_padding, resizebcc,
+    //   resizecc, resizeto, row_height, sbtext, skip_spellcheck, spellcheck,
+    //   uploading
     last_msg: '',
     textarea_ready: true,
 
@@ -26,8 +27,7 @@ var DimpCompose = {
 
     updateDraftsMailbox: function()
     {
-        if (DIMP.baseWindow &&
-            DIMP.baseWindow.DimpBase &&
+        if (this.is_popup &&
             DIMP.baseWindow.DimpBase.folder == DIMP.conf_compose.drafts_mbox) {
             DIMP.baseWindow.DimpBase.poll();
         }
@@ -37,8 +37,7 @@ var DimpCompose = {
     {
         if (DIMP.conf_compose.qreply) {
             this.closeQReply();
-        } else if ((DIMP.baseWindow && DIMP.baseWindow.DimpBase) ||
-                   DIMP.conf_compose.popup) {
+        } else if (this.is_popup || DIMP.conf_compose.popup) {
             DimpCore.closePopup();
         } else {
             DimpCore.redirect(DIMP.conf.URI_DIMP);
@@ -150,7 +149,7 @@ var DimpCompose = {
 
     uniqueSubmit: function(action)
     {
-        var db, params, sb,
+        var db, sb,
             c = $('compose');
 
         if (DIMP.SpellCheckerObject &&
@@ -221,11 +220,7 @@ var DimpCompose = {
 
             // Use an AJAX submit here so that we can do javascript-y stuff
             // before having to close the window on success.
-            params = c.serialize(true);
-            if (!DIMP.baseWindow || !DIMP.baseWindow.DimpBase) {
-                params.nonotify = true;
-            }
-            DimpCore.doAction('*' + DIMP.conf.URI_COMPOSE, params, null, this.uniqueSubmitCallback.bind(this));
+            DimpCore.doAction('*' + DIMP.conf.URI_COMPOSE, c.serialize(true), null, this.uniqueSubmitCallback.bind(this));
         }
     },
 
@@ -251,10 +246,9 @@ var DimpCompose = {
                 this.updateDraftsMailbox();
 
                 if (d.action == 'save_draft') {
-                    if (DIMP.baseWindow &&
-                        DIMP.baseWindow.DimpBase &&
-                        !DIMP.conf_compose.qreply) {
+                    if (this.is_popup && !DIMP.conf_compose.qreply) {
                         DIMP.baseWindow.DimpCore.showNotifications(r.msgs);
+                        r.msgs = [];
                     }
                     if (DIMP.conf_compose.close_draft) {
                         return this.closeCompose();
@@ -264,7 +258,7 @@ var DimpCompose = {
 
             case 'send_message':
                 this.button_pressed = false;
-                if (DIMP.baseWindow && DIMP.baseWindow.DimpBase) {
+                if (this.is_popup) {
                     if (d.reply_type) {
                         DIMP.baseWindow.DimpBase.flag(d.reply_type == 'reply' ? '\\answered' : '$forwarded', true, { index: d.index, mailbox: d.reply_folder, noserver: true });
                     }
@@ -284,6 +278,7 @@ var DimpCompose = {
 
                     if (!DIMP.conf_compose.qreply) {
                         DIMP.baseWindow.DimpCore.showNotifications(r.msgs);
+                        r.msgs = [];
                     }
                 }
                 return this.closeCompose();
@@ -321,10 +316,6 @@ var DimpCompose = {
                 $('draft_button').setText(this.dbtext);
             }
             this.dbtext = this.sbtext = null;
-        }
-
-        if (!r.msgs_noauto) {
-            DimpCore.showNotifications(r.msgs);
         }
     },
 
@@ -757,6 +748,8 @@ var DimpCompose = {
 
         DimpCore.growler_log = false;
         DimpCore.init();
+
+        this.is_popup = (DIMP.baseWindow && DIMP.baseWindow.DimpBase);
 
         /* Attach event handlers. */
         document.observe('change', this.changeHandler.bindAsEventListener(this));

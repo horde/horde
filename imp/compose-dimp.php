@@ -72,7 +72,7 @@ if (count($_POST)) {
             $result->info = end($info);
             $result->imp_compose = $imp_compose->getCacheId();
         }
-        Horde::sendHTTPResponse(Horde::prepareResponse($result, $GLOBALS['imp_notify'], false), 'js-json');
+        Horde::sendHTTPResponse(Horde::prepareResponse($result, $GLOBALS['imp_notify']), 'js-json');
         exit;
     }
 
@@ -196,7 +196,7 @@ if (count($_POST)) {
         }
     }
 
-    Horde::sendHTTPResponse(Horde::prepareResponse($result, !$result->success || !Horde_Util::getFormData('nonotify')  ? $GLOBALS['imp_notify'] : null, false), 'json');
+    Horde::sendHTTPResponse(Horde::prepareResponse($result, $GLOBALS['imp_notify']), 'json');
     exit;
 }
 

@@ -92,9 +92,7 @@ KronolithCore = {
         }
         this.server_error = 0;
 
-        if (!r.msgs_noauto) {
-            this.showNotifications(r.msgs);
-        }
+        this.showNotifications(r.msgs);
 
         if (this.onDoActionComplete) {
             this.onDoActionComplete(r);
