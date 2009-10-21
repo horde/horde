@@ -4,21 +4,13 @@
 
 #sidebarPanel li {
     overflow: hidden;
-    max-width: 133px;
-    text-overflow: ellipsis;
 }
 #sidebarPanel .folderlist {
     overflow-y: auto;
 }
 
 #msgSplitPane {
-    margin-top: -4px;
     width: 99.7%;
-}
-
-div.msgSize {
-    width: auto;
-    overflow: hidden;
 }
 
 #to, #cc, #bcc {
@@ -29,20 +21,13 @@ div.msgSize {
     border-width: 2px;
 }
 
-#sidebarPanel li.custom, #sidebarPanel li.servicelink {
-    padding-bottom: 1px;
-}
-
 #sidebarPanel li.folder a:hover, #sidebarPanel li.custom a:hover, #sidebarPanel li.servicelink a:hover {
     font-weight: bold;
     text-decoration: underline;
 }
 
-.dimpOptions div {
-    height: 17px;
-}
-.dimpOptions div a:hover {
-    text-decoration: underline;
+.dimpOptions span.iconImg {
+    margin-right: 4px;
 }
 
 .htmlMsgData {
