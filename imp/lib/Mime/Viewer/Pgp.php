@@ -359,7 +359,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
                     break;
 
                 default:
-                    $sig_result = $this->_imppgp->verifySignature($sig_part->replaceEOL($this->_params['contents']->getBodyPart($signed_id, array('mimeheaders' => true, 'stream' => true)), Horde_Mime_Part::RFC_EOL), $this->_address, $sig_part->getContents());
+                    $sig_result = $this->_imppgp->verifySignature($sig_part->replaceEOL($this->_params['contents']->getBodyPart($signed_id, array('mimeheaders' => true)), Horde_Mime_Part::RFC_EOL), $this->_address, $sig_part->getContents());
                     break;
                 }
 
