@@ -109,6 +109,8 @@ v5.0-git
 v4.3.6-cvs
 ----------
 
+[jan] Fix viewing S/MIME encrypted and signed messages from Outlook (Express)
+      (Bug #8629).
 [jan] Add Oracle-specific SQL script.
 [jan] Add Croatian translation (Matej Vela <matej.vela@carnet.hr>,
       Iva Rumora <iva.rumora@zg.t-com.hr>).
