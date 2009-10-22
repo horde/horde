@@ -1032,10 +1032,9 @@ class IMP
         }
 
         /* Can't do threaded searches in search mailboxes. */
-        if (!self::threadSortAvailable($mbox)) {
-            if ($ob['by'] == Horde_Imap_Client::SORT_THREAD) {
-                $ob['by'] = Horde_Imap_Client::SORT_DATE;
-            }
+        if (!self::threadSortAvailable($mbox) &&
+            ($ob['by'] == Horde_Imap_Client::SORT_THREAD)) {
+            $ob['by'] = Horde_Imap_Client::SORT_DATE;
         }
 
         if (!$search_mbox &&
