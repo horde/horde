@@ -12,9 +12,9 @@
  */
 
 /**
- * Prepare the test setup.
+ * Require our basic test case definition
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once dirname(__FILE__) . '/Scenario.php';
 
 /**
  * Test the test backend.
@@ -30,7 +30,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Server_MockTest extends Horde_Kolab_Server_Scenario
+class Horde_Kolab_Server_Integration_MockTest extends Horde_Kolab_Server_Integration_Scenario
 {
 
     /** The file based mock environment */
@@ -77,9 +77,24 @@ class Horde_Kolab_Server_Server_MockTest extends Horde_Kolab_Server_Scenario
      *
      * @return NULL
      */
-    protected function setUp()
+    public function setUp()
     {
         parent::setUp();
+
+        if (!extension_loaded('ldap') && !@dl('ldap.' . PHP_SHLIB_SUFFIX)) {
+            $this->markTestSuiteSkipped('Ldap extension is missing!');
+        };
+
+        /** Hide strict errors from the Net_LDAP2 library */
+        $error_reporting = error_reporting();
+        error_reporting($error_reporting & ~E_STRICT);
+
+        if (!class_exists('Net_LDAP2')) {
+            $this->markTestSuiteSkipped('PEAR package Net_LDAP2 is not installed!');
+        }
+
+        /** Reactivate original error reporting */
+        error_reporting($error_reporting);
 
         $this->markTestIncomplete('Needs to be fixed');
 
@@ -150,14 +165,14 @@ class Horde_Kolab_Server_Server_MockTest extends Horde_Kolab_Server_Scenario
         foreach ($this->servers as $server) {
             $filter     = '(&(objectClass=kolabInetOrgPerson)(uid=*)(mail=*)(sn=*))';
             $attributes = array(
-                Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_SN,
-                Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_CN,
+                'Sn',
+                'Cn',
                 Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_UID,
                 Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_MAIL,
                 Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_DELETED,
             );
 
-            $sort   = Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_SN;
+            $sort   = 'Sn';
             $result = $server->search($filter);
             $this->assertEquals(2, count($result));
 
@@ -415,214 +430,6 @@ class Horde_Kolab_Server_Server_MockTest extends Horde_Kolab_Server_Scenario
             $groups = $server->getGroups('nobody');
             $this->assertTrue(empty($groups));
         }
-    }
-
-    /**
-     * Test parsing of LDAP filters.
-     *
-     * @return NULL
-     */
-    public function testFilterParse()
-    {
-        $db = $this->getKolabMockServer();
-
-        $a = $db->parse('(a=b)');
-        $this->assertEquals(array('att' => 'a', 'log' => '=', 'val' => 'b'),
-                            $a);
-
-        $a = $db->parse('(&(a=b)(c=d))');
-        $this->assertEquals(array('op' => '&', 'sub' => array(
-                                      array('att' => 'a', 'log' => '=', 'val' => 'b'),
-                                      array('att' => 'c', 'log' => '=', 'val' => 'd'),
-                                  )), $a);
-
-        $a = $db->parse('(&(a=1)(|(b=2)(c=3)))');
-        $this->assertEquals(array('op' => '&', 'sub' => array(
-                                      array('att' => 'a', 'log' => '=', 'val' => '1'),
-                                      array('op' => '|', 'sub' =>
-                                            array(
-                                                array('att' => 'b', 'log' => '=', 'val' => '2'),
-                                                array('att' => 'c', 'log' => '=', 'val' => '3'),
-                                            )))), $a);
-
-        $a = $db->parseSub('(!(x=2))(b=1)');
-        $this->assertEquals(array(array('op' => '!', 'sub' =>
-                                        array(
-                                            array('att' => 'x', 'log' => '=', 'val' => '2'),
-                                        )
-                                  ),
-                                  array('att' => 'b', 'log' => '=', 'val' => '1'),
-                            ), $a);
-
-        $a = $db->parse('(&(!(x=2))(b=1))');
-        $this->assertEquals(array('op' => '&', 'sub' => array(
-                                      array('op' => '!', 'sub' =>
-                                            array(
-                                                array('att' => 'x', 'log' => '=', 'val' => '2'),
-                                            )
-                                      ),
-                                      array('att' => 'b', 'log' => '=', 'val' => '1'),
-                                  )), $a);
-
-    }
-
-    /**
-     * Test searching in the simulated LDAP data.
-     *
-     * @return NULL
-     */
-    public function testSearch()
-    {
-        $injector = new Horde_Injector(new Horde_Injector_TopLevel());
-        $config = new stdClass;
-        $config->driver = 'test';
-        $config->params = array(
-            'data' =>
-            array(
-                'cn=a' => array(
-                    'dn' => 'cn=a',
-                    'data' => array(
-                        'a' => '1',
-                        'b' => '1',
-                        'c' => '1',
-                    )
-                ),
-                'cn=b' => array(
-                    'dn' => 'cn=b',
-                    'data' => array(
-                        'a' => '1',
-                        'b' => '2',
-                        'c' => '2',
-                    )
-                ),
-                'cn=c' => array(
-                    'dn' => 'cn=c',
-                    'data' => array(
-                        'a' => '1',
-                        'b' => '2',
-                        'c' => '3',
-                    )
-                ),
-                'cn=d' => array(
-                    'dn' => 'cn=d',
-                    'data' => array(
-                        'a' => '2',
-                        'b' => '2',
-                        'c' => '1',
-                    )
-                ),
-            )
-        );
-        $injector->setInstance('Horde_Kolab_Server_Config', $config);
-        $injector->bindFactory('Horde_Kolab_Server_Structure',
-                               'Horde_Kolab_Server_Factory',
-                               'getStructure');
-        $injector->bindFactory('Horde_Kolab_Server',
-                               'Horde_Kolab_Server_Factory',
-                               'getServer');
-        $db = $injector->getInstance('Horde_Kolab_Server');
-
-        $a = $db->search('(c=1)');
-        $this->assertEquals(
-            array(
-                'cn=a' => array(
-                    'a' => '1',
-                    'b' => '1',
-                    'c' => '1',
-                    'dn' => 'cn=a',
-                ),
-                'cn=d' => array(
-                    'a' => '2',
-                    'b' => '2',
-                    'c' => '1',
-                    'dn' => 'cn=d',
-                ),
-            ),
-            $a
-        );
-
-        $a = $db->search('(c=3)');
-        $this->assertEquals(
-            array(
-                'cn=c' => array(
-                    'a' => '1',
-                    'b' => '2',
-                    'c' => '3',
-                    'dn' => 'cn=c',
-                ),
-            ),
-            $a
-        );
-
-        $a = $db->search('(c=3)', array('attributes' => array('a')));
-        $this->assertEquals(
-            array(
-                'cn=c' => array(
-                    'a' => '1',
-                    'dn' => 'cn=c',
-                ),
-            ),
-            $a
-        );
-
-        $a = $db->search('(&(a=1)(b=2))', array('attributes' => array('a', 'b')));
-        $this->assertEquals(
-            array(
-                'cn=b' => array(
-                    'a' => '1',
-                    'b' => '2',
-                    'dn' => 'cn=b',
-                ),
-                'cn=c' => array(
-                    'a' => '1',
-                    'b' => '2',
-                    'dn' => 'cn=c',
-                ),
-            ),
-            $a
-        );
-
-        $a = $db->search('(&(b=2))', array('attributes' => array('b')));
-        $this->assertEquals(
-            array(
-                'cn=b' => array(
-                    'b' => '2',
-                    'dn' => 'cn=b',
-                ),
-                'cn=c' => array(
-                    'b' => '2',
-                    'dn' => 'cn=c',
-                ),
-                'cn=d' => array(
-                    'b' => '2',
-                    'dn' => 'cn=d',
-                ),
-            ),
-            $a
-        );
-
-        $a = $db->search('(!(b=2))', array('attributes' => array('a', 'b')));
-        $this->assertEquals(
-            array(
-                'cn=a' => array(
-                    'a' => '1',
-                    'b' => '1',
-                    'dn' => 'cn=a',
-                ),
-            ),
-            $a
-        );
-
-        $a = $db->search('(&(!(x=2))(b=1))', array('attributes' => array('b')));
-        $this->assertEquals(
-            array(
-                'cn=a' => array(
-                    'b' => '1',
-                    'dn' => 'cn=a',
-                ),
-            ),
-            $a
-        );
     }
 
 }

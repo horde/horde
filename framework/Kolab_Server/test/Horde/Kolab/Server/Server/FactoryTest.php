@@ -30,96 +30,198 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Server_FactoryTest extends Horde_Kolab_Server_Scenario
+class Horde_Kolab_Server_Server_FactoryTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->markTestIncomplete('Needs to be fixed');
+        $this->injector = new Horde_Injector(new Horde_Injector_TopLevel());
     }
 
     public function testMethodSetupHasPostconditionThatAObjectHandlerOfTypeBaseIsBoundToObjects()
     {
-        $injector = new Horde_Injector(new Horde_Injector_TopLevel());
-        Horde_Kolab_Server_Factory::setup(array(), $injector);
+        Horde_Kolab_Server_Factory::setup($this->injector, array());
         $this->assertType(
             'Horde_Kolab_Server_Objects_Base',
-            $injector->getInstance('Horde_Kolab_Server_Objects')
+            $this->injector->getInstance('Horde_Kolab_Server_Objects')
         );
     }
 
     public function testMethodSetupHasPostconditionThatASchemaHandlerOfTypeBaseIsBoundToSchema()
     {
-        $injector = new Horde_Injector(new Horde_Injector_TopLevel());
-        Horde_Kolab_Server_Factory::setup(array(), $injector);
+        Horde_Kolab_Server_Factory::setup($this->injector, array());
         $this->assertType(
             'Horde_Kolab_Server_Schema_Base',
-            $injector->getInstance('Horde_Kolab_Server_Schema')
+            $this->injector->getInstance('Horde_Kolab_Server_Schema')
         );
     }
 
     public function testMethodSetupHasPostconditionThatASearchHandlerOfTypeBaseIsBoundToSearch()
     {
-        $injector = new Horde_Injector(new Horde_Injector_TopLevel());
-        Horde_Kolab_Server_Factory::setup(array(), $injector);
+        Horde_Kolab_Server_Factory::setup($this->injector, array());
         $this->assertType(
             'Horde_Kolab_Server_Search_Base',
-            $injector->getInstance('Horde_Kolab_Server_Search')
+            $this->injector->getInstance('Horde_Kolab_Server_Search')
         );
     }
 
-    public function testMethodSetupHasPostconditionThatAStructureOfTypeBaseIsBoundToStructure()
+    public function testMethodSetupHasPostconditionThatAStructureOfTypeKolabIsBoundToStructure()
     {
-        $injector = new Horde_Injector(new Horde_Injector_TopLevel());
-        Horde_Kolab_Server_Factory::setup(array(), $injector);
+        Horde_Kolab_Server_Factory::setup($this->injector, array());
         $this->assertType(
             'Horde_Kolab_Server_Structure_Kolab',
-            $injector->getInstance('Horde_Kolab_Server_Structure')
+            $this->injector->getInstance('Horde_Kolab_Server_Structure')
         );
     }
 
     public function testMethodSetupHasPostconditionThatAStructureHandlerOfTypeLdapIsBoundToStructureIfConfiguredThatWay()
     {
-        $injector = new Horde_Injector(new Horde_Injector_TopLevel());
         Horde_Kolab_Server_Factory::setup(
-            array('structure' => array('driver' => 'ldap')),
-            $injector
+            $this->injector,
+            array('structure' => array('driver' => 'ldap'))
         );
         $this->assertType(
             'Horde_Kolab_Server_Structure_Ldap',
-            $injector->getInstance('Horde_Kolab_Server_Structure')
+            $this->injector->getInstance('Horde_Kolab_Server_Structure')
         );
     }
 
     public function testMethodSetupHasPostconditionThatAServerOfTypeLdapIsBoundToServer()
     {
-        $injector = new Horde_Injector(new Horde_Injector_TopLevel());
-        Horde_Kolab_Server_Factory::setup(array(), $injector);
+        Horde_Kolab_Server_Factory::setup($this->injector, array('basedn' => 'dc=example,dc=com'));
         $this->assertType(
-            'Horde_Kolab_Server_Ldap',
-            $injector->getInstance('Horde_Kolab_Server')
+            'Horde_Kolab_Server_Ldap_Standard',
+            $this->injector->getInstance('Horde_Kolab_Server')
         );
     }
 
-    public function testMethodSetupHasPostconditionThatAServerOfTypeLdapIsBoundToServerIfConfiguredThatWay()
+    public function testMethodSetupHasPostconditionThatAServerOfTypeFileIsBoundToServerIfConfiguredThatWay()
     {
-        $injector = new Horde_Injector(new Horde_Injector_TopLevel());
         Horde_Kolab_Server_Factory::setup(
-            array('driver' => 'file', 'params' => array('file' => '/tmp/nix')),
-            $injector
+            $this->injector,
+            array('driver' => 'file', 'params' => array('basedn' => '', 'file' => '/tmp/nix'))
         );
         $this->assertType(
-            'Horde_Kolab_Server_File',
-            $injector->getInstance('Horde_Kolab_Server')
+            'Horde_Kolab_Server_Ldap_Standard',
+            $this->injector->getInstance('Horde_Kolab_Server')
         );
+    }
+
+    public function testMethodSetupHasPostconditionThatAServerOfTypeFilteredLdapIsBoundToServerIfAFilterHasBeenProvided()
+    {
+        Horde_Kolab_Server_Factory::setup(
+            $this->injector,
+            array('basedn' => 'dc=example,dc=com', 'filter' => 'test')
+        );
+        $this->assertType(
+            'Horde_Kolab_Server_Ldap_Filtered',
+            $this->injector->getInstance('Horde_Kolab_Server')
+        );
+    }
+
+    public function testMethodSetupHasPostconditionThatAMappedServerIsBoundToServerIfAMapHasBeenProvided()
+    {
+        Horde_Kolab_Server_Factory::setup(
+            $this->injector,
+            array(
+                'basedn' => 'dc=example,dc=com',
+                'map' => array('a' => 'b'),
+            )
+        );
+        $this->assertType(
+            'Horde_Kolab_Server_Mapped',
+            $this->injector->getInstance('Horde_Kolab_Server')
+        );
+    }
+
+    public function testMethodSetupHasPostconditionThatALoggedServerIsBoundToServerIfALoggerHasBeenProvided()
+    {
+        Horde_Kolab_Server_Factory::setup(
+            $this->injector,
+            array(
+                'basedn' => 'dc=example,dc=com',
+                'logger' => $this->getMock('Horde_Log_Logger'),
+            )
+        );
+        $this->assertType(
+            'Horde_Kolab_Server_Logged',
+            $this->injector->getInstance('Horde_Kolab_Server')
+        );
+    }
+
+    public function testMethodGetserverHasPostconditionThatTheConnectionParametersGetRewrittenIfNecessary()
+    {
+        Horde_Kolab_Server_Factory::setup(
+            $this->injector,
+            array(
+                'server' => 'localhost',
+                'phpdn' => 'a',
+                'phppw' => 'a',
+                'basedn' => 'dc=example,dc=com'
+            )
+        );
+        $this->injector->getInstance('Horde_Kolab_Server');
+        /**@todo: Actually not testable as we can't read the configuration again */
+    }
+
+    public function testMethodGetserverHasPostconditionThatTheConnectionIsSplittedIfRequired()
+    {
+        Horde_Kolab_Server_Factory::setup(
+            $this->injector,
+            array(
+                'host' => 'localhost',
+                'host_master' => 'writehost',
+                'basedn' => 'dc=example,dc=com'
+            )
+        );
+        $this->injector->getInstance('Horde_Kolab_Server');
+        /**@todo: Actually not testable as we can't read the configuration again */
+    }
+
+    public function testMethodGetserverThrowsExceptionIfTheBasednIsMissing()
+    {
+        try {
+            Horde_Kolab_Server_Factory::setup(
+                $this->injector,
+                array('dummy')
+            );
+            $this->injector->getInstance('Horde_Kolab_Server');
+            $this->fail('No exception!');
+        } catch (Horde_Kolab_Server_Exception $e) {
+            $this->assertEquals(
+                'The base DN is missing', $e->getMessage()
+            );
+        }
+    }
+
+    public function testMethodGetserverThrowsExceptionIfTheDriverIsUnknown()
+    {
+        try {
+            Horde_Kolab_Server_Factory::setup(
+                $this->injector,
+                array('driver' => 'unknown')
+            );
+            $this->injector->getInstance('Horde_Kolab_Server');
+            $this->fail('No exception!');
+        } catch (Horde_Kolab_Server_Exception $e) {
+            $this->assertEquals(
+                'Invalid server configuration!', $e->getMessage()
+            );
+        }
     }
 
     public function testMethodSingletonReturnsTheSameInstanceWithTheSameParameters()
     {
-        Horde_Kolab_Server_Factory::singleton();
+        $result1 = Horde_Kolab_Server_Factory::singleton(array('basedn' => 'dc=example,dc=com'));
+        $result2 = Horde_Kolab_Server_Factory::singleton(array('basedn' => 'dc=example,dc=com'));
+        $this->assertSame($result1, $result2);
     }
 
     public function testMethodSingletonReturnsDifferentInstancesWithDifferentParameters()
     {
-        Horde_Kolab_Server_Factory::singleton();
+        global $conf;
+        $conf['kolab']['ldap']['basedn'] = 'test';
+        $result1 = Horde_Kolab_Server_Factory::singleton(array('basedn' => 'dc=example,dc=com'));
+        $result2 = Horde_Kolab_Server_Factory::singleton();
+        $this->assertTrue($result1 !== $result2);
     }
 }

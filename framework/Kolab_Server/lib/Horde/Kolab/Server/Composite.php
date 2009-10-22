@@ -98,12 +98,11 @@ class Horde_Kolab_Server_Composite
      *
      * @throws Horde_Kolab_Server_Exception If the connection failed.
      */
-    protected function _connect($user = null, $pass = null)
+    public function connect($user = null, $pass = null)
     {
         /** Bind anonymously first. */
-        $this->connectUid();
+        $this->server->connectGuid();
         $guid = $this->structure->getGuidForUser($user);
-        $this->connectUid($guid, $pass);
-        return $this->structure->getUserForUser($user);
+        $this->server->connectGuid($guid, $pass);
     }
 }

@@ -29,20 +29,23 @@
 class Horde_Kolab_Server_Objects_Base implements Horde_Kolab_Server_Objects
 {
     /**
-     * A link to the server handler.
+     * A link to the composite server handler.
      *
-     * @var Horde_Kolab_Server
+     * @var Horde_Kolab_Server_Composite
      */
-    protected $server;
+    protected $composite;
 
     /**
-     * Set the server reference for this object.
+     * Set the composite server reference for this object.
      *
-     * @param Horde_Kolab_Server &$server A link to the server handler.
+     * @param Horde_Kolab_Server_Composite $composite A link to the composite
+     *                                                server handler.
+     *
+     * @return NULL
      */
-    public function setServer($server)
+    public function setComposite(Horde_Kolab_Server_Composite $composite)
     {
-        $this->server = $server;
+        $this->composite = $composite;
     }
 
     /**
@@ -204,7 +207,7 @@ class Horde_Kolab_Server_Objects_Base implements Horde_Kolab_Server_Objects
         }
 
         if ($sort) {
-            /* FIXME */
+            /* @todo: sorting */
             /* $data = $result->as_sorted_struct(); */
             /*$this->sort($result, $sort); */
         }

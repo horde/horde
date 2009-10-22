@@ -404,7 +404,7 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
      * @throws Horde_Kolab_Server_Exception
      */
     static public function uidForSearch($server, $criteria,
-                                        $restrict = Horde_Kolab_Server_Object::RESULT_SINGLE)
+                                        $restrict = 0)
     {
         $users = array('field' => self::ATTRIBUTE_OC,
                        'op'    => '=',
@@ -429,7 +429,7 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
      * @throws Horde_Kolab_Server_Exception
      */
     static public function uidForId($server, $id,
-                                    $restrict = Horde_Kolab_Server_Object::RESULT_SINGLE)
+                                    $restrict = 0)
     {
         $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_SID,
                                                'op'    => '=',
@@ -451,7 +451,7 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
      * @throws Horde_Kolab_Server_Exception
      */
     static public function uidForMail($server, $mail,
-                                      $restrict = Horde_Kolab_Server_Object::RESULT_SINGLE)
+                                      $restrict = 0)
     {
         $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_MAIL,
                                                'op'    => '=',
@@ -498,7 +498,7 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
      * @throws Horde_Kolab_Server_Exception
      */
     static public function uidForAlias($server, $mail,
-                                       $restrict = Horde_Kolab_Server_Object::RESULT_SINGLE)
+                                       $restrict = 0)
     {
         $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_ALIAS,
                                                'op'    => '=',

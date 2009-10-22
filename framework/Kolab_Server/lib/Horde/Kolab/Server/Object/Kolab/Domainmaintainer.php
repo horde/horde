@@ -84,7 +84,7 @@ class Horde_Kolab_Server_Object_Kolab_Domainmaintainer extends Horde_Kolab_Serve
             $domain_uid = sprintf('cn=%s,cn=domain,cn=internal,%s',
                                   $domain, $this->server->getBaseUid());
 
-            //FIXME: This should be made easier by the group object
+            //@todo: This should be made easier by the group object
 
             $domain_group = $this->server->fetch($domain_uid, 'Horde_Kolab_Server_Object_Kolabgroupofnames');
             if ($domain_group instanceOf PEAR_Error) {

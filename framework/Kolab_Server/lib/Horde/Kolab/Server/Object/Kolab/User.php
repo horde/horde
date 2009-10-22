@@ -131,7 +131,7 @@ class Horde_Kolab_Server_Object_Kolab_User extends Horde_Kolab_Server_Object_Kol
     /**
      * Get the "first name" attribute of this object
      *
-     * FIXME: This should get refactored to be combined with the Id value.
+     * @todo: This should get refactored to be combined with the Id value.
      *
      * @return string the "first name" of this object
      */

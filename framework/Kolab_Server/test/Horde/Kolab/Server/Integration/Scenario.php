@@ -12,6 +12,11 @@
  */
 
 /**
+ * Require our basic test case definition
+ */
+require_once dirname(__FILE__) . '/../Autoload.php';
+
+/**
  * Base for PHPUnit scenarios.
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
@@ -25,7 +30,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Share
  */
-class Horde_Kolab_Server_Scenario extends PHPUnit_Extensions_Story_TestCase
+class Horde_Kolab_Server_Integration_Scenario extends PHPUnit_Extensions_Story_TestCase
 {
     /** The mock environment */
     const ENVIRONMENT_MOCK = 'mock';
@@ -573,7 +578,7 @@ class Horde_Kolab_Server_Scenario extends PHPUnit_Extensions_Story_TestCase
     {
         return array('type' => 'Horde_Kolab_Server_Object_Kolab_Address',
                      Horde_Kolab_Server_Object_Kolab_Administrator::ATTRIBUTE_GIVENNAME    => 'Test',
-                     Horde_Kolab_Server_Object_Kolab_Administrator::ATTRIBUTE_SN           => 'Address',
+                     'Sn'           => 'Address',
                      Horde_Kolab_Server_Object_Kolab_Administrator::ATTRIBUTE_MAIL         => 'address@example.org',
         );
     }
@@ -587,9 +592,9 @@ class Horde_Kolab_Server_Scenario extends PHPUnit_Extensions_Story_TestCase
     {
         return array('type' => 'Horde_Kolab_Server_Object_Kolab_Administrator',
                      Horde_Kolab_Server_Object_Kolab_Administrator::ATTRIBUTE_GIVENNAME    => 'The',
-                     Horde_Kolab_Server_Object_Kolab_Administrator::ATTRIBUTE_SN           => 'Administrator',
+                     'Sn'           => 'Administrator',
                      Horde_Kolab_Server_Object_Kolab_Administrator::ATTRIBUTE_SID          => 'admin',
-                     Horde_Kolab_Server_Object_Kolab_Administrator::ATTRIBUTE_USERPASSWORD => 'none',
+                     'Userpassword' => 'none',
         );
     }
 
@@ -602,9 +607,9 @@ class Horde_Kolab_Server_Scenario extends PHPUnit_Extensions_Story_TestCase
     {
         return array('type' => 'Horde_Kolab_Server_Object_Kolab_Maintainer',
                      Horde_Kolab_Server_Object_Kolab_Maintainer::ATTRIBUTE_GIVENNAME    => 'Main',
-                     Horde_Kolab_Server_Object_Kolab_Maintainer::ATTRIBUTE_SN           => 'Tainer',
+                     'Sn'           => 'Tainer',
                      Horde_Kolab_Server_Object_Kolab_Maintainer::ATTRIBUTE_SID          => 'maintainer',
-                     Horde_Kolab_Server_Object_Kolab_Maintainer::ATTRIBUTE_USERPASSWORD => 'none',
+                     'Userpassword' => 'none',
         );
     }
 
@@ -617,9 +622,9 @@ class Horde_Kolab_Server_Scenario extends PHPUnit_Extensions_Story_TestCase
     {
         return array('type' => 'Horde_Kolab_Server_Object_Kolab_Domainmaintainer',
                      Horde_Kolab_Server_Object_Kolab_Domainmaintainer::ATTRIBUTE_GIVENNAME    => 'Domain',
-                     Horde_Kolab_Server_Object_Kolab_Domainmaintainer::ATTRIBUTE_SN           => 'Maintainer',
+                     'Sn'           => 'Maintainer',
                      Horde_Kolab_Server_Object_Kolab_Domainmaintainer::ATTRIBUTE_SID          => 'domainmaintainer',
-                     Horde_Kolab_Server_Object_Kolab_Domainmaintainer::ATTRIBUTE_USERPASSWORD => 'none',
+                     'Userpassword' => 'none',
                      Horde_Kolab_Server_Object_Kolab_Domainmaintainer::ATTRIBUTE_DOMAIN       => array('example.com'),
 
         );
@@ -775,7 +780,7 @@ class Horde_Kolab_Server_Scenario extends PHPUnit_Extensions_Story_TestCase
         );
     }
 
-    /** FIXME: Prefix the stuff below with provide...() */
+    /** @todo: Prefix the stuff below with provide...() */
 
     public function validUsers()
     {

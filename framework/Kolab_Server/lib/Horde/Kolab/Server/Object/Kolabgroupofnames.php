@@ -180,7 +180,7 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
      * @throws Horde_Kolab_Server_Exception
      */
     static public function gidForMail($server, $mail,
-                                      $restrict = Horde_Kolab_Server_Object::RESULT_SINGLE)
+                                      $restrict = 0)
     {
         $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_MAIL,
                                                'op'    => '=',

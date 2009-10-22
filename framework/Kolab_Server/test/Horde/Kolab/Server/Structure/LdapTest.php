@@ -34,8 +34,6 @@ class Horde_Kolab_Server_Structure_LdapTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->markTestIncomplete('Needs to be fixed');
-
         $server = $this->getMock('Horde_Kolab_Server');
         $this->composite = new Horde_Kolab_Server_Composite(
             $server,
@@ -66,7 +64,7 @@ class Horde_Kolab_Server_Structure_LdapTest extends PHPUnit_Framework_TestCase
             ->method('read')
             ->with('guid')
             ->will($this->returnValue(array('objectClass' => array('TOP'))));
-        $this->assertEquals('Horde_Kolab_Server_Object', $this->composite->structure->determineType('guid'));
+        $this->assertEquals('Horde_Kolab_Server_Object_Top', $this->composite->structure->determineType('guid'));
     }
 
     public function testMethodDeterminetypeHasResultStringTheObjectclassOfTheGivenGuid2()

@@ -153,8 +153,10 @@ class Horde_Kolab_Server_Mapped implements Horde_Kolab_Server
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    public function find(array $criteria, array $params = array())
-    {
+    public function find(
+        Horde_Kolab_Server_Query_Element $criteria,
+        array $params = array()
+    ) {
         $criteria = new Horde_Kolab_Server_Query_Element_Mapped($criteria, $this);
         $data = $this->_server->find($criteria, $params);
         $this->unmapAttributes($data);
@@ -172,8 +174,11 @@ class Horde_Kolab_Server_Mapped implements Horde_Kolab_Server
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    public function findBelow(array $criteria, $parent, array $params = array())
-    {
+    public function findBelow(
+        Horde_Kolab_Server_Query_Element $criteria,
+        $parent,
+        array $params = array()
+    ) {
         $criteria = new Horde_Kolab_Server_Query_Element_Mapped($criteria, $this);
         $data = $this->_server->findBelow($criteria, $parent, $params);
         $this->unmapAttributes($data);
@@ -191,10 +196,12 @@ class Horde_Kolab_Server_Mapped implements Horde_Kolab_Server
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    public function save($guid, array $data)
+    public function save(Horde_Kolab_Server_Object $object, array $data)
     {
+        //@todo: This will not work this way as we need to map internal
+        // attributes.
         $this->mapAttributes($data);
-        $this->_server->save($guid, $data);
+        $this->_server->save($object, $data);
     }
 
     /**
@@ -207,10 +214,12 @@ class Horde_Kolab_Server_Mapped implements Horde_Kolab_Server
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    public function add($guid, array $data)
+    public function add(Horde_Kolab_Server_Object $object, array $data)
     {
+        //@todo: This will not work this way as we need to map internal
+        // attributes.
         $this->mapAttributes($data);
-        $this->_server->add($guid, $data);
+        $this->_server->add($object, $data);
     }
 
     /**
@@ -325,5 +334,17 @@ class Horde_Kolab_Server_Mapped implements Horde_Kolab_Server
             return $this->mapping[$field];
         }
         return $field;
+    }
+
+    /**
+     * Get the parent GUID of this object.
+     *
+     * @param string $guid The GUID of the child.
+     *
+     * @return string the parent GUID of this object.
+     */
+    public function getParentGuid($guid)
+    {
+        return $this->_server->getParentGuid($guid);
     }
 }

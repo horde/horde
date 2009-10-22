@@ -27,7 +27,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_Top
+abstract class Horde_Kolab_Server_Object_Top
 extends Horde_Kolab_Server_Object_Base
 implements Horde_Kolab_Server_Object_Searches
 {
@@ -70,30 +70,6 @@ implements Horde_Kolab_Server_Object_Searches
             Horde_Kolab_Server_Object_Attribute_Objectclass::NAME,
             self::OBJECTCLASS_TOP
         );
-    }
-
-    /**
-     * Generates an ID for the given information.
-     *
-     * @param array &$info The data of the object.
-     *
-     * @return string The ID.
-     */
-    public function generateId(array &$info)
-    {
-        if ($this->exists() && empty($info['Id'])) {
-            return false;
-        }
-
-        if (!empty($info['Id'])) {
-            if (is_array($info['Id'])) {
-                $id = $info['Id'][0];
-            } else {
-                $id = $info['Id'];
-            }
-            return $this->_composite->server->quoteForGuid($id);
-        }
-        return $this->composite->server->quoteForGuid(hash('sha256', uniqid(mt_rand(), true)));
     }
 
     /**

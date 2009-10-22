@@ -25,7 +25,8 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Ldap_Mock extends Horde_Kolab_Server_Ldap_Standard
+class Horde_Kolab_Server_Connection_Mock
+implements Horde_Kolab_Server_Connection
 {
 
     /**
@@ -33,7 +34,7 @@ class Horde_Kolab_Server_Ldap_Mock extends Horde_Kolab_Server_Ldap_Standard
      *
      * @var array
      */
-    protected $data;
+    protected $data = array();
 
     /**
      * Indicates if we are bound.
@@ -91,17 +92,10 @@ class Horde_Kolab_Server_Ldap_Mock extends Horde_Kolab_Server_Ldap_Standard
      *
      * @return NULL
      */
-    public function setParams(array $params)
+    public function __construct(array $params)
     {
-        //@todo Load when connecting
-        //$this->load();
-
         if (isset($params['data'])) {
             $this->data = $params['data'];
-        } else {
-            if (!isset($this->data)) {
-               $this->data  = array();
-            }
         }
 
         if (isset($this->params['admin'])
@@ -114,65 +108,26 @@ class Horde_Kolab_Server_Ldap_Mock extends Horde_Kolab_Server_Ldap_Standard
                 $admin->save();
             }
         }
-
-        //@todo Load when connecting
-        //$this->store();
-
-        parent::setParams($params);
     }
 
     /**
-     * Connect to the LDAP server.
+     * Get the server read connection.
      *
-     * @param string $uid  The unique id of the user.
-     * @param string $pass The password.
-     *
-     * @return NULL.
-     *
-     * @throws Horde_Kolab_Server_Exception If the connection failed.
+     * @return mixed The connection for reading data.
      */
-    protected function _connectUid($uid = null, $pass = null)
+    public function getRead()
     {
-        //@todo
+        return $this;
     }
 
     /**
-     * Load the current state of the database.
+     * Get the server write connection.
      *
-     * @return NULL
+     * @return mixed The connection for writing data.
      */
-    protected function load()
+    public function getWrite()
     {
-        //@todo: remove the global
-        if (isset($GLOBALS['KOLAB_SERVER_TEST_DATA'])) {
-            $this->data = $GLOBALS['KOLAB_SERVER_TEST_DATA'];
-        } else {
-            $this->data = array();
-        }
-    }
-
-    /**
-     * Store the current state of the database.
-     *
-     * @return NULL
-     */
-    protected function store()
-    {
-        $GLOBALS['KOLAB_SERVER_TEST_DATA'] = $this->data;
-    }
-
-    /**
-     * Cleans the current state of the database.
-     *
-     * @return NULL
-     */
-    public function clean()
-    {
-        $this->unbind();
-
-        $GLOBALS['KOLAB_SERVER_TEST_DATA'] = array();
-
-        $this->data = array();
+        return $this;
     }
 
     /**
@@ -188,8 +143,12 @@ class Horde_Kolab_Server_Ldap_Mock extends Horde_Kolab_Server_Ldap_Standard
      *                                      password or anonymous binding is not
      *                                      allowed.
      */
-    protected function bind($dn = false, $pw = '')
+    public function bind($dn = '', $pw = '')
     {
+        if ($this->bound && empty($dn) && empty($pw)) {
+            return true;
+        }
+
         if (!$dn) {
             if (isset($this->params['uid'])) {
                 $dn = $this->params['uid'];
@@ -230,17 +189,106 @@ class Horde_Kolab_Server_Ldap_Mock extends Horde_Kolab_Server_Ldap_Standard
         } else {
             $this->bound = true;
         }
+
+        if ($this->bound) {
+            $this->load();
+        }
+
         return $this->bound;
     }
 
     /**
-     * Disconnect from LDAP.
-     *
-     * @return NULL
-     */
-    public function unbind()
+    * Get a specific entry based on the DN
+    *
+    * @param string $dn   DN of the entry that should be fetched
+    * @param array  $attr Array of Attributes to select. If ommitted, all attributes are fetched.
+    *
+    * @return Net_LDAP2_Entry|Net_LDAP2_Error    Reference to a Net_LDAP2_Entry object or Net_LDAP2_Error object
+    * @todo Maybe check against the shema should be done to be sure the attribute type exists
+    */
+    public function getEntry($dn, $attr = array())
     {
-        $this->bound = false;
+        if (!is_array($attr)) {
+            $attr = array($attr);
+        }
+        $result = $this->search($dn, '(objectClass=*)',
+                                array('scope' => 'base', 'attributes' => $attr));
+        if ($result->count() == 0) {
+            throw new Horde_Kolab_Server_Exception('Could not fetch entry '.$dn.': no entry found');
+        }
+        $entry = $result->shiftEntry();
+        if (false == $entry) {
+            throw new Horde_Kolab_Server_Exception('Could not fetch entry (error retrieving entry from search result)');
+        }
+        return $entry;
+    }
+
+    /**
+     * Search for object data.
+     *
+     * @param string $base   The search base
+     * @param string $filter The LDAP search filter.
+     * @param string $params Additional search parameters.
+     *
+     * @return array The result array.
+     *
+     * @throws Horde_Kolab_Server_Exception If the search operation encountered
+     *                                      a problem.
+     */
+    public function search($base = null, $filter = null, $params = array())
+    {
+        $this->bind();
+
+        $filter = $this->parse($filter);
+        if (isset($params['attributes'])) {
+            $attributes = $params['attributes'];
+            if (!is_array($attributes)) {
+                $attributes = array($attributes);
+            }
+        } else {
+            $attributes = array();
+        }
+
+        $result = $this->doSearch($filter, $attributes);
+
+        if (empty($result)) {
+            $search = new Horde_Kolab_Server_Connection_Mock_Search(array());
+            return $search;
+        }
+
+        if (!empty($base)) {
+            $subtree = array();
+            foreach ($result as $entry) {
+                if (strpos($entry['dn'], $base)) {
+                    $subtree[] = $entry;
+                }
+            }
+            $result = $subtree;
+        }
+
+        $search = new Horde_Kolab_Server_Connection_Mock_Search($this->getEntries($result));
+        return $search;
+    }
+
+    /**
+     * Return the entries of a result.
+     *
+     * @param array $result The LDAP search result.
+     *
+     * @return mixed The entries of the result or false.
+     */
+    public function getEntries($result)
+    {
+        if (is_array($result)) {
+            $data = array();
+            foreach ($result as $entry) {
+                $t       = $entry['data'];
+                $t['dn'] = $entry['dn'];
+                $data[$entry['dn']]  = $t;
+            }
+            return $data;
+        }
+        return false;
     }
 
     /**
@@ -323,53 +371,6 @@ class Horde_Kolab_Server_Ldap_Mock extends Horde_Kolab_Server_Ldap_Standard
     }
 
     /**
-     * Search for object data.
-     *
-     * @param string $filter The LDAP search filter.
-     * @param string $params Additional search parameters.
-     * @param string $base   The search base
-     *
-     * @return array The result array.
-     *
-     * @throws Horde_Kolab_Server_Exception If the search operation encountered
-     *                                      a problem.
-     */
-    public function search($filter = null, $params = array(), $base = null)
-    {
-        if (!$this->bound) {
-            $result = $this->bind();
-        }
-
-        $filter = $this->parse($filter);
-        if (isset($params['attributes'])) {
-            $attributes = $params['attributes'];
-            if (!is_array($attributes)) {
-                $attributes = array($attributes);
-            }
-            $this->mapKeys($attributes);
-        } else {
-            $attributes = array();
-        }
-        $result = $this->doSearch($filter, $attributes);
-        if (empty($result)) {
-            return array();
-        }
-        if ($base) {
-            $subtree = array();
-            foreach ($result as $entry) {
-                if (strpos($entry['dn'], $base)) {
-                    $subtree[] = $entry;
-                }
-            }
-            $result = $subtree;
-        }
-
-        $this->unmapAttributes($result);
-
-        return $this->getEntries($result);
-    }
-
-    /**
      * Perform the search.
      *
      * @param array $filter     Filter criteria-
@@ -381,7 +382,7 @@ class Horde_Kolab_Server_Ldap_Mock extends Horde_Kolab_Server_Ldap_Standard
      * @throws Horde_Kolab_Server_Exception If the search operation is not
      *                                      available.
      */
-    protected function doSearch($filter, $attributes = null)
+    public function doSearch($filter, $attributes = null)
     {
         if (isset($filter['log'])) {
             $result = array();
@@ -483,153 +484,95 @@ class Horde_Kolab_Server_Ldap_Mock extends Horde_Kolab_Server_Ldap_Standard
     }
 
     /**
-     * Read object data.
-     *
-     * @param string $dn    The object to retrieve.
-     * @param string $attrs Restrict to these attributes
-     *
-     * @return array An array of attributes.
-     *
-     * @throws Horde_Kolab_Server_Exception If the object does not exist.
-     */
-    public function read($uid, array $attrs = array())
+    * Add a new entryobject to a directory.
+    *
+    * @param Net_LDAP2_Entry $entry Net_LDAP2_Entry
+    *
+    * @return Net_LDAP2_Error|true Net_LDAP2_Error object or true
+    */
+    public function add($entry)
     {
-        if (!$this->bound) {
-            $result = $this->bind();
-        }
+        $this->bind();
 
-        if (!isset($this->data[$dn])) {
-            throw new Horde_Kolab_Server_MissingObjectException(sprintf("No such object: %s",
-                                                                        $dn));
-        }
-        if (empty($attrs)) {
-            $data = $this->data[$dn]['data'];
-            $this->unmapAttributes($data);
-            return $data;
-        } else {
-            $this->mapKeys($attrs);
+        $ldap_data = $this->toStorage($entry->getValues());
 
-            $result = array();
-            $data   = $this->data[$dn]['data'];
+        $guid = $entry->getDn();
 
-            foreach ($attrs as $attr) {
-                if (isset($data[$attr])) {
-                    $result[$attr] = $data[$attr];
-                }
-            }
+        $this->data[$guid] = array(
+            'dn' => $guid,
+            'data' => array_merge($ldap_data,
+                                  array('dn' => $guid)),
+        );
 
-            $this->unmapAttributes($result);
-
-            return $result;
-        }
+        $this->store();
     }
 
     /**
-     * Save an object.
-     *
-     * @param string  $uid     The UID of the object to be added.
-     * @param array   $data    The attributes of the object to be added/replaced.
-     * @param boolean $exists  Does the object already exist on the server?
-     *
-     * @return NULL
-     */
-    public function save($uid, array $data, $exists = false)
+    * Modify an ldapentry directly on the server
+    *
+    * @param string|Net_LDAP2_Entry &$entry DN-string or Net_LDAP2_Entry
+    * @param array                 $parms  Array of changes
+    *
+    * @access public
+    * @return Net_LDAP2_Error|true Net_LDAP2_Error object or true
+    */
+    public function modify($entry, $data = array())
     {
-        if (!$this->bound) {
-            $result = $this->bind();
+        $this->bind();
+
+        $guid = $entry->getDn();
+
+        if (isset($data['delete'])) {
+            foreach ($data['delete'] as $k => $v) {
+                if (is_int($k)) {
+                    if (isset($this->data[$guid]['data'][$w])) {
+                        /** Delete a complete attribute */
+                        unset($this->data[$guid]['data'][$w]);
+                    }
+                } else {
+                    if (isset($this->data[$guid]['data'][$l])) {
+                        if (!is_array($v)) {
+                            $v = array($v);
+                        }
+                        foreach ($v as $w) {
+                            $key = array_search($w, $this->data[$guid]['data'][$l]);
+                            if ($key !== false) {
+                                /** Delete a single value */
+                                unset($this->data[$guid]['data'][$l][$key]);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
-        if ($exists === false) {
+        if (isset($data['replace'])) {
+            $ldap_data = $this->toStorage($data['replace']);
 
-            $ldap_data = $this->_toStorage($data['add']);
-
-            $this->data[$uid] = array(
-                'dn' => $uid,
-                'data' => array_merge($ldap_data,
-                                      array('dn' => $uid)),
+            $this->data[$guid] = array(
+                'dn' => $guid,
+                'data' => array_merge($this->data[$guid]['data'],
+                                      $ldap_data,
+                                      array('dn' => $guid)),
             );
-        } else {
+        }
 
-            if (isset($data['delete'])) {
-                foreach ($data['delete'] as $k => $v) {
-                    if (is_int($k)) {
-                        $w = $this->mapField($v);
-                        if (isset($this->data[$uid]['data'][$w])) {
-                            /** Delete a complete attribute */
-                            unset($this->data[$uid]['data'][$w]);
-                        }
-                    } else {
-                        $l = $this->mapField($k);
-                        if (isset($this->data[$uid]['data'][$l])) {
-                            if (!is_array($v)) {
-                                $v = array($v);
-                            }
-                            foreach ($v as $w) {
-                                $key = array_search($w, $this->data[$uid]['data'][$l]);
-                                if ($key !== false) {
-                                    /** Delete a single value */
-                                    unset($this->data[$uid]['data'][$l][$key]);
-                                }
-                            }
-                        }
+        if (isset($data['add'])) {
+            $ldap_data = $this->toStorage($data['add']);
+
+            foreach ($ldap_data as $k => $v) {
+                if (is_array($v)) {
+                    foreach ($v as $w) {
+                        $this->data[$guid]['data'][$k][] = $w;
                     }
+                } else {
+                    $this->data[$guid]['data'][$k][] = $v;
                 }
-            }
-
-            if (isset($data['replace'])) {
-                $ldap_data = $this->_toStorage($data['replace']);
-
-                $this->data[$uid] = array(
-                    'dn' => $uid,
-                    'data' => array_merge($this->data[$uid]['data'],
-                                          $ldap_data,
-                                          array('dn' => $uid)),
-                );
-            }
-
-            if (isset($data['add'])) {
-                $ldap_data = $this->_toStorage($data['add']);
-
-                foreach ($ldap_data as $k => $v) {
-                    if (is_array($v)) {
-                        foreach ($v as $w) {
-                            $this->data[$uid]['data'][$k][] = $w;
-                        }
-                    } else {
-                        $this->data[$uid]['data'][$k][] = $v;
-                    }
-                    $this->data[$uid]['data'][$k] = array_values($this->data[$uid]['data'][$k]);
-                }
+                $this->data[$guid]['data'][$k] = array_values($this->data[$guid]['data'][$k]);
             }
         }
 
         $this->store();
-
-        if (isset($this->logger)) {
-            $this->logger->debug(sprintf('The object \"%s\" has been successfully saved!',
-                                         $uid));
-        }
-    }
-
-    /**
-     * Rewrite a data array to our internal storage format.
-     *
-     * @param array   $data    The attributes of the object to be added/replaced.
-     *
-     * @return array  The transformed data set.
-     */
-    private function _toStorage($data)
-    {
-        $this->mapAttributes($data);
-
-        $ldap_data = array();
-        foreach ($data as $key => $val) {
-            if (!is_array($val)) {
-                $val = array($val);
-            }
-            $ldap_data[$key] = $val;
-        }
-        return $ldap_data;
     }
 
     /**
@@ -649,11 +592,8 @@ class Horde_Kolab_Server_Ldap_Mock extends Horde_Kolab_Server_Ldap_Standard
             throw new Horde_Kolab_Server_MissingObjectException(sprintf("No such object: %s",
                                                                         $uid));
         }
+
         $this->store();
-        if (isset($this->logger)) {
-            $this->logger->debug(sprintf('The object \"%s\" has been successfully deleted!',
-                                         $uid));
-        }
     }
 
     /**
@@ -666,212 +606,88 @@ class Horde_Kolab_Server_Ldap_Mock extends Horde_Kolab_Server_Ldap_Standard
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    public function rename($uid, $new)
+    public function move($uid, $new)
     {
         if (isset($this->data[$uid])) {
             $this->data[$new] = $this->data[$uid];
             unset($this->data[$uid]);
         }
+
         $this->store();
-        if (isset($this->logger)) {
-            $this->logger->debug(sprintf('The object \"%s\" has been successfully renamed to \"%s\"!',
-                                         $uid, $new));
+    }
+
+    public function schema()
+    {
+        //@todo: implement
+    }
+
+    /**
+     * Cleans the current state of the database.
+     *
+     * @return NULL
+     */
+    public function clean()
+    {
+        $this->unbind();
+
+        $GLOBALS['KOLAB_SERVER_TEST_DATA'] = array();
+
+        $this->data = array();
+    }
+
+    /**
+     * Disconnect from LDAP.
+     *
+     * @return NULL
+     */
+    public function unbind()
+    {
+        $this->bound = false;
+    }
+
+    /**
+     * Load the current state of the database.
+     *
+     * @return NULL
+     */
+    protected function load()
+    {
+        /**
+         * @todo: remove as it does not make much sense. The file based handler
+         * can do the same thing as a decorator.
+         */
+        if (isset($GLOBALS['KOLAB_SERVER_TEST_DATA'])) {
+            $this->data = $GLOBALS['KOLAB_SERVER_TEST_DATA'];
         }
     }
 
     /**
-     * Return the schema for the given objectClass.
+     * Store the current state of the database.
      *
-     * @param string $objectclass Fetch the schema for this objectClass.
-     *
-     * @return array The schema for the given objectClass.
-     *
-     * @throws Horde_Kolab_Server_Exception If retrieval of the schema failed.
+     * @return NULL
      */
-    public function getObjectclassSchema($objectclass)
+    protected function store()
     {
-        return array();
+        $GLOBALS['KOLAB_SERVER_TEST_DATA'] = $this->data;
     }
 
-    /**
-     * Return the schema for the given attribute.
-     *
-     * @param string $attribute Fetch the schema for this attribute.
-     *
-     * @return array The schema for the given attribute.
-     *
-     * @throws Horde_Kolab_Server_Exception If retrieval of the schema failed.
-     */
-    public function getAttributeSchema($attribute)
-    {
-        return array();
-    }
 
     /**
-     * Return the current entry of a result.
+     * Rewrite a data array to our internal storage format.
      *
-     * @return mixe  The current entry of the result or false.
+     * @param array   $data    The attributes of the object to be added/replaced.
+     *
+     * @return array  The transformed data set.
      */
-    protected function fetchEntry()
+    protected function toStorage($data)
     {
-        if (is_array($this->_current_result)
-            && $this->_current_index < count($this->_current_result)) {
-
-            $data = array_keys($this->_current_result[$this->_current_index]['data']);
-
-            $data['dn'] = array($this->_current_result[$this->_current_index]['dn']);
-
-            foreach ($this->_current_result[$this->_current_index]['data']
-                     as $attr => $value) {
-                if (!is_array($value)) {
-                    $value = array($value);
-                }
-                $data[$attr] = $value;
+        $ldap_data = array();
+        foreach ($data as $key => $val) {
+            if (!is_array($val)) {
+                $val = array($val);
             }
-            $this->_current_index++;
-            return $data;
+            $ldap_data[$key] = $val;
         }
-        return false;
+        return $ldap_data;
     }
-
-    /**
-     * Return the first entry of a result.
-     *
-     * @param array $result The LDAP search result.
-     *
-     * @return mixed The first entry of the result or false.
-     */
-    protected function firstEntry($result)
-    {
-        $this->_current_result = $result;
-        $this->_current_index  = 0;
-        return $this->fetchEntry();
-    }
-
-    /**
-     * Return the next entry of a result.
-     *
-     * @param resource $entry The current LDAP entry.
-     *
-     * @return resource The next entry of the result.
-     */
-    protected function nextEntry($entry)
-    {
-        return $this->fetchEntry();
-    }
-
-    /**
-     * Return the entries of a result.
-     *
-     * @param array $result The LDAP search result.
-     *
-     * @return mixed The entries of the result or false.
-     */
-    protected function getEntries($result)
-    {
-        if (is_array($result)) {
-            $data = array();
-            foreach ($result as $entry) {
-                $t       = $entry['data'];
-                $t['dn'] = $entry['dn'];
-                $data[$entry['dn']]  = $t;
-            }
-            return $data;
-        }
-        return false;
-    }
-
-    /**
-     * Sort the entries of a result.
-     *
-     * @param resource &$result   The LDAP search result.
-     * @param string   $attribute The attribute used for sorting.
-     *
-     * @return boolean  True if sorting succeeded.
-     */
-    public function sort(&$result, $attribute)
-    {
-        if (empty($result)) {
-            return $result;
-        }
-
-        $this->_sort_by = $attribute;
-        usort($result, array($this, 'resultSort'));
-        return false;
-    }
-
-    /**
-     * Sort two entries.
-     *
-     * @param array $a First entry.
-     * @param array $b Second entry.
-     *
-     * @return int  Comparison result.
-     */
-    protected function resultSort($a, $b)
-    {
-        $x = isset($a['data'][$this->_sort_by][0])?$a['data'][$this->_sort_by][0]:'';
-        $y = isset($b['data'][$this->_sort_by][0])?$b['data'][$this->_sort_by][0]:'';
-        return strcasecmp($x, $y);
-    }
-
-
-    /**
-     * Return the current LDAP error number.
-     *
-     * @return int  The current LDAP error number.
-     */
-    protected function errno()
-    {
-        return $this->_errno;
-    }
-
-    /**
-     * Return the current LDAP error description.
-     *
-     * @return string  The current LDAP error description.
-     */
-    protected function error()
-    {
-        return $this->_error;
-    }
-
-    /**
-     * Identify the DN of the first result entry.
-     *
-     * @todo Check if this could be reintegrated with the code in the LDAP handler
-     *       again.
-     *
-     * @param array $result   The LDAP search result.
-     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
-     *
-     * @return boolean|string|array The DN(s) or false if there was no result.
-     *
-     * @throws Horde_Kolab_Server_Exception If the number of results did not
-     *                                      meet the expectations.
-     */
-    protected function dnFromResult($result,
-                                    $restrict = Horde_Kolab_Server::RESULT_SINGLE)
-    {
-        if (empty($result)) {
-            return false;
-        }
-        $dns = array();
-        foreach ($result as $entry) {
-            $dns[] = $entry['dn'];
-        }
-
-        switch ($restrict) {
-        case self::RESULT_STRICT:
-            if (count($dns) > 1) {
-                throw new Horde_Kolab_Server_Exception(sprintf("Found %s results when expecting only one!",
-                                                               $count));
-            }
-        case self::RESULT_SINGLE:
-            return $dns[0];
-        case self::RESULT_MANY:
-            return $dns;
-        }
-    }
-
 }
