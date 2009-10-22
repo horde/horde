@@ -31,8 +31,8 @@ CREATE INDEX kronolith_uid_idx ON kronolith_events (event_uid);
 
 
 CREATE TABLE kronolith_storage (
-    vfb_owner      VARCHAR(255) DEFAULT NULL,
-    vfb_email      VARCHAR(255) DEFAULT '' NOT NULL,
+    vfb_owner      VARCHAR(255),
+    vfb_email      VARCHAR(255) NOT NULL,
     vfb_serialized VARCHAR(MAX) NOT NULL
 );
 
@@ -85,10 +85,12 @@ CREATE TABLE kronolith_resources (
     resource_name VARCHAR(255),
     resource_calendar VARCHAR(255),
     resource_description VARCHAR(MAX),
-    resource_category VARCHAR(255) DEFAULT '',
-    resource_response_type INT DEFAULT 0,
+    resource_response_type INT,
     resource_type VARCHAR(255) NOT NULL,
-    resource_members BLOB,
+    resource_members VARCHAR(MAX),
     
     PRIMARY KEY (resource_id)
 );
+
+CREATE INDEX kronolith_resources_type_idx ON kronolith_resources (resource_type);
+CREATE INDEX kronolith_resources_calendar_idx ON kronolith_resources (resource_calendar);
