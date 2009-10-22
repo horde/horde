@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Sort by display name for to/from fields if supported on IMAP server.
 [mms] Add ability to quickly filter by flags in DIMP.
 [mms] Add ability to select sent-mail mailbox when composing in DIMP.
 [mms] Add ability to save drafts in MIMP.

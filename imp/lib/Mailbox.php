@@ -340,7 +340,7 @@ class IMP_Mailbox
                     $query->flag('\\deleted', false);
                 }
                 try {
-                    $res = $GLOBALS['imp_imap']->ob()->search($this->_mailbox, $query, array('sort' => array($sortpref['by']), 'reverse' => (bool)$sortpref['dir']));
+                    $res = $GLOBALS['imp_search']->imapSearch($this->_mailbox, $query, array('sort' => array($sortpref['by']), 'reverse' => (bool)$sortpref['dir']));
                     $this->_sorted = $res['sort'];
                 } catch (Horde_Imap_Client_Exception $e) {
                     $this->_sorted = array();

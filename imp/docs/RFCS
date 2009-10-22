@@ -44,6 +44,8 @@ RFC 5267        ESORT
 RFC 5464        METADATA
 RFC 5550        Lemonade Profile (specifically [2.8] - $Forwarded flag)
 
+draft-ietf-morg-sortdisplay-02    SORT=DISPLAY
+
 
 POP3
 ====
