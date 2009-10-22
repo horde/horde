@@ -327,12 +327,9 @@ class IMP_Search
          * Although there is a fallback to a PHP-based display sort, for
          * performance reasons only do a display sort if it is supported
          * on the server. */
-        if (($_SESSION['imp']['protocol'] == 'imap') &&
-            isset($opts['sort']) &&
-            (in_array(Horde_Imap_Client::SORT_FROM, $opts['sort']) ||
-             in_array(Horde_Imap_Client::SORT_TO, $opts['sort']))) {
+        if (($_SESSION['imp']['protocol'] == 'imap') && isset($opts['sort'])) {
             $sort_cap = $GLOBALS['imp_imap']->ob()->queryCapability('SORT');
-            print_r($sort_cap);
+
             if (is_array($sort_cap) && in_array('DISPLAY', $sort_cap)) {
                 $pos = array_search(Horde_Imap_Client::SORT_FROM, $opts['sort']);
                 if ($pos !== false) {
