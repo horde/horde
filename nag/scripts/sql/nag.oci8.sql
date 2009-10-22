@@ -2,7 +2,7 @@ CREATE TABLE nag_tasks (
     task_id              VARCHAR2(32) NOT NULL,
     task_owner           VARCHAR2(255) NOT NULL,
     task_creator         VARCHAR2(255) NOT NULL,
-    task_parent          VARCHAR2(255) NOT NULL,
+    task_parent          VARCHAR2(255),
     task_assignee        VARCHAR2(255),
     task_name            VARCHAR2(255) NOT NULL,
     task_uid             VARCHAR2(255) NOT NULL,

@@ -1,9 +1,7 @@
 ALTER TABLE nag_tasks ADD task_estimate FLOAT;
 ALTER TABLE nag_tasks ADD task_completed_date NUMBER(16);
 ALTER TABLE nag_tasks ADD task_start NUMBER(16);
-ALTER TABLE nag_tasks ADD task_parent VARCHAR2(32) DEFAULT '';
-UPDATE nag_tasks SET task_parent = '';
-ALTER TABLE nag_tasks MODIFY (task_parent NOT NULL);
+ALTER TABLE nag_tasks ADD task_parent VARCHAR2(32);
 
 CREATE INDEX nag_start_idx ON nag_tasks (task_start);
 

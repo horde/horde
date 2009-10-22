@@ -154,7 +154,7 @@ class Nag_Driver_Sql extends Nag_Driver {
      * @param integer $alarm      The alarm associated with the task.
      * @param array $methods      The overridden alarm notification methods.
      * @param string $uid         A Unique Identifier for the task.
-     * @param string $parent      The parent task.
+     * @param string $parent      The parent task id.
      * @param boolean $private    Whether the task is private.
      * @param string $owner       The owner of the event.
      * @param string $assignee    The assignee of the event.
@@ -194,7 +194,7 @@ class Nag_Driver_Sql extends Nag_Driver {
                         (int)$alarm,
                         serialize(Horde_String::convertCharset($methods, Horde_Nls::getCharset(), $this->_params['charset'])),
                         (int)$private,
-                        Horde_String::convertCharset($parent, Horde_Nls::getCharset(), $this->_params['charset']));
+                        $parent);
 
         /* Log the query at a DEBUG log level. */
         Horde::logMessage(sprintf('Nag_Driver_Sql::_add(): %s', $query),
@@ -227,7 +227,7 @@ class Nag_Driver_Sql extends Nag_Driver {
      * @param integer $alarm           The alarm associated with the task.
      * @param array $methods           The overridden alarm notification
      *                                 methods.
-     * @param string $parent           The parent task.
+     * @param string $parent           The parent task id.
      * @param boolean $private         Whether the task is private.
      * @param string $owner            The owner of the event.
      * @param string $assignee         The assignee of the event.
@@ -270,7 +270,7 @@ class Nag_Driver_Sql extends Nag_Driver {
                         Horde_String::convertCharset($category, Horde_Nls::getCharset(), $this->_params['charset']),
                         (int)$alarm,
                         serialize(Horde_String::convertCharset($methods, Horde_Nls::getCharset(), $this->_params['charset'])),
-                        Horde_String::convertCharset($parent, Horde_Nls::getCharset(), $this->_params['charset']),
+                        $parent,
                         (int)$private,
                         $this->_tasklist,
                         $taskId);

@@ -1,1 +1,1 @@
-ALTER TABLE nag_tasks ADD task_parent VARCHAR(32) DEFAULT '' NOT NULL;
+ALTER TABLE nag_tasks ADD task_parent VARCHAR(32);

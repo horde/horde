@@ -218,8 +218,8 @@ class Nag_Driver
         }
 
         $taskId = $this->_add($name, $desc, $start, $due, $priority, $estimate,
-                              $completed, $category, $alarm, $methods, $uid, $parent,
-                              $private, $owner, $assignee);
+                              $completed, $category, $alarm, $methods, $uid,
+                              $parent, $private, $owner, $assignee);
         if (is_a($taskId, 'PEAR_Error')) {
             return $taskId;
         }
