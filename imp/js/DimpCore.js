@@ -308,7 +308,7 @@ var DimpCore = {
             if (o.raw) {
                 a = o.raw;
             } else {
-                a = new Element('A', { className: 'address', personal: o.personal, email: o.inner, address: (o.personal ? (o.personal + ' <' + o.inner + '>') : o.inner) });
+                a = new Element('A', { className: 'address' }).store({ personal: o.personal, email: o.inner, address: (o.personal ? (o.personal + ' <' + o.inner + '>') : o.inner) });
                 if (o.personal) {
                     a.writeAttribute({ title: o.inner }).insert(o.personal.escapeHTML());
                 } else {
@@ -431,11 +431,11 @@ var DimpCore = {
     {
         switch (elt.readAttribute('id')) {
         case 'ctx_contacts_new':
-            this.compose('new', { to: baseelt.readAttribute('address') });
+            this.compose('new', { to: baseelt.retrieve('address') });
             break;
 
         case 'ctx_contacts_add':
-            this.doAction('AddContact', { name: baseelt.readAttribute('personal'), email: baseelt.readAttribute('email') }, null, true);
+            this.doAction('AddContact', { name: baseelt.retrieve('personal'), email: baseelt.retrieve('email') }, null, true);
             break;
         }
     },
