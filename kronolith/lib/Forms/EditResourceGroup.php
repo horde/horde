@@ -32,7 +32,7 @@ class Kronolith_EditResourceGroupForm extends Horde_Form {
     {
         $this->_resource = &$resource;
         parent::Horde_Form($vars, sprintf(_("Edit %s"), $resource->get('name')));
-        $resources = Kronolith::getDriver('Resource')->listResources(PERMS_READ, array('type' => 'Single'));
+        $resources = Kronolith::getDriver('Resource')->listResources(PERMS_READ, array('type' => Kronolith_Resource::TYPE_SINGLE));
         $enum = array();
         foreach ($resources as $r) {
             $enum[$r->getId()] = htmlspecialchars($r->get('name'));
