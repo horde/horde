@@ -31,9 +31,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Added search and thread (message list) caching.
-* Added PHP socket based POP3 driver.
-* Initial release
+ <notes>* Support SORT=DISPLAY extension.
+ * Added search and thread (message list) caching.
+ * Added PHP socket based POP3 driver.
+ * Initial release
  </notes>
  <contents>
   <dir name="/">

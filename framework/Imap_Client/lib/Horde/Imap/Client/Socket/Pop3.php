@@ -648,7 +648,10 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         // Only support a single query: an ALL search sorted by arrival.
         if (($options['_query']['query'] != 'ALL') ||
             (!empty($options['sort']) &&
-             ((count($options['sort']) > 1) || (reset($options['sort']) != Horde_Imap_Client::SORT_ARRIVAL)))) {
+             ((count($options['sort']) > 1) ||
+              in_array(Horde_Imap_Client::SORT_ARRIVAL, $options['sort']) ||
+              in_array(Horde_Imap_Client::SORT_DISPLAYFROM, $options['sort']) ||
+              in_array(Horde_Imap_Client::SORT_DISPLAYTO, $options['sort'])))) {
             throw new Horde_Imap_Client_Exception('Server search not supported on POP3 server.', Horde_Imap_Client_Exception::POP3_NOTSUPPORTED);
         }
 

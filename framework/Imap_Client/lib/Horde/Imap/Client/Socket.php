@@ -34,6 +34,8 @@
  *   RFC 5267 - ESORT
  *   RFC 5464 - METADATA
  *
+ *   draft-ietf-morg-sortdisplay-02 - SORT=DISPLAY
+ *
  *   [NO RFC] - XIMAPPROXY
  *       + Requires imapproxy v1.2.7-rc1 or later
  *       + See http://lists.andrew.cmu.edu/pipermail/imapproxy-info/2008-October/000771.html and
@@ -1506,6 +1508,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             Horde_Imap_Client::SORT_ARRIVAL => 'ARRIVAL',
             Horde_Imap_Client::SORT_CC => 'CC',
             Horde_Imap_Client::SORT_DATE => 'DATE',
+            Horde_Imap_Client::SORT_DISPLAYFROM => 'DISPLAYFROM',
+            Horde_Imap_Client::SORT_DISPLAYTO => 'DISPLAYTO',
             Horde_Imap_Client::SORT_FROM => 'FROM',
             Horde_Imap_Client::SORT_REVERSE => 'REVERSE',
             Horde_Imap_Client::SORT_SIZE => 'SIZE',
@@ -1531,6 +1535,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * sort. */
             if (count(array_intersect($options['sort'], array_keys($sort_criteria))) === 0) {
                 $options['sort'] = array(Horde_Imap_Client::SORT_ARRIVAL);
+            }
+
+            /* Make sure server supports DISPLAYFROM & DISPLAYTO. */
+            if ((in_array(Horde_Imap_Client::SORT_DISPLAYFROM, $options['sort']) ||
+                 in_array(Horde_Imap_Client::SORT_DISPLAYTO, $options['sort'])) &&
+                (!is_array($server_sort) || !in_array('DISPLAY', $server_sort))) {
+                $server_sort = false;
             }
         }
 
@@ -1736,6 +1747,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $slices = array();
 
             foreach ($slices_list as $slice_start => $slice) {
+                $display_sort = false;
                 $sorted = array();
 
                 if ($reverse) {
@@ -1758,21 +1770,31 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     asort($sorted, SORT_NUMERIC);
                     break;
 
+                case Horde_Imap_Client::SORT_DISPLAYFROM:
+                case Horde_Imap_Client::SORT_DISPLAYTO:
+                    $display_sort = true;
+                    // Fallthrough
+
                 case Horde_Imap_Client::SORT_CC:
                 case Horde_Imap_Client::SORT_FROM:
                 case Horde_Imap_Client::SORT_TO:
                     if ($val == Horde_Imap_Client::SORT_CC) {
                         $field = 'cc';
-                    } elseif ($val = Horde_Imap_Client::SORT_FROM) {
+                    } elseif (in_array($val, array(Horde_Imap_Client::SORT_DISPLAYFROM, Horde_Imap_Client::SORT_FROM))) {
                         $field = 'from';
                     } else {
                         $field = 'to';
                     }
 
                     foreach ($slice as $num) {
-                        $sorted[$num] = empty($fetch_res[$num]['envelope'][$field])
-                            ? null
-                            : $fetch_res[$num]['envelope'][$field][0]['mailbox'];
+                        if (empty($fetch_res[$num]['envelope'][$field])) {
+                            $sorted[$num] = null;
+                        } else {
+                            $tmp = ($display_sort && !empty($fetch_res[$num]['envelope'][$field][0]['personal']))
+                                ? 'personal'
+                                : 'mailbox';
+                            $sorted[$num] = $fetch_res[$num]['envelope'][$field][0][$tmp];
+                        }
                     }
                     asort($sorted, SORT_LOCALE_STRING);
                     break;
