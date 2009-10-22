@@ -85,7 +85,7 @@ if (isset($show_msg_result['js'])) {
 Horde::addInlineScript($js_out);
 Horde::addInlineScript(array_filter($js_onload), 'load');
 
-IMP_Dimp::header($show_msg_result['subject'], $scripts);
+IMP_Dimp::header($show_msg_result['title'], $scripts);
 echo "<body>\n";
 require IMP_TEMPLATES . '/chunks/message.php';
 Horde::includeScriptFiles();

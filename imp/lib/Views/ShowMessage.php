@@ -72,6 +72,7 @@ class IMP_Views_ShowMessage
      * 'log' - Log information
      * 'mailbox' - The IMAP mailbox
      * 'msgtext' - The text of the message
+     * 'subject' - The subject
      * 'to' - The To addresses
      *
      * FOR PREVIEW MODE:
@@ -85,6 +86,7 @@ class IMP_Views_ShowMessage
      * 'priority' - The X-Priority of the message ('low', 'high', 'normal')
      * 'replyTo' - The Reply-to addresses
      * 'save_as' - The save link
+     * 'title' - The title of the page
      * </pre>
      * @throws Horde_Exception
      */
@@ -216,9 +218,18 @@ class IMP_Views_ShowMessage
         }
 
         /* Process the subject. */
-        $result['subject'] = ($subject = $mime_headers->getValue('subject'))
-            ? $imp_ui->getDisplaySubject($subject)
-            : htmlspecialchars(_("[No Subject]"));
+        $subject = $mime_headers->getValue('subject');
+        if ($subject) {
+            $result['subject'] = $imp_ui->getDisplaySubject($subject);
+            if (!$preview) {
+                $result['title'] = htmlspecialchars($subject);
+            }
+        } else {
+            $result['subject'] = htmlspecialchars(_("[No Subject]"));
+            if (!$preview) {
+                $result['title'] = htmlspecialchars(_("[No Subject]"));
+            }
+        }
 
         /* Get X-Priority. */
         if (!$preview) {
