@@ -179,6 +179,8 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      *
      * @param int $perms     A PERMS_* constant.
      * @param array $filter  A hash of field/values to filter on.
+     *
+     * @return an array of Kronolith_Resource objects.
      */
     public function listResources($perms = PERMS_READ, $filter = array())
     {
@@ -234,9 +236,11 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     }
 
     /**
+     * Convert from driver keys and charset to Kronolith keys and charset.
      *
-     * @param $params
-     * @return unknown_type
+     * @param array $params  The key/values to convert.
+     *
+     * @return An array of converted values.
      */
     protected function _fromDriver($params)
     {
