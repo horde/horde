@@ -5,12 +5,10 @@ CREATE TABLE kronolith_resources (
     resource_name VARCHAR(255),
     resource_calendar VARCHAR(255),
     resource_description TEXT,
-    resource_response_type INT,
+    resource_category VARCHAR(255) DEFAULT '',
+    resource_response_type INT DEFAULT 0,
     resource_type VARCHAR(255) NOT NULL,
-    resource_members TEXT,
---
+    resource_members BLOB,
+
     PRIMARY KEY (resource_id)
 );
-
-CREATE INDEX kronolith_resources_type_idx ON kronolith_resources (resource_type);
-CREATE INDEX kronolith_resources_calendar_idx ON kronolith_resources (resource_calendar);
