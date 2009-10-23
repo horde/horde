@@ -12,7 +12,6 @@ var DimpBase = {
     //   cfolderaction, folder, folderswitch, offset, pollPE, pp, search,
     //   uid, viewport
     // message_list_template set via js/mailbox-dimp.js
-    bcache: $H(),
     cacheids: {},
     lastrow: -1,
     pivotrow: -1,
@@ -45,7 +44,7 @@ var DimpBase = {
                 this.clearPreviewPane();
             } else {
                 if (opts.delay) {
-                    (this.bcache.get('initPP') || this.bcache.set('initPP', this.initPreviewPane.bind(this))).delay(opts.delay);
+                    this.initPreviewPane.bind(this).delay(opts.delay);
                 } else {
                     this.initPreviewPane();
                 }
@@ -276,7 +275,7 @@ var DimpBase = {
             this.highlightSidebar('appportal');
             this._addHistory(loc);
             DimpCore.setTitle(DIMP.text.portal);
-            DimpCore.doAction('ShowPortal', {}, null, this.bcache.get('portalC') || this.bcache.set('portalC', this._portalCallback.bind(this)));
+            DimpCore.doAction('ShowPortal', {}, null, this._portalCallback.bind(this));
             break;
 
         case 'options':
@@ -692,7 +691,7 @@ var DimpBase = {
         case 'ctx_vfolder_delete':
             tmp = baseelt.up('LI');
             if (window.confirm(DIMP.text.delete_folder.replace(/%s/, tmp.readAttribute('title')))) {
-                DimpCore.doAction('DeleteFolder', { view: tmp.retrieve('mbox') }, null, this.bcache.get('folderC') || this.bcache.set('folderC', this._folderCallback.bind(this)));
+                DimpCore.doAction('DeleteFolder', { view: tmp.retrieve('mbox') }, null, this._folderCallback.bind(this));
             }
             break;
 
@@ -1039,7 +1038,7 @@ var DimpBase = {
 
         this.loadingImg('msg', true);
 
-        DimpCore.doAction('ShowPreview', params || {}, this.viewport.createSelection('dataob', this.pp), this.bcache.get('loadPC') || this.bcache.set('loadPC', this._loadPreviewCallback.bind(this)));
+        DimpCore.doAction('ShowPreview', params || {}, this.viewport.createSelection('dataob', this.pp), this._loadPreviewCallback.bind(this));
     },
 
     _loadPreviewCallback: function(resp)
@@ -1301,7 +1300,7 @@ var DimpBase = {
             args = this.viewport.addRequestParams({});
         }
         $('checkmaillink').down('A').update('[' + DIMP.text.check + ']');
-        DimpCore.doAction('Poll', args, null, this.bcache.get('pollFC') || this.bcache.set('pollFC', this._pollCallback.bind(this)));
+        DimpCore.doAction('Poll', args, null, this._pollCallback.bind(this));
     },
 
     _pollCallback: function(r)
@@ -1440,7 +1439,7 @@ var DimpBase = {
             dropbase = (drop == $('dropbase'));
             if (dropbase ||
                 (ftype != 'special' && !this.isSubfolder(drag, drop))) {
-                DimpCore.doAction('RenameFolder', { old_name: drag.retrieve('mbox'), new_parent: dropbase ? '' : foldername, new_name: drag.retrieve('l') }, null, this.bcache.get('folderC') || this.bcache.set('folderC', this._folderCallback.bind(this)));
+                DimpCore.doAction('RenameFolder', { old_name: drag.retrieve('mbox'), new_parent: dropbase ? '' : foldername, new_name: drag.retrieve('l') }, null, this._folderCallback.bind(this));
             }
         } else if (ftype != 'container') {
             sel = this.viewport.getSelected();
@@ -1455,11 +1454,11 @@ var DimpBase = {
 
             if (uids.size()) {
                 if (e.ctrlKey) {
-                    DimpCore.doAction('CopyMessage', this.viewport.addRequestParams({ tofld: foldername }), uids, this.bcache.get('pollFC') || this.bcache.set('pollFC', this._pollCallback.bind(this)));
+                    DimpCore.doAction('CopyMessage', this.viewport.addRequestParams({ tofld: foldername }), uids, this._pollCallback.bind(this));
                 } else if (this.folder != foldername) {
                     // Don't allow drag/drop to the current folder.
                     this.updateFlag(uids, '\\deleted', true);
-                    DimpCore.doAction('MoveMessage', this.viewport.addRequestParams({ tofld: foldername }), uids, this.bcache.get('deleteC') || this.bcache.set('deleteC', this._deleteCallback.bind(this)));
+                    DimpCore.doAction('MoveMessage', this.viewport.addRequestParams({ tofld: foldername }), uids, this._deleteCallback.bind(this));
                 }
             }
         }
@@ -1914,7 +1913,7 @@ var DimpBase = {
             }
 
             if (action) {
-                DimpCore.doAction(action, params, null, this.bcache.get('folderC') || this.bcache.set('folderC', this._folderCallback.bind(this)));
+                DimpCore.doAction(action, params, null, this._folderCallback.bind(this));
             }
         }
     },
@@ -1924,13 +1923,13 @@ var DimpBase = {
     {
         r = r.response;
         if (r.d) {
-            r.d.each(this.bcache.get('deleteFolder') || this.bcache.set('deleteFolder', this.deleteFolder.bind(this)));
+            r.d.each(this.deleteFolder.bind(this));
         }
         if (r.c) {
-            r.c.each(this.bcache.get('changeFolder') || this.bcache.set('changeFolder', this.changeFolder.bind(this)));
+            r.c.each(this.changeFolder.bind(this));
         }
         if (r.a) {
-            r.a.each(this.bcache.get('createFolder') || this.bcache.set('createFolder', this.createFolder.bind(this)));
+            r.a.each(this.createFolder.bind(this));
         }
     },
 
@@ -2344,7 +2343,7 @@ var DimpBase = {
             // This needs to be synchronous Ajax if we are calling from a
             // popup window because Mozilla will not correctly call the
             // callback function if the calling window has been closed.
-            DimpCore.doAction(type, this.viewport.addRequestParams(args), vs, this.bcache.get('deleteC') || this.bcache.set('deleteC', this._deleteCallback.bind(this)), { asynchronous: !(opts.index && opts.mailbox) });
+            DimpCore.doAction(type, this.viewport.addRequestParams(args), vs, this._deleteCallback.bind(this), { asynchronous: !(opts.index && opts.mailbox) });
             return vs;
         }
 
@@ -2434,7 +2433,7 @@ var DimpBase = {
     // mbox = (string) The mailbox to flag
     flagAll: function(type, set, mbox)
     {
-        DimpCore.doAction('FlagAll', { flags: [ type ].toJSON(), set: Number(set), view: mbox }, null, this.bcache.get('flagAC') || this.bcache.set('flagAC', this._flagAllCallback.bind(this)));
+        DimpCore.doAction('FlagAll', { flags: [ type ].toJSON(), set: Number(set), view: mbox }, null, this._flagAllCallback.bind(this));
     },
 
     hasFlag: function(f, r)
@@ -2485,12 +2484,12 @@ var DimpBase = {
     /* Miscellaneous folder actions. */
     purgeDeleted: function()
     {
-        DimpCore.doAction('PurgeDeleted', this.viewport.addRequestParams({}), null, this.bcache.get('deleteC') || this.bcache.set('deleteC', this._deleteCallback.bind(this)));
+        DimpCore.doAction('PurgeDeleted', this.viewport.addRequestParams({}), null, this._deleteCallback.bind(this));
     },
 
     modifyPoll: function(folder, add)
     {
-        DimpCore.doAction('ModifyPoll', { view: folder, add: Number(add) }, null, this.bcache.get('modifyPFC') || this.bcache.set('modifyPFC', this._modifyPollCallback.bind(this)));
+        DimpCore.doAction('ModifyPoll', { view: folder, add: Number(add) }, null, this._modifyPollCallback.bind(this));
     },
 
     _modifyPollCallback: function(r)
