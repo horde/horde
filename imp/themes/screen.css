@@ -414,11 +414,6 @@ span.spellcheckPopdownImg:hover {
     margin: -1px -1px -1px 2px;
 }
 
-/* Other styles used in IMP. */
-.padded {
-    padding: 1px;
-}
-
 /* Large addresslist display. */
 .largeaddrlist {
     cursor: pointer;
