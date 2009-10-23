@@ -109,13 +109,6 @@ interface Horde_Kolab_Server_Object
     public function delete();
 
     /**
-     * Returns the set of actions supported by this object type.
-     *
-     * @return array An array of supported actions.
-     */
-    public function getActions();
-
-    /**
      * Generates an ID for the given information.
      *
      * @param array &$info The data of the object.
@@ -134,5 +127,12 @@ interface Horde_Kolab_Server_Object
      * @throws Horde_Kolab_Server_Exception If the given information contains errors.
      */
     public function prepareObjectInformation(array &$info);
+
+    /**
+     * Returns the set of actions supported by this object type.
+     *
+     * @return array An array of supported actions.
+     */
+    public function getActions();
 
 }

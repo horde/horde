@@ -43,34 +43,23 @@ class Horde_Kolab_Server_Factory
      *
      * @return NULL
      */
-    static public function setup(array $configuration, Horde_Injector $injector)
+    static public function setup(Horde_Injector $injector, array $configuration)
     {
         self::setupObjects($injector);
         self::setupSearch($injector);
         self::setupSchema($injector);
 
         self::setupStructure(
+            $injector,
             isset($configuration['structure'])
-            ? $configuration['structure'] : array(),
-            $injector
+            ? $configuration['structure'] : array()
         );
         unset($configuration['structure']);
 
-        self::setupCache(
-            $injector,
-            isset($configuration['cache'])
-            ? $configuration['cache'] : null
-        );
-        unset($configuration['cache']);
+        self::setupConfiguration($injector, $configuration);
 
-        self::setupLogger(
-            $injector,
-            isset($configuration['logger'])
-            ? $configuration['logger'] : null
-        );
-        unset($configuration['logger']);
-
-        self::setupServer($configuration, $injector);
+        self::setupServer($injector);
+        self::setupComposite($injector);
     }
 
     /**
@@ -99,8 +88,8 @@ class Horde_Kolab_Server_Factory
      * @return NULL
      */
     static protected function setupStructure(
-        array $configuration,
-        Horde_Injector $injector
+        Horde_Injector $injector,
+        array $configuration
     ) {
         if (!isset($configuration['driver'])) {
             $configuration['driver'] = 'Horde_Kolab_Server_Structure_Kolab';
@@ -151,41 +140,19 @@ class Horde_Kolab_Server_Factory
     }
 
     /**
-     * Provide a cache handler for Horde_Kolab_Server.
+     * Inject the server configuration.
      *
-     * @param Horde_Injector $injector The object providing our dependencies.
-     * @param mixed          $instance The cache handler or empty if it
-     *                                 should be created.
-     *
-     * @return NULL
-     */
-    static protected function setupCache(
-        Horde_Injector $injector,
-        $instance = null
-    ) {
-        if (empty($instance)) {
-            $instance = new Horde_Cache_Null();
-        }
-        $injector->setInstance('Horde_Kolab_Server_Cache', $instance);
-    }
-
-    /**
-     * Provide a log handler for Horde_Kolab_Server.
-     *
-     * @param Horde_Injector $injector The object providing our dependencies.
-     * @param mixed          $instance The log handler or empty if it
-     *                                 should be created.
+     * @param Horde_Injector $injector      The object providing our dependencies.
+     * @param array          $configuration The parameters required to create
+     *                                      the desired Horde_Kolab_Server.
      *
      * @return NULL
      */
-    static protected function setupLogger(
+    static protected function setupConfiguration(
         Horde_Injector $injector,
-        $instance = null
+        array $configuration
     ) {
-        if (empty($instance)) {
-            $instance = new Horde_Log_Logger(new Horde_Log_Handler_Null());
-        }
-        $injector->setInstance('Horde_Kolab_Server_Logger', $instance);
+        $injector->setInstance('Horde_Kolab_Server_Config', $configuration);
     }
 
     /**
@@ -197,33 +164,7 @@ class Horde_Kolab_Server_Factory
      *
      * @return NULL
      */
-    static protected function setupServer(
-        array $configuration,
-        Horde_Injector $injector
-    ) {
-        if (empty($configuration['driver'])) {
-            $configuration['driver'] = 'Horde_Kolab_Server_Ldap';
-        }
-         
-        $config = new stdClass;
-
-        switch (ucfirst(strtolower($configuration['driver']))) {
-        case 'Ldap':
-        case 'Test':
-        case 'File':
-            $config->driver = 'Horde_Kolab_Server_'
-                . ucfirst(strtolower($configuration['driver']));
-            break;
-        default:
-            $config->driver = $configuration['driver'];
-            break;
-        }
-
-        $config->params = isset($configuration['params'])
-            ? $configuration['params'] : array();
-
-        $injector->setInstance('Horde_Kolab_Server_Config', $config);
-
+    static protected function setupServer(Horde_Injector $injector) {
         $injector->bindFactory(
             'Horde_Kolab_Server',
             'Horde_Kolab_Server_Factory',
@@ -239,21 +180,122 @@ class Horde_Kolab_Server_Factory
      * @return Horde_Kolab_Server The newly created concrete Horde_Kolab_Server
      *                            instance.
      */
-    static public function &getServer(Horde_Injector $injector)
+    static public function getServer(Horde_Injector $injector)
     {
-        $config = $injector->getInstance('Horde_Kolab_Server_Config');
-        $driver = $config->driver;
-        $server = new $driver(
-            $injector->getInstance('Horde_Kolab_Server_Objects'),
-            $injector->getInstance('Horde_Kolab_Server_Structure'),
-            $injector->getInstance('Horde_Kolab_Server_Search'),
-            $injector->getInstance('Horde_Kolab_Server_Schema')
-        );
-        $server->setParams($config->params);
-        $server->setCache($injector->getInstance('Horde_Kolab_Server_Cache'));
-        $server->setLogger($injector->getInstance('Horde_Kolab_Server_Logger'));
+        $configuration = $injector->getInstance('Horde_Kolab_Server_Config');
+
+        if (empty($configuration['driver'])) {
+            $configuration['driver'] = 'Ldap';
+        }
+
+        if (isset($configuration['params'])) {
+            $params = $configuration['params'];
+        } else {
+            $params = $configuration;
+        }
+
+        $driver = ucfirst(strtolower($configuration['driver']));
+        switch ($driver) {
+        case 'Ldap':
+        case 'Test':
+        case 'File':
+            $server = self::getLdapServer($driver, $params);
+            break;
+        default:
+            throw new Horde_Kolab_Server_Exception('Invalid server configuration!');
+        }
+
+        if (isset($params['map'])) {
+            $server = new Horde_Kolab_Server_Mapped($server, $params['map']);
+        }
+        if (isset($configuration['logger'])) {
+            $server = new Horde_Kolab_Server_Logged($server, $configuration['logger']);
+        }
+        if (isset($configuration['cache'])) {
+            $server = new Horde_Kolab_Server_Cached($server, $configuration['cache']);
+        }
 
         return $server;
+    }
+
+    /**
+     * Attempts to return a concrete Horde_Kolab_Server_Ldap instance.
+     *
+     * @param array $params LDAP connection parameters.
+     *
+     * @return Horde_Kolab_Server_Ldap The newly created concrete
+     *                                 Horde_Kolab_Server_Ldap instance.
+     */
+    static protected function getLdapServer($driver, array $params)
+    {
+        if (!isset($params['basedn'])) {
+            throw new Horde_Kolab_Server_Exception('The base DN is missing');
+        }
+
+        if (isset($params['server'])) {
+            $params['host'] = $params['server'];
+            unset($params['server']);
+        }
+
+        if (isset($params['phpdn'])) {
+            $params['binddn'] = $params['phpdn'];
+            unset($params['phpdn']);
+        }
+
+        if (isset($params['phppw'])) {
+            $params['bindpw'] = $params['phppw'];
+            unset($params['phppw']);
+        }
+
+        //@todo: Place this is a specific connection factory.
+        switch ($driver) {
+        case 'Ldap':
+            $ldap_read = new Net_LDAP2($params);
+            if (isset($params['host_master'])) {
+                $params['host'] = $params['host_master'];
+                $ldap_write = new Net_LDAP2($params);
+                $connection = new Horde_Kolab_Server_Connection_Splittedldap(
+                    $ldap_read, $ldap_write
+                );
+            } else {
+                $connection = new Horde_Kolab_Server_Connection_Simpleldap(
+                    $ldap_read
+                );
+            }
+            break;
+        case 'File':
+        case 'Test':
+            $connection = new Horde_Kolab_Server_Connection_Mock($params);
+            break;
+        }
+
+        if (!isset($params['filter'])) {
+            $server = new Horde_Kolab_Server_Ldap_Standard(
+                $connection,
+                $params['basedn']
+            );
+        } else {
+            $server = new Horde_Kolab_Server_Ldap_Filtered(
+                $connection,
+                $params['basedn'],
+                $params['filter']
+            );
+        }
+        return $server;
+    }
+
+    /**
+     * Setup the machinery to create a Horde_Kolab_Server_Composite server.
+     *
+     * @param Horde_Injector $injector The object providing our dependencies.
+     *
+     * @return NULL
+     */
+    static protected function setupComposite(Horde_Injector $injector)
+    {
+        /**
+         * Nothing to do here for now as class and interface name are the same.
+         */
     }
 
     /**
@@ -273,51 +315,31 @@ class Horde_Kolab_Server_Factory
      */
     static public function &singleton($params = array())
     {
-        $signature = hash('md5', serialize(ksort($params)));
+        global $conf;
 
+        if (empty($params) && isset($conf['kolab']['ldap'])) {
+            $params = $conf['kolab']['ldap'];
+        }
+
+        ksort($params);
+        $signature = hash('md5', serialize($params));
         if (!isset(self::$_instances[$signature])) {
-            $params['cache'] = Horde_Cache::singleton(
-                $GLOBALS['conf']['cache']['driver'],
-		//@todo: Can we omit Horde:: here?
-                Horde::getDriverConfig(
-                    'cache',
-                    $GLOBALS['conf']['cache']['driver']
-                )
-            );
+            /** @todo: The caching decorator is still missing.
+/*             $params['cache'] = Horde_Cache::singleton( */
+/*                 $GLOBALS['conf']['cache']['driver'], */
+/*                 //@todo: Can we omit Horde:: here? */
+/*                 Horde::getDriverConfig( */
+/*                     'cache', */
+/*                     $GLOBALS['conf']['cache']['driver'] */
+/*                 ) */
+/*             ); */
             $params['logger'] = Horde::getLogger();
             $injector = new Horde_Injector(new Horde_Injector_TopLevel());
-            self::setup($params, $injector);
+            self::setup($injector, $params);
             self::$_instances[$signature] = $injector->getInstance(
                 'Horde_Kolab_Server'
             );
         }
-
-/*         if (empty($this->_ldap_read)) { */
-/*             $this->handleError( */
-/*                 Net_LDAP2::checkLDAPExtension(), */
-/*                 Horde_Kolab_Server_Exception::MISSING_LDAP_EXTENSION */
-/*             ); */
-
-/*             $this->_ldap_read = new Net_LDAP2($this->params); */
-
-/*             if (isset($this->params['host_master']) */
-/*                 && $this->params['host_master'] == $this->params['host'] */
-/*             ) { */
-
-/*                 $params         = $this->params; */
-/*                 $params['host'] = $this->params['host_master']; */
-
-/*                 $this->_ldap_write = new Net_LDAP2($params); */
-/*             } else { */
-/*                 $this->_ldap_write = $this->_ldap_read; */
-/*             } */
-/*         } */
-
-/*         if ($write) { */
-/*             return $this->_ldap_write; */
-/*         } else { */
-/*             return $this->_ldap_read; */
-/*         } */
 
         return self::$_instances[$signature];
     }

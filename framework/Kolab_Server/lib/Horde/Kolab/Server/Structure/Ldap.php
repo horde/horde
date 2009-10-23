@@ -72,7 +72,7 @@ class Horde_Kolab_Server_Structure_Ldap extends Horde_Kolab_Server_Structure_Bas
         foreach ($ocs as $oc) {
             try {
                 $class_name = 'Horde_Kolab_Server_Object_' . ucfirst(strtolower($oc));
-                Horde_Kolab_Server_Object::loadClass($class_name);
+                Horde_Kolab_Server_Object_Factory::loadClass($class_name);
                 return $class_name;
             } catch (Horde_Kolab_Server_Exception $e)  {
             }

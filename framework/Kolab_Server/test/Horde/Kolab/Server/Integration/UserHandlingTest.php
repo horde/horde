@@ -12,9 +12,9 @@
  */
 
 /**
- * Prepare the test setup.
+ * Require our basic test case definition
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once dirname(__FILE__) . '/Scenario.php';
 
 /**
  * Handling users.
@@ -30,7 +30,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_UserHandlingTest extends Horde_Kolab_Server_Scenario
+class Horde_Kolab_Server_Integration_UserHandlingTest extends Horde_Kolab_Server_Integration_Scenario
 {
 
     /**

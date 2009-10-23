@@ -30,7 +30,7 @@ require_once 'Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_SessionTest extends Horde_Kolab_Server_Scenario
+class Horde_Kolab_Session_SessionTest extends Horde_Kolab_Server_Integration_Scenario
 {
     /**
      * Test class construction.

@@ -27,23 +27,6 @@
  */
 class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object_Top
 {
-    /** Define attributes specific to this object type */
-
-    /** The common name */
-    const ATTRIBUTE_CN = 'cn';
-
-    /** The surname */
-    const ATTRIBUTE_SN = 'sn';
-
-    /** A password for this person */
-    const ATTRIBUTE_USERPASSWORD = 'userPassword';
-
-    /** A password for this person */
-    const ATTRIBUTE_USERPASSWORDRAW = 'userPasswordRaw';
-
-    /** A telephone number for this person */
-    const ATTRIBUTE_TELNO = 'telephoneNumber';
-
     /** The specific object class of this object type */
     const OBJECTCLASS_PERSON = 'person';
 
@@ -53,36 +36,37 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object_Top
      * @var array
      */
     static public $init_attributes = array(
-        'defined' => array(
-            self::ATTRIBUTE_CN,
-            self::ATTRIBUTE_SN,
-            self::ATTRIBUTE_USERPASSWORD,
-            self::ATTRIBUTE_TELNO,
-        ),
-        'derived' => array(
-            self::ATTRIBUTE_USERPASSWORD => array(
-                'base' => array(
-                    self::ATTRIBUTE_USERPASSWORD
-                ),
-                'method' => 'getEmpty',
-            ),
-            self::ATTRIBUTE_USERPASSWORDRAW => array(
-                'base' => array(
-                    self::ATTRIBUTE_USERPASSWORD
-                ),
-                'method' => '_get',
-                'args' => array(
-                    self::ATTRIBUTE_USERPASSWORD,
-                ),
-            ),
-        ),
-        'required' => array(
-            self::ATTRIBUTE_CN,
-            self::ATTRIBUTE_SN,
-        ),
-        'object_classes' => array(
-            self::OBJECTCLASS_PERSON
-        ),
+        'Cn', 'Sn', 'Userpassword', 'Userpasswordraw', 'Telephonenumber'
+/*         'defined' => array( */
+/*             self::ATTRIBUTE_CN, */
+/*             self::ATTRIBUTE_SN, */
+/*             self::ATTRIBUTE_USERPASSWORD, */
+/*             self::ATTRIBUTE_TELNO, */
+/*         ), */
+/*         'derived' => array( */
+/*             self::ATTRIBUTE_USERPASSWORD => array( */
+/*                 'base' => array( */
+/*                     self::ATTRIBUTE_USERPASSWORD */
+/*                 ), */
+/*                 'method' => 'getEmpty', */
+/*             ), */
+/*             self::ATTRIBUTE_USERPASSWORDRAW => array( */
+/*                 'base' => array( */
+/*                     self::ATTRIBUTE_USERPASSWORD */
+/*                 ), */
+/*                 'method' => '_get', */
+/*                 'args' => array( */
+/*                     self::ATTRIBUTE_USERPASSWORD, */
+/*                 ), */
+/*             ), */
+/*         ), */
+/*         'required' => array( */
+/*             self::ATTRIBUTE_CN, */
+/*             self::ATTRIBUTE_SN, */
+/*         ), */
+/*         'object_classes' => array( */
+/*             self::OBJECTCLASS_PERSON */
+/*         ), */
     );
 
     /**
@@ -165,12 +149,10 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object_Top
      */
     public static function getFilter()
     {
-        $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_OC,
-                                               'op'    => '=',
-                                               'test'  => self::OBJECTCLASS_PERSON),
-                          ),
+        return new Horde_Kolab_Server_Query_Element_Equals(
+            Horde_Kolab_Server_Object_Attribute_Objectclass::NAME,
+            self::OBJECTCLASS_PERSON
         );
-        return $criteria;
     }
 
     /**
@@ -184,28 +166,30 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object_Top
      */
     public function generateId(array &$info)
     {
+        $cn = Horde_Kolab_Server_Object_Attribute_Cn::NAME;
+        $sn = Horde_Kolab_Server_Object_Attribute_Sn::NAME;
         if ($this->exists()) {
-            if (!isset($info[self::ATTRIBUTE_CN])
-                && !isset($info[self::ATTRIBUTE_SN])) {
-                return false;
+            if (!isset($info[$cn])
+                && !isset($info[$sn])) {
+                return $this->getGuid();
             }
-            if (!isset($info[self::ATTRIBUTE_CN])) {
-                $old = $this->get(self::ATTRIBUTE_CN);
+            if (!isset($info[$cn])) {
+                $old = $this->getInternal($cn);
                 if (!empty($old)) {
-                    return false;
+                    return $this->getGuid();
                 }
             }            
         }
 
-        if (!empty($info[self::ATTRIBUTE_CN])) {
-            $id = $info[self::ATTRIBUTE_CN];
+        if (!empty($info[$cn])) {
+            $id = $info[$cn];
         } else {
-            $id = $info[self::ATTRIBUTE_SN];
+            $id = $info[$sn];
         }
         if (is_array($id)) {
             $id = $id[0];
         }
-        return self::ATTRIBUTE_CN . '=' . $this->server->structure->quoteForUid($id);
+        return $cn . '=' . $this->server->structure->quoteForUid($id);
     }
 
     /**
@@ -219,10 +203,10 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object_Top
      */
     public function prepareObjectInformation(array &$info)
     {
-        if (!$this->exists()
-            && empty($info[self::ATTRIBUTE_CN])
-            && !empty($info[self::ATTRIBUTE_SN])) {
-            $info[self::ATTRIBUTE_CN] = $info[self::ATTRIBUTE_SN];
+        $cn = Horde_Kolab_Server_Object_Attribute_Cn::NAME;
+        $sn = Horde_Kolab_Server_Object_Attribute_Sn::NAME;
+        if (!$this->exists() && empty($info[$cn]) && !empty($info[$sn])) {
+            $info[$cn] = $info[$sn];
         }
 
         if (!empty($info[self::ATTRIBUTE_USERPASSWORD])) {
@@ -258,7 +242,7 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object_Top
      * @throws Horde_Kolab_Server_Exception
      */
     static public function uidForCn($server, $cn,
-                                    $restrict = Horde_Kolab_Server_Object::RESULT_SINGLE)
+                                    $restrict = 0)
     {
         $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_CN,
                                                'op'    => '=',

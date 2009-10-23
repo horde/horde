@@ -1254,6 +1254,10 @@ abstract class Horde_Imap_Client_Base
      * Horde_Imap_Client::SORT_SIZE
      * Horde_Imap_Client::SORT_SUBJECT
      * Horde_Imap_Client::SORT_TO
+     * [On servers that support SORT=DISPLAY, these criteria are also
+     *  available:]
+     * Horde_Imap_Client::SORT_DISPLAYFROM
+     * Horde_Imap_Client::SORT_DISPLAYTO
      * </pre>
      *          Additionally, any sort criteria can be sorted in reverse order
      *          (instead of the default ascending order) by adding a

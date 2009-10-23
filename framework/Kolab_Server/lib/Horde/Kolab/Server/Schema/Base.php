@@ -39,20 +39,23 @@ class Horde_Kolab_Server_Schema_Base implements Horde_Kolab_Server_Schema
     protected $attributes;
 
     /**
-     * A link to the server handler.
+     * A link to the composite server handler.
      *
-     * @var Horde_Kolab_Server
+     * @var Horde_Kolab_Server_Composite
      */
-    protected $server;
+    protected $composite;
 
     /**
-     * Set the server reference for this object.
+     * Set the composite server reference for this object.
      *
-     * @param Horde_Kolab_Server &$server A link to the server handler.
+     * @param Horde_Kolab_Server_Composite $composite A link to the composite
+     *                                                server handler.
+     *
+     * @return NULL
      */
-    public function setServer($server)
+    public function setComposite(Horde_Kolab_Server_Composite $composite)
     {
-        $this->server = $server;
+        $this->composite = $composite;
     }
 
     /**
@@ -104,7 +107,7 @@ class Horde_Kolab_Server_Schema_Base implements Horde_Kolab_Server_Schema
      *
      * @throws Horde_Kolab_Server_Exception If the schema analysis fails.
      */
-    public function &getAttributes($class)
+    public function getExternalAttributes($class)
     {
         if (!isset($this->attributes)) {
             if (isset($this->cache)) {
@@ -251,6 +254,10 @@ class Horde_Kolab_Server_Schema_Base implements Horde_Kolab_Server_Schema
             }
         }
         return $this->attributes[$class];
+    }
+
+    public function getInternalAttributes($class)
+    {
     }
 
     /**

@@ -29,7 +29,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Scenario extends Horde_Kolab_Server_Scenario
+class Horde_Kolab_Storage_Scenario extends Horde_Kolab_Server_Integration_Scenario
 {
     /**
      * Handle a "given" step.

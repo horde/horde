@@ -1,6 +1,6 @@
 <?php
 /**
- * Adding objects to the server.
+ * Handling distribution lists.
  *
  * PHP version 5
  *
@@ -12,12 +12,12 @@
  */
 
 /**
- * Prepare the test setup.
+ * Require our basic test case definition
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once dirname(__FILE__) . '/Scenario.php';
 
 /**
- * Adding objects to the server.
+ * Handling distribution lists.
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -30,25 +30,24 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_AddingObjectsTest extends Horde_Kolab_Server_Scenario
+class Horde_Kolab_Server_Integration_DistListHandlingTest extends Horde_Kolab_Server_Integration_Scenario
 {
+
     /**
-     * Test adding valid users.
-     *
-     * @param array $user The user to add.
+     * Test adding a distribution list.
      *
      * @scenario
-     * @dataProvider validUsers
      *
      * @return NULL
      */
-    public function addingValidUser($user)
+    public function creatingDistributionList()
     {
         $this->given('several Kolab servers')
-            ->when('adding a Kolab server object', $user)
+            ->when('adding a distribution list')
             ->then(
                 'the result should be an object of type',
-                'Horde_Kolab_Server_Object_Kolab_User'
+                'Horde_Kolab_Server_Object_Kolab_Distlist'
             );
     }
+
 }

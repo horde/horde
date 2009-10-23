@@ -12,9 +12,9 @@
  */
 
 /**
- * Prepare the test setup.
+ * Require our basic test case definition
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once dirname(__FILE__) . '/../LdapBase.php';
 
 /**
  * Test the LDAP result handler.
@@ -30,19 +30,8 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Result_LdapTest extends PHPUnit_Framework_TestCase
+class Horde_Kolab_Server_Result_LdapTest extends Horde_Kolab_Server_LdapBase
 {
-    public function setUp()
-    {
-        if (!extension_loaded('ldap') && !@dl('ldap.' . PHP_SHLIB_SUFFIX)) {
-            $this->markTestSuiteSkipped('Ldap extension is missing!');
-        };
-
-        if (!class_exists('Net_LDAP2')) {
-            $this->markTestSuiteSkipped('PEAR package Net_LDAP2 is not installed!');
-        }
-    }
-
     public function testMethodConstructHasParameterNetldap2searchSearchResult()
     {
         $search = $this->getMock(

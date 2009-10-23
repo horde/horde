@@ -12,9 +12,9 @@
  */
 
 /**
- * Prepare the test setup.
+ * Require our basic test case definition
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once dirname(__FILE__) . '/Scenario.php';
 
 /**
  * Test the organizationalPerson object.
@@ -30,7 +30,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_OrgPersonTest extends Horde_Kolab_Server_Scenario
+class Horde_Kolab_Server_Integration_OrgPersonTest extends Horde_Kolab_Server_Integration_Scenario
 {
     /**
      * Objects used within this test
@@ -41,15 +41,15 @@ class Horde_Kolab_Server_Object_OrgPersonTest extends Horde_Kolab_Server_Scenari
         /* Default organizationalPerson */
         array(
             'type' => 'Horde_Kolab_Server_Object_Organizationalperson',
-            Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN           => 'Kolab_Server_OrgPersonTest_123',
-            Horde_Kolab_Server_Object_Person::ATTRIBUTE_SN           => 'Kolab_Server_OrgPersonTest_123',
-            Horde_Kolab_Server_Object_Person::ATTRIBUTE_USERPASSWORD => 'Kolab_Server_OrgPersonTest_123',
+            'Cn'           => 'Kolab_Server_OrgPersonTest_123',
+            'Sn'           => 'Kolab_Server_OrgPersonTest_123',
+            'Userpassword' => 'Kolab_Server_OrgPersonTest_123',
         ),
         /* Invalid person (no sn) */
         array(
             'type' => 'Horde_Kolab_Server_Object_Organizationalperson',
-            Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN           => 'Kolab_Server_OrgPersonTest_123',
-            Horde_Kolab_Server_Object_Person::ATTRIBUTE_USERPASSWORD => 'Kolab_Server_OrgPersonTest_123',
+            'Cn'           => 'Kolab_Server_OrgPersonTest_123',
+            'Userpassword' => 'Kolab_Server_OrgPersonTest_123',
         ),
     );
 
@@ -120,11 +120,11 @@ class Horde_Kolab_Server_Object_OrgPersonTest extends Horde_Kolab_Server_Scenari
                                        array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => 'Kolab_Server_OrgPersonTest_123$$ '));
 
             $this->assertStoreFetch($person, $server,
-                                    array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_SN => 'Kolab_Server_OrgPersonTest_456'),
+                                    array('Sn' => 'Kolab_Server_OrgPersonTest_456'),
                                     array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => array('Kolab_Server_OrgPersonTest_456$$ ')));
 
             $this->assertStoreFetch($person, $server,
-                                    array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_SN => 'Kolab_Server_OrgPersonTest_123',
+                                    array('Sn' => 'Kolab_Server_OrgPersonTest_123',
                                           Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_STREET => 'Street 1',
                                           Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALCODE => '12345',
                                           Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_CITY => 'Nowhere'),
@@ -137,7 +137,7 @@ class Horde_Kolab_Server_Object_OrgPersonTest extends Horde_Kolab_Server_Scenari
             $this->assertStoreFetch($person, $server,
                                     array(Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_STREET => null,
                                           Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALCODE => null,
-                                          //FIXME: Why does this need a string?
+                                          //@todo: Why does this need a string?
                                           Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTALADDRESS => '',
                                           Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_POSTOFFICEBOX => null,
                                           Horde_Kolab_Server_Object_Organizationalperson::ATTRIBUTE_CITY => null),
@@ -171,7 +171,7 @@ class Horde_Kolab_Server_Object_OrgPersonTest extends Horde_Kolab_Server_Scenari
                                                 '+1234567890',
                                                 array('1', '2'),
                                                 '0',
-                                                //FIXME: How to delete?
+                                                //@todo: How to delete?
                                                 //null
                                             )
                                         )

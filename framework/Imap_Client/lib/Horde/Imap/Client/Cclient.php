@@ -772,13 +772,15 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
     {
         // Already guaranteed to be logged in here.
 
-        /* If more than 1 sort criteria given, or if SORT_REVERSE is given
-         * as a sort criteria, or search query uses IMAP4 criteria, use the
-         * Socket client instead. */
+        /* If more than 1 sort criteria given, or if SORT_REVERSE,
+         * SORT_DISPLAYFROM, or SORT_DISPLAYTO is given as a sort criteria, or
+         * search query uses IMAP4 criteria, use the Socket client instead. */
         if ($options['_query']['imap4'] ||
             (!empty($options['sort']) &&
              ((count($options['sort']) > 1) ||
-             in_array(Horde_Imap_Client::SORT_REVERSE, $options['sort'])))) {
+              in_array(Horde_Imap_Client::SORT_REVERSE, $options['sort']) ||
+              in_array(Horde_Imap_Client::SORT_DISPLAYFROM, $options['sort']) ||
+              in_array(Horde_Imap_Client::SORT_DISPLAYTO, $options['sort'])))) {
             return $this->_getSocket()->search($this->_selected, $query, $options);
         }
 

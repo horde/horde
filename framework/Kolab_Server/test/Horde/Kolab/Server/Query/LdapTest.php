@@ -174,7 +174,7 @@ class Horde_Kolab_Server_Query_LdapTest extends Horde_Kolab_Server_LdapBase
 
         /** Hide strict errors from the Net_LDAP2 library */
         $error_reporting = error_reporting();
-        error_reporting($error_reporting ^ E_STRICT);
+        error_reporting($error_reporting & ~E_STRICT);
 
         try {
             $query->convertOr($or)->asString();

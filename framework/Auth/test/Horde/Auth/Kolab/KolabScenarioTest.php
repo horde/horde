@@ -36,7 +36,7 @@ require_once 'Autoload.php';
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 
-class Horde_Auth_Kolab_KolabScenarioTest extends Horde_Kolab_Server_Scenario
+class Horde_Auth_Kolab_KolabScenarioTest extends Horde_Kolab_Server_Integration_Scenario
 {
     /**
      * Test loggin in after a user has been added.

@@ -12,9 +12,9 @@
  */
 
 /**
- * Prepare the test setup.
+ * Require our basic test case definition
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once dirname(__FILE__) . '/Scenario.php';
 
 /**
  * Test the kolabInetOrgPerson object.
@@ -30,7 +30,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_KolabinetorgpersonTest extends Horde_Kolab_Server_Scenario
+class Horde_Kolab_Server_Integration_KolabinetorgpersonTest extends Horde_Kolab_Server_Integration_Scenario
 {
     /**
      * Objects used within this test
@@ -42,14 +42,14 @@ class Horde_Kolab_Server_Object_KolabinetorgpersonTest extends Horde_Kolab_Serve
         array(
             'type' => 'Horde_Kolab_Server_Object_Kolabinetorgperson',
             Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_GIVENNAME    => 'Frank',
-            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_SN           => 'Mustermann',
-            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_USERPASSWORD => 'Kolab_Server_OrgPersonTest_123',
+            'Sn'           => 'Mustermann',
+            'Userpassword' => 'Kolab_Server_OrgPersonTest_123',
         ),
         /* Invalid person (no sn) */
         array(
             'type' => 'Horde_Kolab_Server_Object_Kolabinetorgperson',
-            Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN           => 'Kolab_Server_OrgPersonTest_123',
-            Horde_Kolab_Server_Object_Person::ATTRIBUTE_USERPASSWORD => 'Kolab_Server_OrgPersonTest_123',
+            'Cn'           => 'Kolab_Server_OrgPersonTest_123',
+            'Userpassword' => 'Kolab_Server_OrgPersonTest_123',
         ),
     );
 
@@ -171,7 +171,7 @@ class Horde_Kolab_Server_Object_KolabinetorgpersonTest extends Horde_Kolab_Serve
                                             Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_COUNTRYCITIZENSHIP => array(
                                                 'DE',
                                                 'SE',
-                                                //FIXME: "null" does not work. Why?
+                                                //@todo: "null" does not work. Why?
                                                 //null,
                                                 'DE',
                                             ),
@@ -181,7 +181,7 @@ class Horde_Kolab_Server_Object_KolabinetorgpersonTest extends Horde_Kolab_Serve
                                                 null,
                                                 'Freelancer',
                                             ),
-                                            // FIXME: Undefined in object class
+                                            // @todo: Undefined in object class
                                             /*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_REGISTEREDCAPITAL => array( */
                                             /*                                             '1212121211', */
                                             /*                                             '0', */
@@ -189,7 +189,7 @@ class Horde_Kolab_Server_Object_KolabinetorgpersonTest extends Horde_Kolab_Serve
                                             /*                                             '' */
                                             /*                                         ), */
 
-                                            // FIXME: Undefined in object class
+                                            // @todo: Undefined in object class
                                             /*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_BYLAWURI => array( */
                                             /*                                             'something', */
                                             /*                                             'somewhere', */
@@ -198,12 +198,12 @@ class Horde_Kolab_Server_Object_KolabinetorgpersonTest extends Horde_Kolab_Serve
                                             /*                                             '', */
                                             /*                                         ), */
 
-                                            //FIXME: Alias support
+                                            //@todo: Alias support
                                             /*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_DATEOFINCORPORATION => array( */
                                             /*                                             '199911220707Z', */
                                             /*                                         ), */
 
-                                            // FIXME: Undefined in object class
+                                            // @todo: Undefined in object class
                                             /*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_LEGALREPRESENTATIONPOLICY => array( */
                                             /*                                             'something', */
                                             /*                                             'somewhere', */
@@ -219,7 +219,7 @@ class Horde_Kolab_Server_Object_KolabinetorgpersonTest extends Horde_Kolab_Serve
                                                 array('a', 'b'),
                                             ),
 
-                                            //FIXME: Undefined
+                                            //@todo: Undefined
                                             /*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_OTHERLEGAL => array( */
                                             /*                                             'something', */
                                             /*                                             'somewhere', */
@@ -227,7 +227,7 @@ class Horde_Kolab_Server_Object_KolabinetorgpersonTest extends Horde_Kolab_Serve
                                             /*                                             array('a', 'b'), */
                                             /*                                         ), */
 
-                                            // FIXME: Undefined in object class
+                                            // @todo: Undefined in object class
                                             /*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_INLIQUIDATION => array( */
                                             /*                                             'TRUE', */
                                             /*                                             'FALSE', */
@@ -235,7 +235,7 @@ class Horde_Kolab_Server_Object_KolabinetorgpersonTest extends Horde_Kolab_Serve
                                             /*                                             array('TRUE', 'FALSE'), */
                                             /*                                         ), */
 
-                                            // FIXME: Undefined in object class
+                                            // @todo: Undefined in object class
                                             /*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_TRTYPE => array( */
                                             /*                                             'something', */
                                             /*                                             'somewhere', */
@@ -257,7 +257,7 @@ class Horde_Kolab_Server_Object_KolabinetorgpersonTest extends Horde_Kolab_Serve
                                                 'somewhere',
                                             ),
 
-                                            // FIXME: Undefined in object class
+                                            // @todo: Undefined in object class
                                             /*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_TRURI => array( */
                                             /*                                             'something', */
                                             /*                                             'somewhere', */
@@ -265,7 +265,7 @@ class Horde_Kolab_Server_Object_KolabinetorgpersonTest extends Horde_Kolab_Serve
                                             /*                                             array('a', 'b'), */
                                             /*                                         ), */
 
-                                            // FIXME: Undefined in object class
+                                            // @todo: Undefined in object class
                                             /*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_TRLASTCHANGED => array( */
                                             /*                                             'something', */
                                             /*                                             'somewhere', */
@@ -273,7 +273,7 @@ class Horde_Kolab_Server_Object_KolabinetorgpersonTest extends Horde_Kolab_Serve
                                             /*                                             array('a', 'b'), */
                                             /*                                         ), */
 
-                                            // FIXME: Undefined in object class
+                                            // @todo: Undefined in object class
                                             /*                                         Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_DC => array( */
                                             /*                                             'something', */
                                             /*                                             'somewhere', */

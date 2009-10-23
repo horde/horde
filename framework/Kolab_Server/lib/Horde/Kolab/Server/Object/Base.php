@@ -159,6 +159,7 @@ implements Horde_Kolab_Server_Object
         $class = 'Horde_Kolab_Server_Object_Attribute_' . $attr;
         if (!in_array($attr, $this->getExternalAttributes())
             || !class_exists($class)) {
+            //@todo: Consider support for external classes.
             throw new Horde_Kolab_Server_Exception(
                 sprintf("Attribute \"%s\" not supported!", $attr)
             );

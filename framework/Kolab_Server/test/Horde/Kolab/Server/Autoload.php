@@ -18,10 +18,8 @@ if (!spl_autoload_functions()) {
             '$filename = str_replace(array(\'::\', \'_\'), \'/\', $class);'
             . '$err_mask = E_ALL ^ E_WARNING;'
             . '$oldErrorReporting = error_reporting($err_mask);'
-            . '$included = include "$filename.php";'
+            . 'include "$filename.php";'
             . 'error_reporting($oldErrorReporting);'
         )
     );
 }
-
-require_once dirname(__FILE__) . '/Scenario.php';

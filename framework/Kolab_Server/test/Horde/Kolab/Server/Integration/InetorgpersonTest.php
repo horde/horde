@@ -12,9 +12,9 @@
  */
 
 /**
- * Prepare the test setup.
+ * Require our basic test case definition
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once dirname(__FILE__) . '/Scenario.php';
 
 /**
  * Test the inetOrgPerson object.
@@ -30,7 +30,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_InetorgpersonTest extends Horde_Kolab_Server_Scenario
+class Horde_Kolab_Server_Integration_InetorgpersonTest extends Horde_Kolab_Server_Integration_Scenario
 {
     /**
      * Objects used within this test
@@ -42,22 +42,22 @@ class Horde_Kolab_Server_Object_InetorgpersonTest extends Horde_Kolab_Server_Sce
         array(
             'type' => 'Horde_Kolab_Server_Object_Inetorgperson',
             Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_GIVENNAME    => 'Frank',
-            Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_SN           => 'Mustermann',
-            Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_USERPASSWORD => 'Kolab_Server_OrgPersonTest_123',
+            'Sn'           => 'Mustermann',
+            'Userpassword' => 'Kolab_Server_OrgPersonTest_123',
         ),
         /* Invalid person (no sn) */
         array(
             'type' => 'Horde_Kolab_Server_Object_Inetorgperson',
-            Horde_Kolab_Server_Object_Person::ATTRIBUTE_CN           => 'Kolab_Server_OrgPersonTest_123',
-            Horde_Kolab_Server_Object_Person::ATTRIBUTE_USERPASSWORD => 'Kolab_Server_OrgPersonTest_123',
+            'Cn'           => 'Kolab_Server_OrgPersonTest_123',
+            'Userpassword' => 'Kolab_Server_OrgPersonTest_123',
         ),
         /* Person with middle names */
         array(
             'type' => 'Horde_Kolab_Server_Object_Inetorgperson',
             Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_GIVENNAME    => 'Frank',
             Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_MIDDLENAMES  => 'Günter Eloic',
-            Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_SN           => 'Mustermann',
-            Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_USERPASSWORD => 'Kolab_Server_OrgPersonTest_123',
+            'Sn'           => 'Mustermann',
+            'Userpassword' => 'Kolab_Server_OrgPersonTest_123',
         ),
     );
 
@@ -192,7 +192,7 @@ class Horde_Kolab_Server_Object_InetorgpersonTest extends Horde_Kolab_Server_Sce
      */
     public function testHandlingHomePostalAddress()
     {
-        //FIXME
+        //@todo
     }
 
     /**

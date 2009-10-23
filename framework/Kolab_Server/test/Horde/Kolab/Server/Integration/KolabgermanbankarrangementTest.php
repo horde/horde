@@ -12,9 +12,9 @@
  */
 
 /**
- * Prepare the test setup.
+ * Require our basic test case definition
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once dirname(__FILE__) . '/Scenario.php';
 
 /**
  * Test the kolabGermanBankArrangement object.
@@ -30,7 +30,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_KolabgermanbankarrangementTest extends Horde_Kolab_Server_Scenario
+class Horde_Kolab_Server_Integration_KolabgermanbankarrangementTest extends Horde_Kolab_Server_Integration_Scenario
 {
     /**
      * Objects used within this test
@@ -42,8 +42,8 @@ class Horde_Kolab_Server_Object_KolabgermanbankarrangementTest extends Horde_Kol
         array(
             'type' => 'Horde_Kolab_Server_Object_Kolabinetorgperson',
             Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_GIVENNAME    => 'Frank',
-            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_SN           => 'Mustermann',
-            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_USERPASSWORD => 'Kolab_Server_OrgPersonTest_123',
+            'Sn'           => 'Mustermann',
+            'Userpassword' => 'Kolab_Server_OrgPersonTest_123',
         ),
         /* Default account */
         array(

@@ -1,6 +1,7 @@
 <?php
 /**
- * A server delegation that logs server access via Horde_Log_Logger.
+ * A cleanup decoration for Kolab Servers that allows to remove all added
+ * objects.
  *
  * PHP version 5
  *
@@ -12,7 +13,8 @@
  */
 
 /**
- * A server delegation that logs server access via Horde_Log_Logger.
+ * A cleanup decoration for Kolab Servers that allows to remove all added
+ * objects.
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -25,7 +27,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Logged implements Horde_Kolab_Server
+class Horde_Kolab_Server_Cleaner implements Horde_Kolab_Server
 {
     /**
      * The server we delegate to.
@@ -35,23 +37,20 @@ class Horde_Kolab_Server_Logged implements Horde_Kolab_Server
     private $_server;
 
     /**
-     * The log handler.
+     * The objects added.
      *
-     * @var Horde_Log_Logger
+     * @var array
      */
-    private $_logger;
+    private $_added = array();
 
     /**
      * Constructor.
      *
      * @param Horde_Kolab_Server $server The base server connection.
-     * @param mixed              $logger The log handler. The class must at
-     *                                   least provide the info() method.
      */
-    public function __construct(Horde_Kolab_Server $server, $logger)
+    public function __construct(Horde_Kolab_Server $server)
     {
         $this->_server = $server;
-        $this->_logger = $logger;
     }
 
     /**
@@ -66,22 +65,7 @@ class Horde_Kolab_Server_Logged implements Horde_Kolab_Server
      */
     public function connectGuid($guid = null, $pass = null)
     {
-        try {
-            $this->_server->connectGuid($guid, $pass);
-            $this->_logger->info(
-                sprintf(
-                    "Successfully connected to the Kolab Server as \"%s\".",
-                    $guid
-                )
-            );
-        } catch (Horde_Kolab_Server_Exception $e) {
-            $this->_logger->info(
-                sprintf(
-                    "Failed saving object \"%s\"! Error: %s",
-                    $object->getGuid(), $e->getMessage()
-                )
-            );
-        }
+        $this->_server->connectGuid($guid, $pass);
     }
 
     /**
@@ -186,23 +170,7 @@ class Horde_Kolab_Server_Logged implements Horde_Kolab_Server
      */
     public function save(Horde_Kolab_Server_Object $object, array $data)
     {
-        try {
-            $this->_server->save($object, $data);
-            $this->_logger->info(
-                sprintf(
-                    "The object \"%s\" has been successfully saved!",
-                    $object->getGuid()
-                )
-            );
-        } catch (Horde_Kolab_Server_Exception $e) {
-            $this->_logger->info(
-                sprintf(
-                    "Failed saving object \"%s\"! Error: %s",
-                    $object->getGuid(), $e->getMessage()
-                )
-            );
-
-        }
+        $this->_server->save($object, $data);
     }
 
     /**
@@ -218,23 +186,8 @@ class Horde_Kolab_Server_Logged implements Horde_Kolab_Server
      */
     public function add(Horde_Kolab_Server_Object $object, array $data)
     {
-        try {
-            $this->_server->add($object, $data);
-            $this->_logger->info(
-                sprintf(
-                    "The object \"%s\" has been successfully added!",
-                    $object->getGuid()
-                )
-            );
-        } catch (Horde_Kolab_Server_Exception $e) {
-            $this->_logger->info(
-                sprintf(
-                    "Failed adding object \"%s\"! Error: %s",
-                    $object->getGuid(), $e->getMessage()
-                )
-            );
-
-        }
+        $this->_server->add($object, $data);
+        $this->_added[] = $object->getGuid();
     }
 
     /**
@@ -248,21 +201,10 @@ class Horde_Kolab_Server_Logged implements Horde_Kolab_Server
      */
     public function delete($guid)
     {
-        try {
-            $this->_server->delete($guid);
-            $this->_logger->info(
-                sprintf("The object \"%s\" has been successfully deleted!", $guid)
-            );
-        } catch (Horde_Kolab_Server_Exception $e) {
-            $this->_logger->info(
-                sprintf(
-                    "Failed deleting object \"%s\"! Error: %s",
-                    $object->getGuid(), $e->getMessage()
-                )
-            );
-
+        $this->_server->delete($guid);
+        if (in_array($guid, $this->_added)) {
+            $this->_added = array_diff($this->_added, array($guid));
         }
-
     }
 
     /**
@@ -277,23 +219,7 @@ class Horde_Kolab_Server_Logged implements Horde_Kolab_Server
      */
     public function rename($guid, $new)
     {
-        try {
-            $this->_server->rename($guid, $new);
-            $this->_logger->info(
-                sprintf(
-                    "The object \"%s\" has been successfully renamed to \"%s\"!",
-                    $guid, $new
-                )
-            );
-        } catch (Horde_Kolab_Server_Exception $e) {
-            $this->_logger->info(
-                sprintf(
-                    "Failed saving object \"%s\"! Error: %s",
-                    $object->getGuid(), $e->getMessage()
-                )
-            );
-
-        }
+        $this->_server->rename($guid, $new);
     }
 
     /**
@@ -318,5 +244,25 @@ class Horde_Kolab_Server_Logged implements Horde_Kolab_Server
     public function getParentGuid($guid)
     {
         return $this->_server->getParentGuid($guid);
+    }
+
+    /**
+     * Cleanup the server.
+     *
+     * @return NULL
+     */
+    public function cleanup()
+    {
+        foreach ($this->_added as $guid) {
+            $this->delete($guid);
+        }
+    }
+
+    /**
+     * Destructor.
+     */
+    public function __destruct()
+    {
+        $this->cleanup();
     }
 }

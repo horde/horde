@@ -59,11 +59,15 @@ abstract class Horde_Kolab_Server_Ldap implements Horde_Kolab_Server
      */
     public function __construct(
         Horde_Kolab_Server_Connection $connection,
-        $base_dn,
-        $filter = null
+        $base_dn
     ) {
         $this->_conn    = $connection;
         $this->_base_dn = $base_dn;
+
+        $this->_handleError(
+            Net_LDAP2::checkLDAPExtension(),
+            Horde_Kolab_Server_Exception::MISSING_LDAP_EXTENSION
+        );
     }
 
     /**
@@ -190,11 +194,11 @@ abstract class Horde_Kolab_Server_Ldap implements Horde_Kolab_Server
      */
     public function save(Horde_Kolab_Server_Object $object, array $data)
     {
+        $changes = new Horde_Kolab_Server_Ldap_Changes($object, $data);
         $entry  = $this->_conn->getWrite()->getEntry(
             $object->getGuid(), array_keys($data)
         );
         $this->_handleError($entry, Horde_Kolab_Server_Exception::SYSTEM);
-        $changes = new Horde_Kolab_Server_Ldap_Changes($object, $data);
         $this->_handleError(
             $this->_conn->getWrite()->modify($entry, $changes->getChangeset()),
             Horde_Kolab_Server_Exception::SYSTEM

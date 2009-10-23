@@ -64,7 +64,7 @@ class Horde_Kolab_Server_List_Base implements Horde_Kolab_Server_List
         }
 
         if ($sort) {
-            /* FIXME */
+            /* @todo: sorting */
             /* $data = $result->as_sorted_struct(); */
             /*$this->sort($result, $sort); */
         }

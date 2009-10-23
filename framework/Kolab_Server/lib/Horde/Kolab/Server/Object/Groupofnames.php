@@ -127,7 +127,7 @@ class Horde_Kolab_Server_Object_Groupofnames extends Horde_Kolab_Server_Object_T
     {
         $members = $this->getMembers();
         if (in_array($member, $members)) {
-            //FIXME: As the member attribute is required we may not remove the last member
+            //@todo: As the member attribute is required we may not remove the last member
             $this->_cache[self::ATTRIBUTE_MEMBER] =
                 array_diff($this->_cache[self::ATTRIBUTE_MEMBER],
                            array($member));
@@ -175,7 +175,7 @@ class Horde_Kolab_Server_Object_Groupofnames extends Horde_Kolab_Server_Object_T
     }
 
     /**
-     * FIXME: This method belongs somewhere where we are aware of groups
+     * @todo: This method belongs somewhere where we are aware of groups
      * Identify the GID for the first group found using the specified
      * search criteria
      *
@@ -187,7 +187,7 @@ class Horde_Kolab_Server_Object_Groupofnames extends Horde_Kolab_Server_Object_T
      * @throws Horde_Kolab_Server_Exception
      */
     static public function gidForSearch($server, $criteria,
-                                        $restrict = Horde_Kolab_Server_Object::RESULT_SINGLE)
+                                        $restrict = 0)
     {
         $groups = array('field' => self::ATTRIBUTE_OC,
                         'op'    => '=',

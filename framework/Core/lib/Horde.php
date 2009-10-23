@@ -585,14 +585,8 @@ HTML;
      * @param mixed $data                      The 'response' data.
      * @param Notification_Listener $listener  If set, adds notification
      *                                         information to object.
-     * @param boolean $auto                    If true, the ajax application
-     *                                         will automatically display the
-     *                                         notification.  If false, the
-     *                                         callback handler is responsible
-     *                                         for displaying the notification.
      */
-    static public function prepareResponse($data = null, $listener = null,
-                                           $auto = true)
+    static public function prepareResponse($data = null, $listener = null)
     {
         $response = new stdClass();
         $response->response = $data;
@@ -601,9 +595,6 @@ HTML;
             $stack = $listener->getStack();
             if (!empty($stack)) {
                 $response->msgs = $stack;
-                if (!(bool)$auto) {
-                    $response->msgs_noauto = true;
-                }
             }
         }
 

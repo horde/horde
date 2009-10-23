@@ -35,7 +35,7 @@ require_once 'Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Auth_Kolab_KolabTest extends Horde_Kolab_Server_Scenario
+class Horde_Auth_Kolab_KolabTest extends Horde_Kolab_Server_Integration_Scenario
 {
     /**
      * Test loggin in after a user has been added.
