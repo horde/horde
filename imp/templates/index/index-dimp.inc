@@ -276,7 +276,7 @@ function _simpleButton($id, $text, $image)
 <?php endif; ?>
          </div>
          <div id="msgHeadersContent">
-          <table cellspacing="0">
+          <table>
            <thead>
             <tr>
              <td class="label"><?php echo _("Subject") ?>:</td>
@@ -303,7 +303,7 @@ function _simpleButton($id, $text, $image)
              <td>
               <div></div>
               <div id="partlist" style="display:none">
-               <table cellspacing="2"></table>
+               <table></table>
               </div>
              </td>
             </tr>

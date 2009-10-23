@@ -66,7 +66,7 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
       </div>
      </div>
      <div id="msgHeadersContent">
-      <table cellspacing="0">
+      <table>
        <thead>
         <tr>
          <td class="label"><?php echo _("Subject") ?>:</td>
@@ -85,7 +85,7 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
           <span class="atcLabel"><?php echo $show_msg_result['atc_label'] ?></span><?php echo isset($show_msg_result['atc_download']) ? $show_msg_result['atc_download'] : '' ?>
 <?php if (isset($show_msg_result['atc_list'])): ?>
           <div id="partlist" style="display:none">
-           <table cellspacing="2">
+           <table>
             <?php echo $show_msg_result['atc_list'] ?>
            </table>
           </div>
