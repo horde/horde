@@ -1250,7 +1250,7 @@ ViewPort_Buffer = Class.create({
 
     getAllRows: function()
     {
-        return this.rowsToUIDs(this.rowlist.keys());
+        return this.rowlist.keys();
     },
 
     rowsToUIDs: function(rows)
