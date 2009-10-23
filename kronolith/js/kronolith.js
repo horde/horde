@@ -373,7 +373,7 @@ KronolithCore = {
 
             for (var i = 0; i < 7; i++) {
                 div.writeAttribute('id', 'kronolithEventsWeek' + day.dateString());
-                th.writeAttribute('date', day.dateString()).down('span').innerHTML = day.toString('dddd, d');
+                th.store('date', day.dateString()).down('span').innerHTML = day.toString('dddd, d');
                 td.down('div').writeAttribute('id', 'kronolithAllDay' + day.dateString());
                 div = div.next('div');
                 th = th.next('td');
@@ -474,12 +474,12 @@ KronolithCore = {
         // Fill week number and day cells.
         cell = row.down()
             .setText(monday.getWeek())
-            .writeAttribute('date', monday.dateString())
+            .store('date', monday.dateString())
             .next();
         while (cell) {
             dateString = day.dateString();
             cell.id = 'kronolithMonthDay' + dateString;
-            cell.writeAttribute('date', dateString);
+            cell.store('date', dateString);
             cell.removeClassName('kronolithOtherMonth').removeClassName('kronolithToday');
             if (day.getMonth() != month) {
                 cell.addClassName('kronolithOtherMonth');
@@ -489,8 +489,8 @@ KronolithCore = {
             }
             new Drop(cell, { onDrop: function(drop) {
                 var el = DragDrop.Drags.drag.element,
-                    eventid = el.readAttribute('eventid'),
-                    cal = el.readAttribute('calendar');
+                    eventid = el.retrieve('eventid'),
+                    cal = el.retrieve('calendar');
                 if (drop == el.parentNode) {
                     return;
                 }
@@ -502,7 +502,7 @@ KronolithCore = {
                                 'view': this.view,
                                 'view_start': start,
                                 'view_end': end,
-                                'att': $H({ start_date: drop.readAttribute('date') }).toJSON() },
+                                'att': $H({ start_date: drop.retrieve('date') }).toJSON() },
                               function(r) {
                                   if (r.response.events) {
                                       this._removeEvent(eventid, cal);
@@ -511,10 +511,10 @@ KronolithCore = {
                               }.bind(this));
             }.bind(this) });
             cell.down('.kronolithDay')
-                .writeAttribute('date', dateString)
+                .store('date', dateString)
                 .innerHTML = day.getDate();
             cell.down('.kronolithAddEvent')
-                .writeAttribute('date', dateString);
+                .store('date', dateString);
             cell = cell.next();
             day.add(1).day();
         }
@@ -546,14 +546,14 @@ KronolithCore = {
         row.addClassName('kronolithRow' + (body.select('tr').length % 2 == 1 ? 'Odd' : 'Even'))
             .down()
             .setText(this.parseDate(date).toString('D'))
-            .writeAttribute('date', date)
+            .store('date', date)
             .next()
             .writeAttribute('id', 'kronolithAgendaDay' + date);
 
         // Insert row.
         var nextRow;
         body.childElements().each(function(elm) {
-            if (elm.down().readAttribute('date') > date) {
+            if (elm.down().retrieve('date') > date) {
                 nextRow = elm;
                 return;
             }
@@ -585,7 +585,7 @@ KronolithCore = {
 
         // Set month name.
         table.down('SPAN')
-            .writeAttribute('date', year.toPaddedString(4) + (month + 1).toPaddedString(2) + '01')
+            .store('date', year.toPaddedString(4) + (month + 1).toPaddedString(2) + '01')
             .innerHTML = Date.CultureInfo.monthNames[month];
 
         // Build month table.
@@ -650,7 +650,7 @@ KronolithCore = {
     updateMinical: function(date, view)
     {
         // Update header.
-        $('kronolithMinicalDate').writeAttribute('date', date.dateString()).innerHTML = date.toString('MMMM yyyy');
+        $('kronolithMinicalDate').store('date', date.dateString()).innerHTML = date.toString('MMMM yyyy');
 
         this.buildMinical($('kronolithMinical').down('tbody'), date, view);
 
@@ -679,9 +679,10 @@ KronolithCore = {
         while (day.compareTo(dates[1]) < 1) {
             // Create calendar row and insert week number.
             if (day.getDay() == Kronolith.conf.week_start) {
-                tr = new Element('tr');
+                tr = new Element('TR');
                 tbody.insert(tr);
-                td = new Element('td', { 'class': 'kronolithMinicalWeek', 'weekdate': day.dateString() });
+                td = new Element('TD', { 'class': 'kronolithMinicalWeek' })
+                    .store('weekdate', day.dateString());
                 td.innerHTML = day.getWeek();
                 tr.insert(td);
                 weekStart = day.clone();
@@ -689,7 +690,7 @@ KronolithCore = {
                 weekEnd.add(6).days();
             }
             // Insert day cell.
-            td = new Element('td', {date: day.dateString()});
+            td = new Element('TD').store('date', day.dateString());
             if (day.getMonth() != date.getMonth()) {
                 td.addClassName('kronolithMinicalEmpty');
             }
@@ -723,7 +724,9 @@ KronolithCore = {
                 shared++;
                 div = $('kronolithSharedCalendars');
             }
-            div.insert(new Element('DIV', { 'calendar': cal.key, 'calendarclass': 'internal', 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' })
+            div.insert(new Element('DIV', { 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' })
+                       .store('calendar', cal.key)
+                       .store('calendarclass', 'internal')
                        .setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg })
                        .update(cal.value.name.escapeHTML()));
         });
@@ -755,7 +758,9 @@ KronolithCore = {
                 .insert(new Element('DIV', { 'id': 'kronolithExternalCalendar' + api.key, 'class': 'kronolithCalendars' }));
             $H(api.value).each(function(cal) {
                 $('kronolithExternalCalendar' + api.key)
-                    .insert(new Element('DIV', { 'calendar': api.key + '/' + cal.key, 'calendarclass': 'external', 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' })
+                    .insert(new Element('DIV', { 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' })
+                            .store('calendar', api.key + '/' + cal.key)
+                            .store('calendarclass', 'external')
                             .setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg })
                             .update(cal.value.name.escapeHTML()));
             });
@@ -764,7 +769,9 @@ KronolithCore = {
         remote = $H(Kronolith.conf.calendars.remote);
         remote.each(function(cal) {
             $('kronolithRemoteCalendars')
-                .insert(new Element('DIV', { 'calendar': cal.key, 'calendarclass': 'remote', 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' })
+                .insert(new Element('DIV', { 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' })
+                        .store('calendar', cal.key)
+                        .store('calendarclass', 'remote')
                         .setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg })
                         .update(cal.value.name.escapeHTML()));
         });
@@ -777,7 +784,9 @@ KronolithCore = {
         holidays = $H(Kronolith.conf.calendars.holiday);
         holidays.each(function(cal) {
             $('kronolithHolidayCalendars')
-                .insert(new Element('DIV', { 'calendar': cal.key, 'calendarclass': 'holiday', 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' })
+                .insert(new Element('DIV', { 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' })
+                        .store('calendar', cal.key)
+                        .store('calendarclass', 'holiday')
                         .setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg })
                         .update(cal.value.name.escapeHTML()));
         });
@@ -1003,14 +1012,11 @@ KronolithCore = {
         event.value.nodeId = 'kronolithEvent' + view + event.value.calendar + date + event.key;
 
         _createElement = function(event) {
-            var el = new Element('DIV', {
-                'id': event.value.nodeId,
-                'calendar': event.value.calendar.replace(/:/, '^'),
-                'eventid' : event.key.replace(/:/, '^'),
-                'class': 'kronolithEvent'
-            });
+            var el = new Element('DIV', { 'id': event.value.nodeId, 'class': 'kronolithEvent' })
+                .store('calendar', event.value.calendar.replace(/:/, '^'))
+                .store('eventid', event.key.replace(/:/, '^'));
             if (!Object.isUndefined(event.value.aj)) {
-                el.writeAttribute('ajax', event.value.aj);
+                el.store('ajax', event.value.aj);
             }
             return el;
         };
@@ -1433,8 +1439,8 @@ KronolithCore = {
             div = col.down();
 
         row.removeAttribute('id');
-        row.writeAttribute('taskList', task.value.l);
-        row.writeAttribute('taskId', task.key);
+        row.store('taskList', task.value.l);
+        row.store('taskId', task.key);
         col.addClassName('kronolithTask' + (task.value.cp != 0 ? 'Completed' : ''));
         col.insert(task.value.n.escapeHTML());
         if (!Object.isUndefined(task.value.du)) {
@@ -1467,8 +1473,8 @@ KronolithCore = {
         var rows = $('kronolithViewTasksBody').select('tr');
         // The first row is a template one, so must be ignored
         for (var i = 1; i < rows.length; i++) {
-            var rowTaskList = rows[i].readAttribute('taskList');
-            var rowTaskId = rows[i].readAttribute('taskId');
+            var rowTaskList = rows[i].retrieve('taskList');
+            var rowTaskId = rows[i].retrieve('taskId');
             var rowTask = this.tcache.get(rowTaskList).get(rowTaskId);
 
             // TODO: Assuming that tasks of the same tasklist are already in
@@ -1899,20 +1905,20 @@ KronolithCore = {
                 return;
 
             case 'kronolithMinicalDate':
-                this.go('month:' + orig.readAttribute('date'));
+                this.go('month:' + orig.retrieve('date'));
                 e.stop();
                 return;
 
             case 'kronolithMinical':
                 if (orig.id == 'kronolithMinicalPrev') {
-                    var date = this.parseDate($('kronolithMinicalDate').readAttribute('date'));
+                    var date = this.parseDate($('kronolithMinicalDate').retrieve('date'));
                     date.previous().month();
                     this.updateMinical(date);
                     e.stop();
                     return;
                 }
                 if (orig.id == 'kronolithMinicalNext') {
-                    var date = this.parseDate($('kronolithMinicalDate').readAttribute('date'));
+                    var date = this.parseDate($('kronolithMinicalDate').retrieve('date'));
                     date.next().month();
                     this.updateMinical(date);
                     e.stop();
@@ -1924,12 +1930,12 @@ KronolithCore = {
                     tmp.up('td');
                 }
                 if (tmp) {
-                    if (tmp.readAttribute('weekdate') &&
+                    if (tmp.retrieve('weekdate') &&
                         tmp.hasClassName('kronolithMinicalWeek')) {
-                        this.go('week:' + tmp.readAttribute('weekdate'));
-                    } else if (tmp.readAttribute('date') &&
+                        this.go('week:' + tmp.retrieve('weekdate'));
+                    } else if (tmp.retrieve('date') &&
                                !tmp.hasClassName('empty')) {
-                        this.go('day:' + tmp.readAttribute('date'));
+                        this.go('day:' + tmp.retrieve('date'));
                     }
                 }
                 e.stop();
@@ -1937,14 +1943,14 @@ KronolithCore = {
 
             case 'kronolithViewMonth':
                 if (orig.hasClassName('kronolithFirstCol')) {
-                    var date = orig.readAttribute('date');
+                    var date = orig.retrieve('date');
                     if (date) {
                         this.go('week:' + date);
                         e.stop();
                         return;
                     }
                 } else if (orig.hasClassName('kronolithDay')) {
-                    var date = orig.readAttribute('date');
+                    var date = orig.retrieve('date');
                     if (date) {
                         this.go('day:' + date);
                         e.stop();
@@ -1960,14 +1966,14 @@ KronolithCore = {
                     tmp.up('td');
                 }
                 if (tmp) {
-                    if (tmp.readAttribute('weekdate') &&
+                    if (tmp.retrieve('weekdate') &&
                         tmp.hasClassName('kronolithMinicalWeek')) {
-                        this.go('week:' + tmp.readAttribute('weekdate'));
+                        this.go('week:' + tmp.retrieve('weekdate'));
                     } else if (tmp.hasClassName('kronolithMinicalDate')) {
-                        this.go('month:' + tmp.readAttribute('date'));
-                    } else if (tmp.readAttribute('date') &&
+                        this.go('month:' + tmp.retrieve('date'));
+                    } else if (tmp.retrieve('date') &&
                                !tmp.hasClassName('empty')) {
-                        this.go('day:' + tmp.readAttribute('date'));
+                        this.go('day:' + tmp.retrieve('date'));
                     }
                 }
                 e.stop();
@@ -1978,8 +1984,8 @@ KronolithCore = {
                 if (tmp.tagName != 'td') {
                     tmp.up('td');
                 }
-                if (tmp && tmp.readAttribute('date')) {
-                    this.go('day:' + tmp.readAttribute('date'));
+                if (tmp && tmp.retrieve('date')) {
+                    this.go('day:' + tmp.retrieve('date'));
                 }
                 e.stop();
                 return;
@@ -2031,7 +2037,7 @@ KronolithCore = {
                 return;
 
             case 'kronolithAddEvent':
-                this.go('event:' + elt.readAttribute('date'));
+                this.go('event:' + elt.retrieve('date'));
                 e.stop();
                 return;
 
@@ -2042,20 +2048,20 @@ KronolithCore = {
             }
 
             if (elt.hasClassName('kronolithEvent')) {
-                if (elt.hasAttribute('ajax')) {
-                    this.go(elt.readAttribute('ajax'));
+                if (!Object.isUndefined(elt.retrieve('ajax'))) {
+                    this.go(elt.retrieve('ajax'));
                 } else {
-                    this.go('event:' + elt.readAttribute('calendar') + ':' + elt.readAttribute('eventid'));
+                    this.go('event:' + elt.retrieve('calendar') + ':' + elt.retrieve('eventid'));
                 }
                 e.stop();
                 return;
             } else if (elt.hasClassName('kronolithWeekDay')) {
-                this.go('day:' + elt.readAttribute('date'));
+                this.go('day:' + elt.retrieve('date'));
                 e.stop();
                 return;
             } else if (elt.hasClassName('kronolithTaskCheckbox')) {
-                var taskId = elt.up('tr.kronolithTaskRow', 0).readAttribute('taskId'),
-                    taskList = elt.up('tr.kronolithTaskRow', 0).readAttribute('tasklist');
+                var taskId = elt.up('tr.kronolithTaskRow', 0).retrieve('taskId'),
+                    taskList = elt.up('tr.kronolithTaskRow', 0).retrieve('tasklist');
                 this._toggleCompletionClass(taskId);
                 this.doAction('ToggleCompletion',
                               { taskList: taskList, taskType: this.taskType, taskId: taskId },
@@ -2075,9 +2081,9 @@ KronolithCore = {
                 return;
             }
 
-            calClass = elt.readAttribute('calendarclass');
+            calClass = elt.retrieve('calendarclass');
             if (calClass) {
-                var calendar = elt.readAttribute('calendar');
+                var calendar = elt.retrieve('calendar');
                 Kronolith.conf.calendars[calClass][calendar].show = !Kronolith.conf.calendars[calClass][calendar].show;
                 if (this.view == 'year' ||
                     typeof this.ecache.get(calClass) == 'undefined' ||
@@ -2215,9 +2221,9 @@ KronolithCore = {
             $('kronolithEventTopTags').update();
             return;
         }
-        t = new Element('div', {});
+        t = new Element('DIV');
         r.response.tags.each(function(tag) {
-            t.insert(new Element('span', { 'class': 'kronolithEventTag' }).update(tag.escapeHTML()));
+            t.insert(new Element('SPAN', { 'class': 'kronolithEventTag' }).update(tag.escapeHTML()));
         });
         $('kronolithEventTopTags').update(t);
         return;
