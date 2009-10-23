@@ -146,9 +146,9 @@ var ViewPort = Class.create({
         Event.observe(window, 'resize', this.onResize.bind(this));
     },
 
-    // view = ID of view.
+    // view = (string) ID of view.
     // search = (object) Search parameters
-    // background = Load view in background?
+    // background = (boolean) Load view in background?
     loadView: function(view, search, background)
     {
         var buffer, curr, init = true, opts = {}, ps;
@@ -527,7 +527,8 @@ var ViewPort = Class.create({
 
     // rownum = (integer) Row number
     // nearing = (string) 'bottom', 'top', null
-    _getSliceBounds: function(rownum, nearing)
+    // view = (string) ID of view.
+    _getSliceBounds: function(rownum, nearing, view)
     {
         var b_size = this.bufferSize(),
             ob = {}, trows;
@@ -551,7 +552,7 @@ var ViewPort = Class.create({
              * the unused buffer space to the other endpoint. Always allow
              * searching past the value of total_rows, since the size of the
              * dataset may have increased. */
-            trows = this.getMetaData('total_rows');
+            trows = this.getMetaData('total_rows', view);
             if (trows) {
                 ob.end = ob.start + b_size;
 
