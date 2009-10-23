@@ -670,13 +670,13 @@ KronolithCore = {
     {
         var dates = this.viewDates(date, 'month'), day = dates[0].clone(),
             date7 = date.clone().add(1).week(),
-            weekStart, weekEnd, weekEndDay, td, tr;
+            weekStart, weekEnd, weekEndDay, td, tr, i;
 
         // Remove old calendar rows. Maybe we should only rebuild the minical
         // if necessary.
         tbody.childElements().invoke('remove');
 
-        while (day.compareTo(dates[1]) < 1) {
+        for (i = 0; i < 42; i++) {
             // Create calendar row and insert week number.
             if (day.getDay() == Kronolith.conf.week_start) {
                 tr = new Element('TR');
