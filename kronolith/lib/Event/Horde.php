@@ -22,7 +22,14 @@ class Kronolith_Event_Horde extends Kronolith_Event
      *
      * @var string
      */
-    private $_api;
+    protected $_api;
+
+    /**
+     * The link to this event in the ajax interface.
+     *
+     * @var string
+     */
+    public $ajax_link;
 
     /**
      * Constructor.
@@ -47,6 +54,7 @@ class Kronolith_Event_Horde extends Kronolith_Event
         $this->external_params = $event['params'];
         $this->external_icon = !empty($event['icon']) ? $event['icon'] : null;
         $this->external_link = !empty($event['link']) ? $event['link'] : null;
+        $this->ajax_link = !empty($event['ajax_link']) ? $event['ajax_link'] : null;
         $this->title = $event['title'];
         $this->description = isset($event['description']) ? $event['description'] : '';
         $this->start = $eventStart;
@@ -85,9 +93,11 @@ class Kronolith_Event_Horde extends Kronolith_Event
     {
         $json = parent::toJson($allDay, $full, $time_format);
         $json->ic = $this->external_icon;
-        // @TODO: What is expected for external calendar links? This is currently
-        // broken in the UI.
-        //$json->ln = $this->getLink();
+        if ($this->ajax_link) {
+            $json->aj = $this->ajax_link;
+        } else {
+            $json->ln = $this->getLink();
+        }
         return $json;
     }
 

@@ -1083,6 +1083,7 @@ abstract class Kronolith_Event
      * - r: recurrence type (Horde_Date_Recurrence::RECUR_* constant)
      * - ic: icon
      * - ln: link
+     * - aj: ajax link
      * - id: event id
      * - ty: calendar type (driver)
      * - l: location

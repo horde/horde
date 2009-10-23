@@ -329,6 +329,10 @@ KronolithCore = {
             this._addHistory(fullloc);
             break;
 
+        case 'task':
+            this._addHistory(fullloc);
+            break;
+
         case 'options':
             //this.highlightSidebar('appoptions');
             this._addHistory(loc);
@@ -999,12 +1003,16 @@ KronolithCore = {
         event.value.nodeId = 'kronolithEvent' + view + event.value.calendar + date + event.key;
 
         _createElement = function(event) {
-            return new Element('DIV', {
+            var el = new Element('DIV', {
                 'id': event.value.nodeId,
-                'calendar': event.value.calendar,
-                'eventid' : event.key,
+                'calendar': event.value.calendar.replace(/:/, '^'),
+                'eventid' : event.key.replace(/:/, '^'),
                 'class': 'kronolithEvent'
             });
+            if (!Object.isUndefined(event.value.aj)) {
+                el.writeAttribute('ajax', event.value.aj);
+            }
+            return el;
         };
 
         switch (view) {
@@ -1880,9 +1888,13 @@ KronolithCore = {
             case 'kronolithNavWeek':
             case 'kronolithNavMonth':
             case 'kronolithNavYear':
-            case 'kronolithNavTasks':
             case 'kronolithNavAgenda':
                 this.go(id.substring(12).toLowerCase() + ':' + this.date.dateString());
+                e.stop();
+                return;
+
+            case 'kronolithNavTasks':
+                this.go('tasks');
                 e.stop();
                 return;
 
@@ -2030,7 +2042,11 @@ KronolithCore = {
             }
 
             if (elt.hasClassName('kronolithEvent')) {
-                this.go('event:' + elt.readAttribute('calendar') + ':' + elt.readAttribute('eventid'));
+                if (elt.hasAttribute('ajax')) {
+                    this.go(elt.readAttribute('ajax'));
+                } else {
+                    this.go('event:' + elt.readAttribute('calendar') + ':' + elt.readAttribute('eventid'));
+                }
                 e.stop();
                 return;
             } else if (elt.hasClassName('kronolithWeekDay')) {
@@ -2129,7 +2145,7 @@ KronolithCore = {
         this.doAction('ListTopTags', {}, this._topTags);
         if (id) {
             RedBox.loading();
-            this.doAction('GetEvent', { 'cal': calendar, 'id': id }, this._editEvent.bind(this));
+            this.doAction('GetEvent', { 'cal': calendar.replace(/\^/, ':'), 'id': id.replace(/\^/, ':') }, this._editEvent.bind(this));
         } else {
             var d = date ? this.parseDate(date) : new Date();
             $('kronolithEventId').value = '';
