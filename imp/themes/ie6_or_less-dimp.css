@@ -6,9 +6,14 @@
     height: auto;
 }
 
-#sidebarPanel, #normalfolders {
-    width: 150px;
+#sidebarPanel .sepfull, #splitBar, .context div.sep {
+    overflow: hidden;
 }
+
+#sidebarPanel li {
+    width: 100%;
+}
+
 #normalfolders {
     /* IE 6 does not support max-height. To auto-size folder list display, set
      * height to 0px. */
@@ -16,34 +21,12 @@
     overflow: auto;
 }
 
-#sidebarPanel li {
-    width: 100%;
-}
 .context {
     width: 180px;
 }
 
-div.msgSubject {
-    width: 50%;
-}
-
-div.msgmiddle {
-    margin-bottom: -4px;
-}
-
-.splitBar {
-    background-attachment: fixed;
-    font-size: 0px;
-}
-
-form#compose {
-    margin-top: -13px;
-}
 #to, #cc, #bcc {
     overflow: auto;
-}
-#composeMessageParent {
-    width: 96% !important;
 }
 
 .block-monthgrid table {
@@ -51,7 +34,17 @@ form#compose {
 }
 
 #msglistHeader {
-    height: 15px;
+    height: 16px;
+}
+#msglistHeader div {
+    margin-right: -1px;
+}
+#msglistHeader div.msgStatus {
+    margin-right: 0;
+}
+
+.dimpOptions span.iconImg {
+    margin-right: 4px;
 }
 
 /* IE 6 doesn't support DOM.class1.class2 - treats this as DOM.class2. So
