@@ -1385,10 +1385,8 @@ var DimpBase = {
         }
 
         if (this.isSearch()) {
-            DimpCore.DMenu.disable('qsearch_icon', true, false);
-            DimpCore.DMenu.disable('qsearch_icon', false, false);
             this.resetSelected();
-            $('qsearch', 'qsearch_input').invoke('show');
+            $('qsearch', 'qsearch_icon', 'qsearch_input').invoke('show');
             if (!noload) {
                 this.loadMailbox(this.search ? this.search.mbox : 'INBOX');
             }
@@ -1403,7 +1401,7 @@ var DimpBase = {
         $('qsearch_input').setValue(d ? DIMP.text.search + ' (' + $('ctx_qsearchby_' + DIMP.conf.qsearchfield).getText() + ')' : '');
         [ $('qsearch') ].invoke(d ? 'removeClassName' : 'addClassName', 'qsearchActive');
         if ($('qsearch_input').visible()) {
-            $('qsearch_close').hide();
+            $('qsearch_close').hide().next().hide();
         }
     },
 
@@ -1413,11 +1411,9 @@ var DimpBase = {
         if (hideall) {
             $('qsearch').hide();
         } else {
-            $('qsearch_close').show();
-            $('qsearch_input').hide();
+            $('qsearch_close').show().next().show();
+            $('qsearch_icon', 'qsearch_input').invoke('hide');
         }
-        DimpCore.DMenu.disable('qsearch_icon', true, true);
-        DimpCore.DMenu.disable('qsearch_icon', false, true);
     },
 
     /* Enable/Disable DIMP action buttons as needed. */
@@ -1797,6 +1793,7 @@ var DimpBase = {
                 break;
 
             case 'qsearch_close':
+            case 'qsearch_close_filter':
                 this.quicksearchClear();
                 e.stop();
                 return;
