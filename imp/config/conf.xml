@@ -262,14 +262,10 @@
    <configsection name="viewport">
     <configinteger name="buffer_pages" desc="The number of viewable pages to
     send to the browser per server access when listing
-    messages.">8</configinteger>
-    <configinteger name="limit_factor" desc="When browsing through a message
-    list, if a user comes within this percentage of the end of the current
-    cached viewport, the browser will send a background request to the server
-    to retrieve the next slice of the message list.">35</configinteger>
+    messages.">10</configinteger>
     <configinteger name="viewport_wait" desc="How long, in seconds, to wait
     before displaying an informational message to users that the message list is
-    still being built. Set to 0 to disable messages.">12</configinteger>
+    still being built. Set to 0 to disable messages.">10</configinteger>
    </configsection>
   </configsection>
  </configtab>

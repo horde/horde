@@ -118,7 +118,7 @@ var ViewPort = Class.create({
     initialize: function(opts)
     {
         this.opts = Object.extend({
-            buffer_pages: 5,
+            buffer_pages: 10,
             limit_factor: 35,
             lookbehind: 40
         }, opts);

@@ -43,6 +43,8 @@ The 'max_from_chars' and 'max_subj_chars' configuration options for the
 minimal (mimp) display have been moved to preferences ('mimp_max_from_chars'
 and 'mimp_max_subj_chars').
 
+The 'limit_factor' configuration option has been removed.
+
 
 Preferences
 -----------

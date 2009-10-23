@@ -68,7 +68,6 @@ $code['conf'] = array_filter(array(
     'flags' => $flags,
     'fsearchid' => IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_FILTERSEARCH,
     'ham_spammbox' => intval(!empty($GLOBALS['conf']['notspam']['spamfolder'])),
-    'limit_factor' => intval($GLOBALS['conf']['dimp']['viewport']['limit_factor']),
     'login_view' => $GLOBALS['prefs']->getValue('dimp_login_view'),
     'name' => $GLOBALS['registry']->get('name', 'imp'),
     'popup_height' => 610,
