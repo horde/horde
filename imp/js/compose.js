@@ -399,21 +399,27 @@ var ImpCompose = {
                 }
             }
         }
+
+        document.observe('click', this.clickHandler.bindAsEventListener(this));
+        document.observe('change', this.changeHandler.bindAsEventListener(this));
+
+        this.resize();
     },
 
-    onLoad: function()
+    resize: function()
     {
         var d, e = this.redirect ? $('redirect') : $('compose');
 
         if (this.popup && !this.reloaded) {
+            e = e.getHeight();
+            if (!e) {
+                return this.resize.bind(this).defer();
+            }
             d = Math.min(e.getHeight(), screen.height - 100) - document.viewport.getHeight();
             if (d > 0) {
                 window.resizeBy(0, d);
             }
         }
-
-        document.observe('click', this.clickHandler.bindAsEventListener(this));
-        document.observe('change', this.changeHandler.bindAsEventListener(this));
     },
 
     onBeforeUnload: function()
@@ -427,7 +433,6 @@ var ImpCompose = {
 
 /* Code to run on window load. */
 document.observe('dom:loaded', ImpCompose.onDomLoad.bind(ImpCompose));
-Event.observe(window, 'load', ImpCompose.onLoad.bind(ImpCompose));
 
 /* Warn before closing the window. */
 Event.observe(window, 'beforeunload', ImpCompose.onBeforeUnload.bind(ImpCompose));
