@@ -361,7 +361,7 @@ var ViewPort = Class.create({
             return this._onResize.bind(this).defer();
         }
 
-        var diff, h, setpane,
+        var h, setpane,
             c = $(this.opts.content),
             de = document.documentElement,
             lh = this._getLineHeight();
@@ -395,7 +395,7 @@ var ViewPort = Class.create({
         if (setpane) {
             this.opts.split_pane.setStyle({ height: (this._getMaxHeight() - h - lh) + 'px' }).show();
             this.split_bar.show();
-        } else if (diff = de.scrollHeight - de.clientHeight) {
+        } else if (de.scrollHeight - de.clientHeight) {
             c.setStyle({ height: (lh * (this.page_size - 1)) + 'px' });
         }
 
