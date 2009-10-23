@@ -9,7 +9,6 @@
  */
 
 $compose_mode = (strstr($_SERVER['PHP_SELF'], 'compose-dimp.php') || strstr($_SERVER['PHP_SELF'], 'message-dimp.php'));
-$horde_webroot = $GLOBALS['registry']->get('webroot', 'horde');
 
 $app_urls = $code = $flags = array();
 
@@ -50,7 +49,6 @@ $code['conf'] = array_filter(array(
     'URI_MESSAGE' => Horde::applicationUrl('message-dimp.php'),
     'URI_PREFS' => Horde::getServiceLink('prefsapi', 'imp'),
     'URI_PREFS_IMP' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'imp')),
-    'URI_SEARCH_BASIC' => Horde::applicationUrl('search-basic.php'),
     'URI_SEARCH' => Horde::applicationUrl('search.php'),
     'URI_VIEW' => Horde::applicationUrl('view.php'),
 
@@ -77,7 +75,7 @@ $code['conf'] = array_filter(array(
     'qsearchfield' => $GLOBALS['prefs']->getValue('dimp_qsearch_field'),
     'refresh_time' => intval($GLOBALS['prefs']->getValue('refresh_time')),
     'searchprefix' => IMP_Search::MBOX_PREFIX,
-    'sidebar_width' => max((int)$GLOBALS['prefs']->getValue('sidebar_width') - 50, 150) . 'px',
+    'sidebar_width' => max((int)$GLOBALS['prefs']->getValue('sidebar_width'), 150) . 'px',
     'sortdate' => Horde_Imap_Client::SORT_DATE,
     'sortthread' => Horde_Imap_Client::SORT_THREAD,
     'spam_mbox' => IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true),
