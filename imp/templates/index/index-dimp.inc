@@ -347,10 +347,10 @@ function _simpleButton($id, $text, $image)
  <a id="ctx_folder_sub"><span class="contextImg"></span><?php echo _("Subscribe") ?></a>
  <a id="ctx_folder_unsub"><span class="contextImg"></span><?php echo _("Unsubscribe") ?></a>
 <?php endif; ?>
- <div>
+ <div style="display:none">
   <div class="sep"></div>
-  <a id="ctx_folder_expand" style="display:none"><span class="contextImg"></span><?php echo _("Expand All") ?></a>
-  <a id="ctx_folder_collapse" style="display:none"><span class="contextImg"></span><?php echo _("Collapse All") ?></a>
+  <a id="ctx_folder_expand"><span class="contextImg"></span><?php echo _("Expand All") ?></a>
+  <a id="ctx_folder_collapse"><span class="contextImg"></span><?php echo _("Collapse All") ?></a>
  </div>
 </div>
 
