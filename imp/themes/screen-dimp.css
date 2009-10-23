@@ -464,10 +464,12 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     padding: 3px 10px 5px 5px;
 }
 
+.msgHeaders table {
+    margin-top: -2px;
+}
 .msgHeaders table thead td {
     padding: 0 0 1px 0;
 }
-
 .msgHeaders table thead tr {
     vertical-align: top;
 }

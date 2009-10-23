@@ -1386,6 +1386,7 @@ var DimpBase = {
 
         if (this.isSearch()) {
             DimpCore.DMenu.disable('qsearch_icon', true, false);
+            DimpCore.DMenu.disable('qsearch_icon', false, false);
             this.resetSelected();
             $('qsearch', 'qsearch_input').invoke('show');
             if (!noload) {
@@ -1416,6 +1417,7 @@ var DimpBase = {
             $('qsearch_input').hide();
         }
         DimpCore.DMenu.disable('qsearch_icon', true, true);
+        DimpCore.DMenu.disable('qsearch_icon', false, true);
     },
 
     /* Enable/Disable DIMP action buttons as needed. */
@@ -2572,6 +2574,7 @@ var DimpBase = {
         if ($('qsearch')) {
             $('qsearch_input').observe('blur', this._quicksearchOnBlur.bind(this));
             this._addMouseEvents({ id: 'qsearch_icon', left: true, offset: 'qsearch', type: 'qsearchopts' });
+            this._addMouseEvents({ id: 'qsearch_icon', left: false, offset: 'qsearch', type: 'qsearchopts' });
             DM.addSubMenu('ctx_qsearchopts_by', 'ctx_qsearchby');
             DM.addSubMenu('ctx_qsearchopts_filter', 'ctx_flag');
             DM.addSubMenu('ctx_qsearchopts_filternot', 'ctx_flag');
