@@ -263,7 +263,8 @@ var ViewPort = Class.create({
     {
         this._fetchBuffer({
             offset: this.currentOffset(),
-            params: $H(params).merge({ purge: true })
+            params: $H(params),
+            purge: true
         });
     },
 
@@ -430,6 +431,8 @@ var ViewPort = Class.create({
     //   initial: (boolean) Is this the initial access to this view?
     //   nearing: (string) TODO [only used w/offset]
     //   params: (object) Parameters to add to outgoing URL
+    //   purge: (boolean) If true, purge the current rowlist and rebuild.
+    //          Attempts to reuse the current data cache.
     //   view: (string) The view to retrieve. Defaults to current view.
     _fetchBuffer: function(opts)
     {
@@ -453,16 +456,19 @@ var ViewPort = Class.create({
         params.update({ requestid: r_id });
 
         // Determine if we are querying via offset or a search query
-        if (opts.search || opts.initial) {
+        if (opts.search || opts.initial || opts.purge) {
             /* If this is an initial request, 'type' will be set correctly
              * further down in the code. */
             if (opts.search) {
                 type = 'search';
                 value = opts.search;
                 params.set('search', Object.toJSON(value));
-            } else {
+            } else if (opts.initial) {
                 params.set('initial', 1);
+            } else {
+                b.resetRowlist();
             }
+
             tmp = this._lookbehind();
 
             params.update({
@@ -484,7 +490,6 @@ var ViewPort = Class.create({
             /* If the current offset is part of a pending request, update
              * the offset. */
             if (lrows.size() &&
-                !params.get('purge') &&
                 b.sliceLoaded(value, lrows)) {
                 /* One more hurdle. If we are loading in background, and now
                  * we are in foreground, we need to search for the request
@@ -502,7 +507,7 @@ var ViewPort = Class.create({
             tmp = this._getSliceBounds(value, opts.nearing, view);
             rlist = $A($R(tmp.start, tmp.end)).diff(b.getAllRows());
 
-            if (!params.get('purge') && !rlist.size()) {
+            if (!rlist.size()) {
                 this.isbusy = false;
                 return;
             }
@@ -1154,7 +1159,6 @@ ViewPort_Buffer = Class.create({
     // opts = (object) TODO [reset, resetmd, update]
     update: function(d, l, md, opts)
     {
-        var val;
         d = $H(d);
         l = $H(l);
         opts = opts || {};
@@ -1183,7 +1187,7 @@ ViewPort_Buffer = Class.create({
                 if (Object.isString(pair.value) || Object.isNumber(pair.value)) {
                     this.usermdata.set(pair.key, pair.value);
                 } else {
-                    val = this.usermdata.get(pair.key);
+                    var val = this.usermdata.get(pair.key);
                     if (val) {
                         this.usermdata.get(pair.key).update($H(pair.value));
                     } else {
@@ -1308,6 +1312,11 @@ ViewPort_Buffer = Class.create({
                 }
             }
         }, this);
+    },
+
+    resetRowlist: function()
+    {
+        this.rowlist = $H();
     },
 
     clear: function()

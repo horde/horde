@@ -104,7 +104,7 @@ function _getListMessages($mbox, $change)
 
     // TODO: This can potentially be optimized for arrival time sort - if the
     // cache ID changes, we know the changes must occur at end of mailbox.
-    if (empty($res->reset) && (Horde_Util::getPost('purge') || $change)) {
+    if (empty($res->reset) && $change) {
         $res->update = 1;
     }
 
