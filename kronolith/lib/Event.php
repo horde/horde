@@ -333,9 +333,14 @@ abstract class Kronolith_Event
             }
 
             /* Lock the resource and get the response */
-            $principle = 'calendar/' . $rcal;
-            $lock[$resource->getId()] = $locks->setLock(Horde_Auth::getAuth(), 'kronolith', $principle, 5, Horde_Lock::TYPE_EXCLUSIVE);
-            if (!$lock[$resource->getId()]) {
+            if ($resource->get('response_type') == Kronolith_Resource::RESPONSETYPE_AUTO) {
+                $principle = 'calendar/' . $rcal;
+                $lock[$resource->getId()] = $locks->setLock(Horde_Auth::getAuth(), 'kronolith', $principle, 5, Horde_Lock::TYPE_EXCLUSIVE);
+                $haveLock = true;
+            } else {
+                $haveLock = false;
+            }
+            if ($haveLock && !$lock[$resource->getId()]) {
                 // Already locked
                 // For now, just fail. Not sure how else to capture the locked
                 // resources and notify the user.
