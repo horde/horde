@@ -684,7 +684,7 @@ class Horde_Release
             $response = $http->post('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/releases.json',
                                     Horde_Serialize::serialize($fm_params, Horde_Serialize::JSON),
                                     array('Content-Type' => 'application/json'));
-        } catch (Horde_Http_Client_Exception $e) {
+        } catch (Horde_Http_Exception $e) {
             if (strpos($e->getMessage(), '201 Created') === false) {
                 throw new Horde_Exception($e);
             } else {
@@ -706,7 +706,7 @@ class Horde_Release
         $http = new Horde_Http_Client();
         try {
             $response = $http->get('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/urls.json?auth_code=' . $this->_options['fm']['user_token']);
-        } catch (Horde_Http_Client_Exception $e) {
+        } catch (Horde_Http_Exception $e) {
             throw new Horde_Exception($e);
         }
 
@@ -738,7 +738,7 @@ class Horde_Release
                                             Horde_Serialize::serialize($link, Horde_Serialize::JSON),
                                             array('Content-Type' => 'application/json'));
                     $response = $response->getBody();
-                } catch (Horde_Http_Client_Exception $e) {
+                } catch (Horde_Http_Exception $e) {
                     if (strpos($e->getMessage(), '201 Created') === false) {
                         throw new Horde_Exception($e);
                     } else {
@@ -753,7 +753,7 @@ class Horde_Release
                                            array('Content-Type' => 'application/json'));
                     $response = $response->getBody();
                     // Status: 200???
-                } catch (Horde_Http_Client_Exception $e) {
+                } catch (Horde_Http_Exception $e) {
                     throw new Horde_Exception($e);
                 }
             }

@@ -73,7 +73,7 @@ class Horde_Oauth_Consumer
                 $this->requestTokenUrl,
                 $request->buildHttpQuery()
             );
-        } catch (Horde_Http_Client_Exception $e) {
+        } catch (Horde_Http_Exception $e) {
             throw new Horde_Oauth_Exception($e->getMessage());
         }
 
@@ -117,7 +117,7 @@ class Horde_Oauth_Consumer
                 $this->accessTokenUrl,
                 $request->buildHttpQuery()
             );
-        } catch (Horde_Http_Client_Exception $e) {
+        } catch (Horde_Http_Exception $e) {
             throw new Horde_Oauth_Exception($e->getMessage());
         }
 
