@@ -36,7 +36,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial release.
+ <notes>* Add Combine wrapper.
+ * Initial release.
  </notes>
  <contents>
   <dir name="/">
@@ -44,6 +45,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <dir name="Horde">
      <dir name="Stream">
       <dir name="Wrapper">
+       <file name="Combine.php" role="php" />
        <file name="String.php" role="php" />
       </dir> <!-- /lib/Horde/Stream/Wrapper -->
      </dir> <!-- /lib/Horde/Stream -->
@@ -68,6 +70,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Stream/Wrapper/Combine.php" as="Horde/Stream/Wrapper/Combine.php" />
    <install name="lib/Horde/Stream/Wrapper/String.php" as="Horde/Stream/Wrapper/String.php" />
   </filelist>
  </phprelease>
