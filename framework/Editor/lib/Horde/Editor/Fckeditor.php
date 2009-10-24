@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Editor_fckeditor:: class provides an WYSIWYG editor for use
+ * The Horde_Editor_Fckeditor:: class provides a WYSIWYG editor for use
  * in the Horde Framework.
  *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
@@ -21,8 +21,8 @@ class Horde_Editor_Fckeditor extends Horde_Editor
      * @param array $params  The following configuration parameters:
      * <pre>
      * 'id' - The ID of the text area to turn into an editor.
-     * 'no_notify' - Don't output JS code via notification library. Code will
-     *               be stored for access via getJS().
+     * 'no_notify' - Don't output JS code automatically. Code will be stored
+     *               for access via getJS().
      * </pre>
      */
     public function __construct($params = array())

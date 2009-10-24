@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Editor_xinha:: class provides access to the Xinha editor for use
+ * The Horde_Editor_Xinha:: class provides access to the Xinha editor for use
  * in the Horde Framework.
  *
  * Xinha website: http://xinha.python-hosting.com/
@@ -16,7 +16,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Editor
  */
-class Horde_Editor_xinha extends Horde_Editor
+class Horde_Editor_Xinha extends Horde_Editor
 {
     /**
      * Constructor.
@@ -31,7 +31,7 @@ class Horde_Editor_xinha extends Horde_Editor
      * 'lang' - The language to use. (Default: en)
      * 'loadnotify' - Display notification graphic when loading (Default: no)
      * 'no_autoload' - Don't load xinha by default on pageload.
-     * 'no_notify' - Don't output JS code via notification library. Code will
+     * 'no_notify' - Don't output JS code automatically. Code will
      *               be stored for access via getJS().
      * 'noplugins' - A list of plugins to specifically never load.
      * 'plugins' - Any plugins to load in addition to the plugins_stored in
@@ -137,10 +137,6 @@ class Horde_Editor_xinha extends Horde_Editor
 
         $js .= '_editors = Xinha.makeEditors(xinha_editors, xinha_config, xinha_plugins);' .
                'Xinha.startEditors(_editors); };';
-
-        if (empty($params['no_autoload'])) {
-            Horde::addScriptFile('prototype.js', 'horde');
-        }
 
         if (!empty($params['no_notify'])) {
             $js .= 'Event.observe(window, \'load\', xinha_init);';
