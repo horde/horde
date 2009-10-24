@@ -169,30 +169,39 @@ class IMP_UI_Compose
     }
 
     /**
+     * Initialize the Rich Text Editor (RTE).
+     *
+     * @param boolean $mini  Load the basic ckeditor stub?
      */
-    public function initRTE($mode = 'imp', $editoronly = false)
+    public function initRTE($basic = false)
     {
-        $editor = Horde_Editor::singleton('Fckeditor', array('id' => 'composeMessage', 'no_notify' => true));
-        if ($editoronly) {
-            return $editor;
+        $editor = Horde_Editor::singleton('Ckeditor', array('basic' => $basic));
+
+        $config = array(
+            /* To more closely match "normal" textarea behavior, send <BR> on
+             * enter instead of <P>. */
+            'enterMode: CKEDITOR.ENTER_BR',
+            'shiftEnterMode: CKEDITOR.ENTER_P',
+
+            /* Don't load the config.js file. */
+            'customConfig: ""',
+
+            /* Disable resize of the textarea. */
+            'resize_enabled: false',
+
+            /* Use the old skin for now. */
+            'skin: "v2"'
+        );
+
+        $buttons = $GLOBALS['prefs']->getValue('ckeditor_buttons');
+        if (!empty($buttons)) {
+            $config[] = 'toolbar: ' . $GLOBALS['prefs']->getValue('ckeditor_buttons');
         }
 
-        $fck_buttons = $GLOBALS['prefs']->getValue('fckeditor_buttons');
-        if (!empty($fck_buttons)) {
-            $js_onload = array(
-                // This needs to work even if Horde_Cache is not available,
-                // so need to use app-specific cache output.
-                'oFCKeditor.Config.CustomConfigurationsPath = "' . Horde::getCacheUrl('app', array('app' => 'imp', 'id' => 'fckeditor')) . '"',
-                'oFCKeditor.ToolbarSet = "ImpToolbar"'
-            );
-            if ($mode == 'imp') {
-                $js_onload[] = 'oFCKeditor.Height = $(\'composeMessage\').getHeight()';
-                $js_onload[] = 'oFCKeditor.ReplaceTextarea()';
-            }
-            Horde::addInlineScript($js_onload, 'load');
-        }
-
-        return $editor->getJS();
+        Horde::addInlineScript(array(
+            'if (!window.IMP) { window.IMP = {}; }',
+            'IMP.ckeditor_config = {' . implode(',', $config) . '}'
+        ));
     }
 
 }

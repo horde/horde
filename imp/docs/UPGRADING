@@ -18,8 +18,11 @@ This is a non-exhaustive, quick explanation of what has changed between an IMP
 HTML GUI editor
 ---------------
 
-IMP only supports the FCKeditor javscript HTML GUI editor.  Xinha is no longer
-supported.
+IMP only supports the CKeditor javascript HTML rich text editor.  Xinha is no
+longer supported.
+
+Button configuration is now stored in the prefs value 'ckeditor_buttons'. The
+old 'fckeditor_buttons' setting is no longer used and can be safely removed.
 
 
 Server Options

@@ -88,7 +88,7 @@ class IMP_Views_Compose
             $rte = true;
 
             $imp_ui = new IMP_UI_Compose();
-            $result['jsappend'] .= $imp_ui->initRTE('dimp');
+            $imp_ui->initRTE(!$compose_html);
         }
 
         /* Create list for sent-mail selection. */

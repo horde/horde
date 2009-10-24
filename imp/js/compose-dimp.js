@@ -11,10 +11,9 @@ var DimpCompose = {
     // Variables defaulting to empty/false:
     //   auto_save_interval, button_pressed, compose_cursor, dbtext,
     //   drafts_mbox, editor_on, is_popup, knl, mp_padding, resizebcc,
-    //   resizecc, resizeto, row_height, sbtext, skip_spellcheck, spellcheck,
-    //   uploading
+    //   resizecc, resizeto, row_height, rte, sbtext, skip_spellcheck,
+    //   spellcheck, uploading
     last_msg: '',
-    textarea_ready: true,
 
     confirmCancel: function()
     {
@@ -84,7 +83,7 @@ var DimpCompose = {
 
         // Finally try and replace the signature.
         if (this.editor_on) {
-            msg = FCKeditorAPI.GetInstance('composeMessage').GetHTML().replace(/\r\n/g, '\n');
+            msg = this.rte.getData().replace(/\r\n/g, '\n');
             lastSignature = '<p><!--begin_signature--><!--end_signature--></p>';
             nextSignature = '<p><!--begin_signature-->' + next.sig.replace(/^ ?<br \/>\n/, '').replace(/ +/g, ' ') + '<!--end_signature--></p>';
 
@@ -112,7 +111,7 @@ var DimpCompose = {
 
             msg = msg.replace(/\r\n/g, '\n').replace(/\n/g, '\r\n');
             if (this.editor_on) {
-                FCKeditorAPI.GetInstance('composeMessage').SetHTML(msg);
+                this.rte.setData(msg);
             } else {
                 msgval.setValue(msg);
             }
@@ -161,10 +160,6 @@ var DimpCompose = {
             DIMP.SpellCheckerObject.isActive()) {
             DIMP.SpellCheckerObject.resume();
             this.skip_spellcheck = true;
-            if (!this.textarea_ready) {
-                this.uniqueSubmit.bind(this, action).defer();
-                return;
-            }
         }
 
         if (action == 'send_message' || action == 'save_draft') {
@@ -220,7 +215,7 @@ var DimpCompose = {
         } else {
             // Move HTML text to textarea field for submission.
             if (this.editor_on) {
-                FCKeditorAPI.GetInstance('composeMessage').UpdateLinkedField();
+                this.rte.updateElement();
             }
 
             // Use an AJAX submit here so that we can do javascript-y stuff
@@ -340,14 +335,14 @@ var DimpCompose = {
             DIMP.SpellCheckerObject.resume();
         }
 
-        var text;
+        var config, text;
 
         if (this.editor_on) {
             this.editor_on = false;
 
-            text = FCKeditorAPI.GetInstance('composeMessage').GetHTML();
+            text = this.rte.getData();
             $('composeMessageParent').childElements().invoke('hide');
-            $('composeMessage').show();
+            $('composeMessage').show().setStyle({ visibility: null }).focus();
 
             DimpCore.doAction('Html2Text', { text: text }, null, this.setMessageText.bind(this), { asynchronous: false });
         } else {
@@ -356,32 +351,39 @@ var DimpCompose = {
                 DimpCore.doAction('Text2Html', { text: $F('composeMessage') }, null, this.setMessageText.bind(this), { asynchronous: false });
             }
 
-            oFCKeditor.Height = this.getMsgAreaHeight();
             // Try to reuse the old fckeditor instance.
             try {
-                FCKeditorAPI.GetInstance('composeMessage').SetHTML($F('composeMessage'));
+                this.rte.setData($F('composeMessage'));
                 $('composeMessageParent').childElements().invoke('show');
                 $('composeMessage').hide();
             } catch (e) {
+                config = Object.clone(IMP.ckeditor_config);
+                if (!config.on) {
+                    config.on = {};
+                }
+                config.on.instanceReady = function(evt) {
+                    this.resizeMsgArea();
+                    this.RTELoading('hide');
+                    this.rte.focus();
+                }.bind(this);
                 this.RTELoading('show');
-                FCKeditor_OnComplete = this.RTELoading.curry('hide');
-                oFCKeditor.ReplaceTextarea();
+                this.rte = CKEDITOR.replace('composeMessage', config);
             }
         }
         $('htmlcheckbox').checked = this.editor_on;
         $('html').setValue(this.editor_on ? 1 : 0);
     },
 
-    RTELoading: function(cmd)
-    {
-        var o, r;
-        if (!$('rteloading')) {
-            r = new Element('DIV', { id: 'rteloading' }).clonePosition($('composeMessageParent'));
-            $(document.body).insert(r);
-            o = r.viewportOffset();
-            $(document.body).insert(new Element('SPAN', { id: 'rteloadingtxt' }).setStyle({ top: (o.top + 15) + 'px', left: (o.left + 15) + 'px' }).insert(DIMP.text.loading));
-        }
-        $('rteloading', 'rteloadingtxt').invoke(cmd);
+     RTELoading: function(cmd)
+     {
+         var o, r;
+         if (!$('rteloading')) {
+             r = new Element('DIV', { id: 'rteloading' }).clonePosition($('composeMessageParent'));
+             $(document.body).insert(r);
+             o = r.viewportOffset();
+             $(document.body).insert(new Element('SPAN', { id: 'rteloadingtxt' }).setStyle({ top: (o.top + 15) + 'px', left: (o.left + 15) + 'px' }).insert(DIMP.text.loading));
+         }
+         $('rteloading', 'rteloadingtxt').invoke(cmd);
     },
 
     getMsgAreaHeight: function()
@@ -411,18 +413,16 @@ var DimpCompose = {
                 return;
             }
             DIMP.SpellCheckerObject.htmlAreaParent = 'composeMessageParent';
-            DIMP.SpellCheckerObject.htmlArea = $('composeMessage').adjacent('iframe[id*=message]').first();
-            $('composeMessage').setValue(FCKeditorAPI.GetInstance('composeMessage').GetHTML());
-            this.textarea_ready = false;
+            this.rte.updateElement();
+            $('composeMessage').next().hide();
         }.bind(this);
         DIMP.SpellCheckerObject.onAfterSpellCheck = function() {
             if (!this.editor_on) {
                 return;
             }
-            DIMP.SpellCheckerObject.htmlArea = DIMP.SpellCheckerObject.htmlAreaParent = null;
-            var ed = FCKeditorAPI.GetInstance('composeMessage');
-            ed.SetHTML($F('composeMessage'));
-            ed.Events.AttachEvent('OnAfterSetHTML', function() { this.textarea_ready = true; }.bind(this));
+            DIMP.SpellCheckerObject.htmlAreaParent = null;
+            this.rte.setData($F('composeMessage'));
+            $('composeMessage').next().show();
         }.bind(this);
     },
 
@@ -449,7 +449,7 @@ var DimpCompose = {
             return;
         }
 
-        var bcc_add, fo,
+        var bcc_add,
             identity = this.get_identity($F('last_identity')),
             msgval = $('composeMessage');
 
@@ -464,7 +464,7 @@ var DimpCompose = {
             !this.auto_save_interval) {
             this.auto_save_interval = new PeriodicalExecuter(function() {
                 var cur_msg = this.editor_on
-                    ? FCKeditorAPI.GetInstance('composeMessage').GetHTML()
+                    ? this.rte.getData()
                     : $F(msgval);
                 cur_msg = cur_msg.replace(/\r/g, '');
                 if (!cur_msg.empty() && this.last_msg != cur_msg) {
@@ -475,9 +475,8 @@ var DimpCompose = {
         }
 
         if (this.editor_on) {
-            fo = FCKeditorAPI.GetInstance('composeMessage');
-            fo.SetHTML(msg);
-            this.last_msg = fo.GetHTML().replace(/\r/g, '');
+            this.rte.setData(msg);
+            this.last_msg = this.rte.getData().replace(/\r/g, '');
         } else {
             msgval.setValue(msg);
             this.setCursorPosition(msgval);
@@ -526,7 +525,7 @@ var DimpCompose = {
     focusEditor: function()
     {
         try {
-            FCKeditorAPI.GetInstance('composeMessage').Focus();
+            this.rte.focus();
         } catch (e) {
             this.focusEditor.bind(this).defer();
         }
@@ -571,12 +570,7 @@ var DimpCompose = {
         }
 
         if (this.editor_on) {
-            m = $('composeMessageParent').select('iframe').last();
-            if (m) {
-                m.setStyle({ height: this.getMsgAreaHeight() + 'px' });
-            } else {
-                this.resizeMsgArea.bind(this).defer();
-            }
+            this.rte.resize('100%', this.getMsgAreaHeight(), false);
             return;
         }
 
@@ -783,7 +777,7 @@ var DimpCompose = {
                 onChoose: this.setSentMailLabel.bind(this)
             });
             this.knl.setSelected(this.get_identity($F('identity'))[3]);
-            $('sent_mail_folder_label').insert({ after: new Element('SPAN', { className: 'popdownImg', id: 'compose_flist_popdown' }).observe('click', function(e) { this.knl.show(); e.stop(); }.bindAsEventListener(this)) });
+            $('sent_mail_folder_label').insert({ after: new Element('SPAN', { className: 'popdownImg', id: 'compose_flist_popdown' }).observe('click', function(e) { this.knl.show(); this.knl.ignoreClick(e); e.stop(); }.bindAsEventListener(this)) });
         }
 
         $('dimpLoading').hide();
@@ -795,7 +789,6 @@ var DimpCompose = {
         if (Prototype.Browser.WebKit) {
             $('submit_frame').writeAttribute({ position: 'absolute', width: '1px', height: '1px' }).setStyle({ left: '-999px' }).show();
         }
-
     }
 
 },

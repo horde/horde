@@ -1223,6 +1223,11 @@ if ($redirect) {
     $template_output = $t->fetch(IMP_TEMPLATES . '/compose/compose.html');
 }
 
+if ($rtemode && !$redirect) {
+    $imp_ui->initRTE();
+    Horde::addInlineScript('CKEDITOR.replace("composeMessage", IMP.ckeditor_config)', 'load');
+}
+
 if ($showmenu) {
     IMP::prepareMenu();
 }
@@ -1233,7 +1238,4 @@ if ($showmenu) {
     IMP::menu();
 }
 echo $template_output;
-if ($rtemode && !$redirect) {
-    echo $imp_ui->initRTE();
-}
 require $registry->get('templates', 'horde') . '/common-footer.inc';

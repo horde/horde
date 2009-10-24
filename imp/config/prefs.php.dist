@@ -68,7 +68,7 @@ $prefGroups['compose'] = array(
     'members' => array('stationery_link', 'mailto_handler', 'compose_cc',
                        'compose_bcc', 'compose_spellcheck', 'compose_confirm',
                        'set_priority', 'compose_popup', 'compose_html',
-                       'fckeditor_buttons', 'mail_domain',
+                       'ckeditor_buttons', 'mail_domain',
                        'compose_cursor', 'sending_charset', 'encryptselect',
                        'save_attachments')
 );
@@ -624,12 +624,13 @@ $_prefs['compose_html'] = array(
     'desc' => _("Compose messages with an HTML GUI by default (if browser supports the feature)?")
 );
 
-// The list of buttons to show in FCKeditor
-// See http://www.fckeditor.net/ for details on configuration
-$_prefs['fckeditor_buttons'] = array(
-    'value' => "[['Source','FitWindow','-','Templates'],['Cut','Copy','Paste','PasteText','PasteWord'],['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],'/',['OrderedList','UnorderedList','-','Outdent','Indent','Blockquote'],['JustifyLeft','JustifyCenter','JustifyRight','JustifyFull'],['Link','Unlink'],['Image','Flash','Table','Rule','Smiley','SpecialChar'],'/',['Bold','Italic','Underline','StrikeThrough','-','Subscript','Superscript'],['TextColor','BGColor'],'/',['Style','FontFormat','FontName','FontSize']]",
+// The list of buttons to show in CKeditor
+// See http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Toolbar for
+// details on configuration
+$_prefs['ckeditor_buttons'] = array(
+    'value' => "[['Source','Maximize','-','Templates'],['Cut','Copy','Paste','PasteText','PasteFromWord'],['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],'/',['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],['Link','Unlink'],['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar'],'/',['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],['TextColor','BGColor'],'/',['Styles','Format','Font','FontSize']]",
     // Use the following line for a very basic set of buttons:
-    // 'value' => "['Bold','Italic','-','OrderedList','UnorderedList','-','Link','Unlink']",
+    // 'value' => "['Bold','Italic','-','NumberedList','BulletedList','-','Link','Unlink']",
     // Locked by default
     'locked' => true,
     'shared' => false,

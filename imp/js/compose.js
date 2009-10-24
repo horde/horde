@@ -6,11 +6,10 @@
  */
 
 var ImpCompose = {
-    /* Variables defined in compose.php:
-     *   cancel_url, spellcheck, cursor_pos, identities, max_attachments,
-     *   popup, redirect, reloaded, rtemode, smf_check, skip_spellcheck */
+    // Variables defined in compose.php:
+    //   cancel_url, spellcheck, cursor_pos, identities, max_attachments,
+    //   popup, redirect, reloaded, rtemode, smf_check, skip_spellcheck
     display_unload_warning: true,
-    textarea_ready: true,
 
     confirmCancel: function(e)
     {
@@ -62,14 +61,12 @@ var ImpCompose = {
             bcc = $('bcc'),
             save = $('ssm'),
             smf = $('sent_mail_folder'),
-            ed, lastSignature, msg, nextSignature, pos, re;
+            lastSignature, msg, nextSignature, pos, re;
 
         // If the rich text editor is on, we'll use a regexp to find the
         // signature comment and replace its contents.
         if (this.rtemode) {
-            ed = FCKeditorAPI.GetInstance('composeMessage');
-
-            msg = ed.GetHTML.replace(/\r\n/g, '\n');
+            msg = CKEDITOR.instances.composeMessage.getData().replace(/\r\n/g, '\n');
 
             lastSignature = '<p><!--begin_signature--><!--end_signature--></p>';
             nextSignature = '<p><!--begin_signature-->' + next[0].replace(/^ ?<br \/>\n/, '').replace(/ +/g, ' ') + '<!--end_signature--></p>';
@@ -103,7 +100,7 @@ var ImpCompose = {
         }
 
         if (this.rtemode) {
-            ed.SetHTML(msg);
+            CKEDITOR.instances.composeMessage.setData(msg);
         } else {
             $('composeMessage').setValue(msg);
         }
@@ -211,16 +208,7 @@ var ImpCompose = {
         }
 
         this.display_unload_warning = false;
-        this._uniqSubmit(form);
-    },
-
-    _uniqSubmit: function(form)
-    {
-        if (this.textarea_ready) {
-            form.submit();
-        } else {
-            this._uniqSubmit.bind(this, form).defer();
-        }
+        form.submit();
     },
 
     onNoSpellError: function(actionID, e)
@@ -280,22 +268,15 @@ var ImpCompose = {
     _beforeSpellCheck: function()
     {
         IMP.SpellCheckerObject.htmlAreaParent = 'composeMessageParent';
-        IMP.SpellCheckerObject.htmlArea = $('composeMessage').adjacent('iframe[id*=message]').first();
-        $('composeMessage').setValue(FCKeditorAPI.GetInstance('composeMessage').GetHTML());
-        this.textarea_ready = false;
+        $('composeMessage').next().hide();
+        CKEDITOR.instances.composeMessage.updateElement();
     },
 
     _afterSpellCheck: function()
     {
-        IMP.SpellCheckerObject.htmlArea = IMP.SpellCheckerObject.htmlAreaParent = null;
-        var ed = FCKeditorAPI.GetInstance('composeMessage');
-        ed.SetHTML($('composeMessage').value);
-        ed.Events.AttachEvent('OnAfterSetHTML', this._afterSetHTML.bind(this));
-    },
-
-    _afterSetHTML: function()
-    {
-        this.textarea_ready = true;
+        IMP.SpellCheckerObject.htmlAreaParent = null;
+        CKEDITOR.instances.composeMessage.setData($F('composeMessage'));
+        $('composeMessage').next().show();
     },
 
     clickHandler: function(e)
