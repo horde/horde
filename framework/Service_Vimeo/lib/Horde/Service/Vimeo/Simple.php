@@ -116,7 +116,7 @@ class Horde_Service_Vimeo_Simple extends Horde_Service_Vimeo {
 
         try {
             $response = $this->_http_client->request('GET', $url);
-        } catch (Horde_Http_Client_Exception $e) {
+        } catch (Horde_Http_Exception $e) {
             // TODO:
             // Some videos it seems are not found via oembed? This appears to be
             // a fringe case, and only happens when I'm attempting to load
