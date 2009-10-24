@@ -327,7 +327,8 @@ abstract class Kronolith_Event
             /* Get the resource and protect against infinite recursion in case
              * someone is silly enough to add a resource to it's own event.*/
             $resource = Kronolith::getDriver('Resource')->getResource($id);
-            if ($rcal = $resource->get('calendar') == $this->getCalendar()) {
+            $rcal = $resource->get('calendar');
+            if ($rcal == $this->getCalendar()) {
                 continue;
             }
 
