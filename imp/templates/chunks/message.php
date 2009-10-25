@@ -23,7 +23,8 @@ function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
 }
 
 ?>
-<div id="pageContainer">
+<div id="dimpLoading"><?php echo _("Loading...") ?></div>
+<div id="pageContainer" style="display:none">
  <div id="msgData">
   <div class="dimpActions dimpActionsMsg noprint">
    <div class="headercloseimg closeImg" id="windowclose" title="X"></div>

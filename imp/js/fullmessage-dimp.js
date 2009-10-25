@@ -199,6 +199,9 @@ var DimpFullmessage = {
             DimpCore.updateMsgLog(this.log);
         }
 
+        $('dimpLoading').hide();
+        $('pageContainer').show();
+
         this.resizeWindow();
     }
 
