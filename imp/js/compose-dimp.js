@@ -123,16 +123,21 @@ var DimpCompose = {
     setSentMailLabel: function(s, l, sel)
     {
         var label = $('sent_mail_folder_label');
-        if (label) {
-            if (!l) {
-                l = DIMP.conf_compose.flist.find(function(f) {
-                    return f.v == s;
-                });
-                l = l.f || l.v;
-            }
-            $('save_sent_mail_folder').setValue(s);
-            $('sent_mail_folder_label').writeAttribute('title', l.escapeHTML()).setText('"' + l.truncate(15) + '"');
+
+        if (!label) {
+            return;
         }
+
+        if (!l) {
+            l = DIMP.conf_compose.flist.find(function(f) {
+                return f.v == s;
+            });
+            l = l.f || l.v;
+        }
+
+        $('save_sent_mail_folder').setValue(s);
+        $('sent_mail_folder_label').writeAttribute('title', l.escapeHTML()).setText('"' + l.truncate(15) + '"').up().show();
+
         if (sel) {
             this.knl.setSelected(s);
         }
@@ -594,8 +599,6 @@ var DimpCompose = {
         if (de.scrollHeight - de.clientHeight) {
             msg.writeAttribute({ rows: rows - 1 });
         }
-
-        $('composeloading').hide();
     },
 
     uploadAttachment: function()
@@ -765,13 +768,6 @@ var DimpCompose = {
         this.resizecc = new ResizeTextArea('cc', boundResize);
         this.resizebcc = new ResizeTextArea('bcc', boundResize);
 
-        // Safari requires a submit target iframe to be at least 1x1 size or
-        // else it will open content in a new window.  See:
-        //   http://blog.caboo.se/articles/2007/4/2/ajax-file-upload
-        if (Prototype.Browser.WebKit) {
-            $('submit_frame').writeAttribute({ position: 'absolute', width: '1px', height: '1px' }).setStyle({ left: '-999px' }).show();
-        }
-
         /* Add addressbook link formatting. */
         if (DIMP.conf_compose.URI_ABOOK) {
             $('sendto', 'sendcc', 'sendbcc').each(function(a) {
@@ -789,6 +785,17 @@ var DimpCompose = {
             this.knl.setSelected(this.get_identity($F('identity'))[3]);
             $('sent_mail_folder_label').insert({ after: new Element('SPAN', { className: 'popdownImg', id: 'compose_flist_popdown' }).observe('click', function(e) { this.knl.show(); e.stop(); }.bindAsEventListener(this)) });
         }
+
+        $('dimpLoading').hide();
+        $('pageContainer').show();
+
+        // Safari requires a submit target iframe to be at least 1x1 size or
+        // else it will open content in a new window.  See:
+        //   http://blog.caboo.se/articles/2007/4/2/ajax-file-upload
+        if (Prototype.Browser.WebKit) {
+            $('submit_frame').writeAttribute({ position: 'absolute', width: '1px', height: '1px' }).setStyle({ left: '-999px' }).show();
+        }
+
     }
 
 },

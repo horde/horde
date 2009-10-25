@@ -32,7 +32,6 @@ function _createDAcompose($text, $image, $id)
 }
 
 ?>
-<div id="composeloading"></div>
 <form id="compose" name="compose" enctype="multipart/form-data" action="compose-dimp.php" method="post" target="submit_frame">
 <?php echo Horde_Util::formInput() ?>
 <input type="hidden" id="action" name="action" />
@@ -60,7 +59,7 @@ function _createDAcompose($text, $image, $id)
    <label><input name="request_read_receipt" type="checkbox" class="checkbox"<?php if ($d_read != 'ask') echo ' checked="checked"' ?> /> <?php echo _("Read Receipt") ?></label>
 <?php endif; ?>
 <?php if ($GLOBALS['conf']['user']['allow_folders'] && !$GLOBALS['prefs']->isLocked('save_sent_mail')): ?>
-   <label>
+   <label style="display:none">
     <input id="save_sent_mail" name="save_sent_mail" type="checkbox" class="checkbox"<?php if ($identity->saveSentmail()) echo ' checked="checked"' ?> /> <?php echo _("Save in") ?>
     <span id="sent_mail_folder_label"></span>
    </label>

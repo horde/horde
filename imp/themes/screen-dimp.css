@@ -635,7 +635,7 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     width: 100%;
 }
 
-#composeloading, #rteloading {
+#rteloading {
     position: absolute;
     z-index: 100;
     background-color: #000;
@@ -647,12 +647,6 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     position: absolute;
     background-color: #fff;
     z-index: 101;
-}
-#composeloading {
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
 }
 
 #compose_flist_popdown {
