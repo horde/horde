@@ -309,12 +309,6 @@ div.vpRow.flagDeleted {
 #sidebarPanel li span {
     cursor: pointer;
 }
-#sidebarPanel .folderlist li a {
-    width: auto;
-    overflow: hidden;
-    display: block;
-    float: none;
-}
 #sidebarPanel li.subfolders {
     height: auto;
     margin: 0;
@@ -412,7 +406,7 @@ div.vpRow.flagDeleted {
 .dimpActions .disabled a:hover {
     background-color: transparent;
 }
-.dimpActions .disabled a, .dimpActions .disabled a:visited, .dimpActions .disabled a:active, .dimpActions .disabled a:hover {
+.dimpactions .disabled, .dimpActions .disabled a, .dimpActions .disabled a:visited, .dimpActions .disabled a:active, .dimpActions .disabled a:hover {
     cursor: default;
     text-decoration: none;
     color: silver;
@@ -437,15 +431,13 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 
 /* Preview pane styles. */
 #previewPane {
-    background: #fff;
     overflow: auto;
 }
 #previewInfo {
     background: transparent url("graphics/ico_message_off.png") no-repeat scroll 10px 15px;
-    line-height: 18px;
-    text-align: left;
-    padding: 15px 80px 10px 35px;
     color: #a0a0a0;
+    line-height: 18px;
+    padding: 15px 80px 10px 35px;
 }
 
 /* Headers styles. */
@@ -531,26 +523,29 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 #msgHeadersColl span.subject {
     float: left;
     font-weight: bold;
+    max-width: 50%;
     overflow: hidden;
     padding-left: 2px;
-    max-width: 40%;
-    vertical-align: top;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
 }
 #msgHeadersColl span.fromcontainer {
     padding-left: 5px;
 }
 #msgHeadersColl span.from {
-    max-width: 50%;
+    max-width: 40%;
     overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
 }
 /* end msg small header */
 
+/* Message body formatting. */
 .msgBody {
     background: #fff url("graphics/backhead_shadow.png") top repeat-x;
     padding: 7px 5px 5px;
-}
-.msgBody table td {
-    padding: 0;
 }
 .msgfullread div.msgBody {
     overflow: auto;
@@ -572,49 +567,38 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 }
 
 .msgwrite {
-    cursor: default;
     background: #e2e2e2 url("graphics/backhead_r.png") repeat-x;
     border: 1px #b9b9b3 solid;
+    cursor: default;
     padding: 2px 0;
 }
 .msgwrite .dimpOptions {
-    padding: 10px;
+    padding: 8px 8px 0 0;
     font-size: 90%;
 }
+.msgwrite .dimpOptions div {
+    padding-bottom: 0;
+}
 .msgwrite .dimpOptions label {
-    display: block;
     cursor: pointer;
 }
 .msgwrite tr {
     vertical-align: top;
 }
 .msgwrite td {
-    padding: 3px 5px 1px 0;
     font-size: 90%;
 }
 .msgwrite td.label {
-    height: 15px;
     white-space: nowrap;
     text-align: right;
-    width: 65px;
-    padding-top: 4px;
-    padding-left: 2px;
+    padding: 4px 4px 0 4px;
 }
-.msgwrite td.subject {
-    font-weight: bold;
-}
-.msgwrite .atcrow {
-    line-height: 130%;
-}
-#to, #cc, #bcc, #subject {
-    width: 100%;
+.msgwrite span.loadingImg {
+    display: block;
 }
 
-.msgwrite td.autocompleteImg {
-    width: 25px;
-}
-.msgwrite td.autocompleteImg span.loadingImg {
-    display: block;
+#to, #cc, #bcc, #subject {
+    width: 100%;
 }
 
 #composeMessageParent {
@@ -622,11 +606,7 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     border-left: 1px silver solid;
     border-right: 1px silver solid;
     border-bottom: 1px silver solid;
-    padding: 1%;
-}
-#composeMessageParent .htmlarea {
-    width: 98% !important;
-    border: none;
+    padding: 10px 5px 5px;
 }
 #composeMessage {
     border: none;
@@ -655,23 +635,19 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 
 /* attachment file list */
 #attach_list {
+    padding-left: 15px;
+}
+#attach_list li {
     padding-top: 5px;
 }
 #attach_list span.remove {
     border: 1px solid #ccc;
     font-weight: bold;
-    padding: 1px 2px;
+    padding: 1px;
 }
 #attach_list span.remove:hover {
+    color: red;
     text-decoration: underline;
-}
-#attach_list div {
-    background: transparent left 2px no-repeat;
-    height: 20px;
-    padding-left: 20px;
-}
-#attach_list div, span.attachmentImg {
-    background-image: url("graphics/attachment.png");
 }
 #attach_list span.attachName {
     color: blue;
@@ -679,7 +655,11 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     text-decoration: underline;
 }
 #attach_list span.attachName:hover {
-    font-weight: bold;
+    color: red;
+}
+
+span.attachmentImg {
+    background-image: url("graphics/attachment.png");
 }
 
 /* Context Menus */

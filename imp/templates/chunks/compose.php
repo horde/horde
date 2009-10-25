@@ -50,23 +50,41 @@ function _createDAcompose($text, $image, $id)
 <div id="writemsg" class="noprint">
  <div class="msgwrite">
   <div class="dimpOptions">
-   <label><input id="togglecc" name="togglecc" type="checkbox" class="checkbox" /> <?php echo _("Show Cc") ?></label>
-   <label><input id="togglebcc" name="togglebcc" type="checkbox" class="checkbox" /> <?php echo _("Show Bcc") ?></label>
+   <div id="togglecc">
+    <label>
+     <input name="togglecc" type="checkbox" class="checkbox" /> <?php echo _("Show Cc") ?>
+    </label>
+   </div>
+   <div id="togglebcc">
+    <label>
+     <input name="togglebcc" type="checkbox" class="checkbox" /> <?php echo _("Show Bcc") ?>
+    </label>
+  </div>
 <?php if ($rte): ?>
-   <label><input id="htmlcheckbox" type="checkbox" class="checkbox"<?php if ($compose_html) echo 'checked="checked"' ?> /> <?php echo _("HTML composition") ?></label>
+   <div>
+    <label>
+     <input id="htmlcheckbox" type="checkbox" class="checkbox"<?php if ($compose_html) echo 'checked="checked"' ?> /> <?php echo _("HTML composition") ?>
+    </label>
+   </div>
 <?php endif; ?>
 <?php if ($GLOBALS['conf']['compose']['allow_receipts'] && $d_read != 'never'): ?>
-   <label><input name="request_read_receipt" type="checkbox" class="checkbox"<?php if ($d_read != 'ask') echo ' checked="checked"' ?> /> <?php echo _("Read Receipt") ?></label>
+   <div>
+    <label>
+     <input name="request_read_receipt" type="checkbox" class="checkbox"<?php if ($d_read != 'ask') echo ' checked="checked"' ?> /> <?php echo _("Read Receipt") ?>
+    </label>
+   </div>
 <?php endif; ?>
 <?php if ($GLOBALS['conf']['user']['allow_folders'] && !$GLOBALS['prefs']->isLocked('save_sent_mail')): ?>
-   <label style="display:none">
-    <input id="save_sent_mail" name="save_sent_mail" type="checkbox" class="checkbox"<?php if ($identity->saveSentmail()) echo ' checked="checked"' ?> /> <?php echo _("Save in") ?>
-    <span id="sent_mail_folder_label"></span>
-   </label>
-   <input id="save_sent_mail_folder" name="save_sent_mail_folder" type="hidden" />
+   <div style="display:none">
+    <label>
+     <input id="save_sent_mail" name="save_sent_mail" type="checkbox" class="checkbox"<?php if ($identity->saveSentmail()) echo ' checked="checked"' ?> /> <?php echo _("Save in") ?>
+     <span id="sent_mail_folder_label"></span>
+    </label>
+    <input id="save_sent_mail_folder" name="save_sent_mail_folder" type="hidden" />
+   </div>
 <?php endif; ?>
   </div>
-  <table cellspacing="0">
+  <table>
    <tr>
     <td class="label"><?php echo _("From: ") ?></td>
     <td>
@@ -83,7 +101,7 @@ function _createDAcompose($text, $image, $id)
      <textarea id="to" name="to" rows="1" cols="75"></textarea>
      <div id="to_results" class="autocomplete" style="display:none"></div>
     </td>
-    <td class="autocompleteImg">
+    <td>
      <span id="to_loading_img" class="loadingImg" style="display:none"></span>
     </td>
    </tr>
@@ -93,7 +111,7 @@ function _createDAcompose($text, $image, $id)
      <textarea id="cc" name="cc" rows="1" cols="75"></textarea>
      <div id="cc_results" class="autocomplete" style="display:none"></div>
     </td>
-    <td class="autocompleteImg">
+    <td>
      <span id="cc_loading_img" class="loadingImg" style="display:none"></span>
     </td>
    </tr>
@@ -103,7 +121,7 @@ function _createDAcompose($text, $image, $id)
      <textarea id="bcc" name="bcc" rows="1" cols="75"></textarea>
      <div id="bcc_results" class="autocomplete" style="display:none"></div>
     </td>
-    <td class="autocompleteImg">
+    <td>
      <span id="bcc_loading_img" class="loadingImg" style="display:none"></span>
     </td>
    </tr>
@@ -119,7 +137,7 @@ function _createDAcompose($text, $image, $id)
 <?php if (strpos($save_attach, 'prompt') !== false): ?>
      <label><input type="checkbox" class="checkbox" name="save_attachments_select"<?php if (strpos($save_attach, 'yes') !== false) echo ' checked="checked"' ?> /> <?php echo _("Save Attachments in sent folder") ?></label><br />
 <?php endif; ?>
-     <div id="attach_list"></div>
+     <ul id="attach_list" style="display:none"></ul>
     </td>
    </tr>
   </table>

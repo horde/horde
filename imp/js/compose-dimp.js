@@ -54,7 +54,7 @@ var DimpCompose = {
 
         $('composeCache').setValue('');
         $('qreply', 'sendcc', 'sendbcc').invoke('hide');
-        [ $('msgData'), $('togglecc').up(), $('togglebcc').up() ].invoke('show');
+        [ $('msgData'), $('togglecc'), $('togglebcc') ].invoke('show');
         if (this.editor_on) {
             this.toggleHtmlEditor();
         }
@@ -135,7 +135,7 @@ var DimpCompose = {
         }
 
         $('save_sent_mail_folder').setValue(s);
-        $('sent_mail_folder_label').writeAttribute('title', l.escapeHTML()).setText('"' + l.truncate(15) + '"').up().show();
+        $('sent_mail_folder_label').writeAttribute('title', l.escapeHTML()).setText('"' + l.truncate(15) + '"').up(1).show();
 
         if (sel) {
             this.knl.setSelected(s);
@@ -534,10 +534,10 @@ var DimpCompose = {
     addAttach: function(atc_num, name, type, size)
     {
         var span = new Element('SPAN').insert(name),
-            div = new Element('DIV').insert(span).insert(' [' + type + '] (' + size + ' KB) '),
+            li = new Element('LI').insert(span).insert(' [' + type + '] (' + size + ' KB) '),
             input = new Element('SPAN', { atc_id: atc_num, className: 'remove' }).insert(DIMP.text_compose.remove);
-        div.insert(input);
-        $('attach_list').insert(div);
+        li.insert(input);
+        $('attach_list').insert(li).show();
 
         if (type != 'application/octet-stream') {
             span.addClassName('attachName');
@@ -554,6 +554,9 @@ var DimpCompose = {
             ids.push(n.down('SPAN.remove').readAttribute('atc_id'));
             n.remove();
         });
+        if (!$('attach_list').childElements().size()) {
+            $('attach_list').hide();
+        }
         DimpCore.doAction('DeleteAttach', { atc_indices: ids, imp_compose: $F('composeCache') });
         this.resizeMsgArea();
     },
@@ -612,7 +615,7 @@ var DimpCompose = {
     toggleCC: function(type)
     {
         $('send' + type).show();
-        $('toggle' + type).up().hide();
+        $('toggle' + type).hide();
     },
 
     /* Sets the cursor to the given position. */
