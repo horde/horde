@@ -45,13 +45,40 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Kolab">
-      <file name="IMAP.php" role="php" />
-      <dir name="IMAP">
-       <file name="cclient.php" role="php" />
-       <file name="pear.php" role="php" />
-       <file name="test.php" role="php" />
-      </dir> <!-- /lib/Horde/Kolab/IMAP -->
       <file name="Session.php" role="php" />
+      <dir name="Session">
+       <file name="Anonymous.php" role="php" />
+       <file name="Auth.php" role="php" />
+       <dir name="Auth">
+        <file name="Horde.php" role="php" />
+        <file name="Mock.php" role="php" />
+       </dir> <!-- /lib/Horde/Session/Auth -->
+       <file name="Base.php" role="php" />
+       <file name="Exception.php" role="php" />
+       <file name="Factory.php" role="php" />
+       <dir name="Factory">
+        <file name="Anonymous.php" role="php" />
+        <file name="Base.php" role="php" />
+        <file name="Configuration.php" role="php" />
+        <file name="Constructor.php" role="php" />
+        <file name="Default.php" role="php" />
+        <file name="Injector.php" role="php" />
+        <file name="Logged.php" role="php" />
+       </dir> <!-- /lib/Horde/Session/Factory -->
+       <file name="Logged.php" role="php" />
+       <file name="Singleton.php" role="php" />
+       <file name="Storage.php" role="php" />
+       <dir name="Storage">
+        <file name="Mock.php" role="php" />
+        <file name="Sessionobjects.php" role="php" />
+       </dir> <!-- /lib/Horde/Session/Storage -->
+       <file name="Stored.php" role="php" />
+       <file name="Valid.php" role="php" />
+       <dir name="Valid">
+        <file name="Base.php" role="php" />
+        <file name="Logged.php" role="php" />
+       </dir> <!-- /lib/Horde/Session/Valid -->
+      </dir> <!-- /lib/Horde/Session -->
      </dir> <!-- /lib/Horde/Kolab -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
@@ -76,35 +103,59 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.4.0b1</min>
    </pearinstaller>
    <package>
-    <name>Auth</name>
+    <name>Kolab_Server</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Kolab_Storage</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>
   <optional>
    <package>
-    <name>Kolab_Server</name>
+    <name>Auth</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Injector</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Log</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
     <name>SessionObjects</name>
     <channel>pear.horde.org</channel>
    </package>
-   <package>
-    <name>PHPUnit</name>
-    <channel>pear.phpunit.de</channel>
-   </package>
-   <extension>
-    <name>ldap</name>
-   </extension>
   </optional>
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Kolab/IMAP.php" as="Horde/Kolab/IMAP.php" />
-   <install name="lib/Horde/Kolab/IMAP/cclient.php" as="Horde/Kolab/IMAP/cclient.php" />
-   <install name="lib/Horde/Kolab/IMAP/pear.php" as="Horde/Kolab/IMAP/pear.php" />
-   <install name="lib/Horde/Kolab/IMAP/test.php" as="Horde/Kolab/IMAP/test.php" />
    <install name="lib/Horde/Kolab/Session.php" as="Horde/Kolab/Session.php" />
+   <install name="lib/Horde/Kolab/Session/Anonymous.php" as="Horde/Kolab/Session/Anonymous.php" />
+   <install name="lib/Horde/Kolab/Session/Auth.php" as="Horde/Kolab/Session/Auth.php" />
+   <install name="lib/Horde/Kolab/Session/Auth/Horde.php" as="Horde/Kolab/Session/Auth/Horde.php" />
+   <install name="lib/Horde/Kolab/Session/Auth/Mock.php" as="Horde/Kolab/Session/Auth/Mock.php" />
+   <install name="lib/Horde/Kolab/Session/Base.php" as="Horde/Kolab/Session/Base.php" />
+   <install name="lib/Horde/Kolab/Session/Exception.php" as="Horde/Kolab/Session/Exception.php" />
+   <install name="lib/Horde/Kolab/Session/Factory.php" as="Horde/Kolab/Session/Factory.php" />
+   <install name="lib/Horde/Kolab/Session/Factory/Anonymous.php" as="Horde/Kolab/Session/Factory/Anonymous.php" />
+   <install name="lib/Horde/Kolab/Session/Factory/Base.php" as="Horde/Kolab/Session/Factory/Base.php" />
+   <install name="lib/Horde/Kolab/Session/Factory/Configuration.php" as="Horde/Kolab/Session/Factory/Configuration.php" />
+   <install name="lib/Horde/Kolab/Session/Factory/Constructor.php" as="Horde/Kolab/Session/Factory/Constructor.php" />
+   <install name="lib/Horde/Kolab/Session/Factory/Default.php" as="Horde/Kolab/Session/Factory/Default.php" />
+   <install name="lib/Horde/Kolab/Session/Factory/Injector.php" as="Horde/Kolab/Session/Factory/Injector.php" />
+   <install name="lib/Horde/Kolab/Session/Factory/Logged.php" as="Horde/Kolab/Session/Factory/Logged.php" />
+   <install name="lib/Horde/Kolab/Session/Logged.php" as="Horde/Kolab/Session/Logged.php" />
+   <install name="lib/Horde/Kolab/Session/Singleton.php" as="Horde/Kolab/Session/Singleton.php" />
+   <install name="lib/Horde/Kolab/Session/Storage.php" as="Horde/Kolab/Session/Storage.php" />
+   <install name="lib/Horde/Kolab/Session/Storage/Mock.php" as="Horde/Kolab/Session/Storage/Mock.php" />
+   <install name="lib/Horde/Kolab/Session/Storage/Sessionobjects.php" as="Horde/Kolab/Session/Storage/Sessionobjects.php" />
+   <install name="lib/Horde/Kolab/Session/Stored.php" as="Horde/Kolab/Session/Stored.php" />
+   <install name="lib/Horde/Kolab/Session/Valid.php" as="Horde/Kolab/Session/Valid.php" />
+   <install name="lib/Horde/Kolab/Session/Valid/Base.php" as="Horde/Kolab/Session/Valid/Base.php" />
+   <install name="lib/Horde/Kolab/Session/Valid/Logged.php" as="Horde/Kolab/Session/Valid/Logged.php" />
    <install name="test/Horde/Kolab/Session/AllTests.php" as="Horde/Kolab/Session/AllTests.php" />
    <install name="test/Horde/Kolab/Session/SessionTest.php" as="Horde/Kolab/Session/SessionTest.php" />
   </filelist>
