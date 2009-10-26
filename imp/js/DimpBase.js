@@ -1982,6 +1982,8 @@ var DimpBase = {
             if (this.folder == r.response.mbox) {
                 this.viewport.reload();
                 this.clearPreviewPane();
+            } else {
+                this.viewport.deleteView(r.response.mbox);
             }
             this.setFolderLabel(r.response.mbox, 0);
         }
