@@ -208,10 +208,8 @@ class IMP_Contents
      *            DEFAULT: No
      * </pre>
      *
-     * @return mixed  The text of the part, a stream resource if 'stream'
-     *                is true and 'mimeheaders' is false, or an array of
-     *                header text and a body stream resource if 'stream' is
-     *                true and 'mimeheaders' is true.
+     * @return mixed  The text of the part or a stream resource if 'stream'
+     *                is true.
      */
     public function getBodyPart($id, $options = array())
     {
@@ -247,10 +245,11 @@ class IMP_Contents
                     $this->lastBodyPartDecode = $res[$this->_index]['bodypartdecode'][$id];
                 }
                 return $res[$this->_index]['bodypart'][$id];
+            } elseif (empty($options['stream'])) {
+                return $res[$this->_index]['mimeheader'][$id] . $res[$this->_index]['bodypart'][$id];
             } else {
-                return empty($options['stream'])
-                    ? $res[$this->_index]['mimeheader'][$id] . $res[$this->_index]['bodypart'][$id]
-                    : array($res[$this->_index]['mimeheader'][$id], $res[$this->_index]['bodypart'][$id]);
+                $swrapper = new Horde_Support_CombineStream(array($res[$this->_index]['mimeheader'][$id], $res[$this->_index]['bodypart'][$id]));
+                return $swrapper->fopen();
             }
         } catch (Horde_Imap_Client_Exception $e) {
             return '';
@@ -266,9 +265,8 @@ class IMP_Contents
      *            DEFAULT: No
      * </pre>
      *
-     * @return mixed  The full message text, or an array with a text entry
-     *                (header text) and a stream resource (body text) if
-     *                'stream' is true.
+     * @return mixed  The full message text or a stream resource if 'stream'
+     *                is true.
      */
     public function fullMessageText($options = array())
     {
@@ -281,9 +279,13 @@ class IMP_Contents
                 Horde_Imap_Client::FETCH_HEADERTEXT => array(array('peek' => true)),
                 Horde_Imap_Client::FETCH_BODYTEXT => array(array('peek' => true, 'stream' => !empty($options['stream'])))
             ), array('ids' => array($this->_index)));
-            return empty($options['stream'])
-                ? $res[$this->_index]['headertext'][0] . $res[$this->_index]['bodytext'][0]
-                : array($res[$this->_index]['headertext'][0], $res[$this->_index]['bodytext'][0]);
+
+            if (empty($options['stream'])) {
+                return $res[$this->_index]['headertext'][0] . $res[$this->_index]['bodytext'][0];
+            }
+
+            $swrapper = new Horde_Support_CombineStream(array($res[$this->_index]['headertext'][0], $res[$this->_index]['bodytext'][0]));
+            return $swrapper->fopen();
         } catch (Horde_Imap_Client_Exception $e) {
             return empty($options['stream'])
                 ? ''

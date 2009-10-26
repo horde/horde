@@ -37,17 +37,6 @@ function _sanitizeName($name)
     return Horde_String::convertCharset(trim(preg_replace('/[^\pL\pN-+_. ]/u', '_', $name), ' _'), 'UTF-8');
 }
 
-function _fullMessageTextLength($ob)
-{
-    if (!$ob[1]) {
-        return strlen($ob[0]);
-    }
-    $stat = fseek($ob[1], 0, SEEK_END);
-    $len = strlen($ob[0]) + ftell($ob[1]);
-    rewind($ob[1]);
-    return $len;
-}
-
 require_once dirname(__FILE__) . '/lib/Application.php';
 
 /* Don't compress if we are already sending in compressed format. */
@@ -170,11 +159,10 @@ case 'view_attach':
 
 case 'view_source':
     $msg = $contents->fullMessageText(array('stream' => true));
-    $browser->downloadHeaders('Message Source', 'text/plain', true, _fullMessageTextLength($msg));
-    echo $msg[0];
-    if ($msg[1]) {
-        fpassthru($msg[1]);
-    }
+    fseek($msg, 0, SEEK_END);
+    $browser->downloadHeaders('Message Source', 'text/plain', true, ftell($msg));
+    rewind($msg);
+    fpassthru($msg);
     exit;
 
 case 'save_message':
@@ -194,10 +182,10 @@ case 'save_message':
 
     $hdr = 'From ' . $from . ' ' . $date->format('D M d H:i:s Y') . "\r\n";
     $msg = $contents->fullMessageText(array('stream' => true));
-    $browser->downloadHeaders($name . '.eml', 'message/rfc822', false, strlen($hdr) + _fullMessageTextLength($msg));
-    echo $hdr . $msg[0];
-    if ($msg[1]) {
-        fpassthru($msg[1]);
-    }
+    fseek($msg, 0, SEEK_END);
+    $browser->downloadHeaders($name . '.eml', 'message/rfc822', false, strlen($hdr) + ftell($msg));
+    echo $hdr;
+    rewind($msg);
+    fpassthru($msg);
     exit;
 }
