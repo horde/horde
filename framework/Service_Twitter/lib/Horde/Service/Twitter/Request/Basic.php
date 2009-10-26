@@ -1,7 +1,7 @@
 <?php
 /**
- * Horde_Service_Twitter_Request_Oauth class wraps sending requests to Twitter's
- * REST API using OAuth authentication.
+ * Horde_Service_Twitter_Request_Basic class wraps sending requests to Twitter's
+ * REST API using http basic authentication.
  *
  * Copyright 2009 The Horde Project (http://www.horde.org)
  *
