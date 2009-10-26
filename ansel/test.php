@@ -30,9 +30,9 @@ $horde_test = new Horde_Test;
 
 /* Ansel version. */
 $module = 'Ansel';
-require_once dirname(__FILE__) . '/lib/Api.php';
-$api = new Ansel_Api();
-$module_version = $api->version;
+require_once dirname(__FILE__) . '/lib/Application.php';
+$app = new Ansel_Application();
+$module_version = $app->version;
 
 /* Ansel configuration files. */
 $file_list = array(

@@ -31,8 +31,8 @@ $horde_test = new Horde_Test();
 /* Jeta version. */
 $module = 'Jeta';
 require_once dirname(__FILE__) . '/lib/Api.php';
-$api = new Jeta_Api();
-$module_version = $api->version;
+$app = new Jeta_Application();
+$module_version = $app->version;
 
 /* Jeta configuration files. */
 $file_list = array(

@@ -30,9 +30,9 @@ $horde_test = new Horde_Test;
 
 /* Chora version. */
 $module = 'Chora';
-require_once dirname(__FILE__) . '/lib/Api.php';
-$api = new Chora_Api();
-$module_version = $api->version;
+require_once dirname(__FILE__) . '/lib/Application.php';
+$app = new Chora_Application();
+$module_version = $app->version;
 
 /* Chora configuration files. */
 $file_list = array(
