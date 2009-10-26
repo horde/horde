@@ -216,19 +216,23 @@ class Turba {
     /**
      * Formats the name according to the user's preference.
      *
-     * @param Turba_Object $ob  The object to get a name from.
+     * @param Turba_Object $ob     The object to get a name from.
+     * @param string $name_format  The formatting. One of 'none', 'last_first'
+     *                             or 'first_last'.
      *
      * @return string  The formatted name, either "Firstname Lastname"
-     *                 or "Lastname, Firstname" depending on the user's
-     *                 preference.
+     *                 or "Lastname, Firstname" depending on $name_format or
+     *                 the user's preference.
      */
-    function formatName($ob)
+    function formatName($ob, $name_format = null)
     {
-        global $prefs;
-        static $name_format;
+        static $default_format;
 
-        if (!isset($name_format)) {
-            $name_format = $prefs->getValue('name_format');
+        if (!$name_format) {
+            if (!isset($default_format)) {
+                $default_format = $GLOBALS['prefs']->getValue('name_format');
+            }
+            $name_format = $default_format;
         }
 
         /* if no formatting, return original name */

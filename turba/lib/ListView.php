@@ -454,16 +454,19 @@ class Turba_ListView {
 class Turba_ListView_AlphaFilter {
 
     var $_alpha;
+    var $_format;
 
     function Turba_ListView_AlphaFilter($alpha)
     {
         $this->_alpha = Horde_String::lower($alpha);
+        $this->_format = $GLOBALS['prefs']->getValue('name_sort');
     }
 
     function skip(&$ob)
     {
-        $name = Turba::formatName($ob);
-        if ($this->_alpha != '*' && Horde_String::lower(substr($name, 0, 1)) != $this->_alpha) {
+        $name = Turba::formatName($ob, $this->_format);
+        if ($this->_alpha != '*' &&
+            Horde_String::lower(substr($name, 0, 1)) != $this->_alpha) {
             return true;
         }
         return false;

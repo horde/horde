@@ -10,6 +10,7 @@ v3.0-git
 v2.3.3-cvs
 ----------
 
+[jan] Add preference for the name format to use for sorting (Request #6721).
 [jan] Condense whitespace in composite fields (Request #8654).
 [jan] Add and fix Oracle-specific SQL scripts.
 [jan] Add Croatian translation (Matej Vela <matej.vela@carnet.hr>,
