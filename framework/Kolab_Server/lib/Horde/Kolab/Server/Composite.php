@@ -102,7 +102,7 @@ class Horde_Kolab_Server_Composite
     {
         /** Bind anonymously first. */
         $this->server->connectGuid();
-        $guid = $this->structure->getGuidForUser($user);
+        $guid = $this->search->getGuidForUser($user);
         $this->server->connectGuid($guid, $pass);
     }
 }
