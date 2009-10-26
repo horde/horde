@@ -252,7 +252,9 @@ class IMP_Contents
                 return $swrapper->fopen();
             }
         } catch (Horde_Imap_Client_Exception $e) {
-            return '';
+            return empty($options['stream'])
+                ? ''
+                : fopen('php://temp', 'r+');
         }
     }
 
@@ -289,7 +291,7 @@ class IMP_Contents
         } catch (Horde_Imap_Client_Exception $e) {
             return empty($options['stream'])
                 ? ''
-                : array();
+                : fopen('php://temp', 'r+');
         }
     }
 
