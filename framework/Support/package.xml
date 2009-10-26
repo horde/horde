@@ -25,6 +25,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+   * Add Horde_Support_CombineStream::.
    * Initial horde/support package
    * Initial Horde_Support_Array object
    * Initial Horde_Support_Backtrace object
@@ -50,6 +51,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       </dir> <!-- /lib/Horde/Support/Numerizer -->
       <file name="Array.php" role="php" />
       <file name="Backtrace.php" role="php" />
+      <file name="CombineStream.php" role="php" />
       <file name="ConsistentHash.php" role="php" />
       <file name="Guid.php" role="php" />
       <file name="Inflector.php" role="php" />
@@ -82,6 +84,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <filelist>
    <install name="lib/Horde/Support/Array.php" as="Horde/Support/Array.php" />
    <install name="lib/Horde/Support/Backtrace.php" as="Horde/Support/Backtrace.php" />
+   <install name="lib/Horde/Support/CombineStream.php" as="Horde/Support/CombineStream.php" />
    <install name="lib/Horde/Support/ConsistentHash.php" as="Horde/Support/ConsistentHash.php" />
    <install name="lib/Horde/Support/Guid.php" as="Horde/Support/Guid.php" />
    <install name="lib/Horde/Support/Inflector.php" as="Horde/Support/Inflector.php" />

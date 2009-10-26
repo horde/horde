@@ -46,7 +46,7 @@ class Horde_Stream_Wrapper_String
     {
         $options = stream_context_get_options($this->context);
         if (empty($options['horde-string']['string']) || ! $options['horde-string']['string'] instanceof Horde_Support_StringStream) {
-            throw new Exception('String streams must be created using the Horde_Stream_Wrapper_String_Factory class');
+            throw new Exception('String streams must be created using the Horde_Support_StringStream class');
         }
 
         $this->_string =& $options['horde-string']['string']->getString();
@@ -136,4 +136,5 @@ class Horde_Stream_Wrapper_String
 
         return true;
     }
+
 }
