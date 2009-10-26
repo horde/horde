@@ -395,11 +395,11 @@ div.vpRow.flagDeleted {
     margin-right: 4px;
     vertical-align: top;
 }
-.dimpActions a:hover, .dimpActions span.popdown:hover, .dimpActions span.spellcheckPopdownImg:hover {
+.dimpActions a:hover, .dimpActions span.popdown:hover, .dimpActions span.spellcheckPopdownImg:hover, span.popdownImg:hover {
     background-color: #e3e3e3;
     text-decoration: none;
 }
-.dimpActions span.spellcheckPopdownImg:hover {
+.dimpActions span.spellcheckPopdownImg:hover, span.popdownImg {
     border: 0;
     margin: 0;
 }
@@ -816,7 +816,7 @@ a.address:hover img {
 }
 
 /* Images */
-div.msgStatus div, #msgHeadersContent .subject span, span.iconImg, span.contextImg, span.spellcheckPopdownImg, #qsearch_icon, #qsearch_close, #compose_flist_popdown {
+div.msgStatus div, #msgHeadersContent .subject span, span.iconImg, span.contextImg, span.spellcheckPopdownImg, span.popdownImg, #qsearch_icon, #qsearch_close {
     display: -moz-inline-stack;
     display: inline-block;
     height: 16px;
