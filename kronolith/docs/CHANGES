@@ -25,6 +25,7 @@ v3.0-git
 v2.3.3-cvs
 ----------
 
+[jan] Fix Oracle SQL scripts.
 [jan] Fix charset of ajax responses.
 [jan] Add Croatian translation (Matej Vela <matej.vela@carnet.hr>).
 [jan] Speed up listing alarms (patrick.abiven@apitech.fr, Request #8638).
