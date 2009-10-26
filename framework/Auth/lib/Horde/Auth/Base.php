@@ -202,7 +202,7 @@ abstract class Horde_Auth_Base
     /**
      * Automatic authentication.
      *
-     * @return boolean  Whether or not the client is allowed.
+     * @return boolean  Whether or not the user is authenticated automatically.
      * @throws Horde_Auth_Exception
      */
     public function transparent()

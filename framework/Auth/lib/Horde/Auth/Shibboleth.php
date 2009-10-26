@@ -47,7 +47,7 @@ class Horde_Auth_Shibboleth extends Horde_Auth_Base
      */
     public function __construct($params = array())
     {
-        Horde::assertDriverConfig($params, 'auth', array('username_header'), 'Authentication Shib');
+        Horde::assertDriverConfig($params, 'auth', array('username_header'), 'authentication Shibboleth');
 
         $params = array_merge(array(
             'password_header' => '',
