@@ -11,9 +11,6 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
 
-/** We need the Auth library */
-require_once 'Horde/Auth.php';
-
 /**
  * A mock container for the Kolab session information.
  *
@@ -28,8 +25,8 @@ require_once 'Horde/Auth.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_Store_Mock
-implements Horde_Kolab_Session_Store
+class Horde_Kolab_Session_Storage_Mock
+implements Horde_Kolab_Session_Storage
 {
     /**
      * The session information.
@@ -56,6 +53,6 @@ implements Horde_Kolab_Session_Store
      */
     public function save(Horde_Kolab_Session $session)
     {
-        $this->$session = $session;
+        $this->session = $session;
     }
 }

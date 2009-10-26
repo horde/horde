@@ -1,6 +1,6 @@
 <?php
 /**
- * Defines storage containers for the Kolab session information.
+ * Test the horde auth driver.
  *
  * PHP version 5
  *
@@ -12,7 +12,12 @@
  */
 
 /**
- * Defines storage containers for the Kolab session information.
+ * Prepare the test setup.
+ */
+require_once dirname(__FILE__) . '/../../Autoload.php';
+
+/**
+ * Test the horde auth driver.
  *
  * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
@@ -25,22 +30,12 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-interface Horde_Kolab_Session_Store
+class Horde_Kolab_Session_Class_Auth_HordeTest extends Horde_Kolab_Session_SessionTestCase
 {
-    /**
-     * Load the session information.
-     *
-     * @return Horde_Kolab_Session|boolean The session information or false if
-     * it could not be loaded.
-     */
-    public function load();
-
-    /**
-     * Lave the session information.
-     *
-     * @param Horde_Kolab_Session $session The session information.
-     *
-     * @return NULL
-     */
-    public function save(Horde_Kolab_Session $session);
+    public function testMethodGetcurrentuserHasResultStringTheCurrentUser()
+    {
+        $_SESSION['horde_auth']['userId'] = 'test';
+        $auth = new Horde_Kolab_Session_Auth_Horde();
+        $this->assertEquals('test', $auth->getCurrentUser());
+    }
 }

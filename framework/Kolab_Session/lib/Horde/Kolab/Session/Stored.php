@@ -37,9 +37,9 @@ class Horde_Kolab_Session_Stored implements Horde_Kolab_Session
     /**
      * The storage.
      *
-     * @var Horde_Kolab_Session_Store
+     * @var Horde_Kolab_Session_Storage
      */
-    private $_store;
+    private $_storage;
 
     /**
      * Has the storage been connected successfully?
@@ -51,15 +51,15 @@ class Horde_Kolab_Session_Stored implements Horde_Kolab_Session
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Session       $session The session handler.
-     * @param Horde_Kolab_Session_Store $store   Store the session here.
+     * @param Horde_Kolab_Session         $session The session handler.
+     * @param Horde_Kolab_Session_Storage $storage Store the session here.
      */
     public function __construct(
         Horde_Kolab_Session $session,
-        Horde_Kolab_Session_Store $store
+        Horde_Kolab_Session_Storage $storage
     ) {
         $this->_session = $session;
-        $this->_store   = $store;
+        $this->_storage = $storage;
     }
 
     /**
@@ -69,7 +69,7 @@ class Horde_Kolab_Session_Stored implements Horde_Kolab_Session
      */
     public function __destruct()
     {
-        $this->_store->save($this->_session);
+        $this->_storage->save($this->_session);
     }
 
     /**
@@ -80,7 +80,7 @@ class Horde_Kolab_Session_Stored implements Horde_Kolab_Session
      *
      * @return NULL
      */
-    public function connect(array $credentials)
+    public function connect(array $credentials = null)
     {
         $this->_session->connect($credentials);
         $this->_connected = true;
@@ -94,6 +94,18 @@ class Horde_Kolab_Session_Stored implements Horde_Kolab_Session
     public function getId()
     {
         return $this->_session->getId();
+    }
+
+    /**
+     * Set the user id used for connecting the session.
+     *
+     * @param string $id The user id.
+     *
+     * @return NULL
+     */
+    public function setId($id)
+    {
+        $this->_session->setId($id);
     }
 
     /**
@@ -127,6 +139,26 @@ class Horde_Kolab_Session_Stored implements Horde_Kolab_Session
     }
 
     /**
+     * Return the imap server.
+     *
+     * @return string The imap host for the current user.
+     */
+    public function getImapServer()
+    {
+        return $this->_session->getImapServer();
+    }
+
+    /**
+     * Return the freebusy server.
+     *
+     * @return string The freebusy host for the current user.
+     */
+    public function getFreebusyServer()
+    {
+        return $this->_session->getFreebusyServer();
+    }
+
+    /**
      * Return a connection to the Kolab storage system.
      *
      * @return Horde_Kolab_Storage The storage connection.
@@ -134,42 +166,5 @@ class Horde_Kolab_Session_Stored implements Horde_Kolab_Session
     public function getStorage()
     {
         return $this->_session->getStorage();
-    }
-
-    /**
-     * Set the handler that provides getCurrentUser() for this instance.
-     *
-     * @param Horde_Kolab_Session_Auth $auth The authentication handler.
-     *
-     * @return NULL
-     */
-    public function setAuth(Horde_Kolab_Session_Auth $auth)
-    {
-        $this->_session->setAuth($auth);
-    }
-
-    /**
-     * Get the handler that provides getCurrentUser() for this instance.
-     *
-     * @return Horde_Kolab_Session_Auth The authentication handler.
-     */
-    public function getAuth()
-    {
-        return $this->_session->getAuth();
-    }
-
-    /**
-     * Does the current session still match the authentication information?
-     *
-     * @param string $user The user the session information is being requested
-     *                     for. This is usually empty, indicating the current
-     *                     user.
-     *
-     * @return boolean True if the session is still valid.
-     */
-    public function isValid($user = null)
-    {
-        $this->_connected = $this->_session->isValid($user);
-        return $this->_connected;
     }
 }

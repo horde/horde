@@ -47,7 +47,7 @@ interface Horde_Kolab_Session
      *
      * @throws Horde_Kolab_Session_Exception If the connection failed.
      */
-    public function connect(array $credentials);
+    public function connect(array $credentials = null);
 
     /**
      * Return the user id used for connecting the session.
@@ -55,6 +55,15 @@ interface Horde_Kolab_Session
      * @return string The user id.
      */
     public function getId();
+
+    /**
+     * Set the user id used for connecting the session.
+     *
+     * @param string $id The user id.
+     *
+     * @return NULL
+     */
+    public function setId($id);
 
     /**
      * Return the users mail address.
@@ -78,37 +87,23 @@ interface Horde_Kolab_Session
     public function getName();
 
     /**
+     * Return the imap server.
+     *
+     * @return string The imap host for the current user.
+     */
+    public function getImapServer();
+
+    /**
+     * Return the freebusy server.
+     *
+     * @return string The freebusy host for the current user.
+     */
+    public function getFreebusyServer();
+
+    /**
      * Return a connection to the Kolab storage system.
      *
      * @return Horde_Kolab_Storage The storage connection.
      */
     public function getStorage();
-
-    /**
-     * Set the handler that provides getCurrentUser() for this instance.
-     *
-     * @param Horde_Kolab_Session_Auth $auth The authentication handler.
-     *
-     * @return NULL
-     */
-    public function setAuth(Horde_Kolab_Session_Auth $auth);
-
-    /**
-     * Get the handler that provides getCurrentUser() for this instance.
-     *
-     * @return Horde_Kolab_Session_Auth The authentication handler.
-     */
-    public function getAuth();
-
-    /**
-     * Does the current session still match the authentication information?
-     *
-     * @param string $user The user the session information is being requested
-     *                     for. This is usually empty, indicating the current
-     *                     user.
-     * @param string $auth The user the current session belongs to.
-     *
-     * @return boolean True if the session is still valid.
-     */
-    public function isValid($user, $auth);
 }

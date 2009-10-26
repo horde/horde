@@ -2,7 +2,6 @@
 /**
  * All tests for the Horde_Kolab_Session:: package.
  *
- *
  * PHP version 5
  *
  * @category Kolab
@@ -20,13 +19,12 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 }
 
 /**
- * The Autoloader allows us to omit "require/include" statements.
+ * Prepare the test setup.
  */
-require_once 'Horde/Autoloader.php';
+require_once dirname(__FILE__) . '/Autoload.php';
 
 /**
  * Combine the tests for this package.
- *
  *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
@@ -69,8 +67,10 @@ class Horde_Kolab_Session_AllTests
                 $pathname = $file->getPathname();
                 require $pathname;
 
-                $class = str_replace(DIRECTORY_SEPARATOR, '_',
-                                     preg_replace("/^$baseregexp(.*)\.php/", '\\1', $pathname));
+                $class = str_replace(
+                    DIRECTORY_SEPARATOR, '_',
+                    preg_replace("/^$baseregexp(.*)\.php/", '\\1', $pathname)
+                );
                 $suite->addTestSuite('Horde_Kolab_Session_' . $class);
             }
         }

@@ -11,9 +11,6 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
 
-/** We need the Auth library */
-require_once 'Horde/Auth.php';
-
 /**
  * Defines storage containers for the Kolab session information.
  *
@@ -28,8 +25,7 @@ require_once 'Horde/Auth.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_Store_Sessionobjects
-implements Horde_Kolab_Session_Store
+interface Horde_Kolab_Session_Storage
 {
     /**
      * Load the session information.
@@ -37,30 +33,14 @@ implements Horde_Kolab_Session_Store
      * @return Horde_Kolab_Session|boolean The session information or false if
      * it could not be loaded.
      */
-    public function load()
-    {
-        return $this->getSessionObjects()->query('kolab_session');
-    }
+    public function load();
 
     /**
-     * Save the session information.
+     * Lave the session information.
      *
      * @param Horde_Kolab_Session $session The session information.
      *
      * @return NULL
      */
-    public function save(Horde_Kolab_Session $session)
-    {
-        $this->getSessionObjects()->overwrite('kolab_session', $session, false);
-    }
-
-    /**
-     * Fetch the handler for session objects.
-     *
-     * @return Horde_SessionObjects The session objects.
-     */
-    private function _getSessionObjects()
-    {
-        return Horde_SessionObjects::singleton();
-    }
+    public function save(Horde_Kolab_Session $session);
 }

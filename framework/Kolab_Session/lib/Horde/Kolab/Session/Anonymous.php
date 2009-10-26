@@ -1,6 +1,7 @@
 <?php
 /**
- * A logger for Horde_Kolab_Session handlers.
+ * The Horde_Kolab_Session_Anonymous class allows anonymous access to the Kolab
+ * system.
  *
  * PHP version 5
  *
@@ -12,7 +13,14 @@
  */
 
 /**
- * A logger for Horde_Kolab_Session handlers.
+ * The Horde_Kolab_Session_Anonymous class allows anonymous access to the Kolab
+ * system.
+ *
+ * The core user credentials (login, pass) are kept within the Auth module and
+ * can be retrieved using <code>Auth::getAuth()</code> respectively
+ * <code>Auth::getCredential('password')</code>. Any additional Kolab user data
+ * relevant for the user session should be accessed via the Horde_Kolab_Session
+ * class.
  *
  * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
@@ -25,35 +33,42 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_Logged implements Horde_Kolab_Session
+class Horde_Kolab_Session_Anonymous implements Horde_Kolab_Session
 {
     /**
-     * The session handler.
+     * The session handler this instance provides with anonymous access.
      *
      * @var Horde_Kolab_Session
      */
     private $_session;
 
     /**
-     * The logger.
+     * Anonymous user ID.
      *
-     * @var mixed
+     * @var string
      */
-    private $_logger;
+    private $_anonymous_id;
+
+    /**
+     * Anonymous password.
+     *
+     * @var string
+     */
+    private $_anonymous_pass;
 
     /**
      * Constructor.
      *
-     * The provided logger class needs to implement the methods info() and
-     * err().
-     *
-     * @param Horde_Kolab_Session $session The session handler.
-     * @param mixed               $logger  The logger instance.
+     * @param Horde_Kolab_Session $session The this instance should provide
+     *                                     anonymous access for.
+     * @param string              $user    ID of the anonymous user.
+     * @param string              $pass    Password of the anonymous user.
      */
-    public function __construct(Horde_Kolab_Session $session, $logger)
+    public function __construct(Horde_Kolab_Session $session, $user, $pass)
     {
-        $this->_session = $session;
-        $this->_logger  = $logger;
+        $this->_session        = $session;
+        $this->_anonymous_id   = $user;
+        $this->_anonymous_pass = $pass;
     }
 
     /**
@@ -68,22 +83,12 @@ class Horde_Kolab_Session_Logged implements Horde_Kolab_Session
      */
     public function connect(array $credentials = null)
     {
-        try {
+        $id = $this->_session->getId();
+        if (empty($id) && $credentials === null) {
+            $this->_session->setId($this->_anonymous_id);
+            $this->_session->connect(array('password' => $this->_anonymous_pass));
+        } else {
             $this->_session->connect($credentials);
-            $this->_logger->info(
-                sprintf(
-                    "Connected Kolab session for \"%s\".",
-                    $this->_session->getId()
-                )
-            );
-        } catch (Horde_Kolab_Session_Exception $e) {
-            $this->_logger->err(
-                sprintf(
-                    "Failed to connect Kolab session for \"%s\". Error was: %s",
-                    $this->_session->getId(), $e->getMessage()
-                )
-            );
-            throw $e;
         }
     }
 
@@ -94,7 +99,11 @@ class Horde_Kolab_Session_Logged implements Horde_Kolab_Session
      */
     public function getId()
     {
-        return $this->_session->getId();
+        $id = $this->_session->getId();
+        if ($id == $this->_anonymous_id) {
+            return null;
+        }
+        return $id;
     }
 
     /**
@@ -163,6 +172,8 @@ class Horde_Kolab_Session_Logged implements Horde_Kolab_Session
      * Return a connection to the Kolab storage system.
      *
      * @return Horde_Kolab_Storage The storage connection.
+     *
+     * @todo Adapt to new structure of this class.
      */
     public function getStorage()
     {
