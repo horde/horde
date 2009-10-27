@@ -718,7 +718,7 @@ a.address img {
 a.address:hover {
     background: #fff;
     border: 1px silver solid;
-    padding: 2px 1px;
+    padding: 1px;
     text-decoration: none;
 }
 a.address:hover img {
