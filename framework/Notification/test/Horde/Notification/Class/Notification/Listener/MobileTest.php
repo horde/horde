@@ -117,4 +117,19 @@ class Horde_Notification_Class_Notification_Listener_MobileTest extends PHPUnit_
         );
         $listener->notify($messages);
     }
+
+    public function testMethodGetmessageHasSameOutputAsTheStatusListenerIfNoMobileObjectWasSet()
+    {
+        $listener = new Horde_Notification_Listener_Mobile();
+        $event = new Horde_Notification_Event('test');
+        $flags = array('content.raw' => true);
+        $message = array(
+            'class' => 'Horde_Notification_Event',
+            'event' => serialize($event),
+            'type'  => 'horde.message',
+            'flags' => serialize($flags)
+        );
+        $listener->getMessage($message, array('data' => true));
+    }
+
 }
