@@ -181,7 +181,7 @@ KronolithCore = {
         case 'year':
         case 'agenda':
         case 'tasks':
-            this.closeView();
+            this.closeView(loc);
             var locCap = loc.capitalize();
             $('kronolithNav' + locCap).addClassName('on');
 
@@ -324,10 +324,11 @@ KronolithCore = {
             break;
 
         case 'options':
-            this.closeView();
+            this.closeView('iframe');
             this.iframeContent(loc, Kronolith.conf.prefs_url);
             this.setTitle(Kronolith.text.prefs);
             this._addHistory(loc);
+            this.view = 'iframe';
             break;
         }
     },
@@ -435,16 +436,13 @@ KronolithCore = {
     /**
      * Closes the currently active view.
      */
-    closeView: function()
+    closeView: function(loc)
     {
         [ 'Day', 'Week', 'Month', 'Year', 'Tasks', 'Agenda' ].each(function(a) {
             $('kronolithNav' + a).removeClassName('on');
         });
-        if (this.view) {
+        if (this.view && this.view != loc) {
             $('kronolithView' + this.view.capitalize()).fade({ 'queue': 'end' });
-        }
-        if ($('kronolithIframe').visible()) {
-            $('kronolithIframe').fade({ 'queue': 'end' });
         }
     },
 
@@ -1748,11 +1746,11 @@ KronolithCore = {
         } else {
             var iframe = new Element('IFRAME', { 'id': 'kronolithIframe' + name, 'class': 'kronolithIframe', 'frameBorder': 0, 'src': loc });
             //this._resizeIE6Iframe(iframe);
-            $('kronolithIframe').insert(iframe);
+            $('kronolithViewIframe').insert(iframe);
         }
 
         this.view = null;
-        $('kronolithIframe').appear({ 'queue': 'end' });
+        $('kronolithViewIframe').appear({ 'queue': 'end' });
     },
 
     onResize: function(noupdate, nowait)

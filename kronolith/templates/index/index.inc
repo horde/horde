@@ -128,7 +128,7 @@ require dirname(__FILE__) . '/year.inc';
 require dirname(__FILE__) . '/tasks.inc';
 require dirname(__FILE__) . '/agenda.inc';
 ?>
-<div id="kronolithIframe" style="display:none"></div>
+<div id="kronolithViewIframe" style="display:none"></div>
 </div>
 <!-- end body -->
 
