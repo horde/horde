@@ -101,7 +101,7 @@ $form = new Ansel_Form_Ecard($vars, $title);
 $renderer = new Horde_Form_Renderer();
 
 if ($browser->hasFeature('rte')) {
-    $editor = Horde_Editor::factory('xinha', array('id' => 'ecard_comments'));
+    $editor = Horde_Editor::singleton('ckeditor', array('id' => 'ecard_comments'));
     $vars->set('rtemode', 1);
     $form->addHidden('', 'rtemode', 'text', false);
 }

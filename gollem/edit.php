@@ -48,7 +48,7 @@ case 'edit_file':
         Horde_Util::closeWindowJS();
     }
     if ($mime_type == 'text/html') {
-        $editor = Horde_Editor::singleton('xinha', array('id' => 'content'));
+        $editor = Horde_Editor::singleton('ckeditor', array('id' => 'content'));
     }
     require GOLLEM_TEMPLATES . '/common-header.inc';
     Gollem::status();
