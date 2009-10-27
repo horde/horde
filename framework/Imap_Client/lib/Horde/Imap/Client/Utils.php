@@ -335,6 +335,69 @@ class Horde_Imap_Client_Utils
     }
 
     /**
+     * Create a POP3 (RFC 2384) or IMAP (RFC 5092/5593) URL.
+     *
+     * @param array $data  The data used to create the URL. See the return
+     *                     value from parseUrl() for the available fields.
+     *                     REQUIRED: 'type', 'hostspec'
+     *
+     * @return string  A URL string.
+     */
+    public function createUrl($data)
+    {
+        $url = $data['type'] . '://';
+
+        if (isset($data['username'])) {
+            $url .= $data['username'];
+        }
+
+        if (isset($data['auth'])) {
+            $url .= ';AUTH=' . $data['auth'] . '@';
+        } elseif (isset($data['username'])) {
+            $url .= '@';
+        }
+
+        $url .= $data['hostspec'];
+
+        if (isset($data['port']) && ($data['port'] != 143)) {
+            $url .= ':' . $data['port'];
+        }
+
+        $url .= '/';
+
+        if ($data['type'] == 'imap') {
+            $url .= urlencode($data['mailbox']);
+
+            if (!empty($data['uidvalidity'])) {
+                $url .= ';UIDVALIDITY=' . $data['uidvalidity'];
+            }
+
+            if (isset($data['search'])) {
+                $url .= '?' . urlencode($data['search']);
+            } else {
+                if (isset($data['uid'])) {
+                    $url .= '/;UID=' . $data['uid'];
+                }
+
+                if (isset($data['section'])) {
+                    $url .= '/;SECTION=' . $data['section'];
+                }
+
+                if (isset($data['partial'])) {
+                    $url .= '/;PARTIAL=' . $data['partial'];
+                }
+
+                if (isset($data['urlauth'])) {
+                    $url .= '/;URLAUTH=' . $data['urlauth'];
+                }
+            }
+        }
+
+
+        return $url;
+    }
+
+    /**
      * Remove all prefix text of the subject that matches the subj-leader
      * ABNF.
      *
