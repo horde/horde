@@ -984,7 +984,7 @@ KronolithCore = {
             }, this);
 
             if (view == 'year') {
-                td = $('kronolithYearTable' + day.getMonth()).down('td[date=' + date + ']');
+                td = $('kronolithYearTable' + day.getMonth()).select('td').find(function(elm) { return elm.retrieve('date') == date; });
                 td.className = '';
                 if (title) {
                     td.writeAttribute('title', title).addClassName('kronolithHasEvents');
