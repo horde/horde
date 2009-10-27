@@ -77,8 +77,6 @@ v5.0-git
 [mms] Add support for '$Forwarded' IMAP keyword (Request #3402).
 [mms] Attachments in a signed message now can be downloaded via the
       download all attachments link (Bug #2939).
-[mms] Added separate Fetch Mail action to DIMP (Request #7370).
-[mms] Improved fetchmail dialog screen.
 [mms] Remember preview toggle header preference (Request #7264) (DIMP).
 [mms] Fix stripping attachments when saving to sent-mail folder when attaching
       the PGP public key (Bug #4221).
@@ -97,7 +95,7 @@ v5.0-git
 [mms] Added an alerts log (Request #7173) (DIMP).
 [mms] Added support to access IMP's Virtual Folders (DIMP).
 [mms] Shift-drag for messages will copy instead of move (DIMP).
-[mms] Only support FCKeditor as GUI HTML editor.
+[mms] Remove support for Xinha as GUI HTML editor.
 [mms] Strip extra 'Fwd' and 'Re' cruft from subject line when replying to or
       forwarding a message.
 [mms] Cache results of address parsing.
