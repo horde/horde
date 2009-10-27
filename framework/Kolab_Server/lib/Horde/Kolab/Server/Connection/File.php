@@ -26,7 +26,8 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_File extends Horde_Kolab_Server_Test
+class Horde_Kolab_Server_Connection_File 
+extends Horde_Kolab_Server_Connection_Mock
 {
 
     /**

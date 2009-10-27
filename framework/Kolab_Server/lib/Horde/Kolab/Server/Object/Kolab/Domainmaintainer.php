@@ -78,7 +78,7 @@ class Horde_Kolab_Server_Object_Kolab_Domainmaintainer extends Horde_Kolab_Serve
      *
      * @throws Horde_Kolab_Server_Exception If the given information contains errors.
      */
-    public function prepareObjectInformation(&$info)
+    public function prepareObjectInformation(array &$info)
     {
         foreach ($info[self::ATTRIBUTE_DOMAIN] as $domain) {
             $domain_uid = sprintf('cn=%s,cn=domain,cn=internal,%s',

@@ -154,6 +154,19 @@ implements Horde_Kolab_Server_Object
     }
 
     /**
+     * Read the object data.
+     *
+     * @return array The read data.
+     */
+    public function readInternal()
+    {
+        $this->_cache_int = array_merge(
+            $this->_cache_int,
+            $this->_object->readInternal()
+        );
+    }
+
+    /**
      * Get the specified attribute of this object
      *
      * @param string  $attr   The attribute to read
@@ -169,10 +182,7 @@ implements Horde_Kolab_Server_Object
                 throw new Horde_Kolab_Server_Exception(sprintf("Attribute \"%s\" not supported!",
                                                                $attr));
             }
-            $this->_cache_int = array_merge(
-                $this->_cache_int,
-                $this->_object->readInternal()
-            );
+            $this->_object->readInternal();
             if (!isset($this->_cache_int[$attr])) {
                 throw new Horde_Kolab_Server_Exception(sprintf("Failed to read attribute \"%s\"!",
                                                                $attr));
@@ -271,6 +281,32 @@ implements Horde_Kolab_Server_Object
          */
         $this->_cache_ext = array();
         $this->_cache_int = array();
+    }
+
+    /**
+     * Generates an ID for the given information.
+     *
+     * @param array &$info The data of the object.
+     *
+     * @return string The ID.
+     */
+    public function generateId(array &$info)
+    {
+        $this->_object->generateId($info);
+    }
+
+    /**
+     * Distill the server side object information to save.
+     *
+     * @param array &$info The information about the object.
+     *
+     * @return NULL.
+     *
+     * @throws Horde_Kolab_Server_Exception If the given information contains errors.
+     */
+    public function prepareObjectInformation(array &$info)
+    {
+        $this->_object->prepareObjectInformation($info);
     }
 
     /**

@@ -26,7 +26,8 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 class Horde_Kolab_Server_Object_Hash
-implements Horde_Kolab_Server_Object, ArrayAccess
+implements Horde_Kolab_Server_Object
+//@todo: Implement ArrayAccess
 {
     /**
      * Link to the decorated object.
@@ -199,5 +200,41 @@ implements Horde_Kolab_Server_Object, ArrayAccess
     public function delete()
     {
         $this->_object->delete();
+    }
+
+    /**
+     * Generates an ID for the given information.
+     *
+     * @param array &$info The data of the object.
+     *
+     * @return string The ID.
+     */
+    public function generateId(array &$info)
+    {
+        $this->_object->generateId($info);
+    }
+
+    /**
+     * Distill the server side object information to save.
+     *
+     * @param array &$info The information about the object.
+     *
+     * @return NULL.
+     *
+     * @throws Horde_Kolab_Server_Exception If the given information contains errors.
+     */
+    public function prepareObjectInformation(array &$info)
+    {
+        $this->_object->prepareObjectInformation($info);
+    }
+
+    /**
+     * Returns the set of actions supported by this object type.
+     *
+     * @return array An array of supported actions.
+     */
+    public function getActions()
+    {
+        $this->_object->getActions();
     }
 }

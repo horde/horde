@@ -25,8 +25,8 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_Attribute_Value
-extends Horde_Kolab_Server_Object_Attribute_Empty
+class Horde_Kolab_Server_Object_Attribute_Empty
+extends Horde_Kolab_Server_Object_Attribute_Value
 {
     /**
      * Return the value of this attribute.

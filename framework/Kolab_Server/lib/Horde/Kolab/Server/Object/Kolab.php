@@ -86,7 +86,7 @@ class Horde_Kolab_Server_Object_Kolab extends Horde_Kolab_Server_Object_Groupofn
      *
      * @return string|PEAR_Error The ID.
      */
-    public function generateId(&$info)
+    public function generateId(array &$info)
     {
         return self::ATTRIBUTE_K . '=kolab';
     }

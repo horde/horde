@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-abstract class Horde_Kolab_Server_Object_Attribute_Value
+abstract class Horde_Kolab_Server_Object_Attribute_Field
 extends Horde_Kolab_Server_Object_Attribute_Base
 {
 

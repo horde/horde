@@ -77,6 +77,24 @@ http://pear.php.net/dtd/package-2.0.xsd">
         <file name="Novalue.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Server/Exception -->
        <file name="Factory.php" role="php" />
+       <dir name="Factory">
+        <file name="Base.php" role="php" />
+        <file name="Cleaned.php" role="php" />
+        <file name="Configuration.php" role="php" />
+        <file name="Conn.php" role="php" />
+        <dir name="Conn">
+         <file name="Base.php" role="php" />
+         <file name="Injector.php" role="php" />
+         <file name="Ldap.php" role="php" />
+         <file name="Mock.php" role="php" />
+        </dir> <!-- /lib/Horde/Kolab/Server/Factory/Conn -->
+        <file name="Constructor.php" role="php" />
+        <file name="Default.php" role="php" />
+        <file name="Injector.php" role="php" />
+        <file name="Kolab.php" role="php" />
+        <file name="Logged.php" role="php" />
+        <file name="Mapped.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/Server/Factory -->
        <file name="Ldap.php" role="php" />
        <dir name="Ldap">
         <file name="Changes.php" role="php" />
@@ -116,9 +134,20 @@ http://pear.php.net/dtd/package-2.0.xsd">
         <file name="Kolabgroupofnames.php" role="php" />
         <file name="Kolabinetorgperson.php" role="php" />
         <file name="Kolabpop3account.php" role="php" />
-	<file name="Kolabsharedfolder.php" role="php" />
+        <file name="Kolabsharedfolder.php" role="php" />
         <file name="Organizationalperson.php" role="php" />
         <file name="Person.php" role="php" />
+        <file name="Search.php" role="php" />
+        <dir name="Search">
+         <file name="Attributes.php" role="php" />
+         <file name="Base.php" role="php" />
+         <file name="Children.php" role="php" />
+         <dir name="Constraint">
+          <file name="Single.php" role="php" />
+          <file name="Strict.php" role="php" />
+         </dir> <!-- /lib/Horde/Kolab/Server/Object/Constraint -->
+         <file name="Guid.php" role="php" />
+        </dir> <!-- /lib/Horde/Kolab/Server/Object/Search -->
         <file name="Searches.php" role="php" />
         <file name="Top.php" role="php" />
         <dir name="Kolab">
@@ -284,6 +313,20 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Kolab/Server/Exception.php" as="Horde/Kolab/Server/Exception.php" />
    <install name="lib/Horde/Kolab/Server/Exception/Novalue.php" as="Horde/Kolab/Server/Exception/Novalue.php" />
    <install name="lib/Horde/Kolab/Server/Factory.php" as="Horde/Kolab/Server/Factory.php" />
+   <install name="lib/Horde/Kolab/Server/Factory/Base.php" as="Horde/Kolab/Server/Factory/Base.php" />
+   <install name="lib/Horde/Kolab/Server/Factory/Cleaned.php" as="Horde/Kolab/Server/Factory/Cleaned.php" />
+   <install name="lib/Horde/Kolab/Server/Factory/Configuration.php" as="Horde/Kolab/Server/Factory/Configuration.php" />
+   <install name="lib/Horde/Kolab/Server/Factory/Conn.php" as="Horde/Kolab/Server/Factory/Conn.php" />
+   <install name="lib/Horde/Kolab/Server/Factory/Conn/Base.php" as="Horde/Kolab/Server/Factory/Conn/Base.php" />
+   <install name="lib/Horde/Kolab/Server/Factory/Conn/Injector.php" as="Horde/Kolab/Server/Factory/Conn/Injector.php" />
+   <install name="lib/Horde/Kolab/Server/Factory/Conn/Ldap.php" as="Horde/Kolab/Server/Factory/Conn/Ldap.php" />
+   <install name="lib/Horde/Kolab/Server/Factory/Conn/Mock.php" as="Horde/Kolab/Server/Factory/Conn/Mock.php" />
+   <install name="lib/Horde/Kolab/Server/Factory/Constructor.php" as="Horde/Kolab/Server/Factory/Constructor.php" />
+   <install name="lib/Horde/Kolab/Server/Factory/Default.php" as="Horde/Kolab/Server/Factory/Default.php" />
+   <install name="lib/Horde/Kolab/Server/Factory/Injector.php" as="Horde/Kolab/Server/Factory/Injector.php" />
+   <install name="lib/Horde/Kolab/Server/Factory/Kolab.php" as="Horde/Kolab/Server/Factory/Kolab.php" />
+   <install name="lib/Horde/Kolab/Server/Factory/Logged.php" as="Horde/Kolab/Server/Factory/Logged.php" />
+   <install name="lib/Horde/Kolab/Server/Factory/Mapped.php" as="Horde/Kolab/Server/Factory/Mapped.php" />
    <install name="lib/Horde/Kolab/Server/Ldap.php" as="Horde/Kolab/Server/Ldap.php" />
    <install name="lib/Horde/Kolab/Server/Ldap/Changes.php" as="Horde/Kolab/Server/Ldap/Changes.php" />
    <install name="lib/Horde/Kolab/Server/Ldap/Filtered.php" as="Horde/Kolab/Server/Ldap/Filtered.php" />
@@ -328,6 +371,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Kolab/Server/Object/Kolab/User.php" as="Horde/Kolab/Server/Object/Kolab/User.php" />
    <install name="lib/Horde/Kolab/Server/Object/Organizationalperson.php" as="Horde/Kolab/Server/Object/Organizationalperson.php" />
    <install name="lib/Horde/Kolab/Server/Object/Person.php" as="Horde/Kolab/Server/Object/Person.php" />
+   <install name="lib/Horde/Kolab/Server/Object/Search.php" as="Horde/Kolab/Server/Object/Search.php" />
+   <install name="lib/Horde/Kolab/Server/Object/Search/Attributes.php" as="Horde/Kolab/Server/Object/Search/.php" />
+   <install name="lib/Horde/Kolab/Server/Object/Search/Base.php" as="Horde/Kolab/Server/Object/Search/Base.php" />
+   <install name="lib/Horde/Kolab/Server/Object/Search/Children.php" as="Horde/Kolab/Server/Object/Search/Children.php" />
+   <install name="lib/Horde/Kolab/Server/Object/Search/Constraint/Single.php" as="Horde/Kolab/Server/Object/Search/Constraint/Single.php" />
+   <install name="lib/Horde/Kolab/Server/Object/Search/Constraint/Strict.php" as="Horde/Kolab/Server/Object/Search/Constraint/Strict.php" />
+   <install name="lib/Horde/Kolab/Server/Object/Search/Guid.php" as="Horde/Kolab/Server/Object/Search/Guid.php" />
    <install name="lib/Horde/Kolab/Server/Object/Searches.php" as="Horde/Kolab/Server/Object/Searches.php" />
    <install name="lib/Horde/Kolab/Server/Object/Top.php" as="Horde/Kolab/Server/Object/Top.php" />
    <install name="lib/Horde/Kolab/Server/Objects.php" as="Horde/Kolab/Server/Objects.php" />

@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_Search_Guid
+class Horde_Kolab_Server_Object_Search_Attributes
 extends Horde_Kolab_Server_Object_Search_Base
 {
     /**

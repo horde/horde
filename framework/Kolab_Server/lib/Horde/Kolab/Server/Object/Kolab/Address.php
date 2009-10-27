@@ -44,7 +44,7 @@ class Horde_Kolab_Server_Object_Kolab_Address extends Horde_Kolab_Server_Object_
      *
      * @var array
      */
-    protected $object_classes = array(
+    static public $object_classes = array(
         self::OBJECTCLASS_TOP,
         self::OBJECTCLASS_INETORGPERSON,
         self::OBJECTCLASS_KOLABINETORGPERSON,

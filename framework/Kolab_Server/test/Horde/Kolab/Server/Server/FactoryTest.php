@@ -34,6 +34,7 @@ class Horde_Kolab_Server_Server_FactoryTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
+        $this->markTestIncomplete();
         $this->injector = new Horde_Injector(new Horde_Injector_TopLevel());
     }
 

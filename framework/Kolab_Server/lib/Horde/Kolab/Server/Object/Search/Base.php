@@ -25,7 +25,8 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-abstract class Horde_Kolab_Server_Object_Search_Base implements Horde_Kolab_Server_Object_Search
+abstract class Horde_Kolab_Server_Object_Search_Base
+implements Horde_Kolab_Server_Object_Search
 {
     /**
      * A link to the composite server handler.

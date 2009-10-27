@@ -80,7 +80,7 @@ class Horde_Kolab_Server_Mapped implements Horde_Kolab_Server
      *
      * @throws Horde_Kolab_Server_Exception If the connection failed.
      */
-    public function connectGuid($guid = null, $pass = null)
+    public function connectGuid($guid = '', $pass = '')
     {
          $this->_server->connectGuid($guid, $pass);
     }

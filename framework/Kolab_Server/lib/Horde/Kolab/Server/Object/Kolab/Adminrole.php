@@ -79,7 +79,7 @@ class Horde_Kolab_Server_Object_Kolab_Adminrole extends Horde_Kolab_Server_Objec
      *
      * @return boolean|PEAR_Error True on success.
      */
-    public function save($info = null)
+    public function save(array $info)
     {
         $admin_group = new Horde_Kolab_Server_Object_Kolabgroupofnames($this->server, null, $this->required_group);
 

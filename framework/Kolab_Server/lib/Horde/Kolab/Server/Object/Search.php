@@ -32,7 +32,5 @@ interface Horde_Kolab_Server_Object_Search
      *
      * @return mixed The search result.
      */
-    public function search()
-    {
-    }
+    public function search();
 }

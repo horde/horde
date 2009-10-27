@@ -26,7 +26,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_Kolabsharedfolder extends Horde_Kolab_Server_Object
+class Horde_Kolab_Server_Object_Kolabsharedfolder extends Horde_Kolab_Server_Object_Top
 {
     /** Define attributes specific to this object type */
 
@@ -85,7 +85,7 @@ class Horde_Kolab_Server_Object_Kolabsharedfolder extends Horde_Kolab_Server_Obj
      *
      * @return string|PEAR_Error The ID.
      */
-    public function generateId(&$info)
+    public function generateId(array &$info)
     {
         return self::ATTRIBUTE_CN . '=' . $this->server->structure->quoteForUid(trim($info['cn'], " \t\n\r\0\x0B,"));
     }

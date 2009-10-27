@@ -32,35 +32,35 @@ class Horde_Kolab_Server_Composite
      *
      * @var Horde_Kolab_Server
      */
-    public $server;
+    private $_server;
 
     /**
      * The structure handler for this server.
      *
      * @var Horde_Kolab_Server_Structure
      */
-    public $structure;
+    private $_structure;
 
     /**
      * The search handler for this server.
      *
      * @var Horde_Kolab_Server_Search
      */
-    public $search;
+    private $_search;
 
     /**
      * The object handler for this server.
      *
      * @var Horde_Kolab_Server_Objects
      */
-    public $objects;
+    private $_objects;
 
     /**
      * The schema handler for this server.
      *
      * @var Horde_Kolab_Server_Schema
      */
-    public $schema;
+    private $_schema;
 
     /**
      * Construct a new Horde_Kolab_Server object.
@@ -74,16 +74,37 @@ class Horde_Kolab_Server_Composite
         Horde_Kolab_Server_Search $search,
         Horde_Kolab_Server_Schema $schema
     ) {
-        $this->server    = $server;
-        $this->objects   = $objects;
-        $this->structure = $structure;
-        $this->search    = $search;
-        $this->schema    = $schema;
+        $this->_server    = $server;
+        $this->_objects   = $objects;
+        $this->_structure = $structure;
+        $this->_search    = $search;
+        $this->_schema    = $schema;
 
         $structure->setComposite($this);
         $search->setComposite($this);
         $schema->setComposite($this);
         $objects->setComposite($this);
+    }
+
+    /**
+     * Retrieve an object attribute.
+     *
+     * @param string $key The name of the attribute.
+     *
+     * @return mixed The atribute value.
+     *
+     * @throws Horde_Kolab_Server_Exception If the attribute does not exist.
+     */
+    public function __get($key)
+    {
+        $public = array('server', 'objects', 'structure', 'search', 'schema');
+        if (in_array($key, $public)) {
+            $priv_key = '_' . $key;
+            return $this->$priv_key;
+        }
+        throw new Horde_Kolab_Server_Exception(
+            sprintf('Attribute %s not supported!', $key)
+        );
     }
 
     /**
