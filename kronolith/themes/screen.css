@@ -1203,6 +1203,18 @@ div.kronolithView div.kronolithViewBody div.kronolithRow div .kronolithEvent.kro
     overflow: hidden;
 }
 
+/* IFRAME */
+#kronolithIframe iframe {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
 /* Tags */
 .panel-tags {
     margin-left: 10px;

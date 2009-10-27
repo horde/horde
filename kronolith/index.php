@@ -37,6 +37,7 @@ foreach (Kronolith::listCalendars() as $id => $cal) {
         $shared_calendars[$id] = $cal;
     }
 }
+$_SESSION['horde_prefs']['nomenu'] = true;
 
 $datejs = str_replace('_', '-', $language) . '.js';
 if (!file_exists($registry->get('jsfs') . '/' . $datejs)) {

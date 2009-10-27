@@ -4,7 +4,7 @@
 
   <!-- ini user zone -->
   <div id="kronolithUser">
-   <a href="#"><?php echo _("Options") ?></a><?php if ($help_link) echo ' <span class="kronolithSeparator">&middot;</span> ' . $help_link; if ($logout_link) echo ' <span class="kronolithSeparator">&middot;</span> ' . $logout_link ?><br />
+   <a href="#" id="kronolithOptions"><?php echo _("Options") ?></a><?php if ($help_link) echo ' <span class="kronolithSeparator">&middot;</span> ' . $help_link; if ($logout_link) echo ' <span class="kronolithSeparator">&middot;</span> ' . $logout_link ?><br />
    <span class="kronolithUserName"><?php echo $identity->getName(); ?></span><br />
   </div>
   <!-- end user zone -->
@@ -13,9 +13,9 @@
 
 <!-- ini bar -->
 <div id="kronolithBar">
-    <div class="kronolithDateChoice" title="<?php echo _("Today") ?>">
-      <div><?php echo $today->format('l, j F Y') ?></div>
-    </div>
+  <div class="kronolithDateChoice" title="<?php echo _("Today") ?>">
+    <div><?php echo $today->format('l, j F Y') ?></div>
+  </div>
 
   <div id="kronolithNav">
     <a id="kronolithNavDay"><?php echo _("Day") ?></a>
@@ -128,6 +128,7 @@ require dirname(__FILE__) . '/year.inc';
 require dirname(__FILE__) . '/tasks.inc';
 require dirname(__FILE__) . '/agenda.inc';
 ?>
+<div id="kronolithIframe" style="display:none"></div>
 </div>
 <!-- end body -->
 

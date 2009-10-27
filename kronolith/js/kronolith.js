@@ -181,14 +181,9 @@ KronolithCore = {
         case 'year':
         case 'agenda':
         case 'tasks':
+            this.closeView();
             var locCap = loc.capitalize();
-            [ 'Day', 'Week', 'Month', 'Year', 'Tasks', 'Agenda' ].each(function(a) {
-                $('kronolithNav' + a).removeClassName('on');
-            });
             $('kronolithNav' + locCap).addClassName('on');
-            if (this.view && this.view != loc) {
-                $('kronolithView' + this.view.capitalize()).fade({ 'queue': 'end' });
-            }
 
             switch (loc) {
             case 'day':
@@ -258,14 +253,9 @@ KronolithCore = {
             break;
 
         case 'search':
-            [ 'Day', 'Week', 'Month', 'Year', 'Tasks', 'Agenda' ].each(function(a) {
-                $('kronolithNav' + a).removeClassName('on');
-            });
-            if (this.view) {
-                $('kronolithView' + this.view.capitalize()).fade({ 'queue': 'end' });
-            }
             var cals = [], term = locParts[1],
                 query = Object.toJSON({ 'title': term });
+            this.closeView();
             this.updateView(null, 'search', term);
             $H(Kronolith.conf.calendars).each(function(type) {
                 $H(type.value).each(function(calendar) {
@@ -334,10 +324,10 @@ KronolithCore = {
             break;
 
         case 'options':
-            //this.highlightSidebar('appoptions');
-            this._addHistory(loc);
-            this.setTitle(Kronolith.text.prefs);
+            this.closeView();
             this.iframeContent(loc, Kronolith.conf.prefs_url);
+            this.setTitle(Kronolith.text.prefs);
+            this._addHistory(loc);
             break;
         }
     },
@@ -439,6 +429,22 @@ KronolithCore = {
             });
 
             break;
+        }
+    },
+
+    /**
+     * Closes the currently active view.
+     */
+    closeView: function()
+    {
+        [ 'Day', 'Week', 'Month', 'Year', 'Tasks', 'Agenda' ].each(function(a) {
+            $('kronolithNav' + a).removeClassName('on');
+        });
+        if (this.view) {
+            $('kronolithView' + this.view.capitalize()).fade({ 'queue': 'end' });
+        }
+        if ($('kronolithIframe').visible()) {
+            $('kronolithIframe').fade({ 'queue': 'end' });
         }
     },
 
@@ -1737,21 +1743,16 @@ KronolithCore = {
             name = loc;
         }
 
-        var container = $('dimpmain_portal'), iframe;
-        if (!container) {
-            this.showNotifications([ { type: 'horde.error', message: 'Bad portal!' } ]);
-            return;
+        if ($('kronolithIframe' + name)) {
+            $('kronolithIframe' + name).src = loc;
+        } else {
+            var iframe = new Element('IFRAME', { 'id': 'kronolithIframe' + name, 'class': 'kronolithIframe', 'frameBorder': 0, 'src': loc });
+            //this._resizeIE6Iframe(iframe);
+            $('kronolithIframe').insert(iframe);
         }
 
-        iframe = new Element('IFRAME', { id: 'iframe' + name, className: 'iframe', frameBorder: 0, src: loc });
-        this._resizeIE6Iframe(iframe);
-
-        // Hide menu in prefs pages.
-        if (name == 'options') {
-            iframe.observe('load', function() { $('iframeoptions').contentWindow.document.getElementById('menu').style.display = 'none'; });
-        }
-
-        container.insert(iframe);
+        this.view = null;
+        $('kronolithIframe').appear({ 'queue': 'end' });
     },
 
     onResize: function(noupdate, nowait)
@@ -1901,6 +1902,11 @@ KronolithCore = {
 
             case 'kronolithNavTasks':
                 this.go('tasks');
+                e.stop();
+                return;
+
+            case 'kronolithOptions':
+                this.go('options');
                 e.stop();
                 return;
 

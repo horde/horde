@@ -194,6 +194,7 @@ class Kronolith
             'agenda' => _("Agenda"),
             'searching' => str_replace('%s', '#{term}', _("Events matching \"%s\"")),
             'allday' => _("All day"),
+            'prefs' => _("Options"),
         );
         for ($i = 1; $i <= 12; ++$i) {
             $code['text']['month'][$i - 1] = Horde_Nls::getLangInfo(constant('MON_' . $i));
