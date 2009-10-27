@@ -221,7 +221,8 @@ class Horde_Notification_Instance extends Horde_Notification
 {
     static public function newInstance($stack)
     {
-        $instance = new Horde_Notification($stack);
+        $storage = new Horde_Notification_Storage_Session($stack);
+        $instance = new Horde_Notification($storage);
         return $instance;
     }
 }

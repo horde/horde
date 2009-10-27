@@ -29,11 +29,11 @@ class Horde_Notification
     protected $_listeners = array();
 
     /**
-     * The name of the session variable where we store the messages.
+     * The storage location where we store the messages.
      *
-     * @var string
+     * @var Horde_Notification_Storage
      */
-    protected $_stack;
+    protected $_storage;
 
     /**
      * A Horde_Alarm instance.
@@ -56,7 +56,8 @@ class Horde_Notification
     static public function singleton($stack = 'horde_notification_stacks')
     {
         if (!isset(self::$_instances[$stack])) {
-            self::$_instances[$stack] = new Horde_Notification($stack);
+            $storage = new Horde_Notification_Storage_Session($stack);
+            self::$_instances[$stack] = new Horde_Notification($storage);
         }
 
         return self::$_instances[$stack];
@@ -66,17 +67,11 @@ class Horde_Notification
      * Initialize the notification system, set up any needed session
      * variables, etc.
      *
-     * @param string $stack  The name of the message stack to use.
+     * @param Horde_Notification_Storage $storage The storage location to use.
      */
-    protected function __construct($stack)
+    protected function __construct(Horde_Notification_Storage $storage)
     {
-        $this->_stack = $stack;
-
-        /* Make sure the message stack is registered in the session,
-         * and obtain a global-scope reference to it. */
-        if (!isset($_SESSION[$this->_stack])) {
-            $_SESSION[$this->_stack] = array();
-        }
+        $this->_storage = $storage;
 
         if (!empty($GLOBALS['conf']['alarms']['driver'])) {
             $this->_alarm = Horde_Alarm::factory();
@@ -116,8 +111,8 @@ class Horde_Notification
 
         if (class_exists($class)) {
             $this->_listeners[$listener] = new $class($params);
-            if (!isset($_SESSION[$this->_stack][$listener])) {
-                $_SESSION[$this->_stack][$listener] = array();
+            if (!isset($this->_storage[$listener])) {
+                $this->_storage[$listener] = array();
             }
             return $this->_listeners[$listener];
         }
@@ -141,7 +136,7 @@ class Horde_Notification
         }
 
         $list = $this->_listeners[$listener];
-        unset($this->_listeners[$listener], $_SESSION[$this->_stack][$list->getName()]);
+        unset($this->_listeners[$listener], $this->_storage[$list->getName()]);
     }
 
     /**
@@ -198,11 +193,14 @@ class Horde_Notification
 
         foreach ($this->_listeners as $listener) {
             if ($listener->handles($type)) {
-                $_SESSION[$this->_stack][$listener->getName()][] = array(
-                    'class' => get_class($event),
-                    'event' => serialize($event),
-                    'flags' => serialize($flags),
-                    'type' => $type
+                $this->_storage->push(
+                    $listener->getName(),
+                    array(
+                        'class' => get_class($event),
+                        'event' => serialize($event),
+                        'flags' => serialize($flags),
+                        'type' => $type
+                    )
                 );
             }
         }
@@ -231,7 +229,8 @@ class Horde_Notification
 
         foreach ($options['listeners'] as $listener) {
             if (isset($this->_listeners[$listener])) {
-                $this->_listeners[$listener]->notify($_SESSION[$this->_stack][$this->_listeners[$listener]->getName()], $options);
+                $instance = $this->_storage[$this->_listeners[$listener]->getName()];
+                $this->_listeners[$listener]->notify($instance, $options);
             }
         }
     }
@@ -250,13 +249,13 @@ class Horde_Notification
         if (is_null($my_listener)) {
             $count = 0;
             foreach ($this->_listeners as $listener) {
-                if (isset($_SESSION[$this->_stack][$listener->getName()])) {
-                    $count += count($_SESSION[$this->_stack][$listener->getName()]);
+                if (isset($this->_storage[$listener->getName()])) {
+                    $count += count($this->_storage[$listener->getName()]);
                 }
             }
             return $count;
         } else {
-            return @count($_SESSION[$this->_stack][$this->_listeners[strtolower($my_listener)]->getName()]);
+            return @count($this->_storage[$this->_listeners[strtolower($my_listener)]->getName()]);
         }
     }
 
