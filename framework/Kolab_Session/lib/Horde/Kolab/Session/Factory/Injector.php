@@ -101,7 +101,8 @@ extends Horde_Kolab_Session_Factory_Base
      *
      * @return NULL
      */
-    private function _setupConfiguration() {
+    private function _setupConfiguration()
+    {
         $this->_injector->setInstance(
             'Horde_Kolab_Session_Configuration', $this->_configuration
         );

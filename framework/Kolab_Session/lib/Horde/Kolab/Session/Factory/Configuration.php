@@ -36,7 +36,7 @@ implements Horde_Kolab_Session_Factory
     private $_configuration;
 
     /**
-     * The factory setup resulting from the configuration.
+     * The factory used for creating the instances.
      *
      * @var Horde_Kolab_Session_Factory
      */
