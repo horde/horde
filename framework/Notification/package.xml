@@ -24,7 +24,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Added Horde_Notification::replace().
+ <notes>* Added unit tests.
+ * Added Horde_Notification::replace().
  * Initial Horde 4 package.
  </notes>
  <contents>
@@ -44,6 +45,28 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <file name="Notification.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Notification">
+      <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
+      <dir name="Class">
+       <file name="NotificationTest.php" role="test" />
+       <dir name="Notification">
+        <file name="EventTest.php" role="test" />
+        <file name="ListenerTest.php" role="test" />
+        <dir name="Listener">
+         <file name="AudioTest.php" role="test" />
+         <file name="JavascriptTest.php" role="test" />
+         <file name="MobileTest.php" role="test" />
+         <file name="StatusTest.php" role="test" />
+        </dir> <!-- /test/Horde/Notification/Class/Notification/Listener -->
+       </dir> <!-- /test/Horde/Notification/Class/Notification -->
+      </dir> <!-- /test/Horde/Notification/Class -->
+      <file name="phpunit.xml" role="test" />
+     </dir> <!-- /test/Horde/Notification -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -78,6 +101,16 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Notification/Event.php" as="Horde/Notification/Event.php" />
    <install name="lib/Horde/Notification/Listener.php" as="Horde/Notification/Listener.php" />
    <install name="lib/Horde/Notification.php" as="Horde/Notification.php" />
+   <install name="test/Horde/Notification/AllTests.php" as="Horde/Notification/AllTests.php" />
+   <install name="test/Horde/Notification/Autoload.php" as="Horde/Notification/Autoload.php" />
+   <install name="test/Horde/Notification/Class/NotificationTest.php" as="Horde/Notification/Class/NotificationTest.php" />
+   <install name="test/Horde/Notification/Class/Notification/EventTest.php" as="Horde/Notification/Class/Notification/EventTest.php" />
+   <install name="test/Horde/Notification/Class/Notification/ListenerTest.php" as="Horde/Notification/Class/Notification/ListenerTest.php" />
+   <install name="test/Horde/Notification/Class/Notification/Listener/AudioTest.php" as="Horde/Notification/Class/Notification/Listener/AudioTest.php" />
+   <install name="test/Horde/Notification/Class/Notification/Listener/JavascriptTest.php" as="Horde/Notification/Class/Notification/Listener/JavascriptTest.php" />
+   <install name="test/Horde/Notification/Class/Notification/Listener/MobileTest.php" as="Horde/Notification/Class/Notification/Listener/MobileTest.php" />
+   <install name="test/Horde/Notification/Class/Notification/Listener/StatusTest.php" as="Horde/Notification/Class/Notification/Listener/StatusTest.php" />
+   <install name="test/Horde/Notification/phpunit.xml" as="Horde/Notification/phpunit.xml" />
   </filelist>
  </phprelease>
  <changelog>
