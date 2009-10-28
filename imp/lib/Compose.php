@@ -238,7 +238,27 @@ class IMP_Compose
         /* Add necessary headers for replies. */
         $this->_addReferences($draft_headers);
 
-        return $base->toString(array('defserver' => $session ? $_SESSION['imp']['maildomain'] : null, 'headers' => $draft_headers));
+        /* Add information necessary to log replies/forwards when finally
+         * sent. */
+        if (!empty($this->_metadata['reply_type'])) {
+            try {
+                $imap_url = $GLOBALS['imp_imap']->ob()->utils->createUrl(array(
+                    'type' => $_SESSION['imp']['protocol'],
+                    'username' => $GLOBALS['imp_imap']->ob()->getParam('username'),
+                    'hostspec' => $GLOBALS['imp_imap']->ob()->getParam('hostspec'),
+                    'mailbox' => $this->_metadata['mailbox'],
+                    'uid' => $this->_metadata['index'],
+                    'uidvalidity' => $GLOBALS['imp_imap']->checkUidvalidity($this->_metadata['mailbox'])
+                ));
+
+                $draft_headers->addHeader($this->_metadata['reply_type'] == 'reply' ? 'X-IMP-Draft-Reply' : 'X-IMP-Draft-Forward', '<' . $imap_url . '>');
+            } catch (Horde_Exception $e) {}
+        }
+
+        return $base->toString(array(
+            'defserver' => $session ? $_SESSION['imp']['maildomain'] : null,
+            'headers' => $draft_headers
+        ));
     }
 
     /**
@@ -352,6 +372,30 @@ class IMP_Compose
             if ($val = $headers->getValue('in-reply-to')) {
                 $this->_metadata['in_reply_to'] = $val;
             }
+        }
+
+        if ($val = $headers->getValue('x-imp-draft-reply')) {
+            $reply_type = 'reply';
+        } elseif ($val = $headers->getValue('x-imp-draft-forward')) {
+            $reply_type = 'forward';
+        }
+
+        if ($val) {
+            $imap_url = $GLOBALS['imp_imap']->ob()->utils->parseUrl(rtrim(ltrim($val, '<'), '>'));
+
+            try {
+                if (($imap_url['type'] == $_SESSION['imp']['protocol']) &&
+                    ($imap_url['username'] == $GLOBALS['imp_imap']->ob()->getParam('username')) &&
+                    // Ignore hostspec and port, since these can change
+                    // even though the server is the same. UIDVALIDITY should
+                    // catch any true server/backend changes.
+                    ($GLOBALS['imp_imap']->checkUidvalidity($imap_url['mailbox']) == $imap_url['uidvalidity']) &&
+                    IMP_Contents::singleton($imap_url['uid'] . IMP::IDX_SEP . $imap_url['mailbox'])) {
+                    $this->_metadata['index'] = $imap_url['uid'];
+                    $this->_metadata['mailbox'] = $imap_url['mailbox'];
+                    $this->_metadata['reply_type'] = $reply_type;
+                }
+            } catch (Horde_Exception $e) {}
         }
 
         list($this->_metadata['draft_index'],) = explode(IMP::IDX_SEP, $index);

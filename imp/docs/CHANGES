@@ -2,6 +2,8 @@
 v5.0-git
 --------
 
+[mms] For drafts, save the original message index for forwards/replies so when
+      eventually sent, log information can be updated (Request #8663).
 [mms] Upgrade RTE to CKEditor v3.
 [mms] Sort by display name for to/from fields if supported on IMAP server.
 [mms] Add ability to quickly filter by flags in DIMP.
