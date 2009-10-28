@@ -23,9 +23,10 @@ var ImpLogin = {
     onDomLoad: function()
     {
         /* Activate dynamic view. */
-        var o = $('imp_select_view').down('option[value=dimp]').show();
+        var s = $('imp_select_view'),
+            o = s.down('option[value=dimp]').show();
         if (this.dimp_sel) {
-            o.writeAttribute('selected', 'selected');
+            s.selectedIndex = o.index;
         }
     }
 };
