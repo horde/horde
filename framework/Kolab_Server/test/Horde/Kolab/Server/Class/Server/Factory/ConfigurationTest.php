@@ -33,138 +33,133 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
 class Horde_Kolab_Server_Class_Server_Factory_ConfigurationTest
 extends PHPUnit_Framework_TestCase
 {
-    public function setUp()
-    {
-        $this->factory = $this->getMock('Horde_Kolab_Server_Factory');
-    }
-
     public function testMethodGetserverHasResultLoggedServerIfALoggerWasProvidedInTheConfiguration()
     {
-        $this->factory->expects($this->once())
-            ->method('getServer')
-            ->will($this->returnValue($this->getMock('Horde_Kolab_Server')));
         $factory = new Horde_Kolab_Server_Factory_Configuration(
-            $this->factory, array('logger' => 'set')
+            array('logger' => 'set', 'basedn' => '')
         );
         $this->assertType('Horde_Kolab_Server_Logged', $factory->getServer());
     }
 
     public function testMethodGetserverHasResultMappedServerIfAMappedWasProvidedInTheConfiguration()
     {
-        $this->factory->expects($this->once())
-            ->method('getServer')
-            ->will($this->returnValue($this->getMock('Horde_Kolab_Server')));
         $factory = new Horde_Kolab_Server_Factory_Configuration(
-            $this->factory, array('map' => array())
+            array('map' => array(), 'basedn' => '')
         );
         $this->assertType('Horde_Kolab_Server_Mapped', $factory->getServer());
     }
 
     public function testMethodGetserverHasResultCleanerServerIfACleanedWasProvidedInTheConfiguration()
     {
-        $this->factory->expects($this->once())
-            ->method('getServer')
-            ->will($this->returnValue($this->getMock('Horde_Kolab_Server')));
         $factory = new Horde_Kolab_Server_Factory_Configuration(
-            $this->factory, array('cleanup' => true)
+            array('cleanup' => true, 'basedn' => '')
         );
         $this->assertType('Horde_Kolab_Server_Cleaner', $factory->getServer());
     }
 
-    public function testMethodConstructHasParametersFactoryAndArrayParameters()
+    public function testMethodConstructHasParametersArrayParameters()
     {
         $factory = new Horde_Kolab_Server_Factory_Configuration(
-            $this->factory, array()
+            array('basedn' => '')
         );
     }
 
-    public function testMethodGetconnectionfactoryGetsDelegated()
+    public function testMethodGetconnectionfactoryHasResultServerconnectionfactory()
     {
-        $this->factory->expects($this->once())
-            ->method('getConnectionFactory');
         $factory = new Horde_Kolab_Server_Factory_Configuration(
-            $this->factory, array()
+            array('basedn' => '')
         );
-        $factory->getConnectionFactory();
+        $this->assertType(
+            'Horde_Kolab_Server_Factory_Conn',
+            $factory->getConnectionFactory()
+        );
     }
 
-    public function testMethodGetserverGetsDelegated()
+    public function testMethodGetserverHasResultServer()
     {
-        $this->factory->expects($this->once())
-            ->method('getServer');
         $factory = new Horde_Kolab_Server_Factory_Configuration(
-            $this->factory, array()
+            array('basedn' => '')
         );
-        $factory->getServer();
+        $this->assertType(
+            'Horde_Kolab_Server',
+            $factory->getServer()
+        );
     }
 
-    public function testMethodGetconfigurationGetsDelegated()
+    public function testMethodGetconfigurationHasResultArray()
     {
-        $this->factory->expects($this->once())
-            ->method('getConfiguration');
         $factory = new Horde_Kolab_Server_Factory_Configuration(
-            $this->factory, array()
+            array('basedn' => '')
         );
-        $factory->getConfiguration();
+        $this->assertType(
+            'array',
+            $factory->getConfiguration()
+        );
     }
 
-    public function testMethodGetconnectionGetsDelegated()
+    public function testMethodGetconnectionHasResultServerconnection()
     {
-        $this->factory->expects($this->once())
-            ->method('getConnection');
         $factory = new Horde_Kolab_Server_Factory_Configuration(
-            $this->factory, array()
+            array('basedn' => '')
         );
-        $factory->getConnection();
+        $this->assertType(
+            'Horde_Kolab_Server_Connection',
+            $factory->getConnection()
+        );
     }
 
-    public function testMethodGetcompositeGetsDelegated()
+    public function testMethodGetcompositeHasResultServercomposite()
     {
-        $this->factory->expects($this->once())
-            ->method('getComposite');
         $factory = new Horde_Kolab_Server_Factory_Configuration(
-            $this->factory, array()
+            array('basedn' => '')
         );
-        $factory->getComposite();
+        $this->assertType(
+            'Horde_Kolab_Server_Composite',
+            $factory->getComposite()
+        );
     }
 
-    public function testMethodGetobjectsGetsDelegated()
+    public function testMethodGetobjectsHasResultServerobjects()
     {
-        $this->factory->expects($this->once())
-            ->method('getObjects');
         $factory = new Horde_Kolab_Server_Factory_Configuration(
-            $this->factory, array()
+            array('basedn' => '')
         );
-        $factory->getObjects();
+        $this->assertType(
+            'Horde_Kolab_Server_Objects',
+            $factory->getObjects()
+        );
     }
 
-    public function testMethodGetstructureGetsDelegated()
+    public function testMethodGetstructureHasresultServerstructure()
     {
-        $this->factory->expects($this->once())
-            ->method('getStructure');
         $factory = new Horde_Kolab_Server_Factory_Configuration(
-            $this->factory, array()
+            array('basedn' => '')
         );
-        $factory->getStructure();
+        $this->assertType(
+            'Horde_Kolab_Server_Structure',
+            $factory->getStructure()
+        );
     }
 
-    public function testMethodGetsearchGetsDelegated()
+    public function testMethodGetsearchHasResultServersearch()
     {
-        $this->factory->expects($this->once())
-            ->method('getSearch');
         $factory = new Horde_Kolab_Server_Factory_Configuration(
-            $this->factory, array()
+            array('basedn' => '')
         );
-        $factory->getSearch();
+        $this->assertType(
+            'Horde_Kolab_Server_Search',
+            $factory->getSearch()
+        );
     }
 
-    public function testMethodGetschemaGetsDelegated()
+    public function testMethodGetschemaHasResultServerschema()
     {
-        $this->factory->expects($this->once())
-            ->method('getSchema');
         $factory = new Horde_Kolab_Server_Factory_Configuration(
-            $this->factory, array()
+            array('basedn' => '')
         );
-        $factory->getSchema();
+        $this->assertType(
+            'Horde_Kolab_Server_Schema',
+            $factory->getSchema()
+        );
     }
 }
