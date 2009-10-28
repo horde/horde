@@ -271,9 +271,6 @@ div.vpRow.flagDeleted {
 }
 
 /* Sidebar */
-#sidebarPanel a {
-    cursor: pointer;
-}
 #sidebarPanel .sepfull {
     height: 1px !important;
     margin: 5px 0;
@@ -306,9 +303,6 @@ div.vpRow.flagDeleted {
 #sidebarPanel li.on {
     background: #ffa;
 }
-#sidebarPanel li span {
-    cursor: pointer;
-}
 #sidebarPanel li.subfolders {
     height: auto;
     margin: 0;
@@ -339,8 +333,12 @@ div.vpRow.flagDeleted {
     font-style: italic;
 }
 #sidebarPanel .over a, #sidebarPanel li.folder:hover, #sidebarPanel li.custom:hover, #sidebarPanel li.servicelink:hover {
+    cursor: pointer;
     font-weight: bold;
     text-decoration: underline;
+}
+#sidebarPanel .container span.iconSpan {
+    cursor: pointer;
 }
 
 #folderopts a {
