@@ -135,10 +135,12 @@ class Horde_Stream_Wrapper_Combine
                 } else {
                     $tmp['p'] += $curr_read;
                 }
-            } else {
+            } elseif ($count) {
                 $tmp = &$this->_data[++$this->_datapos];
                 rewind($tmp['fp']);
                 $tmp['p'] = 0;
+            } else {
+                $tmp['p'] += $curr_read;
             }
         }
 
