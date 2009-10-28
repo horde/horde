@@ -230,7 +230,9 @@ class Horde_Mime_Viewer_Driver
     public function embeddedMimeParts()
     {
         $viewer = $this->_getViewer();
-        return ($viewer) ? $viewer->embeddedMimeParts() : $this->_capability['embedded'];
+        return $viewer
+            ? $viewer->embeddedMimeParts()
+            : $this->_capability['embedded'];
     }
 
     /**
@@ -238,13 +240,15 @@ class Horde_Mime_Viewer_Driver
      * MIME parts exist, return a list of MIME parts that contain the embedded
      * MIME part information.
      *
-     * @return mixed  An array of Horde_Mime_Part objects, with the key as
-     *                the ID, or null if no embedded MIME parts exist.
+     * @return mixed  An array with MIME IDs as the keys and Horde_Mime_Part
+     *                objects as the parts to replace the current value of
+     *                the given MIME ID.
+     *                Returns null if no embedded MIME parts exist.
      */
     public function getEmbeddedMimeParts()
     {
         $viewer = $this->_getViewer();
-        return ($viewer)
+        return $viewer
             ? $viewer->getEmbeddedMimeParts()
             : $this->_getEmbeddedMimeParts();
     }
@@ -254,8 +258,10 @@ class Horde_Mime_Viewer_Driver
      * MIME parts exist, return a list of MIME parts that contain the embedded
      * MIME part information.
      *
-     * @return mixed  An array of Horde_Mime_Part objects, with the key as
-     *                the ID, or null if no embedded MIME parts exist.
+     * @return mixed  An array with MIME IDs as the keys and Horde_Mime_Part
+     *                objects as the parts to replace the current value of
+     *                the given MIME ID.
+     *                Returns null if no embedded MIME parts exist.
      */
     protected function _getEmbeddedMimeParts()
     {
