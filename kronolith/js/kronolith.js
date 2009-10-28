@@ -948,7 +948,8 @@ KronolithCore = {
 
             case 'month':
                 $('kronolithMonthDay' + date)
-                    .select('div[calendar=' + calendar + ']')
+                    .select('div')
+                    .findAll(function(el) { return el.retrieve('calendar') == calendar; })
                     .invoke('remove');
                 break;
 
@@ -1328,7 +1329,7 @@ KronolithCore = {
     _removeEvent: function(event, calendar)
     {
         this._deleteCache(event, calendar);
-        $('kronolithBody').select('div[calendar=' + calendar + '][eventid=' + event + ']').invoke('remove');
+        $('kronolithBody').select('div').findAll(function(el) { return el.retrieve('calendar') == calendar && el.retrieve('eventid') == event; }).invoke('remove');
     },
 
     /**
@@ -1471,7 +1472,7 @@ KronolithCore = {
      */
     _insertTasks: function(taskType, taskList)
     {
-        $('kronolithViewTasksBody').select('tr[taskList=' + taskList + ']').invoke('remove');
+        $('kronolithViewTasksBody').select('tr').findAll(function(el) { return el.retrieve('taskList') == taskList; }).invoke('remove');
         var tasks = this.tcache.get(taskList);
         $H(tasks).each(function(task) {
             // TODO: Check for the taskType
@@ -1583,7 +1584,7 @@ KronolithCore = {
      */
     _toggleCompletionClass: function(taskId)
     {
-        var row = $$('tr[taskId=' + taskId + ']');
+        var row = $$('tr').find(function(el) { return el.retrieve('taskId') == taskId; });
         if (row.length != 1) {
             // FIXME: Show some error?
             return;
@@ -1923,10 +1924,10 @@ KronolithCore = {
                                   if (r.response.deleted) {
                                       this._removeEvent(eventid, cal);
                                   } else {
-                                      $('kronolithBody').select('div[calendar=' + cal + '][eventid=' + eventid + ']').invoke('toggle');
+                                      $('kronolithBody').select('div').findAll(function(el) { return el.retrieve('calendar') == cal && el.retrieve('eventid') == eventid; }).invoke('toggle');
                                   }
                               }.bind(this));
-                $('kronolithBody').select('div[calendar=' + cal + '][eventid=' + eventid + ']').invoke('hide');
+                $('kronolithBody').select('div').findAll(function(el) { return el.retrieve('calendar') == cal && el.retrieve('eventid') == eventid; }).invoke('hide');
                 this._closeRedBox();
                 window.history.back();
                 e.stop();
@@ -2144,7 +2145,7 @@ KronolithCore = {
                     var dates = this.viewDates(this.date, this.view);
                     this._loadEvents(dates[0], dates[1], this.view, [[calClass, calendar]]);
                 } else {
-                    $('kronolithBody').select('div[calendar=' + calClass + '|' + calendar + ']').invoke('toggle');
+                    $('kronolithBody').select('div').findAll(function(el) { return el.retrieve('calendar') == calClass + '|' + calendar; }).invoke('toggle');
                 }
                 elt.toggleClassName('kronolithCalOn');
                 elt.toggleClassName('kronolithCalOff');
@@ -2155,7 +2156,7 @@ KronolithCore = {
                             this.view == 'tasks') {
                             this._loadTasks(this.taskType,[taskList]);
                         } else {
-                            $('kronolithViewTasksBody').select('tr[taskList=' + taskList + ']').invoke('toggle');
+                            $('kronolithViewTasksBody').select('tr').findAll(function(el) { return el.retrieve('taskList') == taskList; }).invoke('toggle');
                         }
                     }
                     calendar = calClass + '_' + calendar;
