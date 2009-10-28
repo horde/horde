@@ -106,8 +106,10 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
      * MIME parts exist, return an altered version of the Horde_Mime_Part that
      * contains the embedded MIME part information.
      *
-     * @return mixed  A Horde_Mime_Part with the embedded MIME part information
-     *                or null if no embedded MIME parts exist.
+     * @return mixed  An array with MIME IDs as the keys and Horde_Mime_Part
+     *                objects as the parts to replace the current value of
+     *                the given MIME ID.
+     *                Returns null if no embedded MIME parts exist.
      */
     protected function _getEmbeddedMimeParts()
     {

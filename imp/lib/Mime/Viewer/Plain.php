@@ -137,10 +137,12 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
      * MIME parts exist, return a list of MIME parts that contain the embedded
      * MIME part information.
      *
-     * @return mixed  An array of Horde_Mime_Part objects, with the key as
-     *                the ID, or null if no embedded MIME parts exist.
+     * @return mixed  An array with MIME IDs as the keys and Horde_Mime_Part
+     *                objects as the parts to replace the current value of
+     *                the given MIME ID.
+     *                Returns null if no embedded MIME parts exist.
      */
-    public function getEmbeddedMimeParts()
+    protected function _getEmbeddedMimeParts()
     {
         $ret = null;
 
