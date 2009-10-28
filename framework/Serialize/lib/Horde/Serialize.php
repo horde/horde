@@ -64,7 +64,7 @@ class Horde_Serialize
                 return PEAR::raiseError('Unsupported serialization type');
             }
             $data = self::_serialize($data, $val, $params);
-            if (is_a($data, 'PEAR_Error')) {
+            if ($data instanceOf PEAR_Error) {
                 break;
             }
         }
