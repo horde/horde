@@ -1151,7 +1151,8 @@ class Nag_Api extends Horde_Registry_Api
     /**
      * Lists active tasks as time objects.
      *
-     * @param array $categories  The time categories (from listTimeObjectCategories) to list.
+     * @param array $categories  The time categories (from
+     *                           listTimeObjectCategories) to list.
      * @param mixed $start       The start date of the period.
      * @param mixed $end         The end date of the period.
      */
@@ -1189,8 +1190,9 @@ class Nag_Api extends Horde_Registry_Api
                 'end' => $due_date,
                 'category' => $task->category,
                 'params' => array('task' => $task->id,
-                'tasklist' => $task->tasklist),
-                'link' => Horde_Util::addParameter(Horde::applicationUrl('view.php', true), array('tasklist' => $task->tasklist, 'task' => $task->id)));
+                                  'tasklist' => $task->tasklist),
+                'link' => Horde_Util::addParameter(Horde::applicationUrl('view.php', true), array('tasklist' => $task->tasklist, 'task' => $task->id)),
+                'ajax_link' => 'task:' . $task->tasklist . ':' . $task->id);
         }
 
         return $timeobjects;
