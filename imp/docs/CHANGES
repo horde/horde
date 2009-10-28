@@ -109,6 +109,7 @@ v5.0-git
 v4.3.6-cvs
 ----------
 
+[mms] Save References/In-Reply-To header info when saving a draft (Bug #8661).
 [jan] Fix viewing S/MIME encrypted and signed messages from Outlook (Express)
       (Bug #8629).
 [jan] Add Oracle-specific SQL script.

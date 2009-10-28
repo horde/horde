@@ -235,6 +235,9 @@ class IMP_Compose
         /* Need to add Message-ID so we can use it in the index search. */
         $draft_headers->addMessageIdHeader();
 
+        /* Add necessary headers for replies. */
+        $this->_addReferences($draft_headers);
+
         return $base->toString(array('defserver' => $session ? $_SESSION['imp']['maildomain'] : null, 'headers' => $draft_headers));
     }
 
@@ -342,6 +345,14 @@ class IMP_Compose
             'bcc' => Horde_Mime_Address::addrArray2String($headers->getOb('bcc')),
             'subject' => $headers->getValue('subject')
         );
+
+        if ($val = $headers->getValue('references')) {
+            $this->_metadata['references'] = $val;
+
+            if ($val = $headers->getValue('in-reply-to')) {
+                $this->_metadata['in_reply_to'] = $val;
+            }
+        }
 
         list($this->_metadata['draft_index'],) = explode(IMP::IDX_SEP, $index);
         $this->_modified = true;
@@ -482,15 +493,7 @@ class IMP_Compose
         $headers->addHeader('Subject', Horde_String::convertCharset($header['subject'], $browser_charset, $charset));
 
         /* Add necessary headers for replies. */
-        if (!empty($this->_metadata['reply_type']) &&
-            ($this->_metadata['reply_type'] == 'reply')) {
-            if (!empty($this->_metadata['references'])) {
-                $headers->addHeader('References', implode(' ', preg_split('|\s+|', trim($this->_metadata['references']))));
-            }
-            if (!empty($this->_metadata['in_reply_to'])) {
-                $headers->addHeader('In-Reply-To', $this->_metadata['in_reply_to']);
-            }
-        }
+        $this->_addReferences($headers);
 
         /* Add the 'User-Agent' header. */
         if (empty($opts['useragent'])) {
@@ -633,6 +636,25 @@ class IMP_Compose
         } catch (Horde_Exception_HookNotSet $e) {}
 
         return $sent_saved;
+    }
+
+    /**
+     * Add necessary headers for replies.
+     *
+     * @param Horde_Mime_Headers $headers  The object holding this message's
+     *                                     headers.
+     */
+    protected function _addReferences($headers)
+    {
+        if (!empty($this->_metadata['reply_type']) &&
+            ($this->_metadata['reply_type'] == 'reply')) {
+            if (!empty($this->_metadata['references'])) {
+                $headers->addHeader('References', implode(' ', preg_split('|\s+|', trim($this->_metadata['references']))));
+            }
+            if (!empty($this->_metadata['in_reply_to'])) {
+                $headers->addHeader('In-Reply-To', $this->_metadata['in_reply_to']);
+            }
+        }
     }
 
     /**
