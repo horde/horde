@@ -76,7 +76,8 @@ implements Horde_Kolab_Session_Factory
         }
 
         if (isset($config['session']['anonymous']['user'])
-            && isset($config['session']['anonymous']['pass'])) {
+            && isset($config['session']['anonymous']['pass'])
+        ) {
             $factory = new Horde_Kolab_Session_Factory_Anonymous(
                 $factory,
                 $config['session']['anonymous']['user'],
@@ -130,6 +131,9 @@ implements Horde_Kolab_Session_Factory
     /**
      * Return the session validation driver.
      *
+     * @param Horde_Kolab_Session      $session The session to validate.
+     * @param Horde_Kolab_Session_Auth $auth    The auth handler.
+     *
      * @return Horde_Kolab_Session_Valid The driver for validating sessions.
      */
     public function getSessionValidator(
@@ -142,7 +146,9 @@ implements Horde_Kolab_Session_Factory
     /**
      * Validate the given session.
      *
-     * @param string $user The session will be validated for this user ID.
+     * @param Horde_Kolab_Session $session The session to validate.
+     * @param string              $user    The session will be validated for
+     *                                     this user ID.
      *
      * @return boolean True if the given session is valid.
      */
@@ -167,8 +173,7 @@ implements Horde_Kolab_Session_Factory
      * Returns either a reference to a session handler with data retrieved from
      * the session or a new session handler.
      *
-     * @param string             $user   The session will be setup for the user
-     *                                   with this ID.
+     * @param string $user The session will be setup for the user with this ID.
      *
      * @return Horde_Kolab_Session The concrete Kolab session reference.
      */

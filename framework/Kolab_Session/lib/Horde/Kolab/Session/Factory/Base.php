@@ -33,6 +33,9 @@ implements Horde_Kolab_Session_Factory
     /**
      * Return the session validation driver.
      *
+     * @param Horde_Kolab_Session      $session The session to validate.
+     * @param Horde_Kolab_Session_Auth $auth    The auth handler.
+     *
      * @return Horde_Kolab_Session_Valid The driver for validating sessions.
      */
     public function getSessionValidator(

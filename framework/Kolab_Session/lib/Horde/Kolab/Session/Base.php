@@ -106,11 +106,11 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
     /**
      * Constructor.
      *
-     * @param string             $user   The session will be setup for the user
-     *                                   with this ID.
-     * @param Horde_Kolab_Server $server The connection to the Kolab user
-     *                                   database.
-     * @param array              $params Kolab configuration settings.
+     * @param string             $user_id The session will be setup for the user
+     *                                    with this ID.
+     * @param Horde_Kolab_Server $server  The connection to the Kolab user
+     *                                    database.
+     * @param array              $params  Kolab configuration settings.
      */
     public function __construct(
         $user_id,

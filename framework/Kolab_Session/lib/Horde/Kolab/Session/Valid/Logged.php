@@ -71,7 +71,8 @@ class Horde_Kolab_Session_Valid_Logged implements Horde_Kolab_Session_Valid
         if ($result === false) {
             $this->_logger->info(
                 sprintf(
-                    "Invalid Kolab session for current user \"%s\", requested user \"%s\" and stored user \"%s\".",
+                    "Invalid Kolab session for current user \"%s\", requested"
+                    . " user \"%s\" and stored user \"%s\".",
                     $this->_valid->getAuth()->getCurrentUser(),
                     $user,
                     $this->_valid->getSession()->getMail()

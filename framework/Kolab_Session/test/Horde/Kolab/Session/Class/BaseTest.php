@@ -196,7 +196,8 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
                 '_imap_server',
                 '_freebusy_server',
                 '_storage_params',
-            ), $session->__sleep());
+            ), $session->__sleep()
+        );
     }
 
     public function testMethodGetidHasResultStringTheIdOfTheUserUserUsedForConnecting()
