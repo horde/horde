@@ -1116,6 +1116,9 @@ KronolithCore = {
                     maxDiv = 24 * this[storage].height
                         + this[storage].allDay
                         - divHeight - minTop,
+                    // Whether the top dragger is dragged, vs. the bottom
+                    // dragger
+                    draggingTop,
                     opts = {
                         'threshold': 5,
                         'constraint': 'vertical',
@@ -1128,13 +1131,13 @@ KronolithCore = {
                             this.addClassName('kronolithSelected');
                         }.bind(div),
                         'onEnd': function(d, e) {
-                            this[0]._onDragEnd(d, this[1], innerDiv, event, midnight, view, step);
+                            this[0]._onDragEnd(d, this[1], innerDiv, event, midnight, view, step, draggingTop);
                         }.bind([this, div]),
                         'onDrag': function(d, e) {
                             var div = this[1],
                                 top = d.ghost.cumulativeOffset().top,
-                                draggingTop = d.ghost.hasClassName('kronolithDraggerTop'),
                                 offset, height, dates;
+                            draggingTop = d.ghost.hasClassName('kronolithDraggerTop');
                             if (draggingTop) {
                                 offset = top - dragTop;
                                 height = div.offsetHeight - offset;
@@ -1360,7 +1363,7 @@ KronolithCore = {
     /**
      * Called as the event handler after dragging/resizing a day/week event.
      */
-    _onDragEnd: function(drag, div, innerDiv, event, date, view, step)
+    _onDragEnd: function(drag, div, innerDiv, event, date, view, step, top)
     {
         var dates = this.viewDates(date, view),
             start = dates[0].toString('yyyyMMdd'),
@@ -1370,12 +1373,18 @@ KronolithCore = {
         this._setEventText(innerDiv, event.value);
         drag.destroy();
         this.startLoading(event.value.calendar, start, end);
-        if (Object.isUndefined(event.value.offsetTop)) {
-            attributes = $H({ 'start': event.value.start,
-                              'end': event.value.end });
-        } else {
+        if (!Object.isUndefined(event.value.offsetTop)) {
             attributes = $H({ 'offDays': event.value.offsetDays,
                               'offMins': event.value.offsetTop / step * 10 });
+        } else if (!Object.isUndefined(top)) {
+            if (top) {
+                attributes = $H({ 'start': event.value.start });
+            } else {
+                attributes = $H({ 'end': event.value.end });
+            }
+        } else {
+            attributes = $H({ 'start': event.value.start,
+                              'end': event.value.end });
         }
         this.doAction(
             'UpdateEvent',
