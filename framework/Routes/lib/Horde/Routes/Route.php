@@ -214,7 +214,7 @@ class Horde_Routes_Route
         // This is a list of characters natural splitters in a URL
         $this->_splitChars = array('/', ',', ';', '.', '#');
 
-        // trip preceding '/' if present
+        // trim preceding '/' if present
         if (substr($this->routePath, 0, 1) == '/') {
             $routePath = substr($this->routePath, 1);
         }
@@ -689,7 +689,7 @@ class Horde_Routes_Route
      * Generate a URL from ourself given a set of keyword arguments
      *
      * @param  array  $kargs   Keyword arguments
-     * @param  boolean|string  False if generation failed, URL otherwise
+     * @param  null|string     Null if generation failed, URL otherwise
      */
     public function generate($kargs)
     {
@@ -709,7 +709,7 @@ class Horde_Routes_Route
                 $value = (isset($kargs[$key])) ? $kargs[$key] : null;
 
                 if (!empty($value) && !preg_match($this->_reqRegs[$key], $value)) {
-                    return false;
+                    return null;
                 }
             }
         }
@@ -722,7 +722,7 @@ class Horde_Routes_Route
             if ($this->conditions && isset($this->conditions['method']) &&
                 (!in_array(strtoupper($meth), $this->conditions['method']))) {
 
-                return false;
+                return null;
             }
             unset($kargs['method']);
         }
@@ -764,7 +764,7 @@ class Horde_Routes_Route
 
                 // No arg at all? This won't work
                 } else {
-                    return false;
+                    return null;
                 }
 
                 $urlList[] = Horde_Routes_Utils::urlQuote($val, $this->encoding);

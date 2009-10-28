@@ -131,10 +131,8 @@ class UtilTest extends PHPUnit_Framework_TestCase
                     $utils->urlFor('category_home'));
         $this->assertEquals('/category/food',
                     $utils->urlFor('category_home', array('section' => 'food')));
-        $this->assertEquals('/category',
-                    $utils->urlFor('home', array('action' => 'view', 'section' => 'home')));
-        $this->assertEquals('/content/splash',
-                    $utils->urlFor('home', array('controller' => 'content')));
+        $this->assertNull($utils->urlFor('home', array('action' => 'view', 'section' => 'home')));
+        $this->assertNull($utils->urlFor('home', array('controller' => 'content')));
         $this->assertEquals('/',
                     $utils->urlFor('/'));
     }
@@ -142,7 +140,7 @@ class UtilTest extends PHPUnit_Framework_TestCase
     public function testWithRouteNamesAndDefaults()
     {
         $this->markTestSkipped();
-        
+
         $m = $this->mapper;
 
         $utils = $m->utils;
@@ -305,7 +303,7 @@ class UtilTest extends PHPUnit_Framework_TestCase
     {
         $m = $this->mapper;
         $m->environ = array('SCRIPT_NAME' => '/webapp', 'HTTP_HOST' => 'example.com');
-        
+
         $utils = $m->utils;
         $utils->mapperDict = array();
 
@@ -384,8 +382,8 @@ class UtilTest extends PHPUnit_Framework_TestCase
     public function testWithSslEnviron()
     {
         $m = new Horde_Routes_Mapper();
-        $m->environ = array('SCRIPT_NAME' => '', 'HTTPS' => 'on', 'SERVER_PORT' => '443', 
-                            'PATH_INFO' => '/', 'HTTP_HOST' => 'example.com', 
+        $m->environ = array('SCRIPT_NAME' => '', 'HTTPS' => 'on', 'SERVER_PORT' => '443',
+                            'PATH_INFO' => '/', 'HTTP_HOST' => 'example.com',
                             'SERVER_NAME' => 'example.com');
 
         $utils = $m->utils;
@@ -446,7 +444,7 @@ class UtilTest extends PHPUnit_Framework_TestCase
 
         $utils = $m->utils;
         $utils->mapperDict = array();
-        
+
         $m->subDomains = true;
         $m->connect(':controller/:action/:id');
         $m->createRegs(array('content', 'archives', 'admin/comments'));
@@ -571,7 +569,7 @@ class UtilTest extends PHPUnit_Framework_TestCase
         $controllerDir = "$hereDir/fixtures/controllers";
 
         $controllers = Horde_Routes_Utils::controllerScan($controllerDir);
-        
+
         $this->assertEquals(3, count($controllers));
         $this->assertEquals('admin/users', $controllers[0]);
         $this->assertEquals('content', $controllers[1]);
@@ -585,7 +583,7 @@ class UtilTest extends PHPUnit_Framework_TestCase
 
         $m = new Horde_Routes_Mapper(array('directory' => $controllerDir));
         $m->alwaysScan = true;
-        
+
         $m->connect(':controller/:action/:id');
 
         $expected = array('action' => 'index', 'controller' => 'content', 'id' => null);

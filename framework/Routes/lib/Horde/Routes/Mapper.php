@@ -552,11 +552,20 @@ class Horde_Routes_Mapper
      * Usage:
      *   $m->generate(array('controller' => 'content', 'action' => 'view', 'id' => 10));
      *
-     * @param   array        $kargs  Keyword arguments (key/value pairs)
-     * @return  null|string          URL text or null
+     * @param   array        $routeArgs  Optional explicit route list
+     * @param   array        $kargs      Keyword arguments (key/value pairs)
+     * @return  null|string              URL text or null
      */
-    public function generate($kargs = array())
+    public function generate($first = null, $second = null)
     {
+        if ($second) {
+            $routeArgs = $first;
+            $kargs = is_null($second) ? array() : $second;
+        } else {
+            $routeArgs = array();
+            $kargs = is_null($first) ? array() : $first;
+        }
+
         // Generate ourself if we haven't already
         if (!$this->_createdGens) {
             $this->_createGens();
@@ -596,13 +605,15 @@ class Horde_Routes_Mapper
             }
         }
 
-        $actionList = isset($this->_gendict[$controller]) ? $this->_gendict[$controller] : $this->_gendict['*'];
-
-        list($keyList, $sortCache) =
-            (isset($actionList[$action])) ? $actionList[$action] : ((isset($actionList['*'])) ? $actionList['*'] : array(null, null));
-
-        if ($keyList === null) {
-            return null;
+        if ($routeArgs) {
+            $keyList = $routeArgs;
+        } else {
+            $actionList = isset($this->_gendict[$controller]) ? $this->_gendict[$controller] : $this->_gendict['*'];
+            list($keyList, $sortCache) =
+                (isset($actionList[$action])) ? $actionList[$action] : ((isset($actionList['*'])) ? $actionList['*'] : array(null, null));
+            if ($keyList === null) {
+                return null;
+            }
         }
 
         $keys = array_keys($kargs);

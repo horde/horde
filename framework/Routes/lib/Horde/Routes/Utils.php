@@ -124,6 +124,7 @@ class Horde_Routes_Utils
         }
 
         $route = null;
+        $routeArgs = array();
         $static = false;
         $encoding = $this->mapper->encoding;
         $environ = $this->mapper->environ;
@@ -131,7 +132,9 @@ class Horde_Routes_Utils
 
         if (isset($routeName)) {
 
-            if (isset($this->mapper->routeNames[$routeName])) {
+            if (isset($kargs['format']) && isset($this->mapper->routeNames['formatted_' . $routeName])) {
+                $route = $this->mapper->routeNames['formatted_' . $routeName];
+            } elseif (isset($this->mapper->routeNames[$routeName])) {
                 $route = $this->mapper->routeNames[$routeName];
             }
 
@@ -166,6 +169,7 @@ class Horde_Routes_Utils
 
         if (! $static) {
             if ($route) {
+                $routeArgs = array($route);
                 $newargs = $route->defaults;
                 foreach ($kargs as $key => $value) {
                     $newargs[$key] = $value;
@@ -190,7 +194,7 @@ class Horde_Routes_Utils
             $protocol = (isset($newargs['_protocol'])) ? $newargs['_protocol'] : $protocol;
             unset($newargs['_protocol']);
 
-            $url = $this->mapper->generate($newargs);
+            $url = $this->mapper->generate($routeArgs, $newargs);
         }
 
         if (!empty($anchor)) {
