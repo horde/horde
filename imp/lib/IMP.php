@@ -892,7 +892,7 @@ class IMP
      * status.
      *
      * @param string $mailbox   The mailbox to use on the linked page.
-     * @param string $uid       The uid to use on the linked page.
+     * @param string $uid       The UID to use on the linked page.
      * @param string $tmailbox  The mailbox associated with $uid to use on
      *                          the linked page.
      *
@@ -904,8 +904,7 @@ class IMP
     {
         $params = array('mailbox' => $mailbox);
         if (!is_null($uid)) {
-            // TODO: Remove 'index' for 'uid' instead
-            $params['index'] = $params['uid'] = $uid;
+            $params['uid'] = $uid;
             if ($mailbox != $tmailbox) {
                 $params['thismailbox'] = $tmailbox;
             }
@@ -1151,9 +1150,9 @@ class IMP
      * The global $imp_mbox objects will contain an array with the following
      * elements:
      * <pre>
-     * 'mailbox' - The current active mailbox (may be search mailbox).
-     * 'thismailbox' - The real IMAP mailbox of the current index.
-     * 'index' - The IMAP message index.
+     * 'mailbox' - (string) The current active mailbox (may be search mailbox).
+     * 'thismailbox' -(string) The real IMAP mailbox of the current index.
+     * 'uid' - (integer) The IMAP UID.
      * </pre>
      *
      * @param boolean $mbox  Use this mailbox, instead of form data.
@@ -1165,13 +1164,13 @@ class IMP
             $GLOBALS['imp_mbox'] = array(
                 'mailbox' => empty($mbox) ? 'INBOX' : $mbox,
                 'thismailbox' => Horde_Util::getFormData('thismailbox', $mbox),
-                'index' => Horde_Util::getFormData('index')
+                'uid' => Horde_Util::getFormData('uid')
             );
         } else {
             $GLOBALS['imp_mbox'] = array(
                 'mailbox' => $mbox,
                 'thismailbox' => $mbox,
-                'index' => null
+                'uid' => null
             );
         }
 

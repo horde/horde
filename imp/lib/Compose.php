@@ -247,7 +247,7 @@ class IMP_Compose
                     'username' => $GLOBALS['imp_imap']->ob()->getParam('username'),
                     'hostspec' => $GLOBALS['imp_imap']->ob()->getParam('hostspec'),
                     'mailbox' => $this->_metadata['mailbox'],
-                    'uid' => $this->_metadata['index'],
+                    'uid' => $this->_metadata['uid'],
                     'uidvalidity' => $GLOBALS['imp_imap']->checkUidvalidity($this->_metadata['mailbox'])
                 ));
 
@@ -299,11 +299,11 @@ class IMP_Compose
         /* Add the message to the mailbox. */
         try {
             $ids = $GLOBALS['imp_imap']->ob()->append($drafts_mbox, array(array('data' => $data, 'flags' => $append_flags, 'messageid' => $headers->getValue('message-id'))));
-            $this->_metadata['draft_index'] = reset($ids);
+            $this->_metadata['draft_uid'] = reset($ids);
             $this->_modified = true;
             return sprintf(_("The draft has been saved to the \"%s\" folder."), IMP::displayFolder($drafts_mbox));
         } catch (Horde_Imap_Client_Exception $e) {
-            unset($this->_metadata['draft_index']);
+            unset($this->_metadata['draft_uid']);
             $this->_modified = true;
             return _("The draft was not successfully saved.");
         }
@@ -312,8 +312,8 @@ class IMP_Compose
     /**
      * Resumes a previously saved draft message.
      *
-     * @param string $index  The IMAP message mailbox/index. The index should
-     *                       be in IMP::parseIndicesList() format #1.
+     * @param string $uid  The IMAP message mailbox/index. The uid should
+     *                     be in IMP::parseIndicesList() format #1.
      *
      * @return mixed  An array with the following keys:
      * <pre>
@@ -324,10 +324,10 @@ class IMP_Compose
      * </pre>
      * @throws IMP_Compose_Exception
      */
-    public function resumeDraft($index)
+    public function resumeDraft($uid)
     {
         try {
-            $contents = IMP_Contents::singleton($index);
+            $contents = IMP_Contents::singleton($uid);
         } catch (Horde_Exception $e) {
             throw new IMP_Compose_Exception($e);
         }
@@ -391,14 +391,14 @@ class IMP_Compose
                     // catch any true server/backend changes.
                     ($GLOBALS['imp_imap']->checkUidvalidity($imap_url['mailbox']) == $imap_url['uidvalidity']) &&
                     IMP_Contents::singleton($imap_url['uid'] . IMP::IDX_SEP . $imap_url['mailbox'])) {
-                    $this->_metadata['index'] = $imap_url['uid'];
                     $this->_metadata['mailbox'] = $imap_url['mailbox'];
                     $this->_metadata['reply_type'] = $reply_type;
+                    $this->_metadata['uid'] = $imap_url['uid'];
                 }
             } catch (Horde_Exception $e) {}
         }
 
-        list($this->_metadata['draft_index'],) = explode(IMP::IDX_SEP, $index);
+        list($this->_metadata['draft_uid'],) = explode(IMP::IDX_SEP, $uid);
         $this->_modified = true;
 
         return array(
@@ -591,20 +591,20 @@ class IMP_Compose
             }
 
             $imp_message = IMP_Message::singleton();
-            $reply_index = array($this->_metadata['index'] . IMP::IDX_SEP . $this->_metadata['mailbox']);
+            $reply_uid = array($this->_metadata['uid'] . IMP::IDX_SEP . $this->_metadata['mailbox']);
 
             switch ($this->_metadata['reply_type']) {
             case 'reply':
                 /* Make sure to set the IMAP reply flag and unset any
                  * 'flagged' flag. */
-                $imp_message->flag(array('\\answered'), $reply_index);
-                $imp_message->flag(array('\\flagged'), $reply_index, false);
+                $imp_message->flag(array('\\answered'), $reply_uid);
+                $imp_message->flag(array('\\flagged'), $reply_uid, false);
                 break;
 
             case 'forward':
                 /* Set the '$Forwarded' flag, if possible, in the mailbox.
                  * See RFC 5550 [5.9] */
-                $imp_message->flag(array('$Forwarded'), $reply_index);
+                $imp_message->flag(array('$Forwarded'), $reply_uid);
                 break;
             }
         }
@@ -1261,9 +1261,9 @@ class IMP_Compose
         $h = $contents->getHeaderOb();
         $match_identity = $this->_getMatchingIdentity($h);
 
-        $this->_metadata['index'] = $contents->getIndex();
         $this->_metadata['mailbox'] = $contents->getMailbox();
         $this->_metadata['reply_type'] = 'reply';
+        $this->_metadata['uid'] = $contents->getUid();
         $this->_modified = true;
 
         /* Set the message-id related headers. */
@@ -1445,8 +1445,8 @@ class IMP_Compose
         $format = 'text';
         $msg = '';
 
-        $this->_metadata['index'] = $contents->getIndex();
         $this->_metadata['mailbox'] = $contents->getMailbox();
+        $this->_metadata['uid'] = $contents->getUid();
 
         /* We need the Message-Id so we can log this event. This header is not
          * added to the outgoing messages. */

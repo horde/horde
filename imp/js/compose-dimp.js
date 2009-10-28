@@ -260,7 +260,7 @@ var DimpCompose = {
                 this.button_pressed = false;
                 if (this.is_popup) {
                     if (d.reply_type) {
-                        DIMP.baseWindow.DimpBase.flag(d.reply_type == 'reply' ? '\\answered' : '$forwarded', true, { index: d.index, mailbox: d.reply_folder, noserver: true });
+                        DIMP.baseWindow.DimpBase.flag(d.reply_type == 'reply' ? '\\answered' : '$forwarded', true, { uid: d.uid, mailbox: d.reply_folder, noserver: true });
                     }
 
                     // @TODO: Needed?
@@ -273,7 +273,7 @@ var DimpCompose = {
                     }
 
                     if (d.log) {
-                        DIMP.baseWindow.DimpBase.updateMsgLog(d.log, { index: d.index, mailbox: d.reply_folder });
+                        DIMP.baseWindow.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.reply_folder });
                     }
 
                     if (!DIMP.conf_compose.qreply) {

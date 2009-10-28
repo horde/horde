@@ -532,9 +532,9 @@ case 'ShowPreview':
 
     $ptr = each($indices);
     $args = array(
-        'index' => intval(reset($ptr['value'])),
         'mailbox' => $ptr['key'],
         'preview' => true,
+        'uid' => intval(reset($ptr['value']))
     );
 
     /* We know we are going to be exclusively dealing with this mailbox, so
@@ -551,8 +551,8 @@ case 'ShowPreview':
         $result = new stdClass;
         $result->error = $e->getMessage();
         $result->errortype = 'horde.error';
-        $result->index = $args['index'];
         $result->mailbox = $args['mailbox'];
+        $result->uid = $args['uid'];
     }
 
     break;
@@ -619,10 +619,10 @@ case 'CancelCompose':
 case 'DeleteDraft':
     $imp_compose = IMP_Compose::singleton(Horde_Util::getPost('imp_compose'));
     $imp_compose->destroy();
-    $draft_index = $imp_compose->getMetadata('draft_index');
-    if ($draft_index && ($action == 'DeleteDraft')) {
+    $draft_uid = $imp_compose->getMetadata('draft_uid');
+    if ($draft_uid && ($action == 'DeleteDraft')) {
         $imp_message = IMP_Message::singleton();
-        $idx_array = array($draft_index . IMP::IDX_SEP . IMP::folderPref($prefs->getValue('drafts_folder'), true));
+        $idx_array = array($draft_uid . IMP::IDX_SEP . IMP::folderPref($prefs->getValue('drafts_folder'), true));
         $imp_message->delete($idx_array, array('nuke' => true));
     }
     $result = true;
@@ -759,8 +759,8 @@ case 'ModifyPollFolder':
     break;
 
 case 'SendMDN':
-    $index = Horde_Util::getPost('index');
-    if (empty($mbox) || empty($index)) {
+    $uid = Horde_Util::getPost('uid');
+    if (empty($mbox) || empty($uid)) {
         break;
     }
 
@@ -768,13 +768,13 @@ case 'SendMDN':
     try {
         $fetch_ret = $imp_imap->ob()->fetch($mbox, array(
             Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => false))
-        ), array('ids' => array($index)));
+        ), array('ids' => array($uid)));
     } catch (Horde_Imap_Client_Exception $e) {
         break;
     }
 
     $imp_ui = new IMP_UI_Message();
-    $imp_ui->MDNCheck($mbox, $index, $reset($fetch_ret[$index]['headertext']), true);
+    $imp_ui->MDNCheck($mbox, $uid, $reset($fetch_ret[$uid]['headertext']), true);
     break;
 
 case 'PGPSymmetric':

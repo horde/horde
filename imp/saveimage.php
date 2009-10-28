@@ -13,13 +13,13 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 new IMP_Application(array('init' => true));
 
 $id = Horde_Util::getFormData('id');
-$index = Horde_Util::getFormData('index');
+$muid = Horde_Util::getFormData('muid');
 
 /* Run through the action handlers. */
 $actionID = Horde_Util::getFormData('actionID');
 switch ($actionID) {
 case 'save_image':
-    $contents = IMP_Contents::singleton($index);
+    $contents = IMP_Contents::singleton($muid);
     $mime_part = $contents->getMIMEPart($id);
     $image_data = array(
         'filename' => $mime_part->getName(true),
@@ -42,7 +42,7 @@ $t = new Horde_Template();
 $t->setOption('gettext', true);
 $t->set('action', Horde::applicationUrl('saveimage.php'));
 $t->set('id', htmlspecialchars($id));
-$t->set('index', htmlspecialchars($index));
+$t->set('muid', htmlspecialchars($muid));
 $t->set('image_img', Horde::img('mime/image.png', _("Image"), null, $registry->getImageDir('horde')));
 
 /* Build the list of galleries. */

@@ -171,7 +171,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
 
     /* Generate the target link. */
     $msg['target'] = in_array('\\draft', $ob['flags'])
-        ? IMP::composeLink(array(), array('a' => 'd', 'thismailbox' => $imp_mbox['mailbox'], 'index' => $ob['uid'], 'bodypart' => 1))
+        ? IMP::composeLink(array(), array('a' => 'd', 'thismailbox' => $imp_mbox['mailbox'], 'uid' => $ob['uid'], 'bodypart' => 1))
          : IMP::generateIMPUrl('message-mimp.php', $imp_mbox['mailbox'], $ob['uid'], $ob['mailbox']);
 
     $msgs[] = $msg;

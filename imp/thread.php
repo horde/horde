@@ -18,7 +18,7 @@ new IMP_Application(array('init' => true));
  */
 $mode = Horde_Util::getFormData('mode', 'thread');
 
-$imp_mailbox = IMP_Mailbox::singleton($imp_mbox['mailbox'], $imp_mbox['index']);
+$imp_mailbox = IMP_Mailbox::singleton($imp_mbox['mailbox'], $imp_mbox['uid']);
 
 $error = false;
 if ($mode == 'thread') {
@@ -67,7 +67,7 @@ $page_label = IMP::getLabel($imp_mbox['mailbox']);
 if ($mode == 'thread') {
     $threadob = $imp_mailbox->getThreadOb();
     $index_array = $imp_mailbox->getIMAPIndex();
-    $thread = $threadob->getThread($index_array['index']);
+    $thread = $threadob->getThread($index_array['uid']);
 
     $imp_thread = new IMP_Imap_Thread($threadob);
     $threadtree = $imp_thread->getThreadImageTree($thread, false);

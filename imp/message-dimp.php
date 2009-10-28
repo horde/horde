@@ -14,8 +14,8 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 new IMP_Application(array('init' => true));
 
 $folder = Horde_Util::getFormData('folder');
-$index = Horde_Util::getFormData('uid');
-if (!$index || !$folder) {
+$uid = Horde_Util::getFormData('uid');
+if (!$uid || !$folder) {
     exit;
 }
 
@@ -24,9 +24,9 @@ $readonly = $imp_imap->isReadOnly($folder);
 
 $args = array(
     'headers' => array_diff(array_keys($imp_ui->basicHeaders()), array('subject')),
-    'index' => $index,
     'mailbox' => $folder,
     'preview' => false,
+    'uid' => $uid
 );
 
 $show_msg = new IMP_Views_ShowMessage();
@@ -45,7 +45,7 @@ $scripts = array(
 );
 
 $js_onload = $js_out = array();
-foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'index', 'mailbox') as $val) {
+foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mailbox') as $val) {
     if (!empty($show_msg_result[$val])) {
         $js_out[] = 'DimpFullmessage.' . $val . ' = ' . Horde_Serialize::serialize($show_msg_result[$val], Horde_Serialize::JSON);
     }
@@ -57,10 +57,10 @@ $disable_compose = !IMP::canCompose();
 if (!$disable_compose) {
     $compose_args = array(
         'folder' => $folder,
-        'index' => $index,
         'messageCache' => '',
         'popup' => false,
         'qreply' => true,
+        'uid' => $uid,
     );
     $compose_result = IMP_Views_Compose::showCompose($compose_args);
 

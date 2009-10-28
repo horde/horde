@@ -40,14 +40,14 @@ function _popupSuccess()
     require $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
 }
 
-function _getIMPContents($index, $mailbox)
+function _getIMPContents($uid, $mailbox)
 {
-    if (empty($index)) {
+    if (empty($uid)) {
         return false;
     }
 
     try {
-        $imp_contents = IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox);
+        $imp_contents = IMP_Contents::singleton($uid . IMP::IDX_SEP . $mailbox);
         return $imp_contents;
     } catch (Horde_Exception $e) {
         $GLOBALS['notification']->push(_("Could not retrieve the message from the mail server."), 'horde.error');
@@ -112,8 +112,8 @@ if ($actionID) {
 
 $save_sent_mail = Horde_Util::getFormData('save_sent_mail');
 $sent_mail_folder = $identity->getValue('sent_mail_folder');
-$index = Horde_Util::getFormData('index');
 $thismailbox = Horde_Util::getFormData('thismailbox');
+$uid = Horde_Util::getFormData('uid');
 
 /* Check for duplicate submits. */
 if ($token = Horde_Util::getFormData('compose_formToken')) {
@@ -245,7 +245,7 @@ if ($_SESSION['imp']['file_upload']) {
 $title = _("New Message");
 switch ($actionID) {
 case 'mailto':
-    if (!($imp_contents = _getIMPContents($index, $thismailbox))) {
+    if (!($imp_contents = _getIMPContents($uid, $thismailbox))) {
         break;
     }
     $imp_headers = $imp_contents->getHeaderOb();
@@ -273,7 +273,7 @@ case 'mailto_link':
 
 case 'draft':
     try {
-        $result = $imp_compose->resumeDraft($index . IMP::IDX_SEP . $thismailbox);
+        $result = $imp_compose->resumeDraft($uid . IMP::IDX_SEP . $thismailbox);
 
         if (!is_null($rtemode)) {
             $rtemode = ($result['mode'] == 'html');
@@ -306,7 +306,7 @@ case 'redirect_expand_addr':
 case 'reply':
 case 'reply_all':
 case 'reply_list':
-    if (!($imp_contents = _getIMPContents($index, $thismailbox))) {
+    if (!($imp_contents = _getIMPContents($uid, $thismailbox))) {
         break;
     }
 
@@ -332,11 +332,11 @@ case 'reply_list':
     break;
 
 case 'forward':
-    if (!($imp_contents = _getIMPContents($index, $thismailbox))) {
+    if (!($imp_contents = _getIMPContents($uid, $thismailbox))) {
         break;
     }
 
-    $fwd_msg = $imp_ui->getForwardData($imp_compose, $imp_contents, $index . IMP::IDX_SEP . $thismailbox);
+    $fwd_msg = $imp_ui->getForwardData($imp_compose, $imp_contents, $uid . IMP::IDX_SEP . $thismailbox);
     $msg = $fwd_msg['body'];
     $header = $fwd_msg['headers'];
     $format = $fwd_msg['format'];
@@ -350,7 +350,7 @@ case 'redirect_compose':
     break;
 
 case 'redirect_send':
-    if (!($imp_contents = _getIMPContents($index, $thismailbox))) {
+    if (!($imp_contents = _getIMPContents($uid, $thismailbox))) {
         break;
     }
 
@@ -447,7 +447,7 @@ case 'send_message':
         $prefs->getValue('auto_delete_drafts') &&
         ($thismailbox == IMP::folderPref($prefs->getValue('drafts_folder'), true))) {
         $imp_message = IMP_Message::singleton();
-        $idx_array = array($index . IMP::IDX_SEP . $thismailbox);
+        $idx_array = array($uid . IMP::IDX_SEP . $thismailbox);
         if ($imp_message->delete($idx_array)) {
             $notification->push(_("The draft message was automatically deleted because it was successfully completed and sent."), 'horde.success');
         }
@@ -818,7 +818,7 @@ $t->set('allow_compose', !$compose_disable);
 if ($redirect) {
     /* Prepare the redirect template. */
     $t->set('mailbox', htmlspecialchars($thismailbox));
-    $t->set('index', htmlspecialchars($index));
+    $t->set('uid', htmlspecialchars($uid));
     $t->set('status', Horde_Util::bufferOutput(array('IMP', 'status')));
     $t->set('title', htmlspecialchars($title));
     $t->set('token', Horde::getRequestToken('imp.compose'));

@@ -468,8 +468,11 @@ class IMP_Mailbox
      *
      * @param integer $offset  The offset from the current message.
      *
-     * @return array  'index'   -- The message index.
-     *                'mailbox' -- The mailbox.
+     * @return array  Array with the following entries:
+     * <pre>
+     * 'mailbox' - (string) The mailbox.
+     * 'uid' - (integer) The message UID.
+     * </pre>
      */
     public function getIMAPIndex($offset = 0)
     {
@@ -477,8 +480,8 @@ class IMP_Mailbox
 
         return isset($this->_sorted[$index])
             ? array(
-                  'index' => $this->_sorted[$index],
-                  'mailbox' => $this->_searchmbox ? $this->_sortedMbox[$index] : $this->_mailbox
+                  'mailbox' => ($this->_searchmbox ? $this->_sortedMbox[$index] : $this->_mailbox),
+                  'uid' => $this->_sorted[$index]
               )
             : array();
     }
@@ -632,7 +635,7 @@ class IMP_Mailbox
      * @param integer $data  If $type is 'offset', the number of messages to
      *                       increase array index by.  If type is 'uid',
      *                       sets array index to the value of the given
-     *                       message index.
+     *                       message UID.
      * @param string $type   Either 'offset' or 'uid'.
      */
     public function setIndex($data, $type = 'uid')
@@ -789,8 +792,8 @@ class IMP_Mailbox
 
         /* Remove the current entry and recalculate the range. */
         foreach (IMP::parseIndicesList($msgs) as $key => $val) {
-            foreach ($val as $index) {
-                $val = $this->getArrayIndex($index, $key);
+            foreach ($val as $uid) {
+                $val = $this->getArrayIndex($uid, $key);
                 unset($this->_sorted[$val]);
                 if ($this->_searchmbox) {
                     unset($this->_sortedMbox[$val]);

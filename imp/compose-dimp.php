@@ -17,11 +17,11 @@
  * @package IMP
  */
 
-function _removeAutoSaveDraft($index)
+function _removeAutoSaveDraft($uid)
 {
-    if (!empty($index)) {
+    if (!empty($uid)) {
         $imp_message = IMP_Message::singleton();
-        $imp_message->delete(array($index . IMP::IDX_SEP . IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)), array('nuke' => true));
+        $imp_message->delete(array($uid . IMP::IDX_SEP . IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)), array('nuke' => true));
     }
 }
 
@@ -96,13 +96,13 @@ if (count($_POST)) {
 
         /* Save the draft. */
         try {
-            $old_index = $imp_compose->getMetadata('draft_index');
+            $old_uid = $imp_compose->getMetadata('draft_uid');
 
             $res = $imp_compose->saveDraft($header, Horde_Util::getFormData('message', ''), Horde_Nls::getCharset(), Horde_Util::getFormData('html'));
             $result->success = 1;
 
             /* Delete existing draft. */
-            _removeAutoSaveDraft($old_index);
+            _removeAutoSaveDraft($old_uid);
 
             if ($action == 'auto_save_draft') {
                 $notification->push(_("Draft automatically saved."), 'horde.message');
@@ -139,7 +139,7 @@ if (count($_POST)) {
         $message = Horde_Util::getFormData('message');
         $html = Horde_Util::getFormData('html');
 
-        $result->index = $imp_compose->getMetadata('index');
+        $result->uid = $imp_compose->getMetadata('uid');
 
         if ($reply_type = $imp_compose->getMetadata('reply_type')) {
             $result->reply_folder = $imp_compose->getMetadata('mailbox');
@@ -173,7 +173,7 @@ if (count($_POST)) {
         /* Remove any auto-saved drafts. */
         if ($prefs->getValue('auto_save_drafts') ||
             $prefs->getValue('auto_delete_drafts')) {
-            _removeAutoSaveDraft($imp_compose->getMetadata('draft_index'));
+            _removeAutoSaveDraft($imp_compose->getMetadata('draft_uid'));
             $result->draft_delete = 1;
         }
 
@@ -205,21 +205,21 @@ $imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc'));
 $imp_ui->attachSpellChecker('dimp');
 
 $type = Horde_Util::getFormData('type');
-$index = Horde_Util::getFormData('uid');
+$uid = Horde_Util::getFormData('uid');
 $folder = Horde_Util::getFormData('folder');
 $show_editor = false;
 $title = _("New Message");
 
 if (in_array($type, array('reply', 'reply_all', 'reply_list', 'forward', 'resume'))) {
-    if (!$index || !$folder) {
+    if (!$uid || !$folder) {
         $type = 'new';
     }
 
     try {
-        $imp_contents = IMP_Contents::singleton($index . IMP::IDX_SEP . $folder);
+        $imp_contents = IMP_Contents::singleton($uid . IMP::IDX_SEP . $folder);
     } catch (Horde_Exception $e) {
         $notification->push(_("Requested message not found."), 'horde.error');
-        $index = $folder = null;
+        $uid = $folder = null;
         $type = 'new';
     }
 }
@@ -252,7 +252,7 @@ case 'reply_list':
     break;
 
 case 'forward':
-    $fwd_msg = $imp_ui->getForwardData($imp_compose, $imp_contents, $index . IMP::IDX_SEP . $folder);
+    $fwd_msg = $imp_ui->getForwardData($imp_compose, $imp_contents, $uid . IMP::IDX_SEP . $folder);
     $msg = $fwd_msg['body'];
     $header = $fwd_msg['headers'];
     $header['replytype'] = 'forward';
@@ -270,7 +270,7 @@ case 'forward':
 
 case 'resume':
     try {
-        $result = $imp_compose->resumeDraft($index . IMP::IDX_SEP . $folder);
+        $result = $imp_compose->resumeDraft($uid . IMP::IDX_SEP . $folder);
 
         if ($result['mode'] == 'html') {
             $show_editor = true;
@@ -308,10 +308,10 @@ $t->setOption('gettext', true);
 $t->set('title', $title);
 
 $compose_result = IMP_Views_Compose::showCompose(array(
-    'folder' => $folder,
-    'index' => $index,
     'composeCache' => $imp_compose->getCacheId(),
+    'folder' => $folder,
     'qreply' => false,
+    'uid' => $uid
 ));
 
 $t->set('compose_html', $compose_result['html']);

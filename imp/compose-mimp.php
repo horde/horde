@@ -12,13 +12,13 @@
  * @package IMP
  */
 
-function _getIMPContents($index, $mailbox)
+function _getIMPContents($uid, $mailbox)
 {
-    if (empty($index)) {
+    if (empty($uid)) {
         return false;
     }
     try {
-        $imp_contents = IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox);
+        $imp_contents = IMP_Contents::singleton($uid . IMP::IDX_SEP . $mailbox);
         return $imp_contents;
     } catch (Horde_Exception $e) {
         $GLOBALS['notification']->push(_("Could not retrieve the message from the mail server."), 'horde.error');
@@ -44,8 +44,8 @@ if (!$prefs->isLocked('default_identity')) {
 
 $save_sent_mail = $prefs->getValue('save_sent_mail');
 $sent_mail_folder = $identity->getValue('sent_mail_folder');
-$index = Horde_Util::getFormData('index');
 $thismailbox = Horde_Util::getFormData('thismailbox');
+$uid = Horde_Util::getFormData('uid');
 $resume_draft = false;
 
 /* Determine if mailboxes are readonly. */
@@ -70,7 +70,7 @@ switch ($actionID) {
 // 'd' = draft
 case 'd':
     try {
-        $result = $imp_compose->resumeDraft($index . IMP::IDX_SEP . $thismailbox);
+        $result = $imp_compose->resumeDraft($uid . IMP::IDX_SEP . $thismailbox);
 
         $msg = $result['msg'];
         $header = array_merge($header, $result['header']);
@@ -109,7 +109,7 @@ case _("Expand Names"):
 case 'r':
 case 'ra':
 case 'rl':
-    if (!($imp_contents = _getIMPContents($index, $thismailbox))) {
+    if (!($imp_contents = _getIMPContents($uid, $thismailbox))) {
         break;
     }
     $actions = array('r' => 'reply', 'ra' => 'reply_all', 'rl' => 'reply_list');
@@ -121,7 +121,7 @@ case 'rl':
 
 // 'f' = forward
 case 'f':
-    if (!($imp_contents = _getIMPContents($index, $thismailbox))) {
+    if (!($imp_contents = _getIMPContents($uid, $thismailbox))) {
         break;
     }
     $fwd_msg = $imp_compose->forwardMessage($imp_contents);
@@ -131,7 +131,7 @@ case 'f':
     break;
 
 case _("Redirect"):
-    if (!($imp_contents = _getIMPContents($index, $thismailbox))) {
+    if (!($imp_contents = _getIMPContents($uid, $thismailbox))) {
         break;
     }
 
@@ -173,11 +173,11 @@ case _("Send"):
     $f_cc = $f_bcc = null;
     $header = array();
 
-    $index = $imp_compose->getMetadata('index');
     $thismailbox = $imp_compose->getMetadata('mailbox');
+    $uid = $imp_compose->getMetadata('uid');
 
     if ($ctype = $imp_compose->getMetadata('reply_type')) {
-        if (!($imp_contents = _getIMPContents($index, $thismailbox))) {
+        if (!($imp_contents = _getIMPContents($uid, $thismailbox))) {
             break;
         }
 
@@ -192,7 +192,7 @@ case _("Send"):
             $fwd_msg = $imp_compose->forwardMessage($imp_contents);
             $msg = $fwd_msg['body'];
             $message .= "\n" . $msg;
-            $imp_compose->attachIMAPMessage(array($index . IMP::IDX_SEP . $thismailbox), $header);
+            $imp_compose->attachIMAPMessage(array($uid . IMP::IDX_SEP . $thismailbox), $header);
             break;
         }
     }
@@ -246,7 +246,7 @@ case _("Send"):
                 if (Horde_Util::getFormData('resume_draft') &&
                     $prefs->getValue('auto_delete_drafts')) {
                     $imp_message = IMP_Message::singleton();
-                    $idx_array = array($index . IMP::IDX_SEP . $thismailbox);
+                    $idx_array = array($uid . IMP::IDX_SEP . $thismailbox);
                     $delete_draft = $imp_message->delete($idx_array, array('nuke' => true));
                 }
 

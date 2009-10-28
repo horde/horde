@@ -57,11 +57,11 @@ class IMP_Contents
     static protected $_mimepartid = 1;
 
     /**
-     * The IMAP index of the message.
+     * The IMAP UID of the message.
      *
      * @var integer
      */
-    protected $_index = null;
+    protected $_uid = null;
 
     /**
      * The mailbox of the current message.
@@ -91,7 +91,7 @@ class IMP_Contents
      * Ensures that only one IMP_Contents instance for any given message is
      * available at any one time.
      *
-     * @param mixed $in  Either an index string (see IMP_Contents::singleton()
+     * @param mixed $in  Either a uid string (see IMP_Contents::singleton()
      *                   for the format) or a Horde_Mime_Part object.
      *
      * @return IMP_Contents  The IMP_Contents object.
@@ -113,7 +113,7 @@ class IMP_Contents
     /**
      * Constructor.
      *
-     * @param mixed $in  Either an index string (see IMP_Contents::singleton()
+     * @param mixed $in  Either a uid string (see IMP_Contents::singleton()
      *                   for the format) or a Horde_Mime_Part object.
      * @throws Horde_Exception
      */
@@ -122,33 +122,33 @@ class IMP_Contents
         if ($in instanceof Horde_Mime_Part) {
             $this->_message = $in;
         } else {
-            list($this->_index, $this->_mailbox) = explode(IMP::IDX_SEP, $in);
+            list($this->_uid, $this->_mailbox) = explode(IMP::IDX_SEP, $in);
 
-            /* Get the Horde_Mime_Part object for the given index. */
+            /* Get the Horde_Mime_Part object for the given UID. */
             try {
                 $ret = $GLOBALS['imp_imap']->ob()->fetch($this->_mailbox, array(
                     Horde_Imap_Client::FETCH_STRUCTURE => array('parse' => true)
-                ), array('ids' => array($this->_index)));
+                ), array('ids' => array($this->_uid)));
             } catch (Horde_Imap_Client_Exception $e) {
                 throw new Horde_Exception('Error displaying message.');
             }
 
-            if (!isset($ret[$this->_index]['structure'])) {
+            if (!isset($ret[$this->_uid]['structure'])) {
                 throw new Horde_Exception('Error displaying message.');
             }
 
-            $this->_message = $ret[$this->_index]['structure'];
+            $this->_message = $ret[$this->_uid]['structure'];
         }
     }
 
     /**
-     * Returns the IMAP index for the current message.
+     * Returns the IMAP UID for the current message.
      *
-     * @return integer  The message index.
+     * @return integer  The message UID.
      */
-    public function getIndex()
+    public function getUid()
     {
-        return $this->_index;
+        return $this->_uid;
     }
 
     /**
@@ -182,8 +182,8 @@ class IMP_Contents
         try {
             $res = $GLOBALS['imp_imap']->ob()->fetch($this->_mailbox, array(
                 Horde_Imap_Client::FETCH_BODYTEXT => array(array('peek' => true, 'stream' => !empty($options['stream'])))
-            ), array('ids' => array($this->_index)));
-            return $res[$this->_index]['bodytext'][0];
+            ), array('ids' => array($this->_uid)));
+            return $res[$this->_uid]['bodytext'][0];
         } catch (Horde_Imap_Client_Exception $e) {
             return '';
         }
@@ -239,16 +239,16 @@ class IMP_Contents
         }
 
         try {
-            $res = $GLOBALS['imp_imap']->ob()->fetch($this->_mailbox, $query, array('ids' => array($this->_index)));
+            $res = $GLOBALS['imp_imap']->ob()->fetch($this->_mailbox, $query, array('ids' => array($this->_uid)));
             if (empty($options['mimeheaders'])) {
-                if (!empty($res[$this->_index]['bodypartdecode'][$id])) {
-                    $this->lastBodyPartDecode = $res[$this->_index]['bodypartdecode'][$id];
+                if (!empty($res[$this->_uid]['bodypartdecode'][$id])) {
+                    $this->lastBodyPartDecode = $res[$this->_uid]['bodypartdecode'][$id];
                 }
-                return $res[$this->_index]['bodypart'][$id];
+                return $res[$this->_uid]['bodypart'][$id];
             } elseif (empty($options['stream'])) {
-                return $res[$this->_index]['mimeheader'][$id] . $res[$this->_index]['bodypart'][$id];
+                return $res[$this->_uid]['mimeheader'][$id] . $res[$this->_uid]['bodypart'][$id];
             } else {
-                $swrapper = new Horde_Support_CombineStream(array($res[$this->_index]['mimeheader'][$id], $res[$this->_index]['bodypart'][$id]));
+                $swrapper = new Horde_Support_CombineStream(array($res[$this->_uid]['mimeheader'][$id], $res[$this->_uid]['bodypart'][$id]));
                 return $swrapper->fopen();
             }
         } catch (Horde_Imap_Client_Exception $e) {
@@ -280,13 +280,13 @@ class IMP_Contents
             $res = $GLOBALS['imp_imap']->ob()->fetch($this->_mailbox, array(
                 Horde_Imap_Client::FETCH_HEADERTEXT => array(array('peek' => true)),
                 Horde_Imap_Client::FETCH_BODYTEXT => array(array('peek' => true, 'stream' => !empty($options['stream'])))
-            ), array('ids' => array($this->_index)));
+            ), array('ids' => array($this->_uid)));
 
             if (empty($options['stream'])) {
-                return $res[$this->_index]['headertext'][0] . $res[$this->_index]['bodytext'][0];
+                return $res[$this->_uid]['headertext'][0] . $res[$this->_uid]['bodytext'][0];
             }
 
-            $swrapper = new Horde_Support_CombineStream(array($res[$this->_index]['headertext'][0], $res[$this->_index]['bodytext'][0]));
+            $swrapper = new Horde_Support_CombineStream(array($res[$this->_uid]['headertext'][0], $res[$this->_uid]['bodytext'][0]));
             return $swrapper->fopen();
         } catch (Horde_Imap_Client_Exception $e) {
             return empty($options['stream'])
@@ -309,8 +309,8 @@ class IMP_Contents
         try {
             $res = $GLOBALS['imp_imap']->ob()->fetch($this->_mailbox, array(
                 Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => true))
-            ), array('ids' => array($this->_index)));
-            return $res[$this->_index]['headertext'][0];
+            ), array('ids' => array($this->_uid)));
+            return $res[$this->_uid]['headertext'][0];
         } catch (Horde_Imap_Client_Exception $e) {
             return new Horde_Mime_Headers();
         }
@@ -646,7 +646,7 @@ class IMP_Contents
         if (($mask && self::SUMMARY_IMAGE_SAVE) &&
             $GLOBALS['registry']->hasMethod('images/selectGalleries') &&
             ($mime_part->getPrimaryType() == 'image')) {
-            $part['img_save'] = Horde::link('#', _("Save Image in Gallery"), 'saveImgAtc', null, Horde::popupJs(Horde::applicationUrl('saveimage.php'), array('params' => array('index' => ($this->_index . IMP::IDX_SEP . $this->_mailbox), 'id' => $id), 'height' => 200, 'width' => 450)) . 'return false;') . '</a>';
+            $part['img_save'] = Horde::link('#', _("Save Image in Gallery"), 'saveImgAtc', null, Horde::popupJs(Horde::applicationUrl('saveimage.php'), array('params' => array('muid' => ($this->_uid . IMP::IDX_SEP . $this->_mailbox), 'id' => $id), 'height' => 200, 'width' => 450)) . 'return false;') . '</a>';
         }
 
         /* Strip Attachment? Allow stripping of base parts other than the
@@ -655,8 +655,8 @@ class IMP_Contents
             ($id != 0) &&
             (intval($id) != 1) &&
             (strpos($id, '.') === false)) {
-            $url = Horde_Util::removeParameter(Horde::selfUrl(true), array('actionID', 'imapid', 'index'));
-            $url = Horde_Util::addParameter($url, array('actionID' => 'strip_attachment', 'imapid' => $id, 'index' => $this->_index, 'message_token' => Horde::getRequestToken('imp.impcontents')));
+            $url = Horde_Util::removeParameter(Horde::selfUrl(true), array('actionID', 'imapid', 'uid'));
+            $url = Horde_Util::addParameter($url, array('actionID' => 'strip_attachment', 'imapid' => $id, 'uid' => $this->_uid, 'message_token' => Horde::getRequestToken('imp.impcontents')));
             $part['strip'] = Horde::link($url, _("Strip Attachment"), 'deleteImg', null, "return window.confirm('" . addslashes(_("Are you sure you wish to PERMANENTLY delete this attachment?")) . "');") . '</a>';
         }
 
@@ -704,7 +704,7 @@ class IMP_Contents
         ));
 
         if (!is_null($this->_mailbox)) {
-            $params['uid'] = $this->_index;
+            $params['uid'] = $this->_uid;
             $params['mailbox'] = $this->_mailbox;
         }
 
@@ -736,7 +736,7 @@ class IMP_Contents
             'params' => array()
         ), $options);
 
-        return Horde::link($this->urlView($mime_part, $actionID, $options), $options['jstext'], $options['class'], empty($options['dload']) ? null : 'view_' . hash('md5', $mime_part->getMIMEId() . $this->_mailbox . $this->_index)) . $text . '</a>';
+        return Horde::link($this->urlView($mime_part, $actionID, $options), $options['jstext'], $options['class'], empty($options['dload']) ? null : 'view_' . hash('md5', $mime_part->getMIMEId() . $this->_mailbox . $this->_uid)) . $text . '</a>';
     }
 
     /**

@@ -22,7 +22,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 new IMP_Application(array('init' => true));
 
 /* Make sure we have a valid index. */
-$imp_mailbox = IMP_Mailbox::singleton($imp_mbox['mailbox'], $imp_mbox['index']);
+$imp_mailbox = IMP_Mailbox::singleton($imp_mbox['mailbox'], $imp_mbox['uid']);
 if (!$imp_mailbox->isValidIndex(false)) {
     header('Location: ' . Horde_Util::addParameter(IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox']), array('a' => 'm'), null, false));
     exit;
@@ -51,7 +51,7 @@ case 'u':
 
     /* Get mailbox/UID of message. */
     $index_array = $imp_mailbox->getIMAPIndex();
-    $indices_array = array($index_array['mailbox'] => array($index_array['index']));
+    $indices_array = array($index_array['mailbox'] => array($index_array['uid']));
 
     if ($actionID == 'u') {
         $imp_message->undelete($indices_array);
@@ -70,7 +70,7 @@ case 'u':
 // 'ri' = report innocent
 case 'rs':
 case 'ri':
-    if (IMP_Spam::reportSpam(array($index_array['mailbox'] => array($index_array['index'])), $actionID == 'rs' ? 'spam' : 'innocent') === 1) {
+    if (IMP_Spam::reportSpam(array($index_array['mailbox'] => array($index_array['uid'])), $actionID == 'rs' ? 'spam' : 'innocent') === 1) {
         $delete_msg = true;
         break;
     }
@@ -96,8 +96,8 @@ if (!$imp_mailbox->isValidIndex() ||
 /* Now that we are done processing the messages, get the index and
  * array index of the current message. */
 $index_array = $imp_mailbox->getIMAPIndex();
-$index = $index_array['index'];
 $mailbox_name = $index_array['mailbox'];
+$uid = $index_array['uid'];
 
 /* Get envelope/flag/header information. */
 try {
@@ -105,24 +105,24 @@ try {
      * before we can grab it. */
     $flags_ret = $imp_imap->ob()->fetch($mailbox_name, array(
         Horde_Imap_Client::FETCH_FLAGS => true,
-    ), array('ids' => array($index)));
+    ), array('ids' => array($uid)));
     $fetch_ret = $imp_imap->ob()->fetch($mailbox_name, array(
         Horde_Imap_Client::FETCH_ENVELOPE => true,
         Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => $readonly))
-    ), array('ids' => array($index)));
+    ), array('ids' => array($uid)));
 } catch (Horde_Imap_Client_Exception $e) {
     header('Location: ' . Horde_Util::addParameter(IMP::generateIMPUrl('mailbox-mimp.php', $mailbox_name), array('a' => 'm'), null, false));
     exit;
 }
 
-$envelope = $fetch_ret[$index]['envelope'];
-$flags = $flags_ret[$index]['flags'];
-$mime_headers = reset($fetch_ret[$index]['headertext']);
+$envelope = $fetch_ret[$uid]['envelope'];
+$flags = $flags_ret[$uid]['flags'];
+$mime_headers = reset($fetch_ret[$uid]['headertext']);
 $use_pop = ($_SESSION['imp']['protocol'] == 'pop');
 
 /* Parse the message. */
 try {
-    $imp_contents = IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox_name);
+    $imp_contents = IMP_Contents::singleton($uid . IMP::IDX_SEP . $mailbox_name);
 } catch (Horde_Exception $e) {
     header('Location: ' . Horde_Util::addParameter(IMP::generateIMPUrl('mailbox-mimp.php', $mailbox_name), array('a' => 'm'), null, false));
     exit;
@@ -134,7 +134,7 @@ $msgcount = $imp_mailbox->getMessageCount();
 
 /* Generate the mailbox link. */
 $mailbox_link = Horde_Util::addParameter(IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox']), array('s' => $msgindex));
-$self_link = IMP::generateIMPUrl('message-mimp.php', $imp_mbox['mailbox'], $index, $mailbox_name);
+$self_link = IMP::generateIMPUrl('message-mimp.php', $imp_mbox['mailbox'], $uid, $mailbox_name);
 
 /* Init render object. */
 $mimp_render = new Horde_Mobile();
@@ -244,11 +244,11 @@ foreach ($flag_parse as $val) {
 /* Generate previous/next links. */
 $prev_msg = $imp_mailbox->getIMAPIndex(-1);
 if ($prev_msg) {
-    $prev_link = IMP::generateIMPUrl('message-mimp.php', $imp_mbox['mailbox'], $prev_msg['index'], $prev_msg['mailbox']);
+    $prev_link = IMP::generateIMPUrl('message-mimp.php', $imp_mbox['mailbox'], $prev_msg['uid'], $prev_msg['mailbox']);
 }
 $next_msg = $imp_mailbox->getIMAPIndex(1);
 if ($next_msg) {
-    $next_link = IMP::generateIMPUrl('message-mimp.php', $imp_mbox['mailbox'], $next_msg['index'], $next_msg['mailbox']);
+    $next_link = IMP::generateIMPUrl('message-mimp.php', $imp_mbox['mailbox'], $next_msg['uid'], $next_msg['mailbox']);
 }
 
 /* Create the body of the message. */
@@ -316,9 +316,9 @@ if (!$readonly) {
 }
 
 $compose_params = array(
-    'index' => $index,
     'identity' => $identity,
-    'thismailbox' => $mailbox_name
+    'thismailbox' => $mailbox_name,
+    'uid' => $uid,
 );
 
 /* Add compose actions (Reply, Reply List, Reply All, Forward, Redirect). */

@@ -1049,7 +1049,7 @@ var DimpBase = {
             t = $('msgHeadersContent').down('THEAD');
 
         if (!r.error) {
-            search = this.viewport.getSelection().search({ imapuid: { equal: [ r.index ] }, view: { equal: [ r.mailbox ] } });
+            search = this.viewport.getSelection().search({ imapuid: { equal: [ r.uid ] }, view: { equal: [ r.mailbox ] } });
             if (search.size()) {
                 row = search.get('dataob').first();
                 this.updateSeenUID(row, 1);
@@ -1057,7 +1057,7 @@ var DimpBase = {
         }
 
         if (this.pp &&
-            (this.pp.imapuid != r.index ||
+            (this.pp.imapuid != r.uid ||
              this.pp.view != r.mailbox)) {
             return;
         }
@@ -1071,7 +1071,7 @@ var DimpBase = {
         }
 
         // Store in cache.
-        ppuid = this._getPPId(r.index, r.mailbox);
+        ppuid = this._getPPId(r.uid, r.mailbox);
         this._expirePPCache([ ppuid ]);
         this.ppcache[ppuid] = resp;
         this.ppfifo.push(ppuid);
@@ -1130,14 +1130,14 @@ var DimpBase = {
         this._addHistory('msg:' + row.view + ':' + row.imapuid);
     },
 
-    // opts = index, mailbox
+    // opts = mailbox, uid
     updateMsgLog: function(log, opts)
     {
         var tmp;
 
         if (!opts ||
             (this.pp &&
-             this.pp.imapuid == opts.index &&
+             this.pp.imapuid == opts.uid &&
              this.pp.view == opts.mailbox)) {
             $('msgLogInfo').show();
 
@@ -1150,7 +1150,7 @@ var DimpBase = {
         }
 
         if (opts) {
-            tmp = this._getPPId(opts.index, opts.mailbox);
+            tmp = this._getPPId(opts.uid, opts.mailbox);
             if (this.ppcache[tmp]) {
                 this.ppcache[tmp].response.log = log;
             }
@@ -1197,9 +1197,9 @@ var DimpBase = {
         }
     },
 
-    _getPPId: function(index, mailbox)
+    _getPPId: function(uid, mailbox)
     {
-        return index + '|' + mailbox;
+        return uid + '|' + mailbox;
     },
 
     // Labeling functions
@@ -1751,7 +1751,7 @@ var DimpBase = {
                 return;
 
             case 'msg_view_source':
-                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.pp.imapuid, mailbox: this.pp.view, actionID: 'view_source', id: 0 }, true), DIMP.conf.msg_index + '|' + DIMP.conf.msg_folder);
+                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.pp.imapuid, mailbox: this.pp.view, actionID: 'view_source', id: 0 }, true), this.pp.imapuid + '|' + this.pp.view);
                 break;
 
             case 'applicationfolders':
@@ -2320,14 +2320,14 @@ var DimpBase = {
 
         if (opts.vs) {
             vs = opts.vs;
-        } else if (opts.index) {
+        } else if (opts.uid) {
             if (opts.mailbox) {
-                vs = this.viewport.getSelection().search({ imapuid: { equal: [ opts.index ] }, view: { equal: [ opts.mailbox ] } });
+                vs = this.viewport.getSelection().search({ imapuid: { equal: [ opts.uid ] }, view: { equal: [ opts.mailbox ] } });
                 if (!vs.size() && opts.mailbox != this.folder) {
-                    vs = this.viewport.getSelection(opts.mailbox).search({ imapuid: { equal: [ opts.index ] } });
+                    vs = this.viewport.getSelection(opts.mailbox).search({ imapuid: { equal: [ opts.uid ] } });
                 }
             } else {
-                vs = this.viewport.createSelection('dataob', opts.index);
+                vs = this.viewport.createSelection('dataob', opts.uid);
             }
         } else {
             vs = this.viewport.getSelected();
@@ -2344,7 +2344,7 @@ var DimpBase = {
             // This needs to be synchronous Ajax if we are calling from a
             // popup window because Mozilla will not correctly call the
             // callback function if the calling window has been closed.
-            DimpCore.doAction(type, this.viewport.addRequestParams(args), vs, this._deleteCallback.bind(this), { asynchronous: !(opts.index && opts.mailbox) });
+            DimpCore.doAction(type, this.viewport.addRequestParams(args), vs, this._deleteCallback.bind(this), { asynchronous: !(opts.uid && opts.mailbox) });
             return vs;
         }
 
@@ -2352,7 +2352,7 @@ var DimpBase = {
     },
 
     // spam = (boolean) True for spam, false for innocent
-    // opts = 'index', 'mailbox'
+    // opts = 'mailbox', 'uid'
     reportSpam: function(spam, opts)
     {
         opts = opts || {};
@@ -2364,14 +2364,14 @@ var DimpBase = {
     },
 
     // blacklist = (boolean) True for blacklist, false for whitelist
-    // opts = 'index', 'mailbox'
+    // opts = 'mailbox', 'uid'
     blacklist: function(blacklist, opts)
     {
         opts = opts || {};
         this._doMsgAction('Blacklist', opts, { blacklist: blacklist });
     },
 
-    // opts = 'index', 'mailbox'
+    // opts = 'mailbox', 'uid'
     deleteMsg: function(opts)
     {
         opts = opts || {};
@@ -2394,7 +2394,7 @@ var DimpBase = {
 
     // flag = (string) IMAP flag name
     // set = (boolean) True to set flag
-    // opts = (Object) 'index', 'mailbox', 'noserver'
+    // opts = (Object) 'mailbox', 'noserver', 'uid'
     flag: function(flag, set, opts)
     {
         opts = opts || {};

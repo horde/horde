@@ -50,11 +50,11 @@ class IMP_Views_ShowMessage
      *
      * @param array $args  Configuration parameters.
      * <pre>
-     * 'headers' - The headers desired in the returned headers array (only used
-     *             with non-preview view)
-     * 'index' - The UID of the message
-     * 'mailbox' - The mailbox name
-     * 'preview' - Is this the preview view?
+     * 'headers' - (array) The headers desired in the returned headers array
+     *             (only used with non-preview view)
+     * 'mailbox' - (string) The mailbox name
+     * 'preview' - (boolean) Is this the preview view?
+     * 'uid' - (integer) The UID of the message
      * </pre>
      *
      * @return array  Array with the following keys:
@@ -67,13 +67,13 @@ class IMP_Views_ShowMessage
      * 'error' - Contains an error message (only on error)
      * 'errortype' - Contains the error type (only on error)
      * 'from' - The From addresses
-     * 'index' - The IMAP UID
      * 'js' - Javascript code to run on display
      * 'log' - Log information
      * 'mailbox' - The IMAP mailbox
      * 'msgtext' - The text of the message
      * 'subject' - The subject
      * 'to' - The To addresses
+     * 'uid' - The IMAP UID
      *
      * FOR PREVIEW MODE:
      * 'fulldate' - The fully formatted date
@@ -94,13 +94,13 @@ class IMP_Views_ShowMessage
     {
         $preview = !empty($args['preview']);
         $mailbox = $args['mailbox'];
-        $index = $args['index'];
+        $uid = $args['uid'];
         $error_msg = _("Requested message not found.");
 
         $result = array(
-            'index' => $index,
             'js' => array(),
-            'mailbox' => $mailbox
+            'mailbox' => $mailbox,
+            'uid' => $uid
         );
 
         /* Set the current time zone. */
@@ -112,7 +112,7 @@ class IMP_Views_ShowMessage
             $fetch_ret = $GLOBALS['imp_imap']->ob()->fetch($mailbox, array(
                 Horde_Imap_Client::FETCH_ENVELOPE => true,
                 Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => false))
-            ), array('ids' => array($index)));
+            ), array('ids' => array($uid)));
         } catch (Horde_Imap_Client_Exception $e) {
             $result['error'] = $error_msg;
             $result['errortype'] = 'horde.error';
@@ -121,15 +121,15 @@ class IMP_Views_ShowMessage
 
         /* Parse MIME info and create the body of the message. */
         try {
-            $imp_contents = IMP_Contents::singleton($index . IMP::IDX_SEP . $mailbox);
+            $imp_contents = IMP_Contents::singleton($uid . IMP::IDX_SEP . $mailbox);
         } catch (Horde_Exception $e) {
             $result['error'] = $error_msg;
             $result['errortype'] = 'horde.error';
             return $result;
         }
 
-        $envelope = $fetch_ret[$index]['envelope'];
-        $mime_headers = reset($fetch_ret[$index]['headertext']);
+        $envelope = $fetch_ret[$uid]['envelope'];
+        $mime_headers = reset($fetch_ret[$uid]['headertext']);
 
         /* Get the IMP_UI_Message:: object. */
         $imp_ui = new IMP_UI_Message();
@@ -259,8 +259,8 @@ class IMP_Views_ShowMessage
         }
 
         /* Do MDN processing now. */
-        if ($imp_ui->MDNCheck($mailbox, $index, $mime_headers)) {
-            $result['msgtext'] .= $imp_ui->formatStatusMsg(array('text' => array(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link('', '', '', '', 'DimpCore.doAction(\'SendMDN\',{folder:\'' . $mailbox . '\',index:' . $index . '}); return false;', '', '') . _("HERE") . '</a>'))));
+        if ($imp_ui->MDNCheck($mailbox, $uid, $mime_headers)) {
+            $result['msgtext'] .= $imp_ui->formatStatusMsg(array('text' => array(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link('', '', '', '', 'DimpCore.doAction(\'SendMDN\',{folder:\'' . $mailbox . '\',uid:' . $uid . '}); return false;', '', '') . _("HERE") . '</a>'))));
         }
 
         /* Build body text. This needs to be done before we build the
@@ -365,7 +365,7 @@ class IMP_Views_ShowMessage
 
         if (!$preview) {
             $result['list_info'] = $imp_ui->getListInformation($mime_headers);
-            $result['save_as'] = Horde::downloadUrl(htmlspecialchars_decode($result['subject']), array_merge(array('actionID' => 'save_message'), IMP::getIMPMboxParameters($mailbox, $index, $mailbox)));
+            $result['save_as'] = Horde::downloadUrl(htmlspecialchars_decode($result['subject']), array_merge(array('actionID' => 'save_message'), IMP::getIMPMboxParameters($mailbox, $uid, $mailbox)));
         }
 
         if (empty($result['js'])) {
