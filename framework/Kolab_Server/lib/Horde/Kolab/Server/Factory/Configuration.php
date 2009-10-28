@@ -44,14 +44,17 @@ implements Horde_Kolab_Server_Factory
 
     /**
      * Constructor.
-     *
-     * @param array $config Configuration parameters for the server.
      */
-    public function __construct(
-        Horde_Kolab_Server_Factory $factory,
-        array $config
-    ) {
+    public function __construct(array $config)
+    {
         $this->_configuration = $config;
+
+        $connection_factory = new Horde_Kolab_Server_Factory_Conn_Configuration(
+            $config
+        );
+        $factory = new Horde_Kolab_Server_Factory_Kolab(
+            $connection_factory, $config
+        );
 
         if (isset($config['logger'])) {
             $factory = new Horde_Kolab_Server_Factory_Logged(

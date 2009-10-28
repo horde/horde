@@ -85,6 +85,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
         <file name="Conn.php" role="php" />
         <dir name="Conn">
          <file name="Base.php" role="php" />
+         <file name="Configuration.php" role="php" />
          <file name="Injector.php" role="php" />
          <file name="Ldap.php" role="php" />
          <file name="Mock.php" role="php" />
@@ -320,6 +321,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Kolab/Server/Factory/Configuration.php" as="Horde/Kolab/Server/Factory/Configuration.php" />
    <install name="lib/Horde/Kolab/Server/Factory/Conn.php" as="Horde/Kolab/Server/Factory/Conn.php" />
    <install name="lib/Horde/Kolab/Server/Factory/Conn/Base.php" as="Horde/Kolab/Server/Factory/Conn/Base.php" />
+   <install name="lib/Horde/Kolab/Server/Factory/Conn/Configuration.php" as="Horde/Kolab/Server/Factory/Conn/Configuration.php" />
    <install name="lib/Horde/Kolab/Server/Factory/Conn/Injector.php" as="Horde/Kolab/Server/Factory/Conn/Injector.php" />
    <install name="lib/Horde/Kolab/Server/Factory/Conn/Ldap.php" as="Horde/Kolab/Server/Factory/Conn/Ldap.php" />
    <install name="lib/Horde/Kolab/Server/Factory/Conn/Mock.php" as="Horde/Kolab/Server/Factory/Conn/Mock.php" />
