@@ -65,7 +65,7 @@ extends Horde_Kolab_Session_Factory_Base
      */
     public function getServer()
     {
-        return $this->_server_factory->getServer();
+        return $this->_server_factory->getComposite();
     }
 
     /**

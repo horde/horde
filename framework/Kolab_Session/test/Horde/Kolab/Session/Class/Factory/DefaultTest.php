@@ -34,17 +34,18 @@ class Horde_Kolab_Session_Class_Factory_DefaultTest extends Horde_Kolab_Session_
 {
     public function testMethodGetserverHasResultHordekolabserver()
     {
-        $this->markTestIncomplete('The factory in the Kolab_Server package needs to be fixed.');
-        $server = $this->getMock('Horde_Kolab_Server');
+        $server = $this->getMock(
+            'Horde_Kolab_Server_Composite', array(), array(), '', false, false
+        );
         $server_factory = $this->getMock('Horde_Kolab_Server_Factory');
         $server_factory->expects($this->once())
-            ->method('getServer')
+            ->method('getComposite')
             ->will($this->returnValue($server));
         $factory = new Horde_Kolab_Session_Factory_Default(
             array('server' => array()),
             $server_factory
         );
-        $this->assertType('Horde_Kolab_Server', $factory->getServer());
+        $this->assertType('Horde_Kolab_Server_Composite', $factory->getServer());
     }
 
     public function testMethodGetsessionauthHasResultHordekolabsessionauth()

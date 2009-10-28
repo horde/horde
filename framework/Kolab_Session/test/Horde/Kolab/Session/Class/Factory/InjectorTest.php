@@ -35,7 +35,7 @@ class Horde_Kolab_Session_Class_Factory_InjectorTest extends Horde_Kolab_Session
     public function setUp()
     {
         $this->injector = new Horde_Injector(new Horde_Injector_TopLevel());
-        $this->markTestIncomplete('This needs an injector factory in the Kolab_Server package.');
+        Horde_Kolab_Session_Factory_Injector::setupMockServerFactory($this->injector);
     }
 
     public function testMethodGetserverHasResultHordekolabserver()
@@ -43,7 +43,7 @@ class Horde_Kolab_Session_Class_Factory_InjectorTest extends Horde_Kolab_Session
         $factory = new Horde_Kolab_Session_Factory_Injector(
             array('server' => array()), $this->injector
         );
-        $this->assertType('Horde_Kolab_Server', $factory->getServer());
+        $this->assertType('Horde_Kolab_Server_Composite', $factory->getServer());
     }
 
     public function testMethodGetsessionauthHasResultHordekolabsessionauth()

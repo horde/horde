@@ -32,9 +32,16 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  */
 class Horde_Kolab_Session_Class_SingletonTest extends Horde_Kolab_Session_SessionTestCase
 {
+    public function setUp()
+    {
+        global $conf;
+
+        /** Provide a minimal configuration for the server */
+        $conf['kolab']['ldap']['basedn'] = '';
+    }
+
     public function testMethodSingletonHasResultHordekolabsession()
     {
-        $this->markTestIncomplete('The factory in the Kolab_Server package needs to be fixed.');
         $this->assertType(
             'Horde_Kolab_Session',
             Horde_Kolab_Session_Singleton::singleton(
@@ -45,7 +52,6 @@ class Horde_Kolab_Session_Class_SingletonTest extends Horde_Kolab_Session_Sessio
 
     public function testMethodSingletonHasResultHordekolabsessionAlwaysTheSameIfTheSessionIsValid()
     {
-        $this->markTestIncomplete('The factory in the Kolab_Server package needs to be fixed.');
         $session1 = Horde_Kolab_Session_Singleton::singleton(
             'user', array('password' => 'pass')
         );

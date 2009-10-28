@@ -56,14 +56,10 @@ class Horde_Kolab_Session_Singleton
         global $conf;
 
         if (!isset(self::$_instance)) {
+            $config            = $conf['kolab'];
             $config['logger']  = Horde::getLogger();
-            $config['server']  = $conf['kolab']['server'];
-            $server_factory = new Horde_Kolab_Server_Factory_Default($config);
-            $server_factory = new Horde_Kolab_Server_Factory_Configuration($server_factory, $config);
-            $factory = new Horde_Kolab_Session_Factory_Default($config, $server_factory);
-            $factory = new Horde_Kolab_Session_Factory_Configuration($factory, $config);
+            $factory = new Horde_Kolab_Session_Factory_Configuration($config);
             self::$_instance = $factory->getSession($user);
-            self::$_instance->connect($credentials);
         }
         return self::$_instance;
     }

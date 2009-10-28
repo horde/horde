@@ -47,11 +47,27 @@ implements Horde_Kolab_Session_Factory
      *
      * @param array $config Configuration parameters for the session.
      */
-    public function __construct(
-        Horde_Kolab_Session_Factory $factory,
-        array $config
-    ) {
+    public function __construct(array $config)
+    {
         $this->_configuration = $config;
+
+        if (isset($config['server'])) {
+            $server_configuration = $config['server'];
+        } elseif (isset($config['ldap'])) {
+            $server_configuration = $config['ldap'];
+        } else {
+            throw new Horde_Kolab_Session_Exception(
+                'The server configuration is missing!'
+            );
+        }
+
+        $server_factory = new Horde_Kolab_Server_Factory_Configuration(
+            $server_configuration
+        );
+
+        $factory = new Horde_Kolab_Session_Factory_Default(
+            $config, $server_factory
+        );
 
         if (isset($config['logger'])) {
             $factory = new Horde_Kolab_Session_Factory_Logged(

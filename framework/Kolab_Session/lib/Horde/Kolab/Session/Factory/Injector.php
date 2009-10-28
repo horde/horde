@@ -90,9 +90,10 @@ extends Horde_Kolab_Session_Factory_Base
      */
     private function _setupStorage()
     {
-        $this->_injector->bindImplementation(
+        $this->_injector->bindFactory(
             'Horde_Kolab_Session_Storage',
-            'Horde_Kolab_Session_Storage_Sessionobjects'
+            'Horde_Kolab_Session_Factory_Injector',
+            'getStorage'
         );
     }
 
@@ -123,13 +124,34 @@ extends Horde_Kolab_Session_Factory_Base
     }
 
     /**
+     * A helper method to seed the injector with a Horde_Kolab_Server factory
+     * definition. This should usually be done by an external setup method
+     * before constructing the session injcetion factory.
+     *
+     * @parm Horde_Injector 
+     *
+     * @return NULL
+     */
+    static public function setupMockServerFactory(
+        Horde_Injector $injector
+    ) {
+        Horde_Kolab_Server_Factory_Injector::setup(
+            'Horde_Kolab_Server_Factory_Conn_Mock',
+            array('basedn' => ''),
+            $injector
+        );
+        /** Setup the injector by constructing the server factory */
+        $injector->getInstance('Horde_Kolab_Server_Factory_Injector');
+    }
+
+    /**
      * Return the kolab user db connection.
      *
      * @return Horde_Kolab_Server The server connection.
      */
     public function getServer()
     {
-        return $this->_injector->getInstance('Horde_Kolab_Server');
+        return $this->_injector->getInstance('Horde_Kolab_Server_Composite');
     }
 
     /**
@@ -159,6 +181,9 @@ extends Horde_Kolab_Session_Factory_Base
      */
     public function getSessionStorage()
     {
-        return $this->_injector->getInstance('Horde_Kolab_Session_Storage');
+        $storage = new Horde_Kolab_Session_Storage_Sessionobjects(
+            Horde_SessionObjects::singleton()
+        );
+        return $storage;
     }
 }
