@@ -106,6 +106,30 @@ class Horde_Stream_Wrapper_String
     }
 
     /**
+     * @see streamWrapper::stream_stat()
+     *
+     * @return array
+     */
+    public function stream_stat()
+    {
+        return array(
+            'dev' => 0,
+            'ino' => 0,
+            'mode' => 0,
+            'nlink' => 0,
+            'uid' => 0,
+            'gid' => 0,
+            'rdev' => 0,
+            'size' => $this->_length,
+            'atime' => 0,
+            'mtime' => 0,
+            'ctime' => 0,
+            'blksize' => 0,
+            'blocks' => 0
+        );
+    }
+
+    /**
      * @param integer $offset
      * @param integer $whence SEEK_SET, SEEK_CUR, or SEEK_END
      */
