@@ -108,9 +108,23 @@ abstract class Kronolith_Event
     /**
      * This tag's events.
      *
-     * @var mixed  Array of tags or comma delimited string.
+     * @var array|string
      */
     public $tags = array();
+
+    /**
+     * Whether this is the event on the first day of a multi-day event.
+     *
+     * @var boolen
+     */
+    public $first = true;
+
+    /**
+     * Whether this is the event on the last day of a multi-day event.
+     *
+     * @var boolen
+     */
+    public $last = true;
 
     /**
      * All the attendees of this event.
@@ -1073,6 +1087,8 @@ abstract class Kronolith_Event
      * - c: calendar id
      * - s: start date
      * - e: end date
+     * - fi: first day of a multi-day event
+     * - la: last day of a multi-day event
      * - x: status (Kronolith::STATUS_* constant)
      * - al: all-day?
      * - bg: background color
@@ -1107,6 +1123,8 @@ abstract class Kronolith_Event
         $json->c = $this->getCalendar();
         $json->s = $this->start->toJson();
         $json->e = $this->end->toJson();
+        $json->fi = $this->first;
+        $json->la = $this->last;
         $json->x = $this->status;
         $json->al = is_null($allDay) ? $this->isAllDay() : $allDay;
         $json->bg = $this->_backgroundColor;

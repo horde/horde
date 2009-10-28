@@ -1044,17 +1044,30 @@ KronolithCore = {
 
             var midnight = this.parseDate(date),
                 innerDiv = new Element('DIV', { 'class': 'kronolithEventInfo' }),
-                draggerTop = new Element('DIV', { 'id': event.value.nodeId + 'top', 'class': 'kronolithDragger kronolithDraggerTop' }).setStyle(style),
+                draggerTop, draggerBottom;
+            if (event.value.fi) {
+                draggerTop = new Element('DIV', { 'id': event.value.nodeId + 'top', 'class': 'kronolithDragger kronolithDraggerTop' }).setStyle(style);
+            } else {
+                innerDiv.setStyle({ 'top': 0 });
+            }
+            if (event.value.la) {
                 draggerBottom = new Element('DIV', { 'id': event.value.nodeId + 'bottom', 'class': 'kronolithDragger kronolithDraggerBottom' }).setStyle(style);
+            } else {
+                innerDiv.setStyle({ 'bottom': 0 });
+            }
 
             div.setStyle({
                 'top': (Math.round(midnight.getElapsed(event.value.start) / 60000) * this[storage].height / 60 + this[storage].offset | 0) + 'px',
                 'height': (Math.round(event.value.start.getElapsed(event.value.end) / 60000) * this[storage].height / 60 - this[storage].spacing | 0) + 'px',
                 'width': '100%'
             })
-                .insert(innerDiv.setStyle(style))
-                .insert(draggerTop)
-                .insert(draggerBottom);
+                .insert(innerDiv.setStyle(style));
+            if (draggerTop) {
+                div.insert(draggerTop);
+            }
+            if (draggerBottom) {
+                div.insert(draggerBottom);
+            }
             $(view == 'day' ? 'kronolithEventsDay' : 'kronolithEventsWeek' + date).insert(div);
 
             if (event.value.pe) {
@@ -1062,29 +1075,43 @@ KronolithCore = {
                     // Top-most position (minimum y) of top dragger
                 var minTop = this[storage].allDay + this[storage].spacing,
                     // Number of pixels that cover 10 minutes.
-                    step = this[storage].height / 6,
+                    step = this[storage].height / 6;
+                if (draggerTop) {
                     // Top position of top dragger
-                    dragTop = draggerTop.cumulativeOffset().top,
+                    var dragTop = draggerTop.cumulativeOffset().top;
+                }
+                if (draggerBottom) {
                     // Top position of bottom dragger
-                    dragBottom = draggerBottom.cumulativeOffset().top,
-                    // Height of bottom dragger
-                    dragBottomHeight = draggerBottom.getHeight(),
+                    var dragBottom = draggerBottom.cumulativeOffset().top,
+                        // Height of bottom dragger
+                        dragBottomHeight = draggerBottom.getHeight();
+                }
                     // Top position of the whole event div
-                    eventTop = div.cumulativeOffset().top,
+                var eventTop = div.cumulativeOffset().top;
+                if (draggerTop) {
                     // Bottom-most position (maximum y) of top dragger
-                    maxTop = div.offsetTop + draggerBottom.offsetTop
+                    var maxTop = div.offsetTop
                         - minTop - draggerTop.getHeight()
-                        - parseInt(innerDiv.getStyle('lineHeight')),
+                        - parseInt(innerDiv.getStyle('lineHeight'));
+                    if (draggerBottom) {
+                        maxTop += draggerBottom.offsetTop;
+                    }
+                }
+                if (draggerBottom) {
                     // Top-most position (minimum y) of bottom dragger (upper
                     // edge)
-                    minBottom = div.offsetTop - minTop + draggerTop.getHeight()
+                    var minBottom = div.offsetTop - minTop
                         + parseInt(innerDiv.getStyle('lineHeight')),
                     // Bottom-most position (maximum y) of bottom dragger
                     // (upper edge)
                     maxBottom = 24 * this[storage].height
-                        + this[storage].allDay - dragBottomHeight,
+                        + this[storage].allDay - dragBottomHeight;
+                    if (draggerTop) {
+                        minBottom += draggerTop.getHeight();
+                    }
+                }
                     // Height of the whole event div
-                    divHeight = div.getHeight(),
+                var divHeight = div.getHeight(),
                     // Maximum height of the whole event div
                     maxDiv = 24 * this[storage].height
                         + this[storage].allDay
@@ -1101,7 +1128,7 @@ KronolithCore = {
                             this.addClassName('kronolithSelected');
                         }.bind(div),
                         'onEnd': function(d, e) {
-                            this[0]._onDragEnd(d, this[1], innerDiv, event, midnight, view);
+                            this[0]._onDragEnd(d, this[1], innerDiv, event, midnight, view, step);
                         }.bind([this, div]),
                         'onDrag': function(d, e) {
                             var div = this[1],
@@ -1130,17 +1157,21 @@ KronolithCore = {
                         }.bind([this, div])
                     };
 
-                opts.snap = function(x, y, elm) {
-                    y = Math.max(0, step * (Math.min(maxTop, y - minTop) / step | 0)) + minTop;
-                    return [0, y];
+                if (draggerTop) {
+                    opts.snap = function(x, y, elm) {
+                        y = Math.max(0, step * (Math.min(maxTop, y - minTop) / step | 0)) + minTop;
+                        return [0, y];
+                    }
+                    new Drag(event.value.nodeId + 'top', opts);
                 }
-                new Drag(event.value.nodeId + 'top', opts);
 
-                opts.snap = function(x, y, elm) {
-                    y = Math.min(maxBottom - minTop + dragBottomHeight + KronolithCore[storage].spacing, step * ((Math.max(minBottom, y - minTop) + dragBottomHeight + KronolithCore[storage].spacing) / step | 0)) + minTop - dragBottomHeight - KronolithCore[storage].spacing;
-                    return [0, y];
+                if (draggerBottom) {
+                    opts.snap = function(x, y, elm) {
+                        y = Math.min(maxBottom - minTop + dragBottomHeight + KronolithCore[storage].spacing, step * ((Math.max(minBottom, y - minTop) + dragBottomHeight + KronolithCore[storage].spacing) / step | 0)) + minTop - dragBottomHeight - KronolithCore[storage].spacing;
+                        return [0, y];
+                    }
+                    new Drag(event.value.nodeId + 'bottom', opts);
                 }
-                new Drag(event.value.nodeId + 'bottom', opts);
 
                 if (view == 'week') {
                     var dates = this.viewDates(midnight, view),
@@ -1150,6 +1181,7 @@ KronolithCore = {
                         maxLeft = $('kronolithEventsWeek' + dates[1].toString('yyyyMMdd')).offsetLeft - $('kronolithEventsWeek' + date).offsetLeft,
                         stepX = (maxLeft - minLeft) / 6;
                 }
+                var startTop = div.offsetTop - minTop;
                 new Drag(div, {
                     'threshold': 5,
                     'nodrop': true,
@@ -1173,15 +1205,18 @@ KronolithCore = {
                         }
                         if (view == 'week') {
                             var offsetX = Math.round(d.ghost.offsetLeft / stepX);
+                            event.value.offsetDays = offsetX;
                             this[0]._calculateEventDates(event.value, storage, step, d.ghost.offsetTop - minTop, divHeight, eventStart.clone().addDays(offsetX), eventEnd.clone().addDays(offsetX));
                         } else {
+                            event.value.offsetDays = 0;
                             this[0]._calculateEventDates(event.value, storage, step, d.ghost.offsetTop - minTop, divHeight);
                         }
+                        event.value.offsetTop = d.ghost.offsetTop - minTop - startTop;
                         d.innerDiv.update('(' + event.value.start.toString(Kronolith.conf.time_format) + ' - ' + event.value.end.toString(Kronolith.conf.time_format) + ') ' + event.value.t.escapeHTML());
                         this[1].clonePosition(d.ghost);
                     }.bind([this, div]),
                     'onEnd': function(d, e) {
-                        this[0]._onDragEnd(d, this[1], innerDiv, event, midnight, view);
+                        this[0]._onDragEnd(d, this[1], innerDiv, event, midnight, view, step);
                     }.bind([this, div]),
                 });
             }
@@ -1325,15 +1360,23 @@ KronolithCore = {
     /**
      * Called as the event handler after dragging/resizing a day/week event.
      */
-    _onDragEnd: function(drag, div, innerDiv, event, date, view)
+    _onDragEnd: function(drag, div, innerDiv, event, date, view, step)
     {
         var dates = this.viewDates(date, view),
             start = dates[0].toString('yyyyMMdd'),
-            end = dates[1].toString('yyyyMMdd');
+            end = dates[1].toString('yyyyMMdd'),
+            attributes;
         div.removeClassName('kronolithSelected');
         this._setEventText(innerDiv, event.value);
         drag.destroy();
         this.startLoading(event.value.calendar, start, end);
+        if (Object.isUndefined(event.value.offsetTop)) {
+            attributes = $H({ 'start': event.value.start,
+                              'end': event.value.end });
+        } else {
+            attributes = $H({ 'offDays': event.value.offsetDays,
+                              'offMins': event.value.offsetTop / step * 10 });
+        }
         this.doAction(
             'UpdateEvent',
             { 'cal': event.value.calendar,
@@ -1341,10 +1384,7 @@ KronolithCore = {
               'view': view,
               'view_start': start,
               'view_end': end,
-              'att': $H({
-                  start: event.value.start,
-                  end: event.value.end,
-              }).toJSON()
+              'att': attributes.toJSON()
             },
             function(r) {
                 if (r.response.events) {

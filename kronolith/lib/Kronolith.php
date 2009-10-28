@@ -511,10 +511,10 @@ class Kronolith
                         $eventEnd = $endDate;
                     }
                 } else {
-                    /* If the event doesn't end at 12am set the end date to the
-                     * current end date. If it ends at 12am and does not end at
-                     * the same time that it starts (0 duration), set the end date
-                     * to the previous day's end date. */
+                    /* If the event doesn't end at 12am set the end date to
+                     * the current end date. If it ends at 12am and does not
+                     * end at the same time that it starts (0 duration), set
+                     * the end date to the previous day's end date. */
                     if ($event->end->hour != 0 ||
                         $event->end->min != 0 ||
                         $event->end->sec != 0 ||
@@ -555,6 +555,7 @@ class Kronolith
                             $addEvent->start = new Horde_Date(array(
                                 'hour' => 0, 'min' => 0, 'sec' => 0,
                                 'month' => $loopDate->month, 'mday' => $loopDate->mday, 'year' => $loopDate->year));
+                            $addEvent->first = false;
                         }
 
                         /* If this is the end day, set the end time to the
@@ -565,6 +566,7 @@ class Kronolith
                             $addEvent->end = new Horde_Date(array(
                                 'hour' => 23, 'min' => 59, 'sec' => 59,
                                 'month' => $loopDate->month, 'mday' => $loopDate->mday, 'year' => $loopDate->year));
+                            $addEvent->last = false;
                         }
 
                         $results[$loopDate->dateString()][$addEvent->getId()] = $json ? $addEvent->toJson($allDay) : $addEvent;
@@ -596,12 +598,19 @@ class Kronolith
     {
         $loopDate = new Horde_Date($eventStart->year, $eventStart->month, $eventStart->mday);
         $allDay = $event->isAllDay();
+        $first = true;
         while ($loopDate->compareDateTime($eventEnd) <= 0) {
             if (!$allDay ||
                 $loopDate->compareDateTime($eventEnd) != 0) {
                 $addEvent = clone $event;
                 $addEvent->start = $eventStart;
                 $addEvent->end = $eventEnd;
+                if ($loopDate->compareDate($eventStart) != 0) {
+                    $addEvent->first = false;
+                }
+                if ($loopDate->compareDate($eventEnd) != 0) {
+                    $addEvent->last = false;
+                }
                 $results[$loopDate->dateString()][$addEvent->getId()] = $json ? $addEvent->toJson($allDay) : $addEvent;
             }
             $loopDate->mday++;

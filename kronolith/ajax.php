@@ -258,6 +258,16 @@ try {
                     $event->end->hour = $event->end->min = $event->end->sec = 0;
                 }
                 break;
+
+            case 'offDays':
+                $event->start->mday += $value;
+                $event->end->mday += $value;
+                break;
+
+            case 'offMins':
+                $event->start->min += $value;
+                $event->end->min += $value;
+                break;
             }
         }
         $result = saveEvent($event);
