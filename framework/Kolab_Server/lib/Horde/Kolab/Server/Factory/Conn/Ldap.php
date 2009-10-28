@@ -29,16 +29,48 @@ class Horde_Kolab_Server_Factory_Conn_Ldap
 extends Horde_Kolab_Server_Factory_Conn_Base
 {
     /**
+     * Set the connection configuration.
+     *
+     * @param array $configuration The configuration parameters.
+     *
+     * @return NULL
+     */
+    public function setConfiguration(array $configuration)
+    {
+        if (!isset($configuration['basedn'])) {
+            throw new Horde_Kolab_Server_Exception('The base DN is missing!');
+        }
+
+        if (isset($configuration['server'])) {
+            $configuration['host'] = $configuration['server'];
+            unset($configuration['server']);
+        }
+
+        if (isset($configuration['phpdn'])) {
+            $configuration['binddn'] = $configuration['phpdn'];
+            unset($configuration['phpdn']);
+        }
+
+        if (isset($configuration['phppw'])) {
+            $configuration['bindpw'] = $configuration['phppw'];
+            unset($configuration['phppw']);
+        }
+
+        parent::setConfiguration($configuration);
+    }
+
+    /**
      * Return the server connection that should be used.
      *
      * @return Horde_Kolab_Server_Connection The server connection.
      */
     public function getConnection()
     {
-        $ldap_read = new Net_LDAP2($params);
-        if (isset($params['host_master'])) {
-            $params['host'] = $params['host_master'];
-            $ldap_write = new Net_LDAP2($params);
+        $configuration = $this->getConfiguration();
+        $ldap_read = new Net_LDAP2($configuration);
+        if (isset($configuration['host_master'])) {
+            $configuration['host'] = $configuration['host_master'];
+            $ldap_write = new Net_LDAP2($configuration);
             $connection = new Horde_Kolab_Server_Connection_Splittedldap(
                 $ldap_read, $ldap_write
             );

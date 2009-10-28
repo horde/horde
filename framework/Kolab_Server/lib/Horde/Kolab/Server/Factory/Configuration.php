@@ -66,8 +66,8 @@ implements Horde_Kolab_Server_Factory
         }
 
         if (!empty($config['cleanup'])) {
-            $factory = new Horde_Kolab_Server_Factory_Cleaned(
-                $factory, $config['map']
+            $factory = new Horde_Kolab_Server_Factory_Cleaner(
+                $factory
             );
         }
 

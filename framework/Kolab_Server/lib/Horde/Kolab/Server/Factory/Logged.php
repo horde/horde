@@ -82,7 +82,9 @@ implements Horde_Kolab_Server_Factory
     public function getServer()
     {
         $server = $this->_factory->getServer();
-        $server = new Horde_Kolab_Server_Logged($server);
+        $server = new Horde_Kolab_Server_Logged(
+            $server, $this->_logger
+        );
         return $server;
     }
 

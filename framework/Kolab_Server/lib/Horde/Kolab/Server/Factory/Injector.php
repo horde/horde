@@ -29,20 +29,6 @@ class Horde_Kolab_Server_Factory_Injector
 implements Horde_Kolab_Server_Factory
 {
     /**
-     * The conn factory class.
-     *
-     * @param string
-     */
-    private $_conn_factory;
-
-    /**
-     * Configuration parameters for the server.
-     *
-     * @var array
-     */
-    private $_configuration;
-
-    /**
      * The injector.
      *
      * @var Horde_Injector
@@ -57,8 +43,6 @@ implements Horde_Kolab_Server_Factory
     public function __construct(
         Horde_Injector $injector
     ) {
-        $this->_conn_factory  = $factory;
-        $this->_configuration = $config;
         $this->_injector      = $injector;
         $this->_setup();
     }
@@ -95,7 +79,7 @@ implements Horde_Kolab_Server_Factory
         Horde_Injector $injector
     ) {
         $injector->setInstance(
-            'Horde_Kolab_Server_Config', $config
+            'Horde_Kolab_Server_Configuration', $config
         );
     }
 
@@ -179,13 +163,14 @@ implements Horde_Kolab_Server_Factory
      */
     private function _setupStructure()
     {
-        if (!isset($this->_configuration['structure']['driver'])) {
+        $configuration = $this->getConfiguration();
+        if (!isset($configuration['structure']['driver'])) {
             $driver = 'Horde_Kolab_Server_Structure_Kolab';
         } else {
-            $driver = $this->_configuration['structure']['driver'];
+            $driver = $configuration['structure']['driver'];
         }
 
-        $injector->bindImplementation('Horde_Kolab_Server_Structure', $driver);
+        $this->_injector->bindImplementation('Horde_Kolab_Server_Structure', $driver);
     }
 
     /**
@@ -195,7 +180,7 @@ implements Horde_Kolab_Server_Factory
      */
     private function _setupConnection()
     {
-        $injector->bindFactory(
+        $this->_injector->bindFactory(
             'Horde_Kolab_Server_Connection',
             'Horde_Kolab_Server_Factory_Conn_Injector',
             'getConnection'
@@ -209,7 +194,7 @@ implements Horde_Kolab_Server_Factory
      */
     private function _setupServer()
     {
-        $injector->bindFactory(
+        $this->_injector->bindFactory(
             'Horde_Kolab_Server',
             'Horde_Kolab_Server_Factory_Injector',
             'getServer'
@@ -267,7 +252,7 @@ implements Horde_Kolab_Server_Factory
     {
         $configuration = $this->getConfiguration();
         if (!isset($configuration['basedn'])) {
-            throw new Horde_Kolab_Server_Exception('The base DN is missing');
+            throw new Horde_Kolab_Server_Exception('The base DN is missing!');
         }
 
         $connection = $this->getConnection();

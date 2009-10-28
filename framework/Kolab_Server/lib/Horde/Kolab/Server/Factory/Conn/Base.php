@@ -36,6 +36,21 @@ implements Horde_Kolab_Server_Factory_Conn
     private $_configuration;
 
     /**
+     * Get the connection configuration.
+     *
+     * @return array $configuration The configuration parameters.
+     */
+    public function getConfiguration()
+    {
+        if (!isset($this->_configuration)) {
+            throw new Horde_Kolab_Server_Exception(
+                'The configuration has not been set!'
+            ); 
+        }
+        return $this->_configuration;
+    }
+
+    /**
      * Set the connection configuration.
      *
      * @param array $configuration The configuration parameters.
@@ -44,25 +59,6 @@ implements Horde_Kolab_Server_Factory_Conn
      */
     public function setConfiguration(array $configuration)
     {
-        if (!isset($configuration['basedn'])) {
-            throw new Horde_Kolab_Server_Exception('The base DN is missing');
-        }
-
-        if (isset($configuration['server'])) {
-            $configuration['host'] = $configuration['server'];
-            unset($configuration['server']);
-        }
-
-        if (isset($configuration['phpdn'])) {
-            $configuration['binddn'] = $configuration['phpdn'];
-            unset($configuration['phpdn']);
-        }
-
-        if (isset($configuration['phppw'])) {
-            $configuration['bindpw'] = $configuration['phppw'];
-            unset($configuration['phppw']);
-        }
-
         $this->_configuration = $configuration;
     }
 }

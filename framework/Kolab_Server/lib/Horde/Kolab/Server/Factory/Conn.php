@@ -28,6 +28,13 @@
 interface Horde_Kolab_Server_Factory_Conn
 {
     /**
+     * Get the connection configuration.
+     *
+     * @return array $configuration The configuration parameters.
+     */
+    public function getConfiguration();
+
+    /**
      * Set the connection configuration.
      *
      * @param array $configuration The configuration parameters.

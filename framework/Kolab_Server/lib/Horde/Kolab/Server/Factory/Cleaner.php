@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Factory_Cleaned
+class Horde_Kolab_Server_Factory_Cleaner
 implements Horde_Kolab_Server_Factory
 {
     /**
@@ -43,7 +43,6 @@ implements Horde_Kolab_Server_Factory
     public function __construct(Horde_Kolab_Server_Factory $factory)
     {
         $this->_factory = $factory;
-        $this->_mapping = $mapping;
     }
 
     /**
@@ -74,7 +73,7 @@ implements Horde_Kolab_Server_Factory
     public function getServer()
     {
         $server = $this->_factory->getServer();
-        $server = new Horde_Kolab_Server_Cleaned($server);
+        $server = new Horde_Kolab_Server_Cleaner($server);
         return $server;
     }
 

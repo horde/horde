@@ -36,7 +36,7 @@ extends Horde_Kolab_Server_Factory_Conn_Base
     public function getConnection()
     {
         $connection = new Horde_Kolab_Server_Connection_Mock(
-            $this->_configuration
+            $this->getConfiguration()
         );
         return $connection;
     }

@@ -61,6 +61,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <dir name="Kolab">
       <file name="Server.php" role="php" />
       <dir name="Server">
+       <file name="Cleaner.php" role="php" />
        <file name="Composite.php" role="php" />
        <file name="Connection.php" role="php" />
        <dir name="Connection">
@@ -79,7 +80,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Factory.php" role="php" />
        <dir name="Factory">
         <file name="Base.php" role="php" />
-        <file name="Cleaned.php" role="php" />
+        <file name="Cleaner.php" role="php" />
         <file name="Configuration.php" role="php" />
         <file name="Conn.php" role="php" />
         <dir name="Conn">
@@ -303,6 +304,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease>
   <filelist>
    <install name="lib/Horde/Kolab/Server.php" as="Horde/Kolab/Server.php" />
+   <install name="lib/Horde/Kolab/Server/Cleaner.php" as="Horde/Kolab/Server/Cleaner.php" />
    <install name="lib/Horde/Kolab/Server/Composite.php" as="Horde/Kolab/Server/Composite.php" />
    <install name="lib/Horde/Kolab/Server/Connection.php" as="Horde/Kolab/Server/Connection.php" />
    <install name="lib/Horde/Kolab/Server/Connection/File.php" as="Horde/Kolab/Server/Connection/File.php" />
@@ -314,7 +316,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Kolab/Server/Exception/Novalue.php" as="Horde/Kolab/Server/Exception/Novalue.php" />
    <install name="lib/Horde/Kolab/Server/Factory.php" as="Horde/Kolab/Server/Factory.php" />
    <install name="lib/Horde/Kolab/Server/Factory/Base.php" as="Horde/Kolab/Server/Factory/Base.php" />
-   <install name="lib/Horde/Kolab/Server/Factory/Cleaned.php" as="Horde/Kolab/Server/Factory/Cleaned.php" />
+   <install name="lib/Horde/Kolab/Server/Factory/Cleaner.php" as="Horde/Kolab/Server/Factory/Cleaner.php" />
    <install name="lib/Horde/Kolab/Server/Factory/Configuration.php" as="Horde/Kolab/Server/Factory/Configuration.php" />
    <install name="lib/Horde/Kolab/Server/Factory/Conn.php" as="Horde/Kolab/Server/Factory/Conn.php" />
    <install name="lib/Horde/Kolab/Server/Factory/Conn/Base.php" as="Horde/Kolab/Server/Factory/Conn/Base.php" />
