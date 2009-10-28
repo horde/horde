@@ -60,14 +60,6 @@ class Horde_Stream_Wrapper_String
     }
 
     /**
-     * @return boolean
-     */
-    public function stream_stat()
-    {
-        return false;
-    }
-
-    /**
      * @param integer $count
      *
      * @return string
