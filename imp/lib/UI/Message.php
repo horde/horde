@@ -408,7 +408,25 @@ class IMP_UI_Message
     }
 
     /**
-     * Prints out a MIME status message.
+     * Prints out a MIME summary (in HTML).
+     *
+     * @param array $summary  Summary information from
+     *                        IMP_Summary::getSummary().
+     * @param array $display  The fields to display (in this order).
+     *
+     * @return string  The formatted summary string.
+     */
+    public function formatSummary($summary, $display)
+    {
+        $tmp_summary = array();
+        foreach ($display as $val) {
+            $tmp_summary[] = $summary[$val];
+        }
+        return '<div class="mimePartInfo"><span>' . implode(' ', $tmp_summary) . '</span></div>';
+    }
+
+    /**
+     * Prints out a MIME status message (in HTML).
      *
      * @param array $data  An array of information (as returned from
                            Horde_Mime_Viewer::render()).

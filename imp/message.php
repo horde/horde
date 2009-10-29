@@ -627,18 +627,12 @@ foreach ($parts_list as $mime_id => $mime_type) {
             continue;
         }
 
-        $tmp_summary = $tmp_status = array();
-
-        $summary = $imp_contents->getSummary($id, $contents_mask);
-        foreach ($part_info_display as $val) {
-            $tmp_summary[] = $summary[$val];
-        }
-
+        $tmp_status = array();
         foreach ($info['status'] as $val) {
             $tmp_status[] = $imp_ui->formatStatusMsg($val);
         }
 
-        $msgtext .= '<div><span class="mimePartInfo">' . implode(' ', $tmp_summary) . '</span></div>' .
+        $msgtext .= $imp_ui->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display) .
             implode("\n", $tmp_status) .
             $info['data'];
 
