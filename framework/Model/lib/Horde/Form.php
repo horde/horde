@@ -577,27 +577,27 @@ class Horde_Form {
  * @author  Robert E. Coyle <robertecoyle@hotmail.com>
  * @package Horde_Form
  */
-class Horde_Form_Type {
-
-    protected function __get($property)
+class Horde_Form_Type
+{
+    public function __get($property)
     {
         $prop = '_' . $property;
         return isset($this->$prop) ? $this->$prop : null;
     }
 
-    protected function __set($property, $value)
+    public function __set($property, $value)
     {
         $prop = '_' . $property;
         $this->$prop = $value;
     }
 
-    protected function __isset($property)
+    public function __isset($property)
     {
         $prop = '_' . $property;
         return isset($this->$prop);
     }
 
-    protected function __unset($property)
+    public function __unset($property)
     {
         $prop = '_' . $property;
         unset($this->$prop);
@@ -621,11 +621,10 @@ class Horde_Form_Type {
     {
         $info = $var->getValue($vars);
     }
-
 }
 
-class Horde_Form_Type_number extends Horde_Form_Type {
-
+class Horde_Form_Type_number extends Horde_Form_Type
+{
     var $_fraction;
 
     function init($fraction = null)
@@ -705,7 +704,6 @@ class Horde_Form_Type_number extends Horde_Form_Type {
     {
         return array('name' => _("Number"));
     }
-
 }
 
 class Horde_Form_Type_int extends Horde_Form_Type {

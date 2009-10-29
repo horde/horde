@@ -54,7 +54,7 @@ abstract class Horde_Form_Type {
      *
      * @param string $property The property to retrieve.
      */
-    protected function __get($property)
+    public function __get($property)
     {
         if (in_array($property, $this->_properties)) {
             $prop = '_' . $property;
@@ -71,7 +71,7 @@ abstract class Horde_Form_Type {
      * @param string $property The property name to set.
      * @param mixed $value The property value.
      */
-    protected function __set($property, $value)
+    public function __set($property, $value)
     {
         if (in_array($property, $this->_properties)) {
             $prop = '_' . $property;
@@ -85,7 +85,7 @@ abstract class Horde_Form_Type {
      *
      * @param string $property Property name to check existance of.
      */
-    protected function __isset($property)
+    public function __isset($property)
     {
         $prop = '_' . $property;
         return isset($this->$prop);
@@ -97,7 +97,7 @@ abstract class Horde_Form_Type {
      *
      * @param string $property Property name to unset.
      */
-    protected function __unset($property)
+    public function __unset($property)
     {
         $prop = '_' . $property;
         unset($this->$prop);
