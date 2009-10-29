@@ -306,6 +306,10 @@ class Horde_Date
      */
     public function toDays()
     {
+        if (function_exists('GregorianToJD')) {
+            return GregorianToJD($this->_month, $this->_mday, $this->_year);
+        }
+
         $day = $this->_mday;
         $month = $this->_month;
         $year = $this->_year;
@@ -370,27 +374,31 @@ class Horde_Date
      */
     public static function fromDays($days)
     {
-        $days = intval($days);
-
-        $days   -= 1721119;
-        $century = floor((4 * $days - 1) / 146097);
-        $days    = floor(4 * $days - 1 - 146097 * $century);
-        $day     = floor($days / 4);
-
-        $year = floor((4 * $day +  3) / 1461);
-        $day  = floor(4 * $day +  3 - 1461 * $year);
-        $day  = floor(($day +  4) / 4);
-
-        $month = floor((5 * $day - 3) / 153);
-        $day   = floor(5 * $day - 3 - 153 * $month);
-        $day   = floor(($day +  5) /  5);
-
-        $year = $century * 100 + $year;
-        if ($month < 10) {
-            $month +=3;
+        if (function_exists('JDToGregorian')) {
+            list($month, $day, $year) = explode('/', JDToGregorian($days));
         } else {
-            $month -=9;
-            ++$year;
+            $days = intval($days);
+
+            $days   -= 1721119;
+            $century = floor((4 * $days - 1) / 146097);
+            $days    = floor(4 * $days - 1 - 146097 * $century);
+            $day     = floor($days / 4);
+
+            $year = floor((4 * $day +  3) / 1461);
+            $day  = floor(4 * $day +  3 - 1461 * $year);
+            $day  = floor(($day +  4) / 4);
+
+            $month = floor((5 * $day - 3) / 153);
+            $day   = floor(5 * $day - 3 - 153 * $month);
+            $day   = floor(($day +  5) /  5);
+
+            $year = $century * 100 + $year;
+            if ($month < 10) {
+                $month +=3;
+            } else {
+                $month -=9;
+                ++$year;
+            }
         }
 
         return new Horde_Date($year, $month, $day);
