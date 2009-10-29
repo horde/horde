@@ -40,9 +40,9 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Ajax_Imple_AutoComple
         }
 
         if (!empty($_SESSION['ansel']['ajax_locationac'])) {
-            $ret['ajax'] => 'LocationAutoCompleter';
+            $ret['ajax'] = 'LocationAutoCompleter';
         } else {
-            $ret['browser'] => 'LocationAutoCompleter';
+            $ret['browser'] = 'LocationAutoCompleter';
             if (empty($results)) {
                 $results = $GLOBALS['ansel_storage']->searchLocations();
             }
