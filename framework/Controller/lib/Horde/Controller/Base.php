@@ -411,7 +411,7 @@ abstract class Horde_Controller_Base
 
     /**
      * Each variable set through routing {@link Horde_Routes_Mapper} is
-     * availabie in controllers using the $params array.
+     * available in controllers using the $params array.
      *
      * The controller also has access to GET/POST arrays using $params
      *
