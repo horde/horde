@@ -12,8 +12,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Horde_Notification
  */
-class Horde_Notification_Handler_Base
-implements Horde_Notification_Handler
+class Horde_Notification_Handler_Base implements Horde_Notification_Handler
 {
     /**
      * Hash containing all attached listener objects.
@@ -69,13 +68,13 @@ implements Horde_Notification_Handler
      */
     public function attach($listener, array $params = array(), $class = null)
     {
-        $listener = strtolower(basename($listener));
+        $listener = Horde_String::lower(basename($listener));
         if (!empty($this->_listeners[$listener])) {
             return $this->_listeners[$listener];
         }
 
         if (is_null($class)) {
-            $class = 'Horde_Notification_Listener_' . ucfirst($listener);
+            $class = 'Horde_Notification_Listener_' . Horde_String::ucfirst($listener);
         }
 
         if (class_exists($class)) {
@@ -99,7 +98,7 @@ implements Horde_Notification_Handler
      */
     public function detach($listener)
     {
-        $listener = strtolower(basename($listener));
+        $listener = Horde_String::lower(basename($listener));
         if (!isset($this->_listeners[$listener])) {
             throw new Horde_Exception(sprintf('Notification listener %s not found.', $listener));
         }
@@ -122,7 +121,7 @@ implements Horde_Notification_Handler
      */
     public function replace($listener, array $params = array(), $class = null)
     {
-        $listener = strtolower(basename($listener));
+        $listener = Horde_String::lower(basename($listener));
         unset($this->_listeners[$listener]);
         return $this->attach($listener, $params, $class);
     }
@@ -201,7 +200,7 @@ implements Horde_Notification_Handler
         } elseif (!is_array($options['listeners'])) {
             $options['listeners'] = array($options['listeners']);
         }
-        $options['listeners'] = array_map('strtolower', $options['listeners']);
+        $options['listeners'] = array_map(array('Horde_String', 'lower'), $options['listeners']);
     }
 
     /**
@@ -243,7 +242,7 @@ implements Horde_Notification_Handler
             }
             return $count;
         } else {
-            return @count($this->_storage[$this->_listeners[strtolower($my_listener)]->getName()]);
+            return @count($this->_storage[$this->_listeners[Horde_String::lower($my_listener)]->getName()]);
         }
     }
 
