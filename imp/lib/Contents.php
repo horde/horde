@@ -451,7 +451,7 @@ class IMP_Contents
                 $charset_upper = Horde_String::upper($mime_part->getCharset());
                 if (($charset_upper != 'US-ASCII') &&
                     ($charset_upper != $default_charset)) {
-                    $ret['status'][] = array(
+                    $ret[$mime_id]['status'][] = array(
                         'text' => array(
                             sprintf(_("This message was written in a character set (%s) other than your own."), htmlspecialchars($charset_upper)),
                             sprintf(_("If it is not displayed correctly, %s to open it in a new window."), $this->linkViewJS($mime_part, 'view_attach', _("click here")))
