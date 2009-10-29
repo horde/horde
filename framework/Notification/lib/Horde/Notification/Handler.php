@@ -33,7 +33,7 @@ interface Horde_Notification_Handler
      * @return Horde_Notification_Listener  The listener object.
      * @throws Horde_Exception
      */
-    public function attach($listener, array $params = array(), $class = null);
+    public function attach($listener, $params = null, $class = null);
 
     /**
      * Remove a listener from the notification list. This will discard any

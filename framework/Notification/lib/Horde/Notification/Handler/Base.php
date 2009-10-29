@@ -66,7 +66,7 @@ class Horde_Notification_Handler_Base implements Horde_Notification_Handler
      * @return Horde_Notification_Listener  The listener object.
      * @throws Horde_Exception
      */
-    public function attach($listener, array $params = array(), $class = null)
+    public function attach($listener, $params = null, $class = null)
     {
         $listener = Horde_String::lower(basename($listener));
         if (!empty($this->_listeners[$listener])) {
