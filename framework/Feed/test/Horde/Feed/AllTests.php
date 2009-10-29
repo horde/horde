@@ -21,7 +21,7 @@ class Horde_Feed_AllTests
     public static function suite()
     {
         if (!spl_autoload_functions()) {
-            spl_autoload_register(create_function('$class', '$filename = str_replace(array(\'::\', \'_\'), \'/\', $class); include "$filename.php";'));
+            spl_autoload_register(create_function('$class', '$filename = str_replace(array(\'\\\', \'_\'), \'/\', $class); include "$filename.php";'));
         }
 
         $suite = new PHPUnit_Framework_TestSuite('Horde Framework - Horde_Feed');

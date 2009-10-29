@@ -45,9 +45,9 @@ class Horde_Autoloader
                 if (strcasecmp($matches[0][0], $class) === 0) {
                     $relativePath = $replace . '/' . $class;
                 } else {
-                    $relativePath = str_replace(array('::', '_'), '/', substr($class, 0, $matches[0][1])) .
+                    $relativePath = str_replace(array('\\', '_'), '/', substr($class, 0, $matches[0][1])) .
                         $replace .
-                        str_replace(array('::', '_'), '/', substr($class, $matches[0][1] + strlen($matches[0][0])));
+                        str_replace(array('\\', '_'), '/', substr($class, $matches[0][1] + strlen($matches[0][0])));
                 }
 
                 if (self::_loadClass($relativePath)) {
@@ -57,7 +57,7 @@ class Horde_Autoloader
         }
 
         /* Do a final search in the include path. */
-        $relativePath = str_replace(array('::', '_'), '/', $class);
+        $relativePath = str_replace(array('\\', '_'), '/', $class);
         return self::_loadClass($relativePath);
     }
 
@@ -145,7 +145,7 @@ class Horde_Autoloader
      * Add a new class pattern.
      *
      * @param string $pattern  The class pattern to add.
-     * @param string $replace  The substitution pattern. All '_' and '::'
+     * @param string $replace  The substitution pattern. All '_' and '\'
      *                         strings in a classname will be converted to
      *                         directory separators.  If the entire pattern
      *                         is matched, the matched text will be appended

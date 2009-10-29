@@ -21,7 +21,7 @@ class Horde_Injector_AllTests
     public static function suite()
     {
         if (!spl_autoload_functions()) {
-            spl_autoload_register(create_function('$class', '$filename = str_replace(array(\'::\', \'_\'), \'/\', $class); $er = error_reporting(22525); include "$filename.php"; error_reporting($er);'));
+            spl_autoload_register(create_function('$class', '$filename = str_replace(array(\'\\\', \'_\'), \'/\', $class); $er = error_reporting(22525); include "$filename.php"; error_reporting($er);'));
         }
         set_include_path(dirname(__FILE__) . '/../../../lib' . PATH_SEPARATOR . get_include_path());
 

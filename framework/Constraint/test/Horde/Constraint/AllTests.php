@@ -21,7 +21,7 @@ class Horde_Constraint_AllTests
     public static function suite()
     {
         if (!spl_autoload_functions()) {
-            spl_autoload_register(create_function('$class', '$filename = str_replace(array(\'::\', \'_\'), \'/\', $class); include "$filename.php";'));
+            spl_autoload_register(create_function('$class', '$filename = str_replace(array(\'\\\', \'_\'), \'/\', $class); include "$filename.php";'));
         }
         set_include_path(dirname(__FILE__) . '/../../../lib' . PATH_SEPARATOR . get_include_path());
 

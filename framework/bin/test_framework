@@ -58,7 +58,7 @@ class horde_test_runner
 
                 $classnames = array($class, $class_notests, $class_horde, $class_horde_notests, $class_pear2, $class_pear2_notests);
                 foreach ($classnames as $classname) {
-                    $classnames[] = str_replace('_', '::', $classname);
+                    $classnames[] = str_replace('_', '\\', $classname);
                 }
 
                 // Look for something with a ::suite() method.
