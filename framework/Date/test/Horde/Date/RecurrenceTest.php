@@ -110,7 +110,7 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
                                 '2010-01-07 08:00:00',
                                 '2010-01-08 08:00:00',
 ),
-                            $this->_getRecurrences($r));
+                            $this->_getRecurrences($r), 'Test for bug #8546');
     }
 
     public function testWeeklyCount()
