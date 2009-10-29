@@ -59,6 +59,7 @@ class Folks_Application extends Horde_Registry_Application
         if ($_COOKIE['folks_login_code'] == $GLOBALS['folks_driver']->getCookie($_COOKIE['folks_login_user'])) {
             Horde_Auth::setAuth($_COOKIE['folks_login_user'], array(), array('transparent' => true, 'nologin' => true));
             $auth_ob->setCredential('userId', $_COOKIE['folks_login_user']);
+            $GLOBALS['folks_driver']->resetOnlineUsers();
             return true;
         }  else {
             return false;
