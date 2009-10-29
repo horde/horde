@@ -10,15 +10,8 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package IMP
  */
-class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_Base
+class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_AutoCompleter
 {
-    /**
-     * The URL to use in attach().
-     *
-     * @var string
-     */
-    protected $_url;
-
     /**
      * Has the address book been output to the browser?
      *
@@ -27,43 +20,25 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_Base
     static protected $_listOutput = false;
 
     /**
-     * Constructor.
-     *
-     * @param array $params  Configuration parameters.
-     * <pre>
-     * 'triggerId' => TODO (optional)
-     * </pre>
-     */
-    public function __construct($params)
-    {
-        if (empty($params['triggerId'])) {
-            $params['triggerId'] = $this->_randomid();
-        }
-
-        parent::__construct($params);
-    }
-
-    /**
      * Attach the object to a javascript event.
      */
-    public function attach()
+    protected function _attach($js_params)
     {
-        Horde::addScriptFile('effects.js', 'horde');
-        Horde::addScriptFile('autocomplete.js', 'horde');
-        Horde::addScriptFile('KeyNavList.js', 'horde');
-        Horde::addScriptFile('liquidmetal.js', 'horde');
+        $js_params['indicator'] = $this->_params['triggerId'] . '_loading_img';
+        $js_params['onSelect'] = 1;
+        $js_params['onType'] = 1;
 
-        $params = array(
-            '"' . $this->_params['triggerId'] . '"'
+        $ret = array(
+            'func_replace' => array(
+                '"onSelect":1' => '"onSelect":function (v) { if (!v.endsWith(";")) { v += ","; } return v + " "; }',
+                '"onType":1' => '"onType":function (e) { return e.include("<") ? "" : e; }'
+            ),
+            'params' => $js_params
         );
 
-        $js_params = array(
-            'indicator' => $this->_params['triggerId'] . '_loading_img',
-            'onSelect' => 1,
-            'onType' => 1,
-            'tokens' => array(',', ';')
-        );
-        $ac_browser = empty($GLOBALS['conf']['compose']['ac_browser']) ? 0 : $GLOBALS['conf']['compose']['ac_browser'];
+        $ac_browser = empty($GLOBALS['conf']['compose']['ac_browser'])
+            ? 0
+            : $GLOBALS['conf']['compose']['ac_browser'];
 
         if ($ac_browser && !isset($_SESSION['imp']['cache']['ac_ajax'])) {
             $success = $use_ajax = true;
@@ -84,36 +59,21 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_Base
         }
 
         if (!$ac_browser || $_SESSION['imp']['cache']['ac_ajax']) {
-            $func = 'Ajax.Autocompleter';
-            if (empty($this->_url)) {
-                $this->_url = $this->_getUrl('ContactAutoCompleter', 'imp', array('input' => $this->_params['triggerId']));
-            }
-            $params[] = '"' . $this->_url . '"';
-
-            $js_params['minChars'] = intval($GLOBALS['conf']['compose']['ac_threshold'] ? $GLOBALS['conf']['compose']['ac_threshold'] : 1);
+            $ret['ajax'] = 'ContactAutoCompleter';
+            $ret['params']['minChars'] = intval($GLOBALS['conf']['compose']['ac_threshold'] ? $GLOBALS['conf']['compose']['ac_threshold'] : 1);
         } else {
             if (!self::$_listOutput) {
                 if (!isset($addrlist)) {
                     $addrlist = IMP_Compose::getAddressList();
                 }
-                Horde::addInlineScript('if (!IMP) { var IMP = {}; } IMP.ac_list = '. Horde_Serialize::serialize(array_map('htmlspecialchars', $addrlist), Horde_Serialize::JSON, Horde_Nls::getCharset()));
+                Horde::addInlineScript('if (!window.IMP) window.IMP = {}; IMP.ac_list = '. Horde_Serialize::serialize($addrlist, Horde_Serialize::JSON, Horde_Nls::getCharset()));
                 self::$_listOutput = true;
             }
 
-            $func = 'Autocompleter.Local';
-            $params[] = 'IMP.ac_list';
-            $js_params['partialSearch'] = 1;
-            $js_params['fullSearch'] = 1;
-            $js_params['score'] = 1;
+            $ret['browser'] = 'IMP.ac_list';
         }
 
-        // There is no support for storing functions in JSON.  Have to
-        // hack around this a bit.
-        $js_params = Horde_Serialize::serialize($js_params, Horde_Serialize::JSON);
-        $js_params = str_replace('"onSelect":1', '"onSelect":function (v) { if (!v.endsWith(";")) { v += ","; } return v + " "; }', $js_params);
-        $js_params = str_replace('"onType":1', '"onType":function (e) { return e.include("<") ? "" : e; }', $js_params);
-
-        Horde::addInlineScript($this->_params['triggerId'] . '1 = new ' . $func . '(' . implode(',', $params) . ',' . $js_params . ')', 'dom');
+        return $ret;
     }
 
     /**

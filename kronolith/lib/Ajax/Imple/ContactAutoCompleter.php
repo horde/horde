@@ -10,52 +10,27 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Kronolith
  */
-class Kronolith_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_Base
+class Kronolith_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_AutoCompleter
 {
     /**
-     * Constructor.
-     *
-     * @param array $params  Configuration parameters.
-     * <pre>
-     * 'triggerId' => TODO (optional)
-     * 'resultsId' => TODO (optional)
-     * </pre>
-     */
-    public function __construct($params)
-    {
-        if (empty($params['triggerId'])) {
-            $params['triggerId'] = $this->_randomid();
-        }
-        if (empty($params['resultsId'])) {
-            $params['resultsId'] = $params['triggerId'] . '_results';
-        }
-
-        parent::__construct($params);
-    }
-
-    /**
      * Attach the Imple object to a javascript event.
+     *
+     * @param array $js_params  See Horde_Ajax_Imple_AutoCompleter::_attach().
+     *
+     * @return array  See Horde_Ajax_Imple_AutoCompleter::_attach().
      */
-    public function attach()
+    protected function _attach($js_params)
     {
-        Horde::addScriptFile('effects.js', 'horde');
-        Horde::addScriptFile('autocomplete.js', 'horde');
+        $js_params['indicator'] = $this->_params['triggerId'] . '_loading_img"',
 
-        $params = array(
-            '"' . $this->_params['triggerId'] . '"',
-            '"' . $this->_params['resultsId'] . '"',
-            '"' . $this->_getUrl('ContactAutoCompleter', 'kronolith', array('input' => $this->_params['triggerId'])) . '"'
+        return array(
+            'ajax' => 'ContactAutoCompleter',
+            'func_replace' => array(
+                '"onSelect":1' => '"onSelect":function (v) { if (!v.endsWith(";")) { v += ","; } return v + " "; }',
+                '"onType":1' => '"onType":function (e) { return e.include("<") ? "" : e; }'
+            ),
+            'params' => $js_params
         );
-
-        $js_params = array(
-            'tokens: [",", ";"]',
-            'indicator: "' . $this->_params['triggerId'] . '_loading_img"',
-            'afterUpdateElement: function(f, t) { if (!f.value.endsWith(";")) { f.value += ","; } f.value += " "; }'
-        );
-
-        $params[] = '{' . implode(',', $js_params) . '}';
-
-        Horde::addInlineScript('new Ajax.Autocompleter(' . implode(',', $params) . ')', 'dom');
     }
 
     /**
@@ -73,35 +48,25 @@ class Kronolith_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_Base
             return array();
         }
 
-        return array_map('htmlspecialchars', $this->_expandAddresses($input));
-    }
-
-    /**
-     * Uses the Registry to expand names and return error information for
-     * any address that is either not valid or fails to expand. This function
-     * will not search if the address string is empty.
-     *
-     * @param string $addrString  The name(s) or address(es) to expand.
-     *
-     * @return array  All matching addresses.
-     */
-    protected function _expandAddresses($addrString)
-    {
-        return preg_match('|[^\s]|', $addrString)
-            ? $this->getAddressList(reset(array_filter(array_map('trim', Horde_Mime_Address::explode($addrString, ',;')))))
-            : '';
+        return $this->_expandAddresses($input);
     }
 
     /**
      * Uses the Registry to expand names and return error information for
      * any address that is either not valid or fails to expand.
      *
-     * @param string $search  The term to search by.
+     * @param string $addrString  The name(s) or address(es) to expand.
      *
      * @return array  All matching addresses.
      */
-    static public function getAddressList($search = '')
+    protected function _getAddressList($addrString = '')
     {
+        if (!preg_match('|[^\s]|', $addrString)) {
+            return array();
+        }
+
+        $search = reset(array_filter(array_map('trim', Horde_Mime_Address::explode($addrString, ',;'))));
+
         $src = explode("\t", $GLOBALS['prefs']->getValue('search_sources'));
         if ((count($src) == 1) && empty($src[0])) {
             $src = array();

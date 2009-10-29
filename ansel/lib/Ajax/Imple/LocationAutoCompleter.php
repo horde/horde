@@ -10,68 +10,46 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Ajax_Imple_Base
+class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Ajax_Imple_AutoCompleter
 {
-    public function __construct($params)
+    protected function _attach($js_params)
     {
-        if (!empty($params['triggerId'])) {
-            if (empty($params['resultsId'])) {
-                $params['resultsId'] = $params['triggerId'] . '_results';
-            }
-        }
+        $js_params['indicator'] = $this->_params['triggerId'] . '_loading_img"';
+        $js_params['onSelect'] = 1;
+        $js_params['onShow'] = 1;
+        $js_params['tokens'] = '';
 
-        parent::__construct($params);
-    }
-
-    public function attach()
-    {
-        Horde::addScriptFile('autocomplete.js', 'horde');
-        Horde::addScriptFile('effects.js', 'horde');
-
-        $url = $this->_getUrl('LocationAutoCompleter', 'ansel', array('input' => $this->_params['triggerId']));
+        $ret = array(
+            'func_replace' => array(
+                '"onSelect":1' => '"onSelect":function (v) { ' . $this->_params['map'] . '.ll = Ansel.ajax.locationAutoCompleter.geocache[v]; }',
+                '"onShow":1' => '"onType":function (e) { if !e.size() ' . $this->_params['map'] . '.ll = null; }'
+            ),
+            'params' => $js_params,
+            'var' => "Ansel.ajax['locationAutoCompleter']"
+        );
 
         /* Use ajax? */
         if (!isset($_SESSION['ansel']['ajax_locationac'])) {
             $results = $GLOBALS['ansel_storage']->searchLocations();
-            if (is_a($results, 'PEAR_Error')) {
+            if ($results instanceof PEAR_Error) {
                 Horde::logMessage($results, __FILE__, __LINE__, PEAR_LOG_ERR);
             } else {
                 // @TODO: This should be a config param?
-                if (count($results) > 50) {
-                    $_SESSION['ansel']['ajax_locationac'] = true;
-                } else {
-                    $_SESSION['ansel']['ajax_locationac'] = false;
-                }
+                $_SESSION['ansel']['ajax_locationac'] = (count($results) > 50);
             }
         }
 
-        $params = array(
-            '"' . $this->_params['triggerId'] . '"',
-            '"' . $this->_params['resultsId'] . '"'
-        );
-
-        $js_params = array(
-            'tokens: []',
-            'indicator: "' . $this->_params['triggerId'] . '_loading_img"',
-            'afterUpdateElement: function(e, v) {' . $this->_params['map'] . '.ll = Ansel.ajax.locationAutoCompleter.geocache[v.collectTextNodesIgnoreClass(\'informal\')];}',
-            'afterUpdateChoices: function(c, l) {if (!c.size()) {' . $this->_params['map'] . '.ll = null;}}'
-        );
-        $js = array();
-        if ($_SESSION['ansel']['ajax_locationac']) {
-            $params[] = '"' . $url . '"';
-            $params[] = '{' . implode(',', $js_params) . '}';
-            $js[] = 'Ansel.ajax[\'locationAutoCompleter\'] = new Ajax.Autocompleter(' . implode(',', $params) . ');';
+        if (!empty($_SESSION['ansel']['ajax_locationac'])) {
+            $ret['ajax'] => 'LocationAutoCompleter';
         } else {
+            $ret['browser'] => 'LocationAutoCompleter';
             if (empty($results)) {
                 $results = $GLOBALS['ansel_storage']->searchLocations();
             }
-            $jsparams[] = 'ignoreCase: true';
-            $params[] = Horde_Serialize::serialize($results, Horde_Serialize::JSON, Horde_Nls::getCharset());
-            $params[] = '{' . implode(',', $js_params) . '}';
-            $js[] = 'Ansel.ajax[\'locationAutoCompleter\'] = new Autocompleter.Local(' . implode(',', $params) . ');';
+            $ret['list'] = Horde_Serialize::serialize($results, Horde_Serialize::JSON);
         }
 
-        Horde::addInlineScript($js, 'dom');
+        return $ret;
     }
 
     public function handle($args)
