@@ -14,7 +14,7 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Ajax_Imple_AutoComple
 {
     protected function _attach($js_params)
     {
-        $js_params['indicator'] = $this->_params['triggerId'] . '_loading_img"';
+        $js_params['indicator'] = $this->_params['triggerId'] . '_loading_img';
         $js_params['onSelect'] = 1;
         $js_params['onShow'] = 1;
         $js_params['tokens'] = '';
@@ -42,11 +42,10 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Ajax_Imple_AutoComple
         if (!empty($_SESSION['ansel']['ajax_locationac'])) {
             $ret['ajax'] = 'LocationAutoCompleter';
         } else {
-            $ret['browser'] = 'LocationAutoCompleter';
             if (empty($results)) {
                 $results = $GLOBALS['ansel_storage']->searchLocations();
             }
-            $ret['list'] = Horde_Serialize::serialize($results, Horde_Serialize::JSON);
+            $ret['browser'] = Horde_Serialize::serialize($results, Horde_Serialize::JSON);
         }
 
         return $ret;
