@@ -24,7 +24,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial release.
+ <notes>* Add AutoCompleter driver.
+ * Initial release.
  </notes>
  <contents>
   <dir name="/">
@@ -32,6 +33,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <dir name="Horde">
      <dir name="Ajax">
       <dir name="Imple">
+       <file name="AutoCompleter.php" role="php" />
        <file name="Base.php" role="php" />
        <file name="SpellChecker.php" role="php" />
       </dir> <!-- /lib/Horde/Ajax/Imple -->
@@ -67,6 +69,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Ajax/Imple/AutoCompleter.php" as="Horde/Ajax/Imple/AutoCompleter.php" />
    <install name="lib/Horde/Ajax/Imple/Base.php" as="Horde/Ajax/Imple/Base.php" />
    <install name="lib/Horde/Ajax/Imple/SpellChecker.php" as="Horde/Ajax/Imple/SpellChecker.php" />
    <install name="lib/Horde/Ajax/Imple.php" as="Horde/Ajax/Imple.php" />
