@@ -115,6 +115,30 @@ class Folks_Application extends Horde_Registry_Application
     }
 
     /**
+     * Reset a user's password. Used for example when the user does not
+     * remember the existing password.
+     *
+     * @param string $userId  The user id for which to reset the password.
+     *
+     * @return string  The new password on success.
+     * @throws Horde_Auth_Exception
+     */
+    public function authResetPassword($userId)
+    {
+        /* Get a new random password. */
+        $password = Horde_Auth::genRandomPassword();
+
+        /* Update password in DB. */
+        require_once dirname(__FILE__) . '/base.php';
+        $result = $GLOBALS['folks_driver']->changePassword($password, $userId);
+        if ($result instanceof PEAR_Error) {
+            throw new Horde_Auth_Exception($result);
+        }
+
+        return $password;
+    }
+
+    /**
      * Deletes a set of authentication credentials.
      *
      * @param string $userId  The userId to delete.
