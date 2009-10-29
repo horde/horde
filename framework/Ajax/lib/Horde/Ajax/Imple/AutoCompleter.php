@@ -78,8 +78,10 @@ abstract class Horde_Ajax_Imple_AutoCompleter extends Horde_Ajax_Imple_Base
         }
 
         $js_params = Horde_Serialize::serialize($config['params'], Horde_Serialize::JSON);
-        foreach ($config['func_replace'] as $key => $val) {
-            $js_params = str_replace($key, $val, $js_params);
+        if (!empty($config['func_replace'])) {
+            foreach ($config['func_replace'] as $key => $val) {
+                $js_params = str_replace($key, $val, $js_params);
+            }
         }
 
         Horde::addScriptFile('effects.js', 'horde');
