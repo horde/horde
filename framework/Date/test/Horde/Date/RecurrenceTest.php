@@ -4,6 +4,19 @@
  * @package    Horde_Date
  * @subpackage UnitTests
  */
+
+require_once 'Horde/String.php';
+require_once 'Horde/Util.php';
+require_once 'Horde/iCalendar.php';
+require_once dirname(__FILE__) . '/../../../lib/Horde/Date.php';
+require_once dirname(__FILE__) . '/../../../lib/Horde/Date/Recurrence.php';
+require_once dirname(__FILE__) . '/../../../lib/Horde/Date/Utils.php';
+
+/**
+ * @category   Horde
+ * @package    Horde_Date
+ * @subpackage UnitTests
+ */
 class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
 {
     protected function setUp()

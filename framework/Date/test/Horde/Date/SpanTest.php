@@ -5,6 +5,9 @@
  * @subpackage UnitTests
  */
 
+require_once dirname(__FILE__) . '/../../../lib/Horde/Date.php';
+require_once dirname(__FILE__) . '/../../../lib/Horde/Date/Span.php';
+
 /**
  * @category   Horde
  * @package    Horde_Date
