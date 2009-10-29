@@ -24,200 +24,282 @@
 class Horde_Controller_Response_Http extends Horde_Controller_Response_Base
 {
     /**
-     * Adds the specified cookie to the response.
-     *
-     * This method can be called multiple times to set more than one cookie or
-     * to modify an already set one. Returns true if the adding was successful,
-     * false otherwise.
-     *
-     * @param    Ismo_Core_Cookie   $cookie   the cookie object to add
-     * @return   boolean                true if the adding was successful,
-     *                                  false otherwise
-     * @access   public
+     * Cookies sent with response
+     * @var array
      */
-    function addCookie($cookie)
+    protected $_cookie = array();
+
+    /**
+     * Stored session data
+     * @var array
+     */
+    protected $_session = array();
+
+    /**
+     * The url to redirect the request to
+     * @var string
+     */
+    protected $_redirectUrl = null;
+
+    /**
+     * The http status code. Default to OK
+     * @var string
+     */
+    protected $_status = '200 OK';
+
+    /**
+     * HTTP headers to send
+     * @var array
+     */
+    protected $_headers = array();
+
+    /**
+     * prevent cached content (ie)
+     * @var array
+     */
+    protected $_preventCache = true;
+
+    /**
+     * Body of the rendered page
+     * @var string
+     */
+    protected $_body = null;
+
+
+    /*##########################################################################
+    # Construct
+    ##########################################################################*/
+
+    /**
+     * Construct response
+     */
+    public function __construct(){}
+
+
+    /*##########################################################################
+    # Instance methods
+    ##########################################################################*/
+
+    /**
+     * Set the url for redirection
+     *
+     * @param   string  $toUrl
+     */
+    public function redirect($toUrl)
     {
-        if (get_class($cookie) == 'ismo_core_cookie' ||
-            get_parent_class($cookie) == 'ismo_core_cookie') {
-            $secure = 0;
-            if ($cookie->isSecure()) {
-                $secure = 1;
-            }
+        /* Alternate 301 branch - should allow choosing status:
+           $this->_status = '301 Moved Permanently';
+           $this->_redirectUrl = $toUrl;
+           $this->_headers["Location: $toUrl"] = true;
+           $this->_headers["Connection: close"] = true;
+        */
 
-            setcookie(  $cookie->getName(),
-                        $cookie->getValue(),
-                        $cookie->getExpire(),
-                        $cookie->getPath(),
-                        $cookie->getDomain(),
-                        $secure );
-
-            return true;
-        }
-
-        return false;
+        $this->_status = '302 Found';
+        $this->_redirectUrl = $toUrl;
+        $this->_headers["Location: $toUrl"] = true;
     }
 
     /**
-     * Deletes the specified cookie from the response.
-     *
-     * @param    IsmoCookie   $cookie  the cookie object to delete
-     * @access   public
+     * Page was not found
      */
-    function deleteCookie($cookie)
+    public function pageNotFound()
     {
-        if (get_class($cookie) == 'ismo_core_cookie' ||
-            get_parent_class($cookie) == 'ismo_core_cookie') {
-            $secure = 0;
-            if ($cookie->isSecure()) {
-                $secure = 1;
-            }
-
-            // set the expiration date to one hour ago
-            $cookie->setExpire(time() - 3600);
-
-            setcookie(  $cookie->getName(),
-                        $cookie->getValue(),
-                        $cookie->getExpire(),
-                        $cookie->getPath(),
-                        $cookie->getDomain(),
-                        $secure );
-        }
+        $this->_status = '404 Page Not Found';
     }
 
     /**
-     * Adds a response header with the given name and value.
+     * Send content to the browser.
      *
-     * This method allows response headers to have multiple values. Returns true
-     * if the header could be added, false otherwise. False will be returned
-     * f.g. when the headers have already been sent.  The replace parameter
-     * indicates if an already existing header with the same name should be
-     * replaced or not.
-     *
-     * @param    string  $name      the name of the header
-     * @param    string  $value     the value of the header
-     * @param    boolean $replace   should the header be replaced or not
-     * @return   boolean            true if the header could be set, false
-     *                              otherwise
-     * @access   public
+     * After the body content has been sent, terminates the execution of the
+     * PHP script.
      */
-    function addHeader($name, $value, $replace)
+    public function send()
     {
-        if (headers_sent()) {
-            return false;
+        // send all headers
+        foreach ($this->getHeaders() as $header => $replace) {
+            header($header, $replace);
         }
 
-        header("$name: $value", $replace);
-        return true;
+        // set cookies
+        foreach ($this->_cookie as $name => $options) {
+            setcookie($name, $options['value'], $options['expiration'], $options['path']);
+        }
+
+        // set session data
+        foreach ($this->_session as $name => $value) {
+            $_SESSION[$name] = $value;
+        }
+
+        // send body
+        print $this->getBody();
+    }
+
+
+    /*##########################################################################
+    # Accessors
+    ##########################################################################*/
+
+    /**
+     * Set a cookie
+     *
+     * @param   string  $name
+     * @param   string  $value
+     * @param   int     $expiration
+     * @param   string  $path
+     */
+    public function setCookie($name, $value, $expiration=0, $path=null)
+    {
+        // only set cookies for this matter by default
+        $this->_cookie[$name] = array('value'      => $value,
+                                      'expiration' => $expiration,
+                                      'path' => isset($path) ? $path : '/');
     }
 
     /**
-     * Sends an error response to the client using the specified status code.
-     *
-     * Sends an error response to the client using the specified status code.
-     * This will create a page that looks like an HTML-formatted server error
-     * page containing the specifed message (if any), setting the content type
-     * to "text/html", leaving cookies and other headers unmodified.
-     *
-     * If the headers have already been sent this method returns <b>false</b>
-     * otherwise <b>true</b>. After this method the response should be
-     * considered commited, i.e.  both headers and data have been sent to the
-     * client.
-     *
-     * @todo                    decide what the error page should look like
-     * @param    string  $code  the status code to use
-     * @param    string  $msg   the message to show
-     * @return   boolean        <b>true</b> if the error response could be
-     *                          send, <b>false</b> otherwise (if the headers
-     *                          have already been sent)
-     * @access   public
-     */
-    function sendError($code, $msg = NULL)
-    {
-        if (headers_sent()) {
-            return false;
-        }
-
-        header('HTTP/1.0 '.$code);
-
-        // @todo what kind of HTML page should it be?
-        ?>
-<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
-<html><head>
-<title><?php echo $code ?></title>
-</head><body>
-<h1><?php echo $code ?></h1>
-<?php
-    if ($msg != NULL)
-    {
-        echo $msg;
-    }
-?>
-<hr>
-</body></html>
-<?php
-
-        return true;
-    }
-
-    /**
-     * Sends a temporary redirect respones to the client using the specifed
-     * redirect URL.
-     *
-     * If the headers have already been sent this method returns <b>false</b>
-     * otherwise <b>true</b>. After this method the response should be
-     * considered commited.
-     *
-     * Examples:
-     * <code>
-     *   $u = new Ismo_Core_Url("http://a.b.c");
-     *   $response->sendRedirect($u);
-     * </code>
-     * Redirects the browser to http://a.b.c using an Ismo_Core_Url instance.
+     * Set a session variable OR all session variables (by array).
      *
      * <code>
-     *   $response->sendRedirect("http://d.e.f");
-     * </code>
-     * Redirects the browser to http://d.e.f using a string.
+     *  // set single session var
+     *  $this->setSession('NAME', 'my session');
      *
-     * @param    mixed   $location  url to redirect to, this can either be an
-     *                              Ismo_Core_Url instance or a string
-     * @return   boolean            <b>false</b> if the headers have already
-     *                              been sent, <b>true</b> otherwise
-     * @access   public
+     *  // set all session vars (overwrites previous single sessions set)
+     *  $this->setSession(array('NAME 1' => 'my session 1',
+     *                          'NAME 2' => 'my session 2'));
+     * </code>
+     *
+     * @param   mixed   $name
+     * @param   mixed   $value
      */
-    function sendRedirect($location)
+    public function setSession($name, $value=null)
     {
-        if (headers_sent()) {
-            return false;
+        // Set by name or all at once
+        if (is_string($name)) {
+            $this->_session[$name] = $value;
+        } elseif (is_array($name)) {
+            $this->_session = $name;
         }
-
-        if (get_class($location) == 'ismo_core_url') {
-            $location = $location->toString(false);
-        }
-
-        /* so that it works correctly for IE */
-        header('HTTP/1.1 301 Moved Permanently');
-        header('Location: ' . $location);
-        header('Connection: close');
-
-        return true;
     }
 
     /**
-     * Sets the status code for this request.
+     * Add header information
      *
-     * Sets the status code for this response. This method is used to set the
-     * return status code when there is no error (for example, for the status
-     * codes SC_OK or SC_MOVED_TEMPORARILY). If there is an error, and the
-     * caller wishes to provide a message for the response, the sendError()
-     * method should be used instead.
-     *
-     * @param    string $code    the status code to set
-     * @access   public
-     * @see      sendError()
+     * @param   string  $header
+     * @param   boolean $replace
      */
-    function setStatus($code)
+    public function setHeader($header, $replace=true)
     {
-        header('HTTP/1.0 ' . $code);
+        $this->_headers[$header] = $replace;
+    }
+
+    /**
+     * Set the body of the response
+     *
+     * @param   string  $body
+     */
+    public function setBody($body)
+    {
+        $this->_body = $body;
+    }
+
+    /**
+     * Set the HTTP status code
+     *
+     * @param   string  $status
+     */
+    public function setStatus($status)
+    {
+        $this->_status = $status;
+    }
+
+    /**
+     * Get the headers of the response
+     *
+     * @return  array
+     */
+    public function getHeaders()
+    {
+        $headers["HTTP/1.1 $this->_status"] = true;
+
+        if ($this->_status == '200 OK') {
+            $headers["Connection: close"] = true;
+            $headers["Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"] = true;
+
+            // Try to keep browser from caching any screen to ensure current data.
+            if ($this->_preventCache && !isset($this->_headers["Expires: 0"])) {
+                $headers["Expires: Mon, 26 Jul 1997 05:00:00 GMT"]             = true;
+                $headers["Cache-Control: no-store, no-cache, must-revalidate"] = true;
+                $headers["Pragma: no-cache"]                                   = true;
+            }
+        }
+        return array_merge($this->_headers, $headers);
+    }
+
+    /**
+     * Get the body of the response
+     *
+     * @return  string
+     */
+    public function getBody()
+    {
+        return $this->_body;
+    }
+
+    /**
+     * Get the HTTP status of the response
+     *
+     * @return  string
+     */
+    public function getStatus()
+    {
+        return $this->_status;
+    }
+
+    /**
+     * Get  3 digit http code from the status
+     *
+     * @return  int
+     */
+    public function getStatusCode()
+    {
+        preg_match("/(\d\d\d)/", $this->_status, $matches);
+        return isset($matches[1]) ? (int) $matches[1] : 0;
+    }
+
+    /**
+     * @todo charset
+     */
+    public function setContentType($mimeType)
+    {
+        $this->setHeader("Content-Type: $mimeType", $replace=true);
+    }
+
+    /**
+     * Get if the response is a 200 OK
+     *
+     * @return  boolean
+     */
+    public function isOk()
+    {
+        return substr($this->_status, 0, 1) == '2';
+    }
+
+    /**
+     * Get if the response is a redirection
+     *
+     * @return  boolean
+     */
+    public function isRedirect()
+    {
+        return substr($this->_status, 0, 1) == '3';
+    }
+
+    /**
+     * Get where the page is redirecting to
+     *
+     * @return  string
+     */
+    public function getRedirectUrl()
+    {
+        return $this->_redirectUrl;
     }
 }
