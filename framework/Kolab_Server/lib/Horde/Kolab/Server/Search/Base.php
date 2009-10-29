@@ -1,6 +1,7 @@
 <?php
 /**
- * A library for accessing the Kolab user database.
+ * Handles search operations provided by the objects registered to the
+ * server structure.
  *
  * PHP version 5
  *
@@ -12,8 +13,8 @@
  */
 
 /**
- * This class provides methods to deal with Kolab objects stored in
- * the Kolab object db.
+ * Handles search operations provided by the objects registered to the
+ * server structure.
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -47,16 +48,42 @@ class Horde_Kolab_Server_Search_Base implements Horde_Kolab_Server_Search
      *
      * @param Horde_Kolab_Server_Composite $composite A link to the composite
      *                                                server handler.
+     *
+     * @return NULL
      */
     public function setComposite(Horde_Kolab_Server_Composite $composite)
     {
         $this->_composite = $composite;
-        $this->_searches = $this->getSearchOperations();
+        $this->_searches = $this->_getSearchOperations();
     }
 
-    /*__construct
-        /** Initialize the search operations supported by this server. *
-        */
+    /**
+     * Returns the set of search operations supported by this server type.
+     *
+     * @return array An array of supported search operations.
+     */
+    private function _getSearchOperations()
+    {
+        $server_searches = array();
+        foreach ($this->_composite->structure->getSupportedObjects() as $sobj) {
+            $methods = get_class_methods($sobj);
+            if (in_array('getSearchOperations', $methods)) {
+                $searches = call_user_func(array($sobj, 'getSearchOperations'));
+                foreach ($searches as $search) {
+                    if (in_array($search, $methods)) {
+                        $server_searches[$search] = array('class' => $sobj);
+                    } else {
+                        sprintf(
+                            "Class \"%s\" does not support method \"%s\"!",
+                            $sobj,
+                            $search
+                        );
+                    }
+                }
+            }
+        }
+        return $server_searches;
+    }
 
     /**
      * Returns the set of search operations supported by this server type.
@@ -65,16 +92,7 @@ class Horde_Kolab_Server_Search_Base implements Horde_Kolab_Server_Search
      */
     public function getSearchOperations()
     {
-        $server_searches = array();
-        foreach ($this->_composite->structure->getSupportedObjects() as $sobj) {
-            if (in_array('getSearchOperations', get_class_methods($sobj))) {
-                $searches = call_user_func(array($sobj, 'getSearchOperations'));
-                foreach ($searches as $search) {
-                    $server_searches[$search] = array('class' => $sobj);
-                }
-            }
-        }
-        return $server_searches;
+        return $this->_searches;
     }
 
     /**
@@ -89,16 +107,19 @@ class Horde_Kolab_Server_Search_Base implements Horde_Kolab_Server_Search
      */
     public function __call($method, $args)
     {
-        if (in_array($method, array_keys($this->searches))) {
-            array_unshift($args, $this);
-            if (isset($this->searches[$method])) {
-                return call_user_func_array(array($this->searches[$method]['class'],
-                                                  $method), $args);
-            }
+        if (in_array($method, array_keys($this->_searches))) {
+            array_unshift($args, $this->_composite);
+            return call_user_func_array(
+                array(
+                    $this->_searches[$method]['class'], $method
+                ),
+                $args
+            );
         }
         throw new Horde_Kolab_Server_Exception(
             sprintf(
-                "The server type \"%s\" with structure \"%s\" does not support method \"%s\"!",
+                "The server type \"%s\" with structure \"%s\" does not support"
+                . " method \"%s\"!",
                 get_class($this->_composite->server),
                 get_class($this->_composite->structure),
                 $method
