@@ -38,7 +38,11 @@ abstract class Horde_Ajax_Imple_AutoCompleter extends Horde_Ajax_Imple_Base
             '"' . $this->_params['triggerId'] . '"'
         );
 
-        $config = $this->_attach(array('tokens' => array(',', ';')));
+        $config = $this->_attach(array(
+            'raw_params' = array(),
+            'tokens' => array(',', ';')
+        ));
+
 
         if (isset($config['ajax'])) {
             Horde::addScriptFile('autocomplete.js', 'horde');
@@ -74,11 +78,14 @@ abstract class Horde_Ajax_Imple_AutoCompleter extends Horde_Ajax_Imple_Base
             return;
         }
 
+        foreach ($config['raw_params'] as $name => $val) {
+            $config['params'][$name] = 1;
+        }
+
         $js_params = Horde_Serialize::serialize($config['params'], Horde_Serialize::JSON);
-        if (!empty($config['func_replace'])) {
-            foreach ($config['func_replace'] as $key => $val) {
-                $js_params = str_replace($key, $val, $js_params);
-            }
+
+        foreach ($config['raw_params'] as $name => $val) {
+            $js_params = str_replace('"' . $name . '":1', '"' . $name . '":' . $val, $js_params);
         }
 
         Horde::addScriptFile('effects.js', 'horde');
@@ -100,10 +107,9 @@ abstract class Horde_Ajax_Imple_AutoCompleter extends Horde_Ajax_Imple_Base
      *            function name.
      *
      * Additional Options:
-     * 'func_replace' - (array) Replaces keys with values. Useful for adding
-     *                  functions to javascript parameters output.
      * 'params' - (array) The list of javascript parameters to pass to the
      *            autocomplete libraries.
+     * 'raw_params' - (array) Adds raw javascript to the 'params' array.
      * 'var' - (string) If set, the autocomplete object will be assigned to
      *         this variable.
      * </pre>
