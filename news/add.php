@@ -600,7 +600,7 @@ if ($form->validate()) {
 
 // Add editor now to avoud JS error notifications no redirect
 foreach ($conf['attributes']['languages'] as $key) {
-    Horde_Editor::singleton('Fckeditor', array('id' => "content_$key"));
+    Horde_Editor::singleton('Ckeditor', array('id' => "content_$key"));
 }
 
 require_once NEWS_TEMPLATES . '/common-header.inc';
