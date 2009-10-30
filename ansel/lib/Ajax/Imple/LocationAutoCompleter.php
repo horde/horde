@@ -15,7 +15,7 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Ajax_Imple_AutoComple
     protected function _attach($js_params)
     {
         $js_params['indicator'] = $this->_params['triggerId'] . '_loading_img';
-        $js_params['tokens'] = '';
+        $js_params['tokens'] = array();
 
         $ret = array(
             'params' => $js_params,
