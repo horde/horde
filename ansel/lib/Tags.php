@@ -519,7 +519,7 @@ class Ansel_Tags_Search {
                 return $iresults;
             }
 
-            $images = array_values($GLOBALS['ansel_storage']->getImages($iresults['images']));
+            $images = count($iresults['images']) ? array_values($GLOBALS['ansel_storage']->getImages($iresults['images'])) : array();
             if (($conf['comments']['allow'] == 'all' || ($conf['comments']['allow'] == 'authenticated' && Horde_Auth::getAuth())) &&
                 $registry->hasMethod('forums/numMessagesBatch')) {
 

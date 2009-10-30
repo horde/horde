@@ -525,7 +525,7 @@ class Ansel_Storage
         /* First check if we want a specific gallery or a list of images */
         if (!empty($params['gallery_id'])) {
             $sql = 'SELECT ' . $this->_getImageFields() . ' FROM ansel_images WHERE gallery_id = ' . $params['gallery_id'] . ' ORDER BY image_sort';
-        } elseif (is_array($params['ids']) && count($params['ids']) > 0) {
+        } elseif (!empty($params['ids']) && is_array($params['ids']) && count($params['ids']) > 0) {
             $sql = 'SELECT ' . $this->_getImageFields() . ' FROM ansel_images WHERE image_id IN (';
             $i = 1;
             $cnt = count($params['ids']);
