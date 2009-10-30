@@ -442,10 +442,21 @@ class IMP_Contents
             $ret[$mime_id]['name'] = $mime_part->getName(true);
         }
 
-        /* If this is a text/* part, AND the browser does not support UTF-8,
-         * give the user a link to open the part in a new window with the
-         * correct character set. */
-        if (($mode != 'full') && ($mime_part->getPrimaryType() == 'text')) {
+        if (($textmode == 'inline') && !strlen($ret[$mime_id]['data'])) {
+            if (empty($ret[$mime_id]['status'])) {
+                $ret[$mime_id]['status'] = array(
+                    array(
+                        'text' => array(
+                            _("This inline viewable part is empty.")
+                        )
+                    )
+                );
+            }
+        } elseif (($textmode != 'full') &&
+                  ($mime_part->getPrimaryType() == 'text')) {
+            /* If this is a text/* part, AND the browser does not support
+             * UTF-8, give the user a link to open the part in a new window
+             * with the correct character set. */
             $default_charset = Horde_String::upper(Horde_Nls::getCharset());
             if ($default_charset !== 'UTF-8') {
                 $charset_upper = Horde_String::upper($mime_part->getCharset());
