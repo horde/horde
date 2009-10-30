@@ -114,8 +114,8 @@ class Horde_Controller_Dispatcher
         $t->push();
 
         if (! $response instanceof Horde_Controller_Response_Base) {
-            // $response = new Horde_Controller_Response_Http;
-            $response = new Horde_Controller_Response_Base;
+            $response = new Horde_Controller_Response_Http();
+            // $response = new Horde_Controller_Response_Base();
         }
 
         // Recognize routes and process request
