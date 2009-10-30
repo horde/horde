@@ -595,10 +595,6 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     display: block;
 }
 
-#to, #cc, #bcc, #subject {
-    width: 100%;
-}
-
 #composeMessageParent {
     background: #fff url("graphics/backhead_shadow.png") top repeat-x;
     border-left: 1px silver solid;
@@ -627,11 +623,7 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     z-index: 101;
 }
 
-#compose_flist_popdown {
-    margin-top: -1px;
-}
-
-/* attachment file list */
+/* Attachment file list */
 #attach_list {
     padding-left: 15px;
 }
@@ -643,17 +635,22 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     font-weight: bold;
     padding: 1px;
 }
-#attach_list span.remove:hover {
-    color: red;
+#attach_list span.attachName, #attach_list span.remove:hover {
+    cursor: pointer;
     text-decoration: underline;
 }
 #attach_list span.attachName {
     color: blue;
-    cursor: pointer;
-    text-decoration: underline;
 }
-#attach_list span.attachName:hover {
+#attach_list span.attachName:hover, #attach_list span.remove:hover {
     color: red;
+}
+
+#upload_wait {
+    display: -moz-inline-stack;
+    display: inline-block;
+    font-weight: bold;
+    padding-top: 2px;
 }
 
 span.attachmentImg {

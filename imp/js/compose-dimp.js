@@ -135,7 +135,7 @@ var DimpCompose = {
         }
 
         $('save_sent_mail_folder').setValue(s);
-        $('sent_mail_folder_label').writeAttribute('title', l.escapeHTML()).setText('"' + l.truncate(15) + '"').up(1).show();
+        $('sent_mail_folder_label').writeAttribute('title', l.escapeHTML()).setText(l.truncate(15)).up(1).show();
 
         if (sel) {
             this.knl.setSelected(s);
@@ -297,6 +297,7 @@ var DimpCompose = {
                 } else {
                     elt = new Element('INPUT', { type: 'file', name: 'file_1' });
                 }
+                $('upload_wait').next().show();
                 $('upload_wait').replace(elt.writeAttribute('id', 'upload'));
                 this.resizeMsgArea();
                 break;
@@ -356,6 +357,7 @@ var DimpCompose = {
                 this.rte.setData($F('composeMessage'));
                 $('composeMessageParent').childElements().invoke('show');
                 $('composeMessage').hide();
+                this.resizeMsgArea();
             } catch (e) {
                 config = Object.clone(IMP.ckeditor_config);
                 if (!config.on) {
@@ -490,7 +492,7 @@ var DimpCompose = {
             this.resizecc.resizeNeeded();
         }
         if (DIMP.conf_compose.cc) {
-            this.toggleCC('cc');
+            this.toggleCC('cc', true);
         }
         this.setSentMailLabel(identity.id[3], identity.id[5], true);
         if (header.bcc) {
@@ -505,7 +507,7 @@ var DimpCompose = {
             $('bcc').setValue(bcc_add + identity.id[6]);
         }
         if (DIMP.conf_compose.bcc) {
-            this.toggleCC('bcc');
+            this.toggleCC('bcc', true);
         }
         $('subject').setValue(header.subject);
 
@@ -552,7 +554,10 @@ var DimpCompose = {
         e.each(function(n) {
             n = $(n);
             ids.push(n.down('SPAN.remove').readAttribute('atc_id'));
-            n.remove();
+            n.fade({
+                afterFinish: function() { n.remove(); },
+                duration: 0.4
+            });
         });
         if (!$('attach_list').childElements().size()) {
             $('attach_list').hide();
@@ -602,7 +607,8 @@ var DimpCompose = {
     {
         var u = $('upload');
         this.uniqueSubmit('add_attachment');
-        u.replace(new Element('DIV', { id: 'upload_wait' }).insert(DIMP.text_compose.uploading + ' ' + $F(u)));
+        u.next().hide();
+        u.replace(new Element('SPAN', { id: 'upload_wait' }).insert(DIMP.text_compose.uploading + ' (' + $F(u) + ')'));
     },
 
     attachmentComplete: function()
@@ -612,10 +618,16 @@ var DimpCompose = {
         DimpCore.doActionComplete({ responseJSON: doc.body.innerHTML.evalJSON(true) }, this.uniqueSubmitCallback.bind(this));
     },
 
-    toggleCC: function(type)
+    toggleCC: function(type, immediate)
     {
+        var t = $('toggle' + type);
+
         $('send' + type).show();
-        $('toggle' + type).hide();
+        if (immediate) {
+            t.hide();
+        } else {
+            t.fade({ duration: 0.4 });
+        }
     },
 
     /* Sets the cursor to the given position. */
@@ -780,7 +792,7 @@ var DimpCompose = {
                 onChoose: this.setSentMailLabel.bind(this)
             });
             this.knl.setSelected(this.get_identity($F('identity'))[3]);
-            $('sent_mail_folder_label').insert({ after: new Element('SPAN', { className: 'popdownImg', id: 'compose_flist_popdown' }).observe('click', function(e) { this.knl.show(); this.knl.ignoreClick(e); e.stop(); }.bindAsEventListener(this)) });
+            $('sent_mail_folder_label').insert({ after: new Element('SPAN', { className: 'popdownImg' }).observe('click', function(e) { this.knl.show(); this.knl.ignoreClick(e); e.stop(); }.bindAsEventListener(this)) });
         }
 
         $('dimpLoading').hide();

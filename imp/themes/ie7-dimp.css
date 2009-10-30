@@ -35,7 +35,7 @@
 }
 
 /* Fixes broken inline-block. */
-div.msgStatus div, #msgHeadersContent .subject span, span.iconImg, span.contextImg, span.spellcheckPopdownImg, #quicksearch span  {
+div.msgStatus div, #msgHeadersContent .subject span, span.iconImg, span.contextImg, span.spellcheckPopdownImg, span.popdownImg, #qsearch_icon, #qsearch_close, #upload_wait {
     zoom: 1;
     *display: inline;
 }
