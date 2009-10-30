@@ -1063,10 +1063,13 @@ var DimpBase = {
 
     _loadPreviewCallback: function(resp)
     {
-        var ppuid, row, search, tmp,
+        var bg, ppuid, row, search, tmp,
             pm = $('previewMsg'),
             r = resp.response,
             t = $('msgHeadersContent').down('THEAD');
+
+        bg = (this.pp &&
+              (this.pp.imapuid != r.uid || this.pp.view != r.mailbox));
 
         if (!r.error) {
             search = this.viewport.getSelection().search({ imapuid: { equal: [ r.uid ] }, view: { equal: [ r.mailbox ] } });
@@ -1076,17 +1079,13 @@ var DimpBase = {
             }
         }
 
-        if (this.pp &&
-            (this.pp.imapuid != r.uid ||
-             this.pp.view != r.mailbox)) {
-            return;
-        }
-
         if (r.error || this.viewport.getSelected().size() != 1) {
-            if (r.error) {
-                DimpCore.showNotifications([ { type: r.errortype, message: r.error } ]);
+            if (!bg) {
+                if (r.error) {
+                    DimpCore.showNotifications([ { type: r.errortype, message: r.error } ]);
+                }
+                this.clearPreviewPane();
             }
-            this.clearPreviewPane();
             return;
         }
 
@@ -1095,6 +1094,10 @@ var DimpBase = {
         this._expirePPCache([ ppuid ]);
         this.ppcache[ppuid] = resp;
         this.ppfifo.push(ppuid);
+
+        if (bg) {
+            return;
+        }
 
         DimpCore.removeAddressLinks(pm);
 
