@@ -180,8 +180,10 @@ class IMP_UI_Compose
         $config = array(
             /* To more closely match "normal" textarea behavior, send <BR> on
              * enter instead of <P>. */
-            'enterMode: CKEDITOR.ENTER_BR',
-            'shiftEnterMode: CKEDITOR.ENTER_P',
+            // CKEDITOR.ENTER_BR
+            'enterMode: 2',
+            // CKEDITOR.ENTER_P
+            'shiftEnterMode: 1',
 
             /* Don't load the config.js file. */
             'customConfig: ""',
