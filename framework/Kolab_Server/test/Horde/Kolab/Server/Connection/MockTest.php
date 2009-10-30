@@ -14,7 +14,7 @@
 /**
  * Require our basic test case definition
  */
-require_once dirname(__FILE__) . '/../LdapBase.php';
+require_once dirname(__FILE__) . '/../LdapTestCase.php';
 
 /**
  * Test the test backend.
@@ -30,7 +30,8 @@ require_once dirname(__FILE__) . '/../LdapBase.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Connection_MockTest extends Horde_Kolab_Server_LdapBase
+class Horde_Kolab_Server_Connection_MockTest
+extends Horde_Kolab_Server_LdapTestCase
 {
 
     /**

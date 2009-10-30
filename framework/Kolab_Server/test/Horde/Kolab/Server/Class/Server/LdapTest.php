@@ -14,12 +14,12 @@
 /**
  * Require our basic test case definition
  */
-require_once dirname(__FILE__) . '/../LdapBase.php';
+require_once dirname(__FILE__) . '/../../LdapTestCase.php';
 
 /**
  * Test the LDAP backend.
  *
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -30,7 +30,7 @@ require_once dirname(__FILE__) . '/../LdapBase.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Server_LdapTest extends Horde_Kolab_Server_LdapBase
+class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTestCase
 {
     public function setUp()
     {
@@ -61,6 +61,11 @@ class Horde_Kolab_Server_Server_LdapTest extends Horde_Kolab_Server_LdapBase
             ->method('count')
             ->will($this->returnValue(1));
         return $result;
+    }
+
+    public function testMethodGetbaseguidHasResultStringBaseGuid()
+    {
+        $this->assertEquals('base', $this->server->getBaseGuid());
     }
 
     public function testMethodConnectguidHasStringParameterGuid()
@@ -217,8 +222,7 @@ class Horde_Kolab_Server_Server_LdapTest extends Horde_Kolab_Server_LdapBase
             ->method('search')
             ->with('base', '(equals=equals)', array())
             ->will($this->returnValue($this->getSearchResultMock()));
-        $equals = new Horde_Kolab_Server_Query_Element_Equals('equals', 'equals');
-        $this->server->find($equals);
+        $this->server->find('(equals=equals)');
     }
 
     public function testMethodFindHasParameterArrayAdditionalParameters()
@@ -227,8 +231,7 @@ class Horde_Kolab_Server_Server_LdapTest extends Horde_Kolab_Server_LdapBase
             ->method('search')
             ->with('base', '(equals=equals)', array())
             ->will($this->returnValue($this->getSearchResultMock()));
-        $equals = new Horde_Kolab_Server_Query_Element_Equals('equals', 'equals');
-        $this->server->find($equals, array());
+        $this->server->find('(equals=equals)', array());
     }
 
     public function testMethodFindReturnsArraySearchResult()
@@ -237,10 +240,9 @@ class Horde_Kolab_Server_Server_LdapTest extends Horde_Kolab_Server_LdapBase
             ->method('search')
             ->with('base', '(equals=equals)', array())
             ->will($this->returnValue($this->getSearchResultMock()));
-        $equals = new Horde_Kolab_Server_Query_Element_Equals('equals', 'equals');
         $this->assertEquals(
             array(array('dn' => 'test')),
-            $this->server->find($equals)->asArray()
+            $this->server->find('(equals=equals)')->asArray()
         );
     }
 
@@ -250,8 +252,7 @@ class Horde_Kolab_Server_Server_LdapTest extends Horde_Kolab_Server_LdapBase
             ->method('search')
             ->will($this->returnValue(new PEAR_Error('Search failed!')));
         try {
-            $equals = new Horde_Kolab_Server_Query_Element_Equals('equals', 'equals');
-            $this->assertEquals(array('dn' => 'test'), $this->server->find($equals));
+            $this->assertEquals(array('dn' => 'test'), $this->server->find('(equals=equals)'));
             $this->fail('No exception!');
         } catch (Exception $e) {
             $this->assertEquals('Search failed!', $e->getMessage());
@@ -480,6 +481,13 @@ class Horde_Kolab_Server_Server_LdapTest extends Horde_Kolab_Server_LdapBase
             $this->assertEquals('Schema failed!', $e->getMessage());
             $this->assertEquals(Horde_Kolab_Server_Exception::SYSTEM, $e->getCode());
         }
+    }
+
+    public function testMethodGetparentguidHasResultStringParentGuid()
+    {
+        $this->assertEquals(
+            'cn=parent', $this->server->getParentGuid('cn=child,cn=parent')
+        );
     }
 
 /*     public function testMethodSearchReturnsArrayMappedSearchResultIfMappingIsActivated() */

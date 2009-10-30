@@ -14,12 +14,12 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once dirname(__FILE__) . '/TestCase.php';
 
 /**
  * Skip LDAP based tests if we don't have ldap or Net_LDAP2.
  *
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -30,7 +30,7 @@ require_once dirname(__FILE__) . '/Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_LdapBase extends PHPUnit_Framework_TestCase
+class Horde_Kolab_Server_LdapTestCase extends Horde_Kolab_Server_TestCase
 {
     public function setUp()
     {
@@ -43,7 +43,7 @@ class Horde_Kolab_Server_LdapBase extends PHPUnit_Framework_TestCase
         error_reporting($error_reporting & ~E_STRICT);
 
         if (!class_exists('Net_LDAP2')) {
-            $this->markTestSuiteSkipped('PEAR package Net_LDAP2 is not installed!');
+            $this->markTestSkipped('PEAR package Net_LDAP2 is not installed!');
         }
 
         /** Reactivate original error reporting */

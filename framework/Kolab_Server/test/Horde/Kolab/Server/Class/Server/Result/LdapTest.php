@@ -14,12 +14,12 @@
 /**
  * Require our basic test case definition
  */
-require_once dirname(__FILE__) . '/../LdapBase.php';
+require_once dirname(__FILE__) . '/../../../LdapTestCase.php';
 
 /**
  * Test the LDAP result handler.
  *
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -30,7 +30,7 @@ require_once dirname(__FILE__) . '/../LdapBase.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Result_LdapTest extends Horde_Kolab_Server_LdapBase
+class Horde_Kolab_Server_Class_Server_Result_LdapTest extends Horde_Kolab_Server_LdapTestCase
 {
     public function testMethodConstructHasParameterNetldap2searchSearchResult()
     {

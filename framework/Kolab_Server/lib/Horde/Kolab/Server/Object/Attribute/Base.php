@@ -67,13 +67,15 @@ implements Horde_Kolab_Server_Object_Attribute
     public function __construct(
         Horde_Kolab_Server_Object $object,
         Horde_Kolab_Server_Composite $composite,
-        $internal,
-        $external = null
+        $external
     ) {
-        $this->_internal  = $internal;
         $this->_object    = $object;
         $this->_composite = $composite;
         $this->_external  = $external;
+
+        $this->_internal  = $this->_composite->structure->getInternalAttribute(
+            $this->_external
+        );
     }
 
     /**

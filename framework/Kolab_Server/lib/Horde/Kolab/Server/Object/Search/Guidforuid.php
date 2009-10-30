@@ -1,6 +1,6 @@
 <?php
 /**
- * Basic attributes search.
+ * Return all KolabInetOrgPersons with the given uid.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * Basic attributes search.
+ * Return all KolabInetOrgPersons with the given uid.
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -25,23 +25,23 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_Search_Attributes
-extends Horde_Kolab_Server_Object_Search_Base
+class Horde_Kolab_Server_Object_Search_Guidforuid
+extends Horde_Kolab_Server_Object_Search_Restrictkolab
 {
     /**
-     * Perform the search.
+     * Return all KolabInetOrgPersons with the given uid.
      *
-     * @param Horde_Kolab_Server_Query_Element $criteria   The search criteria.
-     * @param array                            $attributes The attributes to
-     *                                                     retrieve.
+     * @param string $uid The uid to search for.
      *
-     * @return mixed The search result.
+     * @return array The GUID(s).
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
-    public function searchAttributes(
-        Horde_Kolab_Server_Query_Element $criteria,
-        array $attributes
-    ) {
-        $params = array('attributes' => $attributes);
-        return $this->getComposite()->structure->find($criteria, $params);
+    public function searchGuidForUid($uid)
+    {
+        $criteria = new Horde_Kolab_Server_Query_Element_Equals(
+                'Uid', $uid
+        );
+        return parent::searchRestrictKolab($criteria);
     }
 }

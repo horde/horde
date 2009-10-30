@@ -224,32 +224,7 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object_Top
     static public function getSearchOperations()
     {
         return array(
-            'uidForCn',
+            'Horde_Kolab_Server_Object_Search_Guidforcn',
         );
     }
-
-    /**
-     * Identify the UID for the first object found with the given common name.
-     *
-     * @param Horde_Kolab_Server $server   The server to search.
-     * @param string             $cn       Search for objects with this
-     *                                     common name.
-     * @param int                $restrict A Horde_Kolab_Server::RESULT_*
-     *                                     result restriction.
-     *
-     * @return mixed The UID or false if there was no result.
-     *
-     * @throws Horde_Kolab_Server_Exception
-     */
-    static public function uidForCn($server, $cn,
-                                    $restrict = 0)
-    {
-        $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_CN,
-                                               'op'    => '=',
-                                               'test'  => $cn),
-                          ),
-        );
-        return self::basicUidForSearch($server, $criteria, $restrict);
-    }
-
 }

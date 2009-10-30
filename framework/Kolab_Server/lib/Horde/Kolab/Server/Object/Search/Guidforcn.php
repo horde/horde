@@ -1,6 +1,6 @@
 <?php
 /**
- * Basic attributes search.
+ * Identify the GUID for the objects found with the given common name.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * Basic attributes search.
+ * Identify the GUID for the objects found with the given common name.
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -25,23 +25,23 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_Search_Attributes
-extends Horde_Kolab_Server_Object_Search_Base
+class Horde_Kolab_Server_Object_Search_Guidforcn
+extends Horde_Kolab_Server_Object_Search_Guid
 {
     /**
-     * Perform the search.
+     * Identify the GUID for the objects found with the given common name.
      *
-     * @param Horde_Kolab_Server_Query_Element $criteria   The search criteria.
-     * @param array                            $attributes The attributes to
-     *                                                     retrieve.
+     * @param string $cn Search for objects with this common name.
      *
-     * @return mixed The search result.
+     * @return array The GUID(s).
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
-    public function searchAttributes(
-        Horde_Kolab_Server_Query_Element $criteria,
-        array $attributes
-    ) {
-        $params = array('attributes' => $attributes);
-        return $this->getComposite()->structure->find($criteria, $params);
+    public function searchGuidForCn($cn)
+    {
+        $criteria = new Horde_Kolab_Server_Query_Element_Equals(
+            'Cn', $cn
+        );
+        return parent::searchGuid($criteria);
     }
 }

@@ -55,22 +55,17 @@ class Horde_Kolab_Server_Ldap_Filtered extends Horde_Kolab_Server_Ldap
     /**
      * Finds all object data below a parent matching a given set of criteria.
      *
-     * @param Horde_Kolab_Server_Query_Element $criteria The criteria for the search.
-     * @param string                           $parent   The parent to search below.
-     * @param array                            $params   Additional search parameters.
+     * @param string $query  The LDAP search query
+     * @param string $parent The parent to search below.
+     * @param array  $params Additional search parameters.
      *
      * @return Horde_Kolab_Server_Result The result object.
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    public function findBelow(
-        Horde_Kolab_Server_Query_Element $criteria,
-        $parent,
-        array $params = array()
-    ) {
-        $query = new Horde_Kolab_Server_Query_Ldap($criteria);
-        $query_string = (string) $query;
-        $query_string = '(&(' . $this->_filter . ')' . $query_string . ')';
-        return $this->_search($query_string, $params, $parent);
+    public function findBelow($query, $parent, array $params = array())
+    {
+        $query = '(&(' . $this->_filter . ')' . $query . ')';
+        return $this->_search($query, $params, $parent);
     }
 }

@@ -29,6 +29,38 @@
 interface Horde_Kolab_Server_Structure
 {
     /**
+     * Finds object data matching a given set of criteria.
+     *
+     * @param Horde_Kolab_Server_Query_Element $criteria The criteria for the search.
+     * @param array                            $params   Additional search parameters.
+     *
+     * @return Horde_Kolab_Server_Result The result object.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function find(
+        Horde_Kolab_Server_Query_Element $criteria,
+        array $params = array()
+    );
+
+    /**
+     * Finds all object data below a parent matching a given set of criteria.
+     *
+     * @param Horde_Kolab_Server_Query_Element $criteria The criteria for the search.
+     * @param string                           $parent   The parent to search below.
+     * @param array                            $params   Additional search parameters.
+     *
+     * @return Horde_Kolab_Server_Result The result object.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function findBelow(
+        Horde_Kolab_Server_Query_Element $criteria,
+        $parent,
+        array $params = array()
+    );
+
+    /**
      * Set the composite server reference for this object.
      *
      * @param Horde_Kolab_Server_Composite $composite A link to the composite
@@ -44,6 +76,15 @@ interface Horde_Kolab_Server_Structure
      * @return array An array of supported objects.
      */
     public function getSupportedObjects();
+
+    /**
+     * Maps the external attribute name to its internal counterpart.
+     *
+     * @param string $external The external attribute name.
+     *
+     * @return string The internal attribute name.
+     */
+    public function getInternalAttribute($external);
 
     /**
      * Determine the type of an object by its tree position and other

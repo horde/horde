@@ -28,9 +28,9 @@
 interface Horde_Kolab_Server_Object_Search
 {
     /**
-     * Perform the search.
+     * Return the refernce to the composite server.
      *
-     * @return mixed The search result.
+     * @return Horde_Kolab_Server_Composite
      */
-    public function search();
+    public function getComposite();
 }

@@ -31,7 +31,7 @@ implements Horde_Kolab_Server_Object_Search
     /**
      * A link to the search.
      *
-     * @var Horde_Kolab_Server_Search
+     * @var Horde_Kolab_Server_Object_Search
      */
     private $_search;
 
@@ -40,20 +40,33 @@ implements Horde_Kolab_Server_Object_Search
      *
      * @param Horde_Kolab_Server_Search $search The search being restricted.
      */
-    public function __construct(Horde_Kolab_Server_Search $search)
+    public function __construct(Horde_Kolab_Server_Object_Search $search)
     {
         $this->_search = $search;
     }
     
     /**
-     * Perform the search.
+     * Return the refernce to the composite server.
      *
-     * @return mixed The search result.
+     * @return Horde_Kolab_Server_Composite
      */
-    public function search()
+    public function getComposite()
+    {
+        return $this->_search->getComposite();
+    }
+
+    /**
+     * Delegate to the actual search operation.
+     *
+     * @param string $method The name of the called method.
+     * @param array  $args   Arguments of the call.
+     *
+     * @return array The search result.
+     */
+    public function __call($method, $args)
     {
         $args = func_get_args();
-        $result = call_user_func_array(array($this->_search, 'search'), $args);
+        $result = call_user_func_array(array($this->_search, $method), $args);
         return array_pop($result);
     }
 }

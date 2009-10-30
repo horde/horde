@@ -14,12 +14,12 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once dirname(__FILE__) . '/../TestCase.php';
 
 /**
  * Test the base attribute.
  *
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -30,16 +30,14 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Attribute_BaseTest extends PHPUnit_Framework_TestCase
+class Horde_Kolab_Server_Attribute_BaseTest extends Horde_Kolab_Server_TestCase
 {
     public function setUp()
     {
         $this->object = $this->getMock(
             'Horde_Kolab_Server_Object', array(), array(), '', false
         );
-        $this->composite = $this->getMock(
-            'Horde_Kolab_Server_Composite', array(), array(), '', false
-        );
+        $this->composite = $this->getMockedComposite();
     }
 
     public function testMethodConstructHasParameterObjectTheObjectOwningTheAttributeAndParameterCompositeWhichIsTheLinkToTheServer()
@@ -60,6 +58,10 @@ class Horde_Kolab_Server_Attribute_BaseTest extends PHPUnit_Framework_TestCase
 
     public function testMethodGetnameReturnsStringTheNameOfTheAttribute()
     {
+        $this->composite->structure->expects($this->exactly(1))
+            ->method('getInternalAttribute')
+            ->with('name')
+            ->will($this->returnValue('name'));
         $attribute = new Attribute_Mock($this->object, $this->composite, 'name');
         $this->assertEquals('name', $attribute->getInternalName());
     }

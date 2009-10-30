@@ -91,7 +91,7 @@ class Horde_Kolab_Server_Logged implements Horde_Kolab_Server
      */
     public function getGuid()
     {
-        $this->_server->getGuid();
+        return $this->_server->getGuid();
     }
 
     /**
@@ -101,7 +101,7 @@ class Horde_Kolab_Server_Logged implements Horde_Kolab_Server
      */
     public function getBaseGuid()
     {
-        $this->_server->getBaseGuid();
+        return $this->_server->getBaseGuid();
     }
 
     /**
@@ -140,37 +140,32 @@ class Horde_Kolab_Server_Logged implements Horde_Kolab_Server
     /**
      * Finds object data matching a given set of criteria.
      *
-     * @param Horde_Kolab_Server_Query_Element $criteria The criteria for the search.
-     * @param array                            $params   Additional search parameters.
+     * @param string $query  The LDAP search query
+     * @param array  $params Additional search parameters.
      *
      * @return Horde_Kolab_Server_Result The result object.
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    public function find(
-        Horde_Kolab_Server_Query_Element $criteria,
-        array $params = array()
-    ) {
-        return $this->_server->find($criteria, $params);
+    public function find($query, array $params = array())
+    {
+        return $this->_server->find($query, $params);
     }
 
     /**
      * Finds all object data below a parent matching a given set of criteria.
      *
-     * @param Horde_Kolab_Server_Query_Element $criteria The criteria for the search.
-     * @param string                           $parent   The parent to search below.
-     * @param array                            $params   Additional search parameters.
+     * @param string $query  The LDAP search query
+     * @param string $parent The parent to search below.
+     * @param array  $params Additional search parameters.
      *
      * @return Horde_Kolab_Server_Result The result object.
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    public function findBelow(
-        Horde_Kolab_Server_Query_Element $criteria,
-        $parent,
-        array $params = array()
-    ) {
-        return $this->_server->findBelow($criteria, $parent, $params);
+    public function findBelow($query, $parent, array $params = array())
+    {
+        return $this->_server->findBelow($query, $parent, $params);
     }
 
     /**

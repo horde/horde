@@ -1,6 +1,6 @@
 <?php
 /**
- * Test the filtered LDAP driver.
+ * Test the standard LDAP driver.
  *
  * PHP version 5
  *
@@ -14,12 +14,12 @@
 /**
  * Require our basic test case definition
  */
-require_once dirname(__FILE__) . '/../LdapBase.php';
+require_once dirname(__FILE__) . '/../../../LdapTestCase.php';
 
 /**
- * Test the filtered LDAP driver.
+ * Test the standard LDAP driver.
  *
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -30,7 +30,7 @@ require_once dirname(__FILE__) . '/../LdapBase.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Server_FilteredTest extends Horde_Kolab_Server_LdapBase
+class Horde_Kolab_Server_Class_Server_Ldap_StandardTest extends Horde_Kolab_Server_LdapTestCase
 {
     public function setUp()
     {
@@ -43,10 +43,9 @@ class Horde_Kolab_Server_Server_FilteredTest extends Horde_Kolab_Server_LdapBase
             $this->ldap_write
         );
 
-        $this->server = new Horde_Kolab_Server_Ldap_Filtered(
+        $this->server = new Horde_Kolab_Server_Ldap_Standard(
             $connection,
-            'base',
-            'filter'
+            'base'
         );
     }
 
@@ -68,42 +67,38 @@ class Horde_Kolab_Server_Server_FilteredTest extends Horde_Kolab_Server_LdapBase
     {
         $this->ldap_read->expects($this->exactly(1))
             ->method('search')
-            ->with('', '(&(filter)(equals=equals))', array())
+            ->with('', '(equals=equals)', array())
             ->will($this->returnValue($this->getSearchResultMock()));
-        $equals = new Horde_Kolab_Server_Query_Element_Equals('equals', 'equals');
-        $this->server->findBelow($equals, '');
+        $this->server->findBelow('(equals=equals)', '');
     }
 
     public function testMethodFindbelowHasParameterStringParent()
     {
         $this->ldap_read->expects($this->exactly(1))
             ->method('search')
-            ->with('parent', '(&(filter)(equals=equals))', array())
+            ->with('parent', '(equals=equals)', array())
             ->will($this->returnValue($this->getSearchResultMock()));
-        $equals = new Horde_Kolab_Server_Query_Element_Equals('equals', 'equals');
-        $this->server->findBelow($equals, 'parent', array());
+        $this->server->findBelow('(equals=equals)', 'parent', array());
     }
 
     public function testMethodFindbelowHasParameterArrayAdditionalParameters()
     {
         $this->ldap_read->expects($this->exactly(1))
             ->method('search')
-            ->with('', '(&(filter)(equals=equals))', array())
+            ->with('', '(equals=equals)', array())
             ->will($this->returnValue($this->getSearchResultMock()));
-        $equals = new Horde_Kolab_Server_Query_Element_Equals('equals', 'equals');
-        $this->server->findBelow($equals, '', array());
+        $this->server->findBelow('(equals=equals)', '', array());
     }
 
     public function testMethodFindbelowReturnsArraySearchResult()
     {
         $this->ldap_read->expects($this->exactly(1))
             ->method('search')
-            ->with('parent', '(&(filter)(equals=equals))', array())
+            ->with('parent', '(equals=equals)', array())
             ->will($this->returnValue($this->getSearchResultMock()));
-        $equals = new Horde_Kolab_Server_Query_Element_Equals('equals', 'equals');
         $this->assertEquals(
             array(array('dn' => 'test')),
-            $this->server->findBelow($equals, 'parent')->asArray()
+            $this->server->findBelow('(equals=equals)', 'parent')->asArray()
         );
     }
 
@@ -113,8 +108,7 @@ class Horde_Kolab_Server_Server_FilteredTest extends Horde_Kolab_Server_LdapBase
             ->method('search')
             ->will($this->returnValue(new PEAR_Error('Search failed!')));
         try {
-            $equals = new Horde_Kolab_Server_Query_Element_Equals('equals', 'equals');
-            $this->assertEquals(array('dn' => 'test'), $this->server->findBelow($equals, ''));
+            $this->assertEquals(array('dn' => 'test'), $this->server->findBelow('(equals=equals)', ''));
             $this->fail('No exception!');
         } catch (Exception $e) {
             $this->assertEquals('Search failed!', $e->getMessage());

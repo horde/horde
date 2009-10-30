@@ -46,13 +46,27 @@ implements Horde_Kolab_Server_Object_Search
     }
     
     /**
-     * Perform the search.
+     * Return the refernce to the composite server.
      *
-     * @return mixed The search result.
+     * @return Horde_Kolab_Server_Composite
      */
-    public function search()
+    public function getComposite()
+    {
+        return $this->_search->getComposite();
+    }
+
+    /**
+     * Delegate to the actual search operation.
+     *
+     * @param string $method The name of the called method.
+     * @param array  $args   Arguments of the call.
+     *
+     * @return array The search result.
+     */
+    public function __call($method, $args)
     {
         $args = func_get_args();
+        $result = call_user_func_array(array($this->_search, $method), $args);
         $result = call_user_func_array(array($this->_search, 'search'), $args);
         if (count($result) > 1) {
             throw new Horde_Kolab_Server_Exception(

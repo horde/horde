@@ -32,7 +32,49 @@ abstract class Horde_Kolab_Server_Structure_Base implements Horde_Kolab_Server_S
      *
      * @var Horde_Kolab_Server_Composite
      */
-    protected $composite;
+    private $_composite;
+
+    /**
+     * Finds object data matching a given set of criteria.
+     *
+     * @param Horde_Kolab_Server_Query_Element $criteria The criteria for the search.
+     * @param array                            $params   Additional search parameters.
+     *
+     * @return Horde_Kolab_Server_Result The result object.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function find(
+        Horde_Kolab_Server_Query_Element $criteria,
+        array $params = array()
+    ) {
+        $query = new Horde_Kolab_Server_Query_Ldap($criteria, $this);
+        return $this->_composite->server->find(
+            (string) $query, $params
+        );
+    }
+
+    /**
+     * Finds all object data below a parent matching a given set of criteria.
+     *
+     * @param Horde_Kolab_Server_Query_Element $criteria The criteria for the search.
+     * @param string                           $parent   The parent to search below.
+     * @param array                            $params   Additional search parameters.
+     *
+     * @return Horde_Kolab_Server_Result The result object.
+     *
+     * @throws Horde_Kolab_Server_Exception
+     */
+    public function findBelow(
+        Horde_Kolab_Server_Query_Element $criteria,
+        $parent,
+        array $params = array()
+    ) {
+        $query = new Horde_Kolab_Server_Query_Ldap($criteria, $this);
+        return $this->_composite->server->findBelow(
+            (string) $query, $parent, $params
+        );
+    }
 
     /**
      * Set the composite server reference for this object.
@@ -44,6 +86,17 @@ abstract class Horde_Kolab_Server_Structure_Base implements Horde_Kolab_Server_S
      */
     public function setComposite(Horde_Kolab_Server_Composite $composite)
     {
-        $this->composite = $composite;
+        $this->_composite = $composite;
+    }
+
+    /**
+     * Get the composite server reference for this object.
+     *
+     * @return Horde_Kolab_Server_Composite A link to the composite server
+     *                                      handler.
+     */
+    public function getComposite()
+    {
+        return $this->_composite;
     }
 }

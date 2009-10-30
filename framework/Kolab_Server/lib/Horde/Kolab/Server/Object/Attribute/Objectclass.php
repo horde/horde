@@ -28,9 +28,6 @@
 class Horde_Kolab_Server_Object_Attribute_Objectclass
 extends Horde_Kolab_Server_Object_Attribute_Decorator
 {
-    /** The internal attribute name */
-    const INTERNAL = 'objectClass';
-
     /**
      * Constructor
      *
@@ -45,7 +42,7 @@ extends Horde_Kolab_Server_Object_Attribute_Decorator
         $this->_attribute = new Horde_Kolab_Server_Object_Attribute_Required(
             new Horde_Kolab_Server_Object_Attribute_Locked(
                 new Horde_Kolab_Server_Object_Attribute_Value(
-                    $object, $composite, self::INTERNAL, 'Objectclass'
+                    $object, $composite, 'Objectclass'
                 )
             )
         );

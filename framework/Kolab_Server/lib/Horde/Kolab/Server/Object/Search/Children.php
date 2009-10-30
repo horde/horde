@@ -26,31 +26,27 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 class Horde_Kolab_Server_Object_Search_Children
-extends Horde_Kolab_Server_Object_Search_Guid
+extends Horde_Kolab_Server_Object_Search_Base
 {
     /**
      * Perform the search.
      *
-     * @param Horde_Kolab_Server_Query_Element $criteria    The search criteria.
-     * @param string                           $objectclass The type of children
-     *                                                      to return.
+     * @param string $parent_guid The guid of the parent.
+     * @param string $objectclass The type of children to return.
      *
      * @return mixed The search result.
      */
-    public function search()
+    public function searchChildren($parent_guid, $objectclass)
     {
-        $criteria    = func_get_arg(0);
-        $objectclass = func_get_arg(1);
-
-        $criteria = new Horde_Kolab_Server_Query_Element_And(
-            array(
-                new Horde_Kolab_Server_Query_Element_Equals(
-                    Horde_Kolab_Server_Object_Top::ATTRIBUTE_OC,
-                    $objectclass
-                ),
-                $criteria
-            )
+        $criteria = new Horde_Kolab_Server_Query_Element_Equals(
+            'Objectclass', $objectclass
         );
-        return parent::search($criteria);
+        $params = array(
+            'attributes' => Horde_Kolab_Server_Object_Top::ATTRIBUTE_GUID
+        );
+        $data = $this->_composite->server->findBelow(
+            $criteria, $parent, $params
+        );
+        return self::guidFromResult($data);
     }
 }

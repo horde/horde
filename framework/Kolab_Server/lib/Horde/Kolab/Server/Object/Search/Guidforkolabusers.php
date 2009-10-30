@@ -1,6 +1,6 @@
 <?php
 /**
- * Basic attributes search.
+ * Return the GUIDs of all KolabInetOrgPersons.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * Basic attributes search.
+ * Return the GUIDs of all KolabInetOrgPersons.
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -25,23 +25,22 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_Search_Attributes
-extends Horde_Kolab_Server_Object_Search_Base
+class Horde_Kolab_Server_Object_Search_Guidforkolabusers
+extends Horde_Kolab_Server_Object_Search_Guid
 {
     /**
-     * Perform the search.
+     * Return the GUIDs of all KolabInetOrgPersons.
      *
-     * @param Horde_Kolab_Server_Query_Element $criteria   The search criteria.
-     * @param array                            $attributes The attributes to
-     *                                                     retrieve.
+     * @return array The GUID(s).
      *
-     * @return mixed The search result.
+     * @throws Horde_Kolab_Server_Exception
      */
-    public function searchAttributes(
-        Horde_Kolab_Server_Query_Element $criteria,
-        array $attributes
-    ) {
-        $params = array('attributes' => $attributes);
-        return $this->getComposite()->structure->find($criteria, $params);
+    public function searchGuidForKolabUsers()
+    {
+        $criteria = new Horde_Kolab_Server_Query_Element_Equals(
+            'Objectclass',
+            Horde_Kolab_Server_Object_Kolabinetorgperson::OBJECTCLASS_KOLABINETORGPERSON
+        );
+        return parent::searchGuid($criteria);
     }
 }

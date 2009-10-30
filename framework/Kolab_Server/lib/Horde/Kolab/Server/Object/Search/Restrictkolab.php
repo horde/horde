@@ -1,6 +1,6 @@
 <?php
 /**
- * Basic GUID search.
+ * Restrict a search to KolabInetOrgPersons.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * Basic GUID search.
+ * Restrict a search to KolabInetOrgPersons.
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -25,22 +25,30 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_Search_Guid
-extends Horde_Kolab_Server_Object_Search_Base
+class Horde_Kolab_Server_Object_Search_Restrictkolab
+extends Horde_Kolab_Server_Object_Search_Guid
 {
     /**
-     * Perform the search.
+     * Restrict a search to KolabInetOrgPersons.
      *
      * @param Horde_Kolab_Server_Query_Element $criteria The search criteria.
      *
-     * @return array The search result.
+     * @return array The GUID(s).
+     *
+     * @throws Horde_Kolab_Server_Exception
      */
-    public function searchGuid(Horde_Kolab_Server_Query_Element $criteria)
-    {
-        $params = array(
-            'attributes' => 'Guid'
+    public function searchRestrictKolab(
+        Horde_Kolab_Server_Query_Element $criteria
+    ) {
+        $criteria = new Horde_Kolab_Server_Query_Element_And(
+            array(
+                new Horde_Kolab_Server_Query_Element_Equals(
+                    'Objectclass',
+                    Horde_Kolab_Server_Object_Kolabinetorgperson::OBJECTCLASS_KOLABINETORGPERSON
+                ),
+                $criteria
+            )
         );
-        $data = $this->getComposite()->structure->find($criteria, $params);
-        return self::guidFromResult($data);
+        return parent::searchGuid($criteria);
     }
 }

@@ -67,18 +67,25 @@ class Horde_Kolab_Server_Search_Base implements Horde_Kolab_Server_Search
         $server_searches = array();
         foreach ($this->_composite->structure->getSupportedObjects() as $sobj) {
             $methods = get_class_methods($sobj);
-            if (in_array('getSearchOperations', $methods)) {
-                $searches = call_user_func(array($sobj, 'getSearchOperations'));
-                foreach ($searches as $search) {
-                    if (in_array($search, $methods)) {
-                        $server_searches[$search] = array('class' => $sobj);
-                    } else {
+            if (!in_array('getSearchOperations', $methods)) {
+                continue;
+            }
+            $search_classes = call_user_func(array($sobj, 'getSearchOperations'));
+            foreach ($search_classes as $search_class) {
+                if (!class_exists($search_class)) {
+                    throw new Horde_Kolab_Server_Exception(
                         sprintf(
-                            "Class \"%s\" does not support method \"%s\"!",
+                            "%s::getSearchOperations specified non-existing class \"%s\"!",
                             $sobj,
-                            $search
-                        );
-                    }
+                            $search_class
+                        )
+                    );
+                }
+                $methods = get_class_methods($search_class);
+                unset($methods['getComposite']);
+                unset($methods['__construct']);
+                foreach ($methods as $method) {
+                    $server_searches[$method] = array('class' => $search_class);
                 }
             }
         }
@@ -108,13 +115,9 @@ class Horde_Kolab_Server_Search_Base implements Horde_Kolab_Server_Search
     public function __call($method, $args)
     {
         if (in_array($method, array_keys($this->_searches))) {
-            array_unshift($args, $this->_composite);
-            return call_user_func_array(
-                array(
-                    $this->_searches[$method]['class'], $method
-                ),
-                $args
-            );
+            $class = $this->_searches[$method]['class'];
+            $search = new $class($this->_composite);
+            return call_user_func_array(array($search, $method), $args);
         }
         throw new Horde_Kolab_Server_Exception(
             sprintf(

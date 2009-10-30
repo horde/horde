@@ -93,9 +93,9 @@ implements Horde_Kolab_Server_Object_Searches
     static public function getSearchOperations()
     {
         $searches = array(
-            'Guid',
-            'Attributes',
-            'Children',
+            'Horde_Kolab_Server_Object_Search_Guid',
+            'Horde_Kolab_Server_Object_Search_Attributes',
+            'Horde_Kolab_Server_Object_Search_Children',
         );
         return $searches;
     }

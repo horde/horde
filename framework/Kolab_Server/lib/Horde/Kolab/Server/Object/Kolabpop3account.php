@@ -170,7 +170,7 @@ class Horde_Kolab_Server_Object_Kolabpop3account extends Horde_Kolab_Server_Obje
     static public function getSearchOperations()
     {
         $searches = array(
-            'pop3AccountsForMail',
+/*             'pop3AccountsForMail', */
         );
         return $searches;
     }

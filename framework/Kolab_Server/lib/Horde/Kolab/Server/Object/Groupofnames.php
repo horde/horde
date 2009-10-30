@@ -168,8 +168,8 @@ class Horde_Kolab_Server_Object_Groupofnames extends Horde_Kolab_Server_Object_T
     static public function getSearchOperations()
     {
         $searches = array(
-            'gidForSearch',
-            'getGroups',
+/*             'gidForSearch', */
+/*             'getGroups', */
         );
         return $searches;
     }

@@ -12,9 +12,9 @@
  */
 
 /**
- * Prepare the test setup.
+ * Require our basic test case definition
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once dirname(__FILE__) . '/../../../LdapTestCase.php';
 
 /**
  * Test the injector based server factory.
@@ -31,7 +31,7 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 class Horde_Kolab_Server_Class_Server_Factory_InjectorTest
-extends PHPUnit_Framework_TestCase
+extends Horde_Kolab_Server_LdapTestCase
 {
     private function _getFactory(array $configuration = array())
     {

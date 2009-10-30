@@ -146,17 +146,15 @@ class Horde_Kolab_Server_Mapped implements Horde_Kolab_Server
     /**
      * Finds object data matching a given set of criteria.
      *
-     * @param array $criteria The criteria for the search.
-     * @param array $params   Additional search parameters.
+     * @param string $query  The LDAP search query
+     * @param array  $params Additional search parameters.
      *
      * @return array The result array.
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    public function find(
-        Horde_Kolab_Server_Query_Element $criteria,
-        array $params = array()
-    ) {
+    public function find($query, array $params = array())
+    {
         $criteria = new Horde_Kolab_Server_Query_Element_Mapped($criteria, $this);
         $data = $this->_server->find($criteria, $params);
         $this->unmapAttributes($data);
@@ -166,19 +164,16 @@ class Horde_Kolab_Server_Mapped implements Horde_Kolab_Server
     /**
      * Finds all object data below a parent matching a given set of criteria.
      *
-     * @param array  $criteria The criteria for the search.
-     * @param string $parent   The parent to search below.
-     * @param array  $params   Additional search parameters.
+     * @param string $query  The LDAP search query
+     * @param string $parent The parent to search below.
+     * @param array  $params Additional search parameters.
      *
      * @return array The result array.
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    public function findBelow(
-        Horde_Kolab_Server_Query_Element $criteria,
-        $parent,
-        array $params = array()
-    ) {
+    public function findBelow($query, $parent, array $params = array())
+    {
         $criteria = new Horde_Kolab_Server_Query_Element_Mapped($criteria, $this);
         $data = $this->_server->findBelow($criteria, $parent, $params);
         $this->unmapAttributes($data);

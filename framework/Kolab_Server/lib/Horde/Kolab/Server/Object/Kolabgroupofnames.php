@@ -162,9 +162,9 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
     static public function getSearchOperations()
     {
         $searches = array(
-            'gidForMail',
-            'memberOfGroupAddress',
-            'getGroupAddresses',
+/*             'gidForMail', */
+/*             'memberOfGroupAddress', */
+/*             'getGroupAddresses', */
         );
         return $searches;
     }

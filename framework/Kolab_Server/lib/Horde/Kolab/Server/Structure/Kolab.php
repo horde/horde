@@ -86,9 +86,9 @@ class Horde_Kolab_Server_Structure_Kolab extends Horde_Kolab_Server_Structure_Ld
             return parent::_determineType($guid, $ocs);
         }
 
-        $groups = $this->composite->search->getGroups($guid);
+        $groups = $this->getComposite()->search->getGroups($guid);
         if (!empty($groups)) {
-            $base = $this->composite->server->getBaseGuid();
+            $base = $this->getComposite()->server->getBaseGuid();
             if (in_array('cn=admin,cn=internal,' . $base, $groups)) {
                 return 'Horde_Kolab_Server_Object_Kolab_Administrator';
             }

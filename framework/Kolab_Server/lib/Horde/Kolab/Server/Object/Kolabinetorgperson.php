@@ -27,133 +27,32 @@
  */
 class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Object_Inetorgperson
 {
-    /** Define attributes specific to this object type */
-
-    /** Alias mail addresses */
-    const ATTRIBUTE_ALIAS = 'alias';
-
-    /** Delegates for this person */
-    const ATTRIBUTE_DELEGATE = 'kolabDelegate';
-
-    /** Marker for a deleted object */
-    const ATTRIBUTE_DELETED = 'kolabDeleteFlag';
-
-    /** How many days of the free/busy future should be calculated in advance? */
-    const ATTRIBUTE_FBFUTURE = 'kolabFreeBusyFuture';
-
-    /**
-     * The home server of this person. It identifies the correct machine in a
-     * master/slave setup.
-     */
-    const ATTRIBUTE_HOMESERVER = 'kolabHomeServer';
-
-    /** The free/busy server of this person */
-    const ATTRIBUTE_FREEBUSYHOST = 'kolabFreeBusyServer';
-
-    /** The host that keeps the IMAP mail store of this person */
-    const ATTRIBUTE_IMAPHOST = 'kolabImapServer';
-
-    /** The invitation policy for this person */
-    const ATTRIBUTE_IPOLICY = 'kolabInvitationPolicy';
-
-    /** The salutation of this person. */
-    const ATTRIBUTE_SALUTATION = 'kolabSalutation';
-
-    /** Persons gender */
-    const ATTRIBUTE_GENDER = 'gender';
-
-    /** The marital status */
-    const ATTRIBUTE_MARITALSTATUS = 'kolabMaritalStatus';
-
-    /** The home fax number */
-    const ATTRIBUTE_HOMEFAX = 'homeFacsimileTelephoneNumber';
-
-    /** The german tax ID */
-    const ATTRIBUTE_GERMANTAXID = 'germanTaxId';
-
-    /** The country of residence */
-    const ATTRIBUTE_COUNTRY = 'c';
-
-    /** The IMAP quota */
-    const ATTRIBUTE_QUOTA = 'cyrus-userquota';
-
-    /** Allowed recipients for this person */
-    const ATTRIBUTE_ALLOWEDRECIPIENTS = 'kolabAllowSMTPRecipient';
-
-    /** Allowed senders for this person */
-    const ATTRIBUTE_ALLOWEDFROM = 'kolabAllowSMTPFrom';
-
-    /** The date of birth */
-    const ATTRIBUTE_DATEOFBIRTH = 'apple-birthday';
-
-    /** The date of birth as Horde_Date */
-    const ATTRDATE_DATEOFBIRTH = 'apple-birthdayDate';
-
-    /** The place of birth */
-    const ATTRIBUTE_PLACEOFBIRTH = 'birthPlace';
-
-    /** Birth name */
-    const ATTRIBUTE_BIRTHNAME = 'birthName';
-
-    /** Pseudonym */
-    const ATTRIBUTE_PSEUDONYM = 'pseudonym';
-
-    /** Country of citizenship */
-    const ATTRIBUTE_COUNTRYCITIZENSHIP = 'countryOfCitizenship';
-
-    /** Legal form (if the person is a legal entity) */
-    const ATTRIBUTE_LEGALFORM = 'legalForm';
-
-    /** Registered capital (if the person is a legal entity) */
-    const ATTRIBUTE_REGISTEREDCAPITAL = 'tradeRegisterRegisteredCapital';
-
-    /** URI for bylaw (if the person is a legal entity) */
-    const ATTRIBUTE_BYLAWURI = 'bylawURI';
-
-    /** Date of incorporation (if the person is a legal entity) */
-    const ATTRIBUTE_DATEOFINCORPORATION = 'dateOfIncorporation';
-
-    /** Legal representative (if the person is a legal entity) */
-    const ATTRIBUTE_LEGALREPRESENTATIVE = 'legalRepresentative';
-
-    /** Commercial procuration (if the person is a legal entity) */
-    const ATTRIBUTE_COMMERCIALPROCURATION = 'commercialProcuration';
-
-    /** Legal representation policy (if the person is a legal entity) */
-    const ATTRIBUTE_LEGALREPRESENTATIONPOLICY = 'legalRepresentationPolicy';
-
-    /** Acting deputy (if the person is a legal entity) */
-    const ATTRIBUTE_ACTINGDEPUTY = 'actingDeputy';
-
-    /** VAT number (if the person is a legal entity) */
-    const ATTRIBUTE_VATNUMBER = 'VATNumber';
-
-    /** Additional legal relationships (if the person is a legal entity) */
-    const ATTRIBUTE_OTHERLEGAL = 'otherLegalRelationship';
-
-    /** Is this entity in liquidation? (if the person is a legal entity) */
-    const ATTRIBUTE_INLIQUIDATION = 'inLiquidation';
-
-    /** Type of entity as given by the trade register (if the person is a legal entity) */
-    const ATTRIBUTE_TRTYPE = 'tradeRegisterType';
-
-    /** Location of entity as given by the trade register (if the person is a legal entity) */
-    const ATTRIBUTE_TRLOCATION = 'tradeRegisterLocation';
-
-    /** Identifier of entity as given by the trade register (if the person is a legal entity) */
-    const ATTRIBUTE_TRIDENTIFIER = 'tradeRegisterIdentifier';
-
-    /** URI of entity as given by the trade register (if the person is a legal entity) */
-    const ATTRIBUTE_TRURI = 'tradeRegisterURI';
-
-    /** Date of last change in the trade register (if the person is a legal entity) */
-    const ATTRIBUTE_TRLASTCHANGED = 'tradeRegisterLastChangedDate';
-
-    /** Subdomain for this person */
-    const ATTRIBUTE_DC = 'domainComponent';
-
     /** The specific object class of this object type */
     const OBJECTCLASS_KOLABINETORGPERSON = 'kolabInetOrgPerson';
+
+    /** Define attributes specific to this object type */
+
+    /**
+     * The attributes defined for this class.
+     *
+     * @var array
+     */
+    static public $attributes = array(
+        'alias', 'kolabDelegate', 'kolabDeleteFlag', 'kolabFreeBusyFuture',
+        'kolabHomeServer', 'kolabFreeBusyServer', 'kolabImapServer',
+        'kolabInvitationPolicy', 'kolabSalutation', 'gender',
+        'kolabMaritalStatus', 'homeFacsimileTelephoneNumber', 'germanTaxId',
+        'c', 'cyrus-userquota', 'kolabAllowSMTPRecipient', 'kolabAllowSMTPFrom',
+        'apple-birthday', 'apple-birthdayDate', 'birthPlace', 'birthName',
+        'pseudonym', 'countryOfCitizenship', 'legalForm',
+        'tradeRegisterRegisteredCapital', 'bylawURI', 'dateOfIncorporation',
+        'legalRepresentative', 'commercialProcuration',
+        'legalRepresentationPolicy', 'actingDeputy', 'VATNumber',
+        'otherLegalRelationship', 'inLiquidation', 'tradeRegisterType',
+        'tradeRegisterLocation', 'tradeRegisterIdentifier', 'tradeRegisterURI',
+        'tradeRegisterLastChangedDate', 'domainComponent',
+    );
+
 
     /**
      * A structure to initialize the attribute structure for this class.
@@ -313,12 +212,11 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
      */
     public static function getFilter()
     {
-        $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_OC,
-                                               'op'    => '=',
-                                               'test'  => self::OBJECTCLASS_KOLABINETORGPERSON),
-                          ),
+        $filter = new Horde_Kolab_Server_Query_Element_Equals(
+            'Objectclass',
+            self::OBJECTCLASS_KOLABINETORGPERSON
         );
-        return $criteria;
+        return $filter;
     }
 
     /**
@@ -378,306 +276,17 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
     static public function getSearchOperations()
     {
         $searches = array(
-            'uidForSearch',
-            'uidForId',
-            'uidForMail',
-            'uidForIdOrMail',
-            'uidForAlias',
-            'uidForMailOrAlias',
-            'uidForIdOrMailOrAlias',
-            'mailForIdOrMail',
-            'addrsForIdOrMail',
+            'Horde_Kolab_Server_Object_Search_Guidforkolabusers',
+            'Horde_Kolab_Server_Object_Search_Guidforuid',
+            'Horde_Kolab_Server_Object_Search_Guidformail',
+            'Horde_Kolab_Server_Object_Search_Guidforuidormail',
+            'Horde_Kolab_Server_Object_Search_Guidforalias',
+            'Horde_Kolab_Server_Object_Search_Guidformailoralias',
+            'Horde_Kolab_Server_Object_Search_Guidforuidormailoralias',
+            'Horde_Kolab_Server_Object_Search_Mailforuidormail',
+            'Horde_Kolab_Server_Object_Search_Addressesforuidormail',
         );
         return $searches;
-    }
-
-    /**
-     * Identify the kolab UID for the first object found using the specified
-     * search criteria.
-     *
-     * @param Horde_Kolab_Server $server   The server to query.
-     * @param array              $criteria The search parameters as array.
-     * @param int                $restrict A Horde_Kolab_Server::RESULT_* result restriction.
-     *
-     * @return boolean|string|array The UID(s) or false if there was no result.
-     *
-     * @throws Horde_Kolab_Server_Exception
-     */
-    static public function uidForSearch($server, $criteria,
-                                        $restrict = 0)
-    {
-        $users = array('field' => self::ATTRIBUTE_OC,
-                       'op'    => '=',
-                       'test'  => self::OBJECTCLASS_KOLABINETORGPERSON);
-        if (!empty($criteria)) {
-            $criteria = array('AND' => array($users, $criteria));
-        } else {
-            $criteria = array('AND' => array($users));
-        }
-        return self::basicUidForSearch($server, $criteria, $restrict);
-    }
-
-    /**
-     * Identify the UID for the first object found with the given ID.
-     *
-     * @param Horde_Kolab_Server $server   The server to query.
-     * @param string             $id       Search for objects with this ID.
-     * @param int                $restrict A Horde_Kolab_Server::RESULT_* result restriction.
-     *
-     * @return mixed The UID or false if there was no result.
-     *
-     * @throws Horde_Kolab_Server_Exception
-     */
-    static public function uidForId($server, $id,
-                                    $restrict = 0)
-    {
-        $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_SID,
-                                               'op'    => '=',
-                                               'test'  => $id),
-                          ),
-        );
-        return self::uidForSearch($server, $criteria, $restrict);
-    }
-
-    /**
-     * Identify the UID for the first user found with the given mail.
-     *
-     * @param Horde_Kolab_Server $server   The server to query.
-     * @param string             $mail     Search for users with this mail address.
-     * @param int                $restrict A Horde_Kolab_Server::RESULT_* result restriction.
-     *
-     * @return mixed The UID or false if there was no result.
-     *
-     * @throws Horde_Kolab_Server_Exception
-     */
-    static public function uidForMail($server, $mail,
-                                      $restrict = 0)
-    {
-        $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_MAIL,
-                                               'op'    => '=',
-                                               'test'  => $mail),
-                          ),
-        );
-        return self::uidForSearch($server, $criteria, $restrict);
-    }
-
-    /**
-     * Identify the UID for the first object found with the given ID or mail.
-     *
-     * @param Horde_Kolab_Server $server The server to query.
-     * @param string             $id     Search for objects with this uid/mail.
-     *
-     * @return string|boolean The UID or false if there was no result.
-     *
-     * @throws Horde_Kolab_Server_Exception
-     */
-    static public function uidForIdOrMail($server, $id)
-    {
-        $criteria = array('OR' =>
-                         array(
-                             array('field' => self::ATTRIBUTE_SID,
-                                   'op'    => '=',
-                                   'test'  => $id),
-                             array('field' => self::ATTRIBUTE_MAIL,
-                                   'op'    => '=',
-                                   'test'  => $id),
-                         ),
-        );
-        return self::uidForSearch($server, $criteria);
-    }
-
-    /**
-     * Identify the UID for the first object found with the given alias.
-     *
-     * @param Horde_Kolab_Server $server   The server to query.
-     * @param string             $mail     Search for objects with this mail alias.
-     * @param int                $restrict A Horde_Kolab_Server::RESULT_* result restriction.
-     *
-     * @return mixed The UID or false if there was no result.
-     *
-     * @throws Horde_Kolab_Server_Exception
-     */
-    static public function uidForAlias($server, $mail,
-                                       $restrict = 0)
-    {
-        $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_ALIAS,
-                                               'op'    => '=',
-                                               'test'  => $mail),
-                          ),
-        );
-        return self::uidForSearch($server, $criteria, $restrict);
-    }
-
-
-    /**
-     * Identify the UID for the first object found with the given mail
-     * address or alias.
-     *
-     * @param Horde_Kolab_Server $server The server to query.
-     * @param string             $mail   Search for objects with this mail address
-     * or alias.
-     *
-     * @return string|boolean The UID or false if there was no result.
-     *
-     * @throws Horde_Kolab_Server_Exception
-     */
-    static public function uidForMailOrAlias($server, $mail)
-    {
-        $criteria = array('OR' =>
-                         array(
-                             array('field' => self::ATTRIBUTE_ALIAS,
-                                   'op'    => '=',
-                                   'test'  => $mail),
-                             array('field' => self::ATTRIBUTE_MAIL,
-                                   'op'    => '=',
-                                   'test'  => $mail),
-                         )
-        );
-        return self::uidForSearch($server, $criteria);
-    }
-
-    /**
-     * Identify the UID for the first object found with the given ID,
-     * mail or alias.
-     *
-     * @param Horde_Kolab_Server $server The server to query.
-     * @param string             $id     Search for objects with this ID/mail/alias.
-     *
-     * @return string|boolean The UID or false if there was no result.
-     *
-     * @throws Horde_Kolab_Server_Exception
-     */
-    static public function uidForIdOrMailOrAlias($server, $id)
-    {
-        $criteria = array('OR' =>
-                         array(
-                             array('field' => self::ATTRIBUTE_ALIAS,
-                                   'op'    => '=',
-                                   'test'  => $id),
-                             array('field' => self::ATTRIBUTE_MAIL,
-                                   'op'    => '=',
-                                   'test'  => $id),
-                             array('field' => self::ATTRIBUTE_SID,
-                                   'op'    => '=',
-                                   'test'  => $id),
-                         ),
-        );
-        return self::uidForSearch($server, $criteria);
-    }
-
-    /**
-     * Identify the primary mail attribute for the first object found
-     * with the given ID or mail.
-     *
-     * @param Horde_Kolab_Server $server The server to query.
-     * @param string             $id     Search for objects with this ID/mail.
-     *
-     * @return mixed The mail address or false if there was no result.
-     *
-     * @throws Horde_Kolab_Server_Exception
-     */
-    static public function mailForIdOrMail($server, $id)
-    {
-        $criteria = array('AND' =>
-                         array(
-                             array('field' => self::ATTRIBUTE_OC,
-                                   'op'    => '=',
-                                   'test'  => self::OBJECTCLASS_KOLABINETORGPERSON),
-                             array('OR' =>
-                                   array(
-                                       array('field' => self::ATTRIBUTE_SID,
-                                             'op'    => '=',
-                                             'test'  => $id),
-                                       array('field' => self::ATTRIBUTE_MAIL,
-                                             'op'    => '=',
-                                             'test'  => $id),
-                                   ),
-                             ),
-                         ),
-        );
-
-        $data = self::attrsForSearch($server, $criteria, array(self::ATTRIBUTE_MAIL),
-                                     self::RESULT_STRICT);
-        if (!empty($data)) {
-            return $data[self::ATTRIBUTE_MAIL][0];
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Returns a list of allowed email addresses for the given user.
-     *
-     * @param Horde_Kolab_Server $server The server to query.
-     * @param string             $id     Search for objects with this ID/mail.
-     *
-     * @return array An array of allowed mail addresses.
-     *
-     * @throws Horde_Kolab_Server_Exception
-     */
-    static public function addrsForIdOrMail($server, $id)
-    {
-        $criteria = array('AND' =>
-                         array(
-                             array('field' => self::ATTRIBUTE_OC,
-                                   'op'    => '=',
-                                   'test'  => self::OBJECTCLASS_KOLABINETORGPERSON),
-                             array('OR' =>
-                                   array(
-                                       array('field' => self::ATTRIBUTE_SID,
-                                             'op'    => '=',
-                                             'test'  => $id),
-                                       array('field' => self::ATTRIBUTE_MAIL,
-                                             'op'    => '=',
-                                             'test'  => $id),
-                                   ),
-                             ),
-                         ),
-        );
-
-        $result = self::attrsForSearch($server, $criteria,
-                                       array(self::ATTRIBUTE_MAIL,
-                                             self::ATTRIBUTE_ALIAS),
-                                       self::RESULT_STRICT);
-        if (isset($result[self::ATTRIBUTE_ALIAS])) {
-            $addrs = array_merge((array) $result[self::ATTRIBUTE_MAIL],
-                                 (array) $result[self::ATTRIBUTE_ALIAS]);
-        } else {
-            $addrs = $result[self::ATTRIBUTE_MAIL];
-        }
-
-        if (empty($result)) {
-            return array();
-        }
-        $criteria = array('AND' =>
-                         array(
-                             array('field' => self::ATTRIBUTE_OC,
-                                   'op'    => '=',
-                                   'test'  => self::OBJECTCLASS_KOLABINETORGPERSON),
-                             array('field' => self::ATTRIBUTE_DELEGATE,
-                                   'op'    => '=',
-                                   'test'  => $result[self::ATTRIBUTE_MAIL][0]),
-                         ),
-        );
-
-        $result = self::attrsForSearch($server, $criteria,
-                                       array(self::ATTRIBUTE_MAIL,
-                                             self::ATTRIBUTE_ALIAS),
-                                       self::RESULT_MANY);
-        if (!empty($result)) {
-            foreach ($result as $adr) {
-                if (isset($adr[self::ATTRIBUTE_MAIL])) {
-                    $addrs = array_merge((array) $addrs, (array) $adr[self::ATTRIBUTE_MAIL]);
-                }
-                if (isset($adr[self::ATTRIBUTE_ALIAS])) {
-                    $addrs = array_merge((array) $addrs, (array) $adr[self::ATTRIBUTE_ALIAS]);
-                }
-            }
-        }
-
-        $addrs = array_map('strtolower', $addrs);
-
-        return $addrs;
     }
 
     /**

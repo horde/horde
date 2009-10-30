@@ -14,12 +14,12 @@
 /**
  * Require our basic test case definition
  */
-require_once dirname(__FILE__) . '/../LdapBase.php';
+require_once dirname(__FILE__) . '/../../../Autoload.php';
 
 /**
  * Test the LDAP backend.
  *
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -30,7 +30,7 @@ require_once dirname(__FILE__) . '/../LdapBase.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Structure_KolabTest extends PHPUnit_Framework_TestCase
+class Horde_Kolab_Server_Class_Server_Structure_KolabTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

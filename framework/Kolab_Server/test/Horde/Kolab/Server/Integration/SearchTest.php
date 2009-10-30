@@ -1,6 +1,6 @@
 <?php
 /**
- * Test the search handler driver.
+ * Test the search handler.
  *
  * PHP version 5
  *
@@ -12,9 +12,9 @@
  */
 
 /**
- * Prepare the test setup.
+ * Require our basic test case definition
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once dirname(__FILE__) . '/../LdapTestCase.php';
 
 /**
  * Test the search handler.
@@ -30,19 +30,11 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Search_SearchTest extends PHPUnit_Framework_TestCase
+class Horde_Kolab_Server_Integration_SearchTest
+extends Horde_Kolab_Server_LdapTestCase
 {
     public function setUp()
     {
-        if (!extension_loaded('ldap') && !@dl('ldap.' . PHP_SHLIB_SUFFIX)) {
-            $this->markTestSuiteSkipped('Ldap extension is missing!');
-        };
-
-        if (!class_exists('Net_LDAP2')) {
-            $this->markTestSuiteSkipped('PEAR package Net_LDAP2 is not installed!');
-        }
-
-        $this->markTestIncomplete('Needs to be fixed');
 
 /*         $injector = new Horde_Injector(new Horde_Injector_TopLevel()); */
 /*         Horde_Kolab_Server_Factory::setup(array(), $injector); */

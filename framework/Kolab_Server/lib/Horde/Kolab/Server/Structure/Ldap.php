@@ -77,9 +77,6 @@ class Horde_Kolab_Server_Structure_Ldap extends Horde_Kolab_Server_Structure_Bas
             } catch (Horde_Kolab_Server_Exception $e)  {
             }
         }
-        if ($oc == 'top') {
-            return 'Horde_Kolab_Server_Object';
-        }
         throw new Horde_Kolab_Server_Exception(
             sprintf("Unknown object type for GUID %s.", $guid),
             Horde_Kolab_Server_Exception::SYSTEM
@@ -97,7 +94,7 @@ class Horde_Kolab_Server_Structure_Ldap extends Horde_Kolab_Server_Structure_Bas
      */
     public function generateServerGuid($type, $id, array $info)
     {
-        return sprintf('%s,%s', $id, $this->composite->server->getBaseGuid());
+        return sprintf('%s,%s', $id, $this->getComposite()->server->getBaseGuid());
     }
 
     /**
@@ -115,7 +112,7 @@ class Horde_Kolab_Server_Structure_Ldap extends Horde_Kolab_Server_Structure_Bas
      */
     protected function getObjectClasses($guid)
     {
-        $object = $this->composite->server->read(
+        $object = $this->getComposite()->server->read(
             $guid, array('objectClass')
         );
         if (!isset($object['objectClass'])) {
@@ -132,5 +129,30 @@ class Horde_Kolab_Server_Structure_Ldap extends Horde_Kolab_Server_Structure_Bas
             $object['objectClass']
         );
         return $result;
+    }
+
+    /**
+     * Maps the external attribute name to its internal counterpart.
+     *
+     * @param string $external The external attribute name.
+     *
+     * @return string The internal attribute name.
+     */
+    public function getInternalAttribute($external)
+    {
+        switch ($external) {
+        case 'Objectclass':
+            return 'objectClass';
+        case 'Guid':
+            return 'dn';
+        case 'Uid':
+            return 'uid';
+        case 'Mail':
+            return 'mail';
+        default:
+            throw new Horde_Kolab_Server_Exception(
+                sprintf('Undefined internal attribute "%s"', $external)
+            );
+        }
     }
 }

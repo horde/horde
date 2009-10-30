@@ -167,18 +167,16 @@ abstract class Horde_Kolab_Server_Ldap implements Horde_Kolab_Server
     /**
      * Finds object data matching a given set of criteria.
      *
-     * @param Horde_Kolab_Server_Query_Element $criteria The criteria for the search.
-     * @param array                            $params   Additional search parameters.
+     * @param string $query  The LDAP search query
+     * @param array  $params Additional search parameters.
      *
      * @return Horde_Kolab_Server_Result The result object.
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    public function find(
-        Horde_Kolab_Server_Query_Element $criteria,
-        array $params = array()
-    ) {
-        return $this->findBelow($criteria, $this->_base_dn, $params);
+    public function find($query, array $params = array())
+    {
+        return $this->findBelow($query, $this->_base_dn, $params);
     }
 
     /**

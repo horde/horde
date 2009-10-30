@@ -35,13 +35,23 @@ class Horde_Kolab_Server_Query_Ldap implements Horde_Kolab_Server_Query
     private $_criteria;
 
     /**
+     * The db structure.
+     *
+     * @var Horde_Kolab_Server_Structure
+     */
+    private $_structure;
+
+    /**
      * Constructor.
      *
      * @param array $criteria The query criteria.
      */
-    public function __construct(Horde_Kolab_Server_Query_Element $criteria)
-    {
-        $this->_criteria = $criteria;
+    public function __construct(
+        Horde_Kolab_Server_Query_Element $criteria,
+        Horde_Kolab_Server_Structure $structure
+    ) {
+        $this->_criteria  = $criteria;
+        $this->_structure = $structure;
     }
 
     /**
@@ -53,8 +63,13 @@ class Horde_Kolab_Server_Query_Ldap implements Horde_Kolab_Server_Query
      */
     public function __toString()
     {
-        $filter = $this->_criteria->convert($this);
-        return $filter->asString();
+        try {
+            $filter = $this->_criteria->convert($this);
+            $result = $filter->asString();
+            return $result;
+        } catch (Horde_Kolab_Server_Exception $e) {
+            return '';
+        }
     }
 
     /**
@@ -170,7 +185,9 @@ class Horde_Kolab_Server_Query_Ldap implements Horde_Kolab_Server_Query
         $operator
     ) {
         $result = Net_LDAP2_Filter::create(
-            $single->getName(), $operator, $single->getValue()
+            $this->_structure->getInternalAttribute($single->getName()),
+            $operator,
+            $single->getValue()
         );
         $this->_handleError($result);
         return $result;

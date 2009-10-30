@@ -45,6 +45,16 @@ implements Horde_Kolab_Server_Object_Search
     {
         $this->_composite = $composite;
     }
+
+    /**
+     * Return the refernce to the composite server.
+     *
+     * @return Horde_Kolab_Server_Composite
+     */
+    public function getComposite()
+    {
+        return $this->_composite;
+    }
     
     /**
      * Identify the GUID(s) of the result entry(s).

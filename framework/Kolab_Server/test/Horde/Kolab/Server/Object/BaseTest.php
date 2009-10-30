@@ -14,7 +14,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once dirname(__FILE__) . '/../TestCase.php';
 
 /**
  * Test the base object.
@@ -30,7 +30,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_BaseTest extends PHPUnit_Framework_TestCase
+class Horde_Kolab_Server_Object_BaseTest extends Horde_Kolab_Server_TestCase
 {
     public function setUp()
     {
@@ -205,6 +205,10 @@ class Horde_Kolab_Server_Object_BaseTest extends PHPUnit_Framework_TestCase
     public function testGetexternalHasResultArrayTheDataOfTheRequestedAttribute()
     {
         $composite = $this->getMockedComposite();
+        $composite->structure->expects($this->exactly(1))
+            ->method('getInternalAttribute')
+            ->with('Objectclass')
+            ->will($this->returnValue('objectClass'));
         $composite->schema->expects($this->exactly(1))
             ->method('getExternalAttributes')
             ->with($this->isInstanceOf('Horde_Kolab_Server_Object'))
@@ -290,6 +294,10 @@ class Horde_Kolab_Server_Object_BaseTest extends PHPUnit_Framework_TestCase
     public function testSaveHasPostconditionThatTheObjectWasAddedToTheServerIfItDidNotExistBefore()
     {
         $composite = $this->getMockedComposite();
+        $composite->structure->expects($this->exactly(1))
+            ->method('getInternalAttribute')
+            ->with('Objectclass')
+            ->will($this->returnValue('objectClass'));
         $composite->schema->expects($this->exactly(1))
             ->method('getInternalAttributes')
             ->with($this->isInstanceOf('Horde_Kolab_Server_Object'))
@@ -319,34 +327,6 @@ class Horde_Kolab_Server_Object_BaseTest extends PHPUnit_Framework_TestCase
             ->with($this->isInstanceOf('Horde_Kolab_Server_Object'), array('objectClass' => array('top')));
         $object = new Object_Mock($composite);
         $object->save(array('Objectclass' => 'top'));
-    }
-
-    private function getComposite()
-    {
-        return $this->getMock(
-            'Horde_Kolab_Server_Composite', array(), array(), '', false
-        );
-    }
-
-    private function getMockedComposite()
-    {
-        return new Horde_Kolab_Server_Composite(
-            $this->getMock(
-                'Horde_Kolab_Server', array(), array(), '', false
-            ),
-            $this->getMock(
-                'Horde_Kolab_Server_Objects', array(), array(), '', false
-            ),
-            $this->getMock(
-                'Horde_Kolab_Server_Structure', array(), array(), '', false
-            ),
-            $this->getMock(
-                'Horde_Kolab_Server_Search', array(), array(), '', false
-            ),
-            $this->getMock(
-                'Horde_Kolab_Server_Schema', array(), array(), '', false
-            )
-        );
     }
 }
 

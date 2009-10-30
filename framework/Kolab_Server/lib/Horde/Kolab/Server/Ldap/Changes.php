@@ -27,7 +27,6 @@
  */
 class Horde_Kolab_Server_Ldap_Changes
 {
-
     /**
      * The object to be modified.
      *
@@ -69,7 +68,7 @@ class Horde_Kolab_Server_Ldap_Changes
         $attributes = array_merge(array_keys($old), array_keys($new));
         foreach ($attributes as $attribute) {
             if (!isset($old[$attribute])) {
-                $cs['add'][] = array($attribute => $new[$attribute]);
+                $cs['add'][$attribute] = $new[$attribute];
                 continue;
             }
             if (!isset($new[$attribute])) {
@@ -77,7 +76,8 @@ class Horde_Kolab_Server_Ldap_Changes
                 continue;
             }
             if (count($new[$attribute]) == 1
-                && count($old[$attribute]) == 1) {
+                && count($old[$attribute]) == 1
+            ) {
                 if ($new[$attribute][0] == $old[$attribute][0]) {
                     continue;
                 } else {

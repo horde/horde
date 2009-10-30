@@ -166,7 +166,7 @@ class Horde_Kolab_Server_Object_Kolabgermanbankarrangement extends Horde_Kolab_S
     static public function getSearchOperations()
     {
         $searches = array(
-            'accountsForMail',
+/*             'accountsForMail', */
         );
         return $searches;
     }

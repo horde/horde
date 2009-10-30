@@ -12,9 +12,9 @@
  */
 
 /**
- * Prepare the test setup.
+ * Require our basic test case definition
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once dirname(__FILE__) . '/../../../LdapTestCase.php';
 
 /**
  * Test the mapping server factory.
@@ -31,10 +31,11 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 class Horde_Kolab_Server_Class_Server_Factory_ConstructorTest
-extends PHPUnit_Framework_TestCase
+extends Horde_Kolab_Server_LdapTestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $this->factory   = $this->getMock('Horde_Kolab_Server_Factory_Conn');
         $this->objects   = $this->getMock('Horde_Kolab_Server_Objects');
         $this->structure = $this->getMock('Horde_Kolab_Server_Structure');
