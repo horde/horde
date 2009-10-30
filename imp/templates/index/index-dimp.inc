@@ -191,29 +191,10 @@ function _simpleButton($id, $text, $image)
 
      <div id="msglistHeader" class="item">
       <div class="msgStatus"></div>
-      <div class="msgFrom sep">
-       <a class="widget" sortby="<?php echo Horde_Imap_Client::SORT_FROM ?>"><?php echo _("From") ?></a>
-       <a class="widget" style="display:none" sortby="<?php echo Horde_Imap_Client::SORT_TO ?>"><?php echo _("To") ?></a>
-      </div>
-      <div class="msgSubject sep">
-       <a class="widget" sortby="<?php echo Horde_Imap_Client::SORT_SUBJECT ?>"><?php echo _("Subject") ?>
-        <small sortby="<?php echo Horde_Imap_Client::SORT_THREAD ?>">[<?php echo _("Thread") ?>]</small>
-       </a>
-       <a class="widget" style="display:none" sortby="<?php echo Horde_Imap_Client::SORT_THREAD ?>"><?php echo _("Thread") ?>
-        <small sortby="<?php echo Horde_Imap_Client::SORT_SUBJECT ?>">[<?php echo _("Subject") ?>]</small>
-       </a>
-      </div>
-      <div class="msgDate sep">
-       <a class="widget" sortby="<?php echo Horde_Imap_Client::SORT_DATE ?>"><?php echo _("Date") ?>
-        <small sortby="<?php echo Horde_Imap_Client::SORT_ARRIVAL ?>">[<?php echo _("Arrival") ?>]</small>
-       </a>
-       <a class="widget" style="display:none" sortby="<?php echo Horde_Imap_Client::SORT_ARRIVAL ?>"><?php echo _("Arrival") ?>
-        <small sortby="<?php echo Horde_Imap_Client::SORT_DATE ?>">[<?php echo _("Date") ?>]</small>
-       </a>
-      </div>
-      <div class="msgSize sep">
-       <a class="widget" sortby="<?php echo Horde_Imap_Client::SORT_SIZE ?>"><?php echo _("Size") ?></a>
-      </div>
+      <div class="msgFrom sep"></div>
+      <div class="msgSubject sep"></div>
+      <div class="msgDate sep"></div>
+      <div class="msgSize sep"></div>
      </div>
     </div>
 

@@ -452,7 +452,7 @@ var DimpBase = {
             onContent: function(row) {
                 var bg, re, u,
                     thread = $H(this.viewport.getMetaData('thread')),
-                    tsort = (this.viewport.getMetaData('sortby') == DIMP.conf.sortthread);
+                    tsort = (this.viewport.getMetaData('sortby') == $H(DIMP.conf.sort).get('thread').v);
 
                 row.subjectdata = row.status = '';
                 row.subjecttitle = row.subject;
@@ -602,8 +602,8 @@ var DimpBase = {
                         $('folderName').next().hide();
                     }
                 } else if (this.filtertoggle &&
-                           this.viewport.getMetaData('sortby') == DIMP.conf.sortthread) {
-                    ssc = DIMP.conf.sortdate;
+                           this.viewport.getMetaData('sortby') == $H(DIMP.conf.sort).get('thread').v) {
+                    ssc = $H(DIMP.conf.sort).get('date').v;
                 }
 
                 this.setSortColumns(ssc);
@@ -727,7 +727,7 @@ var DimpBase = {
         case 'ctx_folderopts_collapse':
             $('normalfolders').select('LI.folder').each(function(f) {
                 this._toggleSubFolder(f, id == 'ctx_folderopts_expand' ? 'exp' : 'col', true);
-            }.bind(this));
+            }, this);
             break;
 
         case 'ctx_folderopts_reload':
@@ -741,7 +741,7 @@ var DimpBase = {
             tmp = baseelt.up('LI');
             [ tmp, $(this.getSubFolderId(tmp.readAttribute('id'))).select('LI.folder') ].flatten().each(function(f) {
                 this._toggleSubFolder(f, (id == 'ctx_container_expand' || id == 'ctx_folder_expand') ? 'exp' : 'col', true);
-            }.bind(this));
+            }, this);
             break;
 
         case 'ctx_message_spam':
@@ -934,16 +934,8 @@ var DimpBase = {
             return;
         }
 
-        var s, sortby,
-            elt = e.element();
-
-        if (!elt.hasAttribute('sortby')) {
-            elt = elt.up('[sortby]');
-            if (!elt) {
-                return;
-            }
-        }
-        sortby = Number(elt.readAttribute('sortby'));
+        var s,
+            sortby = Number(e.element().retrieve('sortby'));
 
         if (sortby == this.viewport.getMetaData('sortby')) {
             s = { sortdir: (this.viewport.getMetaData('sortdir') ? 0 : 1) };
@@ -952,6 +944,7 @@ var DimpBase = {
             s = { sortby: sortby };
             this.viewport.setMetaData({ sortby: s.sortby });
         }
+
         this.setSortColumns(sortby);
         this.viewport.reload(s);
     },
@@ -959,40 +952,67 @@ var DimpBase = {
     setSortColumns: function(sortby)
     {
         var tmp,
+            ptr = DIMP.conf.sort,
+            togglesort = [],
             m = $('msglistHeader');
 
         if (Object.isUndefined(sortby)) {
             sortby = this.viewport.getMetaData('sortby');
         }
 
-        tmp = m.down('small[sortby=' + sortby + ']');
-        if (tmp && tmp.up().visible()) {
-           tmp.up(1).childElements().invoke('toggle');
+        /* Init once per load. */
+        if (Object.isHash(ptr)) {
+            m.childElements().invoke('removeClassName', 'sortup').invoke('removeClassName', 'sortdown');
+        } else {
+            DIMP.conf.sort = ptr = $H(ptr);
+            ptr.each(function(s) {
+                s.value.e = new Element('A', { className: 'widget' }).store('sortby', s.value.v).insert(s.value.t);
+            }, this);
+
+            m.down('.msgFrom').update(ptr.get('from').e).insert(ptr.get('to').e);
+            m.down('.msgSize').update(ptr.get('size').e);
         }
 
-        tmp = m.down('div.msgFrom a');
+        /* Toggle between From/To header. */
+        tmp = m.down('.msgFrom a');
         if (this.viewport.getMetaData('special')) {
             tmp.hide().next().show();
         } else {
             tmp.show().next().hide();
         }
 
-        tmp = m.down('div.msgSubject a');
+        /* Toggle between Subject/Thread header. */
+        tmp = m.down('.msgSubject');
         if (this.isSearch() ||
             this.viewport.getMetaData('nothread') ||
             this.viewport.getMetaData('sortlimit')) {
-            tmp.show().next().hide();
-            tmp.down().hide();
+            togglesort.push({ l: 'subject', t: tmp });
+        } else if (sortby == ptr.get('thread').v) {
+            togglesort.push({ l: 'thread', s: 'subject', t: tmp });
         } else {
-            tmp.down().show();
+            togglesort.push({ l: 'subject', s: 'thread', t: tmp });
         }
 
-        m.childElements().invoke('removeClassName', 'sortup').invoke('removeClassName', 'sortdown');
-
-        tmp = m.down('div a[sortby=' + sortby + ']');
-        if (tmp) {
-            tmp.up().addClassName(this.viewport.getMetaData('sortdir') ? 'sortup' : 'sortdown');
+        /* Toggle between Date/Arrival header. */
+        tmp = m.down('.msgDate');
+        if (sortby == ptr.get('arrival').v) {
+            togglesort.push({ l: 'arrival', s: 'date', t: tmp });
+        } else {
+            togglesort.push({ l: 'date', s: 'arrival', t: tmp });
         }
+
+        togglesort.each(function(hdr) {
+            hdr.t.update(ptr.get(hdr.l).e.removeClassName('smallSort').update(ptr.get(hdr.l).t));
+            if (hdr.s) {
+                hdr.t.insert(ptr.get(hdr.s).e.addClassName('smallSort').update('[' + ptr.get(hdr.s).t + ']'));
+            }
+        }, this);
+
+        ptr.find(function(s) {
+            return (sortby == s.value.v)
+                ? s.value.e.up().addClassName(this.viewport.getMetaData('sortdir') ? 'sortup' : 'sortdown')
+                : false;
+        }, this);
     },
 
     // Preview pane functions
@@ -2085,7 +2105,7 @@ var DimpBase = {
                     });
                 }
             }
-        }.bind(this));
+        }, this);
     },
 
     // Folder actions.

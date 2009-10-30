@@ -76,8 +76,36 @@ $code['conf'] = array_filter(array(
     'refresh_time' => intval($GLOBALS['prefs']->getValue('refresh_time')),
     'searchprefix' => IMP_Search::MBOX_PREFIX,
     'sidebar_width' => max((int)$GLOBALS['prefs']->getValue('sidebar_width'), 150) . 'px',
-    'sortdate' => Horde_Imap_Client::SORT_DATE,
-    'sortthread' => Horde_Imap_Client::SORT_THREAD,
+    'sort' => array(
+        'from' => array(
+            't' => _("From"),
+            'v' => Horde_Imap_Client::SORT_FROM
+        ),
+        'to' => array(
+            't' => _("To"),
+            'v' => Horde_Imap_Client::SORT_TO
+        ),
+        'subject' => array(
+            't' => _("Subject"),
+            'v' => Horde_Imap_Client::SORT_SUBJECT
+        ),
+        'thread' => array(
+            't' => _("Thread"),
+            'v' => Horde_Imap_Client::SORT_THREAD
+        ),
+        'date' => array(
+            't' => _("Date"),
+            'v' => Horde_Imap_Client::SORT_DATE
+        ),
+        'arrival' => array(
+            't' => _("Arrival"),
+            'v' => Horde_Imap_Client::SORT_ARRIVAL
+        ),
+        'size' => array(
+            't' => _("Size"),
+            'v' => Horde_Imap_Client::SORT_SIZE
+        )
+    ),
     'spam_mbox' => IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true),
     'spam_spammbox' => intval(!empty($GLOBALS['conf']['spam']['spamfolder'])),
     'splitbar_pos' => intval($GLOBALS['prefs']->getValue('dimp_splitbar')),

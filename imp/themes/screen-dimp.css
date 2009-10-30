@@ -156,6 +156,11 @@ div.msgSize {
 #msglistHeader a {
     cursor: pointer;
 }
+#msglistHeader a.smallSort {
+    font-size: 75%;
+    font-weight: normal;
+    padding-left: 4px !important;
+}
 #msglistHeader div {
     padding-top: 1px;
     height: 15px;
@@ -170,10 +175,6 @@ div.msgSize {
 }
 #msglistHeader div.sep {
     border-left: 1px solid #ddd;
-}
-#msglistHeader a small {
-    padding-left: 2px;
-    font-weight: normal;
 }
 
 /* Message ViewPort */
