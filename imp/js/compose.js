@@ -396,7 +396,7 @@ var ImpCompose = {
             if (!e) {
                 return this.resize.bind(this).defer();
             }
-            d = Math.min(e.getHeight(), screen.height - 100) - document.viewport.getHeight();
+            d = Math.min(e, screen.height - 100) - document.viewport.getHeight();
             if (d > 0) {
                 window.resizeBy(0, d);
             }
