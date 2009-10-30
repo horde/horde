@@ -4,7 +4,10 @@
 <input type="hidden" name="<tag:hidden.n />" value="<tag:hidden.v />" id="<tag:hidden.n />" />
 </loop:hidden>
 
-<h1 class="header"><tag:title /></h1>
+<h1 class="header">
+ <div class="rightFloat"><tag:help /></div>
+ <tag:title />
+</h1>
 
 <br />
 
@@ -22,7 +25,6 @@
 </if:save_draft_ak>
    <input name="btn_cancel_compose" type="submit" title="<gettext>Cancel Message</gettext>" class="button" value="<gettext>Cancel Message</gettext>" />
   </td>
-  <td class="rightAlign"><tag:help_buttons />&nbsp;</td>
  </tr>
 
  <tr>
@@ -48,7 +50,6 @@
 </else:count_select_list></if:count_select_list>
 </else:di_locked></if:di_locked>
   </td>
-  <td class="item rightAlign"><tag:help_compose-from />&nbsp;</td>
  </tr>
 
 <loop:addr>
@@ -56,11 +57,9 @@
   <td class="light rightAlign"><strong><tag:addr.label />&nbsp;</strong></td>
 <if:addr.multiple>
 <loop:addr.hdrs>
-<if:addr.hdrs.help><else:addr.hdrs.help>
  </tr>
  <tr>
   <td class="light">&nbsp;</td>
-</else:addr.hdrs.help></if:addr.hdrs.help>
 <if:addr.hdrs.multiple>
   <td class="item">
    <select id="<tag:addr.id />" tabindex="<tag:addr.hdrs.select_tabindex />" name="<tag:addr.id />_list[<tag:addr.hdrs.select_name />]" style="width:350px;direction:ltr">
@@ -75,7 +74,6 @@
    <input type="text" id="<tag:addr.id />" autocomplete="off" tabindex="<tag:addr.hdrs.input_tabindex />" name="<tag:addr.id />_field[]" value="<tag:addr.hdrs.input_value />" style="direction:ltr" />
 </else:addr.hdrs.multiple></if:addr.hdrs.multiple>
   </td>
-  <td class="rightAlign"><if:addr.hdrs.help><tag:addr.hdrs.help /></if:addr.hdrs.help>&nbsp;</td>
 </loop:addr.hdrs>
 <else:addr.multiple>
   <td class="item addressTr">
@@ -83,7 +81,6 @@
    <span id="<tag:addr.id />_loading_img" style="display:none;" class="loadingImg"></span>
    <div id="<tag:addr.id />_results" class="autocomplete"></div>
   </td>
-  <td class="item rightAlign"><tag:addr.help_compose />&nbsp;</td>
 </else:addr.multiple></if:addr.multiple>
  </tr>
 </loop:addr>
@@ -93,7 +90,6 @@
   <td class="item">
    <input type="text" id="subject" tabindex="<tag:subject_tabindex />" name="subject" value="<tag:subject />" />
   </td>
-  <td class="item rightAlign"><tag:help-subject />&nbsp;</td>
  </tr>
 
 <if:unlocked_charset>
@@ -108,7 +104,6 @@
 </loop:charset_array>
    </select>
   </td>
-  <td class="item rightAlign"><tag:help_compose_charset />&nbsp;</td>
  </tr>
 </if:unlocked_charset>
 
@@ -124,7 +119,6 @@
 </loop:pri_opt>
    </select>
   </td>
-  <td class="item rightAlign"><tag:help_priority />&nbsp;</td>
  </tr>
 </if:set_priority>
 
@@ -155,7 +149,6 @@
     </tr>
    </table>
   </td>
-  <td class="item rightAlign"><tag:help_options />&nbsp;</td>
  </tr>
 
 <if:ssm>
@@ -211,7 +204,6 @@
 </if:save_draft_ak>
    <input name="btn_cancel_compose" type="submit" title="<gettext>Cancel Message</gettext>" class="button" value="<gettext>Cancel Message</gettext>" />
   </td>
-  <td class="rightAlign"><tag:help_buttons />&nbsp;</td>
  </tr>
 
 <if:use_encrypt>
@@ -223,7 +215,6 @@
     <tag:encrypt_options />
    </select>
   </td>
-  <td class="item rightAlign"><tag:help-encrypt />&nbsp;</td>
  </tr>
 </if:use_encrypt>
 
@@ -234,7 +225,6 @@
    <input id="pap" type="checkbox" class="checkbox" name="pgp_attach_pubkey" <if:pgp_attach_pubkey>checked="checked" </if:pgp_attach_pubkey>/>
    <tag:pap />
   </td>
-  <td class="item rightAlign"><tag:help-pubkey />&nbsp;</td>
  </tr>
 </if:pgp_options>
 
@@ -286,7 +276,6 @@
 </else:maxattachsize></if:maxattachsize>
   <td class="rightAlign">
    <input type="submit" name="btn_add_attachment" class="button" value="<gettext>Update</gettext>" />
-   &nbsp;<tag:help-attachments />
   </td>
  </tr>
 
@@ -299,7 +288,6 @@
     <option value="1"<if:attach_options.select_yes> selected="selected"</if:attach_options.select_yes>><gettext>Yes</gettext></option>
     <option value="0"<if:attach_options.select_no> selected="selected"</if:attach_options.select_no>><gettext>No</gettext></option>
    </select>
-   &nbsp;<tag:attach_options.help />
   </td>
  </tr>
 </loop:attach_options>
@@ -311,7 +299,7 @@
 
 <div align="center">
  <div class="smallheader leftAlign">
-  <gettext>Current Attachments</gettext> (<gettext>Total Size:</gettext> <tag:total_attach_size /> <gettext>KB</gettext><if:perc_attach> / <tag:perc_attach /></if:perc_attach>) <tag:help-current-attachments />
+  <gettext>Current Attachments</gettext> (<gettext>Total Size:</gettext> <tag:total_attach_size /> <gettext>KB</gettext><if:perc_attach> / <tag:perc_attach /></if:perc_attach>)
  </div>
 
  <table class="leftAlign" cellspacing="0">

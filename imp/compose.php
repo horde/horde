@@ -916,10 +916,9 @@ if ($redirect) {
     if ($conf['user']['allow_folders'] && !$readonly_drafts) {
         $t->set('save_draft_ak', Horde::getAccessKeyAndTitle(_("Save _Draft")));
     }
-    $t->set('help_buttons', Horde_Help::link('imp', 'compose-buttons'));
+    $t->set('help', Horde_Help::link('imp', 'compose-buttons'));
     $t->set('di_locked', $prefs->isLocked('default_identity'));
     if ($t->get('di_locked')) {
-        $t->set('help_compose-from', Horde_Help::link('imp', 'compose-from'));
         $t->set('fromaddr_locked', $prefs->isLocked('from_addr'));
         try {
             $t->set('from', htmlspecialchars($identity->getFromLine(null, Horde_Util::getFormData('from'))));
@@ -932,7 +931,6 @@ if ($redirect) {
     } else {
         $select_list = $identity->getSelectList();
         $t->set('identity_label', Horde::label('identity', _("_Identity")));
-        $t->set('help_compose-from', Horde_Help::link('imp', 'compose-identity'));
         $t->set('last_identity', $identity->getDefault());
         $t->set('count_select_list', count($select_list) > 1);
         if (count($select_list) > 1) {
@@ -999,7 +997,6 @@ if ($redirect) {
             $addr['multiple'] = false;
             $addr['input_tabindex'] = ++$tabindex;
             $addr['input_value'] = htmlspecialchars($header[$val]);
-            $addr['help_compose'] = Horde_Help::link('imp', 'compose-' . $val);
         }
         $address_array[] = $addr;
     }
@@ -1020,7 +1017,6 @@ if ($redirect) {
             $charset_array[] = array('value' => $charset, 'selected' => (strtolower($charset) == strtolower($encoding)), 'label' => $label);
         }
         $t->set('charset_array', $charset_array);
-        $t->set('help_compose_charset', Horde_Help::link('imp', 'compose-charset'));
     }
     if ($t->get('set_priority')) {
         $t->set('priority_label', Horde::label('priority', _("_Priority")));
@@ -1039,7 +1035,6 @@ if ($redirect) {
             $priority_option[] = array('val' => $key, 'label' => $val, 'selected' => ($priority == $key));
         }
         $t->set('pri_opt', $priority_option);
-        $t->set('help_priority', Horde_Help::link('imp', 'compose-priority'));
     }
 
     $t->set('stationery', !empty($stationery_list));
@@ -1084,7 +1079,6 @@ if ($redirect) {
         );
     }
     $t->set('compose_options', $compose_options);
-    $t->set('help_options', Horde_Help::link('imp', 'compose-options'));
 
     $t->set('ssm', ($conf['user']['allow_folders'] && !$prefs->isLocked('save_sent_mail')));
     if ($t->get('ssm')) {
