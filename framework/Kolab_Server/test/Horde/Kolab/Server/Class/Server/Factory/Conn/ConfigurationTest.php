@@ -71,6 +71,7 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodGetconnectionHasResultLdapConnectionIfConfiguredThatWay()
     {
+        $this->skipIfNoLdap();
         $factory = new Horde_Kolab_Server_Factory_Conn_Configuration(
             array('basedn' => 'a')
         );

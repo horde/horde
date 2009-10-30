@@ -35,7 +35,6 @@ extends Horde_Kolab_Server_LdapTestCase
 {
     public function setUp()
     {
-        parent::setUp();
         $this->conn_factory = $this->getMock('Horde_Kolab_Server_Factory_Conn');
         $this->connection = $this->getMock('Horde_Kolab_Server_Connection');
     }
@@ -126,6 +125,7 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodGetserverHasResultServerldapstandard()
     {
+        $this->skipIfNoLdap();
         $this->conn_factory->expects($this->once())
             ->method('getConnection')
             ->will($this->returnValue($this->connection));
@@ -140,6 +140,7 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodGetserverHasResultServerldapfilteredIfTheFilterOptionIsSet()
     {
+        $this->skipIfNoLdap();
         $this->conn_factory->expects($this->once())
             ->method('getConnection')
             ->will($this->returnValue($this->connection));
@@ -167,6 +168,7 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodGetcompositeHasResultComposite()
     {
+        $this->skipIfNoLdap();
         $this->conn_factory->expects($this->once())
             ->method('getConnection')
             ->will($this->returnValue($this->connection));

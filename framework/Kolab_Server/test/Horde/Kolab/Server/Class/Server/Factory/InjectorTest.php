@@ -65,6 +65,7 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodGetserverHasResultServerldapstandard()
     {
+        $this->skipIfNoLdap();
         $factory = $this->_getFactory(array('basedn' => 'test'));
         $this->assertType(
             'Horde_Kolab_Server_Ldap_Standard',
@@ -88,6 +89,7 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodGetserverHasResultServerldapFilteredIfAFilterWasSet()
     {
+        $this->skipIfNoLdap();
         $factory = $this->_getFactory(array('filter' => 'test', 'basedn' => 'test'));
         $this->assertType(
             'Horde_Kolab_Server_Ldap_Filtered',
@@ -148,6 +150,7 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodGetcompositeHasResultComposite()
     {
+        $this->skipIfNoLdap();
         $factory = $this->_getFactory(array('basedn' => 'test'));
         $this->assertType(
             'Horde_Kolab_Server_Composite',

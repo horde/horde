@@ -103,6 +103,7 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodGetconnectionHasResultConnectionSimpleldap()
     {
+        $this->skipIfNoLdap();
         $factory = new Horde_Kolab_Server_Factory_Conn_Ldap();
         $factory->setConfiguration(array('basedn' => 'test'));
         $this->assertType(
@@ -113,6 +114,7 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodGetconnectionHasResultConnectionSplittedldapIfTheHostMasterIsSet()
     {
+        $this->skipIfNoLdap();
         $factory = new Horde_Kolab_Server_Factory_Conn_Ldap();
         $factory->setConfiguration(array('basedn' => 'test', 'host_master' => 'dummy'));
         $this->assertType(

@@ -32,7 +32,7 @@ require_once dirname(__FILE__) . '/TestCase.php';
  */
 class Horde_Kolab_Server_LdapTestCase extends Horde_Kolab_Server_TestCase
 {
-    public function setUp()
+    public function skipIfNoLdap()
     {
         if (!extension_loaded('ldap') && !@dl('ldap.' . PHP_SHLIB_SUFFIX)) {
             $this->markTestSuiteSkipped('Ldap extension is missing!');

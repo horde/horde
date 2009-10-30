@@ -34,7 +34,7 @@ class Horde_Kolab_Server_Query_LdapTest extends Horde_Kolab_Server_LdapTestCase
 {
     public function setUp()
     {
-        parent::setUp();
+        $this->skipIfNoLdap();
         $this->structure = $this->getMock('Horde_Kolab_Server_Structure');
     }
 

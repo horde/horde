@@ -53,6 +53,7 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodGetserverReturnsServer()
     {
+        $this->skipIfNoLdap();
         $this->factory->expects($this->once())
             ->method('getConnection')
             ->will(
@@ -99,6 +100,7 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodGetcompositeReturnsComposite()
     {
+        $this->skipIfNoLdap();
         $this->factory->expects($this->once())
             ->method('getConnection')
             ->will(

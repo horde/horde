@@ -33,7 +33,6 @@ require_once dirname(__FILE__) . '/../LdapTestCase.php';
 class Horde_Kolab_Server_Connection_MockTest
 extends Horde_Kolab_Server_LdapTestCase
 {
-
     /**
      * Test parsing of LDAP filters.
      *
@@ -41,6 +40,8 @@ extends Horde_Kolab_Server_LdapTestCase
      */
     public function testFilterParse()
     {
+        $this->skipIfNoLdap();
+
         $conn = new Horde_Kolab_Server_Connection_Mock(array());
 
         $a = $conn->parse('(a=b)');
@@ -90,6 +91,8 @@ extends Horde_Kolab_Server_LdapTestCase
      */
     public function testSearch()
     {
+        $this->skipIfNoLdap();
+
         $conn = new Horde_Kolab_Server_Connection_Mock(
             array(
                 'data' =>

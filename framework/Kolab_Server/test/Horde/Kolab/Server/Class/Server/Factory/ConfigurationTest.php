@@ -35,6 +35,7 @@ extends Horde_Kolab_Server_LdapTestCase
 {
     public function testMethodGetserverHasResultLoggedServerIfALoggerWasProvidedInTheConfiguration()
     {
+        $this->skipIfNoLdap();
         $factory = new Horde_Kolab_Server_Factory_Configuration(
             array('logger' => 'set', 'basedn' => '')
         );
@@ -43,6 +44,7 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodGetserverHasResultMappedServerIfAMappedWasProvidedInTheConfiguration()
     {
+        $this->skipIfNoLdap();
         $factory = new Horde_Kolab_Server_Factory_Configuration(
             array('map' => array(), 'basedn' => '')
         );
@@ -51,6 +53,7 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodGetserverHasResultCleanerServerIfACleanedWasProvidedInTheConfiguration()
     {
+        $this->skipIfNoLdap();
         $factory = new Horde_Kolab_Server_Factory_Configuration(
             array('cleanup' => true, 'basedn' => '')
         );
@@ -77,6 +80,7 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodGetserverHasResultServer()
     {
+        $this->skipIfNoLdap();
         $factory = new Horde_Kolab_Server_Factory_Configuration(
             array('basedn' => '')
         );
@@ -99,6 +103,7 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodGetconnectionHasResultServerconnection()
     {
+        $this->skipIfNoLdap();
         $factory = new Horde_Kolab_Server_Factory_Configuration(
             array('basedn' => '')
         );
@@ -110,6 +115,7 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodGetcompositeHasResultServercomposite()
     {
+        $this->skipIfNoLdap();
         $factory = new Horde_Kolab_Server_Factory_Configuration(
             array('basedn' => '')
         );

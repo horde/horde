@@ -34,7 +34,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
 {
     public function setUp()
     {
-        parent::setUp();
+        $this->skipIfNoLdap();
 
         $this->ldap_read  = $this->getMock('Net_LDAP2');
         $this->ldap_write = $this->getMock('Net_LDAP2');

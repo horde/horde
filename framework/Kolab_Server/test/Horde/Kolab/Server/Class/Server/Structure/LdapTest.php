@@ -14,7 +14,7 @@
 /**
  * Require our basic test case definition
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once dirname(__FILE__) . '/../../../LdapTestCase.php';
 
 /**
  * Test the LDAP backend.
@@ -30,7 +30,7 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Class_Server_Structure_LdapTest extends PHPUnit_Framework_TestCase
+class Horde_Kolab_Server_Class_Server_Structure_LdapTest extends Horde_Kolab_Server_LdapTestCase
 {
     public function setUp()
     {
@@ -46,6 +46,7 @@ class Horde_Kolab_Server_Class_Server_Structure_LdapTest extends PHPUnit_Framewo
 
     public function testMethodFindHasResultServerResultTheSearchResult()
     {
+        $this->skipIfNoLdap();
         $result = $this->getMock('Horde_Kolab_Server_Result');
         $this->composite->server->expects($this->exactly(1))
             ->method('find')
@@ -60,6 +61,7 @@ class Horde_Kolab_Server_Class_Server_Structure_LdapTest extends PHPUnit_Framewo
 
     public function testMethodFindBelowHasResultServerResultTheSearchResult()
     {
+        $this->skipIfNoLdap();
         $result = $this->getMock('Horde_Kolab_Server_Result');
         $this->composite->server->expects($this->exactly(1))
             ->method('findBelow')
