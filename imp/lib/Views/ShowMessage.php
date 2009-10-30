@@ -260,7 +260,7 @@ class IMP_Views_ShowMessage
 
         /* Do MDN processing now. */
         if ($imp_ui->MDNCheck($mailbox, $uid, $mime_headers)) {
-            $result['msgtext'] .= $imp_ui->formatStatusMsg(array('text' => array(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link('', '', '', '', 'DimpCore.doAction(\'SendMDN\',{folder:\'' . $mailbox . '\',uid:' . $uid . '}); return false;', '', '') . _("HERE") . '</a>'))));
+            $result['msgtext'] .= $imp_ui->formatStatusMsg(array(array('text' => array(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link('', '', '', '', 'DimpCore.doAction(\'SendMDN\',{folder:\'' . $mailbox . '\',uid:' . $uid . '}); return false;', '', '') . _("HERE") . '</a>')))));
         }
 
         /* Build body text. This needs to be done before we build the
@@ -296,13 +296,9 @@ class IMP_Views_ShowMessage
                     continue;
                 }
 
-                $tmp_status = array();
-
-                foreach ($info['status'] as $val) {
-                    $tmp_status[] = $imp_ui->formatStatusMsg($val);
-                }
-
-                $result['msgtext'] .= $imp_ui->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display) . implode("\n", $tmp_status) . $info['data'];
+                $result['msgtext'] .= $imp_ui->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display) .
+                    $imp_ui->formatStatusMsg($info['status']) .
+                    $info['data'];
 
                 if (isset($info['js'])) {
                     $result['js'] = array_merge($result['js'], $info['js']);
@@ -311,7 +307,7 @@ class IMP_Views_ShowMessage
         }
 
         if (!strlen($result['msgtext'])) {
-            $result['msgtext'] = $imp_ui->formatStatusMsg(array('text' => array(_("There are no parts that can be shown inline."))));
+            $result['msgtext'] = $imp_ui->formatStatusMsg(array(array('text' => array(_("There are no parts that can be shown inline.")))));
         }
 
         if (count($atc_parts) ||

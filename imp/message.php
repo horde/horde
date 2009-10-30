@@ -575,7 +575,7 @@ $msgtext = '';
 
 /* Do MDN processing now. */
 if ($imp_ui->MDNCheck($imp_mbox['mailbox'], $uid, $mime_headers, Horde_Util::getFormData('mdn_confirm'))) {
-    $msgtext .= $imp_ui->formatStatusMsg(array('text' => array(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link(htmlspecialchars(Horde_Util::addParameter($selfURL, 'mdn_confirm', 1))) . _("HERE") . '</a>'))));
+    $msgtext .= $imp_ui->formatStatusMsg(array(array('text' => array(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link(htmlspecialchars(Horde_Util::addParameter($selfURL, 'mdn_confirm', 1))) . _("HERE") . '</a>')))));
 }
 
 $show_parts = Horde_Util::getFormData('show_parts', $prefs->getValue('parts_display'));
@@ -627,13 +627,8 @@ foreach ($parts_list as $mime_id => $mime_type) {
             continue;
         }
 
-        $tmp_status = array();
-        foreach ($info['status'] as $val) {
-            $tmp_status[] = $imp_ui->formatStatusMsg($val);
-        }
-
         $msgtext .= $imp_ui->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display) .
-            implode("\n", $tmp_status) .
+            $imp_ui->formatStatusMsg($info['status']) .
             $info['data'];
 
         if (isset($info['js'])) {
@@ -643,7 +638,7 @@ foreach ($parts_list as $mime_id => $mime_type) {
 }
 
 if (!strlen($msgtext)) {
-    $msgtext = $imp_ui->formatStatusMsg(array('text' => array(_("There are no parts that can be shown inline."))));
+    $msgtext = $imp_ui->formatStatusMsg(array(array('text' => array(_("There are no parts that can be shown inline.")))));
 }
 
 /* Build the Attachments menu. */

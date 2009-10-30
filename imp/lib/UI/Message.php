@@ -435,28 +435,32 @@ class IMP_UI_Message
      */
     public function formatStatusMsg($data)
     {
-        if (empty($data)) {
-            return '';
+        $out = '';
+
+        foreach ($data as $val) {
+            if (empty($val)) {
+                continue;
+            }
+
+            $out .= '<div><table ' . (isset($val['id']) ? ('id="' . $val['id'] . '" ') : '') . 'class="mimeStatusMessage">';
+
+            /* If no image, simply print out the message. */
+            if (empty($val['icon'])) {
+                foreach ($val['text'] as $val) {
+                    $out .= '<tr><td>' . $val . '</td></tr>';
+                }
+            } else {
+                $out .= '<tr><td class="mimeStatusIcon">' . $val['icon'] . '</td><td><table>';
+                foreach ($val['text'] as $val) {
+                    $out .= '<tr><td>' . $val . '</td></tr>';
+                }
+                $out .= '</table></td></tr>';
+            }
+
+            $out .= '</table></div>';
         }
 
-        $class = 'mimeStatusMessage';
-
-        $out = array('<div><table ' . (isset($data['id']) ? ('id="' . $data['id'] . '" ') : '') . 'class="' . $class . '">');
-
-        /* If no image, simply print out the message. */
-        if (empty($data['icon'])) {
-            foreach ($data['text'] as $val) {
-                $out[] = '<tr><td>' . $val . '</td></tr>';
-            }
-        } else {
-            $out[] = '<tr><td class="mimeStatusIcon">' . $data['icon'] . '</td><td><table>';
-            foreach ($data['text'] as $val) {
-                $out[] = '<tr><td>' . $val . '</td></tr>';
-            }
-            $out[] = '</table></td></tr>';
-        }
-
-        return implode("\n", $out) . "\n</table></div>\n";
+        return $out;
     }
 
     /**
