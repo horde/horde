@@ -267,10 +267,16 @@ class IMP_Views_ShowMessage
                 continue;
             }
 
+
             if (!($render_mode = $imp_contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE | IMP_Contents::RENDER_INFO))) {
-                if (($show_parts == 'atc') &&
-                    $imp_contents->isAttachment($mime_type)) {
-                    $atc_parts[] = $mime_id;
+                if ($imp_contents->isAttachment($mime_type)) {
+                    if ($show_parts == 'atc') {
+                        $atc_parts[] = $mime_id;
+                    }
+
+                    if ($GLOBALS['prefs']->getValue('atc_display')) {
+                        $result['msgtext'] .= $imp_ui->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display);
+                    }
                 }
                 continue;
             }
