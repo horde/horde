@@ -60,19 +60,11 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Ajax_Imple_AutoComple
         }
         $locs = $GLOBALS['ansel_storage']->searchLocations($input);
         if (is_a($locs, 'PEAR_Error')) {
-            return array('response' => 0);
+            Horde::logMessage($locs->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            $locs = array();
         }
 
-        $results = $locs;
-
-        if (count($results) == 0) {
-            $results = array('response' => 0, 'message' => array());
-        } else {
-            $results = array('response' => count($results),
-                             'message' => Horde_Serialize::serialize($results, Horde_Serialize::JSON, Horde_Nls::getCharset()));
-        }
-
-        return $results;
+        return Horde_Serialize::serialize($locs, Horde_Serialize::JSON, Horde_Nls::getCharset());
     }
 
 }
