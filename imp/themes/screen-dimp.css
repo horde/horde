@@ -539,15 +539,16 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 /* end msg small header */
 
 /* Message body formatting. */
-.msgBody {
+.messageBody {
     background: #fff url("graphics/backhead_shadow.png") top repeat-x;
+    border: 0;
     padding: 7px 5px 5px;
 }
-.msgfullread div.msgBody {
+.msgfullread div.messageBody {
     overflow: auto;
 }
 
-#msgBodyCover {
+#messageBodyCover {
     position: absolute;
     z-index: 1000;
 }

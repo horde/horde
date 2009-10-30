@@ -637,7 +637,7 @@ div.mimePartInfo img {
         display: table-row !important;
     }
 
-    .msgfullread .msgBody {
+    .msgfullread .messageBody {
         border-top: 1px solid silver;
     }
 

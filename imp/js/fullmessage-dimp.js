@@ -110,10 +110,10 @@ var DimpFullmessage = {
                 Effect.toggle(tmp, 'blind', {
                     afterFinish: function() {
                         this.resizeWindow();
-                        $('msgData').down('DIV.msgBody').setStyle({ overflowY: 'auto' })
+                        $('msgData').down('DIV.messageBody').setStyle({ overflowY: 'auto' })
                     }.bind(this),
                     beforeSetup: function() {
-                        $('msgData').down('DIV.msgBody').setStyle({ overflowY: 'hidden' })
+                        $('msgData').down('DIV.messageBody').setStyle({ overflowY: 'hidden' })
                     },
                     duration: 0.2,
                     queue: {
@@ -168,7 +168,7 @@ var DimpFullmessage = {
 
     resizeWindow: function()
     {
-        var mb = $('msgData').down('DIV.msgBody');
+        var mb = $('msgData').down('DIV.messageBody');
 
         mb.setStyle({ height: (document.viewport.getHeight() - mb.cumulativeOffset()[1] - parseInt(mb.getStyle('paddingTop'), 10) - parseInt(mb.getStyle('paddingBottom'), 10)) + 'px' });
     },

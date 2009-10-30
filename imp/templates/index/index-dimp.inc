@@ -305,7 +305,7 @@ function _simpleButton($id, $text, $image)
          </div>
         </div>
        </div>
-       <div id="msgBody" class="msgBody"></div>
+       <div id="messageBody" class="messageBody"></div>
       </div>
      </div>
     </div>
@@ -497,4 +497,4 @@ function _simpleButton($id, $text, $image)
  </form>
 </div>
 
-<div id="msgBodyCover" style="display:none"></div>
+<div id="messageBodyCover" style="display:none"></div>
