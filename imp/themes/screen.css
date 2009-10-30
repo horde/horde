@@ -157,12 +157,12 @@ div.msgActions, #fmanager div.folderActions {
     background: #fff;
     padding: 8px;
 }
-.messageBody div.fixed {
-    padding-top: 8px;
+.messageBody div {
+    margin-bottom: 8px;
 }
 
 /* Search page styling. */
-#search_form DIV.item {
+#search_form div.item {
     padding: 1px 0 1px 0;
 }
 #search_form .checkbox {
@@ -172,7 +172,7 @@ div.msgActions, #fmanager div.folderActions {
 #search_form .foldersImg {
     vertical-align: middle;
 }
-#search_form EM.join {
+#search_form em.join {
     font-style: normal;
     font-weight: bold;
 }
@@ -519,7 +519,7 @@ td.addressTr span.loadingImg {
 }
 
 /* MIME styles. */
-.mimeStatusMessage, .mimeHeaders, .mimePartInfo {
+.mimeStatusMessage, .mimeHeaders {
     padding: 4px;
     margin-bottom: 3px;
     font-size: 90%;
@@ -540,21 +540,24 @@ td.addressTr span.loadingImg {
     background: #f9f9f9;
     width: auto;
 }
-.mimePartInfo {
-    border: 1px solid #ccc;
+div.mimePartInfo {
     background: #efefef;
+    border: 1px solid #ccc;
+    font-size: 90%;
+    margin-bottom: 3px;
+    padding: 5px;
     /* For FF2 */
     display: table-cell;
     display: inline-block;
 }
-.mimePartInfo img {
+div.mimePartInfo img {
     vertical-align: bottom;
 }
 
-.mimeStatusMessage td, .mimePartInfo td {
+.mimeStatusMessage td {
     padding: 0;
 }
-.mimeStatusMessage td table td, .mimePartInfo td table td {
+.mimeStatusMessage td table td {
     padding-right: 2px;
     white-space: nowrap;
 }
