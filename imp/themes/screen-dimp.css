@@ -199,7 +199,6 @@ div.msgSize {
     overflow: hidden;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
-    -ms-text-overflow: ellipsis;
     height: 16px;
     border-bottom: 1px;
     text-indent: 2px;
@@ -527,7 +526,6 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     padding-left: 2px;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
-    -ms-text-overflow: ellipsis;
 }
 #msgHeadersColl span.fromcontainer {
     padding-left: 5px;
@@ -537,7 +535,6 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     overflow: hidden;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
-    -ms-text-overflow: ellipsis;
 }
 /* end msg small header */
 
