@@ -39,7 +39,7 @@ abstract class Horde_Ajax_Imple_AutoCompleter extends Horde_Ajax_Imple_Base
         );
 
         $config = $this->_attach(array(
-            'raw_params' = array(),
+            'raw_params' => array(),
             'tokens' => array(',', ';')
         ));
 
