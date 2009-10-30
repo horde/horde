@@ -541,16 +541,19 @@ td.addressTr span.loadingImg {
     width: auto;
 }
 div.mimePartInfo {
+    margin-bottom: 5px;
+}
+.mimePartInfo div {
     background: #efefef;
     border: 1px solid #ccc;
     font-size: 90%;
-    margin-bottom: 3px;
+    margin: 0;
     padding: 5px;
     /* For FF2 */
     display: table-cell;
     display: inline-block;
 }
-div.mimePartInfo img {
+.mimePartInfo div img {
     vertical-align: bottom;
 }
 

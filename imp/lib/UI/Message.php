@@ -422,7 +422,7 @@ class IMP_UI_Message
         foreach ($display as $val) {
             $tmp_summary[] = $summary[$val];
         }
-        return '<div class="mimePartInfo">' . implode(' ', $tmp_summary) . '</div>';
+        return '<div class="mimePartInfo"><div>' . implode(' ', $tmp_summary) . '</div></div>';
     }
 
     /**
