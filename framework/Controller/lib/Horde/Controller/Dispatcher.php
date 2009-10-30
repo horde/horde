@@ -89,7 +89,7 @@ class Horde_Controller_Dispatcher
 
         // Make sure we have an inflector
         if (!$this->_inflector) {
-            $this->_inflector = new Horde_Support_Inflector;
+            $this->_inflector = new Horde_Support_Inflector();
         }
     }
 
@@ -110,7 +110,7 @@ class Horde_Controller_Dispatcher
      */
     public function dispatch(Horde_Controller_Request_Base $request, $response = null)
     {
-        $t = new Horde_Support_Timer;
+        $t = new Horde_Support_Timer();
         $t->push();
 
         if (! $response instanceof Horde_Controller_Response_Base) {
