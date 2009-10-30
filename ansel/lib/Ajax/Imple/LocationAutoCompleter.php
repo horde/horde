@@ -15,16 +15,14 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Ajax_Imple_AutoComple
     protected function _attach($js_params)
     {
         $js_params['indicator'] = $this->_params['triggerId'] . '_loading_img';
-        $js_params['onSelect'] = 1;
-        $js_params['onShow'] = 1;
         $js_params['tokens'] = '';
 
         $ret = array(
-            'func_replace' => array(
-                '"onSelect":1' => '"onSelect":function (v) { ' . $this->_params['map'] . '.ll = Ansel.ajax.locationAutoCompleter.geocache[v]; }',
-                '"onShow":1' => '"onShow":function (e) { if (!e.size()) ' . $this->_params['map'] . '.ll = null; }'
-            ),
             'params' => $js_params,
+            'raw_params' => array(
+                'onSelect' => 'function (v) { ' . $this->_params['map'] . '.ll = Ansel.ajax.locationAutoCompleter.geocache[v]; }',
+                'onShow' => 'function (e) { if (!e.size()) ' . $this->_params['map'] . '.ll = null; }'
+            ),
             'var' => "Ansel.ajax['locationAutoCompleter']"
         );
 

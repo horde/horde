@@ -25,11 +25,11 @@ class Kronolith_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_AutoCom
 
         return array(
             'ajax' => 'ContactAutoCompleter',
-            'func_replace' => array(
-                '"onSelect":1' => '"onSelect":function (v) { if (!v.endsWith(";")) { v += ","; } return v + " "; }',
-                '"onType":1' => '"onType":function (e) { return e.include("<") ? "" : e; }'
+            'params' => $js_params,
+            'raw_params' => array(
+                'onSelect' => 'function (v) { if (!v.endsWith(";")) { v += ","; } return v + " "; }',
+                'onType' => 'function (e) { return e.include("<") ? "" : e; }'
             ),
-            'params' => $js_params
         );
     }
 

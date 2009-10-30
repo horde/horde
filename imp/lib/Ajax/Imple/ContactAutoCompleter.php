@@ -25,15 +25,13 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_AutoCompleter
     protected function _attach($js_params)
     {
         $js_params['indicator'] = $this->_params['triggerId'] . '_loading_img';
-        $js_params['onSelect'] = 1;
-        $js_params['onType'] = 1;
 
         $ret = array(
-            'func_replace' => array(
-                '"onSelect":1' => '"onSelect":function (v) { if (!v.endsWith(";")) { v += ","; } return v + " "; }',
-                '"onType":1' => '"onType":function (e) { return e.include("<") ? "" : e; }'
-            ),
-            'params' => $js_params
+            'params' => $js_params,
+            'raw_params' => array(
+                'onSelect' => 'function (v) { if (!v.endsWith(";")) { v += ","; } return v + " "; }',
+                'onType' => 'function (e) { return e.include("<") ? "" : e; }'
+            )
         );
 
         $ac_browser = empty($GLOBALS['conf']['compose']['ac_browser'])
