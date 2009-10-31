@@ -38,11 +38,7 @@ abstract class Horde_Ajax_Imple_AutoCompleter extends Horde_Ajax_Imple_Base
             '"' . $this->_params['triggerId'] . '"'
         );
 
-        $config = $this->_attach(array(
-            'raw_params' => array(),
-            'tokens' => array(',', ';')
-        ));
-
+        $config = $this->_attach(array('tokens' => array(',', ';')));
 
         if (isset($config['ajax'])) {
             Horde::addScriptFile('autocomplete.js', 'horde');
@@ -78,6 +74,7 @@ abstract class Horde_Ajax_Imple_AutoCompleter extends Horde_Ajax_Imple_Base
             return;
         }
 
+        $config['raw_params'] = !empty($config['raw_params']) ? $config['raw_params'] : array();
         foreach ($config['raw_params'] as $name => $val) {
             $config['params'][$name] = 1;
         }
