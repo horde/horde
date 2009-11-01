@@ -99,7 +99,7 @@ class Ingo_Driver_Vfs extends Ingo_Driver
         if (is_a($result, 'PEAR_Error')) {
             return $result;
         }
-        return $this->_vfs->read('', $this->_params['vfs_path'] . '/' . $this->_params['filename']);
+        return $this->_vfs->read($this->_params['vfs_path'], $this->_params['filename']);
     }
 
     /**
