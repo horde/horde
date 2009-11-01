@@ -137,7 +137,7 @@ var DimpCompose = {
         $('save_sent_mail_folder').setValue(s);
         $('sent_mail_folder_label').writeAttribute('title', l.escapeHTML()).setText(l.truncate(15)).up(1).show();
 
-        if (sel) {
+        if (DIMP.conf_compose.flist && sel) {
             this.knl.setSelected(s);
         }
     },
