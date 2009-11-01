@@ -1040,8 +1040,11 @@ class Ansel_Storage
      */
     public function searchLocations($search = '')
     {
-        $sql = 'SELECT DISTINCT image_location, image_latitude, image_longitude'
-            . ' FROM ansel_images WHERE image_location LIKE "' . $search . '%"';
+        $sql = 'SELECT DISTINCT image_location, image_latitude, image_longitude FROM ansel_images WHERE LENGTH(image_location) > 0';
+        if (strlen($search)) {
+            $sql .= ' AND image_location LIKE "' . $search . '%"';
+        }
+        Horde::logMessage(sprintf("SQL QUERY BY Ansel_Storage::searchLocations: %s", $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
         $results = $this->_db->query($sql);
         if ($results instanceof PEAR_Error) {
             throw new Horde_Exception($results->getMessage());
