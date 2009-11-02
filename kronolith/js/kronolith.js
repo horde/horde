@@ -356,7 +356,7 @@ KronolithCore = {
             this.allDayEvents = [];
             var div = $('kronolithEventsWeek').down('div'),
                 th = $('kronolithViewWeekHead').down('.kronolithWeekDay'),
-                td = $('kronolithViewWeekBody').down('td').next('td'),
+                td = $('kronolithViewWeekHead').down('tbody').down('td').next('td'),
                 dates = this.viewDates(date, view),
                 day = dates[0].clone();
 
@@ -621,7 +621,7 @@ KronolithCore = {
             divA = trA.down('.kronolithAllDayContainer'),
             divATop = divA.cumulativeOffset().top,
             divAHeight = divA.getHeight(),
-            tr = trA.next('tr'),
+            tr = $(view).down('.fixme').down('.kronolithRow'),
             td = tr.down('td').next('td'), tdTop, tdHeight,
             tdAlign = td.getStyle('verticalAlign'),
             tr2 = tr.next('tr'),

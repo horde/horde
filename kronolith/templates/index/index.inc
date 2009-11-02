@@ -8,25 +8,26 @@
    <span class="kronolithUserName"><?php echo $identity->getName(); ?></span><br />
   </div>
   <!-- end user zone -->
-</div>
-<!-- end header -->
 
 <!-- ini bar -->
 <div id="kronolithBar">
   <div class="kronolithDateChoice" title="<?php echo _("Today") ?>">
-    <div><?php echo $today->format('l, j F Y') ?></div>
+    <div><?php echo $today->format('D, j M Y') ?></div>
   </div>
 
   <div id="kronolithNav">
-    <a id="kronolithNavDay"><?php echo _("Day") ?></a>
-    <a id="kronolithNavWeek"><?php echo _("Week") ?></a>
-    <a id="kronolithNavMonth"><?php echo _("Month") ?></a>
-    <a id="kronolithNavYear"><?php echo _("Year") ?></a>
-    <a id="kronolithNavTasks"><?php echo _("Tasks") ?></a>
-    <a id="kronolithNavAgenda"><?php echo _("Agenda") ?></a>
+    <a id="kronolithNavDay" accesskey="1"><?php echo _("Day") ?></a>
+    <a id="kronolithNavWeek" accesskey="2"><?php echo _("Week") ?></a>
+    <a id="kronolithNavMonth" accesskey="3"><?php echo _("Month") ?></a>
+    <a id="kronolithNavYear" accesskey="4"><?php echo _("Year") ?></a>
+    <a id="kronolithNavTasks" accesskey="5"><?php echo _("Tasks") ?></a>
+    <a id="kronolithNavAgenda" accesskey="6"><?php echo _("Agenda") ?></a>
   </div>
 </div>
 <!-- end bar -->
+
+</div>
+<!-- end header -->
 
 <!-- ini main area -->
 <div id="kronolithMain">
@@ -34,8 +35,8 @@
 <!-- ini menu -->
 <div id="kronolithMenu">
   <div id="kronolithAddEvents">
-    <span id="kronolithNewEvent"><?php echo _("New event") ?></span>
-    <span id="kronolithQuickEvent">+</span>
+    <span id="kronolithNewEvent"><?php echo _("_New event") ?></span>
+    <span id="kronolithQuickEvent" title="<?php echo _("Quick _insert") ?>">+</span>
   </div>
 
   <div id="kronolithMenuCalendars">

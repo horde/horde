@@ -3,7 +3,7 @@
   <caption>
     <span>&nbsp;</span>
     <span class="kronolithNavigation">
-      <a class="kronolithGotoToday" title="<?php echo _("Today") ?>"><?php echo _("Today") ?></a>
+      <a class="kronolithGotoToday" title="<?php echo _("Today") ?>"><?php echo _("_Today") ?></a>
       <a class="kronolithPrev" title="<?php echo _("Previous") ?>">&lt;</a>
       <a class="kronolithNext" title="<?php echo _("Next") ?>">&gt;</a>
     </span>
