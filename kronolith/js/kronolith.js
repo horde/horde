@@ -728,11 +728,13 @@ KronolithCore = {
                 shared++;
                 div = $('kronolithSharedCalendars');
             }
-            div.insert(new Element('DIV', { 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' })
-                       .store('calendar', cal.key)
-                       .store('calendarclass', 'internal')
-                       .setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg })
-                       .update(cal.value.name.escapeHTML()));
+            div.insert(new Element('SPAN', { 'class': 'kronolithCalEdit' })
+                       .insert('&rsaquo;'))
+                .insert(new Element('DIV', { 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' })
+                        .store('calendar', cal.key)
+                        .store('calendarclass', 'internal')
+                        .setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg })
+                        .update(cal.value.name.escapeHTML()));
         });
         if (my) {
             $('kronolithMyCalendars').show();

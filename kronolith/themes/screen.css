@@ -452,7 +452,17 @@ body.kronolithAjax {
 #kronolithMenu div.kronolithCalendars div.kronolithCalOver {
     text-decoration: underline;
 }
-
+#kronolithMenu div.kronolithCalendars .kronolithCalEdit {
+    float: right;
+    display: block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    border: 1px solid #c0c0c0;
+    background-color: #fff;
+    text-align: center;
+    font-weight: bold;
+}
 #kronolithAddEvents {
     margin-bottom: 18px;
 }
