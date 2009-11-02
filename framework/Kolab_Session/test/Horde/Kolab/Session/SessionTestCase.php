@@ -39,8 +39,8 @@ class Horde_Kolab_Session_SessionTestCase extends PHPUnit_Framework_TestCase
         return new Horde_Kolab_Server_Composite(
             $this->getMock('Horde_Kolab_Server'),
             $this->getMock('Horde_Kolab_Server_Objects'),
-            $this->getMock('Horde_Kolab_Server_Structure'),
-            $this->getMock('Horde_Kolab_Server_Search'),
+            $this->getMock('Horde_Kolab_Server_Structure_Interface'),
+            $this->getMock('Horde_Kolab_Server_Search_Interface'),
             $this->getMock('Horde_Kolab_Server_Schema')
         );
     }
