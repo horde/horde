@@ -49,10 +49,10 @@ class Horde_Kolab_Server_TestCase extends PHPUnit_Framework_TestCase
                 'Horde_Kolab_Server_Objects', array(), array(), '', false
             ),
             $this->getMock(
-                'Horde_Kolab_Server_Structure', array(), array(), '', false
+                'Horde_Kolab_Server_Structure_Interface', array(), array(), '', false
             ),
             $this->getMock(
-                'Horde_Kolab_Server_Search', array(), array(), '', false
+                'Horde_Kolab_Server_Search_Interface', array(), array(), '', false
             ),
             $this->getMock(
                 'Horde_Kolab_Server_Schema', array(), array(), '', false

@@ -269,27 +269,6 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
     }
 
     /**
-     * Returns the set of search operations supported by this object type.
-     *
-     * @return array An array of supported search operations.
-     */
-    static public function getSearchOperations()
-    {
-        $searches = array(
-            'Horde_Kolab_Server_Object_Search_Guidforkolabusers',
-            'Horde_Kolab_Server_Object_Search_Guidforuid',
-            'Horde_Kolab_Server_Object_Search_Guidformail',
-            'Horde_Kolab_Server_Object_Search_Guidforuidormail',
-            'Horde_Kolab_Server_Object_Search_Guidforalias',
-            'Horde_Kolab_Server_Object_Search_Guidformailoralias',
-            'Horde_Kolab_Server_Object_Search_Guidforuidormailoralias',
-            'Horde_Kolab_Server_Object_Search_Mailforuidormail',
-            'Horde_Kolab_Server_Object_Search_Addressesforuidormail',
-        );
-        return $searches;
-    }
-
-    /**
      * Returns the server url of the given type for this user.
      *
      * This method is used to encapsulate multidomain support.

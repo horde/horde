@@ -142,7 +142,7 @@ extends Horde_Kolab_Server_LdapTestCase
             array('basedn' => '')
         );
         $this->assertType(
-            'Horde_Kolab_Server_Structure',
+            'Horde_Kolab_Server_Structure_Interface',
             $factory->getStructure()
         );
     }
@@ -153,7 +153,7 @@ extends Horde_Kolab_Server_LdapTestCase
             array('basedn' => '')
         );
         $this->assertType(
-            'Horde_Kolab_Server_Search',
+            'Horde_Kolab_Server_Search_Interface',
             $factory->getSearch()
         );
     }

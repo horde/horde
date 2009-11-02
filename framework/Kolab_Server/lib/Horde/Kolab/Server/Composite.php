@@ -70,8 +70,8 @@ class Horde_Kolab_Server_Composite
     public function __construct(
         Horde_Kolab_Server $server,
         Horde_Kolab_Server_Objects $objects,
-        Horde_Kolab_Server_Structure $structure,
-        Horde_Kolab_Server_Search $search,
+        Horde_Kolab_Server_Structure_Interface $structure,
+        Horde_Kolab_Server_Search_Interface $search,
         Horde_Kolab_Server_Schema $schema
     ) {
         $this->_server    = $server;

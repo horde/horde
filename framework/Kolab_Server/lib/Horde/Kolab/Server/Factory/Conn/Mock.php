@@ -35,8 +35,16 @@ extends Horde_Kolab_Server_Factory_Conn_Base
      */
     public function getConnection()
     {
+        $config = $this->getConfiguration();
+        if (isset($config['data'])) {
+            $data = $config['data'];
+        } else {
+            $data = array();
+        }
         $connection = new Horde_Kolab_Server_Connection_Mock(
-            $this->getConfiguration()
+            new Horde_Kolab_Server_Connection_Mock_Ldap(
+                $config, $data
+            )
         );
         return $connection;
     }

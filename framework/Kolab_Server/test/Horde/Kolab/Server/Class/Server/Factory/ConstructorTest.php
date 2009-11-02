@@ -38,8 +38,8 @@ extends Horde_Kolab_Server_LdapTestCase
         parent::setUp();
         $this->factory   = $this->getMock('Horde_Kolab_Server_Factory_Conn');
         $this->objects   = $this->getMock('Horde_Kolab_Server_Objects');
-        $this->structure = $this->getMock('Horde_Kolab_Server_Structure');
-        $this->search    = $this->getMock('Horde_Kolab_Server_Search');
+        $this->structure = $this->getMock('Horde_Kolab_Server_Structure_Interface');
+        $this->search    = $this->getMock('Horde_Kolab_Server_Search_Interface');
         $this->schema    = $this->getMock('Horde_Kolab_Server_Schema');
     }
 

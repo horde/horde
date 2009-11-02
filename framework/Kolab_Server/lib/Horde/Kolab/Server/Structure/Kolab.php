@@ -57,6 +57,31 @@ class Horde_Kolab_Server_Structure_Kolab extends Horde_Kolab_Server_Structure_Ld
     }
 
     /**
+     * Returns the set of search operations supported by this object type.
+     *
+     * @return array An array of supported search operations.
+     */
+    public function getSearchOperations()
+    {
+        $searches = array(
+            'Horde_Kolab_Server_Search_Operation_Guid',
+            'Horde_Kolab_Server_Search_Operation_Attributes',
+            'Horde_Kolab_Server_Search_Operation_Children',
+            'Horde_Kolab_Server_Search_Operation_Guidforcn',
+            'Horde_Kolab_Server_Search_Operation_Guidforkolabusers',
+            'Horde_Kolab_Server_Search_Operation_Guidforuid',
+            'Horde_Kolab_Server_Search_Operation_Guidformail',
+            'Horde_Kolab_Server_Search_Operation_Guidforuidormail',
+            'Horde_Kolab_Server_Search_Operation_Guidforalias',
+            'Horde_Kolab_Server_Search_Operation_Guidformailoralias',
+            'Horde_Kolab_Server_Search_Operation_Guidforuidormailoralias',
+            'Horde_Kolab_Server_Search_Operation_Mailforuidormail',
+            'Horde_Kolab_Server_Search_Operation_Addressesforuidormail',
+        );
+        return $searches;
+    }
+
+    /**
      * Determine the type of an object by its tree position and other
      * parameters.
      *

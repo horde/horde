@@ -76,8 +76,8 @@ extends Horde_Kolab_Server_Factory_Base
     public function __construct(
         Horde_Kolab_Server_Factory_Conn $factory,
         Horde_Kolab_Server_Objects $objects,
-        Horde_Kolab_Server_Structure $structure,
-        Horde_Kolab_Server_Search $search,
+        Horde_Kolab_Server_Structure_Interface $structure,
+        Horde_Kolab_Server_Search_Interface $search,
         Horde_Kolab_Server_Schema $schema,
         array $config
     ) {

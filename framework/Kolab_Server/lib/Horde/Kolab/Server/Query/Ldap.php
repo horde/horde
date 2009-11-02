@@ -48,7 +48,7 @@ class Horde_Kolab_Server_Query_Ldap implements Horde_Kolab_Server_Query
      */
     public function __construct(
         Horde_Kolab_Server_Query_Element $criteria,
-        Horde_Kolab_Server_Structure $structure
+        Horde_Kolab_Server_Structure_Interface $structure
     ) {
         $this->_criteria  = $criteria;
         $this->_structure = $structure;

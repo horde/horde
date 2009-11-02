@@ -33,7 +33,7 @@ class Horde_Kolab_Server_Objects_Base implements Horde_Kolab_Server_Objects
      *
      * @var Horde_Kolab_Server_Composite
      */
-    protected $composite;
+    private $_composite;
 
     /**
      * Set the composite server reference for this object.
@@ -45,7 +45,7 @@ class Horde_Kolab_Server_Objects_Base implements Horde_Kolab_Server_Objects
      */
     public function setComposite(Horde_Kolab_Server_Composite $composite)
     {
-        $this->composite = $composite;
+        $this->_composite = $composite;
     }
 
     /**
@@ -79,13 +79,15 @@ class Horde_Kolab_Server_Objects_Base implements Horde_Kolab_Server_Objects
     public function fetch($uid = null, $type = null)
     {
         if (!isset($uid)) {
-            $uid = $this->uid;
+            $guid = $this->_composite->server->getGuid();
         }
         if (empty($type)) {
-            $type = $this->determineType($uid);
+            $type = $this->_composite->structure->determineType($guid);
         }
 
-        $object = &Horde_Kolab_Server_Object::factory($type, $uid, $this);
+        $object = &Horde_Kolab_Server_Object_Factory::factory(
+            $type, $guid, $this->_composite->server
+        );
         return $object;
     }
 

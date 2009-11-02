@@ -40,6 +40,22 @@ class Horde_Kolab_Server_Structure_Ldap extends Horde_Kolab_Server_Structure_Bas
     }
 
     /**
+     * Returns the set of search operations supported by this object type.
+     *
+     * @return array An array of supported search operations.
+     */
+    public function getSearchOperations()
+    {
+        $searches = array(
+            'Horde_Kolab_Server_Search_Operation_Guid',
+            'Horde_Kolab_Server_Search_Operation_Attributes',
+            'Horde_Kolab_Server_Search_Operation_Children',
+            'Horde_Kolab_Server_Search_Operation_Guidforcn',
+        );
+        return $searches;
+    }
+
+    /**
      * Determine the type of an object by its tree position and other
      * parameters.
      *

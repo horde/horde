@@ -75,7 +75,7 @@ class Horde_Kolab_Server_Cleaner implements Horde_Kolab_Server
      */
     public function getGuid()
     {
-        $this->_server->getGuid();
+        return $this->_server->getGuid();
     }
 
     /**
@@ -85,7 +85,7 @@ class Horde_Kolab_Server_Cleaner implements Horde_Kolab_Server
      */
     public function getBaseGuid()
     {
-        $this->_server->getBaseGuid();
+        return $this->_server->getBaseGuid();
     }
 
     /**
@@ -133,7 +133,7 @@ class Horde_Kolab_Server_Cleaner implements Horde_Kolab_Server
      */
     public function find($query, array $params = array())
     {
-        return $this->_server->find($criteria, $params);
+        return $this->_server->find($query, $params);
     }
 
     /**
@@ -149,7 +149,7 @@ class Horde_Kolab_Server_Cleaner implements Horde_Kolab_Server
      */
     public function findBelow($query, $parent, array $params = array())
     {
-        return $this->_server->findBelow($criteria, $parent, $params);
+        return $this->_server->findBelow($query, $parent, $params);
     }
 
     /**

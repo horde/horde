@@ -134,7 +134,7 @@ extends Horde_Kolab_Server_LdapTestCase
     {
         $factory = $this->_getFactory(array());
         $this->assertType(
-            'Horde_Kolab_Server_Search',
+            'Horde_Kolab_Server_Search_Interface',
             $factory->getSearch()
         );
     }

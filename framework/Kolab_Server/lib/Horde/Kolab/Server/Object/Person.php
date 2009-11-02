@@ -215,16 +215,4 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object_Top
             unset($info[self::ATTRIBUTE_USERPASSWORD]);
         }
     }
-
-    /**
-     * Returns the set of search operations supported by this object type.
-     *
-     * @return array An array of supported search operations.
-     */
-    static public function getSearchOperations()
-    {
-        return array(
-            'Horde_Kolab_Server_Object_Search_Guidforcn',
-        );
-    }
 }

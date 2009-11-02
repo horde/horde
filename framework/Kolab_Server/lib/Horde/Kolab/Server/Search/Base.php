@@ -27,7 +27,8 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Search_Base implements Horde_Kolab_Server_Search
+class Horde_Kolab_Server_Search_Base
+implements Horde_Kolab_Server_Search_Interface
 {
     /**
      * A link to the composite server handler.
@@ -65,28 +66,21 @@ class Horde_Kolab_Server_Search_Base implements Horde_Kolab_Server_Search
     private function _getSearchOperations()
     {
         $server_searches = array();
-        foreach ($this->_composite->structure->getSupportedObjects() as $sobj) {
-            $methods = get_class_methods($sobj);
-            if (!in_array('getSearchOperations', $methods)) {
-                continue;
+        foreach ($this->_composite->structure->getSearchOperations() as $search_class) {
+            if (!class_exists($search_class)) {
+                throw new Horde_Kolab_Server_Exception(
+                    sprintf(
+                        "%s::getSearchOperations specified non-existing class \"%s\"!",
+                        get_class($this->_composite->structure),
+                        $search_class
+                    )
+                );
             }
-            $search_classes = call_user_func(array($sobj, 'getSearchOperations'));
-            foreach ($search_classes as $search_class) {
-                if (!class_exists($search_class)) {
-                    throw new Horde_Kolab_Server_Exception(
-                        sprintf(
-                            "%s::getSearchOperations specified non-existing class \"%s\"!",
-                            $sobj,
-                            $search_class
-                        )
-                    );
-                }
-                $methods = get_class_methods($search_class);
-                unset($methods['getComposite']);
-                unset($methods['__construct']);
-                foreach ($methods as $method) {
-                    $server_searches[$method] = array('class' => $search_class);
-                }
+            $methods = get_class_methods($search_class);
+            unset($methods['getComposite']);
+            unset($methods['__construct']);
+            foreach ($methods as $method) {
+                $server_searches[$method] = array('class' => $search_class);
             }
         }
         return $server_searches;
@@ -116,7 +110,7 @@ class Horde_Kolab_Server_Search_Base implements Horde_Kolab_Server_Search
     {
         if (in_array($method, array_keys($this->_searches))) {
             $class = $this->_searches[$method]['class'];
-            $search = new $class($this->_composite);
+            $search = new $class($this->_composite->structure);
             return call_user_func_array(array($search, $method), $args);
         }
         throw new Horde_Kolab_Server_Exception(

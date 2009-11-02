@@ -37,7 +37,7 @@ extends Horde_Kolab_Server_TestCase
     {
         $composite = $this->getMockedComposite();
         $composite->structure->expects($this->once())
-            ->method('getSupportedObjects')
+            ->method('getSearchOperations')
             ->will($this->returnValue(array()));
         $search = new Horde_Kolab_Server_Search_Base();
         $search->setComposite($composite);
@@ -47,8 +47,8 @@ extends Horde_Kolab_Server_TestCase
     {
         $composite = $this->getMockedComposite();
         $composite->structure->expects($this->once())
-            ->method('getSupportedObjects')
-            ->will($this->returnValue(array('Object_Dummy')));
+            ->method('getSearchOperations')
+            ->will($this->returnValue(array('Object_Search')));
         $search = new Horde_Kolab_Server_Search_Base();
         $search->setComposite($composite);
         $this->assertEquals(
@@ -64,14 +64,14 @@ extends Horde_Kolab_Server_TestCase
     {
         $composite = $this->getMockedComposite();
         $composite->structure->expects($this->once())
-            ->method('getSupportedObjects')
-            ->will($this->returnValue(array('Object_Search_Fail')));
+            ->method('getSearchOperations')
+            ->will($this->returnValue(array('Object_Search_NoSuchClass')));
         $search = new Horde_Kolab_Server_Search_Base();
         try {
             $search->setComposite($composite);
         } catch (Horde_Kolab_Server_Exception $e) {
-            $this->assertEquals(
-                'Object_Search_Fail::getSearchOperations specified non-existing class "Does_Not_Exist"!',
+            $this->assertContains(
+                'getSearchOperations specified non-existing class "Object_Search_NoSuchClass"!',
                 $e->getMessage()
             );
         }
@@ -86,8 +86,8 @@ extends Horde_Kolab_Server_TestCase
     {
         $composite = $this->getMockedComposite();
         $composite->structure->expects($this->once())
-            ->method('getSupportedObjects')
-            ->will($this->returnValue(array('Object_Dummy')));
+            ->method('getSearchOperations')
+            ->will($this->returnValue(array('Object_Search')));
         $search = new Horde_Kolab_Server_Search_Base();
         $search->setComposite($composite);
         $this->assertEquals(1, $search->call());
@@ -97,8 +97,8 @@ extends Horde_Kolab_Server_TestCase
     {
         $composite = $this->getMockedComposite();
         $composite->structure->expects($this->once())
-            ->method('getSupportedObjects')
-            ->will($this->returnValue(array('Object_Dummy')));
+            ->method('getSearchOperations')
+            ->will($this->returnValue(array('Object_Search')));
         $search = new Horde_Kolab_Server_Search_Base();
         $search->setComposite($composite);
         $search->call('a');
@@ -109,8 +109,8 @@ extends Horde_Kolab_Server_TestCase
     {
         $composite = $this->getMockedComposite();
         $composite->structure->expects($this->once())
-            ->method('getSupportedObjects')
-            ->will($this->returnValue(array('Object_Dummy')));
+            ->method('getSearchOperations')
+            ->will($this->returnValue(array('Object_Search')));
         $search = new Horde_Kolab_Server_Search_Base();
         $search->setComposite($composite);
         try {
@@ -153,13 +153,5 @@ class Object_Search
     static public function reset()
     {
         self::$calls = 0;
-    }
-}
-
-class Object_Search_Fail
-{
-    static public function getSearchOperations()
-    {
-        return array('Does_Not_Exist');
     }
 }

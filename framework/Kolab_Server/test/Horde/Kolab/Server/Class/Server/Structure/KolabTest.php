@@ -39,7 +39,7 @@ class Horde_Kolab_Server_Class_Server_Structure_KolabTest extends PHPUnit_Framew
             $server,
             $this->getMock('Horde_Kolab_Server_Objects'),
             new Horde_Kolab_Server_Structure_Kolab(),
-            $this->getMock('Horde_Kolab_Server_Search'),
+            $this->getMock('Horde_Kolab_Server_Search_Interface'),
             $this->getMock('Horde_Kolab_Server_Schema')
         );
     }

@@ -86,21 +86,6 @@ implements Horde_Kolab_Server_Object_Searches
     }
 
     /**
-     * Returns the set of search operations supported by this object type.
-     *
-     * @return array An array of supported search operations.
-     */
-    static public function getSearchOperations()
-    {
-        $searches = array(
-            'Horde_Kolab_Server_Object_Search_Guid',
-            'Horde_Kolab_Server_Object_Search_Attributes',
-            'Horde_Kolab_Server_Object_Search_Children',
-        );
-        return $searches;
-    }
-
-    /**
      * Returns the set of actions supported by this object type.
      *
      * @return array An array of supported actions.

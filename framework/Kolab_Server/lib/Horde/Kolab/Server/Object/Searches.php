@@ -36,11 +36,4 @@ interface Horde_Kolab_Server_Object_Searches
      *                database.
      */
     public static function getFilter();
-
-    /**
-     * Returns the set of search operations supported by this object type.
-     *
-     * @return array An array of supported search operations.
-     */
-    public static function getSearchOperations();
 }

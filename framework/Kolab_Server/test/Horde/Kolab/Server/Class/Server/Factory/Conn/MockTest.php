@@ -70,7 +70,12 @@ extends PHPUnit_Framework_TestCase
     public function testMethodGetconnectionHasResultConnectionmock()
     {
         $factory = new Horde_Kolab_Server_Factory_Conn_Mock();
-        $factory->setConfiguration(array('basedn' => 'test'));
+        $factory->setConfiguration(
+            array(
+                'basedn' => 'test',
+                'data' => array()
+            )
+        );
         $this->assertType(
             'Horde_Kolab_Server_Connection_Mock',
             $factory->getConnection()

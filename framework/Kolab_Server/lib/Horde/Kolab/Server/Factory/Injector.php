@@ -138,7 +138,7 @@ implements Horde_Kolab_Server_Factory
     private function _setupSearch()
     {
         $this->_injector->bindImplementation(
-            'Horde_Kolab_Server_Search',
+            'Horde_Kolab_Server_Search_Interface',
             'Horde_Kolab_Server_Search_Base'
         );
     }
@@ -170,7 +170,9 @@ implements Horde_Kolab_Server_Factory
             $driver = $configuration['structure']['driver'];
         }
 
-        $this->_injector->bindImplementation('Horde_Kolab_Server_Structure', $driver);
+        $this->_injector->bindImplementation(
+            'Horde_Kolab_Server_Structure_Interface', $driver
+        );
     }
 
     /**
@@ -290,7 +292,7 @@ implements Horde_Kolab_Server_Factory
      */
     public function getStructure()
     {
-        return $this->_injector->getInstance('Horde_Kolab_Server_Structure');
+        return $this->_injector->getInstance('Horde_Kolab_Server_Structure_Interface');
     }
 
     /**
@@ -300,7 +302,7 @@ implements Horde_Kolab_Server_Factory
      */
     public function getSearch()
     {
-        return $this->_injector->getInstance('Horde_Kolab_Server_Search');
+        return $this->_injector->getInstance('Horde_Kolab_Server_Search_Interface');
     }
 
     /**
