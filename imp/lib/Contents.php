@@ -390,7 +390,11 @@ class IMP_Contents
         $mime_part = empty($options['mime_part'])
             ? $this->getMIMEPart($mime_id)
             : $options['mime_part'];
-        $viewer = Horde_Mime_Viewer::factory($mime_part, empty($options['type']) ? null : $options['type']);
+        $type = empty($options['type'])
+            ? $mime_part->getType()
+            : $options['type'];
+
+        $viewer = Horde_Mime_Viewer::factory($mime_part, $type);
         $viewer->setParams(array('contents' => $this));
         if (!empty($options['params'])) {
             $viewer->setParams($options['params']);
@@ -442,7 +446,9 @@ class IMP_Contents
             $ret[$mime_id]['name'] = $mime_part->getName(true);
         }
 
-        if (($textmode == 'inline') && !strlen($ret[$mime_id]['data'])) {
+        if (($textmode == 'inline') &&
+            !strlen($ret[$mime_id]['data']) &&
+            $this->isAttachment($type)) {
             if (empty($ret[$mime_id]['status'])) {
                 $ret[$mime_id]['status'] = array(
                     array(
