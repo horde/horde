@@ -76,9 +76,6 @@ class Horde_Kolab_Session_Integration_SessionTest extends Horde_Kolab_Session_Se
 
         $session = new Horde_Kolab_Session();
         $params  = $session->getImapParams();
-        if (is_a($params, 'PEAR_Error')) {
-            $this->assertEquals('', $params->getMessage());
-        }
         $this->assertEquals('example.com', $params['hostspec']);
         $this->assertEquals(200, $params['port']);
     }
