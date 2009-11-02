@@ -481,10 +481,9 @@ span#kronolithQuickEvent {
 #kronolithMenu form {
     padding: 0;
     margin: 0 0 5px 0;
-    line-height: 35px;
 }
-#kronolithSearch {
-    width: 146px;
+#kronolithSearchTerm {
+    width: 90px;
 }
 
 /* Quick edit */

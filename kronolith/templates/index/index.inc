@@ -97,17 +97,13 @@
   </div>
 
   <h3 class="search">
-    <a href="#" title="<?php echo _("Advanced") ?>" class="kronolithAdd">+</a>
     <span><?php echo _("Search") ?></span>
   </h3>
 
   <form id="kronolithSearchForm" action="">
-    <input type="text" id="kronolithSearchTerm" class="kronolithLongField" /><br />
-    <select id="kronolithSearchContext">
-      <option value="Events"><?php echo _("Events") ?></option>
-      <option value="Calendars"><?php echo _("Calendars") ?></option>
-    </select>
-    <input id="kronolithSearchButton" type="button" value="OK" class="button ok" /><br />
+    <input type="text" id="kronolithSearchTerm" />
+    <input id="kronolithSearchButton" type="button" value="OK" class="button ok" />
+    <input id="kronolithSearchAdvanced" type="button" value="+" class="button" />
   </form>
   </div>
 </div>
