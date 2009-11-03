@@ -65,8 +65,9 @@ implements Horde_Kolab_Server_Search_Operation_Interface
      *
      * @return boolean|array The GUID(s) or false if there was no result.
      */
-    protected function guidFromResult(Horde_Kolab_Server_Result $result)
-    {
+    protected function guidFromResult(
+        Horde_Kolab_Server_Result_Interface $result
+    ) {
         return array_keys($result->asArray());
     }
 }

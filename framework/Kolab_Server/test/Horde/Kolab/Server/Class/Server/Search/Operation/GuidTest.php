@@ -57,37 +57,41 @@ extends PHPUnit_Framework_TestCase
 
     public function testMethodSearchguidHasResultArrayTheGuidsOfTheSearchResult()
     {
-        $result = $this->getMock('Horde_Kolab_Server_Result');
+        $result = $this->getMock('Horde_Kolab_Server_Result_Interface');
         $result->expects($this->once())
             ->method('asArray')
             ->will($this->returnValue(array('a' => 'a')));
         $this->structure->expects($this->once())
             ->method('find')
             ->with(
-                $this->isInstanceOf('Horde_Kolab_Server_Query_Element'),
+                $this->isInstanceOf(
+                    'Horde_Kolab_Server_Query_Element_Interface'
+                ),
                 array('attributes' => 'Guid')
             )
             ->will($this->returnValue($result));
         $search = new Horde_Kolab_Server_Search_Operation_Guid($this->structure);
-        $criteria = $this->getMock('Horde_Kolab_Server_Query_Element');
+        $criteria = $this->getMock('Horde_Kolab_Server_Query_Element_Interface');
         $this->assertEquals(array('a'), $search->searchGuid($criteria));
     }
 
     public function testMethodSearchguidHasResultArrayEmptyIfTheSearchReturnedNoResults()
     {
-        $result = $this->getMock('Horde_Kolab_Server_Result');
+        $result = $this->getMock('Horde_Kolab_Server_Result_Interface');
         $result->expects($this->once())
             ->method('asArray')
             ->will($this->returnValue(array()));
         $this->structure->expects($this->once())
             ->method('find')
             ->with(
-                $this->isInstanceOf('Horde_Kolab_Server_Query_Element'),
+                $this->isInstanceOf(
+                    'Horde_Kolab_Server_Query_Element_Interface'
+                ),
                 array('attributes' => 'Guid')
             )
             ->will($this->returnValue($result));
         $search = new Horde_Kolab_Server_Search_Operation_Guid($this->structure);
-        $criteria = $this->getMock('Horde_Kolab_Server_Query_Element');
+        $criteria = $this->getMock('Horde_Kolab_Server_Query_Element_Interface');
         $this->assertEquals(array(), $search->searchGuid($criteria));
     }
 }

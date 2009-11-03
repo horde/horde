@@ -36,11 +36,21 @@ extends Horde_Kolab_Server_LdapTestCase
     public function setUp()
     {
         parent::setUp();
-        $this->factory   = $this->getMock('Horde_Kolab_Server_Factory_Conn');
-        $this->objects   = $this->getMock('Horde_Kolab_Server_Objects');
-        $this->structure = $this->getMock('Horde_Kolab_Server_Structure_Interface');
-        $this->search    = $this->getMock('Horde_Kolab_Server_Search_Interface');
-        $this->schema    = $this->getMock('Horde_Kolab_Server_Schema');
+        $this->factory   = $this->getMock(
+            'Horde_Kolab_Server_Factory_Connection_Interface'
+        );
+        $this->objects   = $this->getMock(
+            'Horde_Kolab_Server_Objects_Interface'
+        );
+        $this->structure = $this->getMock(
+            'Horde_Kolab_Server_Structure_Interface'
+        );
+        $this->search    = $this->getMock(
+            'Horde_Kolab_Server_Search_Interface'
+        );
+        $this->schema    = $this->getMock(
+            'Horde_Kolab_Server_Schema_Interface'
+        );
     }
 
     public function testMethodConstructHasParametersFactoryObjectsStructureSearchSchemaConfig()
@@ -58,14 +68,16 @@ extends Horde_Kolab_Server_LdapTestCase
             ->method('getConnection')
             ->will(
                 $this->returnValue(
-                    $this->getMock('Horde_Kolab_Server_Connection')
+                    $this->getMock(
+                        'Horde_Kolab_Server_Connection_Interface'
+                    )
                 )
             );
         $factory = new Horde_Kolab_Server_Factory_Constructor(
             $this->factory, $this->objects, $this->structure,
             $this->search, $this->schema, array('basedn' => 'test')
         );
-        $this->assertType('Horde_Kolab_Server', $factory->getServer());
+        $this->assertType('Horde_Kolab_Server_Interface', $factory->getServer());
     }
 
     public function testMethodGetconfigurationReturnsArrayConfiguration()
@@ -105,7 +117,9 @@ extends Horde_Kolab_Server_LdapTestCase
             ->method('getConnection')
             ->will(
                 $this->returnValue(
-                    $this->getMock('Horde_Kolab_Server_Connection')
+                    $this->getMock(
+                        'Horde_Kolab_Server_Connection_Interface'
+                    )
                 )
             );
         $factory = new Horde_Kolab_Server_Factory_Constructor(
@@ -113,7 +127,7 @@ extends Horde_Kolab_Server_LdapTestCase
             $this->search, $this->schema, array('basedn' => 'test')
         );
         $this->assertType(
-            'Horde_Kolab_Server_Composite',
+            'Horde_Kolab_Server_Composite_Interface',
             $factory->getComposite()
         );
     }

@@ -35,8 +35,12 @@ extends Horde_Kolab_Server_LdapTestCase
 {
     public function setUp()
     {
-        $this->conn_factory = $this->getMock('Horde_Kolab_Server_Factory_Conn');
-        $this->connection = $this->getMock('Horde_Kolab_Server_Connection');
+        $this->conn_factory = $this->getMock(
+            'Horde_Kolab_Server_Factory_Connection_Interface'
+        );
+        $this->connection = $this->getMock(
+            'Horde_Kolab_Server_Connection_Interface'
+        );
     }
 
     public function testMethodConstructHasParametersConnectionfactoryAndArrayParameters()
@@ -74,7 +78,7 @@ extends Horde_Kolab_Server_LdapTestCase
             $this->conn_factory, array()
         );
         $this->assertType(
-            'Horde_Kolab_Server_Connection',
+            'Horde_Kolab_Server_Connection_Interface',
             $factory->getConnection()
         );
     }
@@ -176,7 +180,7 @@ extends Horde_Kolab_Server_LdapTestCase
             $this->conn_factory, array('basedn' => 'test')
         );
         $this->assertType(
-            'Horde_Kolab_Server_Composite',
+            'Horde_Kolab_Server_Composite_Interface',
             $factory->getComposite()
         );
     }

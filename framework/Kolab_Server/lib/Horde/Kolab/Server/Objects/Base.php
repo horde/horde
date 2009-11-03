@@ -26,7 +26,8 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Objects_Base implements Horde_Kolab_Server_Objects
+class Horde_Kolab_Server_Objects_Base
+implements Horde_Kolab_Server_Objects_Interface
 {
     /**
      * A link to the composite server handler.
@@ -43,8 +44,9 @@ class Horde_Kolab_Server_Objects_Base implements Horde_Kolab_Server_Objects
      *
      * @return NULL
      */
-    public function setComposite(Horde_Kolab_Server_Composite $composite)
-    {
+    public function setComposite(
+        Horde_Kolab_Server_Composite_Interface $composite
+    ) {
         $this->_composite = $composite;
     }
 
@@ -85,8 +87,8 @@ class Horde_Kolab_Server_Objects_Base implements Horde_Kolab_Server_Objects
             $type = $this->_composite->structure->determineType($guid);
         }
 
-        $object = &Horde_Kolab_Server_Object_Factory::factory(
-            $type, $guid, $this->_composite->server
+        $object = Horde_Kolab_Server_Object_Factory::factory(
+            $type, $guid, $this->_composite
         );
         return $object;
     }

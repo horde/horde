@@ -26,7 +26,8 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-abstract class Horde_Kolab_Server_Ldap implements Horde_Kolab_Server
+abstract class Horde_Kolab_Server_Ldap
+implements Horde_Kolab_Server_Interface
 {
     /**
      * The GUID of the current user.
@@ -58,7 +59,7 @@ abstract class Horde_Kolab_Server_Ldap implements Horde_Kolab_Server
      *                                                  to all queries.
      */
     public function __construct(
-        Horde_Kolab_Server_Connection $connection,
+        Horde_Kolab_Server_Connection_Interface $connection,
         $base_dn
     ) {
         $this->_conn    = $connection;
@@ -190,8 +191,10 @@ abstract class Horde_Kolab_Server_Ldap implements Horde_Kolab_Server
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    public function save(Horde_Kolab_Server_Object $object, array $data)
-    {
+    public function save(
+        Horde_Kolab_Server_Object_Interface $object,
+        array $data
+    ) {
         $changes = new Horde_Kolab_Server_Ldap_Changes($object, $data);
         $entry  = $this->_conn->getWrite()->getEntry(
             $object->getGuid(), array_keys($data)
@@ -214,8 +217,10 @@ abstract class Horde_Kolab_Server_Ldap implements Horde_Kolab_Server
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    public function add(Horde_Kolab_Server_Object $object, array $data)
-    {
+    public function add(
+        Horde_Kolab_Server_Object_Interface $object,
+        array $data
+    ) {
         $entry  = Net_LDAP2_Entry::createFresh($object->getGuid(), $data);
         $this->_handleError($entry, Horde_Kolab_Server_Exception::SYSTEM);
         $this->_handleError(

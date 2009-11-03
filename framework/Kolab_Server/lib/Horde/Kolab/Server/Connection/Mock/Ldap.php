@@ -88,13 +88,13 @@ class Horde_Kolab_Server_Connection_Mock_Ldap
                 throw new Horde_Kolab_Server_Exception('User does not exist!');
             }
 
-            if (!isset($this->_data[$dn]['userPassword'][0])) {
+            if (!isset($this->_data[$dn]['data']['userPassword'][0])) {
                 throw new Horde_Kolab_Server_Exception('User has no password entry!');
             }
-            if ($this->_data[$dn]['userPassword'][0] != $pw) {
+            if ($this->_data[$dn]['data']['userPassword'][0] != $pw) {
                 throw new Horde_Kolab_Server_Exception('Incorrect password!');
             }
-        } else if (!empty($this->params_['no_anonymous_bind'])) {
+        } else if (!empty($this->_params['no_anonymous_bind'])) {
             throw new Horde_Kolab_Server_Exception('Anonymous bind is not allowed!');
         }
 
@@ -163,7 +163,7 @@ class Horde_Kolab_Server_Connection_Mock_Ldap
             if (isset($params['scope'])) {
                 if ($params['scope'] == 'base') {
                     if (isset($this->_data[$base])) {
-                        $result = $this->_data[$base];
+                        $result[] = $this->_data[$base];
                     } else {
                         $result = array();
                     }
@@ -213,7 +213,7 @@ class Horde_Kolab_Server_Connection_Mock_Ldap
         if (!empty($base)) {
             $subtree = array();
             foreach ($result as $entry) {
-                if (strpos($entry['dn'], $base)) {
+                if (strpos($entry['dn'], $base) !== false) {
                     $subtree[] = $entry;
                 }
             }

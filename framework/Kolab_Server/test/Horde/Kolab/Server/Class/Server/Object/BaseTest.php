@@ -74,7 +74,7 @@ class Horde_Kolab_Server_Class_Server_Object_BaseTest extends Horde_Kolab_Server
         $composite = $this->getMockedComposite();
         $composite->schema->expects($this->once())
             ->method('getExternalAttributes')
-            ->with($this->isInstanceOf('Horde_Kolab_Server_Object'))
+            ->with($this->isInstanceOf('Horde_Kolab_Server_Object_Interface'))
             ->will($this->returnValue(array('external')));
         $object = new Object_Mock($composite, 'guid');
         $this->assertEquals(array('external'), $object->getExternalAttributes());
@@ -85,7 +85,7 @@ class Horde_Kolab_Server_Class_Server_Object_BaseTest extends Horde_Kolab_Server
         $composite = $this->getMockedComposite();
         $composite->schema->expects($this->once())
             ->method('getInternalAttributes')
-            ->with($this->isInstanceOf('Horde_Kolab_Server_Object'))
+            ->with($this->isInstanceOf('Horde_Kolab_Server_Object_Interface'))
             ->will($this->returnValue(array('internal' => 'Internal')));
         $object = new Object_Mock($composite, 'guid');
         $this->assertEquals(array('internal' => 'Internal'), $object->getInternalAttributes());
@@ -103,7 +103,7 @@ class Horde_Kolab_Server_Class_Server_Object_BaseTest extends Horde_Kolab_Server
         $composite = $this->getMockedComposite();
         $composite->schema->expects($this->once())
             ->method('getInternalAttributes')
-            ->with($this->isInstanceOf('Horde_Kolab_Server_Object'))
+            ->with($this->isInstanceOf('Horde_Kolab_Server_Object_Interface'))
             ->will($this->returnValue(array('internal' => 'Internal')));
         $composite->server->expects($this->once())
             ->method('readAttributes')
@@ -118,7 +118,7 @@ class Horde_Kolab_Server_Class_Server_Object_BaseTest extends Horde_Kolab_Server
         $composite = $this->getMockedComposite();
         $composite->schema->expects($this->once())
             ->method('getInternalAttributes')
-            ->with($this->isInstanceOf('Horde_Kolab_Server_Object'))
+            ->with($this->isInstanceOf('Horde_Kolab_Server_Object_Interface'))
             ->will($this->returnValue(array('internal' => 'Internal')));
         $composite->server->expects($this->once())
             ->method('readAttributes')
@@ -133,7 +133,7 @@ class Horde_Kolab_Server_Class_Server_Object_BaseTest extends Horde_Kolab_Server
         $composite = $this->getMockedComposite();
         $composite->schema->expects($this->once())
             ->method('getInternalAttributes')
-            ->with($this->isInstanceOf('Horde_Kolab_Server_Object'))
+            ->with($this->isInstanceOf('Horde_Kolab_Server_Object_Interface'))
             ->will($this->returnValue(array('internal' => 'Internal')));
         $composite->server->expects($this->once())
             ->method('readAttributes')
@@ -150,7 +150,7 @@ class Horde_Kolab_Server_Class_Server_Object_BaseTest extends Horde_Kolab_Server
         $composite = $this->getMockedComposite();
         $composite->schema->expects($this->exactly(2))
             ->method('getInternalAttributes')
-            ->with($this->isInstanceOf('Horde_Kolab_Server_Object'))
+            ->with($this->isInstanceOf('Horde_Kolab_Server_Object_Interface'))
             ->will($this->returnValue(array('internal' => 'Internal')));
         $composite->server->expects($this->once())
             ->method('readAttributes')
@@ -167,7 +167,7 @@ class Horde_Kolab_Server_Class_Server_Object_BaseTest extends Horde_Kolab_Server
         $composite = $this->getMockedComposite();
         $composite->schema->expects($this->once())
             ->method('getInternalAttributes')
-            ->with($this->isInstanceOf('Horde_Kolab_Server_Object'))
+            ->with($this->isInstanceOf('Horde_Kolab_Server_Object_Interface'))
             ->will($this->returnValue(array('internal' => 'Internal')));
         $object = new Object_Mock($composite, 'guid');
         try {
@@ -183,7 +183,7 @@ class Horde_Kolab_Server_Class_Server_Object_BaseTest extends Horde_Kolab_Server
         $composite = $this->getMockedComposite();
         $composite->schema->expects($this->exactly(2))
             ->method('getInternalAttributes')
-            ->with($this->isInstanceOf('Horde_Kolab_Server_Object'))
+            ->with($this->isInstanceOf('Horde_Kolab_Server_Object_Interface'))
             ->will(
                 $this->returnValue(
                     array('internal' => 'Internal', 'test' => 'Test')
@@ -206,16 +206,16 @@ class Horde_Kolab_Server_Class_Server_Object_BaseTest extends Horde_Kolab_Server
     {
         $composite = $this->getMockedComposite();
         $composite->structure->expects($this->exactly(1))
-            ->method('getInternalAttribute')
+            ->method('mapExternalToInternalAttribute')
             ->with('Objectclass')
             ->will($this->returnValue('objectClass'));
         $composite->schema->expects($this->exactly(1))
             ->method('getExternalAttributes')
-            ->with($this->isInstanceOf('Horde_Kolab_Server_Object'))
+            ->with($this->isInstanceOf('Horde_Kolab_Server_Object_Interface'))
             ->will($this->returnValue(array('Objectclass')));
         $composite->schema->expects($this->exactly(2))
             ->method('getInternalAttributes')
-            ->with($this->isInstanceOf('Horde_Kolab_Server_Object'))
+            ->with($this->isInstanceOf('Horde_Kolab_Server_Object_Interface'))
             ->will($this->returnValue(array('objectClass' => 'Objectclass')));
         $composite->server->expects($this->once())
             ->method('readAttributes')
@@ -232,7 +232,7 @@ class Horde_Kolab_Server_Class_Server_Object_BaseTest extends Horde_Kolab_Server
         $composite = $this->getMockedComposite();
         $composite->schema->expects($this->once())
             ->method('getExternalAttributes')
-            ->with($this->isInstanceOf('Horde_Kolab_Server_Object'))
+            ->with($this->isInstanceOf('Horde_Kolab_Server_Object_Interface'))
             ->will($this->returnValue(array('external')));
         $object = new Object_Mock($composite, 'guid');
         try {
@@ -248,7 +248,7 @@ class Horde_Kolab_Server_Class_Server_Object_BaseTest extends Horde_Kolab_Server
         $composite = $this->getMockedComposite();
         $composite->schema->expects($this->once())
             ->method('getExternalAttributes')
-            ->with($this->isInstanceOf('Horde_Kolab_Server_Object'))
+            ->with($this->isInstanceOf('Horde_Kolab_Server_Object_Interface'))
             ->will($this->returnValue(array('Test')));
         $object = new Object_Mock($composite, 'guid');
         try {
@@ -274,7 +274,7 @@ class Horde_Kolab_Server_Class_Server_Object_BaseTest extends Horde_Kolab_Server
         $composite = $this->getMockedComposite();
         $composite->schema->expects($this->exactly(3))
             ->method('getInternalAttributes')
-            ->with($this->isInstanceOf('Horde_Kolab_Server_Object'))
+            ->with($this->isInstanceOf('Horde_Kolab_Server_Object_Interface'))
             ->will(
                 $this->returnValue(
                     array(
@@ -295,12 +295,12 @@ class Horde_Kolab_Server_Class_Server_Object_BaseTest extends Horde_Kolab_Server
     {
         $composite = $this->getMockedComposite();
         $composite->structure->expects($this->exactly(1))
-            ->method('getInternalAttribute')
+            ->method('mapExternalToInternalAttribute')
             ->with('Objectclass')
             ->will($this->returnValue('objectClass'));
         $composite->schema->expects($this->exactly(1))
             ->method('getInternalAttributes')
-            ->with($this->isInstanceOf('Horde_Kolab_Server_Object'))
+            ->with($this->isInstanceOf('Horde_Kolab_Server_Object_Interface'))
             ->will(
                 $this->returnValue(
                     array(
@@ -324,7 +324,7 @@ class Horde_Kolab_Server_Class_Server_Object_BaseTest extends Horde_Kolab_Server
             );
         $composite->server->expects($this->exactly(1))
             ->method('add')
-            ->with($this->isInstanceOf('Horde_Kolab_Server_Object'), array('objectClass' => array('top')));
+            ->with($this->isInstanceOf('Horde_Kolab_Server_Object_Interface'), array('objectClass' => array('top')));
         $object = new Object_Mock($composite);
         $object->save(array('Objectclass' => 'top'));
     }

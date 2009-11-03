@@ -48,15 +48,15 @@ class Horde_Kolab_Server_Object_Kolab_User extends Horde_Kolab_Server_Object_Kol
      *
      * @var array
      */
-    static public $init_attributes = array(
-        'derived' => array(
-            self::ATTRIBUTE_USERTYPE => array(),
-            self::ATTRIBUTE_FN => array(),
-        ),
-        'required' => array(
-            self::ATTRIBUTE_USERPASSWORD,
-        ),
-    );
+/*     static public $init_attributes = array( */
+/*         'derived' => array( */
+/*             self::ATTRIBUTE_USERTYPE => array(), */
+/*             self::ATTRIBUTE_FN => array(), */
+/*         ), */
+/*         'required' => array( */
+/*             self::ATTRIBUTE_USERPASSWORD, */
+/*         ), */
+/*     ); */
 
     /**
      * Return the filter string to retrieve this object type.

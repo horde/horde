@@ -52,8 +52,9 @@ implements Horde_Kolab_Server_Search_Interface
      *
      * @return NULL
      */
-    public function setComposite(Horde_Kolab_Server_Composite $composite)
-    {
+    public function setComposite(
+        Horde_Kolab_Server_Composite_Interface $composite
+    ) {
         $this->_composite = $composite;
         $this->_searches = $this->_getSearchOperations();
     }

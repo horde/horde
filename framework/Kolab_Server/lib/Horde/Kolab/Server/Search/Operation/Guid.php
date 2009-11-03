@@ -35,8 +35,9 @@ extends Horde_Kolab_Server_Search_Operation_Base
      *
      * @return array The search result.
      */
-    public function searchGuid(Horde_Kolab_Server_Query_Element $criteria)
-    {
+    public function searchGuid(
+        Horde_Kolab_Server_Query_Element_Interface $criteria
+    ) {
         $params = array(
             'attributes' => 'Guid'
         );

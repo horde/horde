@@ -59,66 +59,66 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
      *
      * @var array
      */
-    static public $init_attributes = array(
-        'defined' => array(
-            self::ATTRIBUTE_ALIAS,
-            self::ATTRIBUTE_DELEGATE,
-            self::ATTRIBUTE_DELETED,
-            self::ATTRIBUTE_FBFUTURE,
-            self::ATTRIBUTE_HOMESERVER,
-            self::ATTRIBUTE_FREEBUSYHOST,
-            self::ATTRIBUTE_IMAPHOST,
-            self::ATTRIBUTE_IPOLICY,
-            self::ATTRIBUTE_SALUTATION,
-            self::ATTRIBUTE_GENDER,
-            self::ATTRIBUTE_MARITALSTATUS,
-            self::ATTRIBUTE_HOMEFAX,
-            self::ATTRIBUTE_GERMANTAXID,
-            self::ATTRIBUTE_COUNTRY,
-            self::ATTRIBUTE_QUOTA,
-            self::ATTRIBUTE_ALLOWEDRECIPIENTS,
-            self::ATTRIBUTE_ALLOWEDFROM,
-            self::ATTRIBUTE_DATEOFBIRTH,
-            self::ATTRIBUTE_PLACEOFBIRTH,
-            self::ATTRIBUTE_BIRTHNAME,
-            self::ATTRIBUTE_PSEUDONYM,
-            self::ATTRIBUTE_COUNTRYCITIZENSHIP,
-            self::ATTRIBUTE_LEGALFORM,
-            self::ATTRIBUTE_REGISTEREDCAPITAL,
-            self::ATTRIBUTE_BYLAWURI,
-            self::ATTRIBUTE_DATEOFINCORPORATION,
-            self::ATTRIBUTE_LEGALREPRESENTATIVE,
-            self::ATTRIBUTE_COMMERCIALPROCURATION,
-            self::ATTRIBUTE_LEGALREPRESENTATIONPOLICY,
-            self::ATTRIBUTE_ACTINGDEPUTY,
-            self::ATTRIBUTE_VATNUMBER,
-            self::ATTRIBUTE_OTHERLEGAL,
-            self::ATTRIBUTE_INLIQUIDATION,
-            self::ATTRIBUTE_TRTYPE,
-            self::ATTRIBUTE_TRLOCATION,
-            self::ATTRIBUTE_TRIDENTIFIER,
-            self::ATTRIBUTE_TRURI,
-            self::ATTRIBUTE_TRLASTCHANGED,
-            self::ATTRIBUTE_DC,
-        ),
-        'locked' => array(
-            self::ATTRIBUTE_MAIL,
-        ),
-        /**
-         * Derived attributes are calculated based on other attribute values.
-         */
-        'derived' => array(
-            self::ATTRDATE_DATEOFBIRTH => array(
-                'method' => 'getDate',
-                'args' => array(
-                    self::ATTRIBUTE_DATEOFBIRTH,
-                ),
-            ),
-        ),
-        'object_classes' => array(
-            self::OBJECTCLASS_KOLABINETORGPERSON,
-        ),
-    );
+/*     static public $init_attributes = array( */
+/*         'defined' => array( */
+/*             self::ATTRIBUTE_ALIAS, */
+/*             self::ATTRIBUTE_DELEGATE, */
+/*             self::ATTRIBUTE_DELETED, */
+/*             self::ATTRIBUTE_FBFUTURE, */
+/*             self::ATTRIBUTE_HOMESERVER, */
+/*             self::ATTRIBUTE_FREEBUSYHOST, */
+/*             self::ATTRIBUTE_IMAPHOST, */
+/*             self::ATTRIBUTE_IPOLICY, */
+/*             self::ATTRIBUTE_SALUTATION, */
+/*             self::ATTRIBUTE_GENDER, */
+/*             self::ATTRIBUTE_MARITALSTATUS, */
+/*             self::ATTRIBUTE_HOMEFAX, */
+/*             self::ATTRIBUTE_GERMANTAXID, */
+/*             self::ATTRIBUTE_COUNTRY, */
+/*             self::ATTRIBUTE_QUOTA, */
+/*             self::ATTRIBUTE_ALLOWEDRECIPIENTS, */
+/*             self::ATTRIBUTE_ALLOWEDFROM, */
+/*             self::ATTRIBUTE_DATEOFBIRTH, */
+/*             self::ATTRIBUTE_PLACEOFBIRTH, */
+/*             self::ATTRIBUTE_BIRTHNAME, */
+/*             self::ATTRIBUTE_PSEUDONYM, */
+/*             self::ATTRIBUTE_COUNTRYCITIZENSHIP, */
+/*             self::ATTRIBUTE_LEGALFORM, */
+/*             self::ATTRIBUTE_REGISTEREDCAPITAL, */
+/*             self::ATTRIBUTE_BYLAWURI, */
+/*             self::ATTRIBUTE_DATEOFINCORPORATION, */
+/*             self::ATTRIBUTE_LEGALREPRESENTATIVE, */
+/*             self::ATTRIBUTE_COMMERCIALPROCURATION, */
+/*             self::ATTRIBUTE_LEGALREPRESENTATIONPOLICY, */
+/*             self::ATTRIBUTE_ACTINGDEPUTY, */
+/*             self::ATTRIBUTE_VATNUMBER, */
+/*             self::ATTRIBUTE_OTHERLEGAL, */
+/*             self::ATTRIBUTE_INLIQUIDATION, */
+/*             self::ATTRIBUTE_TRTYPE, */
+/*             self::ATTRIBUTE_TRLOCATION, */
+/*             self::ATTRIBUTE_TRIDENTIFIER, */
+/*             self::ATTRIBUTE_TRURI, */
+/*             self::ATTRIBUTE_TRLASTCHANGED, */
+/*             self::ATTRIBUTE_DC, */
+/*         ), */
+/*         'locked' => array( */
+/*             self::ATTRIBUTE_MAIL, */
+/*         ), */
+/*         /\** */
+/*          * Derived attributes are calculated based on other attribute values. */
+/*          *\/ */
+/*         'derived' => array( */
+/*             self::ATTRDATE_DATEOFBIRTH => array( */
+/*                 'method' => 'getDate', */
+/*                 'args' => array( */
+/*                     self::ATTRIBUTE_DATEOFBIRTH, */
+/*                 ), */
+/*             ), */
+/*         ), */
+/*         'object_classes' => array( */
+/*             self::OBJECTCLASS_KOLABINETORGPERSON, */
+/*         ), */
+/*     ); */
 
     /**
      * Generates an ID for the given information.

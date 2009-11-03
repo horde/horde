@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 class Horde_Kolab_Server_Object_Attribute_Decorator
-implements Horde_Kolab_Server_Object_Attribute
+implements Horde_Kolab_Server_Object_Attribute_Interface
 {
     /**
      * The decorated attribute.
@@ -42,7 +42,7 @@ implements Horde_Kolab_Server_Object_Attribute
      *                                                       attribute.
      */
     public function __construct(
-        Horde_Kolab_Server_Object_Attribute $attribute
+        Horde_Kolab_Server_Object_Attribute_Interface $attribute
     ) {
         $this->_attribute = $attribute;
     }

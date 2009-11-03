@@ -39,7 +39,7 @@ interface Horde_Kolab_Server_Structure_Interface
      * @throws Horde_Kolab_Server_Exception
      */
     public function find(
-        Horde_Kolab_Server_Query_Element $criteria,
+        Horde_Kolab_Server_Query_Element_Interface $criteria,
         array $params = array()
     );
 
@@ -55,7 +55,7 @@ interface Horde_Kolab_Server_Structure_Interface
      * @throws Horde_Kolab_Server_Exception
      */
     public function findBelow(
-        Horde_Kolab_Server_Query_Element $criteria,
+        Horde_Kolab_Server_Query_Element_Interface $criteria,
         $parent,
         array $params = array()
     );
@@ -68,7 +68,9 @@ interface Horde_Kolab_Server_Structure_Interface
      *
      * @return NULL
      */
-    public function setComposite(Horde_Kolab_Server_Composite $composite);
+    public function setComposite(
+        Horde_Kolab_Server_Composite_Interface $composite
+    );
 
     /**
      * Returns the set of objects supported by this structure.
@@ -91,7 +93,7 @@ interface Horde_Kolab_Server_Structure_Interface
      *
      * @return string The internal attribute name.
      */
-    public function getInternalAttribute($external);
+    public function mapExternalToInternalAttribute($external);
 
     /**
      * Determine the type of an object by its tree position and other

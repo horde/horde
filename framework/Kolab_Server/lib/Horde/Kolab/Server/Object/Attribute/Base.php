@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 abstract class Horde_Kolab_Server_Object_Attribute_Base
-implements Horde_Kolab_Server_Object_Attribute
+implements Horde_Kolab_Server_Object_Attribute_Interface
 {
     /**
      * The attribute name on the internal side.
@@ -65,15 +65,15 @@ implements Horde_Kolab_Server_Object_Attribute
      * @param string                       $name      The name of this attribute.
      */
     public function __construct(
-        Horde_Kolab_Server_Object $object,
-        Horde_Kolab_Server_Composite $composite,
+        Horde_Kolab_Server_Object_Interface $object,
+        Horde_Kolab_Server_Composite_Interface $composite,
         $external
     ) {
         $this->_object    = $object;
         $this->_composite = $composite;
         $this->_external  = $external;
 
-        $this->_internal  = $this->_composite->structure->getInternalAttribute(
+        $this->_internal  = $this->_composite->structure->mapExternalToInternalAttribute(
             $this->_external
         );
     }

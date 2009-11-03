@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 class Horde_Kolab_Server_Factory_Injector
-implements Horde_Kolab_Server_Factory
+implements Horde_Kolab_Server_Factory_Interface
 {
     /**
      * The injector.
@@ -97,7 +97,7 @@ implements Horde_Kolab_Server_Factory
         Horde_Injector $injector
     ) {
         $injector->bindImplementation(
-            'Horde_Kolab_Server_Factory_Conn', $factory
+            'Horde_Kolab_Server_Factory_Connection_Interface', $factory
         );
     }
 
@@ -125,7 +125,7 @@ implements Horde_Kolab_Server_Factory
     private function _setupObjects()
     {
         $this->_injector->bindImplementation(
-            'Horde_Kolab_Server_Objects',
+            'Horde_Kolab_Server_Objects_Interface',
             'Horde_Kolab_Server_Objects_Base'
         );
     }
@@ -151,7 +151,7 @@ implements Horde_Kolab_Server_Factory
     private function _setupSchema()
     {
         $this->_injector->bindImplementation(
-            'Horde_Kolab_Server_Schema',
+            'Horde_Kolab_Server_Schema_Interface',
             'Horde_Kolab_Server_Schema_Base'
         );
     }
@@ -183,8 +183,8 @@ implements Horde_Kolab_Server_Factory
     private function _setupConnection()
     {
         $this->_injector->bindFactory(
-            'Horde_Kolab_Server_Connection',
-            'Horde_Kolab_Server_Factory_Conn_Injector',
+            'Horde_Kolab_Server_Connection_Interface',
+            'Horde_Kolab_Server_Factory_Connection_Injector',
             'getConnection'
         );
     }
@@ -197,7 +197,7 @@ implements Horde_Kolab_Server_Factory
     private function _setupServer()
     {
         $this->_injector->bindFactory(
-            'Horde_Kolab_Server',
+            'Horde_Kolab_Server_Interface',
             'Horde_Kolab_Server_Factory_Injector',
             'getServer'
         );
@@ -210,9 +210,10 @@ implements Horde_Kolab_Server_Factory
      */
     private function _setupComposite()
     {
-        /**
-         * Nothing to do here for now as class and interface name are the same.
-         */
+        $this->_injector->bindImplementation(
+            'Horde_Kolab_Server_Composite_Interface',
+            'Horde_Kolab_Server_Composite_Base'
+        );
     }
 
     /**
@@ -222,7 +223,9 @@ implements Horde_Kolab_Server_Factory
      */
     public function getConnectionFactory()
     {
-        return $this->_injector->getInstance('Horde_Kolab_Server_Factory_Conn');
+        return $this->_injector->getInstance(
+            'Horde_Kolab_Server_Factory_Connection_Interface'
+        );
     }
 
     /**
@@ -232,7 +235,9 @@ implements Horde_Kolab_Server_Factory
      */
     public function getConnection()
     {
-        return $this->_injector->getInstance('Horde_Kolab_Server_Connection');
+        return $this->_injector->getInstance(
+            'Horde_Kolab_Server_Connection_Interface'
+        );
     }
 
     /**
@@ -281,7 +286,9 @@ implements Horde_Kolab_Server_Factory
      */
     public function getObjects()
     {
-        return $this->_injector->getInstance('Horde_Kolab_Server_Objects');
+        return $this->_injector->getInstance(
+            'Horde_Kolab_Server_Objects_Interface'
+        );
     }
 
     /**
@@ -292,7 +299,9 @@ implements Horde_Kolab_Server_Factory
      */
     public function getStructure()
     {
-        return $this->_injector->getInstance('Horde_Kolab_Server_Structure_Interface');
+        return $this->_injector->getInstance(
+            'Horde_Kolab_Server_Structure_Interface'
+        );
     }
 
     /**
@@ -302,7 +311,9 @@ implements Horde_Kolab_Server_Factory
      */
     public function getSearch()
     {
-        return $this->_injector->getInstance('Horde_Kolab_Server_Search_Interface');
+        return $this->_injector->getInstance(
+            'Horde_Kolab_Server_Search_Interface'
+        );
     }
 
     /**
@@ -312,7 +323,9 @@ implements Horde_Kolab_Server_Factory
      */
     public function getSchema()
     {
-        return $this->_injector->getInstance('Horde_Kolab_Server_Schema');
+        return $this->_injector->getInstance(
+            'Horde_Kolab_Server_Schema_Interface'
+        );
     }
 
     /**
@@ -324,6 +337,8 @@ implements Horde_Kolab_Server_Factory
      */
     public function getComposite()
     {
-        return $this->_injector->getInstance('Horde_Kolab_Server_Composite');
+        return $this->_injector->getInstance(
+            'Horde_Kolab_Server_Composite_Interface'
+        );
     }
 }

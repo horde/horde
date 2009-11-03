@@ -88,105 +88,105 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
      *
      * @var array
      */
-    static public $init_attributes = array(
-        'defined' => array(
-            self::ATTRIBUTE_SID,
-            self::ATTRIBUTE_GIVENNAME,
-            self::ATTRIBUTE_MAIL,
-            self::ATTRIBUTE_LABELEDURI,
-            self::ATTRIBUTE_HOMEPOSTALADDRESS,
-            self::ATTRIBUTE_ORGANIZATION,
-            self::ATTRIBUTE_BUSINESSCATEGORY,
-            self::ATTRIBUTE_HOMEPHONE,
-            self::ATTRIBUTE_MOBILE,
-            self::ATTRIBUTE_PHOTO,
-            self::ATTRIBUTE_JPEGPHOTO,
-            self::ATTRIBUTE_SMIMECERTIFICATE,
-        ),
-        'derived' => array(
-            self::ATTRARRAY_HOMEPOSTALADDRESS => array(
-                'base' => array(
-                    self::ATTRIBUTE_HOMEPOSTALADDRESS,
-                    self::ATTRIBUTE_GIVENNAME,
-                    self::ATTRIBUTE_SN
-                ),
-                'method' => 'getHomePostalAddressHash',
-            ),
-            self::ATTRARRAY_LABELEDURI => array(
-                'base' => array(
-                    self::ATTRIBUTE_LABELEDURI,
-                ),
-                'method' => 'getLabeledUriHash',
-            ),
-            self::ATTRIBUTE_GIVENNAME => array(
-                'base' => array(
-                    self::ATTRIBUTE_GIVENNAME,
-                ),
-                'method' => 'getField',
-                'args' => array(
-                    self::ATTRIBUTE_GIVENNAME,
-                    0,
-                    ' '
-                ),
-            ),
-            self::ATTRIBUTE_MIDDLENAMES => array(
-                'base' => array(
-                    self::ATTRIBUTE_GIVENNAME,
-                ),
-                'method' => 'getField',
-                'args' => array(
-                    self::ATTRIBUTE_GIVENNAME,
-                    1,
-                    ' ',
-                    2
-                ),
-            ),
-            self::ATTRIBUTE_FNLN => array(
-                'base' => array(
-                    self::ATTRIBUTE_GIVENNAME,
-                    self::ATTRIBUTE_SN
-                ),
-                'method' => 'getFnLn',
-            ),
-            self::ATTRIBUTE_LNFN => array(
-                'base' => array(
-                    self::ATTRIBUTE_GIVENNAME,
-                    self::ATTRIBUTE_SN
-                ),
-                'method' => 'getLnFn',
-            ),
-        ),
-        'collapsed' => array(
-            self::ATTRIBUTE_GIVENNAME => array(
-                'base' => array(
-                    self::ATTRIBUTE_GIVENNAME,
-                    self::ATTRIBUTE_MIDDLENAMES,
-                ),
-                'method' => 'setField',
-                'args' => array(
-                    ' ',
-                ),
-            ),
-            self::ATTRIBUTE_LABELEDURI => array(
-                'base' => array(
-                    self::ATTRARRAY_LABELEDURI,
-                ),
-                'method' => 'setLabeledUriHash',
-            ),
-            self::ATTRIBUTE_HOMEPOSTALADDRESS => array(
-                'base' => array(
-                    self::ATTRARRAY_HOMEPOSTALADDRESS,
-                ),
-                'method' => 'setHomePostalAddressHash',
-            ),
-        ),
-        'locked' => array(
-            self::ATTRIBUTE_MAIL,
-        ),
-        'object_classes' => array(
-            self::OBJECTCLASS_INETORGPERSON,
-        ),
-    );
+/*     static public $init_attributes = array( */
+/*         'defined' => array( */
+/*             self::ATTRIBUTE_SID, */
+/*             self::ATTRIBUTE_GIVENNAME, */
+/*             self::ATTRIBUTE_MAIL, */
+/*             self::ATTRIBUTE_LABELEDURI, */
+/*             self::ATTRIBUTE_HOMEPOSTALADDRESS, */
+/*             self::ATTRIBUTE_ORGANIZATION, */
+/*             self::ATTRIBUTE_BUSINESSCATEGORY, */
+/*             self::ATTRIBUTE_HOMEPHONE, */
+/*             self::ATTRIBUTE_MOBILE, */
+/*             self::ATTRIBUTE_PHOTO, */
+/*             self::ATTRIBUTE_JPEGPHOTO, */
+/*             self::ATTRIBUTE_SMIMECERTIFICATE, */
+/*         ), */
+/*         'derived' => array( */
+/*             self::ATTRARRAY_HOMEPOSTALADDRESS => array( */
+/*                 'base' => array( */
+/*                     self::ATTRIBUTE_HOMEPOSTALADDRESS, */
+/*                     self::ATTRIBUTE_GIVENNAME, */
+/*                     self::ATTRIBUTE_SN */
+/*                 ), */
+/*                 'method' => 'getHomePostalAddressHash', */
+/*             ), */
+/*             self::ATTRARRAY_LABELEDURI => array( */
+/*                 'base' => array( */
+/*                     self::ATTRIBUTE_LABELEDURI, */
+/*                 ), */
+/*                 'method' => 'getLabeledUriHash', */
+/*             ), */
+/*             self::ATTRIBUTE_GIVENNAME => array( */
+/*                 'base' => array( */
+/*                     self::ATTRIBUTE_GIVENNAME, */
+/*                 ), */
+/*                 'method' => 'getField', */
+/*                 'args' => array( */
+/*                     self::ATTRIBUTE_GIVENNAME, */
+/*                     0, */
+/*                     ' ' */
+/*                 ), */
+/*             ), */
+/*             self::ATTRIBUTE_MIDDLENAMES => array( */
+/*                 'base' => array( */
+/*                     self::ATTRIBUTE_GIVENNAME, */
+/*                 ), */
+/*                 'method' => 'getField', */
+/*                 'args' => array( */
+/*                     self::ATTRIBUTE_GIVENNAME, */
+/*                     1, */
+/*                     ' ', */
+/*                     2 */
+/*                 ), */
+/*             ), */
+/*             self::ATTRIBUTE_FNLN => array( */
+/*                 'base' => array( */
+/*                     self::ATTRIBUTE_GIVENNAME, */
+/*                     self::ATTRIBUTE_SN */
+/*                 ), */
+/*                 'method' => 'getFnLn', */
+/*             ), */
+/*             self::ATTRIBUTE_LNFN => array( */
+/*                 'base' => array( */
+/*                     self::ATTRIBUTE_GIVENNAME, */
+/*                     self::ATTRIBUTE_SN */
+/*                 ), */
+/*                 'method' => 'getLnFn', */
+/*             ), */
+/*         ), */
+/*         'collapsed' => array( */
+/*             self::ATTRIBUTE_GIVENNAME => array( */
+/*                 'base' => array( */
+/*                     self::ATTRIBUTE_GIVENNAME, */
+/*                     self::ATTRIBUTE_MIDDLENAMES, */
+/*                 ), */
+/*                 'method' => 'setField', */
+/*                 'args' => array( */
+/*                     ' ', */
+/*                 ), */
+/*             ), */
+/*             self::ATTRIBUTE_LABELEDURI => array( */
+/*                 'base' => array( */
+/*                     self::ATTRARRAY_LABELEDURI, */
+/*                 ), */
+/*                 'method' => 'setLabeledUriHash', */
+/*             ), */
+/*             self::ATTRIBUTE_HOMEPOSTALADDRESS => array( */
+/*                 'base' => array( */
+/*                     self::ATTRARRAY_HOMEPOSTALADDRESS, */
+/*                 ), */
+/*                 'method' => 'setHomePostalAddressHash', */
+/*             ), */
+/*         ), */
+/*         'locked' => array( */
+/*             self::ATTRIBUTE_MAIL, */
+/*         ), */
+/*         'object_classes' => array( */
+/*             self::OBJECTCLASS_INETORGPERSON, */
+/*         ), */
+/*     ); */
 
     /**
      * Return the filter string to retrieve this object type.

@@ -1,6 +1,6 @@
 <?php
 /**
- * A library for accessing the Kolab user database.
+ * This class handles the db schema.
  *
  * PHP version 5
  *
@@ -12,8 +12,7 @@
  */
 
 /**
- * This class provides methods to deal with Kolab objects stored in
- * the Kolab object db.
+ * This class handles the db schema.
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -26,17 +25,11 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Schema_Base implements Horde_Kolab_Server_Schema
+class Horde_Kolab_Server_Schema_Base
+implements Horde_Kolab_Server_Schema_Interface
 {
     /** Maximum accepted level for the object class hierarchy */
     const MAX_HIERARCHY = 100;
-
-    /**
-     * A cache for object attribute definitions.
-     *
-     * @var array
-     */
-    protected $attributes;
 
     /**
      * A link to the composite server handler.
@@ -53,8 +46,9 @@ class Horde_Kolab_Server_Schema_Base implements Horde_Kolab_Server_Schema
      *
      * @return NULL
      */
-    public function setComposite(Horde_Kolab_Server_Composite $composite)
-    {
+    public function setComposite(
+        Horde_Kolab_Server_Composite_Interface $composite
+    ) {
         $this->composite = $composite;
     }
 

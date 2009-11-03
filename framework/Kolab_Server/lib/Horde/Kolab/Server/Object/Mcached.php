@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 class Horde_Kolab_Server_Object_Mcached
-implements Horde_Kolab_Server_Object
+implements Horde_Kolab_Server_Object_Interface
 {
     /**
      * Link to the decorated object.

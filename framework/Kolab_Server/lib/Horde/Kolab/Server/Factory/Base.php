@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 abstract class Horde_Kolab_Server_Factory_Base
-implements Horde_Kolab_Server_Factory
+implements Horde_Kolab_Server_Factory_Interface
 {
     /**
      * The connection factory.
@@ -52,7 +52,7 @@ implements Horde_Kolab_Server_Factory
      *                                                 server.
      */
     public function __construct(
-        Horde_Kolab_Server_Factory_Conn $factory,
+        Horde_Kolab_Server_Factory_Connection_Interface $factory,
         array $config
     ) {
         $this->_conn_factory  = $factory;
@@ -129,7 +129,7 @@ implements Horde_Kolab_Server_Factory
      */
     public function getComposite()
     {
-        $composite = new Horde_Kolab_Server_Composite(
+        $composite = new Horde_Kolab_Server_Composite_Base(
             $this->getServer(),
             $this->getObjects(),
             $this->getStructure(),

@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 class Horde_Kolab_Server_Factory_Configuration
-implements Horde_Kolab_Server_Factory
+implements Horde_Kolab_Server_Factory_Interface
 {
     /**
      * Configuration parameters for the server.
@@ -49,7 +49,7 @@ implements Horde_Kolab_Server_Factory
     {
         $this->_configuration = $config;
 
-        $connection_factory = new Horde_Kolab_Server_Factory_Conn_Configuration(
+        $connection_factory = new Horde_Kolab_Server_Factory_Connection_Configuration(
             $config
         );
         $factory = new Horde_Kolab_Server_Factory_Kolab(
@@ -57,19 +57,19 @@ implements Horde_Kolab_Server_Factory
         );
 
         if (isset($config['logger'])) {
-            $factory = new Horde_Kolab_Server_Factory_Logged(
+            $factory = new Horde_Kolab_Server_Factory_Decorator_Log(
                 $factory, $config['logger']
             );
         }
 
         if (isset($config['map'])) {
-            $factory = new Horde_Kolab_Server_Factory_Mapped(
+            $factory = new Horde_Kolab_Server_Factory_Decorator_Map(
                 $factory, $config['map']
             );
         }
 
         if (!empty($config['cleanup'])) {
-            $factory = new Horde_Kolab_Server_Factory_Cleaner(
+            $factory = new Horde_Kolab_Server_Factory_Decorator_Clean(
                 $factory
             );
         }

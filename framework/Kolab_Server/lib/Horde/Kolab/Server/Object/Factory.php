@@ -34,16 +34,17 @@ class Horde_Kolab_Server_Object_Factory
      * @param mixed  $type     The type of the Horde_Kolab_Server_Object subclass
      *                         to return.
      * @param string $uid      UID of the object
-     * @param array  &$storage A link to the Kolab_Server class handling read/write.
+     * @param array  $storage A link to the Kolab_Server class handling read/write.
      * @param array  $data     A possible array of data for the object
      *
      * @return Horde_Kolab_Server_Object|PEAR_Error The newly created concrete
      *                                 Horde_Kolab_Server_Object instance.
      */
-    static public function &factory($type, $uid, &$storage, $data = null)
-    {
-        $result = Horde_Kolab_Server_Object::loadClass($type);
-
+    static public function factory(
+        $type, $uid,
+        Horde_Kolab_Server_Composite $storage,
+        $data = null
+    ) {
         if (class_exists($type)) {
             $object = new $type($storage, $uid, $data);
         } else {
@@ -52,6 +53,7 @@ class Horde_Kolab_Server_Object_Factory
 
         return $object;
     }
+
 
     /**
      * Attempts to load the concrete Horde_Kolab_Server_Object class based on
@@ -69,5 +71,4 @@ class Horde_Kolab_Server_Object_Factory
             throw new Horde_Kolab_Server_Exception('Class definition of ' . $type . ' not found.');
         }
     }
-
 }

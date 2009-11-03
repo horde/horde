@@ -27,6 +27,9 @@
  */
 class Horde_Kolab_Server_Object_Groupofnames extends Horde_Kolab_Server_Object_Top
 {
+    /** The specific object class of this object type */
+    const OBJECTCLASS_GROUPOFNAMES = 'groupOfNames';
+
     /** Define attributes specific to this object type */
 
     /** The common name */
@@ -34,9 +37,6 @@ class Horde_Kolab_Server_Object_Groupofnames extends Horde_Kolab_Server_Object_T
 
     /** The members of this group */
     const ATTRIBUTE_MEMBER = 'member';
-
-    /** The specific object class of this object type */
-    const OBJECTCLASS_GROUPOFNAMES = 'groupOfNames';
 
     /**
      * A structure to initialize the attribute structure for this class.
@@ -159,71 +159,4 @@ class Horde_Kolab_Server_Object_Groupofnames extends Horde_Kolab_Server_Object_T
             return true;
         }
     }
-
-    /**
-     * Returns the set of search operations supported by this object type.
-     *
-     * @return array An array of supported search operations.
-     */
-    static public function getSearchOperations()
-    {
-        $searches = array(
-/*             'gidForSearch', */
-/*             'getGroups', */
-        );
-        return $searches;
-    }
-
-    /**
-     * @todo: This method belongs somewhere where we are aware of groups
-     * Identify the GID for the first group found using the specified
-     * search criteria
-     *
-     * @param array $criteria The search parameters as array.
-     * @param int   $restrict A Horde_Kolab_Server::RESULT_* result restriction.
-     *
-     * @return boolean|string|array The GID(s) or false if there was no result.
-     *
-     * @throws Horde_Kolab_Server_Exception
-     */
-    static public function gidForSearch($server, $criteria,
-                                        $restrict = 0)
-    {
-        $groups = array('field' => self::ATTRIBUTE_OC,
-                        'op'    => '=',
-                        'test'  => self::OBJECTCLASS_GROUPOFNAMES);
-        if (!empty($criteria)) {
-            $criteria = array('AND' => array($groups, $criteria));
-        } else {
-            $criteria = array('AND' => array($groups));
-        }
-        return self::basicUidForSearch($server, $criteria, $restrict);
-    }
-
-    /**
-     * Get the groups for this object.
-     *
-     * @param string $uid The UID of the object to fetch.
-     *
-     * @return array An array of group ids.
-     *
-     * @throws Horde_Kolab_Server_Exception
-     */
-    static public function getGroups($server, $uid)
-    {
-        $criteria = array('AND' =>
-                          array(
-                              array('field' => self::ATTRIBUTE_MEMBER,
-                                    'op'    => '=',
-                                    'test'  => $uid),
-                          ),
-        );
-
-        $result = self::gidForSearch($server, $criteria, self::RESULT_MANY);
-        if (empty($result)) {
-            return array();
-        }
-        return $result;
-    }
-
 }

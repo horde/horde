@@ -77,6 +77,7 @@ class Horde_Kolab_Server_Structure_Kolab extends Horde_Kolab_Server_Structure_Ld
             'Horde_Kolab_Server_Search_Operation_Guidforuidormailoralias',
             'Horde_Kolab_Server_Search_Operation_Mailforuidormail',
             'Horde_Kolab_Server_Search_Operation_Addressesforuidormail',
+            'Horde_Kolab_Server_Search_Operation_Groupsformember',
         );
         return $searches;
     }
@@ -111,7 +112,7 @@ class Horde_Kolab_Server_Structure_Kolab extends Horde_Kolab_Server_Structure_Ld
             return parent::_determineType($guid, $ocs);
         }
 
-        $groups = $this->getComposite()->search->getGroups($guid);
+        $groups = $this->getComposite()->search->searchGroupsForMember($guid);
         if (!empty($groups)) {
             $base = $this->getComposite()->server->getBaseGuid();
             if (in_array('cn=admin,cn=internal,' . $base, $groups)) {

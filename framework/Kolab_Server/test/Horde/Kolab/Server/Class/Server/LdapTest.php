@@ -265,9 +265,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
         $entry = $this->getMock(
             'Net_LDAP2_Entry', array(), array(), '', false
         );
-        $object = $this->getMock(
-            'Horde_Kolab_Server_Object', array(), array(), '', false
-        );
+        $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $this->ldap_write->expects($this->exactly(1))
             ->method('getEntry')
             ->will($this->returnValue($entry));
@@ -285,9 +283,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
         $entry = $this->getMock(
             'Net_LDAP2_Entry', array(), array(), '', false
         );
-        $object = $this->getMock(
-            'Horde_Kolab_Server_Object', array(), array(), '', false
-        );
+        $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $this->ldap_write->expects($this->exactly(1))
             ->method('getEntry')
             ->will($this->returnValue($entry));
@@ -305,9 +301,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
         $entry = $this->getMock(
             'Net_LDAP2_Entry', array(), array(), '', false
         );
-        $object = $this->getMock(
-            'Horde_Kolab_Server_Object', array(), array(), '', false
-        );
+        $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $this->ldap_write->expects($this->exactly(1))
             ->method('getEntry')
             ->will($this->returnValue($entry));
@@ -322,9 +316,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
 
     public function testMethodSaveThrowsExceptionIfSavingDataFailed()
     {
-        $object = $this->getMock(
-            'Horde_Kolab_Server_Object', array(), array(), '', false
-        );
+        $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $this->ldap_write->expects($this->exactly(1))
             ->method('modify')
             ->will($this->returnValue(new PEAR_Error('Saving failed!')));
@@ -342,9 +334,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
 
     public function testMethodAddHasParameterObjectTheObjectToAddToTheServer()
     {
-        $object = $this->getMock(
-            'Horde_Kolab_Server_Object', array(), array(), '', false
-        );
+        $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $this->ldap_write->expects($this->exactly(1))
             ->method('add')
             ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Net_LDAP2_Entry'));
@@ -353,9 +343,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
 
     public function testMethodAddHasParameterArrayData()
     {
-        $object = $this->getMock(
-            'Horde_Kolab_Server_Object', array(), array(), '', false
-        );
+        $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $this->ldap_write->expects($this->exactly(1))
             ->method('add')
             ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Net_LDAP2_Entry'));
@@ -364,9 +352,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
 
     public function testMethodAddHasPostconditionThatTheEntryWasModified()
     {
-        $object = $this->getMock(
-            'Horde_Kolab_Server_Object', array(), array(), '', false
-        );
+        $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $this->ldap_write->expects($this->exactly(1))
             ->method('add')
             ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Net_LDAP2_Entry'));
@@ -375,9 +361,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
 
     public function testMethodAddThrowsExceptionIfSavingDataFailed()
     {
-        $object = $this->getMock(
-            'Horde_Kolab_Server_Object', array(), array(), '', false
-        );
+        $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $this->ldap_write->expects($this->exactly(1))
             ->method('add')
             ->will($this->returnValue(new PEAR_Error('Saving failed!')));

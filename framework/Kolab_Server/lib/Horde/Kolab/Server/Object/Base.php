@@ -28,7 +28,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 abstract class Horde_Kolab_Server_Object_Base
-implements Horde_Kolab_Server_Object
+implements Horde_Kolab_Server_Object_Interface
 {
     /**
      * Link to the Kolab server.
@@ -51,7 +51,7 @@ implements Horde_Kolab_Server_Object
      * @param string                       $guid      GUID of the object.
      */
     public function __construct(
-        Horde_Kolab_Server_Composite $composite,
+        Horde_Kolab_Server_Composite_Interface $composite,
         $guid = null
     ) {
         $this->_composite = $composite;

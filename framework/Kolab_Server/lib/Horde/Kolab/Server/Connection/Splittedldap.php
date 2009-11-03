@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 class Horde_Kolab_Server_Connection_Splittedldap
-implements Horde_Kolab_Server_Connection
+implements Horde_Kolab_Server_Connection_Interface
 {
     /**
      * LDAP read connection handle.

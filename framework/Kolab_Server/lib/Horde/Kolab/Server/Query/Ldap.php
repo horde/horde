@@ -25,7 +25,8 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Query_Ldap implements Horde_Kolab_Server_Query
+class Horde_Kolab_Server_Query_Ldap
+implements Horde_Kolab_Server_Query_Interface
 {
     /**
      * The query criteria.
@@ -47,7 +48,7 @@ class Horde_Kolab_Server_Query_Ldap implements Horde_Kolab_Server_Query
      * @param array $criteria The query criteria.
      */
     public function __construct(
-        Horde_Kolab_Server_Query_Element $criteria,
+        Horde_Kolab_Server_Query_Element_Interface $criteria,
         Horde_Kolab_Server_Structure_Interface $structure
     ) {
         $this->_criteria  = $criteria;
@@ -185,7 +186,9 @@ class Horde_Kolab_Server_Query_Ldap implements Horde_Kolab_Server_Query
         $operator
     ) {
         $result = Net_LDAP2_Filter::create(
-            $this->_structure->getInternalAttribute($single->getName()),
+            $this->_structure->mapExternalToInternalAttribute(
+                $single->getName()
+            ),
             $operator,
             $single->getValue()
         );

@@ -33,7 +33,9 @@ extends Horde_Kolab_Server_Query_Element_Group
      *
      * @param array  $elements The group elements.
      */
-    public function __construct(Horde_Kolab_Server_Query_Element $element) {
+    public function __construct(
+        Horde_Kolab_Server_Query_Element_Interface $element
+    ) {
         parent::__construct(array($element));
     }
 
@@ -42,8 +44,9 @@ extends Horde_Kolab_Server_Query_Element_Group
      *
      * @return mixed The element as query.
      */
-    public function convert(Horde_Kolab_Server_Query $writer)
-    {
+    public function convert(
+        Horde_Kolab_Server_Query_Interface $writer
+    ) {
         return $writer->convertNot($this);
     }
 }

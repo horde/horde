@@ -33,7 +33,9 @@ interface Horde_Kolab_Server_Search_Interface
      * @param Horde_Kolab_Server_Composite $composite A link to the composite
      *                                                server handler.
      */
-    public function setComposite(Horde_Kolab_Server_Composite $composite);
+    public function setComposite(
+        Horde_Kolab_Server_Composite_Interface $composite
+    );
 
     /**
      * Returns the set of search operations supported by this server type.

@@ -46,7 +46,7 @@ implements Horde_Kolab_Server_Structure_Interface
      * @throws Horde_Kolab_Server_Exception
      */
     public function find(
-        Horde_Kolab_Server_Query_Element $criteria,
+        Horde_Kolab_Server_Query_Element_Interface $criteria,
         array $params = array()
     ) {
         $query = new Horde_Kolab_Server_Query_Ldap($criteria, $this);
@@ -67,7 +67,7 @@ implements Horde_Kolab_Server_Structure_Interface
      * @throws Horde_Kolab_Server_Exception
      */
     public function findBelow(
-        Horde_Kolab_Server_Query_Element $criteria,
+        Horde_Kolab_Server_Query_Element_Interface $criteria,
         $parent,
         array $params = array()
     ) {
@@ -85,8 +85,9 @@ implements Horde_Kolab_Server_Structure_Interface
      *
      * @return NULL
      */
-    public function setComposite(Horde_Kolab_Server_Composite $composite)
-    {
+    public function setComposite(
+        Horde_Kolab_Server_Composite_Interface $composite
+    ) {
         $this->_composite = $composite;
     }
 

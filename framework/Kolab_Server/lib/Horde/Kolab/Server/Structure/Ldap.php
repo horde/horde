@@ -154,7 +154,7 @@ class Horde_Kolab_Server_Structure_Ldap extends Horde_Kolab_Server_Structure_Bas
      *
      * @return string The internal attribute name.
      */
-    public function getInternalAttribute($external)
+    public function mapExternalToInternalAttribute($external)
     {
         switch ($external) {
         case 'Objectclass':

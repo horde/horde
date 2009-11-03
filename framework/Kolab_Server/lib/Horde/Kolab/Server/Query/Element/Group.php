@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 abstract class Horde_Kolab_Server_Query_Element_Group
-implements Horde_Kolab_Server_Query_Element
+implements Horde_Kolab_Server_Query_Element_Interface
 {
     /**
      * The group elements.

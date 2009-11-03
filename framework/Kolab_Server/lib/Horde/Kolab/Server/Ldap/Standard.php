@@ -41,6 +41,6 @@ class Horde_Kolab_Server_Ldap_Standard extends Horde_Kolab_Server_Ldap
      */
     public function findBelow($query, $parent, array $params = array())
     {
-        return $this->_search((string) $query, $params, $parent);
+        return $this->_search($query, $params, $parent);
     }
 }

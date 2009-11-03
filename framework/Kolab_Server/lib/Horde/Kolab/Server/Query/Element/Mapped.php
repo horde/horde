@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 class Horde_Kolab_Server_Query_Element_Mapped
-implements Horde_Kolab_Server_Query_Element
+implements Horde_Kolab_Server_Query_Element_Interface
 {
     /**
      * Delegated element.
@@ -49,8 +49,8 @@ implements Horde_Kolab_Server_Query_Element
      * @param Horde_Kolab_Server_Mapped        $mapper  The mapping handler.
      */
     public function __construct(
-        Horde_Kolab_Server_Query_Element $element,
-        Horde_Kolab_Server_Mapped $mapper
+        Horde_Kolab_Server_Query_Element_Interface $element,
+        Horde_Kolab_Server_Decorator_Map $mapper
     ) {
         $this->_element = $element;
         $this->_mapper  = $mapper;
@@ -97,8 +97,9 @@ implements Horde_Kolab_Server_Query_Element
      *
      * @return string The query string of the element.
      */
-    public function convert(Horde_Kolab_Server_Query $writer)
-    {
+    public function convert(
+        Horde_Kolab_Server_Query_Interface $writer
+    ) {
         return $this->_element->convert($writer);
     }
 }

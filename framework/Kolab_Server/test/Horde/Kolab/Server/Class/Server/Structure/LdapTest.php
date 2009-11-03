@@ -34,13 +34,13 @@ class Horde_Kolab_Server_Class_Server_Structure_LdapTest extends Horde_Kolab_Ser
 {
     public function setUp()
     {
-        $server = $this->getMock('Horde_Kolab_Server');
-        $this->composite = new Horde_Kolab_Server_Composite(
+        $server = $this->getMock('Horde_Kolab_Server_Interface');
+        $this->composite = new Horde_Kolab_Server_Composite_Base(
             $server,
-            $this->getMock('Horde_Kolab_Server_Objects'),
+            $this->getMock('Horde_Kolab_Server_Objects_Interface'),
             new Horde_Kolab_Server_Structure_Ldap(),
             $this->getMock('Horde_Kolab_Server_Search_Interface'),
-            $this->getMock('Horde_Kolab_Server_Schema')
+            $this->getMock('Horde_Kolab_Server_Schema_Interface')
         );
     }
 
@@ -170,7 +170,7 @@ class Horde_Kolab_Server_Class_Server_Structure_LdapTest extends Horde_Kolab_Ser
     {
         $structure = new Horde_Kolab_Server_Structure_Ldap();
         try {
-            $structure->getInternalAttribute('undefined');
+            $structure->mapExternalToInternalAttribute('undefined');
             $this->fail('No exception!');
         } catch (Horde_Kolab_Server_Exception $e) {
             $this->assertEquals(

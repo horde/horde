@@ -36,7 +36,7 @@ extends Horde_Kolab_Server_TestCase
     public function setUp()
     {
         $this->object = $this->getMock(
-            'Horde_Kolab_Server_Object', array(), array(), '', false
+            'Horde_Kolab_Server_Object_Interface'
         );
         $this->composite = $this->getMockedComposite();
     }
@@ -54,13 +54,16 @@ extends Horde_Kolab_Server_TestCase
     public function testMethodGetobjectReturnsObjectAssociatedWithThisAttribute()
     {
         $attribute = new Attribute_Mock($this->object, $this->composite, '');
-        $this->assertType('Horde_Kolab_Server_Object', $attribute->getObject());
+        $this->assertType(
+            'Horde_Kolab_Server_Object_Interface',
+            $attribute->getObject()
+        );
     }
 
     public function testMethodGetnameReturnsStringTheNameOfTheAttribute()
     {
         $this->composite->structure->expects($this->exactly(1))
-            ->method('getInternalAttribute')
+            ->method('mapExternalToInternalAttribute')
             ->with('name')
             ->will($this->returnValue('name'));
         $attribute = new Attribute_Mock($this->object, $this->composite, 'name');

@@ -48,8 +48,10 @@ class Horde_Kolab_Server_Ldap_Changes
      * @param array                     $data   The attributes of the object
      *                                          to be stored.
      */
-    public function __construct(Horde_Kolab_Server_Object $object, array $data)
-    {
+    public function __construct(
+        Horde_Kolab_Server_Object_Interface $object,
+        array $data
+    ) {
         $this->_object = $object;
         $this->_data   = $data;
     }

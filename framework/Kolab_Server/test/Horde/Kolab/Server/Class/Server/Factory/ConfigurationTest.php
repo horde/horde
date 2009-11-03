@@ -39,7 +39,9 @@ extends Horde_Kolab_Server_LdapTestCase
         $factory = new Horde_Kolab_Server_Factory_Configuration(
             array('logger' => 'set', 'basedn' => '')
         );
-        $this->assertType('Horde_Kolab_Server_Logged', $factory->getServer());
+        $this->assertType(
+            'Horde_Kolab_Server_Decorator_Log', $factory->getServer()
+        );
     }
 
     public function testMethodGetserverHasResultMappedServerIfAMappedWasProvidedInTheConfiguration()
@@ -48,7 +50,9 @@ extends Horde_Kolab_Server_LdapTestCase
         $factory = new Horde_Kolab_Server_Factory_Configuration(
             array('map' => array(), 'basedn' => '')
         );
-        $this->assertType('Horde_Kolab_Server_Mapped', $factory->getServer());
+        $this->assertType(
+            'Horde_Kolab_Server_Decorator_Map', $factory->getServer()
+        );
     }
 
     public function testMethodGetserverHasResultCleanerServerIfACleanedWasProvidedInTheConfiguration()
@@ -57,7 +61,9 @@ extends Horde_Kolab_Server_LdapTestCase
         $factory = new Horde_Kolab_Server_Factory_Configuration(
             array('cleanup' => true, 'basedn' => '')
         );
-        $this->assertType('Horde_Kolab_Server_Cleaner', $factory->getServer());
+        $this->assertType(
+            'Horde_Kolab_Server_Decorator_Clean', $factory->getServer()
+        );
     }
 
     public function testMethodConstructHasParametersArrayParameters()
@@ -73,7 +79,7 @@ extends Horde_Kolab_Server_LdapTestCase
             array('basedn' => '')
         );
         $this->assertType(
-            'Horde_Kolab_Server_Factory_Conn',
+            'Horde_Kolab_Server_Factory_Connection_Interface',
             $factory->getConnectionFactory()
         );
     }
@@ -85,7 +91,7 @@ extends Horde_Kolab_Server_LdapTestCase
             array('basedn' => '')
         );
         $this->assertType(
-            'Horde_Kolab_Server',
+            'Horde_Kolab_Server_Interface',
             $factory->getServer()
         );
     }
@@ -108,7 +114,7 @@ extends Horde_Kolab_Server_LdapTestCase
             array('basedn' => '')
         );
         $this->assertType(
-            'Horde_Kolab_Server_Connection',
+            'Horde_Kolab_Server_Connection_Interface',
             $factory->getConnection()
         );
     }
@@ -120,7 +126,7 @@ extends Horde_Kolab_Server_LdapTestCase
             array('basedn' => '')
         );
         $this->assertType(
-            'Horde_Kolab_Server_Composite',
+            'Horde_Kolab_Server_Composite_Interface',
             $factory->getComposite()
         );
     }
@@ -131,7 +137,7 @@ extends Horde_Kolab_Server_LdapTestCase
             array('basedn' => '')
         );
         $this->assertType(
-            'Horde_Kolab_Server_Objects',
+            'Horde_Kolab_Server_Objects_Interface',
             $factory->getObjects()
         );
     }
@@ -164,7 +170,7 @@ extends Horde_Kolab_Server_LdapTestCase
             array('basedn' => '')
         );
         $this->assertType(
-            'Horde_Kolab_Server_Schema',
+            'Horde_Kolab_Server_Schema_Interface',
             $factory->getSchema()
         );
     }

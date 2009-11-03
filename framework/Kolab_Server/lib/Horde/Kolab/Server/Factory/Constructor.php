@@ -74,11 +74,11 @@ extends Horde_Kolab_Server_Factory_Base
      *                                                   server.
      */
     public function __construct(
-        Horde_Kolab_Server_Factory_Conn $factory,
-        Horde_Kolab_Server_Objects $objects,
+        Horde_Kolab_Server_Factory_Connection_Interface $factory,
+        Horde_Kolab_Server_Objects_Interface $objects,
         Horde_Kolab_Server_Structure_Interface $structure,
         Horde_Kolab_Server_Search_Interface $search,
-        Horde_Kolab_Server_Schema $schema,
+        Horde_Kolab_Server_Schema_Interface $schema,
         array $config
     ) {
         parent::__construct($factory, $config);

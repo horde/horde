@@ -35,21 +35,21 @@ class Horde_Kolab_Server_Class_Server_Ldap_ChangesTest extends PHPUnit_Framework
     public function testMethodConstructHasParameterServerobject()
     {
         $changes = new Horde_Kolab_Server_Ldap_Changes(
-            $this->getMock('Horde_Kolab_Server_Object'), array()
+            $this->getMock('Horde_Kolab_Server_Object_Interface'), array()
         );
     }
 
     public function testMethodConstructHasParameterArrayDataToBeStored()
     {
         $changes = new Horde_Kolab_Server_Ldap_Changes(
-            $this->getMock('Horde_Kolab_Server_Object'),
+            $this->getMock('Horde_Kolab_Server_Object_Interface'),
             array('store' => 'value')
         );
     }
 
     public function testMethodGetchangesetHasResultArrayEmptyIfOldAndNewDatasetsWereEmpty()
     {
-        $object = $this->getMock('Horde_Kolab_Server_Object');
+        $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $object->expects($this->once())
             ->method('readInternal')
             ->will($this->returnValue(array()));
@@ -61,7 +61,7 @@ class Horde_Kolab_Server_Class_Server_Ldap_ChangesTest extends PHPUnit_Framework
 
     public function testMethodGetchangesetHasResultArrayEmptyIfOldAndNewDatasetsWereEqual()
     {
-        $object = $this->getMock('Horde_Kolab_Server_Object');
+        $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $object->expects($this->once())
             ->method('readInternal')
             ->will($this->returnValue(array('a' => array('a'))));
@@ -73,7 +73,7 @@ class Horde_Kolab_Server_Class_Server_Ldap_ChangesTest extends PHPUnit_Framework
 
     public function testMethodGetchangesetHasResultArrayNewAttributesInNewDatasetAsAdded()
     {
-        $object = $this->getMock('Horde_Kolab_Server_Object');
+        $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $object->expects($this->once())
             ->method('readInternal')
             ->will($this->returnValue(array()));
@@ -92,7 +92,7 @@ class Horde_Kolab_Server_Class_Server_Ldap_ChangesTest extends PHPUnit_Framework
 
     public function testMethodGetchangesetHasResultArrayMissingValuesInNewDatasetAsDeleted()
     {
-        $object = $this->getMock('Horde_Kolab_Server_Object');
+        $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $object->expects($this->once())
             ->method('readInternal')
             ->will($this->returnValue(array('old' => 'a')));
@@ -111,7 +111,7 @@ class Horde_Kolab_Server_Class_Server_Ldap_ChangesTest extends PHPUnit_Framework
 
     public function testMethodGetchangesetHasResultArraySingleValuesWithDifferencesAsReplaced()
     {
-        $object = $this->getMock('Horde_Kolab_Server_Object');
+        $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $object->expects($this->once())
             ->method('readInternal')
             ->will($this->returnValue(array('value' => 'a')));
@@ -130,7 +130,7 @@ class Horde_Kolab_Server_Class_Server_Ldap_ChangesTest extends PHPUnit_Framework
 
     public function testMethodGetchangesetHasResultArrayTheNewValuesAsAdded()
     {
-        $object = $this->getMock('Horde_Kolab_Server_Object');
+        $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $object->expects($this->once())
             ->method('readInternal')
             ->will($this->returnValue(array('value' => array('a', 'b', 'c'))));
@@ -149,7 +149,7 @@ class Horde_Kolab_Server_Class_Server_Ldap_ChangesTest extends PHPUnit_Framework
 
     public function testMethodGetchangesetHasResultArrayTheRemovedValuesAsDeleted()
     {
-        $object = $this->getMock('Horde_Kolab_Server_Object');
+        $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $object->expects($this->once())
             ->method('readInternal')
             ->will($this->returnValue(array('value' => array('a', 'b', 'c'))));
@@ -168,7 +168,7 @@ class Horde_Kolab_Server_Class_Server_Ldap_ChangesTest extends PHPUnit_Framework
 
     public function testMethodGetchangesetHasResultArrayTheNewValuesAsAddedAndTheRemovedValuesAsDeleted()
     {
-        $object = $this->getMock('Horde_Kolab_Server_Object');
+        $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $object->expects($this->once())
             ->method('readInternal')
             ->will($this->returnValue(array('value' => array('a', 'b', 'c'))));

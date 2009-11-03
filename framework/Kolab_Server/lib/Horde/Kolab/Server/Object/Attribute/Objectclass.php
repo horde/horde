@@ -36,8 +36,8 @@ extends Horde_Kolab_Server_Object_Attribute_Decorator
      * @param Horde_Kolab_Server_Composite $composite The link to the server.
      */
     public function __construct(
-        Horde_Kolab_Server_Object $object,
-        Horde_Kolab_Server_Composite $composite
+        Horde_Kolab_Server_Object_Interface $object,
+        Horde_Kolab_Server_Composite_Interface $composite
     ) {
         $this->_attribute = new Horde_Kolab_Server_Object_Attribute_Required(
             new Horde_Kolab_Server_Object_Attribute_Locked(

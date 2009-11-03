@@ -44,7 +44,7 @@ class Horde_Kolab_Server_Ldap_Filtered extends Horde_Kolab_Server_Ldap
      *                                                  to all queries.
      */
     public function __construct(
-        Horde_Kolab_Server_Connection $connection,
+        Horde_Kolab_Server_Connection_Interface $connection,
         $base_dn,
         $filter = null
     ) {

@@ -58,32 +58,32 @@ class Horde_Kolab_Server_Object_Organizationalperson extends Horde_Kolab_Server_
      *
      * @var array
      */
-    static public $init_attributes = array(
-        'defined' => array(
-            self::ATTRIBUTE_JOBTITLE,
-            self::ATTRIBUTE_STREET,
-            self::ATTRIBUTE_POSTOFFICEBOX,
-            self::ATTRIBUTE_POSTALCODE,
-            self::ATTRIBUTE_CITY,
-            self::ATTRIBUTE_FAX,
-            self::ATTRIBUTE_POSTALADDRESS,
-        ),
-        'collapsed' => array(
-            self::ATTRIBUTE_POSTALADDRESS => array(
-                'base' => array(
-                    self::ATTRIBUTE_SN,
-                    self::ATTRIBUTE_STREET,
-                    self::ATTRIBUTE_POSTOFFICEBOX,
-                    self::ATTRIBUTE_POSTALCODE,
-                    self::ATTRIBUTE_CITY,
-                ),
-                'method' => 'setPostalAddress',
-            ),
-        ),
-        'object_classes' => array(
-            self::OBJECTCLASS_ORGANIZATIONALPERSON,
-        ),
-    );
+/*     static public $init_attributes = array( */
+/*         'defined' => array( */
+/*             self::ATTRIBUTE_JOBTITLE, */
+/*             self::ATTRIBUTE_STREET, */
+/*             self::ATTRIBUTE_POSTOFFICEBOX, */
+/*             self::ATTRIBUTE_POSTALCODE, */
+/*             self::ATTRIBUTE_CITY, */
+/*             self::ATTRIBUTE_FAX, */
+/*             self::ATTRIBUTE_POSTALADDRESS, */
+/*         ), */
+/*         'collapsed' => array( */
+/*             self::ATTRIBUTE_POSTALADDRESS => array( */
+/*                 'base' => array( */
+/*                     self::ATTRIBUTE_SN, */
+/*                     self::ATTRIBUTE_STREET, */
+/*                     self::ATTRIBUTE_POSTOFFICEBOX, */
+/*                     self::ATTRIBUTE_POSTALCODE, */
+/*                     self::ATTRIBUTE_CITY, */
+/*                 ), */
+/*                 'method' => 'setPostalAddress', */
+/*             ), */
+/*         ), */
+/*         'object_classes' => array( */
+/*             self::OBJECTCLASS_ORGANIZATIONALPERSON, */
+/*         ), */
+/*     ); */
 
     /**
      * Return the filter string to retrieve this object type.

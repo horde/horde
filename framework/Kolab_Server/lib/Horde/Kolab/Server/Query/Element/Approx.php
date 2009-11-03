@@ -33,8 +33,9 @@ extends Horde_Kolab_Server_Query_Element_Single
      *
      * @return mixed The element as query.
      */
-    public function convert(Horde_Kolab_Server_Query $writer)
-    {
+    public function convert(
+        Horde_Kolab_Server_Query_Interface $writer
+    ) {
         return $writer->convertApprox($this);
     }
 }

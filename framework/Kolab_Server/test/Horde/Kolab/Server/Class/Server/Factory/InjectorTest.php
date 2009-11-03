@@ -37,7 +37,7 @@ extends Horde_Kolab_Server_LdapTestCase
     {
         $injector = new Horde_Injector(new Horde_Injector_TopLevel());
         Horde_Kolab_Server_Factory_Injector::setup(
-            'Horde_Kolab_Server_Factory_Conn_Mock',
+            'Horde_Kolab_Server_Factory_Connection_Mock',
             $configuration,
             $injector
         );
@@ -49,7 +49,7 @@ extends Horde_Kolab_Server_LdapTestCase
     public function testMethodGetconnectionfactoryHasResultConnectionfactory()
     {
         $this->assertType(
-            'Horde_Kolab_Server_Factory_Conn',
+            'Horde_Kolab_Server_Factory_Connection_Interface',
             $this->_getFactory(array())->getConnectionFactory()
         );
     }
@@ -58,7 +58,7 @@ extends Horde_Kolab_Server_LdapTestCase
     {
         $factory = $this->_getFactory(array());
         $this->assertType(
-            'Horde_Kolab_Server_Connection',
+            'Horde_Kolab_Server_Connection_Interface',
             $factory->getConnection()
         );
     }
@@ -101,7 +101,7 @@ extends Horde_Kolab_Server_LdapTestCase
     {
         $factory = $this->_getFactory(array());
         $this->assertType(
-            'Horde_Kolab_Server_Objects',
+            'Horde_Kolab_Server_Objects_Interface',
             $factory->getObjects()
         );
     }
@@ -143,7 +143,7 @@ extends Horde_Kolab_Server_LdapTestCase
     {
         $factory = $this->_getFactory(array());
         $this->assertType(
-            'Horde_Kolab_Server_Schema',
+            'Horde_Kolab_Server_Schema_Interface',
             $factory->getSchema()
         );
     }
@@ -153,7 +153,7 @@ extends Horde_Kolab_Server_LdapTestCase
         $this->skipIfNoLdap();
         $factory = $this->_getFactory(array('basedn' => 'test'));
         $this->assertType(
-            'Horde_Kolab_Server_Composite',
+            'Horde_Kolab_Server_Composite_Interface',
             $factory->getComposite()
         );
     }

@@ -40,7 +40,6 @@ class Horde_Kolab_Server_Class_Server_Query_LdapTest extends Horde_Kolab_Server_
         );
     }
 
-
     public function testMethodConstructHasParameterQueryelementTheQueryCriteria()
     {
         $equals = new Horde_Kolab_Server_Query_Element_Equals('equals', 'equals');
@@ -50,7 +49,7 @@ class Horde_Kolab_Server_Class_Server_Query_LdapTest extends Horde_Kolab_Server_
     public function testMethodConstructHasPostconditionThatTheQueryCriteriaWereSaved()
     {
         $this->structure->expects($this->once())
-            ->method('getInternalAttribute')
+            ->method('mapExternalToInternalAttribute')
             ->will($this->returnValue('equals'));
         $equals = new Horde_Kolab_Server_Query_Element_Equals('equals', 'equals');
         $query = new Horde_Kolab_Server_Query_Ldap($equals, $this->structure);
@@ -63,7 +62,7 @@ class Horde_Kolab_Server_Class_Server_Query_LdapTest extends Horde_Kolab_Server_
     public function testMethodTostringHasResultStringTheQuery()
     {
         $this->structure->expects($this->exactly(2))
-            ->method('getInternalAttribute')
+            ->method('mapExternalToInternalAttribute')
             ->will($this->returnValue('internal'));
         $equals = new Horde_Kolab_Server_Query_Element_Equals('equals', 'equals');
         $contains = new Horde_Kolab_Server_Query_Element_Equals('contains', 'contains');
@@ -78,7 +77,7 @@ class Horde_Kolab_Server_Class_Server_Query_LdapTest extends Horde_Kolab_Server_
     public function testMethodConvertequealsHasResultNetldapfilter()
     {
         $this->structure->expects($this->once())
-            ->method('getInternalAttribute')
+            ->method('mapExternalToInternalAttribute')
             ->will($this->returnValue('equals'));
         $equals = new Horde_Kolab_Server_Query_Element_Equals('equals', 'equals');
         $query = new Horde_Kolab_Server_Query_Ldap($equals, $this->structure);
@@ -91,7 +90,7 @@ class Horde_Kolab_Server_Class_Server_Query_LdapTest extends Horde_Kolab_Server_
     public function testMethodConvertbeginsHasResultNetldapfilter()
     {
         $this->structure->expects($this->once())
-            ->method('getInternalAttribute')
+            ->method('mapExternalToInternalAttribute')
             ->will($this->returnValue('begins'));
         $begins = new Horde_Kolab_Server_Query_Element_Begins('begins', 'begins');
         $query = new Horde_Kolab_Server_Query_Ldap($begins, $this->structure);
@@ -104,7 +103,7 @@ class Horde_Kolab_Server_Class_Server_Query_LdapTest extends Horde_Kolab_Server_
     public function testMethodConvertendsHasResultNetldapfilter()
     {
         $this->structure->expects($this->once())
-            ->method('getInternalAttribute')
+            ->method('mapExternalToInternalAttribute')
             ->will($this->returnValue('ends'));
         $ends = new Horde_Kolab_Server_Query_Element_Ends('ends', 'ends');
         $query = new Horde_Kolab_Server_Query_Ldap($ends, $this->structure);
@@ -117,7 +116,7 @@ class Horde_Kolab_Server_Class_Server_Query_LdapTest extends Horde_Kolab_Server_
     public function testMethodConvertcontainsHasResultNetldapfilter()
     {
         $this->structure->expects($this->once())
-            ->method('getInternalAttribute')
+            ->method('mapExternalToInternalAttribute')
             ->will($this->returnValue('contains'));
         $contains = new Horde_Kolab_Server_Query_Element_Contains('contains', 'contains');
         $query = new Horde_Kolab_Server_Query_Ldap($contains, $this->structure);
@@ -130,7 +129,7 @@ class Horde_Kolab_Server_Class_Server_Query_LdapTest extends Horde_Kolab_Server_
     public function testMethodConvertlessHasResultNetldapfilter()
     {
         $this->structure->expects($this->once())
-            ->method('getInternalAttribute')
+            ->method('mapExternalToInternalAttribute')
             ->will($this->returnValue('less'));
         $less = new Horde_Kolab_Server_Query_Element_Less('less', 'less');
         $query = new Horde_Kolab_Server_Query_Ldap($less, $this->structure);
@@ -143,7 +142,7 @@ class Horde_Kolab_Server_Class_Server_Query_LdapTest extends Horde_Kolab_Server_
     public function testMethodConvertgreaterHasResultNetldapfilter()
     {
         $this->structure->expects($this->once())
-            ->method('getInternalAttribute')
+            ->method('mapExternalToInternalAttribute')
             ->will($this->returnValue('greater'));
         $greater = new Horde_Kolab_Server_Query_Element_Greater('greater', 'greater');
         $query = new Horde_Kolab_Server_Query_Ldap($greater, $this->structure);
@@ -156,7 +155,7 @@ class Horde_Kolab_Server_Class_Server_Query_LdapTest extends Horde_Kolab_Server_
     public function testMethodConvertapproxHasResultNetldapfilter()
     {
         $this->structure->expects($this->once())
-            ->method('getInternalAttribute')
+            ->method('mapExternalToInternalAttribute')
             ->will($this->returnValue('approx'));
         $approx = new Horde_Kolab_Server_Query_Element_Approx('approx', 'approx');
         $query = new Horde_Kolab_Server_Query_Ldap($approx, $this->structure);
@@ -169,7 +168,7 @@ class Horde_Kolab_Server_Class_Server_Query_LdapTest extends Horde_Kolab_Server_
     public function testMethodConvertnotHasResultNetldapfilter()
     {
         $this->structure->expects($this->once())
-            ->method('getInternalAttribute')
+            ->method('mapExternalToInternalAttribute')
             ->will($this->returnValue('equals'));
         $equals = new Horde_Kolab_Server_Query_Element_Equals('equals', 'equals');
         $not = new Horde_Kolab_Server_Query_Element_Not($equals, $this->structure);
@@ -183,7 +182,7 @@ class Horde_Kolab_Server_Class_Server_Query_LdapTest extends Horde_Kolab_Server_
     public function testMethodConvertandHasResultNetldapfilter()
     {
         $this->structure->expects($this->exactly(2))
-            ->method('getInternalAttribute')
+            ->method('mapExternalToInternalAttribute')
             ->will($this->returnValue('internal'));
         $equals = new Horde_Kolab_Server_Query_Element_Equals('equals', 'equals');
         $contains = new Horde_Kolab_Server_Query_Element_Equals('contains', 'contains');
@@ -198,7 +197,7 @@ class Horde_Kolab_Server_Class_Server_Query_LdapTest extends Horde_Kolab_Server_
     public function testMethodConvertorHasResultNetldapfilter()
     {
         $this->structure->expects($this->exactly(2))
-            ->method('getInternalAttribute')
+            ->method('mapExternalToInternalAttribute')
             ->will($this->returnValue('internal'));
         $equals = new Horde_Kolab_Server_Query_Element_Equals('equals', 'equals');
         $contains = new Horde_Kolab_Server_Query_Element_Equals('contains', 'contains');
