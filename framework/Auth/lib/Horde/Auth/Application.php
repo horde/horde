@@ -39,6 +39,7 @@ class Horde_Auth_Application extends Horde_Auth_Base
         'list' => 'authUserList',
         'loginparams' => 'authLoginParams',
         'remove' => 'authRemoveUser',
+        'resetpassword' => 'authResetPassword',
         'transparent' => 'authTransparent',
         'update' => 'authUpdateUser'
     );
@@ -196,6 +197,25 @@ class Horde_Auth_Application extends Horde_Auth_Base
         } else {
             parent::updateUser($userId, $credentials);
         }
+    }
+
+    /**
+     * Reset a user's password. Used for example when the user does not
+     * remember the existing password.
+     *
+     * @param string $userId  The userId for which to reset the password.
+     *
+     * @return string  The new password on success.
+     * @throws Horde_Auth_Exception
+     */
+    public function resetPassword($userId)
+    {
+        if ($this->hasCapability('resetpassword')) {
+            $registry = Horde_Registry::singleton();
+            return $registry->callAppMethod($this->_app, $this->_apiMethods['resetpassword'], array('args' => array($userId)));
+        }
+
+        return parent::resetPassword();
     }
 
     /**
