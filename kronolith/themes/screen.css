@@ -461,7 +461,7 @@ body.kronolithAjax {
     border: 1px solid #c0c0c0;
     background-color: #fff;
     text-align: center;
-    font-weight: bold;
+    cursor: pointer;
 }
 #kronolithAddEvents {
     margin-bottom: 18px;
