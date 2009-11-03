@@ -34,10 +34,8 @@ class Horde_Kolab_Session_Class_Factory_DefaultTest extends Horde_Kolab_Session_
 {
     public function testMethodGetserverHasResultHordekolabserver()
     {
-        $server = $this->getMock(
-            'Horde_Kolab_Server_Composite', array(), array(), '', false, false
-        );
-        $server_factory = $this->getMock('Horde_Kolab_Server_Factory');
+        $server = $this->getMock('Horde_Kolab_Server_Composite_Interface');
+        $server_factory = $this->getMock('Horde_Kolab_Server_Factory_Interface');
         $server_factory->expects($this->once())
             ->method('getComposite')
             ->will($this->returnValue($server));
@@ -45,14 +43,16 @@ class Horde_Kolab_Session_Class_Factory_DefaultTest extends Horde_Kolab_Session_
             array('server' => array()),
             $server_factory
         );
-        $this->assertType('Horde_Kolab_Server_Composite', $factory->getServer());
+        $this->assertType(
+            'Horde_Kolab_Server_Composite_Interface', $factory->getServer()
+        );
     }
 
     public function testMethodGetsessionauthHasResultHordekolabsessionauth()
     {
         $factory = new Horde_Kolab_Session_Factory_Default(
             array('server' => array()),
-            $this->getMock('Horde_Kolab_Server_Factory')
+            $this->getMock('Horde_Kolab_Server_Factory_Interface')
         );
         $this->assertType('Horde_Kolab_Session_Auth', $factory->getSessionAuth());
     }
@@ -61,7 +61,7 @@ class Horde_Kolab_Session_Class_Factory_DefaultTest extends Horde_Kolab_Session_
     {
         $factory = new Horde_Kolab_Session_Factory_Default(
             array('server' => array()),
-            $this->getMock('Horde_Kolab_Server_Factory')
+            $this->getMock('Horde_Kolab_Server_Factory_Interface')
         );
         $this->assertType('array', $factory->getSessionConfiguration());
     }
@@ -70,7 +70,7 @@ class Horde_Kolab_Session_Class_Factory_DefaultTest extends Horde_Kolab_Session_
     {
         $factory = new Horde_Kolab_Session_Factory_Default(
             array('server' => array()),
-            $this->getMock('Horde_Kolab_Server_Factory')
+            $this->getMock('Horde_Kolab_Server_Factory_Interface')
         );
         $this->assertType('Horde_Kolab_Session_Storage', $factory->getSessionStorage());
     }

@@ -136,7 +136,7 @@ extends Horde_Kolab_Session_Factory_Base
         Horde_Injector $injector
     ) {
         Horde_Kolab_Server_Factory_Injector::setup(
-            'Horde_Kolab_Server_Factory_Conn_Mock',
+            'Horde_Kolab_Server_Factory_Connection_Mock',
             array('basedn' => ''),
             $injector
         );
@@ -151,7 +151,7 @@ extends Horde_Kolab_Session_Factory_Base
      */
     public function getServer()
     {
-        return $this->_injector->getInstance('Horde_Kolab_Server_Composite');
+        return $this->_injector->getInstance('Horde_Kolab_Server_Composite_Interface');
     }
 
     /**

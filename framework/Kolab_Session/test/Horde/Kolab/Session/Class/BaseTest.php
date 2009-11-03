@@ -55,7 +55,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodConnectHasParameterArrayCredentials()
     {
-        $user = $this->getMock('Horde_Kolab_Server_Object');
+        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
             ->method('fetch')
@@ -68,7 +68,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodConnectHasPostconditionThatTheUserMailAddressIsKnown()
     {
-        $user = $this->getMock('Horde_Kolab_Server_Object');
+        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $user->expects($this->exactly(5))
             ->method('getExternal')
             ->will($this->returnValue('mail@example.org'));
@@ -85,7 +85,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodConnectHasPostconditionThatTheUserUidIsKnown()
     {
-        $user = $this->getMock('Horde_Kolab_Server_Object');
+        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $user->expects($this->exactly(5))
             ->method('getExternal')
             ->will($this->returnValue('uid'));
@@ -102,7 +102,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodConnectHasPostconditionThatTheUserNameIsKnown()
     {
-        $user = $this->getMock('Horde_Kolab_Server_Object');
+        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $user->expects($this->exactly(5))
             ->method('getExternal')
             ->will($this->returnValue('name'));
@@ -119,7 +119,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodConnectHasPostconditionThatTheUsersImapHostIsKnown()
     {
-        $user = $this->getMock('Horde_Kolab_Server_Object');
+        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $user->expects($this->exactly(5))
             ->method('getExternal')
             ->will($this->returnValue('home.example.org'));
@@ -136,7 +136,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodConnectHasPostconditionThatTheUsersFreebusyHostIsKnown()
     {
-        $user = $this->getMock('Horde_Kolab_Server_Object');
+        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $user->expects($this->exactly(5))
             ->method('getExternal')
             ->will($this->returnValue('freebusy.example.org'));
@@ -166,7 +166,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodConnectThrowsExceptionIfTheConnectionFailed()
     {
-        $user = $this->getMock('Horde_Kolab_Server_Object');
+        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $composite = $this->_getMockedComposite();
         $composite->server->expects($this->exactly(1))
             ->method('connectGuid')
@@ -210,7 +210,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetmailHasResultStringTheMailOfTheConnectedUser()
     {
-        $user = $this->getMock('Horde_Kolab_Server_Object');
+        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $user->expects($this->exactly(5))
             ->method('getExternal')
             ->will($this->throwException(new Horde_Kolab_Server_Exception_Novalue()));
@@ -227,7 +227,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetuidHasResultStringTheUidOfTheConnectedUser()
     {
-        $user = $this->getMock('Horde_Kolab_Server_Object');
+        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $user->expects($this->exactly(5))
             ->method('getExternal')
             ->will($this->throwException(new Horde_Kolab_Server_Exception_Novalue()));
@@ -244,7 +244,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetnameHasResultStringTheNameOfTheConnectedUser()
     {
-        $user = $this->getMock('Horde_Kolab_Server_Object');
+        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $user->expects($this->exactly(5))
             ->method('getExternal')
             ->will($this->throwException(new Horde_Kolab_Server_Exception_Novalue()));
@@ -261,7 +261,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetfreebusyserverHasResultStringTheUsersFreebusyServerConverterdToACompleteUrlUsingParametersIfAvailable()
     {
-        $user = $this->getMock('Horde_Kolab_Server_Object');
+        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $user->expects($this->exactly(5))
             ->method('getExternal')
             ->will($this->returnValue('freebusy.example.org'));
@@ -279,7 +279,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetfreebusyserverHasResultStringTheUsersFreebusyServerConverterdToACompleteUrlUsingFreebusyIfAvailable()
     {
-        $user = $this->getMock('Horde_Kolab_Server_Object');
+        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $user->expects($this->exactly(5))
             ->method('getExternal')
             ->will($this->returnValue('freebusy.example.org'));
@@ -296,7 +296,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetfreebusyserverHasResultStringTheConfiguredServerIfAvailable()
     {
-        $user = $this->getMock('Horde_Kolab_Server_Object');
+        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $user->expects($this->exactly(5))
             ->method('getExternal')
             ->will($this->throwException(new Horde_Kolab_Server_Exception_Novalue()));
@@ -314,7 +314,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetfreebusyserverHasResultStringTheUsersHomeServerConverterdToACompleteUrlUsingParametersIfAvailable()
     {
-        $user = $this->getMock('Horde_Kolab_Server_Object');
+        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $user->expects($this->exactly(5))
             ->method('getExternal')
             ->will($this->throwException(new Horde_Kolab_Server_Exception_Novalue()));
@@ -332,7 +332,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetfreebusyserverHasResultStringTheUsersHomeServerConverterdToACompleteUrlUsingFreebusyIfAvailable()
     {
-        $user = $this->getMock('Horde_Kolab_Server_Object');
+        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $user->expects($this->exactly(5))
             ->method('getExternal')
             ->will($this->throwException(new Horde_Kolab_Server_Exception_Novalue()));
@@ -349,7 +349,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetfreebusyserverHasResultStringLocalhostConvertedToACompleteUrlUsingParametersIfAvailable()
     {
-        $user = $this->getMock('Horde_Kolab_Server_Object');
+        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $user->expects($this->exactly(5))
             ->method('getExternal')
             ->will($this->throwException(new Horde_Kolab_Server_Exception_Novalue()));
@@ -367,7 +367,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetfreebusyserverHasResultStringLocalhostConvertedToACompleteUrlUsingFreebusy()
     {
-        $user = $this->getMock('Horde_Kolab_Server_Object');
+        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $user->expects($this->exactly(5))
             ->method('getExternal')
             ->will($this->throwException(new Horde_Kolab_Server_Exception_Novalue()));
@@ -384,7 +384,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetimapserverHasResultStringTheUsersHomeServerIfAvailable()
     {
-        $user = $this->getMock('Horde_Kolab_Server_Object');
+        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $user->expects($this->exactly(5))
             ->method('getExternal')
             ->will($this->returnValue('home.example.org'));
@@ -401,7 +401,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetimapserverHasResultStringTheConfiguredServerIfAvailable()
     {
-        $user = $this->getMock('Horde_Kolab_Server_Object');
+        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $user->expects($this->exactly(5))
             ->method('getExternal')
             ->will($this->throwException(new Horde_Kolab_Server_Exception_Novalue()));
@@ -419,7 +419,7 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
 
     public function testMethodGetimapserverHasResultStringLocalhostIfNoAlternative()
     {
-        $user = $this->getMock('Horde_Kolab_Server_Object');
+        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $user->expects($this->exactly(5))
             ->method('getExternal')
             ->will($this->throwException(new Horde_Kolab_Server_Exception_Novalue()));

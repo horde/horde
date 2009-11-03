@@ -66,7 +66,7 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
         $auth->expects($this->once())
             ->method('getCurrentUser')
             ->will($this->returnValue('somebody@example.org'));
-        $user = $this->getMock('Horde_Kolab_Server_Object');
+        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $user->expects($this->exactly(5))
             ->method('getExternal')
             ->will($this->returnValue('mail@example.org'));
@@ -88,7 +88,7 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
         $auth->expects($this->once())
             ->method('getCurrentUser')
             ->will($this->returnValue('mail@example.org'));
-        $user = $this->getMock('Horde_Kolab_Server_Object');
+        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $user->expects($this->exactly(5))
             ->method('getExternal')
             ->will($this->returnValue('mail@example.org'));
@@ -110,7 +110,7 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
         $auth->expects($this->once())
             ->method('getCurrentUser')
             ->will($this->returnValue('mail@example.org'));
-        $user = $this->getMock('Horde_Kolab_Server_Object');
+        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $user->expects($this->exactly(5))
             ->method('getExternal')
             ->will($this->returnValue('mail@example.org'));
@@ -132,7 +132,7 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
         $auth->expects($this->once())
             ->method('getCurrentUser')
             ->will($this->returnValue('mail@example.org'));
-        $user = $this->getMock('Horde_Kolab_Server_Object');
+        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $user->expects($this->exactly(5))
             ->method('getExternal')
             ->will($this->returnValue('mail@example.org'));

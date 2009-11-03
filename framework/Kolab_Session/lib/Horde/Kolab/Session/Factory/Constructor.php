@@ -69,7 +69,7 @@ extends Horde_Kolab_Session_Factory_Base
      *                                              session.
      */
     public function __construct(
-        Horde_Kolab_Server_Composite $server,
+        Horde_Kolab_Server_Composite_Interface $server,
         Horde_Kolab_Session_Auth $auth,
         array $config,
         Horde_Kolab_Session_Storage $storage

@@ -52,7 +52,7 @@ extends Horde_Kolab_Session_Factory_Base
      */
     public function __construct(
         array $config,
-        Horde_Kolab_Server_Factory $factory
+        Horde_Kolab_Server_Factory_Interface $factory
     ) {
         $this->_configuration  = $config;
         $this->_server_factory = $factory;

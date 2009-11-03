@@ -114,7 +114,7 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
      */
     public function __construct(
         $user_id,
-        Horde_Kolab_Server_Composite $server,
+        Horde_Kolab_Server_Composite_Interface $server,
         array $params
     ) {
         $this->_user_id = $user_id;
@@ -161,8 +161,9 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
      *
      * @return NULL
      */
-    private function _initMail(Horde_Kolab_Server_Object $user)
-    {
+    private function _initMail(
+        Horde_Kolab_Server_Object_Interface $user
+    ) {
         try {
             $this->_user_mail = $user->getExternal('Mail');
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
@@ -177,8 +178,9 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
      *
      * @return NULL
      */
-    private function _initUid(Horde_Kolab_Server_Object $user)
-    {
+    private function _initUid(
+        Horde_Kolab_Server_Object_Interface $user
+    ) {
         try {
             $this->_user_uid = $user->getExternal('Uid');
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
@@ -193,8 +195,9 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
      *
      * @return NULL
      */
-    private function _initName(Horde_Kolab_Server_Object $user)
-    {
+    private function _initName(
+        Horde_Kolab_Server_Object_Interface $user
+    ) {
         try {
             $this->_user_name = $user->getExternal('Fnln');
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
@@ -209,8 +212,9 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
      *
      * @return NULL
      */
-    private function _initImapServer(Horde_Kolab_Server_Object $user)
-    {
+    private function _initImapServer(
+        Horde_Kolab_Server_Object_Interface $user
+    ) {
         try {
             $this->_imap_server = $user->getExternal('KolabHomeserver');
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
@@ -229,8 +233,9 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
      *
      * @return NULL
      */
-    private function _initFreebusyServer(Horde_Kolab_Server_Object $user)
-    {
+    private function _initFreebusyServer(
+        Horde_Kolab_Server_Object_Interface $user
+    ) {
         try {
             $fb_server = $user->getExternal('KolabFreebusyHost');
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {

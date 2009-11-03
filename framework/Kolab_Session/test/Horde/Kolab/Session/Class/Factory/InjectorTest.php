@@ -43,7 +43,7 @@ class Horde_Kolab_Session_Class_Factory_InjectorTest extends Horde_Kolab_Session
         $factory = new Horde_Kolab_Session_Factory_Injector(
             array('server' => array()), $this->injector
         );
-        $this->assertType('Horde_Kolab_Server_Composite', $factory->getServer());
+        $this->assertType('Horde_Kolab_Server_Composite_Interface', $factory->getServer());
     }
 
     public function testMethodGetsessionauthHasResultHordekolabsessionauth()

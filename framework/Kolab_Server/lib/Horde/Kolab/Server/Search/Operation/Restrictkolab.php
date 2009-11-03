@@ -38,7 +38,7 @@ extends Horde_Kolab_Server_Search_Operation_Guid
      * @throws Horde_Kolab_Server_Exception
      */
     public function searchRestrictKolab(
-        Horde_Kolab_Server_Query_Element $criteria
+        Horde_Kolab_Server_Query_Element_Interface $criteria
     ) {
         $criteria = new Horde_Kolab_Server_Query_Element_And(
             array(
