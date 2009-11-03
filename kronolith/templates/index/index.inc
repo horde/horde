@@ -34,7 +34,7 @@
 <!-- ini menu -->
 <div id="kronolithMenu">
   <div id="kronolithAddEvents">
-    <span id="kronolithNewEvent"><?php echo _("_New event") ?></span>
+    <span id="kronolithNewEvent" class="button"><?php echo _("_New event") ?></span>
     <span id="kronolithQuickEvent" title="<?php echo _("Quick _insert") ?>">+</span>
   </div>
 
@@ -133,10 +133,17 @@ require dirname(__FILE__) . '/agenda.inc';
 
 <div id="kronolithQuickinsert" style="display:none">
   <form id="kronolithQuickinsertForm" action="">
-    <input type="text" id="kronolithQuickinsertQ" value="" />
-    <input type="submit" id="kronolithQuickinsertSave" value="<?php echo _("Add") ?>" class="button ok" />
-    <input type="submit" id="kronolithQuickinsertCancel" value="x" class="button cancel" /><br />
-    <?php echo _("I.e. Dinner with John tomorrow 10am") ?><br />
+    <input type="text" id="kronolithQuickinsertQ" size="35" value="" class="kronolithLongField" /><br />
+    <span class="kronolithFormInfo"><?php echo _("I.e. Dinner with John
+tomorrow 10am") ?></span><br />
+
+    <label><?php echo _("Add to") ?>:</label>
+    <select id="kronolithQuickinsertCalendars">
+    </select>
+    <span class="kronolithSep">|</span>
+    <input type="button" id="kronolithQuickinsertSave" value="<?php echo _("Save") ?>" class="button ok" />
+    <span class="kronolithSep"><?php echo _("or") ?></span>
+    <a href="#" id="kronolithQuickinsertCancel" class="kronolithFormCancel"><?php echo _("Cancel") ?></a><br />
   </form>
 </div>
 

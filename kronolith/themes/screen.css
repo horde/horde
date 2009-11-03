@@ -468,12 +468,17 @@ body.kronolithAjax {
 }
 #kronolithAddEvents span {
     /* We need some style here. */
-    margin-bottom: 5px;
-    padding-right: 10px;
+    float: left;
     font-weight: bold;
     cursor: pointer;
 }
+span#kronolithNewEvent {
+    width: 121px;
+    margin-right: 10px;
+    text-align: center;
+}
 span#kronolithQuickEvent {
+    width: 16px;
     background: transparent url("graphics/new.png") no-repeat;
     color: transparent;
 }
@@ -490,10 +495,10 @@ span#kronolithQuickEvent {
 #kronolithQuickinsert {
     position: absolute;
     z-index: 110;
-    left: 105px;
+    left: 163px;
     top: 10px;
-    width: 250px;
-    height: 75px;
+    width: 350px;
+    height: auto;
     margin: 0;
     padding: 0;
     background: transparent url("graphics/back_quick.png") no-repeat left top;
@@ -501,9 +506,6 @@ span#kronolithQuickEvent {
 #kronolithQuickinsert form {
     padding:  5px;
     margin: 5px 5px 5px 15px;
-}
-#kronolithQuickinsertQ {
-    width: 150px;
 }
 
 /* Navigation bar */

@@ -804,6 +804,23 @@ KronolithCore = {
     },
 
     /**
+     * Propagates a SELECT drop down list with the editable calendars.
+     *
+     * @param string id  The id of the SELECT element.
+     */
+    updateCalendarDropDown: function(id)
+    {
+        $(id).update();
+        $H(Kronolith.conf.calendars.internal).each(function(cal) {
+            if (cal.value.edit) {
+                $(id).insert(new Element('OPTION', { 'value': cal.key })
+                             .setStyle({ 'backgroundColor': cal.value.bg, 'color': cal.value.fg })
+                             .update(cal.value.name.escapeHTML()));
+            }
+        });
+    },
+
+    /**
      * Sets the load signature and show the loading spinner.
      *
      * @param string cal    The loading calendar.
@@ -1897,6 +1914,7 @@ KronolithCore = {
                 return;
 
             case 'kronolithQuickEvent':
+                this.updateCalendarDropDown('kronolithQuickinsertCalendars');
                 $('kronolithQuickinsert').appear({
                     duration: 0.3,
                     afterFinish: function() {

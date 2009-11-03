@@ -148,15 +148,20 @@ class Kronolith
             // Turn debugging on?
             'debug' => !empty($conf['js']['debug']),
         );
-        foreach ($GLOBALS['all_calendars'] as $id => $calendar) {
-            $owner = $calendar->get('owner') == Horde_Auth::getAuth();
-            $code['conf']['calendars']['internal'][$id] = array(
-                'name' => ($owner ? '' : '[' . Horde_Auth::convertUsername($calendar->get('owner'), false) . '] ')
-                    . $calendar->get('name'),
-                'owner' => $owner,
-                'fg' => self::foregroundColor($calendar),
-                'bg' => self::backgroundColor($calendar),
-                'show' => in_array($id, $GLOBALS['display_calendars']));
+        foreach (array(true, false) as $my) {
+            foreach ($GLOBALS['all_calendars'] as $id => $calendar) {
+                $owner = $calendar->get('owner') == Horde_Auth::getAuth();
+                if (($my && $owner) || (!$my && !$owner)) {
+                    $code['conf']['calendars']['internal'][$id] = array(
+                        'name' => ($owner ? '' : '[' . Horde_Auth::convertUsername($calendar->get('owner'), false) . '] ')
+                            . $calendar->get('name'),
+                        'owner' => $owner,
+                        'fg' => self::foregroundColor($calendar),
+                        'bg' => self::backgroundColor($calendar),
+                        'show' => in_array($id, $GLOBALS['display_calendars']),
+                        'edit' => $calendar->hasPermission(Horde_Auth::getAuth(), PERMS_READ));
+                }
+            }
         }
         foreach ($GLOBALS['all_external_calendars'] as $api => $categories) {
             foreach ($categories as $id => $name) {
