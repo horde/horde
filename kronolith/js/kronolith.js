@@ -1091,7 +1091,7 @@ KronolithCore = {
             $(view == 'day' ? 'kronolithEventsDay' : 'kronolithEventsWeek' + date).insert(div);
 
             if (event.value.pe) {
-                div.addClassName('kronolithEditable').setStyle({ 'cursor': 'move' });
+                div.addClassName('kronolithEditable');
                     // Top-most position (minimum y) of top dragger
                 var minTop = this[storage].allDay + this[storage].spacing,
                     // Number of pixels that cover 10 minutes.

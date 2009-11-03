@@ -1167,6 +1167,9 @@ div.kronolithView div.kronolithViewBody div.kronolithRow div .kronolithEvent.kro
     right: 3px;
     height: 12px;
 }
+.kronolithEvent.kronolithEditable {
+    cursor: move;
+}
 .kronolithEvent.kronolithEditable .kronolithDragger {
     background: transparent url("graphics/drag-handle.png") center center no-repeat;
 }
