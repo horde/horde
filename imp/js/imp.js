@@ -29,7 +29,7 @@ document.observe('dom:loaded', function() {
     IMP.unblockImages = function(e)
     {
         var callback,
-            elt = e.element().up('TABLE.mimeStatusMessage'),
+            elt = e.element().up('.mimeStatusMessage>TABLE'),
             iframe = elt.up().next('.htmlMsgData'),
             iframeid = iframe.readAttribute('id'),
             imgload = false,

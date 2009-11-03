@@ -519,12 +519,12 @@ td.addressTr span.loadingImg {
 }
 
 /* MIME styles. */
-.mimeStatusMessage, .mimeHeaders {
+.mimeStatusMessage>table, .mimeHeaders {
     padding: 4px;
     margin-bottom: 3px;
     font-size: 90%;
 }
-.mimeStatusMessage {
+.mimeStatusMessage>table {
     color: #000;
     background: #ffc;
     border: 1px solid #fff760;
@@ -540,7 +540,7 @@ td.addressTr span.loadingImg {
     background: #f9f9f9;
     width: auto;
 }
-div.mimePartInfo {
+div.mimeStatusMessage, div.mimePartInfo {
     margin-bottom: 5px;
 }
 .mimePartInfo div {
@@ -557,10 +557,10 @@ div.mimePartInfo {
     vertical-align: bottom;
 }
 
-.mimeStatusMessage td {
+.mimeStatusMessage table td {
     padding: 0;
 }
-.mimeStatusMessage td table td {
+.mimeStatusMessage table td table td {
     padding-right: 2px;
     white-space: nowrap;
 }
