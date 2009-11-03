@@ -638,40 +638,6 @@ div#kronolithEventTopTags span:hover {
     cursor: pointer;
 }
 
-/* Context menu */
-.kronolithContextMenu {
-    width: auto;
-    min-width: 150px;
-    padding: 2px;
-    position: absolute;
-    top: 0;
-    z-index: 1000;
-    background: #f4f4f4;
-    border: 1px #c0c0c0 solid;
-    color: #202020;
-}
-.kronolithContextMenu a {
-    display: block;
-    height: 18px;
-    line-height: 18px;
-    padding: 2px 4px;
-    border: 1px #f4f4f4 solid;
-    color: #202020;
-    text-decoration: none;
-    white-space: nowrap;
-
-}
-.kronolithContextMenu a:hover {
-    color: black;
-    text-decoration: none;
-}
-.kronolithContextMenu div.kronolithSeparator {
-    height: 1px;
-    line-height: 1px;
-    background: #d4d4d4;
-    margin-bottom: 1px;
-}
-
 /* Mini calendar */
 .kronolithMinical {
     position: relative;

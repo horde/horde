@@ -140,9 +140,3 @@ require dirname(__FILE__) . '/agenda.inc';
   </form>
 </div>
 
-<div class="kronlithContextMenu" style="display:none">
-  <a href="#">teste</a>
-  <div class="kronolithSeparator"></div>
-  <a href="#">teste</a>
-  <a href="#">teste</a>
-</div>
