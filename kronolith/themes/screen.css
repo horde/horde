@@ -853,7 +853,7 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
 #kronolithBody caption span {
     padding: 0;
 }
-#kronolithBody caption span.kronolithNavigation {
+#kronolithBody caption .kronolithNavigation {
     position: absolute;
     right: 2px;
     cursor: pointer;
@@ -980,6 +980,22 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
 /* Main view tasks. */
 #kronolithViewTasks caption {
     margin-left: 2px;
+}
+#kronolithViewTasks caption.tabset {
+    float: none;
+    width: auto;
+    font-weight: bold;
+    background: none;
+}
+#kronolithViewTasks ul.kronolithNavigation {
+    display: inline;
+    margin: 2px 0 0 0;
+    padding: 0;
+}
+#kronolithViewTasks caption.tabset li a {
+    padding-top: 0;
+    padding-bottom: 0;
+    border-bottom-style: dotted;
 }
 #kronolithViewTasks tbody.kronolithViewBody td {
     padding: 4px 4px 4px 4px;
