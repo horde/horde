@@ -27,6 +27,7 @@ KronolithCore = {
     loading: 0,
     date: new Date(),
     taskType: 'all',
+    growls: 0,
 
     doActionOpts: {
         onException: function(r, e) { KronolithCore.debug('onException', e); },
@@ -130,6 +131,8 @@ KronolithCore = {
                     log: true,
                     sticky: m.type == 'horde.error'
                 });
+                $('kronolithNotifications').update(Kronolith.text.alerts.interpolate({ 'count': ++this.growls }));
+                $('kronolithNotifications').up().show();
             }
         }, this);
     },
@@ -2068,12 +2071,12 @@ KronolithCore = {
                 this.go('search:' + $F('kronolithSearchContext') + ':' + $F('kronolithSearchTerm'))
                 break;
 
-            case 'alertsloglink':
-                tmp = $('alertsloglink').down('A');
+            case 'kronolithNotifications':
                 if (this.Growler.toggleLog()) {
-                    tmp.update(DIMP.text.hidealog);
+                    elt.update(Kronolith.text.hidelog);
+                    this.growls = 0;
                 } else {
-                    tmp.update(DIMP.text.showalog);
+                    elt.up().hide();
                 }
                 break;
             }
@@ -2390,7 +2393,6 @@ KronolithCore = {
 
         /* Add Growler notifications. */
         this.Growler = new Growler({
-            location: 'br',
             log: true,
             noalerts: Kronolith.text.noalerts
         });
