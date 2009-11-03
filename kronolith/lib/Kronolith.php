@@ -60,30 +60,24 @@ class Kronolith
     /**
      * Output everything for the AJAX interface up to but not including the
      * <body> tag.
-     *
-     * @param string $title   The title of the page.
-     * @param array $scripts  Any additional scripts that need to be loaded.
-     *                        Each entry contains the three elements necessary
-     *                        for a Horde::addScriptFile() call.
      */
-    public static function header($title, $scripts = array())
+    public static function header()
     {
         // Need to include script files before we start output
+        $datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
+        if (!file_exists($GLOBALS['registry']->get('jsfs') . '/' . $datejs)) {
+            $datejs = 'en-US.js';
+        }
         Horde::addScriptFile('effects.js', 'horde');
         Horde::addScriptFile('horde.js', 'horde');
         Horde::addScriptFile('dragdrop2.js', 'horde');
         Horde::addScriptFile('Growler.js', 'horde');
+        Horde::addScriptFile('dhtmlHistory.js', 'horde');
+        Horde::addScriptFile('redbox.js', 'horde');
+        Horde::addScriptFile('tooltips.js', 'horde');
         Horde::addScriptFile('kronolith.js', 'kronolith');
-
-        // Add other scripts now
-        foreach ($scripts as $val) {
-            call_user_func_array(array('Horde', 'addScriptFile'), $val);
-        }
-
-        $page_title = $GLOBALS['registry']->get('name');
-        if (!empty($title)) {
-            $page_title .= ' :: ' . $title;
-        }
+        Horde::addScriptFile($datejs, 'kronolith');
+        Horde::addScriptFile('date.js', 'kronolith');
 
         // No IE 8 code at the moment.
         header('X-UA-Compatible: IE=7');
@@ -96,7 +90,7 @@ class Kronolith
         echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">' . "\n" .
              (!empty($GLOBALS['language']) ? '<html lang="' . strtr($GLOBALS['language'], '_', '-') . '"' : '<html') . ">\n".
              "<head>\n" .
-             '<title>' . htmlspecialchars($page_title) . "</title>\n" .
+             '<title>' . htmlspecialchars($GLOBALS['registry']->get('name')) . "</title>\n" .
              '<link href="' . $GLOBALS['registry']->getImageDir() . "/favicon.ico\" rel=\"SHORTCUT ICON\" />\n".
              Horde::wrapInlineScript(self::includeJSVars());
 

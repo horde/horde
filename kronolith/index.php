@@ -26,18 +26,7 @@ if ($help_link) {
 $today = Kronolith::currentDate();
 $_SESSION['horde_prefs']['nomenu'] = true;
 
-$datejs = str_replace('_', '-', $language) . '.js';
-if (!file_exists($registry->get('jsfs') . '/' . $datejs)) {
-    $datejs = 'en-US.js';
-}
-$scripts = array(
-    array($datejs, 'kronolith', true),
-    array('date.js', 'kronolith', true),
-    array('dhtmlHistory.js', 'horde', true),
-    array('redbox.js', 'horde', true),
-    array('tooltips.js', 'horde', true),
-);
-Kronolith::header('', $scripts);
+Kronolith::header();
 echo "<body class=\"kronolithAjax\">\n";
 require KRONOLITH_TEMPLATES . '/index/index.inc';
 Horde::includeScriptFiles();
