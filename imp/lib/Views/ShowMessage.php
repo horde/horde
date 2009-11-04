@@ -275,7 +275,7 @@ class IMP_Views_ShowMessage
                     }
 
                     if ($GLOBALS['prefs']->getValue('atc_display')) {
-                        $result['msgtext'] .= $imp_ui->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display);
+                        $result['msgtext'] .= $imp_ui->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display, true);
                     }
                 }
                 continue;

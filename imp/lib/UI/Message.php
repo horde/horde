@@ -413,16 +413,17 @@ class IMP_UI_Message
      * @param array $summary  Summary information from
      *                        IMP_Summary::getSummary().
      * @param array $display  The fields to display (in this order).
+     * @param boolean $atc    Is this an attachment?
      *
      * @return string  The formatted summary string.
      */
-    public function formatSummary($summary, $display)
+    public function formatSummary($summary, $display, $atc = false)
     {
         $tmp_summary = array();
         foreach ($display as $val) {
             $tmp_summary[] = $summary[$val];
         }
-        return '<div class="mimePartInfo"><div>' . implode(' ', $tmp_summary) . '</div></div>';
+        return '<div class="mimePartInfo' . ($atc ? ' mimePartInfoAtc' : '') . '"><div>' . implode(' ', $tmp_summary) . '</div></div>';
     }
 
     /**

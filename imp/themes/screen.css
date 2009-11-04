@@ -556,6 +556,13 @@ div.mimeStatusMessage, div.mimePartInfo {
 .mimePartInfo div img {
     vertical-align: bottom;
 }
+.mimePartInfoAtc div {
+    border: 1px dashed;
+    background-image: url("graphics/attachment.png");
+    background-position: 2px 50%;
+    background-repeat: no-repeat;
+    padding-left: 25px;
+}
 
 .mimeStatusMessage table td {
     padding: 0;

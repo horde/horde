@@ -609,7 +609,7 @@ foreach ($parts_list as $mime_id => $mime_type) {
             }
 
             if ($prefs->getValue('atc_display')) {
-                $msgtext .= $imp_ui->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display);
+                $msgtext .= $imp_ui->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display, true);
             }
         }
         continue;
