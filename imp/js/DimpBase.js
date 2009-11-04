@@ -327,17 +327,13 @@ var DimpBase = {
 
     iframeContent: function(name, loc)
     {
-        if (name === null) {
-            name = loc;
-        }
-
         var container = $('dimpmain_portal'), iframe;
         if (!container) {
             DimpCore.showNotifications([ { type: 'horde.error', message: 'Bad portal!' } ]);
             return;
         }
 
-        iframe = new Element('IFRAME', { id: 'iframe' + name, className: 'iframe', frameBorder: 0, src: loc });
+        iframe = new Element('IFRAME', { id: 'iframe' + (name === null ? loc : name), className: 'iframe', frameBorder: 0, src: loc }).setStyle({ height: document.viewport.getHeight() + 'px' });
         this._resizeIE6Iframe(iframe);
         container.insert(iframe);
     },
