@@ -37,7 +37,12 @@ extends Horde_Kolab_Server_Object_Attribute_Base
      */
     public function value()
     {
-        return $this->attribute->value();
+        $internal = $this->attribute->value();
+        if (isset($internal[$this->name])) {
+            return $internal[$this->name];
+        } else {
+            throw new Horde_Kolab_Server_Exception(sprintf('Missing value %s!', $this->name));
+        }
     }
 
     /**
