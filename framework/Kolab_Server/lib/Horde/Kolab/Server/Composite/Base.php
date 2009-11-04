@@ -110,7 +110,7 @@ implements Horde_Kolab_Server_Composite_Interface
 
     /**
      * Connect to the server. Use this method if the user name you can provide
-     * does not match a DN. In this case it will be required to map this user
+     * does not match a GUID. In this case it will be required to map this user
      * name first.
      *
      * @param string $user The user name.
