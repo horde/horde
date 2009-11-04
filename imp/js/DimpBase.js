@@ -2791,7 +2791,7 @@ DimpBase._folderDropConfig = {
             case 'keydown':
                 /* Can't use ctrlKey here since different browsers handle
                  * the ctrlKey in different ways when it comes to firing
-                 * keybaord events. */
+                 * keyboard events. */
                 m = (e.keyCode == 17) ? DIMP.text.copyto : DIMP.text.moveto;
                 break;
 
