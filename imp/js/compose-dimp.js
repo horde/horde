@@ -18,7 +18,7 @@ var DimpCompose = {
     confirmCancel: function()
     {
         if (window.confirm(DIMP.text_compose.cancel)) {
-            DimpCore.doAction(DIMP.conf_compose.auto_save_interval_val ? 'DeleteDraft' : 'CancelCompose', { imp_compose: $F('composeCache') });
+            DimpCore.doAction(DIMP.conf_compose.auto_save_interval_val ? 'DeleteDraft' : 'CancelCompose', { imp_compose: $F('composeCache') }, { ajaxopts: { asynchronous: DIMP.conf_compose.qreply } });
             this.updateDraftsMailbox();
             return this.closeCompose();
         }
@@ -220,7 +220,7 @@ var DimpCompose = {
 
             // Use an AJAX submit here so that we can do javascript-y stuff
             // before having to close the window on success.
-            DimpCore.doAction('*' + DIMP.conf.URI_COMPOSE, c.serialize(true), null, this.uniqueSubmitCallback.bind(this));
+            DimpCore.doAction('*' + DIMP.conf.URI_COMPOSE, c.serialize(true), { callback: this.uniqueSubmitCallback.bind(this) });
         }
     },
 
@@ -345,11 +345,11 @@ var DimpCompose = {
             $('composeMessageParent').childElements().invoke('hide');
             $('composeMessage').show().setStyle({ visibility: null }).focus();
 
-            DimpCore.doAction('Html2Text', { text: text }, null, this.setMessageText.bind(this), { asynchronous: false });
+            DimpCore.doAction('Html2Text', { text: text }, { callback: this.setMessageText.bind(this), ajaxopts: { asynchronous: false } });
         } else {
             this.editor_on = true;
             if (!noupdate) {
-                DimpCore.doAction('Text2Html', { text: $F('composeMessage') }, null, this.setMessageText.bind(this), { asynchronous: false });
+                DimpCore.doAction('Text2Html', { text: $F('composeMessage') }, { callback: this.setMessageText.bind(this), ajaxopts: { asynchronous: false } });
             }
 
             // Try to reuse the old fckeditor instance.

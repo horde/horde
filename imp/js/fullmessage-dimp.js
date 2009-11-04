@@ -31,8 +31,8 @@ var DimpFullmessage = {
         DimpCore.doAction(func,
                           { imp_compose: $F('composeCache'),
                             type: type },
-                          ob,
-                          this.msgTextCallback.bind(this));
+                          { uids: ob,
+                            callback: this.msgTextCallback.bind(this) });
     },
 
     msgTextCallback: function(result)

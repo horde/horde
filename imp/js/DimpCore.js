@@ -108,38 +108,42 @@ var DimpCore = {
     },
 
     /* 'action' -> if action begins with a '*', the exact string will be used
-     *  instead of sending the action to the IMP handler. */
-    doAction: function(action, params, uids, callback, opts)
+     *  instead of sending the action to the IMP handler.
+     *  'opts' -> ajaxopts, callback, uids */
+    doAction: function(action, params, opts)
     {
-        var b, tmp = {};
-
-        opts = Object.extend(this.doActionOpts, opts || {});
-        params = $H(params);
         action = action.startsWith('*')
             ? action.substring(1)
             : DIMP.conf.URI_AJAX + '/' + action;
+        params = $H(params);
+        opts = opts || {};
 
-        if (uids) {
-            if (uids.viewport_selection) {
-                b = uids.getBuffer();
+        var b,
+            ajaxopts = Object.extend(this.doActionOpts, opts.ajaxopts || {}),
+            tmp = {};
+
+        if (opts.uids) {
+            if (opts.uids.viewport_selection) {
+                b = opts.uids.getBuffer();
                 if (b.getMetaData('search')) {
-                    uids.get('dataob').each(function(r) {
+                    opts.uids.get('dataob').each(function(r) {
                         if (!tmp[r.view]) {
                             tmp[r.view] = [];
                         }
                         tmp[r.view].push(r.imapuid);
                     });
                 } else {
-                    tmp[b.getView()] = uids.get('uid');
+                    tmp[b.getView()] = opts.uids.get('uid');
                 }
-                uids = tmp;
+                opts.uids = tmp;
             }
-            params.set('uid', this.toRangeString(uids));
+            params.set('uid', this.toRangeString(opts.uids));
         }
 
-        opts.parameters = this.addRequestParams(params);
-        opts.onComplete = function(t, o) { this.doActionComplete(t, callback); }.bind(this);
-        new Ajax.Request(action, opts);
+        ajaxopts.parameters = this.addRequestParams(params);
+        ajaxopts.onComplete = function(t, o) { this.doActionComplete(t, opts.callback); }.bind(this);
+
+        new Ajax.Request(action, ajaxopts);
     },
 
     // params - (Hash)
@@ -435,7 +439,7 @@ var DimpCore = {
             break;
 
         case 'ctx_contacts_add':
-            this.doAction('AddContact', { name: baseelt.retrieve('personal'), email: baseelt.retrieve('email') }, null, true);
+            this.doAction('AddContact', { name: baseelt.retrieve('personal'), email: baseelt.retrieve('email') }, {}, true);
             break;
         }
     },
