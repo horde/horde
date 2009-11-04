@@ -119,6 +119,19 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
         }
     }
 
+    public function testMethodConnectguidThrowsExceptionIfTheCredentialsWereInvalid()
+    {
+        $this->ldap_read->expects($this->exactly(1))
+            ->method('bind')
+            ->will($this->returnValue(new PEAR_Error('Credentials invalid!', 49)));
+        try {
+            $this->server->connectGuid('test', 'test');
+            $this->fail('No exception!');
+        } catch (Horde_Kolab_Server_Exception_Bindfailed $e) {
+            $this->assertEquals('Credentials invalid!', $e->getMessage());
+        }
+    }
+
     public function testMethodGetguidHasResultBooleanFalseIfNotConnected()
     {
         $this->assertSame(false, $this->server->getGuid());

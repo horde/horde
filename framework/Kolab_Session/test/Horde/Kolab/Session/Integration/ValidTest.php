@@ -32,6 +32,13 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  */
 class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_SessionTestCase
 {
+    public function setUp()
+    {
+        $this->user = $this->getMock(
+            'Horde_Kolab_Server_Object_Hash', array(), array(), '', false, false
+        );
+    }
+
     public function testMethodIsvalidHasResultBooleanTrueIfTheSessionIsNotConnectedAndTheCurrentUserIsAnonymous()
     {
         $auth = $this->getMock('Horde_Kolab_Session_Auth');
@@ -66,14 +73,16 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
         $auth->expects($this->once())
             ->method('getCurrentUser')
             ->will($this->returnValue('somebody@example.org'));
-        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
-        $user->expects($this->exactly(5))
+        $this->user->expects($this->exactly(4))
             ->method('getExternal')
+            ->will($this->returnValue(array('mail@example.org')));
+        $this->user->expects($this->exactly(1))
+            ->method('getSingle')
             ->will($this->returnValue('mail@example.org'));
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
             ->method('fetch')
-            ->will($this->returnValue($user));
+            ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
             '', $composite, array()
         );
@@ -88,14 +97,16 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
         $auth->expects($this->once())
             ->method('getCurrentUser')
             ->will($this->returnValue('mail@example.org'));
-        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
-        $user->expects($this->exactly(5))
+        $this->user->expects($this->exactly(4))
             ->method('getExternal')
+            ->will($this->returnValue(array('mail@example.org')));
+        $this->user->expects($this->exactly(1))
+            ->method('getSingle')
             ->will($this->returnValue('mail@example.org'));
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
             ->method('fetch')
-            ->will($this->returnValue($user));
+            ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
             '', $composite, array()
         );
@@ -110,14 +121,16 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
         $auth->expects($this->once())
             ->method('getCurrentUser')
             ->will($this->returnValue('mail@example.org'));
-        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
-        $user->expects($this->exactly(5))
+        $this->user->expects($this->exactly(4))
             ->method('getExternal')
+            ->will($this->returnValue(array('mail@example.org')));
+        $this->user->expects($this->exactly(1))
+            ->method('getSingle')
             ->will($this->returnValue('mail@example.org'));
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
             ->method('fetch')
-            ->will($this->returnValue($user));
+            ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
             '', $composite, array()
         );
@@ -132,14 +145,16 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
         $auth->expects($this->once())
             ->method('getCurrentUser')
             ->will($this->returnValue('mail@example.org'));
-        $user = $this->getMock('Horde_Kolab_Server_Object_Interface');
-        $user->expects($this->exactly(5))
+        $this->user->expects($this->exactly(4))
             ->method('getExternal')
+            ->will($this->returnValue(array('mail@example.org')));
+        $this->user->expects($this->exactly(1))
+            ->method('getSingle')
             ->will($this->returnValue('mail@example.org'));
         $composite = $this->_getMockedComposite();
         $composite->objects->expects($this->once())
             ->method('fetch')
-            ->will($this->returnValue($user));
+            ->will($this->returnValue($this->user));
         $session = new Horde_Kolab_Session_Base(
             '', $composite, array()
         );

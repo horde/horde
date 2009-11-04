@@ -45,7 +45,7 @@ class Horde_Kolab_Session_Class_Factory_ConfigurationTest extends Horde_Kolab_Se
             $this->fail('No exception!');
         } catch (Horde_Kolab_Session_Exception $e) {
             $this->assertEquals(
-                'The server configuration is missing!',
+                'The Kolab server configuration is missing!',
                 $e->getMessage()
             );
         }
