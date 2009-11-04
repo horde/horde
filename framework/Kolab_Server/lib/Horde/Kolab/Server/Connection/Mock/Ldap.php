@@ -92,7 +92,7 @@ class Horde_Kolab_Server_Connection_Mock_Ldap
                 throw new Horde_Kolab_Server_Exception('User has no password entry!');
             }
             if ($this->_data[$dn]['data']['userPassword'][0] != $pw) {
-                throw new Horde_Kolab_Server_Exception('Incorrect password!');
+                throw new Horde_Kolab_Server_Exception_Bindfailed('Incorrect password!');
             }
         } else if (!empty($this->_params['no_anonymous_bind'])) {
             throw new Horde_Kolab_Server_Exception('Anonymous bind is not allowed!');
