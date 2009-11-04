@@ -57,7 +57,7 @@ implements Horde_Kolab_Session_Factory
             $server_configuration = $config['ldap'];
         } else {
             throw new Horde_Kolab_Session_Exception(
-                'The server configuration is missing!'
+                'The Kolab server configuration is missing!'
             );
         }
 
