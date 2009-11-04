@@ -1,15 +1,15 @@
-<!-- ini header -->
+<!-- begin header -->
 <div id="kronolithHeader">
   <div id="kronolithLogo"><h1><a href="#"><?php echo $registry->get('name') ?></a></h1></div>
 
-  <!-- ini user zone -->
+  <!-- begin services -->
   <div id="kronolithServices">
    <span style="display:none"><a href="#" id="kronolithNotifications" title="<?php echo _("These items need your attention") ?>">2 notifications</a> <span class="kronolithSeparator">&middot;</span></span>
    <a href="#" id="kronolithOptions"><?php echo _("Options") ?></a><?php if ($help_link) echo ' <span class="kronolithSeparator">&middot;</span> ' . $help_link; if ($logout_link) echo ' <span class="kronolithSeparator">|</span> ' . $logout_link ?>
   </div>
-  <!-- end user zone -->
+  <!-- end services -->
 
-<!-- ini bar -->
+<!-- begin top bar -->
 <div id="kronolithBar">
   <div class="kronolithDateChoice" title="<?php echo _("Today") ?>">
     <div><?php echo $today->format('D, j M Y') ?></div>
@@ -24,15 +24,15 @@
     <a id="kronolithNavAgenda" accesskey="6"><?php echo _("Agenda") ?></a>
   </div>
 </div>
-<!-- end bar -->
+<!-- end top bar -->
 
 </div>
 <!-- end header -->
 
-<!-- ini main area -->
+<!-- begin main area -->
 <div id="kronolithMain">
 
-<!-- ini menu -->
+<!-- begin left menu -->
 <div id="kronolithMenu">
   <div id="kronolithAddEvents">
     <span id="kronolithNewEvent" class="button"><?php echo _("_New event") ?></span>
@@ -107,13 +107,13 @@
   </form>
   </div>
 </div>
-<!-- end menu -->
+<!-- end left menu -->
 
-<!-- ini edit -->
+<!-- begin edit form -->
 <?php require dirname(__FILE__) . '/edit.inc'; ?>
-<!-- end edit -->
+<!-- end edit form -->
 
-<!-- ini body -->
+<!-- begin body -->
 <div id="kronolithBody">
 <div id="kronolithLoading" style="display:none"></div>
 <?php
