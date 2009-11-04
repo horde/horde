@@ -12,7 +12,7 @@
   <tbody id="kronolithViewAgendaBody" class="kronolithViewBody">
     <tr id="kronolithAgendaTemplate" class="kronolithRow" style="display:none">
       <td class="kronolithFirstCol"></td>
-      <td class="kronolithCol">
+      <td>
       </td>
     </tr>
   </tbody>

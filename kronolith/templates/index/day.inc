@@ -18,13 +18,13 @@
   <thead class="kronolithViewHead">
     <tr>
       <td class="kronolithFirstCol">&nbsp;</td>
-      <td class="kronolithCol"><span><?php echo _("Events for this day") ?></span></td>
+      <td><span><?php echo _("Events for this day") ?></span></td>
     </tr>
   </thead>
   <tbody class="kronolithViewBody">
     <tr class="kronolithRow kronolithAllDay">
       <td class="kronolithFirstCol"><?php echo _("All day") ?></td>
-      <td class="kronolithCol"><div class="kronolithAllDayContainer">
+      <td><div class="kronolithAllDayContainer">
       </div></td>
     </tr>
   </tbody>
@@ -37,7 +37,7 @@
     <?php for ($i = 0; $i < 24; $i++): ?>
     <tr class="kronolithRow<?php if ($i < 9 || $i > 19) echo ' kronolithNight' ?>">
       <td class="kronolithFirstCol"><?php echo $i ?>:00</td>
-      <td class="kronolithCol"></td>
+      <td></td>
     </tr>
     <?php endfor; ?>
   </tbody>

@@ -893,19 +893,6 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
 .kronolithViewDay div.kronolithViewBody div.kronolithRow div {
     height: 41px;
 }
-.kronolithViewDay div.kronolithViewBody div.kronolithRow div.kronolithCol {
-    border-width: 1px 0;
-    margin-right: 0;
-}
-.kronolithViewDay div.kronolithViewBody div.kronolithRow div.kronolithCol.kronolithFirstField {
-    border-left-width: 1px;
-}
-.kronolithViewDay div.kronolithViewBody div.kronolithRow div.kronolithCol.kronolithLastField {
-    border-right-width: 1px;
-}
-.kronolithViewDay div.kronolithViewBody div.kronolithRow.kronolithAllDay div.kronolithCol {
-    border-width: 1px;
-}
 .kronolithViewDay td {
     height: 40px;
 }
