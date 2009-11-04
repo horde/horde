@@ -30,7 +30,7 @@ document.observe('dom:loaded', function() {
     {
         var callback,
             elt = e.element().up('.mimeStatusMessage>TABLE'),
-            iframe = elt.up().next('.htmlMsgData'),
+            iframe = elt.up('DIV').next().down('.htmlMsgData'),
             iframeid = iframe.readAttribute('id'),
             imgload = false,
             s = new Selector('[htmlimgblocked]');

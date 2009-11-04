@@ -301,7 +301,7 @@ class IMP_Views_ShowMessage
 
                 $result['msgtext'] .= $imp_ui->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display) .
                     $imp_ui->formatStatusMsg($info['status']) .
-                    $info['data'];
+                    '<div class="mimePartData">' . $info['data'] . '</div>';
 
                 if (isset($info['js'])) {
                     $result['js'] = array_merge($result['js'], $info['js']);

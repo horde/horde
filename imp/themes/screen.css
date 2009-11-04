@@ -157,7 +157,7 @@ div.msgActions, #fmanager div.folderActions {
     background: #fff;
     padding: 8px;
 }
-.messageBody div {
+.messageBody div.mimePartData {
     margin-bottom: 8px;
 }
 
