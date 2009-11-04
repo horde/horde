@@ -894,6 +894,12 @@ class Kronolith
                 $calendarId = $api . '/' . $id;
                 if (in_array($calendarId, $_temp)) {
                     $GLOBALS['display_external_calendars'][] = $calendarId;
+                } else {
+                    /* Convert Kronolith 2 preferences. */
+                    list($oldid,) = explode('/', $id);
+                    if (in_array($api . '/' . $oldid, $_temp)) {
+                        $GLOBALS['display_external_calendars'][] = $calendarId;
+                    }
                 }
             }
         }
