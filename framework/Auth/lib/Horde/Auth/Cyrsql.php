@@ -460,7 +460,7 @@ Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $dom
      *
      * @throws Horde_Auth_Exception
      */
-    protected function _connect()
+    public function _connect()
     {
         if ($this->_connected) {
             return;
