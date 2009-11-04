@@ -38,7 +38,7 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
      * @var array
      */
     static public $attributes = array(
-        'Alias', 'Kolabhomeserver', 'Kolabfreebusyhost'
+        'alias', 'kolabHomeServer', 'kolabFreebusyHost'
 /*         'kolabDelegate', 'kolabDeleteFlag', 'kolabFreeBusyFuture', */
 /*         , , 'kolabImapServer', */
 /*         'kolabInvitationPolicy', 'kolabSalutation', 'gender', */
