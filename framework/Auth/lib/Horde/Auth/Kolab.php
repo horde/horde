@@ -17,6 +17,20 @@
 class Horde_Auth_Kolab extends Horde_Auth_Base
 {
     /**
+     * The session handler.
+     *
+     * @var Horde_Kolab_Session
+     */
+    private $_session;
+
+    /**
+     * The session factory.
+     *
+     * @var Horde_Kolab_Session_Factory
+     */
+    private $_factory;
+
+    /**
      * An array of capabilities, so that the driver can report which
      * operations it supports and which it doesn't.
      *
@@ -30,6 +44,52 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
         'remove'        => false,
         'update'        => false
     );
+
+    /**
+     * Set the session handler.
+     *
+     * @param Horde_Kolab_Session $session The session handler.
+     *
+     * @return NULL
+     */
+    public function setSession(Horde_Kolab_Session $session)
+    {
+        $this->_session = $session;
+    }
+
+    /**
+     * Set the session factory.
+     *
+     * @param Horde_Kolab_Session_Factory $factory The session factory.
+     *
+     * @return NULL
+     */
+    public function setSessionFactory(Horde_Kolab_Session_Factory $factory)
+    {
+        $this->_factory = $factory;
+    }
+
+    /**
+     * Retrieve a connected kolab session.
+     *
+     * @return Horde_Kolab_Session The connected session.
+     *
+     * @throws Horde_Kolab_Session_Exception
+     */
+    public function getSession($userId = null, $credentials = null)
+    {
+        if (!isset($this->_session)) {
+            if (!isset($this->_factory)) {
+                $this->_session = Horde_Kolab_Session_Singleton::singleton(
+                    $userId, $credentials
+                );
+            } else {
+                $this->_session = $this->_factory->getSession($userId);
+                $this->_session->connect($credentials);
+            }
+        }
+        return $this->_session;
+    }
 
     /**
      * Find out if a set of login credentials are valid.
@@ -48,12 +108,10 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
     protected function _authenticate($userId, $credentials)
     {
         try {
-            $session = Horde_Kolab_Session_Singleton::singleton(
-                $userId, $credentials
-            );
+            $session = $this->getSession($userId, $credentials);
         } catch (Horde_Kolab_Session_Exception_Badlogin $e) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
-        } catch (Exception $e) {
+        } catch (Horde_Kolab_Session_Exception $e) {
             Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
