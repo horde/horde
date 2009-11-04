@@ -143,7 +143,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
             return array();
         }
 
-        $status = array(sprintf(_("An image named %s is attached to this message."), $this->_mimepart->getName(true)));
+        $status = array(_("This is a thumbnail of an image attached to this message."));
 
         if ($GLOBALS['browser']->hasFeature('javascript')) {
             $status[] = $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', $this->_outputImgTag('view_thumbnail', _("View Attachment")), null, null, null);
@@ -156,7 +156,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                 'data' => '',
                 'status' => array(
                     array(
-                        'icon' => Horde::img('mime/image.png', _("Thumbnail of attached image")),
+                        'icon' => Horde::img('mime/image.png'),
                         'text' => $status
                     )
                 ),
