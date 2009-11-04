@@ -23,25 +23,13 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
      * @var array
      */
     protected $_capabilities = array(
-        'add' => true,
-        'authenticate' => true,
-        'list' => true
+        'authenticate'  => true,
+        'list'          => true,
+        /** @todo These would only work if we allow manager login */
+        'add'           => false,
+        'remove'        => false,
+        'update'        => false
     );
-
-    /**
-     * Constructor.
-     *
-     * @param array $params  A hash containing parameters.
-     * @throws Horde_Auth_Exception
-     */
-    public function __construct($params = array())
-    {
-        if (!class_exists('Horde_Kolab_Session')) {
-            throw new Horde_Auth_Exception('The Horde_Kolab_Session class is not available.');
-        }
-
-        parent::__construct($params);
-    }
 
     /**
      * Find out if a set of login credentials are valid.
@@ -59,131 +47,131 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
      */
     protected function _authenticate($userId, $credentials)
     {
-        global $conf;
-
-        $params = array();
-
         try {
-            $session = Horde_Kolab_Session::singleton($userId, $credentials, true);
-        } catch (Horde_Kolab_Server_MissingObjectException $e) {
+            $session = Horde_Kolab_Session_Singleton::singleton(
+                $userId, $credentials
+            );
+        } catch (Horde_Kolab_Session_Exception_Badlogin $e) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         } catch (Exception $e) {
             Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
 
-        $this->_credentials['userId'] = $session->user_mail;
+        $this->_credentials['userId'] = $session->getMail();
 
-        if (!isset($conf['auth']['params']) ||
-            $conf['auth']['params']['login_block'] != 1) {
-            // Return if feature is disabled.
-            return $session->auth;
-        }
+        return true;
 
-        if ($session->auth !== true &&
-            class_exists('Horde_History')) {
-            $history = Horde_History::singleton();
+/*         if (!isset($conf['auth']['params']) || */
+/*             $conf['auth']['params']['login_block'] != 1) { */
+/*             // Return if feature is disabled. */
+/*             return $session->auth; */
+/*         } */
 
-            $history_identifier = "$userId@logins.kolab";
-            $history_log = $history->getHistory($history_identifier);
-            $history_list = array();
+/*         if ($session->auth !== true && */
+/*             class_exists('Horde_History')) { */
+/*             $history = Horde_History::singleton(); */
 
-            // Extract history list from log.
-            if ($history_log && !($history_log instanceof PEAR_Error)) {
-                $data = $history_log->getData();
-                if (!empty($data)) {
-                    $entry = array_shift($data);
-                    $history_list = $entry['history_list'];
-                }
-            }
+/*             $history_identifier = "$userId@logins.kolab"; */
+/*             $history_log = $history->getHistory($history_identifier); */
+/*             $history_list = array(); */
 
-            // Calculate the time range.
-            $start_time = (time() - $conf['auth']['params']['login_block_time'] * 60);
+/*             // Extract history list from log. */
+/*             if ($history_log && !($history_log instanceof PEAR_Error)) { */
+/*                 $data = $history_log->getData(); */
+/*                 if (!empty($data)) { */
+/*                     $entry = array_shift($data); */
+/*                     $history_list = $entry['history_list']; */
+/*                 } */
+/*             } */
 
-            $new_history_list = array();
-            $count = 0;
+/*             // Calculate the time range. */
+/*             $start_time = (time() - $conf['auth']['params']['login_block_time'] * 60); */
 
-            // Copy and count all relevant timestamps.
-            foreach ($history_list as $entry) {
-                $timestamp = $entry[ 'timestamp' ];
+/*             $new_history_list = array(); */
+/*             $count = 0; */
 
-                if ($timestamp > $start_time) {
-                    $new_history_list[] = $entry;
-                    $count++;
-                }
-            }
+/*             // Copy and count all relevant timestamps. */
+/*             foreach ($history_list as $entry) { */
+/*                 $timestamp = $entry[ 'timestamp' ]; */
 
-            $max_count = $conf['auth']['params']['login_block_count'];
+/*                 if ($timestamp > $start_time) { */
+/*                     $new_history_list[] = $entry; */
+/*                     $count++; */
+/*                 } */
+/*             } */
 
-            if ($count > $max_count) {
-                // Add entry for current failed login.
-                $entry = array();
-                $entry[ 'timestamp' ] = time();
-                $new_history_list[] = $entry;
+/*             $max_count = $conf['auth']['params']['login_block_count']; */
 
-                // Write back history.
-                $history->log($history_identifier,
-                              array('action' => 'add', 'who' => $userId,
-                                    'history_list' => $new_history_list), true);
+/*             if ($count > $max_count) { */
+/*                 // Add entry for current failed login. */
+/*                 $entry = array(); */
+/*                 $entry[ 'timestamp' ] = time(); */
+/*                 $new_history_list[] = $entry; */
 
-                if ($count > $max_count) {
-                    throw new Horde_Auth_Exception(_("Too many invalid logins during the last minutes."));
-                }
+/*                 // Write back history. */
+/*                 $history->log($history_identifier, */
+/*                               array('action' => 'add', 'who' => $userId, */
+/*                                     'history_list' => $new_history_list), true); */
 
-                throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
-            }
-        }
+/*                 if ($count > $max_count) { */
+/*                     throw new Horde_Auth_Exception(_("Too many invalid logins during the last minutes.")); */
+/*                 } */
 
-        return ($session->auth === true);
+/*                 throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN); */
+/*             } */
+/*         } */
+
+/*         return ($session->auth === true); */
     }
 
-    /**
-     * List Users
-     *
-     * @return array  List of Users
-     * @throws Horde_Auth_Exception
-     */
-    public function listUsers()
-    {
-        $session = Horde_Kolab_Session::singleton();
-        $server = $session->getServer();
-        if ($server instanceof PEAR_Error) {
-            return $server;
-        }
-        $users = $server->listObjects(KOLAB_OBJECT_USER);
-        $mails = array();
-        foreach ($users as $user) {
-            $mails[] = $user->get(KOLAB_ATTR_MAIL);
-        }
+/*     /\** */
+/*      * List Users */
+/*      * */
+/*      * @return array  List of Users */
+/*      * @throws Horde_Auth_Exception */
+/*      *\/ */
+/*     public function listUsers() */
+/*     { */
+/*         $session = Horde_Kolab_Session_Singleton::singleton(); */
+/*         $server = $session->getServer(); */
+/*         if ($server instanceof PEAR_Error) { */
+/*             return $server; */
+/*         } */
+/*         $users = $server->listObjects(KOLAB_OBJECT_USER); */
+/*         $mails = array(); */
+/*         foreach ($users as $user) { */
+/*             $mails[] = $user->get(KOLAB_ATTR_MAIL); */
+/*         } */
 
-        return $mails;
-    }
+/*         return $mails; */
+/*     } */
 
-    /**
-     * Add a set of authentication credentials.
-     *
-     * @param string $userId      The userId to add.
-     * @param array $credentials  The credentials to be set.
-     *
-     * @throws Horde_Auth_Exception
-     */
-    public function addUser($userId, $credentials)
-    {
-        $session = Horde_Kolab_Session::singleton();
-        $server = $session->getServer();
-        if ($server instanceof PEAR_Error) {
-            return $server;
-        }
+/*     /\** */
+/*      * Add a set of authentication credentials. */
+/*      * */
+/*      * @param string $userId      The userId to add. */
+/*      * @param array $credentials  The credentials to be set. */
+/*      * */
+/*      * @throws Horde_Auth_Exception */
+/*      *\/ */
+/*     public function addUser($userId, $credentials) */
+/*     { */
+/*         $session = Horde_Kolab_Session::singleton(); */
+/*         $server = $session->getServer(); */
+/*         if ($server instanceof PEAR_Error) { */
+/*             return $server; */
+/*         } */
 
-        $result = $server->store(KOLAB_OBJECT_USER, $userId, $credentials);
+/*         $result = $server->store(KOLAB_OBJECT_USER, $userId, $credentials); */
 
-        if (is_a($result, KOLAB_OBJECT_USER)) {
-            return true;
-        } else if ($result instanceof PEAR_Error) {
-            return $result;
-        }
+/*         if (is_a($result, KOLAB_OBJECT_USER)) { */
+/*             return true; */
+/*         } else if ($result instanceof PEAR_Error) { */
+/*             return $result; */
+/*         } */
 
-        throw new Horde_Auth_Exception(sprintf('The new Kolab object is a %s rather than a ' . KOLAB_OBJECT_USER, get_class($result)));
-    }
+/*         throw new Horde_Auth_Exception(sprintf('The new Kolab object is a %s rather than a ' . KOLAB_OBJECT_USER, get_class($result))); */
+/*     } */
 
 }

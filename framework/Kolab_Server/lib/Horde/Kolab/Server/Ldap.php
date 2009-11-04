@@ -319,7 +319,12 @@ implements Horde_Kolab_Server_Interface
         $code = Horde_Kolab_Server_Exception::SYSTEM
     ) {
         if ($result instanceOf PEAR_Error) {
-            throw new Horde_Kolab_Server_Exception($result, $code);
+            if ($code == Horde_Kolab_Server_Exception::BIND_FAILED
+                && $result->getCode() == 49) {
+                throw new Horde_Kolab_Server_Exception_Bindfailed($result, $code);
+            } else {
+                throw new Horde_Kolab_Server_Exception($result, $code);
+            }
         }
     }
 

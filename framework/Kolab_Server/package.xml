@@ -83,6 +83,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        </dir> <!-- /lib/Horde/Kolab/Server/Decorator -->
        <file name="Exception.php" role="php" />
        <dir name="Exception">
+        <file name="Bindfailed.php" role="php" />
         <file name="Novalue.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Server/Exception -->
        <dir name="Factory">
@@ -367,6 +368,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Kolab/Server/Decorator/Log.php" as="Horde/Kolab/Server/Decorator/Log.php" />
    <install name="lib/Horde/Kolab/Server/Decorator/Map.php" as="Horde/Kolab/Server/Decorator/Map.php" />
    <install name="lib/Horde/Kolab/Server/Exception.php" as="Horde/Kolab/Server/Exception.php" />
+   <install name="lib/Horde/Kolab/Server/Exception/Bindfailed.php" as="Horde/Kolab/Server/Exception/Bindfailed.php" />
    <install name="lib/Horde/Kolab/Server/Exception/Novalue.php" as="Horde/Kolab/Server/Exception/Novalue.php" />
    <install name="lib/Horde/Kolab/Server/Factory/Base.php" as="Horde/Kolab/Server/Factory/Base.php" />
    <install name="lib/Horde/Kolab/Server/Factory/Configuration.php" as="Horde/Kolab/Server/Factory/Configuration.php" />

@@ -143,6 +143,9 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
         try {
             $this->_server->connect($this->_user_id, $password);
             $user_object     = $this->_server->objects->fetch();
+        } catch (Horde_Kolab_Server_Exception_Bindfailed $e) {
+            throw new Horde_Kolab_Session_Exception_Badlogin($e);
+        }
         } catch (Horde_Kolab_Server_Exception $e) {
             throw new Horde_Kolab_Session_Exception($e);
         }
