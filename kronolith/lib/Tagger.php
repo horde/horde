@@ -8,13 +8,6 @@
  *
  * @package Kronolith
  */
-
-// NOTE: For now, autoloading depends on there being a registry entry for the
-//       'content' application.
-
-Horde_Autoloader::addClassPattern('/^Content_/',
-                                  $GLOBALS['registry']->get('fileroot', 'content') . '/lib/');
-
 class Kronolith_Tagger
 {
 

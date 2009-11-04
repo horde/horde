@@ -47,6 +47,14 @@ try {
 $conf = &$GLOBALS['conf'];
 define('KRONOLITH_TEMPLATES', $registry->get('templates'));
 
+/* For now, autoloading the Content_* classes depend on there being a registry
+ * entry for the 'content' application that contains at least the fileroot
+ * entry. */
+Horde_Autoloader::addClassPattern('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/');
+if (!class_exists('Content_Tagger')) {
+    throw new Horde_Exception(_("The Content_Tagger class could not be found. Make sure the registry entry for the Content system is present."));
+}
+
 /* Notification system. */
 $GLOBALS['notification'] = Horde_Notification::singleton();
 $GLOBALS['kronolith_notify'] = $GLOBALS['notification']->attach('status', null, 'Kronolith_Notification_Listener_Status');
