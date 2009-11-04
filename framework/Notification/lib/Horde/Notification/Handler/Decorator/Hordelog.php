@@ -11,7 +11,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Horde_Notification
  */
-class Horde_Notification_Handler_Hordelog
+class Horde_Notification_Handler_Decorator_Hordelog
 implements Horde_Notification_Handler_Interface
 {
     /**

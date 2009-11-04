@@ -1,6 +1,6 @@
 <?php
 /**
- * Test the logging notification handler class.
+ * Test the notification handler class that logs to the horde log.
  *
  * PHP version 5
  *
@@ -14,10 +14,10 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once dirname(__FILE__) . '/../../../../Autoload.php';
 
 /**
- * Test the logging notification handler class.
+ * Test the notification handler class that logs to the horde log.
  *
  * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
@@ -31,25 +31,27 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
  * @link     http://pear.horde.org/index.php?package=Notification
  */
 
-class Horde_Notification_Class_Notification_Handler_LoggedTest extends PHPUnit_Framework_TestCase
+class Horde_Notification_Class_Notification_Handler_Decorator_HordelogTest
+extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
+        @include_once 'Log.php';
+        if (!defined('PEAR_LOG_DEBUG')) {
+            $this->markTestSkipped('The PEAR_LOG_DEBUG constant is not available!');
+        }
+
         $this->handler = $this->getMock(
             'Horde_Notification_Handler_Base', array(), array(), '', false, false
         );
-        $this->logger   = $this->getMock('Horde_Log_Logger');
-        $this->logged_handler = new Horde_Notification_Handler_Logged(
-            $this->handler, $this->logger
+        $this->logged_handler = new Horde_Notification_Handler_Decorator_Hordelog(
+            $this->handler
         );
     }
 
     public function testMethodPushHasPostconditionThattheEventGotLoggedIfTheEventWasAnError()
     {
         $exception = new Exception('test');
-        $this->logger->expects($this->once())
-            ->method('__call')
-            ->with('debug', $this->isType('array'));
         $this->handler->expects($this->once())
             ->method('push')
             ->with($exception);

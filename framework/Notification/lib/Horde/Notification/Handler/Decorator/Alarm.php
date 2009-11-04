@@ -10,7 +10,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Horde_Notification
  */
-class Horde_Notification_Handler_Alarm
+class Horde_Notification_Handler_Decorator_Alarm
 implements Horde_Notification_Handler_Interface
 {
     /**

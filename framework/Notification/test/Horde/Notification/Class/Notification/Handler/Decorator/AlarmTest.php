@@ -1,6 +1,6 @@
 <?php
 /**
- * Test the notification handler class that logs to the horde log.
+ * Test the alarm notification handler class.
  *
  * PHP version 5
  *
@@ -14,10 +14,10 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once dirname(__FILE__) . '/../../../../Autoload.php';
 
 /**
- * Test the notification handler class that logs to the horde log.
+ * Test the alarm notification handler class.
  *
  * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
@@ -31,30 +31,32 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
  * @link     http://pear.horde.org/index.php?package=Notification
  */
 
-class Horde_Notification_Class_Notification_Handler_HordelogTest extends PHPUnit_Framework_TestCase
+class Horde_Notification_Class_Notification_Handler_Decorator_AlarmTest
+extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        @include_once 'Log.php';
-        if (!defined('PEAR_LOG_DEBUG')) {
-            $this->markTestSkipped('The PEAR_LOG_DEBUG constant is not available!');
-        }
-
         $this->handler = $this->getMock(
             'Horde_Notification_Handler_Base', array(), array(), '', false, false
         );
-        $this->logged_handler = new Horde_Notification_Handler_Hordelog(
-            $this->handler
+        $this->alarm   = $this->getMock('Horde_Alarm');
+        $this->alarm_handler = new Horde_Notification_Handler_Decorator_Alarm(
+            $this->handler, $this->alarm
         );
     }
 
-    public function testMethodPushHasPostconditionThattheEventGotLoggedIfTheEventWasAnError()
+    public function testMethodNotifyHasPostconditionThatTheAlarmSystemGotNotifiedIfTheStatusListenerShouldBeNotified()
     {
-        $exception = new Exception('test');
+        $this->alarm->expects($this->once())
+            ->method('notify')
+            ->with('');
         $this->handler->expects($this->once())
-            ->method('push')
-            ->with($exception);
-        $this->logged_handler->push($exception);
+            ->method('setNotificationListeners')
+            ->with(array('listeners' => array('status')));
+        $this->handler->expects($this->once())
+            ->method('notifyListeners')
+            ->with(array('listeners' => array('status')));
+        $this->alarm_handler->notify(array('listeners' => array('status')));
     }
 
     public function testMethodAttachGetsDelegated()
@@ -65,7 +67,7 @@ class Horde_Notification_Class_Notification_Handler_HordelogTest extends PHPUnit
             ->will($this->returnValue('instance'));
         $this->assertEquals(
             'instance',
-            $this->logged_handler->attach('listener', array(), 'class')
+            $this->alarm_handler->attach('listener', array(), 'class')
         );
     }
 
@@ -74,7 +76,7 @@ class Horde_Notification_Class_Notification_Handler_HordelogTest extends PHPUnit
         $this->handler->expects($this->once())
             ->method('detach')
             ->with('listener');
-        $this->logged_handler->detach('listener');
+        $this->alarm_handler->detach('listener');
     }
 
     public function testMethodReplaceGetsDelegated()
@@ -85,7 +87,7 @@ class Horde_Notification_Class_Notification_Handler_HordelogTest extends PHPUnit
             ->will($this->returnValue('instance'));
         $this->assertEquals(
             'instance',
-            $this->logged_handler->replace('listener', array(), 'class')
+            $this->alarm_handler->replace('listener', array(), 'class')
         );
     }
 
@@ -94,15 +96,18 @@ class Horde_Notification_Class_Notification_Handler_HordelogTest extends PHPUnit
         $this->handler->expects($this->once())
             ->method('push')
             ->with('event', 'type', array());
-        $this->logged_handler->push('event', 'type', array());
+        $this->alarm_handler->push('event', 'type', array());
     }
 
     public function testMethodNotifyGetsDelegated()
     {
         $this->handler->expects($this->once())
-            ->method('notify')
+            ->method('setNotificationListeners')
             ->with(array('listeners' => array('test')));
-        $this->logged_handler->notify(array('listeners' => array('test')));
+        $this->handler->expects($this->once())
+            ->method('notifyListeners')
+            ->with(array('listeners' => array('test')));
+        $this->alarm_handler->notify(array('listeners' => array('test')));
     }
 
     public function testMethodSetnotificationlistenersGetsDelegated()
@@ -111,7 +116,7 @@ class Horde_Notification_Class_Notification_Handler_HordelogTest extends PHPUnit
             ->method('setNotificationListeners')
             ->with(array());
         $array = array();
-        $this->logged_handler->setNotificationListeners($array);
+        $this->alarm_handler->setNotificationListeners($array);
     }
 
     public function testMethodNotifylistenersGetsDelegated()
@@ -119,7 +124,7 @@ class Horde_Notification_Class_Notification_Handler_HordelogTest extends PHPUnit
         $this->handler->expects($this->once())
             ->method('notifyListeners')
             ->with(array());
-        $this->logged_handler->notifyListeners(array());
+        $this->alarm_handler->notifyListeners(array());
     }
 
     public function testMethodCountGetsDelegated()
@@ -128,7 +133,7 @@ class Horde_Notification_Class_Notification_Handler_HordelogTest extends PHPUnit
             ->method('count')
             ->with('listener')
             ->will($this->returnValue(1));
-        $this->assertEquals(1, $this->logged_handler->count('listener'));
+        $this->assertEquals(1, $this->alarm_handler->count('listener'));
     }
 
 }

@@ -46,7 +46,7 @@ class Horde_Notification_Class_NotificationTest extends PHPUnit_Framework_TestCa
         $conf['alarms']['driver'] = 'Mock';
 
         $this->assertType(
-            'Horde_Notification_Handler_Alarm',
+            'Horde_Notification_Handler_Decorator_Alarm',
             Horde_Notification::singleton('alarm')
         );
     }
