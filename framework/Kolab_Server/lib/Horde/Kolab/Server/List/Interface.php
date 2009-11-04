@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-interface Horde_Kolab_Server_List
+interface Horde_Kolab_Server_List_Interface
 {
     /**
      * List all objects of a specific type.
