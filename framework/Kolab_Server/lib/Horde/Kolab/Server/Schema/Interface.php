@@ -58,28 +58,4 @@ interface Horde_Kolab_Server_Schema_Interface
      * @throws Horde_Kolab_Server_Exception If retrieval of the schema failed.
      */
     public function getAttributeSchema($attribute);
-
-    /**
-     * Return the external attributes supported by the given object class.
-     *
-     * @param Horde_Kolab_Server_Object $object Determine the external
-     *                                          attributes for this class.
-     *
-     * @return array The supported attributes.
-     *
-     * @throws Horde_Kolab_Server_Exception If the schema analysis fails.
-     */
-    public function getExternalAttributes($object);
-
-    /**
-     * Return the internal attributes supported by the given object class.
-     *
-     * @param Horde_Kolab_Server_Object $object Determine the internal
-     *                                          attributes for this class.
-     *
-     * @return array The supported attributes.
-     *
-     * @throws Horde_Kolab_Server_Exception If the schema analysis fails.
-     */
-    public function getInternalAttributes($object);
 }

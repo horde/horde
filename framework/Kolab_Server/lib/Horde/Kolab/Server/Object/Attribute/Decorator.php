@@ -72,33 +72,23 @@ implements Horde_Kolab_Server_Object_Attribute_Interface
     }
 
     /**
-     * Return the object this attribute belongs to.
+     * Return the internal attribute adapter.
      *
-     * @return Horde_Kolab_Server_Object The object.
+     * @return Horde_Kolab_Server_Structure_Attribute_Interface The internal
      */
-    public function getObject()
+    public function getAttribute()
     {
-        return $this->_attribute->getObject();
+        return $this->_attribute->getAttribute();
     }
 
     /**
-     * Return the internal name of this attribute.
+     * Return the name of this attribute.
      *
-     * @return string The name of this object.
+     * @return string The name of this attribute.
      */
-    public function getInternalName()
+    public function getName()
     {
-        return $this->_attribute->getInternalName();
-    }
-
-    /**
-     * Return the external name of this attribute.
-     *
-     * @return string The name of this object.
-     */
-    public function getExternalName()
-    {
-        return $this->_attribute->getExternalName();
+        return $this->_attribute->getName();
     }
 
     /**
@@ -111,18 +101,5 @@ implements Horde_Kolab_Server_Object_Attribute_Interface
     public function isEmpty(array $changes)
     {
         return $this->_attribute->isEmpty($changes);
-    }
-
-    /**
-     * Indicate that a value will be saved by deleting it from the original data
-     * array.
-     *
-     * @param array &$changes The object data that should be changed.
-     *
-     * @return NULL
-     */
-    public function consume(array &$changes)
-    {
-        return $this->_attribute->consume($changes);
     }
 }

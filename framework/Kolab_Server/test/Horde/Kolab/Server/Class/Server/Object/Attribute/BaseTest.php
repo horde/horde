@@ -35,74 +35,69 @@ extends Horde_Kolab_Server_TestCase
 {
     public function setUp()
     {
-        $this->object = $this->getMock(
-            'Horde_Kolab_Server_Object_Interface'
+        $this->attribute = $this->getMock(
+            'Horde_Kolab_Server_Structure_Attribute_Interface'
         );
-        $this->composite = $this->getMockedComposite();
     }
 
-    public function testMethodConstructHasParameterObjectTheObjectOwningTheAttributeAndParameterCompositeWhichIsTheLinkToTheServer()
+    public function testMethodConstructHasParameterAttributeTheAdapterCoveringTheInternalSideOfTheAttribute()
     {
-        $attribute = new Attribute_Mock($this->object, $this->composite, '');
+        $attribute = new Attribute_Mock($this->attribute, '');
     }
 
     public function testMethodConstructHasParameterStringTheNameOfTheAttribute()
     {
-        $attribute = new Attribute_Mock($this->object, $this->composite, 'name');
+        $attribute = new Attribute_Mock($this->attribute, 'name');
     }
 
-    public function testMethodGetobjectReturnsObjectAssociatedWithThisAttribute()
+    public function testMethodGetattributeReturnsAttributeInteralAssociatedWithThisAttribute()
     {
-        $attribute = new Attribute_Mock($this->object, $this->composite, '');
+        $attribute = new Attribute_Mock($this->attribute, '');
         $this->assertType(
-            'Horde_Kolab_Server_Object_Interface',
-            $attribute->getObject()
+            'Horde_Kolab_Server_Structure_Attribute_Interface',
+            $attribute->getAttribute()
         );
     }
 
     public function testMethodGetnameReturnsStringTheNameOfTheAttribute()
     {
-        $this->composite->structure->expects($this->exactly(1))
-            ->method('mapExternalToInternalAttribute')
-            ->with('name')
-            ->will($this->returnValue('name'));
-        $attribute = new Attribute_Mock($this->object, $this->composite, 'name');
-        $this->assertEquals('name', $attribute->getInternalName());
+        $attribute = new Attribute_Mock($this->attribute, 'name');
+        $this->assertEquals('name', $attribute->getName());
     }
 
     public function testMethodIsemptyHasParameterArrayDataValues()
     {
-        $attribute = new Attribute_Mock($this->object, $this->composite, 'name');
+        $attribute = new Attribute_Mock($this->attribute, 'name');
         $attribute->isEmpty(array());
     }
 
     public function testMethodIsemptyReturnsFalseIfTheValueIndicatedByTheAttributeNameIsNotEmptyInTheDataArray()
     {
-        $attribute = new Attribute_Mock($this->object, $this->composite, 'name', 'name');
+        $attribute = new Attribute_Mock($this->attribute, 'name', 'name');
         $this->assertFalse($attribute->isEmpty(array('name' => 'HELLO')));
     }
 
     public function testMethodIsemptyReturnsTrueIfTheValueIndicatedByTheAttributeNameIsMissingInTheDataArray()
     {
-        $attribute = new Attribute_Mock($this->object, $this->composite, 'name');
+        $attribute = new Attribute_Mock($this->attribute, 'name');
         $this->assertTrue($attribute->isEmpty(array()));
     }
 
     public function testMethodIsemptyReturnsTrueIfTheValueIndicatedByTheAttributeNameIsStringEmptyInTheDataArray()
     {
-        $attribute = new Attribute_Mock($this->object, $this->composite, 'name');
+        $attribute = new Attribute_Mock($this->attribute, 'name');
         $this->assertTrue($attribute->isEmpty(array('name' => '')));
     }
 
     public function testMethodIsemptyReturnsTrueIfTheValueIndicatedByTheAttributeNameIsNullInTheDataArray()
     {
-        $attribute = new Attribute_Mock($this->object, $this->composite, 'name');
+        $attribute = new Attribute_Mock($this->attribute, 'name');
         $this->assertTrue($attribute->isEmpty(array('name' => null)));
     }
 
     public function testMethodIsemptyReturnsTrueIfTheValueIndicatedByTheAttributeNameIsEmptyArrayInTheDataArray()
     {
-        $attribute = new Attribute_Mock($this->object, $this->composite, 'name');
+        $attribute = new Attribute_Mock($this->attribute, 'name');
         $this->assertTrue($attribute->isEmpty(array('name' => array())));
     }
 }
@@ -111,5 +106,4 @@ class Attribute_Mock extends Horde_Kolab_Server_Object_Attribute_Base
 {
     public function value() {}
     public function update(array $changes) {}
-    public function consume(array &$changes) {}
 }

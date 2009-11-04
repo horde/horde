@@ -38,19 +38,20 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
      * @var array
      */
     static public $attributes = array(
-        'alias', 'kolabDelegate', 'kolabDeleteFlag', 'kolabFreeBusyFuture',
-        'kolabHomeServer', 'kolabFreeBusyServer', 'kolabImapServer',
-        'kolabInvitationPolicy', 'kolabSalutation', 'gender',
-        'kolabMaritalStatus', 'homeFacsimileTelephoneNumber', 'germanTaxId',
-        'c', 'cyrus-userquota', 'kolabAllowSMTPRecipient', 'kolabAllowSMTPFrom',
-        'apple-birthday', 'apple-birthdayDate', 'birthPlace', 'birthName',
-        'pseudonym', 'countryOfCitizenship', 'legalForm',
-        'tradeRegisterRegisteredCapital', 'bylawURI', 'dateOfIncorporation',
-        'legalRepresentative', 'commercialProcuration',
-        'legalRepresentationPolicy', 'actingDeputy', 'VATNumber',
-        'otherLegalRelationship', 'inLiquidation', 'tradeRegisterType',
-        'tradeRegisterLocation', 'tradeRegisterIdentifier', 'tradeRegisterURI',
-        'tradeRegisterLastChangedDate', 'domainComponent',
+        'Alias', 'Kolabhomeserver', 'Kolabfreebusyhost'
+/*         'kolabDelegate', 'kolabDeleteFlag', 'kolabFreeBusyFuture', */
+/*         , , 'kolabImapServer', */
+/*         'kolabInvitationPolicy', 'kolabSalutation', 'gender', */
+/*         'kolabMaritalStatus', 'homeFacsimileTelephoneNumber', 'germanTaxId', */
+/*         'c', 'cyrus-userquota', 'kolabAllowSMTPRecipient', 'kolabAllowSMTPFrom', */
+/*         'apple-birthday', 'apple-birthdayDate', 'birthPlace', 'birthName', */
+/*         'pseudonym', 'countryOfCitizenship', 'legalForm', */
+/*         'tradeRegisterRegisteredCapital', 'bylawURI', 'dateOfIncorporation', */
+/*         'legalRepresentative', 'commercialProcuration', */
+/*         'legalRepresentationPolicy', 'actingDeputy', 'VATNumber', */
+/*         'otherLegalRelationship', 'inLiquidation', 'tradeRegisterType', */
+/*         'tradeRegisterLocation', 'tradeRegisterIdentifier', 'tradeRegisterURI', */
+/*         'tradeRegisterLastChangedDate', 'domainComponent', */
     );
 
 
@@ -61,7 +62,6 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
      */
 /*     static public $init_attributes = array( */
 /*         'defined' => array( */
-/*             self::ATTRIBUTE_ALIAS, */
 /*             self::ATTRIBUTE_DELEGATE, */
 /*             self::ATTRIBUTE_DELETED, */
 /*             self::ATTRIBUTE_FBFUTURE, */

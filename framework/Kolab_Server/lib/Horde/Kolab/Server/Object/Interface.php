@@ -66,13 +66,13 @@ interface Horde_Kolab_Server_Object_Interface
     public function readInternal();
 
     /**
-     * Get the specified attribute of this object
+     * Get the specified internal attributes.
      *
-     * @param string $attr The attribute to read
+     * @param array $attributes The internal attribute.
      *
-     * @return array The value(s) of this attribute
+     * @return array The value(s) of these attribute
      */
-    public function getInternal($attr);
+    public function getInternal(array $attributes);
 
     /**
      * Get the specified attribute of this object.

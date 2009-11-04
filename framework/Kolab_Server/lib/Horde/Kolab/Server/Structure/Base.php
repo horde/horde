@@ -28,6 +28,9 @@
 abstract class Horde_Kolab_Server_Structure_Base
 implements Horde_Kolab_Server_Structure_Interface
 {
+    /** Maximum accepted level for the object class hierarchy */
+    const MAX_HIERARCHY = 100;
+
     /**
      * A link to the composite server handler.
      *
@@ -100,5 +103,66 @@ implements Horde_Kolab_Server_Structure_Interface
     public function getComposite()
     {
         return $this->_composite;
+    }
+
+    /**
+     * Return the attributes supported by the given object class.
+     *
+     * @param string $class Determine the attributes for this class.
+     *
+     * @return array The supported attributes.
+     *
+     * @throws Horde_Kolab_Server_Exception If the schema analysis fails.
+     */
+    public function getExternalAttributes($class)
+    {
+        $childclass = get_class($class);
+        $classes    = array();
+        $level      = 0;
+        while ($childclass != 'Horde_Kolab_Server_Object_Top'
+               && $level < self::MAX_HIERARCHY) {
+            $classes[]  = $childclass;
+            $childclass = get_parent_class($childclass);
+            $level++;
+        }
+
+        /** Finally add the basic object class */
+        $classes[] = $childclass;
+
+        //@todo: Throw exception here
+        if ($level == self::MAX_HIERARCHY) {
+            if (isset($this->logger)) {
+                $logger->err(sprintf('The maximal level of the object hierarchy has been exceeded for class \"%s\"!',
+                                     $class));
+            }
+        }
+
+        /**
+         * Collect attributes from bottom to top.
+         */
+        $classes = array_reverse($classes);
+
+        $attributes = array();
+
+        foreach ($classes as $childclass) {
+            $vars = get_class_vars($childclass);
+            if (isset($vars['attributes'])) {
+                $attributes = array_merge($vars['attributes'], $attributes);
+            }
+        }
+
+        return $attributes;
+    }
+
+
+    public function getInternalAttributes($class)
+    {
+        $external = $this->getExternalAttributes($class);
+        return $this->mapExternalToInternalAttributes($external);
+    }
+
+    public function getInternalAttributesForExternal($class, $external)
+    {
+        return $this->mapExternalToInternalAttributes((array) $external);
     }
 }

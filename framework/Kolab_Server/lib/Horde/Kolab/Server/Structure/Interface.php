@@ -96,6 +96,35 @@ interface Horde_Kolab_Server_Structure_Interface
     public function mapExternalToInternalAttribute($external);
 
     /**
+     * Return the external attributes supported by the given object class.
+     *
+     * @param Horde_Kolab_Server_Object $object Determine the external
+     *                                          attributes for this class.
+     *
+     * @return array The supported attributes.
+     *
+     * @throws Horde_Kolab_Server_Exception If the schema analysis fails.
+     */
+    public function getExternalAttributes($object);
+
+    /**
+     * Return the internal attributes supported by the given object class.
+     *
+     * @param Horde_Kolab_Server_Object $object Determine the internal
+     *                                          attributes for this class.
+     *
+     * @return array The supported attributes.
+     *
+     * @throws Horde_Kolab_Server_Exception If the schema analysis fails.
+     */
+    public function getInternalAttributes($object);
+
+    public function getExternalAttribute(
+        $name,
+        Horde_Kolab_Server_Object_Interface $object
+    );
+
+    /**
      * Determine the type of an object by its tree position and other
      * parameters.
      *

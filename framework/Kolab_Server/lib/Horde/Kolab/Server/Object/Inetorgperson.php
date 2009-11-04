@@ -27,61 +27,21 @@
  */
 class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_Organizationalperson
 {
-    /** Define attributes specific to this object type */
-
-    /** The short ID */
-    const ATTRIBUTE_SID = 'uid';
-
-    /** The organization / company */
-    const ATTRIBUTE_ORGANIZATION = 'o';
-
-    /** The business category */
-    const ATTRIBUTE_BUSINESSCATEGORY = 'businessCategory';
-
-    /** The phone number at home*/
-    const ATTRIBUTE_HOMEPHONE = 'homePhone';
-
-    /** The mobile phone number */
-    const ATTRIBUTE_MOBILE = 'mobile';
-
-    /** The photo attribute */
-    const ATTRIBUTE_PHOTO = 'photo';
-
-    /** The photo in JPEG format */
-    const ATTRIBUTE_JPEGPHOTO = 'jpegPhoto';
-
-    /** The given name */
-    const ATTRIBUTE_GIVENNAME = 'givenName';
-
-    /** Middle names */
-    const ATTRIBUTE_MIDDLENAMES = 'middleNames';
-
-    /** The mail address of this person */
-    const ATTRIBUTE_MAIL = 'mail';
-
-    /** Home addresses */
-    const ATTRIBUTE_HOMEPOSTALADDRESS = 'homePostalAddress';
-
-    /** Home addresses as array */
-    const ATTRARRAY_HOMEPOSTALADDRESS = 'homePostalAddressArray';
-
-    /** Labeled URI */
-    const ATTRIBUTE_LABELEDURI = 'labeledURI';
-
-    /** Labeled URIs as array */
-    const ATTRARRAY_LABELEDURI = 'labeledURIArray';
-
-    /** The last name followed by the first name */
-    const ATTRIBUTE_LNFN = 'lnfn';
-
-    /** The first name followed by the last name */
-    const ATTRIBUTE_FNLN = 'fnln';
-
-    /** The SMIME certificate for the user */
-    const ATTRIBUTE_SMIMECERTIFICATE = 'userSMIMECertificate';
-
     /** The specific object class of this object type */
     const OBJECTCLASS_INETORGPERSON = 'inetOrgPerson';
+
+    /**
+     * The attributes defined for this class.
+     *
+     * @var array
+     */
+    static public $attributes = array(
+        'Uid', 'Mail','Firstnamelastname',
+/*         'Organization', 'Businesscategory', 'Homephone', 'Mobile', */
+/*         'Photo', 'Jpegphoto', 'Givenname', 'Middlenames', */
+/*         'Homepostaladdress', 'Labeleduri', 'Lastnamefirstname', */
+/*         'Usersmimecertificate' */
+    );
 
     /**
      * A structure to initialize the attribute structure for this class.
@@ -92,7 +52,6 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
 /*         'defined' => array( */
 /*             self::ATTRIBUTE_SID, */
 /*             self::ATTRIBUTE_GIVENNAME, */
-/*             self::ATTRIBUTE_MAIL, */
 /*             self::ATTRIBUTE_LABELEDURI, */
 /*             self::ATTRIBUTE_HOMEPOSTALADDRESS, */
 /*             self::ATTRIBUTE_ORGANIZATION, */

@@ -81,7 +81,7 @@ implements Horde_Kolab_Server_Object_Interface
      */
     public function getExternalAttributes()
     {
-        return $this->_composite->schema->getExternalAttributes($this);
+        return $this->_composite->structure->getExternalAttributes($this);
     }
 
     /**
@@ -93,7 +93,7 @@ implements Horde_Kolab_Server_Object_Interface
      */
     public function getInternalAttributes()
     {
-        return $this->_composite->schema->getInternalAttributes($this);
+        return $this->_composite->structure->getInternalAttributes($this);
     }
 
     /**
@@ -124,26 +124,30 @@ implements Horde_Kolab_Server_Object_Interface
     }
 
     /**
-     * Get the specified attribute of this object
+     * Get the specified internal attributes.
      *
-     * @param string $attr The attribute to read
+     * @param array $attributes The internal attribute.
      *
-     * @return array The value(s) of this attribute
+     * @return array The value(s) of these attribute
      */
-    public function getInternal($attr)
+    public function getInternal(array $attributes)
     {
-        if (!in_array($attr, array_keys($this->getInternalAttributes()))) {
-            throw new Horde_Kolab_Server_Exception(
-                sprintf("Attribute \"%s\" not supported!", $attr)
-            );
-        }
         $result = $this->readInternal();
-        if (!isset($result[$attr])) {
-            throw new Horde_Kolab_Server_Exception_Novalue(
-                sprintf("No value for attribute \"%s\"!", $attr)
-            );
+
+        $values = array();
+        foreach ($attributes as $attribute) {
+
+            if (!isset($result[$attribute])) {
+                throw new Horde_Kolab_Server_Exception_Novalue(
+                    sprintf(
+                        "No value for attribute \"%s\"!",
+                        $attribute
+                    )
+                );
+            }
+            $values[$attribute] = $result[$attribute];
         }
-        return $result[$attr];
+        return $values;
     }
 
     /**
@@ -155,16 +159,14 @@ implements Horde_Kolab_Server_Object_Interface
      */
     public function getExternal($attr)
     {
-        $attr = ucfirst($attr);
-        $class = 'Horde_Kolab_Server_Object_Attribute_' . $attr;
-        if (!in_array($attr, $this->getExternalAttributes())
-            || !class_exists($class)) {
-            //@todo: Consider support for external classes.
+        if (!in_array($attr, $this->getExternalAttributes())) {
             throw new Horde_Kolab_Server_Exception(
                 sprintf("Attribute \"%s\" not supported!", $attr)
             );
         }
-        $attribute = new $class($this, $this->_composite);
+        $attribute = $this->_composite->structure->getExternalAttribute(
+            $attr, $this
+        );
         return $attribute->value();
     }
 
@@ -217,24 +219,12 @@ implements Horde_Kolab_Server_Object_Interface
     protected function getNewInternal($info)
     {
         $internal   = array();
-        $consumed   = $info;
-        $attributes = $this->getInternalAttributes();
-        foreach (array_values($attributes) as $class) {
-            $attribute = new $class($this, $this->_composite);
-            $internal = array_merge($internal, $attribute->update($info));
-            $attribute->consume($consumed);
-        }
-
-        /** Check if all given data would be used for saving */
-        if (!empty($consumed)) {
-            throw new Horde_Kolab_Server_Exception(
-                sprintf(
-                    "Not all data would be saved. Leftover keys: %s.",
-                    join(',', array_keys($consumed))
-                )
+        foreach ($info as $external => $value) {
+            $attribute = $this->_composite->structure->getExternalAttribute(
+                $external, $this
             );
+            $internal = array_merge($internal, $attribute->update($info));
         }
-
         return $internal;
     }
 

@@ -67,7 +67,7 @@ extends PHPUnit_Framework_TestCase
                 $this->isInstanceOf(
                     'Horde_Kolab_Server_Query_Element_Interface'
                 ),
-                array('attributes' => 'Guid')
+                array('attributes' => 'guid')
             )
             ->will($this->returnValue($result));
         $search = new Horde_Kolab_Server_Search_Operation_Guid($this->structure);
@@ -87,7 +87,7 @@ extends PHPUnit_Framework_TestCase
                 $this->isInstanceOf(
                     'Horde_Kolab_Server_Query_Element_Interface'
                 ),
-                array('attributes' => 'Guid')
+                array('attributes' => 'guid')
             )
             ->will($this->returnValue($result));
         $search = new Horde_Kolab_Server_Search_Operation_Guid($this->structure);

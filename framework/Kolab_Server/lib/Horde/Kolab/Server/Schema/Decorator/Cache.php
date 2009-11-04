@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Schema_Base
+class Horde_Kolab_Server_Schema_Decorator_Cache
 implements Horde_Kolab_Server_Schema_Interface
 {
     /** Maximum accepted level for the object class hierarchy */
@@ -53,8 +53,9 @@ implements Horde_Kolab_Server_Schema_Interface
      *
      * @return NULL
      */
-    public function setComposite(Horde_Kolab_Server_Composite $composite)
-    {
+    public function setComposite(
+        Horde_Kolab_Server_Composite_Interface $composite
+    ) {
         $this->composite = $composite;
     }
 

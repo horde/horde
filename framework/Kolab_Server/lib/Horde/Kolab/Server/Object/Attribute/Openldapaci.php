@@ -28,9 +28,6 @@
 class Horde_Kolab_Server_Object_Attribute_Openldapaci
 extends Horde_Kolab_Server_Object_Attribute_Value
 {
-    /** The attribute name */
-    const NAME = 'OpenLDAPaci';
-
     /**
      * Constructor
      *
@@ -42,6 +39,6 @@ extends Horde_Kolab_Server_Object_Attribute_Value
         Horde_Kolab_Server_Object $object,
         Horde_Kolab_Server_Composite $composite
     ) {
-        parent::__construct($object, $composite, self::NAME);
+        parent::__construct($object, $composite, 'Openldapaci');
     }
 }

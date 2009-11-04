@@ -49,7 +49,7 @@ extends Horde_Kolab_Server_Object_Attribute_Decorator
             throw new Horde_Kolab_Server_Exception(
                 sprintf(
                     "The value for \"%s\" may not be modified on an existing object!",
-                    $this->_attribute->getExternalName()
+                    $this->_attribute->getName()
                 )
             );
         }

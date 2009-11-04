@@ -40,9 +40,9 @@ implements Horde_Kolab_Server_Object_Searches
      * @var array
      */
     static public $attributes = array(
-        'Objectclass', 'Openldapaci', 'Guid', 'Id',
-        'Createtimestamp', 'Modifyimestamp', 
-        'Createtimestampdate', 'Modifyimestampdate',
+        'objectClass', 'Openldapaci', 'Guid', 'Id',
+        'Createtimestamp', 'Modifytimestamp', 
+        'Createtimestampdate', 'Modifytimestampdate',
     );
 
     static public $object_classes = array(

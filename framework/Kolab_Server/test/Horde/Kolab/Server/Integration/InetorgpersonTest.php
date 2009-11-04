@@ -41,7 +41,7 @@ class Horde_Kolab_Server_Integration_InetorgpersonTest extends Horde_Kolab_Serve
         /* Default inetOrgPerson */
         array(
             'type' => 'Horde_Kolab_Server_Object_Inetorgperson',
-            Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_GIVENNAME    => 'Frank',
+            'givenName'    => 'Frank',
             'Sn'           => 'Mustermann',
             'Userpassword' => 'Kolab_Server_OrgPersonTest_123',
         ),
@@ -54,8 +54,8 @@ class Horde_Kolab_Server_Integration_InetorgpersonTest extends Horde_Kolab_Serve
         /* Person with middle names */
         array(
             'type' => 'Horde_Kolab_Server_Object_Inetorgperson',
-            Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_GIVENNAME    => 'Frank',
-            Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_MIDDLENAMES  => 'Günter Eloic',
+            'givenName'    => 'Frank',
+            'Middlenames'  => 'Günter Eloic',
             'Sn'           => 'Mustermann',
             'Userpassword' => 'Kolab_Server_OrgPersonTest_123',
         ),
@@ -109,42 +109,42 @@ class Horde_Kolab_Server_Integration_InetorgpersonTest extends Horde_Kolab_Serve
     {
         foreach ($this->servers as $server) {
             $person = $this->assertAdd($server, $this->objects[2],
-                                       array(Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_GIVENNAME => $this->objects[2][Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_GIVENNAME],
-                                             Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_MIDDLENAMES => $this->objects[2][Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_MIDDLENAMES]));
+                                       array('givenName' => $this->objects[2]['givenName'],
+                                             'Middlenames' => $this->objects[2]['Middlenames']));
 
             $this->assertStoreFetch($person, $server,
-                                    array(Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_GIVENNAME => 'Kolab_Server_InetorgpersonTest_123$123',
-                                          Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_MIDDLENAMES => 'Kolab_Server_InetorgpersonTest_123$123'),
-                                    array(Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_GIVENNAME => 'Kolab_Server_InetorgpersonTest_123$123',
-                                          Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_MIDDLENAMES => 'Kolab_Server_InetorgpersonTest_123$123'));
+                                    array('givenName' => 'Kolab_Server_InetorgpersonTest_123$123',
+                                          'Middlenames' => 'Kolab_Server_InetorgpersonTest_123$123'),
+                                    array('givenName' => 'Kolab_Server_InetorgpersonTest_123$123',
+                                          'Middlenames' => 'Kolab_Server_InetorgpersonTest_123$123'));
 
             $this->assertStoreFetch($person, $server,
-                                    array(Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_GIVENNAME => 'Kolab_Server_InetorgpersonTest_123$456',
-                                          Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_MIDDLENAMES => ''),
-                                    array(Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_GIVENNAME => 'Kolab_Server_InetorgpersonTest_123$456',
-                                          Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_MIDDLENAMES => ''));
+                                    array('givenName' => 'Kolab_Server_InetorgpersonTest_123$456',
+                                          'Middlenames' => ''),
+                                    array('givenName' => 'Kolab_Server_InetorgpersonTest_123$456',
+                                          'Middlenames' => ''));
 
             $this->assertStoreFetch($person, $server,
-                                    array(Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_MIDDLENAMES => 'Kolab_Server_InetorgpersonTest_789'),
-                                    array(Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_GIVENNAME => 'Kolab_Server_InetorgpersonTest_123$456',
-                                          Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_MIDDLENAMES => 'Kolab_Server_InetorgpersonTest_789'));
+                                    array('Middlenames' => 'Kolab_Server_InetorgpersonTest_789'),
+                                    array('givenName' => 'Kolab_Server_InetorgpersonTest_123$456',
+                                          'Middlenames' => 'Kolab_Server_InetorgpersonTest_789'));
 
             $this->assertStoreFetch($person, $server,
-                                    array(Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_GIVENNAME => '',
-                                          Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_MIDDLENAMES => ''),
-                                    array(Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_GIVENNAME => '',
-                                          Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_MIDDLENAMES => ''));
+                                    array('givenName' => '',
+                                          'Middlenames' => ''),
+                                    array('givenName' => '',
+                                          'Middlenames' => ''));
 
             $this->assertStoreFetch($person, $server,
-                                    array(Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_MIDDLENAMES => 'Kolab_Server_InetorgpersonTest_789'),
-                                    array(Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_GIVENNAME => '',
-                                          Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_MIDDLENAMES => 'Kolab_Server_InetorgpersonTest_789'));
+                                    array('Middlenames' => 'Kolab_Server_InetorgpersonTest_789'),
+                                    array('givenName' => '',
+                                          'Middlenames' => 'Kolab_Server_InetorgpersonTest_789'));
 
             $this->assertStoreFetch($person, $server,
-                                    array(Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_GIVENNAME => 'Frank',
-                                          Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_MIDDLENAMES => ''),
-                                    array(Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_GIVENNAME => 'Frank',
-                                          Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_MIDDLENAMES => ''));
+                                    array('givenName' => 'Frank',
+                                          'Middlenames' => ''),
+                                    array('givenName' => 'Frank',
+                                          'Middlenames' => ''));
         }
     }
 
@@ -157,30 +157,30 @@ class Horde_Kolab_Server_Integration_InetorgpersonTest extends Horde_Kolab_Serve
     {
         foreach ($this->servers as $server) {
             $person = $this->assertAdd($server, $this->objects[0],
-                                       array(Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_GIVENNAME => $this->objects[0][Horde_Kolab_Server_Object_Inetorgperson::ATTRIBUTE_GIVENNAME],
-                                             Horde_Kolab_Server_Object_Inetorgperson::ATTRARRAY_LABELEDURI => array()));
+                                       array('givenName' => $this->objects[0]['givenName'],
+                                             'labelledURI' => array()));
 
             $this->assertStoreFetch($person, $server,
-                                    array(Horde_Kolab_Server_Object_Inetorgperson::ATTRARRAY_LABELEDURI => array('a' => 'http://a.example.com',
+                                    array('labelledURI' => array('a' => 'http://a.example.com',
                                                                                                                  'b' => 'http://b.example.com')),
-                                    array(Horde_Kolab_Server_Object_Inetorgperson::ATTRARRAY_LABELEDURI => array('a' => array('http://a.example.com'),
+                                    array('labelledURI' => array('a' => array('http://a.example.com'),
                                                                                                                  'b' => array('http://b.example.com'))));
 
             $this->assertStoreFetch($person, $server,
-                                    array(Horde_Kolab_Server_Object_Inetorgperson::ATTRARRAY_LABELEDURI => array('a' => 'http://a.example.com',
+                                    array('labelledURI' => array('a' => 'http://a.example.com',
                                                                                                                  'b' => 'http://b.example.com',
                                                                                                                  'c' => 'http://c.example.com')),
-                                    array(Horde_Kolab_Server_Object_Inetorgperson::ATTRARRAY_LABELEDURI => array('a' => array('http://a.example.com'),
+                                    array('labelledURI' => array('a' => array('http://a.example.com'),
                                                                                                                  'b' => array('http://b.example.com'),
                                                                                                                  'c' => array('http://c.example.com'))));
 
             $this->assertStoreFetch($person, $server,
-                                    array(Horde_Kolab_Server_Object_Inetorgperson::ATTRARRAY_LABELEDURI => array()),
-                                    array(Horde_Kolab_Server_Object_Inetorgperson::ATTRARRAY_LABELEDURI => array()));
+                                    array('labelledURI' => array()),
+                                    array('labelledURI' => array()));
 
             $this->assertStoreFetch($person, $server,
-                                    array(Horde_Kolab_Server_Object_Inetorgperson::ATTRARRAY_LABELEDURI => array('a' => 'http://a.example.com')),
-                                    array(Horde_Kolab_Server_Object_Inetorgperson::ATTRARRAY_LABELEDURI => array('a' => array('http://a.example.com'))));
+                                    array('labelledURI' => array('a' => 'http://a.example.com')),
+                                    array('labelledURI' => array('a' => array('http://a.example.com'))));
         }
     }
 

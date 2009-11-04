@@ -147,6 +147,133 @@ class Horde_Kolab_Server_Structure_Ldap extends Horde_Kolab_Server_Structure_Bas
         return $result;
     }
 
+    public function getExternalAttribute(
+        $name,
+        Horde_Kolab_Server_Object_Interface $object
+    ) {
+        $class = ucfirst(strtolower($name));
+        $object_attribute_class = 'Horde_Kolab_Server_Object_Attribute_'
+            . $class;
+        $structure_attribute_class = 'Horde_Kolab_Server_Structure_Attribute_'
+            . $class;
+
+        if (class_exists($structure_attribute_class)) {
+            $structure_attribute = new $structure_attribute_class($object, $name);
+        } else {
+            switch ($name) {
+            case 'Firstnamelastname':
+                $structure_attribute = new Horde_Kolab_Server_Structure_Attribute_Double(
+                    $object, array('givenName', 'sn')
+                );
+                break;
+            default:
+                $structure_attribute = new Horde_Kolab_Server_Structure_Attribute_Value(
+                    $object, $name
+                );
+                break;
+            }
+        }
+
+        switch ($name) {
+        case 'objectClass':
+            $structure_attribute = new Horde_Kolab_Server_Structure_Attribute_Locked(
+                $structure_attribute
+            );
+        default:
+            break;
+        }
+
+
+        if (class_exists($object_attribute_class)) {
+            $object_attribute = new $object_attribute_class($structure_attribute, $name);
+        } else {
+            switch ($name) {
+            default:
+                $object_attribute = new Horde_Kolab_Server_Object_Attribute_Value(
+                    $structure_attribute, $name
+                );
+                break;
+            }
+        }
+
+/*         case 'Guid': */
+/*             return 'dn'; */
+/*         case 'Uid': */
+/*             return 'uid'; */
+/*         case 'Mail': */
+/*             return 'mail'; */
+/*         case 'Alias': */
+/*             return 'alias'; */
+/*         case 'Delegate': */
+/*             return 'kolabDelegate'; */
+/*         case 'Firstnamelastname': */
+/*             return array('givenName', 'sn'); */
+/*         case 'Openldapaci': */
+/*             return 'openLDAPaci'; */
+/*         case 'Kolabhomeserver': */
+/*             return 'kolabHomeServer'; */
+/*         case 'Kolabfreebusyhost': */
+/*             //@todo: rename to kolabFreeBusyService(Url) */
+/*             return 'kolabFreeBusyServer'; */
+/*         case 'Createtimestamp': */
+/*         case 'Createtimestampdate': */
+/*             return 'createTimeStamp'; */
+/*         case 'Modifytimestamp': */
+/*         case 'Modifytimestampdate': */
+/*             return 'modifyTimeStamp'; */
+/*         case 'Id': */
+/*             return null; */
+/*         default: */
+/*             throw new Horde_Kolab_Server_Exception( */
+/*                 sprintf('Undefined internal attribute "%s"', $external) */
+/*             ); */
+/*         } */
+
+        return $object_attribute;
+    }
+
+    /**
+     * Maps the external attribute name to its internal counterpart(s).
+     *
+     * @param string $external The external attribute name.
+     *
+     * @return string The internal attribute name(s).
+     */
+    private function _mapExternalToInternal($external)
+    {
+        switch ($external) {
+        case 'Guid':
+            return 'dn';
+        case 'Uid':
+            return 'uid';
+        case 'Mail':
+            return 'mail';
+        case 'Alias':
+            return 'alias';
+        case 'Delegate':
+            return 'kolabDelegate';
+        case 'Firstnamelastname':
+            return array('givenName', 'sn');
+        case 'Openldapaci':
+            return 'openLDAPaci';
+        case 'Kolabhomeserver':
+            return 'kolabHomeServer';
+        case 'Kolabfreebusyhost':
+            //@todo: rename to kolabFreeBusyService(Url)
+            return 'kolabFreeBusyServer';
+        case 'Createtimestamp':
+        case 'Createtimestampdate':
+            return 'createTimeStamp';
+        case 'Modifytimestamp':
+        case 'Modifytimestampdate':
+            return 'modifyTimeStamp';
+        case 'Id':
+            return null;
+        default:
+            return $external;
+        }
+    }
+
     /**
      * Maps the external attribute name to its internal counterpart.
      *
@@ -156,19 +283,37 @@ class Horde_Kolab_Server_Structure_Ldap extends Horde_Kolab_Server_Structure_Bas
      */
     public function mapExternalToInternalAttribute($external)
     {
-        switch ($external) {
-        case 'Objectclass':
-            return 'objectClass';
-        case 'Guid':
-            return 'dn';
-        case 'Uid':
-            return 'uid';
-        case 'Mail':
-            return 'mail';
-        default:
-            throw new Horde_Kolab_Server_Exception(
-                sprintf('Undefined internal attribute "%s"', $external)
-            );
+        $internal = $this->_mapExternalToInternal($external);
+        if (is_string($internal)) {
+            return $internal;
+        } else if (is_array($internal)) {
+            throw new Horde_Kolab_Server_Exception('Multiple internal attributes!');
+        } else if ($internal === null) {
+            throw new Horde_Kolab_Server_Exception('No internal attribute mapping!');
         }
+        throw new Horde_Kolab_Server_Exception(
+            sprintf(
+                'Invalid internal attribute mapping: %s',
+                print_r($internal, true)
+            )
+        );
+    }
+
+    /**
+     * Maps the external attribute names to their internal counterparts.
+     *
+     * @param string $external The external attribute names.
+     *
+     * @return string The internal attribute names.
+     */
+    public function mapExternalToInternalAttributes(array $external)
+    {
+        $result = array();
+        foreach ($external as $attribute) {
+            $internal = $this->_mapExternalToInternal($attribute);
+            $result = array_merge($result, (array) $internal);
+        }
+        $result = array_unique($result);
+        return $result;
     }
 }

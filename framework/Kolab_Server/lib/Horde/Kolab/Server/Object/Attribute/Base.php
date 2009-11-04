@@ -29,86 +29,52 @@ abstract class Horde_Kolab_Server_Object_Attribute_Base
 implements Horde_Kolab_Server_Object_Attribute_Interface
 {
     /**
-     * The attribute name on the internal side.
+     * The attribute name.
      *
      * @param string
      */
-    protected $_internal;
+    protected $name;
 
     /**
-     * The attribute name on the external side.
+     * The internal attribute adapter.
      *
-     * @param string
+     * @param Horde_Kolab_Server_Structure_Attribute_Interface
      */
-    private $_external;
-
-    /**
-     * The object this attribute belongs to.
-     *
-     * @param Horde_Kolab_Server_Object
-     */
-    protected $_object;
-
-    /**
-     * Link to the Kolab server.
-     *
-     * @var Horde_Kolab_Server_Composite
-     */
-    protected $_composite;
+    protected $attribute;
 
     /**
      * Constructor
      *
-     * @param Horde_Kolab_Server_Object    $object    The object this attribute
-     *                                                belongs to.
-     * @param Horde_Kolab_Server_Composite $composite The link to the server.
-     * @param string                       $name      The name of this attribute.
+     * @param Horde_Kolab_Server_Structure_Attribute_Interface $attribute The internal attribute adapter.
+     * @param string                                           $name      The name of this attribute.
      */
     public function __construct(
-        Horde_Kolab_Server_Object_Interface $object,
-        Horde_Kolab_Server_Composite_Interface $composite,
-        $external
+        Horde_Kolab_Server_Structure_Attribute_Interface $attribute,
+        $name
     ) {
-        $this->_object    = $object;
-        $this->_composite = $composite;
-        $this->_external  = $external;
-
-        $this->_internal  = $this->_composite->structure->mapExternalToInternalAttribute(
-            $this->_external
-        );
+        $this->attribute = $attribute;
+        $this->name      = $name;
     }
 
     /**
-     * Return the object this attribute belongs to.
+     * Return the internal attribute adapter.
      *
-     * @return Horde_Kolab_Server_Object The object.
+     * @return Horde_Kolab_Server_Structure_Attribute_Interface The internal
+     *                                                          attribute.
      */
-    public function getObject()
+    public function getAttribute()
     {
-        return $this->_object;
+        return $this->attribute;
     }
 
     /**
-     * Return the internal name of this attribute.
+     * Return the name of this attribute.
      *
-     * @return string The name of this object.
+     * @return string The name of this attribute.
      */
-    public function getInternalName()
+    public function getName()
     {
-        return $this->_internal;
-    }
-
-    /**
-     * Return the external name of this attribute.
-     *
-     * @return string The name of this object.
-     */
-    public function getExternalName()
-    {
-        if (empty($this->_external)) {
-            $this->_external = substr(get_class($this), 36);
-        }
-        return $this->_external;
+        return $this->name;
     }
 
     /**
@@ -120,11 +86,11 @@ implements Horde_Kolab_Server_Object_Attribute_Interface
      */
     public function isEmpty(array $changes)
     {
-        $name = $this->getExternalName();
-        if ((!in_array($name, array_keys($changes))
-             || $changes[$name] === null
-             || $changes[$name] === ''
-             || $changes[$name] === array())) {
+        if ((!in_array($this->name, array_keys($changes))
+             || $changes[$this->name] === null
+             || $changes[$this->name] === ''
+             || $changes[$this->name] === array())
+        ) {
             return true;
         }
         return false;

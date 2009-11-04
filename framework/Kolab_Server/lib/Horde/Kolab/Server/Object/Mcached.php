@@ -167,15 +167,13 @@ implements Horde_Kolab_Server_Object_Interface
     }
 
     /**
-     * Get the specified attribute of this object
+     * Get the specified internal attributes.
      *
-     * @param string  $attr   The attribute to read
-     * @param boolean $single Should a single value be returned
-     *                        or are multiple values allowed?
+     * @param array $attributes The internal attribute.
      *
-     * @return string the value of this attribute
+     * @return array The value(s) of these attribute
      */
-    public function getInternal($attr)
+    public function getInternal(array $attributes)
     {
         if (!isset($this->_cache_int[$attr])) {
             if (!in_array($attr, array_keys($this->getInternalAttributes()))) {

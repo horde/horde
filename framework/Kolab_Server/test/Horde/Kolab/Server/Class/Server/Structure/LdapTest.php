@@ -52,7 +52,7 @@ class Horde_Kolab_Server_Class_Server_Structure_LdapTest extends Horde_Kolab_Ser
             ->method('find')
             ->with('(objectClass=equals)', array())
             ->will($this->returnValue($result));
-        $equals = new Horde_Kolab_Server_Query_Element_Equals('Objectclass', 'equals');
+        $equals = new Horde_Kolab_Server_Query_Element_Equals('objectClass', 'equals');
         $this->assertType(
             'Horde_Kolab_Server_Result',
             $this->composite->structure->find($equals, array())
@@ -67,7 +67,7 @@ class Horde_Kolab_Server_Class_Server_Structure_LdapTest extends Horde_Kolab_Ser
             ->method('findBelow')
             ->with('(objectClass=equals)', 'base', array())
             ->will($this->returnValue($result));
-        $equals = new Horde_Kolab_Server_Query_Element_Equals('Objectclass', 'equals');
+        $equals = new Horde_Kolab_Server_Query_Element_Equals('objectClass', 'equals');
         $this->assertType(
             'Horde_Kolab_Server_Result',
             $this->composite->structure->findBelow($equals, 'base', array())
@@ -164,19 +164,5 @@ class Horde_Kolab_Server_Class_Server_Structure_LdapTest extends Horde_Kolab_Ser
             ->method('getBaseGuid')
             ->will($this->returnValue('base'));
         $this->assertEquals('id,base', $this->composite->structure->generateServerGuid('', 'id', array()));
-    }
-
-    public function testMethodGetinternalattributeThrowsExceptionForUndefinedAttributeName()
-    {
-        $structure = new Horde_Kolab_Server_Structure_Ldap();
-        try {
-            $structure->mapExternalToInternalAttribute('undefined');
-            $this->fail('No exception!');
-        } catch (Horde_Kolab_Server_Exception $e) {
-            $this->assertEquals(
-                'Undefined internal attribute "undefined"',
-                $e->getMessage()
-            );
-        }
     }
 }

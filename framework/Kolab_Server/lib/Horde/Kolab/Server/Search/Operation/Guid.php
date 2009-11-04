@@ -39,7 +39,7 @@ extends Horde_Kolab_Server_Search_Operation_Base
         Horde_Kolab_Server_Query_Element_Interface $criteria
     ) {
         $params = array(
-            'attributes' => 'Guid'
+            'attributes' => 'guid'
         );
         $data = $this->getStructure()->find($criteria, $params);
         return self::guidFromResult($data);

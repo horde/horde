@@ -1,7 +1,6 @@
 <?php
 /**
- * A decorator to represent a Kolab object attribute that can only be written on
- * object creation and is immutable afterwards.
+ * The name of a person in "firstname lastname" format.
  *
  * PHP version 5
  *
@@ -13,8 +12,7 @@
  */
 
 /**
- * A decorator to represent a Kolab object attribute that can only be written on
- * object creation and is immutable afterwards.
+ * The name of a person in "firstname lastname" format.
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -27,21 +25,34 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Object_Attribute_Single
-extends Horde_Kolab_Server_Object_Attribute_Decorator
+class Horde_Kolab_Server_Object_Attribute_Firstnamelastname
+extends Horde_Kolab_Server_Object_Attribute_Value
 {
+    /**
+     * Constructor
+     *
+     * @param Horde_Kolab_Server_Structure_Attribute_Interface $object The object
+     *  this attribute belongs to.
+     * @param string $name The name of this attribute.
+     */
+    public function __construct(
+        Horde_Kolab_Server_Structure_Attribute_Double $attribute,
+        $name
+    ) {
+        parent::__construct($attribute, $name);
+    }
+
     /**
      * Return the value of this attribute.
      *
      * @return array The value(s) of this attribute.
+     *
+     * @throws Horde_Kolab_Server_Exception If retrieval of the value failed.
      */
     public function value()
     {
-        $value = $this->_attribute->value();
-        if (is_array($value)) {
-            return array_shift($value);
-        } else {
-            return $value;
-        }
+        $values = $this->attribute->value();
+        return sprintf('%s %s', $values[0], $values[1]);
     }
+
 }

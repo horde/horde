@@ -37,7 +37,7 @@ extends Horde_Kolab_Server_Object_Attribute_Base
      */
     public function value()
     {
-        return $this->_object->getInternal($this->getInternalName());
+        return $this->attribute->value();
     }
 
     /**
@@ -50,8 +50,8 @@ extends Horde_Kolab_Server_Object_Attribute_Base
      */
     public function consume(array &$changes)
     {
-        if (isset($changes[$this->getExternalName()])) {
-            unset($changes[$this->getExternalName()]);
+        if (isset($changes[$this->name])) {
+            unset($changes[$this->name]);
         }
     }
 
@@ -67,15 +67,15 @@ extends Horde_Kolab_Server_Object_Attribute_Base
     public function update(array $changes)
     {
         if (!$this->isEmpty($changes)) {
-            $value = $changes[$this->getExternalName()];
+            $value = $changes[$this->name];
             if (!is_array($value)) {
                 $value = array($value);
             }
-            return array($this->getInternalName() => $value);
+            return $this->attribute->update($value);
         }
         try {
-            $old = $this->_object->getInternal($this->getInternalName());
-            return array($this->getInternalName() => array());
+            $old = $this->attribute->value();
+            return $this->attribute->update(array());
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
             return array();
         }

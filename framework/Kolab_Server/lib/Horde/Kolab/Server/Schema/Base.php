@@ -28,15 +28,12 @@
 class Horde_Kolab_Server_Schema_Base
 implements Horde_Kolab_Server_Schema_Interface
 {
-    /** Maximum accepted level for the object class hierarchy */
-    const MAX_HIERARCHY = 100;
-
     /**
      * A link to the composite server handler.
      *
      * @var Horde_Kolab_Server_Composite
      */
-    protected $composite;
+    private $_composite;
 
     /**
      * Set the composite server reference for this object.
@@ -49,7 +46,7 @@ implements Horde_Kolab_Server_Schema_Interface
     public function setComposite(
         Horde_Kolab_Server_Composite_Interface $composite
     ) {
-        $this->composite = $composite;
+        $this->_composite = $composite;
     }
 
     /**
@@ -103,155 +100,126 @@ implements Horde_Kolab_Server_Schema_Interface
      */
     public function getExternalAttributes($class)
     {
-        if (!isset($this->attributes)) {
-            if (isset($this->cache)) {
-                register_shutdown_function(array($this, 'shutdown'));
+        $childclass = get_class($class);
+        $classes    = array();
+        $level      = 0;
+        while ($childclass != 'Horde_Kolab_Server_Object_Top'
+               && $level < self::MAX_HIERARCHY) {
+            $classes[]  = $childclass;
+            $childclass = get_parent_class($childclass);
+            $level++;
+        }
+
+        /** Finally add the basic object class */
+        $classes[] = $childclass;
+
+        //@todo: Throw exception here
+        if ($level == self::MAX_HIERARCHY) {
+            if (isset($this->logger)) {
+                $logger->err(sprintf('The maximal level of the object hierarchy has been exceeded for class \"%s\"!',
+                                     $class));
             }
         }
-        if (empty($this->attributes[$class])) {
 
-            if (isset($this->cache)) {
-                $this->attributes[$class] = @unserialize($cache->get('attributes_' . $class,
-                                                                     $this->params['cache_lifetime']));
-            }
+        /**
+         * Collect attributes from bottom to top.
+         */
+        $classes = array_reverse($classes);
 
-            if (empty($this->attributes[$class])) {
+        $attributes = array();
 
-                $childclass = $class;
-                $classes    = array();
-                $level      = 0;
-                while ($childclass != 'Horde_Kolab_Server_Object'
-                       && $level < self::MAX_HIERARCHY) {
-                    $classes[]  = $childclass;
-                    $childclass = get_parent_class($childclass);
-                    $level++;
-                }
-
-                /** Finally add the basic object class */
-                $classes[] = $childclass;
-
-                if ($level == self::MAX_HIERARCHY) {
-                    if (isset($this->logger)) {
-                        $logger->err(sprintf('The maximal level of the object hierarchy has been exceeded for class \"%s\"!',
-                                             $class));
-                    }
-                }
-
+        foreach ($classes as $childclass) {
+            $vars = get_class_vars($childclass);
+            if (isset($vars['attributes'])) {
                 /**
-                 * Collect attributes from bottom to top.
+                 * If the user wishes to adhere to the schema
+                 * information from the server we will skip the
+                 * attributes defined within the object class here.
                  */
-                $classes = array_reverse($classes);
-
-                $types = array('defined', 'required', 'derived', 'collapsed',
-                               'defaults', 'locked', 'object_classes');
-                foreach ($types as $type) {
-                    $$type = array();
+                if (!empty($this->params['schema_override'])) {
+                    continue;
                 }
-
-                foreach ($classes as $childclass) {
-                    $vars = get_class_vars($childclass);
-                    if (isset($vars['init_attributes'])) {
-                        foreach ($types as $type) {
-                            /**
-                             * If the user wishes to adhere to the schema
-                             * information from the server we will skip the
-                             * attributes defined within the object class here.
-                             */
-                            if (!empty($this->params['schema_override'])
-                                && in_array($type, 'defined', 'required')) {
-                                continue;
-                            }
-                            if (isset($vars['init_attributes'][$type])) {
-                                $$type = array_merge($$type,
-                                                     $vars['init_attributes'][$type]);
-                            }
-                        }
-                    }
-                }
-
-                $attrs = array();
-
-                foreach ($object_classes as $object_class) {
-                    $info = $this->getObjectclassSchema($object_class);
-                    if (isset($info['may'])) {
-                        $defined = array_merge($defined, $info['may']);
-                    }
-                    if (isset($info['must'])) {
-                        $defined  = array_merge($defined, $info['must']);
-                        $required = array_merge($required, $info['must']);
-                    }
-                    foreach ($defined as $attribute) {
-                        try {
-                            $attrs[$attribute] = $this->getAttributeSchema($attribute);
-                        } catch (Horde_Kolab_Server_Exception $e) {
-                            /**
-                             * If the server considers the attribute to be
-                             * invalid we mark it.
-                             */
-                            $attrs[$attribute] = array('invalid' => true);
-                        }
-                    }
-                    foreach ($required as $attribute) {
-                        $attrs[$attribute]['required'] = true;
-                    }
-                    foreach ($locked as $attribute) {
-                        $attrs[$attribute]['locked'] = true;
-                    }
-                    foreach ($defaults as $attribute => $default) {
-                        $attrs[$attribute]['default'] = $default;
-                    }
-                    $attrs[Horde_Kolab_Server_Object::ATTRIBUTE_OC]['default'] = $object_classes;
-                }
-                foreach ($derived as $key => $attributes) {
-                    $supported = true;
-                    if (isset($attributes['base'])) {
-                        foreach ($attributes['base'] as $attribute) {
-                            /**
-                             * Usually derived attribute are determined on basis
-                             * of one or more attributes. If any of these is not
-                             * supported the derived attribute should not be
-                             * included into the set of supported attributes.
-                             */
-                            if (!isset($attrs[$attribute])) {
-                                unset($derived[$attribute]);
-                                $supported = false;
-                                break;
-                            }
-                        }
-                    }
-                    if ($supported) {
-                        $attrs[$key] = $attributes;
-                    }
-                }
-                $check_collapsed = $collapsed;
-                foreach ($check_collapsed as $key => $attributes) {
-                    if (isset($attributes['base'])) {
-                        foreach ($attributes['base'] as $attribute) {
-                            /**
-                             * Usually collapsed attribute are determined on basis
-                             * of one or more attributes. If any of these is not
-                             * supported the collapsed attribute should not be
-                             * included into the set of supported attributes.
-                             */
-                            if (!isset($attrs[$attribute])) {
-                                unset($collapsed[$attribute]);
-                            }
-                        }
-                    }
-                }
-                $this->attributes[$class] = array($attrs,
-                                                  array(
-                                                      'derived'   => array_keys($derived),
-                                                      'collapsed' => $collapsed,
-                                                      'locked'    => $locked,
-                                                      'required'  => $required));
+                $attributes = array_merge($vars['attributes'], $attributes);
             }
         }
-        return $this->attributes[$class];
-    }
 
-    public function getInternalAttributes($class)
-    {
+/*         $attrs = array(); */
+
+/*         foreach ($object_classes as $object_class) { */
+/*             $info = $this->getObjectclassSchema($object_class); */
+/*             if (isset($info['may'])) { */
+/*                 $defined = array_merge($defined, $info['may']); */
+/*             } */
+/*             if (isset($info['must'])) { */
+/*                 $defined  = array_merge($defined, $info['must']); */
+/*                 $required = array_merge($required, $info['must']); */
+/*             } */
+/*             foreach ($defined as $attribute) { */
+/*                 try { */
+/*                     $attrs[$attribute] = $this->getAttributeSchema($attribute); */
+/*                 } catch (Horde_Kolab_Server_Exception $e) { */
+/*                     /\** */
+/*                      * If the server considers the attribute to be */
+/*                      * invalid we mark it. */
+/*                      *\/ */
+/*                     $attrs[$attribute] = array('invalid' => true); */
+/*                 } */
+/*             } */
+/*             foreach ($required as $attribute) { */
+/*                 $attrs[$attribute]['required'] = true; */
+/*             } */
+/*             foreach ($locked as $attribute) { */
+/*                 $attrs[$attribute]['locked'] = true; */
+/*             } */
+/*             foreach ($defaults as $attribute => $default) { */
+/*                 $attrs[$attribute]['default'] = $default; */
+/*             } */
+/*             $attrs[Horde_Kolab_Server_Object::ATTRIBUTE_OC]['default'] = $object_classes; */
+/*         } */
+/*         foreach ($derived as $key => $attributes) { */
+/*             $supported = true; */
+/*             if (isset($attributes['base'])) { */
+/*                 foreach ($attributes['base'] as $attribute) { */
+/*                     /\** */
+/*                      * Usually derived attribute are determined on basis */
+/*                      * of one or more attributes. If any of these is not */
+/*                      * supported the derived attribute should not be */
+/*                      * included into the set of supported attributes. */
+/*                      *\/ */
+/*                     if (!isset($attrs[$attribute])) { */
+/*                         unset($derived[$attribute]); */
+/*                         $supported = false; */
+/*                         break; */
+/*                     } */
+/*                 } */
+/*             } */
+/*             if ($supported) { */
+/*                 $attrs[$key] = $attributes; */
+/*             } */
+/*         } */
+/*         $check_collapsed = $collapsed; */
+/*         foreach ($check_collapsed as $key => $attributes) { */
+/*             if (isset($attributes['base'])) { */
+/*                 foreach ($attributes['base'] as $attribute) { */
+/*                     /\** */
+/*                      * Usually collapsed attribute are determined on basis */
+/*                      * of one or more attributes. If any of these is not */
+/*                      * supported the collapsed attribute should not be */
+/*                      * included into the set of supported attributes. */
+/*                      *\/ */
+/*                     if (!isset($attrs[$attribute])) { */
+/*                         unset($collapsed[$attribute]); */
+/*                     } */
+/*                 } */
+/*             } */
+/*         } */
+/*         $this->attributes[$class] = array($attrs, */
+/*                                           array( */
+/*                                               'derived'   => array_keys($derived), */
+/*                                               'collapsed' => $collapsed, */
+/*                                               'locked'    => $locked, */
+/*                                               'required'  => $required)); */
+        return $attributes;
     }
 
     /**

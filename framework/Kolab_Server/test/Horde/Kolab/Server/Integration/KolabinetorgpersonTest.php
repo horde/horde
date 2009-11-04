@@ -41,7 +41,7 @@ class Horde_Kolab_Server_Integration_KolabinetorgpersonTest extends Horde_Kolab_
         /* Default kolabInetOrgPerson */
         array(
             'type' => 'Horde_Kolab_Server_Object_Kolabinetorgperson',
-            Horde_Kolab_Server_Object_Kolabinetorgperson::ATTRIBUTE_GIVENNAME    => 'Frank',
+            'givenName'    => 'Frank',
             'Sn'           => 'Mustermann',
             'Userpassword' => 'Kolab_Server_OrgPersonTest_123',
         ),
