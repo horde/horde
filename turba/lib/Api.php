@@ -1408,7 +1408,7 @@ class Turba_Api extends Horde_Registry_Api
                 !empty($attribute['time_object_label'])) {
                 foreach ($GLOBALS['cfgSources'] as $srcKey => $source) {
                     if (!empty($source['map'][$key])) {
-                        $categories[$key . '::'. $srcKey] = sprintf(_("%s in %s"), $attribute['time_object_label'], $source['title']);
+                        $categories[$key . '/'. $srcKey] = sprintf(_("%s in %s"), $attribute['time_object_label'], $source['title']);
                     }
                 }
             }
@@ -1441,7 +1441,7 @@ class Turba_Api extends Horde_Registry_Api
 
         $objects = array();
         foreach ($time_categories as $category) {
-            list($category, $source) = explode('::', $category);
+            list($category, $source) = explode('/', $category, 2);
             $driver = Turba_Driver::singleton($source);
             if (is_a($driver, 'PEAR_Error')) {
                 return PEAR::raiseError(sprintf(_("Connection failed: %s"),
