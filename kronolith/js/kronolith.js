@@ -1018,8 +1018,8 @@ KronolithCore = {
 
         _createElement = function(event) {
             var el = new Element('DIV', { 'id': event.value.nodeId, 'class': 'kronolithEvent' })
-                .store('calendar', event.value.calendar.replace(/:/, '^'))
-                .store('eventid', event.key.replace(/:/, '^'));
+                .store('calendar', event.value.calendar)
+                .store('eventid', event.key);
             if (!Object.isUndefined(event.value.aj)) {
                 el.store('ajax', event.value.aj);
             }
@@ -2205,7 +2205,7 @@ KronolithCore = {
         this.doAction('ListTopTags', {}, this._topTags);
         if (id) {
             RedBox.loading();
-            this.doAction('GetEvent', { 'cal': calendar.replace(/\^/, ':'), 'id': id.replace(/\^/, ':') }, this._editEvent.bind(this));
+            this.doAction('GetEvent', { 'cal': calendar, 'id': id }, this._editEvent.bind(this));
         } else {
             var d = date ? this.parseDate(date) : new Date();
             $('kronolithEventId').value = '';
