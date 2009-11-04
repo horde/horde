@@ -405,15 +405,12 @@ body.kronolithAjax {
 }
 #kronolithMenuCalendars {
     position: absolute;
-    top: 34px;
-    margin-bottom: 20px;
+    top: 295px;
+    bottom: 0;
+    width: 100%;
     overflow: auto;
     overflow-x: hidden;
     overflow-y: auto;
-}
-#kronolithMenuBottom {
-    position: absolute;
-    bottom: 0;
 }
 #kronolithMenu h3 {
     position: relative;
@@ -426,8 +423,18 @@ body.kronolithAjax {
     border-bottom: 1px #000 dotted;
     cursor: default;
 }
+#kronolithMenu h3.search {
+    top: 15px;
+}
+#kronolithSearchForm {
+    position: relative;
+    top: 15px;
+}
 #kronolithMenu h3#kronolithCalendarsFirst {
     margin-top: 0;
+}
+#kronolithMenu div#kronolithHolidayCalendars {
+    margin-bottom: 0;
 }
 #kronolithMenu a.kronolithAdd {
     position: absolute;
@@ -643,6 +650,9 @@ div#kronolithEventTopTags span:hover {
 /* Mini calendar */
 .kronolithMinical {
     position: relative;
+}
+#kronolithMinical {
+    top: 15px;
 }
 .kronolithMinical table {
     width: 100%;

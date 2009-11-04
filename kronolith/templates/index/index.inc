@@ -39,6 +39,37 @@
     <span id="kronolithQuickEvent" title="<?php echo _("Quick _insert") ?>">+</span>
   </div>
 
+  <div id="kronolithMinical" class="kronolithMinical">
+    <table cellspacing="1" cellpadding="0" border="0">
+    <caption>
+      <a id="kronolithMinicalPrev" title="<?php echo _("Previous month") ?>">&lt;</a>
+      <a id="kronolithMinicalNext" title="<?php echo _("Next month") ?>">&gt;</a>
+      <span id="kronolithMinicalDate"><?php echo $today->format('F Y') ?></span>
+    </caption>
+
+    <thead>
+      <tr>
+        <th class="kronolithMinicalEmpty">&nbsp;</th>
+        <?php for ($i = $prefs->getValue('week_start_monday'), $c = $i + 7; $i < $c; $i++): ?>
+        <th title="<?php echo Horde_Nls::getLangInfo(constant('DAY_' . ($i % 7 + 1))) ?>"><?php echo substr(Horde_Nls::getLangInfo(constant('DAY_' . ($i % 7 + 1))), 0, 1) ?></th>
+        <?php endfor; ?>
+      </tr>
+    </thead>
+
+    <tbody><tr><td></td></tr></tbody>
+    </table>
+  </div>
+
+  <h3 class="search">
+    <span><?php echo _("Search") ?></span>
+  </h3>
+
+  <form id="kronolithSearchForm" action="">
+    <input type="text" id="kronolithSearchTerm" />
+    <input id="kronolithSearchButton" type="button" value="OK" class="button ok" />
+    <input id="kronolithSearchAdvanced" type="button" value="+" class="button" />
+  </form>
+
   <div id="kronolithMenuCalendars">
   <h3 id="kronolithCalendarsFirst">
     <a href="#" class="kronolithAdd">+</a>
@@ -74,38 +105,6 @@
   </div>
   </div>
 
-  <div id="kronolithMenuBottom">
-  <div id="kronolithMinical" class="kronolithMinical">
-    <table cellspacing="1" cellpadding="0" border="0">
-    <caption>
-      <a id="kronolithMinicalPrev" title="<?php echo _("Previous month") ?>">&lt;</a>
-      <a id="kronolithMinicalNext" title="<?php echo _("Next month") ?>">&gt;</a>
-      <span id="kronolithMinicalDate"><?php echo $today->format('F Y') ?></span>
-    </caption>
-
-    <thead>
-      <tr>
-        <th class="kronolithMinicalEmpty">&nbsp;</th>
-        <?php for ($i = $prefs->getValue('week_start_monday'), $c = $i + 7; $i < $c; $i++): ?>
-        <th title="<?php echo Horde_Nls::getLangInfo(constant('DAY_' . ($i % 7 + 1))) ?>"><?php echo substr(Horde_Nls::getLangInfo(constant('DAY_' . ($i % 7 + 1))), 0, 1) ?></th>
-        <?php endfor; ?>
-      </tr>
-    </thead>
-
-    <tbody><tr><td></td></tr></tbody>
-    </table>
-  </div>
-
-  <h3 class="search">
-    <span><?php echo _("Search") ?></span>
-  </h3>
-
-  <form id="kronolithSearchForm" action="">
-    <input type="text" id="kronolithSearchTerm" />
-    <input id="kronolithSearchButton" type="button" value="OK" class="button ok" />
-    <input id="kronolithSearchAdvanced" type="button" value="+" class="button" />
-  </form>
-  </div>
 </div>
 <!-- end left menu -->
 

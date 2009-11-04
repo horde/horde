@@ -660,8 +660,6 @@ KronolithCore = {
         $('kronolithMinicalDate').store('date', date.dateString()).innerHTML = date.toString('MMMM yyyy');
 
         this.buildMinical($('kronolithMinical').down('tbody'), date, view);
-
-        $('kronolithMenuCalendars').setStyle({ 'bottom': $('kronolithMenuBottom').getHeight() + 'px' });
     },
 
     /**
