@@ -18,19 +18,6 @@ $save_attach = $GLOBALS['prefs']->getValue('save_attachments');
 /* Determine if compose mode is disabled. */
 $compose_disable = !IMP::canCompose();
 
-// Small utility function to simplify creating dimpactions buttons.
-// As of right now, we don't show text only links.
-function _createDAcompose($text, $image, $id)
-{
-    $params = array('icon' => $image, 'id' => $id);
-    if (!in_array($GLOBALS['prefs']->getValue('menu_view'), array('text', 'both'))) {
-        $params['tooltip'] = $text;
-    } else {
-        $params['title'] = $text;
-    }
-    echo '<div>' . IMP_Dimp::actionButton($params) . '</div>';
-}
-
 ?>
 <form id="compose" name="compose" enctype="multipart/form-data" action="compose-dimp.php" method="post" target="submit_frame">
 <?php echo Horde_Util::formInput() ?>
@@ -41,10 +28,10 @@ function _createDAcompose($text, $image, $id)
 
 <div class="dimpActions dimpActionsCompose">
 <?php if (!$compose_disable): ?>
- <?php _createDAcompose(_("Send"), 'Forward', 'send_button') ?>
+ <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Forward', 'id' => 'send_button', 'title' => _("Send"))); ?></div>
 <?php endif; ?>
- <?php _createDAcompose(_("Check Spelling"), 'Spellcheck', 'spellcheck') ?>
- <?php _createDAcompose(_("Save as Draft"), 'Drafts', 'draft_button') ?>
+ <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Spellcheck', 'id' => 'spellcheck', 'title' => _("Check Spelling"))); ?></div>
+ <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Drafts', 'id' => 'draft_button', 'title' => _("Save as Draft"))); ?></div>
 </div>
 
 <div id="writemsg" class="noprint">

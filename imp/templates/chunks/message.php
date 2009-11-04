@@ -1,43 +1,28 @@
 <?php
 /**
+ * Dynamic view (dimp) compose template.
+ *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
-
-$menu_view = $prefs->getValue('menu_view');
-$show_text = ($menu_view == 'text' || $menu_view == 'both');
-
-// Small utility function to simplify creating dimpactions buttons.
-// As of right now, we don't show text only links.
-function _createDAfmsg($text, $image, $id, $class = '', $show_text = true)
-{
-    $params = array('icon' => $image, 'id' => $id, 'class' => $class);
-    if ($show_text) {
-        $params['title'] = $text;
-    } else {
-        $params['tooltip'] = $text;
-    }
-    echo '<div>' . IMP_Dimp::actionButton($params) . '</div>';
-}
-
 ?>
 <div id="dimpLoading"><?php echo _("Loading...") ?></div>
 <div id="pageContainer" style="display:none">
  <div id="msgData">
   <div class="dimpActions dimpActionsMsg noprint">
    <div class="headercloseimg closeImg" id="windowclose" title="X"></div>
-   <?php _createDAfmsg(_("Reply"), 'Reply', 'reply_link', 'hasmenu', $show_text) ?>
-   <?php _createDAfmsg(_("Forward"), 'Forward', 'forward_link', '', $show_text) ?>
+   <div><?php echo IMP_Dimp::actionButton(array('class' => 'hasmenu', 'icon' => 'Reply', 'id' => 'reply_link', 'title' => _("Reply"))) ?></div>
+   <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Forward', 'id' => 'forward_link', 'title' => _("Forward"))) ?></div>
 <?php if (!empty($conf['spam']['reporting']) && (!$conf['spam']['spamfolder'] || ($folder != IMP::folderPref($prefs->getValue('spam_folder'), true)))): ?>
-   <?php _createDAfmsg(_("Report Spam"), 'Spam', 'button_spam', '', $show_text) ?>
+   <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Spam', 'id' => 'button_spam', 'title' => _("Report Spam"))) ?></div>
 <?php endif; ?>
 <?php if (!empty($conf['notspam']['reporting']) && (!$conf['notspam']['spamfolder'] || ($folder == IMP::folderPref($prefs->getValue('spam_folder'), true)))): ?>
-   <?php _createDAfmsg(_("Report Innocent"), 'Ham', 'button_ham', '', $show_text) ?>
+   <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Ham', 'id' => 'button_ham', 'title' => _("Report Innocent"))) ?></div>
 <?php endif; ?>
 <?php if (!$readonly): ?>
-   <?php _createDAfmsg(_("Delete"), 'Delete', 'button_deleted', '', $show_text) ?>
+   <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Delete', 'id' => 'button_deleted', 'title' => _("Delete"))) ?></div>
 <?php endif; ?>
   </div>
 

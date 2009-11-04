@@ -1,7 +1,14 @@
 <?php
+/**
+ * Dynamic view (dimp) index template.
+ *
+ * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ */
 
 $usetrash = $prefs->getValue('use_trash');
-$show_text = in_array($prefs->getValue('menu_view'), array('both', 'text'));
 $use_sub = $prefs->getValue('subscribe');
 
 $has_blacklist = $registry->hasMethod('mail/blacklistFrom');
@@ -13,20 +20,6 @@ $show_quota = (isset($_SESSION['imp']['quota']) && is_array($_SESSION['imp']['qu
 // Get the list of available IMAP flags
 $imp_flags = IMP_Imap_Flags::singleton();
 $flag_list = $imp_flags->getList(array('imap' => true));
-
-// Small utility functions to simplify creating dimpactions buttons.
-// As of right now, we don't show text only links.
-function _createDA($text, $image, $id = null, $class = '', $show_text = true,
-                   $div_text = '')
-{
-    $params = array('icon' => $image, 'id' => $id, 'class' => $class);
-    if ($show_text) {
-        $params['title'] = $text;
-    } else {
-        $params['tooltip'] = $text;
-    }
-    echo '<div' . $div_text . '>' . IMP_Dimp::actionButton($params) . '</div>';
-}
 
 function _simpleButton($id, $text, $image)
 {
@@ -175,18 +168,18 @@ function _simpleButton($id, $text, $image)
       </span>
       </div>
 <?php endif; ?>
-      <?php _createDA(_("Reply"), 'Reply', 'button_reply', 'noselectDisable', $show_text) ?>
-      <?php _createDA(_("Forward"), 'Forward', 'button_forward', 'noselectDisable', $show_text) ?>
+      <div><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Reply', 'id' => 'button_reply', 'title' => _("Reply"))) ?></div>
+      <div><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Forward', 'id' => 'button_forward', 'title' => _("Forward"))) ?></div>
 <?php if (!empty($conf['spam']['reporting'])): ?>
-      <?php _createDA(_("Spam"), 'Spam', 'button_spam', 'noselectDisable', $show_text) ?>
+      <div><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Spam', 'id' => 'button_spam', 'title' => _("Spam"))) ?></div>
 <?php endif; ?>
 <?php if (!empty($conf['notspam']['reporting'])): ?>
-      <?php _createDA(_("Innocent"), 'Ham', 'button_ham', 'noselectDisable', $show_text, ' style="display:none"') ?>
+      <div><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Ham', 'id' => 'button_ham', 'title' => _("Innocent"))) ?></div>
 <?php endif; ?>
-      <?php _createDA(_("Delete"), 'Delete', 'button_deleted', 'noselectDisable', $show_text) ?>
-      <?php _createDA(_("Compose"), 'Compose', '', '', $show_text, ' id="button_compose"') ?>
-      <?php _createDA(_("Get Mail"), 'Checkmail', '', '', $show_text, ' id="button_checkmail"') ?>
-      <?php _createDA(_("Other Actions"), 'Other', 'button_other', '', $show_text) ?>
+      <div><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Delete', 'id' => 'button_deleted', 'title' => _("Delete"))) ?></div>
+      <div id="button_compose"><?php echo IMP_Dimp::actionButton(array('icon' => 'Compose', 'title' => _("Compose"))) ?></div>
+      <div id="button_checkmail"><?php echo IMP_Dimp::actionButton(array('icon' => 'Checkmail', 'title' => _("Get Mail"))) ?></div>
+      <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Other', 'id' => 'button_other', 'title' => _("Other Actions"))) ?></div>
      </div>
 
      <div id="msglistHeader" class="item">

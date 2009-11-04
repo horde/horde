@@ -22,33 +22,21 @@ class IMP_Dimp
      * 'icon' - The icon CSS classname.
      * 'id' - The DOM ID of the link.
      * 'title' - The title string.
-     * 'tooltip' - Tooltip text to use.
      * </pre>
      *
      * @return string  An HTML link to $url.
      */
     static public function actionButton($params = array())
     {
-        $tooltip = (empty($params['tooltip'])) ? '' : $params['tooltip'];
-
-        if (empty($params['title'])) {
-            $old_error = error_reporting(0);
-            $tooltip = nl2br(htmlspecialchars($tooltip, ENT_QUOTES, Horde_Nls::getCharset()));
-            $title = $ak = '';
-        } else {
-            $title = $params['title'];
-            $ak = Horde::getAccessKey($title);
-        }
-
-        return Horde::link('', $tooltip,
+        return Horde::link('', '',
                            empty($params['class']) ? '' : $params['class'],
-                           '', '', '', $ak,
+                           '', '', '', Horde::getAccessKey($params['title']),
                            empty($params['id']) ? array() : array('id' => $params['id']),
-                           !empty($title))
+                           true)
             . (!empty($params['icon'])
                   ? '<span class="iconImg dimpaction' . $params['icon'] . '"></span>'
                   : '')
-            . $title . '</a>';
+            . $params['title'] . '</a>';
     }
 
     /**
