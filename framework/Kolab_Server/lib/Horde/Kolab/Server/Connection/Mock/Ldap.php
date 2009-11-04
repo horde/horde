@@ -160,34 +160,7 @@ class Horde_Kolab_Server_Connection_Mock_Ldap
             $filter = $this->parse($filter);
             $result = $this->doSearch($filter, $attributes);
         } else {
-            if (isset($params['scope'])) {
-                if ($params['scope'] == 'base') {
-                    if (isset($this->_data[$base])) {
-                        $result[] = $this->_data[$base];
-                    } else {
-                        $result = array();
-                    }
-                } else if ($params['scope'] == 'sub') {
-                    //@todo: separate function
-                    foreach (array_keys($this->_data) as $dn) {
-                        if (empty($attributes)) {
-                            $result[] = $this->_data[$dn];
-                        } else {
-                            $selection = $this->_data[$dn];
-                            foreach ($this->_data[$dn]['data']
-                                     as $attr => $value) {
-                                if (!in_array($attr, $attributes)) {
-                                    unset($selection['data'][$attr]);
-                                }
-                            }
-                            $result[] = $selection;
-                        }
-                    }
-                } else if ($params['scope'] == 'one') {
-                    throw new Horde_Kolab_Server_Exception('Not implemented!');
-                }
-            } else {
-                //@todo: separate function
+            if (!isset($params['scope']) || $params['scope'] == 'sub') {
                 foreach (array_keys($this->_data) as $dn) {
                     if (empty($attributes)) {
                         $result[] = $this->_data[$dn];
@@ -202,6 +175,14 @@ class Horde_Kolab_Server_Connection_Mock_Ldap
                         $result[] = $selection;
                     }
                 }
+            } else if ($params['scope'] == 'base') {
+                if (isset($this->_data[$base])) {
+                    $result[] = $this->_data[$base];
+                } else {
+                    $result = array();
+                }
+            } else if ($params['scope'] == 'one') {
+                throw new Horde_Kolab_Server_Exception('Not implemented!');
             }
         }
 
@@ -213,7 +194,7 @@ class Horde_Kolab_Server_Connection_Mock_Ldap
         if (!empty($base)) {
             $subtree = array();
             foreach ($result as $entry) {
-                if (strpos($entry['dn'], $base) !== false) {
+                if (preg_match('/' . $base . '$/', $entry['dn'])) {
                     $subtree[] = $entry;
                 }
             }
