@@ -59,6 +59,23 @@ class Horde_Auth_Shibboleth extends Horde_Auth_Base
     }
 
     /**
+     * Authentication stub.
+     *
+     * On failure, Horde_Auth_Exception should pass a message string (if any)
+     * in the message field, and the Horde_Auth::REASON_* constant in the code
+     * field (defaults to Horde_Auth::REASON_MESSAGE).
+     *
+     * @param string $userID      The userID to check.
+     * @param array $credentials  An array of login credentials.
+     *
+     * @throws Horde_Auth_Exception
+     */
+    protected function _authenticate($userId, $credentials)
+    {
+        throw new Horde_Auth_Exception('Not implemented!');
+    }
+
+    /**
      * Automatic authentication: Check if the username is set in the
      * configured header.
      *
