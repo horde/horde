@@ -51,6 +51,7 @@ class Horde_Kolab_Server_Object_Factory
             throw new Horde_Kolab_Server_Exception('Class definition of ' . $type . ' not found.');
         }
 
+        $object = new Horde_Kolab_Server_Object_Hash($object);
         return $object;
     }
 
