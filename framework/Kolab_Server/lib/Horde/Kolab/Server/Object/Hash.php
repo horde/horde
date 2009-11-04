@@ -42,7 +42,7 @@ implements Horde_Kolab_Server_Object_Interface
      * @param Horde_Kolab_Server_Object $object The represented object.
      */
     public function __construct(
-        Horde_Kolab_Server_Object $object
+        Horde_Kolab_Server_Object_Interface $object
     ) {
         $this->_object = $object;
     }
@@ -134,8 +134,9 @@ implements Horde_Kolab_Server_Object_Interface
     public function getSingle($attr)
     {
         $value = $this->getExternal($attr);
+        //@todo: Check if that can actually be something other than an array.
         if (is_array($value)) {
-            return array_pop($value);
+            return array_shift($value);
         } else {
             return $value;
         }
