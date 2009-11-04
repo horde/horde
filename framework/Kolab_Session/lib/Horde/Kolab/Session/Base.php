@@ -164,10 +164,10 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
      * @return NULL
      */
     private function _initMail(
-        Horde_Kolab_Server_Object_Interface $user
+        Horde_Kolab_Server_Object_Hash $user
     ) {
         try {
-            $this->_user_mail = $user->getExternal('Mail');
+            $this->_user_mail = $user->getSingle('mail');;
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
             $this->_user_mail = $this->_user_id;
         }
@@ -181,10 +181,10 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
      * @return NULL
      */
     private function _initUid(
-        Horde_Kolab_Server_Object_Interface $user
+        Horde_Kolab_Server_Object_Hash $user
     ) {
         try {
-            $this->_user_uid = $user->getExternal('Uid');
+            $this->_user_uid = $user->getExternal('uid');
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
             $this->_user_uid = $this->_user_id;
         }
@@ -198,7 +198,7 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
      * @return NULL
      */
     private function _initName(
-        Horde_Kolab_Server_Object_Interface $user
+        Horde_Kolab_Server_Object_Hash $user
     ) {
         try {
             $this->_user_name = $user->getExternal('Firstnamelastname');
@@ -215,10 +215,10 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
      * @return NULL
      */
     private function _initImapServer(
-        Horde_Kolab_Server_Object_Interface $user
+        Horde_Kolab_Server_Object_Hash $user
     ) {
         try {
-            $this->_imap_server = $user->getExternal('Kolabhomeserver');
+            $this->_imap_server = $user->getExternal('kolabHomeServer');
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
             if (isset($this->_params['imap']['server'])) {
                 $this->_imap_server = $this->_params['imap']['server'];
@@ -236,10 +236,10 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
      * @return NULL
      */
     private function _initFreebusyServer(
-        Horde_Kolab_Server_Object_Interface $user
+        Horde_Kolab_Server_Object_Hash $user
     ) {
         try {
-            $fb_server = $user->getExternal('Kolabfreebusyhost');
+            $fb_server = $user->getExternal('kolabFreebusyHost');
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
             if (isset($this->_params['freebusy']['url'])) {
                 $this->_freebusy_server = $this->_params['freebusy']['url'];
