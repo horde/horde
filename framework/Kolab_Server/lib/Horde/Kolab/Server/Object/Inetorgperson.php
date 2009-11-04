@@ -36,7 +36,7 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
      * @var array
      */
     static public $attributes = array(
-        'Uid', 'Mail','Firstnamelastname',
+        'uid', 'mail','Firstnamelastname',
 /*         'Organization', 'Businesscategory', 'Homephone', 'Mobile', */
 /*         'Photo', 'Jpegphoto', 'Givenname', 'Middlenames', */
 /*         'Homepostaladdress', 'Labeleduri', 'Lastnamefirstname', */
