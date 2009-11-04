@@ -145,6 +145,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
         <file name="Base.php" role="php" />
         <file name="Factory.php" role="php" />
         <file name="Groupofnames.php" role="php" />
+        <file name="Hash.php" role="php" />
         <file name="Inetorgperson.php" role="php" />
         <file name="Interface.php" role="php" />
         <file name="Kolab.php" role="php" />
@@ -421,6 +422,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Kolab/Server/Object/Base.php" as="Horde/Kolab/Server/Object/Base.php" />
    <install name="lib/Horde/Kolab/Server/Object/Factory.php" as="Horde/Kolab/Server/Object/Factory.php" />
    <install name="lib/Horde/Kolab/Server/Object/Groupofnames.php" as="Horde/Kolab/Server/Object/Groupofnames.php" />
+   <install name="lib/Horde/Kolab/Server/Object/Hash.php" as="Horde/Kolab/Server/Object/Hash.php" />
    <install name="lib/Horde/Kolab/Server/Object/Inetorgperson.php" as="Horde/Kolab/Server/Object/Inetorgperson.php" />
    <install name="lib/Horde/Kolab/Server/Object/Interface.php" as="Horde/Kolab/Server/Object/Interface.php" />
    <install name="lib/Horde/Kolab/Server/Object/Kolab.php" as="Horde/Kolab/Server/Object/Kolab.php" />
