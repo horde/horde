@@ -517,11 +517,11 @@ KronolithCore = {
                                   this._loadEventsCallback(r);
                               }.bind(this));
             }.bind(this) });
-            cell.down('.kronolithDay')
+            cell.store('date', dateString)
+                .down('.kronolithDay')
                 .store('date', dateString)
                 .innerHTML = day.getDate();
-            cell.down('.kronolithAddEvent')
-                .store('date', dateString);
+
             cell = cell.next();
             day.add(1).day();
         }
@@ -2111,11 +2111,6 @@ KronolithCore = {
                 e.stop();
                 return;
 
-            case 'kronolithAddEvent':
-                this.go('event:' + elt.retrieve('date'));
-                e.stop();
-                return;
-
             case 'kronolithEventTag':
                 $('kronolithEventTags').autocompleter.addNewItemNode(elt.getText());
                 e.stop();
@@ -2128,6 +2123,10 @@ KronolithCore = {
                 } else {
                     this.go('event:' + elt.retrieve('calendar') + ':' + elt.retrieve('eventid'));
                 }
+                e.stop();
+                return;
+            } else if (elt.hasClassName('kronolithMonthDay')) {
+                this.go('event:' + elt.retrieve('date'));
                 e.stop();
                 return;
             } else if (elt.hasClassName('kronolithWeekDay')) {
