@@ -30,14 +30,26 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_Class_SingletonTest extends Horde_Kolab_Session_SessionTestCase
+class Horde_Kolab_Session_Integration_SingletonTest extends Horde_Kolab_Session_SessionTestCase
 {
     public function setUp()
     {
         global $conf;
 
         /** Provide a minimal configuration for the server */
-        $conf['kolab']['ldap']['basedn'] = '';
+        $conf['kolab']['ldap']['basedn'] = 'dc=test';
+        $conf['kolab']['ldap']['mock']   = true;
+        $conf['kolab']['ldap']['data']   = array(
+            'dn=user,dc=test' => array(
+                'dn' => 'dn=user,dc=test',
+                'data' => array(
+                    'uid' => array('user'),
+                    'mail' => array('user@example.org'),
+                    'userPassword' => array('pass'),
+                    'objectClass' => array('top', 'kolabInetOrgPerson'),
+                )
+            )
+        );
     }
 
     public function testMethodSingletonHasResultHordekolabsession()
