@@ -11,7 +11,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Horde_Notification
  */
-interface Horde_Notification_Handler
+interface Horde_Notification_Handler_Interface
 {
     /**
      * Registers a listener with the notification object and includes

@@ -12,7 +12,7 @@
  * @package Horde_Notification
  */
 class Horde_Notification_Handler_Logged
-implements Horde_Notification_Handler
+implements Horde_Notification_Handler_Interface
 {
     /**
      * The notification handler decorated by this instance.
@@ -42,8 +42,10 @@ implements Horde_Notification_Handler
      *                                            common Logger here (PEAR Log,
      *                                            Horde_Log_Logger, or Zend_Log).
      */
-    public function __construct(Horde_Notification_Handler $handler, $logger)
-    {
+    public function __construct(
+        Horde_Notification_Handler_Interface $handler,
+        $logger
+    ) {
         $this->_handler = $handler;
         $this->_logger  = $logger;
     }

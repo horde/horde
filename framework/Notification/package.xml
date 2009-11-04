@@ -33,11 +33,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Notification">
-      <file name="Handler.php" role="php" />
       <dir name="Handler">
        <file name="Alarm.php" role="php" />
        <file name="Base.php" role="php" />
        <file name="Hordelog.php" role="php" />
+       <file name="Interface.php" role="php" />
        <file name="Logged.php" role="php" />
       </dir> <!-- /lib/Horde/Notification/Handler -->
       <dir name="Listener">
@@ -48,8 +48,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
       </dir> <!-- /lib/Horde/Notification/Listener -->
       <file name="Event.php" role="php" />
       <file name="Listener.php" role="php" />
-      <file name="Storage.php" role="php" />
       <dir name="Storage">
+       <file name="Interface.php" role="php" />
        <file name="Session.php" role="php" />
       </dir> <!-- /lib/Horde/Notification/Storage -->
      </dir> <!-- /lib/Horde/Notification -->
@@ -115,10 +115,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Notification/Handler.php" as="Horde/Notification/Handler.php" />
    <install name="lib/Horde/Notification/Handler/Alarm.php" as="Horde/Notification/Handler/Alarm.php" />
    <install name="lib/Horde/Notification/Handler/Base.php" as="Horde/Notification/Handler/Base.php" />
    <install name="lib/Horde/Notification/Handler/Hordelog.php" as="Horde/Notification/Handler/Hordelog.php" />
+   <install name="lib/Horde/Notification/Handler/Interface.php" as="Horde/Notification/Handler/Interface.php" />
    <install name="lib/Horde/Notification/Handler/Logged.php" as="Horde/Notification/Handler/Logged.php" />
    <install name="lib/Horde/Notification/Listener/Audio.php" as="Horde/Notification/Listener/Audio.php" />
    <install name="lib/Horde/Notification/Listener/Javascript.php" as="Horde/Notification/Listener/Javascript.php" />
@@ -126,7 +126,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Notification/Listener/Status.php" as="Horde/Notification/Listener/Status.php" />
    <install name="lib/Horde/Notification/Event.php" as="Horde/Notification/Event.php" />
    <install name="lib/Horde/Notification/Listener.php" as="Horde/Notification/Listener.php" />
-   <install name="lib/Horde/Notification/Storage.php" as="Horde/Notification/Storage.php" />
+   <install name="lib/Horde/Notification/Storage/Interface.php" as="Horde/Notification/Storage/Interface.php" />
    <install name="lib/Horde/Notification/Storage/Session.php" as="Horde/Notification/Storage/Session.php" />
    <install name="lib/Horde/Notification.php" as="Horde/Notification.php" />
    <install name="test/Horde/Notification/AllTests.php" as="Horde/Notification/AllTests.php" />

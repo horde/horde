@@ -12,7 +12,8 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Horde_Notification
  */
-class Horde_Notification_Handler_Base implements Horde_Notification_Handler
+class Horde_Notification_Handler_Base
+implements Horde_Notification_Handler_Interface
 {
     /**
      * Hash containing all attached listener objects.
@@ -41,8 +42,9 @@ class Horde_Notification_Handler_Base implements Horde_Notification_Handler
      *
      * @param Horde_Notification_Storage $storage The storage location to use.
      */
-    public function __construct(Horde_Notification_Storage $storage)
-    {
+    public function __construct(
+        Horde_Notification_Storage_Interface $storage
+    ) {
         $this->_storage = $storage;
     }
 

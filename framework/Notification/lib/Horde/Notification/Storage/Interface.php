@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Notification
  */
-interface Horde_Notification_Storage extends ArrayAccess
+interface Horde_Notification_Storage_Interface extends ArrayAccess
 {
     /**
      * Store a new event.

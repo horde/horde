@@ -12,7 +12,7 @@
  * @package Horde_Notification
  */
 class Horde_Notification_Handler_Hordelog
-implements Horde_Notification_Handler
+implements Horde_Notification_Handler_Interface
 {
     /**
      * The notification handler decorated by this instance.
@@ -28,8 +28,9 @@ implements Horde_Notification_Handler
      * @param Horde_Notification_Handler $handler The handler this instance
      *                                            provides with logging.
      */
-    public function __construct(Horde_Notification_Handler $handler)
-    {
+    public function __construct(
+        Horde_Notification_Handler_Interface $handler
+    ) {
         $this->_handler = $handler;
     }
 

@@ -11,7 +11,7 @@
  * @package Horde_Notification
  */
 class Horde_Notification_Handler_Alarm
-implements Horde_Notification_Handler
+implements Horde_Notification_Handler_Interface
 {
     /**
      * The notification handler decorated by this instance.
@@ -36,7 +36,7 @@ implements Horde_Notification_Handler
      * @param Horde_Alarm                $alarm   The alarm system to notify.
      */
     public function __construct(
-        Horde_Notification_Handler $handler,
+        Horde_Notification_Handler_Interface $handler,
         Horde_Alarm $alarm
     ) {
         $this->_handler = $handler;
