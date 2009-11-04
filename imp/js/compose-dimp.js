@@ -555,15 +555,17 @@ var DimpCompose = {
             n = $(n);
             ids.push(n.down('SPAN.remove').readAttribute('atc_id'));
             n.fade({
-                afterFinish: function() { n.remove(); },
+                afterFinish: function() {
+                    n.remove();
+                    this.resizeMsgArea();
+                }.bind(this),
                 duration: 0.4
             });
-        });
+        }, this);
         if (!$('attach_list').childElements().size()) {
             $('attach_list').hide();
         }
         DimpCore.doAction('DeleteAttach', { atc_indices: ids, imp_compose: $F('composeCache') });
-        this.resizeMsgArea();
     },
 
     resizeMsgArea: function()
