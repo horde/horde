@@ -895,7 +895,8 @@ class Kronolith
                 if (in_array($calendarId, $_temp)) {
                     $GLOBALS['display_external_calendars'][] = $calendarId;
                 } else {
-                    /* Convert Kronolith 2 preferences. */
+                    /* Convert Kronolith 2 preferences.
+                     * @todo: remove in Kronolith 3.1. */
                     list($oldid,) = explode('/', $id);
                     if (in_array($api . '/' . $oldid, $_temp)) {
                         $GLOBALS['display_external_calendars'][] = $calendarId;
