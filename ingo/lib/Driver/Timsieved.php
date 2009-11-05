@@ -71,8 +71,20 @@ class Ingo_Driver_Timsieved extends Ingo_Driver
             unset($this->_sieve);
             return $res;
         } else {
+            $this->_sieve->setDebug(true, array($this, '_debug'));
             return true;
         }
+    }
+
+    /**
+     * Routes the Sieve protocol log to the Horde log.
+     *
+     * @param Net_Sieve $sieve  A Net_Sieve object.
+     * @param string $message   The tracked Sieve communication.
+     */
+    function _debug($sieve, $message)
+    {
+        Horde::logMessage($message, __FILE__, __LINE__, PEAR_LOG_DEBUG);
     }
 
     /**

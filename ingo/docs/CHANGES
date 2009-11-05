@@ -10,6 +10,7 @@ v2.0-git
 v1.2.3-cvs
 ----------
 
+[jan] Log Sieve communication with DEBUG log level.
 [jan] Fix Oracle SQL scripts.
 [jan] Add Croatian translation (Matej Vela <matej.vela@carnet.hr>).
 [jan] Add PostgreSQL-specific upgrade script (Request #8630).
