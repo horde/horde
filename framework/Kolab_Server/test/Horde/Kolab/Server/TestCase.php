@@ -16,6 +16,10 @@
  */
 require_once dirname(__FILE__) . '/Autoload.php';
 
+require_once dirname(__FILE__) . '/Constraints/Restrictkolabusers.php';
+require_once dirname(__FILE__) . '/Constraints/Restrictgroups.php';
+require_once dirname(__FILE__) . '/Constraints/Searchuid.php';
+
 /**
  * Skip LDAP based tests if we don't have ldap or Net_LDAP2.
  *
@@ -48,5 +52,20 @@ class Horde_Kolab_Server_TestCase extends PHPUnit_Framework_TestCase
             $this->getMock('Horde_Kolab_Server_Search_Interface'),
             $this->getMock('Horde_Kolab_Server_Schema_Interface')
         );
+    }
+
+    public function isRestrictedToGroups()
+    {
+        return new Horde_Kolab_Server_Constraint_Restrictgroups();
+    }
+
+    public function isRestrictedToKolabUsers()
+    {
+        return new Horde_Kolab_Server_Constraint_Restrictedkolabusers();
+    }
+
+    public function isSearchingByUid()
+    {
+        return new Horde_Kolab_Server_Constraint_Searchuid();
     }
 }

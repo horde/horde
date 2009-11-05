@@ -40,7 +40,7 @@ extends Horde_Kolab_Server_Search_Operation_Restrictkolab
     public function searchGuidForUid($uid)
     {
         $criteria = new Horde_Kolab_Server_Query_Element_Equals(
-                'Uid', $uid
+            'uid', $uid
         );
         return parent::searchRestrictKolab($criteria);
     }

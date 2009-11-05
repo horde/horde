@@ -1,6 +1,6 @@
 <?php
 /**
- * Test the search operations restricted to Kolab users.
+ * Test the search operations by uid.
  *
  * PHP version 5
  *
@@ -17,7 +17,7 @@
 require_once dirname(__FILE__) . '/../../../../TestCase.php';
 
 /**
- * Test the search operations restricted to Kolab users.
+ * Test the search operations by uid.
  *
  * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
@@ -30,7 +30,7 @@ require_once dirname(__FILE__) . '/../../../../TestCase.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
-class Horde_Kolab_Server_Class_Server_Search_Operation_RestrictkolabTest
+class Horde_Kolab_Server_Class_Server_Search_Operation_GuidforuidTest
 extends Horde_Kolab_Server_TestCase
 {
     public function setUp()
@@ -47,12 +47,15 @@ extends Horde_Kolab_Server_TestCase
         $this->structure->expects($this->once())
             ->method('find')
             ->with(
-                $this->isRestrictedToKolabUsers(),
+                $this->logicalAnd(
+                    $this->isRestrictedToKolabUsers(),
+                    $this->isSearchingByUid()
+                ),
                 array('attributes' => 'guid')
             )
             ->will($this->returnValue($result));
-        $search = new Horde_Kolab_Server_Search_Operation_Restrictkolab($this->structure);
+        $search = new Horde_Kolab_Server_Search_Operation_Guidforuid($this->structure);
         $criteria = $this->getMock('Horde_Kolab_Server_Query_Element_Interface');
-        $this->assertEquals(array('a'), $search->searchRestrictkolab($criteria));
+        $this->assertEquals(array('a'), $search->searchGuidForUid('test'));
     }
 }
