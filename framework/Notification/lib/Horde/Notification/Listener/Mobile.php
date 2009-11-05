@@ -77,7 +77,7 @@ class Horde_Notification_Listener_Mobile extends Horde_Notification_Listener_Sta
     {
         if (!$this->_mobile) {
             $p = new Horde_Notification_Listener_Status();
-            return $p->notify($messageStack, $options);
+            return $p->getMessage($message, $options);
         }
 
         $event = $this->getEvent($message);
