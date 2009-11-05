@@ -41,6 +41,10 @@ class Horde_Auth_Kolab_Class_KolabTest extends PHPUnit_Framework_TestCase
 
         $this->session = $this->getMock('Horde_Kolab_Session');
         $this->factory = $this->getMock('Horde_Kolab_Session_Factory');
+
+        if (!defined('HORDE_BASE')) {
+            define('HORDE_BASE', '/nowhere');
+        }
     }
 
     public function testMethodSetsessionHasParameterSession()
@@ -65,11 +69,8 @@ class Horde_Auth_Kolab_Class_KolabTest extends PHPUnit_Framework_TestCase
         $auth->setSessionFactory($this->factory);
         $this->factory->expects($this->once())
             ->method('getSession')
-            ->with('user')
+            ->with('user', array('password' => 'test'))
             ->will($this->returnValue($this->session));
-        $this->session->expects($this->once())
-            ->method('connect')
-            ->with(array('password' => 'test'));
         $this->assertType(
             'Horde_Kolab_Session',
             $auth->getSession('user', array('password' => 'test'))
@@ -82,11 +83,8 @@ class Horde_Auth_Kolab_Class_KolabTest extends PHPUnit_Framework_TestCase
         $auth->setSessionFactory($this->factory);
         $this->factory->expects($this->once())
             ->method('getSession')
-            ->with('user')
+            ->with('user', array('password' => 'test'))
             ->will($this->returnValue($this->session));
-        $this->session->expects($this->once())
-            ->method('connect')
-            ->with(array('password' => 'test'));
         $this->assertTrue(
             $auth->authenticate('user', array('password' => 'test'), false)
         );
@@ -98,11 +96,8 @@ class Horde_Auth_Kolab_Class_KolabTest extends PHPUnit_Framework_TestCase
         $auth->setSessionFactory($this->factory);
         $this->factory->expects($this->once())
             ->method('getSession')
-            ->with('user')
+            ->with('user', array('password' => 'test'))
             ->will($this->returnValue($this->session));
-        $this->session->expects($this->once())
-            ->method('connect')
-            ->with(array('password' => 'test'));
         $this->session->expects($this->once())
             ->method('getMail')
             ->will($this->returnValue('mail@example.org'));
@@ -116,11 +111,7 @@ class Horde_Auth_Kolab_Class_KolabTest extends PHPUnit_Framework_TestCase
         $auth->setSessionFactory($this->factory);
         $this->factory->expects($this->once())
             ->method('getSession')
-            ->with('user')
-            ->will($this->returnValue($this->session));
-        $this->session->expects($this->once())
-            ->method('connect')
-            ->with(array('password' => 'test'))
+            ->with('user', array('password' => 'test'))
             ->will($this->throwException(new Horde_Kolab_Session_Exception('Error')));
         $auth->authenticate('user', array('password' => 'test'), false);
         $this->assertEquals(Horde_Auth::REASON_FAILED, Horde_Auth::getAuthError());
@@ -132,11 +123,7 @@ class Horde_Auth_Kolab_Class_KolabTest extends PHPUnit_Framework_TestCase
         $auth->setSessionFactory($this->factory);
         $this->factory->expects($this->once())
             ->method('getSession')
-            ->with('user')
-            ->will($this->returnValue($this->session));
-        $this->session->expects($this->once())
-            ->method('connect')
-            ->with(array('password' => 'test'))
+            ->with('user', array('password' => 'test'))
             ->will($this->throwException(new Horde_Kolab_Session_Exception_Badlogin('Error')));
         $auth->authenticate('user', array('password' => 'test'), false);
         $this->assertEquals(Horde_Auth::REASON_BADLOGIN, Horde_Auth::getAuthError());

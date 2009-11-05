@@ -84,8 +84,7 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
                     $userId, $credentials
                 );
             } else {
-                $this->_session = $this->_factory->getSession($userId);
-                $this->_session->connect($credentials);
+                $this->_session = $this->_factory->getSession($userId, $credentials);
             }
         }
         return $this->_session;

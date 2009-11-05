@@ -57,6 +57,10 @@ class Horde_Auth_Kolab_Integration_AuthTest extends PHPUnit_Framework_TestCase
             )
         );
         $this->factory = new Horde_Kolab_Session_Factory_Configuration($config);
+
+        if (!defined('HORDE_BASE')) {
+            define('HORDE_BASE', '/nowhere');
+        }
     }
 
     public function testKolabLoginViaUid()
