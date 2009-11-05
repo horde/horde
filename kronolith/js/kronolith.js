@@ -1899,18 +1899,8 @@ KronolithCore = {
                 e.stop();
                 return;
 
-            case 'id_fullday':
-                this.eventForm.select('.edit_at').each(Element.toggle);
-                e.stop();
-                return;
-
             case 'kronolithNewEvent':
                 this.go('event');
-                e.stop();
-                return;
-
-            case 'kronolithEventSave':
-                this.saveEvent();
                 e.stop();
                 return;
 
@@ -1933,6 +1923,42 @@ KronolithCore = {
             case 'kronolithQuickinsertCancel':
                 $('kronolithQuickinsert').fade();
                 $('kronolithQuickinsertQ').value = '';
+                e.stop();
+                return;
+
+            case 'kronolithEventAllday':
+                $('kronolithEventStartTimeLabel').setStyle({ 'visibility': $('kronolithEventStartTimeLabel').getStyle('visibility') == 'visible' ? 'hidden' : 'visible' });
+                $('kronolithEventEndTimeLabel').setStyle({ 'visibility': $('kronolithEventEndTimeLabel').getStyle('visibility') == 'visible' ? 'hidden' : 'visible' });
+                return;
+
+            case 'kronolithEventLinkDescription':
+            case 'kronolithEventLinkReminder':
+            case 'kronolithEventLinkRecur':
+            case 'kronolithEventLinkUrl':
+            case 'kronolithEventLinkAttendees':
+            case 'kronolithEventLinkTags':
+                $('kronolithEventDialog').select('.kronolithTabsOption').invoke('hide');
+                $(id.replace(/Link/, 'Tab')).show();
+                $('kronolithEventDialog').select('.kronolithTabs li').invoke('removeClassName', 'selected');
+                elt.parentNode.addClassName('selected');
+                e.stop();
+                return;
+
+            case 'kronolithEventLinkNone':
+            case 'kronolithEventLinkDaily':
+            case 'kronolithEventLinkWeekly':
+            case 'kronolithEventLinkMonthly':
+            case 'kronolithEventLinkYearly':
+            case 'kronolithEventLinkLength':
+                $('kronolithEventTabRecur').select('DIV').invoke('hide');
+                if (id != 'kronolithEventLinkNone') {
+                    $(id.replace(/Link/, 'Repeat')).show();
+                    $('kronolithEventRepeatLength').show();
+                }
+                return;
+
+            case 'kronolithEventSave':
+                this.saveEvent();
                 e.stop();
                 return;
 
@@ -2021,13 +2047,6 @@ KronolithCore = {
                     var date = orig.retrieve('date');
                     if (date) {
                         this.go('week:' + date);
-                        e.stop();
-                        return;
-                    }
-                } else if (orig.hasClassName('kronolithDay')) {
-                    var date = orig.retrieve('date');
-                    if (date) {
-                        this.go('day:' + date);
                         e.stop();
                         return;
                     }
@@ -2126,6 +2145,14 @@ KronolithCore = {
                 e.stop();
                 return;
             } else if (elt.hasClassName('kronolithMonthDay')) {
+                if (orig.hasClassName('kronolithDay')) {
+                    var date = orig.retrieve('date');
+                    if (date) {
+                        this.go('day:' + date);
+                        e.stop();
+                        return;
+                    }
+                }
                 this.go('event:' + elt.retrieve('date'));
                 e.stop();
                 return;
@@ -2219,6 +2246,7 @@ KronolithCore = {
             RedBox.onDisplay = null;
         };
 
+        this.updateCalendarDropDown('kronolithEventCalendars');
         $('kronolithEventTags').autocompleter.init();
         $('kronolithEventForm').enable();
         $('kronolithEventForm').reset();

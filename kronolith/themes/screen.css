@@ -514,6 +514,12 @@ span#kronolithQuickEvent {
     padding:  5px;
     margin: 5px 5px 5px 15px;
 }
+#kronolithQuickinsert label {
+    font-weight: bold;
+}
+.kronolithFormInfo {
+    font-style: italic;
+}
 
 /* Navigation bar */
 #kronolithBar {
@@ -599,13 +605,17 @@ span#kronolithQuickEvent {
 
 /* Event form dialog */
 #kronolithEventDialog {
-    width: 400px;
+    width: 700px;
     padding: 10px 20px;
     background: #efefef;
     border: 1px #c0c0c0 solid;
 }
 #kronolithEventDialog div {
     margin-bottom: 5px;
+}
+#kronolithEventDialog td {
+    padding-right: 10px;
+    vertical-align: top;
 }
 #kronolithEventForm label {
     font-weight: bold;
@@ -629,6 +639,12 @@ div#kronolithEventActions #kronolithEventAdvancedLink a {
     color: inherit;
 }
 
+#kronolithEventStartTime, #kronolithEventEndTime, .kronolithEventValue {
+    text-align: center;
+}
+#kronolithEventLocation {
+    width: 300px;
+}
 div#kronolithEventTopTags {
     max-height: 75px;
     overflow: auto;
@@ -645,6 +661,42 @@ div#kronolithEventTopTags span {
 div#kronolithEventTopTags span:hover {
     background-color: #ffc;
     cursor: pointer;
+}
+
+.kronolithTabs {
+    margin: 15px 0;
+    list-style: none;
+}
+.kronolithTabs li {
+    border: 1px solid #c0c0c0;
+    float: left;
+    height: 25px;
+    line-height: 25px;
+}
+.kronolithTabs a {
+    padding: 0 14px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.kronolithTabsOption {
+    line-height: 250%;
+}
+#kronolithEventTabAttendees td, #kronolithEventTabAttendees th {
+    padding: 1px;
+    width: 24px;
+    font-size: 85%;
+    line-height: 140%;
+}
+#kronolithEventTabAttendees th {
+    background-color: #fff;
+    text-align: center;
+}
+#kronolithEventTabAttendees th:first-child {
+    text-align: left;
+}
+#kronolithEventTabAttendees th.night {
+    background-color: #c0c0c0;
 }
 
 /* Mini calendar */
@@ -1202,6 +1254,11 @@ div.kronolithView div.kronolithViewBody div.kronolithRow div .kronolithEvent.kro
     left: 0;
     padding: 5px;
     overflow: hidden;
+}
+
+/* Redbox styles. */
+#RB_window {
+    top: 50px !important;
 }
 
 /* Tags */
