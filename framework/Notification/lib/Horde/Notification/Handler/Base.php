@@ -185,7 +185,7 @@ implements Horde_Notification_Handler_Interface
      */
     public function notify(array $options = array())
     {
-        $this->setNotificationListeners($options);
+        $options = $this->setNotificationListeners($options);
         $this->notifyListeners($options);
     }
 
@@ -196,7 +196,7 @@ implements Horde_Notification_Handler_Interface
      * @param array $options  An array containing display options for the
      *                        listeners.
      */
-    public function setNotificationListeners(array &$options)
+    public function setNotificationListeners(array $options)
     {
         if (!isset($options['listeners'])) {
             $options['listeners'] =  $this->getListeners();
@@ -204,6 +204,7 @@ implements Horde_Notification_Handler_Interface
             $options['listeners'] = array($options['listeners']);
         }
         $options['listeners'] = array_map(array('Horde_String', 'lower'), $options['listeners']);
+        return $options;
     }
 
     /**

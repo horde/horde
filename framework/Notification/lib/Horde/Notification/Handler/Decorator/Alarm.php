@@ -126,7 +126,7 @@ implements Horde_Notification_Handler_Interface
      */
     public function notify(array $options = array())
     {
-        $this->_handler->setNotificationListeners($options);
+        $options = $this->_handler->setNotificationListeners($options);
 
         if (in_array('status', $options['listeners'])) {
             $this->_alarm->notify(Horde_Auth::getAuth());
@@ -142,9 +142,9 @@ implements Horde_Notification_Handler_Interface
      * @param array $options  An array containing display options for the
      *                        listeners.
      */
-    public function setNotificationListeners(array &$options)
+    public function setNotificationListeners(array $options)
     {
-        $this->_handler->setNotificationListeners($options);
+        return $this->_handler->setNotificationListeners($options);
     }
 
     /**

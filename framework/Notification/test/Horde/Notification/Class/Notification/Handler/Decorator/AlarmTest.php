@@ -52,7 +52,8 @@ extends PHPUnit_Framework_TestCase
             ->with('');
         $this->handler->expects($this->once())
             ->method('setNotificationListeners')
-            ->with(array('listeners' => array('status')));
+            ->with(array('listeners' => array('status')))
+            ->will($this->returnValue(array('listeners' => array('status'))));
         $this->handler->expects($this->once())
             ->method('notifyListeners')
             ->with(array('listeners' => array('status')));
@@ -103,7 +104,8 @@ extends PHPUnit_Framework_TestCase
     {
         $this->handler->expects($this->once())
             ->method('setNotificationListeners')
-            ->with(array('listeners' => array('test')));
+            ->with(array('listeners' => array('test')))
+            ->will($this->returnValue(array('listeners' => array('test'))));
         $this->handler->expects($this->once())
             ->method('notifyListeners')
             ->with(array('listeners' => array('test')));

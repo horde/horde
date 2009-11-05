@@ -151,9 +151,9 @@ implements Horde_Notification_Handler_Interface
      * @param array $options  An array containing display options for the
      *                        listeners.
      */
-    public function setNotificationListeners(array &$options)
+    public function setNotificationListeners(array $options)
     {
-        $this->_handler->setNotificationListeners($options);
+        return $this->_handler->setNotificationListeners($options);
     }
 
     /**

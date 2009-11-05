@@ -91,7 +91,7 @@ interface Horde_Notification_Handler_Interface
      * @param array $options  An array containing display options for the
      *                        listeners.
      */
-    public function setNotificationListeners(array &$options);
+    public function setNotificationListeners(array $options);
 
     /**
      * Passes the message stack to all listeners and asks them to
