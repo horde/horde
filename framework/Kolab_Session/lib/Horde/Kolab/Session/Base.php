@@ -104,6 +104,13 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
     private $_storage;
 
     /**
+     * Indicate if this session was successfully connected.
+     *
+     * @var array
+     */
+    private $_connected = false;
+
+    /**
      * Constructor.
      *
      * @param string             $user_id The session will be setup for the user
@@ -154,6 +161,8 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
         $this->_initName($user_object);
         $this->_initImapServer($user_object);
         $this->_initFreebusyServer($user_object);
+
+        $this->_connected = true;
     }
 
     /**
@@ -354,6 +363,26 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
      */
     public function getStorage()
     {
-        throw new Horde_Kolab_Session_Exception('Not implemented!');
+        if (empty($this->_storage)) {
+            //@todo: factory?
+            $this->_storage = new Horde_Kolab_Storage(
+                'Imap',
+                //@todo: Use Session_Auth
+                array('hostspec' => $this->getImapServer(),
+                      'username' => Horde_Auth::getAuth(),
+                      'password' => Horde_Auth::getCredential('password'))
+            );
+        }
+        return $this->_storage;
+    }
+
+    /**
+     * Return the connection status of this session.
+     *
+     * @return boolean True if the session has been successfully connected.
+     */
+    public function isConnected()
+    {
+        return $this->_connected;
     }
 }

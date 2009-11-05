@@ -106,4 +106,11 @@ interface Horde_Kolab_Session
      * @return Horde_Kolab_Storage The storage connection.
      */
     public function getStorage();
+
+    /**
+     * Return the connection status of this session.
+     *
+     * @return boolean True if the session has been successfully connected.
+     */
+    public function isConnected();
 }

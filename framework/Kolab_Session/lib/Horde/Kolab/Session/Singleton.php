@@ -60,7 +60,9 @@ class Horde_Kolab_Session_Singleton
             $config['logger']  = Horde::getLogger();
             $factory = new Horde_Kolab_Session_Factory_Configuration($config);
             self::$_instance = $factory->getSession($user);
-            self::$_instance->connect($credentials);
+            if (!self::$_instance->isConnected()) {
+                self::$_instance->connect($credentials);
+            }
         }
         return self::$_instance;
     }

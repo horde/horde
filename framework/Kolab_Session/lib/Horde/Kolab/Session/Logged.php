@@ -168,4 +168,14 @@ class Horde_Kolab_Session_Logged implements Horde_Kolab_Session
     {
         return $this->_session->getStorage();
     }
+
+    /**
+     * Return the connection status of this session.
+     *
+     * @return boolean True if the session has been successfully connected.
+     */
+    public function isConnected()
+    {
+        return $this->_session->isConnected();
+    }
 }
