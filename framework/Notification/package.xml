@@ -84,7 +84,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
         </dir> <!-- /test/Horde/Notification/Class/Notification/Listener -->
        </dir> <!-- /test/Horde/Notification/Class/Notification -->
       </dir> <!-- /test/Horde/Notification/Class -->
-      <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Notification -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -146,7 +145,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="test/Horde/Notification/Class/Notification/Listener/JavascriptTest.php" as="Horde/Notification/Class/Notification/Listener/JavascriptTest.php" />
    <install name="test/Horde/Notification/Class/Notification/Listener/MobileTest.php" as="Horde/Notification/Class/Notification/Listener/MobileTest.php" />
    <install name="test/Horde/Notification/Class/Notification/Listener/StatusTest.php" as="Horde/Notification/Class/Notification/Listener/StatusTest.php" />
-   <install name="test/Horde/Notification/phpunit.xml" as="Horde/Notification/phpunit.xml" />
   </filelist>
  </phprelease>
  <changelog>
