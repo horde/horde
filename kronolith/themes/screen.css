@@ -1061,8 +1061,6 @@ div.kronolithView div.kronolithViewBody div.kronolithRow div div.kronolithMore a
     width: 15px;
     height: 15px;
     line-height: 15px;
-    margin: 0 2px 2px 0;
-    padding: 0;
     background-color: #fff;
     border-right: 1px solid #c0c0c0;
     border-bottom: 1px solid #c0c0c0;
@@ -1153,7 +1151,7 @@ div.kronolithView div.kronolithViewBody div.kronolithRow div .kronolithEvent.kro
     position: relative;
     width: auto;
     line-height: 15px;
-    margin: 0 2px 2px 0;
+    margin: 1px;
     padding: 2px 5px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
