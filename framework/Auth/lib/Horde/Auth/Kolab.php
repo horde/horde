@@ -19,14 +19,14 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
     /**
      * The session handler.
      *
-     * @var Horde_Kolab_Session
+     * @var Horde_Kolab_Session_Interface
      */
     private $_session;
 
     /**
      * The session factory.
      *
-     * @var Horde_Kolab_Session_Factory
+     * @var Horde_Kolab_Session_Factory_Interface
      */
     private $_factory;
 
@@ -48,11 +48,11 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
     /**
      * Set the session handler.
      *
-     * @param Horde_Kolab_Session $session The session handler.
+     * @param Horde_Kolab_Session_Interface $session The session handler.
      *
      * @return NULL
      */
-    public function setSession(Horde_Kolab_Session $session)
+    public function setSession(Horde_Kolab_Session_Interface $session)
     {
         $this->_session = $session;
     }
@@ -60,11 +60,11 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
     /**
      * Set the session factory.
      *
-     * @param Horde_Kolab_Session_Factory $factory The session factory.
+     * @param Horde_Kolab_Session_Factory_Interface $factory The session factory.
      *
      * @return NULL
      */
-    public function setSessionFactory(Horde_Kolab_Session_Factory $factory)
+    public function setSessionFactory(Horde_Kolab_Session_Factory_Interface $factory)
     {
         $this->_factory = $factory;
     }
@@ -72,7 +72,7 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
     /**
      * Retrieve a connected kolab session.
      *
-     * @return Horde_Kolab_Session The connected session.
+     * @return Horde_Kolab_Session_Interface The connected session.
      *
      * @throws Horde_Kolab_Session_Exception
      */

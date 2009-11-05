@@ -39,8 +39,8 @@ class Horde_Auth_Kolab_Class_KolabTest extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('The PEAR_LOG_DEBUG constant is not available!');
         }
 
-        $this->session = $this->getMock('Horde_Kolab_Session');
-        $this->factory = $this->getMock('Horde_Kolab_Session_Factory');
+        $this->session = $this->getMock('Horde_Kolab_Session_Interface');
+        $this->factory = $this->getMock('Horde_Kolab_Session_Factory_Interface');
 
         if (!defined('HORDE_BASE')) {
             define('HORDE_BASE', '/nowhere');
@@ -58,7 +58,7 @@ class Horde_Auth_Kolab_Class_KolabTest extends PHPUnit_Framework_TestCase
         $auth = new Horde_Auth_Kolab();
         $auth->setSession($this->session);
         $this->assertType(
-            'Horde_Kolab_Session',
+            'Horde_Kolab_Session_Interface',
             $auth->getSession('user', array('password' => 'test'))
         );
     }
@@ -72,7 +72,7 @@ class Horde_Auth_Kolab_Class_KolabTest extends PHPUnit_Framework_TestCase
             ->with('user', array('password' => 'test'))
             ->will($this->returnValue($this->session));
         $this->assertType(
-            'Horde_Kolab_Session',
+            'Horde_Kolab_Session_Interface',
             $auth->getSession('user', array('password' => 'test'))
         );
     }
