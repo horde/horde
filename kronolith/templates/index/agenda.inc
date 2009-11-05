@@ -4,7 +4,7 @@
     <span id="kronolithLoadingagenda" class="kronolithLoading"></span>
     <span id="kronolithAgendaDate"></span>
     <span class="kronolithNavigation">
-      <a class="kronolithGotoToday"><?php echo _("Today") ?></a>
+      <a class="kronolithGotoToday"><?php echo _("_Today") ?></a>
       <a title="<?php echo _("Previous") ?>" class="kronolithPrev">&lt;</a>
       <a title="<?php echo _("Next") ?>" class="kronolithNext">&gt;</a>
     </span>
@@ -12,7 +12,7 @@
   <tbody id="kronolithViewAgendaBody" class="kronolithViewBody">
     <tr id="kronolithAgendaTemplate" class="kronolithRow" style="display:none">
       <td class="kronolithFirstCol"></td>
-      <td class="kronolithCol">
+      <td>
       </td>
     </tr>
   </tbody>

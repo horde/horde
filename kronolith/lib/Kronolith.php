@@ -60,30 +60,24 @@ class Kronolith
     /**
      * Output everything for the AJAX interface up to but not including the
      * <body> tag.
-     *
-     * @param string $title   The title of the page.
-     * @param array $scripts  Any additional scripts that need to be loaded.
-     *                        Each entry contains the three elements necessary
-     *                        for a Horde::addScriptFile() call.
      */
-    public static function header($title, $scripts = array())
+    public static function header()
     {
         // Need to include script files before we start output
+        $datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
+        if (!file_exists($GLOBALS['registry']->get('jsfs') . '/' . $datejs)) {
+            $datejs = 'en-US.js';
+        }
         Horde::addScriptFile('effects.js', 'horde');
         Horde::addScriptFile('horde.js', 'horde');
         Horde::addScriptFile('dragdrop2.js', 'horde');
         Horde::addScriptFile('Growler.js', 'horde');
+        Horde::addScriptFile('dhtmlHistory.js', 'horde');
+        Horde::addScriptFile('redbox.js', 'horde');
+        Horde::addScriptFile('tooltips.js', 'horde');
         Horde::addScriptFile('kronolith.js', 'kronolith');
-
-        // Add other scripts now
-        foreach ($scripts as $val) {
-            call_user_func_array(array('Horde', 'addScriptFile'), $val);
-        }
-
-        $page_title = $GLOBALS['registry']->get('name');
-        if (!empty($title)) {
-            $page_title .= ' :: ' . $title;
-        }
+        Horde::addScriptFile($datejs, 'kronolith');
+        Horde::addScriptFile('date.js', 'kronolith');
 
         // No IE 8 code at the moment.
         header('X-UA-Compatible: IE=7');
@@ -96,7 +90,7 @@ class Kronolith
         echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">' . "\n" .
              (!empty($GLOBALS['language']) ? '<html lang="' . strtr($GLOBALS['language'], '_', '-') . '"' : '<html') . ">\n".
              "<head>\n" .
-             '<title>' . htmlspecialchars($page_title) . "</title>\n" .
+             '<title>' . htmlspecialchars($GLOBALS['registry']->get('name')) . "</title>\n" .
              '<link href="' . $GLOBALS['registry']->getImageDir() . "/favicon.ico\" rel=\"SHORTCUT ICON\" />\n".
              Horde::wrapInlineScript(self::includeJSVars());
 
@@ -148,15 +142,20 @@ class Kronolith
             // Turn debugging on?
             'debug' => !empty($conf['js']['debug']),
         );
-        foreach ($GLOBALS['all_calendars'] as $id => $calendar) {
-            $owner = $calendar->get('owner') == Horde_Auth::getAuth();
-            $code['conf']['calendars']['internal'][$id] = array(
-                'name' => ($owner ? '' : '[' . Horde_Auth::convertUsername($calendar->get('owner'), false) . '] ')
-                    . $calendar->get('name'),
-                'owner' => $owner,
-                'fg' => self::foregroundColor($calendar),
-                'bg' => self::backgroundColor($calendar),
-                'show' => in_array($id, $GLOBALS['display_calendars']));
+        foreach (array(true, false) as $my) {
+            foreach ($GLOBALS['all_calendars'] as $id => $calendar) {
+                $owner = $calendar->get('owner') == Horde_Auth::getAuth();
+                if (($my && $owner) || (!$my && !$owner)) {
+                    $code['conf']['calendars']['internal'][$id] = array(
+                        'name' => ($owner ? '' : '[' . Horde_Auth::convertUsername($calendar->get('owner'), false) . '] ')
+                            . $calendar->get('name'),
+                        'owner' => $owner,
+                        'fg' => self::foregroundColor($calendar),
+                        'bg' => self::backgroundColor($calendar),
+                        'show' => in_array($id, $GLOBALS['display_calendars']),
+                        'edit' => $calendar->hasPermission(Horde_Auth::getAuth(), PERMS_READ));
+                }
+            }
         }
         foreach ($GLOBALS['all_external_calendars'] as $api => $categories) {
             foreach ($categories as $id => $name) {
@@ -189,7 +188,9 @@ class Kronolith
             'ajax_timeout' => _("There has been no contact with the remote server for several minutes. The server may be temporarily unavailable or network problems may be interrupting your session. You will not see any updates until the connection is restored."),
             'ajax_recover' => _("The connection to the remote server has been restored."),
             'alarm' => _("Alarm:"),
-            'noalerts' => _("No Alerts"),
+            'noalerts' => _("No Notifications"),
+            'alerts' => str_replace('%d', '#{count}', _("%d notifications")),
+            'hidelog' => _("Hide Notifications"),
             'week' => str_replace('%d', '#{week}', _("Week %d")),
             'agenda' => _("Agenda"),
             'searching' => str_replace('%s', '#{term}', _("Events matching \"%s\"")),

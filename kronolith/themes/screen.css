@@ -381,7 +381,7 @@ body.kronolithAjax {
 }
 
 /* User data and options */
-#kronolithUser {
+#kronolithServices {
     float: right;
     margin-top: 8px;
     margin-right: 10px;
@@ -405,15 +405,12 @@ body.kronolithAjax {
 }
 #kronolithMenuCalendars {
     position: absolute;
-    top: 34px;
-    margin-bottom: 20px;
+    top: 295px;
+    bottom: 0;
+    width: 100%;
     overflow: auto;
     overflow-x: hidden;
     overflow-y: auto;
-}
-#kronolithMenuBottom {
-    position: absolute;
-    bottom: 0;
 }
 #kronolithMenu h3 {
     position: relative;
@@ -426,8 +423,18 @@ body.kronolithAjax {
     border-bottom: 1px #000 dotted;
     cursor: default;
 }
+#kronolithMenu h3.search {
+    top: 15px;
+}
+#kronolithSearchForm {
+    position: relative;
+    top: 15px;
+}
 #kronolithMenu h3#kronolithCalendarsFirst {
     margin-top: 0;
+}
+#kronolithMenu div#kronolithHolidayCalendars {
+    margin-bottom: 0;
 }
 #kronolithMenu a.kronolithAdd {
     position: absolute;
@@ -452,18 +459,33 @@ body.kronolithAjax {
 #kronolithMenu div.kronolithCalendars div.kronolithCalOver {
     text-decoration: underline;
 }
-
+#kronolithMenu div.kronolithCalendars .kronolithCalEdit {
+    float: right;
+    display: block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    border: 1px solid #c0c0c0;
+    background-color: #fff;
+    text-align: center;
+    cursor: pointer;
+}
 #kronolithAddEvents {
     margin-bottom: 18px;
 }
 #kronolithAddEvents span {
     /* We need some style here. */
-    margin-bottom: 5px;
-    padding-right: 10px;
+    float: left;
     font-weight: bold;
     cursor: pointer;
 }
+span#kronolithNewEvent {
+    width: 121px;
+    margin-right: 10px;
+    text-align: center;
+}
 span#kronolithQuickEvent {
+    width: 16px;
     background: transparent url("graphics/new.png") no-repeat;
     color: transparent;
 }
@@ -471,20 +493,19 @@ span#kronolithQuickEvent {
 #kronolithMenu form {
     padding: 0;
     margin: 0 0 5px 0;
-    line-height: 35px;
 }
-#kronolithSearch {
-    width: 146px;
+#kronolithSearchTerm {
+    width: 90px;
 }
 
 /* Quick edit */
 #kronolithQuickinsert {
     position: absolute;
     z-index: 110;
-    left: 105px;
+    left: 163px;
     top: 10px;
-    width: 250px;
-    height: 75px;
+    width: 350px;
+    height: auto;
     margin: 0;
     padding: 0;
     background: transparent url("graphics/back_quick.png") no-repeat left top;
@@ -493,8 +514,11 @@ span#kronolithQuickEvent {
     padding:  5px;
     margin: 5px 5px 5px 15px;
 }
-#kronolithQuickinsertQ {
-    width: 150px;
+#kronolithQuickinsert label {
+    font-weight: bold;
+}
+.kronolithFormInfo {
+    font-style: italic;
 }
 
 /* Navigation bar */
@@ -581,13 +605,17 @@ span#kronolithQuickEvent {
 
 /* Event form dialog */
 #kronolithEventDialog {
-    width: 400px;
+    width: 700px;
     padding: 10px 20px;
     background: #efefef;
     border: 1px #c0c0c0 solid;
 }
 #kronolithEventDialog div {
     margin-bottom: 5px;
+}
+#kronolithEventDialog td {
+    padding-right: 10px;
+    vertical-align: top;
 }
 #kronolithEventForm label {
     font-weight: bold;
@@ -611,6 +639,12 @@ div#kronolithEventActions #kronolithEventAdvancedLink a {
     color: inherit;
 }
 
+#kronolithEventStartTime, #kronolithEventEndTime, .kronolithEventValue {
+    text-align: center;
+}
+#kronolithEventLocation {
+    width: 300px;
+}
 div#kronolithEventTopTags {
     max-height: 75px;
     overflow: auto;
@@ -629,43 +663,50 @@ div#kronolithEventTopTags span:hover {
     cursor: pointer;
 }
 
-/* Context menu */
-.kronolithContextMenu {
+#kronolithEventDialog .tabset {
+    float: none;
     width: auto;
-    min-width: 150px;
-    padding: 2px;
-    position: absolute;
-    top: 0;
-    z-index: 1000;
-    background: #f4f4f4;
-    border: 1px #c0c0c0 solid;
-    color: #202020;
+    background: none;
+    margin: 15px 0;
 }
-.kronolithContextMenu a {
-    display: block;
-    height: 18px;
-    line-height: 18px;
-    padding: 2px 4px;
-    border: 1px #f4f4f4 solid;
-    color: #202020;
-    text-decoration: none;
-    white-space: nowrap;
+#kronolithEventDialog .tabset ul {
+    padding-left: 0;
+}
 
+.kronolithTabsOption {
+    line-height: 250%;
 }
-.kronolithContextMenu a:hover {
-    color: black;
-    text-decoration: none;
+#kronolithEventTabAttendees table {
+    border-collapse: collapse;
+    table-layout: fixed;
 }
-.kronolithContextMenu div.kronolithSeparator {
-    height: 1px;
-    line-height: 1px;
-    background: #d4d4d4;
-    margin-bottom: 1px;
+#kronolithEventTabAttendees td, #kronolithEventTabAttendees th {
+    border: 1px solid #c0c0c0;
+    padding: 1px;
+    width: 22px;
+    font-size: 85%;
+    line-height: 140%;
+}
+#kronolithEventTabAttendees td:first-child, #kronolithEventTabAttendees th:first-child {
+    width: 100px;
+    overflow: hidden;
+}
+#kronolithEventTabAttendees th {
+    text-align: center;
+}
+#kronolithEventTabAttendees th:first-child {
+    text-align: left;
+}
+#kronolithEventTabAttendees th.night {
+    background-color: #ccc;
 }
 
 /* Mini calendar */
 .kronolithMinical {
     position: relative;
+}
+#kronolithMinical {
+    top: 15px;
 }
 .kronolithMinical table {
     width: 100%;
@@ -844,7 +885,7 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
 #kronolithBody caption span {
     padding: 0;
 }
-#kronolithBody caption span.kronolithNavigation {
+#kronolithBody caption .kronolithNavigation {
     position: absolute;
     right: 2px;
     cursor: pointer;
@@ -906,19 +947,6 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
 .kronolithViewDay div.kronolithViewBody div.kronolithRow div {
     height: 41px;
 }
-.kronolithViewDay div.kronolithViewBody div.kronolithRow div.kronolithCol {
-    border-width: 1px 0;
-    margin-right: 0;
-}
-.kronolithViewDay div.kronolithViewBody div.kronolithRow div.kronolithCol.kronolithFirstField {
-    border-left-width: 1px;
-}
-.kronolithViewDay div.kronolithViewBody div.kronolithRow div.kronolithCol.kronolithLastField {
-    border-right-width: 1px;
-}
-.kronolithViewDay div.kronolithViewBody div.kronolithRow.kronolithAllDay div.kronolithCol {
-    border-width: 1px;
-}
 .kronolithViewDay td {
     height: 40px;
 }
@@ -971,6 +999,21 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
 /* Main view tasks. */
 #kronolithViewTasks caption {
     margin-left: 2px;
+}
+#kronolithViewTasks caption.tabset {
+    float: none;
+    width: auto;
+    background: none;
+}
+#kronolithViewTasks ul.kronolithNavigation {
+    display: inline;
+    margin: 2px 0 0 0;
+    padding: 0;
+}
+#kronolithViewTasks caption.tabset li a {
+    padding-top: 0;
+    padding-bottom: 0;
+    border-bottom-style: dotted;
 }
 #kronolithViewTasks tbody.kronolithViewBody td {
     padding: 4px 4px 4px 4px;
@@ -1071,8 +1114,6 @@ div.kronolithView div.kronolithViewBody div.kronolithRow div div.kronolithMore a
     width: 15px;
     height: 15px;
     line-height: 15px;
-    margin: 0 2px 2px 0;
-    padding: 0;
     background-color: #fff;
     border-right: 1px solid #c0c0c0;
     border-bottom: 1px solid #c0c0c0;
@@ -1163,7 +1204,7 @@ div.kronolithView div.kronolithViewBody div.kronolithRow div .kronolithEvent.kro
     position: relative;
     width: auto;
     line-height: 15px;
-    margin: 0 2px 2px 0;
+    margin: 1px;
     padding: 2px 5px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -1173,6 +1214,9 @@ div.kronolithView div.kronolithViewBody div.kronolithRow div .kronolithEvent.kro
     left: 0;
     right: 3px;
     height: 12px;
+}
+.kronolithEvent.kronolithEditable {
+    cursor: move;
 }
 .kronolithEvent.kronolithEditable .kronolithDragger {
     background: transparent url("graphics/drag-handle.png") center center no-repeat;
@@ -1211,6 +1255,11 @@ div.kronolithView div.kronolithViewBody div.kronolithRow div .kronolithEvent.kro
     left: 0;
     padding: 5px;
     overflow: hidden;
+}
+
+/* Redbox styles. */
+#RB_window {
+    top: 50px !important;
 }
 
 /* Tags */
