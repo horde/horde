@@ -219,8 +219,12 @@ implements Horde_Notification_Handler_Interface
     {
         foreach ($options['listeners'] as $listener) {
             if (isset($this->_listeners[$listener])) {
-                $stack = $this->_storage->get($this->_listeners[$listener]->getName());
-                $this->_listeners[$listener]->notify($stack, $options);
+                $this->_listeners[$listener]->notify(
+                    $this->_storage->get(
+                        $this->_listeners[$listener]->getName()
+                    ),
+                    $options
+                );
             }
         }
     }
