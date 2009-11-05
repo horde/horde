@@ -682,21 +682,29 @@ div#kronolithEventTopTags span:hover {
 .kronolithTabsOption {
     line-height: 250%;
 }
+#kronolithEventTabAttendees table {
+    border-collapse: collapse;
+    table-layout: fixed;
+}
 #kronolithEventTabAttendees td, #kronolithEventTabAttendees th {
+    border: 1px solid #c0c0c0;
     padding: 1px;
-    width: 24px;
+    width: 22px;
     font-size: 85%;
     line-height: 140%;
 }
+#kronolithEventTabAttendees td:first-child, #kronolithEventTabAttendees th:first-child {
+    width: 100px;
+    overflow: hidden;
+}
 #kronolithEventTabAttendees th {
-    background-color: #fff;
     text-align: center;
 }
 #kronolithEventTabAttendees th:first-child {
     text-align: left;
 }
 #kronolithEventTabAttendees th.night {
-    background-color: #c0c0c0;
+    background-color: #ccc;
 }
 
 /* Mini calendar */

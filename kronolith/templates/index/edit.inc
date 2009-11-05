@@ -159,14 +159,14 @@
       </tr>
     </thead>
     <tbody>
-      <?php for ($p = 0; $p < count($part); $p++): ?>
+      <?php foreach ($part as $p): ?>
       <tr>
-        <td><?php echo strlen($part[$p]) > 15 ? substr($part[$p], 0, 13) . '...' : $part[$p] ?></td>
+        <td title="<?php echo $p ?>"><?php echo $p ?></td>
         <?php for ($i = 0; $i < 24; $i++): ?>
         <td></td>
         <?php endfor; ?>
       </tr>
-      <?php endfor; ?>
+      <?php endforeach; ?>
     </tbody>
   </table>
 </div>
