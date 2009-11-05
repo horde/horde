@@ -32,6 +32,17 @@ require TEST_TEMPLATES . 'version.inc';
 $php_info = $horde_test->getPhpVersionInformation();
 require TEST_TEMPLATES . 'php_version.inc';
 
+/* PHP module capabilities. */
+$module_list = array(
+    'pdo' => array(
+        'descrip' => 'PDO',
+        'error' => 'The tagging capabilites require either the PDO or mysqli extension.'),
+    'mysqli' => array(
+        'descrip' => 'mysqli',
+        'error' => 'The tagging capabilites require either the PDO or mysqli extension.')
+);
+$module_output = $horde_test->phpModuleCheck($module_list);
+
 /* PEAR */
 $pear_list = array(
     'Date' => array(
@@ -52,6 +63,11 @@ $pear_list = array(
 );
 
 ?>
+<h1>PHP Module Capabilities</h1>
+<ul>
+    <?php echo $horde_test->phpModuleCheck($module_list); ?>
+</ul>
+
 <h1>PEAR Modules</h1>
 <ul>
     <?php echo $horde_test->PEARModuleCheck($pear_list) ?>
