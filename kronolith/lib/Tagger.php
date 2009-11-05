@@ -41,6 +41,9 @@ class Kronolith_Tagger
         $GLOBALS['conf']['sql']['adapter'] = $GLOBALS['conf']['sql']['phptype'] == 'mysqli'
             ? 'mysqli'
             : 'pdo_' . $GLOBALS['conf']['sql']['phptype'];
+        if (!empty($GLOBALS['conf']['sql']['params']['hostspec'])) {
+            $GLOBALS['conf']['sql']['params']['host'] = $GLOBALS['conf']['sql']['params']['hostspec'];
+        }
 
         $context = array('dbAdapter' => Horde_Db_Adapter::factory($GLOBALS['conf']['sql']));
         $user_mgr = new Content_Users_Manager($context);
