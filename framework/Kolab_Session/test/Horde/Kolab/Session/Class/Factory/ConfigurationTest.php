@@ -210,7 +210,19 @@ class Horde_Kolab_Session_Class_Factory_ConfigurationTest extends Horde_Kolab_Se
         $factory = new Horde_Kolab_Session_Factory_Configuration(
             array(
                 'server' => array(
-                    'basedn' => ''
+                    'mock' => true,
+                    'basedn' => '',
+                    'data' => array(
+                        'dn=user' => array(
+                            'dn' => 'dn=user',
+                            'data' => array(
+                                'uid' => array(''),
+                                'mail' => array('user@example.org'),
+                                'userPassword' => array(''),
+                                'objectClass' => array('top', 'kolabInetOrgPerson'),
+                            )
+                        )
+                    )
                 )
             )
         );

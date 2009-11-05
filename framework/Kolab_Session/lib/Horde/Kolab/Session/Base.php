@@ -104,13 +104,6 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
     private $_storage;
 
     /**
-     * Indicate if this session was successfully connected.
-     *
-     * @var array
-     */
-    private $_connected = false;
-
-    /**
      * Constructor.
      *
      * @param string             $user_id The session will be setup for the user
@@ -144,12 +137,12 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
         if (isset($credentials['password'])) {
             $password = $credentials['password'];
         } else {
-            throw new Horde_Kolab_Session_Exception('Missing password!');
+            $password = '';
         }
 
         try {
             $this->_server->connect($this->_user_id, $password);
-            $user_object     = $this->_server->objects->fetch();
+            $user_object = $this->_server->objects->fetch();
         } catch (Horde_Kolab_Server_Exception_Bindfailed $e) {
             throw new Horde_Kolab_Session_Exception_Badlogin($e);
         } catch (Horde_Kolab_Server_Exception $e) {
@@ -374,15 +367,5 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session
             );
         }
         return $this->_storage;
-    }
-
-    /**
-     * Return the connection status of this session.
-     *
-     * @return boolean True if the session has been successfully connected.
-     */
-    public function isConnected()
-    {
-        return $this->_connected;
     }
 }

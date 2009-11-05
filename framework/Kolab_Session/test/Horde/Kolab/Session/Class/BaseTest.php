@@ -162,18 +162,6 @@ class Horde_Kolab_Session_Class_BaseTest extends Horde_Kolab_Session_SessionTest
         $this->assertEquals('https://freebusy.example.org/fb', $session->getFreebusyServer());
     }
 
-    public function testMethodConnectThrowsExceptionIfTheCredentialsHaveNoPasswordEntry()
-    {
-        $session = new Horde_Kolab_Session_Base(
-            'user', $this->_getComposite(), array()
-        );
-        try {
-            $session->connect(array());
-        } catch (Horde_Kolab_Session_Exception $e) {
-            $this->assertEquals('Missing password!', $e->getMessage());
-        }
-    }
-
     public function testMethodConnectThrowsExceptionIfTheConnectionFailed()
     {
         $composite = $this->_getMockedComposite();

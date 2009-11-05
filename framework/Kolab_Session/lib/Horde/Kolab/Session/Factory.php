@@ -94,9 +94,11 @@ interface Horde_Kolab_Session_Factory
      * Returns either a reference to a session handler with data retrieved from
      * the session or a new session handler.
      *
-     * @param string $user The session will be setup for the user with this ID.
+     * @param string $user        The session will be setup for the user with
+     *                            this ID.
+     * @param array  $credentials An array of login credentials.
      *
      * @return Horde_Kolab_Session The concrete Kolab session reference.
      */
-    public function getSession($user = null);
+    public function getSession($user = null, array $credentials = null);
 }
