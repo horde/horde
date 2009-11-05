@@ -128,7 +128,8 @@ extends Horde_Kolab_Session_Factory_Base
      * definition. This should usually be done by an external setup method
      * before constructing the session injcetion factory.
      *
-     * @param Horde_Injector $injector The injector to seed with the mock configuration.
+     * @param Horde_Injector $injector The injector to seed with the mock
+     *                                 configuration.
      *
      * @return NULL
      */
@@ -151,7 +152,9 @@ extends Horde_Kolab_Session_Factory_Base
      */
     public function getServer()
     {
-        return $this->_injector->getInstance('Horde_Kolab_Server_Composite_Interface');
+        return $this->_injector->getInstance(
+            'Horde_Kolab_Server_Composite_Interface'
+        );
     }
 
     /**
