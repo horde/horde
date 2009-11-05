@@ -8,9 +8,12 @@
  *
  * @package Kronolith
  */
+
+// NOTE: Still need this here in addition to base.php to avoid having to fully
+// initialize kronolith for each autocomplete ajax request.
+Horde_Autoloader::addClassPattern('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/');
 class Kronolith_Tagger
 {
-
     /**
      * Local cache of the type name => ids from Content, so we don't have to
      * query for them each time.
