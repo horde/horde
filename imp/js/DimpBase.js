@@ -925,14 +925,21 @@ var DimpBase = {
 
     sort: function(e)
     {
+        var s,
+            sortby = e.element().retrieve('sortby');
+
+        if (Object.isUndefined(sortby)) {
+            return;
+        }
+
+        e.stop();
+
         // Don't change sort if we are past the sortlimit
         if (this.viewport.getMetaData('sortlimit')) {
             return;
         }
 
-        var s,
-            sortby = Number(e.element().retrieve('sortby'));
-
+        sortby = Number(sortby);
         if (sortby == this.viewport.getMetaData('sortby')) {
             s = { sortdir: (this.viewport.getMetaData('sortdir') ? 0 : 1) };
             this.viewport.setMetaData({ sortdir: s.sortdir });
@@ -1741,7 +1748,6 @@ var DimpBase = {
 
             case 'msglistHeader':
                 this.sort(e);
-                e.stop();
                 return;
 
             case 'th_expand':
