@@ -81,8 +81,8 @@ implements Horde_Notification_Handler_Interface
 
         if (class_exists($class)) {
             $this->_listeners[$listener] = new $class($params);
-            if (!isset($this->_storage[$listener])) {
-                $this->_storage[$listener] = array();
+            if (!$this->_storage->exists($listener)) {
+                $this->_storage->set($listener, array());
             }
             return $this->_listeners[$listener];
         }
@@ -105,8 +105,9 @@ implements Horde_Notification_Handler_Interface
             throw new Horde_Exception(sprintf('Notification listener %s not found.', $listener));
         }
 
-        $list = $this->_listeners[$listener];
-        unset($this->_listeners[$listener], $this->_storage[$list->getName()]);
+        $listener_instance = $this->_listeners[$listener];
+        unset($this->_listeners[$listener]);
+        $this->_storage->clear($listener_instance->getName());
     }
 
     /**
@@ -218,9 +219,8 @@ implements Horde_Notification_Handler_Interface
     {
         foreach ($options['listeners'] as $listener) {
             if (isset($this->_listeners[$listener])) {
-                $stack = $this->_storage[$this->_listeners[$listener]->getName()];
+                $stack = $this->_storage->get($this->_listeners[$listener]->getName());
                 $this->_listeners[$listener]->notify($stack, $options);
-                $this->_storage[$this->_listeners[$listener]->getName()] = $stack;
             }
         }
     }
@@ -239,13 +239,13 @@ implements Horde_Notification_Handler_Interface
         if (is_null($my_listener)) {
             $count = 0;
             foreach ($this->_listeners as $listener) {
-                if (isset($this->_storage[$listener->getName()])) {
-                    $count += count($this->_storage[$listener->getName()]);
+                if ($this->_storage->exists($listener->getName())) {
+                    $count += count($this->_storage->get($listener->getName()));
                 }
             }
             return $count;
         } else {
-            return @count($this->_storage[$this->_listeners[Horde_String::lower($my_listener)]->getName()]);
+            return @count($this->_storage->get($this->_listeners[Horde_String::lower($my_listener)]->getName()));
         }
     }
 

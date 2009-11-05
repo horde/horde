@@ -51,56 +51,56 @@ implements Horde_Notification_Storage_Interface
     }
 
     /**
-     * Return the given value from the notification store.
+     * Return the given stack by reference from the notification store.
      *
      * @param string $key The key for the data.
      *
      * @return mixed The notification data stored for the given key.
      */
-    public function offsetGet($key)
+    public function &get($key)
     {
         return $_SESSION[$this->_stack][$key];
     }
 
     /**
-     * Set the given value in the notification store.
+     * Set the given stack in the notification store.
      *
      * @param string $key   The key for the data.
      * @param mixed  $value The data.
      *
      * @return NULL
      */
-    public function offsetSet($key, $value)
+    public function set($key, $value)
     {
         $_SESSION[$this->_stack][$key] = $value;
     }
 
     /**
-     * Is the given key set in the notification store?
+     * Is the given stack present in the notification store?
      *
      * @param string $key The key of the data.
      *
      * @return boolean True if the element is set, false otherwise.
      */
-    public function offsetExists($key)
+    public function exists($key)
     {
         return isset($_SESSION[$this->_stack][$key]);
     }
 
     /**
-     * Unset the given key set in the notification store.
+     * Unset the given stack in the notification store.
      *
      * @param string $key The key of the data.
      *
      * @return NULL
      */
-    public function offsetUnset($key)
+    public function clear($key)
     {
         unset($_SESSION[$this->_stack][$key]);
     }
 
     /**
-     * Store a new event for the given listener name.
+     * Store a new event for the given listener stack.
      *
      * @param string $listener The event will be stored for this listener.
      * @param array  $event    The event to store.
