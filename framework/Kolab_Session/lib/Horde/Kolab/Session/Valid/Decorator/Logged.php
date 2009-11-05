@@ -25,12 +25,13 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_Valid_Logged implements Horde_Kolab_Session_Valid
+class Horde_Kolab_Session_Valid_Decorator_Logged
+implements Horde_Kolab_Session_Valid_Interface
 {
     /**
      * The valid handler.
      *
-     * @var Horde_Kolab_Session_Valid
+     * @var Horde_Kolab_Session_Valid_Interface
      */
     private $_valid;
 
@@ -47,11 +48,13 @@ class Horde_Kolab_Session_Valid_Logged implements Horde_Kolab_Session_Valid
      * The provided logger class needs to implement the methods info() and
      * err().
      *
-     * @param Horde_Kolab_Session_Valid $valid  The validator.
-     * @param mixed                     $logger The logger instance.
+     * @param Horde_Kolab_Session_Valid_Interface $valid  The validator.
+     * @param mixed                               $logger The logger instance.
      */
-    public function __construct(Horde_Kolab_Session_Valid $valid, $logger)
-    {
+    public function __construct(
+        Horde_Kolab_Session_Valid_Interface $valid,
+        $logger
+    ) {
         $this->_valid  = $valid;
         $this->_logger = $logger;
     }
@@ -85,7 +88,8 @@ class Horde_Kolab_Session_Valid_Logged implements Horde_Kolab_Session_Valid
     /**
      * Return the session this validator checks.
      *
-     * @return Horde_Kolab_Session The session checked by this validator.
+     * @return Horde_Kolab_Session_Interface The session checked by this
+     * validator.
      */
     public function getSession()
     {
@@ -95,7 +99,8 @@ class Horde_Kolab_Session_Valid_Logged implements Horde_Kolab_Session_Valid
     /**
      * Return the auth driver of this validator.
      *
-     * @return Horde_Kolab_Session_Auth The auth driver set for this validator.
+     * @return Horde_Kolab_Session_Auth_Interface The auth driver set for this
+     * validator.
      */
     public function getAuth()
     {

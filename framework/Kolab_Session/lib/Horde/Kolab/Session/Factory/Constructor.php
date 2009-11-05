@@ -31,14 +31,14 @@ extends Horde_Kolab_Session_Factory_Base
     /**
      * The connection to the Kolab user db.
      *
-     * @var Horde_Kolab_Server_Composite
+     * @var Horde_Kolab_Server_Composite_Interface
      */
     private $_server;
 
     /**
      * The auth handler for the session.
      *
-     * @var Horde_Kolab_Session_Auth
+     * @var Horde_Kolab_Session_Auth_Interface
      */
     private $_auth;
 
@@ -52,27 +52,28 @@ extends Horde_Kolab_Session_Factory_Base
     /**
      * The storage handler for the session.
      *
-     * @var Horde_Kolab_Session_Storage
+     * @var Horde_Kolab_Session_Storage_Interface
      */
     private $_storage;
 
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Server_Composite $server  The connection to the Kolab
-     *                                              user db.
-     * @param Horde_Kolab_Session_Auth     $auth    The auth handler for the
-     *                                              session.
-     * @param array                        $config  Configuration parameters for
-     *                                              the session.
-     * @param Horde_Kolab_Session_Storage  $storage The storage handler for the
-     *                                              session.
+     * @param Horde_Kolab_Server_Composite_Interface $server  The connection to the
+     *                                                        Kolab user db.
+     * @param Horde_Kolab_Session_Auth_Interface     $auth    The auth handler for
+     *                                                        the session.
+     * @param array                                  $config  Configuration
+     *                                                        parameters for the
+     *                                                        session.
+     * @param Horde_Kolab_Session_Storage_Interface  $storage The storage handler
+     *                                                        for the session.
      */
     public function __construct(
         Horde_Kolab_Server_Composite_Interface $server,
-        Horde_Kolab_Session_Auth $auth,
+        Horde_Kolab_Session_Auth_Interface $auth,
         array $config,
-        Horde_Kolab_Session_Storage $storage
+        Horde_Kolab_Session_Storage_Interface $storage
     ) {
         $this->_server        = $server;
         $this->_auth          = $auth;
@@ -93,7 +94,7 @@ extends Horde_Kolab_Session_Factory_Base
     /**
      * Return the auth handler for sessions.
      *
-     * @return Horde_Kolab_Session_Auth The authentication handler.
+     * @return Horde_Kolab_Session_Auth_Interface The authentication handler.
      */
     public function getSessionAuth()
     {
@@ -113,7 +114,7 @@ extends Horde_Kolab_Session_Factory_Base
     /**
      * Return the session storage driver.
      *
-     * @return Horde_Kolab_Session_Storage The driver for storing sessions.
+     * @return Horde_Kolab_Session_Storage_Interface The driver for storing sessions.
      */
     public function getSessionStorage()
     {

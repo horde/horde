@@ -31,7 +31,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-interface Horde_Kolab_Session_Valid
+interface Horde_Kolab_Session_Valid_Interface
 {
     /**
      * Does the current session still match the authentication information?
@@ -47,14 +47,16 @@ interface Horde_Kolab_Session_Valid
     /**
      * Return the session this validator checks.
      *
-     * @return Horde_Kolab_Session The session checked by this validator.
+     * @return Horde_Kolab_Session_Interface The session checked by this
+     * validator.
      */
     public function getSession();
 
     /**
      * Return the auth driver of this validator.
      *
-     * @return Horde_Kolab_Session_Auth The auth driver set for this validator.
+     * @return Horde_Kolab_Session_Auth_Interface The auth driver set for this
+     * validator.
      */
     public function getAuth();
 }

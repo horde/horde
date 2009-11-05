@@ -51,7 +51,7 @@ class Horde_Kolab_Session_Class_Factory_InjectorTest extends Horde_Kolab_Session
         $factory = new Horde_Kolab_Session_Factory_Injector(
             array('server' => array()), $this->injector
         );
-        $this->assertType('Horde_Kolab_Session_Auth', $factory->getSessionAuth());
+        $this->assertType('Horde_Kolab_Session_Auth_Interface', $factory->getSessionAuth());
     }
 
     public function testMethodGetsessionconfigurationHasResultArray()
@@ -67,6 +67,6 @@ class Horde_Kolab_Session_Class_Factory_InjectorTest extends Horde_Kolab_Session
         $factory = new Horde_Kolab_Session_Factory_Injector(
             array('server' => array()), $this->injector
         );
-        $this->assertType('Horde_Kolab_Session_Storage', $factory->getSessionStorage());
+        $this->assertType('Horde_Kolab_Session_Storage_Interface', $factory->getSessionStorage());
     }
 }

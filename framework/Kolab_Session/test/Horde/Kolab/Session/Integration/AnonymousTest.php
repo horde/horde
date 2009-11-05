@@ -52,7 +52,7 @@ class Horde_Kolab_Session_Integration_AnonymousTest extends Horde_Kolab_Session_
         $session = new Horde_Kolab_Session_Base(
             '', $composite, array()
         );
-        $anonymous = new Horde_Kolab_Session_Anonymous(
+        $anonymous = new Horde_Kolab_Session_Decorator_Anonymous(
             $session, 'anonymous', 'pass'
         );
         $anonymous->connect();

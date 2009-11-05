@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
 class Horde_Kolab_Session_Factory_Configuration
-implements Horde_Kolab_Session_Factory
+implements Horde_Kolab_Session_Factory_Interface
 {
     /**
      * Configuration parameters for the session.
@@ -70,7 +70,7 @@ implements Horde_Kolab_Session_Factory
         );
 
         if (isset($config['logger'])) {
-            $factory = new Horde_Kolab_Session_Factory_Logged(
+            $factory = new Horde_Kolab_Session_Factory_Decorator_Logged(
                 $factory, $config['logger']
             );
         }
@@ -78,7 +78,7 @@ implements Horde_Kolab_Session_Factory
         if (isset($config['session']['anonymous']['user'])
             && isset($config['session']['anonymous']['pass'])
         ) {
-            $factory = new Horde_Kolab_Session_Factory_Anonymous(
+            $factory = new Horde_Kolab_Session_Factory_Decorator_Anonymous(
                 $factory,
                 $config['session']['anonymous']['user'],
                 $config['session']['anonymous']['pass']
@@ -137,8 +137,8 @@ implements Horde_Kolab_Session_Factory
      * @return Horde_Kolab_Session_Valid The driver for validating sessions.
      */
     public function getSessionValidator(
-        Horde_Kolab_Session $session,
-        Horde_Kolab_Session_Auth $auth
+        Horde_Kolab_Session_Interface $session,
+        Horde_Kolab_Session_Auth_Interface $auth
     ) {
         return $this->_factory->getSessionValidator($session, $auth);
     }
@@ -152,7 +152,7 @@ implements Horde_Kolab_Session_Factory
      *
      * @return boolean True if the given session is valid.
      */
-    public function validate(Horde_Kolab_Session $session, $user = null)
+    public function validate(Horde_Kolab_Session_Interface $session, $user = null)
     {
         return $this->_factory->validate($session, $user);
     }

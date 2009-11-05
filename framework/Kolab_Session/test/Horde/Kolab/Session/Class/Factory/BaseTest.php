@@ -43,12 +43,12 @@ class Horde_Kolab_Session_Class_Factory_BaseTest extends Horde_Kolab_Session_Ses
 
     public function testMethodGetvalidatorHasResultHordekolabsesessionvalid()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $factory = new Horde_Kolab_Session_Factory_Constructor(
             $this->server, $this->session_auth, array(), $this->session_storage
         );
         $this->assertType(
-            'Horde_Kolab_Session_Valid',
+            'Horde_Kolab_Session_Valid_Interface',
             $factory->getSessionValidator($session, $this->session_auth)
         );
     }
@@ -58,7 +58,7 @@ class Horde_Kolab_Session_Class_Factory_BaseTest extends Horde_Kolab_Session_Ses
         $this->session_auth->expects($this->once())
             ->method('getCurrentUser')
             ->will($this->returnValue('mail@example.org'));
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('getMail')
             ->will($this->returnValue('mail@example.org'));
@@ -73,12 +73,12 @@ class Horde_Kolab_Session_Class_Factory_BaseTest extends Horde_Kolab_Session_Ses
         $factory = new Horde_Kolab_Session_Factory_Constructor(
             $this->server, $this->session_auth, array(), $this->session_storage
         );
-        $this->assertType('Horde_Kolab_Session_Stored', $factory->createSession());
+        $this->assertType('Horde_Kolab_Session_Decorator_Stored', $factory->createSession());
     }
 
     public function testMethodGetsessionHasResultHordekolabsessionTheOldSessionIfAnOldSessionWasStoredAndValid()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('getMail')
             ->will($this->returnValue('mail@example.org'));
@@ -96,7 +96,7 @@ class Horde_Kolab_Session_Class_Factory_BaseTest extends Horde_Kolab_Session_Ses
 
     public function testMethodGetsessionHasResultHordekolabsessionANewSessionIfAnOldSessionWasStoredAndInvalid()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('getMail')
             ->will($this->returnValue('mail@example.org'));
@@ -138,6 +138,6 @@ class Horde_Kolab_Session_Class_Factory_BaseTest extends Horde_Kolab_Session_Ses
         $factory = new Horde_Kolab_Session_Factory_Constructor(
             $this->server, $this->session_auth, array(), $this->session_storage
         );
-        $this->assertType('Horde_Kolab_Session', $factory->getSession());
+        $this->assertType('Horde_Kolab_Session_Interface', $factory->getSession());
     }
 }

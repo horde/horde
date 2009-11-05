@@ -35,7 +35,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-interface Horde_Kolab_Session
+interface Horde_Kolab_Session_Interface
 {
     /**
      * Try to connect the session handler.

@@ -55,7 +55,7 @@ class Horde_Kolab_Session_Integration_SingletonTest extends Horde_Kolab_Session_
     public function testMethodSingletonHasResultHordekolabsession()
     {
         $this->assertType(
-            'Horde_Kolab_Session',
+            'Horde_Kolab_Session_Interface',
             Horde_Kolab_Session_Singleton::singleton(
                 'user', array('password' => 'pass')
             )

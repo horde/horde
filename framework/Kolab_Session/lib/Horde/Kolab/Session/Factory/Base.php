@@ -28,19 +28,20 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
 abstract class Horde_Kolab_Session_Factory_Base
-implements Horde_Kolab_Session_Factory
+implements Horde_Kolab_Session_Factory_Interface
 {
     /**
      * Return the session validation driver.
      *
-     * @param Horde_Kolab_Session      $session The session to validate.
-     * @param Horde_Kolab_Session_Auth $auth    The auth handler.
+     * @param Horde_Kolab_Session_Interface      $session The session to validate.
+     * @param Horde_Kolab_Session_Auth_Interface $auth    The auth handler.
      *
-     * @return Horde_Kolab_Session_Valid The driver for validating sessions.
+     * @return Horde_Kolab_Session_Valid_Interface The driver for validating
+     *                                             sessions.
      */
     public function getSessionValidator(
-        Horde_Kolab_Session $session,
-        Horde_Kolab_Session_Auth $auth
+        Horde_Kolab_Session_Interface $session,
+        Horde_Kolab_Session_Auth_Interface $auth
     ) {
         $validator = new Horde_Kolab_Session_Valid_Base(
             $session, $auth
@@ -57,8 +58,10 @@ implements Horde_Kolab_Session_Factory
      *
      * @return boolean True if the given session is valid.
      */
-    public function validate(Horde_Kolab_Session $session, $user = null)
-    {
+    public function validate(
+        Horde_Kolab_Session_Interface $session,
+        $user = null
+    ) {
         return $this->getSessionValidator(
             $session,
             $this->getSessionAuth()
@@ -80,7 +83,7 @@ implements Horde_Kolab_Session_Factory
             $this->getSessionConfiguration()
         );
         /** If we created a new session handler it needs to be stored once */
-        $session = new Horde_Kolab_Session_Stored(
+        $session = new Horde_Kolab_Session_Decorator_Stored(
             $session,
             $this->getSessionStorage()
         );

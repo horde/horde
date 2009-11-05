@@ -14,7 +14,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once dirname(__FILE__) . '/../../Autoload.php';
 
 /**
  * Test the log decorator.
@@ -30,7 +30,8 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_Class_LoggedTest extends Horde_Kolab_Session_SessionTestCase
+class Horde_Kolab_Session_Class_Decorator_LoggedTest
+extends Horde_Kolab_Session_SessionTestCase
 {
     public function setUp()
     {
@@ -41,7 +42,7 @@ class Horde_Kolab_Session_Class_LoggedTest extends Horde_Kolab_Session_SessionTe
 
     public function testMethodConnectHasPostconditionThatASuccessfulConnectionGetsLogged()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('connect')
             ->with(array('password' => 'pass'));
@@ -52,15 +53,19 @@ class Horde_Kolab_Session_Class_LoggedTest extends Horde_Kolab_Session_SessionTe
             ->method('__call')
             ->with(
                 'info',
-                array('Connected Kolab session for "somebody@example.org".')
+                array(
+                    'Connected Kolab session for "somebody@example.org".'
+                )
             );
-        $logged = new Horde_Kolab_Session_Logged($session, $this->logger);
+        $logged = new Horde_Kolab_Session_Decorator_Logged(
+            $session, $this->logger
+        );
         $logged->connect(array('password' => 'pass'));
     }
 
     public function testMethodConnectHasPostconditionThatAnUnsuccessfulConnectionGetsLogged()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('connect')
             ->will($this->throwException(new Horde_Kolab_Session_Exception('Error.')));
@@ -71,9 +76,13 @@ class Horde_Kolab_Session_Class_LoggedTest extends Horde_Kolab_Session_SessionTe
             ->method('__call')
             ->with(
                 'err',
-                array('Failed to connect Kolab session for "somebody@example.org". Error was: Error.')
+                array(
+                    'Failed to connect Kolab session for "somebody@example.org". Error was: Error.'
+                )
             );
-        $logged = new Horde_Kolab_Session_Logged($session, $this->logger);
+        $logged = new Horde_Kolab_Session_Decorator_Logged(
+            $session, $this->logger
+        );
         try {
             $logged->connect(array('password' => 'pass'));
             $this->fail('No Exception!');
@@ -83,91 +92,91 @@ class Horde_Kolab_Session_Class_LoggedTest extends Horde_Kolab_Session_SessionTe
 
     public function testMethodConnectGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('connect')
             ->with(array('password' => 'pass'));
-        $logged = new Horde_Kolab_Session_Logged($session, $this->logger);
+        $logged = new Horde_Kolab_Session_Decorator_Logged($session, $this->logger);
         $logged->connect(array('password' => 'pass'));
     }
 
     public function testMethodGetidGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('getId')
             ->will($this->returnValue('1'));
-        $logged = new Horde_Kolab_Session_Logged($session, $this->logger);
+        $logged = new Horde_Kolab_Session_Decorator_Logged($session, $this->logger);
         $logged->getId();
     }
 
     public function testMethodSetidGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('setId')
             ->with('1');
-        $logged = new Horde_Kolab_Session_Logged($session, $this->logger);
+        $logged = new Horde_Kolab_Session_Decorator_Logged($session, $this->logger);
         $logged->setId('1');
     }
 
     public function testMethodGetmailGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('getMail')
             ->will($this->returnValue('1'));
-        $logged = new Horde_Kolab_Session_Logged($session, $this->logger);
+        $logged = new Horde_Kolab_Session_Decorator_Logged($session, $this->logger);
         $logged->getMail();
     }
 
     public function testMethodGetuidGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('getUid')
             ->will($this->returnValue('1'));
-        $logged = new Horde_Kolab_Session_Logged($session, $this->logger);
+        $logged = new Horde_Kolab_Session_Decorator_Logged($session, $this->logger);
         $logged->getUid();
     }
 
     public function testMethodGetnameGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('getName')
             ->will($this->returnValue('1'));
-        $logged = new Horde_Kolab_Session_Logged($session, $this->logger);
+        $logged = new Horde_Kolab_Session_Decorator_Logged($session, $this->logger);
         $logged->getName();
     }
 
     public function testMethodGetimapserverGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('getImapServer')
             ->will($this->returnValue('1'));
-        $logged = new Horde_Kolab_Session_Logged($session, $this->logger);
+        $logged = new Horde_Kolab_Session_Decorator_Logged($session, $this->logger);
         $logged->getImapServer();
     }
 
     public function testMethodGetfreebusyserverGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('getFreebusyServer')
             ->will($this->returnValue('1'));
-        $logged = new Horde_Kolab_Session_Logged($session, $this->logger);
+        $logged = new Horde_Kolab_Session_Decorator_Logged($session, $this->logger);
         $logged->getFreebusyServer();
     }
 
     public function testMethodGetstorageGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('getStorage')
             ->will($this->returnValue('1'));
-        $logged = new Horde_Kolab_Session_Logged($session, $this->logger);
+        $logged = new Horde_Kolab_Session_Decorator_Logged($session, $this->logger);
         $logged->getStorage();
     }
 

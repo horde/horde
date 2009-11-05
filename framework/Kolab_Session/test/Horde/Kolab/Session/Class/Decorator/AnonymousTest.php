@@ -14,7 +14,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once dirname(__FILE__) . '/../../Autoload.php';
 
 /**
  * Test the anonymous decorator.
@@ -30,11 +30,12 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_Class_AnonymousTest extends Horde_Kolab_Session_SessionTestCase
+class Horde_Kolab_Session_Class_Decorator_AnonymousTest
+extends Horde_Kolab_Session_SessionTestCase
 {
     public function testMethodConnectHasPostconditionThatTheConnectionHasBeenEstablishedAsAnonymousUserIfRequired()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('getId')
             ->will($this->returnValue(null));
@@ -44,7 +45,7 @@ class Horde_Kolab_Session_Class_AnonymousTest extends Horde_Kolab_Session_Sessio
         $session->expects($this->once())
             ->method('connect')
             ->with(array('password' => 'pass'));
-        $anonymous = new Horde_Kolab_Session_Anonymous(
+        $anonymous = new Horde_Kolab_Session_Decorator_Anonymous(
             $session, 'anonymous', 'pass'
         );
         $anonymous->connect();
@@ -52,11 +53,11 @@ class Horde_Kolab_Session_Class_AnonymousTest extends Horde_Kolab_Session_Sessio
 
     public function testMethodGetidReturnsNullIfConnectedUserIsAnonymousUser()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('getId')
             ->will($this->returnValue('anonymous'));
-        $anonymous = new Horde_Kolab_Session_Anonymous(
+        $anonymous = new Horde_Kolab_Session_Decorator_Anonymous(
             $session, 'anonymous', 'pass'
         );
         $this->assertNull($anonymous->getId());
@@ -64,11 +65,11 @@ class Horde_Kolab_Session_Class_AnonymousTest extends Horde_Kolab_Session_Sessio
 
     public function testMethodConnectGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('connect')
             ->with(array('password' => 'pass'));
-        $anonymous = new Horde_Kolab_Session_Anonymous(
+        $anonymous = new Horde_Kolab_Session_Decorator_Anonymous(
             $session, 'anonymous', 'pass'
         );
         $anonymous->connect(array('password' => 'pass'));
@@ -76,11 +77,11 @@ class Horde_Kolab_Session_Class_AnonymousTest extends Horde_Kolab_Session_Sessio
 
     public function testMethodGetidGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('getId')
             ->will($this->returnValue('1'));
-        $anonymous = new Horde_Kolab_Session_Anonymous(
+        $anonymous = new Horde_Kolab_Session_Decorator_Anonymous(
             $session, 'anonymous', 'pass'
         );
         $anonymous->getId();
@@ -88,11 +89,11 @@ class Horde_Kolab_Session_Class_AnonymousTest extends Horde_Kolab_Session_Sessio
 
     public function testMethodSetidGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('setId')
             ->with('1');
-        $anonymous = new Horde_Kolab_Session_Anonymous(
+        $anonymous = new Horde_Kolab_Session_Decorator_Anonymous(
             $session, 'anonymous', 'pass'
         );
         $anonymous->setId('1');
@@ -100,11 +101,11 @@ class Horde_Kolab_Session_Class_AnonymousTest extends Horde_Kolab_Session_Sessio
 
     public function testMethodGetmailGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('getMail')
             ->will($this->returnValue('1'));
-        $anonymous = new Horde_Kolab_Session_Anonymous(
+        $anonymous = new Horde_Kolab_Session_Decorator_Anonymous(
             $session, 'anonymous', 'pass'
         );
         $anonymous->getMail();
@@ -112,11 +113,11 @@ class Horde_Kolab_Session_Class_AnonymousTest extends Horde_Kolab_Session_Sessio
 
     public function testMethodGetuidGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('getUid')
             ->will($this->returnValue('1'));
-        $anonymous = new Horde_Kolab_Session_Anonymous(
+        $anonymous = new Horde_Kolab_Session_Decorator_Anonymous(
             $session, 'anonymous', 'pass'
         );
         $anonymous->getUid();
@@ -124,11 +125,11 @@ class Horde_Kolab_Session_Class_AnonymousTest extends Horde_Kolab_Session_Sessio
 
     public function testMethodGetnameGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('getName')
             ->will($this->returnValue('1'));
-        $anonymous = new Horde_Kolab_Session_Anonymous(
+        $anonymous = new Horde_Kolab_Session_Decorator_Anonymous(
             $session, 'anonymous', 'pass'
         );
         $anonymous->getName();
@@ -136,11 +137,11 @@ class Horde_Kolab_Session_Class_AnonymousTest extends Horde_Kolab_Session_Sessio
 
     public function testMethodGetimapserverGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('getImapServer')
             ->will($this->returnValue('1'));
-        $anonymous = new Horde_Kolab_Session_Anonymous(
+        $anonymous = new Horde_Kolab_Session_Decorator_Anonymous(
             $session, 'anonymous', 'pass'
         );
         $anonymous->getImapServer();
@@ -148,11 +149,11 @@ class Horde_Kolab_Session_Class_AnonymousTest extends Horde_Kolab_Session_Sessio
 
     public function testMethodGetfreebusyserverGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('getFreebusyServer')
             ->will($this->returnValue('1'));
-        $anonymous = new Horde_Kolab_Session_Anonymous(
+        $anonymous = new Horde_Kolab_Session_Decorator_Anonymous(
             $session, 'anonymous', 'pass'
         );
         $anonymous->getFreebusyServer();
@@ -160,11 +161,11 @@ class Horde_Kolab_Session_Class_AnonymousTest extends Horde_Kolab_Session_Sessio
 
     public function testMethodGetstorageGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $session->expects($this->once())
             ->method('getStorage')
             ->will($this->returnValue('1'));
-        $anonymous = new Horde_Kolab_Session_Anonymous(
+        $anonymous = new Horde_Kolab_Session_Decorator_Anonymous(
             $session, 'anonymous', 'pass'
         );
         $anonymous->getStorage();

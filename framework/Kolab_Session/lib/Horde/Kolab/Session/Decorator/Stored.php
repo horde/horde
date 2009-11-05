@@ -1,6 +1,6 @@
 <?php
 /**
- * A logger for Horde_Kolab_Session handlers.
+ * Storage for Horde_Kolab_Session handlers.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * A logger for Horde_Kolab_Session handlers.
+ * Storage for Horde_Kolab_Session handlers.
  *
  * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
@@ -25,35 +25,52 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_Logged implements Horde_Kolab_Session
+class Horde_Kolab_Session_Decorator_Stored
+implements Horde_Kolab_Session_Interface
 {
     /**
      * The session handler.
      *
-     * @var Horde_Kolab_Session
+     * @var Horde_Kolab_Session_Interface
      */
     private $_session;
 
     /**
-     * The logger.
+     * The storage.
      *
-     * @var mixed
+     * @var Horde_Kolab_Session_Storage
      */
-    private $_logger;
+    private $_storage;
+
+    /**
+     * Has the storage been connected successfully?
+     *
+     * @var boolean
+     */
+    private $_connected = false;
 
     /**
      * Constructor.
      *
-     * The provided logger class needs to implement the methods info() and
-     * err().
-     *
-     * @param Horde_Kolab_Session $session The session handler.
-     * @param mixed               $logger  The logger instance.
+     * @param Horde_Kolab_Session_Interface $session The session handler.
+     * @param Horde_Kolab_Session_Storage   $storage Store the session here.
      */
-    public function __construct(Horde_Kolab_Session $session, $logger)
-    {
+    public function __construct(
+        Horde_Kolab_Session_Interface $session,
+        Horde_Kolab_Session_Storage_Interface $storage
+    ) {
         $this->_session = $session;
-        $this->_logger  = $logger;
+        $this->_storage = $storage;
+    }
+
+    /**
+     * Destructor.
+     *
+     * Save the session in the storage on shutdown.
+     */
+    public function __destruct()
+    {
+        $this->_storage->save($this->_session);
     }
 
     /**
@@ -63,28 +80,11 @@ class Horde_Kolab_Session_Logged implements Horde_Kolab_Session
      *                           this must contain a "password" entry.
      *
      * @return NULL
-     *
-     * @throws Horde_Kolab_Session_Exception If the connection failed.
      */
     public function connect(array $credentials = null)
     {
-        try {
-            $this->_session->connect($credentials);
-            $this->_logger->info(
-                sprintf(
-                    "Connected Kolab session for \"%s\".",
-                    $this->_session->getId()
-                )
-            );
-        } catch (Horde_Kolab_Session_Exception $e) {
-            $this->_logger->err(
-                sprintf(
-                    "Failed to connect Kolab session for \"%s\". Error was: %s",
-                    $this->_session->getId(), $e->getMessage()
-                )
-            );
-            throw $e;
-        }
+        $this->_session->connect($credentials);
+        $this->_connected = true;
     }
 
     /**

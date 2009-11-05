@@ -31,32 +31,33 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_Valid_Base implements Horde_Kolab_Session_Valid
+class Horde_Kolab_Session_Valid_Base
+implements Horde_Kolab_Session_Valid_Interface
 {
     /**
      * The session handler this instance provides with anonymous access.
      *
-     * @var Horde_Kolab_Session
+     * @var Horde_Kolab_Session_Interface
      */
     private $_session;
 
     /**
      * Provides authentication information for this object.
      *
-     * @var Horde_Kolab_Session_Auth
+     * @var Horde_Kolab_Session_Auth_Interface
      */
     private $_auth;
 
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Session      $session The session that should be
-     *                                          validated.
-     * @param Horde_Kolab_Session_Auth $auth    The authentication handler.
+     * @param Horde_Kolab_Session_Interface      $session The session that should be
+     *                                                     validated.
+     * @param Horde_Kolab_Session_Auth_Interface $auth    The authentication handler.
      */
     public function __construct(
-        Horde_Kolab_Session $session,
-        Horde_Kolab_Session_Auth $auth
+        Horde_Kolab_Session_Interface $session,
+        Horde_Kolab_Session_Auth_Interface $auth
     ) {
         $this->_session = $session;
         $this->_auth    = $auth;
@@ -89,7 +90,8 @@ class Horde_Kolab_Session_Valid_Base implements Horde_Kolab_Session_Valid
     /**
      * Return the session this validator checks.
      *
-     * @return Horde_Kolab_Session The session checked by this validator.
+     * @return Horde_Kolab_Session_Interface The session checked by this
+     * validator.
      */
     public function getSession()
     {
@@ -99,7 +101,8 @@ class Horde_Kolab_Session_Valid_Base implements Horde_Kolab_Session_Valid
     /**
      * Return the auth driver of this validator.
      *
-     * @return Horde_Kolab_Session_Auth The auth driver set for this validator.
+     * @return Horde_Kolab_Session_Auth_Interface The auth driver set for this
+     * validator.
      */
     public function getAuth()
     {

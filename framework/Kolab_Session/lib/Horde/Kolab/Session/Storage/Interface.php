@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-interface Horde_Kolab_Session_Storage
+interface Horde_Kolab_Session_Storage_Interface
 {
     /**
      * Load the session information.
@@ -42,5 +42,5 @@ interface Horde_Kolab_Session_Storage
      *
      * @return NULL
      */
-    public function save(Horde_Kolab_Session $session);
+    public function save(Horde_Kolab_Session_Interface $session);
 }

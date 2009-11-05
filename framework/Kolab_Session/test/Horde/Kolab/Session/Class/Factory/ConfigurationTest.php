@@ -67,7 +67,7 @@ class Horde_Kolab_Session_Class_Factory_ConfigurationTest extends Horde_Kolab_Se
             )
         );
         $this->assertType(
-            'Horde_Kolab_Session_Anonymous',
+            'Horde_Kolab_Session_Decorator_Anonymous',
             $factory->createSession()
         );
     }
@@ -83,15 +83,15 @@ class Horde_Kolab_Session_Class_Factory_ConfigurationTest extends Horde_Kolab_Se
             )
         );
         $this->assertType(
-            'Horde_Kolab_Session_Logged',
+            'Horde_Kolab_Session_Decorator_Logged',
             $factory->createSession()
         );
     }
 
     public function testMethodGetsessionvalidatorHasResultHordekolabsessionvalidloggedIfConfiguredThatWay()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
-        $auth = $this->getMock('Horde_Kolab_Session_Auth');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $auth = $this->getMock('Horde_Kolab_Session_Auth_Interface');
         $factory = new Horde_Kolab_Session_Factory_Configuration(
             array(
                 'logger' => $this->logger,
@@ -101,7 +101,7 @@ class Horde_Kolab_Session_Class_Factory_ConfigurationTest extends Horde_Kolab_Se
             )
         );
         $this->assertType(
-            'Horde_Kolab_Session_Valid_Logged',
+            'Horde_Kolab_Session_Valid_Decorator_Logged',
             $factory->getSessionValidator($session, $auth)
         );
     }
@@ -131,7 +131,7 @@ class Horde_Kolab_Session_Class_Factory_ConfigurationTest extends Horde_Kolab_Se
             )
         );
         $this->assertType(
-            'Horde_Kolab_Session_Auth',
+            'Horde_Kolab_Session_Auth_Interface',
             $factory->getSessionAuth()
         );
     }
@@ -158,15 +158,15 @@ class Horde_Kolab_Session_Class_Factory_ConfigurationTest extends Horde_Kolab_Se
             )
         );
         $this->assertType(
-            'Horde_Kolab_Session_Storage',
+            'Horde_Kolab_Session_Storage_Interface',
             $factory->getSessionStorage()
         );
     }
 
     public function testMethodGetsessionvalidatorHasResultSessionvalid()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
-        $auth = $this->getMock('Horde_Kolab_Session_Auth');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $auth = $this->getMock('Horde_Kolab_Session_Auth_Interface');
         $factory = new Horde_Kolab_Session_Factory_Configuration(
             array(
                 'server' => array(
@@ -175,14 +175,14 @@ class Horde_Kolab_Session_Class_Factory_ConfigurationTest extends Horde_Kolab_Se
             )
         );
         $this->assertType(
-            'Horde_Kolab_Session_Valid',
+            'Horde_Kolab_Session_Valid_Interface',
             $factory->getSessionValidator($session, $auth)
         );
     }
 
     public function testMethodValidateHasResultBooleanTrueIfTheSessionIsStillValid()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $factory = new Horde_Kolab_Session_Factory_Configuration(
             array(
                 'server' => array(
@@ -202,7 +202,7 @@ class Horde_Kolab_Session_Class_Factory_ConfigurationTest extends Horde_Kolab_Se
                 )
             )
         );
-        $this->assertType('Horde_Kolab_Session', $factory->createSession());
+        $this->assertType('Horde_Kolab_Session_Interface', $factory->createSession());
     }
 
     public function testMethodGetsessionHasResultSession()
@@ -226,6 +226,6 @@ class Horde_Kolab_Session_Class_Factory_ConfigurationTest extends Horde_Kolab_Se
                 )
             )
         );
-        $this->assertType('Horde_Kolab_Session', $factory->getSession());
+        $this->assertType('Horde_Kolab_Session_Interface', $factory->getSession());
     }
 }

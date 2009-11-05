@@ -47,8 +47,8 @@ class Horde_Kolab_Session_Class_Storage_SessionobjectsTest extends Horde_Kolab_S
         $session_objects = $this->getMock('Horde_SessionObjects', array(), array(), '', false, false);
         $session_objects->expects($this->once())
             ->method('overwrite')
-            ->with('kolab_session', $this->isInstanceOf('Horde_Kolab_Session'));
-        $session = $this->getMock('Horde_Kolab_Session');
+            ->with('kolab_session', $this->isInstanceOf('Horde_Kolab_Session_Interface'));
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
         $storage = new Horde_Kolab_Session_Storage_Sessionobjects($session_objects);
         $storage->save($session);
     }

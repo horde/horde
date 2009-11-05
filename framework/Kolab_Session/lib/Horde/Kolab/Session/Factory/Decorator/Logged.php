@@ -1,6 +1,6 @@
 <?php
 /**
- * A factory decorator that adds an anonymous user to the generated instances.
+ * A factory decorator that adds logging to the generated instances.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * A factory decorator that adds an anonymous user to the generated instances.
+ * A factory decorator that adds logging to the generated instances.
  *
  * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
@@ -25,52 +25,41 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_Factory_Anonymous
-implements Horde_Kolab_Session_Factory
+class Horde_Kolab_Session_Factory_Decorator_Logged
+implements Horde_Kolab_Session_Factory_Interface
 {
     /**
      * The factory setup resulting from the configuration.
      *
-     * @var Horde_Kolab_Session_Factory
+     * @var Horde_Kolab_Session_Factory_Interface
      */
     private $_factory;
 
     /**
-     * Anonymous user ID.
+     * The logger.
      *
-     * @var string
+     * @var mixed
      */
-    private $_anonymous_id;
-
-    /**
-     * Anonymous password.
-     *
-     * @var string
-     */
-    private $_anonymous_pass;
+    private $_logger;
 
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Session_Factory $factory The base factory.
-     * @param string                      $user    ID of the anonymous user.
-     * @param string                      $pass    Password of the anonymous
-     *                                             user.
+     * @param Horde_Kolab_Session_Factory_Interface $factory The base factory.
+     * @param mixed                                 $logger  The logger isntance.
      */
     public function __construct(
-        Horde_Kolab_Session_Factory $factory,
-        $user,
-        $pass
+        Horde_Kolab_Session_Factory_Interface $factory,
+        $logger
     ) {
-        $this->_factory        = $factory;
-        $this->_anonymous_id   = $user;
-        $this->_anonymous_pass = $pass;
+        $this->_factory = $factory;
+        $this->_logger  = $logger;
     }
 
     /**
      * Return the kolab user db connection.
      *
-     * @return Horde_Kolab_Server The server connection.
+     * @return Horde_Kolab_Server_Interface The server connection.
      */
     public function getServer()
     {
@@ -80,7 +69,7 @@ implements Horde_Kolab_Session_Factory
     /**
      * Return the auth handler for sessions.
      *
-     * @return Horde_Kolab_Session_Auth The authentication handler.
+     * @return Horde_Kolab_Session_Auth_Interface The authentication handler.
      */
     public function getSessionAuth()
     {
@@ -100,7 +89,7 @@ implements Horde_Kolab_Session_Factory
     /**
      * Return the session storage driver.
      *
-     * @return Horde_Kolab_Session_Storage The driver for storing sessions.
+     * @return Horde_Kolab_Session_Storage_Interface The driver for storing sessions.
      */
     public function getSessionStorage()
     {
@@ -110,29 +99,36 @@ implements Horde_Kolab_Session_Factory
     /**
      * Return the session validation driver.
      *
-     * @param Horde_Kolab_Session      $session The session to validate.
-     * @param Horde_Kolab_Session_Auth $auth    The auth handler.
+     * @param Horde_Kolab_Session_Interface      $session The session to validate.
+     * @param Horde_Kolab_Session_Auth_Interface $auth    The auth handler.
      *
-     * @return Horde_Kolab_Session_Valid The driver for validating sessions.
+     * @return Horde_Kolab_Session_Valid_Interface The driver for validating
+     *                                             sessions.
      */
     public function getSessionValidator(
-        Horde_Kolab_Session $session,
-        Horde_Kolab_Session_Auth $auth
+        Horde_Kolab_Session_Interface $session,
+        Horde_Kolab_Session_Auth_Interface $auth
     ) {
-        return $this->_factory->getSessionValidator($session, $auth);
+        $valid = $this->_factory->getSessionValidator($session, $auth);
+        $valid = new Horde_Kolab_Session_Valid_Decorator_Logged(
+            $valid, $this->_logger
+        );
+        return $valid;
     }
 
     /**
      * Validate the given session.
      *
-     * @param Horde_Kolab_Session $session The session to validate.
-     * @param string              $user    The session will be validated for
-     *                                     this user ID.
+     * @param Horde_Kolab_Session_Interface $session The session to validate.
+     * @param string                        $user    The session will be validated
+     *                                               for this user ID.
      *
-     * @return boolean True if thxe given session is valid.
+     * @return boolean True if the given session is valid.
      */
-    public function validate(Horde_Kolab_Session $session, $user = null)
-    {
+    public function validate(
+        Horde_Kolab_Session_Interface $session,
+        $user = null
+    ) {
         return $this->_factory->validate($session, $user);
     }
 
@@ -141,15 +137,13 @@ implements Horde_Kolab_Session_Factory
      *
      * @param string $user The session will be setup for the user with this ID.
      *
-     * @return Horde_Kolab_Session The concrete Kolab session reference.
+     * @return Horde_Kolab_Session_Interface The concrete Kolab session reference.
      */
     public function createSession($user = null)
     {
         $session = $this->_factory->createSession($user);
-        $session = new Horde_Kolab_Session_Anonymous(
-            $session,
-            $this->_anonymous_id,
-            $this->_anonymous_pass
+        $session = new Horde_Kolab_Session_Decorator_Logged(
+            $session, $this->_logger
         );
         return $session;
     }
@@ -162,7 +156,7 @@ implements Horde_Kolab_Session_Factory
      *                            this ID.
      * @param array  $credentials An array of login credentials.
      *
-     * @return Horde_Kolab_Session The concrete Kolab session reference.
+     * @return Horde_Kolab_Session_Interface The concrete Kolab session reference.
      */
     public function getSession($user = null, array $credentials = null)
     {

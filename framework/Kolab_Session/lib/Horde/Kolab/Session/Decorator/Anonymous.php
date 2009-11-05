@@ -1,6 +1,7 @@
 <?php
 /**
- * Storage for Horde_Kolab_Session handlers.
+ * The Horde_Kolab_Session_Anonymous class allows anonymous access to the Kolab
+ * system.
  *
  * PHP version 5
  *
@@ -12,7 +13,14 @@
  */
 
 /**
- * Storage for Horde_Kolab_Session handlers.
+ * The Horde_Kolab_Session_Anonymous class allows anonymous access to the Kolab
+ * system.
+ *
+ * The core user credentials (login, pass) are kept within the Auth module and
+ * can be retrieved using <code>Auth::getAuth()</code> respectively
+ * <code>Auth::getCredential('password')</code>. Any additional Kolab user data
+ * relevant for the user session should be accessed via the Horde_Kolab_Session
+ * class.
  *
  * Copyright 2009 The Horde Project (http://www.horde.org/)
  *
@@ -25,51 +33,46 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_Stored implements Horde_Kolab_Session
+class Horde_Kolab_Session_Decorator_Anonymous
+implements Horde_Kolab_Session_Interface
 {
     /**
-     * The session handler.
+     * The session handler this instance provides with anonymous access.
      *
-     * @var Horde_Kolab_Session
+     * @var Horde_Kolab_Session_Interface
      */
     private $_session;
 
     /**
-     * The storage.
+     * Anonymous user ID.
      *
-     * @var Horde_Kolab_Session_Storage
+     * @var string
      */
-    private $_storage;
+    private $_anonymous_id;
 
     /**
-     * Has the storage been connected successfully?
+     * Anonymous password.
      *
-     * @var boolean
+     * @var string
      */
-    private $_connected = false;
+    private $_anonymous_pass;
 
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Session         $session The session handler.
-     * @param Horde_Kolab_Session_Storage $storage Store the session here.
+     * @param Horde_Kolab_Session_Interface $session The this instance should provide
+     *                                               anonymous access for.
+     * @param string                        $user    ID of the anonymous user.
+     * @param string                        $pass    Password of the anonymous user.
      */
     public function __construct(
-        Horde_Kolab_Session $session,
-        Horde_Kolab_Session_Storage $storage
+        Horde_Kolab_Session_Interface $session,
+        $user,
+        $pass
     ) {
-        $this->_session = $session;
-        $this->_storage = $storage;
-    }
-
-    /**
-     * Destructor.
-     *
-     * Save the session in the storage on shutdown.
-     */
-    public function __destruct()
-    {
-        $this->_storage->save($this->_session);
+        $this->_session        = $session;
+        $this->_anonymous_id   = $user;
+        $this->_anonymous_pass = $pass;
     }
 
     /**
@@ -79,11 +82,18 @@ class Horde_Kolab_Session_Stored implements Horde_Kolab_Session
      *                           this must contain a "password" entry.
      *
      * @return NULL
+     *
+     * @throws Horde_Kolab_Session_Exception If the connection failed.
      */
     public function connect(array $credentials = null)
     {
-        $this->_session->connect($credentials);
-        $this->_connected = true;
+        $id = $this->_session->getId();
+        if (empty($id) && $credentials === null) {
+            $this->_session->setId($this->_anonymous_id);
+            $this->_session->connect(array('password' => $this->_anonymous_pass));
+        } else {
+            $this->_session->connect($credentials);
+        }
     }
 
     /**
@@ -93,7 +103,11 @@ class Horde_Kolab_Session_Stored implements Horde_Kolab_Session
      */
     public function getId()
     {
-        return $this->_session->getId();
+        $id = $this->_session->getId();
+        if ($id == $this->_anonymous_id) {
+            return null;
+        }
+        return $id;
     }
 
     /**
@@ -162,6 +176,8 @@ class Horde_Kolab_Session_Stored implements Horde_Kolab_Session
      * Return a connection to the Kolab storage system.
      *
      * @return Horde_Kolab_Storage The storage connection.
+     *
+     * @todo Adapt to new structure of this class.
      */
     public function getStorage()
     {

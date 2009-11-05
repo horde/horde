@@ -41,7 +41,7 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
 
     public function testMethodIsvalidHasResultBooleanTrueIfTheSessionIsNotConnectedAndTheCurrentUserIsAnonymous()
     {
-        $auth = $this->getMock('Horde_Kolab_Session_Auth');
+        $auth = $this->getMock('Horde_Kolab_Session_Auth_Interface');
         $auth->expects($this->once())
             ->method('getCurrentUser')
             ->will($this->returnValue(''));
@@ -55,7 +55,7 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
 
     public function testMethodIsvalidHasResultBooleanFalseIfTheSessionIsNotConnected()
     {
-        $auth = $this->getMock('Horde_Kolab_Session_Auth');
+        $auth = $this->getMock('Horde_Kolab_Session_Auth_Interface');
         $auth->expects($this->once())
             ->method('getCurrentUser')
             ->will($this->returnValue('mail@example.org'));
@@ -69,7 +69,7 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
 
     public function testMethodIsvalidHasResultBooleanFalseIfTheMailOfTheCurrentUserDoesNotMatchTheCurrentUserOfTheSession()
     {
-        $auth = $this->getMock('Horde_Kolab_Session_Auth');
+        $auth = $this->getMock('Horde_Kolab_Session_Auth_Interface');
         $auth->expects($this->once())
             ->method('getCurrentUser')
             ->will($this->returnValue('somebody@example.org'));
@@ -93,7 +93,7 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
 
     public function testMethodIsvalidHasResultBooleanTrueIfTheMailOfTheCurrentUserMatchesTheCurrentUserOfTheSessionAndNoNewUserWasSet()
     {
-        $auth = $this->getMock('Horde_Kolab_Session_Auth');
+        $auth = $this->getMock('Horde_Kolab_Session_Auth_Interface');
         $auth->expects($this->once())
             ->method('getCurrentUser')
             ->will($this->returnValue('mail@example.org'));
@@ -117,7 +117,7 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
 
     public function testMethodIsvalidHasResultBooleanFalseIfTheMailOfTheCurrentUserMatchesTheCurrentUserOfTheSessionAndTheNewUserMatchesNeitherTheCurrentUserMailAndUid()
     {
-        $auth = $this->getMock('Horde_Kolab_Session_Auth');
+        $auth = $this->getMock('Horde_Kolab_Session_Auth_Interface');
         $auth->expects($this->once())
             ->method('getCurrentUser')
             ->will($this->returnValue('mail@example.org'));
@@ -141,7 +141,7 @@ class Horde_Kolab_Session_Integration_ValidTest extends Horde_Kolab_Session_Sess
 
     public function testMethodIsvalidHasResultBooleanTrueIfTheMailOfTheCurrentUserMatchesTheCurrentUserOfTheSessionAndTheNewUserMatchesEitherTheCurrentUserMailAndUid()
     {
-        $auth = $this->getMock('Horde_Kolab_Session_Auth');
+        $auth = $this->getMock('Horde_Kolab_Session_Auth_Interface');
         $auth->expects($this->once())
             ->method('getCurrentUser')
             ->will($this->returnValue('mail@example.org'));

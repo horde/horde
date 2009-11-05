@@ -14,7 +14,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../Autoload.php';
+require_once dirname(__FILE__) . '/../../../Autoload.php';
 
 /**
  * Test the log decorator factory.
@@ -30,7 +30,8 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_Class_Factory_LoggedTest extends Horde_Kolab_Session_SessionTestCase
+class Horde_Kolab_Session_Class_Factory_Decorator_LoggedTest
+extends Horde_Kolab_Session_SessionTestCase
 {
     public function setUp()
     {
@@ -40,34 +41,34 @@ class Horde_Kolab_Session_Class_Factory_LoggedTest extends Horde_Kolab_Session_S
 
     public function testMethodCreatesessionHasResultHordekolabsessionlogged()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
-        $factory = $this->getMock('Horde_Kolab_Session_Factory');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $factory = $this->getMock('Horde_Kolab_Session_Factory_Interface');
         $factory->expects($this->once())
             ->method('createSession')
             ->will($this->returnValue($session));
-        $factory = new Horde_Kolab_Session_Factory_Logged(
+        $factory = new Horde_Kolab_Session_Factory_Decorator_Logged(
             $factory, $this->logger
         );
         $this->assertType(
-            'Horde_Kolab_Session_Logged',
+            'Horde_Kolab_Session_Decorator_Logged',
             $factory->createSession()
         );
     }
 
     public function testMethodGetsessionvalidatorHasResultHordekolabsessionvalidlogged()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
-        $auth = $this->getMock('Horde_Kolab_Session_Auth');
-        $validator = $this->getMock('Horde_Kolab_Session_Valid');
-        $factory = $this->getMock('Horde_Kolab_Session_Factory');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $auth = $this->getMock('Horde_Kolab_Session_Auth_Interface');
+        $validator = $this->getMock('Horde_Kolab_Session_Valid_Interface');
+        $factory = $this->getMock('Horde_Kolab_Session_Factory_Interface');
         $factory->expects($this->once())
             ->method('getSessionValidator')
             ->will($this->returnValue($validator));
-        $factory = new Horde_Kolab_Session_Factory_Logged(
+        $factory = new Horde_Kolab_Session_Factory_Decorator_Logged(
             $factory, $this->logger
         );
         $this->assertType(
-            'Horde_Kolab_Session_Valid_Logged',
+            'Horde_Kolab_Session_Valid_Decorator_Logged',
             $factory->getSessionValidator($session, $auth)
         );
     }
@@ -75,11 +76,11 @@ class Horde_Kolab_Session_Class_Factory_LoggedTest extends Horde_Kolab_Session_S
     public function testMethodGetserverGetsDelegated()
     {
         $server = $this->getMock('Horde_Kolab_Server');
-        $factory = $this->getMock('Horde_Kolab_Session_Factory');
+        $factory = $this->getMock('Horde_Kolab_Session_Factory_Interface');
         $factory->expects($this->once())
             ->method('getServer')
             ->will($this->returnValue($server));
-        $factory = new Horde_Kolab_Session_Factory_Logged(
+        $factory = new Horde_Kolab_Session_Factory_Decorator_Logged(
             $factory, $this->logger
         );
         $this->assertType('Horde_Kolab_Server', $factory->getServer());
@@ -88,11 +89,11 @@ class Horde_Kolab_Session_Class_Factory_LoggedTest extends Horde_Kolab_Session_S
     public function testMethodGetsessionauthGetsDelegated()
     {
         $auth = $this->getMock('Horde_Kolab_Session_Auth');
-        $factory = $this->getMock('Horde_Kolab_Session_Factory');
+        $factory = $this->getMock('Horde_Kolab_Session_Factory_Interface');
         $factory->expects($this->once())
             ->method('getSessionAuth')
             ->will($this->returnValue($auth));
-        $factory = new Horde_Kolab_Session_Factory_Logged(
+        $factory = new Horde_Kolab_Session_Factory_Decorator_Logged(
             $factory, $this->logger
         );
         $this->assertType(
@@ -103,11 +104,11 @@ class Horde_Kolab_Session_Class_Factory_LoggedTest extends Horde_Kolab_Session_S
 
     public function testMethodGetsessionconfigurationGetsDelegated()
     {
-        $factory = $this->getMock('Horde_Kolab_Session_Factory');
+        $factory = $this->getMock('Horde_Kolab_Session_Factory_Interface');
         $factory->expects($this->once())
             ->method('getSessionConfiguration')
             ->will($this->returnValue(array()));
-        $factory = new Horde_Kolab_Session_Factory_Logged(
+        $factory = new Horde_Kolab_Session_Factory_Decorator_Logged(
             $factory, $this->logger
         );
         $this->assertType('array', $factory->getSessionConfiguration());
@@ -116,11 +117,11 @@ class Horde_Kolab_Session_Class_Factory_LoggedTest extends Horde_Kolab_Session_S
     public function testMethodGetsessionstorageGetsDelegated()
     {
         $storage = $this->getMock('Horde_Kolab_Session_Storage');
-        $factory = $this->getMock('Horde_Kolab_Session_Factory');
+        $factory = $this->getMock('Horde_Kolab_Session_Factory_Interface');
         $factory->expects($this->once())
             ->method('getSessionStorage')
             ->will($this->returnValue($storage));
-        $factory = new Horde_Kolab_Session_Factory_Logged(
+        $factory = new Horde_Kolab_Session_Factory_Decorator_Logged(
             $factory, $this->logger
         );
         $this->assertType(
@@ -131,30 +132,30 @@ class Horde_Kolab_Session_Class_Factory_LoggedTest extends Horde_Kolab_Session_S
 
     public function testMethodGetsessionvalidatorGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
-        $auth = $this->getMock('Horde_Kolab_Session_Auth');
-        $validator = $this->getMock('Horde_Kolab_Session_Valid');
-        $factory = $this->getMock('Horde_Kolab_Session_Factory');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $auth = $this->getMock('Horde_Kolab_Session_Auth_Interface');
+        $validator = $this->getMock('Horde_Kolab_Session_Valid_Interface');
+        $factory = $this->getMock('Horde_Kolab_Session_Factory_Interface');
         $factory->expects($this->once())
             ->method('getSessionValidator')
             ->will($this->returnValue($validator));
-        $factory = new Horde_Kolab_Session_Factory_Logged(
+        $factory = new Horde_Kolab_Session_Factory_Decorator_Logged(
             $factory, $this->logger
         );
         $this->assertType(
-            'Horde_Kolab_Session_Valid',
+            'Horde_Kolab_Session_Valid_Interface',
             $factory->getSessionValidator($session, $auth)
         );
     }
 
     public function testMethodValidateGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
-        $factory = $this->getMock('Horde_Kolab_Session_Factory');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $factory = $this->getMock('Horde_Kolab_Session_Factory_Interface');
         $factory->expects($this->once())
             ->method('validate')
             ->will($this->returnValue(true));
-        $factory = new Horde_Kolab_Session_Factory_Logged(
+        $factory = new Horde_Kolab_Session_Factory_Decorator_Logged(
             $factory, $this->logger
         );
         $this->assertTrue($factory->validate($session, 'test'));
@@ -162,27 +163,27 @@ class Horde_Kolab_Session_Class_Factory_LoggedTest extends Horde_Kolab_Session_S
 
     public function testMethodCreatesessionGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
-        $factory = $this->getMock('Horde_Kolab_Session_Factory');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $factory = $this->getMock('Horde_Kolab_Session_Factory_Interface');
         $factory->expects($this->once())
             ->method('createSession')
             ->will($this->returnValue($session));
-        $factory = new Horde_Kolab_Session_Factory_Logged(
+        $factory = new Horde_Kolab_Session_Factory_Decorator_Logged(
             $factory, $this->logger
         );
-        $this->assertType('Horde_Kolab_Session', $factory->createSession());
+        $this->assertType('Horde_Kolab_Session_Interface', $factory->createSession());
     }
 
     public function testMethodGetsessionGetsDelegated()
     {
-        $session = $this->getMock('Horde_Kolab_Session');
-        $factory = $this->getMock('Horde_Kolab_Session_Factory');
+        $session = $this->getMock('Horde_Kolab_Session_Interface');
+        $factory = $this->getMock('Horde_Kolab_Session_Factory_Interface');
         $factory->expects($this->once())
             ->method('getSession')
             ->will($this->returnValue($session));
-        $factory = new Horde_Kolab_Session_Factory_Logged(
+        $factory = new Horde_Kolab_Session_Factory_Decorator_Logged(
             $factory, $this->logger
         );
-        $this->assertType('Horde_Kolab_Session', $factory->getSession());
+        $this->assertType('Horde_Kolab_Session_Interface', $factory->getSession());
     }
 }

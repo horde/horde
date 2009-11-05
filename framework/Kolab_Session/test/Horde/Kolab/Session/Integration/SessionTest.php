@@ -30,7 +30,8 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_Integration_SessionTest extends Horde_Kolab_Session_SessionTestCase
+class Horde_Kolab_Session_Integration_SessionTest
+extends Horde_Kolab_Session_SessionTestCase
 {
     /**
      * Setup function.
@@ -93,8 +94,10 @@ class Horde_Kolab_Session_Integration_SessionTest extends Horde_Kolab_Session_Se
         $this->assertNoError($result);
         $this->assertEquals(1, count($GLOBALS['KOLAB_SERVER_TEST_DATA']));
 
-        $session = Horde_Kolab_Session::singleton('test',
-                                                  array('password' => 'test'));
+        $session = Horde_Kolab_Session::singleton(
+            'test',
+            array('password' => 'test')
+        );
 
         $this->assertNoError($session->auth);
         $this->assertEquals('test@example.org', $session->user_mail);
@@ -116,7 +119,9 @@ class Horde_Kolab_Session_Integration_SessionTest extends Horde_Kolab_Session_Se
         $this->assertEquals(143, $params['port']);
         $this->assertEquals('test@example.org', $session->user_mail);
 
-        $this->assertEquals('https://fb.example.org/freebusy', $session->freebusy_server);
+        $this->assertEquals(
+            'https://fb.example.org/freebusy', $session->freebusy_server
+        );
     }
 
     /**
@@ -157,19 +162,25 @@ class Horde_Kolab_Session_Integration_SessionTest extends Horde_Kolab_Session_Se
             $this->assertNoError($result);
         }
 
-        $session = Horde_Kolab_Session::singleton('wrobel',
-                                                  array('password' => 'none'),
-                                                  true);
+        $session = Horde_Kolab_Session::singleton(
+            'wrobel',
+            array('password' => 'none'),
+            true
+        );
 
         $this->assertNoError($session->auth);
         $this->assertEquals('wrobel@example.org', $session->user_mail);
 
         try {
-            $session = Horde_Kolab_Session::singleton('test',
-                                                      array('password' => 'test'),
-                                                      true);
+            $session = Horde_Kolab_Session::singleton(
+                'test',
+                array('password' => 'test'),
+                true
+            );
         } catch (Horde_Kolab_Session_Exception $e) {
-            $this->assertError($e, 'You are no member of a group that may login on this server.');
+            $this->assertError(
+                $e, 'You are no member of a group that may login on this server.'
+            );
         }
         // FIXME: Ensure that the session gets overwritten
         //$this->assertTrue(empty($session->user_mail));
@@ -198,19 +209,25 @@ class Horde_Kolab_Session_Integration_SessionTest extends Horde_Kolab_Session_Se
             $this->assertNoError($result);
         }
 
-        $session = Horde_Kolab_Session::singleton('test',
-                                                  array('password' => 'test'),
-                                                  true);
+        $session = Horde_Kolab_Session::singleton(
+            'test',
+            array('password' => 'test'),
+            true
+        );
 
         $this->assertNoError($session->auth);
         $this->assertEquals('test@example.org', $session->user_mail);
 
         try {
-            $session = Horde_Kolab_Session::singleton('wrobel',
-                                                      array('password' => 'none'),
-                                                      true);
+            $session = Horde_Kolab_Session::singleton(
+                'wrobel',
+                array('password' => 'none'),
+                true
+            );
         } catch (Horde_Kolab_Session_Exception $e) {
-            $this->assertError($e, 'You are member of a group that may not login on this server.');
+            $this->assertError(
+                $e, 'You are member of a group that may not login on this server.'
+            );
         }
         // FIXME: Ensure that the session gets overwritten
         //$this->assertTrue(empty($session->user_mail));

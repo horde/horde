@@ -50,13 +50,13 @@ class Horde_Kolab_Session_SessionTestCase extends PHPUnit_Framework_TestCase
 
     protected function setupStorage()
     {
-        $this->storage = $this->getMock('Horde_Kolab_Session_Storage');
+        $this->storage = $this->getMock('Horde_Kolab_Session_Storage_Interface');
     }
 
     protected function setupFactoryMocks()
     {
         $this->server          = $this->_getMockedComposite();
-        $this->session_auth    = $this->getMock('Horde_Kolab_Session_Auth');
-        $this->session_storage = $this->getMock('Horde_Kolab_Session_Storage');
+        $this->session_auth    = $this->getMock('Horde_Kolab_Session_Auth_Interface');
+        $this->session_storage = $this->getMock('Horde_Kolab_Session_Storage_Interface');
     }
 }

@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
 class Horde_Kolab_Session_Storage_Mock
-implements Horde_Kolab_Session_Storage
+implements Horde_Kolab_Session_Storage_Interface
 {
     /**
      * The session information.
@@ -47,11 +47,11 @@ implements Horde_Kolab_Session_Storage
     /**
      * Save the session information.
      *
-     * @param Horde_Kolab_Session $session The session information.
+     * @param Horde_Kolab_Session_Interface $session The session information.
      *
      * @return NULL
      */
-    public function save(Horde_Kolab_Session $session)
+    public function save(Horde_Kolab_Session_Interface $session)
     {
         $this->session = $session;
     }

@@ -25,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-interface Horde_Kolab_Session_Auth
+interface Horde_Kolab_Session_Auth_Interface
 {
     /**
      * Get the current user ID.
