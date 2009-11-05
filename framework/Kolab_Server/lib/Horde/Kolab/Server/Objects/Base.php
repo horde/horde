@@ -71,16 +71,16 @@ implements Horde_Kolab_Server_Objects_Interface
      * If you do not specify a uid the object corresponding to the user bound to
      * the server will be returned.
      *
-     * @param string $uid  The UID of the object to fetch.
+     * @param string $guid The GUID of the object to fetch.
      * @param string $type The type of the object to fetch.
      *
      * @return Kolab_Object The corresponding Kolab object.
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    public function fetch($uid = null, $type = null)
+    public function fetch($guid = null, $type = null)
     {
-        if (!isset($uid)) {
+        if (!isset($guid)) {
             $guid = $this->_composite->server->getGuid();
         }
         if (empty($type)) {

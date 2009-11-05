@@ -65,7 +65,7 @@ implements Horde_Kolab_Server_Object_Interface
      */
     public function getGuid()
     {
-        if (empty($this->guid)) {
+        if ($this->guid === null) {
             throw new Horde_Kolab_Server_Exception(
                 'Uninitialized object is missing GUID!'
             );
