@@ -1939,8 +1939,8 @@ KronolithCore = {
             case 'kronolithEventLinkTags':
                 $('kronolithEventDialog').select('.kronolithTabsOption').invoke('hide');
                 $(id.replace(/Link/, 'Tab')).show();
-                $('kronolithEventDialog').select('.kronolithTabs li').invoke('removeClassName', 'selected');
-                elt.parentNode.addClassName('selected');
+                $('kronolithEventDialog').select('.tabset li').invoke('removeClassName', 'activeTab');
+                elt.parentNode.addClassName('activeTab');
                 e.stop();
                 return;
 

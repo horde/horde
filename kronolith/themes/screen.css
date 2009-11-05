@@ -663,20 +663,14 @@ div#kronolithEventTopTags span:hover {
     cursor: pointer;
 }
 
-.kronolithTabs {
+#kronolithEventDialog .tabset {
+    float: none;
+    width: auto;
+    background: none;
     margin: 15px 0;
-    list-style: none;
 }
-.kronolithTabs li {
-    border: 1px solid #c0c0c0;
-    float: left;
-    height: 25px;
-    line-height: 25px;
-}
-.kronolithTabs a {
-    padding: 0 14px;
-    font-weight: bold;
-    text-decoration: none;
+#kronolithEventDialog .tabset ul {
+    padding-left: 0;
 }
 
 .kronolithTabsOption {
@@ -1009,7 +1003,6 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
 #kronolithViewTasks caption.tabset {
     float: none;
     width: auto;
-    font-weight: bold;
     background: none;
 }
 #kronolithViewTasks ul.kronolithNavigation {

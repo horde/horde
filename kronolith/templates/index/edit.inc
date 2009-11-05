@@ -40,15 +40,17 @@
   </tr>
 </tbody></table>
 
-<ul class="kronolithTabs">
-  <li class="selected"><a href="#" id="kronolithEventLinkDescription"><?php echo _("Description") ?></a></li>
-  <li><a href="#" id="kronolithEventLinkReminder"><?php echo _("Reminder") ?></a></li>
-  <li><a href="#" id="kronolithEventLinkRecur"><?php echo _("Repeat") ?></a></li>
-  <li><a href="#" id="kronolithEventLinkUrl"><?php echo _("URL") ?></a></li>
-  <li><a href="#" id="kronolithEventLinkAttendees"><?php echo _("Attendees") ?></a></li>
-  <li><a href="#" id="kronolithEventLinkTags"><?php echo _("Tags and Keywords") ?></a></li>
-</ul>
-<div class="clear"></div>
+<div class="tabset">
+  <ul>
+    <li class="activeTab"><a href="#" id="kronolithEventLinkDescription"><?php echo _("Description") ?></a></li>
+    <li><a href="#" id="kronolithEventLinkReminder"><?php echo _("Reminder") ?></a></li>
+    <li><a href="#" id="kronolithEventLinkRecur"><?php echo _("Repeat") ?></a></li>
+    <li><a href="#" id="kronolithEventLinkUrl"><?php echo _("URL") ?></a></li>
+    <li><a href="#" id="kronolithEventLinkAttendees"><?php echo _("Attendees") ?></a></li>
+    <li><a href="#" id="kronolithEventLinkTags"><?php echo _("Tags and Keywords") ?></a></li>
+  </ul>
+</div>
+<br class="clear" />
 
 <div id="kronolithEventTabDescription" class="kronolithTabsOption">
   <textarea name="description" id="kronolithEventDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
