@@ -36,6 +36,10 @@ extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
+        if (!class_exists('Log')) {
+            $this->markTestSkipped('The PEAR Log package is not installed!');
+        }
+
         @include_once 'Log.php';
         if (!defined('PEAR_LOG_DEBUG')) {
             $this->markTestSkipped('The PEAR_LOG_DEBUG constant is not available!');

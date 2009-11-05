@@ -36,6 +36,10 @@ extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
+        if (!class_exists('Horde_Alarm')) {
+            $this->markTestSkipped('The Horde_Alarm package is not installed!');
+        }
+
         $this->handler = $this->getMock(
             'Horde_Notification_Handler_Base', array(), array(), '', false, false
         );

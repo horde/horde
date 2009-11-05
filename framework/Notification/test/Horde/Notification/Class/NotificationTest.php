@@ -42,6 +42,10 @@ class Horde_Notification_Class_NotificationTest extends PHPUnit_Framework_TestCa
 
     public function testMethodSingletonReturnsAlarmhandlerIfTheAlarmSystemisConfigured()
     {
+        if (!class_exists('Horde_Alarm')) {
+            $this->markTestSkipped('The Horde_Alarm package is not installed!');
+        }
+
         global $conf;
         $conf['alarms']['driver'] = 'Mock';
 

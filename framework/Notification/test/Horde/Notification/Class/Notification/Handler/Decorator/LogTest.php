@@ -36,6 +36,10 @@ extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
+        if (!class_exists('Horde_Log_Logger')) {
+            $this->markTestSkipped('The Horde_Log package is not installed!');
+        }
+
         $this->handler = $this->getMock(
             'Horde_Notification_Handler_Base', array(), array(), '', false, false
         );

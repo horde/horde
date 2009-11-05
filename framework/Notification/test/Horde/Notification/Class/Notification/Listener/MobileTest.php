@@ -34,6 +34,14 @@ class Horde_Notification_Class_Notification_Listener_MobileTest extends PHPUnit_
 {
     public function setUp()
     {
+        if (!class_exists('Horde_Perms')) {
+            $this->markTestSkipped('The Horde_Perms package is not installed!');
+        }
+
+        if (!class_exists('Horde_Mobile')) {
+            $this->markTestSkipped('The Horde_Mobile package is not installed!');
+        }
+
         /** Loading Horde/Registry.php requires the PERMS_* constants */
         require_once 'Horde/Perms.php';
         /**
