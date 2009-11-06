@@ -33,18 +33,18 @@ class Horde_Kolab_Storage_Folder
      * The root of the Kolab annotation hierarchy, used on the various IMAP
      * folder that are used by Kolab clients.
      */
-    const ANNOT_ROOT = '/vendor/kolab/';
+    const ANNOT_ROOT = '/shared/vendor/kolab/';
 
     /**
      * The annotation, as defined by the Kolab format spec, that is used to store
      * information about what groupware format the folder contains.
      */
-    const ANNOT_FOLDER_TYPE = '/vendor/kolab/folder-type';
+    const ANNOT_FOLDER_TYPE = '/shared/vendor/kolab/folder-type';
 
     /**
      * Horde-specific annotations on the imap folder have this prefix.
      */
-    const ANNOT_SHARE_ATTR = '/vendor/horde/share-';
+    const ANNOT_SHARE_ATTR = '/shared/vendor/horde/share-';
 
     /**
      * Kolab specific free/busy relevance
@@ -351,7 +351,7 @@ class Horde_Kolab_Storage_Folder
                 try {
                     $this->_connection->create($this->name);
                     $this->_connection->setAnnotation(self::ANNOT_FOLDER_TYPE, 
-                                                      array('value.shared' => $this->_type),
+                                                      $this->_type,
                                                       $this->name);
                     $this->trigger($this->name);
                     $this->_connection->delete($this->name);
@@ -592,7 +592,7 @@ class Horde_Kolab_Storage_Folder
             if ($attribute == 'desc') {
                 $entry = '/comment';
             } else {
-                $entry = HORDE_ANNOT_SHARE_ATTR . $attribute;
+                $entry = self::ANNOT_SHARE_ATTR . $attribute;
             }
             $annotation = $this->_getAnnotation($entry, $this->name);
             if (is_a($annotation, 'PEAR_Error')) {
@@ -964,7 +964,7 @@ class Horde_Kolab_Storage_Folder
             }
         }
 
-        $session = &Horde_Kolab_Session::singleton();
+        $session = &Horde_Kolab_Session_Singleton::singleton();
 
         // Update email headers
         $new_headers->addHeader('From', $session->user_mail);
@@ -1146,7 +1146,7 @@ class Horde_Kolab_Storage_Folder
 
         switch($type) {
         case 'event':
-            $session = &Horde_Kolab_Session::singleton();
+            $session = &Horde_Kolab_Session_Singleton::singleton();
             $url = sprintf('%s/trigger/%s/%s.pfb',
                            $session->freebusy_server, $owner, $subpath);
             break;

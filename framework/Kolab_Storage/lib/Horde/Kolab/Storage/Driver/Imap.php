@@ -47,6 +47,7 @@ class Horde_Kolab_Storage_Driver_Imap extends Horde_Kolab_Storage_Driver
         } else {
             $driver = 'socket';
         }
+
         $this->_imap = Horde_Imap_Client::factory($driver, $params);
     }
 
@@ -57,7 +58,7 @@ class Horde_Kolab_Storage_Driver_Imap extends Horde_Kolab_Storage_Driver
      */
     public function getMailboxes()
     {
-        return $this->_imap->listMailboxes('', Horde_Imap_Client::MBOX_ALL, array('flat' => true));
+        return $this->_imap->listMailboxes('*', Horde_Imap_Client::MBOX_ALL, array('flat' => true));
     }
 
     /**
@@ -229,9 +230,14 @@ class Horde_Kolab_Storage_Driver_Imap extends Horde_Kolab_Storage_Driver
     function getMessageHeader($mailbox, $uid, $peek_for_body = true)
     {
         $options = array('ids' => array($uid));
-        $criteria = array(Horde_Imap_Client::FETCH_HEADERTEXT => array());
-	$result = $this->_imap->fetch($mailbox, $criteria, $options);
-        return $result['headertext'][$uid];
+        $criteria = array(
+            Horde_Imap_Client::FETCH_HEADERTEXT => array(
+                array(
+                )
+            )
+        );
+        $result = $this->_imap->fetch($mailbox, $criteria, $options);
+        return $result[$uid]['headertext'][0];
     }
 
     /**
@@ -246,9 +252,14 @@ class Horde_Kolab_Storage_Driver_Imap extends Horde_Kolab_Storage_Driver
     function getMessageBody($mailbox, $uid)
     {
         $options = array('ids' => array($uid));
-        $criteria = array(Horde_Imap_Client::FETCH_BODYTEXT => array());
+        $criteria = array(
+            Horde_Imap_Client::FETCH_BODYTEXT => array(
+                array(
+                )
+            )
+        );
         $result = $this->_imap->fetch($mailbox, $criteria, $options);
-        return $result['bodytext'][$uid];
+        return $result[$uid]['bodytext'][0];
     }
 
     /**
@@ -295,7 +306,7 @@ class Horde_Kolab_Storage_Driver_Imap extends Horde_Kolab_Storage_Driver
     function getAnnotation($entry, $mailbox_name)
     {
         $result = $this->_imap->getMetadata($mailbox_name, $entry);
-        return $result[$entry];
+        return $result[$mailbox_name][$entry];
     }
 
     /**

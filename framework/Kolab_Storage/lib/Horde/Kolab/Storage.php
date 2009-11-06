@@ -12,11 +12,6 @@
  */
 
 /**
- * The Autoloader allows us to omit "require/include" statements.
- */
-require_once 'Horde/Autoloader.php';
-
-/**
  * The Horde_Kolab_Storage class provides the means to access the
  * Kolab server storage for groupware objects.
  *
