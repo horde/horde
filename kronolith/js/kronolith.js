@@ -1635,7 +1635,7 @@ KronolithCore = {
         };
 
         //this.updateTasklistDropDown();
-        if (id) {
+        if (false && id) {
             RedBox.loading();
             this.doAction('GetTask', { 'list': tasklist, 'id': id }, this._editTask.bind(this));
         } else {
