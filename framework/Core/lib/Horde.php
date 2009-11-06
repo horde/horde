@@ -329,13 +329,24 @@ HTML;
                 : $conf['cachejsparams']['lifetime'];
         }
 
-        if ($conf['cachejsparams']['compress'] == 'yui') {
+        switch ($conf['cachejsparams']['compress']) {
+        case 'closure':
+            $jsmin_params = array(
+                'closure' => $conf['cachejsparams']['closurepath'],
+                'java' => $conf['cachejsparams']['javapath']
+            );
+            break;
+
+        case 'yui':
             $jsmin_params = array(
                 'java' => $conf['cachejsparams']['javapath'],
                 'yui' => $conf['cachejsparams']['yuipath']
             );
-        } else {
+            break;
+
+        default:
             $jsmin_params = array();
+            break;
         }
 
         /* Output prototype.js separately from the other files. */

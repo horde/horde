@@ -19,6 +19,7 @@ class Horde_Text_Filter_JavascriptMinify extends Horde_Text_Filter
      * @var array
      */
     protected $_params = array(
+        'closure' => null,
         'java' => null,
         'yui' => null
     );
@@ -32,10 +33,16 @@ class Horde_Text_Filter_JavascriptMinify extends Horde_Text_Filter
      */
     public function postProcess($text)
     {
-        /* Are we using the YUI Compressor? */
-        if (!empty($this->_params['yui']) &&
-            !empty($this->_params['java'])) {
-            return $this->_runYuiCompressor($text);
+        if (!empty($this->_params['java'])) {
+            /* Are we using the YUI Compressor? */
+            if (!empty($this->_params['yui'])) {
+                return $this->_runCompressor($text, $this->_params['yui'], ' --type js');
+            }
+
+            /* Are we using the Google Closure Compiler? */
+            if (!empty($this->_params['closure'])) {
+                return $this->_runCompressor($text, $this->_params['closure']);
+            }
         }
 
         /* Use PHP-based minifier. */
@@ -48,16 +55,18 @@ class Horde_Text_Filter_JavascriptMinify extends Horde_Text_Filter
     }
 
     /**
-     * Passes javascript through YUI Compressor.
+     * Passes javascript through a java compressor (YUI or Closure).
      *
      * @param string $text  The javascript text.
+     * @param string $jar   The JAR location.
+     * @param string $args  Additional command line arguments.
      *
      * @return string  The modified text.
      */
-    protected function _runYuiCompressor($text)
+    protected function _runCompressor($jar, $args = '')
     {
         if (!is_executable($this->_params['java']) ||
-            !file_exists($this->_params['yui'])) {
+            !file_exists($jar)) {
             return $text;
         }
 
@@ -67,7 +76,7 @@ class Horde_Text_Filter_JavascriptMinify extends Horde_Text_Filter
             2 => array('pipe', 'w')
         );
 
-        $process = proc_open(escapeshellcmd($this->_params['java']) . ' -jar ' . escapeshellarg($this->_params['yui']) . ' --type js', $descspec, $pipes);
+        $process = proc_open(escapeshellcmd($this->_params['java']) . ' -jar ' . escapeshellarg($jar) . $args, $descspec, $pipes);
 
         fwrite($pipes[0], $text);
         fclose($pipes[0]);
