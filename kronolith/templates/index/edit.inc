@@ -150,7 +150,7 @@
 <?php $part = array('john@exmple.com', 'jane@example.com'); ?>
 <div id="kronolithEventTabAttendees" class="kronolithTabsOption" style="display:none">
   <input type="text" name="participants" id="eventParticipants" class="kronolithLongField" value="<?php echo implode(', ', $part) ?>" /><br />
-  <label><input type="checkbox" name="" value="" /> <?php echo _("send invites") ?></label> <?php echo _("to all attendees") ?><br />
+  <label><input type="checkbox" name="sendupdates" value="" /> <?php echo _("send invites") ?></label> <?php echo _("to all attendees") ?><br />
   <table width="100%" cellspacing="0" cellpadding="0" border="0">
     <thead>
       <tr>
