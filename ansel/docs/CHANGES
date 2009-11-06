@@ -1,33 +1,44 @@
 --------
 v2.0-git
 --------
+
 [mjr] Exif code removed and placed in Horde_Image_Exif
 
 
---------
-v1.1-cvs
---------
+----------
+v1.1.1-cvs
+----------
 
-[mjr] Fix issue with uploading images to galleries in `Browse by Date` mode
-      causing the mode to be reset to `Normal`.
+
+
+
+----
+v1.1
+----
+
+[mjr] Fix a bug that caused a SQL error on some RDBMS (Bug #8610).
+[mjr] Add autocompletion for tags.
+[mjr] Fix issue with uploading images to galleries in "Browse by Date" mode
+      causing the mode to be reset to "Normal".
 [mjr] Return to the previously viewed page number when manually selecting
-      face ranges (Bug: 8402).
+      face ranges (Bug #8402).
 [mjr] Significantly reduce the number of javascript errors due to IE issues.
 [mjr] Allow the addition of geolocation data on images that do not contain any
       and allow the relocating of images that do have the data.
-[mjr] Fix display of EXIF date values (Bug: 8352).
+[mjr] Fix display of EXIF date values (Bug #8352).
 [mjr] Display a Google Map with thumbnail markers for image location(s) if
       location data is available.
 [mjr] Add configuration switch to disallow querying the preference backend for
-      other user's identities and preferences (Bug: 8269).
+      other user's identities and preferences (Bug #8269).
 [mjr] Remove broken implementation of the 'numlimit' configuration option
-      (See Bug: 8139).
+      (Bug #8139).
 [jan] Fix icon URLs if cookies are turned off.
 [jan] Fix ansel_shares table definition for PostgreSQL.
 [mjr] Fix issue that caused screen image creation to fail when using gd
       Horde_Image driver.
 [mjr] Fix issue with screen images being generated as PNGs if not using VFS
       Direct serving.
+
 
 ----
 v1.0
@@ -40,10 +51,11 @@ v1.0
 [mjr] Allow embedding screen size images in external sites as well.
 [mjr] Add configuration parameter to require a minimum number of
       images to be present in a gallery before it's displayed in a
-      gallery list. (Duck <duck@obala.net>, Request # 7949)
+      gallery list. (Duck <duck@obala.net>, Request# 7949)
 [mjr] Add a Link widget to the Image View.
 [mjr] Correct some undefined variable warnings. (Duck <duck@obala.net>)
 [mjr] Fix default parameters for the ansel tag cloud.
+
 
 --------
 v1.0-RC1
