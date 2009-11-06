@@ -762,9 +762,12 @@ KronolithCore = {
                 ext[api[0]] = {};
             }
             if (typeof ext[api[0]][api[1]] == 'undefined') {
-                ext[api[0]][api[1]] = [];
+                ext[api[0]][api[1]] = {};
             }
-            ext[api[0]][api[1]].push(cal.value);
+            if (typeof api[2] == 'undefined') {
+                api[2] = 0;
+            }
+            ext[api[0]][api[1]][api[2]] = cal.value;
             extNames[api[0]] = cal.value.api;
         });
         $H(ext).each(function(api) {
@@ -775,15 +778,14 @@ KronolithCore = {
                         .insert({ bottom: extNames[api.key].escapeHTML() }))
                 .insert(new Element('DIV', { 'id': 'kronolithExternalCalendar' + api.key, 'class': 'kronolithCalendars' }));
             $H(api.value).each(function(cals) {
-                for (var i = 0; i < cals.value.length; i++) {
-                    var cal = cals.value[i];
+                $H(cals.value).each(function(cal) {
                     $('kronolithExternalCalendar' + api.key)
-                        .insert(new Element('DIV', { 'class': cal.show ? 'kronolithCalOn' : 'kronolithCalOff' })
-                                .store('calendar', api.key + '/' + cals.key)
+                        .insert(new Element('DIV', { 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' })
+                                .store('calendar', api.key + '/' + cals.key + ((cal.key != 0) ? '/' + cal.key : ''))
                                 .store('calendarclass', 'external')
-                                .setStyle({ backgroundColor: cal.bg, color: cal.fg })
-                                .update(cal.name.escapeHTML()));
-                }
+                                .setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg })
+                                .update(cal.value.name.escapeHTML()));
+                });
             });
         });
 
@@ -2245,7 +2247,6 @@ KronolithCore = {
             calClass = elt.retrieve('calendarclass');
             if (calClass) {
                 var calendar = elt.retrieve('calendar');
-                console.log(calendar);
                 Kronolith.conf.calendars[calClass][calendar].show = !Kronolith.conf.calendars[calClass][calendar].show;
                 if (this.view == 'year' ||
                     typeof this.ecache.get(calClass) == 'undefined' ||
