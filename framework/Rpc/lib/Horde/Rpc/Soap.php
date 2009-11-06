@@ -63,7 +63,7 @@ class Horde_Rpc_Soap extends Horde_Rpc
             $this->_serviceName = $params['serviceName'];
         }
 
-        $this->_server = new SoapServer(null, array('uri' => Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/rpc.php', true, false)));
+        $this->_server = new SoapServer(null, array('uri' => Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/rpc.php', true, -1)));
         $this->_server->addFunction(SOAP_FUNCTIONS_ALL);
         $this->_server->setClass('Horde_Rpc_Soap_Caller', $params);
     }
