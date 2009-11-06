@@ -323,6 +323,14 @@ KronolithCore = {
             break;
 
         case 'task':
+            switch (locParts.length) {
+            case 0:
+                this.editTask();
+                break;
+            case 2:
+                this.editTask(locParts[0], locParts[1]);
+                break;
+            }
             this._addHistory(fullloc);
             break;
 
@@ -1615,6 +1623,35 @@ KronolithCore = {
         col.toggleClassName('kronolithTaskCompleted');
     },
 
+    editTask: function(tasklist, id)
+    {
+        RedBox.onDisplay = function() {
+            try {
+                $('kronolithTaskForm').focusFirstElement();
+            } catch(e) {}
+            RedBox.onDisplay = null;
+        };
+
+        //this.updateTasklistDropDown();
+        if (id) {
+            RedBox.loading();
+            this.doAction('GetTask', { 'list': tasklist, 'id': id }, this._editTask.bind(this));
+        } else {
+            /*
+            $('kronolithTaskId').value = '';
+            $('kronolithTaskList').value = Kronolith.conf.default_tasklist;
+            $('kronolithTaskDelete').hide();
+            $('kronolithTaskStartDate').value = d.toString(Kronolith.conf.date_format);
+            $('kronolithTaskStartTime').value = d.toString(Kronolith.conf.time_format);
+            d.add(1).hour();
+            $('kronolithTaskEndDate').value = d.toString(Kronolith.conf.date_format);
+            $('kronolithTaskEndTime').value = d.toString(Kronolith.conf.time_format);
+            */
+            RedBox.showHtml($('kronolithTaskDialog').show());
+            this.taskForm = RedBox.getWindowContents();
+        }
+    },
+
     /**
      * Parses a date attribute string into a Date object.
      *
@@ -1944,6 +1981,16 @@ KronolithCore = {
                 e.stop();
                 return;
 
+            case 'kronolithTaskLinkDescription':
+            case 'kronolithTaskLinkReminder':
+            case 'kronolithTaskLinkUrl':
+                $('kronolithTaskDialog').select('.kronolithTabsOption').invoke('hide');
+                $(id.replace(/Link/, 'Tab')).show();
+                $('kronolithTaskDialog').select('.tabset li').invoke('removeClassName', 'activeTab');
+                elt.parentNode.addClassName('activeTab');
+                e.stop();
+                return;
+
             case 'kronolithEventLinkNone':
             case 'kronolithEventLinkDaily':
             case 'kronolithEventLinkWeekly':
@@ -1981,6 +2028,7 @@ KronolithCore = {
                 return;
 
             case 'kronolithEventCancel':
+            case 'kronolithTaskCancel':
                 this._closeRedBox();
                 window.history.back();
                 e.stop();
@@ -2133,6 +2181,11 @@ KronolithCore = {
 
             case 'kronolithEventTag':
                 $('kronolithEventTags').autocompleter.addNewItemNode(elt.getText());
+                e.stop();
+                return;
+
+            case 'kronolithTaskRow':
+                this.go('task:' + elt.retrieve('tasklist') + ':' + elt.retrieve('taskid'));
                 e.stop();
                 return;
             }

@@ -20,8 +20,10 @@
     <a id="kronolithNavWeek" accesskey="2"><?php echo _("Week") ?></a>
     <a id="kronolithNavMonth" accesskey="3"><?php echo _("Month") ?></a>
     <a id="kronolithNavYear" accesskey="4"><?php echo _("Year") ?></a>
+    <?php if ($GLOBALS['registry']->hasInterface('tasks')): ?>
     <a id="kronolithNavTasks" accesskey="5"><?php echo _("Tasks") ?></a>
-    <a id="kronolithNavAgenda" accesskey="6"><?php echo _("Agenda") ?></a>
+    <?php endif; ?>
+    <a id="kronolithNavAgenda" accesskey="<?php echo $GLOBALS['registry']->hasInterface('tasks') ? 6 : 5 ?>"><?php echo _("Agenda") ?></a>
   </div>
 </div>
 <!-- end top bar -->
@@ -121,7 +123,10 @@ require dirname(__FILE__) . '/month.inc';
 require dirname(__FILE__) . '/week.inc';
 require dirname(__FILE__) . '/day.inc';
 require dirname(__FILE__) . '/year.inc';
-require dirname(__FILE__) . '/tasks.inc';
+if ($GLOBALS['registry']->hasInterface('tasks')) {
+    require dirname(__FILE__) . '/tasks.inc';
+    require dirname(__FILE__) . '/task.inc';
+}
 require dirname(__FILE__) . '/agenda.inc';
 ?>
 <div id="kronolithViewIframe" style="display:none"></div>

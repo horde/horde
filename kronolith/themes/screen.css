@@ -517,6 +517,10 @@ span#kronolithQuickEvent {
 #kronolithQuickinsert label {
     font-weight: bold;
 }
+
+.kronolithFormCancel {
+    cursor: pointer;
+}
 .kronolithFormInfo {
     font-style: italic;
 }
@@ -603,24 +607,24 @@ span#kronolithQuickEvent {
     background-image: url("graphics/yearview.png");
 }
 
-/* Event form dialog */
-#kronolithEventDialog {
+/* Event/task form dialogs */
+#kronolithEventDialog, #kronolithTaskDialog {
     width: 700px;
     padding: 10px 20px;
     background: #efefef;
     border: 1px #c0c0c0 solid;
 }
-#kronolithEventDialog div {
+#kronolithEventDialog div, #kronolithTaskDialog div {
     margin-bottom: 5px;
 }
-#kronolithEventDialog td {
+#kronolithEventDialog td, #kronolithTaskDialog td {
     padding-right: 10px;
     vertical-align: top;
 }
-#kronolithEventForm label {
+#kronolithEventForm label, #kronolithTaskForm label {
     font-weight: bold;
 }
-#kronolithEventForm input.kronolithDatePicker {
+#kronolithEventForm input.kronolithDatePicker, #kronolithTaskForm input.kronolithDatePicker {
     padding-right: 20px;
     background-image: url("graphics/picker.png");
     background-position: right center;
@@ -629,7 +633,7 @@ span#kronolithQuickEvent {
 .kronolithLongField {
     width: 100%;
 }
-div#kronolithEventActions {
+div#kronolithEventActions, div#kronolithTaskActions {
     margin: 5px 0;
 }
 div#kronolithEventActions #kronolithEventAdvancedLink {
@@ -639,7 +643,7 @@ div#kronolithEventActions #kronolithEventAdvancedLink a {
     color: inherit;
 }
 
-#kronolithEventStartTime, #kronolithEventEndTime, .kronolithEventValue {
+#kronolithEventStartTime, #kronolithEventEndTime, #kronolithTaskDueTime, .kronolithEventValue {
     text-align: center;
 }
 #kronolithEventLocation {
@@ -663,13 +667,13 @@ div#kronolithEventTopTags span:hover {
     cursor: pointer;
 }
 
-#kronolithEventDialog .tabset {
+#kronolithEventDialog .tabset, #kronolithTaskDialog .tabset {
     float: none;
     width: auto;
     background: none;
     margin: 15px 0;
 }
-#kronolithEventDialog .tabset ul {
+#kronolithEventDialog .tabset ul, #kronolithTaskDialog .tabset ul {
     padding-left: 0;
 }
 
@@ -1017,10 +1021,10 @@ div.kronolithView div.kronolithViewBody div.kronolithRow {
 }
 #kronolithViewTasks tbody.kronolithViewBody td {
     padding: 4px 4px 4px 4px;
+    cursor: pointer;
 }
 #kronolithViewTasks tbody.kronolithViewBody div.kronolithTaskCheckbox {
     background: url("graphics/checkbox_off.png") no-repeat;
-    cursor: pointer;
     margin-right: 5px;
     float: left;
     width: 16px;
