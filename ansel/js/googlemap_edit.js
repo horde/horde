@@ -189,8 +189,8 @@ Ajax.Autocompleter.prototype.updateChoices = function(choices) {
  * Override the Autocompler.Local#initialize method to take an Object instead
  * of an Array, and set the appropriate properties.
  */
-Autocompleter.Local.prototype.initialize = function(element, update, obj, options) {
-    this.baseInitialize(element, update, options);
+Autocompleter.Local.prototype.initialize = function(element, obj, options) {
+    this.baseInitialize(element, options);
     this.geocache = obj;
     this.options.arr = $H(obj).keys();
 }
