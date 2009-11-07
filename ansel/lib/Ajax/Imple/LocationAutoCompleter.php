@@ -20,8 +20,7 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Ajax_Imple_AutoComple
         $ret = array(
             'params' => $js_params,
             'raw_params' => array(
-                'onSelect' => 'function (v) { ' . $this->_params['map'] . '.ll = Ansel.ajax.locationAutoCompleter.geocache[v];return v;}',
-                'onShow' => 'function (e) { if (!e.size()) ' . $this->_params['map'] . '.ll = null; }'
+                'onSelect' => 'function (v) { ' . $this->_params['map'] . '.ll = Ansel.ajax.locationAutoCompleter.geocache[v]; return v; }'
             ),
             'var' => "Ansel.ajax['locationAutoCompleter']"
         );

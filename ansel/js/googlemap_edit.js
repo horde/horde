@@ -82,7 +82,7 @@ Ansel_MapEdit.prototype = {
             lng: this._map.points[0].getLatLng().lng(),
             type: 'geotag'
         };
-        //url = this._options.url;
+
         new Ajax.Request(o.xurl, {
             method: 'post',
             parameters: params,
@@ -111,6 +111,7 @@ Ansel_MapEdit.prototype = {
             this._map.getLocations(this._map.points[0]);
             this._map.mainMap.setCenter(gll, this._map.defaultZoom);
             $(o.statusId).update('');
+            this.ll = null;
         } else {
             this._map.geocoder.getLocations($(o.locationInput).value, function(address) {
                 if (address.Status.code == '200') {
