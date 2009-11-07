@@ -152,37 +152,40 @@ Ansel_MapEdit.prototype = {
  * Override the Ajax.Autocompleter#updateChoices method so we can handle
  * receiving lat/lng points bound to the location.
  */
-Ajax.Autocompleter.prototype.updateChoices = function(choices) {
-    var li, re, ul,
-    i = 0;
-    this.geocache = choices;
+Ajax.Autocompleter.prototype.updateChoices = function(choices)
+{
+    var c = [];
     var hc = $H(choices);
+
+    this.geocache = choices;
+
     if (!this.changed && this.hasFocus) {
-        li = new Element('LI');
-        ul = new Element('UL');
-        re = new RegExp("(" + this.getToken() + ")", "i");
+        var re = new RegExp("(" + this.getToken() + ")", "i");
         var k = hc.keys();
         k.each(function(n) {
-            ul.insert(li.cloneNode(false).writeAttribute('acIndex', i++).update(n.gsub(re, '<strong>#{1}</strong>')));
+            c.push({
+                l: n.escapeHTML().gsub(re, '<strong>#{1}</strong>'),
+                v: n
+            });
         });
 
-        this.update.update(ul);
-
-        this.entryCount = k.size();
-        ul.childElements().each(this.addObservers.bind(this));
-
-        this.stopIndicator();
-        this.index = 0;
-
-        if (this.entryCount == 1 && this.options.autoSelect) {
-            this.selectEntry();
-        } else {
-            this.render();
+        if (this.indicator) {
+            this.indicator.hide();
         }
-    }
 
-    if (this.options.afterUpdateChoices) {
-        this.options.afterUpdateChoices(hc, ul);
+        if (k.size() == 1 && this.opts.autoSelect) {
+            this.onSelect(k.first());
+            if (this.knl) {
+                this.knl.hide();
+            }
+        } else if (k.size()) {
+            if (!this.knl) {
+                this.knl = new KeyNavList(this.elt, { onChoose: this.onSelect.bind(this),
+                                                        onShow: this.opts.onShow.bind(this),
+                                                     domParent: this.opts.domParent });
+            }
+            this.knl.show(c);
+        }
     }
 }
 
