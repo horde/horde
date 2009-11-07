@@ -295,18 +295,13 @@ Configuring IMP
 
    Documentation on the format and purpose of those files can be found in each
    file.  You may edit these files if you wish to customize IMP's appearance
-   and behavior.  With the following exceptions, the defaults will be correct
+   and behavior.  With the following exception, the defaults will be correct
    for most sites.
 
    a. servers.php
 
       You must be sure to list your IMAP/POP3 server names and configuration
       information in ``servers.php``.
-
-   b. motd.php
-
-      You should either provide your own message-of-the-day type information,
-      or remove motd.php.
 
    You must login to Horde as a Horde Administrator to finish the
    configuration of IMP.  Use the Horde ``Administration`` menu item to get to
