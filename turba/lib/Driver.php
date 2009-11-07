@@ -641,7 +641,7 @@ class Turba_Driver
                 'recurrence' => array('type' => 5,
                                       'interval' => 1),
                 'params' => array('source' => $this->name, 'key' => $key),
-                'link' => Horde_Util::addParameter(Horde::applicationUrl('contact.php', true), array('source' => $this->name, 'key' => $key)));
+                'link' => Horde_Util::addParameter(Horde::applicationUrl('contact.php', true), array('source' => $this->name, 'key' => $key), null, false));
        }
 
         return $t_objects;
