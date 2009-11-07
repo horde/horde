@@ -779,7 +779,7 @@ KronolithCore = {
                     var cal = cals.value[i];
                     $('kronolithExternalCalendar' + api.key)
                         .insert(new Element('DIV', { 'class': cal.show ? 'kronolithCalOn' : 'kronolithCalOff' })
-                                .store('calendar', api.key + '/' + cals.key)
+                                .store('calendar', api.key + '/' + cal.key)
                                 .store('calendarclass', 'external')
                                 .setStyle({ backgroundColor: cal.bg, color: cal.fg })
                                 .update(cal.name.escapeHTML()));
@@ -2245,7 +2245,6 @@ KronolithCore = {
             calClass = elt.retrieve('calendarclass');
             if (calClass) {
                 var calendar = elt.retrieve('calendar');
-                console.log(calendar);
                 Kronolith.conf.calendars[calClass][calendar].show = !Kronolith.conf.calendars[calClass][calendar].show;
                 if (this.view == 'year' ||
                     typeof this.ecache.get(calClass) == 'undefined' ||
