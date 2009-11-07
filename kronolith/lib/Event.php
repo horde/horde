@@ -2294,13 +2294,16 @@ abstract class Kronolith_Event
             $from_url = Horde::selfUrl(true, false, true);
         }
 
-        $link = '';
         $event_title = $this->getTitle();
+        $view_url = $this->getViewUrl(array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'), 'url' => $from_url), $full);
+        $read_permission = $this->hasPermission(PERMS_READ);
+
+        $link = '';
         if (isset($this->external) && !empty($this->external_link)) {
             $link = $this->external_link;
             $link = Horde::linkTooltip(Horde::url($link), '', 'event-tentative', '', '', Horde_String::wrap($this->description));
-        } elseif (isset($this->eventID) && $this->hasPermission(PERMS_READ)) {
-            $link = Horde::linkTooltip($this->getViewUrl(array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'), 'url' => $from_url), $full),
+        } elseif (isset($this->eventID) && $read_permission) {
+            $link = Horde::linkTooltip($view_url,
                                        $event_title,
                                        $this->getStatusClass(), '', '',
                                        $this->getTooltip(),
@@ -2310,9 +2313,7 @@ abstract class Kronolith_Event
 
         $link .= @htmlspecialchars($event_title, ENT_QUOTES, Horde_Nls::getCharset());
 
-        if ($this->hasPermission(PERMS_READ) &&
-            (isset($this->eventID) ||
-             isset($this->external))) {
+        if ($read_permission && (isset($this->eventID) || isset($this->external))) {
             $link .= '</a>';
         }
 
@@ -2364,15 +2365,13 @@ abstract class Kronolith_Event
             $delete = '';
             if ((!$this->isPrivate() || $this->getCreatorId() == Horde_Auth::getAuth())
                 && $this->hasPermission(PERMS_EDIT)) {
-                $editurl = $this->getEditUrl(array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'),
-                                                   'url' => $from_url));
+                $editurl = Horde_Util::addParameter($view_url, 'view', 'EditEvent', !$full);
                 $edit = Horde::link($editurl, sprintf(_("Edit %s"), $event_title), 'iconEdit')
                     . Horde::fullSrcImg('edit-' . $icon_color . '.png', array('attr' => 'alt="' . _("Edit") . '"'))
                     . '</a>';
             }
             if ($this->hasPermission(PERMS_DELETE)) {
-                $delurl = $this->getDeleteUrl(array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'),
-                                                    'url' => $from_url));
+                $delurl = Horde_Util::addParameter($view_url, 'view', 'DeleteEvent', !$full);
                 $delete = Horde::link($delurl, sprintf(_("Delete %s"), $event_title), 'iconDelete')
                     . Horde::fullSrcImg('delete-' . $icon_color . '.png', array('attr' => 'alt="' . _("Delete") . '"'))
                     . '</a>';

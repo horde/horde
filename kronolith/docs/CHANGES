@@ -25,6 +25,7 @@ v3.0-git
 v2.3.3-cvs
 ----------
 
+[jan] Optimize event link generation (patrick.abiven@apitech.fr).
 [jan] Fix Oracle SQL scripts.
 [jan] Fix charset of ajax responses.
 [jan] Add Croatian translation (Matej Vela <matej.vela@carnet.hr>).

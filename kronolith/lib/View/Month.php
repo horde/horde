@@ -135,6 +135,10 @@ class Kronolith_View_Month {
 
         $showLocation = Kronolith::viewShowLocation();
         $showTime = Kronolith::viewShowTime();
+        $day_url = Horde::applicationUrl('day.php');
+        $this_link = $this->link(0, true);
+        $new_url = Horde_Util::addParameter(Horde::applicationUrl('new.php'), 'url', $this_link);
+        $new_img = Horde::img('new_small.png', '+');
 
         foreach ($this->_currentCalendars as $id => $cal) {
             if ($sidebyside) {
@@ -166,19 +170,16 @@ class Kronolith_View_Month {
 
                 $html .= '<td class="' . $style . '" height="70" width="14%" valign="top"><div>';
 
-                $url = Horde_Util::addParameter(Horde::applicationUrl('day.php'),
-                                          'date', $date->dateString());
+                $url = Horde_Util::addParameter($day_url, 'date', $date->dateString());
                 $html .= '<a class="day" href="' . $url . '">' . $date->mday . '</a>';
 
                 if ($addLinks) {
-                    $url = Horde_Util::addParameter(Horde::applicationUrl('new.php'),
-                                              array('date' => $date->dateString(),
-                                                    'url' => $this->link(0, true)));
+                    $url = Horde_Util::addParameter($new_url, 'date', $date->dateString());
                     if ($sidebyside) {
                         $url = Horde_Util::addParameter($url, 'calendar', $id);
                     }
                     $html .= Horde::link($url, _("Create a New Event"), 'newEvent') .
-                        Horde::img('new_small.png', '+') . '</a>';
+                        $new_img . '</a>';
                 }
 
                 if ($date->dayOfWeek() == Horde_Date::DATE_MONDAY) {
@@ -193,7 +194,7 @@ class Kronolith_View_Month {
                     foreach ($this->_events[$date_stamp] as $event) {
                         if (!$sidebyside || $event->getCalendar() == $id) {
                             $html .= '<div class="month-eventbox"' . $event->getCSSColors() . '>'
-                                . $event->getLink($date, true, $this->link(0, true));
+                                . $event->getLink($date, true, $this_link);
                             if ($showTime) {
                                 $html .= '<div class="event-time">' . htmlspecialchars($event->getTimeRange()) . '</div>';
                             }
