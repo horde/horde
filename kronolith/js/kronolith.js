@@ -2423,7 +2423,6 @@ KronolithCore = {
         } else {
             $('kronolithEventSave').hide();
             $('kronolithEventForm').disable();
-            $('kronolithEventCancel').enable();
         }
         if (ev.pd) {
             $('kronolithEventDelete').show();
