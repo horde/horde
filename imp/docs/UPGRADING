@@ -29,8 +29,8 @@ Server Options
 --------------
 
 The 'realm' option has been removed.  Altering usernames at runtime should
-instead by accomplished by using Horde's authusername() and/or IMP's
-preauthenticate() hooks.
+instead by accomplished by using Horde's 'authusername' and/or IMP's
+'preauthenticate' hooks.
 
 
 Configuration Options
