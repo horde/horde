@@ -48,12 +48,13 @@ case 'editform':
 
         // Process owner and owner permissions.
         $old_owner = $share->get('owner');
-        $new_owner = Horde_Auth::convertUsername(Horde_Util::getFormData('owner_select', Horde_Util::getFormData('owner_input', $old_owner)), true);
+        $new_owner_backend = Horde_Util::getFormData('owner_select', Horde_Util::getFormData('owner_input', $old_owner));
+        $new_owner = Horde_Auth::convertUsername($new_owner_backend, true);
         if ($old_owner !== $new_owner && !empty($new_owner)) {
             if ($old_owner != Horde_Auth::getAuth() && !Horde_Auth::isAdmin()) {
                 $notification->push(_("Only the owner or system administrator may change ownership or owner permissions for a share"), 'horde.error');
-            } elseif ($auth->hasCapability('list') && !$auth->exists($new_owner)) {
-                $notification->push(sprintf(_("The user \"%s\" does not exist."), Auth::convertUsername($new_owner, false)), 'horde.error');
+            } elseif ($auth->hasCapability('list') && !$auth->exists($new_owner_backend)) {
+                $notification->push(sprintf(_("The user \"%s\" does not exist."), $new_owner_backend), 'horde.error');
             } else {
                 $share->set('owner', $new_owner);
                 $share->save();
@@ -149,16 +150,16 @@ case 'editform':
         $u_delete = Horde_Util::getFormData('u_delete');
         $u_delegate = Horde_Util::getFormData('u_delegate');
 
-        foreach ($u_names as $key => $user) {
+        foreach ($u_names as $key => $user_backend) {
             // Apply backend hooks
-            $user = Horde_Auth::convertUsername($user, true);
+            $user = Horde_Auth::convertUsername($user_backend, true);
             // If the user is empty, or we've already set permissions
             // via the owner_ options, don't do anything here.
             if (empty($user) || $user == $new_owner) {
                 continue;
             }
-            if ($auth->hasCapability('list') && !$auth->exists($user)) {
-                $notification->push(sprintf(_("The user \"%s\" does not exist."), Auth::convertUsername($user, false)), 'horde.error');
+            if ($auth->hasCapability('list') && !$auth->exists($user_backend)) {
+                $notification->push(sprintf(_("The user \"%s\" does not exist."), $user_backend), 'horde.error');
                 continue;
             }
 
