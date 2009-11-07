@@ -192,5 +192,5 @@ Ajax.Autocompleter.prototype.updateChoices = function(choices) {
 Autocompleter.Local.prototype.initialize = function(element, obj, options) {
     this.baseInitialize(element, options);
     this.geocache = obj;
-    this.options.arr = $H(obj).keys();
+    this.opts.arr = $H(obj).keys();
 }
