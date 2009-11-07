@@ -757,7 +757,9 @@ KronolithCore = {
         }
 
         $H(Kronolith.conf.calendars.external).each(function(cal) {
-            api = cal.key.split('/');
+            var api = [];
+            api[0] = cal.key.substring(0, cal.key.lastIndexOf('/'));
+            api[1] = cal.key.substring(cal.key.lastIndexOf('/') + 1);
             if (typeof ext[api[0]] == 'undefined') {
                 ext[api[0]] = {};
             }
