@@ -107,7 +107,6 @@ $html = <<<EOT
   <h4>{$locateText}</h4>
   <form>
    <input type="text" id="locationInput" name="locationInput" />
-   <div id="locationInput_results" class="autocomplete"></div>
    <span id="locationInput_loading_img" style="display:none;">{$loadingImg}</span>
    <input id="locationAction" value="{$findText}" class="button" type="submit" />
   </form>
