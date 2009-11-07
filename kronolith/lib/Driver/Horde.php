@@ -59,8 +59,6 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
             return array();
         }
 
-        $eventsList = $this->_params['registry']->call($this->api . '/listTimeObjects', array(array($category), $startDate, $endDate));
-
         if (is_null($startDate)) {
             $startDate = new Horde_Date(array('mday' => 1,
                                               'month' => 1,
@@ -71,6 +69,8 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
                                             'month' => 12,
                                             'year' => 9999));
         }
+
+        $eventsList = $this->_params['registry']->call($this->api . '/listTimeObjects', array(array($category), $startDate, $endDate));
 
         $startDate = clone $startDate;
         $startDate->hour = $startDate->min = $startDate->sec = 0;
@@ -104,9 +104,18 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
         return $results;
     }
 
+    /**
+     * @todo: implement getTimeObject in timeobjects API.
+     */
     public function getEvent($eventId = null)
     {
-        return new Kronolith_Event_Horde($this);
+        $events = $this->listEvents();
+        foreach ($events as $day) {
+            if (isset($day[$eventId])) {
+                return $day[$eventId];
+            }
+        }
+        return PEAR::raiseError(_("Event not found"));
     }
 
 }
