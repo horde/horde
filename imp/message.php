@@ -567,21 +567,8 @@ foreach ($all_list_headers as $head => $val) {
 $part_info = $part_info_display = array('icon', 'description', 'type', 'size');
 $part_info_action = array('download', 'download_zip', 'img_save', 'strip');
 
-$parts_list = $imp_contents->getContentTypeMap();
-$strip_atc = $prefs->getValue('strip_attachments');
-$atc_parts = $display_ids = array();
-$js_onload = array();
-$msgtext = '';
-
-/* Do MDN processing now. */
-if ($imp_ui->MDNCheck($imp_mbox['mailbox'], $uid, $mime_headers, Horde_Util::getFormData('mdn_confirm'))) {
-    $msgtext .= $imp_ui->formatStatusMsg(array(array('text' => array(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link(htmlspecialchars(Horde_Util::addParameter($selfURL, 'mdn_confirm', 1))) . _("HERE") . '</a>')))));
-}
-
 $show_parts = Horde_Util::getFormData('show_parts', $prefs->getValue('parts_display'));
-if ($show_parts == 'all') {
-    $atc_parts = array_keys($parts_list);
-}
+$strip_atc = $prefs->getValue('strip_attachments');
 
 $part_info_display = array_merge($part_info_display, $part_info_action);
 $contents_mask = IMP_Contents::SUMMARY_BYTES |
@@ -595,57 +582,15 @@ if (!$readonly && $strip_atc) {
     $contents_mask |= IMP_Contents::SUMMARY_STRIP_LINK;
 }
 
+/* Do MDN processing now. */
+$mdntext = '';
+if ($imp_ui->MDNCheck($imp_mbox['mailbox'], $uid, $mime_headers, Horde_Util::getFormData('mdn_confirm'))) {
+    $mdntext .= $imp_ui->formatStatusMsg(array(array('text' => array(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link(htmlspecialchars(Horde_Util::addParameter($selfURL, 'mdn_confirm', 1))) . _("HERE") . '</a>')))));
+}
+
 /* Build body text. This needs to be done before we build the attachment list
  * that lives in the header. */
-foreach ($parts_list as $mime_id => $mime_type) {
-    if (in_array($mime_id, $display_ids, true)) {
-        continue;
-    }
-
-    if (!($render_mode = $imp_contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE | IMP_Contents::RENDER_INFO))) {
-        if ($imp_contents->isAttachment($mime_type)) {
-            if ($show_parts == 'atc') {
-                $atc_parts[] = $mime_id;
-            }
-
-            if ($prefs->getValue('atc_display')) {
-                $msgtext .= $imp_ui->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display, true);
-            }
-        }
-        continue;
-    }
-
-    $render_part = $imp_contents->renderMIMEPart($mime_id, $render_mode);
-    if (($render_mode & IMP_Contents::RENDER_INLINE) && empty($render_part)) {
-        /* This meant that nothing was rendered - allow this part to appear
-         * in the attachment list instead. */
-        if ($show_parts == 'atc') {
-            $atc_parts[] = $mime_id;
-        }
-        continue;
-    }
-
-    reset($render_part);
-    while (list($id, $info) = each($render_part)) {
-        $display_ids[] = $id;
-
-        if (empty($info)) {
-            continue;
-        }
-
-        $msgtext .= $imp_ui->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display) .
-            $imp_ui->formatStatusMsg($info['status']) .
-            '<div class="mimePartData">' . $info['data'] . '</div>';
-
-        if (isset($info['js'])) {
-            $js_onload = array_merge($js_onload, $info['js']);
-        }
-    }
-}
-
-if (!strlen($msgtext)) {
-    $msgtext = $imp_ui->formatStatusMsg(array(array('text' => array(_("There are no parts that can be shown inline.")))));
-}
+$inlineout = $imp_ui->getInlineOutput($imp_contents, $contents_mask, $part_info_display, $show_parts);
 
 /* Build the Attachments menu. */
 $a_template->set('atc', Horde::widget('#', _("Attachments"), 'widget hasmenu', '', '', _("Attachments"), true));
@@ -655,7 +600,7 @@ if ($show_parts == 'atc') {
 if ($show_parts == 'all') {
     $a_template->set('show_parts_atc', Horde::widget(Horde_Util::addParameter($headersURL, array('show_parts' => 'atc')), _("Show Attachments Only"), 'widget', '', '', _("Show Attachments Only"), true));
 }
-if (count($display_ids) > 2) {
+if (count($inlineout['display_ids']) > 2) {
     $a_template->set('download_all', Horde::widget($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all'), _("Download All Attachments (in .zip file)"), 'widget', '', '', _("Download All Attachments (in .zip file)"), true));
     if ($strip_atc) {
         $a_template->set('strip_all', Horde::widget(htmlspecialchars(html_entity_decode(Horde_Util::addParameter(Horde_Util::removeParameter(Horde::selfUrl(true), array('actionID')), array('actionID' => 'strip_all', 'message_token' => $message_token)))), _("Strip All Attachments"), 'widget', '', "return window.confirm('" . addslashes(_("Are you sure you wish to PERMANENTLY delete all attachments?")) . "');", _("Strip All Attachments"), true));
@@ -701,10 +646,10 @@ if (!empty($conf['print']['add_printedby'])) {
 }
 
 $m_template->set('headers', $hdrs);
-$m_template->set('msgtext', $msgtext);
+$m_template->set('msgtext', $mdntext . $inlineout['msgtext']);
 
 /* Output message page now. */
-Horde::addInlineScript($js_onload, 'dom');
+Horde::addInlineScript($inlineout['js_onload'], 'dom');
 Horde::addScriptFile('effects.js', 'horde');
 Horde::addScriptFile('imp.js', 'imp');
 Horde::addScriptFile('message.js', 'imp');

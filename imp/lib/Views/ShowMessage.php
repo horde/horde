@@ -237,14 +237,8 @@ class IMP_Views_ShowMessage
         }
 
         // Create message text and attachment list.
-        $parts_list = $imp_contents->getContentTypeMap();
-        $atc_parts = $display_ids = array();
         $result['msgtext'] = '';
-
         $show_parts = $GLOBALS['prefs']->getValue('parts_display');
-        if ($show_parts == 'all') {
-            $atc_parts = array_keys($parts_list);
-        }
 
         $contents_mask = IMP_Contents::SUMMARY_BYTES |
             IMP_Contents::SUMMARY_SIZE |
@@ -261,64 +255,18 @@ class IMP_Views_ShowMessage
         }
 
         /* Build body text. This needs to be done before we build the
-         * attachment list that lives in the header. */
-        foreach ($parts_list as $mime_id => $mime_type) {
-            if (in_array($mime_id, $display_ids, true)) {
-                continue;
-            }
+         * attachment list. */
+        $inlineout = $imp_ui->getInlineOutput($imp_contents, $contents_mask, $part_info_display, $show_parts);
 
-
-            if (!($render_mode = $imp_contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE | IMP_Contents::RENDER_INFO))) {
-                if ($imp_contents->isAttachment($mime_type)) {
-                    if ($show_parts == 'atc') {
-                        $atc_parts[] = $mime_id;
-                    }
-
-                    if ($GLOBALS['prefs']->getValue('atc_display')) {
-                        $result['msgtext'] .= $imp_ui->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display, true);
-                    }
-                }
-                continue;
-            }
-
-            $render_part = $imp_contents->renderMIMEPart($mime_id, $render_mode);
-            if (($render_mode & IMP_Contents::RENDER_INLINE) && empty($render_part)) {
-                /* This meant that nothing was rendered - allow this part to
-                 * appear in the attachment list instead. */
-                if ($show_parts == 'atc') {
-                    $atc_parts[] = $mime_id;
-                }
-                continue;
-            }
-
-            reset($render_part);
-            while (list($id, $info) = each($render_part)) {
-                $display_ids[] = $id;
-
-                if (empty($info)) {
-                    continue;
-                }
-
-                $result['msgtext'] .= $imp_ui->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display) .
-                    $imp_ui->formatStatusMsg($info['status']) .
-                    '<div class="mimePartData">' . $info['data'] . '</div>';
-
-                if (isset($info['js'])) {
-                    $result['js'] = array_merge($result['js'], $info['js']);
-                }
-            }
-        }
-
-        if (!strlen($result['msgtext'])) {
-            $result['msgtext'] = $imp_ui->formatStatusMsg(array(array('text' => array(_("There are no parts that can be shown inline.")))));
-        }
+        $result['js'] = array_merge($result['js'], $inlineout['js_onload']);
+        $result['msgtext'] .= $inlineout['msgtext'];
 
         if (count($atc_parts) ||
-            (($show_parts == 'all') && count($display_ids) > 2)) {
+            (($show_parts == 'all') && count($inlineout['display_ids']) > 2)) {
             $result['atc_label'] = ($show_parts == 'all')
                 ? _("Parts")
                 : sprintf(ngettext("%d Attachment", "%d Attachments", count($atc_parts)), count($atc_parts));
-            if (count($display_ids) > 2) {
+            if (count($inlineout['display_ids']) > 2) {
                 $result['atc_download'] = Horde::link($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all')) . '[' . _("Save All") . ']</a>';
             }
         }

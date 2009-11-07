@@ -467,6 +467,111 @@ class IMP_UI_Message
     }
 
     /**
+     * Output inline message display for the imp and dimp views.
+     *
+     * @param object $imp_contents      The IMP_Contents object containing the
+     *                                  message data.
+     * @param integer $contents_mask    The mask needed for a
+     *                                  IMP_Contents::getSummary() call.
+     * @param array $part_info_display  The list of summary fields to display.
+     * @param string $show_parts        The value of the 'show_parts' pref.
+     *
+     * @return array  An array with the following keys:
+     * <pre>
+     * 'atc_parts' - (array) The list of attachment MIME IDs.
+     * 'display_ids' - (array) The list of display MIME IDs.
+     * 'js_onload' - (array) A list of javascript code to run onload.
+     * 'msgtext' - (string) The rendered HTML code.
+     * </pre>
+     */
+    public function getInlineOutput($imp_contents, $contents_mask,
+                                    $part_info_display, $show_parts)
+    {
+        $atc_parts = $display_ids = $js_onload = $wrap_ids = array();
+        $msgtext = '';
+        $parts_list = $imp_contents->getContentTypeMap();
+
+        if ($show_parts == 'all') {
+            $atc_parts = array_keys($parts_list);
+        }
+
+        foreach ($parts_list as $mime_id => $mime_type) {
+            if (in_array($mime_id, $display_ids, true)) {
+                continue;
+            }
+
+            if (!($render_mode = $imp_contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE | IMP_Contents::RENDER_INFO))) {
+                if ($imp_contents->isAttachment($mime_type)) {
+                    if ($show_parts == 'atc') {
+                        $atc_parts[] = $mime_id;
+                    }
+
+                    if ($GLOBALS['prefs']->getValue('atc_display')) {
+                        $msgtext .= $this->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display, true);
+                    }
+                }
+                continue;
+            }
+
+            $render_part = $imp_contents->renderMIMEPart($mime_id, $render_mode);
+            if (($render_mode & IMP_Contents::RENDER_INLINE) &&
+                empty($render_part)) {
+                /* This meant that nothing was rendered - allow this part to
+                 * appear in the attachment list instead. */
+                if ($show_parts == 'atc') {
+                    $atc_parts[] = $mime_id;
+                }
+                continue;
+            }
+
+            reset($render_part);
+            while (list($id, $info) = each($render_part)) {
+                $display_ids[] = $id;
+
+                if (empty($info)) {
+                    continue;
+                }
+
+                    while (count($wrap_ids)) {
+                        if (strpos(strval($id), strval(end($wrap_ids))) === 0) {
+                            break;
+                        }
+                        array_pop($wrap_ids);
+                        $msgtext .= '</div>';
+                    }
+                if (!empty($info['wrap'])) {
+                    $msgtext .= '<div class="' . $info['wrap'] . '">';
+                    $wrap_ids[] = $mime_id;
+                }
+
+                $msgtext .= $this->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display) .
+                    $this->formatStatusMsg($info['status']) .
+                    '<div class="mimePartData">' . $info['data'] . '</div>';
+
+                if (isset($info['js'])) {
+                    $js_onload = array_merge($js_onload, $info['js']);
+                }
+            }
+        }
+
+        while (count($wrap_ids)) {
+            $msgtext .= '</div>';
+            array_pop($wrap_ids);
+        }
+
+        if (!strlen($msgtext)) {
+            $msgtext = $this->formatStatusMsg(array(array('text' => array(_("There are no parts that can be shown inline.")))));
+        }
+
+        return array(
+            'atc_parts' => $atc_parts,
+            'display_ids' => $display_ids,
+            'js_onload' => $js_onload,
+            'msgtext' => $msgtext
+        );
+    }
+
+    /**
      * Get the display subject (filtered, formatted, and linked).
      *
      * @param string $subject  The subject text.

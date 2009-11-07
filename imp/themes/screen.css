@@ -520,17 +520,17 @@ td.addressTr span.loadingImg {
 
 /* MIME styles. */
 .mimeStatusMessage>table, .mimeHeaders {
-    padding: 4px;
     margin-bottom: 3px;
     font-size: 90%;
 }
 .mimeStatusMessage>table {
-    color: #000;
     background: #ffc;
     border: 1px solid #fff760;
-    margin-bottom: 3px;
+    color: #000;
     display: -moz-inline-stack;
     display: inline-block;
+    margin-bottom: 3px;
+    padding: 4px;
 }
 .mimeStatusIcon {
     width: 22px;
@@ -538,7 +538,9 @@ td.addressTr span.loadingImg {
 .mimeHeaders {
     border: 1px solid #ccc;
     background: #f9f9f9;
-    width: auto;
+    display: -moz-inline-stack;
+    display: inline-block;
+    padding: 5px;
 }
 div.mimeStatusMessage, div.mimePartInfo {
     margin-bottom: 5px;
@@ -570,6 +572,12 @@ div.mimeStatusMessage, div.mimePartInfo {
 .mimeStatusMessage table td table td {
     padding-right: 2px;
     white-space: nowrap;
+}
+
+.mimePartWrap {
+    border: 2px solid #666;
+    margin: 2px 0;
+    padding: 4px;
 }
 
 .downloadAtc, .downloadZipAtc, .saveImgAtc, .closeImg, .deleteImg, .foldersImg, .searchuiImg, .reloadImg {

@@ -31,6 +31,7 @@
  * pgp            PGP signed/encrypted messages
  * plain          URL syntax highlighting for text/plain parts
  * related        multipart/related parts
+ * rfc822         Digested messages (RFC 2046 [5.2.1])
  * smil           SMIL documents
  * smime          S/MIME signed/encrypted messages
  * status         Mail delivery status messages
@@ -39,8 +40,8 @@
  */
 $mime_drivers_map['imp']['registered'] = array(
     'alternative', 'appledouble', 'enriched', 'html', 'images', 'itip',
-    'mdn', 'partial', 'pdf', 'pgp', 'plain', 'related', 'smil', 'smime',
-    'status', 'tnef', 'zip'
+    'mdn', 'partial', 'pdf', 'pgp', 'plain', 'related', 'rfc822', 'smil',
+    'smime', 'status', 'tnef', 'zip'
 );
 
 /**
@@ -267,6 +268,20 @@ $mime_drivers['imp']['related'] = array(
 $mime_drivers['imp']['partial'] = array(
     'handles' => array(
         'message/partial'
+    )
+);
+
+/**
+ * Digest message (RFC 2046 [5.2.1]) settings
+ * YOU SHOULD NOT NORMALLY ALTER THIS SETTING.
+ */
+$mime_drivers['imp']['rfc822'] = array(
+    'inline' => false,
+    'handles' => array(
+        'message/rfc822', 'x-extension/eml'
+    ),
+    'icons' => array(
+        'default' => 'mail.png'
     )
 );
 

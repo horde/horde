@@ -378,10 +378,14 @@ class IMP_Contents
      * </pre>
      *
      * @return array  See Horde_Mime_Viewer_Driver::render(). The following
-     *                fields may also be present:
+     *                fields may also be present in addition to the fields
+     *                defined in Horde_Mime_Viewer_Driver:
      *                'js' - (array) A list of javascript commands to run
      *                       after the content is displayed on screen.
      *                'name' - (string) Contains the MIME name information.
+     *                'wrap' - (string) If present, indicates that this
+     *                         part, and all child parts, will be wrapped
+     *                         in a DIV with the given class name.
      */
     public function renderMIMEPart($mime_id, $mode, $options = array())
     {
