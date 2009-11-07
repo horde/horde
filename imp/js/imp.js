@@ -29,8 +29,8 @@ document.observe('dom:loaded', function() {
     IMP.unblockImages = function(e)
     {
         var callback,
-            elt = e.element().up('.mimeStatusMessage>TABLE'),
-            iframe = elt.up('DIV').next().down('.htmlMsgData'),
+            elt = e.element().up('.mimeStatusMessageTable').up(),
+            iframe = elt.up().next().down('.htmlMsgData'),
             iframeid = iframe.readAttribute('id'),
             imgload = false,
             s = new Selector('[htmlimgblocked]');

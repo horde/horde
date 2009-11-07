@@ -519,11 +519,11 @@ td.addressTr span.loadingImg {
 }
 
 /* MIME styles. */
-.mimeStatusMessage>table, .mimeHeaders {
+.mimeStatusMessageTable, .mimeHeaders {
     margin-bottom: 3px;
     font-size: 90%;
 }
-.mimeStatusMessage>table {
+.mimeStatusMessageTable {
     background: #ffc;
     border: 1px solid #fff760;
     color: #000;
@@ -566,10 +566,10 @@ div.mimeStatusMessage, div.mimePartInfo {
     padding-left: 25px;
 }
 
-.mimeStatusMessage table td {
+.mimeStatusMessageTable td {
     padding: 0;
 }
-.mimeStatusMessage table td table td {
+.mimeStatusMessageTable td table td {
     padding-right: 2px;
     white-space: nowrap;
 }

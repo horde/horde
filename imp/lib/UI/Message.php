@@ -443,7 +443,7 @@ class IMP_UI_Message
                 continue;
             }
 
-            $out .= '<table' . (isset($val['id']) ? (' id="' . $val['id'] . '" ') : '') . '>';
+            $out .= '<div><table class="mimeStatusMessageTable"' . (isset($val['id']) ? (' id="' . $val['id'] . '" ') : '') . '>';
 
             /* If no image, simply print out the message. */
             if (empty($val['icon'])) {
@@ -458,7 +458,7 @@ class IMP_UI_Message
                 $out .= '</table></td></tr>';
             }
 
-            $out .= '</table>';
+            $out .= '</table></div>';
         }
 
         return $out
