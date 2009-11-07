@@ -574,10 +574,18 @@ div.mimeStatusMessage, div.mimePartInfo {
     white-space: nowrap;
 }
 
-.mimePartWrap {
+.mimePartWrap, .mimePartWrapValid, .mimePartWrapInvalid {
     border: 2px solid #666;
     margin: 2px 0;
     padding: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+.mimePartWrapValid {
+    border-color: #cfc;
+}
+.mimePartWrapInvalid {
+    border-color: #ffd0af;
 }
 
 .downloadAtc, .downloadZipAtc, .saveImgAtc, .closeImg, .deleteImg, .foldersImg, .searchuiImg, .reloadImg {

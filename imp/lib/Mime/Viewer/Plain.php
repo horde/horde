@@ -15,6 +15,13 @@
 class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 {
     /**
+     * Cached data.
+     *
+     * @var array
+     */
+    static protected $_cache = array();
+
+    /**
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
      * @return array  See Horde_Mime_Viewer_Driver::render().
@@ -24,6 +31,11 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         global $conf, $prefs;
 
         $mime_id = $this->_mimepart->getMimeId();
+
+        if (isset(self::$_cache[$mime_id])) {
+            return null;
+        }
+
         $type = 'text/html; charset=' . Horde_Nls::getCharset();
 
         // Trim extra whitespace in the text.
@@ -133,14 +145,11 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
     }
 
     /**
-     * If this MIME part can contain embedded MIME parts, and those embedded
-     * MIME parts exist, return a list of MIME parts that contain the embedded
-     * MIME part information.
+     * If this MIME part can contain embedded MIME part(s), and those part(s)
+     * exist, return a representation of that data.
      *
-     * @return mixed  An array with MIME IDs as the keys and Horde_Mime_Part
-     *                objects as the parts to replace the current value of
-     *                the given MIME ID.
-     *                Returns null if no embedded MIME parts exist.
+     * @return mixed  A Horde_Mime_Part object representing the embedded data.
+     *                Returns null if no embedded MIME part(s) exist.
      */
     protected function _getEmbeddedMimeParts()
     {
@@ -252,9 +261,9 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
             }
         }
 
-        $new_part->buildMimeIds($mime_id);
+        self::$_cache[$mime_id] = true;
 
-        return array($mime_id => $new_part);
+        return $new_part;
     }
 
     /**
@@ -291,8 +300,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
             $new_part->addPart($uupart);
         }
 
-        $new_part->buildMimeIds($mime_id);
-
-        return array($mime_id => $new_part);
+        return $new_part;
     }
+
 }

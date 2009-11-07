@@ -54,11 +54,11 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
     protected $_address = null;
 
     /**
-     * Cache for inline data.
+     * Cached data.
      *
      * @var array
      */
-    static protected $_inlinecache = array();
+    static protected $_cache = array();
 
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
@@ -99,6 +99,8 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
      */
     protected function _renderInline()
     {
+        $id = $this->_mimepart->getMimeId();
+
         if (empty($this->_imppgp) &&
             !empty($GLOBALS['conf']['gnupg']['path'])) {
             $this->_imppgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
@@ -106,7 +108,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
 
         if (Horde_Util::getFormData('rawpgpkey')) {
             return array(
-                $this->_mimepart->getMimeId() => array(
+                $id => array(
                     'data' => $this->_mimepart->getContents(),
                     'status' => array(),
                     'type' => 'text/plain; charset=' . $this->_mimepart->getCharset()
@@ -128,7 +130,17 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
             return $this->_outputPGPSigned();
 
         case 'multipart/encrypted':
-            return $this->_outputPGPEncrypted();
+            if (isset(self::$_cache[$id])) {
+                return array_merge(array(
+                    $id => array(
+                        'data' => null,
+                        'status' => self::$_cache[$id]['status'],
+                        'type' => 'text/plain; charset=' . Horde_Nls::getCharset(),
+                        'wrap' => self::$_cache[$id]['wrap']
+                    )
+                ), self::$_cache[$id]['other']);
+            }
+            // Fall-through
 
         case 'application/pgp-encrypted':
         case 'application/pgp-signature':
@@ -138,14 +150,11 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
     }
 
     /**
-     * If this MIME part can contain embedded MIME parts, and those embedded
-     * MIME parts exist, return an altered version of the Horde_Mime_Part that
-     * contains the embedded MIME part information.
+     * If this MIME part can contain embedded MIME part(s), and those part(s)
+     * exist, return a representation of that data.
      *
-     * @return mixed  An array with MIME IDs as the keys and Horde_Mime_Part
-     *                objects as the parts to replace the current value of
-     *                the given MIME ID.
-     *                Returns null if no embedded MIME parts exist.
+     * @return mixed  A Horde_Mime_Part object representing the embedded data.
+     *                Returns null if no embedded MIME part(s) exist.
      */
     protected function _getEmbeddedMimeParts()
     {
@@ -158,28 +167,25 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
         $version_id = next($partlist);
         $data_id = Horde_Mime::mimeIdArithmetic($version_id, 'next');
 
-        /* Initialize inline data. */
-        $resymmetric = isset(self::$_inlinecache[$base_id]);
-        self::$_inlinecache[$base_id] = array(
-            $base_id => array(
-                'data' => '',
-                'status' => array(
-                    array(
-                        'icon' => Horde::img('mime/encryption.png', 'PGP'),
-                        'text' => $resymmetric ? self::$_inlinecache[$base_id][$base_id]['status'][0]['text'] : array()
-                    )
-                ),
-                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
+        self::$_cache[$base_id] = array(
+            'status' => array(
+                array(
+                    'icon' => Horde::img('mime/encryption.png', 'PGP'),
+                    'text' => array()
+                )
             ),
-            $version_id => null,
-            $data_id => null
+            'other' => array(
+                $version_id => null,
+                $data_id => null
+            ),
+            'wrap' => ''
         );
-        $status = &self::$_inlinecache[$base_id][$base_id]['status'][0]['text'];
+        $status = &self::$_cache[$base_id]['status'][0]['text'];
 
         /* Is PGP active? */
         if (empty($GLOBALS['conf']['gnupg']['path']) ||
             !$GLOBALS['prefs']->getValue('use_pgp')) {
-            $status[] = _("The message below has been encrypted via PGP, however, PGP support is disabled so the message cannot be decrypted.");
+            $status[] = _("The data in this part has been encrypted via PGP, however, PGP support is disabled so the message cannot be decrypted.");
             return null;
         }
 
@@ -204,9 +210,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
 
                 if (is_null($symmetric_pass)) {
                     $js_action = '';
-                    if (!$resymmetric) {
-                        $status[] = _("The message has been encrypted via PGP.");
-                    }
+                    $status[] = _("The data in this part has been encrypted via PGP.");
 
                     switch ($_SESSION['imp']['view']) {
                     case 'dimp':
@@ -224,7 +228,6 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
             }
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, __FILE__, __LINE__);
-            unset(self::$_inlinecache[$base_id]);
             return null;
         }
 
@@ -233,27 +236,26 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
             $info = $this->_imppgp->pgpPacketInformation($encrypted_data);
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, __FILE__, __LINE__);
-            unset(self::$_inlinecache[$base_id]);
             return null;
         }
-        $literal = !empty($info['literal']);
 
+        $literal = !empty($info['literal']);
         if ($literal) {
-            $status[] = _("The message below has been compressed via PGP.");
+            $status[] = _("The data in this part has been compressed via PGP.");
         } else {
-            $status[] = _("The message below has been encrypted via PGP.");
+            $status[] = _("The data in this part has been encrypted via PGP.");
             if (!$symmetric) {
                 if (!$this->_imppgp->getPersonalPrivateKey()) {
                     /* Output if there is no personal private key to decrypt
                      * with. */
-                    $status[] = _("The message below has been encrypted via PGP, however, no personal private key exists so the message cannot be decrypted.");
+                    $status[] = _("The data in this part has been encrypted via PGP, however, no personal private key exists so the message cannot be decrypted.");
                     return null;
                 } else {
                     $personal_pass = $this->_imppgp->getPassphrase('personal');
 
                     if (is_null($personal_pass)) {
                         $js_action = '';
-                        $status[] = _("The message has been encrypted via PGP.");
+                        $status[] = _("The data in this part has been encrypted via PGP.");
 
                         switch ($_SESSION['imp']['view']) {
                         case 'dimp':
@@ -281,7 +283,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
                 $decrypted_data = $this->_imppgp->decryptMessage($encrypted_data, 'literal');
             }
         } catch (Horde_Exception $e) {
-            $status[] = _("The message below does not appear to be a valid PGP encrypted message. Error: ") . $e->getMessage();
+            $status[] = _("The data in this part does not appear to be a valid PGP encrypted message. Error: ") . $e->getMessage();
             if (!is_null($symmetric_pass)) {
                 $this->_imppgp->unsetPassphrase('symmetric', $this->_getSymmetricID());
                 return $this->_getEmbeddedMimeParts();
@@ -289,12 +291,9 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
             return null;
         }
 
-        unset(self::$_inlinecache[$base_id][$data_id]);
+        self::$_cache[$base_id]['wrap'] = 'mimePartWrapValid';
 
-        $msg = Horde_Mime_Part::parseMessage($decrypted_data->message);
-        $msg->buildMimeIds($data_id);
-
-        return array($data_id => $msg);
+        return Horde_Mime_Part::parseMessage($decrypted_data->message, array('forcemime' => true));
     }
 
     /**
@@ -363,7 +362,8 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
                         'text' => array()
                     )
                 ),
-                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
+                'type' => 'text/html; charset=' . Horde_Nls::getCharset(),
+                'wrap' => 'mimePartWrap'
             ),
             $sig_id => null
         );
@@ -373,11 +373,11 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
             empty($GLOBALS['conf']['gnupg']['path'])) {
             /* If PGP not active, hide signature data and output status
              * information. */
-            $status[] = _("The message below has been digitally signed via PGP, but the signature cannot be verified.");
+            $status[] = _("The data in this part has been digitally signed via PGP, but the signature cannot be verified.");
             return $ret;
         }
 
-        $status[] = _("The message below has been digitally signed via PGP.");
+        $status[] = _("The data in this part has been digitally signed via PGP.");
 
         if ($GLOBALS['prefs']->getValue('pgp_verify') ||
             Horde_Util::getFormData('pgp_verify_msg')) {
@@ -405,6 +405,10 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
                     Horde_Text_Filter::filter($sig_text, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::NOHTML))
                 )
             );
+
+            $ret[$base_id]['wrap'] = $success
+                ? 'mimePartWrapValid'
+                : 'mimePartWrapInvalid';
         } else {
             switch ($_SESSION['imp']['view']) {
             case 'imp':
@@ -418,19 +422,6 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
         }
 
         return $ret;
-    }
-
-    /**
-     * Generates HTML output for 'multipart/encrypted' MIME parts.
-     *
-     * @return string  The HTML output.
-     */
-    protected function _outputPGPEncrypted()
-    {
-        $id = $this->_mimepart->getMimeId();
-        return isset(self::$_inlinecache[$id])
-            ? self::$_inlinecache[$id]
-            : array();
     }
 
     /**

@@ -872,19 +872,12 @@ class IMP_Contents
                 $mime_part = $this->getMIMEPart($id);
                 $viewer->setMIMEPart($mime_part);
                 $viewer->setParams(array('contents' => $this));
-                $new_parts = $viewer->getEmbeddedMimeParts();
-                if (!is_null($new_parts)) {
-                    foreach (array_keys($new_parts) as $key) {
-                        $this->_embedded[] = $key;
-                        if ($first_id === $key) {
-                            $this->_message = $new_parts[$key];
-                            $this->_build = false;
-                            return $this->_buildMessage();
-                        }
-
-                        $this->_message->alterPart($key, $new_parts[$key]);
-                        $to_process = array_merge($to_process, array_keys($new_parts[$key]->contentTypeMap()));
-                    }
+                $new_part = $viewer->getEmbeddedMimeParts();
+                if (!is_null($new_part)) {
+                    $this->_embedded[] = $id;
+                    $mime_part->addPart($new_part);
+                    $mime_part->buildMimeIds($id);
+                    $to_process = array_merge($to_process, array_keys($new_part->contentTypeMap()));
                     $last_id = $id;
                 }
             }

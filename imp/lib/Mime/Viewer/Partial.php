@@ -22,20 +22,46 @@ class IMP_Horde_Mime_Viewer_Partial extends Horde_Mime_Viewer_Driver
         'embedded' => true,
         'forceinline' => true,
         'full' => false,
-        'info' => false,
+        'info' => true,
         'inline' => false,
         'raw' => false
     );
 
     /**
-     * If this MIME part can contain embedded MIME parts, and those embedded
-     * MIME parts exist, return a list of MIME parts that contain the embedded
-     * MIME part information.
+     * Cached data.
      *
-     * @return mixed  An array with MIME IDs as the keys and Horde_Mime_Part
-     *                objects as the parts to replace the current value of
-     *                the given MIME ID.
-     *                Returns null if no embedded MIME parts exist.
+     * @var array
+     */
+    static protected $_statuscache = array();
+
+    /**
+     * Return the rendered information about the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _renderInfo()
+    {
+        $id = $this->_mimepart->getMimeId();
+
+        if (isset(self::$_statuscache[$id])) {
+            return array(
+                $id => array(
+                    'data' => null,
+                    'status' => array(self::$_statuscache[$id]),
+                    'type' => 'text/plain; charset=' . Horde_Nls::getCharset()
+                )
+            );
+        } else {
+            return array($id => null);
+        }
+    }
+
+    /**
+     * If this MIME part can contain embedded MIME part(s), and those part(s)
+     * exist, return a representation of that data.
+     *
+     * @return mixed  A Horde_Mime_Part object representing the embedded data.
+     *                Returns null if no embedded MIME part(s) exist.
      */
     protected function _getEmbeddedMimeParts()
     {
@@ -54,13 +80,16 @@ class IMP_Horde_Mime_Viewer_Partial extends Horde_Mime_Viewer_Driver
         $query->headerText('Content-Type', $id);
         $indices = $GLOBALS['imp_search']->runSearchQuery($query, $mbox);
 
-        /* If not able to find the other parts of the message, print error. */
+        /* If not able to find the other parts of the message, prepare a
+         * status message. */
         if (count($indices) != $total) {
-            $mime_part = new Horde_Mime_Part();
-            $mime_part->setType('text/plain');
-            $mime_part->setCharset(Horde_Nls::getCharset());
-            $mime_part->setContents(sprintf(_("[Cannot display message - found only %s of %s parts of this message in the current mailbox.]"), count($indices), $total));
-            return array($this->_mimepart->getMimeId() => $mime_part);
+            self::$_statuscache[$this->_mimepart->getMimeId()] = array(
+                'icon' => Horde::img('alerts/error.png', _("Error"), null, $GLOBALS['registry']->getImageDir('horde')),
+                'text' => array(
+                    sprintf(_("Cannot display message - found only %s of %s parts of this message in the current mailbox."), count($indices), $total)
+                )
+            );
+            return null;
         }
 
         /* Get the contents of each of the parts. */
@@ -80,8 +109,10 @@ class IMP_Horde_Mime_Viewer_Partial extends Horde_Mime_Viewer_Driver
 
         /* Combine the parts. */
         $mime_part = Horde_Mime_Part::parseMessage(implode('', $parts), array('forcemime' => true));
+
         return ($mime_part === false)
             ? null
-            : array($this->_mimepart->getMimeId() => $mime_part);
+            : $mime_part;
     }
+
 }

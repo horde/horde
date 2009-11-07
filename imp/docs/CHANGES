@@ -2,6 +2,8 @@
 v5.0-git
 --------
 
+[mms] Wrap content-related MIME parts in a border when viewing inline to
+      indicate their relationship.
 [mms] For drafts, save the original message index for forwards/replies so when
       eventually sent, log information can be updated (Request #8663).
 [mms] Upgrade RTE to CKEditor v3.
