@@ -608,14 +608,14 @@ if (count($inlineout['display_ids']) > 2) {
 }
 
 /* Show attachment information in headers? */
-if (!empty($atc_parts)) {
+if (!empty($inlineout['atc_parts'])) {
     $tmp = array();
 
     if ($show_parts == 'all') {
         array_unshift($part_info, 'id');
     }
 
-    foreach ($atc_parts as $id) {
+    foreach ($inlineout['atc_parts'] as $id) {
         $summary = $imp_contents->getSummary($id, $contents_mask);
         $tmp[] = '<tr>';
         foreach ($part_info as $val) {

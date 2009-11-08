@@ -261,25 +261,25 @@ class IMP_Views_ShowMessage
         $result['js'] = array_merge($result['js'], $inlineout['js_onload']);
         $result['msgtext'] .= $inlineout['msgtext'];
 
-        if (count($atc_parts) ||
+        if (count($inlineout['atc_parts']) ||
             (($show_parts == 'all') && count($inlineout['display_ids']) > 2)) {
             $result['atc_label'] = ($show_parts == 'all')
                 ? _("Parts")
-                : sprintf(ngettext("%d Attachment", "%d Attachments", count($atc_parts)), count($atc_parts));
+                : sprintf(ngettext("%d Attachment", "%d Attachments", count($inlineout['atc_parts'])), count($inlineout['atc_parts']));
             if (count($inlineout['display_ids']) > 2) {
                 $result['atc_download'] = Horde::link($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all')) . '[' . _("Save All") . ']</a>';
             }
         }
 
         /* Show attachment information in headers? */
-        if (!empty($atc_parts)) {
+        if (!empty($inlineout['atc_parts'])) {
             $tmp = '';
 
             if ($show_parts == 'all') {
                 array_unshift($part_info, 'id');
             }
 
-            foreach ($atc_parts as $id) {
+            foreach ($inlineout['atc_parts'] as $id) {
                 $summary = $imp_contents->getSummary($id, $contents_mask);
                 $tmp .= '<tr>';
                 foreach ($part_info as $val) {
