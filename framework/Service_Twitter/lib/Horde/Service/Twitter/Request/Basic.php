@@ -12,14 +12,30 @@
  */
 class Horde_Service_Twitter_Request_Basic extends Horde_Service_Twitter_Request
 {
-
+    /**
+     *
+     * @var Horde_Service_Twitter
+     */
     protected $_twitter;
 
+    /**
+     * Const'r
+     *
+     * @param Horde_Service_Twitter $twitter
+     */
     public function __construct($twitter)
     {
         $this->_twitter = $twitter;
     }
 
+    /**
+     * Perform a GET request.
+     *
+     * @param string $url  The URL for the request
+     * @param array $params
+     *
+     * @return mixed The response
+     */
     public function get($url, $params = array())
     {
         $key = md5($url . 'get' . serialize($params) . $this->_twitter->auth->username);
@@ -45,6 +61,11 @@ class Horde_Service_Twitter_Request_Basic extends Horde_Service_Twitter_Request
         return $body;
     }
 
+    /**
+     * Perform a POST request
+     *
+     * @see self::get
+     */
     public function post($url, $params = array())
     {
         $client = new Horde_Http_Client();

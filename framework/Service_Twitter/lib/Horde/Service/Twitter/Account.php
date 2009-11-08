@@ -11,9 +11,24 @@
  */
 class Horde_Service_Twitter_Account
 {
+    /**
+     * Twitter endpoint for account api calls
+     *
+     * @var string
+     */
     protected $_endpoint = 'http://twitter.com/account/';
+
+    /**
+     * The request/response format to use, xml or json.
+     *
+     * @var string
+     */
     protected $_format = 'json';
 
+    /**
+     *
+     * @param Horde_Service_Twitter $twitter
+     */
     public function __construct($twitter)
     {
         $this->_twitter = $twitter;
@@ -51,6 +66,7 @@ class Horde_Service_Twitter_Account
      * Ends the current session, invalidates the current auth token if using
      * OAuth.
      *
+     * @return mixed
      */
     public function endSession()
     {
@@ -62,8 +78,10 @@ class Horde_Service_Twitter_Account
      * Update/reset where twitter sends automatic updates to
      * (im/sms etc...)
      *
-     * @param $device
-     * @return unknown_type
+     * @TODO
+     * @param string $device
+     *
+     * @return void
      */
     public function updateDeliveryDevice($device = '')
     {
@@ -74,6 +92,7 @@ class Horde_Service_Twitter_Account
      *
      * http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-account%C2%A0update_profile
      *
+     * @TODO
      * @param array $profile  Profile data see API docs for key-values
      *
      * @return string  JSON representation of user's updated profile data

@@ -12,14 +12,30 @@
  */
 class Horde_Service_Twitter_Request_Oauth extends Horde_Service_Twitter_Request
 {
-
+    /**
+     *
+     * @var Horde_Service_Twitter
+     */
     protected $_twitter;
 
+    /**
+     * Const'r
+     *
+     * @param Horde_Service_Twitter $twitter
+     */
     public function __construct($twitter)
     {
         $this->_twitter = $twitter;
     }
 
+    /**
+     * Perform a GET request with OAuth authorization.
+     *
+     * @param string $url
+     * @param array  $params
+     *
+     * @return mixed  Call results.
+     */
     public function get($url, $params = array())
     {
         $key = md5($url . 'get' . serialize($params) . serialize($this->_twitter->auth->getAccessToken()));
@@ -53,6 +69,7 @@ class Horde_Service_Twitter_Request_Oauth extends Horde_Service_Twitter_Request
      * Send a POST request to the twitter API. Purposely do not cache results
      * from these since POST requests alter data on the server.
      *
+     * @see self::get
      */
     public function post($url, $params = array())
     {

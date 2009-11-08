@@ -12,8 +12,17 @@
  */
 abstract class Horde_Service_Twitter_Request
 {
+   /**
+    *
+    * @var Horde_Service_Twitter
+    */
    protected $_twitter;
 
+   /**
+    * Const'r
+    *
+    * @param Horde_Service_Twitter $twitter
+    */
    public function __construct($twitter)
    {
        $this->_twitter = $twitter;

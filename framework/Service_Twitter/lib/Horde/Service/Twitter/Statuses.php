@@ -11,10 +11,25 @@
  */
 class Horde_Service_Twitter_Statuses
 {
-
+    /**
+     * Endpoint for status api requests
+     *
+     * @var string
+     */
     private $_endpoint = 'http://twitter.com/statuses/';
+
+    /**
+     * Format to use json or xml
+     *
+     * @var string
+     */
     private $_format = 'json';
 
+    /**
+     * Const'r
+     *
+     * @param Horde_Service_Twiiter $twitter
+     */
     public function __construct($twitter)
     {
         $this->_twitter = $twitter;
@@ -23,7 +38,7 @@ class Horde_Service_Twitter_Statuses
     /**
      * Obtain the requested status
      *
-     * @return unknown_type
+     * @return mixed  The method call results.
      */
     public function show($id)
     {

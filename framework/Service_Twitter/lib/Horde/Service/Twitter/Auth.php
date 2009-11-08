@@ -28,7 +28,8 @@ abstract class Horde_Service_Twitter_Auth
     /**
      * Const'r
      *
-     * @return Horde_Service_Twitter_Auth
+     * @param Horde_Serivce_Twitter $twitter
+     * @param array $config
      */
     public function __construct($twitter, $config)
     {
@@ -36,6 +37,13 @@ abstract class Horde_Service_Twitter_Auth
         $this->_config = $config;
     }
 
+    /**
+     * Getter
+     *
+     * @param string $value
+     *
+     * @return mixed  The value of the requested property.
+     */
     public function __get($value)
     {
         if (!empty($this->_config[$value])) {
