@@ -4,13 +4,13 @@
  * formatted messages.  This class implements RFC 3156.
  *
  * This class handles the following MIME types:
- *   application/pgp-encryption (in multipart/encrypted part)
+ *   application/pgp-encrypted (in multipart/encrypted part)
  *   application/pgp-keys
  *   application/pgp-signature (in multipart/signed part)
  *
- * This class may add the following parameters to the URL:
+ * This driver may add the following parameters to the URL:
  *   'pgp_verify_msg' - (boolean) Do verification of PGP signed data.
- *   'rawpgpkey' - (boolean) Display the PGP Public Key in raw, text format
+ *   'rawpgpkey' - (boolean) Display the PGP Public Key in raw, text format?
  *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
@@ -274,15 +274,11 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
             return array();
         }
 
-        if (empty($this->_imppgp)) {
-            $this->_imppgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
-        }
-
         /* Initialize status message. */
         $status = array(
             'icon' => Horde::img('mime/encryption.png', 'PGP'),
             'text' => array(
-                _("A PGP Public Key was attached to the message.")
+                _("A PGP Public Key is attached to the message.")
             )
         );
 
@@ -291,7 +287,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
         if ($GLOBALS['prefs']->getValue('use_pgp') &&
             $GLOBALS['prefs']->getValue('add_source') &&
             $GLOBALS['registry']->hasMethod('contacts/addField')) {
-            $status['text'][] = Horde::link('#', '', '', '', $this->_imppgp->savePublicKeyURL($this->_params['contents']->getMailbox(), $this->_params['contents']->getUid(), $mime_id) . 'return false;') . _("Save the key to your Address book.") . '</a>';
+            $status['text'][] = Horde::link('#', '', '', '', $this->_imppgp->savePublicKeyURL($this->_params['contents']->getMailbox(), $this->_params['contents']->getUid(), $mime_id) . 'return false;') . _("Save the key to your address book.") . '</a>';
         }
         $status['text'][] = $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', _("View the raw text of the Public Key."), array('jstext' => _("View Public Key"), 'params' => array('mode' => IMP_Contents::RENDER_INLINE, 'rawpgpkey' => 1)));
 
