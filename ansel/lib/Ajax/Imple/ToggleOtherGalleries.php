@@ -15,7 +15,7 @@ class Ansel_Ajax_Imple_ToggleOtherGalleries extends Horde_Ajax_Imple_Base
         // Include the js
         Horde::addScriptFile('togglewidget.js');
 
-        $url = $this->_getUrl('ToggleOtherGalleries', 'ansel', array('input' => 'pref_value', 'sessionWrite' => true));
+        $url = $this->_getUrl('ToggleOtherGalleries', 'ansel', array('post' => 'value', 'sessionWrite' => true));
         $js = array();
         $js[] = "Ansel.widgets['otherGalleries'] = {'bindTo': '" . $this->_params['bindTo'] . "', 'url': '" . $url . "'}";
         $js[] = "Event.observe(Ansel.widgets.otherGalleries.bindTo + '-toggle', 'click', function(event) {doActionToggle('" . $this->_params['bindTo'] . "', 'otherGalleries'); Event.stop(event)});";
@@ -25,14 +25,13 @@ class Ansel_Ajax_Imple_ToggleOtherGalleries extends Horde_Ajax_Imple_Base
 
     public function handle($args, $post)
     {
-         if (empty($args['input'])) {
+         if (!isset($post['value'])) {
             return 0;
          }
-        $input = Horde_Util::getPost($args['input']);
-        $GLOBALS['prefs']->setValue('show_othergalleries', $input);
-        echo $GLOBALS['prefs']->getValue('show_othergalleries');
 
-        return 1;
+        $GLOBALS['prefs']->setValue('show_othergalleries', $post['value']);
+
+        return $GLOBALS['prefs']->getValue('show_othergalleries');
     }
 
 }

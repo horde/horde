@@ -15,7 +15,7 @@ class Ansel_Ajax_Imple_ToggleGalleryActions extends Horde_Ajax_Imple_Base
         // Include the js
         Horde::addScriptFile('togglewidget.js');
 
-        $url = $this->_getUrl('ToggleGalleryActions', 'ansel', array('input' => 'pref_value', 'sessionWrite' => true));
+        $url = $this->_getUrl('ToggleGalleryActions', 'ansel', array('post' => 'value', 'sessionWrite' => true));
 
         $js = array();
         $js[] = "Ansel.widgets['galleryActions'] = {'bindTo': '" . $this->_params['bindTo'] . "', 'url': '" . $url . "'}";
@@ -26,10 +26,10 @@ class Ansel_Ajax_Imple_ToggleGalleryActions extends Horde_Ajax_Imple_Base
 
     public function handle($args, $post)
     {
-         if (empty($args['input'])) {
+         if (!isset($post['value'])) {
             return 0;
          }
-         $input = Horde_Util::getPost($args['input']);
+         $input = Horde_Util::getPost($post['value']);
          $GLOBALS['prefs']->setValue('show_actions', $input);
 
         return 1;

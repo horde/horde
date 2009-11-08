@@ -29,10 +29,6 @@ function togglePlusMinus(node, requestType)
     }
 
     var url = Ansel.widgets[requestType].url;
- 
-    var params = new Object();
-    params.pref_value = pref_value;
-    new Ajax.Request(url, {
-        parameters: params
-    });
+    var params = { "value": "value=" + pref_value };
+    new Ajax.Request(url, { parameters: params });
 }
