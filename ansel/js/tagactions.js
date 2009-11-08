@@ -1,10 +1,9 @@
 function addTag()
 {
     if (!$('addtag').value.blank()) {
-        var params = new Object();
-        params.action = 'add';
-        params[Ansel.ajax.tagActions.input] = $('addtag').value;
-        new Ajax.Request(Ansel.ajax.tagActions.url,
+        var params = {};
+        params.params = "tags=" + encodeURIComponent($('addtag').value);
+        new Ajax.Request(Ansel.ajax.tagActions.url + "/action=add/post=params",
                          {
                             method: 'post',
                             parameters: params,
@@ -22,10 +21,9 @@ function addTag()
 
 function removeTag(tagid)
 {
-    var params = new Object();
-    params.action = 'remove';
-    params[Ansel.ajax.tagActions.input] = tagid;
-    new Ajax.Request(Ansel.ajax.tagActions.url,
+    var params = {};
+    params.params = "tags=" + tagid;
+    new Ajax.Request(Ansel.ajax.tagActions.url + "/action=remove/post=params",
                     {
                         method: 'post',
                         parameters: params,

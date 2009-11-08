@@ -15,8 +15,7 @@ class Ansel_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
         // Include the js
         Horde::addScriptFile('tagactions.js');
 
-        $url = $this->_getUrl('TagActions', 'ansel', array('input' => 'tags',
-                                                           'gallery' => $this->_params['gallery'],
+        $url = $this->_getUrl('TagActions', 'ansel', array('gallery' => $this->_params['gallery'],
                                                            'image' =>  (isset($this->_params['image']) ? $this->_params['image'] : 0)));
         $params = array('url' => $url,
                         'gallery' => $this->_params['gallery'],
@@ -25,7 +24,6 @@ class Ansel_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
                         'input' => 'tags');
         $js = array();
         $js[] = "Ansel.ajax['tagActions'] = " . Horde_Serialize::serialize($params, Horde_Serialize::JSON) . ";";
-        // TODO: Attach the Add & Delete actions too
         $js[] = "Event.observe(Ansel.ajax.tagActions.bindTo.add, 'click', function(event) {addTag(); Event.stop(event)});";
 
         Horde::addInlineScript($js, 'dom');
@@ -35,15 +33,14 @@ class Ansel_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
     {
         include_once dirname(__FILE__) . '/../../base.php';
 
-        /* Require a POST for the action parameter and the tags parameter */
-        $action = Horde_Util::getPost('action');
-        if (empty($action) || empty($args['input'])) {
+        $action = $args['action'];
+        $tags = $post['tags'];
+        if (empty($action) || empty($tags)) {
             return array('response' => '0');
         }
 
         $gallery = $args['gallery'];
         $image = isset($args['image']) ? $args['image'] : null;
-
         if ($image) {
             $id = $image;
             $type = 'image';
@@ -51,7 +48,7 @@ class Ansel_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
             $id = $gallery;
             $type = 'gallery';
         }
-        $tags = Horde_Util::getPost($args['input']);
+
         if (!is_numeric($id)) {
             return array('response' => 0,
                          'message' => sprintf(_("Invalid input %s"), htmlspecialchars($id)));
