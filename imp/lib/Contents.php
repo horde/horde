@@ -380,6 +380,8 @@ class IMP_Contents
      * @return array  See Horde_Mime_Viewer_Driver::render(). The following
      *                fields may also be present in addition to the fields
      *                defined in Horde_Mime_Viewer_Driver:
+     *                'attach' - (boolean) Force display of this part as an
+     *                           attachment.
      *                'js' - (array) A list of javascript commands to run
      *                       after the content is displayed on screen.
      *                'name' - (string) Contains the MIME name information.

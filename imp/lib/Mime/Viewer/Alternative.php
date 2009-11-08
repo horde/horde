@@ -110,6 +110,8 @@ class IMP_Horde_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Driver
                     $ret[$id] = $render[$id];
                     unset($display_ids[$id]);
                 }
+            } elseif ($disp_id != $val) {
+                $ret[$val] = array('attach' => true);
             }
         }
 

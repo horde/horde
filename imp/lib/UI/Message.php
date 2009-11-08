@@ -545,9 +545,19 @@ class IMP_UI_Message
                     $wrap_ids[] = $mime_id;
                 }
 
-                $msgtext .= $this->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display) .
-                    $this->formatStatusMsg($info['status']) .
-                    '<div class="mimePartData">' . $info['data'] . '</div>';
+                if (empty($info['attach'])) {
+                    $msgtext .= $this->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display) .
+                        $this->formatStatusMsg($info['status']) .
+                        '<div class="mimePartData">' . $info['data'] . '</div>';
+                } else {
+                    if ($show_parts == 'atc') {
+                        $atc_parts[] = $id;
+                    }
+
+                    if ($GLOBALS['prefs']->getValue('atc_display')) {
+                        $msgtext .= $this->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display, true);
+                    }
+                }
 
                 if (isset($info['js'])) {
                     $js_onload = array_merge($js_onload, $info['js']);
