@@ -81,7 +81,7 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_AutoCompleter
      *
      * @return array  The data to send to the autocompleter JS code.
      */
-    public function handle($args)
+    public function handle($args, $post)
     {
         // Avoid errors if 'input' isn't set and short-circuit empty searches.
         if (empty($args['input']) ||

@@ -1,10 +1,9 @@
 function addTag(resource, type, endpoint)
 {
     if (!$('newtags-input_' + resource).value.blank()) {
-        var params = new Object();
-        params.imple="/action=add/resource=" + resource + "/type=" + type + "/tags=" + $('newtags-input_' + resource).value;
+        var params = { "params": "resource=" + resource + "/type=" + type + "/tags=" + $('newtags-input_' + resource).value };
         new Ajax.Updater({success:'tags_' + resource},
-                         endpoint,
+                         endpoint + "/action=add/post=params",
                          {
                              method: 'post',
                              parameters: params,
@@ -18,10 +17,9 @@ function addTag(resource, type, endpoint)
 
 function removeTag(resource, type, tagid, endpoint)
 {
-    var params = new Object();
-    params.imple = "/action=remove/resource=" + resource + "/type=" + type + "/tags=" + tagid;
+    var params = {"params": "resource=" + resource + "/type=" + type + "/tags=" + tagid };
     new Ajax.Updater({success:'tags_' + resource},
-                     endpoint,
+                     endpoint + "/action=remove/post=params",
                      {
                          method: 'post',
                          parameters: params

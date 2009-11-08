@@ -24,7 +24,7 @@ class Ansel_Ajax_Imple_GallerySlugCheck extends Horde_Ajax_Imple_Base
         Horde::addInlineScript($js, 'dom');
     }
 
-    public function handle($args)
+    public function handle($args, $post)
     {
         include_once dirname(__FILE__) . '/../../base.php';
         if (empty($args['input'])) {

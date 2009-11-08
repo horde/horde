@@ -28,7 +28,7 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Ajax_Imple_Base
         Horde::addInlineScript($js, 'dom');
     }
 
-    function handle($args)
+    function handle($args, $post)
     {
         include_once dirname(__FILE__) . '/../../base.php';
 

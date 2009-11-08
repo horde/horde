@@ -24,7 +24,7 @@ class Ansel_Ajax_Imple_ToggleGalleryActions extends Horde_Ajax_Imple_Base
         Horde::addInlineScript($js, 'dom');
     }
 
-    public function handle($args)
+    public function handle($args, $post)
     {
          if (empty($args['input'])) {
             return 0;

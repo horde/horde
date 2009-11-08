@@ -48,7 +48,7 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Ajax_Imple_AutoComple
         return $ret;
     }
 
-    public function handle($args)
+    public function handle($args, $post)
     {
         include_once dirname(__FILE__) . '/../../base.php';
 

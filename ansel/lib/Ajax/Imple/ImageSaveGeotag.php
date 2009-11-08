@@ -21,7 +21,7 @@ class Ansel_Ajax_Imple_ImageSaveGeotag extends Horde_Ajax_Imple_Base
         return $this->_getUrl('ImageSaveGeotag', 'ansel');
     }
 
-    public function handle($args)
+    public function handle($args, $post)
     {
         include_once dirname(__FILE__) . '/../../base.php';
 

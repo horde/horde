@@ -28,7 +28,7 @@ class Ansel_Ajax_Imple_Embed extends Horde_Ajax_Imple_Base
      *
      * @param array $args  Arguments for this view.
      */
-    public function handle($args)
+    public function handle($args, $post)
     {
         include_once dirname(__FILE__) . '/../../base.php';
 

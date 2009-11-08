@@ -40,7 +40,7 @@ class Kronolith_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_AutoCom
      *
      * @return string  TODO
      */
-    public function handle($args)
+    public function handle($args, $post)
     {
         // Avoid errors if 'input' isn't set and short-circuit empty searches.
         if (empty($args['input']) ||

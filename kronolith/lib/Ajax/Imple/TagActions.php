@@ -38,20 +38,21 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
      * the type of object (event/calendar) and 'tags' should be the integer
      * tag_id of the tag to remove.
      */
-    public function handle($args)
+    public function handle($args, $post)
     {
+        require_once dirname(__FILE__) . '/../../base.php';
         global $ansel_storage;
 
         $request = $args['action'];
-        $content = array('id' => $args['resource'], 'type' => $args['type']);
-        $tags = $args['tags'];
+        $content = array('id' => $post['resource'], 'type' => $post['type']);
+        $tags = $post['tags'];
 
         // Check perms
-        if ($args['type'] == 'calendar') {
-            $cal = $GLOBALS['kronolith_shares']->getShare($args['resource']);
+        if ($post['type'] == 'calendar') {
+            $cal = $GLOBALS['kronolith_shares']->getShare($post['resource']);
             $perm = $cal->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT);
-        } elseif($args['type'] == 'event') {
-            $event = Kronolith::getDriver()->getByUID($args['resource']);
+        } elseif($post['type'] == 'event') {
+            $event = Kronolith::getDriver()->getByUID($post['resource']);
             $perm = $event->hasPermission(PERMS_EDIT, Horde_Auth::getAuth());
         }
 
@@ -60,14 +61,14 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
             $tagger = Kronolith::getTagger();
             switch ($request) {
             case 'add':
-                $tagger->tag($args['resource'], $tags, $args['type']);
+                $tagger->tag($post['resource'], $tags, $post['type']);
                 break;
             case 'remove':
-                $tagger->untag($args['resource'], (int)$tags, $args['type']);
+                $tagger->untag($post['resource'], (int)$tags, $post['type']);
                 break;
             }
         }
-        return $this->_getTagHtml($tagger, $args['resource'], $args['type']);
+        return $this->_getTagHtml($tagger, $post['resource'], $post['type']);
 
     }
 
