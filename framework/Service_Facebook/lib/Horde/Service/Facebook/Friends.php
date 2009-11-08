@@ -43,8 +43,8 @@ class Horde_Service_Facebook_Friends extends Horde_Service_Facebook_Base
     /**
      * Returns the friends of the current session user.
      *
-     * @param int $flid  (Optional) Only return friends on this friend list.
-     * @param int $uid   (Optional) Return friends for this user.
+     * @param integer $flid  (Optional) Only return friends on this friend list.
+     * @param integer $uid   (Optional) Return friends for this user.
      *
      * @return array  An array of friends
      */

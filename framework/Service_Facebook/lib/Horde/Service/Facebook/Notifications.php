@@ -39,7 +39,8 @@ class Horde_Service_Facebook_Notifications extends Horde_Service_Facebook_Base
      * @param string $type          Either 'user_to_user' or 'app_to_user'
      *
      * @throws Horde_Service_Facebook_Exception
-     * @return A comma separated list of successful recipients
+     *
+     * @return string A comma separated list of successful recipients
      */
     public function &send($to_ids, $notification, $type)
     {

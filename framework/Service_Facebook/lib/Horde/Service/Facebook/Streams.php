@@ -19,11 +19,13 @@ class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
      *
      * @param string $viewerId  The user id or page id of the page whose stream
      *                          to read.
-     * @param array $sourceIds
+     * @param array     $sourceIds
      * @param timestamp $start
      * @param timestamp $end
-     * @param int $limit
-     * @param string $filterKey
+     * @param integer   $limit
+     * @param string    $filterKey
+     *
+     * @return mixed Method call results.
      */
     function &get($viewerId = '', $sourceIds = array(), $start = '', $end = '',
                  $limit = '', $filterKey = '')
@@ -52,7 +54,7 @@ class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
      * @param string $postId  The post id of the post whose comments we are
      *                        retrieving.
      *
-     * @return array
+     * @return mixed
      */
     function &getComments($postId)
     {
@@ -94,6 +96,8 @@ class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
      *                              see the API docs.
      * @param string $action_links  Array of action links.
      * @param string $target_id     The id of user/page you are publishing to.
+     *
+     * @return mixed
      */
     function publish($message = '', $attachment = '', $action_links = '', $target_id = '', $uid = '')
     {
@@ -121,10 +125,10 @@ class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
     /**
      * Remove a post from a user's stream
      *
-     * @param string $post_id  The post id
+     * @param string $postId  The post id
      * @param string $uid      The user id
      *
-     * @return unknown_type
+     * @return mixed
      */
     function remove($postId, $uid = '')
     {
@@ -146,7 +150,7 @@ class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
     /**
      * Add a comment to a user's post.
      *
-     * @param string $post_id  The post id the comment belongs to
+     * @param string $postId  The post id the comment belongs to
      * @param string $comment  The body of the comment (text only, no HTML).
      * @param string $uid      The user id of the user who is posting the
      *                         comment.
@@ -175,7 +179,7 @@ class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
     /**
      * Remove a comment from a post.
      *
-     * @param string $comment_id  The comment id to remove.
+     * @param string $commentId  The comment id to remove.
      * @param string $uid         User id
      *
      * @return boolean
@@ -200,10 +204,10 @@ class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
     /**
      * Add a "like" to a post.
      *
-     * @param string $post_id
+     * @param string $postId
      * @param string $uid
      *
-     * @return unknown_type
+     * @return mixed
      */
     function addLike($postId, $uid = '')
     {

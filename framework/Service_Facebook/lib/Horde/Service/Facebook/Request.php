@@ -16,6 +16,14 @@ class Horde_Service_Facebook_Request
     protected $_method;
     protected $_params;
 
+    /**
+     * Const'r
+     *
+     * @param Horde_Service_Facebook $facebook
+     * @param string                 $method
+     * @param Horde_Http_Client      $http_client
+     * @param array                  $params
+     */
     public function __construct($facebook, $method, $http_client, $params = array())
     {
         $this->_facebook = $facebook;
@@ -27,11 +35,10 @@ class Horde_Service_Facebook_Request
     /**
      * Run this request and return the data.
      *
-     * @throws Horde_Service_Facebook_Exception
-     *
      * @param string $dataFormat  Optionally specify the datatype to return.
      *
-     * @return Either raw XML, JSON, or an array of decoded values.
+     * @return mixed Either raw XML, JSON, or an array of decoded values.
+     * @throws Horde_Service_Facebook_Exception
      */
     public function &run()
     {
@@ -56,10 +63,13 @@ class Horde_Service_Facebook_Request
     }
 
     /**
+     * Send a POST request
+     *
+     * @param string $method  The method to call.
+     * @param array  $params  The method parameters.
+     *
+     * @return string The request results
      * @throws Horde_Service_Facebook_Exception
-     * @param $method
-     * @param $params
-     * @return unknown_type
      */
     protected function _postRequest($method, &$params)
     {
@@ -79,10 +89,12 @@ class Horde_Service_Facebook_Request
     }
 
     /**
+     * Finalize, sanity check, standardze and sign the method parameters, $params
      *
-     * @param $method
-     * @param $params
-     * @return unknown_type
+     * @param string $method  The method name
+     * @param array  $params  Method parameters
+     *
+     * @return void
      */
     protected function _finalizeParams($method, &$params)
     {
@@ -101,6 +113,14 @@ class Horde_Service_Facebook_Request
         $params['sig'] = Horde_Service_Facebook_Auth::generateSignature($params, $this->_facebook->secret);
     }
 
+    /**
+     * Adds standard facebook api parameters to $params
+     *
+     * @param string $method  The method name
+     * @param array  $params  Method parameters
+     *
+     * @return void
+     */
     protected function _addStandardParams($method, &$params)
     {
         // Select the correct data format.
@@ -125,6 +145,12 @@ class Horde_Service_Facebook_Request
         }
     }
 
+    /**
+     * Helper function to convert array to CSV string
+     *
+     * @param array $params
+     * @return string
+     */
     protected function _convertToCsv(&$params)
     {
         foreach ($params as $key => &$val) {
@@ -135,8 +161,13 @@ class Horde_Service_Facebook_Request
     }
 
     /**
+     * Create a string suitable for sending as POST data.
+     *
      * TODO: Figure out why using http_build_query doesn't work here.
      *
+     * @param array $params  The parameters array
+     *
+     * @return string  The POST string
      */
     protected function _createPostString($params)
     {
@@ -148,6 +179,12 @@ class Horde_Service_Facebook_Request
         return implode('&', $post_params);
     }
 
+    /**
+     *
+     * @param string $xml
+     *
+     * @return array
+     */
     private function _xmlToResult($xml)
     {
         $sxml = simplexml_load_string($xml);
@@ -156,6 +193,12 @@ class Horde_Service_Facebook_Request
         return $result;
     }
 
+    /**
+     *
+     * @param string $sxml
+     *
+     * @return array
+     */
     private static function _simplexmlToArray($sxml)
     {
         $arr = array();

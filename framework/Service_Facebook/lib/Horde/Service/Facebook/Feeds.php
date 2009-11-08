@@ -1,6 +1,12 @@
 <?php
 /**
  * Feed methods
+ *
+ * Copyright 2009 The Horde Project (http://www.horde.org)
+ *
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @package Horde_Service_Facebook
  */
 
 class Horde_Service_Facebook_Feeds extends Horde_Service_Facebook_Base
@@ -71,9 +77,9 @@ class Horde_Service_Facebook_Feeds extends Horde_Service_Facebook_Base
     /**
      * Deactivates a previously registered template bundle.
      *
-     * @param string $template_bundle_id  The template bundle id
+     * @param string $id  The template bundle id
      *
-     * @return bool  true on success
+     * @return boolean
      */
     public function &deactivateTemplateBundleByID($id)
     {
@@ -91,15 +97,15 @@ class Horde_Service_Facebook_Feeds extends Horde_Service_Facebook_Base
      *
      *  http://wiki.developers.facebook.com/index.php/Feed.publishUserAction
      *
-     * @param int $bundleId     A template bundle id previously registered
+     * @param integer $bundleId  A template bundle id previously registered
      * @param array $data       See wiki article for syntax
      * @param array $targetIds  (Optional) An array of friend uids of the user
      *                          who shared in this action.
      * @param string $body      (Optional) Additional markup that extends
      *                          the body of a short story.
-     * @param int $size         (Optional) A story size (see above)
+     * @param self::STORY_SIZE  $size     (Optional) A story size (see above)
      *
-     * @return bool  true on success
+     * @return boolean
      */
     public function &publishUserAction($bundleId, $data, $targetIds = '',
                                        $body = '', $size = self::STORY_SIZE_ONE_LINE)

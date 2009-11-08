@@ -15,8 +15,8 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
      *
      *  http://wiki.developers.facebook.com/index.php/Photos.addTag
      *
-     * @param int $pid          The ID of the photo to be tagged
-     * @param int $tag_uid      The ID of the user being tagged. You must specify
+     * @param integer $pid      The ID of the photo to be tagged
+     * @param integer $tag_uid  The ID of the user being tagged. You must specify
      *                          either the $tag_uid or the $tag_text parameter
      *                          (unless $tags is specified).
      * @param string $tag_text  Some text identifying the person being tagged.
@@ -31,11 +31,11 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
      *                          can contain the tag_uid, tag_text, x, and y
      *                          parameters defined above.  If specified, the
      *                          individual arguments are ignored.
-     * @param int $owner_uid    (Optional)  The user ID of the user whose photo
-     *                          you are tagging. If this parameter is not
-     *                          specified, then it defaults to the session user.
+     * @param integer $owner_uid    (Optional)  The user ID of the user whose photo
+     *                              you are tagging. If this parameter is not
+     *                              specified, then it defaults to the session user.
      *
-     * @return bool  true on success
+     * @return boolean
      */
     public function &addTag($pid, $tag_uid, $tag_text, $x, $y, $tags, $uid = 0)
     {
@@ -74,7 +74,7 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
      * @param string $visible      (Optional) A privacy setting for the album.
      *                             One of 'friends', 'friends-of-friends',
      *                             'networks', or 'everyone'.  Default 'everyone'.
-     * @param int $uid             (Optional) User id for creating the album; if
+     * @param integer $uid         (Optional) User id for creating the album; if
      *                             not specified, the session user is used.
      *
      * @return array  An album object
@@ -110,13 +110,13 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
     /**
      * Returns photos according to the filters specified.
      *
-     * @param int $subj_id  (Optional) Filter by uid of user tagged in the photos.
-     * @param int $aid      (Optional) Filter by an album, as returned by
-     *                      photos_getAlbums.
-     * @param string $pids   (Optional) Restrict to a comma-separated list of pids
-     *
      * Note that at least one of these parameters needs to be specified, or an
      * error is returned.
+     *
+     * @param integer $subj_id  (Optional) Filter by uid of user tagged in the photos.
+     * @param integer $aid      (Optional) Filter by an album, as returned by
+     *                          photos_getAlbums.
+     * @param string $pids      (Optional) Restrict to a comma-separated list of pids
      *
      * @return array  An array of photo objects.
      */
@@ -149,14 +149,14 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
     /**
      * Returns the albums created by the given user.
      *
-     * @param int $uid      (Optional) The uid of the user whose albums you want.
-     *                       A null will return the albums of the session user.
-     * @param string $aids  (Optional) A comma-separated list of aids to restricti
-     *                       the query.
-     *
      * Note that at least one of the (uid, aids) parameters must be specified.
      *
-     * @returns an array of album objects.
+     * @param integer $uid  (Optional) The uid of the user whose albums you want.
+     *                      A null will return the albums of the session user.
+     * @param string $aids  (Optional) A comma-separated list of aids to restricti
+     *                      the query.
+     *
+     * @return array of album objects.
      */
     public function &getAlbums($uid = null, $aids = null)
     {
@@ -198,12 +198,12 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
     /**
      * Uploads a photo.
      *
-     * @param string $file     The location of the photo on the local filesystem.
-     * @param int $aid         (Optional) The album into which to upload the
-     *                         photo.
-     * @param string $caption  (Optional) A caption for the photo.
-     * @param int uid          (Optional) The user ID of the user whose photo you
-     *                         are uploading
+     * @param string  $file     The location of the photo on the local filesystem.
+     * @param integer $aid      (Optional) The album into which to upload the
+     *                          photo.
+     * @param string  $caption  (Optional) A caption for the photo.
+     * @param integer $uid      (Optional) The user ID of the user whose photo you
+     *                          are uploading
      *
      * @return array  An array of user objects
      */

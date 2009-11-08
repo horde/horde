@@ -13,15 +13,15 @@
     /**
      * Returns events according to the filters specified.
      *
-     * @param int $uid            (Optional) User associated with events. A null
+     * @param integer $uid        (Optional) User associated with events. A null
      *                            parameter will default to the session user.
      * @param string $eids        (Optional) Filter by these comma-separated event
      *                            ids. A null parameter will get all events for
      *                            the user.
-     * @param int $start_time     (Optional) Filter with this unix time as lower
+     * @param integer $start_time (Optional) Filter with this unix time as lower
      *                            bound.  A null or zero parameter indicates no
      *                            lower bound.
-     * @param int $end_time       (Optional) Filter with this UTC as upper bound.
+     * @param integer $end_time   (Optional) Filter with this UTC as upper bound.
      *                            A null or zero parameter indicates no upper
      *                            bound.
      * @param string $rsvp_status (Optional) Only show events where the given uid
@@ -49,7 +49,7 @@
     /**
      * Returns membership list data associated with an event.
      *
-     * @param int $eid  event id
+     * @param integer $eid  event id
      *
      * @return array  An assoc array of four membership lists, with keys
      *                'attending', 'unsure', 'declined', and 'not_replied'
@@ -64,10 +64,10 @@
     /**
      * RSVPs the current user to this event.
      *
-     * @param int $eid             event id
-     * @param string $rsvp_status  'attending', 'unsure', or 'declined'
+     * @param integer $eid           event id
+     * @param string  $rsvp_status  'attending', 'unsure', or 'declined'
      *
-     * @return bool  true if successful
+     * @return boolean
      */
     public function &rsvp($eid, $rsvp_status)
     {
@@ -81,11 +81,11 @@
     /**
      * Cancels an event. Only works for events where application is the admin.
      *
-     * @param int $eid                event id
+     * @param integer $eid            event id
      * @param string $cancel_message  (Optional) message to send to members of
      *                                the event about why it is cancelled
      *
-     * @return bool  true if successful
+     * @return boolean
      */
     public function &cancel($eid, $cancel_message = '')
     {
@@ -99,9 +99,9 @@
      * Creates an event on behalf of the user is there is a session, otherwise on
      * behalf of app.  Successful creation guarantees app will be admin.
      *
-     * @param assoc array $event_info  json encoded event information
+     * @param array $event_info  json encoded event information
      *
-     * @return int  event id
+     * @return integer  event id
      */
     public function &create($event_info)
     {
@@ -113,10 +113,10 @@
     /**
      * Edits an existing event. Only works for events where application is admin.
      *
-     * @param int $eid                 event id
-     * @param assoc array $event_info  json encoded event information
+     * @param integer $eid         event id
+     * @param array   $event_info  json encoded event information
      *
-     * @return bool  true if successful
+     * @return boolean  true if successful
      */
     public function &edit($eid, $event_info)
     {

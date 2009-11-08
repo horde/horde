@@ -59,7 +59,7 @@ class Horde_Service_Facebook
     /**
      * The application's API Key
      *
-     * @var stirng
+     * @var string
      */
     protected $_apiKey;
 
@@ -148,7 +148,6 @@ class Horde_Service_Facebook
      *                   from an auth_token. Useful if client code wants to
      *                   handle this.
      * </pre>
-     * @param session_key
      */
     public function __construct($api_key, $secret, $context)
     {

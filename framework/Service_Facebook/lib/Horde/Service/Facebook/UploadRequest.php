@@ -10,14 +10,33 @@
  */
 class Horde_Service_Facebook_UploadRequest extends Horde_Service_Facebook_Request
 {
+    /**
+     * Filename to upload
+     *
+     * @var string
+     */
     protected $_filename;
 
+    /**
+     * Const'r
+     *
+     * @param Horde_Service_Facebook $facebook
+     * @param string                 $method
+     * @param Horde_Http_Client      $http_client
+     * @param string                 $file
+     * @param array                  $params
+     */
     public function __construct($facebook, $method, $http_client, $file, $params = array())
     {
         parent::__construct($facebook, $method, $http_client, $params);
         $this->_filename = $file;
     }
 
+    /**
+     * Run the request
+     *
+     * @return mixed
+     */
     public function run()
     {
         // Ensure we ask for JSON

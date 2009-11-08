@@ -13,10 +13,10 @@ class Horde_Service_Facebook_Groups extends Horde_Service_Facebook_Base
     /**
      * Returns groups according to the filters specified.
      *
-     * @param int $uid     (Optional) User associated with groups.  A null
-     *                     parameter will default to the session user.
-     * @param string $gids (Optional) Comma-separated group ids to query. A null
-     *                     parameter will get all groups for the user.
+     * @param integer $uid   (Optional) User associated with groups.  A null
+     *                       parameter will default to the session user.
+     * @param string  $gids  (Optional) Comma-separated group ids to query. A null
+     *                       parameter will get all groups for the user.
      *
      * @return array  An array of group objects
      */
@@ -34,7 +34,7 @@ class Horde_Service_Facebook_Groups extends Horde_Service_Facebook_Base
     /**
      * Returns the membership list of a group.
      *
-     * @param int $gid  Group id
+     * @param integer $gid  Group id
      *
      * @return array  An array with four membership lists, with keys 'members',
      *                'admins', 'officers', and 'not_replied'

@@ -51,8 +51,11 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
      * Returns 1 if the user has the specified permission, 0 otherwise.
      * http://wiki.developers.facebook.com/index.php/Users.hasAppPermission
      *
-     * @throws Horde_Service_Facebook_Exception
+     * @param string $ext_perm  The perm to check for.
+     * @param string $uid       The facebook userid to check.
+     *
      * @return integer  1 or 0
+     * @throws Horde_Service_Facebook_Exception
      */
     public function &hasAppPermission($ext_perm, $uid = null)
     {
@@ -74,6 +77,8 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
     /**
      * Returns whether or not the user corresponding to the current
      * session object has the give the app basic authorization.
+     *
+     * @param string $uid  Facebook userid
      *
      * @throws Horde_Service_Facebook_Exception
      * @return boolean  true if the user has authorized the app
@@ -117,13 +122,13 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
      * Example: setStatus("is loving the API!")
      * will produce the status "Luke is loving the API!"
      *
-     * @param string $status                text-only message to set
-     * @param int    $uid                   user to set for (defaults to the
-     *                                      logged-in user)
-     * @param bool   $clear                 whether or not to clear the status,
-     *                                      instead of setting it
-     * @param bool   $status_includes_verb  if true, the word "is" will *not* be
-     *                                      prepended to the status message
+     * @param string  $status      text-only message to set
+     * @param string  $uid         user to set for (defaults to the
+     *                             logged-in user)
+     * @param boolean $clear       whether or not to clear the status, instead
+     *                             of setting it
+     * @param boolean $includeVerb If true, the word "is" will *not* be
+     *                             prepended to the status message
      *
      * @return boolean
      */
@@ -146,6 +151,14 @@ class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
         return $this->_facebook->callMethod('facebook.users.setStatus', $params);
     }
 
+    /**
+     * Get user's status
+     *
+     * @param string  $uid
+     * @param integer $limit
+     *
+     * @return mixed
+     */
     public function &getStatus($uid = null, $limit = 1)
     {
         if (empty($uid) && !$skey = $this->_facebook->auth->getSessionKey()) {

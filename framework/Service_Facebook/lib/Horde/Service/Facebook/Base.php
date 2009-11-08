@@ -15,11 +15,9 @@ abstract class Horde_Service_Facebook_Base
     protected $_sessionKey;
 
     /**
-     *
-     * @param $facebook
-     * @param $request
-     * @param $params
-     * @return unknown_type
+     * @param Horde_Service_Facebook         $facebook
+     * @param Horde_Service_Facebook_Request $request
+     * @param array                          $params
      */
     public function __construct($facebook, $request, $params = array())
     {

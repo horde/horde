@@ -13,10 +13,10 @@ class Horde_Service_Facebook_Links extends Horde_Service_Facebook_Base
     /**
      * Retrieves links posted by the given user.
      *
-     * @param int    $uid      The user whose links you wish to retrieve
-     * @param int    $limit    The maximimum number of links to retrieve
-     * @param array $link_ids (Optional) Array of specific link
-     *                          IDs to retrieve by this user
+     * @param integer    $uid      The user whose links you wish to retrieve
+     * @param integer    $limit    The maximimum number of links to retrieve
+     * @param array      $link_ids (Optional) Array of specific link
+     *                             IDs to retrieve by this user
      *
      * @return array  An array of links.
      */
@@ -37,12 +37,12 @@ class Horde_Service_Facebook_Links extends Horde_Service_Facebook_Base
     /**
      * Posts a link on Facebook.
      *
-     * @param string $url     URL/link you wish to post
-     * @param string $comment (Optional) A comment about this link
-     * @param int    $uid     (Optional) User ID that is posting this link;
-     *                        defaults to current session user
+     * @param string  $url     URL/link you wish to post
+     * @param string  $comment (Optional) A comment about this link
+     * @param integer $uid     (Optional) User ID that is posting this link;
+     *                         defaults to current session user
      *
-     * @return bool
+     * @return boolean
      */
     public function &post($url, $comment = '', $uid = null)
     {
