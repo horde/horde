@@ -532,13 +532,14 @@ class IMP_UI_Message
                     continue;
                 }
 
-                    while (count($wrap_ids)) {
-                        if (strpos(strval($id), strval(end($wrap_ids))) === 0) {
-                            break;
-                        }
-                        array_pop($wrap_ids);
-                        $msgtext .= '</div>';
+                while (count($wrap_ids)) {
+                    if (strpos(strval($id), strval(end($wrap_ids))) === 0) {
+                        break;
                     }
+                    array_pop($wrap_ids);
+                    $msgtext .= '</div>';
+                }
+
                 if (!empty($info['wrap'])) {
                     $msgtext .= '<div class="' . $info['wrap'] . '">';
                     $wrap_ids[] = $mime_id;
