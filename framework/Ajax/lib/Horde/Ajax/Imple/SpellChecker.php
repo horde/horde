@@ -70,7 +70,7 @@ class Horde_Ajax_Imple_SpellChecker extends Horde_Ajax_Imple_Base
 
     /**
      */
-    public function handle($args)
+    public function handle($args, $post)
     {
         $spellArgs = array();
 
