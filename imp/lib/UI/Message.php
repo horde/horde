@@ -532,10 +532,8 @@ class IMP_UI_Message
                     continue;
                 }
 
-                while (count($wrap_ids)) {
-                    if (strpos(strval($id), strval(end($wrap_ids))) === 0) {
-                        break;
-                    }
+                while (count($wrap_ids) &&
+                       !Horde_Mime::isChild(end($wrap_ids), $id)) {
                     array_pop($wrap_ids);
                     $msgtext .= '</div>';
                 }
