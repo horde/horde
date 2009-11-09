@@ -137,6 +137,21 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
                             $this->_getRecurrences($r));
     }
 
+    public function testWeeklyCountWithMultipleIncidencesPerWeekIfTheFirstIncidenceInThisWeekHasAlreadyPassed()
+    {
+        $r = new Horde_Date_Recurrence('2007-02-27 10:00:00');
+        $r->setRecurType(Horde_Date_Recurrence::RECUR_WEEKLY);
+        $r->setRecurOnDay(Horde_Date::MASK_MONDAY | Horde_Date::MASK_SATURDAY);
+        $r->setRecurInterval(1);
+        $r->setRecurCount(3);
+        $this->assertEquals('W1 MO SA #3', $r->toRRule10($this->ical));
+        $this->assertEquals('FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,SA;COUNT=3', $r->toRRule20($this->ical));
+        $this->assertEquals(array('2007-03-03 10:00:00',
+                                  '2007-03-05 10:00:00',
+                                  '2007-03-10 10:00:00',),
+                            $this->_getRecurrences($r));
+    }
+
     public function testWeeklyCountWithMultipleIncidencesPerWeek()
     {
         $r = new Horde_Date_Recurrence('2007-03-01 10:00:00');
@@ -149,6 +164,50 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('2007-03-01 10:00:00',
                                   '2007-03-03 10:00:00',
                                   '2007-03-08 10:00:00',),
+                            $this->_getRecurrences($r));
+    }
+
+    public function testWeeklyCountWithMultipleIncidencesPerWeekAndIntervalLargerOne()
+    {
+        $r = new Horde_Date_Recurrence('2007-03-01 10:00:00');
+        $r->setRecurType(Horde_Date_Recurrence::RECUR_WEEKLY);
+        $r->setRecurOnDay(Horde_Date::MASK_THURSDAY | Horde_Date::MASK_SATURDAY);
+        $r->setRecurInterval(2);
+        $r->setRecurCount(3);
+        $this->assertEquals('W2 TH SA #3', $r->toRRule10($this->ical));
+        $this->assertEquals('FREQ=WEEKLY;INTERVAL=2;BYDAY=TH,SA;COUNT=3', $r->toRRule20($this->ical));
+        $this->assertEquals(array('2007-03-01 10:00:00',
+                                  '2007-03-03 10:00:00',
+                                  '2007-03-15 10:00:00',),
+                            $this->_getRecurrences($r));
+    }
+
+    public function testWeeklyCountWithMultipleIncidencesPerWeekAndLastWeekIsComplete()
+    {
+        $r = new Horde_Date_Recurrence('2007-03-01 10:00:00');
+        $r->setRecurType(Horde_Date_Recurrence::RECUR_WEEKLY);
+        $r->setRecurOnDay(Horde_Date::MASK_THURSDAY | Horde_Date::MASK_SATURDAY);
+        $r->setRecurInterval(1);
+        $r->setRecurCount(4);
+        $this->assertEquals('W1 TH SA #4', $r->toRRule10($this->ical));
+        $this->assertEquals('FREQ=WEEKLY;INTERVAL=1;BYDAY=TH,SA;COUNT=4', $r->toRRule20($this->ical));
+        $this->assertEquals(array('2007-03-01 10:00:00',
+                                  '2007-03-03 10:00:00',
+                                  '2007-03-08 10:00:00',
+                                  '2007-03-10 10:00:00'),
+                            $this->_getRecurrences($r));
+    }
+
+    public function testWeeklyCountWithMultipleIncidencesPerWeekAndCountIsOne()
+    {
+        $r = new Horde_Date_Recurrence('2007-03-01 10:00:00');
+        $r->setRecurType(Horde_Date_Recurrence::RECUR_WEEKLY);
+        $r->setRecurOnDay(Horde_Date::MASK_THURSDAY | Horde_Date::MASK_SATURDAY);
+        $r->setRecurInterval(1);
+        $r->setRecurCount(1);
+        $this->assertEquals('W1 TH SA #1', $r->toRRule10($this->ical));
+        $this->assertEquals('FREQ=WEEKLY;INTERVAL=1;BYDAY=TH,SA;COUNT=1', $r->toRRule20($this->ical));
+        $this->assertEquals(array('2007-03-01 10:00:00'),
                             $this->_getRecurrences($r));
     }
 
