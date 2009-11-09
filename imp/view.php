@@ -107,6 +107,12 @@ case 'download_render':
     switch ($actionID) {
     case 'download_attach':
         $mime = $contents->getMIMEPart($id);
+        if ($contents->canDisplay($id, IMP_Contents::RENDER_RAW)) {
+            $render = $contents->renderMIMEPart($id, IMP_Contents::RENDER_RAW);
+            reset($render);
+            $mime->setContents($render[key($render)]['data']);
+        }
+
         if (!$name = $mime->getName(true)) {
             $name = _("unnamed");
         }

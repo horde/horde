@@ -23,7 +23,8 @@ class IMP_Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Tnef
         'forceinline' => true,
         'full' => true,
         'info' => true,
-        'inline' => false
+        'inline' => false,
+        'raw' => false
     );
 
     /**

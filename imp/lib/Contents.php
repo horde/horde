@@ -32,6 +32,7 @@ class IMP_Contents
     const RENDER_INLINE_DISP_NO = 4;
     const RENDER_INFO = 8;
     const RENDER_INLINE_AUTO = 16;
+    const RENDER_RAW = 32;
 
     /**
      * Flag to indicate whether the last call to getBodypart() returned
@@ -445,6 +446,10 @@ class IMP_Contents
         case self::RENDER_INFO:
             $textmode = 'info';
             break;
+
+        case self::RENDER_RAW:
+            $textmode = 'raw';
+            break;
         }
 
         $ret = $viewer->render($textmode);
@@ -471,7 +476,7 @@ class IMP_Contents
                     )
                 );
             }
-        } elseif (($textmode != 'full') &&
+        } elseif (!in_array($textmode, array('full', 'raw')) &&
                   ($mime_part->getPrimaryType() == 'text')) {
             /* If this is a text/* part, AND the browser does not support
              * UTF-8, give the user a link to open the part in a new window
@@ -909,6 +914,10 @@ class IMP_Contents
 
         if ($mask & self::RENDER_INLINE_AUTO) {
             $mask |= self::RENDER_INLINE | self::RENDER_INFO;
+        }
+
+        if (($mask & self::RENDER_RAW) && $viewer->canRender('raw')) {
+            return self::RENDER_RAW;
         }
 
         if (($mask & self::RENDER_FULL) && $viewer->canRender('full')) {

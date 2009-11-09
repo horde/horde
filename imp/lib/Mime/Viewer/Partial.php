@@ -24,6 +24,7 @@ class IMP_Horde_Mime_Viewer_Partial extends Horde_Mime_Viewer_Driver
         'full' => false,
         'info' => false,
         'inline' => false,
+        'raw' => false
     );
 
     /**

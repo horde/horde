@@ -25,7 +25,8 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         'forceinline' => false,
         'full' => true,
         'info' => true,
-        'inline' => true
+        'inline' => true,
+        'raw' => false
     );
 
     /**

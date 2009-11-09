@@ -23,7 +23,8 @@ class IMP_Horde_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
         'forceinline' => false,
         'full' => true,
         'info' => true,
-        'inline' => false
+        'inline' => false,
+        'raw' => false
     );
 
     /**

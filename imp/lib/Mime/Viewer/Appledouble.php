@@ -23,7 +23,8 @@ class IMP_Horde_Mime_Viewer_Appledouble extends Horde_Mime_Viewer_Driver
         'forceinline' => true,
         'full' => false,
         'info' => true,
-        'inline' => true
+        'inline' => true,
+        'raw' => false
     );
 
     /**
