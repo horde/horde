@@ -85,6 +85,13 @@ class IMP_Contents
     protected $_build = false;
 
     /**
+     * The list of MIME IDs that consist of embedded data.
+     *
+     * @var array
+     */
+    protected $_embedded = array();
+
+    /**
      * Attempts to return a reference to a concrete IMP_Contents instance.
      * If an IMP_Contents object is currently stored in the local cache,
      * recreate that object.  Else, create a new instance.
@@ -863,6 +870,7 @@ class IMP_Contents
                 $new_parts = $viewer->getEmbeddedMimeParts();
                 if (!is_null($new_parts)) {
                     foreach (array_keys($new_parts) as $key) {
+                        $this->_embedded[] = $key;
                         if ($first_id === $key) {
                             $this->_message = $new_parts[$key];
                             $this->_build = false;
@@ -986,6 +994,24 @@ class IMP_Contents
         }
 
         return $message;
+    }
+
+    /**
+     * Determines if a given MIME part ID is a part of embedded data.
+     *
+     * @param string $mime_id  The MIME ID.
+     *
+     * @return boolean  True if the MIME ID is part of embedded data.
+     */
+    public function isEmbedded($mime_id)
+    {
+        foreach ($this->_embedded as $val) {
+            if (Horde_Mime::isChild($val, $mime_id)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
