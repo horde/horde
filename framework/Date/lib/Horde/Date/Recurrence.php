@@ -405,6 +405,48 @@ class Horde_Date_Recurrence
                 ceil($recur / 7) / $this->recurInterval >= $this->recurCount) {
                 return false;
             }
+
+            if (!$this->hasRecurEnd() && $this->recurCount > 0) {
+                $start_week_end = clone $start_week;
+                $start_week_end->mday += 7;
+                $recurrences = 0;
+                $total_recurrences_per_week = 0;
+                $next = clone $start_week;
+                while ($next->compareDateTime($start_week_end) < 0
+                    && $next->compareDateTime($after) < 0) {
+
+                    if ($this->recurOnDay((int)pow(2, $next->dayOfWeek()))) {
+                        $total_recurrences_per_week++;
+                        if ($next->compareDateTime($this->start) >= 0)
+                            $recurrences++;
+                    }
+                    ++$next->mday;
+                }
+                if ($recurrences >= $this->recurCount)
+                    return false;
+                if ($diff >= $this->recurInterval * 7) {
+                    // calculate the number of weeks between the start and the
+                    // end week
+                    $recurrences += ((int)floor(($diff/($this->recurInterval * 7))) - 1) * $total_recurrences_per_week;
+                    if ($recurrences >= $this->recurCount)
+                        return false;
+                    if ($diff % ($this->recurInterval * 7) == 0) {
+                        // the last week is in the interval - therefore the
+                        // recurrences in the week have to be counted also
+                        $next = clone $after_week;
+                        while ($next->compareDateTime($after_week_end) < 0
+                            && $next->compareDateTime($after) < 0) {
+                            if ($this->recurOnDay((int)pow(2, $next->dayOfWeek()))) {
+                                $recurrences++;
+                            }
+                            ++$next->mday;
+                        }
+                    }
+                }
+                if ($recurrences >= $this->recurCount)
+                    return false;
+            }
+
             $next = clone $start_week;
             $next->mday += $recur;
             while ($next->compareDateTime($after) < 0 &&
