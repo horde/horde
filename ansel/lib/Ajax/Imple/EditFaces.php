@@ -33,10 +33,9 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Ajax_Imple_Base
         include_once dirname(__FILE__) . '/../../base.php';
 
         if (Horde_Auth::getAuth()) {
-            /* Require POST for these actions */
-            $action = Horde_Util::getPost('action');
-            $image_id = (int)Horde_Util::getPost('image');
-            $reload = Horde_Util::getPost('reload', 0);
+            $action = $args['action'];
+            $image_id = (int)$post['image'];
+            $reload = empty($post['reload']) ? 0 : $post['reload'];
 
             if (empty($action)) {
                 return array('response' => 0);
@@ -73,7 +72,7 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Ajax_Imple_Base
 
             case 'delete':
                 // delete - deletes a single face from an image.
-                $face_id = (int)Horde_Util::getPost('face');
+                $face_id = (int)$post['face'];
                 $image = &$GLOBALS['ansel_storage']->getImage($image_id);
                 $gallery = &$GLOBALS['ansel_storage']->getGallery($image->gallery);
                 if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
@@ -86,12 +85,12 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Ajax_Imple_Base
 
             case 'setname':
                 // setname - sets the name of a single image.
-                $face_id = (int)Horde_Util::getPost('face');
+                $face_id = (int)$post['face'];
                 if (!$face_id) {
                     return array('response' => 0);
                 }
 
-                $name = Horde_Util::getPost('facename');
+                $name = $post['facename'];
                 $image = &$GLOBALS['ansel_storage']->getImage($image_id);
                 $gallery = &$GLOBALS['ansel_storage']->getGallery($image->gallery);
                 if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
