@@ -33,6 +33,9 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
         'full' => false,
         'info' => false,
         'inline' => true,
+        /* This driver *does* render raw data, but only for
+         * application/pgp-signature parts that have been processed by the
+         * text/plain driver. This is handled via the canRender() function. */
         'raw' => false
     );
 
@@ -56,6 +59,38 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
      * @var array
      */
     static protected $_inlinecache = array();
+
+    /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     */
+    protected function _renderRaw()
+    {
+        $id = $this->_mimepart->getMimeId();
+
+        $ret = array(
+            $id => array(
+                'data' => '',
+                'status' => array(),
+                'type' => 'text/plain; charset=' . Horde_Nls::getCharset()
+            )
+        );
+
+        if (empty($this->_imppgp)) {
+            $this->_imppgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
+        }
+
+        $parts = $this->_imppgp->parsePGPData($this->_mimepart->getContents());
+        foreach (array_keys($parts) as $key) {
+            if ($parts[$key]['type'] == Horde_Crypt_Pgp::ARMOR_SIGNATURE) {
+                $ret[$id]['data'] = implode("\r\n", $parts[$key]['data']);
+                break;
+            }
+        }
+
+        return $ret;
+    }
 
     /**
      * Return the rendered inline version of the Horde_Mime_Part object.
@@ -406,6 +441,22 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
     protected function _getSymmetricID()
     {
         return $this->_imppgp->getSymmetricID($this->_params['contents']->getMailbox(), $this->_params['contents']->getUid(), $this->_mimepart->getMimeId());
+    }
+
+    /**
+     * Can this driver render the the data?
+     *
+     * @param string $mode  See Horde_Mime_Viewer_Driver::canRender().
+     *
+     * @return boolean  See Horde_Mime_Viewer_Driver::canRender().
+     */
+    public function canRender($mode)
+    {
+        return (($mode == 'raw') &&
+                ($this->_mimepart->getType() == 'application/pgp-signature') &&
+                $this->_mimepart->getContentTypeParameter('x-imp-pgp-signature'))
+            ? true
+            : parent::canRender($mode);
     }
 
 }
