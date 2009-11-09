@@ -262,14 +262,11 @@ class Horde_Mime_Viewer_Driver
     }
 
     /**
-     * If this MIME part can contain embedded MIME parts, and those embedded
-     * MIME parts exist, return a list of MIME parts that contain the embedded
-     * MIME part information.
+     * If this MIME part can contain embedded MIME part(s), and those part(s)
+     * exist, return a representation of that data.
      *
-     * @return mixed  An array with MIME IDs as the keys and Horde_Mime_Part
-     *                objects as the parts to replace the current value of
-     *                the given MIME ID.
-     *                Returns null if no embedded MIME parts exist.
+     * @return mixed  A Horde_Mime_Part object representing the embedded data.
+     *                Returns null if no embedded MIME part(s) exist.
      */
     public function getEmbeddedMimeParts()
     {
@@ -280,14 +277,11 @@ class Horde_Mime_Viewer_Driver
     }
 
     /**
-     * If this MIME part can contain embedded MIME parts, and those embedded
-     * MIME parts exist, return a list of MIME parts that contain the embedded
-     * MIME part information.
+     * If this MIME part can contain embedded MIME part(s), and those part(s)
+     * exist, return a representation of that data.
      *
-     * @return mixed  An array with MIME IDs as the keys and Horde_Mime_Part
-     *                objects as the parts to replace the current value of
-     *                the given MIME ID.
-     *                Returns null if no embedded MIME parts exist.
+     * @return mixed  A Horde_Mime_Part object representing the embedded data.
+     *                Returns null if no embedded MIME part(s) exist.
      */
     protected function _getEmbeddedMimeParts()
     {
