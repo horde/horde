@@ -155,14 +155,10 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
 
         function setLocation(lat, lng)
         {
-            params = {
-                type: 'geotag',
-                img: {$image_id},
-                lat: lat,
-                lng: lng};
+            var params = { "values": "img={$image_id}/lat=" + lat + "/lng=" + lng };
 
             url = "{$impleUrl}";
-            new Ajax.Request(url, {
+            new Ajax.Request(url + "/action=geotag/post=values", {
                 method: 'post',
                 parameters: params,
                 onComplete: function(transport) {
@@ -188,12 +184,10 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
         }
 
         function deleteLocation() {
-            params = {
-                type: 'untag',
-                img: {$image_id}};
+            var params = {"values": "img={$image_id}" };
 
-            url = "{$impleUrl}";
-            new Ajax.Request(url, {
+            var url = "{$impleUrl}";
+            new Ajax.Request(url + "/action=untag/post=values", {
                 method: 'post',
                 parameters: params,
                 onComplete: function(transport) {
