@@ -142,7 +142,7 @@ Ansel_GMap.prototype = {
                 var marker = new anselGOverlay(ll, points[i]);
             }
             // Click handlers only apply to our custom GOverlay.
-            if (!points[i].markerOnly && !options.viewType == 'Block') {
+            if (!points[i].markerOnly && !this.options.viewType == 'Block') {
                 (function() {
                     var p = points[i];
                     GEvent.addDomListener(marker.div_, 'click', function() {
@@ -159,7 +159,7 @@ Ansel_GMap.prototype = {
             // Only put the current image on the small map if we are in the
             // Image view.
             if (this.options.smallMap &&
-                (options.viewType != 'Image' || points[i].markerOnly)) {
+                (this.options.viewType != 'Image' || points[i].markerOnly)) {
                 var marker2 = new GMarker(ll, this.tIO);
                 this.smallMap.addOverlay(marker2);
             }
@@ -379,7 +379,7 @@ Ansel_GMap.prototype = {
     },
 
     _getRelocateLink: function(iid) {
-        if (options.hasEdit) {
+        if (this.options.hasEdit) {
             var a = new Element('a', {href: this.options.relocateUrl + '?image=' + iid}).update(this.options.relocateText);
             a.observe('click', function(e) { Horde.popup({ url: this.options.relocateUrl, params: 'image=' + iid, width: 750, height: 600 }); e.stop();}.bind(this));
             return a;
