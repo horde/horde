@@ -113,7 +113,6 @@ class Horde_Mime_Viewer_Driver
      * 'status' - (array) An array of status information to be displayed to
      *            the user.  Consists of arrays with the following keys:
      *            'class' - (string) The class to use for display.
-     *            'id' - (string) The DOM ID to use for the status item.
      *            'img' - (string) An image to display.
      *            'text' - (array) The text to display.
      * 'type' - (string) The MIME type of the rendered data.
