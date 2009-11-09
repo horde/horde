@@ -400,11 +400,25 @@ class Horde_Date_Recurrence
             $after_week_end->mday += 7;
 
             $diff = $start_week->diff($after_week);
-            $recur = $diff + ($diff % ($this->recurInterval * 7));
+            $interval = $this->recurInterval * 7;
+            $repeats = floor($diff / $interval);
+            if ($diff % $interval < 7) {
+                $recur = $diff;
+            } else {
+                /**
+                 * If the after_week is not in the first week interval the
+                 * search needs to skip ahead a complete interval. The way it is
+                 * calculated here means that an event that occurs every second
+                 * week on Monday and Wednesday with the event actually starting
+                 * on Tuesday or Wednesday will only have one incidence in the
+                 * first week.
+                 */
+                $recur = $interval * ($repeats + 1);
+            }
 
             if ($this->hasRecurCount()) {
                 $recurrences = 0;
-                if ($recur > 0) {
+                if ($repeats > 0) {
                     $weekdays = $this->recurData;
                     $total_recurrences_per_week = 0;
                     while ($weekdays > 0) {
@@ -413,7 +427,7 @@ class Horde_Date_Recurrence
                         }
                         $weekdays = ($weekdays - ($weekdays % 2)) / 2;
                     }
-                    $recurrences += $total_recurrences_per_week * ($recur / ($this->recurInterval * 7));
+                    $recurrences += $total_recurrences_per_week * $repeats;
                 }
             }
 

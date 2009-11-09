@@ -32,7 +32,7 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         // This is a Thursday
         $next = new Horde_Date('2007-03-01 00:00:00');
         while ($next = $r->nextRecurrence($next)) {
-            if (++$protect > 10) {
+            if (++$protect > 20) {
                 return 'Infinite loop';
             }
             $recurrences[] = (string)$next;
@@ -109,7 +109,7 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
                                 '2010-01-06 08:00:00',
                                 '2010-01-07 08:00:00',
                                 '2010-01-08 08:00:00',
-),
+                            ),
                             $this->_getRecurrences($r), 'Test for bug #8546');
     }
 
