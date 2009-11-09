@@ -47,7 +47,7 @@ $height = $x2 - $x1;
 $width = $y2 - $y1;
 
 Horde::addScriptFile('scriptaculous.js', 'horde');
-Horde::addScriptFile('builder.js', 'ansel');
+Horde::addScriptFile('builder.js', 'horde');
 Horde::addScriptFile('cropper.js', 'ansel');
 Horde::addScriptFile('stripe.js', 'horde');
 
