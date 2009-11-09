@@ -250,9 +250,7 @@ Ansel_GMap.prototype = {
 
     /**
      * Custom getLocations method so we can check for our own locally cached
-     * geodata first. We can't implement our own GGeocodeCache becuase we want
-     * to allow a per-user override of an individual image, not a general cache
-     * of lat/lng => location text.
+     * geodata first.
      */
     getLocations: function(p) {
         if (p.image_data.image_location.length > 0) {
@@ -308,14 +306,10 @@ Ansel_GMap.prototype = {
 
                 // Cache the location locally?
                 if (update) {
-                    new Ajax.Request(this.options['updateEndpoint'],
+                    new Ajax.Request(this.options['updateEndpoint'] + "/action=location/post=values",
                                     {
                                         method: 'post',
-                                        parameters: {
-                                            type: 'location',
-                                            location: encodeURIComponent(place.address),
-                                            img: image_data.image_id
-                                        }
+                                        parameters: { "values": "location=" + encodeURIComponent(place.address) + "/img=" + image_data.image_id }
                                     }
                     );
                 }

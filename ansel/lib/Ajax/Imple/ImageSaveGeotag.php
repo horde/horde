@@ -26,10 +26,10 @@ class Ansel_Ajax_Imple_ImageSaveGeotag extends Horde_Ajax_Imple_Base
         include_once dirname(__FILE__) . '/../../base.php';
 
         $type = $args['action'];
-        $location = empty($post['location']) ? '' : $post['location'];
+        $location = empty($post['location']) ? null : $post['location'];
+        $lat = empty($post['lat']) ? null : $post['lat'];
+        $lng = empty($post['lng']) ? null : $post['lng'];
         $img = $post['img'];
-        $lat = $post['lat'];
-        $lng = $post['lng'];
 
         if (empty($img) ||
             ($type == 'location' && empty($location)) ||
