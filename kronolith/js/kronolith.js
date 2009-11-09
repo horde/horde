@@ -2061,18 +2061,17 @@ KronolithCore = {
                 return;
 
             case 'kronolithMinical':
-                var today = new Date();
                 if (orig.id == 'kronolithMinicalPrev') {
                     var date = this.parseDate($('kronolithMinicalDate').retrieve('date'));
                     date.previous().month();
-                    this.updateMinical(date, date.getMonth() == today.getMonth() ? this.view : undefined);
+                    this.updateMinical(date, date.getMonth() == this.date.getMonth() ? this.view : undefined);
                     e.stop();
                     return;
                 }
                 if (orig.id == 'kronolithMinicalNext') {
                     var date = this.parseDate($('kronolithMinicalDate').retrieve('date'));
                     date.next().month();
-                    this.updateMinical(date, date.getMonth() == today.getMonth() ? this.view : null);
+                    this.updateMinical(date, date.getMonth() == this.date.getMonth() ? this.view : null);
                     e.stop();
                     return;
                 }
