@@ -23,7 +23,8 @@ class Horde_Mime_Viewer_Enscript extends Horde_Mime_Viewer_Source
         'forceinline' => false,
         'full' => true,
         'info' => false,
-        'inline' => true
+        'inline' => true,
+        'raw' => false
     );
 
     /**

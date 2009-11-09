@@ -23,7 +23,8 @@ class Horde_Mime_Viewer_Rfc822 extends Horde_Mime_Viewer_Driver
         'forceinline' => false,
         'full' => true,
         'info' => true,
-        'inline' => false
+        'inline' => false,
+        'raw' => false
     );
 
     /**

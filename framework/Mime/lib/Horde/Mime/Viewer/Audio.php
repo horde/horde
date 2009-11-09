@@ -23,7 +23,8 @@ class Horde_Mime_Viewer_Audio extends Horde_Mime_Viewer_Driver
         'forceinline' => false,
         'full' => true,
         'info' => false,
-        'inline' => false
+        'inline' => false,
+        'raw' => false
     );
 
     /**

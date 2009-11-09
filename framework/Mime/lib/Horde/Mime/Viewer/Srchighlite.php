@@ -25,7 +25,8 @@ class Horde_Mime_Viewer_Srchighlite extends Horde_Mime_Viewer_Source
         'forceinline' => false,
         'full' => true,
         'info' => false,
-        'inline' => true
+        'inline' => true,
+        'raw' => false
     );
 
     /**

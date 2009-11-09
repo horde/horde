@@ -22,7 +22,8 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Driver
         'forceinline' => true,
         'full' => false,
         'info' => true,
-        'inline' => true
+        'inline' => true,
+        'raw' => false
     );
 
     /**

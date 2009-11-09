@@ -44,7 +44,8 @@ class Horde_Mime_Viewer_Driver
         'forceinline' => false,
         'full' => false,
         'info' => false,
-        'inline' => false
+        'inline' => false,
+        'raw' => false
     );
 
     /**
@@ -101,6 +102,9 @@ class Horde_Mime_Viewer_Driver
      *          the contents of the MIME part. This view is intended to be
      *          displayed to the user with the intention that this MIME part's
      *          subparts may also independently be viewed inline.
+     * 'raw' - The raw data of the MIME part, generally useful for downloading
+     *         a part. This view exists in case this raw data needs to be
+     *         altered in any way.
      * </pre>
      *
      * @return array  An array. The keys are the MIME parts that were handled
@@ -139,6 +143,13 @@ class Horde_Mime_Viewer_Driver
         case 'info':
             try {
                 return $this->_renderInfo();
+            } catch (Horde_Exception $e) {
+                $error = $e;
+            }
+
+        case 'raw':
+            try {
+                return $this->_renderRaw();
             } catch (Horde_Exception $e) {
                 $error = $e;
             }
@@ -190,9 +201,24 @@ class Horde_Mime_Viewer_Driver
     }
 
     /**
+     * Return the rendered information about the Horde_Mime_Part object.
+     *
+     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @throws Horde_Exception
+     */
+    protected function _renderRaw()
+    {
+        $viewer = $this->_getViewer();
+        return $viewer
+            ? $viewer->render('raw')
+            : array();
+    }
+
+    /**
      * Can this driver render the the data?
      *
-     * @param string $mode  The mode.  Either 'full', 'inline', or 'info'.
+     * @param string $mode  The mode.  Either 'full', 'inline', 'info', or
+     *                      'raw'.
      *
      * @return boolean  True if the driver can render the data for the given
      *                  view.
@@ -207,6 +233,7 @@ class Horde_Mime_Viewer_Driver
         switch ($mode) {
         case 'full':
         case 'info':
+        case 'raw':
             return $this->_capability[$mode];
 
         case 'inline':

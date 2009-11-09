@@ -36,7 +36,8 @@ class Horde_Mime_Viewer_Smil extends Horde_Mime_Viewer_Driver
         'forceinline' => true,
         'full' => true,
         'info' => false,
-        'inline' => false
+        'inline' => false,
+        'raw' => false
     );
 
     /**

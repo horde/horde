@@ -23,7 +23,8 @@ class Horde_Mime_Viewer_Deb extends Horde_Mime_Viewer_Driver
         'forceinline' => true,
         'full' => true,
         'info' => false,
-        'inline' => true
+        'inline' => true,
+        'raw' => false
     );
 
     /**
