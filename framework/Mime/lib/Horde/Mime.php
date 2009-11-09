@@ -669,6 +669,20 @@ class Horde_Mime
     }
 
     /**
+     * Determines if a given MIME ID lives underneath a base ID.
+     *
+     * @param string $base  The base MIME ID.
+     * @param string $id    The MIME ID to query.
+     *
+     * @return boolean  Whether $id lives underneath $base.
+     */
+    static public function isChild($base, $id)
+    {
+        return ((($base == 0) && ($id != 0)) ||
+                strpos(strval($id), strval($base)) === 0);
+    }
+
+    /**
      * Scans $input for uuencoded data and converts it to unencoded data.
      *
      * @param string $input  The input data
