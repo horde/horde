@@ -39,7 +39,7 @@ abstract class Horde_Ajax_Imple_Base
      *
      * @param array $args  TODO
      */
-    abstract public function handle($args);
+    abstract public function handle($args, $post);
 
     /**
      * TODO
