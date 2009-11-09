@@ -311,7 +311,7 @@ case 'resizeedit':
         $y2 = $geometry['height'];
 
         /* js and css files */
-        Horde::addScriptFile('builder.js');
+        Horde::addScriptFile('builder.js', 'horde');
         Horde::addScriptFile('effects.js', 'horde');
         Horde::addScriptFile('controls.js', 'horde');
         Horde::addScriptFile('dragdrop.js', 'horde');
@@ -321,7 +321,7 @@ case 'resizeedit':
         /* js and css files */
         // TODO: Combine these cases
         $geometry = $image->getDimensions('full');
-        Horde::addScriptFile('builder.js');
+        Horde::addScriptFile('builder.js', 'horde');
         Horde::addScriptFile('effects.js', 'horde');
         Horde::addScriptFile('slider.js', 'horde');
         Horde::addScriptFile('dragdrop.js', 'horde');
