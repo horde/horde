@@ -96,7 +96,7 @@ class Kronolith_Event_Horde extends Kronolith_Event
         if ($this->ajax_link) {
             $json->aj = $this->ajax_link;
         } else {
-            $json->ln = $this->getLink();
+            $json->ln = $this->getViewUrl(array(), true);
         }
         return $json;
     }

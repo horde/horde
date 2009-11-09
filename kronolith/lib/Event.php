@@ -2225,6 +2225,8 @@ abstract class Kronolith_Event
         } elseif ($this->remoteCal) {
             $params['calendar'] = '**remote';
             $params['remoteCal'] = $this->remoteCal;
+        } elseif (!empty($this->external_link)) {
+            return $this->external_link;
         } else {
             $params['calendar'] = $this->getCalendar();
         }

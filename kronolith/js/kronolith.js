@@ -302,19 +302,24 @@ KronolithCore = {
             break;
 
         case 'event':
+            // Load view first if necessary.
             if (!this.view) {
                 this.go(Kronolith.conf.login_view);
                 this.go.bind(this, fullloc, data).defer();
                 return;
             }
+
             switch (locParts.length) {
             case 0:
+                // New event.
                 this.editEvent();
                 break;
             case 1:
+                // New event on a certain date.
                 this.editEvent(null, null, locParts[0]);
                 break;
             case 2:
+                // Editing event.
                 this.editEvent(locParts[0], locParts[1]);
                 break;
             }
@@ -455,6 +460,7 @@ KronolithCore = {
         if (this.view && this.view != loc) {
             $('kronolithView' + this.view.capitalize()).fade({ 'queue': 'end' });
         }
+        this.view = null;
     },
 
     /**
@@ -1846,6 +1852,8 @@ KronolithCore = {
 
     iframeContent: function(name, loc)
     {
+        this.closeView();
+
         if (name === null) {
             name = loc;
         }
@@ -1858,8 +1866,8 @@ KronolithCore = {
             $('kronolithViewIframe').insert(iframe);
         }
 
-        this.view = null;
         $('kronolithViewIframe').appear({ 'queue': 'end' });
+        this.view = 'iframe';
     },
 
     onResize: function(noupdate, nowait)
@@ -2400,6 +2408,13 @@ KronolithCore = {
         }
 
         var ev = r.response.event;
+
+        if (!Object.isUndefined(ev.ln)) {
+            this.iframeContent('event', ev.ln);
+            this._closeRedBox();
+            return;
+        }
+
         $('kronolithEventId').value = ev.id;
         $('kronolithEventCalendar').value = ev.ty + '|' + ev.c;
         $('kronolithEventTitle').value = ev.t;
