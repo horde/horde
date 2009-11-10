@@ -35,7 +35,7 @@ class Ansel_View_Image extends Ansel_View_Base
         $image = &$GLOBALS['ansel_storage']->getImage($params['image_id']);
 
         /* Get the Ansel_Gallery */
-        $this->gallery = $this->getGallery();
+        $this->gallery = $this->_getGallery();
 
         /* Save the image reference */
         $this->resource = $image;

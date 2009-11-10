@@ -75,11 +75,11 @@ class Ansel_View_Gallery extends Ansel_View_Base
         parent::__construct($params);
 
         if (!empty($params['gallery_slug'])) {
-            $this->gallery = $this->getGallery(null, $params['gallery_slug']);
+            $this->gallery = $this->_getGallery(null, $params['gallery_slug']);
         } elseif (!empty($params['gallery_id'])) {
-            $this->gallery = $this->getGallery($params['gallery_id']);
+            $this->gallery = $this->_getGallery($params['gallery_id']);
         } else {
-            $this->gallery = $this->getGallery();
+            $this->gallery = $this->_getGallery();
         }
 
         // Check user age

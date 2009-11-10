@@ -58,7 +58,7 @@ abstract class Ansel_View_Base
      * @return Ansel_Gallery  The requested Ansel_Gallery object
      * @throws Horde_Exception
      */
-    public function &getGallery($galleryId = null, $slug = '')
+    protected function &_getGallery($galleryId = null, $slug = '')
     {
         if (is_null($galleryId) && empty($slug)) {
             $galleryId = !empty($this->_params['gallery_id']) ? $this->_params['gallery_id'] : null;

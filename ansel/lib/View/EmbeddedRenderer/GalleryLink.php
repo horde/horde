@@ -54,9 +54,9 @@ class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Gallery
         foreach ($galleries as $identifier) {
             try {
                 if ($haveSlugs) {
-                    $gallery = $this->getGallery(null, $identifier);
+                    $gallery = $this->_getGallery(null, $identifier);
                 } else {
-                    $gallery = $this->getGallery($identifier);
+                    $gallery = $this->_getGallery($identifier);
                 }
             } catch (Horde_Exception $e) {
                 Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
