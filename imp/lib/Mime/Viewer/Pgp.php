@@ -445,7 +445,7 @@ class IMP_Horde_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Driver
     {
         return (($mode == 'raw') &&
                 ($this->_mimepart->getType() == 'application/pgp-signature') &&
-                $this->_mimepart->getContentTypeParameter('x-imp-pgp-signature'))
+                $this->_mimepart->getMetadata('imp-pgp-signature'))
             ? true
             : parent::canRender($mode);
     }
