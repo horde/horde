@@ -48,7 +48,7 @@ class Kronolith_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_AutoCom
             return array();
         }
 
-        return $this->_expandAddresses($input);
+        return $this->_getAddressList($input);
     }
 
     /**
