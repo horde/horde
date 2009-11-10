@@ -656,6 +656,7 @@ div#kronolithEventTopTags {
 }
 div#kronolithEventTopTags span {
     padding: 2px 4px;
+    margin-right: 4px;
     background-color: #fff;
     border: 1px #c0c0c0 solid;
     -moz-border-radius: 4px;
@@ -665,6 +666,9 @@ div#kronolithEventTopTags span {
 div#kronolithEventTopTags span:hover {
     background-color: #ffc;
     cursor: pointer;
+}
+div#kronolithEventTabTags {
+	line-height: 100%;
 }
 
 #kronolithEventDialog .tabset, #kronolithTaskDialog .tabset {
