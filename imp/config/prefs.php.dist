@@ -157,12 +157,15 @@ $prefGroups['filters'] = array(
     'url' => 'filterprefs.php'
 );
 
-$prefGroups['addressbooks'] = array(
-    'column' => _("Other Options"),
-    'label' => _("Address Books"),
-    'desc' => _("Select address book sources for adding and searching for addresses."),
-    'members' => array('save_recipients', 'display_contact', 'sourceselect')
-);
+$contacts_app = $GLOBALS['registry']->hasInterface('contacts');
+if ($contacts_app && $GLOBALS['registry']->hasPermission($contacts_app)) {
+    $prefGroups['addressbooks'] = array(
+        'column' => _("Other Options"),
+        'label' => _("Address Books"),
+        'desc' => _("Select address book sources for adding and searching for addresses."),
+        'members' => array('save_recipients', 'display_contact', 'sourceselect')
+        );
+}
 
 $prefGroups['events'] = array(
     'column' => _("Other Options"),

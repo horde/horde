@@ -113,6 +113,8 @@ v5.0-git
 v4.3.6-cvs
 ----------
 
+[jan] Don't show address book preference group if address books are disabled
+      (Bug #8692).
 [mms] Save References/In-Reply-To header info when saving a draft (Bug #8661).
 [jan] Fix viewing S/MIME encrypted and signed messages from Outlook (Express)
       (Bug #8629).
