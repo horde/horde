@@ -21,7 +21,7 @@ class Kronolith_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_AutoCom
      */
     protected function _attach($js_params)
     {
-        $js_params['indicator'] = $this->_params['triggerId'] . '_loading_img"',
+        $js_params['indicator'] = $this->_params['triggerId'] . '_loading_img"';
 
         return array(
             'ajax' => 'ContactAutoCompleter',
