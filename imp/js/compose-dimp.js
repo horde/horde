@@ -66,20 +66,17 @@ var DimpCompose = {
         }
     },
 
-    change_identity: function()
+    changeIdentity: function()
     {
         var lastSignature, msg, nextSignature, pos,
             id = $F('identity'),
-            last = this.get_identity($F('last_identity')),
+            last = this.getIdentity($F('last_identity')),
             msgval = $('composeMessage'),
-            next = this.get_identity(id),
-            ssm = $('save_sent_mail');
+            next = this.getIdentity(id);
 
         this.setSentMailLabel(next.id[3], next.id[5], true);
         $('bcc').setValue(next.id[6]);
-        if (ssm) {
-            ssm.writeAttribute('checked', next.id[4]);
-        }
+        this.setSaveSentMail(next.id[4]);
 
         // Finally try and replace the signature.
         if (this.editor_on) {
@@ -119,6 +116,20 @@ var DimpCompose = {
         }
     },
 
+    setSaveSentMail: function(set)
+    {
+        var ssm = $('save_sent_mail'), tmp;
+
+        if (ssm) {
+            ssm.setValue(set);
+
+            tmp = $('attach_cell').down('LABEL');
+            if (tmp) {
+                [ tmp ].invoke(set ? 'show' : 'hide');
+            }
+        }
+    },
+
     setSentMailLabel: function(s, l, sel)
     {
         var label = $('sent_mail_folder_label');
@@ -142,7 +153,7 @@ var DimpCompose = {
         }
     },
 
-    get_identity: function(id, editor_on)
+    getIdentity: function(id, editor_on)
     {
         editor_on = Object.isUndefined(editor_on) ? this.editor_on : editor_on;
         return {
@@ -372,7 +383,7 @@ var DimpCompose = {
                 this.rte = CKEDITOR.replace('composeMessage', config);
             }
         }
-        $('htmlcheckbox').checked = this.editor_on;
+        $('htmlcheckbox').setValue(this.editor_on);
         $('html').setValue(this.editor_on ? 1 : 0);
     },
 
@@ -452,7 +463,7 @@ var DimpCompose = {
         }
 
         var bcc_add,
-            identity = this.get_identity($F('last_identity')),
+            identity = this.getIdentity($F('last_identity')),
             msgval = $('composeMessage');
 
         if (!this.last_msg.empty() &&
@@ -495,6 +506,7 @@ var DimpCompose = {
             this.toggleCC('cc', true);
         }
         this.setSentMailLabel(identity.id[3], identity.id[5], true);
+        this.setSaveSentMail(identity.id[4]);
         if (header.bcc) {
             $('bcc').setValue(header.bcc);
             this.resizebcc.resizeNeeded();
@@ -648,7 +660,7 @@ var DimpCompose = {
             break;
 
         case 'sig':
-            pos = $F('composeMessage').replace(/\r\n/g, '\n').lastIndexOf(this.get_identity($F('last_identity')).sig) - 1;
+            pos = $F('composeMessage').replace(/\r\n/g, '\n').lastIndexOf(this.getIdentity($F('last_identity')).sig) - 1;
             break;
 
         default:
@@ -712,7 +724,7 @@ var DimpCompose = {
                 if (!this.editor_on || window.confirm(DIMP.text_compose.toggle_html)) {
                     this.toggleHtmlEditor();
                 } else {
-                    $('htmlcheckbox').checked = true;
+                    $('htmlcheckbox').setValue(true);
                 }
                 break;
 
@@ -732,6 +744,10 @@ var DimpCompose = {
                     DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { composeCache: $F('composeCache'), actionID: 'compose_attach_preview', id: atc_num }), $F('composeCache') + '|' + atc_num);
                 }
                 break;
+
+            case 'save_sent_mail':
+                this.setSaveSentMail($F(elt));
+                break;
             }
 
             elt = elt.up();
@@ -747,7 +763,7 @@ var DimpCompose = {
 
         switch (id) {
         case 'identity':
-            this.change_identity();
+            this.changeIdentity();
             break;
 
         case 'upload':
@@ -793,7 +809,7 @@ var DimpCompose = {
                 list: DIMP.conf_compose.flist,
                 onChoose: this.setSentMailLabel.bind(this)
             });
-            this.knl.setSelected(this.get_identity($F('identity'))[3]);
+            this.knl.setSelected(this.getIdentity($F('identity'))[3]);
             $('sent_mail_folder_label').insert({ after: new Element('SPAN', { className: 'popdownImg' }).observe('click', function(e) { this.knl.show(); this.knl.ignoreClick(e); e.stop(); }.bindAsEventListener(this)) });
         }
 

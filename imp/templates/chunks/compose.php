@@ -64,7 +64,7 @@ $compose_disable = !IMP::canCompose();
 <?php if ($GLOBALS['conf']['user']['allow_folders'] && !$GLOBALS['prefs']->isLocked('save_sent_mail')): ?>
    <div style="display:none">
     <label>
-     <input id="save_sent_mail" name="save_sent_mail" type="checkbox" class="checkbox"<?php if ($identity->saveSentmail()) echo ' checked="checked"' ?> /> <?php echo _("Save in") ?>
+     <input id="save_sent_mail" name="save_sent_mail" type="checkbox" class="checkbox" /> <?php echo _("Save in") ?>
      <span id="sent_mail_folder_label"></span>
     </label>
     <input id="save_sent_mail_folder" name="save_sent_mail_folder" type="hidden" />
@@ -122,7 +122,7 @@ $compose_disable = !IMP::canCompose();
     <td id="attach_cell">
      <input type="file" id="upload" name="file_1" />
 <?php if (strpos($save_attach, 'prompt') !== false): ?>
-     <label><input type="checkbox" class="checkbox" name="save_attachments_select"<?php if (strpos($save_attach, 'yes') !== false) echo ' checked="checked"' ?> /> <?php echo _("Save Attachments in sent folder") ?></label><br />
+     <label style="display:none"><input type="checkbox" class="checkbox" name="save_attachments_select"<?php if (strpos($save_attach, 'yes') !== false) echo ' checked="checked"' ?> /> <?php echo _("Save Attachments in sent folder") ?></label><br />
 <?php endif; ?>
      <ul id="attach_list" style="display:none"></ul>
     </td>
