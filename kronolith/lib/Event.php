@@ -1084,6 +1084,7 @@ abstract class Kronolith_Event
      *
      * Possible properties are:
      * - t: title
+     * - d: description
      * - c: calendar id
      * - s: start date
      * - e: end date
@@ -1095,8 +1096,9 @@ abstract class Kronolith_Event
      * - fg: foreground color
      * - pe: edit permissions?
      * - pd: delete permissions?
-     * - a: alarm text
-     * - r: recurrence type (Horde_Date_Recurrence::RECUR_* constant)
+     * - a: alarm text or minutes
+     * - r: recurrence type (Horde_Date_Recurrence::RECUR_* constant) or json
+     *      representation of Horde_Date_Recurrence object.
      * - ic: icon
      * - ln: link
      * - aj: ajax link
@@ -1107,6 +1109,7 @@ abstract class Kronolith_Event
      * - st: formatted start time
      * - ed: formatted end date
      * - et: formatted end time
+     * - at: attendees
      * - tg: tag list
      *
      * @param boolean $allDay      If not null, overrides whether the event is
@@ -1153,12 +1156,27 @@ abstract class Kronolith_Event
         if ($full) {
             $json->id = $this->getId();
             $json->ty = $this->_calendarType;
+            $json->d = $this->getDescription();
             $json->l = $this->getLocation();
             $json->sd = $this->start->strftime('%x');
             $json->st = $this->start->format($time_format);
             $json->ed = $this->end->strftime('%x');
             $json->et = $this->end->format($time_format);
+            $json->a = $this->alarm;
             $json->tg = array_values($this->tags);
+            if ($this->recurs()) {
+                $json->r = $this->recurrence->toJson();
+            }
+            if ($this->attendees) {
+                $attendees = array();
+                foreach ($this->attendees as $email => $info) {
+                    $attendees[] = array('e' => $email,
+                                         'l' => empty($info['name']) ? $email : ($info['name'] . ' <' . $email . '>'),
+                                         'a' => $info['attendance'],
+                                         'r' => $info['response']);
+                }
+                $json->at = $attendees;
+            }
         }
 
         return $json;

@@ -139,6 +139,14 @@ class Kronolith
                              'confirmed' => self::STATUS_CONFIRMED,
                              'cancelled' => self::STATUS_CANCELLED,
                              'free' => self::STATUS_FREE),
+            'recur' => array(Horde_Date_Recurrence::RECUR_NONE => 'None',
+                             Horde_Date_Recurrence::RECUR_DAILY => 'Daily',
+                             Horde_Date_Recurrence::RECUR_WEEKLY => 'Weekly',
+                             Horde_Date_Recurrence::RECUR_MONTHLY_DATE => 'Monthly',
+                             Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY => 'Monthly',
+                             Horde_Date_Recurrence::RECUR_YEARLY_DATE => 'Yearly',
+                             Horde_Date_Recurrence::RECUR_YEARLY_DAY => 'Yearly',
+                             Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY => 'Yearly'),
             // Turn debugging on?
             'debug' => !empty($conf['js']['debug']),
         );

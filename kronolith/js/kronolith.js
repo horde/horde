@@ -830,7 +830,7 @@ KronolithCore = {
         $(id).update();
         $H(Kronolith.conf.calendars.internal).each(function(cal) {
             if (cal.value.edit) {
-                $(id).insert(new Element('OPTION', { 'value': cal.key })
+                $(id).insert(new Element('OPTION', { 'value': 'internal|' + cal.key })
                              .setStyle({ 'backgroundColor': cal.value.bg, 'color': cal.value.fg })
                              .update(cal.value.name.escapeHTML()));
             }
@@ -1974,8 +1974,7 @@ KronolithCore = {
                 return;
 
             case 'kronolithEventAllday':
-                $('kronolithEventStartTimeLabel').setStyle({ 'visibility': $('kronolithEventStartTimeLabel').getStyle('visibility') == 'visible' ? 'hidden' : 'visible' });
-                $('kronolithEventEndTimeLabel').setStyle({ 'visibility': $('kronolithEventEndTimeLabel').getStyle('visibility') == 'visible' ? 'hidden' : 'visible' });
+                this.toggleAllDay();
                 return;
 
             case 'kronolithEventLinkDescription':
@@ -2007,11 +2006,7 @@ KronolithCore = {
             case 'kronolithEventLinkMonthly':
             case 'kronolithEventLinkYearly':
             case 'kronolithEventLinkLength':
-                $('kronolithEventTabRecur').select('DIV').invoke('hide');
-                if (id != 'kronolithEventLinkNone') {
-                    $(id.replace(/Link/, 'Repeat')).show();
-                    $('kronolithEventRepeatLength').show();
-                }
+                this.toggleRecurrence(id.substring(18));
                 return;
 
             case 'kronolithEventSave':
@@ -2309,7 +2304,7 @@ KronolithCore = {
             RedBox.onDisplay = null;
         };
 
-        this.updateCalendarDropDown('kronolithEventCalendars');
+        this.updateCalendarDropDown('kronolithEventCalendar');
         $('kronolithEventTags').autocompleter.init();
         $('kronolithEventForm').enable();
         $('kronolithEventForm').reset();
@@ -2415,22 +2410,84 @@ KronolithCore = {
             return;
         }
 
-        $('kronolithEventId').value = ev.id;
-        $('kronolithEventCalendar').value = ev.ty + '|' + ev.c;
-        $('kronolithEventTitle').value = ev.t;
-        $('kronolithEventLocation').value = ev.l;
-        $('kronolithEventAllday').checked = ev.al;
-        $('kronolithEventStartDate').value = ev.sd
-        $('kronolithEventStartTime').value = ev.st;
-        $('kronolithEventEndDate').value = ev.ed;
-        $('kronolithEventEndTime').value = ev.et;
-        $('kronolithEventTags').autocompleter.init(ev.tg);
-        if (ev.r) {
-            // @todo: refine
-            $A($('kronolithEventRecurrence').options).find(function(option) {
-                return option.value == ev.r || option.value == -1;
-                }).selected = true;
+        /* Basic information */
+        $('kronolithEventId').setValue(ev.id);
+        $('kronolithEventCalendar').setValue(ev.ty + '|' + ev.c);
+        $('kronolithEventTitle').setValue(ev.t);
+        $('kronolithEventLocation').setValue(ev.l);
+        $('kronolithEventAllday').setValue(ev.al);
+        this.toggleAllDay(ev.al);
+        $('kronolithEventStartDate').setValue(ev.sd);
+        $('kronolithEventStartTime').setValue(ev.st);
+        $('kronolithEventEndDate').setValue(ev.ed);
+        $('kronolithEventEndTime').setValue(ev.et);
+        $('kronolithEventDescription').setValue(ev.d);
+
+        /* Alarm */
+        if (ev.a) {
+            $('kronolithEventAlarmOn').setValue(true);
+            [10080, 1440, 60, 1].each(function(unit) {
+                if (ev.a % unit == 0) {
+                    $('kronolithEventAlarmValue').setValue(ev.a / unit);
+                    $('kronolithEventAlarmUnit').setValue(unit);
+                    throw $break;
+                }
+            });
+        } else {
+            $('kronolithEventAlarmOff').setValue(true);
         }
+
+        /* Recurrence */
+        if (ev.r) {
+            var scheme = Kronolith.conf.recur[ev.r.t],
+                div = $('kronolithEventRepeat' + scheme);
+            $('kronolithEventLink' + scheme).setValue(true);
+            this.toggleRecurrence(scheme);
+            if (scheme == 'Monthly' || scheme == 'Yearly') {
+                div.down('input[name=recur_' + scheme.toLowerCase() + '_scheme][value=' + ev.r.t + ']').setValue(true);
+            }
+            if (scheme == 'Weekly') {
+                div.select('input[type=checkbox]').each(function(input) {
+                    if (input.name == 'weekly[]' &&
+                        input.value & ev.r.d) {
+                        input.setValue(true);
+                    }
+                });
+            }
+            if (ev.r.i == 1) {
+                div.down('input[name=recur_' + scheme.toLowerCase() + '][value=1]').setValue(true);
+            } else {
+                div.down('input[name=recur_' + scheme.toLowerCase() + '][value=0]').setValue(true);
+                div.down('input[name=recur_' + scheme.toLowerCase() + '_interval]').setValue(ev.r.i);
+            }
+            if (!Object.isUndefined(ev.r.e)) {
+                $('kronolithEventRepeatLength').down('input[name=recur_enddate_type][value=date]').setValue(true);
+                $('kronolithEventRecurDate').setValue(Date.parse(ev.r.e).toString(Kronolith.conf.date_format));
+            } else if (!Object.isUndefined(ev.r.c)) {
+                $('kronolithEventRepeatLength').down('input[name=recur_enddate_type][value=count]').setValue(true);
+                $('kronolithEventRecurCount').setValue(ev.r.c);
+            } else {
+                $('kronolithEventRepeatLength').down('input[name=recur_enddate_type][value=none]').setValue(true);
+            }
+        }
+
+        /* Attendees */
+        if (!Object.isUndefined(ev.at)) {
+            $('kronolithEventAttendees').setValue(ev.at.pluck('l').join(', '));
+            var table = $('kronolithEventTabAttendees').down('tbody');
+            ev.at.each(function(attendee) {
+                var tr = new Element('tr'), i;
+                tr.insert(new Element('td').writeAttribute('title', attendee.l).insert(attendee.e.escapeHTML()));
+                for (i = 0; i < 24; i++) {
+                    tr.insert(new Element('td'));
+                }
+                table.insert(tr);
+            });
+        }
+
+        /* Tags */
+        $('kronolithEventTags').autocompleter.init(ev.tg);
+
         if (ev.pe) {
             $('kronolithEventSave').show();
             $('kronolithEventForm').enable();
@@ -2446,6 +2503,37 @@ KronolithCore = {
 
         RedBox.showHtml($('kronolithEventDialog').show());
         this.eventForm = RedBox.getWindowContents();
+    },
+
+    /**
+     * Toggles the start and end time fields of the event edit form on and off.
+     *
+     * @param boolean on  Whether the event is an all-day event, i.e. the time
+     *                    fields should be turned off. If not specified, the
+     *                    current state is toggled.
+     */
+    toggleAllDay: function(on)
+    {
+        if (Object.isUndefined(on)) {
+            on = $('kronolithEventStartTimeLabel').getStyle('visibility') == 'visible';
+        }
+        $('kronolithEventStartTimeLabel').setStyle({ 'visibility': on ? 'hidden' : 'visible' });
+        $('kronolithEventEndTimeLabel').setStyle({ 'visibility': on ? 'hidden' : 'visible' });
+    },
+
+    /**
+     * Toggles the recurrence fields of the event edit form.
+     *
+     * @param string recur  The recurrence part of the field name, i.e. 'None',
+     *                      'Daily', etc.
+     */
+    toggleRecurrence: function(recur)
+    {
+        $('kronolithEventTabRecur').select('div').invoke('hide');
+        if (recur != 'None') {
+            $('kronolithEventRepeat' + recur).show();
+            $('kronolithEventRepeatLength').show();
+        }
     },
 
     _closeRedBox: function()
