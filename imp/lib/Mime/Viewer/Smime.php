@@ -1,8 +1,7 @@
 <?php
 /**
  * The IMP_Horde_Mime_Viewer_Smime class allows viewing/decrypting of S/MIME
- * messages.
- * This class implements RFC 2630, 2632, & 2633.
+ * messages (RFC 2633).
  *
  * This class handles the following MIME types:
  *   application/pkcs7-mime

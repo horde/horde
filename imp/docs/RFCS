@@ -2,8 +2,10 @@
  IMP RFC Compliance
 ====================
 
-IMP is designed to be an RFC compliant mail user agent (MUA). The following
-is a list of RFCs implemented in Horde/IMP. RFC text can be found at:
+IMP is designed to be a RFC compliant mail user agent (MUA). The following
+is a list of RFCs implemented in Horde/IMP.
+
+RFC text can be found at:
 
   http://tools.ietf.org/html/
 
@@ -52,7 +54,7 @@ POP3
 
 STD 53/RFC 1939 - POP3 specification
 
-The following POP3 extensions/deatures are supported
+The following POP3 extensions/features are supported
 
 RFC 1734/5034   POP3 SASL
 RFC 2195        CRAM-MD5 authentication
@@ -122,6 +124,9 @@ RFC 2231
 
 RFC 2387
     - The MIME Multipart/Related Content-type
+
+RFC 2633
+    - S/MIME Version 3 Message Specification
 
 RFC 3156
     - MIME Security with OpenPGP
