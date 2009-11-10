@@ -49,6 +49,15 @@ abstract class Ansel_View_Base
         //throw new Horde_Exception(sprintf("The property %s of Ansel_View not found.", $property));
     }
 
+    /**
+     *
+     *
+     * @param integer $galleryId  The gallery id
+     * @param string $slug        The gallery slug
+     *
+     * @return Ansel_Gallery  The requested Ansel_Gallery object
+     * @throws Horde_Exception
+     */
     public function &getGallery($galleryId = null, $slug = '')
     {
         if (is_null($galleryId) && empty($slug)) {
@@ -57,7 +66,7 @@ abstract class Ansel_View_Base
         }
 
         if (empty($galleryId) && empty($slug)) {
-            return PEAR::raiseError(_("No gallery specified"));
+            throw new Horde_Exception(_("No gallery specified"));
         }
 
         // If we have a slug, use it.
@@ -67,9 +76,9 @@ abstract class Ansel_View_Base
             $gallery = &$GLOBALS['ansel_storage']->getGallery($galleryId);
         }
         if (is_a($gallery, 'PEAR_Error')) {
-            return $gallery;
+            throw new Horde_Exception($gallery->getMessage());
         } elseif (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_READ)) {
-            return PEAR::raiseError(sprintf(_("Access denied to gallery \"%s\"."), $gallery->get('name')));
+            throw new Horde_Exception(sprintf(_("Access denied to gallery \"%s\"."), $gallery->get('name')));
         }
 
         /* Set any date info we might have */

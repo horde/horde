@@ -81,9 +81,6 @@ class Ansel_View_Gallery extends Ansel_View_Base
         } else {
             $this->gallery = $this->getGallery();
         }
-        if (is_a($this->gallery, 'PEAR_Error')) {
-            throw new Horde_Exception($this->gallery);
-        }
 
         // Check user age
         if (!$this->gallery->isOldEnough()) {

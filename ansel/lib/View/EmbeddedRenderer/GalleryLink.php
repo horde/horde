@@ -52,13 +52,14 @@ class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Gallery
             $this->_params['thumbsize'];
 
         foreach ($galleries as $identifier) {
-            if ($haveSlugs) {
-                $gallery = $this->getGallery(null, $identifier);
-            } else {
-                $gallery = $this->getGallery($identifier);
-            }
-            if (is_a($gallery, 'PEAR_Error')) {
-                Horde::logMessage($gallery, __FILE__, __LINE__, PEAR_LOG_ERR);
+            try {
+                if ($haveSlugs) {
+                    $gallery = $this->getGallery(null, $identifier);
+                } else {
+                    $gallery = $this->getGallery($identifier);
+                }
+            } catch (Horde_Exception $e) {
+                Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
                 exit;
             }
             if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_READ)) {
