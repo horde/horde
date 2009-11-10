@@ -128,9 +128,10 @@ CREATE TABLE ansel_images_tags (
 
 CREATE TABLE ansel_images_geolocation (
     image_id INT NOT NULL,
-    image_latitude varchar(32),
-    image_longitude varchar(32),
-
+    image_latitude VARCHAR(32),
+    image_longitude VARCHAR(32),
+    image_location VARCHAR(255),
+--
     PRIMARY KEY (image_id)
 );
 
