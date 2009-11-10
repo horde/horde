@@ -159,6 +159,13 @@ class Horde_Mime_Part
     protected $_temp = array();
 
     /**
+     * Metadata.
+     *
+     * @var array
+     */
+    protected $_metadata = array();
+
+    /**
      * Unique Horde_Mime_Part boundary string.
      *
      * @var string
@@ -1354,6 +1361,35 @@ class Horde_Mime_Part
     public function isBasePart($base)
     {
         $this->_basepart = $base;
+    }
+
+    /**
+     * Set a piece of metadata on this object.
+     *
+     * @param string $key  The metadata key.
+     * @param mixed $data  The metadata. If null, clears the key.
+     */
+    public function setMetadata($key, $data = null)
+    {
+        if (is_null($data)) {
+            unset($this->_metadata[$key]);
+        } else {
+            $this->_metadata[$key] = $data;
+        }
+    }
+
+    /**
+     * Retrieves metadata from this object.
+     *
+     * @param string $key  The metadata key.
+     *
+     * @return mixed  The metadata, or null if it doesn't exist.
+     */
+    public function getMetadata($key)
+    {
+        return isset($this->_metadata[$key])
+            ? $this->_metadata[$key]
+            : null;
     }
 
     /**
