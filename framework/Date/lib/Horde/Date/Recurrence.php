@@ -1528,4 +1528,42 @@ class Horde_Date_Recurrence
         return $hash;
     }
 
+    /**
+     * Returns a simple object suitable for json transport representing this
+     * object.
+     *
+     * Possible properties are:
+     * - t: type
+     * - i: interval
+     * - e: end date
+     * - c: count
+     * - d: data
+     * - co: completions
+     * - ex: exceptions
+     *
+     * @return object  A simple object.
+     */
+    public function toJson()
+    {
+        $json = new stdClass;
+        $json->t = $this->recurType;
+        $json->i = $this->recurInterval;
+        if ($this->recurEnd) {
+            $json->e = $this->recurEnd->toJson();
+        }
+        if ($this->recurCount) {
+            $json->c = $this->recurCount;
+        }
+        if ($this->recurData) {
+            $json->d = $this->recurData;
+        }
+        if ($this->completions) {
+            $json->co = $this->completions;
+        }
+        if ($this->exceptions) {
+            $json->ex = $this->exceptions;
+        }
+        return $json;
+    }
+
 }
