@@ -1928,7 +1928,7 @@ class Horde_Mime_Part
      *
      * @param string $text  The text to search.
      *
-     * @return array  1st element: Header position, 2nd element: Lenght of
+     * @return array  1st element: Header position, 2nd element: Length of
      *                trailing EOL.
      */
     static protected function _findHeader($text)

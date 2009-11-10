@@ -441,7 +441,9 @@ class Horde_Crypt_Smime extends Horde_Crypt
         file_put_contents($input, $text);
         unset($text);
 
-        $privkey = (is_null($params['passphrase'])) ? $params['privkey'] : array($params['privkey'], $params['passphrase']);
+        $privkey = is_null($params['passphrase'])
+            ? $params['privkey']
+            : array($params['privkey'], $params['passphrase']);
         if (openssl_pkcs7_decrypt($input, $output, $params['pubkey'], $privkey)) {
             return file_get_contents($output);
         }
