@@ -418,6 +418,18 @@ class Horde_Date_Recurrence
 
             if ($this->hasRecurCount()) {
                 $recurrences = 0;
+                /**
+                 * Correct the number of recurrences by the number of events
+                 * that lay between the start of the start week and the
+                 * recurrence start.
+                 */
+                $next = clone $start_week;
+                while ($next->compareDateTime($this->start) < 0) {
+                    if ($this->recurOnDay((int)pow(2, $next->dayOfWeek()))) {
+                        $recurrences--;
+                    }
+                    ++$next->mday;
+                }
                 if ($repeats > 0) {
                     $weekdays = $this->recurData;
                     $total_recurrences_per_week = 0;
@@ -432,12 +444,12 @@ class Horde_Date_Recurrence
             }
 
             $next = clone $start_week;
-            $next->mday += $recur;
+            $next->mday += $recur - 1;
             while ($next->compareDateTime($after) < 0 &&
                    $next->compareDateTime($after_week_end) < 0) {
                 ++$next->mday;
                 if ($this->hasRecurCount()
-                    && $next->compareDateTime($this->start) >= 0
+                    && $next->compareDateTime($after) < 0
                     && $this->recurOnDay((int)pow(2, $next->dayOfWeek()))) {
                     $recurrences++;
                 }

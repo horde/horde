@@ -139,7 +139,7 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
 
     public function testWeeklyCountWithMultipleIncidencesPerWeekIfTheFirstIncidenceInThisWeekHasAlreadyPassed()
     {
-        $r = new Horde_Date_Recurrence('2007-02-27 10:00:00');
+        $r = new Horde_Date_Recurrence('2007-03-03 10:00:00');
         $r->setRecurType(Horde_Date_Recurrence::RECUR_WEEKLY);
         $r->setRecurOnDay(Horde_Date::MASK_MONDAY | Horde_Date::MASK_SATURDAY);
         $r->setRecurInterval(1);
@@ -195,6 +195,48 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
                                   '2007-03-03 10:00:00',
                                   '2007-03-08 10:00:00',
                                   '2007-03-10 10:00:00'),
+                            $this->_getRecurrences($r));
+    }
+
+    public function testWeeklyCountWithMultipleIncidencesPerWeekIfNextIncidenceIsNextDay()
+    {
+        $r = new Horde_Date_Recurrence('2009-11-11 06:00:00');
+        $r->setRecurType(Horde_Date_Recurrence::RECUR_WEEKLY);
+        $r->setRecurOnDay(Horde_Date::MASK_WEDNESDAY | Horde_Date::MASK_THURSDAY);
+        $r->setRecurInterval(1);
+        $r->setRecurCount(6);
+        $this->assertEquals('W1 WE TH #6', $r->toRRule10($this->ical));
+        $this->assertEquals('FREQ=WEEKLY;INTERVAL=1;BYDAY=WE,TH;COUNT=6', $r->toRRule20($this->ical));
+        $this->assertEquals(array('2009-11-11 06:00:00',
+                                  '2009-11-12 06:00:00',
+                                  '2009-11-18 06:00:00',
+                                  '2009-11-19 06:00:00',
+                                  '2009-11-25 06:00:00',
+                                  '2009-11-26 06:00:00'),
+                            $this->_getRecurrences($r));
+    }
+
+    public function testWeeklyCountWithMultipleIncidencesPerWeekIfNextIncidenceIsBeginningOfWeek()
+    {
+        $r = new Horde_Date_Recurrence('2009-11-09 06:00:00');
+        $r->setRecurType(Horde_Date_Recurrence::RECUR_WEEKLY);
+        $r->setRecurOnDay(
+            Horde_Date::MASK_MONDAY |
+            Horde_Date::MASK_TUESDAY |
+            Horde_Date::MASK_WEDNESDAY |
+            Horde_Date::MASK_THURSDAY |
+            Horde_Date::MASK_FRIDAY
+        );
+        $r->setRecurInterval(1);
+        $r->setRecurCount(6);
+        $this->assertEquals('W1 MO TU WE TH FR #6', $r->toRRule10($this->ical));
+        $this->assertEquals('FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR;COUNT=6', $r->toRRule20($this->ical));
+        $this->assertEquals(array('2009-11-09 06:00:00',
+                                  '2009-11-10 06:00:00',
+                                  '2009-11-11 06:00:00',
+                                  '2009-11-12 06:00:00',
+                                  '2009-11-13 06:00:00',
+                                  '2009-11-16 06:00:00'),
                             $this->_getRecurrences($r));
     }
 
