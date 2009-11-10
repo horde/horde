@@ -10,7 +10,7 @@ CREATE TABLE ansel_images (
     image_original_date  INT NOT NULL,
     image_latitude VARCHAR(32),
     image_longitude VARCHAR(32),
-    image_location VARCHAR(256),
+    image_location VARCHAR(255),
     image_geotag_date   INT,
 --
     PRIMARY KEY (image_id)
