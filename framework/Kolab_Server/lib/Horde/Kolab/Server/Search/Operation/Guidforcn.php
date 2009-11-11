@@ -40,7 +40,7 @@ extends Horde_Kolab_Server_Search_Operation_Guid
     public function searchGuidForCn($cn)
     {
         $criteria = new Horde_Kolab_Server_Query_Element_Equals(
-            'Cn', $cn
+            'cn', $cn
         );
         return parent::searchGuid($criteria);
     }

@@ -40,7 +40,7 @@ extends Horde_Kolab_Server_Search_Operation_Restrictkolab
     public function searchGuidForMail($mail)
     {
         $criteria = new Horde_Kolab_Server_Query_Element_Equals(
-                'Mail', $mail
+            'mail', $mail
         );
         return parent::searchRestrictKolab($criteria);
     }

@@ -19,6 +19,9 @@ require_once dirname(__FILE__) . '/Autoload.php';
 require_once dirname(__FILE__) . '/Constraints/Restrictkolabusers.php';
 require_once dirname(__FILE__) . '/Constraints/Restrictgroups.php';
 require_once dirname(__FILE__) . '/Constraints/Searchuid.php';
+require_once dirname(__FILE__) . '/Constraints/Searchmail.php';
+require_once dirname(__FILE__) . '/Constraints/Searchcn.php';
+require_once dirname(__FILE__) . '/Constraints/Searchalias.php';
 
 /**
  * Skip LDAP based tests if we don't have ldap or Net_LDAP2.
@@ -67,5 +70,20 @@ class Horde_Kolab_Server_TestCase extends PHPUnit_Framework_TestCase
     public function isSearchingByUid()
     {
         return new Horde_Kolab_Server_Constraint_Searchuid();
+    }
+
+    public function isSearchingByMail()
+    {
+        return new Horde_Kolab_Server_Constraint_Searchmail();
+    }
+
+    public function isSearchingByCn()
+    {
+        return new Horde_Kolab_Server_Constraint_Searchcn();
+    }
+
+    public function isSearchingByAlias()
+    {
+        return new Horde_Kolab_Server_Constraint_Searchcn();
     }
 }
