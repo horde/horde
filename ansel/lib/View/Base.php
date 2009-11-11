@@ -43,10 +43,12 @@ abstract class Ansel_View_Base
             return $this->_params[$property];
         }
 
-        // @TODO: For now return null until we can ensure we have default values for
-        // properties requested from other classes.
         return null;
-        //throw new Horde_Exception(sprintf("The property %s of Ansel_View not found.", $property));
+    }
+
+    public function __set($property, $value)
+    {
+        $this->_params[$property] = $value;
     }
 
     public function __isset($property)
