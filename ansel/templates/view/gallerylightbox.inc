@@ -132,7 +132,7 @@ function downloadSelected()
 <table width="100%" cellspacing="0">
  <tr>
   <td style="vertical-align:top;width:<?php echo ($this->view->countWidgets() ? "75%" : "100%") ?>;">
-    <?php if (empty($this->view->_params['api']) && $option_select && $this->numTiles): ?>
+    <?php if (empty($this->view->api) && $option_select && $this->numTiles): ?>
     <form name="gallery" action="<?php echo Horde::applicationUrl('image.php', true)?>" method="get">
     <?php echo Horde_Util::formInput() ?>
     <input type="hidden" name="actionID" value="" />
