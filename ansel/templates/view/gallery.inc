@@ -1,4 +1,4 @@
-<?php if (empty($this->view->_params['api'])): ?>
+<?php if (empty($this->view->api)): ?>
 <script type="text/javascript">
 var loading;
 
@@ -121,9 +121,9 @@ function downloadSelected()
     <input type="hidden" name="actionID" value="" />
     <input type="hidden" name="gallery" value="<?php echo htmlspecialchars($this->galleryId) ?>" />
     <input type="hidden" name="page" value="<?php echo htmlspecialchars($this->page) ?>" />
-    <input type="hidden" name="year" value="<?php echo (empty($this->view->_params['year']) ? 0 : $this->view->_params['year']) ?>" />
-    <input type="hidden" name="month" value="<?php echo (empty($this->view->_params['month']) ? 0 : $this->view->_params['month']) ?>" />
-    <input type="hidden" name="day" value="<?php echo (empty($this->view->_params['day']) ? 0 : $this->view->_params['day']) ?>" />
+    <input type="hidden" name="year" value="<?php echo (empty($this->view->year) ? 0 : $this->view->year) ?>" />
+    <input type="hidden" name="month" value="<?php echo (empty($this->view->month) ? 0 : $this->view->month) ?>" />
+    <input type="hidden" name="day" value="<?php echo (empty($this->view->day) ? 0 : $this->view->day) ?>" />
 
     <?php endif; ?>
     <?php if (!empty($option_select) && $this->numTiles): ?>
@@ -148,7 +148,7 @@ function downloadSelected()
           <?php
           foreach ($this->children as $child) {
               echo '<td width="' . $cellwidth . '%" class="ansel-tile">'
-                  . $child->getTile($this->view->gallery, $this->style['name'], false, $this->view->_params) . '</td>';
+                  . $child->getTile($this->view->gallery, $this->style['name'], false, $this->view->getParams()) . '</td>';
               if (!(++$count % $tilesperrow)) {
                 echo '</tr><tr>';
               }

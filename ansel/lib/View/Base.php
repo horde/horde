@@ -227,6 +227,16 @@ abstract class Ansel_View_Base
     }
 
     /**
+     * Getter for the view parameters.
+     *
+     * @return unknown_type
+     */
+    public function getParams()
+    {
+        return $this->_params;
+    }
+
+    /**
      * @abstract
      * @return unknown_type
      */
