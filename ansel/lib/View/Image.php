@@ -378,7 +378,6 @@ class Ansel_View_Image extends Ansel_View_Base
         /* Output the js if we are calling via the api */
         if (!empty($this->_params['api'])) {
             $includes = new Horde_Script_Files();
-            $includes->disableAutoloadHordeJS();
             $includes->_add('prototype.js', 'horde', true, true);
             $includes->_add('effects.js', 'horde',true, true);
             $includes->_add('stripe.js', 'horde', true, true);
