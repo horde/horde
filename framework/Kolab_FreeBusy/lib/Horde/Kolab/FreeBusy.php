@@ -59,6 +59,8 @@ class Horde_Kolab_FreeBusy
         $this->provider->dispatcher = new Horde_Provider_Injection_Factory(array('Horde_Kolab_FreeBusy_Factory', 'getDispatcher'));
         $this->provider->logger     = new Horde_Provider_Injection_Factory(array('Horde_Kolab_FreeBusy_Factory', 'getLogger'));
         $this->provider->driver     = new Horde_Provider_Injection_Factory(array('Horde_Kolab_FreeBusy_Driver_Base', 'factory'));
+
+        $this->provider->user       = new Horde_Provider_Injection_Factory(array('Horde_Kolab_FreeBusy_User', 'factory'));
     }
 
     /**
