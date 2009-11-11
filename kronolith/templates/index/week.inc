@@ -34,7 +34,7 @@
     <td class="kronolithWeekDay"><span>&nbsp;</span></td>
   </tr></thead>
   <tbody class="kronolithViewBody">
-    <tr class="kronolithRow kronolithAllDay">
+    <tr class="kronolithAllDay">
       <td class="kronolithFirstCol"><?php echo _("All day") ?></td>
       <td<?php if ($w == 6 || $w == 0) echo ' class="kronolithWeekend"' ?>><div class="kronolithAllDayContainer">
       </div></td>
@@ -59,7 +59,7 @@
 <table class="kronolithView kronolithViewDay">
   <tbody id="kronolithViewWeekBody" class="kronolithViewBody fixme">
     <?php for ($i = 0; $i < 24; $i++): ?>
-    <tr class="kronolithRow<?php if ($i < 9 || $i > 19) echo ' kronolithNight' ?>">
+    <tr<?php if ($i < 9 || $i > 19) echo ' class="kronolithNight"' ?>>
       <td class="kronolithFirstCol"><?php echo $i ?>:00</td>
       <td<?php if ($w == 6 || $w == 0) echo ' class="kronolithWeekend"' ?>>
       </td>

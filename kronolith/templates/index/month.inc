@@ -19,7 +19,7 @@
 <div id="kronolithViewMonthContainer">
 <table class="kronolithView kronolithViewMonth">
 <tbody id="kronolithViewMonthBody">
-  <tr id="kronolithRowTemplate" class="kronolithRow" style="display:none">
+  <tr id="kronolithRowTemplate" style="display:none">
     <td class="kronolithFirstCol"></td>
     <td class="kronolithMonthDay<?php if ($w == 6 || $w == 0) echo ' kronolithWeekend' ?>">
       <div class="kronolithCorner"><div class="kronolithDay"></div></div>

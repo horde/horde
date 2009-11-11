@@ -564,8 +564,7 @@ KronolithCore = {
         row.removeAttribute('id');
 
         // Fill week number and day cells.
-        row.addClassName('kronolithRow' + (body.select('tr').length % 2 == 1 ? 'Odd' : 'Even'))
-            .down()
+        row.down()
             .setText(this.parseDate(date).toString('D'))
             .store('date', date)
             .next()
@@ -638,7 +637,7 @@ KronolithCore = {
             divA = trA.down('.kronolithAllDayContainer'),
             divATop = divA.cumulativeOffset().top,
             divAHeight = divA.getHeight(),
-            tr = $(view).down('.fixme').down('.kronolithRow'),
+            tr = $(view).down('.fixme').down('tr'),
             td = tr.down('td').next('td'), tdTop, tdHeight,
             tdAlign = td.getStyle('verticalAlign'),
             tr2 = tr.next('tr'),
