@@ -714,6 +714,7 @@ class Ansel
                                            $owner, '', null, false);
                 $fullname = $uprefs->getValue('grouptitle');
                 if (!$fullname) {
+                    require_once 'Horde/Identity.php';
                     $identity = Identity::singleton('none', $owner);
                     $fullname = $identity->getValue('fullname');
                     if (!$fullname) {
