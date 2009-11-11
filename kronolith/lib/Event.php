@@ -1926,7 +1926,22 @@ abstract class Kronolith_Event
                 $this->recurrence = new Horde_Date_Recurrence($this->start);
             }
             if (Horde_Util::getFormData('recur_end_type') == 'date') {
-                $recur_enddate = Horde_Util::getFormData('recur_end');
+                if ($end_date = Horde_Util::getFormData('recur_end_date')) {
+                    // Try exact format match first.
+                    if ($date_arr = strptime($end_date, $date_format)) {
+                        $recur_enddate =
+                            array('year'  => $date_arr['tm_year'] + 1900,
+                                  'month' => $date_arr['tm_mon'] + 1,
+                                  'day'  => $date_arr['tm_mday']);
+                    } else {
+                        $date_ob = new Horde_Date($end_date);
+                        $recur_enddate = array('year'  => $date_ob->year,
+                                               'month' => $date_ob->month,
+                                               'day'  => $date_ob->mday);
+                    }
+                } else {
+                    $recur_enddate = Horde_Util::getFormData('recur_end');
+                }
                 if ($this->recurrence->hasRecurEnd()) {
                     $recurEnd = $this->recurrence->recurEnd;
                     $recurEnd->month = $recur_enddate['month'];
@@ -1982,23 +1997,40 @@ abstract class Kronolith_Event
                 break;
 
             case Horde_Date_Recurrence::RECUR_MONTHLY_DATE:
-                $this->recurrence->setRecurInterval(Horde_Util::getFormData('recur_day_of_month_interval', 1));
-                break;
+                switch (Horde_Util::getFormData('recur_monthly_scheme')) {
+                case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY:
+                    $this->recurrence->setRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY);
+                case Horde_Date_Recurrence::RECUR_MONTHLY_DATE:
+                    $this->recurrence->setRecurInterval(Horde_Util::getFormData('recur_monthly') ? 1 : Horde_Util::getFormData('recur_monthly_interval', 1));
+                    break;
+                default:
+                    $this->recurrence->setRecurInterval(Horde_Util::getFormData('recur_day_of_month_interval', 1));
+                    break;
+                }
 
             case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY:
                 $this->recurrence->setRecurInterval(Horde_Util::getFormData('recur_week_of_month_interval', 1));
                 break;
 
             case Horde_Date_Recurrence::RECUR_YEARLY_DATE:
-                $this->recurrence->setRecurInterval(Horde_Util::getFormData('recur_yearly_interval', 1));
-                break;
+                switch (Horde_Util::getFormData('recur_yearly_scheme')) {
+                case Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY:
+                case Horde_Date_Recurrence::RECUR_YEARLY_DAY:
+                    $this->recurrence->setRecurType(Horde_Util::getFormData('recur_yearly_scheme'));
+                case Horde_Date_Recurrence::RECUR_YEARLY_DATE:
+                    $this->recurrence->setRecurInterval(Horde_Util::getFormData('recur_yearly') ? 1 : Horde_Util::getFormData('recur_yearly_interval', 1));
+                    break;
+                default:
+                    $this->recurrence->setRecurInterval(Horde_Util::getFormData('recur_yearly_interval', 1));
+                    break;
+                }
 
             case Horde_Date_Recurrence::RECUR_YEARLY_DAY:
-                $this->recurrence->setRecurInterval(Horde_Util::getFormData('recur_yearly_day_interval', 1));
+                $this->recurrence->setRecurInterval(Horde_Util::getFormData('recur_yearly_day_interval', $yearly_interval));
                 break;
 
             case Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY:
-                $this->recurrence->setRecurInterval(Horde_Util::getFormData('recur_yearly_weekday_interval', 1));
+                $this->recurrence->setRecurInterval(Horde_Util::getFormData('recur_yearly_weekday_interval', $yearly_interval));
                 break;
             }
 
