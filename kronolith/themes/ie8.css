@@ -1,6 +1,3 @@
-#kronolithViewMonth {
-    height: expression(kronolithViewMonthContainer.offsetHeight-12);
-}
 .kronolithFirstCol span {
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }

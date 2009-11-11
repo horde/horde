@@ -1,5 +1,5 @@
 <div id="kronolithViewMonth" style="display:none">
-<table id="kronolithViewHead" class="kronolithView">
+<table id="kronolithViewMonthHead" class="kronolithView">
   <caption>
     <span>&nbsp;</span>
     <span class="kronolithNavigation">

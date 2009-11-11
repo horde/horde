@@ -1071,7 +1071,7 @@ KronolithCore = {
 
             if (event.value.al) {
                 if (view == 'day') {
-                    $('kronolithViewDayBody').down('.kronolithAllDayContainer').insert(div.setStyle(style));
+                    $('kronolithViewDay').down('.kronolithAllDayContainer').insert(div.setStyle(style));
                 } else {
                     $('kronolithAllDay' + date).insert(div.setStyle(style));
                 }

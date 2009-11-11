@@ -1,4 +1,4 @@
-<div id="kronolithViewAgenda" class="kronolithView" style="display:none">
+<div id="kronolithViewAgenda" style="display:none">
 <table class="kronolithView">
   <caption>
     <span id="kronolithLoadingagenda" class="kronolithLoading"></span>
@@ -9,7 +9,7 @@
       <a title="<?php echo _("Next") ?>" class="kronolithNext">&gt;</a>
     </span>
   </caption>
-  <tbody id="kronolithViewAgendaBody" class="kronolithViewBody">
+  <tbody id="kronolithViewAgendaBody">
     <tr id="kronolithAgendaTemplate" style="display:none">
       <td class="kronolithFirstCol"></td>
       <td>

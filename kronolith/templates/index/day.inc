@@ -1,4 +1,4 @@
-<div id="kronolithViewDay" class="kronolithView kronolithViewDay" style="display:none">
+<div id="kronolithViewDay" style="display:none">
 <div id="kronolithLoadingday" class="kronolithLoading"></div>
 <div id="kronolithEventsDay"></div>
 
@@ -13,17 +13,17 @@
   </caption>
 </table>
 
-<div style="position: relative; margin-right: 15px;">
+<div class="kronolithViewHead">
 <table class="kronolithView kronolithViewDay">
-  <thead class="kronolithViewHead">
+  <thead>
     <tr>
       <td class="kronolithFirstCol">&nbsp;</td>
       <td><span><?php echo _("Events for this day") ?></span></td>
     </tr>
   </thead>
-  <tbody class="kronolithViewBody">
+  <tbody>
     <tr class="kronolithAllDay">
-      <td class="kronolithFirstCol"><?php echo _("All day") ?></td>
+      <td class="kronolithFirstCol"><span><?php echo _("All day") ?></span></td>
       <td><div class="kronolithAllDayContainer">
       </div></td>
     </tr>
@@ -31,12 +31,12 @@
 </table>
 </div>
 
-<div style="position: absolute; top: 150px; right: 0; bottom: 0; left: 0; overflow-x: hidden; overflow-y: scroll">
+<div class="kronolithViewBody">
 <table class="kronolithView kronolithViewDay">
-  <tbody id="kronolithViewDayBody" class="kronolithViewBody fixme">
+  <tbody id="kronolithViewDayBody" class="fixme">
     <?php for ($i = 0; $i < 24; $i++): ?>
     <tr<?php if ($i < 9 || $i > 19) echo ' class="kronolithNight"' ?>>
-      <td class="kronolithFirstCol"><?php echo $i ?>:00</td>
+      <td class="kronolithFirstCol"><span><?php echo $i ?>:00</span></td>
       <td></td>
     </tr>
     <?php endfor; ?>

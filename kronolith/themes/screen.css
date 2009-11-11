@@ -362,8 +362,11 @@ body.kronolithAjax {
     position: absolute;
     left: 0;
 }
-#kronolithLoadingday, #kronolithLoadingweek, #kronolithLoadingmonth {
+#kronolithLoadingday, #kronolithLoadingmonth {
     top: 24px;
+}
+#kronolithLoadingweek {
+    top: 2px;
 }
 #kronolithLoadingtasks, #kronolithLoadingagenda {
     display: inline-block;
@@ -810,38 +813,28 @@ table.kronolithView td.kronolithFirstCol {
 }
 
 /* Main view header row */
-#kronolithViewHead {
+#kronolithViewMonthHead {
     width: 100%;
     height: 20px;
     line-height: 20px;
     font-weight: bold;
 }
-#kronolithViewHead span {
+#kronolithViewMonthHead span {
     padding: 0 5px;
 }
-#kronolithViewHead .kronolithFirstCol {
+#kronolithViewMonthHead .kronolithFirstCol {
     border-color: transparent;
 }
-.kronolithViewHead {
+.kronolithViewHead thead {
     height: 20px;
     line-height: 20px;
     font-weight: bold;
 }
-.kronolithViewHead span {
+.kronolithViewHead thead span {
     padding: 0 5px;
 }
-.kronolithViewHead .kronolithFirstCol {
+.kronolithViewHead thead .kronolithFirstCol {
     border-color: transparent;
-}
-
-/* Main view body */
-div.kronolithView div.kronolithViewBody {
-    position: absolute;
-    top: 25px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: auto;
 }
 
 /* Captions. */
@@ -894,27 +887,12 @@ div.kronolithView div.kronolithViewBody {
     background-color: #fff760;
 }
 
-/* Main view month */
-#kronolithViewMonthContainer {
-    position: absolute;
-    top: 46px;
-    right: 0;
-    bottom: 0;
-    left: 0;
-}
-
 /* Main view week */
 .kronolithWeekDay {
     cursor: pointer;
 }
 
 /* Main view day */
-.kronolithViewDay td {
-    height: 40px;
-}
-.kronolithViewHead td {
-    height: 20px;
-}
 #kronolithEventsDay {
     position: absolute;
     top: 49px;
@@ -937,6 +915,51 @@ div.kronolithView div.kronolithViewBody {
 }
 .kronolithEventsWeek .kronolithEvent {
     margin: 0 2px;
+}
+
+/* Main view week and day */
+.kronolithViewDay td {
+    height: 40px;
+}
+.kronolithViewHead thead td {
+    height: 16px;
+}
+.kronolithAllDay td {
+    height: 80px;
+}
+table.kronolithView td.kronolithFirstCol {
+    vertical-align: bottom;
+}
+.kronolithFirstCol span {
+    display: block;
+    margin-bottom: 5px;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+}
+.kronolithViewHead {
+    position: relative;
+    margin-right: 15px;
+}
+.kronolithViewBody {
+    position: absolute;
+    top: 150px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+/* Main view month */
+#kronolithViewMonthContainer {
+    position: absolute;
+    top: 46px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+#kronolithViewMonthContainer table.kronolithView td.kronolithFirstCol {
+    vertical-align: top;
 }
 
 /* Main view agenda. */
@@ -977,28 +1000,28 @@ div.kronolithView div.kronolithViewBody {
     padding-bottom: 0;
     border-bottom-style: dotted;
 }
-#kronolithViewTasks tbody.kronolithViewBody td {
+#kronolithViewTasksBody td {
     padding: 4px 4px 4px 4px;
     cursor: pointer;
 }
-#kronolithViewTasks tbody.kronolithViewBody div.kronolithTaskCheckbox {
+#kronolithViewTasksBody div.kronolithTaskCheckbox {
     background: url("graphics/checkbox_off.png") no-repeat;
     margin-right: 5px;
     float: left;
     width: 16px;
     height: 16px
 }
-#kronolithViewTasks tbody.kronolithViewBody div.kronolithTaskCheckbox:hover {
+#kronolithViewTasksBody div.kronolithTaskCheckbox:hover {
     background: url("graphics/checkbox_on.png") no-repeat;
 }
-#kronolithViewTasks tbody.kronolithViewBody td.kronolithTaskCompleted {
+#kronolithViewTasksBody td.kronolithTaskCompleted {
     color: #ccc;
     text-decoration: line-through;
 }
-#kronolithViewTasks tbody.kronolithViewBody td.kronolithTaskCompleted div {
+#kronolithViewTasksBody td.kronolithTaskCompleted div {
     background: url("graphics/checkbox_on.png") no-repeat;
 }
-#kronolithViewTasks tbody.kronolithViewBody td.kronolithTaskDue {
+#kronolithViewTasksBody td.kronolithTaskDue {
     color: #a00;
     font-weight: bold;
 }
@@ -1007,10 +1030,6 @@ div.kronolithView div.kronolithViewBody {
 }
 
 /* More main view */
-div.kronolithView div.kronolithViewBody .kronolithEvent {
-    margin-bottom: 2px;
-    margin-right: 2px;
-}
 .kronolithFirstCol {
     font-weight: bold;
     text-align: center;

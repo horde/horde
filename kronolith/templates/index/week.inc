@@ -1,4 +1,4 @@
-<div id="kronolithViewWeek" class="kronolithView kronolithViewWeek" style="display:none">
+<div id="kronolithViewWeek" style="display:none">
 
 <div id="kronolithEventsWeek">
   <div class="kronolithEventsWeek"></div>
@@ -21,9 +21,9 @@
   </caption>
 </table>
 
-<div style="position: relative; margin-right: 15px;">
+<div class="kronolithViewHead">
 <table id="kronolithViewWeekHead" class="kronolithView kronolithViewDay">
-  <thead class="kronolithViewHead"><tr>
+  <thead><tr>
     <td class="kronolithFirstCol"><div id="kronolithLoadingweek" class="kronolithLoading"></div></td>
     <td class="kronolithWeekDay"><span>&nbsp;</span></td>
     <td class="kronolithWeekDay"><span>&nbsp;</span></td>
@@ -33,9 +33,9 @@
     <td class="kronolithWeekDay"><span>&nbsp;</span></td>
     <td class="kronolithWeekDay"><span>&nbsp;</span></td>
   </tr></thead>
-  <tbody class="kronolithViewBody">
+  <tbody>
     <tr class="kronolithAllDay">
-      <td class="kronolithFirstCol"><?php echo _("All day") ?></td>
+      <td class="kronolithFirstCol"><span><?php echo _("All day") ?><span></td>
       <td<?php if ($w == 6 || $w == 0) echo ' class="kronolithWeekend"' ?>><div class="kronolithAllDayContainer">
       </div></td>
       <td<?php if ($w == 5 || $w == 6) echo ' class="kronolithWeekend"' ?>><div class="kronolithAllDayContainer">
@@ -55,12 +55,12 @@
 </table>
 </div>
 
-<div style="position: absolute; top: 150px; right: 0; bottom: 0; left: 0; overflow-x: hidden; overflow-y: scroll;">
+<div class="kronolithViewBody">
 <table class="kronolithView kronolithViewDay">
-  <tbody id="kronolithViewWeekBody" class="kronolithViewBody fixme">
+  <tbody id="kronolithViewWeekBody" class="fixme">
     <?php for ($i = 0; $i < 24; $i++): ?>
     <tr<?php if ($i < 9 || $i > 19) echo ' class="kronolithNight"' ?>>
-      <td class="kronolithFirstCol"><?php echo $i ?>:00</td>
+      <td class="kronolithFirstCol"><span><?php echo $i ?>:00</span></td>
       <td<?php if ($w == 6 || $w == 0) echo ' class="kronolithWeekend"' ?>>
       </td>
       <td<?php if ($w == 5 || $w == 6) echo ' class="kronolithWeekend"' ?>>

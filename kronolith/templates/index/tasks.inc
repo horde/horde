@@ -1,4 +1,4 @@
-<div id="kronolithViewTasks" class="kronolithView kronolithViewTasks" style="display:none">
+<div id="kronolithViewTasks" style="display:none">
 <table class="kronolithView kronolithViewTasks">
   <caption class="tabset">
     <span id="kronolithLoadingtasks" class="kronolithLoading"></span>
@@ -10,7 +10,7 @@
       <li><a id="kronolithTasksFuture"><?php echo _("Future") ?></a></li>
     </ul>
   </caption>
-  <tbody id="kronolithViewTasksBody" class="kronolithViewBody">
+  <tbody id="kronolithViewTasksBody">
     <tr id="kronolithTasksTemplate" class="kronolithTaskRow" style="display:none">
       <td class="kronolithTaskCol">
       <div class="kronolithTaskCheckbox"/>
