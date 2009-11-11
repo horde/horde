@@ -323,10 +323,10 @@ if ($event->alarm) {
 <!-- recur end date -->
 <tr>
  <td class="rightAlign" valign="top">
-  <strong><?php echo Horde::label('recur_enddate_type', _("Recur Until")) ?></strong>
+  <strong><?php echo Horde::label('recur_end_type', _("Recur Until")) ?></strong>
  </td>
  <td colspan="3">
-  <input id="recurnoend" type="radio" class="checkbox" name="recur_enddate_type" value="none"<?php echo ($event->recurs() && ($event->recurrence->hasRecurEnd() || $event->recurrence->hasRecurCount()) ? '' : ' checked="checked"') ?> /><label for="recurnoend"> <?php echo _("No end date") ?></label>
+  <input id="recurnoend" type="radio" class="checkbox" name="recur_end_type" value="none"<?php echo ($event->recurs() && ($event->recurrence->hasRecurEnd() || $event->recurrence->hasRecurCount()) ? '' : ' checked="checked"') ?> /><label for="recurnoend"> <?php echo _("No end date") ?></label>
  </td>
 <?php if ($GLOBALS['browser']->hasFeature('dom')): ?>
  <td>&nbsp;</td>
@@ -335,8 +335,8 @@ if ($event->alarm) {
 <tr>
  <td>&nbsp;</td>
  <td colspan="3">
-  <input type="radio" class="checkbox" id="recur_enddate_type" name="recur_enddate_type" value="date"<?php echo ($event->recurs() && $event->recurrence->hasRecurEnd() ? ' checked="checked"' : '') ?> />
-  <?php echo $event->html('recur_enddate[year]') ?> - <?php echo $event->html('recur_enddate[month]') ?> - <?php echo $event->html('recur_enddate[day]') ?>
+  <input type="radio" class="checkbox" id="recur_end_type" name="recur_end_type" value="date"<?php echo ($event->recurs() && $event->recurrence->hasRecurEnd() ? ' checked="checked"' : '') ?> />
+  <?php echo $event->html('recur_end[year]') ?> - <?php echo $event->html('recur_end[month]') ?> - <?php echo $event->html('recur_end[day]') ?>
 <?php if ($GLOBALS['browser']->hasFeature('dom')): ?>
   <span id="recur_end_wday"></span>
   <script type="text/javascript">KronolithEventForm.updateWday('recur_end_wday');</script>
@@ -344,7 +344,7 @@ if ($event->alarm) {
  <td>
 <?php
     Horde::addScriptFile('open_calendar.js', 'horde', array('direct' => false));
-    echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'recur_enddateimg\', \'recur_enddate\', \'' . addslashes($event->js('recur_enddate')) . '\'); return false;') . Horde::img('calendar.png', _("Set recurrence end date"), 'id="recur_enddateimg"', $GLOBALS['registry']->getImageDir('horde')) . '</a>';
+    echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'recur_endimg\', \'recur_end\', \'' . addslashes($event->js('recur_end')) . '\'); return false;') . Horde::img('calendar.png', _("Set recurrence end date"), 'id="recur_endimg"', $GLOBALS['registry']->getImageDir('horde')) . '</a>';
 endif;
 ?>
  </td>
@@ -352,8 +352,8 @@ endif;
 <tr>
  <td>&nbsp;</td>
  <td colspan="3">
-  <input type="radio" class="checkbox" name="recur_enddate_type" value="count"<?php echo ($event->recurs() && $event->recurrence->getRecurCount() ? ' checked="checked"' : '') ?> />
-  <input type="text" id="recur_count" name="recur_count" size="2" onkeypress="document.eventform.recur_enddate_type[2].checked = true;" onchange="document.eventform.recur_enddate_type[2].checked = true;" value="<?php if ($event->recurs() && $event->recurrence->getRecurCount()) echo $event->recurrence->getRecurCount() ?>" />
+  <input type="radio" class="checkbox" name="recur_end_type" value="count"<?php echo ($event->recurs() && $event->recurrence->getRecurCount() ? ' checked="checked"' : '') ?> />
+  <input type="text" id="recur_count" name="recur_count" size="2" onkeypress="document.eventform.recur_end_type[2].checked = true;" onchange="document.eventform.recur_end_type[2].checked = true;" value="<?php if ($event->recurs() && $event->recurrence->getRecurCount()) echo $event->recurrence->getRecurCount() ?>" />
   <label for="recur_count"><?php echo _("recurrences") ?></label>
  </td>
 <?php if ($GLOBALS['browser']->hasFeature('dom')): ?>

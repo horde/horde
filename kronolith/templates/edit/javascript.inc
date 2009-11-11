@@ -82,9 +82,9 @@ KronolithEventForm.updateWday = function(span)
 <?php if (!Horde_Util::nonInputVar('issearch')): ?>
     } else if (span == 'recur_end_wday') {
         spanObj = $('recur_end_wday');
-        day = $('recur_enddate_day').value;
-        month = $('recur_enddate_month').value - 1;
-        year = $('recur_enddate_year').value;
+        day = $('recur_end_day').value;
+        month = $('recur_end_month').value - 1;
+        year = $('recur_end_year').value;
 <?php endif; ?>
     }
     date = new Date(year, month, day)

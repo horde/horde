@@ -132,12 +132,12 @@
   </div>
   <div id="kronolithEventRepeatLength" style="display:none">
     <?php echo _("Stop") ?>
-    <label><input type="radio" name="recur_enddate_type" value="none" checked="checked" /> <?php echo _("never") ?></label>,
+    <label><input type="radio" name="recur_end_type" value="none" checked="checked" /> <?php echo _("never") ?></label>,
     <?php echo _("or") ?>
-    <label><input type="radio" name="recur_enddate_type" value="date" /> <?php echo _("at") ?></label>
+    <label><input type="radio" name="recur_end_type" value="date" /> <?php echo _("at") ?></label>
     <input type="text" name="recur_end_date" id="kronolithEventRecurDate" size="10" class="kronolithDatePicker" />
     <?php echo _(", or") ?>
-    <label><input type="radio" name="recur_enddate_type" value="count" /> <?php echo _("after") ?></label>
+    <label><input type="radio" name="recur_end_type" value="count" /> <?php echo _("after") ?></label>
     <label><input type="text" name="recur_count" id="kronolithEventRecurCount" value="" size="2" class="kronolithEventValue" /> <?php echo _("recurrences") ?></label>
     <br />
   </div>

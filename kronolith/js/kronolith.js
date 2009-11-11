@@ -2450,13 +2450,13 @@ KronolithCore = {
                 div.down('input[name=recur_' + scheme.toLowerCase() + '_interval]').setValue(ev.r.i);
             }
             if (!Object.isUndefined(ev.r.e)) {
-                $('kronolithEventRepeatLength').down('input[name=recur_enddate_type][value=date]').setValue(true);
+                $('kronolithEventRepeatLength').down('input[name=recur_end_type][value=date]').setValue(true);
                 $('kronolithEventRecurDate').setValue(Date.parse(ev.r.e).toString(Kronolith.conf.date_format));
             } else if (!Object.isUndefined(ev.r.c)) {
-                $('kronolithEventRepeatLength').down('input[name=recur_enddate_type][value=count]').setValue(true);
+                $('kronolithEventRepeatLength').down('input[name=recur_end_type][value=count]').setValue(true);
                 $('kronolithEventRecurCount').setValue(ev.r.c);
             } else {
-                $('kronolithEventRepeatLength').down('input[name=recur_enddate_type][value=none]').setValue(true);
+                $('kronolithEventRepeatLength').down('input[name=recur_end_type][value=none]').setValue(true);
             }
         }
 

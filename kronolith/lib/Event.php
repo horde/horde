@@ -1925,8 +1925,8 @@ abstract class Kronolith_Event
             if (!isset($this->recurrence)) {
                 $this->recurrence = new Horde_Date_Recurrence($this->start);
             }
-            if (Horde_Util::getFormData('recur_enddate_type') == 'date') {
-                $recur_enddate = Horde_Util::getFormData('recur_enddate');
+            if (Horde_Util::getFormData('recur_end_type') == 'date') {
+                $recur_enddate = Horde_Util::getFormData('recur_end');
                 if ($this->recurrence->hasRecurEnd()) {
                     $recurEnd = $this->recurrence->recurEnd;
                     $recurEnd->month = $recur_enddate['month'];
@@ -1942,9 +1942,9 @@ abstract class Kronolith_Event
                               'year' => $recur_enddate['year']));
                 }
                 $this->recurrence->setRecurEnd($recurEnd);
-            } elseif (Horde_Util::getFormData('recur_enddate_type') == 'count') {
+            } elseif (Horde_Util::getFormData('recur_end_type') == 'count') {
                 $this->recurrence->setRecurCount(Horde_Util::getFormData('recur_count'));
-            } elseif (Horde_Util::getFormData('recur_enddate_type') == 'none') {
+            } elseif (Horde_Util::getFormData('recur_end_type') == 'none') {
                 $this->recurrence->setRecurCount(0);
                 $this->recurrence->setRecurEnd(null);
             }
@@ -2148,7 +2148,7 @@ abstract class Kronolith_Event
             $label = _("Duration Minute");
             break;
 
-        case 'recur_enddate[year]':
+        case 'recur_end[year]':
             if ($this->end) {
                 $end = ($this->recurs() && $this->recurrence->hasRecurEnd())
                         ? $this->recurrence->recurEnd->year
@@ -2161,7 +2161,7 @@ abstract class Kronolith_Event
                 '" type="text" onchange="' . $this->js($property) .
                 '" id="' . $this->_formIDEncode($property) . '" size="4" maxlength="4" />';
 
-        case 'recur_enddate[month]':
+        case 'recur_end[month]':
             if ($this->end) {
                 $sel = ($this->recurs() && $this->recurrence->hasRecurEnd())
                     ? $this->recurrence->recurEnd->month
@@ -2176,7 +2176,7 @@ abstract class Kronolith_Event
             $label = _("Recurrence End Month");
             break;
 
-        case 'recur_enddate[day]':
+        case 'recur_end[day]':
             if ($this->end) {
                 $sel = ($this->recurs() && $this->recurrence->hasRecurEnd())
                     ? $this->recurrence->recurEnd->mday
@@ -2217,11 +2217,11 @@ abstract class Kronolith_Event
         case 'end':
             return 'KronolithEventForm.updateWday(\'end_wday\'); updateDuration(); document.eventform.end_or_dur[0].checked = true;';
 
-        case 'recur_enddate[month]':
-        case 'recur_enddate[year]':
-        case 'recur_enddate[day]':
-        case 'recur_enddate':
-            return 'KronolithEventForm.updateWday(\'recur_end_wday\'); document.eventform.recur_enddate_type[1].checked = true;';
+        case 'recur_end[month]':
+        case 'recur_end[year]':
+        case 'recur_end[day]':
+        case 'recur_end':
+            return 'KronolithEventForm.updateWday(\'recur_end_wday\'); document.eventform.recur_end_type[1].checked = true;';
 
         case 'dur_day':
         case 'dur_hour':
