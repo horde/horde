@@ -49,6 +49,15 @@ abstract class Ansel_View_Base
         //throw new Horde_Exception(sprintf("The property %s of Ansel_View not found.", $property));
     }
 
+    public function __isset($property)
+    {
+        if (empty($this->_params[$property])) {
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      *
      *
