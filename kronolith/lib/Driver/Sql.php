@@ -383,7 +383,9 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                 $events[$row['event_uid']] = $row['event_id'];
             } else {
                 $next = $this->nextRecurrence($row['event_id'], $startInterval);
-                if ($next && $next->compareDateTime($endInterval) < 0) {
+                if ($next &&
+                    (is_null($endInterval) ||
+                     $next->compareDateTime($endInterval) < 0)) {
                     $events[$row['event_uid']] = $row['event_id'];
                 }
             }
