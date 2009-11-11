@@ -95,7 +95,6 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
         ob_start();
         if (!empty($this->view->api)) {
             $includes = new Horde_Script_Files();
-            $includes->disableAutoloadHordeJS();
             $includes->_add('prototype.js', 'horde', true, true);
             $includes->includeFiles();
         }
