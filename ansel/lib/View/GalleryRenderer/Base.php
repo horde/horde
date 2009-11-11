@@ -144,7 +144,7 @@ abstract class Ansel_View_GalleryRenderer_Base
         }
 
         /* Include any widgets */
-        if (!empty($this->style['widgets'])) {
+        if (!empty($this->style['widgets']) && !$this->view->api) {
             /* Special case widgets - these are built in */
             if (array_key_exists('Actions', $this->style['widgets'])) {
                 /* Don't show action widget if no actions */
