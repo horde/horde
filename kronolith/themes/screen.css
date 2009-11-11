@@ -936,6 +936,10 @@ table.kronolithView td.kronolithFirstCol {
     -webkit-transform: rotate(-90deg);
     -moz-transform: rotate(-90deg);
 }
+.kronolithViewBody .kronolithFirstCol span {
+    margin-bottom: 3px;
+    font-weight: normal;
+}
 .kronolithViewHead {
     position: relative;
     margin-right: 15px;
