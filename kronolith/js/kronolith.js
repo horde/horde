@@ -633,16 +633,12 @@ KronolithCore = {
         }
 
         this[storage] = {};
-        var trA = $(view).down('.kronolithAllDay'),
-            divA = trA.down('.kronolithAllDayContainer'),
-            divATop = divA.cumulativeOffset().top,
-            divAHeight = divA.getHeight(),
-            tr = $(view).down('.fixme').down('tr'),
+        var tr = $(view).down('.kronolithViewBody').down('tr'),
             td = tr.down('td').next('td'), tdTop, tdHeight,
             tdAlign = td.getStyle('verticalAlign'),
             tr2 = tr.next('tr'),
             td2 = tr2.down('td').next('td'), td2Top,
-            div = new Element('DIV').setStyle({ 'backgroundColor': 'red', 'width': '1px', 'height': '1px' });
+            div = new Element('DIV').setStyle({ 'width': '1px', 'height': '1px' });
 
         td.insert({ 'top': div });
         tdTop = div.cumulativeOffset().top;
@@ -654,10 +650,8 @@ KronolithCore = {
         td2Top = div.cumulativeOffset().top;
         div.remove();
 
-        this[storage].offset = tdTop - divATop;
         this[storage].height = td2Top - tdTop;
         this[storage].spacing = this[storage].height - parseInt(td.getStyle('height'));
-        this[storage].allDay = divAHeight;
     },
 
     /**
@@ -1093,7 +1087,7 @@ KronolithCore = {
             }
 
             div.setStyle({
-                'top': (Math.round(midnight.getElapsed(event.value.start) / 60000) * this[storage].height / 60 + this[storage].offset | 0) + 'px',
+                'top': (Math.round(midnight.getElapsed(event.value.start) / 60000) * this[storage].height / 60 | 0) + 'px',
                 'height': (Math.round(event.value.start.getElapsed(event.value.end) / 60000) * this[storage].height / 60 - this[storage].spacing | 0) + 'px',
                 'width': '100%'
             })
@@ -1108,10 +1102,8 @@ KronolithCore = {
 
             if (event.value.pe) {
                 div.addClassName('kronolithEditable');
-                    // Top-most position (minimum y) of top dragger
-                var minTop = this[storage].allDay + this[storage].spacing,
                     // Number of pixels that cover 10 minutes.
-                    step = this[storage].height / 6;
+                var step = this[storage].height / 6;
                 if (draggerTop) {
                     // Top position of top dragger
                     var dragTop = draggerTop.cumulativeOffset().top;
@@ -1127,7 +1119,7 @@ KronolithCore = {
                 if (draggerTop) {
                     // Bottom-most position (maximum y) of top dragger
                     var maxTop = div.offsetTop
-                        - minTop - draggerTop.getHeight()
+                        - draggerTop.getHeight()
                         - parseInt(innerDiv.getStyle('lineHeight'));
                     if (draggerBottom) {
                         maxTop += draggerBottom.offsetTop;
@@ -1136,12 +1128,12 @@ KronolithCore = {
                 if (draggerBottom) {
                     // Top-most position (minimum y) of bottom dragger (upper
                     // edge)
-                    var minBottom = div.offsetTop - minTop
+                    var minBottom = div.offsetTop
                         + parseInt(innerDiv.getStyle('lineHeight')),
                     // Bottom-most position (maximum y) of bottom dragger
                     // (upper edge)
                     maxBottom = 24 * this[storage].height
-                        + this[storage].allDay - dragBottomHeight;
+                        + dragBottomHeight;
                     if (draggerTop) {
                         minBottom += draggerTop.getHeight();
                     }
@@ -1149,9 +1141,7 @@ KronolithCore = {
                     // Height of the whole event div
                 var divHeight = div.getHeight(),
                     // Maximum height of the whole event div
-                    maxDiv = 24 * this[storage].height
-                        + this[storage].allDay
-                        - divHeight - minTop,
+                    maxDiv = 24 * this[storage].height - divHeight,
                     // Whether the top dragger is dragged, vs. the bottom
                     // dragger
                     draggingTop,
@@ -1180,12 +1170,12 @@ KronolithCore = {
                                 div.setStyle({
                                     'top': (div.offsetTop + offset) + 'px',
                                 });
-                                offset = d.ghost.offsetTop - minTop;
+                                offset = d.ghost.offsetTop;
                                 dragTop = top;
                             } else {
                                 offset = top - dragBottom;
                                 height = div.offsetHeight + offset;
-                                offset = div.offsetTop - minTop;
+                                offset = div.offsetTop;
                                 dragBottom = top;
                             }
                             div.setStyle({
@@ -1198,7 +1188,7 @@ KronolithCore = {
 
                 if (draggerTop) {
                     opts.snap = function(x, y, elm) {
-                        y = Math.max(0, step * (Math.min(maxTop, y - minTop) / step | 0)) + minTop;
+                        y = Math.max(0, step * (Math.min(maxTop, y) / step | 0));
                         return [0, y];
                     }
                     new Drag(event.value.nodeId + 'top', opts);
@@ -1206,7 +1196,7 @@ KronolithCore = {
 
                 if (draggerBottom) {
                     opts.snap = function(x, y, elm) {
-                        y = Math.min(maxBottom - minTop + dragBottomHeight + KronolithCore[storage].spacing, step * ((Math.max(minBottom, y - minTop) + dragBottomHeight + KronolithCore[storage].spacing) / step | 0)) + minTop - dragBottomHeight - KronolithCore[storage].spacing;
+                        y = Math.min(maxBottom + dragBottomHeight + KronolithCore[storage].spacing, step * ((Math.max(minBottom, y) + dragBottomHeight + KronolithCore[storage].spacing) / step | 0)) - dragBottomHeight - KronolithCore[storage].spacing;
                         return [0, y];
                     }
                     new Drag(event.value.nodeId + 'bottom', opts);
@@ -1220,7 +1210,7 @@ KronolithCore = {
                         maxLeft = $('kronolithEventsWeek' + dates[1].toString('yyyyMMdd')).offsetLeft - $('kronolithEventsWeek' + date).offsetLeft,
                         stepX = (maxLeft - minLeft) / 6;
                 }
-                var startTop = div.offsetTop - minTop;
+                var startTop = div.offsetTop;
                 new Drag(div, {
                     'threshold': 5,
                     'nodrop': true,
@@ -1231,7 +1221,7 @@ KronolithCore = {
                         } else {
                             x = 0;
                         }
-                        y = Math.max(0, step * (Math.min(maxDiv, y - minTop) / step | 0)) + minTop;
+                        y = Math.max(0, step * (Math.min(maxDiv, y) / step | 0));
                         return [x, y];
                     },
                     'onStart': function(d, e) {
@@ -1245,12 +1235,12 @@ KronolithCore = {
                         if (view == 'week') {
                             var offsetX = Math.round(d.ghost.offsetLeft / stepX);
                             event.value.offsetDays = offsetX;
-                            this[0]._calculateEventDates(event.value, storage, step, d.ghost.offsetTop - minTop, divHeight, eventStart.clone().addDays(offsetX), eventEnd.clone().addDays(offsetX));
+                            this[0]._calculateEventDates(event.value, storage, step, d.ghost.offsetTop, divHeight, eventStart.clone().addDays(offsetX), eventEnd.clone().addDays(offsetX));
                         } else {
                             event.value.offsetDays = 0;
-                            this[0]._calculateEventDates(event.value, storage, step, d.ghost.offsetTop - minTop, divHeight);
+                            this[0]._calculateEventDates(event.value, storage, step, d.ghost.offsetTop, divHeight);
                         }
-                        event.value.offsetTop = d.ghost.offsetTop - minTop - startTop;
+                        event.value.offsetTop = d.ghost.offsetTop - startTop;
                         d.innerDiv.update('(' + event.value.start.toString(Kronolith.conf.time_format) + ' - ' + event.value.end.toString(Kronolith.conf.time_format) + ') ' + event.value.t.escapeHTML());
                         this[1].clonePosition(d.ghost);
                     }.bind([this, div]),

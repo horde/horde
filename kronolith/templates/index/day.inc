@@ -1,6 +1,5 @@
 <div id="kronolithViewDay" style="display:none">
 <div id="kronolithLoadingday" class="kronolithLoading"></div>
-<div id="kronolithEventsDay"></div>
 
 <table class="kronolithView kronolithViewDay">
   <caption>
@@ -33,7 +32,7 @@
 
 <div class="kronolithViewBody">
 <table class="kronolithView kronolithViewDay">
-  <tbody id="kronolithViewDayBody" class="fixme">
+  <tbody id="kronolithViewDayBody">
     <?php for ($i = 0; $i < 24; $i++): ?>
     <tr<?php if ($i < 9 || $i > 19) echo ' class="kronolithNight"' ?>>
       <td class="kronolithFirstCol"><span><?php echo $i ?>:00</span></td>
@@ -42,6 +41,7 @@
     <?php endfor; ?>
   </tbody>
 </table>
+<div id="kronolithEventsDay"></div>
 </div>
 
 </div>

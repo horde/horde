@@ -895,14 +895,14 @@ table.kronolithView td.kronolithFirstCol {
 /* Main view day */
 #kronolithEventsDay {
     position: absolute;
-    top: 49px;
-    right: 5px;
+    top: 1px;
+    right: 2px;
     bottom: 3px;
     left: 25px;
 }
 #kronolithEventsWeek {
     position: absolute;
-    top: 49px;
+    top: 1px;
     right: 3px;
     bottom: 3px;
     left: 23px;
@@ -914,7 +914,7 @@ table.kronolithView td.kronolithFirstCol {
     width: 14.285714%;
 }
 .kronolithEventsWeek .kronolithEvent {
-    margin: 0 2px;
+    margin-left: 2px;
 }
 
 /* Main view week and day */
@@ -942,12 +942,15 @@ table.kronolithView td.kronolithFirstCol {
 }
 .kronolithViewBody {
     position: absolute;
-    top: 150px;
+    top: 132px;
     right: 0;
     bottom: 0;
     left: 0;
     overflow-x: hidden;
     overflow-y: scroll;
+}
+.kronolithViewBody table.kronolithView {
+    margin-top: -2px;
 }
 
 /* Main view month */
@@ -1191,6 +1194,9 @@ table.kronolithView td.kronolithToday {
     left: 0;
     padding: 5px;
     overflow: hidden;
+}
+#kronolithEventsWeek .kronolithEvent .kronolithEventInfo, #kronolithEventsWeek .kronolithEvent .kronolithDragger {
+    right: 4px;
 }
 
 /* Redbox styles. */

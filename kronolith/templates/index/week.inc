@@ -1,15 +1,5 @@
 <div id="kronolithViewWeek" style="display:none">
 
-<div id="kronolithEventsWeek">
-  <div class="kronolithEventsWeek"></div>
-  <div class="kronolithEventsWeek"></div>
-  <div class="kronolithEventsWeek"></div>
-  <div class="kronolithEventsWeek"></div>
-  <div class="kronolithEventsWeek"></div>
-  <div class="kronolithEventsWeek"></div>
-  <div class="kronolithEventsWeek"></div>
-</div>
-
 <table class="kronolithView kronolithViewDay">
   <caption>
     <span>&nbsp;</span>
@@ -57,7 +47,7 @@
 
 <div class="kronolithViewBody">
 <table class="kronolithView kronolithViewDay">
-  <tbody id="kronolithViewWeekBody" class="fixme">
+  <tbody id="kronolithViewWeekBody">
     <?php for ($i = 0; $i < 24; $i++): ?>
     <tr<?php if ($i < 9 || $i > 19) echo ' class="kronolithNight"' ?>>
       <td class="kronolithFirstCol"><span><?php echo $i ?>:00</span></td>
@@ -79,6 +69,15 @@
     <?php endfor; ?>
   </tbody>
 </table>
+<div id="kronolithEventsWeek">
+  <div class="kronolithEventsWeek"></div>
+  <div class="kronolithEventsWeek"></div>
+  <div class="kronolithEventsWeek"></div>
+  <div class="kronolithEventsWeek"></div>
+  <div class="kronolithEventsWeek"></div>
+  <div class="kronolithEventsWeek"></div>
+  <div class="kronolithEventsWeek"></div>
+</div>
 </div>
 
 </div>
