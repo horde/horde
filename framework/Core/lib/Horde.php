@@ -1807,6 +1807,7 @@ HTML;
         case 'msie':
             $ie_major = $GLOBALS['browser']->getMajor();
             if ($ie_major == 8) {
+                $css_list[] = 'ie8';
             } elseif ($ie_major == 7) {
                 $css_list[] = 'ie7';
             } elseif ($ie_major < 7) {
