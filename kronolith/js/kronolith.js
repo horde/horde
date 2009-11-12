@@ -1544,8 +1544,8 @@ KronolithCore = {
             div = col.down();
 
         row.removeAttribute('id');
-        row.store('taskList', task.value.l);
-        row.store('taskId', task.key);
+        row.store('tasklist', task.value.l);
+        row.store('taskid', task.key);
         col.addClassName('kronolithTask' + (task.value.cp != 0 ? 'Completed' : ''));
         col.insert(task.value.n.escapeHTML());
         if (!Object.isUndefined(task.value.du)) {
@@ -1578,8 +1578,8 @@ KronolithCore = {
         var rows = $('kronolithViewTasksBody').select('tr');
         // The first row is a template one, so must be ignored
         for (var i = 1; i < rows.length; i++) {
-            var rowTaskList = rows[i].retrieve('taskList');
-            var rowTaskId = rows[i].retrieve('taskId');
+            var rowTaskList = rows[i].retrieve('tasklist');
+            var rowTaskId = rows[i].retrieve('taskid');
             var rowTask = this.tcache.get(rowTaskList).get(rowTaskId);
 
             // TODO: Assuming that tasks of the same tasklist are already in
@@ -1635,7 +1635,9 @@ KronolithCore = {
      */
     _toggleCompletionClass: function(taskId)
     {
-        var row = $$('tr').find(function(el) { return el.retrieve('taskId') == taskId; });
+        var row = $$('tr').find(function(el) {
+            return el.retrieve('taskid') == taskId;
+        });
         if (row.length != 1) {
             // FIXME: Show some error?
             return;
@@ -2234,7 +2236,7 @@ KronolithCore = {
                 e.stop();
                 return;
             } else if (elt.hasClassName('kronolithTaskCheckbox')) {
-                var taskId = elt.up('tr.kronolithTaskRow', 0).retrieve('taskId'),
+                var taskId = elt.up('tr.kronolithTaskRow', 0).retrieve('taskid'),
                     taskList = elt.up('tr.kronolithTaskRow', 0).retrieve('tasklist');
                 this._toggleCompletionClass(taskId);
                 this.doAction('ToggleCompletion',
