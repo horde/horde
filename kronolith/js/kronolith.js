@@ -725,7 +725,7 @@ KronolithCore = {
      */
     updateCalendarList: function()
     {
-        var my = 0, shared = 0, ext = {}, extNames = {},
+        var my = 0, shared = 0, ext = $H(), extNames = $H(),
             remote, holidays, api, div;
 
         $H(Kronolith.conf.calendars.internal).each(function(cal) {
@@ -756,23 +756,21 @@ KronolithCore = {
         }
 
         $H(Kronolith.conf.calendars.external).each(function(cal) {
-            var api = [];
-            api[0] = cal.key.substring(0, cal.key.lastIndexOf('/'));
-            api[1] = cal.key.substring(cal.key.lastIndexOf('/') + 1);
-            if (typeof ext[api[0]] == 'undefined') {
-                ext[api[0]] = {};
+            var parts = cal.key.split('/'), api = parts.shift();
+            if (!ext.get(api)) {
+                ext.set(api, $H());
             }
-            ext[api[0]][api[1]] = cal.value;
-            extNames[api[0]] = cal.value.api;
+            ext.get(api).set(parts.join('/'), cal.value);
+            extNames.set(api, cal.value.api);
         });
-        $H(ext).each(function(api) {
+        ext.each(function(api) {
             $('kronolithExternalCalendars')
                 .insert(new Element('H3')
                         .insert(new Element('A', { 'class': 'kronolithAdd'  })
                                 .update('+'))
-                        .insert({ bottom: extNames[api.key].escapeHTML() }))
+                        .insert({ bottom: extNames.get(api.key).escapeHTML() }))
                 .insert(new Element('DIV', { 'id': 'kronolithExternalCalendar' + api.key, 'class': 'kronolithCalendars' }));
-            $H(api.value).each(function(cal) {
+            api.value.each(function(cal) {
                 $('kronolithExternalCalendar' + api.key)
                     .insert(new Element('DIV', { 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' })
                             .store('calendar', api.key + '/' + cal.key)
