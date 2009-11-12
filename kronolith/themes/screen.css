@@ -1261,6 +1261,10 @@ li.panel-tags {
         position: static;
     }
 
+    #pageControls {
+        display: none;
+    }
+
     #calendarPrint {
         display: block;
     }
