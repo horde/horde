@@ -1442,7 +1442,7 @@ KronolithCore = {
             taskLists = [];
             // FIXME: Temporary hack to get the tasklists
             $H(Kronolith.conf.calendars.external).each(function(cal) {
-                if (cal.value.api = 'Tasks' && cal.value.show)
+                if (cal.key.startsWith('tasks') && cal.value.show)
                 {
                     taskLists.push(cal.key.substring(6));
                 }
