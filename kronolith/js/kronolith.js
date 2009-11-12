@@ -2335,14 +2335,14 @@ KronolithCore = {
             this.doAction('GetEvent', { 'cal': calendar, 'id': id }, this._editEvent.bind(this));
         } else {
             var d = date ? this.parseDate(date) : new Date();
-            $('kronolithEventId').value = '';
-            $('kronolithEventCalendar').value = Kronolith.conf.default_calendar;
+            $('kronolithEventId').clear();
+            $('kronolithEventCalendar').setValue(Kronolith.conf.default_calendar);
             $('kronolithEventDelete').hide();
-            $('kronolithEventStartDate').value = d.toString(Kronolith.conf.date_format);
-            $('kronolithEventStartTime').value = d.toString(Kronolith.conf.time_format);
+            $('kronolithEventStartDate').setValue(d.toString(Kronolith.conf.date_format));
+            $('kronolithEventStartTime').setValue(d.toString(Kronolith.conf.time_format));
             d.add(1).hour();
-            $('kronolithEventEndDate').value = d.toString(Kronolith.conf.date_format);
-            $('kronolithEventEndTime').value = d.toString(Kronolith.conf.time_format);
+            $('kronolithEventEndDate').setValue(d.toString(Kronolith.conf.date_format));
+            $('kronolithEventEndTime').setValue(d.toString(Kronolith.conf.time_format));
             RedBox.showHtml($('kronolithEventDialog').show());
             this.eventForm = RedBox.getWindowContents();
         }
