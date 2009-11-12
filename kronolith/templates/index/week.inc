@@ -25,7 +25,7 @@
   </tr></thead>
   <tbody>
     <tr class="kronolithAllDay">
-      <td class="kronolithFirstCol"><span><?php echo _("All day") ?><span></td>
+      <td class="kronolithFirstCol"><span><?php echo _("All day") ?></span></td>
       <td<?php if ($w == 6 || $w == 0) echo ' class="kronolithWeekend"' ?>><div class="kronolithAllDayContainer">
       </div></td>
       <td<?php if ($w == 5 || $w == 6) echo ' class="kronolithWeekend"' ?>><div class="kronolithAllDayContainer">
