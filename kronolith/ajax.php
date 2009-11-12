@@ -101,7 +101,7 @@ $cacheid = Horde_Util::getPost('cacheid');
 ob_start();
 
 try {
-    $result = false;
+    $result = true;
 
     switch ($action) {
     case 'ListEvents':
@@ -149,22 +149,18 @@ try {
 
     case 'GetEvent':
         if (!($kronolith_driver = getDriver(Horde_Util::getFormData('cal')))) {
-            $result = true;
             break;
         }
         if (is_null($id = Horde_Util::getFormData('id'))) {
-            $result = true;
             break;
         }
         $event = $kronolith_driver->getEvent($id);
         if (is_a($event, 'PEAR_Error')) {
             $notification->push($event, 'horde.error');
-            $result = true;
             break;
         }
         if (!$event) {
             $notification->push(_("The requested event was not found."), 'horde.error');
-            $result = true;
             break;
         }
         $result = new stdClass;
@@ -173,23 +169,19 @@ try {
 
     case 'SaveEvent':
         if (!($kronolith_driver = getDriver(Horde_Util::getFormData('cal')))) {
-            $result = true;
             break;
         }
         $event = $kronolith_driver->getEvent(Horde_Util::getFormData('id'));
         if (is_a($event, 'PEAR_Error')) {
             $notification->push($event, 'horde.error');
-            $result = true;
             break;
         }
         if (!$event) {
             $notification->push(_("The requested event was not found."), 'horde.error');
-            $result = true;
             break;
         }
         if (!$event->hasPermission(PERMS_EDIT)) {
             $notification->push(_("You do not have permission to edit this event."), 'horde.warning');
-            $result = true;
             break;
         }
         $event->readForm();
@@ -203,13 +195,11 @@ try {
                                          Kronolith::getDefaultCalendar(PERMS_EDIT));
             if (is_a($event, 'PEAR_Error')) {
                 $notification->push($event, 'horde.error');
-                $result = true;
                 break;
             }
             $result = saveEvent($event);
         } catch (Horde_Exception $e) {
             $notification->push($e);
-            $result = true;
         }
         break;
 
@@ -218,7 +208,6 @@ try {
             break;
         }
         if (is_null($id = Horde_Util::getFormData('id'))) {
-            $result = true;
             break;
         }
         $event = $kronolith_driver->getEvent($id);
@@ -232,7 +221,6 @@ try {
         }
         if (!$event->hasPermission(PERMS_EDIT)) {
             $notification->push(_("You do not have permission to edit this event."), 'horde.warning');
-            $result = true;
             break;
         }
         $attributes = Horde_Serialize::unserialize(Horde_Util::getFormData('att'), Horde_Serialize::JSON);
@@ -276,33 +264,27 @@ try {
 
     case 'DeleteEvent':
         if (!($kronolith_driver = getDriver(Horde_Util::getFormData('cal')))) {
-            $result = true;
             break;
         }
         if (is_null($id = Horde_Util::getFormData('id'))) {
-            $result = true;
             break;
         }
         $event = $kronolith_driver->getEvent($id);
         if (is_a($event, 'PEAR_Error')) {
             $notification->push($event, 'horde.error');
-            $result = true;
             break;
         }
         if (!$event) {
             $notification->push(_("The requested event was not found."), 'horde.error');
-            $result = true;
             break;
         }
         if (!$event->hasPermission(PERMS_DELETE)) {
             $notification->push(_("You do not have permission to delete this event."), 'horde.warning');
-            $result = true;
             break;
         }
         $deleted = $kronolith_driver->deleteEvent($event->getId());
         if (is_a($deleted, 'PEAR_Error')) {
             $notification->push($deleted, 'horde.error');
-            $result = true;
             break;
         }
         $result = new stdClass;
@@ -346,7 +328,6 @@ try {
         break;
 
     case 'SaveCalPref':
-        $result = true;
         break;
 
     case 'ChunkContent':
