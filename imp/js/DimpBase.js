@@ -2464,7 +2464,7 @@ var DimpBase = {
 
     hasFlag: function(f, r)
     {
-        return r.flag && this.convertFlag(f, r.flag.include(f));
+        return this.convertFlag(f, r.flag ? r.flag.include(f) : false);
     },
 
     convertFlag: function(f, set)
