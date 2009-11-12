@@ -755,6 +755,35 @@ KronolithCore = {
             $('kronolithSharedCalendars').hide();
         }
 
+        my = 0;
+        shared = 0;
+        $H(Kronolith.conf.calendars.tasklists).each(function(cal) {
+            if (cal.value.owner) {
+                my++;
+                div = $('kronolithMyTasklists');
+                div.insert(new Element('SPAN', { 'class': 'kronolithCalEdit' })
+                           .insert('&rsaquo;'));
+            } else {
+                shared++;
+                div = $('kronolithSharedTasklists');
+            }
+            div.insert(new Element('DIV', { 'class': cal.value.show ? 'kronolithCalOn' : 'kronolithCalOff' })
+                       .store('calendar', cal.key)
+                       .store('calendarclass', 'tasklists')
+                       .setStyle({ backgroundColor: cal.value.bg, color: cal.value.fg })
+                       .update(cal.value.name.escapeHTML()));
+        });
+        if (my) {
+            $('kronolithMyTasklists').show();
+        } else {
+            $('kronolithMyTasklists').hide();
+        }
+        if (shared) {
+            $('kronolithSharedTasklists').show();
+        } else {
+            $('kronolithSharedTasklists').hide();
+        }
+
         $H(Kronolith.conf.calendars.external).each(function(cal) {
             var parts = cal.key.split('/'), api = parts.shift();
             if (!ext.get(api)) {
@@ -1438,11 +1467,10 @@ KronolithCore = {
     {
         if (Object.isUndefined(taskLists)) {
             taskLists = [];
-            // FIXME: Temporary hack to get the tasklists
-            $H(Kronolith.conf.calendars.external).each(function(cal) {
-                if (cal.key.startsWith('tasks') && cal.value.show)
+            $H(Kronolith.conf.calendars.tasklists).each(function(tasklist) {
+                if (tasklist.value.show)
                 {
-                    taskLists.push(cal.key.substring(6));
+                    taskLists.push(tasklist.key.substring(6));
                 }
             });
         }
@@ -2241,17 +2269,21 @@ KronolithCore = {
                 }
                 elt.toggleClassName('kronolithCalOn');
                 elt.toggleClassName('kronolithCalOff');
-                if (calClass == 'remote' || calClass == 'external') {
-                    if (calClass == 'external' && calendar.startsWith('tasks/')) {
-                        var taskList = calendar.substr(6);
-                        if (Object.isUndefined(this.tcache.get(taskList)) &&
-                            this.view == 'tasks') {
-                            this._loadTasks(this.taskType,[taskList]);
-                        } else {
-                            $('kronolithViewTasksBody').select('tr').findAll(function(el) { return el.retrieve('taskList') == taskList; }).invoke('toggle');
-                        }
+                switch (calClass) {
+                case 'tasklists':
+                    var taskList = calendar.substr(6);
+                    if (Object.isUndefined(this.tcache.get(taskList)) &&
+                        this.view == 'tasks') {
+                        this._loadTasks(this.taskType,[taskList]);
+                    } else {
+                        $('kronolithViewTasksBody').select('tr').findAll(function(el) { return el.retrieve('taskList') == taskList; }).invoke('toggle');
                     }
+                    // Fall through.
+                case 'remote':
+                case 'external':
+                case 'holiday':
                     calendar = calClass + '_' + calendar;
+                    break;
                 }
                 this.doAction('SaveCalPref', { toggle_calendar: calendar });
             }

@@ -150,6 +150,9 @@ class Kronolith
             // Turn debugging on?
             'debug' => !empty($conf['js']['debug']),
         );
+
+        // Calendars
+        $has_tasks = $GLOBALS['registry']->hasInterface('tasks');
         foreach (array(true, false) as $my) {
             foreach ($GLOBALS['all_calendars'] as $id => $calendar) {
                 $owner = $calendar->get('owner') == Horde_Auth::getAuth();
@@ -161,12 +164,35 @@ class Kronolith
                         'fg' => self::foregroundColor($calendar),
                         'bg' => self::backgroundColor($calendar),
                         'show' => in_array($id, $GLOBALS['display_calendars']),
-                        'edit' => $calendar->hasPermission(Horde_Auth::getAuth(), PERMS_READ));
+                        'edit' => $calendar->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT));
+                }
+            }
+
+            // Tasklists
+            if (!$has_tasks) {
+                continue;
+            }
+            foreach ($GLOBALS['registry']->tasks->listTasklists($my, PERMS_SHOW) as $id => $tasklist) {
+                $owner = $tasklist->get('owner') == Horde_Auth::getAuth();
+                if (($my && $owner) || (!$my && !$owner)) {
+                    $code['conf']['calendars']['tasklists']['tasks/' . $id] = array(
+                        'name' => ($owner ? '' : '[' . Horde_Auth::convertUsername($tasklist->get('owner'), false) . '] ')
+                            . $tasklist->get('name'),
+                        'owner' => $owner,
+                        'fg' => self::foregroundColor($tasklist),
+                        'bg' => self::backgroundColor($tasklist),
+                        'show' => in_array('tasks/' . $id, $GLOBALS['display_external_calendars']),
+                        'edit' => $tasklist->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT));
                 }
             }
         }
+
+        // Timeobjects
         foreach ($GLOBALS['all_external_calendars'] as $api => $categories) {
             foreach ($categories as $id => $name) {
+                if ($api == 'tasks') {
+                    continue;
+                }
                 $calendar = $api . '/' . $id;
                 $code['conf']['calendars']['external'][$calendar] = array(
                     'name' => $name,
@@ -176,6 +202,8 @@ class Kronolith
                     'show' => in_array($calendar, $GLOBALS['display_external_calendars']));
             }
         }
+
+        // Remote calendars
         foreach ($GLOBALS['all_remote_calendars'] as $calendar) {
             $code['conf']['calendars']['remote'][$calendar['url']] = array(
                 'name' => $calendar['name'],
@@ -183,6 +211,8 @@ class Kronolith
                 'bg' => self::backgroundColor($calendar),
                 'show' => in_array($calendar['url'], $GLOBALS['display_remote_calendars']));
         }
+
+        // Holidays
         foreach ($GLOBALS['all_holidays'] as $holiday) {
             $code['conf']['calendars']['holiday'][$holiday['id']] = array(
                 'name' => $holiday['title'],
@@ -794,16 +824,18 @@ class Kronolith
                 } else {
                     $GLOBALS['display_remote_calendars'][] = $calendarId;
                 }
-            } elseif (strncmp($calendarId, 'external_', 9) === 0) {
-                $calendarId = substr($calendarId, 9);
+            } elseif ((strncmp($calendarId, 'external_', 9) === 0 &&
+                       $calendarId = substr($calendarId, 9)) ||
+                      (strncmp($calendarId, 'tasklists_', 10) === 0 &&
+                       $calendarId = substr($calendarId, 10))) {
                 if (in_array($calendarId, $GLOBALS['display_external_calendars'])) {
                     $key = array_search($calendarId, $GLOBALS['display_external_calendars']);
                     unset($GLOBALS['display_external_calendars'][$key]);
                 } else {
                     $GLOBALS['display_external_calendars'][] = $calendarId;
                 }
-            } elseif (strncmp($calendarId, 'holidays_', 9) === 0) {
-                $calendarId = substr($calendarId, 9);
+            } elseif (strncmp($calendarId, 'holiday_', 8) === 0) {
+                $calendarId = substr($calendarId, 8);
                 if (in_array($calendarId, $GLOBALS['display_holidays'])) {
                     $key = array_search($calendarId, $GLOBALS['display_holidays']);
                     unset($GLOBALS['display_holidays'][$key]);

@@ -26,6 +26,7 @@ function getDriver($cal)
         $driver = '';
         break;
     case 'external':
+    case 'tasklists':
         $driver = 'Horde';
         break;
     case 'remote':

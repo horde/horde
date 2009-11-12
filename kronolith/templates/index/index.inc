@@ -83,10 +83,26 @@
 
   <h3>
     <a href="#" class="kronolithAdd">+</a>
+    <span><?php echo _("My Task Lists") ?></span>
+  </h3>
+
+  <div id="kronolithMyTasklists" class="kronolithCalendars" style="display:none">
+  </div>
+
+  <h3>
+    <a href="#" class="kronolithAdd">+</a>
     <span><?php echo _("Shared Calendars") ?></span>
   </h3>
 
   <div id="kronolithSharedCalendars" class="kronolithCalendars" style="display:none">
+  </div>
+
+  <h3>
+    <a href="#" class="kronolithAdd">+</a>
+    <span><?php echo _("Shared Task Lists") ?></span>
+  </h3>
+
+  <div id="kronolithSharedTasklists" class="kronolithCalendars" style="display:none">
   </div>
 
   <div id="kronolithExternalCalendars"></div>
