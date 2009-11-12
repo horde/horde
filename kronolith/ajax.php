@@ -348,6 +348,27 @@ try {
         }
         break;
 
+    case 'GetTask':
+        if (!$registry->hasMethod('tasks/getTask')) {
+            break;
+        }
+        if (is_null($id = Horde_Util::getFormData('id')) ||
+            is_null($list = Horde_Util::getFormData('list'))) {
+            break;
+        }
+        $task = $registry->tasks->getTask($list, $id);
+        if (is_a($task, 'PEAR_Error')) {
+            $notification->push($task, 'horde.error');
+            break;
+        }
+        if (!$task) {
+            $notification->push(_("The requested task was not found."), 'horde.error');
+            break;
+        }
+        $result = new stdClass;
+        $result->task = $task->toJson(true, $prefs->getValue('twentyFour') ? 'H:i' : 'h:i A');
+        break;
+
     case 'ToggleCompletion':
         if (!$registry->hasMethod('tasks/toggleCompletion')) {
             break;

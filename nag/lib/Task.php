@@ -653,11 +653,12 @@ class Nag_Task {
      * Returns a simple object suitable for json transport representing this
      * task.
      *
-     * @param boolean $full  Whether to return all event details.
+     * @param boolean $full        Whether to return all event details.
+     * @param string $time_format  The date() format to use for time formatting.
      *
      * @return object  A simple object.
      */
-    function toJson($full = false)
+    function toJson($full = false, $time_format = 'H:i')
     {
         $json = new stdClass;
         $json->l = $this->tasklist;
@@ -682,11 +683,15 @@ class Nag_Task {
             // @todo: do we really need all this?
             $json->id = $this->id;
             $json->de = $this->desc;
-            $json->ui = $this->uid;
+            if ($this->due) {
+                $date = new Horde_Date($this->due);
+                $json->dd = $date->strftime('%x');
+                $json->dt = $date->format($time_format);
+            }
+            /*
             $json->p = $this->parent_id;
             $json->o = $this->owner;
             $json->as = $this->assignee;
-            $json->ct = $this->category;
             if ($this->estimate) {
                 $date = new Horde_Date($this->estimate);
                 $json->e = $date->toJson();
@@ -695,9 +700,10 @@ class Nag_Task {
                 $date = new Horde_Date($this->completed_date);
                 $json->cd = $date->toJson();
             }
+            */
             $json->a = $this->alarm;
             $json->m = $this->methods;
-            $json->pv = (boolean)$this->private;
+            //$json->pv = (boolean)$this->private;
         }
 
         return $json;

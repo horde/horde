@@ -1657,24 +1657,79 @@ KronolithCore = {
             RedBox.onDisplay = null;
         };
 
-        //this.updateTasklistDropDown();
-        if (false && id) {
+        this.updateTasklistDropDown();
+        if (id) {
             RedBox.loading();
             this.doAction('GetTask', { 'list': tasklist, 'id': id }, this._editTask.bind(this));
         } else {
-            /*
-            $('kronolithTaskId').value = '';
-            $('kronolithTaskList').value = Kronolith.conf.default_tasklist;
+            $('kronolithTaskId').clear();
+            $('kronolithTaskList').setValue(Kronolith.conf.default_tasklist);
             $('kronolithTaskDelete').hide();
-            $('kronolithTaskStartDate').value = d.toString(Kronolith.conf.date_format);
-            $('kronolithTaskStartTime').value = d.toString(Kronolith.conf.time_format);
-            d.add(1).hour();
-            $('kronolithTaskEndDate').value = d.toString(Kronolith.conf.date_format);
-            $('kronolithTaskEndTime').value = d.toString(Kronolith.conf.time_format);
-            */
+            $('kronolithTaskDueDate').setValue(d.toString(Kronolith.conf.date_format));
+            $('kronolithTaskDueTime').setValue(d.toString(Kronolith.conf.time_format));
             RedBox.showHtml($('kronolithTaskDialog').show());
             this.taskForm = RedBox.getWindowContents();
         }
+    },
+
+    /**
+     * Callback method for showing task forms.
+     *
+     * @param object r  The ajax response object.
+     */
+    _editTask: function(r)
+    {
+        if (!r.response.task) {
+            RedBox.close();
+            window.history.back();
+            return;
+        }
+
+        var task = r.response.task;
+
+        /* Basic information */
+        $('kronolithTaskId').setValue(task.id);
+        $('kronolithTaskList').setValue(task.l);
+        $('kronolithTaskTitle').setValue(task.n);
+        //$('kronolithTaskLocation').setValue(task.l);
+        $('kronolithTaskDueDate').setValue(task.dd);
+        $('kronolithTaskDueTime').setValue(task.dt);
+        $('kronolithTaskDescription').setValue(task.de);
+        $('kronolithTaskPriority').setValue(task.pr);
+
+        /* Alarm */
+        if (task.a) {
+            $('kronolithTaskAlarmOn').setValue(true);
+            [10080, 1440, 60, 1].each(function(unit) {
+                if (task.a % unit == 0) {
+                    $('kronolithTaskAlarmValue').setValue(task.a / unit);
+                    $('kronolithTaskAlarmUnit').setValue(unit);
+                    throw $break;
+                }
+            });
+        } else {
+            $('kronolithEventAlarmOff').setValue(true);
+        }
+
+        RedBox.showHtml($('kronolithTaskDialog').show());
+        this.eventForm = RedBox.getWindowContents();
+    },
+
+    /**
+     * Propagates a SELECT drop down list with the editable task lists.
+     *
+     * @param string id  The id of the SELECT element.
+     */
+    updateTasklistDropDown: function()
+    {
+        $('kronolithTaskList').update();
+        $H(Kronolith.conf.calendars.tasklists).each(function(cal) {
+            if (cal.value.edit) {
+                $('kronolithTaskList').insert(new Element('OPTION', { 'value': 'tasks|' + cal.key })
+                             .setStyle({ 'backgroundColor': cal.value.bg, 'color': cal.value.fg })
+                             .update(cal.value.name.escapeHTML()));
+            }
+        });
     },
 
     /**

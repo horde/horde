@@ -934,6 +934,21 @@ class Nag_Api extends Horde_Registry_Api
     }
 
     /**
+     * Returns a task object.
+     *
+     * @param string $tasklist  A tasklist id.
+     * @param string $id        A task id.
+     *
+     * @return Nag_Task  The matching task object.
+     */
+    public function getTask($tasklist, $id)
+    {
+        require_once dirname(__FILE__) . '/base.php';
+        $storage = Nag_Driver::singleton($tasklist);
+        return $storage->get($id);
+    }
+
+    /**
      * Exports a tasklist in the requested content type.
      *
      * @param string $tasklist     The tasklist to export.

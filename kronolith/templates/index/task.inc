@@ -49,16 +49,16 @@
 <br class="clear" />
 
 <div id="kronolithTaskTabDescription" class="kronolithTabsOption">
-  <textarea name="desc" id="taskDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
+  <textarea name="desc" id="kronolithTaskDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
 </div>
 
 <div id="kronolithTaskTabReminder" class="kronolithTabsOption" style="display:none">
-   <label><input type="radio" name="nag_alarm[on]" value="0" checked="checked" /> <?php echo _("don't set") ?></label>
+   <label><input type="radio" name="nag_alarm[on]" id="kronolithTaskAlarmOff" value="0" checked="checked" /> <?php echo _("don't set") ?></label>
    <?php echo _("or") ?>
-   <label><input type="radio" name="nag_alarm[on]" value="1" /> <?php echo _("set") ?></label>
+   <label><input type="radio" name="nag_alarm[on]" id="kronolithTaskAlarmOn" value="1" /> <?php echo _("set") ?></label>
    <label>
-     <input type="text" name="nag_alarm[value]" size="3" value="15" class="kronolithEventValue" />
-     <select name="nag_alarm[unit]">
+     <input type="text" name="nag_alarm[value]" id="kronolithTaskAlarmValue" size="3" value="15" class="kronolithEventValue" />
+     <select name="nag_alarm[unit]" id="kronolithTaskAlarmUnit">
        <option value="1"><?php echo _("minutes") ?></option>
        <option value="60"><?php echo _("hours") ?></option>
        <option value="1440"><?php echo _("days") ?></option>
