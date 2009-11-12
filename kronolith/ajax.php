@@ -387,6 +387,10 @@ try {
         $result->taskId = $taskId;
         $result->toggled = true;
         break;
+
+    default:
+        $notification->push('Unknown action ' . $action, 'horde.error');
+        break;
     }
 } catch (Exception $e) {
     $notification->push($e->getMessage(), 'horde.error');
