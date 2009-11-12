@@ -424,17 +424,27 @@ class IMP_Contents
         case self::RENDER_INLINE_DISP_NO:
             $textmode = 'inline';
             $limit = $viewer->getConfigParam('limit_inline_size');
+
             if ($limit && ($mime_part->getBytes() > $limit)) {
+                $data = '';
+                $status = array(
+                    _("This message part cannot be viewed because it is too large."),
+                    sprintf(_("Click %s to download the data."), $this->linkView($mime_part, 'download_attach', _("HERE")))
+                );
+
+                if (method_exists($viewer, 'overLimitText')) {
+                    $data = $viewer->overLimitText();
+                    $status[] = _("The initial portion of this text part is displayed below.");
+                }
+
                 return array(
                     $mime_id => array(
-                        'data' => '',
+                        'data' => $data,
                         'name' => '',
                         'status' => array(
                             array(
-                                'text' => array(
-                                    _("This message part cannot be viewed because it is too large."),
-                                    sprintf(_("Click %s to download the data."), $this->linkView($mime_part, 'download_attach', _("HERE")))
-                                )
+                                'icon' => Horde::img('alerts/warning.png', _("Warning"), null, $GLOBALS['registry']->getImageDir('horde')),
+                                'text' => $status
                             )
                         ),
                         'type' => 'text/html; charset=' . Horde_Nls::getCharset()

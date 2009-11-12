@@ -303,4 +303,29 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         return $new_part;
     }
 
+    /**
+     * Output to use if text size is over the limit.
+     * See IMP_Contents::renderMIMEPart().
+     *
+     * @return string  The text to display inline.
+     */
+    public function overLimitText()
+    {
+        $stream = $this->_mimepart->getContents(array('stream' => true));
+        rewind($stream);
+
+        // Escape text
+        $filters = array(
+            'text2html' => array(
+                'parselevel' => Horde_Text_Filter_Text2html::MICRO,
+                'charset' => Horde_Nls::getCharset()
+            ),
+            'tabs2spaces' => array(),
+        );
+
+        return '<div class="fixed">' .
+            Horde_Text_Filter::filter(Horde_String::convertCharset(fread($stream, 1024), $this->_mimepart->getCharset()), array_keys($filters), array_values($filters)) .
+            ' [...]</div>';
+    }
+
 }
