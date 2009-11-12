@@ -79,14 +79,16 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
 
         $components = $iCal->getComponents();
         $events = array();
+        $count = count($components);
         $exceptions = array();
-        foreach ($components as $component) {
+        for ($i = 0; $i < $count; $i++) {
+            $component = $components[$i];
             if ($component->getType() == 'vEvent') {
                 $event = new Kronolith_Event_Ical($this);
                 $event->status = Kronolith::STATUS_FREE;
                 $event->fromiCalendar($component);
                 $event->remoteCal = $this->_calendar;
-                $event->eventID = hash('md5', uniqid(mt_rand(), true));
+                $event->eventID = $i;
 
                 /* Catch RECURRENCE-ID attributes which mark single recurrence
                  * instances. */
