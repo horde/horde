@@ -9,7 +9,7 @@
     overflow-y: auto;
 }
 
-#msgSplitPane {
+.msgSplitPane {
     width: 99.7%;
 }
 

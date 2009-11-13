@@ -191,8 +191,10 @@ function _simpleButton($id, $text, $image)
      </div>
     </div>
 
-    <div id="msgSplitPane">
-     <div id="msgList" class="noprint msglist"></div>
+    <div class="msgSplitPane">
+     <div id="msgList" class="noprint msglist">
+      <span class="vpEmpty"><?php echo _("Loading...") ?></span>
+     </div>
      <div id="splitBar" style="display:none" class="noprint"></div>
      <div id="previewPane" style="display:none">
       <span id="msgLoading" class="loadingImg" style="display:none"></span>

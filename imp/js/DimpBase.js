@@ -630,11 +630,6 @@ var DimpBase = {
                 }
             }
         });
-
-        // If starting in no preview mode, need to set the no preview class
-        if (!DIMP.conf.preview_pref) {
-            $('msgList').addClassName('msglistNoPreview');
-        }
     },
 
     _addMouseEvents: function(p, popdown)
@@ -1023,7 +1018,6 @@ var DimpBase = {
     {
         var p = DIMP.conf.preview_pref = !DIMP.conf.preview_pref;
         $('previewtoggle').setText(p ? DIMP.text.hide_preview : DIMP.text.show_preview);
-        [ $('msgList') ].invoke(p ? 'removeClassName' : 'addClassName', 'msglistNoPreview');
         this._updatePrefs('show_preview', Number(p));
         this.viewport.showSplitPane(p);
         if (p) {
@@ -2705,6 +2699,7 @@ var DimpBase = {
 
 /* Need to add after DimpBase is defined. */
 DimpBase._msgDragConfig = {
+    classname: 'msgdrag',
     scroll: 'normalfolders',
     threshold: 5,
     caption: DimpBase.dragCaption.bind(DimpBase),
@@ -2745,6 +2740,7 @@ DimpBase._msgDragConfig = {
 };
 
 DimpBase._folderDragConfig = {
+    classname: 'folderdrag',
     ghosting: true,
     offset: { x: 15, y: 0 },
     scroll: 'normalfolders',

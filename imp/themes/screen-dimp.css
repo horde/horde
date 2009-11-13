@@ -86,21 +86,17 @@ input {
 }
 
 /* SplitPane styles. */
-#msgSplitPane {
+.msgSplitPane {
     border-left: 1px silver solid;
     border-right: 1px silver solid;
     border-bottom: 1px silver solid;
-}
-#msgSplitPane div.drag {
-    padding: 0;
+    position: relative;
 }
 #splitBar {
     background: #e9e9e9 url("graphics/dragHandle.png") no-repeat scroll center top !important;
-    border: 1px solid;
-    border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;
+    border: 1px solid silver;
     cursor: n-resize;
     height: 5px;
-    clear: both;
     z-index: 10;
 }
 
@@ -179,16 +175,11 @@ div.msgSize {
 
 /* Message ViewPort */
 .msglist {
-    border-bottom: 1px silver solid;
-    float: left;
     overflow: hidden;
     width: 100%;
 }
 .msglist span.vpEmpty, .msglist span.vpError {
     font-weight: bold;
-}
-.msglistNoPreview {
-    border-bottom: 0;
 }
 
 /* Rows */
@@ -234,27 +225,27 @@ div.vpRow.flagDeleted {
 
 /* Scroller */
 .sbdiv {
-    position: relative;
-    right: 0;
-    width: 14px;
-    overflow: hidden;
     background: url("graphics/scroller_back.png") repeat-y;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 14px;
 }
 .sbcursor {
-    width: 13px;
-    border-left: 1px solid silver;
     background: url("graphics/scroller.png") repeat-y;
+    border-left: 1px solid silver;
+    width: 13px;
 }
 .sbup, .sbdown {
-    width: 13px;
-    height: 16px;
     border-left: 1px solid silver;
+    height: 16px;
+    width: 13px;
 }
 .sbup {
     background-image: url("graphics/sbcursor_top.png");
 }
 .sbdown {
-    border-bottom: 1px solid silver;
     background-image: url("graphics/sbcursor_bottom.png");
 }
 
@@ -718,16 +709,18 @@ a.address:hover img {
 }
 
 /* Drag and drop styles. */
-.drag, .dragdrop {
+.drag, .dragdrop, .folderdrag, .msgdrag {
     background: #eee;
     border: 1px solid #ccc;
     font-size: 12px;
-    padding: 2px;
     overflow: hidden;
     z-index: 999;
 }
 .dragdrop {
     color: red;
+}
+.dragdrop, .folderdrag, .msgdrag {
+    padding: 2px;
 }
 
 /* Search-related styles */
@@ -1020,7 +1013,7 @@ span.readonlyImg {
         overflow: visible !important;
     }
 
-    #msgSplitPane {
+    .msgSplitPane {
         border: 0;
     }
 
