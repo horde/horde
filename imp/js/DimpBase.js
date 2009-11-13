@@ -413,7 +413,7 @@ var DimpBase = {
                 if (this.folderswitch && this.isSearch(id, true)) {
                     p.set('qsearchmbox', this.search.mbox);
                     if (this.search.flag) {
-                        p.update({ qsearchflag: this.search.flag, qsearchflagnot: Number(this.search.not) });
+                        p.update({ qsearchflag: this.search.flag, qsearchflagnot: Number(this.convertFlag(this.search.flag, this.search.not)) });
                     } else {
                         p.set('qsearch', $F('qsearch_input'));
                     }
