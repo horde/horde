@@ -1711,6 +1711,7 @@ KronolithCore = {
             $('kronolithEventAlarmOff').setValue(true);
         }
 
+        this.setTitle(task.n);
         RedBox.showHtml($('kronolithTaskDialog').show());
         this.eventForm = RedBox.getWindowContents();
     },
@@ -2577,6 +2578,7 @@ KronolithCore = {
             $('kronolithEventDelete').hide();
         }
 
+        this.setTitle(ev.t);
         RedBox.showHtml($('kronolithEventDialog').show());
         this.eventForm = RedBox.getWindowContents();
     },
