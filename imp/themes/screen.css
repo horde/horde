@@ -638,33 +638,8 @@ div.mimeStatusMessage, div.mimePartInfo {
         color: #000;
     }
 
-    #pageContainer {
-        margin-left: 20px;
-        margin-right: 20px;
-    }
-
-    #dimpmain {
-        position: relative;
-        left: 0 !important;
-        margin-left: 0;
-        top: 0;
-    }
-
-    #previewPane {
-        height: auto !important;
-        overflow: visible !important;
-    }
-
-    #msgHeaders, .dispaddrlist {
-        display: block !important;
-    }
-
     #msgheaders tr.printedby {
         display: table-row !important;
-    }
-
-    .msgfullread .messageBody {
-        border-top: 1px solid silver;
     }
 
     .label {
@@ -673,13 +648,7 @@ div.mimeStatusMessage, div.mimePartInfo {
         font-weight: bold;
     }
 
-    #msgHeadersColl, .context, .address img, .noprint, .mimeStatusMessage, .largeaddrlist, #msgAtc, table.msgActionTable, #messages h1.header, table.navbaractions, td.msgheader img, tr.msgheaderParts {
+    #msgHeadersColl, .context, .address img, .noprint, .mimeStatusMessage, .largeaddrlist, #msgAtc, table.msgActionTable, #messages h1.header, table.navbaractions, td.msgheader img, tr.msgheaderParts, .downloadAtc, .downloadZipAtc {
         display: none !important;
-    }
-
-    a.address {
-        left: 0;
-        padding: 0;
-        text-decoration: none;
     }
 }

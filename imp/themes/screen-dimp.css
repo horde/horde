@@ -697,7 +697,6 @@ span.attachmentImg {
 /* Email Addresses. */
 a.address {
     cursor: pointer;
-    left: -2px;
     padding: 2px;
     position: static;
     text-decoration: underline;
@@ -1005,4 +1004,35 @@ span.readonlyImg {
 }
 #Growler div.imp-forward, div.imp-redirect, span.imp-forward, span.imp-redirect {
     background-image: url("graphics/mail_forwarded.png");
+}
+
+
+/* Print CSS rules. */
+@media print {
+    #dimpmain {
+        position: relative;
+        left: 0 !important;
+        margin-left: 0;
+        top: 0;
+    }
+
+    #previewPane {
+        overflow: visible !important;
+    }
+
+    #msgSplitPane {
+        border: 0;
+    }
+
+    #msgHeaders, .dispaddrlist {
+        display: block !important;
+    }
+
+    #dimpmain_folder_top, #msgList, div.sbdiv, #splitBar, #Growler, #GrowlerLog {
+        display: none !important;
+    }
+
+    a.address {
+        padding: 0 !important;
+    }
 }
