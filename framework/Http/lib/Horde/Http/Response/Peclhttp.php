@@ -37,7 +37,7 @@ class Horde_Http_Response_Peclhttp extends Horde_Http_Response_Base
         $this->_message = $message;
 
         foreach ($message->getHeaders() as $k => $v) {
-            $this->_headers[strtolower($k)] = $v;
+            $this->headers[strtolower($k)] = $v;
         }
     }
 
