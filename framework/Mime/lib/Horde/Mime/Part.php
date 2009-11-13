@@ -485,7 +485,8 @@ class Horde_Mime_Part
         /* RFC 2045: Any entity with unrecognized encoding must be treated
          * as if it has a Content-Type of "application/octet-stream"
          * regardless of what the Content-Type field actually says. */
-        if ($this->_transferEncoding == 'x-unknown') {
+        if (($this->_transferEncoding == 'x-unknown') ||
+            (strpos($type, '/') === false)) {
             return;
         }
 
