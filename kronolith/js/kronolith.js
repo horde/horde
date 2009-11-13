@@ -17,7 +17,7 @@ var frames = { horde_main: true },
 KronolithCore = {
     // Vars used and defaulting to null/false:
     //   DMenu, Growler, inAjaxCallback, is_logout, onDoActionComplete,
-    //   eventForm, daySizes, viewLoading
+    //   daySizes, viewLoading
 
     view: '',
     ecache: $H(),
@@ -1713,7 +1713,6 @@ KronolithCore = {
 
         this.setTitle(task.n);
         RedBox.showHtml($('kronolithTaskDialog').show());
-        this.eventForm = RedBox.getWindowContents();
     },
 
     /**
@@ -2400,7 +2399,6 @@ KronolithCore = {
             $('kronolithEventEndDate').setValue(d.toString(Kronolith.conf.date_format));
             $('kronolithEventEndTime').setValue(d.toString(Kronolith.conf.time_format));
             RedBox.showHtml($('kronolithEventDialog').show());
-            this.eventForm = RedBox.getWindowContents();
         }
     },
 
@@ -2580,7 +2578,6 @@ KronolithCore = {
 
         this.setTitle(ev.t);
         RedBox.showHtml($('kronolithEventDialog').show());
-        this.eventForm = RedBox.getWindowContents();
     },
 
     /**
@@ -2617,7 +2614,6 @@ KronolithCore = {
     _closeRedBox: function()
     {
         RedBox.close();
-        this.eventForm = null;
     },
 
     /* Onload function. */
