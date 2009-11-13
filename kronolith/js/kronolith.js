@@ -458,8 +458,8 @@ KronolithCore = {
         });
         if (this.view && this.view != loc) {
             $('kronolithView' + this.view.capitalize()).fade({ 'queue': 'end' });
+            this.view = null;
         }
-        this.view = null;
     },
 
     /**
