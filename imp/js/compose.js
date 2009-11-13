@@ -384,7 +384,7 @@ var ImpCompose = {
         document.observe('click', this.clickHandler.bindAsEventListener(this));
         document.observe('change', this.changeHandler.bindAsEventListener(this));
 
-        this.resize();
+        this.resize.bind(this).delay(0.25);
     },
 
     resize: function()
