@@ -104,7 +104,6 @@ KronolithCore = {
 
     setTitle: function(title)
     {
-        title = title.escapeHTML();
         document.title = Kronolith.conf.name + ' :: ' + title;
         return title;
     },
