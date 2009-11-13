@@ -185,7 +185,7 @@ class Horde_Cli
         // We really want to call this at the end of the script, not in the
         // destructor.
         if ($this->_console) {
-            register_shutdown_function(array($this, '_shutdown'));
+            register_shutdown_function(array($this, 'shutdown'));
         }
     }
 
