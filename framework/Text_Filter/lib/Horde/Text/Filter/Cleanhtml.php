@@ -51,13 +51,12 @@ class Horde_Text_Filter_Cleanhtml extends Horde_Text_Filter
         $tidy_config = array(
             'enclose-block-text' => true,
             'hide-comments' => true,
-            'indent' => true,
-            'indent-spaces' => 4,
+            'indent' => false,
             'numeric-entities' => true,
             'output-xhtml' => true,
             'preserve-entities' => true,
             'show-body-only' => !empty($this->_params['body_only']),
-            'tab-size' => 4,
+            'tab-size' => 0,
             'wrap' => 0
         );
 
