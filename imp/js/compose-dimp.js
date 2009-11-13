@@ -355,8 +355,11 @@ var DimpCompose = {
             text = this.rte.getData();
             $('composeMessageParent').childElements().invoke('hide');
             $('composeMessage').show().setStyle({ visibility: null }).focus();
+            this.RTELoading('show');
 
             DimpCore.doAction('Html2Text', { text: text }, { callback: this.setMessageText.bind(this), ajaxopts: { asynchronous: false } });
+
+            this.RTELoading('hide');
         } else {
             this.editor_on = true;
             if (!noupdate) {
