@@ -1021,7 +1021,7 @@ span.readonlyImg {
         display: block !important;
     }
 
-    #dimpmain_folder_top, #msgList, div.sbdiv, #splitBar, #Growler, #GrowlerLog {
+    #sidebarPanel, #dimpmain_folder_top, #msgList, div.sbdiv, #splitBar, #toggleHeaders, #Growler, #GrowlerLog, #writemsg, .dimpActions, .dimpOptions {
         display: none !important;
     }
 

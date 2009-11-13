@@ -34,7 +34,7 @@ $compose_disable = !IMP::canCompose();
  <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Drafts', 'id' => 'draft_button', 'title' => _("Save as Draft"))); ?></div>
 </div>
 
-<div id="writemsg" class="noprint">
+<div id="writemsg">
  <div class="msgwrite">
   <div class="dimpOptions">
    <div id="togglecc">

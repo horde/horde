@@ -648,7 +648,7 @@ div.mimeStatusMessage, div.mimePartInfo {
         font-weight: bold;
     }
 
-    #msgHeadersColl, .context, .address img, .noprint, .mimeStatusMessage, .largeaddrlist, #msgAtc, table.msgActionTable, #messages h1.header, table.navbaractions, td.msgheader img, tr.msgheaderParts, .downloadAtc, .downloadZipAtc {
+    #msgHeadersColl, .context, .address img, .mimeStatusMessage, .largeaddrlist, #msgAtc, table.msgActionTable, #messages h1.header, table.navbaractions, td.msgheader img, tr.msgheaderParts, .downloadAtc, .downloadZipAtc {
         display: none !important;
     }
 }

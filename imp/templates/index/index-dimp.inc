@@ -41,7 +41,7 @@ function _simpleButton($id, $text, $image)
 <div id="dimpPage" style="display:none">
  <div id="header"></div>
  <div id="pageContainer">
-  <div id="sidebarPanel" class="noprint">
+  <div id="sidebarPanel">
    <div id="logo">
     <a id="logolink"><?php echo _("Horde") ?></a>
    </div>
@@ -116,7 +116,7 @@ function _simpleButton($id, $text, $image)
   <div id="dimpmain">
    <div id="dimpmain_portal"><?php echo _("Loading...") ?></div>
    <div id="dimpmain_folder" style="display:none">
-    <div id="dimpmain_folder_top" class="noprint">
+    <div id="dimpmain_folder_top">
      <div id="tabbar">
 <?php if (!empty($application_folders) || !empty($site_menu)): ?>
       <div class="tabset">
@@ -192,10 +192,10 @@ function _simpleButton($id, $text, $image)
     </div>
 
     <div class="msgSplitPane">
-     <div id="msgList" class="noprint msglist">
+     <div id="msgList" class="msglist">
       <span class="vpEmpty"><?php echo _("Loading...") ?></span>
      </div>
-     <div id="splitBar" style="display:none" class="noprint"></div>
+     <div id="splitBar" style="display:none"></div>
      <div id="previewPane" style="display:none">
       <span id="msgLoading" class="loadingImg" style="display:none"></span>
       <div id="previewInfo" style="display:none">
@@ -219,7 +219,7 @@ function _simpleButton($id, $text, $image)
       </div>
       <div id="previewMsg" style="display:none">
        <div class="msgHeaders">
-        <div id="toggleHeaders" class="noprint">
+        <div id="toggleHeaders">
          <a id="th_expand"><span class="iconImg" title="<?php echo htmlspecialchars(_("Expand Headers")) ?>"></span></a>
          <a id="th_collapse" style="display:none"><span class="iconImg" title="<?php echo htmlspecialchars(_("Collapse Headers")) ?>"></span></a>
         </div>
@@ -230,7 +230,7 @@ function _simpleButton($id, $text, $image)
          <span class="fromcontainer"><?php echo _("from") ?> <span class="from"></span></span>
         </div>
         <div id="msgHeaders" style="display:none">
-         <div class="dimpOptions noprint">
+         <div class="dimpOptions">
           <div>
            <span id="msg_newwin_options">
             <span class="iconImg"></span>

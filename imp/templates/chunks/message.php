@@ -11,7 +11,7 @@
 <div id="dimpLoading"><?php echo _("Loading...") ?></div>
 <div id="pageContainer" style="display:none">
  <div id="msgData">
-  <div class="dimpActions dimpActionsMsg noprint">
+  <div class="dimpActions dimpActionsMsg">
    <div class="headercloseimg closeImg" id="windowclose" title="X"></div>
    <div><?php echo IMP_Dimp::actionButton(array('class' => 'hasmenu', 'icon' => 'Reply', 'id' => 'reply_link', 'title' => _("Reply"))) ?></div>
    <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Forward', 'id' => 'forward_link', 'title' => _("Forward"))) ?></div>
@@ -29,7 +29,7 @@
   <div class="msgfullread">
    <div class="msgHeaders">
     <div id="msgHeaders">
-     <div class="dimpOptions noprint">
+     <div class="dimpOptions">
       <div>
        <span id="msg_print">
         <span class="iconImg"></span>
