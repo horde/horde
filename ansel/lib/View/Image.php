@@ -238,6 +238,12 @@ class Ansel_View_Image extends Ansel_View_Base
         if (($conf['comments']['allow'] == 'all' || ($conf['comments']['allow'] == 'authenticated' && Horde_Auth::getAuth())) &&
             $registry->hasMethod('forums/doComments')) {
             $hasComments = true;
+            if (!empty($this->_params['comment_url'])) {
+                $this->_params['comment_url'] = str_replace(
+                    array('%i', '%g', '%s'),
+                    array($imageId, $galleryId, $gallerySlug),
+                    urldecode($this->_params['comment_url']));
+            }
             $url = empty($this->_params['comment_url']) ? null : $this->_params['comment_url'];
             $comments = $registry->call('forums/doComments',
                                         array('ansel', $this->resource->id,
