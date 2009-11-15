@@ -2381,7 +2381,6 @@ KronolithCore = {
         };
 
         this.updateCalendarDropDown('kronolithEventCalendar');
-        $('kronolithEventTags').autocompleter.init();
         $('kronolithEventForm').enable();
         $('kronolithEventForm').reset();
         this.doAction('ListTopTags', {}, this._topTags);
@@ -2389,6 +2388,7 @@ KronolithCore = {
             RedBox.loading();
             this.doAction('GetEvent', { 'cal': calendar, 'id': id }, this._editEvent.bind(this));
         } else {
+            $('kronolithEventTags').autocompleter.init();
             var d = date ? this.parseDate(date) : new Date();
             $('kronolithEventId').clear();
             $('kronolithEventCalendar').setValue(Kronolith.conf.default_calendar);
