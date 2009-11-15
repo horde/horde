@@ -31,7 +31,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add 'raw' render view to Horde_Mime_Viewer.
+ <notes>* Request #8556: Allow specifying a header charset for a part.
+ * Add 'raw' render view to Horde_Mime_Viewer.
  * Horde_Mime_Part::parseMessage() correctly parses non-MIME parts.
  * Remove dependence on PEAR's Mail_mimeDecode::.
  * Added Horde_Mime::uudecode().

@@ -201,6 +201,13 @@ class Horde_Mime_Part
     protected $_basepart = false;
 
     /**
+     * The charset to output the headers in.
+     *
+     * @var string
+     */
+    protected $_hdrCharset = null;
+
+    /**
      * Function to run on serialize().
      */
     public function __sleep()
@@ -598,6 +605,28 @@ class Horde_Mime_Part
     {
         $charset = $this->getContentTypeParameter('charset');
         return empty($charset) ? null : $charset;
+    }
+
+    /**
+     * Set the character set to use when outputting MIME headers.
+     *
+     * @param string $charset  The character set.
+     */
+    public function setHeaderCharset($charset)
+    {
+        $this->_hdrCharset = $charset;
+    }
+
+    /**
+     * Get the character set to use when outputting MIME headers.
+     *
+     * @return string  The character set.
+     */
+    public function getHeaderCharset()
+    {
+        return is_null($this->_hdrCharset)
+            ? $this->getCharset()
+            : $this->_hdrCharset;
     }
 
     /**
@@ -1026,7 +1055,7 @@ class Horde_Mime_Part
             if (!empty($this->_temp['toString'])) {
                 $hdr_ob->replaceHeader('Content-Transfer-Encoding', $this->_temp['toString']);
             }
-            array_unshift($parts, $hdr_ob->toString(array('charset' => $this->getCharset(), 'defserver' => $options['defserver'])));
+            array_unshift($parts, $hdr_ob->toString(array('charset' => $this->getHeaderCharset(), 'defserver' => $options['defserver'])));
         }
 
         $newfp = $this->_writeStream($parts);
@@ -1457,7 +1486,7 @@ class Horde_Mime_Part
             }
         }
 
-        $result = $mailer->send(Horde_Mime::encodeAddress($email, $this->getCharset()), $headers->toArray(array('charset' => $this->getCharset())), $msg);
+        $result = $mailer->send(Horde_Mime::encodeAddress($email, $this->getCharset()), $headers->toArray(array('charset' => $this->getHeaderCharset())), $msg);
 
         $this->_basepart = $old_basepart;
 
