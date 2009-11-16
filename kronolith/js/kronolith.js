@@ -23,7 +23,7 @@ KronolithCore = {
     ecache: $H(),
     tcache: $H(),
     efifo: {},
-    eventsLoading: $H(),
+    eventsLoading: {},
     loading: 0,
     date: new Date(),
     tasktype: 'incomplete',
@@ -273,7 +273,7 @@ KronolithCore = {
                     }
                 });
             });
-            this.startLoading('search', query, '');
+            this.startLoading('search', query);
             this.doAction('Search' + locParts[0],
                           { 'cals': cals.toJSON(), 'query': query },
                           function(r) {
@@ -522,7 +522,7 @@ KronolithCore = {
                     return;
                 }
                 drop.insert(el);
-                this.startLoading(cal, start, end);
+                this.startLoading(cal, start + end);
                 this.doAction('UpdateEvent',
                               { 'cal': cal,
                                 'id': eventid,
@@ -866,13 +866,12 @@ KronolithCore = {
     /**
      * Sets the load signature and show the loading spinner.
      *
-     * @param string cal    The loading calendar.
-     * @param string start  The first day of the loading view.
-     * @param string end    The last day of the loading view.
+     * @param string resource   The loading resource.
+     * @param string signatrue  The signature for this request.
      */
-    startLoading: function(cal, start, end)
+    startLoading: function(resource, signature)
     {
-        this.eventsLoading[cal] = start + end;
+        this.eventsLoading[resource] = signature;
         this.loading++;
         $('kronolithLoading').show();
     },
@@ -916,7 +915,7 @@ KronolithCore = {
             }
             var start = startDay.dateString(), end = endDay.dateString(),
                 calendar = cal.join('|');
-            this.startLoading(calendar, start, end);
+            this.startLoading(calendar, start + end);
             this._storeCache($H(), calendar);
             this.doAction('ListEvents',
                           { start: start,
@@ -1431,7 +1430,7 @@ KronolithCore = {
         div.removeClassName('kronolithSelected');
         this._setEventText(innerDiv, event.value);
         drag.destroy();
-        this.startLoading(event.value.calendar, start, end);
+        this.startLoading(event.value.calendar, start + end);
         if (!Object.isUndefined(event.value.offsetTop)) {
             attributes = $H({ 'offDays': event.value.offsetDays,
                               'offMins': event.value.offsetTop / step * 10 });
@@ -1507,7 +1506,7 @@ KronolithCore = {
                 if (Object.isUndefined(this.tcache.get(type)) ||
                     Object.isUndefined(this.tcache.get(type).get(list))) {
                     loading = true;
-                    this.startLoading('tasks:' + type + list, tasktype, '');
+                    this.startLoading('tasks:' + type + list, tasktype);
                     this._storeTasksCache($H(), type, list);
                     this.doAction('ListTasks',
                                   { 'type': type,
@@ -2548,7 +2547,7 @@ KronolithCore = {
             viewDates = this.viewDates(this.date, this.view),
             start = viewDates[0].dateString(),
             end = viewDates[1].dateString();
-        this.startLoading(cal, start, end);
+        this.startLoading(cal, start + end);
         this.doAction('SaveEvent',
                       $H($('kronolithEventForm').serialize({ 'hash': true }))
                           .merge({
@@ -2574,7 +2573,7 @@ KronolithCore = {
             end = viewDates[1].dateString();
 
         $('kronolithQuickinsert').fade();
-        this.startLoading(null, start, end);
+        this.startLoading(null, start + end);
         this.doAction('QuickSaveEvent',
                       $H({ 'text': text,
                            'view': this.view,
