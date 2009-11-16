@@ -334,7 +334,7 @@ try {
         $tasklist = Horde_Util::getFormData('list');
         $tasktype = Horde_Util::getFormData('type');
         $tasks = $registry->call('tasks/listTasks',
-                                 array(null, null, null, $tasklist, $tasktype == 'future' ? 'all' : $tasktype, true));
+                                 array(null, null, null, $tasklist, $tasktype == 'incomplete' ? 'future_incomplete' : $tasktype, true));
         if (is_a($tasks, 'PEAR_Error')) {
             $notification->push($tasks, 'horde.error');
             break;
