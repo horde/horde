@@ -1,6 +1,7 @@
 <div id="kronolithTaskDialog" style="display:none">
 <form id="kronolithTaskForm" action="">
 <input id="kronolithTaskId" type="hidden" name="task_id" />
+<input id="kronolithTaskOldList" type="hidden" name="old_tasklist" />
 
 <div>
   <label for="kronolithTaskTitle"><?php echo _("Name") ?>:</label><br />

@@ -1036,11 +1036,31 @@ class Nag_Api extends Horde_Registry_Api
 
         if (!Horde_Auth::isAdmin() &&
             !array_key_exists($task->tasklist,
-                Nag::listTasklists(false, PERMS_DELETE))) {
-                    return PEAR::raiseError(_("Permission Denied"));
-                }
+                              Nag::listTasklists(false, PERMS_DELETE))) {
+            return PEAR::raiseError(_("Permission Denied"));
+        }
 
         return $storage->delete($task->id);
+    }
+
+    /**
+     * Deletes a task identified by tasklist and ID.
+     *
+     * @param string $tasklist  A tasklist id.
+     * @param string $id        A task id.
+     */
+    public function deleteTask($tasklist, $id)
+    {
+        require_once dirname(__FILE__) . '/base.php';
+
+        if (!Horde_Auth::isAdmin() &&
+            !array_key_exists($tasklist,
+                              Nag::listTasklists(false, PERMS_DELETE))) {
+            return PEAR::raiseError(_("Permission Denied"));
+        }
+
+        $storage = Nag_Driver::singleton($tasklist);
+        return $storage->delete($id);
     }
 
     /**

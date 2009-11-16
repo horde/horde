@@ -370,6 +370,23 @@ try {
         $result->task = $task->toJson(true, $prefs->getValue('twentyFour') ? 'H:i' : 'h:i A');
         break;
 
+    case 'DeleteTask':
+        if (!$registry->hasMethod('tasks/deleteTask')) {
+            break;
+        }
+        if (is_null($id = Horde_Util::getFormData('id')) ||
+            is_null($list = Horde_Util::getFormData('list'))) {
+            break;
+        }
+        $result = $registry->tasks->deleteTask($list, $id);
+        if (is_a($result, 'PEAR_Error')) {
+            $notification->push($result, 'horde.error');
+            break;
+        }
+        $result = new stdClass;
+        $result->deleted = true;
+        break;
+
     case 'ToggleCompletion':
         if (!$registry->hasMethod('tasks/toggleCompletion')) {
             break;

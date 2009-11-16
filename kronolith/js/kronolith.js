@@ -1782,6 +1782,7 @@ KronolithCore = {
             this.doAction('GetTask', { 'list': tasklist, 'id': id }, this._editTask.bind(this));
         } else {
             $('kronolithTaskId').clear();
+            $('kronolithTaskOldList').clear();
             $('kronolithTaskList').setValue(Kronolith.conf.default_tasklist);
             $('kronolithTaskDelete').hide();
             $('kronolithTaskDueDate').setValue(d.toString(Kronolith.conf.date_format));
@@ -1808,6 +1809,7 @@ KronolithCore = {
 
         /* Basic information */
         $('kronolithTaskId').setValue(task.id);
+        $('kronolithTaskOldList').setValue(task.l);
         $('kronolithTaskList').setValue(task.l);
         $('kronolithTaskTitle').setValue(task.n);
         //$('kronolithTaskLocation').setValue(task.l);
@@ -1850,6 +1852,21 @@ KronolithCore = {
                              .update(cal.value.name.escapeHTML()));
             }
         });
+    },
+
+    /**
+     * Finally removes a task from the DOM and the cache.
+     *
+     * @param string task  A task id.
+     * @param string list  A task list name.
+     */
+    _removeTask: function(task, list)
+    {
+        this._deleteTasksCache(task, list);
+        $('kronolithViewTasksBody').select('tr').find(function(el) {
+            return el.retrieve('tasklist') == list &&
+                el.retrieve('taskid') == task;
+        }).remove();
     },
 
     /**
@@ -2016,6 +2033,23 @@ KronolithCore = {
         this.ecache.get(calendar[0]).get(calendar[1]).each(function(day) {
             day.value.unset(event);
         });
+    },
+
+    /**
+     * Deletes a task from the cache.
+     *
+     * @param string task  A task ID.
+     * @param string list  A task list string.
+     */
+    _deleteTasksCache: function(task, list)
+    {
+        this._deleteCache(task, [ 'external', 'tasks/' + list ]);
+        [ 'complete', 'incomplete' ].each(function(type) {
+            if (!Object.isUndefined(this.tcache.get(type)) &&
+                !Object.isUndefined(this.tcache.get(type).get(list))) {
+                this.tcache.get(type).get(list).unset(task);
+            }
+        }, this);
     },
 
     /**
@@ -2244,6 +2278,30 @@ KronolithCore = {
                     return el.retrieve('calendar') == cal &&
                         el.retrieve('eventid') == eventid;
                 }).invoke('hide');
+                this._closeRedBox();
+                window.history.back();
+                e.stop();
+                return;
+
+            case 'kronolithTaskDelete':
+                var tasklist = $F('kronolithTaskOldList'),
+                    taskid = $F('kronolithTaskId');
+                this.doAction('DeleteTask',
+                              { 'list': tasklist, 'id': taskid },
+                              function(r) {
+                                  if (r.response.deleted) {
+                                      this._removeTask(taskid, tasklist);
+                                  } else {
+                                      $('kronolithViewTasksBody').select('tr').find(function(el) {
+                                          return el.retrieve('tasklist') == tasklist &&
+                                              el.retrieve('taskid') == taskid;
+                                      }).toggle();
+                                  }
+                              }.bind(this));
+                $('kronolithViewTasksBody').select('tr').find(function(el) {
+                    return el.retrieve('tasklist') == tasklist &&
+                        el.retrieve('taskid') == taskid;
+                }).hide();
                 this._closeRedBox();
                 window.history.back();
                 e.stop();
