@@ -1463,14 +1463,35 @@ KronolithCore = {
     },
 
     /**
+     * Returns the task cache storage names that hold the tasks of the
+     * requested task type.
+     *
+     * @param string taskType  The task type.
+     *
+     * @return array  The list of task cache storage names.
+     */
+    _getTaskStorage: function(taskType)
+    {
+        var taskTypes;
+        if (taskType == 'all' || taskType == 'future') {
+            taskTypes = [ 'complete', 'incomplete' ];
+        } else {
+            taskTypes = [ taskType ];
+        }
+        return taskTypes;
+    },
+
+    /**
      * Loads tasks, either from cache or from the server.
      *
-     * @param integer taskType  The tasks type (all, incomplete, complete,
-     *                          future or future_incomplete).
+     * @param integer taskType  The tasks type (all, incomplete, complete, or
+     *                          future).
      * @param Array tasksLists  The lists from where to obtain the tasks.
      */
     _loadTasks: function(taskType, taskLists)
     {
+        var taskTypes = this._getTaskStorage(taskType), loading = false;
+
         if (Object.isUndefined(taskLists)) {
             taskLists = [];
             $H(Kronolith.conf.calendars.tasklists).each(function(tasklist) {
@@ -1481,14 +1502,28 @@ KronolithCore = {
             });
         }
 
-        taskLists.each(function(taskList) {
-            this.startLoading('tasks:' + taskList, taskType, '');
-            this._storeTasksCache($H(), taskType, taskList);
-            this.doAction('ListTasks',
-                          { 'taskType': taskType,
-                            'list': taskList },
-                          this._loadTasksCallback.bind(this));
+        taskTypes.each(function(type) {
+            taskLists.each(function(list) {
+                if (Object.isUndefined(this.tcache.get(type)) ||
+                    Object.isUndefined(this.tcache.get(type).get(list))) {
+                    loading = true;
+                    this.startLoading('tasks:' + list, type, '');
+                    this._storeTasksCache($H(), type, list);
+                    this.doAction('ListTasks',
+                                  { 'type': type,
+                                    'list': list },
+                                  function(r) {
+                                      this._loadTasksCallback(r, taskType);
+                                  }.bind(this));
+                }
+            }, this);
         }, this);
+
+        if (!loading) {
+            taskLists.each(function(list) {
+                this._insertTasks(taskType, list);
+            }, this);
+        }
     },
 
     /**
@@ -1496,7 +1531,7 @@ KronolithCore = {
      *
      * @param object r  The ajax response object.
      */
-    _loadTasksCallback: function(r)
+    _loadTasksCallback: function(r, tasktype)
     {
         // Hide spinner.
         this.loading--;
@@ -1504,14 +1539,14 @@ KronolithCore = {
             $('kronolithLoading').hide();
         }
 
-        this._storeTasksCache(r.response.tasks || {}, r.response.taskType, r.response.taskList);
+        this._storeTasksCache(r.response.tasks || {}, r.response.type, r.response.list);
 
         // Check if this is the still the result of the most current request.
         if (this.view != 'tasks' ||
-            this.eventsLoading['tasks:' + r.response.taskList] != r.response.taskType) {
+            this.eventsLoading['tasks:' + r.response.list] != r.response.type) {
             return;
         }
-        this._insertTasks(r.response.taskType, r.response.taskList);
+        this._insertTasks(tasktype, r.response.list);
     },
 
     /**
@@ -1523,17 +1558,11 @@ KronolithCore = {
      */
     _insertTasks: function(taskType, taskList)
     {
-        var taskTypes, now = new Date();
+        var taskTypes = this._getTaskStorage(taskType), now = new Date();
 
         $('kronolithViewTasksBody').select('tr').findAll(function(el) {
-            return el.identify() != 'kronolithTasksTemplate';
+            return el.retrieve('tasklist') == taskList;
         }).invoke('remove');
-
-        if (taskType == 'all' || taskType == 'future') {
-            taskTypes = [ 'complete', 'incomplete' ];
-        } else {
-            taskTypes = [ taskType ];
-        }
 
         taskTypes.each(function(type) {
             var tasks = this.tcache.get(type).get(taskList);

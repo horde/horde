@@ -131,7 +131,7 @@ try {
         }
 
         $taskList = Horde_Util::getFormData('list');
-        $taskType = Horde_Util::getFormData('taskType');
+        $taskType = Horde_Util::getFormData('type');
         $tasks = $registry->call('tasks/listTasks',
                                  array(null, null, null, $taskList, $taskType == 'future' ? 'all' : $taskType, true));
         if (is_a($tasks, 'PEAR_Error')) {
@@ -140,8 +140,8 @@ try {
         }
 
         $result = new stdClass;
-        $result->taskList = $taskList;
-        $result->taskType = $taskType;
+        $result->list = $taskList;
+        $result->type = $taskType;
         if (count($tasks)) {
             $result->tasks = $tasks;
         }
