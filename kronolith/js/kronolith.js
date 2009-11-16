@@ -236,9 +236,9 @@ KronolithCore = {
                 }
                 this.tasktype = tasktype;
                 [ 'All', 'Complete', 'Incomplete', 'Future' ].each(function(tasktype) {
-                    $('kronolithTasks' + tasktype).removeClassName('activeTab');
+                    $('kronolithTasks' + tasktype).parentNode.removeClassName('activeTab');
                 });
-                $('kronolithTasks' + this.tasktype.capitalize()).addClassName('activeTab');
+                $('kronolithTasks' + this.tasktype.capitalize()).parentNode.addClassName('activeTab');
                 this._loadTasks(this.tasktype);
                 if ($('kronolithView' + locCap)) {
                     this.viewLoading = true;
