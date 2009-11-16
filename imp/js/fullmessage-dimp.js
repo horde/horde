@@ -44,7 +44,7 @@ var DimpFullmessage = {
         var r = result.response,
             editor_on = ((r.format == 'html') && !DimpCompose.editor_on),
             id = (r.identity === null) ? $F('identity') : r.identity,
-            i = DimpCompose.get_identity(id, editor_on);
+            i = DimpCompose.getIdentity(id, editor_on);
 
         $('identity', 'last_identity').invoke('setValue', id);
 
