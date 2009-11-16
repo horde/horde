@@ -395,12 +395,18 @@ foreach ($display_headers as $head => $val) {
 }
 
 foreach ($atc_parts as $key) {
-    $summary = $imp_contents->getSummary($key, IMP_Contents::SUMMARY_SIZE | IMP_Contents::SUMMARY_DESCRIP_NOLINK_NOHTMLSPECCHARS | IMP_Contents::SUMMARY_DOWNLOAD_NOJS);
+    $summary = $imp_contents->getSummary($key, IMP_Contents::SUMMARY_BYTES | IMP_Contents::SUMMARY_SIZE | IMP_Contents::SUMMARY_DESCRIP_NOLINK_NOHTMLSPECCHARS | IMP_Contents::SUMMARY_DOWNLOAD_NOJS);
     $hb->add(new Horde_Mobile_text(_("Attachment") . ': ', array('b')));
     if (empty($summary['download'])) {
         $hb->add(new Horde_Mobile_text($summary['description']));
     } else {
-        $hb->add(new Horde_Mobile_link($summary['description'], Horde_Util::addParameter($self_link, array('a' => 'c', 'atc' => $key))));
+        /* Preference: if set, only show download confirmation screen if
+         * attachment over a certain size. */
+        $download_link = ($summary['bytes'] > $prefs->getValue('mimp_download_confirm'))
+            ? Horde_Util::addParameter($self_link, array('a' => 'c', 'atc' => $key))
+            : $summary['download'];
+
+        $hb->add(new Horde_Mobile_link($summary['description'], $download_link);
     }
     $t = &$hb->add(new Horde_Mobile_text(sprintf(' [%s] %s', $summary['type'], $summary['size']) . "\n"));
     $t->set('linebreaks', true);

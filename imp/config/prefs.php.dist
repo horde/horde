@@ -197,7 +197,7 @@ $prefGroups['mimp'] = array(
     'label' => _("Minimalist View Options"),
     'desc' => _("Configure options for the minimalist view."),
     'members' => array('mimp_preview_msg', 'mimp_max_from_chars',
-                       'mimp_max_subj_chars')
+                       'mimp_max_subj_chars', 'mimp_download_confirm')
 );
 
 $prefGroups['standard'] = array(
@@ -1609,6 +1609,14 @@ $_prefs['mimp_max_subj_chars'] = array(
     'shared' => false,
     'type' => 'number',
     'desc' => _("In the mailbox view, how many characters of Subject: lines should we show before truncating?")
+);
+
+$_prefs['mimp_download_confirm'] = array(
+    'value' => 0,
+    'locked' => true,
+    'shared' => false,
+    'type' => 'number',
+    'desc' => _("Only show download confirmation page if message part is greater than this size, in bytes. Set to 0 to always require the confirmation page.")
 );
 
 // End Minimalist View Options
