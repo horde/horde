@@ -484,11 +484,19 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     padding-right: 3px;
 }
 
+#partlist_toggle span.attachmentImg {
+    margin-right: 0;
+}
+
 #msgloglist {
     padding-top: 4px;
 }
 #msgloglist ul {
     list-style-type: none;
+}
+
+#msgloglist_toggle, #partlist_toggle {
+    cursor: pointer;
 }
 
 #msgHeadersContent {

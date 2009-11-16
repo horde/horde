@@ -66,7 +66,13 @@
 <?php endforeach; ?>
 <?php if (isset($show_msg_result['atc_label'])): ?>
         <tr id="msgAtc">
-         <td class="label"><?php if ($show_msg_result['atc_list']): ?><span class="iconImg attachmentImg attachmentImage"></span><a id="partlist_toggle"><span id="partlist_col" class="iconImg"></span><span id="partlist_exp" class="iconImg" style="display:none"></span></a><?php else: ?><span class="iconImg attachmentImg attachmentImage"></span><?php endif; ?></td>
+         <td class="label" id="partlist_toggle">
+          <span class="iconImg attachmentImg attachmentImage"></span>
+<?php if ($show_msg_result['atc_list']): ?>
+          <span id="partlist_col" class="iconImg"></span>
+          <span id="partlist_exp" class="iconImg" style="display:none"></span>
+<?php endif; ?>
+         </td>
          <td>
           <span class="atcLabel"><?php echo $show_msg_result['atc_label'] ?></span><?php echo isset($show_msg_result['atc_download']) ? $show_msg_result['atc_download'] : '' ?>
 <?php if (isset($show_msg_result['atc_list'])): ?>
@@ -80,9 +86,14 @@
         </tr>
 <?php endif; ?>
         <tr id="msgLogInfo" style="display:none">
-         <td class="label"><a id="msgloglist_toggle"><span class="iconImg" id="msgloglist_col"></span><span class="iconImg" id="msgloglist_exp" style="display:none"></span></a></td>
+         <td class="label" id="msgloglist_toggle">
+          <span class="iconImg" id="msgloglist_col"></span>
+          <span class="iconImg" id="msgloglist_exp" style="display:none"></span>
+         </td>
          <td>
-          <div><span class="msgLogLabel"><?php echo _("Message Log") ?></span></div>
+          <div>
+           <span class="msgLogLabel"><?php echo _("Message Log") ?></span>
+          </div>
           <div id="msgloglist" style="display:none">
            <ul></ul>
           </div>

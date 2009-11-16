@@ -276,7 +276,11 @@ function _simpleButton($id, $text, $image)
              <td class="cc"></td>
             </tr>
             <tr id="msgAtc" style="display:none">
-             <td class="label"><span class="iconImg attachmentImg attachmentImage"></span><a id="partlist_toggle"><span class="iconImg" id="partlist_col"></span><span class="iconImg" id="partlist_exp" style="display:none"></span></a></td>
+             <td class="label" id="partlist_toggle">
+              <span class="iconImg attachmentImg attachmentImage"></span>
+              <span class="iconImg" id="partlist_col"></span>
+              <span class="iconImg" id="partlist_exp" style="display:none"></span>
+              </td>
              <td>
               <div></div>
               <div id="partlist" style="display:none">
@@ -285,8 +289,9 @@ function _simpleButton($id, $text, $image)
              </td>
             </tr>
             <tr id="msgLogInfo" style="display:none">
-             <td class="label">
-              <a id="msgloglist_toggle"><span class="iconImg" id="msgloglist_col"></span><span class="iconImg" id="msgloglist_exp" style="display:none"></span></a>
+             <td class="label" id="msgloglist_toggle">
+              <span class="iconImg" id="msgloglist_col"></span>
+              <span class="iconImg" id="msgloglist_exp" style="display:none"></span>
              </td>
              <td>
               <div><span class="msgLogLabel"><?php echo _("Message Log") ?></span></div>
