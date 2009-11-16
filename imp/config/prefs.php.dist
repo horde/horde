@@ -1118,14 +1118,14 @@ $_prefs['msgflags'] = array(
             't' => 'imp'
         ),
         'highpri' => array(
-            'a' => '^',
+            'a' => '!',
             'b' => '#ffcccc',
             'c' => 'flagHighpriority',
             'l' => _("High Priority"),
             't' => 'imp'
         ),
         'lowpri' => array(
-            'a' => 'v',
+            'a' => '0',
             'c' => 'flagLowpriority',
             'l' => _("Low Priority"),
             't' => 'imp'
