@@ -596,8 +596,10 @@ div.mimeStatusMessage, div.mimePartInfo {
     background-color: transparent;
     background-position: center right;
     background-repeat: no-repeat;
-    padding: 0 1px;
     vertical-align: bottom;
+}
+.downloadAtc, .downloadZipAtc, .saveImgAtc {
+    margin-left: 1px;
 }
 .downloadAtc, .saveAsImg {
     background-image: url("graphics/download.png");
