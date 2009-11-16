@@ -125,29 +125,6 @@ try {
         }
         break;
 
-    case 'ListTasks':
-        if (!$registry->hasMethod('tasks/listTasks')) {
-            break;
-        }
-
-        $tasklist = Horde_Util::getFormData('list');
-        $tasktype = Horde_Util::getFormData('type');
-        $tasks = $registry->call('tasks/listTasks',
-                                 array(null, null, null, $tasklist, $tasktype == 'future' ? 'all' : $tasktype, true));
-        if (is_a($tasks, 'PEAR_Error')) {
-            $notification->push($tasks, 'horde.error');
-            break;
-        }
-
-        $result = new stdClass;
-        $result->list = $tasklist;
-        $result->type = $tasktype;
-        $result->sig = Horde_Util::getFormData('sig');
-        if (count($tasks)) {
-            $result->tasks = $tasks;
-        }
-        break;
-
     case 'GetEvent':
         if (!($kronolith_driver = getDriver(Horde_Util::getFormData('cal')))) {
             break;
@@ -346,6 +323,29 @@ try {
         $tags = $tagger->getCloud(Horde_Auth::getAuth(), 10);
         foreach ($tags as $tag) {
             $result->tags[] = $tag['tag_name'];
+        }
+        break;
+
+    case 'ListTasks':
+        if (!$registry->hasMethod('tasks/listTasks')) {
+            break;
+        }
+
+        $tasklist = Horde_Util::getFormData('list');
+        $tasktype = Horde_Util::getFormData('type');
+        $tasks = $registry->call('tasks/listTasks',
+                                 array(null, null, null, $tasklist, $tasktype == 'future' ? 'all' : $tasktype, true));
+        if (is_a($tasks, 'PEAR_Error')) {
+            $notification->push($tasks, 'horde.error');
+            break;
+        }
+
+        $result = new stdClass;
+        $result->list = $tasklist;
+        $result->type = $tasktype;
+        $result->sig = Horde_Util::getFormData('sig');
+        if (count($tasks)) {
+            $result->tasks = $tasks;
         }
         break;
 
