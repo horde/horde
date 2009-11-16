@@ -906,7 +906,8 @@ class Nag_Api extends Horde_Registry_Api
             return $task;
         }
 
-        if (!array_key_exists($task->tasklist, Nag::listTasklists(false, PERMS_READ))) {
+        if (!array_key_exists($task->tasklist,
+                              Nag::listTasklists(false, PERMS_READ))) {
             return PEAR::raiseError(_("Permission Denied"));
         }
 
@@ -944,6 +945,12 @@ class Nag_Api extends Horde_Registry_Api
     public function getTask($tasklist, $id)
     {
         require_once dirname(__FILE__) . '/base.php';
+
+        if (!array_key_exists($tasklist,
+                              Nag::listTasklists(false, PERMS_READ))) {
+            return PEAR::raiseError(_("Permission Denied"));
+        }
+
         $storage = Nag_Driver::singleton($tasklist);
         return $storage->get($id);
     }
