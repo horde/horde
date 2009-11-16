@@ -1567,22 +1567,34 @@ KronolithCore = {
         tasktypes.each(function(type) {
             var tasks = this.tcache.get(type).get(tasklist);
             $H(tasks).each(function(task) {
+                if (tasktype != 'all' &&
+                    !Object.isUndefined(task.value.start) &&
+                    task.value.start.isAfter(now)) {
+                    (function() {
+                        if (this.tasktype == tasktype) {
+                            this._insertTasks(tasktype, tasklist);
+                        }
+                    }).bind(this).delay((task.value.start.getTime() - now.getTime()) / 1000);
+                }
+
                 switch (tasktype) {
                 case 'complete':
-                    if (!task.value.cp) {
+                    if (!task.value.cp ||
+                        (!Object.isUndefined(task.value.start) &&
+                         task.value.start.isAfter(now))) {
                         return;
                     }
                     break;
                 case 'incomplete':
-                    if (task.value.cp) {
+                    if (task.value.cp ||
+                        (!Object.isUndefined(task.value.start) &&
+                         task.value.start.isAfter(now))) {
                         return;
                     }
                     break;
                 case 'future':
-                    if (!Object.isUndefined(task.value.start) &&
-                        task.value.start.isAfter(now)) {
-                        this._insertTasks.delay((task.value.start.getTime() - now.getTime()) / 1000, tasktype, tasklist);
-                    } else {
+                    if (Object.isUndefined(task.value.start) ||
+                        !task.value.start.isAfter(now)) {
                         return;
                     }
                     break;
@@ -1642,7 +1654,10 @@ KronolithCore = {
             var rowTasklist = rows[i].retrieve('tasklist');
             var rowTaskId = rows[i].retrieve('taskid');
             var rowTask = this.tcache.inject(null, function(acc, list) {
-                if (!acc && !Object.isUndefined(list.value.get(rowTasklist))) {
+                if (acc) {
+                    return acc;
+                }
+                if (!Object.isUndefined(list.value.get(rowTasklist))) {
                     return list.value.get(rowTasklist).get(rowTaskId);
                 }
             });
@@ -1964,6 +1979,12 @@ KronolithCore = {
         }, this);
 
         $H(tasks).each(function(task) {
+            if (!Object.isUndefined(task.value.s)) {
+                task.value.start = Date.parse(task.value.s);
+            }
+            if (!Object.isUndefined(task.value.du)) {
+                task.value.due = Date.parse(task.value.du);
+            }
             taskHashes[task.value.cp ? 'complete' : 'incomplete'].set(task.key, task.value);
         });
     },
