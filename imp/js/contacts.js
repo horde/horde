@@ -155,7 +155,7 @@ var ImpContacts = {
 
             switch (id) {
             case 'btn_clear':
-                $('search').setValue('');
+                $('search').clear();
                 break;
 
             case 'btn_add_to':

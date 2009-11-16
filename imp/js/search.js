@@ -122,7 +122,7 @@ var ImpSearch = {
         switch (elt.readAttribute('id')) {
         case 'recent_searches':
             this.updateSearchCriteria(this.saved_searches[$F(elt)]);
-            elt.setValue('');
+            elt.clear();
             break;
 
         case 'search_criteria':
@@ -208,7 +208,7 @@ var ImpSearch = {
         tds.shift();
 
         tr.childElements().last().insert(new Element('A', { href: '#', className: 'searchuiImg searchuiDelete' }));
-        $('search_criteria').setValue('');
+        $('search_criteria').clear();
         $('search_criteria_table').insert(tr);
         return tr.identify();
     },

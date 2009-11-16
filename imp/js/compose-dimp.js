@@ -52,7 +52,7 @@ var DimpCompose = {
             this.removeAttach(al);
         }
 
-        $('composeCache').setValue('');
+        $('composeCache').clear();
         $('qreply', 'sendcc', 'sendbcc').invoke('hide');
         [ $('msgData'), $('togglecc'), $('togglebcc') ].invoke('show');
         if (this.editor_on) {
