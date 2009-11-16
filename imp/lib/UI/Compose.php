@@ -17,13 +17,18 @@ class IMP_UI_Compose
      */
     public function expandAddresses($input, $imp_compose)
     {
-        $result = $imp_compose->expandAddresses($this->getAddressList($input));
+        $addr_list = $this->getAddressList($input);
+        if (empty($addr_list)) {
+            return '';
+        }
 
-        if (is_array($result)) {
+        $res = $imp_compose->expandAddresses($addr_list);
+
+        if (is_array($res)) {
             $GLOBALS['notification']->push(_("Please resolve ambiguous or invalid addresses."), 'horde.warning');
         }
 
-        return $result;
+        return $res;
     }
 
     /**
@@ -129,7 +134,7 @@ class IMP_UI_Compose
     /**
      */
     public function getAddressList($to, $to_list = array(), $to_field = array(),
-                            $to_new = '', $expand = false)
+                                   $to_new = '', $expand = false)
     {
         $to = rtrim(trim($to), ',');
         if (!empty($to)) {
