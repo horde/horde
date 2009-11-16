@@ -196,7 +196,8 @@ $prefGroups['mimp'] = array(
     'column' => _("Other Options"),
     'label' => _("Minimalist View Options"),
     'desc' => _("Configure options for the minimalist view."),
-    'members' => array('mimp_preview_msg')
+    'members' => array('mimp_preview_msg', 'mimp_max_from_chars',
+                       'mimp_max_subj_chars')
 );
 
 $prefGroups['standard'] = array(
