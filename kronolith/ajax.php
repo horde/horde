@@ -130,18 +130,18 @@ try {
             break;
         }
 
-        $taskList = Horde_Util::getFormData('list');
-        $taskType = Horde_Util::getFormData('type');
+        $tasklist = Horde_Util::getFormData('list');
+        $tasktype = Horde_Util::getFormData('type');
         $tasks = $registry->call('tasks/listTasks',
-                                 array(null, null, null, $taskList, $taskType == 'future' ? 'all' : $taskType, true));
+                                 array(null, null, null, $tasklist, $tasktype == 'future' ? 'all' : $tasktype, true));
         if (is_a($tasks, 'PEAR_Error')) {
             $notification->push($tasks, 'horde.error');
             break;
         }
 
         $result = new stdClass;
-        $result->list = $taskList;
-        $result->type = $taskType;
+        $result->list = $tasklist;
+        $result->type = $tasktype;
         if (count($tasks)) {
             $result->tasks = $tasks;
         }
@@ -373,20 +373,16 @@ try {
         if (!$registry->hasMethod('tasks/toggleCompletion')) {
             break;
         }
-        $taskList = Horde_Util::getFormData('taskList');
-        $taskType = Horde_Util::getFormData('taskType');
-        $taskId = Horde_Util::getFormData('taskId');
+        $tasklist = Horde_Util::getFormData('list');
+        $taskid = Horde_Util::getFormData('id');
         $saved = $registry->call('tasks/toggleCompletion',
-                                 array($taskId, $taskList));
+                                 array($taskid, $tasklist));
         if (is_a($saved, 'PEAR_Error')) {
             $notification->push($saved, 'horde.error');
             break;
         }
 
         $result = new stdClass;
-        $result->taskList = $taskList;
-        $result->taskType = $taskType;
-        $result->taskId = $taskId;
         $result->toggled = true;
         break;
 
