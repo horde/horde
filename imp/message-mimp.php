@@ -405,8 +405,7 @@ foreach ($atc_parts as $key) {
         $download_link = ($summary['bytes'] > $prefs->getValue('mimp_download_confirm'))
             ? Horde_Util::addParameter($self_link, array('a' => 'c', 'atc' => $key))
             : $summary['download'];
-
-        $hb->add(new Horde_Mobile_link($summary['description'], $download_link);
+        $hb->add(new Horde_Mobile_link($summary['description'], $download_link));
     }
     $t = &$hb->add(new Horde_Mobile_text(sprintf(' [%s] %s', $summary['type'], $summary['size']) . "\n"));
     $t->set('linebreaks', true);
