@@ -1686,7 +1686,10 @@ KronolithCore = {
     {
         // Update the cache.
         var task = this.tcache.inject(null, function(acc, list) {
-            if (!acc && !Object.isUndefined(list.value.get(tasklist))) {
+            if (acc) {
+                return acc;
+            }
+            if (!Object.isUndefined(list.value.get(tasklist))) {
                 return list.value.get(tasklist).get(taskid);
             }
         });
@@ -1696,6 +1699,9 @@ KronolithCore = {
             return;
         }
         task.cp = !task.cp;
+
+        this.tcache.get(task.cp ? 'complete' : 'incomplete').get(tasklist).set(taskid, task);
+        this.tcache.get(task.cp ? 'incomplete' : 'complete').get(tasklist).unset(taskid);
 
         // Remove row if necessary.
         var row = this._getTaskRow(taskid);
