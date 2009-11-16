@@ -1,6 +1,7 @@
 <div id="kronolithEventDialog" style="display:none">
 <form id="kronolithEventForm" action="">
 <input id="kronolithEventId" type="hidden" name="id" />
+<input id="kronolithEventCalendar" type="hidden" name="cal" />
 
 <div>
   <label for="kronolithEventTitle"><?php echo _("Event title") ?>:</label><br />
@@ -10,7 +11,7 @@
 <table cellspacing="0" cellpadding="0" border="0"><tbody><tr>
   <td>
     <label for="kronolithEventCalendar"><?php echo _("Calendar") ?>:</label><br />
-    <select name="cal" id="kronolithEventCalendar">
+    <select name="targetcalendar" id="kronolithEventTarget">
     </select>
   </td>
   <td>

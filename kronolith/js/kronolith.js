@@ -2225,10 +2225,16 @@ KronolithCore = {
                                   if (r.response.deleted) {
                                       this._removeEvent(eventid, cal);
                                   } else {
-                                      $('kronolithBody').select('div').findAll(function(el) { return el.retrieve('calendar') == cal && el.retrieve('eventid') == eventid; }).invoke('toggle');
+                                      $('kronolithBody').select('div').findAll(function(el) {
+                                          return el.retrieve('calendar') == cal &&
+                                              el.retrieve('eventid') == eventid;
+                                      }).invoke('toggle');
                                   }
                               }.bind(this));
-                $('kronolithBody').select('div').findAll(function(el) { return el.retrieve('calendar') == cal && el.retrieve('eventid') == eventid; }).invoke('hide');
+                $('kronolithBody').select('div').findAll(function(el) {
+                    return el.retrieve('calendar') == cal &&
+                        el.retrieve('eventid') == eventid;
+                }).invoke('hide');
                 this._closeRedBox();
                 window.history.back();
                 e.stop();
@@ -2539,7 +2545,7 @@ KronolithCore = {
             RedBox.onDisplay = null;
         };
 
-        this.updateCalendarDropDown('kronolithEventCalendar');
+        this.updateCalendarDropDown('kronolithEventTarget');
         $('kronolithEventForm').enable();
         $('kronolithEventForm').reset();
         this.doAction('ListTopTags', {}, this._topTags);
@@ -2550,7 +2556,8 @@ KronolithCore = {
             $('kronolithEventTags').autocompleter.init();
             var d = date ? this.parseDate(date) : new Date();
             $('kronolithEventId').clear();
-            $('kronolithEventCalendar').setValue(Kronolith.conf.default_calendar);
+            $('kronolithEventCalendar').clear();
+            $('kronolithEventTarget').setValue(Kronolith.conf.default_calendar);
             $('kronolithEventDelete').hide();
             $('kronolithEventStartDate').setValue(d.toString(Kronolith.conf.date_format));
             $('kronolithEventStartTime').setValue(d.toString(Kronolith.conf.time_format));
@@ -2647,6 +2654,7 @@ KronolithCore = {
         /* Basic information */
         $('kronolithEventId').setValue(ev.id);
         $('kronolithEventCalendar').setValue(ev.ty + '|' + ev.c);
+        $('kronolithEventTarget').setValue(ev.ty + '|' + ev.c);
         $('kronolithEventTitle').setValue(ev.t);
         $('kronolithEventLocation').setValue(ev.l);
         $('kronolithEventAllday').setValue(ev.al);
