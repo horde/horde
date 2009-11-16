@@ -68,7 +68,7 @@ class Nag_Api extends Horde_Registry_Api
             $completed = $completedArray[$completed];
         }
 
-        $tasks = Nag::listTasks($sortby, $sortdir, $altsortby, $tasklists);
+        $tasks = Nag::listTasks($sortby, $sortdir, $altsortby, $tasklists, $completed);
         $tasks->reset();
         $list = array();
         while ($task = $tasks->each()) {

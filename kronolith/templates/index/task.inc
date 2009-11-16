@@ -8,7 +8,7 @@
 </div>
 
 <div>
-  <label><input type="checkbox" name="" value="" /> <?php echo _("completed") ?></label>
+  <label><input type="checkbox" name="completed" id="kronolithTaskCompleted" value="" /> <?php echo _("completed") ?></label>
 </div>
 
 <table cellspacing="" cellpadding="0" border="0"><tbody><tr>
