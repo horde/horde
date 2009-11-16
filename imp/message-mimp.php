@@ -71,7 +71,7 @@ case 'u':
 case 'rs':
 case 'ri':
     if (IMP_Spam::reportSpam(array($index_array['mailbox'] => array($index_array['uid'])), $actionID == 'rs' ? 'spam' : 'innocent') === 1) {
-        $delete_msg = true;
+        $msg_delete = true;
         break;
     }
     break;
@@ -88,7 +88,7 @@ if ($imp_ui->moveAfterAction()) {
  * message array, so we will return to mailbox.php if that is the
  * case. */
 if (!$imp_mailbox->isValidIndex() ||
-    ($delete_msg && $prefs->getValue('mailbox_return'))) {
+    ($msg_delete && $prefs->getValue('mailbox_return'))) {
     header('Location: ' . Horde_Util::addParameter(IMP::generateIMPUrl('mailbox-mimp.php', $imp_mbox['mailbox']), array('s' => $imp_mailbox->getMessageIndex()), null, false));
     exit;
 }
