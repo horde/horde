@@ -62,8 +62,6 @@ class Horde_Notification_Listener_Mobile extends Horde_Notification_Listener_Sta
             while ($message = array_shift($messageStack)) {
                 $this->getMessage($message);
             }
-            $t = &$this->_mobile->add(new Horde_Mobile_text("\n"));
-            $t->set('linebreaks', true);
         }
     }
 
