@@ -564,7 +564,7 @@ foreach ($all_list_headers as $head => $val) {
 }
 
 /* Determine the fields that will appear in the MIME info entries. */
-$part_info = $part_info_display = array('icon', 'description', 'type', 'size');
+$part_info = $part_info_display = array('icon', 'description', 'size');
 $part_info_action = array('download', 'download_zip', 'img_save', 'strip');
 
 $show_parts = Horde_Util::getFormData('show_parts', $prefs->getValue('parts_display'));
