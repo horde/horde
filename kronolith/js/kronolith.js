@@ -1383,10 +1383,19 @@ KronolithCore = {
         return div;
     },
 
+    /**
+     * Finally removes an event from the DOM and the cache.
+     *
+     * @param string event     An event id.
+     * @param string calendar  A calendar name.
+     */
     _removeEvent: function(event, calendar)
     {
         this._deleteCache(event, calendar);
-        $('kronolithBody').select('div').findAll(function(el) { return el.retrieve('calendar') == calendar && el.retrieve('eventid') == event; }).invoke('remove');
+        $('kronolithBody').select('div').findAll(function(el) {
+            return el.retrieve('calendar') == calendar &&
+                el.retrieve('eventid') == event;
+        }).invoke('remove');
     },
 
     /**
