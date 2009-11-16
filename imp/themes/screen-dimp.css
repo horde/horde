@@ -900,7 +900,7 @@ span.dimpactionDrafts {
 #ctx_draft_resume span.contextImg {
     background-image: url("graphics/mail_draft.png");
 }
-#previewtoggle span.contextImg {
+#oa_preview_hide span.contextImg, #oa_preview_show span.contextImg {
     background-image: url("graphics/preview.png");
 }
 #oa_selectall span.contextImg {

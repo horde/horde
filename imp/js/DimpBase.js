@@ -764,7 +764,8 @@ var DimpBase = {
             this.composeMailbox(id.substring(10));
             break;
 
-        case 'previewtoggle':
+        case 'oa_preview_hide':
+        case 'oa_preview_show':
             this.togglePreviewPane();
             break;
 
@@ -872,6 +873,13 @@ var DimpBase = {
             break;
 
         case 'ctx_otheractions':
+            if (DIMP.conf.preview_pref) {
+                $('oa_preview_hide').show();
+                $('oa_preview_show').hide();
+            } else {
+                $('oa_preview_hide').hide();
+                $('oa_preview_show').show();
+            }
             tmp = [ $('oa_undeleted') ];
             $('oa_blacklist', 'oa_whitelist').each(function(o) {
                 if (o) {
@@ -1017,7 +1025,7 @@ var DimpBase = {
     togglePreviewPane: function()
     {
         var p = DIMP.conf.preview_pref = !DIMP.conf.preview_pref;
-        $('previewtoggle').setText(p ? DIMP.text.hide_preview : DIMP.text.show_preview);
+        $('oa_preview_hide', 'oa_preview_show').invoke('toggle');
         this._updatePrefs('show_preview', Number(p));
         this.viewport.showSplitPane(p);
         if (p) {

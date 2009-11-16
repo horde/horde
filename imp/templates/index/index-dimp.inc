@@ -415,7 +415,8 @@ function _simpleButton($id, $text, $image)
 </div>
 
 <div class="context" id="ctx_otheractions" style="display:none">
- <a id="previewtoggle"><span class="contextImg"></span><?php echo ($prefs->getValue('dimp_show_preview') ? _("Hide Preview") : _("Show Preview")); ?></a>
+ <a id="oa_preview_hide"><span class="contextImg"></span><?php echo _("Hide Preview") ?></a>
+ <a id="oa_preview_show"><span class="contextImg"></span><?php echo _("Show Preview") ?></a>
 <?php if (!empty($flag_list)): ?>
  <div>
   <div class="sep"></div>
