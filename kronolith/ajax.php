@@ -142,6 +142,7 @@ try {
         $result = new stdClass;
         $result->list = $tasklist;
         $result->type = $tasktype;
+        $result->sig = Horde_Util::getFormData('sig');
         if (count($tasks)) {
             $result->tasks = $tasks;
         }

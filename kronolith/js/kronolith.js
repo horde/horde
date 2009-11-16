@@ -1507,10 +1507,11 @@ KronolithCore = {
                 if (Object.isUndefined(this.tcache.get(type)) ||
                     Object.isUndefined(this.tcache.get(type).get(list))) {
                     loading = true;
-                    this.startLoading('tasks:' + list, type, '');
+                    this.startLoading('tasks:' + type + list, tasktype, '');
                     this._storeTasksCache($H(), type, list);
                     this.doAction('ListTasks',
                                   { 'type': type,
+                                    'sig' : tasktype,
                                     'list': list },
                                   function(r) {
                                       this._loadTasksCallback(r, tasktype);
@@ -1543,7 +1544,7 @@ KronolithCore = {
 
         // Check if this is the still the result of the most current request.
         if (this.view != 'tasks' ||
-            this.eventsLoading['tasks:' + r.response.list] != r.response.type) {
+            this.eventsLoading['tasks:' + r.response.type + r.response.list] != r.response.sig) {
             return;
         }
         this._insertTasks(tasktype, r.response.list);
@@ -1708,7 +1709,7 @@ KronolithCore = {
     },
 
     /**
-     * Toggles the CSS class to show that a tasks is completed/uncompleted.
+     * Toggles the CSS class to show that a task is completed/uncompleted.
      *
      * @param string taskid  The id of the task.
      */
