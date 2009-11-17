@@ -370,6 +370,65 @@ try {
         $result->task = $task->toJson(true, $prefs->getValue('twentyFour') ? 'H:i' : 'h:i A');
         break;
 
+    case 'SaveTask':
+        if (!$registry->hasMethod('tasks/updateTask')) {
+            break;
+        }
+        if (is_null($id = Horde_Util::getFormData('task_id')) ||
+            is_null($list = Horde_Util::getFormData('old_tasklist'))) {
+            break;
+        }
+        $task = Horde_Util::getFormData('task');
+
+        $due = trim($task['due_date'] . ' ' . $task['due_time']);
+        if (!empty($due)) {
+            // strptime() is locale dependent, i.e. %p is not always matching
+            // AM/PM. Set the locale to C to workaround this, but grab the
+            // locale's D_FMT before that.
+            $date_format = Horde_Nls::getLangInfo(D_FMT);
+            $old_locale = setlocale(LC_TIME, 0);
+            setlocale(LC_TIME, 'C');
+            $format = $date_format . ' '
+                . ($prefs->getValue('twentyFour') ? '%H:%M' : '%I:%M %p');
+
+            // Try exact format match first.
+            if ($date_arr = strptime($due, $format)) {
+                $task['due'] = new Horde_Date(
+                    array('year'  => $date_arr['tm_year'] + 1900,
+                          'month' => $date_arr['tm_mon'] + 1,
+                          'mday'  => $date_arr['tm_mday'],
+                          'hour'  => $date_arr['tm_hour'],
+                          'min'   => $date_arr['tm_min'],
+                          'sec'   => $date_arr['tm_sec']));
+            } else {
+                $task['due'] = new Horde_Date($due);
+            }
+            setlocale(LC_TIME, $old_locale);
+        }
+
+        if ($task['alarm']['on']) {
+            $task['alarm'] = $task['alarm']['value'] * $task['alarm']['unit'];
+        } else {
+            $task['alarm'] = 0;
+        }
+
+        $result = $registry->tasks->updateTask($list, $id, $task);
+        if (is_a($result, 'PEAR_Error')) {
+            $notification->push($result, 'horde.error');
+            break;
+        }
+        $task = $registry->tasks->getTask($task['tasklist'], $id);
+        if (is_a($task, 'PEAR_Error')) {
+            $notification->push($task, 'horde.error');
+            break;
+        }
+        $result = new stdClass;
+        $result->type = $task->completed ? 'complete' : 'incomplete';
+        $result->list = $task->tasklist;
+        $result->sig = Horde_Util::getFormData('sig');
+        $result->tasks = array($id => $task->toJson(false, $prefs->getValue('twentyFour') ? 'H:i' : 'h:i A'));
+        break;
+
     case 'DeleteTask':
         if (!$registry->hasMethod('tasks/deleteTask')) {
             break;

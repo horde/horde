@@ -1516,13 +1516,13 @@ KronolithCore = {
                     Object.isUndefined(this.tcache.get(type).get(list))) {
                     loading = true;
                     this.startLoading('tasks:' + type + list, tasktype);
-                    this._storeTasksCache($H(), type, list);
+                    this._storeTasksCache($H(), type, list, true);
                     this.doAction('ListTasks',
                                   { 'type': type,
                                     'sig' : tasktype,
                                     'list': list },
                                   function(r) {
-                                      this._loadTasksCallback(r, tasktype);
+                                      this._loadTasksCallback(r, tasktype, true);
                                   }.bind(this));
                 }
             }, this);
@@ -1538,9 +1538,15 @@ KronolithCore = {
     /**
      * Callback method for inserting tasks in the current view.
      *
-     * @param object r  The ajax response object.
+     * @param object r             The ajax response object.
+     * @param string tasktype      The (UI) task type for that the response was
+     *                             targeted.
+     * @param boolean createCache  Whether to create a cache list entry for the
+     *                             response, if none exists yet. Useful for
+     *                             adding individual tasks to the cache without
+     *                             assuming to have all tasks of the list.
      */
-    _loadTasksCallback: function(r, tasktype)
+    _loadTasksCallback: function(r, tasktype, createCache)
     {
         // Hide spinner.
         this.loading--;
@@ -1548,7 +1554,7 @@ KronolithCore = {
             $('kronolithLoading').hide();
         }
 
-        this._storeTasksCache(r.response.tasks || {}, r.response.type, r.response.list);
+        this._storeTasksCache(r.response.tasks || {}, r.response.type, r.response.list, createCache);
 
         // Check if this is the still the result of the most current request.
         if (this.view != 'tasks' ||
@@ -1671,12 +1677,6 @@ KronolithCore = {
                 }
             });
 
-            // TODO: Assuming that tasks of the same tasklist are already in
-            // order
-            if (rowTasklist == newTask.value.l) {
-                continue;
-            }
-
             if (Object.isUndefined(rowTask)) {
                 // TODO: Throw error
                 return;
@@ -1783,7 +1783,7 @@ KronolithCore = {
         } else {
             $('kronolithTaskId').clear();
             $('kronolithTaskOldList').clear();
-            $('kronolithTaskList').setValue(Kronolith.conf.default_tasklist);
+            //$('kronolithTaskList').setValue(Kronolith.conf.default_tasklist);
             $('kronolithTaskDelete').hide();
             $('kronolithTaskDueDate').setValue(d.toString(Kronolith.conf.date_format));
             $('kronolithTaskDueTime').setValue(d.toString(Kronolith.conf.time_format));
@@ -1847,7 +1847,7 @@ KronolithCore = {
         $('kronolithTaskList').update();
         $H(Kronolith.conf.calendars.tasklists).each(function(cal) {
             if (cal.value.edit) {
-                $('kronolithTaskList').insert(new Element('OPTION', { 'value': 'tasks|' + cal.key })
+                $('kronolithTaskList').insert(new Element('OPTION', { 'value': cal.key.substring(6) })
                              .setStyle({ 'backgroundColor': cal.value.bg, 'color': cal.value.fg })
                              .update(cal.value.name.escapeHTML()));
             }
@@ -1867,6 +1867,27 @@ KronolithCore = {
             return el.retrieve('tasklist') == list &&
                 el.retrieve('taskid') == task;
         }).remove();
+    },
+
+    /**
+     * Submits the task edit form to create or update a task.
+     */
+    saveTask: function()
+    {
+        var tasklist = $F('kronolithTaskList'),
+            taskid = $F('kronolithTaskId');
+        this.startLoading('tasks:' + ($F('kronolithTaskCompleted') ? 'complete' : 'incomplete') + tasklist, this.tasktype);
+        this.doAction('SaveTask',
+                      $H($('kronolithTaskForm').serialize({ 'hash': true }))
+                          .merge({ 'sig': this.tasktype }),
+                      function(r) {
+                          if (r.response.tasks && taskid) {
+                              this._removeTask(taskid, tasklist);
+                              this._loadTasksCallback(r, this.tasktype, false);
+                          }
+                          this._closeRedBox();
+                          window.history.back();
+                      }.bind(this));
     },
 
     /**
@@ -1980,13 +2001,15 @@ KronolithCore = {
     /**
      * Stores a set of tasks in the cache.
      *
-     * @param Hash tasks        The tasks to be stored.
-     * @param string tasktypes  The task type that's being stored.
-     * @param string tasklist   The task list to which the tasks belong.
+     * @param Hash tasks           The tasks to be stored.
+     * @param string tasktypes     The task type that's being stored.
+     * @param string tasklist      The task list to which the tasks belong.
+     * @param boolean createCache  Whether to create a cache list entry for the
+     *                             response, if none exists yet.
      */
-    _storeTasksCache: function(tasks, tasktypes, tasklist)
+    _storeTasksCache: function(tasks, tasktypes, tasklist, createCache)
     {
-        var taskHashes = {};
+        var taskHashes = {}, cacheExists = {};
 
         if (tasktypes == 'all' || tasktypes == 'future') {
             tasktypes = [ 'complete', 'incomplete' ];
@@ -1995,23 +2018,39 @@ KronolithCore = {
         }
 
         tasktypes.each(function(tasktype) {
+            cacheExists[tasktype] = false;
             if (!this.tcache.get(tasktype)) {
-                this.tcache.set(tasktype, $H());
+                if (createCache) {
+                    this.tcache.set(tasktype, $H());
+                } else {
+                    return;
+                }
             }
             if (!this.tcache.get(tasktype).get(tasklist)) {
-                this.tcache.get(tasktype).set(tasklist, $H());
+                if (createCache) {
+                    this.tcache.get(tasktype).set(tasklist, $H());
+                    cacheExists[tasktype] = true;
+                } else {
+                    return;
+                }
+            } else {
+                cacheExists[tasktype] = true;
             }
             taskHashes[tasktype] = this.tcache.get(tasktype).get(tasklist);
         }, this);
 
         $H(tasks).each(function(task) {
+            var tasktype = task.value.cp ? 'complete' : 'incomplete';
+            if (!cacheExists[tasktype]) {
+                return;
+            }
             if (!Object.isUndefined(task.value.s)) {
                 task.value.start = Date.parse(task.value.s);
             }
             if (!Object.isUndefined(task.value.du)) {
                 task.value.due = Date.parse(task.value.du);
             }
-            taskHashes[task.value.cp ? 'complete' : 'incomplete'].set(task.key, task.value);
+            taskHashes[tasktype].set(task.key, task.value);
         });
     },
 
@@ -2131,6 +2170,11 @@ KronolithCore = {
                 switch (form.identify()) {
                 case 'kronolithEventForm':
                     this.saveEvent();
+                    e.stop();
+                    break;
+
+                case 'kronolithTaskForm':
+                    this.saveTask();
                     e.stop();
                     break;
 
@@ -2256,6 +2300,11 @@ KronolithCore = {
 
             case 'kronolithEventSave':
                 this.saveEvent();
+                e.stop();
+                return;
+
+            case 'kronolithTaskSave':
+                this.saveTask();
                 e.stop();
                 return;
 
@@ -2635,6 +2684,9 @@ KronolithCore = {
         }
     },
 
+    /**
+     * Submits the event edit form to create or update an event.
+     */
     saveEvent: function()
     {
         var cal = $F('kronolithEventCalendar'),

@@ -1148,6 +1148,48 @@ class Nag_Api extends Horde_Registry_Api
     }
 
     /**
+     * Changes a task identified by tasklist and ID.
+     *
+     * @param string $tasklist  A tasklist id.
+     * @param string $id        A task id.
+     * @param array $task       A hash with overwriting task information.
+     */
+    public function updateTask($tasklist, $id, $task)
+    {
+        require_once dirname(__FILE__) . '/base.php';
+
+        if (!Horde_Auth::isAdmin() &&
+            !array_key_exists($tasklist,
+                              Nag::listTasklists(false, PERMS_EDIT))) {
+            return PEAR::raiseError(_("Permission Denied"));
+        }
+
+        $storage = Nag_Driver::singleton($tasklist);
+        $existing = $storage->get($id);
+        if (is_a($existing, 'PEAR_Error')) {
+            return $existing;
+        }
+
+        return $storage->modify(
+            $id,
+            isset($task['name']) ? $task['name'] : $existing->name,
+            isset($task['desc']) ? $task['desc'] : $existing->desc,
+            isset($task['start']) ? $task['start'] : $existing->start,
+            isset($task['due']) ? $task['due'] : $existing->due,
+            isset($task['priority']) ? $task['priority'] : $existing->priority,
+            isset($task['estimate']) ? $task['estimate'] : $existing->estimate,
+            isset($task['completed']) ? (int)$task['completed'] : $existing->completed,
+            isset($task['category']) ? $task['category'] : $existing->category,
+            isset($task['alarm']) ? $task['alarm'] : $existing->alarm,
+            isset($task['parent_id']) ? $task['parent_id'] : $existing->parent_id,
+            isset($task['private']) ? $task['private'] : $existing->private,
+            isset($task['owner']) ? $task['owner'] : $existing->owner,
+            isset($task['assignee']) ? $task['assignee'] : $existing->assignee,
+            $task['completed'] && !$existing->completed ? date() : $existing->completed_date,
+            isset($task['tasklist']) ? $task['tasklist'] : $existing->tasklist);
+    }
+
+    /**
      * Lists active tasks as cost objects.
      *
      * @todo Implement $criteria parameter.

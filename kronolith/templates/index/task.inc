@@ -5,18 +5,18 @@
 
 <div>
   <label for="kronolithTaskTitle"><?php echo _("Name") ?>:</label><br />
-  <input type="text" name="name" id="kronolithTaskTitle" class="kronolithLongField" />
+  <input type="text" name="task[name]" id="kronolithTaskTitle" class="kronolithLongField" />
 </div>
 
 <div>
-  <label><input type="checkbox" name="completed" id="kronolithTaskCompleted" value="" /> <?php echo _("completed") ?></label>
+  <label><input type="checkbox" name="task[completed]" id="kronolithTaskCompleted" value="1" /> <?php echo _("completed") ?></label>
 </div>
 
 <table cellspacing="" cellpadding="0" border="0"><tbody><tr>
   <td>
     <div>
       <label for="kronolithTaskPriority"><?php echo _("Priority") ?>:</label><br />
-      <select name="priority" id="kronolithTaskPriority">
+      <select name="task[priority]" id="kronolithTaskPriority">
         <?php foreach (array(1 => '1 ' . _("(highest)"), 2 => 2, 3 => 3, 4 => 4, 5 => '5 ' . _("(lowest)")) as $prio => $label): ?>
         <option value="<?php echo $prio ?>"><?php echo $label ?></option>
         <?php endforeach; ?>
@@ -26,16 +26,16 @@
   <td>
     <div>
       <label for="kronolithTaskList"><?php echo _("Task List") ?>:</label><br />
-      <select name="tasklist_id" id="kronolithTaskList">
+      <select name="task[tasklist]" id="kronolithTaskList">
       </select>
     </div>
   </td>
   <td>
     <div>
       <label><?php echo _("Due date") ?>:</label><br />
-      <input type="text" name="due_date" id="kronolithTaskDueDate" size="10" class="kronolithDatePicker" />
+      <input type="text" name="task[due_date]" id="kronolithTaskDueDate" size="10" class="kronolithDatePicker" />
       <?php echo _("at") ?>
-      <input type="text" name="due_time" id="kronolithTaskDueTime" size="8" />
+      <input type="text" name="task[due_time]" id="kronolithTaskDueTime" size="8" />
     </div>
   </td>
 </tr></tbody></table>
@@ -50,16 +50,16 @@
 <br class="clear" />
 
 <div id="kronolithTaskTabDescription" class="kronolithTabsOption">
-  <textarea name="desc" id="kronolithTaskDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
+  <textarea name="task[desc]" id="kronolithTaskDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
 </div>
 
 <div id="kronolithTaskTabReminder" class="kronolithTabsOption" style="display:none">
-   <label><input type="radio" name="nag_alarm[on]" id="kronolithTaskAlarmOff" value="0" checked="checked" /> <?php echo _("don't set") ?></label>
+   <label><input type="radio" name="task[alarm][on]" id="kronolithTaskAlarmOff" value="0" checked="checked" /> <?php echo _("don't set") ?></label>
    <?php echo _("or") ?>
-   <label><input type="radio" name="nag_alarm[on]" id="kronolithTaskAlarmOn" value="1" /> <?php echo _("set") ?></label>
+   <label><input type="radio" name="task[alarm][on]" id="kronolithTaskAlarmOn" value="1" /> <?php echo _("set") ?></label>
+   <input type="text" name="task[alarm][value]" id="kronolithTaskAlarmValue" size="3" value="15" class="kronolithEventValue" />
    <label>
-     <input type="text" name="nag_alarm[value]" id="kronolithTaskAlarmValue" size="3" value="15" class="kronolithEventValue" />
-     <select name="nag_alarm[unit]" id="kronolithTaskAlarmUnit">
+     <select name="task[alarm][unit]" id="kronolithTaskAlarmUnit">
        <option value="1"><?php echo _("minutes") ?></option>
        <option value="60"><?php echo _("hours") ?></option>
        <option value="1440"><?php echo _("days") ?></option>
@@ -70,7 +70,7 @@
 </div>
 
 <div id="kronolithTaskTabUrl" class="kronolithTabsOption" style="display:none">
-  <input type="text" name="url" id="taskUrl" class="kronolithLongField" value="http://" />
+  <input type="text" name="task[url]" id="taskUrl" class="kronolithLongField" value="http://" />
 </div>
 
 <div id="kronolithTaskActions">
