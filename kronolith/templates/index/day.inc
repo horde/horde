@@ -5,7 +5,7 @@
   <caption>
     <span>&nbsp;</span>
     <span class="kronolithNavigation">
-      <a class="kronolithGotoToday" title="<?php echo _("_Today") ?>"><?php echo _("Today") ?></a>
+      <a class="kronolithGotoToday"><?php echo Horde::highlightAccessKey(_("_Today"), $todayAccessKey) ?></a>
       <a class="kronolithPrev" title="<?php echo _("Previous") ?>">&lt;</a>
       <a class="kronolithNext" title="<?php echo _("Next") ?>">&gt;</a>
     </span>

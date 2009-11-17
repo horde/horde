@@ -11,7 +11,7 @@
 
 <!-- begin top bar -->
 <div id="kronolithBar">
-  <div class="kronolithDateChoice" title="<?php echo _("Today") ?>">
+  <div class="kronolithDateChoice" <?php $todayAccessKey = Horde::getAccessKey(_("_Today")); echo Horde::getAccessKeyAndTitle(_("_Today"), true) ?>>
     <div><?php echo $today->format('D, j M Y') ?></div>
   </div>
 
@@ -37,8 +37,8 @@
 <!-- begin left menu -->
 <div id="kronolithMenu">
   <div id="kronolithAddEvents">
-    <span id="kronolithNewEvent" class="button"><?php echo _("_New event") ?></span>
-    <span id="kronolithQuickEvent" title="<?php echo _("Quick _insert") ?>">+</span>
+    <span id="kronolithNewEvent" class="button" accesskey="<?php echo ($ak = Horde::getAccessKey(_("_New event"))) ?>"><?php echo Horde::highlightAccessKey(_("_New event"), $ak) ?></span>
+    <span id="kronolithQuickEvent" <?php echo Horde::getAccessKeyAndTitle(_("Quick _insert")) ?>>+</span>
   </div>
 
   <div id="kronolithMinical" class="kronolithMinical">
