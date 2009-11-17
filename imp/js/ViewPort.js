@@ -1,5 +1,6 @@
 /**
- * ViewPort.js - Code to create a viewport window in a web browser.
+ * ViewPort.js - Code to create a viewport window, with optional split pane
+ * functionality.
  *
  * Usage:
  * ======
@@ -9,11 +10,21 @@
  * -----------------
  * ajax_url: (string) The URL to send the viewport requests to.
  *           This URL should return its response in an object named
- *           'ViewPort' (other information can be returned in the response).
- * content: (Element/string) A DOM element/ID of the container to hold the
- *          viewport rows.
- * template: (string) TODO DIV with 'vpData'
- *                    Class: 'vpRow' 'vpRowSelected'
+ *           'ViewPort' (other information can be returned in the response and
+ *           will be ignored by the viewport object).
+ * container: (Element/string) A DOM element/ID of the container that holds
+ *            the viewport. This element should be empty and have no children.
+ * onContent: (function) A function that takes 2 arguments - the data object
+ *            for the row and a string indicating the current pane_mode.
+ *
+ *            This function MUST return the HTML representation of the row.
+ *
+ *            This representation MUST include both the DOM ID (stored in
+ *            the domid field) and the CSS class name (stored as an array in
+ *            the bg field) in the outermost element.
+ *
+ *            Selected rows will contain the classname 'vpRowSelected'.
+ *
  *
  * Optional options:
  * -----------------
@@ -27,17 +38,22 @@
  *               within this percentage of the end of the current cached
  *               viewport, send a background request to the server to retrieve
  *               the next slice.
+ * list_class: (string) The CSS class to use for the list container.
  * lookbehind: (integer) What percentage of the received buffer should be
- *             used to download messages before the given row number?
- * page_size: (integer) Default page size to view on load.
- * show_split_pane: (boolean) Show the split pane on load?
- * split_bar: (Element/string) A DOM element/ID of the element used to display
- *            the split bar.
- * split_pane: (Element/string) A DOM element/ID of the container to hold
- *             the split pane info.
+ *             used to download rows before the given row number?
+ * page_size: (integer) Default page size to view on load. Only used if
+ *            pane_mode is 'horiz'.
+ * pane_data: (Element/string) A DOM element/ID of the container to hold
+ *            the split pane data. This element will be moved inside of the
+ *            container element.
+ * pane_mode: (string) The split pane mode to show on load? Either empty,
+ *            'horiz', or 'vert'.
+ * split_bar_class: (object) The CSS class(es) to use for the split bar.
+ *                  Takes two properties: 'horiz' and 'vert'.
  * wait: (integer) How long, in seconds, to wait before displaying an
- *       informational message to users that the message list is still being
+ *       informational message to users that the list is still being
  *       built.
+ *
  *
  * Callbacks:
  * ----------
@@ -53,10 +69,14 @@
  * onFetch
  * onSelect
  * onSlide
+ *
  * onSplitBarChange
  * onSplitBarEnd
  * onSplitBarStart
+ *   + Passed the current pane mode (either 'horiz' or 'vert').
+ *
  * onWait
+ *
  *
  * Outgoing AJAX request has the following params:
  * -----------------------------------------------
@@ -83,6 +103,7 @@
  *   slice: (string) The list of rows to retrieve from the server.
  *          In the format: [first_row]:[last_row]
  *
+ *
  * Incoming AJAX response has the following params:
  * ------------------------------------------------
  * cacheid: (string) A unique string that changes whenever the viewport
@@ -100,6 +121,15 @@
  * update [optional]: (integer) If set, update the rowlist instead of
  *                    overwriting it.
  * view: (string) The view ID of the request.
+ *
+ *
+ * Scroll bars use ars styled using these CSS class names:
+ * -------------------------------------------------------
+ * vpScroll - The scroll bar container.
+ * vpScrollUp - The UP arrow.
+ * vpScrollCursor - The cursor used to slide within the bounds.
+ * vpScrollDown - The DOWN arrow.
+ *
  *
  * Requires prototypejs 1.6+, DimpSlider.js, scriptaculous 1.8+ (effects.js
  * only), and Horde's dragdrop2.js.
@@ -120,21 +150,30 @@ var ViewPort = Class.create({
         this.opts = Object.extend({
             buffer_pages: 10,
             limit_factor: 35,
-            lookbehind: 40
+            lookbehind: 40,
+            split_bar_class: {}
         }, opts);
 
-        this.opts.content = $(opts.content);
-        this.opts.split_pane = $(opts.split_pane);
+        this.opts.container = $(opts.container);
+        this.opts.pane_data = $(opts.pane_data);
+
+        this.opts.content = new Element('DIV', { className: opts.list_class }).setStyle({ overflow: 'hidden' });
+        this.opts.container.insert(this.opts.content);
 
         this.scroller = new ViewPort_Scroller(this);
-        this.template = new Template(opts.template);
 
+        this.split_pane = {
+            curr: null,
+            horiz: {
+                loc: opts.page_size,
+            },
+            vert: {}
+        };
         this.views = {};
 
-        this.split_bar_loc = opts.page_size;
-        this.show_split_pane = opts.show_split_pane;
+        this.pane_mode = opts.pane_mode;
 
-        this.isbusy = this.line_height = this.page_size = this.split_bar = null;
+        this.isbusy = this.page_size = null;
         this.request_num = 1;
 
         // Init empty string now.
@@ -158,7 +197,7 @@ var ViewPort = Class.create({
         // Need a page size before we can continue - this is what determines
         // the slice size to request from the server.
         if (this.page_size === null) {
-            ps = this.getPageSize(this.show_split_pane ? 'default' : 'max');
+            ps = this.getPageSize(this.pane_mode ? 'default' : 'max');
             if (isNaN(ps)) {
                 return this.loadView.bind(this, view, search, background).defer();
             }
@@ -336,8 +375,9 @@ var ViewPort = Class.create({
         this.isbusy = false;
     },
 
-    // nowait = (boolean) TODO
-    onResize: function(nowait)
+    // nowait = (boolean) If true, don't delay before resizing.
+    // size = (integer) The page size to use instead of auto-determining.
+    onResize: function(nowait, size)
     {
         if (!this.opts.content.visible()) {
             return;
@@ -348,55 +388,82 @@ var ViewPort = Class.create({
         }
 
         if (nowait) {
-            this._onResize();
+            this._onResize(size);
         } else {
-            this.resizefunc = this._onResize.bind(this).delay(0.1);
+            this.resizefunc = this._onResize.bind(this, size).delay(0.1);
         }
     },
 
-    _onResize: function()
+    // size = (integer) The page size to use instead of auto-determining.
+    _onResize: function(size)
     {
         // This is needed for IE 6 - or else horizontal scrolling can occur.
         if (!this.opts.content.offsetHeight) {
-            return this._onResize.bind(this).defer();
+            return this._onResize.bind(this, size).defer();
         }
 
-        var h, setpane,
-            c = $(this.opts.content),
+        var h,
+            c = this.opts.content,
             de = document.documentElement,
             lh = this._getLineHeight();
 
-        // Get split pane dimensions
-        if (this.opts.split_pane) {
-            if (this.show_split_pane) {
-                if (!this.opts.split_pane.visible()) {
-                    this._initSplitBar();
-                    if (this.split_bar_loc &&
-                        this.split_bar_loc > 0) {
-                        this.split_bar_loc = this.page_size = Math.min(this.split_bar_loc, this.getPageSize('splitmax'));
-                    } else {
-                        this.page_size = this.getPageSize('default');
-                    }
-                }
-                setpane = true;
-            } else if (this.opts.split_pane.visible()) {
-                this.split_bar_loc = this.page_size;
-                [ this.opts.split_pane, this.split_bar ].invoke('hide');
-            }
+        if (size) {
+            this.page_size = size;
         }
 
-        if (!setpane) {
-            this.page_size = this.getPageSize('max');
+        // Get split pane dimensions
+        switch (this.pane_mode) {
+        case 'horiz':
+            this._initSplitBar();
+
+            if (!size) {
+                this.page_size = (this.split_pane.horiz.loc && this.split_pane.horiz.loc > 0)
+                    ? Math.min(this.split_pane.horiz.loc, this.getPageSize('splitmax'))
+                    : this.getPageSize('default');
+            }
+            this.split_pane.horiz.loc = this.page_size;
+
+            h = lh * this.page_size;
+            c.setStyle({ float: 'none', height: h + 'px', width: '100%' });
+            this.split_pane.currbar.show();
+            this.opts.pane_data.setStyle({ height: (this._getMaxHeight() - h - lh) + 'px' }).show();
+            break;
+
+        case 'vert':
+            this._initSplitBar();
+
+            if (!size) {
+                this.page_size = this.getPageSize('max');
+            }
+
+            h = lh * this.page_size;
+            // TODO: Configurable default size? Currently it is 35% of
+            // container size.
+            c.setStyle({ float: 'left', height: h + 'px', width: parseInt(this.opts.container.getWidth() * 0.35, 10) + 'px' });
+            this.split_pane.currbar.setStyle({ height: h + 'px' }).show();
+            this.opts.pane_data.setStyle({ height: h + 'px' }).show();
+            break;
+
+        default:
+            if (this.split_pane.curr) {
+                if (this.pane_mode == 'horiz') {
+                    this.split_pane.horiz.loc = this.page_size;
+                }
+                [ this.opts.pane_data, this.split_pane.currbar ].invoke('hide');
+                this.split_pane.curr = this.split_pane.currbar = null;
+            }
+
+            if (!size) {
+                this.page_size = this.getPageSize('max');
+            }
+
+            c.setStyle({ float: 'none', height: (lh * this.page_size) + 'px', width: '100%' });
+            break;
         }
 
         // Do some magic to ensure we never cause a horizontal scroll.
-        h = lh * this.page_size;
-        c.setStyle({ height: h + 'px' });
-        if (setpane) {
-            this.opts.split_pane.setStyle({ height: (this._getMaxHeight() - h - lh) + 'px' }).show();
-            this.split_bar.show();
-        } else if (de.scrollHeight - de.clientHeight) {
-            c.setStyle({ height: (lh * (this.page_size - 1)) + 'px' });
+        if (de.scrollHeight - de.clientHeight) {
+            c.setStyle({ height: (parseInt(c.getStyle('height'), 10) - lh) + 'px' });
         }
 
         this.scroller.onResize();
@@ -771,16 +838,7 @@ var ViewPort = Class.create({
             r.bg.push('vpRowSelected');
         }
 
-        r.bg.unshift('vpRow');
-
-        if (this.opts.onContent) {
-            this.opts.onContent(r);
-        }
-
-        // Mandatory DOM ID and class information.
-        r.vpData = 'id="' + r.domid + '" class="' + r.bg.join(' ') + '"';
-
-        return this.template.evaluate(r);
+        return this.opts.onContent(r, this.pane_mode);
     },
 
     updateRow: function(row)
@@ -855,19 +913,22 @@ var ViewPort = Class.create({
 
     _getLineHeight: function()
     {
-        if (!this.line_height) {
+        var mode = this.pane_mode || 'horiz';
+
+        if (!this.split_pane[mode].lh) {
             // To avoid hardcoding the line height, create a temporary row to
             // figure out what the CSS says.
-            var d = new Element('DIV', { className: this.opts.content_class }).insert(new Element('DIV', { className: 'vpRow' })).hide();
+            var d = new Element('DIV', { className: this.opts.list_class }).insert(this.prepareRow({ domid: null }, mode)).hide();
             $(document.body).insert(d);
-            this.line_height = d.getHeight();
+            this.split_pane[mode].lh = d.getHeight();
             d.remove();
         }
 
-        return this.line_height;
+        return this.split_pane[mode].lh;
     },
 
     // (type) = (string) [null (DEFAULT), 'current', 'default', 'max']
+    // return: (integer) Number of rows in current view.
     getPageSize: function(type)
     {
         switch (type) {
@@ -875,11 +936,13 @@ var ViewPort = Class.create({
             return Math.min(this.page_size, this.getMetaData('total_rows'));
 
         case 'default':
-            return Math.max(parseInt(this.getPageSize('max') * 0.45), 5);
+            return (this.pane_mode == 'vert')
+                ? this.getPageSize('max')
+                : Math.max(parseInt(this.getPageSize('max') * 0.45), 5);
 
         case 'max':
         case 'splitmax':
-            return parseInt((this._getMaxHeight() - (type == 'max' ? 0 : 100)) / this._getLineHeight());
+            return parseInt(this._getMaxHeight() / this._getLineHeight()) - (type == 'max' ? 0 : 1);
 
         default:
             return this.page_size;
@@ -902,68 +965,109 @@ var ViewPort = Class.create({
         return Math.round(this.bufferSize() * (this.opts.limit_factor / 100));
     },
 
-    showSplitPane: function(show)
+    // mode = (string) Either 'horiz', 'vert', or empty.
+    showSplitPane: function(mode)
     {
-        this.show_split_pane = show;
+        this.pane_mode = mode;
         this.onResize(true);
     },
 
     _initSplitBar: function()
     {
-        if (this.split_bar) {
+        if (this.split_pane.currbar) {
+            this.split_pane.currbar.hide();
+        }
+
+        this.split_pane.curr = this.pane_mode;
+
+        if (this.split_pane[this.pane_mode].bar) {
+            this.split_pane.currbar = this.split_pane[this.pane_mode].bar.show();
             return;
         }
 
-        this.split_bar = $(this.opts.split_bar);
-        new Drag(this.split_bar, {
-            constraint: 'vertical',
-            ghosting: true,
-            nodrop: true,
-            onStart: function() {
-                // Cache these values since we will be using them multiple
-                // times in snap().
-                this.sp = {
-                    lh: this._getLineHeight(),
-                    lines: this.page_size,
-                    max: this.getPageSize('splitmax'),
-                    orig: this.page_size,
-                    pos: $(this.opts.content).positionedOffset()[1]
-                };
-                if (this.opts.onSplitBarStart) {
-                    this.opts.onSplitBarStart();
-                }
-            }.bind(this),
-            snap: function(x, y, elt) {
-                var l = parseInt((y - this.sp.pos) / this.sp.lh);
-                if (l < 1) {
-                    l = 1;
-                } else if (l > this.sp.max) {
-                    l = this.sp.max;
-                }
-                this.sp.lines = l;
-                return [ x, this.sp.pos + (l * this.sp.lh) ];
-            }.bind(this),
-            onEnd: function() {
-                this.page_size = this.sp.lines;
-                this.onResize(true);
+        this.split_pane.currbar = this.split_pane[this.pane_mode].bar = new Element('DIV', { className: this.opts.split_bar_class[this.pane_mode] });
+
+        if (!this.opts.pane_data.descendantOf(this.opts.container)) {
+            this.opts.container.insert({ bottom: this.opts.pane_data.remove() });
+        }
+
+        this.opts.pane_data.insert({ before: this.split_pane.currbar });
+
+        switch (this.pane_mode) {
+        case 'horiz':
+            new Drag(this.split_pane.currbar, {
+                constraint: 'vertical',
+                ghosting: true,
+                nodrop: true,
+                onStart: function() {
+                    // Cache these values since we will be using them multiple
+                    // times in snap().
+                    this.sp = {
+                        lh: this._getLineHeight(),
+                        lines: this.page_size,
+                        max: this.getPageSize('splitmax'),
+                        orig: this.page_size,
+                        pos: this.opts.content.positionedOffset()[1]
+                    };
+                    if (this.opts.onSplitBarStart) {
+                        this.opts.onSplitBarStart('horiz');
+                    }
+                }.bind(this),
+                snap: function(x, y, elt) {
+                    var l = parseInt((y - this.sp.pos) / this.sp.lh);
+                    if (l < 1) {
+                        l = 1;
+                    } else if (l > this.sp.max) {
+                        l = this.sp.max;
+                    }
+                    this.sp.lines = l;
+                    return [ x, this.sp.pos + (l * this.sp.lh) ];
+                }.bind(this),
+                onEnd: function() {
+                    this.onResize(true, this.sp.lines);
+                    if (this.opts.onSplitBarChange &&
+                        this.sp.orig != this.sp.lines) {
+                        this.opts.onSplitBarChange('horiz');
+                    }
+                    if (this.opts.onSplitBarEnd) {
+                        this.opts.onSplitBarEnd('horiz');
+                    }
+                }.bind(this)
+            });
+
+            this.split_pane.currbar.observe('dblclick', function() {
+                var old_size = this.page_size;
+                this.onResize(true, this.getPageSize('default'));
                 if (this.opts.onSplitBarChange &&
-                    this.sp.orig != this.sp.lines) {
-                    this.opts.onSplitBarChange();
+                    old_size != this.page_size) {
+                    this.opts.onSplitBarChange('horiz');
                 }
-                if (this.opts.onSplitBarEnd) {
-                    this.opts.onSplitBarEnd();
-                }
-            }.bind(this)
-        });
-        this.split_bar.observe('dblclick', function() {
-            var old_size = this.page_size;
-            this.page_size = this.getPageSize('default');
-            this._onResize(true);
-            if (this.opts.onSplitBarChange &&
-                old_size != this.page_size) {
-                this.opts.onSplitBarChange();
-            }
-        }.bind(this));
+            }.bind(this));
+            break;
+
+        case 'vert':
+            new Drag(this.split_pane.currbar.setStyle({ float: 'left' }), {
+                constraint: 'horizontal',
+                ghosting: true,
+                nodrop: true,
+                snapToParent: true,
+                onStart: function(drag) {
+                    if (this.opts.onSplitBarStart) {
+                        this.opts.onSplitBarStart('vert');
+                    }
+                }.bind(this),
+                onEnd: function(drag) {
+                    this.opts.content.setStyle({ width: drag.lastCoord[0] + 'px' });
+                    if (this.opts.onSplitBarChange && drag.wasDragged) {
+                        this.opts.onSplitBarChange('vert');
+                    }
+                    if (this.opts.onSplitBarEnd) {
+                        this.opts.onSplitBarEnd('vert');
+                    }
+                }.bind(this)
+            });
+            break;
+        }
     },
 
     createSelection: function(format, data, view)
@@ -1055,7 +1159,7 @@ ViewPort_Scroller = Class.create({
         var c = this.vp.opts.content;
 
         // Create the outer div.
-        this.scrollDiv = new Element('DIV', { className: 'sbdiv' }).setStyle({ height: c.getHeight() + 'px' }).hide();
+        this.scrollDiv = new Element('DIV', { className: 'vpScroll' }).setStyle({ height: c.getHeight() + 'px', overflow: 'hidden', position: 'absolute', right: 0, top: 0 }).hide();
 
         // Add scrollbar to parent viewport and give our parent a right
         // margin just big enough to accomodate the scrollbar.
@@ -1063,8 +1167,8 @@ ViewPort_Scroller = Class.create({
 
         // Create scrollbar object.
         this.scrollbar = new DimpSlider(this.scrollDiv, {
-            buttonclass: { up: 'sbup', down: 'sbdown' },
-            cursorclass: 'sbcursor',
+            buttonclass: { up: 'vpScrollUp', down: 'vpScrollDown' },
+            cursorclass: 'vpScrollCursor',
             onChange: this._onScroll.bind(this),
             onSlide: this.vp.opts.onSlide ? this.vp.opts.onSlide : null,
             pagesize: this.vp.getPageSize(),
@@ -1216,10 +1320,10 @@ ViewPort_Buffer = Class.create({
                 this._rangeCheck($A($R(Math.max(offset + 1 - this.vp.limitTolerance(), 1), offset)))) {
                 return 'top';
             } else if (this._rangeCheck($A($R(offset + 1, Math.min(offset + this.vp.limitTolerance() + this.vp.getPageSize() - 1, this.getMetaData('total_rows')))).reverse())) {
-                // Search for missing messages in reverse order since in
-                // normal usage (sequential scrolling through the message
-                // list) messages are more likely to be missing at furthest
-                // from the current view.
+                // Search for missing rows in reverse order since in normal
+                // usage (sequential scrolling through the row list) rows are
+                // more likely to be missing at furthest from the current
+                // view.
                 return 'bottom';
             }
         }
