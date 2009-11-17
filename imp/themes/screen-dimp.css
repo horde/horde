@@ -247,6 +247,7 @@ div.flagDeleted {
 }
 .msglist div.vpRowVert div.msgDate {
     float: right;
+    padding-right: 1px;
     text-indent: 2px;
     width: auto;
 }
