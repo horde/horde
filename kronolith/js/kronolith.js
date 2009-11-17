@@ -121,17 +121,25 @@ KronolithCore = {
                 return true;
 
             case 'horde.error':
+            case 'horde.warning':
+            //case 'horde.alarm':
             case 'horde.message':
             case 'horde.success':
-            case 'horde.warning':
                 this.Growler.growl(m.message, {
                     className: m.type.replace('.', '-'),
                     life: 8,
                     log: true,
                     sticky: m.type == 'horde.error'
                 });
-                $('kronolithNotifications').update(Kronolith.text.alerts.interpolate({ 'count': ++this.growls }));
-                $('kronolithNotifications').up().show();
+                var notify = $('kronolithNotifications'),
+                    className = m.type.replace(/\./, '-'),
+                    order = 'horde-error,horde-warning,horde-alarm,horde-message,horde-success';
+                if (!notify.className ||
+                    order.indexOf(notify.className) > order.indexOf(className)) {
+                    notify.className = className;
+                }
+                notify.update(Kronolith.text.alerts.interpolate({ 'count': ++this.growls }));
+                notify.up().show();
             }
         }, this);
     },
@@ -2476,9 +2484,8 @@ KronolithCore = {
             case 'kronolithNotifications':
                 if (this.Growler.toggleLog()) {
                     elt.update(Kronolith.text.hidelog);
-                    this.growls = 0;
                 } else {
-                    elt.up().hide();
+                    $('kronolithNotifications').update(Kronolith.text.alerts.interpolate({ 'count': this.growls }));
                 }
                 break;
             }

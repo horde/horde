@@ -389,6 +389,9 @@ body.kronolithAjax {
     margin-right: 10px;
     text-align: right;
 }
+#kronolithNotifications {
+    padding: 3px 5px;
+}
 
 /* Main area */
 #kronolithMain {
