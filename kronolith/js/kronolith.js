@@ -2906,6 +2906,7 @@ KronolithCore = {
 
     _closeRedBox: function()
     {
+        document.body.insert(RedBox.getWindowContents().hide());
         RedBox.close();
     },
 
