@@ -1985,7 +1985,7 @@ HTML;
         $ak = self::getAccessKey($label, $nocheck);
         $attributes = 'title="' . self::stripAccessKey($label);
         if (!empty($ak)) {
-            $attributes .= sprintf(_(" (Accesskey %s)"), $ak);
+            $attributes .= sprintf(_(" (Accesskey %s)"), strtoupper($ak));
             $attributes .= '" accesskey="' . $ak;
         }
 
