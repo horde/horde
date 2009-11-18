@@ -274,15 +274,11 @@ var DimpCore = {
     {
         var ptr = parent.frames.horde_main ? parent : window;
 
-        if (Horde.dhtmlHistory) {
-            Horde.dhtmlHistory.stop();
-        }
-
         ptr.location.assign(this.addURLParam(url));
 
         // Catch browsers that don't redirect on assign().
         if (force && !Prototype.Browser.WebKit) {
-            (function() { ptr.location.reload(); }).delay(0.4);
+            (function() { ptr.location.reload(); }).delay(0.5);
         }
     },
 

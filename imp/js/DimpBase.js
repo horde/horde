@@ -230,7 +230,7 @@ var DimpBase = {
 
                 // This catches the refresh case - no need to re-add to history
                 if (!Object.isUndefined(this.folder) && !this.search) {
-                    this._addHistory(loc);
+                    location.hash = escape(loc);
                 }
             }
 
@@ -250,7 +250,7 @@ var DimpBase = {
                 return;
             }
             this.highlightSidebar('app' + app);
-            this._addHistory(loc, data);
+            location.hash = escape(loc);
             if (data) {
                 this.iframeContent(loc, data);
             } else if (DIMP.conf.app_urls[app]) {
@@ -273,7 +273,7 @@ var DimpBase = {
 
         case 'portal':
             this.highlightSidebar('appportal');
-            this._addHistory(loc);
+            location.hash = escape(loc);
             DimpCore.setTitle(DIMP.text.portal);
             DimpCore.doAction('ShowPortal', {}, { callback: this._portalCallback.bind(this) });
             break;
@@ -283,13 +283,6 @@ var DimpBase = {
             DimpCore.setTitle(DIMP.text.prefs);
             this.iframeContent(loc, DIMP.conf.URI_PREFS_IMP);
             break;
-        }
-    },
-
-    _addHistory: function(loc, data)
-    {
-        if (Horde.dhtmlHistory.getCurrentLocation() != loc) {
-            Horde.dhtmlHistory.add(loc, data);
         }
     },
 
@@ -1199,7 +1192,7 @@ var DimpBase = {
             eval(r.js.join(';'));
         }
 
-        this._addHistory('msg:' + row.view + ':' + row.imapuid);
+        location.hash = escape('msg:' + row.view + ':' + row.imapuid);
     },
 
     // opts = mailbox, uid
@@ -2616,7 +2609,7 @@ var DimpBase = {
     {
         DimpCore.init();
 
-        var DM = DimpCore.DMenu;
+        var DM = DimpCore.DMenu, tmp;
 
         /* Register global handlers now. */
         document.observe('keydown', this.keydownHandler.bindAsEventListener(this));
@@ -2647,21 +2640,18 @@ var DimpBase = {
             DM.addSubMenu('ctx_qsearchopts_filternot', 'ctx_flag');
         }
 
-        /* Start message list loading as soon as possible. */
-        if (Horde.dhtmlHistory.initialize()) {
-            Horde.dhtmlHistory.addListener(this.go.bind(this));
+        /* Initialize the starting page. */
+        tmp = location.hash;
+        if (!tmp.empty() && tmp.startsWith('#')) {
+            tmp = (tmp.length == 1) ? "" : tmp.substring(1);
         }
-
-        /* Initialize the starting page if necessary. addListener() will have
-         * already fired if there is a current location so only do a go()
-         * call if there is no current location. */
-        if (!Horde.dhtmlHistory.getCurrentLocation()) {
-            if (DIMP.conf.login_view == 'inbox') {
-                this.go('folder:INBOX');
-            } else {
-                this.go('portal');
-                this.loadMailbox('INBOX', { background: true });
-            }
+        if (!tmp.empty()) {
+            this.go(unescape(tmp));
+        } else if (DIMP.conf.login_view == 'inbox') {
+            this.go('folder:INBOX');
+        } else {
+            this.go('portal');
+            this.loadMailbox('INBOX', { background: true });
         }
 
         this._setQsearchText(true);

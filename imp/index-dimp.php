@@ -20,7 +20,6 @@ $scripts = array(
     array('DimpBase.js', 'imp'),
     array('DimpSlider.js', 'imp'),
     array('ViewPort.js', 'imp'),
-    array('dhtmlHistory.js', 'horde'),
     array('dialog.js', 'imp'),
     array('dragdrop2.js', 'horde'),
     array('imp.js', 'imp'),
