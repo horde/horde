@@ -183,7 +183,7 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
                 }
 
                 if ($event->isAllDay()) {
-                    $time = _("All day event");
+                    $time = _("All day");
                 } else {
                     $time = $event->start->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia')
                         . '-' . $event->end->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia');
