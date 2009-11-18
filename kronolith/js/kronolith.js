@@ -38,8 +38,8 @@ KronolithCore = {
 
     debug: function(label, e)
     {
-        if (!this.is_logout && Kronolith.conf.debug) {
-            alert(label + ': ' + (e instanceof Error ? e.name + '-' + e.message : Object.inspect(e)));
+        if (!this.is_logout && window.console && window.console.error) {
+            window.console.error(label, Prototype.Browser.Gecko ? e : $H(e).inspect());
         }
     },
 
