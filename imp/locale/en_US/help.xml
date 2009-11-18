@@ -778,16 +778,29 @@
 <entry id="prefs-delete_spam_after_report">
     <title>Preferences: Delete Spam After Reporting</title>
     <para>
-    You may elect to do one of three items after reporting a message as either spam or innocent.
+    You may elect to do one of three items after reporting a message as spam.
     </para>
     <para>
-    First, you can decide to do nothing - the message will be reported as either spam or innocent but will otherwise remain unchanged in your mailbox.
+    First, you can decide to do nothing - the message will be reported as spam but will otherwise remain unchanged in your mailbox.
     </para>
     <para>
-    Second, if reporting a message as spam, you can instead have the message be immediately deleted.  This setting has no effect on reporting a message as innocent.
+    Second, if reporting a message as spam, you can instead have the message be immediately deleted.
     </para>
     <para>
-    Third, after reporting a message as spam the message will be deleted from the current mailbox and moved to your spam folder.  Alternatively, if reporting a message as innocent the message will be deleted from the current mailbox and moved to your INBOX.
+    Third, after reporting a message as spam the message will be deleted from the current mailbox and moved to your spam folder.
+    </para>
+</entry>
+
+<entry id="prefs-move_ham_after_report">
+    <title>Preferences: Move Spam After Reporting As Innocent</title>
+    <para>
+    You may elect to do one of two items after reporting a message previously maked as spam as innocent.
+    </para>
+    <para>
+    First, you can decide to do nothing - the message will be reported as innocent but will otherwise remain unchanged in your mailbox.
+    </para>
+    <para>
+    Second, if reporting a message as innocent the message will be deleted from the current mailbox and moved to your Inbox.
     </para>
 </entry>
 

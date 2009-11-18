@@ -166,26 +166,26 @@ class IMP_Spam
                 break;
 
             case 'notspam':
-                $msg = sprintf(_("The message \"%s\" has been reported as spam."), $subject);
+                $msg = sprintf(_("The message \"%s\" has been reported as innocent."), $subject);
                 break;
             }
         } elseif ($action == 'spam') {
             $msg = sprintf(_("%d messages have been reported as spam."), $report_count);
         } else {
-            $msg = sprintf(_("%d messages have been reported as not spam."), $report_count);
+            $msg = sprintf(_("%d messages have been reported as innocent."), $report_count);
         }
         $notification->push($msg, 'horde.message');
 
-        /* Delete spam after report. */
-        $delete_spam = $GLOBALS['prefs']->getValue('delete_spam_after_report');
-        if ($delete_spam) {
-            $imp_message = IMP_Message::singleton();
-            switch ($delete_spam) {
-            case 1:
-                if ($action == 'spam') {
+        /* Delete/move message after report. */
+        switch ($action) {
+        case 'spam':
+            if ($result = $GLOBALS['prefs']->getValue('delete_spam_after_report')) {
+                $imp_message = IMP_Message::singleton();
+                switch ($result) {
+                case 1:
                     $msg_count = $imp_message->delete($indices);
                     if ($msg_count === false) {
-                        $delete_spam = 0;
+                        $result = 0;
                     } else {
                         if ($msg_count == 1) {
                             $notification->push(_("The message has been deleted."), 'horde.message');
@@ -193,24 +193,34 @@ class IMP_Spam
                             $notification->push(sprintf(_("%d messages have been deleted."), $msg_count), 'horde.message');
                         }
                     }
-                }
-                break;
+                    break;
 
-            case 2:
-                $targetMbox = ($action == 'spam') ? IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true) : 'INBOX';
-                if ($targetMbox) {
-                    if ($imp_message->copy($targetMbox, 'move', $indices, true) === false) {
-                        $delete_spam = 0;
+                case 2:
+                    $targetMbox = IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true);
+                    if ($targetMbox) {
+                        if (!$imp_message->copy($targetMbox, 'move', $indices, true)) {
+                            $result = 0;
+                        }
+                    } else {
+                        $notification->push(_("Could not move message to spam mailbox - no spam mailbox defined in preferences."), 'horde.error');
+                        $result = 0;
                     }
-                } else {
-                    $notification->push(_("Could not move message to spam mailbox - no spam mailbox defined in preferences."), 'horde.error');
-                    $delete_spam = 0;
+                    break;
                 }
-                break;
             }
+            break;
+
+        case 'notspam':
+            if ($result = $GLOBALS['prefs']->getValue('move_ham_after_report')) {
+                $imp_message = IMP_Message::singleton();
+                if (!$imp_message->copy('INBOX', 'move', $indices)) {
+                    $result = 0;
+                }
+            }
+            break;
         }
 
-        return $delete_spam;
+        return $result;
     }
 
 }

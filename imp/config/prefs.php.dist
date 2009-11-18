@@ -113,7 +113,7 @@ $prefGroups['delmove'] = array(
     'label' => _("Deleting and Moving Messages"),
     'desc' => _("Set preferences for what happens when you move and delete messages."),
     'members' => array('mailbox_return', 'delete_spam_after_report',
-                       'empty_spam_menu')
+                       'move_ham_after_report', 'empty_spam_menu')
 );
 if (!$is_pop3) {
     $prefGroups['delmove']['members'] = array_merge(
@@ -834,14 +834,31 @@ $_prefs['delete_spam_after_report'] = array(
     'type' => 'enum',
     'enum' => array(
         0 => _("Nothing"),
-        1 => _("Delete spam messages")
+        1 => _("Delete message")
     ),
-    'desc' => _("What should we do with spam messages after they have been reported as spam or innocent?"),
+    'desc' => _("What should we do with spam messages after they have been reported as spam?"),
     'help' => 'prefs-delete_spam_after_report'
 );
 if (!$is_pop3) {
     $_prefs['delete_spam_after_report']['enum'][2] =
-        _("Move spam messages to spam folder and innocent messages to INBOX");
+        _("Move to spam folder");
+}
+
+// What should we do with spam messages after reporting them as innocent?
+$_prefs['move_ham_after_report'] = array(
+    'value' => 0,
+    'locked' => false,
+    'shared' => false,
+    'type' => 'enum',
+    'enum' => array(
+        0 => _("Nothing")
+    ),
+    'desc' => _("What should we do with spam messages after they have been reported as innocent?"),
+    'help' => 'prefs-move_ham_after_report'
+);
+if (!$is_pop3) {
+    $_prefs['move_ham_after_report']['enum'][1] =
+        _("Move to Inbox");
 }
 
 // Replace image tags in inline viewed HTML messages with blank images?
