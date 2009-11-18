@@ -355,7 +355,7 @@ function _simpleButton($id, $text, $image)
 <?php endif; ?>
 
 <div class="context" id="ctx_noactions" style="display:none">
- <span>No actions available</span>
+ <div>No actions available</div>
 </div>
 
 <div class="context" id="ctx_vfolder" style="display:none">
