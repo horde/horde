@@ -25,13 +25,8 @@ var DimpCore = {
 
     debug: function(label, e)
     {
-        if (!this.is_logout && DIMP.conf.debug) {
-            if (window.console && window.console.error) {
-                // Firebug error reporting.
-                window.console.error(label, e);
-            } else {
-                alert(label + ': ' + ((e instanceof Error && e.name && e.message) ? e.name + '-' + e.message : Object.inspect(e)) + (e.lineNumber ? ' (Line #' + e.lineNumber + ')' : ''));
-            }
+        if (!this.is_logout && window.console && window.console.error) {
+            window.console.error(label, Prototype.Browser.Gecko ? e : $H(e).inspect());
         }
     },
 
@@ -279,15 +274,11 @@ var DimpCore = {
     {
         var ptr = parent.frames.horde_main ? parent : window;
 
-        if (Horde.dhtmlHistory) {
-            Horde.dhtmlHistory.stop();
-        }
-
         ptr.location.assign(this.addURLParam(url));
 
         // Catch browsers that don't redirect on assign().
         if (force && !Prototype.Browser.WebKit) {
-            (function() { ptr.location.reload(); }).delay(0.4);
+            (function() { ptr.location.reload(); }).delay(0.5);
         }
     },
 

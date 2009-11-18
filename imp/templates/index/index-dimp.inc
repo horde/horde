@@ -165,7 +165,6 @@ function _simpleButton($id, $text, $image)
        </form>
        <span class="closeImg" id="qsearch_close" style="display:none" title="<?php echo _("Clear Search") ?>"></span>
        <span id="qsearch_close_filter" style="display:none">Clear Filter</span>
-      </span>
       </div>
 <?php endif; ?>
       <div><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Reply', 'id' => 'button_reply', 'title' => _("Reply"))) ?></div>
@@ -191,122 +190,119 @@ function _simpleButton($id, $text, $image)
      </div>
     </div>
 
-    <div class="msgSplitPane">
-     <div id="msgList" class="msglist">
-      <span class="vpEmpty"><?php echo _("Loading...") ?></span>
-     </div>
-     <div id="splitBar" style="display:none"></div>
-     <div id="previewPane" style="display:none">
-      <span id="msgLoading" class="loadingImg" style="display:none"></span>
-      <div id="previewInfo" style="display:none">
-       <?php echo _("To preview a message, select it from the list above.") ?>
-       <br />
+    <div id="msgSplitPane"></div>
+
+    <div id="previewPane" style="display:none">
+     <span id="msgLoading" class="loadingImg" style="display:none"></span>
+     <div id="previewInfo" style="display:none">
+      <?php echo _("To preview a message, select it from the message list.") ?>
+      <br />
 <?php if ($browser->isBrowser('opera')): ?>
-       <?php echo _("A left click") ?> + <span class="kbd"><?php echo _("Shift") ?></span> + <span class="kbd"><?php echo _("Ctrl") ?></span> <?php echo _("will display available actions.") ?>
+      <?php echo _("A left click") ?> + <span class="kbd"><?php echo _("Shift") ?></span> + <span class="kbd"><?php echo _("Ctrl") ?></span> <?php echo _("will display available actions.") ?>
 <?php else: ?>
-       <?php echo _("A right-click on a message or a folder will display available actions.") ?>
+      <?php echo _("A right-click on a message or a folder will display available actions.") ?>
 <?php endif; ?>
-       <br />
-       <?php printf(_("Click on a message while holding down the %s key to select multiple messages.  To select a range of messages, click the first message of the range, navigate to the last message of the range, and then click on the last message while holding down the %s key."), '<span class="kbd">' . _("Ctrl") . '</span>', '<span class="kbd">' . _("Shift") . '</span>') ?><br /><br />
-       <?php echo _("The following keyboard shortcuts are available:") ?><br />
-       <span class="iconImg keyupImg"></span> / <span class="iconImg keydownImg"></span> : <?php echo _("Move up/down through the message list.") ?><br />
-       <span class="kbd"><?php echo _("PgUp") ?></span> / <span class="kbd"><?php echo _("PgDown") ?></span> : <?php echo _("Move one page up/down through the message list.") ?><br />
-       <span class="kbd"><?php echo _("Alt") ?></span> + <span class="kbd"><?php echo _("PgUp") ?></span> / <span class="kbd"><?php echo _("PgDown") ?></span> : <?php echo _("Scroll up/down through the display of the previewed message.") ?><br />
-       <span class="kbd"><?php echo _("Home") ?></span> / <span class="kbd"><?php echo _("End") ?></span> : <?php echo  _("Move to the beginning/end of the message list.") ?><br />
-       <span class="kbd"><?php echo _("Del") ?></span> : <?php echo _("Delete the currently selected message(s).") ?> <?php printf(_("%s will delete the current message and move to the next message if a single message is selected."), '<span class="kbd">' . _("Shift") . '</span> + <span class="kbd">' . _("Del") . '</span>') ?><br />
-       <span class="kbd"><?php echo _("Enter") ?></span> : <?php echo _("Open message in a popup window.") ?><br />
-       <span class="kbd"><?php echo _("Ctrl") ?></span> + <span class="kbd"><?php echo 'A' ?></span> : <?php echo _("Select all messages in the current mailbox.") ?><br />
-      </div>
-      <div id="previewMsg" style="display:none">
-       <div class="msgHeaders">
-        <div id="toggleHeaders">
-         <a id="th_expand"><span class="iconImg" title="<?php echo htmlspecialchars(_("Expand Headers")) ?>"></span></a>
-         <a id="th_collapse" style="display:none"><span class="iconImg" title="<?php echo htmlspecialchars(_("Collapse Headers")) ?>"></span></a>
-        </div>
-        <div id="msgHeadersColl">
-         <a id="msg_newwin"><span class="iconImg" title="<?php echo htmlspecialchars(_("Open in new window")) ?>"></span></a>
-         <span class="date"></span>
-         <span class="subject"></span>
-         <span class="fromcontainer"><?php echo _("from") ?> <span class="from"></span></span>
-        </div>
-        <div id="msgHeaders" style="display:none">
-         <div class="dimpOptions">
-          <div>
-           <span id="msg_newwin_options">
-            <span class="iconImg"></span>
-            <a><?php echo _("Open in new window") ?></a>
-           </span>
-          </div>
-          <div>
-           <span id="msg_print">
-            <span class="iconImg"></span>
-            <a><?php echo _("Print") ?></a>
-           </span>
-          </div>
+      <br />
+      <?php printf(_("Click on a message while holding down the %s key to select multiple messages.  To select a range of messages, click the first message of the range, navigate to the last message of the range, and then click on the last message while holding down the %s key."), '<span class="kbd">' . _("Ctrl") . '</span>', '<span class="kbd">' . _("Shift") . '</span>') ?><br /><br />
+      <?php echo _("The following keyboard shortcuts are available:") ?><br />
+      <span class="iconImg keyupImg"></span> / <span class="iconImg keydownImg"></span> : <?php echo _("Move up/down through the message list.") ?><br />
+      <span class="kbd"><?php echo _("PgUp") ?></span> / <span class="kbd"><?php echo _("PgDown") ?></span> : <?php echo _("Move one page up/down through the message list.") ?><br />
+      <span class="kbd"><?php echo _("Alt") ?></span> + <span class="kbd"><?php echo _("PgUp") ?></span> / <span class="kbd"><?php echo _("PgDown") ?></span> : <?php echo _("Scroll up/down through the display of the previewed message.") ?><br />
+      <span class="kbd"><?php echo _("Home") ?></span> / <span class="kbd"><?php echo _("End") ?></span> : <?php echo  _("Move to the beginning/end of the message list.") ?><br />
+      <span class="kbd"><?php echo _("Del") ?></span> : <?php echo _("Delete the currently selected message(s).") ?> <?php printf(_("%s will delete the current message and move to the next message if a single message is selected."), '<span class="kbd">' . _("Shift") . '</span> + <span class="kbd">' . _("Del") . '</span>') ?><br />
+      <span class="kbd"><?php echo _("Enter") ?></span> : <?php echo _("Open message in a popup window.") ?><br />
+      <span class="kbd"><?php echo _("Ctrl") ?></span> + <span class="kbd"><?php echo 'A' ?></span> : <?php echo _("Select all messages in the current mailbox.") ?><br />
+     </div>
+
+     <div id="previewMsg" style="display:none">
+      <div class="msgHeaders">
+       <div id="toggleHeaders">
+        <a id="th_expand"><span class="iconImg" title="<?php echo htmlspecialchars(_("Expand Headers")) ?>"></span></a>
+        <a id="th_collapse" style="display:none"><span class="iconImg" title="<?php echo htmlspecialchars(_("Collapse Headers")) ?>"></span></a>
+       </div>
+       <div id="msgHeadersColl">
+        <a id="msg_newwin"><span class="iconImg" title="<?php echo htmlspecialchars(_("Open in new window")) ?>"></span></a>
+        <span class="date"></span>
+        <span class="subject"></span>
+        <span class="fromcontainer"><?php echo _("from") ?> <span class="from"></span></span>
+       </div>
+       <div id="msgHeaders" style="display:none">
+        <div class="dimpOptions">
+         <div>
+          <span id="msg_newwin_options">
+           <span class="iconImg"></span>
+           <a><?php echo _("Open in new window") ?></a>
+          </span>
+         </div>
+         <div>
+          <span id="msg_print">
+           <span class="iconImg"></span>
+           <a><?php echo _("Print") ?></a>
+          </span>
+         </div>
 <?php if (!empty($conf['user']['allow_view_source'])): ?>
-          <div>
-           <span id="msg_view_source">
-            <span class="iconImg"></span>
-            <a><?php echo _("View Source") ?></a>
-           </span>
-          </div>
+         <div>
+          <span id="msg_view_source">
+           <span class="iconImg"></span>
+           <a><?php echo _("View Source") ?></a>
+          </span>
+         </div>
 <?php endif; ?>
-         </div>
-         <div id="msgHeadersContent">
-          <table>
-           <thead>
-            <tr>
-             <td class="label"><?php echo _("Subject") ?>:</td>
-             <td class="subject"></td>
-            </tr>
-            <tr id="msgHeaderFrom">
-             <td class="label"><?php echo _("From") ?>:</td>
-             <td class="from"></td>
-            </tr>
-            <tr id="msgHeaderDate">
-             <td class="label"><?php echo _("Date") ?>:</td>
-             <td class="date"></td>
-            </tr>
-            <tr id="msgHeaderTo">
-             <td class="label"><?php echo _("To") ?>:</td>
-             <td class="to"></td>
-            </tr>
-            <tr id="msgHeaderCc">
-             <td class="label"><?php echo _("Cc") ?>:</td>
-             <td class="cc"></td>
-            </tr>
-            <tr id="msgAtc" style="display:none">
-             <td class="label" id="partlist_toggle">
-              <span class="iconImg attachmentImg attachmentImage"></span>
-              <span class="iconImg" id="partlist_col"></span>
-              <span class="iconImg" id="partlist_exp" style="display:none"></span>
-              </td>
-             <td>
-              <div></div>
-              <div id="partlist" style="display:none">
-               <table></table>
-              </div>
+        </div>
+        <div id="msgHeadersContent">
+         <table>
+          <thead>
+           <tr>
+            <td class="label"><?php echo _("Subject") ?>:</td>
+            <td class="subject"></td>
+           </tr>
+           <tr id="msgHeaderFrom">
+            <td class="label"><?php echo _("From") ?>:</td>
+            <td class="from"></td>
+           </tr>
+           <tr id="msgHeaderDate">
+            <td class="label"><?php echo _("Date") ?>:</td>
+            <td class="date"></td>
+           </tr>
+           <tr id="msgHeaderTo">
+            <td class="label"><?php echo _("To") ?>:</td>
+            <td class="to"></td>
+           </tr>
+           <tr id="msgHeaderCc">
+            <td class="label"><?php echo _("Cc") ?>:</td>
+            <td class="cc"></td>
+           </tr>
+           <tr id="msgAtc" style="display:none">
+            <td class="label" id="partlist_toggle">
+             <span class="iconImg attachmentImg attachmentImage"></span>
+             <span class="iconImg" id="partlist_col"></span>
+             <span class="iconImg" id="partlist_exp" style="display:none"></span>
              </td>
-            </tr>
-            <tr id="msgLogInfo" style="display:none">
-             <td class="label" id="msgloglist_toggle">
-              <span class="iconImg" id="msgloglist_col"></span>
-              <span class="iconImg" id="msgloglist_exp" style="display:none"></span>
-             </td>
-             <td>
-              <div><span class="msgLogLabel"><?php echo _("Message Log") ?></span></div>
-              <div id="msgloglist" style="display:none">
-               <ul></ul>
-              </div>
-             </td>
-            </tr>
-           </thead>
-          </table>
-         </div>
+            <td>
+             <div></div>
+             <div id="partlist" style="display:none">
+              <table></table>
+             </div>
+            </td>
+           </tr>
+           <tr id="msgLogInfo" style="display:none">
+            <td class="label" id="msgloglist_toggle">
+             <span class="iconImg" id="msgloglist_col"></span>
+             <span class="iconImg" id="msgloglist_exp" style="display:none"></span>
+            </td>
+            <td>
+             <div><span class="msgLogLabel"><?php echo _("Message Log") ?></span></div>
+             <div id="msgloglist" style="display:none">
+              <ul></ul>
+             </div>
+            </td>
+           </tr>
+          </thead>
+         </table>
         </div>
        </div>
-       <div id="messageBody" class="messageBody"></div>
       </div>
+      <div id="messageBody" class="messageBody"></div>
      </div>
     </div>
    </div>
@@ -415,7 +411,10 @@ function _simpleButton($id, $text, $image)
 </div>
 
 <div class="context" id="ctx_otheractions" style="display:none">
- <a id="previewtoggle"><span class="contextImg"></span><?php echo ($prefs->getValue('dimp_show_preview') ? _("Hide Preview") : _("Show Preview")); ?></a>
+ <a id="oa_preview_hide"><span class="contextImg"></span><?php echo _("Hide Preview") ?></a>
+ <a id="oa_preview_show"><span class="contextImg"></span><?php echo _("Show Preview") ?></a>
+ <a id="oa_layout_horiz"><span class="contextImg"></span><?php echo _("Horizontal Layout") ?></a>
+ <a id="oa_layout_vert"><span class="contextImg"></span><?php echo _("Vertical Layout") ?></a>
 <?php if (!empty($flag_list)): ?>
  <div>
   <div class="sep"></div>

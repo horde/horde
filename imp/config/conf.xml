@@ -251,13 +251,6 @@
    <configlist name="css_files" required="false" desc="A list of additional CSS
    files to load from the imp/themes/ directory."/>
 
-   <configheader>JavaScript Settings</configheader>
-   <configsection name="js">
-    <configboolean name="debug" required="false" desc="Turn on javascript
-    debugging?  Will cause popup alert windows to appear on various errors.
-    This should be turned off for all production servers.">false</configboolean>
-   </configsection>
-
    <configheader>ViewPort Settings</configheader>
    <configsection name="viewport">
     <configinteger name="buffer_pages" desc="The number of viewable pages to

@@ -528,8 +528,9 @@ class IMP_Message
             $newPart->setDisposition('attachment');
 
             /* We need to make sure all text is in the correct charset. */
+            $part_name = $oldPart->getName(true);
             $newPart->setCharset(Horde_Nls::getCharset());
-            $newPart->setContents(sprintf(_("[Attachment stripped: Original attachment type: %s, name: %s]"), $oldPart->getType(), $oldPart->getName(true)));
+            $newPart->setContents(sprintf(_("[Attachment stripped: Original attachment type: %s, name: %s]"), $oldPart->getType(), $part_name ? $part_name : _("unnamed")));
             $message->alterPart($partid, $newPart);
         }
 

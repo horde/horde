@@ -56,7 +56,7 @@ var DimpSlider = Class.create({
         this.sbdownsize = this.sbupsize = this.value = 0;
         this.active = this.dragging = false;
 
-        if (this._showScroll()) {
+        if (this.needScroll()) {
             this._initScroll();
         }
 
@@ -144,16 +144,18 @@ var DimpSlider = Class.create({
         }
     },
 
-    updateHandleLength: function(pagesize, totalsize)
+    setHandleLength: function(pagesize, totalsize)
     {
         this.options.pagesize = pagesize;
         this.options.totalsize = totalsize;
-        if (!this._showScroll()) {
+    },
+
+    updateHandleLength: function()
+    {
+        if (!this.needScroll()) {
             this.value = 0;
             this.track.hide();
-            return;
-        }
-        if (!this._initScroll()) {
+        } else if (!this._initScroll()) {
             this.track.show();
             this._updateHandleLength();
         }
@@ -179,19 +181,17 @@ var DimpSlider = Class.create({
 
     setScrollPosition: function(val)
     {
-        if (this._showScroll()) {
-            var oldval = this.getValue();
-            this._setScrollPosition('val', val);
-            if (oldval != this.getValue()) {
-                this._updateFinished();
-            }
+        var oldval = this.getValue();
+        this._setScrollPosition('val', val);
+        if (oldval != this.getValue()) {
+            this._updateFinished();
         }
     },
 
     _setScrollPosition: function(type, data)
     {
         this.value = (type == 'val')
-            ? Math.min(Math.max(0, data), this.options.totalsize - this.options.pagesize)
+            ? Math.min(Math.max(0, data), Math.max(0, this.options.totalsize - this.options.pagesize))
             : Math.max(0, Math.round(Math.min(data, this.handletop) / this.handletop * (this.options.totalsize - this.options.pagesize)));
 
         if (type == 'px') {
@@ -201,7 +201,9 @@ var DimpSlider = Class.create({
 
             /* Always make sure there is at least 1 pixel if we are not at the
              * absolute bottom or top. */
-            if (this.handlevalue == 0 && this.value != 0) {
+            if (isNaN(this.handlevalue)) {
+                this.handlevalue = 0;
+            } else if (this.handlevalue == 0 && this.value != 0) {
                 this.handlevalue += 1;
             } else if (this.handlevalue == this.handletop &&
                        ((this.options.totalsize - this.options.pagesize) != this.value)) {
@@ -212,7 +214,7 @@ var DimpSlider = Class.create({
         this.handle.setStyle({ top: this.handlevalue + 'px' });
     },
 
-    _showScroll: function()
+    needScroll: function()
     {
         return (this.options.pagesize < this.options.totalsize);
     }

@@ -10,8 +10,9 @@
 var DimpBase = {
     // Vars used and defaulting to null/false:
     //   cfolderaction, folder, folderswitch, offset, pollPE, pp, search,
-    //   uid, viewport
-    // message_list_template set via js/mailbox-dimp.js
+    //   template, uid, viewport
+    // msglist_template_horiz and msglist_template_vert set via
+    //   js/mailbox-dimp.js
     cacheids: {},
     lastrow: -1,
     pivotrow: -1,
@@ -39,7 +40,7 @@ var DimpBase = {
 
         this.toggleButtons();
 
-        if ($('previewPane').visible()) {
+        if (DIMP.conf.preview_pref) {
             if (opts.right) {
                 this.clearPreviewPane();
             } else {
@@ -65,7 +66,7 @@ var DimpBase = {
         this.toggleButtons();
         if (opts.right || !count) {
             this.clearPreviewPane();
-        } else if ((count == 1) && $('previewPane').visible()) {
+        } else if ((count == 1) && DIMP.conf.preview_pref) {
             this.loadPreview(sel.get('dataob').first());
         }
     },
@@ -229,9 +230,8 @@ var DimpBase = {
 
                 // This catches the refresh case - no need to re-add to history
                 if (!Object.isUndefined(this.folder) && !this.search) {
-                    this._addHistory(loc);
+                    location.hash = escape(loc);
                 }
-
             }
 
             this.loadMailbox(f);
@@ -250,7 +250,7 @@ var DimpBase = {
                 return;
             }
             this.highlightSidebar('app' + app);
-            this._addHistory(loc, data);
+            location.hash = escape(loc);
             if (data) {
                 this.iframeContent(loc, data);
             } else if (DIMP.conf.app_urls[app]) {
@@ -273,7 +273,7 @@ var DimpBase = {
 
         case 'portal':
             this.highlightSidebar('appportal');
-            this._addHistory(loc);
+            location.hash = escape(loc);
             DimpCore.setTitle(DIMP.text.portal);
             DimpCore.doAction('ShowPortal', {}, { callback: this._portalCallback.bind(this) });
             break;
@@ -283,13 +283,6 @@ var DimpBase = {
             DimpCore.setTitle(DIMP.text.prefs);
             this.iframeContent(loc, DIMP.conf.URI_PREFS_IMP);
             break;
-        }
-    },
-
-    _addHistory: function(loc, data)
-    {
-        if (Horde.dhtmlHistory.getCurrentLocation() != loc) {
-            Horde.dhtmlHistory.add(loc, data);
         }
     },
 
@@ -390,21 +383,112 @@ var DimpBase = {
 
     _createViewPort: function()
     {
+        [ $('msglistHeader') ].invoke(DIMP.conf.preview_pref == 'vert' ? 'hide' : 'show');
+
+        this.template = {
+            horiz: new Template(this.msglist_template_horiz),
+            vert: new Template(this.msglist_template_vert)
+        };
+
         this.viewport = new ViewPort({
             // Mandatory config
             ajax_url: DIMP.conf.URI_AJAX + '/ViewPort',
-            content: 'msgList',
-            template: this.message_list_template,
+            container: 'msgSplitPane',
+            onContent: function(r, mode) {
+                var bg, re, u,
+                    thread = $H(this.viewport.getMetaData('thread')),
+                    tsort = (this.viewport.getMetaData('sortby') == $H(DIMP.conf.sort).get('thread').v);
+
+                r.subjectdata = r.status = '';
+                r.subjecttitle = r.subject;
+
+                // Add thread graphics
+                if (tsort) {
+                    u = thread.get(r.imapuid);
+                    if (u) {
+                        $R(0, u.length, true).each(function(i) {
+                            var c = u.charAt(i);
+                            if (!this.tcache[c]) {
+                                this.tcache[c] = '<span class="treeImg treeImg' + c + '"></span>';
+                            }
+                            r.subjectdata += this.tcache[c];
+                        }, this);
+                    }
+                }
+
+                /* Generate the status flags. */
+                if (r.flag) {
+                    r.flag.each(function(a) {
+                        var ptr = DIMP.conf.flags[a];
+                        if (ptr.p) {
+                            if (!ptr.elt) {
+                                /* Until text-overflow is supported on all
+                                 * browsers, need to truncate label text
+                                 * ourselves. */
+                                ptr.elt = '<span class="' + ptr.c + '" title="' + ptr.l + '" style="background:' + ptr.b + ';color:' + ptr.f + '">' + ptr.l.truncate(10) + '</span>';
+                            }
+                            r.subjectdata += ptr.elt;
+                        } else {
+                            if (!ptr.elt) {
+                                ptr.elt = '<div class="msgflags ' + ptr.c + '" title="' + ptr.l + '"></div>';
+                            }
+                            r.status += ptr.elt;
+
+                            r.bg.push(ptr.c);
+
+                            if (ptr.b) {
+                                bg = ptr.b;
+                            }
+                        }
+                    });
+                }
+
+                // Set bg
+                if (bg) {
+                    r.style = 'background:' + bg;
+                }
+
+                // Check for search strings
+                if (this.isSearch(null, true)) {
+                    re = new RegExp("(" + $F('qsearch_input') + ")", "i");
+                    [ 'from', 'subject' ].each(function(h) {
+                        r[h] = r[h].gsub(re, '<span class="qsearchMatch">#{1}</span>');
+                    });
+                }
+
+                // If these fields are null, invalid string was scrubbed by
+                // JSON encode.
+                if (r.from === null) {
+                    r.from = '[' + DIMP.text.badaddr + ']';
+                }
+                if (r.subject === null) {
+                    r.subject = r.subjecttitle = '[' + DIMP.text.badsubject + ']';
+                }
+
+                r.bg.push('vpRow');
+
+                switch (mode) {
+                case 'vert':
+                    r.bg.unshift('vpRowVert');
+                    r.className = r.bg.join(' ');
+                    return this.template.vert.evaluate(r);
+
+                default:
+                    r.bg.unshift('vpRowHoriz');
+                    r.className = r.bg.join(' ');
+                    return this.template.horiz.evaluate(r);
+                }
+            }.bind(this),
 
             // Optional config
             ajax_opts: DimpCore.doActionOpts,
             buffer_pages: DIMP.conf.buffer_pages,
-            content_class: 'msglist',
             empty_msg: DIMP.text.vp_empty,
+            list_class: 'msglist',
             page_size: DIMP.conf.splitbar_pos,
-            show_split_pane: DIMP.conf.preview_pref,
-            split_bar: 'splitBar',
-            split_pane: 'previewPane',
+            pane_data: 'previewPane',
+            pane_mode: DIMP.conf.preview_pref,
+            split_bar_class: { horiz: 'splitBarHoriz', vert: 'splitBarVert' },
             wait: DIMP.conf.viewport_wait,
 
             // Callbacks
@@ -444,77 +528,6 @@ var DimpBase = {
             }.bind(this),
             onClear: function(r) {
                 r.each(this._removeMouseEvents.bind(this));
-            }.bind(this),
-            onContent: function(row) {
-                var bg, re, u,
-                    thread = $H(this.viewport.getMetaData('thread')),
-                    tsort = (this.viewport.getMetaData('sortby') == $H(DIMP.conf.sort).get('thread').v);
-
-                row.subjectdata = row.status = '';
-                row.subjecttitle = row.subject;
-
-                // Add thread graphics
-                if (tsort) {
-                    u = thread.get(row.imapuid);
-                    if (u) {
-                        $R(0, u.length, true).each(function(i) {
-                            var c = u.charAt(i);
-                            if (!this.tcache[c]) {
-                                this.tcache[c] = '<span class="treeImg treeImg' + c + '"></span>';
-                            }
-                            row.subjectdata += this.tcache[c];
-                        }, this);
-                    }
-                }
-
-                /* Generate the status flags. */
-                if (row.flag) {
-                    row.flag.each(function(a) {
-                        var ptr = DIMP.conf.flags[a];
-                        if (ptr.p) {
-                            if (!ptr.elt) {
-                                /* Until text-overflow is supported on all
-                                 * browsers, need to truncate label text
-                                 * ourselves. */
-                                ptr.elt = '<span class="' + ptr.c + '" title="' + ptr.l + '" style="background:' + ptr.b + ';color:' + ptr.f + '">' + ptr.l.truncate(10) + '</span>';
-                            }
-                            row.subjectdata += ptr.elt;
-                        } else {
-                            if (!ptr.elt) {
-                                ptr.elt = '<div class="msgflags ' + ptr.c + '" title="' + ptr.l + '"></div>';
-                            }
-                            row.status += ptr.elt;
-
-                            row.bg.push(ptr.c);
-
-                            if (ptr.b) {
-                                bg = ptr.b;
-                            }
-                        }
-                    });
-                }
-
-                // Set bg
-                if (bg) {
-                    row.style = 'background:' + bg;
-                }
-
-                // Check for search strings
-                if (this.isSearch(null, true)) {
-                    re = new RegExp("(" + $F('qsearch_input') + ")", "i");
-                    [ 'from', 'subject' ].each(function(h) {
-                        row[h] = row[h].gsub(re, '<span class="qsearchMatch">#{1}</span>');
-                    });
-                }
-
-                // If these fields are null, invalid string was scrubbed by
-                // JSON encode.
-                if (row.from === null) {
-                    row.from = '[' + DIMP.text.badaddr + ']';
-                }
-                if (row.subject === null) {
-                    row.subject = row.subjecttitle = '[' + DIMP.text.badsubject + ']';
-                }
             }.bind(this),
             onContentComplete: function(rows) {
                 var row, ssc, tmp,
@@ -615,13 +628,15 @@ var DimpBase = {
             onFetch: this.loadingImg.bind(this, 'viewport', true),
             onSelect: this._select.bind(this),
             onSlide: this.setMessageListTitle.bind(this),
-            onSplitBarChange: function() {
-                this._updatePrefs('dimp_splitbar', this.viewport.getPageSize());
+            onSplitBarChange: function(mode) {
+                if (mode = 'horiz') {
+                    this._updatePrefs('dimp_splitbar', this.viewport.getPageSize());
+                }
             }.bind(this),
-            onSplitBarEnd: function() {
+            onSplitBarEnd: function(mode) {
                 $('messageBodyCover').hide();
             },
-            onSplitBarStart: function() {
+            onSplitBarStart: function(mode) {
                 $('messageBodyCover').clonePosition('messageBody').show();
             },
             onWait: function() {
@@ -764,8 +779,18 @@ var DimpBase = {
             this.composeMailbox(id.substring(10));
             break;
 
-        case 'previewtoggle':
-            this.togglePreviewPane();
+        case 'oa_preview_hide':
+            DIMP.conf.preview_pref_old = DIMP.conf.preview_pref;
+            this.togglePreviewPane('');
+            break;
+
+        case 'oa_preview_show':
+            this.togglePreviewPane(DIMP.conf.preview_pref_old || 'horiz');
+            break;
+
+        case 'oa_layout_horiz':
+        case 'oa_layout_vert':
+            this.togglePreviewPane(id.substring(10));
             break;
 
         case 'oa_blacklist':
@@ -872,6 +897,22 @@ var DimpBase = {
             break;
 
         case 'ctx_otheractions':
+            switch (DIMP.conf.preview_pref) {
+            case 'vert':
+                $('oa_preview_hide', 'oa_layout_horiz').invoke('show');
+                $('oa_preview_show', 'oa_layout_vert').invoke('hide');
+                break;
+
+            case 'horiz':
+                $('oa_preview_hide', 'oa_layout_vert').invoke('show');
+                $('oa_preview_show', 'oa_layout_horiz').invoke('hide');
+                break;
+
+            default:
+                $('oa_preview_hide', 'oa_layout_horiz', 'oa_layout_vert').invoke('hide');
+                $('oa_preview_show').show();
+                break;
+            }
             tmp = [ $('oa_undeleted') ];
             $('oa_blacklist', 'oa_whitelist').each(function(o) {
                 if (o) {
@@ -1014,14 +1055,18 @@ var DimpBase = {
     },
 
     // Preview pane functions
-    togglePreviewPane: function()
+    // mode = (string) Either 'horiz', 'vert', or empty
+    togglePreviewPane: function(mode)
     {
-        var p = DIMP.conf.preview_pref = !DIMP.conf.preview_pref;
-        $('previewtoggle').setText(p ? DIMP.text.hide_preview : DIMP.text.show_preview);
-        this._updatePrefs('show_preview', Number(p));
-        this.viewport.showSplitPane(p);
-        if (p) {
-            this.initPreviewPane();
+        var old = DIMP.conf.preview_pref;
+        if (mode != DIMP.conf.preview_pref) {
+            DIMP.conf.preview_pref = mode;
+            this._updatePrefs('dimp_show_preview', mode);
+            [ $('msglistHeader') ].invoke(mode == 'vert' ? 'hide' : 'show');
+            this.viewport.showSplitPane(mode);
+            if (!old) {
+                this.initPreviewPane();
+            }
         }
     },
 
@@ -1029,7 +1074,7 @@ var DimpBase = {
     {
         var pp_uid;
 
-        if (!$('previewPane').visible()) {
+        if (!DIMP.conf.preview_pref) {
             return;
         }
 
@@ -1147,7 +1192,7 @@ var DimpBase = {
             eval(r.js.join(';'));
         }
 
-        this._addHistory('msg:' + row.view + ':' + row.imapuid);
+        location.hash = escape('msg:' + row.view + ':' + row.imapuid);
     },
 
     // opts = mailbox, uid
@@ -1656,9 +1701,8 @@ var DimpBase = {
             tmp.draft
                 ? DimpCore.compose('resume', { folder: tmp.view, uid: tmp.imapuid })
                 : this.msgWindow(tmp);
+            e.stop();
         }
-
-        e.stop();
     },
 
     clickHandler: function(parentfunc, e)
@@ -2537,7 +2581,7 @@ var DimpBase = {
         var c;
 
         if (show) {
-            $(id + 'Loading').clonePosition(id == 'viewport' ? 'msgList' : 'splitBar', { setLeft: false, setTop: true, setHeight: false, setWidth: false }).show();
+            $(id + 'Loading').clonePosition(id == 'viewport' ? 'msgSplitPane' : 'previewPane', { setLeft: false, setTop: true, setHeight: false, setWidth: false }).show();
             c = 'progress';
         } else {
             $(id + 'Loading').fade({ duration: 0.2 });
@@ -2565,17 +2609,15 @@ var DimpBase = {
     {
         DimpCore.init();
 
-        var DM = DimpCore.DMenu;
+        var DM = DimpCore.DMenu, tmp;
 
         /* Register global handlers now. */
         document.observe('keydown', this.keydownHandler.bindAsEventListener(this));
         document.observe('change', this.changeHandler.bindAsEventListener(this));
+        document.observe('dblclick', this.dblclickHandler.bindAsEventListener(this));
 
         /* Limit to folders sidebar only. */
         $('foldersSidebar').observe('mouseover', this.mouseoverHandler.bindAsEventListener(this));
-
-        /* Limit to msgList only. */
-        $('msgList').observe('dblclick', this.dblclickHandler.bindAsEventListener(this));
 
         /* Show page now. */
         $('sidebarPanel').setStyle({ width: DIMP.conf.sidebar_width });
@@ -2598,21 +2640,18 @@ var DimpBase = {
             DM.addSubMenu('ctx_qsearchopts_filternot', 'ctx_flag');
         }
 
-        /* Start message list loading as soon as possible. */
-        if (Horde.dhtmlHistory.initialize()) {
-            Horde.dhtmlHistory.addListener(this.go.bind(this));
+        /* Initialize the starting page. */
+        tmp = location.hash;
+        if (!tmp.empty() && tmp.startsWith('#')) {
+            tmp = (tmp.length == 1) ? "" : tmp.substring(1);
         }
-
-        /* Initialize the starting page if necessary. addListener() will have
-         * already fired if there is a current location so only do a go()
-         * call if there is no current location. */
-        if (!Horde.dhtmlHistory.getCurrentLocation()) {
-            if (DIMP.conf.login_view == 'inbox') {
-                this.go('folder:INBOX');
-            } else {
-                this.go('portal');
-                this.loadMailbox('INBOX', { background: true });
-            }
+        if (!tmp.empty()) {
+            this.go(unescape(tmp));
+        } else if (DIMP.conf.login_view == 'inbox') {
+            this.go('folder:INBOX');
+        } else {
+            this.go('portal');
+            this.loadMailbox('INBOX', { background: true });
         }
 
         this._setQsearchText(true);

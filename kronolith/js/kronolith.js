@@ -1796,7 +1796,6 @@ KronolithCore = {
             $('kronolithTaskDueDate').setValue(d.toString(Kronolith.conf.date_format));
             $('kronolithTaskDueTime').setValue(d.toString(Kronolith.conf.time_format));
             RedBox.showHtml($('kronolithTaskDialog').show());
-            this.taskForm = RedBox.getWindowContents();
         }
     },
 
@@ -2906,6 +2905,7 @@ KronolithCore = {
 
     _closeRedBox: function()
     {
+        document.body.insert(RedBox.getWindowContents().hide());
         RedBox.close();
     },
 

@@ -484,6 +484,9 @@ body.kronolithAjax {
     font-weight: bold;
     cursor: pointer;
 }
+#kronolithAddEvents span.accessKey {
+    float: none;
+}
 span#kronolithNewEvent {
     width: 121px;
     margin-right: 10px;
