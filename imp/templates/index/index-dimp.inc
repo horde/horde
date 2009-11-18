@@ -165,7 +165,6 @@ function _simpleButton($id, $text, $image)
        </form>
        <span class="closeImg" id="qsearch_close" style="display:none" title="<?php echo _("Clear Search") ?>"></span>
        <span id="qsearch_close_filter" style="display:none">Clear Filter</span>
-      </span>
       </div>
 <?php endif; ?>
       <div><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Reply', 'id' => 'button_reply', 'title' => _("Reply"))) ?></div>
