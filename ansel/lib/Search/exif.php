@@ -18,11 +18,10 @@ class Ansel_Search_exif {
      * @param array $params
      * @return Ansel_Search_exif
      */
-    function Ansel_Search_exif($params = array())
+    public function __construct($params = array())
     {
         $this->_type = 'exif';
     }
-
 
     /**
      * retrieve a slice of the current search
@@ -40,5 +39,4 @@ class Ansel_Search_exif {
     function count()
     {
     }
-
 }
