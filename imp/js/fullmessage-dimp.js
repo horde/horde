@@ -92,8 +92,9 @@ var DimpFullmessage = {
             case 'button_deleted':
             case 'button_ham':
             case 'button_spam':
-                if (id == 'button_deleted') {
-                    if (DIMP.baseWindow && DIMP.baseWindow.DimpBase) {
+                if (DIMP.baseWindow && DIMP.baseWindow.DimpBase) {
+                    DIMP.baseWindow.focus();
+                    if (id == 'button_deleted') {
                         DIMP.baseWindow.DimpBase.deleteMsg({ uid: this.uid, mailbox: this.mailbox });
                     } else {
                         DIMP.baseWindow.DimpBase.reportSpam(id == 'button_spam', { uid: this.uid, mailbox: this.mailbox });
