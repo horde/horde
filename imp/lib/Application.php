@@ -430,6 +430,12 @@ class IMP_Application extends Horde_Registry_Application
             $this->_prefsPrepareSourceselect();
             break;
 
+        case 'display':
+            /* Set the timezone on this page so the 'time_format' output uses
+             * the configured time zone's time, not the system's time zone. */
+            Horde_Nls::setTimeZone();
+            break;
+
         case 'flags':
             Horde::addScriptFile('colorpicker.js', 'horde');
             Horde::addScriptFile('flagprefs.js', 'imp');
