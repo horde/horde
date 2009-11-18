@@ -201,7 +201,7 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
                 if ($event_active) {
                     $html .= '<strong>';
                 }
-                $html .= $event->getLink(null, true, null, true);
+                $html .= ' ' . $event->getLink(null, true, null, true);
                 if ($event_active) {
                     $html .= '</strong>';
                 }
