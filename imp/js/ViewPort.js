@@ -167,7 +167,7 @@ var ViewPort = Class.create({
         this.split_pane = {
             curr: null,
             horiz: {
-                loc: opts.page_size,
+                loc: opts.page_size
             },
             vert: {
                 width: opts.pane_width
@@ -1200,11 +1200,11 @@ ViewPort_Scroller = Class.create({
         if (this.scrollbar.needScroll()) {
             switch (this.vp.pane_mode) {
             case 'horiz':
-                this.scrollDiv.setStyle({ float: 'left', marginLeft: '-' + this.scrollDiv.getWidth() + 'px', position: null });
+                this.scrollDiv.setStyle({ float: 'left', position: 'static' }).setStyle({ marginLeft: '-' + this.scrollDiv.getWidth() + 'px' });
                 break;
 
             case 'vert':
-                this.scrollDiv.setStyle({ float: 'left', marginLeft: 0, position: null });
+                this.scrollDiv.setStyle({ float: 'left', marginLeft: 0, position: 'static' });
                 if (!this.vertscroll) {
                     c.setStyle({ width: (c.clientWidth - this.scrollDiv.getWidth()) + 'px' });
                 }
@@ -1212,7 +1212,7 @@ ViewPort_Scroller = Class.create({
                 break;
 
             default:
-                this.scrollDiv.setStyle({ float: 'none', marginLeft: '-' + this.scrollDiv.getWidth() + 'px', position: 'absolute', right: 0, top: 0 });
+                this.scrollDiv.setStyle({ float: 'none', position: 'absolute', right: 0, top: 0 }).setStyle({ marginLeft: '-' + this.scrollDiv.getWidth() + 'px' });
                 break;
             }
 
@@ -1321,7 +1321,15 @@ ViewPort_Buffer = Class.create({
     // rows = (array) Additional rows to include in the search.
     sliceLoaded: function(offset, rows)
     {
-        var range = $A($R(offset + 1, Math.min(offset + this.vp.getPageSize() - 1, this.getMetaData('total_rows'))));
+        var range, tr = this.getMetaData('total_rows');
+
+        // Undefined here indicates we have never sent a previous buffer
+        // request.
+        if (Object.isUndefined(tr)) {
+            return false;
+        }
+
+        range = $A($R(offset + 1, Math.min(offset + this.vp.getPageSize() - 1, tr)));
 
         return rows
             ? (range.diff(this.rowlist.keys().concat(rows)).size() == 0)
