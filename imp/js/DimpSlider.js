@@ -191,7 +191,7 @@ var DimpSlider = Class.create({
     _setScrollPosition: function(type, data)
     {
         this.value = (type == 'val')
-            ? Math.min(Math.max(0, data), this.options.totalsize - this.options.pagesize)
+            ? Math.min(Math.max(0, data), Math.max(0, this.options.totalsize - this.options.pagesize))
             : Math.max(0, Math.round(Math.min(data, this.handletop) / this.handletop * (this.options.totalsize - this.options.pagesize)));
 
         if (type == 'px') {
@@ -201,7 +201,9 @@ var DimpSlider = Class.create({
 
             /* Always make sure there is at least 1 pixel if we are not at the
              * absolute bottom or top. */
-            if (this.handlevalue == 0 && this.value != 0) {
+            if (isNaN(this.handlevalue)) {
+                this.handlevalue = 0;
+            } else if (this.handlevalue == 0 && this.value != 0) {
                 this.handlevalue += 1;
             } else if (this.handlevalue == this.handletop &&
                        ((this.options.totalsize - this.options.pagesize) != this.value)) {
