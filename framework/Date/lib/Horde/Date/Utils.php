@@ -100,4 +100,98 @@ class Horde_Date_Utils
         return $date->strftime($date_format);
     }
 
+    /**
+     * Tries to convert strftime() formatters to date() formatters.
+     *
+     * Unsupported formatters will be removed.
+     *
+     * @param string $format  A strftime() formatting string.
+     *
+     * @return string  A date() formatting string.
+     */
+    public static function strftime2date($format)
+    {
+        return preg_replace(array('/%a/',
+                                  '/%A/',
+                                  '/%d/',
+                                  '/%e/',
+                                  '/%j/',
+                                  '/%u/',
+                                  '/%w/',
+                                  '/%U/',
+                                  '/%V/',
+                                  '/%W/',
+                                  '/%b/',
+                                  '/%B/',
+                                  '/%h/',
+                                  '/%m/',
+                                  '/%C/',
+                                  '/%g/',
+                                  '/%G/',
+                                  '/%y/',
+                                  '/%Y/',
+                                  '/%H/',
+                                  '/%I/',
+                                  '/%i/',
+                                  '/%M/',
+                                  '/%p/',
+                                  '/%P/',
+                                  '/%r/',
+                                  '/%R/',
+                                  '/%S/',
+                                  '/%T/',
+                                  '/%X/e',
+                                  '/%z/',
+                                  '/%Z/',
+                                  '/%c/',
+                                  '/%D/',
+                                  '/%F/',
+                                  '/%s/',
+                                  '/%x/e',
+                                  '/%n/',
+                                  '/%t/',
+                                  '/%%/'),
+                           array('D',
+                                 'l',
+                                 'd',
+                                 'j',
+                                 'z',
+                                 'N',
+                                 'w',
+                                 '',
+                                 'W',
+                                 '',
+                                 'M',
+                                 'F',
+                                 'M',
+                                 'm',
+                                 '',
+                                 '',
+                                 'o',
+                                 'y',
+                                 'Y',
+                                 'H',
+                                 'h',
+                                 'g',
+                                 'i',
+                                 'A',
+                                 'a',
+                                 'h:i:s A',
+                                 'H:i',
+                                 's',
+                                 'H:i:s',
+                                 'Horde_Date_Utils::strftime2date(Horde_Nls::getLangInfo(T_FMT))',
+                                 'O',
+                                 '',
+                                 '',
+                                 'm/d/y',
+                                 'Y-m-d',
+                                 'U',
+                                 'Horde_Date_Utils::strftime2date(Horde_Nls::getLangInfo(D_FMT))',
+                                 "\n",
+                                 "\t",
+                                 '%'),
+                           $format);
+    }
+
 }
