@@ -237,9 +237,9 @@ div.flagDeleted {
 }
 .msglist div.vpRowVert div.msgStatus {
     height: 24px;
-    padding-right: 4px;
+    margin-right: 2px;
     padding-top: 8px;
-    width: 20%;
+    width: 15%;
 }
 .msglist div.vpRowVert div.msgFrom {
     font-weight: bold;

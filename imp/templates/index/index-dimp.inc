@@ -196,7 +196,7 @@ function _simpleButton($id, $text, $image)
     <div id="previewPane" style="display:none">
      <span id="msgLoading" class="loadingImg" style="display:none"></span>
      <div id="previewInfo" style="display:none">
-      <?php echo _("To preview a message, select it from the list above.") ?>
+      <?php echo _("To preview a message, select it from the message list.") ?>
       <br />
 <?php if ($browser->isBrowser('opera')): ?>
       <?php echo _("A left click") ?> + <span class="kbd"><?php echo _("Shift") ?></span> + <span class="kbd"><?php echo _("Ctrl") ?></span> <?php echo _("will display available actions.") ?>

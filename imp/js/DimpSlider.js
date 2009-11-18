@@ -56,7 +56,7 @@ var DimpSlider = Class.create({
         this.sbdownsize = this.sbupsize = this.value = 0;
         this.active = this.dragging = false;
 
-        if (this._showScroll()) {
+        if (this.needScroll()) {
             this._initScroll();
         }
 
@@ -144,16 +144,18 @@ var DimpSlider = Class.create({
         }
     },
 
-    updateHandleLength: function(pagesize, totalsize)
+    setHandleLength: function(pagesize, totalsize)
     {
         this.options.pagesize = pagesize;
         this.options.totalsize = totalsize;
-        if (!this._showScroll()) {
+    },
+
+    updateHandleLength: function()
+    {
+        if (!this.needScroll()) {
             this.value = 0;
             this.track.hide();
-            return;
-        }
-        if (!this._initScroll()) {
+        } else if (!this._initScroll()) {
             this.track.show();
             this._updateHandleLength();
         }
@@ -179,12 +181,10 @@ var DimpSlider = Class.create({
 
     setScrollPosition: function(val)
     {
-        if (this._showScroll()) {
-            var oldval = this.getValue();
-            this._setScrollPosition('val', val);
-            if (oldval != this.getValue()) {
-                this._updateFinished();
-            }
+        var oldval = this.getValue();
+        this._setScrollPosition('val', val);
+        if (oldval != this.getValue()) {
+            this._updateFinished();
         }
     },
 
@@ -212,7 +212,7 @@ var DimpSlider = Class.create({
         this.handle.setStyle({ top: this.handlevalue + 'px' });
     },
 
-    _showScroll: function()
+    needScroll: function()
     {
         return (this.options.pagesize < this.options.totalsize);
     }

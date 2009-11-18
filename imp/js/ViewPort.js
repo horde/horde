@@ -467,7 +467,7 @@ var ViewPort = Class.create({
             break;
         }
 
-        this.scroller.onResize();
+        this.requestContentRefresh(this.currentOffset());
     },
 
     // offset = (integer) TODO
@@ -807,7 +807,7 @@ var ViewPort = Class.create({
             this.opts.onClear(this.visibleRows());
         }
 
-        this.scroller.updateSize();
+        this.scroller.setSize(page_size, this.getMetaData('total_rows'));
         this.scrollTo(offset + 1, { noupdate: true, top: true });
 
         offset = this.currentOffset();
@@ -823,6 +823,8 @@ var ViewPort = Class.create({
         if (this.opts.onContentComplete) {
             this.opts.onContentComplete(c_nodes);
         }
+
+        this.scroller.updateDisplay();
 
         return true;
     },
@@ -1148,7 +1150,7 @@ var ViewPort = Class.create({
  */
 ViewPort_Scroller = Class.create({
     // Variables initialized to undefined:
-    //   lastpane, noupdate, scrollDiv, scrollbar, scrollsize, vp
+    //   noupdate, scrollDiv, scrollbar, vertscroll, vp
 
     initialize: function(vp)
     {
@@ -1184,56 +1186,48 @@ ViewPort_Scroller = Class.create({
         }.bindAsEventListener(this));
     },
 
-    onResize: function()
-    {
-        // Update the scrollbar size
-        this.updateSize();
-
-        // Update displayed content.
-        this.vp.requestContentRefresh(this.currentOffset());
-    },
-
-    updateSize: function()
+    setSize: function(viewsize, totalsize)
     {
         this._createScrollBar();
-        this.scrollbar.updateHandleLength(this.vp.getPageSize(), this.vp.getMetaData('total_rows'));
+        this.scrollbar.setHandleLength(viewsize, totalsize);
+    },
 
+    updateDisplay: function()
+    {
         var c = this.vp.opts.content,
-            w = this.scrollDiv.getWidth();
+            vs = false;
 
-        if (this.scrollDiv.visible()) {
+        if (this.scrollbar.needScroll()) {
             switch (this.vp.pane_mode) {
             case 'horiz':
-                this.scrollDiv.setStyle({ float: 'left', marginLeft: '-' + w + 'px', position: null });
+                this.scrollDiv.setStyle({ float: 'left', marginLeft: '-' + this.scrollDiv.getWidth() + 'px', position: null });
                 break;
 
             case 'vert':
-                if (this.lastpane != this.vp.pane_mode) {
-                    c.setStyle({ width: (c.clientWidth - w) + 'px' });
-                }
                 this.scrollDiv.setStyle({ float: 'left', marginLeft: 0, position: null });
+                if (!this.vertscroll) {
+                    c.setStyle({ width: (c.clientWidth - this.scrollDiv.getWidth()) + 'px' });
+                }
+                vs = true;
                 break;
 
             default:
-                this.scrollDiv.setStyle({ marginLeft: '-' + w + 'px', position: 'absolute', right: 0, top: 0 });
+                this.scrollDiv.setStyle({ float: 'none', marginLeft: '-' + this.scrollDiv.getWidth() + 'px', position: 'absolute', right: 0, top: 0 });
                 break;
             }
 
             this.scrollDiv.setStyle({ height: c.clientHeight + 'px' });
-            this.scrollsize = c.clientHeight;
-        } else if (this.vp.pane_mode == 'vert' &&
-                   this.lastpane == this.vp.pane_mode) {
-            c.setStyle({ width: (c.clientWidth + w) + 'px' });
+        } else if ((this.vp.pane_mode =='vert') && this.vertscroll) {
+            c.setStyle({ width: (c.clientWidth + this.scrollDiv.getWidth()) + 'px' });
         }
 
-        this.lastpane = this.vp.pane_mode;
+        this.vertscroll = vs;
+        this.scrollbar.updateHandleLength();
     },
 
     clear: function()
     {
-        if (this.scrollDiv) {
-            this.scrollbar.updateHandleLength(0, 0);
-        }
+        this.setSize(0, 0);
     },
 
     // offset = (integer) Offset to move the scrollbar to

@@ -40,7 +40,7 @@ var DimpBase = {
 
         this.toggleButtons();
 
-        if ($('previewPane').visible()) {
+        if (DIMP.conf.preview_pref) {
             if (opts.right) {
                 this.clearPreviewPane();
             } else {
@@ -66,7 +66,7 @@ var DimpBase = {
         this.toggleButtons();
         if (opts.right || !count) {
             this.clearPreviewPane();
-        } else if ((count == 1) && $('previewPane').visible()) {
+        } else if ((count == 1) && DIMP.conf.preview_pref) {
             this.loadPreview(sel.get('dataob').first());
         }
     },
@@ -232,7 +232,6 @@ var DimpBase = {
                 if (!Object.isUndefined(this.folder) && !this.search) {
                     this._addHistory(loc);
                 }
-
             }
 
             this.loadMailbox(f);
@@ -1082,7 +1081,7 @@ var DimpBase = {
     {
         var pp_uid;
 
-        if (!$('previewPane').visible()) {
+        if (!DIMP.conf.preview_pref) {
             return;
         }
 
