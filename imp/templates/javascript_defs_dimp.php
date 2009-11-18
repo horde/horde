@@ -57,7 +57,6 @@ $code['conf'] = array_filter(array(
     // Other variables
     'app_urls' => $app_urls,
     'buffer_pages' => intval($GLOBALS['conf']['dimp']['viewport']['buffer_pages']),
-    'debug' => intval(!empty($GLOBALS['conf']['dimp']['js']['debug'])),
     'disable_compose' => !IMP::canCompose(),
     'filter_any' => intval($GLOBALS['prefs']->getValue('filter_any_mailbox')),
     'fixed_folders' => empty($GLOBALS['conf']['server']['fixed_folders'])
