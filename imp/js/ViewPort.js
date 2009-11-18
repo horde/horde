@@ -401,11 +401,6 @@ var ViewPort = Class.create({
     // size = (integer) The page size to use instead of auto-determining.
     _onResize: function(size)
     {
-        // This is needed for IE 6 - or else horizontal scrolling can occur.
-        if (!this.opts.content.offsetHeight) {
-            return this._onResize.bind(this, size).defer();
-        }
-
         var h,
             c = this.opts.content,
             lh = this._getLineHeight(),
@@ -467,7 +462,9 @@ var ViewPort = Class.create({
             break;
         }
 
-        this.requestContentRefresh(this.currentOffset());
+        if (this.view) {
+            this.requestContentRefresh(this.currentOffset());
+        }
     },
 
     // offset = (integer) TODO
