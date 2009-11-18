@@ -115,7 +115,7 @@ class Horde_Nls
         if (isset($GLOBALS['language'])) {
             if ($GLOBALS['language'] == $lang) {
                 return;
-            } else {
+            } elseif (isset($GLOBALS['registry'])) {
                 $GLOBALS['registry']->clearCache();
             }
         }
