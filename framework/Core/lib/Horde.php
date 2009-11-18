@@ -2235,6 +2235,8 @@ HTML;
      * <pre>
      * 'height' - (integer) The height of the popup window.
      *            DEFAULT: 650 px
+     * 'menu' - (boolean) Show the browser menu in the popup window?
+     *          DEFAULT: false
      * 'params' - (array) Additional parameters to pass to the URL.
      *            DEFAULT: None
      * 'urlencode' - (boolean) URL encode the json string
@@ -2269,6 +2271,9 @@ HTML;
         }
         if (!empty($options['params'])) {
             $params->params = substr(Horde_Util::addParameter('', $options['params'], null, false), 1);
+        }
+        if (!empty($options['menu'])) {
+            $params->menu = 1;
         }
 
         return 'Horde.popup(' . self::escapeJson($params, array('urlencode' => !empty($options['urlencode']))) . ');';
