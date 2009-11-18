@@ -1458,7 +1458,11 @@ ViewPort_Buffer = Class.create({
 
     getMetaData: function(id)
     {
-        return this.mdata.get(id) || this.usermdata.get(id);
+        var data = this.mdata.get(id);
+
+        return Object.isUndefined(data)
+            ? this.usermdata.get(id)
+            : data;
     },
 
     setMetaData: function(vals, priv)
