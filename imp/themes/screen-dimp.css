@@ -721,6 +721,10 @@ span.attachmentImg {
     margin: 1px 0;
     padding: 0;
 }
+.context div.contactAddr {
+    font-style: italic;
+    text-align: center;
+}
 .contextSubmenu {
     background: url("graphics/popright.png") 100% 50% no-repeat;
     padding-left: 16px;
