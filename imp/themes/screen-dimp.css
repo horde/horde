@@ -100,13 +100,13 @@ input {
 .splitBarHoriz {
     background-image: url("graphics/dragHandle.png");
     background-position: center top;
-    cursor: ns-resize;
+    cursor: row-resize;
     height: 5px;
 }
 .splitBarVert {
     background-image: url("graphics/dragHandleVert.png");
     background-position: center;
-    cursor: ew-resize;
+    cursor: col-resize;
     height: 300px;
     margin-bottom: -1px;
     margin-top: -1px;
