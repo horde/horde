@@ -73,6 +73,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
+   <package>
+    <name>Nls</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
  </dependencies>
  <phprelease>
