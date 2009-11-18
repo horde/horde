@@ -1,9 +1,10 @@
 <?php
 /**
- * TimeObjects driver for exposing weatherdotcom data via the listTimeObjects API
+ * TimeObjects driver for exposing weather.com data via the listTimeObjects
+ * API.
  *
- * @TODO: Inject any config items needed (proxy, partner ids etc...) instead of globaling
- *        the $conf array.
+ * @TODO: Inject any config items needed (proxy, partner ids etc...) instead
+ *        of globaling the $conf array.
  *
  *        Use Horde_Controller, Routes etc... for endpoints?
  *
@@ -21,22 +22,35 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
     {
         global $registry;
 
+        $country = substr($GLOBALS['language'], -2);
         if (empty($params['location'])) {
             // Try to get a good location string from Turba's "own" contact
             if ($registry->hasInterface('contacts')) {
                 $contact = $GLOBALS['registry']->contacts->ownContact();
                 if (!is_a($contact, 'PEAR_Error')) {
-                    $params['location'] = !empty($contact['homeCity'])
-                        ? $contact['homeCity']
+                    if (!empty($contact['homeCountry'])) {
+                        $country = $contact['homeCountry'];
+                    } elseif (!empty($contact['workCountry'])) {
+                        $country = $contact['workCountry'];
+                    }
+                    if (!empty($contact['homeCity'])) {
+                        $params['location'] = $contact['homeCity']
                             . (!empty($contact['homeProvince']) ? ', ' . $contact['homeProvince'] : '')
-                            . (!empty($contact['homeCountry']) ? ', ' . $contact['homeCountry'] : '')
-                        : $contact['workCity']
+                            . (!empty($contact['homeCountry']) ? ', ' . $contact['homeCountry'] : '');
+                    } else {
+                        $params['location'] = $contact['workCity']
                             . (!empty($contact['workProvince']) ? ', ' . $contact['workProvince'] : '')
                             . (!empty($contact['workCountry']) ? ', ' . $contact['workCountry'] : '');
+                    }
                 }
             }
-            // TODO: Try some other way, maybe a hook or a new preference in Horde
-            //       to set your current location, maybe with a google map?
+            // TODO: Try some other way, maybe a hook or a new preference in
+            //       Horde to set your current location, maybe with a google
+            //       map?
+        }
+
+        if ($country != 'US') {
+            $params['units'] = 'metric';
         }
 
         parent::__construct($params);
@@ -49,16 +63,11 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
      */
     public function ensure()
     {
-        if (!class_exists('Services_Weather') ||
-            !class_exists('Cache') ||
-            empty($this->_params['location']) ||
-            empty($GLOBALS['conf']['weatherdotcom']['partner_id']) ||
-            empty($GLOBALS['conf']['weatherdotcom']['license_key'])) {
-
-            return false;
-        }
-
-        return true;
+        return class_exists('Services_Weather') &&
+            class_exists('Cache') &&
+            !empty($this->_params['location']) &&
+            !empty($GLOBALS['conf']['weatherdotcom']['partner_id']) &&
+            !empty($GLOBALS['conf']['weatherdotcom']['license_key']);
     }
 
     /**
@@ -112,9 +121,8 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
         }
 
         $weatherDotCom = &Services_Weather::service('WeatherDotCom', $options);
-        $weatherDotCom->setAccountData(
-            (isset($conf['weatherdotcom']['partner_id']) ? $conf['weatherdotcom']['partner_id'] : ''),
-            (isset($conf['weatherdotcom']['license_key']) ? $conf['weatherdotcom']['license_key'] : ''));
+        $weatherDotCom->setAccountData($conf['weatherdotcom']['partner_id'],
+                                       $conf['weatherdotcom']['license_key']);
 
         $cacheDir = Horde::getTempDir();
         if (!$cacheDir) {
@@ -182,40 +190,61 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
 
             // For day 0, the day portion isn't available after a certain time
             // simplify and just check for it's presence or use night.
-            $title = sprintf("%s %d%s/%d%s", (!empty($data['day']['condition']) ? $data['day']['condition'] : $data['night']['condition']),
-                                             $data['temperatureHigh'],
-                                             Horde_String::upper($units['temp']),
-                                             $data['temperatureLow'],
-                                             Horde_String::upper($units['temp']));
+            if (empty($data['day']['condition']) ||
+                $data['day']['condition'] == 'N/A') {
+                $condition = $data['night']['condition'];
+            } else {
+                $condition = $data['day']['condition'];
+            }
+            $condition = implode(' / ', array_map('_', explode(' / ', $condition)));
+            if ($data['temperatureHigh'] == 'N/A') {
+                $title = sprintf('%s %d°%s',
+                                 $condition,
+                                 $data['temperatureLow'],
+                                 Horde_String::upper($units['temp']));
+            } else {
+                $title = sprintf('%s %d°%s/%d°%s',
+                                 $condition,
+                                 $data['temperatureHigh'],
+                                 Horde_String::upper($units['temp']),
+                                 $data['temperatureLow'],
+                                 Horde_String::upper($units['temp']));
+            }
             $daytime = sprintf(_("Conditions: %s\nHigh: %d%s\nPrecipitation: %d%%\nHumidity: %d%%\nWinds: From the %s at %d%s"),
-                           $data['day']['condition'],
-                           $data['temperatureHigh'], Horde_String::upper($units['temp']),
-                           $data['day']['precipitation'],
-                           $data['day']['humidity'],
-                           $data['day']['windDirection'],
-                           $data['day']['wind'],
-                           Horde_String::upper($units['wind']));
-             if (!empty($data['day']['windGust']) && $data['day']['windgust'] > 0) {
-                 $daytime .= sprintf(_(" gusting %d%s"), $data['day']['windgust'], Horde_String::upper($units['wind']));
-             }
-             $nighttime = sprintf(_("Conditions: %s\nLow: %d%s\nPrecipitation: %d%%\nHumidity: %d%%\nWinds: From the %s at %d%s"),
-                           $data['night']['condition'],
-                           $data['temperatureLow'], Horde_String::upper($units['temp']),
-                           $data['night']['precipitation'],
-                           $data['night']['humidity'],
-                           $data['night']['windDirection'],
-                           $data['night']['wind'],
-                           Horde_String::upper($units['wind']));
-             if (!empty($data['night']['windGust']) && $data['night']['windgust'] > 0) {
-                 $nighttime .= sprintf(_(" gusting %d%s"), $data['night']['windgust'], Horde_String::upper($units['wind']));
-             }
+                               $data['day']['condition'],
+                               $data['temperatureHigh'], Horde_String::upper($units['temp']),
+                               $data['day']['precipitation'],
+                               $data['day']['humidity'],
+                               $data['day']['windDirection'],
+                               $data['day']['wind'],
+                               Horde_String::upper($units['wind']));
+            if (!empty($data['day']['windGust']) &&
+                $data['day']['windgust'] > 0) {
+                $daytime .= sprintf(_(" gusting %d%s"),
+                                    $data['day']['windgust'],
+                                    Horde_String::upper($units['wind']));
+            }
+            $nighttime = sprintf(_("Conditions: %s\nLow: %d%s\nPrecipitation: %d%%\nHumidity: %d%%\nWinds: From the %s at %d%s"),
+                                 $data['night']['condition'],
+                                 $data['temperatureLow'],
+                                 Horde_String::upper($units['temp']),
+                                 $data['night']['precipitation'],
+                                 $data['night']['humidity'],
+                                 $data['night']['windDirection'],
+                                 $data['night']['wind'],
+                                 Horde_String::upper($units['wind']));
+            if (!empty($data['night']['windGust']) &&
+                $data['night']['windgust'] > 0) {
+                $nighttime .= sprintf(_(" gusting %d%s"),
+                                      $data['night']['windgust'],
+                                      Horde_String::upper($units['wind']));
+            }
             $description = sprintf(_("Location: %s\nSunrise: %sAM Sunset: %sPM\n\nDay:\n%s\n\nEvening:\n%s"),
                                    $location['name'],
                                    $data['sunrise'],
                                    $data['sunset'],
                                    $daytime,
-                                   $nighttime
-                                   );
+                                   $nighttime);
             $objects[] = array('id' => $day->timestamp(), //???
                                'title' => $title,
                                'description' => $description,
@@ -227,11 +256,10 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
                                                 $day_end->year,
                                                 $day_end->month,
                                                 $day_end->mday),
-                                'recurrence' => Horde_Date_Recurrence::RECUR_NONE,
-                                'params' => array(),
-                                'link' => '#',
-                                'icon' =>  Horde::url($GLOBALS['registry']->getImageDir('horde') . '/block/weatherdotcom/23x23/' . ($data['day']['conditionIcon'] == '-' ? 'na' : $data['day']['conditionIcon']) . '.png', true, false)
-                        );
+                               'recurrence' => Horde_Date_Recurrence::RECUR_NONE,
+                               'params' => array(),
+                               'link' => '#',
+                               'icon' =>  Horde::url($GLOBALS['registry']->getImageDir('horde') . '/block/weatherdotcom/23x23/' . ($data['day']['conditionIcon'] == '-' ? 'na' : $data['day']['conditionIcon']) . '.png', true, false));
        }
 
         return $objects;
