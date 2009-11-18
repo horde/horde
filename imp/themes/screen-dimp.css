@@ -184,12 +184,12 @@ div.msgSize {
 }
 
 /* Message ViewPort */
-.msglist span.vpEmpty, .msglist span.vpError {
+span.vpEmpty, span.vpError {
     font-weight: bold;
 }
 
 /* Rows */
-.msglist div.vpRow, .msglist div.vpRow div {
+div.vpRow, div.vpRow div {
     cursor: pointer;
     font-size: 95%;
     white-space: nowrap;
@@ -199,13 +199,13 @@ div.msgSize {
     height: 16px;
     border-bottom: 1px;
 }
-.msglist div.vpRowSelected {
+div.vpRowSelected {
     background: #ffa !important;
 }
-.msglist div.vpRowHoriz div.sep {
+div.vpRowHoriz div.sep {
     border-right: 1px solid #ddd;
 }
-.msglist div.vpRowHoriz, .msglist div.vpRowHoriz div {
+div.vpRowHoriz, div.vpRowHoriz div {
     text-indent: 2px;
 }
 
@@ -221,40 +221,47 @@ div.flagDeleted {
 }
 
 /* Checkbox images */
-.msglist div.msCheck {
+div.msCheck {
     background-image: url("graphics/checkbox_off.png");
 }
-.msglist div.msCheck:hover {
+div.msCheck:hover {
     background-image: url("graphics/checkbox_over.png");
 }
-.msglist div.vpRowSelected div.msCheck {
+div.vpRowSelected div.msCheck {
     background-image: url("graphics/checkbox_on.png");
 }
 
 /* Rows (vertical mode) */
-.msglist div.vpRowVert {
+div.vpRowVert {
     height: auto;
 }
-.msglist div.vpRowVert div.msgStatus {
+div.vpRowVert div {
+    font-size: 100%;
+}
+div.vpRowVert div.msgStatus {
     height: 24px;
     margin-right: 2px;
     padding-top: 8px;
     width: 15%;
 }
-.msglist div.vpRowVert div.msgFrom {
+div.vpRowVert div.msgFrom {
     font-weight: bold;
     width: auto;
 }
-.msglist div.vpRowVert div.msgDate {
+div.vpRowVert div.msgDate {
     float: right;
     padding-right: 1px;
     text-indent: 2px;
     width: auto;
 }
-.msglist div.vpRowVert div.msgSubject {
+div.vpRowVert div.msgSubject {
     float: none;
     font-style: italic;
     width: auto;
+}
+
+div.vpRowVert.flagUnseen {
+    font-weight: normal;
 }
 
 /* ViewPort - scroller */
