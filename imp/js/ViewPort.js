@@ -775,7 +775,7 @@ var ViewPort = Class.create({
 
         // TODO: Flag for no _fetchBuffer()?
         if (this.view == r.view) {
-            this._updateContent(Object.isUndefined(offset) ? (r.rownum ? Number(r.rownum) - 1 : this.currentOffset()) : offset);
+            this._updateContent(Object.isUndefined(r.rownum) ? (Object.isUndefined(offset) ? this.currentOffset() : offset) : Number(r.rownum) - 1);
         } else if (r.rownum) {
             // We loaded in the background. If rownumber information was
             // provided, we need to save this or else we will position the
