@@ -820,11 +820,11 @@ var ViewPort = Class.create({
             c.update(this.empty_msg);
         }
 
+        this.scroller.updateDisplay();
+
         if (this.opts.onContentComplete) {
             this.opts.onContentComplete(c_nodes);
         }
-
-        this.scroller.updateDisplay();
 
         return true;
     },
@@ -993,7 +993,7 @@ var ViewPort = Class.create({
         sp.currbar = sp[this.pane_mode].bar = new Element('DIV', { className: this.opts.split_bar_class[this.pane_mode] });
 
         if (!this.opts.pane_data.descendantOf(this.opts.container)) {
-            this.opts.container.insert({ bottom: this.opts.pane_data.remove() });
+            this.opts.container.insert(this.opts.pane_data.remove());
         }
 
         this.opts.pane_data.insert({ before: sp.currbar });
