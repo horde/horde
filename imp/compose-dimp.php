@@ -210,7 +210,7 @@ $folder = Horde_Util::getFormData('folder');
 $show_editor = false;
 $title = _("New Message");
 
-if (in_array($type, array('reply', 'reply_all', 'reply_list', 'forward', 'resume'))) {
+if (in_array($type, array('reply', 'reply_all', 'reply_auto', 'reply_list', 'forward', 'resume'))) {
     if (!$uid || !$folder) {
         $type = 'new';
     }
@@ -227,11 +227,13 @@ if (in_array($type, array('reply', 'reply_all', 'reply_list', 'forward', 'resume
 switch ($type) {
 case 'reply':
 case 'reply_all':
+case 'reply_auto':
 case 'reply_list':
     $reply_msg = $imp_compose->replyMessage($type, $imp_contents, Horde_Util::getFormData('to'));
     $msg = $reply_msg['body'];
     $header = $reply_msg['headers'];
     $header['replytype'] = 'reply';
+    $type = $reply_msg['type'];
 
     if ($type == 'reply') {
         $title = _("Reply:");

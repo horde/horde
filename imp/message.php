@@ -474,7 +474,7 @@ if (!$readonly) {
 $disable_compose = !IMP::canCompose();
 
 if (!$disable_compose) {
-    $a_template->set('reply', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply') + $compose_params), _("Reply"), 'widget hasmenu', '', '', _("_Reply"), true));
+    $a_template->set('reply', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply_auto') + $compose_params), _("Reply"), 'widget hasmenu', '', '', _("_Reply"), true));
     $a_template->set('reply_sender', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply') + $compose_params), _("To Sender"), 'widget', '', '', _("To Sender"), true));
 
     if ($list_info['reply_list']) {
