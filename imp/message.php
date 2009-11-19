@@ -389,7 +389,7 @@ $flag_parse = $imp_flags->parse(array(
 
 foreach ($flag_parse as $val) {
     if ($val['type'] == 'imapp') {
-        $status .= '<span class="' . $val['classname'] . '" style="background:' . htmlspecialchars($val['bg']) . '">' . htmlspecialchars($val['label']) . '</span>';
+        $status .= '<span class="' . $val['classname'] . '" style="background:' . htmlspecialchars($val['bg']) . ';color:' . htmlspecialchars($val['fg']) . '">' . htmlspecialchars($val['label']) . '</span>';
     } else {
         $status .= $val['div'];
     }
