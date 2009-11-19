@@ -37,12 +37,13 @@ class Horde_Auth_Pam extends Horde_Auth_Base
      */
     public function __construct($params = array())
     {
-        if (!Horde_Util::extensionExists('pam')) {
+        if (!Horde_Util::extensionExists('pam_auth') && !Horde_Util::extensionExists('pam')) {
             throw new Horde_Auth_Exception(_("PAM authentication is not available."));
         }
 
         if (!empty($params['service'])) {
             ini_set('pam.servicename', $params['service']);
+            ini_set('pam_auth.servicename', $params['service']);
         }
 
         parent::__construct($params);
@@ -63,7 +64,7 @@ class Horde_Auth_Pam extends Horde_Auth_Base
         }
 
         $error = null;
-        if (!pam_auth($userId, $credentials['password'], $error)) {
+        if (!pam_auth($userId, $credentials['password'], &$error)) {
             throw new Horde_Auth_Exception($error);
         }
     }
