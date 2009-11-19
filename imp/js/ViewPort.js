@@ -1225,6 +1225,7 @@ ViewPort_Scroller = Class.create({
     clear: function()
     {
         this.setSize(0, 0);
+        this.scrollbar.updateHandleLength();
     },
 
     // offset = (integer) Offset to move the scrollbar to
