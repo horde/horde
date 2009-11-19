@@ -39,7 +39,7 @@ if (is_a($results, 'PEAR_Error')) {
 
 $title = _("Photo search");
 $vars = Horde_Variables::getDefaultVariables();
-$pager = new Horde_UI_Pager(
+$pager = new Horde_Ui_Pager(
     'page', $vars,
     array('num' => count($results),
           'url' => 'faces/search/image_search.php',

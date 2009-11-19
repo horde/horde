@@ -1764,7 +1764,7 @@ class Kronolith
         $date = self::currentDate();
         $date_stamp = $date->dateString();
 
-        $tabs = new Horde_UI_Tabs('view', Horde_Variables::getDefaultVariables());
+        $tabs = new Horde_Ui_Tabs('view', Horde_Variables::getDefaultVariables());
         $tabs->preserve('date', $date_stamp);
 
         $tabs->addTab(_("Day"), Horde::applicationUrl('day.php'),
@@ -1794,7 +1794,7 @@ class Kronolith
             return;
         }
 
-        $tabs = new Horde_UI_Tabs('event', Horde_Variables::getDefaultVariables());
+        $tabs = new Horde_Ui_Tabs('event', Horde_Variables::getDefaultVariables());
 
         $date = self::currentDate();
         $tabs->preserve('datetime', $date->dateString());

@@ -12,7 +12,7 @@
  * @author  Duck <duck@obala.net>
  * @package News
  */
-class News_TagCloud extends Horde_UI_TagCloud {
+class News_TagCloud extends Horde_Ui_TagCloud {
 
     /**
      * create a Element of HTML part
@@ -21,9 +21,8 @@ class News_TagCloud extends Horde_UI_TagCloud {
      * @param   array  $tag
      * @param   string $type css class of time line param
      * @param   int    $fontsize
-     * @access  private
      */
-    function _createHTMLTag($tag, $type, $fontsize)
+    protected function _createHTMLTag($tag, $type, $fontsize)
     {
         return sprintf("<a class=\"%s\" href=\"%s\">%s</a>\n",
                        $type,
@@ -36,9 +35,8 @@ class News_TagCloud extends Horde_UI_TagCloud {
      *
      * @return  string
      * @param   string $html
-     * @access  private
      */
-    function _wrapDiv($html)
+    protected function _wrapDiv($html)
     {
         return $html;
     }

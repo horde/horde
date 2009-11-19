@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains all Horde_UI_VarRenderer extensions required for editing
+ * This file contains all Horde_Ui_VarRenderer extensions required for editing
  * accounts.
  *
  * $Horde: fima/lib/UI/VarRenderer/fima.php,v 1.0 2008/06/19 20:58:27 trt Exp $
@@ -11,22 +11,16 @@
  * @package Fima
  */
 
-/** Horde_UI_VarRenderer */
-require_once 'Horde/UI/VarRenderer.php';
-
-/** Horde_UI_VarRenderer_html */
-require_once 'Horde/UI/VarRenderer/html.php';
-
 /**
- * The Horde_UI_VarRenderer_fima class provides additional methods for
+ * The Horde_Ui_VarRenderer_fima class provides additional methods for
  * rendering Fima specific Horde_Form_Type fields.
  *
  * @author  Thomas Trethan <thomas@trethan.net>
  * @package Fima
  */
-class Horde_UI_VarRenderer_fima extends Horde_UI_VarRenderer_html {
+class Horde_Ui_VarRenderer_Fima extends Horde_Ui_VarRenderer_Html {
 
-    function _renderVarInput_fima_dspostings($form, &$var, &$vars)
+    protected function _renderVarInput_fima_dspostings($form, &$var, &$vars)
     {
         $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
         $value = $var->getValue($vars);
@@ -46,7 +40,7 @@ class Horde_UI_VarRenderer_fima extends Horde_UI_VarRenderer_html {
             . Fima::buildAccountWidget($varname . '[account]', $value['account'], 'onchange="document.getElementsByName(\'dspostings[type]\')[1].checked = true;"', false, false, array(array('type', $vars->get('type'))));
     }
 
-    function _renderVarInput_fima_dssubaccounts($form, &$var, &$vars)
+    protected function _renderVarInput_fima_dssubaccounts($form, &$var, &$vars)
     {
         $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
         $value = $var->getValue($vars);

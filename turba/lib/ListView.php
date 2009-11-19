@@ -61,7 +61,7 @@ class Turba_ListView {
     /**
      * The HTML renderer.
      *
-     * @var Horde_UI_VarRenderer_html
+     * @var Horde_Ui_VarRenderer_Html
      */
     var $renderer;
 
@@ -114,7 +114,7 @@ class Turba_ListView {
         $this->list = &$list;
         $this->setControls($controls);
 
-        $this->renderer = Horde_UI_VarRenderer::factory('html');
+        $this->renderer = Horde_Ui_VarRenderer::factory('Html');
         $this->vars = new Horde_Variables();
     }
 
@@ -217,7 +217,7 @@ class Turba_ListView {
             $viewurl = urldecode(Horde_Util::addParameter('search.php', $params));
 
             $vars = Horde_Variables::getDefaultVariables();
-            $pager = new Horde_UI_Pager('page', $vars,
+            $pager = new Horde_Ui_Pager('page', $vars,
                                         array('num' => $numitem,
                                               'url' => $viewurl,
                                               'page_limit' => $maxpage,

@@ -175,7 +175,7 @@ foreach ($imp_search->flagFields() as $key => $val) {
 }
 $t->set('f_fields', $f_fields);
 
-Horde_UI_JsCalendar::init();
+Horde_Ui_JsCalendar::init();
 
 /* Gettext strings for this page. */
 $gettext_strings = array(
@@ -194,7 +194,7 @@ $gettext_strings = array(
 
 /* Javascript data for this page. */
 $js_data = array(
-    'months' => Horde_UI_JsCalendar::months(),
+    'months' => Horde_Ui_JsCalendar::months(),
     'searchmbox' => $search_mailbox,
     'types' => $types
 );

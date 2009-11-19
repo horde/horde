@@ -68,7 +68,7 @@ default:
 
 // Set up pager.
 $vars = Horde_Variables::getDefaultVariables();
-$group_pager = new Horde_UI_Pager('gbpage', $vars,
+$group_pager = new Horde_Ui_Pager('gbpage', $vars,
                                   array('num' => $num_groups,
                                         'url' => 'group.php',
                                         'perpage' => $groups_perpage));

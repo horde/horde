@@ -223,7 +223,7 @@ abstract class Kronolith_Event
     /**
      * The VarRenderer class to use for printing select elements.
      *
-     * @var Horde_UI_VarRenderer
+     * @var Horde_Ui_VarRenderer
      */
     private $_varRenderer;
 
@@ -2225,7 +2225,7 @@ abstract class Kronolith_Event
         }
 
         if (!$this->_varRenderer) {
-            $this->_varRenderer = Horde_UI_VarRenderer::factory('html');
+            $this->_varRenderer = Horde_Ui_VarRenderer::factory('Html');
         }
 
         return '<label for="' . $this->_formIDEncode($property) . '" class="hidden">' . $label . '</label>' .

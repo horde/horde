@@ -241,7 +241,7 @@ $delimg = Horde::img('delete.png', _("Remove Attendee"), null,
 $ident = &Identity::singleton();
 $identities = $ident->getAll('id');
 $vars = Horde_Variables::getDefaultVariables();
-$tabs = new Horde_UI_Tabs(null, $vars);
+$tabs = new Horde_Ui_Tabs(null, $vars);
 $tabs->addTab(_("Day"), 'javascript:switchView(\'Day\')', 'Day');
 $tabs->addTab(_("Work Week"), 'javascript:switchView(\'Workweek\')', 'Workweek');
 $tabs->addTab(_("Week"), 'javascript:switchView(\'Week\')', 'Week');

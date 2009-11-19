@@ -84,7 +84,7 @@ if ($actionID == 'delete') {
 
 // Get tabs.
 $url = Horde_Util::addParameter(Horde::applicationUrl('entry.php'), 'entry', $entry['object_id']);
-$tabs = new Horde_UI_Tabs('view', $vars);
+$tabs = new Horde_Ui_Tabs('view', $vars);
 $tabs->addTab(_("View"), $url, array('tabname' => 'Entry', 'id' => 'tabEntry'));
 if ($share->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
     $tabs->addTab(_("Edit"), $url, array('tabname' => 'EditEntry', 'id' => 'tabEditEntry'));

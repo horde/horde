@@ -25,7 +25,7 @@ if (is_a($count, 'PEAR_Error')) {
 }
 
 $vars = Horde_Variables::getDefaultVariables();
-$pager = new Horde_UI_Pager(
+$pager = new Horde_Ui_Pager(
     'page', $vars,
     array('num' => $count,
           'url' => 'faces/search/all.php',

@@ -17,7 +17,7 @@ if (!Horde_Auth::isAdmin('news:admin')) {
 }
 
 $vars = Horde_Variables::getDefaultVariables();
-$tabs = new Horde_UI_Tabs('admin', $vars);
+$tabs = new Horde_Ui_Tabs('admin', $vars);
 
 $tabs->addTab(_("Sources"), Horde::applicationUrl('admin/sources/index.php'), 'sources');
 $tabs->addTab(_("Categories"), Horde::applicationUrl('admin/categories/index.php'), 'categories');
