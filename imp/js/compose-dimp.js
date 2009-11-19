@@ -18,6 +18,11 @@ var DimpCompose = {
     confirmCancel: function()
     {
         if (window.confirm(DIMP.text_compose.cancel)) {
+            if ((this.is_popup || DIMP.conf_compose.popup) &&
+                DIMP.baseWindow &&
+                DIMP.baseWindow.DimpBase) {
+                DIMP.baseWindow.focus();
+            }
             DimpCore.doAction(DIMP.conf_compose.auto_save_interval_val ? 'DeleteDraft' : 'CancelCompose', { imp_compose: $F('composeCache') }, { ajaxopts: { asynchronous: DIMP.conf_compose.qreply } });
             this.updateDraftsMailbox();
             return this.closeCompose();
