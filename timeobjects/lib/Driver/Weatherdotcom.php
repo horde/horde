@@ -84,13 +84,11 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
         // No need to continue if the forecast days are not in the current
         // range.
         $forecast_start = new Horde_Date(time());
-        $forecast_end = new Horde_Date($forecast_start);
-        $end = new Horde_Date($end);
+        $forecast_end = clone $forecast_start;
 
         // Today is day 1, so subtract a day
         $forecast_end->mday += $this->_params['days'] - 1;
-        if ($end->compareDate($forecast_start) <= -1 ||
-            $start->compareDate($forecast_end) >= 1) {
+        if ($end->before($forecast_start) || $start->after($forecast_end)) {
             return array();
         }
 
@@ -133,8 +131,6 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
         } else {
             $weatherDotCom->setCache('file', array('cache_dir' => ($cacheDir . '/')));
         }
-        $weatherDotCom->setDateTimeFormat('m.d.Y', 'H:i');
-        $weatherDotCom->setUnitsFormat($this->_params['units']);
         $units = $weatherDotCom->getUnitsFormat();
 
         // If the user entered a zip code for the location, no need to
@@ -184,11 +180,12 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
             throw new TimeObjects_Exception($location->getMessage());
         }
 
+        $date = strptime($forecast['update'], $prefs->getValue('date_format') . ' ' . ($prefs->getValue('twentyFour') ? '%H:%M' : '%I:%M %P'));
+        $day = new Horde_Date(gmmktime($date['tm_hour'], $date['tm_min'], $date['tm_sec'], $date['tm_mon'] + 1, $date['tm_mday'], $date['tm_year'] + 1900));
+
         $objects = array();
         foreach ($forecast['days'] as $which => $data) {
-            $day = new Horde_Date($forecast_start);
-            $day->mday += $which;
-            $day_end = new Horde_Date($day);
+            $day_end = clone $day;
             $day_end->mday++;
 
             // For day 0, the day portion isn't available after a certain time
@@ -220,7 +217,7 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
                                $data['day']['humidity'],
                                $data['day']['windDirection'],
                                $data['day']['wind'],
-                               Horde_String::upper($units['wind']));
+                               $units['wind']);
             if (!empty($data['day']['windGust']) &&
                 $data['day']['windgust'] > 0) {
                 $daytime .= sprintf(_(" gusting %d%s"),
@@ -235,12 +232,12 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
                                  $data['night']['humidity'],
                                  $data['night']['windDirection'],
                                  $data['night']['wind'],
-                                 Horde_String::upper($units['wind']));
+                                 $units['wind']);
             if (!empty($data['night']['windGust']) &&
                 $data['night']['windgust'] > 0) {
                 $nighttime .= sprintf(_(" gusting %d%s"),
                                       $data['night']['windgust'],
-                                      Horde_String::upper($units['wind']));
+                                      $units['wind']);
             }
             $description = sprintf(_("Location: %s\nSunrise: %s\nSunset: %s\n\nDay\n%s\n\nEvening\n%s"),
                                    $location['name'],
@@ -251,19 +248,15 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
             $objects[] = array('id' => $day->timestamp(), //???
                                'title' => $title,
                                'description' => $description,
-                               'start' => sprintf('%d-%02d-%02dT00:00:00',
-                                                  $day->year,
-                                                  $day->month,
-                                                  $day->mday),
-                               'end' => sprintf('%d-%02d-%02dT00:00:00',
-                                                $day_end->year,
-                                                $day_end->month,
-                                                $day_end->mday),
+                               'start' => $day->strftime('%Y-%m-%dT00:00:00'),
+                               'end' => $day_end->strftime('%Y-%m-%dT00:00:00'),
                                'recurrence' => Horde_Date_Recurrence::RECUR_NONE,
                                'params' => array(),
                                'link' => '#',
                                'icon' =>  Horde::url($GLOBALS['registry']->getImageDir('horde') . '/block/weatherdotcom/23x23/' . ($data['day']['conditionIcon'] == '-' ? 'na' : $data['day']['conditionIcon']) . '.png', true, false));
-       }
+
+            $day->mday++;
+        }
 
         return $objects;
     }
