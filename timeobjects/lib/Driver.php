@@ -8,7 +8,7 @@ class TimeObjects_Driver
 
     public function __construct($params)
     {
-        $this->_params = array_merge($params, $this->_params);
+        $this->_params = array_merge($this->_params, $params);
     }
 
     /**

@@ -419,8 +419,27 @@ var DimpCore = {
         }
     },
 
-    // By default, no context onShow action
-    contextOnShow: Prototype.emptyFunction,
+    contextOnShow: function(ctx_id, baseelt)
+    {
+        var tmp;
+
+        switch (ctx_id) {
+        case 'ctx_contacts':
+            tmp = $(ctx_id).down('DIV.contactAddr');
+            if (tmp) {
+                tmp.next().remove();
+                tmp.remove();
+            }
+
+            // Add e-mail info to context menu if personal name is shown on
+            // page.
+            if (baseelt.retrieve('personal')) {
+                $(ctx_id).insert({ top: new Element('DIV', { className: 'sep' }) });
+                $(ctx_id).insert({ top: new Element('DIV', { className: 'contactAddr' }).insert(baseelt.retrieve('email').escapeHTML()) });
+            }
+            break;
+        }
+    },
 
     contextOnClick: function(elt, baseelt, menu)
     {

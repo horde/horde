@@ -2,6 +2,8 @@
 v5.0-git
 --------
 
+[mms] Split ham/spam reporting actions into two separate preferences (Request
+      #8221).
 [mms] Add vertical-pane preview layout to DIMP.
 [mms] Wrap content-related MIME parts in a border when viewing inline to
       indicate their relationship.
@@ -114,6 +116,8 @@ v5.0-git
 v4.3.6-cvs
 ----------
 
+[mms] For messages marked as innocent but not moved to Inbox, don't report
+      them as deleted within the current mailbox (Bug #8221).
 [jan] Don't show address book preference group if address books are disabled
       (Bug #8692).
 [mms] Save References/In-Reply-To header info when saving a draft (Bug #8661).

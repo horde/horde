@@ -2353,7 +2353,7 @@ abstract class Kronolith_Event
         $link = '';
         if (isset($this->external) && !empty($this->external_link)) {
             $link = $this->external_link;
-            $link = Horde::linkTooltip(Horde::url($link), '', 'event-tentative', '', '', Horde_String::wrap($this->description));
+            $link = Horde::linkTooltip(Horde::url($link), '', 'event-tentative', '', '', nl2br(htmlspecialchars(Horde_String::wrap($this->description))));
         } elseif (isset($this->eventID) && $read_permission) {
             $link = Horde::linkTooltip($view_url,
                                        $event_title,
