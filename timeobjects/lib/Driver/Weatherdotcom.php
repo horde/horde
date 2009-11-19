@@ -210,9 +210,10 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
                                  $data['temperatureLow'],
                                  Horde_String::upper($units['temp']));
             }
-            $daytime = sprintf(_("Conditions: %s\nHigh temperature: %d°%s\nPrecipitation: %d%%\nHumidity: %d%%\nWinds: From the %s at %d%s"),
+            $daytime = sprintf(_("Conditions: %s\nHigh temperature: %d%s\nPrecipitation: %d%%\nHumidity: %d%%\nWinds: From the %s at %d%s"),
                                _($data['day']['condition']),
-                               $data['temperatureHigh'], Horde_String::upper($units['temp']),
+                               $data['temperatureHigh'],
+                               '°' . Horde_String::upper($units['temp']),
                                $data['day']['precipitation'],
                                $data['day']['humidity'],
                                $data['day']['windDirection'],
@@ -224,10 +225,10 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
                                     $data['day']['windgust'],
                                     Horde_String::upper($units['wind']));
             }
-            $nighttime = sprintf(_("Conditions: %s\nLow temperature: %d°%s\nPrecipitation: %d%%\nHumidity: %d%%\nWinds: From the %s at %d%s"),
+            $nighttime = sprintf(_("Conditions: %s\nLow temperature: %d%s\nPrecipitation: %d%%\nHumidity: %d%%\nWinds: From the %s at %d%s"),
                                  _($data['night']['condition']),
                                  $data['temperatureLow'],
-                                 Horde_String::upper($units['temp']),
+                                 '°' . Horde_String::upper($units['temp']),
                                  $data['night']['precipitation'],
                                  $data['night']['humidity'],
                                  $data['night']['windDirection'],
