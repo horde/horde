@@ -34,7 +34,7 @@ $tagger = Kronolith::getTagger();
  <?php endif; ?>
 <div id="pageControlsInner">
 <?php if (!empty($_SESSION['kronolith']['display_cal'])): ?>
-  <h4><?php echo ngettext("Showing calendar:", "Showing Calendars", count($calendar_names)) ?></h4>
+  <h4><?php echo ngettext("Showing calendar:", "Showing Calendars:", count($calendar_names)) ?></h4>
   <?php foreach ($calendar_names as $name): ?>
    <h4><?php echo $name ?></h4>
   <?php endforeach; ?>
