@@ -54,12 +54,12 @@ class Horde_Kolab_Storage_StorageTest extends Horde_Kolab_Storage_Scenario
 
         $folder = $this->prepareNewFolder($storage1, 'Contacts', 'contact', true);
         $perms  = $folder->getPermission();
-        $perms->addUserPermission('test@example.org', PERMS_SHOW);
+        $perms->addUserPermission('test@example.org', Horde_Perms::SHOW);
         $perms->save();
 
         $folder = $this->prepareNewFolder($storage1, 'Calendar', 'event', true);
         $perms  = $folder->getPermission();
-        $perms->addUserPermission('test@example.org', PERMS_SHOW);
+        $perms->addUserPermission('test@example.org', Horde_Perms::SHOW);
         $perms->save();
 
         /** Prepare a Kolab test storage */

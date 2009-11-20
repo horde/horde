@@ -831,9 +831,8 @@ class Horde_Auth
      *
      * @param string $permission  Allow users with this permission admin access
      *                            in the current context.
-     * @param integer $permlevel  The level of permissions to check for
-     *                            (PERMS_EDIT, PERMS_DELETE, etc). Defaults
-     *                            to PERMS_EDIT.
+     * @param integer $permlevel  The level of permissions to check for.
+     *                            Defaults to Horde_Perms::EDIT.
      * @param string $user        The user to check. Defaults to
      *                            self::getAuth().
      *
@@ -854,7 +853,7 @@ class Horde_Auth
 
         if (!is_null($permission)) {
             if (is_null($permlevel)) {
-                $permlevel = PERMS_EDIT;
+                $permlevel = Horde_Perms::EDIT;
             }
             return $GLOBALS['perms']->hasPermission($permission, $user, $permlevel);
         }

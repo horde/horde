@@ -2,8 +2,6 @@
 /**
  * Base for PHPUnit scenarios.
  *
- * $Horde: framework/Kolab_Storage/lib/Horde/Kolab/Test/Storage.php,v 1.9 2009/06/24 23:39:23 slusarz Exp $
- *
  * PHP version 5
  *
  * @category Kolab
@@ -15,8 +13,6 @@
 
 /**
  * Base for PHPUnit scenarios.
- *
- * $Horde: framework/Kolab_Storage/lib/Horde/Kolab/Test/Storage.php,v 1.9 2009/06/24 23:39:23 slusarz Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -317,8 +313,7 @@ EOD;
         $this->prepareNotification();
 
         if (!isset($GLOBALS['perms'])) {
-            include_once 'Horde/Perms.php';
-            $GLOBALS['perms'] = Perms::singleton();
+            $GLOBALS['perms'] = Horde_Perms::singleton();
         }
 
         /** Provide the horde registry */

@@ -196,9 +196,9 @@ class Horde_Registry
             throw new Horde_Exception(_("This system is currently deactivated."));
         }
 
-        /* Create the global Perms object. */
+        /* Create the global permissions object. */
         // TODO: Remove(?)
-        $GLOBALS['perms'] = Perms::singleton();
+        $GLOBALS['perms'] = Horde_Perms::singleton();
     }
 
     /**
@@ -411,7 +411,7 @@ class Horde_Registry
      *                applications are defined returns an empty array.
      */
     public function listApps($filter = null, $assoc = false,
-                             $perms = PERMS_SHOW)
+                             $perms = Horde_Perms::SHOW)
     {
         $apps = array();
         if (is_null($filter)) {
@@ -860,7 +860,7 @@ class Horde_Registry
          *  - To all admins.
          *  - To all authenticated users if no permission is set on $app.
          *  - To anyone who is allowed by an explicit ACL on $app. */
-        if ($checkPerms && !$this->hasPermission($app, PERMS_READ)) {
+        if ($checkPerms && !$this->hasPermission($app, Horde_Perms::READ)) {
             if (!Horde_Auth::isAuthenticated(array('app' => $app))) {
                 throw new Horde_Exception('User is not authorized', self::AUTH_FAILURE);
             }
@@ -975,14 +975,14 @@ class Horde_Registry
      *
      * @return boolean  Whether access is allowed.
      */
-    public function hasPermission($app, $perms = PERMS_READ)
+    public function hasPermission($app, $perms = Horde_Perms::READ)
     {
         /* Always do isAuthenticated() check first. You can be an admin, but
          * application auth != Horde admin auth. And there can *never* be
          * non-SHOW access to an application that requires authentication. */
         if (!Horde_Auth::isAuthenticated(array('app' => $app)) &&
             Horde_Auth::requireAuth($app) &&
-            ($perms != PERMS_SHOW)) {
+            ($perms != Horde_Perms::SHOW)) {
             return false;
         }
 

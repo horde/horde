@@ -1200,7 +1200,7 @@ class Horde_Kolab_Storage_Folder
      * Checks to see if a user has a given permission.
      *
      * @param string $userid       The userid of the user.
-     * @param integer $permission  A PERMS_* constant to test for.
+     * @param integer $permission  A Horde_Perms::* constant to test for.
      * @param string $creator      The creator of the shared object.
      *
      * @return boolean|PEAR_Error  Whether or not $userid has $permission.
@@ -1233,8 +1233,9 @@ class Horde_Kolab_Storage_Folder
             } else {
                 $perms = array(
                     'users' => array(
-                        Horde_Auth::getAuth() => PERMS_SHOW | PERMS_READ |
-                        PERMS_EDIT | PERMS_DELETE));
+                        Horde_Auth::getAuth() => Horde_Perms::ALL
+                    )
+                );
             }
             $this->_perms = new Horde_Kolab_Storage_Permission($this, $perms);
         }

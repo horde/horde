@@ -509,7 +509,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
             $list[] = array('path' => $path,
                             'props' => $this->_getProps($options['props'], $root));
 
-            $apps = $registry->listApps(null, false, PERMS_READ);
+            $apps = $registry->listApps(null, false, Horde_Perms::READ);
             if (is_a($apps, 'PEAR_Error')) {
                 Horde::logMessage($apps, __FILE__, __LINE__, PEAR_LOG_ERR);
                 return $apps;

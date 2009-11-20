@@ -1,0 +1,516 @@
+<?php
+/**
+ * The Horde_Perms:: class provides the Horde permissions system.
+ *
+ * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @package  Horde_Perms
+ */
+class Horde_Perms
+{
+    /* Existence of object is known - object is shown to user. */
+    const SHOW = 2;
+    /* Contents of the object can be read. */
+    const READ = 4;
+    /* Contents of the object can be edited. */
+    const EDIT = 8;
+    /* The object can be deleted. */
+    const DELETE = 16;
+
+    /* A bitmask of all possible permission values. Useful for
+     * removeXxxPermission(), unsetPerm(), etc.
+     * 30 = SHOW | READ | EDIT | DELETE */
+    const ALL = 30;
+
+    /* The root permission. */
+    const ROOT = -1;
+
+    /**
+     * Caches information about application permissions.
+     *
+     * @var array
+     */
+    protected $_appPerms;
+
+    /**
+     * Singleton instance.
+     *
+     * @var array
+     */
+    static protected $_instance = null;
+
+    /**
+     * Cache for integerToArray().
+     *
+     * @var array
+     */
+    static protected $_itaCache = array();
+
+    /**
+     * Attempts to return a concrete instance based on $driver.
+     *
+     * @param string $driver  The type of the concrete subclass to return.
+     *                        The class name is based on the perms driver
+     *                        ($driver).  The code is dynamically included.
+     * @param array $params   A hash containing any additional configuration
+     *                        or connection parameters a subclass might need.
+     *
+     * @return Horde_Perms  The newly created concrete instance.
+     * @throws Horde_Perms_Exception
+     */
+    static public function factory($driver = null, $params = null)
+    {
+        if (is_null($params)) {
+            $params = Horde::getDriverConfig('perms', $driver);
+        }
+
+        if (is_null($driver)) {
+            $perms = new Perms($params);
+        } else {
+            $class = 'Horde_Perms_' . ucfirst(basename($driver));
+            if (!class_exists($class)) {
+                throw new Horde_Perms_Exception('Bad permissions class name: ' . $class);
+            }
+
+            $perms = new $class($params);
+        }
+
+        return $perms;
+    }
+
+    /**
+     * Attempts to return a reference to a concrete instance.
+     * It will only create a new instance if no instance currently exists.
+     *
+     * This method must be invoked as: $var = Horde_Perms::singleton()
+     *
+     * @return Horde_Perms  The concrete reference.
+     * @throws Horde_Perms_Exception
+     */
+    static public function singleton()
+    {
+        if (is_null(self::$_instance)) {
+            $perm_driver = $perm_params = null;
+            if (empty($GLOBALS['conf']['perms']['driver'])) {
+                $perm_driver = empty($GLOBALS['conf']['datatree']['driver'])
+                    ? null
+                    : 'datatree';
+            } else {
+                $perm_driver = $GLOBALS['conf']['perms']['driver'];
+                $perm_params = Horde::getDriverConfig('perms', $perm_driver);
+            }
+
+            self::$_instance = self::factory($perm_driver, $perm_params);
+        }
+
+        return self::$_instance;
+    }
+
+    /**
+     * Returns the available permissions for a given level.
+     *
+     * @param string $name  The permission's name.
+     *
+     * @return array  An array of available permissions and their titles or
+     *                false if not sub permissions exist for this level.
+     * @throws Horde_Perms_Exception
+     */
+    public function getAvailable($name)
+    {
+        if ($name == self::ROOT) {
+            $name = '';
+        }
+
+        if (empty($name)) {
+            /* No name passed, so top level permissions are requested. These
+             * can only be applications. */
+            $apps = $GLOBALS['registry']->listApps(array('notoolbar', 'active', 'hidden'), true);
+            foreach (array_keys($apps) as $app) {
+                $apps[$app] = $GLOBALS['registry']->get('name', $app) . ' (' . $app . ')';
+            }
+            asort($apps);
+
+            return $apps;
+        }
+
+        /* Name has been passed, explode the name to get all the levels in
+         * permission being requisted, with the app as the first level. */
+        $levels = explode(':', $name);
+
+        /* First level is always app. */
+        $app = $levels[0];
+
+        /* Return empty if no app defined API method for providing
+         * permission information. */
+        if (!$GLOBALS['registry']->hasAppMethod($app, 'perms')) {
+            return false;
+        }
+
+        /* Call the app's permission function to return the permissions
+         * specific to this app. */
+        $perms = $this->getApplicationPermissions($app);
+
+        /* Get the part of the app's permissions based on the permission
+         * name requested. */
+        $children = Horde_Array::getElement($perms['tree'], $levels);
+        if (($children === false) ||
+            !is_array($children) ||
+            !count($children)) {
+            /* No array of children available for this permission name. */
+            return false;
+        }
+
+        $perms_list = array();
+        foreach ($children as $perm_key => $perm_val) {
+            $perms_list[$perm_key] = $perms['title'][$name . ':' . $perm_key];
+        }
+
+        return $perms_list;
+    }
+
+    /**
+     * Returns the short name of an object, the last portion of the full name.
+     *
+     * @param string $name  The name of the object.
+     *
+     * @return string  The object's short name.
+     */
+    static public function getShortName($name)
+    {
+        /* If there are several components to the name, explode and
+         * get the last one, otherwise just return the name. */
+        if (strpos($name, ':') !== false) {
+            $tmp = explode(':', $name);
+            return array_pop($tmp);
+        }
+
+        return $name;
+    }
+
+    /**
+     * Given a permission name, returns the title for that permission by
+     * looking it up in the applications's permission api.
+     *
+     * @param string $name  The permissions's name.
+     *
+     * @return string  The title for the permission.
+     */
+    public function getTitle($name)
+    {
+        if ($name === self::ROOT) {
+            return _("All Permissions");
+        }
+
+        $levels = explode(':', $name);
+        if (count($levels) == 1) {
+            return $GLOBALS['registry']->get('name', $name) . ' (' . $name . ')';
+        }
+        $perm = array_pop($levels);
+
+        /* First level is always app. */
+        $app = $levels[0];
+
+        /* Return empty if no app defined API method for providing permission
+         * information. */
+        if (!$GLOBALS['registry']->hasAppMethod($app, 'perms')) {
+            return $this->getShortName($name);
+        }
+
+        $app_perms = $this->getApplicationPermissions($app);
+
+        return isset($app_perms['title'][$name])
+            ? $app_perms['title'][$name] . ' (' . $this->getShortName($name) . ')'
+            : $this->getShortName($name);
+    }
+
+    /**
+     * Returns information about permissions implemented by an application.
+     *
+     * @param string $app  An application name.
+     *
+     * @return array  Hash with permissions information.
+     */
+    public function getApplicationPermissions($app)
+    {
+        if (!isset($this->_appPerms[$app])) {
+            try {
+                $this->_appPerms[$app] = $GLOBALS['registry']->callAppMethod($app, 'perms');
+            } catch (Horde_Exception $e) {
+                $this->_appPerms[$app] = array();
+            }
+        }
+
+        return $this->_appPerms[$app];
+    }
+
+    /**
+     * Returns a new permissions object.
+     *
+     * @param string $name  The permission's name.
+     *
+     * @return Horde_Perms_Permission  A new permissions object.
+     * @throws Horde_Perms_Exception
+     */
+    public function newPermission($name)
+    {
+        throw new Horde_Perms_Exception('The administrator needs to configure a permanent permissions backend.');
+    }
+
+    /**
+     * Returns an object corresponding to the named permission, with the users
+     * and other data retrieved appropriately.
+     *
+     * @param string $name  The name of the permission to retrieve.
+     *
+     * @return Horde_Perms_Permission  A permissions object.
+     * @throws Horde_Perms_Exception
+     */
+    public function getPermission($name)
+    {
+        throw new Horde_Perms_Exception('The administrator needs to configure a permanent permissions backend.');
+    }
+
+    /**
+     * Returns an object corresponding to the given unique ID, with the users
+     * and other data retrieved appropriately.
+     *
+     * @param integer $cid  The unique ID of the permission to retrieve.
+     *
+     * @return Horde_Perms_Permission  A permissions object.
+     * @throws Horde_Perms_Exception
+     */
+    public function getPermissionById($cid)
+    {
+        throw new Horde_Perms_Exception('The administrator needs to configure a permanent permissions backend.');
+    }
+
+    /**
+     * Adds a permission to the permissions system. The permission must first
+     * be created with newPermission(), and have any initial users added to
+     * it, before this function is called.
+     *
+     * @param Horde_Perms_Permission $perm  The permissions object.
+     *
+     * @throws Horde_Perms_Exception
+     */
+    public function addPermission($perm)
+    {
+        throw new Horde_Perms_Exception('The administrator needs to configure a permanent permissions backend.');
+    }
+
+    /**
+     * Removes a permission from the permissions system permanently.
+     *
+     * @param Horde_Perms_Permission $perm  The permission to remove.
+     * @param boolean $force                Force to remove every child.
+     *
+     * @throws Horde_Perms_Exception
+     */
+    public function removePermission($perm, $force = false)
+    {
+        throw new Horde_Perms_Exception('The administrator needs to configure a permanent permissions backend.');
+    }
+
+    /**
+     * Finds out what rights the given user has to this object.
+     *
+     * @param mixed $permission  The full permission name of the object to
+     *                           check the permissions of, or the
+     *                           Horde_Permissions object.
+     * @param string $user       The user to check for. Defaults to the current
+     *                           user.
+     * @param string $creator    The user who created the event.
+     *
+     * @return mixed  A bitmask of permissions the user has, false if there
+     *                are none.
+     */
+    public function getPermissions($permission, $user = null, $creator = null)
+    {
+        if (is_string($permission)) {
+            try {
+                $permission = $this->getPermission($permission);
+            } catch (Horde_Perms_Exception $e) {
+                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                return false;
+            }
+        }
+
+        if (is_null($user)) {
+            $user = Horde_Auth::getAuth();
+        }
+
+        // If this is a guest user, only check guest permissions.
+        if (empty($user)) {
+            return $permission->getGuestPermissions();
+        }
+
+        // If $creator was specified, check creator permissions.
+        // If the user is the creator of the event see if there are creator
+        // permissions.
+        if (!is_null($creator) &&
+            strlen($user) &&
+            ($user === $creator) &&
+            (($perms = $permission->getCreatorPermissions()) !== null)) {
+            return $perms;
+        }
+
+        // Check user-level permissions.
+        $userperms = $permission->getUserPermissions();
+        if (isset($userperms[$user])) {
+            return $userperms[$user];
+        }
+
+        // If no user permissions are found, try group permissions.
+        if (isset($permission->data['groups']) &&
+            is_array($permission->data['groups']) &&
+            count($permission->data['groups'])) {
+            require_once 'Horde/Group.php';
+            $groups = Group::singleton();
+
+            $composite_perm = null;
+            $type = $permission->get('type');
+            foreach ($permission->data['groups'] as $group => $perm) {
+                if ($groups->userIsInGroup($user, $group)) {
+                    if (is_null($composite_perm)) {
+                        $composite_perm = ($type == 'matrix') ? 0 : array();
+                    }
+
+                    if ($type == 'matrix') {
+                        $composite_perm |= $perm;
+                    } else {
+                        $composite_perm[] = $perm;
+                    }
+                }
+            }
+
+            if (!is_null($composite_perm)) {
+                return $composite_perm;
+            }
+        }
+
+        // If there are default permissions, return them.
+        if (($perms = $permission->getDefaultPermissions()) !== null) {
+            return $perms;
+        }
+
+        // Otherwise, deny all permissions to the object.
+        return false;
+    }
+
+    /**
+     * Returns the unique identifier of this permission.
+     *
+     * @param Horde_Perms_Permission $permission  The permission object to get
+     *                                            the ID of.
+     *
+     * @return integer  The unique id.
+     * @throws Horde_Perms_Exception
+     */
+    public function getPermissionId($permission)
+    {
+        throw new Horde_Perms_Exception('The administrator needs to configure a permanent permissions backend.');
+    }
+
+    /**
+     * Finds out if the user has the specified rights to the given object.
+     *
+     * @param string $permission  The permission to check.
+     * @param string $user        The user to check for.
+     * @param integer $perm       The permission level that needs to be checked
+     *                            for.
+     * @param string $creator     The creator of the event
+     *
+     * @return boolean  Whether the user has the specified permissions.
+     */
+    public function hasPermission($permission, $user, $perm, $creator = null)
+    {
+        return ($this->getPermissions($permission, $user, $creator) & $perm);
+    }
+
+    /**
+     * Checks if a permission exists in the system.
+     *
+     * @param string $permission  The permission to check.
+     *
+     * @return boolean  True if the permission exists.
+     */
+    public function exists($permission)
+    {
+        return false;
+    }
+
+    /**
+     * Returns a list of parent permissions.
+     *
+     * @param string $child  The name of the child to retrieve parents for.
+     *
+     * @return array  A hash with all parents in a tree format.
+     * @throws Horde_Perms_Exception
+     */
+    public function getParents($child)
+    {
+        throw new Horde_Perms_Exception('The administrator needs to configure a permanent permissions backend.');
+    }
+
+    /**
+     * Returns all permissions of the system in a tree format.
+     *
+     * @return array  A hash with all permissions in a tree format.
+     */
+    public function getTree()
+    {
+        return array();
+    }
+
+    /**
+     * Returns an hash of the available permissions.
+     *
+     * @return array  The available permissions as a hash.
+     */
+    static public function getPermsArray()
+    {
+        return array(
+            self::SHOW => _("Show"),
+            self::READ => _("Read"),
+            self::EDIT => _("Edit"),
+            self::DELETE => _("Delete")
+        );
+    }
+
+    /**
+     * Given an integer value of permissions returns an array representation
+     * of the integer.
+     *
+     * @param integer $int  The integer representation of permissions.
+     *
+     * @return TODO
+     */
+    static public function integerToArray($int)
+    {
+        if (isset(self::$_itaCache[$int])) {
+            return self::$_itaCache[$int];
+        }
+
+        self::$_itaCache[$int] = array();
+
+        /* Get the available perms array. */
+        $perms = self::getPermsArray();
+
+        /* Loop through each perm and check if its value is included in the
+         * integer representation. */
+        foreach ($perms as $val => $label) {
+            if ($int & $val) {
+                self::$_itaCache[$int][$val] = true;
+            }
+        }
+
+        return self::$_itaCache[$int];
+    }
+
+}

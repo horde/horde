@@ -42,8 +42,6 @@ class Horde_Notification_Class_Notification_Listener_MobileTest extends PHPUnit_
             $this->markTestSkipped('The Horde_Mobile package is not installed!');
         }
 
-        /** Loading Horde/Registry.php requires the PERMS_* constants */
-        require_once 'Horde/Perms.php';
         /**
          * The listener pulls the registry from global scope to get the image
          * directory.

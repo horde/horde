@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Perms</name>
+ <channel>pear.horde.org</channel>
+ <extends>Horde_Perms</extends>
+ <summary>Horde Permissions System</summary>
+ <description>The Perms package provides an interface to the Horde permissions system.</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-11-20</date>
+ <version>
+  <release>0.2.0</release>
+  <api>0.2.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>* Initial Horde 4 package.
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Perms">
+      <dir name="Permission">
+       <file name="DataTreeObject.php" role="php" />
+       <file name="SqlObject.php" role="php" />
+      </dir> <!-- /lib/Horde/Perms/Permission -->
+      <file name="Datatree.php" role="php" />
+      <file name="Exception.php" role="php" />
+      <file name="Permission.php" role="php" />
+      <file name="Sql.php" role="php" />
+      <file name="Ui.php" role="php" />
+     </dir> <!-- /lib/Horde/Perms -->
+     <file name="Perms.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>Group</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Util</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <extension>
+    <name>gettext</name>
+   </extension>
+  </required>
+  <optional>
+   <package>
+    <name>Horde_DataTree</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Horde_Tree</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Perms/Datatree.php" as="Horde/Perms/Datatree.php" />
+   <install name="lib/Horde/Perms/Exception.php" as="Horde/Perms/Exception.php" />
+   <install name="lib/Horde/Perms/Permission.php" as="Horde/Perms/Permission.php" />
+   <install name="lib/Horde/Perms/Permission/DataTreeObject.php" as="Horde/Perms/Permission/DataTreeObject.php" />
+   <install name="lib/Horde/Perms/Permission/SqlObject.php" as="Horde/Perms/Permission/SqlObject.php" />
+   <install name="lib/Horde/Perms/Sql.php" as="Horde/Perms/Sql.php" />
+   <install name="lib/Horde/Perms/Ui.php" as="Horde/Perms/Ui.php" />
+   <install name="lib/Horde/Perms.php" as="Horde/Perms.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2008-08-20</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>* Cache permissions with Horde_Cache (duck@obala.net).
+   * Fixed special permissions with more than one user or group (Bug #2058).
+   * Added a getParent() call instead of accessing the _datatree member directly. (duck@obala.net, Request #6150).
+   * Added beta SQL Permissions driver (duck@obala.net, Request #6150).
+   * Automatically expand the node of the currently open permission.
+   * Only show Add Permission icons if there are sub-permissions to add.
+   * Make sure Horde_Array is available.
+   * Handle and display errors if they occur in the Perms backend.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-05-08</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Converted to package.xml 2.0 for pear.horde.org
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-07-05</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Initial release as a PEAR package
+   </notes>
+  </release>
+ </changelog>
+</package>

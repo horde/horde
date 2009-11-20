@@ -43,11 +43,7 @@ class Horde_Kolab_Storage_PermsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array(), $perms->get('perm'));
         $permissions =  array('users' =>
                               array(
-                                  'wrobel' =>
-                                  PERMS_SHOW |
-                                  PERMS_READ |
-                                  PERMS_EDIT |
-                                  PERMS_DELETE
+                                  'wrobel' => Horde_Perms::ALL
                               ));
         $perms = new Horde_Kolab_Storage_Permission($folder, $permissions);
         $this->assertTrue(is_array($perms->get('perm')));
@@ -107,9 +103,9 @@ class Horde_Kolab_Storage_PermsTest extends PHPUnit_Framework_TestCase
         unset($data['guest']);
         unset($data['default']);
         unset($data['users']['viewer']);
-        $data['users']['editor'] = PERMS_SHOW | PERMS_READ | PERMS_EDIT | PERMS_DELETE;
-        $data['users']['test'] = PERMS_SHOW | PERMS_READ;
-        $data['groups']['group'] = PERMS_SHOW | PERMS_READ;
+        $data['users']['editor'] = Horde_Perms::ALL;
+        $data['users']['test'] = Horde_Perms::SHOW | Horde_Perms::READ;
+        $data['groups']['group'] = Horde_Perms::SHOW | Horde_Perms::READ;
         $perms->setData($data);
         $perms->save();
         $this->assertNotContains('anyone', array_keys($folder->acl));
@@ -129,7 +125,7 @@ class Horde_Kolab_Storage_PermsTest extends PHPUnit_Framework_TestCase
 
         $folder = new DummyFolder(array(), 'wrobel');
         $hperms = new Horde_Permission('test');
-        $hperms->addUserPermission('wrobel', PERMS_SHOW, false);
+        $hperms->addUserPermission('wrobel', Horde_Perms::SHOW, false);
         $perms = new Horde_Kolab_Storage_Permission($folder, $hperms->data);
         $perms->save();
         $this->assertEquals('al', $folder->acl['wrobel']);

@@ -1,22 +1,17 @@
 <?php
 /**
  * @package Kolab_Storage
- *
- * $Horde: framework/Kolab_Storage/lib/Horde/Kolab/Storage/Perms.php,v 1.3 2009/01/06 17:49:27 jan Exp $
  */
 
 /**
  * Packages that aren't autoloadable yet
  */
-require_once 'Horde/Perms.php';
 require_once 'Horde/Group.php';
 
 /**
  * The Horde_Permission_Kolab provides a bridge between Horde
  * Permission handling and the IMAP permission system used on the
  * Kolab server.
- *
- * $Horde: framework/Kolab_Storage/lib/Horde/Kolab/Storage/Perms.php,v 1.3 2009/01/06 17:49:27 jan Exp $
  *
  * Copyright 2006-2009 The Horde Project (http://www.horde.org/)
  *
@@ -143,16 +138,16 @@ class Horde_Permission_Kolab extends Horde_Permission
             for ($i = 0, $j = strlen($rights); $i < $j; $i++) {
                 switch ($rights[$i]) {
                 case 'l':
-                    $result |= PERMS_SHOW;
+                    $result |= Horde_Perms::SHOW;
                     break;
                 case 'r':
-                    $result |= PERMS_READ;
+                    $result |= Horde_Perms::READ;
                     break;
                 case 'i':
-                    $result |= PERMS_EDIT;
+                    $result |= Horde_Perms::EDIT;
                     break;
                 case 'd':
-                    $result |= PERMS_DELETE;
+                    $result |= Horde_Perms::DELETE;
                     break;
                 }
             }
@@ -307,16 +302,16 @@ class Horde_Permission_Kolab extends Horde_Permission
     {
         // Convert the horde permission style to IMAP permissions
         $result = $user == $this->_folder->getOwner() ? 'a' : '';
-        if ($perms & PERMS_SHOW) {
+        if ($perms & Horde_Perms::SHOW) {
             $result .= 'l';
         }
-        if ($perms & PERMS_READ) {
+        if ($perms & Horde_Perms::READ) {
             $result .= 'r';
         }
-        if ($perms & PERMS_EDIT) {
+        if ($perms & Horde_Perms::EDIT) {
             $result .= 'iswc';
         }
-        if ($perms & PERMS_DELETE) {
+        if ($perms & Horde_Perms::DELETE) {
             $result .= 'd';
         }
 
