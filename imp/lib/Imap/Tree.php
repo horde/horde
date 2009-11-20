@@ -288,8 +288,16 @@ class IMP_Imap_Tree
     {
         if ($showunsub && !is_null($this->_fulllist)) {
             return $this->_fulllist;
-        } elseif (!$showunsub && !is_null($this->_subscribed)) {
-            return array_keys($this->_subscribed);
+        } elseif (!$showunsub) {
+            if (is_null($this->_subscribed)) {
+                /* The subscribed list MAY contain mailboxes that do not
+                 * currently exist on the server. See RFC 3501 [6.3.9]. So
+                 * we need to grab the list of existing mailboxes using LIST
+                 * and intersect against the LSUB list. */
+                $this->_getList(true);
+            } else {
+                return $this->_subscribed;
+            }
         }
 
         /* INBOX must always appear. */
@@ -298,12 +306,14 @@ class IMP_Imap_Tree
         foreach ($this->_namespaces as $key => $val) {
             try {
                 $names = array_merge($names, $GLOBALS['imp_imap']->ob()->listMailboxes($key . '*', $showunsub ? Horde_Imap_Client::MBOX_ALL : Horde_Imap_Client::MBOX_SUBSCRIBED, array('flat' => true)));
-                if ($showunsub) {
-                    $this->_fulllist = $names;
-                } else {
-                    $this->_subscribed = $names;
-                }
             } catch (Horde_Imap_Client_Exception $e) {}
+        }
+
+        if ($showunsub) {
+            $this->_fulllist = array_flip($names);
+        } else {
+            $names = array_intersect($names, array_keys($this->_fulllist));
+            $this->_subscribed = array_flip($names);
         }
 
         return $names;
@@ -845,7 +855,7 @@ class IMP_Imap_Tree
         /* Delete the entry from the folder list cache(s). */
         foreach (array('_subscribed', '_fulllist') as $var) {
             if (!is_null($this->$var)) {
-                $this->$var = array_values(array_diff($this->$var, array($id)));
+                unset($this->$var[$id]);
             }
         }
 
@@ -1174,7 +1184,7 @@ class IMP_Imap_Tree
 
             /* Add the list of polled mailboxes from the prefs. */
             if ($GLOBALS['prefs']->getValue('nav_poll_all')) {
-                $navPollList = array_flip($this->_getList(true));
+                $navPollList = $this->_getList(true);
             } else {
                 $navPollList = @unserialize($GLOBALS['prefs']->getValue('nav_poll'));
             }
