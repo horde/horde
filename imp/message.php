@@ -389,7 +389,7 @@ $flag_parse = $imp_flags->parse(array(
 
 foreach ($flag_parse as $val) {
     if ($val['type'] == 'imapp') {
-        $status .= '<span class="' . $val['classname'] . '" style="background:' . htmlspecialchars($val['bg']) . '">' . htmlspecialchars($val['label']) . '</span>';
+        $status .= '<span class="' . $val['classname'] . '" style="background:' . htmlspecialchars($val['bg']) . ';color:' . htmlspecialchars($val['fg']) . '">' . htmlspecialchars($val['label']) . '</span>';
     } else {
         $status .= $val['div'];
     }
@@ -474,7 +474,7 @@ if (!$readonly) {
 $disable_compose = !IMP::canCompose();
 
 if (!$disable_compose) {
-    $a_template->set('reply', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply') + $compose_params), _("Reply"), 'widget hasmenu', '', '', _("_Reply"), true));
+    $a_template->set('reply', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply_auto') + $compose_params), _("Reply"), 'widget hasmenu', '', '', _("_Reply"), true));
     $a_template->set('reply_sender', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply') + $compose_params), _("To Sender"), 'widget', '', '', _("To Sender"), true));
 
     if ($list_info['reply_list']) {

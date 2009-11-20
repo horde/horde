@@ -1230,8 +1230,8 @@ class IMP_Compose
     /**
      * Determines the reply text and headers for a message.
      *
-     * @param string $actionID        The reply action (reply, reply_all,
-     *                                reply_list or *).
+     * @param string $type            The reply type (reply, reply_all,
+     *                                reply_auto, reply_list, or *).
      * @param IMP_Contents $contents  An IMP_Contents object.
      * @param string $to              The recipient of the reply. Overrides
      *                                the automatically determined value.
@@ -1246,7 +1246,7 @@ class IMP_Compose
      *              message's addresses.
      * </pre>
      */
-    public function replyMessage($actionID, $contents, $to = null)
+    public function replyMessage($type, $contents, $to = null)
     {
         global $prefs;
 
@@ -1260,6 +1260,7 @@ class IMP_Compose
 
         $h = $contents->getHeaderOb();
         $match_identity = $this->_getMatchingIdentity($h);
+        $reply_type = 'reply';
 
         $this->_metadata['mailbox'] = $contents->getMailbox();
         $this->_metadata['reply_type'] = 'reply';
@@ -1283,16 +1284,16 @@ class IMP_Compose
             ? 'Re: '
             : 'Re: ' . $GLOBALS['imp_imap']->ob()->utils->getBaseSubject($subject, array('keepblob' => true));
 
-        if (in_array($actionID, array('reply', '*'))) {
+        if (in_array($type, array('reply', 'reply_auto', '*'))) {
             ($header['to'] = $to) ||
             ($header['to'] = Horde_Mime_Address::addrArray2String($h->getOb('reply-to'))) ||
             ($header['to'] = Horde_Mime_Address::addrArray2String($h->getOb('from')));
-            if ($actionID == '*') {
+            if ($type == '*') {
                 $all_headers['reply'] = $header;
             }
         }
 
-        if (in_array($actionID, array('reply_all', '*'))) {
+        if (in_array($type, array('reply_all', '*'))) {
             /* Filter out our own address from the addresses we reply to. */
             $identity = Identity::singleton(array('imp', 'imp'));
             $all_addrs = array_keys($identity->getAllFromAddresses(true));
@@ -1338,32 +1339,37 @@ class IMP_Compose
 
             /* Build the Bcc: header. */
             $header['bcc'] = Horde_Mime_Address::addrArray2String($h->getOb('bcc') + $identity->getBccAddresses(), array('filter' => $all_addrs));
-            if ($actionID == '*') {
+            if ($type == '*') {
                 $all_headers['reply_all'] = $header;
             }
+
+            $reply_type = 'reply_all';
         }
 
-        if (in_array($actionID, array('reply_list', '*'))) {
+        if (in_array($type, array('reply_auto', 'reply_list', '*'))) {
             $imp_ui = new IMP_UI_Message();
             $list_info = $imp_ui->getListInformation($h);
             if ($list_info['exists']) {
                 $header['to'] = $list_info['reply_list'];
-                if ($actionID == '*') {
+                if ($type == '*') {
                     $all_headers['reply_list'] = $header;
                 }
             }
+
+            $reply_type = 'reply_list';
         }
 
-        if ($actionID == '*') {
+        if ($type == '*') {
             $header = $all_headers;
         }
 
         if (!$prefs->getValue('reply_quote')) {
             return array(
                 'body' => '',
-                'headers' => $header,
                 'format' => 'text',
-                'identity' => $match_identity
+                'headers' => $header,
+                'identity' => $match_identity,
+                'type' => $reply_type
             );
         }
 
@@ -1410,9 +1416,10 @@ class IMP_Compose
         return array(
             'body' => $msg . "\n",
             'encoding' => $msg_text['encoding'],
-            'headers' => $header,
             'format' => $msg_text['mode'],
-            'identity' => $match_identity
+            'headers' => $header,
+            'identity' => $match_identity,
+            'type' => $reply_type
         );
     }
 

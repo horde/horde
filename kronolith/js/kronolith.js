@@ -244,7 +244,7 @@ KronolithCore = {
                 }
                 this.tasktype = tasktype;
                 [ 'All', 'Complete', 'Incomplete', 'Future' ].each(function(tasktype) {
-                    $('kronolithTasks' + tasktype).parentNode.removeClassName('activeTab');
+                    $($('kronolithTasks' + tasktype).parentNode).removeClassName('activeTab');
                 });
                 $('kronolithTasks' + this.tasktype.capitalize()).parentNode.addClassName('activeTab');
                 this._loadTasks(this.tasktype);
@@ -1208,7 +1208,7 @@ KronolithCore = {
                                 offset = top - dragTop;
                                 height = div.offsetHeight - offset;
                                 div.setStyle({
-                                    'top': (div.offsetTop + offset) + 'px',
+                                    'top': (div.offsetTop + offset) + 'px'
                                 });
                                 offset = d.ghost.offsetTop;
                                 dragTop = top;
@@ -1286,7 +1286,7 @@ KronolithCore = {
                     }.bind([this, div]),
                     'onEnd': function(d, e) {
                         this[0]._onDragEnd(d, this[1], innerDiv, event, midnight, view, step);
-                    }.bind([this, div]),
+                    }.bind([this, div])
                 });
             }
 

@@ -1765,7 +1765,7 @@ var DimpBase = {
 
             case 'button_forward':
             case 'button_reply':
-                this.composeMailbox(id == 'button_reply' ? 'reply' : 'forward');
+                this.composeMailbox(id == 'button_reply' ? 'reply_auto' : 'forward');
                 break;
 
             case 'button_ham':

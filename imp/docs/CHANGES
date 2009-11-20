@@ -116,6 +116,8 @@ v5.0-git
 v4.3.6-cvs
 ----------
 
+[mms] When replying to list, correctly extract e-mail address if multiple
+      entries exist in the List-Post header (Bug #8719).
 [mms] For messages marked as innocent but not moved to Inbox, don't report
       them as deleted within the current mailbox (Bug #8221).
 [jan] Don't show address book preference group if address books are disabled

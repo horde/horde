@@ -41,7 +41,7 @@ foreach (Turba::getAddressBooks() as $key => $entry) {
 require_once 'Horde/UI/Tabs.php';
 $sUrl = Horde::applicationUrl('search.php');
 $vars = Horde_Variables::getDefaultVariables();
-$tabs = new Horde_UI_Tabs('search_mode', $vars);
+$tabs = new Horde_Ui_Tabs('search_mode', $vars);
 $tabs->addTab(_("Basic Search"), $sUrl, 'basic');
 $tabs->addTab(_("Advanced Search"), $sUrl, 'advanced');
 echo $tabs->render($_SESSION['turba']['search_mode']);

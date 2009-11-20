@@ -82,7 +82,6 @@ class IMP_Imap_Flags
     {
         $this->_loadList();
 
-        $def_color = $GLOBALS['prefs']->getValue('msgflags_color');
         $avail_flags = array_keys($this->_flags);
 
         $ret = $types = array();
@@ -106,12 +105,7 @@ class IMP_Imap_Flags
             $ret[$key]['flag'] = $key;
 
             if (!empty($options['fgcolor'])) {
-                $ret[$key]['f'] = '#000';
-                if (!isset($ret[$key]['b'])) {
-                    $ret[$key]['b'] = $def_color;
-                } elseif (Horde_Image::brightness($this->_flags[$key]['b']) < 128) {
-                    $ret[$key]['f'] = '#f6f6f6';
-                }
+                $ret[$key] = $this->_getColor($key, $ret[$key]);
             }
 
             if (!empty($options['imap']) &&
@@ -248,6 +242,7 @@ class IMP_Imap_Flags
      * 'abbrev' - (string) The abbreviation to use.
      * 'bg' - (string) The background to use.
      * 'classname' - (string) If set, the flag classname to use.
+     * 'fg' - (string) The foreground color to use.
      * 'flag' - (string) The matched flag (lowercase).
      * 'div' - (string) A DIV HTML element, if 'div' option is true and a
      *         classname is defined.
@@ -319,11 +314,12 @@ class IMP_Imap_Flags
             }
         }
 
-        $def_color = $GLOBALS['prefs']->getValue('msgflags_color');
-
         foreach ($process as $key => $val) {
+            $color = $this->_getColor($key, $val);
+
             $tmp = array(
-                'bg' => isset($val['b']) ? $val['b'] : $def_color,
+                'bg' => $color['b'],
+                'fg' => $color['f'],
                 'flag' => $key,
                 'label' => $val['l'],
                 'type' => $val['t']
@@ -405,6 +401,26 @@ class IMP_Imap_Flags
             return array('flag' => substr($id, 2), 'set' => false);
         }
         return array('flag' => $id, 'set' => true);
+    }
+
+    /**
+     * Determines the colors for an entry.
+     *
+     * @param string $key  The flag key.
+     * @param array $in    The array of flag data.
+     *
+     * @return array  $in with the 'b' and 'f' keys populated.
+     */
+    protected function _getColor($key, $in)
+    {
+        $in['f'] = '#000';
+        if (!isset($in['b'])) {
+            $in['b'] = $GLOBALS['prefs']->getValue('msgflags_color');
+        } elseif (Horde_Image::brightness($this->_flags[$key]['b']) < 128) {
+            $in['f'] = '#f6f6f6';
+        }
+
+        return $in;
     }
 
 }

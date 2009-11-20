@@ -265,7 +265,7 @@ class Ansel_View_Results extends Ansel_View_Base
 
         $pagestart = ($page * $perpage) + 1;
         $pageend = min($pagestart + $numimages - 1, $pagestart + $perpage - 1);
-        $pager = new Horde_UI_Pager('page', $vars, array('num' => $total,
+        $pager = new Horde_Ui_Pager('page', $vars, array('num' => $total,
                                                          'url' => $viewurl,
                                                          'perpage' => $perpage));
         ob_start();

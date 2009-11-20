@@ -11,9 +11,9 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Ingo
  */
-class Horde_UI_VarRenderer_ingo extends Horde_UI_VarRenderer_html
+class Horde_Ui_VarRenderer_Ingo extends Horde_Ui_VarRenderer_Html
 {
-    function _renderVarInput_ingo_folders(&$form, &$var, &$vars)
+    protected function _renderVarInput_ingo_folders(&$form, &$var, &$vars)
     {
         return Ingo::flistSelect($var->type->getFolder(), 'horde_form', 'folder');
     }

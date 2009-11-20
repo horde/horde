@@ -40,7 +40,7 @@ $customurl = Horde_Util::addParameter(Horde::applicationUrl('faces/custom.php'),
 $face = Ansel_Faces::factory();
 $autogenerate = $face->canAutogenerate();
 $vars = Horde_Variables::getDefaultVariables();
-$pager = new Horde_UI_Pager(
+$pager = new Horde_Ui_Pager(
     'page', $vars,
     array('num' => $gallery->countImages(),
           'url' => 'faces/gallery.php',

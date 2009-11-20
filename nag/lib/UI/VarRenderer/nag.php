@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains all Horde_UI_VarRenderer extensions required for editing
+ * This file contains all Horde_Ui_VarRenderer extensions required for editing
  * tasks.
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -9,23 +9,17 @@
  * @package Nag
  */
 
-/** Horde_UI_VarRenderer */
-require_once 'Horde/UI/VarRenderer.php';
-
-/** Horde_UI_VarRenderer_html */
-require_once 'Horde/UI/VarRenderer/html.php';
-
 /**
- * The Horde_UI_VarRenderer_nag class provides additional methods for
+ * The Horde_Ui_VarRenderer_nag class provides additional methods for
  * rendering Horde_Form_Type_alarm fields.
  *
  * @todo    Clean this hack up with Horde_Form/H4
  * @author  Jan Schneider <jan@horde.org>
  * @package Nag
  */
-class Horde_UI_VarRenderer_nag extends Horde_UI_VarRenderer_html {
+class Horde_Ui_VarRenderer_nag extends Horde_Ui_VarRenderer_html {
 
-    function _renderVarInput_nag_method($form, &$var, &$vars)
+    protected function _renderVarInput_nag_method($form, &$var, &$vars)
     {
         $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
         $varvalue = $var->getValue($vars);
@@ -85,7 +79,7 @@ class Horde_UI_VarRenderer_nag extends Horde_UI_VarRenderer_html {
         }
     }
 
-    function _renderVarInput_nag_start($form, &$var, &$vars)
+    protected function _renderVarInput_nag_start($form, &$var, &$vars)
     {
         $var->type->getInfo($vars, $var, $task_start);
         if ($task_start == 0) {
@@ -118,7 +112,7 @@ echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'startimg\', \'
 <?php
     }
 
-    function _renderVarInput_nag_due($form, &$var, &$vars)
+    protected function _renderVarInput_nag_due($form, &$var, &$vars)
     {
         $var->type->getInfo($vars, $var, $task_due);
         if ($task_due == 0) {
@@ -172,7 +166,7 @@ echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'dueimg\', \'du
 <?php
     }
 
-    function _renderVarInput_nag_alarm($form, &$var, &$vars)
+    protected function _renderVarInput_nag_alarm($form, &$var, &$vars)
     {
         $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
         $value = $var->getValue($vars);
@@ -230,7 +224,7 @@ echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'dueimg\', \'du
      *
      * @return string  The HTML <select> widget.
      */
-    function buildDayWidget($name, $default = null, $params = null)
+    public function buildDayWidget($name, $default = null, $params = null)
     {
         $id = str_replace(array('[', ']'), array('_', ''), $name);
 
@@ -259,7 +253,7 @@ echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'dueimg\', \'du
      *
      * @return string  The HTML <select> widget.
      */
-    function buildMonthWidget($name, $default = null, $params = null)
+    public function buildMonthWidget($name, $default = null, $params = null)
     {
         $id = str_replace(array('[', ']'), array('_', ''), $name);
 
@@ -291,7 +285,7 @@ echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'dueimg\', \'du
      *
      * @return string  The HTML <select> widget.
      */
-    function buildYearWidget($name, $years, $default = null, $params = null)
+    public function buildYearWidget($name, $years, $default = null, $params = null)
     {
         $curr_year = date('Y');
         $yearlist = array();
@@ -332,7 +326,7 @@ echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'dueimg\', \'du
      *
      * @return string  The HTML <select> widget.
      */
-    function buildHourWidget($name, $default = null, $params = null)
+    public function buildHourWidget($name, $default = null, $params = null)
     {
         global $prefs;
         if (!$prefs->getValue('twentyFour')) {
@@ -356,7 +350,7 @@ echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'dueimg\', \'du
         return $html . '</select>';
     }
 
-    function buildAmPmWidget($name, $default = 'am', $amParams = null, $pmParams = null)
+    public function buildAmPmWidget($name, $default = 'am', $amParams = null, $pmParams = null)
     {
         global $prefs;
         if ($prefs->getValue('twentyFour')) {
@@ -391,7 +385,7 @@ echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'dueimg\', \'du
      *
      * @return string  The HTML <select> widget.
      */
-    function buildMinuteWidget($name, $increment = 1, $default = null,
+    public function buildMinuteWidget($name, $increment = 1, $default = null,
                                $params = null)
     {
         $html = '<select id="' . $name . '" name="' . $name. '"';

@@ -1,15 +1,12 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Horde Project
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Basque translation for turba package.
+# This file is distributed under the same license as the turba package.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: turba\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2009-09-12 10:09+0200\n"
-"PO-Revision-Date: 2009-11-18 13:50+0100\n"
+"PO-Revision-Date: 2009-11-20 12:25+0100\n"
 "Last-Translator: Euskal Herriko Unibertsitatea <webmaster@ehu.es>\n"
 "Language-Team: Euskal Herriko Unibertsitatea <webmaster@ehu.es>\n"
 "MIME-Version: 1.0\n"

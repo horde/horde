@@ -190,15 +190,21 @@ class IMP_UI_Message
     }
 
     /**
-     * Parse the information in a mailing list headers.
+     * Parse the information in mailing list headers.
      *
      * @param string $data  The header text to process.
-     * @param boolean $raw  Should the raw URL be returned instead of linking
-     *                      the header value?
+     * @param array $opts   Additional options:
+     * <pre>
+     * 'email' - (boolean) Only return e-mail values.
+     *           DEFAULT: false
+     * 'raw' - (boolean) Should the raw URL be returned instead of linking
+     *                   the header value?
+     *                   DEFAULT: false
+     * </pre>
      *
      * @return string  The header value.
      */
-    public function parseListHeaders($data, $raw = false)
+    public function parseListHeaders($data, $opts = array())
     {
         $output = '';
 
@@ -220,7 +226,7 @@ class IMP_UI_Message
              * that appears in a header that we can adequately handle. */
             if (stristr($match, 'mailto:') !== false) {
                 $match = substr($match, strpos($match, ':') + 1);
-                if ($raw) {
+                if (!empty($opts['raw'])) {
                     return $match;
                 }
                 $output = Horde::link(IMP::composeLink($match)) . $match . '</a>';
@@ -228,9 +234,9 @@ class IMP_UI_Message
                     $output .= '&nbsp;' . $comments[1];
                 }
                 break;
-            } else {
+            } elseif (empty($data['email'])) {
                 if ($url = Horde_Text_Filter::filter($match, 'linkurls', array('callback' => 'Horde::externalUrl'))) {
-                    if ($raw) {
+                    if (!empty($opts['raw'])) {
                         return $match;
                     }
                     $output = $url;
@@ -286,7 +292,7 @@ class IMP_UI_Message
              * list. */
             if (($val = $headers->getValue('list-post')) &&
                 ($val != 'NO')) {
-                $ret['reply_list'] = $this->parseListHeaders($val, true);
+                $ret['reply_list'] = $this->parseListHeaders($val, array('email' => true, 'raw' => true));
             }
         }
 

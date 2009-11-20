@@ -63,7 +63,7 @@ class News_Search extends Horde_Form {
      */
     static public function getPager($info, $count, $url)
     {
-        $pager = new Horde_UI_Pager('news_page',
+        $pager = new Horde_Ui_Pager('news_page',
                                     Horde_Variables::getDefaultVariables(),
                                     array('num' => $count,
                                           'url' => $url,

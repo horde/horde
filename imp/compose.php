@@ -93,6 +93,7 @@ if ($actionID) {
     case 'draft':
     case 'reply':
     case 'reply_all':
+    case 'reply_auto':
     case 'reply_list':
     case 'forward':
     case 'redirect_compose':
@@ -305,6 +306,7 @@ case 'redirect_expand_addr':
 
 case 'reply':
 case 'reply_all':
+case 'reply_auto':
 case 'reply_list':
     if (!($imp_contents = _getIMPContents($uid, $thismailbox))) {
         break;
@@ -314,6 +316,7 @@ case 'reply_list':
     $msg = $reply_msg['body'];
     $header = $reply_msg['headers'];
     $format = $reply_msg['format'];
+    $actionID = $reply_msg['type'];
 
     if (!is_null($rtemode)) {
         $rtemode = $rtemode || $format == 'html';

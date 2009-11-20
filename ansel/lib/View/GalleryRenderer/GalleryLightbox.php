@@ -114,7 +114,7 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
                         'perpage' => $this->perpage,
                         'url_callback' => $callback);
 
-        $pager = new Horde_UI_Pager('page', $vars, $params);
+        $pager = new Horde_Ui_Pager('page', $vars, $params);
 
         /* Start buffering */
         ob_start();
