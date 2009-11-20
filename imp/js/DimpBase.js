@@ -2156,7 +2156,7 @@ var DimpBase = {
     createFolder: function(ob)
     {
         var div, f_node, ftype, li, ll, parent_e, tmp,
-            cname = 'container';
+            cname = 'container',
             fid = this.getFolderId(ob.m),
             label = ob.l || ob.m,
             mbox = ob.m,
