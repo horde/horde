@@ -18,6 +18,13 @@
 class IMP_Folder
 {
     /**
+     * Singleton instance.
+     *
+     * @var IMP_Folder
+     */
+    static protected $_instance = null;
+
+    /**
      * Keep around identical lists so that we don't hit the server more that
      * once in the same page for the same thing.
      *
@@ -41,13 +48,11 @@ class IMP_Folder
      */
     static public function singleton()
     {
-        static $folder;
-
-        if (!isset($folder)) {
-            $folder = new IMP_Folder();
+        if (is_null(self::$_instance)) {
+            self::$_instance = new IMP_Folder();
         }
 
-        return $folder;
+        return self::$_instance;
     }
 
     /**
