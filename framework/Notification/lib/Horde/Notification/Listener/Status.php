@@ -66,7 +66,7 @@ class Horde_Notification_Listener_Status extends Horde_Notification_Listener
             if ($store) {
                 $this->_notifiedStack[] = $message;
             } else {
-                echo preg_replace('/^<p class="notice">(.*)<\/p>$/', '<li>$1</li>', $message);
+                echo $message;
             }
         }
 
