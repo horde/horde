@@ -724,7 +724,7 @@ var ViewPort = Class.create({
             }
         }
 
-        if (r.cacheid) {
+        if (!Object.isUndefined(r.cacheid)) {
             this._ajaxResponse(r);
         }
     },

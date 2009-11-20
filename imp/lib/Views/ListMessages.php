@@ -72,8 +72,6 @@ class IMP_Views_ListMessages
             }
         }
 
-        $label = IMP::getLabel($mbox);
-
         /* Set the current time zone. */
         Horde_Nls::setTimeZone();
 
@@ -93,11 +91,9 @@ class IMP_Views_ListMessages
         $msgcount = count($sorted_list['s']);
 
         /* Create the base object. */
-        $result = new stdClass;
-        $result->view = $mbox;
-        $result->totalrows = $msgcount;
-        $result->label = $label;
+        $result = $this->getBaseOb($mbox);
         $result->cacheid = $imp_mailbox->getCacheID();
+        $result->totalrows = $msgcount;
 
         /* If this is the initial request for a mailbox, figure out the
          * starting location based on user's preferences. */
@@ -136,7 +132,6 @@ class IMP_Views_ListMessages
         $slice_end = min($msgcount, $slice_end);
 
         /* Mail-specific viewport information. */
-        $result->metadata = new stdClass;
         $md = &$result->metadata;
         if (!IMP::threadSortAvailable($mbox)) {
             $md->nothread = 1;
@@ -162,10 +157,9 @@ class IMP_Views_ListMessages
         if (empty($msgcount) && !isset($md->search)) {
             $imp_folder = IMP_Folder::singleton();
             if (!$imp_folder->exists($mbox)) {
-                $GLOBALS['notification']->push(sprintf(_("Mailbox %s does not exist."), $label), 'horde.error');
+                $GLOBALS['notification']->push(sprintf(_("Mailbox %s does not exist."), IMP::getLabel($mbox)), 'horde.error');
             }
 
-            $result->data = $result->rowlist = array();
             return $result;
         }
 
@@ -355,6 +349,27 @@ class IMP_Views_ListMessages
         } catch (Horde_Exception_HookNotSet $e) {}
 
         return $msgs;
+    }
+
+    /**
+     * Prepare the base object used by the ViewPort javascript object.
+     *
+     * @param string $mbox  The mailbox name.
+     *
+     * @return object  The base ViewPort object.
+     */
+    public function getBaseOb($mbox)
+    {
+        $ob = new stdClass;
+        $ob->cacheid = 0;
+        $ob->data = array();
+        $ob->label = IMP::getLabel($mbox);
+        $ob->metadata = new stdClass;
+        $ob->rowlist = array();
+        $ob->totalrows = 0;
+        $ob->view = $mbox;
+
+        return $ob;
     }
 
 }

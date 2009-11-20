@@ -93,7 +93,11 @@ if ($actionID && ($actionID != 'message_missing')) {
  * select it on the IMAP server (saves some STATUS calls). Open R/W to clear
  * the RECENT flag. */
 if (!$search_mbox) {
-    $imp_imap->ob()->openMailbox($imp_mbox['mailbox'], Horde_Imap_Client::OPEN_READWRITE);
+    try {
+        $imp_imap->ob()->openMailbox($imp_mbox['mailbox'], Horde_Imap_Client::OPEN_READWRITE);
+    } catch (Horde_Imap_Client_Exception $e) {
+        $actionID = null;
+    }
 }
 
 /* Determine if mailbox is readonly. */
