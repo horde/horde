@@ -52,7 +52,7 @@ define('KRONOLITH_TEMPLATES', $registry->get('templates'));
  * entry. */
 Horde_Autoloader::addClassPattern('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/');
 if (!class_exists('Content_Tagger')) {
-    throw new Horde_Exception(_("The Content_Tagger class could not be found. Make sure the registry entry for the Content system is present."));
+    throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the registry entry for the Content system is present.');
 }
 
 /* Notification system. */
