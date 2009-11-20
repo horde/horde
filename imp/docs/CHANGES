@@ -116,6 +116,8 @@ v5.0-git
 v4.3.6-cvs
 ----------
 
+[mms] Make sure sent-mail folders exist if using the drop-down selection list
+      on the compose page (Bug #8520).
 [mms] When replying to list, correctly extract e-mail address if multiple
       entries exist in the List-Post header (Bug #8719).
 [mms] For messages marked as innocent but not moved to Inbox, don't report

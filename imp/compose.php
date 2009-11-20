@@ -1101,6 +1101,14 @@ if ($redirect) {
                 'selected' => $sent_mail_folder
             );
             $t->set('ssm_tabindex', ++$tabindex);
+
+            /* Check to make sure the sent-mail folder is created - it needs
+             * to exist to show up in drop-down list. */
+            $imp_folder = IMP_Folder::singleton();
+            if (!$imp_folder->exists($sent_mail_folder)) {
+                $imp_folder->create($sent_mail_folder, true);
+            }
+
             $t->set('ssm_folders', IMP::flistSelect($ssm_folder_options));
         } else {
             if (!empty($sent_mail_folder)) {
