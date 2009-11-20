@@ -911,6 +911,18 @@ var ViewPort = Class.create({
         return this.scroller.currentOffset();
     },
 
+    // return: (object) The current viewable range of the viewport.
+    //         first: Top-most row offset
+    //         last: Bottom-most row offset
+    currentViewableRange: function()
+    {
+        var offset = this.currentOffset();
+        return {
+            first: offset + 1,
+            last: Math.min(offset + this.getPageSize(), this.getMetaData('total_rows'))
+        };
+    },
+
     _getLineHeight: function()
     {
         var mode = this.pane_mode || 'horiz';
