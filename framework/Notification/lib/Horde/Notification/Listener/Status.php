@@ -90,15 +90,62 @@ class Horde_Notification_Listener_Status extends Horde_Notification_Listener
     public function getMessage($message, $options = array())
     {
         $event = $this->getEvent($message);
-        $text = $event->getMessage();
+        $flags = $this->getFlags($message);
 
-        if (!in_array('content.raw', $this->getFlags($message))) {
-            $text = htmlspecialchars($text, ENT_COMPAT, Horde_Nls::getCharset());
+        if ($event instanceof Horde_Notification_Event &&
+            $message['type'] == 'horde.alarm') {
+            $text = $this->_getAlarm($flags['alarm']);
+        } else {
+            $text = $event->getMessage();
+            if (!in_array('content.raw', $this->getFlags($message))) {
+                $text = htmlspecialchars($text, ENT_COMPAT, Horde_Nls::getCharset());
+            }
         }
 
         return empty($options['data'])
             ? '<li>' . Horde::img($this->_handles[$message['type']][0], $this->_handles[$message['type']][1], '', '') . $text . '</li>'
             : array('message' => $text, 'type' => $message['type']);
+    }
+
+    /**
+     * Renders the interface for an alarm notification.
+     *
+     * @param array $alarm  An alarm hash.
+     *
+     * @return string  The generated HTML code for the alarm notification.
+     */
+    protected function _getAlarm(array $alarm)
+    {
+        $message = htmlspecialchars($alarm['title']);
+
+        if (!empty($alarm['params']['notify']['show'])) {
+            $message = Horde::link(Horde::url($GLOBALS['registry']->linkByPackage($alarm['params']['notify']['show']['__app'], 'show', $alarm['params']['notify']['show'])), $alarm['text']) . $message . '</a>';
+        }
+
+        $browser = Horde_Browser::singleton();
+        if (!empty($alarm['user']) && $browser->hasFeature('xmlhttpreq')) {
+            Horde::addScriptFile('prototype.js', 'horde');
+            $url = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/snooze.php', true);
+            $opts = array('-1' => _("Dismiss"),
+                          '5' => _("5 minutes"),
+                          '15' => _("15 minutes"),
+                          '60' => _("1 hour"),
+                          '360' => _("6 hours"),
+                          '1440' => _("1 day"));
+            $id = 'snooze_' . md5($alarm['id']);
+            $message .= ' <small onmouseover="if(typeof ' . $id . '_t!=\'undefined\')clearTimeout(' . $id . '_t);Element.show(\'' . $id . '\')" onmouseout="' . $id . '_t=setTimeout(function(){Element.hide(\'' . $id . '\')},500)">[' . _("Snooze...") . '<span id="' . $id . '" style="display:none"> ';
+            $first = true;
+            foreach ($opts as $minutes => $desc) {
+                if (!$first) {
+                    $message .= ', ';
+                }
+                $message .= Horde::link('#', '', '', '', 'new Ajax.Request(\'' . $url . '\',{parameters:{alarm:\'' . $alarm['id'] . '\',snooze:' . $minutes . '},onSuccess:function(){Element.remove(this);}.bind(this.parentNode.parentNode.parentNode)});return false;') . $desc . '</a>';
+                $first = false;
+            }
+            $message .= '</span>]</small>';
+        }
+
+        return $message;
     }
 
     /**
