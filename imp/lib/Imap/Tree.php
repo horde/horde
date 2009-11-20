@@ -287,7 +287,7 @@ class IMP_Imap_Tree
     protected function _getList($showunsub)
     {
         if ($showunsub && !is_null($this->_fulllist)) {
-            return $this->_fulllist;
+            return array_keys($this->_fulllist);
         } elseif (!$showunsub) {
             if (is_null($this->_subscribed)) {
                 /* The subscribed list MAY contain mailboxes that do not
@@ -296,7 +296,7 @@ class IMP_Imap_Tree
                  * and intersect against the LSUB list. */
                 $this->_getList(true);
             } else {
-                return $this->_subscribed;
+                return array_keys($this->_subscribed);
             }
         }
 
