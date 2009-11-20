@@ -54,18 +54,16 @@
 </div>
 
 <div id="kronolithTaskTabReminder" class="kronolithTabsOption" style="display:none">
-  <?php printf(_("don't set %s or %s set %s before due date %s"),
+  <?php printf(_("%s don't set %s or %s set %s before due date"),
   '<label><input type="radio" name="task[alarm][on]" id="kronolithTaskAlarmOff" value="0" checked="checked" />', '</label>',
   '<label><input type="radio" name="task[alarm][on]" id="kronolithTaskAlarmOn" value="1" />', '</label>
   <input type="text" name="task[alarm][value]" id="kronolithTaskAlarmValue" size="3" value="15" class="kronolithEventValue" />
-  <label>
-    <select name="task[alarm][unit]" id="kronolithTaskAlarmUnit">
-      <option value="1">' . _("minutes") . '</option>
-      <option value="60">' . _("hours") . '</option>
-      <option value="1440">' . _("days") . '</option>
-      <option value="10080">' . _("weeks") . '</option>
-    </select>',
-  '</label>') ?>
+  <select name="task[alarm][unit]" id="kronolithTaskAlarmUnit">
+    <option value="1">' . _("minutes") . '</option>
+    <option value="60">' . _("hours") . '</option>
+    <option value="1440">' . _("days") . '</option>
+    <option value="10080">' . _("weeks") . '</option>
+  </select>') ?>
 </div>
 
 <div id="kronolithTaskTabUrl" class="kronolithTabsOption" style="display:none">
