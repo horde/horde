@@ -155,7 +155,7 @@ require dirname(__FILE__) . '/agenda.inc';
 <div id="kronolithQuickinsert" style="display:none">
   <form id="kronolithQuickinsertForm" action="">
     <input type="text" id="kronolithQuickinsertQ" size="35" value="" class="kronolithLongField" /><br />
-    <span class="kronolithFormInfo"><?php echo _("I.e. Dinner with John tomorrow 10am") ?></span><br />
+    <span class="kronolithFormInfo"><?php echo _("I.e. Dinner with John tomorrow 8pm") ?></span><br />
     <label><?php echo _("Add to") ?>:</label>
     <select id="kronolithQuickinsertCalendars">
     </select>
