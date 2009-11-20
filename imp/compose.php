@@ -914,7 +914,6 @@ if ($redirect) {
     $t->set('hidden', $hidden_val);
 
     $t->set('title', htmlspecialchars($title));
-    $t->set('status', Horde_Util::bufferOutput(array('IMP', 'status')));
     $t->set('send_msg_ak', Horde::getAccessKeyAndTitle(_("_Send Message")));
     if ($conf['user']['allow_folders'] && !$readonly_drafts) {
         $t->set('save_draft_ak', Horde::getAccessKeyAndTitle(_("Save _Draft")));
@@ -1225,6 +1224,7 @@ if ($redirect) {
         }
     }
 
+    $t->set('status', Horde_Util::bufferOutput(array('IMP', 'status')));
     $template_output = $t->fetch(IMP_TEMPLATES . '/compose/compose.html');
 }
 
