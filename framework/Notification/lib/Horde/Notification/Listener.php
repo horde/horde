@@ -75,15 +75,10 @@ abstract class Horde_Notification_Listener
      */
     public function getEvent($message)
     {
-        $ob = false;
-        if (class_exists($message['class'])) {
-            $ob = @unserialize($message['event']);
-        } else {
-            $ob = @unserialize($message['event']);
-            if (!is_callable(array($ob, 'getMessage'))) {
-                if (isset($ob->_message)) {
-                    $ob = new Horde_Notification_Event($ob->_message);
-                }
+        $ob = @unserialize($message['event']);
+        if (!is_callable(array($ob, 'getMessage'))) {
+            if (isset($ob->_message)) {
+                $ob = new Horde_Notification_Event($ob->_message);
             }
         }
 
