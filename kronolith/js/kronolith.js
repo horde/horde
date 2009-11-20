@@ -28,6 +28,7 @@ KronolithCore = {
     date: new Date(),
     tasktype: 'incomplete',
     growls: 0,
+    alarms: [],
 
     doActionOpts: {
         onException: function(r, e) { KronolithCore.debug('onException', e); },
@@ -120,12 +121,58 @@ KronolithCore = {
                 this.logout(Kronolith.conf.timeout_url);
                 return true;
 
+            case 'horde.alarm':
+                // Only show one instance of an alarm growl.
+                if (this.alarms.indexOf(m.alarm.id) != -1) {
+                    break;
+                }
+                message = m.alarm.title.escapeHTML();
+                if (!Object.isUndefined(m.alarm.url)) {
+                    message = new Element('a', { 'href': m.alarm.url })
+                        .insert(message);
+                }
+                var select = new Element('select');
+                $H(Kronolith.conf.snooze).each(function(snooze) {
+                    select.insert(new Element('option', { 'value': snooze.key }).insert(snooze.value));
+                });
+                message = new Element('div')
+                    .insert(message)
+                    .insert(' ')
+                    .insert(select);
+                var growl = this.Growler.growl(message, {
+                    className: 'horde-alarm',
+                    life: 8,
+                    log: false,
+                    sticky: true,
+                    created: function() {
+                        if (m.type == 'horde.alarm') {
+                            this.alarms.push(m.alarm.id);
+                        }
+                    }.bind(this),
+                    destroyed: function() {
+                        if (m.type == 'horde.alarm') {
+                            this.alarms = this.alarms.without(m.alarm.id);
+                        }
+                    }.bind(this)
+                });
+                select.observe('change', function() {
+                    if (select.getValue()) {
+                        new Ajax.Request(
+                            Kronolith.conf.URI_SNOOZE,
+                            { 'parameters': { 'alarm': m.alarm.id,
+                                              'snooze': select.getValue() },
+                              'onSuccess': function() {
+                                  this.Growler.ungrowl(growl);
+                              }.bind(this)});
+                    }
+                }.bind(this));
+                break;
+
             case 'horde.error':
             case 'horde.warning':
-            //case 'horde.alarm':
             case 'horde.message':
             case 'horde.success':
-                this.Growler.growl(m.message, {
+                this.Growler.growl(m.message.escapeHTML(), {
                     className: m.type.replace('.', '-'),
                     life: 8,
                     log: true,
@@ -140,6 +187,7 @@ KronolithCore = {
                 }
                 notify.update(Kronolith.text.alerts.interpolate({ 'count': ++this.growls }));
                 notify.up().show();
+                break;
             }
         }, this);
     },

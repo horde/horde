@@ -123,7 +123,7 @@ class Kronolith
         $code['conf'] = array(
             'URI_AJAX' => Horde::url($kronolith_webroot . '/ajax.php', true, -1),
             'URI_IMG' => $registry->getImageDir() . '/',
-            //'URI_VIEW' => Horde_Util::addParameter(Horde::url($imp_webroot . '/view.php', true, -1), array('actionID' => 'view_source', 'id' => 0), null, false),
+            'URI_SNOOZE' => Horde::url($registry->get('webroot', 'horde') . '/services/snooze.php', true, -1),
             'SESSION_ID' => defined('SID') ? SID : '',
             'prefs_url' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'kronolith')),
             'name' => $registry->get('name'),
@@ -147,8 +147,13 @@ class Kronolith
                              Horde_Date_Recurrence::RECUR_YEARLY_DATE => 'Yearly',
                              Horde_Date_Recurrence::RECUR_YEARLY_DAY => 'Yearly',
                              Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY => 'Yearly'),
-            // Turn debugging on?
-            'debug' => !empty($conf['js']['debug']),
+            'snooze' => array('' => _("Snooze..."),
+                              '-1' => _("Dismiss"),
+                              '5' => _("5 minutes"),
+                              '15' => _("15 minutes"),
+                              '60' => _("1 hour"),
+                              '360' => _("6 hours"),
+                              '1440' => _("1 day")),
         );
 
         // Calendars
