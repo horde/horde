@@ -110,7 +110,7 @@ abstract class Horde_Ui_Widget
      *
      * @param mixed $data  The widget's state data.
      */
-    abstract public function render($data);
+    abstract public function render($data = null);
 
     /**
      * TODO
