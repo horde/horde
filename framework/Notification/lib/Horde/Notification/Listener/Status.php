@@ -76,12 +76,12 @@ class Horde_Notification_Listener_Status extends Horde_Notification_Listener
     }
 
     /**
-     * Outputs one message.
+     * Returns one message.
      *
      * @param array $message  One message hash from the stack.
      * @param array $options  An array of options.
      * <pre>
-     * 'data' - (boolean) If false, outputs HTML code. If true, outputs an
+     * 'data' - (boolean) If false, returns HTML code. If true, returns an
      *                    array of message information. DEFAULT: false
      * </pre>
      *
@@ -91,20 +91,33 @@ class Horde_Notification_Listener_Status extends Horde_Notification_Listener
     {
         $event = $this->getEvent($message);
         $flags = $this->getFlags($message);
+        $result = array('type' => $message['type']);
 
         if ($event instanceof Horde_Notification_Event &&
             $message['type'] == 'horde.alarm') {
-            $text = $this->_getAlarm($flags['alarm']);
+            if (empty($options['data'])) {
+                $text = $this->_getAlarm($flags['alarm']);
+            } else {
+                $result['alarm'] = $flags['alarm'];
+                if (!empty($result['alarm']['params']['notify']['show'])) {
+                    $result['alarm']['url'] = Horde::url($GLOBALS['registry']->linkByPackage($result['alarm']['params']['notify']['show']['__app'], 'show', $result['alarm']['params']['notify']['show']), true);
+                }
+                unset($result['alarm']['params']['notify'],
+                      $result['alarm']['methods']);
+            }
         } else {
             $text = $event->getMessage();
             if (!in_array('content.raw', $this->getFlags($message))) {
                 $text = htmlspecialchars($text, ENT_COMPAT, Horde_Nls::getCharset());
             }
+            if (!empty($options['data'])) {
+                $result['message'] = $text;
+            }
         }
 
         return empty($options['data'])
             ? '<li>' . Horde::img($this->_handles[$message['type']][0], $this->_handles[$message['type']][1], '', '') . $text . '</li>'
-            : array('message' => $text, 'type' => $message['type']);
+            : $result;
     }
 
     /**
