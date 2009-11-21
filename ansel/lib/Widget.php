@@ -21,7 +21,7 @@ class Ansel_Widget
      *
      * @return mixed Ansel_Widget object | PEAR_Error
      */
-    static function factory($driver, $params = array())
+    static public function factory($driver, $params = array())
     {
         $driver = basename($driver);
         $class = 'Ansel_Widget_' . $driver;
@@ -31,5 +31,4 @@ class Ansel_Widget
 
         throw new Horde_Exception('Class definition of ' . $class . ' not found.');
     }
-
 }
