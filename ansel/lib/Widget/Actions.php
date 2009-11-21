@@ -7,8 +7,14 @@
  */
 class Ansel_Widget_Actions extends Ansel_Widget_Base
 {
+    /**
+     * @var string
+     */
     protected $_supported_views = array('Gallery');
 
+    /**
+     * @param array $params
+     */
     public function __construct($params)
     {
         $this->_title = _("Gallery Actions");
@@ -79,11 +85,11 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
         return $html;
     }
 
-   /**
-    * Helper function for generating the gallery actions selection widget.
-    *
-    * @return string  The HTML
-    */
+    /**
+     * Helper function for generating the gallery actions selection widget.
+     *
+     * @return string  The HTML
+     */
     protected function _getGalleryActions()
     {
         global $registry, $conf;
@@ -118,12 +124,12 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
 
         /* Bookmark link */
         if ($registry->hasMethod('bookmarks/getAddUrl')) {
-             $api_params = array(
+            $api_params = array(
                 'url' => Ansel::getUrlFor('view', $view_params, true),
                 'title' => $this->_view->gallery->get('name'));
 
             try {
-                $url = $registry->bookmarks->getAddUrl(array($api_params));
+                $url = $registry->bookmarks->getAddUrl($api_params);
             } catch (Horde_Exception $e) {}
 
             $html .= '<li>' . Horde::link($url, '', 'widget') . Horde::img('trean.png', '', '', $registry->getImageDir('trean')) . ' ' . _("Add to bookmarks") . '</a></li>';
@@ -193,5 +199,4 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
 
         return $html;
     }
-
 }
