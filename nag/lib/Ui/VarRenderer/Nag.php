@@ -10,16 +10,16 @@
  */
 
 /**
- * The Horde_Ui_VarRenderer_nag class provides additional methods for
+ * The Horde_Ui_VarRenderer_Nag class provides additional methods for
  * rendering Horde_Form_Type_alarm fields.
  *
  * @todo    Clean this hack up with Horde_Form/H4
  * @author  Jan Schneider <jan@horde.org>
  * @package Nag
  */
-class Horde_Ui_VarRenderer_nag extends Horde_Ui_VarRenderer_html {
-
-    protected function _renderVarInput_nag_method($form, &$var, &$vars)
+class Horde_Ui_VarRenderer_Nag extends Horde_Ui_VarRenderer_Html
+{
+    protected function _renderVarInput_nag_method($form, $var, $vars)
     {
         $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
         $varvalue = $var->getValue($vars);
@@ -79,7 +79,7 @@ class Horde_Ui_VarRenderer_nag extends Horde_Ui_VarRenderer_html {
         }
     }
 
-    protected function _renderVarInput_nag_start($form, &$var, &$vars)
+    protected function _renderVarInput_nag_start($form, $var, $vars)
     {
         $var->type->getInfo($vars, $var, $task_start);
         if ($task_start == 0) {
@@ -112,7 +112,7 @@ echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'startimg\', \'
 <?php
     }
 
-    protected function _renderVarInput_nag_due($form, &$var, &$vars)
+    protected function _renderVarInput_nag_due($form, $var, $vars)
     {
         $var->type->getInfo($vars, $var, $task_due);
         if ($task_due == 0) {
@@ -166,7 +166,7 @@ echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'dueimg\', \'du
 <?php
     }
 
-    protected function _renderVarInput_nag_alarm($form, &$var, &$vars)
+    protected function _renderVarInput_nag_alarm($form, $var, $vars)
     {
         $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
         $value = $var->getValue($vars);
@@ -386,7 +386,7 @@ echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'dueimg\', \'du
      * @return string  The HTML <select> widget.
      */
     public function buildMinuteWidget($name, $increment = 1, $default = null,
-                               $params = null)
+                                      $params = null)
     {
         $html = '<select id="' . $name . '" name="' . $name. '"';
         if (!is_null($params)) {
@@ -402,5 +402,4 @@ echo Horde::link('#', _("Select a date"), '', '', 'openCalendar(\'dueimg\', \'du
 
         return $html . "</select>\n";
     }
-
 }
