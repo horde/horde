@@ -11,7 +11,10 @@
  */
 class Ansel_Faces_Base
 {
-    public function canAutogenerate() {
+    /**
+     */
+    public function canAutogenerate()
+    {
         return false;
     }
 
