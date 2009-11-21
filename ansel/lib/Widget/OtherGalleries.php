@@ -38,17 +38,17 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
      */
     public function html()
     {
-         if ($GLOBALS['conf']['ansel_cache']['usecache'] &&
-             ($widget = $GLOBALS['cache']->get('Ansel_OtherGalleries' . $this->_view->gallery->get('owner'))) !== false) {
-                 return  $widget;
-         }
+        if ($GLOBALS['conf']['ansel_cache']['usecache'] &&
+            ($widget = $GLOBALS['cache']->get('Ansel_OtherGalleries' . $this->_view->gallery->get('owner'))) !== false) {
+            return $widget;
+        }
 
-         $widget = $this->_htmlBegin() . $this->_getOtherGalleries() . $this->_htmlEnd();
-         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-             $GLOBALS['cache']->set('Ansel_OtherGalleries' . $this->_view->gallery->get('owner'), $widget);
-         }
+        $widget = $this->_htmlBegin() . $this->_getOtherGalleries() . $this->_htmlEnd();
+        if ($GLOBALS['conf']['ansel_cache']['usecache']) {
+            $GLOBALS['cache']->set('Ansel_OtherGalleries' . $this->_view->gallery->get('owner'), $widget);
+        }
 
-         return $widget;
+        return $widget;
     }
 
     /**
@@ -122,5 +122,4 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
 
         return $html;
     }
-
 }
