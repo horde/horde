@@ -59,8 +59,11 @@ class Horde_Ui_VarRenderer
         }
 
         $driver = ucfirst(basename($driver));
-        $class = 'Horde_Ui_VarRenderer_' . $driver;
+        if (!empty($app)) {
+            include $GLOBALS['registry']->get('fileroot', $app) . '/lib/Ui/VarRenderer/' . $driver . '.php';
+        }
 
+        $class = 'Horde_Ui_VarRenderer_' . $driver;
         if (!class_exists($class)) {
             throw new Horde_Exception('Class definition of ' . $class . ' not found.');
         }
@@ -73,11 +76,11 @@ class Horde_Ui_VarRenderer
      *
      * @param Horde_Form $form           A Horde_Form instance,
      *                                   or null if none is available.
-     * @param Horde_Form_Variable &$var  Reference to a Horde_Form_Variable.
-     * @param Variables &$vars           A Variables instance.
+     * @param Horde_Form_Variable $va r  A Horde_Form_Variable.
+     * @param Variables $vars            A Horde_Variables instance.
      * @param boolean $isInput           Whether this is an input field.
      */
-    public function render($form, &$var, &$vars, $isInput = false)
+    public function render($form, $var, $vars, $isInput = false)
     {
         $state = $isInput ? 'Input' : 'Display';
         $method = "_renderVar${state}_" . $var->type->getTypeName();
@@ -97,5 +100,4 @@ class Horde_Ui_VarRenderer
     {
         return '';
     }
-
 }
