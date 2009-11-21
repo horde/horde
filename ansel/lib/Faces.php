@@ -37,7 +37,7 @@ class Ansel_Faces
      * @param integer $face  Face id
      * @static
      */
-    static public function delete(&$image, $face = null)
+    static public function delete($image, $face = null)
     {
         if ($image->facesCount == 0) {
             return true;
@@ -125,9 +125,9 @@ class Ansel_Faces
 
         // The HTML to display the face image.
         $imghtml = sprintf("<img src=\"%s\" class=\"bordered-facethumb\" id=\"%s\" alt=\"%s\" />",
-             $faces->getFaceUrl($face['image_id'], $face_id),
-             'facethumb' . $face_id,
-             htmlspecialchars($face['face_name']));
+            $faces->getFaceUrl($face['image_id'], $face_id),
+            'facethumb' . $face_id,
+            htmlspecialchars($face['face_name']));
 
         $img_view_url = Ansel::getUrlFor('view',
             array('gallery' => $face['gallery_id'],
@@ -156,5 +156,4 @@ class Ansel_Faces
 
         return $html;
     }
-
 }
