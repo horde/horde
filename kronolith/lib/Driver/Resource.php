@@ -142,7 +142,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
 
         $class = 'Kronolith_Resource_' . $results['resource_type'];
         if (!class_exists($class)) {
-            throw new Horde_Exception(sprintf(_("Could not load the class definition for %s"), $class));
+            throw new Horde_Exception('Could not load the class definition for ' . $class));
         }
 
         return new $class($this->_fromDriver($results));

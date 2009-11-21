@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: IMP 4.2-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2008-08-01 11:06+0200\n"
-"PO-Revision-Date: 2008-08-01 11:06+0200\n"
+"PO-Revision-Date: 2009-11-20 14:50+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
@@ -649,9 +649,7 @@ msgstr ""
 
 #: lib/MIME/Viewer/itip.php:387
 msgid "Attached is a reply to a calendar request you sent."
-msgstr ""
-"Im Anhang finden Sie eine Anwort auf eine Terminanfrage, die Sie gestellt "
-"haben."
+msgstr "Im Anhang finden Sie eine Antwort auf eine Terminanfrage, die Sie gestellt haben."
 
 #: templates/javascript_defs.php:41 templates/compose/compose.html:280
 #: templates/compose/compose.html:339
@@ -935,9 +933,7 @@ msgstr "Ändern Sie die Einstellungen zu Ihrem E-Mail-Server und Ihren Ordnern."
 msgid ""
 "Change the name, address, and signature that people see when they read and "
 "reply to your email."
-msgstr ""
-"Ändern Sie den Namen, die Adresse oder die Signatur, die die Empfänger Ihrer "
-"E-Mail-Nachrichten sehen, wenn sie diese lesen oder darauf anworten."
+msgstr "Ändern Sie den Namen, die Adresse oder die Signatur, die die Empfänger Ihrer E-Mail-Nachrichten sehen, wenn sie diese lesen oder darauf antworten."
 
 #: config/prefs.php.dist:1109
 msgid "Characters to display:"

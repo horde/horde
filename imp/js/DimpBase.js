@@ -1301,12 +1301,12 @@ var DimpBase = {
 
     setMessageListTitle: function()
     {
-        var offset,
+        var range,
             rows = this.viewport.getMetaData('total_rows');
 
-        if (rows > 0) {
-            offset = this.viewport.currentOffset();
-            $('msgHeader').update(DIMP.text.messages + ' ' + (offset + 1) + ' - ' + (Math.min(offset + this.viewport.getPageSize(), rows)) + ' ' + DIMP.text.of + ' ' + rows);
+        if (rows) {
+            range = this.viewport.currentViewableRange();
+            $('msgHeader').update(DIMP.text.messages + ' ' + range.first + ' - ' + range.last + ' ' + DIMP.text.of + ' ' + rows);
         } else {
             $('msgHeader').update(DIMP.text.nomessages);
         }
@@ -2156,7 +2156,7 @@ var DimpBase = {
     createFolder: function(ob)
     {
         var div, f_node, ftype, li, ll, parent_e, tmp,
-            cname = 'container';
+            cname = 'container',
             fid = this.getFolderId(ob.m),
             label = ob.l || ob.m,
             mbox = ob.m,

@@ -30,11 +30,11 @@ $tagger = Kronolith::getTagger();
  <a id="sbarShow" href="#" onclick="sbarToggle(); return false;"><?php echo _("Calendars") ?></a>
  <a id="sbarHide" href="#" onclick="sbarToggle(); return false;"><?php echo _("Calendars") ?></a>
  <?php if (!empty($_SESSION['kronolith']['display_cal'])): ?>
-   <a id="sbarClose" href="<?php echo Horde_Util::addParameter(Horde::selfUrl(true), 'display_cal', '') ?>"><?php echo sprintf(_("Return to %s calendars"), Horde_Auth::getAuth() ? _("my") : '') ?></a>
+   <a id="sbarClose" href="<?php echo Horde_Util::addParameter(Horde::selfUrl(true), 'display_cal', '') ?>"><?php echo Horde_Auth::getAuth() ? _("Return to my calendars") : _("Return to calendars") ?></a>
  <?php endif; ?>
 <div id="pageControlsInner">
 <?php if (!empty($_SESSION['kronolith']['display_cal'])): ?>
-  <h4><?php echo ngettext("Showing calendar:", "Showing Calendars", count($calendar_names)) ?></h4>
+  <h4><?php echo ngettext("Showing calendar:", "Showing calendars:", count($calendar_names)) ?></h4>
   <?php foreach ($calendar_names as $name): ?>
    <h4><?php echo $name ?></h4>
   <?php endforeach; ?>

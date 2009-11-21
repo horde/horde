@@ -4,6 +4,8 @@ v5.0-git
 
 [mms] Split ham/spam reporting actions into two separate preferences (Request
       #8221).
+[mms] When clicking on base reply button, auto-determine the best way to
+      reply to a message based on the header information.
 [mms] Add vertical-pane preview layout to DIMP.
 [mms] Wrap content-related MIME parts in a border when viewing inline to
       indicate their relationship.
@@ -116,6 +118,8 @@ v5.0-git
 v4.3.6-cvs
 ----------
 
+[mms] Make sure sent-mail folders exist if using the drop-down selection list
+      on the compose page (Bug #8520).
 [mms] When replying to list, correctly extract e-mail address if multiple
       entries exist in the List-Post header (Bug #8719).
 [mms] For messages marked as innocent but not moved to Inbox, don't report

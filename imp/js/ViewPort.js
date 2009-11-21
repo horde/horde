@@ -724,7 +724,7 @@ var ViewPort = Class.create({
             }
         }
 
-        if (r.cacheid) {
+        if (!Object.isUndefined(r.cacheid)) {
             this._ajaxResponse(r);
         }
     },
@@ -909,6 +909,18 @@ var ViewPort = Class.create({
     currentOffset: function()
     {
         return this.scroller.currentOffset();
+    },
+
+    // return: (object) The current viewable range of the viewport.
+    //         first: Top-most row offset
+    //         last: Bottom-most row offset
+    currentViewableRange: function()
+    {
+        var offset = this.currentOffset();
+        return {
+            first: offset + 1,
+            last: Math.min(offset + this.getPageSize(), this.getMetaData('total_rows'))
+        };
     },
 
     _getLineHeight: function()
@@ -1225,6 +1237,7 @@ ViewPort_Scroller = Class.create({
     clear: function()
     {
         this.setSize(0, 0);
+        this.scrollbar.updateHandleLength();
     },
 
     // offset = (integer) Offset to move the scrollbar to

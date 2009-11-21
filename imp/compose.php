@@ -914,7 +914,6 @@ if ($redirect) {
     $t->set('hidden', $hidden_val);
 
     $t->set('title', htmlspecialchars($title));
-    $t->set('status', Horde_Util::bufferOutput(array('IMP', 'status')));
     $t->set('send_msg_ak', Horde::getAccessKeyAndTitle(_("_Send Message")));
     if ($conf['user']['allow_folders'] && !$readonly_drafts) {
         $t->set('save_draft_ak', Horde::getAccessKeyAndTitle(_("Save _Draft")));
@@ -1101,6 +1100,14 @@ if ($redirect) {
                 'selected' => $sent_mail_folder
             );
             $t->set('ssm_tabindex', ++$tabindex);
+
+            /* Check to make sure the sent-mail folder is created - it needs
+             * to exist to show up in drop-down list. */
+            $imp_folder = IMP_Folder::singleton();
+            if (!$imp_folder->exists($sent_mail_folder)) {
+                $imp_folder->create($sent_mail_folder, true);
+            }
+
             $t->set('ssm_folders', IMP::flistSelect($ssm_folder_options));
         } else {
             if (!empty($sent_mail_folder)) {
@@ -1217,6 +1224,7 @@ if ($redirect) {
         }
     }
 
+    $t->set('status', Horde_Util::bufferOutput(array('IMP', 'status')));
     $template_output = $t->fetch(IMP_TEMPLATES . '/compose/compose.html');
 }
 

@@ -57,89 +57,78 @@
 </div>
 
 <div id="kronolithEventTabReminder" class="kronolithTabsOption" style="display:none">
-  <label><input type="radio" name="alarm" id="kronolithEventAlarmOff" value="0" checked="checked" /> <?php echo _("don't set") ?></label>
-  <?php echo _("or") ?>
-  <label><input type="radio" name="alarm" id="kronolithEventAlarmOn" value="1" /> <?php echo _("set") ?></label>
+  <?php printf(_("%s don't set %s or %s set %s before the event begins %s and alert me %s via %s"),
+  '<label><input type="radio" name="alarm" id="kronolithEventAlarmOff" value="0" checked="checked" />', '</label>',
+  '<label><input type="radio" name="alarm" id="kronolithEventAlarmOn" value="1" />', '</label>
   <input type="text" name="alarm_value" id="kronolithEventAlarmValue" size="2" value="15" class="kronolithEventValue" />
   <label>
     <select name="alarm_unit" id="kronolithEventAlarmUnit">
-      <option value="1"><?php echo _("minutes") ?></option>
-      <option value="60"><?php echo _("hours") ?></option>
-      <option value="1440"><?php echo _("days") ?></option>
-      <option value="10080"><?php echo _("weeks") ?></option>
-    </select> <?php echo _("before the event begins") ?>
-  </label>
-  <?php echo _("and alert me") ?>
-  <label><?php echo _("via") ?>
-    <select name="event_alarms">
-      <option value=""><?php echo _("E-mail") ?></option>
-      <option value=""><?php echo _("SAPO Messenger") ?></option>
-      <option value="" disabled="disabled"><?php echo _("SMS") ?></option>
+      <option value="1">' . _("minutes") . '</option>
+      <option value="60">' . _("hours") . '</option>
+      <option value="1440">' . _("days") . '</option>
+      <option value="10080">' . _("weeks") . '</option>
+    </select>',
+  '</label>',
+  '<label>',
+    '<select name="event_alarms">
+      <option value="">' . _("E-mail") . '</option>
+      <option value="">' . _("SAPO Messenger") . '</option>
+      <option value="" disabled="disabled">' . _("SMS") . '</option>
     </select>
-  </label>
+  </label>') ?>
 </div>
 
 <div id="kronolithEventTabRecur" class="kronolithTabsOption" style="display:none">
-  <label><input type="radio" name="recur" value="<?php echo Horde_Date_Recurrence::RECUR_NONE ?>" checked="checked" id="kronolithEventLinkNone" /> <?php echo _("Don't repeat") ?></label>
-  <?php echo _("or repeat") ?>
-  <label><input type="radio" name="recur" value="<?php echo Horde_Date_Recurrence::RECUR_DAILY ?>" id="kronolithEventLinkDaily" /> <?php echo _("Daily") ?></label>,
-  <label><input type="radio" name="recur" value="<?php echo Horde_Date_Recurrence::RECUR_WEEKLY ?>" id="kronolithEventLinkWeekly" /> <?php echo _("Weekly") ?></label>,
-  <label><input type="radio" name="recur" value="<?php echo Horde_Date_Recurrence::RECUR_MONTHLY_DATE ?>" id="kronolithEventLinkMonthly" /> <?php echo _("Monthly") ?></label>
-  <?php echo _("or") ?>
-  <label><input type="radio" name="recur" value="<?php echo Horde_Date_Recurrence::RECUR_YEARLY_DATE ?>" id="kronolithEventLinkYearly" /> <?php echo _("Yearly") ?></label><br />
+  <?php printf(_("%s Don't repeat %s or repeat %s Daily, %s Weekly, %s Monthly or %s Yearly %s"),
+  '<label><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_NONE . '" checked="checked" id="kronolithEventLinkNone" />', '</label>',
+  '<label><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_DAILY . '" id="kronolithEventLinkDaily" />', '</label>
+  <label><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_WEEKLY . '" id="kronolithEventLinkWeekly" />', '</label>
+  <label><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_DATE . '" id="kronolithEventLinkMonthly" />', '</label>
+  <label><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_YEARLY_DATE . '" id="kronolithEventLinkYearly" />', '</label><br />') ?>
 
   <div id="kronolithEventRepeatDaily" style="display:none">
-    <?php echo _("Repeat") ?>
-    <label><input type="radio" name="recur_daily" value="1" checked="checked" /> <?php echo _("every day") ?></label>
-    <?php echo _("or") ?>
-    <label><input type="radio" name="recur_daily" value="0" /> <?php echo _("every") ?></label>
-    <label><input type="text" size="3" name="recur_daily_interval" value="" class="kronolithEventValue" /> <?php echo _("days") ?></label>
+    <?php printf(_("Repeat %s every day %s or %s every %s days %s"),
+    '<label><input type="radio" name="recur_daily" value="1" checked="checked" />', '</label>',
+    '<label><input type="radio" name="recur_daily" value="0" />', '</label>
+    <label><input type="text" size="3" name="recur_daily_interval" value="" class="kronolithEventValue" />', '</label>') ?>
   </div>
   <div id="kronolithEventRepeatWeekly" style="display:none">
-    <?php echo _("Repeat") ?>
-    <label><input type="radio" name="recur_weekly" value="1" checked="checked" /> <?php echo _("every week") ?></label>
-    <?php echo _("or") ?>
-    <label><input type="radio" name="recur_weekly" value="0" /> <?php echo _("every") ?></label>
-    <label><input type="text" size="3" name="recur_weekly_interval" value="" class="kronolithEventValue" /> <?php echo _("weeks") ?></label><br />
-    <?php echo _("On") ?>
-    <label><input type="checkbox" name="weekly[]" value="<?php echo Horde_Date::MASK_MONDAY ?>" /> <?php echo substr(_("Monday"),0,3) ?></label>
-    <label><input type="checkbox" name="weekly[]" value="<?php echo Horde_Date::MASK_TUESDAY ?>" /> <?php echo substr(_("Tuesday"),0,3) ?></label>
-    <label><input type="checkbox" name="weekly[]" value="<?php echo Horde_Date::MASK_WEDNESDAY ?>" /> <?php echo substr(_("Wednesday"),0,3) ?></label>
-    <label><input type="checkbox" name="weekly[]" value="<?php echo Horde_Date::MASK_THURSDAY ?>" /> <?php echo substr(_("Thursday"),0,3) ?></label>
-    <label><input type="checkbox" name="weekly[]" value="<?php echo Horde_Date::MASK_FRIDAY ?>" /> <?php echo substr(_("Friday"),0,3) ?></label>
-    <label><input type="checkbox" name="weekly[]" value="<?php echo Horde_Date::MASK_SATURDAY ?>" /> <?php echo substr(_("Saturday"),0,3) ?></label>
-    <label><input type="checkbox" name="weekly[]" value="<?php echo Horde_Date::MASK_SUNDAY ?>" /> <?php echo substr(_("Sunday"),0,3) ?></label>
+    <?php printf(_("Repeat %s every week %s or %s every %s weeks %s On %s"),
+    '<label><input type="radio" name="recur_weekly" value="1" checked="checked" />', '</label>',
+    '<label><input type="radio" name="recur_weekly" value="0" />', '</label>
+    <label><input type="text" size="3" name="recur_weekly_interval" value="" class="kronolithEventValue" />', '</label><br />',
+    '<label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_MONDAY . '" /> ' . substr(_("Monday"), 0, 3) . '</label>
+    <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_TUESDAY . '" /> ' . substr(_("Tuesday"), 0, 3) . '</label>
+    <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_WEDNESDAY . '" /> ' . substr(_("Wednesday"), 0, 3) . '</label>
+    <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_THURSDAY . '" /> ' . substr(_("Thursday"), 0, 3) . '</label>
+    <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_FRIDAY . '" /> ' . substr(_("Friday"), 0, 3) . '</label>
+    <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_SATURDAY . '" /> ' . substr(_("Saturday"), 0, 3) . '</label>
+    <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_SUNDAY . '" /> ' . substr(_("Sunday"), 0, 3) . '</label>') ?>
   </div>
   <div id="kronolithEventRepeatMonthly" style="display:none">
-    <?php echo _("Repeat") ?>
-    <label><input type="radio" name="recur_monthly" value="1" checked="checked" /> <?php echo _("every month") ?></label>
-    <?php echo _("or") ?>
-    <label><input type="radio" name="recur_monthly" value="0" /> <?php echo _("every") ?></label>
-    <label><input type="text" size="3" name="recur_monthly_interval" value="" class="kronolithEventValue" /> <?php echo _("months") ?></label>,
-    <?php echo _("on the same") ?>
-    <label><input type="radio" name="recur_monthly_scheme" value="<?php echo Horde_Date_Recurrence::RECUR_MONTHLY_DATE ?>" /> <?php echo _("date") ?></label>
-    <label><input type="radio" name="recur_monthly_scheme" value="<?php echo Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY ?>" /> <?php echo _("weekday") ?></label>
+    <?php printf(_("Repeat %s every month %s or %s every %s months, %s on the same %s date %s weekday %s"),
+    '<label><input type="radio" name="recur_monthly" value="1" checked="checked" />', '</label>',
+    '<label><input type="radio" name="recur_monthly" value="0" />', '</label>
+    <label><input type="text" size="3" name="recur_monthly_interval" value="" class="kronolithEventValue" />', '</label>',
+    '<label><input type="radio" name="recur_monthly_scheme" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_DATE . '" />', '</label>
+    <label><input type="radio" name="recur_monthly_scheme" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY . '" />', '</label>') ?>
   </div>
   <div id="kronolithEventRepeatYearly" style="display:none">
-    <?php echo _("Repeat") ?>
-    <label><input type="radio" name="recur_yearly" value="1" checked="checked" /> <?php echo _("every year") ?></label>
-    <?php echo _("or") ?>
-    <label><input type="radio" name="recur_yearly" value="0" /> <?php echo _("every") ?></label>
-    <label><input type="text" size="3" name="recur_yearly_interval" value="" class="kronolithEventValue" /> <?php echo _("years") ?></label>
-    <?php echo _("on the same") ?>
-    <label><input type="radio" name="recur_yearly_scheme" value="<?php echo Horde_Date_Recurrence::RECUR_YEARLY_DATE ?>" /> <?php echo _("date of the year") ?></label>
-    <label><input type="radio" name="recur_yearly_scheme" value="<?php echo Horde_Date_Recurrence::RECUR_YEARLY_DAY ?>" /> <?php echo _("day of the year") ?></label>
-    <label><input type="radio" name="recur_yearly_scheme" value="<?php echo Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY ?>" /> <?php echo _("month and weekday") ?></label>
+    <?php printf(_("Repeat %s every year %s or %s every %s years %s on the same %s date of the year %s day of the year %s month and weekday %s"),
+    '<label><input type="radio" name="recur_yearly" value="1" checked="checked" />', '</label>',
+    '<label><input type="radio" name="recur_yearly" value="0" />', '</label>
+    <label><input type="text" size="3" name="recur_yearly_interval" value="" class="kronolithEventValue" />', '</label>',
+    '<label><input type="radio" name="recur_yearly_scheme" value="' . Horde_Date_Recurrence::RECUR_YEARLY_DATE . '" />', '</label>
+    <label><input type="radio" name="recur_yearly_scheme" value="' . Horde_Date_Recurrence::RECUR_YEARLY_DAY . '" />', '</label>
+    <label><input type="radio" name="recur_yearly_scheme" value="' . Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY . '" />', '</label>') ?>
   </div>
   <div id="kronolithEventRepeatLength" style="display:none">
-    <?php echo _("Stop") ?>
-    <label><input type="radio" name="recur_end_type" value="none" checked="checked" /> <?php echo _("never") ?></label>,
-    <?php echo _("or") ?>
-    <label><input type="radio" name="recur_end_type" value="date" /> <?php echo _("at") ?></label>
-    <input type="text" name="recur_end_date" id="kronolithEventRecurDate" size="10" class="kronolithDatePicker" />
-    <?php echo _(", or") ?>
-    <label><input type="radio" name="recur_end_type" value="count" /> <?php echo _("after") ?></label>
-    <label><input type="text" name="recur_count" id="kronolithEventRecurCount" value="" size="2" class="kronolithEventValue" /> <?php echo _("recurrences") ?></label>
+    <?php printf(_("Stop %s never%s, or %s at %s , or %s after %s recurrences %s"),
+    '<label><input type="radio" name="recur_end_type" value="none" checked="checked" />', '</label>',
+    '<label><input type="radio" name="recur_end_type" value="date" />', '</label>
+    <input type="text" name="recur_end_date" id="kronolithEventRecurDate" size="10" class="kronolithDatePicker" />',
+    '<label><input type="radio" name="recur_end_type" value="count" />', '</label>
+    <label><input type="text" name="recur_count" id="kronolithEventRecurCount" value="" size="2" class="kronolithEventValue" />', '</label>') ?>
     <br />
   </div>
 </div>
@@ -150,7 +139,7 @@
 
 <div id="kronolithEventTabAttendees" class="kronolithTabsOption" style="display:none">
   <input type="text" name="participants" id="kronolithEventAttendees" class="kronolithLongField" value="" /><br />
-  <label><input type="checkbox" name="sendupdates" value="" /> <?php echo _("send invites") ?></label> <?php echo _("to all attendees") ?><br />
+  <label><input type="checkbox" name="sendupdates" value="" /> <?php printf(_("send invites %s to all attendees"), '</label>') ?><br />
   <table width="100%" cellspacing="0" cellpadding="0" border="0">
     <thead>
       <tr>

@@ -152,7 +152,7 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
      */
     public function addEvent($event)
     {
-        throw new Horde_Exception(_("Events should be added to the Single resource object, not directly to the Group object."));
+        throw new Horde_Exception('Events should be added to the Single resource object, not directly to the Group object.');
     }
 
     /**
@@ -181,7 +181,7 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
         if (empty($this->_id)) {
             $this->_id = $id;
         } else {
-            throw new Horde_Exception(_("Resource already exists. Cannot change the id."));
+            throw new Horde_Exception('Resource already exists. Cannot change the id.');
         }
     }
 

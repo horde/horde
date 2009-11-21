@@ -374,9 +374,18 @@ case 'ViewPort':
 
     $changed = _changed($mbox, $cacheid, false);
 
-    if ($changed ||
-        Horde_Util::getPost('rangeslice') ||
-        !Horde_Util::getPost('checkcache')) {
+    if (is_null($changed)) {
+        $list_msg = new IMP_Views_ListMessages();
+        $result = new stdClass;
+        $result->ViewPort = $list_msg->getBaseOb($mbox);
+
+        $req_id = Horde_Util::getPost('requestid');
+        if (!is_null($req_id)) {
+            $result->ViewPort->requestid = intval($req_id);
+        }
+    } elseif ($changed ||
+              Horde_Util::getPost('rangeslice') ||
+              !Horde_Util::getPost('checkcache')) {
         $result = new stdClass;
         $result->ViewPort = _getListMessages($mbox, $changed);
     }

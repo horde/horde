@@ -95,6 +95,15 @@ class IMP_Views_Compose
         if (!empty($GLOBALS['conf']['user']['select_sentmail_folder']) &&
             !$GLOBALS['prefs']->isLocked('sent_mail_folder')) {
             $imp_folder = IMP_Folder::singleton();
+
+            /* Check to make sure the sent-mail folders are created - they
+             * need to exist to show up in drop-down list. */
+            foreach ($identities as $val) {
+                if (!$imp_folder->exists($val[3])) {
+                    $imp_folder->create($val[3], true);
+                }
+            }
+
             $flist = array();
             foreach ($imp_folder->flist() as $val) {
                 $tmp = array('l' => $val['abbrev'], 'v' => $val['val']);
