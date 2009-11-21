@@ -50,7 +50,7 @@ function _simpleButton($id, $text, $image)
     <?php echo _simpleButton('checkmaillink', _("_Get Mail"), 'dimpactionCheckmail') ?>
     <?php echo _simpleButton('alertsloglink', _("Alerts _Log"), 'infoIcon') ?>
 <?php if (!empty($_SESSION['imp']['filteravail'])): ?>
-    <?php echo _simpleButton('applyfilterlink', _("Apply Filter"), 'filtersIcon') ?>
+    <?php echo _simpleButton('applyfilterlink', _("Apply Filters"), 'filtersIcon') ?>
 <?php endif; ?>
    </ul>
    <div class="sepfull"></div>
