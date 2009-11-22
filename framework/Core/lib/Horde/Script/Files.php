@@ -79,9 +79,9 @@ class Horde_Script_Files
      */
     public function addExternal($url, $app = null)
     {
-        if (is_null($app)) {
-            $app = $GLOBALS['registry']->getApp();
-        }
+        // Force external scripts under Horde scope to better avoid duplicates,
+        // and to ensure they are loaded before other application specific files
+        $app = 'Horde';
 
         // Don't include scripts multiple times.
         if (!empty($this->_included[$app][$url])) {
