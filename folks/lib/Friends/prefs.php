@@ -18,8 +18,6 @@
  *      'type' => 'implicit'
  *  );
  *
- * $Horde: incubator/letter/lib/Friends/letter.php,v 1.9 2009/01/06 17:50:52 jan Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

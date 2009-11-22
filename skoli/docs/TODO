@@ -2,8 +2,6 @@
  Skoli Development TODO List
 =============================
 
-:Last update:   $Date: $
-:Revision:      $Revision: 0.1 $
 :Contact:       horde@lists.horde.org
 
 - When adding new entries allow users to add different values for more than one student (e.g. adding marks for the whole class)

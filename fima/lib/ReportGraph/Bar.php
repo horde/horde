@@ -2,8 +2,6 @@
 /**
  * Fima_ReportGraph_Bar.
  *
- * $Horde: fima/lib/ReportGraph/Bar.php,v 1.0 2008/08/20 23:32:21 trt Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
@@ -42,7 +40,7 @@ class Fima_ReportGraph_Bar extends Fima_ReportGraph {
     function _execute()
     {
         /* Grid. */
-        $grid =& $this->_plotarea->addNew('line_grid');    
+        $grid =& $this->_plotarea->addNew('line_grid');
         $gridfill =& Image_Graph::factory('Image_Graph_Fill_Array');
         $gridfill->addColor($this->_style['grid']);
         $grid->setFillStyle($gridfill);
@@ -76,15 +74,15 @@ class Fima_ReportGraph_Bar extends Fima_ReportGraph {
                 $fill->addColor($this->_style['color' . $value]);
             }
         }
-        $plot->setFillStyle($fill); 
+        $plot->setFillStyle($fill);
 
         /* Axis. */
         $axisx =& $this->_plotarea->getAxis(IMAGE_GRAPH_AXIS_X);
         $axisy =& $this->_plotarea->getAxis(IMAGE_GRAPH_AXIS_Y);
         $axisy->showLabel(IMAGE_GRAPH_LABEL_ZERO);
-        $axisy->setDataPreprocessor(Image_Graph::factory('Image_Graph_DataPreprocessor_Function', create_function('$value', 'return Fima::convertValueToAmount($value);'))); 
+        $axisy->setDataPreprocessor(Image_Graph::factory('Image_Graph_DataPreprocessor_Function', create_function('$value', 'return Fima::convertValueToAmount($value);')));
 
         return true;
     }
-    
+
 }

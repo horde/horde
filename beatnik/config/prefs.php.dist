@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: beatnik/config/prefs.php.dist,v 1.5 2008/03/07 17:53:34 bklang Exp $
- *
  * See horde/config/prefs.php for documentation on the structure of this file.
  */
 

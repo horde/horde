@@ -5,8 +5,6 @@
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://cvs.horde.org/co.php/vilma/LICENSE.
  *
- * $Horde: vilma/lib/MailboxDriver/maildrop.php,v 1.17 2009/05/27 23:57:32 bklang Exp $
- *
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package Vilma
  */

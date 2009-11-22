@@ -3,8 +3,6 @@
 $block_name = _("Example Block");
 
 /**
- * $Horde: skeleton/lib/Block/example.php,v 1.2 2007/04/17 15:16:33 jan Exp $
- *
  * @package Horde_Block
  */
 class Horde_Block_Skeleton_example extends Horde_Block {

@@ -2,7 +2,6 @@
 /**
  * Folks base application file.
  *
- * $Horde: folks/lib/base.php,v 1.16 2007-02-21 10:25:28 jan Exp $
  *
  * This file brings in all of the dependencies that every Folks script will
  * need, and sets up objects that all scripts use.

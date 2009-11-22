@@ -1,8 +1,6 @@
 What is Nag?
 ============
 
-:Last update:   $Date: 2005/08/23 09:54:40 $
-:Revision:      $Revision: 1.10 $
 :Contact:       nag@lists.horde.org
 
 .. contents:: Contents
@@ -50,10 +48,10 @@ Instructions for installing Nag can be found in the file INSTALL_ in the
 Assistance
 ----------
 
-If you encounter problems with Nag, help is available! 
+If you encounter problems with Nag, help is available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the Web at
- 
+
   http://www.horde.org/faq/
 
 The Horde Project runs a number of mailing lists, for individual applications

@@ -325,7 +325,6 @@ class Ingo_Script_Procmail extends Ingo_Script {
  * recipe list the same way as a recipe can be.
  *
  * @author  Ben Chavet <ben@chavet.net>
- * @since   Ingo 1.0
  * @package Ingo
  */
 class Procmail_Comment {
@@ -373,7 +372,6 @@ class Procmail_Comment {
  * The Procmail_Recipe:: class represents a Procmail recipe.
  *
  * @author  Ben Chavet <ben@chavet.net>
- * @since   Ingo 1.0
  * @package Ingo
  */
 class Procmail_Recipe {
@@ -770,7 +768,6 @@ class Procmail_Recipe {
  * The Procmail_Variable:: class represents a Procmail variable.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @since   Ingo 1.0
  * @package Ingo
  */
 class Procmail_Variable {

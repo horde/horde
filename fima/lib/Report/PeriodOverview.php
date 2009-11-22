@@ -2,8 +2,6 @@
 /**
  * Fima_Report_PeriodOverview.
  *
- * $Horde: fima/lib/Report/PeriodOverview.php,v 1.1 2009/03/13 17:45:08 trt Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *

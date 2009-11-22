@@ -1,12 +1,6 @@
 --
--- $Horde: beatnik/scripts/sql/beatnik.mysql.php,v 1.5 2006/08/13 18:52:47 duck Exp $
--- 
-
--- --------------------------------------------------------
-
--- 
 -- Table structure for table `beatnik_a`
--- 
+--
 
 CREATE TABLE `beatnik_a` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -19,9 +13,9 @@ CREATE TABLE `beatnik_a` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `beatnik_cname`
--- 
+--
 
 CREATE TABLE `beatnik_cname` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -34,9 +28,9 @@ CREATE TABLE `beatnik_cname` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `beatnik_mx`
--- 
+--
 
 CREATE TABLE `beatnik_mx` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -49,9 +43,9 @@ CREATE TABLE `beatnik_mx` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `beatnik_ns`
--- 
+--
 
 CREATE TABLE `beatnik_ns` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -64,9 +58,9 @@ CREATE TABLE `beatnik_ns` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `beatnik_ptr`
--- 
+--
 
 CREATE TABLE `beatnik_ptr` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -79,9 +73,9 @@ CREATE TABLE `beatnik_ptr` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `beatnik_soa`
--- 
+--
 
 CREATE TABLE `beatnik_soa` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -100,9 +94,9 @@ CREATE TABLE `beatnik_soa` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `beatnik_srv`
--- 
+--
 
 CREATE TABLE `beatnik_srv` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -118,9 +112,9 @@ CREATE TABLE `beatnik_srv` (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `beatnik_txt`
--- 
+--
 
 CREATE TABLE `beatnik_txt` (
   `id` int(10) unsigned NOT NULL auto_increment,

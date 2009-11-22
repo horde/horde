@@ -2487,9 +2487,6 @@ class Horde_Form_Type_monthdayyear extends Horde_Form_Type {
 
 }
 
-/**
- * @since Horde 3.2
- */
 class Horde_Form_Type_datetime extends Horde_Form_Type {
 
     var $_mdy;

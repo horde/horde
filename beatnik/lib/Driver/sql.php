@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: beatnik/lib/Driver/sql.php,v 1.21 2008/08/20 08:56:53 duck Exp $
- *
  * Copyright 2006-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

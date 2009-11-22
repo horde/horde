@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: fima/ledgers/index.php,v 1.0 2008/06/18 18:41:05 trt Exp $
- *
  * Copyright 2001-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you

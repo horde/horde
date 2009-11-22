@@ -2,8 +2,6 @@
 /**
  * Functions required to start a Gollem session.
  *
- * $Horde: gollem/lib/Session.php,v 1.48 2009/07/14 05:11:42 chuck Exp $
- *
  * Copyright 1999-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

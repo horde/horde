@@ -2,8 +2,6 @@
 /**
  * Horde_Form for creating classes.
  *
- * $Horde: skoli/lib/Forms/CreateClass.php,v 0.1 $
- *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *

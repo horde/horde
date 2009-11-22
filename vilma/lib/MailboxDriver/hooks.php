@@ -5,8 +5,6 @@
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://cvs.horde.org/co.php/vilma/LICENSE.
  *
- * $Horde: vilma/lib/MailboxDriver/hooks.php,v 1.7 2007/09/10 22:28:57 jan Exp $
- *
  * @author  Ben Klang <bklang@alkaloid.net>
  * @package Vilma
  */

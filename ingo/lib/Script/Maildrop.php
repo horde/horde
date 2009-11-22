@@ -334,7 +334,6 @@ class Ingo_Script_Maildrop extends Ingo_Script {
  * recipe list the same way as a recipe can be.
  *
  * @author  Matt Weyland <mathias@weyland.ch>
- * @since   Ingo 1.1
  * @package Ingo
  */
 class Maildrop_Comment {
@@ -382,7 +381,6 @@ class Maildrop_Comment {
  * The Maildrop_Recipe:: class represents a maildrop recipe.
  *
  * @author  Matt Weyland <mathias@weyland.ch>
- * @since   Ingo 1.1
  * @package Ingo
  */
 class Maildrop_Recipe {
@@ -729,7 +727,6 @@ class Maildrop_Recipe {
  * The Maildrop_Variable:: class represents a Maildrop variable.
  *
  * @author  Matt Weyland <mathias@weyland.ch>
- * @since   Ingo 1.1
  * @package Ingo
  */
 class Maildrop_Variable {

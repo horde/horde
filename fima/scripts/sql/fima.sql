@@ -1,5 +1,3 @@
--- $Horde: fima/scripts/sql/fima.sql,v 1.0 2008/04/28 09:03:39 trt Exp $
-
 CREATE TABLE fima_accounts (
     account_id      VARCHAR(32) NOT NULL,
     account_owner   VARCHAR(255) NOT NULL,

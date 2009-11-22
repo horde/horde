@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: fima/postings.php,v 1.1 2009/03/11 17:37:00 trt Exp $
- *
  * Copyright 2008 Thomas Trethan <thomas@trethan.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you

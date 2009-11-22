@@ -2,8 +2,6 @@
 /**
  * Beatnik base inclusion file.
  *
- * $Horde: beatnik/lib/base.php,v 1.31 2009/09/15 09:20:03 duck Exp $
- *
  * Copyright 2005-2007 Alkaloid Networks <http://www.alkaloid.net>
  *
  * This file brings in all of the dependencies that every Beatnik

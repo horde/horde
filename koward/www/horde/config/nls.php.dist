@@ -1,8 +1,6 @@
 <?php
 /**
  * NLS (National Language Support) configuration file.
- *
- * $Horde: horde/config/nls.php.dist,v 1.77 2008/10/14 21:11:47 jan Exp $
  */
 
 /**

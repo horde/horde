@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-<!-- $Horde: vilma/config/conf.xml,v 1.24 2009/05/28 00:33:00 bklang Exp $ -->
 <configuration>
  <configtab name="storage" desc="Domains and Accounts Driver">
   <configsection name="storage">

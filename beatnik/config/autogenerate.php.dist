@@ -2,11 +2,9 @@
 /**
  * Autogenerate template
  *
- * $Horde: beatnik/config/autogenerate.php.dist,v 1.5 2007/06/27 17:23:28 jan Exp $
- *
  * Copyright 2006-2007 Duck <duck@obala.net>
  *
- * NOTE: Template is an multidimensional array. 
+ * NOTE: Template is an multidimensional array.
  *       The first level key define record types
  *       For each type you can specify the replacement behavior and how
  *       autogenerate will treat old records.  'all' deletes all records
@@ -16,7 +14,7 @@
  *       The 'records' element is an array of arrays of Beatnick::getRecFields()
  *       key => value pairs.
  *
- * EXAMPLE: 
+ * EXAMPLE:
  *
  *      $template['cname'][] = array('hostname' => 'www',
  *                                   'pointer' => 'server1',

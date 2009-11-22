@@ -2,8 +2,6 @@
 /**
  * Folks external application firends implementaton
  *
- * $Horde: incubator/letter/lib/Friends/application.php,v 1.4 2009/01/28 19:13:56 duck Exp $
- *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

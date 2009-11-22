@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: fima/data.php,v 1.0 2008/05/19 19:39:18 trt Exp $
- *
  * Copyright 2008 Thomas Trethan <thomas@trethan.net>
  *
  * See the enclosed file LICENSE for license information (ASL).  If you

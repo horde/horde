@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: beatnik/templates/view/header.inc,v 1.14 2009/07/03 10:05:31 duck Exp $
- *
  * Copyright 2005-2007 Ben Klang <ben@alkaloid.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -19,9 +17,9 @@ if (Beatnik::needCommit($_SESSION['beatnik']['curdomain']['zonename'])) {
 $params = array('id' => $_SESSION['beatnik']['curdomain']['id'],
                 'rectype' => 'soa');
 echo $_SESSION['beatnik']['curdomain']['zonename'] . '&nbsp;'
-     . Horde::link(Horde_Util::addParameter($edit, $params)) 
-     . Horde::img('edit.png', _("Edit"), '', $img_dir) . '</a> ' 
-     . Horde::link(Horde_Util::addParameter($delete, $params)) 
+     . Horde::link(Horde_Util::addParameter($edit, $params))
+     . Horde::img('edit.png', _("Edit"), '', $img_dir) . '</a> '
+     . Horde::link(Horde_Util::addParameter($delete, $params))
      . Horde::img('delete.png', _("Delete"), '', $img_dir) . '</a></td>';
 ?>
 </div>

@@ -3,8 +3,6 @@
  * Fima_Driver:: defines an API for implementing storage backends for
  * Fima.
  *
- * $Horde: fima/lib/Driver.php,v 1.1 2009/03/11 17:16:00 trt Exp $
- *
  * Copyright 2007-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -22,7 +20,7 @@ class Fima_Driver {
      * @var array
      */
     var $_accounts = array();
-    
+
     /**
      * Array holding the current postings. Each array entry is a hash
      * describing a posting. The array is indexed by postingId.
@@ -37,14 +35,14 @@ class Fima_Driver {
      * @var integer
      */
     var $_postingsCount = 0;
-    
+
     /**
      * Amount containing the current total result of postings.
      *
      * @var float
      */
     var $_postingsResult = 0;
-    
+
     /**
      * String containing the current ledger.
      *
@@ -129,7 +127,7 @@ class Fima_Driver {
         /* Log the creation of this item in the history log. */
         $history = &Horde_History::singleton();
         $history->log('fima:' . $this->_ledger . ':' . $accountId, array('action' => 'add'), true);
-        
+
         return $accountId;
     }
 
@@ -162,7 +160,7 @@ class Fima_Driver {
 
         return true;
     }
-    
+
     /**
      * Deletes an account and deletes/shifts of subaccounts and postings.
      *
@@ -216,7 +214,7 @@ class Fima_Driver {
         /* Log the creation of this item in the history log. */
         $history = &Horde_History::singleton();
         $history->log('fima:' . $this->_ledger . ':' . $postingId, array('action' => 'add'), true);
-        
+
         return $postingId;
     }
 
@@ -250,7 +248,7 @@ class Fima_Driver {
 
         return true;
     }
-    
+
     /**
      * Deletes a posting.
      *
@@ -276,7 +274,7 @@ class Fima_Driver {
 
         return true;
     }
-    
+
     /**
      * Shifts a posting.
      *
@@ -326,7 +324,7 @@ class Fima_Driver {
 
         return true;
     }
-    
+
     /**
      * Attempts to return a concrete Fima_Driver instance based on $driver.
      *
@@ -366,7 +364,7 @@ class Fima_Driver {
         } else {
             $fima = new Fima_Driver($params, sprintf(_("Unable to load the definition of %s."), $class));
         }
-        
+
         return $fima;
     }
 

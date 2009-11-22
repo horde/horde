@@ -5,8 +5,6 @@
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://cvs.horde.org/co.php/vilma/LICENSE.
  *
- * $Horde: vilma/lib/base.php,v 1.37 2009/07/13 20:05:58 slusarz Exp $
- *
  * @author Marko Djukic <marko@oblo.com>
  * @author Ben Klang <ben@alkaloid.net>
  * @package Vilma

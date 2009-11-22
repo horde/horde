@@ -3,8 +3,6 @@
  * Skoli_Driver:: defines an API for implementing storage backends for
  * Skoli.
  *
- * $Horde: skoli/lib/Driver.php,v 0.1 $
- *
  * Copyright 2007-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

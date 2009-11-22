@@ -1,6 +1,4 @@
 /**
- * $Horde: $
- *
  * KeychainPlugIn.h
  *
  * Dashboard Widget plug-in that stores and retrieves passwords using Keychain.

@@ -3,8 +3,6 @@
 $block_name = _("Horde Menu");
 
 /**
- * $Horde: horde/lib/Block/menu.php,v 1.0 2008/01/10 5:11:00 elier $
- *
  * @package Horde_Block
  */
 class Horde_Block_flexdemo_menu extends Horde_Block {

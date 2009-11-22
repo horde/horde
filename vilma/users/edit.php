@@ -2,8 +2,6 @@
 /**
  * The Vilma script to add/edit users.
  *
- * $Horde: vilma/users/edit.php,v 1.45 2009/07/14 18:43:46 selsky Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did
@@ -37,7 +35,7 @@ if (!$vars->exists('mode')) {
         if (is_a($address, 'PEAR_Error')) {
             $notification->push(sprintf(_("Error reading address information from backend: %s"), $address->getMessage()), 'horde.error');
             $url = '/users/index.php';
-            require VILMA_BASE . $url; 
+            require VILMA_BASE . $url;
             exit;
         }
         $vars = new Horde_Variables($address);
@@ -53,7 +51,7 @@ if (!$vars->exists('mode')) {
         $vars->set('mode', 'new');
         $domain_info = $_SESSION['vilma']['domain'];
         $domain = $domain_info['domain_name'];
-        $domain_id = $domain_info['domain_id'];       
+        $domain_id = $domain_info['domain_id'];
         $vars->set('domain', $domain);
         $vars->set('id', $domain_id);
         $vars->add('user_name', Horde_Util::getFormData('user_name',''));

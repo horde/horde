@@ -1,7 +1,5 @@
 <?php
 /*
- * $Horde: beatnik/templates/menu.inc,v 1.18 2009/07/15 15:08:27 duck Exp $
- *
  * Copyright 2005-2007 Ben Klang <ben@alkaloid.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you

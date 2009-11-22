@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: beatnik/index.php,v 1.5 2008/08/22 08:53:50 duck Exp $
- *
  * Copyright 2005 Ben Klang <ben@alkaloid.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you

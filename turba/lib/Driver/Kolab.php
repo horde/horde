@@ -164,7 +164,6 @@ class Turba_Driver_Kolab extends Turba_Driver
      * @param array  The params for the share.
      *
      * @return mixed  The share object or PEAR_Error.
-     * @since Turba 2.2
      */
     function &createShare($share_id, $params)
     {

@@ -2,8 +2,6 @@
 /**
  * Horde_Form for editing classs.
  *
- * $Horde: skoli/lib/Forms/EditClass.php,v 0.1 $
- *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
@@ -21,7 +19,6 @@ require_once 'Horde/Form/Renderer.php';
  * editing a class.
  *
  * @author  Martin Blumenthal <tinu@humbapa.ch>
- * @since   Skoli 2.2
  * @package Skoli
  */
 class Skoli_EditClassForm extends Horde_Form {

@@ -5,8 +5,6 @@
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://cvs.horde.org/co.php/vilma/LICENSE.
  *
- * $Horde: vilma/lib/MailboxDriver/null.php,v 1.1 2009/05/28 00:33:00 bklang Exp $
- *
  * @author  David Cummings <davidcummings@acm.org>
  * @package Vilma
  */
@@ -24,13 +22,13 @@ class Vilma_MailboxDriver_null extends Vilma_MailboxDriver {
         if ($usedomain) {
             $dir .= '/' . $domain;
         }
-          
+
         return $dir . '/' . $user;
         */
     }
 
     function checkMailbox($user, $domain)
-    {   
+    {
         /*
         static $exists;
 

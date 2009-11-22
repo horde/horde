@@ -2,14 +2,12 @@
  Installing Skoli 0.1
 ======================
 
-:Last update:   $Date: $
-:Revision:      $Revision: 0.1 $
 :Contact:       horde@lists.horde.org
 
 .. contents:: Contents
 .. section-numbering::
 
-This document contains instructions for installing the Skoli administrative 
+This document contains instructions for installing the Skoli administrative
 application for teachers on your system.
 
 For information on the capabilities and features of Skoli, see the file
@@ -200,7 +198,7 @@ Configuring Skoli
 
 5. Testing Skoli
 
-   Use Skoli to create a class and add some entries. Test at least the 
+   Use Skoli to create a class and add some entries. Test at least the
    following:
 
    - Creating a new Class

@@ -1,24 +1,23 @@
 <?xml version='1.0' encoding='cp1257'?>
-<!-- $Horde: gollem/locale/lv_LV/help.xml,v 1.1 2008/04/03 09:53:53 jan Exp $ -->
 <help>
 
 <entry id="file-actions">
     <title>Failu pārvaldnieks: Darbības</title>
     <heading>Mapju izveidošana</heading>
     <para>
-    Lai izveidotu mapi aktuālajā katalogā, uzklikšķiniet ikonai <b>Izveidot mapi</b> Failu pārvaldnieka rīkjoslā.  
+    Lai izveidotu mapi aktuālajā katalogā, uzklikšķiniet ikonai <b>Izveidot mapi</b> Failu pārvaldnieka rīkjoslā.
     </para>
     <heading>Failu dzēšana, izgriešana, kopēšana, ielīmēšana</heading>
     <para>
-    Lai dzēstu, izgrieztu vai nokopētu failu(s), ir jāizvēlas vismaz viens fails, atzīmējot to(s) izvēles rūtiņā(s) pa kreisi no faila nosaukuma. Pēc tam, kad ir atzīmēti nepieciešami faili, no izkrītošās komandkartes <b>Darbības</b> izvēlieties nepieciešamo darbību. Ja izvēlējāties <b>Kopēt</b> vai <b>Izgriezt</b>, atzīmētie faili tiks nokopēti vai pārvietoti uz Starpliktuvi un lietotāja saskarnē parādīsies jauna ikona <b>Skatīt starpliktuvi</b>. No Starpliktuves Jums ir iespēja ielīmēt atbilstošos failus jebkurā Failu pārvaldnieka vietā. Pārejiet uz vietu direktoriju kokā, kurā nepieciešams novietot failu(s), atveriet Starpliktuvi, atzīmējiet nepieciešamo(s) failu(s) rūtiņā(s) pa kreisi no faila nosaukuma un uzklikšķiniet uz <b>Ielīmēt</b>. Pēc šīs darbības faili tiks ielīmēti aktuālajā katalogā un Starpliktuve – attīrīta.   
+    Lai dzēstu, izgrieztu vai nokopētu failu(s), ir jāizvēlas vismaz viens fails, atzīmējot to(s) izvēles rūtiņā(s) pa kreisi no faila nosaukuma. Pēc tam, kad ir atzīmēti nepieciešami faili, no izkrītošās komandkartes <b>Darbības</b> izvēlieties nepieciešamo darbību. Ja izvēlējāties <b>Kopēt</b> vai <b>Izgriezt</b>, atzīmētie faili tiks nokopēti vai pārvietoti uz Starpliktuvi un lietotāja saskarnē parādīsies jauna ikona <b>Skatīt starpliktuvi</b>. No Starpliktuves Jums ir iespēja ielīmēt atbilstošos failus jebkurā Failu pārvaldnieka vietā. Pārejiet uz vietu direktoriju kokā, kurā nepieciešams novietot failu(s), atveriet Starpliktuvi, atzīmējiet nepieciešamo(s) failu(s) rūtiņā(s) pa kreisi no faila nosaukuma un uzklikšķiniet uz <b>Ielīmēt</b>. Pēc šīs darbības faili tiks ielīmēti aktuālajā katalogā un Starpliktuve – attīrīta.
     </para>
     <heading>Katalogu dzēšana, izgriešana, kopēšana, ielīmēšana</heading>
-    <para>	
-Pēc noklusēšanas, izdzēst katalogu iespējams tikai gadījumā, ja tajā nav failu. Ja vēlaties dzēst katalogus ar visu to saturu, varat ieslēgt rekursīvu katalogu dzēšanu. Lai to ieslēgtu, uzklikšķiniet ikonai <b>Opcijas</b>, izvēlieties <b>Iestatījumi</b> un  no izkrītošajā komandkartē piedāvātajām iespējām - Jums vēlamo variantu. 
+    <para>
+Pēc noklusēšanas, izdzēst katalogu iespējams tikai gadījumā, ja tajā nav failu. Ja vēlaties dzēst katalogus ar visu to saturu, varat ieslēgt rekursīvu katalogu dzēšanu. Lai to ieslēgtu, uzklikšķiniet ikonai <b>Opcijas</b>, izvēlieties <b>Iestatījumi</b> un  no izkrītošajā komandkartē piedāvātajām iespējām - Jums vēlamo variantu.
 Ja mēģināsiet dzēst katalogu ar failiem, neieslēdzot minēto opciju, dzēšanas mēģinājums beigsies ar kļūdu.
 
-Lai dzēstu, izgrieztu vai nokopētu katalogu(s), ir jāizvēlas vismaz viens katalogs, atzīmējot to(s) izvēles rūtiņā(s) pa kreisi no kataloga nosaukuma. Pēc tam, kad ir atzīmēti nepieciešami katalogi, no izkrītošās komandkartes <b>Darbības</b> izvēlieties nepieciešamo darbību. Ja izvēlējāties <b>Kopēt</b> vai <b>Izgriezt</b>, atzīmētie katalogi tiks nokopēti vai pārvietoti uz Starpliktuvi un lietotāja saskarnē parādīsies jauna ikona <b>Skatīt starpliktuvi</b>. No Starpliktuves Jums ir iespēja ielīmēt atbilstošos katalogus jebkurā katalogu pārvaldnieka vietā. Pārejiet uz vietu direktoriju kokā, kurā nepieciešams novietot katalogu(s), atveriet Starpliktuvi, atzīmējiet nepieciešamo(s) katalogu(s) rūtiņā(s) pa kreisi no kataloga nosaukuma un uzklikšķiniet uz <b>Ielīmēt</b>. Pēc šīs darbības katalogi tiks ielīmēti aktuālajā katalogā un Starpliktuve – attīrīta.   
-    
+Lai dzēstu, izgrieztu vai nokopētu katalogu(s), ir jāizvēlas vismaz viens katalogs, atzīmējot to(s) izvēles rūtiņā(s) pa kreisi no kataloga nosaukuma. Pēc tam, kad ir atzīmēti nepieciešami katalogi, no izkrītošās komandkartes <b>Darbības</b> izvēlieties nepieciešamo darbību. Ja izvēlējāties <b>Kopēt</b> vai <b>Izgriezt</b>, atzīmētie katalogi tiks nokopēti vai pārvietoti uz Starpliktuvi un lietotāja saskarnē parādīsies jauna ikona <b>Skatīt starpliktuvi</b>. No Starpliktuves Jums ir iespēja ielīmēt atbilstošos katalogus jebkurā katalogu pārvaldnieka vietā. Pārejiet uz vietu direktoriju kokā, kurā nepieciešams novietot katalogu(s), atveriet Starpliktuvi, atzīmējiet nepieciešamo(s) katalogu(s) rūtiņā(s) pa kreisi no kataloga nosaukuma un uzklikšķiniet uz <b>Ielīmēt</b>. Pēc šīs darbības katalogi tiks ielīmēti aktuālajā katalogā un Starpliktuve – attīrīta.
+
     </para>
     <heading>Darbs ar starpliktuvi</heading>
     <para>

@@ -1,5 +1,3 @@
-// $Horde: beatnik/js/src/beatnik.js,v 1.3 2008/08/20 08:56:53 duck Exp $
-
 // Menu Domain submit
 var loading;
 function domainSubmit(clear)

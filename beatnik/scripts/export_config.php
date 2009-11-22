@@ -7,8 +7,6 @@
  * USE:
  *  php ./export_config.php --type=TYPE --username=USR --password=PASS --url=URL > hosts
  *
- * $Horde: beatnik/scripts/export_config.php,v 1.2 2009/07/15 15:05:33 duck Exp $
- *
  * Copyright 2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: beatnik/templates/common-header.inc,v 1.9 2009/09/15 09:20:03 duck Exp $
- *
  * Copyright 2005-2007 Ben Klang <ben@alkaloid.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you

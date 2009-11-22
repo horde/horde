@@ -2,8 +2,6 @@
 /**
  * Horde_Form for adding and updateing entries.
  *
- * $Horde: skoli/lib/Forms/Entry.php,v 0.1 $
- *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *

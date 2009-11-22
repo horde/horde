@@ -32,8 +32,6 @@ define('FIMA_POSTINGTYPE_BUDGET',   'budget');
 /**
  * Fima Base Class.
  *
- * $Horde: fima/lib/Fima.php,v 1.1 2009/03/11 17:46:00 trt Exp $
- *
  * Copyright 2007-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

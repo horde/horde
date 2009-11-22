@@ -2,8 +2,6 @@
 /**
  * Horde_Form for deleting ledgers.
  *
- * $Horde: fima/lib/Forms/DeleteLedger.php,v 1.0 2008/06/19 18:15:08 trt Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *

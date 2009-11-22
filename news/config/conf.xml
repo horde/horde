@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-<!-- $Horde: news/config/conf.xml,v 1.2 2004/01/20 18:17:25 jan Exp $ -->
 <configuration>
 
 <configtab name="storage" desc="Storage Settings">

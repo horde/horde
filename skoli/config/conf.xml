@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-<!-- $Horde: skoli/config/conf.xml,v 0.1 $ -->
 <configuration>
  <configsection name="storage">
   <configheader>

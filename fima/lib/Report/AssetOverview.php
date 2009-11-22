@@ -2,8 +2,6 @@
 /**
  * Fima_Report_AssetOverview.
  *
- * $Horde: fima/lib/Report/AssetOverview.php,v 1.0 2008/09/11 19:08:34 trt Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
@@ -42,7 +40,7 @@ class Fima_Report_AssetOverview extends Fima_Report {
         foreach ($accounts as $accountId => $account) {
             $accountIndex[$account['number']] = $accountId;
         }
-        
+
         /* Params. */
         if (($display = $this->getParam('display')) === null) {
             return PEAR::raiseError(_("No display type"));
@@ -75,7 +73,7 @@ class Fima_Report_AssetOverview extends Fima_Report {
         }
         $colheaders['__result__'] = _("Total Result");
         $coldummy['__result__'] = 0;
-        
+
         /* Initialize matrix. */
         $data = array();
         $data['__headersort__'] = $colheaders;
@@ -212,7 +210,7 @@ class Fima_Report_AssetOverview extends Fima_Report {
                 }
             }
         }
-        
+
         /* Sorting. */
         if ($sortby === null || !isset($colheaders[$sortby])) {
             $sortby = $this->setParam('sortby', '__header__');
@@ -265,10 +263,10 @@ class Fima_Report_AssetOverview extends Fima_Report {
                 unset($this->_data[$rowId]['__subaccounts__']);
             }
         }
-        
+
         return true;
     }
-    
+
     /*
      * Output the graph.
      *

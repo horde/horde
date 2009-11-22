@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: crumb/index.php,v 1.12 2008/01/02 11:14:00 jan Exp $
- *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

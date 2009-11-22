@@ -2,15 +2,12 @@
 /**
  * Beatnik_Driver:: defines an API implementing astorage backends for Beatnik.
  *
- * $Horde: beatnik/lib/Driver.php,v 1.21 2009/07/15 15:05:32 duck Exp $
- *
  * Copyright 2005-2007 Alkaloid Networks <http://www.alkaloid.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Ben Klang <ben@alkaloid.net>
- * @version $Revision: 1.21 $
  * @package Beatnik
  */
 class Beatnik_Driver {

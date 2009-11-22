@@ -3,8 +3,6 @@
 /**
  * This script will check the user table and create any mail directories on the
  * system for any new users. A cron job can be set up to run this periodically.
- *
- * $Horde: vilma/scripts/create_mailboxes.php,v 1.6 2009/06/10 19:58:04 slusarz Exp $
  */
 
 // No auth.

@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-<!-- $Horde: gollem/locale/fi_FI/help.xml,v 1.4 2008/02/22 13:36:00 jan Exp $ -->
 <help>
   <entry id="file-actions" md5="b0de5fc9b7cc30fea350fc3900737896" state="uptodate">
     <title>Tiedostohallinta: Toiminnot</title>
@@ -14,7 +13,7 @@
     </para>
     <heading>Hakemistojen poisto, leikkaus, kopiointi ja liit&#xE4;minen</heading>
     <heading>Delete, cut, copy and paste directories</heading>
-    <para>	
+    <para>
     Oletuksena voit poistaa hakemiston vain jos se on tyhj&#xE4;. On kuitenkin mahdollista poistaa ei-tyhj&#xE4; hakemisto jos valitset asetuksen "Poista hakemistot rekursiivisesti". Jos yrit&#xE4;t poistaa ei-tyhj&#xE4;&#xE4; hakemistoa ilman ett&#xE4; sinulla on p&#xE4;&#xE4;ll&#xE4; em. asetus, niin poistaminen ep&#xE4;onnistuu virheilmoituksen kera. Jos haluat poistaa ei-tyhji&#xE4; hakemistoja, niin valitse laita asetuksista p&#xE4;&#xE4;lle asetus "Poista hakemistot rekursiivisesti.".
     Poistaaksesi, leikataksesi tai kopioidaksesi hakemistoja, sinun pit&#xE4;&#xE4; valita ainakin yksi hakemisto.
     Kun olet valinnut yhden tai useamman hakemiston rastittamalla valintalaatikon hakemiston vasemmalla puolella, voit alasvetovalikosta valita yhden seuraavista  toiminnoista "Leikkaa objekteja", "Kopioi objekteja" tai "Poista objektit". Jos valitset "Leikkaa objekti" tai "Kopioi objekti", niin t&#xE4;m&#xE4;n j&#xE4;lkeen voit liitt&#xE4;&#xE4; objektin muuhun paikkaan tiedostonhallinnassa. Kun haluat liitt&#xE4;&#xE4; objektin, niin siirry valitsemaasi kohteeseen ja valitse t&#xE4;m&#xE4;n j&#xE4;lkeen toiminnot alasvetovalikosta "Liit&#xE4; objekti". T&#xE4;m&#xE4;n j&#xE4;lkeen objektit ovat joko siirtyneet (Leikkaa objekti) tai kopioituneet (Kopioi objekti) valitsemaasi kohteeseen.

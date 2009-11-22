@@ -3,8 +3,6 @@
  * The Ingo_Script_Imap:: class represents an IMAP client-side script
  * generator.
  *
- * $Horde: ingo/lib/Script/imap.php,v 1.76 2009/01/19 18:10:01 mrubinsk Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you

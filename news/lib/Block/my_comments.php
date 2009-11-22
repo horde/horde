@@ -6,8 +6,6 @@ $block_name = _("Last comments on my news");
  * Horde_Block_news_my_comments:: Implementation of the Horde_Block API to
  * display last comments on users videos.
  *
- * $Horde: incubator/news/lib/Block/my_comments.php,v 1.1 2008/03/27 11:02:57 duck Exp $
- *
  * @package Horde_Block
  */
 class Horde_Block_news_my_comments extends Horde_Block {

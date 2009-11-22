@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: skoli/classes/create.php,v 0.1 $
- *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

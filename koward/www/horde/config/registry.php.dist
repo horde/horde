@@ -2,8 +2,6 @@
 /**
  * registry.php -- Horde application registry.
  *
- * $Horde: horde/config/registry.php.dist,v 1.306 2009/01/14 20:51:07 chuck Exp $
- *
  * This configuration file is used by Horde to determine which Horde
  * applications are installed and where, as well as how they interact.
  *

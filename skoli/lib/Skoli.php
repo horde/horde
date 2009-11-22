@@ -82,8 +82,6 @@ define('SKOLI_SORT_DESCEND', 1);
 /**
  * Skoli Base Class.
  *
- * $Horde: skoli/lib/Skoli.php,v 0.1 $
- *
  * Copyright 2007-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

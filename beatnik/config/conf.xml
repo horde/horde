@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-<!-- $Horde: beatnik/config/conf.xml,v 1.5 2008/05/15 04:20:53 bklang Exp $ -->
 <configuration>
  <configsection name="storage">
   <configheader>Beatnik Storage</configheader>
@@ -22,15 +21,15 @@
      the LDAP server"/>
      <configstring name="password" required="false" desc="The password used to
      bind to the LDAP server"/>
-     <configenum name="version" desc="LDAP Protocol Version">3 
-      <values>3 
+     <configenum name="version" desc="LDAP Protocol Version">3
+      <values>3
        <value desc="LDAPv2 (Deprecated)">2</value>
        <value desc="LDAPv3">3</value>
       </values>
      </configenum>
      <configstring name="dn" desc="The object search key"/>
      <configswitch name="filter_type" desc="How to specify a filter for the
-     zone lists">objectclass 
+     zone lists">objectclass
       <case name="objectclass" desc="One or more objectclass filters">
        <configlist name="objectclass" desc="The objectclass filter used to
        search for zones. Can be a single objectclass or a list."/>dnszone

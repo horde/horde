@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: beatnik/commit.php,v 1.11 2009/07/03 10:05:29 duck Exp $
- *
  * Copyright 2006-2007 Ben Klang <ben@alkaloid.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you

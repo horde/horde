@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: fima/report.php,v 1.1 2009/03/12 13:28:05 trt Exp $
- *
  * Copyright 2008 Thomas Trethan <thomas@trethan.net>
  *
  * See the enclosed file COPYING for license information (GPL).  If you
@@ -116,7 +114,7 @@ case 'display_report':
     if ($params['report_id'] !== null) {
         /* Title. */
         $params['title'] = $_reports[$params['report_id']];
-        
+
         /* Build report url. */
         $params['url'] = Horde_Util::addParameter(Horde::applicationUrl('report.php'), 'actionID', 'display_report');
 
@@ -129,7 +127,7 @@ case 'display_report':
             $notification->push(sprintf(_("There was a problem creating the report: %s."), $report->getMessage()), 'horde.error');
             break;
         }
-            
+
         if ($params['graph'] && !$params['out']) {
             break;
         }
@@ -139,7 +137,7 @@ case 'display_report':
             $notification->push(sprintf(_("There was a problem executing the report: %s."), $status->getMessage()), 'horde.error');
             break;
         }
-        
+
         if ($params['graph']) {
             if ($graphs) {
                 require FIMA_TEMPLATES . '/reports/img.inc';

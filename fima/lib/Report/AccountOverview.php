@@ -2,8 +2,6 @@
 /**
  * Fima_Report_AccountOverview.
  *
- * $Horde: fima/lib/Report/AccountOverview.php,v 1.1 2009/03/13 17:46:08 trt Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
@@ -88,7 +86,7 @@ class Fima_Report_AccountOverview extends Fima_Report {
             }
             $coldummy[$colId] = 0;
         }
-        
+
 
         /* Initialize matrix. */
         $data = array();
@@ -122,7 +120,7 @@ class Fima_Report_AccountOverview extends Fima_Report {
             }
         }
         $data['__result__'] = $total;
-        
+
         /* Reference. */
         if ($displayreference) {
             $filters = array();
@@ -137,7 +135,7 @@ class Fima_Report_AccountOverview extends Fima_Report {
             if ($reference_end !== null) {
                 $filters[] = array('date', (int)$reference_end, '<=');
             }
-            
+
             $result = Fima::getResults(array('type', $yearly ? 'date_year' : 'date_month'), $filters);
             if (is_a($result, 'PEAR_Error')) {
                 return $result;
@@ -146,7 +144,7 @@ class Fima_Report_AccountOverview extends Fima_Report {
                 foreach ($row as $colId => $value) {
                     $colId = 'reference';
                     $data[$rowId][$colId] = $value;
-                    $data['__result__'][$colId] += $value; 
+                    $data['__result__'][$colId] += $value;
                 }
             }
         }
@@ -199,7 +197,7 @@ class Fima_Report_AccountOverview extends Fima_Report {
                 }
             }
         }
-        
+
         /* Sorting. */
         if ($sortby === null || !isset($colheaders[$sortby])) {
             $sortby = $this->setParam('sortby', '__header__');
@@ -239,10 +237,10 @@ class Fima_Report_AccountOverview extends Fima_Report {
                 $this->_data[$rowId] = $data[$rowId];
             }
         }
-        
+
         return true;
     }
-    
+
    /*
      * Output the graph.
      *
@@ -281,7 +279,7 @@ class Fima_Report_AccountOverview extends Fima_Report {
         /* Additional params. */
         $this->setParam('graph', 'Line');
         $this->setParam('labels', $labels);
-        
+
         return true;
     }
 

@@ -2,8 +2,6 @@
 /**
  * Fima_Report:: defines an API for implementing reports for Fima.
  *
- * $Horde: fima/lib/Report.php,v 1.0 2008/08/21 20:31:00 trt Exp $
- *
  * Copyright 2007-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -20,21 +18,21 @@ class Fima_Report {
      * @var array
      */
     var $_params = array();
-    
+
     /**
      * Array containing the data after execution of the report.
      *
      * @var mixed
      */
     var $_data = array();
-    
+
     /**
      * Bytes containing the report graph after execution of the report.
      *
      * @var bytes
      */
     var $_graph = null;
-    
+
     /**
      * Constructor - just store the $params in our newly-created
      * object. All other work is done by initialize().
@@ -66,7 +64,7 @@ class Fima_Report {
             return null;
         }
     }
-    
+
     /**
      * Set a specific report parameter.
      *
@@ -80,7 +78,7 @@ class Fima_Report {
         $this->_params[$param] = $value;
         return $value;
     }
-    
+
     /*
      * Executes the report.
      *
@@ -96,10 +94,10 @@ class Fima_Report {
         /* Log the execution of the report in the history log. */
         $history = &Horde_History::singleton();
         $history->log('fima:report:' . $this->_params['report_id'], array('action' => 'execute'), true);
-        
+
         return true;
     }
-    
+
     /**
      * Returns the data after report is executed.
      *
@@ -109,7 +107,7 @@ class Fima_Report {
     {
         return $this->_data;
     }
-    
+
     /**
      * Output the graph of this report.
      *
@@ -121,21 +119,21 @@ class Fima_Report {
         if (is_a($execute, 'PEAR_Error')) {
             return $execute;
         }
-        
+
         require_once FIMA_BASE . '/lib/ReportGraph.php';
         $graph = &Fima_ReportGraph::factory($this->_params['graph'], $this->data, $this->_params);
         if (is_a($graph, 'PEAR_Error')) {
             $notification->push(sprintf(_("There was a problem creating the report graph: %s."), $report->getMessage()), 'horde.error');
             return $graph;
         }
-        
+
         /* Execute report graph. */
         $graph->execute();
         if (is_a($status, 'PEAR_Error')) {
             $notification->push(sprintf(_("There was a problem executing the report graph: %s."), $status->getMessage()), 'horde.error');
             return $status;
         }
-        
+
         $graph->getGraph();
         return true;
     }
@@ -148,7 +146,7 @@ class Fima_Report {
     function initialize()
     {
     }
-    
+
     /**
      * Attempts to return a concrete Fima_Report instance based on $driver.
      *
@@ -182,7 +180,7 @@ class Fima_Report {
         } else {
             $report = new Fima_Report($params, sprintf(_("Unable to load the definition of %s."), $class));
         }
-        
+
         return $report;
     }
 

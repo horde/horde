@@ -3,8 +3,6 @@
 /**
  * Fima_ReportGraph:: defines an API for implementing report graphs for Fima.
  *
- * $Horde: fima/lib/ReportGraph.php,v 1.0 2008/06/23 23:43:00 trt Exp $
- *
  * Copyright 2007-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -12,9 +10,9 @@
  *
  * @package Fima
  */
- 
+
 /** PEAR Image Graph */
-require_once 'Image/Graph.php'; 
+require_once 'Image/Graph.php';
 
 /**
  * Fima_ReportGraph class.
@@ -30,14 +28,14 @@ class Fima_ReportGraph {
      * @var array
      */
     var $_params = array();
-    
+
     /**
      * Array containing the data after execution of the report.
      *
      * @var mixed
      */
     var $_data = array();
-    
+
     /**
      * Bytes containing the report graph after execution of the report.
      *
@@ -46,7 +44,7 @@ class Fima_ReportGraph {
     var $_graph = null;
     var $_plotarea = null;
     var $_legend = null;
-    
+
     /**
      * Constructor - just store the $params in our newly-created
      * object. All other work is done by initialize().
@@ -81,7 +79,7 @@ class Fima_ReportGraph {
         $font->setColor($this->_style['font-color']);
         $font->setSize($this->_style['font-size']);
         $this->_graph->setFont($font);
-        
+
         /* Plot and Legend. */
         $title =& Image_Graph::factory('title', array(isset($this->_params['title']) ? $this->_params['title'] : _("Report"), $this->_style['header-size']));
         $title->setAlignment(IMAGE_GRAPH_ALIGN_BOTTOM | IMAGE_GRAPH_ALIGN_CENTER_X);
@@ -115,10 +113,10 @@ class Fima_ReportGraph {
         /* Log the execution of the report in the history log. */
         $history = &Horde_History::singleton();
         $history->log('fima:reportgraph', array('action' => 'execute'), true);
-        
+
         return true;
     }
-    
+
     /**
      * Returns the graph of this report (if any).
      *
@@ -136,7 +134,7 @@ class Fima_ReportGraph {
         #header('Content-Length: ' . );
         header('Content-Disposition: inline');
 
-        $this->_graph->done(); 
+        $this->_graph->done();
 
         return true;
     }
@@ -152,7 +150,7 @@ class Fima_ReportGraph {
         include_once($GLOBALS['registry']->get('themesfs') . '/report.inc');
         $this->_style = $style;
     }
-    
+
     /**
      * Attempts to return a concrete Fima_ReportGraph instance based on $driver.
      *
@@ -187,7 +185,7 @@ class Fima_ReportGraph {
         } else {
             $report = new Fima_ReportGraph($data, $params, sprintf(_("Unable to load the definition of %s."), $class));
         }
-        
+
         return $report;
     }
 

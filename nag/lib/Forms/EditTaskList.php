@@ -2,8 +2,6 @@
 /**
  * Horde_Form for editing task lists.
  *
- * $Horde: nag/lib/Forms/EditTaskList.php,v 1.3 2009/06/10 17:33:41 slusarz Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
@@ -21,7 +19,6 @@ require_once 'Horde/Form/Renderer.php';
  * editing a task list.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Nag 2.2
  * @package Nag
  */
 class Nag_EditTaskListForm extends Horde_Form {

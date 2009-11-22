@@ -2,8 +2,6 @@
 /**
  * Nag Base Class.
  *
- * $Horde: nag/lib/Nag.php,v 1.203 2009/07/17 15:56:16 chuck Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
@@ -583,8 +581,6 @@ class Nag
     /**
      * Returns the specified permission for the current user.
      *
-     * @since Nag 2.1
-     *
      * @param string $permission  A permission, currently only 'max_tasks'.
      *
      * @return mixed  The value of the specified permission.
@@ -992,8 +988,6 @@ class Nag
 
     /**
      * Returns the real name, if available, of a user.
-     *
-     * @since Nag 2.2
      */
     function getUserName($uid)
     {

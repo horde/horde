@@ -2,8 +2,6 @@
 /**
  * Fima base application file.
  *
- * $Horde: fima/lib/base.php,v 1.0 2008/04/25 00:15:28 trt Exp $
- *
  * This file brings in all of the dependencies that every Fima script will
  * need, and sets up objects that all scripts use.
  */

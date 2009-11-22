@@ -7,8 +7,6 @@
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/merk/LICENSE.
  *
- * $Horde: beatnik/autogenerate.php,v 1.16 2009/07/14 00:25:28 mrubinsk Exp $
- *
  * @author Duck <duck@obala.net>
  */
 

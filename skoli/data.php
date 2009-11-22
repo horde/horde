@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: skoli/data.php,v 0.1 $
- *
  * Copyright 2001-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you

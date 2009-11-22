@@ -4,8 +4,6 @@ $block_name = _("Menu List");
 $block_type = 'tree';
 
 /**
- * $Horde: skoli/lib/Block/tree_menu.php,v 0.1 $
- *
  * @package Horde_Block
  */
 class Horde_Block_skoli_tree_menu extends Horde_Block {

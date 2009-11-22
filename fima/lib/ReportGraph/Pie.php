@@ -2,8 +2,6 @@
 /**
  * Fima_ReportGraph_Pie.
  *
- * $Horde: fima/lib/ReportGraph/Pie.php,v 1.0 2008/08/21 21:24:06 trt Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *

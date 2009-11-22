@@ -29,8 +29,6 @@
  *
  * The table structure can be created by the scripts/sql/nag.sql script.
  *
- * $Horde: nag/lib/Driver/sql.php,v 1.105 2009/07/15 01:54:58 chuck Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *

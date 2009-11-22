@@ -20,8 +20,6 @@
  * The table structure can be created by the scripts/sql/fima.sql
  * script.
  *
- * $Horde: fima/lib/Driver/sql.php,v 1.1 2009/03/11 17:19:00 trt Exp $
- *
  * Copyright 2007-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

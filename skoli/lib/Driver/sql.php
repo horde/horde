@@ -24,16 +24,14 @@
  *                 only 'hostspec' and 'port' parameters.</pre>
  *
  * Optional parameters:<pre>
- *   'objects_table'            The name of the objects table in 'database'.  
+ *   'objects_table'            The name of the objects table in 'database'.
  *                              Default is 'skoli_objects'.
  *   'object_attributes_table'  The name of the attributes table in 'database'.
  *                              Default ist 'skoli_object_attributes'.
- *   'students_table'           The name of the students table in 'database'.  
+ *   'students_table'           The name of the students table in 'database'.
  *                              Default is 'skoli_classes_students'.</pre>
  *
  * The table structure can be created by the scripts/sql/skoli.sql script.
- *
- * $Horde: skoli/lib/Driver/sql.php,v 0.1 $
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -281,7 +279,7 @@ class Skoli_Driver_sql extends Skoli_Driver {
         } else {
             $students = array(array('student_id' => $studentid));
         }
-       
+
         foreach ($students as $studentkey=>$student) {
             /* Build the search parameter */
             if (count($searchparams)) {
@@ -330,7 +328,7 @@ class Skoli_Driver_sql extends Skoli_Driver {
                 }
             } else {
                 $query = 'SELECT * FROM ' . $this->_params['objects_table'] .
-                         ' WHERE class_id = ? AND student_id = ?' . 
+                         ' WHERE class_id = ? AND student_id = ?' .
                          (!is_null($type) ? ' AND object_type = ?' : '');
                 $values = array($this->_class, $student['student_id']);
                 if (!is_null($type)) {
@@ -488,7 +486,7 @@ class Skoli_Driver_sql extends Skoli_Driver {
             }
         }
 
-        return true;        
+        return true;
     }
 
     /**
@@ -596,7 +594,7 @@ class Skoli_Driver_sql extends Skoli_Driver {
             $subjectlist[] = $subject[0];
         }
 
-        return $subjectlist;        
+        return $subjectlist;
     }
 
     /**

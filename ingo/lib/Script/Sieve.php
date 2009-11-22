@@ -917,7 +917,6 @@ class Ingo_Script_Sieve extends Ingo_Script {
  * The Sieve_If class represents a Sieve If Statement
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Ingo 0.1
  * @package Ingo
  */
 class Sieve_If {
@@ -1098,7 +1097,6 @@ class Sieve_If {
  * The Sieve_Else class represents a Sieve Else Statement
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Ingo 0.1
  * @package Ingo
  */
 class Sieve_Else {
@@ -1196,7 +1194,6 @@ class Sieve_Else {
  * The Sieve_Elsif class represents a Sieve Elsif Statement
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Ingo 0.1
  * @package Ingo
  */
 class Sieve_Elsif {
@@ -1316,7 +1313,6 @@ class Sieve_Elsif {
  * A test is a piece of code that evaluates to true or false.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Ingo 0.1
  * @package Ingo
  */
 class Sieve_Test {
@@ -1366,7 +1362,6 @@ class Sieve_Test {
  * The Sieve_Test_True class represents a test that always evaluates to true.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Ingo 0.1
  * @package Ingo
  */
 class Sieve_Test_True extends Sieve_Test {
@@ -1399,7 +1394,6 @@ class Sieve_Test_True extends Sieve_Test {
  * false.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Ingo 0.1
  * @package Ingo
  */
 class Sieve_Test_False extends Sieve_Test {
@@ -1433,7 +1427,6 @@ class Sieve_Test_False extends Sieve_Test {
  * Equivalent to a logical AND of all the tests it contains.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Ingo 0.1
  * @package Ingo
  */
 class Sieve_Test_Allof extends Sieve_Test {
@@ -1532,7 +1525,6 @@ class Sieve_Test_Allof extends Sieve_Test {
  * Equivalent to a logical OR of all the tests it contains.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Ingo 0.1
  * @package Ingo
  */
 class Sieve_Test_Anyof extends Sieve_Test {
@@ -1629,7 +1621,6 @@ class Sieve_Test_Anyof extends Sieve_Test {
  * The Sieve_Test_Relational class represents a relational test.
  *
  * @author  Todd Merritt <tmerritt@email.arizona.edu>
- * @since   Ingo 1.0
  * @package Ingo
  */
 class Sieve_Test_Relational extends Sieve_Test {
@@ -1729,7 +1720,6 @@ class Sieve_Test_Relational extends Sieve_Test {
  * The Sieve_Test_Size class represents a message size test.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Ingo 0.1
  * @package Ingo
  */
 class Sieve_Test_Size extends Sieve_Test {
@@ -1777,7 +1767,6 @@ class Sieve_Test_Size extends Sieve_Test {
  * The Sieve_Test_Not class represents the inverse of a given test.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Ingo 0.1
  * @package Ingo
  */
 class Sieve_Test_Not extends Sieve_Test {
@@ -1833,7 +1822,6 @@ class Sieve_Test_Not extends Sieve_Test {
  * more headers in a message.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Ingo 0.1
  * @package Ingo
  */
 class Sieve_Test_Exists extends Sieve_Test {
@@ -1897,7 +1885,6 @@ class Sieve_Test_Exists extends Sieve_Test {
  * addresses in the given fields.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Ingo 0.1
  * @package Ingo
  */
 class Sieve_Test_Address extends Sieve_Test {
@@ -2011,7 +1998,6 @@ class Sieve_Test_Address extends Sieve_Test {
  * more headers in a message.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Ingo 0.1
  * @package Ingo
  */
 class Sieve_Test_Header extends Sieve_Test {
@@ -2125,7 +2111,6 @@ class Sieve_Test_Header extends Sieve_Test {
  * a message.
  *
  * @author  Michael Menge <michael.menge@zdv.uni-tuebingen.de>
- * @since   Ingo 1.2
  * @package Ingo
  */
 class Sieve_Test_Body extends Sieve_Test {
@@ -2209,7 +2194,6 @@ class Sieve_Test_Body extends Sieve_Test {
  * A Comment.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Ingo 0.1
  * @package Ingo
  * @todo    This and Sieve_If should really extends a Sieve_Block eventually.
  */
@@ -2275,7 +2259,6 @@ class Sieve_Comment {
  * An action is anything that has a side effect eg: discard, redirect.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Ingo 0.1
  * @package Ingo
  */
 class Sieve_Action {
@@ -2330,7 +2313,6 @@ class Sieve_Action {
  * The Sieve_Action_Redirect class represents a redirect action.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Ingo 0.1
  * @package Ingo
  */
 class Sieve_Action_Redirect extends Sieve_Action {
@@ -2372,7 +2354,6 @@ class Sieve_Action_Redirect extends Sieve_Action {
  * The Sieve_Action_Reject class represents a reject action.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Ingo 0.1
  * @package Ingo
  */
 class Sieve_Action_Reject extends Sieve_Action {
@@ -2429,7 +2410,6 @@ class Sieve_Action_Reject extends Sieve_Action {
  * The Sieve_Action_Keep class represents a keep action.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Ingo 0.1
  * @package Ingo
  */
 class Sieve_Action_Keep extends Sieve_Action {
@@ -2461,7 +2441,6 @@ class Sieve_Action_Keep extends Sieve_Action {
  * The Sieve_Action_Discard class represents a discard action.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Ingo 0.1
  * @package Ingo
  */
 class Sieve_Action_Discard extends Sieve_Action {
@@ -2493,7 +2472,6 @@ class Sieve_Action_Discard extends Sieve_Action {
  * The Sieve_Action_Stop class represents a stop action.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Ingo 0.1
  * @package Ingo
  */
 class Sieve_Action_Stop extends Sieve_Action {
@@ -2525,7 +2503,6 @@ class Sieve_Action_Stop extends Sieve_Action {
  * The Sieve_Action_Fileinto class represents a fileinto action.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Ingo 0.1
  * @package Ingo
  */
 class Sieve_Action_Fileinto extends Sieve_Action {
@@ -2582,7 +2559,6 @@ class Sieve_Action_Fileinto extends Sieve_Action {
  * The Sieve_Action_Vacation class represents a vacation action.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Ingo 0.1
  * @package Ingo
  */
 class Sieve_Action_Vacation extends Sieve_Action {
@@ -2805,7 +2781,6 @@ class Sieve_Action_Vacation extends Sieve_Action {
  * The Sieve_Action_Flag class is the base class for flag actions.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
- * @since   Ingo 0.1
  * @package Ingo
  */
 class Sieve_Action_Flag extends Sieve_Action {
@@ -2895,7 +2870,6 @@ class Sieve_Action_Flag extends Sieve_Action {
  * The Sieve_Action_Addflag class represents an add flag action.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Ingo 0.1
  * @package Ingo
  */
 class Sieve_Action_Addflag extends Sieve_Action_Flag {
@@ -2916,7 +2890,6 @@ class Sieve_Action_Addflag extends Sieve_Action_Flag {
  * The Sieve_Action_Removeflag class represents a remove flag action.
  *
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @since   Ingo 0.1
  * @package Ingo
  */
 class Sieve_Action_Removeflag extends Sieve_Action_Flag {
@@ -2937,7 +2910,6 @@ class Sieve_Action_Removeflag extends Sieve_Action_Flag {
  * The Sieve_Action_Notify class represents a notify action.
  *
  * @author  Paul Wolstenholme <wolstena@sfu.ca>
- * @since   Ingo 1.1
  * @package Ingo
  */
 class Sieve_Action_Notify extends Sieve_Action {

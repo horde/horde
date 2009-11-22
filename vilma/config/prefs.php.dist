@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: vilma/config/prefs.php.dist,v 1.1 2006/08/24 23:49:27 bklang Exp $
- *
  * See horde/config/prefs.php for documentation on the structure of this file.
  */
 

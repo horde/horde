@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: fima/ledgers/create.php,v 1.0 2008/06/19 08:01:33 trt Exp $
- *
  * Copyright 2002-2008 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

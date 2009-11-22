@@ -2,8 +2,6 @@
 /**
  * Skoli base application file.
  *
- * $Horde: skoli/lib/base.php,v 0.1 $
- *
  * This file brings in all of the dependencies that every Skoli script will
  * need, and sets up objects that all scripts use.
  */

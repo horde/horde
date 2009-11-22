@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: beatnik/templates/listzones/header.inc,v 1.13 2009/07/15 15:05:33 duck Exp $
- *
  * Copyright 2005-2007 Ben Klang <ben@alkaloid.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you

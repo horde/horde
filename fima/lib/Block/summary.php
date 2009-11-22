@@ -3,8 +3,6 @@
 $block_name = _("Finances Results");
 
 /**
- * $Horde: fima/lib/Block/summary.php,v 1.0 2008/06/16 23:19:10 trt  Exp $
- *
  * @package Horde_Block
  */
 class Horde_Block_fima_summary extends Horde_Block {

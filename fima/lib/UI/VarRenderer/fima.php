@@ -3,8 +3,6 @@
  * This file contains all Horde_Ui_VarRenderer extensions required for editing
  * accounts.
  *
- * $Horde: fima/lib/UI/VarRenderer/fima.php,v 1.0 2008/06/19 20:58:27 trt Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *

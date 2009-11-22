@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-<!-- $Horde: nag/locale/en_US/help.xml,v 1.5 2004/12/03 02:00:56 jan Exp $ -->
 <help><entry id="Overview" md5="67c67240d4ec4a037b8ae76f371c5ad3" state="uptodate">
     <title>Ikuspegi orokorra</title>
     <heading>Sarrera</heading> <para>Eginbide askoko "egitekoen" fitxategi-kudeatzailea da, eta zeregin-zerrenda pribatuak eta partekatuak, Egutegi-funtzioa integratzea, kategoriak, lehentasunak, epemugak, bilaketak, inprimatzea eta inportatze-/esportatze-funtzioak onartzen du.</para></entry>

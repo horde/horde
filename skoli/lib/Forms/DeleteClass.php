@@ -2,8 +2,6 @@
 /**
  * Horde_Form for deleting classs.
  *
- * $Horde: skoli/lib/Forms/DeleteClass.php,v 0.1 $
- *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
@@ -21,7 +19,6 @@ require_once 'Horde/Form/Renderer.php';
  * deleting a class.
  *
  * @author  Martin Blumenthal <tinu@humbapa.ch>
- * @since   Skoli 2.2
  * @package Skoli
  */
 class Skoli_DeleteClassForm extends Horde_Form {

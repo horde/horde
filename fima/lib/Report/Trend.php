@@ -2,8 +2,6 @@
 /**
  * Fima_Report_Trend.
  *
- * $Horde: fima/lib/Report/Trend.php,v 1.1 2009/03/13 17:59:56 trt Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
@@ -44,7 +42,7 @@ class Fima_Report_Trend extends Fima_Report {
             $accountIndex[$account['number']] = $accountId;
         }
         $groups = array(FIMA_ACCOUNTTYPE_INCOME, FIMA_ACCOUNTTYPE_EXPENSE);
-        
+
         /* Params. */
         if (($display = $this->getParam('display')) === null) {
             return PEAR::raiseError(_("No display type"));
@@ -78,7 +76,7 @@ class Fima_Report_Trend extends Fima_Report {
         }
         $colheaders['__result__'] = _("Total Result");
         $coldummy['__result__'] = 0;
-        
+
         /* Initialize matrix. */
         $data = array();
         $data['__headersort__'] = $colheaders;
@@ -210,7 +208,7 @@ class Fima_Report_Trend extends Fima_Report {
                 }
             }
         }
-        
+
         /* Sorting. */
         if ($sortby === null || !isset($colheaders[$sortby])) {
             $sortby = $this->setParam('sortby', '__header__');
@@ -263,10 +261,10 @@ class Fima_Report_Trend extends Fima_Report {
                 unset($this->_data[$rowId]['__subaccounts__']);
             }
         }
-        
+
         return true;
     }
-    
+
     /*
      * Output the graph.
      *

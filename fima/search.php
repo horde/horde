@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: fima/search.php,v 1.0 2008/09/23 22:18:05 trt Exp $
- *
  * Copyright 2008 Thomas Trethan <thomas@trethan.net>
  *
  * See the enclosed file COPYING for license information (GPL).  If you

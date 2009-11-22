@@ -2,8 +2,6 @@
 /**
  * Image border decorator for the Horde_Image package.
  *
- * $Horde: framework/Image/Image/Effect/border.php,v 1.1 2007/10/21 21:59:49 mrubinsk Exp $
- *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Image
  */

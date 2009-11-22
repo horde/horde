@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: vilma/virtuals/index.php,v 1.26 2009/07/08 18:30:04 slusarz Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not

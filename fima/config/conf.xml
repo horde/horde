@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-<!-- $Horde: fima/config/conf.xml,v 1.0 2008/04/24 18:49:43 trt Exp $ -->
 <configuration>
  <configsection name="storage">
   <configheader>Storage System Settings</configheader>

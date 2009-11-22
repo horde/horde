@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: beatnik/lib/Driver/ldap2dns.php,v 1.25 2008/03/11 08:57:59 duck Exp $
- *
  * Copyright 2005-2007 Alkaloid Networks <http://www.alkaloid.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you

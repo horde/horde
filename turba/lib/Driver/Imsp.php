@@ -326,7 +326,6 @@ class Turba_Driver_Imsp extends Turba_Driver
      * Deletes the address book represented by this driver from the IMSP server.
      *
      * @return mixed  true | PEAR_Error
-     * @since Turba 2.2
      */
      function _deleteAll()
      {
@@ -627,7 +626,6 @@ class Turba_Driver_Imsp extends Turba_Driver
      * @param array  The params for the share.
      *
      * @return mixed  The share object or PEAR_Error.
-     * @since Turba 2.2
      */
     function &createShare($share_id, $params)
     {

@@ -1,5 +1,3 @@
--- $Horde: skoli/scripts/sql/skoli.sql,v 0.1 $
-
 CREATE TABLE skoli_classes_students (
     class_id VARCHAR(255) NOT NULL,
     student_id VARCHAR(255) NOT NULL

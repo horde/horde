@@ -13,5 +13,3 @@ Vilma Development TODO List
 * Create Beatnik-integrated domains driver
 
 * Throw proper error if MySQL module not installed in PHP
-
-$Horde: vilma/docs/TODO,v 1.7 2007/08/06 00:08:29 mp Exp $

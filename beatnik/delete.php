@@ -6,8 +6,6 @@
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/merk/LICENSE.
- *
- * $Horde: beatnik/delete.php,v 1.15 2009/07/03 10:05:29 duck Exp $
  */
 
 define('BEATNIK_BASE', dirname(__FILE__));

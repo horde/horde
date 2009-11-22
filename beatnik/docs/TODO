@@ -1,12 +1,6 @@
 ================================
  Beatnik Development TODO List
 ================================
-$Horde: beatnik/docs/TODO,v 1.5 2007/04/12 01:46:42 bklang Exp $
-
-:Last update:   $Date: 2007/04/12 01:46:42 $
-:Revision:      $Revision: 1.5 $
-:Contact:       
-
 
 * Create an api which can be used by XML-RPC where remote clients can
   authenticate to horde and update their own DNS entries (subject to built-in

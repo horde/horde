@@ -1,6 +1,4 @@
 /**
- * $Horde: $
- *
  * KeychainPlugIn.m
  *
  * Dashboard Widget plug-in that stores and retrieves passwords using Keychain.
@@ -31,7 +29,7 @@
 // windowScriptObjectAvailable passes the JavaScript window object referring
 // to the plug-in's parent window (in this case, the Dashboard widget)
 // We use that to register our plug-in as a var of the window object;
-// This allows the plug-in to be referenced from JavaScript via 
+// This allows the plug-in to be referenced from JavaScript via
 // window.<plugInName>, or just <plugInName>
 - (void) windowScriptObjectAvailable:(WebScriptObject*)webScriptObject {
     [webScriptObject setValue:self forKey:@"KeychainPlugIn"];
@@ -58,7 +56,7 @@ NSString * const kWebSelectorPrefix = @"web_";
 // KeychainPlugIn.getPassword
 + (NSString *) webScriptNameForSelector:(SEL)aSelector {
     NSString* selName = NSStringFromSelector(aSelector);
-	
+
     if ([selName hasPrefix:kWebSelectorPrefix] && ([selName length] > [kWebSelectorPrefix length])) {
         return [[[selName substringFromIndex:[kWebSelectorPrefix length]] componentsSeparatedByString: @":"] objectAtIndex: 0];
     }
@@ -69,14 +67,14 @@ NSString * const kWebSelectorPrefix = @"web_";
     if (!password || !itemRef) {
         return NO;
     }
-    
+
     const char *pass = [password cStringUsingEncoding: [NSString defaultCStringEncoding]];
-    
+
     OSErr status = SecKeychainItemModifyContent(itemRef, nil, strlen(pass), pass);
     if (status == noErr) {
         return YES;
     }
-    
+
     return NO;
 }
 
@@ -88,7 +86,7 @@ NSString * const kWebSelectorPrefix = @"web_";
     const char *user = [username UTF8String];
     void *password = NULL;
     UInt32 passwordLength = 0;
-    
+
     OSStatus findResult = SecKeychainFindInternetPassword(
         NULL, // default keychain
         strlen(host), // server name length
@@ -106,13 +104,13 @@ NSString * const kWebSelectorPrefix = @"web_";
         &password, // password
         itemRef // item ref
     );
-    
+
     if (findResult == noErr) {
         NSString *returnString = [NSString stringWithCString: password length: passwordLength];
         SecKeychainItemFreeContent(NULL, password);
         return returnString;
     }
-    
+
     return nil;
 }
 
@@ -122,18 +120,18 @@ NSString * const kWebSelectorPrefix = @"web_";
     const char *user = [username UTF8String];
     const char *pass = [password UTF8String];
     SecKeychainItemRef itemRef;
-	
+
 	NSLog(@"%s", host);
-    
+
     NSString *currentPassword = [self web_getPassword: username serverName: serverName serverPath: serverPath itemReference: &itemRef];
     if (currentPassword) {
         if ([currentPassword isEqualToString: password]) {
             return YES;
         }
-        
+
         return [self changePassword: itemRef to: password];
     }
-    
+
     OSStatus addResult = SecKeychainAddInternetPassword(
         NULL, // default keychain
         strlen(host), // server name length
@@ -152,11 +150,11 @@ NSString * const kWebSelectorPrefix = @"web_";
         NULL // item ref
     );
 	NSLog(@"%d", addResult);
-    
+
     if (addResult == noErr) {
         return YES;
     }
-    
+
     return NO;
 }
 

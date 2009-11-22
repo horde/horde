@@ -2,8 +2,6 @@
 /**
  * This file contains all Horde_Form extensions required for editing accounts.
  *
- * $Horde: fima/lib/Forms/account.php,v 1.1 2009/03/11 17:12:50 trt Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *

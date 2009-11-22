@@ -1,8 +1,6 @@
 /**
  * General Horde UI effects javascript.
  *
- * $Horde: horde/js/src/horde.js,v 1.10 2007/09/25 12:57:20 slusarz Exp $
- *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  */

@@ -5,8 +5,6 @@
  * support MySQL, PostgreSQL, SQLite and Oracle.  This driver attempts to do the
  * same as long as the default queries are used.
  *
- * $Horde: beatnik/lib/Driver/pdnsgsql.php,v 1.4 2009/07/03 10:05:30 duck Exp $
- *
  * Copyright 2008 The Horde Project <http://www.horde.org>
  *
  * See the enclosed file COPYING for license information (GPL). If you

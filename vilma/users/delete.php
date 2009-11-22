@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: vilma/users/delete.php,v 1.27 2009/06/10 17:33:45 slusarz Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not

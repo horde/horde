@@ -5,8 +5,6 @@
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://cvs.horde.org/co.php/vilma/LICENSE.
  *
- * $Horde: vilma/lib/MailboxDriver/imap.php,v 1.12 2009/01/06 18:02:28 jan Exp $
- *
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package Vilma
  */

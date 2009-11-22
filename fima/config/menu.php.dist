@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: fima/config/menu.php.dist,v 1.0 2008/04/24 19:03:15 trt Exp $
- *
  * This file lets you extend Fima's menu with your own items.
  *
  * To add a new menu item, simply add a new entry to the $_menu array.
@@ -20,7 +18,7 @@
  *
  * Here's an example entry:
  *
- *  $_menu[] = array(   
+ *  $_menu[] = array(
  *      'url' =>        'http://www.example.com/',
  *      'text' =>       'Example, Inc.',
  *      'icon' =>       'example.png',

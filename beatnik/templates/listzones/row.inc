@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: beatnik/templates/listzones/row.inc,v 1.11 2007/06/27 17:23:31 jan Exp $
- *
  * Copyright 2005-2007 Ben Klang <ben@alkaloid.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -11,16 +9,16 @@
 ?>
 <tr>
 <td>
-    <?php 
-        echo Horde::link($autourl) . 
-             Horde::img('devel.png', _("Autogenerate"), '', $img_dir) . '</a> ' . 
-             Horde::link($deleteurl) . 
-             Horde::img('delete.png', _("Delete"), '', $img_dir) . '</a> ' . 
-             Horde::link($editurl) . 
+    <?php
+        echo Horde::link($autourl) .
+             Horde::img('devel.png', _("Autogenerate"), '', $img_dir) . '</a> ' .
+             Horde::link($deleteurl) .
+             Horde::img('delete.png', _("Delete"), '', $img_dir) . '</a> ' .
+             Horde::link($editurl) .
              Horde::img('edit.png', _("Edit"), '', $img_dir) . '</a>';
     ?>
 </td>
-<?php 
+<?php
 foreach ($fields as $key => $field) {
     if ($key == 'zonename') {
         echo '<td>' . Horde::link($viewurl) . $domain['zonename'] . '</a></td>';

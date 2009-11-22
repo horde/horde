@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: beatnik/listzones.php,v 1.25 2009/07/14 00:25:28 mrubinsk Exp $
- *
  * Copyright 2005-2007 Ben Klang <ben@alkaloid.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you

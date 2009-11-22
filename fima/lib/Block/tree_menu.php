@@ -3,9 +3,6 @@
 $block_name = _("Menu List");
 $block_type = 'tree';
 
-/**
- * $Horde: fima/lib/Block/tree_menu.php,v 1.0 2008/06/03 00:11:13 trt Exp $
- */
 class Horde_Block_fima_tree_menu extends Horde_Block {
 
     var $_app = 'fima';
@@ -20,7 +17,7 @@ class Horde_Block_fima_tree_menu extends Horde_Block {
             array('accounts', _("Accounts"), 'accounts.png', Horde::applicationUrl('accounts.php')),
             array('reports', _("Reports"), 'report.png', Horde::applicationUrl('report.php')),
         );
-        
+
         foreach ($menus as $menu) {
             $tree->addNode($parent . $menu[0],
                            $parent,

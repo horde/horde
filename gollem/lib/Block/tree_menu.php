@@ -6,8 +6,6 @@ $block_type = 'tree';
 /**
  * Gollem tree block.
  *
- * $Horde: gollem/lib/Block/tree_menu.php,v 1.13 2009/06/10 03:46:18 chuck Exp $
- *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

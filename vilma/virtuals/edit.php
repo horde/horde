@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: vilma/virtuals/edit.php,v 1.32 2009/07/14 18:43:46 selsky Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not

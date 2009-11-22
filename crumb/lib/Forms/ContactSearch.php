@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: beatnik/lib/Forms/EditRecord.php,v 1.6 2008/03/11 08:58:00 duck Exp $
- *
  * Copyright 2005-2007 Alkaloid Networks <http://www.alkaloid.net>
  *
  * See the enclosed file LICENSE for license information (GPL). If you

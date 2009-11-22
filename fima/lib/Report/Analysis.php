@@ -2,8 +2,6 @@
 /**
  * Fima_Report_Analysis.
  *
- * $Horde: fima/lib/Report/Analysis.php,v 1.1 2009/03/12 14:30:24 trt Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
@@ -45,7 +43,7 @@ class Fima_Report_Analysis extends Fima_Report {
             $accountIndex[$account['number']] = $accountId;
         }
         $groups = array(FIMA_ACCOUNTTYPE_INCOME, FIMA_ACCOUNTTYPE_EXPENSE);
-        
+
         /* Params. */
         if (($display = $this->getParam('display')) === null) {
             return PEAR::raiseError(_("No display type"));
@@ -164,7 +162,7 @@ class Fima_Report_Analysis extends Fima_Report {
         if ($displayreference) {
             foreach ($groups as $group) {
                 $groupresult = array();
-                
+
                 $filters = array();
                 if ($posting_account) {
                     $filters[] = array('account', $posting_account);
@@ -177,7 +175,7 @@ class Fima_Report_Analysis extends Fima_Report {
                 if (($reference_end = $this->getParam('reference_end')) !== null) {
                     $filters[] = array('date', (int)$reference_end, '<=');
                 }
-            
+
                 $result = Fima::getResults(array('type', $subaccounts ? 'account_number' : 'account_parent'), $filters);
                 if (is_a($result, 'PEAR_Error')) {
                     return $result;
@@ -191,7 +189,7 @@ class Fima_Report_Analysis extends Fima_Report {
                             $data[$accounts[$parentId]['number']][$colId] += $value;
                             $data[$accounts[$parentId]['number']]['__subaccounts__'][$rowId][$colId] += $value;
                         }
-                        $data['__result' . $group . '__'][$colId] += $value; 
+                        $data['__result' . $group . '__'][$colId] += $value;
                     }
                 }
             }
@@ -227,7 +225,7 @@ class Fima_Report_Analysis extends Fima_Report {
                 }
             }
         }
-        
+
         /* Null Rows. */
         if (!$nullrows) {
             foreach ($data as $rowId => $row) {
@@ -301,10 +299,10 @@ class Fima_Report_Analysis extends Fima_Report {
                 unset($this->_data[$rowId]['__subaccounts__']);
             }
         }
-        
+
         return true;
     }
-    
+
     /*
      * Output the graph.
      *
@@ -371,7 +369,7 @@ class Fima_Report_Analysis extends Fima_Report {
                 unset($data[$i]['__blank__']);
             }
         }
-        
+
         $this->data = $data;
 
         /* Additional params. */
@@ -382,5 +380,5 @@ class Fima_Report_Analysis extends Fima_Report {
 
         return true;
     }
-    
+
 }

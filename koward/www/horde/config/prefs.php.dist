@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: horde/config/prefs.php.dist,v 1.108 2009/03/02 01:23:06 mrubinsk Exp $
- *
  * Preferences Information
  * =======================
  * Changes you make to the prefs.php file(s) will not be reflected until the

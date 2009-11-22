@@ -2,8 +2,6 @@
 /**
  * Fima_ReportGraph_Line.
  *
- * $Horde: fima/lib/ReportGraph/Line.php,v 1.0 2008/08/20 23:46:32 trt Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
@@ -28,7 +26,7 @@ class Fima_ReportGraph_Line extends Fima_ReportGraph {
     {
         $this->_data = $data;
         $this->_params = $params;
-        
+
         if (!isset($this->_params['invert'])) {
             $this->_params['invert'] = false;
         }
@@ -42,7 +40,7 @@ class Fima_ReportGraph_Line extends Fima_ReportGraph {
     function _execute()
     {
         /* Grid. */
-        $grid =& $this->_plotarea->addNew('line_grid');    
+        $grid =& $this->_plotarea->addNew('line_grid');
         $gridfill =& Image_Graph::factory('Image_Graph_Fill_Array');
         $gridfill->addColor($this->_style['grid']);
         $grid->setFillStyle($gridfill);
@@ -68,7 +66,7 @@ class Fima_ReportGraph_Line extends Fima_ReportGraph {
         foreach ($datasetindex as $key => $value) {
           $plot =& $this->_plotarea->addNew('line', $datasets[$value]);
           $plot->setLineColor($this->_style['line']);
-          
+
           $line =& Image_Graph::factory('Image_Graph_Line_Solid', isset($this->_style[$key]) ? $this->_style[$key] : $this->_style['color' . $value]);
           $line->setThickness(2);
           $plot->setLineStyle($line);
@@ -80,9 +78,9 @@ class Fima_ReportGraph_Line extends Fima_ReportGraph {
         $axisx->setLabelOption('offset', -20);
         $axisy =& $this->_plotarea->getAxis(IMAGE_GRAPH_AXIS_Y);
         $axisy->showLabel(IMAGE_GRAPH_LABEL_ZERO);
-        $axisy->setDataPreprocessor(Image_Graph::factory('Image_Graph_DataPreprocessor_Function', create_function('$value', 'return Fima::convertValueToAmount($value);'))); 
+        $axisy->setDataPreprocessor(Image_Graph::factory('Image_Graph_DataPreprocessor_Function', create_function('$value', 'return Fima::convertValueToAmount($value);')));
 
         return true;
     }
-    
+
 }

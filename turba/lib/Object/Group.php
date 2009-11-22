@@ -48,8 +48,6 @@ class Turba_Object_Group extends Turba_Object {
      *
      * @param string $contactId  The id of the contact to add.
      * @param string $sourceId   The source $contactId is from.
-     *
-     * @since Turba 1.2
      */
     function addMember($contactId, $sourceId = null)
     {
@@ -107,8 +105,6 @@ class Turba_Object_Group extends Turba_Object {
      *
      * @param string $contactId  The id of the contact to remove.
      * @param string $sourceId   The source $contactId is from.
-     *
-     * @since Turba 1.2
      */
     function removeMember($contactId, $sourceId = null)
     {
@@ -133,8 +129,6 @@ class Turba_Object_Group extends Turba_Object {
      * Count the number of contacts in this group.
      *
      * @return integer
-     *
-     * @since Turba 2.1.7
      */
     function count()
     {
@@ -153,8 +147,6 @@ class Turba_Object_Group extends Turba_Object {
      *                      Turba_List::sort().
      *
      * @return Turba_List   List containing the members of this group
-     *
-     * @since Turba 1.2
      */
     function &listMembers($sort = null)
     {

@@ -1,10 +1,8 @@
 <?php
 /**
- * $Horde: skoli/config/schools.php.dist,v 0.1 $
- *
  * This file is where you specify default informations needed to create a
- * new class. It contains one EXAMPLE. Please remove or comment out that 
- * example if YOU DON'T NEED IT. There are a number of properties that you 
+ * new class. It contains one EXAMPLE. Please remove or comment out that
+ * example if YOU DON'T NEED IT. There are a number of properties that you
  * can set for each school, including:
  *
  * title:      The name of the school template.
@@ -17,7 +15,7 @@
  *
  *   start: Semester startdate. Currently supported formats are:
  *            timestamp  --  Timestamp
- *            ISO week   --  ISO week date format: e.g. 'W33-2' is Tuesday 
+ *            ISO week   --  ISO week date format: e.g. 'W33-2' is Tuesday
  *                           of week 33.
  *            strtotime  --  A string who can be parsed by 'strtotime'. See
  *                           http://www.php.net/strtotime for more informations.

@@ -2,8 +2,6 @@
 /**
  * Fima_Report_GeneralOverview.
  *
- * $Horde: fima/lib/Report/GeneralOverview.php,v 1.0 2008/06/23 21:15:08 trt Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
@@ -39,7 +37,7 @@ class Fima_Report_GeneralOverview extends Fima_Report {
         /* Get account types and posting types. */
         $accounttypes = Fima::getAccountTypes();
         $postingtypes = Fima::getPostingTypes();
-        
+
         /* Params. */
         if (($display = $this->getParam('display')) === null) {
             return PEAR::raiseError(_("No display type"));
@@ -61,7 +59,7 @@ class Fima_Report_GeneralOverview extends Fima_Report {
             $rowheaders['__result' . $groupId . '__'] = sprintf(_($group), _("Result"));
         }
         $rowheaders['__resultasset__'] = _("Asset Result");
-        
+
         /* Columns. */
         $cols = explode('_', $display);
 
@@ -88,7 +86,7 @@ class Fima_Report_GeneralOverview extends Fima_Report {
             }
             $coldummy[$colId] = 0;
         }
-        
+
         /* Initialize matrix. */
         $data = array();
         $data['__header__'] = $colheaders;
@@ -161,7 +159,7 @@ class Fima_Report_GeneralOverview extends Fima_Report {
                 if ($reference_end !== null) {
                     $filters[] = array('date', (int)$reference_end, '<=');
                 }
-            
+
                 $result = Fima::getResults(array('type', 'account_type'), $filters);
                 if (is_a($result, 'PEAR_Error')) {
                     return $result;
@@ -170,7 +168,7 @@ class Fima_Report_GeneralOverview extends Fima_Report {
                     foreach ($row as $colId => $value) {
                         $colId = 'reference';
                         $data[$rowId . $group][$colId] = $value;
-                        $data['__result' . $group . '__'][$colId] += $value; 
+                        $data['__result' . $group . '__'][$colId] += $value;
                     }
                 }
             }
@@ -193,7 +191,7 @@ class Fima_Report_GeneralOverview extends Fima_Report {
                 }
             }
         }
-        
+
         /* Totals. */
         foreach ($cols as $colId) {
             foreach ($rows as $rowId) {
@@ -224,9 +222,9 @@ class Fima_Report_GeneralOverview extends Fima_Report {
                 }
             }
         }
-        
+
         $this->_data = $data;
-        
+
         return true;
     }
 
@@ -264,5 +262,5 @@ class Fima_Report_GeneralOverview extends Fima_Report {
 
         return true;
     }
-    
+
 }

@@ -2,8 +2,6 @@
 /**
  * This file contains all Horde_Form extensions required for editing tasks.
  *
- * $Horde: nag/lib/Forms/task.php,v 1.23 2009/07/09 08:18:34 slusarz Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
@@ -14,7 +12,6 @@
  * The Nag_TaskForm class provides the form for adding and editing a task.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @since   Nag 1.2
  * @package Nag
  */
 class Nag_TaskForm extends Horde_Form {
@@ -159,7 +156,6 @@ class Nag_TaskForm_Renderer extends Horde_Form_Renderer {
  * notification methods for a task alarm.
  *
  * @author  Alfonso Marin <almarin@um.es>
- * @since   Nag 3.0
  * @package Nag
  */
 class Horde_Form_Type_nag_method extends Horde_Form_Type {
@@ -208,7 +204,6 @@ class Horde_Form_Type_nag_method extends Horde_Form_Type {
  * alarms.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @since   Nag 2.2
  * @package Nag
  */
 class Horde_Form_Type_nag_alarm extends Horde_Form_Type {
@@ -245,7 +240,6 @@ class Horde_Form_Type_nag_alarm extends Horde_Form_Type {
  * task due dates.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Nag 2.2
  * @package Nag
  */
 class Horde_Form_Type_nag_due extends Horde_Form_Type {
@@ -292,7 +286,6 @@ class Horde_Form_Type_nag_due extends Horde_Form_Type {
  * task delayed start dates.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Nag 2.2
  * @package Nag
  */
 class Horde_Form_Type_nag_start extends Horde_Form_Type {

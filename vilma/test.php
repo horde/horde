@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: vilma/test.php,v 1.16 2009/01/06 18:02:26 jan Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not

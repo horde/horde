@@ -1,6 +1,3 @@
---$Horde: vilma/scripts/sql/vilma.sql,v 1.8 2007/04/17 12:44:06 jan Exp $
--- SQL scripts.
-
 CREATE TABLE vilma_domains (
   domain_id         INT DEFAULT 0 NOT NULL,
   domain_name       VARCHAR(128) DEFAULT '' NOT NULL,

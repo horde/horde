@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: fima/accounts.php,v 1.0 2009/02/18 07:29:22 trt Exp $
- *
  * Copyright 2008 Thomas Trethan <thomas@trethan.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you

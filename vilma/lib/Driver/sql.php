@@ -5,8 +5,6 @@
  * See the enclosed file LICENSE for license information (BSD). If you did
  * did not receive this file, see http://cvs.horde.org/co.php/vilma/LICENSE.
  *
- * $Horde: vilma/lib/Driver/sql.php,v 1.54 2009/01/06 18:02:27 jan Exp $
- *
  * @author Marko Djukic <marko@oblo.com>
  * @package Vilma
  */

@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: beatnik/templates/view/record.inc,v 1.13 2009/07/03 10:05:31 duck Exp $
- *
  * Copyright 2005-2007 Ben Klang <ben@alkaloid.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -12,20 +10,20 @@ foreach ($zonedata[$type] as $record) {
 
     $params = array('id' => $record['id'], 'rectype' => $type);
     echo '<tr>' . "\n";
-    echo '<td>' . Horde::link(Horde_Util::addParameter($edit, $params)) 
-                . Horde::img('edit.png', _("Edit"), '', $img_dir) . '</a> ' 
-                . Horde::link(Horde_Util::addParameter($delete, $params)) 
+    echo '<td>' . Horde::link(Horde_Util::addParameter($edit, $params))
+                . Horde::img('edit.png', _("Edit"), '', $img_dir) . '</a> '
+                . Horde::link(Horde_Util::addParameter($delete, $params))
                 . Horde::img('delete.png', _("Delete"), '', $img_dir) . '</a></td>';
     echo '<td>' . $rectypes[$type] . '</td>';
 
     foreach ($fields as $field => $fdata) {
-        
+
         if ((($fdata['infoset'] != 'basic') && !$_SESSION['beatnik']['expertmode']) || $fdata['type'] == 'hidden') {
             continue;
         }
 
         echo '<td>' . "\n";
-        
+
         if (!isset($record[$field])) {
             continue;
         }

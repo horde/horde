@@ -5,8 +5,6 @@
  * See the enclosed file LICENSE for license information (BSD). If you did
  * did not receive this file, see http://cvs.horde.org/co.php/vilma/LICENSE.
  *
- * $Horde: vilma/lib/Driver/qmailldap.php,v 1.26 2009/07/08 20:16:22 bklang Exp $
- *
  * @author Ben Klang <bklang@alkaloid.net>
  * @author David Cummings <davidcummings@acm.org>
  * @package Vilma

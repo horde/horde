@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: beatnik/viewzone.php,v 1.21 2009/07/03 10:05:29 duck Exp $
- *
  * Copyright 2005-2007 Ben Klang <ben@alkaloid.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you

@@ -7,8 +7,6 @@
  * TO MATCH YOUR SPECIFIC NEEDS AND SYSTEM ENVIRONMENT.
  *
  * For more information please see the horde/config/hooks.php.dist file.
- *
- * $Horde: vilma/config/hooks.php.dist,v 1.3 2009/07/13 20:05:58 slusarz Exp $
  */
 
 // Example hook for handling a new domain within Vilma.  This can be used, for

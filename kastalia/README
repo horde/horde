@@ -1,14 +1,11 @@
 What is Kastalia?
 =================
 
-:Last update:   $Date: 2008-09-16 10:02:53 $
-:Revision:      $Revision: 1.0 $
-
 .. contents:: Contents
 .. section-numbering::
 
-Kastalia is a Horde Framework application for secure file sharing. Every uploaded 
-file can be encrypted by Kastalia and stored secure in the datastore. The user 
+Kastalia is a Horde Framework application for secure file sharing. Every uploaded
+file can be encrypted by Kastalia and stored secure in the datastore. The user
 does not need any additional program for the encryption/decryption.
 
 Obtaining Kastalia
@@ -44,7 +41,7 @@ Instructions for installing Kastalia can be found in the file INSTALL_ in the
 Assistance
 ----------
 
-If you encounter problems with Kastalia, help is available! Please contact the 
+If you encounter problems with Kastalia, help is available! Please contact the
 author of Kastalia.
 
 

@@ -1,8 +1,6 @@
 <?php
 /**
- * $Horde: gollem/templates/prefs/columnselect.inc,v 1.16 2009/07/09 20:51:08 slusarz Exp $
- *
- * Prefs_UI:: always calls a .inc file, so we need to use this file to
+ * Horde_Prefs_Ui:: always calls a .inc file, so we need to use this file to
  * generate the data needed to display the template.
  */
 

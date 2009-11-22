@@ -3,8 +3,6 @@
 $block_name = _("Last news blogged");
 
 /**
- * $Horde: news/lib/Block/category.php,v 1.40 2004/06/01 14:46:58 chuck Exp $
- *
  * @package Horde_Block
 */
 

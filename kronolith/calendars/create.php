@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: kronolith/calendars/create.php,v 1.3 2009/01/06 18:01:00 jan Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
