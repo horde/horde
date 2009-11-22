@@ -417,8 +417,6 @@ class Horde_Kolab_FreeBusy_Imap {
  * A reduced event representation derived from the Kronolith event
  * representation.
  *
- * $Horde: framework/Kolab_FreeBusy/lib/Horde/Kolab/FreeBusy/Imap.php,v 1.10 2009/07/14 00:28:33 mrubinsk Exp $
- *
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you

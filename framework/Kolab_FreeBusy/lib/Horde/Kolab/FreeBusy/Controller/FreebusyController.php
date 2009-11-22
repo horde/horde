@@ -34,7 +34,6 @@ require_once 'Horde/Autoloader.php';
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
- * @since    Horde 3.2
  */
 class FreeBusyController extends Horde_Controller_Base
 {

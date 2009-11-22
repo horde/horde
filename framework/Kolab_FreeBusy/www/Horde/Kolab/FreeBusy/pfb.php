@@ -7,8 +7,6 @@
  * information is cached and later assembled for display by the
  * freebusy.php script.
  *
- * $Horde: framework/Kolab_FreeBusy/www/Horde/Kolab/FreeBusy/pfb.php,v 1.6 2009/07/14 00:28:33 mrubinsk Exp $
- *
  * Copyright 2004-2009 Klarälvdalens Datakonsult AB
  *
  * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>

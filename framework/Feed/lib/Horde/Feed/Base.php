@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: framework/Feed/lib/Horde/Feed/Base.php,v 1.3 2008/07/22 20:39:22 chuck Exp $
- *
  * Portions Copyright 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *

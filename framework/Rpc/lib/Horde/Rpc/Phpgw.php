@@ -8,7 +8,6 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author   Michael Braun <mi.braun@onlinehome.de>
- * @since    Horde 3.2
  * @category Horde
  * @package  Horde_Rpc
  */

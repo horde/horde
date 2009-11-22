@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: framework/Feed/lib/Horde/Feed/Rss.php,v 1.7 2008/09/25 04:44:34 chuck Exp $
- *
  * Portions Copyright 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *

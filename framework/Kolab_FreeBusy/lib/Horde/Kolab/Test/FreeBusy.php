@@ -2,8 +2,6 @@
 /**
  * Base for PHPUnit scenarios.
  *
- * $Horde: framework/Kolab_FreeBusy/lib/Horde/Kolab/Test/FreeBusy.php,v 1.5 2009/04/25 19:39:38 wrobel Exp $
- *
  * PHP version 5
  *
  * @category Kolab
@@ -20,8 +18,6 @@ require_once 'Horde/Kolab/Test/Storage.php';
 
 /**
  * Base for PHPUnit scenarios.
- *
- * $Horde: framework/Kolab_FreeBusy/lib/Horde/Kolab/Test/FreeBusy.php,v 1.5 2009/04/25 19:39:38 wrobel Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -87,7 +83,7 @@ EOD;
         @rmdir($dir);
 
         return;
-    } 
+    }
 
     /**
      * Handle a "given" step.

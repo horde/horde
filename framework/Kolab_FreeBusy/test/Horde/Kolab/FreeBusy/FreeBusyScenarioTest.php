@@ -2,8 +2,6 @@
 /**
  * Checks for the Kolab Free/Busy system.
  *
- * $Horde: framework/Kolab_FreeBusy/test/Horde/Kolab/FreeBusy/FreeBusyScenarioTest.php,v 1.4 2009/04/25 19:30:35 wrobel Exp $
- *
  * PHP version 5
  *
  * @category   Horde
@@ -21,8 +19,6 @@ require_once 'Horde/Kolab/Test/FreeBusy.php';
 
 /**
  * Checks for the Kolab Free/Busy system.
- *
- * $Horde: framework/Kolab_FreeBusy/test/Horde/Kolab/FreeBusy/FreeBusyScenarioTest.php,v 1.4 2009/04/25 19:30:35 wrobel Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *

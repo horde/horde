@@ -9,7 +9,6 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
- * @since   Horde_Ui 0.0.1
  * @package Horde_Ui
  */
 class Horde_Ui_Tabs extends Horde_Ui_Widget

@@ -29,7 +29,6 @@
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
- * @since    Horde 3.2
  */
 class Horde_Kolab_FreeBusy_Driver_Freebusy_Base extends Horde_Kolab_FreeBusy_Driver_Base
 {
@@ -48,7 +47,7 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Base extends Horde_Kolab_FreeBusy_Dri
 
         if (!empty($this->remote)) {
             /* Try to fetch the data if it is stored on a remote server */
-            //@todo: How to determine which hook/processor to run? 
+            //@todo: How to determine which hook/processor to run?
             return $this->fetchRemote($params);
             // if (is_a($result, 'PEAR_Error')) {
             //    $error = array('type' => FREEBUSY_ERROR_UNAUTHORIZED, 'error' => $result);
@@ -197,7 +196,7 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Base extends Horde_Kolab_FreeBusy_Dri
 
         if (!empty($this->remote)) {
             /* Try to fetch the data if it is stored on a remote server */
-            //@todo: How to determine which hook/processor to run? 
+            //@todo: How to determine which hook/processor to run?
             return $this->triggerRemote($params);
             // if (is_a($result, 'PEAR_Error')) {
             //    $error = array('type' => FREEBUSY_ERROR_UNAUTHORIZED, 'error' => $result);
@@ -283,7 +282,7 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Base extends Horde_Kolab_FreeBusy_Dri
         /* Check if we are on the right server and redirect if appropriate */
         if ($this->freebusyserver && $this->freebusyserver != $server) {
             $redirect = $this->freebusyserver . $path;
-            Horde::logMessage(sprintf("URL %s indicates remote free/busy server since we only offer %s. Redirecting.", 
+            Horde::logMessage(sprintf("URL %s indicates remote free/busy server since we only offer %s. Redirecting.",
                                       $this->freebusyserver, $server), __FILE__,
                               __LINE__, PEAR_LOG_ERR);
             if ($do_redirect) {
@@ -293,7 +292,7 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Base extends Horde_Kolab_FreeBusy_Dri
                 $redirect = 'https://' . urlencode($this->user) . ':' . urlencode(Horde_Auth::getCredential('password'))
                     . '@' . $this->freebusyserver . $path;
                 if (!@readfile($redirect)) {
-                    $message = sprintf(_("Unable to read free/busy information from %s"), 
+                    $message = sprintf(_("Unable to read free/busy information from %s"),
                                        'https://' . urlencode($this->user) . ':XXX'
                                        . '@' . $this->freebusyserver . $_SERVER['REQUEST_URI']);
                     return PEAR::raiseError($message);

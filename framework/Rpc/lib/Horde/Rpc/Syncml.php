@@ -14,7 +14,6 @@ require_once 'SyncML/Backend.php';
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Anthony Mills <amills@pyramid6.com>
- * @since   Horde 3.0
  * @package Horde_Rpc
  */
 class Horde_Rpc_Syncml extends Horde_Rpc

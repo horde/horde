@@ -1,8 +1,6 @@
 #!/usr/bin/php
 <?php
 /**
- * $Horde: framework/RPC/tests/rpc-test.php,v 1.5.10.3 2007/12/20 13:49:28 jan Exp $
- *
  * @package Horde_RPC
  */
 

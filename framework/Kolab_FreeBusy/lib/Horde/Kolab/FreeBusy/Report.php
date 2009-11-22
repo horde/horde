@@ -2,8 +2,6 @@
 /**
  * A view for regenerating the Kolab Free/Busy cache.
  *
- * $Horde: framework/Kolab_FreeBusy/lib/Horde/Kolab/FreeBusy/Report.php,v 1.2 2009/04/02 20:12:16 wrobel Exp $
- *
  * Copyright 2009 Klarälvdalens Datakonsult AB
  *
  * @author  Gunnar Wrobel <p@rdus.de>
@@ -24,7 +22,7 @@ class Horde_Kolab_FreeBusy_Report {
             /* Display errors if we are working on the command line */
             ini_set('display_errors', 1);
 
-            /** Don't report notices */ 
+            /** Don't report notices */
             error_reporting(E_ALL & ~E_NOTICE);
         }
     }

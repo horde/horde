@@ -25,7 +25,6 @@
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
- * @since    Horde 3.2
  */
 class Horde_Kolab_Format_Xml_Hprefs extends Horde_Kolab_Format_Xml
 {

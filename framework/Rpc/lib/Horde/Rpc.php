@@ -23,7 +23,6 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @since   Horde 3.0
  * @package Horde_Rpc
  */
 class Horde_Rpc

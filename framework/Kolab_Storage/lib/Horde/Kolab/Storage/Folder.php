@@ -1,8 +1,6 @@
 <?php
 /**
  * @package Kolab_Storage
- *
- * $Horde: framework/Kolab_Storage/lib/Horde/Kolab/Storage/Folder.php,v 1.30 2009/06/09 23:23:39 slusarz Exp $
  */
 
 /**
@@ -13,8 +11,6 @@ require_once 'Horde/Autoloader.php';
 /**
  * The Kolab_Folder class represents an IMAP folder on the Kolab
  * server.
- *
- * $Horde: framework/Kolab_Storage/lib/Horde/Kolab/Storage/Folder.php,v 1.30 2009/06/09 23:23:39 slusarz Exp $
  *
  * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *
@@ -52,7 +48,7 @@ class Horde_Kolab_Storage_Folder
     const FBRELEVANCE_ADMINS  = 0;
     const FBRELEVANCE_READERS = 1;
     const FBRELEVANCE_NOBODY  = 2;
- 
+
     /**
      * The connection specific for this folder.
      *
@@ -350,7 +346,7 @@ class Horde_Kolab_Storage_Folder
                  */
                 try {
                     $this->_connection->create($this->name);
-                    $this->_connection->setAnnotation(self::ANNOT_FOLDER_TYPE, 
+                    $this->_connection->setAnnotation(self::ANNOT_FOLDER_TYPE,
                                                       $this->_type,
                                                       $this->name);
                     $this->trigger($this->name);

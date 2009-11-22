@@ -7,7 +7,6 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @since    Horde 3.2
  * @category Horde
  * @package  Horde_Date
  */
@@ -23,7 +22,6 @@
  * object, an ISO time string or a hash.
  *
  * @author   Jan Schneider <jan@horde.org>
- * @since    Horde 3.2
  * @category Horde
  * @package  Horde_Date
  */

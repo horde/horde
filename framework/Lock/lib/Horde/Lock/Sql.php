@@ -47,10 +47,7 @@
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-license.php.
  *
- * $Horde: framework/Lock/Lock/sql.php,v 1.19 2009/06/09 23:23:40 slusarz Exp $
- *
  * @author  Ben Klang <ben@alkaloid.net>
- * @since   Horde 3.2
  * @package Horde_Lock
  */
 class Horde_Lock_Sql extends Horde_Lock

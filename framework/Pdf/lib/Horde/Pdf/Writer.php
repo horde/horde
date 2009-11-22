@@ -8,8 +8,6 @@
  * Minimal conversion to PHP 5 by Maintainable Software
  * (http://maintainable.com).
  *
- * $Horde: framework/Pdf/lib/Horde/Pdf/Writer.php,v 1.3 2008/02/27 04:27:29 chuck Exp $
- *
  * Copyright 2001-2003 Olivier Plathey <olivier@fpdf.org>
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *

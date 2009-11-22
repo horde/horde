@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: framework/Feed/lib/Horde/Feed/Exception.php,v 1.2 2008/01/02 11:11:57 jan Exp $
- *
  * @category Horde
  * @package Horde_Feed
  */

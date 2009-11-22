@@ -2,8 +2,6 @@
 /**
  * Test the handling of attachments.
  *
- * $Horde: framework/Kolab_Storage/test/Horde/Kolab/Storage/AttachmentTest.php,v 1.4 2009/06/09 23:23:39 slusarz Exp $
- *
  * PHP version 5
  *
  * @category   Kolab
@@ -21,8 +19,6 @@ require_once 'Autoload.php';
 
 /**
  * Test the handling of attachments.
- *
- * $Horde: framework/Kolab_Storage/test/Horde/Kolab/Storage/AttachmentTest.php,v 1.4 2009/06/09 23:23:39 slusarz Exp $
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
