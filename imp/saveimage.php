@@ -1,5 +1,7 @@
 <?php
 /**
+ * Save an image to a registry-defined application.
+
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -16,15 +18,14 @@ $id = Horde_Util::getFormData('id');
 $muid = Horde_Util::getFormData('muid');
 
 /* Run through the action handlers. */
-$actionID = Horde_Util::getFormData('actionID');
-switch ($actionID) {
+switch (Horde_Util::getFormData('actionID')) {
 case 'save_image':
     $contents = IMP_Contents::singleton($muid);
     $mime_part = $contents->getMIMEPart($id);
     $image_data = array(
-        'filename' => $mime_part->getName(true),
-        'description' => $mime_part->getDescription(true),
         'data' => $mime_part->getContents(),
+        'description' => $mime_part->getDescription(true),
+        'filename' => $mime_part->getName(true),
         'type' => $mime_part->getType()
     );
     try {
@@ -35,6 +36,11 @@ case 'save_image':
     }
     Horde_Util::closeWindowJS();
     exit;
+}
+
+if (!$registry->hasMethod('images/selectGalleries') ||
+    !$registry->hasMethod('images/saveImage')) {
+    throw new Horde_Exception(_("Image saving is not available."));
 }
 
 /* Build the template. */
