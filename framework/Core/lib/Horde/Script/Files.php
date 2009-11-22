@@ -81,8 +81,8 @@ class Horde_Script_Files
     {
         // Force external scripts under Horde scope to better avoid duplicates,
         // and to ensure they are loaded before other application specific files
-        $app = 'Horde';
-
+        $app = 'horde';
+        
         // Don't include scripts multiple times.
         if (!empty($this->_included[$app][$url])) {
             return false;
