@@ -49,7 +49,7 @@ class Ansel_Ajax_Imple_ImageSaveGeotag extends Horde_Ajax_Imple_Base
             return array('response' => 0);
         }
         // Bail out if no perms on the image.
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             return array('response' => 0);
         }
         switch ($type) {

@@ -57,7 +57,7 @@ class Horde_Service_Facebook_Auth
     const EXTEND_PERMS_UPLOADPHOTO = 'photo_upload';
 
     const EXTEND_PERMS_PUBLISHSTREAM = 'publish_stream';
-    const EXTEND_PERMS_READSTREAM = 'read_stream';
+    const EXTEND_Horde_Perms::READSTREAM = 'read_stream';
 
 
 

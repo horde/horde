@@ -42,10 +42,10 @@ class Skoli_EntryForm extends Horde_Form {
             $this->addHidden('', 'view', 'text', true);
         }
 
-        $classes = Skoli::listClasses(false, PERMS_EDIT);
+        $classes = Skoli::listClasses(false, Horde_Perms::EDIT);
         $classes_enums = array();
         foreach ($classes as $class) {
-            if ($class->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+            if ($class->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
                 $classes_enums[$class->getName()] = $class->get('name');
             }
         }

@@ -49,7 +49,7 @@ case 'addchild':
         $notification->push($parent->getMessage(), 'horde.error');
         header('Location: ' . Horde::applicationUrl('view.php?view=List', true));
         exit;
-    } elseif (!$parent->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+    } elseif (!$parent->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
         $notification->push(
             sprintf(_("Access denied adding a gallery to \"%s\"."),
                     $parent->get('name')), 'horde.error');
@@ -80,7 +80,7 @@ case 'downloadzip':
     $galleryId = Horde_Util::getFormData('gallery');
     $gallery = $ansel_storage->getGallery($galleryId);
     if (!Horde_Auth::getAuth() || is_a($gallery, 'PEAR_Error') ||
-        !$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_READ)) {
+        !$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
 
         $name = is_a($gallery, 'PEAR_Error')
                      ? $galleryId
@@ -123,7 +123,7 @@ case 'save':
     // Check general permissions.
     if (!Horde_Auth::isAdmin() &&
         ($GLOBALS['perms']->exists('ansel') &&
-         !$GLOBALS['perms']->hasPermission('ansel', Horde_Auth::getAuth(), PERMS_EDIT))) {
+         !$GLOBALS['perms']->hasPermission('ansel', Horde_Auth::getAuth(), Horde_Perms::EDIT))) {
         $notification->push(_("Access denied editing galleries."), 'horde.error');
         header('Location: ' . Horde::applicationUrl('view.php?view=List', true));
         exit;
@@ -161,7 +161,7 @@ case 'save':
         // Modifying an existing gallery.
         $gallery = $ansel_storage->getGallery($galleryId);
         if (is_a($gallery, 'PEAR_Error') ||
-            !$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+            !$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
 
             $name = is_a($gallery, 'PEAR_Error')
                     ? $galleryId
@@ -228,7 +228,7 @@ case 'save':
                 header('Location: ' . Horde::applicationUrl(
                     Ansel::getUrlFor('view', array('view' => 'List'), true)));
                 exit;
-            } elseif (!$parent->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+            } elseif (!$parent->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
                 $notification->push(sprintf(
                     _("You do not have permission to add children to %s."),
                     $parent->get('name')), 'horde.error');

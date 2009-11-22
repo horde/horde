@@ -68,7 +68,7 @@ class Ansel_Widget_GalleryFaces extends Ansel_Widget_Base
         $images = $faces->getGalleryFaces($this->_view->resource->id);
 
 
-        if ($this->_view->gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+        if ($this->_view->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             $link_text = (empty($images) ? _("Find faces") : _("Edit faces"));
             $html .= '<a id="edit_faces" href="' . Horde_Util::addParameter(Horde::applicationUrl('faces/gallery.php'), 'gallery', $this->_view->gallery->id)
                     . '" class="widget">' . $link_text . '</a>';

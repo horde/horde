@@ -438,7 +438,7 @@ class News_Driver_sql extends News_Driver {
    /**
      * Build whare search
      */
-    public function buildQuery($perms = PERMS_READ, $criteria = array())
+    public function buildQuery($perms = Horde_Perms::READ, $criteria = array())
     {
         static $parts;
 
@@ -451,7 +451,7 @@ class News_Driver_sql extends News_Driver {
             . ' WHERE n.id = l.id AND l.lang = ?';
         $params = array('_lang' => Horde_Nls::select());
 
-        if ($perms == PERMS_READ) {
+        if ($perms == Horde_Perms::READ) {
             $sql .= ' AND n.publish <= ? ';
             $params['_perms'] = date('Y-m-d H:i:s');
             $sql .= ' AND n.status = ? ';
@@ -527,7 +527,7 @@ class News_Driver_sql extends News_Driver {
      *
      * @return Nimber of news
      */
-    public function countNews($criteria = array(), $perms = PERMS_READ)
+    public function countNews($criteria = array(), $perms = Horde_Perms::READ)
     {
         $binds = $this->buildQuery($perms, $criteria);
         $binds[0] = 'SELECT COUNT(*) ' . $binds[0];
@@ -545,7 +545,7 @@ class News_Driver_sql extends News_Driver {
      *
      * @return array of news data
      */
-    public function listNews($criteria = array(), $from = 0, $count = 0, $perms = PERMS_READ)
+    public function listNews($criteria = array(), $from = 0, $count = 0, $perms = Horde_Perms::READ)
     {
         $binds = $this->buildQuery($perms, $criteria);
 

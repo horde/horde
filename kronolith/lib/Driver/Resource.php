@@ -174,17 +174,17 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     /**
      * Return a list of Kronolith_Resources
      *
-     * Right now, all users have PERMS_READ, but only system admins have
-     * PERMS_EDIT | PERMS_DELETE
+     * Right now, all users have Horde_Perms::READ, but only system admins have
+     * Horde_Perms::EDIT | Horde_Perms::DELETE
      *
-     * @param int $perms     A PERMS_* constant.
+     * @param int $perms     A Horde_Perms::* constant.
      * @param array $filter  A hash of field/values to filter on.
      *
      * @return an array of Kronolith_Resource objects.
      */
-    public function listResources($perms = PERMS_READ, $filter = array())
+    public function listResources($perms = Horde_Perms::READ, $filter = array())
     {
-        if (($perms & (PERMS_EDIT | PERMS_DELETE)) && !Horde_Auth::isAdmin()) {
+        if (($perms & (Horde_Perms::EDIT | Horde_Perms::DELETE)) && !Horde_Auth::isAdmin()) {
             return array();
         }
 
@@ -223,7 +223,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      */
     public function getGroupMemberships($resource_id)
     {
-        $groups = $this->listResources(PERMS_READ, array('type' => Kronolith_Resource::TYPE_GROUP));
+        $groups = $this->listResources(Horde_Perms::READ, array('type' => Kronolith_Resource::TYPE_GROUP));
         $in = array();
         foreach ($groups as $group) {
             $members = $group->get('members');

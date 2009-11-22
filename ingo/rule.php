@@ -50,7 +50,7 @@ case 'create_folder':
 case 'rule_save':
 case 'rule_update':
 case 'rule_delete':
-    if (!Ingo::hasPermission('shares', PERMS_EDIT)) {
+    if (!Ingo::hasPermission('shares', Horde_Perms::EDIT)) {
         $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
         header('Location: ' . Horde::applicationUrl('filters.php', true));
         exit;
@@ -145,7 +145,7 @@ case 'rule_delete':
         header('Location: ' . Horde::applicationUrl('filters.php'));
         exit;
     } elseif ($actionID == 'rule_delete') {
-        if (!Ingo::hasPermission('shares', PERMS_DELETE)) {
+        if (!Ingo::hasPermission('shares', Horde_Perms::DELETE)) {
             $notification->push(_("You do not have permission to delete filter rules."), 'horde.error');
             header('Location: ' . Horde::applicationUrl('filters.php', true));
             exit;
@@ -159,7 +159,7 @@ case 'rule_delete':
     break;
 
 default:
-    if (!Ingo::hasPermission('shares', PERMS_EDIT)) {
+    if (!Ingo::hasPermission('shares', Horde_Perms::EDIT)) {
         $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
         header('Location: ' . Horde::applicationUrl('filters.php', true));
         exit;

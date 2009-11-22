@@ -78,7 +78,7 @@ class Turba_Api extends Horde_Registry_Api
     {
         require_once dirname(__FILE__) . '/base.php';
 
-        $addressbooks = Turba::getAddressBooks($writeable ? PERMS_EDIT : PERMS_READ);
+        $addressbooks = Turba::getAddressBooks($writeable ? Horde_Perms::EDIT : Horde_Perms::READ);
         foreach ($addressbooks as $addressbook => $config) {
             $addressbooks[$addressbook] = $config['title'];
         }
@@ -251,7 +251,7 @@ class Turba_Api extends Horde_Registry_Api
                     return array();
                 }
                 $addressbooks = $GLOBALS['turba_shares']->listShares($parts[0],
-                    PERMS_READ,
+                    Horde_Perms::READ,
                     $parts[0]);
                 // The last check returns all addressbooks for the requested user,
                 // but that does not mean the requesting user has access to them.
@@ -621,7 +621,7 @@ class Turba_Api extends Horde_Registry_Api
             /* On new installations default_dir is not set, use first source
              * instead. */
             if (empty($import_source)) {
-                $import_source = key(Turba::getAddressBooks(PERMS_EDIT));
+                $import_source = key(Turba::getAddressBooks(Horde_Perms::EDIT));
             }
         }
 
@@ -637,7 +637,7 @@ class Turba_Api extends Horde_Registry_Api
             return PEAR::raiseError(sprintf(_("Connection failed: %s"), $driver->getMessage()), 'horde.error', null, null, $import_source);
         }
 
-        if (!$driver->hasPermission(PERMS_EDIT)) {
+        if (!$driver->hasPermission(Horde_Perms::EDIT)) {
             return PEAR::raiseError(_("Permission denied"), 'horde.error', null, null, $import_source);
         }
 
@@ -774,7 +774,7 @@ class Turba_Api extends Horde_Registry_Api
                 return PEAR::raiseError(sprintf(_("Connection failed: %s"), $driver->getMessage()), 'horde.error', null, null, $source);
             }
 
-            if (!$driver->hasPermission(PERMS_READ)) {
+            if (!$driver->hasPermission(Horde_Perms::READ)) {
                 continue;
             }
 
@@ -873,7 +873,7 @@ class Turba_Api extends Horde_Registry_Api
             return PEAR::raiseError(sprintf(_("Connection failed: %s"), $driver->getMessage()));
         }
 
-        if (!$driver->hasPermission(PERMS_READ)) {
+        if (!$driver->hasPermission(Horde_Perms::READ)) {
             return PEAR::raiseError(_("You don't have sufficient permissions to read the address book that contains your own contact."));
         }
 
@@ -943,7 +943,7 @@ class Turba_Api extends Horde_Registry_Api
                 return PEAR::raiseError(sprintf(_("Connection failed: %s"), $driver->getMessage()), 'horde.error', null, null, $source);
             }
 
-            if (!Horde_Auth::isAdmin() && !$driver->hasPermission(PERMS_DELETE)) {
+            if (!Horde_Auth::isAdmin() && !$driver->hasPermission(Horde_Perms::DELETE)) {
                 continue;
             }
 
@@ -1009,7 +1009,7 @@ class Turba_Api extends Horde_Registry_Api
             if (is_a($driver, 'PEAR_Error')) {
                 return PEAR::raiseError(sprintf(_("Connection failed: %s"), $driver->getMessage()), 'horde.error', null, null, $source);
             }
-            if (!$driver->hasPermission(PERMS_EDIT)) {
+            if (!$driver->hasPermission(Horde_Perms::EDIT)) {
                 continue;
             }
             $result = $driver->search(array('__uid' => $uid));
@@ -1595,7 +1595,7 @@ class Turba_Api extends Horde_Registry_Api
             return PEAR::raiseError(sprintf(_("Connection failed: %s"), $driver->getMessage()), 'horde.error', null, null, $source);
         }
 
-        if (!$driver->hasPermission(PERMS_EDIT)) {
+        if (!$driver->hasPermission(Horde_Perms::EDIT)) {
             return PEAR::raiseError(_("Permission denied"), 'horde.error', null, null, $source);
         }
 
@@ -1745,7 +1745,7 @@ class Turba_Api extends Horde_Registry_Api
                 if (is_a($driver, 'PEAR_Error')) {
                     continue;
                 }
-                if (!$driver->hasPermission(PERMS_EDIT)) {
+                if (!$driver->hasPermission(Horde_Perms::EDIT)) {
                     continue;
                 }
 

@@ -33,7 +33,7 @@ class Horde_Block_gollem_tree_menu extends Horde_Block {
         $login_url = Horde::applicationUrl('login.php');
 
         foreach ($GLOBALS['gollem_backends'] as $key => $val) {
-            if (Gollem::checkPermissions('backend', PERMS_SHOW, $key)) {
+            if (Gollem::checkPermissions('backend', Horde_Perms::SHOW, $key)) {
                 $tree->addNode($parent . $key,
                                $parent,
                                $val['name'],

@@ -20,7 +20,7 @@ if (is_a($image, 'PEAR_Error')) {
 }
 
 $gallery = &$ansel_storage->getGallery($image->gallery);
-if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
     die(_("Access denied editing the photo."));
 }
 

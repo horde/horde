@@ -21,7 +21,7 @@ class Horde_Block_skoli_tree_menu extends Horde_Block {
         $add = Horde::applicationUrl('add.php');
         $icondir = $registry->getImageDir();
 
-        $classes = Skoli::listClasses(false, PERMS_EDIT);
+        $classes = Skoli::listClasses(false, Horde_Perms::EDIT);
         if (count($classes) > 0) {
 
             $tree->addNode($parent . '__new',

@@ -29,7 +29,7 @@ $gallery = $ansel_storage->getGallery($image->gallery);
 if (is_a($gallery, 'PEAR_Error')) {
     Horde::fatal(_("An error has occured retrieving the image. Details have been logged."), __FILE__, __LINE__, true);
 }
-if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
     Horde::fatal(_("Not Authorized. Details have been logged for the server administrator."), __FILE__, __LINE__, true);
 }
 

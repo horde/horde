@@ -2,7 +2,7 @@
  * TURAnsel
  *
  * Copyright 2009 The Horde Project (http://www.horde.org)
- * 
+ *
  * @license http://opensource.org/licenses/bsd-license.php
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  */
@@ -33,7 +33,7 @@ typedef enum {
 @interface TURAnsel : NSObject <NSComboBoxDataSource>
 #else
 @interface TURAnsel : NSObject
-#endif         
+#endif
 {
     NSString *userAgent;
     NSString *rpcEndPoint;

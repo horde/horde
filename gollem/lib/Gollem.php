@@ -694,7 +694,7 @@ class Gollem
      * @return boolean  Returns true if the user has permission, false if
      *                  they do not.
      */
-    static public function checkPermissions($filter, $permission = PERMS_READ,
+    static public function checkPermissions($filter, $permission = Horde_Perms::READ,
                                             $backend = null)
     {
         $userID = Horde_Auth::getAuth();
@@ -839,7 +839,7 @@ class Gollem
             require GOLLEM_BASE . '/config/backends.php';
             $GLOBALS['gollem_backends'] = array();
             foreach ($backends as $key => $val) {
-                if (Gollem::checkPermissions('backend', PERMS_SHOW, $key)) {
+                if (Gollem::checkPermissions('backend', Horde_Perms::SHOW, $key)) {
                     $GLOBALS['gollem_backends'][$key] = $val;
                 }
             }

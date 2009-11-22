@@ -81,7 +81,7 @@ class Ansel_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
 
                 return array('response' => 1,
                              'message' => $this->_getTagHtml($newTags, $owner,
-                                                             $parent->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)));
+                                                             $parent->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)));
             }
             break;
 
@@ -97,7 +97,7 @@ class Ansel_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
 
             return array('response' => 1,
                          'message' => $this->_getTagHtml($newTags, $owner,
-                                                         $parent->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)));
+                                                         $parent->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)));
             break;
         }
 

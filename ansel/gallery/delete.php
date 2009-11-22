@@ -21,7 +21,7 @@ if ($galleryId) {
     case 'delete':
         if (is_a($gallery, 'PEAR_Error')) {
             $notification->push($gallery->getMessage(), 'horde.error');
-        } elseif (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE)) {
+        } elseif (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
             $notification->push(sprintf(_("Access denied deleting gallery \"%s\"."),
                                         $gallery->get('name')), 'horde.error');
         } else {
@@ -50,7 +50,7 @@ if ($galleryId) {
     case 'empty':
         if (is_a($gallery, 'PEAR_Error')) {
             $notification->push($gallery->getMessage(), 'horde.error');
-        } elseif (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE)) {
+        } elseif (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
             $notification->push(sprintf(_("Access denied deleting gallery \"%s\"."),
                                         $gallery->get('name')),
                                 'horde.error');

@@ -26,8 +26,8 @@ class Turba_Driver_Favourites extends Turba_Driver
      function hasPermission($perm)
      {
          switch ($perm) {
-             case PERMS_EDIT: return false;
-             case PERMS_DELETE: return false;
+             case Horde_Perms::EDIT: return false;
+             case Horde_Perms::DELETE: return false;
              default: return true;
          }
      }

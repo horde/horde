@@ -26,7 +26,7 @@ if (is_a($class, 'PEAR_Error')) {
     $notification->push($class, 'horde.error');
     header('Location: ' . Horde::applicationUrl('classes/', true));
     exit;
-} elseif (!$class->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE)) {
+} elseif (!$class->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
     $notification->push(_("You are not allowed to delete this class."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('classes/', true));
     exit;

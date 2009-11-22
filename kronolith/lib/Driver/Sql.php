@@ -510,7 +510,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
 
         /* First try the user's own calendars. */
-        $ownerCalendars = Kronolith::listCalendars(true, PERMS_READ);
+        $ownerCalendars = Kronolith::listCalendars(true, Horde_Perms::READ);
         $event = null;
         foreach ($eventArray as $ev) {
             if (isset($ownerCalendars[$ev->getCalendar()])) {
@@ -521,7 +521,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* If not successful, try all calendars the user has access too. */
         if (empty($event)) {
-            $readableCalendars = Kronolith::listCalendars(false, PERMS_READ);
+            $readableCalendars = Kronolith::listCalendars(false, Horde_Perms::READ);
             foreach ($eventArray as $ev) {
                 if (isset($readableCalendars[$ev->getCalendar()])) {
                     $event = $ev;
@@ -911,7 +911,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             return PEAR::raiseError(_("Permission Denied"));
         }
 
-        $shares = $GLOBALS['kronolith_shares']->listShares($user, PERMS_EDIT);
+        $shares = $GLOBALS['kronolith_shares']->listShares($user, Horde_Perms::EDIT);
         if (is_a($shares, 'PEAR_Error')) {
             return $shares;
         }

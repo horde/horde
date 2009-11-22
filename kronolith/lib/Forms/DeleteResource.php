@@ -46,7 +46,7 @@ class Kronolith_DeleteResourceForm extends Horde_Form {
             return false;
         }
 
-        if (!($this->_resource->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE))) {
+        if (!($this->_resource->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE))) {
             return PEAR::raiseError(_("Permission denied"));
         }
 

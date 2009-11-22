@@ -451,9 +451,9 @@ class Beatnik {
             return true;
         }
 
-        $perms = Perms::singleton();
+        $perms = Horde_Perms::singleton();
         if ($permmask === null) {
-            $permmask = PERMS_SHOW|PERMS_READ;
+            $permmask = Horde_Perms::SHOW|Horde_Perms::READ;
         }
 
         # Default deny all permissions

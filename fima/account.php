@@ -69,7 +69,7 @@ case 'add_account':
 
 case 'modify_account':
     $account_id = $vars->get('account');
-    if (!$share->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+    if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
         $notification->push(_("Access denied editing account."), 'horde.error');
     } else {
         $account = Fima::getAccount($account_id);
@@ -79,7 +79,7 @@ case 'modify_account':
             $vars = new Horde_Variables($account);
             $vars->set('actionID', 'save_account');
             $vars->set('number_new', $vars->get('number'));
-            $form = new Fima_AccountForm($vars, sprintf(_("Edit: %s"), trim($account['number'] . ' ' . $account['name'])), $share->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE));
+            $form = new Fima_AccountForm($vars, sprintf(_("Edit: %s"), trim($account['number'] . ' ' . $account['name'])), $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE));
             break;
         }
     }
@@ -102,7 +102,7 @@ case 'save_account':
     }
 
     $form->getInfo($vars, $info);
-    if (!$share->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+    if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied saving account to %s."), $share->get('name')), 'horde.error');
         header('Location: ' . Horde::applicationUrl('accounts.php', true));
         exit;
@@ -171,7 +171,7 @@ case 'save_account':
 
 case 'delete_account':
     $account_id = $vars->get('account');
-    if (!$share->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE)) {
+    if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
         $notification->push(_("Access denied deleting account."), 'horde.error');
     } else {
         $account = Fima::getAccount($account_id);
@@ -182,7 +182,7 @@ case 'delete_account':
             $vars->set('actionID', 'purge_account');
             $vars->set('dssubaccounts', array('type' => 'none', 'account' => $account_id));
             $vars->set('dspostings', array('type' => 'delete', 'account' => $account_id));
-            $form = new Fima_AccountDeleteForm($vars, sprintf(_("Delete: %s"), trim($account['number'] . ' ' . $account['name'])), $share->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT));
+            $form = new Fima_AccountDeleteForm($vars, sprintf(_("Delete: %s"), trim($account['number'] . ' ' . $account['name'])), $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT));
             break;
         }
     }
@@ -205,7 +205,7 @@ case 'purge_account':
     }
 
     $form->getInfo($vars, $info);
-    if (!$share->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE)) {
+    if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
         $notification->push(sprintf(_("Access denied deleting account from %s."), $share->get('name')), 'horde.error');
         header('Location: ' . Horde::applicationUrl('accounts.php', true));
         exit;

@@ -24,7 +24,7 @@ if (is_a($class, 'PEAR_Error')) {
     $notification->push($class, 'horde.error');
     header('Location: ' . Horde::applicationUrl('classes/', true));
     exit;
-} elseif (!$class->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+} elseif (!$class->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
     $notification->push(_("You are not allowed to change this class."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('classes/', true));
     exit;

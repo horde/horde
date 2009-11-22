@@ -76,7 +76,7 @@ class Kronolith_View_Day extends Kronolith_Day {
 
         $started = false;
         $first_row = true;
-        $addLinks = Kronolith::getDefaultCalendar(PERMS_EDIT) &&
+        $addLinks = Kronolith::getDefaultCalendar(Horde_Perms::EDIT) &&
             (!empty($GLOBALS['conf']['hooks']['permsdenied']) ||
              Kronolith::hasPermission('max_events') === true ||
              Kronolith::hasPermission('max_events') > Kronolith::countEvents());

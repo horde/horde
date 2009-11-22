@@ -166,7 +166,7 @@ class Ansel_Faces_Base
         // an internally generated query string fragment. Will need to split
         // this out into two seperate operations somehow.
         $share = substr($GLOBALS['ansel_storage']->shares->_getShareCriteria(
-            Horde_Auth::getAuth(), PERMS_READ), 5);
+            Horde_Auth::getAuth(), Horde_Perms::READ), 5);
 
         $sql = 'SELECT f.face_id, f.gallery_id, f.image_id, f.face_name FROM ansel_faces f, '
                 . str_replace('WHERE', 'WHERE (', $share)
@@ -203,7 +203,7 @@ class Ansel_Faces_Base
         // add gallery permission
         // FIXME: Ditto on the REALLY ugly hack comment from above!
         $share = substr($GLOBALS['ansel_storage']->shares->_getShareCriteria(
-            Horde_Auth::getAuth(), PERMS_READ), 5);
+            Horde_Auth::getAuth(), Horde_Perms::READ), 5);
 
         $sql = 'SELECT COUNT(*) FROM ansel_faces f, '
                 . str_replace('WHERE', 'WHERE (', $share)
@@ -435,7 +435,7 @@ class Ansel_Faces_Base
     {
         $image = &$GLOBALS['ansel_storage']->getImage($image);
         $gallery = $GLOBALS['ansel_storage']->getGallery($image->gallery);
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             //TODO: Do we throw exceptions for access denied?
             throw new Horde_Exception('Access denied editing the photo.');
         }
@@ -524,7 +524,7 @@ class Ansel_Faces_Base
         if (!is_a($image, 'Ansel_Image')) {
             $image = &$GLOBALS['ansel_storage']->getImage($image);
             $gallery = $GLOBALS['ansel_storage']->getGallery($image->gallery);
-            if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+            if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
                 throw new Horde_Exception('Access denied editing the photo.');
             }
         }
@@ -715,7 +715,7 @@ class Ansel_Faces_Base
     public function getFromGallery($gallery_id, $create = false, $force = false)
     {
         $gallery = $GLOBALS['ansel_storage']->getGallery($gallery_id);
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             throw new Horde_Exception(sprintf("Access denied editing gallery \"%s\".", $gallery->get('name')));
         }
 

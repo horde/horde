@@ -77,7 +77,7 @@ class News_Api extends Horde_Registry_Api
      *
      * @return array | PEAR_Error  True on success, PEAR_Error on failure.
      */
-    public function listNews($criteria = array(), $from = 0, $count = 0, $perms = PERMS_READ)
+    public function listNews($criteria = array(), $from = 0, $count = 0, $perms = Horde_Perms::READ)
     {
         require_once dirname(__FILE__) . '/base.php';
 
@@ -92,7 +92,7 @@ class News_Api extends Horde_Registry_Api
      *
      * @return integer | PEAR_Error  True on success, PEAR_Error on failure.
      */
-    public function countNews($criteria = array(), $perms = PERMS_READ)
+    public function countNews($criteria = array(), $perms = Horde_Perms::READ)
     {
         require_once dirname(__FILE__) . '/base.php';
 

@@ -32,7 +32,7 @@ v2.3.3-cvs
 [jan] Speed up listing alarms (patrick.abiven@apitech.fr, Request #8638).
 [jan] Simplify and improve portability of listing events without date limits
       in the SQL driver (Bug #8590).
-[mjr] Fix issue that caused the default alarm time to be applied to 
+[mjr] Fix issue that caused the default alarm time to be applied to
       listTimeObjects events (Bug #8588).
 
 

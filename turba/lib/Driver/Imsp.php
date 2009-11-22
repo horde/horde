@@ -606,16 +606,16 @@ class Turba_Driver_Imsp extends Turba_Driver
     {
         $hPerms = 0;
         if (strpos($acl, 'w') !== false) {
-            $hPerms |= PERMS_EDIT;
+            $hPerms |= Horde_Perms::EDIT;
         }
         if (strpos($acl, 'r') !== false) {
-            $hPerms |= PERMS_READ;
+            $hPerms |= Horde_Perms::READ;
         }
         if (strpos($acl, 'd') !== false) {
-            $hPerms |= PERMS_DELETE;
+            $hPerms |= Horde_Perms::DELETE;
         }
         if (strpos($acl, 'l') !== false) {
-            $hPerms |= PERMS_SHOW;
+            $hPerms |= Horde_Perms::SHOW;
         }
         return $hPerms;
     }

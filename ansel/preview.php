@@ -22,7 +22,7 @@ if (is_a($gal, 'PEAR_Error')) {
 }
 $img = Ansel::getImageUrl($imageId, 'thumb', false);
 if (!is_a($img, 'PEAR_Error') &&
-        $gal->hasPermission(Horde_Auth::getAuth(), PERMS_SHOW) &&
+        $gal->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW) &&
         !$gal->hasPasswd() &&
         $gal->isOldEnough()) {
     echo '<img src="' . $img . '" alt="' . htmlspecialchars($image->filename) . '" />';

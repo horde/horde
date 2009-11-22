@@ -60,11 +60,11 @@ class Kronolith_View_DeleteEvent {
         echo '</div>';
 
         if ($active && $GLOBALS['browser']->hasFeature('dom')) {
-            if ($this->event->hasPermission(PERMS_READ)) {
+            if ($this->event->hasPermission(Horde_Perms::READ)) {
                 $view = new Kronolith_View_Event($this->event);
                 $view->html(false);
             }
-            if ($this->event->hasPermission(PERMS_EDIT)) {
+            if ($this->event->hasPermission(Horde_Perms::EDIT)) {
                 $edit = new Kronolith_View_EditEvent($this->event);
                 $edit->html(false);
             }

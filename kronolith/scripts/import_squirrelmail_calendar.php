@@ -76,7 +76,7 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
         $cli->fatal($result->toString());
     }
     while ($perm_row = $result->fetchRow()) {
-        $permissions[$perm_row[0]] = PERMS_READ | PERMS_SHOW;
+        $permissions[$perm_row[0]] = Horde_Perms::READ | Horde_Perms::SHOW;
     }
     $result = $db->execute($write_stmt, array($row['id']));
     if (is_a($result, 'PEAR_Error')) {
@@ -84,14 +84,14 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
     }
     while ($perm_row = $result->fetchRow()) {
         if (isset($permissions[$perm_row[0]])) {
-            $permissions[$perm_row[0]] |= PERMS_EDIT;
+            $permissions[$perm_row[0]] |= Horde_Perms::EDIT;
         } else {
-            $permissions[$perm_row[0]] = PERMS_EDIT;
+            $permissions[$perm_row[0]] = Horde_Perms::EDIT;
         }
     }
     if (count($permissions)) {
         $perm = $share->getPermission();
-        $perm->addUserPermission($user, PERMS_ALL, false);
+        $perm->addUserPermission($user, Horde_Perms::ALL, false);
         foreach ($permissions as $key => $value) {
             $perm->addUserPermission($key, $value, false);
         }

@@ -39,8 +39,8 @@ class Turba_Driver_Group extends Turba_Driver
     function hasPermission($perm)
     {
         switch ($perm) {
-        case PERMS_EDIT:
-        case PERMS_DELETE:
+        case Horde_Perms::EDIT:
+        case Horde_Perms::DELETE:
             return false;
 
         default:

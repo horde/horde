@@ -39,8 +39,8 @@ class Kronolith_LoginTasks_Task_PurgeEvents extends Horde_LoginTasks_Task
         $del_time = new Horde_Date($_SERVER['REQUEST_TIME']);
         $del_time->mday -= $GLOBALS['prefs']->getValue('purge_events_keep');
 
-        /* Need to have PERMS_DELETE on a calendar to delete events from it */
-        $calendars = Kronolith::listCalendars(false, PERMS_DELETE);
+        /* Need to have Horde_Perms::DELETE on a calendar to delete events from it */
+        $calendars = Kronolith::listCalendars(false, Horde_Perms::DELETE);
 
         /* Start building an event object to use for the search */
         $kronolith_driver = Kronolith::getDriver();

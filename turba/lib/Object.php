@@ -204,7 +204,7 @@ class Turba_Object {
      */
     function isEditable()
     {
-        return $this->driver->hasPermission(PERMS_EDIT);
+        return $this->driver->hasPermission(Horde_Perms::EDIT);
     }
 
     /**

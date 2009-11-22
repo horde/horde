@@ -107,7 +107,7 @@ class Ansel_View_List extends Ansel_View_Base
                 $try = $ansel_storage->getGalleries($getThese);
                 $gallerylist = array();
                 foreach ($try as $id => $gallery) {
-                    if ($gallery->hasPermission(Horde_Auth::getAuth(), PERMS_SHOW)) {
+                    if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW)) {
                         $gallerylist[$id] = $gallery;
                     }
                 }
@@ -159,7 +159,7 @@ class Ansel_View_List extends Ansel_View_Base
             }
 
             $num_galleries = $ansel_storage->countGalleries(
-                Horde_Auth::getAuth(), PERMS_SHOW, $filter, null, false);
+                Horde_Auth::getAuth(), Horde_Perms::SHOW, $filter, null, false);
             if (is_a($num_galleries, 'PEAR_Error')) {
                 return $num_galleries->getMessage();
             }
@@ -175,7 +175,7 @@ class Ansel_View_List extends Ansel_View_Base
                 $gallerylist = array();
             } else {
                 $gallerylist = $ansel_storage->listGalleries(
-                    PERMS_SHOW, $filter, null, false, $page * $galleries_perpage,
+                    Horde_Perms::SHOW, $filter, null, false, $page * $galleries_perpage,
                     $galleries_perpage, $sortby, $sortdir);
             }
 

@@ -136,7 +136,7 @@ function downloadSelected()
     </td>
     <td align="right">
       <?php echo implode(' | ', $action_links); ?>
-      <select name="new_gallery"><option value="-1"><?php echo _("Selected photos to") ?></option><?php echo Ansel::selectGalleries(null, PERMS_EDIT) ?></select>
+      <select name="new_gallery"><option value="-1"><?php echo _("Selected photos to") ?></option><?php echo Ansel::selectGalleries(null, Horde_Perms::EDIT) ?></select>
       </td></tr></table>
     <?php endif; ?>
     <?php if (!$this->numTiles): ?>

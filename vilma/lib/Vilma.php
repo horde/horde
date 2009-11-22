@@ -32,7 +32,7 @@ class Vilma {
         }
 
         if ($permmask === null) {
-            $permmask = PERMS_SHOW|PERMS_READ;
+            $permmask = Horde_Perms::SHOW|Horde_Perms::READ;
         }
 
         # Default deny all permissions

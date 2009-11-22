@@ -314,7 +314,7 @@ class Ingo
      * @return array  The ruleset list.
      */
     static public function listRulesets($owneronly = false,
-                                        $permission = PERMS_SHOW)
+                                        $permission = Horde_Perms::SHOW)
     {
         $rulesets = $GLOBALS['ingo_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null);
         if (is_a($rulesets, 'PEAR_Error')) {

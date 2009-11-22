@@ -187,11 +187,11 @@ abstract class Ansel_View_GalleryRenderer_Base
     public function fetchChildren($noauto)
     {
         /* Total number of tiles for this gallery view */
-        $this->numTiles = $this->view->gallery->countGalleryChildren(PERMS_SHOW, false, $noauto);
+        $this->numTiles = $this->view->gallery->countGalleryChildren(Horde_Perms::SHOW, false, $noauto);
 
         /* Children to display on this page */
         $this->children = $this->view->gallery->getGalleryChildren(
-            PERMS_SHOW,
+            Horde_Perms::SHOW,
             $this->page * $this->perpage,
             $this->perpage,
             !empty($this->view->force_grouping));

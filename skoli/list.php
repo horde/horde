@@ -49,7 +49,7 @@ if (($sortby_student = Horde_Util::getFormData('sortby_student')) !== null) {
 
 /* Check if we have access to an application who provides contacts/getContact */
 $app = $registry->hasMethod('contacts/getContact');
-if ($app == false || $registry->get('status', $app) == 'inactive' || !$registry->hasPermission($app, PERMS_SHOW)) {
+if ($app == false || $registry->get('status', $app) == 'inactive' || !$registry->hasPermission($app, Horde_Perms::SHOW)) {
     $notification->push(_("Skoli needs an applications who provides contacts (e.g. turba)."), 'horde.warning');
 }
 

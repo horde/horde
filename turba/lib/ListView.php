@@ -161,10 +161,10 @@ class Turba_ListView {
         $hasEdit = false;
         $hasExport = false;
         if (!is_a($driver, 'PEAR_Error')) {
-            if ($driver->hasPermission(PERMS_DELETE)) {
+            if ($driver->hasPermission(Horde_Perms::DELETE)) {
                 $hasDelete = true;
             }
-            if ($driver->hasPermission(PERMS_EDIT)) {
+            if ($driver->hasPermission(Horde_Perms::EDIT)) {
                 $hasEdit = true;
             }
             if ($GLOBALS['conf']['menu']['import_export']

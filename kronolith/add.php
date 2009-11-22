@@ -20,10 +20,10 @@ if (!Horde_Util::getFormData('cancel')) {
     if (is_a($share, 'PEAR_Error')) {
         $notification->push(sprintf(_("There was an error accessing the calendar: %s"), $share->getMessage()), 'horde.error');
     } elseif ($user != Horde_Auth::getAuth() &&
-              !$share->hasPermission(Horde_Auth::getAuth(), PERMS_DELEGATE, Horde_Auth::getAuth())) {
+              !$share->hasPermission(Horde_Auth::getAuth(), Kronolith::PERMS_DELEGATE, Horde_Auth::getAuth())) {
         $notification->push(sprintf(_("You do not have permission to delegate events to %s."), Kronolith::getUserName($user)), 'horde.warning');
     } elseif ($user == Horde_Auth::getAuth() &&
-              !$share->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT, Horde_Auth::getAuth())) {
+              !$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT, Horde_Auth::getAuth())) {
         $notification->push(sprintf(_("You do not have permission to add events to %s."), $share->get('name')), 'horde.warning');
     } elseif (Kronolith::hasPermission('max_events') === true ||
               Kronolith::hasPermission('max_events') > Kronolith::countEvents()) {

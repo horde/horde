@@ -50,10 +50,10 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
         // Check perms
         if ($post['type'] == 'calendar') {
             $cal = $GLOBALS['kronolith_shares']->getShare($post['resource']);
-            $perm = $cal->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT);
+            $perm = $cal->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
         } elseif($post['type'] == 'event') {
             $event = Kronolith::getDriver()->getByUID($post['resource']);
-            $perm = $event->hasPermission(PERMS_EDIT, Horde_Auth::getAuth());
+            $perm = $event->hasPermission(Horde_Perms::EDIT, Horde_Auth::getAuth());
         }
 
         if ($perm) {
@@ -91,10 +91,10 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
 
         if ($type == 'calendar') {
             $cal = $GLOBALS['kronolith_shares']->getShare($id);
-            $hasEdit = $cal->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT);
+            $hasEdit = $cal->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
         } elseif ($type == 'event') {
             $event = Kronolith::getDriver()->getByUID($id);
-            $hasEdit = $event->hasPermission(PERMS_EDIT, Horde_Auth::getAuth());
+            $hasEdit = $event->hasPermission(Horde_Perms::EDIT, Horde_Auth::getAuth());
         }
 
         foreach ($tags as $tag_id => $tag) {

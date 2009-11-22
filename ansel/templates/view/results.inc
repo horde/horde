@@ -86,7 +86,7 @@ echo htmlspecialchars($this->getTitle(), ENT_COMPAT, Horde_Nls::getCharset()) . 
 <?php if ($option_copy): ?>
  |  <?php echo Horde::link('#', _("Copy"), 'widget', '', 'copySelected(); return false;') . _("Copy"); ?></a>
 <?php endif; ?>
-    <select name="new_gallery"><option value="-1"><?php echo _("Selected photos to") ?></option><?php echo Ansel::selectGalleries(null, PERMS_EDIT) ?></select>
+    <select name="new_gallery"><option value="-1"><?php echo _("Selected photos to") ?></option><?php echo Ansel::selectGalleries(null, Horde_Perms::EDIT) ?></select>
   </td>
  </tr>
 </table>

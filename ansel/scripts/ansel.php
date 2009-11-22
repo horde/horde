@@ -124,7 +124,7 @@ if (!empty($galleryId)) {
     } else {
         $gallery = $ansel_storage->getGallery($galleryId);
         if (is_a($gallery, 'PEAR_Error') ||
-            !$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+            !$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             $error = sprintf(_("Access denied adding photos to \"%s\"."),
                              $galleryId);
             Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_WARNING);

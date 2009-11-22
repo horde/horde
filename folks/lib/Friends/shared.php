@@ -59,7 +59,7 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
     {
         $GLOBALS['folks_shares'] = Horde_Share::singleton('folks');
 
-        $groups = $GLOBALS['folks_shares']->listShares($this->_user, PERMS_READ);
+        $groups = $GLOBALS['folks_shares']->listShares($this->_user, Horde_Perms::READ);
         if ($groups instanceof PEAR_Error) {
             return $groups;
         }

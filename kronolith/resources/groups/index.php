@@ -18,7 +18,7 @@ if (!Horde_Auth::getAuth()) {
 $edit_url_base = Horde::applicationUrl('resources/groups/edit.php');
 $edit_img = Horde::img('edit.png', _("Edit"), null, $registry->getImageDir('horde'));
 
-$resources = Kronolith::getDriver('Resource')->listResources(PERMS_EDIT, array('type' => Kronolith_Resource::TYPE_GROUP));
+$resources = Kronolith::getDriver('Resource')->listResources(Horde_Perms::EDIT, array('type' => Kronolith_Resource::TYPE_GROUP));
 //$display_url_base = Horde::applicationUrl('month.php', true, -1);
 $delete_url_base = Horde::applicationUrl('resources/groups/delete.php');
 $delete_img = Horde::img('delete.png', _("Delete"), null, $registry->getImageDir('horde'));

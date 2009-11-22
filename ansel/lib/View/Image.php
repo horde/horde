@@ -372,7 +372,7 @@ class Ansel_View_Image extends Ansel_View_Base
             $this->addWidget(Ansel_Widget::factory('Links', array()));
 
             /* In line caption editing */
-            if ($this->gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+            if ($this->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
                 $imple = Horde_Ajax_Imple::factory(array('ansel', 'EditCaption'),
                                                 array('id' => $this->resource->id,
                                                       'domid' => "Caption",

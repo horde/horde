@@ -37,8 +37,8 @@ class Horde_Block_ansel_recently_added_geodata extends Horde_Block {
                              'default' => 250),
         );
 
-        if ($GLOBALS['ansel_storage']->countGalleries(Horde_Auth::getAuth(), PERMS_READ) < $GLOBALS['conf']['gallery']['listlimit']) {
-            foreach ($GLOBALS['ansel_storage']->listGalleries(PERMS_READ) as $id => $gal) {
+        if ($GLOBALS['ansel_storage']->countGalleries(Horde_Auth::getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit']) {
+            foreach ($GLOBALS['ansel_storage']->listGalleries(Horde_Perms::READ) as $id => $gal) {
                 if (!$gal->hasPasswd() && $gal->isOldEnough()) {
                     $params['gallery']['values'][$id] = $gal->get('name');
                 }
@@ -167,7 +167,7 @@ EOT;
         if (empty($this->_gallery)) {
             return PEAR::raiseError(_("Gallery does not exist."));
         } elseif (is_a($this->_gallery, 'PEAR_Error') ||
-                  !$this->_gallery->hasPermission(Horde_Auth::getAuth(), PERMS_READ)) {
+                  !$this->_gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
             return PEAR::raiseError(_("Access denied viewing this gallery."));
         }
 

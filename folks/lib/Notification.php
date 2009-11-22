@@ -169,7 +169,7 @@ class Folks_Notification {
             if ($permission instanceof PEAR_Error) {
                 return $permission;
             } else {
-                $admins = $permission->getUserPermissions(PERMS_DELETE);
+                $admins = $permission->getUserPermissions(Horde_Perms::DELETE);
                 if ($admins instanceof PEAR_Error) {
                     return $admins;
                 }

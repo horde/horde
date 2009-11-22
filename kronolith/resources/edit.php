@@ -25,7 +25,7 @@ if ($resource instanceof PEAR_Error) {
     $notification->push($resource, 'horde.error');
     header('Location: ' . Horde::applicationUrl('resources/', true));
     exit;
-} elseif (!$resource->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+} elseif (!$resource->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
     $notification->push(_("You are not allowed to change this resource."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('resources/', true));
     exit;

@@ -18,7 +18,7 @@ echo Horde::link($this->link(1), _("Next week"), 'iconNav', '', 'return ShowView
   <th class="control" width="1%">&nbsp;</th>
   <th class="nowrap <?php echo ($day->isToday() ? 'selected-control' : 'control') ?>" width="<?php echo $colwidth ?>%" colspan="<?php echo $day->_totalspan ?>">
 <?php
-if (Kronolith::getDefaultCalendar(PERMS_EDIT) &&
+if (Kronolith::getDefaultCalendar(Horde_Perms::EDIT) &&
     (!empty($conf['hooks']['permsdenied']) ||
      Kronolith::hasPermission('max_events') === true ||
      Kronolith::hasPermission('max_events') > Kronolith::countEvents())) {

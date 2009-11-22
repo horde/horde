@@ -78,10 +78,10 @@ if (empty($rss)) {
             $gallery = $ansel_storage->getGallery($id);
         }
         if (!is_a($gallery, 'PEAR_Error') &&
-            $gallery->hasPermission(Horde_Auth::getAuth(), PERMS_SHOW) &&
+            $gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW) &&
             !$gallery->hasPasswd() && $gallery->isOldEnough()) {
             if (!$gallery->countImages() && $gallery->hasSubGalleries()) {
-                $subgalleries = $ansel_storage->listGalleries(PERMS_SHOW,
+                $subgalleries = $ansel_storage->listGalleries(Horde_Perms::SHOW,
                                                               null,
                                                               $gallery);
                 $subs = array();
@@ -126,7 +126,7 @@ if (empty($rss)) {
         break;
 
     case 'user':
-        $shares = $ansel_storage->listGalleries(PERMS_SHOW, $id);
+        $shares = $ansel_storage->listGalleries(Horde_Perms::SHOW, $id);
         if (!is_a($shares, 'PEAR_Error')) {
             $galleries = array();
             foreach ($shares as $gallery) {
@@ -212,7 +212,7 @@ if (empty($rss)) {
             }
             if (!isset($galleries[$gallery_id]['perm'])) {
                 $galleries[$gallery_id]['perm'] =
-                    ($galleries[$gallery_id]['gallery']->hasPermission(Horde_Auth::getAuth(), PERMS_READ) &&
+                    ($galleries[$gallery_id]['gallery']->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ) &&
                      $galleries[$gallery_id]['gallery']->isOldEnough() &&
                      !$galleries[$gallery_id]['gallery']->hasPasswd());
             }

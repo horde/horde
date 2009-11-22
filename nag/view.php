@@ -46,7 +46,7 @@ $task->loadChildren();
 
 /* Check permissions on $tasklist_id. */
 $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
-if (is_a($share, 'PEAR_Error') || !$share->hasPermission(Horde_Auth::getAuth(), PERMS_READ)) {
+if (is_a($share, 'PEAR_Error') || !$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
     $notification->push(_("You do not have permission to view this tasklist."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('list.php', true));
     exit;
@@ -102,7 +102,7 @@ $taskurl = Horde_Util::addParameter('task.php',
 $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
 
 if (!is_a($share, 'PEAR_Error')) {
-    if ($share->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+    if ($share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
         if (!$task->completed) {
             $links[] = Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($taskurl, 'actionID', 'complete_task')), _("Complete"), 'smallheader', '', '', _("_Complete"));
         }
@@ -110,7 +110,7 @@ if (!is_a($share, 'PEAR_Error')) {
             $links[] = Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($taskurl, 'actionID', 'modify_task')), _("Edit"), 'smallheader', '', '', _("_Edit"));
         }
     }
-    if ($share->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE)) {
+    if ($share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
         $links[] = Horde::widget(Horde::applicationUrl(Horde_Util::addParameter($taskurl, 'actionID', 'delete_tasks')), _("Delete"), 'smallheader', '', $prefs->getValue('delete_opt') ? 'return window.confirm(\'' . addslashes(_("Really delete this task?")) . '\');' : '', _("_Delete"));
     }
 }

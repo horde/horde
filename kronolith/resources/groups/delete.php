@@ -25,7 +25,7 @@ if ($resource instanceof PEAR_Error) {
     $notification->push($resoruce, 'horde.error');
     header('Location: ' . Horde::applicationUrl('resources/groups/', true));
     exit;
-} elseif (!$resource->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE)) {
+} elseif (!$resource->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
     $notification->push(_("You are not allowed to delete this resource group."), 'horde.error');
     header('Location: ' . Horde::applicationUrl('resources/groups/', true));
     exit;

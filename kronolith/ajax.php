@@ -19,7 +19,7 @@ function getDriver($cal)
     switch ($driver) {
     case 'internal':
         if (!array_key_exists($calendar,
-                              Kronolith::listCalendars(false, PERMS_SHOW))) {
+                              Kronolith::listCalendars(false, Horde_Perms::SHOW))) {
             $GLOBALS['notification']->push(_("Permission Denied"), 'horde.error');
             return false;
         }
@@ -158,7 +158,7 @@ try {
             $notification->push(_("The requested event was not found."), 'horde.error');
             break;
         }
-        if (!$event->hasPermission(PERMS_EDIT)) {
+        if (!$event->hasPermission(Horde_Perms::EDIT)) {
             $notification->push(_("You do not have permission to edit this event."), 'horde.warning');
             break;
         }
@@ -170,7 +170,7 @@ try {
         $kronolith_driver = Kronolith::getDriver();
         try {
             $event = Kronolith::quickAdd(Horde_Util::getFormData('text'),
-                                         Kronolith::getDefaultCalendar(PERMS_EDIT));
+                                         Kronolith::getDefaultCalendar(Horde_Perms::EDIT));
             if (is_a($event, 'PEAR_Error')) {
                 $notification->push($event, 'horde.error');
                 break;
@@ -197,7 +197,7 @@ try {
             $notification->push(_("The requested event was not found."), 'horde.error');
             break;
         }
-        if (!$event->hasPermission(PERMS_EDIT)) {
+        if (!$event->hasPermission(Horde_Perms::EDIT)) {
             $notification->push(_("You do not have permission to edit this event."), 'horde.warning');
             break;
         }
@@ -256,7 +256,7 @@ try {
             $notification->push(_("The requested event was not found."), 'horde.error');
             break;
         }
-        if (!$event->hasPermission(PERMS_DELETE)) {
+        if (!$event->hasPermission(Horde_Perms::DELETE)) {
             $notification->push(_("You do not have permission to delete this event."), 'horde.warning');
             break;
         }

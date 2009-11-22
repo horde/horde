@@ -117,7 +117,7 @@ class Kronolith_View_Month {
 
         $sidebyside = $prefs->getValue('show_shared_side_by_side');
         $twentyFour = $prefs->getValue('twentyFour');
-        $addLinks = Kronolith::getDefaultCalendar(PERMS_EDIT) &&
+        $addLinks = Kronolith::getDefaultCalendar(Horde_Perms::EDIT) &&
             (!empty($GLOBALS['conf']['hooks']['permsdenied']) ||
              Kronolith::hasPermission('max_events') === true ||
              Kronolith::hasPermission('max_events') > Kronolith::countEvents());

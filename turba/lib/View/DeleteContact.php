@@ -34,8 +34,8 @@ class Turba_View_DeleteContact {
             return;
         }
 
-        if (!$this->contact->hasPermission(PERMS_DELETE)) {
-            if (!$this->contact->hasPermission(PERMS_READ)) {
+        if (!$this->contact->hasPermission(Horde_Perms::DELETE)) {
+            if (!$this->contact->hasPermission(Horde_Perms::READ)) {
                 echo '<h3>' . _("You do not have permission to view this contact.") . '</h3>';
                 return;
             } else {
@@ -58,11 +58,11 @@ class Turba_View_DeleteContact {
 </div>
 <?php
         if ($active && $GLOBALS['browser']->hasFeature('dom')) {
-            if ($this->contact->hasPermission(PERMS_READ)) {
+            if ($this->contact->hasPermission(Horde_Perms::READ)) {
                 $view = new Turba_View_Contact($this->contact);
                 $view->html(false);
             }
-            if ($this->contact->hasPermission(PERMS_EDIT)) {
+            if ($this->contact->hasPermission(Horde_Perms::EDIT)) {
                 $delete = new Turba_View_EditContact($this->contact);
                 $delete->html(false);
             }

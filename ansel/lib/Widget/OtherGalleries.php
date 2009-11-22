@@ -66,7 +66,7 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
         /* Set up the tree */
         $tree = Horde_Tree::singleton('otherAnselGalleries_' . md5($owner), 'javascript');
         $tree->setOption(array('class' => 'anselWidgets'));
-        $gals = $GLOBALS['ansel_storage']->listGalleries(PERMS_SHOW, $owner,
+        $gals = $GLOBALS['ansel_storage']->listGalleries(Horde_Perms::SHOW, $owner,
                                                          null, true, 0, 0,
                                                          'name', 0);
 

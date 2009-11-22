@@ -516,7 +516,7 @@ if ($next_step == Horde_Data::IMPORT_FILE) {
     $unique_dest = '';
     $dest_options = array();
     $hasWriteable = false;
-    foreach (Turba::getAddressBooks(PERMS_EDIT) as $key => $entry) {
+    foreach (Turba::getAddressBooks(Horde_Perms::EDIT) as $key => $entry) {
         $selected = ($key == $default_source) ? ' selected="selected"' : '';
         $dest_options[] = '<option value="' . htmlspecialchars($key) . '" ' . $selected . '>' .
             htmlspecialchars($entry['title']) . "</option>\n";

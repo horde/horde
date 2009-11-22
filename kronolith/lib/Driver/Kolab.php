@@ -285,7 +285,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     public function getByUID($uid, $calendars = null, $getAll = false)
     {
         if (!is_array($calendars)) {
-            $calendars = array_keys(Kronolith::listCalendars(true, PERMS_READ));
+            $calendars = array_keys(Kronolith::listCalendars(true, Horde_Perms::READ));
         }
 
         foreach ($calendars as $calendar) {

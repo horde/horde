@@ -40,7 +40,7 @@ class Ansel_Api extends Horde_Registry_Api
 
         if (empty($path)) {
             $owners = array();
-            $galleries = $GLOBALS['ansel_storage']->listGalleries(PERMS_SHOW, null, null, false);
+            $galleries = $GLOBALS['ansel_storage']->listGalleries(Horde_Perms::SHOW, null, null, false);
             foreach ($galleries  as $gallery) {
                 $owners[$gallery->data['share_owner']] = true;
             }
@@ -77,7 +77,7 @@ class Ansel_Api extends Horde_Registry_Api
             if (count($parts) == 1) {
                 // This request is for all galleries owned by the requested user.
                 $galleries = $GLOBALS['ansel_storage']->listGalleries(
-                    PERMS_SHOW, $parts[0], null, false);
+                    Horde_Perms::SHOW, $parts[0], null, false);
                 $images = array();
             } elseif ($this->galleryExists(null, end($parts))) {
                 // This request if for a certain gallery, list all sub-galleries
@@ -87,13 +87,13 @@ class Ansel_Api extends Horde_Registry_Api
                     array($gallery_id));
                 if (!isset($galleries[$gallery_id]) ||
                     !$galleries[$gallery_id]->hasPermission(Horde_Auth::getAuth(),
-                        PERMS_READ)) {
+                        Horde_Perms::READ)) {
                             return PEAR::raiseError(_("Invalid gallery specified."), 404);
                         }
                 $galleries = $GLOBALS['ansel_storage']->listGalleries(
-                    PERMS_SHOW, null, $gallery_id, false);
+                    Horde_Perms::SHOW, null, $gallery_id, false);
 
-                $images = $this->listImages(null, $gallery_id, PERMS_SHOW, 'mini');
+                $images = $this->listImages(null, $gallery_id, Horde_Perms::SHOW, 'mini');
             } elseif (count($parts) > 2 &&
                 $this->galleryExists(null, $parts[count($parts) - 2]) &&
                 !is_a($image = $GLOBALS['ansel_storage']->getImage(end($parts)), 'PEAR_Error')) {
@@ -120,7 +120,7 @@ class Ansel_Api extends Horde_Registry_Api
                 }
                 if (in_array('browseable', $properties)) {
                     $results[$retpath]['browseable'] = $gallery->hasPermission(
-                        Horde_Auth::getAuth(), PERMS_READ);
+                        Horde_Auth::getAuth(), Horde_Perms::READ);
                 }
                 if (in_array('contenttype', $properties)) {
                     $results[$retpath]['contenttype'] = 'httpd/unix-directory';
@@ -198,7 +198,7 @@ class Ansel_Api extends Horde_Registry_Api
             return PEAR::raiseError("Gallery does not exist");
         }
         $gallery = $GLOBALS['ansel_storage']->getGallery($gallery_id);
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             return PEAR::raiseError(_("Access denied adding photos to \"%s\"."));
         }
 
@@ -354,7 +354,7 @@ class Ansel_Api extends Horde_Registry_Api
                 return $gallery;
             }
         }
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             return PEAR::raiseError(sprintf(_("Access denied adding photos to \"%s\"."), $gallery->get('name')));
         }
         if (!empty($gallery_data)) {
@@ -439,7 +439,7 @@ class Ansel_Api extends Horde_Registry_Api
         }
         $gallery = $GLOBALS['ansel_storage']->getGallery($image->gallery);
         if (is_a($gallery, 'PEAR_Error') ||
-            !$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE)) {
+            !$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
 
                 return PEAR::raiseError(sprintf(_("Access denied deleting photos from \"%s\"."), $gallery->get('name')));
             }
@@ -454,8 +454,8 @@ class Ansel_Api extends Horde_Registry_Api
      *                               (@see Ansel_Storage::createGallery).
      * @param array $perm            An array of permission data if Ansel's defaults
      *                               are not desired. Takes an array like:
-     *                               array('guest' => PERMS_SHOW | PERMS_READ,
-     *                                     'default' => PERMS_SHOW | PERMS_READ);
+     *                               array('guest' => Horde_Perms::SHOW | Horde_Perms::READ,
+     *                                     'default' => Horde_Perms::SHOW | Horde_Perms::READ);
      * @param integer $parent        The gallery id of the parent gallery, if any.
      *
      * @return mixed  The gallery id of the new gallery | PEAR_Error
@@ -466,7 +466,7 @@ class Ansel_Api extends Horde_Registry_Api
 
         if (!(Horde_Auth::isAdmin() ||
             (!$GLOBALS['perms']->exists('ansel') && Horde_Auth::getAuth()) ||
-            $GLOBALS['perms']->hasPermission('ansel', Horde_Auth::getAuth(), PERMS_EDIT))) {
+            $GLOBALS['perms']->hasPermission('ansel', Horde_Auth::getAuth(), Horde_Perms::EDIT))) {
                 return PEAR::raiseError(_("Access denied creating new galleries."));
             }
 
@@ -517,7 +517,7 @@ class Ansel_Api extends Horde_Registry_Api
         if (is_a($gallery, 'PEAR_Error')) {
             return PEAR::raiseError(sprintf(_("Access denied deleting gallery \"%s\"."),
                 $gallery->getMessage()));
-        } elseif (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE)) {
+        } elseif (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
             return PEAR::raiseError(sprintf(_("Access denied deleting gallery \"%s\"."),
                 $gallery->get('name')));
         } else {
@@ -711,7 +711,7 @@ class Ansel_Api extends Horde_Registry_Api
      *
      * @return array  An array of gallery information.
      */
-    public function listGalleries($app = null, $perm = PERMS_SHOW,
+    public function listGalleries($app = null, $perm = Horde_Perms::SHOW,
         $parent = null,
         $allLevels = true, $from = 0, $count = 0,
         $attributes = null, $sort_by = null, $direction = 0)
@@ -768,10 +768,10 @@ class Ansel_Api extends Horde_Registry_Api
         }
 
         /* We can't just return the results of the getGalleries call - we need to
-        ensure the caller has at least PERMS_READ on the galleries. */
+        ensure the caller has at least Horde_Perms::READ on the galleries. */
         $galleries = array();
         foreach ($results as $gallery) {
-            if ($gallery->hasPermission(Horde_Auth::getAuth(), PERMS_READ)) {
+            if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
                 $galleries[$gallery->id] = array_merge($gallery->data, array('crumbs' => $gallery->getGalleryCrumbData()));
             }
         }
@@ -793,7 +793,7 @@ class Ansel_Api extends Horde_Registry_Api
      *                            selected by default in the returned option
      *                            list.
      */
-    public function selectGalleries($app = null, $perm = PERMS_SHOW,
+    public function selectGalleries($app = null, $perm = Horde_Perms::SHOW,
         $parent = null,
         $allLevels = true, $from = 0, $count = 0,
         $default = null)
@@ -830,7 +830,7 @@ class Ansel_Api extends Horde_Registry_Api
      *
      * @return array  Two dimensional array with image names ids (key) and urls.
      */
-    public function listImages($app = null, $gallery_id = null, $perm = PERMS_SHOW,
+    public function listImages($app = null, $gallery_id = null, $perm = Horde_Perms::SHOW,
         $view = 'screen', $full = false, $from = 0,
         $count = 0, $style = null, $slug = '')
     {
@@ -894,7 +894,7 @@ class Ansel_Api extends Horde_Registry_Api
      * @param array $galleries  An array of gallery ids to check.  If left empty,
      *                          will search all galleries with the given
      *                          permissions for the current user.
-     * @param integer $perms    PERMS_* constant
+     * @param integer $perms    Horde_Perms::* constant.
      * @param string $view      The type of image view to return.
      * @param boolean $full     Return a full URL if this is true.
      * @param integer  $limit   The maximum number of images to return.
@@ -904,7 +904,7 @@ class Ansel_Api extends Horde_Registry_Api
      * @return array  An array of image objects.
      */
     public function getRecentImages($app = null, $galleries = array(),
-        $perms = PERMS_SHOW, $view = 'screen',
+        $perms = Horde_Perms::SHOW, $view = 'screen',
         $full = false, $limit = 10, $style = null,
         $slugs = array())
     {
@@ -949,7 +949,7 @@ class Ansel_Api extends Horde_Registry_Api
      *
      * @return integer  Returns the number of matching galleries.
      */
-    public function countGalleries($app = null, $perm = PERMS_SHOW, $attributes = null,
+    public function countGalleries($app = null, $perm = Horde_Perms::SHOW, $attributes = null,
         $parent = null, $allLevels = true)
     {
         require_once dirname(__FILE__) . '/base.php';

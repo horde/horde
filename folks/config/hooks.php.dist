@@ -35,7 +35,7 @@ class Folks_Hooks
             return count($result);
 
         case 'galleries':
-            return $GLOBALS['registry']->callByPackage('ansel', 'countGalleries', array('ansel', PERMS_SHOW, $user));
+            return $GLOBALS['registry']->callByPackage('ansel', 'countGalleries', array('ansel', Horde_Perms::SHOW, $user));
 
         case 'blogs':
             return $GLOBALS['registry']->callByPackage('thomas', 'countPosts', array(array('user' => $user)));
@@ -125,7 +125,7 @@ class Folks_Hooks
             return $GLOBALS['registry']->callByPackage('genie', 'listUserItems', array($user));
 
         case 'galleries':
-            return $GLOBALS['registry']->callByPackage('ansel', 'listGalleries', array('ansel', PERMS_SHOW, null, true, 0, 3, $user));
+            return $GLOBALS['registry']->callByPackage('ansel', 'listGalleries', array('ansel', Horde_Perms::SHOW, null, true, 0, 3, $user));
 
         case 'blogs':
             return $GLOBALS['registry']->callByPackage('thomas', 'getRecentPosts', array($user, Horde_Auth::getAuth(), '', 3));

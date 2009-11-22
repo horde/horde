@@ -86,7 +86,7 @@ if (is_a($share, 'PEAR_Error')) {
 }
 $share->set('owner', $owner);
 $share->set('name', $title);
-$share->set('perm_default', PERMS_SHOW | PERMS_READ);
+$share->set('perm_default', Horde_Perms::SHOW | Horde_Perms::READ);
 $result = $turba_shares->addShare($share);
 if (is_a($result, 'PEAR_Error')) {
     var_dump($result);

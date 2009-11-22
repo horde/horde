@@ -16,12 +16,12 @@
   </select>
  </p>
 
-<?php if (!$prefs->isLocked('default_tasklist') && count($tasklists = Nag::listTasklists(false, PERMS_EDIT)) > 1): ?>
+<?php if (!$prefs->isLocked('default_tasklist') && count($tasklists = Nag::listTasklists(false, Horde_Perms::EDIT)) > 1): ?>
  <p>
   <?php echo Horde::label('tasklist_target', _("Which tasklist should the tasks be added to?")) ?><br />
   <select id="tasklist_target" name="tasklist_target">
   <?php
-  $default = Nag::getDefaultTasklist(PERMS_EDIT);
+  $default = Nag::getDefaultTasklist(Horde_Perms::EDIT);
   foreach ($tasklists as $id => $tasklist) {
       $sel = ($id == $default) ? ' selected="selected"' : '';
       printf('<option value="%s"%s>%s</option>',
@@ -30,7 +30,7 @@
   </select>
  </p>
 <?php else: ?>
- <input type="hidden" name="tasklist_target" value="<?php echo htmlspecialchars(Nag::getDefaultTasklist(PERMS_EDIT)) ?>" />
+ <input type="hidden" name="tasklist_target" value="<?php echo htmlspecialchars(Nag::getDefaultTasklist(Horde_Perms::EDIT)) ?>" />
 <?php endif; ?>
  <p>
   <?php echo Horde::label('import_file', _("Select the file to import:")) ?><br />

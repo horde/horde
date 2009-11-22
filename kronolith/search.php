@@ -66,7 +66,7 @@ if ($search_mode == 'basic') {
     $optgroup = $GLOBALS['browser']->hasFeature('optgroup');
     $current_user = Horde_Auth::getAuth();
     $calendars = array();
-    foreach (Kronolith::listCalendars(false, PERMS_READ) as $id => $cal) {
+    foreach (Kronolith::listCalendars(false, Horde_Perms::READ) as $id => $cal) {
         if ($cal->get('owner') == $current_user) {
             $calendars[_("My Calendars:")]['|' . $id] = $cal->get('name');
         } else {

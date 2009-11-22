@@ -98,7 +98,7 @@ class Ingo_Application extends Horde_Registry_Application
 
             /* Get a list of all shares this user owns and has perms to delete
              * and remove them. */
-            $shares = $GLOBALS['ingo_shares']->listShares($user, PERMS_DELETE, $user);
+            $shares = $GLOBALS['ingo_shares']->listShares($user, Horde_Perms::DELETE, $user);
             if (is_a($shares, 'PEAR_Error')) {
                 Horde::logMessage($shares, __FILE__, __LINE__, PEAR_LOG_ERR);
                 return $shares;

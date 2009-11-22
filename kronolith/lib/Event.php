@@ -305,9 +305,9 @@ abstract class Kronolith_Event
 
         if ($this->remoteCal) {
             switch ($permission) {
-            case PERMS_SHOW:
-            case PERMS_READ:
-            case PERMS_EDIT:
+            case Horde_Perms::SHOW:
+            case Horde_Perms::READ:
+            case Horde_Perms::EDIT:
                 return true;
 
             default:
@@ -1132,8 +1132,8 @@ abstract class Kronolith_Event
         $json->al = is_null($allDay) ? $this->isAllDay() : $allDay;
         $json->bg = $this->_backgroundColor;
         $json->fg = $this->_foregroundColor;
-        $json->pe = $this->hasPermission(PERMS_EDIT);
-        $json->pd = $this->hasPermission(PERMS_DELETE);
+        $json->pe = $this->hasPermission(Horde_Perms::EDIT);
+        $json->pd = $this->hasPermission(Horde_Perms::DELETE);
         if ($this->alarm) {
             if ($this->alarm % 10080 == 0) {
                 $alarm_value = $this->alarm / 10080;
@@ -1450,7 +1450,7 @@ abstract class Kronolith_Event
         if (!Horde_Auth::isAdmin() && $this->isPrivate() &&
             $this->getCreatorId() != $user) {
             return _("busy");
-        } elseif (Horde_Auth::isAdmin() || $this->hasPermission(PERMS_READ, $user)) {
+        } elseif (Horde_Auth::isAdmin() || $this->hasPermission(Horde_Perms::READ, $user)) {
             return strlen($this->title) ? $this->title : _("[Unnamed event]");
         } else {
             return _("busy");
@@ -2348,7 +2348,7 @@ abstract class Kronolith_Event
 
         $event_title = $this->getTitle();
         $view_url = $this->getViewUrl(array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'), 'url' => $from_url), $full);
-        $read_permission = $this->hasPermission(PERMS_READ);
+        $read_permission = $this->hasPermission(Horde_Perms::READ);
 
         $link = '';
         if (isset($this->external) && !empty($this->external_link)) {
@@ -2416,13 +2416,13 @@ abstract class Kronolith_Event
             $edit = '';
             $delete = '';
             if ((!$this->isPrivate() || $this->getCreatorId() == Horde_Auth::getAuth())
-                && $this->hasPermission(PERMS_EDIT)) {
+                && $this->hasPermission(Horde_Perms::EDIT)) {
                 $editurl = Horde_Util::addParameter($view_url, 'view', 'EditEvent', !$full);
                 $edit = Horde::link($editurl, sprintf(_("Edit %s"), $event_title), 'iconEdit')
                     . Horde::fullSrcImg('edit-' . $icon_color . '.png', array('attr' => 'alt="' . _("Edit") . '"'))
                     . '</a>';
             }
-            if ($this->hasPermission(PERMS_DELETE)) {
+            if ($this->hasPermission(Horde_Perms::DELETE)) {
                 $delurl = Horde_Util::addParameter($view_url, 'view', 'DeleteEvent', !$full);
                 $delete = Horde::link($delurl, sprintf(_("Delete %s"), $event_title), 'iconDelete')
                     . Horde::fullSrcImg('delete-' . $icon_color . '.png', array('attr' => 'alt="' . _("Delete") . '"'))

@@ -103,7 +103,7 @@ class Ansel
      *
      * @return string  The <option> list.
      */
-    static public function selectGalleries($selected = null, $perm = PERMS_SHOW,
+    static public function selectGalleries($selected = null, $perm = Horde_Perms::SHOW,
                              $attributes = null, $parent = null,
                              $allLevels = true, $from = 0, $count = 0,
                              $ignore = null)
@@ -640,7 +640,7 @@ class Ansel
         /* Let authenticated users create new galleries. */
         if (Horde_Auth::isAdmin() ||
             (!$GLOBALS['perms']->exists('ansel') && Horde_Auth::getAuth()) ||
-            $GLOBALS['perms']->hasPermission('ansel', Horde_Auth::getAuth(), PERMS_EDIT)) {
+            $GLOBALS['perms']->hasPermission('ansel', Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             $menu->add(Horde::applicationUrl(Horde_Util::addParameter('gallery.php', 'actionID', 'add')),
                        _("_New Gallery"), 'add.png', null, null, null,
                        (basename($_SERVER['PHP_SELF']) == 'gallery.php' &&

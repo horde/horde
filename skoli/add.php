@@ -15,7 +15,7 @@ require_once SKOLI_BASE . '/lib/base.php';
 require_once SKOLI_BASE . '/lib/Forms/Entry.php';
 
 /* Redirect to create a new class if we don't have access to any class */
-if (count(Skoli::listClasses(false, PERMS_EDIT)) == 0 && Horde_Auth::getAuth()) {
+if (count(Skoli::listClasses(false, Horde_Perms::EDIT)) == 0 && Horde_Auth::getAuth()) {
     $notification->push(_("Please create a new Class first."), 'horde.message');
     header('Location: ' . Horde::applicationUrl('classes/create.php', true));
     exit;

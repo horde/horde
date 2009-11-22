@@ -76,11 +76,11 @@ $url = $contact->url();
 $tabs = new Horde_Ui_Tabs('view', $vars);
 $tabs->addTab(_("_View"), $url,
               array('tabname' => 'Contact', 'id' => 'tabContact', 'onclick' => 'return ShowTab(\'Contact\');'));
-if ($contact->hasPermission(PERMS_EDIT)) {
+if ($contact->hasPermission(Horde_Perms::EDIT)) {
     $tabs->addTab(_("_Edit"), $url,
                   array('tabname' => 'EditContact', 'id' => 'tabEditContact', 'onclick' => 'return ShowTab(\'EditContact\');'));
 }
-if ($contact->hasPermission(PERMS_DELETE)) {
+if ($contact->hasPermission(Horde_Perms::DELETE)) {
     $tabs->addTab(_("De_lete"), $url,
                   array('tabname' => 'DeleteContact', 'id' => 'tabDeleteContact', 'onclick' => 'return ShowTab(\'DeleteContact\');'));
 }

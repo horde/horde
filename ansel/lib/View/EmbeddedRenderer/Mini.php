@@ -57,7 +57,7 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Gallery
 
             // We don't allow age restricted or password locked galleries to be
             // viewed via the mini embedded view since it shows *all* the images
-            if (!$this->gallery->hasPermission(Horde_Auth::getAuth(), PERMS_READ) ||
+            if (!$this->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ) ||
                 !$this->gallery->isOldEnough() ||
                 $this->gallery->hasPasswd()) {
 

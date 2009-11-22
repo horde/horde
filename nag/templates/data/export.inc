@@ -15,7 +15,7 @@
   </select>
  </p>
 
- <?php if (count($tasklists = Nag::listTasklists(false, PERMS_READ)) > 1): ?>
+ <?php if (count($tasklists = Nag::listTasklists(false, Horde_Perms::READ)) > 1): ?>
  <p>
   <?php echo Horde::label('exportList', _("Select the task list(s) to export from:")) ?><br />
   <select id="exportList" name="exportList[]" multiple="multiple">
@@ -25,7 +25,7 @@
   </select>
  </p>
  <?php else: ?>
- <input type="hidden" name="exportList[]" value="<?php echo htmlspecialchars(Nag::getDefaultTasklist(PERMS_READ)) ?>" />
+ <input type="hidden" name="exportList[]" value="<?php echo htmlspecialchars(Nag::getDefaultTasklist(Horde_Perms::READ)) ?>" />
  <?php endif; ?>
 
  <p>

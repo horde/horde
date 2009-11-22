@@ -194,7 +194,7 @@ if (!$error) {
             if (is_a($share, 'PEAR_Error')) {
                 $notification->push(_("You have specified an invalid calendar."), 'horde.error');
                 $next_step = $data->cleanup();
-            } elseif (!$share->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+            } elseif (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
                 $notification->push(_("You do not have permission to add events to the selected calendar."), 'horde.error');
                 $next_step = $data->cleanup();
             } else {

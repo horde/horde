@@ -78,7 +78,7 @@ class Ansel_View_Results extends Ansel_View_Base
                  // the image object to get the gallery.
                  $img = $ansel_storage->getImage($image);
                  $gallery = $ansel_storage->getgallery($img->gallery);
-                 if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE)) {
+                 if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
                      $GLOBALS['notification']->push(
                         sprintf(_("Access denied deleting photos from \"%s\"."), $image),
                                 'horde.error');
@@ -260,7 +260,7 @@ class Ansel_View_Results extends Ansel_View_Base
                                                         'actionID' => 'add'));
 
         $vars = Horde_Variables::getDefaultVariables();
-        $option_move = $option_copy = $ansel_storage->countGalleries(PERMS_EDIT);
+        $option_move = $option_copy = $ansel_storage->countGalleries(Horde_Perms::EDIT);
 
 
         $pagestart = ($page * $perpage) + 1;

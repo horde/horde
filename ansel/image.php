@@ -163,7 +163,7 @@ case 'savecloseimage':
 case 'saveclose':
 case 'save':
     $title = _("Save Photo");
-    if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+    if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied saving photo to \"%s\"."), $gallery->get('name')),
                             'horde.error');
         $imageurl = Ansel::getUrlFor('view', array_merge(
@@ -289,7 +289,7 @@ case 'resizeedit':
                                              'slug' => $gallery->get('slug')),
                                        $date));
 
-    if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+    if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
         $notification->push(_("Access denied editing the photo."),
                             'horde.error');
 
@@ -341,7 +341,7 @@ case 'resizeedit':
     exit;
 
 case 'watermark':
-    if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+    if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied saving photo to \"%s\"."),
                                     $gallery->get('name')),
                             'horde.error');
@@ -383,7 +383,7 @@ case 'mirror':
 case 'grayscale':
 case 'crop':
 case 'resize':
-    if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+    if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
         $notification->push(sprintf(_("Access denied saving photo to \"%s\"."),
                                     $gallery->get('name')),
                             'horde.error');
@@ -555,7 +555,7 @@ case 'delete':
 
     /* Delete the images if we're provided with a valid image ID. */
     if (count($images)) {
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE)) {
+        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
             $notification->push(sprintf(_("Access denied deleting photos from \"%s\"."), $gallery->get('name')), 'horde.error');
         } else {
             foreach ($images as $image) {
@@ -573,7 +573,7 @@ case 'delete':
     }
 
     /* Recalculate the number of pages, since it might have changed */
-    $children = $gallery->countGalleryChildren(PERMS_SHOW);
+    $children = $gallery->countGalleryChildren(Horde_Perms::SHOW);
     $perpage = min($prefs->getValue('tilesperpage'),
                    $conf['thumbnail']['perpage']);
     $pages = ceil($children / $perpage);
@@ -621,7 +621,7 @@ case 'move':
     }
 
     /* Recalculate the number of pages, since it might have changed */
-    $children = $gallery->countGalleryChildren(PERMS_SHOW);
+    $children = $gallery->countGalleryChildren(Horde_Perms::SHOW);
     $perpage = min($prefs->getValue('tilesperpage'),
                    $conf['thumbnail']['perpage']);
     $pages = ceil($children / $perpage);
@@ -684,7 +684,7 @@ case 'downloadzip':
     if ($galleryId) {
         $gallery = $ansel_storage->getGallery($galleryId);
         if (!Horde_Auth::getAuth() || is_a($gallery, 'PEAR_Error') ||
-            !$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_READ) ||
+            !$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ) ||
             $gallery->hasPasswd() || !$gallery->isOldEnough()) {
 
             $name = is_a($gallery, 'PEAR_Error') ? $galleryId : $gallery->get('name');
@@ -714,7 +714,7 @@ case 'downloadzip':
 
 case 'previewcrop':
 
-    if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+    if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
         $notification->push(_("Access denied editing the photo."), 'horde.error');
         $imageurl = Ansel::getUrlFor(
             'view', array('gallery' => $gallery_id,
@@ -746,7 +746,7 @@ case 'previewcrop':
     exit;
 
 case 'imagecrop':
-        if ($gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+        if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             $params = Horde_Util::getFormData('params');
             list($x1, $y1, $x2, $y2) = explode('.', $params);
             $image = &$ansel_storage->getImage($image_id);

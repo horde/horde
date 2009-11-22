@@ -35,7 +35,7 @@ class Turba_View_Contact {
     {
         global $conf, $prefs, $registry;
 
-        if (!$this->contact || is_a($this->contact, 'PEAR_Error') || !$this->contact->hasPermission(PERMS_READ)) {
+        if (!$this->contact || is_a($this->contact, 'PEAR_Error') || !$this->contact->hasPermission(Horde_Perms::READ)) {
             echo '<h3>' . _("The requested contact was not found.") . '</h3>';
             return;
         }
@@ -98,11 +98,11 @@ class Turba_View_Contact {
         echo '</div>';
 
         if ($active && $GLOBALS['browser']->hasFeature('dom')) {
-            if ($this->contact->hasPermission(PERMS_EDIT)) {
+            if ($this->contact->hasPermission(Horde_Perms::EDIT)) {
                 $edit = new Turba_View_EditContact($this->contact);
                 $edit->html(false);
             }
-            if ($this->contact->hasPermission(PERMS_DELETE)) {
+            if ($this->contact->hasPermission(Horde_Perms::DELETE)) {
                 $delete = new Turba_View_DeleteContact($this->contact);
                 $delete->html(false);
             }

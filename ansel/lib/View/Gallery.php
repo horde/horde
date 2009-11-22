@@ -127,7 +127,7 @@ class Ansel_View_Gallery extends Ansel_View_Base
             exit;
         }
 
-        if (!$this->gallery->hasPermission(Horde_Auth::getAuth(), PERMS_READ)) {
+        if (!$this->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
             throw new Horde_Exception('Access denied viewing this gallery.');
         }
 

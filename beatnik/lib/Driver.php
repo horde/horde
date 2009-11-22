@@ -58,7 +58,7 @@ class Beatnik_Driver {
      *
      * @return array  Possibly empty array of domain information
      */
-    function getDomains($perms = PERMS_SHOW)
+    function getDomains($perms = Horde_Perms::SHOW)
     {
         $domains = $this->_getDomains();
         if (is_a($domains, 'PEAR_Error')) {
@@ -98,7 +98,7 @@ class Beatnik_Driver {
      */
     function getDomain($domainname)
     {
-        $domains = $this->getDomains(PERMS_SHOW | PERMS_READ);
+        $domains = $this->getDomains(Horde_Perms::SHOW | Horde_Perms::READ);
 
         foreach ($domains as $domain) {
             if ($domain['zonename'] == $domainname) {
@@ -203,7 +203,7 @@ class Beatnik_Driver {
         // Check to see if this is a new domain
         if ($info['rectype'] == 'soa' && $info['zonename'] != $_SESSION['beatnik']['curdomain']['zonename']) {
             // Make sure the user has permissions to add domains
-            if (!Beatnik::hasPermission('beatnik:domains', PERMS_EDIT)) {
+            if (!Beatnik::hasPermission('beatnik:domains', Horde_Perms::EDIT)) {
                 return PEAR::raiseError(_('You do not have permission to create new domains.'));
             }
 
@@ -216,12 +216,12 @@ class Beatnik_Driver {
             // Check for permissions to edit the record in question
             if ($info['rectype'] == 'soa') {
                 $node = 'beatnik:domains:' . $info['zonename'];
-                if (!Beatnik::hasPermission($node, PERMS_EDIT, 1)) {
+                if (!Beatnik::hasPermission($node, Horde_Perms::EDIT, 1)) {
                     return PEAR::raiseError(_('You do not have permssion to edit the SOA of this zone.'));
                 }
             } else {
                 $node = 'beatnik:domains:' . $_SESSION['beatnik']['curdomain']['zonename'] . ':' . $info['id'];
-                if (!Beatnik::hasPermission($node, PERMS_EDIT, 2)) {
+                if (!Beatnik::hasPermission($node, Horde_Perms::EDIT, 2)) {
                     return PEAR::raiseError(_('You do not have permssion to edit this record.'));
                 }
             }

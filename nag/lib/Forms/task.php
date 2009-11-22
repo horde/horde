@@ -26,7 +26,7 @@ class Nag_TaskForm extends Horde_Form {
         parent::Horde_Form($vars, $title);
         $this->delete = $delete;
 
-        $tasklists = Nag::listTasklists(false, PERMS_EDIT);
+        $tasklists = Nag::listTasklists(false, Horde_Perms::EDIT);
         $tasklist_enums = array();
         foreach ($tasklists as $tl_id => $tl) {
             $tasklist_enums[$tl_id] = $tl->get('name');
@@ -49,8 +49,8 @@ class Nag_TaskForm extends Horde_Form {
         $users = array();
         $share = &$GLOBALS['nag_shares']->getShare($tasklist);
         if (!is_a($share, 'PEAR_Error')) {
-            $users = $share->listUsers(PERMS_READ);
-            $groups = $share->listGroups(PERMS_READ);
+            $users = $share->listUsers(Horde_Perms::READ);
+            $groups = $share->listGroups(Horde_Perms::READ);
             if (count($groups)) {
                 require_once 'Horde/Group.php';
                 $horde_group = &Group::singleton();

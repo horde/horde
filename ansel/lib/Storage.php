@@ -184,10 +184,10 @@ class Ansel_Storage
             /* Default permissions for logged in users */
             switch ($GLOBALS['prefs']->getValue('default_permissions')) {
             case 'read':
-                $perms = PERMS_SHOW | PERMS_READ;
+                $perms = Horde_Perms::SHOW | Horde_Perms::READ;
                 break;
             case 'edit':
-                $perms = PERMS_SHOW | PERMS_READ | PERMS_EDIT;
+                $perms = Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::EDIT;
                 break;
             case 'none':
                 $perms = 0;
@@ -198,7 +198,7 @@ class Ansel_Storage
             /* Default guest permissions */
             switch ($GLOBALS['prefs']->getValue('guest_permissions')) {
             case 'read':
-                $perms = PERMS_SHOW | PERMS_READ;
+                $perms = Horde_Perms::SHOW | Horde_Perms::READ;
                 break;
             case 'none':
             default:
@@ -210,13 +210,13 @@ class Ansel_Storage
             /* Default user groups permissions */
             switch ($GLOBALS['prefs']->getValue('group_permissions')) {
             case 'read':
-                $perms = PERMS_SHOW | PERMS_READ;
+                $perms = Horde_Perms::SHOW | Horde_Perms::READ;
                 break;
             case 'edit':
-                $perms = PERMS_SHOW | PERMS_READ | PERMS_EDIT;
+                $perms = Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::EDIT;
                 break;
             case 'delete':
-                $perms = PERMS_SHOW | PERMS_READ | PERMS_EDIT | PERMS_DELETE;
+                $perms = Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::EDIT | Horde_Perms::DELETE;
                 break;
             case 'none':
             default:
@@ -452,7 +452,7 @@ class Ansel_Storage
 
         /* See if we need to clear the has_subgalleries field */
         if ($parent instanceof Ansel_Gallery) {
-            if (!$parent->countChildren(PERMS_SHOW, false)) {
+            if (!$parent->countChildren(Horde_Perms::SHOW, false)) {
                 $parent->set('has_subgalleries', 0, true);
                 if ($GLOBALS['conf']['ansel_cache']['usecache']) {
                     $GLOBALS['cache']->expire('Ansel_Gallery' . $parent->id);
@@ -599,7 +599,7 @@ class Ansel_Storage
      *
      * @param array $galleries  An array of gallery ids to search in. If
      *                          left empty, will search all galleries
-     *                          with PERMS_SHOW.
+     *                          with Horde_Perms::SHOW.
      * @param integer $limit    The maximum number of images to return
      * @param string $slugs     An array of gallery slugs.
      * @param string $where     Additional where clause
@@ -697,7 +697,7 @@ class Ansel_Storage
     * @return array  List of categories
     * @throws Horde_Exception
     */
-    public function listCategories($perm = PERMS_SHOW, $from = 0, $count = 0)
+    public function listCategories($perm = Horde_Perms::SHOW, $from = 0, $count = 0)
     {
         $sql = 'SELECT DISTINCT attribute_category FROM '
                . $this->_shares->_table;
@@ -729,7 +729,7 @@ class Ansel_Storage
      *
      * @return int  The count of categories
      */
-    public function countCategories($perms = PERMS_SHOW)
+    public function countCategories($perms = Horde_Perms::SHOW)
     {
         return count($this->listCategories($perms));
     }
@@ -752,7 +752,7 @@ class Ansel_Storage
     * @return int  The count
     * @throws Horde_Exception
     */
-    public function countGalleries($userid, $perm = PERMS_SHOW, $attributes = null,
+    public function countGalleries($userid, $perm = Horde_Perms::SHOW, $attributes = null,
                             $parent = null, $allLevels = true)
     {
         static $counts;
@@ -804,7 +804,7 @@ class Ansel_Storage
     * @return array of Ansel_Gallery objects
     * @throws Horde_Exception
     */
-    public function listGalleries($perm = PERMS_SHOW,
+    public function listGalleries($perm = Horde_Perms::SHOW,
                            $attributes = null,
                            $parent = null,
                            $allLevels = true,
@@ -860,7 +860,7 @@ class Ansel_Storage
             // image will not be incldued in the output.
             if (!isset($galleries[$gallery_id]['perm'])) {
                 $galleries[$gallery_id]['perm'] =
-                    ($galleries[$gallery_id]['gallery']->hasPermission(Horde_Auth::getAuth(), PERMS_READ) &&
+                    ($galleries[$gallery_id]['gallery']->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ) &&
                      $galleries[$gallery_id]['gallery']->isOldEnough() &&
                      !$galleries[$gallery_id]['gallery']->hasPasswd());
             }
@@ -904,7 +904,7 @@ class Ansel_Storage
      *
      * @see Ansel_Storage::listGalleries()
      */
-    public function getRandomGallery($perm = PERMS_SHOW, $attributes = null,
+    public function getRandomGallery($perm = Horde_Perms::SHOW, $attributes = null,
                               $parent = null, $allLevels = true)
     {
         $num_galleries = $this->countGalleries(Horde_Auth::getAuth(), $perm,
@@ -1026,7 +1026,7 @@ class Ansel_Storage
      */
     public function getRecentImagesGeodata($user = null, $start = 0, $count = 8)
     {
-        $galleries = $this->listGalleries('PERMS_EDIT', $user);
+        $galleries = $this->listGalleries('Horde_Perms::EDIT', $user);
         $where = 'gallery_id IN(' . implode(',', array_keys($galleries)) . ') AND LENGTH(image_latitude) > 0 GROUP BY image_latitude, image_longitude';
         return $this->listImages(0, $start, $count, array('image_id as id', 'image_id', 'gallery_id', 'image_latitude', 'image_longitude', 'image_location'), $where, 'image_geotag_date DESC');
     }

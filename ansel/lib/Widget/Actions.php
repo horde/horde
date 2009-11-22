@@ -61,7 +61,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
             }
             $html .= '<li>' . Horde::link($slideshow_url, '', 'widget') . Horde::img('slideshow_play.png', _("Start Slideshow")) . ' ' . _("Start Slideshow") . '</a></li>';
         }
-        if (!empty($uploadurl) && $this->_view->gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+        if (!empty($uploadurl) && $this->_view->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             $html .= '<li>' . Horde::link($uploadurl, '', 'widget') . Horde::img('image_add.png') . ' ' . _("Upload photos") . '</a></li>';
 
             /* Subgalleries */
@@ -146,7 +146,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
         }
 
         /* Image upload, subgalleries, captions etc... */
-        if ($this->_view->gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+        if ($this->_view->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             /* Properties */
             $html .= '<li>' . Horde::link(Horde_Util::addParameter($galleryurl, array('actionID' => 'modify', 'url' => $selfurl)), '', 'widget') . Horde::img('edit.png', '', '', $GLOBALS['registry']->getImageDir('horde')) . ' ' . _("Change properties") . '</a></li>';
             if ($count) {
@@ -191,7 +191,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
             $html .= '<li>' . Horde::link($reporturl, '', 'widget') . ' ' . _("Report") . "</a></li>\n";
         }
 
-        if ($this->_view->gallery->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE)) {
+        if ($this->_view->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
             $html .= '<li>' . Horde::link(Horde_Util::addParameter($galleryurl, 'actionID', 'empty'), '', 'widget') . Horde::img('delete.png', '', '', $GLOBALS['registry']->getImageDir('horde')) . ' ' . _("Delete All Photos") . '</a></li>';
             $html .= '<li>' . Horde::link(Horde_Util::addParameter($galleryurl, 'actionID', 'delete'), '', 'widget') . Horde::img('delete.png', '', '', $GLOBALS['registry']->getImageDir('horde')) . ' ' . _("Delete Entire Gallery") . '</a></li>';
         }

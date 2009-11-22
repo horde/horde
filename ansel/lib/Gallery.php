@@ -93,7 +93,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
             return Horde_Auth::isAuthenticated();
 
         case 'edit':
-            return $this->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT);
+            return $this->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
 
         case 'hook':
             return Horde::callHook('_ansel_hook_can_download', array($this->id));
@@ -316,7 +316,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
      */
     public function copyImagesTo($images, $gallery)
     {
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             throw new Horde_Exception(sprintf(_("Access denied copying photos to \"%s\"."), $gallery->get('name')));
         }
 
@@ -448,7 +448,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
      * @return A mixed array of Ansel_Gallery and Ansel_Image objects that are
      *         children of this gallery.
      */
-    public function getGalleryChildren($perm = PERMS_SHOW, $from = 0, $to = 0, $noauto = true)
+    public function getGalleryChildren($perm = Horde_Perms::SHOW, $from = 0, $to = 0, $noauto = true)
     {
         return $this->_modeHelper->getGalleryChildren($perm, $from, $to, $noauto);
     }
@@ -462,7 +462,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
      *
      * @return integer The count of this gallery's children.
      */
-    public function countGalleryChildren($perm = PERMS_SHOW, $galleries_only = false, $noauto = true)
+    public function countGalleryChildren($perm = Horde_Perms::SHOW, $galleries_only = false, $noauto = true)
     {
         return $this->_modeHelper->countGalleryChildren($perm, $galleries_only, $noauto);
     }
@@ -637,7 +637,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
             if ($this->hasSubGalleries()) {
                 // Fall through to a default image of a sub gallery.
                 try {
-                    $galleries = $GLOBALS['ansel_storage']->listGalleries(PERMS_SHOW, null, $this, false);
+                    $galleries = $GLOBALS['ansel_storage']->listGalleries(Horde_Perms::SHOW, null, $this, false);
                 } catch (Horde_Exception $e) {
                     return false;
                 }
@@ -661,7 +661,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
      * @throws Horde_Exception
      */
     public function getTags() {
-        if ($this->hasPermission(Horde_Auth::getAuth(), PERMS_READ)) {
+        if ($this->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
             return Ansel_Tags::readTags($this->id, 'gallery');
         } else {
             throw new Horde_Exception(_("Access denied viewing this gallery."));
@@ -678,7 +678,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
      */
     public function setTags($tags)
     {
-        if ($this->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+        if ($this->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             return Ansel_Tags::writeTags($this->id, $tags, 'gallery');
         } else {
             throw new Horde_Exception(_("Access denied adding tags to this gallery."));
@@ -725,7 +725,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
      * Checks to see if a user has a given permission.
      *
      * @param string $userid       The userid of the user.
-     * @param integer $permission  A PERMS_* constant to test for.
+     * @param integer $permission  A Horde_Perms::* constant to test for.
      * @param string $creator      The creator of the event.
      *
      * @return boolean  Whether or not $userid has $permission.
@@ -815,7 +815,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
         $old = $this->getParent();
         $reset_has_subgalleries = false;
         if (!is_null($old)) {
-            $cnt = $old->countGalleryChildren(PERMS_READ, true);
+            $cnt = $old->countGalleryChildren(Horde_Perms::READ, true);
             if ($cnt == 1) {
                 /* Count is 1, and we are about to delete it */
                 $reset_has_subgalleries = true;

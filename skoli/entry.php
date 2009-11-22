@@ -31,7 +31,7 @@ if (is_a($entry, 'PEAR_Error') || !count($entry)) {
 $share = $GLOBALS['skoli_shares']->getShare($entry['class_id']);
 
 // Check permissions
-if (!$share->hasPermission(Horde_Auth::getAuth(), PERMS_READ)) {
+if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
     $notification->push(_("You are not allowed to view this entry."), 'horde.error');
     header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('search.php', true), 'actionID', 'search'));
     exit;
@@ -86,10 +86,10 @@ if ($actionID == 'delete') {
 $url = Horde_Util::addParameter(Horde::applicationUrl('entry.php'), 'entry', $entry['object_id']);
 $tabs = new Horde_Ui_Tabs('view', $vars);
 $tabs->addTab(_("View"), $url, array('tabname' => 'Entry', 'id' => 'tabEntry'));
-if ($share->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+if ($share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
     $tabs->addTab(_("Edit"), $url, array('tabname' => 'EditEntry', 'id' => 'tabEditEntry'));
 }
-if ($share->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE)) {
+if ($share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
     $tabs->addTab(_("Delete"), $url, array('tabname' => 'DeleteEntry', 'id' => 'tabDeleteEntry'));
 }
 

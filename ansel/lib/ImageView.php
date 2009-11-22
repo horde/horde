@@ -110,7 +110,7 @@ class Ansel_ImageView {
     function _getGalleryWithImages($parent)
     {
        $galleries = $GLOBALS['ansel_storage']->listGalleries(
-                                                    PERMS_SHOW,
+                                                    Horde_Perms::SHOW,
                                                     null,
                                                     $parent,
                                                     false);

@@ -85,7 +85,7 @@ $_SESSION['turba']['source'] = $default_source;
 
 // Only set $add_source_options if there is at least one editable address book
 // that is not the current address book.
-$addSources = Turba::getAddressBooks(PERMS_EDIT, array('require_add' => true));
+$addSources = Turba::getAddressBooks(Horde_Perms::EDIT, array('require_add' => true));
 $copymove_source_options = '';
 $copymoveSources = $addSources;
 unset($copymoveSources[$default_source]);

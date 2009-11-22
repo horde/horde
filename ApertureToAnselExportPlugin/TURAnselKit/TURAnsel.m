@@ -4,7 +4,7 @@
  * Main class for interacting with a remote Ansel server.
  *
  * Copyright 2009 The Horde Project (http://www.horde.org)
- * 
+ *
  * @license http://opensource.org/licenses/bsd-license.php
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  */
@@ -27,9 +27,9 @@
 {
     [super init];
     galleryList = [[NSMutableArray alloc] init];
-    
+
     // Initialize the connection properties, KVC style
-    [self setValue:[params objectForKey:@"endpoint"] 
+    [self setValue:[params objectForKey:@"endpoint"]
             forKey: @"rpcEndPoint"];
     [self setValue: [params objectForKey:@"username"]
             forKey: @"username"];
@@ -37,12 +37,12 @@
             forKey: @"password"];
     [self setValue: @"The Ansel Cocoa XML-RPC Client"
             forKey: @"userAgent"];
-    
+
     return self;
 }
 -(void) dealloc
 {
-    NSLog(@"TURAnsel dealloc");   
+    NSLog(@"TURAnsel dealloc");
     [galleryList removeAllObjects];
     [galleryList release];
     [rpcEndPoint release];
@@ -54,7 +54,7 @@
 
 #pragma mark -
 #pragma mark Actions
-- (void)connect 
+- (void)connect
 {
     [self doLogin];
 }
@@ -72,37 +72,37 @@
  */
 - (NSDictionary *)createNewGallery: (NSDictionary *)params
 {
-    NSArray *apiparams = [NSArray arrayWithObjects: @"ansel", params, nil]; 
+    NSArray *apiparams = [NSArray arrayWithObjects: @"ansel", params, nil];
     NSArray *order = [NSArray arrayWithObjects: kTURAnselAPIParamScope, kTURAnselAPIParamGaleryParams, nil];
-    
+
     NSDictionary *response = [self callRPCMethod: @"images.createGallery"
                                       withParams: apiparams
                                        withOrder: order];
-    
+
     if (response) {
-        NSNumber *gallery_id = [response objectForKey: (NSString *)kWSMethodInvocationResult];    
+        NSNumber *gallery_id = [response objectForKey: (NSString *)kWSMethodInvocationResult];
         NSDictionary *results = [NSDictionary dictionaryWithObjectsAndKeys:
                                  gallery_id, kTURAnselGalleryKeyId,
                                  [params valueForKey: @"name"], kTURAnselGalleryKeyName,
                                  @"", kTURAnselGalleryKeyDescription,
                                  [NSNumber numberWithInt: 0], kTURAnselGalleryKeyImages,
                                  [NSNumber numberWithInt: 0], kTURAnselGalleryKeyDefaultImage, nil];
-        
+
         TURAnselGallery *newGallery = [[TURAnselGallery alloc] initWithObject: results
                                                                    controller: self];
         [galleryList addObject: newGallery];
         [newGallery release];
-        
+
         return results;
     }
-    
+
     return nil;
 }
 
 
 /**
- * Entry point for calling RPC methods on the Horde server. 
- * 
+ * Entry point for calling RPC methods on the Horde server.
+ *
  * @param NSString methodName  The method to call (e.g. images.listGalleries)
  * @param NSArray  params      All the method's parameters
  * @param NSArray  order       Keys for the params array, needed because of how
@@ -118,15 +118,15 @@
                       withOrder: (NSArray *) order
 {
     NSLog(@"Initiating connection for %@", methodName);
-    
+
     // Get a URL object
     NSURL *url = [NSURL URLWithString: [self valueForKey: @"rpcEndPoint"]];
     NSDictionary *values = [NSDictionary dictionaryWithObjects: params forKeys:order];
-    
+
     // Credentials
     NSString *user = [self valueForKey:@"username"];
     NSString *pass = [self valueForKey:@"password"];
-    
+
     if (user != nil && [user length] && pass != nil && [pass length]) {
         // Create a custom http request with authorization
         CFHTTPMessageRef request = CFHTTPMessageCreateRequest(kCFAllocatorDefault,
@@ -140,26 +140,26 @@
                                                          (CFStringRef)pass,
                                                          kCFHTTPAuthenticationSchemeBasic,
                                                          false);
-        
+
         NSLog(@"Results adding credentials to request: %d", success);
         if (!success) {
             NSLog(@"Unable to authenticate");
-            
+
             if ([[self delegate] respondsToSelector: @selector(TURAnselHadError:)]) {
                 NSError *error = [NSError errorWithDomain:@"TURAnsel"
                                                      code: 1
                                                  userInfo:[NSDictionary dictionaryWithObjectsAndKeys: @"Authentication failure.", @"message", nil]];
-                
+
                 [[self delegate] TURAnselHadError: error];
             }
-            
+
             return nil;
-            
+
         } else {
             // Build a new invocation
             [self setState:TURAnselStateWaiting];
             WSMethodInvocationRef rpcCall;
-            rpcCall = WSMethodInvocationCreate((CFURLRef)url, (CFStringRef)methodName, kWSXMLRPCProtocol); 
+            rpcCall = WSMethodInvocationCreate((CFURLRef)url, (CFStringRef)methodName, kWSXMLRPCProtocol);
             WSMethodInvocationSetParameters(rpcCall, (CFDictionaryRef)values, (CFArrayRef)order);
             WSMethodInvocationSetProperty(rpcCall, kWSHTTPMessage, request);
             NSDictionary *result = (NSDictionary *)WSMethodInvocationInvoke(rpcCall);
@@ -183,9 +183,9 @@
                         error = [NSError errorWithDomain: @"TURAnsel"
                                                     code: [faultCode intValue]
                                                 userInfo: [NSDictionary dictionaryWithObjectsAndKeys: [NSString stringWithFormat: @"There was an error contacting the Ansel server: %@, %@", resStatusLine, faultString], @"NSLocalizedDescriptionKey", nil]];
-                        
-                        
-                    } 
+
+
+                    }
                     [resStatusLine release];
                 } else {
                     // No response
@@ -197,25 +197,25 @@
                                             userInfo: [NSDictionary dictionaryWithObjectsAndKeys: [NSString stringWithFormat: @"There was an error contacting the Ansel server: %@", faultString], @"NSLocalizedDescriptionKey", nil]];
 
                 }
-                
+
                 if ([[self delegate] respondsToSelector: @selector(TURAnselHadError:)]) {
                     [[self delegate] TURAnselHadError: error];
                 }
                 [result autorelease];
                 return nil;
-                
+
             }
             CFHTTPMessageRef response = (CFHTTPMessageRef)[result objectForKey:(id)kWSHTTPResponseMessage];
             int resStatusCode = CFHTTPMessageGetResponseStatusCode(response);
             NSLog(@"ResponseCode: %d", resStatusCode);
             [self setState:TURAnselStateConnected];
             return [result autorelease];
-        }       
+        }
     }
-    
+
     NSLog(@"No authentication information present.");
     return nil;
-    
+
 }
 
 #pragma mark -
@@ -228,7 +228,7 @@
             return g;
         }
     }
-    
+
     return nil;
 }
 
@@ -268,7 +268,7 @@
 }
 
 - (id)delegate {
-    return delegate;    
+    return delegate;
 }
 
 - (void)setDelegate:(id)newDelegate {
@@ -285,23 +285,23 @@
 - (void)doLogin
 {
     NSArray *params = [[NSArray alloc] initWithObjects:
-                       @"ansel",                                 // Scope 
+                       @"ansel",                                 // Scope
                        [NSNumber numberWithInt: PERMS_EDIT],     // Perms
                        @"",                                      // No parent
                        [NSNumber numberWithBool:YES],            // allLevels
                        [NSNumber numberWithInt: 0],              // Offset
                        [NSNumber numberWithInt: 0],              // Count
                        [self valueForKey:@"username"], nil];     // Restrict to user (This should be an option eventually).
-    
+
     NSArray *order = [NSArray arrayWithObjects: kTURAnselAPIParamScope, kTURAnselAPIParamPerms,
                                                 kTURAnselAPIParamParent, kTURAnselAPIParamAllLevels,
                                                 kTURAnselAPIParamOffset, kTURAnselAPIParamCount,
                                                 kTURAnselAPIParamUserOnly, nil];
-    
+
     NSDictionary *results = [self callRPCMethod: @"images.listGalleries"
                                      withParams: params
                                       withOrder: order];
-    
+
     if (results) {
         NSDictionary *galleries = [results objectForKey: (id)kWSMethodInvocationResult];
         for (NSString *gal in galleries) {
@@ -312,15 +312,15 @@
             [theGallery release];
             theGallery = nil;
         }
-        
+
         if ([delegate respondsToSelector:@selector(TURAnselDidInitialize)]) {
             [delegate performSelectorOnMainThread:@selector(TURAnselDidInitialize)
                                        withObject:self
                                     waitUntilDone: NO];
         }
-        
+
     }
-    
+
     [params release];
 }
 @end

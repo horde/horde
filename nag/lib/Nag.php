@@ -245,7 +245,7 @@ class Nag
             return $count;
         }
 
-        $tasklists = Nag::listTasklists(true, PERMS_ALL);
+        $tasklists = Nag::listTasklists(true, Horde_Perms::ALL);
 
         $count = 0;
         foreach (array_keys($tasklists) as $tasklist) {
@@ -273,9 +273,9 @@ class Nag
     public static function createTasksFromText($text, $tasklist = null)
     {
         if ($tasklist === null) {
-            $tasklist = Nag::getDefaultTasklist(PERMS_EDIT);
+            $tasklist = Nag::getDefaultTasklist(Horde_Perms::EDIT);
         }
-        if (!array_key_exists($tasklist, Nag::listTasklists(false, PERMS_EDIT))) {
+        if (!array_key_exists($tasklist, Nag::listTasklists(false, Horde_Perms::EDIT))) {
             return PEAR::raiseError(_("Permission Denied"));
         }
 
@@ -362,7 +362,7 @@ class Nag
      *
      * @return array  The task lists.
      */
-    function listTasklists($owneronly = false, $permission = PERMS_SHOW)
+    function listTasklists($owneronly = false, $permission = Horde_Perms::SHOW)
     {
         $tasklists = $GLOBALS['nag_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null, 0, 0, 'name');
         if (is_a($tasklists, 'PEAR_Error')) {
@@ -378,11 +378,12 @@ class Nag
      *
      * @param array $in            The data we want filtered.
      * @param string $filter       What type of data we are filtering.
-     * @param integer $permission  The PERMS_* constant we will filter on.
+     * @param integer $permission  The Horde_Perms::* constant we will filter
+     *                             on.
      *
      * @return array  The filtered data.
      */
-    function permissionsFilter($in, $permission = PERMS_READ)
+    function permissionsFilter($in, $permission = Horde_Perms::READ)
     {
         // FIXME: Must find a way to check individual tasklists for
         // permission.  Can't specify attributes as it does not check for the
@@ -405,7 +406,7 @@ class Nag
      * Returns the default tasklist for the current user at the specified
      * permissions level.
      */
-    function getDefaultTasklist($permission = PERMS_SHOW)
+    function getDefaultTasklist($permission = Horde_Perms::SHOW)
     {
         global $prefs;
 
@@ -655,7 +656,7 @@ class Nag
                 $GLOBALS['display_tasklists'] = array_keys($lists);
             } else {
                 /* Make sure at least the default tasklist is visible. */
-                $default_tasklist = Nag::getDefaultTasklist(PERMS_READ);
+                $default_tasklist = Nag::getDefaultTasklist(Horde_Perms::READ);
                 if ($default_tasklist) {
                     $GLOBALS['display_tasklists'] = array($default_tasklist);
                 }
@@ -692,7 +693,7 @@ class Nag
 
         $menu = new Horde_Menu();
         $menu->add(Horde::applicationUrl('list.php'), _("_List Tasks"), 'nag.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-        if (Nag::getDefaultTasklist(PERMS_EDIT) &&
+        if (Nag::getDefaultTasklist(Horde_Perms::EDIT) &&
             (!empty($conf['hooks']['permsdenied']) ||
              Nag::hasPermission('max_tasks') === true ||
              Nag::hasPermission('max_tasks') > Nag::countTasks())) {
@@ -788,12 +789,12 @@ class Nag
         $owner = $share->get('owner');
         $recipients[$owner] = Nag::_notificationPref($owner, 'owner');
 
-        foreach ($share->listUsers(PERMS_READ) as $user) {
+        foreach ($share->listUsers(Horde_Perms::READ) as $user) {
             if (empty($recipients[$user])) {
                 $recipients[$user] = Nag::_notificationPref($user, 'read', $task->tasklist);
             }
         }
-        foreach ($share->listGroups(PERMS_READ) as $group) {
+        foreach ($share->listGroups(Horde_Perms::READ) as $group) {
             $group = $groups->getGroupById($group);
             if (is_a($group, 'PEAR_Error')) {
                 continue;

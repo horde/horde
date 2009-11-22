@@ -73,7 +73,7 @@ class Kronolith_Api extends Horde_Registry_Api
         if (empty($path)) {
             // This request is for a list of all users who have calendars
             // visible to the requesting user.
-            $calendars = Kronolith::listCalendars(false, PERMS_READ);
+            $calendars = Kronolith::listCalendars(false, Horde_Perms::READ);
             $owners = array();
             foreach ($calendars as $calendar) {
                 $owners[$calendar->get('owner')] = true;
@@ -125,7 +125,7 @@ class Kronolith_Api extends Horde_Registry_Api
         } elseif (count($parts) == 1) {
             // This request is for all calendars owned by the requested user
             $calendars = $GLOBALS['kronolith_shares']->listShares(Horde_Auth::getAuth(),
-                                                                  PERMS_SHOW,
+                                                                  Horde_Perms::SHOW,
                                                                   $parts[0]);
             $results = array();
             foreach ($calendars as $calendarId => $calendar) {
@@ -143,7 +143,7 @@ class Kronolith_Api extends Horde_Registry_Api
                     $results[$retpath . '.ics']['icon'] = $registry->getImageDir() . '/mime/icalendar.png';
                 }
                 if (in_array('browseable', $properties)) {
-                    $results[$retpath]['browseable'] = $calendar->hasPermission(Horde_Auth::getAuth(), PERMS_READ);
+                    $results[$retpath]['browseable'] = $calendar->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ);
                     $results[$retpath . '.ics']['browseable'] = false;
                 }
                 if (in_array('contenttype', $properties)) {
@@ -172,7 +172,7 @@ class Kronolith_Api extends Horde_Registry_Api
             return $results;
 
         } elseif (count($parts) == 2 &&
-                  array_key_exists($parts[1], Kronolith::listCalendars(false, PERMS_READ))) {
+                  array_key_exists($parts[1], Kronolith::listCalendars(false, Horde_Perms::READ))) {
             // This request is browsing into a specific calendar.  Generate
             // the list of items and represent them as files within the
             // directory.
@@ -222,7 +222,7 @@ class Kronolith_Api extends Horde_Registry_Api
             // The only valid request left is for either a specific event or
             // for the entire calendar.
             if (count($parts) == 3 &&
-                array_key_exists($parts[1], Kronolith::listCalendars(false, PERMS_READ))) {
+                array_key_exists($parts[1], Kronolith::listCalendars(false, Horde_Perms::READ))) {
                 // This request is for a specific item within a given calendar.
                 $event = Kronolith::getDriver(null, $parts[1])->getEvent($parts[2]);
                 if (is_a($event, 'PEAR_Error')) {
@@ -239,7 +239,7 @@ class Kronolith_Api extends Horde_Registry_Api
                 return $result;
             } elseif (count($parts) == 2 &&
                       substr($parts[1], -4, 4) == '.ics' &&
-                      array_key_exists(substr($parts[1], 0, -4), Kronolith::listCalendars(false, PERMS_READ))) {
+                      array_key_exists(substr($parts[1], 0, -4), Kronolith::listCalendars(false, Horde_Perms::READ))) {
                 // This request is for an entire calendar (calendar.ics).
                 $ical_data = $this->exportCalendar(substr($parts[1], 0, -4), 'text/calendar');
                 $result = array('data'          => $ical_data,
@@ -293,7 +293,7 @@ class Kronolith_Api extends Horde_Registry_Api
             return PEAR::raiseError("Invalid calendar data supplied.");
         }
 
-        if (!array_key_exists($calendar, Kronolith::listCalendars(false, PERMS_EDIT))) {
+        if (!array_key_exists($calendar, Kronolith::listCalendars(false, Horde_Perms::EDIT))) {
             // FIXME: Should we attempt to create a calendar based on the
             // filename in the case that the requested calendar does not
             // exist?
@@ -378,7 +378,7 @@ class Kronolith_Api extends Horde_Registry_Api
             return PEAR::raiseError(sprintf(_("Unsupported Content-Type: %s"), $content_type));
         }
 
-        if (array_key_exists($calendar, Kronolith::listCalendars(false, PERMS_DELETE))) {
+        if (array_key_exists($calendar, Kronolith::listCalendars(false, Horde_Perms::DELETE))) {
             foreach (array_keys($uids_remove) as $uid) {
                 $this->delete($uid);
             }
@@ -412,7 +412,7 @@ class Kronolith_Api extends Horde_Registry_Api
         }
 
         if (!(count($parts) == 2 || count($parts) == 3) ||
-            !array_key_exists($calendarId, Kronolith::listCalendars(false, PERMS_DELETE))) {
+            !array_key_exists($calendarId, Kronolith::listCalendars(false, Horde_Perms::DELETE))) {
                 return PEAR::raiseError("Calendar does not exist or no permission to delete");
             }
 
@@ -450,7 +450,7 @@ class Kronolith_Api extends Horde_Registry_Api
         $no_maint = true;
         require_once dirname(__FILE__) . '/base.php';
         if (is_null($permission)) {
-            $permission = PERMS_SHOW;
+            $permission = Horde_Perms::SHOW;
         }
         return array_keys(Kronolith::listCalendars($owneronly, $permission));
     }
@@ -473,7 +473,7 @@ class Kronolith_Api extends Horde_Registry_Api
             $calendar = Kronolith::getDefaultCalendar();
         }
         if (!array_key_exists($calendar,
-            Kronolith::listCalendars(false, PERMS_READ))) {
+            Kronolith::listCalendars(false, Horde_Perms::READ))) {
             return PEAR::raiseError(_("Permission Denied"));
         }
 
@@ -517,7 +517,7 @@ class Kronolith_Api extends Horde_Registry_Api
         }
 
         if (!array_key_exists($calendar,
-            Kronolith::listCalendars(false, PERMS_READ))) {
+            Kronolith::listCalendars(false, Horde_Perms::READ))) {
             return PEAR::raiseError(_("Permission Denied"));
         }
 
@@ -550,7 +550,7 @@ class Kronolith_Api extends Horde_Registry_Api
         }
 
         if (!array_key_exists($calendar,
-            Kronolith::listCalendars(false, PERMS_READ))) {
+            Kronolith::listCalendars(false, Horde_Perms::READ))) {
             return PEAR::raiseError(_("Permission Denied"));
         }
 
@@ -578,10 +578,10 @@ class Kronolith_Api extends Horde_Registry_Api
         require_once dirname(__FILE__) . '/base.php';
 
         if (!isset($calendar)) {
-            $calendar = Kronolith::getDefaultCalendar(PERMS_EDIT);
+            $calendar = Kronolith::getDefaultCalendar(Horde_Perms::EDIT);
         }
         if (!array_key_exists($calendar,
-            Kronolith::listCalendars(false, PERMS_EDIT))) {
+            Kronolith::listCalendars(false, Horde_Perms::EDIT))) {
             return PEAR::raiseError(_("Permission Denied"));
         }
 
@@ -625,7 +625,7 @@ class Kronolith_Api extends Horde_Registry_Api
                                 $match->end == $event->end &&
                                 $match->title == $event->title &&
                                 $match->location == $event->location &&
-                                $match->hasPermission(PERMS_EDIT)) {
+                                $match->hasPermission(Horde_Perms::EDIT)) {
                                     return PEAR::raiseError(_("Already Exists"), 'horde.message', null, null, $match->getUID());
                                 }
                         }
@@ -666,10 +666,10 @@ class Kronolith_Api extends Horde_Registry_Api
         global $kronolith_shares;
 
         if (!isset($calendar)) {
-            $calendar = Kronolith::getDefaultCalendar(PERMS_EDIT);
+            $calendar = Kronolith::getDefaultCalendar(Horde_Perms::EDIT);
         }
         if (!array_key_exists($calendar,
-            Kronolith::listCalendars(false, PERMS_EDIT))) {
+            Kronolith::listCalendars(false, Horde_Perms::EDIT))) {
             return PEAR::raiseError(_("Permission Denied"));
         }
 
@@ -706,7 +706,7 @@ class Kronolith_Api extends Horde_Registry_Api
         if (is_a($event, 'PEAR_Error')) {
             return $event;
         }
-        if (!$event->hasPermission(PERMS_READ)) {
+        if (!$event->hasPermission(Horde_Perms::READ)) {
             return PEAR::raiseError(_("Permission Denied"));
         }
 
@@ -753,7 +753,7 @@ class Kronolith_Api extends Horde_Registry_Api
         global $kronolith_shares;
 
         if (!array_key_exists($calendar,
-            Kronolith::listCalendars(false, PERMS_READ))) {
+            Kronolith::listCalendars(false, Horde_Perms::READ))) {
             return PEAR::raiseError(_("Permission Denied"));
         }
 
@@ -822,7 +822,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         // First try the user's own calendars.
         if (empty($event)) {
-            $ownerCalendars = Kronolith::listCalendars(true, PERMS_DELETE);
+            $ownerCalendars = Kronolith::listCalendars(true, Horde_Perms::DELETE);
             foreach ($events as $ev) {
                 if (Horde_Auth::isAdmin() || isset($ownerCalendars[$ev->getCalendar()])) {
                     $event = $ev;
@@ -833,7 +833,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         // If not successful, try all calendars the user has access to.
         if (empty($event)) {
-            $deletableCalendars = Kronolith::listCalendars(false, PERMS_DELETE);
+            $deletableCalendars = Kronolith::listCalendars(false, Horde_Perms::DELETE);
             foreach ($events as $ev) {
                 if (isset($deletableCalendars[$ev->getCalendar()])) {
                     $kronolith_driver->open($ev->getCalendar());
@@ -874,7 +874,7 @@ class Kronolith_Api extends Horde_Registry_Api
             return $event;
         }
 
-        if (!$event->hasPermission(PERMS_EDIT) ||
+        if (!$event->hasPermission(Horde_Perms::EDIT) ||
             ($event->isPrivate() && $event->getCreatorId() != Horde_Auth::getAuth())) {
             return PEAR::raiseError(_("Permission Denied"));
         }
@@ -965,7 +965,7 @@ class Kronolith_Api extends Horde_Registry_Api
         if (is_a($event, 'PEAR_Error')) {
             return $event;
         }
-        if (!$event->hasPermission(PERMS_SHOW)) {
+        if (!$event->hasPermission(Horde_Perms::SHOW)) {
             return PEAR::raiseError(_("Permission Denied"));
         }
 
@@ -1005,7 +1005,7 @@ class Kronolith_Api extends Horde_Registry_Api
         }
 
         /* First try the user's own calendars. */
-        $ownerCalendars = Kronolith::listCalendars(true, PERMS_EDIT);
+        $ownerCalendars = Kronolith::listCalendars(true, Horde_Perms::EDIT);
         $event = null;
         foreach ($events as $ev) {
             if (isset($ownerCalendars[$ev->getCalendar()])) {
@@ -1016,7 +1016,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         /* If not successful, try all calendars the user has access to. */
         if (empty($event)) {
-            $editableCalendars = Kronolith::listCalendars(false, PERMS_EDIT);
+            $editableCalendars = Kronolith::listCalendars(false, Horde_Perms::EDIT);
             foreach ($events as $ev) {
                 if (isset($editableCalendars[$ev->getCalendar()])) {
                     $event = $ev;
@@ -1091,7 +1091,7 @@ class Kronolith_Api extends Horde_Registry_Api
         } elseif (!is_array($calendars)) {
             $calendars = array($calendars);
         }
-        $allowed_calendars = Kronolith::listCalendars(false, PERMS_READ);
+        $allowed_calendars = Kronolith::listCalendars(false, Horde_Perms::READ);
         foreach ($calendars as $calendar) {
             if (!array_key_exists($calendar, $allowed_calendars)) {
                 return PEAR::raiseError(_("Permission Denied"));
@@ -1139,8 +1139,8 @@ class Kronolith_Api extends Horde_Registry_Api
                 continue;
             }
             if (empty($user)) {
-                $users = $share->listUsers(PERMS_READ);
-                $groups = $share->listGroups(PERMS_READ);
+                $users = $share->listUsers(Horde_Perms::READ);
+                $groups = $share->listGroups(Horde_Perms::READ);
                 foreach ($groups as $gid) {
                     $group_users = $group->listUsers($gid);
                     if (!is_a($group_users, 'PEAR_Error')) {
@@ -1287,7 +1287,7 @@ class Kronolith_Api extends Horde_Registry_Api
         require_once dirname(__FILE__) . '/base.php';
 
         if (!array_key_exists($calendar,
-            Kronolith::listCalendars(false, PERMS_EDIT))) {
+            Kronolith::listCalendars(false, Horde_Perms::EDIT))) {
             return PEAR::raiseError(_("Permission Denied"));
         }
 
@@ -1307,7 +1307,7 @@ class Kronolith_Api extends Horde_Registry_Api
         require_once dirname(__FILE__) . '/base.php';
 
         if (!array_key_exists($calendar,
-            Kronolith::listCalendars(false, PERMS_EDIT))) {
+            Kronolith::listCalendars(false, Horde_Perms::EDIT))) {
             return PEAR::raiseError(_("Permission Denied"));
         }
 
@@ -1327,7 +1327,7 @@ class Kronolith_Api extends Horde_Registry_Api
         require_once dirname(__FILE__) . '/base.php';
 
         if (!array_key_exists($calendar,
-            Kronolith::listCalendars(false, PERMS_READ))) {
+            Kronolith::listCalendars(false, Horde_Perms::READ))) {
             return PEAR::raiseError(_("Permission Denied"));
         }
 

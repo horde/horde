@@ -418,7 +418,7 @@ class News {
             return unserialize($images);
         }
 
-        $images = $GLOBALS['registry']->call('images/listImages', array('ansel', $id, PERMS_SHOW, 'thumb'));
+        $images = $GLOBALS['registry']->call('images/listImages', array('ansel', $id, Horde_Perms::SHOW, 'thumb'));
         $GLOBALS['cache']->set("news_gallery_$id", serialize($images));
 
         return $images;

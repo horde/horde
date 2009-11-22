@@ -42,11 +42,11 @@ class Kronolith_View_EditEvent {
         }
 
         if ($this->event->isRemote()) {
-            $calendar_id = Kronolith::getDefaultCalendar(PERMS_EDIT);
+            $calendar_id = Kronolith::getDefaultCalendar(Horde_Perms::EDIT);
         } else {
             $calendar_id = $this->event->getCalendar();
         }
-        if (!$this->event->hasPermission(PERMS_EDIT) &&
+        if (!$this->event->hasPermission(Horde_Perms::EDIT) &&
             !is_a($share = &$this->event->getShare(), 'PEAR_Error')) {
             $calendar_id .= ':' . $share->get('owner');
         }
@@ -62,15 +62,15 @@ class Kronolith_View_EditEvent {
         }
 
         $url = Horde_Util::getFormData('url');
-        $perms = PERMS_EDIT;
+        $perms = Horde_Perms::EDIT;
         if ($this->event->getCreatorId() == Horde_Auth::getAuth()) {
-            $perms |= PERMS_DELEGATE;
+            $perms |= Kronolith::PERMS_DELEGATE;
         }
         $calendars = Kronolith::listCalendars(false, $perms);
 
         $buttons = array();
         if (($this->event->isRemote() ||
-             !$this->event->hasPermission(PERMS_EDIT)) &&
+             !$this->event->hasPermission(Horde_Perms::EDIT)) &&
             (!empty($GLOBALS['conf']['hooks']['permsdenied']) ||
              Kronolith::hasPermission('max_events') === true ||
              Kronolith::hasPermission('max_events') > Kronolith::countEvents())) {
@@ -111,11 +111,11 @@ class Kronolith_View_EditEvent {
         echo '</div>';
 
         if ($active && $GLOBALS['browser']->hasFeature('dom')) {
-            if ($this->event->hasPermission(PERMS_READ)) {
+            if ($this->event->hasPermission(Horde_Perms::READ)) {
                 $view = new Kronolith_View_Event($this->event);
                 $view->html(false);
             }
-            if ($this->event->hasPermission(PERMS_DELETE)) {
+            if ($this->event->hasPermission(Horde_Perms::DELETE)) {
                 $delete = new Kronolith_View_DeleteEvent($this->event);
                 $delete->html(false);
             }

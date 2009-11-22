@@ -31,13 +31,13 @@ if (is_a($share, 'PEAR_Error')) {
 }
 
 // First try guest permissions.
-if (!$share->hasPermission('', PERMS_READ)) {
+if (!$share->hasPermission('', Horde_Perms::READ)) {
     // Authenticate.
     $auth = Horde_Auth::singleton($conf['auth']['driver']);
     if (!isset($_SERVER['PHP_AUTH_USER']) ||
         !$auth->authenticate($_SERVER['PHP_AUTH_USER'],
                              array('password' => isset($_SERVER['PHP_AUTH_PW']) ? $_SERVER['PHP_AUTH_PW'] : null)) ||
-        !$share->hasPermission(Horde_Auth::getAuth(), PERMS_READ)) {
+        !$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
         header('WWW-Authenticate: Basic realm="Nag iCalendar Interface"');
         header('HTTP/1.0 401 Unauthorized');
         echo '401 Unauthorized';

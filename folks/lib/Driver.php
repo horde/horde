@@ -486,7 +486,7 @@ class Folks_Driver {
         // Delete groups
         if ($GLOBALS['conf']['friends']) {
             $shares = Horde_Share::singleton('folks');
-            $groups = $shares->listShares(Horde_Auth::getAuth(), PERMS_SHOW, true);
+            $groups = $shares->listShares(Horde_Auth::getAuth(), Horde_Perms::SHOW, true);
             foreach ($groups as $share) {
                 $result = $shares->removeShare($share);
                 if ($result instanceof PEAR_Error) {

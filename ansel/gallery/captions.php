@@ -25,7 +25,7 @@ if (is_a($gallery, 'PEAR_Error')) {
     exit;
 }
 
-if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
     $notification->push(sprintf(_("Access denied setting captions for %s."), $gallery->get('name')), 'horde.error');
     header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'),
                                            true));

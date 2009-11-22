@@ -20,9 +20,9 @@ $backkey = $_SESSION['gollem']['backend_key'];
 $old_dir = Gollem::getDir();
 
 /* Get permissions. */
-$delete_perms = Gollem::checkPermissions('backend', PERMS_DELETE);
-$edit_perms = Gollem::checkPermissions('backend', PERMS_EDIT);
-$read_perms = Gollem::checkPermissions('backend', PERMS_READ);
+$delete_perms = Gollem::checkPermissions('backend', Horde_Perms::DELETE);
+$edit_perms = Gollem::checkPermissions('backend', Horde_Perms::EDIT);
+$read_perms = Gollem::checkPermissions('backend', Horde_Perms::READ);
 
 /* Set directory. */
 if (is_a($result = Gollem::changeDir(), 'PEAR_Error')) {

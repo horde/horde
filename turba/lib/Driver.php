@@ -819,7 +819,7 @@ class Turba_Driver
             return $object;
         }
 
-        if (!$object->hasPermission(PERMS_DELETE)) {
+        if (!$object->hasPermission(Horde_Perms::DELETE)) {
             return PEAR::raiseError(_("Permission denied"));
         }
 

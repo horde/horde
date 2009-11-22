@@ -33,7 +33,7 @@ if (is_a($object, 'PEAR_Error')) {
 }
 
 /* Check permissions. */
-if (!$object->hasPermission(PERMS_READ)) {
+if (!$object->hasPermission(Horde_Perms::READ)) {
     throw new Horde_Exception(_("You do not have permission to view this contact."));
 }
 

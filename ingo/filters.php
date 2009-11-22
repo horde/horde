@@ -29,8 +29,8 @@ $actionID = Horde_Util::getFormData('actionID');
 $id = Horde_Util::getFormData('rulenumber');
 
 /* Get permissions. */
-$edit_allowed = Ingo::hasPermission('shares', PERMS_EDIT);
-$delete_allowed = Ingo::hasPermission('shares', PERMS_DELETE);
+$edit_allowed = Ingo::hasPermission('shares', Horde_Perms::EDIT);
+$delete_allowed = Ingo::hasPermission('shares', Horde_Perms::DELETE);
 
 /* Perform requested actions. */
 switch ($actionID) {

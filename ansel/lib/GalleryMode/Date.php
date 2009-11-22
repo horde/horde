@@ -155,7 +155,7 @@ class Ansel_GalleryMode_Date {
     {
         if (!is_array($this->_subGalleries)) {
             /* Get a list of all the subgalleries */
-            $subs = $GLOBALS['ansel_storage']->listGalleries(PERMS_SHOW, null, $this->_gallery);
+            $subs = $GLOBALS['ansel_storage']->listGalleries(Horde_Perms::SHOW, null, $this->_gallery);
             if (is_a($subs, 'PEAR_Error')) {
                 return $subs;
             }
@@ -172,7 +172,7 @@ class Ansel_GalleryMode_Date {
      *
      * @return A mixed array of Ansel_Gallery_Date and Ansel_Image objects.
      */
-    function getGalleryChildren($perm = PERMS_SHOW, $from = 0, $to = 0, $noauto = false)
+    function getGalleryChildren($perm = Horde_Perms::SHOW, $from = 0, $to = 0, $noauto = false)
     {
         global $ansel_db, $ansel_storage;
 
@@ -366,7 +366,7 @@ class Ansel_GalleryMode_Date {
      *                 etc..) that need to be displayed, or a count of all the
      *                 images in the current date grouping (for a specific day).
      */
-    function countGalleryChildren($perm = PERMS_SHOW, $galleries_only = false, $noauto = true)
+    function countGalleryChildren($perm = Horde_Perms::SHOW, $galleries_only = false, $noauto = true)
     {
         $results = $this->getGalleryChildren($this->_date, 0, 0, $noauto);
         if (is_a($results, 'PEAR_Error')) {
@@ -420,9 +420,9 @@ class Ansel_GalleryMode_Date {
      */
     function moveImagesTo($images, $gallery)
     {
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             return PEAR::raiseError(sprintf(_("Access denied moving photos to \"%s\"."), $newGallery->get('name')));
-        } elseif (!$this->_gallery->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE)) {
+        } elseif (!$this->_gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
             return PEAR::raiseError(sprintf(_("Access denied removing photos from \"%s\"."), $gallery->get('name')));
         }
 
@@ -608,7 +608,7 @@ class Ansel_GalleryMode_Date {
     function getImages($from = 0, $count = 0)
     {
         /* Get all of this grouping's children. */
-        $children = $this->getGalleryChildren(PERMS_SHOW);
+        $children = $this->getGalleryChildren(Horde_Perms::SHOW);
 
         /* At day level, these are all Ansel_Images, otherwise they are
          * Ansel_Gallery_Date objects.
@@ -795,7 +795,7 @@ class Ansel_Gallery_Date {
      * @return A mixed array of Ansel_Gallery and Ansel_Image objects that are
      *         children of this gallery.
      */
-    function getGalleryChildren($perm = PERMS_SHOW, $from = 0, $to = 0, $noauto = false)
+    function getGalleryChildren($perm = Horde_Perms::SHOW, $from = 0, $to = 0, $noauto = false)
     {
         return $this->_modeHelper->getGalleryChildren($perm, $from, $to, $noauto);
     }
@@ -809,7 +809,7 @@ class Ansel_Gallery_Date {
      *
      * @return integer The count of this gallery's children.
      */
-    function countGalleryChildren($perm = PERMS_SHOW, $galleries_only = false, $noauto = true)
+    function countGalleryChildren($perm = Horde_Perms::SHOW, $galleries_only = false, $noauto = true)
     {
         // Need to force the date helper to not auto drill down when counting
         // from this method, since we are only called here when we are not
@@ -957,7 +957,7 @@ class Ansel_Gallery_Date {
      * Checks to see if a user has a given permission.
      *
      * @param string $userid       The userid of the user.
-     * @param integer $permission  A PERMS_* constant to test for.
+     * @param integer $permission  A Horde_Perms::* constant to test for.
      * @param string $creator      The creator of the event.
      *
      * @return boolean  Whether or not $userid has $permission.
@@ -980,12 +980,12 @@ class Ansel_Gallery_Date {
     /**
      * Return a count of the number of children this share has
      *
-     * @param integer $perm  A PERMS_* constant
+     * @param integer $perm  A Horde_Perms::* constant
      * @param boolean $allLevels  Count grandchildren or just children
      *
      * @return mixed  The number of child shares || PEAR_Error
      */
-    function countChildren($perm = PERMS_SHOW, $allLevels = true)
+    function countChildren($perm = Horde_Perms::SHOW, $allLevels = true)
     {
         return $this->_gallery->_shareOb->countShares(Horde_Auth::getAuth(), $perm, null, $this, $allLevels);
     }
@@ -993,13 +993,13 @@ class Ansel_Gallery_Date {
     /**
      * Get all children of this share.
      *
-     * @param int $perm           PERMS_* constant. If NULL will return all
-     *                            shares regardless of permissions.
+     * @param int $perm           Horde_Perms::* constant. If NULL will return
+     *                            all shares regardless of permissions.
      * @param boolean $allLevels  Return all levels.
      *
      * @return mixed  An array of Horde_Share_Object objects || PEAR_Error
      */
-    function getChildren($perm = PERMS_SHOW, $allLevels = true)
+    function getChildren($perm = Horde_Perms::SHOW, $allLevels = true)
     {
         return $this->_gallery->getChildren($perm, $allLevels);
     }

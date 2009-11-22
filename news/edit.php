@@ -16,7 +16,7 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 
 // redirect if not an admin
-$allowed_cats = $news_cat->getAllowed(PERMS_DELETE);
+$allowed_cats = $news_cat->getAllowed(Horde_Perms::DELETE);
 if (empty($allowed_cats)) {
     $notification->push(_("You have not editor permission on any category."));
     header('Location: ' . Horde::applicationUrl('add.php'));
@@ -157,7 +157,7 @@ $form = new News_Search($vars);
 $form->getInfo(null, $info);
 
 /* prepare query */
-$binds = $news->buildQuery(PERMS_DELETE, $info);
+$binds = $news->buildQuery(Horde_Perms::DELETE, $info);
 $sql = 'SELECT n.id, n.sortorder, n.category1, n.category2, n.source, n.status, n.editor, n.publish, ' .
        'n.user, n.comments, n.unpublish, n.picture, n.chars, n.view_count, n.attachments, l.title, n.selling '
        . $binds[0];
@@ -172,7 +172,7 @@ if (!isset($info['sort_dir'])) {
 $sql .= ' ORDER BY ' . $info['sort_by'] . ' ' . $info['sort_dir'];
 
 // Count rows
-$count = $news->countNews($info, PERMS_DELETE);
+$count = $news->countNews($info, Horde_Perms::DELETE);
 if ($count instanceof PEAR_Error) {
     echo $count->getMessage() . ': ' . $count->getDebugInfo();
     exit;

@@ -54,12 +54,12 @@ function arrowHandler(e)
     <?php
         $needSeperator = false;
         $actionHTML = '';
-        if ($this->gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT) && empty($this->_params['api'])) {
+        if ($this->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT) && empty($this->_params['api'])) {
             $needSeperator = true;
             $actionHTML .= Horde::link('#', '', '', '_blank', $this->_urls['prop_popup'] . 'return false;', '', '', array('id' => 'image_properties_link')) . _("Properties") . '</a>';
             $actionHTML .= ' | ' . Horde::link($this->_urls['edit'], '', '', '', '', '', '', array('id' => 'image_edit_link')) . _("Edit") . '</a>';
         }
-        if ($this->gallery->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE) && empty($this->_params['api'])) {
+        if ($this->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE) && empty($this->_params['api'])) {
             $actionHTML .= ' | ' . Horde::link($this->_urls['delete'], '', '', '', 'return window.confirm(\'' . addslashes(sprintf(_("Do you want to permanently delete ''%s''?"), $this->resource->filename)) . '\');', '', '', array('id' => 'image_delete_link')) . _("Delete") . '</a>';
         }
         if (!empty($conf['ecard']['enable']) && !empty($this->_urls['ecard'])) {

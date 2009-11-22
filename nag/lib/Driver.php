@@ -326,7 +326,7 @@ class Nag_Driver
                 return $share;
             }
 
-            if (!$share->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE)) {
+            if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
                 $GLOBALS['notification']->push(sprintf(_("Access denied removing task from %s."), $share->get('name')), 'horde.error');
                 return false;
             }
@@ -336,7 +336,7 @@ class Nag_Driver
                 return $share;
             }
 
-            if (!$share->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+            if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
                 $GLOBALS['notification']->push(sprintf(_("Access denied moving the task to %s."), $share->get('name')), 'horde.error');
             }
 

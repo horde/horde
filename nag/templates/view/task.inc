@@ -41,7 +41,7 @@
  <tr>
   <td class="rightAlign" valign="top"><strong><?php echo _("Completed?") ?></strong></td>
   <td>
-  <?php if (!is_a($share, 'PEAR_Error') && $share->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+  <?php if (!is_a($share, 'PEAR_Error') && $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             if (empty($task->completed)) {
                 echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($taskurl, 'actionID', 'complete_task')), _("Complete Task"), 'widget') . Horde::img('unchecked.png', _("Complete Task")) . '</a>';
             } else {

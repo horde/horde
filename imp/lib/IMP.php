@@ -253,7 +253,7 @@ class IMP
         if (!empty($options['inc_tasklists']) &&
             !empty($_SESSION['imp']['tasklistavail'])) {
             try {
-                $tasklists = $GLOBALS['registry']->call('tasks/listTasklists', array(false, PERMS_EDIT));
+                $tasklists = $GLOBALS['registry']->call('tasks/listTasklists', array(false, Horde_Perms::EDIT));
 
                 if (count($tasklists)) {
                     $text .= '<option value="" disabled="disabled">&nbsp;</option><option value="" disabled="disabled">- - ' . _("Task Lists") . ' - -</option>' . "\n";
@@ -272,7 +272,7 @@ class IMP
         if (!empty($options['inc_notepads']) &&
             !empty($_SESSION['imp']['notepadavail'])) {
             try {
-                $notepads = $GLOBALS['registry']->call('notes/listNotepads', array(false, PERMS_EDIT));
+                $notepads = $GLOBALS['registry']->call('notes/listNotepads', array(false, Horde_Perms::EDIT));
                 if (count($notepads)) {
                     $text .= '<option value="" disabled="disabled">&nbsp;</option><option value="" disabled="disabled">- - ' . _("Notepads") . " - -</option>\n";
 

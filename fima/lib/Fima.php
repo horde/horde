@@ -189,7 +189,7 @@ class Fima {
      *
      * @return array  The list of ledgers.
      */
-    function listLedgers($owneronly = false, $permission = PERMS_SHOW)
+    function listLedgers($owneronly = false, $permission = Horde_Perms::SHOW)
     {
         $ledgers = $GLOBALS['fima_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null);
         if (is_a($ledgers, 'PEAR_Error')) {
@@ -203,7 +203,7 @@ class Fima {
     /**
      * Returns the active ledger for the current user.
      */
-    function getActiveLedger($permission = PERMS_SHOW)
+    function getActiveLedger($permission = Horde_Perms::SHOW)
     {
         global $prefs;
 
@@ -711,7 +711,7 @@ class Fima {
                 $GLOBALS['display_ledgers'] = array_keys($ledgers);
             } else {
                 /* Make sure at least the active ledger is visible. */
-                $active_ledger = Fima::getActiveLedger(PERMS_READ);
+                $active_ledger = Fima::getActiveLedger(Horde_Perms::READ);
                 if ($active_ledger) {
                     $GLOBALS['display_ledgers'] = array($active_ledger);
                 }

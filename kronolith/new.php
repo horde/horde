@@ -25,7 +25,7 @@ if (Kronolith::hasPermission('max_events') !== true &&
     exit;
 }
 
-$calendar_id = Horde_Util::getFormData('calendar', Kronolith::getDefaultCalendar(PERMS_EDIT));
+$calendar_id = Horde_Util::getFormData('calendar', Kronolith::getDefaultCalendar(Horde_Perms::EDIT));
 if (!$calendar_id) {
     $url = Horde_Util::addParameter($prefs->getValue('defaultview') . '.php', array('month' => Horde_Util::getFormData('month'),
                                                                               'year' => Horde_Util::getFormData('year')));
@@ -65,7 +65,7 @@ if (isset($url)) {
 }
 
 $title = _("Add a new event");
-$calendars = Kronolith::listCalendars(false, PERMS_EDIT | PERMS_DELEGATE);
+$calendars = Kronolith::listCalendars(false, Horde_Perms::EDIT | Kronolith::PERMS_DELEGATE);
 Horde::addScriptFile('popup.js', 'horde');
 require KRONOLITH_TEMPLATES . '/common-header.inc';
 require KRONOLITH_TEMPLATES . '/menu.inc';

@@ -49,7 +49,7 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
         $imple = Horde_Ajax_Imple::factory(array('ansel', 'ImageSaveGeotag'), array());
         $impleUrl = $imple->getUrl();
 
-        $permsEdit = $this->_view->gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT);
+        $permsEdit = $this->_view->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
         $viewType = $this->_view->viewType();
 
         if (count($geodata) == 0 && $viewType != 'Image') {

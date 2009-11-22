@@ -121,7 +121,7 @@ processDirectory($dir, null, $gallery_id, $gallery_slug, $useCompression);
 function emptyGalleryCheck($gallery)
 {
     if ($gallery->hasSubGalleries()) {
-        $children = $GLOBALS['ansel_storage']->listGalleries(PERMS_SHOW, null, $gallery, false);
+        $children = $GLOBALS['ansel_storage']->listGalleries(Horde_Perms::SHOW, null, $gallery, false);
         foreach ($children as $child) {
             // First check all children to see if they are empty...
             emptyGalleryCheck($child);

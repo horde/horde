@@ -141,7 +141,7 @@ class Horde_Block_nag_summary extends Horde_Block {
             null, null, null,
             isset($this->_params['show_tasklists'])
                 ? $this->_params['show_tasklists']
-            : array_keys(Nag::listTasklists(false, PERMS_READ)),
+            : array_keys(Nag::listTasklists(false, Horde_Perms::READ)),
             empty($this->_params['show_completed']) ? 0 : 1);
         if (is_a($tasks, 'PEAR_Error')) {
             return '<em>' . htmlspecialchars($tasks->getMessage()) . '</em>';

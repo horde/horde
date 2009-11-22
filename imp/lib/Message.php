@@ -377,7 +377,7 @@ class IMP_Message
 
                     /* Get the list of editable tasklists. */
                     try {
-                        $lists = $registry->call('tasks/listTasklists', array(false, PERMS_EDIT));
+                        $lists = $registry->call('tasks/listTasklists', array(false, Horde_Perms::EDIT));
                     } catch (Horde_Exception $e) {
                         $lists = null;
                         $notification->push($e, $e->getCode());
@@ -401,7 +401,7 @@ class IMP_Message
 
                     /* Get the list of editable notepads. */
                     try {
-                        $lists = $registry->call('notes/listNotepads', array(false, PERMS_EDIT));
+                        $lists = $registry->call('notes/listNotepads', array(false, Horde_Perms::EDIT));
                     } catch (Horde_Exception $e) {
                         $lists = null;
                         $notification->push($e, $e->getCode());

@@ -43,7 +43,7 @@ class Gollem_Api extends Horde_Registry_Api
             // We are at the root of gollem.  Return a set of folders, one for
             // each backend available.
             foreach ($backends as $backend => $curBackend) {
-                if (Gollem::checkPermissions('backend', PERMS_SHOW, $backend)) {
+                if (Gollem::checkPermissions('backend', Horde_Perms::SHOW, $backend)) {
                     $results['gollem/' . $backend]['name'] = $curBackend['name'];
                     $results['gollem/' . $backend]['browseable'] = true;
                 }
@@ -70,7 +70,7 @@ class Gollem_Api extends Horde_Registry_Api
             if (!Gollem_Session::createSession($backend_key)) {
                 return PEAR::raiseError(_("Unable to create Gollem session"));
             }
-            if (!Gollem::checkPermissions('backend', PERMS_READ)) {
+            if (!Gollem::checkPermissions('backend', Horde_Perms::READ)) {
                 return PEAR::raiseError(_("Permission denied to this backend."));
             }
 
@@ -184,7 +184,7 @@ class Gollem_Api extends Horde_Registry_Api
             if (!Gollem_Session::createSession($backend_key)) {
                 return PEAR::raiseError(_("Unable to create Gollem session"));
             }
-            if (!Gollem::checkPermissions('backend', PERMS_EDIT)) {
+            if (!Gollem::checkPermissions('backend', Horde_Perms::EDIT)) {
                 return PEAR::raiseError(_("Permission denied to this backend."));
             }
 
@@ -244,7 +244,7 @@ class Gollem_Api extends Horde_Registry_Api
             if (!Gollem_Session::createSession($backend_key)) {
                 return PEAR::raiseError(_("Unable to create Gollem session"));
             }
-            if (!Gollem::checkPermissions('backend', PERMS_EDIT)) {
+            if (!Gollem::checkPermissions('backend', Horde_Perms::EDIT)) {
                 return PEAR::raiseError(_("Permission denied to this backend."));
             }
 
@@ -317,7 +317,7 @@ class Gollem_Api extends Horde_Registry_Api
             if (!Gollem_Session::createSession($backend_key)) {
                 return PEAR::raiseError(_("Unable to create Gollem session"));
             }
-            if (!Gollem::checkPermissions('backend', PERMS_EDIT)) {
+            if (!Gollem::checkPermissions('backend', Horde_Perms::EDIT)) {
                 return PEAR::raiseError(_("Permission denied to this backend."));
             }
 
@@ -378,7 +378,7 @@ class Gollem_Api extends Horde_Registry_Api
             if (!Gollem_Session::createSession($backend_key)) {
                 return PEAR::raiseError(_("Unable to create Gollem session"));
             }
-            if (!Gollem::checkPermissions('backend', PERMS_EDIT)) {
+            if (!Gollem::checkPermissions('backend', Horde_Perms::EDIT)) {
                 return PEAR::raiseError(_("Permission denied to this backend."));
             }
 

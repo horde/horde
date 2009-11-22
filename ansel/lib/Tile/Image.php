@@ -92,8 +92,8 @@ class Ansel_Tile_Image {
         }
 
         $thumb_url = Ansel::getImageUrl($image->id, $thumbstyle, true, $style['name']);
-        $option_select = $parent->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE);
-        $option_edit = $parent->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT);
+        $option_select = $parent->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE);
+        $option_edit = $parent->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
         $imgAttributes = (!empty($params['image_view_attributes'])
                          ? $params['image_view_attributes'] : array());
 
@@ -112,7 +112,7 @@ class Ansel_Tile_Image {
         }
 
         ob_start();
-        // In-line caption editing if we have PERMS_EDIT
+        // In-line caption editing if we have Horde_Perms::EDIT
         if ($option_edit) {
             $imple = Horde_Ajax_Imple::factory(array('ansel', 'EditCaption'),
                                                array('id' => $image->id,

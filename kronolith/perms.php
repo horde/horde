@@ -63,83 +63,83 @@ case 'editform':
 
         // Process default permissions.
         if (Horde_Util::getFormData('default_show')) {
-            $perm->addDefaultPermission(PERMS_SHOW, false);
+            $perm->addDefaultPermission(Horde_Perms::SHOW, false);
         } else {
-            $perm->removeDefaultPermission(PERMS_SHOW, false);
+            $perm->removeDefaultPermission(Horde_Perms::SHOW, false);
         }
         if (Horde_Util::getFormData('default_read')) {
-            $perm->addDefaultPermission(PERMS_READ, false);
+            $perm->addDefaultPermission(Horde_Perms::READ, false);
         } else {
-            $perm->removeDefaultPermission(PERMS_READ, false);
+            $perm->removeDefaultPermission(Horde_Perms::READ, false);
         }
         if (Horde_Util::getFormData('default_edit')) {
-            $perm->addDefaultPermission(PERMS_EDIT, false);
+            $perm->addDefaultPermission(Horde_Perms::EDIT, false);
         } else {
-            $perm->removeDefaultPermission(PERMS_EDIT, false);
+            $perm->removeDefaultPermission(Horde_Perms::EDIT, false);
         }
         if (Horde_Util::getFormData('default_delete')) {
-            $perm->addDefaultPermission(PERMS_DELETE, false);
+            $perm->addDefaultPermission(Horde_Perms::DELETE, false);
         } else {
-            $perm->removeDefaultPermission(PERMS_DELETE, false);
+            $perm->removeDefaultPermission(Horde_Perms::DELETE, false);
         }
         if (Horde_Util::getFormData('default_delegate')) {
-            $perm->addDefaultPermission(PERMS_DELEGATE, false);
+            $perm->addDefaultPermission(Kronolith::PERMS_DELEGATE, false);
         } else {
-            $perm->removeDefaultPermission(PERMS_DELEGATE, false);
+            $perm->removeDefaultPermission(Kronolith::PERMS_DELEGATE, false);
         }
 
         // Process guest permissions.
         if (Horde_Util::getFormData('guest_show')) {
-            $perm->addGuestPermission(PERMS_SHOW, false);
+            $perm->addGuestPermission(Horde_Perms::SHOW, false);
         } else {
-            $perm->removeGuestPermission(PERMS_SHOW, false);
+            $perm->removeGuestPermission(Horde_Perms::SHOW, false);
         }
         if (Horde_Util::getFormData('guest_read')) {
-            $perm->addGuestPermission(PERMS_READ, false);
+            $perm->addGuestPermission(Horde_Perms::READ, false);
         } else {
-            $perm->removeGuestPermission(PERMS_READ, false);
+            $perm->removeGuestPermission(Horde_Perms::READ, false);
         }
         if (Horde_Util::getFormData('guest_edit')) {
-            $perm->addGuestPermission(PERMS_EDIT, false);
+            $perm->addGuestPermission(Horde_Perms::EDIT, false);
         } else {
-            $perm->removeGuestPermission(PERMS_EDIT, false);
+            $perm->removeGuestPermission(Horde_Perms::EDIT, false);
         }
         if (Horde_Util::getFormData('guest_delete')) {
-            $perm->addGuestPermission(PERMS_DELETE, false);
+            $perm->addGuestPermission(Horde_Perms::DELETE, false);
         } else {
-            $perm->removeGuestPermission(PERMS_DELETE, false);
+            $perm->removeGuestPermission(Horde_Perms::DELETE, false);
         }
         if (Horde_Util::getFormData('guest_delegate')) {
-            $perm->addGuestPermission(PERMS_DELEGATE, false);
+            $perm->addGuestPermission(Kronolith::PERMS_DELEGATE, false);
         } else {
-            $perm->removeGuestPermission(PERMS_DELEGATE, false);
+            $perm->removeGuestPermission(Kronolith::PERMS_DELEGATE, false);
         }
 
         // Process creator permissions.
         if (Horde_Util::getFormData('creator_show')) {
-            $perm->addCreatorPermission(PERMS_SHOW, false);
+            $perm->addCreatorPermission(Horde_Perms::SHOW, false);
         } else {
-            $perm->removeCreatorPermission(PERMS_SHOW, false);
+            $perm->removeCreatorPermission(Horde_Perms::SHOW, false);
         }
         if (Horde_Util::getFormData('creator_read')) {
-            $perm->addCreatorPermission(PERMS_READ, false);
+            $perm->addCreatorPermission(Horde_Perms::READ, false);
         } else {
-            $perm->removeCreatorPermission(PERMS_READ, false);
+            $perm->removeCreatorPermission(Horde_Perms::READ, false);
         }
         if (Horde_Util::getFormData('creator_edit')) {
-            $perm->addCreatorPermission(PERMS_EDIT, false);
+            $perm->addCreatorPermission(Horde_Perms::EDIT, false);
         } else {
-            $perm->removeCreatorPermission(PERMS_EDIT, false);
+            $perm->removeCreatorPermission(Horde_Perms::EDIT, false);
         }
         if (Horde_Util::getFormData('creator_delete')) {
-            $perm->addCreatorPermission(PERMS_DELETE, false);
+            $perm->addCreatorPermission(Horde_Perms::DELETE, false);
         } else {
-            $perm->removeCreatorPermission(PERMS_DELETE, false);
+            $perm->removeCreatorPermission(Horde_Perms::DELETE, false);
         }
         if (Horde_Util::getFormData('creator_delegate')) {
-            $perm->addCreatorPermission(PERMS_DELEGATE, false);
+            $perm->addCreatorPermission(Kronolith::PERMS_DELEGATE, false);
         } else {
-            $perm->removeCreatorPermission(PERMS_DELEGATE, false);
+            $perm->removeCreatorPermission(Kronolith::PERMS_DELEGATE, false);
         }
 
         // Process user permissions.
@@ -164,29 +164,29 @@ case 'editform':
             }
 
             if (!empty($u_show[$key])) {
-                $perm->addUserPermission($user, PERMS_SHOW, false);
+                $perm->addUserPermission($user, Horde_Perms::SHOW, false);
             } else {
-                $perm->removeUserPermission($user, PERMS_SHOW, false);
+                $perm->removeUserPermission($user, Horde_Perms::SHOW, false);
             }
             if (!empty($u_read[$key])) {
-                $perm->addUserPermission($user, PERMS_READ, false);
+                $perm->addUserPermission($user, Horde_Perms::READ, false);
             } else {
-                $perm->removeUserPermission($user, PERMS_READ, false);
+                $perm->removeUserPermission($user, Horde_Perms::READ, false);
             }
             if (!empty($u_edit[$key])) {
-                $perm->addUserPermission($user, PERMS_EDIT, false);
+                $perm->addUserPermission($user, Horde_Perms::EDIT, false);
             } else {
-                $perm->removeUserPermission($user, PERMS_EDIT, false);
+                $perm->removeUserPermission($user, Horde_Perms::EDIT, false);
             }
             if (!empty($u_delete[$key])) {
-                $perm->addUserPermission($user, PERMS_DELETE, false);
+                $perm->addUserPermission($user, Horde_Perms::DELETE, false);
             } else {
-                $perm->removeUserPermission($user, PERMS_DELETE, false);
+                $perm->removeUserPermission($user, Horde_Perms::DELETE, false);
             }
             if (!empty($u_delegate[$key])) {
-                $perm->addUserPermission($user, PERMS_DELEGATE, false);
+                $perm->addUserPermission($user, Kronolith::PERMS_DELEGATE, false);
             } else {
-                $perm->removeUserPermission($user, PERMS_DELEGATE, false);
+                $perm->removeUserPermission($user, Kronolith::PERMS_DELEGATE, false);
             }
         }
 
@@ -204,29 +204,29 @@ case 'editform':
             }
 
             if (!empty($g_show[$key])) {
-                $perm->addGroupPermission($group, PERMS_SHOW, false);
+                $perm->addGroupPermission($group, Horde_Perms::SHOW, false);
             } else {
-                $perm->removeGroupPermission($group, PERMS_SHOW, false);
+                $perm->removeGroupPermission($group, Horde_Perms::SHOW, false);
             }
             if (!empty($g_read[$key])) {
-                $perm->addGroupPermission($group, PERMS_READ, false);
+                $perm->addGroupPermission($group, Horde_Perms::READ, false);
             } else {
-                $perm->removeGroupPermission($group, PERMS_READ, false);
+                $perm->removeGroupPermission($group, Horde_Perms::READ, false);
             }
             if (!empty($g_edit[$key])) {
-                $perm->addGroupPermission($group, PERMS_EDIT, false);
+                $perm->addGroupPermission($group, Horde_Perms::EDIT, false);
             } else {
-                $perm->removeGroupPermission($group, PERMS_EDIT, false);
+                $perm->removeGroupPermission($group, Horde_Perms::EDIT, false);
             }
             if (!empty($g_delete[$key])) {
-                $perm->addGroupPermission($group, PERMS_DELETE, false);
+                $perm->addGroupPermission($group, Horde_Perms::DELETE, false);
             } else {
-                $perm->removeGroupPermission($group, PERMS_DELETE, false);
+                $perm->removeGroupPermission($group, Horde_Perms::DELETE, false);
             }
             if (!empty($g_delegate[$key])) {
-                $perm->addGroupPermission($group, PERMS_DELEGATE, false);
+                $perm->addGroupPermission($group, Kronolith::PERMS_DELEGATE, false);
             } else {
-                $perm->removeGroupPermission($group, PERMS_DELEGATE, false);
+                $perm->removeGroupPermission($group, Kronolith::PERMS_DELEGATE, false);
             }
         }
 

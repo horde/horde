@@ -1,7 +1,7 @@
 <?php
 
 $num_galleries = $GLOBALS['ansel_storage']->countGalleries(
-    Horde_Auth::getAuth(), PERMS_SHOW, array('category' => $group), null, false);
+    Horde_Auth::getAuth(), Horde_Perms::SHOW, array('category' => $group), null, false);
 
 if (empty($group)) {
     $category_title = _("Unfiled");
@@ -21,10 +21,10 @@ $link = Horde::link($viewurl, $category_title, 'light');
 $preview_gallery = array();
 if ($num_galleries < 5) {
     $preview_gallery = $GLOBALS['ansel_storage']->listGalleries(
-                            PERMS_SHOW, array('category' => $group), null, false);
+                            Horde_Perms::SHOW, array('category' => $group), null, false);
 } else {
     $preview_gallery = $GLOBALS['ansel_storage']->listGalleries(
-                            PERMS_SHOW, array('category' => $group), null,
+                            Horde_Perms::SHOW, array('category' => $group), null,
                             false, rand(0, $num_galleries - 4), 4);
 }
 $mini_count = 0;

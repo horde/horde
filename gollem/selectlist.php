@@ -109,7 +109,7 @@ if ($GLOBALS['conf']['backend']['backend_list'] == 'shown') {
 
 if (is_array($list) &&
     count($list) &&
-    Gollem::checkPermissions('backend', PERMS_READ)) {
+    Gollem::checkPermissions('backend', Horde_Perms::READ)) {
 
     $entry = $icon_cache = array();
     $rowct = 0;

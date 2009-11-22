@@ -56,7 +56,7 @@ function send_agendas()
         if (is_a($calendar, 'PEAR_Error')) {
             continue;
         }
-        $users = array_merge($users, $calendar->listUsers(PERMS_READ));
+        $users = array_merge($users, $calendar->listUsers(Horde_Perms::READ));
     }
 
     // Remove duplicates.
@@ -97,18 +97,18 @@ function send_agendas()
         // If we found an email address, generate the agenda.
         switch ($agenda_calendars) {
         case 'owner':
-            $calendars = $GLOBALS['shares']->listShares($user, PERMS_SHOW, $user);
+            $calendars = $GLOBALS['shares']->listShares($user, Horde_Perms::SHOW, $user);
             break;
 
         case 'read':
-            $calendars = $GLOBALS['shares']->listShares($user, PERMS_SHOW, null);
+            $calendars = $GLOBALS['shares']->listShares($user, Horde_Perms::SHOW, null);
             break;
 
         case 'show':
         default:
             $calendars = array();
             $shown_calendars = unserialize($prefs->getValue('display_cals'));
-            $cals = $GLOBALS['shares']->listShares($user, PERMS_SHOW, null);
+            $cals = $GLOBALS['shares']->listShares($user, Horde_Perms::SHOW, null);
             foreach ($cals as $calId => $cal) {
                 if (in_array($calId, $shown_calendars)) {
                     $calendars[$calId] = $cal;

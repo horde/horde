@@ -57,7 +57,7 @@ Ansel_GMap.prototype = {
     //                              deletion is successful
 
     //        .clickHandler - optional callback to handle click events on the mainMap
-    //        .hasEdit - Has PERMS_EDIT on the image
+    //        .hasEdit - Has Horde_Perms::EDIT on the image
     //        .calculateMaxZoom - call Google's getMaxZoomAtLatLng() method to
     //                            avoid autozooming in to a level with no detail.
     //                            Performance penalty because we make another

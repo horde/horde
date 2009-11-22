@@ -52,7 +52,7 @@ $t->set('muid', htmlspecialchars($muid));
 $t->set('image_img', Horde::img('mime/image.png', _("Image"), null, $registry->getImageDir('horde')));
 
 /* Build the list of galleries. */
-$t->set('gallerylist', $registry->call('images/selectGalleries', array(null, PERMS_EDIT)));
+$t->set('gallerylist', $registry->call('images/selectGalleries', array(null, Horde_Perms::EDIT)));
 
 $title = _("Save Image");
 require IMP_TEMPLATES . '/common-header.inc';

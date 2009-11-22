@@ -18,7 +18,7 @@
  <td>
   <select name="gallery_parent" id="gallery_parent">
    <option value=""><?php echo _("Top Level Gallery") ?></option>
-   <?php echo Ansel::selectGalleries($gallery_parent, PERMS_EDIT, null, null, true, 0, 0, $galleryId) ?>
+   <?php echo Ansel::selectGalleries($gallery_parent, Horde_Perms::EDIT, null, null, true, 0, 0, $galleryId) ?>
   </select>
  </td>
 </tr>

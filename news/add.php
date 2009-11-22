@@ -272,7 +272,7 @@ if (Horde_Auth::isAdmin('news:admin')) {
 if ($form->validate()) {
 
     $status_inserted = false;
-    $allowed_cats = $news_cat->getAllowed(PERMS_DELETE);
+    $allowed_cats = $news_cat->getAllowed(Horde_Perms::DELETE);
     $form->getInfo(null, $info);
 
     // Check permissions

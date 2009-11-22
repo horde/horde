@@ -33,7 +33,7 @@ if (is_a($share, 'PEAR_Error')) {
                sprintf(_("The requested feed (%s) was not found on this server."),
                        htmlspecialchars($calendar)));
 }
-if (!$share->hasPermission(Horde_Auth::getAuth(), PERMS_READ)) {
+if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
     if (Horde_Auth::getAuth()) {
         _no_access(403, 'Forbidden',
                    sprintf(_("Permission denied for the requested feed (%s)."),

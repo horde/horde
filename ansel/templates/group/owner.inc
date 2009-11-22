@@ -25,14 +25,14 @@ $link = Horde::link(Ansel::getUrlFor('view', array('groupby' => $groupby,
                                                    'owner' => $group,
                                                    'view' => 'List')));
 
-$num_galleries = $ansel_storage->countGalleries(Horde_Auth::getAuth(), PERMS_SHOW,
+$num_galleries = $ansel_storage->countGalleries(Horde_Auth::getAuth(), Horde_Perms::SHOW,
                                                 $group, null, false);
 if ($num_galleries < 5) {
-    $mini_galleries = $ansel_storage->listGalleries(PERMS_SHOW,
+    $mini_galleries = $ansel_storage->listGalleries(Horde_Perms::SHOW,
                                                     $group, null, false);
 } else {
     $mini_galleries = $GLOBALS['ansel_storage']->listGalleries(
-        PERMS_SHOW, $group, null, false, rand(0, $num_galleries - 4), 4);
+        Horde_Perms::SHOW, $group, null, false, rand(0, $num_galleries - 4), 4);
 }
 $mini_galleries = array_values($mini_galleries);
 ?>

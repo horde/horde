@@ -160,7 +160,7 @@ if (!$app) {
     $form->renderActive($renderer, $vars, Horde::selfURL(), 'post');
 } else {
 
-    if (Babel::hasPermission('view', 'tabs', PERMS_EDIT)) {
+    if (Babel::hasPermission('view', 'tabs', Horde_Perms::EDIT)) {
 	$hmenu_desc = _("Edit Header");
 	$url = Horde::applicationUrl('edit.php');
 	$url = Horde_Util::addParameter($url, array('module' => $app,
@@ -373,7 +373,7 @@ if (!$app) {
 		$sfile = $m[1];
 		$sline = $m[2];
 
-		if (Babel::hasPermission('viewsource', 'tabs', PERMS_EDIT)) {
+		if (Babel::hasPermission('viewsource', 'tabs', Horde_Perms::EDIT)) {
 		    $surl = Horde::applicationUrl('viewsource.php');
 		    $surl = Horde_Util::addParameter($surl, array('module' => $app,
 							    'file'   => $sfile,
@@ -429,7 +429,7 @@ if (!$app) {
 	  if ($locked) {
 	      echo Horde::img('locked.png') . '&nbsp;' . sprintf(_("Locked by %s"), $locked);
 	  } else {
-	      if (Babel::hasPermission('view', 'tabs', PERMS_EDIT)) {
+	      if (Babel::hasPermission('view', 'tabs', Horde_Perms::EDIT)) {
 		  if (!$editmode || $cstring != $encstr) {
 		      $surl = Horde::applicationUrl('view.php');
 		      $surl = Horde_Util::addParameter($surl, array('module' => $app, 'cstring' => $encstr, 'editmode' => 1, 'page' => $page, 'filter' => $filter, 'search' => $search));

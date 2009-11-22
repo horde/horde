@@ -25,7 +25,7 @@ if (is_a($gallery, 'PEAR_Error')) {
     header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'),
                                            true));
     exit;
-} elseif (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+} elseif (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
     $notification->push(sprintf(_("Access denied editing gallery \"%s\"."), $gallery->get('name')), 'horde.error');
     header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'),
                                            true));

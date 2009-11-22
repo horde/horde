@@ -17,7 +17,7 @@ $name = Horde_Util::getFormData('name');
 
 $image = &$ansel_storage->getImage($image_id);
 $gallery = &$ansel_storage->getGallery($image->gallery);
-if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
     throw new Horde_Exception('Access denied editing the photo.');
 }
 

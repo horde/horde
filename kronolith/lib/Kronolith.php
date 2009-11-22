@@ -8,9 +8,6 @@
  * @package Kronolith
  */
 
-/** The event can be delegated. */
-define('PERMS_DELEGATE', 1024);
-
 /**
  * The Kronolith:: class provides functionality common to all of Kronolith.
  *
@@ -44,6 +41,9 @@ class Kronolith
 
     /** Free/Busy not found */
     const ERROR_FB_NOT_FOUND = 1;
+
+    /** The event can be delegated. */
+    const PERMS_DELEGATE = 1024;
 
     /**
      * Driver singleton instances.
@@ -129,7 +129,7 @@ class Kronolith
             'name' => $registry->get('name'),
             'is_ie6' => ($browser->isBrowser('msie') && ($browser->getMajor() < 7)),
             'login_view' => $prefs->getValue('defaultview'),
-            'default_calendar' => 'internal|' . self::getDefaultCalendar(PERMS_EDIT),
+            'default_calendar' => 'internal|' . self::getDefaultCalendar(Horde_Perms::EDIT),
             'week_start' => (int)$prefs->getValue('week_start_monday'),
             'date_format' => str_replace(array('%e', '%d', '%a', '%A', '%m', '%h', '%b', '%B', '%y', '%Y'),
                                          array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy'),
@@ -169,7 +169,7 @@ class Kronolith
                         'fg' => self::foregroundColor($calendar),
                         'bg' => self::backgroundColor($calendar),
                         'show' => in_array($id, $GLOBALS['display_calendars']),
-                        'edit' => $calendar->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT));
+                        'edit' => $calendar->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT));
                 }
             }
 
@@ -177,7 +177,7 @@ class Kronolith
             if (!$has_tasks) {
                 continue;
             }
-            foreach ($GLOBALS['registry']->tasks->listTasklists($my, PERMS_SHOW) as $id => $tasklist) {
+            foreach ($GLOBALS['registry']->tasks->listTasklists($my, Horde_Perms::SHOW) as $id => $tasklist) {
                 $owner = $tasklist->get('owner') == Horde_Auth::getAuth();
                 if (($my && $owner) || (!$my && !$owner)) {
                     $code['conf']['calendars']['tasklists']['tasks/' . $id] = array(
@@ -187,7 +187,7 @@ class Kronolith
                         'fg' => self::foregroundColor($tasklist),
                         'bg' => self::backgroundColor($tasklist),
                         'show' => in_array('tasks/' . $id, $GLOBALS['display_external_calendars']),
-                        'edit' => $tasklist->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT));
+                        'edit' => $tasklist->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT));
                 }
             }
         }
@@ -674,7 +674,7 @@ class Kronolith
         }
 
         $kronolith_driver = self::getDriver();
-        $calendars = self::listCalendars(true, PERMS_ALL);
+        $calendars = self::listCalendars(true, Horde_Perms::ALL);
         $current_calendar = $kronolith_driver->getCalendar();
 
         $count = 0;
@@ -978,13 +978,13 @@ class Kronolith
                 $perm_value = 0;
                 switch ($GLOBALS['conf']['autoshare']['shareperms']) {
                 case 'read':
-                    $perm_value = PERMS_READ | PERMS_SHOW;
+                    $perm_value = Horde_Perms::READ | Horde_Perms::SHOW;
                     break;
                 case 'edit':
-                    $perm_value = PERMS_READ | PERMS_SHOW | PERMS_EDIT;
+                    $perm_value = Horde_Perms::READ | Horde_Perms::SHOW | Horde_Perms::EDIT;
                     break;
                 case 'full':
-                    $perm_value = PERMS_READ | PERMS_SHOW | PERMS_EDIT | PERMS_DELETE;
+                    $perm_value = Horde_Perms::READ | Horde_Perms::SHOW | Horde_Perms::EDIT | Horde_Perms::DELETE;
                     break;
                 }
                 $groups = &Group::singleton();
@@ -992,7 +992,7 @@ class Kronolith
                 if (!is_a($group_list, 'PEAR_Error') && count($group_list)) {
                     $perm = $share->getPermission();
                     // Add the default perm, not added otherwise
-                    $perm->addUserPermission(Horde_Auth::getAuth(), PERMS_ALL, false);
+                    $perm->addUserPermission(Horde_Auth::getAuth(), Horde_Perms::ALL, false);
                     foreach ($group_list as $group_id => $group_name) {
                         $perm->addGroupPermission($group_id, $perm_value, false);
                     }
@@ -1254,7 +1254,7 @@ class Kronolith
      *
      * @return array  The calendar list.
      */
-    public static function listCalendars($owneronly = false, $permission = PERMS_SHOW)
+    public static function listCalendars($owneronly = false, $permission = Horde_Perms::SHOW)
     {
         $calendars = $GLOBALS['kronolith_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null, 0, 0, 'name');
         if (is_a($calendars, 'PEAR_Error')) {
@@ -1269,7 +1269,7 @@ class Kronolith
      * Returns the default calendar for the current user at the specified
      * permissions level.
      */
-    public static function getDefaultCalendar($permission = PERMS_SHOW)
+    public static function getDefaultCalendar($permission = Horde_Perms::SHOW)
     {
         global $prefs;
 
@@ -1539,13 +1539,13 @@ class Kronolith
         $owner = $share->get('owner');
         $recipients[$owner] = self::_notificationPref($owner, 'owner');
 
-        foreach ($share->listUsers(PERMS_READ) as $user) {
+        foreach ($share->listUsers(Horde_Perms::READ) as $user) {
             if (!isset($recipients[$user])) {
                 $recipients[$user] = self::_notificationPref($user, 'read', $calendar);
             }
         }
 
-        foreach ($share->listGroups(PERMS_READ) as $group) {
+        foreach ($share->listGroups(Horde_Perms::READ) as $group) {
             $group = $groups->getGroupById($group);
             if (is_a($group, 'PEAR_Error')) {
                 continue;
@@ -1812,7 +1812,7 @@ class Kronolith
                   'onclick' => 'return ShowTab(\'Event\');'));
         if ((!$event->isPrivate() ||
              $event->getCreatorId() == Horde_Auth::getAuth()) &&
-            $event->hasPermission(PERMS_EDIT)) {
+            $event->hasPermission(Horde_Perms::EDIT)) {
             $tabs->addTab(
                 $event->isRemote() ? _("Save As New") : _("_Edit"),
                 $event->getEditUrl(),
@@ -1820,7 +1820,7 @@ class Kronolith
                       'id' => 'tabEditEvent',
                       'onclick' => 'return ShowTab(\'EditEvent\');'));
         }
-        if ($event->hasPermission(PERMS_DELETE)) {
+        if ($event->hasPermission(Horde_Perms::DELETE)) {
             $tabs->addTab(
                 _("De_lete"),
                 $event->getDeleteUrl(array('confirm' => 1)),
@@ -1958,7 +1958,7 @@ class Kronolith
                     ->getEvent(Horde_Util::getFormData('eventID'));
             }
             if (!is_a($event, 'PEAR_Error') &&
-                !$event->hasPermission(PERMS_READ)) {
+                !$event->hasPermission(Horde_Perms::READ)) {
                 $event = PEAR::raiseError(_("Permission Denied"));
             }
 
@@ -1975,7 +1975,7 @@ class Kronolith
                     ->getEvent(Horde_Util::getFormData('eventID'));
             }
             if (!is_a($event, 'PEAR_Error') &&
-                !$event->hasPermission(PERMS_EDIT)) {
+                !$event->hasPermission(Horde_Perms::EDIT)) {
                 $event = PEAR::raiseError(_("Permission Denied"));
             }
 
@@ -1989,7 +1989,7 @@ class Kronolith
                     ->getEvent(Horde_Util::getFormData('eventID'));
             }
             if (!is_a($event, 'PEAR_Error') &&
-                !$event->hasPermission(PERMS_DELETE)) {
+                !$event->hasPermission(Horde_Perms::DELETE)) {
                 $event = PEAR::raiseError(_("Permission Denied"));
             }
 
@@ -2006,7 +2006,7 @@ class Kronolith
                     ->getEvent(Horde_Util::getFormData('eventID'));
             }
             if (!is_a($event, 'PEAR_Error') &&
-                !$event->hasPermission(PERMS_READ)) {
+                !$event->hasPermission(Horde_Perms::READ)) {
                 $event = PEAR::raiseError(_("Permission Denied"));
             }
 
@@ -2096,7 +2096,7 @@ class Kronolith
         $menu = new Horde_Menu();
 
         $menu->add(Horde::applicationUrl($prefs->getValue('defaultview') . '.php'), _("_Today"), 'today.png', null, null, null, '__noselection');
-        if (self::getDefaultCalendar(PERMS_EDIT) &&
+        if (self::getDefaultCalendar(Horde_Perms::EDIT) &&
             (!empty($conf['hooks']['permsdenied']) ||
              self::hasPermission('max_events') === true ||
              self::hasPermission('max_events') > self::countEvents())) {

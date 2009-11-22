@@ -132,7 +132,7 @@ class Skoli {
      *
      * @return array  The class list.
      */
-    function listClasses($owneronly = false, $permission = PERMS_SHOW)
+    function listClasses($owneronly = false, $permission = Horde_Perms::SHOW)
     {
         global $registry;
 
@@ -208,13 +208,13 @@ class Skoli {
             $share = $GLOBALS['skoli_shares']->getShare($class);
 
             /* Check permissions */
-            if (!$share->hasPermission(Horde_Auth::getAuth(), PERMS_READ) || !isset($addressbooks[$share->get('address_book')])) {
+            if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ) || !isset($addressbooks[$share->get('address_book')])) {
                 continue;
             }
 
             $list[$i] = $share->datatreeObject->data;
             $list[$i]['_id'] = $class;
-            $list[$i]['_edit'] = $share->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT);
+            $list[$i]['_edit'] = $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
 
             /* Add all students to the list */
             $driver = &Skoli_Driver::singleton($class);
@@ -333,12 +333,12 @@ class Skoli {
         $addressbooks = $registry->call('contacts/sources');
         foreach ($classes as $class_id=>$share) {
             /* Check permissions */
-            if (!$share->hasPermission(Horde_Auth::getAuth(), PERMS_READ) || !isset($addressbooks[$share->get('address_book')])) {
+            if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ) || !isset($addressbooks[$share->get('address_book')])) {
                 continue;
             }
 
-            $share_permissions_edit = $share->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT);
-            $share_permissions_delete = $share->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE);
+            $share_permissions_edit = $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
+            $share_permissions_delete = $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE);
 
             $driver = &Skoli_Driver::singleton($class_id);
             $entries = $driver->getEntries($studentid, $type, $searchparams);
@@ -492,7 +492,7 @@ class Skoli {
 
         $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
         $menu->add(Horde::applicationUrl('list.php'), _("List Classes"), 'skoli.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-        if (count(Skoli::listClasses(false, PERMS_EDIT))) {
+        if (count(Skoli::listClasses(false, Horde_Perms::EDIT))) {
             $menu->add(Horde::applicationUrl('add.php'), _("_New Entry"), 'add.png', null, null, null, Horde_Util::getFormData('entry') ? '__noselection' : null);
         }
 
@@ -508,7 +508,7 @@ class Skoli {
         /* Timetable.
          * Show this item only if an application provides 'calendar/show' and we have permissions to view it.
         $app = $registry->hasMethod('calendar/show');
-        if ($app !== false && $registry->get('status', $app) != 'inactive' && $registry->hasPermission($app, PERMS_EDIT)) {
+        if ($app !== false && $registry->get('status', $app) != 'inactive' && $registry->hasPermission($app, Horde_Perms::EDIT)) {
             $menu->add(Horde::applicationUrl(Horde_Util::addParameter('timetable.php', 'actionID', 'new_timetable')), _("_New Timetable"), 'timetable.png');
         }
         */

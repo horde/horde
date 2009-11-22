@@ -79,7 +79,7 @@ abstract class Kronolith_Resource_Base
      * @param $restrict
      * @return unknown_type
      */
-    public function hasPermission($user, $permission = PERMS_READ, $restrict = null)
+    public function hasPermission($user, $permission = Horde_Perms::READ, $restrict = null)
     {
         if (Horde_Auth::isAdmin()) {
             return true;

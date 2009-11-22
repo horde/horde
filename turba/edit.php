@@ -58,8 +58,8 @@ if (is_a($contact, 'PEAR_Error')) {
 }
 
 /* Check permissions on this contact. */
-if (!$contact->hasPermission(PERMS_EDIT)) {
-    if (!$contact->hasPermission(PERMS_READ)) {
+if (!$contact->hasPermission(Horde_Perms::EDIT)) {
+    if (!$contact->hasPermission(Horde_Perms::READ)) {
         $notification->push(_("You do not have permission to view this contact."), 'horde.error');
         header('Location: ' . Horde::applicationUrl($prefs->getValue('initial_page'), true));
         exit;

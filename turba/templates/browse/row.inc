@@ -30,7 +30,7 @@ if ($ob->hasValue('__key')) {
         . '</a>';
 
     $cell = Horde::link($ob->url()) . $link_text . '</a>';
-    if ($ob->hasPermission(PERMS_EDIT)) {
+    if ($ob->hasPermission(Horde_Perms::EDIT)) {
         $edit_url = Horde_Util::addParameter(
             'contact.php',
             array('view' => 'EditContact',

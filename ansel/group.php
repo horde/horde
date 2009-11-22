@@ -27,13 +27,13 @@ $groups_perpage = $prefs->getValue('groupsperpage');
 
 switch ($groupby) {
 case 'category':
-    $num_groups = $ansel_storage->countCategories(PERMS_SHOW);
+    $num_groups = $ansel_storage->countCategories(Horde_Perms::SHOW);
     if (is_a($num_groups, 'PEAR_Error')) {
         $notification->push($num_groups);
         $num_groups = 0;
         $groups = array();
     } elseif ($num_groups) {
-        $groups = $ansel_storage->listCategories(PERMS_SHOW,
+        $groups = $ansel_storage->listCategories(Horde_Perms::SHOW,
                                                  $gbpage * $groups_perpage,
                                                  $groups_perpage);
     } else {
@@ -42,14 +42,14 @@ case 'category':
     break;
 
 case 'owner':
-    $num_groups = $ansel_storage->shares->countOwners(PERMS_SHOW, null,
+    $num_groups = $ansel_storage->shares->countOwners(Horde_Perms::SHOW, null,
                                                       false);
     if (is_a($num_groups, 'PEAR_Error')) {
         $notification->push($num_groups);
         $num_groups = 0;
         $groups = array();
     } elseif ($num_groups) {
-        $groups = $ansel_storage->shares->listOwners(PERMS_SHOW, null,
+        $groups = $ansel_storage->shares->listOwners(Horde_Perms::SHOW, null,
                                                      false,
                                                      $gbpage * $groups_perpage,
                                                      $groups_perpage);

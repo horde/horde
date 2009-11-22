@@ -88,7 +88,7 @@ abstract class Ansel_View_Base
         }
         if (is_a($gallery, 'PEAR_Error')) {
             throw new Horde_Exception($gallery->getMessage());
-        } elseif (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_READ)) {
+        } elseif (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
             throw new Horde_Exception(sprintf(_("Access denied to gallery \"%s\"."), $gallery->get('name')));
         }
 

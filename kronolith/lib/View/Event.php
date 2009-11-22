@@ -101,11 +101,11 @@ class Kronolith_View_Event {
         echo '</div>';
 
         if ($active && $GLOBALS['browser']->hasFeature('dom')) {
-            if ($this->event->hasPermission(PERMS_EDIT)) {
+            if ($this->event->hasPermission(Horde_Perms::EDIT)) {
                 $edit = new Kronolith_View_EditEvent($this->event);
                 $edit->html(false);
             }
-            if ($this->event->hasPermission(PERMS_DELETE)) {
+            if ($this->event->hasPermission(Horde_Perms::DELETE)) {
                 $delete = new Kronolith_View_DeleteEvent($this->event);
                 $delete->html(false);
             }

@@ -27,7 +27,7 @@ class News_Search extends Horde_Form {
                    News::LOCKED => _("Locked"));
         $this->addVariable(_("Status"), 'status', 'enum', false, false, false, array($s, _("-- select --")));
 
-        $allowed_cats = $GLOBALS['news_cat']->getAllowed(PERMS_DELETE);
+        $allowed_cats = $GLOBALS['news_cat']->getAllowed(Horde_Perms::DELETE);
         $this->addVariable(_("Category"), 'category', 'enum', false, false, false, array($allowed_cats, _("-- select --")));
 
         $sources = $GLOBALS['news']->getSources();

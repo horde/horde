@@ -13,7 +13,7 @@ require_once dirname(__FILE__) . '/../lib/base.php';
 $gallery_id = (int)Horde_Util::getFormData('gallery');
 $gallery = $ansel_storage->getGallery($gallery_id);
 if (is_a($gallery, 'PEAR_Error') ||
-    !$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_READ)) {
+    !$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
     die(sprintf(_("Gallery %s not found."), $gallery_id));
 }
 

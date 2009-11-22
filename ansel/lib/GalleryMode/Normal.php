@@ -55,7 +55,7 @@ class Ansel_GalleryMode_Normal {
      * @return A mixed array of Ansel_Gallery and Ansel_Image objects that are
      *         children of this gallery.
      */
-    function getGalleryChildren($perm = PERMS_SHOW, $from = 0, $to = 0)
+    function getGalleryChildren($perm = Horde_Perms::SHOW, $from = 0, $to = 0)
     {
         $galleries = array();
         $num_galleries = 0;
@@ -65,12 +65,12 @@ class Ansel_GalleryMode_Normal {
             /* Get the number of images and galleries */
             $numimages = $this->countImages();
             $num_galleries = $GLOBALS['ansel_storage']->countGalleries(
-                Horde_Auth::getAuth(), PERMS_SHOW, null, $this->_gallery, false);
+                Horde_Auth::getAuth(), Horde_Perms::SHOW, null, $this->_gallery, false);
 
             /* Now fetch the subgalleries, but only if we need to */
             if ($num_galleries > $from) {
                 $galleries = $GLOBALS['ansel_storage']->listGalleries(
-                    PERMS_SHOW, null, $this->_gallery, false, $from, $to);
+                    Horde_Perms::SHOW, null, $this->_gallery, false, $from, $to);
             }
         }
 
@@ -134,7 +134,7 @@ class Ansel_GalleryMode_Normal {
      *
      * @return integer The count of this gallery's children.
      */
-    function countGalleryChildren($perm = PERMS_SHOW, $galleries_only = false)
+    function countGalleryChildren($perm = Horde_Perms::SHOW, $galleries_only = false)
     {
         if (!$galleries_only && !$this->hasSubGalleries()) {
             return $this->_gallery->data['attribute_images'];
@@ -168,9 +168,9 @@ class Ansel_GalleryMode_Normal {
 
     function moveImagesTo($images, $gallery)
     {
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             return PEAR::raiseError(sprintf(_("Access denied moving photos to \"%s\"."), $newGallery->get('name')));
-        } elseif (!$this->_gallery->hasPermission(Horde_Auth::getAuth(), PERMS_DELETE)) {
+        } elseif (!$this->_gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
             return PEAR::raiseError(sprintf(_("Access denied removing photos from \"%s\"."), $gallery->get('name')));
         }
 
@@ -310,7 +310,7 @@ class Ansel_GalleryMode_Normal {
     {
         if ($subgalleries && $this->hasSubGalleries()) {
             $count = $this->countImages(false);
-            $galleries = $GLOBALS['ansel_storage']->listGalleries(PERMS_SHOW,
+            $galleries = $GLOBALS['ansel_storage']->listGalleries(Horde_Perms::SHOW,
                                                                   false,
                                                                   $this->_gallery,
                                                                   true);

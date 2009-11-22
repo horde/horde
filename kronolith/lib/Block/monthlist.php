@@ -76,7 +76,7 @@ class Horde_Block_Kronolith_monthlist extends Horde_Block {
 
         if (isset($this->_params['calendar']) && $this->_params['calendar'] != '__all') {
             $calendar = $GLOBALS['kronolith_shares']->getShare($this->_params['calendar']);
-            if (!is_a($calendar, 'PEAR_Error') && !$calendar->hasPermission(Horde_Auth::getAuth(), PERMS_SHOW)) {
+            if (!is_a($calendar, 'PEAR_Error') && !$calendar->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW)) {
                 return _("Permission Denied");
             }
             $all_events = Kronolith::listEvents($startDate, $endDate, array($this->_params['calendar']), true, false, false);

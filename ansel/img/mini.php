@@ -19,7 +19,7 @@ $gallery = $ansel_storage->getGallery(abs($image->gallery));
 if (is_a($gallery, 'PEAR_Error')) {
     Horde::fatal($gallery, __FILE__, __LINE__);
 }
-if (!$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_READ)) {
+if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
     Horde::fatal(_("Access denied viewing this photo."), __FILE__, __LINE__);
 }
 

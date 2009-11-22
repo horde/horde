@@ -935,7 +935,7 @@ class Ansel_Image
         if (is_a($gallery, 'PEAR_Error')) {
             return $gallery;
         }
-        if ($gallery->hasPermission(Horde_Auth::getAuth(), PERMS_READ)) {
+        if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
             $res = Ansel_Tags::readTags($this->id);
             if (!is_a($res, 'PEAR_Error')) {
                 $this->_tags = $res;
@@ -958,7 +958,7 @@ class Ansel_Image
         global $ansel_storage;
 
         $gallery = $ansel_storage->getGallery(abs($this->gallery));
-        if ($gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+        if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             // Clear the local cache.
             $this->_tags = array();
             return Ansel_Tags::writeTags($this->id, $tags);

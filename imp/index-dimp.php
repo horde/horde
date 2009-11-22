@@ -52,7 +52,7 @@ IMP_Dimp::header('', $scripts);
 $application_folders = array();
 foreach (IMP_Dimp::menuList() as $app) {
     if ($registry->get('status', $app) != 'inactive' &&
-        $registry->hasPermission($app, PERMS_SHOW)) {
+        $registry->hasPermission($app, Horde_Perms::SHOW)) {
         $application_folders[] = array(
             'name' => htmlspecialchars($registry->get('name', $app)),
             'icon' => $registry->get('icon', $app),

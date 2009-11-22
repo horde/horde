@@ -31,7 +31,7 @@ if (is_a($object, 'PEAR_Error')) {
 }
 
 /* Check permissions on this contact. */
-if (!$object->hasPermission(PERMS_READ)) {
+if (!$object->hasPermission(Horde_Perms::READ)) {
     $notification->push(_("You do not have permission to view this object."), 'horde.error');
     header('Location: ' . Horde::applicationUrl($prefs->getValue('initial_page'), true));
     exit;

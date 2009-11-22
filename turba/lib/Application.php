@@ -155,7 +155,7 @@ class Turba_Application extends Horde_Registry_Application
         /* Only attempt share removal if we have shares configured */
         if (!empty($_SESSION['turba']['has_share'])) {
             $shares = &$GLOBALS['turba_shares']->listShares(
-                $user, PERMS_EDIT, $user);
+                $user, Horde_Perms::EDIT, $user);
 
             /* Look for the deleted user's default share and remove it */
             foreach ($shares as $share) {

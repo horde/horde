@@ -98,7 +98,7 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
             $this->_params['calendar'] != '__all') {
 
             $calendar = $GLOBALS['kronolith_shares']->getShare($this->_params['calendar']);
-            if (!is_a($calendar, 'PEAR_Error') && !$calendar->hasPermission(Horde_Auth::getAuth(), PERMS_SHOW)) {
+            if (!is_a($calendar, 'PEAR_Error') && !$calendar->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW)) {
                 return _("Permission Denied");
             }
 

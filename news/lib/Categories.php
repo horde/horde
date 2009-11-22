@@ -235,7 +235,7 @@ class News_Categories {
      *
      * @return string  The current language.
      */
-    public function getAllowed($perm = PERMS_SHOW)
+    public function getAllowed($perm = Horde_Perms::SHOW)
     {
         $cats = $this->getCategories();
         if (Horde_Auth::isAdmin('news:admin') ||

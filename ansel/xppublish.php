@@ -170,7 +170,7 @@ if ($cmd == 'add') {
         $error = _("Invalid gallery specified.") . "<br />\n";
     } else {
         $gallery = $ansel_storage->getGallery($galleryId);
-        if (is_a($gallery, 'PEAR_ERROR') || !$gallery->hasPermission(Horde_Auth::getAuth(), PERMS_EDIT)) {
+        if (is_a($gallery, 'PEAR_ERROR') || !$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
             $error = sprintf(_("Access denied adding photos to \"%s\"."), $gallery->get('name'));
         } else {
             $error = false;

@@ -83,7 +83,7 @@ if ($driver->supportShares()) {
     $_SESSION['ingo']['current_share'] = Horde_Util::getFormData('ruleset', @$_SESSION['ingo']['current_share']);
     if (empty($_SESSION['ingo']['current_share']) ||
         empty($GLOBALS['all_rulesets'][$_SESSION['ingo']['current_share']]) ||
-        !$GLOBALS['all_rulesets'][$_SESSION['ingo']['current_share']]->hasPermission(Horde_Auth::getAuth(), PERMS_READ)) {
+        !$GLOBALS['all_rulesets'][$_SESSION['ingo']['current_share']]->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
         $_SESSION['ingo']['current_share'] = $signature;
     }
 } else {

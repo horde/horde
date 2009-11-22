@@ -87,12 +87,12 @@ class Turba {
      * Get all the address books the user has the requested permissions to and
      * return them in the user's preferred order.
      *
-     * @param integer $permission  The PERMS_* constant to filter on.
+     * @param integer $permission  The Horde_Perms::* constant to filter on.
      * @param array $options       Any additional options.
      *
      * @return array  The filtered, ordered $cfgSources entries.
      */
-    function getAddressBooks($permission = PERMS_READ, $options = array())
+    function getAddressBooks($permission = Horde_Perms::READ, $options = array())
     {
         $addressbooks = array();
         foreach (array_keys(Turba::getAddressBookOrder()) as $addressbook) {
@@ -323,12 +323,13 @@ class Turba {
      *
      * @param array $in            The data we want filtered.
      * @param string $filter       What type of data we are filtering.
-     * @param integer $permission  The PERMS_* constant we will filter on.
+     * @param integer $permission  The Horde_Perms::* constant we will filter
+     *                             on.
      * @param array $options       Additional options.
      *
      * @return array  The filtered data.
      */
-    function permissionsFilter($in, $permission = PERMS_READ, $options = array())
+    function permissionsFilter($in, $permission = Horde_Perms::READ, $options = array())
     {
         $out = array();
 
@@ -501,7 +502,7 @@ class Turba {
      *
      * @return array  Shares the user has the requested permissions to.
      */
-    function listShares($owneronly = false, $permission = PERMS_READ)
+    function listShares($owneronly = false, $permission = Horde_Perms::READ)
     {
         if (empty($_SESSION['turba']['has_share'])) {
             // No backends are configured to provide shares
