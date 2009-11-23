@@ -10,7 +10,6 @@
 
 @define('SKOLI_BASE', dirname(__FILE__));
 require_once SKOLI_BASE . '/lib/base.php';
-require_once 'Horde/UI/Tabs.php';
 
 // Exit if this isn't an authenticated user.
 if (!Horde_Auth::getAuth()) {

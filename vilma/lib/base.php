@@ -46,9 +46,6 @@ $template = &new Horde_Template();
 $notification = &Horde_Notification::singleton();
 $notification->attach('status');
 
-/* Navigation Tabs */
-require_once 'Horde/UI/Tabs.php';
-
 /* Vilma driver. */
 $GLOBALS['vilma_driver'] = &Vilma_Driver::singleton();
 

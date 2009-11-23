@@ -29,8 +29,6 @@ require_once 'Horde/Form.php';
 require_once 'Horde/Form/Renderer.php';
 require_once 'Horde/Form/Action.php';
 
-require_once 'Horde/UI/Tabs.php';
-
 $app = Horde_Util::getFormData('module');
 
 $show = 'edit';

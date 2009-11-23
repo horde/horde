@@ -52,12 +52,7 @@ require_once 'Horde/Form.php';
 require_once 'Horde/Form/Renderer.php';
 require_once 'Horde/Form/Action.php';
 
-/* Tabs and Pager UI */
-require_once 'Horde/UI/Tabs.php';
-require_once 'Horde/UI/Pager.php';
-
 /* Templates */
-require_once 'Horde/Template.php';
 $template = new Horde_Template();
 
 /* Module selection */

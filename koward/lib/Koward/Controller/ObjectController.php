@@ -18,8 +18,6 @@ class ObjectController extends Koward_Controller_Application
 
     public function listall()
     {
-        require_once 'Horde/UI/Tabs.php';
-
         $this->object_type = $this->params->get('id', $this->types[0]);
 
         $this->checkAccess($this->getPermissionId() . '/' . $this->object_type);

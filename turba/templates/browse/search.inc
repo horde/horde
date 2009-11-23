@@ -38,7 +38,6 @@ foreach (Turba::getAddressBooks() as $key => $entry) {
 }
 
 /* Build search mode tabs. */
-require_once 'Horde/UI/Tabs.php';
 $sUrl = Horde::applicationUrl('search.php');
 $vars = Horde_Variables::getDefaultVariables();
 $tabs = new Horde_Ui_Tabs('search_mode', $vars);
