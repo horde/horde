@@ -143,10 +143,8 @@ class Horde_Mime_Mdn
                              $mailparams = array(), $mod = array(),
                              $err = array())
     {
-        require_once 'Horde/Identity.php';
-
         /* Set up some variables we use later. */
-        $identity = Identity::singleton();
+        $identity = Horde_Prefs_Identity::singleton();
         $from_addr = $identity->getDefaultFromAddress();
 
         $to = $this->getMdnReturnAddr();

@@ -105,14 +105,11 @@ class Horde_Kolab_Format_ContactTest extends PHPUnit_Framework_TestCase
      */
     public function testCategoriesWithPrefs()
     {
-        @include_once 'Horde.php';
-        @include_once 'Horde/Prefs.php';
-
         global $registry, $prefs;
 
-        if (class_exists('Prefs')) {
+        if (class_exists('Horde_Prefs')) {
             $registry = new DummyRegistry();
-            $prefs    = Prefs::singleton('session');
+            $prefs    = Horde_Prefs::singleton('Session');
 
             /* Monkey patch to allw the value to be set. */
             $prefs->_prefs['categories'] = array('v' => '');

@@ -1022,20 +1022,18 @@ class Horde_Registry
      */
     public function loadPrefs($app = null)
     {
-        require_once 'Horde/Prefs.php';
-
         if (is_null($app)) {
             $app = $this->getApp();
         }
 
-        /* If there is no logged in user, return an empty Prefs::
+        /* If there is no logged in user, return an empty Horde_Prefs::
          * object with just default preferences. */
         if (!Horde_Auth::getAuth()) {
-            $GLOBALS['prefs'] = Prefs::factory('session', $app, '', '', null, false);
+            $GLOBALS['prefs'] = Horde_Prefs::factory('Session', $app, '', '', null, false);
         } else {
             if (!isset($GLOBALS['prefs']) ||
                 ($GLOBALS['prefs']->getUser() != Horde_Auth::getAuth())) {
-                $GLOBALS['prefs'] = Prefs::factory($GLOBALS['conf']['prefs']['driver'], $app, Horde_Auth::getAuth(), Horde_Auth::getCredential('password'));
+                $GLOBALS['prefs'] = Horde_Prefs::factory($GLOBALS['conf']['prefs']['driver'], $app, Horde_Auth::getAuth(), Horde_Auth::getCredential('password'));
             } else {
                 $GLOBALS['prefs']->retrieve($app);
             }
