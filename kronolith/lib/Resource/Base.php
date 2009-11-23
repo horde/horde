@@ -15,8 +15,6 @@ abstract class Kronolith_Resource_Base
      *   description -
      *   email       -
      *   response_type - a RESPONSETYPE_* constant
-     *   category    - The category of this resource...an arbitrary label used
-     *                 to group multiple resources for the resource_group implementation
      *
      * @var array
      */
@@ -43,8 +41,16 @@ abstract class Kronolith_Resource_Base
             $this->_id = $params['id'];
         }
 
+        // Names are required.
+        if (empty($params['name'])) {
+            throw new Horde_Exception('Required \'name\' attribute missing from resource calendar');
+        }
+
         array_merge($params, array('description' => '',
-                                   'category' => ''));
+                                   'response_type' => Kronolith_Resource::RESPONSETYPE_MANUAL,
+                                   'members' => '',
+                                   'type' => Kronolith_Resource::TYPE_SINGLE));
+
         $this->_params = $params;
     }
 
@@ -101,7 +107,10 @@ abstract class Kronolith_Resource_Base
             return ($this instanceof Kronolith_Resource_Single) ? 'Single' : 'Group';
         }
 
-        return !empty($this->_params[$property]) ? $this->_params[$property] : false;
+        if (!isset($this->_params[$property])) {
+            throw new Horde_Exception(sprintf("The property \'%s\' does not exist", $property));
+        }
+        return $this->_params[$property];
     }
 
     /**
