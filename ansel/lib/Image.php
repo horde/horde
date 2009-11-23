@@ -873,8 +873,7 @@ class Ansel_Image
         }
 
         if (empty($watermark)) {
-            require_once 'Horde/Identity.php';
-            $identity = Identity::singleton();
+            $identity = Horde_Prefs_Identity::singleton();
             $name = $identity->getValue('fullname');
             if (empty($name)) {
                 $name = Horde_Auth::getAuth();

@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Crypt_pgp:: class contains all functions related to handling
+ * The IMP_Crypt_Pgp:: class contains all functions related to handling
  * PGP messages within IMP.
  *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
@@ -195,7 +195,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             /* TODO: Retrieve by ID. */
 
             /* See if the address points to the user's public key. */
-            $identity = Identity::singleton(array('imp', 'imp'));
+            $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
             $personal_pubkey = $this->getPersonalPublicKey();
             if (!empty($personal_pubkey) && $identity->hasAddress($address)) {
                 $result = $personal_pubkey;

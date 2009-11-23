@@ -9,11 +9,12 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Identity
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category IMP
+ * @package  Horde_Prefs
  */
-class Identity_imp extends Identity
+class Imp_Prefs_Identity extends Horde_Prefs_Identity
 {
     /**
      * Cached alias list.
@@ -500,7 +501,7 @@ class Identity_imp extends Identity
     }
 
     /**
-     * @see Identity::getValue()
+     * @see Horde_Prefs_Identity::getValue()
      */
     public function getValue($key, $identity = null)
     {

@@ -1157,7 +1157,7 @@ class Kronolith_Api extends Horde_Registry_Api
                     if ($alarm_user == $current_user) {
                         $prefs = $GLOBALS['prefs'];
                     } else {
-                        $prefs = Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
+                        $prefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
                             'kronolith', $alarm_user, null,
                             null, false);
                     }

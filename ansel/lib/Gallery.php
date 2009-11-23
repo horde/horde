@@ -407,9 +407,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
      */
     public function getOwner()
     {
-        require_once 'Horde/Identity.php';
-        $identity = Identity::singleton('none', $this->data['share_owner']);
-        return $identity;
+        return Horde_Prefs_Identity::singleton('none', $this->data['share_owner']);
     }
 
     /**

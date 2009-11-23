@@ -67,8 +67,7 @@ if ($driver->supportShares()) {
     /* If personal share doesn't exist then create it. */
     $signature = $_SESSION['ingo']['backend']['id'] . ':' . Horde_Auth::getAuth();
     if (!$GLOBALS['ingo_shares']->exists($signature)) {
-        require_once 'Horde/Identity.php';
-        $identity = &Identity::singleton();
+        $identity = Horde_Prefs_Identity::singleton();
         $name = $identity->getValue('fullname');
         if (trim($name) == '') {
             $name = Horde_Auth::getOriginalAuth();

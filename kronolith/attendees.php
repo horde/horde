@@ -8,7 +8,6 @@
  */
 
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Identity.php';
 
 // Get the current attendees array from the session cache.
 $attendees = (isset($_SESSION['kronolith']['attendees']) &&
@@ -238,7 +237,7 @@ $view = Horde_Util::getFormData('view', 'Day');
 $delimg = Horde::img('delete.png', _("Remove Attendee"), null,
                      $registry->getImageDir('horde'));
 
-$ident = &Identity::singleton();
+$ident = Horde_Prefs_Identity::singleton();
 $identities = $ident->getAll('id');
 $vars = Horde_Variables::getDefaultVariables();
 $tabs = new Horde_Ui_Tabs(null, $vars);

@@ -1801,7 +1801,7 @@ class IMP_Imap_Tree
         }
 
         /* Initialize the user's identities. */
-        $identity = Identity::singleton(array('imp', 'imp'));
+        $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
 
         $this->_eltCache = array(
             'trash' => IMP::folderPref($GLOBALS['prefs']->getValue('trash_folder'), true),

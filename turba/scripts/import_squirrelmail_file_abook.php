@@ -80,7 +80,7 @@ foreach($files as $file) {
 
     // Reset user prefs
     unset($prefs);
-    $prefs = &Prefs::factory($conf['prefs']['driver'], 'turba', $user, null, null, false);
+    $prefs = Horde_Prefs::factory($conf['prefs']['driver'], 'turba', $user, null, null, false);
 
     // Reset $cfgSources for current user.
     unset($cfgSources);

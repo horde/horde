@@ -24,8 +24,6 @@ class Kronolith_FreeBusy {
     {
         global $kronolith_shares;
 
-        require_once 'Horde/Identity.php';
-
         if (!is_array($calendar)) {
             $calendar = array($calendar);
         }
@@ -59,8 +57,7 @@ class Kronolith_FreeBusy {
         }
 
         /* Get the Identity for the owner of the share. */
-        $identity = &Identity::singleton('none',
-                                         $user ? $user : $owner);
+        $identity = Horde_Prefs_Identity::singleton('none', $user ? $user : $owner);
         $email = $identity->getValue('from_addr');
         $cn = $identity->getValue('fullname');
 

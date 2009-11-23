@@ -961,8 +961,7 @@ class Kronolith
         if (Horde_Auth::getAuth() &&
             !count($GLOBALS['display_calendars']) &&
             !$GLOBALS['kronolith_shares']->exists(Horde_Auth::getAuth())) {
-            require_once 'Horde/Identity.php';
-            $identity = &Identity::singleton();
+            $identity = Horde_Prefs_Identity::singleton();
             $name = $identity->getValue('fullname');
             if (trim($name) == '') {
                 $name = Horde_Auth::getOriginalAuth();
@@ -1019,8 +1018,7 @@ class Kronolith
         static $names = array();
 
         if (!isset($names[$uid])) {
-            require_once 'Horde/Identity.php';
-            $ident = &Identity::singleton('none', $uid);
+            $ident = Horde_Prefs_Identity::singleton('none', $uid);
             $ident->setDefault($ident->getDefault());
             $names[$uid] = $ident->getValue('fullname');
             if (empty($names[$uid])) {
@@ -1039,8 +1037,7 @@ class Kronolith
         static $emails = array();
 
         if (!isset($emails[$uid])) {
-            require_once 'Horde/Identity.php';
-            $ident = &Identity::singleton('none', $uid);
+            $ident = Horde_Prefs_Identity::singleton('none', $uid);
             $emails[$uid] = $ident->getValue('from_addr');
             if (empty($emails[$uid])) {
                 $emails[$uid] = $uid;
@@ -1058,8 +1055,7 @@ class Kronolith
         static $emails = array();
 
         if (!isset($emails[$uid])) {
-            require_once 'Horde/Identity.php';
-            $ident = &Identity::singleton('none', $uid);
+            $ident = Horde_Prefs_Identity::singleton('none', $uid);
 
             $addrs = $ident->getAll('from_addr');
             $addrs[] = $uid;
@@ -1393,8 +1389,7 @@ class Kronolith
             return;
         }
 
-        require_once 'Horde/Identity.php';
-        $ident = &Identity::singleton('none', $event->getCreatorId());
+        $ident = Horde_Prefs_Identity::singleton('none', $event->getCreatorId());
 
         $myemail = $ident->getValue('from_addr');
         if (!$myemail) {
@@ -1527,7 +1522,6 @@ class Kronolith
         }
 
         require_once 'Horde/Group.php';
-        require_once 'Horde/Identity.php';
 
         $groups = &Group::singleton();
         $calendar = $event->getCalendar();
@@ -1537,7 +1531,7 @@ class Kronolith
             return $share;
         }
 
-        $identity = &Identity::singleton();
+        $identity = Horde_Prefs_Identity::singleton();
         $from = $identity->getDefaultFromAddress(true);
 
         $owner = $share->get('owner');
@@ -1571,7 +1565,7 @@ class Kronolith
             if (!$vals) {
                 continue;
             }
-            $identity = &Identity::singleton('none', $user);
+            $identity = Horde_Prefs_Identity::singleton('none', $user);
             $email = $identity->getValue('from_addr');
             if (strpos($email, '@') === false) {
                 continue;
@@ -1693,9 +1687,9 @@ class Kronolith
      */
     public static function _notificationPref($user, $mode, $calendar = null)
     {
-        $prefs = &Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
-                                   'kronolith', $user, '', null,
-                                   false);
+        $prefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
+                                        'kronolith', $user, '', null,
+                                        false);
         $prefs->retrieve();
         $vals = array('lang' => $prefs->getValue('language'),
                       'tf' => $prefs->getValue('twentyFour'),

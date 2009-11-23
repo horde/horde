@@ -59,9 +59,8 @@ class Nag_TaskForm extends Horde_Form {
             $users = array_flip($users);
         }
         if (count($users)) {
-            require_once 'Horde/Identity.php';
             foreach (array_keys($users) as $user) {
-                $identity = &Identity::singleton('none', $user);
+                $identity = Horde_Prefs_Identity::singleton('none', $user);
                 $fullname = $identity->getValue('fullname');
                 $users[$user] = strlen($fullname) ? $fullname : $user;
             }

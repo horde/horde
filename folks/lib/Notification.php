@@ -221,9 +221,7 @@ class Folks_Notification {
      */
     protected function _getUserFromAddr($user)
     {
-        require_once 'Horde/Identity.php';
-        $identity = Identity::singleton('none', $user);
-        return $identity->getValue('from_addr');
+        return Horde_Prefs_Identity::singleton('none', $user)->getValue('from_addr');
     }
 
     /**

@@ -11,7 +11,6 @@
 
 require_once dirname(__FILE__) . '/lib/Application.php';
 new IMP_Application(array('init' => array('authentication' => 'horde')));
-require_once 'Horde/Prefs/UI.php';
 
 $compose_url = Horde::getServiceLink('options', 'imp');
 
@@ -106,13 +105,13 @@ extract(Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'im
 
 $app = 'imp';
 $chunk = Horde_Util::nonInputVar('chunk');
-Prefs_UI::generateHeader(null, $chunk);
+Horde_Prefs_Ui::generateHeader(null, $chunk);
 
 $t = new Horde_Template();
 $t->setOption('gettext', true);
 $t->set('action', Horde::selfUrl());
 $t->set('forminput', Horde_Util::formInput());
-$t->set('navcell', Horde_Util::bufferOutput(array('Prefs_UI', 'generateNavigationCell'), 'compose'));
+$t->set('navcell', Horde_Util::bufferOutput(array('Horde_Prefs_Ui', 'generateNavigationCell'), 'compose'));
 
 $slist = array();
 foreach ($stationery_list as $key => $choice) {

@@ -33,8 +33,7 @@ class Kronolith_View_EditEvent {
 
     function html($active = true)
     {
-        require_once 'Horde/Identity.php';
-        $identity = &Identity::singleton();
+        $identity = Horde_Prefs_Identity::singleton();
 
         if (!$this->event || is_a($this->event, 'PEAR_Error')) {
             echo '<h3>' . _("The requested event was not found.") . '</h3>';

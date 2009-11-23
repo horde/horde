@@ -24,7 +24,6 @@ function _no_access($status, $reason, $body)
 $kronolith_authentication = 'none';
 $kronolith_session_control = 'readonly';
 require_once dirname(__FILE__) . '/../lib/base.php';
-require_once 'Horde/Identity.php';
 
 $calendar = Horde_Util::getFormData('c');
 $share = $kronolith_shares->getShare($calendar);
@@ -86,8 +85,8 @@ if (isset($conf['urls']['pretty']) && $conf['urls']['pretty'] == 'rewrite') {
 $self_url = Horde::applicationUrl($self_url, true, -1);
 
 $owner = $share->get('owner');
-$identity = Identity::factory('none', $owner);
-$history = &Horde_History::singleton();
+$identity = Horde_Prefs_Identity::factory('none', $owner);
+$history = Horde_History::singleton();
 $now = new Horde_Date(time());
 
 $template = new Horde_Template();

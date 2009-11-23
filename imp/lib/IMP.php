@@ -72,9 +72,6 @@ class IMP
             Horde::compressOutput();
         }
 
-        // TODO: Remove once this can be autoloaded
-        require_once 'Horde/Identity.php';
-
         // Initialize global $imp_imap object.
         if (!isset($GLOBALS['imp_imap'])) {
             $GLOBALS['imp_imap'] = new IMP_Imap();
@@ -1138,7 +1135,7 @@ class IMP
     static public function isSpecialFolder($mbox)
     {
         /* Get the identities. */
-        $identity = Identity::singleton(array('imp', 'imp'));
+        $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
 
         return (($mbox == self::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)) || in_array($mbox, $identity->getAllSentmailFolders()));
     }

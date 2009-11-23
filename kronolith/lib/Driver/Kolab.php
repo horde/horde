@@ -1,7 +1,6 @@
 <?php
 
 require_once 'Horde/Kolab.php';
-require_once 'Horde/Identity.php';
 
 /**
  * Horde Kronolith driver for the Kolab IMAP Server.

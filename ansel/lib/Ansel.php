@@ -709,13 +709,12 @@ class Ansel
             if ($owner == Horde_Auth::getAuth()) {
                 $owner_title = _("My Galleries");
             } elseif (!empty($GLOBALS['conf']['gallery']['customlabel'])) {
-                $uprefs = Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
+                $uprefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
                                            'ansel',
                                            $owner, '', null, false);
                 $fullname = $uprefs->getValue('grouptitle');
                 if (!$fullname) {
-                    require_once 'Horde/Identity.php';
-                    $identity = Identity::singleton('none', $owner);
+                    $identity = Horde_Prefs_Identity::singleton('none', $owner);
                     $fullname = $identity->getValue('fullname');
                     if (!$fullname) {
                         $fullname = $owner;

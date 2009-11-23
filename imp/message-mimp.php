@@ -162,7 +162,7 @@ if (($actionID == 'c') && !is_null($atc_id)) {
 }
 
 /* Create the Identity object. */
-$user_identity = Identity::singleton(array('imp', 'imp'));
+$user_identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
 
 /* Develop the list of headers to display. */
 $basic_headers = $imp_ui->basicHeaders();

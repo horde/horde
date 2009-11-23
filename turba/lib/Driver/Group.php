@@ -130,13 +130,12 @@ class Turba_Driver_Group extends Turba_Driver
     function _getAddressBook()
     {
         require_once 'Horde/Group.php';
-        require_once 'Horde/Identity.php';
 
         $groups = Group::singleton();
         $members = $groups->listAllUsers($this->_gid);
         $addressbook = array();
         foreach ($members as $member) {
-            $identity = &Identity::singleton('none', $member);
+            $identity = Horde_Prefs_Identity::singleton('none', $member);
             $name = $identity->getValue('fullname');
             $email = $identity->getValue('from_addr');
             // We use the email as the key since we could have multiple users

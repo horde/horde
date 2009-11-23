@@ -275,8 +275,7 @@ class Turba {
         static $names = array();
 
         if (!isset($names[$uid])) {
-            require_once 'Horde/Identity.php';
-            $ident = Identity::singleton('none', $uid);
+            $ident = Horde_Prefs_Identity::singleton('none', $uid);
             $ident->setDefault($ident->getDefault());
             $names[$uid] = $ident->getValue('fullname');
             if (empty($names[$uid])) {
@@ -531,8 +530,7 @@ class Turba {
     {
         if (!isset($params['name'])) {
             /* Sensible default for empty display names */
-            require_once 'Horde/Identity.php';
-            $identity = Identity::singleton();
+            $identity = Horde_Prefs_Identity::singleton();
             $name = $identity->getValue('fullname');
             if (trim($name) == '') {
                 $name = Horde_Auth::getOriginalAuth();

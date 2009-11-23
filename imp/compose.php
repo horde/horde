@@ -68,7 +68,7 @@ $pgp_passphrase_dialog = $pgp_symmetric_passphrase_dialog = $showmenu = $smime_p
 $cursor_pos = $oldrtemode = $rtemode = $siglocation = null;
 
 /* Set the current identity. */
-$identity = Identity::singleton(array('imp', 'imp'));
+$identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
 if (!$prefs->isLocked('default_identity')) {
     $identity_id = Horde_Util::getFormData('identity');
     if (!is_null($identity_id)) {

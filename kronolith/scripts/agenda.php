@@ -11,7 +11,6 @@
 
 $kronolith_authentication = 'none';
 require_once dirname(__FILE__) . '/../lib/base.php';
-require_once 'Horde/Identity.php';
 
 // Make sure no one runs this from the web.
 if (!Horde_Cli::runningFromCLI()) {
@@ -68,8 +67,8 @@ function send_agendas()
 
     // Loop through the users and generate an agenda for them
     foreach ($users as $user) {
-        $prefs = Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
-                                  'kronolith', $user);
+        $prefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
+                                        'kronolith', $user);
         $prefs->retrieve();
         $agenda_calendars = $prefs->getValue('daily_agenda');
 
@@ -83,7 +82,7 @@ function send_agendas()
         }
 
         // try to find an email address for the user
-        $identity = Identity::singleton('none', $user);
+        $identity = Horde_Prefs_Identity::singleton('none', $user);
         $email = $identity->getValue('from_addr');
         if (strstr($email, '@')) {
             list($mailbox, $host) = explode('@', $email);

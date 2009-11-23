@@ -16,7 +16,6 @@ $cli->init();
 /* Load required libraries. */
 $kronolith_authentication = 'none';
 require_once KRONOLITH_BASE . '/../../lib/base.php';
-require_once 'Horde/Prefs.php';
 
 /* Prepare DB stuff. */
 PEAR::staticPushErrorHandling(PEAR_ERROR_DIE);
@@ -44,8 +43,8 @@ while ($row = $result->fetchRow(DB_FETCHMODE_ASSOC)) {
         if (!is_null($creator)) {
             echo "$count\n";
         }
-        $prefs = Prefs::factory($conf['prefs']['driver'], 'horde',
-                                $row['event_creator_id']);
+        $prefs = Horde_Prefs::factory($conf['prefs']['driver'], 'horde',
+                                      $row['event_creator_id']);
         $timezone = $prefs->getValue('timezone');
         if (empty($timezone)) {
             $timezone = date_default_timezone_get();

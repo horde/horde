@@ -304,10 +304,9 @@ try {
 
 extract(Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp'));
 
-require_once 'Horde/Prefs/UI.php';
 $app = 'imp';
 $chunk = Horde_Util::nonInputVar('chunk');
-Prefs_UI::generateHeader('pgp', $chunk);
+Horde_Prefs_Ui::generateHeader('pgp', $chunk);
 
 /* If PGP preference not active, do NOT show PGP Admin screen. */
 $t = new Horde_Template();
@@ -376,7 +375,7 @@ if ($prefs->getValue('use_pgp')) {
             $t->set('deletekeypair', addslashes(_("Are you sure you want to delete your keypair? (This is NOT recommended!)")));
             $t->set('personalkey-delete-help', Horde_Help::link('imp', 'pgp-personalkey-delete'));
         } else {
-            $imp_identity = Identity::singleton(array('imp', 'imp'));
+            $imp_identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
             $t->set('fullname', $imp_identity->getFullname());
             $t->set('personalkey-create-name-help', Horde_Help::link('imp', 'pgp-personalkey-create-name'));
             $t->set('personalkey-create-comment-help', Horde_Help::link('imp', 'pgp-personalkey-create-comment'));

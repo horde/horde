@@ -32,7 +32,7 @@ $key = 'kronolith.fb.' . ($user ? 'u.' . $user : 'c.' . $cal);
 $fb = $cache->get($key, 360);
 if (!$fb) {
     if ($user) {
-        $prefs = &Prefs::singleton($conf['prefs']['driver'], 'kronolith', $user, '', null, false);
+        $prefs = Horde_Prefs::singleton($conf['prefs']['driver'], 'kronolith', $user, '', null, false);
         $prefs->retrieve();
         Horde_Nls::setTimeZone();
         $cal = @unserialize($prefs->getValue('fb_cals'));

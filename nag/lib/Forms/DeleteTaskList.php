@@ -67,8 +67,7 @@ class Nag_DeleteTaskListForm extends Horde_Form {
         if (count(Nag::listTasklists(true)) == 0) {
             // If the default share doesn't exist then create it.
             if (!$GLOBALS['nag_shares']->exists(Horde_Auth::getAuth())) {
-                require_once 'Horde/Identity.php';
-                $identity = &Identity::singleton();
+                $identity = Horde_Prefs_Identity::singleton();
                 $name = $identity->getValue('fullname');
                 if (trim($name) == '') {
                     $name = Horde_Auth::getOriginalAuth();

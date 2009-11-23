@@ -558,8 +558,7 @@ class Nag
             return '';
         }
 
-        require_once 'Horde/Identity.php';
-        $identity = Identity::singleton('none', $assignee);
+        $identity = Horde_Prefs_Identity::singleton('none', $assignee);
         $fullname = $identity->getValue('fullname');
         if (!strlen($fullname)) {
             $fullname = $assignee;
@@ -659,8 +658,7 @@ class Nag
 
                 /* If the user's personal tasklist doesn't exist, then create it. */
                 if (!$GLOBALS['nag_shares']->exists(Horde_Auth::getAuth())) {
-                    require_once 'Horde/Identity.php';
-                    $identity = Identity::singleton();
+                    $identity = Horde_Prefs_Identity::singleton();
                     $name = $identity->getValue('fullname');
                     if (trim($name) == '') {
                         $name = Horde_Auth::getOriginalAuth();
@@ -775,11 +773,10 @@ class Nag
         }
 
         require_once 'Horde/Group.php';
-        require_once 'Horde/Identity.php';
 
         $groups = Group::singleton();
         $recipients = array();
-        $identity = Identity::singleton();
+        $identity = Horde_Prefs_Identity::singleton();
         $from = $identity->getDefaultFromAddress(true);
 
         $owner = $share->get('owner');
@@ -812,7 +809,7 @@ class Nag
             if (!$vals) {
                 continue;
             }
-            $identity = Identity::singleton('none', $user);
+            $identity = Horde_Prefs_Identity::singleton('none', $user);
             $email = $identity->getValue('from_addr');
             if (strpos($email, '@') === false) {
                 continue;
@@ -892,13 +889,12 @@ class Nag
                                   $old_task->category, $task->category);
                 }
                 if ($old_task->assignee != $task->assignee) {
-                    require_once 'Horde/Identity.php';
-                    $identity = Identity::singleton('none', $old_task->assignee);
+                    $identity = Horde_Prefs_Identity::singleton('none', $old_task->assignee);
                     $old_name = $identity->getValue('fullname');
                     if (!strlen($old_name)) {
                         $old_name = $old_task->assignee;
                     }
-                    $identity = Identity::singleton('none', $task->assignee);
+                    $identity = Horde_Prefs_Identity::singleton('none', $task->assignee);
                     $new_name = $identity->getValue('fullname');
                     if (!strlen($new_name)) {
                         $new_name = $new_task->assignee;
@@ -994,8 +990,7 @@ class Nag
         static $names = array();
 
         if (!isset($names[$uid])) {
-            require_once 'Horde/Identity.php';
-            $ident = Identity::singleton('none', $uid);
+            $ident = Horde_Prefs_Identity::singleton('none', $uid);
             $ident->setDefault($ident->getDefault());
             $names[$uid] = $ident->getValue('fullname');
             if (empty($names[$uid])) {
@@ -1028,9 +1023,9 @@ class Nag
      */
     function _notificationPref($user, $mode, $tasklist = null)
     {
-        $prefs = Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
-                                  'nag', $user, '', null,
-                                  false);
+        $prefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
+                                        'nag', $user, '', null,
+                                        false);
         $prefs->retrieve();
         $vals = array('lang' => $prefs->getValue('language'),
                       'tf' => $prefs->getValue('twentyFour'),

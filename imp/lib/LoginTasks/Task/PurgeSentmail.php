@@ -100,7 +100,7 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
      */
     protected function _getFolders()
     {
-        return Identity::singleton(array('imp', 'imp'))->getAllSentmailfolders();
+        return Horde_Prefs_Identity::singleton(array('imp', 'imp'))->getAllSentmailfolders();
     }
 
 }

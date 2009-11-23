@@ -1373,8 +1373,7 @@ class Nag_Api extends Horde_Registry_Api
                 $users = array($user);
             }
             foreach ($users as $alarm_user) {
-                $prefs = Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
-                    'nag', $alarm_user, null, null, false);
+                $prefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'], 'nag', $alarm_user, null, null, false);
                 Horde_Nls::setLanguageEnvironment($prefs->getValue('language'));
                 $alarm_list[] = $alarm->toAlarm($alarm_user, $prefs);
             }

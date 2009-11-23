@@ -34,9 +34,9 @@ class Ingo_Storage_Prefs extends Ingo_Storage
      */
     protected function _retrieve($field, $readonly = false)
     {
-        $prefs = &Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
-                                   $GLOBALS['registry']->getApp(),
-                                   Ingo::getUser(), '', null, false);
+        $prefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
+                                        $GLOBALS['registry']->getApp(),
+                                        Ingo::getUser(), '', null, false);
         $prefs->retrieve();
 
         switch ($field) {
@@ -131,9 +131,9 @@ class Ingo_Storage_Prefs extends Ingo_Storage
      */
     protected function _store($ob)
     {
-        $prefs = &Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
-                                   $GLOBALS['registry']->getApp(),
-                                   Ingo::getUser(), '', null, false);
+        $prefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
+                                        $GLOBALS['registry']->getApp(),
+                                        Ingo::getUser(), '', null, false);
         $prefs->retrieve();
 
         switch ($ob->obType()) {

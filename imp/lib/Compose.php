@@ -355,7 +355,7 @@ class IMP_Compose
         $identity_id = null;
         $headers = $contents->getHeaderOb();
         if (($fromaddr = Horde_Mime_Address::bareAddress($headers->getValue('from')))) {
-            $identity = Identity::singleton(array('imp', 'imp'));
+            $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
             $identity_id = $identity->getMatchingIdentity($fromaddr);
         }
 
@@ -1295,7 +1295,7 @@ class IMP_Compose
 
         if (in_array($type, array('reply_all', '*'))) {
             /* Filter out our own address from the addresses we reply to. */
-            $identity = Identity::singleton(array('imp', 'imp'));
+            $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
             $all_addrs = array_keys($identity->getAllFromAddresses(true));
 
             /* Build the To: header. It is either 1) the Reply-To address
@@ -1510,7 +1510,7 @@ class IMP_Compose
      *
      * @param Horde_Mime_Headers $h  The headers object for the message.
      *
-     * @return mixed  See Identity_imp::getMatchingIdentity().
+     * @return mixed  See Imp_Prefs_Identity::getMatchingIdentity().
      */
     protected function _getMatchingIdentity($h)
     {
@@ -1519,7 +1519,7 @@ class IMP_Compose
             $msgAddresses[] = $h->getValue($val);
         }
 
-        $user_identity = Identity::singleton(array('imp', 'imp'));
+        $user_identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
         return $user_identity->getMatchingIdentity($msgAddresses);
     }
 

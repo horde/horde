@@ -144,8 +144,7 @@ class Ingo_Api extends Horde_Registry_Api
 
         /* Make sure we have at least one address. */
         if (empty($info['addresses'])) {
-            require_once 'Horde/Identity.php';
-            $identity = Identity::singleton('none');
+            $identity = Horde_Prefs_Identity::singleton('none');
             $info['addresses'] = implode("\n", $identity->getAll('from_addr'));
             /* Remove empty lines. */
             $info['addresses'] = preg_replace('/\n+/', "\n", $info['addresses']);

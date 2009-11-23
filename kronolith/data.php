@@ -149,7 +149,6 @@ case 'export':
         exit;
 
     case Horde_Data::EXPORT_ICALENDAR:
-        require_once 'Horde/Identity.php';
         $iCal = new Horde_iCalendar();
 
         $calNames = array();

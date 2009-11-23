@@ -7,7 +7,6 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/base.php';
-require_once 'Horde/Identity.php';
 
 // Exit if this isn't an authenticated user.
 if (!Horde_Auth::getAuth()) {
@@ -22,7 +21,7 @@ if (is_a($tasklist, 'PEAR_Error')) {
 $subscribe_url = Horde::url($registry->get('webroot', 'horde') . '/rpc.php/nag/', true, -1)
   . $tasklist->get('owner') . '/' . $tasklist->getName() . '.ics';
 
-$identity = Identity::singleton('none', $tasklist->get('owner'));
+$identity = Horde_Prefs_Identity::singleton('none', $tasklist->get('owner'));
 $owner_name = $identity->getValue('fullname');
 if (trim($owner_name) == '') {
     $owner_name = Horde_Auth::getOriginalAuth();

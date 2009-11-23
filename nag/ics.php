@@ -12,7 +12,6 @@
 
 $nag_session_control = 'none';
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Identity.php';
 
 // We want to always generate UTF-8 iCalendar data.
 Horde_Nls::setCharset('UTF-8');
@@ -59,7 +58,7 @@ if (!$ics) {
         Horde::fatal($result, __FILE__, __LINE__);
     }
 
-    $identity = Identity::singleton('none', $share->get('owner'));
+    $identity = Horde_Prefs_Identity::singleton('none', $share->get('owner'));
     $storage->tasks->reset();
     while ($task = $storage->tasks->each() ) {
         $iCal->addComponent($task->toiCalendar($iCal));

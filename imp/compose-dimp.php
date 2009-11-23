@@ -41,7 +41,7 @@ $action = Horde_Util::getFormData('action');
 $get_sig = true;
 $msg = '';
 
-$identity = Identity::singleton(array('imp', 'imp'));
+$identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
 if (!$prefs->isLocked('default_identity')) {
     $identity_id = Horde_Util::getFormData('identity');
     if (!is_null($identity_id)) {

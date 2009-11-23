@@ -11,7 +11,6 @@
 
 require_once dirname(__FILE__) . '/lib/Application.php';
 new IMP_Application(array('init' => true));
-require_once 'Horde/Prefs/UI.php';
 
 extract(Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp'));
 
@@ -48,11 +47,11 @@ case 'update_prefs':
 $app = 'imp';
 $chunk = Horde_Util::nonInputVar('chunk');
 $group = 'filters';
-Prefs_UI::generateHeader(null, $chunk);
+Horde_Prefs_Ui::generateHeader(null, $chunk);
 
 $t = new Horde_Template();
 $t->setOption('gettext', true);
-$t->set('navcell', Horde_Util::bufferOutput(array('Prefs_UI', 'generateNavigationCell'), 'filters'));
+$t->set('navcell', Horde_Util::bufferOutput(array('Horde_Prefs_Ui', 'generateNavigationCell'), 'filters'));
 $t->set('prefsurl', Horde::getServiceLink('options', 'imp'));
 $t->set('return_text', _("Return to Options"));
 

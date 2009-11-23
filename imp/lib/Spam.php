@@ -110,7 +110,7 @@ class IMP_Spam
 
                     if (!isset($imp_compose)) {
                         $imp_compose = IMP_Compose::singleton();
-                        $identity = Identity::singleton(array('imp', 'imp'));
+                        $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
                         try {
                             $from_line = $identity->getFromLine();
                         } catch (Horde_Exception $e) {

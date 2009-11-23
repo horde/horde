@@ -3,7 +3,7 @@ if ($group == Horde_Auth::getAuth()) {
     $owner_title = _("My Galleries");
     $custom = '';
 } elseif (!empty($GLOBALS['conf']['gallery']['customlabel'])) {
-    $uprefs = &Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
+    $uprefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
                                 'ansel',
                                 $group, '', null, false);
     $custom = $uprefs->getValue('grouptitle');

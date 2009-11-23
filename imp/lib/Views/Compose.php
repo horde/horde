@@ -37,7 +37,7 @@ class IMP_Views_Compose
         );
 
         /* Load Identity. */
-        $identity = Identity::singleton(array('imp', 'imp'));
+        $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
         $selected_identity = $identity->getDefault();
 
         /* Get user identities. */

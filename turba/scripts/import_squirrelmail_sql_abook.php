@@ -78,7 +78,7 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
 
         // Reset user prefs
         unset($prefs);
-        $prefs = &Prefs::factory($conf['prefs']['driver'], 'turba', $user, null, null, false);
+        $prefs = Horde_Prefs::factory($conf['prefs']['driver'], 'turba', $user, null, null, false);
 
         // Reset $cfgSources for current user.
         unset($cfgSources);

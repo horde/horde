@@ -260,7 +260,7 @@ class Folks {
     static public function getUserEmail($user)
     {
         // We should always realy on registration data
-        // $prefs = Prefs::singleton($GLOBALS['conf']['prefs']['driver'], 'horde', Horde_Auth::convertUsername($user, true), '', null, false);
+        // $prefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'], 'horde', Horde_Auth::convertUsername($user, true), '', null, false);
         // $prefs->retrieve();
         // $email = $prefs->getValue('alternate_email') ? $prefs->getValue('alternate_email') : $prefs->getValue('from_addr');
 

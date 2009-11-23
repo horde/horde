@@ -223,10 +223,9 @@ try {
 
 extract(Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp'));
 
-require_once 'Horde/Prefs/UI.php';
 $app = 'imp';
 $chunk = Horde_Util::nonInputVar('chunk');
-Prefs_UI::generateHeader('smime', $chunk);
+Horde_Prefs_Ui::generateHeader('smime', $chunk);
 
 $selfURL = Horde::applicationUrl('smime.php');
 
