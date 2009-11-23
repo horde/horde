@@ -8,6 +8,7 @@
   <input type="text" name="title" id="kronolithEventTitle" class="kronolithLongField" />
 </div>
 
+<div>
 <table cellspacing="0" cellpadding="0" border="0"><tbody><tr>
   <td>
     <label for="kronolithEventCalendar"><?php echo _("Calendar") ?>:</label><br />
@@ -20,7 +21,9 @@
     &middot; <span class="kronolithEventGeo"><a href="#"><?php echo _("Find in Maps") ?></a></span>
   </td>
 </tr></tbody></table>
+</div>
 
+<div>
 <table cellspacing="0" cellpadding="0" border="0"><tbody>
   <tr>
     <td><label for="kronolithEventStartDate"><?php echo _("From") ?>:</label></td>
@@ -39,6 +42,7 @@
     <td><label><input type="checkbox" name="whole_day" id="kronolithEventAllday"  /> <?php echo _("all-day event") ?></label></td>
   </tr>
 </tbody></table>
+</div>
 
 <div class="tabset">
   <ul>

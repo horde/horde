@@ -11,9 +11,14 @@
     </ul>
   </caption>
   <tbody id="kronolithViewTasksBody">
+     <tr class="kronolithTaskRow">
+       <td class="kronolithTaskCol kronolithAddTask">
+         <div class="kronolithAddTaskIcon"></div><?php echo _("Add Task") ?>
+       </td>
+    </tr>
     <tr id="kronolithTasksTemplate" class="kronolithTaskRow" style="display:none">
       <td class="kronolithTaskCol">
-      <div class="kronolithTaskCheckbox"/>
+        <div class="kronolithTaskCheckbox"/>
       </td>
     </tr>
   </tbody>

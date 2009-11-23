@@ -1720,8 +1720,8 @@ KronolithCore = {
     _insertTaskPosition: function(newRow, newTask)
     {
         var rows = $('kronolithViewTasksBody').select('tr');
-        // The first row is a template one, so must be ignored
-        for (var i = 1; i < rows.length; i++) {
+        // The first row is the add task row, the second a template, ignoring.
+        for (var i = 2; i < rows.length; i++) {
             var rowTasklist = rows[i].retrieve('tasklist');
             var rowTaskId = rows[i].retrieve('taskid');
             var rowTask = this.tcache.inject(null, function(acc, list) {

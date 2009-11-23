@@ -391,6 +391,7 @@ body.kronolithAjax {
 }
 #kronolithNotifications {
     padding: 3px 5px;
+    color: #fff;
 }
 
 /* Main area */
@@ -687,6 +688,7 @@ div#kronolithEventTabTags {
 }
 #kronolithEventDialog .tabset ul, #kronolithTaskDialog .tabset ul {
     padding-left: 0;
+    margin: 0;
 }
 
 .kronolithTabsOption {
@@ -1040,6 +1042,17 @@ table.kronolithView td.kronolithFirstCol {
 }
 #kronolithViewTasks .kronolithInfo {
     color: #ccc;
+}
+#kronolithViewTasks .kronolithAddTask {
+    font-weight: bold;
+}
+.kronolithAddTask .kronolithAddTaskIcon {
+    float: left;
+    margin-right: 7px;
+    margin-left: 2px;
+    width: 16px;
+    height: 16px;
+    background-image: url('graphics/new_task.png');
 }
 
 /* More main view */
