@@ -118,6 +118,7 @@ class Kronolith
 
         $kronolith_webroot = $registry->get('webroot');
         $horde_webroot = $registry->get('webroot', 'horde');
+        $has_tasks = $GLOBALS['registry']->hasInterface('tasks');
 
         /* Variables used in core javascript files. */
         $code['conf'] = array(
@@ -156,8 +157,11 @@ class Kronolith
                               '1440' => _("1 day")),
         );
 
+        if ($has_tasks) {
+            $code['conf']['tasks'] = $GLOBALS['registry']->tasks->ajaxDefaults();
+        }
+
         // Calendars
-        $has_tasks = $GLOBALS['registry']->hasInterface('tasks');
         foreach (array(true, false) as $my) {
             foreach ($GLOBALS['all_calendars'] as $id => $calendar) {
                 $owner = $calendar->get('owner') == Horde_Auth::getAuth();

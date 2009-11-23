@@ -371,13 +371,13 @@ try {
         break;
 
     case 'SaveTask':
-        if (!$registry->hasMethod('tasks/updateTask')) {
+        if (!$registry->hasMethod('tasks/updateTask') ||
+            !$registry->hasMethod('tasks/addTask')) {
             break;
         }
-        if (is_null($id = Horde_Util::getFormData('task_id')) ||
-            is_null($list = Horde_Util::getFormData('old_tasklist'))) {
-            break;
-        }
+
+        $id = Horde_Util::getFormData('task_id');
+        $list = Horde_Util::getFormData('old_tasklist');
         $task = Horde_Util::getFormData('task');
 
         $due = trim($task['due_date'] . ' ' . $task['due_time']);
@@ -412,10 +412,17 @@ try {
             $task['alarm'] = 0;
         }
 
-        $result = $registry->tasks->updateTask($list, $id, $task);
+        if ($id && $list) {
+            $result = $registry->tasks->updateTask($list, $id, $task);
+        } else {
+            $result = $registry->tasks->addTask($task);
+        }
         if (is_a($result, 'PEAR_Error')) {
             $notification->push($result, 'horde.error');
             break;
+        }
+        if (!$id) {
+            $id = $result[0];
         }
         $task = $registry->tasks->getTask($task['tasklist'], $id);
         if (is_a($task, 'PEAR_Error')) {

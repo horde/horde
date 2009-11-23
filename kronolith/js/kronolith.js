@@ -1847,10 +1847,15 @@ KronolithCore = {
         } else {
             $('kronolithTaskId').clear();
             $('kronolithTaskOldList').clear();
-            //$('kronolithTaskList').setValue(Kronolith.conf.default_tasklist);
+            $('kronolithTaskList').setValue(Kronolith.conf.tasks.default_tasklist);
+            $('kronolithTaskTitle').clear();
+            //$('kronolithTaskLocation').setValue('http://');
+            $('kronolithTaskDueDate').clear();
+            $('kronolithTaskDueTime').clear();
+            $('kronolithTaskDescription').clear();
+            $('kronolithTaskPriority').setValue(3);
+            $('kronolithTaskCompleted').setValue(0);
             $('kronolithTaskDelete').hide();
-            $('kronolithTaskDueDate').setValue(d.toString(Kronolith.conf.date_format));
-            $('kronolithTaskDueTime').setValue(d.toString(Kronolith.conf.time_format));
             RedBox.showHtml($('kronolithTaskDialog').show());
         }
     },
@@ -1894,6 +1899,19 @@ KronolithCore = {
             });
         } else {
             $('kronolithEventAlarmOff').setValue(true);
+        }
+
+        if (task.pe) {
+            $('kronolithTaskSave').show();
+            $('kronolithTaskForm').enable();
+        } else {
+            $('kronolithTaskSave').hide();
+            $('kronolithTaskForm').disable();
+        }
+        if (task.pd) {
+            $('kronolithTaskDelete').show();
+        } else {
+            $('kronolithTaskDelete').hide();
         }
 
         this.setTitle(task.n);
@@ -2583,7 +2601,11 @@ KronolithCore = {
                 return;
 
             case 'kronolithTaskRow':
-                this.go('task:' + elt.retrieve('tasklist') + ':' + elt.retrieve('taskid'));
+                if (elt.retrieve('taskid')) {
+                    this.go('task:' + elt.retrieve('tasklist') + ':' + elt.retrieve('taskid'));
+                } else {
+                    this.go('task');
+                }
                 e.stop();
                 return;
             }

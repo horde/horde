@@ -16,3 +16,6 @@ body #sbarHide {
 table.monthgrid {
     border-top: 0;
 }
+table.kronolithView td.button {
+    border-color: #999;
+}

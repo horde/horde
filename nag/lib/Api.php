@@ -19,6 +19,19 @@ class Nag_Api extends Horde_Registry_Api
     );
 
     /**
+     * Returns a number of defaults necessary for the ajax view.
+     *
+     * @return array  A hash with default values.
+     */
+    public function ajaxDefaults()
+    {
+        require_once dirname(__FILE__) . '/base.php';
+        return array(
+            'default_tasklist' => Nag::getDefaultTasklist(Horde_Perms::EDIT),
+        );
+    }
+
+    /**
      * Retrieves the current user's task list from storage.
      *
      * This function will also sort the resulting list, if requested.
@@ -821,6 +834,41 @@ class Nag_Api extends Horde_Registry_Api
         }
 
         return PEAR::raiseError(sprintf(_("Unsupported Content-Type: %s"), $contentType));
+    }
+
+    /**
+     * Adds a task.
+     *
+     * @param array $task  A hash with overwriting task information.
+     */
+    public function addTask($task)
+    {
+        require_once dirname(__FILE__) . '/base.php';
+
+        if (!Horde_Auth::isAdmin() &&
+            !array_key_exists($task['tasklist'],
+                              Nag::listTasklists(false, Horde_Perms::EDIT))) {
+            return PEAR::raiseError(_("Permission Denied"));
+        }
+
+        $storage = Nag_Driver::singleton($task['tasklist']);
+
+        return $storage->add(
+            isset($task['name']) ? $task['name'] : '',
+            isset($task['desc']) ? $task['desc'] : '',
+            isset($task['start']) ? $task['start'] : 0,
+            isset($task['due']) ? $task['due'] : 0,
+            isset($task['priority']) ? $task['priority'] : 3,
+            isset($task['estimate']) ? $task['estimate'] : 0,
+            !empty($task['completed']),
+            isset($task['category']) ? $task['category'] : '',
+            isset($task['alarm']) ? $task['alarm'] : 0,
+            isset($task['methods']) ? $task['alarm'] : null,
+            isset($task['uid']) ? $task['uid'] : null,
+            isset($task['parent_id']) ? $task['parent_id'] : '',
+            !empty($task['private']),
+            Horde_Auth::getAuth(),
+            isset($task['assignee']) ? $task['assignee'] : null);
     }
 
     /**

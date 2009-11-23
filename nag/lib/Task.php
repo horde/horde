@@ -704,6 +704,13 @@ class Nag_Task {
             $json->a = $this->alarm;
             $json->m = $this->methods;
             //$json->pv = (boolean)$this->private;
+
+            $share = $GLOBALS['nag_shares']->getShare($this->tasklist);
+            if (is_a($share, 'PEAR_Error')) {
+                return $share;
+            }
+            $json->pe = $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
+            $json->pd = $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE);
         }
 
         return $json;

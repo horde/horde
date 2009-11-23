@@ -12,7 +12,7 @@
   </caption>
   <tbody id="kronolithViewTasksBody">
      <tr class="kronolithTaskRow">
-       <td class="kronolithTaskCol kronolithAddTask">
+       <td class="kronolithTaskCol kronolithAddTask button">
          <div class="kronolithAddTaskIcon"></div><?php echo _("Add Task") ?>
        </td>
     </tr>
