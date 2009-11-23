@@ -482,7 +482,7 @@ KronolithCore = {
 
             // Build new calendar view.
             for (month = 0; month < 12; month++) {
-                $('kronolithYear' + month).update(this.createYearMonth(date.getFullYear(), month).show());
+                $('kronolithYear' + month).update(this.createYearMonth(date.getFullYear(), month, 'kronolithYear').show());
             }
 
             break;
@@ -652,12 +652,14 @@ KronolithCore = {
     /**
      * Creates a table for a single month in the year view.
      *
-     * @param integer year   The year.
-     * @param integer month  The month.
+     * @param integer year     The year.
+     * @param integer month    The month.
+     * @param string idPrefix  If present, each day will get a DOM ID with this
+     *                         prefix
      *
      * @return Element  The element rendering a month table.
      */
-    createYearMonth: function(year, month)
+    createYearMonth: function(year, month, idPrefix)
     {
         // Create a copy of the month template.
         var table = $('kronolithYearTemplate').cloneNode(true),
@@ -666,12 +668,12 @@ KronolithCore = {
         tbody.writeAttribute('id', 'kronolithYearTable' + month)
 
         // Set month name.
-        table.down('SPAN')
+        table.down('span')
             .store('date', year.toPaddedString(4) + (month + 1).toPaddedString(2) + '01')
             .innerHTML = Date.CultureInfo.monthNames[month];
 
         // Build month table.
-        this.buildMinical(tbody, new Date(year, month, 1));
+        this.buildMinical(tbody, new Date(year, month, 1), null, idPrefix);
 
         return table;
     },
@@ -735,28 +737,31 @@ KronolithCore = {
      * Creates a mini calendar suitable for the navigation calendar and the
      * year view.
      *
-     * @param Element tbody  The table body to add the days to.
-     * @param Date date      The date to show in the calendar.
-     * @param string view    The view that's displayed, determines which days in
-     *                       the mini calendar are highlighted.
+     * @param Element tbody    The table body to add the days to.
+     * @param Date date        The date to show in the calendar.
+     * @param string view      The view that's displayed, determines which days
+     *                         in the mini calendar are highlighted.
+     * @param string idPrefix  If present, each day will get a DOM ID with this
+     *                         prefix
      */
-    buildMinical: function(tbody, date, view)
+    buildMinical: function(tbody, date, view, idPrefix)
     {
         var dates = this.viewDates(date, 'month'), day = dates[0].clone(),
             date7 = date.clone().add(1).week(),
-            weekStart, weekEnd, weekEndDay, td, tr, i;
+            weekStart, weekEnd, weekEndDay, dateString, td, tr, i;
 
         // Remove old calendar rows. Maybe we should only rebuild the minical
         // if necessary.
         tbody.childElements().invoke('remove');
 
         for (i = 0; i < 42; i++) {
+            dateString = day.dateString();
             // Create calendar row and insert week number.
             if (day.getDay() == Kronolith.conf.week_start) {
-                tr = new Element('TR');
+                tr = new Element('tr');
                 tbody.insert(tr);
-                td = new Element('TD', { 'class': 'kronolithMinicalWeek' })
-                    .store('weekdate', day.dateString());
+                td = new Element('td', { 'class': 'kronolithMinicalWeek' })
+                    .store('weekdate', dateString);
                 td.innerHTML = day.getWeek();
                 tr.insert(td);
                 weekStart = day.clone();
@@ -764,7 +769,10 @@ KronolithCore = {
                 weekEnd.add(6).days();
             }
             // Insert day cell.
-            td = new Element('TD').store('date', day.dateString());
+            td = new Element('td').store('date', dateString);
+            if (!Object.isUndefined(idPrefix)) {
+                td.id = idPrefix + dateString;
+            }
             if (day.getMonth() != date.getMonth()) {
                 td.addClassName('kronolithMinicalEmpty');
             }
@@ -1093,8 +1101,8 @@ KronolithCore = {
                     title += ': ' + event.value.t.escapeHTML();
                     if (event.value.x == Kronolith.conf.status.tentative ||
                         event.value.x == Kronolith.conf.status.confirmed) {
-                            busy = true;
-                        }
+                        busy = true;
+                    }
                     title += '<br />';
                     return;
                 }
@@ -1102,7 +1110,7 @@ KronolithCore = {
             }, this);
 
             if (view == 'year') {
-                td = $('kronolithYearTable' + day.getMonth()).select('td').find(function(elm) { return elm.retrieve('date') == date; });
+                td = $('kronolithYear' + date);
                 td.className = '';
                 if (title) {
                     td.writeAttribute('title', title).addClassName('kronolithHasEvents');
