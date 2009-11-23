@@ -490,10 +490,8 @@ class IMP_Mailbox
      * Using the preferences and the current mailbox, determines the messages
      * to view on the current page.
      *
-     * @param integer $page       The page number currently being displayed.
-     * @param integer $start      The starting message number.
-     * @param integer $page_size  Override the maxmsgs preference and specify
-     *                            the page size.
+     * @param integer $page   The page number currently being displayed.
+     * @param integer $start  The starting message number.
      *
      * @return array  An array with the following fields:
      * <pre>
@@ -508,15 +506,13 @@ class IMP_Mailbox
      * 'pagecount' - (integer) The number of pages in this mailbox.
      * </pre>
      */
-    public function buildMailboxPage($page = 0, $start = 0, $page_size = null)
+    public function buildMailboxPage($page = 0, $start = 0, $opts = array())
     {
         $this->_buildMailbox();
 
         $ret = array('msgcount' => count($this->_sorted));
 
-        if (is_null($page_size)) {
-            $page_size = $GLOBALS['prefs']->getValue('max_msgs');
-        }
+        $page_size = $GLOBALS['prefs']->getValue('max_msgs');
 
         if ($ret['msgcount'] > $page_size) {
             $ret['pagecount'] = ceil($ret['msgcount'] / $page_size);
