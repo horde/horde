@@ -146,7 +146,7 @@ try {
         break;
 
     case 'SaveEvent':
-        if (!($kronolith_driver = getDriver(Horde_Util::getFormData('cal')))) {
+        if (!($kronolith_driver = getDriver(Horde_Util::getFormData('targetcalendar')))) {
             break;
         }
         $event = $kronolith_driver->getEvent(Horde_Util::getFormData('id'));
