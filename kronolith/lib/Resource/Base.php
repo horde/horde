@@ -46,12 +46,11 @@ abstract class Kronolith_Resource_Base
             throw new Horde_Exception('Required \'name\' attribute missing from resource calendar');
         }
 
-        array_merge($params, array('description' => '',
-                                   'response_type' => Kronolith_Resource::RESPONSETYPE_MANUAL,
-                                   'members' => '',
-                                   'type' => Kronolith_Resource::TYPE_SINGLE));
-
-        $this->_params = $params;
+        $this->_params = array_merge(array('description' => '',
+                                           'response_type' => Kronolith_Resource::RESPONSETYPE_MANUAL,
+                                           'members' => '',
+                                           'type' => Kronolith_Resource::TYPE_SINGLE),
+                                     $params);
     }
 
     /**
