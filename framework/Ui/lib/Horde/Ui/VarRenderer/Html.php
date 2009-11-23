@@ -494,7 +494,7 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
             $GLOBALS['browser']->hasFeature('javascript')) {
             Horde_Ui_JsCalendar::init();
             $imgId = $this->_genID($var->getVarName(), false) . 'goto';
-            $html .= Horde::link('#', _("Select a date"), '', '', 'Horde_Calendar.open(\'' . $imgId . '\', {}, function(data) { ' . $js_code . ')') . Horde::img('calendar.png', _("Calendar"), 'id="' . $imgId . '"', $GLOBALS['registry']->getImageDir('horde')) . "</a>\n";
+            $html .= Horde::link('#', _("Select a date"), '', '', 'Horde_Calendar.open(\'' . $imgId . '\', {}, function(data) { ' . $js_code . ' })') . Horde::img('calendar.png', _("Calendar"), 'id="' . $imgId . '"', $GLOBALS['registry']->getImageDir('horde')) . "</a>\n";
         }
 
         return $html;
