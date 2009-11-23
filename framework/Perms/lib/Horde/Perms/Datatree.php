@@ -30,6 +30,13 @@ class Horde_Perms_Datatree extends Horde_Perms
     protected $_cache;
 
     /**
+     * Incrementing version number if cached classes change.
+     *
+     * @var integer
+     */
+    private $_cacheVersion = 2;
+
+    /**
      * Cache for getPermission().
      *
      * @var array
@@ -105,10 +112,10 @@ class Horde_Perms_Datatree extends Horde_Perms
             return $this->_permsCache[$name];
         }
 
-        $perm = $this->_cache->get('perm_' . $name, $GLOBALS['conf']['cache']['default_lifetime']);
+        $perm = $this->_cache->get('perm_' . $this->_cacheVersion . $name, $GLOBALS['conf']['cache']['default_lifetime']);
         if ($perm === false) {
             $perm = $this->_datatree->getObject($name, 'Horde_Perms_Permission_DataTreeObject');
-            $this->_cache->set('perm_' . $name, serialize($perm), $GLOBALS['conf']['cache']['default_lifetime']);
+            $this->_cache->set('perm_' . $this->_cacheVersion . $name, serialize($perm), $GLOBALS['conf']['cache']['default_lifetime']);
             $this->_permsCache[$name] = $perm;
         } else {
             $this->_permsCache[$name] = unserialize($perm);
@@ -149,8 +156,8 @@ class Horde_Perms_Datatree extends Horde_Perms
         if (empty($name)) {
             throw Horde_Perms_Exception('Permission names must be non-empty.');
         }
-        $this->_cache->expire('perm_' . $name);
-        $this->_cache->expire('perm_exists_' . $name);
+        $this->_cache->expire('perm_' . $this->_cacheVersion . $name);
+        $this->_cache->expire('perm_exists_' . $this->_cacheVersion . $name);
 
         return $this->_datatree->add($perm);
     }
@@ -171,8 +178,8 @@ class Horde_Perms_Datatree extends Horde_Perms
 
         $keys = $this->_datatree->get(DATATREE_FORMAT_FLAT, $perm->name, true);
         foreach ($keys as $key) {
-            $this->_cache->expire('perm_' . $key);
-            $this->_cache->expire('perm_exists_' . $key);
+            $this->_cache->expire('perm_' . $this->_cacheVersion . $key);
+            $this->_cache->expire('perm_exists_' . $this->_cacheVersion . $key);
         }
 
         return $this->_datatree->remove($perm->name, $force);
@@ -201,7 +208,7 @@ class Horde_Perms_Datatree extends Horde_Perms
      */
     public function exists($permission)
     {
-        $key = 'perm_exists_' . $permission;
+        $key = 'perm_exists_' . $this->_cacheVersion . $permission;
         $exists = $this->_cache->get($key, $GLOBALS['conf']['cache']['default_lifetime']);
         if ($exists === false) {
             $exists = $this->_datatree->exists($permission);

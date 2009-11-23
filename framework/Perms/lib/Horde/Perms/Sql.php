@@ -44,6 +44,13 @@ class Horde_Perms_Sql extends Horde_Perms
     protected $_cache;
 
     /**
+     * Incrementing version number if cached classes change.
+     *
+     * @var integer
+     */
+    private $_cacheVersion = 2;
+
+    /**
      * Cache of previously retrieved permissions.
      *
      * @var array
@@ -103,7 +110,7 @@ class Horde_Perms_Sql extends Horde_Perms
 
         $this->_connect();
 
-        $perm = $this->_cache->get('perm_sql' . $name, $GLOBALS['conf']['cache']['default_lifetime']);
+        $perm = $this->_cache->get('perm_sql' . $this->_cacheVersion . $name, $GLOBALS['conf']['cache']['default_lifetime']);
         if (empty($perm)) {
             $query = 'SELECT perm_id, perm_data FROM horde_perms WHERE perm_name = ?';
             $result = $this->_db->getRow($query, array($name), DB_FETCHMODE_ASSOC);
@@ -118,7 +125,7 @@ class Horde_Perms_Sql extends Horde_Perms
             $object->setId($result['perm_id']);
             $object->setData(unserialize($result['perm_data']));
 
-            $this->_cache->set('perm_sql' . $name, serialize($object));
+            $this->_cache->set('perm_sql' . $this->_cacheVersion . $name, serialize($object));
 
             $this->_permsCache[$name] = $object;
         } else {
@@ -185,8 +192,8 @@ class Horde_Perms_Sql extends Horde_Perms
             throw new Horde_Perms_Exception('Permission name must be non-empty.');
         }
 
-        $this->_cache->expire('perm_sql' . $name);
-        $this->_cache->expire('perm_sql_exists_' . $name);
+        $this->_cache->expire('perm_sql' . $this->_cacheVersion . $name);
+        $this->_cache->expire('perm_sql_exists_' . $this->_cacheVersion . $name);
 
         $this->_connect();
         $id = $this->_write_db->nextId('horde_perms');
@@ -239,8 +246,8 @@ class Horde_Perms_Sql extends Horde_Perms
         }
 
         $name = $perm->getName();
-        $this->_cache->expire('perm_sql' . $name);
-        $this->_cache->expire('perm_sql_exists_' . $name);
+        $this->_cache->expire('perm_sql' . $this->_cacheVersion . $name);
+        $this->_cache->expire('perm_sql_exists_' . $this->_cacheVersion . $name);
 
         $this->_connect();
         $query = 'DELETE FROM horde_perms WHERE perm_name = ?';
@@ -284,7 +291,7 @@ class Horde_Perms_Sql extends Horde_Perms
      */
     public function exists($permission)
     {
-        $key = 'perm_sql_exists_' . $permission;
+        $key = 'perm_sql_exists_' . $this->_cacheVersion . $permission;
         $exists = $this->_cache->get($key, $GLOBALS['conf']['cache']['default_lifetime']);
         if ($exists === false) {
             $this->_connect();
