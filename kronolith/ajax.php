@@ -54,7 +54,7 @@ function getDriver($cal)
 function saveEvent($event)
 {
     $result = $event->save();
-    if (is_a($result, 'PEAR_Error')) {
+    if ($result instanceof PEAR_Error) {
         $GLOBALS['notification']->push($result, 'horde.error');
         return true;
     }
@@ -116,7 +116,7 @@ try {
             break;
         }
         $events = $kronolith_driver->listEvents($start, $end, true, false, true);
-        if (is_a($events, 'PEAR_Error')) {
+        if ($events instanceof PEAR_Error) {
             $notification->push($events, 'horde.error');
             break;
         }
@@ -133,7 +133,7 @@ try {
             break;
         }
         $event = $kronolith_driver->getEvent($id);
-        if (is_a($event, 'PEAR_Error')) {
+        if ($event instanceof PEAR_Error) {
             $notification->push($event, 'horde.error');
             break;
         }
@@ -150,7 +150,7 @@ try {
             break;
         }
         $event = $kronolith_driver->getEvent(Horde_Util::getFormData('id'));
-        if (is_a($event, 'PEAR_Error')) {
+        if ($event instanceof PEAR_Error) {
             $notification->push($event, 'horde.error');
             break;
         }
@@ -171,7 +171,7 @@ try {
         try {
             $event = Kronolith::quickAdd(Horde_Util::getFormData('text'),
                                          Kronolith::getDefaultCalendar(Horde_Perms::EDIT));
-            if (is_a($event, 'PEAR_Error')) {
+            if ($event instanceof PEAR_Error) {
                 $notification->push($event, 'horde.error');
                 break;
             }
@@ -189,7 +189,7 @@ try {
             break;
         }
         $event = $kronolith_driver->getEvent($id);
-        if (is_a($event, 'PEAR_Error')) {
+        if ($event instanceof PEAR_Error) {
             $notification->push($event, 'horde.error');
             break;
         }
@@ -248,7 +248,7 @@ try {
             break;
         }
         $event = $kronolith_driver->getEvent($id);
-        if (is_a($event, 'PEAR_Error')) {
+        if ($event instanceof PEAR_Error) {
             $notification->push($event, 'horde.error');
             break;
         }
@@ -261,7 +261,7 @@ try {
             break;
         }
         $deleted = $kronolith_driver->deleteEvent($event->getId());
-        if (is_a($deleted, 'PEAR_Error')) {
+        if ($deleted instanceof PEAR_Error) {
             $notification->push($deleted, 'horde.error');
             break;
         }
@@ -284,7 +284,7 @@ try {
                 break;
             }
             $result = $kronolith_driver->search($query, true);
-            if (is_a($result, 'PEAR_Error')) {
+            if ($result instanceof PEAR_Error) {
                 $notification->push($result, 'horde.error');
                 break;
             }
@@ -300,32 +300,6 @@ try {
         }
         break;
 
-    case 'SearchCalendars':
-        $result = new stdClass;
-        $result->events = 'Searched for calendars: ' . Horde_Util::getFormData('title');
-        break;
-
-    case 'SaveCalPref':
-        break;
-
-    case 'ChunkContent':
-        $chunk = basename(Horde_Util::getPost('chunk'));
-        if (!empty($chunk)) {
-            $result = new stdClass;
-            $result->chunk = Horde_Util::bufferOutput('include', KRONOLITH_TEMPLATES . '/chunks/' . $chunk . '.php');
-        }
-        break;
-
-    case 'ListTopTags':
-        $tagger = new Kronolith_Tagger();
-        $result = new stdClass;
-        $result->tags = array();
-        $tags = $tagger->getCloud(Horde_Auth::getAuth(), 10);
-        foreach ($tags as $tag) {
-            $result->tags[] = $tag['tag_name'];
-        }
-        break;
-
     case 'ListTasks':
         if (!$registry->hasMethod('tasks/listTasks')) {
             break;
@@ -335,7 +309,7 @@ try {
         $tasktype = Horde_Util::getFormData('type');
         $tasks = $registry->call('tasks/listTasks',
                                  array(null, null, null, $tasklist, $tasktype == 'incomplete' ? 'future_incomplete' : $tasktype, true));
-        if (is_a($tasks, 'PEAR_Error')) {
+        if ($tasks instanceof PEAR_Error) {
             $notification->push($tasks, 'horde.error');
             break;
         }
@@ -358,7 +332,7 @@ try {
             break;
         }
         $task = $registry->tasks->getTask($list, $id);
-        if (is_a($task, 'PEAR_Error')) {
+        if ($task instanceof PEAR_Error) {
             $notification->push($task, 'horde.error');
             break;
         }
@@ -417,7 +391,7 @@ try {
         } else {
             $result = $registry->tasks->addTask($task);
         }
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceof PEAR_Error) {
             $notification->push($result, 'horde.error');
             break;
         }
@@ -425,7 +399,7 @@ try {
             $id = $result[0];
         }
         $task = $registry->tasks->getTask($task['tasklist'], $id);
-        if (is_a($task, 'PEAR_Error')) {
+        if ($task instanceof PEAR_Error) {
             $notification->push($task, 'horde.error');
             break;
         }
@@ -445,7 +419,7 @@ try {
             break;
         }
         $result = $registry->tasks->deleteTask($list, $id);
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceof PEAR_Error) {
             $notification->push($result, 'horde.error');
             break;
         }
@@ -461,13 +435,39 @@ try {
         $taskid = Horde_Util::getFormData('id');
         $saved = $registry->call('tasks/toggleCompletion',
                                  array($taskid, $tasklist));
-        if (is_a($saved, 'PEAR_Error')) {
+        if ($saved instanceof PEAR_Error) {
             $notification->push($saved, 'horde.error');
             break;
         }
 
         $result = new stdClass;
         $result->toggled = true;
+        break;
+
+    case 'ListTopTags':
+        $tagger = new Kronolith_Tagger();
+        $result = new stdClass;
+        $result->tags = array();
+        $tags = $tagger->getCloud(Horde_Auth::getAuth(), 10);
+        foreach ($tags as $tag) {
+            $result->tags[] = $tag['tag_name'];
+        }
+        break;
+
+    case 'SearchCalendars':
+        $result = new stdClass;
+        $result->events = 'Searched for calendars: ' . Horde_Util::getFormData('title');
+        break;
+
+    case 'SaveCalPref':
+        break;
+
+    case 'ChunkContent':
+        $chunk = basename(Horde_Util::getPost('chunk'));
+        if (!empty($chunk)) {
+            $result = new stdClass;
+            $result->chunk = Horde_Util::bufferOutput('include', KRONOLITH_TEMPLATES . '/chunks/' . $chunk . '.php');
+        }
         break;
 
     default:
