@@ -2230,7 +2230,7 @@ abstract class Kronolith_Event
 
         return '<label for="' . $this->_formIDEncode($property) . '" class="hidden">' . $label . '</label>' .
             '<select name="' . $property . '"' . $attributes . ' id="' . $this->_formIDEncode($property) . '">' .
-            $this->_varRenderer->_selectOptions($options, $sel) .
+            $this->_varRenderer->selectOptions($options, $sel) .
             '</select>';
     }
 
