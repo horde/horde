@@ -12,7 +12,7 @@
  * @category Horde
  * @package  Horde_Perms
  */
-class Horde_Perms_Permission_SqlObject extends Horde_Permission
+class Horde_Perms_Permission_SqlObject extends Horde_Perms_Permission
 {
     /**
      * The string permission id.
