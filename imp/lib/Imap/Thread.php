@@ -1,7 +1,7 @@
 <?php
 /**
- * The IMP_Imap_Thread class provides functions to generate thread tree
- * images.
+ * The IMP_Imap_Thread class provides functions to manipulate threaded sorts
+ * of messages.
  *
  * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
  *
