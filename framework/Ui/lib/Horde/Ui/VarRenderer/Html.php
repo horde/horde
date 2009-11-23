@@ -374,7 +374,7 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
                         $varname,
                         $varname,
                         $this->_getActionScripts($form, $var),
-                        $this->_selectOptions($hours, ($time['hour'] === '') ? '' : $time['hour']));
+                        $this->selectOptions($hours, ($time['hour'] === '') ? '' : $time['hour']));
 
         /* Output minutes. */
         $minutes = array('' => _("mm"));
@@ -386,7 +386,7 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
                          $varname,
                          $varname,
                          $this->_getActionScripts($form, $var),
-                         $this->_selectOptions($minutes, ($time['minute'] === '') ? '' : sprintf('%02d', $time['minute'])));
+                         $this->selectOptions($minutes, ($time['minute'] === '') ? '' : sprintf('%02d', $time['minute'])));
 
         /* Return if seconds are not required. */
         if (!$var->type->getProperty('show_seconds')) {
@@ -403,7 +403,7 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
                                $varname,
                                $varname,
                                $this->_getActionScripts($form, $var),
-                               $this->_selectOptions($seconds, ($time['second'] === '') ? '' : sprintf('%02d', $time['second'])));
+                               $this->selectOptions($seconds, ($time['second'] === '') ? '' : sprintf('%02d', $time['second'])));
     }
 
     protected function _renderVarInput_monthyear($form, &$var, &$vars)
@@ -436,12 +436,12 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
                        $var->type->getMonthVar($var),
                        $var->type->getMonthVar($var),
                        $this->_getActionScripts($form, $var),
-                       $this->_selectOptions($dates['month'], $vars->get($var->type->getMonthVar($var)))) .
+                       $this->selectOptions($dates['month'], $vars->get($var->type->getMonthVar($var)))) .
             sprintf('<select name="%s" id="%s"%s>%s</select>',
                     $var->type->getYearVar($var),
                     $var->type->getYearVar($var),
                     $this->_getActionScripts($form, $var),
-                    $this->_selectOptions($dates['year'], $vars->get($var->type->getYearVar($var))));
+                    $this->selectOptions($dates['year'], $vars->get($var->type->getYearVar($var))));
     }
 
     protected function _renderVarInput_monthdayyear($form, &$var, &$vars)
@@ -486,7 +486,7 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
                              $varname,
                              $varname,
                              $this->_getActionScripts($form, $var),
-                             $this->_selectOptions($dates[$part], $date[$part]));
+                             $this->selectOptions($dates[$part], $date[$part]));
             $js_code .= '$(\'' . $varname . '\').setValue(data.' . ($part == 'month' ? 'm + 1' : ($part == 'day' ? 'd' : 'y')) . ');';
         }
 
@@ -626,7 +626,7 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
                        $varname,
                        $this->_getActionScripts($form, $var),
                        $prompt,
-                       $this->_selectOptions($values, $var->getValue($vars), $htmlchars));
+                       $this->selectOptions($values, $var->getValue($vars), $htmlchars));
     }
 
     protected function _renderVarInput_mlenum($form, &$var, &$vars)
@@ -662,7 +662,7 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
         if (!empty($prompts)) {
             $html .= '<option value="">' . @htmlspecialchars($prompts[0], ENT_QUOTES, $this->_charset) . '</option>';
         }
-        $html .= $this->_selectOptions($values_1, $selected['1']);
+        $html .= $this->selectOptions($values_1, $selected['1']);
         $html .= '</select>';
 
         /* Second level. */
@@ -677,7 +677,7 @@ class Horde_Ui_VarRenderer_Html extends Horde_Ui_VarRenderer
         if (!empty($selected['1'])) {
             $values_2 = &$values[$selected['1']];
         }
-        return $html . $this->_selectOptions($values_2, $selected['2']) . '</select>';
+        return $html . $this->selectOptions($values_2, $selected['2']) . '</select>';
     }
 
     protected function _renderVarInput_multienum($form, &$var, &$vars)
@@ -792,7 +792,7 @@ EOT;
                        $this->_genID($varname . '[n][r]'),
                        $varname,
                        _("-- select --"),
-                       $this->_selectOptions($new_input, $var_array['n']['r']));
+                       $this->selectOptions($new_input, $var_array['n']['r']));
             } elseif ($new_input == true) {
                 $html .= sprintf('<input %s type="text" name="%s[n][r]" value="%s" />',
                        $this->_genID($varname . '[n][r]'),
@@ -1494,8 +1494,8 @@ EOT;
             . Prefs_CategoryManager::getSelect($var->getVarName(), $var->getValue($vars));
     }
 
-    protected function _selectOptions(&$values, $selectedValue = false,
-                            $htmlchars = false)
+    public function selectOptions(&$values, $selectedValue = false,
+                                  $htmlchars = false)
     {
         $result = '';
         $sel = false;
