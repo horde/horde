@@ -169,18 +169,18 @@ a.newEvent img {
 }
 
 /* Free/busy */
-.legend {
+.kronolithFBLegend {
     font-size: 90%;
     padding-right: 10px;
 }
-.busy {
+.kronolithFBBusy {
     position: relative;
     background: #f00;
 }
-.unknown {
+.kronolithFBUnknown {
     background: #d4d0c8 url("graphics/unknown-background.png") repeat left top;
 }
-.free {
+.kronolithFBFree {
     position: relative;
     background: #28b22b;
     color: #fff;
@@ -391,7 +391,6 @@ body.kronolithAjax {
 }
 #kronolithNotifications {
     padding: 3px 5px;
-    color: #fff;
 }
 
 /* Main area */
