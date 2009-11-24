@@ -45,12 +45,12 @@ abstract class Kronolith_Resource_Base
         if (empty($params['name'])) {
             throw new Horde_Exception('Required \'name\' attribute missing from resource calendar');
         }
-
         $this->_params = array_merge(array('description' => '',
                                            'response_type' => Kronolith_Resource::RESPONSETYPE_MANUAL,
                                            'members' => '',
-                                           'type' => Kronolith_Resource::TYPE_SINGLE),
+                                           'calendar' => ''),
                                      $params);
+
     }
 
     /**
@@ -105,8 +105,7 @@ abstract class Kronolith_Resource_Base
         if ($property == 'type' && empty($this->_params['type'])) {
             return ($this instanceof Kronolith_Resource_Single) ? 'Single' : 'Group';
         }
-
-        if (!isset($this->_params[$property])) {
+        if (!array_key_exists($property, $this->_params)) {
             throw new Horde_Exception(sprintf("The property \'%s\' does not exist", $property));
         }
         return $this->_params[$property];
