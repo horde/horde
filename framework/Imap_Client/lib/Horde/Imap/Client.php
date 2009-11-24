@@ -80,8 +80,9 @@ class Horde_Imap_Client
 
     /* Constants for listMailboxes() */
     const MBOX_SUBSCRIBED = 1;
-    const MBOX_UNSUBSCRIBED = 2;
-    const MBOX_ALL = 3;
+    const MBOX_SUBSCRIBED_EXISTS = 2;
+    const MBOX_UNSUBSCRIBED = 3;
+    const MBOX_ALL = 4;
 
     /* Constants for status() */
     const STATUS_MESSAGES = 1;

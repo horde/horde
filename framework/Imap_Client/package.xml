@@ -31,7 +31,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add Horde_Imap_Client_Utils::createUrl().
+ <notes>* Add support for RFC 5258 (LIST-EXTENDED).
+ * Add Horde_Imap_Client_Utils::createUrl().
  * Support SORT=DISPLAY extension.
  * Added search and thread (message list) caching.
  * Added PHP socket based POP3 driver.

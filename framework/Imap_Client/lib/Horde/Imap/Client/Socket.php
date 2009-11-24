@@ -31,6 +31,7 @@
  *   RFC 5182 - SEARCHRES
  *   RFC 5255 - LANGUAGE/I18NLEVEL
  *   RFC 5256 - THREAD/SORT
+ *   RFC 5258 - LIST-EXTENDED
  *   RFC 5267 - ESORT
  *   RFC 5464 - METADATA
  *
@@ -49,7 +50,6 @@
  *   RFC 4469/5550 - CATENATE
  *   RFC 4978 - COMPRESS=DEFLATE
  *              See: http://bugs.php.net/bug.php?id=48725
- *   RFC 3348/5258 - LIST-EXTENDED
  *   RFC 5257 - ANNOTATE
  *   RFC 5259 - CONVERT
  *   RFC 5267 - CONTEXT
@@ -933,9 +933,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     /**
      * Obtain a list of mailboxes matching a pattern.
      *
-     * @param string $pattern  The mailbox search pattern.
-     * @param integer $mode    Which mailboxes to return.
-     * @param array $options   Additional options.
+     * @param mixed $pattern  The mailbox search pattern(s).
+     * @param integer $mode   Which mailboxes to return.
+     * @param array $options  Additional options.
      *
      * @return array  See self::listMailboxes().
      * @throws Horde_Imap_Client_Exception
@@ -947,8 +947,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         // Get the list of subscribed/unsubscribed mailboxes. Since LSUB is
         // not guaranteed to have correct attributes, we must use LIST to
         // ensure we receive the correct information.
-        if ($mode != Horde_Imap_Client::MBOX_ALL) {
+        // TODO: Use LSUB for MBOX_SUBSCRIBED if no other options are
+        // set (RFC 5258 3.1)
+        if (($mode != Horde_Imap_Client::MBOX_ALL) &&
+            !$this->queryCapability('LIST-EXTENDED')) {
             $subscribed = $this->_getMailboxList($pattern, Horde_Imap_Client::MBOX_SUBSCRIBED, array('flat' => true));
+
             // If mode is subscribed, and 'flat' option is true, we can
             // return now.
             if (($mode == Horde_Imap_Client::MBOX_SUBSCRIBED) && !empty($options['flat'])) {
@@ -962,9 +966,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     }
 
     /**
-     * Obtain a list of mailboxes matching a pattern.
+     * Obtain a list of mailboxes.
      *
-     * @param string $pattern    The mailbox search pattern.
+     * @param mixed $pattern     The mailbox search pattern(s).
      * @param integer $mode      Which mailboxes to return.
      * @param array $options     Additional options.
      * @param array $subscribed  A list of subscribed mailboxes.
@@ -981,14 +985,63 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $t = &$this->_temp;
         $t['mailboxlist'] = array(
             'check' => $check,
-            'subscribed' => $check ? array_flip($subscribed) : null,
-            'options' => $options
+            'options' => $options,
+            'subexist' => ($mode == Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS),
+            'subscribed' => ($check ? array_flip($subscribed) : null)
         );
         $t['listresponse'] = array();
 
-        $this->_sendLine((($mode == Horde_Imap_Client::MBOX_SUBSCRIBED) ? 'LSUB' : 'LIST') . ' "" ' . $this->utils->escape($pattern));
+        if ($this->queryCapability('LIST-EXTENDED')) {
+            $cmd = 'LIST';
 
-        return (empty($options['flat'])) ? $t['listresponse'] : array_values($t['listresponse']);
+            $return_opts = $select_opts = array();
+
+            if (($mode == Horde_Imap_Client::MBOX_SUBSCRIBED) ||
+                ($mode == Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS)) {
+                $select_opts[] = 'SUBSCRIBED';
+                $return_opts[] = 'SUBSCRIBED';
+            }
+
+            if (!empty($options['remote'])) {
+                $select_opts[] = 'REMOTE';
+            }
+
+            if (!empty($options['recursivematch'])) {
+                $select_opts[] = 'RECURSIVEMATCH';
+            }
+
+            if (!empty($select_opts)) {
+                $cmd .= ' (' . implode(' ', $select_opts) . ')';
+            }
+
+            $cmd .= ' "" ';
+
+            if (is_array($pattern)) {
+                $cmd .= '(';
+                foreach ($pattern as $val) {
+                    $cmd .= $this->utils->escape($pattern) . ' ';
+                }
+                $cmd = rtrim($cmd) . ')';
+            } else {
+                $cmd .= $this->utils->escape($pattern);
+            }
+
+            if (!empty($options['children'])) {
+                $return_opts[] = 'CHILDREN';
+            }
+
+            if (!empty($return_opts)) {
+                $cmd .= ' RETURN (' . implode(' ', $return_opts) . ')';
+            }
+        } else {
+           $cmd = (($mode == Horde_Imap_Client::MBOX_SUBSCRIBED) ? 'LSUB' : 'LIST') . ' "" ' . $this->utils->escape($pattern);
+        }
+
+        $this->_sendLine($cmd);
+
+        return empty($options['flat'])
+            ? $t['listresponse']
+            : array_values($t['listresponse']);
     }
 
     /**
@@ -1020,13 +1073,24 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $mbox = Horde_Imap_Client_Utf7imap::Utf7ImapToUtf8($mbox);
         }
 
+        if ($ml['subexist'] ||
+            (empty($mlo['flat']) && !empty($mlo['attributes']))) {
+            $attr = array_map('strtolower', $data[1]);
+            if ($ml['subexist'] && in_array('\\nonexistent', $attr)) {
+                return;
+            }
+        }
+
         if (empty($mlo['flat'])) {
             $tmp = array('mailbox' => $mbox);
             if (!empty($mlo['attributes'])) {
-                $tmp['attributes'] = array_map('strtolower', $data[1]);
+                $tmp['attributes'] = $attr;
             }
             if (!empty($mlo['delimiter'])) {
                 $tmp['delimiter'] = $data[2];
+            }
+            if (isset($data[4])) {
+                $tmp['extended'] = $data[4];
             }
             $lr[$mbox] = $tmp;
         } else {

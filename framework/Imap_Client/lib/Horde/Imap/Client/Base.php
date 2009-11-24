@@ -811,13 +811,13 @@ abstract class Horde_Imap_Client_Base
     /**
      * Obtain a list of mailboxes matching a pattern.
      *
-     * @todo RFC 5258 extensions
-     *
-     * @param string $pattern  The mailbox search pattern (see RFC 3501
-     *                         [6.3.8] for the format). Either in UTF7-IMAP or
+     * @param mixed $pattern   The mailbox search pattern(s) (see RFC 3501
+     *                         [6.3.8] for the format). Either a string or an
+     *                         array of strings. Either in UTF7-IMAP or
      *                         UTF-8.
      * @param integer $mode    Which mailboxes to return.  Either
      *                         Horde_Imap_Client::MBOX_SUBSCRIBED,
+     *                         Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS,
      *                         Horde_Imap_Client::MBOX_UNSUBSCRIBED, or
      *                         Horde_Imap_Client::MBOX_ALL.
      * @param array $options   Additional options:
@@ -826,26 +826,43 @@ abstract class Horde_Imap_Client_Base
      *                the 'attributes' key. The attributes will be returned
      *                in an array with each attribute in lowercase.
      *                DEFAULT: Do not return this information.
-     * 'utf8' - (boolean) True to return mailbox names in UTF-8.
-     *          DEFAULT: Names are returned in UTF7-IMAP.
+     * 'children' - (boolean) Tell server to return children attribute
+     *              information. Requires the LIST-EXTENDED extension. Server
+     *              MAY return this autribute without this option, but it
+     *              is not guaranteed.
+     *              DEFAULT: false
      * 'delimiter' - (boolean) If true, return delimiter information under
      *               the 'delimiter' key.
      *               DEFAULT: Do not return this information.
      * 'flat' - (boolean) If true, return a flat list of mailbox names only.
      *          Overrides both the 'attributes' and 'delimiter' options.
      *          DEFAULT: Do not return flat list.
+     * 'recursivematch' - (boolean) Force the server to return information
+     *                    about parent mailboxes that don't match other
+     *                    selection options, but have some submailboxes that
+     *                    do. Information about children is returned in the
+     *                    CHILDINFO extended data item ('extended'). Requires
+     *                    the LIST-EXTENDED extension.
+     *                    DEFAULT: false
+     * 'remote' - (boolean) Tell server to return mailboxes that reside on
+     *            another server. Requires the LIST-EXTENDED extension.
+     *            DEFAULT: false
      * 'sort' - (boolean) If true, return a sorted list of mailboxes?
      *          DEFAULT: Do not sort the list.
      * 'sort_delimiter' - (string) If 'sort' is true, this is the delimiter
      *                    used to sort the mailboxes.
      *                    DEFAULT: '.'
+     * 'utf8' - (boolean) True to return mailbox names in UTF-8.
+     *          DEFAULT: Names are returned in UTF7-IMAP.
      * </pre>
      *
      * @return array  If 'flat' option is true, the array values are the list
      *                of mailboxes.  Otherwise, the array values are arrays
      *                with the following keys: 'mailbox', 'attributes' (only
-     *                if 'attributes' option is true), and 'delimiter' (only
-     *                if 'delimiter' option is true).
+     *                if 'attributes' option is true), 'delimiter' (only
+     *                if 'delimiter' option is true), and 'extended' (only
+     *                if 'recursivematch' option is true and LIST-EXTENDED
+     *                extension is supported on the server).
      * @throws Horde_Imap_Client_Exception
      */
     public function listMailboxes($pattern, $mode = Horde_Imap_Client::MBOX_ALL,
@@ -863,9 +880,9 @@ abstract class Horde_Imap_Client_Base
     /**
      * Obtain a list of mailboxes matching a pattern.
      *
-     * @param string $pattern  The mailbox search pattern (UTF7-IMAP).
-     * @param integer $mode    Which mailboxes to return.
-     * @param array $options   Additional options.
+     * @param mixed $pattern  The mailbox search pattern(s) (UTF7-IMAP).
+     * @param integer $mode   Which mailboxes to return.
+     * @param array $options  Additional options.
      *
      * @return array  See self::listMailboxes().
      * @throws Horde_Imap_Client_Exception

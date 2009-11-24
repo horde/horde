@@ -421,9 +421,9 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
     /**
      * Obtain a list of mailboxes matching a pattern.
      *
-     * @param string $pattern  The mailbox search pattern.
-     * @param integer $mode    Which mailboxes to return.
-     * @param array $options   Additional options.
+     * @param mixed $pattern  The mailbox search pattern(s).
+     * @param integer $mode   Which mailboxes to return.
+     * @param array $options  Additional options.
      * <pre>
      * For the 'attributes' option, this driver will return only these
      * attributes:
@@ -449,23 +449,33 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
         case Horde_Imap_Client::MBOX_SUBSCRIBED:
         case Horde_Imap_Client::MBOX_UNSUBSCRIBED:
+        case Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS:
             $sub = $this->_getMailboxList($pattern, Horde_Imap_Client::MBOX_SUBSCRIBED);
+            if ($mode == Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS) {
+                $mboxes = $this->_getMailboxList($pattern, Horde_Imap_Client::MBOX_ALL);
+                $sub = array_intersect($sub, $mboxes);
+            }
+
             if (!empty($options['flat'])) {
                 if (!empty($options['utf8'])) {
                     $sub = array_map(array('Horde_Imap_Client_Utf7imap', 'Utf7ImapToUtf8'), $sub);
                 }
-                if ($mode == Horde_Imap_Client::MBOX_SUBSCRIBED) {
-                    return $sub;
+
+                if (($mode == Horde_Imap_Client::MBOX_SUBSCRIBED) ||
+                    ($mode == Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS)) {
+                    return array_values($sub);
                 }
 
                 $mboxes = $this->_getMailboxList($pattern, Horde_Imap_Client::MBOX_ALL);
+
                 if (!empty($options['utf8'])) {
-                    $sub = array_map(array('Horde_Imap_Client_Utf7imap', 'Utf7ImapToUtf8'), $sub);
+                    $mboxes = array_map(array('Horde_Imap_Client_Utf7imap', 'Utf7ImapToUtf8'), $mboxes);
                 }
                 return array_values(array_diff($mboxes, $sub));
             }
             $sub = array_flip($sub);
             $check = true;
+            break;
         }
 
         $attr = array(
@@ -519,15 +529,25 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
     /**
      * Obtain a list of mailboxes matching a pattern.
      *
-     * @param string $pattern  The mailbox search pattern.
-     * @param integer $mode    Which mailboxes to return.  Either
-     *                         Horde_Imap_Client::MBOX_SUBSCRIBED or
-     *                         Horde_Imap_Client::MBOX_ALL.
+     * @param mixed $pattern  The mailbox search patterns.
+     * @param integer $mode   Which mailboxes to return.  Either
+     *                        Horde_Imap_Client::MBOX_SUBSCRIBED or
+     *                        Horde_Imap_Client::MBOX_ALL.
      *
      * @return array  A list of mailboxes in UTF7-IMAP format.
      */
     protected function _getMailboxList($pattern, $mode)
     {
+        if (is_array($pattern)) {
+            $res = array();
+            foreach ($pattern as $val) {
+                if (strlen($val)) {
+                    $res = array_merge($res, $this->_getMailboxList($val, $mode);
+                }
+            }
+            return array_unique($res);
+        }
+
         $mboxes = array();
 
         $old_error = error_reporting(0);
