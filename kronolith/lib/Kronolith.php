@@ -148,7 +148,7 @@ class Kronolith
                              Horde_Date_Recurrence::RECUR_YEARLY_DATE => 'Yearly',
                              Horde_Date_Recurrence::RECUR_YEARLY_DAY => 'Yearly',
                              Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY => 'Yearly'),
-            'snooze' => array('' => _("Snooze..."),
+            'snooze' => array('0' => _("Snooze..."),
                               '-1' => _("Dismiss"),
                               '5' => _("5 minutes"),
                               '15' => _("15 minutes"),
