@@ -434,6 +434,41 @@ class Horde_Perms
     }
 
     /**
+     * Finds out if the user has the specified rights to the given object,
+     * specific to a certain application.
+     *
+     * @param string $permission  The permission to check.
+     * @param array $opts         Additional options:
+     * <pre>
+     * 'app' - (string) The app to check.
+     *         DEFAULT: The current pushed app.
+     * 'opts' - (array) Additional options to pass to the app function.
+     *          DEFAULT: None
+     * </pre>
+     *
+     * @return boolean  Whether the user has the specified permissions.
+     */
+    public function hasAppPermission($permission, $opts = array())
+    {
+        $app = isset($opts['app'])
+            ? $opts['app']
+            : $GLOBALS['registry']->getApp();
+
+        if ($this->exists($app . ':' . $permission)) {
+            $args = array($this->getPermissions($app . ':' . $permission));
+            if (isset($opts['opts'])) {
+                $args[] = $opts['opts'];
+            }
+
+            try {
+                return $GLOBALS['registry']->callAppMethod($app, 'hasPermission', array('args' => $args));
+            } catch (Horde_Exception $e) {}
+        }
+
+        return true;
+    }
+
+    /**
      * Checks if a permission exists in the system.
      *
      * @param string $permission  The permission to check.
