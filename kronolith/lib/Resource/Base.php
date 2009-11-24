@@ -106,7 +106,7 @@ abstract class Kronolith_Resource_Base
             return ($this instanceof Kronolith_Resource_Single) ? 'Single' : 'Group';
         }
         if (!array_key_exists($property, $this->_params)) {
-            throw new Horde_Exception(sprintf("The property \'%s\' does not exist", $property));
+            throw new Horde_Exception(sprintf('The property \'%s\' does not exist', $property));
         }
         return $this->_params[$property];
     }
