@@ -185,7 +185,7 @@ xss71.html
 <XSSCleaned_tag SRC="data:image/svg+xml;base64,PHN2ZyB4bWxuczpzdmc9Imh0dH A6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv MjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hs aW5rIiB2ZXJzaW9uPSIxLjAiIHg9IjAiIHk9IjAiIHdpZHRoPSIxOTQiIGhlaWdodD0iMjAw IiBpZD0ieHNzIj48c2NyaXB0IHR5cGU9InRleHQvZWNtYXNjcmlwdCI+YWxlcnQoIlh TUyIpOzwvc2NyaXB0Pjwvc3ZnPg==" type="image/svg+xml" AllowScriptAccess="always"></XSSCleaned_tag>
 xss72.html
 <HTML xmlns:xss>
-  <XSSCleaned_tagnamespace="xss" implementation="http://ha.ckers.org/xss.htc">
+  <XSSCleaned_tag namespace="xss" implementation="http://ha.ckers.org/xss.htc">
   <xss:xss>XSS</xss:xss>
 </HTML>
 xss73.html
@@ -200,7 +200,7 @@ xss75.html
 xss76.html
 <HTML><BODY>
 <?XSSCleaned_tag:namespace prefix="t" ns="urn:schemas-microsoft-com:time">
-<XSSCleaned_tagnamespace="t" implementation="#default#time2">
+<XSSCleaned_tag namespace="t" implementation="#default#time2">
 <t:set attributeName="innerHTML" to="XSS&lt;SCRIPT DEFER&gt;alert(&quot;XSS&quot;)&lt;/SCRIPT&gt;">
 </BODY></HTML>
 xss77.html
