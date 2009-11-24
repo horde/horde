@@ -627,9 +627,7 @@ class Turba_Api extends Horde_Registry_Api
 
         // Check existance of and permissions on the specified source.
         if (!isset($cfgSources[$import_source])) {
-            print_r($cfgSources);
-            exit;
-            return PEAR::raiseError(sprintf(_("aInvalid address book: %s"),
+            return PEAR::raiseError(sprintf(_("Invalid address book: %s"),
                 $import_source),
             'horde.warning');
         }
