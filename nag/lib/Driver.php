@@ -245,7 +245,6 @@ class Nag_Driver
             $alarm = $task->toAlarm();
             if ($alarm) {
                 $alarm['start'] = new Horde_Date($alarm['start']);
-                require_once 'Horde/Alarm.php';
                 $horde_alarm = Horde_Alarm::factory();
                 $horde_alarm->set($alarm);
             }
@@ -303,7 +302,6 @@ class Nag_Driver
 
         /* Update alarm if necessary. */
         if (!empty($GLOBALS['conf']['alarms']['driver'])) {
-            require_once 'Horde/Alarm.php';
             $horde_alarm = Horde_Alarm::factory();
             if (empty($alarm) || $completed) {
                 $horde_alarm->delete($task->uid);
@@ -411,7 +409,6 @@ class Nag_Driver
         /* Delete alarm if necessary. */
         if (!empty($GLOBALS['conf']['alarms']['driver']) &&
             !empty($task->alarm)) {
-            require_once 'Horde/Alarm.php';
             $horde_alarm = Horde_Alarm::factory();
             $horde_alarm->delete($task->uid);
         }
