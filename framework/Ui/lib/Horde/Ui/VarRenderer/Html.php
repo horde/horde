@@ -1487,11 +1487,10 @@ EOT;
     protected function _renderVarInput_category($form, &$var, &$vars)
     {
         Horde::addScriptFile('form_helpers.js', 'horde');
-        require_once 'Horde/Prefs/CategoryManager.php';
         $this->_addOnLoadJavascript('addEvent(document.getElementById(\'' . $form->getName() . '\'), \'submit\', checkCategory);');
         return '<input type="hidden" name="new_category" />'
-            . Prefs_CategoryManager::getJavaScript($form->getName(), $var->getVarName())
-            . Prefs_CategoryManager::getSelect($var->getVarName(), $var->getValue($vars));
+            . Horde_Prefs_CategoryManager::getJavaScript($form->getName(), $var->getVarName())
+            . Horde_Prefs_CategoryManager::getSelect($var->getVarName(), $var->getValue($vars));
     }
 
     public function selectOptions(&$values, $selectedValue = false,
