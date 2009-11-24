@@ -21,13 +21,10 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => true));
+new IMP_Application(array('init' => true, 'tz' => true));
 
 /* Determine if mailbox is readonly. */
 $readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);
-
-/* Set the current time zone. */
-Horde_Nls::setTimeZone();
 
 /* Need Horde_Mobile init here for autoloading purposes. */
 $mimp_render = new Horde_Mobile();

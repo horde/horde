@@ -57,7 +57,7 @@ function _getIMPContents($uid, $mailbox)
 
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => array('session_control' => 'netscape')));
+new IMP_Application(array('init' => array('session_control' => 'netscape'), 'tz' => true));
 
 /* The message headers and text. */
 $header = array();
@@ -132,9 +132,6 @@ if ($token = Horde_Util::getFormData('compose_formToken')) {
         $actionID = null;
     }
 }
-
-/* Set the current time zone. */
-Horde_Nls::setTimeZone();
 
 /* Determine if compose mode is disabled. */
 $compose_disable = !IMP::canCompose();

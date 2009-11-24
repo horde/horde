@@ -20,7 +20,7 @@ function _returnToMailbox($startIndex = null, $actID = null)
 }
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => true));
+new IMP_Application(array('init' => true, 'tz' => true));
 
 /* We know we are going to be exclusively dealing with this mailbox, so
  * select it on the IMAP server (saves some STATUS calls). Open R/W to clear
@@ -39,9 +39,6 @@ if (!$imp_mailbox->isValidIndex(false)) {
 
 /* Initialize IMP_Message object. */
 $imp_message = IMP_Message::singleton();
-
-/* Set the current time zone. */
-Horde_Nls::setTimeZone();
 
 /* Initialize the user's identities. */
 $user_identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));

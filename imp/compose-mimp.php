@@ -27,7 +27,7 @@ function _getIMPContents($uid, $mailbox)
 }
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => true));
+new IMP_Application(array('init' => true, 'tz' => true));
 
 /* The message text and headers. */
 $msg = '';
@@ -57,9 +57,6 @@ if ($imp_imap->isReadOnly($sent_mail_folder)) {
 
 /* Determine if compose mode is disabled. */
 $compose_disable = !IMP::canCompose();
-
-/* Set the current time zone. */
-Horde_Nls::setTimeZone();
 
 /* Initialize the IMP_Compose:: object. */
 $imp_compose = IMP_Compose::singleton(Horde_Util::getFormData('composeCache'));

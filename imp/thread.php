@@ -10,7 +10,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => true));
+new IMP_Application(array('init' => true, 'tz' => true));
 
 /* What mode are we in?
  * DEFAULT/'thread' - Thread mode
@@ -41,9 +41,6 @@ if ($error) {
     require IMP_BASE . '/mailbox.php';
     exit;
 }
-
-/* Set the current time zone. */
-Horde_Nls::setTimeZone();
 
 /* Run through action handlers. */
 $actionID = Horde_Util::getFormData('actionID');

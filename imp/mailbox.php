@@ -39,7 +39,7 @@ function _outputSummaries($msgs)
 
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => true));
+new IMP_Application(array('init' => true, 'tz' => true));
 
 /* Call the mailbox redirection hook, if requested. */
 try {
@@ -71,9 +71,6 @@ $newMbox = Horde_Util::getFormData('newMbox');
 if (!is_array(($indices = Horde_Util::getFormData('indices')))) {
     $indices = array($indices);
 }
-
-/* Set the current time zone. */
-Horde_Nls::setTimeZone();
 
 $do_filter = false;
 $imp_flags = IMP_Imap_Flags::singleton();

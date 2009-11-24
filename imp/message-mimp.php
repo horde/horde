@@ -19,7 +19,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => true));
+new IMP_Application(array('init' => true, 'tz' => true));
 
 /* Make sure we have a valid index. */
 $imp_mailbox = IMP_Mailbox::singleton($imp_mbox['mailbox'], $imp_mbox['uid']);
@@ -33,9 +33,6 @@ $imp_ui = new IMP_UI_Message();
 
 /* Determine if mailbox is readonly. */
 $readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);
-
-/* Set the current time zone. */
-Horde_Nls::setTimeZone();
 
 /* Run through action handlers */
 $actionID = Horde_Util::getFormData('a');

@@ -74,12 +74,17 @@ class IMP_Application extends Horde_Registry_Application
      * <pre>
      * 'init' - (boolean|array) If true, perform application init. If an
      *          array, perform application init and pass the array to init().
+     * 'tz' - (boolean) If true, sets the current time zone on the server.
      * </pre>
      */
     public function __construct($args = array())
     {
         if (!empty($args['init'])) {
             $this->init(is_array($args['init']) ? $args['init'] : array());
+        }
+
+        if (!empty($args['tz'])) {
+            Horde_Nls::setTimeZone();
         }
 
         /* Only available if admin config is set for this server/login. */

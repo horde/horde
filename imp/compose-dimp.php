@@ -26,7 +26,7 @@ function _removeAutoSaveDraft($uid)
 }
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => true));
+new IMP_Application(array('init' => true, 'tz' => true));
 
 /* Determine if compose mode is disabled. */
 $compose_disable = !IMP::canCompose();
@@ -48,9 +48,6 @@ if (!$prefs->isLocked('default_identity')) {
         $identity->setDefault($identity_id);
     }
 }
-
-/* Set the current time zone. */
-Horde_Nls::setTimeZone();
 
 /* Initialize the IMP_Compose:: object. */
 $imp_compose = IMP_Compose::singleton(Horde_Util::getFormData('composeCache'));
