@@ -943,6 +943,12 @@ span.dimpactionDrafts {
 #oa_preview_hide span.contextImg, #oa_preview_show span.contextImg {
     background-image: url("graphics/preview.png");
 }
+#oa_layout_horiz span.contextImg {
+    background-image: url("graphics/application_tile_vertical.png");
+}
+#oa_layout_vert span.contextImg {
+    background-image: url("graphics/application_tile_horizontal.png");
+}
 #oa_selectall span.contextImg {
     background-image: url("graphics/tick.png");
 }

@@ -1,5 +1,5 @@
 #ctx_folder_sub span.contextImg, #ctx_folder_unsub span.contextImg, #ctx_folderopts_sub span.contextImg, #ctx_folderopts_unsub span.contextImg {
-    background-image: url("graphics/folders/folder.png");
+    background-image: url("graphics/folders/explore.png");
 }
 #sidebarPanel span.col, #ctx_folderopts_collapse span.contextImg, #ctx_container_collapse span.contextImg, #ctx_folder_collapse span.contextImg {
     background-image: url("graphics/folders/minus.png");
@@ -109,6 +109,12 @@ span.dimpactionDrafts {
 }
 #oa_preview_hide span.contextImg, #oa_preview_show span.contextImg {
     background-image: url("graphics/preview.png");
+}
+#oa_layout_horiz span.contextImg {
+    background-image: url("graphics/application_tile_vertical.png");
+}
+#oa_layout_vert span.contextImg {
+    background-image: url("graphics/application_tile_horizontal.png");
 }
 #oa_selectall span.contextImg {
     background-image: url("graphics/tick.png");
