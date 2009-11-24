@@ -11,12 +11,10 @@
 @define('AUTH_HANDLER', true);
 @define('NAG_BASE', dirname(__FILE__) . '/..');
 require_once NAG_BASE . '/lib/base.php';
-require_once 'Horde/Image.php';
-require_once 'Horde/Prefs/CategoryManager.php';
 
 header('Content-Type: text/css');
 
-$cManager = new Prefs_CategoryManager();
+$cManager = new Horde_Prefs_CategoryManager();
 
 $colors = $cManager->colors();
 $fgColors = $cManager->fgColors();

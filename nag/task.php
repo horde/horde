@@ -134,8 +134,7 @@ case 'save_task':
 
     /* Add new category. */
     if ($info['category']['new']) {
-        require_once 'Horde/Prefs/CategoryManager.php';
-        $cManager = new Prefs_CategoryManager();
+        $cManager = new Horde_Prefs_CategoryManager();
         $cManager->add($info['category']['value']);
     }
 

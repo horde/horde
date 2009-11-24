@@ -7,13 +7,12 @@
  */
 
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Prefs/CategoryManager.php';
 
 // Unset the current domain since we are generating a zone list
 $_SESSION['beatnik']['curdomain'] = null;
 
 // Set up categories
-$cManager = new Prefs_CategoryManager();
+$cManager = new Horde_Prefs_CategoryManager();
 $categories = $cManager->get();
 $colors = $cManager->colors();
 $fgcolors = $cManager->fgColors();

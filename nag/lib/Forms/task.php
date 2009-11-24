@@ -85,9 +85,7 @@ class Nag_TaskForm extends Horde_Form {
         if (class_exists('Horde_Form_Type_category')) {
             $this->addVariable(_("Category"), 'category', 'category', false);
         } else {
-            require_once 'Horde/Prefs/CategoryManager.php';
-            require_once 'Horde/Array.php';
-            $values = Horde_Array::valuesToKeys(Prefs_CategoryManager::get());
+            $values = Horde_Array::valuesToKeys(Horde_Prefs_CategoryManager::get());
             $this->addVariable(_("Category"), 'category', 'enum', false, false, false, array($values, _("Unfiled")));
         }
 

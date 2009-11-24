@@ -410,8 +410,7 @@ if (!$error && !empty($import_format)) {
 /* We have a final result set. */
 if (is_array($next_step)) {
     /* Create a category manager. */
-    require_once 'Horde/Prefs/CategoryManager.php';
-    $cManager = new Prefs_CategoryManager();
+    $cManager = new Horde_Prefs_CategoryManager();
     $categories = $cManager->get();
 
     /* Create a Turba storage instance. */

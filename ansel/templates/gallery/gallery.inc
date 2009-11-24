@@ -26,8 +26,8 @@
   <td align="right" valign="top"><strong><?php echo _("Gallery Category") ?></strong>&nbsp;</td>
   <td>
     <input type="hidden" name="new_category" value="" />
-    <?php echo Prefs_CategoryManager::getJavaScript('gallery', 'gallery_category') .
-               Prefs_CategoryManager::getSelect("gallery_category", $gallery_category) ?>
+    <?php echo Horde_Prefs_CategoryManager::getJavaScript('gallery', 'gallery_category') .
+               Horde_Prefs_CategoryManager::getSelect("gallery_category", $gallery_category) ?>
   </td>
 </tr>
 

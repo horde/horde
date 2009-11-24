@@ -12,7 +12,6 @@
 
 @define('VILMA_BASE', dirname(__FILE__) . '/..');
 require_once VILMA_BASE . '/lib/base.php';
-require_once 'Horde/Prefs/CategoryManager.php';
 
 /* Only admin should be using this. */
 if (!Vilma::hasPermission($curdomain)) {

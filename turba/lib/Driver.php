@@ -172,8 +172,7 @@ class Turba_Driver
         /* Handle category. */
         if (!empty($hash['category'])) {
             if (!empty($hash['category']['new'])) {
-                require_once 'Horde/Prefs/CategoryManager.php';
-                $cManager = new Prefs_CategoryManager();
+                $cManager = new Horde_Prefs_CategoryManager();
                 $cManager->add($hash['category']['value']);
             }
             $hash['category'] = $hash['category']['value'];

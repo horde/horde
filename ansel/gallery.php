@@ -9,7 +9,6 @@
  */
 
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Prefs/CategoryManager.php';
 
 // Redirect to the gallery list if no action has been requested.
 $actionID = Horde_Util::getFormData('actionID');
@@ -139,7 +138,7 @@ case 'save':
     $gallery_mode = Horde_Util::getFormData('view_mode', 'Normal');
     $gallery_passwd = Horde_Util::getFormData('gallery_passwd');
     if ($new_category = Horde_Util::getFormData('new_category')) {
-        $cManager = new Prefs_CategoryManager();
+        $cManager = new Horde_Prefs_CategoryManager();
         $new_category = $cManager->add($new_category);
         if ($new_category) {
             $gallery_category = $new_category;

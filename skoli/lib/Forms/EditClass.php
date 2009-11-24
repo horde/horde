@@ -131,8 +131,7 @@ class Skoli_EditClassForm extends Horde_Form {
 
         /* Add new category. */
         if (strpos($this->_vars->get('category'), '*new*') !== false || $this->_vars->get('category') == $this->_vars->get('new_category')) {
-            require_once 'Horde/Prefs/CategoryManager.php';
-            $cManager = new Prefs_CategoryManager();
+            $cManager = new Horde_Prefs_CategoryManager();
             $cManager->add($this->_vars->get('new_category'));
             $this->_vars->set('category', $this->_vars->get('new_category'));
         }

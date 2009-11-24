@@ -10,11 +10,10 @@
 
 $skoli_authentication = 'none';
 require_once dirname(__FILE__) . '/../lib/base.php';
-require_once 'Horde/Prefs/CategoryManager.php';
 
 header('Content-Type: text/css');
 
-$cManager = new Prefs_CategoryManager();
+$cManager = new Horde_Prefs_CategoryManager();
 
 $colors = $cManager->colors();
 $fgColors = $cManager->fgColors();

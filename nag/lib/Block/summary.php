@@ -24,8 +24,7 @@ class Horde_Block_nag_summary extends Horde_Block {
     function _params()
     {
         require_once dirname(__FILE__) . '/../base.php';
-        require_once 'Horde/Prefs/CategoryManager.php';
-        $cManager = new Prefs_CategoryManager();
+        $cManager = new Horde_Prefs_CategoryManager();
         $categories = array();
         foreach ($cManager->get() as $c) {
             $categories[$c] = $c;

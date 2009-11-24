@@ -627,7 +627,9 @@ class Turba_Api extends Horde_Registry_Api
 
         // Check existance of and permissions on the specified source.
         if (!isset($cfgSources[$import_source])) {
-            return PEAR::raiseError(sprintf(_("Invalid address book: %s"),
+            print_r($cfgSources);
+            exit;
+            return PEAR::raiseError(sprintf(_("aInvalid address book: %s"),
                 $import_source),
             'horde.warning');
         }
@@ -642,8 +644,7 @@ class Turba_Api extends Horde_Registry_Api
         }
 
         /* Create a category manager. */
-        require_once 'Horde/Prefs/CategoryManager.php';
-        $cManager = new Prefs_CategoryManager();
+        $cManager = new Horde_Prefs_CategoryManager();
         $categories = $cManager->get();
 
         if (!is_a($content, 'Horde_iCalendar_vcard')) {
