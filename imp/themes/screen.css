@@ -531,6 +531,8 @@ td.addressTr span.loadingImg {
     display: inline-block;
     margin-bottom: 3px;
     padding: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
 }
 .mimeStatusIcon {
     width: 22px;
@@ -551,6 +553,8 @@ div.mimeStatusMessage, div.mimePartInfo {
     font-size: 90%;
     margin: 0;
     padding: 5px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
     /* For FF2 */
     display: table-cell;
     display: inline-block;
