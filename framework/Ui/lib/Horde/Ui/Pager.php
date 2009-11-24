@@ -38,7 +38,7 @@ class Horde_Ui_Pager extends Horde_Ui_Widget
      * @return string  HTML code containing a centered table with the pager
      *                 links.
      */
-    public function render()
+    public function render($data = null)
     {
         global $prefs, $registry, $conf;
 
