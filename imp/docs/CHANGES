@@ -2,6 +2,8 @@
 v5.0-git
 --------
 
+[mms] Use LIST-EXTENDED IMAP extension (RFC 5258) to get subscribed
+      mailbox information, if available.
 [mms] Split ham/spam reporting actions into two separate preferences (Request
       #8221).
 [mms] When clicking on base reply button, auto-determine the best way to
