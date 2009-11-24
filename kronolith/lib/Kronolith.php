@@ -1733,33 +1733,6 @@ class Kronolith
     }
 
     /**
-     * Returns the specified permission for the current user.
-     *
-     * @param string $permission  A permission, currently only 'max_events'.
-     *
-     * @return mixed  The value of the specified permission.
-     */
-    public static function hasPermission($permission)
-    {
-        global $perms;
-
-        if (!$perms->exists('kronolith:' . $permission)) {
-            return true;
-        }
-
-        $allowed = $perms->getPermissions('kronolith:' . $permission);
-        if (is_array($allowed)) {
-            switch ($permission) {
-            case 'max_events':
-                $allowed = max($allowed);
-                break;
-            }
-        }
-
-        return $allowed;
-    }
-
-    /**
      * @param string $tabname
      */
     public static function tabs($tabname = null)
@@ -2096,8 +2069,8 @@ class Kronolith
         $menu->add(Horde::applicationUrl($prefs->getValue('defaultview') . '.php'), _("_Today"), 'today.png', null, null, null, '__noselection');
         if (self::getDefaultCalendar(Horde_Perms::EDIT) &&
             (!empty($conf['hooks']['permsdenied']) ||
-             self::hasPermission('max_events') === true ||
-             self::hasPermission('max_events') > self::countEvents())) {
+             $GLOBALS['perms']->hasAppPermission('max_events') === true ||
+             $GLOBALS['perms']->hasAppPermission('max_events') > self::countEvents())) {
             $menu->add(Horde_Util::addParameter(Horde::applicationUrl('new.php'), 'url', Horde::selfUrl(true, false, true)), _("_New Event"), 'new.png');
         }
         if ($browser->hasFeature('dom')) {

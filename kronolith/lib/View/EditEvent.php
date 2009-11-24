@@ -71,8 +71,8 @@ class Kronolith_View_EditEvent {
         if (($this->event->isRemote() ||
              !$this->event->hasPermission(Horde_Perms::EDIT)) &&
             (!empty($GLOBALS['conf']['hooks']['permsdenied']) ||
-             Kronolith::hasPermission('max_events') === true ||
-             Kronolith::hasPermission('max_events') > Kronolith::countEvents())) {
+             $GLOBALS['perms']->hasAppPermission('max_events') === true ||
+             $GLOBALS['perms']->hasAppPermission('max_events') > Kronolith::countEvents())) {
             $buttons[] = '<input type="submit" class="button" name="saveAsNew" value="' . _("Save As New") . '" />';
         } else {
             if (!$this->event->isRemote()) {
@@ -81,8 +81,8 @@ class Kronolith_View_EditEvent {
             if ($this->event->isInitialized()) {
                 if (!$this->event->recurs() &&
                     (!empty($conf['hooks']['permsdenied']) ||
-                     Kronolith::hasPermission('max_events') === true ||
-                     Kronolith::hasPermission('max_events') > Kronolith::countEvents())) {
+                     $GLOBALS['perms']->hasAppPermission('max_events') === true ||
+                     $GLOBALS['perms']->hasAppPermission('max_events') > Kronolith::countEvents())) {
                     $buttons[] = '<input type="submit" class="button" name="saveAsNew" value="' . _("Save As New") . '" />';
                 }
             }

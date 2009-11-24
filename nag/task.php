@@ -60,12 +60,12 @@ if (is_null($actionID)) {
 switch ($actionID) {
 case 'add_task':
     /* Check permissions. */
-    if (Nag::hasPermission('max_tasks') !== true &&
-        Nag::hasPermission('max_tasks') <= Nag::countTasks()) {
+    if ($GLOBALS['perms']->hasAppPermission('max_tasks') !== true &&
+        $GLOBALS['perms']->hasAppPermission('max_tasks') <= Nag::countTasks()) {
         try {
             $message = Horde::callHook('perms_denied', array('nag:max_tasks'));
         } catch (Horde_Exception_HookNotSet $e) {
-            $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d tasks."), Nag::hasPermission('max_tasks')), ENT_COMPAT, Horde_Nls::getCharset());
+            $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d tasks."), $GLOBALS['perms']->hasAppPermission('max_tasks')), ENT_COMPAT, Horde_Nls::getCharset());
         }
         $notification->push($message, 'horde.error', array('content.raw'));
         header('Location: ' . Horde::applicationUrl('list.php', true));
@@ -156,8 +156,8 @@ case 'save_task':
                                    $info['tasklist_id']);
     } else {
         /* Check permissions. */
-        if (Nag::hasPermission('max_tasks') !== true &&
-            Nag::hasPermission('max_tasks') <= Nag::countTasks()) {
+        if ($GLOBALS['perms']->hasAppPermission('max_tasks') !== true &&
+            $GLOBALS['perms']->hasAppPermission('max_tasks') <= Nag::countTasks()) {
             header('Location: ' . Horde::applicationUrl('list.php', true));
             exit;
         }

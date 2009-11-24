@@ -578,33 +578,6 @@ class Nag
     }
 
     /**
-     * Returns the specified permission for the current user.
-     *
-     * @param string $permission  A permission, currently only 'max_tasks'.
-     *
-     * @return mixed  The value of the specified permission.
-     */
-    function hasPermission($permission)
-    {
-        global $perms;
-
-        if (!$perms->exists('nag:' . $permission)) {
-            return true;
-        }
-
-        $allowed = $perms->getPermissions('nag:' . $permission);
-        if (is_array($allowed)) {
-            switch ($permission) {
-            case 'max_tasks':
-                $allowed = max($allowed);
-                break;
-            }
-        }
-
-        return $allowed;
-    }
-
-    /**
      * Initial app setup code.
      */
     function initialize()
@@ -689,8 +662,8 @@ class Nag
         $menu->add(Horde::applicationUrl('list.php'), _("_List Tasks"), 'nag.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
         if (Nag::getDefaultTasklist(Horde_Perms::EDIT) &&
             (!empty($conf['hooks']['permsdenied']) ||
-             Nag::hasPermission('max_tasks') === true ||
-             Nag::hasPermission('max_tasks') > Nag::countTasks())) {
+             $GLOBALS['perms']->hasAppPermission('max_tasks') === true ||
+             $GLOBALS['perms']->hasAppPermission('max_tasks') > Nag::countTasks())) {
             $menu->add(Horde::applicationUrl(Horde_Util::addParameter('task.php', 'actionID', 'add_task')), _("_New Task"), 'add.png', null, null, null, Horde_Util::getFormData('task') ? '__noselection' : null);
             if ($GLOBALS['browser']->hasFeature('dom')) {
                 $menu->add('', _("_Quick Add"), 'add.png', null, null, 'Nag.quickAddPanel.show(); $(\'quickText\').focus(); return false;', Horde_Util::getFormData('task') ? 'quickAdd __noselection' : 'quickAdd');

@@ -733,7 +733,7 @@ class IMP_Compose
             return;
         }
 
-        $timelimit = IMP::hasPermission('max_timelimit');
+        $timelimit = $GLOBALS['perms']->hasAppPermission('max_timelimit');
         if ($timelimit !== true) {
             if ($conf['sentmail']['driver'] == 'none') {
                 Horde::logMessage('The permission for the maximum number of recipients per time period has been enabled, but no backend for the sent-mail logging has been configured for IMP.', __FILE__, __LINE__, PEAR_LOG_ERR);
@@ -941,7 +941,7 @@ class IMP_Compose
         /* Count recipients if necessary. We need to split email groups
          * because the group members count as separate recipients. */
         if ($exceed) {
-            $max_recipients = IMP::hasPermission('max_recipients');
+            $max_recipients = $GLOBALS['perms']->hasAppPermission('max_recipients');
             if ($max_recipients !== true) {
                 $num_recipients = 0;
                 foreach ($addrlist as $recipient) {

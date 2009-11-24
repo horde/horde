@@ -14,7 +14,7 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 
 /* Check rule permissions. */
-if (!Ingo::hasPermission('allow_rules')) {
+if (!$GLOBALS['perms']->hasAppPermission('allow_rules')) {
     try {
         $message = Horde::callHook('perms_denied', array('ingo:allow_rules'));
     } catch (Horde_Exception_HookNotSet $e) {
@@ -50,7 +50,7 @@ case 'create_folder':
 case 'rule_save':
 case 'rule_update':
 case 'rule_delete':
-    if (!Ingo::hasPermission('shares', Horde_Perms::EDIT)) {
+    if (!Ingo::hasSharePermission(Horde_Perms::EDIT)) {
         $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
         header('Location: ' . Horde::applicationUrl('filters.php', true));
         exit;
@@ -126,8 +126,8 @@ case 'rule_delete':
     /* Save the rule. */
     if ($actionID == 'rule_save' && $valid) {
         if (is_null($edit_number)) {
-            if (Ingo::hasPermission('max_rules') !== true &&
-                Ingo::hasPermission('max_rules') <= count($filters->getFilterList())) {
+            if ($GLOBALS['perms']->hasAppPermission('max_rules') !== true &&
+                $GLOBALS['perms']->hasAppPermission('max_rules') <= count($filters->getFilterList())) {
                 header('Location: ' . Horde::applicationUrl('filters.php', true));
                 exit;
             }
@@ -145,7 +145,7 @@ case 'rule_delete':
         header('Location: ' . Horde::applicationUrl('filters.php'));
         exit;
     } elseif ($actionID == 'rule_delete') {
-        if (!Ingo::hasPermission('shares', Horde_Perms::DELETE)) {
+        if (!Ingo::hasSharePermission(Horde_Perms::DELETE)) {
             $notification->push(_("You do not have permission to delete filter rules."), 'horde.error');
             header('Location: ' . Horde::applicationUrl('filters.php', true));
             exit;
@@ -159,18 +159,18 @@ case 'rule_delete':
     break;
 
 default:
-    if (!Ingo::hasPermission('shares', Horde_Perms::EDIT)) {
+    if (!Ingo::hasSharePermission(Horde_Perms::EDIT)) {
         $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
         header('Location: ' . Horde::applicationUrl('filters.php', true));
         exit;
     }
     if (is_null($edit_number)) {
-        if (Ingo::hasPermission('max_rules') !== true &&
-            Ingo::hasPermission('max_rules') <= count($filters->getFilterList())) {
+        if ($GLOBALS['perms']->hasAppPermission('max_rules') !== true &&
+            $GLOBALS['perms']->hasAppPermission('max_rules') <= count($filters->getFilterList())) {
             try {
                 $message = Horde::callHook('perms_denied', array('ingo:max_rules'));
             } catch (Horde_Exception_HookNotSet $e) {
-                $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d rules."), Ingo::hasPermission('max_rules')), ENT_COMPAT, Horde_Nls::getCharset());
+                $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d rules."), $GLOBALS['perms']->hasAppPermission('max_rules')), ENT_COMPAT, Horde_Nls::getCharset());
             }
             $notification->push($message, 'horde.error', array('content.raw'));
             header('Location: ' . Horde::applicationUrl('filters.php', true));

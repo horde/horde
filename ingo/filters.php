@@ -29,8 +29,8 @@ $actionID = Horde_Util::getFormData('actionID');
 $id = Horde_Util::getFormData('rulenumber');
 
 /* Get permissions. */
-$edit_allowed = Ingo::hasPermission('shares', Horde_Perms::EDIT);
-$delete_allowed = Ingo::hasPermission('shares', Horde_Perms::DELETE);
+$edit_allowed = Ingo::hasSharePermission(Horde_Perms::EDIT);
+$delete_allowed = Ingo::hasSharePermission(Horde_Perms::DELETE);
 
 /* Perform requested actions. */
 switch ($actionID) {
@@ -60,7 +60,7 @@ case 'rule_enable':
         break;
 
     case 'rule_copy':
-        if (!Ingo::hasPermission('allow_rules')) {
+        if (!$GLOBALS['perms']->hasAppPermission('allow_rules')) {
             try {
                 $message = Horde::callHook('perms_denied', array('ingo:allow_rules'));
             } catch (Horde_Exception_HookNotSet $e) {
@@ -68,12 +68,12 @@ case 'rule_enable':
             }
             $notification->push($message, 'horde.error', array('content.raw'));
             break 2;
-        } elseif (Ingo::hasPermission('max_rules') !== true &&
-                  Ingo::hasPermission('max_rules') <= count($filters->getFilterList())) {
+        } elseif ($GLOBALS['perms']->hasAppPermission('max_rules') !== true &&
+                  $GLOBALS['perms']->hasAppPermission('max_rules') <= count($filters->getFilterList())) {
             try {
                 $message = Horde::callHook('perms_denied', array('ingo:max_rules'));
             } catch (Horde_Exception_HookNotSet $e) {
-                $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d rules."), Ingo::hasPermission('max_rules')), ENT_COMPAT, Horde_Nls::getCharset());
+                $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d rules."), $GLOBALS['perms']->hasAppPermission('max_rules')), ENT_COMPAT, Horde_Nls::getCharset());
             }
             $notification->push($message, 'horde.error', array('content.raw'));
             break 2;
@@ -264,8 +264,8 @@ if (count($filter_list) == 0) {
         /* Create copy link. */
         if (!is_null($copyurl) &&
             (!empty($conf['hooks']['permsdenied']) ||
-             Ingo::hasPermission('max_rules') === true ||
-             Ingo::hasPermission('max_rules') > count($filter_list))) {
+             $GLOBALS['perms']->hasAppPermission('max_rules') === true ||
+             $GLOBALS['perms']->hasAppPermission('max_rules') > count($filter_list))) {
             $entry['copylink'] = Horde::link($copyurl, sprintf(_("Copy %s"), $name));
             $entry['copyimg'] = Horde::img('copy.png', sprintf(_("Copy %s"), $name));
         } else {
@@ -317,9 +317,9 @@ if (count($filter_list) == 0) {
 $actions = $ingo_script->availableActions();
 $createrule = (!empty($actions) &&
                (!empty($conf['hooks']['permsdenied']) ||
-                (Ingo::hasPermission('allow_rules') &&
-                 (Ingo::hasPermission('max_rules') === true ||
-                  Ingo::hasPermission('max_rules') > count($filter_list)))));
+                ($GLOBALS['perms']->hasAppPermission('allow_rules') &&
+                 ($GLOBALS['perms']->hasAppPermission('max_rules') === true ||
+                  $GLOBALS['perms']->hasAppPermission('max_rules') > count($filter_list)))));
 $canapply = $ingo_script->canApply();
 require INGO_TEMPLATES . '/filters/footer.inc';
 if ($on_demand && $edit_allowed) {

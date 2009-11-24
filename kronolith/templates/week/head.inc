@@ -20,8 +20,8 @@ echo Horde::link($this->link(1), _("Next week"), 'iconNav', '', 'return ShowView
 <?php
 if (Kronolith::getDefaultCalendar(Horde_Perms::EDIT) &&
     (!empty($conf['hooks']['permsdenied']) ||
-     Kronolith::hasPermission('max_events') === true ||
-     Kronolith::hasPermission('max_events') > Kronolith::countEvents())) {
+     $GLOBALS['perms']->hasAppPermission('max_events') === true ||
+     $GLOBALS['perms']->hasAppPermission('max_events') > Kronolith::countEvents())) {
     $addurl = Horde_Util::addParameter('new.php',
                                  array('date' => $day->dateString(),
                                        'url' => $this->link(0, true)));

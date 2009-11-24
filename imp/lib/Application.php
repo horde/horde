@@ -200,6 +200,38 @@ class IMP_Application extends Horde_Registry_Application
         );
     }
 
+    /**
+     * Returns the specified permission for the current user.
+     *
+     * @param mixed $allowed  The allowed permissions.
+     * @param array $opts     Additinal options ('value').
+     *
+     * @return mixed  The value of the specified permission.
+     */
+    public function hasPermission($allowed, $opts = array())
+    {
+        if (is_array($allowed)) {
+            switch ($permission) {
+            case 'create_folders':
+                $allowed = (bool)count(array_filter($allowed));
+                break;
+
+            case 'max_folders':
+            case 'max_recipients':
+            case 'max_timelimit':
+                $allowed = max($allowed);
+                break;
+            }
+        }
+
+        if (($permission == 'max_folders') && empty($opts['value'])) {
+            $folder = IMP_Folder::singleton();
+            $allowed = $allowed > count($folder->flist_IMP(array(), false));
+        }
+
+        return $allowed;
+    }
+
     /* Horde_Auth_Application methods. */
 
     /**

@@ -40,6 +40,30 @@ class Ingo_Application extends Horde_Registry_Application
     }
 
     /**
+     * Returns the specified permission for the current user.
+     *
+     * @param mixed $allowed  The allowed permissions.
+     *
+     * @return mixed  The value of the specified permission.
+     */
+    public function hasPermission($allowed)
+    {
+        if (is_array($allowed)) {
+            switch ($permission) {
+            case 'allow_rules':
+                $allowed = (bool)count(array_filter($allowed));
+                break;
+
+            case 'max_rules':
+                $allowed = max($allowed);
+                break;
+            }
+        }
+
+        return $allowed;
+    }
+
+    /**
      * Generate the menu to use on the prefs page.
      *
      * @return Horde_Menu  A Horde_Menu object.

@@ -33,12 +33,12 @@ $templates = array(
     Horde_Data::IMPORT_MAPPED => array($registry->get('templates', 'horde') . '/data/csvmap.inc'),
     Horde_Data::IMPORT_DATETIME => array($registry->get('templates', 'horde') . '/data/datemap.inc')
 );
-if (Kronolith::hasPermission('max_events') !== true &&
-    Kronolith::hasPermission('max_events') <= Kronolith::countEvents()) {
+if ($GLOBALS['perms']->hasAppPermission('max_events') !== true &&
+    $GLOBALS['perms']->hasAppPermission('max_events') <= Kronolith::countEvents()) {
     try {
         $message = Horde::callHook('perms_denied', array('kronolith:max_events'));
     } catch (Horde_Exception_HookNotSet $e) {
-        $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), Kronolith::hasPermission('max_events')), ENT_COMPAT, Horde_Nls::getCharset());
+        $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), $GLOBALS['perms']->hasAppPermission('max_events')), ENT_COMPAT, Horde_Nls::getCharset());
     }
     $notification->push($message, 'horde.warning', array('content.raw'));
     $templates[Horde_Data::IMPORT_FILE] = array(KRONOLITH_TEMPLATES . '/data/export.inc');
@@ -217,7 +217,7 @@ if (!$error) {
 if (is_array($next_step)) {
     $events = array();
     $error = false;
-    $max_events = Kronolith::hasPermission('max_events');
+    $max_events = $GLOBALS['perms']->hasAppPermission('max_events');
     if ($max_events !== true) {
         $num_events = Kronolith::countEvents();
     }
@@ -244,7 +244,7 @@ if (is_array($next_step)) {
             try {
                 $message = Horde::callHook('perms_denied', array('kronolith:max_events'));
             } catch (Horde_Exception_HookNotSet $e) {
-                $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), Kronolith::hasPermission('max_events')), ENT_COMPAT, Horde_Nls::getCharset());
+                $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), $GLOBALS['perms']->hasAppPermission('max_events')), ENT_COMPAT, Horde_Nls::getCharset());
             }
             $notification->push($message, 'horde.error', array('content.raw'));
             break;

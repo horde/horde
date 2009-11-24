@@ -25,6 +25,9 @@ class Ingo
     /* getMenu() cache. */
     static private $_menuCache = null;
 
+    /* hasSharePermission() cache. */
+    static private $_shareCache = null;
+
     /**
      * Generates a folder widget.
      * If an application is available that provides a folderlist method
@@ -326,46 +329,19 @@ class Ingo
     }
 
     /**
-     * Returns the specified permission for the current user.
-     *
-     * @param string $permission  A permission, either 'allow_rules' or
-     *                            'max_rules'.
-     *
-     * @return mixed  The value of the specified permission.
+     * TODO
      */
-    static public function hasPermission($permission, $mask = null)
+    static public function hasSharePermission($mask = null)
     {
-        if ($permission == 'shares') {
-            if (!isset($GLOBALS['ingo_shares'])) {
-                return true;
-            }
-            static $all_perms;
-            if (!isset($all_perms)) {
-                $all_perms = $GLOBALS['ingo_shares']->getPermissions($_SESSION['ingo']['current_share'], Horde_Auth::getAuth());
-            }
-            return $all_perms & $mask;
-        }
-
-        global $perms;
-
-        if (!$perms->exists('ingo:' . $permission)) {
+        if (!isset($GLOBALS['ingo_shares'])) {
             return true;
         }
 
-        $allowed = $perms->getPermissions('ingo:' . $permission);
-        if (is_array($allowed)) {
-            switch ($permission) {
-            case 'allow_rules':
-                $allowed = (bool)count(array_filter($allowed));
-                break;
-
-            case 'max_rules':
-                $allowed = max($allowed);
-                break;
-            }
+        if (is_null(self::$_shareCache)) {
+            self::$_shareCache = $GLOBALS['ingo_shares']->getPermissions($_SESSION['ingo']['current_share'], Horde_Auth::getAuth());
         }
 
-        return $allowed;
+        return self::$_shareCache & $mask;
     }
 
     /**

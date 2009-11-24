@@ -119,8 +119,8 @@ class Kronolith_View_Month {
         $twentyFour = $prefs->getValue('twentyFour');
         $addLinks = Kronolith::getDefaultCalendar(Horde_Perms::EDIT) &&
             (!empty($GLOBALS['conf']['hooks']['permsdenied']) ||
-             Kronolith::hasPermission('max_events') === true ||
-             Kronolith::hasPermission('max_events') > Kronolith::countEvents());
+             $GLOBALS['perms']->hasAppPermission('max_events') === true ||
+             $GLOBALS['perms']->hasAppPermission('max_events') > Kronolith::countEvents());
 
         if ($sidebyside) {
             require KRONOLITH_TEMPLATES . '/month/head_side_by_side.inc';

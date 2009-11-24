@@ -214,8 +214,8 @@ class IMP
 
         if (!empty($options['new_folder']) &&
             (!empty($GLOBALS['conf']['hooks']['permsdenied']) ||
-             (self::hasPermission('create_folders') &&
-              self::hasPermission('max_folders')))) {
+             ($GLOBALS['perms']->hasAppPermission('create_folders') &&
+              $GLOBALS['perms']->hasAppPermission('max_folders')))) {
             $text .= "<option value=\"\" disabled=\"disabled\">- - - - - - - -</option>\n" .
                 '<option value="*new*">' . _("New Folder") . "</option>\n" .
                 "<option value=\"\" disabled=\"disabled\">- - - - - - - -</option>\n";
@@ -497,44 +497,6 @@ class IMP
         }
 
         return $text;
-    }
-
-    /**
-     * Returns the specified permission for the current user.
-     *
-     * @param string $permission  A permission.
-     * @param boolean $value      If true, the method returns the value of a
-     *                            scalar permission, otherwise whether the
-     *                            permission limit has been hit already.
-     *
-     * @return mixed  The value of the specified permission.
-     */
-    static public function hasPermission($permission, $value = false)
-    {
-        if (!$GLOBALS['perms']->exists('imp:' . $permission)) {
-            return true;
-        }
-
-        $allowed = $GLOBALS['perms']->getPermissions('imp:' . $permission);
-        if (is_array($allowed)) {
-            switch ($permission) {
-            case 'create_folders':
-                $allowed = (bool)count(array_filter($allowed));
-                break;
-
-            case 'max_folders':
-            case 'max_recipients':
-            case 'max_timelimit':
-                $allowed = max($allowed);
-                break;
-            }
-        }
-        if (($permission == 'max_folders') && !$value) {
-            $folder = IMP_Folder::singleton();
-            $allowed = $allowed > count($folder->flist_IMP(array(), false));
-        }
-
-        return $allowed;
     }
 
     /**

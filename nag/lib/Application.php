@@ -29,6 +29,26 @@ class Nag_Application extends Horde_Registry_Application
     }
 
     /**
+     * Returns the specified permission for the current user.
+     *
+     * @param mixed $allowed  The allowed permissions.
+     *
+     * @return mixed  The value of the specified permission.
+     */
+    public function hasPermission($allowed)
+    {
+       if (is_array($allowed)) {
+            switch ($permission) {
+            case 'max_tasks':
+                $allowed = max($allowed);
+                break;
+            }
+        }
+
+        return $allowed;
+    }
+
+    /**
      * Special preferences handling on update.
      *
      * @param string $item      The preference name.

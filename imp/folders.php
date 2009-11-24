@@ -392,7 +392,7 @@ if ($a_template->get('javascript')) {
     $a_template->set('go', _("Go"));
 }
 
-$a_template->set('create_folder', !empty($GLOBALS['conf']['hooks']['permsdenied']) || (IMP::hasPermission('create_folders') && IMP::hasPermission('max_folders')));
+$a_template->set('create_folder', !empty($GLOBALS['conf']['hooks']['permsdenied']) || ($GLOBALS['perms']->hasAppPermission('create_folders') && $GLOBALS['perms']->hasAppPermission('max_folders')));
 if ($prefs->getValue('subscribe')) {
     $a_template->set('subscribe', true);
     $subToggleText = ($showAll) ? _("Hide Unsubscribed") : _("Show Unsubscribed");
