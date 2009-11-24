@@ -132,14 +132,15 @@ KronolithCore = {
                     message = new Element('a', { 'href': m.alarm.url })
                         .insert(message);
                 }
-                var select = new Element('select');
-                $H(Kronolith.conf.snooze).each(function(snooze) {
-                    select.insert(new Element('option', { 'value': snooze.key }).insert(snooze.value));
-                });
                 message = new Element('div')
-                    .insert(message)
-                    .insert(' ')
-                    .insert(select);
+                    .insert(message);
+                if (m.alarm.user) {
+                    var select = new Element('select');
+                        $H(Kronolith.conf.snooze).each(function(snooze) {
+                            select.insert(new Element('option', { 'value': snooze.key }).insert(snooze.value));
+                        });
+                    message.insert(' ').insert(select);
+                }
                 var growl = this.Growler.growl(message, {
                     className: 'horde-alarm',
                     life: 8,
@@ -156,17 +157,19 @@ KronolithCore = {
                         }
                     }.bind(this)
                 });
-                select.observe('change', function() {
-                    if (select.getValue()) {
-                        new Ajax.Request(
-                            Kronolith.conf.URI_SNOOZE,
-                            { 'parameters': { 'alarm': m.alarm.id,
-                                              'snooze': select.getValue() },
-                              'onSuccess': function() {
-                                  this.Growler.ungrowl(growl);
-                              }.bind(this)});
-                    }
-                }.bind(this));
+                if (m.alarm.user) {
+                    select.observe('change', function() {
+                        if (select.getValue()) {
+                            new Ajax.Request(
+                                Kronolith.conf.URI_SNOOZE,
+                                { 'parameters': { 'alarm': m.alarm.id,
+                                                  'snooze': select.getValue() },
+                                  'onSuccess': function() {
+                                      this.Growler.ungrowl(growl);
+                                  }.bind(this)});
+                        }
+                    }.bind(this));
+                }
                 break;
 
             case 'horde.error':
