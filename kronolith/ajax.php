@@ -454,6 +454,16 @@ try {
         }
         break;
 
+    case 'GetFreeBusy':
+        $fb = Kronolith_FreeBusy::get(Horde_Util::getFormData('email'), true);
+        if ($fb instanceof PEAR_Error) {
+            $notification->push($fb->getMessage(), 'horde.warning');
+            break;
+        }
+        $result = new stdClass;
+        $result->fb = $fb;
+        break;
+
     case 'SearchCalendars':
         $result = new stdClass;
         $result->events = 'Searched for calendars: ' . Horde_Util::getFormData('title');

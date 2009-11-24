@@ -1756,6 +1756,12 @@ abstract class Kronolith_Event
         if (isset($_SESSION['kronolith']['attendees']) && is_array($_SESSION['kronolith']['attendees'])) {
             $this->setAttendees($_SESSION['kronolith']['attendees']);
         }
+        if ($attendees = Horde_Util::getFormData('attendees')) {
+            $attendees = Kronolith::parseAttendees(trim($attendees));
+            if ($attendees) {
+                $this->setAttendees($attendees);
+            }
+        }
 
         // Resources
         if (isset($_SESSION['kronolith']['resources']) && is_array($_SESSION['kronolith']['resources'])) {

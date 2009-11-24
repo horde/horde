@@ -17,7 +17,7 @@ var frames = { horde_main: true },
 KronolithCore = {
     // Vars used and defaulting to null/false:
     //   DMenu, Growler, inAjaxCallback, is_logout, onDoActionComplete,
-    //   daySizes, viewLoading
+    //   daySizes, viewLoading, freeBusy
 
     view: '',
     ecache: $H(),
@@ -25,6 +25,7 @@ KronolithCore = {
     efifo: {},
     eventsLoading: {},
     loading: 0,
+    fbLoading: 0,
     date: new Date(),
     tasktype: 'incomplete',
     growls: 0,
@@ -2917,17 +2918,42 @@ KronolithCore = {
         }
 
         /* Attendees */
+        this.freeBusy = $H();
+        $('kronolithEventStartDate').stopObserving('change');
         if (!Object.isUndefined(ev.at)) {
             $('kronolithEventAttendees').setValue(ev.at.pluck('l').join(', '));
             var table = $('kronolithEventTabAttendees').down('tbody');
+            table.select('tr').invoke('remove');
             ev.at.each(function(attendee) {
                 var tr = new Element('tr'), i;
+                this.fbLoading++;
+                this.doAction('GetFreeBusy',
+                              { 'email': attendee.e },
+                              function(r) {
+                                  this.fbLoading--;
+                                  if (!this.fbLoading) {
+                                      $('kronolithFBLoading').hide();
+                                  }
+                                  if (Object.isUndefined(r.response.fb)) {
+                                      return;
+                                  }
+                                  this.freeBusy.set(attendee.e, [ tr, r.response.fb ]);
+                                  this._insertFreeBusy(attendee.e);
+                              }.bind(this));
                 tr.insert(new Element('td').writeAttribute('title', attendee.l).insert(attendee.e.escapeHTML()));
                 for (i = 0; i < 24; i++) {
-                    tr.insert(new Element('td'));
+                    tr.insert(new Element('td', { 'class': 'kronolithFBUnknown' }));
                 }
                 table.insert(tr);
-            });
+            }, this);
+            if (this.fbLoading) {
+                $('kronolithFBLoading').show();
+            }
+            $('kronolithEventStartDate').observe('change', function() {
+                ev.at.each(function(attendee) {
+                    this._insertFreeBusy(attendee.e);
+                }, this);
+            }.bind(this));
         }
 
         /* Tags */
@@ -2948,6 +2974,59 @@ KronolithCore = {
 
         this.setTitle(ev.t);
         RedBox.showHtml($('kronolithEventDialog').show());
+    },
+
+    /**
+     * Inserts rows with free/busy information into the attendee table.
+     *
+     * @param string email  An email address as the free/busy identifier.
+     */
+    _insertFreeBusy: function(email)
+    {
+        if (!$('kronolithEventDialog').visible() ||
+            !this.freeBusy.get(email)) {
+            return;
+        }
+        var fb = this.freeBusy.get(email)[1],
+            tr = this.freeBusy.get(email)[0],
+            td = tr.select('td')[1],
+            div = td.down('div');
+        if (!td.getWidth()) {
+            this._insertFreeBusy.bind(this, email).defer();
+            return;
+        }
+        tr.select('td').each(function(td, i) {
+            if (i != 0) {
+                td.addClassName('kronolithFBFree');
+            }
+        });
+        if (div) {
+            div.remove();
+        }
+        var start = Date.parseExact($F('kronolithEventStartDate'), Kronolith.conf.date_format),
+            end = start.clone().add(1).days(),
+            width = td.getWidth();
+        div = new Element('div').setStyle({ 'position': 'relative' });
+        td.insert(div);
+        $H(fb.b).each(function(busy) {
+            var from = new Date(), to = new Date(), left;
+            from.setTime(busy.key * 1000);
+            to.setTime(busy.value * 1000);
+            if (from.isAfter(end) || to.isBefore(start)) {
+                return;
+            }
+            if (from.isBefore(start)) {
+                from = start.clone();
+            }
+            if (to.isAfter(end)) {
+                to = end.clone();
+            }
+            if (to.getHours() == 0 && to.getMinutes() == 0) {
+                to.add(-1).minutes();
+            }
+            left = from.getHours() + from.getMinutes() / 60;
+            div.insert(new Element('div', { 'class': 'kronolithFBBusy' }).setStyle({ 'zIndex': 1, 'top': 0, 'left': (left * width) + 'px', 'width': (((to.getHours() + to.getMinutes() / 60) - left) * width) + 'px' }));
+        });
     },
 
     /**

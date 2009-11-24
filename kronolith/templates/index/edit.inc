@@ -142,8 +142,9 @@
 </div>
 
 <div id="kronolithEventTabAttendees" class="kronolithTabsOption" style="display:none">
-  <input type="text" name="participants" id="kronolithEventAttendees" class="kronolithLongField" value="" /><br />
+  <input type="text" name="attendees" id="kronolithEventAttendees" class="kronolithLongField" value="" /><br />
   <label><input type="checkbox" name="sendupdates" value="" /> <?php printf(_("send invites %s to all attendees"), '</label>') ?><br />
+  <div id="kronolithFBLoading" style="display:none"></div>
   <table width="100%" cellspacing="0" cellpadding="0" border="0">
     <thead>
       <tr>

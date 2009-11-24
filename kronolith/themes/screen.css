@@ -185,6 +185,12 @@ a.newEvent img {
     background: #28b22b;
     color: #fff;
 }
+.kronolithAjax .kronolithFBFree {
+    position: relative;
+}
+.kronolithAjax .kronolithFBBusy {
+    position: absolute;
+}
 div.fbgrid {
     background-color: #fff;
     overflow: auto;
@@ -374,12 +380,17 @@ body.kronolithAjax {
     top: -3px;
     vertical-align: middle;
 }
-#kronolithLoading {
+#kronolithLoading, #kronolithFBLoading {
     background: transparent url("graphics/loading.gif") no-repeat center;
     padding: 2px;
     width: 16px;
     height: 16px;
     border: 1px #c0c0c0 solid;
+}
+#kronolithFBLoading {
+    position: absolute;
+    top: 65px;
+    border: none;
 }
 
 /* User data and options */
@@ -691,6 +702,7 @@ div#kronolithEventTabTags {
 }
 
 .kronolithTabsOption {
+    position: relative;
     line-height: 250%;
 }
 #kronolithEventTabAttendees table {
@@ -716,6 +728,10 @@ div#kronolithEventTabTags {
 }
 #kronolithEventTabAttendees th.night {
     background-color: #ccc;
+}
+#kronolithEventTabAttendees td div {
+    margin: 0;
+    height: 100%;
 }
 
 /* Mini calendar */

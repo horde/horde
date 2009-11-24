@@ -124,11 +124,13 @@ class Kronolith_FreeBusy {
      * information is available.
      *
      * @param string $email  The email address to look for.
+     * @param boolean $json  Whether to return the free/busy data as a simple
+     *                       object suitable to be transferred as json.
      *
      * @return Horde_iCalendar_vfreebusy  Free/busy component on success,
-     *                                    PEAR_Error on failure
+     *                                    PEAR_Error on failure.
      */
-    function get($email)
+    function get($email, $json = false)
     {
         /* Properly handle RFC822-compliant email addresses. */
         static $rfc822;
@@ -191,7 +193,7 @@ class Kronolith_FreeBusy {
                 }
 
                 if ($found) {
-                    return $vFb;
+                    return $json ? Kronolith_FreeBusy::toJson($vFb) : $vFb;
                 }
             }
         }
@@ -201,7 +203,7 @@ class Kronolith_FreeBusy {
 
         $fb = $storage->search($email);
         if (!is_a($fb, 'PEAR_Error')) {
-            return $fb;
+            return $json ? Kronolith_FreeBusy::toJson($fb) : $fb;
         } elseif ($fb->getCode() == Kronolith::ERROR_FB_NOT_FOUND) {
             return $url ?
                 PEAR::raiseError(sprintf(_("No free/busy information found at the free/busy url of %s."), $email)) :
@@ -213,7 +215,7 @@ class Kronolith_FreeBusy {
         $vFb = Horde_iCalendar::newComponent('vfreebusy', $vCal);
         $vFb->setAttribute('ORGANIZER', $email);
 
-        return $vFb;
+        return $json ? Kronolith_FreeBusy::toJson($vFb) : $vFb;
     }
 
     /**
@@ -239,6 +241,32 @@ class Kronolith_FreeBusy {
         }
 
         return $result;
+    }
+
+    /**
+     * Converts free/busy data to a simple object suitable to be transferred
+     * as json.
+     *
+     * @param Horde_iCalendar_vfreebusy $fb  A Free/busy component.
+     *
+     * @return object  A simple object representation.
+     */
+    function toJson($fb)
+    {
+        $json = new stdClass;
+        $json->e = $fb->getEmail();
+        $start = $fb->getStart();
+        if ($start) {
+            $start = new Horde_Date($start);
+            $json->s = $start->dateString();
+        }
+        $end = $fb->getStart();
+        if ($end) {
+            $end = new Horde_Date($end);
+            $json->e = $end->dateString();
+        }
+        $json->b = $fb->getBusyPeriods();
+        return $json;
     }
 
 }

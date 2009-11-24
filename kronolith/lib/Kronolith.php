@@ -1334,6 +1334,82 @@ class Kronolith
     }
 
     /**
+     * Parses a comma separated list of names and e-mail addresses into a list
+     * of attendee hashes.
+     *
+     * @param string $newAttendees  A comma separated attendee list.
+     *
+     * @return array  The attendee list with e-mail addresses as keys and
+     *                attendee information as values.
+     */
+    public static function parseAttendees($newAttendees)
+    {
+        if (empty($newAttendees)) {
+            return;
+        }
+
+        $parser = new Mail_RFC822;
+        $attendees = array();
+        foreach (Horde_Mime_Address::explode($newAttendees) as $newAttendee) {
+            // Parse the address without validation to see what we can get out
+            // of it. We allow email addresses (john@example.com), email
+            // address with user information (John Doe <john@example.com>),
+            // and plain names (John Doe).
+            $newAttendeeParsed = $parser->parseAddressList($newAttendee, '',
+                                                           false, false);
+
+            // If we can't even get a mailbox out of the address, then it is
+            // likely unuseable. Reject it entirely.
+            if (is_a($newAttendeeParsed, 'PEAR_Error') ||
+                !isset($newAttendeeParsed[0]) ||
+                !isset($newAttendeeParsed[0]->mailbox)) {
+                $notification->push(
+                    sprintf(_("Unable to recognize \"%s\" as an email address."),
+                            $newAttendee),
+                    'horde.error');
+                continue;
+            }
+
+            // Loop through any addresses we found.
+            foreach ($newAttendeeParsed as $newAttendeeParsedPart) {
+                // If there is only a mailbox part, then it is just a local
+                // name.
+                if (empty($newAttendeeParsedPart->host)) {
+                    $attendees[] = array(
+                        'attendance' => Kronolith::PART_REQUIRED,
+                        'response'   => Kronolith::RESPONSE_NONE,
+                        'name'       => $newAttendee,
+                    );
+                    continue;
+                }
+
+                // Build a full email address again and validate it.
+                $name = empty($newAttendeeParsedPart->personal)
+                    ? ''
+                    : $newAttendeeParsedPart->personal;
+
+                try {
+                    $newAttendeeParsedPartNew = Horde_Mime::encodeAddress(Horde_Mime_Address::writeAddress($newAttendeeParsedPart->mailbox, $newAttendeeParsedPart->host, $name));
+                    $newAttendeeParsedPartValidated = $parser->parseAddressList($newAttendeeParsedPartNew, '', null, true);
+
+                    $email = $newAttendeeParsedPart->mailbox . '@'
+                        . $newAttendeeParsedPart->host;
+                    // Avoid overwriting existing attendees with the default
+                    // values.
+                    $attendees[$email] = array(
+                        'attendance' => Kronolith::PART_REQUIRED,
+                        'response'   => Kronolith::RESPONSE_NONE,
+                        'name'       => $name);
+                } catch (Horde_Mime_Exception $e) {
+                    $notification->push($e, 'horde.error');
+                }
+            }
+        }
+
+        return $attendees;
+    }
+
+    /**
      * Returns a comma separated list of attendees and resources
      *
      * @return string  Attendee/Resource list.
