@@ -288,16 +288,8 @@ class IMP_Imap_Tree
     {
         if ($showunsub && !is_null($this->_fulllist)) {
             return array_keys($this->_fulllist);
-        } elseif (!$showunsub) {
-            if (is_null($this->_subscribed)) {
-                /* The subscribed list MAY contain mailboxes that do not
-                 * currently exist on the server. See RFC 3501 [6.3.9]. So
-                 * we need to grab the list of existing mailboxes using LIST
-                 * and intersect against the LSUB list. */
-                $this->_getList(true);
-            } else {
-                return array_keys($this->_subscribed);
-            }
+        } elseif (!$showunsub && !is_null($this->_subscribed)) {
+            return array_keys($this->_subscribed);
         }
 
         /* INBOX must always appear. */
@@ -305,14 +297,13 @@ class IMP_Imap_Tree
 
         foreach ($this->_namespaces as $key => $val) {
             try {
-                $names = array_merge($names, $GLOBALS['imp_imap']->ob()->listMailboxes($key . '*', $showunsub ? Horde_Imap_Client::MBOX_ALL : Horde_Imap_Client::MBOX_SUBSCRIBED, array('flat' => true)));
+                $names = array_merge($names, $GLOBALS['imp_imap']->ob()->listMailboxes($key . '*', $showunsub ? Horde_Imap_Client::MBOX_ALL : Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS, array('flat' => true)));
             } catch (Horde_Imap_Client_Exception $e) {}
         }
 
         if ($showunsub) {
             $this->_fulllist = array_flip($names);
         } else {
-            $names = array_intersect($names, array_keys($this->_fulllist));
             $this->_subscribed = array_flip($names);
         }
 

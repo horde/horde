@@ -42,6 +42,7 @@ RFC 5162        QRESYNC
 RFC 5182        SEARCHRES
 RFC 5255        LANGUAGE/I18NLEVEL
 RFC 5256        THREAD/SORT
+RFC 5258        LIST-EXTENDED
 RFC 5267        ESORT
 RFC 5464        METADATA
 RFC 5550        Lemonade Profile (specifically [2.8] - $Forwarded flag)
