@@ -221,6 +221,8 @@ xss84.html
 <XSSCleaned_script />
 xss85.html
 <XSSCleaned_script />PT SRC="http://ha.ckers.org/a.js"></XSSCleaned_tag>
+xss96.html
+<a >Click me</a>
 xss97.html
 <body/onloadXSSCleaned=alert(/xss/)>
 xss98.html
