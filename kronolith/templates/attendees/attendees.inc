@@ -125,7 +125,6 @@ function switchDateView(view, date)
   <td>
    <input type="text" id="newAttendees" name="newAttendees" autocomplete="off" size="40" <?php if (!empty($ak)) echo 'accesskey="' . $ak . '" '; if (!empty($editAttendee)) echo 'value="' . htmlspecialchars($editAttendee) . '" '; ?>/>
    <span id="newAttendees_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
-   <div id="newAttendees_results" class="autocomplete"></div>
   </td>
 <?php if ($registry->hasMethod('contacts/search')): ?>
   <td align="center"><?php echo Horde::link('#', '', 'widget', null, 'window.open(\'' . Horde::applicationUrl('contacts.php') . '\', \'contacts\', \'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=270,left=100,top=100\'); return false;') . Horde::img('addressbook_browse.png') . '<br />' . _("Address Book") . '</a>' ?></td>
