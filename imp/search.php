@@ -35,7 +35,7 @@ new IMP_Application(array('init' => true));
  * allowed (basic page will do the required redirection in the latter case). */
 if (!$browser->hasFeature('javascript') ||
     ($_SESSION['imp']['protocol'] == 'pop')) {
-    require_once IMP_BASE . '/search-basic.php';
+    require IMP_BASE . '/search-basic.php';
     exit;
 }
 
