@@ -396,12 +396,19 @@ body.kronolithAjax {
 /* User data and options */
 #kronolithServices {
     float: right;
-    margin-top: 8px;
+    margin-top: 10px;
     margin-right: 10px;
     text-align: right;
 }
 #kronolithNotifications {
     padding: 3px 5px;
+    height: 25px;
+    line-height: 25px;
+}
+.kronolithNotifications {
+    background-color: #d9d9d9;
+    opacity: .3;
+    filter: alpha(opacity=30);
 }
 
 /* Main area */

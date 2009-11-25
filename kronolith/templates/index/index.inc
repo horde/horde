@@ -4,8 +4,8 @@
 
   <!-- begin services -->
   <div id="kronolithServices">
-   <span style="display:none"><a href="#" id="kronolithNotifications" title="<?php echo _("These items need your attention") ?>"></a> <span class="kronolithSeparator">&middot;</span></span>
-   <a href="#" id="kronolithOptions"><?php echo _("Options") ?></a><?php if ($help_link) echo ' <span class="kronolithSeparator">&middot;</span> ' . $help_link; if ($logout_link) echo ' <span class="kronolithSeparator">|</span> ' . $logout_link ?>
+    <span><a href="#" id="kronolithNotifications" class="kronolithNotifications"><?php echo _("0 notifications") ?></a> <span class="kronolithSeparator">&middot;</span></span>
+    <a href="#" id="kronolithOptions"><?php echo _("Options") ?></a><?php if ($help_link) echo ' <span class="kronolithSeparator">&middot;</span> ' . $help_link; if ($logout_link) echo ' <span class="kronolithSeparator">|</span> ' . $logout_link ?>
   </div>
   <!-- end services -->
 

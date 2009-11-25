@@ -184,7 +184,7 @@ KronolithCore = {
                 });
                 var notify = $('kronolithNotifications'),
                     className = m.type.replace(/\./, '-'),
-                    order = 'horde-error,horde-warning,horde-alarm,horde-message,horde-success';
+                    order = 'horde-error,horde-warning,horde-message,horde-success,kronolithNotifications';
                 if (!notify.className ||
                     order.indexOf(notify.className) > order.indexOf(className)) {
                     notify.className = className;
