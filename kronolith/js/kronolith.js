@@ -322,7 +322,7 @@ KronolithCore = {
             break;
 
         case 'search':
-            var cals = [], term = locParts[1],
+            var cals = [], term = locParts[0],
                 query = Object.toJSON({ 'title': term });
             this.closeView();
             this.updateView(null, 'search', term);
@@ -334,7 +334,7 @@ KronolithCore = {
                 });
             });
             this.startLoading('search', query);
-            this.doAction('Search' + locParts[0],
+            this.doAction('SearchEvents',
                           { 'cals': cals.toJSON(), 'query': query },
                           function(r) {
                               // Hide spinner.
@@ -2268,7 +2268,7 @@ KronolithCore = {
                     break;
 
                 case 'kronolithSearchForm':
-                    this.go('search:' + $F('kronolithSearchContext') + ':' + $F('kronolithSearchTerm'))
+                    this.go('search:' + $F('kronolithSearchTerm'))
                     e.stop();
                     break;
                 }
@@ -2559,7 +2559,7 @@ KronolithCore = {
                 return;
 
             case 'kronolithSearchButton':
-                this.go('search:' + $F('kronolithSearchContext') + ':' + $F('kronolithSearchTerm'))
+                this.go('search:' + $F('kronolithSearchTerm'))
                 break;
 
             case 'kronolithNotifications':
