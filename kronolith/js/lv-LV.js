@@ -1,5 +1,5 @@
 Date.CultureInfo = {
-	/* Culture Name */
+    /* Culture Name */
     name: "lv-LV",
     englishName: "Latvian (Latvia)",
     nativeName: "latviešu (Latvija)",
@@ -14,7 +14,7 @@ Date.CultureInfo = {
     monthNames: ["janvāris", "februāris", "marts", "aprīlis", "maijs", "jūnijs", "jūlijs", "augusts", "septembris", "oktobris", "novembris", "decembris"],
     abbreviatedMonthNames: ["Jan", "Feb", "Mar", "Apr", "Mai", "Jūn", "Jūl", "Aug", "Sep", "Okt", "Nov", "Dec"],
 
-	/* AM/PM Designators */
+    /* AM/PM Designators */
     amDesignator: "",
     pmDesignator: "",
 
@@ -43,10 +43,10 @@ Date.CultureInfo = {
     /* Standard date and time format patterns */
     formatPatterns: {
         shortDate: "yyyy.MM.dd.",
-        longDate: "dddd, yyyy'. gada 'd. MMMM",
+        longDate: "dddd, yyyy. ga\\da d. MMMM",
         shortTime: "H:mm",
         longTime: "H:mm:ss",
-        fullDateTime: "dddd, yyyy'. gada 'd. MMMM H:mm:ss",
+        fullDateTime: "dddd, yyyy. ga\\da d. MMMM H:mm:ss",
         sortableDateTime: "yyyy-MM-ddTHH:mm:ss",
         universalSortableDateTime: "yyyy-MM-dd HH:mm:ssZ",
         rfc1123: "ddd, dd MMM yyyy HH:mm:ss GMT",
@@ -95,32 +95,32 @@ Date.CultureInfo = {
         nov: /^nov(embris)?/i,
         dec: /^dec(embris)?/i,
 
-        sun: /^svētdiena/i,
-        mon: /^pirmdiena/i,
-        tue: /^otrdiena/i,
-        wed: /^trešdiena/i,
-        thu: /^ceturtdiena/i,
-        fri: /^piektdiena/i,
-        sat: /^sestdiena/i,
+        sun: /^svēt(dien(a)?)?/i,
+        mon: /^pirm(dien(a)?)?/i,
+        tue: /^otr(dien(a)?)?/i,
+        wed: /^treš(dien(a)?)?/i,
+        thu: /^ceturt(dien(a)?)?/i,
+        fri: /^piekt(dien(a)?)?/i,
+        sat: /^sest(dien(a)?)?/i,
 
-        future: /^next/i,
-        past: /^last|past|prev(ious)?/i,
-        add: /^(\+|aft(er)?|from|hence)/i,
-        subtract: /^(\-|bef(ore)?|ago)/i,
+        future: /^nākoš(ā|ais)?/i,
+        past: /^pagāj(uš(ā|ais)?)?|iepr(iekšēj(ā|ais)?)?/i,
+        add: /^(\+|pēc)/i,
+        subtract: /^(\-|pirms)/i,
 
-        yesterday: /^yes(terday)?/i,
-        today: /^t(od(ay)?)?/i,
-        tomorrow: /^tom(orrow)?/i,
-        now: /^n(ow)?/i,
+        yesterday: /^vakar(dien(a)?)?/i,
+        today: /^šodien(a)?/i,
+        tomorrow: /^rīt(dien(a)?)?/i,
+        now: /^tagad/i,
 
-        millisecond: /^ms|milli(second)?s?/i,
-        second: /^sec(ond)?s?/i,
-        minute: /^mn|min(ute)?s?/i,
-		hour: /^h(our)?s?/i,
-		week: /^w(eek)?s?/i,
-        month: /^m(onth)?s?/i,
-        day: /^d(ay)?s?/i,
-        year: /^y(ear)?s?/i,
+        millisecond: /^ms|milisekunde(s)?/i,
+        second: /^sec|sekunde(s)?/i,
+        minute: /^min|minūte(s)?/i,
+        hour: /^h|stunda(s)?/i,
+        week: /^w|nedēļa(s)?/i,
+        month: /^m|mēne(sis|ši)/i,
+        day: /^d|diena(s)?/i,
+        year: /^y|gad(s|i)/i,
 
         shortMeridian: /^(a|p)/i,
         longMeridian: /^(a\.?m?\.?|p\.?m?\.?)/i,
@@ -129,7 +129,8 @@ Date.CultureInfo = {
         timeContext: /^\s*(\:|a(?!u|p)|p)/i
     },
 
-	timezones: [{name:"UTC", offset:"-000"}, {name:"GMT", offset:"-000"}, {name:"EST", offset:"-0500"}, {name:"EDT", offset:"-0400"}, {name:"CST", offset:"-0600"}, {name:"CDT", offset:"-0500"}, {name:"MST", offset:"-0700"}, {name:"MDT", offset:"-0600"}, {name:"PST", offset:"-0800"}, {name:"PDT", offset:"-0700"}]
+        timezones: [{name:"UTC", offset:"-000"}, {name:"GMT", offset:"-000"}, {name:"EST", offset:"-0500"}, {name:"EDT", offset:"-0400"}, {name:"CST", offset:"-0600"}, {name:"CDT", offset:"-0500"}, {name:"MST", offset:"-0700"}, {name:"MDT", offset:"-0600"}, {name:"PST", offset:"-0800"}, {name:"PDT", offset:"-0700"}]
+
 };
 
 /********************
@@ -149,47 +150,47 @@ Date.CultureInfo = {
  *
  * English Name        Translated
  * ------------------  -----------------
- * about               about
- * ago                 ago
- * date                date
- * time                time
- * calendar            calendar
- * show                show
- * hourly              hourly
- * daily               daily
- * weekly              weekly
- * bi-weekly           bi-weekly
- * fortnight           fortnight
- * monthly             monthly
- * bi-monthly          bi-monthly
- * quarter             quarter
- * quarterly           quarterly
- * yearly              yearly
- * annual              annual
- * annually            annually
- * annum               annum
- * again               again
- * between             between
- * after               after
- * from now            from now
- * repeat              repeat
- * times               times
- * per                 per
+ * about               apmēram
+ * ago                 pirms
+ * date                datums
+ * time                laiks
+ * calendar            kalendārs
+ * show                parādīt
+ * hourly              ikstundas
+ * daily               ikdienas
+ * weekly              iknedēļas
+ * bi-weekly           reizi divās nedēļās
+ * fortnight           divas nedēļas
+ * monthly             ikmēnesi
+ * bi-monthly          reizi divos mēnešos
+ * quarter             ceturksnis
+ * quarterly           ikceturksni
+ * yearly              ikgadu
+ * annual              ikgadējs
+ * annually            ikgadu
+ * annum               gadā
+ * again               atkal
+ * between             starp
+ * after               pēc
+ * from now            turpmāk
+ * repeat              atkārtot
+ * times               reizes
+ * per                 reizi
  * min (abbrev minute) min
- * morning             morning
- * noon                noon
- * night               night
- * midnight            midnight
- * mid-night           mid-night
- * evening             evening
- * final               final
- * future              future
- * spring              spring
- * summer              summer
- * fall                fall
- * winter              winter
- * end of              end of
- * end                 end
- * long                long
- * short               short
- */
+ * morning             rīts
+ * noon                pusdienas
+ * night               nakts
+ * midnight            pusnakts
+ * mid-night           pusnakts
+ * evening             vakars
+ * final               gala
+ * future              nākotne
+ * spring              pavasaris
+ * summer              vasara
+ * fall                rudens
+ * winter              ziema
+ * end of              beigas
+ * end                 beigas
+ * long                garš
+ * short               īss
+ */ 
