@@ -27,8 +27,10 @@ class Kronolith_EditRemoteCalendarForm extends Horde_Form {
     {
         parent::Horde_Form($vars, sprintf(_("Edit %s"), $remote_calendar['name']));
 
+        $this->addHidden('', 'url', 'text', true);
         $this->addVariable(_("Name"), 'name', 'text', true);
-        $this->addVariable(_("URL"), 'url', 'text', true);
+        $v = &$this->addVariable(_("URL"), 'new_url', 'text', true);
+        $v->setDefault($vars->get('url'));
         $this->addVariable(_("Username"), 'username', 'text', false);
         $this->addVariable(_("Password"), 'password', 'password', false);
 
@@ -39,6 +41,7 @@ class Kronolith_EditRemoteCalendarForm extends Horde_Form {
     {
         $name = trim($this->_vars->get('name'));
         $url = trim($this->_vars->get('url'));
+        $new_url = trim($this->_vars->get('new_url'));
         $username = trim($this->_vars->get('username'));
         $password = trim($this->_vars->get('password'));
 
@@ -58,7 +61,7 @@ class Kronolith_EditRemoteCalendarForm extends Horde_Form {
         foreach ($remote_calendars as $key => $calendar) {
             if ($calendar['url'] == $url) {
                 $remote_calendars[$key]['name'] = $name;
-                $remote_calendars[$key]['url'] = $url;
+                $remote_calendars[$key]['url'] = $new_url;
                 $remote_calendars[$key]['user'] = $username;
                 $remote_calendars[$key]['password'] = $password;
                 break;

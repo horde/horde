@@ -25,6 +25,7 @@ v3.0-git
 v2.3.3-cvs
 ----------
 
+[jan] Fix editing URLs of remote calendars.
 [gwr] Fixed recurring weekly events with fixed number of occurences but
       multiple incidences per week (kolab/issue3846).
 [gwr] Fixed recurring weekly events with intervals > 1 (Bug #8546).
