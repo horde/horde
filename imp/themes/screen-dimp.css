@@ -259,6 +259,9 @@ div.vpRowVert div.msgSubject {
     font-style: italic;
     width: auto;
 }
+div.vpRowVert div.msgSubject span.flagUser {
+    font-style: normal;
+}
 
 div.vpRowVert.flagUnseen {
     font-weight: normal;
