@@ -46,12 +46,12 @@ Date.CultureInfo = {
         longDate: "dd MMMM yyyy 'г.'",
         shortTime: "HH:mm",
         longTime: "HH:mm:ss",
-        fullDateTime: "dd MMMM yyyy 'г.' HH:mm:ss",
+        fullDateTime: "dd MMMM yyyy \\г. HH:mm:ss",
         sortableDateTime: "yyyy-MM-ddTHH:mm:ss",
         universalSortableDateTime: "yyyy-MM-dd HH:mm:ssZ",
         rfc1123: "ddd, dd MMM yyyy HH:mm:ss GMT",
         monthDay: "dd MMMM",
-        yearMonth: "MMMM yyyy 'г.'"
+        yearMonth: "MMMM yyyy \\г."
     },
 
     /**

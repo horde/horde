@@ -43,15 +43,15 @@ Date.CultureInfo = {
     /* Standard date and time format patterns */
     formatPatterns: {
         shortDate: "yyyy.MM.dd",
-        longDate: "yyyy 'm.' MMMM d 'd.'",
+        longDate: "yyyy \\m. MMMM d \\d.",
         shortTime: "HH:mm",
         longTime: "HH:mm:ss",
-        fullDateTime: "yyyy 'm.' MMMM d 'd.' HH:mm:ss",
+        fullDateTime: "yyyy \\m. MMMM d \\d. HH:mm:ss",
         sortableDateTime: "yyyy-MM-ddTHH:mm:ss",
         universalSortableDateTime: "yyyy-MM-dd HH:mm:ssZ",
         rfc1123: "ddd, dd MMM yyyy HH:mm:ss GMT",
-        monthDay: "MMMM d 'd.'",
-        yearMonth: "yyyy 'm.' MMMM"
+        monthDay: "MMMM d \\d.",
+        yearMonth: "yyyy \\m. MMMM"
     },
 
     /**
