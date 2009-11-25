@@ -806,8 +806,7 @@ div#kronolithEventTabTags {
     color: silver;
 }
 .kronolithMinical .kronolithSelected {
-    background-color: #ebf3fc;
-    border: 1px #808080 solid;
+    background-color: #ffc;
 }
 
 /* Main views */
@@ -1130,7 +1129,7 @@ table.kronolithView td.kronolithFirstCol {
     border-color: transparent;
     color: silver;
 }
-.kronolithViewMonth .kronolithToday {
+.kronolithToday, .kronolithMinical .kronolithToday {
     background-color: #ebf3fc;
     border-color: #808080;
 }

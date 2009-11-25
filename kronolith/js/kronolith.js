@@ -751,7 +751,7 @@ KronolithCore = {
     buildMinical: function(tbody, date, view, idPrefix)
     {
         var dates = this.viewDates(date, 'month'), day = dates[0].clone(),
-            date7 = date.clone().add(1).week(),
+            date7 = date.clone().add(1).week(), today = Date.today(),
             weekStart, weekEnd, weekEndDay, dateString, td, tr, i;
 
         // Remove old calendar rows. Maybe we should only rebuild the minical
@@ -787,6 +787,10 @@ KronolithCore = {
                  (view == 'day' && date.equals(day)) ||
                  (view == 'agenda' && !day.isBefore(date) && day.isBefore(date7)))) {
                 td.addClassName('kronolithSelected');
+            }
+            // Highlight today.
+            if (day.equals(today)) {
+                td.addClassName('kronolithToday');
             }
             td.innerHTML = day.getDate();
             tr.insert(td);
