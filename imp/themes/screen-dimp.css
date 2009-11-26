@@ -250,13 +250,14 @@ div.vpRowVert div.msgFrom {
 }
 div.vpRowVert div.msgDate {
     float: right;
-    padding-right: 1px;
+    padding-right: 2px;
     text-indent: 2px;
     width: auto;
 }
 div.vpRowVert div.msgSubject {
     float: none;
     font-style: italic;
+    margin-right: 2px;
     width: auto;
 }
 div.vpRowVert div.msgSubject span.flagUser {
