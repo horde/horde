@@ -950,7 +950,7 @@ var ViewPort = Class.create({
         case 'default':
             return (this.pane_mode == 'vert')
                 ? this.getPageSize('max')
-                : Math.max(parseInt(this.getPageSize('max') * 0.45), 5);
+                : Math.max(parseInt(this.getPageSize('max') * 0.45, 10), 5);
 
         case 'max':
         case 'splitmax':
@@ -1081,6 +1081,13 @@ var ViewPort = Class.create({
                     }
                 }.bind(this)
             });
+
+            sp.currbar.observe('dblclick', function() {
+                this.opts.content.setStyle({ width: parseInt(this.opts.container.clientWidth * 0.45, 10) + 'px' });
+                if (this.opts.onSplitBarChange) {
+                    this.opts.onSplitBarChange('vert');
+                }
+            }.bind(this));
             break;
         }
     },
