@@ -607,6 +607,10 @@ class Horde_Mime_Headers
 
         reset($to_process);
         while (list(,$val) = each($to_process)) {
+            /* Ignore empty headers. */
+            if (!strlen($val[1])) {
+                continue;
+            }
             if ($eightbit_check && Horde_Mime::is8bit($val[1])) {
                 $val[1] = Horde_String::convertCharset($val[1], self::$defaultCharset);
             }
@@ -621,4 +625,5 @@ class Horde_Mime_Headers
 
         return $headers;
     }
+
 }
