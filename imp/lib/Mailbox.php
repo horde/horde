@@ -667,22 +667,9 @@ class IMP_Mailbox
     {
         if (is_null($this->_threadob)) {
             try {
-                $this->_threadob = $GLOBALS['imp_imap']->ob()->thread($this->_mailbox);
-                $ref_errcode = null;
+                $this->_threadob = $GLOBALS['imp_imap']->ob()->thread($this->_mailbox, array('criteria' => $_SESSION['imp']['imap']['thread']));
             } catch (Horde_Imap_Client_Exception $e) {
-                $error = $e;
-                $ref_errcode = $e->getCode();
-            }
-
-            if ($ref_errcode == Horde_Imap_Client_Exception::NOSUPPORTIMAPEXT) {
-                try {
-                    $this->_threadob = $GLOBALS['imp_imap']->ob()->thread($this->_mailbox, array('criteria' => Horde_Imap_Client::THREAD_ORDEREDSUBJECT));
-                } catch (Horde_Imap_Client_Exception $e) {
-                    $GLOBALS['notification']->push(_("Server does not support thread sorting."), 'horde.error');
-                    return new Horde_Imap_Client_Thread(array(), 'uid');
-                }
-            } elseif (!is_null($ref_errcode)) {
-                $GLOBALS['notification']->push($error, 'horde.error');
+                $GLOBALS['notification']->push($e, 'horde.error');
                 return new Horde_Imap_Client_Thread(array(), 'uid');
             }
         }

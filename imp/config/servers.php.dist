@@ -194,6 +194,11 @@
  *            (i.e. it is selected per default). Otherwise the first entry
  *            in the list is selected.
  *
+ * thread: (string) Set the preferred thread sort algorithm. This algorithm
+ *         must be supported by the remote server. By default, IMP attempts
+ *         to use REFERENCES sorting and, if this is not available, it will
+ *         fall back to ORDEREDSUBJECT sorting done on the local server.
+ *
  *
  * $Id$
  */
