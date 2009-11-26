@@ -61,23 +61,22 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Base extends Horde_Kolab_FreeBusy_Dri
     public function trigger(array $params)
     {
         $callee   = $this->getCallee();
-        $calendar = $this->getCalendar();
-
-        if ($calender->isRemote()) {
-            return $calendar->triggerRemote($callee);
-        }
+        $calendar = $this->getCalendar($callee);
 
         $cache = $this->getCache();
 
-        if (!$this->cacheRequested()) {
+        if (!$this->cacheRequested() || !$this->cacheValid($calendar, $callee)) {
             if (!$callee->isAuthenticated()) {
                 throw new Exception();
             }
-            $cache->store($calendar, $calendar->trigger($callee));
+            $result = $calendar->fetch();
+            if ($result->isCacheable()) {
+                $cache->store($calendar, $result);
+            }
+            return $result;
         }
-
-        return $cache->loadPartial($calendar, $callee, $this->getOptions());
-
+        return $cache->load($calendar);
+    }
         $this->logger->debug(sprintf("Partial free/busy data of owner %s on server %s requested by user %s.",
                                      $this->callee, $this->freebusyserver, $this->user));
 
