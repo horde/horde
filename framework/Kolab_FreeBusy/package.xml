@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Kolab_FreeBusy</name>
  <channel>pear.horde.org</channel>
  <summary>A package for providing free/busy information.</summary>
@@ -12,8 +9,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  this package via HTTP. This will refresh the cache maintained by this
  package with partial free/busy data. This partial data sets are
  finally combined to the complete free/busy information once a client
- requests this data for a particular user.
- </description>
+ requests this data for a particular user.</description>
  <lead>
   <name>Gunnar Wrobel</name>
   <user>wrobel</user>
@@ -38,7 +34,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-04-25</date>
+ <date>2009-11-27</date>
+ <time>14:17:37</time>
  <version>
   <release>0.1.5</release>
   <api>0.1.0</api>
@@ -49,31 +46,31 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
  <notes>
-  * Adapted the package to the changes in Kolab_Server.
-  * kolab/issue3537 (Allowing xfb access to groups does not work)
-  * Improved handling of dba access.
-  * Extended support for more complex scenario testing.
+* Adapted the package to the changes in Kolab_Server.
+* kolab/issue3537 (Allowing xfb access to groups does not work)
+* Improved handling of dba access.
+* Extended support for more complex scenario testing.
  </notes>
  <contents>
-  <dir name="/">
-   <file name="COPYING" role="doc" />
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Kolab">
-      <file name="FreeBusy.php" role="php" />
       <dir name="FreeBusy">
-       <file name="Access.php" role="php" />
-       <file name="Cache.php" role="php" />
+       <dir name="Cache">
+        <file name="Base.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/FreeBusy/Cache -->
        <dir name="Controller">
         <file name="FreebusyController.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/FreeBusy/Controller -->
        <dir name="Driver">
-        <file name="Base.php" role="php" />
         <dir name="Freebusy">
          <file name="Base.php" role="php" />
          <file name="Kolab.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/FreeBusy/Driver/Freebusy -->
+        <file name="Base.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/FreeBusy/Driver -->
+       <file name="Cache.php" role="php" />
        <file name="Factory.php" role="php" />
        <file name="Imap.php" role="php" />
        <file name="Report.php" role="php" />
@@ -82,6 +79,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <dir name="Test">
        <file name="FreeBusy.php" role="php" />
       </dir> <!-- /lib/Horde/Kolab/Test -->
+      <file name="FreeBusy.php" role="php" />
      </dir> <!-- /lib/Horde/Kolab -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
@@ -89,15 +87,16 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <dir name="Horde">
      <dir name="Kolab">
       <dir name="FreeBusy">
-       <file name="AllTests.php" role="test" />
-       <file name="DispatchTest.php" role="test" />
-       <file name="FreeBusyTest.php" role="test" />
-       <file name="FreeBusyScenarioTest.php" role="test" />
        <dir name="Mock">
         <dir name="Controller">
          <file name="FreebusyController.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/FreeBusy/Mock/Controller -->
        </dir> <!-- /test/Horde/Kolab/FreeBusy/Mock -->
+       <file name="AllTests.php" role="test" />
+       <file name="DispatchTest.php" role="test" />
+       <file name="FreeBusyScenarioTest.php" role="test" />
+       <file name="FreeBusyTest.php" role="test" />
+       <file name="TriggerTest.php" role="test" />
       </dir> <!-- /test/Horde/Kolab/FreeBusy -->
      </dir> <!-- /test/Horde/Kolab -->
     </dir> <!-- /test/Horde -->
@@ -114,6 +113,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
      </dir> <!-- /www/Horde/Kolab -->
     </dir> <!-- /www/Horde -->
    </dir> <!-- /www -->
+   <file name="COPYING" role="doc" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -150,83 +150,40 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Kolab/FreeBusy.php" as="Horde/Kolab/FreeBusy.php" />
-   <install name="lib/Horde/Kolab/FreeBusy/Access.php" as="Horde/Kolab/FreeBusy/Access.php" />
-   <install name="lib/Horde/Kolab/FreeBusy/Cache.php" as="Horde/Kolab/FreeBusy/Cache.php" />
-   <install name="lib/Horde/Kolab/FreeBusy/Controller/FreebusyController.php" as="Horde/Kolab/FreeBusy/Controller/FreebusyController.php" />
-   <install name="lib/Horde/Kolab/FreeBusy/Driver/Base.php" as="Horde/Kolab/FreeBusy/Driver/Base.php" />
-   <install name="lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php" as="Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php" />
-   <install name="lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php" as="Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php" />
-   <install name="lib/Horde/Kolab/FreeBusy/Factory.php" as="Horde/Kolab/FreeBusy/Factory.php" />
-   <install name="lib/Horde/Kolab/FreeBusy/Imap.php" as="Horde/Kolab/FreeBusy/Imap.php" />
-   <install name="lib/Horde/Kolab/FreeBusy/Report.php" as="Horde/Kolab/FreeBusy/Report.php" />
-   <install name="lib/Horde/Kolab/FreeBusy/View.php" as="Horde/Kolab/FreeBusy/View.php" />
-   <install name="lib/Horde/Kolab/Test/FreeBusy.php" as="Horde/Kolab/Test/FreeBusy.php" />
-   <install name="test/Horde/Kolab/FreeBusy/AllTests.php" as="Horde/Kolab/FreeBusy/AllTests.php" />
-   <install name="test/Horde/Kolab/FreeBusy/DispatchTest.php" as="Horde/Kolab/FreeBusy/DispatchTest.php" />
-   <install name="test/Horde/Kolab/FreeBusy/FreeBusyTest.php" as="Horde/Kolab/FreeBusy/FreeBusyTest.php" />
-   <install name="test/Horde/Kolab/FreeBusy/Mock/Controller/FreebusyController.php" as="Horde/Kolab/FreeBusy/Mock/Controller/FreebusyController.php" />
-   <install name="test/Horde/Kolab/FreeBusy/FreeBusyScenarioTest.php" as="Horde/Kolab/FreeBusy/FreeBusyScenarioTest.php" />
-   <install name="www/Horde/Kolab/FreeBusy/config.php" as="config.php" />
-   <install name="www/Horde/Kolab/FreeBusy/freebusy.php" as="freebusy.php" />
-   <install name="www/Horde/Kolab/FreeBusy/pfb.php" as="pfb.php" />
-   <install name="www/Horde/Kolab/FreeBusy/regenerate.php" as="regenerate.php" />
+   <install as="Horde/Kolab/FreeBusy.php" name="lib/Horde/Kolab/FreeBusy.php" />
+   <install as="Horde/Kolab/FreeBusy/Cache.php" name="lib/Horde/Kolab/FreeBusy/Cache.php" />
+   <install as="Horde/Kolab/FreeBusy/Factory.php" name="lib/Horde/Kolab/FreeBusy/Factory.php" />
+   <install as="Horde/Kolab/FreeBusy/Imap.php" name="lib/Horde/Kolab/FreeBusy/Imap.php" />
+   <install as="Horde/Kolab/FreeBusy/Report.php" name="lib/Horde/Kolab/FreeBusy/Report.php" />
+   <install as="Horde/Kolab/FreeBusy/View.php" name="lib/Horde/Kolab/FreeBusy/View.php" />
+   <install as="Horde/Kolab/FreeBusy/Cache/Base.php" name="lib/Horde/Kolab/FreeBusy/Cache/Base.php" />
+   <install as="Horde/Kolab/FreeBusy/Controller/FreebusyController.php" name="lib/Horde/Kolab/FreeBusy/Controller/FreebusyController.php" />
+   <install as="Horde/Kolab/FreeBusy/Driver/Base.php" name="lib/Horde/Kolab/FreeBusy/Driver/Base.php" />
+   <install as="Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php" name="lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php" />
+   <install as="Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php" name="lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php" />
+   <install as="Horde/Kolab/Test/FreeBusy.php" name="lib/Horde/Kolab/Test/FreeBusy.php" />
+   <install as="Horde/Kolab/FreeBusy/AllTests.php" name="test/Horde/Kolab/FreeBusy/AllTests.php" />
+   <install as="Horde/Kolab/FreeBusy/DispatchTest.php" name="test/Horde/Kolab/FreeBusy/DispatchTest.php" />
+   <install as="Horde/Kolab/FreeBusy/FreeBusyScenarioTest.php" name="test/Horde/Kolab/FreeBusy/FreeBusyScenarioTest.php" />
+   <install as="Horde/Kolab/FreeBusy/FreeBusyTest.php" name="test/Horde/Kolab/FreeBusy/FreeBusyTest.php" />
+   <install as="Horde/Kolab/FreeBusy/TriggerTest.php" name="test/Horde/Kolab/FreeBusy/TriggerTest.php" />
+   <install as="Horde/Kolab/FreeBusy/Mock/Controller/FreebusyController.php" name="test/Horde/Kolab/FreeBusy/Mock/Controller/FreebusyController.php" />
   </filelist>
  </phprelease>
  <changelog>
   <release>
-   <date>2009-04-02</date>
+   <date>2008-10-29</date>
    <version>
-    <release>0.1.4</release>
+    <release>0.1.0</release>
     <api>0.1.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-    * kolab/issue3450 (freebusy/user@example.com.ifb returns extended
-      free/busy information)
-    * kolab/issue3527 (no immediately printing of folders during
-      freebusy cache regeneration)
-   </notes>
-  </release>
-  <release>
-   <date>2009-03-06</date>
-   <version>
-    <release>0.1.3</release>
-    <api>0.1.0</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
-   <notes>
-     * SERVER_NAME undefined in freebusy/regenerate.php (kolab/issue3446,
-       https://www.intevation.de/roundup/kolab/issue3446)
-     * freebusy cache regeneration on the command line looks confusing
-       (kolab/issue3415, https://www.intevation.de/roundup/kolab/issue3415)
-     * kolabFreeBusyPast is not used (kolab/issue3438,
-       https://www.intevation.de/roundup/kolab/issue3438)
-     * Fixed manager access in the regeneration script
-       kolab/issue3313 (free/busy regeneration as manager broken in 2.2.1-beta1)
-   </notes>
-  </release>
-  <release>
-   <date>2008-12-12</date>
-   <version>
-    <release>0.1.2</release>
-    <api>0.1.0</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
-   <notes>
-     * Fixed copyright information.
+* Initial release.
    </notes>
   </release>
   <release>
@@ -241,27 +198,85 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </stability>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-    * Fixed handling of extended free/busy information.
-    * Fixed storing acl values when the folder is triggered by a foreign user 
-      kolab/issue3208 (Free/Busy list is always empty)
-    * Fixed identification of the corresponding free/busy server.
-    * Implemented extended free/busy access concept.
-    * kolab/issue3256 (resmgr responses should reflect server revision in PRODID)
+* Fixed handling of extended free/busy information.
+* Fixed storing acl values when the folder is triggered by a foreign user 
+  kolab/issue3208 (Free/Busy list is always empty)
+* Fixed identification of the corresponding free/busy server.
+* Implemented extended free/busy access concept.
+* kolab/issue3256 (resmgr responses should reflect server revision in PRODID)
    </notes>
   </release>
   <release>
-   <date>2008-10-29</date>
+   <date>2008-12-12</date>
    <version>
-    <release>0.1.0</release>
+    <release>0.1.2</release>
     <api>0.1.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
-     * Initial release.
+* Fixed copyright information.
+   </notes>
+  </release>
+  <release>
+   <date>2009-03-06</date>
+   <version>
+    <release>0.1.3</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <notes>
+* SERVER_NAME undefined in freebusy/regenerate.php (kolab/issue3446,
+  https://www.intevation.de/roundup/kolab/issue3446)
+* freebusy cache regeneration on the command line looks confusing
+  (kolab/issue3415, https://www.intevation.de/roundup/kolab/issue3415)
+* kolabFreeBusyPast is not used (kolab/issue3438,
+  https://www.intevation.de/roundup/kolab/issue3438)
+* Fixed manager access in the regeneration script
+  kolab/issue3313 (free/busy regeneration as manager broken in 2.2.1-beta1)
+   </notes>
+  </release>
+  <release>
+   <date>2009-04-02</date>
+   <version>
+    <release>0.1.4</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <notes>
+* kolab/issue3450 (freebusy/user@example.com.ifb returns extended
+  free/busy information)
+* kolab/issue3527 (no immediately printing of folders during
+  freebusy cache regeneration)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.5</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2009-11-27</date>
+   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <notes>
+* Adapted the package to the changes in Kolab_Server.
+* kolab/issue3537 (Allowing xfb access to groups does not work)
+* Improved handling of dba access.
+* Extended support for more complex scenario testing.
    </notes>
   </release>
  </changelog>
