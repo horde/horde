@@ -218,7 +218,7 @@ class Horde_Lock_Sql extends Horde_Lock
             if (is_a($result, 'PEAR_Error')) {
                 throw new Horde_Lock_Exception($result->getMessage());
             }
-            Horde::logMessage(sprintf('Lock %s reset successfully.', $lockid), __FILE__, __LINE__, PEAR_LOG_INFO);
+            Horde::logMessage(sprintf('Lock %s reset successfully.', $lockid), __FILE__, __LINE__, PEAR_LOG_DEBUG);
             return true;
         } elseif (is_a($lockinfo, 'PEAR_Error')) {
             throw new Horde_Lock_Exception($lockinfo->getMessage());
@@ -270,7 +270,7 @@ class Horde_Lock_Sql extends Horde_Lock
             throw new Horde_Lock_Exception($result->getMessage());
         }
 
-        Horde::logMessage(sprintf('Lock %s set successfully by %s in scope %s on "%s"', $lockid, $requestor, $scope, $principal), __FILE__, __LINE__, PEAR_LOG_INFO);
+        Horde::logMessage(sprintf('Lock %s set successfully by %s in scope %s on "%s"', $lockid, $requestor, $scope, $principal), __FILE__, __LINE__, PEAR_LOG_DEBUG);
         return $lockid;
     }
 
@@ -306,7 +306,7 @@ class Horde_Lock_Sql extends Horde_Lock
             throw new Horde_Lock_Exception($result->getMessage());
         }
 
-        Horde::logMessage(sprintf('Lock %s cleared successfully.', $lockid), __FILE__, __LINE__, PEAR_LOG_INFO);
+        Horde::logMessage(sprintf('Lock %s cleared successfully.', $lockid), __FILE__, __LINE__, PEAR_LOG_DEBUG);
         return true;
     }
 
@@ -401,7 +401,7 @@ class Horde_Lock_Sql extends Horde_Lock
             return false;
         }
 
-        Horde::logMessage(sprintf('Lock garbage collection cleared %d locks.', $this->_write_db->affectedRows()), __FILE__, __LINE__, PEAR_LOG_INFO);
+        Horde::logMessage(sprintf('Lock garbage collection cleared %d locks.', $this->_write_db->affectedRows()), __FILE__, __LINE__, PEAR_LOG_DEBUG);
         return true;
     }
 
