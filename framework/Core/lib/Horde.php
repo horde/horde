@@ -1318,7 +1318,7 @@ HTML;
      * @param string $class      The CSS class of the link
      * @param string $target     The window target to point to.
      * @param string $onclick    JavaScript action for the 'onclick' event.
-     * @param string $title      The link title (tooltip). Unescaped.
+     * @param string $title      The link title (tooltip).
      * @param string $accesskey  The access key to use.
      * @param array  $attributes Any other name/value pairs to add to the <a>
      *                           tag.
@@ -1331,7 +1331,10 @@ HTML;
                                        $attributes = array())
     {
         if (!empty($title)) {
-            $title = htmlspecialchars($title, ENT_QUOTES, Horde_Nls::getCharset());
+            $charset = Horde_Nls::getCharset();
+            $old_error = error_reporting(0);
+            $title = '&lt;pre&gt;' . preg_replace(array('/\n/', '/((?<!<br)\s{1,}(?<!\/>))/em', '/<br \/><br \/>/', '/<br \/>/'), array('', 'str_repeat("&nbsp;", strlen("$1"))', '&lt;br /&gt; &lt;br /&gt;', '&lt;br /&gt;'), nl2br(htmlspecialchars(htmlspecialchars($title, ENT_QUOTES, $charset), ENT_QUOTES, $charset))) . '&lt;/pre&gt;';
+            error_reporting($old_error);
         }
 
         return self::link($url, $title, $class, $target, $onclick, null, $accesskey, $attributes, false);
