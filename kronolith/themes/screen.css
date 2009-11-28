@@ -730,7 +730,9 @@ div.kronolithFormActions {
     margin: 0;
     height: 100%;
 }
-
+#kronolithEventACBox {
+    line-height: 100%;
+}
 /* Map */
 #kronolithEventMap {
 	height: 400px;
