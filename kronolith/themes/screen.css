@@ -728,9 +728,26 @@ div.kronolithFormActions {
 #kronolithEventTabAttendees th.night {
     background-color: #ccc;
 }
+
 #kronolithEventTabAttendees td div {
     margin: 0;
     height: 100%;
+}
+
+/* Map */
+#kronolithEventMap {
+	height: 400px;
+	width: 700px;
+}
+#kronolithEventMap_OpenLayers_ViewPort div {
+    margin-bottom: 0;   
+}
+.olMapViewPort div {
+	margin-bottom: 0;
+}
+.olControlLayerSwitcher div {
+	line-height: 100%;
+	margin-bottom: 0px;
 }
 
 /* Mini calendar */

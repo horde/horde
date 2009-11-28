@@ -105,6 +105,55 @@ class Kronolith
     }
 
     /**
+     * Initialize the event map.
+     *
+     * @param array $params Parameters to pass the the map
+     *
+     * @return void
+     */
+    public static function initEventMap($params)
+    {
+        // Add the apikeys
+        if (!empty($params['layers'])) {
+            foreach ($params['layers'] as $layer) {
+                switch ($layer) {
+                case 'Google':
+                    $params['apikeys']['google'] = $GLOBALS['conf']['api']['googlemaps'];
+                    break;
+                case 'Yahoo':
+                    $params['apikeys']['yahoo'] = $GLOBALS['conf']['api']['yahoomaps'];
+                    break;
+                //case 'Ve':
+                    // none needed.
+                case 'Cloudmade':
+                    $params['apikeys']['cloudemade'] = $GLOBALS['conf']['api']['cloudemade'];
+                    break;
+                }
+            }
+        }
+
+        if (!empty($params['geocoder'])) {
+            switch ($params['geocoder']) {
+            case 'Google':
+                $params['apikeys']['google'] = $GLOBALS['conf']['api']['googlemaps'];
+                break;
+            case 'Yahoo':
+                $params['apikeys']['yahoo'] = $GLOBALS['conf']['api']['yahoomaps'];
+                break;
+            //case 'Ve':
+                // none needed.
+            case 'Cloudmade':
+                $params['apikeys']['cloudemade'] = $GLOBALS['conf']['api']['cloudemade'];
+                break;
+            }
+        }
+
+        Horde::addScriptFile('hordemap/map.js', 'horde');
+        $js = 'HordeMap.initialize(' . Horde_Serialize::serialize($params, HORDE_SERIALIZE::JSON) . ');';
+        Horde::addinlineScript($js);
+    }
+
+    /**
      * Outputs the javascript code which defines all javascript variables
      * that are dependent on the local user's account.
      *
@@ -268,6 +317,9 @@ class Kronolith
                        Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY) as $recurType) {
             $code['text']['recur'][$recurType] = self::recurToString($recurType);
         }
+
+        // Maps
+        $code['conf']['maps'] = $GLOBALS['conf']['maps'];
 
         return array('var Kronolith = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, Horde_Nls::getCharset()) . ';');
     }

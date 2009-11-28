@@ -2799,6 +2799,12 @@ KronolithCore = {
                 dialog.select('.tabset li').invoke('removeClassName', 'activeTab');
                 $(id.replace(/Link/, 'Tab')).show();
                 elt.parentNode.addClassName('activeTab');
+                if (id == 'kronolithEventLinkMap') {
+                    /* Maps */
+                    if (!Object.isUndefined(KronolithEventMap) && !KronolithEventMap.isInitialized()) {
+                        KronolithEventMap.initialize();
+                    }
+                }
                 e.stop();
                 return;
 
@@ -3444,6 +3450,71 @@ KronolithCore = {
     // By default, no context onClick action
     contextOnClick: Prototype.emptyFunction
 
+};
+
+KronolithEventMap =
+{
+   _marker: null,
+   _map: null,
+   _initialized: false,
+
+   initialize: function()
+   {
+        var layers = [];
+        if (Kronolith.conf.maps.providers) {
+            Kronolith.conf.maps.providers.each(function(l)
+                {
+                    var p = new HordeMap[l]();
+                    $H(p.getLayers()).values().each(function(e) { layers.push(e); });
+                });
+        }
+
+        this._map = new HordeMap.Map[Kronolith.conf.maps.driver](
+                {
+                    'elt': 'kronolithEventMap',
+                    'delayed': true,
+                    'layers': layers
+                });
+        this._map.display();
+        this._marker = this._map.addMarker(
+                {lat:38.7115479, lon: -9.13774},
+                {'draggable': true},
+                {
+                    'context': this,
+                    'dragend': this.onMarkerDragEnd
+                });
+
+                this._map.setCenter({lat:38.7115479, lon: -9.13774}, 10);
+                this._initialized = true;
+   },
+
+   isInitialized: function()
+   {
+       return this._initialized;
+   },
+
+   onMarkerDragEnd: function(r)
+   {
+       var gc = new HordeMap.Geocoder[Kronolith.conf.maps.geocoder]();
+       gc.reverseGeocode(r.getLonLat(), this.onReverseGeocode.bind(this), this.onError.bind(this) );
+   },
+
+   onReverseGeocode: function(r) { $('kronolithEventLocation').value = r; },
+
+   onError: function(r) {  },
+
+   onGeocode: function(r) { },
+
+   geocode: function(a) {
+       var gc = new HordeMap.Geocoder[Kronolith.geocoderType]();
+       gc.geocode(a, function(r) {
+           r = r.shift();
+           ll = new OpenLayers.LonLat(r.Longitude, r.Latitude);
+           //this._marker.setLonLat(ll);
+           this._map.setCenter(ll);
+       }.bind(this),
+       this.onError);
+   }
 };
 
 /* Initialize global event handlers. */

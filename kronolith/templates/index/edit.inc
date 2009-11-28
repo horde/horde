@@ -51,7 +51,8 @@
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkRecur"><?php echo _("Repeat") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkUrl"><?php echo _("URL") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkAttendees"><?php echo _("Attendees") ?></a></li>
-     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkTags"><?php echo _("Tags") ?></a></li>
+    <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkTags"><?php echo _("Tags") ?></a></li>
+    <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkMap"><?php echo _("Map") ?></a></li>
   </ul>
 </div>
 <br class="clear" />
@@ -163,6 +164,10 @@
   <input id="kronolithEventTags" name="tags" />
   <span id="kronolithEventTags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
   <div class="kronolithTopTags" id="kronolithEventTopTags"></div>
+</div>
+
+<div id="kronolithEventTabMap" class="kronolithTabsOption" style="display:none;">
+  <div id="kronolithEventMap"></div>
 </div>
 
 <div class="kronolithFormActions">
