@@ -685,9 +685,6 @@ div.kronolithFormActions {
     background-color: #ffc;
     cursor: pointer;
 }
-.kronolithTabTags {
-    line-height: 100%;
-}
 
 .kronolithDialog .tabset {
     float: none;
