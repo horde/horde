@@ -28,7 +28,9 @@ class Kronolith_SubscribeRemoteCalendarForm extends Horde_Form {
         parent::Horde_Form($vars, _("Subscribe to a Remote Calendar"));
 
         $this->addVariable(_("Name"), 'name', 'text', true);
+        $this->addVariable(_("Color"), 'color', 'colorpicker', false);
         $this->addVariable(_("URL"), 'url', 'text', true);
+        $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));
         $this->addVariable(_("Username"), 'username', 'text', false);
         $this->addVariable(_("Password"), 'password', 'password', false);
 
@@ -37,33 +39,11 @@ class Kronolith_SubscribeRemoteCalendarForm extends Horde_Form {
 
     function execute()
     {
-        $name = trim($this->_vars->get('name'));
-        $url = trim($this->_vars->get('url'));
-        $username = trim($this->_vars->get('username'));
-        $password = trim($this->_vars->get('password'));
-
-        if (!(strlen($name) && strlen($url))) {
-            return false;
+        $info = array();
+        foreach (array('name', 'url', 'color', 'username', 'password') as $key) {
+            $info[$key] = $this->_vars->get($key);
         }
-
-        if (strlen($username) || strlen($password)) {
-            $key = Horde_Auth::getCredential('password');
-            if ($key) {
-                $username = base64_encode(Horde_Secret::write($key, $username));
-                $password = base64_encode(Horde_Secret::write($key, $password));
-            }
-        }
-
-        $remote_calendars = unserialize($GLOBALS['prefs']->getValue('remote_cals'));
-        $remote_calendars[] = array(
-            'name' => $name,
-            'url' => $url,
-            'user' => $username,
-            'password' => $password,
-        );
-
-        $GLOBALS['prefs']->setValue('remote_cals', serialize($remote_calendars));
-        return true;
+        return Kronolith::subscribeRemoteCalendar($info);
     }
 
 }

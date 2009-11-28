@@ -126,6 +126,7 @@ class Kronolith
             'URI_IMG' => $registry->getImageDir() . '/',
             'URI_SNOOZE' => Horde::url($registry->get('webroot', 'horde') . '/services/snooze.php', true, -1),
             'SESSION_ID' => defined('SID') ? SID : '',
+            'user' => Horde_Auth::getAuth(),
             'prefs_url' => str_replace('&amp;', '&', Horde::getServiceLink('options', 'kronolith')),
             'name' => $registry->get('name'),
             'is_ie6' => ($browser->isBrowser('msie') && ($browser->getMajor() < 7)),
@@ -169,6 +170,7 @@ class Kronolith
                     $code['conf']['calendars']['internal'][$id] = array(
                         'name' => ($owner ? '' : '[' . Horde_Auth::convertUsername($calendar->get('owner'), false) . '] ')
                             . $calendar->get('name'),
+                        'desc' => $calendar->get('desc'),
                         'owner' => $owner,
                         'fg' => self::foregroundColor($calendar),
                         'bg' => self::backgroundColor($calendar),
@@ -187,6 +189,7 @@ class Kronolith
                     $code['conf']['calendars']['tasklists']['tasks/' . $id] = array(
                         'name' => ($owner ? '' : '[' . Horde_Auth::convertUsername($tasklist->get('owner'), false) . '] ')
                             . $tasklist->get('name'),
+                        'desc' => $tasklist->get('desc'),
                         'owner' => $owner,
                         'fg' => self::foregroundColor($tasklist),
                         'bg' => self::backgroundColor($tasklist),
@@ -214,11 +217,15 @@ class Kronolith
 
         // Remote calendars
         foreach ($GLOBALS['all_remote_calendars'] as $calendar) {
-            $code['conf']['calendars']['remote'][$calendar['url']] = array(
-                'name' => $calendar['name'],
-                'fg' => self::foregroundColor($calendar),
-                'bg' => self::backgroundColor($calendar),
-                'show' => in_array($calendar['url'], $GLOBALS['display_remote_calendars']));
+
+            $code['conf']['calendars']['remote'][$calendar['url']] = array_merge(
+                array('name' => $calendar['name'],
+                      'desc' => isset($calendar['desc']) ? $calendar['desc'] : '',
+                      'owner' => true,
+                      'fg' => self::foregroundColor($calendar),
+                      'bg' => self::backgroundColor($calendar),
+                      'show' => in_array($calendar['url'], $GLOBALS['display_remote_calendars'])),
+                self::getRemoteParams($calendar['url']));
         }
 
         // Holidays
@@ -243,6 +250,8 @@ class Kronolith
             'searching' => str_replace('%s', '#{term}', _("Events matching \"%s\"")),
             'allday' => _("All day"),
             'prefs' => _("Options"),
+            'no_url' => _("You must specify a URL."),
+            'wrong_auth' => _("The authentication information you specified wasn't accepted."),
         );
         for ($i = 1; $i <= 12; ++$i) {
             $code['text']['month'][$i - 1] = Horde_Nls::getLangInfo(constant('MON_' . $i));
@@ -1290,6 +1299,158 @@ class Kronolith
     }
 
     /**
+     * Creates a new share.
+     *
+     * @param array $info  Hash with calendar information.
+     *
+     * @return Horde_Share  The new share.
+     */
+    public static function addShare($info)
+    {
+        $calendar = $GLOBALS['kronolith_shares']->newShare(hash('md5', microtime()));
+        if (is_a($calendar, 'PEAR_Error')) {
+            return $calendar;
+        }
+
+        $calendar->set('name', $info['name']);
+        $calendar->set('color', $info['color']);
+        $calendar->set('desc', $info['description']);
+        $tagger = self::getTagger();
+        $tagger->tag($calendar->getName(), $info['tags'], 'calendar');
+
+        $result = $GLOBALS['kronolith_shares']->addShare($calendar);
+        if (is_a($result, 'PEAR_Error')) {
+            return $result;
+        }
+
+        $GLOBALS['display_calendars'][] = $calendar->getName();
+        $GLOBALS['prefs']->setValue('display_cals', serialize($GLOBALS['display_calendars']));
+
+        return $calendar;
+    }
+
+    /**
+     * Updates an existing share.
+     *
+     * @param Horde_Share $share  The share to update.
+     * @param array $info         Hash with calendar information.
+     */
+    public static function updateShare(&$calendar, $info)
+    {
+        if ($calendar->get('owner') != Horde_Auth::getAuth()) {
+            return PEAR::raiseError(_("You are not allowed to change this calendar."));
+        }
+
+        $original_name = $calendar->get('name');
+        $calendar->set('name', $info['name']);
+        $calendar->set('color', $info['color']);
+        $calendar->set('desc', $info['description']);
+        if ($original_name != $info['name']) {
+            $result = Kronolith::getDriver()->rename($original_name, $info['name']);
+            if (is_a($result, 'PEAR_Error')) {
+                return PEAR::raiseError(sprintf(_("Unable to rename \"%s\": %s"), $original_name, $result->getMessage()));
+            }
+        }
+
+        $result = $calendar->save();
+        if (is_a($result, 'PEAR_Error')) {
+            return PEAR::raiseError(sprintf(_("Unable to save calendar \"%s\": %s"), $info['name'], $result->getMessage()));
+        }
+
+        $tagger = self::getTagger();
+        $tagger->replaceTags($calendar->getName(), $info['tags'], 'calendar');
+    }
+
+    /**
+     * Deletes a share.
+     *
+     * @param Horde_Share $calendar  The share to delete.
+     */
+    public static function deleteShare($calendar)
+    {
+        if ($calendar->getName() == Horde_Auth::getAuth()) {
+            return PEAR::raiseError(_("This calendar cannot be deleted."));
+        }
+
+        if ($calendar->get('owner') != Horde_Auth::getAuth()) {
+            return PEAR::raiseError(_("You are not allowed to delete this calendar."));
+        }
+
+        // Delete the calendar.
+        $result = Kronolith::getDriver()->delete($calendar->getName());
+        if (is_a($result, 'PEAR_Error')) {
+            return PEAR::raiseError(sprintf(_("Unable to delete \"%s\": %s"), $calendar->get('name'), $result->getMessage()));
+        }
+
+        // Remove share and all groups/permissions.
+        return $GLOBALS['kronolith_shares']->removeShare($calendar);
+    }
+
+    /**
+     * Subscribes to a remote calendar.
+     *
+     * @param array $info  Hash with calendar information.
+     */
+    public static function subscribeRemoteCalendar($info)
+    {
+        if (!(strlen($info['name']) && strlen($info['url']))) {
+            return PEAR::raiseError(_("You must specify a name and a URL."));
+        }
+
+        if (strlen($info['username']) || strlen($info['password'])) {
+            $key = Horde_Auth::getCredential('password');
+            if ($key) {
+                $info['username'] = base64_encode(Horde_Secret::write($key, $info['username']));
+                $info['password'] = base64_encode(Horde_Secret::write($key, $info['password']));
+            }
+        }
+
+        $remote_calendars = unserialize($GLOBALS['prefs']->getValue('remote_cals'));
+        $remote_calendars[] = array(
+            'name' => $info['name'],
+            'desc' => $info['description'],
+            'url' => $info['url'],
+            'color' => $info['color'],
+            'user' => $info['username'],
+            'password' => $info['password'],
+        );
+
+        $GLOBALS['prefs']->setValue('remote_cals', serialize($remote_calendars));
+    }
+
+    /**
+     * Unsubscribes from a remote calendar.
+     *
+     * @param string $url  The calendar URL.
+     *
+     * @return array  Hash with the deleted calendar's information.
+     */
+    public static function unsubscribeRemoteCalendar($url)
+    {
+        $url = trim($url);
+        if (!strlen($url)) {
+            return false;
+        }
+
+        $remote_calendars = unserialize($GLOBALS['prefs']->getValue('remote_cals'));
+        $remote_calendar = null;
+        foreach ($remote_calendars as $key => $calendar) {
+            if ($calendar['url'] == $url) {
+                $remote_calendar = $calendar;
+                unset($remote_calendars[$key]);
+                break;
+            }
+        }
+        if (!$remote_calendar) {
+            return PEAR::raiseError(_("The remote calendar was not found."));
+        }
+
+        $GLOBALS['prefs']->setValue('remote_cals', serialize($remote_calendars));
+
+        return $remote_calendar;
+    }
+
+    /**
      * Returns the feed URL for a calendar.
      *
      * @param string $calendar  A calendar name.
@@ -1918,11 +2079,11 @@ class Kronolith
                 break;
 
             case 'Ical':
+                $params = self::getRemoteParams($calendar);
                 /* Check for HTTP proxy configuration */
                 if (!empty($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
                     $params['proxy'] = $GLOBALS['conf']['http']['proxy'];
                 }
-                $params = self::getRemoteParams($calendar);
                 break;
 
             case 'Horde':
@@ -1969,6 +2130,7 @@ class Kronolith
                 if (!empty($user)) {
                     return array('user' => $user, 'password' => $password);
                 }
+                return array();
             }
         }
 

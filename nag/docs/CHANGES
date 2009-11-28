@@ -2,6 +2,7 @@
 v3.0-git
 --------
 
+[jan] Set colors per task list (Request #7480).
 [cjh] Quick Add support: there is a javascript UI element for quickly adding
       tasks, and an API method (tasks/quickAdd) that provides the same
       functionality.

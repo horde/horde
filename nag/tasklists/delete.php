@@ -16,24 +16,12 @@ if (!Horde_Auth::getAuth()) {
 }
 
 $vars = Horde_Variables::getDefaultVariables();
-$tasklist_id = $vars->get('t');
-if ($tasklist_id == Horde_Auth::getAuth()) {
-    $notification->push(_("This task list cannot be deleted."), 'horde.warning');
-    header('Location: ' . Horde::applicationUrl('tasklists/', true));
-    exit;
-}
-
-$tasklist = $nag_shares->getShare($tasklist_id);
+$tasklist = $nag_shares->getShare($vars->get('t'));
 if (is_a($tasklist, 'PEAR_Error')) {
     $notification->push($tasklist, 'horde.error');
     header('Location: ' . Horde::applicationUrl('tasklists/', true));
     exit;
-} elseif ($tasklist->get('owner') != Horde_Auth::getAuth()) {
-    $notification->push(_("You are not allowed to delete this task list."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('tasklists/', true));
-    exit;
 }
-
 $form = new Nag_DeleteTaskListForm($vars, $tasklist);
 
 // Execute if the form is valid (must pass with POST variables only).

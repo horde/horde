@@ -92,38 +92,68 @@ class Nag_Api extends Horde_Registry_Api
     }
 
     /**
-     * Add a new task list
+     * Returns a list of task lists.
      *
-     * @param string $name        Task list name
-     * @param string $description Task list description
+     * @param boolean $owneronly   Only return tasklists that this user owns?
+     *                             Defaults to false.
+     * @param integer $permission  The permission to filter tasklists by.
+     *
+     * @return array  The task lists.
+     */
+    public function listTasklists($owneronly, $permission)
+    {
+        require_once dirname(__FILE__) . '/base.php';
+        return Nag::listTasklists($owneronly, $permission);
+    }
+
+    /**
+     * Adds a new task list.
+     *
+     * @param string $name        Task list name.
+     * @param string $description Task list description.
+     * @param string $color       Task list color.
      *
      * @return integer  The new tasklist's id.
      */
-    public function addTasklist($name, $description = '')
+    public function addTasklist($name, $description = '', $color = '')
     {
-        if (!Horde_Auth::getAuth()) {
-            return PEAR::raiseError(_("Permission denied"));
-        }
-
         require_once dirname(__FILE__) . '/base.php';
-        global $nag_shares;
-
-        $tasklistId = md5(microtime());
-        $tasklist = $nag_shares->newShare($tasklistId);
-
+        $tasklist = Nag::addTasklist(array('name' => $name, 'description' => $description, 'color' => $color));
         if (is_a($tasklist, 'PEAR_Error')) {
             return $tasklist;
         }
+        return $tasklist->getName();
+    }
 
-        $tasklist->set('name', $name, false);
-        $tasklist->set('desc', $description, false);
-        $result = $nag_shares->addShare($tasklist);
-
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+    /**
+     * Updates an existing task list.
+     *
+     * @param string $id   A task list id.
+     * @param array $info  Hash with task list information.
+     */
+    public static function updateTasklist($id, $info)
+    {
+        require_once dirname(__FILE__) . '/base.php';
+        $tasklist = $GLOBALS['nag_shares']->getShare($id);
+        if (is_a($tasklist, 'PEAR_Error')) {
+            return $tasklist;
         }
+        return Nag::updateTasklist($tasklist, $info);
+    }
 
-        return $tasklistId;
+    /**
+     * Deletes a task list.
+     *
+     * @param string $id  A task list id.
+     */
+    public function deleteTasklist($id)
+    {
+        require_once dirname(__FILE__) . '/base.php';
+        $tasklist = $GLOBALS['nag_shares']->getShare($id);
+        if (is_a($tasklist, 'PEAR_Error')) {
+            return $tasklist;
+        }
+        return Nag::deleteTasklist($tasklist);
     }
 
     /**
@@ -605,20 +635,6 @@ class Nag_Api extends Horde_Registry_Api
                 }
             }
         }
-    }
-
-    /**
-     * @param boolean $owneronly   Only return tasklists that this user owns?
-     *                             Defaults to false.
-     * @param integer $permission  The permission to filter tasklists by.
-     *
-     * @return array  The task lists.
-     */
-    public function listTasklists($owneronly, $permission)
-    {
-        require_once dirname(__FILE__) . '/base.php';
-
-        return Nag::listTasklists($owneronly, $permission);
     }
 
     /**
@@ -1321,6 +1337,7 @@ class Nag_Api extends Horde_Registry_Api
                 'start' => $due_date,
                 'end' => $due_date,
                 'category' => $task->category,
+                'color' => $allowed_tasklists[$task->tasklist]->get('color'),
                 'params' => array('task' => $task->id,
                                   'tasklist' => $task->tasklist),
                 'link' => Horde_Util::addParameter(Horde::applicationUrl('view.php', true), array('tasklist' => $task->tasklist, 'task' => $task->id)),

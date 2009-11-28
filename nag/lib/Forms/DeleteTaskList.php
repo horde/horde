@@ -46,42 +46,7 @@ class Nag_DeleteTaskListForm extends Horde_Form {
             return false;
         }
 
-        if ($this->_tasklist->get('owner') != Horde_Auth::getAuth()) {
-            return PEAR::raiseError(_("Permission denied"));
-        }
-
-        // Delete the task list.
-        $storage = &Nag_Driver::singleton($this->_tasklist->getName());
-        $result = $storage->deleteAll();
-        if (is_a($result, 'PEAR_Error')) {
-            return PEAR::raiseError(sprintf(_("Unable to delete \"%s\": %s"), $this->_tasklist->get('name'), $result->getMessage()));
-        } else {
-            // Remove share and all groups/permissions.
-            $result = $GLOBALS['nag_shares']->removeShare($this->_tasklist);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-        }
-
-        // Make sure we still own at least one task list.
-        if (count(Nag::listTasklists(true)) == 0) {
-            // If the default share doesn't exist then create it.
-            if (!$GLOBALS['nag_shares']->exists(Horde_Auth::getAuth())) {
-                $identity = Horde_Prefs_Identity::singleton();
-                $name = $identity->getValue('fullname');
-                if (trim($name) == '') {
-                    $name = Horde_Auth::getOriginalAuth();
-                }
-                $tasklist = &$GLOBALS['nag_shares']->newShare(Horde_Auth::getAuth());
-                if (is_a($tasklist, 'PEAR_Error')) {
-                    return;
-                }
-                $tasklist->set('name', sprintf(_("%s's Task List"), $name));
-                $GLOBALS['nag_shares']->addShare($tasklist);
-            }
-        }
-
-        return true;
+        return Nag::deleteTasklist($this->_tasklist);
     }
 
 }

@@ -27,22 +27,20 @@ class Nag_CreateTaskListForm extends Horde_Form {
     {
         parent::Horde_Form($vars, _("Create Task List"));
 
-        $this->addVariable(_("Task List Name"), 'name', 'text', true);
-        $this->addVariable(_("Task List Description"), 'description', 'longtext', false, false, null, array(4, 60));
+        $this->addVariable(_("Name"), 'name', 'text', true);
+        $this->addVariable(_("Color"), 'color', 'colorpicker', false);
+        $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));
 
         $this->setButtons(array(_("Create")));
     }
 
     function execute()
     {
-        // Create new share.
-        $tasklist = $GLOBALS['nag_shares']->newShare(md5(microtime()));
-        if (is_a($tasklist, 'PEAR_Error')) {
-            return $tasklist;
+        $info = array();
+        foreach (array('name', 'color', 'description') as $key) {
+            $info[$key] = $this->_vars->get($key);
         }
-        $tasklist->set('name', $this->_vars->get('name'));
-        $tasklist->set('desc', $this->_vars->get('description'));
-        return $GLOBALS['nag_shares']->addShare($tasklist);
+        return Nag::addTasklist($info);
     }
 
 }

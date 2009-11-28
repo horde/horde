@@ -35,6 +35,7 @@ CREATE TABLE nag_shares (
     perm_guest SMALLINT DEFAULT 0 NOT NULL,
     attribute_name VARCHAR(255) NOT NULL,
     attribute_desc VARCHAR(255),
+    attribute_color VARCHAR(7),
     PRIMARY KEY (share_id)
 );
 

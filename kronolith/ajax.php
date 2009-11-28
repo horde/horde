@@ -469,6 +469,195 @@ try {
         $result->events = 'Searched for calendars: ' . Horde_Util::getFormData('title');
         break;
 
+    case 'SaveCalendar':
+        $calendar_id = Horde_Util::getFormData('calendar');
+        $result = new stdClass;
+
+        switch (Horde_Util::getFormData('type')) {
+        case 'internal':
+            $info = array();
+            foreach (array('name', 'color', 'description', 'tags') as $key) {
+                $info[$key] = Horde_Util::getFormData($key);
+            }
+
+            // Create a calendar.
+            if (!$calendar_id) {
+                if (!Horde_Auth::getAuth() || $prefs->isLocked('default_share')) {
+                    break 2;
+                }
+                $calendar = Kronolith::addShare($info);
+                if ($calendar instanceof PEAR_Error) {
+                    $notification->push($calendar, 'horde.error');
+                    break 2;
+                }
+                $notification->push(sprintf(_("The calendar \"%s\" has been created."), $info['name']), 'horde.success');
+                $result->calendar = $calendar->getName();
+                break;
+            }
+
+            // Update a calendar.
+            $calendar = $kronolith_shares->getShare($calendar_id);
+            if ($calendar instanceof PEAR_Error) {
+                $notification->push($calendar, 'horde.error');
+                break 2;
+            }
+            $original_name = $calendar->get('name');
+            $updated = Kronolith::updateShare($calendar, $info);
+            if ($updated instanceof PEAR_Error) {
+                $notification->push($updated, 'horde.error');
+                break 2;
+            }
+            if ($calendar->get('name') != $original_name) {
+                $notification->push(sprintf(_("The calendar \"%s\" has been renamed to \"%s\"."), $original_name, $calendar->get('name')), 'horde.success');
+            } else {
+                $notification->push(sprintf(_("The calendar \"%s\" has been saved."), $original_name), 'horde.success');
+            }
+
+            break;
+
+        case 'tasklists':
+            $calendar = array();
+            foreach (array('name', 'color', 'description') as $key) {
+                $calendar[$key] = Horde_Util::getFormData($key);
+            }
+
+            // Create a task list.
+            if (!$calendar_id) {
+                if (!Horde_Auth::getAuth() || $prefs->isLocked('default_share')) {
+                    break 2;
+                }
+                $tasklist = $registry->tasks->addTasklist($calendar['name'], $calendar['description'], $calendar['color']);
+                if ($tasklist instanceof PEAR_Error) {
+                    $notification->push($tasklist, 'horde.error');
+                    break 2;
+                }
+                $notification->push(sprintf(_("The task list \"%s\" has been created."), $calendar['name']), 'horde.success');
+                $result->calendar = $tasklist;
+                break;
+            }
+
+            // Update a task list.
+            $calendar_id = substr($calendar_id, 6);
+            $tasklists = $registry->tasks->listTasklists(true, Horde_Perms::EDIT);
+            if (!isset($tasklists[$calendar_id])) {
+                $notification->push(_("You are not allowed to change this task list."), 'horde.error');
+                break 2;
+            }
+            $updated = $registry->tasks->updateTasklist($calendar_id, $calendar);
+            if ($updated instanceof PEAR_Error) {
+                $notification->push($updated, 'horde.error');
+                break 2;
+            }
+            if ($tasklists[$calendar_id]->get('name') != $calendar['name']) {
+                $notification->push(sprintf(_("The task list \"%s\" has been renamed to \"%s\"."), $tasklists[$calendar_id]->get('name'), $calendar['name']), 'horde.success');
+            } else {
+                $notification->push(sprintf(_("The task list \"%s\" has been saved."), $tasklists[$calendar_id]->get('name')), 'horde.success');
+            }
+
+            break;
+
+        case 'remote':
+            $calendar = array();
+            foreach (array('name', 'description', 'url', 'color', 'username', 'password') as $key) {
+                $calendar[$key] = Horde_Util::getFormData($key);
+            }
+            $subscribed = Kronolith::subscribeRemoteCalendar($calendar);
+            if ($subscribed instanceof PEAR_Error) {
+                $notification->push($subscribed, 'horde.error');
+                break 2;
+            }
+            if ($calendar_id) {
+                $notification->push(sprintf(_("The calendar \"%s\" has been saved."), $calendar['name']), 'horde.success');
+            } else {
+                $notification->push(sprintf(_("You have been subscribed to \"%s\" (%s)."), $calendar['name'], $calendar['url']), 'horde.success');
+            }
+            break;
+        }
+
+        $result->saved = true;
+        $result->color = Kronolith::foregroundColor($calendar);
+        break;
+
+    case 'DeleteCalendar':
+        $calendar_id = Horde_Util::getFormData('calendar');
+
+        switch (Horde_Util::getFormData('type')) {
+        case 'internal':
+            $calendar = $kronolith_shares->getShare($calendar_id);
+            if ($calendar instanceof PEAR_Error) {
+                $notification->push($calendar, 'horde.error');
+                break 2;
+            }
+            $deleted = Kronolith::deleteShare($calendar);
+            if ($deleted instanceof PEAR_Error) {
+                $notification->push(sprintf(_("Unable to delete \"%s\": %s"), $calendar->get('name'), $deleted->getMessage()), 'horde.error');
+                break 2;
+            }
+            $notification->push(sprintf(_("The calendar \"%s\" has been deleted."), $calendar->get('name')), 'horde.success');
+            break;
+
+        case 'tasklists':
+            $calendar_id = substr($calendar_id, 6);
+            $tasklists = $registry->tasks->listTasklists(true);
+            if (!isset($tasklists[$calendar_id])) {
+                $notification->push(_("You are not allowed to delete this task list."), 'horde.error');
+                break 2;
+            }
+            $deleted = $registry->tasks->deleteTasklist($calendar_id);
+            if ($deleted instanceof PEAR_Error) {
+                $notification->push(sprintf(_("Unable to delete \"%s\": %s"), $tasklists[$calendar_id]->get('name'), $deleted->getMessage()), 'horde.error');
+                break 2;
+            }
+            $notification->push(sprintf(_("The task list \"%s\" has been deleted."), $tasklists[$calendar_id]->get('name')), 'horde.success');
+            break;
+
+        case 'remote':
+            $deleted = Kronolith::unsubscribeRemoteCalendar($calendar_id);
+            if ($deleted instanceof PEAR_Error) {
+                $notification->push($deleted, 'horde.error');
+                break 2;
+            }
+            $notification->push(sprintf(_("You have been unsubscribed from \"%s\" (%s)."), $deleted['name'], $deleted['url']), 'horde.success');
+            break;
+        }
+
+        $result = new stdClass;
+        $result->deleted = true;
+        break;
+
+    case 'GetRemoteInfo':
+        $params = array();
+        if ($user = Horde_Util::getFormData('username')) {
+            $params['user'] = $user;
+            $params['password'] = Horde_Util::getFormData('password');
+        }
+        if (!empty($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
+            $params['proxy'] = $GLOBALS['conf']['http']['proxy'];
+        }
+        $driver = Kronolith_Driver::factory('Ical', $params);
+        $driver->open(Horde_Util::getFormData('url'));
+        $ical = $driver->getRemoteCalendar(false);
+        if ($ical instanceof PEAR_Error) {
+            if ($ical->getCode() == 401) {
+                $result = new stdClass;
+                $result->auth = true;
+                break;
+            }
+            $notification->push($ical, 'horde.error');
+            break;
+        }
+        $result = new stdClass;
+        $result->success = true;
+        $name = $ical->getAttribute('X-WR-CALNAME');
+        if (!($name instanceof PEAR_Error)) {
+            $result->name = $name;
+        }
+        $desc = $ical->getAttribute('X-WR-CALDESC');
+        if (!($desc instanceof PEAR_Error)) {
+            $result->desc = $desc;
+        }
+        break;
+
     case 'SaveCalPref':
         break;
 

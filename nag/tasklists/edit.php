@@ -21,10 +21,6 @@ if (is_a($tasklist, 'PEAR_Error')) {
     $notification->push($tasklist, 'horde.error');
     header('Location: ' . Horde::applicationUrl('tasklists/', true));
     exit;
-} elseif ($tasklist->get('owner') != Horde_Auth::getAuth()) {
-    $notification->push(_("You are not allowed to change this task list."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('tasklists/', true));
-    exit;
 }
 $form = new Nag_EditTaskListForm($vars, $tasklist);
 

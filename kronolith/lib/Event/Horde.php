@@ -61,6 +61,11 @@ class Kronolith_Event_Horde extends Kronolith_Event
         $this->end = $eventEnd;
         $this->status = Kronolith::STATUS_FREE;
 
+        if (isset($event['color'])) {
+            $this->_backgroundColor = $event['color'];
+            $this->_foregroundColor = Horde_Image::brightness($this->_backgroundColor) < 128 ? '#fff' : '#000';
+        }
+
         if (isset($event['recurrence'])) {
             $recurrence = new Horde_Date_Recurrence($eventStart);
 

@@ -632,23 +632,23 @@ span#kronolithQuickEvent {
 }
 
 /* Event/task form dialogs */
-#kronolithEventDialog, #kronolithTaskDialog {
+.kronolithDialog {
     width: 700px;
     padding: 10px 20px;
     background: #efefef;
     border: 1px #c0c0c0 solid;
 }
-#kronolithEventDialog div, #kronolithTaskDialog div {
+.kronolithDialog div {
     margin-bottom: 5px;
 }
-#kronolithEventDialog td, #kronolithTaskDialog td {
+.kronolithDialog td {
     padding-right: 10px;
     vertical-align: top;
 }
-#kronolithEventForm label, #kronolithTaskForm label {
+.kronolithDialog label {
     font-weight: bold;
 }
-#kronolithEventForm input.kronolithDatePicker, #kronolithTaskForm input.kronolithDatePicker {
+.kronolithDialog input.kronolithDatePicker {
     padding-right: 20px;
     background-image: url("graphics/picker.png");
     background-position: right center;
@@ -657,14 +657,8 @@ span#kronolithQuickEvent {
 .kronolithLongField {
     width: 100%;
 }
-div#kronolithEventActions, div#kronolithTaskActions {
+div.kronolithFormActions {
     margin: 5px 0;
-}
-div#kronolithEventActions #kronolithEventAdvancedLink {
-    padding-left: 2px;
-}
-div#kronolithEventActions #kronolithEventAdvancedLink a {
-    color: inherit;
 }
 
 #kronolithEventStartTime, #kronolithEventEndTime, #kronolithTaskDueTime, .kronolithEventValue {
@@ -673,12 +667,12 @@ div#kronolithEventActions #kronolithEventAdvancedLink a {
 #kronolithEventLocation {
     width: 300px;
 }
-div#kronolithEventTopTags {
+.kronolithTopTags {
     max-height: 75px;
     overflow: auto;
     line-height: 20px;
 }
-div#kronolithEventTopTags span {
+.kronolithTopTags span {
     padding: 2px 4px;
     margin-right: 4px;
     background-color: #fff;
@@ -687,21 +681,21 @@ div#kronolithEventTopTags span {
     -webkit-border-radius: 4px;
     font-size: 90%;
 }
-div#kronolithEventTopTags span:hover {
+.kronolithTopTags span:hover {
     background-color: #ffc;
     cursor: pointer;
 }
-div#kronolithEventTabTags {
-	line-height: 100%;
+.kronolithTabTags {
+    line-height: 100%;
 }
 
-#kronolithEventDialog .tabset, #kronolithTaskDialog .tabset {
+.kronolithDialog .tabset {
     float: none;
     width: auto;
     background: none;
     margin: 15px 0;
 }
-#kronolithEventDialog .tabset ul, #kronolithTaskDialog .tabset ul {
+.kronolithDialog .tabset ul {
     padding-left: 0;
     margin: 0;
 }

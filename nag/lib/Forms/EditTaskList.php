@@ -42,13 +42,11 @@ class Nag_EditTaskListForm extends Horde_Form {
 
     function execute()
     {
-        $this->_tasklist->set('name', $this->_vars->get('name'));
-        $this->_tasklist->set('desc', $this->_vars->get('description'));
-        $result = $this->_tasklist->save();
-        if (is_a($result, 'PEAR_Error')) {
-            return PEAR::raiseError(sprintf(_("Unable to save task list \"%s\": %s"), $id, $result->getMessage()));
+        $info = array();
+        foreach (array('name', 'color', 'description') as $key) {
+            $info[$key] = $this->_vars->get($key);
         }
-        return true;
+        return Nag::updateTasklist($this->_tasklist, $info);
     }
 
 }

@@ -40,21 +40,7 @@ class Kronolith_UnsubscribeRemoteCalendarForm extends Horde_Form {
             return false;
         }
 
-        $url = trim($this->_vars->get('url'));
-        if (!strlen($url)) {
-            return false;
-        }
-
-        $remote_calendars = unserialize($GLOBALS['prefs']->getValue('remote_cals'));
-        foreach ($remote_calendars as $key => $calendar) {
-            if ($calendar['url'] == $url) {
-                unset($remote_calendars[$key]);
-                break;
-            }
-        }
-
-        $GLOBALS['prefs']->setValue('remote_cals', serialize($remote_calendars));
-        return true;
+        return Kronolit::unsubscribeRemoteCalendar($this->_vars->get('url'));
     }
 
 }

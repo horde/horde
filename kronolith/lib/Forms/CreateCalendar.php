@@ -31,23 +31,17 @@ class Kronolith_CreateCalendarForm extends Horde_Form {
         $this->addVariable(_("Color"), 'color', 'colorpicker', false);
         $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));
         $this->addVariable(_("Tags"), 'tags', 'text', false);
+
         $this->setButtons(array(_("Create")));
     }
 
     function execute()
     {
-        // Create new share.
-        $calendar = $GLOBALS['kronolith_shares']->newShare(hash('md5', microtime()));
-        if (is_a($calendar, 'PEAR_Error')) {
-            return $calendar;
+        $info = array();
+        foreach (array('name', 'color', 'description', 'tags') as $key) {
+            $info[$key] = $this->_vars->get($key);
         }
-        $calendar->set('name', $this->_vars->get('name'));
-        $calendar->set('color', $this->_vars->get('color'));
-        $calendar->set('desc', $this->_vars->get('description'));
-        $tagger = Kronolith::getTagger();
-
-        $tagger->tag($calendar->getName(), $this->_vars->get('tags'), 'calendar');
-        return $GLOBALS['kronolith_shares']->addShare($calendar);
+        return Kronolith::addShare($info);
     }
 
 }

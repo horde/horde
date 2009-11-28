@@ -1,4 +1,4 @@
-<div id="kronolithEventDialog" style="display:none">
+<div id="kronolithEventDialog" class="kronolithDialog" style="display:none">
 <form id="kronolithEventForm" action="">
 <input id="kronolithEventId" type="hidden" name="id" />
 <input id="kronolithEventCalendar" type="hidden" name="cal" />
@@ -46,12 +46,12 @@
 
 <div class="tabset">
   <ul>
-    <li class="activeTab"><a href="#" id="kronolithEventLinkDescription"><?php echo _("Description") ?></a></li>
-    <li><a href="#" id="kronolithEventLinkReminder"><?php echo _("Reminder") ?></a></li>
-    <li><a href="#" id="kronolithEventLinkRecur"><?php echo _("Repeat") ?></a></li>
-    <li><a href="#" id="kronolithEventLinkUrl"><?php echo _("URL") ?></a></li>
-    <li><a href="#" id="kronolithEventLinkAttendees"><?php echo _("Attendees") ?></a></li>
-    <li><a href="#" id="kronolithEventLinkTags"><?php echo _("Tags and Keywords") ?></a></li>
+    <li class="activeTab"><a href="#" class="kronolithTabLink" id="kronolithEventLinkDescription"><?php echo _("Description") ?></a></li>
+    <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkReminder"><?php echo _("Reminder") ?></a></li>
+    <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkRecur"><?php echo _("Repeat") ?></a></li>
+    <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkUrl"><?php echo _("URL") ?></a></li>
+    <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkAttendees"><?php echo _("Attendees") ?></a></li>
+     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkTags"><?php echo _("Tags") ?></a></li>
   </ul>
 </div>
 <br class="clear" />
@@ -159,16 +159,16 @@
   </table>
 </div>
 
-<div id="kronolithEventTabTags" class="kronolithTabsOption" style="display:none">
+<div id="kronolithEventTabTags" class="kronolithTabsOption kronolithTabTags" style="display:none">
   <input id="kronolithEventTags" name="tags" />
   <span id="kronolithEventTags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
-  <div id="kronolithEventTopTags"></div>
+  <div class="kronolithTopTags" id="kronolithEventTopTags"></div>
 </div>
 
-<div id="kronolithEventActions">
+<div class="kronolithFormActions">
   <input id="kronolithEventSave" type="button" value="<?php echo _("Save") ?>" class="button ok" />
   <input id="kronolithEventDelete" type="button" value="<?php echo _("Delete") ?>" class="button ko" />
-  <span class="kronolithSep"><?php echo _("or") ?></span> <a id="kronolithEventCancel" class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <span class="kronolithSep"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
 </div>
 
 </form>

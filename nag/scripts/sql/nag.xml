@@ -239,6 +239,14 @@
     <length>255</length>
    </field>
 
+   <field>
+    <name>attribute_color</name>
+    <type>text</type>
+    <default></default>
+    <notnull>false</notnull>
+    <length>7</length>
+   </field>
+
    <index>
     <name>nag_shares_name</name>
     <field>

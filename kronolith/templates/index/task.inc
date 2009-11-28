@@ -1,4 +1,4 @@
-<div id="kronolithTaskDialog" style="display:none">
+<div id="kronolithTaskDialog" class="kronolithDialog" style="display:none">
 <form id="kronolithTaskForm" action="">
 <input id="kronolithTaskId" type="hidden" name="task_id" />
 <input id="kronolithTaskOldList" type="hidden" name="old_tasklist" />
@@ -12,7 +12,7 @@
   <label><input type="checkbox" name="task[completed]" id="kronolithTaskCompleted" value="1" /> <?php echo _("completed") ?></label>
 </div>
 
-<table cellspacing="" cellpadding="0" border="0"><tbody><tr>
+<table cellspacing="0" cellpadding="0" border="0"><tbody><tr>
   <td>
     <div>
       <label for="kronolithTaskPriority"><?php echo _("Priority") ?>:</label><br />
@@ -42,9 +42,9 @@
 
 <div class="tabset">
   <ul>
-    <li class="activeTab"><a href="#" id="kronolithTaskLinkDescription"><?php echo _("Description") ?></a></li>
-    <li><a href="#" id="kronolithTaskLinkReminder"><?php echo _("Reminder") ?></a></li>
-    <li><a href="#" id="kronolithTaskLinkUrl"><?php echo _("URL") ?></a></li>
+    <li class="activeTab"><a href="#" class="kronolithTabLink" id="kronolithTaskLinkDescription"><?php echo _("Description") ?></a></li>
+    <li><a href="#" class="kronolithTabLink" id="kronolithTaskLinkReminder"><?php echo _("Reminder") ?></a></li>
+    <li><a href="#" class="kronolithTabLink" id="kronolithTaskLinkUrl"><?php echo _("URL") ?></a></li>
   </ul>
 </div>
 <br class="clear" />
@@ -70,10 +70,10 @@
   <input type="text" name="task[url]" id="taskUrl" class="kronolithLongField" value="http://" />
 </div>
 
-<div id="kronolithTaskActions">
+<div class="kronolithFormActions">
   <input id="kronolithTaskSave" type="button" value="<?php echo _("Save") ?>" class="button ok" />
   <input id="kronolithTaskDelete" type="button" value="<?php echo _("Delete") ?>" class="button ko" />
-  <span class="kronolithSep"><?php echo _("or") ?></span> <a id="kronolithTaskCancel" class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <span class="kronolithSep"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
 </div>
 
 </form>

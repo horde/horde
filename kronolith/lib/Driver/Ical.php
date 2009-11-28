@@ -55,7 +55,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                                $showRecurrence = false, $hasAlarm = false,
                                $json = false)
     {
-        $iCal = $this->_getRemoteCalendar();
+        $iCal = $this->getRemoteCalendar();
         if (is_a($iCal, 'PEAR_Error')) {
             return $iCal;
         }
@@ -141,7 +141,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             return new Kronolith_Event_Ical($this);
         }
         $eventId = str_replace('ical', '', $eventId);
-        $iCal = $this->_getRemoteCalendar();
+        $iCal = $this->getRemoteCalendar();
         if (is_a($iCal, 'PEAR_Error')) {
             return $iCal;
         }
@@ -164,9 +164,11 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
     /**
      * Fetches a remote calendar into the session and return the data.
      *
+     * @param boolean $cache  Whether to return data from the session cache.
+     *
      * @return Horde_iCalendar  The calendar data, or an error on failure.
      */
-    private function _getRemoteCalendar()
+    public function getRemoteCalendar($cache = true)
     {
         $url = trim($this->_calendar);
 
@@ -175,7 +177,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             $url = str_replace('webcal://', 'http://', $url);
         }
 
-        if (!empty($_SESSION['kronolith']['remote'][$url])) {
+        if ($cache && !empty($_SESSION['kronolith']['remote'][$url])) {
             return $_SESSION['kronolith']['remote'][$url];
         }
 
@@ -206,7 +208,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             Horde::logMessage(sprintf('Failed to retrieve remote calendar: url = "%s", status = %s',
                                       $url, $http->getResponseCode()),
                               __FILE__, __LINE__, PEAR_LOG_INFO);
-            $_SESSION['kronolith']['remote'][$url] = PEAR::raiseError(sprintf(_("Could not open %s."), $url));
+            $_SESSION['kronolith']['remote'][$url] = PEAR::raiseError(sprintf(_("Could not open %s."), $url), $http->getResponseCode());
             return $_SESSION['kronolith']['remote'][$url];
         }
 

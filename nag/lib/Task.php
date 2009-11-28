@@ -746,7 +746,8 @@ class Nag_Task {
             $methods['notify']['show'] = array(
                 '__app' => $GLOBALS['registry']->getApp(),
                 'task' => $this->id,
-                'tasklist' => $this->tasklist);
+                'tasklist' => $this->tasklist,
+                'ajax' => 'task:' . $this->tasklist . ':' . $this->id);
             if (!empty($methods['notify']['sound'])) {
                 if ($methods['notify']['sound'] == 'on') {
                     // Handle boolean sound preferences;

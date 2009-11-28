@@ -74,7 +74,9 @@
 
   <div id="kronolithMenuCalendars">
   <h3 id="kronolithCalendarsFirst">
-    <a href="#" class="kronolithAdd">+</a>
+    <?php if (Horde_Auth::getAuth() && !$prefs->isLocked('default_share')): ?>
+    <a href="#" id="kronolithAddinternal" class="kronolithAdd">+</a>
+    <?php endif; ?>
     <span><?php echo _("My Calendars") ?></span>
   </h3>
 
@@ -82,7 +84,9 @@
   </div>
 
   <h3>
-    <a href="#" class="kronolithAdd">+</a>
+    <?php if (Horde_Auth::getAuth() && !$prefs->isLocked('default_share')): ?>
+    <a href="#" id="kronolithAddtasklists" class="kronolithAdd">+</a>
+    <?php endif; ?>
     <span><?php echo _("My Task Lists") ?></span>
   </h3>
 
@@ -90,7 +94,7 @@
   </div>
 
   <h3>
-    <a href="#" class="kronolithAdd">+</a>
+    <!-- to be added when searching for shared calendars is implemented <a href="#" id="kronolithAddinternalshared" class="kronolithAdd">+</a>-->
     <span><?php echo _("Shared Calendars") ?></span>
   </h3>
 
@@ -98,7 +102,7 @@
   </div>
 
   <h3>
-    <a href="#" class="kronolithAdd">+</a>
+    <!-- to be added when searching for shared calendars is implemented <a href="#" id="kronolithAddtasklistsshared" class="kronolithAdd">+</a>-->
     <span><?php echo _("Shared Task Lists") ?></span>
   </h3>
 
@@ -108,7 +112,7 @@
   <div id="kronolithExternalCalendars"></div>
 
   <h3>
-    <a href="#" class="kronolithAdd">+</a>
+    <a href="#" id="kronolithAddremote" class="kronolithAdd">+</a>
     <span><?php echo _("Remote Calendars") ?></span>
   </h3>
 

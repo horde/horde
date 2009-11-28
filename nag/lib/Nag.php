@@ -424,6 +424,81 @@ class Nag
     }
 
     /**
+     * Creates a new share.
+     *
+     * @param array $info  Hash with calendar information.
+     *
+     * @return Horde_Share  The new share.
+     */
+    function addTasklist($info)
+    {
+        $tasklist = $GLOBALS['nag_shares']->newShare(md5(microtime()));
+        if (is_a($tasklist, 'PEAR_Error')) {
+            return $tasklist;
+        }
+        $tasklist->set('name', $info['name']);
+        $tasklist->set('color', $info['color']);
+        $tasklist->set('desc', $info['description']);
+
+        $result = $GLOBALS['nag_shares']->addShare($tasklist);
+        if (is_a($result, 'PEAR_Error')) {
+            return $result;
+        }
+
+        $GLOBALS['display_tasklists'][] = $tasklist->getName();
+        $GLOBALS['prefs']->setValue('display_tasklists', serialize($GLOBALS['display_tasklists']));
+
+        return $tasklist;
+    }
+
+    /**
+     * Updates an existing share.
+     *
+     * @param Horde_Share $share  The share to update.
+     * @param array $info         Hash with task list information.
+     */
+    public static function updateTasklist(&$tasklist, $info)
+    {
+        if ($tasklist->get('owner') != Horde_Auth::getAuth()) {
+            return PEAR::raiseError(_("You are not allowed to change this task list."));
+        }
+
+        $tasklist->set('name', $info['name']);
+        $tasklist->set('color', $info['color']);
+        $tasklist->set('desc', $info['description']);
+        $result = $tasklist->save();
+        if (is_a($result, 'PEAR_Error')) {
+            return PEAR::raiseError(sprintf(_("Unable to save task list \"%s\": %s"), $info['name'], $result->getMessage()));
+        }
+    }
+
+    /**
+     * Deletes a task list.
+     *
+     * @param Horde_Share $tasklist  The task list to delete.
+     */
+    public static function deleteTasklist($tasklist)
+    {
+        if ($tasklist->getName() == Horde_Auth::getAuth()) {
+            return PEAR::raiseError(_("This task list cannot be deleted."));
+        }
+
+        if ($tasklist->get('owner') != Horde_Auth::getAuth()) {
+            return PEAR::raiseError(_("You are not allowed to delete this task list."));
+        }
+
+        // Delete the task list.
+        $storage = &Nag_Driver::singleton($tasklist->getName());
+        $result = $storage->deleteAll();
+        if (is_a($result, 'PEAR_Error')) {
+            return PEAR::raiseError(sprintf(_("Unable to delete \"%s\": %s"), $tasklist->get('name'), $result->getMessage()));
+        }
+
+        // Remove share and all groups/permissions.
+        return $GLOBALS['nag_shares']->removeShare($tasklist);
+    }
+
+    /**
      * Builds the HTML for a priority selection widget.
      *
      * @param string $name       The name of the widget.

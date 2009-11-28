@@ -43,26 +43,11 @@ class Kronolith_EditCalendarForm extends Horde_Form {
 
     function execute()
     {
-        $original_name = $this->_calendar->get('name');
-        $new_name = $this->_vars->get('name');
-        $this->_calendar->set('name', $new_name);
-        $this->_calendar->set('color', $this->_vars->get('color'));
-        $this->_calendar->set('desc', $this->_vars->get('description'));
-        if ($original_name != $new_name) {
-            $result = Kronolith::getDriver()->rename($original_name, $new_name);
-            if (is_a($result, 'PEAR_Error')) {
-                return PEAR::raiseError(sprintf(_("Unable to rename \"%s\": %s"), $original_name, $result->getMessage()));
-            }
+        $info = array();
+        foreach (array('name', 'color', 'description', 'tags') as $key) {
+            $info[$key] = $this->_vars->get($key);
         }
-
-        $result = $this->_calendar->save();
-        if (is_a($result, 'PEAR_Error')) {
-            return PEAR::raiseError(sprintf(_("Unable to save calendar \"%s\": %s"), $new_name, $result->getMessage()));
-        }
-
-        $tagger = Kronolith::getTagger();
-        $tagger->replaceTags($this->_calendar->getName(), $this->_vars->get('tags'), 'calendar');
-        return true;
+        return Kronolith::updateShare($this->_calendar, $info);
     }
 
 }

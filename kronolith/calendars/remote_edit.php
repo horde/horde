@@ -60,6 +60,8 @@ if ($key) {
 
 $vars->set('name', $calendar['name']);
 $vars->set('url', $calendar['url']);
+$vars->set('decription', $calendar['desc']);
+$vars->set('color', $calendar['color']);
 $vars->set('username', $username);
 $vars->set('password', $password);
 $title = $form->getTitle();
