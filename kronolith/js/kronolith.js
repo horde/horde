@@ -763,6 +763,8 @@ KronolithCore = {
             date7 = date.clone().add(1).week(), today = Date.today(),
             weekStart, weekEnd, weekEndDay, dateString, td, tr, i;
 
+        day = new Date(day.getFullYear(), day.getMonth(), day.getDate(), 0, 0, 0);
+
         // Remove old calendar rows. Maybe we should only rebuild the minical
         // if necessary.
         tbody.childElements().invoke('remove');
