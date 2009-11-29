@@ -3480,7 +3480,8 @@ KronolithEventMap =
                 {
                     'elt': 'kronolithEventMap',
                     'delayed': true,
-                    'layers': layers
+                    'layers': layers,
+                    'markerDragEnd': this.onMarkerDragEnd.bind(this)
                 });
         this._map.display();
         this._marker = this._map.addMarker(
@@ -3491,8 +3492,8 @@ KronolithEventMap =
                     'dragend': this.onMarkerDragEnd
                 });
 
-                this._map.setCenter({lat:38.7115479, lon: -9.13774}, 10);
-                this._initialized = true;
+        this._map.setCenter({lat:38.7115479, lon: -9.13774}, 10);
+        this._initialized = true;
    },
 
    isInitialized: function()
@@ -3500,13 +3501,29 @@ KronolithEventMap =
        return this._initialized;
    },
 
+   /**
+    * Callback for handling marker drag end.
+    *
+    * @param object r  An object that implenents a getLonLat() method to obtain
+    *                  the new location of the marker.
+    */
    onMarkerDragEnd: function(r)
    {
+       var ll = r.getLonLat();
        var gc = new HordeMap.Geocoder[Kronolith.conf.maps.geocoder]();
-       gc.reverseGeocode(r.getLonLat(), this.onReverseGeocode.bind(this), this.onError.bind(this) );
+       gc.reverseGeocode(ll, this.onReverseGeocode.bind(this), this.onError.bind(this) );
    },
 
-   onReverseGeocode: function(r) { $('kronolithEventLocation').value = r; },
+   /**
+    * Callback for handling a reverse geocode request.
+    *
+    * @param array r  An array of objects containing the results. Each object in
+    *                 the array is {lat:, lon:, address}
+    */
+   onReverseGeocode: function(r) {
+       $('kronolithEventLocation').value = r[0].address;
+       // Do something else with the lonlat?
+   },
 
    onError: function(r) {  },
 
@@ -3516,8 +3533,8 @@ KronolithEventMap =
        var gc = new HordeMap.Geocoder[Kronolith.conf.maps.geocoder]();
        gc.geocode(a, function(r) {
            r = r.shift();
-           ll = new OpenLayers.LonLat(r.Longitude, r.Latitude);
-           //this._marker.setLonLat(ll);
+           ll = new OpenLayers.LonLat(r.lon, r.lat);
+           this._map.moveMarker(this._marker, { lat: r.lat, lon: r.lon });
            this._map.setCenter(ll);
        }.bind(this),
        this.onError);

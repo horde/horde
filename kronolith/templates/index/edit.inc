@@ -18,7 +18,7 @@
   <td>
     <label for="kronolithEventLocation"><?php echo _("Location") ?>:</label><br />
     <input type="text" name="location" id="kronolithEventLocation" size="40" />
-    &middot; <span class="kronolithEventGeo"><a href="#"><?php echo _("Find in Maps") ?></a></span>
+    &middot; <span><a class="kronolithEventGeo" href="#"><?php echo _("Find in Maps") ?></a></span>
   </td>
 </tr></tbody></table>
 </div>
