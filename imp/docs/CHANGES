@@ -120,6 +120,8 @@ v5.0-git
 v4.3.6-cvs
 ----------
 
+[cjh] Fix the default value for the nav_audio preference
+      (sistemisti-posta@csi.it, Bug #8725).
 [mms] Make sure sent-mail folders exist if using the drop-down selection list
       on the compose page (Bug #8520).
 [mms] When replying to list, correctly extract e-mail address if multiple

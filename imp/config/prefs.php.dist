@@ -1081,7 +1081,7 @@ $_prefs['nav_popup'] = array(
 
 // play a sound on new mail? if so, which one?
 $_prefs['nav_audio'] = array(
-    'value' => 0,
+    'value' => '',
     'locked' => false,
     'shared' => false,
     'type' => 'implicit',
