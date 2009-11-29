@@ -3530,6 +3530,9 @@ KronolithEventMap =
    onGeocode: function(r) { },
 
    geocode: function(a) {
+       if (!a) {
+           return;
+       }
        var gc = new HordeMap.Geocoder[Kronolith.conf.maps.geocoder]();
        gc.geocode(a, function(r) {
            r = r.shift();
