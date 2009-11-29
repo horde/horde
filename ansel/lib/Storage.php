@@ -962,8 +962,7 @@ class Ansel_Storage
         $this->_db->setLimit($count, $from);
         $sql = 'SELECT ' . $fields . ' FROM ansel_images ' . $query_where . ' ORDER BY ' . $sort;
         Horde::logMessage('Query by Ansel_Storage::listImages: ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
-        $results = $this->_db->query('SELECT ' . $fields . ' FROM ansel_images '
-            . $query_where . ' ORDER BY ' . $sort);
+        $results = $this->_db->query($sql);
         if ($results instanceof PEAR_Error) {
             throw new Horde_Exception($results->getMessage());
         }
@@ -1026,7 +1025,11 @@ class Ansel_Storage
      */
     public function getRecentImagesGeodata($user = null, $start = 0, $count = 8)
     {
-        $galleries = $this->listGalleries('Horde_Perms::EDIT', $user);
+        $galleries = $this->listGalleries(Horde_Perms::EDIT, $user);
+        if (empty($galleries)) {
+            return array();
+        }
+
         $where = 'gallery_id IN(' . implode(',', array_keys($galleries)) . ') AND LENGTH(image_latitude) > 0 GROUP BY image_latitude, image_longitude';
         return $this->listImages(0, $start, $count, array('image_id as id', 'image_id', 'gallery_id', 'image_latitude', 'image_longitude', 'image_location'), $where, 'image_geotag_date DESC');
     }
