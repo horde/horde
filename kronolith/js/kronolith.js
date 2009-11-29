@@ -2834,6 +2834,11 @@ KronolithCore = {
                 this.go('calendar:' + elt.next().retrieve('calendarclass') + '|' + elt.next().retrieve('calendar'));
                 e.stop();
                 return;
+
+            case 'kronolithEventGeo':
+                KronolithEventMap.geocode($F('kronolithEventLocation'));
+                e.stop();
+                return;
             }
 
             if (elt.hasClassName('kronolithEvent')) {
@@ -3508,7 +3513,7 @@ KronolithEventMap =
    onGeocode: function(r) { },
 
    geocode: function(a) {
-       var gc = new HordeMap.Geocoder[Kronolith.geocoderType]();
+       var gc = new HordeMap.Geocoder[Kronolith.conf.maps.geocoder]();
        gc.geocode(a, function(r) {
            r = r.shift();
            ll = new OpenLayers.LonLat(r.Longitude, r.Latitude);
