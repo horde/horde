@@ -199,6 +199,21 @@ class Horde_Vcs
     }
 
     /**
+     * Given two revisions, this figures out which one is greater than the
+     * the other.
+     *
+     * @param string $rev1  Revision string.
+     * @param string $rev2  Second revision string.
+     *
+     * @return integer  1 if the first is greater, -1 if the second if greater,
+     *                  and 0 if they are equal
+     */
+    public function cmp($rev1, $rev2)
+    {
+        return strcasecmp($rev1, $rev2);
+    }
+
+    /**
      * TODO
      */
     public function isFile($where)
