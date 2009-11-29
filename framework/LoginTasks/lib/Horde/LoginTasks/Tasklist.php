@@ -69,11 +69,11 @@ class Horde_LoginTasks_Tasklist
         if (($task->display == Horde_LoginTasks::DISPLAY_AGREE) ||
             ($task->display == Horde_LoginTasks::DISPLAY_NOTICE)) {
             $tmp['display'] = true;
-            $this->_addFlag = false;
+            $this->_addFlag = true;
         } elseif (($task->display != Horde_LoginTasks::DISPLAY_NONE) &&
                   !$this->_addFlag) {
             $tmp['display'] = true;
-            $this->_addFlag = true;
+            $this->_addFlag = false;
         }
 
         switch ($task->priority) {
