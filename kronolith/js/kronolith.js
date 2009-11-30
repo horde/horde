@@ -127,7 +127,11 @@ KronolithCore = {
                     break;
                 }
                 message = m.alarm.title.escapeHTML();
-                if (!Object.isUndefined(m.alarm.url)) {
+                if (!Object.isUndefined(m.alarm.ajax)) {
+                    message = new Element('a')
+                        .insert(message)
+                        .observe('click', function() { this.go(m.alarm.ajax); }.bind(this));
+                } else if (!Object.isUndefined(m.alarm.url)) {
                     message = new Element('a', { 'href': m.alarm.url })
                         .insert(message);
                 }
