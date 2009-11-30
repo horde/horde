@@ -1964,6 +1964,11 @@ KronolithCore = {
         } else {
             $('kronolithTaskDelete').hide();
         }
+        if (task.pe || task.pd) {
+            $('kronolithTaskForm').down('.kronolithFormActions').down('.kronolithSep').show();
+        } else {
+            $('kronolithTaskForm').down('.kronolithFormActions').down('.kronolithSep').hide();
+        }
 
         this.setTitle(task.n);
         RedBox.showHtml($('kronolithTaskDialog').show());
@@ -3311,6 +3316,11 @@ KronolithCore = {
             $('kronolithEventDelete').show();
         } else {
             $('kronolithEventDelete').hide();
+        }
+        if (ev.pe || ev.pd) {
+            $('kronolithEventForm').down('.kronolithFormActions').down('.kronolithSep').show();
+        } else {
+            $('kronolithEventForm').down('.kronolithFormActions').down('.kronolithSep').hide();
         }
 
         this.setTitle(ev.t);
