@@ -21,13 +21,21 @@ class Horde_Mime_Viewer_Report extends Horde_Mime_Viewer_Driver
     protected function _getViewer()
     {
         if (!($type = $this->_mimepart->getContentTypeParameter('report-type'))) {
-            return false;
+            /* This is a broken RFC 3462 message, since 'report-type' is
+             * mandatory. Try to determine the report-type by looking at the
+             * sub-type of the second body part. */
+            $parts = $this->_mimepart->getParts();
+            if (!isset($parts[1])) {
+                return false;
+            }
+            $type = $parts[1]->getSubType();
         }
 
         $viewer = Horde_Mime_Viewer::factory($this->_mimepart, 'message/' . Horde_String::lower($type));
         if ($viewer) {
             $viewer->setParams($this->_params);
         }
+
         return $viewer;
     }
 }
