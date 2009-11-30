@@ -1298,7 +1298,7 @@ class IMP_Compose
             }
         }
 
-        if (in_array($type, array('reply_all', '*'))) {
+        if (in_array($type, array('reply_all', 'reply_auto', '*'))) {
             /* Filter out our own address from the addresses we reply to. */
             $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
             $all_addrs = array_keys($identity->getAllFromAddresses(true));
@@ -1340,6 +1340,12 @@ class IMP_Compose
                     $hdr_cc[] = $ob['address'] . ', ';
                 }
             }
+
+            /* Clear the To field if we are auto-determining list. */
+            if ($type == 'reply_auto') {
+                $header['to'] = '';
+            }
+
             $header[empty($header['to']) ? 'to' : 'cc'] = rtrim(implode('', $hdr_cc), ' ,');
 
             /* Build the Bcc: header. */
