@@ -33,4 +33,12 @@ class Horde_Registry_Application
      */
     public $disabled = array();
 
+    /**
+     * Initialization. Does any necessary init needed to setup the full
+     * environment for the application.
+     */
+    public function init()
+    {
+    }
+
 }

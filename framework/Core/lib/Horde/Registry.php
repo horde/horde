@@ -823,8 +823,10 @@ class Horde_Registry
      *                 ONLY be disabled by system scripts (cron jobs, etc.)
      *                 and scripts that handle login.
      *                 DEFAULT: true
-     * 'load_base' - (boolean) Load the application's base.php file?
-     *               DEFAULT: false
+     * 'init' - (boolean) Init the application (by either loading the
+     *          application's base.php file (deprecated) or calling init()
+     *          on the Application object)?
+     *          DEFAULT: false
      * 'logintasks' - (boolean) Perform login tasks? Only performed if
      *                'check_perms' is also true. System tasks are always
      *                peformed if the user is authorized.
@@ -912,19 +914,22 @@ class Horde_Registry
             throw $e;
         } catch (Horde_Exception_HookNotSet $e) {}
 
+        /* Initialize application. */
+        if (!empty($options['init']) ||
+            ($checkPerms && !empty($options['logintasks']))) {
+            if (file_exists($app_lib . '/base.php')) {
+                // TODO: Remove once there is no more base.php files
+                require_once $app_lib . '/base.php';
+            } else {
+                $this->callAppMethod($app, 'init');
+            }
+        }
+
         /* Do login tasks. */
         if ($checkPerms) {
             $tasks = Horde_LoginTasks::singleton($app);
             if (!empty($options['logintasks'])) {
                 $tasks->runTasks(false, Horde::selfUrl(true, true, true));
-            }
-        }
-
-        /* Include base.php file. */
-        // TODO: Remove once there is no more base.php files
-        if (!empty($options['load_base'])) {
-            if (file_exists($app_lib . '/base.php')) {
-                require_once $app_lib . '/base.php';
             }
         }
 
