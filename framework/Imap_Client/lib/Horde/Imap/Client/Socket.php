@@ -2014,7 +2014,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $tsort = (isset($options['criteria']))
             ? (is_string($options['criteria']) ? strtoupper($options['criteria']) : $thread_criteria[$options['criteria']])
-            : 'REFERENCES';
+            : 'ORDEREDSUBJECT';
 
         $cap = $this->queryCapability('THREAD');
         if (!$cap || !in_array($tsort, $cap)) {

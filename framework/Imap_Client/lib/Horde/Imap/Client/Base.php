@@ -1481,6 +1481,7 @@ abstract class Horde_Imap_Client_Base
      *              Horde_Imap_Client::THREAD_REFS. Additionally, other
      *              algorithms can be explicitly specified by passing the IMAP
      *              thread algorithm in as a string.
+     *              DEFAULT: Horde_Imap_Client::THREAD_ORDEREDSUBJECT
      * 'search' - (object) The search query (a
      *            Horde_Imap_Client_Search_Query object).
      *            DEFAULT: All messages in mailbox included in thread sort.
@@ -1523,7 +1524,7 @@ abstract class Horde_Imap_Client_Base
     /**
      * Thread sort a given list of messages (RFC 5256).
      *
-     * @param array $options  Additional options.
+     * @param array $options  Additional options. See thread().
      *
      * @return array  An array with the following values, one per message,
      *                with the key being either the UID (default) or the
