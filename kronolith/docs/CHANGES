@@ -2,6 +2,7 @@
 v3.0-git
 --------
 
+[jan] Add task management capabilities to the Ajax interface.
 [jan] Manage holidays like any other calendar driver.
 [mjr] Add support for resource scheduling.
 [jan] Integrate tasks into Ajax interface (Gonçalo Queirós
