@@ -266,7 +266,7 @@ KronolithCore = {
                 if (this.view == loc && date.getYear() == this.date.getYear() &&
                     ((loc == 'year') ||
                      (loc == 'month' && date.getMonth() == this.date.getMonth()) ||
-                     (loc == 'week' && date.getWeek() == this.date.getWeek()) ||
+                     (loc == 'week' && date.getRealWeek() == this.date.getRealWeek()) ||
                      ((loc == 'day'  || loc == 'agenda') && date.dateString() == this.date.dateString()))) {
                          return;
                 }
@@ -455,7 +455,7 @@ KronolithCore = {
                 dates = this.viewDates(date, view),
                 day = dates[0].clone();
 
-            $('kronolithViewWeek').down('caption span').innerHTML = this.setTitle(Kronolith.text.week.interpolate({ 'week': date.getWeek() }));
+            $('kronolithViewWeek').down('caption span').innerHTML = this.setTitle(Kronolith.text.week.interpolate({ 'week': date.getRealWeek() }));
 
             for (var i = 0; i < 7; i++) {
                 div.writeAttribute('id', 'kronolithEventsWeek' + day.dateString());
@@ -558,15 +558,9 @@ KronolithCore = {
      */
     createWeekRow: function(date, month, viewDates)
     {
-        var monday = date.clone(), day = date.clone(),
-            today = new Date().dateString(),
+        var day = date.clone(), today = new Date().dateString(),
             start = viewDates[0].dateString(), end = viewDates[1].dateString(),
             row, cell, dateString;
-
-        // Find monday of the week, to determine the week number.
-        if (monday.getDay() != 1) {
-            monday.moveToDayOfWeek(1, 1);
-        }
 
         // Create a copy of the row template.
         row = $('kronolithRowTemplate').cloneNode(true);
@@ -574,8 +568,8 @@ KronolithCore = {
 
         // Fill week number and day cells.
         cell = row.down()
-            .setText(monday.getWeek())
-            .store('date', monday.dateString())
+            .setText(date.getRealWeek())
+            .store('date', date.dateString())
             .next();
         while (cell) {
             dateString = day.dateString();
@@ -780,12 +774,13 @@ KronolithCore = {
                 tbody.insert(tr);
                 td = new Element('td', { 'class': 'kronolithMinicalWeek' })
                     .store('weekdate', dateString);
-                td.innerHTML = day.getWeek();
+                td.innerHTML = day.getRealWeek();
                 tr.insert(td);
                 weekStart = day.clone();
                 weekEnd = day.clone();
                 weekEnd.add(6).days();
             }
+
             // Insert day cell.
             td = new Element('td').store('date', dateString);
             if (day.getMonth() != date.getMonth()) {
@@ -793,6 +788,7 @@ KronolithCore = {
             } else if (!Object.isUndefined(idPrefix)) {
                 td.id = idPrefix + dateString;
             }
+
             // Highlight days currently being displayed.
             if (view &&
                 (view == 'month' ||
@@ -801,6 +797,7 @@ KronolithCore = {
                  (view == 'agenda' && !day.isBefore(date) && day.isBefore(date7)))) {
                 td.addClassName('kronolithSelected');
             }
+
             // Highlight today.
             if (day.equals(today)) {
                 td.addClassName('kronolithToday');
