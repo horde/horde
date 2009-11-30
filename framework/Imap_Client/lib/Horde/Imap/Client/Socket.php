@@ -2009,7 +2009,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $thread_criteria = array(
             Horde_Imap_Client::THREAD_ORDEREDSUBJECT => 'ORDEREDSUBJECT',
             Horde_Imap_Client::THREAD_REFERENCES => 'REFERENCES',
-            Horde_Imap_Client::THREAD_REFERENCES => 'REFS'
+            Horde_Imap_Client::THREAD_REFS => 'REFS'
         );
 
         $tsort = (isset($options['criteria']))
