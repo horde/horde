@@ -15,6 +15,11 @@
       <td>
       </td>
     </tr>
+    <tr id="kronolithAgendaNoItems" style="display:none">
+      <td colspan="2">
+        <?php echo _("No items") ?>
+      </td>
+    </tr>
   </tbody>
 </table>
 </div>

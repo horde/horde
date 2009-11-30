@@ -519,7 +519,8 @@ KronolithCore = {
             // Remove old rows. Maybe we should only rebuild the calendars if
             // necessary.
             tbody = $('kronolithViewAgendaBody').childElements().each(function(row) {
-                if (row.identify() != 'kronolithAgendaTemplate') {
+                if (row.identify() != 'kronolithAgendaTemplate' &&
+                    row.identify() != 'kronolithAgendaNoItems') {
                     row.remove();
                 }
             });
@@ -1147,7 +1148,16 @@ KronolithCore = {
                 this._insertEvent(event, date, view);
             }, this);
 
-            if (view == 'year') {
+            switch (view) {
+            case 'agenda':
+                if ($('kronolithViewAgendaBody').select('tr').length > 2) {
+                    $('kronolithAgendaNoItems').hide();
+                } else {
+                    $('kronolithAgendaNoItems').show();
+                }
+                break;
+
+            case 'year':
                 td = $('kronolithYear' + date);
                 td.className = '';
                 if (title) {
@@ -1719,6 +1729,12 @@ KronolithCore = {
                 this._insertTask(task);
             }, this);
         }, this);
+
+        if ($('kronolithViewTasksBody').select('tr').length > 3) {
+            $('kronolithTasksNoItems').hide();
+        } else {
+            $('kronolithTasksNoItems').show();
+        }
     },
 
     /**
@@ -1767,7 +1783,7 @@ KronolithCore = {
     {
         var rows = $('kronolithViewTasksBody').select('tr');
         // The first row is the add task row, the second a template, ignoring.
-        for (var i = 2; i < rows.length; i++) {
+        for (var i = 3; i < rows.length; i++) {
             var rowTasklist = rows[i].retrieve('tasklist');
             var rowTaskId = rows[i].retrieve('taskid');
             var rowTask = this.tcache.inject(null, function(acc, list) {
