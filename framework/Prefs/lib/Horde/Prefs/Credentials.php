@@ -21,6 +21,13 @@ class Horde_Prefs_Credentials
     static protected $_instance = null;
 
     /**
+     * Cache for getCredentials().
+     *
+     * @var array
+     */
+    static protected $_credentialsCache = null;
+
+    /**
      * The Horde application currently processed.
      *
      * @see singleton()
@@ -34,13 +41,6 @@ class Horde_Prefs_Credentials
      * @var array
      */
     protected $_credentials = array();
-
-    /**
-     * Cache for getCredentials().
-     *
-     * @var array
-     */
-    protected $_credentialsCache = null;
 
     /**
      * Constructor.
@@ -81,13 +81,13 @@ class Horde_Prefs_Credentials
      *
      * @return array  A list of Horde applications and their credentials.
      */
-    public function getCredentials()
+    static public function getCredentials()
     {
-        if (!is_null($this->_credentialsCache)) {
-            return $this->_credentialsCache;
+        if (!is_null(self::$_credentialsCache)) {
+            return self::$_credentialsCache;
         }
 
-        $credentials_prefs = array();
+        self::$_credentialsCache = array();
         foreach ($GLOBALS['registry']->listApps() as $app) {
             try {
                 $credentials = $GLOBALS['registry']->callAppMethod($app, 'authCredentials');
@@ -99,24 +99,24 @@ class Horde_Prefs_Credentials
                 continue;
             }
 
-            $credentials_prefs[$app] = array();
+            self::$_credentialsCache[$app] = array();
             foreach ($credentials as $name => $credential) {
                 $pref = 'credentials[' . $app . '][' . $name . ']';
                 $credential['shared'] = true;
-                $credentials_prefs[$app][$pref] = $credential;
+                self::$_credentialsCache[$app][$pref] = $credential;
             }
         }
 
-        return $credentials_prefs;
+        return self::$_credentialsCache;
     }
 
     /**
      * Displays the preference interface for setting all available
      * credentials.
      */
-    public function showUi()
+    static public function showUi()
     {
-        $credentials = $this->getCredentials();
+        $credentials = self::getCredentials();
         $vspace = '';
         foreach ($credentials as $app => $_prefs) {
             $prefs = Horde_Prefs_Credentials::singleton($app);
