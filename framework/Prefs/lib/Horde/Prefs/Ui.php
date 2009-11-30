@@ -1,13 +1,21 @@
 <?php
 /**
- * Class for auto-generating the preferences user interface and
- * processing the forms.
+ * Class for auto-generating the preferences user interface and processing
+ * the forms.
  *
  * Set $_SESSION['horde_prefs']['nomenu'] to true to suppress output of the
  * Horde_Menu on the options pages.
  *
  * For 'special' group types, set 'prefsui_no_save' to suppress printing of
  * the "Save Changes" and "Undo Changes" buttons.
+ *
+ * The following Application API callbacks are available:
+ * prefsCallback - TODO
+ * prefsInit - TODO
+ * prefsMenu - TODO
+ * prefsSpecial - TODO
+ * prefsSpecialGenerate - TODO
+ * prefsStatus - TODO
  *
  * Copyright 2001-2009 The Horde Project (http://www.horde.org/)
  *
@@ -84,11 +92,10 @@ class Horde_Prefs_Ui
                     if (!$prefs->isLocked($pref) ||
                         ($_prefs[$pref]['type'] == 'special')) {
                         switch ($_prefs[$pref]['type']) {
-
-                        /* These either aren't set or are set in other
-                         * parts of the UI. */
                         case 'implicit':
                         case 'link':
+                            /* These either aren't set or are set in other
+                             * parts of the UI. */
                             break;
 
                         case 'select':
@@ -169,8 +176,8 @@ class Horde_Prefs_Ui
                         case 'special':
                             /* Code for special elements written specifically
                              * for each application. */
-                            if ($registry->hasAppMethod($app, 'prefsHandle')) {
-                                $updated = $updated | $registry->callAppMethod($app, 'prefsHandle', array('args' => array($pref, $updated)));
+                            if ($registry->hasAppMethod($app, 'prefsSpecial')) {
+                                $updated = $updated | $registry->callAppMethod($app, 'prefsSpecial', array('args' => array($pref, $updated)));
                             }
                             break;
                         }
@@ -260,7 +267,10 @@ class Horde_Prefs_Ui
                         break;
 
                     case 'special':
-                        require $registry->get('templates', empty($_prefs[$pref]['shared']) ? $registry->getApp() : 'horde') . '/prefs/' . $pref . '.inc';
+                        if (!$registry->hasAppMethod($app, 'prefsSpecialGenerate') ||
+                            $registry->callAppMethod($app, 'prefsSpecialGenerate', array('args' => array($pref)))) {
+                            require $registry->get('templates', empty($_prefs[$pref]['shared']) ? $registry->getApp() : 'horde') . '/prefs/' . $pref . '.inc';
+                        }
                         break;
 
                     default:
