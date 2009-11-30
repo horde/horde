@@ -162,7 +162,7 @@
   </table>
 </div>
 
-<div id="kronolithEventTabTags" class="kronolithTabsOption kronolithTabTags" style="display:none">
+<div id="kronolithEventTabTags" class="kronolithTabsOption" style="display:none">
   <input id="kronolithEventTags" name="tags" />
   <span id="kronolithEventTags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
   <div class="kronolithTopTags" id="kronolithEventTopTags"></div>
