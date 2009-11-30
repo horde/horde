@@ -31,7 +31,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add support for RFC 5258 (LIST-EXTENDED).
+ <notes>* Add support for THREAD=REFS (draft-ietf-morg-inthread-00).
+ * Add support for RFC 5258 (LIST-EXTENDED).
  * Add Horde_Imap_Client_Utils::createUrl().
  * Support SORT=DISPLAY extension.
  * Added search and thread (message list) caching.

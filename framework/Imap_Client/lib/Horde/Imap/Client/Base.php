@@ -1476,8 +1476,9 @@ abstract class Horde_Imap_Client_Base
      * @param array $options   Additional options:
      * <pre>
      * 'criteria' - (mixed) The following thread criteria are available:
-     *              Horde_Imap_Client::THREAD_ORDEREDSUBJECT, and
-     *              Horde_Imap_Client::THREAD_REFERENCES. Additionally, other
+     *              Horde_Imap_Client::THREAD_ORDEREDSUBJECT,
+     *              Horde_Imap_Client::THREAD_REFERENCES, and
+     *              Horde_Imap_Client::THREAD_REFS. Additionally, other
      *              algorithms can be explicitly specified by passing the IMAP
      *              thread algorithm in as a string.
      * 'search' - (object) The search query (a

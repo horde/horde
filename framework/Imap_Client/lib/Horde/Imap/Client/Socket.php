@@ -36,6 +36,7 @@
  *   RFC 5464 - METADATA
  *
  *   draft-ietf-morg-sortdisplay-02 - SORT=DISPLAY
+ *   draft-ietf-morg-inthread-00 - THREAD=REFS
  *
  *   [NO RFC] - XIMAPPROXY
  *       + Requires imapproxy v1.2.7-rc1 or later
@@ -55,6 +56,8 @@
  *   RFC 5267 - CONTEXT
  *   RFC 5465 - NOTIFY
  *   RFC 5466 - FILTERS
+ *
+ *   draft-ietf-morg-inthread-00 - SEARCH=INTHREAD
  *
  * Originally based on code from:
  *   + auth.php (1.49)
@@ -2005,7 +2008,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         $thread_criteria = array(
             Horde_Imap_Client::THREAD_ORDEREDSUBJECT => 'ORDEREDSUBJECT',
-            Horde_Imap_Client::THREAD_REFERENCES => 'REFERENCES'
+            Horde_Imap_Client::THREAD_REFERENCES => 'REFERENCES',
+            Horde_Imap_Client::THREAD_REFERENCES => 'REFS'
         );
 
         $tsort = (isset($options['criteria']))
@@ -2014,7 +2018,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $cap = $this->queryCapability('THREAD');
         if (!$cap || !in_array($tsort, $cap)) {
-            if ($tsort == 'ORDEREDSUBJECT') {
+            switch ($tsort) {
+            case 'ORDEREDSUBJECT':
                 if (empty($options['search'])) {
                     $ids = array();
                 } else {
@@ -2025,8 +2030,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 /* Do client-side ORDEREDSUBJECT threading. */
                 $fetch_res = $this->fetch($this->_selected, array(Horde_Imap_Client::FETCH_ENVELOPE => true, Horde_Imap_Client::FETCH_DATE => true), array('ids' => $ids, 'sequence' => !empty($options['sequence'])));
                 return $this->_clientThreadOrderedsubject($fetch_res);
-            } else {
-                throw new Horde_Imap_Client_Exception('Server does not support REFERENCES thread sort.', Horde_Imap_Client_Exception::NOSUPPORTIMAPEXT);
+
+            case 'REFERENCES':
+            case 'REFS':
+                throw new Horde_Imap_Client_Exception('Server does not support ' . $tsort . ' thread sort.', Horde_Imap_Client_Exception::NOSUPPORTIMAPEXT);
             }
         }
 

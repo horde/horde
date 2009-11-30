@@ -122,6 +122,7 @@ class Horde_Imap_Client
     /* Constants for thread() */
     const THREAD_ORDEREDSUBJECT = 1;
     const THREAD_REFERENCES = 2;
+    const THREAD_REFS = 3;
 
     /* Constants for fetch() */
     const FETCH_STRUCTURE = 1;
