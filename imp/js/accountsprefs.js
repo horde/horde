@@ -8,10 +8,13 @@
 var ImpAccountsPrefs = {
     // Variables set by other code: confirm_delete
 
-    _sendData: function(a, d)
+    _sendData: function(a, d, c)
     {
         $('accounts_action').setValue(a)
         $('accounts_data').setValue(d);
+        if (c) {
+            $('prefs').getInputs('hidden', 'actionID').first().clear();
+        }
         $('prefs').submit();
     },
 
@@ -38,11 +41,11 @@ var ImpAccountsPrefs = {
                 break;
 
             case 'cancel_button':
-                this._sendData('', '');
+                this._sendData('', '', true);
                 break;
 
             case 'new_button':
-                this._sendData('new', '');
+                this._sendData('new', '', true);
                 break;
             }
 
