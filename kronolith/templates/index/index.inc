@@ -62,14 +62,9 @@
     </table>
   </div>
 
-  <h3 class="search">
-    <span><?php echo _("Search") ?></span>
-  </h3>
-
   <form id="kronolithSearchForm" action="">
-    <input type="text" id="kronolithSearchTerm" />
-    <input id="kronolithSearchButton" type="button" value="OK" class="button ok" />
-    <input id="kronolithSearchAdvanced" type="button" value="+" class="button" />
+    <input type="text" id="kronolithSearchTerm" value="<?php echo _("Search") ?>" default="<?php echo _("Search") ?>" />
+    <input id="kronolithSearchButton" type="image" src="<?php echo $GLOBALS['registry']->getImageDir() ?>/search-button.png" />
   </form>
 
   <div id="kronolithMenuCalendars">

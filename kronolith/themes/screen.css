@@ -428,7 +428,7 @@ body.kronolithAjax {
 }
 #kronolithMenuCalendars {
     position: absolute;
-    top: 295px;
+    top: 265px;
     bottom: 0;
     width: 100%;
     overflow: auto;
@@ -444,12 +444,16 @@ body.kronolithAjax {
     border-bottom: 1px #000 dotted;
     cursor: default;
 }
-#kronolithMenu h3.search {
-    top: 15px;
+#kronolithMenu form {
+    padding: 0;
+    margin: 15px 0 5px 0;
 }
 #kronolithSearchForm {
     position: relative;
     top: 15px;
+}
+#kronolithSearchTerm {
+    width: 127px;
 }
 #kronolithMenu h3#kronolithCalendarsFirst {
     margin-top: 0;
@@ -512,14 +516,6 @@ span#kronolithQuickEvent {
     width: 16px;
     background: transparent url("graphics/new.png") no-repeat;
     color: transparent;
-}
-
-#kronolithMenu form {
-    padding: 0;
-    margin: 0 0 5px 0;
-}
-#kronolithSearchTerm {
-    width: 90px;
 }
 
 /* Quick edit */

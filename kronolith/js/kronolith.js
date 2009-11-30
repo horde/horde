@@ -3407,6 +3407,17 @@ KronolithCore = {
         document.observe('dblclick', KronolithCore.clickHandler.bindAsEventListener(KronolithCore, true));
         document.observe('mouseover', KronolithCore.mouseHandler.bindAsEventListener(KronolithCore, 'over'));
 
+        $('kronolithSearchTerm').observe('focus', function() {
+            if ($F(this) == this.readAttribute('default')) {
+                this.clear();
+            }
+        });
+        $('kronolithSearchTerm').observe('blur', function() {
+            if (!$F(this)) {
+                this.setValue(this.readAttribute('default'));
+            }
+        });
+
         if (Horde.dhtmlHistory.initialize()) {
             Horde.dhtmlHistory.addListener(this.go.bind(this));
         }
