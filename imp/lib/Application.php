@@ -682,10 +682,7 @@ class IMP_Application extends Horde_Registry_Application
         }
 
         if ($prefs->isDirty('subscribe') || $prefs->isDirty('tree_view')) {
-            $imp_folder = IMP_Folder::singleton();
-            $imp_folder->clearFlistCache();
-            $imaptree = IMP_Imap_Tree::singleton();
-            $imaptree->init();
+            $this->_mailboxesChanged();
         }
 
         if ($prefs->isDirty('mail_domain')) {
@@ -915,6 +912,7 @@ class IMP_Application extends Horde_Registry_Application
      */
     protected function _prefsAccountsManagement()
     {
+        $success = false;
         $vars = Horde_Variables::getDefaultVariables();
 
         switch ($vars->accounts_action) {
@@ -945,6 +943,8 @@ class IMP_Application extends Horde_Registry_Application
                         'username' => $vars->accounts_username
                     ));
                     $GLOBALS['notification']->push(sprintf(_("Account \"%s\" added."), $vars->accounts_server), 'horde.success');
+
+                    $success = true;
                 }
             break;
 
@@ -953,8 +953,13 @@ class IMP_Application extends Horde_Registry_Application
             $tmp = $imp_accounts->getAccount($vars->accounts_data);
             if ($imp_accounts->deleteAccount($vars->accounts_data)) {
                 $GLOBALS['notification']->push(sprintf(_("Account \"%s\" deleted."), $tmp['server']), 'horde.success');
+                $success = true;
             }
             break;
+        }
+
+        if ($success) {
+            $this->_mailboxesChanged();
         }
     }
 
@@ -1050,10 +1055,7 @@ class IMP_Application extends Horde_Registry_Application
             return;
         }
 
-        $imp_folder = IMP_Folder::singleton();
-        $imp_folder->clearFlistCache();
-        $imaptree = IMP_Imap_Tree::singleton();
-        $imaptree->init();
+        $this->_mailboxesChanged();
         $GLOBALS['imp_search']->initialize(true);
     }
 
@@ -1095,6 +1097,19 @@ class IMP_Application extends Horde_Registry_Application
         );
 
         return $credentials;
+    }
+
+    /* Helper methods. */
+
+    /**
+     * Run tasks when the mailbox list has changed.
+     */
+    protected function _mailboxesChanged()
+    {
+        $imp_folder = IMP_Folder::singleton();
+        $imp_folder->clearFlistCache();
+        $imaptree = IMP_Imap_Tree::singleton();
+        $imaptree->init();
     }
 
 }
