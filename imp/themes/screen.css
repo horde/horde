@@ -223,6 +223,8 @@ span.trashImg {
 /* Style for div that fixes KHTML browsers. */
 .ohide {
     overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
 }
 
 /* Style for HTML data iframe. */
