@@ -25,7 +25,7 @@ KronolithCore = {
     eventsLoading: {},
     loading: 0,
     fbLoading: 0,
-    date: new Date(),
+    date: Date.today(),
     tasktype: 'incomplete',
     growls: 0,
     alarms: [],
@@ -762,8 +762,6 @@ KronolithCore = {
         var dates = this.viewDates(date, 'month'), day = dates[0].clone(),
             date7 = date.clone().add(1).week(), today = Date.today(),
             weekStart, weekEnd, weekEndDay, dateString, td, tr, i;
-
-        day = new Date(day.getFullYear(), day.getMonth(), day.getDate(), 0, 0, 0);
 
         // Remove old calendar rows. Maybe we should only rebuild the minical
         // if necessary.

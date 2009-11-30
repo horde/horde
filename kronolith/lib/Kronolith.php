@@ -75,9 +75,9 @@ class Kronolith
         Horde::addScriptFile('dhtmlHistory.js', 'horde');
         Horde::addScriptFile('redbox.js', 'horde');
         Horde::addScriptFile('tooltips.js', 'horde');
-        Horde::addScriptFile('kronolith.js', 'kronolith');
         Horde::addScriptFile($datejs, 'kronolith');
         Horde::addScriptFile('date.js', 'kronolith');
+        Horde::addScriptFile('kronolith.js', 'kronolith');
 
         // No IE 8 code at the moment.
         header('X-UA-Compatible: IE=7');
