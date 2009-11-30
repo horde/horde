@@ -125,7 +125,7 @@
 <if:stationery>
  <tr>
   <td class="light rightAlign" valign="middle"><strong><tag:stationery_label />&nbsp;</strong></td>
-  <td class="item" colspan="2">
+  <td class="item">
    <select name="stationery" id="stationery">
     <option value=""><gettext>Select stationery:</gettext></option>
 <loop:stationeries>
@@ -154,7 +154,7 @@
 <if:ssm>
  <tr>
   <td>&nbsp;</td>
-  <td class="item" colspan="2">
+  <td class="item">
    <input id="ssm" type="checkbox" class="checkbox" name="save_sent_mail" <if:ssm_selected>checked="checked" </if:ssm_selected>/>
    <tag:ssm_label />
 <if:ssm_folders>
@@ -169,7 +169,7 @@
 <if:rrr>
  <tr>
   <td>&nbsp;</td>
-  <td class="item" colspan="2">
+  <td class="item">
    <input id="rrr" type="checkbox" class="checkbox" name="request_read_receipt" <if:rrr_selected>checked="checked" </if:rrr_selected>/> <tag:rrr_label />
   </td>
  </tr>
@@ -178,7 +178,7 @@
 <if:compose_html>
  <tr>
   <td>&nbsp;</td>
-  <td class="item" colspan="2">
+  <td class="item">
    <tag:html_img />
    <tag:html_switch />
    <if:rtemode><gettext>Switch to plain text composition</gettext><else:rtemode><gettext>Switch to HTML composition</gettext></else:rtemode></if:rtemode></a>
@@ -188,7 +188,7 @@
 
  <tr>
   <td class="light rightAlign" valign="top"><strong><tag:message_label />&nbsp;</strong></td>
-  <td class="item" colspan="2" id="composeMessageParent">
+  <td class="item" id="composeMessageParent">
    <textarea class="fixed composebody" tabindex="<tag:message_tabindex />" name="message" id="composeMessage" rows="20" cols="80"><tag:message /></textarea>
   </td>
  </tr>
@@ -231,7 +231,7 @@
 <if:vcard>
  <tr>
   <td>&nbsp;</td>
-  <td class="item nowrap" colspan="2">
+  <td class="item nowrap">
    <input id="vcard" type="checkbox" class="checkbox" name="vcard" <if:attach_vcard>checked="checked" </if:attach_vcard>/>
    <tag:vcard />
   </td>
@@ -266,7 +266,7 @@
      </td>
     </tr>
     <tr>
-     <td colspan="2">
+     <td>
       (<gettext>Maximum Attachment Size</gettext>: <tag:attach_size /> <gettext>bytes</gettext>)
      </td>
     </tr>
