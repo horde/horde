@@ -787,11 +787,10 @@ KronolithCore = {
             }
             // Insert day cell.
             td = new Element('td').store('date', dateString);
-            if (!Object.isUndefined(idPrefix)) {
-                td.id = idPrefix + dateString;
-            }
             if (day.getMonth() != date.getMonth()) {
                 td.addClassName('kronolithMinicalEmpty');
+            } else if (!Object.isUndefined(idPrefix)) {
+                td.id = idPrefix + dateString;
             }
             // Highlight days currently being displayed.
             if (view &&
