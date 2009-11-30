@@ -297,36 +297,34 @@
 <if:numberattach>
 <br />
 
-<div align="center">
- <div class="smallheader leftAlign">
-  <gettext>Current Attachments</gettext> (<gettext>Total Size:</gettext> <tag:total_attach_size /> <gettext>KB</gettext><if:perc_attach> / <tag:perc_attach /></if:perc_attach>)
- </div>
-
- <table class="leftAlign" cellspacing="0">
-<loop:atc>
-  <tr class="item">
-   <td>
-    <img style="padding-right:5px" src="<tag:atc.icon />" alt="[Icon]" />
-    <strong><tag:atc.name /></strong> &nbsp;(<tag:atc.type />) &nbsp;&nbsp;<strong><gettext>Size:</gettext></strong> <tag:atc.size /> <gettext>KB</gettext>
-   </td>
-  </tr>
-  <tr class="item">
-   <td style="padding-left:30px">
-    <table>
-     <tr>
-      <td class="rightAlign" valign="middle"><strong><label for="file_description_<tag:atc.number />"><gettext>Description:</gettext></label></strong>&nbsp;</td>
-      <td><input type="text" size="40" id="file_description_<tag:atc.number />" name="file_description_<tag:atc.number />" value="<tag:atc.description />" /></td>
-     </tr>
-     <tr>
-      <td class="rightAlign"><strong><label for="delattachment<tag:atc.number />"><gettext>Delete?</gettext></label></strong></td>
-      <td><input type="checkbox" class="checkbox" id="delattachment<tag:atc.number />" name="delattachments[]" value="<tag:atc.number />" /></td>
-     </tr>
-    </table>
-   </td>
-  </tr>
-</loop:atc>
- </table>
+<div class="smallheader leftAlign">
+ <gettext>Current Attachments</gettext> (<gettext>Total Size:</gettext> <tag:total_attach_size /> <gettext>KB</gettext><if:perc_attach> / <tag:perc_attach /></if:perc_attach>)
 </div>
+
+<table class="leftAlign attachList">
+<loop:atc>
+ <tr class="item">
+  <td>
+   <img style="padding-right:5px" src="<tag:atc.icon />" alt="[Icon]" />
+   <strong><tag:atc.name /></strong> &nbsp;(<tag:atc.type />) &nbsp;&nbsp;<strong><gettext>Size:</gettext></strong> <tag:atc.size /> <gettext>KB</gettext>
+  </td>
+ </tr>
+ <tr class="item">
+  <td style="padding-left:30px">
+   <table>
+    <tr>
+     <td class="rightAlign" valign="middle"><strong><label for="file_description_<tag:atc.number />"><gettext>Description:</gettext></label></strong>&nbsp;</td>
+     <td><input type="text" size="40" id="file_description_<tag:atc.number />" name="file_description_<tag:atc.number />" value="<tag:atc.description />" /></td>
+    </tr>
+    <tr>
+     <td class="rightAlign"><strong><label for="delattachment<tag:atc.number />"><gettext>Delete?</gettext></label></strong></td>
+     <td><input type="checkbox" class="checkbox" id="delattachment<tag:atc.number />" name="delattachments[]" value="<tag:atc.number />" /></td>
+    </tr>
+   </table>
+  </td>
+ </tr>
+</loop:atc>
+</table>
 </if:numberattach>
 </if:file_upload>
 

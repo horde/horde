@@ -266,6 +266,11 @@ span.trashImg {
     vertical-align: top;
 }
 
+.attachList {
+    width: 100%;
+    border-collapse: collapse;
+}
+
 /* Message flags definitions.
  * For background color, see config/prefs.php [msgflags preference]. */
 div.msgflags {
