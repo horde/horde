@@ -326,7 +326,7 @@ class IMP_Imap
     public function getNamespaceList()
     {
         try {
-            return $this->_ob->getNamespaces(!empty($_SESSION['imp']['imap_ext']['namespace']) ? $_SESSION['imp']['imap_ext']['namespace'] : array());
+            return $this->_ob->getNamespaces(!empty($_SESSION['imp']['imap']['namespace']) ? $_SESSION['imp']['imap']['namespace'] : array());
         } catch (Horde_Imap_Client_Exception $e) {
             // @todo Error handling
             return array();
