@@ -24,8 +24,6 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
      */
     public function execute()
     {
-        IMP::initialize();
-
         $this->_upgradeSortPrefs();
         $this->_upgradeVirtualFolders();
     }

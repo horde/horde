@@ -35,8 +35,6 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
      */
     public function execute()
     {
-        IMP::initialize();
-
         $imp_folder = IMP_Folder::singleton();
         $imp_message = IMP_Message::singleton();
 
@@ -84,8 +82,6 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
      */
     public function describe()
     {
-        IMP::initialize();
-
         $mbox_list = array_map(array('IMP', 'displayFolder'), $this->_getFolders());
 
         return sprintf(_("All messages in the folder(s) \"%s\" older than %s days will be permanently deleted."),

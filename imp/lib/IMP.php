@@ -50,61 +50,6 @@ class IMP
     /* prepareMenu() cache. */
     static private $_menuTemplate = null;
 
-    /* Has init previously been called? */
-    static private $_init = false;
-
-    /**
-     * Performs IMP initialization.
-     */
-    static public function initialize()
-    {
-        if (self::$_init) {
-            return;
-        }
-
-        if (!defined('IMP_TEMPLATES')) {
-            $registry = Horde_Registry::singleton();
-            define('IMP_TEMPLATES', $registry->get('templates'));
-        }
-
-        // Start compression.
-        if (!IMP_Application::$noCompress) {
-            Horde::compressOutput();
-        }
-
-        // Initialize global $imp_imap object.
-        if (!isset($GLOBALS['imp_imap'])) {
-            $GLOBALS['imp_imap'] = new IMP_Imap();
-        }
-
-        // Initialize some message parsing variables.
-        Horde_Mime::$brokenRFC2231 = !empty($GLOBALS['conf']['mailformat']['brokenrfc2231']);
-
-        // Set default message character set, if necessary
-        if ($def_charset = $GLOBALS['prefs']->getValue('default_msg_charset')) {
-            Horde_Mime_Part::$defaultCharset = $def_charset;
-            Horde_Mime_Headers::$defaultCharset = $def_charset;
-        }
-
-        $GLOBALS['notification'] = Horde_Notification::singleton();
-        $viewmode = self::getViewMode();
-
-        if ($viewmode == 'mimp') {
-            $GLOBALS['imp_notify'] = $GLOBALS['notification']->attach('status', null, 'IMP_Notification_Listener_StatusMobile');
-        } else {
-            $GLOBALS['imp_notify'] = $GLOBALS['notification']->attach('status', array('viewmode' => $viewmode), 'IMP_Notification_Listener_Status');
-            if ($viewmode == 'imp') {
-                $GLOBALS['notification']->attach('audio');
-            }
-        }
-
-        // Initialize global $imp_mbox array. This call also initializes the
-        // IMP_Search object.
-        IMP::setCurrentMailboxInfo();
-
-        self::$_init = true;
-    }
-
     /**
      * Returns the current view mode for IMP.
      *

@@ -24,8 +24,6 @@ class IMP_LoginTasks_SystemTask_GarbageCollection extends Horde_LoginTasks_Syste
      */
     public function execute()
     {
-        IMP::initialize();
-
         /* Purge non-existent nav_poll entries. */
         $imaptree = IMP_Imap_Tree::singleton();
         $imaptree->getPollList(true, true);

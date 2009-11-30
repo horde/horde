@@ -47,18 +47,18 @@ class IMP_Application extends Horde_Registry_Application
     public $version = 'H4 (5.0-git)';
 
     /**
+     * Disable compression of pages?
+     *
+     * @var boolean
+     */
+    protected $noCompress = false;
+
+    /**
      * The auth type to use.
      *
      * @var string
      */
     static public $authType = null;
-
-    /**
-     * Disable compression of pages?
-     *
-     * @var boolean
-     */
-    static public $noCompress = false;
 
     /**
      * Cached data for prefs pages.
@@ -68,19 +68,27 @@ class IMP_Application extends Horde_Registry_Application
     static public $prefsCache = array();
 
     /**
+     * Has init previously been called?
+     *
+     * @var boolean
+     */
+    static protected $_init = false;
+
+    /**
      * Constructor.
      *
      * @param array $args  The following entries:
      * <pre>
      * 'init' - (boolean|array) If true, perform application init. If an
-     *          array, perform application init and pass the array to init().
+     *          array, perform application init and pass the array to
+     *          self::_impInit().
      * 'tz' - (boolean) If true, sets the current time zone on the server.
      * </pre>
      */
     public function __construct($args = array())
     {
         if (!empty($args['init'])) {
-            $this->init(is_array($args['init']) ? $args['init'] : array());
+            $this->_impInit(is_array($args['init']) ? $args['init'] : array());
         }
 
         if (!empty($args['tz'])) {
@@ -88,7 +96,6 @@ class IMP_Application extends Horde_Registry_Application
         }
 
         /* Only available if admin config is set for this server/login. */
-        $this->disabled = array('init');
         if (empty($_SESSION['imp']['admin'])) {
             $this->disabled = array_merge($this->disabled, array('authAddUser', 'authRemoveUser', 'authUserList'));
         }
@@ -121,7 +128,7 @@ class IMP_Application extends Horde_Registry_Application
      *   [DEFAULT] - Start read/write session
      * </pre>
      */
-    public function init($args = array())
+    protected function _impInit($args = array())
     {
         $args = array_merge(array(
             'authentication' => null,
@@ -130,7 +137,7 @@ class IMP_Application extends Horde_Registry_Application
         ), $args);
 
         self::$authType = $args['authentication'];
-        self::$noCompress = $args['nocompress'];
+        $this->_noCompress = $args['nocompress'];
 
         // Registry.
         $s_ctrl = 0;
@@ -168,8 +175,59 @@ class IMP_Application extends Horde_Registry_Application
             Horde_Auth::authenticateFailure('imp', $e);
         }
 
-        // All other initialization occurs in IMP::initialize().
-        IMP::initialize();
+        $this->init();
+    }
+
+    /**
+     * Initialization function.
+     */
+    public function init()
+    {
+        if (self::$_init) {
+            return;
+        }
+
+        if (!defined('IMP_TEMPLATES')) {
+            $registry = Horde_Registry::singleton();
+            define('IMP_TEMPLATES', $registry->get('templates'));
+        }
+
+        // Start compression.
+        if (!$this->_noCompress) {
+            Horde::compressOutput();
+        }
+
+        // Initialize global $imp_imap object.
+        if (!isset($GLOBALS['imp_imap'])) {
+            $GLOBALS['imp_imap'] = new IMP_Imap();
+        }
+
+        // Initialize some message parsing variables.
+        Horde_Mime::$brokenRFC2231 = !empty($GLOBALS['conf']['mailformat']['brokenrfc2231']);
+
+        // Set default message character set, if necessary
+        if ($def_charset = $GLOBALS['prefs']->getValue('default_msg_charset')) {
+            Horde_Mime_Part::$defaultCharset = $def_charset;
+            Horde_Mime_Headers::$defaultCharset = $def_charset;
+        }
+
+        $GLOBALS['notification'] = Horde_Notification::singleton();
+        $viewmode = IMP::getViewMode();
+
+        if ($viewmode == 'mimp') {
+            $GLOBALS['imp_notify'] = $GLOBALS['notification']->attach('status', null, 'IMP_Notification_Listener_StatusMobile');
+        } else {
+            $GLOBALS['imp_notify'] = $GLOBALS['notification']->attach('status', array('viewmode' => $viewmode), 'IMP_Notification_Listener_Status');
+            if ($viewmode == 'imp') {
+                $GLOBALS['notification']->attach('audio');
+            }
+        }
+
+        // Initialize global $imp_mbox array. This call also initializes the
+        // IMP_Search object.
+        IMP::setCurrentMailboxInfo();
+
+        self::$_init = true;
     }
 
     /* Horde permissions. */
@@ -327,7 +385,7 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function authAuthenticate($userId, $credentials)
     {
-        $this->init(array('authentication' => 'none'));
+        $this->_impInit(array('authentication' => 'none'));
 
         $new_session = IMP_Auth::authenticate(array(
             'password' => $credentials['password'],
@@ -353,7 +411,7 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function authTransparent($auth_ob)
     {
-        $this->init(array('authentication' => 'none'));
+        $this->_impInit(array('authentication' => 'none'));
         return IMP_Auth::transparent($auth_ob);
     }
 
@@ -365,7 +423,7 @@ class IMP_Application extends Horde_Registry_Application
     public function authAuthenticateCallback()
     {
         if (Horde_Auth::getAuth()) {
-            $this->init();
+            $this->_impInit();
             IMP_Auth::authenticateCallback();
         }
     }
@@ -448,10 +506,6 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function prefsInit($group)
     {
-        /* TODO: Remove once Horde_Registry_Application calling is figured
-         * out and pushApp:load_base works again. */
-        IMP::initialize();
-
         /* Add necessary javascript files here (so they are added to the
          * document HEAD). */
         switch ($group) {
@@ -984,7 +1038,7 @@ class IMP_Application extends Horde_Registry_Application
     public function changeLanguage()
     {
         try {
-            $this->init(array('authentication' => 'throw'));
+            $this->_impInit(array('authentication' => 'throw'));
         } catch (Horde_Exception $e) {
             return;
         }

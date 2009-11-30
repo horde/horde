@@ -31,8 +31,6 @@ class IMP_LoginTasks_Task_DeleteSentmailMonthly extends Horde_LoginTasks_Task
      */
     public function execute()
     {
-        IMP::initialize();
-
         /* Get list of all folders, parse through and get the list of all
            old sent-mail folders. Then sort this array according to
            the date. */

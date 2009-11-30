@@ -29,8 +29,6 @@ class IMP_LoginTasks_Task_DeleteAttachmentsMonthly extends Horde_LoginTasks_Task
      */
     public function execute()
     {
-        IMP::initialize();
-
         /* Find the UNIX timestamp of the last second that we will not
          * purge. */
         $del_time = gmmktime(0, 0, 0, date('n') - $GLOBALS['prefs']->getValue('delete_attachments_monthly_keep'), 1, date('Y'));
