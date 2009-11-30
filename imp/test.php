@@ -117,11 +117,10 @@ if (!is_readable(HORDE_BASE . '/lib/Test.php')) {
 }
 
 require_once HORDE_BASE . '/lib/Test.php';
-$horde_test = new Horde_Test;
+$horde_test = new Horde_Test();
 
 /* IMP version. */
 $module = 'IMP';
-require_once dirname(__FILE__) . '/lib/Application.php';
 $app = new IMP_Application();
 $module_version = $app->version;
 

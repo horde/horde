@@ -112,7 +112,7 @@ class IMP_Application extends Horde_Registry_Application
      *             Horde_Exception
      *   [DEFAULT] - Authenticate to IMAP/POP server; on no auth redirect to
      *               login screen
-     * 'no_compress' - (boolean) Controls whether the page should be
+     * 'nocompress' - (boolean) Controls whether the page should be
      *                 compressed.
      * 'session_control' - (string) Sets special session control limitations:
      *   'netscape' - TODO; start read/write session

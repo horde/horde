@@ -1000,7 +1000,12 @@ class IMP_Compose
      * 'noattach' - (boolean) Don't add attachment information.
      * </pre>
      *
-     * @return array  TODO
+     * @return array  An array with the following keys:
+     * <pre>
+     * 'msg' - (string) The MIME message.
+     * 'recipients' - (array) The array of recipients.
+     * 'to' - (string) The recipients list in string format.
+     * </pre>
      * @throws Horde_Exception
      * @throws IMP_Compose_Exception
      */
@@ -2486,7 +2491,6 @@ class IMP_Compose
         }
 
         $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
-        // TODO: Garbage collection?
         $result = $vfs->writeData(self::VFS_DRAFTS_PATH, hash('md5', Horde_Util::getFormData('user')), $body, true);
         if ($result instanceof PEAR_Error) {
             return;
