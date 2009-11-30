@@ -929,8 +929,15 @@ class IMP_Application extends Horde_Registry_Application
                         $port = ($vars->accounts_type == 'imap') ? 143 : 110;
                     }
 
+                    /* Label is not required. */
+                    $label = $vars->accounts_label;
+                    if (!strlen($label)) {
+                        $label = $vars->accounts_server . ':' . $port . ' [' . $vars->accounts_type . ']';
+                    }
+
                     $imp_accounts = IMP_Accounts::singleton();
                     $imp_accounts->addAccount(array(
+                        'label' => $label,
                         'port' => $port,
                         'secure' => $vars->accounts_secure,
                         'server' => $vars->accounts_server,

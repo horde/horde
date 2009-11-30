@@ -4,6 +4,11 @@
 <?php if (Horde_Util::getFormData('accounts_action') == 'new'): ?>
 <table class="accountsmanagement">
  <tr>
+  <td class="item"><?php echo _("Label") ?>:</td>
+  <td class="item"><input name="accounts_label" size="30"/></td>
+  <td></td>
+ </tr>
+ <tr>
   <td class="item"><?php echo _("Type") ?>:</td>
   <td class="item">
    <select name="accounts_type">
@@ -53,6 +58,7 @@ $delete_img = Horde::img('delete.png');
 <table class="accountsmanagement">
  <thead>
   <tr>
+   <td><?php echo _("Label") ?></td>
    <td><?php echo _("Server") ?></td>
    <td><?php echo _("Type") ?></td>
    <td><?php echo _("Port") ?></td>
@@ -68,6 +74,7 @@ $delete_img = Horde::img('delete.png');
 <?php else: ?>
 <?php foreach ($accounts_list as $key => $val): ?>
   <tr id="accountsid_<?php echo $key ?>">
+   <td><?php echo htmlspecialchars($val['label']) ?></td>
    <td><?php echo htmlspecialchars($val['server']) ?></td>
    <td><?php echo htmlspecialchars($val['type']) ?></td>
    <td><?php echo htmlspecialchars($val['port']) ?></td>

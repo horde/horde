@@ -92,6 +92,7 @@ class IMP_Accounts
      *
      * @param array $config  The necessary config:
      * <pre>
+     * 'label' - (string) The human-readable label for this account.
      * 'port' - (integer) The remote port.
      * 'secure' -(string) Either 'auto', 'no', or 'yes'.
      * 'server' - (string) The server hostspec.
