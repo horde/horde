@@ -266,7 +266,7 @@ class IMP_Api extends Horde_Registry_Api
             return null;
         }
 
-        $imap_obj = unserialize($_SESSION['imp']['imap_ob']);
+        $imap_obj = unserialize($_SESSION['imp']['imap_ob'][$_SESSION['imp']['server_key']]);
         return array(
             'hostspec' => $imap_obj->getParam('hostspec'),
             'port' => $imap_obj->getParam('port'),

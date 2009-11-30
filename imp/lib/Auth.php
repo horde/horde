@@ -181,9 +181,10 @@ class IMP_Auth
      * 'filteravail' - (boolean) Can we apply filters manually?
      * 'imap' - (array) Config for various IMAP resources (acl, admin,
      *          namespace, quota, thread)
+     * 'imap_ob' - (array) The serialized Horde_Imap_Client objects. Stored
+     *             by server key.
      * 'maildomain' - (string) See config/servers.php.
      * 'notepadavail' - (boolean) Is listing of notepads available?
-     * 'ob' - (string) The serialized Horde_Imap_Client object.
      * 'protocol' - (string) Either 'imap' or 'pop'.
      * 'rteavail' - (boolean) Is the HTML editor available?
      * 'search' - (array) Settings used by the IMP_Search library.

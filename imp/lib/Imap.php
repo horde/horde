@@ -65,7 +65,7 @@ class IMP_Imap
          * necessary initialization. */
         if ($this->_ob &&
             isset($_SESSION['imp']) &&
-            !isset($_SESSION['imp']['imap_ob'])) {
+            empty($_SESSION['imp']['imap_ob'])) {
             $this->_ob->login();
 
             /* First login may occur on a non-viewable page. However,
@@ -77,7 +77,7 @@ class IMP_Imap
                 $notification->push($alert, 'horde.warning');
             }
 
-            $_SESSION['imp']['imap_ob'] = serialize($this->_ob);
+            $_SESSION['imp']['imap_ob'][$_SESSION['imp']['server_key']] = serialize($this->_ob);
         }
     }
 
@@ -126,14 +126,15 @@ class IMP_Imap
             return true;
         }
 
-        if (!isset($_SESSION['imp']['imap_ob'])) {
+        if (empty($_SESSION['imp']) ||
+            empty($_SESSION['imp']['imap_ob'][$_SESSION['imp']['server_key']])) {
             return false;
         }
 
         Horde_Imap_Client::$encryptKey = Horde_Secret::getKey('imp');
 
         $old_error = error_reporting(0);
-        $this->_ob = unserialize($_SESSION['imp']['imap_ob']);
+        $this->_ob = unserialize($_SESSION['imp']['imap_ob'][$_SESSION['imp']['server_key']]);
         error_reporting($old_error);
 
         if (empty($this->_ob)) {
