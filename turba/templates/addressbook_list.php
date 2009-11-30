@@ -30,7 +30,7 @@
    <td><?php echo htmlspecialchars($addressbook->get('name')) ?></td>
    <td><a href="<?php echo Horde_Util::addParameter($edit_url_base, 'a', $addressbook->getName()) ?>" title="<?php echo _("Edit") ?>"><?php echo $edit_img ?></a></td>
 <?php if (empty($conf['share']['no_sharing'])): ?>
-   <td><a onclick="<?php Horde::popupJs($perms_url_base, array('params' => array('share' => $addressbook->getName()))) ?>return false;" href="<?php echo Horde_Util::addParameter($perms_url_base, 'share', $addressbook->getName()) ?>" target="_blank" title="<?php echo _("Change Permissions") ?>"><?php echo $perms_img ?></a></td>
+   <td><a onclick="<?php echo Horde::popupJs($perms_url_base, array('params' => array('share' => $addressbook->getName()))) ?>return false;" href="<?php echo Horde_Util::addParameter($perms_url_base, 'share', $addressbook->getName()) ?>" target="_blank" title="<?php echo _("Change Permissions") ?>"><?php echo $perms_img ?></a></td>
 <?php endif; ?>
    <td><a href="<?php echo Horde_Util::addParameter($delete_url_base, 'a', $addressbook->getName()) ?>" title="<?php echo _("Delete") ?>"><?php echo $delete_img ?></a></td>
   </tr>
