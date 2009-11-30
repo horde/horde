@@ -570,7 +570,7 @@ case 'Html2Text':
     $result = new stdClass;
     // Need to replace line endings or else IE won't display line endings
     // properly.
-    $result->text = str_replace("\n", "\r\n", Horde_Text_Filter::filter(Horde_Util::getPost('text'), 'html2text'));
+    $result->text = str_replace("\n", "\r\n", Horde_Text_Filter::filter(Horde_Util::getPost('text'), 'html2text', array('charset' => Horde_Nls::getCharset())));
     break;
 
 case 'Text2Html':

@@ -181,7 +181,7 @@ class IMP_Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
          * text. */
         if (($_SESSION['imp']['view'] == 'mimp') ||
             (!$inline && Horde_Util::getFormData('convert_text'))) {
-            $data = Horde_Text_Filter::filter($data, 'html2text');
+            $data = Horde_Text_Filter::filter($data, 'html2text', array('charset' => Horde_Nls::getCharset()));
 
             // Filter bad language.
             return array(
