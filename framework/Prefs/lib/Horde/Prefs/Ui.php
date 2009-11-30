@@ -38,14 +38,13 @@ class Horde_Prefs_Ui
     /**
      * Determine whether or not a preferences group is editable.
      *
-     * @param string $group  The preferences group to check.
+     * @param string $group      The preferences group to check.
+     * @param array $prefGroups  TODO
      *
      * @return boolean  Whether or not the group is editable.
      */
-    static public function groupIsEditable($group)
+    static public function groupIsEditable($group, $prefGroups)
     {
-        global $prefs, $prefGroups;
-
         if (!isset(self::$_results[$group])) {
             if (!empty($prefGroups[$group]['url'])) {
                 self::$_results[$group] = true;
@@ -53,7 +52,7 @@ class Horde_Prefs_Ui
                 self::$_results[$group] = false;
                 if (isset($prefGroups[$group]['members'])) {
                     foreach ($prefGroups[$group]['members'] as $pref) {
-                        if (!$prefs->isLocked($pref)) {
+                        if (!$GLOBALS['prefs']->isLocked($pref)) {
                             self::$_results[$group] = true;
                             break;
                         }
@@ -69,140 +68,137 @@ class Horde_Prefs_Ui
      * Handle a preferences form submission if there is one, updating
      * any preferences which have been changed.
      *
-     * @param string $group  The preferences group that was edited.
-     * @param object $save   The object where the changed values are
-     *                       saved. Must implement setValue(string, string).
+     * @param string $group      The preferences group that was edited.
+     * @param object $save       The object where the changed values are
+     *                           saved. Must implement setValue(string,
+     *                           string).
+     * @param string $app        The application name.
+     * @param array $prefGroups  TODO
+     * @param array $_prefs      TODO
      *
      * @return boolean  Whether preferences have been updated.
      */
-    static public function handleForm(&$group, &$save)
+    static public function handleForm($group, $save, $app, $prefGroups,
+                                      $_prefs)
     {
-        global $app, $prefs, $prefGroups, $_prefs, $registry;
+        global $prefs;
+
+        $notification = Horde_Notification::singleton();
+        $registry = Horde_Registry::singleton();
 
         $updated = false;
 
-        $notification = Horde_Notification::singleton();
-
         /* Run through the action handlers */
-        if (Horde_Util::getPost('actionID') == 'update_prefs') {
-            if (isset($group) && self::groupIsEditable($group)) {
-                $updated = false;
+        if (self::groupIsEditable($group, $prefGroups)) {
+            foreach ($prefGroups[$group]['members'] as $pref) {
+                if (!$prefs->isLocked($pref) ||
+                    ($_prefs[$pref]['type'] == 'special')) {
+                    switch ($_prefs[$pref]['type']) {
+                    case 'implicit':
+                    case 'link':
+                        /* These either aren't set or are set in other
+                         * parts of the UI. */
+                        break;
 
-                foreach ($prefGroups[$group]['members'] as $pref) {
-                    if (!$prefs->isLocked($pref) ||
-                        ($_prefs[$pref]['type'] == 'special')) {
-                        switch ($_prefs[$pref]['type']) {
-                        case 'implicit':
-                        case 'link':
-                            /* These either aren't set or are set in other
-                             * parts of the UI. */
-                            break;
+                    case 'password':
+                    case 'select':
+                    case 'text':
+                    case 'textarea':
+                        $updated = $updated | $save->setValue($pref, Horde_Util::getPost($pref));
+                        break;
 
-                        case 'select':
-                        case 'text':
-                        case 'textarea':
-                        case 'password':
-                            $updated = $updated | $save->setValue($pref, Horde_Util::getPost($pref));
-                            break;
-
-                        case 'enum':
-                            $val = Horde_Util::getPost($pref);
-                            if (isset($_prefs[$pref]['enum'][$val])) {
-                                $updated = $updated | $save->setValue($pref, $val);
-                            } else {
-                                $notification->push(_("An illegal value was specified."), 'horde.error');
-                            }
-                            break;
-
-                        case 'multienum':
-                            $vals = Horde_Util::getPost($pref);
-                            $set = array();
-                            $invalid = false;
-                            if (is_array($vals)) {
-                                foreach ($vals as $val) {
-                                    if (isset($_prefs[$pref]['enum'][$val])) {
-                                        $set[] = $val;
-                                    } else {
-                                        $invalid = true;
-                                        continue;
-                                    }
-                                }
-                            }
-
-                            if ($invalid) {
-                                $notification->push(_("An illegal value was specified."), 'horde.error');
-                            } else {
-                                $updated = $updated | $save->setValue($pref, @serialize($set));
-                            }
-                            break;
-
-                        case 'number':
-                            $num = Horde_Util::getPost($pref);
-                            if ((string)(double)$num !== $num) {
-                                $notification->push(_("This value must be a number."), 'horde.error');
-                            } elseif (empty($num)) {
-                                $notification->push(_("This number must be at least one."), 'horde.error');
-                            } else {
-                                $updated = $updated | $save->setValue($pref, $num);
-                            }
-                            break;
-
-                        case 'checkbox':
-                            $val = Horde_Util::getPost($pref);
-                            $updated = $updated | $save->setValue($pref, isset($val) ? 1 : 0);
-                            break;
-
-                        case 'alarm':
-                            $methods = Horde_Alarm::notificationMethods();
-                            $value = array();
-                            foreach (Horde_Util::getPost($pref, array()) as $method) {
-                                $value[$method] = array();
-                                if (!empty($methods[$method])) {
-                                    foreach (array_keys($methods[$method]) as $param) {
-                                        $value[$method][$param] = Horde_Util::getPost($pref . '_' . $param, '');
-                                        if (is_array($methods[$method][$param]) &&
-                                            $methods[$method][$param]['required'] &&
-                                            $value[$method][$param] === '') {
-                                            $notification->push(sprintf(_("You must provide a setting for \"%s\"."), $methods[$method][$param]['desc']), 'horde.error');
-                                            $updated = false;
-                                            break 3;
-                                        }
-                                    }
-                                }
-                            }
-                            $updated = $updated | $save->setValue($pref, serialize($value));
-                            break;
-
-                        case 'special':
-                            /* Code for special elements written specifically
-                             * for each application. */
-                            if ($registry->hasAppMethod($app, 'prefsSpecial')) {
-                                $updated = $updated | $registry->callAppMethod($app, 'prefsSpecial', array('args' => array($pref, $updated)));
-                            }
-                            break;
+                    case 'enum':
+                        $val = Horde_Util::getPost($pref);
+                        if (isset($_prefs[$pref]['enum'][$val])) {
+                            $updated = $updated | $save->setValue($pref, $val);
+                        } else {
+                            $notification->push(_("An illegal value was specified."), 'horde.error');
                         }
-                    }
-                }
+                        break;
 
-                if (is_callable(array($save, 'verify'))) {
-                    $result = $save->verify();
-                    if ($result instanceof PEAR_Error) {
-                        $notification->push($result, 'horde.error');
-                        $updated = false;
-                    }
-                }
+                    case 'multienum':
+                        $vals = Horde_Util::getPost($pref);
+                        $set = array();
+                        if (is_array($vals)) {
+                            foreach ($vals as $val) {
+                                if (isset($_prefs[$pref]['enum'][$val])) {
+                                    $set[] = $val;
+                                } else {
+                                    $notification->push(_("An illegal value was specified."), 'horde.error');
+                                    break 2;
+                                }
+                            }
+                        }
 
-                if ($updated) {
-                    if ($registry->hasAppMethod($app, 'prefsCallback')) {
-                        $registry->callAppMethod($app, 'prefsCallback');
+                        $updated = $updated | $save->setValue($pref, @serialize($set));
+                        break;
+
+                    case 'number':
+                        $num = Horde_Util::getPost($pref);
+                        if ((string)(double)$num !== $num) {
+                            $notification->push(_("This value must be a number."), 'horde.error');
+                        } elseif (empty($num)) {
+                            $notification->push(_("This number must be at least one."), 'horde.error');
+                        } else {
+                            $updated = $updated | $save->setValue($pref, $num);
+                        }
+                        break;
+
+                    case 'checkbox':
+                        $val = Horde_Util::getPost($pref);
+                        $updated = $updated | $save->setValue($pref, isset($val) ? 1 : 0);
+                        break;
+
+                    case 'alarm':
+                        $methods = Horde_Alarm::notificationMethods();
+                        $value = array();
+                        foreach (Horde_Util::getPost($pref, array()) as $method) {
+                            $value[$method] = array();
+                            if (!empty($methods[$method])) {
+                                foreach (array_keys($methods[$method]) as $param) {
+                                    $value[$method][$param] = Horde_Util::getPost($pref . '_' . $param, '');
+                                    if (is_array($methods[$method][$param]) &&
+                                        $methods[$method][$param]['required'] &&
+                                        $value[$method][$param] === '') {
+                                        $notification->push(sprintf(_("You must provide a setting for \"%s\"."), $methods[$method][$param]['desc']), 'horde.error');
+                                        $updated = false;
+                                        break 3;
+                                    }
+                                }
+                            }
+                        }
+                        $updated = $updated | $save->setValue($pref, serialize($value));
+                        break;
+
+                    case 'special':
+                        /* Code for special elements written specifically for
+                         * each application. */
+                        if ($registry->hasAppMethod($app, 'prefsSpecial')) {
+                            $updated = $updated | $registry->callAppMethod($app, 'prefsSpecial', array('args' => array($pref, $updated)));
+                        }
+                        break;
                     }
-                    if ($prefs instanceof Horde_Prefs_Session) {
-                        $notification->push(_("Your options have been updated for the duration of this session."), 'horde.success');
-                    } else {
-                        $notification->push(_("Your options have been updated."), 'horde.success');
-                    }
-                    $group = null;
                 }
+            }
+
+            if (is_callable(array($save, 'verify'))) {
+                $result = $save->verify();
+                if ($result instanceof PEAR_Error) {
+                    $notification->push($result, 'horde.error');
+                    $updated = false;
+                }
+            }
+        }
+
+        if ($updated) {
+            if ($registry->hasAppMethod($app, 'prefsCallback')) {
+                $registry->callAppMethod($app, 'prefsCallback');
+            }
+
+            if ($prefs instanceof Horde_Prefs_Session) {
+                $notification->push(_("Your options have been updated for the duration of this session."), 'horde.success');
+            } else {
+                $notification->push(_("Your options have been updated."), 'horde.success');
             }
         }
 
@@ -213,14 +209,20 @@ class Horde_Prefs_Ui
      * Generate the UI for the preferences interface, either for a
      * specific group, or the group selection interface.
      *
-     * @param string $group   The group to generate the UI for.
-     * @param boolean $chunk  Whether to only return the body part.
+     * @param string $app        The application name.
+     * @param array $prefGroups  TODO
+     * @param array $_prefs      TODO
+     * @param string $group      The group to generate the UI for.
+     * @param boolean $chunk     Whether to only return the body part.
      */
-    static public function generateUI($group = null, $chunk = false)
+    static public function generateUI($app, $prefGroups, $_prefs,
+                                      $group = null, $chunk = false)
     {
-        global $browser, $conf, $prefs, $prefGroups, $_prefs, $registry, $app;
+        global $conf, $prefs;
 
+        $browser = Horde_Browser::singleton();
         $notification = Horde_Notification::singleton();
+        $registry = Horde_Registry::singleton();
 
         /* Check if any options are actually available. */
         if (is_null($prefGroups)) {
@@ -234,14 +236,14 @@ class Horde_Prefs_Ui
         }
 
         $columns = array();
-        $in_group = (!empty($group) && self::groupIsEditable($group) && !empty($prefGroups[$group]['members']));
+        $in_group = (!empty($group) && self::groupIsEditable($group, $prefGroups) && !empty($prefGroups[$group]['members']));
 
         /* We need to do this check up here because it is possible that
          * we will generate a notification object, which is handled by
          * generateHeader. */
         if (!$in_group && is_array($prefGroups)) {
             foreach ($prefGroups as $key => $val) {
-                if (self::groupIsEditable($key)) {
+                if (self::groupIsEditable($key, $prefGroups)) {
                     $col = $val['column'];
                     unset($val['column']);
                     $columns[$col][$key] = $val;
@@ -252,7 +254,7 @@ class Horde_Prefs_Ui
             }
         }
 
-        self::generateHeader($group, $chunk);
+        self::generateHeader($app, $prefGroups, $group, $chunk);
 
         if ($in_group) {
             foreach ($prefGroups[$group]['members'] as $pref) {
@@ -290,14 +292,18 @@ class Horde_Prefs_Ui
      * Generates the the full header of a preference screen including
      * menu and navigation bars.
      *
-     * @param string $group   The group to generate the header for.
-     * @param boolean $chunk  Whether to only return the body part.
+     * @param string $app        The application name.
+     * @param array $prefGroups  TODO
+     * @param string $group      The group to generate the header for.
+     * @param boolean $chunk     Whether to only return the body part.
      */
-    static public function generateHeader($group = null, $chunk = false)
+    static public function generateHeader($app, $prefGroups = null,
+                                          $group = null, $chunk = false)
     {
-        global $registry, $prefGroups, $app, $perms, $prefs;
+        global $perms, $prefs;
 
         $notification = Horde_Notification::singleton();
+        $registry = Horde_Registry::singleton();
 
         $title = _("User Options");
         if ($group == 'identities' && !$prefs->isLocked('default_identity')) {
@@ -345,13 +351,17 @@ class Horde_Prefs_Ui
          * applications. */
         require $registry->get('templates', 'horde') . '/prefs/app.inc';
 
+        if (is_null($prefGroups)) {
+            extract(Horde::loadConfiguration('prefs.php', array('prefGroups'), $app));
+        }
+
         /* If there's only one prefGroup, just show it. */
         if (empty($group) && count($prefGroups) == 1) {
             $group = array_keys($prefGroups);
             $group = array_pop($group);
         }
 
-        if (!empty($group) && self::groupIsEditable($group)) {
+        if (!empty($group) && self::groupIsEditable($group, $prefGroups)) {
             require $registry->get('templates', 'horde') . '/prefs/begin.inc';
         }
     }
@@ -362,16 +372,18 @@ class Horde_Prefs_Ui
      *
      * @param string $group  Current option group.
      */
-    static public function generateNavigationCell($group)
+    static public function generateNavigationCell($app, $group)
     {
-        global $prefGroups, $registry, $app;
+        $registry = Horde_Registry::singleton();
 
         // Search for previous and next groups.
         $first = $last = $next = $previous = null;
         $finish = $found = false;
 
+        extract(Horde::loadConfiguration('prefs.php', array('prefGroups'), $app));
+
         foreach ($prefGroups as $pgroup => $gval) {
-            if (self::groupIsEditable($pgroup)) {
+            if (self::groupIsEditable($pgroup, $prefGroups)) {
                 if (!$first) {
                     $first = $pgroup;
                 }
