@@ -26,11 +26,6 @@ class Gollem_Api extends Horde_Registry_Api
      */
     public function browse($path = '', $properties = array())
     {
-        $GLOBALS['gollem_authentication'] = 'none';
-        require_once dirname(__FILE__) . '/base.php';
-        require GOLLEM_BASE . '/config/backends.php';
-        require GOLLEM_BASE . '/config/credentials.php';
-
         $path = Gollem::stripAPIPath($path);
 
         // Default properties.
@@ -148,14 +143,6 @@ class Gollem_Api extends Horde_Registry_Api
      */
     public function put($path, $content, $content_type)
     {
-        // Gollem does not handle authentication
-        $GLOBALS['gollem_authentication'] = 'none';
-
-        // Include Gollem base libraries
-        require_once dirname(__FILE__) . '/base.php';
-        require GOLLEM_BASE . '/config/backends.php';
-        require GOLLEM_BASE . '/config/credentials.php';
-
         // Clean off the irrelevant portions of the path
         $path = Gollem::stripAPIPath($path);
 
@@ -207,14 +194,6 @@ class Gollem_Api extends Horde_Registry_Api
      */
     public function mkcol($path)
     {
-        // Gollem does not handle authentication
-        $GLOBALS['gollem_authentication'] = 'none';
-
-        // Include Gollem base libraries
-        require_once dirname(__FILE__) . '/base.php';
-        require GOLLEM_BASE . '/config/backends.php';
-        require GOLLEM_BASE . '/config/credentials.php';
-
         // Clean off the irrelevant portions of the path
         $path = Gollem::stripAPIPath($path);
 
@@ -268,14 +247,6 @@ class Gollem_Api extends Horde_Registry_Api
      */
     public function move($path, $dest)
     {
-        // Gollem does not handle authentication
-        $GLOBALS['gollem_authentication'] = 'none';
-
-        // Include Gollem base libraries
-        require_once dirname(__FILE__) . '/base.php';
-        require GOLLEM_BASE . '/config/backends.php';
-        require GOLLEM_BASE . '/config/credentials.php';
-
         // Clean off the irrelevant portions of the path
         $path = Gollem::stripAPIPath($path);
         $dest = Gollem::stripAPIPath($dest);
@@ -342,14 +313,6 @@ class Gollem_Api extends Horde_Registry_Api
      */
     public function path_delete($path)
     {
-        // Gollem does not handle authentication
-        $GLOBALS['gollem_authentication'] = 'none';
-
-        // Include Gollem base libraries
-        require_once dirname(__FILE__) . '/base.php';
-        require GOLLEM_BASE . '/config/backends.php';
-        require GOLLEM_BASE . '/config/credentials.php';
-
         // Clean off the irrelevant portions of the path
         $path = Gollem::stripAPIPath($path);
 
@@ -410,8 +373,6 @@ class Gollem_Api extends Horde_Registry_Api
      */
     public function getViewLink($dir, $file, $backend = '')
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if (empty($backend)) {
             $backend = Gollem::getPreferredBackend();
         }
@@ -453,7 +414,7 @@ class Gollem_Api extends Horde_Registry_Api
      * @return string  The URL string.
      */
     public function selectlistLink($link_text, $link_style, $formid,
-        $icon = false, $selectid = '')
+                                   $icon = false, $selectid = '')
     {
         $link = Horde::link('#', $link_text, $link_style, '_blank', Horde::popupJs(Horde::applicationUrl('selectlist.php'), array('params' => array('formid' => $formid, 'cacheid' => $selectid), 'height' => 500, 'width' => 300, 'urlencode' => true)) . 'return false;');
         if ($icon) {
@@ -475,14 +436,15 @@ class Gollem_Api extends Horde_Registry_Api
     {
         if (!isset($_SESSION['gollem']['selectlist'][$selectid]['files'])) {
             return null;
-        } else {
-            $list = array();
-            foreach ($_SESSION['gollem']['selectlist'][$selectid]['files'] as $val) {
-                list($dir, $filename) = explode('|', $val);
-                $list[] = array($dir => $filename);
-            }
-            return $list;
         }
+
+        $list = array();
+        foreach ($_SESSION['gollem']['selectlist'][$selectid]['files'] as $val) {
+            list($dir, $filename) = explode('|', $val);
+            $list[] = array($dir => $filename);
+        }
+
+        return $list;
     }
 
     /**
@@ -495,8 +457,6 @@ class Gollem_Api extends Horde_Registry_Api
      */
     public function returnFromSelectlist($selectid, $index)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if (!isset($_SESSION['gollem']['selectlist'][$selectid]['files'][$index])) {
             return null;
         }
@@ -517,8 +477,6 @@ class Gollem_Api extends Horde_Registry_Api
      */
     public function setSelectlist($selectid = '', $files = array())
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         if (empty($selectid)) {
             $selectid = uniqid(mt_rand(), true);
         }

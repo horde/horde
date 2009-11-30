@@ -11,7 +11,8 @@
  * @package Gollem
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+new Gollem_Application(array('init' => true));
 
 $dir = Horde_Util::getFormData('dir');
 

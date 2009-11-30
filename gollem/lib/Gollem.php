@@ -24,62 +24,6 @@ class Gollem
     const SORT_DESCEND = 1;
 
     /**
-     * Check Gollem authentication and change to the currently active
-     * directory. Redirects to login page on authentication/session failure.
-     *
-     * @param string $mode       The authentication mode we are using.
-     * @param boolean $redirect  Redirect to the logout page if authentication
-     *                           is unsuccessful?
-     *
-     * @return boolean  True on success, false on failure.
-     */
-    static public function checkAuthentication($mode = null, $redirect = true)
-    {
-        $auth_gollem = new Gollem_Auth();
-        $reason = $auth_gollem->authenticate();
-
-        if ($reason !== true) {
-            if ($redirect) {
-                if ($mode = 'selectlist') {
-                    $url = Horde_Util::addParameter($GLOBALS['registry']->get('webroot', 'gollem') . '/login.php', 'selectlist_login', 1, false);
-                } else {
-                    $url = Horde_Auth::addLogoutParameters(self::logoutUrl());
-                }
-                $url = Horde_Util::addParameter($url, 'url', Horde::selfUrl(true, true, true), false);
-                header('Location: ' . $url);
-                exit;
-            } else {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * Can we log in without a login screen for the requested backend key?
-     *
-     * @param string $key     The backend key to check. Defaults to
-     *                        self::getPreferredBackend().
-     * @param boolean $force  If true, check the backend key even if there is
-     *                        more than one backend.
-     *
-     * @return boolean  True if autologin possible, false if not.
-     */
-    static public function canAutoLogin($key = null, $force = false)
-    {
-        $auto_server = self::getPreferredBackend();
-        if ($key === null) {
-            $key = $auto_server;
-        }
-
-        return (((count($auto_server) == 1) || $force) &&
-                Horde_Auth::getAuth() &&
-                empty($GLOBALS['gollem_backends'][$key]['loginparams']) &&
-                !empty($GLOBALS['gollem_backends'][$key]['hordeauth']));
-    }
-
-    /**
      * Changes the current directory of the Gollem session to the supplied
      * value.
      *

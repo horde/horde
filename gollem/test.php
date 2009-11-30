@@ -11,8 +11,7 @@
  */
 
 /* Include Horde's core.php file. */
-require_once dirname(__FILE__) . '/lib/base.load.php';
-require_once '../lib/core.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
 
 /* We should have loaded the String class, from the Horde_Util
    package, in core.php. If Horde_String:: isn't defined, then we're not
@@ -33,7 +32,6 @@ $horde_test = new Horde_Test();
 
 /* Gollem version. */
 $module = 'Gollem';
-require_once dirname(__FILE__) . '/lib/Application.php';
 $app = new Gollem_Application();
 $module_version = $app->version;
 

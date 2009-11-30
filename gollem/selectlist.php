@@ -8,8 +8,8 @@
  * @author Michael Slusarz <slusarz@horde.org>
  */
 
-$gollem_authentication = 'selectlist';
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+new IMP_Application(array('init' => array('authentication' => 'selectlist'));
 
 /* Set directory. */
 if (is_a($result = Gollem::changeDir(), 'PEAR_Error')) {

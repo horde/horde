@@ -11,8 +11,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-$gollem_session_control = 'readonly';
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+new IMP_Application(array('init' => array('session_control' => 'readonly'));
 
 $actionID = Horde_Util::getFormData('actionID');
 $driver = Horde_Util::getFormData('driver');
