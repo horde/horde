@@ -64,6 +64,13 @@ class IMP_Mailbox
     protected $_threadob = null;
 
     /**
+     * Has the internal message list changed?
+     *
+     * @var boolean
+     */
+    protected $_changed = false;
+
+    /**
      * Attempts to return a reference to a concrete IMP_Mailbox instance.
      * It will only create a new instance if no IMP_Mailbox instance with
      * the same parameters currently exists.
@@ -119,7 +126,8 @@ class IMP_Mailbox
      */
     public function shutdown()
     {
-        if (!is_null($this->_arrayIndex)) {
+        if ($this->_changed &&
+            ($_SESSION['imp']['view'] == 'imp')) {
             /* Casting $_sorted to integers saves a significant amount of
              * space when json_encoding (no need to quote every value). Only
              * can do for IMAP though (since POP3 UIDs are not limited to
@@ -308,6 +316,7 @@ class IMP_Mailbox
             return;
         }
 
+        $this->_changed = true;
         $query = null;
 
         if ($this->_searchmbox) {
@@ -786,6 +795,7 @@ class IMP_Mailbox
         }
 
         $this->_sorted = array_values($this->_sorted);
+        $this->_changed = true;
         if ($this->_searchmbox) {
             $this->_sortedMbox = array_values($this->_sortedMbox);
         }
