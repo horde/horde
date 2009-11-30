@@ -4,9 +4,9 @@
  *
  * Parameters:
  * <pre>
- * charset -- The charset to use for html_entity_decode() calls.
- * width   -- The wrapping width.
- * wrap    -- Whether to wrap the text or not.
+ * charset - (string) The charset to use for html_entity_decode() calls.
+ * width - (integer) The wrapping width.
+ * wrap - (boolean) Whether to wrap the text or not.
  * </pre>
  *
  * Copyright 2003-2004 Jon Abernathy <jon@chuggnutt.com>
@@ -190,7 +190,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter
                 self::$linkList;
         }
 
-        return $text;
+        return trim($text);
     }
 
     /**
@@ -244,17 +244,21 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter
         if ($num < 128) {
             return chr($num);
         }
+
         if ($num < 2048) {
             return chr(($num >> 6) + 192) . chr(($num & 63) + 128);
         }
+
         if ($num < 65536) {
             return chr(($num >> 12) + 224) . chr((($num >> 6) & 63) + 128) .
                 chr(($num & 63) + 128);
         }
+
         if ($num < 2097152) {
             return chr(($num >> 18) + 240) . chr((($num >> 12) & 63) + 128) .
                 chr((($num >> 6) & 63) + 128) . chr(($num & 63) + 128);
         }
+
         return '';
     }
 
@@ -276,20 +280,24 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter
         if ($link == strip_tags($display)) {
             return $display;
         }
+
         $parsed_link = parse_url($link);
         $parsed_display = parse_url(strip_tags(preg_replace('/^&lt;|&gt;$/', '', $display)));
+
         if (isset($parsed_link['path'])) {
             $parsed_link['path'] = trim($parsed_link['path'], '/');
             if (!strlen($parsed_link['path'])) {
                 unset($parsed_link['path']);
             }
         }
+
         if (isset($parsed_display['path'])) {
             $parsed_display['path'] = trim($parsed_display['path'], '/');
             if (!strlen($parsed_display['path'])) {
                 unset($parsed_display['path']);
             }
         }
+
         if (((!isset($parsed_link['host']) &&
               !isset($parsed_display['host'])) ||
              (isset($parsed_link['host']) &&
@@ -305,6 +313,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter
 
         self::$linkCount++;
         self::$linkList .= '[' . self::$linkCount . "] $link\n";
+
         return $display . '[' . self::$linkCount . ']';
     }
 
