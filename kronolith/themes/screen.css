@@ -735,7 +735,7 @@ div.kronolithFormActions {
 }
 /* Map */
 #kronolithEventMap {
-	height: 400px;
+	height: 300px;
 	width: 700px;
 }
 #kronolithEventMap_OpenLayers_ViewPort div {
