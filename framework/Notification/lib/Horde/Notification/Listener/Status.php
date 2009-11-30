@@ -99,7 +99,9 @@ class Horde_Notification_Listener_Status extends Horde_Notification_Listener
                 $text = $this->_getAlarm($flags['alarm']);
             } else {
                 $result['alarm'] = $flags['alarm'];
-                if (!empty($result['alarm']['params']['notify']['show'])) {
+                if (!empty($result['alarm']['params']['notify']['ajax'])) {
+                    $result['alarm']['ajax'] = $result['alarm']['params']['notify']['ajax'];
+                } elseif (!empty($result['alarm']['params']['notify']['show'])) {
                     $result['alarm']['url'] = Horde::url($GLOBALS['registry']->linkByPackage($result['alarm']['params']['notify']['show']['__app'], 'show', $result['alarm']['params']['notify']['show']), true);
                 }
                 unset($result['alarm']['params']['notify'],
