@@ -101,17 +101,14 @@ if ($stationery['t'] == 'html') {
 }
 
 /* Show the header. */
-extract(Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp'));
-
-$app = 'imp';
 $chunk = Horde_Util::nonInputVar('chunk');
-Horde_Prefs_Ui::generateHeader(null, $chunk);
+Horde_Prefs_Ui::generateHeader('imp', null, null, $chunk);
 
 $t = new Horde_Template();
 $t->setOption('gettext', true);
 $t->set('action', Horde::selfUrl());
 $t->set('forminput', Horde_Util::formInput());
-$t->set('navcell', Horde_Util::bufferOutput(array('Horde_Prefs_Ui', 'generateNavigationCell'), 'compose'));
+$t->set('navcell', Horde_Util::bufferOutput(array('Horde_Prefs_Ui', 'generateNavigationCell'), 'imp', 'compose'));
 
 $slist = array();
 foreach ($stationery_list as $key => $choice) {

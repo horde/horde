@@ -74,7 +74,7 @@ class Kronolith_Application extends Horde_Registry_Application
      *
      * @return boolean  True if preference was updated.
      */
-    public function prefsHandle($item, $updated)
+    public function prefsSpecial($item, $updated)
     {
         switch ($item) {
         case 'remote_cal_management':

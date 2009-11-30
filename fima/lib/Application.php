@@ -11,7 +11,7 @@ class Fima_Application extends Horde_Regsitry_Application
      *
      * @return boolean  True if preference was updated.
      */
-    public function prefsHandle($item, $updated)
+    public function prefsSpecial($item, $updated)
     {
         switch ($item) {
         case 'ledgerselect':

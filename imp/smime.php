@@ -221,11 +221,8 @@ try {
     $notification->push($e);
 }
 
-extract(Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp'));
-
-$app = 'imp';
 $chunk = Horde_Util::nonInputVar('chunk');
-Horde_Prefs_Ui::generateHeader('smime', $chunk);
+Horde_Prefs_Ui::generateHeader('imp', null, 'smime', $chunk);
 
 $selfURL = Horde::applicationUrl('smime.php');
 

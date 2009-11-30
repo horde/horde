@@ -302,11 +302,8 @@ try {
     $notification->push($e);
 }
 
-extract(Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp'));
-
-$app = 'imp';
 $chunk = Horde_Util::nonInputVar('chunk');
-Horde_Prefs_Ui::generateHeader('pgp', $chunk);
+Horde_Prefs_Ui::generateHeader('imp', null, 'pgp', $chunk);
 
 /* If PGP preference not active, do NOT show PGP Admin screen. */
 $t = new Horde_Template();

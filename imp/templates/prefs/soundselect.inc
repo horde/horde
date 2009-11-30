@@ -1,4 +1,3 @@
-<?php if (!$prefs->isLocked('nav_audio')): ?>
 <?php $nav_audio = $prefs->getValue('nav_audio') ?>
 <p><?php echo _("Play a sound on new mail? Although most browsers support embedded sound files, some may require a plugin.") ?></p>
 <ul class="sound-list">
@@ -13,4 +12,3 @@
  </li>
 <?php endforeach; ?>
 </ul>
-<?php endif; ?>

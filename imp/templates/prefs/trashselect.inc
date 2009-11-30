@@ -1,4 +1,3 @@
-<?php if (!$prefs->isLocked('trash_folder') && !$prefs->isLocked('use_vtrash')): ?>
 <?php echo Horde::label('trash', _("Trash folder:")) ?><br />
 <input type="hidden" name="trash_new" id="trash_new" value="" />
 <select id="trash" name="trash">
@@ -10,4 +9,3 @@
 ?>
 </select>
 <br />
-<?php endif; ?>

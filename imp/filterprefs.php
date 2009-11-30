@@ -12,8 +12,6 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 new IMP_Application(array('init' => true));
 
-extract(Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp'));
-
 /* Are preferences locked? */
 $login_locked = $prefs->isLocked('filter_on_login') || empty($_SESSION['imp']['filteravail']);
 $display_locked = $prefs->isLocked('filter_on_display') || empty($_SESSION['imp']['filteravail']);
@@ -44,14 +42,13 @@ case 'update_prefs':
     break;
 }
 
-$app = 'imp';
 $chunk = Horde_Util::nonInputVar('chunk');
 $group = 'filters';
-Horde_Prefs_Ui::generateHeader(null, $chunk);
+Horde_Prefs_Ui::generateHeader('imp', null, null, $chunk);
 
 $t = new Horde_Template();
 $t->setOption('gettext', true);
-$t->set('navcell', Horde_Util::bufferOutput(array('Horde_Prefs_Ui', 'generateNavigationCell'), 'filters'));
+$t->set('navcell', Horde_Util::bufferOutput(array('Horde_Prefs_Ui', 'generateNavigationCell'), 'imp', 'filters'));
 $t->set('prefsurl', Horde::getServiceLink('options', 'imp'));
 $t->set('return_text', _("Return to Options"));
 

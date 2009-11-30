@@ -1,4 +1,3 @@
-<?php if (!$prefs->isLocked('drafts_folder')): ?>
 <?php echo Horde::label('drafts', _("Drafts folder:")) ?><br />
 <input type="hidden" name="drafts_new" id="drafts_new" value="" />
 <select id="drafts" name="drafts">
@@ -6,4 +5,3 @@
  <?php echo IMP::flistSelect(array('heading' => _("Create a new drafts folder"), 'filter' => array('INBOX'), 'selected' => IMP::folderPref($prefs->getValue('drafts_folder'), true), 'new_folder' => true)) ?>
 </select>
 <br />
-<?php endif; ?>

@@ -126,18 +126,15 @@ if (empty($folder)) {
 $curr_acl = $ACLDriver->getACL($folder);
 $canEdit = $ACLDriver->canEdit($folder, Horde_Auth::getAuth());
 
-extract(Horde::loadConfiguration('prefs.php', array('prefGroups', '_prefs'), 'imp'));
-
-$app = 'imp';
 $chunk = Horde_Util::nonInputVar('chunk');
-Horde_Prefs_Ui::generateHeader(null, $chunk);
+Horde_Prefs_Ui::generateHeader('imp', null, null, $chunk);
 
 /* Set up template. */
 $t = new Horde_Template();
 $t->setOption('gettext', true);
 $t->set('aclurl', Horde::applicationUrl('acl.php'));
 $t->set('forminput', Horde_Util::formInput());
-$t->set('aclnavcell', Horde_Util::bufferOutput(array('Horde_Prefs_Ui', 'generateNavigationCell'), 'acl'));
+$t->set('aclnavcell', Horde_Util::bufferOutput(array('Horde_Prefs_Ui', 'generateNavigationCell'), 'imp', 'acl'));
 $t->set('changefolder', Horde::link('#', _("Change Folder"), 'smallheader', '', '', '', '', array('id' => 'changefolder')));
 $t->set('sharedimg', Horde::img('shared.png', _("Change Folder")));
 $t->set('options', IMP::flistSelect(array('selected' => $folder)));

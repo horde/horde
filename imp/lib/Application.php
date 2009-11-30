@@ -526,17 +526,17 @@ class IMP_Application extends Horde_Registry_Application
      *
      * @return boolean  True if preference was updated.
      */
-    public function prefsHandle($item, $updated)
+    public function prefsSpecial($item, $updated)
     {
         switch ($item) {
         case 'sentmailselect':
             return $this->_prefsSentmailSelect($updated);
 
         case 'draftsselect':
-            return $updated | $this->_prefsHandleFolders($updated, 'drafts_folder', 'drafts', 'drafts_new');
+            return $updated | $this->_prefsSpecialFolders($updated, 'drafts_folder', 'drafts', 'drafts_new');
 
         case 'spamselect':
-            return $updated | $this->_prefsHandleFolders($updated, 'spam_folder', 'spam', 'spam_new');
+            return $updated | $this->_prefsSpecialFolders($updated, 'spam_folder', 'spam', 'spam_new');
 
         case 'trashselect':
             return $this->_prefsTrashSelect($updated);
@@ -562,6 +562,46 @@ class IMP_Application extends Horde_Registry_Application
         case 'accountsmanagement':
             $this->_prefsAccountsManagement();
             return false;
+        }
+    }
+
+    /**
+     * Special preferences handling on UI display.
+     *
+     * @param string $item  The preference name.
+     *
+     * @return boolean  True if the preference item should be displayed.
+     */
+    public function prefsSpecialGenerate($item)
+    {
+        switch ($item) {
+        case 'sentmailselect':
+            return !$GLOBALS['prefs']->isLocked('sent_mail_folder');
+
+        case 'draftsselect':
+            return !$GLOBALS['prefs']->isLocked('drafts_folder');
+
+        case 'spamselect':
+            return !$GLOBALS['prefs']->isLocked('spam_folder');
+
+        case 'trashselect':
+            return (!$GLOBALS['prefs']->isLocked('trash_folder') && !$GLOBALS['prefs']->isLocked('use_vtrash'));
+
+        case 'initialpageselect':
+            return !$GLOBALS['prefs']->isLocked('initial_page');
+
+        case 'encryptselect':
+            return !$GLOBALS['prefs']->isLocked('default_encrypt');
+
+        case 'soundselect':
+            return !$GLOBALS['prefs']->isLocked('nav_audio');
+
+        case 'accountsmanagement':
+            $GLOBALS['prefsui_no_save'] = true;
+            return true;
+
+        default:
+            return true;
         }
     }
 
@@ -666,7 +706,7 @@ class IMP_Application extends Horde_Registry_Application
     /**
      * TODO
      */
-    protected function _prefsHandlefolders($updated, $pref, $folder, $new)
+    protected function _prefsSpecialFolders($updated, $pref, $folder, $new)
     {
         if (!$GLOBALS['conf']['user']['allow_folders']) {
             return $updated;
@@ -714,7 +754,7 @@ class IMP_Application extends Horde_Registry_Application
                 return false;
             }
 
-            $updated = $updated | $this->_prefsHandleFolders($updated, 'trash_folder', 'trash', 'trash_new');
+            $updated = $updated | $this->_prefsSpecialFolders($updated, 'trash_folder', 'trash', 'trash_new');
             if ($updated) {
                 $prefs->setValue('use_vtrash', 0);
                 $prefs->setDirty('trash_folder', true);
