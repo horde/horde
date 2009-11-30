@@ -442,15 +442,15 @@ class Horde_Date_Recurrence
             }
 
             $next = clone $start_week;
-            $next->mday += $recur - 1;
+            $next->mday += $recur;
             while ($next->compareDateTime($after) < 0 &&
                    $next->compareDateTime($after_week_end) < 0) {
-                ++$next->mday;
                 if ($this->hasRecurCount()
                     && $next->compareDateTime($after) < 0
                     && $this->recurOnDay((int)pow(2, $next->dayOfWeek()))) {
                     $recurrences++;
                 }
+                ++$next->mday;
             }
             if ($this->hasRecurCount() &&
                 $recurrences >= $this->recurCount) {

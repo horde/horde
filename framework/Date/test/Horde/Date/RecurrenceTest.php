@@ -253,6 +253,21 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
                             $this->_getRecurrences($r));
     }
 
+    public function testBiweeklySundayEvent()
+    {
+        $r = new Horde_Date_Recurrence('2009-11-29 06:00:00');
+        $r->setRecurType(Horde_Date_Recurrence::RECUR_WEEKLY);
+        $r->setRecurOnDay(Horde_Date::MASK_SUNDAY);
+        $r->setRecurInterval(2);
+        $r->setRecurCount(3);
+        $this->assertEquals('W2 SU #3', $r->toRRule10($this->ical));
+        $this->assertEquals('FREQ=WEEKLY;INTERVAL=2;BYDAY=SU;COUNT=3', $r->toRRule20($this->ical));
+        $this->assertEquals(array('2009-11-29 06:00:00',
+                                  '2009-12-13 06:00:00',
+                                  '2009-12-27 06:00:00'),
+                            $this->_getRecurrences($r));
+    }
+
     public function testMonthlyEnd()
     {
         $r = new Horde_Date_Recurrence('2007-03-01 10:00:00');
