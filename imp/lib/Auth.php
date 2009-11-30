@@ -174,24 +174,27 @@ class IMP_Auth
      * enough work to see if the user can log in.
      *
      * Creates the 'imp' session variable with the following entries:
-     * 'cache'         -- Various IMP libraries can use this variable to cache
-     *                    data.
-     * 'file_upload'   -- If file uploads are allowed, the max size.
-     * 'filteravail'   -- Can we apply filters manually?
-     * 'imap'          -- Config for various IMAP resources (acl, admin,
-     *                    namespace, quota)
-     * 'imap_ob'       -- The serialized Horde_Imap_Client object.
-     * 'maildomain'    -- See config/servers.php.
-     * 'notepadavail'  -- Is listing of notepads available?
-     * 'protocol'      -- Either 'imap' or 'pop'.
-     * 'rteavail'      -- Is the HTML editor available?
-     * 'search'        -- Settings used by the IMP_Search library.
-     * 'server_key'    -- Server used to login.
-     * 'smime'         -- Settings related to the S/MIME viewer.
-     * 'smtp'          -- SMTP options ('host' and 'port')
-     * 'showunsub'     -- Show unsusubscribed mailboxes on the folders screen.
-     * 'tasklistavail' -- Is listing of tasklists available?
-     * 'view'          -- The imp view mode (currently dimp, imp, or mimp)
+     * <pre>
+     * 'cache' - (array) Various IMP libraries can use this variable to cache
+     *           data.
+     * 'file_upload' - (integer) If file uploads are allowed, the max size.
+     * 'filteravail' - (boolean) Can we apply filters manually?
+     * 'imap' - (array) Config for various IMAP resources (acl, admin,
+     *          namespace, quota, thread)
+     * 'imap_ob' - (string) The serialized Horde_Imap_Client object.
+     * 'maildomain' - (string) See config/servers.php.
+     * 'notepadavail' - (boolean) Is listing of notepads available?
+     * 'protocol' - (string) Either 'imap' or 'pop'.
+     * 'rteavail' - (boolean) Is the HTML editor available?
+     * 'search' - (array) Settings used by the IMP_Search library.
+     * 'server_key' - (string) Server used to login.
+     * 'smime' - (array) Settings related to the S/MIME viewer.
+     * 'smtp' - (array) SMTP options ('host' and 'port')
+     * 'showunsub' - (boolean) Show unsusubscribed mailboxes on the folders
+     *               screen.
+     * 'tasklistavail' - (boolean) Is listing of tasklists available?
+     * 'view' - (string) The imp view mode (dimp, imp, or mimp)
+     * </pre>
      *
      * @param array $credentials  An array of login credentials.
      * <pre>
