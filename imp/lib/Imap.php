@@ -1,7 +1,7 @@
 <?php
 /**
- * The IMP_Imap:: class provides common functions for interaction with the
- * IMAP/POP3 server via the Horde_Imap_Client:: library.
+ * The IMP_Imap:: class provides common functions for interaction with
+ * IMAP/POP3 servers via the Horde_Imap_Client:: library.
  *
  * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
  *
@@ -82,7 +82,7 @@ class IMP_Imap
     }
 
     /**
-     * Loads the server configuration from servers.php.
+     * Loads the IMP server configuration from servers.php.
      *
      * @param string $server  Returns this labeled entry only.
      *
@@ -116,8 +116,7 @@ class IMP_Imap
     }
 
     /**
-     * Loads the Horde_Imap_Client object from serialized session data and
-     * loads the object into the global $imp_imap variable.
+     * Loads the Horde_Imap_Client object from serialized session data.
      *
      * @return boolean  True on success, false on error.
      */
