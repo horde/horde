@@ -19,9 +19,10 @@
  *                      authentication. (DEFAULT)
  *              'full' - The username will be used unmodified.
  *
- * protocol: (string) The server protocol. Either 'pop' or 'imap' (DEFAULT).
+ * protocol: (string) The server protocol. Either 'pop' or 'imap'.
  *
- *           'imap' requires a IMAP4rev1 (RFC 3501) compliant server.
+ *           'imap' requires a IMAP4rev1 (RFC 3501) compliant server
+ *           (DEFAULT).
  *
  *           'pop' requires a POP3 (RFC 1939) compliant server. All folder
  *           options will be automatically turned off (POP3 does
@@ -48,12 +49,12 @@
  *         pop (unsecure or w/TLS):   110
  *         pop (w/SSL):               995 (DISCOURAGED - use TLS on port 110)
  *
- * maildomain: (string) What to put after the @ when sending mail. This setting
- *             is generally useful when the sending host is different from the
- *             mail receiving host. This setting will also be used to complete
- *             unqualified addresses when composing mail.
- *             E.g. If you want all mail to look like 'From: user@example.com',
- *             set maildomain to 'example.com'.
+ * maildomain: (string) What to put after the @ when sending mail. This
+ *             setting is generally useful when the sending host is different
+ *             from the mail receiving host. This setting will also be used to
+ *             complete unqualified addresses when composing mail.
+ *             E.g. If you want all mail to look like 'From:
+ *             user@example.com', set maildomain to 'example.com'.
  *
  * smtphost: (string) If specified, and $conf['mailer']['type'] is set to
  *           'smtp', IMP will use this host for outbound SMTP connections.
@@ -88,26 +89,25 @@
  *        These are the built-in default values, though they may appear
  *        differently in some translations ([UNIT] will be replaced with the
  *        value of the 'unit' parameter):
- *          'long'          -- Quota status: %.2f [UNIT] / %.2f [UNIT] (%.2f%%)
- *          'short'         -- %.0f%% of %.0f [UNIT]
- *          'nolimit_long'  -- Quota status: %.2f [UNIT] / NO LIMIT
- *          'nolimit_short' -- %.0f [UNIT]
+ *          'long'          - Quota status: %.2f [UNIT] / %.2f [UNIT] (%.2f%%)
+ *          'nolimit_long'  - Quota status: %.2f [UNIT] / NO LIMIT
+ *          'short'         - %.0f%% of %.0f [UNIT]
+ *          'nolimit_short' - %.0f [UNIT]
  *
  *        Currently available drivers:
- *          'command'    --  Use the UNIX quota command to handle quotas.
- *          'hook'       --  Use the quota hook to handle quotas (see
- *                           imp/config/hooks.php).
- *          'imap'       --  Use the IMAP QUOTA extension to handle quotas.
- *                           You must be connecting to a IMAP server capable
- *                           of the QUOTAROOT command to use this driver.
- *          'logfile'    --  Allow quotas on servers where IMAP Quota
- *                           commands are not supported, but quota info
- *                           appears in the servers messages log for the IMAP
- *                           server.
- *          'maildir'    --  Use Maildir++ quota files to handle quotas.
- *          'mdaemon'    --  Use Mdaemon servers to handle quotas.
- *          'mercury32'  --  Use Mercury/32 servers to handle quotas.
- *          'sql'        --  Use arbitrary SQL queries to handle quotas.
+ *          'command' - Use the UNIX quota command to handle quotas.
+ *          'hook' - Use the quota hook to handle quotas (see
+ *                   imp/config/hooks.php).
+ *          'imap' - Use the IMAP QUOTA extension to handle quotas.
+ *                   You must be connecting to a IMAP server capable of the
+ *                   QUOTAROOT command to use this driver.
+ *          'logfile' - Allow quotas on servers where IMAP Quota commands are
+ *                      not supported, but quota info appears in the servers
+ *                      messages log for the IMAP server.
+ *          'maildir' - Use Maildir++ quota files to handle quotas.
+ *          'mdaemon' - Use Mdaemon servers to handle quotas.
+ *          'mercury32' - Use Mercury/32 servers to handle quotas.
+ *          'sql' - Use arbitrary SQL queries to handle quotas.
  *
  * admin: (array) Use this if you want to enable mailbox management for
  *        administrators via Horde's user administration interface.  The
@@ -156,19 +156,6 @@
  * *** you are doing! FOR MOST PEOPLE, AUTO-DETECTION OF THESE PARAMETERS  ***
  * *** (the default if the parameters are not set) SHOULD BE USED!         ***
  *
- * namespace: (array) The list of namespaces that exist on the server. The
- *            entries must be encoded in the UTF7-IMAP charset. Example:
- *
- *              'namespace' => array('#shared/', '#news/', '#public/')
- *
- *            This parameter should only be used if you want to allow access
- *            to namespaces that may not be publicly advertised by the IMAP
- *            server (see RFC 2342 [3]). These additional namespaces will be
- *            added to the list of available namespaces returned by the
- *            server.  (IMAP only)
- *
- * timeout: (integer) Set the server timeout (in seconds).
- *
  * comparator: (string) The search comparator to use instead of the default
  *             IMAP server comparator. See RFC 4790 [3.1] - "collation-id" -
  *             for the format. Your IMAP server must support the I18NLEVEL
@@ -187,9 +174,20 @@
  *       have an effect. By default, IMAP messages are output in the IMAP
  *       server default language. (IMAP only)
  *
- * preferred: (string) Only useful if you want to use the same servers.php file
- *            for different machines: if the hostname of the IMP machine is
- *            identical to one of those in the preferred list, then the
+ * namespace: (array) The list of namespaces that exist on the server. The
+ *            entries must be encoded in the UTF7-IMAP charset. Example:
+ *
+ *              'namespace' => array('#shared/', '#news/', '#public/')
+ *
+ *            This parameter should only be used if you want to allow access
+ *            to namespaces that may not be publicly advertised by the IMAP
+ *            server (see RFC 2342 [3]). These additional namespaces will be
+ *            added to the list of available namespaces returned by the
+ *            server.  (IMAP only)
+ *
+ * preferred: (string) Only useful if you want to use the same servers.php
+ *            file for different machines: if the hostname of the IMP machine
+ *            is identical to one of those in the preferred list, then the
  *            corresponding option in the select box will include SELECTED
  *            (i.e. it is selected per default). Otherwise the first entry
  *            in the list is selected.
@@ -198,6 +196,8 @@
  *         must be supported by the remote server. By default, IMP attempts
  *         to use REFERENCES sorting and, if this is not available, it will
  *         fall back to ORDEREDSUBJECT sorting done on the local server.
+ *
+ * timeout: (integer) Set the server timeout (in seconds).
  *
  *
  * $Id$
