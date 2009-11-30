@@ -652,7 +652,7 @@ class IMP_Application extends Horde_Registry_Application
 
         case 'accountsmanagement':
             $GLOBALS['prefsui_no_save'] = true;
-            return true;
+            return !empty($GLOBALS['conf']['user']['allow_accounts']);
 
         default:
             return true;

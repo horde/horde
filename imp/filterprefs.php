@@ -96,10 +96,13 @@ if (!$blacklist_link && !$whitelist_link && !$filters_link) {
         'display' => array('g' => _("Apply filter rules whenever Inbox is displayed?"), 'p' => 'filter_on_display', 'h' => 'filter-on-display', 'l' => $display_locked),
         'sidebar' => array('g' => _("Apply filter rules whenever sidebar is refreshed?"), 'p' => 'filter_on_sidebar', 'h' => 'filter-on-sidebar', 'l' => $sidebar_locked),
         'any_mailbox' => array('g' => _("Allow filter rules to be applied in any mailbox?"), 'p' => 'filter_any_mailbox', 'h' => 'filter-any-mailbox', 'l' => $anymailbox_locked),
-        'menuitem' => array('g' => _("Show the filter icon on the menubar?"), 'p' => 'filter_menuitem', 'l' => $menuitem_locked));
+        'menuitem' => array('g' => _("Show the filter icon on the menubar?"), 'p' => 'filter_menuitem', 'l' => $menuitem_locked)
+    );
+
     if ($_SESSION['imp']['protocol'] == 'pop') {
         unset($options_array['any_mailbox']);
     }
+
     $opts = array();
     foreach ($options_array as $key => $val) {
         if (!$val['l']) {

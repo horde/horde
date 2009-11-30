@@ -54,12 +54,14 @@ if (!$is_pop3) {
               'purge_spam_keep'));
 }
 
-$prefGroups['accounts'] = array(
-    'column' => _("General Options"),
-    'label' => _("Additional Accounts"),
-    'desc' => _("Configure additional mail accounts to display."),
-    'members' => array('accountsmanagement')
-);
+if (!empty($GLOBALS['conf']['user']['allow_accounts'])) {
+    $prefGroups['accounts'] = array(
+        'column' => _("General Options"),
+        'label' => _("Additional Accounts"),
+        'desc' => _("Configure additional mail accounts to display."),
+        'members' => array('accountsmanagement')
+    );
+}
 
 $prefGroups['compose'] = array(
     'column' => _("Message Options"),
