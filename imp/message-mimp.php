@@ -29,7 +29,7 @@ if (!$imp_mailbox->isValidIndex(false)) {
 }
 
 $imp_message = IMP_Message::singleton();
-$imp_ui = new IMP_UI_Message();
+$imp_ui = new IMP_Ui_Message();
 
 /* Determine if mailbox is readonly. */
 $readonly = $imp_imap->isReadOnly($imp_mbox['mailbox']);

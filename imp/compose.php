@@ -158,8 +158,8 @@ try {
     $notification->push($e);
 }
 
-/* Init IMP_UI_Compose:: object. */
-$imp_ui = new IMP_UI_Compose();
+/* Init IMP_Ui_Compose:: object. */
+$imp_ui = new IMP_Ui_Compose();
 
 /* Set the default charset & encoding.
  * $charset - charset to use when sending messages

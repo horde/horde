@@ -67,7 +67,7 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
             return;
         }
 
-        $imp_ui_search = new IMP_UI_Search();
+        $imp_ui_search = new IMP_Ui_Search();
 
         foreach ($vfolders as $id => $vfolder) {
             /* If this is already a stdClass object, we have already

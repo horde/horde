@@ -87,7 +87,7 @@ class IMP_Views_Compose
             $compose_html = $GLOBALS['prefs']->getValue('compose_html');
             $rte = true;
 
-            $imp_ui = new IMP_UI_Compose();
+            $imp_ui = new IMP_Ui_Compose();
             $imp_ui->initRTE(!$compose_html);
         }
 

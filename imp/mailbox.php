@@ -678,7 +678,7 @@ if ($pageOb['msgcount']) {
 
 /* Initialize repetitively used variables. */
 $fromlinkstyle = $prefs->getValue('from_link');
-$imp_ui = new IMP_UI_Mailbox($imp_mbox['mailbox']);
+$imp_ui = new IMP_Ui_Mailbox($imp_mbox['mailbox']);
 
 /* Display message information. */
 $msgs = array();

@@ -131,8 +131,8 @@ class IMP_Views_ShowMessage
         $envelope = $fetch_ret[$uid]['envelope'];
         $mime_headers = reset($fetch_ret[$uid]['headertext']);
 
-        /* Get the IMP_UI_Message:: object. */
-        $imp_ui = new IMP_UI_Message();
+        /* Get the IMP_Ui_Message:: object. */
+        $imp_ui = new IMP_Ui_Message();
 
         /* Develop the list of Headers to display now. Deal with the 'basic'
          * header information first since there are various manipulations
@@ -199,7 +199,7 @@ class IMP_Views_ShowMessage
 
         if ($preview) {
             /* Get minidate. */
-            $imp_mailbox_ui = new IMP_UI_Mailbox();
+            $imp_mailbox_ui = new IMP_Ui_Mailbox();
             $minidate = $imp_mailbox_ui->getDate($envelope['date']);
             if (empty($minidate)) {
                 $minidate = _("Unknown Date");

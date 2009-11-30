@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_UI_Folder:: class is designed to provide a place to store common
+ * The IMP_Ui_Folder:: class is designed to provide a place to store common
  * code shared among IMP's various UI views for folders.
  *
  * Copyright 2009 The Horde Project (http://www.horde.org/)
@@ -11,7 +11,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package IMP
  */
-class IMP_UI_Folder
+class IMP_Ui_Folder
 {
     /**
      * Temporary array used to determine tree levels.

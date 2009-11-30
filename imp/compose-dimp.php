@@ -52,8 +52,8 @@ if (!$prefs->isLocked('default_identity')) {
 /* Initialize the IMP_Compose:: object. */
 $imp_compose = IMP_Compose::singleton(Horde_Util::getFormData('composeCache'));
 
-/* Init IMP_UI_Compose:: object. */
-$imp_ui = new IMP_UI_Compose();
+/* Init IMP_Ui_Compose:: object. */
+$imp_ui = new IMP_Ui_Compose();
 
 if (count($_POST)) {
     $result = new stdClass;

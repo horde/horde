@@ -27,7 +27,7 @@ if ($_SESSION['imp']['protocol'] == 'pop') {
 /* If search_basic_mbox is set, we are processing the search query. */
 $search_mailbox = Horde_Util::getFormData('search_basic_mbox');
 if ($search_mailbox) {
-    $imp_ui_search = new IMP_UI_Search();
+    $imp_ui_search = new IMP_Ui_Search();
     $id = $imp_ui_search->processBasicSearch($search_mailbox, Horde_Util::getFormData('search_criteria'), Horde_Util::getFormData('search_criteria_text'), Horde_Util::getFormData('search_criteria_not'), Horde_Util::getFormData('search_flags'));
 
     /* Redirect to the mailbox screen. */

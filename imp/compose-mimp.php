@@ -85,7 +85,7 @@ case 'd':
 
 case _("Expand Names"):
     $action = Horde_Util::getFormData('action');
-    $imp_ui = new IMP_UI_Compose();
+    $imp_ui = new IMP_Ui_Compose();
     $header['to'] = $imp_ui->expandAddresses(Horde_Util::getFormData('to'), $imp_compose);
     if ($action !== 'rc') {
         if ($prefs->getValue('compose_cc')) {
@@ -132,7 +132,7 @@ case _("Redirect"):
         break;
     }
 
-    $imp_ui = new IMP_UI_Compose();
+    $imp_ui = new IMP_Ui_Compose();
 
     $f_to = $imp_ui->getAddressList(Horde_Util::getFormData('to'));
 
@@ -202,7 +202,7 @@ case _("Send"):
     $header['replyto'] = $identity->getValue('replyto_addr');
     $header['subject'] = Horde_Util::getFormData('subject');
 
-    $imp_ui = new IMP_UI_Compose();
+    $imp_ui = new IMP_Ui_Compose();
 
     $header['to'] = $imp_ui->getAddressList(Horde_Util::getFormData('to'));
     if ($prefs->getValue('compose_cc')) {

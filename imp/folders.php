@@ -425,7 +425,7 @@ if (!empty($newmsgs)) {
 }
 
 /* Get the tree images. */
-$imp_ui_folder = new IMP_UI_Folder();
+$imp_ui_folder = new IMP_Ui_Folder();
 $tree_imgs = $imp_ui_folder->getTreeImages($raw_rows, array('expand_url' => $folders_url));
 
 /* Add some further information to the $raw_rows array. */

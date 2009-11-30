@@ -272,7 +272,7 @@ class IMP_Imap_Flags
         }
 
         if (!empty($options['priority'])) {
-            $imp_msg_ui = new IMP_UI_Message();
+            $imp_msg_ui = new IMP_Ui_Message();
             switch ($imp_msg_ui->getXpriority($options['priority'])) {
             case 'high':
                 $process['highpri'] = $f['highpri'];
@@ -285,7 +285,7 @@ class IMP_Imap_Flags
         }
 
         if (!empty($options['atc'])) {
-            $imp_mbox_ui = new IMP_UI_Mailbox();
+            $imp_mbox_ui = new IMP_Ui_Mailbox();
             if ($type = $imp_mbox_ui->getAttachmentType($options['atc']->getType())) {
                 $process[$type] = $f[$type];
             }

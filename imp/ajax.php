@@ -586,7 +586,7 @@ case 'GetForwardData':
     try {
         $imp_contents = IMP_Contents::singleton($idx_string);
         $imp_compose = IMP_Compose::singleton(Horde_Util::getPost('imp_compose'));
-        $imp_ui = new IMP_UI_Compose();
+        $imp_ui = new IMP_Ui_Compose();
         $fwd_msg = $imp_ui->getForwardData($imp_compose, $imp_contents, $idx_string);
         $header = $fwd_msg['headers'];
         $header['replytype'] = 'forward';
@@ -782,7 +782,7 @@ case 'SendMDN':
         break;
     }
 
-    $imp_ui = new IMP_UI_Message();
+    $imp_ui = new IMP_Ui_Message();
     $imp_ui->MDNCheck($mbox, $uid, $reset($fetch_ret[$uid]['headertext']), true);
     break;
 

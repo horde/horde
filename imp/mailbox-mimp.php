@@ -109,7 +109,7 @@ $curr_time -= $curr_time % 60;
 $msgs = array();
 $sortpref = IMP::getSort($imp_mbox['mailbox']);
 
-$imp_ui = new IMP_UI_Mailbox($imp_mbox['mailbox']);
+$imp_ui = new IMP_Ui_Mailbox($imp_mbox['mailbox']);
 
 /* Build the array of message information. */
 $mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end']), array('headers' => array('x-priority')));

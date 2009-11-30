@@ -464,7 +464,7 @@ class IMP_Auth
         }
 
         /* Is the HTML editor available? */
-        $imp_ui = new IMP_UI_Compose();
+        $imp_ui = new IMP_Ui_Compose();
         $editor = Horde_Editor::singleton('Ckeditor', array('no_notify' => true));
         $sess['rteavail'] = $editor->supportedByBrowser();
 

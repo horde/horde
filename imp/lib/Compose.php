@@ -1352,7 +1352,7 @@ class IMP_Compose
         }
 
         if (in_array($type, array('reply_auto', 'reply_list', '*'))) {
-            $imp_ui = new IMP_UI_Message();
+            $imp_ui = new IMP_Ui_Message();
             $list_info = $imp_ui->getListInformation($h);
             if ($list_info['exists']) {
                 $header['to'] = $list_info['reply_list'];
@@ -2477,7 +2477,7 @@ class IMP_Compose
             return;
         }
 
-        $imp_ui = new IMP_UI_Compose();
+        $imp_ui = new IMP_Ui_Compose();
 
         $headers = array();
         foreach (array('to', 'cc', 'bcc', 'subject') as $val) {

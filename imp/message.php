@@ -68,7 +68,7 @@ $uid = $index_array['uid'];
 $indices_array = array($mailbox_name => array($uid));
 
 $imp_flags = IMP_Imap_Flags::singleton();
-$imp_ui = new IMP_UI_Message();
+$imp_ui = new IMP_Ui_Message();
 
 switch ($actionID) {
 case 'blacklist':

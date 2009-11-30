@@ -52,7 +52,7 @@ if (!empty($criteria)) {
     $folders = Horde_Util::getFormData('search_folders_form');
 
     /* Create the search query. */
-    $imp_ui_search = new IMP_UI_Search();
+    $imp_ui_search = new IMP_Ui_Search();
     $query = $imp_ui_search->createQuery($criteria);
 
     /* Save the search if requested. */
@@ -95,7 +95,7 @@ if ($subscribe || !Horde_Util::getFormData('show_unsub')) {
 
 list($raw_rows,) = $imp_imap_tree->build($mask);
 
-$imp_ui_folder = new IMP_UI_Folder();
+$imp_ui_folder = new IMP_Ui_Folder();
 $tree_imgs = $imp_ui_folder->getTreeImages($raw_rows);
 
 $folders = array();

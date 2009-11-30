@@ -74,7 +74,7 @@ if ($mode == 'thread') {
 }
 
 $charset = Horde_Nls::getCharset();
-$imp_ui = new IMP_UI_Message();
+$imp_ui = new IMP_Ui_Message();
 
 foreach ($loop_array as $mbox => $idxlist) {
     $fetch_res = $GLOBALS['imp_imap']->ob()->fetch($mbox, array(

@@ -19,7 +19,7 @@ if (!$uid || !$folder) {
     exit;
 }
 
-$imp_ui = new IMP_UI_Message();
+$imp_ui = new IMP_Ui_Message();
 $readonly = $imp_imap->isReadOnly($folder);
 
 $args = array(
@@ -64,8 +64,8 @@ if (!$disable_compose) {
     );
     $compose_result = IMP_Views_Compose::showCompose($compose_args);
 
-    /* Init IMP_UI_Compose:: object. */
-    $imp_ui = new IMP_UI_Compose();
+    /* Init IMP_Ui_Compose:: object. */
+    $imp_ui = new IMP_Ui_Compose();
 
     /* Attach spellchecker & auto completer. */
     $imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc'));
