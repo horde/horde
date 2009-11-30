@@ -231,7 +231,7 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
 
         $val = $this->getValue('from_addr', $ident);
         if (empty($val)) {
-            $val = $GLOBALS['imp_imap']->ob()->getParam('username');
+            $val = Horde_Auth::getBareAuth();
         }
 
         if (!strstr($val, '@')) {
