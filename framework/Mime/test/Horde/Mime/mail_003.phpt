@@ -30,4 +30,5 @@ MIME-Version: 1.0
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-H=FCbsche Umlaute=0A  und Leerzeichen.=0A
+H=FCbsche Umlaute
+  und Leerzeichen.
