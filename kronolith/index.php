@@ -31,7 +31,9 @@ echo "<body class=\"kronolithAjax\">\n";
 require KRONOLITH_TEMPLATES . '/index/index.inc';
 Horde::includeScriptFiles();
 Horde::outputInlineScript();
-Kronolith::initEventMap($conf['maps']);
+if ($conf['maps']['driver']) {
+    Kronolith::initEventMap($conf['maps']);
+}
 $notification->notify(array('listeners' => array('javascript')));
 $tac = Horde_Ajax_Imple::factory(array('kronolith', 'TagAutoCompleter'), array('triggerId' => 'kronolithEventTags', 'box' => 'kronolithEventACBox', 'pretty' => true));
 $tac->attach();
