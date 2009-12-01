@@ -231,8 +231,7 @@ $imp_mailbox = IMP_Mailbox::singleton($imp_mbox['mailbox']);
 $pageOb = $imp_mailbox->buildMailboxPage(Horde_Util::getFormData('page'), $start);
 $show_preview = $prefs->getValue('preview_enabled');
 
-$overview_headers = array('x-priority');
-$mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end']), array('preview' => $show_preview, 'headers' => $overview_headers, 'structure' => $prefs->getValue('atc_flag')));
+$mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end']), array('preview' => $show_preview, 'headers' => true, 'structure' => $prefs->getValue('atc_flag')));
 
 /* Determine sorting preferences. */
 $sortpref = IMP::getSort($imp_mbox['mailbox']);

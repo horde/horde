@@ -157,9 +157,9 @@ class IMP_Mailbox
      * @param array $msgnum   An array of message sequence numbers.
      * @param array $options  Additional options:
      * <pre>
-     * 'headers' - (array) A list of non-standard (non-envelope) headers to
-     *             return.
-     *             DEFAULT: Only envelope headers returned.
+     * 'headers' - (boolean) Return info on the non-envelope headers
+     *             'List-Post' and 'X-Priority'.
+     *             DEFAULT: false (only envelope headers returned)
      * 'preview' - (mixed) Include preview information?  If empty, add no
      *                     preview information. If 1, uses value from prefs.
      *                     If 2, forces addition of preview info.
@@ -225,7 +225,7 @@ class IMP_Mailbox
         );
 
         if (!empty($options['headers'])) {
-            $fetch_criteria[Horde_Imap_Client::FETCH_HEADERS] = array(array('headers' => $options['headers'], 'label' => 'imp', 'parse' => true, 'peek' => true));
+            $fetch_criteria[Horde_Imap_Client::FETCH_HEADERS] = array(array('cache' => true, 'headers' => array('list-post', 'x-priority'), 'label' => 'imp', 'parse' => true, 'peek' => true));
         }
 
         if (!empty($options['structure'])) {

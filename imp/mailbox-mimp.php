@@ -112,7 +112,7 @@ $sortpref = IMP::getSort($imp_mbox['mailbox']);
 $imp_ui = new IMP_Ui_Mailbox($imp_mbox['mailbox']);
 
 /* Build the array of message information. */
-$mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end']), array('headers' => array('x-priority')));
+$mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end']), array('headers' => true));
 
 /* Get thread information. */
 if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
