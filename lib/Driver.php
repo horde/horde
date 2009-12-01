@@ -3,7 +3,7 @@
  * Operator_Driver:: defines an API for implementing storage backends for
  * Operator.
  *
- * $Horde: incubator/operator/lib/Driver.php,v 1.7 2009/07/08 18:29:18 slusarz Exp $
+ * $Horde: incubator/operator/lib/Driver.php,v 1.8 2009/12/01 12:52:49 jan Exp $
  *
  * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
  *
@@ -32,9 +32,9 @@ class Operator_Driver {
         if (Horde_Auth::isAdmin() ||
             $GLOBALS['perms']->hasPermission('operator:accountcodes',
                                               Horde_Auth::getAuth(),
-                                              PERMS_READ) ||
+                                              Horde_Perms::READ) ||
             $GLOBALS['perms']->hasPermission($permentry, Horde_Auth::getAuth(),
-                                              PERMS_READ)) {
+                                              Horde_Perms::READ)) {
             return $this->_getRecords($start, $end, $accountcode, $dcontext,
                                       $rowstart, $rowlimit);
         }
@@ -69,9 +69,9 @@ class Operator_Driver {
         if (Horde_Auth::isAdmin() ||
             $GLOBALS['perms']->hasPermission('operator:accountcodes',
                                               Horde_Auth::getAuth(),
-                                              PERMS_READ) ||
+                                              Horde_Perms::READ) ||
             $GLOBALS['perms']->hasPermission($permentry, Horde_Auth::getAuth(), 
-                                              PERMS_READ)) {
+                                              Horde_Perms::READ)) {
             return $this->_getMonthlyCallStats($start, $end, $accountcode,
                                                $dcontext);
         }
