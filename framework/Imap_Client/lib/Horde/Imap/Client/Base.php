@@ -1719,6 +1719,9 @@ abstract class Horde_Imap_Client_Base
      *         Each entry should have a unique 'label' value.
      *   Value: (array) One array for each request. Each array may contain
      *          the following options:
+     *     'cache' - (boolean) If true, and 'peek' is also true, will cache
+     *               the result of this call.
+     *               DEFAULT: false
      *     'headers' - (array) The headers to search for (case-insensitive).
      *                 DEFAULT: NONE (MANDATORY)
      *     'id' - (string) The MIME ID to search.
@@ -1897,8 +1900,9 @@ abstract class Horde_Imap_Client_Base
      */
     public function fetch($mailbox, $criteria, $options = array())
     {
-        $cache_array = $get_fields = $new_criteria = $ret = array();
-        $header_cache = null;
+        $cache_array = $get_fields = $header_cache = $new_criteria = $ret = array();
+        $headerpeek = false;
+        $headertext = null;
         $qresync = isset($this->_init['enabled']['QRESYNC']);
         $seq = !empty($options['sequence']);
 
@@ -1918,7 +1922,8 @@ abstract class Horde_Imap_Client_Base
 
         $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
 
-        $cf = $this->_initCache(true)
+        $cache_avail = $this->_initCache(true);
+        $cf = $cache_avail
             ? $this->_params['cache']['fields']
             : array();
 
@@ -2014,11 +2019,34 @@ abstract class Horde_Imap_Client_Base
             case Horde_Imap_Client::FETCH_HEADERTEXT:
                 // Caching for this access only - and only base header is
                 // cached.
-                if (!empty($v['peek'])) {
-                    foreach ($v as $k2 => $v2) {
+                foreach ($v as $k2 => $v2) {
+                    if (!empty($v['peek'])) {
+                        $headerpeek = true;
                         if (!isset($v2['id']) || ($v2['id'] === 0)) {
-                            $headertext_cache = $k2;
+                            $headertext = $k2;
                             break;
+                        }
+                    }
+                }
+                break;
+
+            case Horde_Imap_Client::FETCH_HEADERS:
+                $this->_temp['headers_caching'] = array();
+
+                /* Only cache if directly requested. */
+                if ($cache_avail) {
+                    $fetch_field = 'headers';
+
+                    foreach ($v as $key => $val) {
+                        if (!empty($val['cache']) &&
+                            !empty($val['peek'])) {
+                            $cache_field = 'HIChdrs';
+                            ksort($val);
+                            $header_cache[] = array(
+                                'f' => hash('md5', serialize($val)),
+                                'k' => $key,
+                                'l' => $val['label']
+                            );
                         }
                     }
                 }
@@ -2035,7 +2063,7 @@ abstract class Horde_Imap_Client_Base
         }
 
         /* If nothing is cacheable, we can do a straight search. */
-        if (empty($cache_array) && is_null($header_cache)) {
+        if (empty($cache_array) && $headerpeek) {
             return $this->_fetch($criteria, $options);
         }
 
@@ -2061,23 +2089,44 @@ abstract class Horde_Imap_Client_Base
             $ret[$id] = array('uid' => $id);
 
             foreach ($cache_array as $key => $cval) {
-                // Retrieved from cache so store in return array
-                if (isset($data[$val][$cval['c']])) {
-                    $ret[$id][$cval['f']] = $data[$val][$cval['c']];
-                    unset($crit[$key]);
+                switch ($key) {
+                case Horde_Imap_Client::FETCH_HEADERS:
+                    /* HEADERS caching. */
+                    foreach ($header_cache as $hval) {
+                        if (isset($data[$val][$cval['c']][$hval['f']])) {
+                            $ret[$id][$cval['f']][$hval['l']] = $data[$val][$cval['c']][$hval['f']];
+                            unset($crit[$key][$hval['k']]);
+                            if (empty($crit[$key])) {
+                                unset($crit[$key]);
+                            }
+                        } else {
+                            $this->_temp['headers_caching'][$hval['l']] = $hval['f'];
+                        }
+                    }
+                    break;
+
+                default:
+                    /* Retrieved from cache so store in return array. */
+                    if (isset($data[$val][$cval['c']])) {
+                        $ret[$id][$cval['f']] = $data[$val][$cval['c']];
+                        unset($crit[$key]);
+                    }
+                    break;
                 }
             }
 
-            if (!is_null($header_cache) &&
+
+            /* HEADERTEXT caching for this access only. */
+            if (!is_null($headertext) &&
                 isset($this->_temp['headertext'][$val])) {
-                $ret[$id]['headertext'][0] = empty($crit[Horde_Imap_Client::FETCH_HEADERTEXT][$header_cache]['parse'])
+                $ret[$id]['headertext'][0] = empty($crit[Horde_Imap_Client::FETCH_HEADERTEXT][$headertext]['parse'])
                     ? $this->_temp['headertext'][$val]
                     : Horde_Mime_Headers::parseHeaders($this->_temp['headertext'][$val]);
 
                 if (count($crit[Horde_Imap_Client::FETCH_HEADERTEXT]) == 1) {
                     unset($crit[Horde_Imap_Client::FETCH_HEADERTEXT]);
                 } else {
-                    unset($crit[Horde_Imap_Client::FETCH_HEADERTEXT][$header_cache]);
+                    unset($crit[Horde_Imap_Client::FETCH_HEADERTEXT][$headertext]);
                 }
             }
 
@@ -2105,14 +2154,21 @@ abstract class Horde_Imap_Client_Base
                 while (list($k, $v) = each($fetch_res)) {
                     reset($v);
                     while (list($k2, $v2) = each($v)) {
-                        if (!is_null($header_cache) &&
-                            ($k2 == 'headertext') &&
-                            isset($v2[0])) {
-                            /* Store headertext internally as the raw text -
-                             * can convert to parsed format if needed. */
-                            $this->_temp['headertext'][$k] = $v2[0];
-                            if (!empty($val['c'][Horde_Imap_Client::FETCH_HEADERTEXT][$header_cache]['parse'])) {
-                                $v2[0] = Horde_Mime_Headers::parseHeaders($v2[0]);
+                        switch ($k2) {
+                        case 'headertext':
+                            foreach ($val['c'][Horde_Imap_Client::FETCH_HEADERTEXT] as $hkey => $hval) {
+                                if (!is_null($headertext) &&
+                                    ($headertext == $hkey)) {
+                                    /* Store headertext internally as the raw
+                                     * text; can convert to parsed format later
+                                     * if needed. */
+                                    $this->_temp['headertext'][$k] = $v2[$hkey];
+                                }
+
+                                if (!empty($hval['parse'])) {
+                                    $id = isset($hval['id']) ? $hval['id'] : 0;
+                                    $v2[$id] = Horde_Mime_Headers::parseHeaders($v2[$id]);
+                                }
                             }
                         }
 
@@ -2721,6 +2777,15 @@ abstract class Horde_Imap_Client_Base
                 case 'size':
                     if (isset($cf[Horde_Imap_Client::FETCH_SIZE])) {
                         $tmp['HICsize'] = $val;
+                    }
+                    break;
+
+                case 'headers':
+                    reset($val);
+                    if (isset($this->_temp['headers_caching'][key($val)])) {
+                        $tmp['HIChdrs'][$this->_temp['headers_caching'][key($val)]] = is_array($val)
+                            ? current($val)
+                            : clone current($val);
                     }
                     break;
                 }
