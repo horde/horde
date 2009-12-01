@@ -398,7 +398,7 @@ class IMP_Imap
      * @return string  The mailbox string with any necessary namespace info
      *                 added.
      */
-    static public function appendNamespace($mbox)
+    public function appendNamespace($mbox)
     {
         $ns_info = $this->getNamespace($mbox);
         if (is_null($ns_info)) {
