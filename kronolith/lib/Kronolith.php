@@ -1922,7 +1922,7 @@ class Kronolith
      *
      * @param Kronolith_Event #
      */
-    public static function notifyOfResoruceRejection($event)
+    public static function notifyOfResourceRejection($event)
     {
         $declined = array();
         $accepted = array();

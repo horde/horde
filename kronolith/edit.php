@@ -19,7 +19,7 @@ function _save(&$event)
     } elseif (Horde_Util::getFormData('sendupdates', false)) {
         Kronolith::sendITipNotifications($event, $GLOBALS['notification'], Kronolith::ITIP_REQUEST);
     }
-    Kronolith::notifyOfResoruceRejection($event);
+    Kronolith::notifyOfResourceRejection($event);
 }
 
 function _check_max()
