@@ -2013,11 +2013,13 @@ abstract class Horde_Imap_Client_Base
 
             case Horde_Imap_Client::FETCH_HEADERTEXT:
                 // Caching for this access only - and only base header is
-                // cached. TODO: peek?
-                foreach ($v as $k2 => $v2) {
-                    if (!isset($v2['id']) || ($v2['id'] === 0)) {
-                        $header_cache = $k2;
-                        break;
+                // cached.
+                if (!empty($v['peek'])) {
+                    foreach ($v as $k2 => $v2) {
+                        if (!isset($v2['id']) || ($v2['id'] === 0)) {
+                            $headertext_cache = $k2;
+                            break;
+                        }
                     }
                 }
                 break;
