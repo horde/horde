@@ -1,5 +1,12 @@
+/**
+ * Version: 1.0 Alpha-1
+ * Build Date: 13-Nov-2007
+ * Copyright (c) 2006-2007, Coolite Inc. (http://www.coolite.com/). All rights reserved.
+ * License: Licensed under The MIT License. See license.txt and http://www.datejs.com/license/.
+ * Website: http://www.datejs.com/ or http://www.coolite.com/datejs/
+ */
 Date.CultureInfo = {
-	/* Culture Name */
+    /* Culture Name */
     name: "tr-TR",
     englishName: "Turkish (Turkey)",
     nativeName: "Türkçe (Türkiye)",
@@ -12,11 +19,11 @@ Date.CultureInfo = {
 
     /* Month Name Strings */
     monthNames: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
-    abbreviatedMonthNames: ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"],
+    abbreviatedMonthNames: ["Oca", "Şub", "Mar", "Nis", "May", "Tem", "Haz", "Ağu", "Eyl", "Eki", "Kas", "Ara"],
 
-	/* AM/PM Designators */
-    amDesignator: "",
-    pmDesignator: "",
+        /* AM/PM Designators */
+    amDesignator: "AM",
+    pmDesignator: "PM",
 
     firstDayOfWeek: 1,
     twoDigitYearMax: 2029,
@@ -33,25 +40,26 @@ Date.CultureInfo = {
      "dd/MM/yyyy"        "dmy"
      "yyyy-MM-dd"        "ymd"
      </pre>
-     *
      * The correct dateElementOrder is required by the parser to
      * determine the expected order of the date elements in the
      * string being parsed.
+     *
+     * NOTE: It is VERY important this value be correct for each Culture.
      */
     dateElementOrder: "dmy",
 
     /* Standard date and time format patterns */
     formatPatterns: {
-        shortDate: "dd.MM.yyyy",
-        longDate: "dd MMMM yyyy dddd",
-        shortTime: "HH:mm",
-        longTime: "HH:mm:ss",
-        fullDateTime: "dd MMMM yyyy dddd HH:mm:ss",
-        sortableDateTime: "yyyy-MM-ddTHH:mm:ss",
-        universalSortableDateTime: "yyyy-MM-dd HH:mm:ssZ",
+        shortDate: "d/M/yyyy",
+        longDate: "dddd, dd, MMMM, yyyy",
+        shortTime: "h:mm tt",
+        longTime: "h:mm:ss tt",
+        fullDateTime: "dddd, dd, MMMM, yyyy h:mm:ss tt",
+        sortableDateTime: "dd-MM-yyyyTHH:mm:ss",
+        universalSortableDateTime: "dd-MM-yyyy HH:mm:ssZ",
         rfc1123: "ddd, dd MMM yyyy HH:mm:ss GMT",
         monthDay: "dd MMMM",
-        yearMonth: "MMMM yyyy"
+        yearMonth: "MMMM, yyyy"
     },
 
     /**
@@ -72,9 +80,10 @@ Date.CultureInfo = {
      * providing the correct regular expression pattern.
      *
      * If you modify this file, please post your revised CultureInfo file
-     * to the Datejs Forum located at http://www.datejs.com/forums/.
+     * to the Datejs Discussions located at
+     *     http://groups.google.com/group/date-js
      *
-     * Please mark the subject of the post with [CultureInfo]. Example:
+     * Please mark the subject with [CultureInfo]. Example:
      *    Subject: [CultureInfo] Translated "da-DK" Danish(Denmark)
      *
      * We will add the modified patterns to the master source files.
@@ -94,102 +103,79 @@ Date.CultureInfo = {
         oct: /^eki(m)?/i,
         nov: /^kas(ım)?/i,
         dec: /^ara(lık)?/i,
-
-        sun: /^pz(z(ar)?)?/i,
-        mon: /^pt(t(artesi)?)?/i,
+        sun: /^pa(z(ar)?)?/i,
+        mon: /^pa(z(artesi)?)?/i,
         tue: /^sa(l(ı)?)?/i,
         wed: /^ça(r(şamba)?)?/i,
-        thu: /^pe(r(şembe)?)?/i,
+        thu: /^pe(r(ş(e(mbe)?)?)?)?/i,
         fri: /^cu(m(a)?)?/i,
-        sat: /^ct(t(artesi)?)?/i,
-
-        future: /^next/i,
-        past: /^last|past|prev(ious)?/i,
-        add: /^(\+|aft(er)?|from|hence)/i,
-        subtract: /^(\-|bef(ore)?|ago)/i,
-
-        yesterday: /^yes(terday)?/i,
-        today: /^t(od(ay)?)?/i,
-        tomorrow: /^tom(orrow)?/i,
-        now: /^n(ow)?/i,
-
-        millisecond: /^ms|milli(second)?s?/i,
-        second: /^sec(ond)?s?/i,
-        minute: /^mn|min(ute)?s?/i,
-		hour: /^h(our)?s?/i,
-		week: /^w(eek)?s?/i,
-        month: /^m(onth)?s?/i,
-        day: /^d(ay)?s?/i,
-        year: /^y(ear)?s?/i,
-
+        sat: /^cu(m(artesi)?)?/i,
+        future: /^ertesi|birdahaki|sonraki|önümüzdeki/i,
+        past: /^evvelsi|önceki|geçen?/i,
+        add: /^(\+|sonra|dan)/i,
+        subtract: /^(\-|önce)/i,
+        yesterday: /^dün/i,
+        today: /^bu(gün)?/i,
+        tomorrow: /^yarın/i,
+        now: /^şi(mdi)?/i,
+        millisecond: /^ms|mili(saniye)?/i,
+        second: /^san(iye)?/i,
+        minute: /^dak(ika)?s?/i,
+        hour: /^s(aa)?t?/i,
+        week: /^h(af)?ta/i,
+        month: /^a(y)?/i,
+        day: /^g(ün)?/i,
+        year: /^y(ıl)?/i,
         shortMeridian: /^(a|p)/i,
         longMeridian: /^(a\.?m?\.?|p\.?m?\.?)/i,
-        timezone: /^((e(s|d)t|c(s|d)t|m(s|d)t|p(s|d)t)|((gmt)?\s*(\+|\-)\s*\d\d\d\d?)|gmt|utc)/i,
-        ordinalSuffix: /^\s*(st|nd|rd|th)/i,
-        timeContext: /^\s*(\:|a(?!u|p)|p)/i
+        timezone: /^((e(s|d)t|c(s|d)t|m(s|d)t|p(s|d)t)|((gmt)?\s*(\+|\-)\s*\d\d\d\d?)|gmt)/i,
+        ordinalSuffix: /^\s*(inci|ıncı)/i,
+        timeContext: /^\s*(\:|a|p)/i
     },
 
-	timezones: [{name:"UTC", offset:"-000"}, {name:"GMT", offset:"-000"}, {name:"EST", offset:"-0500"}, {name:"EDT", offset:"-0400"}, {name:"CST", offset:"-0600"}, {name:"CDT", offset:"-0500"}, {name:"MST", offset:"-0700"}, {name:"MDT", offset:"-0600"}, {name:"PST", offset:"-0800"}, {name:"PDT", offset:"-0700"}]
+    abbreviatedTimeZoneStandard: { GMT: "+0200", EST: "-0400", CST: "-0500", MST: "-0600", PST: "-0700" },
+    abbreviatedTimeZoneDST: { GMT: "+0200", EDT: "-0500", CDT: "-0600", MDT: "-0700", PDT: "-0800" }
+
 };
 
 /********************
  ** Future Strings **
  ********************
  *
- * The following list of strings may not be currently being used, but
- * may be incorporated into the Datejs library later.
- *
- * We would appreciate any help translating the strings below.
+ * The following list of strings are not currently being used, but
+ * may be incorporated later. We would appreciate any help translating
+ * the strings below.
  *
  * If you modify this file, please post your revised CultureInfo file
- * to the Datejs Forum located at http://www.datejs.com/forums/.
+ * to the Datejs Discussions located at
+ *     http://groups.google.com/group/date-js
  *
- * Please mark the subject of the post with [CultureInfo]. Example:
- *    Subject: [CultureInfo] Translated "da-DK" Danish(Denmark)b
+ * Please mark the subject with [CultureInfo]. Example:
+ *    Subject: [CultureInfo] Translated "da-DK" Danish(Denmark)
  *
  * English Name        Translated
  * ------------------  -----------------
- * about               about
- * ago                 ago
- * date                date
- * time                time
- * calendar            calendar
- * show                show
- * hourly              hourly
- * daily               daily
- * weekly              weekly
- * bi-weekly           bi-weekly
- * fortnight           fortnight
- * monthly             monthly
- * bi-monthly          bi-monthly
- * quarter             quarter
- * quarterly           quarterly
- * yearly              yearly
- * annual              annual
- * annually            annually
- * annum               annum
- * again               again
- * between             between
- * after               after
- * from now            from now
- * repeat              repeat
- * times               times
- * per                 per
- * min (abbrev minute) min
- * morning             morning
- * noon                noon
- * night               night
- * midnight            midnight
- * mid-night           mid-night
- * evening             evening
- * final               final
- * future              future
- * spring              spring
- * summer              summer
- * fall                fall
- * winter              winter
- * end of              end of
- * end                 end
- * long                long
- * short               short
+ * date                tarih
+ * time                zaman
+ * calendar            takvim
+ * show                göster
+ * hourly              saatlik
+ * daily               günlük
+ * weekly              haftalık
+ * bi-weekly           iki haftada bir
+ * monthly             aylık
+ * bi-monthly          iki ayda bir
+ * quarter             çeyrek
+ * quarterly           her çeyrekte
+ * yearly              yıllık
+ * annual              yıldönümü
+ * annually            her yıl
+ * annum               yılda
+ * again               tekrar
+ * between             arasında
+ * after               sonra
+ * from now            bundan sonra
+ * repeat              tekrar
+ * times               kere
+ * per                 başına
  */
