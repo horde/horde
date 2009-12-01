@@ -124,7 +124,7 @@ class Kronolith_View_Week {
 
         $row = '';
         for ($j = $this->startDay; $j <= $this->endDay; ++$j) {
-            $row .= '<td class="hour rightAlign">' . ($more_timeslots ? _("All day") : '&nbsp;') . '</td>' .
+            $row .= '<td class="hour rightAlign daySpacer">' . ($more_timeslots ? _("All day") : '&nbsp;') . '</td>' .
                 '<td colspan="' . $this->days[$j]->_totalspan . '" valign="top"><table width="100%" cellspacing="0">';
             if ($this->days[$j]->_all_day_maxrowspan > 0) {
                 for ($k = 0; $k < $this->days[$j]->_all_day_maxrowspan; ++$k) {
@@ -183,16 +183,26 @@ class Kronolith_View_Week {
             for ($j = $this->startDay; $j <= $this->endDay; ++$j) {
                 // Add spacer between days, or timeslots.
                 if ($more_timeslots) {
-                    $row .= '<td align="right" class="' . $hourclass . '">' . $time . '</td>';
+                    $row .= '<td align="right" class="' . $hourclass . ' daySpacer">' . $time . '</td>';
                 } else {
-                    $row .= '<td>&nbsp;</td>';
+                    $row .= '<td class="daySpacer">&nbsp;</td>';
                 }
 
                 if (!count($this->_currentCalendars)) {
                     $row .= '<td>&nbsp;</td>';
                 }
+
                 foreach ($this->_currentCalendars as $cid => $cal) {
+                     // Width (sum of colspans) of events for the current time
+                     // slot.
                     $hspan = 0;
+                     // $hspan + count of empty TDs in the current timeslot.
+                    $current_indent = 0;
+
+                    // $current_indent is initialized to the position of the
+                    // first available cell of the day.
+                    for (; isset($covered[$j][$i][$current_indent]); ++$current_indent);
+
                     foreach ($this->days[$j]->_event_matrix[$cid][$i] as $key) {
                         $event = &$this->days[$j]->_events[$key];
                         if ($include_all_events || $event->getCalendar() == $cid) {
@@ -203,36 +213,49 @@ class Kronolith_View_Week {
                             // overlap.
                             $span = $this->days[$j]->_span[$cid] / $event->overlap;
 
-                            // Store the indent we're starting this
-                            // event at for future use.
+                            // Store the indent we're starting this event at
+                            // for future use.
                             if (!isset($event->indent)) {
-                                $event->indent = $hspan;
+                                $event->indent = $current_indent;
                             }
 
-                            // If the first node that we would cover
-                            // is already covered, we can assume that
-                            // table rendering will take care of
-                            // pushing the event over. However, if the
-                            // first node _isn't_ covered but any
-                            // others that we would covered _are_, we
-                            // only cover the available nodes.
-                            if (!isset($covered[$j][$i][$event->indent])) {
-                                $collision = false;
-                                $available = 0;
-                                for ($y = $event->indent; $y < ($span + $event->indent); ++$y) {
-                                    if (isset($covered[$j][$i][$y])) {
-                                        $collision = true;
-                                        break;
+                            // If $event->span is set this mean than we
+                            // already calculated the width of the event.
+                            if (!isset($event->span)) {
+                                // If the first node that we would cover is
+                                // already covered, we can assume that table
+                                // rendering will take care of pushing the
+                                // event over. However, if the first node
+                                // _isn't_ covered but any others that we
+                                // would covered _are_, we only cover the
+                                // available nodes.
+                                if (!isset($covered[$j][$i][$event->indent])) {
+                                    $collision = false;
+                                    $available = 0;
+                                    for ($y = $event->indent; $y < ($span + $event->indent); ++$y) {
+                                        if (isset($covered[$j][$i][$y])) {
+                                            $collision = true;
+                                            break;
+                                        }
+                                        $available++;
                                     }
-                                    $available++;
+
+                                    if ($collision) {
+                                        $span = $available;
+                                    }
                                 }
 
-                                if ($collision) {
-                                    $span = $available;
-                                }
+                                // We need to store the computed event span
+                                // because in some cases it might not be
+                                // possible to compute it again (when only the
+                                // first half of the event is in colision).
+                                // ceil() is needed because of some float
+                                // values (bug ?)
+                                $event->span = ceil($span);
                             }
 
-                            $hspan += $span;
+                            $hspan          += $event->span;
+                            $current_indent += $event->span;
 
                             $start = new Horde_Date(array(
                                 'hour'  => floor($i / $this->_slotsPerHour),
@@ -252,7 +275,7 @@ class Kronolith_View_Week {
                                 // Store the nodes that we're covering for
                                 // this event in the coverage graph.
                                 for ($x = $i; $x < ($i + $event->rowspan); ++$x) {
-                                    for ($y = $event->indent; $y < $hspan; ++$y) {
+                                    for ($y = $event->indent; $y < $current_indent; ++$y) {
                                         $covered[$j][$x][$y] = true;
                                     }
                                 }
@@ -261,7 +284,7 @@ class Kronolith_View_Week {
                                     . $event->getCSSColors()
                                     . 'valign="top" '
                                     . 'width="' . floor(((90 / count($this->days)) / count($this->_currentCalendars)) * ($span / $this->days[$j]->_span[$cid])) . '%" '
-                                    . 'colspan="' . $span . '" rowspan="' . $event->rowspan . '">'
+                                    . 'colspan="' . $event->span . '" rowspan="' . $event->rowspan . '">'
                                     . $event->getLink($this->days[$j], true, $this->link(0, true));
                                 if ($showTime) {
                                     $row .= '<div class="event-time">' . htmlspecialchars($event->getTimeRange()) . '</div>';
