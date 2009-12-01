@@ -160,21 +160,10 @@ class IMP_Views_ShowMessage
             }
         }
 
-        if (empty($result['reply-to']) ||
-            ($result['from'] == $result['reply-to'])) {
-            unset($result['reply-to']);
-        }
-
         /* Build the rest of the headers. */
         foreach ($headers_list as $head => $str) {
             if (!$preview && isset($result[$head])) {
-                /* JS requires camelized name for reply-to. */
-                if ($head == 'reply-to') {
-                    $head = 'replyTo';
-                    $result[$head] = $result['reply-to'];
-                    unset($result['reply-to']);
-                }
-                $headers[] = array('id' => Horde_String::ucfirst($head), 'name' => $str, 'value' => '');
+                $headers[$head] = array('id' => Horde_String::ucfirst($head), 'name' => $str, 'value' => '');
             } elseif ($val = $mime_headers->getValue($head)) {
                 if ($head == 'date') {
                     /* Add local time to date header. */
@@ -185,10 +174,24 @@ class IMP_Views_ShowMessage
                 } elseif (!$preview) {
                     $val = htmlspecialchars($val);
                 }
+
                 if (!$preview) {
-                    $headers[] = array('id' => Horde_String::ucfirst($head), 'name' => $str, 'value' => $val);
+                    $headers[$head] = array('id' => Horde_String::ucfirst($head), 'name' => $str, 'value' => $val);
                 }
             }
+        }
+
+        if (empty($result['reply-to']) ||
+            ($result['from'] == $result['reply-to'])) {
+            unset($result['reply-to'], $headers['reply-to']);
+        }
+
+        /* JS requires camelized name for reply-to. */
+        if (!$preview && isset($headers['reply-to'])) {
+            $head = 'replyTo';
+            $result['replyTo'] = $result['reply-to'];
+            unset($result['reply-to']);
+            $headers['reply-to']['id'] = Horde_String::ucfirst($head);
         }
 
         /* Grab maillog information. */
@@ -214,7 +217,7 @@ class IMP_Views_ShowMessage
                     $headers[] = array('name' => $user_hdr, 'value' => htmlspecialchars($user_val));
                 }
             }
-            $result['headers'] = $headers;
+            $result['headers'] = array_values($headers);
         }
 
         /* Process the subject. */
