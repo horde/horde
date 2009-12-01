@@ -164,6 +164,9 @@ try {
         }
         $event->readForm();
         $result = saveEvent($event);
+        if ($result !== true && Horde_Util::getFormData('sendupdates')) {
+            Kronolith::sendITipNotifications($event, $notification, Kronolith::ITIP_REQUEST);
+        }
         break;
 
     case 'QuickSaveEvent':
@@ -264,6 +267,9 @@ try {
         if ($deleted instanceof PEAR_Error) {
             $notification->push($deleted, 'horde.error');
             break;
+        }
+        if (Horde_Util::getFormData('sendupdates', false)) {
+            Kronolith::sendITipNotifications($event, $notification, Kronolith::ITIP_CANCEL);
         }
         $result = new stdClass;
         $result->deleted = true;
