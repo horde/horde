@@ -44,23 +44,23 @@ class Horde_Block_kronolith_tree_alarms extends Horde_Block {
             }
         }
 
-        if ($registry->get('url', $parent)) {
-            $purl = $registry->get('url', $parent);
-        } elseif ($registry->get('status', $parent) == 'heading' ||
-                  !$registry->get('webroot')) {
+        if ($GLOBALS['registry']->get('url', $parent)) {
+            $purl = $GLOBALS['registry']->get('url', $parent);
+        } elseif ($GLOBALS['registry']->get('status', $parent) == 'heading' ||
+                  !$GLOBALS['registry']->get('webroot')) {
             $purl = null;
         } else {
-            $purl = Horde::url($registry->getInitialPage($parent));
+            $purl = Horde::url($GLOBALS['registry']->getInitialPage($parent));
         }
         $pnode_params = array('url' => $purl,
-                              'icon' => $registry->get('icon', $parent),
+                              'icon' => $GLOBALS['registry']->get('icon', $parent),
                               'icondir' => '');
-        $pnode_name = $registry->get('name', $parent);
+        $pnode_name = $GLOBALS['registry']->get('name', $parent);
         if ($alarmCount) {
             $pnode_name = '<strong>' . $pnode_name . '</strong>';
         }
 
-        $tree->addNode($parent, $registry->get('menu_parent', $parent),
+        $tree->addNode($parent, $GLOBALS['registry']->get('menu_parent', $parent),
                        $pnode_name, $indent, false, $pnode_params);
     }
 
