@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Block</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Block API</summary>
+ <description>The Horde_Block API provides a mechanism for displaying content
+ blocks from numerous Horde applications or other sources, manipulating those
+ blocks, configuring them, etc.
+ </description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-12-01</date>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>* Initial Horde 4 package.
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Block">
+      <dir name="Layout">
+       <file name="Manager.php" role="php" />
+       <file name="View.php" role="php" />
+      </dir> <!-- /lib/Horde/Block/Layout -->
+      <file name="Collection.php" role="php" />
+      <file name="Layout.php" role="php" />
+      <file name="Ui.php" role="php" />
+     </dir> <!-- /lib/Horde/Block -->
+     <file name="Block.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>Core</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Util</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+  <optional>
+   <extension>
+    <name>gettext</name>
+   </extension>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Block/Layout/Manager.php" as="Horde/Block/Layout/Manager.php" />
+   <install name="lib/Horde/Block/Layout/View.php" as="Horde/Block/Layout/View.php" />
+   <install name="lib/Horde/Block/Collection.php" as="Horde/Block/Collection.php" />
+   <install name="lib/Horde/Block/Layout.php" as="Horde/Block/Layout.php" />
+   <install name="lib/Horde/Block/Ui.php" as="Horde/Block/Ui.php" />
+   <install name="lib/Horde/Block.php" as="Horde/Block.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <date>2006-05-08</date>
+   <time>17:49:36</time>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Converted to package.xml 2.0 for pear.horde.org
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-02-13</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Initial packaging
+   </notes>
+  </release>
+ </changelog>
+</package>
