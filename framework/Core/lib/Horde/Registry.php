@@ -911,16 +911,22 @@ class Horde_Registry
             Horde::callHook('pushapp', array(), $app);
         } catch (Horde_Exception $e) {
             $e->setCode(self::HOOK_FATAL);
+            $this->popApp();
             throw $e;
         } catch (Horde_Exception_HookNotSet $e) {}
 
         /* Initialize application. */
         if ($checkPerms || !empty($options['init'])) {
-            if (file_exists($app_lib . '/base.php')) {
-                // TODO: Remove once there is no more base.php files
-                require_once $app_lib . '/base.php';
-            } else {
-                $this->callAppMethod($app, 'init');
+            try {
+                if (file_exists($app_lib . '/base.php')) {
+                    // TODO: Remove once there is no more base.php files
+                    require_once $app_lib . '/base.php';
+                } else {
+                    $this->callAppMethod($app, 'init');
+                }
+            } catch (Horde_Exception $e) {
+                $this->popApp();
+                throw $e;
             }
         }
 
