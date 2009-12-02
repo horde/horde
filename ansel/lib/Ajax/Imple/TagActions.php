@@ -62,7 +62,6 @@ class Ansel_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
             $resource = $GLOBALS['ansel_storage']->getImage($id);
             $parent = $GLOBALS['ansel_storage']->getGallery($resource->gallery);
         }
-        $owner = $parent->get('owner');
 
         switch ($action) {
         case 'add':
@@ -80,7 +79,7 @@ class Ansel_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
                 }
 
                 return array('response' => 1,
-                             'message' => $this->_getTagHtml($newTags, $owner,
+                             'message' => $this->_getTagHtml($newTags,
                                                              $parent->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)));
             }
             break;
@@ -96,14 +95,14 @@ class Ansel_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
             }
 
             return array('response' => 1,
-                         'message' => $this->_getTagHtml($newTags, $owner,
+                         'message' => $this->_getTagHtml($newTags,
                                                          $parent->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)));
             break;
         }
 
     }
 
-    private function _getTagHtml($tags, $owner, $hasEdit)
+    private function _getTagHtml($tags, $hasEdit)
     {
         global $registry;
         $links = Ansel_Tags::getTagLinks($tags, 'add');
