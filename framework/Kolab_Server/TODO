@@ -28,3 +28,5 @@
  - Support size restrictions.
 
  - Implement search result caching.
+
+ - Remove Horde_Date dependency.
