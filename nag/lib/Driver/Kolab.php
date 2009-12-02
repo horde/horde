@@ -817,10 +817,10 @@ class Nag_Driver_kolab_wrapper_new extends Nag_Driver_kolab_wrapper {
                                           'estimate' => $estimate,
                                           'completed_date' => $completed_date,
                                           'creator' => array(
-                                              'smpt-address' => $owner,
+                                              'smtp-address' => $owner,
                                           ),
                                           'organizer' => array(
-                                              'smpt-address' => $assignee,
+                                              'smtp-address' => $assignee,
                                           ),
                                       ),
                                       $old_uid);
