@@ -51,7 +51,7 @@ class IMP_Application extends Horde_Registry_Application
      *
      * @var boolean
      */
-    protected $noCompress = false;
+    protected $_noCompress = false;
 
     /**
      * The auth type to use.
