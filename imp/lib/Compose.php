@@ -1474,8 +1474,9 @@ class IMP_Compose
 
         $header['subject'] = $h->getValue('subject');
         if (!empty($header['subject'])) {
-            $header['title'] = _("Forward") . ': ' . $header['subject'];
-            $header['subject'] = 'Fwd: ' . $GLOBALS['imp_imap']->ob()->utils->getBaseSubject($header['subject'], array('keepblob' => true));
+            $subject = $GLOBALS['imp_imap']->ob()->utils->getBaseSubject($header['subject'], array('keepblob' => true));
+            $header['title'] = _("Forward") . ': ' . $subject;
+            $header['subject'] = 'Fwd: ' . $subject;
         } else {
             $header['title'] = _("Forward");
             $header['subject'] = 'Fwd:';
