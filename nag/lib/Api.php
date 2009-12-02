@@ -468,17 +468,17 @@ class Nag_Api extends Horde_Registry_Api
                     $task->tasklist = $tasklist;
                     if (isset($task->uid) &&
                         !is_a(($existing = $storage->getByUID($task->uid)), 'PEAR_Error')) {
-                        // Entry exists, remove from uids_remove list so we won't
-                        // delete in the end.
+                        // Entry exists, remove from uids_remove list so we
+                        // won't delete in the end.
                         if (isset($uids_remove[$task->uid])) {
                             unset($uids_remove[$task->uid]);
                         }
                         if ($existing->private &&
                             $existing->owner != Horde_Auth::getAuth()) {
-                                continue;
-                            }
-                        // Check if our task is newer then the existing - get the
-                        // task's history.
+                            continue;
+                        }
+                        // Check if our task is newer then the existing - get
+                        // the task's history.
                         $history = Horde_History::singleton();
                         $created = $modified = null;
                         $log = $history->getHistory('nag:' . $tasklist . ':' . $task->uid);
@@ -500,8 +500,8 @@ class Nag_Api extends Horde_Registry_Api
                         }
                         if (!empty($modified) &&
                             $modified >= $content->getAttribute('LAST-MODIFIED')) {
-                                // LAST-MODIFIED timestamp of existing entry is newer:
-                                // don't replace it.
+                                // LAST-MODIFIED timestamp of existing entry
+                                // is newer: don't replace it.
                                 continue;
                             }
 
