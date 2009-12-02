@@ -1025,10 +1025,12 @@ div.msgSubject span.treeImg {
 #th_expand span.iconImg, #partlist_col, #msgloglist_col {
     background-image: url("graphics/arrow_collapsed.png");
     cursor: pointer;
+    margin-right: 0;
 }
 #th_collapse span.iconImg, #partlist_exp, #msgloglist_exp {
     background-image: url("graphics/arrow_expanded.png");
     cursor: pointer;
+    margin-right: 0;
 }
 #msg_view_source span.iconImg {
     background-image: url("graphics/message_source.png");
