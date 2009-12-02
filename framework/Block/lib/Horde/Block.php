@@ -92,7 +92,7 @@ class Horde_Block
      *
      * @return array  The block's configurable parameters.
      */
-    static public function getParams()
+    public function getParams()
     {
         /* Switch application contexts, if necessary. Return an error
          * immediately if pushApp() fails. */
