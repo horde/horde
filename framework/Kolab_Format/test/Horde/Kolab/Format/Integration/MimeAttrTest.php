@@ -13,9 +13,9 @@
  */
 
 /**
- * The Autoloader allows us to omit "require/include" statements.
+ * Prepare the test setup.
  */
-require_once 'Horde/Autoloader.php';
+require_once dirname(__FILE__) . '/../Autoload.php';
 
 /**
  * Test Kolab Format MIME attributes
@@ -32,9 +32,9 @@ require_once 'Horde/Autoloader.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Kolab_Format
  */
-class Horde_Kolab_Format_MimeAttrTest extends PHPUnit_Framework_TestCase
+class Horde_Kolab_Format_Integration_MimeAttrTest
+extends PHPUnit_Framework_TestCase
 {
-
     /**
      * Set up testing.
      *
