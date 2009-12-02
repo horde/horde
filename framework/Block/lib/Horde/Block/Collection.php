@@ -113,6 +113,7 @@ class Horde_Block_Collection
                 }
                 closedir($dh);
             }
+
             // Don't pop an application if we didn't have to push one.
             if ($pushed) {
                 $GLOBALS['registry']->popApp($app);

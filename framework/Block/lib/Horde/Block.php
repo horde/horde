@@ -106,7 +106,7 @@ class Horde_Block
 
         /* If we changed application context in the course of this
          * call, undo that change now. */
-        if ($app_pushed === true) {
+        if ($app_pushed) {
             $GLOBALS['registry']->popApp();
         }
 
@@ -136,7 +136,7 @@ class Horde_Block
 
         /* If we changed application context in the course of this
          * call, undo that change now. */
-        if ($app_pushed === true) {
+        if ($app_pushed) {
             $GLOBALS['registry']->popApp();
         }
 
@@ -166,7 +166,7 @@ class Horde_Block
 
         /* If we changed application context in the course of this
          * call, undo that change now. */
-        if ($app_pushed === true) {
+        if ($app_pushed) {
             $GLOBALS['registry']->popApp();
         }
 
@@ -190,7 +190,7 @@ class Horde_Block
 
         /* If we changed application context in the course of this
          * call, undo that change now. */
-        if ($app_pushed === true) {
+        if ($app_pushed) {
             $GLOBALS['registry']->popApp();
         }
     }
