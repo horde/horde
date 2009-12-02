@@ -8,6 +8,11 @@
    settings. I currently assume we should only return UTF-8 from this
    library.
 
+ - Probably: Pull the Format_Xml_* classes into Format_Mapper_Xml_*
+   classes.
+
+ - Add log decorators.
+
  - Remove the automatic handling of Horde preferences within this
    package. This is a task that belongs into the application NOT into
    this package.
