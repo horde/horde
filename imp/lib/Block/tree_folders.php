@@ -13,11 +13,10 @@ $block_type = 'tree';
 
 class Horde_Block_imp_tree_folders extends Horde_Block
 {
-    var $_app = 'imp';
+    protected $_app = 'imp';
 
-    function _buildTree(&$tree, $indent = 0, $parent = null)
+    protected function _buildTree(&$tree, $indent = 0, $parent = null)
     {
-        require_once dirname(__FILE__) . '/../Application.php';
         try {
             new IMP_Application(array('init' => array('authentication' => 'throw')));
         } catch (Horde_Exception $e) {

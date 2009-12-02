@@ -12,19 +12,15 @@ $block_name = _("Folder Summary");
 
 class Horde_Block_imp_summary extends Horde_Block
 {
-    /**
-     * Whether this block has changing content.
-     */
-    var $updateable = true;
+    public $updateable = true;
+    protected $_app = 'imp';
 
-    var $_app = 'imp';
-
-    function _title()
+    protected function _title()
     {
         return Horde::link(Horde::url($GLOBALS['registry']->getInitialPage(), true)) . $GLOBALS['registry']->get('name') . '</a>';
     }
 
-    function _params()
+    protected function _params()
     {
         return array('show_unread' => array('type' => 'boolean',
                                             'name' => _("Only display folders with unread messages in them?"),
@@ -35,11 +31,10 @@ class Horde_Block_imp_summary extends Horde_Block
                      );
     }
 
-    function _content()
+    protected function _content()
     {
         global $notification, $prefs, $registry;
 
-        require_once dirname(__FILE__) . '/../Application.php';
         try {
             new IMP_Application(array('init' => array('authentication' => 'throw')));
         } catch (Horde_Exception $e) {

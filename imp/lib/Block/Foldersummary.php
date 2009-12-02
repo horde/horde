@@ -10,11 +10,10 @@
 
 class IMP_Block_Foldersummary extends Horde_Block
 {
-    var $_app = 'imp';
+    protected $_app = 'imp';
 
-    function _content()
+    protected function _content()
     {
-        require_once dirname(__FILE__) . '/../Application.php';
         try {
             new IMP_Application(array('init' => array('authentication' => 'throw')));
         } catch (Horde_Exception $e) {
